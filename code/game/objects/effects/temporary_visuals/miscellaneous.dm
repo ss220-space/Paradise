@@ -78,7 +78,7 @@
 	animate(src, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter
-	color = "#dffc00"
+	color = BLOOD_COLOR_XENO
 	splatter_type = "xsplatter"
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter/Initialize(mapload, angle, blood_color = color)
@@ -526,7 +526,7 @@
 	pixel_y = -16
 	pixel_x = -16
 
-/obj/effect/warp_effect/ex_act(severity)
+/obj/effect/warp_effect/ex_act(severity, target)
 	return
 
 /obj/effect/warp_effect/singularity_act()

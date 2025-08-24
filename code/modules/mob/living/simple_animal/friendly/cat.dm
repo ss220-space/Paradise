@@ -60,9 +60,9 @@
 	var/list/children = list() //Actual mob instances of children
 	holder_type = /obj/item/holder/cat
 
-/mob/living/simple_animal/pet/cat/Runtime/New()
+/mob/living/simple_animal/pet/cat/Runtime/Initialize(mapload)
+	. = ..()
 	SSpersistent_data.register(src)
-	..()
 
 /mob/living/simple_animal/pet/cat/Runtime/persistent_load()
 	read_memory()

@@ -43,9 +43,9 @@
 	damage = 50
 	flag = "bullet"
 
-/obj/projectile/bullet/gyro/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
+	explosion(target, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
 /obj/projectile/bullet/a40mm
@@ -65,7 +65,7 @@
 
 /obj/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, -1, 0, 2, 1, 0, flame_range = 3, cause = "[type] fired by [key_name(firer)]")
+	explosion(target, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flash_range = 1, adminlog = TRUE, flame_range = 3, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
 /obj/projectile/temp
@@ -462,7 +462,7 @@
 
 /obj/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, -1, 0, 1, cause = src)
+	explosion(target, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 1, cause = src)
 	return 1
 
 /obj/projectile/plasma
@@ -650,7 +650,7 @@
 
 /obj/projectile/bullet/a84mm_hedp/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, -1, 1, 3, 1, 0, flame_range = 6)
+	explosion(target, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 1, adminlog = FALSE, flame_range = 6)
 
 	if(ismecha(target))
 		var/obj/mecha/M = target
@@ -686,7 +686,7 @@
 
 /obj/projectile/bullet/a84mm_he/on_hit(atom/target, blocked=0)
 	..()
-	explosion(target, 1, 3, 5, 7) //devastating
+	explosion(target, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 5, flash_range = 7) //devastating
 
 /obj/projectile/limb
 	name = "limb"

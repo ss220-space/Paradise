@@ -585,3 +585,10 @@
 	cost = 1
 	index_name = "blue kunoichi clothes"
 	path = /obj/item/clothing/under/martialsuit/bluekunoichi
+
+/datum/gear/donor/zazalord
+	donator_tier = 1
+	cost = 1
+	index_name = "zaza-lord swag bomber"
+	path = /obj/item/clothing/suit/storage/zazalord
+

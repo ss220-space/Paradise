@@ -352,7 +352,7 @@
 		// No throwing things that are physically bigger than you are.
 		// Covers: blobbernaut, alien empress, ai core, juggernaut, ed209, mulebot, alien/queen/large, carp/megacarp, deathsquid, hostile/tree, megafauna, hostile/asteroid, terror_spider/queen/empress
 		return .
-	if(!(target.status_flags & CANPUSH))
+	if(!(target.status_flags & CANPUSH) || HAS_TRAIT(target, TRAIT_PUSHIMMUNE))
 		// No throwing mobs specifically flagged as immune to being pushed.
 		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, spaceworms, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
 		return .

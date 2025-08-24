@@ -26,7 +26,7 @@
 			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Asay")
 
 /client/proc/get_admin_say()
 	if(check_rights(R_ADMIN|R_MOD, FALSE))
@@ -63,7 +63,7 @@
 			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Msay")
 
 /client/proc/get_mentor_say()
 	if(check_rights(R_MENTOR | R_ADMIN | R_MOD))
@@ -101,7 +101,7 @@
 			to_chat(C, "<b>Mentor chat has been disabled.</b>")
 
 	log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Msay")
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Msay")
 
 /client/proc/get_dev_team_say()
 	if(check_rights(R_VIEWRUNTIMES | R_ADMIN))
@@ -136,4 +136,4 @@
 			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='[check_rights(R_ADMIN, FALSE) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Devsay")

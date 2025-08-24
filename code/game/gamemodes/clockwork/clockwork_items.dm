@@ -144,8 +144,9 @@
 				deplete_spell()
 				return
 			living.Knockdown(3 SECONDS)
-			living.apply_damage(30, STAMINA)
-			living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+			living.apply_damage(55, STAMINA)
+			if(!ismindshielded(living))
+				living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 			living.flash_eyes(1, TRUE)
 			if(isrobot(living))
 				var/mob/living/silicon/robot/robot = living
@@ -1209,7 +1210,7 @@
 	icon_state = "gear"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/clockwork/integration_cog/Initialize()
+/obj/item/clockwork/integration_cog/Initialize(mapload)
 	. = ..()
 	transform *= 0.5 //little cog!
 

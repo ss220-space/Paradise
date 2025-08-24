@@ -274,7 +274,7 @@
 	var/limbs_affected = 0
 
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			if(prob(ex_armor_reduction(100, armor)) && armor < 100)
 				gib()
 				return FALSE
@@ -282,7 +282,7 @@
 				bruteloss += 500
 				limbs_affected = pick(2,3,4)
 
-		if(2)
+		if(EXPLODE_HEAVY)
 			bruteloss += 60
 			burnloss += 60
 			limbs_affected = pick(1, 2, 3)
@@ -293,7 +293,7 @@
 				if(istype(ears))
 					ears.internal_receive_damage(ex_armor_reduction(30, armor))
 
-		if(3)
+		if(EXPLODE_LIGHT)
 			bruteloss += 30
 			limbs_affected = pick(0, 1)
 
@@ -319,7 +319,7 @@
 	burnloss = ex_armor_reduction(burnloss, armor)
 	take_overall_damage(bruteloss, burnloss, used_weapon = "Explosive Blast")
 
-	..()
+	return ..()
 
 /mob/living/carbon/human/proc/process_dismember(limbs_affected)
 	var/list/valid_limbs = bodyparts.Copy()
@@ -1005,7 +1005,7 @@
 
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
 	if(include_species_change)
-		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
+		set_species(new_dna.species.type, retain_damage = TRUE, transformation = FALSE, keep_missing_bodyparts = TRUE)
 	dna = new_dna.Clone()
 	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
@@ -1061,6 +1061,7 @@
 	wing = (save_appearance && oldspecies) ? oldspecies.wing : dna.species.wing
 
 	maxHealth = dna.species.total_health
+	max_stamina = dna.species.total_stamina
 
 	if(dna.species.language)
 		add_language(dna.species.language)
@@ -1248,11 +1249,15 @@
 	if(!delay_icon_update)
 		UpdateAppearance()
 
-	if(dna.species)
-		SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
-		return TRUE
-	else
-		return FALSE
+	var/species_check = !!dna.species
+
+	var/signal_result = SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
+
+	if(!HAS_TRAIT(src, TRAIT_NO_HUNGER) && !HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS) \
+		&& !(signal_result & COMPONENT_HAS_ELEMENT))
+		AddElement(/datum/element/nutrition_effects)
+
+	return species_check
 
 
 /mob/living/carbon/human/get_default_language()
@@ -1748,22 +1753,51 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
-	update_hunger_slowdown()
+	try_update_nutrition_level()
 
 
 /mob/living/carbon/human/set_nutrition(change, forced)
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
-	update_hunger_slowdown()
+	try_update_nutrition_level()
 
 
-/mob/living/carbon/human/proc/update_hunger_slowdown()
-	var/hungry = (500 - nutrition) / 5 //So overeat would be 100 and default level would be 80
-	if(hungry >= 70)
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (hungry / 50))
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
+/mob/living/carbon/human/proc/try_update_nutrition_level()
+	update_nutrition_hud()
+
+	// If nutrition still in current level thresholds we do nothing
+	if(current_nutrition_level && \
+		nutrition > current_nutrition_level.level_decrease_threshold && \
+		nutrition <= current_nutrition_level.level_increase_threshold)
+		return
+
+	for(var/nutrition_lvl in GLOB.nutrition_levels)
+		var/datum/nutrition_level/nutrition_level = GLOB.nutrition_levels[nutrition_lvl]
+		if(nutrition > nutrition_level.level_decrease_threshold && \
+			nutrition <= nutrition_level.level_increase_threshold)
+			current_nutrition_level = nutrition_level
+			break
+
+	// If our species shouldn't get bonuses/penalties from nutrition levels, besides default hunger slowdown, we dont interact with component further
+	if(HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
+		update_nutrition_slowdown()
+		return
+
+	SEND_SIGNAL(src, COMSIG_HUMAN_NUTRITION_UPDATE)
+
+
+/// Updates nutrition slowdown both for component users and species with TRAIT_NO_NUTRITION_EFFECTS
+/mob/living/carbon/human/proc/update_nutrition_slowdown()
+	if(!HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
+		SEND_SIGNAL(src, COMSIG_HUMAN_NUTRITION_UPDATE_SLOWDOWN)
+		return
+
+	if(nutrition <= 150)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = 3)
+		return
+
+	remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
 
 /mob/living/carbon/human/proc/special_post_clone_handling()

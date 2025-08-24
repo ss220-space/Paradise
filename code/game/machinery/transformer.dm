@@ -288,7 +288,7 @@
 		return
 
 	if(prestrip)
-		for(var/obj/item/item as anything in victim.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		for(var/obj/item/item as anything in victim.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			qdel(item)
 
 	victim.equipOutfit(selected_outfit)

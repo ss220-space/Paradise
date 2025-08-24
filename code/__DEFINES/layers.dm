@@ -26,6 +26,10 @@
 
 #define ABOVE_GAME_PLANE -2
 
+/// Slightly above the game plane but does not catch mouse clicks. Useful for certain visuals that should be clicked through, like seethrough trees
+#define SEETHROUGH_PLANE -2
+
+
 #define RENDER_PLANE_GAME_WORLD -1
 
 #define DEFAULT_PLANE 0 //Marks out the default plane, even if we don't use it

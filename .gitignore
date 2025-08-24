@@ -62,8 +62,9 @@ stddef.dm
 
 */node_modules/*
 
-# Ignore compiled linux libs in the root folder, e.g. librust_g.so
+# Ignore compiled dynamic libs in the root folder, e.g. librust_g.so
 /*.so
+/*.dll
 
 #Ignore cached sound files.
 /sound/tts_cache/**/*
