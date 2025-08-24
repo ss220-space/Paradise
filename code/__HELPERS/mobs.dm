@@ -492,12 +492,9 @@
 
 	//Job + antagonist
 	if(subject.mind)
-		special_role_description = "Role: <b>[subject.mind.assigned_role]</b>;"
+		special_role_description = "Role: <b>[subject.mind.assigned_role]</b>; Special role: <span style='color: red;'><b>[subject.mind.special_role]</b></span>; Antagonist: <span class='red'><b>"
+		// subject.mind.special_role – Legacy code, which is needed because we have a lot of non-datum antags.
 
-		if(subject.mind.special_role) // Legacy code, which is needed because we have a lot of non-datum antags.
-		special_role_description += "; Special role: <span style='color: red;'><b>[subject.mind.special_role]</b></span>"
-
-		special_role_description += " Antagonist: <span style='color: red;'><b>"
 		if(subject.mind.antag_datums)
 			var/iterable = 0
 			for(var/datum/antagonist/role in subject.mind.antag_datums)
