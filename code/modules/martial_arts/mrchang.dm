@@ -1,6 +1,6 @@
 //Техника агрессивного маркетинга мистера Ченга
 /datum/martial_art/mr_chang
-	name = "Mr. Chang's Aggressive Marketing"
+	name = "Агрессивный маркетинг мистера Чанга"
 	weight = 6
 	combos = list(/datum/martial_combo/mr_chang/steal_card, /datum/martial_combo/mr_chang/stunning_discounts)
 	has_explaination_verb = TRUE
