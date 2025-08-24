@@ -18,13 +18,13 @@
 /datum/buildmode_mode/boom/show_help(mob/builder)
 	to_chat(builder, span_purple(chat_box_examine(
 		"[span_bold("Set explosion destructiveness")] -> Right Mouse Button on buildmode button\n\
-		[span_bold("Kaboom")] -> Mouse Button on obj\n\n\
-		[span_warning("NOTE:")] Using the \"«Event/Launch Supplypod\" verb allows you to do this in an IC way (i.e., making a cruise missile come down from the sky and explode wherever you click!)"))
+		[span_bold("Kaboom")] -> ЛКМ на obj\n\n\
+		[span_warning("ПРИМЕЧАНИЕ:")] Использование кнопки \"Event/Launch Supplypod\" позволит вам сделать это в IC поле (т. е. заставить крылатую ракету упасть с неба и взорваться там, где вы щелкнете!)"))
 	)
 
 /datum/buildmode_mode/boom/change_settings(mob/user)
-	for (var/explosion_level in explosions)
-		explosions[explosion_level] = input(user, "Range of total [explosion_level]. 0 to none", "Input") as num|null
+	for(var/explosion_level in explosions)
+		explosions[explosion_level] = tgui_input_number(user, "Дальность тотального [explosion_level]. \"0\" – значит нет.", text("Ввод"))
 		if(explosions[explosion_level] == null || explosions[explosion_level] < 0)
 			explosions[explosion_level] = 0
 
@@ -33,7 +33,7 @@
 
 	var/value_valid = FALSE
 	for(var/explosion_type in explosions)
-		if (explosions[explosion_type] > 0)
+		if(explosions[explosion_type] > 0)
 			value_valid = TRUE
 			break
 	if(!value_valid)
@@ -41,7 +41,7 @@
 
 	if(LAZYACCESS(modifiers, LEFT_CLICK))
 		log_admin("Build Mode: [key_name(user)] caused an explosion(dev=[explosions[BOOM_DEVASTATION]], hvy=[explosions[BOOM_HEAVY]], lgt=[explosions[BOOM_LIGHT]], flash=[explosions[BOOM_FLASH]], flames=[explosions[BOOM_FLAMES]]) at [AREACOORD(object)]")
-		explosion(object, explosions[BOOM_DEVASTATION], explosions[BOOM_HEAVY], explosions[BOOM_LIGHT], explosions[BOOM_FLASH], explosions[BOOM_FLAMES], adminlog = null, ignorecap = TRUE)
+		explosion(object, explosions[BOOM_DEVASTATION], explosions[BOOM_HEAVY], explosions[BOOM_LIGHT], explosions[BOOM_FLASH], flame_range = explosions[BOOM_FLAMES], adminlog = null, ignorecap = TRUE, cause = "Buildmode Boom")
 
 #undef BOOM_DEVASTATION
 #undef BOOM_HEAVY
