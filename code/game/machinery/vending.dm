@@ -2003,7 +2003,8 @@
 					/obj/item/reagent_containers/hypospray/safety = 200,
 					/obj/item/pinpointer/crew = 300, /obj/item/sensor_device = 600,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 25,
-					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 25)
+					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 25,
+					/obj/item/reagent_containers/applicator/brute = 150, /obj/item/reagent_containers/applicator/burn = 150)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
