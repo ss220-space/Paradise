@@ -855,7 +855,7 @@
 	. = ..()
 	if(.)
 		return
-	if(issilicon(usr) && !isrobot(usr))
+	if(issilicon(usr))
 		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается взаимодействовать с вами, поскольку вы не входите в его целевую аудиторию!"))
 		return
 	switch(action)
