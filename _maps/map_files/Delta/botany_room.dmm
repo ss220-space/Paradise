@@ -158,6 +158,7 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/warning_stripes/northwest,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -198,8 +199,14 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/table,
-/obj/item/storage/toolbox/emergency/old,
+/obj/item/storage/toolbox/emergency/old{
+	pixel_x = 5;
+	pixel_y = -3
+	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/gloves/color/fyellow{
+	pixel_y = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -252,10 +259,7 @@
 	pixel_x = -2;
 	pixel_y = 6
 	},
-/obj/item/weldingtool{
-	pixel_x = 8;
-	pixel_y = -3
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -369,7 +373,15 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/table,
-/obj/item/clothing/gloves/color/fyellow,
+/obj/machinery/door_control{
+	pixel_y = -2;
+	pixel_x = -5;
+	id = "botany_room_door"
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = 8;
+	pixel_x = 2
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "rB" = (
@@ -399,9 +411,6 @@
 /turf/space,
 /area/template_noop)
 "tX" = (
-/obj/structure/sign/poster/official/cleanliness{
-	pixel_x = 32
-	},
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
 	pixel_y = 32
@@ -486,6 +495,11 @@
 /obj/structure/closet/walllocker{
 	pixel_x = -28
 	},
+/obj/structure/sign/poster/official/cleanliness{
+	pixel_x = -32
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue";
@@ -544,6 +558,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/barricade/wooden/crude,
+/obj/machinery/door/poddoor{
+	id_tag = "botany_room_door"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "zG" = (
@@ -685,11 +702,18 @@
 /area/template_noop)
 "Hd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker{
-	pixel_y = -28
-	},
 /obj/structure/table/reinforced,
-/obj/item/tank/internals/anesthetic,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 4
+	},
+/obj/item/lighter/random{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/glass/bottle/morphine{
+	pixel_x = 13;
+	pixel_y = 12
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "Ho" = (
@@ -923,15 +947,8 @@
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "Uv" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille/broken,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/barricade/wooden{
-	layer = 3.5
-	},
-/turf/simulated/floor/plating,
+/obj/structure/sink/puddle,
+/turf/simulated/floor/grass,
 /area/maintenance/garden)
 "UN" = (
 /obj/structure/lattice,
@@ -1255,7 +1272,7 @@ qr
 qr
 eQ
 jC
-wk
+Uv
 le
 lw
 AI
@@ -1834,7 +1851,7 @@ Kb
 Kb
 re
 pu
-Uv
+Jg
 qr
 qr
 qr
