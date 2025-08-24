@@ -492,8 +492,12 @@
 
 	//Job + antagonist
 	if(subject.mind)
-		special_role_description = "Role: <b>[subject.mind.assigned_role]</b>; Antagonist: <span class='red'><b>"
+		special_role_description = "Role: <b>[subject.mind.assigned_role]</b>;"
 
+		if(subject.mind.special_role) // Legacy code, which is needed because we have a lot of non-datum antags.
+		special_role_description += "; Special role: <span style='color: red;'><b>[subject.mind.special_role]</b></span>"
+
+		special_role_description += " Antagonist: <span style='color: red;'><b>"
 		if(subject.mind.antag_datums)
 			var/iterable = 0
 			for(var/datum/antagonist/role in subject.mind.antag_datums)
@@ -532,11 +536,11 @@
 
 	//Full Output
 	var/exportable_text = "[span_bold("Info about [subject.name]:")]<br>"
-	exportable_text += "Key - [span_bold(subject.key)]<br>"
-	exportable_text += "Mob Type - [subject.type]<br>"
-	exportable_text += "Gender - [gender_description]<br>"
+	exportable_text += "Key – [span_bold(subject.key)]<br>"
+	exportable_text += "Mob Type – [subject.type]<br>"
+	exportable_text += "Gender – [gender_description]<br>"
 	exportable_text += "[health_description]<br>"
-	exportable_text += "Name: [span_bold(subject.name)] - Real Name: [subject.real_name] - Mind Name: [subject.mind?"[subject.mind.name]":""]<br>"
+	exportable_text += "Name: [span_bold(subject.name)] – Real Name: [subject.real_name] – Mind Name: [subject.mind?"[subject.mind.name]":""]<br>"
 	exportable_text += "Location is [location_description]<br>"
 	exportable_text += "[special_role_description]<br>"
 	exportable_text += ADMIN_FULLMONTY_NONAME(subject)
