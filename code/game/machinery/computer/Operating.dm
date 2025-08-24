@@ -34,8 +34,8 @@
 		PREPOSITIONAL = "операционном компьютере"
 	)
 
-/obj/machinery/computer/operating/New()
-	..()
+/obj/machinery/computer/operating/Initialize(mapload)
+	. = ..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		table = locate(/obj/machinery/optable, get_step(src, dir))
 		if(table)

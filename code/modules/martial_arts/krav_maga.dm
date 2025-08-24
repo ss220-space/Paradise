@@ -146,9 +146,18 @@
 //Krav Maga Gloves
 
 /obj/item/clothing/gloves/color/black/krav_maga
-	var/datum/martial_art/krav_maga/style = new
+	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
 	resistance_flags = NONE
+
+/obj/item/clothing/gloves/color/black/krav_maga/Initialize(mapload)
+	. = ..()
+	style = new()
+
+/obj/item/clothing/gloves/color/black/krav_maga/Destroy()
+	QDEL_NULL(style)
+
+	return ..()
 
 /obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot, initial = FALSE)
 	. = ..()

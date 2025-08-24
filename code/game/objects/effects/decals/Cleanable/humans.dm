@@ -311,7 +311,7 @@
 	. += giblets
 
 
-/obj/effect/decal/cleanable/blood/gibs/ex_act(severity)
+/obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
 	return
 
 /obj/effect/decal/cleanable/blood/gibs/up

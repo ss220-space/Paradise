@@ -6,7 +6,7 @@
 	if(!ismob(M) || !M.client)
 		return
 	cmd_admin_pm(M.client,null)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Mob") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Admin PM Mob")
 
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
@@ -31,7 +31,7 @@
 	if(!target)
 		return
 	cmd_admin_pm(targets[target],null)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Name") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Admin PM Name")
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_by_key_panel()
@@ -57,7 +57,7 @@
 	if(!target)
 		return
 	cmd_admin_pm(targets[target],null)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Key") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Admin PM Key")
 
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.

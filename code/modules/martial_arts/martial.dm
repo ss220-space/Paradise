@@ -336,8 +336,16 @@
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
-	var/datum/martial_art/boxing/style = new
+	var/datum/martial_art/boxing/style
 
+/obj/item/clothing/gloves/boxing/Initialize(mapload)
+	. = ..()
+	style = new()
+
+/obj/item/clothing/gloves/boxing/Destroy()
+	QDEL_NULL(style)
+
+	return ..()
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
@@ -355,7 +363,16 @@
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
-	var/datum/martial_art/wrestling/style = new
+	var/datum/martial_art/wrestling/style
+
+/obj/item/storage/belt/champion/wrestling/Initialize(mapload)
+	. = ..()
+	style = new()
+
+/obj/item/storage/belt/champion/wrestling/Destroy()
+	QDEL_NULL(style)
+
+	return ..()
 
 /obj/item/storage/belt/champion/wrestling/true
 	name = "Пояс Истинного Чемпиона"

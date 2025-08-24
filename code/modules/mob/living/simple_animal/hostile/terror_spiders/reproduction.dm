@@ -361,7 +361,7 @@
 	if(!save_burst)
 		spider_team?.on_empress_egg_destroyed()
 
-/obj/structure/spider/eggcluster/terror_eggcluster/empress/ex_act(severity)
+/obj/structure/spider/eggcluster/terror_eggcluster/empress/ex_act(severity, target)
 	return
 
 /obj/structure/spider/eggcluster/terror_eggcluster/empress/burst_eggs()

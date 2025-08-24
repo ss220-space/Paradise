@@ -1,4 +1,4 @@
-/mob/living/Initialize()
+/mob/living/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/movetype_handler)
 	register_init_signals()
@@ -624,8 +624,8 @@
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
 
-/mob/living/ex_act(severity)
-	..()
+/mob/living/ex_act(severity, target)
+	. = ..()
 	flash_eyes()
 
 /mob/living/acid_act(acidpwr, acid_volume)
