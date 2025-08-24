@@ -84,13 +84,13 @@
 		if(payload in src)
 			payload.defuse()
 
-/obj/machinery/syndicatebomb/New()
-	wires	= new(src)
+/obj/machinery/syndicatebomb/Initialize(mapload)
+	. = ..()
+	wires = new(src)
 	if(payload)
 		payload = new payload(src)
 	update_icon(UPDATE_ICON_STATE)
 	countdown = new(src)
-	..()
 
 /obj/machinery/syndicatebomb/Destroy()
 	SStgui.close_uis(wires)
@@ -314,8 +314,8 @@
 	open_panel = TRUE
 	timer_set = 120
 
-/obj/machinery/syndicatebomb/empty/New()
-	..()
+/obj/machinery/syndicatebomb/empty/Initialize(mapload)
+	. = ..()
 	wires.cut_all()
 
 /obj/machinery/syndicatebomb/self_destruct
