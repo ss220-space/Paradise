@@ -36,29 +36,30 @@
 		return ..()
 
 
-/atom/movable/screen/movable/action_button/Click(location,control,params)
+/atom/movable/screen/movable/action_button/Click(location, control, params)
 	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return
 
 	var/list/modifiers = params2list(params)
-	if(modifiers["ctrl"] && modifiers["shift"])
-		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
-		return TRUE
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
+		if(LAZYACCESS(modifiers, SHIFT_CLICK))
+			INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
+			return TRUE
 	if(usr.next_click > world.time)
 		return FALSE
 	usr.changeNext_click(1)
-	if(modifiers["shift"])
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		if(locked)
 			to_chat(usr, span_warning("Кнопка действия \"[name]\" заблокирована, сначала разблокируйте её."))
 			return TRUE
 		moved = FALSE
 		usr.update_action_buttons(TRUE) //redraw buttons that are no longer considered "moved"
 		return TRUE
-	if(modifiers["ctrl"])
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		locked = !locked
 		to_chat(usr, span_notice("Кнопка действия \"[name]\" [locked ? "заблокирована" : "разблокирована"]."))
 		return TRUE
-	if(modifiers["alt"])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		usr.base_click_alt(src)
 		return TRUE
 	if(modifiers["middle"])
