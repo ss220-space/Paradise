@@ -1,3 +1,5 @@
+#define FILL_WARNING_MIN 150
+
 /datum/buildmode_mode/fill
 	key = "fill"
 
@@ -53,11 +55,20 @@
 				to_chat(user, span_warning("Сначала выберите тип объекта."))
 				deselect_region()
 				return
-			for(var/turf/T in block(cornerA,cornerB))
-				if(ispath(objholder,/turf))
-					T = T.ChangeTurf(objholder)
-					T.setDir(BM.build_dir)
+
+			var/selection_size = abs(cornerA.x - cornerB.x) * abs(cornerA.y - cornerB.y)
+			if(selection_size > FILL_WARNING_MIN) // Confirm fill if the number of tiles in the selection is greater than FILL_WARNING_MIN
+				var/choice = tgui_alert(user, "Выбранная вами область – [selection_size] тайлов! Продолжить?", "Большого объем заполнения", list("Да", "Нет"))
+				if(choice != "Да")
+					return
+
+			for(var/turf/clicked_turf in block(cornerA, cornerB))
+				if(ispath(objholder, /turf))
+					clicked_turf = clicked_turf.ChangeTurf(objholder)
+					clicked_turf.setDir(BM.build_dir)
 				else
-					var/obj/A = new objholder(T)
-					A.setDir(BM.build_dir)
+					var/obj/clicked_object = new objholder(clicked_turf)
+					clicked_object.setDir(BM.build_dir)
 			log_admin("Build Mode: [key_name(user)] with path [objholder], filled the region from [AREACOORD(cornerA)] through [AREACOORD(cornerB)]")
+
+#undef FILL_WARNING_MIN
