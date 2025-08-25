@@ -60134,23 +60134,10 @@
 	},
 /area/quartermaster/miningstorage)
 "iPd" = (
-/obj/structure/window/reinforced{
-	color = "red"
-	},
-/obj/machinery/door/window{
-	color = "red";
-	dir = 8;
-	name = "Secure Armory";
-	req_access = list(1)
-	},
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/rack/gunrack,
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = 3
-	},
-/obj/item/gun/projectile/automatic/wt550,
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = -3
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/obj/item/storage/fancy/donut_box{
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -129196,26 +129183,7 @@
 /area/tcommsat/server)
 "sXx" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/window/reinforced{
-	color = "red"
-	},
-/obj/machinery/door/window{
-	color = "red";
-	dir = 8;
-	name = "Secure Armory";
-	req_access = list(1)
-	},
-/obj/structure/rack/gunrack,
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = -3
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = -3
-	},
-/obj/item/gun/projectile/automatic/sp91rc,
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = 3
-	},
+/obj/effect/spawner/random_spawners/security_ballistics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -149541,6 +149509,11 @@
 	icon_state = "neutral"
 	},
 /area/hallway/secondary/entry/lounge)
+"vWe" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "vWm" = (
 /obj/structure/closet/secure_closet/injection,
 /obj/effect/decal/warning_stripes/red,
@@ -159144,23 +159117,7 @@
 /area/hallway/secondary/entry/eastarrival)
 "xrS" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/rack/gunrack,
-/obj/structure/window/reinforced{
-	color = "red"
-	},
-/obj/item/gun/energy/laser{
-	pixel_x = -3
-	},
-/obj/item/gun/energy/laser,
-/obj/item/gun/energy/laser{
-	pixel_x = 3
-	},
-/obj/machinery/door/window{
-	color = "red";
-	dir = 8;
-	name = "Secure Armory";
-	req_access = list(1)
-	},
+/obj/effect/spawner/random_spawners/security_lasers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -245092,7 +245049,7 @@ xoL
 ajW
 xoL
 jhf
-oWw
+vWe
 iPd
 sXx
 bhh

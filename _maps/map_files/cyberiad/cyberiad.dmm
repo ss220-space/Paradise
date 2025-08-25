@@ -71894,16 +71894,12 @@
 	},
 /area/maintenance/engineering)
 "obe" = (
-/obj/structure/rack/gunrack,
-/obj/item/gun/energy/laser{
-	pixel_x = -3
-	},
-/obj/item/gun/energy/laser,
-/obj/item/gun/energy/laser{
-	pixel_x = 3
-	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/window/reinforced,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75423,22 +75419,10 @@
 /area/hydroponics)
 "qpG" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Security SMG's"
-	},
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/wt550,
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/effect/spawner/random_spawners/security_ballistics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75607,20 +75591,8 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "qsl" = (
-/obj/structure/rack/gunrack,
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = -7
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = -2
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = 2
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = 7
-	},
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/spawner/random_spawners/security_lasers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

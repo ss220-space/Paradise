@@ -202,30 +202,30 @@
 	name = "ammo box (4.6x30mm)"
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
-	max_ammo = 40
+	max_ammo = 60
 
 /obj/item/ammo_box/ap46x30mm
 	name = "ammo box (Armour Piercing 4.6x30mm)"
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
-	max_ammo = 40
+	max_ammo = 60
 
 /obj/item/ammo_box/tox46x30mm
 	name = "ammo box (Toxin Tipped 4.6x30mm)"
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/tox
-	max_ammo = 40
+	max_ammo = 60
 
 /obj/item/ammo_box/inc46x30mm
 	name = "ammo box (Incendiary 4.6x30mm)"
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
-	max_ammo = 40
+	max_ammo = 60
 
-/obj/item/ammo_box/c9mmte
-	name = "ammo box (9mm TE)"
-	icon_state = "9mmTEbox"
-	ammo_type = /obj/item/ammo_casing/c9mmte
+/obj/item/ammo_box/p45nr
+	name = "ammo box (45n&r)"
+	icon_state = "45n&r_box"
+	ammo_type = /obj/item/ammo_casing/p45nr
 	max_ammo = 60
 
 /obj/item/ammo_box/m50
@@ -254,7 +254,7 @@
 	name = "laser ammo box"
 	icon_state = "laserbox"
 	ammo_type = /obj/item/ammo_casing/laser
-	max_ammo = 40
+	max_ammo = 36
 
 /obj/item/ammo_box/foambox
 	name = "ammo box (Foam Darts)"

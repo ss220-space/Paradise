@@ -364,14 +364,14 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 
 /obj/item/ammo_box/magazine/sp91rc
-	name = "SP-91-RC magazine (9mm TE)"
-	icon_state = "9mm-te"
-	ammo_type = /obj/item/ammo_casing/c9mmte
+	name = "SP-91-RC magazine (45 n&r)"
+	icon_state = "45n&r"
+	ammo_type = /obj/item/ammo_casing/p45nr
 	caliber = "9mm TE"
 	max_ammo = 20
 
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
-	icon_state = "9mm-te-[round(ammo_count(),5)]"
+	icon_state = "45n&r-[round(ammo_count(),5)]"
 
 /* UZI magazine
  name = "Пистолет-пулемёт Uzi — магазин 9 мм"
@@ -679,11 +679,11 @@
 	icon_state = "lmag"
 	ammo_type = /obj/item/ammo_casing/laser
 	caliber = "laser"
-	max_ammo = 20
+	max_ammo = 12
 
 
 /obj/item/ammo_box/magazine/lr30mag/update_icon_state()
-	icon_state = "lmag-[CEILING(ammo_count(), 5)]"
+	icon_state = "lmag-[CEILING(ammo_count(), 3)]"
 
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot

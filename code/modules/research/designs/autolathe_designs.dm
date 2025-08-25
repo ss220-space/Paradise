@@ -786,11 +786,11 @@
 	category = list("hacked", "Security")
 
 /datum/design/sp91rc_box
-	name = "Ammo Box (9mm TE)"
-	id = "9mmTEbox"
+	name = "Ammo Box (45n&r)"
+	id = "45n&r_box"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30500)
-	build_path = /obj/item/ammo_box/c9mmte
+	materials = list(MAT_METAL = 36000)
+	build_path = /obj/item/ammo_box/p45nr
 	category = list("hacked", "Security")
 
 /datum/design/specter/disable
@@ -817,6 +817,22 @@
 	build_path = /obj/item/ammo_box/magazine/specter
 	category = list("initial", "Security")
 
+/datum/design/lr30_magazine
+	name = "ammo box (Specter laser)"
+	id = "specter_laser"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 12000)
+	build_path = /obj/item/ammo_box/magazine/lr30mag
+	category = list("hacked", "Security")
+
+/datum/design/lr30_box
+	name = "ammo box (Specter laser)"
+	id = "specter_laser"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 36000)
+	build_path = /obj/item/ammo_box/laserammobox
+	category = list("hacked", "Security")
+
 //hacked autolathe recipes
 /datum/design/spectermag_laser
 	name = "magazine Specter (laser)"
@@ -827,8 +843,8 @@
 	category = list("hacked", "Security")
 
 /datum/design/sp91rc_mag
-	name = "handgun magazine (9mm TE)"
-	id = "9mm-te"
+	name = "auto gun magazine (45n&r)"
+	id = "45n&r"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 12000)
 	build_path = /obj/item/ammo_box/magazine/sp91rc
