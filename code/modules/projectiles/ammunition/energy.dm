@@ -467,7 +467,7 @@
 	fluff_select_name = "stun"
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	e_cost = 250
-	delay = 20 SECONDS
+	delay = 2 SECONDS
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/dominator/paralyzer
