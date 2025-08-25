@@ -751,8 +751,7 @@
 	dir = 2
 	},
 /obj/effect/turf_decal/caution{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
@@ -3804,8 +3803,7 @@
 /area/ruin/space/pirate_base/telecomms)
 "kG" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -6760,8 +6758,7 @@
 /area/ruin/space/pirate_base/lab_sec)
 "tk" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -9220,8 +9217,7 @@
 /area/ruin/space/pirate_base/kitchen)
 "Ay" = (
 /obj/effect/turf_decal/caution{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
@@ -11598,8 +11594,7 @@
 /area/ruin/space/pirate_base/observ)
 "HH" = (
 /obj/effect/turf_decal/caution{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
@@ -12541,8 +12536,7 @@
 /area/ruin/space/pirate_base/atmos)
 "Kl" = (
 /obj/effect/turf_decal/caution{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/light/small{
 	dir = 1;
@@ -17278,8 +17272,7 @@
 /area/ruin/space/pirate_base/laboratory)
 "YQ" = (
 /obj/effect/turf_decal/caution{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/machinery/light/small{
 	dir = 1;
