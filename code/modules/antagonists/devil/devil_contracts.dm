@@ -109,7 +109,7 @@
 		/obj/effect/proc_holder/spell/aoe/conjure/legion_skulls,
 		/obj/effect/proc_holder/spell/goliath_dash,
 		/obj/effect/proc_holder/spell/goliath_tentacles,
-		/obj/effect/proc_holder/spell/touch/healtouch,
+		/obj/effect/proc_holder/spell/touch/healtouch/advanced,
 		/obj/effect/proc_holder/spell/watchers_look,
 
 	)
