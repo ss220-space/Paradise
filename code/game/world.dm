@@ -276,7 +276,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.demo_log = "[GLOB.log_directory]/demo.txt"
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
-	GLOB.submap_log = "[GLOB.log_directory]/submap.log"
+	GLOB.mapmanip_log = "[GLOB.log_directory]/mapmanip.log"
 
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
@@ -285,6 +285,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.tgui_log)
 	start_log(GLOB.http_log)
 	start_log(GLOB.sql_log)
+	start_log(GLOB.mapmanip_log)
 
 	#ifdef REFERENCE_TRACKING
 	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"
