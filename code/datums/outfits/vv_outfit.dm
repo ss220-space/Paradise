@@ -1,4 +1,4 @@
-// This outfit preserves varedits made on the items
+update_hud_set()// This outfit preserves varedits made on the items
 // Created from admin helpers.
 /datum/outfit/varedit
 	var/list/vv_values
@@ -210,7 +210,7 @@
 		if(update_id_name)
 			card.registered_name = H.real_name
 			card.update_label()
-		H.sec_hud_set_ID()
+		H.update_hud_set()
 
 /datum/outfit/varedit/get_json_data()
 	. = .. ()

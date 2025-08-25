@@ -245,13 +245,18 @@
 	if(acc)
 		holder.overlays += image('icons/mob/hud.dmi', icon_state = "hudhealthy_[acc.insurance_type]")
 
+/mob/living/carbon/human/proc/update_hud_set()
+	sec_hud_set_ID()
+	med_hud_insurance_set_overlay()
+
+
 /***********************************************
  Security HUDs! Basic mode shows only the job.
 ************************************************/
 
 //HOOKS
 
-/mob/living/carbon/human/proc/sec_hud_set_ID()
+/mob/living/carbon/human/proc/update_hud_set()
 	var/image/holder = hud_list[ID_HUD]
 	if(wear_id)
 		holder.icon_state = "hud[ckey(wear_id.GetJobName())]"
