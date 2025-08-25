@@ -88,7 +88,6 @@
 			new /obj/item/clothing/head/helmet/space(src)
 		if(39 to 40)
 			new /obj/item/gun/projectile/shotgun(src)
-			new /obj/item/ammo_box/shotgun/rubbershot(src)
 			new /obj/item/storage/belt/bandolier/full(src)
 		if(41 to 42)
 			for(var/i in 1 to 5)
