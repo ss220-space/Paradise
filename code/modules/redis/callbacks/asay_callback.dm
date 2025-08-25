@@ -6,7 +6,9 @@
 	var/list/data = json_decode(message)
 	if(data["source"] == CONFIG_GET(string/instance_id)) // Ignore self messages
 		return
+
 	var/emoji_msg = handleDiscordEmojis(html_encode(data["message"]))
+
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			to_chat(C, "<span class='admin_channel'>ADMIN: <small>[data["author"]]\[[data["source"]]\]</small>: <span class='message'>[emoji_msg]</span></span>",

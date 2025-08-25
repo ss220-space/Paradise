@@ -131,6 +131,14 @@
 	if(!check_rights(R_ADMIN | R_VIEWRUNTIMES)) // Catch any non-admins trying to use this proc
 		return
 
+	// Do this up here before it gets sent to everyone & emoji'd
+	if(SSredis.connected)
+		var/list/data = list()
+		data["author"] = usr.ckey
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = html_decode(msg)
+		SSredis.publish("byond.devsay", json_encode(data))
+
 	msg = handleDiscordEmojis(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
 
 	if(!msg)
