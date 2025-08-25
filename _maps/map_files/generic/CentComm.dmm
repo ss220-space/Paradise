@@ -8377,7 +8377,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 10
+	dir = 10;
 	icon_state = "bs_deadlock"
 	},
 /turf/simulated/floor/shuttle{
@@ -11002,7 +11002,7 @@
 /area/centcom/specops)
 "flG" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 8
+	dir = 8;
 	icon_state = "bs_deadlock"
 	},
 /turf/simulated/floor/shuttle{
