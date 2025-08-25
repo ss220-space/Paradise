@@ -119,10 +119,10 @@
 	if(over_object != usr || !ishuman(usr) || !usr.Adjacent(src))
 		return ..()
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		balloon_alert(user, "не получилось!")
+		balloon_alert(usr, "не получилось!")
 		return FALSE
 	var/mob/living/human = usr
-	balloon_alert(user, "свернуто")
+	balloon_alert(usr, "свернуто")
 	placed_on_table = FALSE
 	layer = initial(layer)
 	update_icon()
