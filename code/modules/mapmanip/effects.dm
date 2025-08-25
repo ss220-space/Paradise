@@ -43,5 +43,5 @@
 	icon_state = "submap_definition"
 
 /obj/effect/map_effect/marker_helper/submap_def/Initialize(mapload)
-	log_game("Подкарта: '[name]' загружена!")
+	log_mapmanip("SUBMAP: [name] loaded!")
 	return ..()
