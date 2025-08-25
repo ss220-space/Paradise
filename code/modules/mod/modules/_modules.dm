@@ -87,7 +87,7 @@
 /obj/item/mod/module/proc/on_select()
 	if(((!mod.active || mod.activating) && !(allow_flags & MODULE_ALLOW_INACTIVE)) || module_type == MODULE_PASSIVE)
 		if(mod.wearer)
-			to_chat(mod.wearer, span_warning("Module is not active!"))
+			balloon_alert(mod.wearer, "модуль неактивен!")
 		return
 	if(module_type != MODULE_USABLE)
 		if(active)
@@ -101,10 +101,10 @@
 /// Called when the module is activated
 /obj/item/mod/module/proc/on_activation()
 	if(!COOLDOWN_FINISHED(src, cooldown_timer))
-		to_chat(mod.wearer, span_warning("Module is on cooldown!"))
+		balloon_alert(mod.wearer, "модуль на перезарядке!")
 		return FALSE
 	if(!mod.active || mod.activating || !mod.get_charge())
-		to_chat(mod.wearer, span_warning("Module is unpowered!"))
+		balloon_alert(mod.wearer, "не хватает энергии!")
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
@@ -114,11 +114,11 @@
 		mod.selected_module = src
 		if(device)
 			if(mod.wearer.put_in_hands(device))
-				to_chat(mod.wearer, span_notice("[device] extended."))
+				balloon_alert(mod.wearer, "[device.declent_ru(NOMINATIVE)] развернут[genderize_ru(device.gender, "", "а", "о", "ы")]")
 				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 				RegisterSignal(mod.wearer, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dropkey))
 			else
-				to_chat(mod.wearer, span_warning("You can not extend the [device]!"))
+				balloon_alert(mod.wearer, "нельзя развернуть!")
 				mod.wearer.drop_from_active_hand()
 				return FALSE
 		else
@@ -126,10 +126,10 @@
 			if(!mod.wearer || !mod.wearer.get_preference(PREFTOGGLE_3_MOD_ACTIVATION_METHOD))
 				used_button = "Alt Click"
 			update_signal(used_button)
-			to_chat(mod.wearer, span_notice("[src] activated, [used_button] to use."))
+			balloon_alert(mod.wearer, "активировано. Используйте [used_button]")
 	else
 		COOLDOWN_START(src, cooldown_timer, cooldown_time) //We don't want to put active modules on cooldown when selected
-		to_chat(mod.wearer, span_notice("[src] activated."))
+		balloon_alert(mod.wearer, "активировано!")
 	active = TRUE
 	//mod.wearer.update_clothing(mod.slot_flags)
 	SEND_SIGNAL(src, COMSIG_MODULE_ACTIVATED)
@@ -141,8 +141,9 @@
 	if(module_type == MODULE_ACTIVE)
 		mod.selected_module = null
 		if(display_message && device)
-			to_chat(mod.wearer, span_notice("[device] retracted."))
+			balloon_alert(mod.wearer, "[device.declent_ru(NOMINATIVE)] втянут[genderize_ru(device.gender, "", "а", "о", "ы")]")
 		else if(display_message)
+			balloon_alert(mod.wearer, "деактивировано")
 			to_chat(mod.wearer, span_notice("[src] deactivated."))
 
 		if(device)
@@ -153,7 +154,7 @@
 			UnregisterSignal(mod.wearer, used_signal)
 			used_signal = null
 	else if(display_message)
-		to_chat(mod.wearer, span_notice("[src] deactivated."))
+		balloon_alert(mod.wearer, "модуль деактивирован")
 	//mod.wearer.update_clothing(mod.slot_flags)
 	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED, mod.wearer)
 	return TRUE
@@ -161,10 +162,10 @@
 /// Called when the module is used
 /obj/item/mod/module/proc/on_use()
 	if(!COOLDOWN_FINISHED(src, cooldown_timer))
-		to_chat(mod.wearer, span_warning("Module is on cooldown!"))
+		balloon_alert(mod.wearer, "модуль на перезарядке!")
 		return FALSE
 	if(!check_power(use_power_cost))
-		to_chat(mod.wearer, span_warning("Module costs too much power to use!"))
+		balloon_alert(mod.wearer, "не хватает энергии!")
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
@@ -336,7 +337,7 @@
 		pinned_to = list()
 		return
 	var/datum/action/item_action/mod/pinned_module/new_action = new(Target = mod, custom_icon = src.icon, custom_icon_state = src.icon_state, linked_module = src, user = user)
-	to_chat(user, "[new_action] is now pinned to the UI!")
+	balloon_alert(mod.wearer, "\"[new_action]\" закреплено на панели")
 
 
 /// On drop key, concels a device item.
@@ -377,17 +378,17 @@
 	if(!length(accepted_anomalies))
 		return
 	if(core)
-		. += "There is a [core.name] installed in it. You could remove it with a <b>screwdriver</b>..."
+		. += "К модулю прикреплено [core.declent_ru(NOMINATIVE)]. Используйте <b>отвёртку</b>, чтобы открепить ядро."
 	else
 		var/list/core_list = list()
 		for(var/path in accepted_anomalies)
 			var/atom/core_path = path
-			core_list += initial(core_path.name)
-		. +="You need to insert \a [english_list(core_list, and_text = " or ")] for this module to function."
+			core_list += capitalize(core_path.declent_ru(NOMINATIVE))
+		. +="Для работы модуля требуется [russian_list(core_list, and_text = " или ")]"
 
 /obj/item/mod/module/anomaly_locked/on_select()
 	if(!core)
-		to_chat(mod.wearer, span_warning("ERROR. NO CORE INSTALLED!"))
+		balloon_alert(mod.wearer, "ядро не установлено!")
 		return
 	return ..()
 
@@ -404,12 +405,12 @@
 /obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, params)
 	if(item.type in accepted_anomalies)
 		if(core)
-			to_chat(user, span_warning("A core is already installed!"))
+			balloon_alert(mod.wearer, "внутри уже есть ядро!")
 			return
 		if(!user.drop_from_active_hand())
 			return
 		core = item
-		to_chat(user, span_notice("You install [item]."))
+		balloon_alert(mod.wearer, "ядро установлено")
 		playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 		update_icon_state()
 		core.forceMove(src)
@@ -419,11 +420,12 @@
 /obj/item/mod/module/anomaly_locked/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
 	if(!core)
+		balloon_alert(mod.wearer, "внутри нет ядра!")
 		to_chat(user, span_warning("A core is not installed!"))
 		return
 	if(!do_after(user, 3 SECONDS, target = src))
 		return
-	to_chat(user, span_notice("You remove [core]."))
+	balloon_alert(mod.wearer, "ядро удалено")
 	core.forceMove(drop_location())
 	if(Adjacent(user) && !issilicon(user))
 		user.put_in_hands(core)
