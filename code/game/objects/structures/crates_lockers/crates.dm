@@ -299,18 +299,18 @@
 /obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
 	if(locked && !broken)
 		if(user)
-			to_chat(user, span_notice("Отличная попытка, но нет!"))
-		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
+			balloon_alert(user, "отличная попытка, но нет!")
+		playsound(loc, "sound/misc/sadtrombone.ogg", 60, TRUE)
 
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(locked && broken == 0 && user.a_intent != INTENT_HARM) // Stage one
-		to_chat(user, span_notice("Вы начинаете откручивать панель замка [src]..."))
+		balloon_alert(user, "Вы начинаете откручивать панель замка")
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
 			if(prob(95)) // EZ
 				if(broken != 3)
-					to_chat(user, span_notice("Вы успешно открутили и сняли панель с замка [src]!"))
+					balloon_alert(user, "Вы успешно открутили и сняли панель с замка")
 					desc += " Панель управления снята."
 					broken = 3
 				//icon_state = icon_off // Crates has no icon_off :(
@@ -319,23 +319,23 @@
 				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				user.apply_damage(5, BRUTE , affecting)
 				user.emote("scream")
-				to_chat(user, span_warning("Проклятье! [I] сорвалась и повредила [affecting.name]!"))
+				balloon_alert(user, "[I] сорвалась и повредила [affecting.name]!")
 		return TRUE
 
 
 /obj/structure/closet/crate/secure/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(locked && broken == 3 && user.a_intent != INTENT_HARM) // Stage two
-		to_chat(user, span_notice("Вы начинаете подготавливать провода панели [src]..."))
+		balloon_alert(user, "Вы начинаете подготавливать провода панели")
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
 			if(prob(80)) // Good hacker!
 				if(broken != 2)
-					to_chat(user, span_notice("Вы успешно подготовили провода панели замка [src]!"))
+					balloon_alert(user, "Вы успешно подготовили провода панели замка")
 					desc += " Провода отключены и торчат наружу."
 					broken = 2
 			else // woopsy
-				to_chat(user, span_warning("Черт! Не тот провод!"))
-				do_sparks(5, 1, src)
+				balloon_alert(user, "не тот провод!")
+				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
 
@@ -343,7 +343,7 @@
 /obj/structure/closet/crate/secure/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(locked && broken == 2 && user.a_intent != INTENT_HARM) // Stage three
-		to_chat(user, span_notice("Вы начинаете подключать провода панели замка [src] к [I]..."))
+		balloon_alert(user, "Вы начинаете подключать провода панели замка")
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
 			if(prob(80)) // Good hacker!
 				if(broken != 0 && broken != 1)
@@ -351,8 +351,8 @@
 					broken = 0 // Can be emagged
 					emag_act(user)
 			else // woopsy
-				to_chat(user, span_warning("Черт! Не тот провод!"))
-				do_sparks(5, 1, src)
+				balloon_alert(user, "не тот провод!")
+				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
 
@@ -452,9 +452,20 @@
 
 
 /obj/structure/closet/crate/vault
-	desc = "A vault crate."
+	desc = "Ящик с ценностями."
 	name = "vault crate"
 	icon_state = "vaultcrate"
+
+/obj/structure/closet/crate/vault/get_ru_names()
+	return list(
+		NOMINATIVE = "ящик с ценностями",
+		GENITIVE = "ящика с ценностями",
+		DATIVE = "ящику с ценностями",
+		ACCUSATIVE = "ящик с ценностями",
+		INSTRUMENTAL = "ящиком с ценностями",
+		PREPOSITIONAL = "ящике с ценностями"
+	)
+
 
 /obj/structure/closet/crate/wooden //i'm sure hope this won't be used as cheese strat to obtain cargo points
 	name = "wooden crate"
@@ -644,8 +655,8 @@
 // MARK: Blood crates
 
 /obj/structure/closet/crate/secure/blood
-	name = "Secure human blood crate"
-	desc = "Защищенный ящик с капельницами человеческой крови."
+	name = "secure human blood crate"
+	desc = "Ящик, содержащий капельницы с человеческой кровью."
 	icon_state = "bloodcrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 	req_access = list(ACCESS_MEDICAL)
@@ -653,74 +664,74 @@
 
 /obj/structure/closet/crate/secure/blood/get_ru_names()
 	return list(
-		NOMINATIVE = "ящик с пакетами крови (человеческий)",
-		GENITIVE = "ящика с пакетами крови (человеческий)",
-		DATIVE = "ящику с пакетами крови (человеческий)",
-		ACCUSATIVE = "ящик с пакетами крови (человеческий)",
-		INSTRUMENTAL = "ящиком с пакетами крови (человеческий)",
-		PREPOSITIONAL = "ящике с пакетами крови (человеческий)"
+		NOMINATIVE = "комплект донорской крови (человеческий)",
+		GENITIVE = "комплекта донорской крови (человеческий)",
+		DATIVE = "комплекту донорской крови (человеческий)",
+		ACCUSATIVE = "комплект донорской крови (человеческий)",
+		INSTRUMENTAL = "комплектом донорской крови (человеческий)",
+		PREPOSITIONAL = "комплекте донорской крови (человеческий)"
 	)
 
 
 /obj/structure/closet/crate/secure/blood/xeno
 	name = "Secure xenoblood crate"
-	desc = "Защищенный ящик с капельницами ксено крови."
+	desc = "Ящик, содержащий капельницы с кровью различных рас."
 	icon_state = "xenobloodcrate"
 
 /obj/structure/closet/crate/secure/blood/xeno/get_ru_names()
 	return list(
-		NOMINATIVE = "ящик с пакетами крови (ксено)",
-		GENITIVE = "ящика с пакетами крови (ксено)",
-		DATIVE = "ящику с пакетами крови (ксено)",
-		ACCUSATIVE = "ящик с пакетами крови (ксено)",
-		INSTRUMENTAL = "ящиком с пакетами крови (ксено)",
-		PREPOSITIONAL = "ящике с пакетами крови (ксено)"
+		NOMINATIVE = "комплект донорской крови (ксено)",
+		GENITIVE = "комплекта донорской крови (ксено)",
+		DATIVE = "комплекту донорской крови (ксено)",
+		ACCUSATIVE = "комплект донорской крови (ксено)",
+		INSTRUMENTAL = "комплектом донорской крови (ксено)",
+		PREPOSITIONAL = "комплекте донорской крови (ксено)"
 	)
 
 
 /obj/structure/closet/crate/secure/blood/mixed
 	name = "Secure mixed blood crate"
-	desc = "Защищенный ящик с капельницами различной крови."
+	desc = "Ящик, содержащий капельницы с различной кровью."
 	icon_state = "mixbloodcrate"
 
 /obj/structure/closet/crate/secure/blood/mixed/get_ru_names()
 	return list(
-		NOMINATIVE = "ящик с пакетами крови (смешанная)",
-		GENITIVE = "ящика с пакетами крови (смешанная)",
-		DATIVE = "ящику с пакетами крови (смешанная)",
-		ACCUSATIVE = "ящик с пакетами крови (смешанная)",
-		INSTRUMENTAL = "ящиком с пакетами крови (смешанная)",
-		PREPOSITIONAL = "ящике с пакетами крови (смешанная)"
+		NOMINATIVE = "комплект донорской крови (смешанная)",
+		GENITIVE = "комплекта донорской крови (смешанная)",
+		DATIVE = "комплекту донорской крови (смешанная)",
+		ACCUSATIVE = "комплект донорской крови (смешанная)",
+		INSTRUMENTAL = "комплектом донорской крови (смешанная)",
+		PREPOSITIONAL = "комплекте донорской крови (смешанная)"
 	)
 
 
 /obj/structure/closet/crate/secure/blood/nitrogenis
 	name = "Secure nitrogenis blood crate"
-	desc = "Защищенный ящик с капельницами синтетической крови (Азот)."
+	desc = "Ящик, содержащий капельницы с синтетической кровью (Азот)."
 	icon_state = "syntheticbloodcrate"
 
 /obj/structure/closet/crate/secure/blood/nitrogenis/get_ru_names()
 	return list(
-		NOMINATIVE = "ящик с пакетами крови (синтетическая кровь - азот)",
-		GENITIVE = "ящика с пакетами крови (синтетическая кровь - азот)",
-		DATIVE = "ящику с пакетами крови (синтетическая кровь - азот)",
-		ACCUSATIVE = "ящик с пакетами крови (синтетическая кровь - азот)",
-		INSTRUMENTAL = "ящиком с пакетами крови (синтетическая кровь - азот)",
-		PREPOSITIONAL = "ящике с пакетами крови (синтетическая кровь - азот)"
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь - азот)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь - азот)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь - азот)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь - азот)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь - азот)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь - азот)"
 	)
 
 
 /obj/structure/closet/crate/secure/blood/oxygenis
 	name = "Secure synthetic blood crate"
-	desc = "Защищенный ящик с капельницами синтетической крови (Кислород)."
+	desc = "Ящик, содержащий капельницы с синтетической кровью (Кислород)."
 	icon_state = "nitrogenbloodcrate"
 
 /obj/structure/closet/crate/secure/blood/oxygenis/get_ru_names()
 	return list(
-		NOMINATIVE = "ящик с пакетами крови (синтетическая кровь - кислород)",
-		GENITIVE = "ящика с пакетами крови (синтетическая кровь - кислород)",
-		DATIVE = "ящику с пакетами крови (синтетическая кровь - кислород)",
-		ACCUSATIVE = "ящик с пакетами крови (синтетическая кровь - кислород)",
-		INSTRUMENTAL = "ящиком с пакетами крови (синтетическая кровь - кислород)",
-		PREPOSITIONAL = "ящике с пакетами крови (синтетическая кровь - кислород)"
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь - кислород)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь - кислород)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь - кислород)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь - кислород)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь - кислород)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь - кислород)"
 	)
