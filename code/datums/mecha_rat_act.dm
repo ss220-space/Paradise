@@ -10,6 +10,8 @@ GLOBAL_LIST_INIT(ratvar_mechas, typesof(/datum/ratvar_mecha))
 	mecha_to_convert.update_icon(UPDATE_ICON_STATE)
 	mecha_to_convert.emag_act()
 	mecha_to_convert.armor = mecha_to_convert.armor.modifyAllRatings(10)
+	mecha_to_convert.operation_req_access = null
+	mecha_to_convert.internals_req_access = null
 	if(!mecha_to_convert.occupant)
 		return
 	if(isclocker(mecha_to_convert.occupant))

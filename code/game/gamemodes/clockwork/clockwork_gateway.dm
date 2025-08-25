@@ -45,7 +45,7 @@
 	GLOB.ark_of_the_clockwork_justiciar = null
 	for(var/mob/M as anything in GLOB.mob_list)
 		M.stop_sound_channel(CHANNEL_JUSTICAR_ARK)
-	qdel(fillers)
+	QDEL_LIST(fillers)
 	var/obj/structure/clockwork/functional/heart/heart = locate() in loc
 	if(heart)
 		qdel(heart)

@@ -579,3 +579,4 @@
 /obj/item/ammo_casing/energy/laser/light/rat
 	projectile_type = /obj/projectile/beam/laser/light/rat
 	e_cost = 1
+	color = COLOR_TANGERINE_YELLOW

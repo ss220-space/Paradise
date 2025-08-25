@@ -54,7 +54,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 	for(var/filler_loc in occupied)
 		var/obj/structure/heart_filler/F = new(filler_loc)
-		F.parent = src
+		F.update_parent(src)
 		fillers += F
 
 /obj/structure/clockwork/functional/heart/update_overlays()
@@ -107,7 +107,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	QDEL_LIST(spawned_parts)
 	GLOB.total_curses = 3
 	. = ..()
-
 /obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
 	if(!isclocker(user))
 		return
@@ -126,12 +125,15 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	if(istype(I, /obj/item/part_upper))
 		adjust_part(I, user)
-		return
+		return ATTACK_CHAIN_PROCEED
 	if(istype(I, /obj/item/clockwork/shard))
 		summon()
-		return
+		return ATTACK_CHAIN_PROCEED
 	. = ..()
 
 /obj/structure/clockwork/functional/heart/proc/adjust_part(obj/item/part_upper/part, mob/user)
@@ -147,7 +149,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	update_icon(UPDATE_OVERLAYS)
 	give_blessing(user)
 
-/obj/structure/clockwork/functional/heart/proc/summon(obj/item/I, mob/user)
+/obj/structure/clockwork/functional/heart/proc/summon(obj/item/wI, mob/user)
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(GLOB.total_curses > 0)
 		balloon_alert(user, "сначала снимите печати")
@@ -167,8 +169,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	)
 	var/obj/structure/clockwork/functional/celestial_gateway/gateway = new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
 	for(var/obj/structure/heart_filler/filler as anything in fillers)
-		filler.parent = gateway
-		filler.name = gateway.name
+		filler.update_parent(gateway)
 	gateway.fillers = fillers
 
 /obj/structure/clockwork/functional/heart/proc/throw_everything_back()
@@ -237,7 +238,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	density = TRUE
 	anchored = TRUE
 	smoothing_groups = SMOOTH_GROUP_FILLER
-	var/obj/machinery/parent
+	var/obj/parent
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "thisisfuckingstupid"
 	alpha = 1
@@ -265,6 +266,13 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/heart_filler/attackby(obj/item/I, mob/user, params)
 	parent.attackby(I, user, params)
+
+/obj/structure/heart_filler/proc/update_parent(obj/new_parent)
+	parent = new_parent
+	name = parent.name
+	desc = parent.desc
+	update_name()
+	update_desc()
 
 /obj/structure/part_dial
 	name = "big brass dial"
