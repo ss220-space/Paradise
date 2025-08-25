@@ -147,10 +147,10 @@
 			new /obj/item/gun/projectile/shotgun/toy/crossbow(src)
 		if(77)
 			new /obj/item/gun/projectile/automatic/toy/pistol/enforcer(src)
-			new /obj/item/ammo_box/magazine/toy/enforcer
+			new /obj/item/ammo_box/magazine/toy/enforcer(src)
 		if(78)
 			new /obj/item/gun/projectile/automatic/toy/pistol(src)
-			new /obj/item/ammo_box/magazine/toy/pistol
+			new /obj/item/ammo_box/magazine/toy/pistol(src)
 		if(79)
 			new /obj/item/cane(src)
 			new /obj/item/clothing/head/collectable/tophat(src)
@@ -172,7 +172,7 @@
 			new /obj/item/ammo_box/magazine/specter(src)
 		if(87)
 			new /obj/item/gun/projectile/automatic/pistol/enforcer(src)
-			new /obj/item/ammo_box/magazine/pistolm9mm(src)
+			new /obj/item/ammo_box/magazine/enforcer(src)
 		if(88)
 			new /obj/item/organ/internal/brain(src)
 		if(89)
@@ -214,7 +214,7 @@
 			new /obj/item/clothing/accessory/scarf/red(src)
 			new /obj/item/clothing/mask/holo_cigar(src)
 		if(97)
-			new /obj/item/clothing/mask/balaclava
+			new /obj/item/clothing/mask/balaclava(src)
 			new /obj/item/gun/projectile/automatic/pistol(src)
 			new /obj/item/ammo_box/magazine/m10mm(src)
 		if(98)
