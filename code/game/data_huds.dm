@@ -237,6 +237,11 @@
 		return
 
 	var/datum/money_account/acc = get_insurance_account(src)
+	if(wear_id)
+		var/obj/item/card/id/temp_id = wear_id.GetID()
+		if(temp_id)
+			acc = get_money_account(temp_id.associated_account_number)
+
 	if(acc)
 		holder.overlays += image('icons/mob/hud.dmi', icon_state = "hudhealthy_[acc.insurance_type]")
 
