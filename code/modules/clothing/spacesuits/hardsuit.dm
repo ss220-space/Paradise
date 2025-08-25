@@ -803,8 +803,8 @@
 	sprite_sheets = null
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/science
-	name = "Science Hardsuit Helmet"
-	desc = "A prototype helmet designed for research in a hazardous, low pressure environment. Scientific data flashes across the visor."
+	name = "Шлем ИКСа учёного"
+	desc = "Прототип шлема, разработанный для проведения исследований в опасной среде с пониженным давлением."
 	icon_state = "hardsuit0-rnd"
 	item_state = "hardsuit0-rnd"
 	item_color = "rnd"
@@ -812,7 +812,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/rnd
 	name = "Science Hardsuit"
-	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives and dangerous research materials."
+	desc = "Прототип костюма, защищающего от опасных сред с пониженным давлением. Оснащен броней для работы в огнеопасных и токсичных зонах."
 	icon_state = "rnd_hardsuit"
 	item_state = "rnd_hardsuit"
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -821,6 +821,16 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
 	/obj/item/hand_tele, /obj/item/aicard, /obj/item/gun/energy/anomaly_stabilizer)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd/science
+
+/obj/item/clothing/suit/space/hardsuit/rnd/get_ru_names()
+	return list(
+		NOMINATIVE = "ИКС учёного",
+		GENITIVE = "ИКСа учёного",
+		DATIVE = "ИКСу учёного",
+		ACCUSATIVE = "ИКС учёного",
+		INSTRUMENTAL = "ИКСом учёного",
+		PREPOSITIONAL = "ИКСе учёного"
+	)
 
 //Battlemage Hardsuit — code\modules\clothing\suits\wiz_robe.dm
 //Deathsquad Hardsuit — code\modules\clothing\spacesuits\ert.dm
