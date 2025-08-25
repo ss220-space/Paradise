@@ -164,29 +164,3 @@
 	neck = /obj/item/clothing/neck/mantle/unathi
 	belt = /obj/item/storage/bag/medpouch
 	gloves = /obj/item/clothing/gloves/color/black/goliath
-
-/*
-This landmark is capable of spawning our updated ash walkers den.
-In order of working properly, if you make a new lavaland.dmm map, spawn it always in north-east or north-west.
-Preferable coordinates - x:218, y:236.
-Use about 3 tiles before lava river and 9 to 10 lava river tiles under this landmark. Watch 'delta/lavaland.dmm' for example.
-*/
-/obj/ash_walker_landmark
-	name = "ash_walker"
-	icon = 'icons/misc/Testing/turf_analysis.dmi'
-	icon_state = "ash_landmark"
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = TRUE
-
-/obj/ash_walker_landmark/Initialize(mapload)
-	. = ..()
-	INVOKE_ASYNC(src, PROC_REF(load_map))
-
-/obj/ash_walker_landmark/proc/load_map()
-	var/turf/spawn_area = get_turf(src)
-
-	var/datum/map_template/ruin/lavaland/ash_walker_updated/map = new()
-
-	map.load(spawn_area, TRUE)
-
-	qdel(src, force=TRUE)
