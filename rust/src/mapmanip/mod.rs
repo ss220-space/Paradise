@@ -5,6 +5,8 @@ use core::to_grid_map;
 use core::GridMap;
 use core::TileGrid;
 
+use byondapi::byond_string;
+use byondapi::global_call::call_global_id;
 use byondapi::value::ByondValue;
 use dmmtools::dmi::Dir;
 use dmmtools::dmm::Coord3;
@@ -78,7 +80,6 @@ pub fn mapmanip_config_parse(config_path: &std::path::Path) -> eyre::Result<Vec<
 }
 
 pub fn mapmanip(
-    map_dir_path: &std::path::Path,
     map: dmmtools::dmm::Map,
     config: &[MapManipulation],
 ) -> eyre::Result<dmmtools::dmm::Map> {
@@ -102,7 +103,6 @@ pub fn mapmanip(
                 marker_insert,
                 submaps_can_repeat,
             } => mapmanip_submap_extract_insert(
-                map_dir_path,
                 &mut map,
                 *submap_size_x,
                 *submap_size_y,
@@ -133,7 +133,6 @@ pub fn mapmanip(
 
 #[allow(clippy::too_many_arguments)]
 fn mapmanip_submap_extract_insert(
-    map_dir_path: &std::path::Path,
     map: &mut GridMap,
     submap_size_x: i64,
     submap_size_y: i64,
@@ -152,7 +151,6 @@ fn mapmanip_submap_extract_insert(
 
     // get the submaps map
     let submaps_dmm: std::path::PathBuf = submaps_dmm.into();
-    let submaps_dmm = map_dir_path.join(submaps_dmm);
     let submaps_map = GridMap::from_file(&submaps_dmm)
         .wrap_err(format!("can't read and parse submap dmm: {submaps_dmm:?}"))?;
 
@@ -476,21 +474,25 @@ pub(crate) fn internal_mapmanip_read_dmm_file(path: ByondValue) -> eyre::Result<
     ))?;
 
     // do mapmanip if defined for this dmm
-    let path_mapmanip_config = {
-        let mut p = path.clone();
-        p.set_extension("jsonc");
-        p
-    };
+    let path_mapmanip_config = path.with_extension("jsonc");
+
     if path_mapmanip_config.exists() {
-        // get path for dir of this dmm
-        let path_dir = path.parent().wrap_err("no parent")?;
         // parse config
         let config = crate::mapmanip::mapmanip_config_parse(&path_mapmanip_config).wrap_err(
             format!("config parse fail; path: {:?}", path_mapmanip_config),
         )?;
         // do actual map manipulation
-        dmm = crate::mapmanip::mapmanip(path_dir, dmm, &config)
+        dmm = crate::mapmanip::mapmanip(dmm, &config)
             .wrap_err(format!("mapmanip fail; dmm file path: {path:?}"))?;
+
+        call_global_id(
+            byond_string!("map_first_manipulated"),
+            &[ByondValue::try_from(
+                path_mapmanip_config
+                    .to_str()
+                    .ok_or_else(|| eyre!("Invalid path encoding: {:?}", path_mapmanip_config))?,
+            )?],
+        )?;
     }
 
     // convert the map back to a string
@@ -527,13 +529,11 @@ fn all_mapmanip_configs_execute(root_path: String) {
             p
         };
 
-        let path_dir: &std::path::Path = dmm_path.parent().unwrap();
-
         let mut dmm = dmmtools::dmm::Map::from_file(&dmm_path).unwrap();
 
         let config = crate::mapmanip::mapmanip_config_parse(&config_path).unwrap();
 
-        dmm = crate::mapmanip::mapmanip(path_dir, dmm, &config).unwrap();
+        dmm = crate::mapmanip::mapmanip(dmm, &config).unwrap();
 
         let dmm = map_to_string(&dmm).unwrap();
 
