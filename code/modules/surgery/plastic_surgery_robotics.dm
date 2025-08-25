@@ -73,6 +73,7 @@
 			span_notice("Вы изменяете внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [genderize_ru(target.gender, "его", "её", "его", "их")] зовут [newname].")
 		)
 	target.sec_hud_set_ID()
+	target.med_hud_insurance_set_overlay()
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/reshape_face_robotics/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

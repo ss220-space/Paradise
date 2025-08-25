@@ -80,6 +80,7 @@
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 	target.sec_hud_set_ID()
+	target.med_hud_insurance_set_overlay()
 	return SURGERY_STEP_CONTINUE
 
 
