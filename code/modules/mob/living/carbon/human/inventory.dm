@@ -69,6 +69,7 @@
 		update_inv_ears()
 
 	sec_hud_set_ID()
+	med_hud_insurance_set_overlay()
 	update_inv_wear_mask()
 
 
@@ -120,6 +121,7 @@
 		update_inv_glasses()
 
 	sec_hud_set_ID()
+	med_hud_insurance_set_overlay()
 	update_inv_head()
 
 
@@ -240,6 +242,7 @@
 		wear_id = null
 		if(!QDELETED(src))
 			sec_hud_set_ID()
+			med_hud_insurance_set_overlay()
 			update_inv_wear_id()
 
 	else if(I == wear_pda)
@@ -363,6 +366,7 @@
 			wear_id = I
 			if(hud_list.len)
 				sec_hud_set_ID()
+				med_hud_insurance_set_overlay()
 			update_inv_wear_id()
 
 		if(ITEM_SLOT_PDA)
