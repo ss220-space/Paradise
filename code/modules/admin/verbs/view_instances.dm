@@ -6,7 +6,7 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	to_chat(usr, "<b>Server instances info</b>")
+	to_chat(usr, span_bold("Server instances info"))
 	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
 		SELECT server_id, key_name, key_value FROM instance_data_cache WHERE server_id IN
 		(SELECT server_id FROM instance_data_cache WHERE
@@ -29,5 +29,5 @@
 		var/server_data = servers_outer[server]
 		var/players = text2num(server_data["playercount"])
 
-		to_chat(usr, "<code>[server]</code> - [players] player[players == 1 ? "" : "s"] online.")
+		to_chat(usr, "<code>[server]</code> – [players] player[players == 1 ? "" : "s"] online.")
 	to_chat(usr, "<i>Offline instances are not reported</i>")

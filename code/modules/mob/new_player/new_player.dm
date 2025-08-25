@@ -269,7 +269,7 @@
 	if(href_list["switch_server"])
 		var/selected_port = text2num(href_list["switch_server"])
 		if(selected_port == world.port)
-			to_chat(usr, span_warning("Вы уже подключены к данному серверу"))
+			to_chat(usr, span_warning("Вы уже подключены к данному серверу."))
 			return
 
 		to_chat(usr, span_warning("Подключение к новому серверу..."))

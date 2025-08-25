@@ -11,5 +11,5 @@
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, FALSE, C.mob))
-			to_chat(C, "<span class='mentor_channel'>MENTOR: <small>[data["author"]]\[[data["source"]]\]</small>: <span class='message'>[emoji_msg]</span></span>",
+			to_chat(C, "<span class='mentor_channel'>MENTOR: <small>[data["author"]]\[[data["source"]]\]</small>: [span_message(emoji_msg)]</span>",
 				MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)

@@ -464,55 +464,58 @@
 	if(!holder)
 		return
 
-	if(holder.rights & R_MENTOR)
-		if(SSredis.connected)
-			var/list/mentorcounter = staff_countup(R_MENTOR)
-			var/msg = "<b>[ckey]</b> зашел на сервер. Менторов в сети: <b>[mentorcounter[1]]</b>."
-			var/list/data = list()
-			data["author"] = "warden"
-			data["source"] = CONFIG_GET(string/instance_id)
-			data["message"] = msg
-			SSredis.publish("byond.msay", json_encode(data))
+	if(!SSredis.connected)
+		return
 
-	else if(holder.rights & R_BAN)
-		if(SSredis.connected)
-			var/list/admincounter = staff_countup(R_BAN)
-			var/msg = "<b>[ckey]</b> зашел на сервер. Админов в сети: <b>[admincounter[1]]</b>."
-			var/list/data = list()
-			data["author"] = "warden"
-			data["source"] = CONFIG_GET(string/instance_id)
-			data["message"] = msg
-			SSredis.publish("byond.asay", json_encode(data))
+	if(holder.rights & R_ADMIN)
+		var/list/admincounter = staff_countup(R_ADMIN)
+		var/msg = "<b>[ckey]</b> зашел на сервер. Админов в сети: <b>[admincounter[1]]</b>."
+		var/list/data = list()
+		data["author"] = "warden"
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = msg
+		SSredis.publish("byond.asay", json_encode(data))
+
+	else if(holder.rights & R_MENTOR)
+		var/list/mentorcounter = staff_countup(R_MENTOR)
+		var/msg = "<b>[ckey]</b> зашел на сервер. Менторов в сети: <b>[mentorcounter[1]]</b>."
+		var/list/data = list()
+		data["author"] = "warden"
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = msg
+		SSredis.publish("byond.msay", json_encode(data))
 
 /client/proc/announce_leave()
 	if(!holder)
 		return
 
-	if(holder.rights & R_MENTOR)
-		if(SSredis.connected)
-			var/list/mentorcounter = staff_countup(R_MENTOR)
-			var/mentor_count = mentorcounter[1]
-			if(!(holder.fakekey || is_afk()))
-				mentor_count-- // Exclude ourself
-			var/msg = "<b>[ckey]</b> покинул сервер. Менторов в сети: <b>[mentor_count]</b>."
-			var/list/data = list()
-			data["author"] = "warden"
-			data["source"] = CONFIG_GET(string/instance_id)
-			data["message"] = msg
-			SSredis.publish("byond.msay", json_encode(data))
+	if(!SSredis.connected)
+		return
 
-	else if(holder.rights & R_BAN)
-		if(SSredis.connected)
-			var/list/admincounter = staff_countup(R_BAN)
-			var/admin_count = admincounter[1]
-			if(!(holder.fakekey || is_afk()))
-				admin_count-- // Exclude ourself
-			var/msg = "<b>[ckey]</b> покинул сервер. Админов в сети: <b>[admin_count]</b>."
-			var/list/data = list()
-			data["author"] = "warden"
-			data["source"] = CONFIG_GET(string/instance_id)
-			data["message"] = msg
-			SSredis.publish("byond.asay", json_encode(data))
+	if(holder.rights & R_ADMIN)
+		var/list/admincounter = staff_countup(R_ADMIN)
+		var/admin_count = admincounter[1]
+		if(!(holder.fakekey || is_afk()))
+			admin_count-- // Exclude ourself
+		var/msg = "<b>[ckey]</b> покинул сервер. Админов в сети: <b>[admin_count]</b>."
+		var/list/data = list()
+		data["author"] = "warden"
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = msg
+		SSredis.publish("byond.asay", json_encode(data))
+
+	else if(holder.rights & R_MENTOR)
+		var/list/mentorcounter = staff_countup(R_MENTOR)
+		var/mentor_count = mentorcounter[1]
+		if(!(holder.fakekey || is_afk()))
+			mentor_count-- // Exclude ourself
+		var/msg = "<b>[ckey]</b> покинул сервер. Менторов в сети: <b>[mentor_count]</b>."
+		var/list/data = list()
+		data["author"] = "warden"
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = msg
+		SSredis.publish("byond.msay", json_encode(data))
+
 
 /client/proc/donator_check()
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
