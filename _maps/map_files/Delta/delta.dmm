@@ -38989,6 +38989,8 @@
 "dWs" = (
 /obj/item/healthanalyzer,
 /obj/structure/table,
+/obj/item/stack/sheet/mineral/plasma,
+/obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -57827,13 +57829,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"ilJ" = (
-/obj/item/stack/cable_coil,
-/obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
-/area/toxins/explab)
 "ilL" = (
 /obj/structure/sign/engineering{
 	pixel_x = -32
@@ -113955,8 +113950,7 @@
 	},
 /area/medical/research/restroom)
 "vkV" = (
-/obj/item/stack/sheet/mineral/plasma,
-/obj/structure/table,
+/obj/machinery/suit_storage_unit/rnd,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -157607,7 +157601,7 @@ gQH
 pKk
 eiw
 ikg
-ilJ
+vkV
 wZL
 fEg
 rhD

@@ -46,6 +46,13 @@
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva
 	mask_type    = /obj/item/clothing/mask/breath
 
+/obj/machinery/suit_storage_unit/rnd
+	name = "science suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/hardsuit/rnd
+	storage_type = /obj/item/tank/internals/oxygen
+	mask_type = /obj/item/clothing/mask/gas
+	magboots_type = /obj/item/clothing/shoes/magboots
+
 /obj/machinery/suit_storage_unit/standard_unit/ertamber
 	name = "ERT Amber storage unit"
 	suit_type    = /obj/item/clothing/suit/space/ert_eva_amber
