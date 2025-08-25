@@ -62296,8 +62296,7 @@
 "nWR" = (
 /obj/machinery/disposal,
 /obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -67802,8 +67801,7 @@
 "pyp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/turf_decal/stripes/line{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -96085,8 +96083,7 @@
 /area/engineering/engine)
 "xJn" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
