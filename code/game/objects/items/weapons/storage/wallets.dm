@@ -70,6 +70,7 @@
 		var/mob/living/carbon/human/wearing_human = loc
 		if(wearing_human.wear_id == src)
 			wearing_human.sec_hud_set_ID()
+			wearing_human.med_hud_insurance_set_overlay()
 
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
