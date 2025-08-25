@@ -50420,8 +50420,7 @@
 /area/coldcolony/malta/resid_serv/library/game_zone)
 "swG" = (
 /obj/effect/turf_decal/caution{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/light/small{
 	dir = 1;
@@ -51945,7 +51944,6 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "sZT" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -53277,8 +53275,7 @@
 /area/coldcolony/malta/research/hor)
 "tzB" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -57372,9 +57369,7 @@
 /area/coldcolony/malta/maintenance/kitchen)
 "vdI" = (
 /obj/machinery/suit_storage_unit/pirate,
-/obj/effect/turf_decal/delivery{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating{
 	temperature = 180
 	},
