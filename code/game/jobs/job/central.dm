@@ -1,4 +1,4 @@
-update_hud_set()
+
 // General-purpose CC official. Can hear out grievances, investigate cases, issue demotions, etc.
 /datum/job/ntnavyofficer
 	title = JOB_TITLE_CCOFFICER

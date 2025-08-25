@@ -1,4 +1,4 @@
-update_hud_set()/* Cards
+/* Cards
  * Contains:
  *		DATA CARD
  *		ID CARD
@@ -578,7 +578,6 @@ update_hud_set()/* Cards
 			load_slot(params["slot"])
 			UpdateName()
 			registered_user.update_hud_set()
-			registered_user.med_hud_insurance_set_overlay()
 			to_chat(registered_user, "<span class='notice'>You have successfully loaded the card data from slot [params["slot"]].</span>")
 		if("clear_slot")
 			clear_slot(params["slot"])
@@ -714,7 +713,6 @@ update_hud_set()/* Cards
 			to_chat(registered_user, "<span class='notice'>Occupation changed to [new_job].</span>")
 			UpdateName()
 			registered_user.update_hud_set()
-			registered_user.med_hud_insurance_set_overlay()
 		if("change_money_account")
 			var/new_account = tgui_input_number(registered_user, "What money account would you like to link to this card?", "Agent Card Account", 12345, 9999999)
 			if(!Adjacent(registered_user) || !isnull(new_account))

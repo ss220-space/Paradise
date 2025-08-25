@@ -1,4 +1,4 @@
-update_hud_set()// This outfit preserves varedits made on the items
+// This outfit preserves varedits made on the items
 // Created from admin helpers.
 /datum/outfit/varedit
 	var/list/vv_values

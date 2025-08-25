@@ -1,4 +1,4 @@
-update_hud_set()// Used for 'select equipment'
+// Used for 'select equipment'
 // code/modules/admin/verbs/debug.dm 566
 
 /datum/outfit/admin/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

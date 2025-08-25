@@ -1,4 +1,4 @@
-update_hud_set()//=========== Security CLown outfits ===========
+//=========== Security CLown outfits ===========
 /datum/outfit/admin/clown_security
 	name = "Clown Security Officer"
 	uniform = /obj/item/clothing/under/rank/security/clown

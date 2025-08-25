@@ -1,4 +1,4 @@
-update_hud_set()/obj/effect/mob_spawn/human/ussp
+/obj/effect/mob_spawn/human/ussp
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "cryostasis_sleeper"
 	roundstart = FALSE

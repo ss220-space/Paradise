@@ -250,7 +250,6 @@
 	imprint_idcard(H)
 
 	H.update_hud_set()
-	H.med_hud_insurance_set_overlay()
 
 	imprint_pda(H)
 
