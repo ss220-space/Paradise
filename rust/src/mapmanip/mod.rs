@@ -5,6 +5,8 @@ use core::to_grid_map;
 use core::GridMap;
 use core::TileGrid;
 
+use byondapi::byond_string;
+use byondapi::global_call::call_global_id;
 use byondapi::value::ByondValue;
 use dmmtools::dmi::Dir;
 use dmmtools::dmm::Coord3;
@@ -17,6 +19,9 @@ use itertools::Itertools;
 use procgen::{mapmanip_mazegen_hauberk, MazegenHauberkSettings};
 use rand::seq::{IndexedRandom, IteratorRandom};
 use serde::{Deserialize, Serialize};
+use std::cell::RefCell;
+use std::path::PathBuf;
+use std::rc::Rc;
 use tools::extract_submap;
 use tools::insert_submap;
 
@@ -78,7 +83,6 @@ pub fn mapmanip_config_parse(config_path: &std::path::Path) -> eyre::Result<Vec<
 }
 
 pub fn mapmanip(
-    map_dir_path: &std::path::Path,
     map: dmmtools::dmm::Map,
     config: &[MapManipulation],
 ) -> eyre::Result<dmmtools::dmm::Map> {
@@ -102,7 +106,6 @@ pub fn mapmanip(
                 marker_insert,
                 submaps_can_repeat,
             } => mapmanip_submap_extract_insert(
-                map_dir_path,
                 &mut map,
                 *submap_size_x,
                 *submap_size_y,
@@ -133,7 +136,6 @@ pub fn mapmanip(
 
 #[allow(clippy::too_many_arguments)]
 fn mapmanip_submap_extract_insert(
-    map_dir_path: &std::path::Path,
     map: &mut GridMap,
     submap_size_x: i64,
     submap_size_y: i64,
@@ -152,7 +154,6 @@ fn mapmanip_submap_extract_insert(
 
     // get the submaps map
     let submaps_dmm: std::path::PathBuf = submaps_dmm.into();
-    let submaps_dmm = map_dir_path.join(submaps_dmm);
     let submaps_map = GridMap::from_file(&submaps_dmm)
         .wrap_err(format!("can't read and parse submap dmm: {submaps_dmm:?}"))?;
 
@@ -460,46 +461,57 @@ fn mapmanip_read_dmm_file(path: ByondValue) -> eyre::Result<ByondValue> {
 pub(crate) fn internal_mapmanip_read_dmm_file(path: ByondValue) -> eyre::Result<ByondValue> {
     setup_panic_handler();
 
-    let path: std::path::PathBuf = path
+    thread_local! {
+        static CONFIG_CACHE: RefCell<HashMap<PathBuf, Rc<Vec<MapManipulation>>>> =
+            RefCell::new(HashMap::new());
+    }
+
+    let path: PathBuf = path
         .get_string()
         .wrap_err(format!("path arg is not a string: {:?}", path))?
         .into();
 
-    // just return null if path is bad for whatever reason
-    if !path.is_file() || !path.exists() {
+    if !path.is_file() {
         return Ok(ByondValue::null());
     }
 
-    // read file and parse with spacemandmm
-    let mut dmm = dmmtools::dmm::Map::from_file(&path).wrap_err(format!(
-        "spacemandmm parsing error; dmm file path: {path:?}; see error from spacemandmm below for more information"
-    ))?;
+    let mut dmm = dmmtools::dmm::Map::from_file(&path).wrap_err_with(|| {
+        format!("spacemandmm parsing error; dmm file path: {path:?}; see error from spacemandmm below for more information")
+    })?;
 
-    // do mapmanip if defined for this dmm
-    let path_mapmanip_config = {
-        let mut p = path.clone();
-        p.set_extension("jsonc");
-        p
-    };
-    if path_mapmanip_config.exists() {
-        // get path for dir of this dmm
-        let path_dir = path.parent().wrap_err("no parent")?;
-        // parse config
-        let config = crate::mapmanip::mapmanip_config_parse(&path_mapmanip_config).wrap_err(
-            format!("config parse fail; path: {:?}", path_mapmanip_config),
-        )?;
-        // do actual map manipulation
-        dmm = crate::mapmanip::mapmanip(path_dir, dmm, &config)
-            .wrap_err(format!("mapmanip fail; dmm file path: {path:?}"))?;
-    }
+    let config_path = path.with_extension("jsonc");
 
-    // convert the map back to a string
-    let dmm = crate::mapmanip::core::map_to_string(&dmm).wrap_err(format!(
-        "error in converting map back to string; dmm file path: {path:?}"
-    ))?;
+    CONFIG_CACHE.with(|cache| {
+        let mut cache = cache.borrow_mut();
 
-    // and return it
-    Ok(ByondValue::new_str(dmm)?)
+        if let Some(config) = cache.get(&config_path) {
+            dmm = mapmanip(dmm, config)
+                .wrap_err_with(|| format!("mapmanip fail; dmm file path: {path:?}"))?;
+        } else if config_path.exists() {
+            let parsed_config = mapmanip_config_parse(&config_path)
+                .wrap_err_with(|| format!("config parse fail; path: {:?}", config_path))?;
+
+            let parsed_config_rc = Rc::new(parsed_config);
+
+            dmm = mapmanip(dmm, &parsed_config_rc)
+                .wrap_err_with(|| format!("mapmanip fail; dmm file path: {path:?}"))?;
+
+            cache.insert(config_path.clone(), Rc::clone(&parsed_config_rc));
+
+            call_global_id(
+                byond_string!("map_first_manipulated"),
+                &[ByondValue::try_from(config_path.to_str().ok_or_else(
+                    || eyre!("Invalid path encoding: {:?}", config_path),
+                )?)?],
+            )?;
+        }
+
+        let dmm_string = crate::mapmanip::core::map_to_string(&dmm).wrap_err_with(|| {
+            format!("error in converting map back to string; dmm file path: {path:?}")
+        })?;
+
+        Ok(ByondValue::new_str(dmm_string)?)
+    })
 }
 
 /// To be used by the `tools/rustlib_tools/mapmanip.ps1` script.
@@ -527,13 +539,11 @@ fn all_mapmanip_configs_execute(root_path: String) {
             p
         };
 
-        let path_dir: &std::path::Path = dmm_path.parent().unwrap();
-
         let mut dmm = dmmtools::dmm::Map::from_file(&dmm_path).unwrap();
 
         let config = crate::mapmanip::mapmanip_config_parse(&config_path).unwrap();
 
-        dmm = crate::mapmanip::mapmanip(path_dir, dmm, &config).unwrap();
+        dmm = crate::mapmanip::mapmanip(dmm, &config).unwrap();
 
         let dmm = map_to_string(&dmm).unwrap();
 

@@ -117,11 +117,6 @@
 /obj/structure/lattice,
 /turf/simulated/wall/rust,
 /area/template_noop)
-"wC" = (
-/obj/effect/landmark/tiles/burnturf,
-/obj/effect/map_effect/marker_helper/submap_def/delta/maints_med_viro_passage/closed,
-/turf/simulated/floor/plating/airless,
-/area/template_noop)
 "xH" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -155,6 +150,7 @@
 /area/template_noop)
 "FE" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_med_viro_passage,
+/obj/effect/map_effect/marker_helper/submap_def/delta/maints_med_viro_passage/space,
 /turf/simulated/wall/rust,
 /area/template_noop)
 "Ge" = (
@@ -184,6 +180,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
+/area/template_noop)
+"Ku" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_med_viro_passage,
+/obj/effect/map_effect/marker_helper/submap_def/delta/maints_med_viro_passage/closed,
+/turf/simulated/wall/rust,
 /area/template_noop)
 "KU" = (
 /obj/structure/disposalpipe/segment,
@@ -224,10 +225,6 @@
 /obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/plating/airless,
-/area/template_noop)
-"OA" = (
-/obj/effect/map_effect/marker_helper/submap_def/delta/maints_med_viro_passage/space,
-/turf/space,
 /area/template_noop)
 "OX" = (
 /turf/space,
@@ -399,7 +396,7 @@ WP
 gF
 OX
 OX
-OA
+OX
 OX
 gF
 WP
@@ -572,7 +569,7 @@ NX
 NX
 dQ
 PP
-FE
+Ku
 Zw
 Zw
 Zw
@@ -659,7 +656,7 @@ KU
 WP
 ct
 Qa
-wC
+yE
 jh
 Mw
 Tu
