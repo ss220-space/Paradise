@@ -1,4 +1,4 @@
-// MARK: INTERNAL MAGAZINES
+// MARK: Internal magazines
 /obj/item/ammo_box/magazine/internal
 	desc = "Oh god, this shouldn't be here!"
 
@@ -257,13 +257,13 @@
 /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
 	max_ammo = 10
 
-// MARK: EXTERNAL MAGAZINES
+// MARK: External magazines
 /obj/item/ammo_box/magazine
 	materials = list(MAT_METAL = 2000)
 
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
-	desc = "Магазин пистолета \"Стечкин\", снаряженный патронами калибра 10 мм. Эти патроны примерно в два раза менее эффективны, чем патроны .357 калибра"
+	desc = "Магазин пистолета \"Стечкин\", заряженный патронами калибра 10 мм. Эти патроны примерно в два раза менее эффективны, чем патроны .357 калибра."
 	icon_state = "9x19p"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = "10mm"
@@ -282,7 +282,7 @@
 
 /obj/item/ammo_box/magazine/m10mm/fire
 	name = "pistol magazine (10mm incendiary)"
-	desc = "Магазин пистолета \"Стечкин\", снаряженный зажигательными патронами калибра 10 мм. Эти патроны поджигают цель при попадании."
+	desc = "Магазин пистолета \"Стечкин\", заряженный зажигательными патронами калибра 10 мм. Эти патроны поджигают цель при попадании."
 	icon_state = "9x19pI"
 	ammo_type = /obj/item/ammo_casing/c10mm/fire
 
@@ -298,7 +298,7 @@
 
 /obj/item/ammo_box/magazine/m10mm/hp
 	name = "pistol magazine (10mm HP)"
-	desc = "Магазин пистолета \"Стечкин\", снаряженный экспансивными патронами калибра 10 мм. Эти патроны наносят намного больше повреждений, чем стандартные, но они совершенно бесполезны против брони."
+	desc = "Магазин пистолета \"Стечкин\", заряженный экспансивными патронами калибра 10 мм. Эти патроны наносят намного больше повреждений, чем стандартные, но они совершенно бесполезны против брони."
 	icon_state = "9x19pH"
 	ammo_type = /obj/item/ammo_casing/c10mm/hp
 
@@ -314,7 +314,7 @@
 
 /obj/item/ammo_box/magazine/m10mm/ap
 	name = "pistol magazine (10mm AP)"
-	desc = "Магазин пистолета \"Стечкин\", снаряженный бронебойными патронами калибра 10 мм. Эти патроны наносят немного меньше повреждений, чем стандартные, но обладают высокой пробивной силой."
+	desc = "Магазин пистолета \"Стечкин\", заряженный бронебойными патронами калибра 10 мм. Эти патроны наносят немного меньше повреждений, чем стандартные, но обладают высокой пробивной силой."
 	icon_state = "9x19pA"
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 
@@ -333,7 +333,7 @@
 
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
-	desc = "Магазин пистолета \"M1911\", снаряженный патронами .45 калибра. Эти патроны обладают сильным останавливающим действием, способным сбить с ног большинство целей, однако они не наносят серьёзных повреждений."
+	desc = "Магазин пистолета \"M1911\", заряженный патронами .45 калибра. Эти патроны обладают сильным останавливающим действием, способным сбить с ног большинство целей, однако они не наносят серьёзных повреждений."
 	icon_state = "45"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
@@ -352,7 +352,7 @@
 
 /obj/item/ammo_box/magazine/enforcer
 	name = "handgun magazine (9mm rubber)"
-	desc = "Магазин пистолета \"Блюститель\", снаряженный нелетальными патронами калибра 9 мм. Эти патроны обладают хорошим останавливающим действием, способным сбить с ног большинство целей не нанося значительных повреждений."
+	desc = "Магазин пистолета \"Блюститель\", заряженный нелетальными патронами калибра 9 мм. Эти патроны обладают хорошим останавливающим действием, способным сбить с ног большинство целей не нанося значительных повреждений."
 	icon_state = "enforcer"
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
@@ -390,7 +390,7 @@
 
 /obj/item/ammo_box/magazine/enforcer/lethal
 	name = "handgun magazine (9mm)"
-	desc = "Магазин пистолета \"Блюститель\", снаряженный патронами калибра 9 мм. Стандартные патроны для пистолета \"Блюститель\" службы безопасности."
+	desc = "Магазин пистолета \"Блюститель\", заряженный патронами калибра 9 мм. Стандартные патроны для пистолета \"Блюститель\" службы безопасности."
 	ammo_type = /obj/item/ammo_casing/c9mm
 
 /obj/item/ammo_box/magazine/enforcer/lethal/get_ru_names()
@@ -405,7 +405,7 @@
 
 /obj/item/ammo_box/magazine/sp8
 	name = "handgun magazine .40 S&W"
-	desc = "Магазин пистолета \"SP-8\", снаряженный патронами .40 калибра S&W."
+	desc = "Магазин пистолета \"SP-8\", заряженный патронами .40 калибра S&W."
 	icon_state = "sp8mag"
 	ammo_type = /obj/item/ammo_casing/fortynr
 	max_ammo = 10
@@ -426,7 +426,7 @@
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
-	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", снаряженный патронами калибра 4,6x30 мм."
+	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", заряженный патронами калибра 4,6x30 мм."
 	icon_state = "46x30mmt-20"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = "4.6x30mm"
@@ -447,7 +447,7 @@
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
-	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", снаряженный бронебойными патронами калибра 4,6x30 мм."
+	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", заряженный бронебойными патронами калибра 4,6x30 мм."
 	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
 
 /obj/item/ammo_box/magazine/wt550m9/wtap/get_ru_names()
@@ -462,7 +462,7 @@
 
 /obj/item/ammo_box/magazine/wt550m9/wttx
 	name = "wt550 magazine (Toxin Tipped 4.6x30mm)"
-	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", снаряженный токсичными патронами калибра 4,6x30 мм."
+	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", заряженный токсичными патронами калибра 4,6x30 мм."
 	ammo_type = /obj/item/ammo_casing/c46x30mm/tox
 
 /obj/item/ammo_box/magazine/wt550m9/wttx/get_ru_names()
@@ -477,7 +477,7 @@
 
 /obj/item/ammo_box/magazine/wt550m9/wtic
 	name = "wt550 magazine (Incendiary 4.6x30mm)"
-	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", снаряженный зажигательными патронами калибра 4,6x30 мм."
+	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", заряженный зажигательными патронами калибра 4,6x30 мм."
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 
 /obj/item/ammo_box/magazine/wt550m9/wtic/get_ru_names()
@@ -492,7 +492,7 @@
 
 /obj/item/ammo_box/magazine/sp91rc
 	name = "SP-91-RC magazine (9mm TE)"
-	desc = "Магазин пистолет-пулемета \"SP-91-RC\", снаряженный нелетальными патронами калибра 9 мм TE."
+	desc = "Магазин пистолет-пулемета \"SP-91-RC\", заряженный нелетальными патронами калибра 9 мм TE."
 	icon_state = "9mm-te"
 	ammo_type = /obj/item/ammo_casing/c9mmte
 	caliber = "9mm TE"
@@ -518,7 +518,7 @@
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
-	desc = "Магазин пистолет-пулемета \"UZI\", снаряженный патронами калибра 9 мм."
+	desc = "Магазин пистолет-пулемета \"UZI\", заряженный патронами калибра 9 мм."
 	icon_state = "uzi9mm-32"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = "9mm"
@@ -801,7 +801,7 @@
 
 /obj/item/ammo_box/magazine/ppsh
 	name = "PPSh drum (7.62x25mm)"
-	desc = "Магазин к пистолету-пулемету ППШ, предназначенный для патронов калибра 7,62x25 мм."
+	desc = "Магазин к пистолет-пулемету ППШ, предназначенный для патронов калибра 7,62x25 мм."
 	icon_state = "ppshDrum"
 	desc= "An antique drum for an PPSh submacnine."
 	origin_tech = "combat=3;syndicate=1"
@@ -823,7 +823,7 @@
 // this drum magazine uses for Buldog, Mastiff and AS-12 Minotaur shotguns
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g buckshot slugs)"
-	desc = "Барабанный магазин предназначенный для патронов калибра 12х70."
+	desc = "Барабанный магазин, предназначенный для патронов калибра 12х70."
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
 	caliber = ".12"
@@ -842,7 +842,7 @@
 
 /obj/item/ammo_box/magazine/cheap_m12g
 	name = "shotgun magazine (12g buckshot slugs)"
-	desc = "Барабанный магазин предназначенный для кртечных патронов калибра 12х70."
+	desc = "Барабанный магазин, предназначенный для картечных патронов калибра 12х70."
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 	caliber = ".12"
@@ -862,7 +862,7 @@
 
 /obj/item/ammo_box/magazine/m12g/slug
 	name = "shotgun magazine (12g slugs)"
-	desc = "Барабанный магазин предназначенный для различных патронов калибра 12х70."
+	desc = "Барабанный магазин, предназначенный для различных патронов калибра 12х70."
 	icon_state = "m12gb"
 	ammo_type = /obj/item/ammo_casing/shotgun
 
@@ -878,7 +878,7 @@
 
 /obj/item/ammo_box/magazine/m12g/stun
 	name = "shotgun magazine (12g taser slugs)"
-	desc = "Барабанный магазин предназначенный для шоковых патронов калибра 12х70."
+	desc = "Барабанный магазин, предназначенный для шоковых патронов калибра 12х70."
 	icon_state = "m12gs"
 	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
 
@@ -894,7 +894,7 @@
 
 /obj/item/ammo_box/magazine/m12g/dragon
 	name = "shotgun magazine (12g dragon's breath)"
-	desc = "Барабанный магазин предназначенный для патронов \"Дыхание дракона\" калибра 12х70."
+	desc = "Барабанный магазин, предназначенный для патронов \"Дыхание дракона\" калибра 12х70."
 	icon_state = "m12gf"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
 
@@ -910,7 +910,7 @@
 
 /obj/item/ammo_box/magazine/m12g/bioterror
 	name = "shotgun magazine (12g bioterror)"
-	desc = "Барабанный магазин предназначенный для патронов \"Биотеррор\" калибра 12х70."
+	desc = "Барабанный магазин, предназначенный для патронов \"Биотеррор\" калибра 12х70."
 	icon_state = "m12gt"
 	ammo_type = /obj/item/ammo_casing/shotgun/bioterror
 
@@ -926,7 +926,7 @@
 
 /obj/item/ammo_box/magazine/m12g/breach
 	name = "shotgun magazine (12g breacher slugs)"
-	desc = "Барабанный магазин предназначенный для разрывных патронов калибра 12х70."
+	desc = "Барабанный магазин, предназначенный для разрывных патронов калибра 12х70."
 	icon_state = "m12gmt"
 	ammo_type = /obj/item/ammo_casing/shotgun/breaching
 
@@ -942,7 +942,7 @@
 
 /obj/item/ammo_box/magazine/m12g/flechette
 	name = "shotgun magazine (12g flechette)"
-	desc = "Барабанный магазин предназначенный для патронов \"Флешетта\" калибра 12х70."
+	desc = "Барабанный магазин, предназначенный для патронов \"Флешетта\" калибра 12х70."
 	icon_state = "m12gb"
 	ammo_type = /obj/item/ammo_casing/shotgun/flechette
 
@@ -958,7 +958,7 @@
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
 	name = "XL shotgun magazine (12g buckshot slugs)"
-	desc = "Увеличенный барабанный магазин предназначенный для усиленных патронов калибра 12х70."
+	desc = "Увеличенный барабанный магазин, предназначенный для усиленных патронов калибра 12х70."
 	icon_state = "m12gXlBs"
 	w_class = WEIGHT_CLASS_NORMAL
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
@@ -976,7 +976,7 @@
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
 	name = "XL shotgun magazine (12g flechette)"
-	desc = "Увеличенный барабанный магазин предназначенный для патронов \"Флешетта\" калибра 12х70."
+	desc = "Увеличенный барабанный магазин, предназначенный для патронов \"Флешетта\" калибра 12х70."
 	icon_state = "m12gXlSl"
 	ammo_type = /obj/item/ammo_casing/shotgun/flechette
 
@@ -992,7 +992,7 @@
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/slug
 	name = "XL shotgun magazine (12g slugs)"
-	desc = "Увеличенный барабанный магазин предназначенный для пулевых патронов калибра 12х70."
+	desc = "Увеличенный барабанный магазин, предназначенный для пулевых патронов калибра 12х70."
 	icon_state = "m12gXlSl"
 	ammo_type = /obj/item/ammo_casing/shotgun
 
@@ -1008,7 +1008,7 @@
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
 	name = "XL shotgun magazine (12g dragon's breath)"
-	desc = "Увеличенный барабанный магазин предназначенный для патронов \"Дыхание дракона\" калибра 12х70."
+	desc = "Увеличенный барабанный магазин, предназначенный для патронов \"Дыхание дракона\" калибра 12х70."
 	icon_state = "m12gXlDb"
 	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
 
