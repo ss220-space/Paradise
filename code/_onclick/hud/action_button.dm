@@ -41,10 +41,9 @@
 		return
 
 	var/list/modifiers = params2list(params)
-	if(LAZYACCESS(modifiers, CTRL_CLICK))
-		if(LAZYACCESS(modifiers, SHIFT_CLICK))
-			INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
-			return TRUE
+	if(LAZYACCESS(modifiers, CTRL_CLICK) && LAZYACCESS(modifiers, SHIFT_CLICK))
+		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
+		return TRUE
 	if(usr.next_click > world.time)
 		return FALSE
 	usr.changeNext_click(1)
