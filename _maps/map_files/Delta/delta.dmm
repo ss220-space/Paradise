@@ -53759,7 +53759,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "hlF" = (
-/obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/blood/diona,
@@ -53772,6 +53771,7 @@
 /obj/item/reagent_containers/iv_bag/blood/vulpkanin,
 /obj/item/reagent_containers/iv_bag/blood/wryn,
 /obj/effect/decal/warning_stripes/blue/hollow,
+/obj/structure/closet/crate/secure/blood/xeno,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -53792,7 +53792,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "hme" = (
-/obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
@@ -53800,6 +53799,7 @@
 	dir = 8;
 	id = "vir_work_zone2"
 	},
+/obj/structure/closet/crate/secure/blood/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
@@ -69931,7 +69931,6 @@
 	pixel_y = -22
 	},
 /obj/machinery/light,
-/obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
@@ -69939,6 +69938,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/machinery/iv_drip,
+/obj/structure/closet/crate/secure/blood/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "whitered"
@@ -91464,7 +91464,6 @@
 	},
 /area/hallway/primary/starboard/east)
 "qfb" = (
-/obj/structure/closet/crate/freezer,
 /obj/machinery/iv_drip,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/structure/extinguisher_cabinet{
@@ -91484,6 +91483,7 @@
 /obj/item/reagent_containers/iv_bag/blood/BMinus,
 /obj/item/reagent_containers/iv_bag/blood/BPlus,
 /obj/item/reagent_containers/iv_bag/blood/AMinus,
+/obj/structure/closet/crate/secure/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -91512,7 +91512,6 @@
 	},
 /area/medical/medbay)
 "qfg" = (
-/obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/blood/diona,
@@ -91525,6 +91524,7 @@
 /obj/item/reagent_containers/iv_bag/blood/vulpkanin,
 /obj/item/reagent_containers/iv_bag/blood/wryn,
 /obj/effect/decal/warning_stripes/blue/hollow,
+/obj/structure/closet/crate/secure/blood/xeno,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -109635,7 +109635,6 @@
 	},
 /area/security/reception)
 "uiO" = (
-/obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
@@ -109643,6 +109642,7 @@
 	dir = 4;
 	id = "vir_work_zone2"
 	},
+/obj/structure/closet/crate/secure/blood/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greencorner"

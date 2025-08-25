@@ -1,3 +1,5 @@
+// MARK: Basic crate
+
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
@@ -161,6 +163,9 @@
 			if(D.department in src.announce_beacons[destination])
 				D.createMessage(name, "Your Crate has Arrived!", msg, 1)
 
+
+// MARK: Secure crate
+
 /obj/structure/closet/crate/secure
 	desc = "A secure crate."
 	name = "Secure crate"
@@ -291,6 +296,69 @@
 			open()
 
 
+/obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
+	if(locked && !broken)
+		if(user)
+			to_chat(user, span_notice("Отличная попытка, но нет!"))
+		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
+
+
+/obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(locked && broken == 0 && user.a_intent != INTENT_HARM) // Stage one
+		to_chat(user, span_notice("Вы начинаете откручивать панель замка [src]..."))
+		if(I.use_tool(src, user, 160, volume = I.tool_volume))
+			if(prob(95)) // EZ
+				if(broken != 3)
+					to_chat(user, span_notice("Вы успешно открутили и сняли панель с замка [src]!"))
+					desc += " Панель управления снята."
+					broken = 3
+				//icon_state = icon_off // Crates has no icon_off :(
+			else // Bad day)
+				var/mob/living/carbon/human/H = user
+				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+				user.apply_damage(5, BRUTE , affecting)
+				user.emote("scream")
+				to_chat(user, span_warning("Проклятье! [I] сорвалась и повредила [affecting.name]!"))
+		return TRUE
+
+
+/obj/structure/closet/crate/secure/wirecutter_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(locked && broken == 3 && user.a_intent != INTENT_HARM) // Stage two
+		to_chat(user, span_notice("Вы начинаете подготавливать провода панели [src]..."))
+		if(I.use_tool(src, user, 160, volume = I.tool_volume))
+			if(prob(80)) // Good hacker!
+				if(broken != 2)
+					to_chat(user, span_notice("Вы успешно подготовили провода панели замка [src]!"))
+					desc += " Провода отключены и торчат наружу."
+					broken = 2
+			else // woopsy
+				to_chat(user, span_warning("Черт! Не тот провод!"))
+				do_sparks(5, 1, src)
+				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
+		return TRUE
+
+
+/obj/structure/closet/crate/secure/multitool_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(locked && broken == 2 && user.a_intent != INTENT_HARM) // Stage three
+		to_chat(user, span_notice("Вы начинаете подключать провода панели замка [src] к [I]..."))
+		if(I.use_tool(src, user, 160, volume = I.tool_volume))
+			if(prob(80)) // Good hacker!
+				if(broken != 0 && broken != 1)
+					desc += " Замок отключен."
+					broken = 0 // Can be emagged
+					emag_act(user)
+			else // woopsy
+				to_chat(user, span_warning("Черт! Не тот провод!"))
+				do_sparks(5, 1, src)
+				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
+		return TRUE
+
+
+// MARK: Specific crates
+
 /obj/structure/closet/crate/plastic
 	name = "plastic crate"
 	desc = "A rectangular plastic crate."
@@ -381,6 +449,30 @@
 	new /obj/item/clothing/head/radiation(src)
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
+
+
+/obj/structure/closet/crate/vault
+	desc = "A vault crate."
+	name = "vault crate"
+	icon_state = "vaultcrate"
+
+/obj/structure/closet/crate/wooden //i'm sure hope this won't be used as cheese strat to obtain cargo points
+	name = "wooden crate"
+	desc = "Ящик, сделанный из дерева."
+	icon_state = "wooden_crate"
+
+/obj/structure/closet/crate/wooden/get_ru_names()
+	return list(
+		NOMINATIVE = "деревянный ящик",
+		GENITIVE = "деревянного ящика",
+		DATIVE = "деревянному ящику",
+		ACCUSATIVE = "деревянный ящик",
+		INSTRUMENTAL = "деревянным ящиком",
+		PREPOSITIONAL = "деревянном ящике"
+	)
+
+
+// MARK: Specific secure crates
 
 /obj/structure/closet/crate/secure/weapon
 	desc = "A secure weapons crate."
@@ -548,80 +640,87 @@
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 	can_be_emaged = FALSE
 
-/obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
-	if(locked && !broken)
-		if(user)
-			to_chat(user, span_notice("Отличная попытка, но нет!"))
-		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
 
+// MARK: Blood crates
 
-/obj/structure/closet/crate/vault
-	desc = "A vault crate."
-	name = "vault crate"
-	icon_state = "vaultcrate"
+/obj/structure/closet/crate/secure/blood
+	name = "Secure human blood crate"
+	desc = "Защищенный ящик с капельницами человеческой крови."
+	icon_state = "bloodcrate"
+	material_drop = /obj/item/stack/sheet/mineral/plastitanium
+	req_access = list(ACCESS_MEDICAL)
+	locked = TRUE
 
-/obj/structure/closet/crate/wooden //i'm sure hope this won't be used as cheese strat to obtain cargo points
-	name = "wooden crate"
-	desc = "Ящик, сделанный из дерева."
-	icon_state = "wooden_crate"
-
-/obj/structure/closet/crate/wooden/get_ru_names()
+/obj/structure/closet/crate/secure/blood/get_ru_names()
 	return list(
-		NOMINATIVE = "деревянный ящик",
-		GENITIVE = "деревянного ящика",
-		DATIVE = "деревянному ящику",
-		ACCUSATIVE = "деревянный ящик",
-		INSTRUMENTAL = "деревянным ящиком",
-		PREPOSITIONAL = "деревянном ящике"
+		NOMINATIVE = "ящик с пакетами крови (человеческий)",
+		GENITIVE = "ящика с пакетами крови (человеческий)",
+		DATIVE = "ящику с пакетами крови (человеческий)",
+		ACCUSATIVE = "ящик с пакетами крови (человеческий)",
+		INSTRUMENTAL = "ящиком с пакетами крови (человеческий)",
+		PREPOSITIONAL = "ящике с пакетами крови (человеческий)"
 	)
 
-/obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(locked && broken == 0 && user.a_intent != INTENT_HARM) // Stage one
-		to_chat(user, span_notice("Вы начинаете откручивать панель замка [src]..."))
-		if(I.use_tool(src, user, 160, volume = I.tool_volume))
-			if(prob(95)) // EZ
-				if(broken != 3)
-					to_chat(user, span_notice("Вы успешно открутили и сняли панель с замка [src]!"))
-					desc += " Панель управления снята."
-					broken = 3
-				//icon_state = icon_off // Crates has no icon_off :(
-			else // Bad day)
-				var/mob/living/carbon/human/H = user
-				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-				user.apply_damage(5, BRUTE , affecting)
-				user.emote("scream")
-				to_chat(user, span_warning("Проклятье! [I] сорвалась и повредила [affecting.name]!"))
-		return TRUE
 
-/obj/structure/closet/crate/secure/wirecutter_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(locked && broken == 3 && user.a_intent != INTENT_HARM) // Stage two
-		to_chat(user, span_notice("Вы начинаете подготавливать провода панели [src]..."))
-		if(I.use_tool(src, user, 160, volume = I.tool_volume))
-			if(prob(80)) // Good hacker!
-				if(broken != 2)
-					to_chat(user, span_notice("Вы успешно подготовили провода панели замка [src]!"))
-					desc += " Провода отключены и торчат наружу."
-					broken = 2
-			else // woopsy
-				to_chat(user, span_warning("Черт! Не тот провод!"))
-				do_sparks(5, 1, src)
-				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
-		return TRUE
+/obj/structure/closet/crate/secure/blood/xeno
+	name = "Secure xenoblood crate"
+	desc = "Защищенный ящик с капельницами ксено крови."
+	icon_state = "xenobloodcrate"
 
-/obj/structure/closet/crate/secure/multitool_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(locked && broken == 2 && user.a_intent != INTENT_HARM) // Stage three
-		to_chat(user, span_notice("Вы начинаете подключать провода панели замка [src] к [I]..."))
-		if(I.use_tool(src, user, 160, volume = I.tool_volume))
-			if(prob(80)) // Good hacker!
-				if(broken != 0 && broken != 1)
-					desc += " Замок отключен."
-					broken = 0 // Can be emagged
-					emag_act(user)
-			else // woopsy
-				to_chat(user, span_warning("Черт! Не тот провод!"))
-				do_sparks(5, 1, src)
-				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
-		return TRUE
+/obj/structure/closet/crate/secure/blood/xeno/get_ru_names()
+	return list(
+		NOMINATIVE = "ящик с пакетами крови (ксено)",
+		GENITIVE = "ящика с пакетами крови (ксено)",
+		DATIVE = "ящику с пакетами крови (ксено)",
+		ACCUSATIVE = "ящик с пакетами крови (ксено)",
+		INSTRUMENTAL = "ящиком с пакетами крови (ксено)",
+		PREPOSITIONAL = "ящике с пакетами крови (ксено)"
+	)
+
+
+/obj/structure/closet/crate/secure/blood/mixed
+	name = "Secure mixed blood crate"
+	desc = "Защищенный ящик с капельницами различной крови."
+	icon_state = "mixbloodcrate"
+
+/obj/structure/closet/crate/secure/blood/mixed/get_ru_names()
+	return list(
+		NOMINATIVE = "ящик с пакетами крови (смешанная)",
+		GENITIVE = "ящика с пакетами крови (смешанная)",
+		DATIVE = "ящику с пакетами крови (смешанная)",
+		ACCUSATIVE = "ящик с пакетами крови (смешанная)",
+		INSTRUMENTAL = "ящиком с пакетами крови (смешанная)",
+		PREPOSITIONAL = "ящике с пакетами крови (смешанная)"
+	)
+
+
+/obj/structure/closet/crate/secure/blood/nitrogenis
+	name = "Secure nitrogenis blood crate"
+	desc = "Защищенный ящик с капельницами синтетической крови (Азот)."
+	icon_state = "syntheticbloodcrate"
+
+/obj/structure/closet/crate/secure/blood/nitrogenis/get_ru_names()
+	return list(
+		NOMINATIVE = "ящик с пакетами крови (синтетическая кровь - азот)",
+		GENITIVE = "ящика с пакетами крови (синтетическая кровь - азот)",
+		DATIVE = "ящику с пакетами крови (синтетическая кровь - азот)",
+		ACCUSATIVE = "ящик с пакетами крови (синтетическая кровь - азот)",
+		INSTRUMENTAL = "ящиком с пакетами крови (синтетическая кровь - азот)",
+		PREPOSITIONAL = "ящике с пакетами крови (синтетическая кровь - азот)"
+	)
+
+
+/obj/structure/closet/crate/secure/blood/oxygenis
+	name = "Secure synthetic blood crate"
+	desc = "Защищенный ящик с капельницами синтетической крови (Кислород)."
+	icon_state = "nitrogenbloodcrate"
+
+/obj/structure/closet/crate/secure/blood/oxygenis/get_ru_names()
+	return list(
+		NOMINATIVE = "ящик с пакетами крови (синтетическая кровь - кислород)",
+		GENITIVE = "ящика с пакетами крови (синтетическая кровь - кислород)",
+		DATIVE = "ящику с пакетами крови (синтетическая кровь - кислород)",
+		ACCUSATIVE = "ящик с пакетами крови (синтетическая кровь - кислород)",
+		INSTRUMENTAL = "ящиком с пакетами крови (синтетическая кровь - кислород)",
+		PREPOSITIONAL = "ящике с пакетами крови (синтетическая кровь - кислород)"
+	)
