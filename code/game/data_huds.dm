@@ -227,7 +227,18 @@
 	else
 		holder.icon_state = "hudhealthy"
 
+/mob/living/carbon/human/proc/med_hud_insurance_set_overlay()
+	var/image/holder = hud_list[STATUS_HUD]
+	var/perpname = get_visible_name(add_id_name = FALSE)
+	
+	holder.overlays.Cut()
 
+	if(!perpname || perpname == "Unknown" || perpname == "Неизвестный")
+		return
+
+	var/datum/money_account/acc = get_insurance_account(src)
+	if(acc)
+		holder.overlays += image('icons/mob/hud.dmi', icon_state = "hudhealthy_[acc.insurance_type]")
 
 /***********************************************
  Security HUDs! Basic mode shows only the job.
