@@ -849,6 +849,12 @@ BLIND     // can't see anything
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
+	/// Allowed armor plate class
+	var/allowed_armor_plate = ARMOR_PLATE_CLASS_LIGHT
+	/// Installed armor plate
+	var/armor_plate = null
+
+
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()
 	setup_shielding()

@@ -5,7 +5,7 @@
 #define TOX			"tox"
 #define OXY			"oxy"
 #define CLONE		"clone"
-#define STAMINA	"stamina"
+#define STAMINA		"stamina"
 #define BRAIN		"brain"
 
 //damage flags
@@ -14,8 +14,8 @@
 #define LASER		"laser"
 #define ENERGY		"energy"
 #define BOMB		"bomb"
-#define BIO		"bio"
-#define RAD		"rad"
+#define BIO			"bio"
+#define RAD			"rad"
 #define FIRE		"fire"
 #define ACID		"acid"
 #define MAGIC		"magic"
@@ -39,22 +39,22 @@
 #define CONFUSED	"confused"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
-#define BRUTELOSS (1<<0)
-#define FIRELOSS (1<<1)
-#define TOXLOSS (1<<2)
-#define OXYLOSS (1<<3)
-#define SHAME (1<<4)
+#define BRUTELOSS	 (1<<0)
+#define FIRELOSS	 (1<<1)
+#define TOXLOSS		 (1<<2)
+#define OXYLOSS		 (1<<3)
+#define SHAME		 (1<<4)
 #define OBLITERATION (1<<5)
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN (1<<0)
-#define CANWEAKEN (1<<1)
-#define CANSTAMCRIT (1<<2)
-#define CANKNOCKDOWN (1<<3)
-#define CANPARALYSE (1<<4)
-#define CANPUSH	 (1<<5)
-#define PASSEMOTES (1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define IGNORESLOWDOWN (1<<7)
+#define CANSTUN 		(1<<0)
+#define CANWEAKEN 		(1<<1)
+#define CANSTAMCRIT 	(1<<2)
+#define CANKNOCKDOWN 	(1<<3)
+#define CANPARALYSE 	(1<<4)
+#define CANPUSH	 		(1<<5)
+#define PASSEMOTES 		(1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define IGNORESLOWDOWN 	(1<<7)
 #define IGNORE_SPEED_CHANGES (1<<8)
 /// If set, this mob can be knocked unconscious via status effect.
 /// NOTE, does not mean immune to sleep. Unconscious and sleep are two different things.
@@ -102,7 +102,7 @@
 #define ATTACK_EFFECT_KICK		"kick"
 #define ATTACK_EFFECT_SMASH		"smash"
 #define ATTACK_EFFECT_CLAW		"claw"
-#define ATTACK_EFFECT_SLASH	"slash"
+#define ATTACK_EFFECT_SLASH		"slash"
 #define ATTACK_EFFECT_DISARM	"disarm"
 #define ATTACK_EFFECT_BITE		"bite"
 #define ATTACK_EFFECT_MECHFIRE	"mech_fire"
