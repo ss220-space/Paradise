@@ -27,6 +27,15 @@
 	/// Requred toner in percent
 	var/required_toner = 10
 
+/obj/item/craft_blueprints/get_ru_names()
+	return list(
+        NOMINATIVE = "чертежи для крафта",
+        GENITIVE = "чертежей для крафта",
+        DATIVE = "чертежам для крафта",
+        ACCUSATIVE = "чертежи для крафта",
+        INSTRUMENTAL = "чертежами для крафта",
+        PREPOSITIONAL = "чертежах для крафта"
+	)
 
 /obj/item/craft_blueprints/copy
 	icon_state = "whiteprint"
@@ -69,7 +78,7 @@
 
 /obj/item/craft_blueprints/proc/on_table_place(datum/source, mob/user)
 	SIGNAL_HANDLER
-	to_chat(user, span_notice("Вы разворачиваете [declent_ru(NOMINATIVE)] на столе."))
+	balloon_alert(user, "развернуто")
 	placed_on_table = TRUE
 	icon_state = place_icon
 	pixel_x = 0
@@ -110,10 +119,10 @@
 	if(over_object != usr || !ishuman(usr) || !usr.Adjacent(src))
 		return ..()
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, span_warning("Вы не можете этого сделать сейчас!"))
+		balloon_alert(user, "не получилось!")
 		return FALSE
 	var/mob/living/human = usr
-	to_chat(usr, span_notice("Вы сворачиваете [declent_ru(NOMINATIVE)] со стола."))
+	balloon_alert(user, "свернуто")
 	placed_on_table = FALSE
 	layer = initial(layer)
 	update_icon()
@@ -145,7 +154,7 @@
 		return
 	requirements_deletion(components, empty, empty, user)
 	var/item = new crafting_item(loc)
-	to_chat(user, span_notice("Вы заканчиваете крафт предмета \"[crafting_name]\"..."))
+	balloon_alert(user, "завершено")
 	var/mob/living/human = user
 	if(istype(human))
 		human.put_in_any_hand_if_possible(item, drop_on_fail = TRUE)
