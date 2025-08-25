@@ -103,7 +103,7 @@
 	)
 
 /datum/mod_theme/standard //We don't want the civilian skin to apply to all modsuits, that causes issues.
-	name = "гражданской модели"
+	name = "гражданской"
 
 
 /datum/mod_theme/New()
