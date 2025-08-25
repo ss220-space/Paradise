@@ -46,10 +46,6 @@ SUBSYSTEM_DEF(instancing)
 	update_playercache()
 
 /datum/controller/subsystem/instancing/proc/execute_command(source, command, list/arguments)
-	// We aint enabled. Dont bother.
-	if(!CONFIG_GET(flag/enable_multi_instance))
-		return
-
 	var/datum/server_command/SC = registered_commands[command]
 	if(!SC)
 		CRASH("Attempted to execute command with ID '[command]' from [source], but that command didnt exist!")
@@ -65,10 +61,6 @@ SUBSYSTEM_DEF(instancing)
   * Updates the player cache in the DB. Different from heartbeat so we can force invoke it on player operations
   */
 /datum/controller/subsystem/instancing/proc/update_playercache(optional_ckey)
-	// We aint enabled. Dont bother.
-	if(!CONFIG_GET(flag/enable_multi_instance))
-		return
-
 	// You may be wondering, why the fuck is an "optional ckey" variable here
 	// Well, this is invoked in client/New(), and needs to read from GLOB.clients
 	// However, this proc sleeps, and if you sleep during client/New() once the client is in GLOB.clients, stuff breaks bad
@@ -138,10 +130,6 @@ SUBSYSTEM_DEF(instancing)
   * This is called during world/New() instead of on initialize so it can be done *instantly*
   */
 /datum/controller/subsystem/instancing/proc/seed_data()
-	// We aint enabled. Dont bother.
-	if(!CONFIG_GET(flag/enable_multi_instance))
-		return
-
 	// We need to seed a lot of keys, so lets just use a key-value-pair-map to do this easily
 	var/list/kvp_map = list()
 	kvp_map["server_name"] = CONFIG_GET(string/servername) // Name of the server
@@ -177,10 +165,6 @@ SUBSYSTEM_DEF(instancing)
   * ckey - The ckey to check if they are logged into another server
   */
 /datum/controller/subsystem/instancing/proc/check_player(ckey)
-	// We aint enabled. Dont bother.
-	if(!CONFIG_GET(flag/enable_multi_instance))
-		return
-
 	// Please see above rant on L127
 	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
 		SELECT server_id, key_value FROM instance_data_cache WHERE server_id IN

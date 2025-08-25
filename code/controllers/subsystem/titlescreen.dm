@@ -19,15 +19,19 @@ SUBSYSTEM_DEF(title)
 /datum/controller/subsystem/title/Initialize()
 	import_html()
 	fill_title_images_pool()
-	update_servers_info()
+
+	if(!CONFIG_GET(flag/enable_multi_instance))
+		flags |= SS_NO_FIRE
+	else
+		update_servers_info()
+
 	current_title_screen = new(title_html = base_html, screen_image_file = pick_title_image())
 	if(!CONFIG_GET(flag/enable_titlescreen_lateload))
 		show_title_screen_to_all_new_players()
+
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/title/fire(resumed = 0)
-	if(!CONFIG_GET(flag/enable_multi_instance))
-		return
 	update_servers_info()
 	for(var/mob/new_player/viewer in GLOB.player_list)
 		update_servers_list(viewer.client)
