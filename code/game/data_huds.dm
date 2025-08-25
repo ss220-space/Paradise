@@ -256,7 +256,7 @@
 
 //HOOKS
 
-/mob/living/carbon/human/proc/update_hud_set()
+/mob/living/carbon/human/proc/sec_hud_set_ID()
 	var/image/holder = hud_list[ID_HUD]
 	if(wear_id)
 		holder.icon_state = "hud[ckey(wear_id.GetJobName())]"
