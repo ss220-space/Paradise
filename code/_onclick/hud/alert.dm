@@ -801,8 +801,8 @@
 	if(!usr || !usr.client || HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return FALSE
 
-	var/paramslist = params2list(params)
-	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "[span_boldnotice(name)] – [span_notice(desc)]")
 		return FALSE
 

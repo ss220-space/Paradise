@@ -1,14 +1,15 @@
-/mob/dead/observer/DblClickOn(var/atom/A, var/params)
+/mob/dead/observer/DblClickOn(atom/A, params)
 	if(client.click_intercept)
 		// Not doing a click intercept here, because otherwise we double-tap with the `ClickOn` proc.
 		// But we return here since we don't want to do regular dblclick handling
 		return
 
 	var/list/modifiers = params2list(params)
+
 	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		return
 
-	if(modifiers["shift"])
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		return
 
 	if(can_reenter_corpse && mind && mind.current)

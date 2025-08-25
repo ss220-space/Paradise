@@ -62,7 +62,7 @@
 	if(LAZYACCESS(modifiers, ALT_CLICK))
 		usr.base_click_alt(src)
 		return TRUE
-	if(modifiers["middle"])
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		linked_action.Trigger(left_click = FALSE)
 		return TRUE
 	linked_action.Trigger(left_click = TRUE)
@@ -142,7 +142,7 @@
 		return FALSE
 	usr.changeNext_click(1)
 	var/list/modifiers = params2list(params)
-	if(modifiers["alt"])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		usr.base_click_alt(src)
 		return TRUE
 

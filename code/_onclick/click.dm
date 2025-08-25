@@ -58,7 +58,8 @@
 	if(LAZYACCESS(modifiers, BUTTON4) || LAZYACCESS(modifiers, BUTTON5))
 		return
 
-	var/button_clicked = LAZYACCESS(modifiers, "button")
+	var/button_clicked = LAZYACCESS(modifiers, BUTTON)
+
 	var/dragged = LAZYACCESS(modifiers, DRAG)
 	if(dragged && button_clicked != dragged)
 		return
