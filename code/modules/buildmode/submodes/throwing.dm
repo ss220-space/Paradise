@@ -3,23 +3,25 @@
 
 	var/atom/movable/throw_atom = null
 
+/datum/buildmode_mode/throwing/Destroy()
+	throw_atom = null
+	return ..()
+
 /datum/buildmode_mode/throwing/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on turf/obj/mob      = Select</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on turf/obj/mob     = Throw</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, span_purple(chat_box_examine(
+		"[span_bold("Select")] -> Left Mouse Button on turf/obj/mob\n\
+		[span_bold("Throw")] -> Right Mouse Button on turf/obj/mob"))
+	)
 
 /datum/buildmode_mode/throwing/handle_click(user, params, obj/object)
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
-	var/right_click = pa.Find("right")
+	var/list/modifiers = params2list(params)
 
-	if(left_click)
+	if(LAZYACCESS(modifiers, LEFT_CLICK))
 		if(isturf(object))
 			return
 		throw_atom = object
 		to_chat(user, "Selected object '[throw_atom]'")
-	if(right_click)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		if(throw_atom)
 			throw_atom.throw_at(object, 10, 1, user)
-			log_admin("Build Mode: [key_name(user)] threw [throw_atom] at [object] [COORD(object)]")
+			log_admin("Build Mode: [key_name(user)] threw [throw_atom] at [object] ([AREACOORD(object)])")
