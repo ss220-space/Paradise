@@ -29,8 +29,8 @@
 	color = "#FFFF00"
 	shockbull = TRUE
 	nodamage = TRUE
-	confused = 2 SECONDS
-	stamina = 25
+	confused = 2.5 SECONDS
+	stamina = 20
 	stutter = 8 SECONDS
 	jitter = 30 SECONDS
 	hitsound = 'sound/weapons/tase.ogg'
@@ -57,7 +57,7 @@
 
 /obj/projectile/energy/electrode/proc/process_tasered_effect(mob/living/target)
 	if(HAS_TRAIT(target, TRAIT_TASERED))
-		if(target.getStaminaLoss() >= 50)
+		if(target.getStaminaLoss() >= 40)
 			target.drop_all_held_items()
 			REMOVE_TRAIT(target, TRAIT_TASERED, TASER_TRAIT)
 			return
