@@ -6,7 +6,7 @@
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	ammo_x_offset = 3
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_SNIPER
 
 /obj/item/gun/energy/shock_revolver
 	name = "tesla revolver"
@@ -25,7 +25,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	origin_tech = "combat=4"
 	ammo_x_offset = 2
-	accuracy = GUN_ACCURACY_PISTOL
+	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)

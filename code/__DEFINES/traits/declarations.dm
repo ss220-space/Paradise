@@ -347,3 +347,6 @@
 
 /// User will deflect every bola thrown at him
 #define TRAIT_DEFLECT_BOLAS "deflect_bolas"
+
+/// Temporally  trait when target tasered
+#define TRAIT_TASERED "tasered"
