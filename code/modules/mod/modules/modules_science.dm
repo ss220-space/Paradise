@@ -27,13 +27,13 @@
 	. = ..()
 	if(!.)
 		return
-	mod.helmet.scan_reagents = TRUE
+	mod.helmet.examine_extensions += EXAMINE_HUD_SCIENCE
 
 /obj/item/mod/module/reagent_scanner/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
 	if(!.)
 		return
-	mod.helmet.scan_reagents = FALSE
+	mod.helmet.examine_extensions -= EXAMINE_HUD_SCIENCE
 
 /obj/item/mod/module/reagent_scanner/advanced
 	name = "MOD advanced reagent scanner module"

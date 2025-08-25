@@ -337,6 +337,7 @@
 		PREPOSITIONAL = "импульсе иммолятора"
 	)
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
+	immolate = 2
 
 /obj/projectile/beam/immolator/strong
 	name = "heavy immolation beam"
@@ -350,6 +351,7 @@
 	)
 	damage = 45
 	icon_state = "heavylaser"
+	immolate = 3
 
 /obj/projectile/beam/immolator/weak
 	name = "light immolation beam"
@@ -363,6 +365,7 @@
 	)
 	damage = 8
 	icon_state = "scatterlaser"
+	immolate = 1
 
 /obj/projectile/beam/immolator/mech
 	name = "mecha immolation beam"
@@ -375,13 +378,7 @@
 		PREPOSITIONAL = "импульсе иммолятора меха"
 	)
 	damage = 15
-
-/obj/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(1)
-		M.IgniteMob()
+	immolate = 2
 
 /obj/projectile/beam/instakill
 	name = "instagib laser"

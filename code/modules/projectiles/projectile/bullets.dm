@@ -153,13 +153,7 @@
 	damage_type = TOX
 
 /obj/projectile/bullet/incendiary
-
-/obj/projectile/bullet/incendiary/on_hit(atom/target, blocked = 0)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(4)
-		M.IgniteMob()
+	immolate = 4
 
 /obj/projectile/bullet/incendiary/firebullet
 	damage = 10
@@ -298,11 +292,9 @@
 	damage = 27
 	armour_penetration = 40
 
-/obj/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)
-	if(..(target, blocked))
-		var/mob/living/M = target
-		M.adjust_fire_stacks(1)
-		M.IgniteMob()
+
+/obj/projectile/bullet/midbullet3/fire
+	immolate = 1
 
 /obj/projectile/bullet/heavybullet
 	damage = 35

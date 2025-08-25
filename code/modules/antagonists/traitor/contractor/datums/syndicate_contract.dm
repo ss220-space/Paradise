@@ -444,9 +444,9 @@
 
 		stuff_to_transfer += implant
 
-	if(M.back) //Lets not bork modsuits in funny ways.
-		var/obj/modsuit_safety = M.back
-		if(M.drop_item_ground(modsuit_safety))
+	if(victim.back) //Lets not bork modsuits in funny ways.
+		var/obj/modsuit_safety = victim.back
+		if(victim.drop_item_ground(modsuit_safety))
 			stuff_to_transfer += modsuit_safety
 
 	// Regular items get removed in second

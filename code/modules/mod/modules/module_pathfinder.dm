@@ -38,7 +38,7 @@
 	else
 		. += span_warning("Внутри нет био-чипа.")
 
-/obj/item/mod/module/pathfinder/attack(mob/living/target, mob/living/user, params)
+/obj/item/mod/module/pathfinder/attack(mob/living/target, mob/living/user, def_zone, skip_attack_anim)
 	if(!ishuman(target) || !implant)
 		return
 	if(!do_after(user, 1.5 SECONDS, target = target))

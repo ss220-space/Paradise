@@ -103,6 +103,7 @@
 /obj/projectile/bullet/saw/incen
 	damage = 7
 	armour_penetration = 0
+	immolate = 3
 
 /obj/projectile/bullet/saw/incen/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -110,13 +111,6 @@
 	if(location)
 		new /obj/effect/hotspot(location)
 		location.hotspot_expose(700, 50, 1)
-
-/obj/projectile/bullet/saw/incen/on_hit(atom/target, blocked = 0)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(3)
-		M.IgniteMob()
 
 //magazines//
 

@@ -18,6 +18,8 @@
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
 	var/obj/item/mod/control/control
+	/// This is unacceptable shitcode, but I don't have time to make it right
+	var/examine_extensions = EXAMINE_HUD_NONE
 
 /obj/item/clothing/head/mod/get_ru_names()
 	return list(

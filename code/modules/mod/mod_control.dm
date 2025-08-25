@@ -415,13 +415,14 @@
 	else
 		..()
 
-/obj/item/mod/control/AltClick(mob/user)
+/obj/item/mod/control/click_alt(mob/user)
 	. = ..()
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE) && bag)
 		bag.forceMove(user)
 		bag.show_to(user)
 		playsound(loc, "rustle", 50, TRUE, -5)
 		add_fingerprint(user)
+		return CLICK_ACTION_SUCCESS
 
 /obj/item/mod/control/proc/can_be_inserted(I, stop_messages)
 	if(bag)
@@ -650,7 +651,7 @@
 		part.update_equipped_item()
 
 /obj/item/mod/control/proc/power_off()
-	balloon_alert(user, "батарея разряжена!")
+	balloon_alert(wearer, "батарея разряжена!")
 	toggle_activate(wearer, force_deactivate = TRUE)
 
 /obj/item/mod/control/proc/set_mod_color(new_color)

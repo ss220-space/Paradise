@@ -301,4 +301,14 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	return ..()
 
 
+// Can't be seen ingame (probably), so no translation for now
+/obj/item/gps/mod
+	icon_state = "gps-m"
+	gpstag = "MOD0"
+	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."
+
+/obj/item/gps/mod/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, MODSUIT_TRAIT)
+
 #undef EMP_DISABLE_TIME
