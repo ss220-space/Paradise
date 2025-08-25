@@ -817,22 +817,6 @@
 	build_path = /obj/item/ammo_box/magazine/specter
 	category = list("initial", "Security")
 
-/datum/design/lr30_magazine
-	name = "ammo box (Specter laser)"
-	id = "specter_laser"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 12000)
-	build_path = /obj/item/ammo_box/magazine/lr30mag
-	category = list("hacked", "Security")
-
-/datum/design/lr30_box
-	name = "ammo box (Specter laser)"
-	id = "specter_laser"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 36000)
-	build_path = /obj/item/ammo_box/laserammobox
-	category = list("hacked", "Security")
-
 //hacked autolathe recipes
 /datum/design/spectermag_laser
 	name = "magazine Specter (laser)"
