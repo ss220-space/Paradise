@@ -927,6 +927,12 @@
 				. = TRUE
 				return
 
+			if(issilicon(usr))
+				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается продавать вам товар, поскольку вы не входите в его целевую аудиторию!"))
+				vend_ready = TRUE
+				. = TRUE
+				return
+
 			// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
 			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
 				to_chat(usr, "Удалённый сервер торговых автоматов отключён. Не удается обработать операцию.")
@@ -2329,7 +2335,8 @@
 		/obj/item/gun_module/rail/scope/collimator = 5,
 		/obj/item/gun_module/under/flashlight/pistol = 10,
 		/obj/item/gun_module/under/flashlight/rifle = 10,
-		/obj/item/gun_module/under/hand/angle = 5
+		/obj/item/gun_module/under/hand/angle = 5,
+		/obj/item/ammo_box/magazine/enforcer/extended = 10
 	)
 	contraband = list(
 		/obj/item/gun_module/muzzle/suppressor = 3,
@@ -2342,6 +2349,7 @@
 		/obj/item/gun_module/under/flashlight/pistol = 199,
 		/obj/item/gun_module/under/flashlight/rifle = 249,
 		/obj/item/gun_module/under/hand/angle = 499,
+		/obj/item/ammo_box/magazine/enforcer/extended = 149,
 		/obj/item/gun_module/muzzle/suppressor = 499,
 		/obj/item/gun_module/rail/scope/x4 = 4999,
 	)
@@ -5469,12 +5477,19 @@
 		/obj/item/grenade/flashbang = 10,
 		/obj/item/grenade/barrier = 10,
 		/obj/item/grenade/chem_grenade/teargas = 10,
+		/obj/item/ammo_box/secgl/solid = 2,
+		/obj/item/ammo_box/secgl/flash = 2,
+		/obj/item/ammo_box/secgl/gas = 1,
+		/obj/item/ammo_box/secgl/barricade = 1,
+		/obj/item/ammo_box/secgl/paint = 1,
+
 	)
 	contraband = list(
 		/obj/item/storage/box/flashbangs = 2,
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/storage/box/teargas = 2,
 		/obj/item/ammo_box/a357 = 1,
+		/obj/item/ammo_box/secgl/exp = 1,
 	)
 
 	prices = list(
@@ -5482,6 +5497,7 @@
 		/obj/item/storage/box/barrier = 70,
 		/obj/item/storage/box/teargas = 100,
 		/obj/item/ammo_box/a357 = 300,
+		/obj/item/ammo_box/secgl/exp = 500,
 	)
 
 /obj/machinery/vending/ammo/get_ru_names()
