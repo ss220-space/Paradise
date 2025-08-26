@@ -56,7 +56,9 @@ GLOBAL_VAR(current_date_string)
 /obj/machinery/computer/account_database/attack_hand(mob/user)
 	if(..())
 		return TRUE
-
+	if(issilicon(user))
+		to_chat(user, span_warning("Обнаружен искусственный интеллект. Согласно регуляции НаноТрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
+		return
 	add_fingerprint(user)
 	ui_interact(user)
 

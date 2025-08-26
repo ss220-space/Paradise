@@ -146,7 +146,7 @@
 			span_danger("[user] ударя[pluralize_ru(user.gender, "ет", "ют")]  безжизненное тело [target] [declent_ru(INSTRUMENTAL)]."),
 			span_warning("Вы ударяете безжизненное тело [target].")
 		)
-		playsound(loc, "punch", 25, TRUE, -1)
+		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(!ishuman(target))
@@ -166,7 +166,7 @@
 				span_danger("[user] излечива[pluralize_ru(user.gender, "ет", "ют")] [target] с силой Бога \"[deity_name]\"!"),
 				span_danger("Да поможет вам Бог \"[deity_name]\", да побудит он вас к исцелению!"),
 			)
-		playsound(loc, "punch", 25, TRUE, -1)
+		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 	else
 		if(!istype(target.head, /obj/item/clothing/head/helmet))
 			target.apply_damage(10, BRAIN)
@@ -181,7 +181,7 @@
 				span_danger("[user] огрева[pluralize_ru(user.gender, "ет", "ют")] [target] [declent_ru(INSTRUMENTAL)] по голове!"),
 				span_danger("Вы огреваете [target] [declent_ru(INSTRUMENTAL)] по голове!"),
 			)
-		playsound(src.loc, "punch", 25, TRUE, -1)
+		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 
 	if(target == user)
 		god_punishment++

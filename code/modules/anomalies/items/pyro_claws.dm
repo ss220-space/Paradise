@@ -38,7 +38,7 @@
 		afterswing_slowdown = -0.2, \
 		slowdown_duration = 2 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "knife_swing" \
+		swing_sound = SFX_KNIFE_SWING \
 	)
 
 /obj/item/twohanded/required/pyro_claws/Destroy()

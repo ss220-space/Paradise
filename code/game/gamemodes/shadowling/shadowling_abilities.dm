@@ -799,7 +799,7 @@
 		thrall.emote("gasp")
 		thrall.visible_message(span_boldannounceic("[thrall] тяжело дышит, в [genderize_ru(thrall.gender,"его","её","его","их")] глазах сияет тусклый красный свет."), \
 								span_shadowling("<b><i>Вы вернулись. Один из ваших хозяев привел вас из потусторонней тьмы.</b></i>"))
-		playsound(thrall, "bodyfall", 50, TRUE)
+		playsound(thrall, SFX_BODYFALL, 50, TRUE)
 
 	else
 		to_chat(user, span_warning("Цель должна быть активна, чтобы наделить ее силой, или мертва, чтобы ее оживить."))

@@ -108,7 +108,7 @@
 				assembly.give_glass(stat & BROKEN)
 
 		else
-			playsound(src, "shatter", 70, TRUE)
+			playsound(src, SFX_SHATTER, 70, TRUE)
 			new /obj/item/shard(src.loc)
 			new /obj/item/shard(src.loc)
 

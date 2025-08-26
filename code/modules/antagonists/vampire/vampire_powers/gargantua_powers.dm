@@ -3,7 +3,7 @@
 	desc = "Вы наполняете своё тело кровью, что делает вас очень устойчивым к оглушению и физическому урону, но не даёт использовать оружие дальнего боя."
 	gain_desc = "Вы получили способность временно повышать свою сопротивляемость урону и оглушению."
 	base_cooldown = 40 SECONDS
-	required_blood = 30
+	required_blood = 15
 	action_icon_state = "blood_swell"
 
 
@@ -24,7 +24,7 @@
 	gain_desc = "Вы получили способность отбрасывать людей назад, используя мощный топот."
 	action_icon_state = "seismic_stomp"
 	base_cooldown = 30 SECONDS
-	required_blood = 25
+	required_blood = 10
 	var/max_range = 4
 
 
@@ -98,12 +98,14 @@
 	if(!HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
 		to_chat(user, span_userdanger("ВЫ ЧУВСТВУЕТЕ СЕБЯ СИЛЬНЕЕ!"))
 		ADD_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+		ADD_TRAIT(user, TRAIT_DEFLECT_BOLAS, VAMPIRE_TRAIT)
 		user.status_flags &= ~CANPUSH
 		user.move_resist = MOVE_FORCE_STRONG
 
 	else
 		to_chat(user, span_warning("Вы чувствуете себя слабее..."))
 		REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
+		REMOVE_TRAIT(user, TRAIT_DEFLECT_BOLAS, VAMPIRE_TRAIT)
 		user.move_resist = MOVE_FORCE_DEFAULT
 		user.status_flags |= CANPUSH
 
@@ -113,7 +115,7 @@
 	desc = "Напитайте себя магией крови, чтобы увеличить скорость передвижения."
 	gain_desc = "Вы получили способность временно перемещаться с большой скоростью."
 	base_cooldown = 30 SECONDS
-	required_blood = 15
+	required_blood = 10
 	action_icon_state = "blood_rush"
 
 
@@ -222,7 +224,7 @@
 	name = "Рывок"
 	desc = "Вы резко бросаетесь в выбранное направление, нанося огромный урон, оглушая и разрушая стены и другие объекты."
 	gain_desc = "Теперь вы можете произвести рывок, нанося огромный урон и разрушая объекты."
-	required_blood = 30
+	required_blood = 15
 	base_cooldown = 30 SECONDS
 	action_icon_state = "vampire_charge"
 	need_active_overlay = TRUE

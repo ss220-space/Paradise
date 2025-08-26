@@ -24,10 +24,10 @@ SUBSYSTEM_DEF(explosions)
 /datum/controller/subsystem/explosions/Initialize()
 	if(CONFIG_GET(flag/reactionary_explosions))
 		reactionary_explosions = TRUE
-	explosion_sound = sound(get_sfx("explosion"))
+	explosion_sound = sound(get_sfx(SFX_EXPLOSION))
 	far_explosion_sound = sound('sound/effects/explosionfar.ogg')
-	creaking_explosion_sound = sound(get_sfx("explosion_creaking"))
-	hull_creaking_sound = sound(get_sfx("hull_creaking"))
+	creaking_explosion_sound = sound(get_sfx(SFX_EXPLOSION_CREAKING))
+	hull_creaking_sound = sound(get_sfx(SFX_HULL_CREAKING))
 	explosion_echo_sound = sound('sound/effects/explosion_distant.ogg')
 	explosion_queue = new()
 	return SS_INIT_SUCCESS
