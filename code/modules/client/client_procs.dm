@@ -467,7 +467,7 @@
 	if(!SSredis.connected)
 		return
 
-	if(holder.rights & R_ADMIN)
+	if(check_rights(R_ADMIN, FALSE))
 		var/list/admincounter = staff_countup(R_ADMIN)
 		var/msg = "<b>[ckey]</b> зашел на сервер. Админов в сети: <b>[admincounter[1]]</b>."
 		var/list/data = list()
@@ -476,7 +476,7 @@
 		data["message"] = msg
 		SSredis.publish("byond.asay", json_encode(data))
 
-	else if(holder.rights & R_MENTOR)
+	else if(check_rights(R_MENTOR, FALSE))
 		var/list/mentorcounter = staff_countup(R_MENTOR)
 		var/msg = "<b>[ckey]</b> зашел на сервер. Менторов в сети: <b>[mentorcounter[1]]</b>."
 		var/list/data = list()
@@ -492,7 +492,7 @@
 	if(!SSredis.connected)
 		return
 
-	if(holder.rights & R_ADMIN)
+	if(check_rights(R_ADMIN, FALSE))
 		var/list/admincounter = staff_countup(R_ADMIN)
 		var/admin_count = admincounter[1]
 		if(!(holder.fakekey || is_afk()))
@@ -504,7 +504,7 @@
 		data["message"] = msg
 		SSredis.publish("byond.asay", json_encode(data))
 
-	else if(holder.rights & R_MENTOR)
+	else if(check_rights(R_MENTOR, FALSE))
 		var/list/mentorcounter = staff_countup(R_MENTOR)
 		var/mentor_count = mentorcounter[1]
 		if(!(holder.fakekey || is_afk()))

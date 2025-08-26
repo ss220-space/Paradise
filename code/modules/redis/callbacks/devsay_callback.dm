@@ -9,7 +9,7 @@
 
 	var/emoji_msg = handleDiscordEmojis(html_encode(data["message"]))
 
-	for(var/client/C in GLOB.admins)
-		if(check_rights(R_ADMIN|R_VIEWRUNTIMES, FALSE, C.mob))
-			to_chat(C, "<span class='dev_channel'>DEV: <small>[data["author"]]\[[data["source"]]\]</small>: [span_message(emoji_msg)]</span>",
+	for(var/client/client as anything in GLOB.admins)
+		if(check_rights(R_ADMIN|R_VIEWRUNTIMES, FALSE, client.mob))
+			to_chat(client, span_dev_channel("DEV: <small>[data["author"]]\[[data["source"]]\]</small>: [span_message(emoji_msg)]"),
 				MESSAGE_TYPE_DEVCHAT, confidential = TRUE)

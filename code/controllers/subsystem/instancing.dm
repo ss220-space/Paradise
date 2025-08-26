@@ -21,23 +21,23 @@ SUBSYSTEM_DEF(instancing)
 		return SS_INIT_NO_NEED
 
 	// Setup our commands
-	for(var/sct in subtypesof(/datum/server_command))
-		var/datum/server_command/SC = new sct()
-		if(isnull(SC.command_name))
-			stack_trace("[SC.type] has no comamnd name set!")
+	for(var/command_type in subtypesof(/datum/server_command))
+		var/datum/server_command/server_command = new command_type()
+		if(isnull(server_command.command_name))
+			stack_trace("[server_command.type] has no comamnd name set!")
 			continue
 
-		if(SC.command_name in registered_commands)
-			stack_trace("A command with the name '[SC.command_name]' already exists!")
+		if(server_command.command_name in registered_commands)
+			stack_trace("A command with the name '[server_command.command_name]' already exists!")
 
-		registered_commands[SC.command_name] = SC
+		registered_commands[server_command.command_name] = server_command
 
 	var/amount_registered = length(registered_commands)
 	log_startup_progress("Registered [amount_registered] server command[amount_registered == 1 ? "" : "s"].")
 
 	// Announce startup to peers
-	var/datum/server_command/new_round_announce/NRA = registered_commands["new_round_announce"]
-	NRA.custom_dispatch(CONFIG_GET(string/servername), SSmapping.map_datum.station_short, SSmapping.map_datum.name)
+	var/datum/server_command/new_round_announce/announce = registered_commands["new_round_announce"]
+	announce.custom_dispatch(CONFIG_GET(string/servername), SSmapping.map_datum.station_short, SSmapping.map_datum.name)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/instancing/fire(resumed)
@@ -46,14 +46,14 @@ SUBSYSTEM_DEF(instancing)
 	update_playercache()
 
 /datum/controller/subsystem/instancing/proc/execute_command(source, command, list/arguments)
-	var/datum/server_command/SC = registered_commands[command]
-	if(!SC)
+	var/datum/server_command/server_command = registered_commands[command]
+	if(!server_command)
 		CRASH("Attempted to execute command with ID '[command]' from [source], but that command didnt exist!")
 
-	if((source == CONFIG_GET(string/instance_id)) && SC.ignoreself)
+	if((source == CONFIG_GET(string/instance_id)) && server_command.ignoreself)
 		return // Dont self respond
 
-	SC.execute(source, arguments)
+	server_command.execute(source, arguments)
 
 /**
   * Playercache updater
@@ -70,8 +70,8 @@ SUBSYSTEM_DEF(instancing)
 		return
 	// First iterate clients to get ckeys
 	var/list/ckeys = list()
-	for(var/client/C in GLOB.clients) // No code review. I am not doing the `as anything` bullshit, because we *do* need the type checks here to avoid null clients which do happen sometimes
-		ckeys += C.ckey
+	for(var/client/client in GLOB.clients) // No code review. I am not doing the `as anything` bullshit, because we *do* need the type checks here to avoid null clients which do happen sometimes
+		ckeys += client.ckey
 	// Add our optional
 	if(optional_ckey)
 		ckeys += optional_ckey
@@ -80,19 +80,19 @@ SUBSYSTEM_DEF(instancing)
 	var/ckey_json = json_encode(ckeys)
 
 	// Yes I care about performance savings this much here to mass execute this shit
-	var/datum/db_query/dbq = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:json WHERE key_name='playerlist' AND server_id=:sid", list(
+	var/datum/db_query/list_query = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:json WHERE key_name='playerlist' AND server_id=:sid", list(
 		"json" = ckey_json,
 		"sid" = CONFIG_GET(string/instance_id)
 	))
-	dbq.warn_execute(FALSE)
-	qdel(dbq)
+	list_query.warn_execute(FALSE)
+	qdel(list_query)
 
-	var/datum/db_query/dbq2 = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:count WHERE key_name='playercount' AND server_id=:sid", list(
+	var/datum/db_query/count_query = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:count WHERE key_name='playercount' AND server_id=:sid", list(
 		"count" = length(ckeys),
 		"sid" = CONFIG_GET(string/instance_id)
 	))
-	dbq2.warn_execute(FALSE)
-	qdel(dbq2)
+	count_query.warn_execute(FALSE)
+	qdel(count_query)
 
 /**
   * Heartbeat updater
@@ -101,12 +101,12 @@ SUBSYSTEM_DEF(instancing)
   */
 /datum/controller/subsystem/instancing/proc/update_heartbeat()
 	// this could probably just go in fire() but clean code and profiler ease who cares
-	var/datum/db_query/dbq = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=NOW() WHERE key_name='heartbeat' AND server_id=:sid", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=NOW() WHERE key_name='heartbeat' AND server_id=:sid", list(
 		"sid" = CONFIG_GET(string/instance_id)
 	))
 
-	dbq.warn_execute()
-	qdel(dbq)
+	query.warn_execute()
+	qdel(query)
 
 /**
   * Round time updater
@@ -114,13 +114,13 @@ SUBSYSTEM_DEF(instancing)
   * Updates the round time in the DB. Used so other servers' lobby could use this info
   */
 /datum/controller/subsystem/instancing/proc/update_roundtime()
-	var/datum/db_query/dbq = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:round_time WHERE key_name='round_time' AND server_id=:sid", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:round_time WHERE key_name='round_time' AND server_id=:sid", list(
 		"sid" = CONFIG_GET(string/instance_id),
 		"round_time" = worldtime2text()
 	))
 
-	dbq.warn_execute()
-	qdel(dbq)
+	query.warn_execute()
+	qdel(query)
 
 
 /**
@@ -145,7 +145,7 @@ SUBSYSTEM_DEF(instancing)
 	// An extra nanosecond of load will make zero difference.
 
 	for(var/key in kvp_map)
-		var/datum/db_query/dbq = SSdbcore.NewQuery("INSERT INTO instance_data_cache (server_id, key_name, key_value) VALUES (:sid, :kn, :kv) ON DUPLICATE KEY UPDATE key_value=:kv2", // Is this necessary? Who knows!
+		var/datum/db_query/query = SSdbcore.NewQuery("INSERT INTO instance_data_cache (server_id, key_name, key_value) VALUES (:sid, :kn, :kv) ON DUPLICATE KEY UPDATE key_value=:kv2", // Is this necessary? Who knows!
 			list(
 				"sid" = CONFIG_GET(string/instance_id),
 				"kn" = key,
@@ -153,8 +153,8 @@ SUBSYSTEM_DEF(instancing)
 				"kv2" = "[kvp_map[key]]", // Dont know if I need the second but better to be safe
 			)
 		)
-		dbq.warn_execute(FALSE) // Do NOT async execute here because world/New() shouldnt sleep. EVER. You get issues if you do.
-		qdel(dbq)
+		query.warn_execute(FALSE) // Do NOT async execute here because world/New() shouldnt sleep. EVER. You get issues if you do.
+		qdel(query)
 
 /**
   * Player checker
@@ -166,24 +166,24 @@ SUBSYSTEM_DEF(instancing)
   */
 /datum/controller/subsystem/instancing/proc/check_player(ckey)
 	// Please see above rant on L127
-	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
+	var/datum/db_query/query = SSdbcore.NewQuery({"
 		SELECT server_id, key_value FROM instance_data_cache WHERE server_id IN
 		(SELECT server_id FROM instance_data_cache WHERE server_id != :sid AND
 		key_name='heartbeat' AND last_updated BETWEEN NOW() - INTERVAL 60 SECOND AND NOW())
 		AND key_name IN ("playerlist")"}, list(
 		"sid" = CONFIG_GET(string/instance_id)
 	))
-	if(!dbq1.warn_execute())
-		qdel(dbq1)
+	if(!query.warn_execute())
+		qdel(query)
 		return
 
-	while(dbq1.NextRow())
-		var/list/other_server_cache = json_decode(dbq1.item[2])
+	while(query.NextRow())
+		var/list/other_server_cache = json_decode(query.item[2])
 		if(ckey in other_server_cache)
-			var/target_server = dbq1.item[1] // Yes. This var is necessary.
-			qdel(dbq1)
+			var/target_server = query.item[1] // Yes. This var is necessary.
+			qdel(query)
 			return target_server
 
-	qdel(dbq1)
+	qdel(query)
 	return null // If we are here, it means we didnt find our player on another server
 #endif
