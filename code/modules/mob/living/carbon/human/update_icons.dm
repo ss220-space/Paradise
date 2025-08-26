@@ -586,7 +586,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		// over_uniform body marks
 		var/body_marking = m_styles["body"]
 		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
-		if(body_marking_style.visible_over_uniform || body_marking_style.name != "None")
+		if(body_marking_style.visible_over_uniform || body_marking_style.name != /datum/sprite_accessory/body_markings/none::name)
 			var/obj/item/organ/external/chest/chest_organ = get_organ(BODY_ZONE_CHEST)
 			if(chest_organ && m_styles["body"])
 				if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
