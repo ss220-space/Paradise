@@ -247,7 +247,7 @@
 
 /obj/item/clothing/head/helmet/space/nasavoid/yellow
 	name = "NASA mining helmet"
-	desc = "Прочный гермошлем от шахтёрского экзо-скафандра. Конструкция усилена для эксплотации в агрессивной среде. Разработан NASA."
+	desc = "Прочный гермошлем шахтёрского экзо-скафандра. Конструкция усилена для эксплуатации в агрессивной среде. Разработан NASA."
 	icon_state = "void_yellow"
 	armor = list(MELEE = 60, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	item_state = "void_yellow_helmet"
