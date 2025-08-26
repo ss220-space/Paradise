@@ -4176,7 +4176,7 @@
 
 /proc/doPortalSpawn(turf/loc, mobtype, numtospawn, portal_appearance)
 	loc.flick_overlay_static(portal_appearance, 15)
-	playsound(loc, "sparks", rand(80, 100), 1)
+	playsound(loc, SFX_SPARKS, rand(80, 100), TRUE)
 	for (var/i in 1 to numtospawn)
 		new mobtype(loc)
 

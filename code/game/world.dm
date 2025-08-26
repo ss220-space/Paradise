@@ -266,6 +266,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]/round-[GLOB.round_id]"
 	else
 		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]" // Dont stick a round ID if we dont have one
+
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
@@ -275,6 +276,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.demo_log = "[GLOB.log_directory]/demo.txt"
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
+	GLOB.mapmanip_log = "[GLOB.log_directory]/mapmanip.log"
+
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
@@ -282,6 +285,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.tgui_log)
 	start_log(GLOB.http_log)
 	start_log(GLOB.sql_log)
+	start_log(GLOB.mapmanip_log)
 
 	#ifdef REFERENCE_TRACKING
 	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"

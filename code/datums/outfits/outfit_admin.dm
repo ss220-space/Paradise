@@ -97,7 +97,7 @@
 
 /datum/outfit/admin/syndicate_infiltrator/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 	if(!visualsOnly)
 		H.faction |= "syndicate"
 
@@ -198,7 +198,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("VIP Guest"), "VIP Guest")
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/special_reaction_team
 	name = "Special Reaction Team Member"
@@ -256,7 +256,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Special Reaction Team Member"), "Special Reaction Team Member")
 		I.law_level = LAW_LEVEL_RESPONSE_TEAM
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 
 /datum/outfit/admin/nt_navy_captain
@@ -291,7 +291,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain")
 		I.law_level = LAW_LEVEL_CENTCOMM
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/nt_diplomat
 	name = "NT Diplomat"
@@ -322,7 +322,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Representative"), "Nanotrasen Diplomat")
-	H.sec_hud_set_ID() //No, it's recognized.
+	H.update_hud_set() //No, it's recognized.
 
 /datum/outfit/admin/nt_undercover
 	name = "NT Undercover Operative"
@@ -361,7 +361,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), JOB_TITLE_CIVILIAN)
-	H.sec_hud_set_ID() // Force it to show as Civ on sec huds
+	H.update_hud_set() // Force it to show as Civ on sec huds
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
@@ -414,7 +414,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Death Commando"), "Death Commando", "deathsquad")
 		I.photo = get_id_photo(H, custom_job = JOB_TITLE_REPRESENTATIVE) // They should go die with a good photo instead of assistants grey shorts xD
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/death_commando/officer
 	name = "NT Death Commando officer"
@@ -581,7 +581,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), JOB_TITLE_MIME)
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/greytide
 	name = "Greytide"
@@ -719,7 +719,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/soviet/tourist
 	name = "Soviet Tourist"
@@ -845,7 +845,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 
 /datum/outfit/admin/solgov
@@ -943,7 +943,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/sol_trader
 	name = "Sol Trader"
@@ -971,7 +971,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"

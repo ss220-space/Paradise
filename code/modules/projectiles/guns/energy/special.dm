@@ -754,14 +754,6 @@
 		item_state = "[base_icon_state]_[shot.select_name]"
 
 
-/obj/item/gun/energy/dominator/update_overlays()
-	if(is_equipped)
-		return ..()
-	. = list()
-	if(sibyl_mod)
-		. += "[base_icon_state]_[sibyl_mod.auth_id ? "unlocked" : "locked"]"
-
-
 /obj/item/gun/energy/dominator/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	is_equipped = TRUE
