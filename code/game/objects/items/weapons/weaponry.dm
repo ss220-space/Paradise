@@ -35,7 +35,7 @@
 /obj/item/banhammer/meta_hammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target && COOLDOWN_FINISHED(src, cooldown))
 		send_random_fake_pm(target)
-		COOLDOWN_START(src, cooldown, 5 SECONDS)
+		COOLDOWN_START(src, cooldown, 1 MINUTES)
 	else
 		user.balloon_alert(user, "перезарядка!")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
