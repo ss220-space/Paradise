@@ -1,14 +1,15 @@
-/mob/dead/observer/DblClickOn(var/atom/A, var/params)
+/mob/dead/observer/DblClickOn(atom/A, params)
 	if(client.click_intercept)
 		// Not doing a click intercept here, because otherwise we double-tap with the `ClickOn` proc.
 		// But we return here since we don't want to do regular dblclick handling
 		return
 
 	var/list/modifiers = params2list(params)
-	if(modifiers["middle"])
+
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		return
 
-	if(modifiers["shift"])
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		return
 
 	if(can_reenter_corpse && mind && mind.current)
@@ -29,7 +30,7 @@
 		forceMove(get_turf(A))
 		update_parallax_contents()
 
-/mob/dead/observer/ClickOn(var/atom/A, var/params)
+/mob/dead/observer/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
@@ -37,30 +38,36 @@
 		return
 
 	var/list/modifiers = params2list(params)
-	if(check_rights(R_ADMIN, 0)) // Admin click shortcuts
-		var/mob/M
-		if(modifiers["shift"] && modifiers["ctrl"])
-			client.debug_variables(A)
+
+	if(check_rights(R_ADMIN, FALSE)) // Admin click shortcuts
+		var/mob/mob
+		if(LAZYACCESS(modifiers, SHIFT_CLICK))
+			if(LAZYACCESS(modifiers, CTRL_CLICK))
+				client.debug_variables(A)
+				return
+			if(LAZYACCESS(modifiers, MIDDLE_CLICK))
+				mob = get_mob_in_atom_with_warning(A)
+				if(mob)
+					admin_mob_info(mob)
+				return
+		if(LAZYACCESS(modifiers, CTRL_CLICK))
+			mob = get_mob_in_atom_with_warning(A)
+			if(mob)
+				client.holder.show_player_panel(mob)
 			return
-		if(modifiers["ctrl"])
-			M = get_mob_in_atom_with_warning(A)
-			if(M)
-				client.holder.show_player_panel(M)
-			return
-		if(modifiers["shift"] && modifiers["middle"])
-			M = get_mob_in_atom_with_warning(A)
-			if(M)
-				admin_mob_info(M)
-			return
-	if(modifiers["middle"])
+
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		MiddleClickOn(A)
 		return
-	if(modifiers["shift"])
+
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		ShiftClickOn(A)
 		return
-	if(modifiers["alt"])
+
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		AltClickOn(A)
 		return
+
 	// You are responsible for checking CONFIG_GET(flag/ghost_interaction) when you override this function
 	// Not all of them require checking, see below
 	A.attack_ghost(src)
