@@ -24,21 +24,21 @@
 				if(client.holder && client.holder.fakekey)
 					entry += " <i>(как [client.holder.fakekey])</i>"
 				if(isnewplayer(client.mob))
-					entry += " – <font color='darkgray'><b>В лобби</b></font>"
+					entry += " – <span style='color: darkgray;'><b>В лобби</b></span>"
 				else
 					entry += " – Играет за [client.mob.real_name]"
 				switch(client.mob.stat)
 					if(UNCONSCIOUS)
-						entry += " – <font color='darkgray'><b>Без сознания</b></font>"
+						entry += " – <span style='color: darkgray;'><b>Без сознания</b></span>"
 					if(DEAD)
 						if(isobserver(client.mob))
 							var/mob/dead/observer/observer = client.mob
 							if(observer.started_as_observer)
-								entry += " – <font color='gray'>Наблюдает</font>"
+								entry += " – <span style='color: gray;'>Наблюдает</span>"
 							else
-								entry += " – <font color='black'><b>МЕРТВ</b></font>"
+								entry += " – <span style='color: black;'><b>МЕРТВ</b></span>"
 						else
-							entry += " – <font color='black'><b>МЕРТВ</b></font>"
+							entry += " – <span style='color: black;'><b>МЕРТВ</b></span>"
 
 				var/age
 				if(isnum(client.player_age))
@@ -46,13 +46,13 @@
 				else
 					age = 0
 				if(age <= 1)
-					age = "<font color='#ff0000'><b>[age]</b></font>"
+					age = "<span style='color: red;'><b>[age]</b></span>"
 				else if(age < 10)
-					age = "<font color='#ff8c00'><b>[age]</b></font>"
+					age = "<span style='color: orange;'><b>[age]</b></span>"
 				entry += " – [age]"
 
 				if(is_special_character(client.mob))
-					entry += " – <b><font color='red'>Антагонист</font></b>"
+					entry += " – <span style='color: red;'><b>Антагонист</b></span>"
 				entry += " ([ADMIN_QUE(client.mob,"?")])"
 				entry += " ([round(client.avgping, 1)]ms)"
 				lines += entry
@@ -77,7 +77,7 @@
 			msg += "</tr><tr>"
 	msg += "</tr></table>"
 
-	msg += "<b>Всего в сети: [length(lines)]</b>"
+	msg += span_bold("Всего в сети: [length(lines)]")
 	to_chat(src, chat_box_examine(msg), type = MESSAGE_TYPE_INFO)
 
 /client/verb/adminwho()
@@ -136,42 +136,42 @@
 
 	var/list/final_message = list()
 	if(num_admins_online)
-		final_message += "<b>Админов онлайн ([num_admins_online]):</b>"
+		final_message += span_bold("Админов онлайн ([num_admins_online]):")
 		final_message += adminmsg
 		final_message += "<br>"
 	if(num_moderator_online)
-		final_message += "<b>Модераторов онлайн ([num_moderator_online]):</b>"
+		final_message += span_bold("Модераторов онлайн ([num_moderator_online]):")
 		final_message += moderatormsg
 		final_message += "<br>"
 	if(num_mentors_online)
-		final_message += "<b>Менторов онлайн ([num_mentors_online]):</b>"
+		final_message += span_bold("Менторов онлайн ([num_mentors_online]):")
 		final_message += mentormsg
 		final_message += "<br>"
 	if(num_devs_online)
-		final_message += "<b>Разработчиков онлайн ([num_devs_online]):</b>"
+		final_message += span_bold("Разработчиков онлайн ([num_devs_online]):")
 		final_message += devmsg
 		final_message += "<br>"
 	if(!num_admins_online || !num_moderator_online || !num_mentors_online)
 		final_message += span_notice(NO_ADMINS_ONLINE_MESSAGE)
 	to_chat(src, chat_box_examine(jointext(final_message, "\n")), type = MESSAGE_TYPE_INFO)
 
-/// Returns colored rank representation
+/// Returns colored rank representation.
 /proc/get_colored_rank(rank)
 	switch(rank)
 		if("Хост")
-			return "<font color='#1ABC9C'>[rank]</font>"
+			return "<span style='color: #1ABC9C;'>[rank]</span>" // rgb(26, 188, 156)
 		if("Старший Админ", "Главный Администратор Проекта")
-			return "<font color='#f02f2f'>[rank]</font>"
+			return "<span style='color: #f02f2f;'>[rank]</span>" // rgb(240, 47, 47)
 		if("Админ")
-			return "<font color='#ee8f29'>[rank]</font>"
+			return "<span style='color: #ee8f29;'>[rank]</span>" // rgb(238, 143, 41)
 		if("Триал Админ")
-			return "<font color='#cfc000'>[rank]</font>"
+			return "<span style='color: #cfc000;'>[rank]</span>" // rgb(207, 192, 0)
 		if("Модератор")
-			return "<font color='#9db430'>[rank]</font>"
+			return "<span style='color: #9db430;'>[rank]</span>" // rgb(157, 180, 48)
 		if("Ментор")
-			return "<font color='#67761e'>[rank]</font>"
+			return "<span style='color: #67761e;'>[rank]</span>" // rgb(103, 118, 30)
 		if("Разработчик", "Контрибьютор", "Ведущий Разработчик")
-			return "<font color='#2ecc71'>[rank]</font>"
+			return "<span style='color: #2ecc71;'>[rank]</span>" // rgb(46, 204, 113)
 		else
 			return rank
 
