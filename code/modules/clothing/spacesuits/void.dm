@@ -162,7 +162,7 @@
 
 /obj/item/clothing/head/helmet/space/nasavoid/ntblue
 	name = "NASA helmet for VIPs"
-	desc = "Стандартный шлем \"премиум\" класса для командного состава и важных персон. Сочетает корпоративный стиль с практичностью. Легкий, не нагружает шею. Разработан NASA."
+	desc = "Стандартный шлем \"премиум\" класса для командного состава и важных персон. Сочетает корпоративный стиль с практичностью и удобством. Легкий, не нагружает шею. Разработан NASA."
 	icon_state = "void_ntblue"
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
 	item_state = "void_ntblue_helmet"
@@ -181,7 +181,7 @@
 
 /obj/item/clothing/suit/space/nasavoid/ntblue
 	name = "NASA spacesuit for VIPs"
-	desc = "Стандартный скафандр \"премиум\" класса для командного состава и важных персон. Сочетает корпоративный стиль с практичностью. Легкий, не сковывает движений. Компактно складывается. Разработан NASA."
+	desc = "Стандартный скафандр \"премиум\" класса для командного состава и важных персон. Сочетает корпоративный стиль с практичностью и удобством. Легкий, не сковывает движений. Компактно складывается. Разработан NASA."
 	icon_state = "void_ntblue"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/storage/briefcase, /obj/item/pda, /obj/item/paicard, /obj/item/aicard, /obj/item/ai_module, /obj/item/reagent_containers/food/drinks/flask, /obj/item/storage/lockbox, /obj/item/megaphone, /obj/item/folder, /obj/item/card, /obj/item/camera, /obj/item/melee/baton)
@@ -289,7 +289,7 @@
 
 /obj/item/clothing/head/helmet/space/nasavoid/ltblue
 	name = "NASA medical helmet"
-	desc = "Специализированный лёгкий гермошлем для работы в зонах биологической и химической опасности. Обладает выдающейся защитой от воздействия кислоты и щёлочи. Разработан Фондом Красного Креста и NASA."
+	desc = "Специализированный лёгкий гермошлем для медицинского персонала. Предназначен для защиты от биологического и химического загрязнения. Разработан Фондом Красного Креста и NASA."
 	icon_state = "void_light_blue"
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 100, RAD = 50, FIRE = 50, ACID = 100)
 	item_state = "void_light_blue_helmet"
@@ -308,7 +308,7 @@
 
 /obj/item/clothing/suit/space/nasavoid/ltblue
 	name = "NASA medical spacesuit"
-	desc = "Специализированный лёгкий скафандр для работы в зонах биологической и химической опасности. Обладает выдающейся защитой от воздействия кислоты и щёлочи. Можно установить дефибриллятор. Разработан Фондом Красного Креста и NASA."
+	desc = "Специализированный лёгкий скафандр для медицинского персонала. Предназначен для защиты от биологического и химического загрязнения. Можно установить дефибриллятор. Разработан Фондом Красного Креста и NASA."
 	icon_state = "void_light_blue"
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical,/obj/item/rad_laser)
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 100, RAD = 50, FIRE = 50, ACID = 100)
