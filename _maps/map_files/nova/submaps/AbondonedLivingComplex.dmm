@@ -60,10 +60,10 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/maintenance/livingcomplex)
 "aZ" = (
-/obj/machinery/light/small{
+/obj/effect/decal/cleanable/glass,
+/obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "bj" = (
@@ -302,10 +302,11 @@
 	},
 /area/maintenance/fsmaint3)
 "hE" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4;
+	nightshift_enabled = 1
+	},
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "hO" = (
@@ -965,10 +966,11 @@
 /obj/structure/computerframe{
 	anchored = 0
 	},
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4;
+	nightshift_enabled = 1
+	},
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "AQ" = (
@@ -1689,10 +1691,10 @@
 	},
 /area/maintenance/livingcomplex)
 "WI" = (
-/obj/machinery/light/small{
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "Xg" = (

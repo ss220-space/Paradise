@@ -50334,6 +50334,20 @@
 	icon_state = "podfloor"
 	},
 /area/engineering/engine)
+"hos" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/EastMaintenance,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/central/second/north)
 "hov" = (
 /obj/machinery/disposal,
 /obj/effect/decal/warning_stripes/red,
@@ -262899,7 +262913,7 @@ cOE
 cOE
 cOE
 cOE
-qbI
+hos
 ycw
 xlh
 cOE
