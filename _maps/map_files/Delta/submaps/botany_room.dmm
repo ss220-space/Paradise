@@ -41,6 +41,11 @@
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
+"ct" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/surgery,
+/turf/simulated/wall,
+/area/maintenance/garden)
 "cC" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -141,6 +146,11 @@
 	pixel_x = -7
 	},
 /turf/simulated/floor/plating,
+/area/maintenance/garden)
+"fW" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/destroyed,
+/turf/simulated/wall,
 /area/maintenance/garden)
 "gE" = (
 /obj/structure/grille/broken,
@@ -386,6 +396,7 @@
 /area/maintenance/garden)
 "rB" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/better,
 /turf/simulated/wall,
 /area/maintenance/garden)
 "sk" = (
@@ -410,6 +421,11 @@
 /obj/item/stack/rods,
 /turf/space,
 /area/template_noop)
+"tt" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/engi,
+/turf/simulated/wall,
+/area/maintenance/garden)
 "tX" = (
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
@@ -780,6 +796,7 @@
 /area/maintenance/garden)
 "KF" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/slightly_worse,
 /turf/simulated/wall,
 /area/template_noop)
 "Lb" = (
@@ -1105,7 +1122,7 @@ qr
 Ho
 nM
 nM
-rB
+fW
 qr
 qr
 qr
@@ -1585,7 +1602,7 @@ qr
 Ho
 nM
 nM
-rB
+ct
 qr
 qr
 qr
@@ -1595,7 +1612,7 @@ qr
 Ho
 nM
 nM
-rB
+tt
 qr
 qr
 qr

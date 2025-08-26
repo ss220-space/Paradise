@@ -2523,7 +2523,6 @@
 #include "code\modules\mapmanip\delta.dm"
 #include "code\modules\mapmanip\effects.dm"
 #include "code\modules\mapmanip\mod.dm"
-#include "code\modules\mapmanip\delta_markers\effects.dm"
 #include "code\modules\maptext_alerts\text_blurbs.dm"
 #include "code\modules\martial_arts\adminfu.dm"
 #include "code\modules\martial_arts\brawling.dm"
