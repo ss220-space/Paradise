@@ -26,8 +26,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	reagents = new()
 
-/obj/machinery/r_n_d/circuit_imprinter/New()
-	..()
+/obj/machinery/r_n_d/circuit_imprinter/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -40,8 +40,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		base_icon_state = "syndie_circuit_imprinter"
 	reagents.my_atom = src
 
-/obj/machinery/r_n_d/circuit_imprinter/upgraded/New()
-	..()
+/obj/machinery/r_n_d/circuit_imprinter/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)

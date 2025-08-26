@@ -383,7 +383,7 @@
 	user.gib()
 	return OBLITERATION
 
-/obj/item/assembly/signaler/core/gravitational/tier3/Initialize()
+/obj/item/assembly/signaler/core/gravitational/tier3/Initialize(mapload)
 	. = ..()
 	old_owner = get_external_loc()
 	update_gravity(TRUE)

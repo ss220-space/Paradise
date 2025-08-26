@@ -3841,10 +3841,10 @@
 	},
 /area/medical/virology/lab)
 "aDA" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
 	},
+/obj/machinery/vending/gun_mods,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
@@ -92981,6 +92981,16 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/mechanic_workshop/hangar)
+"nJS" = (
+/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/structure/safe{
+	known_by = list("hos")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "nKm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
@@ -118660,7 +118670,7 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkredalt"
@@ -165135,7 +165145,7 @@
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/mask/gas/syndicate,
 /obj/item/kitchen/knife/combat/survival,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "yip" = (
@@ -245090,7 +245100,7 @@ bkc
 xoL
 ajW
 xoL
-jhf
+nJS
 oWw
 iPd
 sXx

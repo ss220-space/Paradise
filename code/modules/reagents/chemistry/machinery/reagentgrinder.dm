@@ -137,8 +137,8 @@
 	icon_state = "juicer0"
 	beaker = null
 
-/obj/machinery/reagentgrinder/New()
-	..()
+/obj/machinery/reagentgrinder/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
@@ -160,10 +160,10 @@
 	QDEL_NULL(beaker)
 	return ..()
 
-/obj/machinery/reagentgrinder/ex_act(severity)
+/obj/machinery/reagentgrinder/ex_act(severity, target)
 	if(beaker)
-		beaker.ex_act(severity)
-	..()
+		beaker.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/reagentgrinder/handle_atom_del(atom/A)
 	if(A == beaker)

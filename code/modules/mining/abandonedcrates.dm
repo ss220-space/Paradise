@@ -147,7 +147,13 @@
 			new /obj/item/toy/crayon/mime(src)
 			new /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(src)
 		if(96)
-			new /obj/item/hand_tele(src)
+			new /obj/item/clothing/under/syndicate/tacticool(src)
+			new /obj/item/clothing/gloves/combat(src)
+			new /obj/item/clothing/shoes/combat(src)
+			new /obj/item/clothing/accessory/holster(src)
+			new /obj/item/clothing/head/beret(src)
+			new /obj/item/clothing/accessory/scarf/red(src)
+			new /obj/item/clothing/mask/holo_cigar(src)
 		if(97)
 			new /obj/item/clothing/mask/balaclava
 			new /obj/item/gun/projectile/automatic/pistol(src)
@@ -223,8 +229,7 @@
 				++bulls
 			else
 				++cows
-	to_chat(user, span_notice("В последней попытке [bulls] [declension_ru(bulls,"цифра","цирфы","цифр")] на правильных позициях и [cows] [declension_ru(cows,"правильная цифра","правильные цирфы","правильных цифр")] на неправильных позициях."))
-
+	to_chat(user, span_notice("В последней попытке [bulls] [declension_ru(bulls,"цифра","цифры","цифр")] на правильных позициях и [cows] [declension_ru(cows,"правильная цифра","правильные цифры","правильных цифр")] на неправильных позициях."))
 
 
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user)
@@ -242,3 +247,9 @@
 
 /obj/structure/closet/crate/secure/loot/deconstruct(disassembled = TRUE)
 	boom()
+
+/obj/structure/closet/crate/secure/loot/shove_impact(mob/living/target, mob/living/attacker)
+	if(locked)
+		return FALSE
+
+	return ..()

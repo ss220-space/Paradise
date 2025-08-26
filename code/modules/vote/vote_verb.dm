@@ -61,7 +61,7 @@
 	V.show_counts = (c2 == "Yes")
 	V.vote_result_type = c3
 	SSvote.start_vote(V)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Vote") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Start Vote")
 
 /datum/admins/proc/togglevotedead()
 	set category = STATPANEL_ADMIN_TOGGLES
@@ -81,4 +81,4 @@
 	else
 		to_chat(world, "<b>Dead Vote has been enabled!</b>")
 	log_and_message_admins("toggled Dead Vote.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead Vote") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Dead Vote")

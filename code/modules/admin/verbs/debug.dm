@@ -14,7 +14,7 @@
 		message_admins("[key_name_admin(src)] toggled debugging on.")
 		log_admin("[key_name(src)] toggled debugging on.")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Game") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Debug Game")
 
 
 /* 21st Sept 2010
@@ -103,7 +103,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
 
 		to_chat(usr, "<font color='#EB4E00'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Advanced Proc-Call") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+		BLACKBOX_LOG_ADMIN_VERB("Advanced Proc-Call")
 
 // All these vars are related to proc call protection
 // If you add more of these, for the love of fuck, protect them
@@ -209,7 +209,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
 		to_chat(src, span_notice("[procname] returned: [!isnull(returnval) ? returnval : "null"]"))
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Atom Proc-Call")
 
 /client/proc/get_callproc_args(is_atom_new = FALSE)
 	var/argnum = tgui_input_number(src, "Введите число аргументов [is_atom_new ? " (За исключением loc)" : ""]", "Число аргументов:", 0)
@@ -271,7 +271,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	t+= "CO2: [env.carbon_dioxide]\n"
 
 	usr.show_message(t, 1)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Air Status (Location)")
 
 /client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_EVENT
@@ -384,7 +384,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			continue
 		qdel(S)
 	log_and_message_admins("has deleted all Singularities and Tesla orbs.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Del Singulo/Tesla") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Del Singulo/Tesla")
 
 /client/proc/cmd_debug_make_powernets()
 	set category = "Debug"
@@ -395,7 +395,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	SSmachines.makepowernets()
 	log_and_message_admins("has remade the powernets. makepowernets() called.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Make Powernets")
 
 /client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_DEBUG
@@ -426,7 +426,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			H.update_inv_wear_id()
 	else
 		tgui_alert(usr, "Invalid mob")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Grant Full Access")
 	log_and_message_admins(span_notice("has granted [M.key] full access."))
 
 /client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
@@ -448,7 +448,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	M.ckey = src.ckey
 	if( isobserver(adminmob) )
 		qdel(adminmob)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Assume Direct Control") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")
 
 
 /client/proc/cmd_admin_areatest()
@@ -602,7 +602,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else	// We have regenerate_icons() proc in the end of equipOutfit(), so don't need to call it two times.
 		H.regenerate_icons()
 	log_and_message_admins(span_notice("changed the equipment of [key_name_admin(M)] to [dresscode]."))
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Select Equipment")
 
 /client/proc/robust_dress_shop()
 	var/list/outfits = list(
@@ -873,7 +873,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(!isobserver(usr))
 			message_admins("[key_name_admin(usr)] jumped to ruin [ruinname]")
 
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Ruin") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+		BLACKBOX_LOG_ADMIN_VERB("Jump To Ruin")
 
 /client/proc/toggle_medal_disable()
 	set category = "Debug"
@@ -886,7 +886,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	SSmedals.hub_enabled = !SSmedals.hub_enabled
 
 	message_admins(span_adminnotice("[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout."))
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Medal Disable") // If...
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Medal Disable")
 	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
 
 
@@ -1023,7 +1023,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(answer != "YES")
 		return
 	log_and_message_admins("cleared dynamic transit space.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "CDT") // If...
+	BLACKBOX_LOG_ADMIN_VERB("CDT")
 	SSmapping.wipe_reservations() //this goes after it's logged, incase something horrible happens.
 
 /client/proc/cmd_reload_polls()
@@ -1043,4 +1043,4 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	load_poll_data()
 
 	log_and_message_admins("reloaded polls.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload Polls") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Reload Polls")

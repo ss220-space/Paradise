@@ -107,14 +107,14 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 			alpha_corner.cache_r, alpha_corner.cache_g, alpha_corner.cache_b, 00,
 			00, 00, 00, 01
 		)
-		
+
 	SSdemo.mark_turf(affected_turf)
 
 
 // Variety of overrides so the overlays don't get affected by weird things.
 
-/atom/movable/lighting_object/ex_act(severity)
-	return 0
+/atom/movable/lighting_object/ex_act(severity, target)
+	return FALSE
 
 /atom/movable/lighting_object/singularity_act()
 	return

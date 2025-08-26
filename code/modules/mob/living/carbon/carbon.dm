@@ -448,13 +448,13 @@
 		return .
 
 	var/alien_trait = HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALIEN)
-	if(alien_trait && length(get_equipped_items(include_hands = TRUE)))
+	if(alien_trait && length(get_equipped_items(INCLUDE_HELD)))
 		if(provide_feedback)
 			balloon_alert(src, "ваши руки заняты!")
 		return FALSE
 
 	if(!alien_trait && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ITEM_BASED) && HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && \
-		!HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS) && length(get_equipped_items(include_pockets = TRUE, include_hands = TRUE)))
+		!HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS) && length(get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD)))
 		if(provide_feedback)
 			balloon_alert(src, "ваши предметы мешают!")
 		return FALSE
@@ -622,8 +622,8 @@
 		var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 		var/turf/end_T = get_turf(target)
 		if(start_T && end_T)
-			var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
-			var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
+			var/start_T_descriptor = "<font color='#6b5d00'>tile at [AREACOORD(start_T)]</font>"
+			var/end_T_descriptor = "<font color='#6b4400'>tile at [AREACOORD(end_T)]</font>"
 			add_attack_logs(src, throwing_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
 
 	//We assign a default frequency number for the sound of the throw.

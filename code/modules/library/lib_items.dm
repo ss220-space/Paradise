@@ -190,7 +190,7 @@
 	manual_name = "Medical Manuals "
 	manual_name_ru = " с учебниками по медицине"
 
-/obj/structure/bookcase/manuals/medical/Initialize()
+/obj/structure/bookcase/manuals/medical/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/medical_cloning(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -202,7 +202,7 @@
 
 
 
-/obj/structure/bookcase/manuals/engineering/Initialize()
+/obj/structure/bookcase/manuals/engineering/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/engineering_construction(src)
 	new /obj/item/book/manual/engineering_particle_accelerator(src)
@@ -219,7 +219,7 @@
 
 
 
-/obj/structure/bookcase/manuals/research_and_development/Initialize()
+/obj/structure/bookcase/manuals/research_and_development/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -339,20 +339,20 @@
 			return ATTACK_CHAIN_PROCEED
 		var/choice = tgui_input_list(user, "Что вы хотели бы изменить?", "Редактура", list("Заголовок", "Содержание", "Автор", "Отмена"))
 		switch(choice)
-			if("Title")
+			if("Заголовок")
 				var/newtitle = reject_bad_text(tgui_input_text(user, "Напишите новый заголовок:", "Название", title))
 				if(isnull(newtitle))
 					balloon_alert(user, "недопустимый формат!")
 					return ATTACK_CHAIN_PROCEED
 				name = newtitle
 				title = newtitle
-			if("Contents")
+			if("Содержание")
 				var/content = tgui_input_text(user, "Напишите содержание книги (HTML ЗАПРЕЩЁН):", "Содержание", max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE)
 				if(isnull(content))
 					balloon_alert(user, "недопустимое содержание!")
 					return ATTACK_CHAIN_PROCEED
 				dat += content
-			if("Author")
+			if("Автор")
 				var/newauthor = tgui_input_text(user, "Напишите имя автора:", "Автор", author, MAX_NAME_LEN)
 				if(isnull(newauthor))
 					balloon_alert(user, "недопустимое имя!")

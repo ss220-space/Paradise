@@ -25,10 +25,10 @@
 	/// Отвечает за то клонируем ли мы сейчас или нет. Нам не нужно чтобы клонёрка хватала одновременно двух ниндзя... Или одного 10 раз
 	var/attempting = FALSE
 
-	light_color = LIGHT_COLOR_LIGHTBLUE
+	light_color = LIGHT_COLOR_BLUE
 	light_range = 5
 
-/obj/machinery/ninja_clonepod/Initialize()
+/obj/machinery/ninja_clonepod/Initialize(mapload)
 	. = ..()
 	records = list()
 	suits_data = list()
