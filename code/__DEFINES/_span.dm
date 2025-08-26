@@ -95,10 +95,8 @@
  * MARK: Admin/Mentor
  */
 #define span_mentorhelp(str) ("<span class='mentorhelp'> " + str + "</span>")
-#define span_mentorhelp3(str) ("<span class='mentorhelp' size='3'>" + str + "</span>")
 #define span_admin(str) ("<span class='admin'>" + str + "</span>")
 #define span_adminhelp(str) ("<span class='adminhelp'>" + str + "</span>")
-#define span_adminhelp3(str) ("<span class='adminhelp' size='3'>" + str + "</span>")
 #define span_adminticket(str) ("<span class='adminticket'>" + str + "</span>")
 #define span_adminticketalt(str) ("<span class='adminticketalt'>" + str + "</span>")
 #define span_admin_channel(str) ("<span class='admin_channel'>" + str + "</span>")

@@ -23,7 +23,7 @@
 	var/admin_rank = ADMIN
 	var/type_admin_help = "PM"
 	var/list/fake_msgs = list()
-	var/list/special_msgs_for_rank = list() //list(list(ADMIN_SA, HADMIN_SA) = list("Снят нахуй"))
+	var/list/special_msgs_for_rank = list() //format: list(list(ADMIN_SA, HADMIN_SA) = list("Снят нахуй"))
 
 /datum/fake_administrator/proc/send_random_msg(target)
 	if(!target)
@@ -44,7 +44,6 @@
 	if(length(special_msgs_for_rank) && target_client.holder)
 		for(var/list/roles_target in special_msgs_for_rank)
 			if(target_client.holder.rank in roles_target)
-				//to_chat(world, "опа есть тут")
 				fake_msg = pick(special_msgs_for_rank[roles_target])
 				break
 
