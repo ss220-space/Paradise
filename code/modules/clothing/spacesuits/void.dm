@@ -395,7 +395,7 @@
 /obj/item/clothing/suit/space/nasavoid/syndi
 	name = "Blood red infantry spacesuit"
 	icon_state = "void_syndi"
-	desc = "Высокомобильный боевой гермоскафандр неизвестного происхождения. Обеспечивает сбалансированную защиту. Оснащён сложным механическим скелетом. Не сковывает движений. Маркировка производителя отсутствует."
+	desc = "Высокомобильный боевой гермоскафандр неизвестного происхождения. Обеспечивает сбалансированную защиту. Оснащён сложным экзо-скелетом высокой мобильности. Маркировка производителя отсутствует."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor = list(MELEE = 50, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 15, BIO = 100, RAD = 15, FIRE = 50, ACID = 15)
