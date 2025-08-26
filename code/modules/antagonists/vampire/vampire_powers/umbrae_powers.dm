@@ -44,7 +44,7 @@
 	desc = "Вы вызываете ловушку на земле. Когда её пересекут, она ослепит цель, погасит все имеющиеся у неё источники света и захватит её в капкан."
 	gain_desc = "Вы получили способность вызывать ловушку, которая ослепит, захватит в капкан и выключит свет любому, кто пересечет ее."
 	base_cooldown = 10 SECONDS
-	required_blood = 20
+	required_blood = 15
 	action_icon_state = "shadow_snare"
 	need_active_overlay = TRUE
 
@@ -149,7 +149,7 @@
 	name = "Теневой якорь"
 	desc = "Вы вызываете затемнённый якорь после задержки, повторное заклинание телепортирует вас обратно к якорю. Вы будете вынуждены вернуться назад через 2 минуты, если не произнесли повторное заклинание."
 	gain_desc = "Вы получили способность сохранять точку в пространстве и телепортироваться к ней по своему желанию. Если в течение 2 минут вы самостоятельно не телепортируетесь обратно в эту точку, вас телепортирует автоматически."
-	required_blood = 30
+	required_blood = 20
 	centcom_cancast = FALSE
 	base_cooldown = 130 SECONDS
 	action_icon_state = "shadow_anchor"
@@ -256,7 +256,7 @@
 	desc = "Вы телепортируетесь на указанную площадку."
 	gain_desc = "Вы получили способность совершать молниеносный бросок на небольшое расстояние в сторону указанной площадки."
 	base_cooldown = 15 SECONDS
-	required_blood = 30
+	required_blood = 20
 	centcom_cancast = FALSE
 	action_icon_state = "dark_passage"
 	sound = 'sound/magic/teleport_app.ogg'
@@ -317,7 +317,7 @@
 	gain_desc = "Теперь вы можете заставить свою тень сражаться бок о бок с вами."
 	base_cooldown = 30 SECONDS
 	action_icon_state = "shadow_boxing"
-	required_blood = 50
+	required_blood = 30
 	need_active_overlay = TRUE
 	var/target_UID
 

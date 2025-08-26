@@ -54,14 +54,13 @@
 	. = ..()
 	update_icons()
 
-
 /mob/living/carbon/alien/humanoid/update_fire()
 	remove_overlay(FIRE_LAYER)
 	if(on_fire)
+		var/fire_icon_state = "[is_monkeybasic(src) ? "monkey" : "human"]_generic_burn"
 		if(!overlays_standing[FIRE_LAYER])
-			overlays_standing[FIRE_LAYER] = mutable_appearance('icons/mob/OnFire.dmi', icon_state = "Generic_mob_burning", layer = -FIRE_LAYER)
+			overlays_standing[FIRE_LAYER] = mutable_appearance('icons/mob/OnFire.dmi', icon_state = fire_icon_state, layer = -FIRE_LAYER)
 	apply_overlay(FIRE_LAYER)
-
 
 /mob/living/carbon/alien/humanoid/update_inv_pockets()
 	if(client && hud_used)
