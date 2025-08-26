@@ -236,14 +236,14 @@
 	if(!perpname || perpname == "Unknown" || perpname == "Неизвестный")
 		return
 
-	var/datum/money_account/acc = get_insurance_account(src)
+	var/datum/money_account/account = get_insurance_account(src)
 	if(wear_id)
 		var/obj/item/card/id/temp_id = wear_id.GetID()
 		if(temp_id)
-			acc = get_money_account(temp_id.associated_account_number)
+			account = get_money_account(temp_id.associated_account_number)
 
-	if(acc)
-		holder.overlays += image('icons/mob/hud.dmi', icon_state = "hudhealthy_[acc.insurance_type]")
+	if(account)
+		holder.overlays += image('icons/mob/hud.dmi', icon_state = "hudhealthy_[account.insurance_type]")
 
 /mob/living/carbon/human/proc/update_hud_set()
 	sec_hud_set_ID()
