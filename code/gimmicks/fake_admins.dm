@@ -1,18 +1,54 @@
+//Admins ranks
 #define ADMIN "Админ"
-#define CA "Старший Админ"
-#define MEGA_CA "Главный Администратор Проекта"
+#define ADMIN_SA "Старший Админ" //senior admin
+#define HSA "Главный Администратор Проекта" //head senior admin
 #define TRIAL "Триал Админ"
+#define MENTOR "Ментор"
+
+#define ALL_ADMINS_RANK list(ADMIN, ADMIN_SA, HSA, TRIAL, MENTOR)
+
+//Other ranks
+#define DEVELOPER "Разработчик"
+#define LEAD_DEVELOPER "Ведущий Разработчик" 
+#define CONTRIBUTOR "Контрибьютор"
+
+#define DEVELOPENT_STAFF list(DEVELOPER, CONTRIBUTOR, LEAD_DEVELOPER)
+
+//Helpers type
+#define MENTOR_HELP "Помощь Ментора"
+#define ADMIN_PM "PM"
 
 /datum/fake_administrator
 	var/admin_name = ""
 	var/admin_rank = ADMIN
 	var/type_admin_help = "PM"
 	var/list/fake_msgs = list()
+	var/list/special_msgs_for_rank = list() //list(list(ADMIN_SA, HADMIN_SA) = list("Снят нахуй"))
 
 /datum/fake_administrator/proc/send_random_msg(target)
 	if(!target)
 		return
-	fake_admin_pm(target, pick(fake_msgs), admin_name, admin_rank, type_admin_help)
+	
+	var/client/target_client
+
+	if(isclient(target))
+		target_client = target
+	else if(ismob(target))
+		var/mob/temp = target
+		target_client = temp.client
+	else
+		return
+	
+	var/fake_msg = pick(fake_msgs)
+
+	if(length(special_msgs_for_rank) && target_client.holder)
+		for(var/list/roles_target in special_msgs_for_rank)
+			if(target_client.holder.rank in roles_target)
+				//to_chat(world, "опа есть тут")
+				fake_msg = pick(special_msgs_for_rank[roles_target])
+				break
+
+	fake_admin_pm(target, fake_msg, admin_name, admin_rank, type_admin_help)
 
 /datum/fake_administrator/momongo
 	admin_name = "Momong0"
@@ -24,7 +60,7 @@
 
 /datum/fake_administrator/cerano
 	admin_name = "Archangel Cerano"
-	admin_rank = CA
+	admin_rank = ADMIN_SA
 	type_admin_help = "Помощь Админа"
 	fake_msgs = list("Ноулак, поплач")
 
@@ -51,31 +87,14 @@
 
 /datum/fake_administrator/yarida
 	admin_name = "Yarida"
-	admin_rank = CA
+	admin_rank = ADMIN_SA
 	fake_msgs = list("Дарова, уебище.")
 
 /datum/fake_administrator/denchigo
 	admin_name = "Denchigo"
-	admin_rank = MEGA_CA
+	admin_rank = HSA
 	fake_msgs = list("Ты же понимаешь что это р0?", "Погнали на БМ")
-	var/list/special_for_admins = list("Заебал, снят", "Снят нахуй", "Лови аварн")
-
-/datum/fake_administrator/denchigo/send_random_msg(target)
-	var/client/target_client
-
-	if(isclient(target))
-		target_client = target
-	else if(ismob(target))
-		var/mob/temp = target
-		target_client = temp.client
-	else
-		return
-
-	if(!target_client.holder)
-		. = ..(target)
-		return
-
-	fake_admin_pm(target, pick(special_for_admins), admin_name, admin_rank, type_admin_help)
+	special_msgs_for_rank = list(ALL_ADMINS_RANK = list("Заебал, снят", "Снят нахуй", "Лови аварн"))
 
 /datum/fake_administrator/alexsandoor
 	admin_name = "AlexsanDOOR"
@@ -115,7 +134,7 @@
 
 /datum/fake_administrator/amikpanary
 	admin_name = "AmikoAnary"
-	admin_rank = CA
+	admin_rank = ADMIN_SA
 	fake_msgs = list("Ты чего творишь то?")
 
 /datum/fake_administrator/twojadezero
@@ -125,31 +144,5 @@
 /datum/fake_administrator/dageavtobusik
 	admin_name = "Dageavtobusnik"
 	fake_msgs = list("Тогда я нихуя не понимаю")
-	var/static/list/target_ranks = list("Разработчик", "Контрибьютор")
-	var/static/list/special_msgs = list("Do not merge", "Такое говно в билд не пойдет", "Хуйня переделывай")
+	special_msgs_for_rank = list(DEVELOPENT_STAFF = list("Do not merge", "Такое говно в билд не пойдет", "Хуйня переделывай"))
 
-
-/datum/fake_administrator/dageavtobusik/send_random_msg(target)
-	var/client/target_client
-
-	if(isclient(target))
-		target_client = target
-	else if(ismob(target))
-		var/mob/temp = target
-		target_client = temp.client
-	else
-		return
-
-	if(!target_client.holder)
-		. = ..(target)
-		return	
-	if(!(target_client.holder.rank in target_ranks))
-		. = ..(target)
-		return
-
-	fake_admin_pm(target, pick(special_msgs), admin_name, admin_rank, type_admin_help)
-
-#undef TRIAL
-#undef CA
-#undef ADMIN
-#undef MEGA_CA
