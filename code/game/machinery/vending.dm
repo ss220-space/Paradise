@@ -5410,7 +5410,7 @@
 	)
 
 /obj/machinery/vending/protein
-	name = "Автомат спортивного пит+ания"
+	name = "Автомат спортивного питания"
 	desc = "Автомат самообслуживания, любезно предоставленный корпорацией Donk Co. Исключительная польза!"
 
 	slogan_list = list(
@@ -5436,6 +5436,12 @@
 		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 10,
 		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 10,
 		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 10,
+		/obj/item/reagent_containers/food/drinks/protein/zaza = 1,
+		/obj/item/reagent_containers/food/drinks/protein/cherry = 1,
+		/obj/item/reagent_containers/food/drinks/protein/chocolate = 1,
+		/obj/item/reagent_containers/food/drinks/protein/bananastrawberry = 1,
+		/obj/item/reagent_containers/food/drinks/creatine = 4,
+		/obj/item/reagent_containers/food/drinks/guarana = 12,
 	)
 	contraband = list(
 		/obj/item/reagent_containers/syringe/steroids = 5,
@@ -5445,6 +5451,12 @@
 		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 199,
 		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 249,
 		/obj/item/reagent_containers/syringe/steroids = 149,
+		/obj/item/reagent_containers/food/drinks/protein/zaza = 499,
+		/obj/item/reagent_containers/food/drinks/protein/cherry = 499,
+		/obj/item/reagent_containers/food/drinks/protein/chocolate = 499,
+		/obj/item/reagent_containers/food/drinks/protein/bananastrawberry = 499,
+		/obj/item/reagent_containers/food/drinks/creatine = 349,
+		/obj/item/reagent_containers/food/drinks/guarana = 129,
 	)
 	refill_canister = /obj/item/vending_refill/protein
 

@@ -681,8 +681,8 @@
 	item_state = "straight_jacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
-	strip_delay = 60
-	breakout_time = 3000
+	strip_delay = 6 SECONDS
+	breakout_time = 2 MINUTES
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',

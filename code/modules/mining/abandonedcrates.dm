@@ -156,7 +156,7 @@
 		if(81)
 			new /obj/item/gun/energy/plasmacutter(src)
 		if(82)
-			new /obj/item/gun/magic(src)
+			new /obj/item/gun/magic/wand(src)
 		if(83)
 			new /obj/item/spellbook/oneuse/smoke(src)
 		if(84)

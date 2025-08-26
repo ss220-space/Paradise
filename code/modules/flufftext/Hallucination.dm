@@ -382,30 +382,30 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			for(var/i in 0 to hits)
 				target.playsound_local(null, 'sound/weapons/laser.ogg', 25, TRUE)
 				if(prob(75))
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/sear.ogg', 25, 1), rand(10,20))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/sear.ogg', 25, TRUE), rand(10,20))
 				else
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/effects/searwall.ogg', 25, 1), rand(10,20))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/effects/searwall.ogg', 25, TRUE), rand(10,20))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
-			target.playsound_local(null, get_sfx("bodyfall"), 25)
+			target.playsound_local(null, get_sfx(SFX_BODYFALL), 25)
 		if(2) //Esword fight
 			target.playsound_local(null, 'sound/weapons/saberon.ogg', 15, TRUE)
 			for(var/i in 0 to hits)
 				target.playsound_local(null, 'sound/weapons/blade1.ogg', 25, TRUE)
 				sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 8))
-			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
+			target.playsound_local(null, get_sfx(SFX_BODYFALL), 25, TRUE)
 			target.playsound_local(null, 'sound/weapons/saberoff.ogg', 15, TRUE)
 		if(3) //Gun fight
 			for(var/i in 0 to hits)
-				target.playsound_local(null, get_sfx("gunshot"), 25)
+				target.playsound_local(null, get_sfx(SFX_GUNSHOT), 25)
 				if(prob(75))
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/pierce.ogg', 25, 1), rand(10,20))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/pierce.ogg', 25, TRUE), rand(10,20))
 				else
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, "ricochet", 25, 1), rand(10,20))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), null, SFX_RICOCHET, 25, TRUE), rand(10,20))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
-			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
+			target.playsound_local(null, get_sfx(SFX_BODYFALL), 25, TRUE)
 		if(4) //Stunprod + cablecuff
 			target.playsound_local(null, 'sound/weapons/egloves.ogg', 40, TRUE)
-			target.playsound_local(null, get_sfx("bodyfall"), 25, TRUE)
+			target.playsound_local(null, get_sfx(SFX_BODYFALL), 25, TRUE)
 			sleep(20)
 			target.playsound_local(null, 'sound/weapons/cablecuff.ogg', 15, TRUE)
 		if(5) // Tick Tock
@@ -934,7 +934,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					playsound_local(null, 'sound/weapons/gunshots/gunshot.ogg', 25, TRUE)
 					var/timer_pause = rand(10,30)
 					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/gunshots/gunshot.ogg', 25, 1), timer_pause)
-					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
+					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, sound(get_sfx(SFX_BODYFALL), 25), 25, 1), timer_pause+rand(5,10))
 				if(10)
 					playsound_local(null, 'sound/effects/pray_chaplain.ogg', 50)
 				if(11)
@@ -942,7 +942,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					playsound_local(null, 'sound/weapons/taser.ogg', 25, TRUE)
 					var/timer_pause = rand(10,30)
 					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/weapons/taser.ogg', 25, 1), timer_pause)
-					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
+					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), null, sound(get_sfx(SFX_BODYFALL), 25), 25, 1), timer_pause+rand(5,10))
 			//Rare audio
 				if(12)
 			//These sounds are (mostly) taken from Hidden: Source

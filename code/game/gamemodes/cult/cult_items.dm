@@ -47,7 +47,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 0.75 SECONDS, \
-		swing_sound = "blade_swing_heavy" \
+		swing_sound = SFX_BLADE_SWING_HEAVY \
 	)
 
 
@@ -92,7 +92,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
-	breakout_time = 45
+	breakout_time = 4 SECONDS
 	knockdown_amt = 2 SECONDS
 
 
@@ -442,7 +442,7 @@
 		uses--
 		var/turf/destination = pick(turfs)
 		update_icon(UPDATE_ICON_STATE)
-		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
@@ -456,7 +456,7 @@
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	else
 		to_chat(C, span_danger("The veil cannot be torn here!"))

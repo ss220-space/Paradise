@@ -312,6 +312,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	overlays_standing[MARKINGS_LAYER] = mutable_appearance(markings_standing, layer = -MARKINGS_LAYER)
 	apply_overlay(MARKINGS_LAYER)
+	var/body_marking = m_styles["body"]
+	var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
+	if(body_marking_style.visible_over_uniform && istype(w_uniform, /obj/item/clothing/under))
+		update_inv_w_uniform()
 
 
 //HEAD ACCESSORY OVERLAY
@@ -578,6 +582,18 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(accessory.sprite_sheets?[dna.species.name])
 				acc_olay.icon = accessory.sprite_sheets[dna.species.name]
 			standing.overlays += acc_olay
+
+		// over_uniform body marks
+		var/body_marking = m_styles["body"]
+		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
+		if(body_marking_style.visible_over_uniform || body_marking_style.name != /datum/sprite_accessory/body_markings/none::name)
+			var/obj/item/organ/external/chest/chest_organ = get_organ(BODY_ZONE_CHEST)
+			if(chest_organ && m_styles["body"])
+				if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
+					var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]-withclothes")
+					if(body_marking_style.do_colouration)
+						b_marking_s.Blend(m_colours["body"], ICON_ADD)
+					standing.overlays += b_marking_s
 
 		// Select which layer to use based on the properties of the hair style.
 		// Hair styles with hair that don't overhang the arms of the glasses should have glasses_over set to a positive value.
