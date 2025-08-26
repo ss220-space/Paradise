@@ -92,7 +92,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
-	breakout_time = 45
+	breakout_time = 4 SECONDS
 	knockdown_amt = 2 SECONDS
 
 
