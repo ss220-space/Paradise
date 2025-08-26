@@ -501,4 +501,113 @@
 	icon_state = "oldsmes"
 	capacity = 2500000
 
+
+// MARK: Portable smes
+
+/obj/machinery/power/smes/portable
+	name = "portable power storage unit"
+	desc = "A high-capacity portable superconducting magnetic energy storage (Portable SMES) unit. Lower capacity then stationary variant, but can be moved to another place."
+	icon_state = "minismes_0"
+	capacity = 3000000
+	interact_offline = TRUE
+	anchored = FALSE
+
+
+/obj/machinery/power/smes/portable/Initialize(mapload)
+	. = ..()
+	stat = 0
+
+
+/obj/machinery/power/smes/portable/wrench_act(mob/living/user, obj/item/tool)
+	if(anchored)
+		do_remove_from_network(user, tool)
+		return TRUE
+	do_anchor_to_network(user, tool)
+	return TRUE
+
+
+/obj/machinery/power/smes/portable/proc/do_anchor_to_network(mob/living/user, obj/item/tool)
+	var/terminal_dir = get_dir(user, src)
+	if(ISDIAGONALDIR(terminal_dir))	//we don't want diagonal click
+		to_chat(user, span_warning("You should face the SMES from any cardinal direction."))
+		return FALSE
+	var/turf/terminal_turf = get_step(src, REVERSE_DIR(terminal_dir))
+	if(!terminal_turf.can_have_cabling() || terminal_turf.intact)	//is the floor plating removed or is it a spaceturf ?
+		to_chat(user, span_warning("You should remove or change the floor plating beneath you."))
+		return FALSE
+	if(user.loc == loc)	// somehow???
+		to_chat(user, span_warning("You must not be on the same tile as the SMES."))
+		return FALSE
+	user.visible_message(
+		span_notice("[user] starts connect terminal to network for the SMES."),
+		span_notice("You start connect terminal to network for the SMES..."),
+	)
+	if(!tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume) || !terminal_turf.can_have_cabling() || terminal_turf.intact)
+		return FALSE
+	var/obj/structure/cable/node = terminal_turf.get_cable_node()
+	if(prob(50) && electrocute_mob(user, node, node, 1, TRUE))
+		do_sparks(5, TRUE, src)
+		return TRUE
+	user.visible_message(
+		span_notice("[user] has connect terminal to network for the SMES."),
+		span_notice("You have finished the connect terminal to network for the SMES."),
+	)
+	make_terminal(terminal_dir, terminal_turf)
+	terminal.add_fingerprint(user)
+	terminal.connect_to_network()
+	anchored = TRUE
+
+
+/obj/machinery/power/smes/portable/proc/do_remove_from_network(mob/living/user, obj/item/tool)
+	var/turf/terminal_turf = get_turf(terminal)
+	if(terminal_turf.intact)
+		to_chat(user, span_warning("You should expose the power terminal first."))
+		return FALSE
+	to_chat(user, span_notice("You start to dismantle the power terminal..."))
+	user.visible_message(
+		span_notice("[user] starts to dismantle the power terminal."),
+		span_notice("You start to dismantle the power terminal..."),
+	)
+	if(!tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume) || QDELETED(terminal) || terminal_turf.intact)
+		return FALSE
+	if(prob(50) && electrocute_mob(user, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
+		do_sparks(5, TRUE, src)
+		return FALSE
+	user.visible_message(
+		span_notice("[user] has dismantled the power terminal."),
+		span_notice("You have dismantled the power terminal."),
+	)
+	inputting = 0 //stop inputting, since we have don't have a terminal anymore
+	qdel(terminal)
+	anchored = FALSE
+
+
+/obj/machinery/power/smes/portable/screwdriver_act(mob/living/user, obj/item/I)
+	return FALSE
+
+/obj/machinery/power/smes/portable/update_icon(updates)
+	. = ..(updates | UPDATE_ICON_STATE)
+
+/obj/machinery/power/smes/portable/update_icon_state()
+	. = ..()
+	var/clevel = chargedisplay()
+	icon_state = "minismes_[clevel]"
+
+
+/obj/machinery/power/smes/portable/chargedisplay()
+	if(charge >= 0.95 * capacity)
+		return 5
+	if(charge >= 0.70 * capacity)
+		return 4
+	if(charge >= 0.50 * capacity)
+		return 3
+	if(charge >= 0.30 * capacity)
+		return 2
+	if(charge >= 0.05 * capacity)
+		return 1
+	return 0
+
+/obj/machinery/power/smes/portable/update_overlays()
+	return
+
 #undef SMESRATE
