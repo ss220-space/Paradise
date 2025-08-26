@@ -10,7 +10,7 @@
 /// How many goals available to choose
 #define AVAILABLE_GOALS_COUNT 6
 /// Refresh goals button activation cooldown
-#define REFRESH_AVAILABLE_GOALS_COOLDOWN (15 MINUTES)
+#define REFRESH_AVAILABLE_GOALS_COOLDOWN (10 SECONDS)
 
 /// Delay between accept goal and send shuttle to station
 #define ACCEPT_GOAL_SHUTTLE_SEND_DELAY 3
@@ -29,10 +29,8 @@
 
 
 
-
-////////////////////////////////////////
 // MARK:	Sybsystem
-////////////////////////////////////////
+
 SUBSYSTEM_DEF(addition_goals)
 	name = "Addition Goals"
 	wait = 1 SECONDS
@@ -46,7 +44,7 @@ SUBSYSTEM_DEF(addition_goals)
 	var/list/available_goals = list()
 	var/datum/addition_goal/current_goal = null
 	var/goals_id_counter = 1
-	var/available_goals_refresh_time = -REFRESH_AVAILABLE_GOALS_COOLDOWN //initially available refresh
+	var/available_goals_refresh_time = -INFINITY //initially available refresh
 	//shuttle stuff
 	var/obj/docking_port/mobile/shuttle
 	var/obj/docking_port/mobile/funeral_shuttle
@@ -80,20 +78,18 @@ SUBSYSTEM_DEF(addition_goals)
 
 
 
-////////////////////////////////////////
 // MARK:	Goals logic
-////////////////////////////////////////
 
 /// Check available refresh
 /datum/controller/subsystem/addition_goals/proc/is_refresh_available()
-	var/current_time = world.time / 10
+	var/current_time = world.time
 	return available_goals_refresh_time + REFRESH_AVAILABLE_GOALS_COOLDOWN <= current_time
 
 /// Refresh available goals list (delete old goals, create new goals)
 /datum/controller/subsystem/addition_goals/proc/refresh_available_goals(force = FALSE)
 	if(!force && !is_refresh_available())
 		return FALSE
-	available_goals_refresh_time = world.time / 10
+	available_goals_refresh_time = world.time
 	for(var/goal as anything in available_goals) // delete old available goals
 		qdel(goal)
 		available_goals -= goal
@@ -170,9 +166,7 @@ SUBSYSTEM_DEF(addition_goals)
 
 
 
-////////////////////////////////////////
 // MARK:	Console logic
-////////////////////////////////////////
 
 /datum/controller/subsystem/addition_goals/proc/print_accept_goal_details(mob/user, datum/addition_goal/goal)
 	var/report = goal.format_accept_report(user)
@@ -204,9 +198,7 @@ SUBSYSTEM_DEF(addition_goals)
 
 
 
-////////////////////////////////////////
 // MARK:	Basic Addition Goal
-////////////////////////////////////////
 
 /datum/addition_goal
 	/// Goal unique identifier (Same type goals can have difficult identifiers)

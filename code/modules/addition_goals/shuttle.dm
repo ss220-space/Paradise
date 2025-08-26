@@ -1,8 +1,6 @@
 // Addition goals shuttle
 
-////////////////////////////////////////
 // MARK:	Machinery
-////////////////////////////////////////
 
 /area/shuttle/addition_goals
 	icon_state = "shuttle3"
@@ -17,9 +15,7 @@
 
 
 
-////////////////////////////////////////
 // MARK:	System logic
-////////////////////////////////////////
 
 /// Try send shuttle to station (call shuttle)
 /datum/controller/subsystem/addition_goals/proc/send_shuttle_to_station(mob/user)
