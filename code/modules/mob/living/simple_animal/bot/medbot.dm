@@ -376,7 +376,7 @@
 										"Что-то всегда идёт не так, но я справлюсь." = 'sound/voice/mcatch.ogg',
 										"А ведь я мог бы стать пластическим хирургом..." = 'sound/voice/msurgeon.ogg',
 										"Что это за медотсек? Все мрут, словно мухи." = 'sound/voice/mflies.ogg',
-										"Замечательно!")
+										"Замечательно!" = 'sound/voice/mcoming.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
 			playsound(loc, messagevoice[message], 50, FALSE)
