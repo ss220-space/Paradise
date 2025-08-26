@@ -139,7 +139,7 @@
 
 /obj/item/clothing/suit/space/nasavoid/green
 	name = "SC CAGI 9 spacesuit"
-	desc = "Тяжелобронированный штурмовой гермокостюм с интегрированными титановыми сегментами. Шарнирные узлы усилены композитными вставками. Произведён TSF."
+	desc = "Тяжелобронированный штурмовой гермокостюм с интегрированными титановыми сегментами. Шарнирные узлы усилены композитными вставками. Произведён ТСФ."
 	icon_state = "void_green"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/shield, /obj/item/grenade)
 	armor = list(MELEE = 40, BULLET = 60, LASER = 40, ENERGY = 15, BOMB = 50, BIO = 100, RAD = 15, FIRE = 30, ACID = 15)
@@ -289,7 +289,7 @@
 
 /obj/item/clothing/head/helmet/space/nasavoid/ltblue
 	name = "NASA medical helmet"
-	desc = "Специализированный лёгкий гермошлем для работы в зонах биологической и химической опасности. Обладает выдающейся защитой от воздействия кислоты и щёлочи. Разработан ICRC и NASA."
+	desc = "Специализированный лёгкий гермошлем для работы в зонах биологической и химической опасности. Обладает выдающейся защитой от воздействия кислоты и щёлочи. Разработан Фондом Красного Креста и NASA."
 	icon_state = "void_light_blue"
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 100, RAD = 50, FIRE = 50, ACID = 100)
 	item_state = "void_light_blue_helmet"
@@ -308,7 +308,7 @@
 
 /obj/item/clothing/suit/space/nasavoid/ltblue
 	name = "NASA medical spacesuit"
-	desc = "Специализированный лёгкий скафандр для работы в зонах биологической и химической опасности. Обладает выдающейся защитой от воздействия кислоты и щёлочи. Можно установить дефибриллятор. Разработан ICRC и NASA."
+	desc = "Специализированный лёгкий скафандр для работы в зонах биологической и химической опасности. Обладает выдающейся защитой от воздействия кислоты и щёлочи. Можно установить дефибриллятор. Разработан Фондом Красного Креста и NASA."
 	icon_state = "void_light_blue"
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical,/obj/item/rad_laser)
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 100, RAD = 50, FIRE = 50, ACID = 100)
@@ -331,7 +331,7 @@
 /obj/item/clothing/head/helmet/space/nasavoid/captain
 	name = "Captain's Hardsuit Helmet"
 	icon_state = "void_captian"
-	desc = "Эксклюзивный гермошлем НаноТрейзен для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Оборудован активной защитой визора и хвойным ароматизатором. Произведено NASA по заказу NT."
+	desc = "Эксклюзивный гермошлем НаноТрейзен для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Оборудован активной защитой визора и хвойным ароматизатором. Произведено NASA по заказу НТ."
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	flash_protect = FLASH_PROTECTION_FLASH
 	item_state = "void_captian_helmet"
@@ -350,7 +350,7 @@
 
 /obj/item/clothing/suit/space/nasavoid/captain
 	name = "Captain's Hardsuit"
-	desc = "Эксклюзивный скафандр НаноТрейзен для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Улучшенная система вентиляции, позолоченные вставки. Не сковывает движений. Произведено NASA по заказу NT."
+	desc = "Эксклюзивный скафандр НаноТрейзен для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Улучшенная система вентиляции, позолоченные вставки. Не сковывает движений. Произведено NASA по заказу НТ."
 	icon_state = "void_captian"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
