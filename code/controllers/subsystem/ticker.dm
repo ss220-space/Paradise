@@ -531,11 +531,11 @@ SUBSYSTEM_DEF(ticker)
 	if(!captainless)
 		return
 
-	for(var/mob/M in GLOB.player_list)
-		if(isnewplayer(M))
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(isnewplayer(mob))
 			return
 
-		to_chat(M, "Captainship not forced on anyone.")
+		to_chat(mob, "Captainship not forced on anyone.")
 
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
