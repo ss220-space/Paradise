@@ -29,7 +29,6 @@
 
 /obj/item/banhammer/meta_hammer
 	desc = "Filled with meta-energy"
-	max_integrity = 1000 //Donate item
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/banhammer/meta_hammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
