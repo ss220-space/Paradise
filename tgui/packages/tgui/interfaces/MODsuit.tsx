@@ -123,7 +123,7 @@ export const MODsuit = (props) => {
       width={600}
       height={600}
       theme={ui_theme}
-      title="MOD Interface Panel"
+      title="Интерфейс управления МЭК"
     >
       <Window.Content scrollable={!interface_break}>
         <MODsuitContent />
@@ -249,7 +249,7 @@ const ConfigurePinEntry = (props) => {
       }
       icon="thumbtack"
       selected={value}
-      tooltip="Pin"
+      tooltip="Закрепить"
       tooltipPosition="left"
     />
   );
@@ -290,7 +290,7 @@ const LockedInterface = () => (
   <Section align="center" fill>
     <Icon color="red" name="exclamation-triangle" size={15} />
     <Box fontSize="30px" color="red">
-      ERROR: INTERFACE UNRESPONSIVE
+      ОШИБКА: ИНТЕРФЕЙС НЕ ОТВЕЧАЕТ
     </Box>
   </Section>
 );
@@ -301,7 +301,7 @@ const LockedModule = (props) => {
     <Dimmer>
       <Stack>
         <Stack.Item fontSize="16px" color="blue">
-          SUIT UNPOWERED
+          КОСТЮМ НЕ ЗАПИТАН
         </Stack.Item>
       </Stack>
     </Dimmer>
@@ -336,24 +336,24 @@ const ConfigureScreen = (props) => {
 const moduleTypeAction = (param) => {
   switch (param) {
     case 1:
-      return 'Use';
+      return 'Использовать';
     case 2:
-      return 'Toggle';
+      return 'Включить/Выключить';
     case 3:
-      return 'Select';
+      return 'Выбрать';
   }
 };
 
 const radiationLevels = (param) => {
   switch (param) {
     case 1:
-      return 'Low';
+      return 'Низкий';
     case 2:
-      return 'Medium';
+      return 'Умеренный';
     case 3:
-      return 'High';
+      return 'Высокий';
     case 4:
-      return 'Extreme';
+      return 'Критический';
   }
 };
 
@@ -372,14 +372,14 @@ const SuitStatusSection = (props) => {
   } = data.suit_status;
   const { display_time, shift_time, shift_id } = data.module_custom_status;
   const status = malfunctioning
-    ? 'Malfunctioning'
+    ? 'Неисправен'
     : active
-      ? 'Active'
-      : 'Inactive';
+      ? 'Активен'
+      : 'Не активен';
 
   return (
     <Section
-      title="Suit Status"
+      title="Статус"
       fill
       buttons={
         <Button
@@ -391,7 +391,7 @@ const SuitStatusSection = (props) => {
       }
     >
       <LabeledList>
-        <LabeledList.Item label="Charge">
+        <LabeledList.Item label="Заряд">
           <ProgressBar
             value={charge_current / charge_max}
             color={chargebar_color}
@@ -402,32 +402,32 @@ const SuitStatusSection = (props) => {
             {chargebar_string}
           </ProgressBar>
         </LabeledList.Item>
-        <LabeledList.Item label="ID Lock">
+        <LabeledList.Item label="ID блок.">
           <Button
             icon={locked ? 'lock' : 'lock-open'}
             color={locked ? 'good' : 'default'}
-            content={locked ? 'Locked' : 'Unlocked'}
+            content={locked ? 'Заблокирован' : 'Разблокирован'}
             onClick={() => act('lock')}
           />
         </LabeledList.Item>
         {!!open && (
           <LabeledList.Item label="Cover">
-            <Box color="red">Open</Box>
+            <Box color="red">Открыт</Box>
           </LabeledList.Item>
         )}
         {!!seconds_electrified && (
           <LabeledList.Item label="Circuits">
-            <Box color="red">Shorted</Box>
+            <Box color="red">Короткое замыкание</Box>
           </LabeledList.Item>
         )}
       </LabeledList>
 
       {!!display_time && (
-        <Section title="Operation" mt={2}>
-          <LabeledList.Item label="Time">
+        <Section title="Операция" mt={2}>
+          <LabeledList.Item label="Время">
             {active ? shift_time : '00:00:00'}
           </LabeledList.Item>
-          <LabeledList.Item label="Number">
+          <LabeledList.Item label="Номер">
             {active && shift_id ? shift_id : '???'}
           </LabeledList.Item>
         </Section>
@@ -441,11 +441,11 @@ const HardwareSection = (props) => {
   const { control } = data;
   const { core_name } = data.suit_status;
   return (
-    <Section title="Hardware" style={{ textTransform: 'capitalize' }}>
+    <Section title="Оборудование" style={{ textTransform: 'capitalize' }}>
       <LabeledList>
-        <LabeledList.Item label="Control Unit">{control}</LabeledList.Item>
-        <LabeledList.Item label="Core">
-          {core_name || 'No Core Detected'}
+        <LabeledList.Item label="Блок управления">{control}</LabeledList.Item>
+        <LabeledList.Item label="Ядро">
+          {core_name || 'Ядро не обнаружено'}
         </LabeledList.Item>
         <ModParts />
       </LabeledList>
@@ -462,12 +462,12 @@ const ModParts = (props) => {
         return (
           <LabeledList.Item
             key={part.slot}
-            label={`${part.slot} Slot`}
+            label={`${part.slot}`}
             buttons={
               <Button
                 selected={part.deployed}
                 icon={part.deployed ? 'arrow-down' : 'arrow-up'}
-                content={part.deployed ? 'Retract' : 'Deploy'}
+                content={part.deployed ? 'Свернуть' : 'Развернуть'}
                 onClick={() => act('deploy', { ref: part.ref })}
               />
             }
@@ -492,7 +492,6 @@ const UserStatusSection = (props) => {
     loss_tox,
     loss_oxy,
     is_user_irradiated,
-    background_radiation_level,
     body_temperature,
     nutrition,
     dna_unique_identity,
@@ -500,11 +499,11 @@ const UserStatusSection = (props) => {
     viruses,
   } = data.module_custom_status;
   return (
-    <Section title="User Status" fill>
+    <Section title="Пользователь" fill>
       {!active && <LockedModule />}
       <LabeledList>
         {health !== undefined && (
-          <LabeledList.Item label="Health">
+          <LabeledList.Item label="Здоровье">
             <ProgressBar
               value={active ? health / health_max : 0}
               ranges={{
@@ -518,7 +517,7 @@ const UserStatusSection = (props) => {
           </LabeledList.Item>
         )}
         {loss_brute !== undefined && (
-          <LabeledList.Item label="Brute Damage">
+          <LabeledList.Item label="Травмы">
             <ProgressBar
               value={active ? loss_brute / health_max : 0}
               ranges={{
@@ -532,7 +531,7 @@ const UserStatusSection = (props) => {
           </LabeledList.Item>
         )}
         {loss_fire !== undefined && (
-          <LabeledList.Item label="Burn Damage">
+          <LabeledList.Item label="Ожоги">
             <ProgressBar
               value={active ? loss_fire / health_max : 0}
               ranges={{
@@ -546,7 +545,7 @@ const UserStatusSection = (props) => {
           </LabeledList.Item>
         )}
         {loss_oxy !== undefined && (
-          <LabeledList.Item label="Oxy Damage">
+          <LabeledList.Item label="Кислород">
             <ProgressBar
               value={active ? loss_oxy / health_max : 0}
               ranges={{
@@ -560,7 +559,7 @@ const UserStatusSection = (props) => {
           </LabeledList.Item>
         )}
         {loss_tox !== undefined && (
-          <LabeledList.Item label="Tox Damage">
+          <LabeledList.Item label="Токсины">
             <ProgressBar
               value={active ? loss_tox / health_max : 0}
               ranges={{
@@ -573,37 +572,31 @@ const UserStatusSection = (props) => {
             </ProgressBar>
           </LabeledList.Item>
         )}
-        {background_radiation_level !== undefined && (
-          <LabeledList.Item label="Radiation">
+        {is_user_irradiated !== undefined && (
+          <LabeledList.Item label="Радиация">
             {!active ? (
-              'Unknown'
+              'Неизвестно'
             ) : is_user_irradiated ? (
-              <NoticeBox danger>User Irradiated</NoticeBox>
-            ) : background_radiation_level ? (
-              <NoticeBox>
-                {`Background: ${radiationLevels(background_radiation_level)}`}
-              </NoticeBox>
+              <NoticeBox danger>Пользователь облучен</NoticeBox>
             ) : (
-              <NoticeBox info>Not Detected</NoticeBox>
+              <NoticeBox info>Не обнаружено</NoticeBox>
             )}
           </LabeledList.Item>
         )}
         {body_temperature !== undefined && (
-          <LabeledList.Item label="Body Temp">
+          <LabeledList.Item label="Температура">
             {`${active ? Math.round(body_temperature) : 0} K`}
           </LabeledList.Item>
         )}
         {nutrition !== undefined && (
-          <LabeledList.Item label="Satiety Level">
+          <LabeledList.Item label="Сытость">
             {`${active ? Math.round(nutrition) : 0}`}
           </LabeledList.Item>
         )}
-        <LabeledList.Item label="Name">{user_name}</LabeledList.Item>
-        <LabeledList.Item label="Assignment">
-          {user_assignment}
-        </LabeledList.Item>
+        <LabeledList.Item label="Имя">{user_name}</LabeledList.Item>
+        <LabeledList.Item label="Профессия">{user_assignment}</LabeledList.Item>
         {dna_unique_identity !== undefined && (
-          <LabeledList.Item label="Fingerprints">
+          <LabeledList.Item label="Отпечатки">
             <Box
               style={{
                 wordBreak: 'break-all',
@@ -615,7 +608,7 @@ const UserStatusSection = (props) => {
           </LabeledList.Item>
         )}
         {dna_unique_enzymes !== undefined && (
-          <LabeledList.Item label="Enzymes">
+          <LabeledList.Item label="ДНК">
             <Box
               style={{
                 wordBreak: 'break-all',
@@ -628,18 +621,20 @@ const UserStatusSection = (props) => {
         )}
       </LabeledList>
       {!!viruses && (
-        <Section title="Diseases">
+        <Section title="Болезни">
           {viruses.map((virus) => {
             return (
               <Collapsible title={virus.name} key={virus.name}>
                 <LabeledList>
-                  <LabeledList.Item label="Spread">
+                  <LabeledList.Item label="Распространение">
                     {virus.type}
                   </LabeledList.Item>
-                  <LabeledList.Item label="Stage">
+                  <LabeledList.Item label="Стадия">
                     {virus.stage}/{virus.maxstage}
                   </LabeledList.Item>
-                  <LabeledList.Item label="Cure">{virus.cure}</LabeledList.Item>
+                  <LabeledList.Item label="Лечение">
+                    {virus.cure}
+                  </LabeledList.Item>
                 </LabeledList>
               </Collapsible>
             );
@@ -658,22 +653,22 @@ const ModuleSection = (props) => {
 
   return (
     <Section
-      title="Modules"
+      title="Модули"
       fill
-      buttons={`${complexity} of ${complexity_max} complexity used`}
+      buttons={`Использовано ${complexity}/${complexity_max}`}
     >
       {!module_info.length ? (
-        <NoticeBox>No Modules Detected</NoticeBox>
+        <NoticeBox>Модули не обнаружены</NoticeBox>
       ) : (
         <Table>
           <Table.Row header>
-            <Table.Cell colSpan={3}>Actions</Table.Cell>
-            <Table.Cell>Name</Table.Cell>
+            <Table.Cell colSpan={3}>Действия</Table.Cell>
+            <Table.Cell>Название</Table.Cell>
             <Table.Cell width={1} textAlign="center">
               <Button
                 color="transparent"
                 icon="plug"
-                tooltip="Idle Power Cost (Watts)"
+                tooltip="Пассивное потребление(Ватт)"
                 tooltipPosition="top"
               />
             </Table.Cell>
@@ -681,7 +676,7 @@ const ModuleSection = (props) => {
               <Button
                 color="transparent"
                 icon="lightbulb"
-                tooltip="Active Power Cost (Watts)"
+                tooltip="Активное потребление(Ватт)"
                 tooltipPosition="top"
               />
             </Table.Cell>
@@ -689,7 +684,7 @@ const ModuleSection = (props) => {
               <Button
                 color="transparent"
                 icon="bolt"
-                tooltip="Use Energy Cost (Joules)"
+                tooltip="Разовое потребление(Джоули)"
                 tooltipPosition="top"
               />
             </Table.Cell>
@@ -697,7 +692,7 @@ const ModuleSection = (props) => {
               <Button
                 color="transparent"
                 icon="save"
-                tooltip="Complexity"
+                tooltip="Размер"
                 tooltipPosition="top"
               />
             </Table.Cell>
@@ -730,7 +725,7 @@ const ModuleSection = (props) => {
                     }
                     icon="cog"
                     selected={configureState === module.ref}
-                    tooltip="Configure"
+                    tooltip="Настроить"
                     tooltipPosition="left"
                     disabled={module.configuration_data.length === 0}
                   />
@@ -740,7 +735,7 @@ const ModuleSection = (props) => {
                     onClick={() => act('pin', { ref: module.ref })}
                     icon="thumbtack"
                     selected={module.pinned}
-                    tooltip="Pin"
+                    tooltip="Закрепить"
                     tooltipPosition="left"
                     disabled={!module.module_type}
                   />

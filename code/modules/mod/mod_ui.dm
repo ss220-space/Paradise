@@ -8,7 +8,7 @@
 	var/data = list()
 	// Suit information
 	var/suit_status = list(
-		"core_name" = core?.name,
+		"core_name" = core?.declent_ru(NOMINATIVE),
 		"charge_current" = get_charge(),
 		"charge_max" = get_max_charge(),
 		"chargebar_color" = get_chargebar_color(),
@@ -26,8 +26,8 @@
 	data["suit_status"] = suit_status
 	// User information
 	var/user_status = list(
-		"user_name" = wearer ? (wearer.get_authentification_name("Unknown") || "Unknown") : "",
-		"user_assignment" = wearer ? wearer.get_assignment("Unknown", "Unknown", FALSE) : "",
+		"user_name" = wearer ? (wearer.get_authentification_name("Неизвестный") || "Неизвестный") : "",
+		"user_assignment" = wearer ? wearer.get_assignment("Неизвестный", "Неизвестный", FALSE) : "",
 	)
 	data["user_status"] = user_status
 	// Module information
@@ -36,7 +36,7 @@
 	for(var/obj/item/mod/module/module as anything in modules)
 		module_custom_status += module.add_ui_data()
 		module_info += list(list(
-			"module_name" = module.name,
+			"module_name" = module.declent_ru(NOMINATIVE),
 			"description" = module.desc,
 			"module_type" = module.module_type,
 			"module_active" = module.active,
@@ -52,13 +52,13 @@
 			"configuration_data" = module.get_configuration(user),
 		))
 	data["module_custom_status"] = module_custom_status
-	data["control"] = name
+	data["control"] = declent_ru(NOMINATIVE)
 	data["module_info"] = module_info
 	var/part_info = list()
 	for(var/obj/item/part as anything in mod_parts)
 		part_info += list(list(
 			"slot" = english_list(parse_slot_flags(part.slot_flags)),
-			"name" = part.name,
+			"name" = part.declent_ru(NOMINATIVE),
 			"deployed" = part.loc != src,
 			"ref" = part.UID(),
 		))

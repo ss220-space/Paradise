@@ -429,6 +429,12 @@
 	incompatible_modules = list(/obj/item/mod/module/status_readout)
 	tgui_id = "status_readout"
 	origin_tech = "combat=6;biotech=6;syndicate=1"
+	/// Does this show damage types, body temp, satiety
+	var/display_detailed_vitals = TRUE
+	/// Does this show DNA data
+	var/display_dna = FALSE
+	/// Does this show the round ID and shift time?
+	var/display_time = FALSE
 
 /obj/item/mod/module/status_readout/get_ru_names()
 	return list(
@@ -442,31 +448,48 @@
 
 /obj/item/mod/module/status_readout/add_ui_data()
 	. = ..()
-	.["statustime"] = station_time_timestamp()
-	.["statusid"] = GLOB.round_id
-	.["statushealth"] = mod.wearer?.health || 0
-	.["statusmaxhealth"] = mod.wearer?.getMaxHealth() || 0
-	.["statusbrute"] = mod.wearer?.getBruteLoss() || 0
-	.["statusburn"] = mod.wearer?.getFireLoss() || 0
-	.["statustoxin"] = mod.wearer?.getToxLoss() || 0
-	.["statusoxy"] = mod.wearer?.getOxyLoss() || 0
-	.["statustemp"] = mod.wearer?.bodytemperature || 0
-	.["statusnutrition"] = mod.wearer?.nutrition || 0
-	.["statusfingerprints"] = mod.wearer ? md5(mod.wearer.dna.unique_enzymes) : null
-	.["statusdna"] = mod.wearer?.dna.unique_enzymes
-	.["statusviruses"] = null
+	.["display_time"] = display_time
+	.["shift_time"] = station_time_timestamp()
+	.["shift_id"] = GLOB.round_id
+	.["health"] = mod.wearer?.health || 0
+	.["health_max"] = mod.wearer?.getMaxHealth() || 0
+	if(display_detailed_vitals)
+		.["loss_brute"] = mod.wearer?.getBruteLoss() || 0
+		.["loss_fire"] = mod.wearer?.getFireLoss() || 0
+		.["loss_tox"] = mod.wearer?.getToxLoss() || 0
+		.["loss_oxy"] = mod.wearer?.getOxyLoss() || 0
+		.["body_temperature"] = mod.wearer?.bodytemperature || 0
+		.["nutrition"] = mod.wearer?.nutrition || 0
+	if(display_dna)
+		.["dna_unique_identity"] = mod.wearer ? md5(mod.wearer.dna.uni_identity) : null
+		.["dna_unique_enzymes"] = mod.wearer?.dna.unique_enzymes
+	.["viruses"] = null
 	if(!length(mod.wearer?.diseases))
-		return
+		return .
 	var/list/viruses = list()
 	for(var/datum/disease/virus as anything in mod.wearer.diseases)
 		var/list/virus_data = list()
 		virus_data["name"] = virus.name
-		virus_data["type"] = virus.additional_info
+		virus_data["type"] = virus.agent
 		virus_data["stage"] = virus.stage
 		virus_data["maxstage"] = virus.max_stages
 		virus_data["cure"] = virus.cure_text
 		viruses += list(virus_data)
-	.["statusviruses"] = viruses
+	.["viruses"] = viruses
+
+	return .
+
+/obj/item/mod/module/status_readout/get_configuration()
+	. = ..()
+	.["display_detailed_vitals"] = add_ui_configuration("Доп. описание вирусов", "bool", display_detailed_vitals)
+	.["display_dna"] = add_ui_configuration("Отображение ДНК", "bool", display_dna)
+
+/obj/item/mod/module/status_readout/configure_edit(key, value)
+	switch(key)
+		if("display_detailed_vitals")
+			display_detailed_vitals = text2num(value)
+		if("display_dna")
+			display_dna = text2num(value)
 
 ///Camera Module - Puts a camera in the modsuit that the ERT commander can see
 /obj/item/mod/module/ert_camera

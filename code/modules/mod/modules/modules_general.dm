@@ -244,7 +244,7 @@
 
 /obj/item/mod/module/jetpack/get_configuration()
 	. = ..()
-	.["stabilizers"] = add_ui_configuration("Stabilizers", "bool", stabilizers)
+	.["stabilizers"] = add_ui_configuration("Стабилизация", "bool", stabilizers)
 
 /obj/item/mod/module/jetpack/configure_edit(key, value)
 	switch(key)
@@ -379,8 +379,8 @@
 
 /obj/item/mod/module/flashlight/get_configuration()
 	. = ..()
-	.["light_color"] = add_ui_configuration("Light Color", "color", light_color)
-	.["light_range"] = add_ui_configuration("Light Range", "number", mod_light_range)
+	.["light_color"] = add_ui_configuration("Цвет", "color", light_color)
+	.["light_range"] = add_ui_configuration("Дальность", "number", mod_light_range)
 
 /obj/item/mod/module/flashlight/configure_edit(key, value)
 	switch(key)
@@ -477,7 +477,7 @@
 
 /obj/item/mod/module/thermal_regulator/get_configuration()
 	. = ..()
-	.["temperature_setting"] = add_ui_configuration("Temperature", "number", temperature_setting - T0C)
+	.["temperature_setting"] = add_ui_configuration("Температура", "number", temperature_setting - T0C)
 
 /obj/item/mod/module/thermal_regulator/configure_edit(key, value)
 	switch(key)

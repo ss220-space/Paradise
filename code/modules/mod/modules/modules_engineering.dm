@@ -154,10 +154,9 @@
 
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
-	.["userradiated"] = mod.wearer?.radiation || 0
-	.["usertoxins"] = mod.wearer?.getToxLoss() || 0
-	.["usermaxtoxins"] = mod.wearer?.getMaxHealth() || 0
-
+	.["is_user_irradiated"] = mod.wearer.radiation || 0
+	.["health_max"] = mod.wearer?.getMaxHealth() || 0
+	.["loss_tox"] = mod.wearer?.getToxLoss() || 0
 
 ///Emergency Tether - Shoots a grappling hook projectile in 0g that throws the user towards it.
 /obj/item/mod/module/tether
