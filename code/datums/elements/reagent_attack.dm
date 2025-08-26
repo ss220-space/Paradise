@@ -1,6 +1,6 @@
 /datum/element/reagent_attack
 	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH_ON_HOST_DESTROY
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 	/// Which reagent we will inject
 	var/reagent_id
 	/// How much reagent we will inject
@@ -13,11 +13,11 @@
 	var/list/allowed_zones
 
 /datum/element/reagent_attack/Attach(
-	atom/source, 
-	reagent_id, 
-	reagent_amount, 
-	piercing, 
-	reagent_limit, 
+	atom/source,
+	reagent_id,
+	reagent_amount,
+	piercing,
+	reagent_limit,
 	list/allowed_zones
 )
 	. = ..()
@@ -44,7 +44,7 @@
 
 	if(!proximity_flag && mob.a_intent != INTENT_HARM)
 		return
-		
+
 	var/picked_zone = allowed_zones ? pick(allowed_zones) : mob.zone_selected
 
 	if(!can_inject(target, picked_zone))
@@ -53,7 +53,7 @@
 	INVOKE_ASYNC(src, PROC_REF(pre_inject), mob, target, picked_zone)
 
 /datum/element/reagent_attack/proc/can_inject(mob/living/carbon/target, target_zone)
-	if(!istype(target)) 
+	if(!istype(target))
 		return FALSE
 
 	if(!target.reagents)
@@ -68,8 +68,8 @@
 	return TRUE
 
 /datum/element/reagent_attack/proc/pre_inject(
-	mob/source, 
-	mob/living/carbon/target, 
+	mob/source,
+	mob/living/carbon/target,
 	target_zone,
 	reagent_id,
 	reagent_amount
@@ -82,8 +82,8 @@
 	return TRUE
 
 /datum/element/reagent_attack/proc/inject(
-	mob/source, 
-	mob/living/carbon/target, 
+	mob/source,
+	mob/living/carbon/target,
 	target_zone,
 	reagent_id,
 	reagent_amount
@@ -98,8 +98,8 @@
 	reagent_amount = 5
 
 /datum/element/reagent_attack/bee/pre_inject(
-	mob/source, 
-	mob/living/carbon/target, 
+	mob/source,
+	mob/living/carbon/target,
 	target_zone,
 	reagent_id,
 	reagent_amount
@@ -109,7 +109,7 @@
 	if(!bee.beegent)
 		return ..()
 
-	reagent_id = bee.beegent.id // Set parameters and send them into parent without initial() 
+	reagent_id = bee.beegent.id // Set parameters and send them into parent without initial()
 	reagent_amount = rand(1, 5)
 
 	if(!..())
@@ -125,8 +125,8 @@
 	allowed_zones = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 
 /datum/element/reagent_attack/widow/pre_inject(
-	mob/source, 
-	mob/living/carbon/target, 
+	mob/source,
+	mob/living/carbon/target,
 	target_zone,
 	reagent_id,
 	reagent_amount
@@ -136,7 +136,7 @@
 		return ..()
 
 	reagent_amount = 33
-	
+
 	if(!..())
 		return FALSE
 
