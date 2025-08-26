@@ -1,16 +1,14 @@
 [
-
 	{
-		//первая сабмапа.
+
 		"type": "SubmapExtractInsert",
-		"submap_size_x" : 14,
-		"submap_size_y" : 15,
-		"submap_size_z" : 1,
-		"submaps_dmm" : "_maps/map_files/Nova/AbondonedLivingComplex.dmm",
-		"marker_extract" : "/obj/effect/map_effect/marker/mapmanip/submap/extract/AbondonedFitnessRoom",
-		"marker_insert" : "/obj/effect/map_effect/marker/mapmanip/submap/insert/AbondonedFitnessRoom",
-		"submaps_can_repeat" : true //оставьте как есть.
+		"submap_size_x": 14,
+		"submap_size_y": 15,
+		"submap_size_z": 1,
+		"submaps_dmm": "_maps/map_files/nova/submaps/AbondonedLivingComplex.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedFitnessRoom",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedFitnessRoom",
+		"submaps_can_repeat": true
 
     }
-
 ]
