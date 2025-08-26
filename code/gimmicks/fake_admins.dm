@@ -21,7 +21,7 @@
 /datum/fake_administrator
 	var/admin_name = ""
 	var/admin_rank = ADMIN
-	var/type_admin_help = "PM"
+	var/type_admin_help = ADMIN_PM
 	var/list/fake_msgs = list()
 	var/list/special_msgs_for_rank = list() //format: list(list(ADMIN_SA, HADMIN_SA) = list("Снят нахуй"))
 
