@@ -23632,6 +23632,9 @@
 "duJ" = (
 /obj/machinery/suit_storage_unit/rd,
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/closet/crate/secure/biohazard{
+	req_access = list(47)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36904,6 +36907,13 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"frd" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "frf" = (
 /obj/machinery/computer/atmoscontrol,
 /obj/machinery/camera{
@@ -51472,6 +51482,10 @@
 	dir = 9
 	},
 /area/hallway/secondary/exit)
+"hyj" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedFitnessRoom,
+/turf/simulated/wall,
+/area/maintenance/trading)
 "hys" = (
 /obj/machinery/door_control{
 	id = "xeno3";
@@ -61022,6 +61036,13 @@
 	icon_state = "darkpurple"
 	},
 /area/toxins/rdoffice)
+"iWW" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "iWY" = (
 /obj/structure/statue/silver/sec,
 /turf/simulated/floor/plasteel{
@@ -100473,6 +100494,13 @@
 	icon_state = "dark"
 	},
 /area/security/permahallway)
+"oRh" = (
+/obj/structure/railing{
+	dir = 5
+	},
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "oRm" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel{
@@ -106616,6 +106644,13 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/ne)
+"pKJ" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "pKQ" = (
 /obj/machinery/gateway{
 	dir = 4
@@ -119417,6 +119452,13 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/primary/central/nw)
+"rDr" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/northeastcorner,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "rDu" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -122074,6 +122116,13 @@
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
+"rWx" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "rWF" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
@@ -122598,6 +122647,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/starboardaux)
+"sau" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/southwestcorner,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "saw" = (
 /obj/machinery/light,
 /turf/simulated/floor/engine,
@@ -128286,6 +128342,13 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
+"sRS" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "sSb" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -161106,6 +161169,11 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/toilet2)
+"xGQ" = (
+/obj/structure/railing/corner,
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "xGW" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -248897,7 +248965,7 @@ tYf
 bkc
 bkc
 bkc
-bkc
+fvL
 fvL
 fvL
 fvL
@@ -277454,17 +277522,17 @@ uJG
 uJG
 uJG
 uJG
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
+iWW
+sRS
+rWx
+sau
+sRS
+sRS
+sRS
+rWx
+sau
+sRS
+sRS
 ijt
 ijt
 ijt
@@ -277710,8 +277778,8 @@ uJG
 bkc
 uJG
 uJG
-fvL
-fvL
+iWW
+rWx
 fvL
 fvL
 fvL
@@ -277966,8 +278034,8 @@ ngN
 uJG
 uJG
 uJG
-fvL
-fvL
+iWW
+rWx
 fvL
 fvL
 fvL
@@ -278222,8 +278290,8 @@ bkc
 ngN
 uJG
 uJG
-fvL
-fvL
+iWW
+rWx
 fvL
 fvL
 kdb
@@ -278478,8 +278546,8 @@ bkc
 bkc
 uJG
 uJG
-fvL
-fvL
+iWW
+rWx
 fvL
 fvL
 kdb
@@ -278735,7 +278803,7 @@ bkc
 bkc
 ngN
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -278992,7 +279060,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -279249,7 +279317,7 @@ bkc
 bkc
 ngN
 bkc
-fvL
+rWx
 fvL
 fvL
 kdb
@@ -279506,7 +279574,7 @@ bkc
 bkc
 uJG
 uJG
-fvL
+rDr
 fvL
 fvL
 kdb
@@ -279763,7 +279831,7 @@ bkc
 bkc
 ngN
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -280020,7 +280088,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -280277,7 +280345,7 @@ bkc
 bkc
 uJG
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -280308,7 +280376,7 @@ sld
 wXI
 uUw
 dTH
-uUw
+hyj
 uUw
 wYP
 tpe
@@ -280534,7 +280602,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -280791,7 +280859,7 @@ bkc
 bkc
 ngN
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -281048,7 +281116,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -281305,7 +281373,7 @@ bkc
 bkc
 uJG
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -281562,7 +281630,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+rWx
 fvL
 fvL
 kdb
@@ -281819,7 +281887,7 @@ bkc
 bkc
 ngN
 bkc
-fvL
+rDr
 fvL
 fvL
 kdb
@@ -282076,7 +282144,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -282333,7 +282401,7 @@ bkc
 bkc
 uJG
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -282590,8 +282658,8 @@ bkc
 bkc
 ngN
 uJG
-fvL
-fvL
+oRh
+rDr
 fvL
 fvL
 kdb
@@ -282848,8 +282916,8 @@ bkc
 ngN
 uJG
 uJG
-fvL
-fvL
+oRh
+rDr
 fvL
 fvL
 fvL
@@ -283106,8 +283174,8 @@ ngN
 uJG
 uJG
 uJG
-fvL
-fvL
+oRh
+rDr
 fvL
 fvL
 fvL
@@ -283364,8 +283432,8 @@ uJG
 ngN
 uJG
 uJG
-fvL
-fvL
+oRh
+rDr
 fvL
 fvL
 fvL
@@ -283622,19 +283690,19 @@ ngN
 ngN
 uJG
 uJG
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
+oRh
+frd
+rDr
+xGQ
+frd
+frd
+frd
+rDr
+xGQ
+frd
+frd
+frd
+frd
 jmQ
 jmQ
 jmQ
