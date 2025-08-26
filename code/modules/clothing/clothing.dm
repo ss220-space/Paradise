@@ -194,7 +194,7 @@
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
-//Ears: currently only used for headsets and earmuffs
+// MARK: Ears
 /obj/item/clothing/ears
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
@@ -268,7 +268,8 @@
 	return original_ear.attack_hand(user, pickupfireoverride)
 
 
-//Glasses
+// MARK: Glasses
+
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
@@ -342,7 +343,8 @@ BLIND     // can't see anything
 	over_mask = !over_mask
 	to_chat(user, "<span class='notice'>[action_fluff] to be worn [over_mask ? "over" : "under"] a mask.</span>")
 
-//Gloves
+// MARK: Gloves
+
 /obj/item/clothing/gloves
 	name = "gloves"
 	gender = PLURAL //Carn: for grammarically correct text-parsing
@@ -528,7 +530,8 @@ BLIND     // can't see anything
 		. |= accessory.GetAccess()
 
 
-//Head
+// MARK: Head
+
 /obj/item/clothing/head
 	name = "head"
 	gender = MALE
@@ -596,7 +599,8 @@ BLIND     // can't see anything
 		sleep(1.5 SECONDS)
 
 
-//Mask
+// MARK: Mask
+
 /obj/item/clothing/mask
 	name = "mask"
 	gender = FEMALE
@@ -700,7 +704,8 @@ BLIND     // can't see anything
 /obj/item/clothing/mask/proc/change_speech_verb()
     return
 
-//Shoes
+// MARK: Shoes
+
 /obj/item/clothing/shoes
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'
@@ -817,7 +822,8 @@ BLIND     // can't see anything
 	update_equipped_item(update_speedmods = FALSE)
 
 
-//Suit
+// MARK: Suit
+
 /obj/item/clothing/suit
 	name = "suit"
 	gender = MALE
@@ -850,9 +856,9 @@ BLIND     // can't see anything
 		)
 
 	/// Allowed armor plate class
-	var/allowed_armor_plate = ARMOR_PLATE_CLASS_LIGHT
+	var/allowed_armor_plate = BALLISTIC_ARMOR_CLASS_I
 	/// Installed armor plate
-	var/armor_plate = null
+	var/obj/item/armor_plate/armor_plate = null
 
 
 /obj/item/clothing/suit/Initialize(mapload)
@@ -946,7 +952,52 @@ BLIND     // can't see anything
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
 
 
-//Spacesuit
+/obj/item/clothing/suit/attackby(obj/item/item, mob/user, params)
+	if(!istype(item, /obj/item/armor_plate))
+		return ..()
+	var/obj/item/armor_plate/plate = item
+	if(plate.armor_class < allowed_armor_plate)
+		balloon_alert(user, "не совместимо")
+		return ..()
+	balloon_alert(user, "установка бронеплиты")
+	if(!do_after(user, 5 SECONDS, src))
+		return ..()
+	balloon_alert(user, "бронеплита установлена")
+	src.plate = plate
+	plate.forceMove(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/obj/item/clothing/suit/click_alt(mob/user)
+	if(handle_plate_removal(user))
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
+
+
+/obj/item/clothing/suit/proc/handle_plate_removal(mob/user)
+	if(!plate)
+		return FALSE
+	balloon_alert(user, "снятие бронеплиты")
+	if(!do_after(user, 5 SECONDS, src))
+		return FALSE
+	balloon_alert(user, "бронеплита снята")
+	plate.forceMove(user.loc)
+	user.put_in_hands(plate)
+	plate = null
+	return TRUE
+
+
+/obj/item/clothing/under/examine(mob/user)
+	. = ..()
+	if(plate)
+		//TODO exmine text about attached plate
+		return
+	if(allowed_armor_plate == ARMOR_CLASS_NONE)
+		return
+	//TODO examine text about available plate
+
+
+// MARK: Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
 //      Meaning the the suit is defined directly after the corrisponding helmet. Just like below!
 /obj/item/clothing/head/helmet/space
@@ -1069,7 +1120,8 @@ BLIND     // can't see anything
 	return ..()
 
 
-// Under clothing
+// MARK: Under clothing
+
 /obj/item/clothing/under
 	name = "under"
 	gender = MALE
@@ -1161,6 +1213,7 @@ BLIND     // can't see anything
 			. += accessory.acc_overlay
 
 
+// MARK: Under accessory
 /*
   * # can_attach_accessory
   *
@@ -1315,7 +1368,8 @@ BLIND     // can't see anything
 	else
 		..()
 
-// Neck clothing
+// MARK: Neck clothing
+
 /obj/item/clothing/neck
 	name = "necklace"
 	icon = 'icons/obj/clothing/neck.dmi'
@@ -1358,6 +1412,7 @@ BLIND     // can't see anything
 	return ..()
 
 
+// MARK: Traits
 /**
  * Inserts a trait (or multiple traits) into the clothing traits list
  *
