@@ -401,6 +401,7 @@
 		ACCUSATIVE = "магазин пистолета \"Блюститель\" (9 мм)",
 		INSTRUMENTAL = "магазином пистолета \"Блюститель\" (9 мм)",
 		PREPOSITIONAL = "магазине пистолета \"Блюститель\" (9 мм)"
+	)
 
 /obj/item/ammo_box/magazine/enforcer/extended
 	name = "extended handgun magazine (9mm)"
