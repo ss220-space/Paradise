@@ -116,7 +116,7 @@
 		balloon_alert(src, "попытка снять [cuffs.declent_ru(ACCUSATIVE)]...")
 		while(do_after(src, 5 SECONDS, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			cuff_breakout_attempts++
-			if(cuff_breakout_attempts * 5 SECONDS >= breakout_time || (prob(cuff_breakout_attempts/4)))
+			if(cuff_breakout_attempts * 5 SECONDS >= breakout_time || (prob(cuff_breakout_attempts / 4)))
 				. = clear_cuffs(cuffs, cuff_break)
 				break
 			else if(prob(4))
