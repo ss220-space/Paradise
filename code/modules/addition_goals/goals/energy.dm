@@ -7,7 +7,7 @@
 
 /datum/addition_goal/energy_support
 	id = "energy_support"
-	name = "Шаттл с запросом энергии"
+	name = "Шаттл запроса энергии"
 	var/smes_count
 
 
