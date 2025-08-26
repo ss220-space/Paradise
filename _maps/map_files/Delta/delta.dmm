@@ -1803,6 +1803,15 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/eastarrival)
+"aqZ" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall/rust,
+/area/maintenance/consarea_virology)
 "ara" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -33031,6 +33040,12 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/serviceyard)
 "dvR" = (
@@ -44676,6 +44691,16 @@
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
+"fbA" = (
+/obj/structure/lattice,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/turf/space,
+/area/space)
 "fbF" = (
 /obj/structure/chair/office/light{
 	dir = 1
@@ -67271,7 +67296,10 @@
 	pixel_y = -26
 	},
 /obj/structure/cable,
-/obj/structure/closet/secure_closet/security_grenade_launcher,
+/obj/structure/safe{
+	known_by = list("hos")
+	},
+/obj/item/gun/projectile/bombarda/secgl/x4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -110999,6 +111027,10 @@
 	icon_state = "grimy"
 	},
 /area/maintenance/detectives_office)
+"uzJ" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/maints_med_viro_passage,
+/turf/simulated/wall/rust,
+/area/maintenance/asmaint4)
 "uzL" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -117635,6 +117667,15 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/security/checkpoint)
+"wcj" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/maintenance/consarea_virology)
 "wcl" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -180764,7 +180805,7 @@ kLL
 kLL
 kLL
 kTT
-kTT
+aqZ
 kTT
 coE
 aaq
@@ -180772,7 +180813,7 @@ aaq
 coE
 jsC
 qrM
-nIH
+uzJ
 fsG
 mKB
 mrU
@@ -182563,7 +182604,7 @@ aAE
 aAE
 aAE
 aAE
-aAE
+wcj
 kTT
 kTT
 acF
@@ -182571,7 +182612,7 @@ htO
 coE
 aaq
 aaq
-coE
+fbA
 fsG
 spX
 jKj
