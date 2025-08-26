@@ -186,12 +186,12 @@
 
 /obj/item/tank/jetpack/void/get_ru_names()
 	ru_names = list(
-		NOMINATIVE = "вакуумный реактивный ранец (Oxygen)",
-		GENITIVE = "вакуумного реактивного ранца (Oxygen)",
-		DATIVE = "вакуумному реактивному ранцу (Oxygen)",
-		ACCUSATIVE = "вакуумный реактивный ранец (Oxygen)",
-		INSTRUMENTAL = "вакуумным реактивным ранцем (Oxygen)",
-		PREPOSITIONAL = "вакуумном реактивном ранце (Oxygen)"
+		NOMINATIVE = "вакуумный реактивный ранец (Кислород)",
+		GENITIVE = "вакуумного реактивного ранца (Кислород)",
+		DATIVE = "вакуумному реактивному ранцу (Кислород)",
+		ACCUSATIVE = "вакуумный реактивный ранец (Кислород)",
+		INSTRUMENTAL = "вакуумным реактивным ранцем (Кислород)",
+		PREPOSITIONAL = "вакуумном реактивном ранце (Кислород)"
 	)
 
 /obj/item/tank/jetpack/oxygen
