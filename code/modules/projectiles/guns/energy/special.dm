@@ -714,11 +714,13 @@
 	shaded_charge = TRUE
 	charge_sections = 3
 	ammo_type = list(
+		/obj/item/ammo_casing/energy/dominator/stun,
 		/obj/item/ammo_casing/energy/dominator/paralyzer,
 		/obj/item/ammo_casing/energy/dominator/eliminator,
 	)
 	/// Sounds played after selecting the firemode, must be in the same order as ammo_type
 	var/sound_voice = list(
+		null,
 		'sound/voice/dominator/nonlethal-paralyzer.ogg',
 		'sound/voice/dominator/lethal-eliminator.ogg',
 		'sound/voice/dominator/execution-slaughter.ogg',
