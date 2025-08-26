@@ -471,8 +471,7 @@ GLOBAL_LIST_EMPTY(safes)
 		PREPOSITIONAL = "напольном сейфе"
 	)
 
-
-/obj/structure/safe/floor/Initialize()
+/obj/structure/safe/floor/Initialize(mapload)
 	. = ..()
 	var/turf/T = loc
 	if(!T.transparent_floor)

@@ -8,6 +8,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_GUARDIAN = 0,
 	ROLE_TRAITOR = 7,
 	ROLE_MALF_AI = 7,
+	ROLE_ESCAPING_PRISONER = 7,
 	ROLE_THIEF = 7,
 	ROLE_CHANGELING = 14,
 	ROLE_SHADOWLING = 14,

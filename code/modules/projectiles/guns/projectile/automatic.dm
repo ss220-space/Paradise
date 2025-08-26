@@ -121,7 +121,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 
-/obj/item/gun/projectile/automatic/c20r/Initialize()
+/obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
 	. = ..()
 	update_icon()
 

@@ -515,7 +515,7 @@
 /mob/living/simple_animal/update_fire()
 	if(!can_be_on_fire)
 		return
-	var/static/simple_mob_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "Generic_mob_burning")
+	var/static/simple_mob_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "human_generic_burn")
 	cut_overlay(simple_mob_fire_olay)
 	if(on_fire)
 		add_overlay(simple_mob_fire_olay)

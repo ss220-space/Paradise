@@ -20,6 +20,9 @@
 			user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			var/shove_dir = get_dir(user, src)
+			if(!prob(10))
+				to_chat(user, span_danger("Вам не удалось [response_disarm_simple] [declent_ru(ACCUSATIVE)]!"))
+				return TRUE
 			if(!Move(get_step(src, shove_dir), shove_dir))
 				add_attack_logs(user, src, "толкнул")
 				visible_message(span_danger("[user] [response_disarm_continuous] [src.declent_ru(ACCUSATIVE)]!"), \

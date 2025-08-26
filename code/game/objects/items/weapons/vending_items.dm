@@ -212,7 +212,7 @@
 	var/list/datum/money_account/accounts_weights = list()
 	var/sum_of_weigths = 0
 
-/obj/item/vending_refill/custom/Initialize()
+/obj/item/vending_refill/custom/Initialize(mapload)
 	linked_accounts = list(GLOB.station_account)
 	accounts_weights = list(100)
 	sum_of_weigths = 100
