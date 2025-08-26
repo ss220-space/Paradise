@@ -129,15 +129,15 @@
 
 	var/list/modifiers = params2list(params) //If they're shift+clicking, for example, let's not have them accidentally shoot.
 
-	if(modifiers["shift"])
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		return
-	if(modifiers["ctrl"])
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		return
-	if(modifiers["middle"])
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		return
-	if(modifiers["right"])
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		return
-	if(modifiers["alt"])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		return
 	if(source.mob.in_throw_mode)
 		return

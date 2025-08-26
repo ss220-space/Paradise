@@ -229,8 +229,7 @@
 				++bulls
 			else
 				++cows
-	to_chat(user, span_notice("В последней попытке [bulls] [declension_ru(bulls,"цифра","цирфы","цифр")] на правильных позициях и [cows] [declension_ru(cows,"правильная цифра","правильные цирфы","правильных цифр")] на неправильных позициях."))
-
+	to_chat(user, span_notice("В последней попытке [bulls] [declension_ru(bulls,"цифра","цифры","цифр")] на правильных позициях и [cows] [declension_ru(cows,"правильная цифра","правильные цифры","правильных цифр")] на неправильных позициях."))
 
 
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user)
@@ -248,3 +247,9 @@
 
 /obj/structure/closet/crate/secure/loot/deconstruct(disassembled = TRUE)
 	boom()
+
+/obj/structure/closet/crate/secure/loot/shove_impact(mob/living/target, mob/living/attacker)
+	if(locked)
+		return FALSE
+
+	return ..()

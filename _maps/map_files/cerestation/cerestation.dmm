@@ -50252,7 +50252,11 @@
 	},
 /area/hallway/primary/starboard/north)
 "kEz" = (
-/obj/structure/closet/secure_closet/security_grenade_launcher,
+/obj/structure/safe{
+	known_by = list("hos")
+	},
+/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/item/gun/projectile/bombarda/secgl/x4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -119970,7 +119974,7 @@ chw
 ioE
 bqI
 sky
-kEz
+ioE
 loh
 ioE
 akW

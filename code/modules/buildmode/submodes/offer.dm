@@ -6,10 +6,10 @@
 	var/hide_role
 
 /datum/buildmode_mode/offer/show_help(mob/user)
-	to_chat(user, span_notice("***********************************************************"))
-	to_chat(user, span_notice("ЛКМ по существу, чтобы предложить его"))
-	to_chat(user, span_notice("ПКМ по кнопке билдмода, чтобы изменить необходимое количество часов, необходимое для управления существом"))
-	to_chat(user, span_notice("***********************************************************"))
+	to_chat(user, span_purple(chat_box_examine(
+		"[span_bold("Предложить существо")] -> ЛКМ по существу\n\
+		[span_bold("Изменить необходимое количество часов, необходимое для управления существом")] -> ПКМ по кнопке билдмода"))
+	)
 
 /datum/buildmode_mode/offer/change_settings(mob/user)
 	hours = tgui_input_number(user, "Необходимое число часов", "Ввод", 20)
