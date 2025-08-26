@@ -594,6 +594,6 @@
 
 /datum/gear/donor/meta_banhammer
 	donator_tier = 4
-	cost = 1
+	cost = 2
 	index_name = "meta-banhammer"
 	path = /obj/item/banhammer/meta_hammer
