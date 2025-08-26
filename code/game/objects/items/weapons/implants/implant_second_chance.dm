@@ -20,7 +20,7 @@
 		imp_in.rejuvenate()
 		investigate_log("[key_name_log(imp_in)] fake-gib himself using [name] and teleports to [COORD(new_turf)].", INVESTIGATE_TELEPORTATION)
 
-		explosion(old_turf, 0, 0, 3, 6, cause = imp_in)
+		explosion(old_turf, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, flash_range = 6, cause = imp_in)
 
 		if(isnucleation(imp_in))
 			imp_in.visible_message(span_warning("Тело [imp_in] взрывается, оставляя после себя множество микроскопических кристаллов!"))
@@ -35,7 +35,7 @@
 
 	else
 		to_chat(imp_in, span_userdanger("[src] is malfunctioning!"))
-		explosion(old_turf, 0, 0, 3, 6, cause = imp_in)
+		explosion(old_turf, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, flash_range = 6, cause = imp_in)
 	qdel(src)
 
 

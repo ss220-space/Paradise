@@ -26,17 +26,26 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
  * allowed to romp unchecked.
  */
 /datum/dmm_suite/proc/load_map(dmm_file, x_offset = 0, y_offset = 0, z_offset = 0, shouldCropMap = FALSE, measureOnly = FALSE)
-	var/tfile = dmm_file// the map file we're creating
+	var/map_data
 	var/fname = "Lambda"
-	if(isfile(tfile))
-		fname = "[tfile]"
+	if(isfile(dmm_file))
+		fname = "[dmm_file]"
 		// Make sure we dont load a dir up
 		var/lastchar = copytext(fname, -1)
 		if(lastchar == "/" || lastchar == "\\")
-			log_debug("Attempted to load map template without filename (Attempted [tfile])")
+			log_debug("Attempted to load map template without filename (Attempted [dmm_file])")
 			return
-		tfile = wrap_file2text(tfile)
-		if(!length(tfile))
+
+		// use rustlib to read, parse, process, mapmanip etc
+		// this will "crash"/stacktrace on fail
+		// is not passed `dmm_file` because byondapi-rs doesn't support resource types yet
+		map_data = mapmanip_read_dmm(fname)
+		// if rustlib for whatever reason fails and returns null
+		// try to load it the old dm way instead
+		if(!map_data)
+			map_data = wrap_file2text(dmm_file)
+
+		if(!LAZYLEN(map_data))
 			throw EXCEPTION("Map path '[fname]' does not exist!")
 
 	if(!x_offset)
@@ -51,13 +60,14 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/key_len = 0
 
 	var/datum/dmm_suite/loaded_map/LM = new
-	// This try-catch is used as a budget "Finally" clause, as the dirt count
-	// needs to be reset
+	// This try-catch is used as a budget "Finally" clause, as the dirt count.
+	// needs to be reset.
 	var/watch = start_watch()
 	log_debug("[measureOnly ? "Measuring" : "Loading"] map: [fname]")
+
 	try
 		LM.index = 1
-		while(dmmRegex.Find(tfile, LM.index))
+		while(dmmRegex.Find(map_data, LM.index))
 			LM.index = dmmRegex.next
 
 			// "aa" = (/type{vars=blah})
@@ -65,9 +75,9 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				var/key = dmmRegex.group[1]
 				if(grid_models[key]) // Duplicate model keys are ignored in DMMs
 					continue
-				if(key_len != length(key))
+				if(key_len != LAZYLEN(key))
 					if(!key_len)
-						key_len = length(key)
+						key_len = LAZYLEN(key)
 					else
 						throw EXCEPTION("Inconsistent key length in DMM")
 				if(!measureOnly)
@@ -100,18 +110,18 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				var/list/gridLines = splittext(dmmRegex.group[6], "\n")
 
 				var/leadingBlanks = 0
-				while(leadingBlanks < gridLines.len && gridLines[++leadingBlanks] == "")
+				while(leadingBlanks < LAZYLEN(gridLines) && gridLines[++leadingBlanks] == "")
 				if(leadingBlanks > 1)
 					gridLines.Cut(1, leadingBlanks) // Remove all leading blank lines.
 
-				if(!gridLines.len) // Skip it if only blank lines exist.
+				if(!LAZYLEN(gridLines)) // Skip it if only blank lines exist.
 					continue
 
-				if(gridLines.len && gridLines[gridLines.len] == "")
-					gridLines.Cut(gridLines.len) // Remove only one blank line at the end.
+				if(LAZYLEN(gridLines) && gridLines[LAZYLEN(gridLines)] == "")
+					gridLines.Cut(LAZYLEN(gridLines)) // Remove only one blank line at the end.
 
 				bounds[MAP_MINY] = min(bounds[MAP_MINY], ycrd)
-				ycrd += gridLines.len - 1 // Start at the top and work down
+				ycrd += LAZYLEN(gridLines) - 1 // Start at the top and work down
 
 				if(!shouldCropMap && ycrd > world.maxy)
 					if(!measureOnly)
@@ -123,12 +133,12 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				var/maxx = xcrdStart
 				if(measureOnly)
 					for(var/line in gridLines)
-						maxx = max(maxx, xcrdStart + length(line) / key_len - 1)
+						maxx = max(maxx, xcrdStart + LAZYLEN(line) / key_len - 1)
 				else
 					for(var/line in gridLines)
 						if(ycrd <= world.maxy && ycrd >= 1)
 							xcrd = xcrdStart
-							for(var/tpos = 1 to (length(line) - key_len + 1) step key_len)
+							for(var/tpos = 1 to (LAZYLEN(line) - key_len + 1) step key_len)
 								if(xcrd > world.maxx)
 									if(shouldCropMap)
 										break
@@ -157,6 +167,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	GLOB._preloader.reset()
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
+	
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
 		CRASH("Bad Map bounds in [fname], Min x: [bounds[MAP_MINX]], Min y: [bounds[MAP_MINY]], Min z: [bounds[MAP_MINZ]], Max x: [bounds[MAP_MAXX]], Max y: [bounds[MAP_MAXY]], Max z: [bounds[MAP_MAXZ]]")
 	else
@@ -231,7 +242,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			var/list/fields = list()
 
 			if(variables_start) // if there's any variable
-				full_def = copytext(full_def, variables_start + 1, length(full_def)) // removing the last '}'
+				full_def = copytext(full_def, variables_start + 1, LAZYLEN(full_def)) // removing the last '}'
 				fields = readlist(full_def, ";")
 
 				for(var/I in fields)
@@ -420,11 +431,11 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 	// Check for list
 	else if(copytext(value_text, 1, 5) == "list")
-		. = readlist(copytext(value_text, 6, length(value_text)))
+		. = readlist(copytext(value_text, 6, LAZYLEN(value_text)))
 
 	// Check for file
 	else if(copytext(value_text, 1, 2) == "'")
-		. = wrap_file(copytext(value_text, 2, length(value_text)))
+		. = wrap_file(copytext(value_text, 2, LAZYLEN(value_text)))
 
 	// Check for path
 	else if(ispath(text2path(value_text)))

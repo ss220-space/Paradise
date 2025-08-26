@@ -16,7 +16,12 @@
 	var/weight_mod	= 1
 	/// A list of roles that add weight to the event
 	var/list/role_weights = list()
+	/// Whether or not the event will be return to event container.
+	var/readd_to_rotation = TRUE
 	var/datum/event/event_type
+
+/datum/event_meta/force
+	readd_to_rotation = FALSE
 
 /datum/event_meta/New(event_severity, event_name, datum/event/type, event_weight, list/job_weights, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY)
 	name = event_name

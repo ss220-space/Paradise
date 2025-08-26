@@ -46,7 +46,7 @@
 	imp_in.SetKnockdown(0)
 	imp_in.SetImmobilized(0)
 	imp_in.SetParalysis(0)
-	imp_in.adjustStaminaLoss(-100)
+	imp_in.setStaminaLoss(0)
 	imp_in.set_resting(FALSE, instant = TRUE)
 	imp_in.get_up(instant = TRUE)
 
@@ -89,7 +89,7 @@
 	imp_in.SetKnockdown(0)
 	imp_in.SetImmobilized(0)
 	imp_in.SetParalysis(0)
-	imp_in.adjustStaminaLoss(-100)
+	imp_in.setStaminaLoss(0)
 	imp_in.set_resting(FALSE, instant = TRUE)
 	imp_in.get_up(instant = TRUE)
 

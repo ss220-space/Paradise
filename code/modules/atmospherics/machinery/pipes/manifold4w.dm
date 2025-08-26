@@ -179,7 +179,7 @@
 	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers
-	name="4-way scrubbers pipe manifold"
+	name = "4-way scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map_4way-scrubbers"
 	connect_types = list(3)
@@ -189,7 +189,7 @@
 	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/supply
-	name="4-way air supply pipe manifold"
+	name = "4-way air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map_4way-supply"
 	connect_types = list(2)

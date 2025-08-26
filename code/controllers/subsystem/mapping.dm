@@ -226,6 +226,7 @@ SUBSYSTEM_DEF(mapping)
 
 	// World name
 	GLOB.station_name = station_name()
+	GLOB.english_station_name = english_station_name()
 	update_world_name()
 
 	return SS_INIT_SUCCESS
@@ -237,7 +238,7 @@ SUBSYSTEM_DEF(mapping)
 	var/list/world_turf_contents = GLOB.areas_by_type[world.area].contained_turfs
 	var/list/lists_to_reserve = src.lists_to_reserve
 	var/index = 0
-	while(length(lists_to_reserve))
+	while(index < length(lists_to_reserve))
 		var/list/packet = lists_to_reserve[index + 1]
 		var/packetlen = length(packet)
 		while(packetlen)
@@ -245,14 +246,14 @@ SUBSYSTEM_DEF(mapping)
 				if(index)
 					lists_to_reserve.Cut(1, index)
 				return
-			var/turf/T = packet[packetlen]
-			T.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
-			LAZYINITLIST(unused_turfs["[T.z]"])
-			unused_turfs["[T.z]"] |= T
-			var/area/old_area = T.loc
-			old_area.turfs_to_uncontain += T
-			T.turf_flags |= UNUSED_RESERVATION_TURF
-			world_turf_contents += T
+			var/turf/reserving_turf = packet[packetlen]
+			reserving_turf.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
+			LAZYINITLIST(unused_turfs["[reserving_turf.z]"])
+			unused_turfs["[reserving_turf.z]"] |= reserving_turf
+			var/area/old_area = reserving_turf.loc
+			old_area.turfs_to_uncontain += reserving_turf
+			reserving_turf.turf_flags |= UNUSED_RESERVATION_TURF
+			world_turf_contents += reserving_turf
 			packet.len--
 			packetlen = length(packet)
 
@@ -367,7 +368,7 @@ SUBSYSTEM_DEF(mapping)
 		return
 
 	var/watch = start_watch()
-	log_startup_progress("Loading [map_datum.station_name]...")
+	log_startup_progress("Loading [map_datum.english_station_name]...")
 	var/map_z_level
 	if(map_datum.traits && map_datum.traits?.len && islist(map_datum.traits[1])) // we work with list of lists
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])
@@ -380,7 +381,7 @@ SUBSYSTEM_DEF(mapping)
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
-	log_startup_progress("Loaded [map_datum.station_name] in [stop_watch(watch)]s")
+	log_startup_progress("Loaded [map_datum.english_station_name] in [stop_watch(watch)]s")
 
 	// Save station name in the DB
 	if(!SSdbcore.IsConnected())

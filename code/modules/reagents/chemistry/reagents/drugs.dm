@@ -389,6 +389,7 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	heart_rate_increase = 1
 	taste_description = "бодрости"
+	tags = REAGENT_TAG_ANTI_STUN
 
 
 /datum/reagent/methamphetamine/on_mob_add(mob/living/user)
@@ -468,6 +469,7 @@
 	shock_reduction = 60
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "нереальной бодрости"
+	tags = REAGENT_TAG_ANTI_STUN
 
 
 /datum/reagent/bath_salts/on_mob_add(mob/living/carbon/human/user)
@@ -1088,6 +1090,7 @@
 	taste_description = "неприятной горечи с примесью бедности"
 	shock_reduction = 100
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/crack/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1127,6 +1130,7 @@
 	taste_description = "легкой горечи, переходящей в чувство онемения"
 	shock_reduction = 140
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/cocaine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

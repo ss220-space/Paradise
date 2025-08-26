@@ -239,7 +239,7 @@
 	investigate_log("E20 detonated with a roll of [actual_result]. Triggered by: [key_name_log(user)]", INVESTIGATE_BOMB)
 	add_game_logs("threw E20, detonating at [AREACOORD(epicenter)] with a roll of [actual_result].", user)
 	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)
-	explosion(epicenter, round(result * 0.25), round(result * 0.5), round(result), round(result * 1.5), TRUE, capped, cause = key_name(user)+" E20")
+	explosion(epicenter, devastation_range = round(result * 0.25), heavy_impact_range = round(result * 0.5), light_impact_range = round(result), flash_range = round(result * 1.5), adminlog = TRUE, ignorecap = capped, cause = (key_name(user)+" E20"))
 
 
 // Die of Fate
@@ -338,7 +338,7 @@
 		if(8)
 			//Fueltank Explosion
 			T.visible_message(span_userdanger("An explosion bursts into existence around [user]!"))
-			explosion(get_turf(user),-1,0,2, flame_range = 2, cause = src)
+			explosion(get_turf(user), devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flame_range = 2, cause = src)
 		if(9)
 			//Cold
 			T.visible_message(span_userdanger("[user] looks a little under the weather!"))

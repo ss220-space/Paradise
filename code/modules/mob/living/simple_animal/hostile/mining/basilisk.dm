@@ -57,13 +57,13 @@
 		if(isliving(target) && !target.Adjacent(targets_from) && ranged_cooldown <= world.time)//No more being shot at point blank or spammed with RNG beams
 			OpenFire(target)
 
-/mob/living/simple_animal/hostile/asteroid/basilisk/ex_act(severity)
+/mob/living/simple_animal/hostile/asteroid/basilisk/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			gib()
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(140)
-		if(3)
+		if(EXPLODE_LIGHT)
 			adjustBruteLoss(110)
 
 //Watcher
@@ -221,7 +221,7 @@
 			L.adjust_fire_stacks(3)
 			L.IgniteMob()
 			if(L.getFireLoss() > 50)
-				explosion(L.loc, 0, 0, 0, 0, flame_range = 3)
+				explosion(L.loc, adminlog = FALSE, flame_range = 3)
 				L.AdjustWeakened(1 SECONDS)
 
 /obj/projectile/temp/basilisk/icewing

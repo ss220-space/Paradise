@@ -313,6 +313,9 @@
 	name = "Ladies Thong"
 	icon_state = "thong_female"
 
+/datum/sprite_accessory/underwear/female/colorized/female_lingerie
+	name = "Ladies Lingerie"
+	icon_state = "female_lingerie"
 ////////////////////////////
 // Undershirt Definitions //
 ////////////////////////////
@@ -385,6 +388,10 @@
 	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
 	)
+
+/datum/sprite_accessory/undershirt/shirt_colorized/female/female_hoodie
+	name = "Female Colorized Crop Hoodie"
+	icon_state = "fem_hoody"
 
 //end plain color shirts
 
