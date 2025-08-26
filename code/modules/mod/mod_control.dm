@@ -636,6 +636,12 @@
 /obj/item/mod/control/proc/check_charge(amount)
 	return core?.check_charge(amount) || FALSE
 
+/obj/item/mod/control/proc/get_chargebar_color()
+	return core?.get_chargebar_color() || "transparent"
+
+/obj/item/mod/control/proc/get_chargebar_string()
+	return core?.get_chargebar_string() || "No Core Detected"
+
 /obj/item/mod/control/proc/update_charge_alert()
 	if(!wearer)
 		return

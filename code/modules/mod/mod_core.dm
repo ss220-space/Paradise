@@ -44,6 +44,17 @@
 /obj/item/mod/core/proc/update_charge_alert()
 	mod.wearer.clear_alert("mod_charge")
 
+/// Gets what the UI should use for the charge bar color.
+/obj/item/mod/core/proc/get_chargebar_color()
+	return "bad"
+
+/// Gets what the UI should use for the charge bar text.
+/obj/item/mod/core/proc/get_chargebar_string()
+	var/charge_amount = charge_amount()
+	var/max_charge_amount = max_charge_amount()
+	return "[display_joules(charge_amount)] of [display_joules(max_charge_amount())] \
+		([round((100 * charge_amount) / max_charge_amount, 1)]%)"
+
 /obj/item/mod/core/infinite //Admin only.
 	name = "MOD infinite core"
 	icon_state = "mod-core-infinite"
@@ -66,6 +77,12 @@
 
 /obj/item/mod/core/infinite/check_charge(amount)
 	return TRUE
+
+/obj/item/mod/core/infinite/get_chargebar_color()
+	return "teal"
+
+/obj/item/mod/core/infinite/get_chargebar_string()
+	return "Infinite"
 
 
 /obj/item/mod/core/standard
@@ -157,6 +174,22 @@
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 3)
 		else
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/emptycell)
+
+/obj/item/mod/core/standard/get_chargebar_color()
+	if(isnull(charge_source()))
+		return "transparent"
+	switch(round(charge_amount() / max_charge_amount(), 0.01))
+		if(-INFINITY to 0.33)
+			return "bad"
+		if(0.33 to 0.66)
+			return "average"
+		if(0.66 to INFINITY)
+			return "good"
+
+/obj/item/mod/core/standard/get_chargebar_string()
+	if(isnull(charge_source()))
+		return "Power Cell Missing"
+	return ..()
 
 /obj/item/mod/core/standard/emp_act(severity)
 	cell?.emp_act(severity)
@@ -305,6 +338,13 @@
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 3)
 		else
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/emptycell)
+
+/obj/item/mod/core/plasma/get_chargebar_color()
+	switch(round(charge_amount() / max_charge_amount(), 0.01))
+		if(-INFINITY to 0.33)
+			return "bad"
+		if(0.33 to INFINITY)
+			return "purple"
 
 /obj/item/mod/core/plasma/on_attackby(obj/item/attacking_item, mob/user, params)
 	charge_plasma(attacking_item, user)

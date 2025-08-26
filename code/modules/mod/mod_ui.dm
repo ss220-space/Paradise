@@ -6,67 +6,88 @@
 
 /obj/item/mod/control/ui_data(mob/user)
 	var/data = list()
-	data["interface_break"] = interface_break
-	data["malfunctioning"] = malfunctioning
-	data["open"] = open
-	data["active"] = active
-	data["locked"] = locked
-	data["complexity"] = complexity
-	data["selected_module"] = selected_module?.name
-	data["wearer_name"] = wearer ? (wearer.get_authentification_name("Unknown") || "Unknown") : "No Occupant"
-	data["wearer_job"] = wearer ? wearer.get_assignment("Unknown", "Unknown", FALSE) : "No Job"
-	data["core"] = core?.name
-	data["charge"] = get_charge_percent()
-	data["modules"] = list()
+	// Suit information
+	var/suit_status = list(
+		"core_name" = core?.name,
+		"charge_current" = get_charge(),
+		"charge_max" = get_max_charge(),
+		"chargebar_color" = get_chargebar_color(),
+		"chargebar_string" = get_chargebar_string(),
+		"active" = active,
+		// Wires
+		"open" = open,
+		"seconds_electrified" = seconds_electrified,
+		"malfunctioning" = malfunctioning,
+		"locked" = locked,
+		"interface_break" = interface_break,
+		// Modules
+		"complexity" = complexity,
+	)
+	data["suit_status"] = suit_status
+	// User information
+	var/user_status = list(
+		"user_name" = wearer ? (wearer.get_authentification_name("Unknown") || "Unknown") : "",
+		"user_assignment" = wearer ? wearer.get_assignment("Unknown", "Unknown", FALSE) : "",
+	)
+	data["user_status"] = user_status
+	// Module information
+	var/module_custom_status = list()
+	var/module_info = list()
 	for(var/obj/item/mod/module/module as anything in modules)
-		var/list/module_data = list(
+		module_custom_status += module.add_ui_data()
+		module_info += list(list(
 			"module_name" = module.name,
 			"description" = module.desc,
 			"module_type" = module.module_type,
 			"module_active" = module.active,
-			"pinned" = module.pinned_to[user.UID()], //might just want user here
+			"pinned" = module.pinned_to[user.UID()],
 			"idle_power" = module.idle_power_cost,
 			"active_power" = module.active_power_cost,
-			"use_power" = module.use_power_cost,
+			"use_energy" = module.use_power_cost,
 			"module_complexity" = module.complexity,
 			"cooldown_time" = module.cooldown_time,
 			"cooldown" = round(COOLDOWN_TIMELEFT(module, cooldown_timer), 1 SECONDS),
-			"ref" = module.module_UID, //might just want user here
 			"id" = module.tgui_id,
-			"configuration_data" = module.get_configuration()
-		)
-		module_data += module.add_ui_data()
-		data["modules"] += list(module_data)
+			"ref" = module.UID(),
+			"configuration_data" = module.get_configuration(user),
+		))
+	data["module_custom_status"] = module_custom_status
+	data["control"] = name
+	data["module_info"] = module_info
+	var/part_info = list()
+	for(var/obj/item/part as anything in mod_parts)
+		part_info += list(list(
+			"slot" = english_list(parse_slot_flags(part.slot_flags)),
+			"name" = part.name,
+			"deployed" = part.loc != src,
+			"ref" = part.UID(),
+		))
+	data["parts"] = part_info
 	return data
 
 /obj/item/mod/control/ui_static_data(mob/user)
 	var/data = list()
 	data["ui_theme"] = ui_theme
-	data["control"] = name
 	data["complexity_max"] = complexity_max
-	data["helmet"] = helmet?.name
-	data["chestplate"] = chestplate?.name
-	data["gauntlets"] = gauntlets?.name
-	data["boots"] = boots?.name
 	return data
 
 /obj/item/mod/control/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
-	if(locked && !allowed(usr))
-		to_chat(usr, span_warning("Insufficient access!"))
-		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return
 	if(malfunctioning && prob(75))
-		to_chat(usr, span_warning("ERROR!"))
+		balloon_alert(ui.user, "button malfunctions!")
 		return
 	switch(action)
 		if("lock")
-			locked = !locked
-			to_chat(usr, span_notice("ID [locked ? "locked" : "unlocked"]."))
+			if(!locked || allowed(ui.user))
+				locked = !locked
+				balloon_alert(ui.user, "[locked ? "locked" : "unlocked"]")
+			else
+				balloon_alert(ui.user, "access insufficent!")
+				playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		if("activate")
-			toggle_activate(usr)
+			toggle_activate(ui.user)
 		if("select")
 			var/obj/item/mod/module/module = locateUID(params["ref"])
 			if(!module)
@@ -81,5 +102,14 @@
 			var/obj/item/mod/module/module = locateUID(params["ref"])
 			if(!module)
 				return
-			module.pin(usr)
+			module.pin(ui.user)
+		if("deploy")
+			var/obj/item/mod_part = locateUID(params["ref"])
+			if(!mod_part)
+				return
+			if(mod_part.loc == src)
+				deploy(ui.user, mod_part)
+			else
+				retract(ui.user, mod_part)
+
 	return TRUE
