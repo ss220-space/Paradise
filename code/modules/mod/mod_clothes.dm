@@ -163,6 +163,7 @@
 		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name] модели"
 	)
 
+
 /obj/item/clothing/shoes/mod
 	name = "MOD boots"
 	desc = "Пара стандартных ботинок для модульного костюма."
