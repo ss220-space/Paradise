@@ -487,7 +487,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/last_camera_turf = null
 	var/image/crosshair
 
-/obj/machinery/computer/bsa_control/Initialize()
+/obj/machinery/computer/bsa_control/Initialize(mapload)
 	. = ..()
 	var/map_name = "camera_console_[src.UID()]_map"
 	// Initialize map objects
@@ -510,7 +510,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	camera_xray = TRUE
 	emagged = TRUE // Unlock power burst mode for admin
 
-/obj/machinery/computer/bsa_control/admin/Initialize()
+/obj/machinery/computer/bsa_control/admin/Initialize(mapload)
 	. = ..()
 	if(!cannon)
 		cannon = deploy()

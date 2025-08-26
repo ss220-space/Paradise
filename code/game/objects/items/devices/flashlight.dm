@@ -24,7 +24,7 @@
 	light_power = 1
 	light_on = FALSE
 
-/obj/item/flashlight/Initialize()
+/obj/item/flashlight/Initialize(mapload)
 	. = ..()
 	if(icon_state == "[initial(icon_state)]-on")
 		on = TRUE
@@ -206,7 +206,7 @@
 	var/fuel_upp = 1000
 
 
-/obj/item/flashlight/flare/Initialize()
+/obj/item/flashlight/flare/Initialize(mapload)
 	fuel = rand(fuel_lower, fuel_upp)
 	. = ..()
 
@@ -271,7 +271,7 @@
 			damtype = BURN
 		START_PROCESSING(SSobj, src)
 
-/obj/item/flashlight/flare/on/Initialize()
+/obj/item/flashlight/flare/on/Initialize(mapload)
 	. = ..()
 	turn_on()
 
@@ -284,7 +284,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	light_range = 7
 
-/obj/item/flashlight/flare/on/illumination/Initialize()
+/obj/item/flashlight/flare/on/illumination/Initialize(mapload)
 	. = ..()
 	fuel = rand(5.0 MINUTES, 6.0 MINUTES) // Approximately half the effective duration of a flare, but justified since it's invincible
 
@@ -317,7 +317,7 @@
 	var/chemglow_sprite_type = "green"
 
 
-/obj/item/flashlight/flare/glowstick/Initialize()
+/obj/item/flashlight/flare/glowstick/Initialize(mapload)
 	light_color = color
 	. = ..()
 
@@ -376,7 +376,7 @@
 	icon_state = "random_glowstick"
 	color = null
 
-/obj/item/flashlight/flare/glowstick/random/Initialize()
+/obj/item/flashlight/flare/glowstick/random/Initialize(mapload)
 	. = ..()
 	var/T = pick(typesof(/obj/item/flashlight/flare/glowstick) - /obj/item/flashlight/flare/glowstick/random - /obj/item/flashlight/flare/glowstick/emergency)
 	new T(loc)
@@ -449,7 +449,7 @@
 	var/charge_tick = 0
 
 
-/obj/item/flashlight/emp/Initialize()
+/obj/item/flashlight/emp/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 

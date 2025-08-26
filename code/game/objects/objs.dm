@@ -7,6 +7,9 @@
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
 	var/force = 0
+	// You can define armor as a list in datum definition (e.g. `armor = list("fire" = 80, "brute" = 10)`),
+	// which would be converted to armor datum during initialization.
+	// Setting `armor` to a list on an *existing* object would inevitably runtime. Use `getArmor()` instead.
 	var/datum/armor/armor
 	var/obj_integrity	//defaults to max_integrity
 	var/max_integrity = 500
@@ -32,13 +35,6 @@
 	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
 	var/pull_push_slowdown = 0
 
-
-/obj/New()
-	..()
-	if(on_blueprints && isturf(loc))
-		var/turf/T = loc
-		T.add_blueprints_preround(src)
-
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)
@@ -51,6 +47,10 @@
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
+
+	if(on_blueprints && isturf(loc))
+		var/turf/T = loc
+		T.add_blueprints_preround(src)
 
 	add_debris_element()
 

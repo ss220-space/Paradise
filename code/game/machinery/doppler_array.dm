@@ -32,8 +32,8 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	. = ..()
 	. += span_notice("<b>Alt-Click</b> to rotate.")
 
-/obj/machinery/doppler_array/New()
-	..()
+/obj/machinery/doppler_array/Initialize(mapload)
+	. = ..()
 	GLOB.doppler_arrays += src
 	explosion_target = rand(min(8,GLOB.max_ex_light_range), min(20,GLOB.max_ex_light_range))
 	toxins_tech = new /datum/tech/toxins(src)
