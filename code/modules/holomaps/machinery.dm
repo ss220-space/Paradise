@@ -8,14 +8,6 @@
 /obj/machinery/station_map
 	name = "station holomap"
 	desc = "Карта окрестностей станции, только виртуальная."
-	ru_names = list(
-		NOMINATIVE = "голокарта станции",
-		GENITIVE = "голокарты станции",
-		DATIVE = "голокарте станции",
-		ACCUSATIVE = "голокарту станции",
-		INSTRUMENTAL = "голокартой станции",
-		PREPOSITIONAL = "голокарте станции"
-	)
 	icon = 'icons/obj/stationmap.dmi'
 	icon_state = "station_map"
 	layer = ABOVE_WINDOW_LAYER
@@ -40,7 +32,17 @@
 	/// The various images and icons for the map are stored in here, as well as the actual big map itself.
 	var/datum/station_holomap/holomap_datum
 
-/obj/machinery/station_map/Initialize()
+/obj/machinery/station_map/get_ru_names()
+	return list(
+		NOMINATIVE = "голокарта станции",
+		GENITIVE = "голокарты станции",
+		DATIVE = "голокарте станции",
+		ACCUSATIVE = "голокарту станции",
+		INSTRUMENTAL = "голокартой станции",
+		PREPOSITIONAL = "голокарте станции"
+	)
+
+/obj/machinery/station_map/Initialize(mapload)
 	if(!current_z_level)
 		current_z_level = loc.z
 	SSholomaps.station_holomaps += src

@@ -21,14 +21,14 @@
 	var/casing_drop_sound = "casingdrop"        //What sound should play when this ammo hits the ground
 	var/caliber = null							//Which kind of guns it can be loaded into
 	var/projectile_type = null					//The bullet type to create when New() is called
-	var/obj/projectile/BB = null 			//The loaded bullet
+	var/obj/projectile/BB = null			//The loaded bullet
 	var/pellets = 1								//Pellets for spreadshot
 	var/variance = 0							//Variance for inaccuracy fundamental to the casing
 	var/delay = 0								//Delay for energy weapons
 	var/randomspread = FALSE						//Randomspread for automatics
 	var/click_cooldown_override = 0				//Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
 	var/harmful = TRUE							//pacifism check for boolet, set to FALSE if bullet is non-lethal
-	var/leaves_residue      		    		//Остается ли порох на руках и одежде?
+	var/leaves_residue     		   		//Остается ли порох на руках и одежде?
 	/// Wheter we can pick this shell by clicking on it with the ammo box
 	var/can_be_box_inserted = TRUE
 
@@ -155,14 +155,6 @@
 /obj/item/ammo_box
 	name = "ammo box (generic)"
 	desc = "Э-э... коробка с патронами?"
-	ru_names = list(
-		NOMINATIVE = "коробка с боеприпасами (универсальная)",
-		GENITIVE = "коробки с боеприпасами (универсальной)",
-		DATIVE = "коробке с боеприпасами (универсальной)",
-		ACCUSATIVE = "коробку с боеприпасами (универсальную)",
-		INSTRUMENTAL = "коробкой с боеприпасами (универсальной)",
-		PREPOSITIONAL = "коробке с боеприпасами (универсальной)"
-	)
 	icon_state = "357"
 	icon = 'icons/obj/weapons/ammo.dmi'
 	origin_tech = "materials=3;combat=3"

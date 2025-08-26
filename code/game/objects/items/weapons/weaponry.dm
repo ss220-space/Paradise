@@ -81,6 +81,17 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
+/obj/item/melee/claymore/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 0.75 SECONDS, \
+		swing_sound = "blade_swing_heavy" \
+	)
+
 /obj/item/melee/claymore/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] падает на [declent_ru(ACCUSATIVE)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой."))
 	return BRUTELOSS
@@ -112,6 +123,14 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
+/obj/item/melee/katana/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 1.75, \
+		afterswing_slowdown = 0, \
+		swing_sound = "katana_swing" \
+	)
 
 /obj/item/melee/katana/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] вспарывает себе живот [declent_ru(INSTRUMENTAL)]! Похоже на попытку совершить сэппуку."))
@@ -120,7 +139,15 @@
 /obj/item/melee/katana/basalt
 	name = "basalt katana"
 	desc = "Катана, изготовленная из закалённого базальта, представляет особую опасность для обитателей Лазиса."
-	ru_names = list(
+	icon_state = "basalt_katana"
+	item_state = "basalt_katana"
+	force = 30
+	block_chance = 30
+	var/faction_bonus_force = 30
+	var/nemesis_factions = list("mining", "boss")
+
+/obj/item/melee/katana/basalt/get_ru_names()
+	return list(
 		NOMINATIVE = "базальтовая катана",
 		GENITIVE = "базальтовой катаны",
 		DATIVE = "базальтовой катане",
@@ -128,12 +155,6 @@
 		INSTRUMENTAL = "базальтовой катаной",
 		PREPOSITIONAL = "базальтовой катане"
 	)
-	icon_state = "basalt_katana"
-	item_state = "basalt_katana"
-	force = 30
-	block_chance = 30
-	var/faction_bonus_force = 30
-	var/nemesis_factions = list("mining", "boss")
 
 
 /obj/item/melee/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -247,6 +268,15 @@
 	var/can_deflect = TRUE
 	var/homerun_always_charged = 0
 
+/obj/item/melee/baseball_bat/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		no_multi_hit = TRUE, \
+		swing_sound = "generic_swing_heavy" \
+	)
+
 /obj/item/melee/baseball_bat/homerun
 	name = "home run bat"
 	desc = "This thing looks dangerous... Dangerously good at baseball, that is."
@@ -337,7 +367,7 @@
 		// No throwing things that are physically bigger than you are.
 		// Covers: blobbernaut, alien empress, ai core, juggernaut, ed209, mulebot, alien/queen/large, carp/megacarp, deathsquid, hostile/tree, megafauna, hostile/asteroid, terror_spider/queen/empress
 		return .
-	if(!(target.status_flags & CANPUSH))
+	if(!(target.status_flags & CANPUSH) || HAS_TRAIT(target, TRAIT_PUSHIMMUNE))
 		// No throwing mobs specifically flagged as immune to being pushed.
 		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, spaceworms, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
 		return .
@@ -345,9 +375,8 @@
 		// No throwing mobs that have higher than normal move_resist.
 		// Covers: revenant, bot/mulebot, hostile/statue, hostile/megafauna, goliath
 		return .
-	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	if(!homerun_always_charged)
-		INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, rand(1, 2), 7, user)
+		target.Knockdown(1 SECONDS)
 	next_throw_time = world.time + 10 SECONDS
 
 
@@ -431,7 +460,6 @@
 		to_chat(user, span_notice("Вы деактивировали [name]."))
 
 
-
 /obj/item/melee/baseball_bat/homerun/central_command/pickup(mob/living/user)
 	if(!(isertmindshielded(user)))
 		user.Weaken(10 SECONDS)
@@ -453,14 +481,6 @@
 /obj/item/melee/claymore/bone
 	name = "bone sword"
 	desc = "Зубчатые костяные обломки привязаны к тому, что выглядит как бедренная кость голиафа."
-	ru_names = list(
-		NOMINATIVE = "костяной меч",
-		GENITIVE = "костяного меча",
-		DATIVE = "костяному мечу",
-		ACCUSATIVE = "костяной меч",
-		INSTRUMENTAL = "костяным мечом",
-		PREPOSITIONAL = "костяном мече"
-	)
 	icon_state = "bone_sword"
 	item_state = "bone_sword"
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
@@ -470,17 +490,30 @@
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
 
+/obj/item/melee/claymore/bone/get_ru_names()
+	return list(
+		NOMINATIVE = "костяной меч",
+		GENITIVE = "костяного меча",
+		DATIVE = "костяному мечу",
+		ACCUSATIVE = "костяной меч",
+		INSTRUMENTAL = "костяным мечом",
+		PREPOSITIONAL = "костяном мече"
+	)
+
+/obj/item/melee/claymore/bone/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 0.75 SECONDS, \
+		swing_sound = "blade_swing_light" \
+	)
+
 /obj/item/melee/nutcracker
 	name = "nutcracker"
 	desc = "Простейшая дубина из кости. Воплощение силы первобытного разума и природной мощи. Настоящая классика."
-	ru_names = list(
-		NOMINATIVE = "колотушка",
-		GENITIVE = "колотушки",
-		DATIVE = "колотушке",
-		ACCUSATIVE = "колотушку",
-		INSTRUMENTAL = "колотушкой",
-		PREPOSITIONAL = "колотушке"
-	)
 	icon_state = "nutcracker"
 	item_state = "nutcracker"
 	gender = FEMALE
@@ -490,6 +523,16 @@
 	throwforce = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	var/stamina_damage = 22
+
+/obj/item/melee/nutcracker/get_ru_names()
+	return list(
+		NOMINATIVE = "колотушка",
+		GENITIVE = "колотушки",
+		DATIVE = "колотушке",
+		ACCUSATIVE = "колотушку",
+		INSTRUMENTAL = "колотушкой",
+		PREPOSITIONAL = "колотушке"
+	)
 
 /obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity, params, status)
 	if(!isliving(target) || !proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -513,41 +556,3 @@
 		human_victim.apply_damage(stamina_damage, STAMINA, blocked = victim.getarmor(user.zone_selected, MELEE))
 		if(prob(30))
 			human_victim.Knockdown(3 SECONDS)
-
-/obj/item/melee/ghostface_knife
-	name = "Knife"
-	desc = "Очень острый нож. Судя по потёртостям и засохшей крови, он совсем не валялся без дела."
-	ru_names = list(
-		NOMINATIVE = "старый нож",
-		GENITIVE = "старого ножа",
-		DATIVE = "старому ножу",
-		ACCUSATIVE = "старый нож",
-		INSTRUMENTAL = "старым ножом",
-		PREPOSITIONAL = "старом ноже"
-	)
-	icon_state = "ghostface_knife"
-	force = 34
-	armour_penetration = 70
-	block_chance = 30
-	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 34
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
-	throw_speed = 3
-	throw_range = 6
-	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
-	sharp = TRUE
-
-/obj/item/melee/ghostface_knife/devil
-	name = "Old knife"
-	desc = "Странный нож с, тем не менее, крайне острым лезвием. Судя по характерным потёртостям и засохшей крови, он явно не валялся без дела."
-	ru_names = list(
-		NOMINATIVE = "старый ржавый нож",
-		GENITIVE = "старого ржавого ножа",
-		DATIVE = "старому ржавому ножу",
-		ACCUSATIVE = "старый ржавый нож",
-		INSTRUMENTAL = "старым ржавым ножом",
-		PREPOSITIONAL = "старом ржавом ноже"
-	)
-	icon_state = "devil_ghostface_knife"

@@ -60,9 +60,9 @@
 	var/list/children = list() //Actual mob instances of children
 	holder_type = /obj/item/holder/cat
 
-/mob/living/simple_animal/pet/cat/Runtime/New()
+/mob/living/simple_animal/pet/cat/Runtime/Initialize(mapload)
+	. = ..()
 	SSpersistent_data.register(src)
-	..()
 
 /mob/living/simple_animal/pet/cat/Runtime/persistent_load()
 	read_memory()
@@ -85,7 +85,7 @@
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/read_memory()
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
-	S["family"] 			>> family
+	S["family"]			>> family
 
 	if(isnull(family))
 		family = list()

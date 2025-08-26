@@ -79,7 +79,7 @@
 				span_italics("Вы слышите треск, похожий на молнию!")
 			)
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
-			explosion(loc, -1, 0, 2, 2, cause = "[name] over electrocuted by [source]")
+			explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flash_range = 2, cause = "[name] over electrocuted by [source]")
 	else
 		apply_damage(shock_damage, STAMINA)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
@@ -254,7 +254,7 @@
 
 /mob/living/proc/WetMob(wet_type = /datum/status_effect/stacking/wet)
 	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
-	return 	effect?.WetMob()
+	return	effect?.WetMob()
 
 
 /mob/living/proc/adjust_wet_stacks(add_wet_stacks, wet_type = /datum/status_effect/stacking/wet) //Adjusting the amount of fire_stacks we have on person

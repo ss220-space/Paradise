@@ -57,14 +57,6 @@
 /obj/machinery/dna_scannernew
 	name = "DNA modifier"
 	desc = "Высокотехнологичное устройство, предназначенное для сканирования и изменения структуры ДНК гуманоидов. Здесь и происходит всё волшебство."
-	ru_names = list(
-		NOMINATIVE = "ДНК-модификатор",
-		GENITIVE = "ДНК-модификатора",
-		DATIVE = "ДНК-модификатору",
-		ACCUSATIVE = "ДНК-модификатор",
-		INSTRUMENTAL = "ДНК-модификатором",
-		PREPOSITIONAL = "ДНК-модификаторе"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "scanner_open"
 	density = TRUE
@@ -81,9 +73,18 @@
 	var/scan_level
 	var/precision_coeff
 
+/obj/machinery/dna_scannernew/get_ru_names()
+	return list(
+		NOMINATIVE = "ДНК-модификатор",
+		GENITIVE = "ДНК-модификатора",
+		DATIVE = "ДНК-модификатору",
+		ACCUSATIVE = "ДНК-модификатор",
+		INSTRUMENTAL = "ДНК-модификатором",
+		PREPOSITIONAL = "ДНК-модификаторе"
+	)
 
-/obj/machinery/dna_scannernew/New()
-	..()
+/obj/machinery/dna_scannernew/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -94,8 +95,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/dna_scannernew/upgraded/New()
-	..()
+/obj/machinery/dna_scannernew/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -302,13 +303,13 @@
 /obj/machinery/dna_scannernew/force_eject_occupant(mob/target)
 	go_out(null, TRUE)
 
-/obj/machinery/dna_scannernew/ex_act(severity)
+/obj/machinery/dna_scannernew/ex_act(severity, target)
 	if(occupant)
 		occupant.ex_act(severity)
-	..()
+	return ..()
 
 /obj/machinery/dna_scannernew/handle_atom_del(atom/A)
-	..()
+	. = ..()
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
@@ -331,14 +332,6 @@
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier access console"
 	desc = "Консоль для работы с ДНК-модификатором."
-	ru_names = list(
-		NOMINATIVE = "консоль управления ДНК-модификатором",
-		GENITIVE = "консоли управления ДНК-модификатором",
-		DATIVE = "консоли управления ДНК-модификатором",
-		ACCUSATIVE = "консоль управления ДНК-модификатором",
-		INSTRUMENTAL = "консолью управления ДНК-модификатором",
-		PREPOSITIONAL = "консоли управления ДНК-модификатором"
-	)
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
@@ -363,6 +356,15 @@
 	idle_power_usage = 10
 	active_power_usage = 400
 
+/obj/machinery/computer/scan_consolenew/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления ДНК-модификатором",
+		GENITIVE = "консоли управления ДНК-модификатором",
+		DATIVE = "консоли управления ДНК-модификатором",
+		ACCUSATIVE = "консоль управления ДНК-модификатором",
+		INSTRUMENTAL = "консолью управления ДНК-модификатором",
+		PREPOSITIONAL = "консоли управления ДНК-модификатором"
+	)
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS

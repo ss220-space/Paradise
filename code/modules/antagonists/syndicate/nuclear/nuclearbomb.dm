@@ -48,7 +48,7 @@ GLOBAL_VAR(bomb_set)
 	cinematic_type = SYNDICATE_NUKE
 
 
-/obj/machinery/nuclearbomb/Initialize()
+/obj/machinery/nuclearbomb/Initialize(mapload)
 	. = ..()
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = SSsecurity_level.get_current_level_as_text()

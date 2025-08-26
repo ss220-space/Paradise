@@ -39,6 +39,18 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
+/obj/item/melee/cultblade/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 0.75 SECONDS, \
+		swing_sound = "blade_swing_heavy" \
+	)
+
+
 /obj/item/melee/cultblade/update_icon_state()
 	if(SSticker?.cultdat)
 		icon_state = SSticker.cultdat.sword_icon
@@ -76,16 +88,27 @@
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
-	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Will not hit fellow cultists."
+	desc = "Тяжёлая бола, наполненная тёмной магией. При попадании она опрокинет и замедлит вашу цель, но не повлияет на других культистов."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakout_time = 45
 	knockdown_amt = 2 SECONDS
 
+
+/obj/item/restraints/legcuffs/bola/cult/get_ru_names()
+	return list(
+		NOMINATIVE = "руническая бола",
+		GENITIVE = "рунической болы",
+		DATIVE = "рунической боле",
+		ACCUSATIVE = "руническую болу",
+		INSTRUMENTAL = "рунической болой",
+		PREPOSITIONAL = "рунической боле"
+	)
+
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
-		hit_atom.visible_message(span_warning("[src] bounces off of [hit_atom], as if repelled by an unseen force!"))
+		hit_atom.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] отскакивает от [hit_atom.declent_ru(GENITIVE)], отброшенная невидимой силой!"))
 		return
 	. = ..()
 
@@ -266,9 +289,9 @@
 	icon_state = "cult_sharpener"
 	increment = 5
 	max = 40
-	prefix = "darkened"
 	claws_increment = 4
-
+	gender = MALE
+	prefix = "Потемневшее"
 
 /obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[!uses ? "_used" : ""]"

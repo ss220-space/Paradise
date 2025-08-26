@@ -191,11 +191,11 @@
 /**
  * Test the next step, but don't fully commit to it unless it completes successfully.
  * If the next step doesn't fully complete (such as being interrupted or failing), we'll insert ourselves again to bring us back
- * 	to the "base" state.
+ *	to the "base" state.
  * If it does, we'll add the subsequent steps to the surgery and continue down the expected branch. If you complete the surgery step, it
- * 	means you've committed to what comes next.
+ *	means you've committed to what comes next.
  * Part of the motivation behind this is that I don't want to mutate a surgery retroactively. We can insert, but we shouldn't be changing anything
- * 	behind us.
+ *	behind us.
  *
  * Arguments:
  * * next_surgery_steps - the steps for the branching surgery to add to the current surgery. If there's no branching surgery (or this would continue the main surgery) ignore this.

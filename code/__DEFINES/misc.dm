@@ -132,43 +132,44 @@
 
 // Metal foam states
 // teehee no one will find these here
-#define MFOAM_ALUMINUM 	1
-#define MFOAM_IRON 		2
+#define MFOAM_ALUMINUM	1
+#define MFOAM_IRON		2
 
 //Carbon Overlays Indexes/////////
-#define MUTANTRACE_LAYER		45
-#define WING_UNDERLIMBS_LAYER	44
-#define TAIL_UNDERLIMBS_LAYER	43	//Tail split-rendering.
-#define LIMBS_LAYER				42
-#define INTORGAN_LAYER			41
-#define MARKINGS_LAYER			40
-#define UNDERWEAR_LAYER			39
-#define MUTATIONS_LAYER			38
-#define H_DAMAGE_LAYER			37
-#define UNIFORM_LAYER			36
-#define SHOES_LAYER				35
-#define OVER_SHOES_LAYER		34
-#define ID_LAYER				33
-#define GLOVES_LAYER			32
-#define EARS_LAYER				31
-#define SUIT_LAYER				30
-#define BELT_LAYER				29	//Possible make this an overlay of somethign required to wear a belt?
-#define NECK_LAYER				28
-#define SUIT_STORE_LAYER		27
-#define BACK_LAYER				26
-#define HEAD_ACCESSORY_LAYER	25
-#define FHAIR_LAYER				24
-#define GLASSES_LAYER			23
-#define HAIR_LAYER				22	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		21	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		20	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		19	//Select-layer rendering.
-#define WING_LAYER				18
-#define TAIL_LAYER				17	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			16
-#define OVER_MASK_LAYER			15	//Select-layer rendering.
-#define HEAD_LAYER				14
-#define OVER_HEAD_LAYER			13
+#define MUTANTRACE_LAYER		46
+#define WING_UNDERLIMBS_LAYER	45
+#define TAIL_UNDERLIMBS_LAYER	44	//Tail split-rendering.
+#define LIMBS_LAYER				43
+#define INTORGAN_LAYER			42
+#define MARKINGS_LAYER			41
+#define UNDERWEAR_LAYER			40
+#define MUTATIONS_LAYER			39
+#define H_DAMAGE_LAYER			38
+#define UNIFORM_LAYER			37
+#define SHOES_LAYER				36
+#define OVER_SHOES_LAYER		35
+#define ID_LAYER				34
+#define GLOVES_LAYER			33
+#define EARS_LAYER				32
+#define SUIT_LAYER				31
+#define BELT_LAYER				30	//Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER				29
+#define SUIT_STORE_LAYER		28
+#define BACK_LAYER				27
+#define HEAD_ACCESSORY_LAYER	26
+#define FHAIR_LAYER				25
+#define GLASSES_LAYER			24
+#define HAIR_LAYER				23	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		22	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		21	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		20	//Select-layer rendering.
+#define WING_LAYER				19
+#define TAIL_LAYER				18	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			17
+#define OVER_MASK_LAYER			16	//Select-layer rendering.
+#define HEAD_LAYER				15
+#define OVER_HEAD_LAYER			14
+#define MUTANT_EARS_LAYER		13
 #define COLLAR_LAYER			12
 #define HANDCUFF_LAYER			11
 #define LEGCUFF_LAYER			10
@@ -181,7 +182,7 @@
 #define SLEEP_LAYER				3
 #define FROZEN_LAYER			2
 #define SSD_LAYER				1
-#define TOTAL_LAYERS 			46
+#define TOTAL_LAYERS			47
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -224,19 +225,19 @@
 	The color on the left is the one used as the actual color of the wire, but it doesn't look good when written.
 	So, we need to replace the name to something that looks better.
 */
-#define LIST_COLOR_RENAME 				\
+#define LIST_COLOR_RENAME				\
 	list(								\
 		"rebeccapurple" = "dark purple",\
 		"darkslategrey" = "dark grey",	\
 		"darkolivegreen"= "dark green",	\
 		"darkslateblue" = "dark blue",	\
-		"darkkhaki" 	= "khaki",		\
-		"darkseagreen" 	= "light green",\
-		"midnightblue" 	= "blue",		\
-		"lightgrey" 	= "light grey",	\
-		"darkgrey" 		= "dark grey",	\
-		"steelblue" 	= "blue",		\
-		"goldenrod"	 	= "gold"		\
+		"darkkhaki"	= "khaki",		\
+		"darkseagreen"	= "light green",\
+		"midnightblue"	= "blue",		\
+		"lightgrey"	= "light grey",	\
+		"darkgrey"		= "dark grey",	\
+		"steelblue"	= "blue",		\
+		"goldenrod"		= "gold"		\
 	)
 
 /// Pure Black and white colorblindness. Every species except Vulpkanins and Tajarans will have this.
@@ -261,9 +262,9 @@
 		"red"		= "darkolivegreen",	\
 		"green"		= "darkslategrey",	\
 		"orange"	= "goldenrod",		\
-		"yellow"	= "goldenrod", 		\
+		"yellow"	= "goldenrod",		\
 		"brown"		= "darkolivegreen",	\
-		"gold"		= "goldenrod", 		\
+		"gold"		= "goldenrod",		\
 		"cyan"		= "steelblue",		\
 		"magenta"	= "blue",			\
 		"purple"	= "darkslategrey",	\
@@ -392,16 +393,9 @@
 /// Brain damage starts setting in on the patient after some time left rotting.
 #define DEFIB_TIME_LOSS (60 SECONDS)
 
-//different types of atom colorations
-#define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
-#define TEMPORARY_COLOUR_PRIORITY 	2 //e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
-#define WASHABLE_COLOUR_PRIORITY 	3 //color splashed onto an atom (e.g. paint on turf)
-#define FIXED_COLOUR_PRIORITY 		4 //color inherent to the atom (e.g. blob color)
-#define COLOUR_PRIORITY_AMOUNT 4 //how many priority levels there are.
-
 //Cleaning tool strength
 // 1 is also a valid cleaning strength but completely unused so left undefined
-#define CLEAN_WEAK 			2
+#define CLEAN_WEAK			2
 #define CLEAN_MEDIUM		3 // Acceptable tools
 #define CLEAN_STRONG		4 // Industrial strength
 #define CLEAN_IMPRESSIVE	5 // Cleaning strong enough your granny would be proud

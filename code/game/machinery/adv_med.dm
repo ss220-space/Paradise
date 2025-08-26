@@ -1,14 +1,6 @@
 /obj/machinery/bodyscanner
 	name = "body scanner"
 	desc = "Сложное медицинское устройство, используется для сканирования физического состояния гуманоидов."
-	ru_names = list(
-		NOMINATIVE = "медицинский сканер",
-		GENITIVE = "медицинского сканера",
-		DATIVE = "медицинскому сканеру",
-		ACCUSATIVE = "медицинский сканер",
-		INSTRUMENTAL = "медицинским сканером",
-		PREPOSITIONAL = "медицинском сканере"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
@@ -18,9 +10,19 @@
 	active_power_usage = 2500
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
-	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
+	var/static/list/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 	var/isPrinting = FALSE
 	var/obj/item/card/id/inserted_id = null
+
+/obj/machinery/bodyscanner/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинский сканер",
+		GENITIVE = "медицинского сканера",
+		DATIVE = "медицинскому сканеру",
+		ACCUSATIVE = "медицинский сканер",
+		INSTRUMENTAL = "медицинским сканером",
+		PREPOSITIONAL = "медицинском сканере"
+	)
 
 /obj/machinery/bodyscanner/Destroy()
 	go_out()
@@ -61,8 +63,8 @@
 		else
 			M.forceMove(loc)
 
-/obj/machinery/bodyscanner/New()
-	..()
+/obj/machinery/bodyscanner/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/bodyscanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -236,10 +238,10 @@
 /obj/machinery/bodyscanner/force_eject_occupant(mob/target)
 	go_out()
 
-/obj/machinery/bodyscanner/ex_act(severity)
+/obj/machinery/bodyscanner/ex_act(severity, target)
 	if(occupant)
-		occupant.ex_act(severity)
-	..()
+		occupant.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/bodyscanner/handle_atom_del(atom/A)
 	..()

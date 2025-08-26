@@ -6,6 +6,7 @@
 #define VENDOR_EXPLOSIVES_KIT "Комплект шахтёрских взрывчаток"
 #define VENDOR_CRUSHER_KIT "Комплект крушителя"
 #define VENDOR_CONSCRIPTION_KIT "Стандартный набор шахтёра"
+#define VENDOR_KA_UPGRADE_KIT "Базовый набор улучшений для КА"
 
 /**********************Mining Equipment Vendor**************************/
 
@@ -29,8 +30,8 @@
 	var/list/prize_list // Initialized just below! (if you're wondering why - check CONTRIBUTING.md, look for: "hidden" init proc)
 	var/dirty_items = FALSE // Used to refresh the static/redundant data in case the machine gets VV'd
 
-/obj/machinery/mineral/equipment_vendor/New()
-	..()
+/obj/machinery/mineral/equipment_vendor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mining_equipment_vendor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -207,7 +208,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list(VENDOR_EXPLORER_WEBBING, VENDOR_RESONATOR_KIT, VENDOR_MINEBOT_KIT, VENDOR_EXTRACTION_KIT, VENDOR_PLASMA_CUTTER_KIT, VENDOR_EXPLOSIVES_KIT, VENDOR_CRUSHER_KIT, VENDOR_CONSCRIPTION_KIT)
+	var/items = list(VENDOR_EXPLORER_WEBBING, VENDOR_RESONATOR_KIT, VENDOR_MINEBOT_KIT, VENDOR_EXTRACTION_KIT, VENDOR_PLASMA_CUTTER_KIT, VENDOR_EXPLOSIVES_KIT, VENDOR_CRUSHER_KIT, VENDOR_CONSCRIPTION_KIT, VENDOR_KA_UPGRADE_KIT)
 
 	var/selection = tgui_input_list(redeemer, "Выберите снаряжение", "Шахтёрский ваучер", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -242,12 +243,16 @@
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if(VENDOR_CONSCRIPTION_KIT)
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
+		if(VENDOR_KA_UPGRADE_KIT)
+			new /obj/item/borg/upgrade/modkit/cooldown/haste(drop_location)
+			new /obj/item/borg/upgrade/modkit/range(drop_location)
+			new /obj/item/storage/bag/ore/bigger(drop_location)
 
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
 	do_sparks(5, TRUE, src)
-	if(prob(50 / severity) && severity < 3)
+	if(prob(50 / severity) && severity > EXPLODE_LIGHT)
 		qdel(src)
 
 /obj/machinery/mineral/equipment_vendor/Destroy()
@@ -269,8 +274,8 @@
 	)
 	categories = list("Gear", "Consumables", "Kinetic Accelerator", "Digging Tools", "Minebot", "Miscellaneous", "Extra")
 
-/obj/machinery/mineral/equipment_vendor/golem/New()
-	..()
+/obj/machinery/mineral/equipment_vendor/golem/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/golem(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -279,7 +284,7 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mineral/equipment_vendor/golem/Initialize()
+/obj/machinery/mineral/equipment_vendor/golem/Initialize(mapload)
 	. = ..()
 	desc += "\nПохоже, добавлены новые позиции."
 
@@ -298,8 +303,8 @@
 	)
 	categories = list("Scum")
 
-/obj/machinery/mineral/equipment_vendor/labor/New()
-	..()
+/obj/machinery/mineral/equipment_vendor/labor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mining_equipment_vendor/labor(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -441,3 +446,5 @@
 #undef VENDOR_EXPLOSIVES_KIT
 #undef VENDOR_CRUSHER_KIT
 #undef VENDOR_CONSCRIPTION_KIT
+#undef VENDOR_KA_UPGRADE_KIT
+

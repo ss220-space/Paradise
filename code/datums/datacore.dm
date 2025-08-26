@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 		var/isactive = t.fields["p_stat"]
 		var/department = 0
-		var/depthead = 0 			// Department Heads will be placed at the top of their lists.
+		var/depthead = 0			// Department Heads will be placed at the top of their lists.
 		if(real_rank in GLOB.command_positions)
 			heads[++heads.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
@@ -207,7 +207,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/datum/data/record/L = new()
 		L.fields["id"]			= md5("[H.real_name][H.mind.assigned_role]")
 		L.fields["name"]		= H.real_name
-		L.fields["rank"] 		= H.mind.assigned_role
+		L.fields["rank"]		= H.mind.assigned_role
 		L.fields["age"]			= H.age
 		L.fields["sex"]			= capitalize(H.gender)
 		L.fields["blood_type"]	= H.dna.blood_type

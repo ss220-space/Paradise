@@ -20,6 +20,9 @@
 	armour_penetration = 40
 	damage = 30
 
+/obj/projectile/bullet/desert_eagle
+	stamina = 30
+
 /obj/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	ru_names = list(
@@ -236,8 +239,8 @@
 	..()
 
 /obj/projectile/bullet/pellet/weak/on_range()
- 	do_sparks(1, TRUE, src)
- 	..()
+	do_sparks(1, TRUE, src)
+	..()
 
 /obj/projectile/bullet/pellet/overload
 	damage = 3
@@ -256,13 +259,13 @@
 		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
 
 /obj/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
- 	..()
- 	explosion(target, 0, 0, 2, cause = src)
+	..()
+	explosion(target, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 
 /obj/projectile/bullet/pellet/overload/on_range()
- 	explosion(src, 0, 0, 2, cause = src)
- 	do_sparks(3, 3, src)
- 	..()
+	explosion(src, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
+	do_sparks(3, TRUE, src)
+	..()
 
 /obj/projectile/bullet/midbullet
 	damage = 20

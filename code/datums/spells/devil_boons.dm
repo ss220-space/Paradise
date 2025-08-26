@@ -57,9 +57,11 @@
 	)
 
 
-/obj/effect/proc_holder/spell/view_range/Destroy()
+/obj/effect/proc_holder/spell/view_range/Destroy(force)
 	UnregisterSignal(action.owner, COMSIG_LIVING_DEATH)
-	if(selected_view != "default" && !QDELETED(action.owner) && action.owner.client)
+	if(selected_view == "default" || QDELETED(action.owner) || !action.owner.client)
+		return ..()
+	ASYNC
 		action.owner.client.change_view(action.owner.client.prefs.viewrange)
 	return ..()
 
@@ -143,7 +145,14 @@
 
 /obj/item/melee/touch_attack/revive_touch
 	name = "воскрешающее касание"
-	ru_names = list(
+	desc = "Воскрешает тело умершего на определенное время."
+	catchphrase = "Surge e lecto"
+	on_use_sound = 'sound/magic/staff_healing.ogg'
+	icon_state = "disintegrate"
+	color = "#acb78e"
+
+/obj/item/melee/touch_attack/revive_touch/get_ru_names()
+	return list(
 		NOMINATIVE = "воскрешающее касание",
 		GENITIVE = "воскрешающего касания",
 		DATIVE = "воскрешающему касанию",
@@ -151,12 +160,6 @@
 		INSTRUMENTAL = "воскрешающим касанием",
 		PREPOSITIONAL = "воскрешающем касании"
 	)
-	desc = "Воскрешает тело умершего на определенное время."
-	catchphrase = "Surge e lecto"
-	on_use_sound = 'sound/magic/staff_healing.ogg'
-	icon_state = "disintegrate"
-	color = "#acb78e"
-
 
 /obj/item/melee/touch_attack/revive_touch/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	. = ..()

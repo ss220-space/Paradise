@@ -111,11 +111,11 @@
 
 
 /mob/living/simple_animal/hostile/space_dragon/ex_act(severity, origin)
-	if(severity == 1)
+	if(severity >= EXPLODE_DEVASTATE)
 		var/damage_coefficient = rand(devastation_damage_min_percentage, devastation_damage_max_percentage) / 100
 		adjustBruteLoss(initial(maxHealth)*damage_coefficient)
 		return
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/hostile/space_dragon/Life(seconds_per_tick, times_fired)

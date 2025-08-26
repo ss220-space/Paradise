@@ -47,6 +47,7 @@ GLOBAL_VAR_INIT(hornsblock, 0)
 GLOBAL_VAR_INIT(comicblock, 0)
 GLOBAL_VAR_INIT(paraplegiablock, 0)
 GLOBAL_VAR_INIT(aphasiablock, 0)
+GLOBAL_VAR_INIT(cat_earsblock, 0)
 
 // Powers
 GLOBAL_VAR_INIT(soberblock, 0)
@@ -74,5 +75,3 @@ GLOBAL_LIST_EMPTY(global_mutations)
 // Currently empty blocks, you can use these for your own powers
 GLOBAL_VAR_INIT(fakeblock1, 0)
 GLOBAL_VAR_INIT(fakeblock2, 0)
-GLOBAL_VAR_INIT(fakeblock3, 0)
-

@@ -332,6 +332,7 @@
 	if(A)
 		on = FALSE
 		LAZYREMOVE(A.lights_cache, src)
+	UnregisterSignal(SSsecurity_level, list(COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, COMSIG_SECURITY_LEVEL_CHANGED))
 	return ..()
 
 
@@ -817,7 +818,7 @@
 	zap_flags &= ~(ZAP_MACHINE_EXPLOSIVE | ZAP_OBJ_DAMAGE)
 	. = ..()
 	if(explosive)
-		explosion(src, flame_range = 5, adminlog = FALSE)
+		explosion(src, flame_range = 3, adminlog = FALSE)
 		qdel(src)
 
 // timed process
@@ -842,7 +843,7 @@
 	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
 	sleep(2)
-	explosion(T, 0, 0, 2, 2, cause = src)
+	explosion(T, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flash_range = 2, cause = src)
 	qdel(src)
 
 

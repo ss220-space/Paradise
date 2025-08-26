@@ -154,7 +154,7 @@
 		return .
 	if(attempt_harvest(item, user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-	if(is_sharp(item) && item.damtype == BRUTE && user.a_intent == INTENT_HARM)
+	if(item.sharp && item.damtype == BRUTE && !(HAS_TRAIT(item, TRAIT_SURGICAL) && body_position == LYING_DOWN && user.a_intent == INTENT_HELP) && !issyringe(item) && !isbot(src) && !(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
 		new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), get_blood_color())
 	user.changeNext_move(item.attack_speed)
 	. |= item.attack(src, user, params, user.zone_selected)
@@ -197,8 +197,9 @@
 		playsound(target.loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else
 		add_attack_logs(user, target, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)]), DMG: [force])", (target.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
-		if(hitsound)
+		if(COOLDOWN_FINISHED(src, sound_cooldown) && hitsound)   // Prevent stacking sounds when using cleave attacks
 			playsound(target.loc, hitsound, get_clamped_volume(), TRUE, -1)
+			COOLDOWN_START(src, sound_cooldown, 0.05 SECONDS) // Attack speed below 0.05 sec will not play sound on every hit
 
 	target.lastattacker = user.real_name
 	target.lastattackerckey = user.ckey
@@ -318,6 +319,18 @@
 		ignored_mobs = user,
 	)
 	to_chat(user, span_danger("Вы [message_verb]и [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"))
+
+
+/// Applies slowdown for a period of time after performing cleave attack, used for cleave component
+/mob/living/proc/apply_afterswing_slowdown(mob/living/user, afterswing_slowdown, slowdown_duration)
+	if(afterswing_slowdown == 0)
+		return
+
+	if(!ishuman(user)) // we dont want cyborgs to slowdown after swinging
+		return
+
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/afterswing_slowdown, multiplicative_slowdown = afterswing_slowdown)
+	addtimer(CALLBACK(src, PROC_REF(remove_movespeed_modifier), /datum/movespeed_modifier/afterswing_slowdown), slowdown_duration, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /*
 /mob/living/basic/attackby(obj/item/item, mob/living/user)

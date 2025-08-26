@@ -24,7 +24,7 @@
 /turf/simulated/wall/shuttle/welder_act()
 	return
 
-/turf/simulated/wall/shuttle/ex_act(severity)
+/turf/simulated/wall/shuttle/ex_act(severity, target)
 	return
 
 /turf/simulated/wall/shuttle/blob_act(obj/structure/blob/B)
@@ -206,7 +206,7 @@
 
 //Оно даже не наследовалось от стандартного пола... Какой ужас...
 /turf/simulated/floor/shuttle/objective_check		// Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
-	name = "brig floor"        						// Also added it into the 2x3 brig area of the shuttle.
+	name = "brig floor"       						// Also added it into the 2x3 brig area of the shuttle.
 	icon_state = "floor4"
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
