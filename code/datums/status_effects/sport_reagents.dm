@@ -34,15 +34,7 @@
 
 // Remove effects of current stage.
 /datum/status_effect/sport_reagents/on_remove()
-	if(cur_stage == NORMAL_EFFECT)
-		effect_off()
-
-	if(cur_stage == BAD_EFFECT)
-		bad_effect_off()
-
-	if(cur_stage == VERY_BAD_EFFECT)
-		very_bad_effect_off()
-
+	set_stage(NO_EFFECT)
 	. = ..()
 
 
@@ -53,17 +45,19 @@
 	if(time <= no_effect)
 		set_stage(NORMAL_EFFECT)
 		effect_tick()
+		return
 
-	else if(time <= bad_effect)
+	if(time <= bad_effect)
 		set_stage(NO_EFFECT)
+		return
 
-	else if(time <= very_bad_effect)
+	if(time <= very_bad_effect)
 		set_stage(BAD_EFFECT)
 		bad_effect_tick()
+		return
 
-	else
-		set_stage(VERY_BAD_EFFECT)
-		very_bad_effect_tick()
+	set_stage(VERY_BAD_EFFECT)
+	very_bad_effect_tick()
 
 
 // If stage changed, clear effects of old stage and apply effects of new.
@@ -72,27 +66,29 @@
 		return
 
 	// Clear old effects.
-	if(cur_stage == NORMAL_EFFECT)
-		effect_off()
+	switch(cur_stage)
+		if(NORMAL_EFFECT)
+			effect_off()
 
-	if(cur_stage == BAD_EFFECT)
-		bad_effect_off()
+		if(BAD_EFFECT)
+			bad_effect_off()
 
-	if(cur_stage == VERY_BAD_EFFECT)
-		very_bad_effect_off()
+		if(VERY_BAD_EFFECT)
+			very_bad_effect_off()
 
 	// Change stage.
 	cur_stage = new_stage
 
 	// Apply effects of new stage.
-	if(cur_stage == NORMAL_EFFECT)
-		effect_on()
+	switch(cur_stage)
+		if(NORMAL_EFFECT)
+			effect_on()
 
-	if(cur_stage == BAD_EFFECT)
-		bad_effect_on()
+		if(BAD_EFFECT)
+			bad_effect_on()
 
-	if(cur_stage == VERY_BAD_EFFECT)
-		very_bad_effect_on()
+		if(VERY_BAD_EFFECT)
+			very_bad_effect_on()
 
 
 // Get time after effect applyment.
