@@ -2,28 +2,28 @@
 // Can be attached to armor. Give bonus armor for laser and bullet
 
 
-// MARK: Defines
-/// Heavy armor plates class. Allow only for specific: Syndicate, Nanotresen spacesuits.
-#define ARMOR_PLATE_CLASS_HEAVY 3
-/// Medium armor plates class. Allow only for special armors.
-#define ARMOR_PLATE_CLASS_MEDIUM 2
-/// Light armor plates class. Allow for all suits.
-#define ARMOR_PLATE_CLASS_LIGHT 1
-/// For deny armor plate in suit.
-#define ARMOR_PLATE_CLASS_NONE 0
-
-
 //MARK: Basic armor plate
 
 /obj/item/armor_plate
 	name = "armor plate"
 	icon_state = "roman_shield"
 	/// Plate class
-	var/class = ARMOR_PLATE_CLASS_LIGHT
-	/// Bonus bullet armor
-	var/bullet = 0
-	/// Bonus laser armor
-	var/laser = 0
+	var/class = ARMOR_CLASS_ULTRA_LIGHT
+	/// Ballistic protection class
+	var/ballistic_class = BALLISTIC_ARMOR_CLASS_I
+	/// Laser protection class
+	var/ballistic_class = LASER_ARMOR_CLASS_I
+	/// Current integrity, default set armor_max_integrity value
+	var/armor_integrity
+	/// Armor integrity when armor begin decreasing
+	var/armor_protection_integrity = 100
+	/// Armor maximal integrity
+	var/armor_max_integrity = 150
+
+/obj/item/armor_plate/Initialize(mapload)
+	. = ..()
+	armor_integrity = armor_max_integrity
+
 
 
 /obj/item/armor_plate/attack_obj(obj/object, mob/living/user, params)
@@ -37,3 +37,8 @@
 	src.forceMove(target)
 	//TODO apply effect
 	//TODO register signals (detach, take damage, etc)
+
+
+/// Calculate armor efficient percent in range 0-100
+/obj/item/armor_plate/proc/get_armor_efficient()
+	return clamp(armor_integrity / armor_protection_integrity * 100, 0, 100)

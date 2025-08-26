@@ -37,6 +37,7 @@
 #include "code\__DEFINES\announce_defines.dm"
 #include "code\__DEFINES\anomalies.dm"
 #include "code\__DEFINES\antagonists.dm"
+#include "code\__DEFINES\armor_penetration.dm"
 #include "code\__DEFINES\asset_defines.dm"
 #include "code\__DEFINES\atmospherics.dm"
 #include "code\__DEFINES\basic_mobs.dm"
