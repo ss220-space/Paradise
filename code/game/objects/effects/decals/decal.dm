@@ -12,33 +12,42 @@
 /obj/effect/decal/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
-	if(scoop_reagents)
-		reagents.add_reagent_list(scoop_reagents)
 
-/obj/effect/decal/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
-		add_fingerprint(user)
-		scoop(I, user)
-		return ATTACK_CHAIN_BLOCKED_ALL
-	return ATTACK_CHAIN_PROCEED
+	if(!scoop_reagents)
+		return
 
-/obj/effect/decal/proc/scoop(obj/item/I, mob/user)
-	if(reagents && I.reagents && !no_scoop)
-		if(!reagents.total_volume)
-			to_chat(user, span_notice("There isn't enough [src] to scoop up!"))
-			return
-		if(I.reagents.total_volume >= I.reagents.maximum_volume)
-			to_chat(user, span_notice("[I] is full!"))
-			return
-		to_chat(user, span_notice("You scoop [src] into [I]!"))
-		reagents.trans_to(I, reagents.total_volume)
-		if(!reagents.total_volume && !no_clear) // Scooped up all of it.
-			qdel(src)
+	reagents.add_reagent_list(scoop_reagents)
+
+/obj/effect/decal/attackby(obj/item/item, mob/user, params)
+	if(!istype(item, /obj/item/reagent_containers/glass) && !istype(item, /obj/item/reagent_containers/food/drinks))
+		return ATTACK_CHAIN_PROCEED
+
+	add_fingerprint(user)
+	scoop(item, user)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+/obj/effect/decal/proc/scoop(obj/item/item, mob/user)
+	if(!reagents || !item.reagents || no_scoop)
+		return
+
+	if(!reagents.total_volume)
+		to_chat(user, span_notice("There isn't enough [src] to scoop up!"))
+		return
+
+	if(item.reagents.total_volume >= item.reagents.maximum_volume)
+		to_chat(user, span_notice("[item] is full!"))
+		return
+
+	to_chat(user, span_notice("You scoop [src] into [item]!"))
+	reagents.trans_to(item, reagents.total_volume)
+
+	if(!reagents.total_volume && !no_clear)
+		qdel(src)
 
 /obj/effect/decal/ex_act(severity, target)
 	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			R.on_ex_act()
+		for(var/datum/reagent/reagent in reagents.reagent_list)
+			reagent.on_ex_act()
 	qdel(src)
 
 /obj/effect/decal/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -47,8 +56,8 @@
 	if(!(resistance_flags & FIRE_PROOF)) // Non fire proof decal or being burned by lava.
 		qdel(src)
 
-/obj/effect/decal/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc && !QDELETED(src))
+/obj/effect/decal/blob_act(obj/structure/blob/blob)
+	if(blob?.loc == loc && !QDELETED(src))
 		qdel(src)
 
 // MARK: turf_decal

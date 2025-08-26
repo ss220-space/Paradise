@@ -29,7 +29,7 @@
 		resulting_decals_params += list(rotating.get_rotated_parameters(old_dir, new_dir))
 
 	//Instead we could generate ids and only remove duplicates to save on churn on four-corners symmetry ?
-	for(var/datum/element/decal/decal in old_decals)
+	for(var/datum/element/decal/decal as anything in old_decals)
 		decal.Detach(source)
 
 	for(var/result in resulting_decals_params)
@@ -110,15 +110,17 @@
 /datum/element/decal/proc/late_update_icon(atom/source)
 	SIGNAL_HANDLER
 
-	if(istype(source) && !(source.flags & DECAL_INIT_UPDATE_EXPERIENCED))
-		source.flags |= DECAL_INIT_UPDATE_EXPERIENCED // I am so sorry, but it saves like 80ms I gotta
-		source.update_appearance(UPDATE_OVERLAYS)
-		UnregisterSignal(source, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
+	if(!istype(source) || (source.flags & DECAL_INIT_UPDATE_EXPERIENCED))
+		return
+
+	source.flags |= DECAL_INIT_UPDATE_EXPERIENCED // I am so sorry, but it saves like 80ms I gotta
+	source.update_appearance(UPDATE_OVERLAYS)
+	UnregisterSignal(source, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
 
 /datum/element/decal/proc/apply_overlay(atom/source, list/overlay_list)
 	SIGNAL_HANDLER
 
-	overlay_list += pic
+	LAZYADD(overlay_list, pic)
 
 /datum/element/decal/proc/clean_react(datum/source, strength)
 	SIGNAL_HANDLER
@@ -129,7 +131,7 @@
 /datum/element/decal/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	examine_list += description
+	LAZYADD(examine_list, description)
 
 /datum/element/decal/proc/shuttle_move_react(datum/source, turf/new_turf)
 	SIGNAL_HANDLER
@@ -142,4 +144,4 @@
 /datum/element/decal/proc/shuttle_rotate(datum/source, list/datum/element/decal/rotating)
 	SIGNAL_HANDLER
 
-	rotating += src
+	LAZYADD(rotating, src)
