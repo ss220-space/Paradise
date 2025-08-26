@@ -1642,6 +1642,7 @@
 #include "code\modules\addition_goals\addition_goal_console.dm"
 #include "code\modules\addition_goals\addition_goals.dm"
 #include "code\modules\addition_goals\shuttle.dm"
+#include "code\modules\addition_goals\goals\energy.dm"
 #include "code\modules\addition_goals\goals\funeral.dm"
 #include "code\modules\addition_goals\goals\medical.dm"
 #include "code\modules\addition_goals\goals\prisoners.dm"
