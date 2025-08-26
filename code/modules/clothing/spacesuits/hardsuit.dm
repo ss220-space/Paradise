@@ -803,12 +803,22 @@
 	sprite_sheets = null
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/science
-	name = "Шлем ИКСа учёного"
+	name = "Science Hardsuit Helmet"
 	desc = "Прототип шлема, разработанный для проведения исследований в опасной среде с пониженным давлением."
 	icon_state = "hardsuit0-rnd"
 	item_state = "hardsuit0-rnd"
 	item_color = "rnd"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, BIO = 30, RAD = 100, FIRE = 100, ACID = 40)
+
+/obj/item/clothing/head/helmet/space/hardsuit/rd/science/get_ru_names()
+	return list(
+		NOMINATIVE = "Шлем ИКСа учёного",
+		GENITIVE = "Шлема ИКСа учёного",
+		DATIVE = "Шлему ИКСа учёного",
+		ACCUSATIVE = "Шлем ИКСа учёного",
+		INSTRUMENTAL = "Шлемом ИКСа учёного",
+		PREPOSITIONAL = "Шлеме ИКСа учёного"
+	)
 
 /obj/item/clothing/suit/space/hardsuit/rnd
 	name = "Science Hardsuit"

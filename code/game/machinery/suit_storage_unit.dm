@@ -47,11 +47,21 @@
 	mask_type    = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/rnd
-	name = "хранилище научного ИКСа"
+	name = "science suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/rnd
 	storage_type = /obj/item/tank/internals/oxygen
 	mask_type = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots
+
+/obj/machinery/suit_storage_unit/rnd/get_ru_names()
+	return list(
+		NOMINATIVE = "хранилище научного ИКСа.",
+		GENITIVE = "хранилища научного ИКСа",
+		DATIVE = "хранилищу научного ИКСа",
+		ACCUSATIVE = "хранилище научного ИКСа",
+		INSTRUMENTAL = "хранилищем научного ИКСа",
+		PREPOSITIONAL = "хранилище научного ИКСа"
+	)
 
 /obj/machinery/suit_storage_unit/standard_unit/ertamber
 	name = "ERT Amber storage unit"
