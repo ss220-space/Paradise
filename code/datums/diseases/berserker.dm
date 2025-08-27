@@ -46,7 +46,7 @@
 						continue
 					var/damage = rand(1, 5)
 					if(prob(80))
-						playsound(affected_mob.loc, "punch", 25, TRUE, -1)
+						playsound(affected_mob.loc, SFX_PUNCH, 25, TRUE, -1)
 						affected_mob.visible_message(span_danger("[affected_mob] ударя[pluralize_ru(affected_mob.gender,"ет", "ют")] [M.declent_ru(ACCUSATIVE)] своими конвульсиями!"))
 						M.adjustBruteLoss(damage)
 					else

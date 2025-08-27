@@ -398,7 +398,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/clock_hammer/update_icon_state()
@@ -508,7 +508,7 @@
 		/datum/component/cleave_attack, \
 		arc_size = 180, \
 		afterswing_slowdown = 0, \
-		swing_sound = "blade_swing_light" \
+		swing_sound = SFX_BLADE_SWING_LIGHT \
 	)
 
 /obj/item/melee/clock_sword/update_overlays()
@@ -862,7 +862,7 @@
 /obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(enchant_type == ABSORB_SPELL && isclocker(owner))
 		owner.visible_message(span_danger("[attack_text] is absorbed by [src] sparks!"))
-		playsound(loc, "sparks", 100, TRUE)
+		playsound(loc, SFX_SPARKS, 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		deplete_spell()
 		return TRUE
@@ -875,7 +875,7 @@
 	if(owner.wear_suit != src)
 		return FALSE
 	if(enchant_type == REFLECT_SPELL && isclocker(owner))
-		playsound(loc, "sparks", 100, TRUE)
+		playsound(loc, SFX_SPARKS, 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		if(reflect_uses <= 0)
 			reflect_uses = initial(reflect_uses)
@@ -1388,7 +1388,7 @@
 			to_chat(user,span_warning("You are too weak to crush this massive shard!"))
 			return
 		user.visible_message(span_warning("[user] crushes [src] in his hands!"), span_notice("You crush [src] in your hand!"))
-		playsound(src, "shatter", 50, TRUE)
+		playsound(src, SFX_SHATTER, 50, TRUE)
 		switch(enchant_type)
 			if(EMP_SPELL)
 				add_attack_logs(user, user, "Clock EMP with [src]")

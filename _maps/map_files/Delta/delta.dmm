@@ -9322,6 +9322,10 @@
 /obj/item/pen,
 /turf/simulated/floor/carpet/red,
 /area/maintenance/casino)
+"boX" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/space,
+/area/space)
 "bpf" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/machinery/light/small{
@@ -54415,6 +54419,12 @@
 "hsp" = (
 /turf/simulated/wall,
 /area/maintenance/tourist)
+"hsD" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/space,
+/area/space)
 "hsQ" = (
 /obj/machinery/light{
 	dir = 8
@@ -88946,6 +88956,9 @@
 /area/hallway/primary/central/south)
 "pCQ" = (
 /obj/machinery/door/firedoor/closed,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "pCW" = (
@@ -94623,6 +94636,10 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/storage)
+"qMZ" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/botany_room,
+/turf/simulated/wall,
+/area/maintenance/garden)
 "qNb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -120863,6 +120880,12 @@
 "wOf" = (
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
+"wOm" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/space,
+/area/space)
 "wOn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/popcorn,
@@ -124019,6 +124042,12 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/locker)
+"xxR" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall,
+/area/maintenance/asmaint4)
 "xxS" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -174394,7 +174423,7 @@ coE
 coE
 aaq
 aaq
-aaq
+wOm
 aaq
 rGe
 pzN
@@ -174650,13 +174679,13 @@ kyC
 coE
 aaq
 aaq
-aaq
+boX
 aaq
 aaq
 bBo
 bAh
 bAh
-bBo
+qMZ
 eZH
 tEH
 qoa
@@ -177220,7 +177249,7 @@ coE
 aaq
 aaq
 aaq
-aaq
+boX
 aaq
 aaq
 bBo
@@ -177478,12 +177507,12 @@ coE
 aaq
 aaq
 aaq
-aaq
+hsD
 aaq
 fsG
 rSS
 maD
-fsG
+xxR
 diK
 amA
 xBv

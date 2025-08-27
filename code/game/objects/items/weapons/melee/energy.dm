@@ -114,7 +114,7 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_sound = "chop_swing_light" \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
@@ -143,7 +143,7 @@
 	AddComponent( \
 		/datum/component/cleave_attack, \
 		afterswing_slowdown = 0, \
-		swing_sound = "energy_sword_swing" \
+		swing_sound = SFX_ENERGY_SWORD_SWING \
 	)
 
 /obj/item/melee/energy/sword/New()
@@ -301,7 +301,7 @@
 	AddComponent( \
 		/datum/component/cleave_attack, \
 		afterswing_slowdown = 0, \
-		swing_sound = "energy_sword_swing" \
+		swing_sound = SFX_ENERGY_SWORD_SWING \
 	)
 
 /obj/item/melee/energy/blade/attack_self(mob/user)

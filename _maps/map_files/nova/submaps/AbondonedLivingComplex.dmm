@@ -801,8 +801,7 @@
 /area/maintenance/abandonedwarehouse)
 "va" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
 /area/maintenance/livingcomplex)
@@ -1108,8 +1107,7 @@
 /area/maintenance/abandonedwarehouse)
 "EP" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -1730,8 +1728,7 @@
 /area/maintenance/livingcomplex)
 "YF" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /turf/simulated/floor/carpet/black,
 /area/maintenance/livingcomplex)
@@ -1748,8 +1745,7 @@
 /area/maintenance/abandonedwarehouse)
 "YP" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light_construct{

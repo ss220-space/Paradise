@@ -34309,8 +34309,7 @@
 /area/medical/patients_rooms)
 "fmk" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/structure/table/wood/fancy/black,
 /obj/item/deck/cards/black,
@@ -109635,8 +109634,7 @@
 "tLo" = (
 /obj/machinery/disposal,
 /obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1

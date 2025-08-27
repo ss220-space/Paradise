@@ -1,0 +1,2011 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"an" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/maintenance/garden)
+"ap" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/obj/item/hatchet{
+	pixel_x = 9;
+	pixel_y = -8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"bi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue"
+	},
+/area/maintenance/garden)
+"bp" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/seed_extractor,
+/turf/simulated/floor/wood,
+/area/maintenance/garden)
+"bQ" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/maintenance/garden)
+"ct" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/surgery,
+/turf/simulated/wall,
+/area/maintenance/garden)
+"cC" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/computerframe,
+/obj/item/circuitboard/bodyscanner,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/maintenance/garden)
+"cW" = (
+/obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/floodlight,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"dG" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"dL" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance{
+	pixel_x = -4;
+	pixel_y = 8
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	pixel_x = 10;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/garden)
+"dR" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"eo" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/sunflower,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"ex" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/ambrosia/cruciatus,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"eF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	icon_state = "green"
+	},
+/area/template_noop)
+"eQ" = (
+/obj/structure/sign/botany,
+/turf/simulated/wall/r_wall,
+/area/maintenance/garden)
+"eV" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellow"
+	},
+/area/maintenance/garden)
+"fL" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/machinery/power/apc{
+	pixel_y = -26
+	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"fO" = (
+/obj/item/plant_analyzer{
+	pixel_x = 7;
+	pixel_y = -7
+	},
+/obj/structure/table,
+/obj/item/cultivator{
+	pixel_y = 5;
+	pixel_x = -7
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"fW" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/destroyed,
+/turf/simulated/wall,
+/area/maintenance/garden)
+"gE" = (
+/obj/structure/grille/broken,
+/obj/structure/window/reinforced,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"gM" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/suit/storage/hazardvest,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/mask/gas,
+/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "yellow"
+	},
+/area/maintenance/garden)
+"gN" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"gX" = (
+/obj/effect/decal/warning_stripes/northeast,
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"hy" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"hS" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
+"iT" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/reagent_containers/spray/pestspray,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"iY" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/table,
+/obj/item/storage/toolbox/emergency/old{
+	pixel_x = 5;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/gloves/color/fyellow{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/maintenance/garden)
+"iZ" = (
+/turf/simulated/wall/rust,
+/area/template_noop)
+"jh" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"ji" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/grown/grapes,
+/obj/item/reagent_containers/food/snacks/grown/holymelon,
+/obj/item/reagent_containers/food/snacks/grown/cocoapod,
+/obj/item/reagent_containers/food/snacks/grown/chili,
+/obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/maintenance/garden)
+"jC" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"jV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/maintenance/garden)
+"kb" = (
+/obj/effect/decal/warning_stripes/southwest,
+/obj/structure/table,
+/obj/item/flashlight/lamp{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "yellow"
+	},
+/area/maintenance/garden)
+"kV" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/barricade/wooden/crude{
+	layer = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"le" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"lw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"nc" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
+	},
+/area/maintenance/garden)
+"nf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"nk" = (
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"nM" = (
+/turf/simulated/wall/rust,
+/area/maintenance/garden)
+"nU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"oq" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/tea,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"pu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"pV" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellow"
+	},
+/area/maintenance/garden)
+"qb" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"qn" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/biogenerator,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/turf/simulated/floor/wood,
+/area/maintenance/garden)
+"qr" = (
+/turf/template_noop,
+/area/template_noop)
+"re" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"rn" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/table,
+/obj/machinery/door_control{
+	pixel_y = -2;
+	pixel_x = -5;
+	id = "botany_room_door"
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = 8;
+	pixel_x = 2
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"rB" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/better,
+/turf/simulated/wall,
+/area/maintenance/garden)
+"sk" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/engineeringcart,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"sQ" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
+/obj/machinery/hydroponics/soil,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"td" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"tl" = (
+/obj/item/stack/rods,
+/turf/space,
+/area/template_noop)
+"tt" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/engi,
+/turf/simulated/wall,
+/area/maintenance/garden)
+"tX" = (
+/obj/structure/mirror{
+	icon_state = "mirror_broke";
+	pixel_y = 32
+	},
+/obj/structure/sink{
+	pixel_y = 22
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTHEAST)"
+	},
+/area/maintenance/garden)
+"uj" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/tower,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"uA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/holosign/barrier/atmos,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"uU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"vo" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/maintenance/garden)
+"vu" = (
+/obj/machinery/vending/hydronutrients,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/maintenance/garden)
+"wg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/maintenance/garden)
+"wh" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"wk" = (
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"wX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sink{
+	pixel_y = 22
+	},
+/obj/structure/mirror{
+	pixel_y = 32
+	},
+/obj/structure/closet/walllocker{
+	pixel_x = -28
+	},
+/obj/structure/sign/poster/official/cleanliness{
+	pixel_x = -32
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/maintenance/garden)
+"xb" = (
+/obj/structure/grille/broken,
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"xe" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/iv_drip,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/maintenance/garden)
+"xp" = (
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"xR" = (
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/maintenance/garden)
+"yg" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/grown/grapes,
+/obj/item/reagent_containers/food/snacks/grown/holymelon,
+/obj/item/reagent_containers/food/snacks/grown/cocoapod,
+/obj/item/reagent_containers/food/snacks/grown/chili,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "green"
+	},
+/area/template_noop)
+"yX" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "construction access"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/poddoor{
+	id_tag = "botany_room_door"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"zG" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/sign/nosmoking_2{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/body_bag,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/maintenance/garden)
+"An" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stack/cable_coil/random{
+	amount = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (SOUTHWEST)"
+	},
+/area/maintenance/garden)
+"AH" = (
+/obj/structure/grille/broken,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"AI" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "construction access"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"BH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/maintenance/garden)
+"BQ" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"Cj" = (
+/obj/structure/lattice,
+/turf/space,
+/area/template_noop)
+"Cp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/maintenance/garden)
+"Df" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "barber"
+	},
+/area/maintenance/garden)
+"Dy" = (
+/turf/simulated/wall/r_wall,
+/area/maintenance/garden)
+"Ed" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/northwest,
+/obj/structure/closet/crate/engineering,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"Ek" = (
+/obj/machinery/power/apc{
+	pixel_y = -26
+	},
+/obj/machinery/hydroponics/soil,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"Ew" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plasteel,
+/area/maintenance/garden)
+"Fm" = (
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/vending/hydroseeds,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5";
+	tag = "icon-wood-broken5"
+	},
+/area/maintenance/garden)
+"GT" = (
+/obj/machinery/computer/operating/old_frame,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/maintenance/garden)
+"GU" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall,
+/area/template_noop)
+"Hd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 4
+	},
+/obj/item/lighter/random{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/glass/bottle/morphine{
+	pixel_x = 13;
+	pixel_y = 12
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"Ho" = (
+/turf/simulated/wall,
+/area/maintenance/garden)
+"Id" = (
+/obj/structure/flora/ausbushes/reedbush,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"Ig" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/item/stack/rods,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"In" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 10
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/maintenance/garden)
+"Iz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"IC" = (
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plasteel,
+/area/maintenance/garden)
+"IY" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
+/obj/machinery/door/window/eastright{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/maintenance/garden)
+"Jg" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"Kb" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"KF" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/slightly_worse,
+/turf/simulated/wall,
+/area/template_noop)
+"Lb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/item/reagent_containers/glass/bucket,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5";
+	tag = "icon-wood-broken5"
+	},
+/area/maintenance/garden)
+"Lo" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "construction access"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/barricade/wooden{
+	layer = 3.5
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Lq" = (
+/turf/simulated/wall,
+/area/template_noop)
+"Lt" = (
+/obj/structure/grille/broken,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/barricade/wooden{
+	layer = 3.5
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"LV" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/machinery/power/apc{
+	pixel_y = -26
+	},
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellow"
+	},
+/area/maintenance/garden)
+"Mi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"Mm" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/machinery/power/apc{
+	pixel_y = -26
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/crowbar,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/maintenance/garden)
+"MB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"MX" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood,
+/area/maintenance/garden)
+"NG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/garden)
+"Oh" = (
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"OT" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/machinery/power/apc{
+	pixel_y = -26
+	},
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"PG" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"PN" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/turf/template_noop,
+/area/template_noop)
+"Qs" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/template_noop,
+/area/template_noop)
+"QG" = (
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellowcorner"
+	},
+/area/maintenance/garden)
+"Rx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/window/eastright,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/maintenance/garden)
+"SJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/tool,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"Tk" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-dead";
+	tag = "plant-dead"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"TV" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
+"Ul" = (
+/obj/structure/flora/ausbushes/ywflowers/hell,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"Uv" = (
+/obj/structure/sink/puddle,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"UN" = (
+/obj/structure/lattice,
+/obj/item/stack/ore/bananium,
+/turf/space,
+/area/template_noop)
+"US" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/optable,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTHEAST)"
+	},
+/area/maintenance/garden)
+"Vl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"Vy" = (
+/obj/effect/decal/warning_stripes/southeast,
+/obj/structure/table,
+/obj/machinery/cell_charger{
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/obj/item/stock_parts/cell/high,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "yellow"
+	},
+/area/maintenance/garden)
+"WQ" = (
+/turf/space,
+/area/template_noop)
+"Xf" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellow"
+	},
+/area/maintenance/garden)
+"Yd" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"Ys" = (
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"YV" = (
+/obj/machinery/hydroponics/soil,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+"Ze" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"Zg" = (
+/obj/structure/table,
+/obj/item/wrench,
+/obj/item/crowbar,
+/turf/simulated/floor/plasteel,
+/area/maintenance/garden)
+"ZO" = (
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/item/storage/bag/plants/portaseeder,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
+
+(1,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(2,1,1) = {"
+qr
+qr
+qr
+hy
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+hy
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+hy
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(3,1,1) = {"
+qr
+qr
+Qs
+qr
+qr
+Ho
+nM
+nM
+fW
+qr
+qr
+qr
+Qs
+qr
+qr
+Ho
+nM
+nM
+rB
+qr
+qr
+qr
+Qs
+qr
+qr
+qr
+qr
+qr
+PN
+qr
+"}
+(4,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+Kb
+Ew
+dL
+Ho
+qr
+qr
+qr
+qr
+qr
+Kb
+Kb
+qn
+bp
+Ho
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(5,1,1) = {"
+qr
+qr
+qr
+qr
+gE
+Kb
+Oh
+NG
+Ho
+qr
+qr
+qr
+qr
+Kb
+Kb
+ji
+MX
+Lb
+Ho
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(6,1,1) = {"
+qr
+qr
+qr
+qr
+Cj
+wh
+Yd
+IC
+nM
+qr
+qr
+qr
+qr
+Kb
+oq
+Ul
+qb
+fO
+nM
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(7,1,1) = {"
+qr
+qr
+qr
+qr
+WQ
+Cj
+Vl
+OT
+Ho
+qr
+qr
+qr
+qr
+Kb
+uj
+Ys
+ex
+Ek
+Ho
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(8,1,1) = {"
+qr
+qr
+qr
+qr
+WQ
+WQ
+UN
+uA
+AI
+qr
+qr
+qr
+qr
+eQ
+jC
+Uv
+le
+lw
+AI
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(9,1,1) = {"
+qr
+qr
+qr
+qr
+WQ
+WQ
+tl
+xp
+Ho
+qr
+qr
+qr
+qr
+Kb
+eo
+wk
+nU
+ZO
+Ho
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(10,1,1) = {"
+qr
+qr
+qr
+qr
+tl
+Cj
+xb
+jh
+Ho
+qr
+qr
+qr
+qr
+Kb
+iT
+nk
+gN
+sQ
+Ho
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(11,1,1) = {"
+qr
+qr
+qr
+qr
+Cj
+AH
+BQ
+MB
+Ho
+qr
+qr
+qr
+qr
+Kb
+Kb
+YV
+Id
+ap
+Ho
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(12,1,1) = {"
+qr
+qr
+qr
+qr
+Cj
+Kb
+Ig
+Zg
+nM
+qr
+qr
+qr
+qr
+qr
+Kb
+Kb
+Fm
+vu
+nM
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(13,1,1) = {"
+qr
+qr
+Qs
+qr
+qr
+Ho
+Ho
+nM
+nM
+Ze
+qr
+qr
+Qs
+qr
+qr
+nM
+Ho
+nM
+nM
+Ze
+qr
+qr
+Qs
+qr
+qr
+qr
+qr
+qr
+qr
+Ze
+"}
+(14,1,1) = {"
+qr
+qr
+qr
+hS
+qr
+qr
+qr
+qr
+hS
+qr
+qr
+qr
+qr
+hS
+qr
+qr
+qr
+qr
+hS
+qr
+qr
+qr
+qr
+hS
+qr
+qr
+qr
+qr
+hS
+qr
+"}
+(15,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(16,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(17,1,1) = {"
+qr
+qr
+qr
+hy
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+hy
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+hy
+qr
+qr
+qr
+qr
+qr
+qr
+"}
+(18,1,1) = {"
+qr
+qr
+Qs
+qr
+qr
+Ho
+nM
+nM
+ct
+qr
+qr
+qr
+Qs
+qr
+qr
+Ho
+nM
+nM
+tt
+qr
+qr
+qr
+Qs
+qr
+qr
+qr
+qr
+qr
+KF
+qr
+"}
+(19,1,1) = {"
+qr
+qr
+qr
+qr
+Ho
+Ho
+wX
+An
+Ho
+qr
+qr
+qr
+qr
+qr
+qr
+Kb
+Ed
+kb
+nM
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+iZ
+qr
+"}
+(20,1,1) = {"
+qr
+qr
+qr
+qr
+Kb
+GT
+uU
+jV
+Ho
+qr
+qr
+qr
+qr
+qr
+Kb
+Kb
+td
+Iz
+Ho
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+eF
+PG
+qr
+"}
+(21,1,1) = {"
+qr
+qr
+qr
+qr
+kV
+In
+Df
+Rx
+nM
+qr
+qr
+qr
+qr
+qr
+Kb
+gM
+QG
+Xf
+Jg
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+PG
+qr
+"}
+(22,1,1) = {"
+qr
+qr
+qr
+qr
+Kb
+xe
+wg
+Mm
+Ho
+qr
+qr
+qr
+qr
+qr
+Kb
+sk
+Mi
+LV
+Ho
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+fL
+Lq
+qr
+"}
+(23,1,1) = {"
+qr
+qr
+qr
+qr
+Dy
+zG
+an
+bi
+AI
+qr
+qr
+qr
+qr
+qr
+Dy
+rn
+dR
+dG
+yX
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+nf
+Lo
+qr
+"}
+(24,1,1) = {"
+qr
+qr
+qr
+qr
+kV
+Tk
+BH
+vo
+Ho
+qr
+qr
+qr
+qr
+qr
+Kb
+iY
+SJ
+pV
+Ho
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+TV
+Lq
+qr
+"}
+(25,1,1) = {"
+qr
+qr
+qr
+qr
+Kb
+cC
+bQ
+IY
+Ho
+qr
+qr
+qr
+qr
+qr
+Kb
+cW
+xR
+eV
+Ho
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+yg
+GU
+qr
+"}
+(26,1,1) = {"
+qr
+qr
+qr
+qr
+kV
+US
+nc
+Cp
+Ho
+qr
+qr
+qr
+qr
+qr
+Kb
+Kb
+re
+pu
+Jg
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+eF
+Lt
+qr
+"}
+(27,1,1) = {"
+qr
+qr
+qr
+qr
+Ho
+Ho
+tX
+Hd
+nM
+qr
+qr
+qr
+qr
+qr
+qr
+Kb
+gX
+Vy
+nM
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+iZ
+qr
+"}
+(28,1,1) = {"
+qr
+qr
+Qs
+qr
+qr
+Ho
+Ho
+nM
+nM
+Ze
+qr
+qr
+Qs
+qr
+qr
+Ho
+Ho
+nM
+nM
+Ze
+qr
+qr
+Qs
+qr
+qr
+qr
+qr
+qr
+iZ
+Ze
+"}
+(29,1,1) = {"
+qr
+qr
+qr
+hS
+qr
+qr
+qr
+qr
+hS
+qr
+qr
+qr
+qr
+hS
+qr
+qr
+qr
+qr
+hS
+qr
+qr
+qr
+qr
+hS
+qr
+qr
+qr
+qr
+hS
+qr
+"}
+(30,1,1) = {"
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+qr
+"}
