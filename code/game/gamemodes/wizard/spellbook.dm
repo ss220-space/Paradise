@@ -1133,7 +1133,6 @@
 	name_change(spellname)
 	icon_state = "book[spellname]"
 	item_state = "book[spellname]"
-	name = "spellbook of [spellname]" //Note, desc doesn't change by design
 	..()
 
 /obj/item/spellbook/oneuse/mindswap/proc/name_change(spellname)
@@ -1153,15 +1152,10 @@
 		if("charge")
 			spellname_ru = "Заряда"
 
-	if(!ru_names)
-		ru_names = list()
+	name = "spellbook of [spellname]" //Note, desc doesn't change by design
 
-	ru_names[NOMINATIVE] = "гримуар " + spellname_ru
-	ru_names[GENITIVE] = "гримуара " + spellname_ru
-	ru_names[DATIVE] = "гримуару" + spellname_ru
-	ru_names[ACCUSATIVE] = "гримуар " + spellname_ru
-	ru_names[INSTRUMENTAL] = "гримуаром " + spellname_ru
-	ru_names[PREPOSITIONAL] = "гримуаре " + spellname_ru
+	if(!ru_names)
+		ru_names = get_ru_names() // Use normal proc, to mimic normal book
 
 /obj/item/spellbook/oneuse/mindswap/recoil(mob/user)
 	..()
