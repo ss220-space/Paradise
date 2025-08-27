@@ -183,10 +183,11 @@
 	origin_tech = "biotech=2"
 	amount = 6
 	max_amount = 6
-	heal_brute = 10
-	bleedsuppress = 2.5
+	heal_brute = 5
+	bleedsuppress = 5
 	stop_bleeding = 180 SECONDS
-	use_duration = 3 SECONDS
+	self_delay = 2 SECONDS
+	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
 	merge_type = /obj/item/stack/medical/bruise_pack
@@ -260,11 +261,12 @@
 	amount = 1
 	max_amount = 1
 	heal_brute = 20
-	bleedsuppress = 10
+	bleedsuppress = 20
 	stop_bleeding = 300 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
-	use_duration = 1 SECONDS
+	self_delay = 0.1 SECONDS
+	use_duration = 0.1 SECONDS
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
 	return list(
@@ -295,7 +297,8 @@
 	amount = 4
 	max_amount = 4
 	stop_bleeding = 0
-	use_duration = 2 SECONDS
+	self_delay = 2 SECONDS
+	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
@@ -317,6 +320,7 @@
 	max_amount = 10
 	stop_bleeding = 0
 	use_duration = 0
+	self_delay = 1.5 SECONDS
 	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/extended
 
@@ -337,6 +341,8 @@
 	heal_burn = 10
 	amount = 6
 	max_amount = 6
+	self_delay = 2 SECONDS
+	use_duration = 2 SECONDS
 	cost = 1
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/ointment
@@ -402,6 +408,7 @@
 	heal_burn = 40
 	amount = 10
 	max_amount = 10
+	self_delay = 1.5 SECONDS
 	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/extended
 
@@ -420,6 +427,8 @@
 	color = "#378C61"
 	stop_bleeding = 0
 	heal_brute = 12
+	self_delay = 2 SECONDS
+	use_duration = 2 SECONDS
 	drop_sound = 'sound/misc/moist_impact.ogg'
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
 	hitsound = 'sound/misc/moist_impact.ogg'
@@ -437,6 +446,8 @@
 	icon_state = "aloe"
 	color = "#4CC5C7"
 	heal_burn = 12
+	self_delay = 2 SECONDS
+	use_duration = 2 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/aloe
 
 /obj/item/stack/medical/ointment/aloe/update_icon_state()
@@ -559,7 +570,8 @@
 	stop_bleeding = 0
 	var/bleeding_heal = 5
 	var/damage = 10
-	use_duration = 5 SECONDS
+	self_delay = 3 SECONDS
+	use_duration = 2 SECONDS
 	cost = 1
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/suture
@@ -627,7 +639,8 @@
 	stop_bleeding = 0
 	bleeding_heal = 10
 	damage = 0
-	use_duration = 2 SECONDS
+	self_delay = 2 SECONDS
+	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/suture/advanced
 
 /obj/item/stack/medical/suture/advanced/get_ru_names()

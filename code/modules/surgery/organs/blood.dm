@@ -30,7 +30,7 @@
 /// Multiplyer for bleeding calculate from bodypart value
 #define BLEEDING_MODIFIER 0.32
 /// Minimal brute damage for add bleeding
-#define MIN_BRUTE_DAMAGE_FOR_BLEEDING 1
+#define MIN_BRUTE_DAMAGE_FOR_BLEEDING 15
 /// Minimal brute damage for add bleeding
 #define MIN_BURN_DAMAGE_FOR_STOP_BLEEDING 5
 /// Brute damage to bleeding calculation coefficient
