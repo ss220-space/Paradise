@@ -308,6 +308,7 @@
 		PREPOSITIONAL = "странном руководстве"
 	)
 	gender = MALE
+	icon = 'icons/obj/library.dmi'
 	icon_state = "drone_manual"
 
 /obj/item/drone_manual/attack_self(mob/user)
