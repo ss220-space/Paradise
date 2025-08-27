@@ -32,3 +32,15 @@
 
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/slightly_worse
 	name = "дополнительные баррикады, установленные перед входом в старую ботанику"
+
+
+/// Clown-mime rooms submap
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/clown_mime
+	name = "clown to mime shuffle"
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/clown_mime
+	name = "clown_mime insert"
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/clown_mime/shuffle
+	name = "комната клоуна и мима была изменена местами. хихихихи"
