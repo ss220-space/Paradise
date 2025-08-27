@@ -203,7 +203,7 @@
 	. = ..()
 	if(active)
 		. += "Заряд: [core ? "[get_charge_percent()]%" : "ОШИБКА: Ядро отсутствует"]."
-		. += "Выбранный модуль: [selected_module.declent_ru(NOMINATIVE) || "Модуль не выбран"]."
+		. += "Выбранный модуль: [selected_module?.declent_ru(NOMINATIVE) || "Модуль не выбран"]."
 	if(!open && !active)
 		if(!wearer)
 			. += "Чтобы начать работу с модульным костюмом, наденьте его."
