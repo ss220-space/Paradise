@@ -14,7 +14,7 @@
 		if(check_rights(R_ADMIN, FALSE) && isobserver(src.mob)) //If they have +ADMIN and are a ghost they can see players IC names and statuses.
 			columns_per_row = 1
 			var/mob/dead/observer/admin_observer = src.mob
-			if(!admin_observer.started_as_observer)
+			if(!admin_observer.started_as_observer) //If you aghost to do this
 				log_admin("[key_name(usr)] checked advanced who in-round.")
 			for(var/client/client in GLOB.clients)
 				if(client.holder && client.holder.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // need PERMISSIONS to see BB
@@ -27,18 +27,21 @@
 					entry += " – <span style='color: darkgray;'><b>В лобби</b></span>"
 				else
 					entry += " – Играет за [client.mob.real_name]"
-				switch(client.mob.stat)
-					if(UNCONSCIOUS)
-						entry += " – <span style='color: darkgray;'><b>Без сознания</b></span>"
-					if(DEAD)
-						if(isobserver(client.mob))
-							var/mob/dead/observer/observer = client.mob
-							if(observer.started_as_observer)
-								entry += " – <span style='color: gray;'>Наблюдает</span>"
+					switch(client.mob.stat)
+						if(UNCONSCIOUS)
+							entry += " – <span style='color: darkgray;'><b>Без сознания</b></span>"
+						if(DEAD)
+							if(isobserver(client.mob))
+								var/mob/dead/observer/observer = client.mob
+								if(observer.started_as_observer)
+									entry += " – <span style='color: gray;'>Наблюдает</span>"
+								else
+									entry += " – <span style='color: black;'><b>МЕРТВ</b></span>"
 							else
 								entry += " – <span style='color: black;'><b>МЕРТВ</b></span>"
-						else
-							entry += " – <span style='color: black;'><b>МЕРТВ</b></span>"
+
+					if(is_special_character(client.mob))
+						entry += " – <span style='color: red;'><b>Антагонист</b></span>"
 
 				var/age
 				if(isnum(client.player_age))
@@ -51,9 +54,17 @@
 					age = "<span style='color: orange;'><b>[age]</b></span>"
 				entry += " – [age]"
 
-				if(is_special_character(client.mob))
-					entry += " – <span style='color: red;'><b>Антагонист</b></span>"
 				entry += " ([ADMIN_QUE(client.mob,"?")])"
+				entry += " ([round(client.avgping, 1)]ms)"
+				lines += entry
+		else //If they don't have +ADMIN, only show hidden admins
+			for(var/client/client in GLOB.clients)
+				if(client.holder && client.holder.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // need PERMISSIONS to see BB
+					continue
+
+				var/entry = "[client.key]"
+				if(client.holder && client.holder.fakekey)
+					entry += " <i>(как [client.holder.fakekey])</i>"
 				entry += " ([round(client.avgping, 1)]ms)"
 				lines += entry
 	else
@@ -78,6 +89,7 @@
 	msg += "</tr></table>"
 
 	msg += span_bold("Всего в сети: [length(lines)]")
+
 	to_chat(src, chat_box_examine(msg), type = MESSAGE_TYPE_INFO)
 
 /client/verb/adminwho()
@@ -85,12 +97,10 @@
 	set category = STATPANEL_ADMIN_TICKETS
 
 	var/list/adminmsg = list()
-	var/list/moderatormsg = list()
 	var/list/mentormsg = list()
 	var/list/devmsg = list()
 
 	var/num_admins_online = 0
-	var/num_moderator_online = 0
 	var/num_mentors_online = 0
 	var/num_devs_online = 0
 
@@ -122,11 +132,7 @@
 			num_admins_online++
 			adminmsg += jointext(line, "")
 
-		else if(check_rights(R_MOD, FALSE, client.mob)) // Is this client a moderator?
-			num_moderator_online++
-			moderatormsg += jointext(line, "")
-
-		else if(check_rights(R_MENTOR, FALSE, client.mob)) // Is this client a mentor?
+		else if(check_rights((R_MENTOR || R_MOD), FALSE, client.mob)) // Is this client a mentor or moderator?
 			num_mentors_online++
 			mentormsg += jointext(line, "")
 
@@ -139,21 +145,18 @@
 		final_message += span_bold("Админов онлайн ([num_admins_online]):")
 		final_message += adminmsg
 		final_message += "<br>"
-	if(num_moderator_online)
-		final_message += span_bold("Модераторов онлайн ([num_moderator_online]):")
-		final_message += moderatormsg
-		final_message += "<br>"
 	if(num_mentors_online)
-		final_message += span_bold("Менторов онлайн ([num_mentors_online]):")
+		final_message += span_bold("Менторов/Модераторов онлайн ([num_mentors_online]):")
 		final_message += mentormsg
 		final_message += "<br>"
 	if(num_devs_online)
 		final_message += span_bold("Разработчиков онлайн ([num_devs_online]):")
 		final_message += devmsg
 		final_message += "<br>"
-	if(!num_admins_online || !num_moderator_online || !num_mentors_online)
+	if(!num_admins_online || !num_mentors_online)
 		final_message += span_notice(NO_ADMINS_ONLINE_MESSAGE)
-	to_chat(src, chat_box_examine(jointext(final_message, "\n")), type = MESSAGE_TYPE_INFO)
+
+	to_chat(src, chat_box_examine(jointext(final_message, "<br>")), type = MESSAGE_TYPE_INFO)
 
 /// Returns colored rank representation.
 /proc/get_colored_rank(rank)

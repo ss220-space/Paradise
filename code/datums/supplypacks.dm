@@ -3148,9 +3148,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/contraband/bombard_grenades
 	name = "Bombarda grenades crate"
-	contains = list(/obj/item/ammo_casing/grenade/improvised/exp_shell,
-					/obj/item/ammo_casing/grenade/improvised/flame_shell,
-					/obj/item/ammo_casing/grenade/improvised/smoke_shell)
+	contains = list(/obj/item/ammo_casing/a40mm/improvised/exp_shell,
+					/obj/item/ammo_casing/a40mm/improvised/flame_shell,
+					/obj/item/ammo_casing/a40mm/improvised/smoke_shell)
 	credits_cost = 7000
 	containername = "bombarda grenades crate"
 
