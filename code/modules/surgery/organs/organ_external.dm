@@ -418,6 +418,10 @@
 					limb_dropped = TRUE
 				if(!limb_dropped && original_burn && prob(original_burn / 2))
 					droplimb(clean = FALSE, disintegrate = DROPLIMB_BURN, silent = silent)
+	if(burn >= MIN_BURN_DAMAGE_FOR_STOP_BLEEDING)
+		if(bleeding_amount > 0)
+			var/bleeding_heal = min(bleeding_amount, burn * BURN_DAMAGE_STOP_BLEEDING_MOD)
+			bleeding_amount = round(bleeding_amount - bleeding_heal, BLEEDING_PRECISION)
 
 	if(brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING)
 		var/basic_chance = 25 + brute * 2.5
