@@ -180,6 +180,8 @@
 	icon_state = "gauze_3"
 	item_state = "gauze"
 	origin_tech = "biotech=2"
+	amount = 6
+	max_amount = 6
 	heal_brute = 10
 	bleedsuppress = 1.5
 	stop_bleeding = 180 SECONDS
@@ -281,16 +283,18 @@
 	name = "advanced trauma kit"
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
-	icon_state = "traumakit"
+	icon_state = "traumakit_4"
 	item_state = "traumakit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 25
+	heal_brute = 30
+	amount = 4
+	max_amount = 4
 	stop_bleeding = 0
 	use_duration = 0
 	use_duration = 2 SECONDS
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
-	return
+	icon_state = "traumakit_[amount]"
 
 
 /obj/item/stack/medical/bruise_pack/advanced/syndicate
@@ -300,18 +304,18 @@
 	name = "extended trauma kit"
 	singular_name = "extended trauma kit"
 	desc = "An extended trauma kit for severe injuries."
-	icon_state = "extended_trauma_kit"
+	icon_state = "extended_trauma_kit_5"
 	item_state = "extended_trauma_kit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 30
+	heal_brute = 35
+	amount = 10
+	max_amount = 10
 	stop_bleeding = 0
 	use_duration = 0
-	amount = 12
-	max_amount = 12
 	use_duration = 0.7 SECONDS
 
 /obj/item/stack/medical/bruise_pack/extended/update_icon_state()
-	return
+	icon_state = "extended_trauma_kit_[round_down((amount+1) / 2, 1)]"
 
 
 // MARK: Ointment
@@ -325,6 +329,8 @@
 	origin_tech = "biotech=2"
 	healverb = "salve"
 	heal_burn = 10
+	amount = 6
+	max_amount = 6
 	cost = 1
 	energy_type = /datum/robot_energy_storage/medical
 
@@ -364,14 +370,16 @@
 	name = "advanced burn kit"
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
-	icon_state = "burnkit"
+	icon_state = "burnkit_4"
 	item_state = "burnkit"
 	belt_icon = "advanced_burn_kit"
-	heal_burn = 25
+	heal_burn = 30
+	amount = 4
+	max_amount = 4
 	use_duration = 1.5 SECONDS
 
 /obj/item/stack/medical/ointment/advanced/update_icon_state()
-	return
+	icon_state = "burnkit_[amount]"
 
 /obj/item/stack/medical/ointment/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -380,16 +388,16 @@
 	name = "extended burn kit"
 	singular_name = "extended burn kit"
 	desc = "An extended treatment kit for severe burns."
-	icon_state = "extended_burn_kit"
+	icon_state = "extended_burn_kit_5"
 	item_state = "extended_burn_kit"
 	belt_icon = "advanced_burn_kit"
-	heal_burn = 30
-	amount = 12
-	max_amount = 12
+	heal_burn = 35
+	amount = 10
+	max_amount = 10
 	use_duration = 0.7 SECONDS
 
 /obj/item/stack/medical/ointment/extended/update_icon_state()
-	return
+	icon_state = "extended_burn_kit_[round_down((amount+1) / 2, 1)]"
 
 
 // MARK: Medical Herbs
