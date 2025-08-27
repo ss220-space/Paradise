@@ -34,7 +34,7 @@
 /// Brute damage to bleeding calculation coefficient
 #define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.1
 /// Heal damage to bleeding reduction calculation coefficient
-#define HEAL_DAMAGE_TO_BLEEDING_MOD 0.01
+#define HEAL_DAMAGE_TO_BLEEDING_MOD 0.1
 /// Minimal brute damage for bodypart
 #define MIN_DAMAGE_FROM_BLEEDING_MOD 1.5
 
