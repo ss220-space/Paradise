@@ -335,6 +335,26 @@
 		return FALSE
 	return pick(jobs_available)
 
+
+/mob/proc/move_to_spawn(list/spawn_turfs)
+	if(length(GLOB.start_override))
+		forceMove(pick(GLOB.start_override))
+		return
+
+	forceMove(pick(spawn_turfs))
+
+
+/mob/proc/spawn_equip()
+	if(GLOB.start_override_outfit)
+		var/datum/outfit/outfit_override = new GLOB.start_override_outfit
+		outfit_override.equip(src)
+	else
+		return SSjobs.EquipRank(src, rank, 1)
+
+	EquipCustomItems(src)
+	return src
+
+
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
 	if(src != usr)
 		return FALSE
@@ -395,7 +415,7 @@
 
 	//Find our spawning point.
 	var/join_message
-	var/datum/spawnpoint/S
+	var/datum/spawnpoint/spawnpoint
 
 	if(IsAdminJob(rank))
 		if(IsERTSpawnJob(rank))
@@ -407,49 +427,26 @@
 		join_message = "прибыл"
 	else
 		if(spawning_at)
-			S = GLOB.spawntypes[spawning_at]
-		if(S && istype(S))
-			if(S.check_job_spawning(rank))
-				if(length(GLOB.start_override))
-					character.forceMove(pick(GLOB.start_override))
-				else
-					character.forceMove(pick(S.turfs))
-
-				join_message = S.msg
+			spawnpoint = GLOB.spawntypes[spawning_at]
+		if(spawnpoint && istype(spawnpoint))
+			if(spawnpoint.check_job_spawning(rank))
+				move_to_spawn(spawnpoint.turfs)
+				join_message = spawnpoint.msg
 			else
-				to_chat(character, "Выбранная вами зона появления ([S.display_name]) недоступна для выбранной вами профессии. Вместо этого мы отправляем вас на шаттл Прибытия.")
-				if(length(GLOB.start_override))
-					character.forceMove(pick(GLOB.start_override))
-				else
-					character.forceMove(pick(GLOB.latejoin))
-
+				to_chat(character, "Выбранная вами зона появления ([spawnpoint.display_name]) недоступна для выбранной вами профессии. Вместо этого мы отправляем вас на шаттл Прибытия.")
+				character.move_to_spawn(GLOB.latejoin)
 				join_message = "прибыл на станцию"
 		else
 			if(character.mind.assigned_role == JOB_TITLE_PRISONER && length(GLOB.latejoin_prisoner))
-				if(length(GLOB.start_override))
-					character.forceMove(pick(GLOB.start_override))
-				else
-					character.forceMove(pick(GLOB.latejoin_prisoner))
-
+				character.move_to_spawn(GLOB.latejoin_prisoner)
 				join_message = "очнулся от криогенного сна"
 			else
-				if(length(GLOB.start_override))
-					character.forceMove(pick(GLOB.start_override))
-				else
-					character.forceMove(pick(GLOB.latejoin))
-
+				character.move_to_spawn(GLOB.latejoin)
 				join_message = "прибыл на станцию"
 
 	character.lastarea = get_area(loc)
 
-	if(GLOB.start_override_outfit)
-		var/datum/outfit/outfit_override = new GLOB.start_override_outfit
-		outfit_override.equip(character)
-	else
-		character = SSjobs.EquipRank(character, rank, 1)					//equips the human
-
-	EquipCustomItems(character)
-
+	character = character.spawn_equip()
 	SSticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role == JOB_TITLE_CYBORG)
