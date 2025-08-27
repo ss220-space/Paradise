@@ -1,5 +1,13 @@
 /obj/projectile/energy
 	name = "energy"
+	ru_names = list(
+		NOMINATIVE = "энергия",
+		GENITIVE = "энергии",
+		DATIVE = "энергии",
+		ACCUSATIVE = "энергию",
+		INSTRUMENTAL = "энергией",
+		PREPOSITIONAL = "энергии"
+	)
 	icon_state = "spark"
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
@@ -9,11 +17,20 @@
 
 /obj/projectile/energy/electrode
 	name = "electrode"
+	ru_names = list(
+		NOMINATIVE = "электрод",
+		GENITIVE = "электрода",
+		DATIVE = "электроду",
+		ACCUSATIVE = "электрод",
+		INSTRUMENTAL = "электродом",
+		PREPOSITIONAL = "электроде"
+	)
 	icon_state = "spark"
 	color = "#FFFF00"
 	shockbull = TRUE
 	nodamage = TRUE
 	weaken = 0.2 SECONDS
+	confused = 1.5 SECONDS
 	stamina = 15
 	stutter = 8 SECONDS
 	jitter = 30 SECONDS
@@ -25,13 +42,23 @@
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		do_sparks(1, 1, src)
-	else if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(HAS_TRAIT(C, TRAIT_HULK))
-			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		else if(C.status_flags & CANWEAKEN)
-			spawn(5)
-				C.Jitter(jitter)
+		return
+	if(!iscarbon(target))
+		return
+	var/mob/living/carbon/carbon = target
+	if(HAS_TRAIT(carbon, TRAIT_HULK))
+		return
+	if(carbon.status_flags & CANWEAKEN)
+		addtimer(CALLBACK(carbon, TYPE_PROC_REF(/mob/living/carbon, Jitter), jitter), 0.5 SECONDS)
+
+/obj/projectile/energy/electrode/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
+	var/weaken_effect = weaken
+	var/confused_effect = confused
+	if(HAS_TRAIT(target, TRAIT_ANTI_STUN_REAGENT))
+		weaken_effect = 0
+	else
+		confused_effect = 0
+	return target.apply_effects(blocked, stun, weaken_effect, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused_effect)
 
 /obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, 1, src)
@@ -46,6 +73,14 @@
 
 /obj/projectile/energy/declone
 	name = "declone"
+	ru_names = list(
+		NOMINATIVE = "деклонер",
+		GENITIVE = "деклонера",
+		DATIVE = "деклонеру",
+		ACCUSATIVE = "деклонер",
+		INSTRUMENTAL = "деклонером",
+		PREPOSITIONAL = "деклонере"
+	)
 	icon_state = "declone"
 	damage = 20
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
@@ -55,6 +90,14 @@
 
 /obj/projectile/energy/dart
 	name = "dart"
+	ru_names = list(
+		NOMINATIVE = "дротик",
+		GENITIVE = "дротика",
+		DATIVE = "дротику",
+		ACCUSATIVE = "дротик",
+		INSTRUMENTAL = "дротиком",
+		PREPOSITIONAL = "дротике"
+	)
 	icon_state = "toxin"
 	damage = 1
 	damage_type = TOX
@@ -65,6 +108,14 @@
 
 /obj/projectile/energy/bolt
 	name = "bolt"
+	ru_names = list(
+		NOMINATIVE = "болт",
+		GENITIVE = "болта",
+		DATIVE = "болту",
+		ACCUSATIVE = "болт",
+		INSTRUMENTAL = "болтом",
+		PREPOSITIONAL = "болте"
+	)
 	icon_state = "cbbolt"
 	damage = 15
 	hitsound = 'sound/weapons/pierce.ogg'
@@ -88,6 +139,14 @@
 
 /obj/projectile/energy/bolttoy
 	name = "bolttoy"
+	ru_names = list(
+		NOMINATIVE = "игрушечный болт",
+		GENITIVE = "игрушечного болта",
+		DATIVE = "игрушечному болту",
+		ACCUSATIVE = "игрушечный болт",
+		INSTRUMENTAL = "игрушечным болтом",
+		PREPOSITIONAL = "игрушечном болте"
+	)
 	icon_state = "cbbolttoy"
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = STAMINA
@@ -98,23 +157,42 @@
 
 /obj/projectile/energy/shock_revolver
 	name = "shock bolt"
+	ru_names = list(
+		NOMINATIVE = "шоковый заряд",
+		GENITIVE = "шокового заряда",
+		DATIVE = "шоковому заряду",
+		ACCUSATIVE = "шоковый заряд",
+		INSTRUMENTAL = "шоковым зарядом",
+		PREPOSITIONAL = "шоковом заряде"
+	)
 	icon_state = "purple_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	damage = 10 //A worse lasergun
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+	var/zap_range = 3
+	var/power = 10000
 
 /obj/item/ammo_casing/energy/shock_revolver/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
 	var/obj/projectile/energy/shock_revolver/P = BB
 	spawn(1)
-		P.chain = P.Beam(user,icon_state="purple_lightning",icon = 'icons/effects/effects.dmi',time=1000, maxdistance = 30)
+		P.chain = P.Beam(user, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 1000, maxdistance = 30)
 
 /obj/projectile/energy/shock_revolver/on_hit(atom/target)
 	. = ..()
-	if(isliving(target))
-		tesla_zap(src, 3, 10000)
-	qdel(chain)
+	tesla_zap(source = src, zap_range = zap_range, power = power, cutoff = 1e3, zap_flags = zap_flags)
+	qdel(src)
 
 /obj/projectile/energy/toxplasma
 	name = "toxin bolt"
+	ru_names = list(
+		NOMINATIVE = "токсичный заряд",
+		GENITIVE = "токсичного заряда",
+		DATIVE = "токсичному заряду",
+		ACCUSATIVE = "токсичный заряд",
+		INSTRUMENTAL = "токсичным зарядом",
+		PREPOSITIONAL = "токсичном заряде"
+	)
 	icon_state = "energy"
 	damage = 20
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
@@ -123,12 +201,28 @@
 
 /obj/projectile/energy/weak_plasma
 	name = "plasma bolt"
+	ru_names = list(
+		NOMINATIVE = "плазменный импульс",
+		GENITIVE = "плазменного импульса",
+		DATIVE = "плазменному импульсу",
+		ACCUSATIVE = "плазменный импульс",
+		INSTRUMENTAL = "плазменным импульсом",
+		PREPOSITIONAL = "плазменном импульсе"
+	)
 	icon_state = "plasma_light"
 	damage = 20
 	damage_type = BURN
 
 /obj/projectile/energy/charged_plasma
 	name = "charged plasma bolt"
+	ru_names = list(
+		NOMINATIVE = "заряженный плазменный импульс",
+		GENITIVE = "заряженного плазменного импульса",
+		DATIVE = "заряженному плазменному импульсу",
+		ACCUSATIVE = "заряженный плазменный импульс",
+		INSTRUMENTAL = "заряженным плазменным импульсом",
+		PREPOSITIONAL = "заряженном плазменном импульсе"
+	)
 	icon_state = "plasma_heavy"
 	damage = 50
 	damage_type = BURN

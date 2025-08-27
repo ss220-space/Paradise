@@ -42,17 +42,26 @@ GLOBAL_VAR(religion_name)
 
 GLOBAL_VAR(station_name)
 /proc/station_name()
-	return GLOB.station_name? GLOB.station_name : SSmapping.map_datum.station_name
+	return GLOB.station_name ? GLOB.station_name : SSmapping.map_datum.station_name
 
 /proc/change_station_name(designation)
 	GLOB.station_name = designation
+
+GLOBAL_VAR(english_station_name)
+/proc/english_station_name()
+	return GLOB.english_station_name ? GLOB.english_station_name : (SSmapping.map_datum.english_station_name ? SSmapping.map_datum.english_station_name : SSmapping.map_datum.station_name)
+
+/proc/change_english_station_name(designation)
+	GLOB.english_station_name = designation
 	update_world_name()
 
 /proc/update_world_name()
+	// We use english_station_name() to display correctly in the Byond hub.
+	var/current_station_name = english_station_name()
 	if(config && CONFIG_GET(string/servername))
-		world.name = "[CONFIG_GET(string/servername)] — [station_name()]"
+		world.name = "[CONFIG_GET(string/servername)] — [current_station_name]"
 	else
-		world.name = station_name()
+		world.name = current_station_name
 
 /proc/new_station_name()
 	var/random = rand(1,5)
@@ -96,36 +105,6 @@ GLOBAL_VAR(station_name)
 		if(13)
 			new_station_name += pick("13","XIII","Thirteen")
 	return new_station_name
-
-GLOBAL_VAR(syndicate_name)
-/proc/syndicate_name()
-	if(GLOB.syndicate_name)
-		return GLOB.syndicate_name
-
-	var/name = ""
-
-	// Prefix
-	name += pick("Clandestine", "Prima", "Blue", "Zero-G", "Max", "Blasto", "Waffle", "North", "Omni", "Newton", "Cyber", "Bonk", "Gene", "Gib")
-
-	// Suffix
-	if(prob(80))
-		name += " "
-
-		// Full
-		if(prob(60))
-			name += pick("Syndicate", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Enterprises", "Family", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
-		// Broken
-		else
-			name += pick("Syndi", "Corp", "Bio", "System", "Prod", "Chem", "Inter", "Hive")
-			name += pick("", "-")
-			name += pick("Tech", "Sun", "Co", "Tek", "X", "Inc", "Code")
-	// Small
-	else
-		name += pick("-", "*", "")
-		name += pick("Tech", "Sun", "Co", "Tek", "X", "Inc", "Gen", "Star", "Dyne", "Code", "Hive")
-
-	GLOB.syndicate_name = name
-	return name
 
 
 //Traitors and traitor silicons will get these. Revs will not.

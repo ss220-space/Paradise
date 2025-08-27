@@ -57,13 +57,13 @@
 //Edbot Assembly
 
 /obj/item/ed209_assembly
-	name = "\improper ED-209 assembly"
+	name = "ED-209 assembly"
 	desc = "Заготовка для чего-то серьёзного."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed209_frame"
 	item_state = "ed209_frame"
 	var/build_step = 0
-	var/created_name = "\improper ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
+	var/created_name = "ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
 	var/lasercolor = ""
 	var/new_name = ""
 
@@ -328,10 +328,6 @@
 
 	add_fingerprint(user)
 	var/obj/item/stack/tile/plasteel/plasteel = I
-	if(istype(I, /obj/item/storage/toolbox/green/memetic))
-		to_chat(user, span_notice("Хорошая попытка..."))
-		balloon_alert(user, "невозможно")
-		return .
 
 	if(length(contents))
 		to_chat(user, span_notice("Вы не можете начать сборку, пока в ящике для инструментов что-то лежит."))
@@ -804,7 +800,7 @@
 //General Griefsky
 
 /obj/item/griefsky_assembly
-	name = "\improper General Griefsky assembly"
+	name = "General Griefsky assembly"
 	desc = "Причудливая конструкция. Выглядит мощно."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "griefsky_assembly"
@@ -815,7 +811,7 @@
 
 /obj/item/griefsky_assembly/update_name(updates = ALL)
 	. = ..()
-	name = toy_step > 0 ? "\improper Genewul Giftskee assembly" : "\improper General Griefsky assembly"
+	name = toy_step > 0 ? "Genewul Giftskee assembly" : "General Griefsky assembly"
 
 
 /obj/item/griefsky_assembly/attackby(obj/item/I, mob/user, params)

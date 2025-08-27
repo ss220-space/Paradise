@@ -1,5 +1,5 @@
 /obj/item/gun/projectile/automatic/l6_saw
-	name = "\improper L6 SAW"
+	name = "L6 SAW"
 	desc = "A heavily modified 5.56 light machine gun, designated 'L6 SAW'. Has 'Aussec Armoury - 2531' engraved on the receiver below the designation."
 	icon_state = "l6closed100"
 	item_state = "l6closedmag"
@@ -12,24 +12,33 @@
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
 	var/cover_open = 0
-	can_suppress = 0
 	fire_delay = 1
 	burst_size = 1
 	actions_types = null
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_HIGH
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7)
+	)
 
-/obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/automatic_fire, 0.2 SECONDS)
+/obj/item/gun/projectile/automatic/l6_saw/ComponentInitialize()
+	AddComponent( \
+		/datum/component/automatic_fire, \
+		 0.2 SECONDS \
+		 )
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
 	balloon_alert(user, "крышка [cover_open ? "от" : "за"]крыта")
-	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
+	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, TRUE)
 	update_icon()
 
 
 /obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/25, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/25, 1)*25 : "-empty"]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
 
@@ -52,7 +61,7 @@
 		magazine.forceMove(drop_location())
 		user.put_in_hands(magazine)
 		magazine = null
-		playsound(src, magout_sound, 50, 1)
+		playsound(src, magout_sound, 50, TRUE)
 		update_icon()
 		balloon_alert(user, "магазин вынут")
 

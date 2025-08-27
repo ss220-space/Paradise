@@ -18,6 +18,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/teleport)
 	shaded_charge = TRUE
 	var/teleport_target = null
+	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/energy/telegun/Destroy()
 	teleport_target = null
@@ -42,7 +43,7 @@
 			areaindex[tmpname] = 1
 		L[tmpname] = R
 
-	var/desc = input("Please select a location to lock in.", "Telegun Target Interface") in L
+	var/desc = tgui_input_list(usr, "Please select a location to lock in.", "Telegun Target Interface", L)
 	teleport_target = L[desc]
 
 /obj/item/gun/energy/telegun/newshot()

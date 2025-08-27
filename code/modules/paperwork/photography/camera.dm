@@ -264,7 +264,7 @@
 		'sound/hallucinations/veryfar_noise.ogg',
 		'sound/hallucinations/wail.ogg',
 	)
-	SEND_SOUND(user, pick(creepyasssounds))
+	SEND_SOUND(user, sound(pick(creepyasssounds)))
 
 
 /*

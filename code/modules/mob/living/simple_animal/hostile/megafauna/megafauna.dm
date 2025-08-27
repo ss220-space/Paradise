@@ -1,6 +1,14 @@
 /mob/living/simple_animal/hostile/megafauna
 	name = "megafauna"
-	desc = "Attack the weak point for massive damage."
+	desc = "Атакуйте слабое место для нанесения массивного урона."
+	ru_names = list(
+		NOMINATIVE = "мегафауна",
+		GENITIVE = "мегафауны",
+		DATIVE = "мегафауне",
+		ACCUSATIVE = "мегафауну",
+		INSTRUMENTAL = "мегафауной",
+		PREPOSITIONAL = "мегафауне"
+	)
 	health = 1000
 	maxHealth = 1000
 	a_intent = INTENT_HARM
@@ -60,10 +68,6 @@
 		maxbodytemp = INFINITY, \
 		minbodytemp = 0, \
 	)
-
-/mob/living/simple_animal/hostile/megafauna/Destroy()
-	QDEL_NULL(internal_gps)
-	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if(target)
@@ -133,8 +137,9 @@
 	if(!L)
 		return FALSE
 	visible_message(
-		"<span class='danger'>[src] devours [L]!</span>",
-		"<span class='userdanger'>You feast on [L], restoring your health!</span>")
+		span_danger("[capitalize(declent_ru(NOMINATIVE))] пожирает [L.declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("Вы пожираете [L.declent_ru(ACCUSATIVE)], восстанавливая своё здоровье!")
+	)
 	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
 		adjustBruteLoss(-L.maxHealth/2)
 	if(L.mind)
@@ -144,13 +149,11 @@
 
 /mob/living/simple_animal/hostile/megafauna/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(250)
-
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(100)
-
-		if(3)
+		if(EXPLODE_LIGHT)
 			adjustBruteLoss(50)
 
 /mob/living/simple_animal/hostile/megafauna/GiveTarget(atom/new_target)

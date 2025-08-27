@@ -255,6 +255,9 @@
 	if(.)
 		return .
 
+	if(HAS_TRAIT(src, TRAIT_SPACEWALK))
+		return TRUE
+
 	if(buckled)
 		return TRUE
 
@@ -271,7 +274,7 @@
 	if(backup.newtonian_move(REVERSE_DIR(movement_dir), instant = TRUE)) //You're pushing off something movable, so it moves
 		// We set it down here so future calls to Process_Spacemove by the same pair in the same tick don't lead to fucky
 		backup.last_pushoff = world.time
-		to_chat(src, span_info("Вы отталкиваетесь от [backup.name] для продолжения движения."))
+		to_chat(src, span_notice("Вы отталкиваетесь от [backup.name] для продолжения движения."))
 
 	return TRUE
 
@@ -475,8 +478,8 @@
 	return
 
 /mob/verb/move_up()
-	set name = "Move Upwards"
-	set category = "IC"
+	set name = "Подняться"
+	set category = STATPANEL_IC
 
 	if(remote_control)
 		return remote_control.relaymove(src, UP)
@@ -503,8 +506,8 @@
 		to_chat(src, span_notice("You move upwards."))
 
 /mob/verb/move_down()
-	set name = "Move Down"
-	set category = "IC"
+	set name = "Опуститься"
+	set category = STATPANEL_IC
 
 	if(remote_control)
 		return remote_control.relaymove(src, DOWN)

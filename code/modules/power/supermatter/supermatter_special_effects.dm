@@ -53,7 +53,7 @@
 
 //Break vendors
 /datum/supermatter_explosive_effects/proc/handle_vendor_breakdown()
-	for(var/obj/machinery/vending/vendor in GLOB.machines)
+	for(var/obj/machinery/vending/vendor in SSmachines.get_by_type(/obj/machinery/vending))
 		if(vendor.z == src.z)
 			if(prob(DETONATION_MACHINE_EFFECT_CHANCE))
 				vendor.wires?.pulse_random()
@@ -101,7 +101,7 @@
 
 //Well, random pulse autolathes
 /datum/supermatter_explosive_effects/proc/handle_autolathe_breakdown()
-	for(var/obj/machinery/autolathe/autolathe in GLOB.machines)
+	for(var/obj/machinery/autolathe/autolathe in SSmachines.get_by_type(/obj/machinery/autolathe))
 		if(autolathe.z == src.z)
 			if(prob(DETONATION_MACHINE_EFFECT_CHANCE))
 				autolathe.wires?.pulse_random()
@@ -186,7 +186,7 @@
 
 /datum/supermatter_explosive_effects/proc/greet_sentient(var/mob/M)
 	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained \
-	 						human level intelligence and the ability to speak and understand \
+							human level intelligence and the ability to speak and understand \
 							human language!</span>"))
 
 //All seeds in sector will become strange-like

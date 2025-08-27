@@ -22,7 +22,7 @@
 	response_harm   = "stomps on"
 	speed = 0
 	mob_size = MOB_SIZE_SMALL
-	speak_emote = list("beeps","clicks","chirps")
+	speak_emote = list("пикает", "пощёлкивает", "гудит")
 	tts_seed = "Antimage"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -46,7 +46,7 @@
 /mob/living/simple_animal/spiderbot/Destroy()
 	if(emagged)
 		QDEL_NULL(mmi)
-		explosion(get_turf(src), -1, -1, 3, 5, cause = src)
+		explosion(get_turf(src), devastation_range = -1, heavy_impact_range = -1, light_impact_range = 3, flash_range = 5, cause = src)
 	else
 		eject_brain()
 	return ..()

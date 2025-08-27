@@ -1,13 +1,7 @@
+#define CORE_STRENGTH_TO_DAMAGE_MULT 1 / 15
+
 /obj/item/clothing/shoes/magboots/gravity
 	name = "gravitational boots"
-	ru_names = list(
-		NOMINATIVE = "гравитационные ботинки", \
-		GENITIVE = "гравитационных ботинок", \
-		DATIVE = "гравитационным ботинкам", \
-		ACCUSATIVE = "гравитационные ботинки", \
-		INSTRUMENTAL = "гравитационными ботинками", \
-		PREPOSITIONAL = "гравитационных ботинках"
-	)
 	desc = "Эти экспериментальные магбутсы обходят замедление обычных, за счёт миниатюрных гравитационных в подошвах. \
 			К сожалению, для работы им необходимо ядро гравитационной аномалии."
 	gender = PLURAL
@@ -29,7 +23,17 @@
 	var/obj/item/stock_parts/cell/cell = null
 
 
-/obj/item/clothing/shoes/magboots/gravity/Initialize()
+/obj/item/clothing/shoes/magboots/gravity/get_ru_names()
+	return list(
+		NOMINATIVE = "гравитационные ботинки", \
+		GENITIVE = "гравитационных ботинок", \
+		DATIVE = "гравитационным ботинкам", \
+		ACCUSATIVE = "гравитационные ботинки", \
+		INSTRUMENTAL = "гравитационными ботинками", \
+		PREPOSITIONAL = "гравитационных ботинках"
+	)
+
+/obj/item/clothing/shoes/magboots/gravity/Initialize(mapload)
 	. = ..()
 	style = new()
 
@@ -107,6 +111,7 @@
 
 	to_chat(user, span_notice("Вы достали [cell.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	cell = null
+	update_style(user)
 	cell.update_icon()
 	update_icon()
 
@@ -124,6 +129,7 @@
 		to_chat(user, span_notice("Вы установили [item.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]."))
 		cell = item
 		update_icon()
+		update_style(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(!iscoregrav(item))
@@ -139,6 +145,7 @@
 
 	to_chat(user, span_notice("Вы установили [item.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]. Они немного потеплели."))
 	core = item
+	update_style(user)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 
@@ -155,11 +162,20 @@
 
 	core = null
 	user.balloon_alert(user, "ядро извлечено")
+	update_style(user)
 	if(!magpulse)
 		return
 
 	to_chat(user, span_warning("[declent_ru(NOMINATIVE)] отключились при извлечении ядра!"))
 	toggle_magpulse(user, silent = TRUE)
+
+/obj/item/clothing/shoes/magboots/gravity/proc/update_style(mob/user)
+	style.remove(user)
+	if(user.get_item_by_slot(ITEM_SLOT_FEET) != src || !cell || !core)
+		return
+
+	style.bonus_damage = core.get_strength() * CORE_STRENGTH_TO_DAMAGE_MULT
+	style.teach(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot, initial)
 	. = ..()
@@ -167,9 +183,7 @@
 	if(!ishuman(user))
 		return
 
-	if(slot == ITEM_SLOT_FEET && cell && core)
-		style.bonus_damage = 10 * core.get_strenght() / 150
-		style.teach(user, TRUE)
+	update_style(user)
 
 
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
@@ -215,7 +229,7 @@
 		user.balloon_alert(user, "нет опоры")
 		return
 
-	var/jump_mult = core.get_strenght() / 150
+	var/jump_mult = core.get_strength() / 150
 	var/cur_jumpdistance = jumpdistance * jump_mult
 	var/cur_jumpjumpspeed = jumpspeed * jump_mult
 	var/turf/turf = get_step(get_turf(user), user.dir)
@@ -231,7 +245,7 @@
 	ADD_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_GRAV_BOOTS_TRAIT)
 	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), user)
 	if(user.throw_at(target, cur_jumpdistance, cur_jumpjumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
-		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+		playsound(src, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
 		user.visible_message(span_warning("[user] прыгает вперед!"))
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)
@@ -256,3 +270,5 @@
 
 /obj/item/clothing/shoes/magboots/gravity/preloaded
 	core = new /obj/item/assembly/signaler/core/gravitational/tier2()
+
+#undef CORE_STRENGTH_TO_DAMAGE_MULT

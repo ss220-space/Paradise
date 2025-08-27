@@ -9,9 +9,9 @@
 	var/icon_sit = "sit"
 	gender = MALE
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
-	speak_emote = list("purrs", "meows")
-	emote_hear = list("meows", "mews")
-	emote_see = list("shakes its head", "shivers")
+	speak_emote = list("мурлычет", "мяукает")
+	emote_hear = list("мурлычет", "мяукает")
+	emote_see = list("трясёт головой", "дрожит", "вылизывается")
 	var/meow_sound = 'sound/creatures/cat_meow.ogg'	//Used in emote.
 	speak_chance = 1
 	turns_per_move = 5
@@ -60,9 +60,9 @@
 	var/list/children = list() //Actual mob instances of children
 	holder_type = /obj/item/holder/cat
 
-/mob/living/simple_animal/pet/cat/Runtime/New()
+/mob/living/simple_animal/pet/cat/Runtime/Initialize(mapload)
+	. = ..()
 	SSpersistent_data.register(src)
-	..()
 
 /mob/living/simple_animal/pet/cat/Runtime/persistent_load()
 	read_memory()
@@ -85,7 +85,7 @@
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/read_memory()
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
-	S["family"] 			>> family
+	S["family"]			>> family
 
 	if(isnull(family))
 		family = list()
@@ -117,8 +117,8 @@
 
 
 /mob/living/simple_animal/pet/cat/verb/sit()
-	set name = "Sit Down"
-	set category = "IC"
+	set name = "Сесть"
+	set category = STATPANEL_IC
 
 	if(resting)
 		set_resting(FALSE)

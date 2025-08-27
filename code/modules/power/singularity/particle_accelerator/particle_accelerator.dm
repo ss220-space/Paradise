@@ -67,7 +67,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 500
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 80)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 80)
 	var/obj/machinery/particle_accelerator/control_box/master = null
 	var/construction_state = 0
 	var/reference = null
@@ -77,7 +77,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 /obj/structure/particle_accelerator/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-click</b> to rotate.")
+	. += span_notice("<b>Alt-click</b> to rotate.")
 
 /obj/structure/particle_accelerator/Destroy()
 	construction_state = 0
@@ -267,7 +267,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 /obj/machinery/particle_accelerator/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-Click</b> to rotate it.")
+	. += span_notice("<b>Alt-Click</b> to rotate it.")
 
 /obj/machinery/particle_accelerator/click_alt(mob/user)
 	rotate_accelerator(user)

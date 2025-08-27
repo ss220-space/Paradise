@@ -177,7 +177,7 @@
 			O.accessories |= accessory.type
 
 	//Copy to outfit cache
-	var/outfit_name = stripped_input(usr, "Enter the outfit name")
+	var/outfit_name = tgui_input_text(usr, "Enter the outfit name")
 	O.name = outfit_name
 	GLOB.custom_outfits += O
 	to_chat(usr, "Outfit registered, use select equipment to equip it.")

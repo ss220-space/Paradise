@@ -9,8 +9,7 @@
 
 	pixel_x = -89
 	pixel_y = -85
-	current_size = 9 //It moves/eats like a max-size singulo, aside from range. --NEO
-	contained = FALSE
+	current_size = 9 // It moves/eats like a max-size singulo, aside from range. --NEO
 	dissipate = FALSE
 	move_self = TRUE
 	grav_pull = 5
@@ -39,7 +38,7 @@
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
-	SEND_SOUND(world, 'sound/effects/narsie_risen.ogg')
+	SEND_SOUND(world, sound('sound/effects/narsie_risen.ogg'))
 
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
@@ -56,7 +55,7 @@
 
 /obj/singularity/god/narsie/large/Destroy()
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
-	SEND_SOUND(world, 'sound/hallucinations/wail.ogg')
+	SEND_SOUND(world, sound('sound/hallucinations/wail.ogg'))
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
 		gamemode.cult_objs.narsie_death()
@@ -64,7 +63,7 @@
 			if(cult_mind && cult_mind.current)
 				to_chat(cult_mind.current, "<span class='cultlarge'>RETRIBUTION!</span>")
 				to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")
-	..()
+	return ..()
 
 /obj/singularity/god/narsie/large/attack_ghost(mob/dead/observer/user)
 	make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, user, cult_override = TRUE)

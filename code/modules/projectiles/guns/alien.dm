@@ -1,12 +1,11 @@
 /obj/item/gun/energy/spikethrower //It's like the cyborg LMG, uses energy to make spikes
-	name = "\improper Vox spike thrower"
+	name = "Vox spike thrower"
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "spikethrower"
 	item_state = "spikethrower"
 	w_class = WEIGHT_CLASS_SMALL
 	fire_sound_text = "a strange noise"
-	can_suppress = 0
 	burst_size = 2 // burst has to be stored here
 	can_charge = FALSE
 	selfcharge = TRUE
@@ -47,12 +46,12 @@
 	desc = "It's some kind of enormous alien weapon, as long as a man is tall."
 	icon_state = "noisecannon"
 	item_state = "noisecannon"
-	recoil = 1
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/sonic)
 	cell_type = /obj/item/stock_parts/cell/super
 	restricted_species = list(/datum/species/vox/armalis)
 	sprite_sheets_inhand = list(SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/held.dmi') //Big guns big birds.
+	recoil = GUN_RECOIL_HIGH
 
 
 /obj/item/gun/energy/noisecannon/update_icon_state()

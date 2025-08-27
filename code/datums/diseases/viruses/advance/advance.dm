@@ -26,10 +26,10 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 /datum/disease/virus/advance
 
-	name = "Unknown" // We will always let our Virologist name our disease.
+	name = "Неизвестно" // We will always let our Virologist name our disease.
 	desc = "Спроектированная болезнь, может содержать сразу несколько симптомов."
 	form = "Продвинутая болезнь" // Will let med-scanners know that this disease was engineered.
-	agent = "advance microbes"
+	agent = "Продвинутые микробы"
 	max_stages = 5
 
 	// NEW VARS
@@ -92,8 +92,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /datum/disease/virus/advance/Copy()
 	var/datum/disease/virus/advance/copy = new
 	var/list/required_vars = list(
-		"name","severity","id","visibility_flags","spread_flags", "additional_info", "stage_prob", "cures",
-		"cure_prob","cure_text", "permeability_mod", "mutation_chance", "mutation_reagents", "possible_mutations")
+		"name", "severity", "id", "visibility_flags", "spread_flags", "additional_info", "stage_prob", "cures",
+		"cure_prob", "cure_text", "permeability_mod", "mutation_chance", "mutation_reagents", "possible_mutations")
 	for(var/V in required_vars)
 		if(istype(vars[V], /list))
 			var/list/L = vars[V]
@@ -158,7 +158,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		name = A.name
 	else
 		if(reset_name)
-			name = "Unknown"
+			name = "Неизвестно"
 		AddToArchive()
 
 /datum/disease/virus/advance/proc/AddToArchive()
@@ -265,7 +265,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	return
 
 // Name the disease.
-/datum/disease/virus/advance/proc/AssignName(name = "Unknown")
+/datum/disease/virus/advance/proc/AssignName(name = "Неизвестно")
 	src.name = name
 	return
 
@@ -364,7 +364,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	symptoms += GLOB.list_symptoms.Copy()
 	do
 		if(user)
-			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in symptoms
+			var/symptom = tgui_input_list(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom", symptoms)
 			if(isnull(symptom))
 				return
 			else if(istext(symptom))
@@ -378,7 +378,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 	if(D.symptoms.len > 0)
 
-		var/new_name = stripped_input(user, "Name your new disease.", "New Name")
+		var/new_name = tgui_input_text(user, "Name your new disease.", "New Name")
 		if(!new_name)
 			return
 		D.AssignName(new_name)

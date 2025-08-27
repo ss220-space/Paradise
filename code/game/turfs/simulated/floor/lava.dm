@@ -1,5 +1,6 @@
 /turf/simulated/floor/lava
 	name = "lava"
+	desc = "Раскалённая жидкая порода, бурлящая адским жаром. Контакт с ней приведёт к мгновенным ожогам."
 	icon = 'icons/turf/floors/lava.dmi'
 	icon_state = "unsmooth"
 	base_icon_state = "lava"
@@ -29,6 +30,16 @@
 	var/immunity_resistance_flags = LAVA_PROOF
 	/// Is the lava close to the shore
 	var/deep_water = TRUE
+
+/turf/simulated/floor/lava/get_ru_names()
+	return list(
+		NOMINATIVE = "лава",
+		GENITIVE = "лавы",
+		DATIVE = "лаве",
+		ACCUSATIVE = "лаву",
+		INSTRUMENTAL = "лавой",
+		PREPOSITIONAL = "лаве"
+	)
 
 /turf/simulated/floor/lava/ex_act()
 	return
@@ -235,10 +246,21 @@
 	/// Check for plasma river, subtype of lava, prevents simple fishing
 	var/can_be_fished_on = TRUE
 
+
 /turf/simulated/floor/lava/lava_land_surface/Initialize(mapload)
 	. = ..()
+	add_to_lazis_primary()
 	if(can_be_fished_on)
 		calculate_deep()
+
+/turf/simulated/floor/lava/lava_land_surface/proc/add_to_lazis_primary()
+	GLOB.lazis_primary_turfs |= src
+
+
+/turf/simulated/floor/lava/lava_land_surface/Destroy()
+	GLOB.lazis_primary_turfs -= src
+	. = ..()
+
 
 /turf/simulated/floor/lava/lava_land_surface/proc/calculate_deep()
 	if(locate(/turf/simulated/floor/plating/asteroid/basalt) in range(3, src))
@@ -294,7 +316,7 @@
 /turf/simulated/floor/lava/lava_land_surface/plasma
 	name = "liquid plasma"
 	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma
-	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
+	desc = "Текучая масса охлаждённой жидкой плазмы. Вам определённо не стоит в этом купаться."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
 	base_icon_state = "liquidplasma"
 	icon_state = "unsmooth"
@@ -307,10 +329,20 @@
 	/// How much fire and toxic damage we deal to human mobs stepping on us
 	var/human_tox_fire_damage = 15
 
+/turf/simulated/floor/lava/lava_land_surface/plasma/get_ru_names()
+	return list(
+		NOMINATIVE = "жидкая плазма",
+		GENITIVE = "жидкой плазмы",
+		DATIVE = "жидкой плазме",
+		ACCUSATIVE = "жидкую плазму",
+		INSTRUMENTAL = "жидкой плазмой",
+		PREPOSITIONAL = "жидкой плазме"
+	)
+
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
-	. += span_info("Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.")
+	. += span_notice("Можно зачерпнуть <b>жидкую плазму</b> с помощью <b>ёмкости</b>.")
 
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
@@ -321,9 +353,9 @@
 
 	. |= ATTACK_CHAIN_SUCCESS
 	if(!I.reagents.add_reagent("plasma", 10))
-		to_chat(user, span_warning("The [I.name] is full."))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] уже заполнен[genderize_ru(I.gender,"","а","о","ы")] до краёв."))
 		return .
-	to_chat(user, span_notice("You scoop out some plasma from the [src] using [I]."))
+	to_chat(user, span_notice("Вы черпаете лаву из [declent_ru(GENITIVE)] используя [I.declent_ru(ACCUSATIVE)]."))
 
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/do_burn(atom/movable/burn_target)
@@ -387,3 +419,6 @@
 		ChangeTurf(SSmapping.lavaland_theme.primary_turf_type, after_flags = CHANGETURF_IGNORE_AIR)
 
 /turf/simulated/floor/lava/lava_land_surface/lava_only //used to override reader.dm for lava only instead of adaptive type
+
+/turf/simulated/floor/lava/lava_land_surface/lava_only/add_to_lazis_primary()
+	return

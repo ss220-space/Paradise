@@ -318,7 +318,7 @@
 					if(5)
 						update_flags |= R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + addiction_time))) //Each addiction lasts 8 minutes before it can end
-				to_chat(M, span_notice("You no longer feel reliant on [R.name]!"))
+				to_chat(M, span_notice("Вы больше не чувствуете зависимости от [R]!"))
 				addiction_list.Remove(R)
 				qdel(R)
 
@@ -469,9 +469,9 @@
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/living/M in seen)
-								to_chat(M, span_notice("[bicon(my_atom)] The [my_atom]'s power is consumed in the reaction."))
-								ME2.name = "used slime extract"
-								ME2.desc = "This extract has been used up."
+								to_chat(M, span_notice("[bicon(my_atom)] Мощность [my_atom.declent_ru(GENITIVE)] расходуется в реакции."))
+								ME2.name = "использованный экстракт слайма"
+								ME2.desc = "Этот экстракт уже был использован."
 
 					if(C.mix_sound)
 						playsound(get_turf(my_atom), C.mix_sound, 80, TRUE)
@@ -571,7 +571,7 @@
 					var/mult = H.dna.species.heatmod * H.physiology.heat_mod
 					if(H.reagent_safety_check())
 						if(mult > 0)
-							to_chat(H, span_danger("You are scalded by the hot chemicals!"))
+							to_chat(H, span_danger("[genderize_ru(H.gender,"Ты обожжен","Ты обожжена","Вы обожжены","Вы обожжены")] горячими химикатами!"))
 							H.apply_damage(round(log(chem_temp / 50) * 10), BURN, def_zone = affecting)
 							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
@@ -579,7 +579,7 @@
 					var/mult = H.dna.species.coldmod * H.physiology.cold_mod
 					if(H.reagent_safety_check(FALSE))
 						if(mult > 0)
-							to_chat(H, span_danger("You are frostbitten by the freezing cold chemicals!"))
+							to_chat(H, span_danger("[genderize_ru(H.gender,"Ты получил","Ты получила","Вы получили","Вы получили")] обморожение от ледяных химикатов!"))
 							H.apply_damage(round(log(T0C - chem_temp / 50) * 10), BURN, def_zone = affecting)
 							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
@@ -588,13 +588,13 @@
 			if(chem_temp > H.dna.species.heat_level_1)
 				var/mult = H.dna.species.heatmod * H.physiology.heat_mod
 				if(mult > 0)
-					to_chat(H, span_danger("You scald yourself trying to consume the boiling hot substance!"))
+					to_chat(H, span_danger("[genderize_ru(H.gender,"Ты обжёгся","Ты обожглась","Вы обожглись","Вы обожглись")], пытаясь употребить кипящее вещество!"))
 					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 700))
 			else if(chem_temp < H.dna.species.cold_level_1)
 				var/mult = H.dna.species.coldmod * H.physiology.cold_mod
 				if(mult > 0)
-					to_chat(H, span_danger("You frostburn yourself trying to consume the freezing cold substance!"))
+					to_chat(H, span_danger("[genderize_ru(H.gender,"Ты получил","Ты получила","Вы получили","Вы получили")] холодовой ожог, пытаясь употребить ледяное вещество!"))
 					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(- min(max((T0C - chem_temp) - 20, 5), 700))
 
@@ -616,7 +616,7 @@
 					else
 						protection = L.get_permeability_protection()
 					if(protection && show_message)
-						to_chat(L, span_alert("Your clothes protects you from the reaction."))
+						to_chat(L, span_alert("Ваша одежда защищает вас от реакции."))
 				var/reacting_volume = R.volume * volume_modifier * clamp(1 - protection + R.clothing_penetration, 0, 1)
 				R.reaction_mob(A, method, reacting_volume, show_message)
 

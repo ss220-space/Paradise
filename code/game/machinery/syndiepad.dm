@@ -39,8 +39,8 @@
 	target_id = "syndie_cargo_receive" //админский синдипад отправляющий посылки
 	allow_humans = TRUE
 
-/obj/machinery/syndiepad/Initialize()
-	..()
+/obj/machinery/syndiepad/Initialize(mapload)
+	. = ..()
 	GLOB.syndiepads += src
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad/syndiepad(null)
@@ -128,14 +128,14 @@
 	receive = !receive
 	if(receive)
 		to_chat(user, span_notice("Включен режим получения посылок."))
-		var/new_id = input("Задайте ID этому телепаду для получения им посылок")
+		var/new_id = tgui_input_text(usr, "Задайте ID этому телепаду для получения им посылок")
 		if(new_id)
 			id = new_id
 		linked_pad = null
 		target_id = null
 	else
 		to_chat(user, span_notice("Включен режим отправки посылок."))
-		var/new_target_id = input("Задайте ID телепада на который будут приходить посылки.")
+		var/new_target_id = tgui_input_text(usr, "Задайте ID телепада на который будут приходить посылки.")
 		if(new_target_id && new_target_id != id)
 			target_id = new_target_id
 		linked_pad = null
@@ -147,7 +147,7 @@
 	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
 /obj/machinery/syndiepad/proc/pad_sync()
-	for(var/obj/machinery/syndiepad/S in GLOB.machines)
+	for(var/obj/machinery/syndiepad/S in SSmachines.get_by_type(/obj/machinery/syndiepad))
 		if(S.console_link && src.console_link) //Мы не хотим привязываться к другим привязанным к консоли телепадам если мы привязаны к консоли
 			continue
 		if(!S.id)
@@ -214,7 +214,7 @@
 
 /obj/machinery/syndiepad/proc/doteleport(mob/user)
 	if(linked_pad)
-		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, 1)
+		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
 		teleporting = 1
 		spawn(teleport_speed)
 			if(!src || QDELETED(src))

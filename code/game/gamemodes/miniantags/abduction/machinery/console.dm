@@ -4,9 +4,9 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/team = 0
 
-/obj/machinery/abductor/New()
+/obj/machinery/abductor/Initialize(mapload)
+	. = ..()
 	GLOB.abductor_equipment.Add(src)
-	..()
 
 /obj/machinery/abductor/Destroy()
 	GLOB.abductor_equipment.Remove(src)
@@ -28,9 +28,24 @@
 	var/obj/machinery/computer/camera_advanced/abductor/camera
 	var/list/datum/icon_snapshot/disguises = list()
 
-/obj/machinery/abductor/console/Initialize()
+/obj/machinery/abductor/console/Initialize(mapload)
 	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/abductor/console/LateInitialize()
+	. = ..()
+	// GLOB.abductor_equipment is populated in Initialize;
+	// delaying linkage until after.
 	Link_Abduction_Equipment()
+
+/obj/machinery/abductor/console/Destroy()
+	gizmo = null
+	vest = null
+	experiment = null
+	pad = null
+	camera = null
+	disguises.Cut()
+	return ..()
 
 /obj/machinery/abductor/console/attack_hand(mob/user)
 	if(..())
@@ -138,7 +153,7 @@
 		vest.flip_mode()
 
 /obj/machinery/abductor/console/proc/SelectDisguise(remote = 0)
-	var/entry_name = input( "Choose Disguise", "Disguise") as null|anything in disguises
+	var/entry_name = tgui_input_list(usr, "Choose Disguise", "Disguise", disguises)
 	var/datum/icon_snapshot/chosen = disguises[entry_name]
 	if(chosen && (remote || in_range(usr,src)))
 		vest.SetDisguise(chosen)
@@ -197,7 +212,7 @@
 	if(vest == V)
 		return FALSE
 
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.vest == V)
 			C.vest = null
 			break

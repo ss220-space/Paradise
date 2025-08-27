@@ -7,14 +7,6 @@
 /obj/machinery/sleeper
 	name = "Sleeper"
 	desc = "Медицинское устройство, предназначеное для стабилизации пациентов. Позволяет вводить ограниченный набор веществ в организм субъекта."
-	ru_names = list(
-		NOMINATIVE = "слипер",
-		GENITIVE = "слипера",
-		DATIVE = "слиперу",
-		ACCUSATIVE = "слипер",
-		INSTRUMENTAL = "слипером",
-		PREPOSITIONAL = "слипере"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
@@ -38,9 +30,19 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
+/obj/machinery/sleeper/get_ru_names()
+	return list(
+		NOMINATIVE = "слипер",
+		GENITIVE = "слипера",
+		DATIVE = "слиперу",
+		ACCUSATIVE = "слипер",
+		INSTRUMENTAL = "слипером",
+		PREPOSITIONAL = "слипере"
+	)
 
-/obj/machinery/sleeper/New()
-	..()
+
+/obj/machinery/sleeper/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -50,8 +52,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/sleeper/upgraded/New()
-	..()
+/obj/machinery/sleeper/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -103,7 +105,7 @@
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
-		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
+		. += span_notice("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
 
 /obj/machinery/sleeper/process()
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
@@ -394,12 +396,12 @@
 	setDir(turn(dir, -90))
 
 
-/obj/machinery/sleeper/ex_act(severity)
+/obj/machinery/sleeper/ex_act(severity, target)
 	if(filtering)
 		toggle_filter()
 	if(occupant)
-		occupant.ex_act(severity)
-	..()
+		occupant.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/sleeper/handle_atom_del(atom/A)
 	..()
@@ -475,7 +477,7 @@
 
 /obj/machinery/sleeper/verb/eject()
 	set name = "Извлечь пациента"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
@@ -489,7 +491,7 @@
 
 /obj/machinery/sleeper/verb/remove_beaker()
 	set name = "Достать ёмкость"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(usr))
@@ -567,7 +569,7 @@
 
 /obj/machinery/sleeper/verb/move_inside()
 	set name = "Залезть внутрь"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled)
 		return
@@ -591,10 +593,10 @@
 	emergency_chems = list("epinephrine")
 	controls_inside = TRUE
 
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = COLOR_SOFT_RED
 
-/obj/machinery/sleeper/syndie/New()
-	..()
+/obj/machinery/sleeper/syndie/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/syndicate(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

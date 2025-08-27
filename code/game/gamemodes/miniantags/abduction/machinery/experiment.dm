@@ -159,12 +159,12 @@
 		if(point_reward > 0)
 			eject_abductee()
 			SendBack(H)
-			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+			playsound(src.loc, 'sound/machines/ding.ogg', 50, TRUE)
 			points += point_reward
 			credits += point_reward
 			return "<span class='good'>Experiment successful! [point_reward] new data-points collected.</span>"
 		else
-			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
+			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 			return "<span class='bad'>Experiment failed! No replacement organ detected.</span>"
 	else
 		atom_say("Мозговая деятельность не проявляется - утилизация образца...")
@@ -202,10 +202,10 @@
 	add_fingerprint(grabber)
 
 
-/obj/machinery/abductor/experiment/ex_act(severity)
+/obj/machinery/abductor/experiment/ex_act(severity, target)
 	if(occupant)
-		occupant.ex_act(severity)
-	..()
+		occupant.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/abductor/experiment/handle_atom_del(atom/A)
 	..()

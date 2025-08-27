@@ -2,14 +2,6 @@
 	name = "anomaly beacon"
 	desc = "Небольшое устройство, способное единоразово дестабилизировать вставленное в него ядро. \
 			Из-за несовершенства технологии, часть энергии теряется в процессе."
-	ru_names = list(
-		NOMINATIVE = "аномальный маячок",
-		GENITIVE = "аномального маячка",
-		DATIVE = "аномальному маячку",
-		ACCUSATIVE = "аномальный маячок",
-		INSTRUMENTAL = "аномальным маячком",
-		PREPOSITIONAL = "аномальном маячке"
-	)
 	icon = 'icons/obj/weapons/techrelic.dmi'
 	icon_state = "beacon"
 	item_state = "beacon"
@@ -19,9 +11,19 @@
 	/// Inserted core of anomaly.
 	var/obj/item/assembly/signaler/core/core = null
 
+/obj/item/assembly/anomaly_beacon/get_ru_names()
+	return list(
+		NOMINATIVE = "аномальный маячок",
+		GENITIVE = "аномального маячка",
+		DATIVE = "аномальному маячку",
+		ACCUSATIVE = "аномальный маячок",
+		INSTRUMENTAL = "аномальным маячком",
+		PREPOSITIONAL = "аномальном маячке"
+	)
+
 /obj/item/assembly/anomaly_beacon/activate()
 	if(!core)
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		return
 
 	var/datum/anomaly_gen_datum/gen_datum = GLOB.anomaly_types["[core.tier - 1]"][pick(GLOB.anomaly_types["[core.tier - 1]"])]

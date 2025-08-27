@@ -510,6 +510,11 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/item/storage/box/flashbangs{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/storage/box/flashbangs,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2461,6 +2466,13 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/bridge/tcomm)
+"aSv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/join_late_prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/coldcolony/malta/security/permabrig)
 "aSC" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -2880,6 +2892,13 @@
 	icon_state = "purple"
 	},
 /area/coldcolony/malta/research/chargebay)
+"baF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/coldcolony/malta/security/permabrig)
 "baI" = (
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/security/securehallway)
@@ -3331,7 +3350,6 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
-/obj/item/clothing/suit/armor/laserproof,
 /obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4999,7 +5017,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "bPH" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
 "bPY" = (
@@ -6040,6 +6058,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "cir" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -6708,7 +6727,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "cwk" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/maintenance/casino)
 "cwm" = (
@@ -6833,7 +6852,8 @@
 /area/ruin/unpowered)
 "cxT" = (
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Personnel's Office"
+	department = "Head of Personnel's Office";
+	pixel_y = 2
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet/orange,
@@ -7471,7 +7491,8 @@
 "cHA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Research Director's Office"
+	department = "Research Director's Office";
+	pixel_y = 2
 	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -7515,7 +7536,8 @@
 "cIz" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Security's Office"
+	department = "Head of Security's Office";
+	pixel_y = 2
 	},
 /obj/machinery/power/apc{
 	dir = 1;
@@ -8007,6 +8029,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -8408,7 +8431,22 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/flasher/portable,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/machinery/door/window{
+	dir = 2;
+	name = "Secure Armory";
+	req_access = list(1)
+	},
+/obj/item/clothing/shoes/reflector,
+/obj/item/clothing/gloves/reflector,
+/obj/item/clothing/suit/armor/reflector,
+/obj/item/clothing/head/helmet/reflector,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9385,6 +9423,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/effect/landmark/event/xeno_spawn,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/maintenance/kitchen)
 "dqR" = (
@@ -11775,7 +11814,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/sorting)
 "emC" = (
-/obj/structure/table,
+/obj/machinery/vending/protein,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "emD" = (
@@ -16475,7 +16514,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Quartermaster's Office"
+	department = "Quartermaster's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/qm)
@@ -19031,7 +19071,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library/checkout{
+	pixel_y = 5;
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -19739,7 +19782,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/qm,
 /obj/item/gun/projectile/shotgun/boltaction{
-	name = "\improper Охотничья винтовка";
+	name = "Охотничья винтовка";
 	pixel_y = 26
 	},
 /turf/simulated/floor/carpet,
@@ -22404,6 +22447,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/tiles/damageturf,
+/obj/machinery/flasher/portable,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/securearmory)
 "ioc" = (
@@ -25424,7 +25468,7 @@
 "jrh" = (
 /obj/structure/closet,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/storage/toolbox/syndicate = 1, /obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1, /obj/item/deck/cards/syndicate = 1, /obj/item/storage/secure/briefcase/syndie = 1, /obj/item/toy/syndicateballoon = 1, /obj/item/soap/syndie = 1, /obj/item/clothing/under/syndicate = 1, /obj/item/clothing/under/syndicate/tacticool = 1, /obj/item/clothing/mask/gas/syndicate = 1, /obj/item/suppressor = 1, /obj/item/coin/antagtoken/syndicate = 1, /obj/item/storage/box/syndie_kit/cutouts = 1)
+	result = list(/obj/item/storage/toolbox/syndicate = 1, /obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1, /obj/item/deck/cards/syndicate = 1, /obj/item/storage/secure/briefcase/syndie = 1, /obj/item/toy/syndicateballoon = 1, /obj/item/soap/syndie = 1, /obj/item/clothing/under/syndicate = 1, /obj/item/clothing/under/syndicate/tacticool = 1, /obj/item/clothing/mask/gas/syndicate = 1, /obj/item/gun_module/muzzle/suppressor = 1, /obj/item/coin/antagtoken/syndicate = 1, /obj/item/storage/box/syndie_kit/cutouts = 1)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -26287,7 +26331,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin1)
 "jFS" = (
 /obj/structure/sign/comand{
-	name = "\improper COMMAND POST"
+	name = "COMMAND POST"
 	},
 /turf/simulated/wall,
 /area/coldcolony/malta/bridge/checkpoint)
@@ -28454,7 +28498,8 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Engineer's Office"
+	department = "Chief Engineer's Office";
+	pixel_y = 2
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = 8;
@@ -29339,6 +29384,16 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/bridge/tcomm)
+"kKc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/security/permabrig)
 "kKm" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -29814,6 +29869,21 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/coldcolony/malta/engineering/atmos)
+"kTw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/prisoner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/security/permabrig)
 "kUj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -30691,7 +30761,7 @@
 /area/coldcolony/malta/bridge/vip)
 "lma" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/casino)
 "lmc" = (
@@ -33556,7 +33626,7 @@
 /area/coldcolony/malta/research/shallway)
 "msd" = (
 /obj/machinery/light/small,
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/maintenance/casino)
 "msF" = (
@@ -34446,7 +34516,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/checkpoint)
 "mKG" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "mLe" = (
@@ -37362,6 +37432,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/event/xeno_spawn,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_lab)
 "nOk" = (
@@ -39605,16 +39676,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/storage/box/flashbangs,
-/obj/item/storage/box/flashbangs{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/structure/closet/secure_closet/security_grenade_launcher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42702,6 +42765,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/effect/landmark/event/xeno_spawn,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/maintenance/casino)
 "pHU" = (
@@ -43634,7 +43698,8 @@
 "pZT" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Magistrate's Office"
+	department = "Magistrate's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -46379,7 +46444,7 @@
 /area/coldcolony/malta/medical/chemistry)
 "qXS" = (
 /obj/structure/sign/science{
-	name = "\improper Supermatter Testing Lab"
+	name = "Supermatter Testing Lab"
 	},
 /turf/simulated/wall/r_wall,
 /area/coldcolony/ruin/sm_division)
@@ -46989,7 +47054,8 @@
 "rgH" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Medical Officer's Office"
+	department = "Chief Medical Officer's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/cmo)
@@ -49101,7 +49167,8 @@
 /area/coldcolony/malta/quartermaster/miningbar)
 "rUz" = (
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office"
+	department = "Captain's Office";
+	pixel_y = 2
 	},
 /obj/structure/table/wood,
 /obj/machinery/requests_console{
@@ -50281,10 +50348,6 @@
 /obj/item/clothing/glasses/hud/health,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/paramedic)
-"sul" = (
-/obj/effect/landmark/event/xeno_spawn,
-/turf/simulated/floor/plating,
-/area/coldcolony/malta/maintenance/kitchen)
 "sva" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -52282,10 +52345,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
-"thc" = (
-/obj/effect/landmark/event/xeno_spawn,
-/turf/simulated/floor/carpet,
-/area/coldcolony/malta/maintenance/casino)
 "thh" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -54961,7 +55020,7 @@
 	},
 /area/coldcolony/malta/hallway/service/south)
 "ufD" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -55972,11 +56031,11 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "uBb" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
+/obj/machinery/vending/gun_mods,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -59325,7 +59384,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/casino)
 "vHz" = (
@@ -59916,6 +59975,7 @@
 	},
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -61282,7 +61342,8 @@
 "wsH" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office"
+	department = "NT Representative's Office";
+	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/ntrep)
@@ -61390,6 +61451,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/garden)
 "wuS" = (
+/obj/effect/landmark/join_late_prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -63310,7 +63372,7 @@
 /area/coldcolony/malta/engineering/chief)
 "xho" = (
 /obj/structure/sign/comand{
-	name = "\improper COMMAND"
+	name = "COMMAND"
 	},
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/hallway/bridge)
@@ -66047,6 +66109,7 @@
 "ygL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/soap/syndie,
+/obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -91265,7 +91328,7 @@ gAD
 eLn
 oOU
 xFx
-sul
+tfZ
 dqo
 sGB
 xgb
@@ -94921,7 +94984,7 @@ cSK
 ves
 cSK
 gWv
-thc
+ktw
 rCn
 msd
 uMp
@@ -107936,11 +107999,11 @@ fTE
 fTE
 wYq
 myV
-hHg
+kKc
 kSd
 lLL
 pTF
-eXF
+kTw
 pxI
 baI
 jLK
@@ -109739,7 +109802,7 @@ ecV
 uTu
 nMW
 fKo
-gmy
+baF
 vnF
 kzc
 vWa
@@ -110767,7 +110830,7 @@ oao
 rNa
 loV
 rbF
-gmy
+aSv
 nWp
 kzc
 kzc

@@ -15,8 +15,8 @@
 	icon_state = "bee"
 	icon = 'icons/mob/bees.dmi'
 	gender = FEMALE
-	speak_emote = list("buzzes")
-	emote_hear = list("buzzes")
+	speak_emote = list("жужжит")
+	emote_hear = list("жужжит")
 	turns_per_move = 0
 	melee_damage_lower = 1
 	melee_damage_upper = 1
@@ -143,7 +143,7 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/poison/bees/AttackingTarget()
- 	//Pollinate
+	//Pollinate
 	if(istype(target, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/Hydro = target
 		pollinate(Hydro)
@@ -217,10 +217,10 @@
 
 //Botany Queen Bee
 /mob/living/simple_animal/hostile/poison/bees/queen
- 	name = "queen bee"
- 	desc = "She's the queen of bees, BZZ BZZ"
- 	icon_state = "queen"
- 	isqueen = TRUE
+	name = "queen bee"
+	desc = "She's the queen of bees, BZZ BZZ"
+	icon_state = "queen"
+	isqueen = TRUE
 
 
 //the Queen doesn't leave the box on her own, and she CERTAINLY doesn't pollinate by herself

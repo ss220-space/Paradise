@@ -8,7 +8,7 @@
 		tts_seed = SStts.get_random_seed(src)
 
 	// Physiology needs to be created before species, as some species modify physiology
-	physiology = new()
+	physiology = new(src)
 
 	setup_dna(new_species)
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
@@ -211,8 +211,8 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 
-	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
-	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
+	status_tab_data[++status_tab_data.len] = list("Намерение:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Режим передвижения:", "[m_intent]")
 
 	var/total_user_contents = GetAllContents() // cache it
 	if(locate(/obj/item/gps) in total_user_contents)
@@ -274,7 +274,7 @@
 	var/limbs_affected = 0
 
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			if(prob(ex_armor_reduction(100, armor)) && armor < 100)
 				gib()
 				return FALSE
@@ -282,7 +282,7 @@
 				bruteloss += 500
 				limbs_affected = pick(2,3,4)
 
-		if(2)
+		if(EXPLODE_HEAVY)
 			bruteloss += 60
 			burnloss += 60
 			limbs_affected = pick(1, 2, 3)
@@ -293,7 +293,7 @@
 				if(istype(ears))
 					ears.internal_receive_damage(ex_armor_reduction(30, armor))
 
-		if(3)
+		if(EXPLODE_LIGHT)
 			bruteloss += 30
 			limbs_affected = pick(0, 1)
 
@@ -319,7 +319,7 @@
 	burnloss = ex_armor_reduction(burnloss, armor)
 	take_overall_damage(bruteloss, burnloss, used_weapon = "Explosive Blast")
 
-	..()
+	return ..()
 
 /mob/living/carbon/human/proc/process_dismember(limbs_affected)
 	var/list/valid_limbs = bodyparts.Copy()
@@ -427,7 +427,6 @@
 
 	return if_no_id	//to prevent null-names making the mob unclickable
 
-
 //Gets ID card object from hands only
 /mob/living/carbon/human/proc/get_id_from_hands()
 	var/obj/item/card/id/id = null
@@ -450,7 +449,6 @@
 	dna.species.update_sight(src)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-
 
 ///Calculates the siemens coeff based on clothing and species, can also restart hearts.
 /mob/living/carbon/human/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
@@ -478,26 +476,30 @@
 			forcesay()
 		if(undergoing_cardiac_arrest() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			if(set_heartattack(FALSE) && stat == CONSCIOUS)
-				to_chat(src, span_notice("You feel your heart beating again!"))
+				to_chat(src, span_notice("Вы чувствуете, как ваше сердце вновь бьется!"))
 
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
-
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(in_range(src, usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 
 		if(href_list["embedded_object"])
-			var/obj/item/organ/external/bodypart = locate(href_list["embedded_limb"]) in bodyparts
+			var/obj/item/organ/external/bodypart = locateUID(href_list["embedded_limb"])
+
 			if(QDELETED(bodypart) || !LAZYLEN(bodypart.embedded_objects))
 				return
-			var/obj/item/thing = locate(href_list["embedded_object"]) in bodypart.embedded_objects
-			if(QDELETED(thing) || thing.loc != bodypart) //no item, no limb, or item is not in limb or in the person anymore
+
+			var/obj/item/thing = locateUID(href_list["embedded_object"])
+			if(QDELETED(thing) || thing.loc != bodypart) // no item, no limb, or item is not in limb or in the person anymore
 				return
+
 			var/time_taken = thing.embedded_unsafe_removal_time * thing.w_class
+
 			usr.visible_message(
-				span_warning("[usr] attempts to remove [thing] from [usr.p_their()] [bodypart.name]."),
-				span_notice("You attempt to remove [thing] from your [bodypart.name]... (It will take [time_taken/10] seconds.)"),
+				span_warning("[usr] пыта[pluralize_ru(usr.gender, "ет", "ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
+				span_notice("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]... (Это займет [time_taken/10] секунд.)"),
 			)
+
 			if(do_after(usr, time_taken, src))
 				if(QDELETED(thing) || QDELETED(bodypart) || thing.loc != bodypart || !LAZYIN(bodypart.embedded_objects, thing))
 					return
@@ -509,11 +511,10 @@
 					if(h_user.has_pain())
 						h_user.emote("scream")
 				usr.visible_message(
-					span_warning("[usr] successfully rips [thing] out of [usr.p_their()] [bodypart.name]!"),
-					span_notice("You successfully remove [thing] from your [bodypart.name]."),
+					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender, "ет", "ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
+					span_notice("Вы успешно извлекли [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 				)
 			return
-
 
 	if(href_list["criminal"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
@@ -531,7 +532,7 @@
 								var/setcriminal = tgui_input_list(usr, "Specify a new criminal status for this person.", "Security HUD", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
 								if(!setcriminal)
 									return
-								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
+								var/t1 = tgui_input_text(usr, "Enter Reason:", "Security HUD", null, max_length = MAX_MESSAGE_LEN)
 								if(!t1)
 									t1 = "(none)"
 
@@ -541,15 +542,20 @@
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
 									else
 										var/rank
+										var/law_level = LAW_LEVEL_BASE
 										if(ishuman(usr))
 											var/mob/living/carbon/human/U = usr
 											rank = U.get_assignment()
+											var/obj/item/card/id/cart =  U.get_id_card()
+											law_level = is_id_card(cart)? cart.law_level : LAW_LEVEL_BASE
 										else if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
-											rank = "[U.modtype] [U.braintype]"
+											rank = "[U.modtype?.name] [U.braintype]"
+											law_level = LAW_LEVEL_BASE
 										else if(isAI(usr))
 											rank = JOB_TITLE_AI
-										set_criminal_status(usr, R, setcriminal, t1, rank)
+											law_level = LAW_LEVEL_BASE
+										set_criminal_status(usr, R, setcriminal, t1, rank, law_level = law_level)
 								break // Git out of the securiy records loop!
 						if(found_record)
 							break // Git out of the general records
@@ -625,7 +631,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.general)
 						if(R.fields["id"] == E.fields["id"])
-							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
+							var/setmedical = tgui_input_list(usr, "Specify a new medical status for this person.", "Medical HUD", list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel"), R.fields["p_stat"])
 
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 								if(setmedical != "Cancel")
@@ -712,13 +718,6 @@
 				if(skills)
 					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
 
-	if(href_list["lookitem"])
-		var/obj/item/I = locate(href_list["lookitem"])
-		src.examinate(I)
-
-	if(href_list["lookmob"])
-		var/mob/M = locate(href_list["lookmob"])
-		src.examinate(M)
 	. = ..()
 
 
@@ -781,7 +780,7 @@
 	if(!src.xylophone)
 		visible_message("<span class='warning'>[src] begins playing [p_their()] ribcage like a xylophone. It's quite spooky.</span>","<span class='notice'>You begin to play a spooky refrain on your ribcage.</span>","<span class='warning'>You hear a spooky xylophone melody.</span>")
 		var/song = pick('sound/effects/xylophone1.ogg','sound/effects/xylophone2.ogg','sound/effects/xylophone3.ogg')
-		playsound(loc, song, 50, 1, -1)
+		playsound(loc, song, 50, TRUE, -1)
 		xylophone = 1
 		spawn(1200)
 			xylophone=0
@@ -1006,7 +1005,7 @@
 
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
 	if(include_species_change)
-		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
+		set_species(new_dna.species.type, retain_damage = TRUE, transformation = FALSE, keep_missing_bodyparts = TRUE)
 	dna = new_dna.Clone()
 	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
@@ -1062,6 +1061,7 @@
 	wing = (save_appearance && oldspecies) ? oldspecies.wing : dna.species.wing
 
 	maxHealth = dna.species.total_health
+	max_stamina = dna.species.total_stamina
 
 	if(dna.species.language)
 		add_language(dna.species.language)
@@ -1249,11 +1249,15 @@
 	if(!delay_icon_update)
 		UpdateAppearance()
 
-	if(dna.species)
-		SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
-		return TRUE
-	else
-		return FALSE
+	var/species_check = !!dna.species
+
+	var/signal_result = SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
+
+	if(!HAS_TRAIT(src, TRAIT_NO_HUNGER) && !HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS) \
+		&& !(signal_result & COMPONENT_HAS_ELEMENT))
+		AddElement(/datum/element/nutrition_effects)
+
+	return species_check
 
 
 /mob/living/carbon/human/get_default_language()
@@ -1265,8 +1269,8 @@
 	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null
 
 /mob/living/carbon/human/proc/bloody_doodle()
-	set category = "IC"
-	set name = "Write in blood"
+	set category = STATPANEL_IC
+	set name = "Рисовать кровью"
 	set desc = "Use blood on your hands to write a short message on the floor or a wall, murder mystery style."
 
 	if(usr != src)
@@ -1287,7 +1291,7 @@
 		return
 
 	var/turf/origin = T
-	var/direction = input(src,"Which way?","Tile selection") as anything in list("Here","North","South","East","West")
+	var/direction = tgui_input_list(src, "Which way?", "Tile selection", list("Here", "North", "South", "East", "West"))
 	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
 	if(!istype(T))
@@ -1749,22 +1753,51 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
-	update_hunger_slowdown()
+	try_update_nutrition_level()
 
 
 /mob/living/carbon/human/set_nutrition(change, forced)
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
-	update_hunger_slowdown()
+	try_update_nutrition_level()
 
 
-/mob/living/carbon/human/proc/update_hunger_slowdown()
-	var/hungry = (500 - nutrition) / 5 //So overeat would be 100 and default level would be 80
-	if(hungry >= 70)
-		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = (hungry / 50))
-	else
-		remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
+/mob/living/carbon/human/proc/try_update_nutrition_level()
+	update_nutrition_hud()
+
+	// If nutrition still in current level thresholds we do nothing
+	if(current_nutrition_level && \
+		nutrition > current_nutrition_level.level_decrease_threshold && \
+		nutrition <= current_nutrition_level.level_increase_threshold)
+		return
+
+	for(var/nutrition_lvl in GLOB.nutrition_levels)
+		var/datum/nutrition_level/nutrition_level = GLOB.nutrition_levels[nutrition_lvl]
+		if(nutrition > nutrition_level.level_decrease_threshold && \
+			nutrition <= nutrition_level.level_increase_threshold)
+			current_nutrition_level = nutrition_level
+			break
+
+	// If our species shouldn't get bonuses/penalties from nutrition levels, besides default hunger slowdown, we dont interact with component further
+	if(HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
+		update_nutrition_slowdown()
+		return
+
+	SEND_SIGNAL(src, COMSIG_HUMAN_NUTRITION_UPDATE)
+
+
+/// Updates nutrition slowdown both for component users and species with TRAIT_NO_NUTRITION_EFFECTS
+/mob/living/carbon/human/proc/update_nutrition_slowdown()
+	if(!HAS_TRAIT(src, TRAIT_NO_NUTRITION_EFFECTS))
+		SEND_SIGNAL(src, COMSIG_HUMAN_NUTRITION_UPDATE_SLOWDOWN)
+		return
+
+	if(nutrition <= 150)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/hunger, multiplicative_slowdown = 3)
+		return
+
+	remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
 
 /mob/living/carbon/human/proc/special_post_clone_handling()
@@ -1780,14 +1813,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/fakefire()
-	if(!overlays_standing[FIRE_LAYER])
-		overlays_standing[FIRE_LAYER] = image(FIRE_DMI(src), icon_state = "Generic_mob_burning")
-		update_icons()
+	ADD_TRAIT(src, TRAIT_FAKE_FIRE, FAKEFIRE_TRAIT)
+	update_fire()
 
 /mob/living/carbon/human/fakefireextinguish()
-	overlays_standing[FIRE_LAYER] = null
-	update_icons()
-
+	REMOVE_TRAIT(src, TRAIT_FAKE_FIRE, FAKEFIRE_TRAIT)
+	update_fire()
 
 /mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
 	for(var/block = 1; block <= DNA_SE_LENGTH; block++)
@@ -1828,16 +1859,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/verb/pose()
-	set name = "Set Pose"
+	set name = "Задать позу"
 	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
-	set category = "IC"
+	set category = STATPANEL_IC
 
 	pose = tgui_input_text(usr, "Это [src]. [p_they(TRUE)] [p_are()]...", "Pose", pose)
 
 /mob/living/carbon/human/verb/set_flavor()
-	set name = "Set Flavour Text"
+	set name = "Описание внешности"
 	set desc = "Устанавливает подробное описание внешности вашего персонажа."
-	set category = "IC"
+	set category = STATPANEL_IC
 
 	update_flavor_text()
 

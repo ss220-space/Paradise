@@ -345,7 +345,7 @@
 	)
 	spiderling_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/weak
 	max_integrity = 1000
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 100, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	explosion_block = 100
 	grown_tick_count = 250
 	explosion_vertical_block = 100
@@ -361,7 +361,7 @@
 	if(!save_burst)
 		spider_team?.on_empress_egg_destroyed()
 
-/obj/structure/spider/eggcluster/terror_eggcluster/empress/ex_act(severity)
+/obj/structure/spider/eggcluster/terror_eggcluster/empress/ex_act(severity, target)
 	return
 
 /obj/structure/spider/eggcluster/terror_eggcluster/empress/burst_eggs()

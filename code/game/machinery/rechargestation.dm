@@ -17,8 +17,8 @@
 	go_out()
 	return ..()
 
-/obj/machinery/recharge_station/New()
-	..()
+/obj/machinery/recharge_station/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -28,8 +28,8 @@
 	RefreshParts()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/recharge_station/ert/New()
-	..()
+/obj/machinery/recharge_station/ert/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -38,8 +38,8 @@
 	component_parts += new /obj/item/stock_parts/cell/super(null)
 	RefreshParts()
 
-/obj/machinery/recharge_station/upgraded/New()
-	..()
+/obj/machinery/recharge_station/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
@@ -76,13 +76,13 @@
 			M.forceMove(src.loc)
 	return 1
 
-/obj/machinery/recharge_station/ex_act(severity)
+/obj/machinery/recharge_station/ex_act(severity, target)
 	if(occupant)
-		occupant.ex_act(severity)
-	..()
+		occupant.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/recharge_station/handle_atom_del(atom/A)
-	..()
+	. = ..()
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
@@ -239,19 +239,19 @@
 
 
 /obj/machinery/recharge_station/verb/move_eject()
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	go_out(usr)
 
 
 /obj/machinery/recharge_station/verb/move_inside_verb()
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	move_inside(usr)
 
 
 /obj/machinery/recharge_station/proc/move_inside(mob/user = usr)
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	if(!user || !usr)
 		return

@@ -44,6 +44,15 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
+/obj/item/melee/energy_katana/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 1.75, \
+		afterswing_slowdown = 0, \
+		swing_sound = "blade_scifi_swing" \
+	)
+
 /obj/item/melee/energy_katana/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(user && user.a_intent == INTENT_DISARM && !target.density)
@@ -157,8 +166,8 @@
 	return BRUTELOSS
 
 /datum/action/innate/dash/ninja
-	name = "Energy Dash"
-	desc = "Teleport to the targeted location. Just use your katana in a disarming manner"
+	name = "Энергорывок"
+	desc = "Мгновенно переместиться в выбранную точку. Просто используйте катану в обезоруживающем намерении."
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "arrows_3"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'

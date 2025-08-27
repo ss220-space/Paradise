@@ -15,10 +15,16 @@
 	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
 	var/temperature_max = 10000
 	var/pass_open_check = FALSE // Pass open check in empty verb
+	var/chem_master_made = FALSE
+
+/obj/item/reagent_containers/get_ru_names_cached()
+	if(chem_master_made)
+		return
+	return ..()
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Установить объём перемещения"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(!ishuman(usr) && !isrobot(usr))
@@ -28,7 +34,7 @@
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
 		default = amount_per_transfer_from_this
-	var/N = input("Объём перемещения отсюда:", "[declent_ru(NOMINATIVE)]", default) as null|anything in possible_transfer_amounts
+	var/N = tgui_input_list(usr, "Объём перемещения отсюда:", "[declent_ru(NOMINATIVE)]", possible_transfer_amounts, default)
 
 	if(!N)
 		return
@@ -50,7 +56,7 @@
 /obj/item/reagent_containers/verb/empty()
 
 	set name = "Вылить содержимое"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -80,7 +86,7 @@
 	. = ..()
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease
-		var/list/data = list("diseases" = list(F), "blood_color" = "#A10808")
+		var/list/data = list("diseases" = list(F), "blood_color" = BLOOD_COLOR_RED)
 		reagents.add_reagent("blood", disease_amount, data)
 	add_initial_reagents()
 	update_icon()

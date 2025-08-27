@@ -154,7 +154,7 @@
 /obj/machinery/treadmill_monitor/Initialize(mapload)
 	. = ..()
 	if(id)
-		for(var/obj/machinery/power/treadmill/T in GLOB.machines)
+		for(var/obj/machinery/power/treadmill/T in SSmachines.get_by_type(/obj/machinery/power/treadmill))
 			if(T.id == id)
 				treadmill = T
 				break
@@ -224,7 +224,7 @@
 // called by brig timer when prisoner released
 /obj/machinery/treadmill_monitor/proc/redeem()
 	if(total_joules >= J_per_ticket && J_per_ticket)
-		playsound(loc, 'sound/machines/chime.ogg', 50, 1)
+		playsound(loc, 'sound/machines/chime.ogg', 50, TRUE)
 		new /obj/item/stack/tickets(get_turf(src), round(total_joules / J_per_ticket))
 		total_joules = 0
 

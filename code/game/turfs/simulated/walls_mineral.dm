@@ -2,10 +2,13 @@
 	name = "mineral wall"
 	desc = "This shouldn't exist"
 	icon_state = ""
-	var/last_event = 0
-	var/active = null
 	canSmoothWith = null
 	smooth = SMOOTH_TRUE
+	var/last_event = 0
+	var/active = null
+
+/turf/simulated/wall/mineral/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_ROCK, -40, 5, 1)
 
 /turf/simulated/wall/mineral/shuttleRotate(rotation)
 	return // This override is needed to properly rotate the object when on a shuttle that is rotated.
@@ -168,6 +171,8 @@
 	hardness = 70
 	explosion_block = 0
 
+/turf/simulated/wall/mineral/wood/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
 /turf/simulated/wall/mineral/wood/try_decon(obj/item/I, mob/user, params)
 	if(is_sharp(I) && I.force)
@@ -378,7 +383,7 @@
 	var/obj/item/bombcore/large/explosive_wall/bombcore = new(get_turf(src))
 	bombcore.detonate()
 
-/turf/simulated/wall/mineral/plastitanium/explosive/ex_act(severity)
+/turf/simulated/wall/mineral/plastitanium/explosive/ex_act(severity, target)
 	return
 
 //have to copypaste this code

@@ -22,7 +22,8 @@
 	var/can_be_reinforced = 1
 
 /turf/simulated/wall/r_wall/ComponentInitialize()
-	. = ..()
+	if(!is_station_level(z))
+		return
 	AddComponent(/datum/component/blob_turf_consuming, 3)
 
 
@@ -152,7 +153,7 @@
 
 		if(RWALL_BOLTS)
 			to_chat(user, span_notice("You start to pry the cover back into place..."))
-			playsound(src, I.usesound, 100, 1)
+			playsound(src, I.usesound, 100, TRUE)
 			if(!I.use_tool(src, user, 20, volume = I.tool_volume) || d_state != RWALL_BOLTS)
 				return
 			d_state = RWALL_CUT_COVER

@@ -10,7 +10,7 @@
 						  "<span class='userdanger'>[user] kicks you in the back, making you stumble and fall!</span>")
 		step_to(target,get_step(target,target.dir),1)
 		target.Weaken(6 SECONDS)
-		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, TRUE, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Back Kick", ATKLOG_ALL)
 		if(prob(80))
 			user.say(pick("SURRPRIZU!","BACK STRIKE!","WOPAH!", "WATAAH", "ZOTA!", "Never turn your back to the enemy!"))

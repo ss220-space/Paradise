@@ -53,7 +53,7 @@
 	if(plushy)
 		var/cuddle_verb = pick("hugs","cuddles","snugs")
 		user.visible_message(span_notice("[user] [cuddle_verb] the [src]."))
-		playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		if(!isclocker(user))
 			return
 		if(alert(user, "Do you want to reveal clockwork slab?","Revealing!","Yes","No") != "Yes")
@@ -144,8 +144,9 @@
 				deplete_spell()
 				return
 			living.Knockdown(3 SECONDS)
-			living.apply_damage(30, STAMINA)
-			living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+			living.apply_damage(55, STAMINA)
+			if(!ismindshielded(living))
+				living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 			living.flash_eyes(1, TRUE)
 			if(isrobot(living))
 				var/mob/living/silicon/robot/robot = living
@@ -387,6 +388,19 @@
 	. = ..()
 	enchants = GLOB.hammer_spells
 
+/obj/item/twohanded/clock_hammer/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2.5, \
+		afterswing_slowdown = 0.3, \
+		slowdown_duration = 1 SECONDS, \
+		requires_wielded = TRUE, \
+		no_multi_hit = TRUE, \
+		swing_sound = "blunt_swing_heavy" \
+	)
+
 /obj/item/twohanded/clock_hammer/update_icon_state()
 	icon_state = "clock_hammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
@@ -488,6 +502,15 @@
 	. = ..()
 	enchants = GLOB.sword_spells
 
+/obj/item/melee/clock_sword/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		afterswing_slowdown = 0, \
+		swing_sound = "blade_swing_light" \
+	)
+
 /obj/item/melee/clock_sword/update_overlays()
 	. = ..()
 	if(enchant_type)
@@ -558,7 +581,7 @@
 			to_chat(user, span_warning("You tear through [human]'s skin releasing the blood from [human.p_their()] [bodypart.name]!"))
 			playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
 			human.setBlood(max(human.blood_volume - 100, 0))
-			var/splatter_dir = get_dir(user, human)
+			var/splatter_dir = get_angle(user, human)
 			blood_color = human.dna.species.blood_color
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(human.drop_location(), splatter_dir, blood_color)
 			human.emote("scream")
@@ -661,7 +684,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/clockhood
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
@@ -681,7 +704,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/clockhood_fake
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
@@ -793,7 +816,7 @@
 	item_state = "clockwork_cuirass"
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEGLOVES|HIDESHOES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -808,7 +831,7 @@
 		)
 	var/reflect_uses = 4
 	var/normal_armor
-	var/harden_armor = list("melee" = 80, "bullet" = 70, "laser" = 80, "energy" = 60, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	var/harden_armor = list(MELEE = 80, BULLET = 70, LASER = 80, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/suit/armor/clockwork_fake
 	name = "clockwork cuirass"
@@ -878,7 +901,7 @@
 			return
 		carbon.visible_message(span_danger("[carbon] concentrates as [carbon.p_their()] curiass shifts his plates!"),
 		span_notice("The [src.name] becomes more hardened as the plates becomes to shift for any attack!"))
-		//armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+		//armor = list(MELEE = 80, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 		armor = harden_armor
 		ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(ARMOR_SPELL))
 		enchant_type = CASTING_SPELL
@@ -923,7 +946,7 @@
 	icon_state = "clockwork_gauntlets"
 	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 	var/north_star = FALSE
 	var/fire_casting = FALSE
 
@@ -934,7 +957,7 @@
 	icon_state = "clockwork_gauntlets"
 	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/gloves/clockwork/Initialize(mapload)
 	. = ..()
@@ -994,7 +1017,7 @@
 			var/mob/living/silicon/robot/robot = living
 			robot.Weaken(1 SECONDS)
 		do_sparks(5, 0, loc)
-		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
 		deplete_spell()
 	if(north_star && !user.mind.martial_art)
@@ -1048,7 +1071,7 @@
 	item_state = "clockwork_treads"
 	strip_delay = 60
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/shoes/clockwork_fake
 	name = "clockwork treads"
@@ -1058,7 +1081,7 @@
 	item_state = "clockwork_treads"
 	strip_delay = 60
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
@@ -1119,7 +1142,7 @@
 				C.vomit(20)
 				C.Knockdown(10 SECONDS)
 		else
-			to_chat(user, span_heavybrass("\"Do you have a hole in your head? You're about to.\""))
+			to_chat(user, span_clocklarge("\"Do you have a hole in your head? You're about to.\""))
 			to_chat(user, span_userdanger("The helmet tries to drive a spike through your head as you scramble to remove it!"))
 			user.emote("scream")
 			user.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
@@ -1187,7 +1210,7 @@
 	icon_state = "gear"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/clockwork/integration_cog/Initialize()
+/obj/item/clockwork/integration_cog/Initialize(mapload)
 	. = ..()
 	transform *= 0.5 //little cog!
 
@@ -1431,7 +1454,7 @@
 		golem.revive()
 		golem.set_species(/datum/species/golem/clockwork)
 		log_game("[golem.key] has become Brass Golem.")
-		SEND_SOUND(golem, 'sound/ambience/antag/clockcult.ogg')
+		SEND_SOUND(golem, sound('sound/ambience/antag/clockcult.ogg'))
 	else
 		golem.visible_message(span_warning("[golem] twitches as their body twists and rapidly changes the form!"))
 		new /obj/effect/mob_spawn/human/golem/clockwork(get_turf(golem))

@@ -19,6 +19,16 @@
 	///Chance to dig up a worm
 	var/worm_chance = 30
 
+/turf/simulated/floor/plating/asteroid/get_ru_names()
+	return list(
+		NOMINATIVE = "астероидный песок",
+		GENITIVE = "астероидного песка",
+		DATIVE = "астероидному песку",
+		ACCUSATIVE = "астероидный песок",
+		INSTRUMENTAL = "астероидным песком",
+		PREPOSITIONAL = "астероидном песке"
+	)
+
 /turf/simulated/floor/plating/asteroid/Initialize(mapload)
 	var/proper_name = name
 	. = ..()
@@ -35,7 +45,7 @@
 	if(!dug)
 		return TRUE
 	if(user)
-		to_chat(user, span_notice("Looks like someone has dug here already."))
+		to_chat(user, span_notice("Похоже, здесь уже копали."))
 
 ///Refills the previously dug tile
 /turf/simulated/floor/plating/asteroid/proc/refill_dug()
@@ -66,16 +76,17 @@
 /turf/simulated/floor/plating/asteroid/remove_plating()
 	return
 
-/turf/simulated/floor/plating/asteroid/ex_act(severity)
+/turf/simulated/floor/plating/asteroid/ex_act(severity, target)
 	if(!can_dig())
 		return
+
 	switch(severity)
-		if(3)
+		if(EXPLODE_LIGHT)
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(20))
 				getDug()
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			getDug()
 
 
@@ -103,11 +114,11 @@
 		if(!can_dig(user))
 			return .
 		I.play_tool_sound()
-		to_chat(user, span_notice("You start digging..."))
+		to_chat(user, span_notice("Вы начинаете копать..."))
 		if(!do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !istype(src, /turf/simulated/floor/plating/asteroid) || !can_dig(user))
 			return .
 		I.play_tool_sound()
-		to_chat(user, span_notice("You have dug a hole."))
+		to_chat(user, span_notice("Вы выкопали яму."))
 		if(user.a_intent == INTENT_DISARM)
 			new /obj/structure/pit(src)
 			dug = TRUE
@@ -132,12 +143,23 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
+	desc = "Выглядит горячим."
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 	icon_state = "basalt"
 	icon_plating = "basalt"
 	environment_type = "basalt"
 	floor_variance = 15
 	digResult = /obj/item/stack/ore/glass/basalt
+
+/turf/simulated/floor/plating/asteroid/basalt/get_ru_names()
+	return list(
+		NOMINATIVE = "вулканический пол",
+		GENITIVE = "вулканического пола",
+		DATIVE = "вулканическому полу",
+		ACCUSATIVE = "вулканический пол",
+		INSTRUMENTAL = "вулканическим полом",
+		PREPOSITIONAL = "вулканическом поле"
+	)
 
 /turf/simulated/floor/plating/asteroid/basalt/refill_dug()
 	. = ..()
@@ -212,7 +234,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/snow
 	gender = PLURAL
 	name = "snow"
-	desc = "Looks cold."
+	desc = "Выглядит холодным."
 	icon = 'icons/turf/snow.dmi'
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
 	icon_state = "snow"
@@ -223,12 +245,22 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	planetary_atmos = TRUE
 	digResult = /obj/item/stack/sheet/mineral/snow
 
+/turf/simulated/floor/plating/asteroid/snow/get_ru_names()
+	return list(
+		NOMINATIVE = "снег",
+		GENITIVE = "снега",
+		DATIVE = "снегу",
+		ACCUSATIVE = "снег",
+		INSTRUMENTAL = "снегом",
+		PREPOSITIONAL = "снеге"
+	)
+
 /turf/simulated/floor/plating/asteroid/snow/broken_states()
 	return list("snow_dug")
 
 /turf/simulated/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)
-		visible_message(span_danger("[src] melts away!."))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] расплавляется!"))
 		slowdown = 0
 		burnt = TRUE
 		icon_state = "snow_dug"

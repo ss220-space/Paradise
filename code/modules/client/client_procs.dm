@@ -103,7 +103,7 @@
 	if(href_list["priv_msg"])
 		var/ckey_txt = href_list["priv_msg"]
 
-		cmd_admin_pm(ckey_txt, null, href_list["type"])
+		cmd_admin_pm(ckey_txt, null, href_list["type"], ticket_id = text2num(href_list["ticket_id"]))
 		return
 
 	if(href_list["discord_msg"])
@@ -219,16 +219,9 @@
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
 	if(filelength > UPLOAD_LIMIT)
-		to_chat(src, span_fontcolor_red("Ошибка: AllowUpload(): Загрузка слишком большого файла. Ограничение на загрузку: [UPLOAD_LIMIT/1024]КБ."), confidential=TRUE)
-		return 0
-/*	//Don't need this at the moment. But it's here if it's needed later.
-	//Helps prevent multiple files being uploaded at once. Or right after eachother.
-	var/time_to_wait = fileaccess_timer - world.time
-	if(time_to_wait > 0)
-		to_chat(src, "<font color='red'>Error: AllowUpload(): Spam prevention. Please wait [round(time_to_wait/10)] seconds.</font>")
-		return 0
-	fileaccess_timer = world.time + FTPDELAY	*/
-	return 1
+		to_chat(src, span_red("Ошибка: AllowUpload(): Загрузка слишком большого файла. Ограничение на загрузку: [UPLOAD_LIMIT/1024]КБ."), confidential = TRUE)
+		return FALSE
+	return TRUE
 
 
 	///////////
@@ -236,7 +229,7 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
-	TopicData = null							//Prevent calls to client.Topic from connect
+	TopicData = null //Prevent calls to client.Topic from connect
 
 	if(byond_version >= 516)
 		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
@@ -244,12 +237,15 @@
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
+	// Create a PM tracker bound to this ckey.
+	pm_tracker = new(ckey)
+
 	//kill old tgui panel
 	winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
 
-	if(connection != "seeker")					//Invalid connection type.
+	if(connection != "seeker") //Invalid connection type.
 		return null
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		version_blocked = TRUE
@@ -261,8 +257,8 @@
 		show_update_prompt = TRUE
 	else if(byond_version == SUGGESTED_CLIENT_VERSION && byond_build < SUGGESTED_CLIENT_BUILD)
 		show_update_prompt = TRUE
-	// Actually sent to client much later, so it appears after MOTD.
 
+	// Actually sent to client much later, so it appears after MOTD.
 	to_chat(src, span_warning("Если вы видите чёрный экран, это означает, что процесс загрузки ещё продолжается. Пожалуйста, подождите немного, пока не появится начальный экран."), confidential=TRUE)
 
 	GLOB.directory[ckey] = src
@@ -356,16 +352,8 @@
 	send_resources()
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
-		to_chat(src, span_info("У вас есть непрочитанные сообщения в журнале обновлений."), confidential=TRUE)
-		winset(src, "infobuttons.changelog", "font-style=bold")
-
-	// Karma is disabled
-	/*
-	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
-		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
-	else
-		to_chat(src,"<span class='notice'>You have enabled karma gains.")
-	*/
+		to_chat(src, span_notice("У вас есть непрочитанные сообщения в журнале обновлений."), confidential=TRUE)
+		//winset(src, "infobuttons.changelog", "font-style=bold")
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -590,7 +578,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins(span_fontcolor_red("<b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]"))
+		message_admins(span_red("<b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]"))
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 
@@ -1082,8 +1070,8 @@
 #undef SSD_WARNING_TIMER
 
 /client/verb/toggle_fullscreen()
-	set name = "Toggle Fullscreen"
-	set category = "OOC"
+	set name = "Полный экран"
+	set category = STATPANEL_OOC
 
 	fullscreen = !fullscreen
 
@@ -1130,9 +1118,9 @@
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
-	set name = "Fit Viewport"
+	set name = "Подгонка области видимости"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1200,9 +1188,9 @@
  * Reloads the titlescreen if it is bugged for someone.
  */
 /client/verb/fix_title_screen()
-	set name = "Fix Lobby Screen"
+	set name = "Починить меню лобби"
 	set desc = "Lobbyscreen broke? Press this."
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 
 	if(istype(mob, /mob/new_player))
 		SStitle.show_title_screen_to(src)
@@ -1215,7 +1203,7 @@
 
 /client/verb/link_discord_account()
 	set name = "Привязка Discord"
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
 
 	if(!CONFIG_GET(string/discordurl))

@@ -1,4 +1,4 @@
-#define SCREEN_COVER 0
+ #define SCREEN_COVER 0
 #define SCREEN_PAGE_INNER 1
 #define SCREEN_PAGE_LAST 2
 
@@ -10,22 +10,14 @@
 /obj/item/newspaper
 	name = "newspaper"
 	desc = "Выпуск газеты \"Грифон\", распространяемой на объектах НаноТрейзен."
-	ru_names = list(
-        NOMINATIVE = "газета",
-        GENITIVE = "газеты",
-        DATIVE = "газете",
-        ACCUSATIVE = "газету",
-        INSTRUMENTAL = "газетой",
-        PREPOSITIONAL = "газете"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "newspaper"
 	item_state = "newspaper"
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("стукнул")
-	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/paper_pickup.ogg'
 
 	///The page in the newspaper currently being read. 0 is the title screen while the last is the security screen.
 	var/current_page = 1
@@ -57,6 +49,17 @@
 		"Ресторан \"Звёздный Вкус\": Блюда, которые вы никогда не пробовали! И, возможно, никогда не захотите попробовать снова.",
 		"Клуб \"Нулевая Гравитация\": Танцуйте до тех пор, пока не упадёте! Или пока вас не выбросит за борт.",
 		"Офицеры дуреют от этой кожуры! Самые скользкие кожурки во всей система Тау Кита...")
+
+/obj/item/newspaper/get_ru_names()
+	return list(
+		NOMINATIVE = "газета",
+		GENITIVE = "газеты",
+		DATIVE = "газете",
+		ACCUSATIVE = "газету",
+		INSTRUMENTAL = "газетой",
+		PREPOSITIONAL = "газете"
+	)
+	
 
 /obj/item/newspaper/Initialize(mapload)
 	. = ..()
@@ -178,12 +181,12 @@
 							span_notice("Вы [rolled ? "с" : "раз"]ворачиваете [declent_ru(ACCUSATIVE)]."))
 	name = "[rolled ? "rolled" : ""] [initial(name)]"
 	ru_names = list(
-        NOMINATIVE = "[rolled ? "свёрнутая " : ""]газета",
-        GENITIVE = "[rolled ? "свёрнутой " : ""]газеты",
-        DATIVE = "[rolled ? "свёрнутой " : ""]газете",
-        ACCUSATIVE = "[rolled ? "свёрнутую" : ""]газету",
-        INSTRUMENTAL = "[rolled ? "свёрнутой " : ""]газетой",
-        PREPOSITIONAL = "[rolled ? "свёрнутой " : ""]газете"
+		NOMINATIVE = "[rolled ? "свёрнутая " : ""]газета",
+		GENITIVE = "[rolled ? "свёрнутой " : ""]газеты",
+		DATIVE = "[rolled ? "свёрнутой " : ""]газете",
+		ACCUSATIVE = "[rolled ? "свёрнутую" : ""]газету",
+		INSTRUMENTAL = "[rolled ? "свёрнутой " : ""]газетой",
+		PREPOSITIONAL = "[rolled ? "свёрнутой " : ""]газете"
 	)
 	return CLICK_ACTION_SUCCESS
 

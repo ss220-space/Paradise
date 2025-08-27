@@ -31,7 +31,7 @@
 	if(!T)
 		return
 
-	T.visible_message(span_warning("The solution generates a strong vapor!"))
+	T.visible_message(span_warning("Раствор образует сильный пар!"))
 
 	var/datum/reagents/reagents_list = new (amount * reagents.len)
 	for(var/reagent in reagents)
@@ -81,10 +81,10 @@
 /proc/goonchem_vortex(turf/T, setting_type, volume)
 	if(setting_type)
 		new /obj/effect/temp_visual/implosion(T)
-		playsound(T, 'sound/effects/whoosh.ogg', 25, 1) //credit to Robinhood76 of Freesound.org for this.
+		playsound(T, 'sound/effects/whoosh.ogg', 25, TRUE) //credit to Robinhood76 of Freesound.org for this.
 	else
-		new /obj/effect/temp_visual/shockwave(T)
-		playsound(T, 'sound/effects/bang.ogg', 25, 1)
+		new /obj/effect/temp_visual/shockwave_old(T)
+		playsound(T, 'sound/effects/bang.ogg', 25, TRUE)
 	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
 		if(iseffect(X))
 			continue  //stop pulling smoke and hotspots please
@@ -102,10 +102,10 @@
 /proc/goonchem_vortex_weak(turf/T, setting_type, volume)
 	if(setting_type)
 		new /obj/effect/temp_visual/implosion(T)
-		playsound(T, 'sound/effects/whoosh.ogg', 25, 1) //credit to Robinhood76 of Freesound.org for this.
+		playsound(T, 'sound/effects/whoosh.ogg', 25, TRUE) //credit to Robinhood76 of Freesound.org for this.
 	else
-		new /obj/effect/temp_visual/shockwave(T)
-		playsound(T, 'sound/effects/bang.ogg', 25, 1)
+		new /obj/effect/temp_visual/shockwave_old(T)
+		playsound(T, 'sound/effects/bang.ogg', 25, TRUE)
 	for(var/atom/movable/X in view(2 + setting_type  + (volume > 30 ? 1 : 0), T))
 		if(iseffect(X))
 			continue  //stop pulling smoke and hotspots please

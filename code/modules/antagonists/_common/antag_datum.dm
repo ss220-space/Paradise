@@ -412,6 +412,8 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
  * Creates a new antagonist team.
  */
 /datum/antagonist/proc/create_team(datum/team/team)
+	if(!ispath(team))
+		team = team.type
 	if(!GLOB.antagonist_teams[team])
 		new team
 	src.team = GLOB.antagonist_teams[team]
@@ -478,7 +480,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
  * Displayed at the start of roundend_category section, default to roundend_category header.
  */
 /datum/antagonist/proc/roundend_report_header()
-	return 	span_header("The [roundend_category] were:<br>")
+	return	span_header("The [roundend_category] were:<br>")
 
 
 /**

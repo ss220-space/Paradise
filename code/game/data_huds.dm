@@ -349,8 +349,7 @@
 ~~~~~~~~~~~~~~~~~~~~~*/
 /obj/mecha/proc/diag_hud_set_mechhealth()
 	var/image/holder = hud_list[DIAG_MECH_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
+	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
 	holder.icon_state = "huddiag[RoundDiagBar(obj_integrity/max_integrity)]"
 
 /obj/mecha/proc/diag_hud_set_mechcell()
@@ -548,7 +547,7 @@
 		commenter_display = "[U.get_authentification_name()] ([U.get_assignment()])"
 	else if(isrobot(commenter))
 		var/mob/living/silicon/robot/U = commenter
-		commenter_display = "[U.name] ([U.modtype] [U.braintype])"
+		commenter_display = "[U.name] ([U.modtype?.name] [U.braintype])"
 	else if(isAI(commenter))
 		var/mob/living/silicon/ai/U = commenter
 		commenter_display = "[U.name] (artificial intelligence)"

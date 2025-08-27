@@ -19,7 +19,7 @@
 	max_integrity = 100
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BRUTE)
 				damage_amount *= ALIEN_RESIN_BRUTE_MOD
@@ -58,7 +58,10 @@
 	max_integrity = 200
 	smooth = SMOOTH_BITMASK
 
-/obj/structure/alien/resin/Initialize()
+/obj/structure/alien/resin/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+
+/obj/structure/alien/resin/Initialize(mapload)
 	air_update_turf(1)
 	. = ..()
 
@@ -123,7 +126,7 @@
 				damage = max_integrity/ALIEN_RESIN_BRUTE_MOD
 			else
 				return ..()
-		if(attack_generic(A, damage, BRUTE, "melee", 0, 100))
+		if(attack_generic(A, damage, BRUTE, MELEE, 0, 100))
 			playsound(loc, 'sound/effects/attackblob.ogg', 50, TRUE)
 
 
@@ -136,17 +139,23 @@
 	desc = "Thick resin solidified into a weird looking door."
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin_door_closed"
+	var/icon_closed = "resin_door_closed"
+	var/icon_opened = "resin_door_opened"
+	var/icon_closing = "resin_door_closing"
+	var/icon_opening = "resin_door_opening"
 	max_integrity = 160
 	canSmoothWith = null
 	smooth = NONE
 	pass_flags_self = PASSDOOR
+	var/open_sound = 'sound/creatures/alien/xeno_door_open.ogg'
+	var/close_sound = 'sound/creatures/alien/xeno_door_close.ogg'
 	var/state = RESIN_DOOR_CLOSED
 	var/operating = FALSE
 	var/autoclose = TRUE
 	var/autoclose_delay = 10 SECONDS
 
 
-/obj/structure/alien/resin/door/Initialize()
+/obj/structure/alien/resin/door/Initialize(mapload)
 	. = ..()
 	update_freelook_sight()
 
@@ -160,9 +169,9 @@
 /obj/structure/alien/resin/door/update_icon_state()
 	switch(state)
 		if(RESIN_DOOR_CLOSED)
-			icon_state = "resin_door_closed"
+			icon_state = icon_closed
 		if(RESIN_DOOR_OPENED)
-			icon_state = "resin_door_opened"
+			icon_state = icon_opened
 
 
 /obj/structure/alien/resin/door/attack_alien(mob/living/carbon/alien/humanoid/user)
@@ -179,12 +188,14 @@
 
 
 /obj/structure/alien/resin/door/attack_hand(mob/living/user)
+	..()
+	attack_check(user)
+
+/obj/structure/alien/resin/door/proc/attack_check(mob/living/user)
 	if(!isalien(user))
 		to_chat(user, span_notice("You can't find a way to manipulate with this door."))
 		return FALSE
-
-	return ..()
-
+	return TRUE
 
 /obj/structure/alien/resin/door/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -245,8 +256,8 @@
 	if(autoclose)
 		autoclose_in(autoclose_delay)
 
-	flick("resin_door_opening", src)
-	playsound(loc, 'sound/creatures/alien/xeno_door_open.ogg', 100, TRUE)
+	flick(icon_opening, src)
+	playsound(loc, open_sound, 100, TRUE)
 	operating = TRUE
 
 	sleep(0.1 SECONDS)
@@ -275,8 +286,8 @@
 				autoclose_in(autoclose_delay * 0.5)
 			return
 
-	flick("resin_door_closing", src)
-	playsound(loc, 'sound/creatures/alien/xeno_door_close.ogg', 100, TRUE)
+	flick(icon_closing, src)
+	playsound(loc, close_sound, 100, TRUE)
 	operating = TRUE
 
 	sleep(0.1 SECONDS)
@@ -430,8 +441,8 @@
 	var/node_range = NODERANGE
 
 
-/obj/structure/alien/weeds/node/New()
-	..(loc, src)
+/obj/structure/alien/weeds/node/Initialize(mapload)
+	return ..(loc, src)
 
 /obj/structure/alien/weeds/attack_alien(mob/living/carbon/alien/humanoid/A)
 	if(A.a_intent == INTENT_HARM)
@@ -486,7 +497,7 @@
 			hugger.lose_target()
 			AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
 		if(BURST)
-			obj_integrity = integrity_failure
+			update_integrity(integrity_failure)
 
 
 /obj/structure/alien/egg/update_icon_state()
@@ -508,7 +519,7 @@
 		switch(status)
 			if(BURST)
 				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
-				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+				playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
 				qdel(src)
 				return
 			if(GROWING)

@@ -107,7 +107,7 @@
 				else
 					visible_message(span_warning("You fail to blind [C] by shining [src] at [C.p_their()] eyes!"))
 			else
-				visible_message(span_info("You missed the [C] with [src]."))
+				visible_message(span_notice("You missed the [C] with [src]."))
 		if(SILICON)
 			energy--
 			icon_flick()
@@ -123,7 +123,7 @@
 				else
 					visible_message(span_notice("You fail to overload [S] by shining [src] at [S.p_their()] sensors."))
 			else
-				visible_message(span_info("You missed the [S] with [src]."))
+				visible_message(span_notice("You missed the [S] with [src]."))
 		if(CAMERA)
 			energy--
 			icon_flick()
@@ -135,7 +135,7 @@
 				log_admin("[key_name(user)] EMPd a camera with a signmaker")
 				add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 			else
-				visible_message(span_info("You missed the lens of [C] with [src]."))
+				visible_message(span_notice("You missed the lens of [C] with [src]."))
 		else
 			create_holosign(target, user)
 	//to make sure energy doesn't go below 0
@@ -168,7 +168,7 @@
 
 /obj/structure/holosoap
 	name = "holographic soap"
-	desc = "looks like a real soap, but it's not."
+	desc = "Настоящее мыло, только не настоящее."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "holo_soap"
 	density = FALSE
@@ -178,6 +178,16 @@
 	max_integrity = 1
 
 	var/obj/item/signmaker/projector = null
+
+/obj/structure/holosoap/get_ru_names()
+	return list(
+		NOMINATIVE = "голографическое мыло",
+		GENITIVE = "голографического мыла",
+		DATIVE = "голографическому мылу",
+		ACCUSATIVE = "голографическое мыло",
+		INSTRUMENTAL = "голографическим мылом",
+		PREPOSITIONAL = "голографическом мыле"
+	)
 
 
 /obj/structure/holosoap/Initialize(mapload, new_projector)
@@ -218,11 +228,11 @@
 		return
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	take_damage(5 , BRUTE, "melee", 1)
+	take_damage(5 , BRUTE, MELEE, 1)
 
 /obj/structure/holosoap/holosoap_emagged
 	name = "solid holographic soap"
-	desc = "looks like a real soap, but it's blocking your path now."
+	desc = "Настоящее мыло, только теперь оно преграждает вам путь."
 	density = TRUE
 
 #undef CARBON

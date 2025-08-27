@@ -2,6 +2,13 @@
 Almost every mining medic related stuff
 */
 
+/obj/machinery/camera/portable/no_ai
+
+
+/obj/machinery/camera/portable/no_ai/can_AI_see(ai)
+	return FALSE
+
+
 /obj/item/clothing/accessory/camera
 	name = "mining camera"
 	desc = "Небольшая нагрудная видеокамера, обладающая массивным датчиком, позволяющим считывать датчики костюма с основной станции. \
@@ -26,7 +33,7 @@ Almost every mining medic related stuff
 	/// Is our camera on
 	var/on = FALSE
 	/// Our portable camera
-	var/obj/machinery/camera/portable/camera
+	var/obj/machinery/camera/portable/no_ai/camera
 	/// Can we see camera from intertainment network?
 	var/news_feed = FALSE
 	/// Main feed network
@@ -36,8 +43,11 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/camera/Destroy()
 	GLOB.active_video_cameras -= src
-	camera.c_tag = null
-	QDEL_NULL(camera)
+
+	if(camera) // null until we activate
+		camera.c_tag = null
+		QDEL_NULL(camera)
+
 	return ..()
 
 /obj/item/clothing/accessory/camera/examine(mob/user)
@@ -91,7 +101,7 @@ Almost every mining medic related stuff
 	if(!force)
 		balloon_alert(user, "камера [on ? "в" : "вы"]ключена")
 
-	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
+	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in SSmachines.get_by_type(/obj/machinery/computer/security/telescreen/entertainment))
 		TV.update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/accessory/camera/update_icon_state()
@@ -170,7 +180,7 @@ Almost every mining medic related stuff
 
 /obj/item/camera_bug/mining
 	name = "mining camera monitor"
-	desc = "Небольшое устройство, считывающее данные с шахтёрских видеокамер. Позволяет следить за тем, как шахтёры борятся за жизнь на просторах Лаваленда."
+	desc = "Небольшое устройство, считывающее данные с шахтёрских видеокамер. Позволяет следить за тем, как шахтёры борятся за жизнь на просторах Лазиса."
 	ru_names = list(
 		NOMINATIVE = "шахтёрский монитор видеокамер",
 		GENITIVE = "шахтёрского монитора видеокамер",

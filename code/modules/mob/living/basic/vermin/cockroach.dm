@@ -36,7 +36,7 @@
 
 	ai_controller = /datum/ai_controller/basic_controller/cockroach
 
-/mob/living/basic/cockroach/Initialize()
+/mob/living/basic/cockroach/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/death_drops, list(/obj/effect/decal/cleanable/insectguts))
 	AddComponent(/datum/component/squashable, squash_chance = 30, squash_damage = 1)
@@ -67,7 +67,15 @@
 
 /obj/item/ammo_casing/caseless/glockroach
 	name = "0.9mm bullet casing"
-	desc = "A... 0.9mm bullet casing? What?"
+	desc = "Это... 0.9mm гильза? Чего?"
+	ru_names = list(
+		NOMINATIVE = "гильза 0.9 мм",
+		GENITIVE = "гильзы 0.9 мм",
+		DATIVE = "гильзе 0.9 мм",
+		ACCUSATIVE = "гильзу 0.9 мм",
+		INSTRUMENTAL = "гильзой 0.9 мм",
+		PREPOSITIONAL = "гильзе 0.9 мм"
+	)
 	projectile_type = /obj/projectile/glockroachbullet
 
 /mob/living/basic/cockroach/glockroach
@@ -87,7 +95,7 @@
 	faction = list("hostile")
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/glockroach
 
-/mob/living/basic/cockroach/glockroach/Initialize()
+/mob/living/basic/cockroach/glockroach/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/ranged_attacks, /obj/item/ammo_casing/caseless/glockroach, 'sound/weapons/gunshots/gunshot3.ogg')
 
@@ -126,7 +134,7 @@
 	faction = list("hostile")
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/hauberoach
 
-/mob/living/basic/cockroach/hauberoach/Initialize()
+/mob/living/basic/cockroach/hauberoach/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, min_damage = 10, max_damage = 15, flags = (CALTROP_BYPASS_SHOES))
 	AddComponent( \

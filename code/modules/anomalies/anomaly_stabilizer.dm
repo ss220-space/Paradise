@@ -2,21 +2,12 @@
 	name = "стабилизатор аномалий"
 	desc = "Продвинутое устройство, предназначенное для стабилизации аномалий. \
 			Имеет две ячейки для ядер аномалий."
-	ru_names = list(
-		NOMINATIVE = "стабилизатор аномалий", \
-		GENITIVE = "стабилизатора аномалий", \
-		DATIVE = "стабилизатору аномалий", \
-		ACCUSATIVE = "стабилизатор аномалий", \
-		INSTRUMENTAL = "стабилизатором аномалий", \
-		PREPOSITIONAL = "стабилизаторе аномалий"
-	)
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
 	icon_state = "pistol_base_item"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "pistol_base"
 	gender = MALE
-	gun_light_overlay = "flight"
 	can_add_sibyl_system = FALSE
 	origin_tech = "programming=3;magnets=3"
 	cell_type = /obj/item/stock_parts/cell/high
@@ -44,6 +35,16 @@
 	/// If true, tgui will show more info about this anomaly_stabilizer.
 	var/full_info = FALSE
 
+/obj/item/gun/energy/anomaly_stabilizer/get_ru_names()
+	return list(
+		NOMINATIVE = "стабилизатор аномалий", \
+		GENITIVE = "стабилизатора аномалий", \
+		DATIVE = "стабилизатору аномалий", \
+		ACCUSATIVE = "стабилизатор аномалий", \
+		INSTRUMENTAL = "стабилизатором аномалий", \
+		PREPOSITIONAL = "стабилизаторе аномалий"
+	)
+
 /obj/item/gun/energy/anomaly_stabilizer/Initialize(mapload, ...)
 	. = ..()
 	update_stability_delta(1)
@@ -53,7 +54,7 @@
 	ui_interact(user)
 
 /obj/item/gun/energy/anomaly_stabilizer/newshot()
-	if(!cell)
+	if(!cell || cell.charge < get_req_ecost())
 		return
 
 	chambered = new cur_ammo_type
@@ -61,11 +62,11 @@
 		chambered.newshot()
 
 	var/obj/item/ammo_casing/energy/anomaly/en_chambered = chambered
-	en_chambered.e_cost *= max(1, stability_delta * stability_delta)
+	en_chambered.e_cost = get_req_ecost()
 
 	var/obj/projectile/beam/anomaly/shot = chambered.BB
 	shot.stability_delta = stability_delta
-	shot.pull_strenght = choosen_pull_dist
+	shot.pull_strength = choosen_pull_dist
 	shot.move_block = block_move_time
 	shot.move_impulces_block = block_move_impulses_time
 	shot.anom_weaken = weaken_val
@@ -113,40 +114,40 @@
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/gun/energy/anomaly_stabilizer/proc/update_cores()
-	var/strenght_energetic = 0
-	var/strenght_atmospheric = 0
-	var/strenght_bluespace = 0
-	var/strenght_vortex = 0
-	var/strenght_gravitation = 0
+	var/strength_energetic = 0
+	var/strength_atmospheric = 0
+	var/strength_bluespace = 0
+	var/strength_vortex = 0
+	var/strength_gravitation = 0
 	for(var/obj/item/assembly/signaler/core/core in cores)
-		var/strenght = core.get_strenght()
+		var/strength = core.get_strength()
 		if(iscoreflux(core))
-			strenght_energetic += strenght
+			strength_energetic += strength
 
 		if(iscoreatmos(core))
-			strenght_atmospheric += strenght
+			strength_atmospheric += strength
 
 		if(iscorebluespace(core))
-			strenght_bluespace += strenght
+			strength_bluespace += strength
 
 		if(iscorevortex(core))
-			strenght_vortex += strenght
+			strength_vortex += strength
 
 		if(iscoregrav(core))
-			strenght_gravitation += strenght
+			strength_gravitation += strength
 
-	stability_range = 1 + round(strenght_energetic / 50 + 0.5)
+	stability_range = 1 + round(strength_energetic / 50 + 0.5)
 	update_stability_delta(stability_delta)
 
-	pull_range = round(strenght_gravitation / 50 + 0.5)
+	pull_range = round(strength_gravitation / 50 + 0.5)
 	choosen_pull_dist = clamp(choosen_pull_dist, -pull_range, pull_range)
 
-	block_move_time = (strenght_vortex / 100) SECONDS
+	block_move_time = (strength_vortex / 100) SECONDS
 
-	block_move_impulses_time = (strenght_bluespace / 100) SECONDS
+	block_move_impulses_time = (strength_bluespace / 100) SECONDS
 
-	weaken_val = strenght_atmospheric / 3
-	weaken_time = (strenght_atmospheric / 50) SECONDS
+	weaken_val = strength_atmospheric / 3
+	weaken_time = (strength_atmospheric / 50) SECONDS
 
 	newshot()
 
@@ -231,13 +232,20 @@
 
 /obj/item/gun/energy/anomaly_stabilizer/examine(mob/user)
 	. = ..()
-	var/shots = round(cell.charge / (/obj/item/ammo_casing/energy/anomaly::e_cost) / stability_delta / stability_delta)
+	var/shots = round(cell.charge / get_req_ecost())
 	. += span_notice("Индикатор заряда сообщает: [cell.charge]\\[cell.maxcharge].")
 	. += span_notice("Этого хватит на [shots] [declension_ru(shots, "выстрел", "выстрела", "выстрелов")] и изменение стабильности аномалии на [shots * stability_delta] [declension_ru(shots * stability_delta, "единицу", "единицы", "единиц")] при текущих настройках.")
 
+
+/obj/item/gun/energy/anomaly_stabilizer/proc/get_req_ecost()
+	var/cost = /obj/item/ammo_casing/energy/anomaly::e_cost
+	cost *= max(1, stability_delta * stability_delta)
+	return cost
+
+
 /obj/item/gun/energy/anomaly_stabilizer/update_overlays()
 	. = list()
-	if(cell.charge < /obj/item/ammo_casing/energy/anomaly::e_cost)
+	if(cell.charge < get_req_ecost())
 		return
 
 	if(stability_delta < 0)

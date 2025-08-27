@@ -89,6 +89,7 @@
 		JOB_MIN_AGE_COMMAND = 50,
 	)
 
+
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
@@ -104,6 +105,11 @@
 
 	add_verb(human, /mob/living/carbon/human/proc/emote_hum)
 
+
+/datum/species/drask/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, STRENGTH_LEVEL_IDEAL, STRENGTH_LEVEL_SUPERHUMAN)
+
+
 /datum/species/drask/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
 
@@ -114,9 +120,6 @@
 
 /datum/species/drask/handle_life(mob/living/carbon/human/human)
 	. = ..()
-
-	if(human.stat == DEAD)
-		return
 
 	if(human.bodytemperature < TCRYO)
 		var/update = NONE
@@ -154,7 +157,7 @@
 	return .
 
 /datum/action/innate/drask/coma
-	name = "Enter coma"
+	name = "Кома"
 	desc = "Постепенно вводит в состояние комы, понижает температуру тела. Повторная активация способности позволит прервать вход в кому, либо выйти из нее."
 
 	button_icon_state = "heal"

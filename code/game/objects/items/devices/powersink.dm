@@ -19,7 +19,7 @@
 	materials = list(MAT_METAL=750)
 	origin_tech = "powerstorage=5;syndicate=7"
 	var/drain_rate = 2000000	// amount of power to drain per tick
-	var/power_drained = 0 		// has drained this much power
+	var/power_drained = 0		// has drained this much power
 	var/max_power = 6e8		// maximum power that can be drained before exploding
 	var/mode = 0		// 0 = off, 1=clamped (off), 2=operating
 	var/admins_warned = FALSE // stop spam, only warn the admins once that we are about to boom
@@ -145,12 +145,15 @@
 		if (!admins_warned)
 			admins_warned = TRUE
 			message_admins("Power sink at [ADMIN_VERBOSEJMP(src)] is 95% full. Explosion imminent.")
-		playsound(src, 'sound/effects/screech.ogg', 100, 1, 1)
+		playsound(src, 'sound/effects/screech.ogg', 100, TRUE, 1)
 
 	if(power_drained >= max_power)
 		STOP_PROCESSING(SSobj, src)
-		explosion(src.loc, 4,8,16,32, cause = "Power sink overload")
+		explosion(loc, devastation_range = 4, heavy_impact_range = 8, light_impact_range = 16, flash_range = 32, adminlog = TRUE, cause = "Power sink overload")
 		qdel(src)
+
+/obj/item/powersink/compact
+	w_class = WEIGHT_CLASS_NORMAL
 
 #undef DISCONNECTED
 #undef CLAMPED_OFF

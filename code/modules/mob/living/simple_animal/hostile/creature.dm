@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/creature
 	name = "creature"
 	desc = "A sanity-destroying otherthing."
-	speak_emote = list("gibbers")
+	speak_emote = list("бормочет")
 	tts_seed = "Earth"
 	icon_state = "otherthing"
 	icon_living = "otherthing"

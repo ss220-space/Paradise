@@ -7,6 +7,9 @@
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
 	var/force = 0
+	// You can define armor as a list in datum definition (e.g. `armor = list("fire" = 80, "brute" = 10)`),
+	// which would be converted to armor datum during initialization.
+	// Setting `armor` to a list on an *existing* object would inevitably runtime. Use `getArmor()` instead.
 	var/datum/armor/armor
 	var/obj_integrity	//defaults to max_integrity
 	var/max_integrity = 500
@@ -32,17 +35,10 @@
 	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
 	var/pull_push_slowdown = 0
 
-
-/obj/New()
-	..()
-	if(obj_integrity == null)
-		obj_integrity = max_integrity
-	if(on_blueprints && isturf(loc))
-		var/turf/T = loc
-		T.add_blueprints_preround(src)
-
 /obj/Initialize(mapload)
 	. = ..()
+	if(obj_integrity == null)
+		update_integrity(max_integrity)
 	if(islist(armor))
 		armor = getArmor(arglist(armor))
 	else if(!armor)
@@ -51,6 +47,12 @@
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
 		AddComponent(/datum/component/surgery_initiator)
+
+	if(on_blueprints && isturf(loc))
+		var/turf/T = loc
+		T.add_blueprints_preround(src)
+
+	add_debris_element()
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -216,7 +218,7 @@
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, time, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		update_icon()
 	return TRUE
 
@@ -327,8 +329,10 @@
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
-	C.visible_message(span_danger("[C] slams into [src]!"),
-					span_userdanger("You slam into [src]!"))
+	C.visible_message(
+		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[pluralize_ru(C.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
+	)
 	C.take_organ_damage(damage)
 	if(!self_hurt)
 		take_damage(damage, BRUTE)

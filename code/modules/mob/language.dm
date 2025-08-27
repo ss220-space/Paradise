@@ -587,6 +587,11 @@
 
 	return FALSE
 
+/datum/language/wryn/get_random_name()
+	var/new_name = "[pick(list("Ба", "Бо", "Бу", "Бы", "Ва", "Во", "Вы", "Га", "Го", "Гу", "Да", "До", "Ду", "Ел", "Жа", "Жо", "Жу", "За", "Зо", "Зу", "Ив", "Из", "Ин", "Йо", "Ла", "Ле", "Ли", "Ма", "Му", "Мы", "Тру"))]"
+	new_name += "[pick(list("ба", "бо", "бу", "бор", "ва", "во", "век", "га", "гор", "ду", "дар", "ел", "жу", "жар", "зо", "зуб", "ив", "изг", "инт", "йод", "ла", "лес", "лим", "ма", "мир", "тыр", "нос", "обл", "орг", "пот", "тень"))]"
+	return new_name
+
 /datum/language/xenocommon
 	name = LANGUAGE_XENOS
 	colour = "alien"
@@ -666,7 +671,7 @@
 
 /datum/language/shadowling/broadcast(mob/living/speaker, message, speaker_mask)
 	if(speaker.mind && speaker.mind.special_role == SPECIAL_ROLE_SHADOWLING)
-		..(speaker,"<font size=3><b>[message]</b></font>", "<span class='shadowling'><font size=3>([speaker.mind.special_role]) [speaker]</font></span>")
+		..(speaker,"[span_bold(span_fontsize3(message))]", span_shadowling(span_fontsize3("([speaker.mind.special_role]) [speaker]")))
 	else if(speaker.mind && speaker.mind.special_role)
 		..(speaker, message, "([speaker.mind.special_role]) [speaker]")
 	else
@@ -879,7 +884,7 @@
 
 /mob/verb/check_languages()
 	set name = "Меню языков"
-	set category = "IC"
+	set category = STATPANEL_IC
 	set src = usr
 
 	var/datum/browser/popup = new(src, "checklanguage", "Меню языков", 420, 470)

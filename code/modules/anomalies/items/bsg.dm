@@ -1,5 +1,5 @@
 /obj/item/gun/energy/bsg
-	name = "Б.С.П." // No \improper because it's russian name. "The Б.С.П." is worse than just "Б.С.П.".
+	name = "Б.С.П."
 	desc = "Большая С*** Пушка. Использует ядро энергетической аномалии и блюспейс кристалл для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
 	icon_state = "bsg"
 	item_state = "bsg"
@@ -18,9 +18,14 @@
 	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
 
 /obj/item/gun/energy/bsg/Destroy()
-	core?.forceMove(get_turf(src))
+	if(!ismachinery(loc))
+		core?.forceMove(get_turf(src))
+	else
+		core?.forceMove(loc)
+
 	core = null
 	. = ..()
+
 
 /obj/item/gun/energy/bsg/examine(mob/user)
 	. = ..()
@@ -63,7 +68,7 @@
 			return ATTACK_CHAIN_PROCEED
 
 		var/obj/item/assembly/signaler/core/Icore = item
-		if(Icore.get_strenght() < 140)
+		if(Icore.get_strength() < 140)
 			balloon_alert(user, "ядро слишком слабо")
 			return
 
@@ -105,7 +110,7 @@
 		return ..()
 
 	var/obj/projectile/energy/bsg/bsg_BB = chambered.BB
-	bsg_BB.core_strenght = core.get_strenght()
+	bsg_BB.core_strength = core.get_strength()
 	return ..()
 
 
@@ -133,6 +138,27 @@
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
 	has_bluespace_crystal = FALSE
 	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/gun/energy/bsg/turret_check()
+	return core && has_bluespace_crystal
+
+
+/obj/item/gun/energy/bsg/prepare_gun_data(list/data)
+	data["core"] = core
+
+
+/obj/item/gun/energy/bsg/turret_deconstruct(list/data)
+	has_bluespace_crystal = TRUE
+	core = data["core"]
+	core.forceMove(src)
+
+
+/obj/item/gun/energy/bsg/setup_gun_for_turret(list/data, turret)
+	core = data["core"]
+	has_bluespace_crystal = TRUE
+	core.forceMove(turret)
+
 
 /obj/item/gun/energy/bsg/prebuilt
 	icon_state = "bsg_finished"

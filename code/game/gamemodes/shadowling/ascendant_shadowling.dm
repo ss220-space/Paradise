@@ -5,7 +5,7 @@
 	icon_state = "shadowling_ascended"
 	icon_living = "shadowling_ascended"
 	speak = list("Azima'dox", "Mahz'kavek", "N'ildzak", "Kaz'vadosh")
-	speak_emote = list("telepathically thunders", "telepathically booms")
+	speak_emote = list("телепатически грохочет", "телепатически гудит")
 	force_threshold = INFINITY //Can't die by normal means
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	health = 100000
@@ -51,7 +51,7 @@
 /mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE //copypasta from carp code
 
-/mob/living/simple_animal/ascendant_shadowling/ex_act(severity)
+/mob/living/simple_animal/ascendant_shadowling/ex_act(severity, target)
 	return //You think an ascendant can be hurt by bombs? HA
 
 /mob/living/simple_animal/ascendant_shadowling/singularity_act()
@@ -66,7 +66,8 @@
 /mob/living/simple_animal/ascendant_shadowling/proc/announce(text, size = 4, new_sound = null)
 	var/message = "<font size=[size]><span class='shadowling'><b>\"[text]\"</font></span>"
 	for(var/mob/M in GLOB.player_list)
+		M.hear_say()
 		if(!isnewplayer(M) && M.client)
 			to_chat(M, message)
 			if(new_sound)
-				M << new_sound
+				SEND_SOUND(M, sound(new_sound))

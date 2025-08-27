@@ -176,6 +176,9 @@ SUBSYSTEM_DEF(jobs)
 		if(istype(job, GetJob(JOB_TITLE_CIVILIAN))) // We don't want to give him assistant, that's boring!
 			continue
 
+		if(istype(job, GetJob(JOB_TITLE_PRISONER))) //If you want a prisoner position, select it!
+			continue
+
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
 			continue
 
@@ -493,30 +496,35 @@ SUBSYSTEM_DEF(jobs)
 		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
 			if(sloc.name != rank)
 				continue
+
 			if(locate(/mob/living) in sloc.loc)
 				continue
+
 			mark_spawn = sloc
 			break
+
 		if(!mark_spawn)
 			mark_spawn = locate("start*[rank]") // use old stype
+
 		if(!mark_spawn) // No spawn, then spawn on latejoin mark
 			log_runtime(EXCEPTION("No landmark start for [rank]."))
-			mark_spawn = pick(GLOB.latejoin)
-		if(!mark_spawn) // still no spawn, fall back to the arrivals shuttle
-			var/list/turf/possible_turfs = list()
-			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival/station))
-				if(TS.density)
-					continue
-				for(var/obj/O in TS)
-					if(O.density)
-						continue
-				possible_turfs += TS
-			mark_spawn = pick(possible_turfs)
+			if(rank == JOB_TITLE_PRISONER)
+				mark_spawn = pick(GLOB.latejoin_prisoner)
+			else
+				mark_spawn = pick(GLOB.latejoin)
+
+		if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
+			if(rank == JOB_TITLE_PRISONER)
+				mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
+			else
+				mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station)
 
 		if(isturf(mark_spawn))
 			turf_spawn = mark_spawn
+
 		else if(istype(mark_spawn, /obj/effect/landmark/start) && isturf(mark_spawn.loc))
 			turf_spawn = mark_spawn.loc
+
 		else
 			message_admins("Couldn't find spawnpoint for [H] [ADMIN_COORDJMP(H)]. Notify mapper about it.")
 
@@ -553,6 +561,23 @@ SUBSYSTEM_DEF(jobs)
 				W.buckle_mob(H, TRUE)
 	return H
 
+/datum/controller/subsystem/jobs/proc/get_random_area_turf_for_spawn(area_type)
+	var/list/turf/possible_turfs = list()
+	var/list/turf/possible_but_bad_turfs = list() // Used if too many people for shattle.
+	for(var/turf/TS in get_area_turfs(area_type))
+		if(TS.density)
+			continue
+		var/bad_turf = FALSE
+		for(var/obj/O in TS)
+			if(!O.density)
+				continue
+			bad_turf = TRUE
+			possible_but_bad_turfs += TS
+			break
+		if(bad_turf)
+			continue
+		possible_turfs += TS
+	return possible_turfs.len ? pick(possible_turfs) : pick(possible_but_bad_turfs)
 
 /datum/controller/subsystem/jobs/proc/LoadJobsFile(jobsfile, highpop) //ran during round setup, reads info from jobs.txt -- Urist
 	if(!CONFIG_GET(flag/load_jobs_from_txt))
@@ -753,7 +778,7 @@ SUBSYSTEM_DEF(jobs)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
 	if(PM && PM.can_receive())
-		PM.notify("<b>Автоматическое Оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
+		PM.notify("<b>Автоматическое оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
 
 /datum/controller/subsystem/jobs/proc/notify_by_name(target_name, antext)
 	// Used to notify a specific crew member based on their real_name
@@ -768,7 +793,7 @@ SUBSYSTEM_DEF(jobs)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
 	if(PM && PM.can_receive())
-		PM.notify("<b>Автоматическое Оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
+		PM.notify("<b>Автоматическое оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
 
 /datum/controller/subsystem/jobs/proc/format_job_change_records(centcom)
 	var/list/formatted = list()

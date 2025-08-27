@@ -15,7 +15,6 @@
 	status_flags = NONE //no default canpush
 	pass_flags = PASSFLAPS
 	AI_delay_max = 0 SECONDS
-
 	speak_emote = list("констатирует")
 	tts_seed = null
 	friendly = "утыкается в"
@@ -265,7 +264,7 @@
 		QDEL_NULL(path_hud)
 		path_hud = null
 
- 	GLOB.bots_list -= src
+	GLOB.bots_list -= src
 
 	QDEL_NULL(path)
 	QDEL_NULL(Radio)
@@ -375,7 +374,7 @@
 	user.do_attack_animation(src)
 	apply_damage(user.attack_damage, BRUTE)
 	visible_message(span_danger("[user] руб[pluralize_ru(user.gender, "ит", "ят")] [declent_ru(GENITIVE)]!"))
-	playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+	playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
@@ -1264,8 +1263,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 
 /mob/living/simple_animal/bot/verb/show_laws()
-	set name = "Show Directives"
-	set category = "IC"
+	set name = "Набор законов"
+	set category = STATPANEL_IC
 
 	to_chat(src, "<b>Набор законов:</b>")
 	if(paicard && paicard.pai && paicard.pai.master && paicard.pai.pai_law0)

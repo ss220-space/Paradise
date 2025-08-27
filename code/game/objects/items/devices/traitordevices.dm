@@ -17,14 +17,6 @@ effective or pretty fucking useless.
 /obj/item/batterer
 	name = "mind batterer"
 	desc = "Странное устройство с двумя антеннами."
-	ru_names = list(
-		NOMINATIVE = "подавитель разума",
-		GENITIVE = "подавителя разума",
-		DATIVE = "подавителю разума",
-		ACCUSATIVE = "подавитель разума",
-		INSTRUMENTAL = "подавителем разума",
-		PREPOSITIONAL = "подавителе разума"
-	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "batterer"
 	throwforce = 5
@@ -36,6 +28,16 @@ effective or pretty fucking useless.
 	origin_tech = "magnets=3;combat=3;syndicate=3"
 
 	var/charges = 3
+
+/obj/item/batterer/get_ru_names()
+	return list(
+		NOMINATIVE = "подавитель разума",
+		GENITIVE = "подавителя разума",
+		DATIVE = "подавителю разума",
+		ACCUSATIVE = "подавитель разума",
+		INSTRUMENTAL = "подавителем разума",
+		PREPOSITIONAL = "подавителе разума"
+	)
 
 
 /obj/item/batterer/examine(mob/user)
@@ -61,7 +63,7 @@ effective or pretty fucking useless.
 			M.Slowed(10 SECONDS)
 			M.Confused(6 SECONDS)
 
-	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
+	playsound(loc, 'sound/misc/interference.ogg', 50, TRUE)
 	charges--
 	to_chat(user,span_notice("Вы активируете [declent_ru(ACCUSATIVE)]. У него осталось [charges] заряд[declension_ru(charges, "", "а", "ов")]."))
 	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)
@@ -87,14 +89,6 @@ effective or pretty fucking useless.
 /obj/item/rad_laser
 	name = "Health Analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта. К концу сканера прикреплён необычный микролазер."
-	ru_names = list(
-		NOMINATIVE = "анализатор здоровья",
-		GENITIVE = "анализатора здоровья",
-		DATIVE = "анализатору здоровья",
-		ACCUSATIVE = "анализатор здоровья",
-		INSTRUMENTAL = "анализатором здоровья",
-		PREPOSITIONAL = "анализаторе здоровья"
-	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health2"
 	item_state = "healthanalyzer"
@@ -110,6 +104,16 @@ effective or pretty fucking useless.
 	var/intensity = 5 // how much damage the radiation does
 	var/wavelength = 10 // time it takes for the radiation to kick in, in seconds
 	var/used = 0 // is it cooling down?
+
+/obj/item/rad_laser/get_ru_names()
+	return list(
+		NOMINATIVE = "анализатор здоровья",
+		GENITIVE = "анализатора здоровья",
+		DATIVE = "анализатору здоровья",
+		ACCUSATIVE = "анализатор здоровья",
+		INSTRUMENTAL = "анализатором здоровья",
+		PREPOSITIONAL = "анализаторе здоровья"
+	)
 
 
 /obj/item/rad_laser/update_icon_state()
@@ -411,7 +415,7 @@ effective or pretty fucking useless.
 	for(var/obj/item/thing as anything in user.get_equipped_items(TRUE, TRUE))
 		if(!user.drop_item_ground(thing))
 			qdel(thing)
-	to_chat(user, span_dangerbigger("You teleport into the wall, the teleporter tries to save you, but--"))
+	to_chat(user, span_biggerdanger("You teleport into the wall, the teleporter tries to save you, but--"))
 	user.gib()
 
 

@@ -1,7 +1,7 @@
 /datum/disease/virus/nuclefication // YOU WILL NEVER ESCAPE
-	name = "Supermatter Dysplasia Syndrome"
-	agent = "Mutated Brain Cells"
-	desc = "Oh no..."
+	name = "Синдром дисплазии суперматерии"
+	agent = "Мутировавшие клетки мозга"
+	desc = "О нет..."
 	max_stages = 5
 	spread_flags = NON_CONTAGIOUS
 	cures = list()              // YOU
@@ -32,7 +32,7 @@
 			if(stage_message == 2)
 				stage_prob = 1
 				stage_message++
-				to_chat(H, span_notice("You feel sick."))
+				to_chat(H, span_notice("Вы чувствуете себя больным."))
 			if(prob(2))
 				H.vomit()
 
@@ -41,7 +41,7 @@
 		if(3)
 			if(stage_message == 3)
 				stage_message++
-				to_chat(H, span_userdanger("You feel agony!"))
+				to_chat(H, span_userdanger("Вы чувствуете агонию!"))
 			if(prob(1))
 				destiny(H, FALSE)
 
@@ -50,7 +50,7 @@
 		if(4)
 			H.AdjustJitter(2 SECONDS)
 			if(stage_message == 4)
-				to_chat(H, span_boldnotice("The pain has gone away.."))
+				to_chat(H, span_boldnotice("Боль ушла..."))
 				ADD_TRAIT(H, TRAIT_NO_PAIN, name)
 				ADD_TRAIT(H, TRAIT_NO_PAIN_HUD, name)
 				H.update_damage_hud()
@@ -62,7 +62,7 @@
 			radiate(H, 6, 93)
 
 		if(5)
-			H.visible_message(span_danger("[H] become a nucleation!"), span_userdanger("YOU TURN INTO A NUCLEATION AGAIN!"))
+			H.visible_message(span_danger("[H.declent_ru(NOMINATIVE)] превраща[pluralize_ru(affected_mob.gender,"ется","ются")] в нуклеацию!"), span_userdanger("ВЫ ПРЕВРАЩАЕТЕСЬ В НУКЛЕАЦИЮ. ОПЯТЬ!"))
 			H.setOxyLoss(0)
 			H.SetJitter(0)
 			var/mob/living/carbon/human/nucleat = H
@@ -96,7 +96,7 @@
 		if(rad_block >= 100)
 			continue
 		if(!rad_block)
-			to_chat(L, span_danger("You are enveloped by a soft green glow emanating from [H]."))
+			to_chat(L, span_danger("Вас окутывает мягкое зелёное свечение, исходящее от [H.declent_ru(GENITIVE)]."))
 		L.apply_effect(rad_ammount, IRRADIATE, rad_block)
 
 /datum/disease/virus/nuclefication/proc/destiny(mob/living/carbon/H, silenced = FALSE)
@@ -107,7 +107,7 @@
 			if(limb)
 				H.apply_damage(50, def_zone = limb, silent = silenced)
 				if(!silenced)
-					to_chat(H, span_danger("You feel like you're being torn apart from the inside!"))
+					to_chat(H, span_danger("Вы чувствуете, будто вас разрывает изнутри!"))
 		if(2)
 			var/obj/item/organ/external/limb = check_available_limbs(H)
 			limb?.fracture()

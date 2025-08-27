@@ -11,7 +11,7 @@
 	name = "goonvampire"
 	config_tag = "goonvampire"
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_CHAPLAIN, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_CHAPLAIN, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
 	protected_species = list(SPECIES_MACNINEPERSON, SPECIES_GOLEM_BASIC)
 	required_players = 15
 	required_enemies = 1
@@ -63,7 +63,7 @@
 	if(!length(goon_vampires))
 		return
 
-	var/text = "<span style='font-size: 2;'><b>The vampires were:</b></span>"
+	var/list/text = list("<span style='font-size: 2;'><b>The vampires were:</b></span>")
 	for(var/datum/mind/vampire in goon_vampires)
 		var/traitorwin = TRUE
 		text += "<br>[vampire.get_display_key()] was [vampire.name] ("
@@ -110,15 +110,14 @@
 		else
 			text += "<br><font color='red'><b>The [special_role_text] has failed!</b></font>"
 			SSblackbox.record_feedback("tally", "vampire_success", 1, "FAIL")
-	to_chat(world, text)
-	return TRUE
+	return text.Join("")
 
 
 /datum/game_mode/proc/auto_declare_completion_goon_enthralled()
 	if(!length(goon_vampire_enthralled))
 		return
 
-	var/text = "<span style='font-size: 2;'><b>The Enthralled were:</b></span>"
+	var/list/text = list("<span style='font-size: 2;'><b>The Enthralled were:</b></span>")
 	for(var/datum/mind/mind in goon_vampire_enthralled)
 		text += "<br>[mind.get_display_key()] was [mind.name] ("
 		if(mind.current)
@@ -131,6 +130,5 @@
 		else
 			text += "body destroyed"
 		text += ")"
-	to_chat(world, text)
-	return TRUE
+	return text.Join("")
 

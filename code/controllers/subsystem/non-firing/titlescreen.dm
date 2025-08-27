@@ -202,7 +202,6 @@ SUBSYSTEM_DEF(title)
 		return
 
 	winset(viewer, "title_browser", "is-disabled=false;is-visible=true")
-	winset(viewer, "mapwindow.status_bar", "is-visible=false")
 
 	var/datum/asset/lobby_asset = get_asset_datum(/datum/asset/simple/lobby)
 	var/datum/asset/fontawesome = get_asset_datum(/datum/asset/simple/namespaced/fontawesome)
@@ -218,7 +217,6 @@ SUBSYSTEM_DEF(title)
 /datum/title_screen/proc/hide_from(client/viewer)
 	if(viewer?.mob)
 		winset(viewer, "title_browser", "is-disabled=true;is-visible=false")
-		winset(viewer, "mapwindow.status_bar", "is-visible=true;focus=true")
 
 /**
  * Get the HTML of title screen.
@@ -272,7 +270,7 @@ SUBSYSTEM_DEF(title)
 	html += {"<a class="menu_button" href='byond://?src=[player.UID()];observe=1'>Наблюдать</a>"}
 	html += {"
 		<hr>
-		<a class="menu_button good" id="be_antag" href='byond://?src=[player.UID()];skip_antag=1'>[viewer.prefs.skip_antag ? "Антагонисты: Выкл." : "Антагонисты: Вкл."]</a>
+		<a class="menu_button good" id="be_antag" href='byond://?src=[player.UID()];skip_antag=1'>[viewer?.prefs.skip_antag ? "Антагонисты: Выкл." : "Антагонисты: Вкл."]</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];show_preferences=1'>Настройка персонажа</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];job_preferences=1'>Выбор профессии</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];game_preferences=1'>Настройки игры</a>
@@ -281,7 +279,7 @@ SUBSYSTEM_DEF(title)
 		<a class="menu_button" href='byond://?src=[player.UID()];poll_panel=1'>Открыть голосование</a>
 	"}
 	// html += "<a class="menu_button" href='byond://?src=[player.UID()];swap_server=1'>Сменить сервер</a>" // TODO: add this after regis merge
-	if(!viewer.prefs.discord_id || (viewer.prefs.discord_id && length(viewer.prefs.discord_id) == 32))
+	if(!viewer?.prefs.discord_id || (viewer?.prefs.discord_id && length(viewer?.prefs.discord_id) == 32))
 		html += {"<a class="menu_button" href='byond://?src=[player.UID()];connect_discord=1'>Привязка Discord</a>"}
 	if(GLOB.join_tos && !viewer.tos_consent)
 		html += {"<a class="menu_button" href='byond://?src=[player.UID()];tos=1'>Политика конфидициальности</a>"}
@@ -373,15 +371,21 @@ SUBSYSTEM_DEF(title)
 			const readyPlayers = document.getElementById('ready-players');
 
 			function update_newplayer_info(){
-				var args = Array.prototype.slice.call(arguments);
-				var time = args\[0\];
-				var players = args\[1\];
-				var ready = args\[2\];
-				var mode = args\[3\];
+				const args = Object.fromEntries(
+										Array.from(arguments).map(item => item.split('='))
+									);
+				console.log(arguments);
+				console.log(args);
+				const time = args.time_remaining;
+				const players = args.players;
+				const ready = args.total_players_ready;
+				const mode = args.game_mode;
 				gameMode.textContent = mode;
 				countdown.textContent = time;
 				playersCount.textContent = players;
-				readyPlayers.textContent = (ready === undefined || ready === null || ready <= 0)? 'НЕТУ' : ready + '/' + players;;
+				const readyExist = (ready !== undefined && ready !== null);
+				readyPlayers.parentElement.style.display = readyExist? 'block' : 'none';
+				readyPlayers.textContent = (!readyExist || ready <= 0)? 'НЕТ' : ready + '/' + players;
 			}
 
 			const character_name_slot = document.getElementById("character_slot");

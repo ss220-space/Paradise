@@ -11,6 +11,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	vis_flags = VIS_INHERIT_PLANE
 	var/datum/radial_menu/parent
 
+/atom/movable/screen/radial/Destroy()
+	parent = null
+	. = ..()
+
 /atom/movable/screen/radial/slice
 	icon_state = "radial_slice"
 	var/choice
@@ -72,6 +76,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/hudfix_method = TRUE //TRUE to change anchor to user, FALSE to shift by py_shift
 	var/py_shift = 0
 	var/entry_animation = TRUE
+	var/anim_speed = ANIM_SPEED
 
 //If we swap to vis_contens inventory these will need a redo
 /datum/radial_menu/proc/check_screen_border(mob/user)
@@ -168,7 +173,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/py = round(cos(angle) * radius) + py_shift
 	var/px = round(sin(angle) * radius)
 	if(anim)
-		var/timing = anim_order * ANIM_SPEED
+		var/timing = anim_order * anim_speed
 		var/matrix/starting = matrix()
 		starting.Scale(0.1, 0.1)
 		E.transform = starting
@@ -283,6 +288,14 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/Destroy()
 	Reset()
 	hide()
+	for(var/atom/movable/screen/radial/element as anything in elements)
+		element.parent = null
+	elements.Cut()
+	close_button = null
+	current_user = null
+	anchor = null
+	screen_center = null
+	menu_holder = null
 	. = ..()
 
 /*
@@ -290,7 +303,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	Choices should be a list where list keys are movables or text used for element names and return value
 	and list values are movables/icons/images used for element icons
 */
-/proc/show_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE)
+/proc/show_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE, anim_speed = ANIM_SPEED)
 	if(!user || !anchor || !length(choices))
 		return
 	if(!uniqueid)
@@ -306,6 +319,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	if(istype(custom_check))
 		menu.custom_check_callback = custom_check
 	menu.anchor = anchor
+	if(anim_speed > 0)
+		menu.anim_speed = anim_speed
+	else
+		menu.entry_animation = FALSE
 	menu.check_screen_border(user) //Do what's needed to make it look good near borders or on hud
 	menu.set_choices(choices)
 	menu.show_to(user)

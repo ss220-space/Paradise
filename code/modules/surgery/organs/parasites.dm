@@ -22,14 +22,14 @@
 			if(prob(12))
 				owner.reagents.add_reagent("histamine", 5)
 		if(5)
-			to_chat(owner, span_danger("You feel like something is tearing its way out of your skin..."))
+			to_chat(owner, span_danger("Вы чувствуете, как будто что-то рвется из вашей кожи..."))
 			owner.reagents.add_reagent("histamine", 10)
 			if(prob(30))
 				owner.emote("scream")
 				var/spiders = rand(3,5)
 				for(var/i in 1 to spiders)
 					new/obj/structure/spider/spiderling(get_turf(owner))
-				owner.visible_message(span_danger("[owner] bursts open! Holy fuck!"))
+				owner.visible_message(span_danger("[owner] разрывается! Ёб вашу мать!"))
 				owner.gib()
 
 /obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -56,6 +56,10 @@
 	var/awaymission_infection = FALSE // TRUE if infection occurred inside gateway
 	var/mob/asigned_ghost
 	var/ghost_poll = FALSE
+
+	var/list/roll_1 = list(/mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/reaper)
+	var/list/roll_2 = list(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/healer, /mob/living/simple_animal/hostile/poison/terror_spider/builder)
+	var/list/roll_3 = list(/mob/living/simple_animal/hostile/poison/terror_spider/widow, /mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/builder, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/knight)
 
 /obj/item/organ/internal/body_egg/terror_eggs/on_life()
 	// Safety first.
@@ -118,11 +122,11 @@
 	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
 	switch(eggs_hatched)
 		if(0) // 1st spiderling
-			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/reaper)
+			S.grow_as = pick(roll_1)
 		if(1) // 2nd
-			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/healer, /mob/living/simple_animal/hostile/poison/terror_spider/builder)
+			S.grow_as = pick(roll_2)
 		if(2) // 3d spiderling. can only grow if egg owner is being healed, and/or eggs isnt removed by surgeons
-			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/widow, /mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/builder, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/knight)
+			S.grow_as = pick(roll_3)
 			owner.adjustBruteLoss(200)
 			owner.death()
 			infection_completed = TRUE
@@ -132,7 +136,7 @@
 	owner.adjustBruteLoss(80)
 	owner.Paralyse(20 SECONDS)
 	owner.SetConfused(40 SECONDS)
-	to_chat(owner, span_warning("A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!"))
+	to_chat(owner, span_warning("Странное покалывание распространяется по вашей коже... внезапно весь мир начинает кружиться вокруг вас!"))
 
 	if(infection_completed && !QDELETED(src))
 		qdel(src)
@@ -143,3 +147,7 @@
 	if(!QDELETED(src))
 		qdel(src) // prevent people re-implanting them into others
 	return null
+
+/obj/item/organ/internal/body_egg/terror_eggs/phantom
+	//no healer!
+	roll_2 = list(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/builder)

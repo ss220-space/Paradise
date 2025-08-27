@@ -88,8 +88,8 @@
 /obj/effect/old_anomaly/proc/detonate()
 	return
 
-/obj/effect/old_anomaly/ex_act(severity)
-	if(severity == EXPLODE_DEVASTATE)
+/obj/effect/old_anomaly/ex_act(severity, target)
+	if(severity >= EXPLODE_DEVASTATE)
 		qdel(src)
 
 /obj/effect/old_anomaly/proc/anomalyNeutralize()
@@ -108,8 +108,7 @@
 		to_chat(user, span_notice("Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code]."))
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
-
-///////////////////////
+// MARK: Gravitational
 
 /obj/effect/old_anomaly/gravitational
 	name = "gravitational anomaly"
@@ -119,14 +118,12 @@
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/core/gravitational/tier2
 
-
 /obj/effect/old_anomaly/gravitational/Initialize(mapload, new_lifespan, _drops_core)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /obj/effect/old_anomaly/gravitational/anomalyEffect()
 	..()
@@ -145,12 +142,10 @@
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10)
 
-
 /obj/effect/old_anomaly/gravitational/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	gravShock(arrived)
-
 
 /obj/effect/old_anomaly/gravitational/Bump(atom/bumped_atom)
 	. = ..()
@@ -158,11 +153,9 @@
 		return .
 	gravShock(bumped_atom)
 
-
 /obj/effect/old_anomaly/gravitational/Bumped(atom/movable/moving_atom)
 	. = ..()
 	gravShock(moving_atom)
-
 
 /obj/effect/old_anomaly/gravitational/proc/gravShock(mob/living/mob)
 	if(boing && isliving(mob) && !mob.stat)
@@ -172,7 +165,7 @@
 		mob.throw_at(target, 5, 1)
 		boing = FALSE
 
-/////////////////////
+// MARK: Energetic
 
 /obj/effect/old_anomaly/energetic
 	name = "flux wave anomaly"
@@ -183,7 +176,6 @@
 	var/shockdamage = 20
 	var/explosive = TRUE
 
-
 /obj/effect/old_anomaly/energetic/Initialize(mapload, new_lifespan, drops_core = TRUE, _explosive = TRUE)
 	. = ..()
 	explosive = _explosive
@@ -192,19 +184,16 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/effect/old_anomaly/energetic/anomalyEffect()
 	..()
 	canshock = TRUE
 	for(var/mob/living/mob in get_turf(src))
 		mobShock(mob)
 
-
 /obj/effect/old_anomaly/energetic/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	mobShock(arrived)
-
 
 /obj/effect/old_anomaly/energetic/Bump(atom/bumped_atom)
 	. = ..()
@@ -223,11 +212,11 @@
 
 /obj/effect/old_anomaly/energetic/detonate()
 	if(explosive)
-		explosion(src, 1, 4, 16, 18, cause = src) //Low devastation, but hits a lot of stuff.
+		explosion(src, devastation_range = 1, heavy_impact_range = 4, light_impact_range = 16, flash_range = 18, cause = src) //Low devastation, but hits a lot of stuff.
 	else
 		new /obj/effect/particle_effect/sparks(loc)
 
-/////////////////////
+// MARK: Bluespace
 
 /obj/effect/old_anomaly/bluespace
 	name = "bluespace anomaly"
@@ -275,7 +264,9 @@
 			var/turf/turf_to = get_turf(chosen) // the turf of origin we're travelling TO
 
 			playsound(turf_to, 'sound/effects/phasein.ogg', 100, TRUE)
-			GLOB.event_announcement.Announce("Обнаружено перемещение крупной блюспейс-аномалии.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
+			GLOB.minor_announcement.announce("Обнаружено перемещение крупной блюспейс-аномалии.",
+											ANNOUNCE_ANOMALY_RU
+			)
 
 			var/list/flashers = list()
 			for(var/mob/living/carbon/C in viewers(turf_to, null))
@@ -312,8 +303,7 @@
 	mob.client.screen -= blueeffect
 	qdel(blueeffect)
 
-
-/////////////////////
+// MARK: Atmospheric
 
 /obj/effect/old_anomaly/atmospheric
 	name = "pyroclastic anomaly"
@@ -357,7 +347,7 @@
 		slime.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
 		add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(turf)].", slime)
 
-/////////////////////
+// MARK: Bhole
 
 /obj/effect/old_anomaly/bhole
 	name = "vortex anomaly"

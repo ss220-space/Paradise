@@ -330,7 +330,7 @@
 	syringes -= mechsyringe
 	mechsyringe.icon = 'icons/obj/chemical.dmi'
 	mechsyringe.icon_state = "syringeproj"
-	playsound(chassis, 'sound/items/syringeproj.ogg', 50, 1)
+	playsound(chassis, 'sound/items/syringeproj.ogg', 50, TRUE)
 	log_message("Launched [mechsyringe] from [src], targeting [target].")
 	start_cooldown()
 	INVOKE_ASYNC(src, PROC_REF(async_syringe_gun_action), mechsyringe, target_turf)
@@ -624,14 +624,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun
 	name = "Medical Beamgun"
-	ru_names = list(
-		NOMINATIVE = "Медицинская Лучпушка",
-		GENITIVE = "Медицинской Лучпушки",
-		DATIVE = "Медицинской Лучпушке",
-		ACCUSATIVE = "Медицинскую Лучпушку",
-		INSTRUMENTAL = "Медицинской Лучпушкой",
-		PREPOSITIONAL = "Медицинская Лучпушке"
-	)
 	desc = "Передает целебные наниты своим сфокусированным лучом прямо из вашего уютного меха. Не скрещивайте лучи!"
 	icon_state = "mech_beamgun"
 	origin_tech = "bluespace=6;biotech=6;powerstorage=6"
@@ -639,6 +631,16 @@
 	energy_drain = 50
 	range = MECHA_MELEE | MECHA_RANGED
 	var/obj/item/gun/medbeam/mech/mbeam
+
+/obj/item/mecha_parts/mecha_equipment/medical/beamgun/get_ru_names()
+	return list(
+		NOMINATIVE = "Медицинская Лучпушка",
+		GENITIVE = "Медицинской Лучпушки",
+		DATIVE = "Медицинской Лучпушке",
+		ACCUSATIVE = "Медицинскую Лучпушку",
+		INSTRUMENTAL = "Медицинской Лучпушкой",
+		PREPOSITIONAL = "Медицинская Лучпушке"
+	)
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/Initialize(mapload)
 	. = ..()

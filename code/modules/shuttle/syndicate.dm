@@ -12,6 +12,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	obj_flags = NODECONSTRUCT
 	var/challenge = FALSE
+	var/challenge_start_time
 
 /obj/machinery/computer/shuttle/syndicate/recall
 	name = "syndicate shuttle recall terminal"
@@ -20,7 +21,7 @@
 
 /obj/machinery/computer/shuttle/syndicate/can_call_shuttle(user, action)
 	if(action == "move")
-		if(challenge && (world.time - SSticker.round_start_time) < SYNDICATE_CHALLENGE_TIMER)
+		if(challenge && (world.time - challenge_start_time) < SYNDICATE_CHALLENGE_TIMER)
 			to_chat(user, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - (world.time - SSticker.round_start_time)) / 10) / 60)] more minutes to allow them to prepare.</span>")
 			return FALSE
 	return TRUE
@@ -98,11 +99,11 @@
 	y_offset = -1
 	see_hidden = TRUE
 	resistance_flags = INDESTRUCTIBLE
-	access_station = TRUE 		//can we park near station?
+	access_station = TRUE		//can we park near station?
 	access_admin_zone = FALSE	//can we park on Admin z_lvls?
 	access_mining = FALSE		//can we park on Lavaland z_lvl?
-	access_taipan = FALSE 		//can we park on Taipan z_lvl?
-	access_away = FALSE 		//can we park on Away_Mission z_lvl?
+	access_taipan = FALSE		//can we park on Taipan z_lvl?
+	access_away = FALSE		//can we park on Away_Mission z_lvl?
 	access_derelict = FALSE		//can we park in Unexplored Space?
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst

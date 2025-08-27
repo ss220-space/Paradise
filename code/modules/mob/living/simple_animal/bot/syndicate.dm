@@ -176,7 +176,7 @@
 		return
 	lastfired = world.time
 	var/obj/projectile/P = new projectile(loc)
-	playsound(loc, shoot_sound, 100, 1)
+	playsound(loc, shoot_sound, 100, TRUE)
 	P.current = loc
 	P.starting = loc
 	P.firer = src

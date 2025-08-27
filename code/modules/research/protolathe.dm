@@ -30,8 +30,8 @@ Note: Must be placed west/left of and R&D console to function.
 	reagents = new()
 
 
-/obj/machinery/r_n_d/protolathe/New()
-	..()
+/obj/machinery/r_n_d/protolathe/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/protolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -46,8 +46,8 @@ Note: Must be placed west/left of and R&D console to function.
 		base_icon_state = "syndie_protolathe"
 	reagents.my_atom = src
 
-/obj/machinery/r_n_d/protolathe/upgraded/New()
-	..()
+/obj/machinery/r_n_d/protolathe/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/protolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -100,7 +100,7 @@ Note: Must be placed west/left of and R&D console to function.
 
 	if(is_open_container)
 		if(panel_open)
-			to_chat(user, span_warning("Close the maintenance panel first."))
+			to_chat(user, span_warning("Сначала закройте панель обслуживания."))
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
 
@@ -124,7 +124,7 @@ Note: Must be placed west/left of and R&D console to function.
 		return .
 	if(!panel_open)
 		add_fingerprint(user)
-		to_chat(user, span_warning("Open the maintenance panel first."))
+		to_chat(user, span_warning("Сначала откройте панель обслуживания."))
 		return .
 	var/atom/drop_loc = drop_location()
 	for(var/obj/component as anything in component_parts)

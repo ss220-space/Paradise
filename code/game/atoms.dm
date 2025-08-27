@@ -10,12 +10,13 @@
 	var/list/fingerprints_time
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
+	var/list/interactors
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
-	var/atom_say_verb = "says"
+	var/atom_say_verb = "говорит"
 	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
 	var/bubble_emote_icon = "emote" ///what icon the mob uses for emotebubbles
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
@@ -143,6 +144,13 @@
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
+	var/list/names = ru_names
+
+	if(names && !GLOB.cached_ru_names[type])
+		GLOB.cached_ru_names[type] = names
+
+	ru_names = null
+
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED
@@ -227,8 +235,10 @@
 		overlays.Cut()
 
 	LAZYNULL(managed_overlays)
-	QDEL_NULL(ai_controller)
-	QDEL_NULL(light)
+	if(ai_controller)
+		QDEL_NULL(ai_controller)
+	if(light)
+		QDEL_NULL(light)
 	if(length(light_sources))
 		light_sources.Cut()
 
@@ -415,10 +425,11 @@
 /atom/proc/examine(mob/user, infix = "", suffix = "")
 	var/f_name = "."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
+		f_name = ", "
 		if(blood_color != "#030303")
-			f_name = span_danger(", в кровавых следах.")
+			f_name += span_danger("в кровавых следах.")
 		else
-			f_name = ", в масляных следах."
+			f_name += "в масляных следах."
 	. = list("[bicon(src)] Это [declent_ru(NOMINATIVE)][f_name] [suffix]")
 	if(desc)
 		. += desc
@@ -626,7 +637,7 @@
 	if(.)
 		return TRUE
 	if(href_list["description_info"])
-		to_chat(usr, span_info("<div class='examine'>[get_description_info()]</div>"))
+		to_chat(usr, span_notice("<div class='examine'>[get_description_info()]</div>"))
 		return TRUE
 	if(href_list["description_antag"])
 		to_chat(usr, span_syndradio("<div class='examine'>[get_description_antag()]</div>"))
@@ -638,7 +649,7 @@
 /atom/proc/relaymove()
 	return
 
-/atom/proc/ex_act()
+/atom/proc/ex_act(severity, target)
 	return
 
 /**
@@ -845,6 +856,9 @@
 		//Fibers~
 		add_fibers(M)
 
+		if(!(M.real_name in interactors))
+			LAZYADD(interactors, M.real_name)
+
 		//He has no prints!
 		if(HAS_TRAIT(M, TRAIT_NO_FINGERPRINTS))
 			if(fingerprintslast != M.key)
@@ -971,7 +985,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(b_data)
 		basecolor = b_data["blood_color"]
 	else
-		basecolor = "#A10808"
+		basecolor = BLOOD_COLOR_RED
 	update_icon()
 
 /obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
@@ -980,7 +994,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(b_data)
 		basecolor = b_data["blood_color"]
 	else
-		basecolor = "#A10808"
+		basecolor = BLOOD_COLOR_RED
 	update_icon()
 
 //to add blood dna info to the object's blood_DNA list
@@ -998,7 +1012,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/list/blood_dna = M.get_blood_dna_list()
 	if(!blood_dna)
 		return FALSE
-	var/bloodcolor = "#A10808"
+	var/bloodcolor = BLOOD_COLOR_RED
 	var/list/b_data = M.get_blood_data(M.get_blood_id())
 	if(b_data)
 		bloodcolor = b_data["blood_color"]
@@ -1013,6 +1027,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return transfer_blood_dna(blood_dna)
 
 /obj/item/add_blood(list/blood_dna, color)
+	if(isnull(color))
+		color = BLOOD_COLOR_RED
+
 	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
 	if(!..())
 		return FALSE
@@ -1026,6 +1043,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	transfer_blood = rand(2, 4)
 
 /turf/add_blood(list/blood_dna, color)
+	if(isnull(color))
+		color = BLOOD_COLOR_RED
+
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
@@ -1215,6 +1235,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/ratvar_act()
 	return
 
+/*
+ * Respond to an electric bolt action on our item
+ *
+ * Default behaviour is to return, we define here to allow for cleaner code later on
+ */
+/atom/proc/zap_act(power, zap_flags)
+	return
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
 /atom/proc/handle_atom_del(atom/A)
@@ -1228,7 +1255,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	var/list/speech_bubble_hearers = list()
 	for(var/mob/M in get_mobs_in_view(7, src))
-		M.show_message(span_gamesay(span_name("[src]") + " [atom_say_verb], \"[message]\""), 2, null, 1)
+		M.show_message(span_gamesay(span_name("[capitalize(declent_ru(NOMINATIVE))]") + " [pick(atom_say_verb)], \"[message]\""), 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
@@ -1461,6 +1488,18 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			color = C
 			return
 
+/atom/proc/get_ru_names()
+	return
+
+/atom/proc/get_ru_names_cached()
+	var/list/names = GLOB.cached_ru_names[type]
+	if(names)
+		return names
+	names = get_ru_names()
+	if(names)
+		GLOB.cached_ru_names[type] = names
+		return names
+	return
 
 /** Call this when you want to present a renaming prompt to the user.
 
@@ -1502,7 +1541,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!prompt)
 		prompt = "Что вы хотите написать на этикетке [declent_ru(GENITIVE)]?"
 
-	var/t = input(user, prompt, "Переименование [declent_ru(GENITIVE)]", default_value)  as text | null
+	var/t = tgui_input_text(user, prompt, "Переименование [declent_ru(GENITIVE)]", default_value)
 	if(isnull(t))
 		// user pressed Cancel
 		return null
@@ -1531,14 +1570,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(actually_rename)
 		if(t == "")
-			if(ru_names)
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[initial(ru_names[i])]"
+			ru_names = get_ru_names_cached()
 			name = "[initial(name)]"
 		else
-			if(ru_names)
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[initial(ru_names[i])] - [t]"
+			if(!ru_names)
+				var/list/names =  get_ru_names_cached()
+				ru_names = names? names.Copy() : list()
+			for(var/i = 1; i <= 6; i++)
+				ru_names[i] = "[ru_names[i] || name] - [t]"
 			name = "[prefix][t]"
 	return t
 
@@ -1546,7 +1585,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 // Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
 // ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 /atom/proc/declent_ru(case_id, list/ru_names_override)
-	var/list/list_to_use = ru_names_override || ru_names
+	var/list/list_to_use = ru_names_override || ru_names || get_ru_names_cached()
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
 	return name
@@ -1795,9 +1834,22 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
 
-//Update the screentip to reflect what we're hoverin over
+/// Update the screentip to reflect what we're hovering over
 /atom/MouseEntered(location, control, params)
 	SSmouse_entered.hovers[usr.client] = src
+
+	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	var/screentip_mode = usr.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = MAPTEXT("<span style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[src.declent_ru(NOMINATIVE)]</span>")
+
+// This is normal, I assure you. Paradise optimization.
+/atom/MouseExited(location, control, params)
+	usr.hud_used.screentip_text.maptext = ""
 
 /// Fired whenever this atom is the most recent to be hovered over in the tick.
 /// Preferred over MouseEntered if you do not need information such as the position of the mouse.
@@ -1816,11 +1868,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/add_gravity(id, gravity_delta)
 	if(id in gravity_sources)
 		gravity_sources[id] = 0
-
-	gravity_sources[id] += gravity_delta
+	else
+		LAZYADDASSOC(gravity_sources, id, gravity_delta)
 
 	if(!gravity_sources[id])
-		gravity_sources.Remove(id)
+		LAZYREMOVE(gravity_sources, id)
 
 	if(!isliving(src))
 		return
@@ -1829,19 +1881,21 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	M.refresh_gravity()
 
 /atom/proc/remove_gravity_source(id)
-	gravity_sources.Remove(id)
+	LAZYREMOVE(gravity_sources, id)
 	if(isliving(src))
 		var/mob/living/M = src
 		M.refresh_gravity()
 
 /atom/proc/add_ignored_gravity_source(id)
 	if(!(id in ignored_gravity_sources))
-		ignored_gravity_sources[id] = 1
+		LAZYADDASSOC(ignored_gravity_sources, id, 1)
 	else
 		ignored_gravity_sources[id]++
 
 /atom/proc/remove_ignored_gravity_source(id)
-	ignored_gravity_sources[id]--
+	if(id in ignored_gravity_sources)
+		ignored_gravity_sources[id]--
+
 	if(!ignored_gravity_sources[id])
 		ignored_gravity_sources.Remove(id)
 

@@ -45,7 +45,7 @@
 	desc = "A .50AE bullet casing."
 	materials = list(MAT_METAL = 4000)
 	caliber = ".50ae" //change to diffrent caliber because players got deagle in uplink
-	projectile_type = /obj/projectile/bullet
+	projectile_type = /obj/projectile/bullet/desert_eagle
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
@@ -202,7 +202,7 @@
 	muzzle_flash_color = null
 
 /obj/item/ammo_casing/caseless/rocket
-	name = "\improper PM-9HE"
+	name = "PM-9HE"
 	desc = "An 84mm High Explosive rocket. Fire at people and pray."
 	caliber = "84mm"
 	w_class = WEIGHT_CLASS_NORMAL //thats the rocket!
@@ -211,7 +211,7 @@
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'	// better than default casing but not ideal
 
 /obj/item/ammo_casing/caseless/rocket/hedp
-	name = "\improper PM-9HEDP"
+	name = "PM-9HEDP"
 	desc = "An 84mm High Explosive Dual Purpose rocket. Pointy end toward mechs and unarmed civilians."
 	icon_state = "84mm-hedp"
 	projectile_type = /obj/projectile/bullet/a84mm_hedp
@@ -257,7 +257,7 @@
 	projectile_type = /obj/projectile/bullet/pellet/nuclear
 
 /obj/item/ammo_casing/shotgun/rubbershot
-	name = "rubber shot"
+	name = "rubbershot shell"
 	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "rubbershotshell"
 	materials = list(MAT_METAL = 1000)
@@ -324,7 +324,7 @@
 	would have difficulty with."
 	icon_state = "pulseslugshell"
 	projectile_type = /obj/projectile/beam/pulse/shot
-	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary slug"
@@ -363,7 +363,7 @@
 	variance = 35
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	muzzle_flash_color = LIGHT_COLOR_BLUE
 
 /obj/item/ammo_casing/shotgun/laserslug
 	name = "laser slug"
@@ -372,7 +372,25 @@
 	projectile_type = /obj/projectile/beam/laser/slug
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	muzzle_flash_color = COLOR_SOFT_RED
+
+/obj/item/ammo_casing/specter/laser
+	desc = "Лазерный патрон для пистолета \"Спектр\"."
+	icon_state = "laser-casing"
+	caliber = "specter"
+	materials = list(MAT_METAL = 1000)
+	projectile_type = /obj/projectile/beam/specter/laser
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	muzzle_flash_color = COLOR_SOFT_RED
+
+/obj/item/ammo_casing/specter/disable
+	desc = "Парализующий патрон для пистолета \"Спектр\"."
+	icon_state = "stam-casing"
+	caliber = "specter"
+	materials = list(MAT_METAL = 800)
+	projectile_type = /obj/projectile/beam/specter/disabler
+	muzzle_flash_color = LIGHT_COLOR_BLUE
 
 /obj/item/ammo_casing/shotgun/lasershot
 	name = "laser shot"
@@ -383,7 +401,7 @@
 	variance = 17
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	muzzle_flash_color = COLOR_SOFT_RED
 
 /obj/item/ammo_casing/shotgun/bioterror
 	name = "bioterror shell"
@@ -394,7 +412,7 @@
 	variance = 17
 
 /obj/item/ammo_casing/shotgun/tranquilizer
-	name = "tranquilizer darts"
+	name = "tranquilizer dart"
 	desc = "A tranquilizer round used to subdue individuals utilizing stimulants."
 	icon_state = "tranquilizershell"
 	materials = list(MAT_METAL = 500, MAT_GLASS = 200)
@@ -472,11 +490,8 @@
 /obj/item/ammo_casing/caseless
 	desc = "A caseless bullet casing."
 
-/obj/item/ammo_casing/caseless/fire(atom/target, mob/living/user, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
-	if(..())
-		qdel(src)
-		return TRUE
-	return FALSE
+/obj/item/ammo_casing/caseless/after_fire()
+	qdel(src)
 
 /obj/item/ammo_casing/caseless/a75
 	desc = "A .75 bullet casing."
@@ -635,4 +650,4 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	muzzle_flash_color = COLOR_SOFT_RED

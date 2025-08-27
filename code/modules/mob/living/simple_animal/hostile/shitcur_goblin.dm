@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile/shitcur_goblin
-	name = "\improper Shitcurity Goblin"
+	name = "Shitcurity Goblin"
 	desc = "You better start praying, boy."
 	icon = 'icons/mob/shitkur_v6.dmi'
 	icon_state = "ShitKur"
@@ -18,9 +18,9 @@
 	projectilesound = 'sound/weapons/taser.ogg'
 	AI_delay_max = 0 SECONDS
 
-/mob/living/simple_animal/hostile/shitcur_goblin/Initialize()
+/mob/living/simple_animal/hostile/shitcur_goblin/Initialize(mapload)
 	. = ..()
-	playsound(src, 'sound/misc/Wild_Griefer_Appeared.ogg', 50, 1, -1)
+	playsound(src, 'sound/misc/Wild_Griefer_Appeared.ogg', 50, TRUE, -1)
 
 /mob/living/simple_animal/hostile/shitcur_goblin/proc/stun_attack(mob/living/carbon/griefer)
 	griefer.SetStuttering(10 SECONDS)
@@ -34,4 +34,4 @@
 
 /mob/living/simple_animal/hostile/shitcur_goblin/AttackingTarget()
 	stun_attack(target)
-	playsound(loc, 'sound/misc/BAAN.ogg', 50, 1, -1)
+	playsound(loc, 'sound/misc/BAAN.ogg', 50, TRUE, -1)

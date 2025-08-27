@@ -1,14 +1,10 @@
+#define ANOMALY_DOUBLE_MOVE_CHANCE 5
+#define ANOMALY_ITEM_TO_RELIC_CHANCE 1
+#define ANOMALY_strength_MOVE_MULTIPLIER 2
+
 /obj/effect/anomaly
 	name = "аномалия"
 	desc = "Загадочная аномалия. Обычно такую можно наблюдать только в станционном секторе."
-	ru_names = list(
-		NOMINATIVE = "аномалия", \
-		GENITIVE = "аномалии", \
-		DATIVE = "аномалии", \
-		ACCUSATIVE = "аномалию", \
-		INSTRUMENTAL = "аномалией", \
-		PREPOSITIONAL = "аномалии"
-	)
 	icon_state = "bhole3"
 	gender = FEMALE
 	anchored = TRUE
@@ -26,9 +22,9 @@
 	var/anomaly_type = ANOMALY_TYPE_RANDOM
 	/// Tier of anomaly.
 	var/tier = 0
-	/// Level of strenght. Affects the effects of anomaly.
-	var/strenght = 100
-	/// Anomaly stability. Affects speed and strenght change.
+	/// Level of strength. Affects the effects of anomaly.
+	var/strength = 100
+	/// Anomaly stability. Affects speed and strength change.
 	var/stability = 50
 	/// List of impulses types.
 	var/list/impulses_types = list()
@@ -50,27 +46,37 @@
 	/// If FALSE, there won't be warp effect.
 	var/has_warp = FALSE
 
-/obj/effect/anomaly/proc/size_by_strenght(cur_strenght)
-	if(!cur_strenght)
-		cur_strenght = strenght
+/obj/effect/anomaly/get_ru_names()
+	return list(
+		NOMINATIVE = "аномалия", \
+		GENITIVE = "аномалии", \
+		DATIVE = "аномалии", \
+		ACCUSATIVE = "аномалию", \
+		INSTRUMENTAL = "аномалией", \
+		PREPOSITIONAL = "аномалии"
+	)
 
-	return (tier * 50 + cur_strenght / 2) / 100
+/obj/effect/anomaly/proc/size_by_strength(cur_strength)
+	if(!cur_strength)
+		cur_strength = strength
+
+	return (tier * 50 + cur_strength / 2) / 100
 
 /obj/effect/anomaly/proc/init_animation()
 	matr.Scale(0.1, 0.1)
 	animate(src, transform = matr, time = 0, flags = ANIMATION_PARALLEL)
-	var/mult = size_by_strenght() * 10
+	var/mult = size_by_strength() * 10
 	matr.Scale(mult, mult)
 	animate(src, transform = matr, time = 1 SECONDS, alpha = 255, flags = ANIMATION_PARALLEL)
 
 
-/obj/effect/anomaly/Initialize(spawnloc, spawn_strenght = rand(20, 40), spawn_stability = rand(10, 29))
+/obj/effect/anomaly/Initialize(spawnloc, spawn_strength = rand(20, 40), spawn_stability = rand(10, 29))
 	GLOB.created_anomalies[anomaly_type]++
 	. = ..()
 	if(!get_area(src))
 		return INITIALIZE_HINT_QDEL
 
-	set_strenght(spawn_strenght, FALSE)
+	set_strength(spawn_strength, FALSE)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/effect/anomaly, init_animation))
 	stability = spawn_stability
 
@@ -81,7 +87,7 @@
 		impulses.Add(new imp_type(src))
 
 	for(var/datum/anomaly_impulse/imp in impulses)
-		addtimer(CALLBACK(imp, TYPE_PROC_REF(/datum/anomaly_impulse, impulse_cycle)), rand(0, imp.scale_by_strenght(imp.period_low, imp.period_high)))
+		addtimer(CALLBACK(imp, TYPE_PROC_REF(/datum/anomaly_impulse, impulse_cycle)), rand(0, imp.scale_by_strength(imp.period_low, imp.period_high)))
 
 	if(!has_warp)
 		return
@@ -106,7 +112,7 @@
 
 	warp.pixel_x = initial(warp.pixel_x) - pixel_x
 	warp.pixel_y = initial(warp.pixel_x) - pixel_y
-	var/scaling = (get_strenght() * (1 << (tier - 1))) / 250
+	var/scaling = (get_strength() * (1 << (tier - 1))) / 250
 	animate(warp, time = 6, transform = matrix().Scale(0.5 * scaling, 0.5 * scaling))
 	animate(time = 14, transform = matrix().Scale(scaling, scaling))
 
@@ -115,17 +121,17 @@
 
 /obj/effect/anomaly/attack_ghost(mob/dead/observer/user)
 	var/datum/browser/popup = new(user, "anomalyscanner", "Информация об аномалии", 500, 600)
-	popup.set_content(span_highlight("[jointext(get_data(), "<br>")]"))
+	popup.set_content(chat_box_yellow("[jointext(get_data(), "<br>")]"))
 	popup.open(no_focus = 1)
 
 // It is in function because the size will change depending on the strength of the anomaly.
-/obj/effect/anomaly/proc/set_strenght(new_strenght, do_anim = TRUE)
+/obj/effect/anomaly/proc/set_strength(new_strength, do_anim = TRUE)
 	if(do_anim)
-		var/mult = size_by_strenght(new_strenght) / size_by_strenght(strenght)
+		var/mult = size_by_strength(new_strength) / size_by_strength(strength)
 		matr.Scale(mult, mult)
 		animate(src, transform = matr, time = 0.1 SECONDS, flags = ANIMATION_PARALLEL)
 
-	strenght = clamp(new_strenght, 0, 100)
+	strength = clamp(new_strength, 0, 100)
 	check_size_change()
 
 /obj/effect/anomaly/proc/collapse()
@@ -141,10 +147,10 @@
 	smoke.set_up(tier * 3, FALSE, loc)
 	smoke.start()
 
-	if(strenght < 50)
+	if(strength < 50)
 		core_type = text2path("/obj/item/assembly/signaler/core/tier[tier]")
 
-	new core_type(loc, strenght)
+	new core_type(loc, strength)
 	GLOB.poi_list.Remove(src)
 	qdel(src)
 
@@ -174,11 +180,11 @@
 	return TRUE
 
 /obj/effect/anomaly/proc/check_size_change()
-	if(!strenght)
+	if(!strength)
 		level_down()
 		return
 
-	if(strenght != 100)
+	if(strength != 100)
 		return
 
 	if(stability >= 50)
@@ -194,16 +200,16 @@
 
 	if(!iscoreempty(core))
 		core.visible_message(span_warning("[capitalize(core.declent_ru(NOMINATIVE))] распадается, передавая свой заряд [declent_ru(DATIVE)]."))
-		set_strenght(strenght + core.charge / mult)
+		set_strength(strength + core.charge / mult)
 		qdel(core)
 		do_sparks(5, FALSE, src)
 		return
 
-	var/charge_delta = min(100, round(strenght / 3 * mult))
+	var/charge_delta = min(100, round(strength / 3 * mult))
 	var/new_charge = core.charge + charge_delta
 
 	do_sparks(5, FALSE, src)
-	set_strenght(strenght - round(charge_delta / mult))
+	set_strength(strength - round(charge_delta / mult))
 
 	if(new_charge <= 50)
 		core.charge = new_charge
@@ -247,7 +253,7 @@
 	if(!item.origin_tech)
 		return
 
-	if(prob(2))
+	if(prob(ANOMALY_ITEM_TO_RELIC_CHANCE))
 		do_sparks(5, TRUE, src)
 		new /obj/item/relic(get_turf(item))
 		qdel(item)
@@ -296,27 +302,30 @@
 	step(src, dir)
 	return TRUE
 
-/obj/effect/anomaly/proc/get_strenght()
+/obj/effect/anomaly/proc/get_strength()
 	if(world.time > weaken_moment)
 		weaken = 0
 
-	return max(min(strenght, 10), strenght - weaken)
+	return max(min(strength, 10), strength - weaken)
 
 /obj/effect/anomaly/process()
 	if(stability < ANOMALY_GROW_STABILITY)
-		set_strenght(strenght + 1)
+		set_strength(strength + 1)
 
 	if(stability > ANOMALY_DECREASE_STABILITY)
-		set_strenght(strenght - 1)
+		set_strength(strength - 1)
 
 	if(stability == 100)
 		stabilyse()
 		return
 
-	if(stability > ANOMALY_MOVE_MAX_STABILITY || !prob(get_strenght()))
+	if(stability > ANOMALY_MOVE_MAX_STABILITY || !prob(get_strength() * ANOMALY_strength_MOVE_MULTIPLIER))
 		return
 
 	if(normal_move())
+		after_move()
+
+	if(ANOMALY_DOUBLE_MOVE_CHANCE && normal_move())
 		after_move()
 
 	if(has_warp)
@@ -357,7 +366,8 @@
 /obj/effect/anomaly/singularity_act()
 	collapse()
 
-/obj/effect/anomaly/tesla_act()
+// Bruh... idk
+/obj/effect/anomaly/zap_act(power, zap_flags)
 	collapse()
 
 /obj/effect/anomaly/ratvar_act()
@@ -366,5 +376,9 @@
 /obj/effect/anomaly/narsie_act()
 	collapse()
 
-/obj/effect/anomaly/ex_act(severity)
+/obj/effect/anomaly/ex_act(severity, target)
 	return
+
+#undef ANOMALY_DOUBLE_MOVE_CHANCE
+#undef ANOMALY_ITEM_TO_RELIC_CHANCE
+#undef ANOMALY_strength_MOVE_MULTIPLIER

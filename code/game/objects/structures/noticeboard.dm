@@ -11,7 +11,7 @@
 	max_integrity = 150
 	var/notices = 0
 
-/obj/structure/noticeboard/Initialize()
+/obj/structure/noticeboard/Initialize(mapload)
 	. = ..()
 	for(var/obj/item/paper/paper in loc)
 		paper.forceMove(src)
@@ -111,7 +111,7 @@
 /obj/item/noticeboard/screwdriver_act(mob/living/user, obj/item/I)
 	if(!isturf(user.loc))
 		return
-	var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
+	var/direction = tgui_input_list(usr, "In which direction?", "Select direction.", list("North", "East", "South", "West", "Cancel"))
 	if(direction == "Cancel")
 		return
 	if(QDELETED(src))

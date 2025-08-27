@@ -13,10 +13,10 @@
 	var/list/spotlights = list()
 	var/list/sparkles = list()
 	var/static/list/songs = list(
-		new /datum/track("Engineering's Basic Beat", 					'sound/misc/disco.ogg', 	600, 	5),
-		new /datum/track("Engineering's Domination Dance", 				'sound/misc/e1m1.ogg', 		950, 	6),
-		new /datum/track("Engineering's Superiority Shimmy", 			'sound/misc/paradox.ogg', 	2400, 	4),
-		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770, 	5),
+		new /datum/track("Engineering's Basic Beat",					'sound/misc/disco.ogg',	600,	5),
+		new /datum/track("Engineering's Domination Dance",				'sound/misc/e1m1.ogg',		950,	6),
+		new /datum/track("Engineering's Superiority Shimmy",			'sound/misc/paradox.ogg',	2400,	4),
+		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770,	5),
 		)
 	var/datum/track/selection = null
 
@@ -69,7 +69,7 @@
 	else if(anchored)
 		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
-	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
+	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 
 
 /obj/machinery/disco/update_icon_state()
@@ -133,7 +133,7 @@
 			if(!active)
 				if(stop > world.time)
 					to_chat(usr, span_warning("Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)]."))
-					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
+					playsound(src, 'sound/misc/compiler-failure.ogg', 50, TRUE)
 					return
 				active = TRUE
 				update_icon()
@@ -152,7 +152,7 @@
 			var/list/available = list()
 			for(var/datum/track/S in songs)
 				available[S.song_name] = S
-			var/selected = input(usr, "Choose your song", "Track:") as null|anything in available
+			var/selected = tgui_input_list(usr, "Choose your song", "Track:", available)
 			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
 				return
 			selection = available[selected]
@@ -179,7 +179,7 @@
 		to_chat(usr, span_warning("The device is not able to play more DJ sounds at this time."))
 		return
 	charge -= 5
-	playsound(src, S, 300, 1)
+	playsound(src, S, 300, TRUE)
 
 /obj/machinery/disco/proc/dance_setup()
 	stop = world.time + selection.song_length

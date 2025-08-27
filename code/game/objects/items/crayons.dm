@@ -65,7 +65,7 @@
 		if("random_letter")
 			temp = pick(letters)
 		if("letter")
-			temp = input("Choose the letter.", "Scribbles") in letters
+			temp = tgui_input_list(usr, "Choose the letter.", "Scribbles", letters)
 		if("random_rune")
 			temp = "rune[rand(1,10)]"
 		if("random_graffiti")
@@ -86,12 +86,12 @@
 			temp = "letter"
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
-		to_chat(user, span_info("You start drawing a [temp] on the [target.name]."))
+		to_chat(user, span_notice("You start drawing a [temp] on the [target.name]."))
 		busy = TRUE
 		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
-			to_chat(user, span_info("You finish drawing [temp]."))
+			to_chat(user, span_notice("You finish drawing [temp]."))
 			if(uses)
 				uses--
 				if(!uses)
@@ -296,7 +296,7 @@
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
-	var/choice = input(user,"Spraycan options") in list("Toggle Cap","Change Drawing","Change Color")
+	var/choice = tgui_input_list(user, "Spraycan options", , list("Toggle Cap", "Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
 			to_chat(user, span_notice("You [capped ? "Remove" : "Replace"] the cap of the [src]"))

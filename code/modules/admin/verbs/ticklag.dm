@@ -7,12 +7,12 @@
 
 	if(!check_rights(R_DEBUG))	return
 
-	var/newtick = input(usr, "Sets a new tick lag. Please don't mess with this too much! The stable, time-tested ticklag value is 0.9","Lag of Tick", world.tick_lag) as num|null
+	var/newtick = tgui_input_number(usr, "Sets a new tick lag. Please don't mess with this too much! The stable, time-tested ticklag value is 0.9", "Lag of Tick", world.tick_lag, , round_value = FALSE)
 	//I've used ticks of 2 before to help with serious singulo lags
 	if(newtick && newtick <= 2 && newtick > 0)
 		log_and_message_admins("has modified world.tick_lag to [newtick]")
 		world.tick_lag = newtick
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Ticklag") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+		BLACKBOX_LOG_ADMIN_VERB("Set Ticklag")
 
 	else
 		to_chat(src, "<span class='warning'>Error: ticklag(): Invalid world.ticklag value. No changes made.</span>")

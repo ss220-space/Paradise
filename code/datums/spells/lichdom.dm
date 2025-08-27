@@ -137,19 +137,23 @@
 	marked_item.color = "#003300"
 	to_chat(user, span_userdanger("With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lich!"))
 
-	if(ishuman(user))
-		var/mob/living/carbon/human/h_user = user
-		h_user.set_species(/datum/species/skeleton)
-		h_user.drop_item_ground(h_user.wear_suit)
-		h_user.drop_item_ground(h_user.head)
-		h_user.drop_item_ground(h_user.shoes)
-		h_user.drop_item_ground(h_user.head)
-		equip_lich(h_user)
+	if(!ishuman(user))
+		return
+
+	create_lich(user)
+
+/obj/effect/proc_holder/spell/lichdom/proc/create_lich(mob/living/carbon/human/user)
+	user.set_species(/datum/species/skeleton)
+	user.drop_item_ground(user.wear_suit)
+	user.drop_item_ground(user.head)
+	user.drop_item_ground(user.shoes)
+	user.drop_item_ground(user.head)
+	equip_lich(user)
 
 
 /obj/effect/proc_holder/spell/lichdom/proc/equip_lich(mob/living/carbon/human/user)
-		user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(user), ITEM_SLOT_CLOTH_OUTER)
-		user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(user), ITEM_SLOT_HEAD)
-		user.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(user), ITEM_SLOT_FEET)
-		user.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), ITEM_SLOT_CLOTH_INNER)
+	user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(user), ITEM_SLOT_CLOTH_OUTER)
+	user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(user), ITEM_SLOT_HEAD)
+	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(user), ITEM_SLOT_FEET)
+	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), ITEM_SLOT_CLOTH_INNER)
 

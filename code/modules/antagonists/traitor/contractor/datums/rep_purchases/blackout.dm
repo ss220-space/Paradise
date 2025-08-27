@@ -47,7 +47,7 @@
 						"Обнаружено вражде'fZ\\kg5_0-БЗЗЗЗЗ", \
 						"Обнаруж:%? MCayj^j<.3-БЗЗЗЗЗ", \
 						"#4nd%;f4де,>?%-БЗЗЗЗЗЗЗ")
-	GLOB.event_announcement.Announce(alert)
+	GLOB.minor_announcement.announce(alert)
 	for(var/obj/machinery/tcomms/core/T in GLOB.tcomms_machines)
 		T.start_ion()
 		addtimer(CALLBACK(T, TYPE_PROC_REF(/obj/machinery/tcomms, end_ion)), rand(1800, 3000))

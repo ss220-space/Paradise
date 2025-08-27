@@ -176,10 +176,6 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	
-/turf/simulated/floor/engine/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/blob_turf_consuming, 3)
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -235,15 +231,15 @@
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 
-/turf/simulated/floor/engine/ex_act(severity)
+/turf/simulated/floor/engine/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			ChangeTurf(baseturf)
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(50))
 				ChangeTurf(baseturf)
 
-		
+
 /turf/simulated/floor/engine/blob_consume()
 	ChangeTurf(baseturf)
 
@@ -282,13 +278,13 @@
 //air filled floors; used in atmos pressure chambers
 
 /turf/simulated/floor/engine/n20
-	name = "\improper N2O floor"
+	name = "N2O floor"
 	sleeping_agent = 6000
 	oxygen = 0
 	nitrogen = 0
 
 /turf/simulated/floor/engine/co2
-	name = "\improper CO2 floor"
+	name = "CO2 floor"
 	carbon_dioxide = 50000
 	oxygen = 0
 	nitrogen = 0
@@ -300,12 +296,12 @@
 	nitrogen = 0
 
 /turf/simulated/floor/engine/o2
-	name = "\improper O2 floor"
+	name = "O2 floor"
 	oxygen = 100000
 	nitrogen = 0
 
 /turf/simulated/floor/engine/n2
-	name = "\improper N2 floor"
+	name = "N2 floor"
 	nitrogen = 100000
 	oxygen = 0
 
@@ -364,7 +360,7 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/simulated/floor/plating/snow/ex_act(severity)
+/turf/simulated/floor/plating/snow/ex_act(severity, target)
 	return
 
 /turf/simulated/floor/plating/snow/remove_plating()
@@ -379,7 +375,7 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/simulated/floor/snow/ex_act(severity)
+/turf/simulated/floor/snow/ex_act(severity, target)
 	return
 
 /turf/simulated/floor/snow/pry_tile(obj/item/C, mob/user, silent = FALSE)
@@ -450,7 +446,7 @@
 		M.visible_message(span_notice("[M] nudges \the [src]."))
 	else
 		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
+			playsound(loc, M.attack_sound, 50, TRUE, 1)
 		M.visible_message(span_danger("\The [M] [M.attacktext] [src]!"))
 		smash(src)
 

@@ -41,8 +41,8 @@
 	var/weed_pulling = FALSE
 	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
-/obj/machinery/hydroponics/New()
-	..()
+/obj/machinery/hydroponics/Initialize(mapload)
+	. = ..()
 	var/datum/atom_hud/data/hydroponic/hydro_hud = GLOB.huds[DATA_HUD_HYDROPONIC]
 	prepare_huds()
 	hydro_hud.add_to_hud(src)
@@ -59,8 +59,8 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray3"
 
-/obj/machinery/hydroponics/constructable/New()
-	..()
+/obj/machinery/hydroponics/constructable/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/hydroponics(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -1150,7 +1150,7 @@
 	msg += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
 	msg += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
 	msg += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
-	to_chat(user, msg.Join("\n"))
+	to_chat(user, chat_box_examine(msg.Join("\n")))
 
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.

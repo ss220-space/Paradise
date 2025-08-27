@@ -113,8 +113,8 @@
 	// delete these end
 
 
-	var/objective_count = hijacker_antag 			//Hijacking counts towards number of objectives
-	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED) 	//Set up an exchange if there are enough traitors
+	var/objective_count = hijacker_antag			//Hijacking counts towards number of objectives
+	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED)	//Set up an exchange if there are enough traitors
 		if(!SSticker.mode.exchange_red)
 			SSticker.mode.exchange_red = owner
 		else
@@ -193,7 +193,7 @@
 	var/equipped_slot = mob.equip_in_one_of_slots(folder, slots, qdel_on_fail = TRUE)
 	if(equipped_slot)
 		where = "In your [equipped_slot]"
-	to_chat(mob, "<br><br><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><br>")
+	to_chat(mob, span_notice("<br><br>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.<br>"))
 	mob.update_icons()
 
 
@@ -232,8 +232,8 @@
 		return messages
 
 	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
-	messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-	messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+	messages.Add("<b>Code Phrase:</b> <span class='codephrases'>[phrases]</span>")
+	messages.Add("<b>Code Response:</b> <span class='coderesponses'>[responses]</span>")
 	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
@@ -256,11 +256,11 @@
 	var/mob/living/carbon/human/traitor_mob = owner.current
 	var/uplink_pref = traitor_mob.client?.prefs?.uplink_pref
 	if(!uplink_pref)
-		uplink_pref = "pda"
+		uplink_pref = PREF_UPLINK_PDA
 
 	var/obj/item/uplink_holder = null
 	// find a radio! toolbox(es), backpack, belt, headset
-	if(uplink_pref == "pda")
+	if(uplink_pref == PREF_UPLINK_PDA)
 		uplink_holder = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
 		if(!uplink_holder)
 			uplink_holder = locate(/obj/item/radio) in traitor_mob.contents

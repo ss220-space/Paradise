@@ -123,7 +123,7 @@ Class Procs:
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
 	var/list/use_log // Init this list if you wish to add logging to your machine - currently only viewable in VV
-	atom_say_verb = "beeps"
+	atom_say_verb = list("бипает", "бупает", "заявляет", "гудит")
 	var/siemens_strength = 0.7 // how badly will it shock you?
 	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
 	var/frequency = NONE
@@ -141,7 +141,7 @@ Class Procs:
 	if(!armor)
 		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 	. = ..()
-	GLOB.machines += src
+	SSmachines.register_machine(src)
 
 	myArea = get_area(src)
 	if(myArea)
@@ -159,10 +159,12 @@ Class Procs:
 		LAZYREMOVE(myArea.machinery_cache, src)
 		myArea = null
 		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
-	GLOB.machines.Remove(src)
+	SSmachines.unregister_machine(src)
 	end_processing()
 	return ..()
 
+/obj/machinery/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -372,7 +374,7 @@ Class Procs:
 	. = M
 	M.set_anchored(anchored)
 	if(!disassembled)
-		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
+		M.update_integrity(M.max_integrity * 0.5) //the frame is already half broken
 	transfer_fingerprints_to(M)
 	M.state = 2	// STATE_WIRED
 	M.update_icon(UPDATE_ICON_STATE)
@@ -469,7 +471,7 @@ Class Procs:
 		if(!nanopaste.use(1))
 			to_chat(user, span_warning("You don't have enough nanopaste to complete this task!")) // this is here, as we don't want to use nanopaste until you finish applying
 			return ATTACK_CHAIN_PROCEED
-		obj_integrity = min(obj_integrity + 50, max_integrity)
+		update_integrity(min(obj_integrity + 50, max_integrity))
 		user.visible_message(
 			span_notice("[user] applied some [I.name] at [src]'s damaged areas."),
 			span_notice("You apply some [I.name] at [src]'s damaged areas."),
@@ -620,22 +622,29 @@ Class Procs:
 /obj/machinery/proc/on_deconstruction()
 	return
 
-/obj/machinery/tesla_act(power, explosive = FALSE)
-	..()
-	if(prob(85) && explosive)
-		explosion(loc, 1, 2, 4, flame_range = 2, adminlog = 0, smoke = 0)
-	else if(prob(50))
-		emp_act(EMP_LIGHT)
-	else
-		ex_act(EXPLODE_HEAVY)
+/obj/machinery/zap_act(power, zap_flags)
+	if(prob(60) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+		explosion(src, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, adminlog = FALSE, smoke = FALSE)
+		return ..()
 
-/obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
-	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
+	if(!(zap_flags & ZAP_OBJ_DAMAGE))
+		return ..()
+
+	take_damage(power * 5e-4, BURN, ENERGY)
+
+	if(prob(40))
+		emp_act(EMP_LIGHT)
+
+	power -= power * 5e-4
+	return ..()
+
+/obj/machinery/proc/adjust_item_drop_location(atom/movable/dropped_atom) // Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
+	var/md5 = md5(dropped_atom.name) // Oh, and it's deterministic too. A specific item will always drop from the same slot.
 	for (var/i in 1 to 32)
 		. += hex2num(md5[i])
 	. = . % 9
-	AM.pixel_x = -8 + ((.%3)*8)
-	AM.pixel_y = -8 + (round( . / 3)*8)
+	dropped_atom.pixel_x = -8 + ((.%3)*8)
+	dropped_atom.pixel_y = -8 + (round( . / 3)*8)
 
 /**
  * Alerts the AI that a hack is in progress.

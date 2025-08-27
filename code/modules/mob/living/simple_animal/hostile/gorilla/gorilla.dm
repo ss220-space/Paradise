@@ -50,7 +50,7 @@
 	var/datum/action/innate/gorilla/gorilla_toggle/gorilla_toggle
 
 
-/mob/living/simple_animal/hostile/gorilla/Initialize()
+/mob/living/simple_animal/hostile/gorilla/Initialize(mapload)
 	. = ..()
 	gorilla_toggle = new
 	gorilla_toggle.Grant(src)
@@ -65,7 +65,7 @@
 	)
 
 /mob/living/simple_animal/hostile/gorilla/Destroy()
-	reset_behavior(play_emote = FALSE)
+	INVOKE_ASYNC(src, PROC_REF(reset_behavior), play_emote = FALSE)
 	LAZYCLEARLIST(crates_in_hand)
 	QDEL_NULL(gorilla_toggle)
 	return ..()
@@ -151,7 +151,7 @@
 	return parts
 
 
-/mob/living/simple_animal/hostile/gorilla/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/hostile/gorilla/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	. = ..()
 	if(.)
 		oogaooga(100, rand(30, 100))
@@ -337,7 +337,7 @@
 	is_bipedal = TRUE
 	update_icon()
 	movable_target.forceMove(src)
-	playsound(loc, 'sound/items/handling/toolbox_pickup.ogg', 80)
+	playsound(loc, 'sound/items/handling/pickup/toolbox_pickup.ogg', 80)
 	if(master)
 		custom_emote(EMOTE_VISIBLE, "хвата%(ет,ют)% [target_object] в лапы.", intentional = TRUE)
 	return TRUE
@@ -354,7 +354,7 @@
 	held_crate.forceMove(drop_to)
 	LAZYREMOVE(crates_in_hand, held_crate)
 	update_icon()
-	playsound(loc, 'sound/items/handling/toolbox_drop.ogg', 100)
+	playsound(loc, 'sound/items/handling/drop/toolbox_drop.ogg', 100)
 	if(master)
 		oogaooga(100)
 		custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)% ящик на пол.", intentional = TRUE)
@@ -371,7 +371,7 @@
 		held_crate.forceMove(drop_to)
 		LAZYREMOVE(crates_in_hand, held_crate)
 	update_icon()
-	playsound(loc, 'sound/items/handling/toolbox_drop.ogg', 100)
+	playsound(loc, 'sound/items/handling/drop/toolbox_drop.ogg', 100)
 	if(master)
 		oogaooga(100)
 		custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)% все ящики на пол.", intentional = TRUE)

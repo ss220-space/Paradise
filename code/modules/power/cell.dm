@@ -10,15 +10,23 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	var/charge = 0	// note %age conveted to actual charge in New
+	/// How much charge the battery currently has
+	var/charge = 0
+	/// How much charge the battery can hold
 	var/maxcharge = 1000
 	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
-	var/rigged = FALSE		// true if rigged to explode
-	var/chargerate = 100 //how much power is given every tick in a recharger
-	var/self_recharge = 0 //does it self recharge, over time, or not?
+	/// If the battery will explode
+	var/rigged = FALSE
+	/// How much charge is given every tick when recharging
+	var/chargerate = 100
+	/// Whether it will recharge automatically
+	var/self_recharge = FALSE
+	/// Whether the description will include the maxcharge
 	var/ratingdesc = TRUE
-	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
-	var/overlay_charged = "cell-o2" // for custom overlays
+	/// Additional overlay to signify battery being organic
+	var/grown_battery = FALSE
+	// For custom overlays.
+	var/overlay_charged = "cell-o2"
 
 /obj/item/stock_parts/cell/laser
 	maxcharge = 1500
@@ -165,7 +173,6 @@
 	if(light_impact_range == 0)
 		corrupt()
 		return
-	//explosion(T, 0, 1, 2, 2)
 	log_admin("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 	message_admins("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 	rigged = FALSE
@@ -183,18 +190,20 @@
 	charge -= 1000 / severity
 	if(charge < 0)
 		charge = 0
-	..()
+	return ..()
 
-/obj/item/stock_parts/cell/ex_act(severity)
-	..()
-	if(!QDELETED(src))
-		switch(severity)
-			if(2)
-				if(prob(50))
-					corrupt()
-			if(3)
-				if(prob(25))
-					corrupt()
+/obj/item/stock_parts/cell/ex_act(severity, target)
+	. = ..()
+	if(QDELETED(src))
+		return
+
+	switch(severity)
+		if(EXPLODE_HEAVY)
+			if(prob(50))
+				corrupt()
+		if(EXPLODE_LIGHT)
+			if(prob(25))
+				corrupt()
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
 	ex_act(EXPLODE_DEVASTATE)
@@ -211,7 +220,7 @@
 	charge = 0
 
 /obj/item/stock_parts/cell/crap
-	name = "\improper Nanotrasen brand rechargeable AA battery"
+	name = "Nanotrasen brand rechargeable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
 	maxcharge = 500
 	materials = list(MAT_GLASS = 40)
@@ -381,7 +390,7 @@
 	chargerate = 500
 
 /obj/item/stock_parts/cell/emproof
-	name = "\improper EMP-proof cell"
+	name = "EMP-proof cell"
 	desc = "An EMP-proof cell."
 	maxcharge = 500
 	rating = 3
@@ -407,7 +416,7 @@
 	materials = list(MAT_GLASS = 60)
 
 /obj/item/stock_parts/cell/bsg
-	name = "\improper B.S.G power cell"
+	name = "B.S.G power cell"
 	desc = "A high capacity, slow charging cell for the B.S.G."
 	maxcharge = 40000
 	chargerate = 2600 // about 30 seconds to charge with a default recharger

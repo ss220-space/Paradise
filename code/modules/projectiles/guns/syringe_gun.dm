@@ -14,7 +14,7 @@
 	var/list/syringes = list()
 	var/max_syringes = 1
 
-/obj/item/gun/syringe/Initialize()
+/obj/item/gun/syringe/Initialize(mapload)
 	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 
@@ -86,6 +86,15 @@
 	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to six syringes."
 	icon_state = "rapidsyringegun"
 	max_syringes = 6
+
+/obj/item/gun/syringe/rapidsyringe/syndicate
+	var/syringes_load = 6
+
+/obj/item/gun/syringe/rapidsyringe/syndicate/Initialize(mapload)
+	. = ..()
+	for(var/i = 0, i < syringes_load, i++)
+		syringes += new /obj/item/reagent_containers/syringe/traitor_random(src)
+	process_chamber()
 
 /obj/item/gun/syringe/syndicate
 	name = "dart pistol"

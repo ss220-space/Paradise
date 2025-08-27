@@ -22,7 +22,7 @@
 			if(!ischangeling(l_target))
 				l_target.AdjustConfused(40 SECONDS)
 				l_target.Jitter(100 SECONDS)
-				SEND_SOUND(l_target, sound('sound/effects/screech.ogg'))
+				SEND_SOUND(l_target, sound('sound/effects/clingscream.ogg'))
 
 		if(issilicon(l_target))
 			SEND_SOUND(l_target, sound('sound/weapons/flash.ogg'))

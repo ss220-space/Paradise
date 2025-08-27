@@ -7,18 +7,18 @@
 	client?.check_say_flood(5)
 	return say_dead(message)
 
-
-/mob/dead/observer/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
+/mob/dead/observer/handle_track(message, verb = "говор%(ит,ят)%", atom/movable/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	return "[speaker_name] ([ghost_follow_link(follow_target, ghost=src)])"
 
-
-/mob/dead/observer/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
+/mob/dead/observer/handle_speaker_name(atom/movable/speaker = null, vname, hard_to_hear, check_name_against)
 	var/speaker_name = ..()
-	if(!speaker)
+	if(!speaker || !ismob(speaker))
 		return speaker_name
-	//Announce computer and various stuff that broadcasts doesn't use it's real name but AI's can't pretend to be other mobs.
-	if(isAI(speaker) || isAutoAnnouncer(speaker))
+	var/mob/speaker_mob = speaker
+	if(isAI(speaker_mob))
+		//AI's can't pretend to be other mobs.
 		return speaker_name
-	speaker_name = "[speaker.real_name] ([speaker_name])"
+	if(!check_name_against || check_name_against == speaker_mob.real_name)
+		return speaker_name
+	speaker_name = "[speaker_mob.real_name] ([speaker_name])"
 	return speaker_name
-
