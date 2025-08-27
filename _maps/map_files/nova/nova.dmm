@@ -24148,10 +24148,6 @@
 	icon_state = "red"
 	},
 /area/security/customs)
-"dyL" = (
-/obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/carpet,
-/area/library)
 "dyQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -35804,7 +35800,7 @@
 	},
 /area/medical/medbay2)
 "fjl" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -62894,11 +62890,6 @@
 	icon_state = "blue"
 	},
 /area/bridge/checkpoint/north)
-"jkU" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "jkV" = (
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel{
@@ -164615,14 +164606,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
-"yfm" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "yfn" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -187188,7 +187171,7 @@ qel
 qel
 ejf
 aAA
-dyL
+ipA
 qel
 qel
 qel
@@ -274082,7 +274065,7 @@ mdC
 wJE
 wJE
 pkq
-yfm
+tnj
 tnj
 gYD
 wQZ
@@ -274340,7 +274323,7 @@ jEB
 jEB
 bsg
 gfy
-jkU
+gfy
 szR
 wQZ
 uJG
@@ -274597,7 +274580,7 @@ jEB
 jEB
 bsg
 gfy
-jkU
+gfy
 szR
 wQZ
 uJG

@@ -554,8 +554,8 @@
 	icon_state = "suture_3"
 	item_state = "suture"
 	origin_tech = "biotech=3"
-	amount = 3
-	max_amount = 3
+	amount = 6
+	max_amount = 6
 	heal_brute = 0
 	stop_bleeding = 0
 	var/bleeding_heal = 5
@@ -574,7 +574,7 @@
 	)
 
 /obj/item/stack/medical/suture/update_icon_state()
-	icon_state = "suture_[amount ? amount : 1]"
+	icon_state = "suture_[round_down((amount+1) / 2, 1)]"
 
 /obj/item/stack/medical/suture/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()

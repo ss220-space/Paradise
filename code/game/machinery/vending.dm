@@ -1984,7 +1984,7 @@
 					/obj/item/stack/medical/bruise_pack = 4, /obj/item/stack/medical/ointment = 4,
 					/obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4,
 					/obj/item/stack/medical/bruise_pack/extended = 2, /obj/item/stack/medical/ointment/extended = 2,
-					/obj/item/stack/medical/suture = 10, /obj/item/stack/medical/suture/advanced = 4,
+					/obj/item/stack/medical/suture = 15, /obj/item/stack/medical/suture/advanced = 5,
 					/obj/item/stack/medical/splint = 4,
 					/obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4,
 					/obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
@@ -2003,7 +2003,7 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 	prices = list(/obj/item/stack/medical/bruise_pack/extended = 200, /obj/item/stack/medical/ointment/extended = 200,
 					/obj/item/stack/medical/bruise_pack/advanced = 100, /obj/item/stack/medical/ointment/advanced = 100,
-					/obj/item/stack/medical/suture/advanced = 200,
+					/obj/item/stack/medical/suture/advanced = 149,
 					/obj/item/reagent_containers/hypospray/safety = 200,
 					/obj/item/pinpointer/crew = 300, /obj/item/sensor_device = 600,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 25,
@@ -2100,7 +2100,7 @@
 					/obj/item/reagent_containers/hypospray/autoinjector = 4,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 2,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 2,
-					/obj/item/stack/medical/suture = 2,
+					/obj/item/stack/medical/suture = 4,
 					/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
 	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 75,
@@ -2149,7 +2149,7 @@
 	products = list(
 		/obj/item/stack/medical/bruise_pack = 2,
 		/obj/item/stack/medical/ointment = 2,
-		/obj/item/stack/medical/suture = 3,
+		/obj/item/stack/medical/suture = 4,
 		/obj/item/reagent_containers/hypospray/autoinjector = 4,
 		/obj/item/healthanalyzer = 1
 	)
