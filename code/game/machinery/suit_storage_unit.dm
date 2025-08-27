@@ -55,7 +55,7 @@
 
 /obj/machinery/suit_storage_unit/rnd/get_ru_names()
 	return list(
-		NOMINATIVE = "	хранилище ИКСа аномалиста",
+		NOMINATIVE = "хранилище ИКСа аномалиста",
 		GENITIVE = "хранилища ИКСа аномалиста",
 		DATIVE = "хранилищу ИКСа аномалиста",
 		ACCUSATIVE = "хранилище ИКСа аномалиста",
