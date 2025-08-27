@@ -279,7 +279,7 @@
 	flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), sparking_duration)
 	if(user)
-		to_chat(user, span_notice("You unlock [src]."))
+		to_chat(user, span_notice("Вы разблокировали [declent_ru(ACCUSATIVE)]."))
 
 
 /obj/structure/closet/crate/secure/emp_act(severity)
@@ -325,10 +325,10 @@
 		return
 	// Bad day)
 	var/mob/living/carbon/human/human = user
-	var/obj/item/organ/external/affecting = human.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+	var/obj/item/organ/external/affecting = human.get_organ(user.r_hand == tool ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	user.apply_damage(5, BRUTE , affecting)
 	user.emote("scream")
-	to_chat(user, spawn_warning("[tool.declent_ru(NOMINATIVE)] сорвалась и повредила [affecting.declent_ru(ACCUSATIVE)]!"))
+	to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] сорвалась и повредила [affecting.declent_ru(ACCUSATIVE)]!"))
 
 
 /obj/structure/closet/crate/secure/wirecutter_act(mob/living/user, obj/item/tool)
@@ -362,6 +362,7 @@
 	if(prob(80)) // Good hacker!
 		if(broken == SECURE_CRATE_STAGE_NO_BROKEN || broken == SECURE_CRATE_STAGE_OPENED)
 			return
+		balloon_alert(user, "взломано!")
 		desc += " Замок отключен."
 		broken = SECURE_CRATE_STAGE_OPENED // Can be emagged
 		emag_act(user)
