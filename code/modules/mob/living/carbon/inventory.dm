@@ -118,7 +118,7 @@
 			cuff_breakout_attempts++
 			if(!handcuffed) //if someone uncuffs us
 				break
-			if((cuff_breakout_attempts * 5 SECONDS >= breakout_time) || (prob(cuff_breakout_attempts / 4)))
+			if(cuff_breakout_attempts * 5 SECONDS >= breakout_time)
 				. = clear_cuffs(cuffs, cuff_break)
 				break
 			else if(prob(4))
