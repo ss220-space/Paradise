@@ -482,6 +482,81 @@ SUBSYSTEM_DEF(jobs)
 
 	return human
 
+
+/datum/controller/subsystem/jobs/proc/get_default_spawn_landmark(rank)
+	for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
+		if(sloc.name != rank)
+			continue
+
+		if(locate(/mob/living) in sloc.loc)
+			continue
+
+		return sloc
+
+
+/// Moves character in it's job's spawn. Returns outfit override.
+/datum/controller/subsystem/jobs/proc/equip_spawn(mob/living/carbon/human/human, rank)
+	var/turf/turf_spawn = null
+	var/obj/mark_spawn = null
+	if(length(GLOB.start_override))
+		mark_spawn = pick(GLOB.start_override)
+		. = new GLOB.start_override_outfit
+	else
+		mark_spawn = get_default_spawn_landmark(rank)
+
+	if(!mark_spawn)
+		mark_spawn = locate("start*[rank]") // use old stype
+
+	if(!mark_spawn) // No spawn, then spawn on latejoin mark
+		log_runtime(EXCEPTION("No landmark start for [rank]."))
+		if(rank == JOB_TITLE_PRISONER)
+			mark_spawn = pick(GLOB.latejoin_prisoner)
+		else
+			mark_spawn = pick(GLOB.latejoin)
+
+	if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
+		if(rank == JOB_TITLE_PRISONER)
+			mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
+		else
+			mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station)
+
+	if(isturf(mark_spawn))
+		turf_spawn = mark_spawn
+
+	else if(istype(mark_spawn, /obj/effect/landmark/start) && isturf(mark_spawn.loc))
+		turf_spawn = mark_spawn.loc
+
+	else
+		message_admins("Couldn't find spawnpoint for [human] [ADMIN_COORDJMP(human)]. Notify mapper about it.")
+
+	if(!turf_spawn)
+		return
+
+	human.forceMove(turf_spawn)
+	// Moving wheelchair if they have one
+	if(!human.buckled || !istype(human.buckled, /obj/vehicle/ridden/wheelchair))
+		return
+
+	human.buckled.forceMove(human.loc)
+	human.buckled.dir = human.dir
+
+
+/datum/controller/subsystem/jobs/proc/check_nearsight(mob/living/carbon/human/human)
+	if(!HAS_TRAIT(human, TRAIT_NEARSIGHTED))
+		return
+
+	var/equipped = human.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(human), ITEM_SLOT_EYES)
+	if(!equipped)
+		return
+
+	var/obj/item/clothing/glasses/glasses = human.glasses
+	if(!istype(glasses) || glasses.prescription)
+		return
+
+	glasses.upgrade_prescription()
+	human.update_nearsighted_effects()
+
+
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/human, rank, joined_late = FALSE) // Equip and put them in an area
 	if(!human)
 		return null
@@ -492,83 +567,38 @@ SUBSYSTEM_DEF(jobs)
 
 	var/datum/outfit/outfit_override
 	if(!joined_late)
-		var/turf/turf_spawn = null
-		var/obj/mark_spawn = null
-		if(length(GLOB.start_override))
-			mark_spawn = pick(GLOB.start_override)
-			outfit_override = new GLOB.start_override_outfit
-		else
-			for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-				if(sloc.name != rank)
-					continue
-
-				if(locate(/mob/living) in sloc.loc)
-					continue
-
-				mark_spawn = sloc
-				break
-
-		if(!mark_spawn)
-			mark_spawn = locate("start*[rank]") // use old stype
-
-		if(!mark_spawn) // No spawn, then spawn on latejoin mark
-			log_runtime(EXCEPTION("No landmark start for [rank]."))
-			if(rank == JOB_TITLE_PRISONER)
-				mark_spawn = pick(GLOB.latejoin_prisoner)
-			else
-				mark_spawn = pick(GLOB.latejoin)
-
-		if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
-			if(rank == JOB_TITLE_PRISONER)
-				mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
-			else
-				mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station)
-
-		if(isturf(mark_spawn))
-			turf_spawn = mark_spawn
-
-		else if(istype(mark_spawn, /obj/effect/landmark/start) && isturf(mark_spawn.loc))
-			turf_spawn = mark_spawn.loc
-
-		else
-			message_admins("Couldn't find spawnpoint for [human] [ADMIN_COORDJMP(human)]. Notify mapper about it.")
-
-		if(turf_spawn)
-			human.forceMove(turf_spawn)
-			// Moving wheelchair if they have one
-			if(human.buckled && istype(human.buckled, /obj/vehicle/ridden/wheelchair))
-				human.buckled.forceMove(human.loc)
-				human.buckled.dir = human.dir
+		outfit_override = equip_spawn(human, rank)
 
 	if(outfit_override)
 		outfit_override.equip(human)
+
 	else if(job)
 		var/new_mob = job.equip(human)
 		if(ismob(new_mob))
 			human = new_mob
 
-	if(job && human)
-		if(!outfit_override)
-			job.after_spawn(human)
+	if(!job || !human)
+		return human
 
-		//Gives glasses to the vision impaired
-		if(HAS_TRAIT(human, TRAIT_NEARSIGHTED))
-			var/equipped = human.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(human), ITEM_SLOT_EYES)
-			if(equipped != 1)
-				var/obj/item/clothing/glasses/G = human.glasses
-				if(istype(G) && !G.prescription)
-					G.upgrade_prescription()
-					human.update_nearsighted_effects()
+	if(!outfit_override)
+		job.after_spawn(human)
 
-		if(!issilicon(human))
-			// Wheelchair necessary?
-			var/obj/item/organ/external/l_foot = human.get_organ(BODY_ZONE_PRECISE_L_FOOT)
-			var/obj/item/organ/external/r_foot = human.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-			if(!l_foot && !r_foot || (human.client.prefs.disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(human.dna.species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
-				var/obj/vehicle/ridden/wheelchair/W = new /obj/vehicle/ridden/wheelchair(human.loc)
-				W.buckle_mob(human, TRUE)
+	//Gives glasses to the vision impaired
+	check_nearsight(human)
+	if(issilicon(human))
+		return human
 
+	// Wheelchair necessary?
+	var/obj/item/organ/external/l_foot = human.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+	var/obj/item/organ/external/r_foot = human.get_organ(BODY_ZONE_PRECISE_R_FOOT)
+	var/has_paraplegia = HASBIT(human.client.prefs.disabilities, DISABILITY_FLAG_PARAPLEGIA) && !HASBIT(human.dna.species.blacklisted_disabilities, DISABILITY_FLAG_PARAPLEGIA)
+	if((l_foot || r_foot) && !has_paraplegia) // Minimum one usable leg.
+		return human
+
+	var/obj/vehicle/ridden/wheelchair/wheelchair = new /obj/vehicle/ridden/wheelchair(human.loc)
+	wheelchair.buckle_mob(human, TRUE)
 	return human
+
 
 /datum/controller/subsystem/jobs/proc/get_random_area_turf_for_spawn(area_type)
 	var/list/turf/possible_turfs = list()
