@@ -259,8 +259,8 @@
 	origin_tech = "biotech=2;combat=1"
 	amount = 1
 	max_amount = 1
-	heal_brute = 15
-	bleedsuppress = 5
+	heal_brute = 20
+	bleedsuppress = 10
 	stop_bleeding = 300 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
@@ -291,7 +291,7 @@
 	icon_state = "traumakit_4"
 	item_state = "traumakit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 30
+	heal_brute = 40
 	amount = 4
 	max_amount = 4
 	stop_bleeding = 0
@@ -313,7 +313,7 @@
 	icon_state = "extended_trauma_kit_5"
 	item_state = "extended_trauma_kit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 35
+	heal_brute = 40
 	amount = 10
 	max_amount = 10
 	stop_bleeding = 0
@@ -381,7 +381,7 @@
 	icon_state = "burnkit_4"
 	item_state = "burnkit"
 	belt_icon = "advanced_burn_kit"
-	heal_burn = 30
+	heal_burn = 40
 	amount = 4
 	max_amount = 4
 	use_duration = 1.5 SECONDS
@@ -400,7 +400,7 @@
 	icon_state = "extended_burn_kit_5"
 	item_state = "extended_burn_kit"
 	belt_icon = "advanced_burn_kit"
-	heal_burn = 35
+	heal_burn = 40
 	amount = 10
 	max_amount = 10
 	use_duration = 0.7 SECONDS
