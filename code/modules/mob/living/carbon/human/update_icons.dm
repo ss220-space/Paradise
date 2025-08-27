@@ -566,7 +566,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(istype(w_uniform, /obj/item/clothing/under))
 		update_item_on_hud(w_uniform, ui_iclothing, togleable_inventory = TRUE)
 
-		var/state_type = w_uniform.item_color ? w_uniform.item_color : w_uniform.icon_state
+		var/state_type = w_uniform.rolled_down ? "[w_uniform.icon_state]_d" : w_uniform.icon_state
 
 		var/mutable_appearance/standing = mutable_appearance(w_uniform.onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING], "[state_type]_s", layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, appearance_flags = KEEP_TOGETHER, color = w_uniform.color)
 
