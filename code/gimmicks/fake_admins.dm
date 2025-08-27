@@ -1,3 +1,4 @@
+
 //Admins ranks
 #define BH_ADMIN "Админ"
 #define BH_ADMIN_SA "Старший Админ" //senior admin
