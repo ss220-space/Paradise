@@ -295,7 +295,6 @@
 	amount = 4
 	max_amount = 4
 	stop_bleeding = 0
-	use_duration = 0
 	use_duration = 2 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 
@@ -561,6 +560,8 @@
 	var/bleeding_heal = 5
 	var/damage = 10
 	use_duration = 5 SECONDS
+	cost = 1
+	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/suture
 
 /obj/item/stack/medical/suture/get_ru_names()
@@ -577,23 +578,28 @@
 	icon_state = "suture_[round_down((amount+1) / 2, 1)]"
 
 /obj/item/stack/medical/suture/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!ishuman(target))
+		return .
+	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+	if(affecting.bleeding_amount <= 0)
+		user.balloon_alert(user, "нечего зашивать!")
+		. &= ~ATTACK_CHAIN_SUCCESS
+		return .
 	. = ..()
-	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
 	if(!get_amount())
 		to_chat(user, span_danger("Не хватает ниток!"))
 		return ATTACK_CHAIN_PROCEED
 
-	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
+
 	if(affecting.open != ORGAN_CLOSED)
 		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, это уже не сшить без помощи хирургических инструментов!"))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
-	if(!affecting.bleeding_amount)
-		user.balloon_alert(user, "нечего зашивать!")
-		. &= ~ATTACK_CHAIN_SUCCESS
-		return .
+
 
 	if(!use(1))
 		. &= ~ATTACK_CHAIN_SUCCESS

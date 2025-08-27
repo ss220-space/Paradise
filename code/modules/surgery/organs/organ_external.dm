@@ -423,7 +423,7 @@
 			var/bleeding_heal = min(bleeding_amount, burn * BURN_DAMAGE_STOP_BLEEDING_MOD)
 			bleeding_amount = round(bleeding_amount - bleeding_heal, BLEEDING_PRECISION)
 
-	if(brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING)
+	if(brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING && !is_robotic())
 		var/basic_chance = 25 + brute * 2.5
 		var/already_bleeding_chance = bleeding_amount > 0 ? 25 : 0
 		var/total_brute_chance = brute_dam >= remaining_health ? 25 : 0
