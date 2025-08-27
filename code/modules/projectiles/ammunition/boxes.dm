@@ -1154,12 +1154,12 @@
 
 /obj/item/ammo_box/speedloader/a762/get_ru_names()
 	return list(
-		NOMINATIVE = "устройство быстрой зарядки (7,62х54 мм)",
-		GENITIVE = "устройства быстрой зарядки (7,62х54 мм)",
-		DATIVE = "устройству быстрой зарядки (7,62х54 мм)",
-		ACCUSATIVE = "устройство быстрой зарядки (7,62х54 мм)",
-		INSTRUMENTAL = "устройством быстрой зарядки (7,62х54 мм)",
-		PREPOSITIONAL = "устройстве быстрой зарядки (7,62х54 мм)"
+		NOMINATIVE = "обойма (7,62х54 мм)",
+		GENITIVE = "обойма (7,62х54 мм)",
+		DATIVE = "обойму (7,62х54 мм)",
+		ACCUSATIVE = "обойма (7,62х54 мм)",
+		INSTRUMENTAL = "обоймой (7,62х54 мм)",
+		PREPOSITIONAL = "обойме (7,62х54 мм)"
 	)
 
 /obj/item/ammo_box/a762
