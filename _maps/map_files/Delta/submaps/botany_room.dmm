@@ -940,6 +940,18 @@
 /obj/machinery/vending/tool,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
+"SO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/plant_analyzer,
+/obj/item/cultivator,
+/obj/item/hatchet,
+/turf/simulated/floor/plasteel{
+	icon_state = "green"
+	},
+/area/template_noop)
 "Tk" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-dead";
@@ -1020,6 +1032,10 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
+"Yh" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel,
+/area/template_noop)
 "Ys" = (
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
@@ -1685,7 +1701,7 @@ qr
 qr
 qr
 qr
-eF
+SO
 PG
 qr
 "}
@@ -1717,7 +1733,7 @@ qr
 qr
 qr
 qr
-qr
+Yh
 PG
 qr
 "}
