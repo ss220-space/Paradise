@@ -149,7 +149,7 @@
 		/datum/component/cleave_attack, \
 		afterswing_slowdown = 0.15, \
 		no_multi_hit = TRUE, \
-		swing_sound = "chop_swing_light" \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
 
 /obj/item/hatchet/suicide_act(mob/user)
@@ -205,7 +205,7 @@
 		swing_speed_mod = 1.25, \
 		afterswing_slowdown = 0.3, \
 		slowdown_duration = 0.75, \
-		swing_sound = "chop_swing_light" \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
 
 /obj/item/scythe/suicide_act(mob/user)
@@ -215,7 +215,7 @@
 		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
-			playsound(loc, "desceration", 50, TRUE, -1)
+			playsound(loc, SFX_DESECRATION, 50, TRUE, -1)
 	return BRUTELOSS
 
 

@@ -202,7 +202,7 @@ BODY SCANNERS
 		burnt = TRUE
 		on = FALSE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
-		playsound(loc, "sparks", 50, TRUE, 5)
+		playsound(loc, SFX_SPARKS, 50, TRUE, 5)
 		spark_system.start()
 
 
@@ -542,7 +542,7 @@ BODY SCANNERS
 			return TRUE
 
 	SStgui.update_uis(src)
-	playsound(loc, "terminal_type", 25, TRUE)
+	playsound(loc, SFX_TERMINAL_TYPE, 25, TRUE)
 	return TRUE
 
 /obj/item/healthanalyzer/ui_data(mob/user)

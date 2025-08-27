@@ -592,3 +592,8 @@
 	index_name = "zaza-lord swag bomber"
 	path = /obj/item/clothing/suit/storage/zazalord
 
+/datum/gear/donor/meta_banhammer
+	donator_tier = 4
+	cost = 2
+	index_name = "meta-banhammer"
+	path = /obj/item/banhammer/meta_hammer

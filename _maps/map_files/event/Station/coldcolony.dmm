@@ -6883,9 +6883,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/effect/turf_decal/box/red{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/box/red,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
@@ -8878,8 +8876,7 @@
 /area/coldcolony/malta/security/processing)
 "dfD" = (
 /obj/effect/turf_decal/caution{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
@@ -12997,9 +12994,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
 "eIU" = (
-/obj/effect/turf_decal/box{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/box,
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -20490,9 +20485,7 @@
 	},
 /area/coldcolony/malta/chapel/office)
 "hzQ" = (
-/obj/effect/turf_decal/box{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/box,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -21042,9 +21035,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "hLW" = (
 /obj/machinery/suit_storage_unit/pirate,
-/obj/effect/turf_decal/delivery{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "hMa" = (
@@ -30461,8 +30452,7 @@
 	dir = 2
 	},
 /obj/effect/turf_decal/caution{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
@@ -31394,8 +31384,7 @@
 /area/coldcolony/malta/security/prison/cell_block/A)
 "lAF" = (
 /obj/effect/turf_decal/caution{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/machinery/light/small{
 	dir = 1;
@@ -31734,8 +31723,7 @@
 /area/coldcolony/malta/bridge/checkpoint)
 "lGG" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -44770,8 +44758,7 @@
 /area/coldcolony/malta/outer/roadblock)
 "qsT" = (
 /obj/effect/turf_decal/caution{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
@@ -49003,7 +48990,6 @@
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "rRL" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
@@ -50420,8 +50406,7 @@
 /area/coldcolony/malta/resid_serv/library/game_zone)
 "swG" = (
 /obj/effect/turf_decal/caution{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/light/small{
 	dir = 1;
@@ -51945,7 +51930,6 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "sZT" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -53277,8 +53261,7 @@
 /area/coldcolony/malta/research/hor)
 "tzB" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -57372,9 +57355,7 @@
 /area/coldcolony/malta/maintenance/kitchen)
 "vdI" = (
 /obj/machinery/suit_storage_unit/pirate,
-/obj/effect/turf_decal/delivery{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating{
 	temperature = 180
 	},

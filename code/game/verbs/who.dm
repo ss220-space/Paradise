@@ -1,142 +1,179 @@
+#define DEFAULT_WHO_CELLS_PER_ROW 4
+#define NO_ADMINS_ONLINE_MESSAGE "Все запросы помощи администраторов перенаправляются в наш Discord-сервер! Даже если в игре в данный момент нет администраторов, ваше сообщение может быть замечено, и на него может быть дан ответ."
 
 /client/verb/who()
 	set name = "Список игроков"
 	set category = STATPANEL_OOC
 
-	var/msg = "<b>Онлайн Игроков:</b><br>"
+	var/msg = "<b>Игроков онлайн:</b><br>"
 
+	var/list/lines = list()
+	var/columns_per_row = DEFAULT_WHO_CELLS_PER_ROW
 
-	var/list/Lines = list()
+	if(holder)
+		if(check_rights(R_ADMIN, FALSE) && isobserver(src.mob)) //If they have +ADMIN and are a ghost they can see players IC names and statuses.
+			columns_per_row = 1
+			var/mob/dead/observer/admin_observer = src.mob
+			if(!admin_observer.started_as_observer)
+				log_admin("[key_name(usr)] checked advanced who in-round.")
+			for(var/client/client in GLOB.clients)
+				if(client.holder && client.holder.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // need PERMISSIONS to see BB
+					continue
 
-	if(check_rights(R_ADMIN,0))
-		for(var/client/C in GLOB.clients)
-			if(C.holder && C.holder.big_brother && !check_rights(R_PERMISSIONS, 0)) // need PERMISSIONS to see BB
-				continue
-
-			var/entry = "\t[C.key]"
-			if(C.holder && C.holder.fakekey)
-				entry += " <i>(как [C.holder.fakekey])</i>"
-			entry += " - Играет за [C.mob.real_name]"
-			switch(C.mob.stat)
-				if(UNCONSCIOUS)
-					entry += " - <font color='darkgray'><b>Без сознания</b></font>"
-				if(DEAD)
-					if(isobserver(C.mob))
-						var/mob/dead/observer/O = C.mob
-						if(O.started_as_observer)
-							entry += " - <font color='gray'>Наблюдает</font>"
+				var/entry = "\t[client.key]"
+				if(client.holder && client.holder.fakekey)
+					entry += " <i>(как [client.holder.fakekey])</i>"
+				if(isnewplayer(client.mob))
+					entry += " – <span style='color: darkgray;'><b>В лобби</b></span>"
+				else
+					entry += " – Играет за [client.mob.real_name]"
+				switch(client.mob.stat)
+					if(UNCONSCIOUS)
+						entry += " – <span style='color: darkgray;'><b>Без сознания</b></span>"
+					if(DEAD)
+						if(isobserver(client.mob))
+							var/mob/dead/observer/observer = client.mob
+							if(observer.started_as_observer)
+								entry += " – <span style='color: gray;'>Наблюдает</span>"
+							else
+								entry += " – <span style='color: black;'><b>МЕРТВ</b></span>"
 						else
-							entry += " - <font color='black'><b>МЕРТВ</b></font>"
-					else if(isnewplayer(C.mob))
-						entry += " - <font color='green'>Новый Игрок</font>"
-					else
-						entry += " - <font color='black'><b>МЕРТВ</b></font>"
+							entry += " – <span style='color: black;'><b>МЕРТВ</b></span>"
 
-			var/age
-			if(isnum(C.player_age))
-				age = C.player_age
-			else
-				age = 0
+				var/age
+				if(isnum(client.player_age))
+					age = client.player_age
+				else
+					age = 0
+				if(age <= 1)
+					age = "<span style='color: red;'><b>[age]</b></span>"
+				else if(age < 10)
+					age = "<span style='color: orange;'><b>[age]</b></span>"
+				entry += " – [age]"
 
-			if(age <= 1)
-				age = "<font color='#ff0000'><b>[age]</b></font>"
-			else if(age < 10)
-				age = "<font color='#ff8c00'><b>[age]</b></font>"
-
-			entry += " - [age]"
-
-			if(is_special_character(C.mob))
-				entry += " - <b><font color='red'>Антагонист</font></b>"
-			entry += " ([ADMIN_QUE(C.mob,"?")])"
-			entry += " ([round(C.avgping, 1)]ms)"
-			Lines += entry
+				if(is_special_character(client.mob))
+					entry += " – <span style='color: red;'><b>Антагонист</b></span>"
+				entry += " ([ADMIN_QUE(client.mob,"?")])"
+				entry += " ([round(client.avgping, 1)]ms)"
+				lines += entry
 	else
-		for(var/client/C in GLOB.clients)
-			if(C.holder && C.holder.big_brother) // BB doesn't show up at all
+		for(var/client/client in GLOB.clients)
+			if(client.holder && client.holder.big_brother) // BB doesn't show up at all
 				continue
 
-			if(C.holder && C.holder.fakekey)
-				Lines += "[C.holder.fakekey] ([round(C.avgping, 1)]ms)"
+			if(client.holder && client.holder.fakekey)
+				lines += "[client.holder.fakekey] ([round(client.avgping, 1)]ms)"
 			else
-				Lines += "[C.key] ([round(C.avgping, 1)]ms)"
+				lines += "[client.key] ([round(client.avgping, 1)]ms)"
 
-	for(var/line in sortList(Lines))
-		msg += "[line]<br>"
+	var/num_lines = 0
+	msg += "<table style='width: 100%; table-layout: fixed'><tr>"
+	for(var/line in sortList(lines))
+		msg += "<td>[line]</td>"
 
-	msg += "<b>Всего Игроков: [length(Lines)]</b>"
-	to_chat(src, msg)
+		num_lines += 1
+		if(num_lines == columns_per_row)
+			num_lines = 0
+			msg += "</tr><tr>"
+	msg += "</tr></table>"
+
+	msg += span_bold("Всего в сети: [length(lines)]")
+	to_chat(src, chat_box_examine(msg), type = MESSAGE_TYPE_INFO)
 
 /client/verb/adminwho()
-	set category = STATPANEL_ADMIN_TICKETS
 	set name = "В сети"
+	set category = STATPANEL_ADMIN_TICKETS
 
-	var/msg = ""
-	var/modmsg = ""
-	var/num_mods_online = 0
+	var/list/adminmsg = list()
+	var/list/moderatormsg = list()
+	var/list/mentormsg = list()
+	var/list/devmsg = list()
+
 	var/num_admins_online = 0
-	if(holder)
-		for(var/client/C in GLOB.admins)
-			if(check_rights(R_ADMIN, FALSE, C.mob))
+	var/num_moderator_online = 0
+	var/num_mentors_online = 0
+	var/num_devs_online = 0
 
-				if(C?.holder?.fakekey && !check_rights(R_ADMIN, 0)) // Only admins can see stealthmins
-					continue
+	for(var/client/client in GLOB.admins)
+		var/list/line = list()
+		line += "\[[get_colored_rank(client.holder.rank)]\]  [client]"
 
-				if(C?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // Normal admins can't see Big Brother
-					continue
+		if(holder) // Only for those with perms see the extra bit
+			if(client.holder.fakekey && check_rights(R_ADMIN, FALSE))
+				line += " <i>(как [client.holder.fakekey])</i>"
 
-				msg += "\[[C.holder.rank]\]  [C]"
+			if(isobserver(client.mob))
+				line += " – Наблюдает"
+			else if(isnewplayer(client.mob))
+				line += " – В лобби"
+			else
+				line += " – Играет"
 
-				if(C.holder.fakekey)
-					msg += " <i>(как [C.holder.fakekey])</i>"
+			if(client.is_afk())
+				line += " (AFK)"
 
-				if(isobserver(C.mob))
-					msg += " – Наблюдает"
-				else if(isnewplayer(C.mob))
-					msg += " – В Лобби"
-				else
-					msg += " – Играет"
+		if(check_rights(R_ADMIN, FALSE, client.mob)) // Is this client an admin?
+			if(client?.holder?.fakekey && !check_rights(R_ADMIN, FALSE)) // Only admins can see stealthmins
+				continue
 
-				if(C.is_afk())
-					msg += " (Отошёл)"
-				msg += "<br>"
+			if(client?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // Normal admins can't see Big Brother
+				continue
 
-				num_admins_online++
+			num_admins_online++
+			adminmsg += jointext(line, "")
 
-			else if(check_rights(R_MENTOR|R_MOD, 0, C.mob))
-				modmsg += "\[[C.holder.rank]\]  [C]"
+		else if(check_rights(R_MOD, FALSE, client.mob)) // Is this client a moderator?
+			num_moderator_online++
+			moderatormsg += jointext(line, "")
 
-				if(isobserver(C.mob))
-					modmsg += " – Наблюдает"
-				else if(isnewplayer(C.mob))
-					modmsg += " – В Лобби"
-				else
-					modmsg += " – Играет"
+		else if(check_rights(R_MENTOR, FALSE, client.mob)) // Is this client a mentor?
+			num_mentors_online++
+			mentormsg += jointext(line, "")
 
-				if(C.is_afk())
-					modmsg += " (Отошёл)"
-				modmsg += "<br>"
-				num_mods_online++
-	else
-		for(var/client/C in GLOB.admins)
+		else if(check_rights(R_DEBUG, FALSE, client.mob)) // Is this client a developer?
+			num_devs_online++
+			devmsg += jointext(line, "")
 
-			if(check_rights(R_ADMIN, 0, C.mob))
-				if(!C.holder.fakekey)
-					msg += "\[[C.holder.rank]\]  [C]<br>"
-					num_admins_online++
-			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
-				modmsg += "\[[C.holder.rank]\]  [C]<br>"
-				num_mods_online++
+	var/list/final_message = list()
+	if(num_admins_online)
+		final_message += span_bold("Админов онлайн ([num_admins_online]):")
+		final_message += adminmsg
+		final_message += "<br>"
+	if(num_moderator_online)
+		final_message += span_bold("Модераторов онлайн ([num_moderator_online]):")
+		final_message += moderatormsg
+		final_message += "<br>"
+	if(num_mentors_online)
+		final_message += span_bold("Менторов онлайн ([num_mentors_online]):")
+		final_message += mentormsg
+		final_message += "<br>"
+	if(num_devs_online)
+		final_message += span_bold("Разработчиков онлайн ([num_devs_online]):")
+		final_message += devmsg
+		final_message += "<br>"
+	if(!num_admins_online || !num_moderator_online || !num_mentors_online)
+		final_message += span_notice(NO_ADMINS_ONLINE_MESSAGE)
+	to_chat(src, chat_box_examine(jointext(final_message, "\n")), type = MESSAGE_TYPE_INFO)
 
-	var/noadmins_info = span_notice(span_small("<br>Даже если никого из менторов и администраторов нет в сети, вы всё равно можете оставить запрос на помощь. Все обращения к менторам и администраторам будут перенаправлены в наш Discord-сервер!"))
-	msg = "<b>Онлайн Админов ([num_admins_online]):</b><br>" + msg + "<br><b>Онлайн Менторов/Модераторов ([num_mods_online]):</b><br>" + modmsg + noadmins_info
-	msg = replacetext(msg, "\[Хост\]",	"\[<font color='#1ABC9C'>Хост</font>\]")
-	msg = replacetext(msg, "\[Старший Админ\]",	"\[<font color='#f02f2f'>Старший Админ</font>\]")
-	msg = replacetext(msg, "\[Главный Администратор Проекта\]",	"\[<font color='#f02f2f'>Главный Администратор Проекта</font>\]")
-	msg = replacetext(msg, "\[Админ\]",	"\[<font color='#ee8f29'>Админ</font>\]")
-	msg = replacetext(msg, "\[Триал Админ\]",	"\[<font color='#cfc000'>Триал Админ</font>\]")
-	msg = replacetext(msg, "\[Модератор\]",	"\[<font color='#9db430'>Модератор</font>\]")
-	msg = replacetext(msg, "\[Ментор\]",	"\[<font color='#67761e'>Ментор</font>\]")
-	msg = replacetext(msg, "\[Разработчик\]",	"\[<font color='#2ecc71'>Разработчик</font>\]")
-	msg = replacetext(msg, "\[Контрибьютор\]",	"\[<font color='#2ecc71'>Контрибьютор</font>\]")
-	msg = replacetext(msg, "\[Ведущий Разработчик\]",	"\[<font color='#2ecc71'>Ведущий Разработчик</font>\]")
-	to_chat(src, msg)
+/// Returns colored rank representation.
+/proc/get_colored_rank(rank)
+	switch(rank)
+		if("Хост")
+			return "<span style='color: #1ABC9C;'>[rank]</span>" // rgb(26, 188, 156)
+		if("Старший Админ", "Главный Администратор Проекта")
+			return "<span style='color: #f02f2f;'>[rank]</span>" // rgb(240, 47, 47)
+		if("Админ")
+			return "<span style='color: #ee8f29;'>[rank]</span>" // rgb(238, 143, 41)
+		if("Триал Админ")
+			return "<span style='color: #cfc000;'>[rank]</span>" // rgb(207, 192, 0)
+		if("Модератор")
+			return "<span style='color: #9db430;'>[rank]</span>" // rgb(157, 180, 48)
+		if("Ментор")
+			return "<span style='color: #67761e;'>[rank]</span>" // rgb(103, 118, 30)
+		if("Разработчик", "Контрибьютор", "Ведущий Разработчик")
+			return "<span style='color: #2ecc71;'>[rank]</span>" // rgb(46, 204, 113)
+		else
+			return rank
+
+#undef DEFAULT_WHO_CELLS_PER_ROW
+#undef NO_ADMINS_ONLINE_MESSAGE

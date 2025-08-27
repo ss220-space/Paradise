@@ -10,13 +10,15 @@
 
 	// Switching management
 	var/switch_state = BM_SWITCHSTATE_NONE
-	var/switch_width = 5
+	var/switch_width = 4
 	// modeswitch UI
 	var/atom/movable/screen/buildmode/mode/modebutton
 	var/list/modeswitch_buttons = list()
 	// dirswitch UI
 	var/atom/movable/screen/buildmode/bdir/dirbutton
 	var/list/dirswitch_buttons = list()
+	/// Item preview for selected item.
+	var/atom/movable/screen/buildmode/preview_item/preview
 
 /datum/click_intercept/buildmode/New()
 	mode = new /datum/buildmode_mode/basic(src)
@@ -25,6 +27,7 @@
 
 /datum/click_intercept/buildmode/Destroy()
 	close_switchstates()
+	close_preview()
 	QDEL_NULL(mode)
 	QDEL_LIST(modeswitch_buttons)
 	QDEL_LIST(dirswitch_buttons)
@@ -43,7 +46,7 @@
 	buttons += new /atom/movable/screen/buildmode/quit(src)
 	// build the list of modeswitching buttons
 	build_options_grid(subtypesof(/datum/buildmode_mode), modeswitch_buttons, /atom/movable/screen/buildmode/modeswitch)
-	build_options_grid(list(SOUTH,EAST,WEST,NORTH,NORTHWEST), dirswitch_buttons, /atom/movable/screen/buildmode/dirswitch)
+	build_options_grid(GLOB.alldirs, dirswitch_buttons, /atom/movable/screen/buildmode/dirswitch)
 
 /datum/click_intercept/buildmode/proc/build_options_grid(list/elements, list/buttonslist, buttontype)
 	var/pos_idx = 0
@@ -51,9 +54,8 @@
 		var/x = pos_idx % switch_width
 		var/y = FLOOR(pos_idx / switch_width, 1)
 		var/atom/movable/screen/buildmode/B = new buttontype(src, thing)
-		// this stuff is equivalent to the commented out line for 511 compat
-		// B.screen_loc = "NORTH-[(1 + 0.5 + y*1.5)],WEST+[0.5 + x*1.5]"
-		B.screen_loc = "NORTH-[1 + FLOOR(0.5 + 1.5*y, 1) + ((y + 1) % 2)]:[16*((y + 1) % 2)],WEST+[FLOOR(0.5 + 1.5*x, 1)]:[16*((x + 1) % 2)]"
+		// extra .5 for a nice offset look
+		B.screen_loc = "NORTH-[(1 + 0.5 + y*1.5)],WEST+[0.5 + x*1.5]"
 		buttonslist += B
 		pos_idx++
 
@@ -94,6 +96,26 @@
 	switch_state = BM_SWITCHSTATE_NONE
 	holder.screen -= dirswitch_buttons
 
+/datum/click_intercept/buildmode/proc/preview_selected_item(atom/typepath)
+	close_preview()
+	preview = new /atom/movable/screen/buildmode/preview_item(src)
+	preview.name = initial(typepath.name)
+
+	// Scale the preview if it's bigger than one tile
+	var/mutable_appearance/preview_overlay = get_small_overlay(new /mutable_appearance(typepath))
+	preview_overlay.appearance_flags |= TILE_BOUND
+	preview_overlay.layer = FLOAT_LAYER
+	preview_overlay.plane = FLOAT_PLANE
+	preview.add_overlay(preview_overlay)
+
+	holder.screen += preview
+
+/datum/click_intercept/buildmode/proc/close_preview()
+	if(isnull(preview))
+		return
+	holder.screen -= preview
+	QDEL_NULL(preview)
+
 /datum/click_intercept/buildmode/proc/change_mode(newmode)
 	mode.exit_mode(src)
 	QDEL_NULL(mode)
@@ -111,19 +133,19 @@
 /datum/click_intercept/buildmode/InterceptClickOn(user, params, atom/object)
 	mode.handle_click(user, params, object)
 
-/proc/togglebuildmode(mob/M in GLOB.player_list)
+/proc/togglebuildmode(mob/user as mob in  GLOB.player_list)
 	set name = "Toggle Build Mode"
 	set category = STATPANEL_ADMIN_EVENT
 
-	if(M.client)
-		if(istype(M.client.click_intercept, /datum/click_intercept/buildmode))
-			var/datum/click_intercept/buildmode/B = M.client.click_intercept
-			B.quit()
-			log_admin("[key_name(usr)] has left build mode.")
+	if(user.client)
+		if(istype(user.client.click_intercept, /datum/click_intercept/buildmode))
+			var/datum/click_intercept/buildmode/buildmode = user.client.click_intercept
+			buildmode.quit()
+			log_admin("[key_name(user)] has left build mode.")
 		else
-			new/datum/click_intercept/buildmode(M.client)
-			message_admins("[key_name_admin(usr)] has entered build mode.")
-			log_admin("[key_name(usr)] has entered build mode.")
+			new/datum/click_intercept/buildmode(user.client)
+			message_admins("[key_name_admin(user)] has entered build mode.")
+			log_admin("[key_name(user)] has entered build mode.")
 
 #undef BM_SWITCHSTATE_NONE
 #undef BM_SWITCHSTATE_MODE

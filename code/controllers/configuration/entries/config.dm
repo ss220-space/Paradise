@@ -50,6 +50,9 @@
 /// log game events
 /datum/config_entry/flag/log_game
 
+/// log map manipulations
+/datum/config_entry/flag/log_mapmanip
+
 /// log voting
 /datum/config_entry/flag/log_vote
 
@@ -482,6 +485,7 @@
 	default = list(
 		"hijacker" = 10,
 		"malfai" = 10,
+		"prisoner" = 10,
 		"ninja" = 10,
 		"thief" = 10,
 		"nothing" = 20,
