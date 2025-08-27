@@ -100362,6 +100362,10 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/exit/maint)
+"oPT" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/Banya,
+/turf/simulated/wall,
+/area/maintenance/tourist)
 "oPU" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -185351,7 +185355,7 @@ bYW
 bYW
 qeM
 bYW
-bYW
+oPT
 tkq
 rSe
 tkq

@@ -22,3 +22,19 @@
 
 /obj/effect/map_effect/marker_helper/submap_def/nova/EastMaintenance/offices
 	name = "Восточные техи второго этажа вариант c большим офисом"
+
+
+// Old Banya Maintenance submap
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/Banya
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/Banya
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/Banya/Club
+	name = "Старая баня заменена на клуб"
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/Banya/entrance
+	name = "Старая баня заменена на проходную с маленькой инженерной коморкой"
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/Banya/consarea
+	name = "Старая баня заменена на инженерную стройплощадку с автолатом"
