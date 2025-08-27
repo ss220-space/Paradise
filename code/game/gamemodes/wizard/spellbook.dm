@@ -1022,12 +1022,12 @@
 
 /obj/item/spellbook/oneuse/get_ru_names()
 	return list(
-		NOMINATIVE = "гримуар ",
-		GENITIVE = "гримуара ",
-		DATIVE = "гримуару ",
-		ACCUSATIVE = "гримуар ",
-		INSTRUMENTAL = "гримуаром ",
-		PREPOSITIONAL = "гримуаре "
+		NOMINATIVE = "гримуар [spellname_ru]",
+		GENITIVE = "гримуара [spellname_ru]",
+		DATIVE = "гримуару [spellname_ru]",
+		ACCUSATIVE = "гримуар [spellname_ru]",
+		INSTRUMENTAL = "гримуаром [spellname_ru]",
+		PREPOSITIONAL = "гримуаре [spellname_ru]"
 	)
 
 /obj/item/spellbook/oneuse/magic_charge_act(mob/user)
@@ -1049,16 +1049,6 @@
 /obj/item/spellbook/oneuse/New()
 	..()
 	name += spellname
-
-	if(!ru_names)
-		ru_names = get_ru_names_cached()
-
-	ru_names[NOMINATIVE] += spellname_ru
-	ru_names[GENITIVE] += spellname_ru
-	ru_names[DATIVE] += spellname_ru
-	ru_names[ACCUSATIVE] += spellname_ru
-	ru_names[INSTRUMENTAL] += spellname_ru
-	ru_names[PREPOSITIONAL] += spellname_ru
 
 /obj/item/spellbook/oneuse/initialize(mapload) //No need to init
 	return
