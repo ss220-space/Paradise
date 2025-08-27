@@ -3,16 +3,16 @@
  * SPDX-License-Identifier: MIT
  */
 
-@use '../base.scss';
-@use '../colors.scss';
-@use '../functions.scss' as *;
+@use '../base';
+@use '../colors';
+@use '../functions' as *;
 
 $bg-map: colors.$bg-map !default;
 $fg-map: colors.$fg-map !default;
-$ring-color: #6a96c9 !default;
-$knob-color: #333333 !default;
-$popup-background-color: #000000 !default;
-$popup-text-color: #ffffff !default;
+$ring-color: hsl(212.2, 46.8%, 60.2%) !default;
+$knob-color: hsl(0, 0%, 20%) !default;
+$popup-background-color: hsl(0, 0%, 0%) !default;
+$popup-text-color: hsl(0, 0%, 100%) !default;
 
 $inner-padding: 0.1em;
 
@@ -86,6 +86,7 @@ $inner-padding: 0.1em;
   top: 0.25rem;
   right: -50%;
 }
+
 .Knob__ring {
   position: absolute;
   top: 0;
@@ -124,7 +125,7 @@ $pi: 3.1416;
   stroke-width: 8;
   stroke-linecap: round;
   stroke-dasharray: 100 * $pi;
-  transition: stroke 50ms;
+  transition: stroke 50ms ease-out;
 }
 
 @each $color-name, $color-value in $fg-map {

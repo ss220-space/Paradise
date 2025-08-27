@@ -1,4 +1,4 @@
-import { useDispatch } from 'common/redux';
+import { useDispatch } from 'tgui/backend';
 
 import type { Page } from '../chat/types';
 import { importSettings } from './actions';
@@ -39,11 +39,11 @@ export const exportChatSettings = (
     });
 };
 
-export const importChatSettings = (settings: string | string[], context) => {
+export const importChatSettings = (settings: string | string[]) => {
   if (Array.isArray(settings)) {
     return;
   }
-  const dispatch = useDispatch(context);
+  const dispatch = useDispatch();
   const ourImport = JSON.parse(settings);
   if (!ourImport?.version) {
     return;

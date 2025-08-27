@@ -89,9 +89,9 @@
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your magical powers fading away...</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been turned into a robot! You can feel your magical powers fading away..."))
 		else
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard.</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been brainwashed! You are no longer a wizard."))
 		SSticker.mode.update_wiz_icons_removed(wizard_mind)
 	else if(wizard_mind in apprentices)
 		SSticker.mode.apprentices -= wizard_mind
@@ -100,9 +100,9 @@
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your magical powers fading away...</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been turned into a robot! You can feel your magical powers fading away..."))
 		else
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard-apprentice.</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been brainwashed! You are no longer a wizard-apprentice."))
 		SSticker.mode.update_wiz_icons_removed(wizard_mind)
 
 /datum/game_mode/proc/update_wiz_icons_added(datum/mind/wiz_mind)
@@ -156,10 +156,10 @@
 	addtimer(CALLBACK(wizard.current, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	var/list/messages = list()
 	if(you_are)
-		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
+		messages.Add(span_danger("You are the Space Wizard!"))
 	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
 	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
-	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Wizard\">Маг</a></span>")
+	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Wizard\">Маг</a>"))
 	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
 	return
 
@@ -254,9 +254,9 @@
 
 
 
-	to_chat(wizard_mob, "<span class='notice'>Вы найдёте набор из доступных закинаний в вашем магическом учебнике.</span>")
-	to_chat(wizard_mob, "<span class='notice'>Магический учебник привязан к вам, другие не могут ей воспользоваться.</span>")
-	to_chat(wizard_mob, "<span class='notice'>В карманах вы найдёте свиток телепортации. Используйте его при необходимости.</span>")
+	to_chat(wizard_mob, span_notice("Вы найдёте набор из доступных закинаний в вашем магическом учебнике."))
+	to_chat(wizard_mob, span_notice("Магический учебник привязан к вам, другие не могут ей воспользоваться."))
+	to_chat(wizard_mob, span_notice("В карманах вы найдёте свиток телепортации. Используйте его при необходимости."))
 	wizard_mob.mind.store_memory("<b>Помните:</b> не забудьте выбрать предпочитаемый набор.")
 	wizard_mob.update_icons()
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
@@ -298,7 +298,7 @@
 /datum/game_mode/wizard/declare_completion(var/ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "wizard loss - wizard killed"
-		to_chat(world, "<span class='warning'><span style='font-size: 3;'><b> The wizard[(wizards.len>1)?"s":""] [(apprentices.len>1)?"and apprentices":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</b></span></span>")
+		to_chat(world, span_warning(span_fontsize3("<b> The wizard[(wizards.len>1)?"s":""] [(apprentices.len>1)?"and apprentices":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</b>")))
 	..()
 	return 1
 

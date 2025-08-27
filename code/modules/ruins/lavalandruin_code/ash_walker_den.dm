@@ -46,7 +46,7 @@
 	STOP_PROCESSING(SSprocessing, src)
 
 /obj/structure/lavaland/ash_walker/deconstruct(disassembled)
-	var/core_to_drop = pick(subtypesof(/obj/item/assembly/signaler/anomaly))
+	var/core_to_drop = pick(subtypesof(/obj/item/assembly/signaler/core))
 	new core_to_drop (get_step(loc, pick(GLOB.alldirs)))
 	new	/obj/effect/collapse(loc)
 	return ..()

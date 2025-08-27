@@ -71,26 +71,26 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/examine(mob/user)
 	. = ..()
 	if(!panel_open)
-		. += "<span class='notice'>The outer panel is <b>screwed shut</b>.</span>"
+		. += span_notice("The outer panel is <b>screwed shut</b>.")
 	switch(removal_stage)
 		if(NUKE_INTACT)
-			. += "<span class='notice'>The anchoring bolt covers are <b>welded shut</b>.</span>"
+			. += span_notice("The anchoring bolt covers are <b>welded shut</b>.")
 		if(NUKE_COVER_OFF)
-			. += "<span class='notice'>The cover plate is <b>pried into</b> place.</span>"
+			. += span_notice("The cover plate is <b>pried into</b> place.")
 		if(NUKE_COVER_OPEN)
-			. += "<span class='notice'>The anchoring system sealant is <b>welded shut</b>.</span>"
+			. += span_notice("The anchoring system sealant is <b>welded shut</b>.")
 		if(NUKE_SEALANT_OPEN)
-			. += "<span class='notice'>The bolts are <b>wrenched</b> in place.</span>"
+			. += span_notice("The bolts are <b>wrenched</b> in place.")
 		if(NUKE_UNWRENCHED)
-			. += "<span class='notice'>The device can be <b>pried off</b> its anchors.</span>"
+			. += span_notice("The device can be <b>pried off</b> its anchors.")
 		if(NUKE_CORE_EVERYTHING_FINE)
-			. += "<span class='notice'>The outer panel can be <b>pried open</b> or it can be <i>screwed</i> back on.</span>"
+			. += span_notice("The outer panel can be <b>pried open</b> or it can be <i>screwed</i> back on.")
 		if(NUKE_CORE_PANEL_EXPOSED)
-			. += "<span class='notice'>The outer plate can be fixed by <b>[sheets_to_fix] metal sheets</b>, while the inner core plate is <i>welded shut</i>.</span>"
+			. += span_notice("The outer plate can be fixed by <b>[sheets_to_fix] metal sheets</b>, while the inner core plate is <i>welded shut</i>.")
 		if(NUKE_CORE_PANEL_UNWELDED)
-			. += "<span class='notice'>The inner core plate can be <b>welded shut</b> or it can be <i>pried open</i>.</span>"
+			. += span_notice("The inner core plate can be <b>welded shut</b> or it can be <i>pried open</i>.")
 		if(NUKE_CORE_FULLY_EXPOSED)
-			. += "<span class='notice'>The inner core plate can be fixed by <b>[sheets_to_fix] titanium sheets</b>, [core ? "or the plutonium core can be <i>removed</i>" : "though the plutonium core is <i>missing</i>"].</span>"
+			. += span_notice("The inner core plate can be fixed by <b>[sheets_to_fix] titanium sheets</b>, [core ? "or the plutonium core can be <i>removed</i>" : "though the plutonium core is <i>missing</i>"].")
 
 
 /obj/machinery/nuclearbomb/update_icon_state()
@@ -211,18 +211,18 @@ GLOBAL_VAR(bomb_set)
 		user.visible_message("[user] forces open the bolt covers on [src].", "You force open the bolt covers.")
 		removal_stage = NUKE_COVER_OPEN
 	if(removal_stage == NUKE_CORE_EVERYTHING_FINE)
-		user.visible_message("<span class='notice'>[user] starts removing [src]'s outer core plate...</span>", "<span class='notice'>You start removing [src]'s outer core plate...</span>")
+		user.visible_message(span_notice("[user] starts removing [src]'s outer core plate..."), span_notice("You start removing [src]'s outer core plate..."))
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || removal_stage != NUKE_CORE_EVERYTHING_FINE)
 			return
-		user.visible_message("<span class='notice'>[user] finishes removing [src]'s outer core plate.</span>", "<span class='notice'>You finish removing [src]'s outer core plate.</span>")
+		user.visible_message(span_notice("[user] finishes removing [src]'s outer core plate."), span_notice("You finish removing [src]'s outer core plate."))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		removal_stage = NUKE_CORE_PANEL_EXPOSED
 
 	if(removal_stage == NUKE_CORE_PANEL_UNWELDED)
-		user.visible_message("<span class='notice'>[user] starts removing [src]'s inner core plate...</span>", "<span class='notice'>You start removing [src]'s inner core plate...</span>")
+		user.visible_message(span_notice("[user] starts removing [src]'s inner core plate..."), span_notice("You start removing [src]'s inner core plate..."))
 		if(!I.use_tool(src, user, 80, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_UNWELDED)
 			return
-		user.visible_message("<span class='notice'>[user] finishes removing [src]'s inner core plate.</span>", "<span class='notice'>You remove [src]'s inner core plate. You can see the core's green glow!</span>")
+		user.visible_message(span_notice("[user] finishes removing [src]'s inner core plate."), span_notice("You remove [src]'s inner core plate. You can see the core's green glow!"))
 		removal_stage = NUKE_CORE_FULLY_EXPOSED
 		new /obj/item/stack/sheet/mineral/titanium(loc, 5)
 		if(core)
@@ -299,35 +299,35 @@ GLOBAL_VAR(bomb_set)
 	if(!I.tool_use_check(user, 0))
 		return
 	if(removal_stage == NUKE_INTACT)
-		visible_message("<span class='notice'>[user] starts cutting loose the anchoring bolt covers on [src].</span>",\
-		"<span class='notice'>You start cutting loose the anchoring bolt covers with [I]...</span>",\
-		"<span class='warning'>You hear welding.</span>")
+		visible_message(span_notice("[user] starts cutting loose the anchoring bolt covers on [src]."),\
+						span_notice("You start cutting loose the anchoring bolt covers with [I]..."),\
+						span_warning("You hear welding."))
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_INTACT)
 			return
-		visible_message("<span class='notice'>[user] cuts through the bolt covers on [src].</span>",\
-		"<span class='notice'>You cut through the bolt cover.</span>")
+		visible_message(span_notice("[user] cuts through the bolt covers on [src]."),\
+						span_notice("You cut through the bolt cover."))
 		removal_stage = NUKE_COVER_OFF
 	if(removal_stage == NUKE_CORE_PANEL_UNWELDED)
-		user.visible_message("<span class='notice'>[user] starts welding [src]'s inner core plate...</span>", "<span class='notice'>You start welding [src]'s inner core plate...</span>")
+		user.visible_message(span_notice("[user] starts welding [src]'s inner core plate..."), span_notice("You start welding [src]'s inner core plate..."))
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_UNWELDED)
 			return
-		user.visible_message("<span class='notice'>[user] finishes welding [src]'s inner core plate...</span>", "<span class='notice'>You finish welding [src]'s inner core plate...</span>")
+		user.visible_message(span_notice("[user] finishes welding [src]'s inner core plate..."), span_notice("You finish welding [src]'s inner core plate..."))
 		removal_stage = NUKE_CORE_PANEL_EXPOSED
 
 	else if(removal_stage == NUKE_CORE_PANEL_EXPOSED)
-		user.visible_message("<span class='notice'>[user] starts unwelding [src]'s inner core plate...</span>", "<span class='notice'>You start unwelding [src]'s inner core plate...</span>")
+		user.visible_message(span_notice("[user] starts unwelding [src]'s inner core plate..."), span_notice("You start unwelding [src]'s inner core plate..."))
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_CORE_PANEL_EXPOSED)
 			return
-		user.visible_message("<span class='notice'>[user] finishes unwelding [src]'s inner core plate...</span>", "<span class='notice'>You finish unwelding [src]'s inner core plate...</span>")
+		user.visible_message(span_notice("[user] finishes unwelding [src]'s inner core plate..."), span_notice("You finish unwelding [src]'s inner core plate..."))
 		removal_stage = NUKE_CORE_PANEL_UNWELDED
 	if(removal_stage == NUKE_COVER_OPEN)
-		visible_message("<span class='notice'>[user] starts cutting apart the anchoring system sealant on [src].</span>",\
-		"<span class='notice'>You start cutting apart the anchoring system's sealant with [I]...</span>",\
-		"<span class='warning'>You hear welding.</span>")
+		visible_message(span_notice("[user] starts cutting apart the anchoring system sealant on [src]."),\
+						span_notice("You start cutting apart the anchoring system's sealant with [I]..."),\
+						span_warning("You hear welding."))
 		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_COVER_OPEN)
 			return
-		visible_message("<span class='notice'>[user] cuts apart the anchoring system sealant on [src].</span>",\
-		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
+		visible_message(span_notice("[user] cuts apart the anchoring system sealant on [src]."),\
+						span_notice("You cut apart the anchoring system's sealant."))
 		removal_stage = NUKE_SEALANT_OPEN
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user)
@@ -342,11 +342,11 @@ GLOBAL_VAR(bomb_set)
 	if(removal_stage != NUKE_CORE_FULLY_EXPOSED || !core)
 		return wires.Interact(user)
 	if(timing) //removing the core is less risk then cutting wires, and doesnt take long, so we should not let crew do it while the nuke is armed. You can however get to it, without the special screwdriver, if you put the NAD in.
-		to_chat(user, "<span class='warning'>[core] won't budge, metal clamps keep it in!</span>")
+		to_chat(user, span_warning("[core] won't budge, metal clamps keep it in!"))
 		return
-	user.visible_message("<span class='notice'>[user] starts to pull [core] out of [src]!</span>", "<span class='notice'>You start to pull [core] out of [src]!</span>")
+	user.visible_message(span_notice("[user] starts to pull [core] out of [src]!"), span_notice("You start to pull [core] out of [src]!"))
 	if(do_after(user, 5 SECONDS, src))
-		user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
+		user.visible_message(span_notice("[user] pulls [core] out of [src]!"), span_notice("You pull [core] out of [src]! Might want to put it somewhere safe."))
 		core.forceMove(loc)
 		core = null
 
@@ -403,9 +403,9 @@ GLOBAL_VAR(bomb_set)
 		if("deploy")
 			if(removal_stage != NUKE_MOBILE)
 				set_anchored(TRUE)
-				visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
+				visible_message(span_warning("With a steely snap, bolts slide out of [src] and anchor it to the flooring!"))
 			else
-				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
+				visible_message(span_warning("[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut."))
 			if(!lighthack)
 				flick("nuclearbombc", src)
 			extended = TRUE
@@ -452,16 +452,16 @@ GLOBAL_VAR(bomb_set)
 		if("toggle_anchor")
 			if(removal_stage == NUKE_MOBILE)
 				set_anchored(FALSE)
-				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
+				visible_message(span_warning("[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut."))
 			else if(isinspace())
-				to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
+				to_chat(usr, span_warning("There is nothing to anchor to!"))
 				return FALSE
 			else
 				set_anchored(!anchored)
 				if(anchored)
-					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
+					visible_message(span_warning("With a steely snap, bolts slide out of [src] and anchor it to the flooring."))
 				else
-					visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
+					visible_message(span_warning("The anchoring bolts slide back into the depths of [src]."))
 			return
 		if("set_time")
 			var/time = tgui_input_number(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120, 600, 120)
@@ -478,10 +478,10 @@ GLOBAL_VAR(bomb_set)
 			update_icon()
 		if("toggle_armed")
 			if(safety)
-				to_chat(usr, "<span class='notice'>The safety is still on.</span>")
+				to_chat(usr, span_notice("The safety is still on."))
 				return
 			if(!core)
-				to_chat(usr, "<span class='danger'>[src]'s screen blinks red! There is no plutonium core in [src]!</span>")
+				to_chat(usr, span_danger("[src]'s screen blinks red! There is no plutonium core in [src]!"))
 				return
 			if(isblobinfected(usr.mind))
 				to_chat(usr, span_notice("Что-то внутри вас не дает вам это сделать."))
@@ -587,9 +587,9 @@ GLOBAL_VAR(bomb_set)
 	if(safety == 1)
 		if(!is_syndicate)
 			set_security_level(previous_level)
-		visible_message("<span class='notice'>The [src] quiets down.</span>")
+		visible_message(span_notice("The [src] quiets down."))
 	else
-		visible_message("<span class='notice'>The [src] emits a quiet whirling noise!</span>")
+		visible_message(span_notice("The [src] emits a quiet whirling noise!"))
 
 //==========DAT FUKKEN DISK===============
 /obj/item/disk/nuclear
@@ -618,7 +618,7 @@ GLOBAL_VAR(bomb_set)
 		var/turf/diskturf = get_turf(src)
 		if(holder)
 			add_game_logs("lost [src] in [COORD(diskturf)]!", holder)
-			to_chat(holder, "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
+			to_chat(holder, span_danger("You can't help but feel that you just lost something back there..."))
 		add_game_logs("[fingerprintslast] who touched the lost [src] in [COORD(diskturf)].")
 		qdel(src)
 

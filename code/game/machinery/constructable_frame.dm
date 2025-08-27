@@ -1187,3 +1187,14 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/vendor/plasmamate/Initialize(mapload)
 	. = ..()
 	set_type("PlasmaMate")
+
+/obj/item/circuitboard/anomaly_generator
+	board_name = "генератор аномалий"
+	build_path = /obj/machinery/power/anomaly_generator
+	board_type = "machine"
+	origin_tech = "programming=1;bluespace=3"
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/capacitor = 2
+	)

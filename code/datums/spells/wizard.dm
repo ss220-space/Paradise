@@ -471,7 +471,7 @@
 /obj/effect/proc_holder/spell/sacred_flame/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new()
 	T.include_user = TRUE
-	T.range = 6
+	T.range = 7
 	T.allowed_type = /mob/living
 	return T
 
@@ -479,7 +479,11 @@
 /obj/effect/proc_holder/spell/sacred_flame/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)
 		L.adjust_fire_stacks(20)
+		L.IgniteMob()
 	if(isliving(user))
+		if(!HAS_TRAIT(user, TRAIT_RESIST_HEAT))
+			ADD_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
+			to_chat(user, span_notice("Ты стал огнестойким."))
 		var/mob/living/U = user
 		U.IgniteMob()
 

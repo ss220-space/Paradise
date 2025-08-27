@@ -37,14 +37,14 @@
 	var/healthpercent = (obj_integrity/max_integrity) * 100
 	switch(healthpercent)
 		if(100)
-			. = "<span class='notice'>It looks fully intact.</span>"
+			. = span_notice("It looks fully intact.")
 		if(70 to 99)
-			. =  "<span class='warning'>It looks slightly damaged.</span>"
+			. =  span_warning("It looks slightly damaged.")
 		if(40 to 70)
-			. =  "<span class='warning'>It looks moderately damaged.</span>"
+			. =  span_warning("It looks moderately damaged.")
 		if(0 to 40)
-			. = "<span class='danger'>It looks heavily damaged.</span>"
-	. += "<br><span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
+			. = span_danger("It looks heavily damaged.")
+	. += span_notice("<br>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.")
 
 /obj/structure/falsewall/ratvar_act()
 	new /obj/structure/falsewall/brass(loc)
@@ -170,7 +170,7 @@
 	dismantle(user, TRUE)
 
 /obj/structure/falsewall/proc/dismantle(mob/user, disassembled = TRUE)
-	user.visible_message("<span class='notice'>[user] dismantles the false wall.</span>", "<span class='warning'>You dismantle the false wall.</span>")
+	user.visible_message(span_notice("[user] dismantles the false wall."), span_warning("You dismantle the false wall."))
 	playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 	deconstruct(disassembled)
 
@@ -214,8 +214,10 @@
 
 // Copy of `/atom/proc/hitby()`. Falsewalls must use this `hitby` as do regular walls.
 /obj/structure/falsewall/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+	if(density && AM.no_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, hitby_react), AM), 0.2 SECONDS)
+
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 
 
 /*
@@ -233,7 +235,7 @@
 
 /obj/structure/falsewall/reinforced/examine_status(mob/user)
 	. = ..()
-	. += "<br><span class='notice'>The outer <b>grille</b> is fully intact.</span>"	//not going to fake other states of disassembly
+	. += span_notice("<br>The outer <b>grille</b> is fully intact.")	//not going to fake other states of disassembly
 
 /obj/structure/falsewall/reinforced/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)
@@ -330,7 +332,7 @@
 
 	if(I.get_heat() > 300)
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
-		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		burnbabyburn()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -488,7 +490,7 @@
 /obj/structure/falsewall/clockwork/attack_hand(mob/user)
 	if(!isclocker(user))
 		user.changeNext_move(CLICK_CD_MELEE)
-		to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
+		to_chat(user, span_notice("You push the wall but nothing happens!"))
 		playsound(src, 'sound/weapons/genhit.ogg', 25, 1) //sneaky
 		return FALSE
 	return ..()

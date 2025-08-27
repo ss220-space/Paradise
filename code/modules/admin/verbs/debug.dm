@@ -827,7 +827,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	to_chat(src, "<span class='info'>You can now right click to use inspect on browsers.</span>")
-	winset(src, "", "browser-options=byondstorage,find,devtools")
+	winset(src, null, list("browser-options" = "+devtools"))
 
 /client/proc/jump_to_ruin()
 	set category = "OOC"

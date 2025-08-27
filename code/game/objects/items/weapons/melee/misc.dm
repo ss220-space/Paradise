@@ -4,8 +4,8 @@
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
-	var/message = "<span class='danger'>[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!</span>"
-	var/self_message = "<span class='userdanger'>You block the attack!</span>"
+	var/message = span_danger("[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!")
+	var/self_message = span_userdanger("You block the attack!")
 	if(target.check_martial_art_defense(target, user, src, message, self_message))
 		user.Stun(4 SECONDS)
 		return TRUE
@@ -26,7 +26,7 @@
 
 
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is strangling [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(user), span_suicide("[user] is strangling [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	return OXYLOSS
 
 /obj/item/melee/rapier
@@ -166,15 +166,23 @@
             return
 
         if(A.locked)
-            to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
+            to_chat(user, span_notice("The airlock's bolts prevent it from being forced."))
             return
 
         if(A.arePowerSystemsOn())
-            user.visible_message(span_warning("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"), span_warning("You start forcing the airlock open."), span_warning("You hear a metal screeching sound."))
+            user.visible_message(
+				span_warning("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"),
+				span_warning("You start forcing the airlock open."),
+				span_warning("You hear a metal screeching sound.")
+			)
             playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
             if(!do_after(user, 2.5 SECONDS, A))
                 return
-        user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+        user.visible_message(
+			span_warning("[user] forces the airlock open with [user.p_their()] [name]!"),
+			span_warning("You force open the airlock."),
+			span_warning("You hear a metal screeching sound.")
+		)
         A.open(TRUE)
 
 /obj/item/melee/mantisblade/shellguard
@@ -233,7 +241,7 @@
 	if(proximity_flag)
 		if(is_type_in_typecache(target, strong_against))
 			new /obj/effect/decal/cleanable/insectguts(target.drop_location())
-			to_chat(user, "<span class='warning'>You easily splat the [target].</span>")
+			to_chat(user, span_warning("You easily splat the [target]."))
 			if(istype(target, /mob/living/))
 				var/mob/living/bug = target
 				bug.death(1)

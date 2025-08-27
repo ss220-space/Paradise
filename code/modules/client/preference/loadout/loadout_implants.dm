@@ -1,7 +1,7 @@
 /datum/gear/implant
 	subtype_path = /datum/gear/implant
 	slot = null
-	sort_category = "Implants"
+	sort_category = "Импланты"
 	implantable = TRUE
 
 /datum/gear/implant/

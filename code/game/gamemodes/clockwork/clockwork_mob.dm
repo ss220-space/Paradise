@@ -57,8 +57,8 @@
 		playsound(loc, 'sound/weapons/clash.ogg', 50, TRUE)
 		L.apply_damage(25, STAMINA)
 		src.do_attack_animation(target)
-		target.visible_message("<span class='danger'>[src] hits [target] with flat of the sword!</span>", \
-						"<span class='userdanger'>[src] hits you with flat of the sword!</span>")
+		target.visible_message(span_danger("[src] hits [target] with flat of the sword!"), \
+						span_userdanger("[src] hits you with flat of the sword!"))
 		add_attack_logs(src, target, "Knocks")
 	else
 		..()
@@ -154,10 +154,10 @@
 	var/obj/structure/cable/C = locate() in F
 	if(C && prob(30))
 		if(C.avail())
-			visible_message("<span class='warning'>[src] chews through [C]. [src] sparks for a moment!</span>")
+			visible_message(span_warning("[src] chews through [C]. [src] sparks for a moment!"))
 			playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
 		else
-			visible_message("<span class='warning'>[src] chews through [C].</span>")
+			visible_message(span_warning("[src] chews through [C]."))
 		investigate_log("was chewed through by a clock mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
 		C.deconstruct()
 
@@ -168,8 +168,8 @@
 	return
 
 /mob/living/simple_animal/mouse/clockwork/get_scooped(mob/living/carbon/grabber)
-	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
-	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
+	to_chat(grabber, span_warning("You try to pick up [src], but they slip out of your grasp!"))
+	to_chat(src, span_warning("[src] tries to pick you up, but you wriggle free of their grasp!"))
 
 /mob/living/simple_animal/mouse/clockwork/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	return

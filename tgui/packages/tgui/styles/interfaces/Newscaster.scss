@@ -142,7 +142,6 @@ $_gen_map: (
   width: 96px;
   border: 1px solid colors.$black;
   transition: border-color 0.1s;
-  -ms-interpolation-mode: nearest-neighbor; // TODO: Remove with 516
   image-rendering: pixelated;
 
   &:hover {
@@ -155,7 +154,6 @@ $_gen_map: (
 
   & > img {
     transform: scale(2);
-    -ms-interpolation-mode: nearest-neighbor; // TODO: Remove with 516
     image-rendering: pixelated;
   }
 

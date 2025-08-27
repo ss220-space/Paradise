@@ -93,6 +93,11 @@
 			),
 		))
 		return TRUE
+
+	if (type == "theme")
+		client.tgui_panel_theme = payload["theme"]
+		return TRUE
+
 	if(type == "audio/setAdminMusicVolume")
 		client.admin_music_volume = payload["volume"]
 		return TRUE

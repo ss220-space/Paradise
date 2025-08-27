@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	apply_innate_effects()
 	messages.Add(finalize_antag())
 	if(wiki_page_name)
-		messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/[wiki_page_name]\">[russian_wiki_name]</span>")
+		messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/[wiki_page_name]\">[russian_wiki_name]"))
 	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 
 	if(is_banned(owner.current) && replace_banned)
@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/list/messages = list()
 	. = messages
 	if(owner?.current && !silent)
-		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
+		messages.Add(span_userdanger("You are a [special_role]!"))
 
 
 /**
@@ -345,7 +345,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	to_chat(owner.current, span_notice("Your current objectives:"))
 	var/objective_num = 1
 	for(var/datum/objective/objective in objectives)
-		to_chat(owner.current, "<span><b>Objective #[objective_num++]</b>: [objective.explanation_text]</span><br>")
+		to_chat(owner.current, span_notice("<b>Objective #[objective_num++]</b>: [objective.explanation_text]<br>"))
 	return TRUE
 
 
@@ -460,16 +460,16 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/objectives_complete = TRUE
 	for(var/datum/objective/objective in objectives)
 		if(objective.check_completion())
-			report  += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+			report  += "<b>Objective #[count]</b>: [objective.explanation_text] [span_greentext("Success!")]"
 		else
 			objectives_complete = FALSE
-			report  += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			report  += "<b>Objective #[count]</b>: [objective.explanation_text] [span_redtext("Fail.")]"
 		count++
 
 	if(!length(objectives) || objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>"
+		report += span_greentext("<big>The [name] was successful!</big>")
 	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
+		report += span_redtext("<big>The [name] has failed!</big>")
 
 	return report.Join("<br>")
 
@@ -478,7 +478,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
  * Displayed at the start of roundend_category section, default to roundend_category header.
  */
 /datum/antagonist/proc/roundend_report_header()
-	return 	"<span class='header'>The [roundend_category] were:</span><br>"
+	return 	span_header("The [roundend_category] were:<br>")
 
 
 /**

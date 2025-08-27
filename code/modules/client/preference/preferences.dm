@@ -267,6 +267,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	///TRUE when a player declines to be included for the selection process of game mode antagonists.
 	var/skip_antag = FALSE
 
+	var/datum/ui_module/loadout/loadout
+
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -714,7 +716,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			var/static/list/pref_toggles_by_category
 			if(!pref_toggles_by_category)
 				pref_toggles_by_category = list()
-				
+
 				for(var/path in GLOB.preference_toggles)
 					var/datum/preference_toggle/toggle = GLOB.preference_toggles[path]
 					pref_toggles_by_category["[toggle.preftoggle_category]"] += list(toggle)
@@ -734,7 +736,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					switch(toggle.preftoggle_toggle)
 						if(PREFTOGGLE_SPECIAL)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>Adjust</a></td>"
-							
+
 						if(PREFTOGGLE_TOGGLE1)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
 
@@ -2113,7 +2115,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						backbag = new_backbag
 
 				if("loadout")
-					var/datum/ui_module/loadout/loadout = new()
+					if(!loadout)
+						loadout = new()
 					loadout.ui_interact(user)
 					return FALSE
 
@@ -2588,7 +2591,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					parallax = parallax_styles[new_parallax]
 					if(parent && parent.mob && parent.mob.hud_used)
-						parent.mob.hud_used.update_parallax_pref()
+						parent.mob.hud_used.update_parallax_pref(parent.mob)
 
 				if("multiz_detail")
 					var/multiz_det_styles = list(
@@ -2663,7 +2666,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									"DEL" = "Delete",
 									"END" = "Southwest",
 									"PAGEDOWN" = "Southeast",
-									"SPACEBAR" = "Space",
+									" " = "Space",
 									"ALT" = "Alt",
 									"SHIFT" = "Shift",
 									"CONTROL" = "Ctrl",

@@ -108,8 +108,8 @@
 							span_userdanger("[chassis] destroys [target] in an unholy fury."))
 		M.gib()
 	/*if(chassis.occupant.a_intent == INTENT_DISARM)
-		target.visible_message("<span class='danger'>[chassis] rips [target]'s arms off.</span>",
-							"<span class='userdanger'>[chassis] rips [target]'s arms off.</span>")*/
+		target.visible_message(span_danger("[chassis] rips [target]'s arms off."),
+							span_userdanger("[chassis] rips [target]'s arms off."))*/
 	else
 		step_away(M,chassis)
 		target.visible_message("[chassis] tosses [target] like a piece of paper.")

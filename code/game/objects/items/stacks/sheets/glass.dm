@@ -45,7 +45,9 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 
 /obj/item/stack/sheet/glass/cyborg
 	materials = list()
-	is_cyborg = 1
+	is_cyborg = TRUE
+	energy_type = /datum/robot_energy_storage/glass
+	cost = 1
 	cyborg_construction_stack = /obj/item/stack/sheet/glass
 
 /obj/item/stack/sheet/glass/Initialize(mapload, new_amount, merge = TRUE)
@@ -122,6 +124,7 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 /obj/item/stack/sheet/rglass/cyborg
 	materials = list()
 	is_cyborg = 1
+	energy_type = /datum/robot_energy_storage/metal
 	var/datum/robot_energy_storage/glasource
 	var/metcost = 2
 	var/glacost = 1

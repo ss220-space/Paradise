@@ -51,7 +51,7 @@
 	if(!active_dummy)
 		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
-			to_chat(user, "<span class='notice'>Scanned [target].</span>")
+			to_chat(user, span_notice("Scanned [target]."))
 			var/obj/temp = new /obj()
 			temp.appearance = target.appearance
 			temp.layer = initial(target.layer)
@@ -70,13 +70,13 @@
 		eject_all()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		QDEL_NULL(active_dummy)
-		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
+		to_chat(user, span_notice("You deactivate [src]."))
 		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 	else
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		var/obj/effect/dummy/chameleon/C = new/obj/effect/dummy/chameleon(get_turf(user))
 		C.activate(user, saved_appearance, src)
-		to_chat(user, "<span class='notice'>You activate [src].</span>")
+		to_chat(user, span_notice("You activate [src]."))
 		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 
 /obj/item/chameleon/proc/disrupt(delete_dummy = 1)
@@ -120,7 +120,7 @@
 
 /obj/effect/dummy/chameleon/attack_hand()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
+		to_chat(M, span_danger("Your chameleon projector deactivates."))
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_animal()
@@ -134,7 +134,7 @@
 
 /obj/effect/dummy/chameleon/ex_act(severity) //no longer bomb-proof
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
+		to_chat(M, span_danger("Your chameleon projector deactivates."))
 		spawn()
 			M.ex_act(severity)
 	master.disrupt()
@@ -209,14 +209,14 @@
 		if(isturf(user.loc))
 			toggle(user)
 		else
-			to_chat(user, "<span class='warning'>You can't use [src] while inside something!</span>")
+			to_chat(user, span_warning("You can't use [src] while inside something!"))
 	else
-		to_chat(user, "<span class='warning'>You need at least [activationCost] charge in your cell to use [src]!</span>")
+		to_chat(user, span_warning("You need at least [activationCost] charge in your cell to use [src]!"))
 
 /obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, -6)
-		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
+		to_chat(user, span_notice("You deactivate [src]."))
 		deactivate(user)
 	else
 		var/choice
@@ -244,7 +244,7 @@
 				choice = disguise
 			else
 				choice = last_disguise
-		to_chat(user, "<span class='notice'>You activate [src].</span>")
+		to_chat(user, span_notice("You activate [src]."))
 		var/start = user.filters.len
 		var/X
 		var/Y
@@ -264,10 +264,10 @@
 			animate(offset = f:offset - 1, time = rand() * 20 + 10)
 		if(do_after(user, 5 SECONDS, user) && user.cell.use(activationCost))
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
-			to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen cyborg.</span>")
+			to_chat(user, span_notice("You are now disguised as a Nanotrasen cyborg."))
 			activate(user, choice)
 		else
-			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
+			to_chat(user, span_warning("The chameleon field fizzles."))
 			do_sparks(3, FALSE, user)
 			for(i in 1 to min(7, user.filters.len)) // removing filters that are animating does nothing, we gotta stop the animations first
 				f = user.filters[start + i]
@@ -307,5 +307,5 @@
 
 /obj/item/borg_chameleon/proc/disrupt(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
-		to_chat(user, "<span class='danger'>Your chameleon field deactivates.</span>")
+		to_chat(user, span_danger("Your chameleon field deactivates."))
 		deactivate(user)

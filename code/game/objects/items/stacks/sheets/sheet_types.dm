@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("Barstool", /obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Chair", /obj/structure/chair, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Barber chair", /obj/structure/chair/barber, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Wheelchair", /obj/structure/chair/wheelchair, 15, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Wheelchair", /obj/vehicle/ridden/wheelchair, 15, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Bed", /obj/structure/bed, 2, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = TRUE, on_floor = TRUE),
 	null,
@@ -125,8 +125,9 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
-	is_cyborg = 1
 	cyborg_construction_stack = /obj/item/stack/sheet/metal
+	cost = 4
+	energy_type = /datum/robot_energy_storage/metal
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
@@ -260,8 +261,10 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	merge_type = /obj/item/stack/sheet/wood
 
 /obj/item/stack/sheet/wood/cyborg
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/sheet/wood
+	energy_type = /datum/robot_energy_storage/wood
+	cost = 4
 
 /obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -468,7 +471,6 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 	item_state = "sheet-runed"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
-	recipe_width = 700
 
 /obj/item/stack/sheet/runed_metal_fake
 	name = "runed metal"
@@ -619,6 +621,8 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	materials = list()
 	is_cyborg = 1
 	cyborg_construction_stack = /obj/item/stack/sheet/brass
+	cost = 1
+	energy_type = /datum/robot_energy_storage/brass
 
 
 /obj/item/stack/sheet/brass_fake

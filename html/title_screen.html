@@ -354,6 +354,41 @@
 				transform: rotate(180deg);
 			}
 
+			.status-box {
+				background: rgba(255, 255, 255, 0.85);
+				border-radius: 10px;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+				padding: 15px;
+				width: 160px;
+				text-align: center;
+				position: absolute;
+				top: 5px;
+				right: 5px;
+				z-index: 9999;
+				font-family: Arial, sans-serif;
+			}
+
+			.status-box .status-item {
+				margin: 8px 0;
+				font-size: 16px;
+				color: #555;
+			}
+
+			.status-box .status-item span {
+				font-weight: bold;
+				color: #007bff;
+			}
+
+			.status-box .countdown {
+				font-size: 18px;
+				font-weight: bold;
+				color: #e74c3c;
+			}
+
+			#hide_menu:checked ~ .status-box {
+				display: none;
+			}
+
 			/**
 			 * MARK: Dark
 			 */
@@ -380,6 +415,19 @@
 
 			.dark hr{
 				border-bottom: 0.15em solid rgba(255, 255, 255, 0.1);
+			}
+
+			.dark .status-box {
+				background: rgba(19, 19, 19, 0.85);
+				color: #e4e4e4;
+}
+
+			.dark .status-box .status-item {
+				color: #ccc;
+			}
+
+			.dark .status-box .status-item span {
+				color: #00b3b3;
 			}
 
 			/**
@@ -411,6 +459,18 @@
 				border-bottom: 0.15em solid rgba(255, 255, 255, 0.2);
 			}
 
+			.ntos .status-box {
+				background: rgba(18, 25, 34, 0.85);
+				color: #b8cbe6;
+			}
+
+			.ntos .status-box .status-item {
+				color: #d0d0d0;
+			}
+
+			.ntos .status-box .status-item span {
+				color: #7f9db6;
+			}
 
 			/**
 			 * MARK: Syndicate
@@ -440,6 +500,19 @@
 				border-bottom: 0.15em solid rgba(255, 255, 255, 0.2);
 			}
 
+			.syndicate .status-box {
+				background: rgba(43, 1, 1, 0.85);
+				color: #DEBDBD;
+			}
+
+			.syndicate .status-box .status-item {
+				color: #f2f2f2;
+			}
+
+			.syndicate .status-box .status-item span {
+				color: #a1d6a1;
+			}
+
 			/**
 			 * MARK: Paradise
 			 */
@@ -466,6 +539,19 @@
 
 			.paradise hr {
 				border-bottom: 0.15em solid rgba(255, 255, 255, 0.2);
+			}
+
+			.paradise .status-box {
+				background: rgba(64, 1, 37, 0.85);
+				color: #E4D7A2;
+			}
+
+			.paradise .status-box .status-item {
+				color: #f3e0c7;
+			}
+
+			.paradise .status-box .status-item span {
+				color: #98d9d9;
 			}
 
 			.pixelated {
@@ -552,6 +638,11 @@
 					line-height: 1.75rem;
 					font-size: 1.75rem;
 				}
+
+				.status-box {
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: none;
+    }
 			}
 		</style>
 	</head>

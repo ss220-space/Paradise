@@ -100,9 +100,9 @@
 					user.forceMove(to_turf)
 					if(user.client)
 						if(camera)
-							user.client.eye = camera
+							user.client.set_eye(camera)
 						else
-							user.client.eye = user
+							user.client.set_eye(user)
 				qdel(holder)
 			else if(user)
 				user.forceMove(from_turf)
@@ -198,7 +198,7 @@
 		if(user == holder)
 			if(user.client && user.client.eye != src)
 				src.loc = get_turf(user)
-				user.client.eye = src
+				user.client.set_eye(src)
 			var/step = get_step(src, direction)
 			if(step)
 				if(isspaceturf(step))
@@ -214,5 +214,5 @@
 		if(holder.remote_control == src)
 			holder.remote_control = null
 		if(holder.client && (holder.client.eye == src))
-			holder.client.eye = holder
+			holder.client.set_eye(holder)
 	return ..()

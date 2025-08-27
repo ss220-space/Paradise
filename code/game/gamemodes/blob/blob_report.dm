@@ -6,7 +6,7 @@
 			return
 		if(BLOB_FIRST_REPORT)
 			interceptname = "Процедуры реагирования на биологическую угрозу уровня 5-6"
-			intercepttext += "<span style='font-size: 3;'><b>Постановление Nanotrasen</b>: Предупреждение о биологической угрозе.</span><hr>"
+			intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Предупреждение о биологической угрозе.<hr>")
 			intercepttext += "Отчеты указывают на возможное проникновение биологически опасного организма на [station_name()] во время последнего цикла ротации экипажа.<br>"
 			intercepttext += "Предварительный анализ организма классифицирует его как биологическую угрозу 5-го уровня. Его происхождение неизвестно.<br>"
 			intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<br>"
@@ -25,7 +25,7 @@
 						bomb.r_code = nukecode
 
 			interceptname = "Секретное постановление [command_name()]"
-			intercepttext += "<span style='font-size: 3;'<b>Постановление Nanotrasen</b>: Предупреждение о биологической угрозе.</span><hr>"
+			intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Предупреждение о биологической угрозе.<hr>")
 			intercepttext += "Для [station_name()] была издана директива 7-12.<br>"
 			intercepttext += "Биологическая угроза вышла из-под контроля и скоро достигнет критической массы.<br>"
 			intercepttext += "Вам приказано следующее:<br>"
@@ -48,7 +48,7 @@
 
 		if(BLOB_THIRD_REPORT)
 			interceptname = "Секретное постановление [command_name()]"
-			intercepttext += "<span style='font-size: 3;'><b>Постановление Nanotrasen</b>: Биоугроза не обнаружена</span><hr>"
+			intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Биоугроза не обнаружена<hr>")
 			intercepttext += "Дирректива 7-10 была отменена для [station_name()].<br>"
 			if(blob_stage == BLOB_STAGE_THIRD)
 				intercepttext += "Дирректива 7-12 была отменена для [station_name()].<br>"

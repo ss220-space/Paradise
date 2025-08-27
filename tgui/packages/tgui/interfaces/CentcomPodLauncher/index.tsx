@@ -11,7 +11,7 @@ import { StylePage } from './StylePage';
 import { Timing } from './Timing';
 import { ViewTabHolder } from './ViewTabHolder';
 
-export const CentcomPodLauncher = (props) => {
+export const CentcomPodLauncher = (props: unknown) => {
   const [compact] = useCompact();
 
   return (
@@ -57,7 +57,7 @@ export const CentcomPodLauncher = (props) => {
                   </Stack.Item>
                   {!compact && (
                     <Stack.Item>
-                      <PodSounds fill />
+                      <PodSounds />
                     </Stack.Item>
                   )}
                 </Stack>

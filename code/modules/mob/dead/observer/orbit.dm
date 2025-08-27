@@ -49,9 +49,10 @@
 	if(auto_observe)
 		var/mob/eye_mob = poi
 		if(istype(eye_mob) && eye_mob.client)
+			owner.handle_when_autoobserve_move()
 			owner.do_observe(eye_mob)
 		else
-			owner.cleanup_observe()
+			owner.handle_when_autoobserve_move()
 			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока! Показать инвентарь <b>невозможно</b>."))
 
 	owner.ManualFollow(poi)
@@ -60,8 +61,7 @@
 	auto_observe = !auto_observe
 
 	if(!owner.orbiting)
-		owner.reset_perspective(null)
-		owner.cleanup_observe()
+		owner.handle_when_autoobserve_move()
 		return
 
 	if(auto_observe)
@@ -74,8 +74,7 @@
 
 	var/atom/movable/eye_mob = owner.orbiting
 	owner.orbiting = null
-	owner.reset_perspective(null)
-	owner.cleanup_observe()
+	owner.handle_when_autoobserve_move()
 	owner.orbiting = eye_mob
 
 /datum/orbit_menu/ui_data(mob/user)

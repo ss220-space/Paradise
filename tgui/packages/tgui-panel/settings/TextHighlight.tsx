@@ -1,9 +1,10 @@
-import { useDispatch, useSelector } from 'common/redux';
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Box,
   Button,
   ColorBox,
   Divider,
+  Icon,
   Input,
   Section,
   Stack,
@@ -16,15 +17,15 @@ import {
   removeHighlightSetting,
   updateHighlightSetting,
 } from './actions';
-import { MAX_HIGHLIGHT_SETTINGS } from './constants';
+import { WARN_AFTER_HIGHLIGHT_AMT } from './constants';
 import {
   selectHighlightSettingById,
   selectHighlightSettings,
 } from './selectors';
 
-export const TextHighlightSettings = (props, context) => {
-  const highlightSettings = useSelector(context, selectHighlightSettings);
-  const dispatch = useDispatch(context);
+export const TextHighlightSettings = (props: unknown) => {
+  const highlightSettings = useSelector(selectHighlightSettings);
+  const dispatch = useDispatch();
 
   return (
     <Section fill scrollable height="250px">
@@ -36,8 +37,8 @@ export const TextHighlightSettings = (props, context) => {
             mb={i + 1 === highlightSettings.length ? 0 : '10px'}
           />
         ))}
-        {highlightSettings.length < MAX_HIGHLIGHT_SETTINGS && (
-          <Stack.Item>
+        <Stack.Item>
+          <Box>
             <Button
               color="transparent"
               icon="plus"
@@ -47,8 +48,15 @@ export const TextHighlightSettings = (props, context) => {
             >
               Add Highlight Setting
             </Button>
-          </Stack.Item>
-        )}
+            {highlightSettings.length >= WARN_AFTER_HIGHLIGHT_AMT && (
+              <Box inline fontSize="0.9em" ml={1} color="red">
+                <Icon mr={1} name="triangle-exclamation" />
+                Large amounts of highlights can potentially cause performance
+                issues!
+              </Box>
+            )}
+          </Box>
+        </Stack.Item>
       </Stack>
       <Divider />
       <Box>
@@ -63,10 +71,10 @@ export const TextHighlightSettings = (props, context) => {
   );
 };
 
-const TextHighlightSetting = (props, context) => {
+const TextHighlightSetting = (props) => {
   const { id, ...rest } = props;
-  const highlightSettingById = useSelector(context, selectHighlightSettingById);
-  const dispatch = useDispatch(context);
+  const highlightSettingById = useSelector(selectHighlightSettingById);
+  const dispatch = useDispatch();
   const {
     highlightColor,
     highlightText,

@@ -287,7 +287,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!opened && user.loc == src)
-		to_chat(user, "<span class='warning'>You can't weld [src] from inside!</span>")
+		to_chat(user, span_warning("You can't weld [src] from inside!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -301,12 +301,19 @@ GLOBAL_LIST_EMPTY(closets)
 		if(!can_weld_shut)
 			return
 		var/adjective = welded ? "open" : "shut"
-		user.visible_message("<span class='notice'>[user] begins welding [src] [adjective]...</span>", "<span class='notice'>You begin welding [src] [adjective]...</span>", "<span class='warning'>You hear welding.</span>")
+		user.visible_message(
+			span_notice("[user] begins welding [src] [adjective]..."),
+			span_notice("You begin welding [src] [adjective]..."),
+			span_warning("You hear welding.")
+		)
 		if(I.use_tool(src, user, 15, volume = I.tool_volume))
 			if(opened)
-				to_chat(user, "<span class='notice'>Keep [src] shut while doing that!</span>")
+				to_chat(user, span_notice("Keep [src] shut while doing that!"))
 				return
-			user.visible_message("<span class='notice'>[user] welds [src] [adjective]!</span>", "<span class='notice'>You weld [src] [adjective]!</span>")
+			user.visible_message(
+				span_notice("[user] welds [src] [adjective]!"),
+				span_notice("You weld [src] [adjective]!")
+			)
 			welded = !welded
 			update_icon()
 
@@ -333,7 +340,10 @@ GLOBAL_LIST_EMPTY(closets)
 		user.stop_pulling()
 	step_towards(O, loc)
 	if(user != O)
-		user.visible_message("<span class='danger'>[user] stuffs [O] into [src]!</span>", "<span class='danger'>You stuff [O] into [src]!</span>")
+		user.visible_message(
+			span_danger("[user] stuffs [O] into [src]!"),
+			span_danger("You stuff [O] into [src]!")
+		)
 	add_fingerprint(user)
 	return TRUE
 
@@ -346,7 +356,7 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 
 	if(!open())
-		to_chat(user, "<span class='notice'>It won't budge!</span>")
+		to_chat(user, span_notice("It won't budge!"))
 		if(!lastbang)
 			lastbang = 1
 			for(var/mob/M in hearers(src, null))
@@ -378,7 +388,7 @@ GLOBAL_LIST_EMPTY(closets)
 		add_fingerprint(usr)
 		toggle(usr)
 	else
-		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
+		to_chat(usr, span_warning("This mob type can't use this verb."))
 
 
 /obj/structure/closet/update_icon(updates = ALL)
@@ -446,9 +456,9 @@ GLOBAL_LIST_EMPTY(closets)
 	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
 
 	//okay, so the closet is either welded or locked... resist!!!
-	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
+	to_chat(L, span_warning("You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)"))
 	for(var/mob/O in viewers(usr.loc))
-		O.show_message("<span class='danger'>The [src] begins to shake violently!</span>", 1)
+		O.show_message(span_danger("The [src] begins to shake violently!"), 1)
 
 
 	spawn(0)
@@ -463,9 +473,9 @@ GLOBAL_LIST_EMPTY(closets)
 			//Well then break it!
 			welded = FALSE
 			update_icon()
-			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
+			to_chat(usr, span_warning("You successfully break out!"))
 			for(var/mob/O in viewers(L.loc))
-				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
+				O.show_message(span_danger("\the [usr] successfully broke out of \the [src]!"), 1)
 			if(istype(loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)
@@ -476,7 +486,10 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/tesla_act(var/power)
 	..()
-	visible_message("<span class='danger'>[src] is blown apart by the bolt of electricity!</span>", "<span class='danger'>You hear a metallic screeching sound.</span>")
+	visible_message(
+		span_danger("[src] is blown apart by the bolt of electricity!"),
+		span_danger("You hear a metallic screeching sound.")
+	)
 	qdel(src)
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
@@ -526,7 +539,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 	if(locked && allowed(target))
 		locked = !locked
-		visible_message("<span class='danger'>[attacker] shoves [target] against [src], knocking the lock [locked ? null : "un"]locked!</span>")
+		visible_message(span_danger("[attacker] shoves [target] against [src], knocking the lock [locked ? null : "un"]locked!"))
 		target.Knockdown(3 SECONDS)
 		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
 		update_icon()
@@ -534,7 +547,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 	if(!opened && can_open())
 		open()
-		visible_message("<span class='danger'>[attacker] shoves [target] against [src], knocking it open!</span>")
+		visible_message(span_danger("[attacker] shoves [target] against [src], knocking it open!"))
 		target.Knockdown(3 SECONDS)
 		return TRUE
 

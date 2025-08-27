@@ -29,7 +29,7 @@
 	can_buckle_to = FALSE
 	mob_size = MOB_SIZE_LARGE
 	buckle_prevents_pull = TRUE // No pulling loaded shit
-	radio_channel = "Supply"
+	radio_channel = SUP_FREQ_NAME
 
 	bot_type = MULE_BOT
 	bot_filter = RADIO_MULEBOT
@@ -707,7 +707,7 @@
  */
 /mob/living/simple_animal/bot/mulebot/proc/at_target()
 	if(!reached_target)
-		radio_channel = "Supply" //Supply channel
+		radio_channel = SUP_FREQ_NAME //Supply channel
 		audible_message("[capitalize(declent_ru(NOMINATIVE))] громко звенит!")
 		playsound(loc, 'sound/machines/chime.ogg', 50, 0)
 		reached_target = 1
@@ -718,7 +718,7 @@
 				to_chat(calling_ai, "<span class='notice'>[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] удалённо проигрывает звук звонка!</span>")
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
 				calling_ai = null
-				radio_channel = "AI Private" //Report on AI Private instead if the AI is controlling us.
+				radio_channel = AI_FREQ_NAME //Report on AI Private instead if the AI is controlling us.
 
 		if(load)		// if loaded, unload at target
 			if(report_delivery)

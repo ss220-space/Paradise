@@ -1,4 +1,3 @@
-/* eslint-disable react/state-in-constructor */
 /**
  * @file
  * @copyright 2023 itsmeow
@@ -6,7 +5,8 @@
  */
 
 import { Loader } from './common/Loader';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Autofocus,
   Box,
@@ -30,8 +30,8 @@ import {
 } from 'common/color';
 import { Interaction, Interactive } from 'tgui/components/Interactive';
 import { classes } from 'common/react';
-import { Component, FocusEvent, FormEvent, InfernoNode } from 'inferno';
-import { logger } from 'tgui/logging';
+import { Component, FocusEvent, FormEvent, ReactNode } from 'react';
+import { logger } from 'common/logging';
 import { InputButtons } from './common/InputButtons';
 
 type ColorPickerData = {
@@ -54,8 +54,7 @@ export const ColorPickerModal = (_) => {
     autofocus,
     default_color = '#000000',
   } = data;
-  let [selectedColor, setSelectedColor] = useLocalState<HsvaColor>(
-    'color_picker_choice',
+  let [selectedColor, setSelectedColor] = useState<HsvaColor>(
     hexToHsva(default_color)
   );
 
@@ -102,9 +101,7 @@ export const ColorSelector = ({
   defaultColor: string;
 }) => {
   const handleChange = (params: Partial<HsvaColor>) => {
-    setColor((current: HsvaColor) => {
-      return Object.assign({}, current, params);
-    });
+    setColor(Object.assign({}, color, params));
   };
   const rgb = hsvaToRgba(color);
   const hexColor = hsvaToHex(color);
@@ -340,7 +337,7 @@ interface HexColorInputProps
 /** Adds "#" symbol to the beginning of the string */
 const prefix = (value: string) => '#' + value;
 
-export const HexColorInput = (props: HexColorInputProps): InfernoNode => {
+export const HexColorInput = (props: HexColorInputProps): ReactNode => {
   const { prefixed, alpha, color, fluid, onChange, ...rest } = props;
 
   /** Escapes all non-hexadecimal characters including "#" */
@@ -375,13 +372,12 @@ interface ColorInputBaseProps {
   format?: (value: string) => string;
 }
 
-export class ColorInput extends Component {
-  props: ColorInputBaseProps;
-  state: { localValue: string };
-
+export class ColorInput extends Component<
+  ColorInputBaseProps,
+  { localValue: string }
+> {
   constructor(props: ColorInputBaseProps) {
-    super();
-    this.props = props;
+    super(props);
     this.state = { localValue: this.props.escape(this.props.color) };
   }
 
@@ -450,11 +446,11 @@ const SaturationValue = ({ hsva, onChange }) => {
   };
 
   const containerStyle = {
-    'background-color': `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })} !important`,
+    backgroundColor: `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })}`,
   };
 
   return (
-    <div className="react-colorful__saturation_value" style={containerStyle}>
+    <Box className="react-colorful__saturation_value" style={containerStyle}>
       <Interactive
         onMove={handleMove}
         onKey={handleKey}
@@ -468,7 +464,7 @@ const SaturationValue = ({ hsva, onChange }) => {
           color={hsvaToHslString(hsva)}
         />
       </Interactive>
-    </div>
+    </Box>
   );
 };
 
@@ -540,7 +536,7 @@ const Saturation = ({
     <div className={nodeClassName}>
       <Interactive
         style={{
-          'background': `linear-gradient(to right, ${hsvaToHslString({
+          background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
             s: 0,
             v: color.v,
@@ -589,7 +585,7 @@ const Value = ({
     <div className={nodeClassName}>
       <Interactive
         style={{
-          'background': `linear-gradient(to right, ${hsvaToHslString({
+          background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
             s: color.s,
             v: 0,

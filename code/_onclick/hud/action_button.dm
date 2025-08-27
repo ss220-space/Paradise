@@ -7,7 +7,7 @@
 	var/datum/keybinding/mob/trigger_action_button/linked_keybind
 
 /atom/movable/screen/movable/action_button/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(!observer_check(usr))
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return
 
 	if(locked && could_be_click_lag()) // in case something bad happend and game realised we dragged our ability instead of pressing it
@@ -37,7 +37,7 @@
 
 
 /atom/movable/screen/movable/action_button/Click(location,control,params)
-	if(!observer_check(usr))
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return
 
 	var/list/modifiers = params2list(params)
@@ -73,7 +73,7 @@
 	return TRUE
 
 /atom/movable/screen/movable/action_button/proc/set_to_keybind(mob/user)
-	if(!observer_check(usr))
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return
 
 	var/keybind_to_set_to = tgui_input_keycombo(user, "What keybind do you want to set this action button to?")
@@ -94,7 +94,7 @@
 
 
 /atom/movable/screen/movable/action_button/click_alt(mob/user)
-	if(!observer_check(usr))
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return
 
 	linked_action.AltTrigger()
@@ -103,7 +103,7 @@
 
 /atom/movable/screen/movable/action_button/proc/clean_up_keybinds(mob/owner)
 	if(linked_keybind)
-		if(!observer_check(usr))
+		if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 			return
 
 		owner.client.active_keybindings[linked_keybind.binded_to] -= (linked_keybind)
@@ -133,10 +133,8 @@
 
 
 /atom/movable/screen/movable/action_button/hide_toggle/Click(location,control,params)
-	if(isobserver(usr))
-		var/mob/dead/observer/dead_mob = usr
-		if(dead_mob.orbiting)
-			return FALSE
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
+		return
 
 	if(usr.next_click > world.time)
 		return FALSE
@@ -158,7 +156,7 @@
 
 
 /atom/movable/screen/movable/action_button/hide_toggle/click_alt(mob/user)
-	if(!observer_check(usr))
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return
 
 	for(var/datum/action/action as anything in user.actions)
@@ -197,9 +195,6 @@
 
 
 /atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
-	if(!observer_check(usr))
-		return
-
 	if(!QDELETED(src))
 		if(!linked_keybind)
 			openToolTip(usr, src, params, title = name, content = desc, theme = actiontooltipstyle)
@@ -213,14 +208,6 @@
 
 /atom/movable/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)
-
-// We don't want give permit to use buttons
-/atom/movable/screen/movable/action_button/proc/observer_check(mob/user)
-	if(isobserver(user))
-		var/mob/dead/observer/dead_mob = user
-		if(linked_action?.owner != user || dead_mob.orbiting)
-			return FALSE
-	return TRUE
 
 /mob/proc/update_action_buttons_icon()
 	for(var/datum/action/action as anything in actions)

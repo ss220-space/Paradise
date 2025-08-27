@@ -1199,7 +1199,7 @@
  */
 
 /obj/machinery/vending/proc/tilt(atom/target_atom, crit = FALSE, from_combat = FALSE)
-	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
+	if(QDELETED(src) || no_gravity(src) || !tiltable || tilted)
 		return
 
 	tilted = TRUE

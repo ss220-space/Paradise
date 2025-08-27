@@ -373,17 +373,17 @@
 	icon_state = "cock"
 	slot_flags = null
 
-/obj/item/holder/hamster
+/obj/item/holder/wooly_mouse
 	name = "pet"
 	desc = "It's a pet"
 	icon = 'icons/mob/animal.dmi'
-	icon_state = "hamster"
+	icon_state = "wooly_mouse"
 
-/obj/item/holder/hamster_rep
-	name = "Представитель Алексей"
-	desc = "Уважаемый хомяк"
+/obj/item/holder/mouse_rep
+	name = "Господин Мышкин"
+	desc = "Самый уважаемый грызун во вселенной."
 	icon = 'icons/mob/animal.dmi'
-	icon_state = "hamster_rep"
+	icon_state = "mouse_rep"
 
 /obj/item/holder/fennec
 	name = "fennec"

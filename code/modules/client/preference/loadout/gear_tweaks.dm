@@ -32,9 +32,9 @@
 */
 
 /datum/gear_tweak/color
-	display_type = "Color"
+	display_type = "Цвет"
 	fa_icon = "palette"
-	info = "Recolorable"
+	info = "Перекрашиваемое"
 	var/list/valid_colors
 	var/datum/gear/parent
 
@@ -44,16 +44,16 @@
 	..()
 
 /datum/gear_tweak/color/get_contents(metadata)
-	return "Color: <font color='[metadata]'>&#9899;</font>"
+	return "Цвет: <font color='[metadata]'>&#9899;</font>"
 
 /datum/gear_tweak/color/get_default()
 	return valid_colors ? valid_colors[1] : COLOR_WHITE
 
 /datum/gear_tweak/color/get_metadata(user, metadata)
 	if(valid_colors)
-		metadata = tgui_input_list(user, "Choose an item color.", "Character Preference", valid_colors, metadata)
+		metadata = tgui_input_list(user, "Выберите цвет предмета.", "Настройка цвета", valid_colors, metadata)
 	else
-		metadata = tgui_input_color(user, "Choose an item color.", "Global Preference", metadata)
+		metadata = tgui_input_color(user, "Выберите цвет предмета.", "Настройка цвета", metadata)
 	update_gear_intro(metadata)
 	return metadata
 
@@ -78,9 +78,9 @@
 */
 
 /datum/gear_tweak/path
-	display_type = "Subtype"
+	display_type = "Подтип"
 	fa_icon = "bars"
-	info = "Has subtypes"
+	info = "Имеет подтипы"
 	var/list/valid_paths = list()
 	var/datum/gear/parent
 
@@ -100,7 +100,7 @@
 	return valid_paths[1]
 
 /datum/gear_tweak/path/get_metadata(user, metadata)
-	metadata = tgui_input_list(user, "Choose a type.", "Character Preference", valid_paths, metadata)
+	metadata = tgui_input_list(user, "Выберите подтип предмета.", "Выбор подтипа", valid_paths, metadata)
 	update_gear_intro(metadata)
 	return metadata
 
@@ -114,9 +114,10 @@
 		return tgui_data
 	tgui_data["display_param"] = param
 	var/obj/item/path = valid_paths[param]
-	tgui_data["icon_file"] = path.icon
-	tgui_data["icon_state"] = path.icon_state
-	tgui_data["name"] = path.name
+	var/atom/item = new path(src)
+	tgui_data["icon_file"] = item.icon
+	tgui_data["icon_state"] = item.icon_state
+	tgui_data["name"] = item.ru_names ? item.ru_names[1] : item.name
 	return tgui_data
 
 /datum/gear_tweak/path/tweak_gear_data(metadata, datum/gear_data/gear_data)
@@ -126,16 +127,16 @@
 
 // MARK: Rename
 /datum/gear_tweak/rename
-	display_type = "Name"
+	display_type = "Название"
 	fa_icon = "edit"
-	info = "Renameable"
+	info = "Можно переименовать"
 
 /datum/gear_tweak/rename/get_default()
 	return ""
 
 
 /datum/gear_tweak/rename/get_metadata(user, metadata)
-	var/new_name = tgui_input_text(user, "Rename an object. Enter empty line for stock name", "Rename Gear", metadata, MAX_NAME_LEN)
+	var/new_name = tgui_input_text(user, "Переименуйте объект. При пустом поле будет выбрано стандартное название.", "Переименование предмета", metadata, MAX_NAME_LEN)
 	if(isnull(new_name))
 		return metadata
 	return new_name

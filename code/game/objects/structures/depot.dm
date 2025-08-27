@@ -41,7 +41,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='danger'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
+	to_chat(user, span_danger("You try to screwdriver open [src], but accidentally release some radiation!"))
 	if(prob(50))
 		empulse(src, 4, 10, TRUE, "[user] screwed with [name]")
 	else
@@ -52,7 +52,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>The [src] is too well secured to the floor.</span>")
+	to_chat(user, span_notice("The [src] is too well secured to the floor."))
 
 /obj/structure/fusionreactor/proc/overload(containment_failure = FALSE, skip_qdel = FALSE)
 	if(has_overloaded)

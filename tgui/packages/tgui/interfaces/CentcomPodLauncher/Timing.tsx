@@ -4,7 +4,7 @@ import { DELAYS, REV_DELAYS } from './constants';
 import { DelayHelper } from './DelayHelper';
 import { PodLauncherData } from './types';
 
-export const Timing = (props) => {
+export const Timing = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();
   const { custom_rev_delay, effectReverse } = data;
 

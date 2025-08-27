@@ -34,7 +34,7 @@
 
 /datum/gear/earrings
 	index_name = "earrings, select"
-	display_name = "earrings"
+	display_name = "Серьги"
 	path = /obj/item/clothing/ears/earrings
 
 /datum/gear/earrings/New()
@@ -50,7 +50,6 @@
 
 /datum/gear/candlebox
 	index_name = "a box candles"
-	description = "For setting the mood or for occult rituals."
 	path = /obj/item/storage/fancy/candle_box/full
 
 /datum/gear/camera
@@ -101,7 +100,7 @@
 
 /datum/gear/wallet/color
 	index_name = "a wallet, select"
-	display_name = "a wallet"
+	display_name = "Кошелёк"
 	path = /obj/item/storage/wallet/color/blue
 
 /datum/gear/wallet/color/New()
@@ -117,7 +116,7 @@
 
 /datum/gear/bandana
 	index_name = "bandana, select"
-	display_name = "bandana"
+	display_name = "Бандана"
 	path = /obj/item/clothing/mask/bandana/black
 
 /datum/gear/bandana/New()
@@ -144,7 +143,7 @@
 
 /datum/gear/lipstick
 	index_name = "lipstick, select"
-	display_name = "lipstick"
+	display_name = "Помада"
 	path = /obj/item/lipstick
 
 /datum/gear/lipstick/New()
@@ -164,18 +163,15 @@
 
 /datum/gear/mug
 	index_name = "random coffee mug"
-	description = "A randomly colored coffee mug. You'll need to supply your own beverage though."
 	path = /obj/item/reagent_containers/food/drinks/mug
 
 /datum/gear/novelty_mug
 	index_name = "novelty coffee mug"
-	description = "A random novelty coffee mug. You'll need to supply your own beverage though."
 	path = /obj/item/reagent_containers/food/drinks/mug/novelty
 	cost = 2
 
 /datum/gear/mug/flask
 	index_name = "flask"
-	description = "A flask for drink transportation. You'll need to supply your own beverage though."
 	path = /obj/item/reagent_containers/food/drinks/flask/barflask
 
 /datum/gear/mug/department
@@ -184,29 +180,24 @@
 
 /datum/gear/mug/department/eng
 	index_name = "engineer coffee mug"
-	description = "An engineer's coffee mug, emblazoned in the colors of the Engineering department."
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH)
 	path = /obj/item/reagent_containers/food/drinks/mug/eng
 
 /datum/gear/mug/department/med
 	index_name = "doctor coffee mug"
-	description = "A doctor's coffee mug, emblazoned in the colors of the Medical department."
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_CORONER)
 	path = /obj/item/reagent_containers/food/drinks/mug/med
 
 /datum/gear/mug/department/sci
 	index_name = "scientist coffee mug"
-	description = "A scientist's coffee mug, emblazoned in the colors of the Science department."
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST)
 	path = /obj/item/reagent_containers/food/drinks/mug/sci
 
 /datum/gear/mug/department/sec
 	index_name = "officer coffee mug"
-	description = "An officer's coffee mug, emblazoned in the colors of the Security department."
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_BRIGDOC, JOB_TITLE_PILOT, JOB_TITLE_LAWYER)
 	path = /obj/item/reagent_containers/food/drinks/mug/sec
 
 /datum/gear/mug/department/serv
 	index_name = "crewmember coffee mug"
-	description = "A crewmember's coffee mug, emblazoned in the colors of the Service department."
 	path = /obj/item/reagent_containers/food/drinks/mug/serv

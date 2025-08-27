@@ -124,6 +124,9 @@
 	///Mech subtype. Currently used in paintkits.
 	var/mech_type = MECH_TYPE_NONE
 
+	/// Modifier of some phasing effects.
+	var/phase_modifier = 1
+
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
 /obj/mecha/Initialize()
@@ -519,16 +522,16 @@
 			can_move = world.time + step_in_final
 			if(turnsound)
 				playsound(src, turnsound, 40, 1)
-		if(phasing && get_charge() >= phasing_energy_drain)
+		if(phasing && get_charge() >= phasing_energy_drain / phase_modifier)
 			if(strafe) //No strafe while phase mode is active
 				toggle_strafe(silent = TRUE)
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
 				flick("[initial_icon]-phase", src)
 				forceMove(get_step(src, direction))
-				use_power(phasing_energy_drain)
+				use_power(phasing_energy_drain / phase_modifier)
 				playsound(src, stepsound, 40, 1)
-				can_move = world.time + (step_in * 3)
+				can_move = world.time + (step_in * 3 / phase_modifier)
 	else if(stepsound)
 		playsound(src, stepsound, 40, 1)
 
@@ -897,7 +900,7 @@
 		to_chat(user, span_notice("You replace the fused wires."))
 		return ATTACK_CHAIN_PROCEED
 
-	if(istype(I, /obj/item/stock_parts/cell) && state == 4)
+	if(iscell(I) && state == 4)
 		add_fingerprint(user)
 		if(cell)
 			to_chat(user, span_warning("There's already a powercell installed."))

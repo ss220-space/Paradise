@@ -395,7 +395,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			var/output_pressure = output_info["internal"]
 			output += {"
 <fieldset>
-	<legend>Output (<a href='byond://?src=[UID()];out_refresh_status=1'>Refresh</A>)</legend>
+	<legend>Output (<a href='byond://?src=[UID()];out_refresh_status=1'>Refresh</a>)</legend>
 	<table>
 		<tr>
 			<th>State:</th>
@@ -527,7 +527,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/general_air_control/fuel_injection/return_text()
 	var/output = ..()
-	output += "<fieldset><legend>Fuel Injection System (<a href='byond://?src=[UID()];refresh_status=1'>Refresh</A>)</legend>"
+	output += "<fieldset><legend>Fuel Injection System (<a href='byond://?src=[UID()];refresh_status=1'>Refresh</a>)</legend>"
 	if(device_info)
 		var/power = device_info["power"]
 		var/volume_rate = device_info["volume_rate"]
@@ -542,13 +542,13 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		</tr>
 		<tr>
 			<th>Automated Fuel Injection:</th>
-			<td><a href='byond://?src=[UID()];toggle_automation=1'>[automation?"Engaged":"Disengaged"]</A></td>
+			<td><a href='byond://?src=[UID()];toggle_automation=1'>[automation?"Engaged":"Disengaged"]</a></td>
 		</tr>"}
 
 		if(automation)
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Engaged</A><br>"
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Engaged</a><br>"
 			output += {"
 			<tr>
 				<td colspan="2">Injector Controls Locked Out</td>
@@ -557,16 +557,16 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		else
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Disengaged</A><br>"
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Disengaged</a><br>"
 			output += {"
 			<tr>
 				<th>Injector:</th>
-				<td><a href='byond://?src=[UID()];toggle_injector=1'>Toggle Power</A> <a href='byond://?src=[UID()];injection=1'>Inject (1 Cycle)</A></td>
+				<td><a href='byond://?src=[UID()];toggle_injector=1'>Toggle Power</a> <a href='byond://?src=[UID()];injection=1'>Inject (1 Cycle)</a></td>
 			</td>"}
 			// END AUTOFIX
 		output += "</table>"
 	else
-		output += {"<p style="color:red"><b>ERROR:</b> Can not find device. <a href='byond://?src=[UID()];refresh_status=1'>Search</A></p>"}
+		output += {"<p style="color:red"><b>ERROR:</b> Can not find device. <a href='byond://?src=[UID()];refresh_status=1'>Search</a></p>"}
 	output += "</fieldset>"
 
 	return output

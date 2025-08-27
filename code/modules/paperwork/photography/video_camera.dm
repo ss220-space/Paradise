@@ -67,13 +67,13 @@ GLOBAL_LIST_EMPTY(active_video_cameras)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, msg)
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
-			if(T.watchers[M] == camera)
+			if(T.concurrent_users[M] == camera)
 				T.atom_say(msg)
 
 /obj/item/videocam/hear_message(mob/M, msg)
 	if(camera && on)
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
-			if(T.watchers[M] == camera)
+			if(T.concurrent_users[M] == camera)
 				T.atom_say(msg)
 
 /obj/item/videocam/advanced

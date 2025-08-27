@@ -308,7 +308,7 @@
 			if(ROLE_HIJACKER)
 				var/datum/antagonist/traitor/hijacker_datum = new
 				hijacker_datum.is_hijacker = TRUE
-				hijacker_datum.is_contractor = roundstart
+				hijacker_datum.contractor_pending = roundstart? new(antag) : null
 				antag.add_antag_datum(hijacker_datum)
 
 			if(ROLE_MALF_AI)
@@ -322,9 +322,10 @@
 			if(ROLE_CHANGELING)
 				antag.add_antag_datum(/datum/antagonist/changeling)
 			if(ROLE_TRAITOR)
-				antag.add_antag_datum(/datum/antagonist/traitor)
+				var/datum/antagonist/traitor/datum = new
 				if(roundstart)
-					antag.add_antag_datum(/datum/antagonist/contractor)
+					datum.contractor_pending = new(antag)
+				antag.add_antag_datum(datum)
 			if(ROLE_THIEF)
 				antag.add_antag_datum(/datum/antagonist/thief)
 

@@ -207,6 +207,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Used in butchering of animals, set to TRUE for near instant butchering
 	var/has_speed_harvest = FALSE
 
+	/// How much to offset the item randomly either way alongside X visually
+	var/ground_offset_x = 0
+	/// How much to offset the item randomly either way alongside Y visually
+	var/ground_offset_y = 0
+
 /obj/item/Initialize(mapload)
 	. = ..()
 
@@ -230,6 +235,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		determine_move_resist()
 
 	add_eatable_component()
+	scatter_item()
 
 
 /obj/item/proc/add_eatable_component()
@@ -309,29 +315,29 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/msg = "*--------* <br>"
 
 		if(origin_tech)
-			msg += "<span class='notice'>Testing potentials:</span><br>"
+			msg += span_notice("Testing potentials:<br>")
 			var/list/techlvls = params2list(origin_tech)
 			for(var/T in techlvls) //This needs to use the better names.
 				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <br>"
 		else
-			msg += "<span class='danger'>No tech origins detected.</span><br>"
+			msg += span_danger("No tech origins detected.<br>")
 
 
 		if(length(materials))
-			msg += "<span class='notice'>Extractable materials:<br>"
+			msg += span_notice("Extractable materials:<br>")
 			for(var/mat in materials)
 				msg += "[CallMaterialName(mat)]<br>" //Capitize first word, remove the "$"
 		else
-			msg += "<span class='danger'>No extractable materials detected.</span><br>"
+			msg += span_danger("No extractable materials detected.<br>")
 		msg += "*--------*"
 		. += msg
 
 	if(isclocker(user) && enchant_type)
 		if(enchant_type == CASTING_SPELL)
-			. += "<span class='notice'>The last spell hasn't expired yet!</span><br>"
+			. += span_notice("The last spell hasn't expired yet!<br>")
 		for(var/datum/spell_enchant/S in enchants)
 			if(S.enchantment == enchant_type)
-				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><br>"
+				. += span_notice("It has a sealed spell \"[S.name]\" inside.<br>")
 				break
 
 
@@ -979,13 +985,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/wash(mob/user, atom/source)
 	if(item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
-	to_chat(user, "<span class='notice'>You start washing [src]...</span>")
+	to_chat(user, span_notice("You start washing [src]..."))
 	if(!do_after(user, 4 SECONDS, source))
 		return
 	clean_blood()
 	acid_level = 0
-	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
-						"<span class='notice'>You wash [src] using [source].</span>")
+	user.visible_message(span_notice("[user] washes [src] using [source]."), \
+						span_notice("You wash [src] using [source]."))
 	return TRUE
 
 
@@ -1352,3 +1358,20 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		to_chat(src, span_notice("Вы осторожно опускаете [declent_ru(ACCUSATIVE)] на землю."))
 		return
 	return src
+
+/obj/item/proc/scatter_item()
+	if(!pixel_x && !pixel_y)
+		pixel_x = rand(-ground_offset_x, ground_offset_x)
+		pixel_y = rand(-ground_offset_y, ground_offset_y)
+
+/**
+ * Global item proc for all of your unique item skin needs. Works with any
+ * item, and will change the skin to whatever you specify here. You can also
+ * manually override the icon with a unique skin if wanted, for the outlier
+ * cases. Override_icon_state should be a list. Generally requires NO_GAMEMODE_SKIN
+ * to not be set for changes to be applied.
+ *
+ * Returns whether changes were applied.
+ */
+/obj/item/proc/select_skin(new_skin)
+	return

@@ -775,7 +775,7 @@
 	if(!custom_name)
 		interceptname = "Директива 7-10"
 	if(!custom_text)
-		intercepttext += "<span style='font-size: 3;'><b>Постановление Nanotrasen</b>: Особая директива.</span><hr>"
+		intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Особая директива.<hr>")
 		intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<br>"
 		intercepttext += "Приказы для всего персонала [station_name()] следующие:<br>"
 		intercepttext += " 1. Не покидать карантинную зону.<br>"

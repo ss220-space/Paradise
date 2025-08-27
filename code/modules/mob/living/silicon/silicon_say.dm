@@ -12,7 +12,7 @@
 		if(!is_component_functioning("radio"))
 			to_chat(src, "<span class='warning'>Your radio isn't functional at this time.</span>")
 			return FALSE
-		if(message_mode == "general")
+		if(message_mode == PUB_FREQ_NAME)
 			message_mode = null
 		return radio.talk_into(src,message_pieces,message_mode,verb)
 
@@ -20,7 +20,7 @@
 /mob/living/silicon/ai/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
 		return TRUE
-	if(message_mode == "department")
+	if(message_mode == DEPARTMENT_FREQ_NAME)
 		used_radios += aiRadio
 		return holopad_talk(message_pieces, verb)
 	else if(message_mode)
@@ -28,7 +28,7 @@
 		if(aiRadio.disabledAi || aiRestorePowerRoutine || stat)
 			to_chat(src, "<span class='danger'>System Error - Transceiver Disabled.</span>")
 			return FALSE
-		if(message_mode == "general")
+		if(message_mode == PUB_FREQ_NAME)
 			message_mode = null
 		return aiRadio.talk_into(src, message_pieces, message_mode, verb)
 
@@ -36,11 +36,11 @@
 /mob/living/silicon/pai/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
 		return TRUE
-	else if(message_mode == "whisper")
+	else if(message_mode == WHISPER_CHANNEL)
 		whisper_say(message_pieces)
 		return TRUE
 	else if(message_mode)
-		if(message_mode == "general")
+		if(message_mode == PUB_FREQ_NAME)
 			message_mode = null
 		used_radios += radio
 		return radio.talk_into(src, message_pieces, message_mode, verb)

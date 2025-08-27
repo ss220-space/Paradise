@@ -88,7 +88,7 @@
 
 	possible_traitors = shuffle(possible_traitors)
 	var/datum/mind/new_traitor = pick(possible_traitors)
-	to_chat(new_traitor.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+	to_chat(new_traitor.current, "[span_danger("ATTENTION:")] It is time to pay your debt to the Syndicate...")
 	new_traitor.add_antag_datum(/datum/antagonist/traitor)
 	message_admins("[new_traitor.current.real_name] is the new Traitor.")
 

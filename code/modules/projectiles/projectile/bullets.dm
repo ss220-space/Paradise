@@ -313,11 +313,12 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
+	var/volume = 50
 	var/piercing = FALSE
 
 /obj/projectile/bullet/dart/New()
 	..()
-	create_reagents(50)
+	create_reagents(volume)
 	reagents.set_reacting(FALSE)
 
 /obj/projectile/bullet/dart/on_hit(atom/target, blocked = 0, hit_zone)
@@ -351,6 +352,7 @@
 	name = "syringe"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
+	volume = 15
 
 /obj/projectile/bullet/dart/syringe/tranquilizer
 

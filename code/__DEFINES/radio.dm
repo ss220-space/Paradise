@@ -73,3 +73,30 @@
 #define SIGNALTYPE_INTERCOM_SBR 2 // Will only broadcast to intercoms and station-bounced radios
 #define SIGNALTYPE_AINOTRACK 4 // AI can't track down this person. Useful for imitation broadcasts where you can't find the actual mob
 
+// Channel names
+#define PUB_FREQ_NAME "Общий"
+#define SCI_FREQ_NAME "Наука"
+#define COMM_FREQ_NAME "Командование"
+#define PROC_FREQ_NAME "Юриспруденция"
+#define MED_FREQ_NAME "Медицина"
+#define ENG_FREQ_NAME "Инженерия"
+#define SEC_FREQ_NAME "Безопасность"
+#define ERT_FREQ_NAME "ОБР"
+#define DTH_FREQ_NAME "ССО"
+#define SYND_FREQ_NAME "Синдикат"
+#define SYND_TAIPAN_FREQ_NAME "СиндиТайпан"
+#define SYNDTEAM_FREQ_NAME "СиндиДОС"
+#define SOV_FREQ_NAME "СССП"
+#define SUP_FREQ_NAME "Снабжение"
+#define SRV_FREQ_NAME "Обслуживание"
+#define AI_FREQ_NAME "ИИ"
+#define MED_I_FREQ_NAME "Медицина (ИТК)"
+#define SEC_I_FREQ_NAME "Безопасность (ИТК)"
+#define SPY_SPIDER_FREQ_NAME "Жучок"
+#define NINJA_FREQ_NAME "Клан Паука"
+#define EVENT_ALPHA_FREQ_NAME "Альфа частота"
+#define EVENT_BETA_FREQ_NAME "Бета частота"
+#define EVENT_GAMMA_FRE_NAME "Гамма частота"
+
+#define SPEC_FREQ_NAME "Cпециальный"
+#define DEPARTMENT_FREQ_NAME "Отдел"

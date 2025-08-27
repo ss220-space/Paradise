@@ -31,7 +31,8 @@
 /mob/living/carbon/alien/humanoid/praetorian
 	name = "alien praetorian"
 	icon = 'icons/mob/alienlarge.dmi'
-	icon_state = "prat_s"
+	icon_state = "aliens_s"
+	caste = "s"
 	pixel_x = -16
 	maxHealth = 420
 	health = 420
@@ -89,11 +90,11 @@
 	cut_overlays()
 
 	if(stat == DEAD)
-		icon_state = "prat_dead"
+		icon_state = "alien[caste]_dead"
 	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
-		icon_state = "prat_sleep"
+		icon_state = "alien[caste]_sleep"
 	else
-		icon_state = "prat_s"
+		icon_state = "alien[caste]_s"
 
 	update_inv_r_hand()
 	update_inv_l_hand()

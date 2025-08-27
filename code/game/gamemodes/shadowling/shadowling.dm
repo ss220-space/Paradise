@@ -173,11 +173,8 @@ Made by Xhuis
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 
-		var/thralls = 0
+		var/thralls = get_thralls()
 		var/victory_threshold = SSticker.mode.required_thralls
-		for(var/mob/living/target in GLOB.alive_mob_list)
-			if(is_thrall(target))
-				thralls++
 
 		if(thralls < victory_threshold)
 			for(var/mob/shadowling in GLOB.alive_mob_list)
@@ -288,19 +285,19 @@ Made by Xhuis
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		SSticker.mode_result = "Победа тенелингов - тенелинги возвысились"
-		to_chat(world, "<span style='font-size: 3;'><b>Победа тенелингов</b></span>")
+		to_chat(world, span_fontsize3("<b>Победа тенелингов</b>"))
 		to_chat(world, "<span class='greentext'><b>Тенелинги возвысились и полностью захватили станцию!</b></span>")
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
 		SSticker.mode_result = "Тенелинги проиграли - тенелинги погибли"
-		to_chat(world, "<span style='font-size: 3;'><b>Крупная победа экипажа</b></span>")
+		to_chat(world, span_fontsize3("<b>Крупная победа экипажа</b>"))
 		to_chat(world, "<span class='redtext'><b>Тенелинги были убиты экипажем!</b></span>")
 	else if(!check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED)
 		SSticker.mode_result = "Тенелинги проиграли - экипаж сбежал"
-		to_chat(world, "<span style='font-size: 3;'><b>Мелкая победа экипажа</b></span>")
+		to_chat(world, span_fontsize3("<b>Мелкая победа экипажа</b>"))
 		to_chat(world, "<span class='redtext'><b>Экипаж сбежал со станции до того, как тенелинги возвысились!</b></span>")
 	else
 		SSticker.mode_result = "Тенелинги проиграли - тенелинги не справились"
-		to_chat(world, "<span style='font-size: 3;'><b>Крупная победа экипажа</b></span>")
+		to_chat(world, span_fontsize3("<b>Крупная победа экипажа</b>"))
 		to_chat(world, "<span class='redtext'><b>Тенелинги не смогли возвыситься!</b></span>")
 	..()
 	return 1

@@ -55,7 +55,7 @@
 
 
 /datum/component/pellet_cloud/Initialize(projectile_type=/obj/projectile/shrapnel, magnitude=5)
-	if(!isammocasing(parent) && !isgrenade(parent) && !issupplypod(parent))
+	if(!isammocasing(parent) && !isgrenade(parent) && !issupplypod(parent) && !ismortarcasing(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	if(magnitude < 1)
@@ -66,8 +66,9 @@
 
 	if(isammocasing(parent))
 		num_pellets = magnitude
-	else if(isgrenade(parent) || issupplypod(parent))
+	else if(isgrenade(parent) || issupplypod(parent) || ismortarcasing(parent))
 		radius = magnitude
+
 
 /datum/component/pellet_cloud/Destroy(force)
 	purple_hearts = null
@@ -86,9 +87,11 @@
 		RegisterSignal(parent, COMSIG_GRENADE_DETONATE, PROC_REF(create_blast_pellets))
 	else if(issupplypod(parent))
 		RegisterSignal(parent, COMSIG_SUPPLYPOD_LANDED, PROC_REF(create_blast_pellets))
+	else if(ismortarcasing(parent))
+		RegisterSignal(parent, COMSIG_MORTAR_DETONATE, PROC_REF(create_blast_pellets))
 
 /datum/component/pellet_cloud/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PREQDELETED, COMSIG_FIRE_CASING, COMSIG_GRENADE_DETONATE, COMSIG_GRENADE_ARMED, COMSIG_MOVABLE_MOVED, COMSIG_ITEM_DROPPED))
+	UnregisterSignal(parent, list(COMSIG_PREQDELETED, COMSIG_FIRE_CASING, COMSIG_GRENADE_DETONATE, COMSIG_MORTAR_DETONATE, COMSIG_GRENADE_ARMED, COMSIG_MOVABLE_MOVED, COMSIG_ITEM_DROPPED))
 
 /**
  * create_casing_pellets() is for directed pellet clouds for ammo casings that have multiple pellets (buckshot and scatter lasers for instance)

@@ -198,7 +198,7 @@
 				return 0
 			else
 				return 0
-	M.visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='danger'>You hit [src]!</span>")
+	M.visible_message(span_danger("[M.name] hits [src]!"), span_danger("You hit [src]!"))
 	return take_damage(M.force*3, mech_damtype, "melee", play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 /obj/singularity_act()
@@ -326,3 +326,12 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 			var/mob/living/buckled_mob = m
 			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
+/obj/handle_flamer_fire(src, damage, delta_time)
+	flamer_fire_act(damage)
+
+/obj/flamer_fire_act(damage)
+	if(resistance_flags & FIRE_PROOF)
+		resistance_flags &= ~FIRE_PROOF
+	if(armor.getRating(FIRE) > 50) 
+		armor = armor.setRating(fire_value = 50)
+	return ..()

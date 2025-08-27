@@ -18,7 +18,7 @@
 /obj/item/twohanded/cardboard_cutout/attack_hand(mob/living/user)
 	if(user.a_intent == INTENT_HELP || pushed_over)
 		return ..()
-	user.visible_message("<span class='warning'>[user] толка[pluralize_ru(user.gender,"ет","ют")] [src]!</span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты толкаешь","Вы толкаете")] [src]!</span>")
+	user.visible_message(span_warning("[user] толка[pluralize_ru(user.gender,"ет","ют")] [src]!"), span_danger("[pluralize_ru(user.gender,"Ты толкаешь","Вы толкаете")] [src]!"))
 	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	push_over()
 
@@ -35,7 +35,7 @@
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		if(pushed_over)
-			to_chat(user, "<span class='notice'>[pluralize_ru(user.gender,"Ты поднимаешь","Вы поднимаете")] [src].</span>")
+			to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты поднимаешь","Вы поднимаете")] [src]."))
 			desc = initial(desc)
 			icon = initial(icon)
 			icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
@@ -97,23 +97,23 @@
 	if(istype(crayon, /obj/item/toy/crayon/spraycan))
 		var/obj/item/toy/crayon/spraycan/can = crayon
 		if(can.capped)
-			to_chat(user, "<span class='warning'>The cap is on the spray can remove it first!</span>")
+			to_chat(user, span_warning("The cap is on the spray can remove it first!"))
 			return
 	if(pushed_over)
-		to_chat(user, "<span class='warning'>Right [src] first!</span>")
+		to_chat(user, span_warning("Right [src] first!"))
 		return
 	var/new_appearance = tgui_input_list(user, "Choose a new appearance for [src]", "26th Century Deception", possible_appearances)
 	if(!Adjacent(usr))
-		user.visible_message("<span class='danger'>You need to be closer!</span>")
+		user.visible_message(span_danger("You need to be closer!"))
 		return
 	if(pushed_over)
-		to_chat(user, "<span class='warning'>Right [src] first!</span>")
+		to_chat(user, span_warning("Right [src] first!"))
 		return
 	if(!new_appearance || !crayon)
 		return
 	if(!do_after(user, 1 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		return
-	user.visible_message("<span class='notice'>[user] gives [src] a new look.</span>", "<span class='notice'>Voila! You give [src] a new look.</span>")
+	user.visible_message(span_notice("[user] gives [src] a new look."), span_notice("Voila! You give [src] a new look."))
 	alpha = 255
 	icon = initial(icon)
 	if(!deceptive)

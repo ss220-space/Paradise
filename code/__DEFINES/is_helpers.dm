@@ -71,6 +71,8 @@
 
 #define issupplypod(A) (istype(A, /obj/structure/closet/supplypod))
 
+#define ismortarcasing(A) (istype(A, /obj/item/mortar_shell))
+
 #define isammocasing(A) (istype(A, /obj/item/ammo_casing))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
@@ -105,6 +107,12 @@
 
 #define	is_organ(A)			istype((A), /obj/item/organ)
 
+#define isbluespacecrystal(A) istype(A, /obj/item/stack/ore/bluespace_crystal)
+
+#define issyringe(A) istype(A, /obj/item/reagent_containers/syringe)
+
+#define isglassreagentcontainer(A) istype(A, /obj/item/reagent_containers/glass)
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
@@ -131,6 +139,10 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isprox(O) (istype(O, /obj/item/assembly/prox_sensor))
 #define issignaler(O) (istype(O, /obj/item/assembly/signaler))
 #define istimer(O) (istype(O, /obj/item/assembly/timer))
+#define iscoret1(O) (istype(O, /obj/item/assembly/signaler/core) && O.tier == 1)
+#define iscoret2(O) (istype(O, /obj/item/assembly/signaler/core) && O.tier == 2)
+#define iscoret3(O) (istype(O, /obj/item/assembly/signaler/core) && O.tier == 3)
+#define iscell(O) (istype(O, /obj/item/stock_parts/cell)) // Not assembly, but neaely.
 
 
 //Turfs

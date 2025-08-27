@@ -357,7 +357,7 @@
 						if(!active1)
 							return
 
-						var/datum/species/species = active1.fields["species"]
+						var/datum/species/species = GLOB.all_species[active1.fields["species"]]
 						var/new_age = text2num(answer)
 						var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
 						if(new_age < age_limits[SPECIES_AGE_MIN] || new_age > age_limits[SPECIES_AGE_MAX])
@@ -368,7 +368,7 @@
 
 					if(istype(active2) && (field in active2.fields))
 						active2.fields[field] = answer
-					else if(istype(active1) && (field in active1.fields))
+					if(istype(active1) && (field in active1.fields))
 						active1.fields[field] = answer
 				if("add_comment")
 					var/datum/ui_login/state = ui_login_get()

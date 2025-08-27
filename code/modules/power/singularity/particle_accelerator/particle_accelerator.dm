@@ -82,7 +82,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 /obj/structure/particle_accelerator/Destroy()
 	construction_state = 0
 	if(master)
-		master.part_scan()
+		SStgui.update_uis(master)
 	return ..()
 
 /obj/structure/particle_accelerator/end_cap
@@ -192,6 +192,8 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		)
 		construction_state = ACCELERATOR_WIRED
 		update_icon(UPDATE_ICON_STATE)
+		if(master)
+			SStgui.update_uis(master)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -212,6 +214,8 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
 	update_state()
 	update_icon(UPDATE_ICON_STATE)
+	if(master)
+		SStgui.update_uis(master)
 
 /obj/structure/particle_accelerator/wirecutter_act(mob/user, obj/item/I)
 	if(construction_state != ACCELERATOR_WIRED)
@@ -221,6 +225,8 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	construction_state = ACCELERATOR_WRENCHED
+	if(master)
+		SStgui.update_uis(master)
 
 /obj/structure/particle_accelerator/wrench_act(mob/user, obj/item/I)
 	if(construction_state != ACCELERATOR_UNWRENCHED && construction_state != ACCELERATOR_WRENCHED)
@@ -237,6 +243,8 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		WRENCH_UNANCHOR_MESSAGE
 		construction_state = ACCELERATOR_UNWRENCHED
 	update_icon(UPDATE_ICON_STATE)
+	if(master)
+		SStgui.update_uis(master)
 
 
 /obj/machinery/particle_accelerator

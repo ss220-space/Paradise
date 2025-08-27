@@ -10,10 +10,8 @@
 	amount = 6
 	max_amount = 6
 	toolspeed = 1
-
-
-/obj/item/stack/nanopaste/cyborg
-	is_cyborg = TRUE
+	energy_type = /datum/robot_energy_storage/nanopaste
+	cost = 1
 
 
 /obj/item/stack/nanopaste/cyborg/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

@@ -17,10 +17,9 @@
 	var/give_codewords = TRUE
 	/// Whether the traitor should get his uplink.
 	var/give_uplink = TRUE
-	/// Whether the traitor can specialize into a contractor.
-	var/is_contractor = FALSE
 	/// Whether the traitor will receive only hijack objective.
 	var/is_hijacker = FALSE
+	var/datum/contractor_pending/contractor_pending
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
 
@@ -58,6 +57,7 @@
 		component.delete_if_from_source(src)
 
 /datum/antagonist/traitor/Destroy(force)
+	QDEL_NULL(contractor_pending)
 	// Remove contractor if present
 	var/datum/antagonist/contractor/contractor_datum = owner?.has_antag_datum(/datum/antagonist/contractor)
 	if(contractor_datum)
@@ -212,9 +212,6 @@
 
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
-	if(is_contractor)
-		addtimer(CALLBACK(owner, TYPE_PROC_REF(/datum/mind, add_antag_datum), /datum/antagonist/contractor), 1)
-
 	return messages
 
 /**
@@ -231,12 +228,21 @@
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 
 	var/list/messages = list()
-	if(!silent)
-		messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
-		messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-		messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
-		messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-		messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
+	if(silent)
+		return messages
+
+	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
+	messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
+	messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
+
+	if(!contractor_pending)
+		return messages
+
+	messages.Add("<br><hr color ='red'>")
+	var/list/contractor_messages = contractor_pending.greet()
+	messages.Add(contractor_messages)
 
 	return messages
 
@@ -281,6 +287,7 @@
 
 		var/obj/item/uplink/hidden/new_uplink = new(target_radio)
 		hidden_uplink = new_uplink
+		hidden_uplink.traitor = src
 		target_radio.hidden_uplink = new_uplink
 		new_uplink.uplink_owner = "[traitor_mob.key]"
 		target_radio.traitor_frequency = freq
@@ -292,6 +299,7 @@
 		var/obj/item/pda/target_pda = uplink_holder
 		var/obj/item/uplink/hidden/new_uplink = new(target_pda)
 		hidden_uplink = new_uplink
+		hidden_uplink.traitor = src
 		target_pda.hidden_uplink = new_uplink
 		new_uplink.uplink_owner = "[traitor_mob.key]"
 

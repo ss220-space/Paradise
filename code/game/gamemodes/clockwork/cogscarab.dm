@@ -107,7 +107,7 @@
 		warn_wind_up = WINDUP_STATE_NONE
 	else
 		if(!warn_wind_up)
-			to_chat(src, "<span class='warning'>You feel how your cogs inside slowing down! You need to find beacon to rewind yourself!</span>")
+			to_chat(src, span_warning("You feel how your cogs inside slowing down! You need to find beacon to rewind yourself!"))
 			warn_wind_up = WINDUP_STATE_WARNING
 
 
@@ -115,7 +115,7 @@
 		if(wind_up_timer < 0)
 			wind_up_timer = 0
 		if(warn_wind_up < WINDUP_STATE_DANGER)
-			to_chat(src, "<span class='userdanger'>The gears inside stopped to work! Find the beacon!</span>")
+			to_chat(src, span_userdanger("The gears inside stopped to work! Find the beacon!"))
 			warn_wind_up = WINDUP_STATE_DANGER
 		adjustBruteLoss(2)
 	else
@@ -171,8 +171,8 @@
 	H.w_class = WEIGHT_CLASS_TINY
 	H.attack_hand(grabber)
 
-	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
-	to_chat(src, "<span class='notice'>[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас.</span>")
+	to_chat(grabber, span_notice("Вы подняли [src.name]."))
+	to_chat(src, span_notice("[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас."))
 	grabber.status_flags |= PASSEMOTES
 
 	return H
@@ -256,14 +256,14 @@
 	switch(sensor_type)
 		if("Medical")
 			add_med_hud()
-			to_chat(src, "<span class='notice'>Life signs monitor overlay enabled.</span>")
+			to_chat(src, span_notice("Life signs monitor overlay enabled."))
 		if("Diagnostic")
 			add_diag_hud()
-			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+			to_chat(src, span_notice("Robotics diagnostic overlay enabled."))
 		if("Multisensor")
 			add_med_hud()
 			add_diag_hud()
-			to_chat(src, "<span class='notice'>Multisensor overlay enabled.</span>")
+			to_chat(src, span_notice("Multisensor overlay enabled."))
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 
@@ -288,7 +288,7 @@
 
 /mob/living/silicon/robot/cogscarab/control_headlamp()
 	if(stat || lamp_recharging || low_power_mode)
-		to_chat(src, "<span class='danger'>This function is currently offline.</span>")
+		to_chat(src, span_danger("This function is currently offline."))
 		return
 
 //Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
@@ -323,22 +323,22 @@
 			grabbed_something = TRUE
 
 	if(grabbed_something)
-		to_chat(user, "<span class='notice'>You deploy your melter and take some contents to melt from \the [T].</span>")
+		to_chat(user, span_notice("You deploy your melter and take some contents to melt from \the [T]."))
 	else
-		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
+		to_chat(user, span_warning("Nothing on \the [T] is useful to you."))
 
 	return
 
 /obj/item/clockwork/brassmaker/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It has [length(grabbed_items)] items ready to be melted, and [round(metal_amount/metal_need_per_brass, 0.01)] brass.</span>"
+	. += span_notice("It has [length(grabbed_items)] items ready to be melted, and [round(metal_amount/metal_need_per_brass, 0.01)] brass.")
 
 /obj/item/clockwork/brassmaker/attack_self(mob/user)
 	. = ..()
 	if(!length(grabbed_items))
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 		return
-	to_chat(user, "<span class='notice'>You begin to melt everything you've picked up.</span>")
+	to_chat(user, span_notice("You begin to melt everything you've picked up."))
 	user.playsound_local(src, 'sound/machines/blender.ogg', 20, 1)
 	for(var/obj/item/A in grabbed_items)
 		if(A.materials[MAT_METAL])

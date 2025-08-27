@@ -2,12 +2,11 @@ import { range } from 'common/collections';
 import { BooleanLike } from 'common/react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, DmIcon, Icon, Stack } from '../components';
+import { Box, Button, DmIcon, Icon, Stack, Image } from '../components';
 import { Window } from '../layouts';
-import { InfernoNode } from 'inferno';
+import { ReactNode } from 'react';
 
 const ROWS = 5;
-const COLUMNS = 9;
 
 const getColumnsAmount = (mode: number): number => {
   if (mode === 0) {
@@ -27,7 +26,7 @@ const getGridSpotKey = (spot: [number, number]): GridSpotKey => {
 const CornerText = (props: {
   align: 'left' | 'right';
   children: string;
-}): InfernoNode => {
+}): ReactNode => {
   const { align, children } = props;
 
   return (
@@ -35,8 +34,8 @@ const CornerText = (props: {
       style={{
         position: 'absolute',
         left: align === 'left' ? '6px' : '48px', // spacing letters is hard, but it looks good like this
-        'text-align': align,
-        'text-shadow': '2px 2px 2px #000',
+        textAlign: align,
+        textShadow: '2px 2px 2px #000',
         top: '2px',
       }}
     >
@@ -93,7 +92,7 @@ const SLOTS: Record<
     displayName: string;
     gridSpot: GridSpotKey;
     image?: string;
-    additionalComponent?: InfernoNode;
+    additionalComponent?: ReactNode;
   }
 > = {
   neck: {
@@ -241,7 +240,7 @@ const ALTERNATIVE_SLOTS: Record<
     displayName: string;
     gridSpot: GridSpotKey;
     image?: string;
-    additionalComponent?: InfernoNode;
+    additionalComponent?: ReactNode;
   }
 > = {
   neck: {
@@ -425,7 +424,7 @@ type StripMenuData = {
   show_mode: number;
 };
 
-export const StripMenu = (props) => {
+export const StripMenu = (_props: unknown) => {
   const { act, data } = useBackend<StripMenuData>();
 
   const gridSpots = new Map<GridSpotKey, string>();
@@ -469,7 +468,7 @@ export const StripMenu = (props) => {
       height={390}
       theme="nologo"
     >
-      <Window.Content style={{ 'background-color': 'rgba(0, 0, 0, 0.5)' }}>
+      <Window.Content style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
         <Stack fill vertical>
           {range(0, ROWS).map((row) => (
             <Stack.Item key={row}>
@@ -495,8 +494,8 @@ export const StripMenu = (props) => {
 
                   let alternateActions: Array<string> | undefined;
 
-                  let content;
-                  let tooltip;
+                  let content: ReactNode;
+                  let tooltip: ReactNode;
 
                   if (item === null) {
                     tooltip = slot.displayName;
@@ -508,9 +507,7 @@ export const StripMenu = (props) => {
                         height="100%"
                         width="100%"
                         style={{
-                          '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                          'image-rendering': 'pixelated',
-                          'vertical-align': 'middle',
+                          verticalAlign: 'middle',
                         }}
                       />
                     );
@@ -529,7 +526,7 @@ export const StripMenu = (props) => {
                         mt={2.5}
                         color="white"
                         style={{
-                          'text-align': 'center',
+                          textAlign: 'center',
                           height: '100%',
                           width: '100%',
                         }}
@@ -576,12 +573,11 @@ export const StripMenu = (props) => {
                             width: '100%',
                             height: '100%',
                             padding: 0,
-                            'background-color': disable_background_hover(item),
+                            backgroundColor: disable_background_hover(item),
                           }}
                         >
                           {slot.image && (
-                            <Box
-                              as="img"
+                            <Image
                               src={resolveAsset(slot.image)}
                               opacity={0.7}
                               style={{
@@ -620,7 +616,7 @@ export const StripMenu = (props) => {
                                       position: 'absolute',
                                       bottom: 0,
                                       right: `${buttonOffset}em`,
-                                      'z-index': 2 + index,
+                                      zIndex: 2 + index,
                                     }}
                                   >
                                     <Icon

@@ -631,3 +631,13 @@
 	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 500)
 	build_path = /obj/item/circuitboard/brs_stationary_scanner
 	category = list ("Research Machinery")
+
+/datum/design/anomaly_generator
+	name = "Machine Design (Генератор аномалий)"
+	desc = "Плата прибора, предназначенного для генерации аномалий."
+	id = "anomaly_generator"
+	req_tech = list("programming" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/anomaly_generator
+	category = list ("Research Machinery")

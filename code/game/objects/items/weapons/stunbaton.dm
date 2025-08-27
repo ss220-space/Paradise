@@ -121,7 +121,7 @@
 
 
 /obj/item/melee/baton/security/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		var/obj/item/stock_parts/cell/new_cell = I
 		if(cell)
 			balloon_alert(user, "уже установлено!")

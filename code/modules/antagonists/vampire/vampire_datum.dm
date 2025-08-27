@@ -179,9 +179,10 @@
 	check_vampire_upgrade()
 
 
-/datum/antagonist/vampire/proc/adjust_blood(mob/living/carbon/user, blood_amount = 0)
+/datum/antagonist/vampire/proc/adjust_blood(mob/living/carbon/human/user, blood_amount = 0)
 	if(user)
-		var/unique_suck_id = user.UID()
+		var/datum/mind/mind = user.get_real_mind()
+		var/unique_suck_id = mind.UID()
 		if(!(unique_suck_id in drained_humans))
 			drained_humans[unique_suck_id] = 0
 
@@ -213,7 +214,8 @@
 /datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/target, suck_rate_override)
 	draining = target
 	var/mob/living/carbon/human/cur = owner.current
-	var/unique_suck_id = target.UID()
+	var/datum/mind/mind = target.get_real_mind()
+	var/unique_suck_id = mind.UID()
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	var/cycle_counter = 0
@@ -289,7 +291,7 @@
 
 
 		if(target.stat < DEAD || target.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
-			if(target.ckey || target.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
+			if(!mind.madeby_sentience_potion && (target.get_real_ckey() || target.player_ghosted)) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, target.blood_volume)
 				adjust_blood(target, blood * BLOOD_GAINED_MODIFIER)
 				cur.adjustBruteLoss(-3)
@@ -327,7 +329,7 @@
 			to_chat(cur, span_warning("Вы выпили свою жертву досуха!"))
 			break
 
-		if(!target.ckey && !target.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
+		if(!target.get_real_ckey() && !target.player_ghosted || mind.madeby_sentience_potion)//Only runs if there is no ckey and the body has not being ghosted while alive
 			to_chat(cur, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
 			cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 

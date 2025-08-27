@@ -524,62 +524,62 @@
 	icon_dead 		= "rat_irish_dead"
 	icon_resting 	= "rat_irish_sleep"
 
-#define MAX_HAMSTER 50
-GLOBAL_VAR_INIT(hamster_count, 0)
+#define MAX_WOOLY_MOUSE 50
+GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 
-/mob/living/simple_animal/mouse/hamster
-	name = "хомяк"
-	real_name = "хомяк"
-	desc = "С надутыми щёчками."
-	icon_state = "hamster"
-	icon_living = "hamster"
-	icon_dead = "hamster_dead"
-	icon_resting = "hamster_rest"
+/mob/living/simple_animal/mouse/wooly
+	name = "wooly mouse"
+	real_name = "лохматая мышь"
+	desc = "Милая лохматая мышка, много людей заводят их как домашних питомцев."
+	icon_state = "wooly_mouse"
+	icon_living = "wooly_mouse"
+	icon_dead = "wooly_mouse_dead"
+	icon_resting = "wooly_mouse_rest"
 	gender = MALE
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	speak_chance = 0
-	childtype = list(/mob/living/simple_animal/mouse/hamster/baby)
-	animal_species = /mob/living/simple_animal/mouse/hamster
-	holder_type = /obj/item/holder/hamster
+	childtype = list(/mob/living/simple_animal/mouse/wooly/baby)
+	animal_species = /mob/living/simple_animal/mouse/wooly
+	holder_type = /obj/item/holder/wooly_mouse
 	gold_core_spawnable = FRIENDLY_SPAWN
 	tts_seed = "Gyro"
 	maxHealth = 10
-	health = 10
+	health = 10 // kokok
 
 
-/mob/living/simple_animal/mouse/hamster/update_desc(updates)
+/mob/living/simple_animal/mouse/wooly/update_desc(updates)
 	. = ..()	// We get initial desc here.
 	desc += gender == MALE ? " Самец!" : " Самочка! Ох... Нет..."
 
 
-/mob/living/simple_animal/mouse/hamster/Initialize(mapload)
+/mob/living/simple_animal/mouse/wooly/Initialize(mapload)
 	. = ..()
-	GLOB.hamster_count++
+	GLOB.wooly_mouse_count++
 	gender = prob(80) ? MALE : FEMALE
 	update_appearance(UPDATE_DESC)
 
 
-/mob/living/simple_animal/mouse/hamster/Destroy()
-	GLOB.hamster_count--
+/mob/living/simple_animal/mouse/wooly/Destroy()
+	GLOB.wooly_mouse_count--
 	. = ..()
 
-/mob/living/simple_animal/mouse/hamster/death(gibbed)
+/mob/living/simple_animal/mouse/wooly/death(gibbed)
 	if(!gibbed)
-		GLOB.hamster_count--
+		GLOB.wooly_mouse_count--
 	. = ..()
 
-/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
+/mob/living/simple_animal/mouse/wooly/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
 	return TRUE
 
-/mob/living/simple_animal/mouse/hamster/Life(seconds, times_fired)
+/mob/living/simple_animal/mouse/wooly/Life(seconds, times_fired)
 	..()
-	if(GLOB.hamster_count < MAX_HAMSTER)
+	if(GLOB.wooly_mouse_count < MAX_WOOLY_MOUSE)
 		make_babies()
 
-/mob/living/simple_animal/mouse/hamster/baby
-	name = "хомячок"
-	real_name = "хомячок"
-	desc = "Очень миленький! Какие у него пушистые щёчки!"
+/mob/living/simple_animal/mouse/wooly/baby
+	name = "wooly mouse baby"
+	real_name = "лохматая мышка"
+	desc = "Очень миленькая и пушистая мышка!"
 	tts_seed = "Meepo"
 	turns_per_move = 2
 	response_help  = "полапал"
@@ -591,16 +591,16 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	maxHealth = 3
 	var/amount_grown = 0
 	can_collar = FALSE
-	holder_type = /obj/item/holder/hamster
+	holder_type = /obj/item/holder/wooly_mouse
 
 
-/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+/mob/living/simple_animal/mouse/wooly/baby/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	if(!supress_message)
 		to_chat(src, span_warning("Вы слишком малы, чтобы что-то тащить."))
 	return FALSE
 
 
-/mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
+/mob/living/simple_animal/mouse/wooly/baby/Life(seconds, times_fired)
 	. =..()
 	if(!.)
 		return .
@@ -609,13 +609,13 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	if(amount_grown < 100)
 		return .
 
-	var/mob/living/simple_animal/A = new /mob/living/simple_animal/mouse/hamster(loc)
+	var/mob/living/simple_animal/A = new /mob/living/simple_animal/mouse/wooly(loc)
 	if(mind)
 		mind.transfer_to(A)
 	qdel(src)
 
 
-/mob/living/simple_animal/mouse/hamster/baby/mouse_crossed(atom/movable/arrived)
+/mob/living/simple_animal/mouse/wooly/baby/mouse_crossed(atom/movable/arrived)
 	if(!stat && ishuman(arrived))
 		to_chat(arrived, span_notice("[bicon(src)] раздавл[genderize_ru(gender, "ен", "на", "но")]!"))
 		death()

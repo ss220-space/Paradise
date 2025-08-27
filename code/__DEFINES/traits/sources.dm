@@ -170,3 +170,5 @@
 #define BLOB_ZOMBIE_TRAIT "blob_zombie_trait"
 
 #define ADMIN_OFFER_TRAIT "admin_offer"
+
+#define GRAVITATION_TRAIT	"gravitation"

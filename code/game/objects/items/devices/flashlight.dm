@@ -230,6 +230,12 @@
 /obj/item/flashlight/flare/get_heat()
 	return on * 1000
 
+/obj/item/flashlight/flare/proc/turn_on()
+	on = TRUE
+	update_brightness()
+	force = on_damage
+	damtype = FIRE
+
 /obj/item/flashlight/flare/proc/turn_off()
 	on = FALSE
 	force = initial(force)
@@ -254,6 +260,33 @@
 			force = on_damage
 			damtype = BURN
 		START_PROCESSING(SSobj, src)
+
+/obj/item/flashlight/flare/on/Initialize()
+	. = ..()
+	turn_on()
+
+//Special flare subtype for the illumination flare shell
+//Acts like a flare, just even stronger, and set length
+/obj/item/flashlight/flare/on/illumination
+	name = "illumination flare"
+	desc = "It's really bright, and unreachable."
+	icon_state = "" //No sprite
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	light_range = 7
+
+/obj/item/flashlight/flare/on/illumination/Initialize()
+	. = ..()
+	fuel = rand(5.0 MINUTES, 6.0 MINUTES) // Approximately half the effective duration of a flare, but justified since it's invincible
+
+/obj/item/flashlight/flare/on/illumination/update_icon()
+	. = ..(NONE)
+
+/obj/item/flashlight/flare/on/illumination/turn_off()
+	..()
+	qdel(src)
+
+/obj/item/flashlight/flare/on/illumination/ex_act(severity)
+	return //Nope
 
 
 // GLOWSTICKS

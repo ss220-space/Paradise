@@ -1,5 +1,5 @@
 /datum/gear/plushie
-	sort_category = "Plushie"
+	sort_category = "Игрушки"
 	subtype_path = /datum/gear/plushie
 	cost = 1
 
@@ -45,7 +45,7 @@
 
 /datum/gear/plushie/plasmamanplushie
 	index_name = "Plasmaman Plushie, select"
-	display_name = "Plasmaman Plushie"
+	display_name = "Плюшевый плазмолюд"
 	path = /obj/item/toy/plushie/plasmamanplushie
 
 /datum/gear/plushie/plasmamanplushie/New()
