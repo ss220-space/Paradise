@@ -32,7 +32,6 @@
 				var/obj/item/mecha_parts/mecha_equipment/cage/container = C_imp_in.loc
 				C_imp_in.forceMove(get_turf(container))
 				container.prisoner = null
-				container.update_equip_info()
 
 	if(!uses)
 		qdel(src)

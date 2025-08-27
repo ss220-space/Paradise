@@ -34,7 +34,7 @@
 	var/last_message = 0
 	var/add_req_access = TRUE
 	var/maint_access = TRUE
-	var/dna	//dna-locking the mech
+	var/dna_lock	//dna-locking the mech
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
@@ -127,10 +127,15 @@
 	/// Modifier of some phasing effects.
 	var/phase_modifier = 1
 
+	/// ref to screen object that displays in the middle of the UI
+	var/atom/movable/screen/map_view/ui_view
+
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
 /obj/mecha/Initialize()
 	. = ..()
+	ui_view = new()
+	ui_view.generate_view("mech_view_[UID()]")
 	ADD_TRAIT(src, TRAIT_WEATHER_IMMUNE, INNATE_TRAIT)
 	icon_state += "-open"
 	add_radio()
@@ -827,6 +832,7 @@
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_LIST(trackers)
+	QDEL_NULL(ui_view)
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
@@ -886,8 +892,7 @@
 		if(!internals_access_allowed(user))
 			to_chat(user, span_warning("Invalid ID: Access denied."))
 			return ATTACK_CHAIN_PROCEED
-		var/obj/item/card/id/id_card = I
-		output_maintenance_dialog(id_card, user)
+		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED
 
 	if(iscoil(I) && state == 3 && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
@@ -1152,7 +1157,7 @@
 			else if(AI.stat || !AI.client)
 				to_chat(user, span_warning("[AI.name] is currently unresponsive, and cannot be uploaded."))
 				return
-			else if(occupant || dna) //Normal AIs cannot steal mechs!
+			else if(occupant || dna_lock) //Normal AIs cannot steal mechs!
 				to_chat(user, span_warning("Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"]."))
 				return
 			AI.control_disabled = FALSE
@@ -1284,9 +1289,9 @@
 		log_append_to_last("Permission denied.")
 		return TRUE
 	var/passed
-	if(dna)
+	if(dna_lock)
 		if(ishuman(user))
-			if(user.dna.unique_enzymes == dna)
+			if(user.dna.unique_enzymes == dna_lock)
 				passed = TRUE
 	else if(operation_allowed(user))
 		passed = TRUE
@@ -1359,7 +1364,7 @@
 	else if(occupant)
 		to_chat(user, span_warning("Occupant detected!"))
 		return FALSE
-	else if(dna && dna != mmi_as_oc.brainmob.dna.unique_enzymes)
+	else if(dna_lock && dna_lock != mmi_as_oc.brainmob.dna.unique_enzymes)
 		to_chat(user, span_warning("Access denied. [name] is secured with a DNA lock."))
 		return FALSE
 	else if(!operation_allowed(user))
@@ -1743,7 +1748,7 @@
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E
 				E.detach(WR) //detaches from src into WR
-				E.equip_ready = TRUE
+				E.active = TRUE
 			else
 				E.detach(loc)
 				qdel(E)

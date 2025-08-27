@@ -37,14 +37,3 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/gravcatapult
 	ME.attach(src)
-
-/obj/mecha/combat/phazon/get_commands()
-	var/output = {"<div class='wr'>
-						<div class='header'>Special</div>
-						<div class='links'>
-						<a href='byond://?src=[UID()];switch_damtype=1'>Change melee damage type</a><br>
-						</div>
-						</div>
-						"}
-	output += ..()
-	return output

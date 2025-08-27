@@ -62,7 +62,6 @@
 									span_warning("Мы изрыгаем кислотную жидкость на стенки клетки!"))
 		user.forceMove(get_turf(container))
 		container.prisoner = null
-		container.update_equip_info()
 
 	if(istype(user.loc, /obj/structure/closet) && !used)
 		var/obj/structure/closet/closet = user.loc

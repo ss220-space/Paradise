@@ -10,7 +10,12 @@
 	max_integrity = 300
 	/// Only used in start_cooldown() and do_after_cooldown(), so be sure to add one of these procs to your successful action().
 	var/equip_cooldown = 0
+	/// Can we use equip?
 	var/equip_ready = TRUE
+	/// Is equip active?
+	var/active = FALSE
+	/// Label used in the ui next to the Activate/Enable/Disable buttons
+	var/active_label = "Статус"
 	var/energy_drain = 0
 	var/obj/mecha/chassis = null
 	var/range = MECHA_MELEE //bitflags
@@ -24,20 +29,6 @@
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	var/integrated = FALSE // Preventing modules from getting detached.
 	var/alert_category = "mecha_module" //change if you want custom alerts
-
-
-/obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
-	if(chassis)
-		send_byjax(chassis.occupant,"exosuit.browser","eq_list",chassis.get_equipment_list())
-		send_byjax(chassis.occupant,"exosuit.browser","equipment_menu",chassis.get_equipment_menu(),"dropdowns")
-		return TRUE
-	return
-
-/obj/item/mecha_parts/mecha_equipment/proc/update_equip_info()
-	if(chassis)
-		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-		return TRUE
-	return
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
@@ -55,22 +46,31 @@
 		log_message("Critical failure", 1)
 	return
 
-/obj/item/mecha_parts/mecha_equipment/proc/get_equip_info()
-	if(!chassis)
-		return
-	var/txt = "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;"
-	if(chassis.selected == src)
-		txt += "<b>[name]</b>"
-	else if(selectable == MODULE_SELECTABLE_FULL)
-		txt += "<a href='byond://?src=[chassis.UID()];select_equip=\ref[src]'>[name]</a>"
-	else
-		txt += "[name]"
-
-	txt += "[get_module_equip_info()]"
-	return txt
-
-/obj/item/mecha_parts/mecha_equipment/proc/get_module_equip_info()
+/obj/item/mecha_parts/mecha_equipment/proc/get_snowflake_data()
 	return
+
+/obj/item/mecha_parts/mecha_equipment/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+	switch(action)
+		if("detach")
+			if(!integrated)
+				return FALSE
+			if(chassis.selected == src)
+				chassis.selected = null
+			detach(get_turf(src))
+			return TRUE
+		if("toggle")
+			if(selectable != MODULE_SELECTABLE_TOGGLE)
+				return FALSE
+			toggle_module()
+			return TRUE
+
+	return handle_ui_act(action,params,ui,state)
+
+/obj/item/mecha_parts/mecha_equipment/proc/handle_ui_act(action, list/params)
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/is_ranged()//add a distance restricted equipment. Why not?
 	return range & MECHA_RANGED
@@ -156,7 +156,6 @@
 	M.log_message("[src] initialized.")
 	if(!M.selected)
 		M.selected = src
-	update_chassis_page()
 	attach_act(M)
 	ADD_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
 	if(M.occupant)
@@ -191,7 +190,6 @@
 		chassis.equipment -= src
 		if(chassis.selected == src)
 			chassis.selected = null
-		update_chassis_page()
 		chassis.log_message("[src] removed from equipment.")
 		chassis = null
 		REMOVE_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
@@ -211,14 +209,11 @@
 /obj/item/mecha_parts/mecha_equipment/proc/handle_occupant_exit()
 	return
 
-/obj/item/mecha_parts/mecha_equipment/Topic(href,href_list)
-	if(href_list["detach"])
-		detach()
-
 /obj/item/mecha_parts/mecha_equipment/proc/set_ready_state(state)
 	equip_ready = state
-	if(chassis)
-		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+
+/obj/item/mecha_parts/mecha_equipment/proc/set_active(state)
+	active = state
 
 /obj/item/mecha_parts/mecha_equipment/proc/occupant_message(message)
 	if(chassis)
@@ -236,7 +231,6 @@
 	chassis.selected = src
 	chassis.occupant_message(span_notice("You switch to [src]."))
 	chassis.visible_message("[chassis] raises [src]")
-	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())
 
 /obj/item/mecha_parts/mecha_equipment/proc/select_set_alert()
 	if(selectable == MODULE_SELECTABLE_FULL)
