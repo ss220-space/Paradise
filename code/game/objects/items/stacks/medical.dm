@@ -226,6 +226,8 @@
 		to_chat(user, span_danger("[capitalize(affecting.declent_ru(NOMINATIVE))] открыта, тут уже не помочь бинтами!"))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
+	if(stop_bleeding && affecting.bleeding_amount <= affecting.bleedsuppress)	//so you can't stack bleed suppression
+		balloon_alert(user, "кровотечения нет")
 	if(!use(1))
 		. &= ~ATTACK_CHAIN_SUCCESS
 		return .
