@@ -14,7 +14,7 @@
 		if(check_rights(R_ADMIN, FALSE) && isobserver(src.mob)) //If they have +ADMIN and are a ghost they can see players IC names and statuses.
 			columns_per_row = 1
 			var/mob/dead/observer/admin_observer = src.mob
-			if(!admin_observer.started_as_observer)
+			if(!admin_observer.started_as_observer) //If you aghost to do this
 				log_admin("[key_name(usr)] checked advanced who in-round.")
 			for(var/client/client in GLOB.clients)
 				if(client.holder && client.holder.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // need PERMISSIONS to see BB
@@ -27,18 +27,21 @@
 					entry += " – <span style='color: darkgray;'><b>В лобби</b></span>"
 				else
 					entry += " – Играет за [client.mob.real_name]"
-				switch(client.mob.stat)
-					if(UNCONSCIOUS)
-						entry += " – <span style='color: darkgray;'><b>Без сознания</b></span>"
-					if(DEAD)
-						if(isobserver(client.mob))
-							var/mob/dead/observer/observer = client.mob
-							if(observer.started_as_observer)
-								entry += " – <span style='color: gray;'>Наблюдает</span>"
+					switch(client.mob.stat)
+						if(UNCONSCIOUS)
+							entry += " – <span style='color: darkgray;'><b>Без сознания</b></span>"
+						if(DEAD)
+							if(isobserver(client.mob))
+								var/mob/dead/observer/observer = client.mob
+								if(observer.started_as_observer)
+									entry += " – <span style='color: gray;'>Наблюдает</span>"
+								else
+									entry += " – <span style='color: black;'><b>МЕРТВ</b></span>"
 							else
 								entry += " – <span style='color: black;'><b>МЕРТВ</b></span>"
-						else
-							entry += " – <span style='color: black;'><b>МЕРТВ</b></span>"
+
+					if(is_special_character(client.mob))
+						entry += " – <span style='color: red;'><b>Антагонист</b></span>"
 
 				var/age
 				if(isnum(client.player_age))
@@ -51,9 +54,17 @@
 					age = "<span style='color: orange;'><b>[age]</b></span>"
 				entry += " – [age]"
 
-				if(is_special_character(client.mob))
-					entry += " – <span style='color: red;'><b>Антагонист</b></span>"
 				entry += " ([ADMIN_QUE(client.mob,"?")])"
+				entry += " ([round(client.avgping, 1)]ms)"
+				lines += entry
+		else //If they don't have +ADMIN, only show hidden admins
+			for(var/client/client in GLOB.clients)
+				if(client.holder && client.holder.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // need PERMISSIONS to see BB
+					continue
+
+				var/entry = "[client.key]"
+				if(client.holder && client.holder.fakekey)
+					entry += " <i>(как [client.holder.fakekey])</i>"
 				entry += " ([round(client.avgping, 1)]ms)"
 				lines += entry
 	else
