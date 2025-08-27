@@ -47,8 +47,8 @@
 	cooldown = 60 SECONDS
 	vary = TRUE
 	sound = list(
-		'sound/misc/guitar_rifs/guitar_riff_1.ogg', // audio file from the suggestion
-		'sound/misc/guitar_rifs/guitar_riff_2.ogg', // found all the rest on the free site samplefocus
+		'sound/misc/guitar_rifs/guitar_riff_1.ogg',
+		'sound/misc/guitar_rifs/guitar_riff_2.ogg',
 		'sound/misc/guitar_rifs/guitar_riff_3.ogg',
 		'sound/misc/guitar_rifs/guitar_riff_4.ogg',
 		'sound/misc/guitar_rifs/guitar_riff_5.ogg',
@@ -1259,7 +1259,7 @@
 	muzzled_noises = list("раздражённые", "утробные")
 	age_based = TRUE
 	volume = 80
-	sound = "growls"	// exists predefined in [/proc/get_sfx()]
+	sound = SFX_GROWL
 
 
 /**

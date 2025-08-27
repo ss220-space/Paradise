@@ -1172,7 +1172,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(ITEM_SLOT_ID)
 			if(ishuman(owner))
 				var/mob/living/carbon/human/h_owner = owner
-				h_owner.sec_hud_set_ID()
+				h_owner.update_hud_set()
 			owner.update_inv_wear_id()
 
 		if(ITEM_SLOT_PDA)

@@ -151,11 +151,13 @@
 	icon_state = "secgl_4"
 	item_state = "secgl_4"
 	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/secgl/x4
-	w_class = WEIGHT_CLASS_BULKY
-	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_HUGE
+	weapon_weight = WEAPON_DUAL_WIELD
+	slot_flags = FALSE
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
 	var/high_risk = TRUE
+	fire_delay = 1.5 SECONDS
 
 /obj/item/gun/projectile/bombarda/secgl/x4/Initialize(mapload, ...)
 	. = ..()
@@ -250,8 +252,8 @@
 
 /obj/projectile/grenade/improvised
 	icon = 'icons/obj/weapons/bombarda.dmi'
-	hitsound = "bullet"
-	hitsound_wall = "ricochet"
+	hitsound = SFX_BULLET
+	hitsound_wall = SFX_RICOCHET
 
 /obj/projectile/grenade/improvised/exp_shot
 	icon_state = "exp_shot"

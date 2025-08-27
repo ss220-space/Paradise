@@ -30,7 +30,7 @@
 		requires_wielded = FALSE,
 		no_multi_hit = FALSE,
 		datum/callback/cleave_end_callback,
-		swing_sound = "generic_swing_light", // Pass it in format 'sound/weapons/sound_name.ogg' or look into /proc/get_sfx(soundin)
+		swing_sound = SFX_GENERIC_SWING_LIGHT, // Pass it in format 'sound/weapons/sound_name.ogg' or look into /proc/get_sfx(soundin)
 		cleave_effect,
 		...
 	)

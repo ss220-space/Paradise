@@ -30,7 +30,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 1, \
 		afterswing_slowdown = 0, \
-		swing_sound = "generic_swing_light" \
+		swing_sound = SFX_GENERIC_SWING_LIGHT \
 	)
 
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
@@ -64,7 +64,7 @@
 		swing_speed_mod = 1, \
 		afterswing_slowdown = -0.25, \
 		slowdown_duration = 0.5 SECONDS, \
-		swing_sound = "rapier_swing" \
+		swing_sound = SFX_RAPIER_SWING \
 	)
 
 /obj/item/melee/rapier/captain
@@ -153,7 +153,7 @@
 		arc_size = 180, \
 		afterswing_slowdown = -0.25, \
 		slowdown_duration = 2 SECONDS, \
-		swing_sound = "katana_swing" \
+		swing_sound = SFX_KATANA_SWING \
 	)
 
 /obj/item/melee/mantisblade/equipped(mob/user, slot, initial = FALSE)
@@ -239,7 +239,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = -0.15, \
 		slowdown_duration = 1 SECONDS, \
-		swing_sound = "katana_swing" \
+		swing_sound = SFX_KATANA_SWING \
 	)
 
 /obj/item/melee/icepick

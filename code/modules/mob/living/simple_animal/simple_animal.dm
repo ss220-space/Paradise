@@ -129,7 +129,7 @@
 
 	var/allow_movement_on_non_turfs = FALSE
 
-	var/attacked_sound = "punch"
+	var/attacked_sound = SFX_PUNCH
 
 	/// The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever).
 	var/AIStatus = AI_ON
@@ -515,7 +515,7 @@
 /mob/living/simple_animal/update_fire()
 	if(!can_be_on_fire)
 		return
-	var/static/simple_mob_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "Generic_mob_burning")
+	var/static/simple_mob_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "human_generic_burn")
 	cut_overlay(simple_mob_fire_olay)
 	if(on_fire)
 		add_overlay(simple_mob_fire_olay)
