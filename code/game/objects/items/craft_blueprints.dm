@@ -67,13 +67,14 @@
 		for(var/tool as anything in tools)
 			required_tools_text += "[tool] "
 		. += span_notice(required_tools_text)
-	if(length(components))
-		var/required_components_text = "Вещи для крафта: "
-		for(var/component in components)
-			var/need_amount = components[component]
-			var/atom/atom_comp = component
-			required_components_text += "[need_amount] [initial(atom_comp.name)] "
-		. += span_notice(required_components_text)
+	if(!length(components))
+		return
+	var/required_components_text = "Вещи для крафта: "
+	for(var/component in components)
+		var/need_amount = components[component]
+		var/atom/atom_comp = component
+		required_components_text += "[need_amount] [initial(atom_comp.name)] "
+	. += span_notice(required_components_text)
 
 
 /obj/item/craft_blueprints/proc/on_table_place(datum/source, mob/user)
@@ -108,11 +109,12 @@
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
 	var/list/click_params = params2list(params)
-	if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+	var/x_offset = text2num(LAZYACCESS(click_params, "icon-x"))
+	var/y_offset = text2num(LAZYACCESS(click_params, "icon-y"))
+	if(!x_offset || !y_offset)
 		return .
-	//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-	item.pixel_x = clamp(text2num(click_params["icon-x"]) - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
-	item.pixel_y = clamp(text2num(click_params["icon-y"]) - (ICON_SIZE_Y / 2), - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
+	item.pixel_x = clamp(x_offset - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
+	item.pixel_y = clamp(y_offset - (ICON_SIZE_Y / 2), - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 
 
 /obj/item/craft_blueprints/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)

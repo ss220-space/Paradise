@@ -384,26 +384,27 @@
 				break
 			toner -= 1
 			use_power(active_power_usage)
-			sleep(PHOTOCOPIER_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/photo))
 		for(var/i in copies to 1 step -1)
 			if(!photocopy(C))
 				break
 			toner -= 5
 			use_power(active_power_usage)
-			sleep(PHOTOCOPIER_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/paper_bundle))
 		var/obj/item/paper_bundle/B = C
 		for(var/i in copies to 1 step -1)
 			if(!bundlecopy(C, use_toner = TRUE))
 				break
 			use_power(active_power_usage)
-			sleep(PHOTOCOPIER_DELAY * (B.amount + 1))
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY * (B.amount + 1))
 	else if(check_mob()) //Once we've scanned the copy_mob's ass we do not need to again
 		for(var/i in copies to 1 step -1)
 			if(!copyass())
 				break
 			toner -= 5
+			finish_copying()
 	else if(istype(C, /obj/item/craft_blueprints))
 		var/obj/item/craft_blueprints/original = C
 		for(var/i in copies to 1 step -1)
@@ -411,12 +412,14 @@
 				break
 			toner -= original.required_toner
 			use_power(active_power_usage)
-			sleep(PHOTOCOPIER_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else
 		balloon_alert(usr, "нельзя отсканировать!")
 		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлеч[genderize_ru(copyitem.gender, "ён", "ена", "ено", "ены")]."))
 		copyitem.forceMove(loc) // fuckery detected! get off my photocopier... shitbird!
+		finish_copying()
 
+/obj/machinery/photocopier/proc/finish_copying()
 	copying = FALSE
 
 /obj/machinery/photocopier/proc/scan_document() //scan a document into a file
@@ -617,11 +620,14 @@
 	copying = TRUE
 	playsound(loc, pick(print_sounds), 50)
 	use_power(active_power_usage)
-	sleep(PHOTOCOPIER_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(do_print_form_paper), form), PHOTOCOPIER_DELAY)
+
+
+/obj/machinery/photocopier/proc/do_print_form_paper(var/obj/item/paper/form/form)
 	var/obj/item/paper/paper = new form(loc)
 	paper.pixel_x = rand(-10, 10)
 	paper.pixel_y = rand(-10, 10)
-	copying = FALSE
+	finish_copying()
 
 
 /obj/machinery/photocopier/attackby(obj/item/I, mob/user, params)
