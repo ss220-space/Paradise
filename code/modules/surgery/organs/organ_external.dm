@@ -419,8 +419,11 @@
 				if(!limb_dropped && original_burn && prob(original_burn / 2))
 					droplimb(clean = FALSE, disintegrate = DROPLIMB_BURN, silent = silent)
 
-	if(brute > MIN_BRUTE_DAMAGE_FOR_BLEEDING)
-		var/bleeding_probe = min(100, 25 + brute * 2.5)
+	if(brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING)
+		var/basic_chance = 25 + brute * 2.5
+		var/already_bleeding_chance = bleeding_amount > 0 ? 25 : 0
+		var/total_brute_chance = brute_dam >= remaining_health ? 25 : 0
+		var/bleeding_probe = min(100, basic_chance + already_bleeding_chance + total_brute_chance)
 		if(sharp || prob(bleeding_probe))
 			var/bleeding = brute * BRUTE_DAMAGE_TO_BLEEDING_MOD
 			if(sharp)
@@ -440,6 +443,16 @@
 
 	var/brute_was = brute_dam
 	var/burn_was = burn_dam
+
+	if(brute > 0 && bleeding_amount > 0)
+		var/bleeding_heal = brute * HEAL_DAMAGE_TO_BLEEDING_MOD
+		bleeding_amount -= round(bleeding_heal, BLEEDING_PRECISION)
+		bleeding_amount = max(bleeding_amount, 0)
+		var/min_brute_from_bleeding = bleeding_amount * MIN_DAMAGE_FROM_BLEEDING_MOD
+		if(brute_dam - brute < min_brute_from_bleeding)
+			// can not full heal bleeding bodypart
+			brute = brute_dam - min_brute_from_bleeding
+
 	brute_dam = max(round(brute_dam - brute, DAMAGE_PRECISION), 0)
 	burn_dam  = max(round(burn_dam - burn, DAMAGE_PRECISION), 0)
 	if(brute_dam == brute_was && burn_dam == burn_was)
@@ -448,11 +461,6 @@
 	if(internal)
 		mend_fracture()
 		stop_internal_bleeding()
-
-	if(brute > 0 && bleeding_amount > 0)
-		var/bleeding_heal = brute * HEAL_DAMAGE_TO_BLEEDING_MOD
-		bleeding_amount -= round(bleeding_heal, BLEEDING_PRECISION)
-		bleeding_amount = max(bleeding_amount, 0)
 
 	brute = HEAL_DAMAGE_TO_BLEEDING_MOD
 

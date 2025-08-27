@@ -30,11 +30,13 @@
 /// Multiplyer for bleeding calculate from bodypart value
 #define BLEEDING_MODIFIER 0.32
 /// Minimal brute damage for add bleeding
-#define MIN_BRUTE_DAMAGE_FOR_BLEEDING 10
+#define MIN_BRUTE_DAMAGE_FOR_BLEEDING 1
 /// Brute damage to bleeding calculation coefficient
 #define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.1
 /// Heal damage to bleeding reduction calculation coefficient
 #define HEAL_DAMAGE_TO_BLEEDING_MOD 0.01
+/// Minimal brute damage for bodypart
+#define MIN_DAMAGE_FROM_BLEEDING_MOD 1.5
 
 
 /obj/item/organ/external/proc/suppress_bloodloss(mob/living/user, mob/living/carbon/human/target, amount, duration)
