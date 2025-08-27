@@ -109,8 +109,8 @@
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
 	var/list/click_params = params2list(params)
-	var/x_offset = text2num(LAZYACCESS(click_params, "icon-x"))
-	var/y_offset = text2num(LAZYACCESS(click_params, "icon-y"))
+	var/x_offset = text2num(LAZYACCESS(click_params, ICON_X))
+	var/y_offset = text2num(LAZYACCESS(click_params, ICON_Y))
 	if(!x_offset || !y_offset)
 		return .
 	item.pixel_x = clamp(x_offset - (ICON_SIZE_X / 2), - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
