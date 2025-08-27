@@ -20,6 +20,9 @@
 			user.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			var/shove_dir = get_dir(user, src)
+			if(!prob(10))
+				to_chat(user, span_danger("Вам не удалось [response_disarm_simple] [declent_ru(ACCUSATIVE)]!"))
+				return TRUE
 			if(!Move(get_step(src, shove_dir), shove_dir))
 				add_attack_logs(user, src, "толкнул")
 				visible_message(span_danger("[user] [response_disarm_continuous] [src.declent_ru(ACCUSATIVE)]!"), \
@@ -51,7 +54,7 @@
 	. = ..()
 	if(!.)
 		return
-	playsound(loc, "punch", 25, TRUE, -1)
+	playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 	visible_message(span_danger("[user] крушит [src.declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user] сокрушает вас!"))
 	to_chat(user, span_danger("Вы бьёте [src.declent_ru(ACCUSATIVE)]!"))
@@ -138,24 +141,25 @@
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return FALSE
 
-	..()
+	. = ..()
 	if(QDELETED(src))
 		return
+
 	var/bomb_armor = getarmor(null, BOMB)
 	switch (severity)
-		if (EXPLODE_DEVASTATE)
+		if(EXPLODE_DEVASTATE)
 			if(prob(bomb_armor))
 				adjustBruteLoss(500)
 			else
 				gib()
 				return
-		if (EXPLODE_HEAVY)
+		if(EXPLODE_HEAVY)
 			var/bloss = 60
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5
 			adjustBruteLoss(bloss)
 
-		if (EXPLODE_LIGHT)
+		if(EXPLODE_LIGHT)
 			var/bloss = 30
 			if(prob(bomb_armor))
 				bloss = bloss / 1.5

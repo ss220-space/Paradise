@@ -6,7 +6,6 @@
 	item_state = "spikethrower"
 	w_class = WEIGHT_CLASS_SMALL
 	fire_sound_text = "a strange noise"
-	can_suppress = 0
 	burst_size = 2 // burst has to be stored here
 	can_charge = FALSE
 	selfcharge = TRUE
@@ -74,7 +73,6 @@
 	icon_state = "particle"
 	damage = 60
 	damage_type = BRUTE
-	flag = "bullet"
+	flag = BULLET
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-
 	weaken = 10 SECONDS

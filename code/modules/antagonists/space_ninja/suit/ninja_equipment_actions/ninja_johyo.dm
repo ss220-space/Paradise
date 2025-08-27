@@ -92,7 +92,7 @@
 	armour_penetration = 100
 	damage_type = BRUTE
 	hitsound = 'sound/weapons/whip.ogg'
-	weaken = 2 SECONDS
+	knockdown = 2 SECONDS
 
 /obj/projectile/johyo/fire(setAngle)
 	if(firer)

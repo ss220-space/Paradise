@@ -64,14 +64,6 @@
 
 /obj/effect/anomaly/bluespace/tier1
 	name = "малая блюспейс аномалия"
-	ru_names = list(
-		NOMINATIVE = "малая ​​блюспейс аномалия", \
-		GENITIVE = "малой ​​блюспейс аномалии", \
-		DATIVE = "малой ​​блюспейс аномалии", \
-		ACCUSATIVE = "малую ​​блюспейс аномалию", \
-		INSTRUMENTAL = "малой ​​блюспейс аномалией", \
-		PREPOSITIONAL = "малой ​​блюспейс аномалии"
-	)
 	icon_state = "bluespace1"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/bluespace/tier2
@@ -85,20 +77,22 @@
 	collapse_radius = 3
 	collapse_tp_radius = 5
 
+/obj/effect/anomaly/bluespace/tier1/get_ru_names()
+	return list(
+		NOMINATIVE = "малая ​​блюспейс аномалия", \
+		GENITIVE = "малой ​​блюспейс аномалии", \
+		DATIVE = "малой ​​блюспейс аномалии", \
+		ACCUSATIVE = "малую ​​блюспейс аномалию", \
+		INSTRUMENTAL = "малой ​​блюспейс аномалией", \
+		PREPOSITIONAL = "малой ​​блюспейс аномалии"
+	)
+
 // Moves only by /datum/anomaly_impulse/move/bs_selftp
 /obj/effect/anomaly/bluespace/tier1/normal_move()
 	return FALSE
 
 /obj/effect/anomaly/bluespace/tier2
 	name = "блюспейс аномалия"
-	ru_names = list(
-		NOMINATIVE = "​​блюспейс аномалия", \
-		GENITIVE = "​​блюспейс аномалии", \
-		DATIVE = "​​блюспейс аномалии", \
-		ACCUSATIVE = "​​блюспейс аномалию", \
-		INSTRUMENTAL = "​​блюспейс аномалией", \
-		PREPOSITIONAL = "​​блюспейс аномалии"
-	)
 	icon_state = "bluespace2"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier2
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier1
@@ -115,16 +109,18 @@
 	collapse_radius = 5
 	collapse_tp_radius = 50
 
+/obj/effect/anomaly/bluespace/tier2/get_ru_names()
+	return list(
+		NOMINATIVE = "​​блюспейс аномалия", \
+		GENITIVE = "​​блюспейс аномалии", \
+		DATIVE = "​​блюспейс аномалии", \
+		ACCUSATIVE = "​​блюспейс аномалию", \
+		INSTRUMENTAL = "​​блюспейс аномалией", \
+		PREPOSITIONAL = "​​блюспейс аномалии"
+	)
+
 /obj/effect/anomaly/bluespace/tier3
 	name = "большая блюспейс аномалия"
-	ru_names = list(
-		NOMINATIVE = "большая ​​блюспейс аномалия", \
-		GENITIVE = "большой ​​блюспейс аномалии", \
-		DATIVE = "большой ​​блюспейс аномалии", \
-		ACCUSATIVE = "большую ​​блюспейс аномалию", \
-		INSTRUMENTAL = "большой ​​блюспейс аномалией", \
-		PREPOSITIONAL = "большой ​​блюспейс аномалии"
-	)
 	icon_state = "bluespace3"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier3
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier2
@@ -139,6 +135,16 @@
 	bump_tp_max = 10
 	collapse_radius = 7
 	collapse_tp_radius = 50
+
+/obj/effect/anomaly/bluespace/tier3/get_ru_names()
+	return list(
+		NOMINATIVE = "большая ​​блюспейс аномалия", \
+		GENITIVE = "большой ​​блюспейс аномалии", \
+		DATIVE = "большой ​​блюспейс аномалии", \
+		ACCUSATIVE = "большую ​​блюспейс аномалию", \
+		INSTRUMENTAL = "большой ​​блюспейс аномалией", \
+		PREPOSITIONAL = "большой ​​блюспейс аномалии"
+	)
 
 /obj/effect/anomaly/bluespace/tier3/New()
 	. = ..()
@@ -164,14 +170,6 @@
 
 /obj/effect/anomaly/bluespace/tier4
 	name = "колоссальная блюспейс аномалия"
-	ru_names = list(
-		NOMINATIVE = "колоссальная ​​блюспейс аномалия", \
-		GENITIVE = "колоссальной ​​блюспейс аномалии", \
-		DATIVE = "колоссальной ​​блюспейс аномалии", \
-		ACCUSATIVE = "колоссальную ​​блюспейс аномалию", \
-		INSTRUMENTAL = "колоссальной ​​блюспейс аномалией", \
-		PREPOSITIONAL = "колоссальной ​​блюспейс аномалии"
-	)
 	icon_state = "bluespace3"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier3/tier4
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier3
@@ -186,6 +184,16 @@
 	bump_tp_max = 70
 	collapse_radius = 7
 	collapse_tp_radius = 50
+
+/obj/effect/anomaly/bluespace/tier4/get_ru_names()
+	return list(
+		NOMINATIVE = "колоссальная ​​блюспейс аномалия", \
+		GENITIVE = "колоссальной ​​блюспейс аномалии", \
+		DATIVE = "колоссальной ​​блюспейс аномалии", \
+		ACCUSATIVE = "колоссальную ​​блюспейс аномалию", \
+		INSTRUMENTAL = "колоссальной ​​блюспейс аномалией", \
+		PREPOSITIONAL = "колоссальной ​​блюспейс аномалии"
+	)
 
 /obj/effect/anomaly/bluespace/tier4/New()
 	. = ..()

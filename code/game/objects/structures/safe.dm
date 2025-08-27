@@ -20,14 +20,6 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe
 	name = "safe"
 	desc = "Огромный кусок металла со встроенным в него циферблатом. Мелким шрифтом на циферблате написано: \"Сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
-	ru_names = list(
-		NOMINATIVE = "сейф",
-		GENITIVE = "сейфа",
-		DATIVE = "сейфу",
-		ACCUSATIVE = "сейф",
-		INSTRUMENTAL = "сейфом",
-		PREPOSITIONAL = "сейфе"
-	)
 	gender = MALE
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
@@ -73,6 +65,16 @@ GLOBAL_LIST_EMPTY(safes)
 	var/known_by = list()
 	/// UID of that who placed the drill on the safe. Used to trigger the status effect.
 	var/driller_UID
+
+/obj/structure/safe/get_ru_names()
+	return list(
+		NOMINATIVE = "сейф",
+		GENITIVE = "сейфа",
+		DATIVE = "сейфу",
+		ACCUSATIVE = "сейф",
+		INSTRUMENTAL = "сейфом",
+		PREPOSITIONAL = "сейфе"
+	)
 
 /obj/structure/safe/Initialize(mapload)
 	. = ..()
@@ -120,7 +122,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/blob_act(obj/structure/blob/B)
 	return
 
-/obj/structure/safe/ex_act(severity)
+/obj/structure/safe/ex_act(severity, target)
 	return
 
 /obj/structure/safe/examine_status(mob/user)
@@ -451,14 +453,6 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/floor
 	name = "floor safe"
 	desc = "Огромный металлический люк со встроенным в него цифербалтом. Мелким шрифтом на циферблате написано: \"Напольный сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
-	ru_names = list(
-		NOMINATIVE = "напольный сейф",
-		GENITIVE = "напольного сейфа",
-		DATIVE = "напольному сейфу",
-		ACCUSATIVE = "напольный сейф",
-		INSTRUMENTAL = "напольным сейфом",
-		PREPOSITIONAL = "напольном сейфе"
-	)
 	icon_state = "floorsafe"
 	density = FALSE
 	level = 1 //Under the floor
@@ -467,7 +461,17 @@ GLOBAL_LIST_EMPTY(safes)
 	drill_x_offset = -1
 	drill_y_offset = 20
 
-/obj/structure/safe/floor/Initialize()
+/obj/structure/safe/floor/get_ru_names()
+	return list(
+		NOMINATIVE = "напольный сейф",
+		GENITIVE = "напольного сейфа",
+		DATIVE = "напольному сейфу",
+		ACCUSATIVE = "напольный сейф",
+		INSTRUMENTAL = "напольным сейфом",
+		PREPOSITIONAL = "напольном сейфе"
+	)
+
+/obj/structure/safe/floor/Initialize(mapload)
 	. = ..()
 	var/turf/T = loc
 	if(!T.transparent_floor)
@@ -484,7 +488,10 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/item/safe_internals
 	name = "safe internals"
 	desc = "Механизм и запирающие ригели для тумблерного сейфа \"Скарборо Армс - 2\"."
-	ru_names = list(
+	icon_state = "safe_internals"
+
+/obj/item/safe_internals/get_ru_names()
+	return list(
 		NOMINATIVE = "внутренности сейфа",
 		GENITIVE = "внтренностей сейфа",
 		DATIVE = "внутренностям сейфа",
@@ -492,7 +499,6 @@ GLOBAL_LIST_EMPTY(safes)
 		INSTRUMENTAL = "внутренностями сейфа",
 		PREPOSITIONAL = "внутренностях сейфа"
 	)
-	icon_state = "safe_internals"
 
 /**
   * # Safe Codes
@@ -502,7 +508,11 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/item/paper/safe_code
 	name = "safe codes"
 	desc = "Надежный способ сохранить секретность важных цифр."
-	ru_names = list(
+	var/owner
+	info = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Коды от сейфа</h3></center>"
+
+/obj/item/paper/safe_code/get_ru_names()
+	return list(
 		NOMINATIVE = "коды от сейфа",
 		GENITIVE = "кодов от сейфа",
 		DATIVE = "кодам от сейфа",
@@ -510,8 +520,6 @@ GLOBAL_LIST_EMPTY(safes)
 		INSTRUMENTAL = "кодами от сейфа",
 		PREPOSITIONAL = "кодах от сейфа"
 	)
-	var/owner
-	info = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Коды от сейфа</h3></center>"
 
 /obj/item/paper/safe_code/Initialize(mapload)
 	..()

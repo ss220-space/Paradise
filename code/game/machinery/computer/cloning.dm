@@ -4,14 +4,6 @@
 /obj/machinery/computer/cloning
 	name = "biomass pod console"
 	desc = "Консоль для управления капсулой клонирования."
-	ru_names = list(
-		NOMINATIVE = "консоль капсулы клонирования",
-		GENITIVE = "консоли капсулы клонирования",
-		DATIVE = "консоли капсулы клонирования",
-		ACCUSATIVE = "консоль капсулы клонирования",
-		INSTRUMENTAL = "консолью капсулы клонирования",
-		PREPOSITIONAL = "консоли капсулы клонирования"
-	)
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
@@ -32,9 +24,19 @@
 	// 1: The "Best" scan available
 	var/scan_mode = 1
 
-	light_color = LIGHT_COLOR_DARKBLUE
+	light_color = LIGHT_COLOR_DARK_BLUE
 
-/obj/machinery/computer/cloning/Initialize()
+/obj/machinery/computer/cloning/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль капсулы клонирования",
+		GENITIVE = "консоли капсулы клонирования",
+		DATIVE = "консоли капсулы клонирования",
+		ACCUSATIVE = "консоль капсулы клонирования",
+		INSTRUMENTAL = "консолью капсулы клонирования",
+		PREPOSITIONAL = "консоли капсулы клонирования"
+	)
+
+/obj/machinery/computer/cloning/Initialize(mapload)
 	. = ..()
 	pods = list()
 	records = list()

@@ -21,7 +21,7 @@
 
 	var/can_unanchor = TRUE
 
-	var/open_panel = FALSE 	//are the wires exposed?
+	var/open_panel = FALSE	//are the wires exposed?
 	var/active = FALSE		//is the bomb counting down?
 	var/defused = FALSE		//is the bomb capable of exploding?
 	var/obj/item/bombcore/payload = /obj/item/bombcore
@@ -84,13 +84,13 @@
 		if(payload in src)
 			payload.defuse()
 
-/obj/machinery/syndicatebomb/New()
-	wires 	= new(src)
+/obj/machinery/syndicatebomb/Initialize(mapload)
+	. = ..()
+	wires = new(src)
 	if(payload)
 		payload = new payload(src)
 	update_icon(UPDATE_ICON_STATE)
 	countdown = new(src)
-	..()
 
 /obj/machinery/syndicatebomb/Destroy()
 	SStgui.close_uis(wires)
@@ -314,8 +314,8 @@
 	open_panel = TRUE
 	timer_set = 120
 
-/obj/machinery/syndicatebomb/empty/New()
-	..()
+/obj/machinery/syndicatebomb/empty/Initialize(mapload)
+	. = ..()
 	wires.cut_all()
 
 /obj/machinery/syndicatebomb/self_destruct
@@ -353,7 +353,7 @@
 	var/range_flame = 17
 	var/admin_log = TRUE
 
-/obj/item/bombcore/ex_act(severity) //Little boom can chain a big boom
+/obj/item/bombcore/ex_act(severity, target) //Little boom can chain a big boom
 	detonate()
 
 
@@ -365,13 +365,13 @@
 	if(adminlog)
 		message_admins(adminlog)
 		add_game_logs(adminlog)
-	explosion(get_turf(src), range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, cause = fingerprintslast)
+	explosion(get_turf(src), devastation_range = range_heavy, heavy_impact_range = range_medium, light_impact_range = range_light, flame_range = range_flame, adminlog = admin_log, cause = fingerprintslast)
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
 	qdel(src)
 
 /obj/item/bombcore/proc/defuse()
-//Note: 	Because of how var/defused is used you shouldn't override this UNLESS you intend to set the var to 0 or
+//Note:	Because of how var/defused is used you shouldn't override this UNLESS you intend to set the var to 0 or
 //			otherwise remove the core/reset the wires before the end of defuse(). It will repeatedly be called otherwise.
 
 ///Bomb Core Subtypes///
@@ -443,7 +443,7 @@
 
 /obj/item/bombcore/badmin/summon/clown
 	summon_path = /mob/living/simple_animal/hostile/retaliate/clown
-	amt_summon 	= 100
+	amt_summon	= 100
 
 /obj/item/bombcore/badmin/summon/clown/defuse()
 	playsound(src.loc, 'sound/misc/sadtrombone.ogg', 50)
@@ -477,7 +477,7 @@
 	var/pulse_number = 1 //Since one EMP wont destroy anything other then consoles and IPCS, here is an option to have multiple pulses when dentonating. DO NOT USE THIS WITH REALLY LARGE AREAS
 	var/adminlogged = FALSE //If it exploded once, don't do it again.
 
-/obj/item/bombcore/emp/ex_act(severity) //It's an EMP bomb, not a chemical explosive
+/obj/item/bombcore/emp/ex_act(severity, target) //It's an EMP bomb, not a chemical explosive
 	return
 
 /obj/item/bombcore/emp/burn()
@@ -677,7 +677,7 @@
 	return FALSE
 
 
-/obj/item/bombcore/toxins/ex_act(severity) //No chain reactions, the explosion only occurs when gas mixes
+/obj/item/bombcore/toxins/ex_act(severity, target) //No chain reactions, the explosion only occurs when gas mixes
 	return
 
 /obj/item/bombcore/toxins/burn()

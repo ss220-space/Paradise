@@ -1,10 +1,10 @@
 //defines that give qdel hints. these can be given as a return in destory() or by calling
 
 
-#define QDEL_HINT_QUEUE 		0 //qdel should queue the object for deletion.
+#define QDEL_HINT_QUEUE		0 //qdel should queue the object for deletion.
 #define QDEL_HINT_LETMELIVE		1 //qdel should let the object live after calling destory.
 #define QDEL_HINT_IWILLGC		2 //functionally the same as the above. qdel should assume the object will gc on its own, and not check it.
-#define QDEL_HINT_HARDDEL	3 	/// Qdel should assume this object won't GC, and queue a hard delete using a hard reference.
+#define QDEL_HINT_HARDDEL	3	/// Qdel should assume this object won't GC, and queue a hard delete using a hard reference.
 #define QDEL_HINT_HARDDEL_NOW	4   // Qdel should assume this object won't gc, and hard delete it posthaste.
 
 #ifdef REFERENCE_TRACKING

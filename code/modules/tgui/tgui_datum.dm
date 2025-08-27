@@ -71,7 +71,8 @@
 	user = null
 	state = null
 	src_object = null
-	window.locked_by = null
+	window?.release_lock()
+	window?.close(TRUE)
 	window = null
 	. = ..()
 

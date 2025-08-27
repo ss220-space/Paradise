@@ -353,15 +353,7 @@
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_notice("У вас есть непрочитанные сообщения в журнале обновлений."), confidential=TRUE)
-		winset(src, "infobuttons.changelog", "font-style=bold")
-
-	// Karma is disabled
-	/*
-	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
-		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
-	else
-		to_chat(src,"<span class='notice'>You have enabled karma gains.")
-	*/
+		//winset(src, "infobuttons.changelog", "font-style=bold")
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -927,7 +919,7 @@
 /client/proc/is_afk(duration = 5 MINUTES)
 	if(inactivity > duration)
 		return inactivity
-	return 0
+	return FALSE
 
 /// Send resources to the client.
 /// Sends both game resources and browser assets.
@@ -989,9 +981,9 @@
 
 	var/list/modifiers = params2list(params)
 
-	var/button_clicked = LAZYACCESS(modifiers, "button")
+	var/button_clicked = LAZYACCESS(modifiers, BUTTON)
 
-	var/dragged = LAZYACCESS(modifiers, "drag")
+	var/dragged = LAZYACCESS(modifiers, DRAG)
 	if(dragged && button_clicked != dragged)
 		return
 

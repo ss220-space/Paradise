@@ -224,7 +224,7 @@
 	desc = "Кто-то завернулся в кокон."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cocoon1"
-	color = COLOR_PALE_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
+	color = LIGHT_COLOR_DIM_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
 	max_integrity = 60
 	var/preparing_to_emerge = TRUE
 

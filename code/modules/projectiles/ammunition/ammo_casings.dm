@@ -45,7 +45,7 @@
 	desc = "A .50AE bullet casing."
 	materials = list(MAT_METAL = 4000)
 	caliber = ".50ae" //change to diffrent caliber because players got deagle in uplink
-	projectile_type = /obj/projectile/bullet
+	projectile_type = /obj/projectile/bullet/desert_eagle
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
@@ -324,7 +324,7 @@
 	would have difficulty with."
 	icon_state = "pulseslugshell"
 	projectile_type = /obj/projectile/beam/pulse/shot
-	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary slug"
@@ -363,7 +363,7 @@
 	variance = 35
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	muzzle_flash_color = LIGHT_COLOR_BLUE
 
 /obj/item/ammo_casing/shotgun/laserslug
 	name = "laser slug"
@@ -372,7 +372,7 @@
 	projectile_type = /obj/projectile/beam/laser/slug
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	muzzle_flash_color = COLOR_SOFT_RED
 
 /obj/item/ammo_casing/specter/laser
 	desc = "Лазерный патрон для пистолета \"Спектр\"."
@@ -382,7 +382,7 @@
 	projectile_type = /obj/projectile/beam/specter/laser
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	muzzle_flash_color = COLOR_SOFT_RED
 
 /obj/item/ammo_casing/specter/disable
 	desc = "Парализующий патрон для пистолета \"Спектр\"."
@@ -390,7 +390,7 @@
 	caliber = "specter"
 	materials = list(MAT_METAL = 800)
 	projectile_type = /obj/projectile/beam/specter/disabler
-	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	muzzle_flash_color = LIGHT_COLOR_BLUE
 
 /obj/item/ammo_casing/shotgun/lasershot
 	name = "laser shot"
@@ -401,7 +401,7 @@
 	variance = 17
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	muzzle_flash_color = COLOR_SOFT_RED
 
 /obj/item/ammo_casing/shotgun/bioterror
 	name = "bioterror shell"
@@ -650,4 +650,4 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	muzzle_flash_color = COLOR_SOFT_RED

@@ -1,5 +1,6 @@
 /turf/simulated
 	name = "station"
+	flags = NO_SCREENTIPS
 	var/wet = 0
 	var/image/wet_overlay = null
 	var/mutable_appearance/melting_olay
@@ -13,6 +14,9 @@
 /turf/simulated/Initialize(mapload)
 	. = ..()
 	add_debris_element()
+
+/turf/simulated/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)
 
 /turf/simulated/proc/break_tile()
 	return
@@ -48,9 +52,9 @@
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
 		if(istype(arrived, /mob/living/simple_animal/hulk/clown_hulk))
 			if(Hulk.body_position != LYING_DOWN)
-				playsound(src, "clownstep", CHANNEL_BUZZ)
+				playsound(src, SFX_CLOWN_STEP, CHANNEL_BUZZ)
 	if(istype(arrived, /mob/living/simple_animal/hostile/shitcur_goblin))
-		playsound(src, "clownstep", CHANNEL_BUZZ)
+		playsound(src, SFX_CLOWN_STEP, CHANNEL_BUZZ)
 
 
 /turf/simulated/copyTurf(turf/simulated/copy_to_turf, copy_air = FALSE)

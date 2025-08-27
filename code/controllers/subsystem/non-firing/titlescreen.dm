@@ -202,7 +202,6 @@ SUBSYSTEM_DEF(title)
 		return
 
 	winset(viewer, "title_browser", "is-disabled=false;is-visible=true")
-	winset(viewer, "mapwindow.status_bar", "is-visible=false")
 
 	var/datum/asset/lobby_asset = get_asset_datum(/datum/asset/simple/lobby)
 	var/datum/asset/fontawesome = get_asset_datum(/datum/asset/simple/namespaced/fontawesome)
@@ -218,7 +217,6 @@ SUBSYSTEM_DEF(title)
 /datum/title_screen/proc/hide_from(client/viewer)
 	if(viewer?.mob)
 		winset(viewer, "title_browser", "is-disabled=true;is-visible=false")
-		winset(viewer, "mapwindow.status_bar", "is-visible=true;focus=true")
 
 /**
  * Get the HTML of title screen.

@@ -30,7 +30,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 1, \
 		afterswing_slowdown = 0, \
-		swing_sound = "generic_swing_light" \
+		swing_sound = SFX_GENERIC_SWING_LIGHT \
 	)
 
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
@@ -64,7 +64,7 @@
 		swing_speed_mod = 1, \
 		afterswing_slowdown = -0.25, \
 		slowdown_duration = 0.5 SECONDS, \
-		swing_sound = "rapier_swing" \
+		swing_sound = SFX_RAPIER_SWING \
 	)
 
 /obj/item/melee/rapier/captain
@@ -85,13 +85,14 @@
 	icon_state = "syndie_rapier"
 	item_state = "syndie_rapier"
 	origin_tech = "combat=5;biotech=5;syndicate=4"
+	force = 22
 	materials = null
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 
 /obj/item/melee/rapier/syndie/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/after_attack/attack_effect_sleep, 30, 10 SECONDS)
+	AddElement(/datum/element/after_attack/attack_effect_sleep, 45, 5 SECONDS)
 
 
 /obj/item/melee/rapier/centcomm
@@ -152,7 +153,7 @@
 		arc_size = 180, \
 		afterswing_slowdown = -0.25, \
 		slowdown_duration = 2 SECONDS, \
-		swing_sound = "katana_swing" \
+		swing_sound = SFX_KATANA_SWING \
 	)
 
 /obj/item/melee/mantisblade/equipped(mob/user, slot, initial = FALSE)
@@ -238,7 +239,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = -0.15, \
 		slowdown_duration = 1 SECONDS, \
-		swing_sound = "katana_swing" \
+		swing_sound = SFX_KATANA_SWING \
 	)
 
 /obj/item/melee/icepick

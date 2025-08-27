@@ -9,9 +9,9 @@
 	selection_color = "#6691ff"
 	req_admin_notify = 1
 	is_command = 1
-	access = list() 			//See get_access()
+	access = list()			//See get_access()
 	law_level = LAW_LEVEL_CAPTAIN
-	minimal_access = list() 	//See get_access()
+	minimal_access = list()	//See get_access()
 	minimal_player_age = 30
 	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)

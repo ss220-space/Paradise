@@ -130,7 +130,7 @@
 	light_on = FALSE
 	light_range = 1.5
 	light_power = 1
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 
 
 /obj/item/clothing/head/cakehat/process()
@@ -366,14 +366,6 @@
 /obj/item/clothing/head/shapka_pepega
 	name = "frog hat"
 	desc = "Милая шапочка в виде головы лягушки, окутывающая голову. Мило, мягко и приятно!"
-	ru_names = list(
-		NOMINATIVE = "лягушачья шапка",
-		GENITIVE = "лягушачьей шапки",
-		DATIVE = "лягушачьей шапке",
-		ACCUSATIVE = "лягушачью шапку",
-		INSTRUMENTAL = "лягушачьей шапкой",
-		PREPOSITIONAL = "лягушачьей шапке"
-	)
 	icon_state = "shapka_pepega"
 	item_state = "shapka_pepega"
 	sprite_sheets = list(
@@ -387,3 +379,40 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 	flags_inv = HIDEHEADSETS|HIDEHAIR
+
+/obj/item/clothing/head/shapka_pepega/get_ru_names()
+	return list(
+		NOMINATIVE = "лягушачья шапка",
+		GENITIVE = "лягушачьей шапки",
+		DATIVE = "лягушачьей шапке",
+		ACCUSATIVE = "лягушачью шапку",
+		INSTRUMENTAL = "лягушачьей шапкой",
+		PREPOSITIONAL = "лягушачьей шапке"
+	)
+
+/obj/item/clothing/head/carp_hat
+	name = "carp hat"
+	desc = "Шапочка в виде устрашающего хищника космоса. Мило!"
+	icon_state = "carp_hat"
+	item_state = "carp_hat"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+	)
+	flags_inv = HIDEHEADSETS|HIDEHEADHAIR
+
+/obj/item/clothing/head/carp_hat/get_ru_names()
+	return list(
+		NOMINATIVE = "карповая шапка",
+		GENITIVE = "карповой шапки",
+		DATIVE = "карповой шапке",
+		ACCUSATIVE = "капровую шапку",
+		INSTRUMENTAL = "карповой шапкой",
+		PREPOSITIONAL = "карповой шапке"
+	)

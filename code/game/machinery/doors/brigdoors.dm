@@ -15,12 +15,12 @@
 	icon_state = "frame"
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_BRIG)
-	anchored = TRUE    		// can't pick it up
+	anchored = TRUE   		// can't pick it up
 	density = FALSE			// can walk through it.
-	layer = 4 				// above all glasses and other things
-	var/id = null     		// id of door it controls.
+	layer = 4				// above all glasses and other things
+	var/id = null    		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
-	var/timing = 0    		// boolean, true/1 timer is on, false/0 means it's not timing
+	var/timing = 0   		// boolean, true/1 timer is on, false/0 means it's not timing
 	var/picture_state		// icon_state of alert picture, if not displaying text/numbers
 	var/list/obj/machinery/targets = list()
 	var/timetoset = 0		// Used to set releasetime upon starting the timer
@@ -43,10 +43,10 @@
 
 /obj/machinery/door_timer/Initialize(mapload)
 	. = ..()
-	GLOB.celltimers_list += src
 
+	GLOB.celltimers_list += src
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
+	Radio.listening = FALSE
 	Radio.config(list(SEC_FREQ_NAME = 0))
 	Radio.follow_target = src
 
@@ -54,10 +54,10 @@
 
 
 /obj/machinery/door_timer/Destroy()
-	GLOB.celltimers_list -= src
 	QDEL_NULL(Radio)
 	targets.Cut()
 	prisoner = null
+	GLOB.celltimers_list -= src
 	return ..()
 
 
@@ -272,8 +272,6 @@
 	var/mob/living/carbon/human/human = find_prisoner()
 	if(human)
 		SEND_SIGNAL(human, COMSIG_DOOR_TIMER_FINISH, crimes, prisoner_time)
-	else
-		message_admins("door_timer.timer_end(): not found prisoner [occupant] in cell for send signal")
 
 	// Reset vars
 	occupant = CELL_NONE

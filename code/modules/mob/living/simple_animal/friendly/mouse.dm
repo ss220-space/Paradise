@@ -491,10 +491,10 @@
 	real_name = "rat"
 	desc = "Серая крыса. Не самый яркий представитель своего вида."
 	squeak_sound = 'sound/creatures/rat_squeak.ogg'
-	icon_state 		= "rat_gray"
-	icon_living 	= "rat_gray"
-	icon_dead 		= "rat_gray_dead"
-	icon_resting 	= "rat_gray_sleep"
+	icon_state		= "rat_gray"
+	icon_living	= "rat_gray"
+	icon_dead		= "rat_gray_dead"
+	icon_resting	= "rat_gray_sleep"
 	maxHealth = 15
 	health = 15
 	mob_size = MOB_SIZE_SMALL
@@ -510,19 +510,19 @@
 	name = "white rat"
 	real_name = "white rat"
 	desc = "Типичный представитель лабораторных крыс."
-	icon_state 		= "rat_white"
-	icon_living 	= "rat_white"
-	icon_dead 		= "rat_white_dead"
-	icon_resting 	= "rat_white_sleep"
+	icon_state		= "rat_white"
+	icon_living	= "rat_white"
+	icon_dead		= "rat_white_dead"
+	icon_resting	= "rat_white_sleep"
 
 /mob/living/simple_animal/mouse/rat/irish
 	name = "irish rat"		//Да, я знаю что это вид. Это каламбурчик.
 	real_name = "irish rat"
 	desc = "Ирландская крыса. На космической станции?! На этот раз им точно некуда бежать!"
-	icon_state 		= "rat_irish"
-	icon_living 	= "rat_irish"
-	icon_dead 		= "rat_irish_dead"
-	icon_resting 	= "rat_irish_sleep"
+	icon_state		= "rat_irish"
+	icon_living	= "rat_irish"
+	icon_dead		= "rat_irish_dead"
+	icon_resting	= "rat_irish_sleep"
 
 #define MAX_WOOLY_MOUSE 50
 GLOBAL_VAR_INIT(wooly_mouse_count, 0)

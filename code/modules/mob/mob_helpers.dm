@@ -183,30 +183,12 @@
 	return FALSE
 
 
-/proc/stars(n, pr)
-	if(pr == null)
-		pr = 25
-	if(pr <= 0)
-		return null
-	else
-		if(pr >= 100)
-			return n
-	var/te = n
-	var/t = ""
-	n = length_char(n)
-	var/p = null
-	p = 1
-	while(p <= n)
-		if((copytext_char(te, p, p + 1) == " " || prob(pr)))
-			t = text("[][]", t, copytext_char(te, p, p + 1))
-		else
-			t = text("[]*", t)
-		p++
-	return t
+/proc/stars(text, probability = 25)
+	return RUSTLIB_CALL(random_replace, text, probability, "*")
 
-/proc/stars_all(list/message_pieces, pr)
-	for(var/datum/multilingual_say_piece/S in message_pieces)
-		S.message = stars(S.message, pr)
+/proc/stars_all(list/message_pieces, probability = 25)
+	for(var/datum/multilingual_say_piece/piece in message_pieces)
+		piece.message = stars(piece.message, probability)
 
 /proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
@@ -330,24 +312,48 @@
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		S.message = muffledspeech(S.message)
 
-
-/// Shake the camera of the person viewing the mob SO REAL!
-/proc/shake_camera(mob/M, duration, strength = 1)
-	if(!M || !M.client || duration < 1)
+#define TILES_PER_SECOND 0.7
+///Shake the camera of the person viewing the mob SO REAL!
+///Takes the mob to shake, the time span to shake for, and the amount of tiles we're allowed to shake by in tiles
+///Duration isn't taken as a strict limit, since we don't trust our coders to not make things feel shitty. So it's more like a soft cap.
+/proc/shake_camera(mob/viewer, duration, strength = 1)
+	if(!viewer || !viewer.client || duration < 1)
 		return
-	var/client/C = M.client
-	var/oldx = C.pixel_x
-	var/oldy = C.pixel_y
-	var/max = strength * world.icon_size
-	var/min = -(strength * world.icon_size)
+	var/client/client = viewer.client
+	var/oldx = client.pixel_x
+	var/oldy = client.pixel_y
+	var/max_x = strength * ICON_SIZE_X
+	var/max_y = strength * ICON_SIZE_Y
+	var/min_x = -(strength * ICON_SIZE_X)
+	var/min_y = -(strength * ICON_SIZE_Y)
 
-	for(var/i in 0 to duration - 1)
-		if(i == 0)
-			animate(C, pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
+	//How much time to allot for each pixel moved
+	var/time_scalar = (1 / ICON_SIZE_ALL) * TILES_PER_SECOND
+	var/last_x = oldx
+	var/last_y = oldy
+
+	var/time_spent = 0
+	while(time_spent < duration)
+		//Get a random pos in our box
+		var/x_pos = rand(min_x, max_x) + oldx
+		var/y_pos = rand(min_y, max_y) + oldy
+
+		//We take the smaller of our two distances so things still have the propencity to feel somewhat jerky
+		var/time = round(max(min(abs(last_x - x_pos), abs(last_y - y_pos)) * time_scalar, 1))
+
+		if (time_spent == 0)
+			animate(client, pixel_x = x_pos, pixel_y=y_pos, time = time)
 		else
-			animate(pixel_x = rand(min, max), pixel_y = rand(min, max), time = 1)
-	animate(pixel_x = oldx, pixel_y = oldy, time = 1)
+			animate(pixel_x = x_pos, pixel_y = y_pos, time = time)
 
+		last_x = x_pos
+		last_y = y_pos
+		//We go based on time spent, so there is a chance we'll overshoot our duration. Don't care
+		time_spent += time
+
+	animate(pixel_x = oldx, pixel_y = oldy, time = 3)
+
+#undef TILES_PER_SECOND
 
 /proc/findname(msg)
 	for(var/mob/M in GLOB.mob_list)
@@ -475,7 +481,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				var/mob/dead/observer/DM
 				if(isobserver(subject))
 					DM = subject
-				if(check_rights(R_ADMIN|R_MOD, FALSE, M)) 							// What admins see
+				if(check_rights(R_ADMIN|R_MOD, FALSE, M))							// What admins see
 					lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
 				else
 					if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)	// If the person is actually observer they have the option to be anonymous

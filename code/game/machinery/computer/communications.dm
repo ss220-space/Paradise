@@ -1,7 +1,7 @@
 #define COMM_SCREEN_MAIN		1
 #define COMM_SCREEN_STAT		2
 #define COMM_SCREEN_MESSAGES	3
-#define COMM_SCREEN_ANNOUNCER 	4
+#define COMM_SCREEN_ANNOUNCER	4
 
 #define COMM_AUTHENTICATION_NONE	0
 #define COMM_AUTHENTICATION_HEAD	1
@@ -19,14 +19,6 @@
 /obj/machinery/computer/communications
 	name = "communications console"
 	desc = "Консоль, с помощью которой капитан может связаться с Центральным командованием или изменить уровень угрозы. Она так-же позволяет командному составу вызвать эвакуационный шаттл."
-	ru_names = list(
-		NOMINATIVE = "консоль связи",
-		GENITIVE = "консоли связи",
-		DATIVE = "консоли связи",
-		ACCUSATIVE = "консоль связи",
-		INSTRUMENTAL = "консолью связи",
-		PREPOSITIONAL = "консоли связи",
-	)
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
 	req_access = list(ACCESS_HEADS)
@@ -51,12 +43,24 @@
 
 	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/comms_console)
 
-	light_color = LIGHT_COLOR_LIGHTBLUE
+	light_color = LIGHT_COLOR_BLUE
 
+/obj/machinery/computer/communications/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль связи",
+		GENITIVE = "консоли связи",
+		DATIVE = "консоли связи",
+		ACCUSATIVE = "консоль связи",
+		INSTRUMENTAL = "консолью связи",
+		PREPOSITIONAL = "консоли связи",
+	)
 
 /obj/machinery/computer/communications/New()
 	GLOB.shuttle_caller_list += src
 	..()
+
+/obj/machinery/computer/communications/Initialize(mapload)
+	. = ..()
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = TRUE)
 	if(user.can_admin_interact())
@@ -392,7 +396,7 @@
 
 			log_and_message_admins("has created a communications report: [params["text"]]")
 			// Okay but this is just an IC way of accessing the same verb
-			SSblackbox.record_feedback("tally", "admin_comms_console", 1, "Create CC Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+			SSblackbox.record_feedback("tally", "admin_comms_console", 1, "Create CC Report")
 
 /obj/machinery/computer/communications/proc/print_nuke_codes()
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)

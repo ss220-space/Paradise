@@ -5,14 +5,6 @@
 /mob/living/carbon/true_devil
 	name = "True Devil"
 	desc = "Сгусток адской энергии, смутно напоминающий гуманоида."
-	ru_names = list(
-		NOMINATIVE = "истинный Дьявол",
-		GENITIVE = "истинного Дьявола",
-		DATIVE = "истинному Дьяволу",
-		ACCUSATIVE = "истинного Дьявола",
-		INSTRUMENTAL = "истинным Дьяволом",
-		PREPOSITIONAL = "истинном Дьяволе"
-	)
 	icon = 'icons/mob/32x64.dmi'
 	icon_state = "true_devil"
 	gender = NEUTER
@@ -31,6 +23,16 @@
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 	hud_type = /datum/hud/devil
 	tts_seed = "Mannoroth"
+
+/mob/living/carbon/true_devil/get_ru_names()
+	return list(
+		NOMINATIVE = "истинный Дьявол",
+		GENITIVE = "истинного Дьявола",
+		DATIVE = "истинному Дьяволу",
+		ACCUSATIVE = "истинного Дьявола",
+		INSTRUMENTAL = "истинным Дьяволом",
+		PREPOSITIONAL = "истинном Дьяволе"
+	)
 
 
 /mob/living/carbon/true_devil/ascended
@@ -172,7 +174,7 @@
 	switch(M.a_intent)
 		if(INTENT_HARM)
 			var/damage = rand(1, 5)
-			playsound(loc, "punch", 25, TRUE, -1)
+			playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"), \
 					span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"))
 			adjustBruteLoss(damage)

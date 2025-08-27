@@ -39,8 +39,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/royalblack,
@@ -140,12 +139,10 @@
 	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -241,7 +238,6 @@
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -273,8 +269,7 @@
 	name = "NTV Argos shuttle navigation computer"
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -406,8 +401,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -553,8 +547,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -594,7 +587,6 @@
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /turf/simulated/floor/carpet/royalblack,
