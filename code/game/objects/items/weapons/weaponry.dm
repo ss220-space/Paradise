@@ -2,7 +2,7 @@
   * # Banhammer
   */
 /obj/item/banhammer
-	desc = "A banhammer"
+	desc = "banhammer"
 	name = "banhammer"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "toyhammer"
@@ -28,7 +28,7 @@
 	return ..()
 
 /obj/item/banhammer/meta_hammer
-	desc = "Наполнен мета-энергией"
+	desc = "Наполнен мета-энергией."
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/banhammer/meta_hammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
