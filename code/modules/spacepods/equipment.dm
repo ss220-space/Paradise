@@ -307,15 +307,18 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 
 /obj/item/spacepod_equipment/locators/proc/scan(mob/user)
 	var/message_user = ""
+	var/list/ruins = list()
 
 	for(var/obj/effect/landmark/ruin/space_ruin in GLOB.ruin_landmarks)
 		if((user.loc.z == space_ruin.z || can_ignore_z) && (space_ruin.ruin_template.can_found || can_found_all))
+			ruins += space_ruin
 			message_user += "\nX:[space_ruin.x] Y:[space_ruin.y] Z:[space_ruin.z] Размер: [object_size(space_ruin.ruin_template.width*space_ruin.ruin_template.height)]"
 
 	if(!message_user)
 		atom_say("Объектов в секторе не обнаружено")
 		return
 	atom_say("Результаты поиска:[message_user]")
+	post_scan(ruins, user)
 
 /obj/item/spacepod_equipment/locators/proc/object_size(var/square)
 	if(square <= 500)
@@ -325,6 +328,9 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	else if(square <= 3000)
 		return "Большой"
 	return "Огромный"
+
+/obj/item/spacepod_equipment/locators/proc/post_scan(list/space_grids, mob/user)
+
 
 /obj/item/spacepod_equipment/locators/basic_pod_locator
 	name = "Модуль поиска астероидов"
@@ -341,3 +347,5 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	can_found_all = TRUE
 	can_ignore_z = FALSE
 
+/obj/item/spacepod_equipment/locators/advanced_pod_locator/post_scan(list/space_grids, mob/user)
+	
