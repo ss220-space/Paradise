@@ -18,6 +18,7 @@
 	var/bleedsuppress = 0
 	var/healverb = "bandage"
 	var/use_duration = 3 SECONDS
+	merge_type = null // do not merge if not defined in subtype
 
 
 /obj/item/stack/medical/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -166,9 +167,9 @@
 		target.UpdateDamageIcon()
 
 
-/obj/item/stack/medical/bruise_pack/advanced/can_merge(obj/item/stack/check, inhand)
-	if(src.type != check.type)
-		return FALSE //exclude subtypes
+/obj/item/stack/medical/can_merge(obj/item/stack/check, inhand)
+	if(check.type != merge_type)
+		return FALSE
 	. = ..()
 
 // MARK: Bruise Packs
@@ -188,6 +189,7 @@
 	use_duration = 3 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
+	merge_type = /obj/item/stack/medical/bruise_pack
 
 /obj/item/stack/medical/bruise_pack/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -241,6 +243,7 @@
 	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
 	stop_bleeding = 90 SECONDS
 	icon_state = "gauze_imp_3"
+	merge_type = /obj/item/stack/medical/bruise_pack/improvised
 
 /obj/item/stack/medical/bruise_pack/improvised/update_icon_state()
 	icon_state = "gauze_imp_[amount >= 5 ? 3 : (amount >= 3 ? 2 : 1)]"
@@ -292,6 +295,7 @@
 	stop_bleeding = 0
 	use_duration = 0
 	use_duration = 2 SECONDS
+	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
 	icon_state = "traumakit_[amount]"
@@ -313,6 +317,7 @@
 	stop_bleeding = 0
 	use_duration = 0
 	use_duration = 0.7 SECONDS
+	merge_type = /obj/item/stack/medical/bruise_pack/extended
 
 /obj/item/stack/medical/bruise_pack/extended/update_icon_state()
 	icon_state = "extended_trauma_kit_[round_down((amount+1) / 2, 1)]"
@@ -333,6 +338,7 @@
 	max_amount = 6
 	cost = 1
 	energy_type = /datum/robot_energy_storage/medical
+	merge_type = /obj/item/stack/medical/ointment
 
 /obj/item/stack/medical/ointment/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -377,6 +383,7 @@
 	amount = 4
 	max_amount = 4
 	use_duration = 1.5 SECONDS
+	merge_type = /obj/item/stack/medical/ointment/advanced
 
 /obj/item/stack/medical/ointment/advanced/update_icon_state()
 	icon_state = "burnkit_[amount]"
@@ -395,6 +402,7 @@
 	amount = 10
 	max_amount = 10
 	use_duration = 0.7 SECONDS
+	merge_type = /obj/item/stack/medical/ointment/extended
 
 /obj/item/stack/medical/ointment/extended/update_icon_state()
 	icon_state = "extended_burn_kit_[round_down((amount+1) / 2, 1)]"
@@ -414,6 +422,7 @@
 	drop_sound = 'sound/misc/moist_impact.ogg'
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
 	hitsound = 'sound/misc/moist_impact.ogg'
+	merge_type = /obj/item/stack/medical/bruise_pack/comfrey
 
 /obj/item/stack/medical/bruise_pack/comfrey/update_icon_state()
 	return
@@ -427,6 +436,7 @@
 	icon_state = "aloe"
 	color = "#4CC5C7"
 	heal_burn = 12
+	merge_type = /obj/item/stack/medical/ointment/aloe
 
 /obj/item/stack/medical/ointment/aloe/update_icon_state()
 	return
@@ -454,6 +464,7 @@
 		BODY_ZONE_PRECISE_L_FOOT,
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
+	merge_type = /obj/item/stack/medical/splint
 
 /obj/item/stack/medical/splint/attack(mob/living/carbon/human/target, mob/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -510,6 +521,7 @@
 	name = "tribal splints"
 	icon_state = "tribal_splint"
 	use_duration = 5 SECONDS
+	merge_type = /obj/item/stack/medical/splint/tribal
 
 /obj/item/stack/medical/splint/tribal/get_ru_names()
 	return list(
@@ -528,6 +540,7 @@
 	icon_state = "makeshift_splint"
 	use_duration = 5 SECONDS
 	self_delay = 15 SECONDS
+	merge_type = /obj/item/stack/medical/splint/makeshift
 
 
 // MARK: Suture
@@ -548,6 +561,7 @@
 	use_duration = 5 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
+	merge_type = /obj/item/stack/medical/suture
 
 /obj/item/stack/medical/suture/get_ru_names()
 	return list(
