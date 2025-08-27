@@ -2,7 +2,7 @@
   * # Banhammer
   */
 /obj/item/banhammer
-	desc = "A banhammer"
+	desc = "banhammer"
 	name = "banhammer"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "toyhammer"
@@ -28,18 +28,20 @@
 	return ..()
 
 /obj/item/banhammer/meta_hammer
-	desc = "Filled with meta-energy"
+	desc = "Наполнен мета-энергией."
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/banhammer/meta_hammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(target && COOLDOWN_FINISHED(src, cooldown))
-		send_random_fake_pm(target)
-		COOLDOWN_START(src, cooldown, 1 MINUTES)
-	else
+	if(!target)
+		return ATTACK_CHAIN_PROCEED
+
+	if(!COOLDOWN_FINISHED(src, cooldown))
 		user.balloon_alert(user, "перезарядка!")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
-	//Коментарий для ревьюеров. Я вынужден так делать чтобы не наследывать логику родителя и чтобы все было красиво
+	send_random_fake_pm(target)
+	COOLDOWN_START(src, cooldown, 1 MINUTES)
 	user.do_attack_animation(target)
+
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/sord

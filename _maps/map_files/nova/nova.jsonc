@@ -1,0 +1,41 @@
+[
+	{
+		//старый жилой комплекс
+		"type": "SubmapExtractInsert",
+		"submap_size_x": 14,
+		"submap_size_y": 15,
+		"submap_size_z": 1,
+		"submaps_dmm": "_maps/map_files/nova/submaps/AbondonedLivingComplex.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedFitnessRoom",
+		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedFitnessRoom",
+		"submaps_can_repeat": true
+
+	},
+
+    {
+		//северо-восточные техи
+        "type": "SubmapExtractInsert",
+        "submap_size_x": 42,
+        "submap_size_y": 22,
+        "submap_size_z": 1,
+        "submaps_dmm": "_maps/map_files/nova/submaps/EastMaintenance.dmm",
+        "marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/EastMaintenance",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/EastMaintenance",
+		"submaps_can_repeat": true
+
+	},
+
+	{
+		//Туристическая зона, замена старой бани
+        "type": "SubmapExtractInsert",
+        "submap_size_x": 13,
+        "submap_size_y": 10,
+        "submap_size_z": 1,
+        "submaps_dmm": "_maps/map_files/nova/submaps/Banya.dmm",
+        "marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/Banya",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/Banya",
+        "submaps_can_repeat": true
+
+    }
+
+]

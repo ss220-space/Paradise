@@ -860,8 +860,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 		arguments = list(usr.loc) + arguments
 
-		var/atom/A = new chosen(arglist(arguments))
-		A.flags |= ADMIN_SPAWNED
+		var/atom/atom = new chosen(arglist(arguments))
+		if(atom)
+			atom.flags |= ADMIN_SPAWNED
 
 	log_and_message_admins("spawned [chosen] at [COORD(usr)][LAZYLEN(arguments) > 1 ? " with parameters [print_single_line(arguments)]": ""]")
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")

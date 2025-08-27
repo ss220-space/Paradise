@@ -321,4 +321,3 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_CIG_PACK_RUSTLE "cig_pack_rustle"
 #define SFX_CIG_PACK_THROW_DROP "cig_pack_throw_drop"
 #define	SFX_RORO_WARBLE "roro_warble"
-#define	SFX_FROG_WARCRY "frog_warcry"

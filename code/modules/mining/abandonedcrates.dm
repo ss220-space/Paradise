@@ -93,7 +93,7 @@
 		if(41 to 42)
 			new /obj/item/gun/projectile/bombarda(src)
 			for(var/i in 1 to rand(1, 5))
-				var/newitem = pick(/obj/item/ammo_casing/grenade/improvised/exp_shell, /obj/item/ammo_casing/grenade/improvised/flame_shell, /obj/item/ammo_casing/grenade/improvised/smoke_shell)
+				var/newitem = pick(/obj/item/ammo_casing/a40mm/improvised/exp_shell, /obj/item/ammo_casing/a40mm/improvised/flame_shell, /obj/item/ammo_casing/a40mm/improvised/smoke_shell)
 				new newitem(src)
 		if(43 to 44)
 			for(var/i in 1 to rand(4, 7))
