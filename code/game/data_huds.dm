@@ -240,7 +240,7 @@
 		temp_id = wear_id.GetID()
 
 	if(!temp_id)
-		if(dna.real_name == real_name)
+		if(dna.real_name == get_face_name())
 			account = get_insurance_account_DNA(src)
 	else
 		account = get_money_account(temp_id.associated_account_number)
