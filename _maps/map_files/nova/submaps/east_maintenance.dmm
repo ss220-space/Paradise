@@ -3702,11 +3702,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedoffices)
 "PG" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
-	},
 /obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
 /turf/simulated/floor/carpet/black,
 /area/maintenance/abandonedoffices)
 "PK" = (

@@ -10,7 +10,6 @@
 		"marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedFitnessRoom",
 		"submaps_can_repeat": true
 
-   
 	},
 
     {
@@ -19,7 +18,7 @@
         "submap_size_x": 42,
         "submap_size_y": 22,
         "submap_size_z": 1,
-        "submaps_dmm": "_maps/map_files/nova/submaps/EastMaintenance.dmm",
+        "submaps_dmm": "_maps/map_files/nova/submaps/east_maintenance.dmm",
         "marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/EastMaintenance",
         "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/EastMaintenance",
         "submaps_can_repeat": true
