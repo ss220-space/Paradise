@@ -158,8 +158,9 @@
 	var/item = new crafting_item(loc)
 	balloon_alert(user, "завершено")
 	var/mob/living/human = user
-	if(istype(human))
-		human.put_in_any_hand_if_possible(item, drop_on_fail = TRUE)
+	if(!istype(human))
+		return
+	human.put_in_any_hand_if_possible(item, drop_on_fail = TRUE)
 
 
 // MARK: Specific blueprints

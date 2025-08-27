@@ -197,12 +197,12 @@
 /obj/machinery/photocopier/proc/blueprintcopy(obj/item/craft_blueprints/original)
 	if(!original.copy_type)
 		balloon_alert(usr, "невозможно копировать!")
-		return null
+		return
 
 	if(toner < original.required_toner)
 		balloon_alert(usr, "недостаточно чернил!")
 		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
-		return null
+		return
 
 	total_copies++
 
