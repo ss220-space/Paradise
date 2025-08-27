@@ -26,12 +26,13 @@
 #define BODYPART_INTERNAL_BLEEDING 0.5
 
 /// Decrease bleeding size if no wounds (units per 2 sec)
-#define BLEEDING_DECREASE 0.02
-
+#define BLEEDING_DECREASE 0.025
+/// Multiplyer for bleeding calculate from bodypart value
+#define BLEEDING_MODIFIER 0.65
 /// Minimal brute damage for add bleeding
 #define MIN_BRUTE_DAMAGE_FOR_BLEEDING 10
 /// Brute damage to bleeding calculation coefficient
-#define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.065
+#define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.1
 /// Heal damage to bleeding reduction calculation coefficient
 #define HEAL_DAMAGE_TO_BLEEDING_MOD 0.01
 
@@ -128,7 +129,7 @@
 			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
 		if(bodypart.bleeding_amount > 0)
 			bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - BLEEDING_DECREASE)
-		var/bodypart_bleeding = max(bodypart.bleeding_amount - bodypart.bleedsuppress, 0)
+		var/bodypart_bleeding = max(bodypart.bleeding_amount - bodypart.bleedsuppress, 0) * BLEEDING_MODIFIER
 		current_bleed += bodypart_bleeding
 		var/embedded_length = LAZYLEN(bodypart.embedded_objects)
 		if(embedded_length && bodypart.bleedsuppress > 0)
@@ -504,3 +505,4 @@
 #undef EMBEDDED_ITEM_BLEEDING
 #undef OPEN_BODYPART_BLEEDING
 #undef BLEEDING_DECREASE
+#undef BLEEDING_MODIFIER
