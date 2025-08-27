@@ -1128,6 +1128,9 @@
 	desc = "Обложка этой книги выглядит нетронутой, хотя её страницы выглядят изношенными и истрёпанными."
 	var/mob/stored_swap = null //Used in used book recoils to store an identity for mindswaps
 
+/obj/item/spellbook/oneuse/mindswap/get_ru_names_cached()
+	return
+
 /obj/item/spellbook/oneuse/mindswap/onlearned()
 	spellname = pick("fireball","smoke","blind","forcewall","knock","horses","charge")
 	name_change(spellname)
