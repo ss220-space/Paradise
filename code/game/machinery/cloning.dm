@@ -524,7 +524,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
-	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	balloon_alert(user, "хонкнуто!")
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
