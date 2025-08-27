@@ -55,12 +55,12 @@
 
 /obj/machinery/suit_storage_unit/rnd/get_ru_names()
 	return list(
-		NOMINATIVE = "хранилище научного ИКСа.",
-		GENITIVE = "хранилища научного ИКСа",
-		DATIVE = "хранилищу научного ИКСа",
-		ACCUSATIVE = "хранилище научного ИКСа",
-		INSTRUMENTAL = "хранилищем научного ИКСа",
-		PREPOSITIONAL = "хранилище научного ИКСа"
+		NOMINATIVE = "	хранилище ИКСа аномалиста",
+		GENITIVE = "хранилища ИКСа аномалиста",
+		DATIVE = "хранилищу ИКСа аномалиста",
+		ACCUSATIVE = "хранилище ИКСа аномалиста",
+		INSTRUMENTAL = "хранилищем ИКСа аномалиста",
+		PREPOSITIONAL = "хранилище ИКСа аномалиста"
 	)
 
 /obj/machinery/suit_storage_unit/standard_unit/ertamber

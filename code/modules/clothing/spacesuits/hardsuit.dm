@@ -812,12 +812,12 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/science/get_ru_names()
 	return list(
-		NOMINATIVE = "Шлем ИКСа учёного",
-		GENITIVE = "Шлема ИКСа учёного",
-		DATIVE = "Шлему ИКСа учёного",
-		ACCUSATIVE = "Шлем ИКСа учёного",
-		INSTRUMENTAL = "Шлемом ИКСа учёного",
-		PREPOSITIONAL = "Шлеме ИКСа учёного"
+		NOMINATIVE = "Шлем ИКСа аномалиста",
+		GENITIVE = "Шлема ИКСа аномалиста",
+		DATIVE = "Шлему ИКСа аномалиста",
+		ACCUSATIVE = "Шлем ИКСа аномалиста",
+		INSTRUMENTAL = "Шлемом ИКСа аномалиста",
+		PREPOSITIONAL = "Шлеме ИКСа аномалиста"
 	)
 
 /obj/item/clothing/suit/space/hardsuit/rnd
@@ -834,12 +834,12 @@
 
 /obj/item/clothing/suit/space/hardsuit/rnd/get_ru_names()
 	return list(
-		NOMINATIVE = "ИКС учёного",
-		GENITIVE = "ИКСа учёного",
-		DATIVE = "ИКСу учёного",
-		ACCUSATIVE = "ИКС учёного",
-		INSTRUMENTAL = "ИКСом учёного",
-		PREPOSITIONAL = "ИКСе учёного"
+		NOMINATIVE = "ИКС аномалиста",
+		GENITIVE = "ИКСа аномалиста",
+		DATIVE = "ИКСу аномалиста",
+		ACCUSATIVE = "ИКС аномалиста",
+		INSTRUMENTAL = "ИКСом аномалиста",
+		PREPOSITIONAL = "ИКСе аномалиста"
 	)
 
 //Battlemage Hardsuit — code\modules\clothing\suits\wiz_robe.dm
