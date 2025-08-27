@@ -40,7 +40,6 @@
 		COOLDOWN_START(src, cooldown, 1 MINUTES)
 	else
 		user.balloon_alert(user, "перезарядка!")
-		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	user.do_attack_animation(target)
 	return ATTACK_CHAIN_PROCEED
