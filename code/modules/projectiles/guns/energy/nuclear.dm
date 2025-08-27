@@ -91,6 +91,7 @@
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/energy/gun/pdw9/ert
 

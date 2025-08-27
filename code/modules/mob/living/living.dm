@@ -1712,7 +1712,7 @@
 			victim.apply_damage(damage*rand(90, 110)/100, BRUTE, BODY_ZONE_HEAD, victim.run_armor_check(head, MELEE))
 			if(prob(40))
 				victim.Knockdown(2 SECONDS)
-			playsound(victim.loc, "desceration", 35, TRUE, -1)
+			playsound(victim.loc, SFX_DESECRATION, 35, TRUE, -1)
 			add_attack_logs(attacker, victim, "Headbutted")
 
 		if(INTENT_GRAB)

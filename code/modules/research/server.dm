@@ -73,7 +73,7 @@
 
 /obj/machinery/r_n_d/server/process()
 	if(prob(3) && plays_sound)
-		playsound(loc, "computer_ambience", 50, TRUE)
+		playsound(loc, SFX_COMPUTER_AMBIENCE, 50, TRUE)
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	switch(environment.temperature)

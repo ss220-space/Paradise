@@ -1,5 +1,20 @@
 [
+
+	{
+		//это наша первая сабмапа.
+		"type": "SubmapExtractInsert", //эта строка всегда должна быть одинаковая для всех наших карт.
+		"submap_size_x" : 11, //размер нашей карты по длине
+		"submap_size_y" : 6, //размер нашей карты по ширине
+		"submap_size_z" : 1, //размер нашей карты по высоте
+		"submaps_dmm" : "_maps/map_files/Delta/submaps/botany_room.dmm", // название файла с нашей картой. Лучше прописывайте весь путь
+		"marker_extract" : "/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room",
+		"marker_insert" : "/obj/effect/map_effect/marker/mapmanip/submap/insert/botany_room",
+		"submaps_can_repeat" : true //оставьте как есть.
+
+	},
+
     {
+		//это вторая сабмапа.
         "type": "SubmapExtractInsert",
         "submap_size_x": 9,
         "submap_size_y": 9,
@@ -9,4 +24,5 @@
         "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/maints_med_viro_passage",
         "submaps_can_repeat": true
     }
+
 ]
