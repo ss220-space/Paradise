@@ -42,7 +42,7 @@
 	var/smes_in_shuttle = 0
 	var/report_text = "<b>Состояние мобильных СКАНов</b>: [smes_count] шт.<br>"
 	var/scan_number = 1
-	for(var/turf/shittle_turf in shuttle_turfs)
+	for(var/turf/shittle_turf as anything in shuttle_turfs)
 		for(var/atom/movable/content in shittle_turf.contents)
 			if(!istype(content, /obj/machinery/power/smes/portable))
 				continue

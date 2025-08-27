@@ -1,7 +1,7 @@
 // Trash addition goal shuttle
 
 #define AGS_CREDITS_PER_TRASH 100
-#define AGS_CAPRGOPOINTS_PER_TRASH 2
+#define AGS_CAPRGOPOINTS_PER_TRASH 1
 
 /datum/addition_goal/trash
 	id = "trash_utilization"
@@ -37,7 +37,7 @@
 /datum/addition_goal/trash/complete_goal(datum/controller/subsystem/addition_goals/system)
 	var/shuttle_turfs = system.get_shuttle_turfs()
 	var/trash_in_shuttle = 0
-	for(var/turf/shittle_turf in shuttle_turfs)
+	for(var/turf/shittle_turf as anything in shuttle_turfs)
 		//open all containers before check
 		for(var/atom/movable/content in shittle_turf.contents)
 			if(istype(content, /obj/structure/closet))

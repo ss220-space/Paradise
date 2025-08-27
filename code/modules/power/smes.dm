@@ -5,6 +5,11 @@
 #define SMESMAXOUTPUT 200000
 #define SMESRATE 0.05			// rate of internal charge to external power
 
+#define PORTABLE_SMES_LEVEL_ZERO 0.05
+#define PORTABLE_SMES_LEVEL_LOW 0.30
+#define PORTABLE_SMES_LEVEL_MIDDLE 0.50
+#define PORTABLE_SMES_LEVEL_HIGH 0.70
+#define PORTABLE_SMES_LEVEL_FULL 0.95
 
 
 /obj/machinery/power/smes
@@ -595,15 +600,15 @@
 
 
 /obj/machinery/power/smes/portable/chargedisplay()
-	if(charge >= 0.95 * capacity)
+	if(charge >= PORTABLE_SMES_LEVEL_FULL * capacity)
 		return 5
-	if(charge >= 0.70 * capacity)
+	if(charge >= PORTABLE_SMES_LEVEL_HIGH * capacity)
 		return 4
-	if(charge >= 0.50 * capacity)
+	if(charge >= PORTABLE_SMES_LEVEL_MIDDLE * capacity)
 		return 3
-	if(charge >= 0.30 * capacity)
+	if(charge >= PORTABLE_SMES_LEVEL_LOW * capacity)
 		return 2
-	if(charge >= 0.05 * capacity)
+	if(charge >= PORTABLE_SMES_LEVEL_ZERO * capacity)
 		return 1
 	return 0
 
@@ -611,3 +616,8 @@
 	return
 
 #undef SMESRATE
+#undef PORTABLE_SMES_LEVEL_ZERO
+#undef PORTABLE_SMES_LEVEL_LOW
+#undef PORTABLE_SMES_LEVEL_MIDDLE
+#undef PORTABLE_SMES_LEVEL_HIGH
+#undef PORTABLE_SMES_LEVEL_FULL
