@@ -344,6 +344,7 @@
 	// Need to update health, but need a reference in case the below checks cuts off a limb.
 	var/mob/living/carbon/organ_owner = owner
 
+	var/remaining_health = max_damage - (brute_dam + burn_dam)
 	// Make sure we don't exceed the maximum damage a limb can take before dismembering
 	if((brute_dam + burn_dam + brute + burn) < max_damage)
 		brute_dam = round(brute_dam + brute, DAMAGE_PRECISION)
@@ -351,7 +352,6 @@
 	else
 		// If we can't inflict the full amount of damage, spread the damage in other ways
 		// How much damage can we actually cause?
-		var/remaining_health = max_damage - (brute_dam + burn_dam)
 		if(remaining_health)
 			if(brute > 0)
 				// Inflict all brute damage we can
