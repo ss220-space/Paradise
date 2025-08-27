@@ -154,7 +154,7 @@
 		final_message += span_bold("Разработчиков онлайн ([num_devs_online]):<br>")
 		final_message += devmsg
 		final_message += "<br>"
-	if(!num_admins_online)// || !num_mentors_online)
+	if(!num_admins_online) // Only admin tickets are parsed to discord.
 		final_message += span_notice(NO_ADMINS_ONLINE_MESSAGE)
 
 	to_chat(src, chat_box_examine(jointext(final_message, "")), type = MESSAGE_TYPE_INFO)
