@@ -129,7 +129,7 @@
 	user.adjust_nutrition(-delta * REQ_NUTRITION_FOR_STRENGTH_POINT)
 
 	var/datum/status_effect/sport_grouped/swing_effect_mod = user.has_status_effect(/datum/status_effect/sport_grouped/swing_effect_mod)
-	delta *= swing_effect_mod ? swing_effect_mod.get_mult() : 0
+	delta *= swing_effect_mod ? swing_effect_mod.get_mult() : 1
 
 	strength_points += delta
 	try_upgrade_strength(user)
