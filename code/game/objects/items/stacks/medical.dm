@@ -559,8 +559,6 @@
 	var/bleeding_heal = 2
 	var/damage = 10
 	use_duration = 5 SECONDS
-	energy_type = /datum/robot_energy_storage/medical
-	cost = 1
 	merge_type = /obj/item/stack/medical/suture
 
 /obj/item/stack/medical/suture/get_ru_names()
@@ -607,3 +605,32 @@
 	target.UpdateDamageIcon()
 	update_icon()
 
+
+/obj/item/stack/medical/suture/advanced
+	name = "advanced suture kit"
+	singular_name = "advanced suture thread"
+	desc = "Хирургический набор для сшивания ран. Останавливает все виды кровотечений, кроме артериальных или внутренних."
+	icon_state = "advanced_suture"
+	item_state = "advanced_suture"
+	origin_tech = "biotech=5"
+	amount = 10
+	max_amount = 10
+	heal_brute = 10
+	stop_bleeding = 0
+	bleeding_heal = 5
+	damage = 0
+	use_duration = 2 SECONDS
+	merge_type = /obj/item/stack/medical/suture/advanced
+
+/obj/item/stack/medical/suture/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "хирургический набор для зашивания ран",
+		GENITIVE = "хирургического набора для зашивания ран",
+		DATIVE = "хирургическому набору для зашивания ран",
+		ACCUSATIVE = "хирургический набор для зашивания ран",
+		INSTRUMENTAL = "хирургическим набором для зашивания ран",
+		PREPOSITIONAL = "хирургическому наборе для зашивания ран"
+	)
+
+/obj/item/stack/medical/suture/advanced/update_icon_state()
+	icon_state = "advanced_suture[amount < max_amount ? "_open" : ""]"
