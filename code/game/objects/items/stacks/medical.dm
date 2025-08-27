@@ -184,7 +184,7 @@
 	amount = 6
 	max_amount = 6
 	heal_brute = 10
-	bleedsuppress = 1.5
+	bleedsuppress = 2.5
 	stop_bleeding = 180 SECONDS
 	use_duration = 3 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
@@ -556,7 +556,7 @@
 	max_amount = 3
 	heal_brute = 0
 	stop_bleeding = 0
-	var/bleeding_heal = 2
+	var/bleeding_heal = 5
 	var/damage = 10
 	use_duration = 5 SECONDS
 	merge_type = /obj/item/stack/medical/suture
@@ -617,7 +617,7 @@
 	max_amount = 10
 	heal_brute = 10
 	stop_bleeding = 0
-	bleeding_heal = 5
+	bleeding_heal = 10
 	damage = 0
 	use_duration = 2 SECONDS
 	merge_type = /obj/item/stack/medical/suture/advanced

@@ -19,19 +19,19 @@
 
 // Bledding calculation constants
 /// Bleeding per embedded item (units per 2 sec)
-#define EMBEDDED_ITEM_BLEEDING 0.3
+#define EMBEDDED_ITEM_BLEEDING 0.2
 /// Open bodypart bleeding (units per 2 sec)
 #define OPEN_BODYPART_BLEEDING 0.75
 /// Internal bleeding size (units per 2 sec)
 #define BODYPART_INTERNAL_BLEEDING 0.5
 
 /// Decrease bleeding size if no wounds (units per 2 sec)
-#define BLEEDING_DECREASE 0.01
+#define BLEEDING_DECREASE 0.02
 
 /// Minimal brute damage for add bleeding
 #define MIN_BRUTE_DAMAGE_FOR_BLEEDING 10
 /// Brute damage to bleeding calculation coefficient
-#define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.075
+#define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.065
 /// Heal damage to bleeding reduction calculation coefficient
 #define HEAL_DAMAGE_TO_BLEEDING_MOD 0.01
 
