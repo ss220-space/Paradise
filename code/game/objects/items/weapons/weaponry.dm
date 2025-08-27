@@ -35,13 +35,13 @@
 	if(!target)
 		return ATTACK_CHAIN_PROCEED
 
-	if(COOLDOWN_FINISHED(src, cooldown))
-		send_random_fake_pm(target)
-		COOLDOWN_START(src, cooldown, 1 MINUTES)
-	else
+	if(!COOLDOWN_FINISHED(src, cooldown))
 		user.balloon_alert(user, "перезарядка!")
-
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	send_random_fake_pm(target)
+	COOLDOWN_START(src, cooldown, 1 MINUTES)
 	user.do_attack_animation(target)
+
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/sord
