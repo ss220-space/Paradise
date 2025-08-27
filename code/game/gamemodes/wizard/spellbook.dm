@@ -1129,7 +1129,7 @@
 	var/mob/stored_swap = null //Used in used book recoils to store an identity for mindswaps
 
 /obj/item/spellbook/oneuse/mindswap/get_ru_names_cached()
-	return
+	return get_ru_names()
 
 /obj/item/spellbook/oneuse/mindswap/onlearned()
 	spellname = pick("fireball","smoke","blind","forcewall","knock","horses","charge")
