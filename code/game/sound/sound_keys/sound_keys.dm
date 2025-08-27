@@ -393,11 +393,3 @@
 		'sound/goonstation/machines/ambicomp2.ogg',
 		'sound/goonstation/machines/ambicomp3.ogg'
 	)
-
-/datum/sound_effect/frog_warcry
-	key = SFX_FROG_WARCRY
-	file_paths = list(
-		'sound/creatures/frog_scream_1.ogg',
-		'sound/creatures/frog_scream_2.ogg',
-		'sound/creatures/frog_scream_3.ogg'
-	)
