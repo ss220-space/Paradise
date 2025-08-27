@@ -7,8 +7,8 @@
 		"submap_size_y" : 6, //размер нашей карты по ширине
 		"submap_size_z" : 1, //размер нашей карты по высоте
 		"submaps_dmm" : "_maps/map_files/Delta/submaps/botany_room.dmm", // название файла с нашей картой. Лучше прописывайте весь путь
-		"marker_extract" : "/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room",
-		"marker_insert" : "/obj/effect/map_effect/marker/mapmanip/submap/insert/botany_room",
+		"marker_extract" : "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room",
+		"marker_insert" : "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/botany_room",
 		"submaps_can_repeat" : true //оставьте как есть.
 	},
 
@@ -30,7 +30,7 @@
 		"submap_size_y" : 6,
 		"submap_size_z" : 1,
 		"submaps_dmm": "_maps/map_files/Delta/submaps/clown_mime_gambit.dmm",
-		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/clown_mime",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/clown_mime",
         "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/clown_mime",
         "submaps_can_repeat": true
 

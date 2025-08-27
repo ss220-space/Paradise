@@ -53631,7 +53631,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
 "hji" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/clown_mime,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/clown_mime,
 /turf/simulated/wall,
 /area/mimeoffice)
 "hjp" = (
@@ -94659,7 +94659,7 @@
 	},
 /area/quartermaster/storage)
 "qMZ" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/botany_room,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/botany_room,
 /turf/simulated/wall,
 /area/maintenance/garden)
 "qNb" = (
