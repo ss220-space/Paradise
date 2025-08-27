@@ -43,9 +43,9 @@
 	var/suppress_amount = calculated_bleeding
 	if(calculated_bleeding > amount)
 		suppress_amount = amount
-		to_chat(user, span_warning("Повязка уменьшает кровотечение на [declent_ru(PREPOSITIONAL)] у [target], но не может полностью остановить его."))
+		balloon_alert(user, "кровотечение ослаблено")
 	else
-		to_chat(user, span_warning("Повязка временно останавливает кровотечение на [declent_ru(PREPOSITIONAL)] у [target]."))
+		balloon_alert(user, "кровотечение остановлено")
 	bleedsuppress += suppress_amount
 	addtimer(CALLBACK(src, PROC_REF(resume_bleeding), target, suppress_amount), duration)
 
@@ -59,9 +59,9 @@
 	bleeding_amount = max(0, bleeding_amount - bleeding_heal_amount)
 	take_damage(brute_damage, BRUTE, sound_effect = FALSE)
 	if(!bleeding_amount)
-		to_chat(user, span_warning("Кровотечение на [declent_ru(PREPOSITIONAL)] у [target] полностью остановлено."))
+		balloon_alert(user, "кровотечение остановлено")
 		return
-	to_chat(user, span_warning("Кровотечение на [declent_ru(PREPOSITIONAL)] у [target] немного ослабло."))
+	balloon_alert(user, "кровотечение ослаблено")
 
 
 // Takes care blood loss and regeneration
