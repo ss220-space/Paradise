@@ -20,8 +20,8 @@
 	var/list/logs_for_logs_clearing
 	var/static/logs_decryption_key = null
 
-/obj/machinery/r_n_d/server/New()
-	..()
+/obj/machinery/r_n_d/server/Initialize(mapload)
+	. = ..()
 	if(!logs_decryption_key)
 		logs_decryption_key = GenerateKey()
 	if(is_taipan(z))
@@ -37,8 +37,8 @@
 	RefreshParts()
 	initialize_serv() //Agouri // fuck you agouri
 
-/obj/machinery/r_n_d/server/upgraded/New()
-	..()
+/obj/machinery/r_n_d/server/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/rdserver(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -73,7 +73,7 @@
 
 /obj/machinery/r_n_d/server/process()
 	if(prob(3) && plays_sound)
-		playsound(loc, "computer_ambience", 50, TRUE)
+		playsound(loc, SFX_COMPUTER_AMBIENCE, 50, TRUE)
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	switch(environment.temperature)
@@ -104,10 +104,10 @@
 
 /obj/machinery/r_n_d/server/emp_act(severity)
 	griefProtection()
-	..()
+	return ..()
 
 
-/obj/machinery/r_n_d/server/ex_act(severity)
+/obj/machinery/r_n_d/server/ex_act(severity, target)
 	griefProtection()
 	return ..()
 
@@ -224,7 +224,7 @@
 	name = "CentComm. Central R&D Database"
 	server_id = -1
 
-/obj/machinery/r_n_d/server/centcom/Initialize()
+/obj/machinery/r_n_d/server/centcom/Initialize(mapload)
 	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()
@@ -264,7 +264,7 @@
 	var/badmin = 0
 	var/syndicate = 0 //добавленный для синдибазы флаг
 
-/obj/machinery/computer/rdservercontrol/Initialize()
+/obj/machinery/computer/rdservercontrol/Initialize(mapload)
 	. = ..()
 	if(is_taipan(z))
 		syndicate = 1

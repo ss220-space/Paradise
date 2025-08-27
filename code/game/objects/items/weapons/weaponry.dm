@@ -7,6 +7,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "toyhammer"
 	slot_flags = ITEM_SLOT_BELT
+	force = 0
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
@@ -20,13 +21,26 @@
 	to_chat(viewers(user), span_suicide("[user] бь[pluralize_ru(user.gender,"ёт","ют")] себя [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] хоч[pluralize_ru(user.gender,"ет","ют")] заблокировать себя!"))
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
-
 /obj/item/banhammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	to_chat(target, span_danger("<b>Тебя [user] ЗАБАНИЛ БЕЗ ПРИЧИЙНЫ!</b>"))
 	to_chat(user, span_danger("Вы <b>ЗАБАНИЛИ</b> [target]!"))
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
-	return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
 
+/obj/item/banhammer/meta_hammer
+	desc = "Filled with meta-energy"
+	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/banhammer/meta_hammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target && COOLDOWN_FINISHED(src, cooldown))
+		send_random_fake_pm(target)
+		COOLDOWN_START(src, cooldown, 1 MINUTES)
+	else
+		user.balloon_alert(user, "перезарядка!")
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	//Коментарий для ревьюеров. Я вынужден так делать чтобы не наследывать логику родителя и чтобы все было красиво
+	user.do_attack_animation(target)
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/sord
 	name = "SORD"
@@ -74,7 +88,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 0.75 SECONDS, \
-		swing_sound = "blade_swing_heavy" \
+		swing_sound = SFX_BLADE_SWING_HEAVY \
 	)
 
 /obj/item/melee/claymore/suicide_act(mob/user)
@@ -114,7 +128,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 1.75, \
 		afterswing_slowdown = 0, \
-		swing_sound = "katana_swing" \
+		swing_sound = SFX_KATANA_SWING \
 	)
 
 /obj/item/melee/katana/suicide_act(mob/user)
@@ -259,7 +273,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 2, \
 		no_multi_hit = TRUE, \
-		swing_sound = "generic_swing_heavy" \
+		swing_sound = SFX_GENERIC_SWING_HEAVY \
 	)
 
 /obj/item/melee/baseball_bat/homerun
@@ -352,7 +366,7 @@
 		// No throwing things that are physically bigger than you are.
 		// Covers: blobbernaut, alien empress, ai core, juggernaut, ed209, mulebot, alien/queen/large, carp/megacarp, deathsquid, hostile/tree, megafauna, hostile/asteroid, terror_spider/queen/empress
 		return .
-	if(!(target.status_flags & CANPUSH))
+	if(!(target.status_flags & CANPUSH) || HAS_TRAIT(target, TRAIT_PUSHIMMUNE))
 		// No throwing mobs specifically flagged as immune to being pushed.
 		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, spaceworms, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
 		return .
@@ -493,7 +507,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 0.75 SECONDS, \
-		swing_sound = "blade_swing_light" \
+		swing_sound = SFX_BLADE_SWING_LIGHT \
 	)
 
 /obj/item/melee/nutcracker

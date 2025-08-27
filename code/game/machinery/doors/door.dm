@@ -45,8 +45,8 @@
 	/// Whether or not the door can be opened by hand (used for blast doors and shutters)
 	var/can_open_with_hands = TRUE
 
-/obj/machinery/door/New()
-	..()
+/obj/machinery/door/Initialize(mapload)
+	. = ..()
 	set_init_door_layer()
 	update_dir()
 	update_freelook_sight()
@@ -57,6 +57,8 @@
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
+
+	air_update_turf(1)
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -83,10 +85,6 @@
 		else
 			bound_width = ICON_SIZE_X
 			bound_height = width * ICON_SIZE_Y
-
-/obj/machinery/door/Initialize()
-	air_update_turf(1)
-	. = ..()
 
 /obj/machinery/door/Destroy()
 	set_density(FALSE)
@@ -211,7 +209,7 @@
 
 	if(density)
 		visible_message(span_danger("[user] forces the door open!"))
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		open(TRUE)
 
 	if(V && HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
@@ -523,9 +521,9 @@
 	if(!stat) //Opens only powered doors.
 		open() //Open everything!
 
-/obj/machinery/door/ex_act(severity)
+/obj/machinery/door/ex_act(severity, target)
 	//if it blows up a wall it should blow up a door
-	..(severity ? max(1, severity - 1) : 0)
+	return ..(severity ? min(EXPLODE_DEVASTATE, severity + 1) : EXPLODE_NONE, target)
 
 
 /obj/machinery/door/get_explosion_block()

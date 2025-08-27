@@ -500,7 +500,52 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
 
 
-/datum/reagent/steroids
+/datum/reagent/status_effect
+	id = "status_effect"
+	metabolization_rate = REAGENTS_METABOLISM / 4
+	/// Type of status effect that applys on reagent add, and deleats on reagent deleat.
+	var/status_effect_type
+
+
+/datum/reagent/status_effect/on_mob_add(mob/living/user)
+	. = ..()
+	user.apply_status_effect(status_effect_type)
+
+
+/datum/reagent/status_effect/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_status_effect(status_effect_type)
+
+
+/datum/reagent/status_effect/creatine
+	name = "Креатин"
+	id = "creatine"
+	description = "Вещество участвующее в энергетическом обмене в мышечных и нервных клетках."
+	reagent_state = SOLID
+	color = "#dcbf00"
+	taste_description = "соды"
+	status_effect_type = /datum/status_effect/sport_reagents/creatine
+
+
+/datum/reagent/status_effect/creatine/liquid
+	name = "Разбавленный креатин"
+	id = "creatine_liquid"
+	description = "Смесь воды и креатина."
+	reagent_state = LIQUID
+	status_effect_type = /datum/status_effect/sport_reagents/creatine/liquid
+
+
+/datum/reagent/status_effect/guarana
+	name = "Экстракт гуараны"
+	id = "guarana"
+	description = "Вещество временно стимулирующее мышечную активность."
+	reagent_state = SOLID
+	color = "#dc3b00"
+	taste_description = "горечи"
+	status_effect_type = /datum/status_effect/sport_reagents/guarana
+
+
+/datum/reagent/status_effect/steroids
 	name = "Стероиды"
 	id = "steroids"
 	description = "Используется для ускоренного развития мышц. \
@@ -508,10 +553,11 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	reagent_state = LIQUID
 	color = "#c2ff34"
 	taste_description = "силы"
+	status_effect_type = /datum/status_effect/sport_reagents/steroids
 
 
-/datum/reagent/steroids/on_mob_life(mob/living/target)
-	..()
+/datum/reagent/status_effect/steroids/on_mob_life(mob/living/target)
+	. = ..()
 	if(!ishuman(target))
 		return
 

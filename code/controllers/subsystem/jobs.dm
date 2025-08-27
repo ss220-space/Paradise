@@ -18,6 +18,8 @@ SUBSYSTEM_DEF(jobs)
 	var/list/unassigned = list()
 	/// Used to grant AI job if antag was rolled.
 	var/mob/new_player/new_malf
+	/// Used to grant prisoner job if antag was rolled.
+	var/list/mob/new_player/new_prisoners = list()
 	//Debug info
 	var/list/job_debug = list()
 
@@ -288,6 +290,16 @@ SUBSYSTEM_DEF(jobs)
 	if(new_malf && AssignRole(new_malf, JOB_TITLE_AI))
 		return TRUE
 
+/datum/controller/subsystem/jobs/proc/fill_prisoners_position()
+	var/datum/job/job = GetJob(JOB_TITLE_PRISONER)
+	if(!job)
+		return FALSE
+	for(var/mob/new_player/new_prisoner in new_prisoners)
+		if(!new_prisoner)
+			continue
+		AssignRole(new_prisoner, JOB_TITLE_PRISONER)
+	return TRUE
+
 /** Proc DivideOccupations
 *  fills var "assigned_role" for all ready players.
 *  This proc must not have any side effect besides of modifying "assigned_role".
@@ -325,6 +337,11 @@ SUBSYSTEM_DEF(jobs)
 		FillMalfAIPosition()
 		Debug("DO, AI Check end")
 		new_malf = null
+
+	if(length(new_prisoners)) // code to assign traitor prisoner before civs.
+		Debug("DO, Running Traitor Prisoners Check")
+		fill_prisoners_position()
+		Debug("DO, Traitor Prisoners Check end")
 
 	//People who wants to be assistants, sure, go on.
 	Debug("DO, Running Civilian Check 1")

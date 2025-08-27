@@ -59,9 +59,9 @@
 	var/list/affected_targets = list()
 	var/activation_sound = 'sound/effects/break_stone.ogg'
 
-/obj/machinery/anomalous_crystal/New()
+/obj/machinery/anomalous_crystal/Initialize(mapload)
+	. = ..()
 	activation_method = pick("touch","laser","bullet","energy","bomb","mob_bump","weapon","speech")
-	..()
 
 /obj/machinery/anomalous_crystal/hear_talk(mob/speaker, list/message_pieces)
 	..()
@@ -72,7 +72,6 @@
 	..()
 	ActivationReaction(user,"touch")
 
-
 /obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -81,8 +80,6 @@
 
 	if(ActivationReaction(user, "weapon"))
 		return .|ATTACK_CHAIN_SUCCESS
-
-
 
 /obj/machinery/anomalous_crystal/bullet_act(obj/projectile/P, def_zone)
 	..()
@@ -110,11 +107,11 @@
 /obj/machinery/anomalous_crystal/ex_act()
 	ActivationReaction(null,"bomb")
 
-/obj/machinery/anomalous_crystal/random/New() //Just a random crysal spawner for loot
+/obj/machinery/anomalous_crystal/random/Initialize(mapload) // Just a random crysal spawner for loot
 	. = ..()
 	var/random_crystal = pick(typesof(/obj/machinery/anomalous_crystal) - /obj/machinery/anomalous_crystal/random - /obj/machinery/anomalous_crystal)
 	new random_crystal(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/machinery/anomalous_crystal/honk //Strips and equips you as a clown. I apologize for nothing
 	activation_method = "mob_bump"
@@ -144,8 +141,8 @@
 	var/list/NewFlora = list()
 	var/florachance = 8
 
-/obj/machinery/anomalous_crystal/theme_warp/New()
-	..()
+/obj/machinery/anomalous_crystal/theme_warp/Initialize(mapload)
+	. = ..()
 	terrain_theme = pick("lavaland","winter","jungle","alien")
 	switch(terrain_theme)
 		if("lavaland")//Depressurizes the place... and free cult metal, I guess.
@@ -212,8 +209,8 @@
 	cooldown_add = 50
 	var/generated_projectile = /obj/projectile/beam/emitter
 
-/obj/machinery/anomalous_crystal/emitter/New()
-	..()
+/obj/machinery/anomalous_crystal/emitter/Initialize(mapload)
+	. = ..()
 	generated_projectile = pick(/obj/projectile/magic/fireball/infernal,/obj/projectile/magic/spellblade,
 								 /obj/projectile/bullet/meteorshot, /obj/projectile/beam/xray, /obj/projectile/colossus)
 
@@ -325,8 +322,13 @@
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 	remove_verb(src, /mob/verb/me_verb)
-	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.add_hud_to(src)
+
+/mob/living/simple_animal/hostile/lightgeist/Destroy()
+	var/datum/atom_hud/med_hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	med_hud.remove_hud_from(src)
+	return ..()
 
 /mob/living/simple_animal/hostile/lightgeist/ComponentInitialize()
 	AddComponent( \
@@ -355,8 +357,8 @@
 										   /obj/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
 										   /obj/item/dice/d20/fate, /obj/item/gem, /obj/item/guardiancreator, /obj/item/dna_upgrader)
 
-/obj/machinery/anomalous_crystal/refresher/New()
-	..()
+/obj/machinery/anomalous_crystal/refresher/Initialize(mapload)
+	. = ..()
 	banned_items_typecache = typecacheof(banned_items_typecache)
 
 

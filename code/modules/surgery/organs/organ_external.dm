@@ -234,7 +234,7 @@
 			span_danger("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] взрыва[pluralize_ru(gender, "ет", "ют")]ся!"),
 			span_danger("Вы слышите взрыв!"),
 		)
-		explosion(get_turf(organ_owner), -1, -1, 2, 3, cause = "Organ Sabotage")
+		explosion(get_turf(organ_owner), devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3, cause = "Organ Sabotage")
 		do_sparks(5, FALSE, organ_owner)
 		qdel(src)
 
@@ -955,7 +955,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			span_italics("Вы слышите громкий хруст."),
 		)
 
-		playsound(owner, "bonebreak", 150, TRUE)
+		playsound(owner, SFX_BONEBREAK, 150, TRUE)
 
 		if(owner.has_pain())
 			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")

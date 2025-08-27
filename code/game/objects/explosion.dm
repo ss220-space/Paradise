@@ -1,15 +1,3 @@
-//TODO: Flash range does nothing currently
-
-#define CREAK_DELAY 5 SECONDS //Time taken for the creak to play after explosion, if applicable.
-#define DEVASTATION_PROB 30 //The probability modifier for devistation, maths!
-#define HEAVY_IMPACT_PROB 5 //ditto
-#define FAR_UPPER 60 //Upper limit for the far_volume, distance, clamped.
-#define FAR_LOWER 40 //lower limit for the far_volume, distance, clamped.
-#define PROB_SOUND 75 //The probability modifier for a sound to be an echo, or a far sound. (0-100)
-#define SHAKE_CLAMP 2.5 //The limit for how much the camera can shake for out of view booms.
-#define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
-#define FREQ_LOWER 25 //The lower of the above.
-
 /client/proc/check_bomb_impacts()
 	set name = "Check Bomb Impact"
 	set category = "Debug"
@@ -68,7 +56,7 @@
 			floor_block["[below.z]"] = below.explosion_vertical_block
 	for(var/turf/T in affected_turfs)
 		wipe_colours += T
-		var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
+		var/dist = CHEAP_HYPOTENUSE(T.x, T.y, x0, y0)
 		if((zmode == "Yes") && (T.z != z0))
 			if(T.z < z0)
 				dist += floor_block["[T.z + 1]"] + 1
@@ -103,12 +91,3 @@
 		T.color = null
 		T.maptext = ""
 
-#undef CREAK_DELAY
-#undef DEVASTATION_PROB
-#undef HEAVY_IMPACT_PROB
-#undef FAR_UPPER
-#undef FAR_LOWER
-#undef PROB_SOUND
-#undef SHAKE_CLAMP
-#undef FREQ_UPPER
-#undef FREQ_LOWER

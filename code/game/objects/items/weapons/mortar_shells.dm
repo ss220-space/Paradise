@@ -64,7 +64,7 @@
 
 /obj/item/mortar_shell/he/detonate(turf/detonate_turf)
 	. = ..()
-	explosion(detonate_turf, 0, 4, 7, 7)
+	explosion(detonate_turf, devastation_range = 0, heavy_impact_range = 4, light_impact_range = 7, flash_range = 7)
 
 /obj/item/mortar_shell/frag
 	name = "80mm fragmentation mortar shell"
@@ -76,7 +76,7 @@
 	AddComponent(/datum/component/pellet_cloud, magnitude = 4)
 	. = ..()
 	sleep(2)
-	explosion(detonate_turf, 0, 0, 5)
+	explosion(detonate_turf, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 5)
 
 /obj/item/mortar_shell/incendiary
 	name = "80mm incendiary mortar shell"
@@ -256,7 +256,7 @@
 
 
 /obj/item/mortar_shell/proc/explode()
-	explosion(get_turf(src), 0, 3, 5)
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 3, light_impact_range = 5)
 
 
 /obj/effect/warning
