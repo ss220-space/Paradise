@@ -159,7 +159,7 @@
 /datum/gear/donor/zippogold
 	index_name = "Gold engraved zippo lighter"
 	display_name = "Золотая зажигалка Зиппо"
-	path = /obj/item/lighter/zippo/nt_rep
+	path =  /obj/item/lighter/zippo/fluff/michael_guess_1
 	donator_tier = 2
 	cost = 1
 
