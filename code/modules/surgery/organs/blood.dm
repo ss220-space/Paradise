@@ -5,7 +5,7 @@
 #define EXOTIC_BLEED_MULTIPLIER 4 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
 
 /// Natural bleed regeneration size (units per 2 sec)
-#define BLOOD_REGENERATION 0.1
+#define BLOOD_REGENERATION 0.25
 
 // Blood level damage constants
 /// Damage for blood volume from BLOOD_VOLUME_PALE to BLOOD_VOLUM5E_SAFE
@@ -30,7 +30,8 @@
 /// Multiplyer for bleeding calculate from bodypart value
 #define BLEEDING_MODIFIER 0.32
 /// Minimal brute damage for add bleeding
-#define MIN_BRUTE_DAMAGE_FOR_BLEEDING 15
+#define MIN_BRUTE_DAMAGE_FOR_BLEEDING 12
+#define BRUTE_DAMAGE_FOR_GARANT_BLEEDING 30
 /// Minimal brute damage for add bleeding
 #define MIN_BURN_DAMAGE_FOR_STOP_BLEEDING 5
 /// Brute damage to bleeding calculation coefficient
@@ -135,7 +136,7 @@
 			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
 		if(bodypart.bleeding_amount > 0)
 			bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - BLEEDING_DECREASE)
-		var/bodypart_bleeding = max(bodypart.bleeding_amount - bodypart.bleedsuppress, 0) * BLEEDING_MODIFIER
+		var/bodypart_bleeding = max(bodypart.bleeding_amount - bodypart.bleedsuppress, 0) * BLEEDING_MODIFIER * bodypart.bleeding_mod
 		current_bleed += bodypart_bleeding
 		var/embedded_length = LAZYLEN(bodypart.embedded_objects)
 		if(embedded_length && bodypart.bleedsuppress > 0)
