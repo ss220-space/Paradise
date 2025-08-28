@@ -182,7 +182,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 2, \
 		no_multi_hit = TRUE, \
-		swing_sound = "generic_swing_heavy" \
+		swing_sound = SFX_GENERIC_SWING_HEAVY \
 	)
 
 /obj/item/nullrod/staff/blue
@@ -210,7 +210,7 @@
 	AddComponent( \
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 2, \
-		swing_sound = "generic_swing_heavy" \
+		swing_sound = SFX_GENERIC_SWING_HEAVY \
 	)
 
 /obj/item/nullrod/claymore/darkblade
@@ -308,7 +308,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 2, \
 		no_multi_hit = TRUE, \
-		swing_sound = "chop_swing_light" \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
 
 /obj/item/nullrod/scythe/vibro
@@ -386,7 +386,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 2, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/nullrod/chainsaw
@@ -410,7 +410,7 @@
 	AddComponent( \
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 2, \
-		swing_sound = "chainsaw_swing" \
+		swing_sound = SFX_CHAINSAW_SWING \
 	)
 
 /obj/item/nullrod/clown
@@ -479,7 +479,7 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_sound = "blade_swing_light" \
+		swing_sound = SFX_BLADE_SWING_LIGHT \
 	)
 
 /obj/item/nullrod/carp
@@ -539,7 +539,7 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_sound = "knife_swing" \
+		swing_sound = SFX_KNIFE_SWING \
 	)
 
 /obj/item/nullrod/tribal_knife/Destroy()

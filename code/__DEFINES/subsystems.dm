@@ -172,3 +172,37 @@
 #define SS_CPUDISPLAY_LOW 1
 #define SS_CPUDISPLAY_DEFAULT 2
 #define SS_CPUDISPLAY_HIGH 3
+
+// Truly disgusting, TG. Truly disgusting.
+//! ## Overlays subsystem
+
+#define POST_OVERLAY_CHANGE(changed_on) \
+	if(length(changed_on.overlays) >= MAX_ATOM_OVERLAYS) { \
+		var/text_lays = overlays2text(changed_on.overlays); \
+		stack_trace("Too many overlays on [changed_on.type] - [length(changed_on.overlays)], refusing to update and cutting.\
+			\n What follows is a printout of all existing overlays at the time of the overflow \n[text_lays]"); \
+		changed_on.overlays.Cut(); \
+		changed_on.add_overlay(mutable_appearance('icons/Testing/greyscale_error.dmi')); \
+	} \
+	if(alternate_appearances) { \
+		for(var/I in changed_on.alternate_appearances){\
+			var/datum/atom_hud/alternate_appearance/AA = changed_on.alternate_appearances[I];\
+			if(AA.transfer_overlays){\
+				AA.copy_overlays(changed_on, TRUE);\
+			}\
+		} \
+	}\
+	if(isturf(changed_on)){SSdemo.mark_turf(changed_on);}\
+	if(isobj(changed_on) || ismob(changed_on)){SSdemo.mark_dirty(changed_on);}\
+
+//SSticker.current_state values
+/// Game is loading
+#define GAME_STATE_STARTUP 0
+/// Game is loaded and in pregame lobby
+#define GAME_STATE_PREGAME 1
+/// Game is attempting to start the round
+#define GAME_STATE_SETTING_UP 2
+/// Game has round in progress
+#define GAME_STATE_PLAYING 3
+/// Game has round finished
+#define GAME_STATE_FINISHED 4

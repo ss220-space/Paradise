@@ -160,7 +160,7 @@
 	if(!emagged)
 		emagged = TRUE
 		add_attack_logs(user, src, "emagged")
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 

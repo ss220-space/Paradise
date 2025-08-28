@@ -129,7 +129,7 @@
 	emagged = TRUE
 	visible_message("<span class='warning'>[user] swipes a card through [src] and sparks fly out of it!</span>")
 	do_sparks(1, TRUE, src)
-	get_sfx("sparks")
+	get_sfx(SFX_SPARKS)
 	access_code = rand(1111,9999)
 	transaction_purpose = pick(list(
 		"WetSkrell.nt subscription activation","Consturction a mausoleum for George Trasen Jr",

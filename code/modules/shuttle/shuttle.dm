@@ -550,6 +550,8 @@
 			for(var/atom/movable/AM in oldT)
 				AM.onShuttleMove(oldT, newT, rotation, last_caller)
 
+			SEND_SIGNAL(oldT, COMSIG_TURF_ON_SHUTTLE_MOVE, newT)
+
 			//rotate turf
 			if(rotation)
 				newT.shuttleRotate(rotation)

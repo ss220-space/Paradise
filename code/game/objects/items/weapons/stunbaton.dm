@@ -111,7 +111,7 @@
 		//we're below minimum, turn off
 		active = FALSE
 		update_icon(UPDATE_ICON_STATE)
-		playsound(src, "sparks", 75, TRUE, -1)
+		playsound(src, SFX_SPARKS, 75, TRUE, -1)
 
 
 /obj/item/melee/baton/security/clumsy_check(mob/living/carbon/human/user, mob/living/intented_target)
@@ -162,7 +162,7 @@
 	if(cell?.charge >= cell_hit_cost)
 		active = !active
 		balloon_alert(user, "[active ? "включено" : "выключено"]")
-		playsound(src, "sparks", 75, TRUE, -1)
+		playsound(src, SFX_SPARKS, 75, TRUE, -1)
 	else
 		if(isrobot(loc))
 			balloon_alert(user, "недостаточно заряда!")
@@ -239,7 +239,7 @@
 			span_warning("[user] shocks [user.p_themselves()] while attempting to wash the active [src]!"),
 			span_userdanger("You unwisely attempt to wash [src] while it's still on."),
 		)
-		playsound(src, "sparks", 50, TRUE)
+		playsound(src, SFX_SPARKS, 50, TRUE)
 		deductcharge(cell_hit_cost)
 		return TRUE
 	return ..()

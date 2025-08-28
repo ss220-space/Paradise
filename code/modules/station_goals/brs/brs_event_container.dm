@@ -75,11 +75,7 @@
 
 /datum/brs_event_container/normal
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Атмосферная аномалия",		/datum/event/anomaly/anomaly_pyro,		60),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Вортекс-аномалия",			/datum/event/anomaly/anomaly_vortex,	60),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Блюспейс-аномалия",		/datum/event/anomaly/anomaly_bluespace,	60),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Флюкс-аномалия",			/datum/event/anomaly/anomaly_flux,		60),
-		new /datum/event_meta(EVENT_LEVEL_NONE, "Гравитационная аномалия",	/datum/event/anomaly/anomaly_grav,		60),
+		new /datum/event_meta(EVENT_LEVEL_NONE, "Аномалия",		/datum/event/anomaly,		300),
 
 		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Телепортация живых",			/datum/event/bluespace_rift_event/teleport_living,							500),
 		new /datum/event_meta/bluespace_rift_event_meta(EVENT_LEVEL_NONE, "Поменять местами живых",		/datum/event/bluespace_rift_event/teleport_living/shuffle,					500),
