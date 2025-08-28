@@ -125,7 +125,7 @@
 		if(is_processed)
 			visible_message(
 				span_warning("[name] перестал[genderize_ru(gender, "", "а", "о", "и")] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
-				span_notice("Вы перестали пытаться сломать [cuffs.declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы перестали пытаться снять [cuffs.declent_ru(ACCUSATIVE)]."),
 			)
 		else
 			balloon_alert(src, "попытка снять [cuffs.declent_ru(ACCUSATIVE)]...")
