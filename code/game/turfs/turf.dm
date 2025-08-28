@@ -111,7 +111,7 @@
 		queue_smooth(src)
 
 	for(var/atom/movable/content as anything in src)
-		Entered(content)
+		Entered(content, NONE)
 
 	if(always_lit)
 		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]

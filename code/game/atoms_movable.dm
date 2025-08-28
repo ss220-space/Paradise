@@ -837,12 +837,19 @@
 		var/same_loc = oldloc == destination
 		var/area/old_area = get_area(oldloc)
 		var/area/destarea = get_area(destination)
+		var/movement_dir = get_dir(src, destination)
 
 		moving_diagonally = NONE
 
 		loc = destination
 
 		if(!same_loc)
+			if(loc == oldloc)
+				// when attempting to move an atom A into an atom B which already contains A, BYOND seems
+				// to silently refuse to move A to the new loc. This can really break stuff (see #77067)
+				stack_trace("Attempt to move [src] to [destination] was rejected by BYOND, possibly due to cyclic contents")
+				return FALSE
+
 			if(is_multi_tile && isturf(destination))
 				var/dx = destination.x
 				var/dy = destination.y
@@ -852,23 +859,23 @@
 					dx + ROUND_UP(bound_width / ICON_SIZE_X), dy + ROUND_UP(bound_height / ICON_SIZE_Y), dz
 				)
 				if(old_area && old_area != destarea)
-					old_area.Exited(src, destarea)
-				for(var/atom/left_loc as anything in (locs - new_locs))
-					left_loc.Exited(src, destination)
+					old_area.Exited(src, movement_dir)
+				for(var/atom/left_loc as anything in locs - new_locs)
+					left_loc.Exited(src, movement_dir)
 
-				for(var/atom/entering_loc as anything in (new_locs - locs))
-					entering_loc.Entered(src, oldloc)
+				for(var/atom/entering_loc as anything in new_locs - locs)
+					entering_loc.Entered(src, movement_dir)
+
 				if(old_area && old_area != destarea)
-					destarea.Entered(src, old_area)
+					destarea.Entered(src, movement_dir)
 			else
 				if(oldloc)
-					oldloc.Exited(src, destination)
+					oldloc.Exited(src, movement_dir)
 					if(old_area && old_area != destarea)
-						old_area.Exited(src, destarea)
+						old_area.Exited(src, movement_dir)
 				destination.Entered(src, oldloc)
 				if(destarea && old_area != destarea)
 					destarea.Entered(src, old_area)
-
 
 		. = TRUE
 
@@ -881,12 +888,12 @@
 			var/area/old_area = get_area(oldloc)
 			if(is_multi_tile && isturf(oldloc))
 				for(var/atom/old_loc as anything in locs)
-					old_loc.Exited(src, null)
+					old_loc.Exited(src, NONE)
 			else
-				oldloc.Exited(src, null)
+				oldloc.Exited(src, NONE)
 
 			if(old_area)
-				old_area.Exited(src, null)
+				old_area.Exited(src, NONE)
 
 	RESOLVE_ACTIVE_MOVEMENT
 
