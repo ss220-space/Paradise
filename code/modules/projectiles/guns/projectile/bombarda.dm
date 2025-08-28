@@ -10,6 +10,7 @@
 	can_holster = FALSE
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
+	fire_delay = 1.8
 	var/pump_cooldown = 0.5 SECONDS
 	COOLDOWN_DECLARE(last_pump)
 	accuracy = GUN_ACCURACY_MINIMAL
@@ -18,7 +19,7 @@
 
 
 /obj/item/gun/projectile/bombarda/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/ammo_box) || istype(item, /obj/item/ammo_casing))
+	if(istype(item, /obj/item/ammo_casing))
 		add_fingerprint(user)
 		if(!opened)
 			balloon_alert(user, "необходимо открыть")
@@ -37,10 +38,11 @@
 
 /obj/item/gun/projectile/bombarda/update_icon_state()
 	icon_state = initial(icon_state) + (opened ?  "_open" : "")
+	item_state = initial(item_state) + (opened ?  "_open" : "")
 
 
 /obj/item/gun/projectile/bombarda/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
-	..(FALSE, FALSE)
+	..(FALSE, empty_chamber)
 
 
 /obj/item/gun/projectile/bombarda/chamber_round()
@@ -70,17 +72,37 @@
 	if(opened)
 		return FALSE
 	opened = TRUE
-	if(chambered)
-		chambered.forceMove(drop_location())
-		chambered.SpinAnimation(5, 1)
-		chambered.pixel_x = rand(-10, 10)
-		chambered.pixel_y = rand(-10, 10)
-		chambered.setDir(pick(GLOB.alldirs))
-		playsound(chambered.loc, chambered.casing_drop_sound, 60, TRUE)
-		chambered = null
+	chambered = null
+	var/atom/drop_loc = drop_location()
+	while(get_ammo() > 0)
+		var/obj/item/ammo_casing/casing
+		casing = magazine.get_round(FALSE)
+		if(!casing)
+			continue
+		casing.forceMove(drop_loc)
+		casing.pixel_x = rand(-10, 10)
+		casing.pixel_y = rand(-10, 10)
+		casing.setDir(pick(GLOB.alldirs))
+		casing.update_appearance()
+		casing.SpinAnimation(10, 1)
+		playsound(drop_loc, casing.casing_drop_sound, 60, TRUE)
 	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
 	update_icon()
 	return TRUE
+
+/obj/item/gun/projectile/bombarda/chamber_round(spin = TRUE)
+	if(!magazine)
+		return
+	if(spin)
+		chambered = magazine.get_round(TRUE)
+		return
+	if(!length(magazine.stored_ammo))
+		return
+	chambered = magazine.stored_ammo[1]
+
+/obj/item/gun/projectile/bombarda/secgl/x4/shoot_with_empty_chamber(mob/living/user)
+	..()
+	chamber_round(TRUE)
 
 
 /obj/item/gun/projectile/bombarda/proc/close_pump(mob/user)
@@ -88,7 +110,7 @@
 		return FALSE
 	opened = FALSE
 	if(!chambered)
-		chambered = magazine.get_round()
+		chambered = magazine.get_round(TRUE)
 	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
 	update_icon()
 	return TRUE
@@ -115,6 +137,33 @@
 	recoil = GUN_RECOIL_HIGH
 
 
+/obj/item/gun/projectile/bombarda/secgl/x4
+	name = "grenade launcher GL-08-4"
+	desc = "Четырехзарядный ручной гранатомёт, разработанный специально для сотрудников службы безопасности. Применяется для подавления беспорядков с помощью не летальных боеприпасов. Может запускать 40 мм гранаты."
+	ru_names = list(
+		NOMINATIVE = "ручной гранатомет GL-08-4",
+		GENITIVE = "ручного гранатомета GL-08-4",
+		DATIVE = "ручному гранатомету GL-08-4",
+		ACCUSATIVE = "ручной гранатомет GL-08-4",
+		INSTRUMENTAL = "ручным гранатометом GL-08-4",
+		PREPOSITIONAL = "ручном гранатомете GL-08-4"
+	)
+	icon_state = "secgl_4"
+	item_state = "secgl_4"
+	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/secgl/x4
+	w_class = WEIGHT_CLASS_HUGE
+	weapon_weight = WEAPON_DUAL_WIELD
+	slot_flags = FALSE
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_HIGH
+	var/high_risk = TRUE
+	fire_delay = 1.5 SECONDS
+
+/obj/item/gun/projectile/bombarda/secgl/x4/Initialize(mapload, ...)
+	. = ..()
+	if(high_risk)
+		AddElement(/datum/element/high_value_item)
+
 // MARK: M79
 /obj/item/gun/projectile/bombarda/secgl/m79
 	name = "grenade launcher M79"
@@ -131,10 +180,28 @@
 	item_state = "m79"
 
 
+// MARK: Bombplet
+
+/obj/item/gun/projectile/bombarda/bombplet
+	name = "bombplet"
+	desc = "Двуствольная самодельная бомбарда. Использует 40 мм гранаты."
+	ru_names = list(
+		NOMINATIVE = "самодельный двуствольный гранатомет",
+		GENITIVE = "самодельного двуствольного гранатомета",
+		DATIVE = "самодельному двуствольному гранатомету",
+		ACCUSATIVE = "самодельный двуствольный гранатомет",
+		INSTRUMENTAL = "самодельным двуствольным гранатометом",
+		PREPOSITIONAL = "самодельном двуствольном гранатомете"
+	)
+	icon_state = "bombplet"
+	item_state = "bombplet"
+	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/x2
+
+
 // MARK: Bombarda ammo
 /obj/item/ammo_box/magazine/internal/bombarda
 	name = "bombarda internal magazine"
-	ammo_type = /obj/item/ammo_casing/grenade/improvised
+	ammo_type = /obj/item/ammo_casing/a40mm/improvised
 	caliber = "40mm"
 	max_ammo = 1
 	insert_sound = 'sound/weapons/bombarda/load.ogg'
@@ -142,6 +209,8 @@
 	load_sound = 'sound/weapons/bombarda/load.ogg'
 	start_empty = TRUE
 
+/obj/item/ammo_box/magazine/internal/bombarda/x2
+	max_ammo = 2
 
 /obj/item/ammo_box/magazine/internal/bombarda/ammo_count(countempties = TRUE)
 	. = 0
@@ -150,31 +219,30 @@
 			.++
 
 
-/obj/item/ammo_casing/grenade/improvised
+/obj/item/ammo_casing/a40mm/improvised
 	name = "Improvised shell"
 	desc = "Does something upon impact or after some time. If you see this, contact the coder."
 	icon = 'icons/obj/weapons/bombarda.dmi'
 	icon_state = "exp_shell"
 	item_state = "exp_shell"
-	caliber = "40mm"
 	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 
-/obj/item/ammo_casing/grenade/improvised/exp_shell
+/obj/item/ammo_casing/a40mm/improvised/exp_shell
 	name = "Improvised explosive shell"
 	desc = "Explodes upon impact or after some time."
 	projectile_type = /obj/projectile/grenade/improvised/exp_shot
 	icon_state = "exp_shell"
 	item_state = "exp_shell"
 
-/obj/item/ammo_casing/grenade/improvised/flame_shell
+/obj/item/ammo_casing/a40mm/improvised/flame_shell
 	name = "Improvised flame shell"
 	desc = "Explodes with flames upon impact or after some time"
 	projectile_type = /obj/projectile/grenade/improvised/flame_shot
 	icon_state = "flame_shell"
 	item_state = "flame_shell"
 
-/obj/item/ammo_casing/grenade/improvised/smoke_shell
+/obj/item/ammo_casing/a40mm/improvised/smoke_shell
 	name = "Improvised smoke shell"
 	desc = "Explodes with smoke upon impact or after some time"
 	projectile_type = /obj/projectile/grenade/improvised/smoke_shot
@@ -183,8 +251,8 @@
 
 /obj/projectile/grenade/improvised
 	icon = 'icons/obj/weapons/bombarda.dmi'
-	hitsound = "bullet"
-	hitsound_wall = "ricochet"
+	hitsound = SFX_BULLET
+	hitsound_wall = SFX_RICOCHET
 
 /obj/projectile/grenade/improvised/exp_shot
 	icon_state = "exp_shot"
@@ -225,6 +293,18 @@
 	subcategory = CAT_WEAPON
 	always_availible = FALSE
 
+// No fun allowed: https://github.com/ss220-space/Paradise/pull/7473#issuecomment-3217889330
+// /datum/crafting_recipe/bombplet
+// 	name = "Bombplet"
+// 	result = /obj/item/gun/projectile/bombarda/bombplet
+// 	reqs = list(/obj/item/restraints/handcuffs/cable = 2,
+// 				/obj/item/stack/tape_roll = 10,
+// 				/obj/item/gun/projectile/bombarda = 2)
+// 	time = 6 SECONDS
+// 	category = CAT_WEAPONRY
+// 	subcategory = CAT_WEAPON
+// 	always_availible = FALSE
+
 /datum/crafting_recipe/bombarda/New()
 	. = ..()
 	if(CONFIG_GET(flag/enable_bombarda_craft))
@@ -232,7 +312,7 @@
 
 /datum/crafting_recipe/explosion_shell
 	name = "Improvised explosive shell"
-	result = /obj/item/ammo_casing/grenade/improvised/exp_shell
+	result = /obj/item/ammo_casing/a40mm/improvised/exp_shell
 	reqs = list(/obj/item/grenade/iedcasing = 1,
 				/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/cable_coil = 5,
@@ -249,7 +329,7 @@
 
 /datum/crafting_recipe/flame_shell
 	name = "Improvised flame shell"
-	result = /obj/item/ammo_casing/grenade/improvised/flame_shell
+	result = /obj/item/ammo_casing/a40mm/improvised/flame_shell
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
 					/obj/item/stack/cable_coil = 5,
 					/obj/item/stack/sheet/metal = 1,
@@ -269,7 +349,7 @@
 
 /datum/crafting_recipe/smoke_shell
 	name = "Improvised smoke shell"
-	result = /obj/item/ammo_casing/grenade/improvised/smoke_shell
+	result = /obj/item/ammo_casing/a40mm/improvised/smoke_shell
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/stack/sheet/metal = 1,
@@ -290,7 +370,7 @@
 // MARK: 40mm ammo
 /obj/item/ammo_box/magazine/internal/bombarda/secgl
 	name = "security grenade launcher internal magazine"
-	ammo_type = /obj/item/ammo_casing/grenade/a40mm
+	ammo_type = /obj/item/ammo_casing/a40mm
 	caliber = "40mm"
 	max_ammo = 1
 	insert_sound = 'sound/weapons/bombarda/load.ogg'
@@ -298,7 +378,10 @@
 	load_sound = 'sound/weapons/bombarda/load.ogg'
 	start_empty = TRUE
 
-/obj/item/ammo_casing/grenade/a40mm/secgl
+/obj/item/ammo_box/magazine/internal/bombarda/secgl/x4
+	max_ammo = 4
+
+/obj/item/ammo_casing/a40mm/secgl
 	name = "40mm grenade"
 	ru_names = list(
 		NOMINATIVE = "граната (40 мм)",
@@ -327,12 +410,12 @@
 /obj/item/ammo_box/secgl
 	icon = 'icons/obj/weapons/bombarda.dmi'
 	icon_state = "secgl_box_gas"
-	ammo_type = /obj/item/ammo_casing/grenade/a40mm
+	ammo_type = /obj/item/ammo_casing/a40mm/secgl
 	max_ammo = 4
 
 
 
-/obj/item/ammo_casing/grenade/a40mm/secgl/solid
+/obj/item/ammo_casing/a40mm/secgl/solid
 	name = "40mm grenade (rubber slug)"
 	ru_names = list(
 		NOMINATIVE = "граната (40 мм цельная резина)",
@@ -368,11 +451,11 @@
 		INSTRUMENTAL = "коробкой гранат (40 мм цельная резина)",
 		PREPOSITIONAL = "коробке гранат (40 мм цельная резина)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/solid
+	ammo_type = /obj/item/ammo_casing/a40mm/secgl/solid
 	icon_state = "secgl_box_solid"
 
 
-/obj/item/ammo_casing/grenade/a40mm/secgl/flash
+/obj/item/ammo_casing/a40mm/secgl/flash
 	name = "40mm grenade (flashbang)"
 	ru_names = list(
 		NOMINATIVE = "граната (40 мм светошумовая)",
@@ -414,11 +497,11 @@
 		INSTRUMENTAL = "коробкой гранат (40 мм светошумовая)",
 		PREPOSITIONAL = "коробке гранат (40 мм светошумовая)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/flash
+	ammo_type = /obj/item/ammo_casing/a40mm/secgl/flash
 	icon_state = "secgl_box_flash"
 
 
-/obj/item/ammo_casing/grenade/a40mm/secgl/gas
+/obj/item/ammo_casing/a40mm/secgl/gas
 	name = "40mm grenade (gatears)"
 	ru_names = list(
 		NOMINATIVE = "граната (40 мм слезоточивый газ)",
@@ -452,11 +535,11 @@
 		INSTRUMENTAL = "коробкой гранат (40 мм слезоточивый газ)",
 		PREPOSITIONAL = "коробке гранат (40 мм слезоточивый газ)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/gas
+	ammo_type = /obj/item/ammo_casing/a40mm/secgl/gas
 	icon_state = "secgl_box_gas"
 
 
-/obj/item/ammo_casing/grenade/a40mm/secgl/barricade
+/obj/item/ammo_casing/a40mm/secgl/barricade
 	name = "40mm grenade (barricade)"
 	ru_names = list(
 		NOMINATIVE = "граната (40 мм баррикада)",
@@ -490,11 +573,11 @@
 		INSTRUMENTAL = "коробкой гранат (40 мм баррикада)",
 		PREPOSITIONAL = "коробке гранат (40 мм баррикада)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/barricade
+	ammo_type = /obj/item/ammo_casing/a40mm/secgl/barricade
 	icon_state = "secgl_box_barricade"
 
 
-/obj/item/ammo_casing/grenade/a40mm/secgl/exp
+/obj/item/ammo_casing/a40mm/secgl/exp
 	name = "40mm grenade (frag)"
 	ru_names = list(
 		NOMINATIVE = "граната (40 мм осколочная)",
@@ -533,11 +616,11 @@
 		INSTRUMENTAL = "коробкой гранат (40 мм осколочные)",
 		PREPOSITIONAL = "коробке гранат (40 мм осколочные)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/exp
+	ammo_type = /obj/item/ammo_casing/a40mm/secgl/exp
 	icon_state = "secgl_box_exp"
 
 
-/obj/item/ammo_casing/grenade/a40mm/secgl/paint
+/obj/item/ammo_casing/a40mm/secgl/paint
 	name = "40mm grenade (paint)"
 	ru_names = list(
 		NOMINATIVE = "граната (40 мм краска)",
@@ -581,7 +664,7 @@
 		INSTRUMENTAL = "коробкой гранат (40 мм краска)",
 		PREPOSITIONAL = "коробке гранат (40 мм краска)"
 	)
-	ammo_type = /obj/item/ammo_casing/grenade/a40mm/secgl/paint
+	ammo_type = /obj/item/ammo_casing/a40mm/secgl/paint
 	icon_state = "secgl_box_paint"
 
 

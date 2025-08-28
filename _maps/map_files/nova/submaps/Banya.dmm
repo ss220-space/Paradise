@@ -1,0 +1,2449 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aw" = (
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"aF" = (
+/obj/structure/barricade/wooden,
+/obj/effect/spawner/random_barrier/possibly_welded_airlock,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/chapel)
+"aG" = (
+/obj/structure/curtain/open/shower/security{
+	alpha = 255;
+	icon_state = "closed";
+	name = "backstage";
+	opacity = 1;
+	anchored = 1
+	},
+/obj/effect/turf_decal/siding/red{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"aL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"bn" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/vault,
+/area/maintenance/tourist)
+"bo" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"by" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/warning_stripes/green,
+/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"bK" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/random/tool,
+/obj/random/tool,
+/obj/random/tool,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/warning_stripes/green,
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"bN" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "golden_stripes_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "golden_stripes_corner"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"ca" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/pinup_a{
+	pixel_x = -32
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedclub)
+"cD" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"cE" = (
+/obj/effect/spawner/random_spawners/oil_20,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"cM" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/Banya,
+/turf/template_noop,
+/area/template_noop)
+"cR" = (
+/obj/structure/closet/firecloset,
+/obj/item/clothing/gloves/color/fyellow,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"eh" = (
+/obj/structure/barricade/wooden,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"eu" = (
+/obj/effect/turf_decal{
+	dir = 2;
+	icon_state = "golden_stripes"
+	},
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"ff" = (
+/obj/structure/chair/sofa/right{
+	dir = 4;
+	color = "#85130b"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"fm" = (
+/obj/effect/turf_decal/siding/red,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"fL" = (
+/obj/machinery/recharge_station,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"gp" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"gq" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"gw" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/random/tool,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/warning_stripes/green,
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"gJ" = (
+/obj/effect/decal/warning_stripes/northwest,
+/obj/item/restraints/handcuffs/cable/random,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"hq" = (
+/turf/template_noop,
+/area/template_noop)
+"hC" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/Banya,
+/obj/effect/map_effect/marker_helper/submap_def/nova/Banya/entrance,
+/turf/simulated/wall,
+/area/maintenance/tourist)
+"hI" = (
+/turf/simulated/wall/rust,
+/area/maintenance/chapel)
+"hM" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/firealarm{
+	dir = 8;
+	name = "west fire alarm";
+	pixel_x = -24
+	},
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"iL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/door/airlock/engineering{
+	name = "Alternate Construction Area";
+	welded = 1
+	},
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"jh" = (
+/obj/machinery/computer/old_frame/thick,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"jj" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"jk" = (
+/obj/structure/chair/sofa/left{
+	dir = 4;
+	color = "#85130b"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedclub)
+"jK" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stack/cable_coil{
+	pixel_x = -3;
+	pixel_y = 3;
+	amount = 15
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"jN" = (
+/obj/effect/decal/ants,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"jT" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/item/multitool,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"jY" = (
+/obj/effect/turf_decal{
+	dir = 2;
+	icon_state = "golden_stripes"
+	},
+/obj/structure/table/wood/fancy/black,
+/obj/item/trash/candle,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"kd" = (
+/obj/structure/sign/poster/contraband/grey_tide{
+	pixel_x = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"km" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high/plus,
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"kv" = (
+/obj/structure/sign/poster/contraband/missing_gloves{
+	pixel_x = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"kL" = (
+/obj/effect/decal/ants,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"le" = (
+/obj/item/clothing/gloves/color/yellow,
+/obj/structure/closet/toolcloset,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"li" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "golden_stripes"
+	},
+/obj/effect/decal/ants,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/lusty_xenomorph{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"lj" = (
+/obj/machinery/autolathe,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"lF" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "golden_stripes"
+	},
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"lM" = (
+/obj/structure/curtain/open/shower/security{
+	alpha = 255;
+	icon_state = "closed";
+	name = "backstage";
+	opacity = 1;
+	anchored = 1
+	},
+/obj/effect/turf_decal/siding/red,
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"lY" = (
+/obj/effect/spawner/random_barrier/obstruction,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"mc" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"mi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"mF" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"mL" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"mY" = (
+/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"ni" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/remains/mouse,
+/obj/effect/decal/ants,
+/obj/item/trash/semki{
+	pixel_x = -2;
+	pixel_y = -14
+	},
+/obj/item/reagent_containers/glass/bottle{
+	pixel_y = 7
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"no" = (
+/obj/structure/chair/sofa/right{
+	dir = 4;
+	color = "#85130b"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedclub)
+"np" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/remains/human,
+/obj/item/trash/tapetrash/thick{
+	pixel_y = 10;
+	pixel_x = -6
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"nP" = (
+/obj/structure/curtain/open/shower/security{
+	alpha = 255;
+	icon_state = "closed";
+	name = "backstage";
+	opacity = 1;
+	anchored = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"nQ" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/remains/mouse,
+/obj/item/trash/tapetrash,
+/obj/item/reagent_containers/glass/beaker/waterbottle/large/empty{
+	pixel_x = -6;
+	pixel_y = -15
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"nV" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/Banya,
+/obj/effect/map_effect/marker_helper/submap_def/nova/Banya/consarea,
+/turf/simulated/wall,
+/area/maintenance/consarea)
+"nY" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"oi" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "golden_stripes_corner"
+	},
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "golden_stripes_corner"
+	},
+/obj/machinery/door/airlock/public{
+	name = "Abandoned Club"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/barricade/wooden{
+	layer = 3.5
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"on" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/item/flashlight/flare/glowstick/random,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"oq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/barricade/wooden,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/airlock/engineering{
+	name = "Alternate Construction Area"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"oy" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"oF" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/vault,
+/area/maintenance/tourist)
+"pr" = (
+/obj/effect/spawner/random_spawners/oil_20,
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"pZ" = (
+/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"qk" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"qC" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"rt" = (
+/obj/effect/spawner/random_spawners/oil_20,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"rF" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"rH" = (
+/obj/effect/turf_decal{
+	dir = 2;
+	icon_state = "golden_stripes"
+	},
+/obj/item/chair/wood/wings{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"rK" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 10
+	},
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"rT" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/ants,
+/obj/item/trash/syndi_cakes{
+	pixel_y = 13
+	},
+/obj/item/broken_bottle{
+	pixel_x = 5;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"rV" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "golden_stripes"
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/structure/sign/poster/contraband/pinup_syn{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"sc" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/ants,
+/obj/item/trash/doshik{
+	pixel_x = -5;
+	pixel_y = -4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"sd" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "rampbottom"
+	},
+/area/maintenance/abandonedclub)
+"sh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/very_robust{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"sz" = (
+/obj/structure/reagent_dispensers/fueltank,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/atmosia_independence{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"tB" = (
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"tF" = (
+/obj/structure/table,
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/obj/item/analyzer,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"ud" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"ui" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"uk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"ut" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"uE" = (
+/obj/effect/turf_decal{
+	dir = 2;
+	icon_state = "golden_stripes"
+	},
+/obj/item/chair/wood/wings,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"uW" = (
+/obj/structure/closet/toolcloset,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/sign/poster/contraband/missing_gloves{
+	pixel_x = 32
+	},
+/obj/effect/decal/warning_stripes/green,
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"vk" = (
+/obj/effect/turf_decal/siding/wideplating/dark,
+/obj/structure/closet/wardrobe,
+/obj/item/clothing/under/tchaikowsky/dress,
+/obj/item/clothing/under/tchaikowsky/dress/black,
+/obj/item/clothing/under/night_dress,
+/obj/item/clothing/under/swimsuit/purple,
+/obj/item/clothing/under/swimsuit/green,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/wallet/random,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"vq" = (
+/obj/structure/sign/poster/random{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"vR" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 9
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"vT" = (
+/obj/structure/chair/sofa/left{
+	dir = 4;
+	color = "#85130b"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"wz" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/remains/mouse,
+/obj/item/trash/can{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/obj/item/stack/sheet/cardboard{
+	amount = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/blood_5,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"xf" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"xi" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"xk" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"xs" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "golden_stripes"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"xV" = (
+/obj/effect/spawner/random_spawners/oil_20,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"yh" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedclub)
+"yu" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 10
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"yE" = (
+/obj/effect/turf_decal/siding/wideplating/dark,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"yM" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"yO" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 9
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"yW" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light_switch{
+	pixel_x = 24
+	},
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"yZ" = (
+/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"zU" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/Banya,
+/obj/effect/map_effect/marker_helper/submap_def/nova/Banya/Club,
+/turf/simulated/wall,
+/area/maintenance/abandonedclub)
+"zV" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/west,
+/obj/item/trash/sosjerky{
+	pixel_x = 7
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"zZ" = (
+/obj/structure/closet/toolcloset,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/warning_stripes/green,
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"Aw" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"AP" = (
+/obj/machinery/door/airlock/engineering{
+	name = "Alternate Construction Area";
+	welded = 1
+	},
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"AZ" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"Ba" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	pixel_x = 5;
+	pixel_y = 15
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -4;
+	pixel_y = 0
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -2;
+	pixel_y = 13
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedclub)
+"Br" = (
+/obj/item/lighter/random,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"Bv" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/sign/poster/contraband/missing_gloves{
+	pixel_x = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"CA" = (
+/turf/simulated/wall,
+/area/maintenance/abandonedclub)
+"CR" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "golden_stripes"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/secret/lady{
+	pixel_x = 32
+	},
+/obj/effect/spawner/random_spawners/crate_spawner,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"CT" = (
+/turf/simulated/wall,
+/area/maintenance/tourist)
+"Df" = (
+/obj/item/restraints/handcuffs/cable/random,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"Dr" = (
+/obj/effect/turf_decal/siding/wideplating/dark/corner,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"Dw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"DE" = (
+/turf/simulated/wall/rust,
+/area/maintenance/tourist)
+"DY" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"En" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"EF" = (
+/obj/effect/decal/warning_stripes/southwest,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"EW" = (
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"Fk" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"Gm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"Gs" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 1
+	},
+/obj/structure/curtain/open/shower/security{
+	alpha = 255;
+	icon_state = "closed";
+	name = "backstage";
+	opacity = 1;
+	anchored = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"GP" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/rack,
+/obj/random/tool,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"Hx" = (
+/obj/machinery/floodlight,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"Id" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/vending/wallmed{
+	pixel_x = 25
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"In" = (
+/obj/effect/spawner/random_spawners/oil_20,
+/turf/simulated/floor/vault,
+/area/maintenance/tourist)
+"Ir" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"Iv" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"IO" = (
+/obj/structure/grille/broken,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"Jf" = (
+/obj/effect/turf_decal/siding/wideplating/dark/corner{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"Jn" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"Ju" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/decal/warning_stripes/green,
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"JH" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"JW" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "rampbottom"
+	},
+/area/maintenance/abandonedclub)
+"Kd" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"KB" = (
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"Le" = (
+/obj/effect/spawner/random_barrier/possibly_welded_airlock,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"Ls" = (
+/obj/structure/grille,
+/obj/structure/cable,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"Lt" = (
+/obj/effect/turf_decal{
+	dir = 2;
+	icon_state = "golden_stripes"
+	},
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"Mx" = (
+/obj/effect/spawner/random_spawners/crate_spawner,
+/obj/effect/decal/warning_stripes/green,
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"MV" = (
+/obj/structure/table,
+/obj/item/assembly/timer{
+	pixel_x = 10
+	},
+/obj/item/storage/belt/utility,
+/obj/item/assembly/igniter{
+	pixel_x = -14
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"MW" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"Nb" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"Nk" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"NR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"NW" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"Oh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/headspear{
+	pixel_y = 16
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/light{
+	icon_state = "light_on-p";
+	state = 7
+	},
+/area/maintenance/abandonedclub)
+"Oj" = (
+/turf/simulated/wall,
+/area/maintenance/chapel)
+"Or" = (
+/obj/effect/turf_decal/siding/wideplating/dark,
+/obj/structure/closet/wardrobe,
+/obj/item/clothing/under/tchaikowsky/evening_dress,
+/obj/item/clothing/under/tchaikowsky/evening_dress/cyan,
+/obj/item/clothing/under/night_dress/darkred,
+/obj/item/clothing/under/stripper/mankini,
+/obj/item/clothing/under/swimsuit/blue,
+/obj/item/clothing/under/swimsuit/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/wallet/random,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"Oz" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/stack/sheet/metal{
+	amount = 25
+	},
+/obj/item/stack/sheet/glass{
+	pixel_y = 2;
+	pixel_x = 2;
+	amount = 25
+	},
+/obj/item/stack/rods{
+	amount = 25
+	},
+/obj/structure/sign/poster/contraband/tools{
+	pixel_x = -32
+	},
+/obj/effect/decal/warning_stripes/green,
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"OK" = (
+/obj/effect/decal/warning_stripes/northeast,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/weldingtool/largetank,
+/obj/item/clothing/glasses/welding,
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"OW" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "golden_stripes"
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/structure/sign/poster/official/pinup_b{
+	pixel_x = -32
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"PS" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"PW" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"QE" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/ants,
+/obj/item/trash/fried_vox,
+/obj/item/reagent_containers/syringe{
+	pixel_y = 12
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"QT" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"Rb" = (
+/turf/simulated/wall/rust,
+/area/maintenance/consarea)
+"Rj" = (
+/obj/effect/turf_decal{
+	dir = 2;
+	icon_state = "golden_stripes"
+	},
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"Rq" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/papershredder,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"Rs" = (
+/obj/effect/spawner/random_spawners/crate_spawner,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"Rw" = (
+/obj/effect/turf_decal/siding/red/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"RJ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/sign/poster/random{
+	pixel_x = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"RU" = (
+/obj/structure/rack,
+/obj/item/stack/cable_coil{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/stack/rods{
+	amount = 50
+	},
+/obj/item/stack/cable_coil{
+	amount = 5
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"Sd" = (
+/obj/effect/turf_decal/siding/wideplating/dark{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"Sl" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/table,
+/obj/item/flashlight,
+/obj/item/flashlight{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/flashlight/lamp{
+	pixel_y = 13
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/tools{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"SI" = (
+/obj/structure/barricade/wooden,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"SQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/secret/lizard{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedclub)
+"Ta" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/rack,
+/obj/item/storage/fancy/cigarettes/cigpack_random,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"Td" = (
+/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"Ua" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "golden_stripes"
+	},
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"Ug" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"Un" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/remains/robot,
+/obj/effect/decal/ants,
+/obj/item/trash/popcorn{
+	pixel_y = -9;
+	pixel_x = -4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/blood_20,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"UV" = (
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"Vl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"VV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedclub)
+"Wb" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedclub)
+"WN" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"WQ" = (
+/obj/effect/spawner/random_spawners/blood_20,
+/turf/simulated/floor/vault,
+/area/maintenance/tourist)
+"WW" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "golden_stripes"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"WX" = (
+/obj/structure/sign/poster/contraband/atmosia_independence{
+	pixel_y = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/tourist)
+"Xc" = (
+/obj/structure/table,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 26
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/item/radio{
+	pixel_x = -1;
+	pixel_y = 6
+	},
+/obj/item/assembly/signaler{
+	pixel_x = 9;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"Xl" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/maintenance/abandonedclub)
+"XW" = (
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"Yi" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/east,
+/obj/item/trash/broken_ashtray,
+/obj/item/trash/cheesie{
+	pixel_y = -18;
+	pixel_x = -8
+	},
+/obj/item/trash/plate,
+/obj/item/trash/plate{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"Yj" = (
+/obj/structure/sign/poster/contraband/tools{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"Yk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance,
+/obj/structure/barricade/wooden,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"Yt" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 2;
+	pixel_y = 0
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"Yz" = (
+/obj/item/camera_assembly,
+/obj/effect/spawner/random_spawners/oil_20,
+/turf/simulated/floor/plating,
+/area/maintenance/consarea)
+"YC" = (
+/turf/simulated/wall,
+/area/maintenance/consarea)
+"Zd" = (
+/turf/simulated/wall/rust,
+/area/maintenance/abandonedclub)
+"Zr" = (
+/obj/machinery/door/airlock/maintenance,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/maintenance/chapel)
+"ZI" = (
+/obj/effect/turf_decal/siding/red/corner{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/dust,
+/obj/structure/cable{
+	icon_state = "1-2";
+	tag = ""
+	},
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"ZS" = (
+/obj/effect/turf_decal/siding/red{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/power/apc/worn_out{
+	cell_type = 0;
+	dir = 8;
+	pixel_x = -26
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/wood/dark,
+/area/maintenance/abandonedclub)
+"ZW" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+
+(1,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+"}
+(2,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+cM
+hq
+hI
+eh
+Iv
+Rb
+YC
+qk
+Rb
+qk
+YC
+nV
+hq
+Oj
+CT
+Le
+DE
+CT
+CT
+DE
+Jn
+SI
+hC
+hq
+Oj
+CA
+CA
+CA
+oi
+CA
+CA
+CA
+CA
+zU
+hq
+"}
+(3,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hI
+JH
+JH
+YC
+Ta
+JH
+Bv
+cD
+fL
+YC
+hq
+hI
+by
+uk
+OK
+Oz
+gw
+CT
+Yj
+Kd
+CT
+hq
+hI
+lF
+OW
+xs
+bN
+xs
+ca
+xs
+Ua
+CA
+hq
+"}
+(4,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+Oj
+gq
+Gm
+YC
+km
+gJ
+jh
+EF
+RU
+xk
+hq
+Oj
+uk
+pr
+tB
+uk
+pr
+Le
+Kd
+Nk
+CT
+hq
+Oj
+yh
+jN
+yh
+yh
+jN
+mc
+yh
+rH
+Wb
+hq
+"}
+(5,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+Oj
+vq
+JH
+AP
+JH
+cE
+Br
+Df
+JH
+xk
+hq
+aF
+uk
+uk
+uk
+pr
+WX
+CT
+IO
+Kd
+AZ
+hq
+Zr
+WW
+jk
+ff
+kL
+vT
+no
+yM
+jY
+Wb
+hq
+"}
+(6,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hI
+JH
+KB
+qk
+JH
+Td
+jK
+Yz
+Rq
+xk
+hq
+hI
+bK
+zZ
+uW
+Ju
+Mx
+CT
+xV
+Kd
+AZ
+hq
+hI
+WW
+Dr
+NW
+En
+NW
+Jf
+jN
+uE
+Wb
+hq
+"}
+(7,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+Oj
+Hx
+jj
+qk
+GP
+Yt
+Nb
+Ir
+jT
+YC
+hq
+Oj
+CT
+DE
+CT
+DE
+CT
+DE
+Kd
+Kd
+CT
+hq
+Oj
+li
+yE
+vR
+mL
+yu
+Sd
+yh
+Lt
+Wb
+hq
+"}
+(8,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+Oj
+YC
+YC
+YC
+YC
+qk
+iL
+qk
+YC
+YC
+hq
+Oj
+Un
+Yi
+nQ
+sc
+np
+CT
+Ug
+aw
+CT
+hq
+Oj
+yh
+xi
+bo
+Oh
+fm
+qC
+yM
+Ba
+Wb
+hq
+"}
+(9,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+YC
+Xc
+Sl
+RJ
+gp
+mY
+mi
+JH
+yZ
+YC
+hq
+bn
+WQ
+oF
+WQ
+oF
+WQ
+bn
+XW
+XW
+CT
+hq
+CA
+rV
+JW
+UV
+aL
+rF
+sd
+Xl
+eu
+Wb
+hq
+"}
+(10,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+YC
+tF
+ut
+nY
+ui
+NR
+rt
+PW
+JH
+xk
+hq
+bn
+oF
+WQ
+oF
+In
+oF
+bn
+Kd
+XW
+AZ
+hq
+Zd
+CR
+rK
+bo
+aL
+fm
+yO
+SQ
+Rj
+CA
+hq
+"}
+(11,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+qk
+MV
+lj
+cE
+DY
+pZ
+sz
+mF
+xf
+YC
+hq
+CT
+ni
+zV
+QE
+wz
+rT
+CT
+XW
+Kd
+AZ
+hq
+CA
+CA
+CA
+aG
+nP
+lM
+CA
+CA
+CA
+CA
+hq
+"}
+(12,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+YC
+cR
+JH
+Yt
+WN
+YC
+YC
+YC
+lY
+YC
+hq
+CT
+DE
+CT
+CT
+CT
+DE
+CT
+IO
+Ug
+CT
+hq
+CA
+vk
+ZS
+ZI
+Vl
+Rw
+hM
+Gs
+Aw
+CA
+hq
+"}
+(13,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+YC
+EW
+PW
+sh
+ud
+Ls
+on
+YC
+Rs
+xk
+hq
+CT
+oy
+kd
+ZW
+kv
+le
+CT
+XW
+Kd
+CT
+hq
+CA
+Or
+Fk
+yW
+Dw
+MW
+Id
+Gs
+PS
+CA
+hq
+"}
+(14,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+YC
+YC
+qk
+YC
+oq
+YC
+YC
+YC
+YC
+YC
+hq
+CT
+CT
+QT
+CT
+Yk
+CT
+CT
+Jn
+Jn
+CT
+hq
+CA
+CA
+CA
+CA
+VV
+CA
+CA
+CA
+CA
+CA
+hq
+"}
+(15,1,1) = {"
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+hq
+"}

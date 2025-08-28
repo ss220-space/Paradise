@@ -962,7 +962,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			span_italics("Вы слышите громкий хруст."),
 		)
 
-		playsound(owner, "bonebreak", 150, TRUE)
+		playsound(owner, SFX_BONEBREAK, 150, TRUE)
 
 		if(owner.has_pain())
 			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
@@ -1170,6 +1170,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 			)
 
 	status |= ORGAN_DISFIGURED
+	owner.update_hud_set()
+
 	return TRUE
 
 
@@ -1185,6 +1187,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	status &= ~ORGAN_DISFIGURED
+	owner.update_hud_set()
 
 	return TRUE
 

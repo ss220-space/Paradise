@@ -12,7 +12,7 @@
 	speak_emote = list("мурлычет", "мяукает")
 	emote_hear = list("мурлычет", "мяукает")
 	emote_see = list("трясёт головой", "дрожит", "вылизывается")
-	var/meow_sound = 'sound/creatures/cat_meow.ogg'	//Used in emote.
+	var/meow_sound = SFX_CAT_MEOW //Used in emote.
 	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
@@ -274,7 +274,7 @@
 	response_harm = "takes a bite out of"
 	attacked_sound = "sound/items/eatfood.ogg"
 	deathmessage = "loses its false life and collapses!"
-	death_sound = "bodyfall"
+	death_sound = SFX_BODYFALL
 	holder_type = /obj/item/holder/cak
 
 /mob/living/simple_animal/pet/cat/cak/Life()

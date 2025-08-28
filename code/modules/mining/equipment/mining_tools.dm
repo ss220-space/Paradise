@@ -37,7 +37,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 2, \
 		no_multi_hit = TRUE, \
-		swing_sound = "chop_swing_light" \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
 
 
@@ -265,7 +265,7 @@
 		/datum/component/cleave_attack, \
 		afterswing_slowdown = 0.15, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_light" \
+		swing_sound = SFX_BLUNT_SWING_LIGHT \
 	)
 
 

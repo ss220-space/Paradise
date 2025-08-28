@@ -23,6 +23,7 @@ GLOBAL_LIST_INIT(antag_roles, list(
 	ROLE_SPACE_DRAGON,
 	ROLE_MALF_AI,
 	ROLE_HERETIC,
+	ROLE_ESCAPING_PRISONER,
 ))
 
 // Bannable other roles

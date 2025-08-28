@@ -44,7 +44,6 @@
 
 	explosion(loc, devastation_range = max(-1, tier - 2), heavy_impact_range = max(-1, tier - 1), light_impact_range = max(-1, tier), flash_range = (tier + 2))
 	if(tier < 3)
-		QDEL_LIST(eballs)
 		return ..()
 
 	for(var/obj/effect/energy_ball/eball as anything in eballs)
@@ -54,7 +53,6 @@
 		var/spawn_type = eball.spawn_type
 		new spawn_type(eball.loc)
 
-	QDEL_LIST(eballs)
 	return ..()
 
 /obj/effect/anomaly/energetic/process()

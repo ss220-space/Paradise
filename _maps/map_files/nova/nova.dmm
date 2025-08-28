@@ -3408,9 +3408,7 @@
 /area/maintenance/apmaint)
 "aAZ" = (
 /obj/machinery/vending/cigarette,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3776,8 +3774,7 @@
 "aDn" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
@@ -4663,8 +4660,7 @@
 	},
 /obj/structure/table/wood/fancy/red,
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/carpet/red,
@@ -5894,8 +5890,7 @@
 	},
 /obj/structure/table/wood/fancy/red,
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -6675,9 +6670,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aXC" = (
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/machinery/computer/arcade,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/wood,
@@ -10980,9 +10973,7 @@
 /turf/simulated/wall,
 /area/hallway/spacebridge/comcar)
 "bCH" = (
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -11856,8 +11847,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -11875,9 +11865,7 @@
 /area/library)
 "bIC" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -18019,9 +18007,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -18266,9 +18252,7 @@
 "cFj" = (
 /obj/structure/railing,
 /obj/structure/table/wood/fancy/red,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/item/storage/fancy/candle_box/eternal,
 /turf/simulated/floor/carpet/red,
 /area/chapel/main)
@@ -19128,8 +19112,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -25
@@ -19288,8 +19271,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/carpet,
@@ -19383,9 +19365,7 @@
 /obj/structure/sign/poster/official/religious{
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/carpet/red,
 /area/chapel/main)
 "cNL" = (
@@ -19749,8 +19729,7 @@
 /area/security/podbay)
 "cQr" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/item/flag/nt,
 /obj/structure/railing{
@@ -23632,6 +23611,9 @@
 "duJ" = (
 /obj/machinery/suit_storage_unit/rd,
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/closet/crate/secure/biohazard{
+	req_access = list(47)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24170,9 +24152,7 @@
 	},
 /area/security/customs)
 "dyL" = (
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/carpet,
 /area/library)
 "dyQ" = (
@@ -25054,9 +25034,7 @@
 /area/toxins/xenobiology)
 "dFN" = (
 /obj/structure/chair/comfy/red,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -25667,8 +25645,7 @@
 /area/engineering/gravitygenerator)
 "dKV" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -27232,8 +27209,7 @@
 /area/turret_protected/ai_upload)
 "dXv" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/quartermaster/qm)
@@ -29560,8 +29536,7 @@
 /area/gateway)
 "emG" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/quartermaster/qm)
@@ -31714,8 +31689,7 @@
 /area/maintenance/medroom)
 "eCG" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -36904,6 +36878,13 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"frd" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "frf" = (
 /obj/machinery/computer/atmoscontrol,
 /obj/machinery/camera{
@@ -38454,8 +38435,7 @@
 /area/shuttle/arrival/station)
 "fCq" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/structure/chair/office,
 /turf/simulated/floor/wood/oak,
@@ -41727,8 +41707,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/structure/chair/office,
 /turf/simulated/floor/wood/oak,
@@ -42062,9 +42041,7 @@
 /area/quartermaster/office)
 "gdK" = (
 /obj/structure/railing,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/chair/wood{
 	dir = 8
 	},
@@ -42405,9 +42382,7 @@
 /turf/simulated/floor/wood/dark,
 /area/crew_quarters/bar/atrium)
 "gfy" = (
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/red/line,
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -43202,8 +43177,7 @@
 /area/tcommsat/server)
 "gkT" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/carpet/blue,
 /area/medical/cmo)
@@ -43469,8 +43443,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/soda,
 /obj/item/cane,
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
@@ -44861,8 +44834,7 @@
 /area/hallway/secondary/entry/lounge)
 "gxC" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/mrchangs)
@@ -46118,9 +46090,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "gIv" = (
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -46210,9 +46180,7 @@
 /area/hallway/primary/central/sw)
 "gIS" = (
 /obj/structure/chair/comfy/red,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -46695,8 +46663,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -50324,6 +50291,20 @@
 	icon_state = "podfloor"
 	},
 /area/engineering/engine)
+"hos" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/EastMaintenance,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/central/second/north)
 "hov" = (
 /obj/machinery/disposal,
 /obj/effect/decal/warning_stripes/red,
@@ -51472,6 +51453,10 @@
 	dir = 9
 	},
 /area/hallway/secondary/exit)
+"hyj" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedFitnessRoom,
+/turf/simulated/wall,
+/area/maintenance/trading)
 "hys" = (
 /obj/machinery/door_control{
 	id = "xeno3";
@@ -53517,8 +53502,7 @@
 /area/maintenance/starboardaux)
 "hRu" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood/dark,
@@ -53744,8 +53728,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
@@ -57930,9 +57913,7 @@
 /turf/simulated/floor/wood/dark,
 /area/crew_quarters/bar/atrium)
 "iwz" = (
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/power/apc{
 	dir = 8;
@@ -59033,9 +59014,7 @@
 /area/maintenance/tourist)
 "iFo" = (
 /obj/structure/table/wood/poker,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/effect/decal/cleanable/dust,
 /obj/item/stack/spacecash/c20,
 /turf/simulated/floor/carpet/green,
@@ -61022,6 +61001,13 @@
 	icon_state = "darkpurple"
 	},
 /area/toxins/rdoffice)
+"iWW" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/effect/decal/warning_stripes/northwest,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "iWY" = (
 /obj/structure/statue/silver/sec,
 /turf/simulated/floor/plasteel{
@@ -62386,7 +62372,6 @@
 	},
 /area/hallway/primary/command/west)
 "jhf" = (
-/obj/structure/closet/secure_closet/security_grenade_launcher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65399,8 +65384,7 @@
 /area/space)
 "jEB" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
@@ -67264,8 +67248,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
@@ -68104,9 +68087,7 @@
 /area/security/evidence)
 "jXS" = (
 /obj/structure/mineral_door/wood,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dust,
@@ -69953,8 +69934,7 @@
 /area/maintenance/backstage)
 "kng" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct,
@@ -72710,9 +72690,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/medical/cmo)
 "kKi" = (
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -75670,8 +75648,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -85826,8 +85803,7 @@
 /area/quartermaster/storage)
 "mJT" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
@@ -87153,9 +87129,7 @@
 	req_access = list(20);
 	security_level = 6
 	},
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "mSG" = (
@@ -87908,9 +87882,7 @@
 /area/medical/research)
 "mXW" = (
 /obj/structure/railing,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -92049,9 +92021,7 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "nCp" = (
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	name = "standard air scrubber";
 	on = 1;
@@ -92982,6 +92952,16 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/mechanic_workshop/hangar)
+"nJS" = (
+/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/structure/safe{
+	known_by = list("hos")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "nKm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
@@ -93004,8 +92984,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
@@ -94365,8 +94344,7 @@
 /area/bridge)
 "nUz" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/computer/supplyquest,
@@ -97022,8 +97000,7 @@
 /area/atmos)
 "oqS" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/railing{
 	dir = 8
@@ -100318,6 +100295,10 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/exit/maint)
+"oPT" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/Banya,
+/turf/simulated/wall,
+/area/maintenance/tourist)
 "oPU" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -100464,6 +100445,13 @@
 	icon_state = "dark"
 	},
 /area/security/permahallway)
+"oRh" = (
+/obj/structure/railing{
+	dir = 5
+	},
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "oRm" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel{
@@ -101486,9 +101474,7 @@
 /area/teleporter)
 "oYO" = (
 /obj/structure/railing,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/chair/wood{
 	dir = 4
 	},
@@ -106607,6 +106593,13 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/ne)
+"pKJ" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "pKQ" = (
 /obj/machinery/gateway{
 	dir = 4
@@ -113198,9 +113191,7 @@
 /area/security/brigstaff)
 "qHF" = (
 /obj/machinery/computer/slot_machine,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/wood,
 /area/maintenance/casino)
 "qHM" = (
@@ -113556,8 +113547,7 @@
 /area/quartermaster/qm)
 "qKH" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/chair/office,
 /turf/simulated/floor/wood/oak,
@@ -115232,9 +115222,7 @@
 /area/security/seceqstorage)
 "qXe" = (
 /obj/structure/railing,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -115626,8 +115614,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -116449,9 +116436,7 @@
 /area/maintenance/fpmaint)
 "rhS" = (
 /obj/structure/chair/comfy/red,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -116726,8 +116711,7 @@
 /area/maintenance/fsmaint2)
 "rkd" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/computer/card/minor/qm,
@@ -116800,9 +116784,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "rkO" = (
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/machinery/arcade/minesweeper,
 /turf/simulated/floor/wood,
 /area/maintenance/casino)
@@ -118496,9 +118478,7 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -119408,6 +119388,13 @@
 	icon_state = "bluecorner"
 	},
 /area/hallway/primary/central/nw)
+"rDr" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/northeastcorner,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "rDu" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -119718,9 +119705,7 @@
 /area/quartermaster/delivery)
 "rFJ" = (
 /obj/structure/railing,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -121846,9 +121831,7 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/carpet/green,
 /area/library/game_zone)
 "rUx" = (
@@ -122065,6 +122048,13 @@
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
+"rWx" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "rWF" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
@@ -122589,6 +122579,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/starboardaux)
+"sau" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/southwestcorner,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "saw" = (
 /obj/machinery/light,
 /turf/simulated/floor/engine,
@@ -128277,6 +128274,13 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
+"sRS" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "sSb" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -128481,9 +128485,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "sSS" = (
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -129794,8 +129796,7 @@
 /area/maintenance/starboardaux)
 "tbF" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
@@ -131392,8 +131393,7 @@
 	color = "#85130b"
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
@@ -133197,8 +133197,7 @@
 /obj/structure/closet/secure_closet/security,
 /obj/item/clothing/mask/balaclava,
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
@@ -139644,8 +139643,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -143791,8 +143789,7 @@
 	req_access = list(46)
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -144730,8 +144727,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -145260,8 +145256,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/carpet/green,
 /area/library/game_zone)
@@ -146515,8 +146510,7 @@
 /area/maintenance/tourist)
 "vya" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/item/trash/raisins,
 /obj/effect/decal/cleanable/dirt,
@@ -146597,8 +146591,7 @@
 /area/maintenance/trading)
 "vyJ" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -148958,9 +148951,7 @@
 /area/solar/starboard)
 "vSG" = (
 /obj/structure/table/wood/poker,
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/effect/decal/cleanable/dust,
 /obj/item/deck/cards,
 /turf/simulated/floor/carpet/green,
@@ -149987,9 +149978,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin1)
 "vZa" = (
@@ -153568,8 +153557,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
@@ -154670,8 +154658,7 @@
 /area/security/main)
 "wJE" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
@@ -159943,8 +159930,7 @@
 /area/maintenance/fsmaint3)
 "xyc" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
@@ -161097,6 +161083,11 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/toilet2)
+"xGQ" = (
+/obj/structure/railing/corner,
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "xGW" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -161441,8 +161432,7 @@
 /area/quartermaster/storage)
 "xJj" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -163751,8 +163741,7 @@
 	security_level = 6
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -164713,9 +164702,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
 "yfm" = (
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/red/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -185260,7 +185247,7 @@ bYW
 bYW
 qeM
 bYW
-bYW
+oPT
 tkq
 rSe
 tkq
@@ -245091,7 +245078,7 @@ bkc
 xoL
 ajW
 xoL
-jhf
+nJS
 oWw
 iPd
 sXx
@@ -248888,7 +248875,7 @@ tYf
 bkc
 bkc
 bkc
-bkc
+fvL
 fvL
 fvL
 fvL
@@ -262822,7 +262809,7 @@ cOE
 cOE
 cOE
 cOE
-qbI
+hos
 ycw
 xlh
 cOE
@@ -277445,17 +277432,17 @@ uJG
 uJG
 uJG
 uJG
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
+iWW
+sRS
+rWx
+sau
+sRS
+sRS
+sRS
+rWx
+sau
+sRS
+sRS
 ijt
 ijt
 ijt
@@ -277701,8 +277688,8 @@ uJG
 bkc
 uJG
 uJG
-fvL
-fvL
+iWW
+rWx
 fvL
 fvL
 fvL
@@ -277957,8 +277944,8 @@ ngN
 uJG
 uJG
 uJG
-fvL
-fvL
+iWW
+rWx
 fvL
 fvL
 fvL
@@ -278213,8 +278200,8 @@ bkc
 ngN
 uJG
 uJG
-fvL
-fvL
+iWW
+rWx
 fvL
 fvL
 kdb
@@ -278469,8 +278456,8 @@ bkc
 bkc
 uJG
 uJG
-fvL
-fvL
+iWW
+rWx
 fvL
 fvL
 kdb
@@ -278726,7 +278713,7 @@ bkc
 bkc
 ngN
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -278983,7 +278970,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -279240,7 +279227,7 @@ bkc
 bkc
 ngN
 bkc
-fvL
+rWx
 fvL
 fvL
 kdb
@@ -279497,7 +279484,7 @@ bkc
 bkc
 uJG
 uJG
-fvL
+rDr
 fvL
 fvL
 kdb
@@ -279754,7 +279741,7 @@ bkc
 bkc
 ngN
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -280011,7 +279998,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -280268,7 +280255,7 @@ bkc
 bkc
 uJG
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -280299,7 +280286,7 @@ sld
 wXI
 uUw
 dTH
-uUw
+hyj
 uUw
 wYP
 tpe
@@ -280525,7 +280512,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -280782,7 +280769,7 @@ bkc
 bkc
 ngN
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -281039,7 +281026,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -281296,7 +281283,7 @@ bkc
 bkc
 uJG
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -281553,7 +281540,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+rWx
 fvL
 fvL
 kdb
@@ -281810,7 +281797,7 @@ bkc
 bkc
 ngN
 bkc
-fvL
+rDr
 fvL
 fvL
 kdb
@@ -282067,7 +282054,7 @@ bkc
 bkc
 ngN
 uJG
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -282324,7 +282311,7 @@ bkc
 bkc
 uJG
 bkc
-fvL
+pKJ
 fvL
 fvL
 kdb
@@ -282581,8 +282568,8 @@ bkc
 bkc
 ngN
 uJG
-fvL
-fvL
+oRh
+rDr
 fvL
 fvL
 kdb
@@ -282839,8 +282826,8 @@ bkc
 ngN
 uJG
 uJG
-fvL
-fvL
+oRh
+rDr
 fvL
 fvL
 fvL
@@ -283097,8 +283084,8 @@ ngN
 uJG
 uJG
 uJG
-fvL
-fvL
+oRh
+rDr
 fvL
 fvL
 fvL
@@ -283355,8 +283342,8 @@ uJG
 ngN
 uJG
 uJG
-fvL
-fvL
+oRh
+rDr
 fvL
 fvL
 fvL
@@ -283613,19 +283600,19 @@ ngN
 ngN
 uJG
 uJG
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
-fvL
+oRh
+frd
+rDr
+xGQ
+frd
+frd
+frd
+rDr
+xGQ
+frd
+frd
+frd
+frd
 jmQ
 jmQ
 jmQ

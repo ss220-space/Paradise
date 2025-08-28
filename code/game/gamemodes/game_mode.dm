@@ -352,7 +352,6 @@
 
 	return candidates
 
-
 /datum/game_mode/proc/get_alive_AIs_for_role(role)
 	. = list()
 	for(var/mob/living/silicon/ai/AI in GLOB.alive_mob_list)
