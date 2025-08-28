@@ -14,7 +14,7 @@
 	var/sell_multiplier = 0
 	var/sell_interest = NONE
 
-/obj/item/documents/Initialize()
+/obj/item/documents/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 

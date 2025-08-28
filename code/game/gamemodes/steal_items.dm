@@ -128,6 +128,12 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /obj/item/gun/energy/laser/captain
 	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
+/datum/theft_objective/highrisk/secgl_x4
+	id = "secgl_x4"
+	name = "the security grenade launcher GL-08-4"
+	typepath = /obj/item/gun/projectile/bombarda/secgl/x4
+	protected_jobs = list(JOB_TITLE_HOS)
+
 /datum/theft_objective/highrisk/captains_jetpack
 	id = "cap_jetpack"
 	name = "the captain's deluxe jetpack"

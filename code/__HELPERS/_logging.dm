@@ -44,12 +44,18 @@ GLOBAL_PROTECT(log_end)
 		WRITE_LOG(GLOB.world_game_log, "DEBUG: [text][GLOB.log_end]")
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_DEBUG|R_VIEWRUNTIMES, 0, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
+		if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
 			to_chat(C, "<span class='debug'>DEBUG: [text]</span>", MESSAGE_TYPE_DEBUG, confidential = TRUE)
 
 /proc/log_game(text)
 	if(CONFIG_GET(flag/log_game))
 		WRITE_LOG(GLOB.world_game_log, "GAME: [text][GLOB.log_end]")
+
+/proc/log_mapmanip(text)
+	if(!CONFIG_GET(flag/log_mapmanip))
+		return
+	
+	WRITE_LOG(GLOB.mapmanip_log, "MAPMANIP: [text][GLOB.log_end]")
 
 /proc/log_vote(text)
 	if(CONFIG_GET(flag/log_vote))

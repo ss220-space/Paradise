@@ -318,7 +318,7 @@
 	max_integrity = 5
 	var/bloodtiles = 8  // number of tiles with blood while pulling
 
-/obj/structure/decorative_structures/corpse/Initialize()
+/obj/structure/decorative_structures/corpse/Initialize(mapload)
 	START_PROCESSING(SSobj, src)
 	. = ..()
 

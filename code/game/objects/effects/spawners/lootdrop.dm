@@ -144,7 +144,7 @@
 				/obj/item/soap/syndie = 7,
 				/obj/item/stack/tape_roll/thick = 7,
 				/obj/item/gun/syringe/syndicate = 2,
-				/obj/item/suppressor = 4,
+				/obj/item/gun_module/muzzle/suppressor = 4,
 				/obj/item/clothing/under/chameleon = 2,
 				/obj/item/stamp/chameleon = 2,
 				/obj/item/clothing/shoes/chameleon/noslip = 5,

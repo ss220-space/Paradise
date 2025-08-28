@@ -843,7 +843,7 @@
 	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
 	sleep(2)
-	explosion(T, 0, 0, 2, 2, cause = src)
+	explosion(T, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flash_range = 2, cause = src)
 	qdel(src)
 
 

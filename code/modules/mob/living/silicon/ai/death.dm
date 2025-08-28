@@ -31,7 +31,7 @@
 
 	if(explosive)
 		spawn(10)
-			explosion(src.loc, 3, 6, 12, 15, cause = "AI exploded")
+			explosion(loc, devastation_range = 3, heavy_impact_range = 6, light_impact_range = 12, flash_range = 15, cause = "AI exploded")
 
 	for(var/obj/machinery/ai_status_display/display as anything in GLOB.ai_displays) //change status
 		display.mode = AI_DISPLAY_MODE_BSOD

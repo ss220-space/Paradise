@@ -27,8 +27,6 @@
 	var/customjob		= "Admin"
 	var/custommessage	= "This is a test, please ignore."
 
-	light_color = LIGHT_COLOR_DARKGREEN
-
 /obj/machinery/computer/message_monitor/laptop
 	name = "message monitor laptop"
 	icon_state = "laptop"
@@ -74,7 +72,7 @@
 	..()
 
 
-/obj/machinery/computer/message_monitor/Initialize()
+/obj/machinery/computer/message_monitor/Initialize(mapload)
 	. = ..()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer)

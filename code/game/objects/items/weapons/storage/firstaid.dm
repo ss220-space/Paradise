@@ -515,7 +515,7 @@
 	gender = MALE
 	icon_state = "pill_canister"
 	icon = 'icons/obj/chemical.dmi'
-	item_state = "contsolid"
+	item_state = "pill_canister"
 	belt_icon = "pill_bottle"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(/obj/item/reagent_containers/food/pill)
@@ -525,7 +525,7 @@
 	storage_slots = 50
 	max_combined_w_class = 50
 	display_contents_with_number = TRUE
-	use_sound = "pillbottle"
+	use_sound = SFX_PILLBOTTLE
 	pickup_sound = 'sound/items/handling/pickup/pillbottle_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/pillbottle_drop.ogg'
 	var/base_name = ""
@@ -536,7 +536,7 @@
 	/// The color of the wrapper overlay.
 	var/wrapper_color = null
 	/// The icon state of the wrapper overlay.
-	var/wrapper_state = "pillbottle_wrap"
+	var/wrapper_state = "pill_bottle_wrap"
 
 /obj/item/storage/pill_bottle/get_ru_names()
 	return list(
@@ -618,8 +618,11 @@
 	name = "patch pack"
 	desc = "Небольшой коробок, предназначенный для хранения медицинских пластырей."
 	icon_state = "patch_pack"
+	item_state = "patch_pack"
 	belt_icon = "patch_pack"
-	use_sound = "patchpack"
+	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
+	drop_sound = 'sound/items/handling/drop/generic_drop1.ogg'
+	use_sound = SFX_PATCHPACK
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
 	wrapper_state = "patch_pack_wrap"
