@@ -121,7 +121,7 @@
 	if(visor_toggling(user))
 		update_equipped_item(update_speedmods = FALSE)
 		if(user)
-			to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
+			to_chat(user, span_notice("Вы [up ? "поднимаете на лоб" : "опускаете на глаза"] [declent_ru(ACCUSATIVE)]."))
 		return TRUE
 
 	return FALSE

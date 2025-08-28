@@ -1489,6 +1489,8 @@
 #define COMSIG_GET_BOLA_MODIFIERS "get_bola_modifiers"
 /// Called when proc need to get hunder modifiers.
 #define COMSIG_GET_HUNGER_MODS "get_hunger_mods"
+/// Called when proc need to upgrade mob's strength level.
+#define COMSIG_STRENGTH_LEVEL_UP "strength_level_up"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
 
 /// Called when attempting to insert a stack into the material container. (obj/item/stack/stack, amount)
