@@ -67,7 +67,8 @@
 /obj/structure/displaycase/obj_break(damage_flag)
 	if(!broken && !(obj_flags & NODECONSTRUCT))
 		set_density(FALSE)
-		broken = 1
+		broken = TRUE
+		open = TRUE
 		new /obj/item/shard( src.loc )
 		playsound(src, SFX_SHATTER, 70, TRUE)
 		update_icon(UPDATE_OVERLAYS)
@@ -176,6 +177,12 @@
 	. = TRUE
 	if(default_welder_repair(user, I))
 		broken = FALSE
+
+/obj/structure/displaycase/emag_act(mob/user)
+	. = ..()
+	toggle_lock(user)
+	openable = TRUE
+	req_access = null
 
 /obj/structure/displaycase/proc/toggle_lock(mob/user)
 	open = !open
@@ -302,3 +309,9 @@
 	desc = "A display case containing a dartgun. One of the favourite weapons of infamous Vox Raiders!"
 	start_showpiece_type = /obj/item/gun/dartgun
 	req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
+
+/obj/structure/displaycase/spare_id
+	alert = TRUE
+	start_showpiece_type = /obj/item/card/id/captains_spare
+	max_integrity = 450
+	openable = FALSE

@@ -83621,8 +83621,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
+/obj/structure/displaycase/spare_id,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -106234,6 +106233,7 @@
 	dir = 8
 	},
 /obj/item/taperecorder,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

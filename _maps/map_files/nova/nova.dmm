@@ -56910,10 +56910,6 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/research/restroom)
-"ipA" = (
-/obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/carpet,
-/area/library)
 "ipK" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -62929,11 +62925,6 @@
 	icon_state = "blue"
 	},
 /area/bridge/checkpoint/north)
-"jkU" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "jkV" = (
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel{
@@ -121629,7 +121620,6 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "rSO" = (
-/obj/structure/table/wood,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Bridge";
@@ -121637,10 +121627,7 @@
 	name = "Bridge Requests Console";
 	pixel_x = -32
 	},
-/obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
-	},
+/obj/structure/displaycase/spare_id,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -131440,14 +131427,6 @@
 "tnd" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/perma)
-"tnj" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "tnk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -186753,7 +186732,7 @@ jmb
 sbP
 jOC
 oSy
-ipA
+dyL
 qel
 geO
 dGr
@@ -274168,7 +274147,7 @@ wJE
 wJE
 pkq
 yfm
-tnj
+yfm
 gYD
 wQZ
 uJG
@@ -274425,7 +274404,7 @@ jEB
 jEB
 bsg
 gfy
-jkU
+gfy
 szR
 wQZ
 uJG
@@ -274682,7 +274661,7 @@ jEB
 jEB
 bsg
 gfy
-jkU
+gfy
 szR
 wQZ
 uJG

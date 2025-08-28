@@ -307,6 +307,12 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	name = "любимую уточку капитана"
 	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
+/datum/theft_objective/hard/capspare
+	id = "cap_spare"
+	typepath = /obj/item/card/id/captains_spare
+	name = "запасную карту капитана с мостика"
+	protected_jobs = list(JOB_TITLE_CAPTAIN)
+
 /datum/theft_objective/hard/goldcup
 	id = "goldcup"
 	typepath = /obj/item/reagent_containers/food/drinks/trophy/gold_cup

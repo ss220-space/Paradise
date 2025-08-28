@@ -51131,6 +51131,7 @@
 /obj/structure/table/reinforced,
 /obj/item/flash,
 /obj/item/flash,
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "dfq" = (
@@ -51939,8 +51940,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dhQ" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
+/obj/structure/displaycase/spare_id,
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "dhS" = (
