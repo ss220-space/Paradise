@@ -708,7 +708,8 @@
 		span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
 		span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[declension_ru(breakout_time * 0.1, "у", "ы", "")]."),
 	)
-	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1, cancel_on_max = TRUE,
+		cancel_message = "Вы перестали пытаться отстегнуться."))
 		if(!buckled)
 			return
 
