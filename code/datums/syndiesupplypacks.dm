@@ -210,9 +210,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(/obj/item/gun/projectile/automatic/pistol,
 					/obj/item/gun/projectile/automatic/pistol,
 					/obj/item/gun/projectile/automatic/pistol,
-					/obj/item/suppressor,
-					/obj/item/suppressor,
-					/obj/item/suppressor)
+					/obj/item/gun_module/muzzle/suppressor,
+					/obj/item/gun_module/muzzle/suppressor,
+					/obj/item/gun_module/muzzle/suppressor)
 	cost = 2500
 	containername = "Stechkin Pistol Crate"
 
@@ -2152,7 +2152,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/glasses/hud/security/chameleon,
 		/obj/item/pen/fancy/bomb,
 		/obj/item/gun/projectile/automatic/pistol,
-		/obj/item/suppressor,
+		/obj/item/gun_module/muzzle/suppressor,
 		/obj/item/ammo_box/magazine/m10mm,
 		/obj/item/ammo_box/magazine/m10mm/hp,
 		/obj/item/ammo_box/magazine/m10mm/ap,
@@ -2403,9 +2403,26 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/clothing/shoes/combat,                                        // 0 TK
 					/obj/item/clothing/accessory/holster,                                   // 5 TK
 					/obj/item/clothing/head/beret,                                          // 0 TK
-					/obj/item/clothing/accessory/scarf/red,                                	// 0 TK
+					/obj/item/clothing/accessory/scarf/red,                               	// 0 TK
 					/obj/item/encryptionkey/syndicate,										// 0-2 TK
 					/obj/item/clothing/mask/holo_cigar,                                     // 10 TK
+					)
+	cost = 30000
+	containertype = /obj/structure/closet/crate/secure/syndicate
+	containername = "crate"
+
+
+/datum/syndie_supply_packs/syndicate_special/griefsky
+	name = "Набор \"Грифски\""
+	contains = list(/obj/item/paicard/syndicate,
+					/obj/item/card/id/syndicate,
+					/obj/item/encryptionkey/syndicate,
+					/obj/item/melee/energy/sword,
+					/obj/item/melee/energy/sword,
+					/obj/item/melee/energy/sword,											
+					/obj/item/melee/energy/sword,
+					/obj/item/storage/belt/military/traitor,
+					/obj/item/storage/toolbox/syndisuper,
 					)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate

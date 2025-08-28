@@ -1,7 +1,7 @@
 /// A bespoke element that adds a set of traits to the turf while occupied by at least one attached movabled.
 /datum/element/give_turf_traits
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY|ELEMENT_BESPOKE
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 	///A list of traits that are added to the turf while occupied.
 	var/list/traits
 	///List of sources we are using to reapply traits when turf changes

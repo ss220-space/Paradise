@@ -166,7 +166,7 @@
 	addtimer(CALLBACK(src, PROC_REF(meteor_explosion), affected_turf), meteor.duration)
 
 /datum/weather/hell/proc/meteor_explosion(turf/affected_turf)
-	explosion(affected_turf, 0, 0, 3, 5, FALSE, FALSE)
+	explosion(affected_turf, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, flash_range = 5, adminlog = FALSE, ignorecap = FALSE)
 	flame_radius(3, affected_turf, 5 SECONDS, BURN_LEVEL_TIER_6, FLAMESHAPE_STAR)
 
 /datum/weather/hell/end()
@@ -182,7 +182,21 @@
 /obj/structure/hell_rift
 	name = "hell rift"
 	desc = "Разлом, позволяющий адским существам проникнуть в этот мир."
-	ru_names = list(
+	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
+	max_integrity = 300
+	icon = 'icons/obj/carp_rift.dmi'
+	icon_state = "carp_rift_carpspawn"
+	color = "#7D1E20"
+	light_color = COLOR_SOFT_RED
+	light_range = 8
+	anchored = TRUE
+	density = FALSE
+	plane = OBJ_LAYER
+	var/imps_count = 0
+	var/timer_id
+
+/obj/structure/hell_rift/get_ru_names()
+	return list(
 		NOMINATIVE = "адский разлом",
 		GENITIVE = "адского разлома",
 		DATIVE = "адскому разлому",
@@ -190,18 +204,6 @@
 		INSTRUMENTAL = "адским разломом",
 		PREPOSITIONAL = "адском разломе"
 	)
-	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
-	max_integrity = 300
-	icon = 'icons/obj/carp_rift.dmi'
-	icon_state = "carp_rift_carpspawn"
-	color = "#7D1E20"
-	light_color = LIGHT_COLOR_DARKRED
-	light_range = 8
-	anchored = TRUE
-	density = FALSE
-	plane = OBJ_LAYER
-	var/imps_count = 0
-	var/timer_id
 
 /obj/structure/hell_rift/ComponentInitialize()
 	. = ..()

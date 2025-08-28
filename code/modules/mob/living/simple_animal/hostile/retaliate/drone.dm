@@ -308,7 +308,11 @@
 		PREPOSITIONAL = "странном руководстве"
 	)
 	gender = MALE
+	icon = 'icons/obj/library.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "drone_manual"
+	item_state = "book7"
 
 /obj/item/drone_manual/attack_self(mob/user)
 	. = ..()

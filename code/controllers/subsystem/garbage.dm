@@ -325,7 +325,7 @@ SUBSYSTEM_DEF(garbage)
 	var/qdels = 0			//Total number of times it's passed thru qdel.
 	var/destroy_time = 0	//Total amount of milliseconds spent processing this type's Destroy()
 	var/failures = 0		//Times it was queued for soft deletion but failed to soft delete.
-	var/hard_deletes = 0 	//Different from failures because it also includes QDEL_HINT_HARDDEL deletions
+	var/hard_deletes = 0	//Different from failures because it also includes QDEL_HINT_HARDDEL deletions
 	var/hard_delete_time = 0//Total amount of milliseconds spent hard deleting this type.
 	var/hard_delete_max = 0 //!Highest time spent hard_deleting this in ms.
 	var/hard_deletes_over_threshold = 0 //!Number of times hard deletes took longer than the configured threshold

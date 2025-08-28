@@ -176,8 +176,8 @@
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
-		throw EXCEPTION("docking port [src] could not initialize.")
-		return 0
+		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
+		return FALSE
 
 	SSshuttle.stationary |= src
 	if(!id)
@@ -263,8 +263,8 @@
 	var/obj/docking_port/stationary/previous
 	var/obj/docking_port/stationary/transit/assigned_transit
 
-/obj/docking_port/mobile/New()
-	..()
+/obj/docking_port/mobile/Initialize(mapload)
+	. = ..()
 
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
@@ -281,22 +281,19 @@
 	highlight("#0f0")
 	#endif
 
-/obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
 	shuttle_areas = list()
 	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
-	for(var/i in 1 to all_turfs.len)
+	for(var/i in 1 to length(all_turfs))
 		var/turf/curT = all_turfs[i]
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
 			shuttle_areas[cur_area] = TRUE
-	. = ..()
 
 /obj/docking_port/mobile/register()
 	if(!SSshuttle)
-		throw EXCEPTION("docking port [src] could not initialize.")
-		return 0
+		CRASH("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 
 	SSshuttle.mobile += src
 
@@ -323,6 +320,8 @@
 
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
+	if(locked_move)
+		return SHUTTLE_LOCKED
 	if(!istype(S))
 		return SHUTTLE_NOT_A_DOCKING_PORT
 	if(istype(S, /obj/docking_port/stationary/transit))
@@ -350,6 +349,8 @@
 
 /obj/docking_port/mobile/proc/check_dock(obj/docking_port/stationary/S)
 	var/status = canDock(S)
+	if(status == SHUTTLE_LOCKED)
+		return FALSE
 	if(status == SHUTTLE_CAN_DOCK)
 		return TRUE
 	else if(status == SHUTTLE_ALREADY_DOCKED)
@@ -359,6 +360,7 @@
 	else
 		var/msg = "check_dock(): shuttle [src] cannot dock at [S], error: [status]"
 		message_admins(msg)
+		stack_trace(msg)
 		return FALSE
 
 /obj/docking_port/mobile/proc/transit_failure()
@@ -553,6 +555,8 @@
 			//move mobile to new location
 			for(var/atom/movable/AM in oldT)
 				AM.onShuttleMove(oldT, newT, rotation, last_caller)
+
+			SEND_SIGNAL(oldT, COMSIG_TURF_ON_SHUTTLE_MOVE, newT)
 
 			//rotate turf
 			if(rotation)
@@ -1034,8 +1038,8 @@
 	space_turfs_only = FALSE
 	access_admin_zone = TRUE	//can we park on Admin z_lvls?
 	access_mining = TRUE		//can we park on Lavaland z_lvl?
-	access_taipan = TRUE 		//can we park on Taipan z_lvl?
-	access_away = TRUE 		//can we park on Away_Mission z_lvl?
+	access_taipan = TRUE		//can we park on Taipan z_lvl?
+	access_away = TRUE		//can we park on Away_Mission z_lvl?
 	access_derelict = TRUE		//can we park in Unexplored Space?
 
 /obj/machinery/computer/shuttle/trade

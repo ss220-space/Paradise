@@ -1624,7 +1624,7 @@
 		usr.client.view_msays()
 
 	else if(href_list["devsays"])
-		if(!check_rights(R_ADMIN | R_VIEWRUNTIMES))
+		if(!check_rights(R_VIEWRUNTIMES | R_ADMIN))
 			return
 
 		usr.client.view_devsays()
@@ -2407,13 +2407,12 @@
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
-		var/mob/M = locateUID(href_list["adminmoreinfo"])
-
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
+		var/mob/subject = locateUID(href_list["adminmoreinfo"])
+		if(!ismob(subject))
+			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
-		admin_mob_info(M)
+		admin_mob_info(subject)
 
 	else if(href_list["adminspawncookie"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -3229,6 +3228,19 @@
 				log_and_message_admins("renamed the station to: [new_name].")
 				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
 
+			if("set_english_station_name")
+				if(!check_rights(R_ADMIN | R_EVENT))
+					return
+
+				if(!you_realy_want_do_this())
+					return
+
+				var/new_english_name = tgui_input_text(usr, "Пожалуйста, введите новое название станции НА АНГЛИЙСКОМ для отображения в Byond hub.", "Что?", "", encode = FALSE)
+				if(!new_english_name)
+					return
+				change_english_station_name(new_english_name)
+				log_and_message_admins("renamed the station in the Byond hub to: [new_english_name].")
+
 			if("set_centcomm_name")
 				if(!check_rights(R_ADMIN | R_EVENT))
 					return
@@ -3710,6 +3722,9 @@
 				shuttle_start()
 
 			if("borg_skins")
+				if(!check_rights(R_SKINS))
+					return
+
 				if(!you_realy_want_do_this())
 					return
 				GLOB.all_robot_skins_permited = !GLOB.all_robot_skins_permited
@@ -3721,7 +3736,8 @@
 				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
 
 	else if(href_list["secretsadmin"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/ok = 0
 		switch(href_list["secretsadmin"])
@@ -4163,7 +4179,7 @@
 
 /proc/doPortalSpawn(turf/loc, mobtype, numtospawn, portal_appearance)
 	loc.flick_overlay_static(portal_appearance, 15)
-	playsound(loc, "sparks", rand(80, 100), 1)
+	playsound(loc, SFX_SPARKS, rand(80, 100), TRUE)
 	for (var/i in 1 to numtospawn)
 		new mobtype(loc)
 

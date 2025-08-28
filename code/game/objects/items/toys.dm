@@ -1425,7 +1425,7 @@
 /obj/item/toy/plushie/pig/attack_hand(mob/user)
 	oink(user, pick("сжал[genderize_ru(user.gender,"","а","о","и")]", "раздавил[genderize_ru(user.gender,"","а","о","и")]", "ущипнул[genderize_ru(user.gender,"","а","о","и")]"))
 
-/obj/item/toy/plushie/pig/Initialize()
+/obj/item/toy/plushie/pig/Initialize(mapload)
 	. = ..()
 	switch(rand(1, 100))
 		if(1 to 33)
@@ -1974,7 +1974,12 @@
 /obj/item/toy/russian_revolver/trick_revolver
 	name = ".357 revolver"
 	desc = "Подозрительный револьвер. В нём используются патроны .357 калибра."
-	ru_names = list(
+	icon_state = "revolver"
+	max_shots = 1
+	var/fake_bullets = 0
+
+/obj/item/toy/russian_revolver/trick_revolver/get_ru_names()
+	return list(
 		NOMINATIVE = "револьвер .357 калибра",
 		GENITIVE = "револьвера .357 калибра",
 		DATIVE = "револьверу .357 калибра",
@@ -1982,9 +1987,6 @@
 		INSTRUMENTAL = "револьвером .357 калибра",
 		PREPOSITIONAL = "револьвере .357 калибра"
 	)
-	icon_state = "revolver"
-	max_shots = 1
-	var/fake_bullets = 0
 
 /obj/item/toy/russian_revolver/trick_revolver/New()
 	..()
@@ -2377,8 +2379,8 @@
 	icon_state = "newtoncradle"
 	var/datum/looping_sound/newtonballs/soundloop
 
-/obj/item/toy/desk/newtoncradle/Initialize()
-	. =..()
+/obj/item/toy/desk/newtoncradle/Initialize(mapload)
+	. = ..()
 	soundloop = new(list(src), FALSE)
 
 /obj/item/toy/desk/newtoncradle/attack_self(mob/user)
@@ -2395,7 +2397,7 @@
 	icon_state = "fan"
 	var/datum/looping_sound/fanblow/soundloop
 
-/obj/item/toy/desk/fan/Initialize()
+/obj/item/toy/desk/fan/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(src), FALSE)
 

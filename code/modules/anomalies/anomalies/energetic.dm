@@ -39,12 +39,11 @@
 	for(var/i = 1 to rand(collapse_jumps_low, collapse_jumps_high))
 		jump_to_machinery(collapse_shock_damage * 2)
 		do_shock_ex(collapse_shock_range, collapse_shock_damage, TRUE)
-		explosion(loc, -1, -1, -1, tier)
+		explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = -1, flash_range = tier)
 		sleep(0.2 SECONDS)
 
-	explosion(loc, max(-1, tier - 2), max(-1, tier - 1), max(-1, tier), tier + 2)
+	explosion(loc, devastation_range = max(-1, tier - 2), heavy_impact_range = max(-1, tier - 1), light_impact_range = max(-1, tier), flash_range = (tier + 2))
 	if(tier < 3)
-		QDEL_LIST(eballs)
 		return ..()
 
 	for(var/obj/effect/energy_ball/eball as anything in eballs)
@@ -54,7 +53,6 @@
 		var/spawn_type = eball.spawn_type
 		new spawn_type(eball.loc)
 
-	QDEL_LIST(eballs)
 	return ..()
 
 /obj/effect/anomaly/energetic/process()
@@ -89,6 +87,9 @@
 		if(!(mach.stat & BROKEN))
 			possible_targets += mach
 
+	if(!possible_targets.len)
+		return
+
 	var/obj/target = pick(possible_targets)
 	target.take_damage(damage, BURN, ENERGY, TRUE, get_dir(src, target))
 	jump(target)
@@ -112,14 +113,6 @@
 
 /obj/effect/anomaly/energetic/tier1
 	name = "малая энергетическая аномалия"
-	ru_names = list(
-		NOMINATIVE = "малая энергетическая аномалия", \
-		GENITIVE = "малой энергетической аномалии", \
-		DATIVE = "малой энергетической аномалии", \
-		ACCUSATIVE = "малую энергетическую аномалию", \
-		INSTRUMENTAL = "малой энергетической аномалией", \
-		PREPOSITIONAL = "малой энергетической аномалии"
-	)
 	icon_state = "energetic1"
 	core_type = /obj/item/assembly/signaler/core/energetic/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/energetic/tier2
@@ -137,16 +130,18 @@
 	collapse_shock_range = 3
 	collapse_shock_damage = 10
 
+/obj/effect/anomaly/energetic/tier1/get_ru_names()
+	return list(
+		NOMINATIVE = "малая энергетическая аномалия", \
+		GENITIVE = "малой энергетической аномалии", \
+		DATIVE = "малой энергетической аномалии", \
+		ACCUSATIVE = "малую энергетическую аномалию", \
+		INSTRUMENTAL = "малой энергетической аномалией", \
+		PREPOSITIONAL = "малой энергетической аномалии"
+	)
+
 /obj/effect/anomaly/energetic/tier2
 	name = "энергетическая аномалия"
-	ru_names = list(
-		NOMINATIVE = "энергетическая аномалия", \
-		GENITIVE = "энергетической аномалии", \
-		DATIVE = "энергетической аномалии", \
-		ACCUSATIVE = "энергетическую аномалию", \
-		INSTRUMENTAL = "энергетической аномалией", \
-		PREPOSITIONAL = "энергетической аномалии"
-	)
 	icon_state = "energetic2"
 	core_type = /obj/item/assembly/signaler/core/energetic/tier2
 	weaker_anomaly_type = /obj/effect/anomaly/energetic/tier1
@@ -168,16 +163,18 @@
 	eballs_num_high = 3
 	eballs_types = list(/obj/effect/energy_ball = 1)
 
+/obj/effect/anomaly/energetic/tier2/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетическая аномалия", \
+		GENITIVE = "энергетической аномалии", \
+		DATIVE = "энергетической аномалии", \
+		ACCUSATIVE = "энергетическую аномалию", \
+		INSTRUMENTAL = "энергетической аномалией", \
+		PREPOSITIONAL = "энергетической аномалии"
+	)
+
 /obj/effect/anomaly/energetic/tier3
 	name = "большая энергетическая аномалия"
-	ru_names = list(
-		NOMINATIVE = "большая энергетическая аномалия", \
-		GENITIVE = "большой энергетической аномалии", \
-		DATIVE = "большой энергетической аномалии", \
-		ACCUSATIVE = "большую энергетическую аномалию", \
-		INSTRUMENTAL = "большой энергетической аномалией", \
-		PREPOSITIONAL = "большой энергетической аномалии"
-	)
 	icon_state = "energetic3"
 	core_type = /obj/item/assembly/signaler/core/energetic/tier3
 	weaker_anomaly_type = /obj/effect/anomaly/energetic/tier2
@@ -198,6 +195,16 @@
 	eballs_num_high = 5
 	eballs_types = list(/obj/effect/energy_ball = 3, /obj/effect/energy_ball/big = 1)
 
+/obj/effect/anomaly/energetic/tier3/get_ru_names()
+	return list(
+		NOMINATIVE = "большая энергетическая аномалия", \
+		GENITIVE = "большой энергетической аномалии", \
+		DATIVE = "большой энергетической аномалии", \
+		ACCUSATIVE = "большую энергетическую аномалию", \
+		INSTRUMENTAL = "большой энергетической аномалией", \
+		PREPOSITIONAL = "большой энергетической аномалии"
+	)
+
 /obj/effect/anomaly/energetic/tier3/New()
 	. = ..()
 	for(var/mob/mob as anything in GLOB.player_list)
@@ -213,14 +220,6 @@
 
 /obj/effect/energy_ball
 	name = "энергетический шар"
-	ru_names = list(
-		NOMINATIVE = "энергетический шар", \
-		GENITIVE = "энергетического шара", \
-		DATIVE = "энергетическому шару", \
-		ACCUSATIVE = "энергетический шар", \
-		INSTRUMENTAL = "энергетическим шаром", \
-		PREPOSITIONAL = "энергетическом шаре"
-	)
 	desc = "Миниатюрная, отностилельно стабильная шаровая молния. Обычно появляется вместе с энергетическими аномалиями."
 	icon = 'icons/effects/anomalies.dmi'
 	icon_state = "energetic1"
@@ -233,6 +232,16 @@
 	var/size = 0.5
 	/// Type of anomaly that spawns instead of this eball when owner colapses.
 	var/spawn_type = /obj/effect/anomaly/energetic/tier1
+
+/obj/effect/energy_ball/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетический шар", \
+		GENITIVE = "энергетического шара", \
+		DATIVE = "энергетическому шару", \
+		ACCUSATIVE = "энергетический шар", \
+		INSTRUMENTAL = "энергетическим шаром", \
+		PREPOSITIONAL = "энергетическом шаре"
+	)
 
 /obj/effect/energy_ball/New(loc, owner)
 	. = ..()
@@ -284,7 +293,7 @@
 	var/list/obj/connected = list(owner) + owner.eballs
 	Beam(pick(connected), icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 
-/obj/effect/energy_ball/ex_act(severity)
+/obj/effect/energy_ball/ex_act(severity, target)
 	return
 
 /obj/effect/energy_ball/CanAllowThrough(atom/movable/mover, border_dir)
@@ -307,14 +316,6 @@
 
 /obj/effect/anomaly/energetic/tier4
 	name = "колоссальная энергетическая аномалия"
-	ru_names = list(
-		NOMINATIVE = "колоссальная энергетическая аномалия", \
-		GENITIVE = "колоссальной энергетической аномалии", \
-		DATIVE = "колоссальной энергетической аномалии", \
-		ACCUSATIVE = "колоссальную энергетическую аномалию", \
-		INSTRUMENTAL = "колоссальной энергетической аномалией", \
-		PREPOSITIONAL = "колоссальной энергетической аномалии"
-	)
 	icon_state = "energetic3"
 	core_type = /obj/item/assembly/signaler/core/energetic/tier3/tier4
 	weaker_anomaly_type = /obj/effect/anomaly/energetic/tier3
@@ -337,6 +338,16 @@
 	eballs_types = list(/obj/effect/energy_ball = 3, /obj/effect/energy_ball/big = 2, /obj/effect/energy_ball/verybig = 1)
 	eball_dist = 5
 
+/obj/effect/anomaly/energetic/tier4/get_ru_names()
+	return list(
+		NOMINATIVE = "колоссальная энергетическая аномалия", \
+		GENITIVE = "колоссальной энергетической аномалии", \
+		DATIVE = "колоссальной энергетической аномалии", \
+		ACCUSATIVE = "колоссальную энергетическую аномалию", \
+		INSTRUMENTAL = "колоссальной энергетической аномалией", \
+		PREPOSITIONAL = "колоссальной энергетической аномалии"
+	)
+
 /obj/effect/anomaly/energetic/tier4/New()
 	. = ..()
 	for(var/mob/living/mob as anything in GLOB.player_list)
@@ -352,4 +363,4 @@
 
 /obj/effect/anomaly/energetic/tier4/do_move(dir)
 	. = ..()
-	explosion(get_turf(src), -1, 1, 2, cause = "tier4 energetic anomaly move", adminlog = FALSE)
+	explosion(get_turf(src), devastation_range = -1, heavy_impact_range = 1, light_impact_range = 2, cause = "tier4 energetic anomaly move", adminlog = FALSE)

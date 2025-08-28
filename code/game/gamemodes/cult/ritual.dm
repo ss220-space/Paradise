@@ -33,7 +33,7 @@
 		swing_speed_mod = 1.25, \
 		afterswing_slowdown = 0, \
 		no_multi_hit = TRUE, \
-		swing_sound = "knife_swing" \
+		swing_sound = SFX_KNIFE_SWING \
 	)
 
 

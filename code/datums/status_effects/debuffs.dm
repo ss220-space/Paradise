@@ -205,7 +205,7 @@
 		new /obj/effect/temp_visual/bleed/explode(T)
 		for(var/d in GLOB.alldirs)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
-		playsound(T, "desceration", 200, TRUE, -1)
+		playsound(T, SFX_DESECRATION, 200, TRUE, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
@@ -747,6 +747,18 @@
 	if(issilicon(owner))
 		traits_to_apply |= TRAIT_KNOCKEDOUT
 	return ..()
+
+
+//UNCONSCIOUS
+/datum/status_effect/incapacitating/unconscious
+	id = "unconscious"
+	needs_update_stat = TRUE
+	traits_to_apply = list(TRAIT_KNOCKEDOUT)
+
+
+/datum/status_effect/incapacitating/unconscious/tick(seconds_between_ticks)
+	if(owner.getStaminaLoss())
+		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
 
 
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
@@ -1335,3 +1347,5 @@
 	duration = 5 SECONDS
 	alert_type = null
 	status_type = STATUS_EFFECT_REPLACE
+
+

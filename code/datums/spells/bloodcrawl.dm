@@ -55,7 +55,11 @@
 /obj/item/bloodcrawl
 	name = "blood crawl"
 	desc = "Вы не можете держать что-либо в этой форме."
-	ru_names = list(
+	icon = 'icons/effects/blood.dmi'
+	item_flags = ABSTRACT
+
+/obj/item/bloodcrawl/get_ru_names()
+	return list(
 		NOMINATIVE = "кровавый путь",
 		GENITIVE = "кровавого пути",
 		DATIVE = "кровавому пути",
@@ -63,9 +67,6 @@
 		INSTRUMENTAL = "кровавым путём",
 		PREPOSITIONAL = "кровавом пути"
 	)
-	icon = 'icons/effects/blood.dmi'
-	item_flags = ABSTRACT
-
 
 /obj/item/bloodcrawl/Initialize(mapload)
 	. = ..()
@@ -74,14 +75,6 @@
 
 /obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow
 	name = "odd blood"
-	ru_names = list(
-		NOMINATIVE = "странная кровь",
-		GENITIVE = "странной крови",
-		DATIVE = "странной крови",
-		ACCUSATIVE = "странную кровь",
-		INSTRUMENTAL = "странной кровью",
-		PREPOSITIONAL = "странной крови"
-	)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	density = FALSE
@@ -89,6 +82,15 @@
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
+/obj/effect/dummy/slaughter/get_ru_names()
+	return list(
+		NOMINATIVE = "странная кровь",
+		GENITIVE = "странной крови",
+		DATIVE = "странной крови",
+		ACCUSATIVE = "странную кровь",
+		INSTRUMENTAL = "странной кровью",
+		PREPOSITIONAL = "странной крови"
+	)
 
 /obj/effect/dummy/slaughter/relaymove(mob/user, direction)
 	forceMove(get_step(src, direction))
@@ -199,7 +201,7 @@
 			qdel(core)
 		victim.adjustBruteLoss(1000)
 		victim.forceMove(demon)
-		demon.consumed_mobs.Add(victim)
+		LAZYADD(demon.consumed_mobs, victim)
 		//ADD_TRAIT(victim, TRAIT_UNREVIVABLE, "demon")
 		if(ishuman(victim))
 			var/mob/living/carbon/human/h_victim = victim

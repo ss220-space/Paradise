@@ -122,10 +122,8 @@
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(75)
-
 		if(EXPLODE_HEAVY)
 			adjustBruteLoss(50)
-
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(25)
 
@@ -235,7 +233,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/times_won = 0
 	var/list/mob/living/carbon/human/activators
 	var/mob/living/simple_animal/hostile/asteroid/elite/mychild = null
-	var/gps
 	///List of all potentially spawned elites
 	var/potentialspawns = list(
 		/mob/living/simple_animal/hostile/asteroid/elite/broodmother,
@@ -330,12 +327,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
-	gps = new /obj/item/gps/internal/tumor(src)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/elite_tumor/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	QDEL_NULL(gps)
 	invaders.Cut()
 	for(var/mob/living/carbon/human/activator in activators)
 		clear_activator(activator)
@@ -559,7 +554,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
-	light_color = LIGHT_COLOR_PURE_RED
+	light_color = LIGHT_COLOR_INTENSE_RED
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_HIERO_VORTEX
 	smoothing_groups = SMOOTH_GROUP_HIERO_VORTEX
@@ -580,13 +575,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return TRUE
 	if(isliving(mover) || isprojectile(mover))
 		return FALSE
-
-
-/obj/item/gps/internal/tumor
-	icon_state = null
-	gpstag = "Cancerous Signal"
-	desc = "Ghosts in a fauna? That's cancerous!"
-	invisibility = 100
 
 #undef TUMOR_INACTIVE
 #undef TUMOR_ACTIVE

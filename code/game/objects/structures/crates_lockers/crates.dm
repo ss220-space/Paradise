@@ -202,7 +202,7 @@
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
-	explosion(get_turf(src), 0, 1, 5, 5, cause = src)
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 5, flash_range = 5, cause = src)
 	qdel(src)
 
 
@@ -263,7 +263,7 @@
 		add_attack_logs(user, src, "emagged")
 		locked = FALSE
 		broken = TRUE
-		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), sparking_duration)
 		if(user)
@@ -279,7 +279,7 @@
 
 	if(prob(50 / severity))
 		locked = !locked
-		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), sparking_duration)
 
@@ -563,7 +563,10 @@
 /obj/structure/closet/crate/wooden //i'm sure hope this won't be used as cheese strat to obtain cargo points
 	name = "wooden crate"
 	desc = "Ящик, сделанный из дерева."
-	ru_names = list(
+	icon_state = "wooden_crate"
+
+/obj/structure/closet/crate/wooden/get_ru_names()
+	return list(
 		NOMINATIVE = "деревянный ящик",
 		GENITIVE = "деревянного ящика",
 		DATIVE = "деревянному ящику",
@@ -571,7 +574,6 @@
 		INSTRUMENTAL = "деревянным ящиком",
 		PREPOSITIONAL = "деревянном ящике"
 	)
-	icon_state = "wooden_crate"
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()

@@ -102,7 +102,7 @@
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
 	var/shaved = FALSE
-	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
+	var/nofur = FALSE		//Corgis that have risen past the material plane of existence.
 	tts_seed = "Stetmann"
 	holder_type = /obj/item/holder/corgi
 
@@ -401,7 +401,7 @@
 /mob/living/simple_animal/pet/dog/corgi/Ian/proc/read_memory()
 	if(fexists("data/npc_saves/Ian.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Ian.sav")
-		S["age"] 		>> age
+		S["age"]		>> age
 		S["record_age"]	>> record_age
 		S["saved_head"] >> saved_head
 		fdel("data/npc_saves/Ian.sav")
@@ -608,7 +608,7 @@
 	maxHealth = 60
 	health = 60
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/void/Initialize()
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_AI_BAGATTACK, INNATE_TRAIT)
 
@@ -716,7 +716,7 @@
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
-	explosion(get_turf(src), 0, 1, 4, 7, cause = src)
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 4, flash_range = 7, cause = src)
 	death()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(var/atom/movable/target)

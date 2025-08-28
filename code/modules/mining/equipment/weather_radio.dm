@@ -68,9 +68,9 @@
 		if(WEATHER_ALERT_CLEAR)
 			light_color = LIGHT_COLOR_GREEN
 		if(WEATHER_ALERT_INCOMING)
-			light_color = LIGHT_COLOR_YELLOW
+			light_color = LIGHT_COLOR_DIM_YELLOW
 		if(WEATHER_ALERT_IMMINENT_OR_ACTIVE)
-			light_color = LIGHT_COLOR_PURE_RED
+			light_color = LIGHT_COLOR_INTENSE_RED
 	set_light_color(light_color)
 
 /obj/item/radio/weather_monitor/proc/get_warning_message() //damn tts

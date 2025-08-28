@@ -1,4 +1,4 @@
-/mob/living/Initialize()
+/mob/living/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/movetype_handler)
 	register_init_signals()
@@ -624,8 +624,8 @@
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
 
-/mob/living/ex_act(severity)
-	..()
+/mob/living/ex_act(severity, target)
+	. = ..()
 	flash_eyes()
 
 /mob/living/acid_act(acidpwr, acid_volume)
@@ -646,6 +646,7 @@
 	med_hud_set_status()
 	update_health_hud()
 	update_stamina_hud()
+	update_nutrition_hud()
 	update_damage_hud()
 	if(should_log)
 		log_debug("[src] update_stat([reason][HAS_TRAIT(src, TRAIT_GODMODE) ? ", GODMODE" : ""])")
@@ -992,7 +993,7 @@
 								TH.color = H.dna.species.blood_color
 
 						else
-							TH.color = "#A10808"
+							TH.color = BLOOD_COLOR_RED
 
 
 /mob/living/carbon/human/makeTrail(turf/T)
@@ -1119,7 +1120,7 @@
 		if(ishuman(src))
 			var/mob/living/carbon/human/human = src
 			. *= human.physiology.grab_resist_mod
-		. = round(. * (1 - (clamp(getStaminaLoss(), 0, maxHealth) / maxHealth)))
+		. = round(. * (1 - (clamp(getStaminaLoss(), 0, get_max_stamina()) / get_max_stamina())))
 	else if(. < 0)
 		. = 0
 		stack_trace("Wrong resist chance passed to get_resist_chance(), defaulting to zero.")
@@ -1711,7 +1712,7 @@
 			victim.apply_damage(damage*rand(90, 110)/100, BRUTE, BODY_ZONE_HEAD, victim.run_armor_check(head, MELEE))
 			if(prob(40))
 				victim.Knockdown(2 SECONDS)
-			playsound(victim.loc, "desceration", 35, TRUE, -1)
+			playsound(victim.loc, SFX_DESECRATION, 35, TRUE, -1)
 			add_attack_logs(attacker, victim, "Headbutted")
 
 		if(INTENT_GRAB)
@@ -2276,7 +2277,7 @@
 	if(enable)
 		if(stat == DEAD)	// dead mobs are skipped, unless we are removing SSD status
 			return FALSE
-		if(!mind.active || (ckey && ckey[1] == "@")) 	// aghosting will do this, we want to avoid SSDing admemes
+		if(!mind.active || (ckey && ckey[1] == "@"))	// aghosting will do this, we want to avoid SSDing admemes
 			return FALSE
 		if(!isnull(player_logged))	// already in SSD, return TRUE and we are done
 			return TRUE

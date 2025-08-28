@@ -525,24 +525,24 @@
 		text = replacetext(text, "\[/large\]",	"</font>")
 
 	if(istype(P, /obj/item/toy/crayon) || !format) // If it is a crayon, and he still tries to use these, make them empty!
-		text = replacetext(text, "\[*\]", 		"")
+		text = replacetext(text, "\[*\]",		"")
 		text = replacetext(text, "\[hr\]",		"")
-		text = replacetext(text, "\[small\]", 	"")
-		text = replacetext(text, "\[/small\]", 	"")
-		text = replacetext(text, "\[list\]", 	"")
-		text = replacetext(text, "\[/list\]", 	"")
-		text = replacetext(text, "\[table\]", 	"")
-		text = replacetext(text, "\[/table\]", 	"")
-		text = replacetext(text, "\[row\]", 	"")
-		text = replacetext(text, "\[cell\]", 	"")
-		text = replacetext(text, "\[logo\]", 	"")
-		text = replacetext(text, "\[slogo\]", 	"")
-		text = replacetext(text, "\[time\]", 	"")
-		text = replacetext(text, "\[date\]", 	"")
+		text = replacetext(text, "\[small\]",	"")
+		text = replacetext(text, "\[/small\]",	"")
+		text = replacetext(text, "\[list\]",	"")
+		text = replacetext(text, "\[/list\]",	"")
+		text = replacetext(text, "\[table\]",	"")
+		text = replacetext(text, "\[/table\]",	"")
+		text = replacetext(text, "\[row\]",	"")
+		text = replacetext(text, "\[cell\]",	"")
+		text = replacetext(text, "\[logo\]",	"")
+		text = replacetext(text, "\[slogo\]",	"")
+		text = replacetext(text, "\[time\]",	"")
+		text = replacetext(text, "\[date\]",	"")
 		text = replacetext(text, "\[station\]", "")
 	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
-	else 	// They are using "not a crayon" - formatting is OK and such
+	else	// They are using "not a crayon" - formatting is OK and such
 		text = replacetext(text, "\[*\]",		"<li>")
 		text = replacetext(text, "\[hr\]",		"<hr>")
 		text = replacetext(text, "\[small\]",	"<font size = \"1\">")
@@ -814,3 +814,8 @@
 	if(ofthree == 0)
 		return "[num]"
 	return "[num / (10 ** (ofthree * 3))][GLOB.si_suffixes[round(length(GLOB.si_suffixes) / 2) + ofthree + 1]]"
+
+/// Returns TRUE if the input_text ends with the ending
+/proc/endswith(input_text, ending)
+	var/input_length = LAZYLEN(ending)
+	return !!findtext(input_text, ending, -input_length)

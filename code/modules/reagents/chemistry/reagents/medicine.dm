@@ -600,6 +600,7 @@
 	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "стимуляции"
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -771,6 +772,7 @@
 	overdose_threshold = 20
 	harmless = FALSE
 	taste_description = "выигранного времени"
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1012,6 +1014,7 @@
 	overdose_threshold = 60
 	harmless = FALSE
 	can_synth = FALSE
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1574,6 +1577,7 @@
 	shock_reduction = 100
 	harmless = TRUE
 	can_synth = FALSE
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/adrenaline/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1591,6 +1595,7 @@
 	shock_reduction = 80
 	harmless = TRUE
 	can_synth = FALSE
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/noradrenaline/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

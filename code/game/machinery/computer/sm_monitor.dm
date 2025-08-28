@@ -4,7 +4,7 @@
 	icon_keyboard = "power_key"
 	icon_screen = "smmon_0"
 	circuit = /obj/item/circuitboard/sm_monitor
-	light_color = LIGHT_COLOR_YELLOW
+	light_color = LIGHT_COLOR_DIM_YELLOW
 	/// Cache-list of all supermatter shards
 	var/list/supermatters
 	/// Last status of the active supermatter for caching purposes

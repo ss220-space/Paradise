@@ -53,7 +53,6 @@ Difficulty: Medium
 	ranged_cooldown_time = 20
 	var/charging = FALSE
 	var/firing_laser = FALSE
-	internal_type = /obj/item/gps/internal/legion
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
 	loot = list(/obj/item/storm_staff)
@@ -245,10 +244,3 @@ Difficulty: Medium
 		A.GiveTarget(target)
 		A.friends = friends
 		A.faction = faction
-
-
-/obj/item/gps/internal/legion
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "The message repeats."
-	invisibility = INVISIBILITY_ABSTRACT

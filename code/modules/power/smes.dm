@@ -17,13 +17,13 @@
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
 
-	var/input_attempt = TRUE 		// 1 = attempting to charge, 0 = not attempting to charge
-	var/inputting = TRUE 			// 1 = actually inputting, 0 = not inputting
-	var/input_level = 50000 		// amount of power the SMES attempts to charge by
-	var/input_level_max = 200000 	// cap on input_level
-	var/input_available = 0 		// amount of charge available from input last tick
+	var/input_attempt = TRUE		// 1 = attempting to charge, 0 = not attempting to charge
+	var/inputting = TRUE			// 1 = actually inputting, 0 = not inputting
+	var/input_level = 50000		// amount of power the SMES attempts to charge by
+	var/input_level_max = 200000	// cap on input_level
+	var/input_available = 0		// amount of charge available from input last tick
 
-	var/output_attempt = TRUE 		// 1 = attempting to output, 0 = not attempting to output
+	var/output_attempt = TRUE		// 1 = attempting to output, 0 = not attempting to output
 	var/outputting = TRUE			// 1 = actually outputting, 0 = not outputting
 	var/output_level = 50000		// amount of power the SMES attempts to output
 	var/output_level_max = 200000	// cap on output_level
@@ -443,7 +443,7 @@
 			smoke.set_up(amount = 3, location = src.loc)
 			smoke.attach(src)
 			smoke.start()
-			explosion(src.loc, -1, 0, 1, 3, 1, 0, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 1, flash_range = 3, adminlog = TRUE, ignorecap = FALSE, cause = src)
 			qdel(src)
 			return
 		if(prob(15)) //Power drain

@@ -6,14 +6,6 @@
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
 	desc = "Медицинское устройство, представляющее из себя высокую капсулу, напичканную датчиками и сканерами. Судя по всему, она понижает температуру тела субъекта внутри."
-	ru_names = list(
-		NOMINATIVE = "криогенная капсула",
-		GENITIVE = "криогенной капсулы",
-		DATIVE = "криогенной капсуле",
-		ACCUSATIVE = "криогенную капсулу",
-		INSTRUMENTAL = "криогенной капсулой",
-		PREPOSITIONAL = "криогенной капсуле"
-	)
 	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "pod0"
 	density = TRUE
@@ -43,7 +35,17 @@
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
+
+/obj/machinery/atmospherics/unary/cryo_cell/get_ru_names()
+	return list(
+		NOMINATIVE = "криогенная капсула",
+		GENITIVE = "криогенной капсулы",
+		DATIVE = "криогенной капсуле",
+		ACCUSATIVE = "криогенную капсулу",
+		INSTRUMENTAL = "криогенной капсулой",
+		PREPOSITIONAL = "криогенной капсуле"
+	)
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change(forced = FALSE)
@@ -65,8 +67,8 @@
 		. += span_notice("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.")
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
@@ -78,8 +80,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cryo_cell/upgraded/New()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -114,12 +116,12 @@
 	QDEL_NULL(occupant_overlay)
 	return ..()
 
-/obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity)
+/obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity, target)
 	if(occupant)
-		occupant.ex_act(severity)
+		occupant.ex_act(severity, target)
 	if(beaker)
-		beaker.ex_act(severity)
-	..()
+		beaker.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/handle_atom_del(atom/A)
 	..()
@@ -541,7 +543,7 @@
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	color = "red"//force the icon to red
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 
 /obj/machinery/atmospherics/unary/cryo_cell/ratvar_act()
 	go_out()

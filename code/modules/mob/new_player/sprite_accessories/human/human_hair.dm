@@ -1003,3 +1003,10 @@
 /datum/sprite_accessory/hair/dolly
 	name = "Dolly"
 	icon_state = "dolly"
+
+/datum/sprite_accessory/hair/chadcut
+	name = "Chad"
+	icon_state = "chadcut"
+	unsuitable_gender = FEMALE
+	species_allowed = list(SPECIES_HUMAN)
+	glasses_over = 1

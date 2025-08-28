@@ -51,26 +51,23 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	if(l_store) l_store.emp_act(severity)
 	..()
 
-/mob/living/carbon/alien/humanoid/ex_act(severity)
-	..()
+/mob/living/carbon/alien/humanoid/ex_act(severity, target)
+	. = ..()
 
 	var/shielded = 0
-
 	var/b_loss = null
 	var/f_loss = null
+
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			gib()
 			return
-
-		if(2.0)
+		if(EXPLODE_HEAVY)
 			if(!shielded)
 				b_loss += 60
-
 			f_loss += 60
-
 			AdjustDeaf(120 SECONDS)
-		if(3.0)
+		if(EXPLODE_LIGHT)
 			b_loss += 30
 			if(prob(50) && !shielded)
 				Paralyse(2 SECONDS)

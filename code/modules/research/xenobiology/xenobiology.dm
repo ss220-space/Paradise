@@ -295,6 +295,7 @@
 			SM.master_commander = user
 			SM.sentience_act()
 			SM.set_can_collar(TRUE)
+			SM.mind.madeby_sentience_potion = TRUE
 			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
@@ -347,6 +348,7 @@
 			LF.key = C.key
 			LF.faction = user.faction
 			LF.master_commander = user
+			LF.mind.madeby_sentience_potion = TRUE
 			to_chat(LF, "<span class='warning'>Труд из обезьяны сделал человека! А зелье разума сделало вас осознающим себя в этом мире. Вы по прежнему являетесь обезьяной и вашего ограниченного ума не хватает чтобы осознать всей окружающей вас аппаратуры и продвинутого окружения. Вы знаете что оно как-то работает у людей и вам этого хватает. Ваши желания просты и примитивны, как и вы сами. Но что точно вы знаете лучше всей своей жизни...</span>")
 			to_chat(LF, "<span class='userdanger'>Вы самоосознались благодаря [user.name]. В качестве благодарности, теперь вы служите [user.name], и помогаете [genderize_ru(user.gender, "ему", "ей", "этому", "им")] в выполнении [genderize_ru(user.gender, "его", "её", "этого", "их")] целей любой ценой!</span>")
 			to_chat(user, "<span class='notice'>[M] бер[pluralize_ru(LF.gender,"ет","ут")] зелье и дела[pluralize_ru(LF.gender,"ет","ют")] глоток. Он[genderize_ru(LF.gender, "", "а", "о", "и")] смотр[pluralize_ru(LF.gender,"ит","ят")] на вас грустными и понимающими глазами. Сработало!</span>")
@@ -529,19 +531,19 @@
 		return
 	..()
 	if(!istype(O))
-		to_chat(user, "<span class='warning'>The potion can only be used on items or vehicles!</span>")
+		to_chat(user, span_warning("The potion can only be used on items!"))
 		return
 	if(SEND_SIGNAL(O, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
 		return
 	if(isitem(O))
 		var/obj/item/I = O
 		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN) || (I.item_flags & SPEEDPOTION_APPLIED))
-			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
+			to_chat(user, span_warning("[I] can't be made any faster!"))
 			return ..()
 		if(isclothing(O))
 			var/obj/item/clothing/cloth = O
 			if(cloth.clothing_flags & FIXED_SLOWDOWN)
-				to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
+				to_chat(user, span_warning("[I] can't be made any faster!</span>"))
 				return
 		I.slowdown /= 2
 		I.item_flags |= SPEEDPOTION_APPLIED
@@ -556,7 +558,7 @@
 
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	O.add_atom_colour(COLOR_RED, WASHABLE_COLOUR_PRIORITY)
-	to_chat(user, "<span class='notice'>You slather the red gunk over [O], making it faster.</span>")
+	to_chat(user, span_notice("You slather the red gunk over [O], making it faster.</span>"))
 	qdel(src)
 
 

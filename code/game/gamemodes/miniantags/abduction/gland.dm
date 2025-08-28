@@ -1,14 +1,6 @@
 /obj/item/organ/internal/heart/gland
 	name = "fleshy mass"
-	desc = "Кусок извивающейся плоти и металла. Вызывает отвращение."
-	ru_names = list(
-		NOMINATIVE = "мясистая масса",
-		GENITIVE = "мясистой массы",
-		DATIVE = "мясистой массе",
-		ACCUSATIVE = "мясистую массу",
-		INSTRUMENTAL = "мясистой массой",
-		PREPOSITIONAL = "мясистой массе"
-	)
+	desc = "Кусок извивающейся плоти и металла. Вызывает отвращение"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
 	dead_icon = null
@@ -26,6 +18,16 @@
 	var/mind_control_uses = 1
 	var/mind_control_duration = 1800
 	var/active_mind_control = FALSE
+
+/obj/item/organ/internal/heart/gland/get_ru_names()
+	return list(
+		NOMINATIVE = "мясистая масса",
+		GENITIVE = "мясистой массы",
+		DATIVE = "мясистой массе",
+		ACCUSATIVE = "мясистую массу",
+		INSTRUMENTAL = "мясистой массой",
+		PREPOSITIONAL = "мясистой массе"
+	)
 
 /obj/item/organ/internal/heart/gland/update_icon_state()
 	return
@@ -300,7 +302,7 @@
 		span_danger("Кожа [owner.declent_ru(GENITIVE)] начинает испускать электрические разряды!"),
 		span_warning("Вы чувствуете, как внутри вас накапливается электрическая энергия!")
 	)
-	playsound(get_turf(owner), "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(get_turf(owner), SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	addtimer(CALLBACK(src, PROC_REF(zap)), rand(30, 100))
 
 /obj/item/organ/internal/heart/gland/electric/proc/zap()

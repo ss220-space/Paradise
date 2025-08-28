@@ -182,3 +182,4 @@
 
 #define DEVIL_RITUAL_TRAIT "devil_ritual"
 
+#define TASER_TRAIT "taser"

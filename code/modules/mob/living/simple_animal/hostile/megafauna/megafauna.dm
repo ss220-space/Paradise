@@ -69,10 +69,6 @@
 		minbodytemp = 0, \
 	)
 
-/mob/living/simple_animal/hostile/megafauna/Destroy()
-	QDEL_NULL(internal_gps)
-	return ..()
-
 /mob/living/simple_animal/hostile/megafauna/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	if(target)
 		DestroySurroundings() //So they can path through chasms.
@@ -153,13 +149,11 @@
 
 /mob/living/simple_animal/hostile/megafauna/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(250)
-
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(100)
-
-		if(3)
+		if(EXPLODE_LIGHT)
 			adjustBruteLoss(50)
 
 /mob/living/simple_animal/hostile/megafauna/GiveTarget(atom/new_target)

@@ -167,8 +167,17 @@
 	throw_range = 0
 	throw_speed = 0
 	gender = FEMALE
-	ru_names = list(NOMINATIVE = "рука-клинок", GENITIVE = "руки-клинка", DATIVE = "руке-клинку", ACCUSATIVE = "руку-клинок", INSTRUMENTAL = "рукой-клинком", PREPOSITIONAL = "руке-клинке")
 	var/datum/action/changeling/weapon/parent_action
+
+/obj/item/melee/changeling/arm_blade/get_ru_names()
+	return list(
+		NOMINATIVE = "рука-клинок",
+		GENITIVE = "руки-клинка",
+		DATIVE = "руке-клинку",
+		ACCUSATIVE = "руку-клинок",
+		INSTRUMENTAL = "рукой-клинком",
+		PREPOSITIONAL = "руке-клинке"
+	)
 
 
 /obj/item/melee/changeling/arm_blade/Initialize(mapload, silent, new_parent_action)
@@ -181,7 +190,7 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_sound = "blade_swing_light" \
+		swing_sound = SFX_BLADE_SWING_LIGHT \
 	)
 
 
@@ -230,7 +239,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/O = H.get_organ(user.zone_selected)
-		if(O.brute_dam >= 50)
+		if(O && O.brute_dam >= 50)
 			O.droplimb()
 
 
@@ -269,10 +278,17 @@
 	throw_range = 0
 	throw_speed = 0
 	gender = MALE
-	ru_names = list(NOMINATIVE = "молот из плоти", GENITIVE = "молота из плоти", DATIVE = "молоту из плоти", ACCUSATIVE = "молот из плоти", INSTRUMENTAL = "молотом из плоти", PREPOSITIONAL = "молоте из плоти")
 	var/datum/action/changeling/weapon/parent_action
 
-
+/obj/item/melee/changeling/fleshy_maul/get_ru_names()
+	return list(
+		NOMINATIVE = "молот из плоти",
+		GENITIVE = "молота из плоти",
+		DATIVE = "молоту из плоти",
+		ACCUSATIVE = "молот из плоти",
+		INSTRUMENTAL = "молотом из плоти",
+		PREPOSITIONAL = "молоте из плоти"
+	)
 
 /obj/item/melee/changeling/fleshy_maul/Initialize(mapload, silent, new_parent_action)
 	. = ..()
@@ -288,7 +304,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0.3, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy", \
+		swing_sound = SFX_BLUNT_SWING_HEAVY, \
 	)
 
 

@@ -73,10 +73,10 @@
 		storedpda.forceMove(loc)
 		storedpda = null
 
-/obj/machinery/pdapainter/ex_act(severity)
+/obj/machinery/pdapainter/ex_act(severity, target)
 	if(storedpda)
-		storedpda.ex_act(severity)
-	..()
+		storedpda.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/pdapainter/handle_atom_del(atom/A)
 	if(A == storedpda)

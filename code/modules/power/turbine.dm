@@ -102,7 +102,7 @@
 // Crucial to make things work!!!!
 // OLD FIX - explanation given down below.
 // /obj/machinery/power/compressor/CanPass(atom/movable/mover, turf/target, height=0)
-// 		return !density
+//		return !density
 
 /obj/machinery/power/compressor/locate_machinery()
 	if(turbine)
@@ -389,7 +389,7 @@
 
 
 
-/obj/machinery/computer/turbine_computer/Initialize()
+/obj/machinery/computer/turbine_computer/Initialize(mapload)
 	. = ..()
 	spawn(10)
 		locate_machinery()

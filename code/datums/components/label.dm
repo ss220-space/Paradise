@@ -79,7 +79,9 @@
 /datum/component/label/proc/apply_label()
 	var/atom/owner = parent
 	owner.name += " ([label_name])"
-	if(owner.ru_names)
+	var/list/names = owner.ru_names || owner.get_ru_names_cached()
+	if(names)
+		owner.ru_names = names
 		for(var/i = 1; i <= 6; i++)
 			owner.ru_names[i] += " ([label_name])"
 
