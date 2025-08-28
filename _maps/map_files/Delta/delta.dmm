@@ -81140,7 +81140,10 @@
 /area/crew_quarters/cabin4)
 "nPe" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/closet/secure_closet/security_grenade_launcher,
+/obj/structure/safe{
+	known_by = list("hos")
+	},
+/obj/item/gun/projectile/bombarda/secgl/x4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -98478,19 +98481,10 @@
 	pixel_y = -26
 	},
 /obj/structure/cable,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
 /obj/structure/cable,
-/obj/structure/safe{
-	known_by = list("hos")
-	},
-/obj/item/gun/projectile/bombarda/secgl/x4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
