@@ -7,6 +7,7 @@
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
 	can_synth = FALSE
 	taste_description = "админ абуза"
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
 	M.setCloneLoss(0, FALSE)

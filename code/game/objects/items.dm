@@ -528,9 +528,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(bag.can_be_inserted(I))
 				return ..()
 		var/obj/item/stack/tape_roll/tape = I
-		var/list/clickparams = params2list(params)
-		var/x_offset = text2num(clickparams["icon-x"])
-		var/y_offset = text2num(clickparams["icon-y"])
+		var/list/modifiers = params2list(params)
+		var/x_offset = text2num(LAZYACCESS(modifiers, ICON_X))
+		var/y_offset = text2num(LAZYACCESS(modifiers, ICON_Y))
 		add_fingerprint(user)
 		if(GetComponent(/datum/component/ducttape))
 			to_chat(user, span_notice("На [src.declent_ru(PREPOSITIONAL)] уже есть изолента!"))
@@ -783,13 +783,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return container.handle_item_insertion(src)
 
 	if(drop_on_fail)
-		if(src in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(src in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			user.drop_item_ground(src)
 		else
 			forceMove(drop_location())
 
 	else if(qdel_on_fail)
-		if(src in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(src in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 
@@ -1012,6 +1012,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!do_after(user, 4 SECONDS, source))
 		return
 	clean_blood()
+	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, 5)
 	acid_level = 0
 	user.visible_message(
 		span_notice("[user] мо[pluralize_ru(user.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)]."),
@@ -1171,7 +1172,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(ITEM_SLOT_ID)
 			if(ishuman(owner))
 				var/mob/living/carbon/human/h_owner = owner
-				h_owner.sec_hud_set_ID()
+				h_owner.update_hud_set()
 			owner.update_inv_wear_id()
 
 		if(ITEM_SLOT_PDA)

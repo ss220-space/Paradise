@@ -48,9 +48,9 @@
 	QDEL_LIST(stored_plants)
 	return ..()
 
-/obj/machinery/biogenerator/ex_act(severity)
-	container?.ex_act(severity)
-	..()
+/obj/machinery/biogenerator/ex_act(severity, target)
+	container?.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/biogenerator/handle_atom_del(atom/A)
 	..()

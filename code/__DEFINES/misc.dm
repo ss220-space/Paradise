@@ -14,19 +14,6 @@
 #define SIBYL_LETHAL 2
 #define SIBYL_DESTRUCTIVE 3
 
-//Click cooldowns
-#define CLICK_CD_MELEE (0.8 SECONDS)
-#define CLICK_CD_RANGE (0.4 SECONDS)
-#define CLICK_CD_HANDCUFFED (1 SECONDS)
-#define CLICK_CD_TKSTRANGLE (1 SECONDS)
-#define CLICK_CD_POINT (1 SECONDS)
-#define CLICK_CD_RESIST (2 SECONDS)
-#define CLICK_CD_PULLING (0.2 SECONDS)
-#define CLICK_CD_GRABBING (1 SECONDS)
-#define CLICK_CD_CLICK_ABILITY (0.6 SECONDS)
-#define CLICK_CD_RAPID (0.2 SECONDS)
-#define CLICK_CD_LOOK_UP_DOWN (0.5 SECONDS)
-
 /// Amount of time after the rounds starts, that the player disconnect report is issued.
 #define ROUNDSTART_LOGOUT_REPORT_TIME (10 MINUTES)
 
@@ -378,27 +365,11 @@
 //Melting Temperatures for various specific objects
 #define GIRDER_MELTING_TEMP 5000
 
-// Area selection defines
-#define AREASELECT_CORNERA "corner A"
-#define AREASELECT_CORNERB "corner B"
-
-//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
-#define MOUSE_OPACITY_TRANSPARENT 0
-#define MOUSE_OPACITY_ICON 1
-#define MOUSE_OPACITY_OPAQUE 2
-
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
 #define DEFIB_TIME_LIMIT (300 SECONDS)
 /// Brain damage starts setting in on the patient after some time left rotting.
 #define DEFIB_TIME_LOSS (60 SECONDS)
-
-//different types of atom colorations
-#define ADMIN_COLOUR_PRIORITY		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
-#define TEMPORARY_COLOUR_PRIORITY	2 //e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
-#define WASHABLE_COLOUR_PRIORITY	3 //color splashed onto an atom (e.g. paint on turf)
-#define FIXED_COLOUR_PRIORITY		4 //color inherent to the atom (e.g. blob color)
-#define COLOUR_PRIORITY_AMOUNT 4 //how many priority levels there are.
 
 //Cleaning tool strength
 // 1 is also a valid cleaning strength but completely unused so left undefined

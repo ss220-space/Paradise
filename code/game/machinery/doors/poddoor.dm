@@ -42,10 +42,10 @@
 	opacity = FALSE
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
-/obj/machinery/door/poddoor/ex_act(severity)
-	if(severity == 3)
+/obj/machinery/door/poddoor/ex_act(severity, target)
+	if(severity <= EXPLODE_LIGHT)
 		return
-	..()
+	return ..()
 
 /obj/machinery/door/poddoor/do_animate(animation)
 	switch(animation)

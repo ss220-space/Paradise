@@ -174,7 +174,7 @@
 	switch(M.a_intent)
 		if(INTENT_HARM)
 			var/damage = rand(1, 5)
-			playsound(loc, "punch", 25, TRUE, -1)
+			playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"), \
 					span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"))
 			adjustBruteLoss(damage)

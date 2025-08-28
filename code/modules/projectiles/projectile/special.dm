@@ -41,11 +41,11 @@
 	)
 	icon_state= "bolter"
 	damage = 50
-	flag = "bullet"
+	flag = BULLET
 
-/obj/projectile/bullet/gyro/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
+	explosion(target, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
 /obj/projectile/bullet/a40mm
@@ -61,11 +61,11 @@
 	desc = "USE A WEEL GUN"
 	icon_state= "bolter"
 	damage = 60
-	flag = "bullet"
+	flag = BULLET
 
 /obj/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, -1, 0, 2, 1, 0, flame_range = 3, cause = "[type] fired by [key_name(firer)]")
+	explosion(target, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flash_range = 1, adminlog = TRUE, flame_range = 3, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
 /obj/projectile/temp
@@ -252,7 +252,7 @@
 	damage = 0
 	damage_type = BRUTE
 	nodamage = TRUE
-	flag = "bullet"
+	flag = BULLET
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 
@@ -416,7 +416,7 @@
 		PREPOSITIONAL = "блюспейс-луче"
 	)
 	icon_state = "spark"
-	hitsound = "sparks"
+	hitsound = SFX_SPARKS
 	damage = 0
 	color = "#33CCFF"
 	nodamage = TRUE
@@ -462,7 +462,7 @@
 
 /obj/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, -1, 0, 1, cause = src)
+	explosion(target, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 1, cause = src)
 	return 1
 
 /obj/projectile/plasma
@@ -478,7 +478,7 @@
 	icon_state = "plasmacutter"
 	damage_type = BRUTE
 	damage = 5
-	hitsound = "bullet"
+	hitsound = SFX_BULLET
 	range = 3
 	dismemberment = 20
 	dismember_limbs = TRUE
@@ -650,7 +650,7 @@
 
 /obj/projectile/bullet/a84mm_hedp/on_hit(atom/target, blocked = FALSE)
 	..()
-	explosion(target, -1, 1, 3, 1, 0, flame_range = 6)
+	explosion(target, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 1, adminlog = FALSE, flame_range = 6)
 
 	if(ismecha(target))
 		var/obj/mecha/M = target
@@ -686,7 +686,7 @@
 
 /obj/projectile/bullet/a84mm_he/on_hit(atom/target, blocked=0)
 	..()
-	explosion(target, 1, 3, 5, 7) //devastating
+	explosion(target, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 5, flash_range = 7) //devastating
 
 /obj/projectile/limb
 	name = "limb"

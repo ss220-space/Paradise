@@ -51,8 +51,8 @@
 	return FALSE
 
 
-/obj/machinery/field/containment/ex_act(severity)
-	return 0
+/obj/machinery/field/containment/ex_act(severity, target)
+	return FALSE
 
 /obj/machinery/field/containment/attack_animal(mob/living/simple_animal/M)
 	if(!FG1 || !FG2)

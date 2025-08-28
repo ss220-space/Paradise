@@ -31,7 +31,7 @@
 	var/obj/machinery/buffer // simple machine buffer for device linkage
 	var/datum/multitool_menu_host/menu
 
-/obj/item/multitool/Initialize()
+/obj/item/multitool/Initialize(mapload)
 	. = ..()
 	menu = new(src)
 

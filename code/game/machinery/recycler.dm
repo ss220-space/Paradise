@@ -18,9 +18,9 @@
 	var/eat_victim_items = 1
 	var/item_recycle_sound = 'sound/machines/recycler.ogg'
 
-/obj/machinery/recycler/New()
+/obj/machinery/recycler/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0, TRUE, null, null, null, TRUE)
-	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recycler(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -79,7 +79,7 @@
 		if(emergency_mode)
 			emergency_mode = FALSE
 			update_icon(UPDATE_ICON_STATE)
-		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(user)
 			to_chat(user, span_notice("You use the cryptographic sequencer on the [name]."))
 		add_attack_logs(user, src, "emagged")

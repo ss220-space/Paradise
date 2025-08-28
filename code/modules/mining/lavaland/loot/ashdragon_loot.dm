@@ -79,7 +79,7 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_sound = "blade_swing_light" \
+		swing_sound = SFX_BLADE_SWING_LIGHT \
 	)
 
 /obj/item/melee/ghost_sword/Destroy()

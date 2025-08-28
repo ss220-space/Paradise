@@ -201,7 +201,7 @@
 	origin_tech = "combat=3;syndicate=1"
 	light_range = 2
 	light_power = 1
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
 	armour_penetration = 20

@@ -98,8 +98,8 @@
 /mob/living/simple_animal/revenant/can_perform_action(atom/target, action_bitflags)
 	return FALSE
 
-/mob/living/simple_animal/revenant/ex_act(severity)
-	return 1 //Immune to the effects of explosions.
+/mob/living/simple_animal/revenant/ex_act(severity, target)
+	return //Immune to the effects of explosions.
 
 /mob/living/simple_animal/revenant/blob_act(obj/structure/blob/B)
 	return //blah blah blobs aren't in tune with the spirit world, or something.

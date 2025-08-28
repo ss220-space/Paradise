@@ -162,7 +162,7 @@
 /datum/anomaly_impulse/move/machinery_destroy/impulse()
 	. = ..()
 	for(var/obj/machinery/mob in range(10, owner))
-		explosion(get_turf(mob), -1, 1, 2, cause = "machinery_destroy impulse")
+		explosion(get_turf(mob), devastation_range = -1, heavy_impact_range = 1, light_impact_range = 2, cause = "machinery_destroy impulse")
 		new /obj/effect/anomaly/energetic/tier1(get_turf(mob))
 		qdel(mob)
 		if(prob(30))

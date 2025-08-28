@@ -26,7 +26,7 @@
 	var/designate_time = 0
 	var/turf/designating_target_loc
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/Initialize()
+/obj/machinery/computer/camera_advanced/shuttle_docker/Initialize(mapload)
 	. = ..()
 	GLOB.navigation_computers += src
 	CalculateAvailable_z_lvls()
@@ -374,7 +374,7 @@
 	var/selected = tgui_input_list(target, "Choose location to jump to", "Locations", L)
 	if(QDELETED(src) || QDELETED(target) || !isliving(target))
 		return
-	playsound(src, "terminal_type", 25, FALSE)
+	playsound(src, SFX_TERMINAL_TYPE, 25, FALSE)
 	if(selected)
 		var/turf/T = get_turf(L[selected])
 		if(T)

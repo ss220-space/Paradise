@@ -1,0 +1,1132 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ai" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ct" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/tiles/burnturf,
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"cR" = (
+/obj/effect/spawner/random_spawners/fungus_70,
+/turf/simulated/wall,
+/area/template_noop)
+"dM" = (
+/turf/simulated/floor/plating,
+/area/template_noop)
+"dQ" = (
+/obj/structure/grille/broken,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"ee" = (
+/obj/effect/spawner/window,
+/obj/structure/barricade/wooden/crude{
+	layer = 4
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"gF" = (
+/obj/structure/holosign/barrier/atmos,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"iM" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/turf/template_noop,
+/area/template_noop)
+"iT" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall/rust,
+/area/template_noop)
+"iY" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"jh" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"lh" = (
+/obj/structure/lattice,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/turf/space,
+/area/template_noop)
+"mf" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"oJ" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/template_noop)
+"rj" = (
+/obj/structure/grille/broken,
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"rG" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"tV" = (
+/obj/structure/lattice,
+/turf/simulated/wall/rust,
+/area/template_noop)
+"xH" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"xV" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_med_viro_passage,
+/turf/template_noop,
+/area/template_noop)
+"yE" = (
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"Dq" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"FE" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_med_viro_passage,
+/obj/effect/map_effect/marker_helper/submap_def/delta/maints_med_viro_passage/space,
+/turf/simulated/wall/rust,
+/area/template_noop)
+"Ge" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"IW" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"Ja" = (
+/obj/structure/bed,
+/obj/item/bedsheet/red,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/template_noop)
+"Ku" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_med_viro_passage,
+/obj/effect/map_effect/marker_helper/submap_def/delta/maints_med_viro_passage/closed,
+/turf/simulated/wall/rust,
+/area/template_noop)
+"KU" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Mq" = (
+/obj/structure/holosign/barrier/engineering,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/template_noop)
+"Mw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"MO" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"NX" = (
+/obj/structure/lattice,
+/turf/space,
+/area/template_noop)
+"Om" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
+"OX" = (
+/turf/space,
+/area/template_noop)
+"PP" = (
+/turf/simulated/wall/rust,
+/area/template_noop)
+"Qa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Rj" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/template_noop)
+"Ro" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Tu" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"UL" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"VO" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"WF" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/door/firedoor,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"WP" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Zw" = (
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+IW
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+xV
+Zw
+iT
+PP
+NX
+OX
+OX
+NX
+rj
+tV
+FE
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(2,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+cR
+NX
+OX
+OX
+OX
+OX
+NX
+yE
+rj
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(3,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+cR
+cR
+cR
+OX
+OX
+OX
+OX
+cR
+cR
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(4,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Dq
+WP
+gF
+OX
+OX
+OX
+OX
+gF
+WP
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(5,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Ro
+dM
+gF
+OX
+OX
+OX
+OX
+gF
+dM
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(6,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Mq
+cR
+cR
+OX
+OX
+OX
+OX
+cR
+cR
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(7,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Ja
+PP
+yE
+yE
+NX
+OX
+OX
+NX
+dQ
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(8,1,1) = {"
+iY
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+iM
+Zw
+Rj
+PP
+PP
+oJ
+yE
+NX
+OX
+OX
+lh
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(9,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(10,1,1) = {"
+iT
+PP
+NX
+NX
+NX
+NX
+dQ
+PP
+Ku
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(11,1,1) = {"
+cR
+NX
+OX
+OX
+OX
+OX
+NX
+yE
+rj
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(12,1,1) = {"
+cR
+cR
+rG
+VO
+VO
+gF
+gF
+Ge
+cR
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(13,1,1) = {"
+xH
+KU
+WP
+ct
+Qa
+yE
+jh
+Mw
+Tu
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(14,1,1) = {"
+WF
+MO
+dM
+UL
+ai
+Om
+UL
+UL
+mf
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(15,1,1) = {"
+cR
+cR
+cR
+ee
+ee
+ee
+cR
+cR
+cR
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(16,1,1) = {"
+cR
+yE
+yE
+NX
+OX
+OX
+OX
+NX
+dQ
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(17,1,1) = {"
+Rj
+PP
+oJ
+yE
+NX
+NX
+NX
+NX
+lh
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(18,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(19,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(20,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(21,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(22,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(23,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(24,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(25,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(26,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(27,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}
+(28,1,1) = {"
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+Zw
+"}

@@ -27,6 +27,8 @@
 
 	init_datum_subtypes(/datum/robot_skin, GLOB.robot_skins, null, "type")
 
+	init_datum_subtypes(/datum/fake_administrator, GLOB.cached_fake_admins, null, "type")
+
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
 	init_subtypes(/datum/preference_info, GLOB.preferences_info)
@@ -211,6 +213,9 @@
 
 	//Init BSA fire modes list
 	init_datum_subtypes(/datum/bluespace_cannon_fire_mode, GLOB.BSA_modes_list, null, "name")
+
+	// Init list of all nutrition levels
+	init_datum_subtypes(/datum/nutrition_level, GLOB.nutrition_levels, null, "type")
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.

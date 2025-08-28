@@ -401,9 +401,9 @@ Difficulty: Medium
 		arena_escape_enrage()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/ex_act(severity, target)
-	if(severity == EXPLODE_LIGHT)
-		return
-	..()
+	if(severity <= EXPLODE_LIGHT)
+		return FALSE
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(
 	amount = 0,
@@ -607,7 +607,7 @@ Difficulty: Medium
 	if(ismineralturf(T))
 		var/turf/simulated/mineral/M = T
 		M.attempt_drill()
-	playsound(T, "explosion", 80, TRUE)
+	playsound(T, SFX_EXPLOSION, 80, TRUE)
 	new /obj/effect/hotspot(T)
 	T.hotspot_expose(700, 50, 1)
 	for(var/mob/living/L in T.contents)

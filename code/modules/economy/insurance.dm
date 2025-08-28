@@ -16,6 +16,11 @@
 	else
 		return null
 
+/proc/get_insurance_account_DNA(mob/living/carbon/human/user)
+	if(user.dna in GLOB.dna2account)
+		return GLOB.dna2account[user.dna]
+	return null
+
 /proc/do_insurance_collection(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/money_account/connected_acc)
 	if(!istype(target))
 		target.visible_message("Некорректная цель списания страховки.")

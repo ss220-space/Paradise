@@ -146,7 +146,7 @@
 	name = "batgloves"
 	icon_state = "bmgloves"
 	item_state = "bmgloves"
-	item_color="bmgloves"
+	item_color = "bmgloves"
 
 /obj/item/clothing/gloves/cursedclown
 	name = "cursed white gloves"
