@@ -98481,10 +98481,6 @@
 	pixel_y = -26
 	},
 /obj/structure/cable,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
