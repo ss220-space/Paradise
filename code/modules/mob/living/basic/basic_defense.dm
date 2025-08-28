@@ -54,7 +54,7 @@
 	. = ..()
 	if(!.)
 		return
-	playsound(loc, "punch", 25, TRUE, -1)
+	playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 	visible_message(span_danger("[user] крушит [src.declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user] сокрушает вас!"))
 	to_chat(user, span_danger("Вы бьёте [src.declent_ru(ACCUSATIVE)]!"))

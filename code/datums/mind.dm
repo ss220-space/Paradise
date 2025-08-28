@@ -82,8 +82,6 @@
 
 	var/list/learned_recipes //List of learned recipe TYPES.
 
-	var/ambition_limit = 6 //Лимит амбиций
-
 	var/list/curses
 
 	var/madeby_sentience_potion = FALSE
@@ -228,23 +226,6 @@
 		for(var/datum/job_objective/objective in job_objectives)
 			output += "<li><b>Task #[obj_count]</b>: [objective.get_description()]</li>"
 			obj_count++
-		output += "</ul>"
-
-	if(iscarbon(current))
-		// Кнопки для амбиций и их отображение
-		output += "<hr><b>Амбиции:</b><ul>"
-		if(LAZYLEN(ambition_objectives))
-
-			var/amb_count = 1
-			for(var/datum/ambition_objective/objective in ambition_objectives)
-				output += "<li><b>Амбиция #[amb_count]</b>: [objective.description]</li>"
-				output += "<a href='byond://?src=[UID()];amb_delete=\ref[objective]'>Удалить</a> " // Удалить амбицию
-				output += "<a href='byond://?src=[UID()];amb_completed=\ref[objective]'>" // Определить завершенность амбиции
-				output += "<font color=[objective.completed ? "green" : "red"]>[objective.completed ? "Передумать" : "Выполнить"]</font>"
-				output += "</a>"
-				output += "<br>"
-				amb_count++
-		output += "<a href='byond://?src=[UID()];amb_add=1'>Добавить амбицию</a><br><br>"
 		output += "</ul>"
 
 	if(window)
@@ -872,11 +853,6 @@
 	onclose(usr, "edit_memory[src]")
 
 /datum/mind/Topic(href, href_list)
-	//проверяем на амбиции, после чего прерываем выполнение, иначе он залезет в админский антаг-панель
-	var/ambition_func = ambition_topic(href, href_list)
-	if (ambition_func)
-		return
-
 	if(!check_rights(R_ADMIN))
 		return
 

@@ -156,7 +156,7 @@
 	icon_state = "bananium"
 	floor_tile = /obj/item/stack/tile/mineral/bananium
 	icons = list("bananium","bananium_dam")
-	var/spam_flag = 0
+	var/sound_cooldown = 0
 
 /turf/simulated/floor/mineral/bananium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -175,14 +175,14 @@
 		honk()
 
 /turf/simulated/floor/mineral/bananium/proc/honk()
-	if(spam_flag < world.time)
+	if(sound_cooldown < world.time)
 		playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
-		spam_flag = world.time + 20
+		sound_cooldown = world.time + 20
 
 /turf/simulated/floor/mineral/bananium/proc/squeek()
-	if(spam_flag < world.time)
-		playsound(src, "clownstep", 50, TRUE)
-		spam_flag = world.time + 10
+	if(sound_cooldown < world.time)
+		playsound(src, SFX_CLOWN_STEP, 50, TRUE)
+		sound_cooldown = world.time + 10
 
 /turf/simulated/floor/mineral/bananium/airless
 	oxygen = 0

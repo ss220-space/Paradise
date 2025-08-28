@@ -289,6 +289,7 @@
 	I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
 	I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 	item_placed(I)
+	SEND_SIGNAL(I, COMSIG_ITEM_PLACED_ON_TABLE, user, src)
 
 
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
@@ -538,7 +539,7 @@
 /obj/structure/table/glass/proc/table_shatter(mob/living/L)
 	visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] разбивается!"), span_danger("Вы слышите, как бьется стекло"))
 	var/turf/T = get_turf(src)
-	playsound(T, "shatter", 50, TRUE)
+	playsound(T, SFX_SHATTER, 50, TRUE)
 	for(var/I in debris)
 		var/atom/movable/AM = I
 		AM.forceMove(T)
@@ -565,7 +566,7 @@
 			return
 		else
 			var/turf/T = get_turf(src)
-			playsound(T, "shatter", 50, TRUE)
+			playsound(T, SFX_SHATTER, 50, TRUE)
 			for(var/X in debris)
 				var/atom/movable/AM = X
 				AM.forceMove(T)

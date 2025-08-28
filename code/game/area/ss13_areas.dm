@@ -1113,6 +1113,18 @@ This applies to all STANDARD station areas
 	name = "Abandoned Server Room"
 	icon_state = "yellow"
 
+/area/maintenance/abandonedwarehouse
+	name = "Abandoned Warehouse"
+	icon_state = "yellow"
+
+/area/maintenance/abandonedoffices
+	name = "Abandoned Offices"
+	icon_state = "yellow"
+
+/area/maintenance/abandonedclub
+	name = "Abandoned Club"
+	icon_state = "yellow"
+
 /area/maintenance/cele //for SDMM group of zones
 	icon_state = "green"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED

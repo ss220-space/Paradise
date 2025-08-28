@@ -696,7 +696,8 @@
 		restraints = wear_suit
 
 	if(restraints)
-		breakout_time = restraints.breakout_time
+		resist_restraints()
+		return
 
 	var/list/breakouttime_modifiers = list()
 	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
