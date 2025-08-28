@@ -4156,6 +4156,8 @@
 	ispolzovano = "inf"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},

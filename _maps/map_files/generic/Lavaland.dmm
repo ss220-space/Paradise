@@ -1498,6 +1498,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
+/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha,
+/obj/structure/bed/dogbed,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},

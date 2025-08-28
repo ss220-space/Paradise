@@ -2138,7 +2138,8 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/obj/structure/closet/secure_closet/mining_medic,
+/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha,
+/obj/structure/bed/dogbed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -3296,6 +3297,10 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"mU" = (
+/obj/structure/bed/dogbed,
+/turf/simulated/wall/r_wall,
+/area/mine/production)
 "mV" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 8
@@ -5001,6 +5006,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
@@ -25616,7 +25622,7 @@ fw
 lh
 vS
 IZ
-aR
+mU
 dd
 TV
 dA
