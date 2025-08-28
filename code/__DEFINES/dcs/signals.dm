@@ -1512,3 +1512,7 @@
 /// From /obj/structure/closet/supplypod/extractionpod/MouseDrop_T()
 #define COMSIG_SUPPLYPOD_CLIMB_CHECK "climb_check"
 	#define COMPONENT_CLIMB (1<<0)
+
+
+/// Called after placing item on table. (mob/user, obj/structure/table)
+#define COMSIG_ITEM_PLACED_ON_TABLE "item_placed_on_table"

@@ -1201,6 +1201,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 			)
 
 	status |= ORGAN_DISFIGURED
+	owner.update_hud_set()
+
 	return TRUE
 
 
@@ -1216,6 +1218,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	status &= ~ORGAN_DISFIGURED
+	owner.update_hud_set()
 
 	return TRUE
 

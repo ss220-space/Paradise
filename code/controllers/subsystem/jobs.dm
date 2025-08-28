@@ -456,20 +456,20 @@ SUBSYSTEM_DEF(jobs)
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return 1
 
-/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE)
-	if(!H)
+/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/human, rank, joined_late = FALSE)
+	if(!human)
 		return null
 	var/datum/job/job = GetJob(rank)
 
-	H.job = rank
+	human.job = rank
 
 	var/alt_title = null
 
-	if(H.mind)
-		H.mind.assigned_role = rank
-		alt_title = H.mind.role_alt_title
+	if(human.mind)
+		human.mind.assigned_role = rank
+		alt_title = human.mind.role_alt_title
 
-		CreateMoneyAccount(H, rank, job)
+		CreateMoneyAccount(human, rank, job)
 	var/list/L = list()
 	L.Add("<b>Вы [span_red(alt_title ? alt_title : rank)].</b>")
 	L.Add("<b>На этой должности вы отвечаете непосредственно перед [span_red(replacetext(job.supervisors,"the ",""))]. Особые обстоятельства могут это изменить.</b>")
@@ -495,88 +495,127 @@ SUBSYSTEM_DEF(jobs)
 	if(job.is_novice)
 		L.Add("<b>Ваша должность ограничена во всех взаимодействиях с рабочим имуществом отдела и экипажем станции, при отсутствии приставленного к нему квалифицированного сотрудника или полученного разрешения от вышестоящего начальства. Не забудьте ознакомиться с СРП вашей должности. По истечению срока прохождения стажировки, данная должность более не будет вам доступна. Используйте её для обучения, не стесняйтесь задавать вопросы вашим старшим коллегам!</b>")
 
-	to_chat(H, chat_box_green(L.Join("<br>")))
+	to_chat(human, chat_box_green(L.Join("<br>")))
 
-	return H
+	return human
 
-/datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = FALSE) // Equip and put them in an area
-	if(!H)
+
+/datum/controller/subsystem/jobs/proc/get_default_spawn_landmark(rank)
+	for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
+		if(sloc.name != rank)
+			continue
+
+		if(locate(/mob/living) in sloc.loc)
+			continue
+
+		return sloc
+
+
+/// Moves character in it's job's spawn. Returns outfit override.
+/datum/controller/subsystem/jobs/proc/equip_spawn(mob/living/carbon/human/human, rank)
+	var/turf/turf_spawn = null
+	var/obj/mark_spawn = null
+	if(length(GLOB.start_override))
+		mark_spawn = pick(GLOB.start_override)
+		. = new GLOB.start_override_outfit
+	else
+		mark_spawn = get_default_spawn_landmark(rank)
+
+	if(!mark_spawn)
+		mark_spawn = locate("start*[rank]") // use old stype
+
+	if(!mark_spawn) // No spawn, then spawn on latejoin mark
+		log_runtime(EXCEPTION("No landmark start for [rank]."))
+		if(rank == JOB_TITLE_PRISONER)
+			mark_spawn = pick(GLOB.latejoin_prisoner)
+		else
+			mark_spawn = pick(GLOB.latejoin)
+
+	if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
+		if(rank == JOB_TITLE_PRISONER)
+			mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
+		else
+			mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station)
+
+	if(isturf(mark_spawn))
+		turf_spawn = mark_spawn
+
+	else if(istype(mark_spawn, /obj/effect/landmark/start) && isturf(mark_spawn.loc))
+		turf_spawn = mark_spawn.loc
+
+	else
+		message_admins("Couldn't find spawnpoint for [human] [ADMIN_COORDJMP(human)]. Notify mapper about it.")
+
+	if(!turf_spawn)
+		return
+
+	human.forceMove(turf_spawn)
+	// Moving wheelchair if they have one
+	if(!human.buckled || !istype(human.buckled, /obj/vehicle/ridden/wheelchair))
+		return
+
+	human.buckled.forceMove(human.loc)
+	human.buckled.dir = human.dir
+
+
+/datum/controller/subsystem/jobs/proc/check_nearsight(mob/living/carbon/human/human)
+	if(!HAS_TRAIT(human, TRAIT_NEARSIGHTED))
+		return
+
+	var/equipped = human.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(human), ITEM_SLOT_EYES)
+	if(!equipped)
+		return
+
+	var/obj/item/clothing/glasses/glasses = human.glasses
+	if(!istype(glasses) || glasses.prescription)
+		return
+
+	glasses.upgrade_prescription()
+	human.update_nearsighted_effects()
+
+
+/datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/human, rank, joined_late = FALSE) // Equip and put them in an area
+	if(!human)
 		return null
 
 	var/datum/job/job = GetJob(rank)
 
-	H.job = rank
+	human.job = rank
 
+	var/datum/outfit/outfit_override
 	if(!joined_late)
-		var/turf/turf_spawn = null
-		var/obj/mark_spawn = null
-		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-			if(sloc.name != rank)
-				continue
+		outfit_override = equip_spawn(human, rank)
 
-			if(locate(/mob/living) in sloc.loc)
-				continue
+	if(outfit_override)
+		outfit_override.equip(human)
 
-			mark_spawn = sloc
-			break
-
-		if(!mark_spawn)
-			mark_spawn = locate("start*[rank]") // use old stype
-
-		if(!mark_spawn) // No spawn, then spawn on latejoin mark
-			log_runtime(EXCEPTION("No landmark start for [rank]."))
-			if(rank == JOB_TITLE_PRISONER)
-				mark_spawn = pick(GLOB.latejoin_prisoner)
-			else
-				mark_spawn = pick(GLOB.latejoin)
-
-		if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
-			if(rank == JOB_TITLE_PRISONER)
-				mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
-			else
-				mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station)
-
-		if(isturf(mark_spawn))
-			turf_spawn = mark_spawn
-
-		else if(istype(mark_spawn, /obj/effect/landmark/start) && isturf(mark_spawn.loc))
-			turf_spawn = mark_spawn.loc
-
-		else
-			message_admins("Couldn't find spawnpoint for [H] [ADMIN_COORDJMP(H)]. Notify mapper about it.")
-
-		if(turf_spawn)
-			H.forceMove(turf_spawn)
-			// Moving wheelchair if they have one
-			if(H.buckled && istype(H.buckled, /obj/vehicle/ridden/wheelchair))
-				H.buckled.forceMove(H.loc)
-				H.buckled.dir = H.dir
-
-	if(job)
-		var/new_mob = job.equip(H)
+	else if(job)
+		var/new_mob = job.equip(human)
 		if(ismob(new_mob))
-			H = new_mob
+			human = new_mob
 
-	if(job && H)
-		job.after_spawn(H)
+	if(!job || !human)
+		return human
 
-		//Gives glasses to the vision impaired
-		if(HAS_TRAIT(H, TRAIT_NEARSIGHTED))
-			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), ITEM_SLOT_EYES)
-			if(equipped != 1)
-				var/obj/item/clothing/glasses/G = H.glasses
-				if(istype(G) && !G.prescription)
-					G.upgrade_prescription()
-					H.update_nearsighted_effects()
+	if(!outfit_override)
+		job.after_spawn(human)
 
-		if(!issilicon(H))
-			// Wheelchair necessary?
-			var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
-			var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-			if(!l_foot && !r_foot || (H.client.prefs.disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(H.dna.species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
-				var/obj/vehicle/ridden/wheelchair/W = new /obj/vehicle/ridden/wheelchair(H.loc)
-				W.buckle_mob(H, TRUE)
-	return H
+	//Gives glasses to the vision impaired
+	check_nearsight(human)
+	if(issilicon(human))
+		return human
+
+	// Wheelchair necessary?
+	var/obj/item/organ/external/l_foot = human.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+	var/obj/item/organ/external/r_foot = human.get_organ(BODY_ZONE_PRECISE_R_FOOT)
+	var/has_paraplegia = HASBIT(human.client.prefs.disabilities, DISABILITY_FLAG_PARAPLEGIA) && !HASBIT(human.dna.species.blacklisted_disabilities, DISABILITY_FLAG_PARAPLEGIA)
+	if((l_foot || r_foot) && !has_paraplegia) // Minimum one usable leg.
+		return human
+
+	var/obj/vehicle/ridden/wheelchair/wheelchair = new /obj/vehicle/ridden/wheelchair(human.loc)
+	wheelchair.buckle_mob(human, TRUE)
+	return human
+
 
 /datum/controller/subsystem/jobs/proc/get_random_area_turf_for_spawn(area_type)
 	var/list/turf/possible_turfs = list()
@@ -677,11 +716,11 @@ SUBSYSTEM_DEF(jobs)
 		SSblackbox.record_feedback("nested tally", "job_preferences", charyoung, list("[job.title]", "charyoung"))
 
 
-/datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
+/datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/human, rank, datum/job/job)
 	var/money_amount = rand(job.min_start_money, job.max_start_money)
-	var/datum/money_account/M = create_account(H.real_name, money_amount, null, job, TRUE)
-	if(H.dna)
-		GLOB.dna2account[H.dna] = M
+	var/datum/money_account/M = create_account(human.real_name, money_amount, null, job, TRUE)
+	if(human.dna)
+		GLOB.dna2account[human.dna] = M
 
 	var/remembered_info = ""
 
@@ -692,7 +731,7 @@ SUBSYSTEM_DEF(jobs)
 	if(M.transaction_log.len)
 		var/datum/transaction/T = M.transaction_log[1]
 		remembered_info += "<b>Ваш аккаунт был создан:</b> [T.time], [T.date] на [T.source_terminal]<br>"
-	H.mind.store_memory(remembered_info)
+	human.mind.store_memory(remembered_info)
 
 	// If they're head, give them the account info for their department
 	if(job && job.head_position)
@@ -704,27 +743,27 @@ SUBSYSTEM_DEF(jobs)
 			remembered_info += "<b>ПИН аккаунта вашего отдела:</b> [department_account.remote_access_pin]<br>"
 			remembered_info += "<b>Баланс аккаунта вашего отдела:</b> $[department_account.money]<br>"
 
-		H.mind.store_memory(remembered_info)
+		human.mind.store_memory(remembered_info)
 
-	H.mind.initial_account = M
+	human.mind.initial_account = M
 
-	H.mind.initial_account.insurance_type = job.insurance_type
+	human.mind.initial_account.insurance_type = job.insurance_type
 	switch (job.insurance_type)
 		if(INSURANCE_TYPE_NONE)
-			H.mind.initial_account.insurance = INSURANCE_NONE
+			human.mind.initial_account.insurance = INSURANCE_NONE
 		if(INSURANCE_TYPE_BUDGETARY)
-			H.mind.initial_account.insurance = INSURANCE_BUDGETARY
+			human.mind.initial_account.insurance = INSURANCE_BUDGETARY
 		if(INSURANCE_TYPE_STANDART)
-			H.mind.initial_account.insurance = INSURANCE_STANDART
+			human.mind.initial_account.insurance = INSURANCE_STANDART
 		if(INSURANCE_TYPE_EXTENDED)
-			H.mind.initial_account.insurance = INSURANCE_EXTENDED
+			human.mind.initial_account.insurance = INSURANCE_EXTENDED
 		if(INSURANCE_TYPE_DELUXE)
-			H.mind.initial_account.insurance = INSURANCE_DELUXE
+			human.mind.initial_account.insurance = INSURANCE_DELUXE
 		if(INSURANCE_TYPE_NT_SPECIAL)
-			H.mind.initial_account.insurance = INSURANCE_NT_SPECIAL
+			human.mind.initial_account.insurance = INSURANCE_NT_SPECIAL
 
 	spawn(0)
-		to_chat(H, span_boldnotice("Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]"))
+		to_chat(human, span_boldnotice("Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]"))
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()

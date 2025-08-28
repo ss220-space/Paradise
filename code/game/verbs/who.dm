@@ -89,6 +89,7 @@
 	msg += "</tr></table>"
 
 	msg += span_bold("Всего в сети: [length(lines)]")
+
 	to_chat(src, chat_box_examine(msg), type = MESSAGE_TYPE_INFO)
 
 /client/verb/adminwho()
@@ -96,12 +97,10 @@
 	set category = STATPANEL_ADMIN_TICKETS
 
 	var/list/adminmsg = list()
-	var/list/moderatormsg = list()
 	var/list/mentormsg = list()
 	var/list/devmsg = list()
 
 	var/num_admins_online = 0
-	var/num_moderator_online = 0
 	var/num_mentors_online = 0
 	var/num_devs_online = 0
 
@@ -123,6 +122,7 @@
 			if(client.is_afk())
 				line += " (AFK)"
 
+		line += "<br>"
 		if(check_rights(R_ADMIN, FALSE, client.mob)) // Is this client an admin?
 			if(client?.holder?.fakekey && !check_rights(R_ADMIN, FALSE)) // Only admins can see stealthmins
 				continue
@@ -133,11 +133,7 @@
 			num_admins_online++
 			adminmsg += jointext(line, "")
 
-		else if(check_rights(R_MOD, FALSE, client.mob)) // Is this client a moderator?
-			num_moderator_online++
-			moderatormsg += jointext(line, "")
-
-		else if(check_rights(R_MENTOR, FALSE, client.mob)) // Is this client a mentor?
+		else if(check_rights((R_MENTOR || R_MOD), FALSE, client.mob)) // Is this client a mentor or moderator?
 			num_mentors_online++
 			mentormsg += jointext(line, "")
 
@@ -147,24 +143,21 @@
 
 	var/list/final_message = list()
 	if(num_admins_online)
-		final_message += span_bold("Админов онлайн ([num_admins_online]):")
+		final_message += span_bold("Админов онлайн ([num_admins_online]):<br>")
 		final_message += adminmsg
 		final_message += "<br>"
-	if(num_moderator_online)
-		final_message += span_bold("Модераторов онлайн ([num_moderator_online]):")
-		final_message += moderatormsg
-		final_message += "<br>"
 	if(num_mentors_online)
-		final_message += span_bold("Менторов онлайн ([num_mentors_online]):")
+		final_message += span_bold("Менторов/Модераторов онлайн ([num_mentors_online]):<br>")
 		final_message += mentormsg
 		final_message += "<br>"
 	if(num_devs_online)
-		final_message += span_bold("Разработчиков онлайн ([num_devs_online]):")
+		final_message += span_bold("Разработчиков онлайн ([num_devs_online]):<br>")
 		final_message += devmsg
 		final_message += "<br>"
-	if(!num_admins_online || !num_moderator_online || !num_mentors_online)
+	if(!num_admins_online) // Only admin tickets are parsed to discord.
 		final_message += span_notice(NO_ADMINS_ONLINE_MESSAGE)
-	to_chat(src, chat_box_examine(jointext(final_message, "\n")), type = MESSAGE_TYPE_INFO)
+
+	to_chat(src, chat_box_examine(jointext(final_message, "")), type = MESSAGE_TYPE_INFO)
 
 /// Returns colored rank representation.
 /proc/get_colored_rank(rank)
