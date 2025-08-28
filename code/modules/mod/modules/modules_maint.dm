@@ -21,12 +21,12 @@
 
 /obj/item/mod/module/holster/get_ru_names() //i have to look on fucking fnaf wiki to find out how to translate this shit
 	return list(
-		NOMINATIVE = "пружинный модуль для модульного костюма",
-		GENITIVE = "пружинного модуля для модульного костюма",
-		DATIVE = "пружинному модулю для модульного костюма",
-		ACCUSATIVE = "пружинный модуль для модульного костюма",
-		INSTRUMENTAL = "пружинным модулем для модульного костюма",
-		PREPOSITIONAL = "пружинном модуле для модульного костюма",
+		NOMINATIVE = "пружинный модуль для МЭК",
+		GENITIVE = "пружинного модуля для МЭК",
+		DATIVE = "пружинному модулю для МЭК",
+		ACCUSATIVE = "пружинный модуль для МЭК",
+		INSTRUMENTAL = "пружинным модулем для МЭК",
+		PREPOSITIONAL = "пружинном модуле для МЭК",
 	)
 
 /obj/item/mod/module/springlock/on_install()
@@ -103,12 +103,12 @@
 
 /obj/item/mod/module/balloon/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль надувания шариков для модульного костюма",
-		GENITIVE = "модуля надувания шариков для модульного костюма",
-		DATIVE = "модулю надувания шариков для модульного костюма",
-		ACCUSATIVE = "модуль надувания шариков для модульного костюма",
-		INSTRUMENTAL = "модулем надувания шариков для модульного костюма",
-		PREPOSITIONAL = "модуле надувания шариков для модульного костюма",
+		NOMINATIVE = "модуль надувания шариков для МЭК",
+		GENITIVE = "модуля надувания шариков для МЭК",
+		DATIVE = "модулю надувания шариков для МЭК",
+		ACCUSATIVE = "модуль надувания шариков для МЭК",
+		INSTRUMENTAL = "модулем надувания шариков для МЭК",
+		PREPOSITIONAL = "модуле надувания шариков для МЭК",
 	)
 
 /obj/item/mod/module/balloon/on_use()
@@ -139,12 +139,12 @@
 
 /obj/item/mod/module/stamp/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль печати для модульного костюма",
-		GENITIVE = "модуля печати для модульного костюма",
-		DATIVE = "модулю печати для модульного костюма",
-		ACCUSATIVE = "модуль печати для модульного костюма",
-		INSTRUMENTAL = "модулем печати для модульного костюма",
-		PREPOSITIONAL = "модуле печати для модульного костюма",
+		NOMINATIVE = "модуль печати для МЭК",
+		GENITIVE = "модуля печати для МЭК",
+		DATIVE = "модулю печати для МЭК",
+		ACCUSATIVE = "модуль печати для МЭК",
+		INSTRUMENTAL = "модулем печати для МЭК",
+		PREPOSITIONAL = "модуле печати для МЭК",
 	)
 
 /obj/item/stamp/mod
@@ -153,12 +153,12 @@
 
 /obj/item/stamp/mod/get_ru_names()
 	return list(
-		NOMINATIVE = "электро-печать модульного костюма",
-		GENITIVE = "электро-печати модульного костюма",
-		DATIVE = "электро-печати модульного костюма",
-		ACCUSATIVE = "электро-печать модульного костюма",
-		INSTRUMENTAL = "электро-печатью модульного костюма",
-		PREPOSITIONAL = "электро-печати модульного костюма",
+		NOMINATIVE = "электро-печать МЭК",
+		GENITIVE = "электро-печати МЭК",
+		DATIVE = "электро-печати МЭК",
+		ACCUSATIVE = "электро-печать МЭК",
+		INSTRUMENTAL = "электро-печатью МЭК",
+		PREPOSITIONAL = "электро-печати МЭК",
 	)
 
 /obj/item/stamp/mod/Initialize(mapload)

@@ -693,7 +693,7 @@
 	blackbox_message = "Toggle painblurb"
 
 /datum/preference_toggle/modsuit_activation_method
-	name = "Переключить метод активации модульного костюма"
+	name = "Переключить метод активации МЭК"
 	description = "При положении \"Включено\" модульный костюм будет активироваться с помощью СКМ вместо альт-клика."
 	preftoggle_bitflag = PREFTOGGLE_3_PAIN_BLURB
 	preftoggle_toggle = PREFTOGGLE_3_MOD_ACTIVATION_METHOD

@@ -155,7 +155,7 @@
 	path.Cut(1, 2)
 
 /datum/action/item_action/mod_recall
-	name = "Вызов модульного костюма"
+	name = "Вызов МЭК"
 	desc = "Призовите модульный костюм к себе из любого места на станции."
 	use_itemicon = FALSE
 	check_flags = AB_CHECK_CONSCIOUS

@@ -89,19 +89,19 @@
 	name = "MOD standard core"
 	desc = "В наиболее плодородных участках планеты Спраут растут редкие кристаллы, известные как \"Сердцесвет.\" \
 		Эти редкие, крайне ценные пьезоэлектрические кристаллы, будучи по своей природе органическими, являются самым мощным проводником в галактике. \n\
-		И сейчас этот кристалл, внешне похожий на человечское сердце, будет использован для питания модульного костюма. "
+		И сейчас этот кристалл, внешне похожий на человечское сердце, будет использован для питания модульного экзо-костюма. "
 	icon_state = "mod-core-standard"
 	/// Installed cell.
 	var/obj/item/stock_parts/cell/cell
 
 /obj/item/mod/core/standard/get_ru_names()
 	return list(
-		NOMINATIVE = "стандартное ядро модульного костюма",
-		GENITIVE = "стандартного ядра модульного костюма",
-		DATIVE = "стандартному ядру модульного костюма",
-		ACCUSATIVE = "стандартное ядро модульного костюма",
-		INSTRUMENTAL = "стандартным ядром модульного костюма",
-		PREPOSITIONAL = "стандартном ядре модульного костюма"
+		NOMINATIVE = "стандартное ядро МЭК",
+		GENITIVE = "стандартного ядра МЭК",
+		DATIVE = "стандартному ядру МЭК",
+		ACCUSATIVE = "стандартное ядро МЭК",
+		INSTRUMENTAL = "стандартным ядром МЭК",
+		PREPOSITIONAL = "стандартном ядре МЭК"
 	)
 
 
@@ -231,7 +231,7 @@
 
 /obj/item/mod/core/standard/proc/mod_uninstall_cell(mob/living/user)
 	if(!cell)
-		to_chat(user, span_warning("No cell installed!"))
+		balloon_alert(user, "нет батареи!")
 		return
 	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
@@ -280,7 +280,7 @@
 
 /obj/item/mod/core/plasma
 	name = "\improper MOD plasma core"
-	desc = "Попытка НаноТрейзен извлечь выгоду из своих исследований плазмы. Данный тип ядер можно подзаряжать \
+	desc = "Попытка Нанотрейзен извлечь выгоду из своих исследований плазмы. Данный тип ядер можно подзаряжать \
 		с помощью листов плазмы, позволяя шахтёрским бригадам работать без необходимости постоянно возвращаться для дозарядки костюмов."
 	icon_state = "mod-core-plasma"
 	/// How much charge we can store.
@@ -292,12 +292,12 @@
 
 /obj/item/mod/core/plasma/get_ru_names()
 	return list(
-		NOMINATIVE = "плазменное ядро модульного костюма",
-		GENITIVE = "плазменного ядра модульного костюма",
-		DATIVE = "плазменному ядру модульного костюма",
-		ACCUSATIVE = "плазменное ядро модульного костюма",
-		INSTRUMENTAL = "плазменным ядром модульного костюма",
-		PREPOSITIONAL = "плазменном ядре модульного костюма"
+		NOMINATIVE = "плазменное ядро МЭК",
+		GENITIVE = "плазменного ядра МЭК",
+		DATIVE = "плазменному ядру МЭК",
+		ACCUSATIVE = "плазменное ядро МЭК",
+		INSTRUMENTAL = "плазменным ядром МЭК",
+		PREPOSITIONAL = "плазменном ядре МЭК"
 	)
 
 /obj/item/mod/core/plasma/attackby(obj/item/attacking_item, mob/user, params)

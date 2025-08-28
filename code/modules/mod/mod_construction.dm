@@ -1,81 +1,81 @@
 /obj/item/mod/construction
-	desc = "Деталь модульного костюма, используемая при его строительстве. Вы можете установить это в оболочку модульного костюма."
+	desc = "Деталь модульного экзо-костюма, используемая при его строительстве. Вы можете установить это в оболочку МЭК."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "rack_parts"
 
 /obj/item/mod/construction/helmet
 	name = "MOD helmet"
-	desc = "Универсальный каркас шлема, используемый в создании модульных костюмов. Бесполезен вне оболочки."
+	desc = "Универсальный каркас шлема, используемый в создании модульных экзо-костюмов. Бесполезен вне оболочки."
 	icon_state = "helmet"
 
 /obj/item/mod/construction/helmet/get_ru_names()
 	return list(
-		NOMINATIVE = "шлем для модульного костюма",
-		GENITIVE = "шлема для модульного костюма",
-		DATIVE = "шлему для модульного костюма",
-		ACCUSATIVE = "шлем для модульного костюма",
-		INSTRUMENTAL = "шлемом для модульного костюма",
-		PREPOSITIONAL = "шлеме для модульного костюма"
+		NOMINATIVE = "шлем для МЭК",
+		GENITIVE = "шлема для МЭК",
+		DATIVE = "шлему для МЭК",
+		ACCUSATIVE = "шлем для МЭК",
+		INSTRUMENTAL = "шлемом для МЭК",
+		PREPOSITIONAL = "шлеме для МЭК"
 	)
 
 /obj/item/mod/construction/chestplate
 	name = "MOD chestplate"
-	desc = "Тяжелая металлическая бронепластина, используемая в создании модульных костюмов. Бесполезна вне оболочки."
+	desc = "Тяжелая металлическая бронепластина, используемая в создании модульных экзо-костюмов. Бесполезна вне оболочки."
 	icon_state = "chestplate"
 
 /obj/item/mod/construction/chestplate/get_ru_names()
 	return list(
-		NOMINATIVE = "нагрудник для модульного костюма",
-		GENITIVE = "нагрудника для модульного костюма",
-		DATIVE = "нагруднику для модульного костюма",
-		ACCUSATIVE = "шлем для модульного костюма",
-		INSTRUMENTAL = "нагрудником для модульного костюма",
-		PREPOSITIONAL = "нагруднике для модульного костюма"
+		NOMINATIVE = "нагрудник для МЭК",
+		GENITIVE = "нагрудника для МЭК",
+		DATIVE = "нагруднику для МЭК",
+		ACCUSATIVE = "шлем для МЭК",
+		INSTRUMENTAL = "нагрудником для МЭК",
+		PREPOSITIONAL = "нагруднике для МЭК"
 	)
 
 /obj/item/mod/construction/gauntlets
 	name = "MOD gauntlets"
-	desc = "Пара уродливых электрических перчаток, используемых в создании модульных костюмов. Бесполезны вне оболочки."
+	desc = "Пара уродливых электрических перчаток, используемых в создании модульных экзо-костюмов. Бесполезны вне оболочки."
 	icon_state = "gauntlets"
 
 /obj/item/mod/construction/gauntlets/get_ru_names()
 	return list(
-		NOMINATIVE = "перчатки для модульного костюма",
-		GENITIVE = "перчаток для модульного костюма",
-		DATIVE = "перчаткам для модульного костюма",
-		ACCUSATIVE = "перчатки для модульного костюма",
-		INSTRUMENTAL = "перчатками для модульного костюма",
-		PREPOSITIONAL = "перчатках для модульного костюма"
+		NOMINATIVE = "перчатки для МЭК",
+		GENITIVE = "перчаток для МЭК",
+		DATIVE = "перчаткам для МЭК",
+		ACCUSATIVE = "перчатки для МЭК",
+		INSTRUMENTAL = "перчатками для МЭК",
+		PREPOSITIONAL = "перчатках для МЭК"
 	)
 
 /obj/item/mod/construction/boots
 	name = "MOD boots"
-	desc = "Пара электрических сапог, используемых в создании модульных костюмов. Бесполезны вне оболочки."
+	desc = "Пара электрических сапог, используемых в создании модульных экзо-костюмов. Бесполезны вне оболочки."
 	icon_state = "boots"
 
 /obj/item/mod/construction/boots/get_ru_names()
 	return list(
-		NOMINATIVE = "ботинки для модульного костюма",
-		GENITIVE = "ботинок для модульного костюма",
-		DATIVE = "ботинкам для модульного костюма",
-		ACCUSATIVE = "ботинки для модульного костюма",
-		INSTRUMENTAL = "ботинками для модульного костюма",
-		PREPOSITIONAL = "ботинках для модульного костюма"
+		NOMINATIVE = "ботинки для МЭК",
+		GENITIVE = "ботинок для МЭК",
+		DATIVE = "ботинкам для МЭК",
+		ACCUSATIVE = "ботинки для МЭК",
+		INSTRUMENTAL = "ботинками для МЭК",
+		PREPOSITIONAL = "ботинках для МЭК"
 	)
 
 /obj/item/mod/construction/broken_core
 	name = "broken MOD core"
-	desc = "Внутренний источник питания для модульного костюма. Конкретно этот экземпляр уже ничего не запитает."
+	desc = "Внутренний источник питания для модульного экзо-костюма. Конкретно этот экземпляр уже ничего не запитает."
 	icon_state = "mod-core"
 
 /obj/item/mod/construction/broken_core/get_ru_names()
 	return list(
-		NOMINATIVE = "сломанное ядро модульного костюма",
-		GENITIVE = "сломанного ядра модульного костюма",
-		DATIVE = "сломанному ядру модульного костюма",
-		ACCUSATIVE = "сломанное ядро модульного костюма",
-		INSTRUMENTAL = "сломанном ядре модульного костюма",
-		PREPOSITIONAL = "сломанному ядру модульного костюма"
+		NOMINATIVE = "сломанное ядро МЭК",
+		GENITIVE = "сломанного ядра МЭК",
+		DATIVE = "сломанному ядру МЭК",
+		ACCUSATIVE = "сломанное ядро МЭК",
+		INSTRUMENTAL = "сломанном ядре МЭК",
+		PREPOSITIONAL = "сломанному ядру МЭК"
 	)
 
 /obj/item/mod/construction/broken_core/examine(mob/user)
@@ -93,18 +93,18 @@
 
 /obj/item/mod/construction/plating
 	name = "MOD external plating"
-	desc = "Внешняя обшивка, используемая для строительства блока управления модульного костюма. "
+	desc = "Внешняя обшивка, используемая для строительства блока управления модульного экзо-костюма. "
 	icon_state = "standard-plating"
 	var/datum/mod_theme/theme = /datum/mod_theme/standard
 
 /obj/item/mod/construction/plating/get_ru_names()
 	return list(
-		NOMINATIVE = "внешняя обшивка модульного костюма",
-		GENITIVE = "внешней обшивки модульного костюма",
-		DATIVE = "внешней обшивке модульного костюма",
-		ACCUSATIVE = "внешнюю обшивку модульного костюма",
-		INSTRUMENTAL = "внешней обшивкой модульного костюма",
-		PREPOSITIONAL = "внешней обшивке модульного костюма"
+		NOMINATIVE = "внешняя обшивка МЭК",
+		GENITIVE = "внешней обшивки МЭК",
+		DATIVE = "внешней обшивке МЭК",
+		ACCUSATIVE = "внешнюю обшивку МЭК",
+		INSTRUMENTAL = "внешней обшивкой МЭК",
+		PREPOSITIONAL = "внешней обшивке МЭК"
 	)
 
 /obj/item/mod/construction/plating/Initialize(mapload)
@@ -116,12 +116,12 @@
 		ru_names = get_ru_names_cached()
 
 	ru_names = list(
-		NOMINATIVE = ru_names[NOMINATIVE] + " [used_theme.name] модели",
-		GENITIVE = ru_names[GENITIVE] + " [used_theme.name] модели",
-		DATIVE = ru_names[DATIVE] + " [used_theme.name] модели",
-		ACCUSATIVE = ru_names[ACCUSATIVE] + " [used_theme.name] модели",
-		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [used_theme.name] модели",
-		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [used_theme.name] модели"
+		NOMINATIVE = ru_names[NOMINATIVE] + " [used_theme.name]",
+		GENITIVE = ru_names[GENITIVE] + " [used_theme.name]",
+		DATIVE = ru_names[DATIVE] + " [used_theme.name]",
+		ACCUSATIVE = ru_names[ACCUSATIVE] + " [used_theme.name]",
+		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [used_theme.name]",
+		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [used_theme.name]"
 	)
 
 	desc = "[desc] [used_theme.desc]"
@@ -169,7 +169,7 @@
 
 /obj/item/mod/construction/shell
 	name = "MOD shell"
-	desc = "Явно незавершённое стройство с десятками проводов и коннекторов, используемое для хранения, развертывания и использования модульных костюмов."
+	desc = "Явно незавершённое стройство с десятками проводов и коннекторов, используемое для хранения, развертывания и использования модульных экзо-костюмов."
 	icon_state = "mod-construction_start"
 	var/obj/item/core
 	var/obj/item/helmet
@@ -180,12 +180,12 @@
 
 /obj/item/mod/construction/shell/get_ru_names()
 	return list(
-		NOMINATIVE = "оболочка модульного костюма",
-		GENITIVE = "оболочки модульного костюма",
-		DATIVE = "оболочке модульного костюма",
-		ACCUSATIVE = "оболочку модульного костюма",
-		INSTRUMENTAL = "оболочкой модульного костюма",
-		PREPOSITIONAL = "оболочке модульного костюма"
+		NOMINATIVE = "оболочка МЭК",
+		GENITIVE = "оболочки МЭК",
+		DATIVE = "оболочке МЭК",
+		ACCUSATIVE = "оболочку МЭК",
+		INSTRUMENTAL = "оболочкой МЭК",
+		PREPOSITIONAL = "оболочке МЭК"
 	)
 
 /obj/item/mod/construction/shell/examine(mob/user)
@@ -193,7 +193,7 @@
 	var/display_text
 	switch(construction_step)
 		if(START_STEP)
-			display_text = "Судя по всему, нужно установить <b>ядро модульного костюма</b>..."
+			display_text = "Судя по всему, нужно установить <b>ядро МЭК</b>..."
 		if(CORE_STEP)
 			display_text = "Ядро <b>не прикручено</b>..."
 		if(SCREWED_CORE_STEP)

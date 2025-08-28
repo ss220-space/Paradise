@@ -44,12 +44,12 @@
 
 /obj/item/mod/module/anomaly_locked/kinesis/get_ru_names()
 	return list(
-		NOMINATIVE = "Модуль для модульного костюма \"Кинезис\"",
-		GENITIVE = "Модуля для модульного костюма \"Кинезис\"",
-		DATIVE = "Модулю для модульного костюма \"Кинезис\"",
-		ACCUSATIVE = "Модуль для модульного костюма \"Кинезис\"",
-		INSTRUMENTAL = "Модулем для модульного костюма \"Кинезис\"",
-		PREPOSITIONAL = "Модуле для модульного костюма \"Кинезис\"",
+		NOMINATIVE = "Модуль для МЭК \"Кинезис\"",
+		GENITIVE = "Модуля для МЭК \"Кинезис\"",
+		DATIVE = "Модулю для МЭК \"Кинезис\"",
+		ACCUSATIVE = "Модуль для МЭК \"Кинезис\"",
+		INSTRUMENTAL = "Модулем для МЭК \"Кинезис\"",
+		PREPOSITIONAL = "Модуле для МЭК \"Кинезис\"",
 	)
 
 /obj/item/mod/module/anomaly_locked/kinesis/Initialize(mapload)

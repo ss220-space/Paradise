@@ -57,6 +57,16 @@
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/modules_vox.dmi'
 		)
 
+/obj/item/mod/module/get_ru_names() //i have to look on fucking fnaf wiki to find out how to translate this shit
+	return list(
+		NOMINATIVE = "модуль для МЭК",
+		GENITIVE = "модуля для МЭК",
+		DATIVE = "модулю для МЭК",
+		ACCUSATIVE = "модуль для МЭК",
+		INSTRUMENTAL = "модулем для МЭК",
+		PREPOSITIONAL = "модуле для МЭК",
+	)
+
 /obj/item/mod/module/Initialize(mapload)
 	. = ..()
 	module_UID = UID()

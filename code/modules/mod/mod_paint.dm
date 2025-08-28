@@ -1,6 +1,6 @@
 /obj/item/mod/skin_applier
 	name = "MOD skin applier"
-	desc = "Этот одноразовый комплект для покраски позволяет перекрасить модульный костюм. Этот комплект можно применить только к гражданским костюмам."
+	desc = "Этот одноразовый комплект для покраски позволяет перекрасить модульный экзо-костюм. Этот комплект можно применить только к гражданским костюмам."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "skinapplier"
 	var/skin = "civilian"
@@ -9,12 +9,12 @@
 
 /obj/item/mod/skin_applier/get_ru_names()
 	return list(
-		NOMINATIVE = "комплект покраски для модульного костюма",
-		GENITIVE = "комплекта покраски для модульного костюма",
-		DATIVE = "комплекту покраски для модульного костюма",
-		ACCUSATIVE = "комплект покраски для модульного костюма",
-		INSTRUMENTAL = "комплектом покраски для модульного костюма",
-		PREPOSITIONAL = "комплекте покраски для модульного костюма"
+		NOMINATIVE = "комплект покраски для МЭК",
+		GENITIVE = "комплекта покраски для МЭК",
+		DATIVE = "комплекту покраски для МЭК",
+		ACCUSATIVE = "комплект покраски для МЭК",
+		INSTRUMENTAL = "комплектом покраски для МЭК",
+		PREPOSITIONAL = "комплекте покраски для МЭК"
 	)
 
 /obj/item/mod/skin_applier/pre_attackby(atom/attacked_atom, mob/living/user, params)

@@ -1,6 +1,6 @@
 /obj/item/clothing/head/mod
 	name = "MOD helmet"
-	desc = "Стандартный Шлем для модульного костюма."
+	desc = "Стандартный Шлем для модульного экзо-костюма."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-helmet"
 	base_icon_state = "helmet"
@@ -23,12 +23,12 @@
 
 /obj/item/clothing/head/mod/get_ru_names()
 	return list(
-		NOMINATIVE = "шлем модульного костюма",
-		GENITIVE = "шлема модульного костюма",
-		DATIVE = "шлему модульного костюма",
-		ACCUSATIVE = "шлем модульного костюма",
-		INSTRUMENTAL = "шлемом модульного костюма",
-		PREPOSITIONAL = "шлеме модульного костюма"
+		NOMINATIVE = "шлем МЭК",
+		GENITIVE = "шлема МЭК",
+		DATIVE = "шлему МЭК",
+		ACCUSATIVE = "шлем МЭК",
+		INSTRUMENTAL = "шлемом МЭК",
+		PREPOSITIONAL = "шлеме МЭК"
 	)
 
 /obj/item/clothing/head/mod/update_icon_state()
@@ -43,17 +43,17 @@
 		ru_names = get_ru_names_cached()
 
 	ru_names = list(
-		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name] модели",
-		GENITIVE = ru_names[GENITIVE] + " [control.theme.name] модели",
-		DATIVE = ru_names[DATIVE] + " [control.theme.name] модели",
-		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name] модели",
-		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name] модели",
-		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name] модели"
+		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name]",
+		GENITIVE = ru_names[GENITIVE] + " [control.theme.name]",
+		DATIVE = ru_names[DATIVE] + " [control.theme.name]",
+		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name]",
+		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name]",
+		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name]"
 	)
 
 /obj/item/clothing/suit/mod
 	name = "MOD chestplate"
-	desc = "Стандартный нагрудник для модульного костюма."
+	desc = "Стандартный нагрудник для модульного экзо-костюма."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-chestplate"
 	base_icon_state = "chestplate"
@@ -82,12 +82,12 @@
 
 /obj/item/clothing/suit/mod/get_ru_names()
 	return list(
-		NOMINATIVE = "нагрудник модульного костюма",
-		GENITIVE = "нагрудника модульного костюма",
-		DATIVE = "нагруднику модульного костюма",
-		ACCUSATIVE = "нагрудник модульного костюма",
-		INSTRUMENTAL = "нагрудником модульного костюма",
-		PREPOSITIONAL = "нагруднике модульного костюма"
+		NOMINATIVE = "нагрудник МЭК",
+		GENITIVE = "нагрудника МЭК",
+		DATIVE = "нагруднику МЭК",
+		ACCUSATIVE = "нагрудник МЭК",
+		INSTRUMENTAL = "нагрудником МЭК",
+		PREPOSITIONAL = "нагруднике МЭК"
 	)
 
 /obj/item/clothing/suit/mod/update_icon_state()
@@ -102,17 +102,17 @@
 		ru_names = get_ru_names_cached()
 
 	ru_names = list(
-		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name] модели",
-		GENITIVE = ru_names[GENITIVE] + " [control.theme.name] модели",
-		DATIVE = ru_names[DATIVE] + " [control.theme.name] модели",
-		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name] модели",
-		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name] модели",
-		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name] модели"
+		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name]",
+		GENITIVE = ru_names[GENITIVE] + " [control.theme.name]",
+		DATIVE = ru_names[DATIVE] + " [control.theme.name]",
+		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name]",
+		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name]",
+		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name]"
 	)
 
 /obj/item/clothing/gloves/mod
 	name = "MOD gauntlets"
-	desc = "Пара стандартный рукавиц для модульного костюма."
+	desc = "Пара стандартный рукавиц для модульного экзо-костюма."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-gauntlets"
 	base_icon_state = "gauntlets"
@@ -134,12 +134,12 @@
 
 /obj/item/clothing/gloves/mod/get_ru_names()
 	return list(
-		NOMINATIVE = "перчатки модульного костюма",
-		GENITIVE = "перчаток модульного костюма",
-		DATIVE = "перчаткам модульного костюма",
-		ACCUSATIVE = "перчатки модульного костюма",
-		INSTRUMENTAL = "перчатками модульного костюма",
-		PREPOSITIONAL = "перчатках модульного костюма"
+		NOMINATIVE = "перчатки МЭК",
+		GENITIVE = "перчаток МЭК",
+		DATIVE = "перчаткам МЭК",
+		ACCUSATIVE = "перчатки МЭК",
+		INSTRUMENTAL = "перчатками МЭК",
+		PREPOSITIONAL = "перчатках МЭК"
 	)
 
 /obj/item/clothing/gloves/mod/update_icon_state()
@@ -155,18 +155,18 @@
 		ru_names = get_ru_names_cached()
 
 	ru_names = list(
-		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name] модели",
-		GENITIVE = ru_names[GENITIVE] + " [control.theme.name] модели",
-		DATIVE = ru_names[DATIVE] + " [control.theme.name] модели",
-		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name] модели",
-		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name] модели",
-		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name] модели"
+		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name]",
+		GENITIVE = ru_names[GENITIVE] + " [control.theme.name]",
+		DATIVE = ru_names[DATIVE] + " [control.theme.name]",
+		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name]",
+		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name]",
+		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name]"
 	)
 
 
 /obj/item/clothing/shoes/mod
 	name = "MOD boots"
-	desc = "Пара стандартных ботинок для модульного костюма."
+	desc = "Пара стандартных ботинок для модульного экзо-костюма."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-boots"
 	base_icon_state = "boots"
@@ -188,12 +188,12 @@
 
 /obj/item/clothing/shoes/mod/get_ru_names()
 	return list(
-		NOMINATIVE = "ботинки модульного костюма",
-		GENITIVE = "ботинок модульного костюма",
-		DATIVE = "ботинкам модульного костюма",
-		ACCUSATIVE = "ботинки модульного костюма",
-		INSTRUMENTAL = "ботинками модульного костюма",
-		PREPOSITIONAL = "ботинках модульного костюма"
+		NOMINATIVE = "ботинки МЭК",
+		GENITIVE = "ботинок МЭК",
+		DATIVE = "ботинкам МЭК",
+		ACCUSATIVE = "ботинки МЭК",
+		INSTRUMENTAL = "ботинками МЭК",
+		PREPOSITIONAL = "ботинках МЭК"
 	)
 
 /obj/item/clothing/shoes/mod/update_icon_state()
@@ -209,10 +209,10 @@
 		ru_names = get_ru_names_cached()
 
 	ru_names = list(
-		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name] модели",
-		GENITIVE = ru_names[GENITIVE] + " [control.theme.name] модели",
-		DATIVE = ru_names[DATIVE] + " [control.theme.name] модели",
-		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name] модели",
-		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name] модели",
-		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name] модели"
+		NOMINATIVE = ru_names[NOMINATIVE] + " [control.theme.name]",
+		GENITIVE = ru_names[GENITIVE] + " [control.theme.name]",
+		DATIVE = ru_names[DATIVE] + " [control.theme.name]",
+		ACCUSATIVE = ru_names[ACCUSATIVE] + " [control.theme.name]",
+		INSTRUMENTAL = ru_names[INSTRUMENTAL] + " [control.theme.name]",
+		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [control.theme.name]"
 	)

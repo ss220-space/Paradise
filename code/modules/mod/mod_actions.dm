@@ -65,7 +65,7 @@
 
 /datum/action/item_action/mod/module
 	name = "Активировать модуль"
-	desc = "Активировать модуль модульного костюма."
+	desc = "Активировать модуль МЭК."
 	button_icon_state = "module"
 
 /datum/action/item_action/mod/module/Trigger(left_click, attack_self)
@@ -76,7 +76,7 @@
 	mod.quick_module(usr)
 
 /datum/action/item_action/mod/panel
-	name = "Панель управления модульного костюма"
+	name = "Панель управления МЭК"
 	desc = "Включить панель управления модульным костюмом."
 	button_icon_state = "panel"
 
