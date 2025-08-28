@@ -29,6 +29,7 @@ SUBSYSTEM_DEF(ticker)
 	var/datum/game_mode/mode = null
 	/// The current pick of lobby music played in the lobby
 	var/login_music
+	var/login_music_initializated = FALSE
 	var/login_music_data
 	var/selected_lobby_music
 	/// List of all minds in the game. Used for objective tracking
@@ -83,7 +84,9 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music_data = list()
-	login_music = choose_lobby_music()
+
+	ASYNC
+		login_music = choose_lobby_music()
 
 	if(!login_music)
 		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
@@ -406,12 +409,14 @@ SUBSYSTEM_DEF(ticker)
 				break
 
 	if(!selected_lobby_music)
+		login_music_initializated = TRUE
 		return
 
 	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
 	if(!ytdl)
 		to_chat(world, span_boldwarning("yt-dlp was not configured."))
 		log_world("Could not play lobby song because yt-dlp is not configured properly, check the config.")
+		login_music_initializated = TRUE
 		return
 
 	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o \"cache/songs/%(id)s.%(ext)s\" --dump-single-json --no-simulate \"[selected_lobby_music]\"")
@@ -427,6 +432,7 @@ SUBSYSTEM_DEF(ticker)
 			to_chat(world, span_boldwarning("yt-dlp JSON parsing FAILED."))
 			log_world(span_boldwarning("yt-dlp JSON parsing FAILED:"))
 			log_world(span_warning("[e]: [stdout]"))
+			login_music_initializated = TRUE
 			return
 		if(data["title"])
 			login_music_data["title"] = data["title"]
@@ -438,7 +444,9 @@ SUBSYSTEM_DEF(ticker)
 	if(errorlevel)
 		to_chat(world, span_boldwarning("yt-dlp failed."))
 		log_world("Could not play lobby song [selected_lobby_music]: [stderr]")
+		login_music_initializated = TRUE
 		return
+	login_music_initializated = TRUE
 	return stdout
 
 
