@@ -103367,7 +103367,6 @@
 "plF" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
-/obj/item/card/id/captains_spare,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = -32
 	},

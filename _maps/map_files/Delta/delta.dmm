@@ -16971,7 +16971,6 @@
 "cag" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
-/obj/item/storage/secure/briefcase/captian,
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
