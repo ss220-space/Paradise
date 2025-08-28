@@ -643,7 +643,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 		if(need_br && (i % 2 == 0))	//notes split
 			temp_name += "<br>"
-		temp_name += "[initial(item_typepath.declent_ru(ACCUSATIVE))][i < required_amount ? ", " : "."]"
+		temp_name += "[initial(item_typepath.name)][i < required_amount ? ", " : "."]"
 
 	return temp_name
 
