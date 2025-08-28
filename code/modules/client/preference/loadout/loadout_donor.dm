@@ -150,21 +150,21 @@
 	cost = 1
 
 /datum/gear/donor/zippoengraved
-	index_name = "Engraved zippo lighter"
+	index_name = "engraved zippo lighter"
 	display_name = "Гравированная зажигалка Зиппо"
 	path = /obj/item/lighter/zippo/engraved
 	donator_tier = 1
 	cost = 1
 
 /datum/gear/donor/zippogold
-	index_name = "Gold engraved zippo lighter"
+	index_name = "gold engraved zippo lighter"
 	display_name = "Золотая зажигалка Зиппо"
 	path =  /obj/item/lighter/zippo/fluff/michael_guess_1
 	donator_tier = 2
 	cost = 1
 
 /datum/gear/donor/zippopurple
-	index_name = "Purple engraved zippo lighter"
+	index_name = "purple engraved zippo lighter"
 	display_name = "Фиолетовая зажигалка Зиппо"
 	path = /obj/item/lighter/zippo/fluff/purple
 	donator_tier = 3
