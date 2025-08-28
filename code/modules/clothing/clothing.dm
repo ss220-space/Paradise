@@ -1266,28 +1266,20 @@ BLIND     // can't see anything
 
 	var/mob/living/carbon/human/owner = usr
 	if(owner.incapacitated() || HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
-		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
+		to_chat(owner, span_notice("Вы не можете изменить стиль этой одежды прямо сейчас!"))
 		return
 
 	if(!can_adjust)
-		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
+		to_chat(owner, span_notice("Вы не можете изменить стиль этой одежды прямо сейчас!"))
 		return
 
 	var/icon/our_icon = onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING]
 	if(sprite_sheets?[owner.dna.species.name])
 		our_icon = sprite_sheets[owner.dna.species.name]
 
-	var/initial_state = replacetext(item_color, "_d", "")
-
-	if(!icon_exists(our_icon, "[initial_state]_d_s"))
-		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
+	if(!icon_exists(our_icon, "[icon_state]_d_s"))
+		to_chat(owner, span_notice("Вы не можете изменить стиль этой одежды прямо сейчас!"))
 		return
-
-	rolled_down = findtext(item_color, "_d")
-	if(rolled_down)
-		item_color = initial_state
-	else
-		item_color = "[initial_state]_d"
 
 	rolled_down = !rolled_down
 	update_equipped_item(update_speedmods = FALSE)

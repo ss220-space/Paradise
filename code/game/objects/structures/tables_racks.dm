@@ -289,6 +289,7 @@
 	I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
 	I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 	item_placed(I)
+	SEND_SIGNAL(I, COMSIG_ITEM_PLACED_ON_TABLE, user, src)
 
 
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
