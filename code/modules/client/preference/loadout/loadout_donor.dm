@@ -152,7 +152,7 @@
 /datum/gear/donor/zippoengraved
 	index_name = "Engraved zippo lighter"
 	display_name = "Гравированная зажигалка Зиппо"
-	path = /obj/item/lighter/zippo
+	path = /obj/item/lighter/zippo/engraved
 	donator_tier = 1
 	cost = 1
 
