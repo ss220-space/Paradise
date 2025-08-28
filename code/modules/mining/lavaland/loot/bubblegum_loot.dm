@@ -242,7 +242,7 @@
 		swing_speed_mod = 2.5, \
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 1 SECONDS, \
-		swing_sound = "chop_swing_heavy" \
+		swing_sound = SFX_CHOP_SWING_HEAVY \
 	)
 
 /obj/item/soulscythe/examine(mob/user)

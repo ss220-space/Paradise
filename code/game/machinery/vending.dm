@@ -79,7 +79,7 @@
 	/// If off, vendor is busy and unusable until current action finishes
 	var/vend_ready = TRUE
 	/// How long vendor takes to vend one item.
-	var/vend_delay = 1 SECONDS
+	var/vend_delay = 0.2 SECONDS
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
 
@@ -1369,7 +1369,6 @@
 					/obj/item/reagent_containers/food/drinks/ice = 9)
 	contraband = list(/obj/item/reagent_containers/food/drinks/tea = 10,
 					  /obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
-	vend_delay = 15
 
 	slogan_list = list(
 		"Над+еюсь, никт+о не попр+осит мен+я о ч+ёртовой кр+ужке ч+ая…",
@@ -1438,7 +1437,6 @@
 	vend_lightmask = "coffee_vend_lightmask"
 
 	item_slot = TRUE
-	vend_delay = 34
 	products = list(/obj/item/reagent_containers/food/drinks/coffee = 25,
 		/obj/item/reagent_containers/food/drinks/tea = 25,
 		/obj/item/reagent_containers/food/drinks/h_chocolate = 25,
@@ -1858,8 +1856,6 @@
 		"Л+учшие сигар+еты с 2150 г+ода!",
 		"Сигар+еты с мн+ожеством нагр+ад!"
 	)
-
-	vend_delay = 34
 
 	icon_state = "cigs_off"
 	panel_overlay = "cigs_panel"
@@ -2559,7 +2555,6 @@
 		"АБРАКАД+АБРА!"
 	)
 
-	vend_delay = 15
 	vend_reply = "Жел+аю вам чуд+есного в+ечера!"
 
 	products = list(/obj/item/clothing/head/wizard = 5,
@@ -2621,7 +2616,6 @@
 		"Зач+ем оставл+ять стиль на произв+ол судьб+ы? Исп+ользуй AutoDrobe!"
 	)
 
-	vend_delay = 15
 	vend_reply = "Спас+ибо за исп+ользование AutoDrobe!"
 	products = list(/obj/item/clothing/suit/chickensuit = 10,
 					/obj/item/clothing/head/chicken = 10,
@@ -2753,6 +2747,7 @@
 					/obj/item/clothing/mask/gas/ghostface = 10,
 					/obj/item/clothing/mask/gas/ghostface/devil = 10,
 					/obj/item/clothing/head/shapka_pepega = 5,
+					/obj/item/clothing/head/carp_hat = 5,
 					/obj/item/clothing/accessory/armguard = 10)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					/obj/item/clothing/head/powdered_wig = 1,
@@ -2904,6 +2899,7 @@
 					/obj/item/clothing/mask/gas/ghostface = 50,
 					/obj/item/clothing/mask/gas/ghostface/devil = 50,
 					/obj/item/clothing/head/shapka_pepega = 50,
+					/obj/item/clothing/head/carp_hat = 50,
 					/obj/item/clothing/accessory/armguard = 50)
 
 	refill_canister = /obj/item/vending_refill/autodrobe
@@ -3383,7 +3379,6 @@
 		"Сигар+еты с мн+ожеством нагр+ад."
 	)
 
-	vend_delay = 34
 
 	icon_state = "cigs_off"
 	panel_overlay = "cigs_panel"
@@ -3508,7 +3503,6 @@
 		"Зач+ем оставл+ять стиль на произв+ол судьб+ы? Исп+ользуйте ClothesMate!"
 	)
 
-	vend_delay = 15
 	vend_reply = "Спас+ибо за исп+ользование ClothesMate!"
 	products = list(/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/fedora = 1,
@@ -3632,7 +3626,6 @@
 		"Пор+адуйте ваш+его вн+утреннего реб+ёнка!"
 	)
 
-	vend_delay = 15
 
 	icon_state = "artvend_off"
 	panel_overlay = "artvend_panel"
@@ -3715,7 +3708,6 @@
 		"Вокс х+очет кр+екер?"
 	)
 
-	vend_delay = 15
 
 	icon_state = "crittercare_off"
 	panel_overlay = "crittercare_panel"
@@ -3815,7 +3807,6 @@
 		"Ну крас+авец!"
 	)
 
-	vend_delay = 15
 	vend_reply = "Спас+ибо за исп+ользование автом+ата-пом+ощника в в+ыборе од+ежды отд+ела!"
 	products = list()
 	contraband = list()
@@ -5419,7 +5410,7 @@
 	)
 
 /obj/machinery/vending/protein
-	name = "Автомат спортивного пит+ания"
+	name = "Автомат спортивного питания"
 	desc = "Автомат самообслуживания, любезно предоставленный корпорацией Donk Co. Исключительная польза!"
 
 	slogan_list = list(
@@ -5445,6 +5436,12 @@
 		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 10,
 		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 10,
 		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 10,
+		/obj/item/reagent_containers/food/drinks/protein/zaza = 1,
+		/obj/item/reagent_containers/food/drinks/protein/cherry = 1,
+		/obj/item/reagent_containers/food/drinks/protein/chocolate = 1,
+		/obj/item/reagent_containers/food/drinks/protein/bananastrawberry = 1,
+		/obj/item/reagent_containers/food/drinks/creatine = 4,
+		/obj/item/reagent_containers/food/drinks/guarana = 12,
 	)
 	contraband = list(
 		/obj/item/reagent_containers/syringe/steroids = 5,
@@ -5454,6 +5451,12 @@
 		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 199,
 		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 249,
 		/obj/item/reagent_containers/syringe/steroids = 149,
+		/obj/item/reagent_containers/food/drinks/protein/zaza = 499,
+		/obj/item/reagent_containers/food/drinks/protein/cherry = 499,
+		/obj/item/reagent_containers/food/drinks/protein/chocolate = 499,
+		/obj/item/reagent_containers/food/drinks/protein/bananastrawberry = 499,
+		/obj/item/reagent_containers/food/drinks/creatine = 349,
+		/obj/item/reagent_containers/food/drinks/guarana = 129,
 	)
 	refill_canister = /obj/item/vending_refill/protein
 

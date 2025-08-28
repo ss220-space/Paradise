@@ -68,7 +68,7 @@
 		(initial(mask.flags_inv_transparent) & HIDEHEADSETS))
 		update_inv_ears()
 
-	sec_hud_set_ID()
+	update_hud_set()
 	update_inv_wear_mask()
 
 
@@ -133,7 +133,7 @@
 		(initial(check_item.flags_inv_transparent) & HIDEGLASSES))
 		update_inv_glasses()
 
-	sec_hud_set_ID()
+	update_hud_set()
 	update_inv_head()
 
 
@@ -265,7 +265,7 @@
 	else if(I == wear_id)
 		wear_id = null
 		if(!QDELETED(src))
-			sec_hud_set_ID()
+			update_hud_set()
 			update_inv_wear_id()
 
 	else if(I == wear_pda)
@@ -388,7 +388,7 @@
 		if(ITEM_SLOT_ID)
 			wear_id = I
 			if(hud_list.len)
-				sec_hud_set_ID()
+				update_hud_set()
 			update_inv_wear_id()
 
 		if(ITEM_SLOT_PDA)

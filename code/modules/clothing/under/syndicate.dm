@@ -105,8 +105,7 @@
 	name = "Black ops coverall"
 	desc = "Прочный комбинезон, созданный для тайных операций в тылу врага. Благодаря кевларовым вставкам, он обеспечивает лёгкую защиту."
 	icon_state = "blackops"
-	item_state = "bops"
-	item_color = "bops"
+	item_state = "blackops"
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15,ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 10, ACID = 0)
 
 /obj/item/clothing/under/syndicate/blackops/get_ru_names()
@@ -123,8 +122,7 @@
 	name = "Black ops coverall"
 	desc = "Стильный комбинезон, но из дешёвого материала. Не предназначен для активного использования в бою."
 	icon_state = "blackops"
-	item_state = "bops"
-	item_color = "bops"
+	item_state = "blackops"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/syndicate/blackops_civ/get_ru_names()

@@ -340,6 +340,12 @@
 
 #define TRAIT_NOT_TURRET_GUN "not_turret_gun"
 
+#define TRAIT_PROTEIN "protein"
+
+#define	TRAIT_STRENGTH_LEVELUP	"strength_levelup"
+
+#define TRAIT_STRENGTH_LEVELDOWN "strength_leveldown"
+
 #define TRAIT_BALD "bald"
 
 #define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
@@ -355,3 +361,5 @@
 /// User will deflect every bola thrown at him
 #define TRAIT_DEFLECT_BOLAS "deflect_bolas"
 
+/// Temporally  trait when target tasered
+#define TRAIT_TASERED "tasered"

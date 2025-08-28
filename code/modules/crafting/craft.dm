@@ -42,16 +42,16 @@
 	requirements_deletion - takes recipe and a user, loops over the recipes reqs var and tries to find everything in the list make by get_environment and delete it/add to parts list, then returns the said list
 */
 
-/datum/personal_crafting/proc/check_contents(datum/crafting_recipe/R, list/contents)
+/proc/check_contents(list/reqs, list/chem_catalysts, list/blacklist, list/contents)
 	contents = contents["other"]
 	main_loop:
-		for(var/A in R.reqs)
-			var/needed_amount = R.reqs[A]
+		for(var/A in reqs)
+			var/needed_amount = reqs[A]
 			for(var/B in contents)
 				if(ispath(B, A))
-					if (R.blacklist.Find(B))
+					if (blacklist.Find(B))
 						continue
-					if(contents[B] >= R.reqs[A])
+					if(contents[B] >= reqs[A])
 						continue main_loop
 					else
 						needed_amount -= contents[B]
@@ -60,12 +60,12 @@
 						else
 							continue
 			return 0
-	for(var/A in R.chem_catalysts)
-		if(contents[A] < R.chem_catalysts[A])
+	for(var/A in chem_catalysts)
+		if(contents[A] < chem_catalysts[A])
 			return 0
 	return 1
 
-/datum/personal_crafting/proc/get_environment(mob/user)
+/proc/get_environment(mob/user)
 	. = list()
 	. += user.r_hand
 	. += user.l_hand
@@ -84,7 +84,7 @@
 		. += user.get_item_by_slot(slot)
 
 
-/datum/personal_crafting/proc/get_surroundings(mob/user)
+/proc/get_surroundings(mob/user)
 	. = list()
 	.["other"] = list() //paths go in here
 	.["toolsother"] = list() // items go in here
@@ -103,8 +103,8 @@
 			.["other"][I.type] += 1
 		.["toolsother"][I] += 1
 
-/datum/personal_crafting/proc/check_tools(mob/user, datum/crafting_recipe/R, list/contents)
-	if(!R.tools.len) //does not run if no tools are needed
+/proc/check_tools(mob/user, list/tools, list/contents)
+	if(!tools.len) //does not run if no tools are needed
 		return TRUE
 	var/list/possible_tools = list()
 	var/list/tools_used = list()
@@ -118,7 +118,7 @@
 
 	possible_tools |= contents["toolsother"] // this add contents to possible_tools
 	main_loop: // checks if all tools found are usable with the recipe
-		for(var/A in R.tools)
+		for(var/A in tools)
 			for(var/obj/item/I in possible_tools)
 				if(A == I.tool_behaviour)
 					tools_used += I
@@ -129,8 +129,8 @@
 			return FALSE
 	return TRUE
 
-/datum/personal_crafting/proc/check_pathtools(mob/user, datum/crafting_recipe/R, list/contents)
-	if(!R.pathtools.len) //does not run if no tools are needed
+/proc/check_pathtools(mob/user, list/pathtools, list/contents)
+	if(!pathtools.len) //does not run if no tools are needed
 		return TRUE
 	var/list/other_possible_tools = list()
 	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
@@ -141,7 +141,7 @@
 
 	other_possible_tools |= contents["other"] // this adds contents to the other_possible_tools
 	main_loop: // checks if all tools found are usable with the recipe
-		for(var/A in R.pathtools)
+		for(var/A in pathtools)
 			for(var/I in other_possible_tools)
 				if(ispath(I,A))
 					continue main_loop
@@ -151,25 +151,25 @@
 /datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(user)
 	var/send_feedback = 1
-	if(!check_contents(R, contents))
+	if(!check_contents(R.reqs, R.chem_catalysts, R.blacklist, contents))
 		return ", missing component."
-	if(!check_tools(user, R, contents))
+	if(!check_tools(user, R.tools, contents))
 		return ", missing tool."
-	if(!check_pathtools(user, R, contents))
+	if(!check_pathtools(user, R.pathtools, contents))
 		return ", missing tool."
 
 	if(!do_after(user, R.time, user))
 		return "."
 	contents = get_surroundings(user)
 
-	if(!check_contents(R, contents))
+	if(!check_contents(R.reqs, R.chem_catalysts, R.blacklist, contents))
 		return ", missing component."
-	if(!check_tools(user, R, contents))
+	if(!check_tools(user, R.tools, contents))
 		return ", missing tool."
-	if(!check_pathtools(user, R, contents))
+	if(!check_pathtools(user, R.pathtools, contents))
 		return ", missing tool."
 
-	var/list/parts = requirements_deletion(R, user)
+	var/list/parts = requirements_deletion(R.reqs, R.blacklist, R.parts, user)
 	if(!parts)
 		return ", missing component."
 
@@ -188,17 +188,17 @@
 			SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
 	return 0
 
-/datum/personal_crafting/proc/requirements_deletion(datum/crafting_recipe/recipe, mob/user)
+/proc/requirements_deletion(list/reqs, list/blacklist, list/parts, mob/user)
 	var/list/surroundings = get_environment(user)
 	var/list/parts_used = list()
 	var/list/reagent_containers_for_deletion = list()
 	var/list/item_stacks_for_deletion = list()
 	for(var/atom/movable/thing in surroundings)
-		if(thing.type in recipe.blacklist)
+		if(thing.type in blacklist)
 			surroundings -= thing
 
-	for(var/thing in recipe.reqs)
-		var/needed_amount = recipe.reqs[thing]
+	for(var/thing in reqs)
+		var/needed_amount = reqs[thing]
 		if(ispath(thing, /datum/reagent))
 			var/datum/reagent/part_reagent = locate(thing) in parts_used
 			if(!part_reagent)
@@ -223,7 +223,7 @@
 					break
 
 			if(needed_amount > 0)
-				stack_trace("While crafting [recipe], some of [thing] went missing (still need [needed_amount])!")
+				stack_trace("While crafting requirements_deletion, some of [thing] went missing (still need [needed_amount])!")
 				continue // ignore the error, and continue crafting for player's benefit
 
 		else if(ispath(thing, /obj/item/stack))
@@ -245,14 +245,14 @@
 					break
 
 			if(needed_amount > 0)
-				stack_trace("While crafting [recipe], some of [thing] went missing (still need [needed_amount])!")
+				stack_trace("While crafting requirements_deletion, some of [thing] went missing (still need [needed_amount])!")
 				continue
 
 		else
 			for(var/i in 1 to needed_amount)
 				var/atom/movable/part_atom = locate(thing) in (surroundings - parts_used)
 				if(!part_atom)
-					stack_trace("While crafting [recipe], the [thing] went missing!")
+					stack_trace("While crafting requirements_deletion, the [thing] went missing!")
 					continue
 				parts_used += part_atom
 
@@ -271,11 +271,11 @@
 		var/amount_to_delete = item_stacks_for_deletion[stack_to_delete]
 		stack_to_delete.use(amount_to_delete)
 
-	// Sort out the used parts into the ones we need to return (denoted by recipe.parts),
-	// and the ones we need to delete (the rest of recipe.reqs)
+	// Sort out the used parts into the ones we need to return (denoted by parts),
+	// and the ones we need to delete (the rest of reqs)
 	var/parts_returned = list()
-	for(var/part_path in recipe.parts)
-		for(var/i in 1 to recipe.parts[part_path])
+	for(var/part_path in parts)
+		for(var/i in 1 to parts[part_path])
 			var/part = locate(part_path) in parts_used
 			if(!part)
 				stack_trace("Part [part_path] went missing")
@@ -331,7 +331,7 @@
 
 		if((R.category != cur_category) || (R.subcategory != cur_subcategory))
 			continue
-		if(check_contents(R, surroundings))
+		if(check_contents(R.reqs, R.chem_catalysts, R.blacklist, surroundings))
 			can_craft += list(build_recipe_data(R))
 		else
 			cant_craft += list(build_recipe_data(R))
