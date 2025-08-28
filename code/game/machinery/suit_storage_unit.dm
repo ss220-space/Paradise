@@ -47,7 +47,7 @@
 	mask_type    = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/rnd
-	name = "science suit storage unit"
+	name = "anomalist suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/rnd
 	storage_type = /obj/item/tank/internals/oxygen
 	mask_type = /obj/item/clothing/mask/gas

@@ -803,7 +803,7 @@
 	sprite_sheets = null
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/science
-	name = "Science Hardsuit Helmet"
+	name = "anomalist hardsuit helmet"
 	desc = "Прототип шлема, разработанный для проведения исследований в опасной среде с пониженным давлением."
 	icon_state = "hardsuit0-rnd"
 	item_state = "hardsuit0-rnd"
@@ -812,17 +812,17 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/science/get_ru_names()
 	return list(
-		NOMINATIVE = "Шлем ИКСа аномалиста",
-		GENITIVE = "Шлема ИКСа аномалиста",
-		DATIVE = "Шлему ИКСа аномалиста",
-		ACCUSATIVE = "Шлем ИКСа аномалиста",
-		INSTRUMENTAL = "Шлемом ИКСа аномалиста",
-		PREPOSITIONAL = "Шлеме ИКСа аномалиста"
+		NOMINATIVE = "шлем ИКСа аномалиста",
+		GENITIVE = "шлема ИКСа аномалиста",
+		DATIVE = "шлему ИКСа аномалиста",
+		ACCUSATIVE = "шлем ИКСа аномалиста",
+		INSTRUMENTAL = "шлемом ИКСа аномалиста",
+		PREPOSITIONAL = "шлеме ИКСа аномалиста"
 	)
 
 /obj/item/clothing/suit/space/hardsuit/rnd
-	name = "Science Hardsuit"
-	desc = "Прототип костюма, защищающего от опасных сред с пониженным давлением. Оснащен броней для работы в огнеопасных и токсичных зонах."
+	name = "anomalist hardsuit"
+	desc = "Прототип костюма, защищающего от опасных сред с пониженным давлением. Оснащён защитой для работы в огнеопасных и токсичных зонах."
 	icon_state = "rnd_hardsuit"
 	item_state = "rnd_hardsuit"
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
