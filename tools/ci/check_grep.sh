@@ -224,6 +224,11 @@ if grep -P '^/*var/' code/**/*.dm; then
 	echo
     st=1
 fi;
+if grep -P '(?<!//)#define FAST_LOAD' code/**/*.dm; then
+    echo -e "${RED}ERROR: commiting uncommented FAST_LOAD define.${NC}"
+	echo
+    st=1
+fi;
 # TODO: Uncomment in the future, when our code are standardized
 # if grep -P '^/[\w/]\S+\(.*(var/|, ?var/.*).*\)' code/**/*.dm; then
 #     echo -e "${RED}ERROR: Changed files contains a proc argument starting with 'var'.${NC}"
