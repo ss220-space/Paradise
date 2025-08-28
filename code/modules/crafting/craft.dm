@@ -151,13 +151,12 @@
 
 /datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/recipe)
 	var/list/contents = get_surroundings(user)
-	var/send_feedback = 1
 	if(!check_contents(recipe.reqs, recipe.chem_catalysts, recipe.blacklist, contents))
 		return ", missing component."
-    
+
 	if(!check_tools(user, recipe.tools, contents))
 		return ", missing tool."
-    
+
 	if(!check_pathtools(user, recipe.pathtools, contents))
 		return ", missing tool."
 
@@ -168,10 +167,10 @@
 
 	if(!check_contents(recipe.reqs, recipe.chem_catalysts, recipe.blacklist, contents))
 		return ", missing component."
-    
+
 	if(!check_tools(user, recipe.tools, contents))
 		return ", missing tool."
-    
+
 	if(!check_pathtools(user, recipe.pathtools, contents))
 		return ", missing tool."
 
