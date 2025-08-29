@@ -311,6 +311,6 @@
 /obj/effect/decal/cleanable/crayon/update_desc()
 	. = ..()
 	if(blood_graffiti)
-		desc = "An odd collection of symbols drawn in what seems to be blood."
+		desc = "Странные символы, нарисованные, похоже, кровью."
 	else
 		desc = initial(desc)

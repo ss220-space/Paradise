@@ -57,6 +57,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_REDCOAT = /obj/item/clothing/gloves/color/white,
 		DYE_SYNDICATE = /obj/item/clothing/gloves/combat,
 		DYE_CENTCOM = /obj/item/clothing/gloves/combat,
+		DYE_BLOOD = /obj/item/clothing/gloves/color/bloodred,
 	),
 	DYE_REGISTRY_BANDANA = list(
 		DYE_RED = /obj/item/clothing/mask/bandana/red,
