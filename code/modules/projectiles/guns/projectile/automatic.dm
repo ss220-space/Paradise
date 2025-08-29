@@ -248,7 +248,6 @@ TODO Use this name and desc for localisation*/
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 1
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
 	burst_size = 3
 	fire_delay = 2
@@ -330,7 +329,6 @@ TODO Use this name and desc for localisation*/
 	origin_tech = "combat=5;materials=1;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/gunshots/1saber.ogg'
-	can_suppress = 0
 	burst_size = 4
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
@@ -348,7 +346,6 @@ TODO Use this name and desc for localisation*/
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1
 	accuracy = GUN_ACCURACY_RIFLE
@@ -371,7 +368,6 @@ TODO Use this name and desc for localisation*/
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = FALSE
 	can_bayonet = TRUE
 	bayonet_x_offset = 26
 	bayonet_y_offset = 10
@@ -398,7 +394,6 @@ TODO Use this name and desc for localisation*/
 	fire_sound = 'sound/weapons/gunshots/bulldog.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
 	burst_size = 1
 	fire_delay = 0
 	actions_types = null
@@ -466,7 +461,6 @@ TODO Use this name and desc for localisation*/
 	fire_sound = 'sound/weapons/gunshots/minotaur.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_in.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_out.ogg'
-	can_suppress = 0
 	burst_size = 3
 	fire_delay = 1.5
 	accuracy = GUN_ACCURACY_SHOTGUN
@@ -498,7 +492,6 @@ TODO Use this name and desc for localisation*/
 	fire_delay = 0
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	burst_size = 2
-	can_suppress = 0
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
@@ -532,7 +525,6 @@ TODO Use this name and desc for localisation*/
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
 	burst_size = 2
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
@@ -556,7 +548,6 @@ TODO Use this name and desc for localisation*/
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
 	burst_size = 1
 	actions_types = null
 	accuracy = GUN_ACCURACY_RIFLE_LASER
@@ -602,7 +593,6 @@ TODO Use this name and desc for localisation*/
 	item_state = "arg"
 	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
 	mag_type = /obj/item/ammo_box/magazine/m52mag
-	can_suppress = 0
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
