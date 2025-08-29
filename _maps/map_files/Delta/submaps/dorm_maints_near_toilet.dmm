@@ -92,6 +92,11 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/carpet/green,
 /area/template_noop)
+"fl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/template_noop)
 "fr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cart,
@@ -1219,6 +1224,10 @@
 	},
 /turf/simulated/wall,
 /area/template_noop)
+"YX" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/template_noop)
 "Zv" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plating,
@@ -1673,7 +1682,7 @@ eA
 yg
 qF
 uB
-MV
+fl
 lc
 lc
 uB
@@ -1689,7 +1698,7 @@ rH
 BE
 Yh
 uB
-uB
+YX
 lc
 lc
 "}
