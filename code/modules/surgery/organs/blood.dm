@@ -67,7 +67,8 @@
 
 /obj/item/organ/external/proc/heal_bleeding(mob/living/user, mob/living/carbon/human/target, bleeding_heal_amount, brute_damage)
 	bleeding_amount = max(0, bleeding_amount - bleeding_heal_amount)
-	take_damage(brute_damage, BRUTE, sound_effect = FALSE)
+	if(brute_damage > 0)
+		target.apply_damage(brute_damage, def_zone = src)
 	if(!bleeding_amount)
 		balloon_alert(user, "кровотечение остановлено")
 		return
