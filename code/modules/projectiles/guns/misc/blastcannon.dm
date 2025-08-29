@@ -99,7 +99,7 @@
 	var/medium = power * 0.5
 	var/light = power
 	user.visible_message("<span class='danger'>[user] opens [bomb] on [user.p_their()] [name] and fires a blast wave at [target]!</span>","<span class='danger'>You open [bomb] on your [name] and fire a blast wave at [target]!</span>")
-	playsound(user, "explosion", 100, TRUE)
+	playsound(user, SFX_EXPLOSION, 100, TRUE)
 	add_attack_logs(user, target, "Blast waved with power [heavy]/[medium]/[light].", ATKLOG_MOST)
 	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
 	BW.preparePixelProjectile(target, get_turf(target), user, params, 0)

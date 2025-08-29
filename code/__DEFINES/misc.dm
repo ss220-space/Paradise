@@ -14,19 +14,6 @@
 #define SIBYL_LETHAL 2
 #define SIBYL_DESTRUCTIVE 3
 
-//Click cooldowns
-#define CLICK_CD_MELEE (0.8 SECONDS)
-#define CLICK_CD_RANGE (0.4 SECONDS)
-#define CLICK_CD_HANDCUFFED (1 SECONDS)
-#define CLICK_CD_TKSTRANGLE (1 SECONDS)
-#define CLICK_CD_POINT (1 SECONDS)
-#define CLICK_CD_RESIST (2 SECONDS)
-#define CLICK_CD_PULLING (0.2 SECONDS)
-#define CLICK_CD_GRABBING (1 SECONDS)
-#define CLICK_CD_CLICK_ABILITY (0.6 SECONDS)
-#define CLICK_CD_RAPID (0.2 SECONDS)
-#define CLICK_CD_LOOK_UP_DOWN (0.5 SECONDS)
-
 /// Amount of time after the rounds starts, that the player disconnect report is issued.
 #define ROUNDSTART_LOGOUT_REPORT_TIME (10 MINUTES)
 
@@ -136,39 +123,40 @@
 #define MFOAM_IRON		2
 
 //Carbon Overlays Indexes/////////
-#define MUTANTRACE_LAYER		45
-#define WING_UNDERLIMBS_LAYER	44
-#define TAIL_UNDERLIMBS_LAYER	43	//Tail split-rendering.
-#define LIMBS_LAYER				42
-#define INTORGAN_LAYER			41
-#define MARKINGS_LAYER			40
-#define UNDERWEAR_LAYER			39
-#define MUTATIONS_LAYER			38
-#define H_DAMAGE_LAYER			37
-#define UNIFORM_LAYER			36
-#define SHOES_LAYER				35
-#define OVER_SHOES_LAYER		34
-#define ID_LAYER				33
-#define GLOVES_LAYER			32
-#define EARS_LAYER				31
-#define SUIT_LAYER				30
-#define BELT_LAYER				29	//Possible make this an overlay of somethign required to wear a belt?
-#define NECK_LAYER				28
-#define SUIT_STORE_LAYER		27
-#define BACK_LAYER				26
-#define HEAD_ACCESSORY_LAYER	25
-#define FHAIR_LAYER				24
-#define GLASSES_LAYER			23
-#define HAIR_LAYER				22	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		21	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		20	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		19	//Select-layer rendering.
-#define WING_LAYER				18
-#define TAIL_LAYER				17	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			16
-#define OVER_MASK_LAYER			15	//Select-layer rendering.
-#define HEAD_LAYER				14
-#define OVER_HEAD_LAYER			13
+#define MUTANTRACE_LAYER		46
+#define WING_UNDERLIMBS_LAYER	45
+#define TAIL_UNDERLIMBS_LAYER	44	//Tail split-rendering.
+#define LIMBS_LAYER				43
+#define INTORGAN_LAYER			42
+#define MARKINGS_LAYER			41
+#define UNDERWEAR_LAYER			40
+#define MUTATIONS_LAYER			39
+#define H_DAMAGE_LAYER			38
+#define UNIFORM_LAYER			37
+#define SHOES_LAYER				36
+#define OVER_SHOES_LAYER		35
+#define ID_LAYER				34
+#define GLOVES_LAYER			33
+#define EARS_LAYER				32
+#define SUIT_LAYER				31
+#define BELT_LAYER				30	//Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER				29
+#define SUIT_STORE_LAYER		28
+#define BACK_LAYER				27
+#define HEAD_ACCESSORY_LAYER	26
+#define FHAIR_LAYER				25
+#define GLASSES_LAYER			24
+#define HAIR_LAYER				23	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		22	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		21	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		20	//Select-layer rendering.
+#define WING_LAYER				19
+#define TAIL_LAYER				18	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			17
+#define OVER_MASK_LAYER			16	//Select-layer rendering.
+#define HEAD_LAYER				15
+#define OVER_HEAD_LAYER			14
+#define MUTANT_EARS_LAYER		13
 #define COLLAR_LAYER			12
 #define HANDCUFF_LAYER			11
 #define LEGCUFF_LAYER			10
@@ -181,7 +169,7 @@
 #define SLEEP_LAYER				3
 #define FROZEN_LAYER			2
 #define SSD_LAYER				1
-#define TOTAL_LAYERS			46
+#define TOTAL_LAYERS			47
 
 ///Access Region Codes///
 #define REGION_ALL			0
@@ -377,27 +365,11 @@
 //Melting Temperatures for various specific objects
 #define GIRDER_MELTING_TEMP 5000
 
-// Area selection defines
-#define AREASELECT_CORNERA "corner A"
-#define AREASELECT_CORNERB "corner B"
-
-//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
-#define MOUSE_OPACITY_TRANSPARENT 0
-#define MOUSE_OPACITY_ICON 1
-#define MOUSE_OPACITY_OPAQUE 2
-
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
 #define DEFIB_TIME_LIMIT (300 SECONDS)
 /// Brain damage starts setting in on the patient after some time left rotting.
 #define DEFIB_TIME_LOSS (60 SECONDS)
-
-//different types of atom colorations
-#define ADMIN_COLOUR_PRIORITY		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
-#define TEMPORARY_COLOUR_PRIORITY	2 //e.g. purple effect of the revenant on a mob, black effect when mob electrocuted
-#define WASHABLE_COLOUR_PRIORITY	3 //color splashed onto an atom (e.g. paint on turf)
-#define FIXED_COLOUR_PRIORITY		4 //color inherent to the atom (e.g. blob color)
-#define COLOUR_PRIORITY_AMOUNT 4 //how many priority levels there are.
 
 //Cleaning tool strength
 // 1 is also a valid cleaning strength but completely unused so left undefined

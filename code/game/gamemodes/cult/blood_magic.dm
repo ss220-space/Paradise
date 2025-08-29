@@ -386,12 +386,12 @@
 	var/datum/action/innate/cult/blood_spell/source
 	var/max_charges
 
-/obj/item/melee/blood_magic/New(loc, spell)
-	if(has_source)
+/obj/item/melee/blood_magic/Initialize(mapload, spell)
+	. = ..()
+	if(spell && has_source)
 		source = spell
 		uses = source.charges
 		health_cost = source.health_cost
-	..()
 
 /obj/item/melee/blood_magic/Destroy()
 	if(has_source && !QDELETED(source))
@@ -447,8 +447,10 @@
 	if(!isliving(target) || !proximity)
 		return
 	var/mob/living/L = target
+
 	if(iscultist(target))
 		return
+
 	user.visible_message(	span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"), \
 							span_cultitalic("You attempt to stun [L] with the spell!"))
 
@@ -462,8 +464,9 @@
 		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
 		// These are in life cycles, so double the time that's stated.
 		L.Knockdown(3 SECONDS)
-		L.apply_damage(30, STAMINA)
-		L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+		L.apply_damage(55, STAMINA)
+		if(!ismindshielded(L))
+			L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 		L.flash_eyes(1, TRUE)
 		if(issilicon(target))
 			var/mob/living/silicon/S = L

@@ -74,7 +74,7 @@
 	var/matter_type = /obj/item/rcd_ammo
 	var/matter_type_large = /obj/item/rcd_ammo/large
 
-/obj/item/rcd/Initialize()
+/obj/item/rcd/Initialize(mapload)
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
@@ -447,7 +447,7 @@
  * Called in `/obj/item/rcd/proc/detonate_pulse()` via callback.
  */
 /obj/item/rcd/proc/detonate_pulse_explode()
-	explosion(src, 0, 0, 3, 1, flame_range = 1, cause = "AI detonate RCD")
+	explosion(src, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, flame_range = 1, adminlog = TRUE, cause = "AI detonate RCD")
 	qdel(src)
 
 /obj/item/rcd/preloaded
@@ -461,7 +461,7 @@
 	matter = RCD_MATTER_500
 	canRwall = TRUE
 
-/obj/item/rcd/combat/Initialize()
+/obj/item/rcd/combat/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 

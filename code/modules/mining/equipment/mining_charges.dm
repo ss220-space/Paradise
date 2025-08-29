@@ -31,7 +31,7 @@
 	if(timer_off)
 		. += span_notice("Шахтёрский заряд подключён к детонатору.")
 
-/obj/item/grenade/plastic/miningcharge/Initialize()
+/obj/item/grenade/plastic/miningcharge/Initialize(mapload)
 	. = ..()
 	image_overlay = mutable_appearance(icon, "[icon_state]_active", ON_EDGED_TURF_LAYER)
 
@@ -126,7 +126,7 @@
 	else
 		location = get_atom_on_turf(src)
 	if(location)
-		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3], cause = src)
+		explosion(location, devastation_range = boom_sizes[1], heavy_impact_range = boom_sizes[2], light_impact_range = boom_sizes[3], cause = src)
 		location.ex_act(2, target)
 	if(istype(target, /mob))
 		var/mob/M = target
@@ -208,7 +208,7 @@
 			return
 		charge.override_safety()
 		visible_message(span_warning("Из [declent_ru(GENITIVE)] летят искры!"), span_notice("Вы перегружаете [declent_ru(ACCUSATIVE)], отключая его защиту."))
-		playsound(src, "sparks", 50, TRUE)
+		playsound(src, SFX_SPARKS, 50, TRUE)
 		charges--
 		if(charges <= 0)
 			to_chat(user , span_warning("Внутренняя батарея [declent_ru(GENITIVE)], предназначенная для перегрузки шахтёрских зарядов, разрядилась!"))

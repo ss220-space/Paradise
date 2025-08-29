@@ -12,7 +12,7 @@
 	freqlock = TRUE
 	translate_binary = TRUE
 
-/obj/item/radio/headset/ninja/Initialize()
+/obj/item/radio/headset/ninja/Initialize(mapload)
 	. = ..()
 	set_frequency(NINJA_FREQ)
 

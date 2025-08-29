@@ -128,7 +128,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "chop_swing_heavy" \
+		swing_sound = SFX_CHOP_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
@@ -160,7 +160,7 @@
 		INSTRUMENTAL = "костяным топором",
 		PREPOSITIONAL = "костяном топоре"
 	)
-	
+
 
 /obj/item/twohanded/fireaxe/boneaxe/update_icon_state()
 	icon_state = "bone_axe[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -197,7 +197,7 @@
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "chop_swing_heavy" \
+		swing_sound = SFX_CHOP_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
@@ -238,7 +238,7 @@
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "chop_swing_heavy" \
+		swing_sound = SFX_CHOP_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/fireaxe/energized/Destroy()
@@ -300,7 +300,7 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
 	needs_permit = TRUE
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
 
 
 /obj/item/twohanded/dualsaber/Initialize(mapload)
@@ -317,7 +317,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0, \
 		requires_wielded = TRUE, \
-		swing_sound = "double_energy_swing" \
+		swing_sound = SFX_DOUBLE_ENERGY_SWING \
 	)
 
 /obj/item/twohanded/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
@@ -710,7 +710,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "chainsaw_swing" \
+		swing_sound = SFX_CHAINSAW_SWING \
 	)
 
 
@@ -760,7 +760,7 @@
 /obj/item/twohanded/chainsaw
 	icon_state = "chainsaw0"
 	name = "Chainsaw"
-	desc = "Perfect for felling trees or fellow spacemen."
+	desc = "Идеально чтобы рубить деревья или ваших коллег."
 	force = 15
 	throwforce = 15
 	throw_speed = 1
@@ -777,6 +777,15 @@
 	wielded = FALSE
 	var/datum/looping_sound/chainsaw/soundloop
 
+/obj/item/twohanded/chainsaw/get_ru_names()
+	return list(
+		NOMINATIVE = "бензопила",
+		GENITIVE = "бензопилы",
+		DATIVE = "бензопиле",
+		ACCUSATIVE = "бензопилу",
+		INSTRUMENTAL = "бензопилой",
+		PREPOSITIONAL = "бензопиле"
+	)
 
 /obj/item/twohanded/chainsaw/Initialize(mapload)
 	. = ..()
@@ -792,7 +801,7 @@
 		afterswing_slowdown = 0.3, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "chainsaw_swing" \
+		swing_sound = SFX_CHAINSAW_SWING \
 	)
 
 
@@ -825,7 +834,17 @@
 		return .
 
 	if(!isrobot(target))
-		target.Weaken(2 SECONDS)
+		target.Knockdown(2 SECONDS)
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/amputee = target
+	var/obj/item/organ/external/target_limb = amputee.get_organ(user.zone_selected)
+	var/damage_cap = 60
+	if(target_limb == BODY_ZONE_HEAD)
+		damage_cap = 85
+	if(!(target_limb.brute_dam >= damage_cap))
+		return
+	target_limb.droplimb()
 
 
 // SINGULOHAMMER
@@ -861,7 +880,7 @@
 		afterswing_slowdown = 0.3, \
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/singularityhammer/Destroy()
@@ -948,7 +967,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
@@ -1009,7 +1028,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/knighthammer/Destroy()
@@ -1089,7 +1108,7 @@
 	light_range = 3
 	light_power = 6
 	siemens_coefficient = 0
-	light_color = COLOR_SOFT_RED
+	light_color = LIGHT_COLOR_FLARE
 	gender = PLURAL
 
 /obj/item/twohanded/pitchfork/demonic/get_ru_names()
@@ -1241,7 +1260,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = "blunt_swing_heavy" \
+		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
 /obj/item/twohanded/sechammer/update_icon_state()

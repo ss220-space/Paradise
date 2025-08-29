@@ -3442,7 +3442,7 @@
 "hS" = (
 /obj/structure/table/reinforced,
 /obj/item/folder,
-/obj/item/suppressor,
+/obj/item/gun_module/muzzle/suppressor,
 /obj/item/clothing/ears/earmuffs,
 /obj/item/clothing/ears/earmuffs,
 /obj/effect/decal/cleanable/dirt,

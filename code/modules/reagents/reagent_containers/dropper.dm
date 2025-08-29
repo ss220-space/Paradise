@@ -5,14 +5,6 @@
 /obj/item/reagent_containers/dropper
 	name = "dropper"
 	desc = "Пипетка, используемая для точного вливания небольших объёмов вещества в виде капель."
-	ru_names = list(
-        NOMINATIVE = "пипетка",
-        GENITIVE = "пипетки",
-        DATIVE = "пипетке",
-        ACCUSATIVE = "пипетку",
-        INSTRUMENTAL = "пипеткой",
-        PREPOSITIONAL = "пипетке"
-	)
 	gender = FEMALE
 	icon_state = "dropper"
 	item_state = "dropper"
@@ -21,6 +13,15 @@
 	volume = 5
 	pass_open_check = TRUE
 
+/obj/item/reagent_containers/dropper/get_ru_names()
+	return list(
+        NOMINATIVE = "пипетка",
+        GENITIVE = "пипетки",
+        DATIVE = "пипетке",
+        ACCUSATIVE = "пипетку",
+        INSTRUMENTAL = "пипеткой",
+        PREPOSITIONAL = "пипетке"
+	)
 
 /obj/item/reagent_containers/dropper/update_icon_state()
 	icon_state = "[initial(icon_state)][reagents.total_volume ? "1" : ""]"
@@ -43,7 +44,7 @@
 		if(!reagents.total_volume)
 			return
 		if(user != C)
-			visible_message(span_danger("[user] начина[pluralize_ru(user.gender, "ет", "ют")] капать что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
+			user.visible_message(span_danger("[user] начина[pluralize_ru(user.gender, "ет", "ют")] капать что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
 			if(!do_after(user, 3 SECONDS, C, NONE))
 				return
 		if(ishuman(target))
@@ -60,7 +61,7 @@
 					safe_thing = H.head
 
 			if(safe_thing)
-				visible_message(span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся капнуть что-то в глаза [C], используя [declent_ru(ACCUSATIVE)], но [genderize_ru(user.gender, "ему", "ей", "ему", "им")] не удаётся!"))
+				user.visible_message(span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся капнуть что-то в глаза [C], используя [declent_ru(ACCUSATIVE)], но [genderize_ru(user.gender, "ему", "ей", "ему", "им")] не удаётся!"))
 
 				reagents.reaction(safe_thing, REAGENT_TOUCH)
 				to_transfer = reagents.remove_any(amount_per_transfer_from_this)
@@ -68,7 +69,7 @@
 				to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[declension_ru(to_transfer, "у", "ы", "")] вещества, используя [declent_ru(ACCUSATIVE)]."))
 				return
 
-		visible_message(span_danger("[user] закапыва[pluralize_ru(user.gender, "ет", "ют")] что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_danger("[user] закапыва[pluralize_ru(user.gender, "ет", "ют")] что-то в глаза [C], используя [declent_ru(ACCUSATIVE)]!"))
 		reagents.reaction(C, REAGENT_TOUCH)
 
 		var/list/injected = list()
@@ -112,7 +113,12 @@
 /obj/item/reagent_containers/dropper/cyborg
 	name = "Industrial Dropper"
 	desc = "Пипетка увеличенного объёма, используемая для точного вливания небольших объёмов вещества в виде капель."
-	ru_names = list(
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+	volume = 10
+
+/obj/item/reagent_containers/dropper/cyborg/get_ru_names()
+	return list(
         NOMINATIVE = "промышленная пипетка",
         GENITIVE = "промышленной пипетки",
         DATIVE = "промышленной пипетке",
@@ -120,14 +126,17 @@
         INSTRUMENTAL = "промышленной пипеткой",
         PREPOSITIONAL = "промышленной пипетке"
 	)
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-	volume = 10
 
 /obj/item/reagent_containers/dropper/precision
 	name = "pipette"
 	desc = "Высокоточная пипетка уменьшенного объёма, используемая для работы с малыми объёмами вещества. Обычно применяются в биологии и химии."
-	ru_names = list(
+	icon_state = "pipette"
+	amount_per_transfer_from_this = 1
+	possible_transfer_amounts = list(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
+	volume = 1
+
+/obj/item/reagent_containers/dropper/precision/get_ru_names()
+	return list(
         NOMINATIVE = "микропипетка",
         GENITIVE = "микропипетки",
         DATIVE = "микропипетке",
@@ -135,10 +144,6 @@
         INSTRUMENTAL = "микропипеткой",
         PREPOSITIONAL = "микропипетке"
 	)
-	icon_state = "pipette"
-	amount_per_transfer_from_this = 1
-	possible_transfer_amounts = list(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
-	volume = 1
 
 //Syndicate item. Virus transmitting mini hypospray
 /obj/item/reagent_containers/dropper/precision/viral_injector

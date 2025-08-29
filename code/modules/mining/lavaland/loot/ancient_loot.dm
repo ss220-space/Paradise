@@ -23,7 +23,7 @@
 	for(var/res in rare_ore)
 		new res(src, rand(10, 15))
 
-/obj/structure/closet/crate/necropolis/ancient/ex_act(severity)
+/obj/structure/closet/crate/necropolis/ancient/ex_act(severity, target)
 	return
 
 /obj/structure/closet/crate/necropolis/ancient/crusher

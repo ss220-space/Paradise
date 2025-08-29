@@ -1,7 +1,11 @@
 /obj/item/tome
 	name = "arcane tome"
 	desc = "An old, dusty tome with frayed edges and a sinister-looking cover."
+	icon = 'icons/obj/cult.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "tome"
+	item_state = "book"
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
@@ -47,7 +51,7 @@
 		swing_speed_mod = 2, \
 		afterswing_slowdown = 0.25, \
 		slowdown_duration = 0.75 SECONDS, \
-		swing_sound = "blade_swing_heavy" \
+		swing_sound = SFX_BLADE_SWING_HEAVY \
 	)
 
 
@@ -88,16 +92,27 @@
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
-	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Will not hit fellow cultists."
+	desc = "Тяжёлая бола, наполненная тёмной магией. При попадании она опрокинет и замедлит вашу цель, но не повлияет на других культистов."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
-	breakout_time = 45
+	breakout_time = 4 SECONDS
 	knockdown_amt = 2 SECONDS
+
+
+/obj/item/restraints/legcuffs/bola/cult/get_ru_names()
+	return list(
+		NOMINATIVE = "руническая бола",
+		GENITIVE = "рунической болы",
+		DATIVE = "рунической боле",
+		ACCUSATIVE = "руническую болу",
+		INSTRUMENTAL = "рунической болой",
+		PREPOSITIONAL = "рунической боле"
+	)
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
-		hit_atom.visible_message(span_warning("[src] bounces off of [hit_atom], as if repelled by an unseen force!"))
+		hit_atom.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] отскакивает от [hit_atom.declent_ru(GENITIVE)], отброшенная невидимой силой!"))
 		return
 	. = ..()
 
@@ -431,7 +446,7 @@
 		uses--
 		var/turf/destination = pick(turfs)
 		update_icon(UPDATE_ICON_STATE)
-		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
@@ -445,7 +460,7 @@
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	else
 		to_chat(C, span_danger("The veil cannot be torn here!"))

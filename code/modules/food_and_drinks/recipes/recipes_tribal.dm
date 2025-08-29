@@ -77,7 +77,7 @@
 	items = list(
 		/obj/item/kitchen/knife/combat/survival/bone,
 		/obj/item/organ/internal/heart,
-		/obj/item/organ/internal/heart/unathi,
+		/obj/item/organ/internal/heart,
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/cure_curse
 

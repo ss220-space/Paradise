@@ -13,18 +13,18 @@
 		if(client.handle_spam_prevention(msg, MUTE_PRAY, OOC_COOLDOWN))
 			return
 
-	var/image/cross = image('icons/obj/storage.dmi',"bible")
+	var/image/cross = image('icons/obj/library.dmi',"bible")
 	var/font_color = "purple"
 	var/prayer_type = "PRAYER"
 	var/deity
 	if(job == JOB_TITLE_CHAPLAIN)
 		if(SSticker && SSticker.Bible_deity_name)
 			deity = SSticker.Bible_deity_name
-		cross = image('icons/obj/storage.dmi',"kingyellow")
+		cross = image('icons/obj/library.dmi',"bible_kingyellow")
 		font_color = "blue"
 		prayer_type = "CHAPLAIN PRAYER"
 	else if(iscultist(usr))
-		cross = image('icons/obj/storage.dmi',"tome")
+		cross = image('icons/obj/cult.dmi',"tome")
 		font_color = "red"
 		prayer_type = "CULTIST PRAYER"
 		deity = SSticker.cultdat.entity_name
@@ -40,7 +40,7 @@
 				SEND_SOUND(X, sound('sound/items/PDA/ambicha4-short.ogg'))
 	to_chat(usr, "Your prayers have been received by the gods.")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Pray") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Pray")
 
 /proc/Centcomm_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))

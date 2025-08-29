@@ -32,12 +32,12 @@
 /obj/projectile/magic/fireball
 	name = "bolt of fireball"
 	ru_names = list(
-		NOMINATIVE = "фаербол",
-		GENITIVE = "фаербола",
-		DATIVE = "фаерболу",
-		ACCUSATIVE = "фаербол",
-		INSTRUMENTAL = "фаерболом",
-		PREPOSITIONAL = "фаерболе"
+		NOMINATIVE = "огненный шар",
+		GENITIVE = "огненного шара",
+		DATIVE = "огненному шару",
+		ACCUSATIVE = "огненный шар",
+		INSTRUMENTAL = "огненным шаром",
+		PREPOSITIONAL = "огненном шаре"
 	)
 	icon_state = "fireball"
 	damage = 10
@@ -82,7 +82,7 @@
 /obj/projectile/magic/fireball/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
 	var/turf/T = get_turf(target)
-	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = src)
+	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, adminlog = FALSE, flame_range = exp_fire, cause = src)
 	if(!ismob(target)) //multiple flavors of pain
 		return
 	var/mob/living/M = target

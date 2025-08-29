@@ -19,7 +19,7 @@
 /mob/living/carbon/AIize()
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
-	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+	for(var/obj/item/check as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		drop_item_ground(check, force = TRUE)
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
@@ -65,7 +65,7 @@
 /mob/living/carbon/human/proc/Robotize(cell_type = null, connect_to_default_AI = TRUE, mob/living/silicon/ai/AI = null)
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
-	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+	for(var/obj/item/check as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		drop_item_ground(check, force = TRUE)
 
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
@@ -127,7 +127,7 @@
 /mob/living/carbon/human/proc/corgize()
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
-	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+	for(var/obj/item/check as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		drop_item_ground(check, force = TRUE)
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
@@ -148,7 +148,7 @@
 
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
-	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+	for(var/obj/item/check as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		drop_item_ground(check, force = TRUE)
 
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
@@ -183,7 +183,7 @@
 /mob/living/carbon/human/proc/paize(name, bespai)
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
-	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+	for(var/obj/item/check as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		drop_item_ground(check, force = TRUE)
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
@@ -213,7 +213,7 @@
 	if(stat == DEAD)
 		return
 
-	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+	for(var/obj/item/check as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		drop_item_ground(check, force = TRUE)
 
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
