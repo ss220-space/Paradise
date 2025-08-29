@@ -55580,7 +55580,7 @@
 	c_tag = "Locker Room South";
 	dir = 1
 	},
-/obj/structure/closet/wardrobe/xenos,
+/obj/structure/closet/wardrobe/black,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -58556,6 +58556,13 @@
 	icon_state = "asteroid"
 	},
 /area/hydroponics)
+"itu" = (
+/obj/structure/closet/wardrobe/xenos,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/crew_quarters/locker)
 "itv" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
@@ -62522,7 +62529,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/light,
-/obj/structure/closet/wardrobe/black,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -73143,6 +73150,22 @@
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
+"maV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/floor/plating,
+/area/maintenance/starboard)
 "maX" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -85294,6 +85317,15 @@
 	icon_state = "neutralfull"
 	},
 /area/maintenance/consarea_virology)
+"oLR" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/crew_quarters/locker)
 "oLY" = (
 /obj/machinery/atmospherics/unary/tank/oxygen{
 	dir = 4
@@ -89321,7 +89353,8 @@
 /area/maintenance/fpmaint)
 "pGu" = (
 /obj/machinery/door/airlock{
-	name = "Unisex Showers"
+	name = "Unisex Showers";
+	id_tag = "showers"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -91323,6 +91356,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
+"qcw" = (
+/obj/machinery/shower{
+	dir = 8;
+	tag = "icon-shower (WEST)"
+	},
+/obj/structure/curtain/open/shower,
+/obj/machinery/door_control{
+	id = "showers";
+	name = "Door Bolt Control";
+	normaldoorcontrol = 1;
+	pixel_x = 24;
+	specialfunctions = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/crew_quarters/locker/locker_toilet)
 "qcz" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -98537,6 +98587,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/processing)
+"rGy" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall,
+/area/medical/psych)
 "rGz" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
@@ -124842,6 +124901,11 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/medbay)
+"xHP" = (
+/obj/structure/sign/nosmoking_2,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/dorm_maints_near_toilet,
+/turf/simulated/wall/r_wall,
+/area/medical/biostorage)
 "xHR" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -171023,7 +171087,7 @@ dVM
 lnH
 wvd
 cxn
-ebt
+qcw
 cyw
 ebt
 xzg
@@ -171798,12 +171862,12 @@ fMg
 tIY
 bJn
 mdx
-xzg
+rGy
 xzg
 xzg
 xzg
 dMy
-dOF
+xHP
 dXO
 kwr
 cVH
@@ -174110,7 +174174,7 @@ eCU
 cti
 sDy
 vSD
-cAg
+eNk
 cnP
 jdn
 prR
@@ -174625,12 +174689,12 @@ fcN
 xDf
 vSD
 jrh
+oLR
 cnP
 cnP
 cnP
 cnP
-cnP
-daS
+maV
 xWh
 rpb
 fUO
@@ -175138,7 +175202,7 @@ fHj
 tzL
 tEg
 vSD
-eNk
+itu
 cnP
 icS
 vAa
