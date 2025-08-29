@@ -125,7 +125,7 @@
 		balloon_alert(usr, "не получилось!")
 		return FALSE
 	var/mob/living/human = usr
-	balloon_alert(usr, "свернуто")
+	usr.balloon_alert(usr, "свернуто")
 	placed_on_table = FALSE
 	anchored = FALSE
 	layer = initial(layer)
