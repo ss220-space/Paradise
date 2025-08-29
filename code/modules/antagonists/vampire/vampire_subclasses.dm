@@ -39,6 +39,10 @@
 			vamp.add_ability(thing)
 
 
+/datum/vampire_subclass/proc/on_remove(datum/antagonist/vampire/vamp)
+	return
+
+
 /datum/vampire_subclass/proc/add_full_power_abilities(datum/antagonist/vampire/vamp)
 	for(var/thing in fully_powered_abilities)
 		vamp.add_ability(thing)
@@ -119,6 +123,17 @@
 		thrall.current?.adjustBruteLoss(-3)
 		thrall.current?.adjustFireLoss(-3)
 		thrall.current?.adjustOxyLoss(-5)
+
+
+/datum/vampire_subclass/gargantua/add_subclass_ability(datum/antagonist/vampire/vamp)
+	. = ..()
+	ADD_TRAIT(vamp.owner.current, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
+	SEND_SIGNAL(vamp.owner.current, COMSIG_STRENGTH_LEVEL_UP, 5)
+
+
+/datum/vampire_subclass/gargantua/on_remove(datum/antagonist/vampire/vamp)
+	REMOVE_TRAIT(vamp.owner.current, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
+
 
 /datum/vampire_subclass/bestia
 	name = "bestia"

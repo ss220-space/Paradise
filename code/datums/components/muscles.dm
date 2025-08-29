@@ -38,6 +38,7 @@
 	RegisterSignal(parent, COMSIG_GET_THROW_RANGE_DELTAS, PROC_REF(get_throw_range_deltas))
 	RegisterSignal(parent, COMSIG_GET_BOLA_MODIFIERS, PROC_REF(get_bolas_time_modifier))
 	RegisterSignal(parent, COMSIG_GET_HUNGER_MODS, PROC_REF(get_hunger_mod))
+	RegisterSignal(parent, COMSIG_STRENGTH_LEVEL_UP, PROC_REF(strength_level_up))
 
 
 /datum/component/muscles/UnregisterFromParent()
@@ -56,7 +57,8 @@
 		COMSIG_GET_THROW_SPEED_MODIFIERS,
 		COMSIG_GET_THROW_RANGE_DELTAS,
 		COMSIG_GET_BOLA_MODIFIERS,
-		COMSIG_GET_HUNGER_MODS
+		COMSIG_GET_HUNGER_MODS,
+		COMSIG_STRENGTH_LEVEL_UP
 	))
 
 /datum/component/muscles/proc/update_strength()
@@ -87,6 +89,13 @@
 			break
 
 		usable_strength_level = usable_strength_level.prev_level
+
+
+/datum/component/muscles/proc/strength_level_up(user, new_level)
+	SIGNAL_HANDLER
+	while(real_strength_level.level_num < new_level)
+		strength_points = 0
+		real_strength_level = new real_strength_level.next_level()
 
 
 /datum/component/muscles/proc/get_strength_list(user, list/strength_list)
