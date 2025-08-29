@@ -24,10 +24,14 @@
 
 /datum/status_effect/his_grace/on_apply()
 	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	ADD_TRAIT(owner, TRAIT_DEFLECT_BOLAS, HIS_GRACE_TRAIT)
+	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
 	return ..()
 
 /datum/status_effect/his_grace/on_remove()
 	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	REMOVE_TRAIT(owner, TRAIT_DEFLECT_BOLAS, HIS_GRACE_TRAIT)
+	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
 
 /datum/status_effect/his_grace/tick(seconds_between_ticks)
 	var/mob/living/carbon/human/human = owner
@@ -711,7 +715,6 @@
 	var/datum/antagonist/vampire/V = human_owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
 		bonus_damage_applied = TRUE
-		ADD_TRAIT(human_owner, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
 		human_owner.physiology.punch_damage_low += 14
 		human_owner.physiology.punch_damage_high += 14
 		human_owner.physiology.punch_stun_threshold += 10	//higher chance to stun but not 100%
@@ -732,7 +735,6 @@
 
 	if(bonus_damage_applied)
 		bonus_damage_applied = FALSE
-		REMOVE_TRAIT(human_owner, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
 		human_owner.physiology.punch_damage_low -= 14
 		human_owner.physiology.punch_damage_high -= 14
 		human_owner.physiology.punch_stun_threshold -= 10

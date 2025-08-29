@@ -35,7 +35,7 @@
 	matter_type = /obj/item/rcd_ammo/syndicate
 	matter_type_large = /obj/item/rcd_ammo/syndicate/large
 
-/obj/item/rcd/syndicate/Initialize()
+/obj/item/rcd/syndicate/Initialize(mapload)
 	. = ..()
 	if(!length(syndie_rcd_door_types))
 		syndie_rcd_door_types = list(

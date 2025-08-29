@@ -35,8 +35,8 @@
 	var/static/list/pill_bottle_wrappers = list(
 		COLOR_RED_LIGHT = "Red",
 		COLOR_GREEN = "Green",
-		COLOR_PALE_BTL_GREEN = "Pale Green",
-		COLOR_CYAN_BLUE = "Light Blue",
+		COLOR_IRISH_GREEN = "Irish Green",
+		COLOR_DARK_CYAN = "Dark Cyan",
 		COLOR_TEAL = "Teal",
 		COLOR_YELLOW = "Yellow",
 		COLOR_ORANGE = "Orange",
@@ -102,13 +102,13 @@
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
 
-/obj/machinery/chem_master/ex_act(severity)
-	if(severity < 3)
+/obj/machinery/chem_master/ex_act(severity, target)
+	if(severity > EXPLODE_LIGHT)
 		if(beaker)
-			beaker.ex_act(severity)
+			beaker.ex_act(severity, target)
 		if(loaded_pill_bottle)
-			loaded_pill_bottle.ex_act(severity)
-		..()
+			loaded_pill_bottle.ex_act(severity, target)
+		return ..()
 
 /obj/machinery/chem_master/handle_atom_del(atom/A)
 	..()

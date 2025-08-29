@@ -24,7 +24,7 @@
 	desc = "Консоль, используемая для приема запросов на изготовление экзоскелетов."
 	icon_screen = "robo_ntos_roboquest"
 	icon_keyboard = "rd_key"
-	light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_LAVENDER
 	/// Print order for quests
 	var/print_delayed = FALSE
 	/// Current interface theme
@@ -123,7 +123,7 @@
 	if(!emagged)
 		emagged = TRUE
 		atom_say("System override detected. Instant mech teleportation is available.")
-		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 
 /obj/machinery/computer/roboquest/proc/check_pad()

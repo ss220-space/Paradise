@@ -166,7 +166,7 @@
 
 //Сейф с рандомными документами
 
-/obj/structure/safe/floor/random_documents/Initialize()
+/obj/structure/safe/floor/random_documents/Initialize(mapload)
 	var/doc_spawn = pick(list(/obj/item/documents, /obj/item/documents/nanotrasen, /obj/item/documents/syndicate, /obj/item/documents/syndicate/yellow/trapped))
 	new doc_spawn(loc)
 	return ..()

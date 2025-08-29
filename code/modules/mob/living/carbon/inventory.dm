@@ -65,6 +65,7 @@
 	else if(handcuffed)
 		throw_alert(ALERT_HANDCUFFED, /atom/movable/screen/alert/restrained/handcuffed, new_master = handcuffed)
 		ADD_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
+		cuff_breakout_attempts = 0
 
 	update_hands_HUD()
 	update_inv_handcuffed()
@@ -93,36 +94,77 @@
 
 
 /// General proc to resist passed item.
-/mob/living/carbon/proc/cuff_resist(obj/item/I, cuff_break = FALSE)
+/mob/living/carbon/proc/cuff_resist(obj/item/cuffs, cuff_break = FALSE)
 	. = FALSE
-	var/breakout_time = cuff_break ? 5 SECONDS : I.breakout_time
+	var/breakout_time = cuff_break ? 5 SECONDS : cuffs.breakout_time
+	var/breakout_mod = 1
 	var/list/breakouttime_modifiers = list()
 	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
 	for(var/mod in breakouttime_modifiers)
-		breakout_time *= mod
+		breakout_mod *= mod
+
+	breakout_time *= breakout_mod
+	var/breakout_iter = (5 SECONDS) * breakout_mod
+
+	var/is_processed = LAZYACCESS(do_afters, src)
 
 	if(cuff_break)
-		visible_message(
-			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся сломать [I.declent_ru(ACCUSATIVE)]!"),
-			span_notice("Вы пытаетесь сломать [I.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
-		)
-		if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-			. = clear_cuffs(I, cuff_break)
+		if(is_processed)
+			visible_message(
+				span_warning("[name] перестал[genderize_ru(gender, "", "а", "о", "и")] пытаться сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы перестали пытаться сломать [cuffs.declent_ru(ACCUSATIVE)]."),
+			)
 		else
-			to_chat(src, span_warning("Вам не удалось сломать [I.declent_ru(ACCUSATIVE)]!"))
+			visible_message(
+				span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы пытаетесь сломать [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
+			)
+		if(do_after(src, breakout_time, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
+			cancel_on_max = TRUE, cancel_message = ""))
+			. = clear_cuffs(cuffs, cuff_break)
+		else
+			balloon_alert(src, "не вышло снять [cuffs.declent_ru(ACCUSATIVE)]!!")
+
+	else if(istype(cuffs, /obj/item/restraints/handcuffs))
+		if(is_processed)
+			visible_message(
+				span_warning("[name] перестал[genderize_ru(gender, "", "а", "о", "и")] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы перестали пытаться снять [cuffs.declent_ru(ACCUSATIVE)]."),
+			)
+		else
+			balloon_alert(src, "попытка снять [cuffs.declent_ru(ACCUSATIVE)]...")
+
+		while(do_after(src, breakout_iter, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
+			cancel_on_max = TRUE, cancel_message = ""))
+			cuff_breakout_attempts++
+			if(!handcuffed) //if someone uncuffs us
+				break
+			if(cuff_breakout_attempts * breakout_iter >= breakout_time)
+				. = clear_cuffs(cuffs, cuff_break)
+				break
+			else if(prob(4))
+				visible_message(span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся снять [cuffs.declent_ru(ACCUSATIVE)]!"))
+
 	else
-		visible_message(
-			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся снять [I.declent_ru(ACCUSATIVE)]!"),
-			span_notice("Вы пытаетесь снять [I.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakout_time / 10] секунд[declension_ru(breakout_time / 10, "у", "ы", "")]."),
-		)
-		if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-			. = clear_cuffs(I, cuff_break)
+		if(is_processed)
+			visible_message(
+				span_warning("[name] перестал[genderize_ru(gender, "", "а", "о", "и")] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы перестали пытаться снять [cuffs.declent_ru(ACCUSATIVE)]."),
+			)
 		else
-			to_chat(src, span_warning("Вам не удалось снять [I.declent_ru(ACCUSATIVE)]!"))
+			visible_message(
+				span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы пытаетесь снять [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakout_time / 10] секунд[declension_ru(breakout_time / 10, "у", "ы", "")]."),
+			)
+		if(do_after(src, breakout_time, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
+			cancel_on_max = TRUE, cancel_message = ""))
+			. = clear_cuffs(cuffs, cuff_break)
+		else
+			balloon_alert(src, "не вышло снять [cuffs.declent_ru(ACCUSATIVE)]!!")
 
 
 /mob/living/carbon/proc/clear_cuffs(obj/item/I, cuff_break)
-	if(!I.loc || buckled)
+	if(!I.loc)
 		return FALSE
 	if(I != handcuffed && I != legcuffed && I != wear_suit)
 		return FALSE
@@ -358,15 +400,6 @@
 /mob/living/carbon/get_access_locations()
 	. = ..()
 	. |= list(l_hand, r_hand)
-
-
-/mob/living/carbon/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
-	var/list/items = ..()
-	if(wear_suit)
-		items += wear_suit
-	if(head)
-		items += head
-	return items
 
 
 /mob/living/carbon/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)

@@ -142,7 +142,7 @@
 		fireflash_sm(T, radius, 2200 + radius * 250, radius * 50)
 		if(will_explode)
 			var/boomrange = min(max(min_explosion_radius, round(volume * volume_explosion_radius_multiplier + volume_explosion_radius_modifier)), max_explosion_radius)
-			explosion(T, -1, -1, boomrange, 1, cause = "Fuel Reaction Temp.")
+			explosion(T, devastation_range = -1, heavy_impact_range = -1, light_impact_range = boomrange, flash_range = 1, cause = "Fuel Reaction Temp.")
 
 /datum/reagent/fuel/reaction_turf(turf/T, volume) //Don't spill the fuel, or you'll regret it
 	if(isspaceturf(T))

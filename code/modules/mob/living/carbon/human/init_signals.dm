@@ -53,10 +53,10 @@
 
 	// When gaining NOHUNGER, we restore nutrition to normal levels, since we no longer interact with the hunger system
 	set_nutrition(NUTRITION_LEVEL_FED, forced = TRUE)
-	handle_nutrition_alerts()
 	satiety = 0
 	overeatduration = 0
 	REMOVE_TRAIT(src, TRAIT_FAT, FATNESS_TRAIT)
+	update_nutrition_hud()
 
 
 /// Called when [TRAIT_EMBEDIMMUNE] is gained

@@ -23,7 +23,7 @@
 	var/static/list/field_edit_questions
 	var/static/list/field_edit_choices
 
-	light_color = LIGHT_COLOR_DARKBLUE
+	light_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/machinery/computer/med_data/get_ru_names()
 	return list(
@@ -35,7 +35,7 @@
 		PREPOSITIONAL = "консоли медицинских записей"
 	)
 
-/obj/machinery/computer/med_data/Initialize()
+/obj/machinery/computer/med_data/Initialize(mapload)
 	. = ..()
 	field_edit_questions = list(
 		// General

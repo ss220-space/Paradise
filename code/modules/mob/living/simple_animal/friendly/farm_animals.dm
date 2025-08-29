@@ -188,7 +188,7 @@
 	..()
 	icon_state = "[icon_prefix]_[body_color]"
 
-/mob/living/simple_animal/cow/Initialize()
+/mob/living/simple_animal/cow/Initialize(mapload)
 	udder = new()
 	. = ..()
 
