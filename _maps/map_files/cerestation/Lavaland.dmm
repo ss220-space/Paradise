@@ -146,9 +146,6 @@
 /obj/effect/decal/cleanable/cobweb2{
 	layer = 4
 	},
-/obj/machinery/conveyor{
-	id = "mining_internal"
-	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "az" = (
