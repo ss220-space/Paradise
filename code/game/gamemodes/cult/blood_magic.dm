@@ -647,6 +647,14 @@
 			else
 				channeling = FALSE
 				return
+
+		else if(istype(target, /obj/item/toy/plushie/wet_owl) && !istype(target, /obj/item/toy/plushie/wet_owl/evil))
+			var/obj/item/toy/plushie/wet_owl/owl = target
+			owl.become_evil()
+			uses--
+			user.visible_message(span_warning("Облако тьмы вырывается из ладони [user] и обвивается вокруг [owl.declent_ru(GENITIVE)], превращая её в нечто ужасное!"))
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
+
 		else
 			to_chat(user, span_warning("The spell will not work on [target]!"))
 			return
