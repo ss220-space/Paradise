@@ -6344,6 +6344,9 @@
 "Oe" = (
 /turf/simulated/floor/plasteel,
 /area/mine/production)
+"Of" = (
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
 "Oh" = (
 /obj/structure/table,
 /obj/item/pickaxe/safety,
@@ -7343,6 +7346,10 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"WK" = (
+/obj/lavalake_landmark,
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
 "WU" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -64023,13 +64030,13 @@ kh
 kh
 kh
 kh
-kh
-kh
-kh
-kh
-kh
-kh
-kh
+Of
+Of
+Of
+Of
+Of
+Of
+Of
 kh
 kh
 kh
@@ -64280,13 +64287,13 @@ kh
 kh
 kh
 kh
-kh
-kh
-kh
-kh
-kh
-kh
-kh
+Of
+Of
+Of
+Of
+Of
+Of
+Of
 kh
 kh
 kh
@@ -64537,13 +64544,13 @@ kh
 kh
 kh
 kh
-kh
-kh
-kh
-kh
-kh
-kh
-kh
+Of
+Of
+Of
+Of
+Of
+Of
+Of
 kh
 kh
 kh
@@ -64794,13 +64801,13 @@ kh
 kh
 kh
 kh
-kh
-kh
-kh
-kh
-kh
-kh
-kh
+Of
+Of
+Of
+WK
+Of
+Of
+Of
 kh
 kh
 kh
@@ -65051,13 +65058,13 @@ kh
 kh
 kh
 kh
-kh
-kh
-kh
-kh
-kh
-kh
-kh
+Of
+Of
+Of
+Of
+Of
+Of
+Of
 kh
 kh
 kh
@@ -65308,13 +65315,13 @@ kh
 kh
 kh
 kh
-kh
-kh
-kh
-kh
-kh
-kh
-kh
+Of
+Of
+Of
+Of
+Of
+Of
+Of
 kh
 kh
 kh
@@ -65565,13 +65572,13 @@ kh
 kh
 kh
 kh
-kh
-kh
-kh
-kh
-kh
-kh
-kh
+Of
+Of
+Of
+Of
+Of
+Of
+Of
 kh
 kh
 kh

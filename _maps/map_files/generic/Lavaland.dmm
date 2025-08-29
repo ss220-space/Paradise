@@ -5178,6 +5178,9 @@
 	icon_state = "browncorner"
 	},
 /area/mine/laborcamp)
+"xW" = (
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
 "xY" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -6097,6 +6100,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"Ix" = (
+/obj/lavalake_landmark,
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
 "Iy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
@@ -64024,13 +64031,13 @@ mK
 mK
 mK
 mK
-mK
-mK
-mK
-mK
-mK
-mK
-mK
+xW
+xW
+xW
+xW
+xW
+xW
+xW
 mK
 mK
 mK
@@ -64281,13 +64288,13 @@ mK
 mK
 mK
 mK
-mK
-mK
-mK
-mK
-mK
-mK
-mK
+xW
+xW
+xW
+xW
+xW
+xW
+xW
 mK
 mK
 mK
@@ -64538,13 +64545,13 @@ mK
 mK
 mK
 mK
-mK
-mK
-mK
-mK
-mK
-mK
-mK
+xW
+xW
+xW
+xW
+xW
+xW
+xW
 mK
 mK
 mK
@@ -64795,13 +64802,13 @@ mK
 mK
 mK
 mK
-mK
-mK
-mK
-mK
-mK
-mK
-mK
+xW
+xW
+xW
+Ix
+xW
+xW
+xW
 mK
 mK
 mK
@@ -65052,13 +65059,13 @@ mK
 mK
 mK
 mK
-mK
-mK
-mK
-mK
-mK
-mK
-mK
+xW
+xW
+xW
+xW
+xW
+xW
+xW
 mK
 mK
 mK
@@ -65309,13 +65316,13 @@ mK
 mK
 mK
 mK
-mK
-mK
-mK
-mK
-mK
-mK
-mK
+xW
+xW
+xW
+xW
+xW
+xW
+xW
 mK
 mK
 mK
@@ -65566,13 +65573,13 @@ mK
 mK
 mK
 mK
-mK
-mK
-mK
-mK
-mK
-mK
-mK
+xW
+xW
+xW
+xW
+xW
+xW
+xW
 mK
 mK
 mK
