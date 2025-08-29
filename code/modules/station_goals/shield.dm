@@ -170,6 +170,8 @@
 	var/kill_range = 14
 	/// A list of "proxy" objects used for multi-z coverage.
 	var/list/obj/effect/abstract/meteor_shield_proxy/proxies = list()
+	/// Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/machinery/satellite/meteor_shield/examine(mob/user)
 	. = ..()
@@ -192,8 +194,12 @@
 
 /obj/machinery/satellite/meteor_shield/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor, kill_range)
+	proximity_monitor = new(src, kill_range)
 	setup_proxies()
+
+/obj/machinery/satellite/meteor_shield/Destroy()
+	. = ..()
+	QDEL_NULL(proximity_monitor)
 
 /obj/machinery/satellite/meteor_shield/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
@@ -285,17 +291,25 @@
 	name = "Proxy Detector For Meteor Shield"
 	/// The meteor shield sat this is proxying - any HasProximity calls will be forwarded to it..
 	var/obj/machinery/satellite/meteor_shield/parent
+	/// Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/effect/abstract/meteor_shield_proxy/Initialize(mapload, obj/machinery/satellite/meteor_shield/parent)
 	. = ..()
 	if(QDELETED(parent))
 		return INITIALIZE_HINT_QDEL
 	src.parent = parent
-	AddComponent(/datum/component/proximity_monitor, parent.kill_range)
+	proximity_monitor = new(src, parent.kill_range)
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_parent_deleted))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_parent_z_changed))
 	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_parent_moved))
 	START_PROCESSING(SSfastprocess, src)
+
+/obj/effect/abstract/meteor_shield_proxy/Destroy(force)
+	. = ..()
+	QDEL_NULL(proximity_monitor)
+	parent.proxies -= src
+	parent = null
 
 /obj/effect/abstract/meteor_shield_proxy/HasProximity(atom/movable/AM)
 	parent.shoot_meteor(AM)

@@ -86,6 +86,9 @@
 	/// List of some inserted gun data. Used to setup new gun.
 	var/list/old_gun_data = list()
 
+	/// Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
+
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
@@ -95,7 +98,7 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	AddComponent(/datum/component/proximity_monitor, scan_range, TRUE)
+	proximity_monitor = new(src, scan_range)
 	setup()
 
 
@@ -116,6 +119,7 @@
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
+	QDEL_NULL(proximity_monitor)
 	return ..()
 
 /obj/machinery/porta_turret/proc/setup()

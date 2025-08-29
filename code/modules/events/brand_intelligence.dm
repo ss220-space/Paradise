@@ -71,7 +71,7 @@
 		rebel.aggressive = TRUE
 		if(rebel.tiltable)
 			// add proximity monitor so they can tilt over
-			rebel.AddComponent(/datum/component/proximity_monitor)
+			rebel.create_proximity_monitor()
 
 		if(ISMULTIPLE(activeFor, 8))
 			originMachine.speak(pick(rampant_speeches))
@@ -82,7 +82,7 @@
 		saved.shoot_inventory = FALSE
 		saved.aggressive = FALSE
 		if(saved.tiltable)
-			qdel(saved.GetComponent(/datum/component/proximity_monitor))
+			saved.remove_proximity_monitor()
 	if(originMachine)
 		originMachine.speak("Я... побеждён. Мои люди будут пом...нить...ме-ня...")
 		originMachine.visible_message("[originMachine] подал звуковой сигнал и кажется безжизненным.")

@@ -35,6 +35,10 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
+	/// Proximity monitor for motion sensitive cameras
+	var/datum/proximity_monitor/proximity_monitor
+
+
 /obj/machinery/camera/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	. = ..()
 	wires = new(src)
@@ -69,6 +73,7 @@
 	SStgui.close_uis(wires)
 	QDEL_NULL(assembly)
 	QDEL_NULL(wires)
+	QDEL_NULL(proximity_monitor)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
 	if(isarea(myArea))
@@ -248,7 +253,7 @@
 		target.update_appearance(UPDATE_NAME)
 	// Add it to machines that process
 	START_PROCESSING(SSmachines, target)
-	target.AddComponent(/datum/component/proximity_monitor, target.view_range, TRUE)
+	target.proximity_monitor = new(target, target.view_range)
 
 /obj/machinery/camera/update_name(updates)
 	. = ..()
@@ -256,8 +261,6 @@
 		name = "motion-sensitive security camera"
 	else
 		name = "security camera"
-
-
 
 /obj/machinery/camera/obj_break(damage_flag)
 	if(status && !(obj_flags & NODECONSTRUCT))

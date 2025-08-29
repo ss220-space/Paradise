@@ -171,6 +171,9 @@
 	COOLDOWN_DECLARE(last_hit_time)
 	/// If the vendor should tip on anyone who walks by. Mainly used for brand intelligence
 	var/aggressive = FALSE
+	/// Proximity monitor for rebel vendings event
+	var/datum/proximity_monitor/proximity_monitor
+
 
 /obj/machinery/vending/get_ru_names()
 	return list(
@@ -237,10 +240,17 @@
 
 /obj/machinery/vending/Destroy()
 	SStgui.close_uis(wires)
+	QDEL_NULL(proximity_monitor)
 	QDEL_NULL(wires)
 	QDEL_NULL(coin)
 	QDEL_NULL(inserted_item)
 	return ..()
+
+/obj/machinery/vending/proc/create_proximity_monitor()
+	proximity_monitor = new(src)
+
+/obj/machinery/vending/proc/remove_proximity_monitor()
+	QDEL_NULL(proximity_monitor)
 
 /obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
 	if(!component_parts)

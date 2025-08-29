@@ -21,13 +21,18 @@
 	)
 
 /obj/item/caution/proximity_sign
-	var/timing = 0
-	var/armed = 0
+	var/timing = FALSE
+	var/armed = FALSE
 	var/timepassed = 0
+	/// Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 
-/obj/item/caution/proximity_sign/ComponentInitialize()
+/obj/item/caution/proximity_sign/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
+
+/obj/item/caution/proximity_sign/Destroy()
+	. = ..()
+	QDEL_NULL(proximity_monitor)
 
 /obj/item/caution/proximity_sign/attack_self(mob/user as mob)
 	if(ishuman(user))
@@ -35,14 +40,15 @@
 		if(H.mind.assigned_role != JOB_TITLE_JANITOR)
 			return
 		if(armed)
-			armed = 0
+			armed = FALSE
 			balloon_alert(user, "обезврежено")
+			QDEL_NULL(proximity_monitor)
 			return
 		timing = !timing
 		if(timing)
 			START_PROCESSING(SSobj, src)
 		else
-			armed = 0
+			armed = FALSE
 			timepassed = 0
 		to_chat(H, span_notice("Вы [timing ? "активируете таймер [declent_ru(GENITIVE)], у вас есть 15 секунд." : "деактивируете таймер [declent_ru(GENITIVE)]."]"))
 
@@ -51,20 +57,23 @@
 		STOP_PROCESSING(SSobj, src)
 	timepassed++
 	if(timepassed >= 15 && !armed)
-		armed = 1
-		timing = 0
+		armed = TRUE
+		timing = FALSE
+		proximity_monitor = new(src)
 
-/obj/item/caution/proximity_sign/HasProximity(atom/movable/AM)
-	if(armed)
-		if(iscarbon(AM) && !isbrain(AM))
-			var/mob/living/carbon/C = AM
-			if(C.m_intent != MOVE_INTENT_WALK)
-				visible_message("[capitalize(declent_ru(NOMINATIVE))] сообщает: \"Бег по мокрому полу может быть опасен для вашего здоровья!\"")
-				explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = src)
-				if(ishuman(C))
-					dead_legs(C)
-				if(src)
-					qdel(src)
+/obj/item/caution/proximity_sign/HasProximity(mob/living/carbon/proximity_check_mob)
+	if(!armed)
+		return
+
+	if(iscarbon(proximity_check_mob) && !isbrain(proximity_check_mob))
+		var/mob/living/carbon/victim = proximity_check_mob
+		if(victim.m_intent != MOVE_INTENT_WALK)
+			visible_message("[capitalize(declent_ru(NOMINATIVE))] сообщает: \"Бег по мокрому полу может быть опасен для вашего здоровья!\"")
+			explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = src)
+			if(ishuman(victim))
+				dead_legs(victim)
+			if(src)
+				qdel(src)
 
 /obj/item/caution/proximity_sign/proc/dead_legs(mob/living/carbon/human/H as mob)
 	var/obj/item/organ/external/l = H.get_organ(BODY_ZONE_L_LEG)
