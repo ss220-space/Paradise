@@ -715,7 +715,6 @@
 	var/datum/antagonist/vampire/V = human_owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
 		bonus_damage_applied = TRUE
-		ADD_TRAIT(human_owner, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
 		human_owner.physiology.punch_damage_low += 14
 		human_owner.physiology.punch_damage_high += 14
 		human_owner.physiology.punch_stun_threshold += 10	//higher chance to stun but not 100%
@@ -736,7 +735,6 @@
 
 	if(bonus_damage_applied)
 		bonus_damage_applied = FALSE
-		REMOVE_TRAIT(human_owner, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
 		human_owner.physiology.punch_damage_low -= 14
 		human_owner.physiology.punch_damage_high -= 14
 		human_owner.physiology.punch_stun_threshold -= 10
