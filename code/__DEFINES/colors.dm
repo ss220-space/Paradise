@@ -143,6 +143,8 @@
 #define COLOR_THEME_SLIMECORE "#4FB259"
 #define COLOR_THEME_OPERATIVE "#B8221F"
 #define COLOR_THEME_GLASS "#75A4C4"
+#define COLOR_BLOOD "#501010"
+
 #define COLOR_THEME_CLOCKWORK "#CFBA47"
 
 // Color matrix utilities
