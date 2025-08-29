@@ -1826,3 +1826,25 @@
 				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
+
+/datum/crafting_recipe/wet_owl_plushie
+	name = "Wet owl plushie"
+	result = /obj/item/toy/plushie/wet_owl
+	time = 4 SECONDS
+	reqs = list(
+		/datum/reagent/water = 100,
+		/obj/item/clothing/under/owl = 1,
+		/obj/item/clothing/mask/gas/owl_mask = 1,
+		/obj/item/clothing/neck/cloak/toggle/owlwings = 1
+	)
+	category = CAT_MISC
+
+/datum/crafting_recipe/evil_wet_owl_plushie
+	name = "Evil wet owl plushie"
+	result = /obj/item/toy/plushie/wet_owl/evil
+	time = 4 SECONDS
+	reqs = list(
+		/datum/reagent/fuel/unholywater = 40,
+		/obj/item/toy/plushie/wet_owl = 1
+	)
+	category = CAT_MISC
