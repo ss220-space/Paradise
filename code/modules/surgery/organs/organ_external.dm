@@ -426,7 +426,18 @@
 			var/bleeding_heal = min(bleeding_amount, burn * BURN_DAMAGE_STOP_BLEEDING_MOD)
 			bleeding_amount = round(bleeding_amount - bleeding_heal, BLEEDING_PRECISION)
 
-	if(basic_brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING && !is_robotic() || sharp || brute_dam > BRUTE_DAMAGE_FOR_GARANT_BLEEDING)
+	calculate_take_bleeding(brute, burn, basic_brute, sharp, remaining_health)
+
+	if(updating_health && (QDELETED(src) || loc != organ_owner || brute_dam != brute_was || burn_dam != burn_was))
+		organ_owner?.updatehealth("limb receive damage")
+
+	return update_state()
+
+/obj/item/organ/external/proc/calculate_take_bleeding(brute, burn, basic_brute, sharp, remaining_health)
+	//no allowed bleeding for robotic bodyparts
+	if(is_robotic())
+		return
+	if(basic_brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING || sharp || brute_dam > BRUTE_DAMAGE_FOR_GARANT_BLEEDING)
 		var/basic_chance = 25 + basic_brute * 2.5
 		var/already_bleeding_chance = bleeding_amount > 0 ? 25 : 0
 		var/total_brute_chance = brute_dam >= remaining_health ? 25 : 0
@@ -437,11 +448,6 @@
 				bleeding = bleeding * 2
 			bleeding_amount += round(bleeding, BLEEDING_PRECISION)
 			bleeding_amount = min(bleeding_amount, max_bleeding_amount)
-
-	if(updating_health && (QDELETED(src) || loc != organ_owner || brute_dam != brute_was || burn_dam != burn_was))
-		organ_owner?.updatehealth("limb receive damage")
-
-	return update_state()
 
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = FALSE, robo_repair = FALSE, updating_health = TRUE)
