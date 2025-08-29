@@ -2,7 +2,7 @@
 				BLOOD SYSTEM
 ****************************************************/
 
-#define EXOTIC_BLEED_MULTIPLIER 4 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
+#define EXOTIC_BLEED_MULTIPLIER 3 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
 
 /// Natural bleed regeneration size (units per 2 sec)
 #define BLOOD_REGENERATION 0.25
@@ -43,6 +43,8 @@
 /// Minimal brute damage for bodypart
 #define MIN_DAMAGE_FROM_BLEEDING_MOD 1.5
 
+#define HEAVY_BLEEDING_RATE 5
+
 
 /obj/item/organ/external/proc/suppress_bloodloss(mob/living/user, mob/living/carbon/human/target, amount, duration)
 	var/calculated_bleeding = max(0, bleeding_amount - bleedsuppress)
@@ -71,6 +73,11 @@
 		return
 	balloon_alert(user, "кровотечение ослаблено")
 
+/mob/living/carbon/human/has_bleeding()
+	return bleed_rate > 0
+
+/mob/living/carbon/human/has_heavy_bleeding()
+	return bleed_rate >= HEAVY_BLEEDING_RATE
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
