@@ -5539,7 +5539,7 @@
 /area/mine/necropolis)
 "Ej" = (
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "El" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
@@ -6905,7 +6905,7 @@
 "NN" = (
 /obj/lavalake_landmark,
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "NV" = (
 /obj/item/stack/ore/plasma,
 /obj/effect/mapping_helpers/no_lava,

@@ -2143,7 +2143,7 @@
 /area/mine/living_quarters)
 "to" = (
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "tq" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -2571,7 +2571,7 @@
 "yN" = (
 /obj/lavalake_landmark,
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "yO" = (
 /obj/structure/ore_box,
 /obj/machinery/alarm{

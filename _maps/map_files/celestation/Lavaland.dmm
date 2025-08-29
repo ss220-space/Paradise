@@ -3337,7 +3337,7 @@
 /area/lavaland/surface/outdoors)
 "qe" = (
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "qk" = (
 /obj/machinery/door/window/eastleft{
 	name = "Break Room Bar"
@@ -7750,7 +7750,7 @@
 "Zk" = (
 /obj/lavalake_landmark,
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "Zp" = (
 /obj/machinery/door/window/southleft{
 	name = "Infirmary"

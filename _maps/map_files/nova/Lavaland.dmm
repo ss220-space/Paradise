@@ -5063,7 +5063,7 @@
 /area/mine/cafeteria)
 "FF" = (
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "FG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 2
@@ -7307,7 +7307,7 @@
 "Tk" = (
 /obj/lavalake_landmark,
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "To" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,

@@ -6346,7 +6346,7 @@
 /area/mine/production)
 "Of" = (
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "Oh" = (
 /obj/structure/table,
 /obj/item/pickaxe/safety,
@@ -7349,7 +7349,7 @@
 "WK" = (
 /obj/lavalake_landmark,
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "WU" = (
 /obj/structure/stone_tile/block{
 	dir = 1

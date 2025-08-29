@@ -5180,7 +5180,7 @@
 /area/mine/laborcamp)
 "xW" = (
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "xY" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -6103,7 +6103,7 @@
 "Ix" = (
 /obj/lavalake_landmark,
 /turf/template_noop,
-/area/lavaland/surface/outdoors)
+/area/space)
 "Iy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
