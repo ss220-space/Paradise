@@ -13,7 +13,7 @@
 		if(client.handle_spam_prevention(msg, MUTE_PRAY, OOC_COOLDOWN))
 			return
 
-	var/image/cross = image('icons/obj/storage.dmi',"bible")
+	var/image/cross = image('icons/obj/library.dmi',"bible")
 	var/font_color = "purple"
 	var/prayer_type = "PRAYER"
 	var/deity
