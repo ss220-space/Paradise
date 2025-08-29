@@ -24,11 +24,15 @@
 "bI" = (
 /obj/structure/table,
 /obj/item/clothing/under/rank/chemist/skirt{
-	pixel_x = 6
+	pixel_x = 9
 	},
 /obj/item/clothing/under/fluff/soviet_casual_uniform{
+	pixel_x = -1;
+	pixel_y = 6
+	},
+/obj/item/melee/bigiron{
 	pixel_x = -6;
-	pixel_y = 3
+	pixel_y = 1
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -74,6 +78,9 @@
 	dir = 1
 	},
 /obj/structure/chair/stool,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/carpet/green,
 /area/template_noop)
 "eA" = (
@@ -176,6 +183,9 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken6"
 	},
@@ -200,6 +210,9 @@
 "iD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/washing_machine,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -418,6 +431,9 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/structure/sign/poster/official/cleanliness{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plating,
 /area/template_noop)
 "wh" = (
@@ -434,10 +450,7 @@
 /area/template_noop)
 "wo" = (
 /obj/structure/table,
-/obj/machinery/reagentgrinder{
-	pixel_x = -1;
-	pixel_y = 9
-	},
+/obj/machinery/chem_dispenser/beer,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
 	},
@@ -450,8 +463,18 @@
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
+"wX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/template_noop)
 "xk" = (
 /obj/structure/chair/office/dark,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/template_noop)
 "yg" = (
@@ -601,11 +624,8 @@
 /area/template_noop)
 "Bv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/machinery/chem_dispenser/beer,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken6"
-	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood,
 /area/template_noop)
 "By" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
@@ -670,6 +690,7 @@
 	},
 /obj/structure/safe/floor,
 /obj/item/gun/projectile/automatic/pistol/enforcer/security,
+/obj/item/clothing/suit/storage/zazalord,
 /turf/simulated/floor/carpet/green,
 /area/template_noop)
 "Cy" = (
@@ -743,6 +764,10 @@
 	pixel_y = 18
 	},
 /turf/simulated/floor/carpet/arcade,
+/area/template_noop)
+"EI" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/plating,
 /area/template_noop)
 "EK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -865,7 +890,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Jk" = (
@@ -941,6 +965,15 @@
 "MV" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall,
+/area/template_noop)
+"Nn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/falsewall,
+/turf/simulated/floor/plasteel,
 /area/template_noop)
 "NY" = (
 /obj/machinery/power/apc/worn_out{
@@ -1172,6 +1205,16 @@
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/template_noop)
+"Wr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/washing_machine,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "barber"
+	},
+/area/template_noop)
 "WQ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/arcade,
@@ -1179,6 +1222,17 @@
 "WV" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
+/area/template_noop)
+"Xn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/structure/chair/stool,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/carpet/green,
 /area/template_noop)
 "XK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1383,7 +1437,7 @@ lc
 lc
 lc
 lc
-BR
+Nn
 Gj
 in
 ot
@@ -1510,7 +1564,7 @@ lc
 lc
 lc
 uB
-jN
+Xn
 pU
 ZC
 oS
@@ -1526,7 +1580,7 @@ Wn
 lc
 lc
 uB
-WQ
+wX
 zs
 Gk
 Zv
@@ -1644,7 +1698,7 @@ Dx
 lc
 lc
 uB
-iD
+Wr
 Oc
 Yt
 MV
@@ -1719,7 +1773,7 @@ lc
 lc
 lc
 lc
-uB
+EI
 HD
 yS
 lz
