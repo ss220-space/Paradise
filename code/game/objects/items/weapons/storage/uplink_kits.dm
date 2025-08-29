@@ -295,7 +295,7 @@
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible(src)
 	if(prob(25))	//an omen of success to come?
 		B.deity_name = "Success"
-		B.icon_state = "greentext"
+		B.icon_state = "bible_greentext"
 		B.item_state = "greentext"
 
 
@@ -815,7 +815,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/gun_module/rail/scope/collimator(src)
 	new /obj/item/gun_module/rail/scope/x4(src)
 	new /obj/item/gun_module/under/hand/angle(src)
-  
+
 /obj/item/storage/box/syndie_kit/compact_sniper
 	name = "compact sniper rifle kit"
 	desc = "Коробка, содержащая компактную снайперскую винтовку \"Bubz Mini\", дополнительный магазин, и коробку патронов."

@@ -23,50 +23,64 @@
 
 /proc/do_insurance_collection(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/money_account/connected_acc)
 	if(!istype(target))
-		target.visible_message("Некорректная цель списания страховки.")
+		user.balloon_alert(user, "цель не обнаружена")
 		return FALSE
 
 	var/list/access = user?.get_access()
 	if(user && !(ACCESS_MEDICAL in access))
-		target.visible_message("Недостаточно доступа для списания страховки.")
+		user.balloon_alert(user, "нет доступа")
 		return FALSE
 
 	var/req = get_req_insurance(target)
 	var/datum/money_account/acc = get_insurance_account(target)
 
 	if(!acc)
-		target.visible_message("Аккаунт не обнаружен.")
+		user.balloon_alert(user, "нет аккаунта")
 		return FALSE
 
 	if(!COOLDOWN_FINISHED(acc, insurance_collecting))
-		target.visible_message("С цели недавно уже списывалась страховка. Подождите немного.")
+		user.balloon_alert(user, "слишком рано")
+		to_chat(user, span_warning("С цели недавно уже списывалась страховка. Подождите немного."))
 		return FALSE
 	COOLDOWN_START(acc, insurance_collecting, 60 SECONDS)
 
 	var/from_insurance = min(acc.insurance, req)
 	var/from_money_acc = (req - from_insurance) * 2
 
-	if(from_money_acc)
-		if(!acc.insurance_auto_replen)
-			target.visible_message(span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки отключено."))
-			return FALSE
-		if(!acc.charge(from_money_acc))
-			target.visible_message(span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки провалилось."))
-			return FALSE
 
 	if(from_money_acc)
+		if(!acc.insurance_auto_replen || !acc.charge(from_money_acc))
+			to_chat(user, span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки отключено или провалилось."))
+			target.visible_message(
+				span_danger("[user] безуспешно пыта[pluralize_ru(user.gender, "ет", "ют")]ся списать страховку у [target]!"),
+				span_userdanger("[user] безуспешно пыта[pluralize_ru(user.gender, "ет", "ют")]ся списать вашу страховку!"),
+				ignored_mobs = user,
+			)
+			return FALSE
 		send_insurance_alert(acc)
 
 	acc.addInsurancePoints(-from_insurance)
 
+	var/datum/money_account/money_account = null
 	if(connected_acc)
-		var/datum/money_account/money_account = attempt_account_access_nosec(connected_acc)
-		if(money_account)
-			money_account.money += round(round(req / 2))
+		money_account = attempt_account_access_nosec(connected_acc)
+	else
+		to_chat(user, span_warning("Привязанного аккаунта к сканеру не обнаружено. Рекомендуется авторизоваться."))
+		var/obj/item/card/id/user_id = user.get_id_card()
+		if(istype(user_id) && user_id.associated_account_number)
+			money_account = get_money_account(user_id.associated_account_number)
 
-	target.visible_message("Страховка списанна в размере: [req].")
+	if(money_account)
+		money_account.money += round(round(req / 2))
+
+	to_chat(user, span_notice("Вы списали страховку у [target] в размере: [req]."))
+	target.visible_message(
+		span_danger("[user] списыва[pluralize_ru(user.gender, "ет", "ют")] страховку у [target] в размере: [req]."),
+		span_userdanger("[user] списыва[pluralize_ru(user.gender, "ет", "ют")] вашу страховку в размере: [req]."),
+		ignored_mobs = user,
+	)
 	if(from_money_acc)
-		target.visible_message("Страховки не хватило. [from_money_acc / 2] недостающих очков страховки восполнено за счет [from_money_acc] кредитов со счета пациента.")
+		to_chat(user,(span_notice("Страховки не хватило. [from_money_acc / 2] недостающих очков страховки восполнено за счет [from_money_acc] кредитов со счета пациента. Уведомите пациента о его состоянии страховки")))
 
 	return TRUE
 

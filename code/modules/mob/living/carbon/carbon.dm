@@ -704,11 +704,21 @@
 	for(var/mod in breakouttime_modifiers)
 		breakout_time *= mod
 
-	visible_message(
-		span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
-		span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[declension_ru(breakout_time * 0.1, "у", "ы", "")]."),
-	)
-	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+	var/is_processed = LAZYACCESS(do_afters, src)
+
+	if(is_processed)
+		visible_message(
+			span_warning("[name] перестал[genderize_ru(gender, "", "а", "о", "и")] пытаться отстегнуться!"),
+			span_notice("Вы перестали пытаться отстегнуться."),
+		)
+	else
+		visible_message(
+			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
+			span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[declension_ru(breakout_time * 0.1, "у", "ы", "")]."),
+		)
+
+	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1, cancel_on_max = TRUE,
+		cancel_message = ""))
 		if(!buckled)
 			return
 
