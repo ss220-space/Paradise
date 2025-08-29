@@ -373,7 +373,7 @@
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
 
-/atom/proc/HasProximity(atom/movable/AM)
+/atom/proc/HasProximity(atom/movable/proximity_check_mob as mob|obj)
 	return
 
 /atom/proc/emp_act(severity)
