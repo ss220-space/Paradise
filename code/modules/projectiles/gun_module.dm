@@ -49,7 +49,6 @@
 	user.drop_transfer_item_to_loc(src, target_gun)
 	gun = target_gun
 	src.on_attach(target_gun, user)
-	playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
 	user.balloon_alert(user, "модуль установлен")
 	return TRUE
 
