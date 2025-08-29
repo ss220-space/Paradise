@@ -144,7 +144,13 @@
 		if(bodypart.open)
 			current_bleed += OPEN_BODYPART_BLEEDING
 	// calculate bleed rate with regenretion and current bleed
+	var/prev_bleed_rate = bleed_rate
 	bleed_rate = current_bleed
+	//manage alert
+	if(prev_bleed_rate <= 0 && bleed_rate > 0)
+		throw_alert(ALERT_BLEEDING, /atom/movable/screen/alert/bleeding)
+	if(prev_bleed_rate > 0 && bleed_rate <= 0)
+		clear_alert(ALERT_BLEEDING)
 	// calculate addition bleeding from reagents
 	var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //heparin worsens existing bleeding
 	// apply internal bleeding
