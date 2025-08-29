@@ -2,9 +2,8 @@
 /obj/item/clothing/under/rank/chief_engineer
 	desc = "It's a high visibility jumpsuit given to those engineers insane enough to achieve the rank of \"Chief engineer\". It has minor radiation shielding."
 	name = "chief engineer's jumpsuit"
-	icon_state = "chiefengineer"
+	icon_state = "chief"
 	item_state = "chief"
-	item_color = "chief"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 80, ACID = 40)
 	resistance_flags = NONE
 
