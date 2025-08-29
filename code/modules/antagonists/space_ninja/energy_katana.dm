@@ -50,7 +50,7 @@
 		/datum/component/cleave_attack, \
 		swing_speed_mod = 1.75, \
 		afterswing_slowdown = 0, \
-		swing_sound = "blade_scifi_swing" \
+		swing_sound = SFX_BLADE_SCIFI_SWING \
 	)
 
 /obj/item/melee/energy_katana/afterattack(atom/target, mob/user, proximity, params)
@@ -139,7 +139,7 @@
 
 	if(doSpark)
 		spark_system.start()
-		playsound(get_turf(src), "sparks", 50, TRUE, 5)
+		playsound(get_turf(src), SFX_SPARKS, 50, TRUE, 5)
 
 	var/msg = ""
 

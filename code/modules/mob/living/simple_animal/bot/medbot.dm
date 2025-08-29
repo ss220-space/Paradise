@@ -375,8 +375,7 @@
 			var/list/messagevoice = list("Ты, надень свою маску!" = 'sound/voice/mradar.ogg',
 										"Что-то всегда идёт не так, но я справлюсь." = 'sound/voice/mcatch.ogg',
 										"А ведь я мог бы стать пластическим хирургом..." = 'sound/voice/msurgeon.ogg',
-										"Что это за медотсек? Все мрут, словно мухи." = 'sound/voice/mflies.ogg',
-										"Замечательно!")
+										"Что это за медотсек? Все мрут, словно мухи." = 'sound/voice/mflies.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
 			playsound(loc, messagevoice[message], 50, FALSE)

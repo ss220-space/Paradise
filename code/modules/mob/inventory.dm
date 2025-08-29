@@ -784,8 +784,8 @@
  */
 /mob/proc/drop_all_held_items()
 	. = list()
-	for(var/obj/item/I in (get_item_by_slot(ITEM_SLOT_HAND_LEFT) || get_item_by_slot(ITEM_SLOT_HAND_RIGHT)))
-		. |= drop_item_ground(I)
+	for(var/obj/item/item in list(get_item_by_slot(ITEM_SLOT_HAND_LEFT), get_item_by_slot(ITEM_SLOT_HAND_RIGHT)))
+		. |= drop_item_ground(item)
 
 /// Returns a list of things that the provided mob has, including any storage-capable implants.
 /mob/living/proc/gather_belongings(accessories = TRUE, recursive = TRUE)

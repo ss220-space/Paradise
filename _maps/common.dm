@@ -9,9 +9,15 @@ z3 = engineering stuff (called Z4, dont question it)
 z4 = lavaland
 */
 
+//#define FAST_LOAD
+
+#define MAP_TRANSITION_CONFIG list()
+
+#ifndef FAST_LOAD
 #include "map_files\generic\CentComm.dmm"
 #include "map_files\generic\Admin_Zone.dmm"
-
+#undef MAP_TRANSITION_CONFIG
 #define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(CENTCOMM, UNAFFECTED, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
 DECLARE_LEVEL(ADMIN_ZONE, UNAFFECTED, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)))
+#endif
