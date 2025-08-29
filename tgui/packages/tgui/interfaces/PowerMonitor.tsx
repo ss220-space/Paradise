@@ -88,7 +88,7 @@ const SelectionView = (_props: unknown) => {
                 }
               >{`${powermonitors[uid]} Power Monitoring Console`}</Button>
             </Box>
-        ))}
+          ))}
     </Section>
   );
 };
