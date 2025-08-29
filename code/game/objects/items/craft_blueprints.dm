@@ -81,6 +81,7 @@
 	SIGNAL_HANDLER
 	balloon_alert(user, "развернуто")
 	placed_on_table = TRUE
+	anchored = TRUE
 	icon_state = place_icon
 	pixel_x = 0
 	pixel_y = 0
@@ -126,6 +127,7 @@
 	var/mob/living/human = usr
 	balloon_alert(usr, "свернуто")
 	placed_on_table = FALSE
+	anchored = FALSE
 	layer = initial(layer)
 	update_icon()
 	human.put_in_any_hand_if_possible(src, drop_on_fail = TRUE)
