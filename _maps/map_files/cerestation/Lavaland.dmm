@@ -134,10 +134,6 @@
 /turf/simulated/floor/plating,
 /area/mine/production)
 "ay" = (
-/obj/machinery/conveyor{
-	dir = 6;
-	id = "mining_internal"
-	},
 /obj/machinery/mineral/processing_unit{
 	dir = 1;
 	input_dir = 2;
@@ -149,6 +145,9 @@
 	},
 /obj/effect/decal/cleanable/cobweb2{
 	layer = 4
+	},
+/obj/machinery/conveyor{
+	id = "mining_internal"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
