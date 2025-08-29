@@ -20,11 +20,11 @@
 	if(job == JOB_TITLE_CHAPLAIN)
 		if(SSticker && SSticker.Bible_deity_name)
 			deity = SSticker.Bible_deity_name
-		cross = image('icons/obj/storage.dmi',"kingyellow")
+		cross = image('icons/obj/library.dmi',"bible_kingyellow")
 		font_color = "blue"
 		prayer_type = "CHAPLAIN PRAYER"
 	else if(iscultist(usr))
-		cross = image('icons/obj/storage.dmi',"tome")
+		cross = image('icons/obj/cult.dmi',"tome")
 		font_color = "red"
 		prayer_type = "CULTIST PRAYER"
 		deity = SSticker.cultdat.entity_name
