@@ -682,15 +682,18 @@
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
-	playsound(loc, poof_sound, 20, TRUE)	// Play the whoosh sound in local area
+	poof_sound() // Play the whoosh sound in local area
 	if(iscarbon(target) && prob(10))
 		target.reagents.add_reagent("hugs", 10)
 
+/// Use this to override how your poof sound plays
+/obj/item/toy/plushie/proc/poof_sound()
+	playsound(get_turf(src), poof_sound, 30, TRUE)
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
 	var/cuddle_verb = pick("обнима[pluralize_ru(user.gender,"ет","ют")]", "тиска[pluralize_ru(user.gender,"ет","ют")]", "прижима[pluralize_ru(user.gender,"ет","ют")]")
 	user.visible_message(span_notice("[user] [cuddle_verb] the [src]."))
-	playsound(get_turf(src), poof_sound, 50, TRUE, -1)
+	poof_sound()
 	return ..()
 
 /obj/random/plushie
@@ -1683,6 +1686,9 @@
 		INSTRUMENTAL = "злобной мокрой совой",
 		PREPOSITIONAL = "злобной мокрой сове"
 	)
+
+/obj/item/toy/plushie/wet_owl/evil/poof_sound()
+	playsound(loc, poof_sound, 20, FALSE)
 
 /obj/item/toy/plushie/wet_owl/evil/attack_self(mob/living/user)
 	. = ..()
