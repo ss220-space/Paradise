@@ -28,17 +28,18 @@
 
 	var/list/access = user?.get_access()
 	if(user && !(ACCESS_MEDICAL in access))
-		user.balloon_alert(user, "нет доступа!")
+		user.balloon_alert(user, "нет доступа")
 		return FALSE
 
 	var/req = get_req_insurance(target)
 	var/datum/money_account/acc = get_insurance_account(target)
 
 	if(!acc)
-		user.balloon_alert(user, "нет аккаунта!")
+		user.balloon_alert(user, "нет аккаунта")
 		return FALSE
 
 	if(!COOLDOWN_FINISHED(acc, insurance_collecting))
+		user.balloon_alert(user, "слишком рано")
 		to_chat(user, span_warning("С цели недавно уже списывалась страховка. Подождите немного."))
 		return FALSE
 	COOLDOWN_START(acc, insurance_collecting, 60 SECONDS)
@@ -56,8 +57,6 @@
 				ignored_mobs = user,
 			)
 			return FALSE
-
-	if(from_money_acc)
 		send_insurance_alert(acc)
 
 	acc.addInsurancePoints(-from_insurance)
