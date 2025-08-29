@@ -24151,10 +24151,6 @@
 	icon_state = "red"
 	},
 /area/security/customs)
-"dyL" = (
-/obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/carpet,
-/area/library)
 "dyQ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -62929,11 +62925,6 @@
 	icon_state = "blue"
 	},
 /area/bridge/checkpoint/north)
-"jkU" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/turf/simulated/floor/plating/airless,
-/area/space)
 "jkV" = (
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel{
@@ -131441,14 +131432,6 @@
 "tnd" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/perma)
-"tnj" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
 "tnk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -160907,6 +160890,7 @@
 "xFa" = (
 /obj/structure/closet/cabinet,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/plushie/wet_owl,
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "xFb" = (
@@ -187274,7 +187258,7 @@ qel
 qel
 ejf
 aAA
-dyL
+ipA
 qel
 qel
 qel
@@ -274169,7 +274153,7 @@ wJE
 wJE
 pkq
 yfm
-tnj
+yfm
 gYD
 wQZ
 uJG
@@ -274426,7 +274410,7 @@ jEB
 jEB
 bsg
 gfy
-jkU
+gfy
 szR
 wQZ
 uJG
@@ -274683,7 +274667,7 @@ jEB
 jEB
 bsg
 gfy
-jkU
+gfy
 szR
 wQZ
 uJG

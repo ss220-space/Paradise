@@ -72099,6 +72099,7 @@
 "lNh" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/plushie/wet_owl,
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "lNp" = (
