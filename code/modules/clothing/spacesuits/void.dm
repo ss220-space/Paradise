@@ -79,6 +79,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 50, BULLET = 25, LASER = 25, ENERGY = 50, BOMB = 75, BIO = 100, RAD = 90, FIRE = 100, ACID = 75)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	heat_protection = HEAD
 	resistance_flags = FIRE_PROOF
 	item_state = "void_red_helmet"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
@@ -103,6 +104,7 @@
 	allowed = list(/obj/item/storage/toolbox, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, /obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, /obj/item/analyzer, /obj/item/pipe_painter, /obj/item/rpd, /obj/item/storage/part_replacer, /obj/item/storage/bag/construction, /obj/item/storage/bag/sheetsnatcher, /obj/item/extinguisher, /obj/item/stack/cable_coil)
 	armor = list(MELEE = 50, BULLET = 25, LASER = 25, ENERGY = 50, BOMB = 75, BIO = 100, RAD = 90, FIRE = 100, ACID = 75)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	resistance_flags = FIRE_PROOF
 	item_state = "void_red"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
