@@ -732,7 +732,7 @@
 		AdjustLoseBreath(20 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 		Weaken(60 SECONDS)
 
-	if(!check_death_method())
+	if(!check_death_method() && !dna.species.ignore_critical_condition)
 		if(health <= HEALTH_THRESHOLD_DEAD)
 			var/deathchance = min(99, ((getBrainLoss() * -5) + (health + (getOxyLoss() / 2))) * -0.01)
 			if(prob(deathchance))
