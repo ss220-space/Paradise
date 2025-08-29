@@ -23,19 +23,19 @@
 
 /proc/do_insurance_collection(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/money_account/connected_acc)
 	if(!istype(target))
-		to_chat(user, span_warning("Некорректная цель списания страховки."))
+		balloon_alert(user, "цель не обнаружена")
 		return FALSE
 
 	var/list/access = user?.get_access()
 	if(user && !(ACCESS_MEDICAL in access))
-		to_chat(user, span_warning("Недостаточно доступа для списания страховки."))
+		balloon_alert(user, "нет доступа!")
 		return FALSE
 
 	var/req = get_req_insurance(target)
 	var/datum/money_account/acc = get_insurance_account(target)
 
 	if(!acc)
-		to_chat(user, span_warning("Аккаунт не обнаружен."))
+		balloon_alert(user, "нет аккаунта!")
 		return FALSE
 
 	if(!COOLDOWN_FINISHED(acc, insurance_collecting))
