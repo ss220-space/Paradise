@@ -191,9 +191,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"qh" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "rj" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/table/wood,
@@ -502,13 +499,13 @@
 /area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
-qh
-qh
-qh
-qh
-qh
-qh
-qh
+tZ
+tZ
+tZ
+tZ
+tZ
+tZ
+tZ
 pg
 pg
 pg
@@ -524,7 +521,7 @@ pg
 pg
 "}
 (2,1,1) = {"
-qh
+tZ
 tZ
 tZ
 tZ
@@ -546,7 +543,7 @@ pg
 pg
 "}
 (3,1,1) = {"
-qh
+tZ
 tZ
 tZ
 tZ
@@ -568,7 +565,7 @@ cc
 pg
 "}
 (4,1,1) = {"
-qh
+tZ
 tZ
 Yd
 Yd
@@ -590,7 +587,7 @@ tZ
 pg
 "}
 (5,1,1) = {"
-qh
+tZ
 tZ
 tZ
 Yd
