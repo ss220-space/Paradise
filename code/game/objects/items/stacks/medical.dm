@@ -58,7 +58,7 @@
 				span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять [declension_ru(NOMINATIVE)] на себе."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на себе..."),
 			)
-			if(!do_after(human_target, self_delay, human_target, NONE))
+			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
 				return .
 
 			var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
