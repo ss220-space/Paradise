@@ -1985,6 +1985,7 @@
 					/obj/item/stack/medical/bruise_pack/advanced = 6, /obj/item/stack/medical/ointment/advanced = 6,
 					/obj/item/stack/medical/bruise_pack/extended = 3, /obj/item/stack/medical/ointment/extended = 3,
 					/obj/item/stack/medical/suture = 15, /obj/item/stack/medical/suture/advanced = 5,
+					/obj/item/stack/medical/bruise_pack/military = 10,
 					/obj/item/stack/medical/splint = 4,
 					/obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4,
 					/obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
@@ -2004,6 +2005,7 @@
 	prices = list(/obj/item/stack/medical/bruise_pack/extended = 200, /obj/item/stack/medical/ointment/extended = 200,
 					/obj/item/stack/medical/bruise_pack/advanced = 100, /obj/item/stack/medical/ointment/advanced = 100,
 					/obj/item/stack/medical/suture/advanced = 149,
+					/obj/item/stack/medical/bruise_pack/military = 300,
 					/obj/item/reagent_containers/hypospray/safety = 200,
 					/obj/item/pinpointer/crew = 300, /obj/item/sensor_device = 600,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 25,
@@ -2215,6 +2217,7 @@
 		/obj/item/flashlight/sectaclight = 2,
 		/obj/item/grenade/smokebomb = 8,
 		/obj/item/storage/belt/security/judobelt = 3,
+		/obj/item/stack/medical/bruise_pack/military = 5,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,
@@ -2227,7 +2230,8 @@
 		/obj/item/storage/pouch/fast = 999,
 		/obj/item/clothing/mask/gas/sechailer/tactical = 299,
 		/obj/item/flashlight/sectaclight = 299,
-		/obj/item/grenade/smokebomb = 249
+		/obj/item/grenade/smokebomb = 249,
+		/obj/item/stack/medical/bruise_pack/military = 299,
 	)
 	refill_canister = /obj/item/vending_refill/security
 

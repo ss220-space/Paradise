@@ -252,30 +252,31 @@
 	icon_state = "gauze_imp_[amount >= 5 ? 3 : (amount >= 3 ? 2 : 1)]"
 
 /obj/item/stack/medical/bruise_pack/military
-	name = "emergency bandage"
+	name = "military emergency bandage"
 	singular_name = "emergency bandage"
-	desc = "Комплект стерильных бинтов в удобной упаковке для быстрой остановки кровотечения."
+	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
 	icon_state = "bandage"
 	item_state = "gauze"
 	origin_tech = "biotech=2;combat=1"
 	amount = 1
 	max_amount = 1
 	heal_brute = 20
-	bleedsuppress = 20
+	bleedsuppress = 50
 	stop_bleeding = 300 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
 	self_delay = 0.1 SECONDS
 	use_duration = 0.1 SECONDS
+	var/heal_bleeding = 1
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
 	return list(
-		NOMINATIVE = "перевязочный пакет",
-		GENITIVE = "перевязочного пакета",
-		DATIVE = "перевязочному пакету",
-		ACCUSATIVE = "перевязочный пакет",
-		INSTRUMENTAL = "перевязочным пакетом",
-		PREPOSITIONAL = "перевязочном пакете"
+		NOMINATIVE = "военный перевязочный пакет",
+		GENITIVE = "военного перевязочного пакета",
+		DATIVE = "военному перевязочному пакету",
+		ACCUSATIVE = "военный перевязочный пакет",
+		INSTRUMENTAL = "военным перевязочным пакетом",
+		PREPOSITIONAL = "военном перевязочном пакете"
 	)
 
 /obj/item/stack/medical/bruise_pack/military/attackby(obj/item/I, mob/user, params)
@@ -285,6 +286,28 @@
 
 /obj/item/stack/medical/bruise_pack/military/update_icon_state()
 	return
+
+/obj/item/stack/medical/bruise_pack/military/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	var/list/all_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+	for(var/select_def_zone in all_zones)
+		var/obj/item/organ/external/affecting = target.get_organ(select_def_zone)
+		if(affecting.open != ORGAN_CLOSED)
+			continue
+		if(affecting.bleeding_amount <= affecting.bleedsuppress)
+			continue
+		affecting.germ_level = 0
+		if(affecting.bleeding_amount > affecting.bleedsuppress)
+			affecting.suppress_bloodloss(user, target, bleedsuppress, stop_bleeding)
+			affecting.heal_bleeding(user, target, heal_bleeding, 0)
+	human_heal(target, user)
+	target.UpdateDamageIcon()
+	use(1)
+	if(!QDELETED(src))
+		update_icon()
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"

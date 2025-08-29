@@ -2311,6 +2311,13 @@
 	item = /obj/item/syndicate_reverse_card
 	cost = 10
 
+
+/datum/uplink_item/badass/bandage
+	name = "Военный перевязочный пакет"
+	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
+	item = /obj/item/stack/medical/bruise_pack/military
+	cost = 1
+
 /**
  * MARK: Bundles & TC
  */
