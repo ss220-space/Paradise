@@ -2311,6 +2311,12 @@
 	item = /obj/item/syndicate_reverse_card
 	cost = 10
 
+/datum/uplink_item/badass/bloodred_crayon
+	name = "кроваво-красный мелок"
+	desc = "Мелок, созданый на основе редспейс-технологий. На вкус и цвет может походить на кровь. Можно употреблять в пищу бесконечно. Насыщает лучше, чем другие мелки."
+	item = /obj/item/toy/crayon/bloodred
+	cost = 16
+
 /**
  * MARK: Bundles & TC
  */

@@ -31,4 +31,5 @@
 #define DYE_CLOWN "clown"
 #define DYE_CENTCOM "centcom"
 #define DYE_PRISONER "prisoner"
+#define DYE_BLOOD "blood"
 

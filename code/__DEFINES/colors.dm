@@ -72,6 +72,7 @@
 #define COLOR_CULT_RED "#960000"
 #define COLOR_BUBBLEGUM_RED "#950a0a"
 #define COLOR_CARP_RIFT_RED "#ff330030"
+#define COLOR_BLOOD "#501010"
 
 // Yellow
 #define COLOR_YELLOW "#ffff00"

@@ -275,6 +275,13 @@
 	else
 		..()
 
+/obj/item/toy/crayon/bloodred
+	name = "bloodred  crayon"
+	icon_state = "bloodred"
+	colour = COLOR_BLOOD
+	colourName = "bloodred"
+	uses = 0
+	dye_color = DYE_BLOOD
 
 //Spraycan stuff
 

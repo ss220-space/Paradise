@@ -390,3 +390,10 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 30, BOMB = 30, BIO = 30, RAD = 30, FIRE = 75, ACID = 75)
+
+/obj/item/clothing/gloves/color/bloodred
+	name = "bloodred gloves"
+	desc = "Перчатки кроваво-красного цвета, абсолютно ничем не подозрительны."
+	icon_state = "bloodred"
+	item_state = "bloodred"
+	item_color = "bloodred"
