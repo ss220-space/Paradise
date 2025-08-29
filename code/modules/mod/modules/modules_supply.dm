@@ -17,10 +17,10 @@
 /obj/item/mod/module/gps/get_ru_names()
 	return list(
 		NOMINATIVE = "модуль ГПС для МЭК",
-		GENITIVE = "модуля ГПС для МЭК
+		GENITIVE = "модуля ГПС для МЭК",
 		DATIVE = "модулю ГПС для МЭК",
 		ACCUSATIVE = "модуль ГПС для МЭК",
-		INSTRUMENTAL = "модулем ГПС для МЭК
+		INSTRUMENTAL = "модулем ГПС для МЭК",
 		PREPOSITIONAL = "модуле ГПС для МЭК",
 	)
 
