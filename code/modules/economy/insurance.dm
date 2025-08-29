@@ -23,19 +23,19 @@
 
 /proc/do_insurance_collection(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/money_account/connected_acc)
 	if(!istype(target))
-		balloon_alert(user, "цель не обнаружена")
+		user.balloon_alert(user, "цель не обнаружена")
 		return FALSE
 
 	var/list/access = user?.get_access()
 	if(user && !(ACCESS_MEDICAL in access))
-		balloon_alert(user, "нет доступа!")
+		user.balloon_alert(user, "нет доступа!")
 		return FALSE
 
 	var/req = get_req_insurance(target)
 	var/datum/money_account/acc = get_insurance_account(target)
 
 	if(!acc)
-		balloon_alert(user, "нет аккаунта!")
+		user.balloon_alert(user, "нет аккаунта!")
 		return FALSE
 
 	if(!COOLDOWN_FINISHED(acc, insurance_collecting))
