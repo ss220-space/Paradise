@@ -395,15 +395,15 @@
 	. = ..()
 	if(flashing_lights)
 		switch(light_color)
-			if(LIGHT_COLOR_PURE_RED)
-				light_color = LIGHT_COLOR_PURE_BLUE
-			if(LIGHT_COLOR_PURE_BLUE)
-				light_color = LIGHT_COLOR_PURE_RED
+			if(LIGHT_COLOR_INTENSE_RED)
+				light_color = LIGHT_COLOR_BLUE
+			if(LIGHT_COLOR_BLUE)
+				light_color = LIGHT_COLOR_INTENSE_RED
 			else
-				light_color = LIGHT_COLOR_PURE_RED
+				light_color = LIGHT_COLOR_INTENSE_RED
 		set_light_color(light_color)
 	else if(prev_flashing_lights)
-		light_color = LIGHT_COLOR_WHITE
+		light_color = COLOR_WHITE
 		set_light_color(light_color)
 
 	prev_flashing_lights = flashing_lights
@@ -460,7 +460,7 @@
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
+			if( !Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= target.get_max_stamina())
 				back_to_hunt()
 				return
 

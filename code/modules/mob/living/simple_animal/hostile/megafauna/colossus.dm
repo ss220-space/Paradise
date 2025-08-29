@@ -57,7 +57,6 @@ Difficulty: Very Hard
 	del_on_death = TRUE
 	universal_speak = TRUE
 	tts_seed = null
-	internal_type = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
@@ -369,12 +368,6 @@ Difficulty: Very Hard
 	. = ..()
 	if(isturf(target) || isobj(target))
 		target.ex_act(2)
-
-/obj/item/gps/internal/colossus
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "Get in the fucking robot."
-	invisibility = INVISIBILITY_ABSTRACT
 
 #undef RANDOM_SHOTS
 #undef BLAST

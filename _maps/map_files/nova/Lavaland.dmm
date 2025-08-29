@@ -1922,8 +1922,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/condiment/saltshaker,
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
@@ -7100,8 +7099,7 @@
 /obj/machinery/light,
 /obj/machinery/power/terminal,
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/cable,
 /obj/structure/reagent_dispensers/beerkeg,
@@ -7178,8 +7176,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/reagent_containers/food/condiment/peppermill,
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/cable{
 	icon_state = "2-4"

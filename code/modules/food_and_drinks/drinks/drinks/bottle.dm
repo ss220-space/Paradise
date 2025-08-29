@@ -32,7 +32,7 @@
 	if(isGlass)
 		if(prob(33))
 			new/obj/item/shard(new_location)
-		playsound(src, "shatter", 70, 1)
+		playsound(src, SFX_SHATTER, 70, TRUE)
 	else
 		B.name = "broken carton"
 		B.force = 0
@@ -470,7 +470,7 @@
 	icon_state = "fernetbottle"
 	list_reagents = list("fernet" = 100)
 
-/obj/item/reagent_containers/food/drinks/bottle/fernet/get_ru_names()	
+/obj/item/reagent_containers/food/drinks/bottle/fernet/get_ru_names()
 	return list(
 		NOMINATIVE = "фернет \"Фернет Бронка\"",
 		GENITIVE = "фернета \"Фернет Бронка\"",

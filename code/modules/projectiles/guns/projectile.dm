@@ -37,12 +37,11 @@
 	else
 		desc = initial(desc)
 
-
 /obj/item/gun/projectile/update_icon_state()
 	if(current_skin)
-		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+		icon_state = "[current_skin][sawn_state ? "-sawn" : ""]"
 	else
-		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
+		icon_state = "[initial(icon_state)][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
 
 
 /obj/item/gun/projectile/update_overlays()
@@ -129,47 +128,7 @@
 		reload(new_magazine, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/suppressor))
-		add_fingerprint(user)
-		var/obj/item/suppressor/suppressor = I
-		if(!can_suppress)
-			balloon_alert(user, "не совместимо!")
-			return ATTACK_CHAIN_PROCEED
-		if(suppressed)
-			balloon_alert(user, "уже установлено!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(suppressor, src))
-			return ..()
-		balloon_alert(user, "установлено")
-		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
-		suppressed = suppressor
-		suppressor.oldsound = fire_sound
-		suppressor.initial_w_class = w_class
-		fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
-		w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
-		update_icon()
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 	return ..()
-
-
-/obj/item/gun/projectile/attack_hand(mob/user)
-	if(loc == user)
-		if(suppressed && can_unsuppress)
-			var/obj/item/suppressor/S = suppressed
-			if(user.l_hand != src && user.r_hand != src)
-				..()
-				return
-
-			balloon_alert(user, "глушитель снят!")
-			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
-			user.put_in_hands(suppressed)
-			fire_sound = S.oldsound
-			w_class = S.initial_w_class
-			suppressed = null
-			update_icon()
-			return
-	..()
 
 
 /obj/item/gun/projectile/attack_self(mob/living/user)

@@ -27,6 +27,13 @@
 #define SUPERMATTER_IGNORES (1<<8)
 /// This atom always returns its turf in get_turf_pixel instead of the turf from its offsets
 #define IGNORE_TURF_PIXEL_OFFSET (1<<9)
+/// If this atom has experienced a decal element "init finished" sourced appearance update
+/// We use this to ensure stacked decals don't double up appearance updates for no reason
+/// Flag as an optimization, don't make this a trait without profiling
+/// Yes I know this is a stupid flag, no you can't take him from me
+#define DECAL_INIT_UPDATE_EXPERIENCED (1<<10)
+/// Whether or not this atom shows screentips when hovered over
+#define NO_SCREENTIPS (1<<11)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name

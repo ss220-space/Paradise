@@ -45,8 +45,8 @@
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
-	male_scream_sound = list("u_mscream")
-	female_scream_sound = list("u_fscream")
+	male_scream_sound = list(SFX_U_MSCREAM)
+	female_scream_sound = list(SFX_U_FSCREAM)
 	male_sneeze_sound = list('sound/voice/unathi/m_u_sneeze.ogg')
 	female_sneeze_sound = list('sound/voice/unathi/f_u_sneeze.ogg')
 

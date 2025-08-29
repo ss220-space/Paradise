@@ -83,7 +83,7 @@
 /obj/item/paper/contractor_guide
 	name = "Руководство для Контрактника"
 
-/obj/item/paper/contractor_guide/Initialize() // This translation is full of shit, it should be redone by someone who will take up the paperwork (not me)
+/obj/item/paper/contractor_guide/Initialize(mapload) // This translation is full of shit, it should be redone by someone who will take up the paperwork (not me)
 	info = {"<p>Здравствуйте, уважаемый агент! Примите наши поздравления с назначением на должность Контрактника Синдиката!
 			В дополнение к уже поставленным перед вами задачам, этот набор открывает новые горизонты и предоставляет возможность выполнять контракты,
 			за успешное завершение которых вы будете вознаграждены телекристаллами и кредитами.</p>

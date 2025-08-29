@@ -52,7 +52,6 @@ Difficulty: Medium
 	wander = FALSE
 	del_on_death = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
-	internal_type = /obj/item/gps/internal/miner
 	medal_type = BOSS_MEDAL_MINER
 	var/obj/item/melee/energy/cleaving_saw/miner_saw
 	var/time_until_next_transform = 0
@@ -62,19 +61,13 @@ Difficulty: Medium
 	var/guidance = FALSE
 	var/transform_stop_attack = FALSE // stops the blood drunk miner from attacking after transforming his weapon until the next attack chain
 	deathmessage = "падает на землю, обращаясь в пыль."
-	death_sound = "bodyfall"
+	death_sound = SFX_BODYFALL
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	enraged_loot = /obj/item/disk/fauna_research/blood_drunk_miner
 	enraged_unique_loot = /obj/item/clothing/suit/hooded/explorer/blood
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
-							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
-							   /datum/action/innate/megafauna_attack/transform_weapon)
-
-/obj/item/gps/internal/miner
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "The sweet blood, oh, it sings to me."
-	invisibility = INVISIBILITY_ABSTRACT
+							/datum/action/innate/megafauna_attack/kinetic_accelerator,
+							/datum/action/innate/megafauna_attack/transform_weapon)
 
 /* New costume */
 
@@ -143,7 +136,7 @@ Difficulty: Medium
 		user.SetConfused(0)
 		user.SetImmobilized(0)
 		user.SetKnockdown(0)
-		user.adjustStaminaLoss(-100)
+		user.setStaminaLoss(0)
 		user.set_resting(FALSE, instant = TRUE)
 		user.get_up(instant = TRUE)
 	else
@@ -264,7 +257,7 @@ Difficulty: Medium
 		return FALSE
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity, target)
 	if(dash())
 		return
 	return ..()

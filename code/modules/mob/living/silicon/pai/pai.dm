@@ -270,8 +270,8 @@
 		if(3)
 			to_chat(src, span_warning("<font color=green> Вы чувствуете, как электрический разряд проходит сквозь ваши микросхемы и осознаёте, как сильно вам повезло, что вы вообще можете ещё чувствовать что-либо...</font>"))
 
-/mob/living/silicon/pai/ex_act(severity)
-	..()
+/mob/living/silicon/pai/ex_act(severity, target)
+	. = ..()
 
 	if(stat == DEAD)
 		return

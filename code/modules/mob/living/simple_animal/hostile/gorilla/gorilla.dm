@@ -50,7 +50,7 @@
 	var/datum/action/innate/gorilla/gorilla_toggle/gorilla_toggle
 
 
-/mob/living/simple_animal/hostile/gorilla/Initialize()
+/mob/living/simple_animal/hostile/gorilla/Initialize(mapload)
 	. = ..()
 	gorilla_toggle = new
 	gorilla_toggle.Grant(src)

@@ -1,14 +1,6 @@
 /obj/item/reagent_containers/applicator
 	name = "auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов."
-	ru_names = list(
-        NOMINATIVE = "авто-мендер",
-        GENITIVE = "авто-мендера",
-        DATIVE = "авто-мендеру",
-        ACCUSATIVE = "авто-мендер",
-        INSTRUMENTAL = "авто-мендером",
-        PREPOSITIONAL = "авто-мендере"
-	)
 	gender = MALE
 	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "mender"
@@ -27,6 +19,15 @@
 	var/applied_amount = 8 // How much it applies
 	var/applying = FALSE // So it can't be spammed.
 
+/obj/item/reagent_containers/applicator/get_ru_names()
+	return list(
+        NOMINATIVE = "авто-мендер",
+        GENITIVE = "авто-мендера",
+        DATIVE = "авто-мендеру",
+        ACCUSATIVE = "авто-мендер",
+        INSTRUMENTAL = "авто-мендером",
+        PREPOSITIONAL = "авто-мендере"
+	)
 
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
 	if(!emagged)
@@ -142,7 +143,10 @@
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления механических повреждений."
-	ru_names = list(
+	list_reagents = list("styptic_powder" = 200)
+
+/obj/item/reagent_containers/applicator/brute/get_ru_names()
+	return list(
         NOMINATIVE = "авто-мендер (Мех. Повреждения)",
         GENITIVE = "авто-мендера (Мех. Повреждения)",
         DATIVE = "авто-мендеру (Мех. Повреждения)",
@@ -150,12 +154,14 @@
         INSTRUMENTAL = "авто-мендером (Мех. Повреждения)",
         PREPOSITIONAL = "авто-мендере (Мех. Повреждения)"
 	)
-	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/burn
 	name = "burn auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления термических повреждений."
-	ru_names = list(
+	list_reagents = list("silver_sulfadiazine" = 200)
+
+/obj/item/reagent_containers/applicator/burn/get_ru_names()
+	return list(
         NOMINATIVE = "авто-мендер (Терм. Повреждения)",
         GENITIVE = "авто-мендера (Терм. Повреждения)",
         DATIVE = "авто-мендеру (Терм. Повреждения)",
@@ -163,12 +169,14 @@
         INSTRUMENTAL = "авто-мендером (Терм. Повреждения)",
         PREPOSITIONAL = "авто-мендере (Терм. Повреждения)"
 	)
-	list_reagents = list("silver_sulfadiazine" = 200)
 
 /obj/item/reagent_containers/applicator/dual
 	name = "dual auto-mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления как механических, так и термических повреждений."
-	ru_names = list(
+	list_reagents = list("synthflesh" = 200)
+
+/obj/item/reagent_containers/applicator/dual/get_ru_names()
+	return list(
         NOMINATIVE = "авто-мендер (Синт-плоть)",
         GENITIVE = "авто-мендера (Синт-плоть)",
         DATIVE = "авто-мендеру (Синт-плоть)",
@@ -176,7 +184,7 @@
         INSTRUMENTAL = "авто-мендером (Синт-плоть)",
         PREPOSITIONAL = "авто-мендере (Синт-плоть)"
 	)
-	list_reagents = list("synthflesh" = 200)
 
 /obj/item/reagent_containers/applicator/dual/syndi // It magically goes through hardsuits. Don't ask how.
 	ignore_flags = TRUE
+

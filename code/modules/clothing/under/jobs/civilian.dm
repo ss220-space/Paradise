@@ -80,9 +80,8 @@
 /obj/item/clothing/under/rank/chaplain/skirt
 	desc = "It's a black jumpskirt, often worn by religious folk."
 	name = "chaplain's jumpskirt"
-	icon_state = "chapblackf"
+	icon_state = "chaplain_skirt"
 	item_state = "bl_suit"
-	item_color = "chapblackf"
 	over_shoes = TRUE
 
 /obj/item/clothing/under/rank/chaplain/sensor
@@ -102,7 +101,7 @@
 	item_state = "clown"
 	item_color = "clown"
 
-/obj/item/clothing/under/rank/clown/Initialize()
+/obj/item/clothing/under/rank/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'), 50, falloff_exponent = 20) //die off quick please
 
