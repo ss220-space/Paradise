@@ -86,7 +86,7 @@
 	desc = "Гасит большинство близлежащих источников света."
 	base_cooldown = 15 SECONDS //Short cooldown because people can just turn the lights back on
 	clothes_req = FALSE
-	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime)
+	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime, /obj/structure/glowshroom/shadowshroom)
 	action_icon_state = "veil"
 	aoe_range = 5
 
@@ -112,6 +112,8 @@
 	for(var/turf/T in targets)
 		T.extinguish_light()
 		for(var/atom/A in T.contents)
+			if(A in blacklisted_lights)
+				continue
 			A.extinguish_light()
 
 
