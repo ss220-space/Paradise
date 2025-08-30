@@ -1744,6 +1744,10 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
 /area/maintenance/bar)
+"aqz" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_sm_room,
+/turf/simulated/wall/r_wall/coated,
+/area/toxins/sm_test_chamber)
 "aqB" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -69682,6 +69686,15 @@
 	},
 /turf/space,
 /area/maintenance/ai)
+"liN" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/toxins/sm_test_chamber)
 "liV" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -85014,6 +85027,15 @@
 	icon_state = "freezerfloor"
 	},
 /area/security/brigstaff)
+"oIO" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/toxins/sm_test_chamber)
 "oIQ" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -93160,6 +93182,15 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
+"quC" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall/r_wall,
+/area/toxins/sm_test_chamber)
 "quO" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/chair/sofa/pew/right,
@@ -143853,7 +143884,7 @@ coE
 dZq
 coE
 acF
-cUS
+quC
 rRM
 rRM
 cUS
@@ -143861,7 +143892,7 @@ vlf
 uFo
 dGb
 uFo
-uFo
+aqz
 iqN
 hsp
 hsp
@@ -147451,7 +147482,7 @@ bXU
 cDu
 gCr
 pxR
-cTi
+oIO
 mbR
 cTi
 cTi
@@ -147459,7 +147490,7 @@ cTi
 cTi
 cTi
 mbR
-cTi
+liN
 nnt
 vik
 wLd

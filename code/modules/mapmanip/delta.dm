@@ -48,3 +48,19 @@
 
 /obj/effect/map_effect/marker_helper/submap_def/delta/dorm_maints_near_toilet/gaming_room
 	name = "заброшенная игровая с игрушками вместо старой комнаты под туалетами"
+
+
+// old sm room
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_sm_room
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_sm_room
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_sm_room/pod_hangar
+	name = "заброшенный ангар подов вместо старого СМа"
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_sm_room/assistant_room
+	name = "заброшеное логово ассистентов вместо старого СМа"
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_sm_room/old_rooms
+	name = "старые комнаты вместо старого СМа"
