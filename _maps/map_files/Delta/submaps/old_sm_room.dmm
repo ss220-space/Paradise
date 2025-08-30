@@ -88,12 +88,23 @@
 "cK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/trash/tapetrash/thick,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/template_noop)
 "cP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/ammo_casing/shotgun/buckshot/nuclear,
 /turf/simulated/floor/wood,
+/area/template_noop)
+"cS" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/template_noop)
 "cW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -119,9 +130,32 @@
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
+"dH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/template_noop)
 "dI" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_sm_room,
 /turf/template_noop,
+/area/template_noop)
+"dJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
 /area/template_noop)
 "dR" = (
 /obj/structure/bed,
@@ -159,6 +193,13 @@
 	dir = 5;
 	icon_state = "darkyellow"
 	},
+/area/template_noop)
+"ev" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
 /area/template_noop)
 "eD" = (
 /obj/machinery/light/small{
@@ -200,6 +241,13 @@
 /obj/structure/table,
 /obj/item/screwdriver,
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"fv" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "fJ" = (
@@ -256,15 +304,13 @@
 	dir = 8;
 	pixel_y = 9
 	},
-/obj/effect/decal/cleanable/blood/tracks{
-	layer = 3
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "hk" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/engine/cult,
 /area/template_noop)
 "hN" = (
@@ -295,11 +341,11 @@
 	pixel_y = 9
 	},
 /obj/item/ammo_casing/c9mm,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/template_noop)
@@ -320,9 +366,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -344,6 +392,14 @@
 "ju" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/ammo_casing/shotgun/buckshot/nuclear,
+/obj/machinery/power/apc/worn_out{
+	cell_type = 0;
+	dir = 1;
+	pixel_y = 26
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -443,6 +499,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
+"mF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/template_noop)
 "mW" = (
 /obj/structure/table,
 /obj/item/wrench,
@@ -517,6 +582,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = 32
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -638,11 +706,13 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "qK" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/mineral_door/wood,
-/obj/structure/barricade/wooden,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/blood/tracks{
+	layer = 3
+	},
+/turf/simulated/floor/wood,
 /area/template_noop)
 "qP" = (
 /obj/structure/sign/biohazard,
@@ -652,6 +722,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -682,6 +755,12 @@
 	icon_state = "dark"
 	},
 /area/template_noop)
+"rN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
 "rZ" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/eyepatch,
@@ -697,6 +776,13 @@
 	pixel_y = -6
 	},
 /turf/simulated/floor/plating,
+/area/template_noop)
+"sw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/template_noop)
 "sL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -725,6 +811,9 @@
 /area/template_noop)
 "tw" = (
 /obj/effect/landmark/tiles/burnturf,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/template_noop)
 "tB" = (
@@ -761,9 +850,6 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "ug" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -934,6 +1020,14 @@
 /obj/effect/map_effect/marker_helper/submap_def/delta/old_sm_room/old_rooms,
 /turf/simulated/wall,
 /area/template_noop)
+"AS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/template_noop)
 "AV" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
@@ -974,6 +1068,9 @@
 "DJ" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = 32
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1060,6 +1157,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
+"Gb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/template_noop)
 "Gg" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
@@ -1100,6 +1206,15 @@
 /obj/item/ammo_casing/shotgun,
 /turf/simulated/floor/plating,
 /area/template_noop)
+"Hs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/template_noop)
 "Hu" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -1111,6 +1226,19 @@
 /area/template_noop)
 "HF" = (
 /obj/structure/chair/stool/wooden,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"HJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/template_noop)
+"HK" = (
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "HX" = (
@@ -1204,6 +1332,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
+"Kc" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/template_noop)
 "KK" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/wood,
@@ -1260,6 +1397,7 @@
 "Ng" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1323,6 +1461,25 @@
 	name = "Pod Hangar Access"
 	},
 /turf/simulated/floor/plating,
+/area/template_noop)
+"Pz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/template_noop)
+"PD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10;
+	initialize_directions = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/template_noop)
 "PR" = (
 /obj/structure/sign/evac,
@@ -1389,13 +1546,13 @@
 "TN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/ammo_casing/c9mm,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
 /obj/structure/chair/stool/wooden,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -1404,6 +1561,7 @@
 "TP" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "TR" = (
@@ -1497,6 +1655,9 @@
 /obj/item/storage/belt/utility,
 /obj/item/clothing/gloves/color/fyellow,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Xk" = (
@@ -1568,6 +1729,9 @@
 /area/template_noop)
 "ZT" = (
 /obj/spacepod/civilian/damaged,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -1887,7 +2051,7 @@ tB
 tB
 tB
 kt
-pp
+ev
 gs
 px
 pL
@@ -2085,7 +2249,7 @@ Qc
 QB
 NZ
 mW
-Qc
+HK
 TR
 tB
 tB
@@ -2704,11 +2868,11 @@ tB
 tB
 tB
 bX
-pv
-pv
+cS
+cI
 Xm
 pg
-pg
+Pz
 Xm
 Ng
 Ej
@@ -2737,11 +2901,11 @@ tB
 tB
 kt
 hU
+HJ
 pg
 pg
-pg
-pg
-pg
+PD
+mF
 pg
 kt
 tB
@@ -2805,7 +2969,7 @@ rq
 Vq
 MA
 Dy
-pg
+Hs
 pg
 kt
 tB
@@ -2832,13 +2996,13 @@ tB
 tB
 tB
 kt
+cS
+AS
 pv
+Kc
 pv
-pv
-ea
-pv
-pg
-pg
+Hs
+sw
 kt
 tB
 tB
@@ -2851,7 +3015,7 @@ Ji
 SV
 Gm
 sR
-Qc
+nJ
 mz
 EO
 kt
@@ -2865,9 +3029,9 @@ tB
 tB
 kt
 Fg
-yy
+dJ
 iv
-pv
+AS
 iR
 ZT
 pg
@@ -2883,10 +3047,10 @@ ju
 pp
 pp
 Xo
-Qc
+rN
 ir
 he
-qK
+kt
 tB
 tB
 tB
@@ -2899,9 +3063,9 @@ kt
 cC
 cK
 wd
-cI
+AS
 nc
-iR
+Gb
 pg
 kt
 tB
@@ -2915,7 +3079,7 @@ Xk
 cP
 sR
 SV
-nJ
+rN
 cW
 uQ
 kt
@@ -2933,7 +3097,7 @@ iW
 Dr
 Wg
 oj
-gg
+dH
 gg
 Py
 tB
@@ -2949,8 +3113,8 @@ Zg
 kB
 ei
 TN
-SV
-kt
+qK
+fv
 tB
 tB
 tB
