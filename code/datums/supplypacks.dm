@@ -824,12 +824,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/shotgun_shells
 	name = "Various Shotgun Shells Crate"
 	containername = "various shotgun shells crate"
-	cost = 250
+	cost = 200
 	contains = list(
 		/obj/item/ammo_box/shotgun/stunslug,
 		/obj/item/ammo_box/shotgun/pulseslug,
 		/obj/item/ammo_box/shotgun/dragonsbreath,
-		/obj/item/ammo_box/shotgun/frag12,
 		/obj/item/ammo_box/shotgun/ion,
 		/obj/item/ammo_box/shotgun/laserslug,
 	)
@@ -3142,9 +3141,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/contraband/bombard_grenades
 	name = "Bombarda grenades crate"
-	contains = list(/obj/item/ammo_casing/a40mm/improvised/flame_shell,
+	contains = list(/obj/item/ammo_casing/a40mm/improvised/exp_shell,
+					/obj/item/ammo_casing/a40mm/improvised/flame_shell,
 					/obj/item/ammo_casing/a40mm/improvised/smoke_shell)
-	credits_cost = 3000
+	credits_cost = 7000
 	containername = "bombarda grenades crate"
 
 /datum/supply_packs/contraband/randomised/contraband

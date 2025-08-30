@@ -325,6 +325,24 @@
 	subcategory = CAT_AMMO
 	always_availible = FALSE
 
+/datum/crafting_recipe/explosion_shell
+	name = "Improvised explosive shell"
+	result = /obj/item/ammo_casing/a40mm/improvised/exp_shell
+	reqs = list(/datum/reagent/blackpowder = 20
+				/obj/item/grenade/iedcasing = 1,
+				/obj/item/grenade/chem_grenade = 1,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/assembly/prox_sensor = 1)
+	time = 2 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	always_availible = FALSE
+
+/datum/crafting_recipe/explosion_shell/New()
+	. = ..()
+	if(CONFIG_GET(flag/enable_bombarda_craft))
+		always_availible = TRUE
+
 /datum/crafting_recipe/flame_shell/New()
 	. = ..()
 	if(CONFIG_GET(flag/enable_bombarda_craft))

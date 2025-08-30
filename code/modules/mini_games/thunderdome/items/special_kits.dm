@@ -29,6 +29,8 @@
 		new /obj/item/ammo_casing/a40mm/improvised/smoke_shell(src)
 	for(var/i = 0, i < 3, i++)
 		new /obj/item/ammo_casing/a40mm/improvised/flame_shell(src)
+	for(var/i = 0, i < 3, i++)
+		new /obj/item/ammo_casing/a40mm/improvised/exp_shell(src)
 
 /obj/item/storage/box/thunderdome/crossbow/populate_contents()
 	var/obj/item/gun/throw/crossbow/cbow = new(src)

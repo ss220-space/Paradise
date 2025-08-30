@@ -457,8 +457,8 @@
 		INSTRUMENTAL = "разрывной пулей",
 		PREPOSITIONAL = "разрывной пуле"
 	)
-	damage = 25
-	weaken = 10 SECONDS
+	damage = 20 //we already have explosion damage and knockdown
+	knockdown = 3 SECONDS
 
 /obj/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
