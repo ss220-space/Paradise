@@ -565,8 +565,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/raise_dead/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD)
-		. += "<b>Sacrifices unrewarded:</b> [span_cultitalic(length(GLOB.sacrificed) - sacrifices_used)]"
-		. += "<b>Sacrifice cost per ressurection: </b>[span_cultitalic(SOULS_TO_REVIVE)]"
+		. += "<b>Sacrifices unrewarded:</b> [span_cultitalic("[length(GLOB.sacrificed) - sacrifices_used]")]"
+		. += "<b>Sacrifice cost per ressurection: </b>[span_cultitalic("[SOULS_TO_REVIVE]")]"
 
 /obj/effect/rune/raise_dead/invoke(list/invokers)
 	var/turf/T = get_turf(src)
