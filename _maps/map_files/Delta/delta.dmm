@@ -67306,10 +67306,6 @@
 	pixel_y = -26
 	},
 /obj/structure/cable,
-/obj/structure/safe{
-	known_by = list("hos")
-	},
-/obj/item/gun/projectile/bombarda/secgl/x4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

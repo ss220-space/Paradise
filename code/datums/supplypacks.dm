@@ -703,6 +703,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 65
 	containername = "laser rifle crate"
 
+/datum/supply_packs/security/armory/bombarda
+	name = "GL-08-4 Crate"
+	contains = list(/obj/item/gun/projectile/bombarda/secgl/x4)
+	cost = 350
+	containername = "grenade launcher crate"
+	required_tech = list("combat" = 7, "materials" = 3)
+
 /datum/supply_packs/security/armory/wt550ammo
 	name = "WT-550 Rifle Ammo Crate"
 	contains = list(/obj/item/ammo_box/magazine/wt550m9,
@@ -747,14 +754,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/security_voucher,)
 	cost = 100
 	name = "Security Voucher crate"
-
-/datum/supply_packs/security/armory/m79
-	name = "M79 Grenade Launcher Crate"
-	contains = list(/obj/item/gun/projectile/bombarda/secgl/m79,
-					/obj/item/gun/projectile/bombarda/secgl/m79)
-	cost = 80
-	containername = "m79 grenade launcher crate"
-	required_tech = list("combat" = 6, "materials" = 3)
 
 /datum/supply_packs/security/armory/grenades40mm_nonlethal
 	name = "40mm non-lethal grenade boxes crate"
