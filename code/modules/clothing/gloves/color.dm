@@ -395,5 +395,5 @@
 	name = "bloodred gloves"
 	desc = "Перчатки кроваво-красного цвета, абсолютно ничем не подозрительны."
 	icon_state = "bloodred"
-	item_state = "bloodred"
-	item_color = "bloodred"
+	item_state = "bloodredgloves"
+	item_color = "blood"

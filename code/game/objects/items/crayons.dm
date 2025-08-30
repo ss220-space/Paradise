@@ -21,6 +21,17 @@
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
+	var/nutrition_value = 5
+	var/eat_message = "Вы откусываете кусочек {GENITIVE}. Вкусно!"
+/obj/item/toy/crayon/get_ru_names()
+	return list(
+		NOMINATIVE = "мелок",
+		GENITIVE = "мелка",
+		DATIVE = "мелку",
+		ACCUSATIVE = "мелок",
+		INSTRUMENTAL = "мелком",
+		PREPOSITIONAL = "мелке"
+	)
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide."))
@@ -108,14 +119,14 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(ishuman(user) && !user.check_has_mouth())
-		to_chat(user, span_warning("You do not have a mouth!"))
+		to_chat(user, span_warning("Вы не имеете рта!"))
 		return .
 
 	var/huffable = istype(src, /obj/item/toy/crayon/spraycan)
 	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
-	to_chat(user, span_notice("YYou take a [huffable ? "huff" : "bite"] of the [name]. Delicious!"))
+	to_chat(user, span_notice(replacetext(eat_message, "{GENITIVE}", src.declent_ru(GENITIVE))))
 	if(!isvampire(user))
-		user.adjust_nutrition(5)
+		user.adjust_nutrition(nutrition_value)
 
 	if(!uses)
 		return .
@@ -125,7 +136,7 @@
 	uses -= 5
 	if(uses <= 0)
 		. = ATTACK_CHAIN_BLOCKED_ALL
-		to_chat(user, span_warning("There is no more of [huffable ? "paint in " : ""][name] left!"))
+		to_chat(user, span_warning("[huffable ? "В баллончике больше ничего не осталось!" : "В [name] больше ничего не осталось!"]"))
 		qdel(src)
 
 
@@ -136,12 +147,32 @@
 	colourName = "red"
 	dye_color = DYE_RED
 
+/obj/item/toy/crayon/red/get_ru_names()
+	return list(
+		NOMINATIVE = "красный мелок",
+		GENITIVE = "красного мелка",
+		DATIVE = "красному мелку",
+		ACCUSATIVE = "красный мелок",
+		INSTRUMENTAL = "красным мелком",
+		PREPOSITIONAL = "красном мелке"
+	)
+
 /obj/item/toy/crayon/orange
 	name = "orange crayon"
 	icon_state = "crayonorange"
 	colour = COLOR_ORANGE
 	colourName = "orange"
 	dye_color = DYE_ORANGE
+
+/obj/item/toy/crayon/orange/get_ru_names()
+	return list(
+		NOMINATIVE = "оранжевый мелок",
+		GENITIVE = "оранжевого мелка",
+		DATIVE = "оранжевому мелку",
+		ACCUSATIVE = "оранжевый мелок",
+		INSTRUMENTAL = "оранжевым мелком",
+		PREPOSITIONAL = "оранжевом мелке"
+	)
 
 /obj/item/toy/crayon/yellow
 	name = "yellow crayon"
@@ -150,12 +181,32 @@
 	colourName = "yellow"
 	dye_color = DYE_YELLOW
 
+/obj/item/toy/crayon/yellow/get_ru_names()
+	return list(
+		NOMINATIVE = "жёлтый мелок",
+		GENITIVE = "жёлтого мелка",
+		DATIVE = "жёлтому мелку",
+		ACCUSATIVE = "жёлтый мелок",
+		INSTRUMENTAL = "жёлтым мелком",
+		PREPOSITIONAL = "жёлтом мелке"
+	)
+
 /obj/item/toy/crayon/green
 	name = "green crayon"
 	icon_state = "crayongreen"
 	colour = COLOR_GREEN
 	colourName = "green"
 	dye_color = DYE_GREEN
+
+/obj/item/toy/crayon/green/get_ru_names()
+	return list(
+		NOMINATIVE = "зелёный мелок",
+		GENITIVE = "зелёного мелка",
+		DATIVE = "зелёному мелку",
+		ACCUSATIVE = "зелёный мелок",
+		INSTRUMENTAL = "зелёным мелком",
+		PREPOSITIONAL = "зелёном мелке"
+	)
 
 /obj/item/toy/crayon/blue
 	name = "blue crayon"
@@ -164,12 +215,32 @@
 	colourName = "blue"
 	dye_color = DYE_BLUE
 
+/obj/item/toy/crayon/blue/get_ru_names()
+	return list(
+		NOMINATIVE = "синий мелок",
+		GENITIVE = "синего мелка",
+		DATIVE = "синему мелку",
+		ACCUSATIVE = "синий мелок",
+		INSTRUMENTAL = "синим мелком",
+		PREPOSITIONAL = "синем мелке"
+	)
+
 /obj/item/toy/crayon/purple
 	name = "purple crayon"
 	icon_state = "crayonpurple"
 	colour = COLOR_PURPLE
 	colourName = "purple"
 	dye_color = DYE_PURPLE
+
+/obj/item/toy/crayon/purple/get_ru_names()
+	return list(
+		NOMINATIVE = "фиолетовый мелок",
+		GENITIVE = "фиолетового мелка",
+		DATIVE = "фиолетовому мелку",
+		ACCUSATIVE = "фиолетовый мелок",
+		INSTRUMENTAL = "фиолетовым мелком",
+		PREPOSITIONAL = "фиолетовом мелке"
+	)
 
 /obj/item/toy/crayon/random/New()
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
@@ -213,12 +284,32 @@
 	colourName = "black"
 	dye_color = DYE_BLACK
 
+/obj/item/toy/crayon/black/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрный мелок",
+		GENITIVE = "чёрного мелка",
+		DATIVE = "чёрному мелку",
+		ACCUSATIVE = "чёрный мелок",
+		INSTRUMENTAL = "чёрным мелком",
+		PREPOSITIONAL = "чёрном мелке"
+	)
+
 /obj/item/toy/crayon/white
 	name = "white crayon"
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"
 	colourName = "white"
 	dye_color = DYE_WHITE
+
+/obj/item/toy/crayon/white/get_ru_names()
+	return list(
+		NOMINATIVE = "белый мелок",
+		GENITIVE = "белого мелка",
+		DATIVE = "белому мелку",
+		ACCUSATIVE = "белый мелок",
+		INSTRUMENTAL = "белым мелком",
+		PREPOSITIONAL = "белом мелке"
+	)
 
 /obj/item/toy/crayon/mime
 	name = "mime crayon"
@@ -228,6 +319,17 @@
 	colourName = "mime"
 	uses = 0
 	dye_color = DYE_MIME
+
+/obj/item/toy/crayon/mime/get_ru_names()
+	return list(
+		NOMINATIVE = "мимский мелок",
+		GENITIVE = "мимского мелка",
+		DATIVE = "мимскому мелку",
+		ACCUSATIVE = "мимский мелок",
+		INSTRUMENTAL = "мимским мелком",
+		PREPOSITIONAL = "мимском мелке"
+	)
+
 
 /obj/item/toy/crayon/mime/attack_self(mob/living/user as mob)
 	update_window(user)
@@ -256,6 +358,16 @@
 	uses = 0
 	dye_color = DYE_RAINBOW
 
+/obj/item/toy/crayon/rainbow/get_ru_names()
+	return list(
+		NOMINATIVE = "радужный мелок",
+		GENITIVE = "радужного мелка",
+		DATIVE = "радужному мелку",
+		ACCUSATIVE = "радужный мелок",
+		INSTRUMENTAL = "радужным мелком",
+		PREPOSITIONAL = "радужном мелке"
+	)
+
 /obj/item/toy/crayon/rainbow/attack_self(mob/living/user as mob)
 	update_window(user)
 
@@ -276,12 +388,47 @@
 		..()
 
 /obj/item/toy/crayon/bloodred
-	name = "bloodred  crayon"
-	icon_state = "bloodred"
+	name = "blood-red crayon"
+	desc = "Мелок, основаный на редспейс-технологии. Выглядит так, будто сделан из крови. Более питательный, чем обычный мелок."
+	icon_state = "crayonbloodred"
 	colour = COLOR_BLOOD
-	colourName = "bloodred"
+	colourName = "blood"
 	uses = 0
 	dye_color = DYE_BLOOD
+	nutrition_value = 10
+	eat_message = "Вы откусываете кроваво-красный мелок. На вкус как кровь. У вас остается металлический привкус на языке."
+
+/obj/item/toy/crayon/bloodred/get_ru_names()
+	return list(
+		NOMINATIVE = "кроваво-красный мелок",
+		GENITIVE = "кроваво-красного мелка",
+		DATIVE = "кроваво-красному мелку",
+		ACCUSATIVE = "кроваво-красный мелок",
+		INSTRUMENTAL = "кроваво-красным мелком",
+		PREPOSITIONAL = "кроваво-красном мелке"
+	)
+
+/obj/item/toy/crayon/bloodred/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity)
+		return
+	if(busy)
+		return
+	if(is_type_in_list(target, validSurfaces))
+		var/temp = "rune"
+		if(letters.Find(drawtype))
+			temp = "letter"
+		else if(graffiti.Find(drawtype))
+			temp = "graffiti"
+		to_chat(user, span_notice("Вы начинаете рисовать [temp] кровью на [target.declent_ru("PREPOSITIONAL")]."))
+		busy = TRUE
+		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
+			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target, colour, drawtype, temp)
+			C.add_hiddenprint(user)
+			C.blood_graffiti = TRUE
+			C.update_desc()
+			to_chat(user, span_notice("Вы закончили рисовать [temp] кровью."))
+		busy = FALSE
+
 
 //Spraycan stuff
 
@@ -297,6 +444,17 @@
 					"White Flame" = "welding_white")
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
+	eat_message = "Вы делаете затяжку от {GENITIVE}. Вкусно!"
+
+/obj/item/toy/crayon/spraycan/get_ru_names()
+	return list(
+		NOMINATIVE = "баллончик с краской",
+		GENITIVE = "баллончика с краской",
+		DATIVE = "баллончику с краской",
+		ACCUSATIVE = "баллончик с краской",
+		INSTRUMENTAL = "баллончиком с краской",
+		PREPOSITIONAL = "баллончике с краской"
+	)
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
