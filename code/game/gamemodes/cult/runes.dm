@@ -414,7 +414,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/teleport
 	cultist_name = "Teleport"
-	cultist_desc = "warps everything above it to another chosen teleport rune."
+	cultist_desc = "переносит всё, что расположено на руне, на другую выбранную руну телепорта. Работает только в пределах сектора станции, где завеса наиболее тонка."
 	invocation = "Сас'со к'арта форбичи!"
 	icon_state = "teleport"
 	color = RUNE_COLOR_TELEPORT
@@ -450,7 +450,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		else
 			teleportnames += resultkey
 			duplicaterunecount[resultkey] = 1
-		if(R != src && is_level_reachable(R.z))
+		if(R != src && is_level_reachable(R.z) && is_station_level(R.z))
 			potential_runes[resultkey] = R
 
 	if(!length(potential_runes))

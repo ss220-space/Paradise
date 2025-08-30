@@ -504,11 +504,13 @@
 		else
 			teleportnames.Add(resultkey)
 			duplicaterunecount[resultkey] = 1
-		potential_runes[resultkey] = T
+		if(is_station_level(T.z))
+			potential_runes[resultkey] = T
 
 	if(!length(potential_runes))
 		to_chat(user, span_warning("There are no valid runes to teleport to!"))
 		return
+
 	if(!is_level_reachable(user.z))
 		to_chat(user, span_cultitalic("You are not in the right dimension!"))
 		return
