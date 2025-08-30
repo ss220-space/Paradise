@@ -257,18 +257,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/frag12
-	name = "FRAG-12 Shell"
-	result = /obj/item/ammo_casing/shotgun/frag12
-	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
-				/datum/reagent/glycerol = 5,
-				/datum/reagent/acid = 5,
-				/datum/reagent/acid/facid = 5,)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
 /datum/crafting_recipe/ionslug
 	name = "Ion Scatter Shell"
 	result = /obj/item/ammo_casing/shotgun/ion
