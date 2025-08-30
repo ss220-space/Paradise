@@ -131,16 +131,14 @@
 
 
 /datum/status_effect/shadow_boxing/tick(seconds_between_ticks)
-	if(QDELETED(owner))
-		qdel(src)
-		return
-
 	var/mob/living/attacker = locateUID(source_UID)
 	if(attacker in view(owner, 2))
+		var/turf/attacker_turf = get_turf(attacker)
+		var/turf/owner_turf = get_turf(owner)
 		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
 		owner.apply_damage(damage, BRUTE)
-		playsound(get_turf(owner), 'sound/effects/hit_punch.ogg', 30, TRUE, -1)
-		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
+		playsound(owner_turf, SFX_PUNCH, 30, TRUE, -1)
+		shadow_to_animation(attacker_turf, owner_turf, attacker)
 
 
 /datum/status_effect/saw_bleed
