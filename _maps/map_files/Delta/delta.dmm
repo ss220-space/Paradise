@@ -24136,7 +24136,7 @@
 "cJc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/lighter/zippo/engraved{
+/obj/item/lighter/zippo{
 	pixel_x = 1;
 	pixel_y = 3
 	},
@@ -83607,11 +83607,11 @@
 /area/maintenance/asmaint2)
 "oss" = (
 /obj/structure/table/wood,
-/obj/item/lighter/zippo/engraved{
+/obj/machinery/light,
+/obj/item/lighter/zippo{
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "osx" = (
