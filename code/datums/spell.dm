@@ -853,7 +853,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(!action.owner || get_dist(get_turf(action.owner), get_turf(cast_on)) <= cast_range)
 		return
 
-	cast_on.balloon_alert(action.owner, "too far away!")
+	cast_on.balloon_alert(action.owner, "слишком далеко!")
 	return . | SPELL_CANCEL_CAST
 
 
