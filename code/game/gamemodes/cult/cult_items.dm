@@ -467,7 +467,6 @@
 
 /obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
-	force = 15
 	item_flags = DROPDEL
 
 
