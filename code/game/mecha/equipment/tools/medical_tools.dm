@@ -86,7 +86,6 @@
 	START_PROCESSING(SSobj, src)
 	occupant_message(span_notice("[target] successfully loaded into [src]. Life support functions engaged."))
 	chassis.visible_message(span_warning("[chassis] loads [target] into [src]."))
-	log_message("[target] loaded. Life support functions engaged.")
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/patient_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
@@ -107,7 +106,6 @@
 		return FALSE
 	patient.forceMove(get_turf(src))
 	occupant_message("[patient] ejected. Life support functions disabled.")
-	log_message("[patient] ejected. Life support functions disabled.")
 	STOP_PROCESSING(SSobj, src)
 	patient = null
 
@@ -183,7 +181,6 @@
 	var/to_inject = min(R.volume, inject_amount)
 	if(to_inject)
 		occupant_message("Applying [to_inject] units of [R.name] to [patient].")
-		log_message("Applied [to_inject] units of [R.name] to [patient].")
 		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units", R.harmless ? ATKLOG_ALMOSTALL : null)
 		var/datum/reagents/chosen_reagent = new(to_inject)
 		chosen_reagent.add_reagent(R.id, to_inject)
@@ -207,7 +204,6 @@
 		return
 	if(!chassis.has_charge(energy_drain))
 		set_ready_state(TRUE)
-		log_message("Deactivated.")
 		occupant_message("[src] deactivated - no power.")
 		STOP_PROCESSING(SSobj, src)
 		return
@@ -312,7 +308,6 @@
 		START_PROCESSING(SSobj, src)
 		occupant_message(message)
 		occupant_message("Reagent processing started.")
-		log_message("Reagent processing started.")
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/handle_ui_act(action, list/params)
 	switch(action)
@@ -363,7 +358,6 @@
 	mechsyringe.icon = 'icons/obj/chemical.dmi'
 	mechsyringe.icon_state = "syringeproj"
 	playsound(chassis, 'sound/items/syringeproj.ogg', 50, TRUE)
-	log_message("Launched [mechsyringe] from [src], targeting [target].")
 	start_cooldown()
 	INVOKE_ASYNC(src, PROC_REF(async_syringe_gun_action), mechsyringe, target_turf)
 
@@ -463,7 +457,6 @@
 		return
 	if(!processed_reagents.len || reagents.total_volume >= reagents.maximum_volume || !chassis.has_charge(energy_drain))
 		occupant_message(span_alert("Reagent processing stopped."))
-		log_message("Reagent processing stopped.")
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/amount = synth_speed / processed_reagents.len
@@ -586,7 +579,6 @@
 
 	if(!chassis.use_power(energy_drain))
 		set_ready_state(TRUE)
-		log_message("Deactivated.")
 		occupant_message("[src] deactivated - no power.")
 		return TRUE
 

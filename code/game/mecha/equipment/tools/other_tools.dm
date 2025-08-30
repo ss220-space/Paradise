@@ -227,11 +227,9 @@
 	if(!active)
 		START_PROCESSING(SSobj, src)
 		droid_overlay = new(icon, icon_state = "repair_droid_a")
-		log_message("Droid activated.")
 	else
 		STOP_PROCESSING(SSobj, src)
 		droid_overlay = new(icon, icon_state = "repair_droid")
-		log_message("Droid deactivated.")
 	active = !active
 	chassis.add_overlay(droid_overlay)
 	start_cooldown()
@@ -307,11 +305,9 @@
 	if(active) //inactive
 		START_PROCESSING(SSobj, src)
 		set_ready_state(FALSE)
-		log_message("Activated.")
 	else
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(TRUE)
-		log_message("Deactivated.")
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
 	if(!chassis || chassis.internal_damage & MECHA_INT_SHORT_CIRCUIT)
@@ -367,11 +363,9 @@
 	if(active)
 		to_chat(chassis.occupant, "[icon2html(src, chassis.occupant)][span_warning("Power generation enabled.")]")
 		START_PROCESSING(SSobj, src)
-		log_message("Activated.")
 	else
 		to_chat(chassis.occupant, "[icon2html(src, chassis.occupant)][span_warning("Power generation disabled.")]")
 		STOP_PROCESSING(SSobj, src)
-		log_message("Deactivated.")
 
 /obj/item/mecha_parts/mecha_equipment/generator/get_snowflake_data()
 	var/list/data = list(
@@ -449,14 +443,12 @@
 		return
 	if(fuel_amount<=0)
 		STOP_PROCESSING(SSobj, src)
-		log_message("Deactivated - no fuel.")
 		set_ready_state(TRUE)
 		return
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge))
 		set_ready_state(TRUE)
 		occupant_message("No powercell detected.")
-		log_message("Deactivated.")
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/use_fuel = fuel_per_cycle_idle
@@ -719,7 +711,6 @@
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_escape))
 	occupant_message(span_notice("[target] успешно помещ[genderize_ru(target.gender, "ён", "ена", "ено", "ены")] в клетку."))
 	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] поместил [target] в клетку."))
-	log_message("[target] loaded in SCS-3 Cage.")
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress(mob/living/carbon/target)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
@@ -748,7 +739,6 @@
 /obj/item/mecha_parts/mecha_equipment/cage/proc/on_escape(mob/living/carbon/target)
 	SIGNAL_HANDLER
 	occupant_message(span_warning("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки."))
-	log_message("[prisoner] escaped from mech cage.")
 	prisoner = null
 	if(holding)
 		if(holding.handcuffed)
@@ -808,10 +798,8 @@
 	prisoner.forceMove(get_turf(src))
 	if(!force)
 		occupant_message("[prisoner] извлеч[genderize_ru(prisoner.gender, "ён", "ена", "ено", "ены")].")
-		log_message("[prisoner] ejected from SCS 3 Cage.")
 	else
 		occupant_message("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки.")
-		log_message("[prisoner] escaped from SCS 3 Cage.")
 	prisoner = null
 	change_state("mecha_cage")
 

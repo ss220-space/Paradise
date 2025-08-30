@@ -115,15 +115,17 @@ export const AccessList = (props: AccessListProps) => {
               const icon = diffMap[checkAccessIcon(entries)].icon;
               const color = diffMap[checkAccessIcon(entries)].color;
               return (
-                <Tabs.Tab
-                  key={access.name}
-                  color={color}
-                  icon={icon}
-                  selected={access.name === selectedAccessName}
-                  onClick={() => setSelectedAccessName(access.name)}
-                >
-                  {access.name}
-                </Tabs.Tab>
+                !!entries.length && (
+                  <Tabs.Tab
+                    key={access.name}
+                    color={color}
+                    icon={icon}
+                    selected={access.name === selectedAccessName}
+                    onClick={() => setSelectedAccessName(access.name)}
+                  >
+                    {access.name}
+                  </Tabs.Tab>
+                )
               );
             })}
           </Tabs>

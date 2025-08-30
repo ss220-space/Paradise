@@ -39,7 +39,6 @@
 						span_userdanger("[chassis] starts to drill [target]..."),
 						span_italics("You hear drilling."))
 	if(do_after_cooldown(target))
-		log_message("Started drilling [target]")
 		set_ready_state(FALSE)
 		if(isturf(target))
 			var/turf/T = target
@@ -64,13 +63,11 @@
 
 /turf/simulated/wall/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	if(drill.do_after_mecha(src, 60 / drill.drill_level))
-		drill.log_message("Drilled through [src]")
 		dismantle_wall(TRUE, FALSE)
 
 /turf/simulated/wall/r_wall/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	if(drill.drill_level >= DRILL_HARDENED)
 		if(drill.do_after_mecha(src, 120 / drill.drill_level))
-			drill.log_message("Drilled through [src]")
 			dismantle_wall(TRUE, FALSE)
 	else
 		drill.occupant_message(span_danger("[src] is too durable to drill through."))
@@ -79,14 +76,12 @@
 	for(var/turf/simulated/mineral/M in range(drill.chassis, 1))
 		if(get_dir(drill.chassis, M) & drill.chassis.dir)
 			M.attempt_drill()
-	drill.log_message("Drilled through [src]")
 	drill.move_ores()
 
 /turf/simulated/floor/plating/asteroid/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
 	for(var/turf/simulated/floor/plating/asteroid/M in range(1, drill.chassis))
 		if((get_dir(drill.chassis, M) & drill.chassis.dir) && !M.dug)
 			M.getDug()
-	drill.log_message("Drilled through [src]")
 	drill.move_ores()
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/move_ores()

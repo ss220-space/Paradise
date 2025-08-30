@@ -70,7 +70,6 @@
 				var/atom/throw_target = get_edge_target_turf(living_target, chassis.dir)
 				living_target.throw_at(throw_target, pb_knockback, 2)
 
-	log_message("Fired from [name], targeting [target].")
 	add_attack_logs(chassis.occupant, target, "fired a [src]")
 	start_cooldown()
 
@@ -246,7 +245,6 @@
 		R.use_power(R.get_charge() / 4)
 
 	chassis.use_power(energy_drain)
-	log_message("Honked from [name]. HONK!")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "used a Mecha Honker", ATKLOG_MOST)
 	add_game_logs("used a Mecha Honker in [COORD(T)]", chassis.occupant)
@@ -278,7 +276,6 @@
 			projectiles++
 			projectiles_to_add--
 			chassis.use_power(projectile_energy_cost)
-	log_message("Rearmed [name].")
 	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, TRUE)
 	return
 
@@ -426,7 +423,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed, spin = FALSE)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
 	add_game_logs("Fired a [src] in [COORD(T)]", chassis.occupant)
@@ -511,7 +507,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	F.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	spawn(det_time)
 		F.prime()
 	start_cooldown()
@@ -566,7 +561,6 @@
 	playsound(chassis, fire_sound, 60, 1)
 	B.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Bananed from [name], targeting [target]. HONK!")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
@@ -596,7 +590,6 @@
 	playsound(chassis, fire_sound, 60, 1)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
@@ -627,7 +620,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma

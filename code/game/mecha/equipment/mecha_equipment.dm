@@ -33,7 +33,6 @@
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
 		chassis.occupant_message(span_danger("The [src] is destroyed!"))
-		chassis.log_append_to_last("[src] is destroyed.",1)
 		SEND_SOUND(chassis.occupant, sound(get_destroy_sound(), volume = 50))
 		detach(chassis)
 	return ..()
@@ -42,8 +41,6 @@
 	return chassis.critdestrsound
 
 /obj/item/mecha_parts/mecha_equipment/proc/critfail()
-	if(chassis)
-		log_message("Critical failure", 1)
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/get_snowflake_data()
@@ -65,6 +62,11 @@
 			if(selectable != MODULE_SELECTABLE_TOGGLE)
 				return FALSE
 			toggle_module()
+			return TRUE
+		if("select")
+			if(selectable != MODULE_SELECTABLE_FULL)
+				return FALSE
+			select_module()
 			return TRUE
 
 	return handle_ui_act(action,params,ui,state)
@@ -153,7 +155,6 @@
 	chassis = M
 	if(loc != M)
 		forceMove(M)
-	M.log_message("[src] initialized.")
 	if(!M.selected)
 		M.selected = src
 	attach_act(M)
@@ -190,7 +191,6 @@
 		chassis.equipment -= src
 		if(chassis.selected == src)
 			chassis.selected = null
-		chassis.log_message("[src] removed from equipment.")
 		chassis = null
 		REMOVE_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
 		set_ready_state(TRUE)
@@ -219,16 +219,14 @@
 	if(chassis)
 		chassis.occupant_message("[bicon(src)] [message]")
 
-/obj/item/mecha_parts/mecha_equipment/proc/log_message(message)
-	if(chassis)
-		chassis.log_message("<i>[src]:</i> [message]")
-
 /obj/item/mecha_parts/mecha_equipment/proc/self_occupant_attack()
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/select_module()
 	select_set_alert()
+	chassis.selected.set_active(FALSE)
 	chassis.selected = src
+	chassis.selected.set_active(TRUE)
 	chassis.occupant_message(span_notice("You switch to [src]."))
 	chassis.visible_message("[chassis] raises [src]")
 

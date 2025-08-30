@@ -74,7 +74,6 @@
 	chassis.use_internal_tank = !chassis.use_internal_tank
 	button_icon_state = "mech_internals_[chassis.use_internal_tank ? "on" : "off"]"
 	chassis.occupant_message("Теперь воздух поступает [chassis.use_internal_tank ? "из внутреннего баллона" : "из окружающей среды"].")
-	chassis.log_message("Источник воздуха изменён на [chassis.use_internal_tank ? "внутренний баллон" : "внешнюю среду"].")
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_toggle_lights
@@ -93,7 +92,6 @@
 		chassis.set_light(-chassis.lights_power, l_on = TRUE)
 		button_icon_state = "mech_lights_off"
 	chassis.occupant_message("Прожектор [chassis.lights ? "включен" : "выключен"].")
-	chassis.log_message("Прожектор [chassis.lights ? "включен" : "выключен"].")
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_view_stats
@@ -129,7 +127,6 @@
 		chassis.deflect_chance = initial(chassis.deflect_chance)
 		chassis.occupant_message(span_danger("[chassis.declent_ru(NOMINATIVE)]: Режим защиты деактивирован."))
 		chassis.set_anchored(FALSE)
-	chassis.log_message("Переключение режима защиты.")
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_overload_mode
@@ -148,7 +145,6 @@
 	else
 		chassis.leg_overload_mode = !chassis.leg_overload_mode
 	button_icon_state = "mech_overload_[chassis.leg_overload_mode ? "on" : "off"]"
-	chassis.log_message("Активирована перегрузка приводов шасси.")
 	if(chassis.leg_overload_mode)
 		chassis.leg_overload_mode = 1
 		// chassis.bumpsmash = 1
@@ -173,7 +169,6 @@
 	if(chassis.get_charge() > 0)
 		chassis.thrusters_active = !chassis.thrusters_active
 		button_icon_state = "mech_thrusters_[chassis.thrusters_active ? "on" : "off"]"
-		chassis.log_message("Переключение маневровых двигателей.")
 		chassis.occupant_message("<font color='[chassis.thrusters_active ? "blue" : "red"]'>Двигатели [chassis.thrusters_active ? "активны" : "отключены"].</font>")
 	if(chassis.thrusters_active)
 		chassis.icon_state = "[chassis.icon_state]-thruster"
@@ -205,7 +200,6 @@
 	if(owner.client)
 		chassis.zoom_mode = !chassis.zoom_mode
 		button_icon_state = "mech_zoom_[chassis.zoom_mode ? "on" : "off"]"
-		chassis.log_message("Режим приближения переключён.")
 		chassis.occupant_message("<font color='[chassis.zoom_mode ? "blue" : "red"]'>Приближение [chassis.zoom_mode ? "вкл" : "выкл"].</font>")
 		if(chassis.zoom_mode)
 			owner.client.AddViewMod("mecha", 12)
@@ -307,7 +301,6 @@
 	mech_strafe.UpdateButtonIcon()
 	if(!silent)
 		occupant_message("<font color='[strafe ? "green" : "red"]'>Боковое движение [strafe ? "вкл" : "выкл"].")
-		log_message("Боковое движение [strafe ? "вкл" : "выкл"].")
 
 /datum/action/innate/mecha/select_module
 	name = "Hey, you shouldn't see it"

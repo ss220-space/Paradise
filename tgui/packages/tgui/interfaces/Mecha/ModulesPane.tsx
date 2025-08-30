@@ -3,6 +3,9 @@ import {
   Box,
   Button,
   Collapsible,
+  DmIcon,
+  Tabs,
+  Table,
   Icon,
   LabeledList,
   NoticeBox,
@@ -10,110 +13,209 @@ import {
   ProgressBar,
   Section,
   Stack,
+  Divider,
 } from '../../components';
 import { formatPower } from '../../format';
 import { toFixed } from 'common/math';
 import { classes } from 'common/react';
+import { useState } from 'react';
 
 import { useBackend } from '../../backend';
 import type { MainData, MechModule } from './data';
 
 export const ModulesPane = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { modules, selected_module_index, weapons_safety } = data;
+  const {
+    modules,
+    selected_module_index,
+    cargo,
+    maint_access,
+    maintance_progress,
+    radio_data,
+  } = data;
+  const [tabIndex, setTabIndex] = useState(0);
   return (
-    <Section
-      title="Equipment"
-      fill
-      style={{ overflowY: 'auto' }}
-      buttons={
-        <Button
-          icon={!weapons_safety ? 'triangle-exclamation' : 'helmet-safety'}
-          color={!weapons_safety ? 'red' : 'default'}
-          onClick={() => act('toggle_safety')}
-          content={
-            !weapons_safety
-              ? 'Safety Protocols Disabled'
-              : 'Safety Protocols Enabled'
-          }
-        />
-      }
-    >
-      <Stack>
-        <Stack.Item>
-          {modules.map((module, i) =>
-            !module.ref ? (
-              <Button
-                maxWidth={16}
-                p="4px"
-                pr="8px"
-                fluid
-                key={i}
-                color="transparent"
-              >
-                <Stack>
-                  <Stack.Item width="32px" height="32px" textAlign="center">
-                    <Icon
-                      fontSize={1.5}
-                      mx={0}
-                      my="8px"
-                      name={'screwdriver - wrench'}
-                    />
-                  </Stack.Item>
-                  <Stack.Item
-                    lineHeight="32px"
-                    style={{
-                      textTransform: 'capitalize',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                    }}
+    <Stack fill vertical>
+      <Tabs>
+        <Tabs.Tab
+          key="Modules"
+          selected={0 === tabIndex}
+          onClick={() => setTabIndex(0)}
+        >
+          <Icon name="table" /> Modules
+        </Tabs.Tab>
+        <Tabs.Tab
+          key="Cargo"
+          selected={1 === tabIndex}
+          onClick={() => setTabIndex(1)}
+        >
+          <Icon name="box" /> Cargo
+        </Tabs.Tab>
+        <Tabs.Tab
+          key="Settings"
+          selected={2 === tabIndex}
+          onClick={() => setTabIndex(2)}
+        >
+          <Icon name="cog" /> Settings
+        </Tabs.Tab>
+      </Tabs>
+      {tabIndex === 0 && (
+        <Section style={{ overflowY: 'auto' }}>
+          <Stack>
+            <Stack.Item>
+              {modules.map((module, i) =>
+                !module.ref ? (
+                  <Button
+                    maxWidth={16}
+                    p="4px"
+                    pr="8px"
+                    fluid
+                    key={i}
+                    color="transparent"
                   >
-                    {`Slot`}
-                  </Stack.Item>
-                </Stack>
-              </Button>
-            ) : (
+                    <Stack>
+                      <Stack.Item width="32px" height="32px" textAlign="center">
+                        <Icon
+                          fontSize={1.5}
+                          mx={0}
+                          my="8px"
+                          name={'screwdriver - wrench'}
+                        />
+                      </Stack.Item>
+                      <Stack.Item
+                        lineHeight="32px"
+                        style={{
+                          textTransform: 'capitalize',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}
+                      >
+                        {`Slot`}
+                      </Stack.Item>
+                    </Stack>
+                  </Button>
+                ) : (
+                  <Button
+                    maxWidth={16}
+                    p="4px"
+                    pr="8px"
+                    fluid
+                    key={i}
+                    selected={i === selected_module_index}
+                    onClick={() =>
+                      act('select_module', {
+                        index: i,
+                      })
+                    }
+                  >
+                    <Stack>
+                      <Stack.Item lineHeight="0">
+                        <DmIcon
+                          icon={module.icon}
+                          icon_state={module.icon_state}
+                          style={{
+                            verticalAlign: 'middle',
+                            width: '32px',
+                            margin: '0px',
+                            marginLeft: '0px',
+                          }}
+                        />
+                      </Stack.Item>
+                      <Stack.Item
+                        lineHeight="32px"
+                        style={{
+                          textTransform: 'capitalize',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}
+                      >
+                        {module.name}
+                      </Stack.Item>
+                    </Stack>
+                  </Button>
+                )
+              )}
+            </Stack.Item>
+            <Stack.Item grow pl={1}>
+              {selected_module_index !== null &&
+                modules[selected_module_index] && (
+                  <ModuleDetails module={modules[selected_module_index]} />
+                )}
+            </Stack.Item>
+          </Stack>
+        </Section>
+      )}
+      {tabIndex === 1 && (
+        <Section fill style={{ overflowY: 'auto' }}>
+          <Table.Row header>
+            <Table.Cell width="50%">Название</Table.Cell>
+            <Table.Cell width="45%">Количество</Table.Cell>
+          </Table.Row>
+          {!!cargo.cargo_list &&
+            cargo.cargo_list.map((cargo_item) => (
+              <Table.Row key={cargo_item.ref}>
+                <Table.Cell>{cargo_item.name}</Table.Cell>
+                <Table.Cell>{cargo_item.amount}</Table.Cell>
+                <Table.Cell>
+                  <Button
+                    color="transparent"
+                    icon="eject"
+                    tooltip="Выбросить предмет"
+                    fontSize={1.5}
+                    onClick={() =>
+                      act('drop_from_cargo', {
+                        cargo_item: cargo_item.ref,
+                      })
+                    }
+                  />
+                </Table.Cell>
+              </Table.Row>
+            ))}
+        </Section>
+      )}
+      {tabIndex === 2 && (
+        <Section fill style={{ overflowY: 'auto' }}>
+          <LabeledList>
+            <LabeledList.Item label="Разрешить тех. обслуживание">
               <Button
-                maxWidth={16}
-                p="4px"
-                pr="8px"
-                fluid
-                key={i}
-                selected={i === selected_module_index}
-                onClick={() =>
-                  act('select_module', {
-                    index: i,
+                disabled={maintance_progress}
+                selected={maint_access}
+                icon="power-off"
+                content={maint_access ? 'Вкл' : 'Выкл'}
+                onClick={() => act('toggle_maint_access')}
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Радио">
+              <Button
+                selected={radio_data.microphone}
+                icon="microphone"
+                onClick={() => act('toggle_microphone')}
+              />
+              <Button
+                selected={radio_data.speaker}
+                icon="headphones"
+                onClick={() => act('toggle_speaker')}
+              />
+              <NumberInput
+                animated
+                unit="kHz"
+                step={0.2}
+                stepPixelSize={10}
+                minValue={radio_data.minFrequency / 10}
+                maxValue={radio_data.maxFrequency / 10}
+                value={radio_data.frequency / 10}
+                format={(value) => toFixed(value, 1)}
+                onDrag={(value) =>
+                  act('set_frequency', {
+                    new_frequency: value * 10,
                   })
                 }
-              >
-                <Stack>
-                  <Stack.Item lineHeight="0">
-                    <Box
-                      className={classes(['mecha_equipment32x32', module.icon])}
-                    />
-                  </Stack.Item>
-                  <Stack.Item
-                    lineHeight="32px"
-                    style={{
-                      textTransform: 'capitalize',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                    }}
-                  >
-                    {module.name}
-                  </Stack.Item>
-                </Stack>
-              </Button>
-            )
-          )}
-        </Stack.Item>
-        <Stack.Item grow pl={1}>
-          {selected_module_index !== null && modules[selected_module_index] && (
-            <ModuleDetails module={modules[selected_module_index]} />
-          )}
-        </Stack.Item>
-      </Stack>
-    </Section>
+              />
+            </LabeledList.Item>
+          </LabeledList>
+        </Section>
+      )}
+    </Stack>
   );
 };
 
@@ -175,7 +277,7 @@ export const ModuleDetails = (props) => {
 
 const ModuleDetailsBasic = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { power_level, weapons_safety } = data;
+  const { power_level } = data;
   const {
     ref,
     slot,
@@ -215,11 +317,6 @@ const ModuleDetailsBasic = (props) => {
           />
         </LabeledList.Item>
       )}
-      {!weapons_safety && ['mecha_l_arm', 'mecha_r_arm'].includes(slot) && (
-        <LabeledList.Item label="Safety" color="red">
-          <NoticeBox danger>SAFETY OFF</NoticeBox>
-        </LabeledList.Item>
-      )}
       {!!energy_per_use && (
         <LabeledList.Item label="Power Cost">
           {`${formatPower(energy_per_use)}, ${
@@ -254,7 +351,7 @@ const ModuleDetailsBasic = (props) => {
             onClick={() =>
               act('equip_act', {
                 ref: ref,
-                gear_action: 'toggle',
+                gear_action: 'select',
               })
             }
           />
@@ -302,8 +399,6 @@ export const ModuleDetailsExtra = (props: { module: MechModule }) => {
       return <SnowflakeOreScanner module={module} />;
     case MECHA_SNOWFLAKE_ID_CLAW:
       return <SnowflakeLawClaw module={module} />;
-    case MECHA_SNOWFLAKE_ID_RCD:
-      return <SnowflakeRCD module={module} />;
     default:
       return null;
   }
@@ -484,7 +579,7 @@ type KnownReagent = {
 };
 const SnowflakeSyringe = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { power_level, weapons_safety } = data;
+  const { power_level } = data;
   const { ref, energy_per_use, equip_cooldown } = props.module;
   const {
     mode,
@@ -644,7 +739,7 @@ const SnowflakeRadio = (props) => {
 
 const SnowflakeAirTank = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { cabin_sealed, one_atmosphere } = data;
+  const { use_internal_tank, one_atmosphere } = data;
   const { ref, integrity, active } = props.module;
   const {
     auto_pressurize_on_seal,
@@ -697,7 +792,7 @@ const SnowflakeAirTank = (props) => {
             icon="power-off"
             content={
               active
-                ? !cabin_sealed
+                ? !use_internal_tank
                   ? 'Release Paused'
                   : 'Pressurizing Cabin'
                 : 'Release Off'
@@ -840,7 +935,7 @@ const SnowflakeAirTank = (props) => {
         <Collapsible title="Tank Air">
           <GasmixParser gasmix={tank_air} />
         </Collapsible>
-        {cabin_sealed ? (
+        {use_internal_tank ? (
           <Collapsible title="Cabin Air">
             <GasmixParser gasmix={cabin_air} />
           </Collapsible>
@@ -992,14 +1087,14 @@ const SnowflakeExtinguisher = (props) => {
 
 const SnowflakeGeneraor = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { sheet_material_amount } = data;
+  const { mineral_material_amount } = data;
   const { ref, active, name } = props.module;
   const { fuel } = props.module.snowflake;
   return (
     <LabeledList.Item label="Fuel Amount">
       {fuel === null
         ? 'None'
-        : `${toFixed(fuel * sheet_material_amount, 0.1)} cm³`}
+        : `${toFixed(fuel * mineral_material_amount, 0.1)} cm³`}
     </LabeledList.Item>
   );
 };

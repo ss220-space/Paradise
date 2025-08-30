@@ -331,6 +331,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/data = list()
 	data["law_levels"] = law_levels
 	data["possible_law_levels"] = list()
+	data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
 	var/possible_laws = data["possible_law_levels"]
 
 	for(var/level in law_levels)
@@ -402,7 +403,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if(IDCOMPUTER_SCREEN_ACCESS) // ACCESS CHANGES
 			if(modify)
 				data["selectedAccess"] = modify.access
-				data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
 		if(IDCOMPUTER_SCREEN_RECORDS) // RECORDS
 			if(is_authenticated(user))
 				data["records"] = SSjobs.format_job_change_records(data["iscentcom"])
@@ -744,9 +744,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return
 		if("clear_all")
 			modify.access = list()
-			return
-		if("grant_all")
-			modify.access |= get_all_accesses()
 			return
 		if("grant_all")
 			modify.access |= get_all_accesses()

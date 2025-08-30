@@ -9,6 +9,8 @@ import {
 } from '../../components';
 import { formatSiUnit } from '../../format';
 
+import { AccessList } from '../common/AccessList';
+
 import { useBackend } from '../../backend';
 import { Window } from '../../layouts';
 import { AlertPane } from './AlertPane';
@@ -29,15 +31,7 @@ export const Mecha = (props) => {
 export const Content = (props) => {
   const { act, data } = useBackend<MainData>();
   const [edit_access, editAccess] = useState(false);
-  const {
-    name,
-    mecha_flags,
-    mechflag_keys,
-    mech_view,
-    one_access,
-    accesses,
-    diagnostic_status,
-  } = data;
+  const { name, mech_view, id_lock_on, accesses, one_access, regions } = data;
 
   return (
     <Stack fill>
@@ -48,23 +42,12 @@ export const Content = (props) => {
               fill
               title={name}
               buttons={
-                <>
-                  <Button
-                    icon="edit"
-                    tooltip="Rename"
-                    tooltipPosition="left"
-                    onClick={() => act('changename')}
-                  />
-                  {!diagnostic_status && (
-                    <Button
-                      icon="tachograph-digital"
-                      color="violet"
-                      tooltip="Diagnostic"
-                      tooltipPosition="left"
-                      onClick={() => act('diagnostic')}
-                    />
-                  )}
-                </>
+                <Button
+                  icon="edit"
+                  tooltip="Rename"
+                  tooltipPosition="left"
+                  onClick={() => act('changename')}
+                />
               }
             >
               <Stack fill vertical>
@@ -85,6 +68,35 @@ export const Content = (props) => {
                     <LightsBar />
                     <CabinSeal />
                     <DNALock />
+                    <LabeledList.Item label="ID Lock">
+                      <Button
+                        icon={id_lock_on ? 'lock' : 'lock-open'}
+                        content={id_lock_on ? 'Enabled' : 'Disabled'}
+                        tooltipPosition="top"
+                        onClick={() => {
+                          editAccess(false);
+                          act('toggle_id_lock');
+                        }}
+                        selected={id_lock_on}
+                      />
+                      {!!id_lock_on && (
+                        <>
+                          <Button
+                            tooltip="Edit Access"
+                            tooltipPosition="top"
+                            icon="id-card-o"
+                            onClick={() => editAccess(!edit_access)}
+                            selected={edit_access}
+                          />
+                          <Button
+                            tooltip={one_access ? 'Require Any' : 'Require All'}
+                            tooltipPosition="top"
+                            icon={one_access ? 'check' : 'check-double'}
+                            onClick={() => act('one_access')}
+                          />
+                        </>
+                      )}
+                    </LabeledList.Item>
                   </LabeledList>
                 </Stack.Item>
               </Stack>
@@ -95,7 +107,33 @@ export const Content = (props) => {
           </Stack.Item>
         </Stack>
       </Stack.Item>
-      <Stack.Item grow={2}>{edit_access ? '' : <ModulesPane />}</Stack.Item>
+      <Stack.Item grow={2}>
+        {edit_access ? (
+          <AccessList
+            accesses={regions}
+            selectedList={accesses}
+            accessMod={(ref) =>
+              act('set', {
+                access: ref,
+              })
+            }
+            grantAll={() => act('grant_all')}
+            denyAll={() => act('clear_all')}
+            grantDep={(ref) =>
+              act('grant_region', {
+                region: ref,
+              })
+            }
+            denyDep={(ref) =>
+              act('deny_region', {
+                region: ref,
+              })
+            }
+          />
+        ) : (
+          <ModulesPane />
+        )}
+      </Stack.Item>
     </Stack>
   );
 };
@@ -132,11 +170,11 @@ const PowerBar = (props) => {
 
 const IntegrityBar = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { integrity, integrity_max, scanmod_rating } = data;
+  const { integrity, integrity_max } = data;
   return (
     <LabeledList.Item label="Integrity">
       <ProgressBar
-        value={scanmod_rating ? integrity / integrity_max : 0}
+        value={integrity / integrity_max}
         ranges={{
           good: [0.5, Infinity],
           average: [0.25, 0.5],
@@ -146,7 +184,7 @@ const IntegrityBar = (props) => {
           textShadow: '1px 1px 0 black',
         }}
       >
-        {!scanmod_rating ? 'Unknown' : `${integrity} of ${integrity_max}`}
+        {`${integrity} of ${integrity_max}`}
       </ProgressBar>
     </LabeledList.Item>
   );
@@ -154,16 +192,15 @@ const IntegrityBar = (props) => {
 
 const LightsBar = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { power_level, power_max, mecha_flags, mechflag_keys } = data;
-  const has_lights = mecha_flags & mechflag_keys.HAS_LIGHTS;
-  const lights_on = mecha_flags & mechflag_keys.LIGHTS_ON;
+  const { power_level, power_max, lights } = data;
+  const lights_on = lights;
   return (
     <LabeledList.Item label="Lights">
       <Button
         icon="lightbulb"
         content={lights_on ? 'On' : 'Off'}
         selected={lights_on}
-        disabled={!has_lights || !power_max || !power_level}
+        disabled={!power_max || !power_level}
         onClick={() => act('toggle_lights')}
       />
     </LabeledList.Item>
@@ -173,8 +210,7 @@ const LightsBar = (props) => {
 const CabinSeal = (props) => {
   const { act, data } = useBackend<MainData>();
   const {
-    enclosed,
-    cabin_sealed,
+    use_internal_tank,
     cabin_temp,
     cabin_pressure,
     cabin_pressure_warning_min,
@@ -182,14 +218,10 @@ const CabinSeal = (props) => {
     cabin_pressure_warning_max,
     cabin_pressure_hazard_max,
     cabin_temp_warning_min,
-    cabin_temp_hazard_min,
     cabin_temp_warning_max,
-    cabin_temp_hazard_max,
   } = data;
   const temp_warning =
     cabin_temp < cabin_temp_warning_min || cabin_temp > cabin_temp_warning_max;
-  const temp_hazard =
-    cabin_temp < cabin_temp_hazard_min || cabin_temp > cabin_temp_hazard_max;
   const pressure_warning =
     cabin_pressure < cabin_pressure_warning_min ||
     cabin_pressure > cabin_pressure_warning_max;
@@ -200,16 +232,10 @@ const CabinSeal = (props) => {
     <LabeledList.Item
       label="Cabin Air"
       buttons={
-        !!cabin_sealed && (
+        !!use_internal_tank && (
           <>
             <Button
-              color={
-                temp_hazard
-                  ? 'danger'
-                  : temp_warning
-                    ? 'average'
-                    : 'transparent'
-              }
+              color={temp_warning ? 'average' : 'transparent'}
               icon="temperature-low"
               tooltipPosition="top"
               tooltip={`Air temperature: ${cabin_temp}°C`}
@@ -231,11 +257,10 @@ const CabinSeal = (props) => {
       }
     >
       <Button
-        icon={cabin_sealed ? 'mask-ventilator' : 'wind'}
-        content={cabin_sealed ? 'Sealed' : 'Exposed'}
-        disabled={!enclosed}
-        onClick={() => act('toggle_cabin_seal')}
-        selected={cabin_sealed}
+        icon={use_internal_tank ? 'mask-ventilator' : 'wind'}
+        content={use_internal_tank ? 'Sealed' : 'Exposed'}
+        onClick={() => act('toggle_internal_tank')}
+        selected={use_internal_tank}
       />
     </LabeledList.Item>
   );

@@ -33,7 +33,6 @@
 					O.loc = chassis
 					O.set_anchored(FALSE)
 					occupant_message(span_notice("[target] successfully loaded."))
-					log_message("Loaded [O]. Cargo compartment capacity: [chassis.cargo_capacity - length(chassis.cargo)]")
 					return TRUE
 				else
 					O.set_anchored(initial(O.anchored))
@@ -67,7 +66,6 @@
 						M.loc = chassis
 						M.set_anchored(FALSE)
 						occupant_message(span_notice("[target] successfully loaded."))
-						log_message("Loaded [M]. Cargo compartment capacity: [chassis.cargo_capacity - length(chassis.cargo)]")
 						return TRUE
 					else
 						M.set_anchored(initial(M.anchored))
@@ -347,19 +345,19 @@
 /obj/item/mecha_parts/mecha_equipment/multimodule/get_snowflake_data()
 	var/list/data = list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_MULTI,
-		"targeted_module" = targeted_module.name
+		"targeted_module" = targeted_module?.name
 	)
 
 	data["modules"] = list()
 
 	for(var/thing in modules)
-		var/list/modules = list()
+		var/list/module_data = list()
 		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
 
-		module["uid"] = module.UID()
-		module["data"] = module.get_snowflake_data()
+		module_data["uid"] = module.UID()
+		module_data["data"] = module.get_snowflake_data()
 
-		data["modules"][module.name] = modules
+		data["modules"][module.name] = module_data
 
 	return data
 
@@ -446,7 +444,6 @@
 		if("toggle")
 			set_ready_state(!equip_ready)
 			occupant_message("[src] [equip_ready?"dea":"a"]ctivated.")
-			log_message("[equip_ready?"Dea":"A"]ctivated.")
 			return TRUE
 
 		if("cut")
@@ -475,7 +472,6 @@
 	if(!cable || cable.amount<1)
 		set_ready_state(TRUE)
 		occupant_message("Cable depleted, [src] deactivated.")
-		log_message("Cable depleted, [src] deactivated.")
 		return FALSE
 	if(cable.amount < amount)
 		occupant_message("No enough cable to finish the task.")

@@ -13,7 +13,7 @@
 	maint_access = TRUE
 	operation_req_access = list(ACCESS_CLOWN)
 	wreckage = /obj/structure/mecha_wreckage/honker
-	add_req_access = FALSE
+	id_lock_on = FALSE
 	max_equip = 3
 	starting_voice = /obj/item/mecha_modkit/voice/honk
 	var/squeak = 0
