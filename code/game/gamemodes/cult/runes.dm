@@ -385,8 +385,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(is_sacrifice_target(offering.mind))
 			sacrifice_fulfilled = TRUE
 			SSticker.mode.ghost_summons += GHOST_SUMMONS_OBJECTIVE
-	else
-		GLOB.sacrificed += offering
 
 	new /obj/effect/temp_visual/cult/sac(loc)
 	for(var/M in invokers)
