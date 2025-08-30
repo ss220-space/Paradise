@@ -648,7 +648,7 @@
 				channeling = FALSE
 				return
 
-		else if(istype(target, /obj/item/toy/plushie/wet_owl) && !istype(target, /obj/item/toy/plushie/wet_owl/evil))
+		else if(target.type == /obj/item/toy/plushie/wet_owl)
 			var/obj/item/toy/plushie/wet_owl/owl = target
 			owl.become_evil()
 			uses--
