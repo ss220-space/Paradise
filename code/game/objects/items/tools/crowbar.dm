@@ -10,7 +10,7 @@
 	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	force = 15
+	force = 7.5
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
@@ -30,10 +30,12 @@
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"
+	force = 10
 
 /obj/item/crowbar/red/sec
 	icon_state = "crowbar_sec"
 	item_state = "crowbar_sec"
+	force = 11
 
 /obj/item/crowbar/brass
 	name = "brass crowbar"
@@ -57,7 +59,8 @@
 /obj/item/crowbar/large
 	name = "crowbar"
 	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
-	force = 20
+	force = 12
+	throwforce = 18
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
 	throw_range = 3
@@ -86,11 +89,11 @@
 
 /obj/item/crowbar/power/get_ru_names()
 	return list(
-		NOMINATIVE = "челюсти жизни", 
-		GENITIVE = "челюстей жизни", 
-		DATIVE = "челюстям жизни", 
-		ACCUSATIVE = "челюсти жизни", 
-		INSTRUMENTAL = "челюстями жизни", 
+		NOMINATIVE = "челюсти жизни",
+		GENITIVE = "челюстей жизни",
+		DATIVE = "челюстям жизни",
+		ACCUSATIVE = "челюсти жизни",
+		INSTRUMENTAL = "челюстями жизни",
 		PREPOSITIONAL = "челюстях жизни"
 	)
 
