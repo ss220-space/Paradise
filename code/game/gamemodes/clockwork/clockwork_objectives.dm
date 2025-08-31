@@ -85,27 +85,35 @@
  * The clockers check is in check_clock_reveal()
  */
 /datum/clockwork_objectives/proc/power_check()
-	if(GLOB.clockwork_power >= power_goal && !obj_demand.power_get)
-		obj_demand.power_get = TRUE
-		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
-			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, span_clocklarge("Yes! That's enough power i need! Well done..."))
-				if(!obj_demand.check_completion())
-					to_chat(clock_mind.current, span_clock("But there's still more tasks to do."))
-				else
-					need_heart()
+	if(GLOB.clockwork_power < power_goal || obj_demand.power_get)
+		return
+	obj_demand.power_get = TRUE
+	var/check = obj_demand.check_completion()
+	var/message = span_clocklarge("Yes! That's enough power i need! Well done...\n")
+	if(!check)
+		message += span_clock("But there's still more tasks to do.")
+	else
+		need_heart()
 		adjust_clockwork_power(-0.6*power_goal)
+	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+		if(!clock_mind || !clock_mind.current)
+			continue
+		to_chat(clock_mind.current, message)
 
 /datum/clockwork_objectives/proc/beacon_check()
-	if(length(GLOB.clockwork_beacons) >= beacon_goal && !obj_demand.beacon_get)
-		obj_demand.beacon_get = TRUE
-		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
-			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, span_clocklarge("Now i see the weak points of the Veil. You have done well..."))
-				if(!obj_demand.check_completion())
-					to_chat(clock_mind.current, span_clock("But there's still more tasks to do."))
-				else
-					need_heart()
+	if(length(GLOB.clockwork_beacons) < beacon_goal || obj_demand.beacon_get)
+		return
+	obj_demand.beacon_get = TRUE
+	var/check = obj_demand.check_completion()
+	var/message = span_clocklarge("Now i see the weak points of the Veil. You have done well...\n")
+	if(!check)
+		message += span_clock("But there's still more tasks to do.")
+	else
+		need_heart()
+	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+		if(!clock_mind || !clock_mind.current)
+			continue
+		to_chat(clock_mind.current, message)
 
 /datum/clockwork_objectives/proc/need_heart()
 	clock_status = RATVAR_NEED_HEART
@@ -118,9 +126,9 @@
 		if(!clock_mind || !clock_mind.current)
 			continue
 		to_chat(clock_mind.current, span_clocklarge("Сердце призвано, теперь необходимо сломать печати. Да воссияет же Ратвар!"))
-		clock_status = RATVAR_BREAK_SEALS
-		deltimer(checktimer)
-		checktimer = addtimer(CALLBACK(src, PROC_REF(update_seals)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
+	clock_status = RATVAR_BREAK_SEALS
+	deltimer(checktimer)
+	checktimer = addtimer(CALLBACK(src, PROC_REF(update_seals)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
 
 /datum/clockwork_objectives/proc/update_seals()
 	if(GLOB.total_curses != 0)

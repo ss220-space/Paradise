@@ -11,8 +11,6 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 	/// How many power need to be in supply to reveal
 	var/power_reveal_number
-	/// How many crew need to be converted to reveal
-	var/crew_reveal_number
 	/// Used for CentCom announcement when reached crew limit conversion
 	var/reveal_percent
 
@@ -120,20 +118,17 @@ GLOBAL_LIST_EMPTY(all_clockers)
   */
 /datum/game_mode/proc/clockwork_threshold_check()
 	var/players = length(GLOB.player_list)
-	var/clockers = get_clockers() // Don't count the starting clockers towards the number of needed conversions
 	if(players >= CLOCK_POPULATION_THRESHOLD)
 		// Highpop
 		reveal_percent = CLOCK_CREW_REVEAL_HIGH
 		clocker_objs.power_goal = CLOCK_BASIC_POWER_GOAL + length(GLOB.player_list) * CLOCK_POWER_PER_CREW_HIGH
 		power_reveal_number = round(clocker_objs.power_goal * 0.67) // 2/3 of power goal
-		crew_reveal_number = round(CLOCK_CREW_REVEAL_HIGH * (players - clockers),1)
 	else
 		// Lowpop
 		reveal_percent = CLOCK_CREW_REVEAL_LOW
 		clocker_objs.power_goal = CLOCK_BASIC_POWER_GOAL + length(GLOB.player_list) * CLOCK_POWER_PER_CREW_LOW
 		power_reveal_number = round(clocker_objs.power_goal * 0.67) // 2/3 of power goal
-		crew_reveal_number = round(CLOCK_CREW_REVEAL_LOW * (players - clockers),1)
-	add_game_logs("Clockwork Cult power/crew reveal numbers: [power_reveal_number]/[crew_reveal_number].")
+	add_game_logs("Clockwork Cult power/crew reveal numbers: [power_reveal_number]/[clocker_objs.clocker_goal].")
 
 /**
   * Returns the current number of clockers and constructs.
@@ -246,31 +241,30 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(crew_reveal)
 		return
 	var/clocker_players = get_clockers()
-	if((clocker_players >= clocker_objs.clocker_goal) && !clocker_objs.obj_demand.clockers_get)
-		clocker_objs.obj_demand.clockers_get = TRUE
-		for(var/datum/mind/M in clockwork_cult)
-			if(!M.current)
-				continue
-			to_chat(M.current, span_clocklarge("The army of my servants have grown. Now it will be easier..."))
-			if(!clocker_objs.obj_demand.check_completion())
-				to_chat(M.current, span_clock("But there's still more tasks to do."))
-			else
-				clocker_objs.need_heart()
-	if((clocker_players >= crew_reveal_number) && !crew_reveal)
-		crew_reveal = TRUE
-		for(var/datum/mind/M in clockwork_cult)
-			if(!M.current)
-				continue
-			SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
-			if(!ishuman(M.current))
-				continue
-			to_chat(M.current, span_clocklarge("Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!"))
-			addtimer(CALLBACK(src, PROC_REF(clocked), M.current), 20 SECONDS)
-		GLOB.major_announcement.announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+	if((clocker_players < clocker_objs.clocker_goal) || clocker_objs.obj_demand.clockers_get)
+		return
+	clocker_objs.obj_demand.clockers_get = TRUE
+	crew_reveal = TRUE
+	var/check = clocker_objs.obj_demand.check_completion()
+	var/message = span_clocklarge("The army of my servants have grown. Now it will be easier...\n")
+	if(check)
+		clocker_objs.need_heart()
+	else
+		message += span_clock("But there's still more tasks to do.")
+	for(var/datum/mind/M in clockwork_cult)
+		if(!M.current)
+			continue
+		to_chat(M.current, message)
+		SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
+		if(!ishuman(M.current))
+			continue
+		to_chat(M.current, span_clocklarge("Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!"))
+		addtimer(CALLBACK(src, PROC_REF(clocked), M.current), 20 SECONDS)
+	GLOB.major_announcement.announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
 										ANNOUNCE_CCPARANORMAL_RU,
 										'sound/AI/commandreport.ogg'
 		)
-		log_game("Clockwork cult reveal. Powergame allowed.")
+	log_game("Clockwork cult reveal. Powergame allowed.")
 
 /datum/game_mode/proc/powered(clocker)
 	if(ishuman(clocker) && isclocker(clocker))
