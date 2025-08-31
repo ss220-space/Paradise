@@ -18489,19 +18489,10 @@
 /area/security/permabrig)
 "chB" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/rack/gunrack,
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = -7
+/obj/structure/safe{
+	known_by = list("hos")
 	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = -2
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = 2
-	},
-/obj/item/gun/projectile/automatic/sp91rc{
-	pixel_x = 7
-	},
+/obj/item/gun/projectile/bombarda/secgl/x4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67319,10 +67310,6 @@
 	pixel_y = -26
 	},
 /obj/structure/cable,
-/obj/structure/safe{
-	known_by = list("hos")
-	},
-/obj/item/gun/projectile/bombarda/secgl/x4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -85590,18 +85577,11 @@
 	},
 /area/medical/virology/lab)
 "oPM" = (
-/obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/energy/laser{
-	pixel_x = -6
-	},
-/obj/item/gun/energy/laser,
-/obj/item/gun/energy/laser{
-	pixel_x = 6
-	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/effect/spawner/random_spawners/security_lasers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -93957,19 +93937,7 @@
 "qEB" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/window/reinforced,
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Security SMG's"
-	},
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/projectile/automatic/wt550{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/wt550,
+/obj/effect/spawner/random_spawners/security_ballistics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

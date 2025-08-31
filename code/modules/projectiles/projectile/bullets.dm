@@ -145,7 +145,7 @@
 
 /obj/projectile/bullet/weakbullet4/c9mmte
 	name = "9mm TE"
-	damage = 7
+	damage = 10
 	stamina = 15
 
 /obj/projectile/bullet/toxinbullet

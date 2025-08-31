@@ -158,6 +158,94 @@
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/suit/armor/secjacket(src)
 
+/obj/structure/closet/secure_closet/guncabinet/wt550
+	name = "security WT-550 PDW gun cabinet"
+	desc = "Защищенный шкаф для хранения ПП WT-550. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/wt550/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф с ПП WT-550",
+		GENITIVE = "шкафа с ПП WT-550",
+		DATIVE = "шкафу ПП с WT-550",
+		ACCUSATIVE = "шкаф с ПП WT-550",
+		INSTRUMENTAL = "шкафом с ПП WT-550",
+		PREPOSITIONAL = "шкафе с ПП WT-550"
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
+	new /obj/item/gun/projectile/automatic/wt550(src)
+	new /obj/item/gun/projectile/automatic/wt550(src)
+	new /obj/item/gun/projectile/automatic/wt550(src)
+	new /obj/item/gun/projectile/automatic/wt550(src)
+	new /obj/item/gun/projectile/automatic/wt550(src)
+
+/obj/structure/closet/secure_closet/guncabinet/sp91
+	name = "security SP-91-RC gun cabinet"
+	desc = "Защищенный шкаф для хранения ПП SP-91-RC. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/sp91/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф с ПП SP-91-RC",
+		GENITIVE = "шкафа с ПП SP-91-RC",
+		DATIVE = "шкафу с ПП SP-91-RC",
+		ACCUSATIVE = "шкаф с ПП SP-91-RC",
+		INSTRUMENTAL = "шкафом с ПП SP-91-RC",
+		PREPOSITIONAL = "шкафе с  ПП SP-91-RC"
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
+	new /obj/item/gun/projectile/automatic/sp91rc(src)
+	new /obj/item/gun/projectile/automatic/sp91rc(src)
+	new /obj/item/gun/projectile/automatic/sp91rc(src)
+	new /obj/item/gun/projectile/automatic/sp91rc(src)
+	new /obj/item/gun/projectile/automatic/sp91rc(src)
+
+/obj/structure/closet/secure_closet/guncabinet/lasergun
+	name = "security laser gun cabinet"
+	desc = "Защищенный шкаф для хранения лазерных винтовок. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/lasergun/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф с лазерными винтовками",
+		GENITIVE = "шкафа с лазерными винтовками",
+		DATIVE = "шкафу с лазерными винтовками",
+		ACCUSATIVE = "шкаф с лазерными винтовками",
+		INSTRUMENTAL = "шкафом с лазерными винтовками",
+		PREPOSITIONAL = "шкафе с лазерными винтовками"
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
+	new /obj/item/gun/energy/laser(src)
+	new /obj/item/gun/energy/laser(src)
+	new /obj/item/gun/energy/laser(src)
+	new /obj/item/gun/energy/laser(src)
+	new /obj/item/gun/energy/laser(src)
+
+/obj/structure/closet/secure_closet/guncabinet/lr30
+	name = "security LR-30 gun cabinet"
+	desc = "Защищенный шкаф для хранения лазерных винтовок LR-30. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/lr30/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф с лазерными винтовками LR-30",
+		GENITIVE = "шкафа с лазерными винтовками LR-30",
+		DATIVE = "шкафу с лазерными винтовками LR-30",
+		ACCUSATIVE = "шкаф с лазерными винтовками LR-30",
+		INSTRUMENTAL = "шкафом с лазерными винтовками LR-30",
+		PREPOSITIONAL = "шкафе с лазерными винтовками LR-30"
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/lr30/populate_contents()
+	new /obj/item/gun/projectile/automatic/lr30(src)
+	new /obj/item/gun/projectile/automatic/lr30(src)
+	new /obj/item/gun/projectile/automatic/lr30(src)
+	new /obj/item/gun/projectile/automatic/lr30(src)
+	new /obj/item/gun/projectile/automatic/lr30(src)
+
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
 	req_access = list(ACCESS_BRIG)
