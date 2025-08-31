@@ -357,7 +357,7 @@
 		INSTRUMENTAL = "пулей \"Дыхание дракона\"",
 		PREPOSITIONAL = "пуле \"Дыхание дракона\""
 	)
-	damage = 10
+	damage = 15
 	damage_type = BURN
 	range = 10
 	icon_state = "dragonbreath"
