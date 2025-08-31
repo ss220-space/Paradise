@@ -66958,8 +66958,8 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc{
-	name = "south bump";
+/obj/machinery/power/apc/worn_out{
+	cell_type = 0;
 	pixel_y = -26
 	},
 /turf/simulated/floor/carpet,

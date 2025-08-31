@@ -1713,11 +1713,6 @@
 /area/maintenance/tourist)
 "Xc" = (
 /obj/structure/table,
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 26
-	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -1731,6 +1726,11 @@
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/worn_out{
+	cell_type = 0;
+	dir = 1;
+	pixel_y = 26
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
 "Xl" = (
