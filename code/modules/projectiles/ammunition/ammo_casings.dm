@@ -228,8 +228,8 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/shotgun/buckshot
-	name = "magnum buckshot shell"
-	desc = "A 12 gauge magnum buckshot shell."
+	name = "buckshot shell"
+	desc = "A 12 gauge buckshot shell."
 	icon_state = "buckshotshell"
 	projectile_type = /obj/projectile/bullet/pellet
 	pellets = 6
@@ -254,6 +254,8 @@
 	variance = 15
 
 /obj/item/ammo_casing/shotgun/buckshot/magnum
+	name = "magnum buckshot shell"
+	desc = "A 12 gauge magnum buckshot shell."
 	projectile_type = /obj/projectile/bullet/pellet/magnum
 
 /obj/item/ammo_casing/shotgun/rubbershot
