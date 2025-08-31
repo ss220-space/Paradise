@@ -458,7 +458,7 @@
 		PREPOSITIONAL = "разрывной пуле"
 	)
 	damage = 20
-	knockdown = 3 SECONDS
+	knockdown = 5 SECONDS
 
 /obj/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
