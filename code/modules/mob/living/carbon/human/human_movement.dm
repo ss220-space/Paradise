@@ -240,7 +240,7 @@
 		return
 
 	to_chat(src, span_userdanger("Gravity exhausts you!"))
-	apply_damage(35, STAMINA)
+	apply_damage(10, STAMINA)
 
 
 /mob/living/carbon/human/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
