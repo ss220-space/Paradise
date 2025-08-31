@@ -446,9 +446,9 @@
 			if(silicon.stat != DEAD && silicon.module && istype(silicon.module, /obj/item/robot_module/security))
 				count_secborgs++
 
-		var/max_secborgs = 2
-		if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_GREEN)
-			max_secborgs = 1
+		var/max_secborgs = 1
+		if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_GAMMA)
+			max_secborgs = 3
 
 		if(count_secborgs >= max_secborgs)
 			to_chat(robot, span_warning("There are too many Security cyborgs active. Please choose another module."))
