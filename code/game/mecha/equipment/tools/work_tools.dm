@@ -345,19 +345,14 @@
 /obj/item/mecha_parts/mecha_equipment/multimodule/get_snowflake_data()
 	var/list/data = list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_MULTI,
-		"targeted_module" = targeted_module?.name
 	)
 
-	data["modules"] = list()
+	if(!targeted_module)
+		return data
 
-	for(var/thing in modules)
-		var/list/module_data = list()
-		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
-
-		module_data["uid"] = module.UID()
-		module_data["data"] = module.get_snowflake_data()
-
-		data["modules"][module.name] = module_data
+	data["targeted_module"] = list("name" = targeted_module.declent_ru(NOMINATIVE),
+		"snowflake" = targeted_module.get_snowflake_data(),
+		"ref" = targeted_module.UID())
 
 	return data
 
@@ -714,10 +709,10 @@
 		"selected_item" = selected_item.declent_ru(NOMINATIVE),
 	)
 
-	var/list/items_list = list()
+	var/list/items = list()
 	for(var/obj/item/cur_item as anything in items_list)
-		items_list[cur_item.declent_ru(NOMINATIVE)] = cur_item.UID()
-	data["items"] = items_list
+		items[cur_item.declent_ru(NOMINATIVE)] = cur_item.UID()
+	data["items"] = items
 
 	return data
 

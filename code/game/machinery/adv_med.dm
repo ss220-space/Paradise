@@ -496,7 +496,7 @@
 		dat += "[extra_font]\tУровень крови: [blood_percent] ([occupant.blood_volume] u)</font><br>"
 
 		if(occupant.reagents)
-			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount("Epinephrine")] u<br>"
+			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount("epinephrine")] u<br>"
 			dat += "Эфир: [occupant.reagents.get_reagent_amount("ether")] u<br>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")

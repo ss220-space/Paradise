@@ -42,21 +42,21 @@ export const ModulesPane = (props) => {
           selected={0 === tabIndex}
           onClick={() => setTabIndex(0)}
         >
-          <Icon name="table" /> Modules
+          <Icon name="table" /> Модули
         </Tabs.Tab>
         <Tabs.Tab
           key="Cargo"
           selected={1 === tabIndex}
           onClick={() => setTabIndex(1)}
         >
-          <Icon name="box" /> Cargo
+          <Icon name="box" /> Груз
         </Tabs.Tab>
         <Tabs.Tab
           key="Settings"
           selected={2 === tabIndex}
           onClick={() => setTabIndex(2)}
         >
-          <Icon name="cog" /> Settings
+          <Icon name="cog" /> Настройки
         </Tabs.Tab>
       </Tabs>
       {tabIndex === 0 && (
@@ -81,16 +81,6 @@ export const ModulesPane = (props) => {
                           my="8px"
                           name={'screwdriver - wrench'}
                         />
-                      </Stack.Item>
-                      <Stack.Item
-                        lineHeight="32px"
-                        style={{
-                          textTransform: 'capitalize',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                        }}
-                      >
-                        {`Slot`}
                       </Stack.Item>
                     </Stack>
                   </Button>
@@ -188,12 +178,12 @@ export const ModulesPane = (props) => {
             <LabeledList.Item label="Радио">
               <Button
                 selected={radio_data.microphone}
-                icon="microphone"
+                icon={radio_data.microphone ? 'microphone' : 'microphone-slash'}
                 onClick={() => act('toggle_microphone')}
               />
               <Button
                 selected={radio_data.speaker}
-                icon="headphones"
+                icon={radio_data.speaker ? 'volume-up' : 'volume-mute'}
                 onClick={() => act('toggle_speaker')}
               />
               <NumberInput
@@ -230,9 +220,6 @@ export const ModuleDetails = (props) => {
             <Stack>
               <Stack.Item grow>
                 <h2 style={{ textTransform: 'capitalize' }}>{name}</h2>
-                <Box italic opacity={0.5}>
-                  {'Модуль:'}
-                </Box>
               </Stack.Item>
               {!!detachable && (
                 <Stack.Item>
@@ -256,20 +243,10 @@ export const ModuleDetails = (props) => {
         </Stack>
       </Section>
       <Section>
-        {snowflake && snowflake.snowflake_id === MECHA_SNOWFLAKE_ID_EJECTOR ? (
-          <SnowflakeCargo module={props.module} />
-        ) : snowflake &&
-          snowflake.snowflake_id === MECHA_SNOWFLAKE_ID_AIR_TANK ? (
-          <SnowflakeAirTank module={props.module} />
-        ) : snowflake &&
-          snowflake.snowflake_id === MECHA_SNOWFLAKE_ID_OREBOX_MANAGER ? (
-          <SnowflakeOrebox module={props.module} />
-        ) : (
-          <LabeledList>
-            <ModuleDetailsBasic module={props.module} />
-            {!!snowflake && <ModuleDetailsExtra module={props.module} />}
-          </LabeledList>
-        )}
+        <LabeledList>
+          <ModuleDetailsBasic module={props.module} />
+          {!!snowflake && <ModuleDetailsExtra module={props.module} />}
+        </LabeledList>
       </Section>
     </Box>
   );
@@ -292,21 +269,7 @@ const ModuleDetailsBasic = (props) => {
   return (
     <>
       {integrity < 1 && (
-        <LabeledList.Item
-          label="Integrity"
-          buttons={
-            <Button
-              content="Repair"
-              icon="wrench"
-              onClick={() =>
-                act('equip_act', {
-                  ref: ref,
-                  gear_action: 'repair',
-                })
-              }
-            />
-          }
-        >
+        <LabeledList.Item label="Состояние">
           <ProgressBar
             ranges={{
               good: [0.75, Infinity],
@@ -318,20 +281,22 @@ const ModuleDetailsBasic = (props) => {
         </LabeledList.Item>
       )}
       {!!energy_per_use && (
-        <LabeledList.Item label="Power Cost">
+        <LabeledList.Item label="Затраты энергии">
           {`${formatPower(energy_per_use)}, ${
             power_level ? toFixed(power_level / energy_per_use) : 0
-          } uses left`}
+          } использований осталось`}
         </LabeledList.Item>
       )}
       {!!equip_cooldown && (
-        <LabeledList.Item label="Cooldown">{equip_cooldown}</LabeledList.Item>
+        <LabeledList.Item label="Перезарядка">
+          {equip_cooldown}
+        </LabeledList.Item>
       )}
       {!!can_be_toggled && (
         <LabeledList.Item label={active_label}>
           <Button
             icon="power-off"
-            content={active ? 'Enabled' : 'Disabled'}
+            content={active ? 'Включен' : 'DВыключен'}
             onClick={() =>
               act('equip_act', {
                 ref: ref,
@@ -346,7 +311,7 @@ const ModuleDetailsBasic = (props) => {
         <LabeledList.Item label={active_label}>
           <Button
             icon="power-off"
-            content="Activate"
+            content="Выбрать"
             disabled={active}
             onClick={() =>
               act('equip_act', {
@@ -374,9 +339,10 @@ const MECHA_SNOWFLAKE_ID_GENERATOR = 'generator_snowflake';
 const MECHA_SNOWFLAKE_ID_ORE_SCANNER = 'orescanner_snowflake';
 const MECHA_SNOWFLAKE_ID_CLAW = 'lawclaw_snowflake';
 const MECHA_SNOWFLAKE_ID_RCD = 'rcd_snowflake';
-const MECHA_SNOWFLAKE_ID_CABLE = 'cable_snowflake';
 const MECHA_SNOWFLAKE_ID_HOLO = 'holo_snowflake';
 const MECHA_SNOWFLAKE_ID_TOOLSET = 'toolset_snowflake';
+const MECHA_SNOWFLAKE_ID_MULTI = 'multimodule_snowflake';
+const MECHA_SNOWFLAKE_ID_CABLE = 'cable_snoflake';
 
 export const ModuleDetailsExtra = (props: { module: MechModule }) => {
   const module = props.module;
@@ -395,10 +361,14 @@ export const ModuleDetailsExtra = (props: { module: MechModule }) => {
       return <SnowflakeRadio module={module} />;
     case MECHA_SNOWFLAKE_ID_GENERATOR:
       return <SnowflakeGeneraor module={module} />;
-    case MECHA_SNOWFLAKE_ID_ORE_SCANNER:
-      return <SnowflakeOreScanner module={module} />;
-    case MECHA_SNOWFLAKE_ID_CLAW:
-      return <SnowflakeLawClaw module={module} />;
+    case MECHA_SNOWFLAKE_ID_TOOLSET:
+      return <SnowflakeToolset module={module} />;
+    case MECHA_SNOWFLAKE_ID_MULTI:
+      return <SnowflakeMulti module={module} />;
+    case MECHA_SNOWFLAKE_ID_CABLE:
+      return <SnowflakeCable module={module} />;
+    case MECHA_SNOWFLAKE_ID_HOLO:
+      return <SnowflakeHolo module={module} />;
     default:
       return null;
   }
@@ -407,28 +377,16 @@ export const ModuleDetailsExtra = (props: { module: MechModule }) => {
 const SnowflakeWeaponBallistic = (props) => {
   const { act, data } = useBackend<MainData>();
   const { ref } = props.module;
-  const {
-    projectiles,
-    max_magazine,
-    projectiles_cache,
-    projectiles_cache_max,
-    disabledreload,
-    ammo_type,
-    mode,
-  } = props.module.snowflake;
+  const { max_ammo, total_ammo } = props.module.snowflake;
   return (
     <>
-      {!!ammo_type && (
-        <LabeledList.Item label="Ammo">{ammo_type}</LabeledList.Item>
-      )}
       <LabeledList.Item
-        label="Loaded"
+        label="Боеприпасы"
         buttons={
-          !disabledreload &&
-          projectiles_cache > 0 && (
+          !max_ammo && (
             <Button
               icon="redo"
-              disabled={projectiles >= max_magazine}
+              disabled={total_ammo === max_ammo}
               onClick={() =>
                 act('equip_act', {
                   ref: ref,
@@ -436,23 +394,18 @@ const SnowflakeWeaponBallistic = (props) => {
                 })
               }
             >
-              Reload
+              Перезарядка
             </Button>
           )
         }
-      >
-        <ProgressBar value={projectiles / max_magazine}>
-          {`${projectiles} of ${max_magazine}`}
+      />
+      {!max_ammo ? (
+        <LabeledList.Item label="Кол-во">{total_ammo}</LabeledList.Item>
+      ) : (
+        <ProgressBar value={total_ammo / max_ammo}>
+          {`${total_ammo} из ${max_ammo}`}
         </ProgressBar>
-      </LabeledList.Item>
-      {!!projectiles_cache_max && (
-        <LabeledList.Item label="Stored">
-          <ProgressBar value={projectiles_cache / projectiles_cache_max}>
-            {`${projectiles_cache} of ${projectiles_cache_max}`}
-          </ProgressBar>
-        </LabeledList.Item>
       )}
-      {!!mode && <SnowflakeMode module={props.module} />}
     </>
   );
 };
@@ -468,11 +421,11 @@ const SnowflakeSleeper = (props) => {
     has_traumas,
   } = props.module.snowflake;
   return !patient ? (
-    <LabeledList.Item label="Patient">None</LabeledList.Item>
+    <LabeledList.Item label="Пациент">Отсутствует</LabeledList.Item>
   ) : (
     <>
       <LabeledList.Item
-        label="Patient"
+        label="Пациент"
         buttons={
           <Button
             icon="eject"
@@ -488,7 +441,7 @@ const SnowflakeSleeper = (props) => {
       >
         {patient.patient_name}
       </LabeledList.Item>
-      <LabeledList.Item label="Health">
+      <LabeledList.Item label="Здоровье">
         <ProgressBar
           ranges={{
             good: [0.75, Infinity],
@@ -498,49 +451,46 @@ const SnowflakeSleeper = (props) => {
           value={patient.patient_health}
         />
       </LabeledList.Item>
-      <LabeledList.Item className="candystripe" label="State">
+      <LabeledList.Item className="candystripe" label="Состояние">
         {patient.patient_state}
       </LabeledList.Item>
-      <LabeledList.Item className="candystripe" label="Temperature">
+      <LabeledList.Item className="candystripe" label="Tемпература">
         {patient.core_temp} C
       </LabeledList.Item>
-      <LabeledList.Item className="candystripe" label="Brute Damage">
+      <LabeledList.Item className="candystripe" label="Травмы">
         {patient.brute_loss}
       </LabeledList.Item>
-      <LabeledList.Item className="candystripe" label="Burn Severity">
+      <LabeledList.Item className="candystripe" label="Ожоги">
         {patient.burn_loss}
       </LabeledList.Item>
-      <LabeledList.Item className="candystripe" label="Toxin Content">
+      <LabeledList.Item className="candystripe" label="Tоксины">
         {patient.toxin_loss}
       </LabeledList.Item>
-      <LabeledList.Item className="candystripe" label="Respiratory Damage">
+      <LabeledList.Item className="candystripe" label="Кислород">
         {patient.oxygen_loss}
       </LabeledList.Item>
       {!!has_brain_damage && (
-        <LabeledList.Item className="candystripe" label="Detected">
-          Brain Damage
+        <LabeledList.Item className="candystripe" label="Обнаружен">
+          Урон мозгу
         </LabeledList.Item>
       )}
-      {!!has_traumas && (
-        <LabeledList.Item className="candystripe" label="Detected">
-          Traumatic Damage
-        </LabeledList.Item>
-      )}
-      <LabeledList.Item label="Reagent Details">
+      <LabeledList.Item label="Реагенты">
         {contained_reagents.map((reagent) => (
           <LabeledList.Item
             key={reagent.name}
             className="candystripe"
+            labelWrap
             label={reagent.name}
           >
             <LabeledList.Item label={`${reagent.volume}u`} />
           </LabeledList.Item>
         ))}
       </LabeledList.Item>
-      <LabeledList.Item label="Reagent Injection">
+      <LabeledList.Item label="Инъекции">
         {injectible_reagents
           ? injectible_reagents.map((reagent) => (
               <LabeledList.Item
+                labelWrap
                 className="candystripe"
                 key={reagent.name}
                 label={reagent.name}
@@ -560,7 +510,7 @@ const SnowflakeSleeper = (props) => {
                 </LabeledList.Item>
               </LabeledList.Item>
             ))
-          : 'Unavailable'}
+          : 'Недоступно'}
       </LabeledList.Item>
     </>
   );
@@ -592,17 +542,17 @@ const SnowflakeSyringe = (props) => {
   } = props.module.snowflake;
   return (
     <>
-      <LabeledList.Item label="Syringes">
+      <LabeledList.Item label="Шприцы">
         <ProgressBar value={syringe / max_syringe}>
-          {`${syringe} of ${max_syringe}`}
+          {`${syringe} из ${max_syringe}`}
         </ProgressBar>
       </LabeledList.Item>
-      <LabeledList.Item label="Reagents">
+      <LabeledList.Item label="Реагенты">
         <ProgressBar value={reagents / total_reagents}>
-          {`${reagents} of ${total_reagents} units`}
+          {`${reagents} из ${total_reagents} юнитов`}
         </ProgressBar>
       </LabeledList.Item>
-      <LabeledList.Item label="Mode">
+      <LabeledList.Item label="Режим">
         <Button
           content={mode}
           onClick={() =>
@@ -613,15 +563,16 @@ const SnowflakeSyringe = (props) => {
           }
         />
       </LabeledList.Item>
-      <LabeledList.Item label="Synthesizing">
+      <LabeledList.Item label="Синтезирование">
         {analyzed_reagents.map((reagent) => (
-          <LabeledList.Item key={reagent.name} label={reagent.name}>
+          <LabeledList.Item key={reagent.name} labelWrap label={reagent.name}>
             <Button.Checkbox
               checked={reagent.enabled}
               onClick={() =>
                 act('equip_act', {
                   ref: ref,
-                  gear_action: `toggle_reagent_${reagent.name}`,
+                  gear_action: `toggle_reagent`,
+                  reagent: reagent.name,
                 })
               }
             />
@@ -641,13 +592,14 @@ const SnowflakeSyringe = (props) => {
         </Button>
       </LabeledList.Item>
       {contained_reagents.map((reagent) => (
-        <LabeledList.Item key={reagent.name} label={reagent.name}>
+        <LabeledList.Item key={reagent.name} labelWrap label={reagent.name}>
           <LabeledList.Item label={`${reagent.volume}u`}>
             <Button
               onClick={() =>
                 act('equip_act', {
                   ref: ref,
-                  gear_action: `purge_reagent_${reagent.name}`,
+                  gear_action: `purge_reagent`,
+                  reagent: reagent.id,
                 })
               }
             >
@@ -679,366 +631,11 @@ const SnowflakeMode = (props) => {
   );
 };
 
-const SnowflakeRadio = (props) => {
+const SnowflakeCable = (props) => {
   const { act, data } = useBackend<MainData>();
   const { ref } = props.module;
-  const { microphone, speaker, minFrequency, maxFrequency, frequency } =
-    props.module.snowflake;
-  return (
-    <>
-      <LabeledList.Item label="Microphone">
-        <Button
-          onClick={() =>
-            act('equip_act', {
-              ref: ref,
-              gear_action: 'toggle_microphone',
-            })
-          }
-          selected={microphone}
-          icon={microphone ? 'microphone' : 'microphone-slash'}
-        >
-          {`${microphone ? 'En' : 'Dis'}abled`}
-        </Button>
-      </LabeledList.Item>
-      <LabeledList.Item label="Speaker">
-        <Button
-          onClick={() =>
-            act('equip_act', {
-              ref: ref,
-              gear_action: 'toggle_speaker',
-            })
-          }
-          selected={speaker}
-          icon={speaker ? 'volume-up' : 'volume-mute'}
-        >
-          {`${speaker ? 'En' : 'Dis'}abled`}
-        </Button>
-      </LabeledList.Item>
-      <LabeledList.Item label="Frequency">
-        <NumberInput
-          animated
-          unit="kHz"
-          step={0.2}
-          stepPixelSize={10}
-          minValue={minFrequency / 10}
-          maxValue={maxFrequency / 10}
-          value={frequency / 10}
-          format={(value) => toFixed(value, 1)}
-          onDrag={(value) =>
-            act('equip_act', {
-              ref: ref,
-              gear_action: 'set_frequency',
-              new_frequency: value * 10,
-            })
-          }
-        />
-      </LabeledList.Item>
-    </>
-  );
-};
-
-const SnowflakeAirTank = (props) => {
-  const { act, data } = useBackend<MainData>();
-  const { use_internal_tank, one_atmosphere } = data;
-  const { ref, integrity, active } = props.module;
-  const {
-    auto_pressurize_on_seal,
-    port_connected,
-    tank_release_pressure,
-    tank_release_pressure_min,
-    tank_release_pressure_max,
-    tank_pump_active,
-    tank_pump_direction,
-    tank_pump_pressure,
-    tank_pump_pressure_min,
-    tank_pump_pressure_max,
-    tank_air,
-    cabin_air,
-  } = props.module.snowflake;
-  return (
-    <Box>
-      <LabeledList>
-        {integrity < 1 && (
-          <LabeledList.Item
-            label="Integrity"
-            buttons={
-              <Button
-                content="Repair"
-                icon="wrench"
-                onClick={() =>
-                  act('equip_act', {
-                    ref: ref,
-                    gear_action: 'repair',
-                  })
-                }
-              />
-            }
-          >
-            <ProgressBar
-              ranges={{
-                good: [0.75, Infinity],
-                average: [0.25, 0.75],
-                bad: [-Infinity, 0.25],
-              }}
-              value={integrity}
-            />
-          </LabeledList.Item>
-        )}
-      </LabeledList>
-      <Section
-        title="Tank"
-        buttons={
-          <Button
-            icon="power-off"
-            content={
-              active
-                ? !use_internal_tank
-                  ? 'Release Paused'
-                  : 'Pressurizing Cabin'
-                : 'Release Off'
-            }
-            onClick={() =>
-              act('equip_act', {
-                ref: ref,
-                gear_action: 'toggle',
-              })
-            }
-            selected={active}
-          />
-        }
-      >
-        <LabeledList>
-          <LabeledList.Item label="Automation">
-            <Button
-              content={
-                auto_pressurize_on_seal ? 'Pressurize on Seal' : 'Manual'
-              }
-              selected={auto_pressurize_on_seal}
-              onClick={() =>
-                act('equip_act', {
-                  ref: ref,
-                  gear_action: 'toggle_auto_pressurize',
-                })
-              }
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Cabin Pressure">
-            <NumberInput
-              value={tank_release_pressure}
-              unit="kPa"
-              width="75px"
-              minValue={tank_release_pressure_min}
-              maxValue={tank_release_pressure_max}
-              step={10}
-              onChange={(value) =>
-                act('equip_act', {
-                  ref: ref,
-                  gear_action: 'set_cabin_pressure',
-                  new_pressure: value,
-                })
-              }
-            />
-            <Button
-              icon="sync"
-              disabled={tank_release_pressure === Math.round(one_atmosphere)}
-              onClick={() =>
-                act('equip_act', {
-                  ref: ref,
-                  gear_action: 'set_cabin_pressure',
-                  new_pressure: Math.round(one_atmosphere),
-                })
-              }
-            />
-          </LabeledList.Item>
-          <LabeledList.Item
-            label="Pipenet Port"
-            buttons={
-              <Button
-                icon="info"
-                color="transparent"
-                tooltip="Park above atmospherics connector port to connect inernal air tank with a gas network."
-              />
-            }
-          >
-            <Button
-              onClick={() =>
-                act('equip_act', {
-                  ref: ref,
-                  gear_action: 'toggle_port',
-                })
-              }
-              selected={port_connected}
-            >
-              {port_connected ? 'Connected' : 'Disconnected'}
-            </Button>
-          </LabeledList.Item>
-        </LabeledList>
-      </Section>
-      <Section
-        title="External Pump"
-        buttons={
-          <Button
-            icon="power-off"
-            content={tank_pump_active ? 'On' : 'Off'}
-            selected={tank_pump_active}
-            onClick={() =>
-              act('equip_act', {
-                ref: ref,
-                gear_action: 'toggle_tank_pump',
-              })
-            }
-          />
-        }
-      >
-        <LabeledList.Item label="Direction">
-          <Button
-            content={tank_pump_direction ? 'Area → Tank' : 'Tank → Area'}
-            onClick={() =>
-              act('equip_act', {
-                ref: ref,
-                gear_action: 'toggle_tank_pump_direction',
-              })
-            }
-          />
-        </LabeledList.Item>
-        <LabeledList.Item label="Target Pressure">
-          <NumberInput
-            value={tank_pump_pressure}
-            unit="kPa"
-            width="75px"
-            minValue={tank_pump_pressure_min}
-            maxValue={tank_pump_pressure_max}
-            step={10}
-            format={(value) => `${Math.round(value)}`}
-            onChange={(value) =>
-              act('equip_act', {
-                ref: ref,
-                gear_action: 'set_tank_pump_pressure',
-                new_pressure: value,
-              })
-            }
-          />
-          <Button
-            icon="sync"
-            disabled={tank_pump_pressure === Math.round(one_atmosphere)}
-            onClick={() =>
-              act('equip_act', {
-                ref: ref,
-                gear_action: 'set_tank_pump_pressure',
-                new_pressure: Math.round(one_atmosphere),
-              })
-            }
-          />
-        </LabeledList.Item>
-      </Section>
-      <Section title="Sensors">
-        <Collapsible title="Tank Air">
-          <GasmixParser gasmix={tank_air} />
-        </Collapsible>
-        {use_internal_tank ? (
-          <Collapsible title="Cabin Air">
-            <GasmixParser gasmix={cabin_air} />
-          </Collapsible>
-        ) : (
-          <NoticeBox>
-            <Icon name="wind" mr={1} />
-            Cabin Open
-          </NoticeBox>
-        )}
-      </Section>
-    </Box>
-  );
-};
-
-const SnowflakeOrebox = (props) => {
-  const { act, data } = useBackend<MainData>();
-  const { ref } = props.module;
-  const { contents } = props.module.snowflake;
-  return (
-    <Section
-      title="Contents"
-      buttons={
-        <Button
-          icon="arrows-down-to-line"
-          content="Dump"
-          onClick={() =>
-            act('equip_act', {
-              ref: ref,
-              gear_action: 'dump',
-            })
-          }
-          disabled={!Object.keys(contents).length}
-        />
-      }
-    >
-      {Object.keys(contents).length ? (
-        Object.keys(contents).map((item, i) => (
-          <Stack key={i}>
-            <Stack.Item lineHeight="0">
-              <Box
-                m="-4px"
-                className={classes([
-                  'mecha_equipment32x32',
-                  contents[item].icon,
-                ])}
-              />
-            </Stack.Item>
-            <Stack.Item
-              lineHeight="24px"
-              style={{
-                textTransform: 'capitalize',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
-            >
-              {`${contents[item].amount}x ${contents[item].name}`}
-            </Stack.Item>
-          </Stack>
-        ))
-      ) : (
-        <NoticeBox info>Ore box is empty</NoticeBox>
-      )}
-    </Section>
-  );
-};
-
-const SnowflakeCargo = (props) => {
-  const { act, data } = useBackend<MainData>();
-  const { ref } = props.module;
-  const { cargo, cargo_capacity } = props.module.snowflake;
-  return (
-    <Box>
-      <Section
-        title="Contents"
-        buttons={`${cargo.length} of ${cargo_capacity}`}
-      >
-        {!cargo.length ? (
-          <NoticeBox info>Compartment is empty</NoticeBox>
-        ) : (
-          cargo.map((item, i) => (
-            <Button
-              fluid
-              py={0.2}
-              key={i}
-              icon="eject"
-              onClick={() =>
-                act('equip_act', {
-                  ref: ref,
-                  cargoref: item.ref,
-                  gear_action: 'eject',
-                })
-              }
-              style={{
-                textTransform: 'capitalize',
-              }}
-            >
-              {item.name}
-            </Button>
-          ))
-        )}
-      </Section>
-    </Box>
-  );
+  const { cable } = props.module.snowflake;
+  return <LabeledList.Item label="Кол-во">{cable}</LabeledList.Item>;
 };
 
 const SnowflakeExtinguisher = (props) => {
@@ -1047,41 +644,11 @@ const SnowflakeExtinguisher = (props) => {
   const { reagents, total_reagents, reagents_required } =
     props.module.snowflake;
   return (
-    <>
-      <LabeledList.Item
-        label="Water"
-        buttons={
-          <Button
-            content="Refill"
-            icon="fill"
-            onClick={() =>
-              act('equip_act', {
-                ref: ref,
-                gear_action: 'refill',
-              })
-            }
-          />
-        }
-      >
-        <ProgressBar value={reagents} minValue={0} maxValue={total_reagents}>
-          {reagents}
-        </ProgressBar>
-      </LabeledList.Item>
-      <LabeledList.Item label="Extinguisher">
-        <Button
-          content="Activate"
-          color="red"
-          disabled={reagents < reagents_required}
-          icon="fire-extinguisher"
-          onClick={() =>
-            act('equip_act', {
-              ref: ref,
-              gear_action: 'activate',
-            })
-          }
-        />
-      </LabeledList.Item>
-    </>
+    <LabeledList.Item label="Вода">
+      <ProgressBar value={reagents} minValue={0} maxValue={total_reagents}>
+        {reagents}
+      </ProgressBar>
+    </LabeledList.Item>
   );
 };
 
@@ -1091,108 +658,55 @@ const SnowflakeGeneraor = (props) => {
   const { ref, active, name } = props.module;
   const { fuel } = props.module.snowflake;
   return (
-    <LabeledList.Item label="Fuel Amount">
+    <LabeledList.Item label="Топливо">
       {fuel === null
-        ? 'None'
+        ? 'нет'
         : `${toFixed(fuel * mineral_material_amount, 0.1)} cm³`}
     </LabeledList.Item>
   );
 };
 
-const SnowflakeOreScanner = (props) => {
+const SnowflakeHolo = (props) => {
   const { act, data } = useBackend<MainData>();
   const { ref } = props.module;
-  const { cooldown } = props.module.snowflake;
+  const { max_barriers, total_barriers } = props.module.snowflake;
   return (
-    <LabeledList.Item label="Vent Scanner">
-      <NoticeBox info={cooldown <= 0}>
-        {cooldown / 10 > 0 ? 'Recharging...' : 'Ready to scan vents'}
-        <Button
-          my={1}
-          width="100%"
-          icon="satellite-dish"
-          color={cooldown <= 0 ? 'green' : 'transparent'}
-          onClick={() =>
-            act('equip_act', {
-              ref: ref,
-              gear_action: 'area_scan',
-            })
-          }
-          disabled={!(cooldown <= 0)}
-        >
-          Scan all nearby vents
-        </Button>
-      </NoticeBox>
+    <LabeledList.Item label="Барьеры">
+      <ProgressBar value={total_barriers / max_barriers}>
+        {`${total_barriers} из ${max_barriers}`}
+      </ProgressBar>
     </LabeledList.Item>
   );
 };
 
-const SnowflakeLawClaw = (props) => {
+const SnowflakeMulti = (props) => {
   const { act, data } = useBackend<MainData>();
   const { ref } = props.module;
-  const { autocuff } = props.module.snowflake;
+  const { targeted_module } = props.module.snowflake;
   return (
-    <LabeledList.Item
-      label="Handcuff Suspects"
-      buttons={
-        <Button
-          content="Toggle"
-          color={autocuff ? 'green' : 'blue'}
-          icon="handcuffs"
-          onClick={() =>
-            act('equip_act', {
-              ref: ref,
-              gear_action: 'togglecuff',
-            })
-          }
-        />
-      }
-    />
+    <>
+      <LabeledList.Item label="Выбранный модуль">
+        {targeted_module.name}
+      </LabeledList.Item>
+      <ModuleDetailsExtra module={targeted_module} />
+    </>
   );
 };
 
-const SnowflakeRCD = (props) => {
+const SnowflakeToolset = (props) => {
   const { act, data } = useBackend<MainData>();
   const { ref } = props.module;
-  const { scan_ready, deconstructing, mode } = props.module.snowflake;
-  return (
-    <>
-      <LabeledList.Item label="Destruction Scan">
-        <Button
-          icon="satellite-dish"
-          color={scan_ready ? 'green' : 'transparent'}
-          onClick={() =>
-            act('equip_act', {
-              ref: ref,
-              gear_action: 'rcd_scan',
-            })
-          }
-        />
-      </LabeledList.Item>
-      <LabeledList.Item label="Deconstructing">
-        <Button
-          icon="power-off"
-          content={deconstructing ? 'On' : 'Off'}
-          color={deconstructing ? 'green' : 'blue'}
-          onClick={() =>
-            act('equip_act', {
-              ref: ref,
-              gear_action: 'toggle_deconstruct',
-            })
-          }
-        />
-      </LabeledList.Item>
-      <LabeledList.Item label="Construction Mode">
-        <Button
-          content={mode}
-          onClick={() =>
-            act('equip_act', {
-              ref: ref,
-              gear_action: 'change_mode',
-            })
-          }
-        />
-      </LabeledList.Item>
-    </>
-  );
+  const { selected_item, items } = props.module.snowflake;
+  return Object.keys(items).map((item) => (
+    <Button
+      content={item}
+      selected={selected_item ? selected_item === item : false}
+      key={item}
+      onClick={() =>
+        act('change_tool', {
+          selected_item: items[item],
+        })
+      }
+    />
+  ));
 };

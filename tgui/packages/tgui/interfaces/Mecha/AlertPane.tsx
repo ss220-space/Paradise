@@ -4,26 +4,26 @@ import { useBackend } from '../../backend';
 import type { MainData } from './data';
 
 export const InternalDamageToDamagedDesc = {
-  MECHA_INT_FIRE: 'Internal fire detected',
-  MECHA_INT_TEMP_CONTROL: 'Thermoregulator offline',
-  MECHA_INT_TANK_BREACH: 'Cabin breach detected',
-  MECHA_INT_CONTROL_LOST: 'Motors damaged',
-  MECHA_INT_SHORT_CIRCUIT: 'Circuits shorted',
+  MECHA_INT_FIRE: 'Внутренний пожар обнаружен',
+  MECHA_INT_TEMP_CONTROL: 'Терморегулятор выключен',
+  MECHA_INT_TANK_BREACH: 'Кабина повреждена',
+  MECHA_INT_CONTROL_LOST: 'Моторы повреждены',
+  MECHA_INT_SHORT_CIRCUIT: 'Короткое замыкание',
 };
 
 export const InternalDamageToNormalDesc = {
-  MECHA_INT_FIRE: 'No internal fires detected',
-  MECHA_INT_TEMP_CONTROL: 'Thermoregulator active',
-  MECHA_INT_TANK_BREACH: 'Cabin sealing intact',
-  MECHA_INT_CONTROL_LOST: 'Motors active',
-  MECHA_INT_SHORT_CIRCUIT: 'Circuits operational',
+  MECHA_INT_FIRE: 'Пожаров не обранужено',
+  MECHA_INT_TEMP_CONTROL: 'Терморегулятор активен',
+  MECHA_INT_TANK_BREACH: 'Кабина цела',
+  MECHA_INT_CONTROL_LOST: 'Моторы активны',
+  MECHA_INT_SHORT_CIRCUIT: 'Платы работаспособны',
 };
 
 export const AlertPane = (props) => {
   const { act, data } = useBackend<MainData>();
   const { internal_damage, internal_damage_keys } = data;
   return (
-    <Section title="Status">
+    <Section title="Статус">
       <Stack vertical>
         {Object.keys(internal_damage_keys).map((t) => (
           <Stack.Item key={t}>

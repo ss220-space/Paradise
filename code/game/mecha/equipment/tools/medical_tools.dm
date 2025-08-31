@@ -152,6 +152,10 @@
 	data["has_brain_damage"] = patient.getBrainLoss() != 0
 	data["has_clone_damage"] = patient.getCloneLoss() != 0
 
+	var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/shooter = locate(/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun) in chassis
+	if(shooter)
+		data["injectible_reagents"] = get_reagent_data(shooter.reagents.reagent_list)
+
 	return data
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/handle_ui_act(action, list/params)
@@ -164,7 +168,7 @@
 		return FALSE
 
 	if(action == "inject_reagent")
-		var/datum/reagent/medication = reagents.has_reagent(params["reagent"])
+		var/datum/reagent/medication = shooter.reagents.has_reagent(params["reagent"])
 		if(!medication)
 			return FALSE
 		inject_reagent(medication, shooter)
@@ -242,7 +246,7 @@
 	create_reagents(max_volume)
 	reagents.set_reacting(FALSE)
 	syringes = new
-	known_reagents = list("epinephrine"="Epinephrine","charcoal"="Charcoal")
+	known_reagents = list("epinephrine" = "Эпинефрин", "charcoal" = "Активированный уголь")
 	processed_reagents = new
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach_act()
@@ -291,23 +295,16 @@
 	return data
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/synthesize(reagent)
-	processed_reagents.len = 0
-	var/m = 0
-	var/message
+	if(processed_reagents.len >= synth_speed)
+		occupant_message("Достигнут максимум одновременных реагентов.")
+		return
 
-	for(var/i=1 to known_reagents.len)
-		if(m>=synth_speed)
-			break
-		if(reagent && (reagent in known_reagents))
-			message = "[m ? ", " : null][known_reagents[reagent]]"
-			processed_reagents += reagent
-			m++
+	if(reagent && (reagent in known_reagents))
+		processed_reagents += reagent
 
-	if(processed_reagents.len)
-		message += " added to production"
+	if(processed_reagents.len == 1)
 		START_PROCESSING(SSobj, src)
-		occupant_message(message)
-		occupant_message("Reagent processing started.")
+		occupant_message("Реагенты синтезируются.")
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/handle_ui_act(action, list/params)
 	switch(action)
@@ -321,7 +318,11 @@
 			reagents.del_reagent(params["reagent"])
 			return TRUE
 		if("toggle_reagent" )
-			synthesize(params["reagent"])
+			var/switch_reagent = params["reagent"]
+			if(switch_reagent in processed_reagents)
+				processed_reagents -= switch_reagent
+			else
+				synthesize(switch_reagent)
 			return TRUE
 
 	return FALSE
@@ -456,7 +457,8 @@
 	if(..())
 		return
 	if(!processed_reagents.len || reagents.total_volume >= reagents.maximum_volume || !chassis.has_charge(energy_drain))
-		occupant_message(span_alert("Reagent processing stopped."))
+		occupant_message(span_alert("Синтезирование реагентов остановлено."))
+		processed_reagents.len = 0
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/amount = synth_speed / processed_reagents.len

@@ -44,7 +44,7 @@ export const Content = (props) => {
               buttons={
                 <Button
                   icon="edit"
-                  tooltip="Rename"
+                  tooltip="Переименовать"
                   tooltipPosition="left"
                   onClick={() => act('changename')}
                 />
@@ -68,10 +68,10 @@ export const Content = (props) => {
                     <LightsBar />
                     <CabinSeal />
                     <DNALock />
-                    <LabeledList.Item label="ID Lock">
+                    <LabeledList.Item label="ID блокировка">
                       <Button
                         icon={id_lock_on ? 'lock' : 'lock-open'}
-                        content={id_lock_on ? 'Enabled' : 'Disabled'}
+                        content={id_lock_on ? 'Включена' : 'Выключена'}
                         tooltipPosition="top"
                         onClick={() => {
                           editAccess(false);
@@ -82,14 +82,16 @@ export const Content = (props) => {
                       {!!id_lock_on && (
                         <>
                           <Button
-                            tooltip="Edit Access"
+                            tooltip="Редактировать доступы"
                             tooltipPosition="top"
                             icon="id-card-o"
                             onClick={() => editAccess(!edit_access)}
                             selected={edit_access}
                           />
                           <Button
-                            tooltip={one_access ? 'Require Any' : 'Require All'}
+                            tooltip={
+                              one_access ? 'Требуется любой' : 'Требуются все'
+                            }
                             tooltipPosition="top"
                             icon={one_access ? 'check' : 'check-double'}
                             onClick={() => act('one_access')}
