@@ -109,12 +109,12 @@
 		return
 
 	to_chat(user, span_shadowling("Вы бесшумно отключаете все ближайшие источники света."))
-	for(var/turf/T in targets)
-		T.extinguish_light()
-		for(var/atom/A in T.contents)
-			if(A in blacklisted_lights)
+	for(var/turf/turf in targets)
+		turf.extinguish_light()
+		for(var/atom/atom in turf.contents)
+			if(atom in blacklisted_lights)
 				continue
-			A.extinguish_light()
+			atom.extinguish_light()
 
 
 /obj/effect/proc_holder/spell/shadowling_shadow_walk
