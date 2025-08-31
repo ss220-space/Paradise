@@ -721,16 +721,16 @@ CACHE_ASSETS 0
 #ENABLE_TITLESCREEN_LATELOAD
 
 ## Disable the loading of "Taipan"
-DISABLE_TAIPAN
+#DISABLE_TAIPAN
 
 ## Disable the loading of Lavaland
-DISABLE_LAVALAND
+#DISABLE_LAVALAND
 
 ## Disable the loading of away missions
-DISABLE_AWAY_MISSIONS
+#DISABLE_AWAY_MISSIONS
 
 ## Disable the loading of space ruins
-DISABLE_SPACE_RUINS
+#DISABLE_SPACE_RUINS
 
 ## Default server map
 DEFAULT_MAP /datum/map/cyberiad
