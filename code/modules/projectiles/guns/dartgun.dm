@@ -47,7 +47,7 @@
 		icon_state = "dartgun-[cartridge.darts]"
 
 
-/obj/item/gun/dartgun/Initialize()
+/obj/item/gun/dartgun/Initialize(mapload)
 	. = ..()
 
 	if(starting_chems)
@@ -163,7 +163,7 @@
 		D.icon_state = "syringeproj"
 		D.name = "syringe"
 		D.reagents.set_reacting(FALSE)
-		playsound(user.loc, 'sound/items/syringeproj.ogg', 50, 1)
+		playsound(user.loc, 'sound/items/syringeproj.ogg', 50, TRUE)
 
 		for(var/i=0, i<6, i++)
 			if(!D) break

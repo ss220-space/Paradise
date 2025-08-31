@@ -35,7 +35,7 @@
 	matter_type = /obj/item/rcd_ammo/syndicate
 	matter_type_large = /obj/item/rcd_ammo/syndicate/large
 
-/obj/item/rcd/syndicate/Initialize()
+/obj/item/rcd/syndicate/Initialize(mapload)
 	. = ..()
 	if(!length(syndie_rcd_door_types))
 		syndie_rcd_door_types = list(
@@ -123,7 +123,7 @@
 			return
 		else
 			return
-	playsound(src, 'sound/effects/pop.ogg', 50, 0)
+	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)
 	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
 
 /obj/item/rcd/syndicate/combat

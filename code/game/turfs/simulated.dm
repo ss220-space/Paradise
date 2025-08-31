@@ -1,5 +1,6 @@
 /turf/simulated
 	name = "station"
+	flags = NO_SCREENTIPS
 	var/wet = 0
 	var/image/wet_overlay = null
 	var/mutable_appearance/melting_olay
@@ -9,6 +10,13 @@
 	nitrogen = MOLES_N2STANDARD
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+
+/turf/simulated/Initialize(mapload)
+	. = ..()
+	add_debris_element()
+
+/turf/simulated/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)
 
 /turf/simulated/proc/break_tile()
 	return
@@ -44,9 +52,9 @@
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
 		if(istype(arrived, /mob/living/simple_animal/hulk/clown_hulk))
 			if(Hulk.body_position != LYING_DOWN)
-				playsound(src, "clownstep", CHANNEL_BUZZ)
+				playsound(src, SFX_CLOWN_STEP, CHANNEL_BUZZ)
 	if(istype(arrived, /mob/living/simple_animal/hostile/shitcur_goblin))
-		playsound(src, "clownstep", CHANNEL_BUZZ)
+		playsound(src, SFX_CLOWN_STEP, CHANNEL_BUZZ)
 
 
 /turf/simulated/copyTurf(turf/simulated/copy_to_turf, copy_air = FALSE)
@@ -170,7 +178,7 @@
 
 	if(!(lube_flags & SLIDE_ICE))
 		// Ice slides are intended to be combo'd so don't give the feedback
-		to_chat(slipper, span_notice("You slipped[slippable ? " on the [slippable.name]" : ""]!"))
+		to_chat(slipper, span_notice("[pluralize_ru(slipper.gender,"Ты","Вы")] поскользнул[genderize_ru(slipper.gender,"ся","ась","ся","ись")][slippable ? " на [slippable.declent_ru(PREPOSITIONAL)]" : ""]!"))
 		playsound(slipper.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 
 	SEND_SIGNAL(slipper, COMSIG_ON_CARBON_SLIP)
@@ -183,7 +191,7 @@
 		slipper.Immobilize(1 SECONDS)
 	else
 		slipper.stop_pulling()
-		slipper.Weaken(weaken_amount)
+		slipper.Knockdown(weaken_amount)
 
 	if(buckled_obj)
 		buckled_obj.unbuckle_mob(slipper)

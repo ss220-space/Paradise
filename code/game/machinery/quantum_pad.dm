@@ -15,8 +15,8 @@
 	var/obj/machinery/quantumpad/linked_pad = null
 	var/preset_target = null
 
-/obj/machinery/quantumpad/New()
-	..()
+/obj/machinery/quantumpad/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
@@ -117,7 +117,7 @@
 
 /obj/machinery/quantumpad/proc/doteleport(mob/user)
 	if(linked_pad)
-		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, 1)
+		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
 		teleporting = 1
 
 		spawn(teleport_speed)

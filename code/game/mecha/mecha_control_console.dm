@@ -3,7 +3,7 @@
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"
-	light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_LAVENDER
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
@@ -51,7 +51,7 @@
 		if("send_message")
 			var/obj/item/mecha_parts/mecha_tracking/MT = locateUID(params["mt"])
 			if(istype(MT))
-				var/message = strip_html_simple(input(usr, "Input message", "Transmit message") as text)
+				var/message = strip_html_simple(tgui_input_text(usr, "Input message", "Transmit message"))
 				if(!message || !trim(message) || ..())
 					return FALSE
 				var/obj/mecha/M = MT.in_mecha()

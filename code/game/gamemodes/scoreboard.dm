@@ -331,6 +331,11 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	if(SSticker.mode)
 		dat += SSticker.mode.get_scoreboard_stats()
 
+	for(var/team_type in GLOB.antagonist_teams)
+		var/datum/team/team = GLOB.antagonist_teams[team_type]
+		team.set_scoreboard_vars()
+		dat += team.get_scoreboard_stats()
+
 	dat += {"
 	<b><u>Общая статистика</u></b><br>
 	<u>Хорошее</u><br>
@@ -354,7 +359,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	<u>Прочее</u><br>
 	<b>Съедено еды:</b> [score_food_eaten] [declension_ru(score_food_eaten, "укус", "укуса", "укусов")]/[declension_ru(score_food_eaten, "глоток", "глотка", "глотков")].<br>
 	<b>Клоуна избили:</b> [score_clown_abuse] [declension_ru(score_clown_abuse, "раз", "раза", "раз")]<br><br>
-	
+
 	<u>Финансовая статистка</u><br>
 	<b>Выплачено персоналу зарплат на сумму: </b> [SScapitalism.total_salary_payment].<br>
 	<b>Поступило денег с выполнения заказов карго на счет станции: </b> [SScapitalism.total_station_bounty].<br>
@@ -373,7 +378,6 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 			dat += "Никто не выжил!<br>"
 
 	dat += SSticker.mode.declare_job_completion()
-	dat += SSticker.mode.declare_ambition_completion()
 
 	dat += {"
 	<hr><br>
@@ -382,21 +386,21 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 	var/score_rating = "Аристократы!"
 	switch(crewscore)
-		if(-INFINITY to SINGULARITY_DESERVES_BETTER) score_rating = 				"Даже после выхода Сингулярности было бы лучше"
-		if(SINGULARITY_DESERVES_BETTER+1 to SINGULARITY_FODDER) score_rating = 		"Вами только Сингулярность кормить"
-		if(SINGULARITY_FODDER+1 to ALL_FIRED) score_rating = 						"Вы все уволены"
-		if(ALL_FIRED+1 to WASTE_OF_OXYGEN) score_rating = 							"На вас без толку был потрачен отличный кислород"
-		if(WASTE_OF_OXYGEN+1 to HEAP_OF_SCUM) score_rating = 						"Жалкое сборище недотёп и неудачников"
-		if(HEAP_OF_SCUM+1 to LAB_MONKEYS) score_rating = 							"Лабораторные мартышки вас превзошли"
-		if(LAB_MONKEYS+1 to UNDESIREABLES) score_rating = 							"Неудовлетворительно"
-		if(UNDESIREABLES+1 to SERVANTS_OF_SCIENCE-1) score_rating = 				"Амбивалентно средне"
-		if(SERVANTS_OF_SCIENCE to GOOD_BUNCH-1) score_rating = 						"Умелые научные ассистенты"
-		if(GOOD_BUNCH to MACHINE_THIRTEEN-1) score_rating = 						"Лучшие из довольно компетентных"
-		if(MACHINE_THIRTEEN to PROMOTIONS_FOR_EVERYONE-1) score_rating = 			"Образцовый экипаж"
-		if(PROMOTIONS_FOR_EVERYONE to AMBASSADORS_OF_DISCOVERY-1) score_rating = 	"Всем — премия!"
-		if(AMBASSADORS_OF_DISCOVERY to PRIDE_OF_SCIENCE-1) score_rating = 			"Пионеры новых открытий"
-		if(PRIDE_OF_SCIENCE to NANOTRASEN_FINEST-1) score_rating = 					"Гордость науки во плоти"
-		if(NANOTRASEN_FINEST to INFINITY) score_rating = 							"Лучшие кадры НаноТрейзен"
+		if(-INFINITY to SINGULARITY_DESERVES_BETTER) score_rating =				"Даже после выхода Сингулярности было бы лучше"
+		if(SINGULARITY_DESERVES_BETTER+1 to SINGULARITY_FODDER) score_rating =		"Вами только Сингулярность кормить"
+		if(SINGULARITY_FODDER+1 to ALL_FIRED) score_rating =						"Вы все уволены"
+		if(ALL_FIRED+1 to WASTE_OF_OXYGEN) score_rating =							"На вас без толку был потрачен отличный кислород"
+		if(WASTE_OF_OXYGEN+1 to HEAP_OF_SCUM) score_rating =						"Жалкое сборище недотёп и неудачников"
+		if(HEAP_OF_SCUM+1 to LAB_MONKEYS) score_rating =							"Лабораторные мартышки вас превзошли"
+		if(LAB_MONKEYS+1 to UNDESIREABLES) score_rating =							"Неудовлетворительно"
+		if(UNDESIREABLES+1 to SERVANTS_OF_SCIENCE-1) score_rating =				"Амбивалентно средне"
+		if(SERVANTS_OF_SCIENCE to GOOD_BUNCH-1) score_rating =						"Умелые научные ассистенты"
+		if(GOOD_BUNCH to MACHINE_THIRTEEN-1) score_rating =						"Лучшие из довольно компетентных"
+		if(MACHINE_THIRTEEN to PROMOTIONS_FOR_EVERYONE-1) score_rating =			"Образцовый экипаж"
+		if(PROMOTIONS_FOR_EVERYONE to AMBASSADORS_OF_DISCOVERY-1) score_rating =	"Всем — премия!"
+		if(AMBASSADORS_OF_DISCOVERY to PRIDE_OF_SCIENCE-1) score_rating =			"Пионеры новых открытий"
+		if(PRIDE_OF_SCIENCE to NANOTRASEN_FINEST-1) score_rating =					"Гордость науки во плоти"
+		if(NANOTRASEN_FINEST to INFINITY) score_rating =							"Лучшие кадры НаноТрейзен"
 
 	dat += "<b><u>РЕЙТИНГ:</u></b> [score_rating]"
 	GLOB.scoreboard = jointext(dat, "")

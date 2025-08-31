@@ -250,41 +250,63 @@
 		if(70 to INFINITY)	return "elderly"
 		else				return "unknown"
 
-/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name)
+// TODO definise records fields or rewrite
+
+/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name, law_level = LAW_LEVEL_BASE)
 	var/status = criminal_status
-	var/their_name = target_records.fields["name"]
-	var/their_rank = target_records.fields["rank"]
+	var/list/fields = target_records.fields
+	var/their_name = fields["name"]
+	var/their_rank = fields["rank"]
+	var/static/list/protected_levels = list(SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED)
+
 	switch(criminal_status)
-		if("arrest", SEC_RECORD_STATUS_ARREST)
+
+		if(SEC_STATUS_ARREST, SEC_RECORD_STATUS_ARREST)
 			status = SEC_RECORD_STATUS_ARREST
-		if("none", SEC_RECORD_STATUS_NONE)
+
+		if(SEC_STATUS_NONE, SEC_RECORD_STATUS_NONE)
 			status = SEC_RECORD_STATUS_NONE
-		if("execute", SEC_RECORD_STATUS_EXECUTE)
+
+		if(SEC_STATUS_EXECUTE, SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
 				usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			else
-				return 0
-		if("search", SEC_RECORD_STATUS_SEARCH)
+				return FALSE
+
+		if(SEC_STATUS_SEARCH, SEC_RECORD_STATUS_SEARCH)
 			status = SEC_RECORD_STATUS_SEARCH
-		if("monitor", SEC_RECORD_STATUS_MONITOR)
+
+		if(SEC_STATUS_MONITOR, SEC_RECORD_STATUS_MONITOR)
 			status = SEC_RECORD_STATUS_MONITOR
-		if("demote", SEC_RECORD_STATUS_DEMOTE)
+
+		if(SEC_STATUS_DEMOTE, SEC_RECORD_STATUS_DEMOTE)
 			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
 			usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			status = SEC_RECORD_STATUS_DEMOTE
-		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
+
+		if(SEC_STATUS_INCARCERATED, SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
-		if("parolled", SEC_RECORD_STATUS_PAROLLED)
+
+		if(SEC_STATUS_PAROLLED, SEC_RECORD_STATUS_PAROLLED)
 			status = SEC_RECORD_STATUS_PAROLLED
-		if("released", SEC_RECORD_STATUS_RELEASED)
+
+		if(SEC_STATUS_RELEASED, SEC_RECORD_STATUS_RELEASED)
 			status = SEC_RECORD_STATUS_RELEASED
-	target_records.fields["criminal"] = status
+
+	if((fields["criminal"] in protected_levels) && fields["last_modifier_level"] > law_level)
+		if(!user)
+			return
+		to_chat(user, span_warning("Вы не можете изменить криминальный статус. Он установлен кем-то, у кого юридические полномочия выше ваших."))
+		return
+
+	fields["last_modifier_level"] = law_level
+	fields["criminal"] = status
 	log_admin("[key_name_admin(user)] set secstatus of [their_rank] [their_name] to [status], comment: [comment]")
-	target_records.fields["comments"] += "Set to [status] by [user_name || user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
+	fields["comments"] += "Set to [status] by [user_name || user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
 	update_all_mob_security_hud()
-	return 1
+	return TRUE
 
 
 /**
@@ -450,8 +472,8 @@
 		if(admin_spawn)
 			X.flags |= ADMIN_SPAWNED
 
-/proc/admin_mob_info(mob/M, mob/user = usr)
-	if(!ismob(M))
+/proc/admin_mob_info(mob/subject, mob/user = usr)
+	if(!ismob(subject))
 		to_chat(user, "This can only be used on instances of type /mob")
 		return
 
@@ -459,50 +481,68 @@
 	var/special_role_description = ""
 	var/health_description = ""
 	var/gender_description = ""
-	var/turf/T = get_turf(M)
+	var/turf/position = get_turf(subject)
 
 	//Location
-	if(isturf(T))
-		if(isarea(T.loc))
-			location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.z] in area <b>[T.loc]</b>)"
+	if(isturf(position))
+		if(isarea(position.loc))
+			location_description = "[subject.loc == position ? "at coordinates " : "in [position.loc] at coordinates "] [position.x], [position.y], [position.z] in area <b>[position.loc]</b>"
 		else
-			location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.z])"
+			location_description = "[subject.loc == position ? "at coordinates " : "in [position.loc] at coordinates "] [position.x], [position.y], [position.z]"
 
 	//Job + antagonist
-	if(M.mind)
-		special_role_description = "Role: <b>[M.mind.assigned_role]</b>; Antagonist: <font color='red'><b>[M.mind.special_role]</b></font>; Has been rev: [(M.mind.has_been_rev)?"Yes":"No"]"
+	if(subject.mind)
+		special_role_description = "Role: <b>[subject.mind.assigned_role]</b>; [subject.mind.special_role ? "Special role (legacy): <span style='color: orange;'><b>[subject.mind.special_role]</b></span>;" : ""]Antagonist: <span class='red'><b>"
+		// subject.mind.special_role – Legacy code, which is needed because we have a lot of non-datum antags.
+
+		if(subject.mind.antag_datums)
+			var/iterable = 0
+			for(var/datum/antagonist/role in subject.mind.antag_datums)
+				special_role_description += "[role.name]"
+				if(++iterable != length(subject.mind.antag_datums))
+					special_role_description += ", "
+			special_role_description += "</b></span>"
+		else
+			special_role_description += "None</b></span>"
 	else
-		special_role_description = "Role: <i>Mind datum missing</i> Antagonist: <i>Mind datum missing</i>; Has been rev: <i>Mind datum missing</i>;"
+		special_role_description = "Role: <i>Mind datum missing</i> Antagonist: <i>Mind datum missing</i>"
 
 	//Health
-	if(isliving(M))
-		var/mob/living/L = M
+	if(isliving(subject))
+		var/mob/living/lifer = subject
 		var/status
-		switch(M.stat)
+		switch(subject.stat)
 			if(CONSCIOUS)
 				status = "Alive"
 			if(UNCONSCIOUS)
-				status = "<font color='orange'><b>Unconscious</b></font>"
+				status = span_bold(span_orange("Unconscious"))
 			if(DEAD)
-				status = "<font color='red'><b>Dead</b></font>"
-		health_description = "Status = [status]"
-		health_description += "<br>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
+				status = span_bold(span_red("Dead"))
+		health_description = "Status: [status]"
+		health_description += "<br>Brute: [lifer.getBruteLoss()] – Burn: [lifer.getFireLoss()] – Toxin: [lifer.getToxLoss()] – Suffocation: [lifer.getOxyLoss()]"
+		health_description += "<br>Brain: [lifer.getBrainLoss()] – Stamina: [lifer.getStaminaLoss()] – Clone: [lifer.getCloneLoss()]"
 	else
 		health_description = "This mob type has no health to speak of."
 
 	//Gender
-	switch(M.gender)
-		if(MALE, FEMALE)
-			gender_description = "[M.gender]"
+	switch(subject.gender)
+		if(MALE, FEMALE, PLURAL)
+			gender_description = "[subject.gender]"
 		else
-			gender_description = "<font color='red'><b>[M.gender]</b></font>"
+			gender_description = "[span_bold(span_red(subject.gender))]"
 
-	to_chat(user, "<b>Info about [M.name]:</b> ")
-	to_chat(user, "Mob type = [M.type]; Gender = [gender_description] Damage = [health_description]")
-	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
-	to_chat(user, "Location = [location_description];")
-	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")]) ([ADMIN_OBS(M, "OBS")])")
+	//Full Output
+	var/exportable_text = "[span_bold("Info about [subject.name]:")]<br>"
+	exportable_text += "Key – [span_bold(subject.key)]<br>"
+	exportable_text += "Mob Type – [subject.type]<br>"
+	exportable_text += "Gender – [gender_description]<br>"
+	exportable_text += "[health_description]<br>"
+	exportable_text += "Name: [span_bold(subject.name)] – Real Name: [subject.real_name] – Mind Name: [subject.mind?"[subject.mind.name]":""]<br>"
+	exportable_text += "Location is [location_description]<br>"
+	exportable_text += "[special_role_description]<br>"
+	exportable_text += ADMIN_FULLMONTY_NONAME(subject)
+
+	to_chat(user, chat_box_examine(exportable_text), confidential = TRUE)
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
@@ -536,16 +576,19 @@
 	if(!client.next_mouse_macro_warning) // Log once
 		log_and_message_admins("attempted to use a mouse macro: [verbused] [html_encode(params)]")
 	if(client.next_mouse_macro_warning < world.time) // Warn occasionally
-		usr << 'sound/misc/sadtrombone.ogg'
+		SEND_SOUND(usr, sound('sound/misc/sadtrombone.ogg'))
 		client.next_mouse_macro_warning = world.time + 600
+
 /mob/verb/ClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".click"
 	LogMouseMacro(".click", params)
+
 /mob/verb/DblClickSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".dblclick"
 	LogMouseMacro(".dblclick", params)
+
 /mob/verb/MouseSubstitute(params as command_text)
 	set hidden = 1
 	set name = ".mouse"
@@ -613,8 +656,8 @@
 	return M.playtime_role ? M.playtime_role : M.assigned_role	//returns current role
 
 /**	checks the security force on station and returns a list of numbers, of the form:
- * 	total, active, dead, antag
- * 	where active is defined as conscious (STAT = 0) and not an antag
+ *	total, active, dead, antag
+ *	where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
 	var/sec_positions = GLOB.security_positions - JOB_TITLE_JUDGE - JOB_TITLE_BRIGDOC

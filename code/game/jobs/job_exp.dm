@@ -16,6 +16,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	// SOLO ANTAGS
 	ROLE_TRAITOR = 30,
 	ROLE_MALF_AI = 30,
+	ROLE_ESCAPING_PRISONER = 30,
 	ROLE_CHANGELING = 30,
 	ROLE_WIZARD = 30,
 	ROLE_VAMPIRE = 30,
@@ -47,7 +48,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 // Admin Verbs
 
 /client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	set name = "Check Player Playtime"
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
@@ -216,9 +217,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 
 /proc/get_exp_format(var/expnum)
 	if(expnum > 60)
-		return num2text(round(expnum / 60)) + "h"
+		return num2text(round(expnum / 60)) + "ч"
 	else if(expnum > 0)
-		return num2text(expnum) + "m"
+		return num2text(expnum) + "м"
 	else
-		return "none"
+		return "нет"
 

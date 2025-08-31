@@ -17,6 +17,7 @@
 	VAR_PRIVATE/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
 	interaction_flags_click = BYPASS_ADJACENCY
+	flags = NO_SCREENTIPS
 	/**
 	 * Map name assigned to this object.
 	 * Automatically set by /client/proc/add_obj_to_map.
@@ -99,9 +100,9 @@
 	screen_loc = ui_acti
 
 /atom/movable/screen/act_intent/Click(location, control, params)
-	if(ishuman(usr))
-		var/_x = text2num(params2list(params)["icon-x"])
-		var/_y = text2num(params2list(params)["icon-y"])
+	if(ishuman(usr) || isdevil(usr))
+		var/_x = text2num(LAZYACCESS(params2list(params), ICON_X))
+		var/_y = text2num(LAZYACCESS(params2list(params), ICON_Y))
 		if(_x<=16 && _y<=16)
 			usr.a_intent_change(INTENT_HARM)
 		else if(_x<=16 && _y>=17)
@@ -304,14 +305,14 @@
 	if(isobserver(usr))
 		return FALSE
 
-	var/list/PL = params2list(params)
-	var/icon_x = text2num(PL["icon-x"])
-	var/icon_y = text2num(PL["icon-y"])
+	var/list/modifiers = params2list(params)
+	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
+	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
 	var/choice = get_zone_at(icon_x, icon_y)
 	if(!choice)
 		return TRUE
 
-	if(PL["alt"])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		click_alt(usr, choice)
 		return
 
@@ -335,6 +336,7 @@
 
 
 /atom/movable/screen/zone_sel/MouseEntered(location, control, params)
+	. = ..()
 	MouseMove(location, control, params)
 
 
@@ -342,8 +344,10 @@
 	if(isobserver(usr))
 		return
 
-	var/list/PL = params2list(params)
-	var/choice = get_zone_at(text2num(PL["icon-x"]), text2num(PL["icon-y"]))
+	var/list/modifiers = params2list(params)
+	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
+	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
+	var/choice = get_zone_at(icon_x, icon_y)
 
 	if(!choice)
 		cut_overlay(hover_overlays_cache[hovering])
@@ -368,6 +372,7 @@
 	if(!isobserver(usr) && hovering)
 		cut_overlay(hover_overlays_cache[hovering])
 		hovering = null
+	return ..()
 
 
 /atom/movable/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
@@ -493,7 +498,7 @@
 	var/image/object_overlay
 
 /atom/movable/screen/inventory/MouseEntered(location, control, params)
-	..()
+	. = ..()
 	add_overlays()
 
 /atom/movable/screen/inventory/MouseExited(location, control, params)
@@ -738,6 +743,12 @@
 	name = "stamina"
 	icon_state = "stamina0"
 	screen_loc = ui_stamina
+
+/atom/movable/screen/nutrition_bar
+	name = "nutrition"
+	icon = 'icons/hud/screen_hunger.dmi'
+	icon_state = "default_full"
+	screen_loc = ui_nutrition
 
 /atom/movable/screen/healths/alien
 	icon = 'icons/mob/screen_alien.dmi'

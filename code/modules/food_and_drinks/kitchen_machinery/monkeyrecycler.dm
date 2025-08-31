@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 /obj/machinery/monkey_recycler/proc/locate_camera_console()
 	if(length(connected))
 		return // we're already connected!
-	for(var/obj/machinery/computer/camera_advanced/xenobio/xeno_camera in GLOB.machines)
+	for(var/obj/machinery/computer/camera_advanced/xenobio/xeno_camera in SSmachines.get_by_type(/obj/machinery/computer/camera_advanced/xenobio))
 		if(get_area(xeno_camera) == get_area(loc))
 			xeno_camera.connected_recycler = src
 			connected |= xeno_camera
@@ -139,7 +139,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(grinded >= required_grind)
 		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube.</span>")
-		playsound(loc, 'sound/machines/hiss.ogg', 50, 1)
+		playsound(loc, 'sound/machines/hiss.ogg', 50, TRUE)
 		grinded -= required_grind
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
 			new cube_type(loc)

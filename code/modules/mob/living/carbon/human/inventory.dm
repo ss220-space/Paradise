@@ -68,7 +68,7 @@
 		(initial(mask.flags_inv_transparent) & HIDEHEADSETS))
 		update_inv_ears()
 
-	sec_hud_set_ID()
+	update_hud_set()
 	update_inv_wear_mask()
 
 
@@ -119,7 +119,7 @@
 		(initial(check_item.flags_inv_transparent) & HIDEGLASSES))
 		update_inv_glasses()
 
-	sec_hud_set_ID()
+	update_hud_set()
 	update_inv_head()
 
 
@@ -168,7 +168,7 @@
 		wear_suit = null
 		if(!QDELETED(src))
 			wear_suit_update(I)
-			if(I.breakouttime) //when unequipping a straightjacket
+			if(I.breakout_time) //when unequipping a straightjacket
 				REMOVE_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 	else if(I == w_uniform)
@@ -239,7 +239,7 @@
 	else if(I == wear_id)
 		wear_id = null
 		if(!QDELETED(src))
-			sec_hud_set_ID()
+			update_hud_set()
 			update_inv_wear_id()
 
 	else if(I == wear_pda)
@@ -362,7 +362,7 @@
 		if(ITEM_SLOT_ID)
 			wear_id = I
 			if(hud_list.len)
-				sec_hud_set_ID()
+				update_hud_set()
 			update_inv_wear_id()
 
 		if(ITEM_SLOT_PDA)
@@ -400,7 +400,7 @@
 		if(ITEM_SLOT_CLOTH_OUTER)
 			wear_suit = I
 			wear_suit_update(I)
-			if(I.breakouttime) //when equipping a straightjacket
+			if(I.breakout_time) //when equipping a straightjacket
 				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 		if(ITEM_SLOT_CLOTH_INNER)
@@ -425,7 +425,10 @@
 					temporarily_remove_item_from_inventory(I)
 				I.forceMove(back)
 			else
+				I.item_flags &= ~IN_STORAGE
 				I.forceMove(drop_location())
+
+			I.item_flags |= IN_STORAGE
 
 		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = w_uniform
@@ -621,6 +624,22 @@
 			items += r_store
 		if(s_store)
 			items += s_store
+	return items
+
+/**
+ * Used to return a list of equipped items on a human mob; does not by default include held items, see include_flags
+ *
+ * Argument(s):
+ * * Optional - include_flags, (see obj.flags.dm) describes which optional things to include or not (pockets, accessories, held items)
+ */
+
+/mob/living/carbon/human/get_equipped_items(include_flags = NONE)
+	var/list/items = ..()
+	if(!(include_flags & INCLUDE_POCKETS))
+		items -= list(l_store, r_store, s_store)
+	if((include_flags & INCLUDE_ACCESSORIES) && w_uniform)
+		var/obj/item/clothing/under/worn_under = w_uniform
+		items += worn_under.accessories
 	return items
 
 

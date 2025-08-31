@@ -60,24 +60,43 @@
 				return
 
 	var/list/modifiers = params2list(params)
-	if(modifiers["shift"] && modifiers["ctrl"])
-		CtrlShiftClickOn(A)
-		return
-	if(modifiers["shift"] && modifiers["alt"])
-		AltShiftClickOn(A)
-		return
-	if(modifiers["middle"])
+
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
+		if(LAZYACCESS(modifiers, SHIFT_CLICK))
+			if(LAZYACCESS(modifiers, ALT_CLICK))
+				MiddleShiftAltClickOn(A)
+				return
+			if(LAZYACCESS(modifiers, CTRL_CLICK))
+				MiddleControlClickOn(A)
+				return
+			MiddleShiftClickOn(A)
+			return
+		if(LAZYACCESS(modifiers, CTRL_CLICK))
+			MiddleControlClickOn(A)
+			return
+		if(LAZYACCESS(modifiers, ALT_CLICK))
+			MiddleAltClickOn(A)
+			return
 		MiddleClickOn(A)
-		if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.
-			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.
+		if(controlled_mech)
+			controlled_mech.click_action(A, src, params)
 		return
-	if(modifiers["shift"])
+
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
+		if(LAZYACCESS(modifiers, CTRL_CLICK))
+			CtrlShiftClickOn(A)
+			return
+		if(LAZYACCESS(modifiers, ALT_CLICK))
+			AltShiftClickOn(A)
+			return
 		ShiftClickOn(A)
 		return
-	if(modifiers["alt"]) // alt and alt-gr (rightalt)
+
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		ai_base_click_alt(A)
 		return
-	if(modifiers["ctrl"])
+
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
 
@@ -128,8 +147,6 @@
 	A.AICtrlClick(src)
 /mob/living/silicon/ai/MiddleClickOn(atom/A)
     A.AIMiddleClick(src)
-/mob/living/silicon/ai/MiddleShiftClickOn(atom/A)
-	A.AIMiddleShiftClick(src)
 
 // DEFAULT PROCS TO OVERRIDE
 
@@ -173,7 +190,16 @@
 /atom/proc/AIMiddleClick(mob/living/user)
 	return
 
-/atom/proc/AIMiddleShiftClick()
+/atom/proc/AIMiddleControlClick()
+	return
+
+/atom/proc/AIMiddleShiftControlClick()
+	return
+
+/atom/proc/AIMiddleAltClick()
+	return
+
+/atom/proc/AIMiddleAltShiftClick()
 	return
 
 /mob/living/silicon/ai/TurfAdjacent(turf/T)
@@ -184,10 +210,16 @@
 
 /obj/machinery/power/apc/AICtrlClick(mob/living/user) // turns off/on APCs.
 	if(!can_use(user))
-		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
+		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
 		return
 	toggle_breaker(user)
 
+/obj/machinery/power/apc/AIShiftClick(mob/living/user) // Bolt all Airlocks in APC room.
+	if(!can_use(user))
+		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
+		return
+	for(var/obj/machinery/door/airlock/A in area.machinery_cache)
+		A.AICtrlClick(user)
 
 // TURRETCONTROL
 
@@ -243,3 +275,53 @@
 /obj/machinery/ai_slipper/ai_click_alt(mob/living/silicon/ai/user) //Dispenses liquid if on
 	Activate()
 	return CLICK_ACTION_SUCCESS
+
+// AREAS
+
+/mob/living/silicon/ai/proc/MiddleControlClickOn(atom/A)
+	if(!ismalfAI(mind))
+		return
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.AICtrlClick(src)
+
+/mob/living/silicon/ai/MiddleShiftClickOn(atom/A)
+	if(!ismalfAI(mind))
+		return
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.AIShiftClick(src)
+
+/mob/living/silicon/ai/proc/MiddleAltClickOn(atom/A)
+	if(!ismalfAI(mind))
+		return
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.ai_click_alt(src)
+
+/mob/living/silicon/ai/proc/MiddleShiftAltClickOn(atom/A)
+	if(!ismalfAI(mind))
+		return
+	var/turf/turf = get_turf(A)
+	if (!turf)
+		return
+	var/area/area = get_area(turf)
+	if (!area)
+		return
+	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
+		airlock.AIAltShiftClick(src)

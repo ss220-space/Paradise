@@ -319,7 +319,7 @@
 
 //Medical Herbs//
 /obj/item/stack/medical/bruise_pack/comfrey
-	name = "\improper Comfrey leaf"
+	name = "Comfrey leaf"
 	singular_name = "Comfrey leaf"
 	desc = "A soft leaf that is rubbed on bruises."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
@@ -333,7 +333,7 @@
 
 
 /obj/item/stack/medical/ointment/aloe
-	name = "\improper Aloe Vera leaf"
+	name = "Aloe Vera leaf"
 	singular_name = "Aloe Vera leaf"
 	desc = "A cold leaf that is rubbed on burns."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
@@ -418,6 +418,16 @@
 	name = "tribal splints"
 	icon_state = "tribal_splint"
 	other_delay = 5 SECONDS
+
+/obj/item/stack/medical/splint/tribal/get_ru_names()
+	return list(
+		NOMINATIVE = "племенная шина",
+		GENITIVE = "племенной шины",
+		DATIVE = "племенной шине",
+		ACCUSATIVE = "племенную шину",
+		INSTRUMENTAL = "племенной шиной",
+		PREPOSITIONAL = "племенной шине"
+	)
 
 
 /obj/item/stack/medical/splint/makeshift

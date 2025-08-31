@@ -1,14 +1,6 @@
 /obj/machinery/bodyscanner
 	name = "body scanner"
 	desc = "Сложное медицинское устройство, используется для сканирования физического состояния гуманоидов."
-	ru_names = list(
-		NOMINATIVE = "медицинский сканер",
-		GENITIVE = "медицинского сканера",
-		DATIVE = "медицинскому сканеру",
-		ACCUSATIVE = "медицинский сканер",
-		INSTRUMENTAL = "медицинским сканером",
-		PREPOSITIONAL = "медицинском сканере"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
@@ -18,9 +10,19 @@
 	active_power_usage = 2500
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
-	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
+	var/static/list/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 	var/isPrinting = FALSE
 	var/obj/item/card/id/inserted_id = null
+
+/obj/machinery/bodyscanner/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинский сканер",
+		GENITIVE = "медицинского сканера",
+		DATIVE = "медицинскому сканеру",
+		ACCUSATIVE = "медицинский сканер",
+		INSTRUMENTAL = "медицинским сканером",
+		PREPOSITIONAL = "медицинском сканере"
+	)
 
 /obj/machinery/bodyscanner/Destroy()
 	go_out()
@@ -44,7 +46,7 @@
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
-		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
+		. += span_notice("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
 
 
 /obj/machinery/bodyscanner/update_icon_state()
@@ -61,8 +63,8 @@
 		else
 			M.forceMove(loc)
 
-/obj/machinery/bodyscanner/New()
-	..()
+/obj/machinery/bodyscanner/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/bodyscanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -207,7 +209,7 @@
 
 /obj/machinery/bodyscanner/verb/eject()
 	set src in oview(1)
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set name = "Извлечь пациента"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -236,10 +238,10 @@
 /obj/machinery/bodyscanner/force_eject_occupant(mob/target)
 	go_out()
 
-/obj/machinery/bodyscanner/ex_act(severity)
+/obj/machinery/bodyscanner/ex_act(severity, target)
 	if(occupant)
-		occupant.ex_act(severity)
-	..()
+		occupant.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/bodyscanner/handle_atom_del(atom/A)
 	..()
@@ -301,7 +303,7 @@
 		occupantData["bodyTempC"] = occupant.bodytemperature-T0C
 		occupantData["bodyTempF"] = (((occupant.bodytemperature-T0C) * 1.8) + 32)
 
-		occupantData["hasBorer"] = occupant.has_brain_worms()
+		occupantData["hasBorer"] = occupant.borer?.controlling
 
 		var/bloodData[0]
 		bloodData["hasBlood"] = FALSE
@@ -484,7 +486,7 @@
 
 		dat += "<hr>"
 
-		if(occupant.has_brain_worms())
+		if(occupant.borer?.controlling)
 			dat += "В лобной доле обнаружено крупное образование, возможно, злокачественное. Рекомендуется хирургическое удаление."
 
 		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))

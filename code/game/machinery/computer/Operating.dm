@@ -3,20 +3,12 @@
 /obj/machinery/computer/operating
 	name = "operating computer"
 	desc = "Высокотехнологичный медицинский компьютер, используемый для контролирования процесса хиругических операций."
-	ru_names = list(
-		NOMINATIVE = "операционный компьютер",
-		GENITIVE = "операционного компьютера",
-		DATIVE = "операционному компьютеру",
-		ACCUSATIVE = "операционный компьютер",
-		INSTRUMENTAL = "операционным компьютером",
-		PREPOSITIONAL = "операционном компьютере"
-	)
 	density = TRUE
 	anchored = TRUE
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	circuit = /obj/item/circuitboard/operating
-	light_color = LIGHT_COLOR_PURE_BLUE
+	light_color = LIGHT_COLOR_BLUE
 	var/obj/machinery/optable/table
 	var/verbose = TRUE //general speaker toggle
 	var/oxyAlarm = 30 //oxy damage at which the computer will beep
@@ -32,8 +24,18 @@
 	var/mob/living/carbon/currentPatient
 	var/patientStatusHolder //Hold the last instance of table.patient.status. When table.patient.status no longer matches this variable, the computer should tell the doctor
 
-/obj/machinery/computer/operating/New()
-	..()
+/obj/machinery/computer/operating/get_ru_names()
+	return list(
+		NOMINATIVE = "операционный компьютер",
+		GENITIVE = "операционного компьютера",
+		DATIVE = "операционному компьютеру",
+		ACCUSATIVE = "операционный компьютер",
+		INSTRUMENTAL = "операционным компьютером",
+		PREPOSITIONAL = "операционном компьютере"
+	)
+
+/obj/machinery/computer/operating/Initialize(mapload)
+	. = ..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		table = locate(/obj/machinery/optable, get_step(src, dir))
 		if(table)
@@ -67,7 +69,7 @@
 /obj/machinery/computer/operating/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "OperatingComputer", "Patient Monitor")
+		ui = new(user, src, "OperatingComputer", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/machinery/computer/operating/ui_data(mob/user)
@@ -137,13 +139,13 @@
 				if(surgery_step.repeatable)
 					var/datum/surgery_step/next = procedure.get_surgery_next_step()
 					if(next)
-						surgery_desc += " or [capitalize(next.get_step_information(procedure))]"
+						surgery_desc += " или [capitalize(next.get_step_information(procedure))]"
 				var/obj/item/organ/organ
 				if(ishuman(occupant))
 					var/mob/living/carbon/human/H = occupant
 					organ = H.bodyparts_by_name[procedure.location]
 				occupantData["surgeries"] += list(list(
-					"bodypartName" = capitalize(organ?.name || procedure.location),
+					"bodypartName" = capitalize(organ?.declent_ru(NOMINATIVE) || procedure.location),
 					"surgeryName" = capitalize(procedure.name),
 					"stepName" = surgery_desc.Join("")
 				))
@@ -231,9 +233,9 @@
 	if(nextTick < world.time)
 		nextTick=world.time + OP_COMPUTER_COOLDOWN
 		if(crit && table.patient.health <= -50 )
-			playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
+			playsound(src.loc, 'sound/machines/defib_success.ogg', 50, FALSE)
 		if(oxy && table.patient.getOxyLoss()>oxyAlarm)
-			playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)
+			playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, FALSE)
 		if(healthAnnounce && table.patient.health <= healthAlarm)
 			atom_say("Оценка здоровья пациента: [round(table.patient.health)] %.")
 		if(table.patient.stat != patientStatusHolder)

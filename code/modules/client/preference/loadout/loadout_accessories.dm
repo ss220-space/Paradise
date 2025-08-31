@@ -11,16 +11,16 @@
 /datum/gear/accessory/scarf/New()
 	..()
 	var/list/scarfs = list(/obj/item/clothing/accessory/scarf/red,
-					  	   /obj/item/clothing/accessory/scarf/green,
-					  	   /obj/item/clothing/accessory/scarf/darkblue,
-					  	   /obj/item/clothing/accessory/scarf/purple,
-					  	   /obj/item/clothing/accessory/scarf/yellow,
-					  	   /obj/item/clothing/accessory/scarf/orange,
-					  	   /obj/item/clothing/accessory/scarf/lightblue,
-					  	   /obj/item/clothing/accessory/scarf/white,
-					  	   /obj/item/clothing/accessory/scarf/black,
-					  	   /obj/item/clothing/accessory/scarf/zebra,
-					  	   /obj/item/clothing/accessory/scarf/christmas,)
+					 	   /obj/item/clothing/accessory/scarf/green,
+					 	   /obj/item/clothing/accessory/scarf/darkblue,
+					 	   /obj/item/clothing/accessory/scarf/purple,
+					 	   /obj/item/clothing/accessory/scarf/yellow,
+					 	   /obj/item/clothing/accessory/scarf/orange,
+					 	   /obj/item/clothing/accessory/scarf/lightblue,
+					 	   /obj/item/clothing/accessory/scarf/white,
+					 	   /obj/item/clothing/accessory/scarf/black,
+					 	   /obj/item/clothing/accessory/scarf/zebra,
+					 	   /obj/item/clothing/accessory/scarf/christmas,)
 	gear_tweaks += new /datum/gear_tweak/path(scarfs, src, TRUE)
 
 /datum/gear/accessory/scarfstriped
@@ -67,6 +67,11 @@
 	index_name = "stethoscope"
 	path = /obj/item/clothing/accessory/stethoscope
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_MINING_MEDIC, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
+
+/datum/gear/accessory/armguard
+	index_name = "armguard"
+	display_name = "Наручи"
+	path = /obj/item/clothing/accessory/armguard
 
 /datum/gear/accessory/ntrjacket
 	index_name = "jacket, nt rep"

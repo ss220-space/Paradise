@@ -9,13 +9,13 @@
 	active_power_usage = 300
 	max_integrity = 200
 	integrity_failure = 100
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
 	var/obj/structure/computerframe/frame = /obj/structure/computerframe
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
-	var/light_range_on = 1
-	var/light_power_on = 0.7
+	var/light_range_on = 2
+	var/light_power_on = 0.9
 	var/abductor = FALSE
 	/// Are we in the middle of a flicker event?
 	var/flickering = FALSE
@@ -132,7 +132,12 @@
 	if((stat & (BROKEN|NOPOWER)))
 		set_light_on(FALSE)
 	else
-		set_light(light_range_on, light_power_on, l_on = TRUE)
+		// Get the average color of the computer screen so it can be used as a tinted glow
+		// Shamelessly stolen from /tg/'s /datum/component/customizable_reagent_holder.
+		var/icon/emissive_avg_screen_color = new(icon, icon_screen)
+		emissive_avg_screen_color.Scale(1, 1)
+		var/screen_emissive_color = copytext(emissive_avg_screen_color.GetPixel(1, 1), 1, 8) // remove opacity
+		set_light(l_range = light_range_on, l_power = light_power_on, l_color = screen_emissive_color, l_on = TRUE)
 	if(.)
 		update_icon()
 

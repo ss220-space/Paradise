@@ -47,7 +47,7 @@ SUBSYSTEM_DEF(debugview)
 	// And update the clients
 	for(var/client/C as anything in processing)
 		C.debug_text_overlay.maptext_y = mty
-		C.debug_text_overlay.maptext = "<span class='maptext' style='background-color: #272727;'>[out_text]</span>"
+		C.debug_text_overlay.maptext = MAPTEXT("<span style='background-color: #272727;'>[out_text]</span>")
 
 
 /datum/controller/subsystem/debugview/proc/start_processing(client/C)

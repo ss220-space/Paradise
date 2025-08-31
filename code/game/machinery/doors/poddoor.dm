@@ -9,7 +9,7 @@
 	heat_proof = TRUE
 	safe = FALSE
 	max_integrity = 600
-	armor = list("melee" = 50, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
+	armor = list(MELEE = 50, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
 	can_open_with_hands = FALSE
@@ -42,10 +42,10 @@
 	opacity = FALSE
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
-/obj/machinery/door/poddoor/ex_act(severity)
-	if(severity == 3)
+/obj/machinery/door/poddoor/ex_act(severity, target)
+	if(severity <= EXPLODE_LIGHT)
 		return
-	..()
+	return ..()
 
 /obj/machinery/door/poddoor/do_animate(animation)
 	switch(animation)
@@ -61,7 +61,7 @@
 	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
- 	return
+	return
 
 /obj/machinery/door/poddoor/try_to_crowbar(mob/user, obj/item/I)
 	if(!density)

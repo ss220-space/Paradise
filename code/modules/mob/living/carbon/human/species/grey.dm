@@ -68,6 +68,10 @@
 	RegisterSignal(H, COMSIG_SINK_ACT, PROC_REF(sink_act))
 
 
+/datum/species/grey/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, STRENGTH_LEVEL_WEAK, max_level, can_become_stronger)
+
+
 /datum/species/grey/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.gene_stability -= GREYS_ADDITIONAL_GENE_STABILITY

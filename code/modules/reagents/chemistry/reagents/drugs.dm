@@ -225,7 +225,7 @@
 		else if(effect <= 7)
 			M.emote("collapse")
 			to_chat(M, span_warning("Ваше сердце едва ли не выскакивает из груди!"))
-			M << 'sound/effects/singlebeat.ogg'
+			SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 			M.Paralyse(10 SECONDS)
 			M.Jitter(60 SECONDS)
 			update_flags |= M.adjustToxLoss(4, FALSE)
@@ -389,6 +389,7 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	heart_rate_increase = 1
 	taste_description = "бодрости"
+	tags = REAGENT_TAG_ANTI_STUN
 
 
 /datum/reagent/methamphetamine/on_mob_add(mob/living/user)
@@ -468,6 +469,7 @@
 	shock_reduction = 60
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "нереальной бодрости"
+	tags = REAGENT_TAG_ANTI_STUN
 
 
 /datum/reagent/bath_salts/on_mob_add(mob/living/carbon/human/user)
@@ -517,7 +519,7 @@
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
 		to_chat(M, span_danger("<font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>КАК ЖЕ ЭТО ОХУЕННО!!!</font>"))
-		M << 'sound/effects/singlebeat.ogg'
+		SEND_SOUND(M, sound('sound/effects/singlebeat.ogg'))
 		M.emote("faint")
 		M.apply_effect(volume, IRRADIATE, negate_armor = 1)
 		M.adjustToxLoss(volume)
@@ -1088,6 +1090,7 @@
 	taste_description = "неприятной горечи с примесью бедности"
 	shock_reduction = 100
 	metabolization_rate = 0.6 * REAGENTS_METABOLISM
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/crack/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1127,6 +1130,7 @@
 	taste_description = "легкой горечи, переходящей в чувство онемения"
 	shock_reduction = 140
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/cocaine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

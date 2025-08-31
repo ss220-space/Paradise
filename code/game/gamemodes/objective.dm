@@ -1,10 +1,10 @@
-#define THEFT_FLAG_HIGHRISK 	1
-#define THEFT_FLAG_UNIQUE 		2
-#define THEFT_FLAG_HARD 		3
-#define THEFT_FLAG_MEDIUM 		4
+#define THEFT_FLAG_HIGHRISK	1
+#define THEFT_FLAG_UNIQUE		2
+#define THEFT_FLAG_HARD		3
+#define THEFT_FLAG_MEDIUM		4
 #define THEFT_FLAG_STRUCTURE	5
 #define THEFT_FLAG_ANIMAL		6
-#define THEFT_FLAG_COLLECT 		7
+#define THEFT_FLAG_COLLECT		7
 
 
 GLOBAL_LIST_EMPTY(all_objectives)
@@ -89,8 +89,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(possible_target.current.stat == DEAD)
 		return TARGET_INVALID_DEAD
 
-	if(!possible_target.key || !possible_target.current?.ckey)
-		return TARGET_INVALID_NOCKEY
+	//if(!possible_target.key || !possible_target.current?.ckey)
+		//return TARGET_INVALID_NOCKEY
 
 	if(possible_target.current)
 		var/turf/current_location = get_turf(possible_target.current)
@@ -153,7 +153,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/proc/alarm_changes()
 	for(var/datum/mind/user in get_owners())
 		to_chat(user.current, span_userdanger("<br>Вы чувствуете, что ваша цель больше не находится в пределах досягаемости. Время для плана [pick("A","B","C","D","X","Y","Z")]. Цели обновлены!"))
-		SEND_SOUND(user.current, 'sound/ambience/alarm4.ogg')
+		SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
 
 
 /**
@@ -767,6 +767,43 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return FALSE
 
 
+/datum/objective/prison_escape
+	name = "Prison Escape"
+	antag_menu_name = "Сбежать из тюрьмы"
+	explanation_text = "Сбежать из тюрьмы и улететь на шаттле или эвакуационном челноке живым и свободным."
+	needs_target = FALSE
+
+/datum/objective/prison_escape/check_completion()
+	var/list/owners = get_owners()
+
+	for(var/datum/mind/player as anything in owners)
+		// These are mandatory conditions, they should come before the freebie conditions below.
+		if(QDELETED(player.current) || player.current.stat == DEAD || is_special_dead(player.current))
+			return FALSE
+
+	if(SSticker.force_ending) // This one isn't their fault, so lets just assume good faith.
+		return TRUE
+
+	if(SSticker.mode.station_was_nuked) // If they escaped the blast somehow, let them win.
+		return TRUE
+
+	if(!EMERGENCY_ESCAPED_OR_ENDGAMED)
+		return FALSE
+
+	for(var/datum/mind/player as anything in owners)
+		// Fails traitors if they are in the security area
+		var/area/location = get_area(player.current)
+		if(istype(location, /area/security))
+			return FALSE
+
+		// Fails traitors if they are in the shuttle brig
+		var/turf/turf = get_turf(player.current)
+		if(istype(turf, /turf/simulated/floor/shuttle/objective_check) || istype(turf, /turf/simulated/floor/mineral/plastitanium/red/brig))
+			return FALSE
+
+	return TRUE
+
+
 /datum/objective/die
 	name = "Glorious Death"
 	antag_menu_name = "Умереть славной смертью"
@@ -894,7 +931,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		var/tmp_obj = new O.typepath
 		var/custom_name = tmp_obj:name
 		qdel(tmp_obj)
-		O.name = sanitize(tgui_input_text("Введите название цели:", "Цель", custom_name, MAX_NAME_LEN))
+		O.name = sanitize(tgui_input_text(usr, "Введите название цели:", "Цель", custom_name, MAX_NAME_LEN))
 		if(!O.name)
 			return FALSE
 		steal_target = O
@@ -923,7 +960,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		var/mob/living/carbon/human/human_owner = player.current
 		var/where = human_owner.equip_in_one_of_slots(item, slots)
 		if(where)
-			to_chat(human_owner, "<br><br><span class='info'>В вашем [where] находится коробка с <b>предметами и инструкциями</b>, которые помогут вам в воровстве.</span><br>")
+			to_chat(human_owner, span_notice("<br><br>В вашем [where] находится коробка с [span_bold("предметами и инструкциями")], которые помогут вам в воровстве.<br>"))
 		else
 			to_chat(human_owner, span_userdanger("К сожалению, вам не удалось получить набор для кражи. Это очень плохо, и вам следует немедленно обратиться за помощью к администраторам (нажмите F1)."))
 			message_admins("[ADMIN_LOOKUPFLW(human_owner)] Failed to spawn with their [item_path] theft kit.")
@@ -1638,7 +1675,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/list/owners = get_owners()
 	for(var/datum/mind/user in owners)
 		to_chat(owner.current, span_userdanger("<br>Вы чувствуете, что ваша цель больше не находится в пределах досягаемости. Время для плана [pick("A","B","C","D","X","Y","Z")]. Цели обновлены!"))
-		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
+		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 
 	if(!completed)
 		target = null
@@ -1796,7 +1833,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/blob_critical_mass/check_completion()
 	if(!completed)
-		completed = needed_critical_mass <= critical_mass && GLOB.security_level < SEC_LEVEL_DELTA
+		completed = needed_critical_mass <= critical_mass && SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_DELTA
 	return ..()
 
 
@@ -1820,3 +1857,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(!resolved_overmind)
 		return FALSE
 	return resolved_overmind.stat != DEAD
+
+/datum/objective/xeno_genocide
+	name = "Геноцид разумной жизни"
+	needs_target = FALSE
+	explanation_text = "Убивайте всех, кто не является ксеноморфом. Утопите станцию в крови!"

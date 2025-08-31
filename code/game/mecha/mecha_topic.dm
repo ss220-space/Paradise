@@ -273,7 +273,7 @@
 		return
 	if(href_list["change_name"])
 		if(usr != occupant)	return
-		var/newname = strip_html_simple(input(occupant,"Choose new exosuit name","Rename exosuit",initial(name)) as text, MAX_NAME_LEN)
+		var/newname = strip_html_simple(tgui_input_text(occupant, "Choose new exosuit name", "Rename exosuit", initial(name)), MAX_NAME_LEN)
 		if(newname && trim(newname))
 			name = newname
 			add_misc_logs(occupant, "has renamed an exosuit [newname]")
@@ -317,7 +317,7 @@
 		if(!in_range(src, usr))	return
 		var/mob/user = afilter.getMob("user")
 		if(user)
-			var/new_pressure = input(user,"Input new output pressure","Pressure setting",internal_tank_valve) as num
+			var/new_pressure = tgui_input_number(user, "Input new output pressure", "Pressure setting", internal_tank_valve)
 			if(new_pressure)
 				internal_tank_valve = new_pressure
 				to_chat(user, "The internal pressure valve has been set to [internal_tank_valve]kPa.")
@@ -378,7 +378,6 @@
 			else
 				occupant_message("<font color='red'>Recalibration failed.</font>")
 				log_message("Recalibration of coordination system failed with 1 error.",1)
-
 	if(href_list["drop_from_cargo"])
 		var/atom/movable/cargo_thing = locateUID(href_list["drop_from_cargo"])
 		if(istype(cargo_thing) && (cargo_thing in cargo))
@@ -386,15 +385,4 @@
 			cargo_thing.forceMove(loc)
 			cargo -= cargo_thing
 			log_message("Unloaded [cargo_thing]. Cargo compartment capacity: [cargo_capacity - length(cargo)]")
-
-	//debug
-	/*
-	if(href_list["debug"])
-		if(href_list["set_i_dam"])
-			setInternalDamage(afilter.getNum("set_i_dam"))
-		if(href_list["clear_i_dam"])
-			clearInternalDamage(afilter.getNum("clear_i_dam"))
-		return
-	*/
-
 	return

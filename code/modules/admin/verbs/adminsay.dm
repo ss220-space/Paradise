@@ -19,14 +19,14 @@
 		if(check_rights(R_ADMIN|R_MOD, 0, C.mob))
 			// Lets see if this admin was pinged in the asay message
 			if(findtext(msg, "@[C.ckey]") || findtext(msg, "@[C.key]")) // Check ckey and key, so you can type @AffectedArc07 or @affectedarc07
-				SEND_SOUND(C, 'sound/misc/ping.ogg')
+				SEND_SOUND(C, sound('sound/misc/ping.ogg'))
 				msg = replacetext(msg, "@[C.ckey]", "<font color='red'>@[C.ckey]</font>")
 				msg = replacetext(msg, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 
 			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Asay")
 
 /client/proc/get_admin_say()
 	if(check_rights(R_ADMIN|R_MOD, FALSE))
@@ -63,7 +63,7 @@
 			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Msay")
 
 /client/proc/get_mentor_say()
 	if(check_rights(R_MENTOR | R_ADMIN | R_MOD))
@@ -71,7 +71,7 @@
 		cmd_mentor_say(msg)
 
 /client/proc/toggle_mentor_chat()
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 	set name = "Toggle Mentor Chat"
 	set desc = "Toggle whether mentors have access to the msay command"
 
@@ -101,7 +101,7 @@
 			to_chat(C, "<b>Mentor chat has been disabled.</b>")
 
 	log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Msay")
+	BLACKBOX_LOG_ADMIN_VERB("Toggle Msay")
 
 /client/proc/get_dev_team_say()
 	if(check_rights(R_VIEWRUNTIMES | R_ADMIN))
@@ -112,7 +112,7 @@
 	set name = "Devsay"
 	set hidden = TRUE
 
-	if(!check_rights(R_ADMIN | R_VIEWRUNTIMES)) // Catch any non-admins trying to use this proc
+	if(!check_rights(R_VIEWRUNTIMES | R_ADMIN)) // Catch any non-admins trying to use this proc
 		return
 
 	msg = handleDiscordEmojis(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))
@@ -126,7 +126,7 @@
 	mob.create_log(OOC_LOG, "DEVSAY: [msg]")
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_ADMIN | R_VIEWRUNTIMES, FALSE, C.mob))
+		if(check_rights(R_VIEWRUNTIMES | R_ADMIN, FALSE, C.mob))
 			var/display_name = key
 			if(holder.fakekey)
 				if(C.holder && C.holder.rights & R_ADMIN)
@@ -136,4 +136,4 @@
 			msg = span_emojienabled("[msg]")
 			to_chat(C, "<span class='[check_rights(R_ADMIN, FALSE) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Devsay")

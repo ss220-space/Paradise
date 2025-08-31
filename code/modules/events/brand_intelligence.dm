@@ -14,11 +14,14 @@
 									 "Не хочешь платить? Я твоей мамке тоже платить не хотел.")
 
 /datum/event/brand_intelligence/announce()
-	GLOB.event_announcement.Announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].", "ВНИМАНИЕ: ЦИФРОВОЙ ВИРУС.")
+	GLOB.minor_announcement.announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].",
+									"Цифровой вирус.",
+									'sound/AI/brand_intelligence.ogg'
+	)
 
 /datum/event/brand_intelligence/start()
 	var/list/obj/machinery/vending/leaderables = list()
-	for(var/obj/machinery/vending/V in GLOB.machines)
+	for(var/obj/machinery/vending/V in SSmachines.get_by_type(/obj/machinery/vending))
 		if(!is_station_level(V.z))
 			continue
 		RegisterSignal(V, COMSIG_QDELETING, PROC_REF(vendor_destroyed))
@@ -53,7 +56,7 @@
 				M.speak = rampant_speeches.Copy()
 				M.speak_chance = 15
 			else
-				explosion(upriser.loc, -1, 1, 2, 4, 0)
+				explosion(upriser.loc, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 2, flash_range = 4, adminlog = FALSE)
 				qdel(upriser)
 
 		kill()

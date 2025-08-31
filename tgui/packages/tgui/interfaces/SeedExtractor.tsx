@@ -322,14 +322,15 @@ const SeedExtractorActions = (
         <Input
           placeholder="Search by name, variant, potency:70+, production:3-, ..."
           fluid
-          onInput={(e, value) => setSearchText(value)}
+          expensive
+          onChange={setSearchText}
         />
       </Stack.Item>
       <Stack.Item>
         Vend amount:
         <Input
           placeholder="1"
-          onChange={(e, value) =>
+          onChange={(value) =>
             setVendAmount(Number(value) >= 1 ? Number(value) : 1)
           }
         />

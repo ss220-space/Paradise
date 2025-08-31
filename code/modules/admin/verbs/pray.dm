@@ -1,6 +1,6 @@
 /mob/living/verb/pray(msg as text)
-	set category = "IC"
-	set name = "Pray"
+	set category = STATPANEL_IC
+	set name = "Молиться"
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)
@@ -13,18 +13,18 @@
 		if(client.handle_spam_prevention(msg, MUTE_PRAY, OOC_COOLDOWN))
 			return
 
-	var/image/cross = image('icons/obj/storage.dmi',"bible")
+	var/image/cross = image('icons/obj/library.dmi',"bible")
 	var/font_color = "purple"
 	var/prayer_type = "PRAYER"
 	var/deity
 	if(job == JOB_TITLE_CHAPLAIN)
 		if(SSticker && SSticker.Bible_deity_name)
 			deity = SSticker.Bible_deity_name
-		cross = image('icons/obj/storage.dmi',"kingyellow")
+		cross = image('icons/obj/library.dmi',"bible_kingyellow")
 		font_color = "blue"
 		prayer_type = "CHAPLAIN PRAYER"
 	else if(iscultist(usr))
-		cross = image('icons/obj/storage.dmi',"tome")
+		cross = image('icons/obj/cult.dmi',"tome")
 		font_color = "red"
 		prayer_type = "CULTIST PRAYER"
 		deity = SSticker.cultdat.entity_name
@@ -37,10 +37,10 @@
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_PRAYERNOTIFY)
-				SEND_SOUND(X, 'sound/items/PDA/ambicha4-short.ogg')
+				SEND_SOUND(X, sound('sound/items/PDA/ambicha4-short.ogg'))
 	to_chat(usr, "Your prayers have been received by the gods.")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Pray") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Pray")
 
 /proc/Centcomm_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
@@ -50,7 +50,7 @@
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
 /proc/Syndicate_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
@@ -60,7 +60,7 @@
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
 /proc/HONK_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
@@ -70,7 +70,7 @@
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
 /proc/ERT_Announce(text , mob/Sender, repeat_warning)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
@@ -88,7 +88,7 @@
 		if(check_rights(R_ADMIN, FALSE, X.mob))
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
 /proc/Nuke_request(text , mob/Sender)
 	var/nuke_code = get_nuke_code()
@@ -106,4 +106,4 @@
 				if(nuke_status == NUKE_CORE_MISSING)
 					to_chat(X, "<span class='userdanger'>The nuclear device does not have a core, and will not arm!</span>")
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))

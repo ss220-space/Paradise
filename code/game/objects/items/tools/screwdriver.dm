@@ -14,14 +14,14 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
-	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/screwdriver_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/screwdriver_pickup.ogg'
 	materials = list(MAT_METAL=75)
 	attack_verb = list("уколол", "тыкнул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/screwdriver.ogg'
 	toolspeed = 1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_SCREWDRIVER
 	var/random_color = TRUE //if the screwdriver uses random coloring
 
@@ -108,7 +108,7 @@
 	return BRUTELOSS
 
 /obj/item/screwdriver/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
+	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, TRUE)
 	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
 	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")
 	qdel(src)

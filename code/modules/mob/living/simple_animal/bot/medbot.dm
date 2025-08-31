@@ -1,6 +1,6 @@
 //Medbot
 /mob/living/simple_animal/bot/medbot
-	name = "\improper Medibot"
+	name = "Medibot"
 	desc = "Маленький медицинский робот. Выглядит несколько подавленным."
 	ru_names = list(
 		NOMINATIVE = "медбот",
@@ -92,7 +92,7 @@
 	skin = "paramed"
 
 /mob/living/simple_animal/bot/medbot/mysterious
-	name = "\improper Mysterious Medibot"
+	name = "Mysterious Medibot"
 	desc = "Загадочный медбот. От него веет тайнами..."
 	ru_names = list(
 		NOMINATIVE = "загадочный медбот",
@@ -375,8 +375,7 @@
 			var/list/messagevoice = list("Ты, надень свою маску!" = 'sound/voice/mradar.ogg',
 										"Что-то всегда идёт не так, но я справлюсь." = 'sound/voice/mcatch.ogg',
 										"А ведь я мог бы стать пластическим хирургом..." = 'sound/voice/msurgeon.ogg',
-										"Что это за медотсек? Все мрут, словно мухи." = 'sound/voice/mflies.ogg',
-										"Замечательно!")
+										"Что это за медотсек? Все мрут, словно мухи." = 'sound/voice/mflies.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
 			playsound(loc, messagevoice[message], 50, FALSE)

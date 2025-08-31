@@ -132,7 +132,7 @@
 	alcohol_perc = 1
 	drink_icon = "glass_brown2"
 	drink_name = "стакан самогона"
-	drink_desc = "Теперь вы действительно на дне... Вага печень собрала свои вещи и уехала прошлой ночью."
+	drink_desc = "Теперь вы действительно на дне... Ваша печень собрала свои вещи и уехала прошлой ночью."
 	taste_description = "чистого смирения"
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
@@ -2426,14 +2426,14 @@
 			if(prob(5))
 				to_chat(M, span_notice("Перезагрузка системы..."))
 		if(14)
-			playsound(get_turf(M),'sound/effects/restart-shutdown.ogg', 200, 1)
+			playsound(get_turf(M),'sound/effects/restart-shutdown.ogg', 200, TRUE)
 		if(15 to 23)
 			M.Weaken(10 SECONDS)
 			update_flags |= M.adjustBruteLoss(-0.3, FALSE, affect_robotic = TRUE)
 			update_flags |= M.adjustFireLoss(-0.3, FALSE, affect_robotic = TRUE)
 			M.SetSleeping(20 SECONDS)
 		if(24)
-			playsound(get_turf(M), 'sound/effects/restart-wakeup.ogg', 200, 1)
+			playsound(get_turf(M), 'sound/effects/restart-wakeup.ogg', 200, TRUE)
 		if(25)
 			M.SetStunned(0)
 			M.SetWeakened(0)

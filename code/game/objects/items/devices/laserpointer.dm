@@ -136,19 +136,19 @@
 			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
 			add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 		else
-			outmsg = span_info("You missed the lens of [C] with [src].")
+			outmsg = span_notice("You missed the lens of [C] with [src].")
 
 	//laser pointer image
 	is_pointing = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(stop_pointing)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_NO_HASH_WAIT)
 	var/mutable_appearance/laser = mutable_appearance('icons/obj/weapons/projectiles.dmi', pointer_icon_state, target.layer + 0.01)
-	var/list/click_params = params2list(params)
-	if(click_params)
-		if(click_params["icon-x"])
-			laser.pixel_x = (text2num(click_params["icon-x"]) - 16)
-		if(click_params["icon-y"])
-			laser.pixel_y = (text2num(click_params["icon-y"]) - 16)
+	var/list/modifiers = params2list(params)
+	if(modifiers)
+		if(LAZYACCESS(modifiers, ICON_X))
+			laser.pixel_w = (text2num(LAZYACCESS(modifiers, ICON_X)) - 16)
+		if(LAZYACCESS(modifiers, ICON_Y))
+			laser.pixel_z = (text2num(LAZYACCESS(modifiers, ICON_Y)) - 16)
 	else
 		laser.pixel_x = target.pixel_x + rand(-5,5)
 		laser.pixel_y = target.pixel_y + rand(-5,5)
@@ -156,7 +156,7 @@
 	if(outmsg)
 		to_chat(user, outmsg)
 	else
-		to_chat(user, "<span class='info'>You point [src] at [target].</span>")
+		to_chat(user, span_notice("You point [src] at [target]."))
 
 	energy -= 1
 	if(energy <= max_energy)

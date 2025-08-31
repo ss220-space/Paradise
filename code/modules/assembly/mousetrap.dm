@@ -21,7 +21,7 @@
 	. = ..()
 	if(armed)
 		. += span_warning("It looks like it's armed.")
-	. += span_info("<b>Alt-Click</b> to hide it.")
+	. += span_notice("<b>Alt-Click</b> to hide it.")
 
 
 /obj/item/assembly/mousetrap/activate()
@@ -169,8 +169,8 @@
 
 /obj/item/assembly/mousetrap/verb/hide_under_verb()
 	set src in oview(1)
-	set name = "Hide"
-	set category = "Object"
+	set name = "Спрятать"
+	set category = STATPANEL_OBJECT
 
 	hide_under(usr)
 

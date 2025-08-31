@@ -227,6 +227,30 @@
 	else
 		holder.icon_state = "hudhealthy"
 
+/mob/living/carbon/human/proc/med_hud_insurance_set_overlay()
+	var/image/holder = hud_list[STATUS_HUD]
+	var/datum/money_account/account = null
+	var/obj/item/card/id/temp_id = null
+	holder.overlays.Cut()
+
+	if(!wear_id)
+		if((wear_mask && wear_mask.flags_inv & HIDENAME) || (head && head.flags_inv & HIDENAME))
+			return
+	else
+		temp_id = wear_id.GetID()
+
+	if(!temp_id)
+		if(dna.real_name == get_visible_name(add_id_name = FALSE))
+			account = get_insurance_account_DNA(src)
+	else
+		account = get_money_account(temp_id.associated_account_number)
+
+	if(account)
+		holder.overlays += image('icons/mob/hud.dmi', icon_state = "hudhealthy_[account.insurance_type]")
+
+/mob/living/carbon/human/proc/update_hud_set()
+	sec_hud_set_ID()
+	med_hud_insurance_set_overlay()
 
 
 /***********************************************
@@ -349,8 +373,7 @@
 ~~~~~~~~~~~~~~~~~~~~~*/
 /obj/mecha/proc/diag_hud_set_mechhealth()
 	var/image/holder = hud_list[DIAG_MECH_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
+	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
 	holder.icon_state = "huddiag[RoundDiagBar(obj_integrity/max_integrity)]"
 
 /obj/mecha/proc/diag_hud_set_mechcell()
@@ -548,7 +571,7 @@
 		commenter_display = "[U.get_authentification_name()] ([U.get_assignment()])"
 	else if(isrobot(commenter))
 		var/mob/living/silicon/robot/U = commenter
-		commenter_display = "[U.name] ([U.modtype] [U.braintype])"
+		commenter_display = "[U.name] ([U.modtype?.name] [U.braintype])"
 	else if(isAI(commenter))
 		var/mob/living/silicon/ai/U = commenter
 		commenter_display = "[U.name] (artificial intelligence)"

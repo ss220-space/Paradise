@@ -67,6 +67,8 @@ SUBSYSTEM_DEF(tts)
 		"businessman" = "Бизнэсмэн",
 		"trader" = "Торговец",
 		"assistant" = "Ассистент",
+		"prisoner" = "Заключённый",
+		"arrestee" = "Арестант",
 		"chief engineer" = "Главный Инженер",
 		"station engineer" = "Станционный инженер",
 		"trainee engineer" = "Инженер-стажер",
@@ -165,7 +167,7 @@ SUBSYSTEM_DEF(tts)
 		"syndicate officer" = "Офицер синдиката",
 		"visitor" = "посетитель",
 		"mining medic" = "Шахтёрский врач",
-		"lavaland health officer" = "Медицинский работник Лаваленда",
+		"lavaland health officer" = "Медицинский работник Лазиса",
 	)
 
 
@@ -338,14 +340,14 @@ SUBSYSTEM_DEF(tts)
 	if(response.errored)
 		provider.failed_requests++
 		// if(provider.failed_requests >= provider.failed_requests_limit)
-		// 	provider.is_enabled = FALSE
+		//	provider.is_enabled = FALSE
 		log_debug(span_warning("Error connecting to [provider.name] TTS API. Please inform a maintainer or server host."))
 		return
 
 	if(response.status_code != 200)
 		provider.failed_requests++
 		// if(provider.failed_requests >= provider.failed_requests_limit)
-		// 	provider.is_enabled = FALSE
+		//	provider.is_enabled = FALSE
 		log_debug(span_warning("Error performing [provider.name] TTS API request (Code: [response.status_code])"))
 		tts_request_failed++
 		if(response.status_code)
@@ -589,6 +591,8 @@ SUBSYSTEM_DEF(tts)
 			"кз" = "Кэ Зэ",
 			"днк" = "дэ эн ка",
 			"бсх" = "бэ эс ха",
+			"исн" = "И Эс Эн",
+			"акн" = "А Кэ Эн",
 		)
 	var/match = tts_replacement_list[lowertext(word)]
 	if(match)

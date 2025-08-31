@@ -15,7 +15,7 @@
 	set_dir_on_move = FALSE
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
+	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100)
 	var/obj/item/access_control/electronics
 	var/base_state = "left"
 	var/reinf = 0
@@ -52,7 +52,7 @@
 	set_density(FALSE)
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
-		playsound(src, "shatter", 70, 1)
+		playsound(src, SFX_SHATTER, 70, TRUE)
 	QDEL_NULL(electronics)
 	return ..()
 
@@ -189,7 +189,7 @@
 		operating = DOOR_OPENING
 	INVOKE_ASYNC(src, PROC_REF(do_animate), "opening")
 	set_opacity(FALSE)
-	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
+	playsound(loc, 'sound/machines/windowdoor.ogg', 100, TRUE)
 	update_icon()
 	sleep(1 SECONDS)
 
@@ -284,7 +284,7 @@
 		emagged = TRUE
 		operating = TRUE
 		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		sleep(6)
 		operating = FALSE
 		open(2)
@@ -296,7 +296,7 @@
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 	operating = TRUE
 	flick("[base_state]spark", src)
-	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	sleep(6)
 	operating = FALSE
 	return TRUE
@@ -449,7 +449,7 @@
 		open()
 
 /obj/machinery/door/window/clockwork/ratvar_act()
-	obj_integrity = max_integrity
+	update_integrity(max_integrity)
 
 /obj/machinery/door/window/clockwork/hasPower()
 	return TRUE //yup that's power all right

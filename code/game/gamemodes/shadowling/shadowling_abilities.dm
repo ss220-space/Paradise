@@ -36,7 +36,7 @@
 	action_icon_state = "glare"
 
 	selection_activated_message		= span_notice("Вы приготовились к тому, что ваши глаза станут ослепительно яркими! <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message 	= span_notice("Ваши глаза расслабляются... пока что.")
+	selection_deactivated_message	= span_notice("Ваши глаза расслабляются... пока что.")
 	need_active_overlay = TRUE
 
 
@@ -133,7 +133,7 @@
 		revert_cast(user)
 		return
 
-	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 1)
+	playsound(user.loc, 'sound/effects/bamf.ogg', 50, TRUE)
 	// mech supress escape
 	if(HAS_TRAIT_FROM(user, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
 		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
@@ -612,7 +612,7 @@
 			else if(issilicon(target))
 				var/mob/living/silicon/robot = target
 				to_chat(robot, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! ПЕРЕГРУЗКА СЕНСЕРОВ \[$(!@#</b>"))
-				robot << 'sound/misc/interference.ogg'
+				SEND_SOUND(robot, sound('sound/misc/interference.ogg'))
 				playsound(robot, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
 				do_sparks(5, 1, robot)
 				robot.Weaken(12 SECONDS)
@@ -799,7 +799,7 @@
 		thrall.emote("gasp")
 		thrall.visible_message(span_boldannounceic("[thrall] тяжело дышит, в [genderize_ru(thrall.gender,"его","её","его","их")] глазах сияет тусклый красный свет."), \
 								span_shadowling("<b><i>Вы вернулись. Один из ваших хозяев привел вас из потусторонней тьмы.</b></i>"))
-		playsound(thrall, "bodyfall", 50, TRUE)
+		playsound(thrall, SFX_BODYFALL, 50, TRUE)
 
 	else
 		to_chat(user, span_warning("Цель должна быть активна, чтобы наделить ее силой, или мертва, чтобы ее оживить."))
@@ -871,7 +871,10 @@
 	target.death()
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/timer = SSshuttle.emergency.timeLeft(1) + 10 MINUTES
-		GLOB.event_announcement.Announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.", "Системный сбой.", 'sound/misc/notice1.ogg')
+		GLOB.major_announcement.announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.",
+										ANNOUNCE_SYSERROR_RU,
+										'sound/misc/notice1.ogg'
+		)
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
 	user.mind.RemoveSpell(src)	//Can only be used once!
@@ -1040,7 +1043,7 @@
 			continue
 
 		to_chat(target, span_userdanger("Вас поражает молния!"))
-		playsound(target, 'sound/magic/lightningshock.ogg', 50, 1)
+		playsound(target, 'sound/magic/lightningshock.ogg', 50, TRUE)
 		target.Weaken(16 SECONDS)
 		target.take_organ_damage(0, 50)
 		user.Beam(target,icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
@@ -1060,7 +1063,7 @@
 
 
 /obj/effect/proc_holder/spell/ascendant_transmit/cast(list/targets, mob/living/simple_animal/ascendant_shadowling/user = usr)
-	var/text = stripped_input(user, "Что ты хочешь сказать всем находящимся рядом и на [station_name()]?.", "Озвучить всем", "")
+	var/text = tgui_input_text(user, "Что ты хочешь сказать всем находящимся рядом и на [station_name()]?.", "Озвучить всем", "")
 
 	if(!text)
 		revert_cast(user)

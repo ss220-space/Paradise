@@ -30,21 +30,30 @@
 	deep_water = TRUE
 
 /obj/machinery/poolcontroller/Initialize(mapload)
+	. = ..()
 	var/contents_loop = linked_area
 	if(!linked_area)
 		contents_loop = range(srange, src)
 
-	for(var/turf/T in contents_loop)
-		if(istype(T, /turf/simulated/floor/beach/water))
-			var/turf/simulated/floor/beach/water/W = T
-			W.linkedcontroller = src
-			linkedturfs += T
-		else if(istype(T, /turf/simulated/floor/indestructible/beach/water))
-			var/turf/simulated/floor/indestructible/beach/water/W = T
-			W.linkedcontroller = src
-			linkedturfs += T
+	for(var/turf/turf in contents_loop)
+		if(isbeachwater(turf))
+			var/turf/simulated/floor/beach/water/water = turf
+			water.linkedcontroller = src
+			linkedturfs += turf
+			continue
 
-	. = ..()
+		if(isbeachwater_i(turf))
+			var/turf/simulated/floor/indestructible/beach/water/water = turf
+			water.linkedcontroller = src
+			linkedturfs += turf
+
+/obj/machinery/poolcontroller/Destroy()
+	for(var/turf in linkedturfs)
+		if((isbeachwater(turf) || isbeachwater_i(turf)) && turf:linkedcontroller == src)
+			turf:linkedcontroller = null
+
+	linkedturfs.Cut()
+	return ..()
 
 /obj/machinery/poolcontroller/invisible/Initialize(mapload)
 	linked_area = get_area(src)

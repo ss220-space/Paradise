@@ -207,7 +207,8 @@ const CataloguePane = (properties: CataloguePaneProps) => {
         <Input
           fluid
           placeholder="Search for..."
-          onInput={(e, v) => setSearchText(v)}
+          expensive
+          onChange={setSearchText}
           mb={1}
         />
         <Box maxHeight={25} overflowY="auto" overflowX="hidden">

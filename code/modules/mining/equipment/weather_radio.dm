@@ -7,7 +7,15 @@
 	name = "mining weather radio"
 	icon = 'icons/obj/miningradio.dmi'
 	icon_state = "miningradio"
-	desc = "A weather radio designed for use in inhospitable environments. Gives audible warnings when storms approach. Has access to cargo channel."
+	desc = "Метеорологическое радио, предназначенное для использования в неблагоприятных условиях. Подает звуковые предупреждения о приближении шторма. Имеет доступ к каналу карго."
+	ru_names = list(
+		NOMINATIVE = "метеорологическое радио",
+		GENITIVE = "метеорологического радио",
+		DATIVE = "метеорологическому радио",
+		ACCUSATIVE = "метеорологическое радио",
+		INSTRUMENTAL = "метеорологическим радио",
+		PREPOSITIONAL = "метеорологическом радио"
+	)
 	freqlock = TRUE
 	luminosity = 1
 	light_power = 1
@@ -60,9 +68,9 @@
 		if(WEATHER_ALERT_CLEAR)
 			light_color = LIGHT_COLOR_GREEN
 		if(WEATHER_ALERT_INCOMING)
-			light_color = LIGHT_COLOR_YELLOW
+			light_color = LIGHT_COLOR_DIM_YELLOW
 		if(WEATHER_ALERT_IMMINENT_OR_ACTIVE)
-			light_color = LIGHT_COLOR_PURE_RED
+			light_color = LIGHT_COLOR_INTENSE_RED
 	set_light_color(light_color)
 
 /obj/item/radio/weather_monitor/proc/get_warning_message() //damn tts

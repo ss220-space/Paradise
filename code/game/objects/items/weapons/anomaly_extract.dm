@@ -107,7 +107,7 @@
 
 
 /obj/effect/proc_holder/spell/slime_degradation/proc/slime_transform(mob/living/carbon/human/user)
-	for(var/obj/item/check as anything in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+	for(var/obj/item/check as anything in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		user.drop_item_ground(check, force = TRUE)
 
 	user.underwear = "Nude"

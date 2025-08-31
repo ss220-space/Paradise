@@ -1,5 +1,5 @@
 /obj/item/mortar_shell
-	name = "\improper 80mm mortar shell"
+	name = "80mm mortar shell"
 	desc = "An unlabeled 80mm mortar shell, probably a casing."
 	icon = 'icons/obj/structures/mortar.dmi'
 	icon_state = "mortar_ammo_cas"
@@ -20,10 +20,10 @@
 /obj/item/mortar_shell/proc/detonate(turf/detonate_turf)
 	var/old_loc = loc
 	forceMove(detonate_turf)
-	var/angle = 90 - get_angle(loc, old_loc)
-	pixel_x = cos(angle) * 32 * 6
-	pixel_z = sin(angle) * 32 * 6
-	var/rotation = get_pixel_angle(pixel_z, pixel_x) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
+	var/angle = get_angle(loc, old_loc)
+	pixel_x = cos(angle) * ICON_SIZE_X * 6
+	pixel_z = sin(angle) * ICON_SIZE_Y * 6
+	var/rotation = delta_to_angle(pixel_x, pixel_z) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
 	transform = matrix().Turn(rotation + 180)
 	layer = FLY_LAYER
 	SET_PLANE_EXPLICIT(src, ABOVE_GAME_PLANE, src)
@@ -57,17 +57,17 @@
 
 
 /obj/item/mortar_shell/he
-	name = "\improper 80mm high explosive mortar shell"
+	name = "80mm high explosive mortar shell"
 	desc = "An 80mm mortar shell, loaded with a high explosive charge."
 	icon_state = "mortar_ammo_he"
 	item_state = "mortar_ammo_he"
 
 /obj/item/mortar_shell/he/detonate(turf/detonate_turf)
 	. = ..()
-	explosion(detonate_turf, 0, 4, 7, 7)
+	explosion(detonate_turf, devastation_range = 0, heavy_impact_range = 4, light_impact_range = 7, flash_range = 7)
 
 /obj/item/mortar_shell/frag
-	name = "\improper 80mm fragmentation mortar shell"
+	name = "80mm fragmentation mortar shell"
 	desc = "An 80mm mortar shell, loaded with a fragmentation charge."
 	icon_state = "mortar_ammo_frag"
 	item_state = "mortar_ammo_frag"
@@ -76,10 +76,10 @@
 	AddComponent(/datum/component/pellet_cloud, magnitude = 4)
 	. = ..()
 	sleep(2)
-	explosion(detonate_turf, 0, 0, 5)
+	explosion(detonate_turf, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 5)
 
 /obj/item/mortar_shell/incendiary
-	name = "\improper 80mm incendiary mortar shell"
+	name = "80mm incendiary mortar shell"
 	desc = "An 80mm mortar shell, loaded with a Type B napalm charge. Perfect for long-range area denial."
 	icon_state = "mortar_ammo_inc"
 	item_state = "mortar_ammo_inc"
@@ -95,7 +95,7 @@
 	playsound(detonate_turf, 'sound/weapons/gun_flamethrower2.ogg', 35, 1, 4)
 
 /obj/item/mortar_shell/flare
-	name = "\improper 80mm flare/camera mortar shell"
+	name = "80mm flare/camera mortar shell"
 	desc = "An 80mm mortar shell, loaded with an illumination flare / camera combo, attached to a parachute."
 	icon_state = "mortar_ammo_flr"
 	item_state = "mortar_ammo_flr"
@@ -104,11 +104,11 @@
 /obj/item/mortar_shell/flare/detonate(turf/detonate_turf)
 	. = ..()
 	new /obj/item/flashlight/flare/on/illumination(detonate_turf)
-	playsound(detonate_turf, 'sound/weapons/gun_flare.ogg', 50, 1, 4)
+	playsound(detonate_turf, 'sound/weapons/gun_flare.ogg', 50, TRUE, 4)
 	deploy_camera(detonate_turf)
 
 /obj/item/mortar_shell/custom
-	name = "\improper 80mm custom mortar shell"
+	name = "80mm custom mortar shell"
 	desc = "An 80mm mortar shell."
 	icon_state = "mortar_ammo_custom"
 	item_state = "mortar_ammo_custom_locked"
@@ -181,7 +181,7 @@
 	else
 		to_chat(user, span_notice("You lock [name]."))
 	locked = !locked
-	playsound(loc, 'sound/items/Screwdriver.ogg', 25, 0, 6)
+	playsound(loc, 'sound/items/Screwdriver.ogg', 25, FALSE, 6)
 	update_icon(UPDATE_ICON_STATE)
 	. = ..()
 
@@ -199,7 +199,7 @@
 		fuel = I
 		to_chat(user, span_danger("You add [I] to [name]."))
 		update_icon(UPDATE_ICON_STATE)
-		playsound(loc, 'sound/items/Screwdriver2.ogg', 25, 0, 6)
+		playsound(loc, 'sound/items/Screwdriver2.ogg', 25, FALSE, 6)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(!(istype(I,/obj/item/warhead/mortar) && !locked))
@@ -219,7 +219,7 @@
 	warhead = I
 	to_chat(user, span_danger("You add [I] to [name]."))
 	update_icon(UPDATE_ICON_STATE)
-	playsound(loc, 'sound/items/Screwdriver2.ogg', 25, 0, 6)
+	playsound(loc, 'sound/items/Screwdriver2.ogg', 25, FALSE, 6)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/item/mortar_shell/ex_act(severity, explosion_direction)
@@ -256,7 +256,7 @@
 
 
 /obj/item/mortar_shell/proc/explode()
-	explosion(get_turf(src), 0, 3, 5)
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 3, light_impact_range = 5)
 
 
 /obj/effect/warning

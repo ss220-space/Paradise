@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 		var/isactive = t.fields["p_stat"]
 		var/department = 0
-		var/depthead = 0 			// Department Heads will be placed at the top of their lists.
+		var/depthead = 0			// Department Heads will be placed at the top of their lists.
 		if(real_rank in GLOB.command_positions)
 			heads[++heads.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
@@ -192,27 +192,22 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		medical += M
 
 		//Security Record
-		var/datum/data/record/S = new()
-		S.fields["id"]			= id
-		S.fields["name"]		= H.real_name
-		S.fields["criminal"]	= "None"
-		S.fields["mi_crim"]		= "None"
-		S.fields["mi_crim_d"]	= "No minor crime convictions."
-		S.fields["ma_crim"]		= "None"
-		S.fields["ma_crim_d"]	= "No major crime convictions."
-		S.fields["notes"]		= "No notes."
+		var/datum/data/record/S = find_security_record("name", H.real_name)
+		if(S) //records exists, set correct id and name
+			S.name = text("Security Record #[id]")
+			S.fields["id"] = id
+		else //create new record
+			S = CreateSecurityRecord(H.real_name, id)
 		if(H.sec_record && !jobban_isbanned(H, "Records"))
 			S.fields["notes"] = H.sec_record
 		else
 			S.fields["notes"] = "Дополнительная информация отсутствует."
-		LAZYINITLIST(S.fields["comments"])
-		security += S
 
 		//Locked Record
 		var/datum/data/record/L = new()
 		L.fields["id"]			= md5("[H.real_name][H.mind.assigned_role]")
 		L.fields["name"]		= H.real_name
-		L.fields["rank"] 		= H.mind.assigned_role
+		L.fields["rank"]		= H.mind.assigned_role
 		L.fields["age"]			= H.age
 		L.fields["sex"]			= capitalize(H.gender)
 		L.fields["blood_type"]	= H.dna.blood_type
@@ -418,14 +413,14 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "internalaffairs_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 		if(JOB_TITLE_CHAPLAIN)
-			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "chapblack_s")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "chaplain_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 		if(JOB_TITLE_RD)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "director_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_open"), ICON_OVERLAY)
 		if(JOB_TITLE_SCIENTIST)
-			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "toxinswhite_s")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "science_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_tox_open"), ICON_OVERLAY)
 		if(JOB_TITLE_SCIENTIST_STUDENT)
@@ -433,7 +428,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_tox_open"), ICON_OVERLAY)
 		if(JOB_TITLE_CHEMIST)
-			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "chemistrywhite_s")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "chemistry_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_chem_open"), ICON_OVERLAY)
 		if(JOB_TITLE_CMO)
@@ -449,11 +444,11 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_mort_open"), ICON_OVERLAY)
 		if(JOB_TITLE_GENETICIST)
-			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "geneticswhite_s")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "genetics_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_gen_open"), ICON_OVERLAY)
 		if(JOB_TITLE_VIROLOGIST)
-			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "virologywhite_s")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "virology_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "labcoat_vir_open"), ICON_OVERLAY)
 		if(JOB_TITLE_PSYCHIATRIST)
@@ -471,7 +466,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "captain_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 		if(JOB_TITLE_HOS)
-			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "hosred_s")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "hos_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 		if(JOB_TITLE_WARDEN)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "warden_s")
@@ -481,7 +476,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "detective"), ICON_OVERLAY)
 		if(JOB_TITLE_PILOT)
-			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "secred_s")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "security_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "bomber"), ICON_OVERLAY)
 		if(JOB_TITLE_BRIGDOC)
@@ -489,7 +484,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "white"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "fr_jacket_open"), ICON_OVERLAY)
 		if(JOB_TITLE_OFFICER)
-			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "secred_s")
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "security_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 		if(JOB_TITLE_CHIEF)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "chief_s")
@@ -526,6 +521,9 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "syndicate_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "swat_gl"), ICON_UNDERLAY)
+		if(JOB_TITLE_PRISONER)
+			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "orange_s")
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange"), ICON_UNDERLAY)
 		else if(H.mind && (H.mind.assigned_role in get_all_centcom_jobs()))
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)

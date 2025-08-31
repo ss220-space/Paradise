@@ -44,28 +44,29 @@
 // returns TRUE if any [modifier]ClickOn was called
 /mob/living/simple_animal/demon/pulse_demon/proc/try_modified_click(atom/A, params)
 	var/list/modifiers = params2list(params)
-	if(modifiers["middle"])
-		if(modifiers["shift"])
+
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
+		if(LAZYACCESS(modifiers, SHIFT_CLICK))
 			MiddleShiftClickOn(A)
 		else
 			MiddleClickOn(A)
 		return TRUE
-	if(modifiers["shift"])
+
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		ShiftClickOn(A)
 		return TRUE
-	if(modifiers["alt"])
+
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		AltClickOn(A)
 		return TRUE
-	if(modifiers["ctrl"])
+
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return TRUE
+
 	return FALSE
 
 // check area for all of these, then do AI actions
-/mob/living/simple_animal/demon/pulse_demon/MiddleShiftClickOn(atom/A)
-	if(get_area(A) == controlling_area)
-		A.AIMiddleShiftClick(src)
-
 /mob/living/simple_animal/demon/pulse_demon/ShiftClickOn(atom/A)
 	if(get_area(A) == controlling_area)
 		A.AIShiftClick(src)

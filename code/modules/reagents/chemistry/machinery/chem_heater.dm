@@ -24,8 +24,8 @@
 	/// The higher this number, the faster reagents will heat/cool.
 	var/speed_increase = 0
 
-/obj/machinery/chem_heater/New()
-	..()
+/obj/machinery/chem_heater/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_heater(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -53,7 +53,7 @@
 				return
 			beaker.reagents.temperature_reagents(desired_temp, max(1, 35 - speed_increase))
 			if(round(beaker.reagents.chem_temp) == round(desired_temp))
-				playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+				playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 				on = FALSE
 				if(auto_eject)
 					eject_beaker()

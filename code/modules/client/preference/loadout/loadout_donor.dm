@@ -149,10 +149,25 @@
 	donator_tier = 4
 	cost = 1
 
-/datum/gear/donor/zippolghtr
-	index_name = "Zippo lighter"
-	path = /obj/item/lighter/zippo
+/datum/gear/donor/zippoengraved
+	index_name = "engraved zippo lighter"
+	display_name = "Гравированная зажигалка Зиппо"
+	path = /obj/item/lighter/zippo/engraved
 	donator_tier = 1
+	cost = 1
+
+/datum/gear/donor/zippogold
+	index_name = "gold engraved zippo lighter"
+	display_name = "Золотая зажигалка Зиппо"
+	path =  /obj/item/lighter/zippo/fluff/michael_guess_1
+	donator_tier = 2
+	cost = 1
+
+/datum/gear/donor/zippopurple
+	index_name = "purple engraved zippo lighter"
+	display_name = "Фиолетовая зажигалка Зиппо"
+	path = /obj/item/lighter/zippo/fluff/purple
+	donator_tier = 3
 	cost = 1
 
 /datum/gear/donor/strip
@@ -561,3 +576,39 @@
 	index_name = "backpack of justice"
 	path = /obj/item/storage/backpack/justice
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
+
+/datum/gear/donor/masterli
+	donator_tier = 1
+	cost = 1
+	index_name = "master li clothes"
+	path = /obj/item/clothing/under/martialsuit/masterli
+
+/datum/gear/donor/masterdragon
+	donator_tier = 1
+	cost = 1
+	index_name = "gold dragon master clothes"
+	path = /obj/item/clothing/under/martialsuit/masterdragon
+
+/datum/gear/donor/redkunoichi
+	donator_tier = 1
+	cost = 1
+	index_name = "red kunoichi clothes"
+	path = /obj/item/clothing/under/martialsuit/redkunoichi
+
+/datum/gear/donor/bluekunoichi
+	donator_tier = 1
+	cost = 1
+	index_name = "blue kunoichi clothes"
+	path = /obj/item/clothing/under/martialsuit/bluekunoichi
+
+/datum/gear/donor/zazalord
+	donator_tier = 1
+	cost = 1
+	index_name = "zaza-lord swag bomber"
+	path = /obj/item/clothing/suit/storage/zazalord
+
+/datum/gear/donor/meta_banhammer
+	donator_tier = 4
+	cost = 2
+	index_name = "meta-banhammer"
+	path = /obj/item/banhammer/meta_hammer

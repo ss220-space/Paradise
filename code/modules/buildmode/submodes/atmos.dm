@@ -11,26 +11,26 @@
 	var/nitrox = 0
 	var/agentbx = 0
 
-
 /datum/buildmode_mode/atmos/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on turf      = Select corner</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button + Ctrl on turf = Set 'base atmos conditions' for space turfs in region</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Adjust target atmos</span>")
-	to_chat(user, "<span class='notice'><b>Notice:</b> Starts out with standard breathable/liveable defaults</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, span_purple(chat_box_examine(
+		"[span_bold("Select corner")] -> Left Mouse Button on turf\n\
+		[span_bold("Set 'base atmos conditions' for space turfs in region")] -> Left Mouse Button + Ctrl on turf\n\
+		[span_bold("Adjust target atmos")] -> Right Mouse Button on buildmode button\n\
+		\n\
+		Starts out with standard breathable/liveable defaults."))
+	)
 
 // FIXME this is a little tedious, something where you don't have to fill in each field would be cooler
 // maybe some kind of stat panel thing?
 /datum/buildmode_mode/atmos/change_settings(mob/user)
-	pressure = input(user, "Atmospheric Pressure", "Input", ONE_ATMOSPHERE) as num|null
-	temperature = input(user, "Temperature", "Input", T20C) as num|null
-	oxygen = input(user, "Oxygen ratio", "Input", O2STANDARD) as num|null
-	nitrogen = input(user, "Nitrogen ratio", "Input", N2STANDARD) as num|null
-	plasma = input(user, "Plasma ratio", "Input", 0) as num|null
-	cdiox = input(user, "CO2 ratio", "Input", 0) as num|null
-	nitrox = input(user, "N2O ratio", "Input", 0) as num|null
-	agentbx = input(user, "Agent B ratio", "Input", 0) as num|null
+	pressure = tgui_input_number(user, "Atmospheric Pressure", "Input", ONE_ATMOSPHERE, round_value = FALSE)
+	temperature = tgui_input_number(user, "Temperature", "Input", T20C, round_value = FALSE)
+	oxygen = tgui_input_number(user, "Oxygen ratio", "Input", O2STANDARD, round_value = FALSE)
+	nitrogen = tgui_input_number(user, "Nitrogen ratio", "Input", N2STANDARD, round_value = FALSE)
+	plasma = tgui_input_number(user, "Plasma ratio", "Input", 0, round_value = FALSE)
+	cdiox = tgui_input_number(user, "CO2 ratio", "Input", 0, round_value = FALSE)
+	nitrox = tgui_input_number(user, "N2O ratio", "Input", 0, round_value = FALSE)
+	agentbx = tgui_input_number(user, "Agent B ratio", "Input", 0, round_value = FALSE)
 
 /datum/buildmode_mode/atmos/proc/ppratio_to_moles(ppratio)
 	// ideal gas equation: Pressure * Volume = Moles * r * Temperature
@@ -38,11 +38,12 @@
 	// Moles = (Pressure * Volume) / (r * Temperature)
 	return ((ppratio * pressure) * CELL_VOLUME) / (temperature * R_IDEAL_GAS_EQUATION)
 
-/datum/buildmode_mode/atmos/handle_selected_region(mob/user, params)
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
-	var/ctrl_click = pa.Find("ctrl")
-	if(left_click) //rectangular
+/datum/buildmode_mode/atmos/handle_selected_area(mob/user, params)
+	var/list/modifiers = params2list(params)
+
+	var/ctrl_click = LAZYACCESS(modifiers, CTRL_CLICK)
+
+	if(LAZYACCESS(modifiers, LEFT_CLICK))
 		for(var/turf/T in block(cornerA,cornerB))
 			if(issimulatedturf(T))
 				// fill the turf with the appropriate gasses
@@ -58,7 +59,7 @@
 					S.air.agent_b = ppratio_to_moles(agentbx)
 					S.update_visuals()
 					S.air_update_turf()
-			else if(ctrl_click) // overwrite "default" space air
+			else if(ctrl_click)
 				T.temperature = temperature
 				T.oxygen = ppratio_to_moles(oxygen)
 				T.nitrogen = ppratio_to_moles(nitrogen)

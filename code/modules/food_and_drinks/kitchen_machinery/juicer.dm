@@ -31,7 +31,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/peaslaugh = "laughsyrup"
 	)
 
-/obj/machinery/juicer/New()
+/obj/machinery/juicer/Initialize(mapload)
 	. = ..()
 	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
 
@@ -134,8 +134,8 @@
 	return
 
 /obj/machinery/juicer/verb/detach()
-	set category = "Object"
-	set name = "Detach Beaker from the juicer"
+	set category = STATPANEL_OBJECT
+	set name = "Извлечь ёмкость"
 	set src in oview(1)
 	if(usr.stat != 0)
 		return
@@ -165,7 +165,7 @@
 		return
 	if(!beaker || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
-	playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
+	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
 	for(var/obj/item/reagent_containers/food/snacks/O in contents)
 		var/r_id = get_juice_id(O)
 		beaker.reagents.add_reagent(r_id,get_juice_amount(O))

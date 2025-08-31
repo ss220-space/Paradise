@@ -15,7 +15,7 @@
 	gain_desc = "Вы обрели способность подчинять людей своей воле."
 	action_icon_state = "vampire_enthrall"
 	need_active_overlay = TRUE
-	required_blood = 150
+	required_blood = 100
 	deduct_blood_on_cast = FALSE
 
 
@@ -173,7 +173,7 @@
 /obj/effect/proc_holder/spell/vampire/pacify/cast(list/targets, mob/user)
 	for(var/mob/living/carbon/human/H as anything in targets)
 		to_chat(H, span_notice("Вы вдруг почувствовали себя очень спокойно..."))
-		SEND_SOUND(H, 'sound/hallucinations/i_see_you1.ogg')
+		SEND_SOUND(H, sound('sound/hallucinations/i_see_you1.ogg'))
 		H.apply_status_effect(STATUS_EFFECT_PACIFIED)
 
 
@@ -206,7 +206,7 @@
 
 	if(target.affects_vampire(user))
 		target.Slowed(4 SECONDS)
-		SEND_SOUND(target, 'sound/hallucinations/behind_you1.ogg')
+		SEND_SOUND(target, sound('sound/hallucinations/behind_you1.ogg'))
 		target.flash_eyes(2, TRUE, affect_silicon = TRUE) // flash to give them a second to lose track of who is who
 		new /obj/effect/hallucination/delusion(user_turf, target, duration = 15 SECONDS, skip_nearby = FALSE)
 
@@ -237,7 +237,7 @@
 	desc = "Снимает все обездвиживающие эффекты с находящихся рядом с вами рабов."
 	gain_desc = "Вы получили способность снимать все обездвиживающие эффекты с ближайших рабов."
 	action_icon_state = "thralls_up"
-	required_blood = 40
+	required_blood = 25
 	base_cooldown = 30 SECONDS
 
 
@@ -284,7 +284,7 @@
 	desc = "Накладывает мощную иллюзию, заставляющую всех, кто находится поблизости, воспринимать окружающих как случайных животных после кратковременного ослепления. Также замедляет пострадавших."
 	gain_desc = "Вы получили способность заставлять всех, кто находится рядом, воспринимать окружающих как случайных животных после кратковременного ослепления."
 	action_icon_state = "hysteria"
-	required_blood = 40
+	required_blood = 25
 	base_cooldown = 60 SECONDS
 
 
@@ -300,7 +300,7 @@
 		if(!target.affects_vampire(user))
 			continue
 
-		SEND_SOUND(target, 'sound/hallucinations/over_here1.ogg')
+		SEND_SOUND(target, sound('sound/hallucinations/over_here1.ogg'))
 		target.Slowed(4 SECONDS)
 		target.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
 		new /obj/effect/hallucination/delusion(get_turf(user), target, skip_nearby = FALSE)

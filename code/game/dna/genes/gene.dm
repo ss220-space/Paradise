@@ -36,7 +36,6 @@
 	// put your hands off the gene GC!
 	return QDEL_HINT_LETMELIVE
 
-
 /*
 * Is the gene active in this mob's DNA?
 */
@@ -169,8 +168,3 @@
 /datum/dna/gene/basic/fake/fake2/New()
 	..()
 	block = GLOB.fakeblock2
-
-
-/datum/dna/gene/basic/fake/fake3/New()
-	..()
-	block = GLOB.fakeblock3

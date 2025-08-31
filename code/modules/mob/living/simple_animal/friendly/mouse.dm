@@ -13,9 +13,9 @@
 	icon_dead = "mouse_gray_dead"
 	icon_resting = "mouse_gray_sleep"
 	speak = list("Squeek!","SQUEEK!","Squeek?")
-	speak_emote = list("squeeks","squeaks","squiks")
-	emote_hear = list("squeeks","squeaks","squiks")
-	emote_see = list("runs in a circle", "shakes", "scritches at something")
+	speak_emote = list("пищит", "попискивает")
+	emote_hear = list("пищит", "попискивает")
+	emote_see = list("бегает кругами", "трясётся", "осматривается")
 	var/squeak_sound = 'sound/creatures/mouse_squeak.ogg'
 	talk_sound = list('sound/creatures/rat_talk.ogg')
 	damaged_sound = list('sound/creatures/rat_wound.ogg')
@@ -321,28 +321,28 @@
 /mob/living/simple_animal/mouse/proc/sniff()
 	set name = "Понюхать"
 	set desc = "Пытаешься что-то почуять"
-	set category = "Мышь"
+	set category = STATPANEL_MOUSE
 
 	emote("msniff", intentional = TRUE)
 
 /mob/living/simple_animal/mouse/proc/shake()
 	set name = "Дрожать"
 	set desc = "Дрожит или дрыгается"
-	set category = "Мышь"
+	set category = STATPANEL_MOUSE
 
 	emote("mshake", intentional = TRUE)
 
 /mob/living/simple_animal/mouse/proc/scratch()
 	set name = "Почесаться"
 	set desc = "Чешется"
-	set category = "Мышь"
+	set category = STATPANEL_MOUSE
 
 	emote("mscratch", intentional = TRUE)
 
 /mob/living/simple_animal/mouse/proc/washup()
 	set name = "Умыться"
 	set desc = "Умывается"
-	set category = "Мышь"
+	set category = STATPANEL_MOUSE
 
 	emote("mwashup", intentional = TRUE)
 
@@ -491,10 +491,10 @@
 	real_name = "rat"
 	desc = "Серая крыса. Не самый яркий представитель своего вида."
 	squeak_sound = 'sound/creatures/rat_squeak.ogg'
-	icon_state 		= "rat_gray"
-	icon_living 	= "rat_gray"
-	icon_dead 		= "rat_gray_dead"
-	icon_resting 	= "rat_gray_sleep"
+	icon_state		= "rat_gray"
+	icon_living	= "rat_gray"
+	icon_dead		= "rat_gray_dead"
+	icon_resting	= "rat_gray_sleep"
 	maxHealth = 15
 	health = 15
 	mob_size = MOB_SIZE_SMALL
@@ -510,19 +510,19 @@
 	name = "white rat"
 	real_name = "white rat"
 	desc = "Типичный представитель лабораторных крыс."
-	icon_state 		= "rat_white"
-	icon_living 	= "rat_white"
-	icon_dead 		= "rat_white_dead"
-	icon_resting 	= "rat_white_sleep"
+	icon_state		= "rat_white"
+	icon_living	= "rat_white"
+	icon_dead		= "rat_white_dead"
+	icon_resting	= "rat_white_sleep"
 
 /mob/living/simple_animal/mouse/rat/irish
 	name = "irish rat"		//Да, я знаю что это вид. Это каламбурчик.
 	real_name = "irish rat"
 	desc = "Ирландская крыса. На космической станции?! На этот раз им точно некуда бежать!"
-	icon_state 		= "rat_irish"
-	icon_living 	= "rat_irish"
-	icon_dead 		= "rat_irish_dead"
-	icon_resting 	= "rat_irish_sleep"
+	icon_state		= "rat_irish"
+	icon_living	= "rat_irish"
+	icon_dead		= "rat_irish_dead"
+	icon_resting	= "rat_irish_sleep"
 
 #define MAX_WOOLY_MOUSE 50
 GLOBAL_VAR_INIT(wooly_mouse_count, 0)

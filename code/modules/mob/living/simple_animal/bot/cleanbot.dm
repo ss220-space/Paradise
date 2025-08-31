@@ -1,6 +1,6 @@
 //Cleanbot
 /mob/living/simple_animal/bot/cleanbot
-	name = "\improper Cleanbot"
+	name = "Cleanbot"
 	desc = "Маленький робот-уборщик. Он выглядит таким увлечённым!"
 	ru_names = list(
 		NOMINATIVE = "чистобот",
@@ -199,6 +199,7 @@
 	target_types += /obj/effect/decal/cleanable/ash
 	target_types += /obj/effect/decal/cleanable/greenglow
 	target_types += /obj/effect/decal/cleanable/dirt
+	target_types += /obj/effect/decal/cleanable/blood/paint
 
 	if(blood)
 		target_types += /obj/effect/decal/cleanable/blood/xeno/

@@ -6,7 +6,7 @@
 	/// Maximum radius at which surrounding objects are attracted.
 	var/grav_pull_range_high = 0
 	/// The level of singularity that corresponds to the force of attraction.
-	var/grav_pull_strenght = 0
+	var/grav_pull_strength = 0
 	/// The radius at which collapse effects are applied.
 	var/collapse_range = 0
 
@@ -30,7 +30,7 @@
 			if(!prob(mult * 10))
 				continue
 
-			turf.singularity_act(grav_pull_strenght)
+			turf.singularity_act(grav_pull_strength)
 
 		sleep(2)
 
@@ -53,18 +53,18 @@
 	var/bx = -a1y
 	var/by = a1x
 
-	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strenght() / 100)
+	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strength() / 100)
 
 	// c - vector of moving. Always move 1
 	var/cx = ax * radius + bx * (a_len - 1)
 	var/cy = ay * radius + by * (a_len - 1)
 
 	var/turf/target = get_turf(locate(atom.x + cx, atom.y + cy, z))
-	atom.singularity_pull(target, grav_pull_strenght)
+	atom.singularity_pull(target, grav_pull_strength)
 	atom.update_icon()
 
 /obj/effect/anomaly/vortex/proc/do_pulls()
-	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strenght() / 100)
+	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strength() / 100)
 	for(var/atom/movable/atom in view(radius, src))
 		if(!can_move_sth(atom))
 			continue
@@ -103,6 +103,10 @@
 /obj/effect/anomaly/vortex/process()
 	. = ..()
 
+	if(!loc)
+		qdel(src)
+		return
+
 	for(var/atom/movable/atom in loc.contents)
 		if(!can_move_sth(atom))
 			continue
@@ -111,14 +115,6 @@
 
 /obj/effect/anomaly/vortex/tier1
 	name = "малая вихревая аномалия"
-	ru_names = list(
-		NOMINATIVE = "малая вихревая аномалия", \
-		GENITIVE = "малой вихревой аномалии", \
-		DATIVE = "малой вихревой аномалии", \
-		ACCUSATIVE = "малую вихревую аномалию", \
-		INSTRUMENTAL = "малой вихревой аномалией", \
-		PREPOSITIONAL = "малой вихревой аномалии"
-	)
 	core_type = /obj/item/assembly/signaler/core/vortex/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/vortex/tier2
 	tier = 1
@@ -129,19 +125,21 @@
 
 	grav_pull_range_low = 1
 	grav_pull_range_high = 2
-	grav_pull_strenght = STAGE_THREE
+	grav_pull_strength = STAGE_THREE
 	collapse_range = 0
+
+/obj/effect/anomaly/vortex/tier1/get_ru_names()
+	return list(
+		NOMINATIVE = "малая вихревая аномалия", \
+		GENITIVE = "малой вихревой аномалии", \
+		DATIVE = "малой вихревой аномалии", \
+		ACCUSATIVE = "малую вихревую аномалию", \
+		INSTRUMENTAL = "малой вихревой аномалией", \
+		PREPOSITIONAL = "малой вихревой аномалии"
+	)
 
 /obj/effect/anomaly/vortex/tier2
 	name = "вихревая аномалия"
-	ru_names = list(
-		NOMINATIVE = "вихревая аномалия", \
-		GENITIVE = "вихревой аномалии", \
-		DATIVE = "вихревой аномалии", \
-		ACCUSATIVE = "вихревую аномалию", \
-		INSTRUMENTAL = "вихревой аномалией", \
-		PREPOSITIONAL = "вихревой аномалии"
-	)
 	core_type = /obj/item/assembly/signaler/core/vortex/tier2
 	weaker_anomaly_type = /obj/effect/anomaly/vortex/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/vortex/tier3
@@ -153,19 +151,22 @@
 
 	grav_pull_range_low = 2
 	grav_pull_range_high = 3
-	grav_pull_strenght = STAGE_FOUR
+	grav_pull_strength = STAGE_FOUR
 	collapse_range = 1
+
+/obj/effect/anomaly/vortex/tier2/get_ru_names()
+	return list(
+		NOMINATIVE = "вихревая аномалия", \
+		GENITIVE = "вихревой аномалии", \
+		DATIVE = "вихревой аномалии", \
+		ACCUSATIVE = "вихревую аномалию", \
+		INSTRUMENTAL = "вихревой аномалией", \
+		PREPOSITIONAL = "вихревой аномалии"
+	)
+
 
 /obj/effect/anomaly/vortex/tier3
 	name = "большая вихревая аномалия"
-	ru_names = list(
-		NOMINATIVE = "большая вихревая аномалия", \
-		GENITIVE = "большой вихревой аномалии", \
-		DATIVE = "большой вихревой аномалии", \
-		ACCUSATIVE = "большую вихревую аномалию", \
-		INSTRUMENTAL = "большой вихревой аномалией", \
-		PREPOSITIONAL = "большой вихревой аномалии"
-	)
 	core_type = /obj/item/assembly/signaler/core/vortex/tier3
 	weaker_anomaly_type = /obj/effect/anomaly/vortex/tier2
 	tier = 3
@@ -176,9 +177,19 @@
 
 	grav_pull_range_low = 2
 	grav_pull_range_high = 4
-	grav_pull_strenght = STAGE_FIVE
+	grav_pull_strength = STAGE_FIVE
 	collapse_range = 3
 	has_warp = TRUE
+
+/obj/effect/anomaly/vortex/tier3/get_ru_names()
+	return list(
+		NOMINATIVE = "большая вихревая аномалия", \
+		GENITIVE = "большой вихревой аномалии", \
+		DATIVE = "большой вихревой аномалии", \
+		ACCUSATIVE = "большую вихревую аномалию", \
+		INSTRUMENTAL = "большой вихревой аномалией", \
+		PREPOSITIONAL = "большой вихревой аномалии"
+	)
 
 /obj/effect/anomaly/vortex/tier3/New()
 	. = ..()
@@ -190,20 +201,12 @@
 		if(get_dist(src, mob) > 20 || z != mob.z)
 			return
 
-		to_chat(mob, span_vortexanomaly("Сильный ветер дует вам прямо в лицо. Стоп, откуда на космической станции ветер?")) // It used in one place.
+		to_chat(mob, span_vortex_anomaly("Сильный ветер дует вам прямо в лицо. Стоп, откуда на космической станции ветер?")) // It used in one place.
 
 //			 TIER 4 ADMIN SPAWN ONLY
 
 /obj/effect/anomaly/vortex/tier4
 	name = "колоссальная вихревая аномалия"
-	ru_names = list(
-		NOMINATIVE = "колоссальная вихревая аномалия", \
-		GENITIVE = "колоссальной вихревой аномалии", \
-		DATIVE = "колоссальной вихревой аномалии", \
-		ACCUSATIVE = "колоссальную вихревую аномалию", \
-		INSTRUMENTAL = "колоссальной вихревой аномалией", \
-		PREPOSITIONAL = "колоссальной вихревой аномалии"
-	)
 	core_type = /obj/item/assembly/signaler/core/vortex/tier3/tier4
 	weaker_anomaly_type = /obj/effect/anomaly/vortex/tier3
 	tier = 4
@@ -215,9 +218,19 @@
 
 	grav_pull_range_low = 8
 	grav_pull_range_high = 16
-	grav_pull_strenght = STAGE_SIX
+	grav_pull_strength = STAGE_SIX
 	collapse_range = 15
 	has_warp = TRUE
+
+/obj/effect/anomaly/vortex/tier4/get_ru_names()
+	return list(
+		NOMINATIVE = "колоссальная вихревая аномалия", \
+		GENITIVE = "колоссальной вихревой аномалии", \
+		DATIVE = "колоссальной вихревой аномалии", \
+		ACCUSATIVE = "колоссальную вихревую аномалию", \
+		INSTRUMENTAL = "колоссальной вихревой аномалией", \
+		PREPOSITIONAL = "колоссальной вихревой аномалии"
+	)
 
 /obj/effect/anomaly/vortex/tier4/New()
 	. = ..()
@@ -226,7 +239,7 @@
 		if(mob.stat)
 			continue
 
-		to_chat(mob, span_vortexanomaly("Ураганный поток ветра почти сбивает вас с ног. Это не предвещает ничего хорошего."))
+		to_chat(mob, span_vortex_anomaly("Ураганный поток ветра почти сбивает вас с ног. Это не предвещает ничего хорошего."))
 
 /obj/effect/anomaly/vortex/tier4/item_touch_effect(obj/item/item)
 	. = ..()

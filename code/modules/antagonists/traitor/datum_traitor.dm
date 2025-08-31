@@ -7,6 +7,8 @@
 	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_name = "hudsyndicate"
+	var/syndicate_antag_hud_name = "hudsyndicate"
+	var/hijack_antag_hud_name = "hudhijack"
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	wiki_page_name = "Traitor"
 	russian_wiki_name = "Предатель"
@@ -22,6 +24,7 @@
 	var/datum/contractor_pending/contractor_pending
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
+	var/antag_sound = "sound/ambience/antag/tatoralert.ogg"
 
 
 /datum/antagonist/traitor/on_gain()
@@ -98,9 +101,9 @@
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
-		antag_hud_name = "hudhijack"
+		antag_hud_name = hijack_antag_hud_name
 	else
-		antag_hud_name = "hudsyndicate"
+		antag_hud_name = syndicate_antag_hud_name
 	return ..()
 
 
@@ -113,8 +116,8 @@
 	// delete these end
 
 
-	var/objective_count = hijacker_antag 			//Hijacking counts towards number of objectives
-	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED) 	//Set up an exchange if there are enough traitors
+	var/objective_count = hijacker_antag			//Hijacking counts towards number of objectives
+	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED)	//Set up an exchange if there are enough traitors
 		if(!SSticker.mode.exchange_red)
 			SSticker.mode.exchange_red = owner
 		else
@@ -193,7 +196,7 @@
 	var/equipped_slot = mob.equip_in_one_of_slots(folder, slots, qdel_on_fail = TRUE)
 	if(equipped_slot)
 		where = "In your [equipped_slot]"
-	to_chat(mob, "<br><br><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><br>")
+	to_chat(mob, span_notice("<br><br>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.<br>"))
 	mob.update_icons()
 
 
@@ -209,8 +212,7 @@
 		give_uplink()
 
 	announce_uplink_info()
-
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), antag_sound, 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 	return messages
 
@@ -232,8 +234,8 @@
 		return messages
 
 	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
-	messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-	messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+	messages.Add("<b>Code Phrase:</b> <span class='codephrases'>[phrases]</span>")
+	messages.Add("<b>Code Response:</b> <span class='coderesponses'>[responses]</span>")
 	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
@@ -256,11 +258,11 @@
 	var/mob/living/carbon/human/traitor_mob = owner.current
 	var/uplink_pref = traitor_mob.client?.prefs?.uplink_pref
 	if(!uplink_pref)
-		uplink_pref = "pda"
+		uplink_pref = PREF_UPLINK_PDA
 
 	var/obj/item/uplink_holder = null
 	// find a radio! toolbox(es), backpack, belt, headset
-	if(uplink_pref == "pda")
+	if(uplink_pref == PREF_UPLINK_PDA)
 		uplink_holder = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
 		if(!uplink_holder)
 			uplink_holder = locate(/obj/item/radio) in traitor_mob.contents

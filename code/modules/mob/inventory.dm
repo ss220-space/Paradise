@@ -86,14 +86,14 @@
 			return TRUE
 
 	if(drop_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			drop_item_ground(I)
 		else
 			I.forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			temporarily_remove_item_from_inventory(I, force = TRUE)
 		qdel(I)
 
@@ -124,14 +124,14 @@
 		return TRUE
 
 	if(drop_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			drop_item_ground(I)
 		else
 			I.forceMove(drop_location())
 		return FALSE
 
 	if(qdel_on_fail)
-		if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			temporarily_remove_item_from_inventory(I, force = TRUE)
 		qdel(I)
 
@@ -185,14 +185,14 @@
 
 	if(!I.mob_can_equip(src, slot, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated))
 		if(drop_on_fail)
-			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+			if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 				drop_item_ground(I)
 			else
 				I.forceMove(drop_location())
 			return FALSE
 
 		if(qdel_on_fail)
-			if(I in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+			if(I in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 				temporarily_remove_item_from_inventory(I, force = TRUE)
 			qdel(I)
 
@@ -229,6 +229,13 @@
 		return r_hand
 	return null
 
+/mob/proc/is_in_hands_to_flag(obj/item/I)
+	if(I == l_hand)
+		return ITEM_SLOT_HAND_LEFT
+	if(I == r_hand)
+		return ITEM_SLOT_HAND_RIGHT
+	return NONE
+
 /**
  * Returns `TRUE` if mob's hands free
  */
@@ -253,7 +260,6 @@
 
 	return item_to_test && item_to_test.is_equivalent(I)
 
-
 /**
  * Check used for telekinesis grabs
  */
@@ -270,6 +276,11 @@
 	else
 		return r_hand
 
+//Returns the flag of the selected hand
+/mob/proc/get_active_item_slot_hand()
+	if(hand)
+		return ITEM_SLOT_HAND_LEFT
+	return ITEM_SLOT_HAND_RIGHT
 
 /**
  * Returns the thing in our inactive hand
@@ -497,7 +508,7 @@
 	if(!. || !I) //ensure the item exists and that it was dropped properly.
 		return
 
-	var/shift_max = world.icon_size / 2
+	var/shift_max = ICON_SIZE_X / 2
 	var/shift_limit_x = initial(pixel_x) + shift_max
 	var/shift_limit_y = initial(pixel_y) + shift_max
 	var/shift_x
@@ -661,17 +672,13 @@
 	return processing_list
 
 /// Collects all items in possibly equipped slots.
-/mob/proc/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
+/mob/proc/get_equipped_items(include_flags = NONE)
 	var/list/items = list()
-	if(back)
-		items += back
-	if(wear_mask)
-		items += wear_mask
-	if(include_hands)
-		if(l_hand)
-			items += l_hand
-		if(r_hand)
-			items += r_hand
+	for(var/obj/item/item_contents in contents)
+		if(item_contents.item_flags & IN_INVENTORY)
+			items += item_contents
+	if (!(include_flags & INCLUDE_HELD))
+		items -= list(r_hand, l_hand)
 	return items
 
 
@@ -777,5 +784,12 @@
  */
 /mob/proc/drop_all_held_items()
 	. = list()
-	for(var/obj/item/I in (get_item_by_slot(ITEM_SLOT_HAND_LEFT) || get_item_by_slot(ITEM_SLOT_HAND_RIGHT)))
-		. |= drop_item_ground(I)
+	for(var/obj/item/item in list(get_item_by_slot(ITEM_SLOT_HAND_LEFT), get_item_by_slot(ITEM_SLOT_HAND_RIGHT)))
+		. |= drop_item_ground(item)
+
+/// Returns a list of things that the provided mob has, including any storage-capable implants.
+/mob/living/proc/gather_belongings(accessories = TRUE, recursive = TRUE)
+	var/list/belongings = get_all_gear(accessories, recursive)
+	for (var/obj/item/implant/storage/internal_bag in contents)
+		belongings += internal_bag.contents
+	return belongings

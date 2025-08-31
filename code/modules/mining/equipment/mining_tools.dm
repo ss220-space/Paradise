@@ -31,6 +31,16 @@
 	toolspeed = 0.8
 
 
+/obj/item/pickaxe/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 2, \
+		no_multi_hit = TRUE, \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
+	)
+
+
 /obj/item/pickaxe/emergency
 	name = "emergency disembarkation tool"
 	desc = "Кирка, предназначенная для спасения из затруднительных ситуаций."
@@ -218,6 +228,9 @@
 	toolspeed = 0.0 //the epitome of powertools, literally instant
 	var/wall_toolspeed = 0.1 //instant wall breaking is bad.
 
+/obj/item/pickaxe/drill/jackhammer/phantom
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/shovel
 	name = "shovel"
 	desc = "Массивный инструмент для вскапывания и перемещения земли."
@@ -244,6 +257,17 @@
 	hitsound = 'sound/effects/Shovel_hitting_sound.ogg'
 	usesound = 'sound/effects/shovel_dig.ogg'
 	toolspeed = 0.8
+
+
+/obj/item/shovel/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0.15, \
+		no_multi_hit = TRUE, \
+		swing_sound = SFX_BLUNT_SWING_LIGHT \
+	)
+
 
 /obj/item/shovel/spade
 	name = "spade"

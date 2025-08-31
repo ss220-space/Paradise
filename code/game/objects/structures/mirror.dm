@@ -50,7 +50,7 @@
 	if(!broken && !(obj_flags & NODECONSTRUCT))
 		icon_state = "mirror_broke"
 		if(!mapload)
-			playsound(src, "shatter", 70, TRUE)
+			playsound(src, SFX_SHATTER, 70, TRUE)
 		if(desc == initial(desc))
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
@@ -123,7 +123,7 @@
 
 	switch(choice)
 		if("Name")
-			var/newname = copytext(sanitize(input(H, "Who are we again?", "Name change", H.name) as null|text),1,MAX_NAME_LEN)
+			var/newname = tgui_input_text(H, "Who are we again?", "Name change", H.name, max_length = MAX_NAME_LEN)
 
 			if(!newname)
 				return

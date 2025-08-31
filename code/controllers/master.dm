@@ -203,7 +203,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				msg = "The [BadBoy.name] subsystem was the last to fire for 2 controller restarts. It will be recovered now and disabled if it happens again."
 				FireHim = TRUE
 			if(3)
-				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined. [span_info("The following implications are now in effect: [BadBoy.offline_implications]")]"
+				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined. [span_notice("The following implications are now in effect: [BadBoy.offline_implications]")]"
 				BadBoy.flags |= SS_NO_FIRE
 		if(msg)
 			to_chat(GLOB.admins, span_boldannounceooc("[msg]"))
@@ -221,7 +221,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 
 // Please don't stuff random bullshit here,
-// 	Make a subsystem, give it the SS_NO_FIRE flag, and do your work in it's Initialize()
+//	Make a subsystem, give it the SS_NO_FIRE flag, and do your work in it's Initialize()
 /datum/controller/master/Initialize(delay, init_sss, tgs_prime)
 	set waitfor = 0
 
@@ -370,7 +370,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			chat_warning = TRUE
 
 	var/message = "[message_prefix] [seconds] second[seconds == 1 ? "" : "s"]!"
-	var/chat_message = chat_warning ? span_dangerbigger(message) : message
+	var/chat_message = chat_warning ? span_biggerdanger(message) : message
 
 	last_init_info = "([subsystem.name]): [message]"
 

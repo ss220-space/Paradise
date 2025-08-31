@@ -55,7 +55,7 @@
 
 //#define STATUS_EFFECT_POWERREGEN /datum/status_effect/cyborg_power_regen //Regenerates power on a given cyborg over time
 
-//#define STATUS_EFFECT_HISGRACE /datum/status_effect/his_grace //His Grace.
+#define STATUS_EFFECT_HISGRACE /datum/status_effect/his_grace //His Grace.
 
 //#define STATUS_EFFECT_WISH_GRANTERS_GIFT /datum/status_effect/wish_granters_gift //If you're currently resurrecting with the Wish Granter
 
@@ -150,6 +150,7 @@
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 #define STATUS_EFFECT_KNOCKDOWN /datum/status_effect/incapacitating/knockdown
+#define STATUS_EFFECT_ARMBAR /datum/status_effect/judo_armbar
 
 // transient
 #define STATUS_EFFECT_CONFUSION /datum/status_effect/transient/confusion

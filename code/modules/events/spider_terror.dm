@@ -7,7 +7,11 @@
 
 /datum/event/spider_terror/announce(false_alarm)
 	if(false_alarm)
-		GLOB.command_announcement.Announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
+		GLOB.major_announcement.announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!",
+										ANNOUNCE_BIOHAZARD_RU,
+										'sound/effects/siren-spooky.ogg',
+										new_sound2 = 'sound/AI/outbreak_terror.ogg'
+		)
 
 /datum/event/spider_terror/start()
 	// It is necessary to wrap this to avoid the event triggering repeatedly.

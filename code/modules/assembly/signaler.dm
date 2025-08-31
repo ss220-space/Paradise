@@ -1,6 +1,6 @@
 /obj/item/assembly/signaler
 	name = "remote signaling device"
-	desc = "Used to remotely activate devices."
+	desc = "Используется для удалённой активации устройств."
 	icon_state = "signaller"
 	item_state = "signaler"
 	materials = list(MAT_METAL=400, MAT_GLASS=120)
@@ -19,7 +19,18 @@
 	var/airlock_wire = null
 
 
-/obj/item/assembly/signaler/Initialize()
+/obj/item/assembly/signaler/get_ru_names()
+	return list(
+		NOMINATIVE = "сигнальное устройство",
+		GENITIVE = "сигнального устройства",
+		DATIVE = "сигнальному устройству",
+		ACCUSATIVE = "сигнальное устройство",
+		INSTRUMENTAL = "сигнальным устройством",
+		PREPOSITIONAL = "сигнальном устройстве",
+	)
+
+
+/obj/item/assembly/signaler/Initialize(mapload)
 	. = ..()
 	if(SSradio)
 		set_frequency(frequency)
@@ -35,7 +46,7 @@
 /obj/item/assembly/signaler/examine(mob/user)
 	. = ..()
 	. += span_notice("The power light is <b>[receiving ? "on" : "off"]</b>.")
-	. += span_info("<b>Alt+Click</b> to send a signal.")
+	. += span_notice("<b>Alt+Click</b> to send a signal.")
 
 
 /obj/item/assembly/signaler/click_alt(mob/user)
@@ -149,7 +160,8 @@
 	pulse(1, signal.user)
 
 	for(var/mob/hearer in hearers(1, loc))
-		hearer.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
+		hearer.show_message("[bicon(src)] *beep* *beep* *beep*", 3, "*beep* *beep* *beep*", 2)
+		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	return TRUE
 
 

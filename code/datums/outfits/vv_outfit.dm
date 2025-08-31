@@ -177,7 +177,7 @@
 			O.accessories |= accessory.type
 
 	//Copy to outfit cache
-	var/outfit_name = stripped_input(usr, "Enter the outfit name")
+	var/outfit_name = tgui_input_text(usr, "Enter the outfit name")
 	O.name = outfit_name
 	GLOB.custom_outfits += O
 	to_chat(usr, "Outfit registered, use select equipment to equip it.")
@@ -210,7 +210,7 @@
 		if(update_id_name)
 			card.registered_name = H.real_name
 			card.update_label()
-		H.sec_hud_set_ID()
+		H.update_hud_set()
 
 /datum/outfit/varedit/get_json_data()
 	. = .. ()

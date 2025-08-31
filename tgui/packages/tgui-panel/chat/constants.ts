@@ -61,13 +61,13 @@ export const MESSAGE_TYPES = [
     name: 'Радио',
     description: 'All departments of radio messages',
     selector:
-      '.alert, .syndradio, .centradio, .airadio, .entradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .supradio, .srvradio, .expradio, .radio, .deptradio, .newscaster, .taipan, .sovradio, .spider_clan',
+      '.alert, .syndradio, .centradio, .airadio, .entradio, .comradio, .secradio, .prisradio, .engradio, .medradio, .sciradio, .supradio, .srvradio, .expradio, .radio, .deptradio, .newscaster, .taipan, .sovradio, .spider_clan',
   },
   {
     type: MESSAGE_TYPE_INFO,
     name: 'Info',
     description: 'Non-urgent messages from the game and items',
-    selector: '.notice:not(.pm), .adminnotice, .info, .sinister, .cult',
+    selector: '.notice:not(.pm), .adminnotice, .sinister, .cult',
   },
   {
     type: MESSAGE_TYPE_WARNING,
@@ -86,7 +86,7 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_OOC,
     name: 'OOC',
     description: 'The bluewall of global OOC messages',
-    selector: '.ooc, .adminooc',
+    selector: '.ooc, .adminooc, .interface',
   },
   {
     type: MESSAGE_TYPE_ADMINPM,

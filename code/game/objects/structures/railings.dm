@@ -26,6 +26,8 @@
 		)
 		AddElement(/datum/element/connect_loc, loc_connections)
 
+/obj/structure/railing/get_climb_text()
+	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(ACCUSATIVE)], чтобы после небольшой задержки взобраться на [genderize_ru(gender, "него", "неё", "него", "них")].")
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
@@ -43,7 +45,7 @@
 		return
 	to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
 	if(I.use_tool(src, user, 40, volume = 50))
-		obj_integrity = max_integrity
+		update_integrity(max_integrity)
 		to_chat(user, "<span class='notice'>You repair [src].</span>")
 
 /obj/structure/railing/wirecutter_act(mob/living/user, obj/item/I)

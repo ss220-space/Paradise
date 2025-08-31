@@ -60,13 +60,23 @@
 
 /obj/structure/fluff/drake_statue //Ash drake status spawn on either side of the necropolis gate in lavaland.
 	name = "drake statue"
-	desc = "A towering basalt sculpture of a proud and regal drake. Its eyes are six glowing gemstones."
+	desc = "Величественная базальтовая скульптура гордого дрейка. Его глаза — шесть светящихся самоцветов."
 	icon = 'icons/effects/64x64.dmi'
 	icon_state = "drake_statue"
 	pixel_x = -16
 	density = TRUE
 	deconstructible = FALSE
 	layer = EDGED_TURF_LAYER
+
+/obj/structure/fluff/drake_statue/get_ru_names()
+	return list(
+		NOMINATIVE = "статуя дрейка",
+		GENITIVE = "статуи дрейка",
+		DATIVE = "статуе дрейка",
+		ACCUSATIVE = "статую дрейка",
+		INSTRUMENTAL = "статуей дрейка",
+		PREPOSITIONAL = "статуе дрейка"
+	)
 
 /obj/structure/fluff/drake_statue/falling //A variety of statue in disrepair; parts are broken off and a gemstone is missing
 	desc = "A towering basalt sculpture of a drake. Cracks run down its surface and parts of it have fallen off."
@@ -97,5 +107,15 @@
 
 /obj/structure/fluff/grave/empty
 	name = "empty grave"
-	desc = "A former grave."
+	desc = "Разграбленная могила."
 	icon_state = "grave_empty"
+
+/obj/structure/fluff/grave/empty/get_ru_names()
+	return list(
+		NOMINATIVE = "пустая могила",
+		GENITIVE = "пустой могилы",
+		DATIVE = "пустой могиле",
+		ACCUSATIVE = "пустую могилу",
+		INSTRUMENTAL = "пустой могилой",
+		PREPOSITIONAL = "пустой могиле"
+	)

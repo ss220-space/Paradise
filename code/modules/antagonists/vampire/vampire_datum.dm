@@ -1,3 +1,6 @@
+/// Helper to format the text that gets thrown onto the chem hud element.
+#define FORMAT_BLOODUSABLE_TEXT(bloodusable) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>")
+
 /datum/antagonist/vampire
 	name = "Vampire"
 	antag_hud_type = ANTAG_HUD_VAMPIRE
@@ -60,17 +63,17 @@
 /datum/antagonist/vampire/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
-	messages.Add(span_danger("Вы — вампир!<br>"))
-	messages.Add("Чтобы укусить кого-то, нацельтесь на голову, выберите намерение <b>вреда (4)</b> и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
+	messages.Add(span_danger("Вы — вампир!<br>"))
+	messages.Add("Чтобы укусить кого-то, нацельтесь на голову, выберите намерение <b>вреда (4)</b> и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
 		Вы уязвимы перед святостью, огнём и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
 	return messages
 
 
 /datum/antagonist/vampire/farewell()
 	if(issilicon(owner.current))
-		to_chat(owner.current, span_userdanger("Вы превратились в робота! Вы чувствуете как вампирские силы исчезают…"))
+		to_chat(owner.current, span_userdanger("Вы превратились в робота! Вы чувствуете как вампирские силы исчезают…"))
 	else
-		to_chat(owner.current, span_userdanger("Ваш разум очищен! Вы больше не вампир."))
+		to_chat(owner.current, span_userdanger("Ваш разум очищен! Вы больше не вампир."))
 
 /datum/antagonist/vampire/give_objectives()
 	add_objective(/datum/objective/blood)
@@ -105,7 +108,6 @@
 		check_vampire_upgrade(announce = FALSE)
 		user.faction |= ROLE_VAMPIRE
 		user.dna?.species?.hunger_type = "vampire"
-		user.dna?.species?.hunger_icon = 'icons/mob/screen_hunger_vampire.dmi'
 		//goon vampire slaves code
 		//if(mob_override.mind.som)
 			//var/datum/mindslaves/slaved = mob_override.mind.som
@@ -113,6 +115,7 @@
 			//slaved.serv -= mob_override.mind
 			//slaved.leave_serv_hud(mob_override.mind)
 			//.mind.som = null
+	ADD_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
 
 	user.AddElement( \
 		/datum/element/pref_viewer, \
@@ -132,6 +135,8 @@
 	if(!mob_override)	// mob override means body transfer
 		remove_all_powers()
 
+	REMOVE_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
+
 	if(!transformation)
 		user.faction -= ROLE_VAMPIRE
 
@@ -140,7 +145,6 @@
 			hud.remove_vampire_hud()
 
 		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
-		user.dna?.species?.hunger_icon = initial(user.dna.species.hunger_icon)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 
@@ -171,25 +175,18 @@
 /datum/antagonist/vampire/proc/clear_subclass(give_specialize_power = TRUE)
 	if(give_specialize_power)
 		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
-		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 150
+		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 100
 
 	suck_rate = initial(suck_rate)
 	remove_all_powers()
+	subclass?.on_remove(src)
 	QDEL_NULL(subclass)
 	check_vampire_upgrade()
 
 
 /datum/antagonist/vampire/proc/adjust_blood(mob/living/carbon/human/user, blood_amount = 0)
-	if(user)
-		var/datum/mind/mind = user.get_real_mind()
-		var/unique_suck_id = mind.UID()
-		if(!(unique_suck_id in drained_humans))
-			drained_humans[unique_suck_id] = 0
-
-		if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
-			return
-
-		drained_humans[unique_suck_id] += blood_amount
+	if(!count_drain(user, blood_amount))
+		return
 
 	bloodtotal += blood_amount
 	bloodusable += blood_amount
@@ -199,6 +196,24 @@
 		if(power.action)
 			power.action.UpdateButtonIcon()
 
+/datum/antagonist/vampire/proc/count_drain(mob/living/carbon/human/user, blood_amount = 0)
+	if(!user)
+		return TRUE
+
+	var/datum/mind/mind = user.get_real_mind()
+	var/unique_suck_id = mind?.UID()
+
+	if(!unique_suck_id)
+		return TRUE
+
+	if(!(unique_suck_id in drained_humans))
+		drained_humans[unique_suck_id] = 0
+
+	if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
+		return FALSE
+
+	drained_humans[unique_suck_id] += blood_amount
+	return TRUE
 
 #define BLOOD_GAINED_MODIFIER 0.5
 
@@ -215,7 +230,7 @@
 	draining = target
 	var/mob/living/carbon/human/cur = owner.current
 	var/datum/mind/mind = target.get_real_mind()
-	var/unique_suck_id = mind.UID()
+	var/unique_suck_id = mind?.UID()
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	var/cycle_counter = 0
@@ -269,7 +284,7 @@
 
 			if(STATE_GRABBING)
 				cur.visible_message(span_danger("[cur] грубо хватает шею [target]"), \
-					span_danger("Вы грубо хватает шею [target]"))
+					span_danger("Вы грубо хватаете шею [target]"))
 				getting_closer_animation(target, STATE_GRABBING, vampire_dir)
 				time_per_action = suck_rate_final*BITE_TIME_MOD
 				continue
@@ -282,16 +297,16 @@
 				time_per_action = suck_rate_final
 				continue
 
-		if(unique_suck_id in drained_humans)
+		if(unique_suck_id && (unique_suck_id in drained_humans))
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
 				to_chat(cur, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
-				target.AdjustBlood(-25)
+				target.AdjustBlood(-30)
 				cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 				continue
 
 
 		if(target.stat < DEAD || target.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
-			if(!mind.madeby_sentience_potion && (target.get_real_ckey() || target.player_ghosted)) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
+			if(mind && !mind.madeby_sentience_potion && (target.get_real_ckey() || target.player_ghosted)) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, target.blood_volume)
 				adjust_blood(target, blood * BLOOD_GAINED_MODIFIER)
 				cur.adjustBruteLoss(-3)
@@ -309,11 +324,11 @@
 						bodypart.stop_internal_bleeding()
 
 				if(bloodtotal >= REQ_BLOOD_FOR_SUBCLASS_ACT)
-					subclass?.on_blood_sucking(owner)
+					subclass?.on_blood_sucking(cur)
 
 				to_chat(cur, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
 
-		target.AdjustBlood(-25)
+		target.AdjustBlood(-30)
 
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(target.blood_volume)
@@ -329,7 +344,7 @@
 			to_chat(cur, span_warning("Вы выпили свою жертву досуха!"))
 			break
 
-		if(!target.get_real_ckey() && !target.player_ghosted || mind.madeby_sentience_potion)//Only runs if there is no ckey and the body has not being ghosted while alive
+		if(!target.get_real_ckey() && !target.player_ghosted || !mind || mind.madeby_sentience_potion)//Only runs if there is no ckey and the body has not being ghosted while alive
 			to_chat(cur, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
 			cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 
@@ -450,7 +465,6 @@
 	for(var/power in powers)
 		remove_ability(power)
 
-
 /datum/antagonist/vampire/proc/check_vampire_upgrade(announce = TRUE)
 	var/list/old_powers = powers.Copy()
 
@@ -498,8 +512,8 @@
 	var/ay = owner.current.y
 
 	for(var/i = 1 to 20)
-		ax += SSsun.dx
-		ay += SSsun.dy
+		ax += SSsun.dy
+		ay += SSsun.dx
 
 		var/turf/T = locate(round(ax, 0.5), round(ay, 0.5), owner.current.z)
 
@@ -587,7 +601,7 @@
 		hud.vampire_blood_display.screen_loc = "WEST:6,CENTER-1:15"
 		hud.static_inventory += hud.vampire_blood_display
 		hud.show_hud(hud.hud_version)
-	hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
+	hud.vampire_blood_display.maptext = FORMAT_BLOODUSABLE_TEXT(bloodusable)
 
 
 /datum/antagonist/vampire/proc/handle_vampire_cloak()
@@ -701,7 +715,7 @@
 
 /datum/antagonist/mindslave/thrall/greet()
 	var/greet_text = "<b>Вы были очарованы [master.current.real_name]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.</b>"
-	return span_dangerbigger(greet_text)
+	return span_biggerdanger(greet_text)
 
 /datum/antagonist/mindslave/thrall/farewell()
 	if(issilicon(owner.current))
@@ -719,3 +733,6 @@
 	var/mob/living/user = ..()
 	user.faction -= ROLE_VAMPIRE
 	return user
+
+
+#undef FORMAT_BLOODUSABLE_TEXT

@@ -62,7 +62,8 @@ const Recipes = (_props: unknown) => {
               width={12.5}
               value={searchText}
               placeholder={'Find recipe'}
-              onInput={(e, value) => setSearchText(value)}
+              expensive
+              onChange={setSearchText}
             />
           )}
           <Button

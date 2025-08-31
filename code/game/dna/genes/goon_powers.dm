@@ -2,7 +2,7 @@
 
 // WAS: /datum/bioEffect/alcres
 /datum/dna/gene/basic/sober
-	name = "Sober"
+	name = "Трезвость"
 	activation_messages = list("Вы чувствуете себя необычайно трезвым.")
 	deactivation_messages = list("Вы чувствуете, что вам не помешает крепкий напиток.")
 	traits_to_add = list(TRAIT_SOBER)
@@ -15,7 +15,7 @@
 
 //WAS: /datum/bioEffect/psychic_resist
 /datum/dna/gene/basic/psychic_resist
-	name = "Psy-Resist"
+	name = "Пси-защита"
 	desc = "Повышает эффективность работы секторов мозга, обычно связанных с мета-психическими энергиями."
 	activation_messages = list("Ваш разум кажется закрытым.")
 	deactivation_messages = list("Вы чувствуете себя незащищенным.")
@@ -33,7 +33,7 @@
 
 // WAS: /datum/bioEffect/darkcloak
 /datum/dna/gene/basic/darkcloak
-	name = "Cloak of Darkness"
+	name = "Плащ тьмы"
 	desc = "Позволяет субъекту излучать вокруг себя слабое свечение, создавая эффект маскировки."
 	activation_messages = list("Вы начинаете исчезать в тени.")
 	deactivation_messages = list("Вы становитесь полностью видимым.")
@@ -62,7 +62,7 @@
 
 //WAS: /datum/bioEffect/chameleon
 /datum/dna/gene/basic/chameleon
-	name = "Chameleon"
+	name = "Хамелеон"
 	desc = "Субъект обретает способность тонко изменять структуру света, чтобы оставаться невидимым до тех пор, пока он остается неподвижным."
 	activation_messages = list("Вы чувствуете себя единым целым с окружающим миром.")
 	deactivation_messages = list("Вы чувствуете себя необычайно заметным.")
@@ -120,7 +120,7 @@
 
 // WAS: /datum/bioEffect/cryokinesis
 /datum/dna/gene/basic/grant_spell/cryo
-	name = "Cryokinesis"
+	name = "Криокинез"
 	desc = "Позволяет субъекту понижать температуру тела окружающих."
 	activation_messages = list("Ваши кончики пальцев слегка покалывает от холода.")
 	deactivation_messages = list("Ваши пальцы становятся теплее.")
@@ -210,7 +210,7 @@
 
 // WAS: /datum/bioEffect/mattereater
 /datum/dna/gene/basic/grant_spell/mattereater
-	name = "Matter Eater"
+	name = "Пожиратель материи"
 	desc = "Позволяет без вреда для здоровья есть практически что-угодно."
 	activation_messages = list("Вы чувствуете голод.")
 	deactivation_messages = list("Вы больше не чувствуете себя таким голодным.")
@@ -312,12 +312,12 @@
 				to_chat(user, span_danger("Вы упустили [limb]!"))
 				return
 			user.visible_message(span_danger("[user] [pick("отрыва[pluralize_ru(user, "ет", "ют")]","откусыва[pluralize_ru(user, "ет", "ют")]")] [limb] от [the_item]!"))
-			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+			playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 			limb.droplimb(0, DROPLIMB_SHARP)
 			doHeal(user)
 	else
 		user.visible_message(span_danger("[user] [pick("съеда[pluralize_ru(user, "ет", "ют")]","поглоща[pluralize_ru(user, "ет", "ют")]")] [the_item]."))
-		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
+		playsound(user.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 		qdel(the_item)
 		doHeal(user)
 
@@ -326,7 +326,7 @@
 
 //WAS: /datum/bioEffect/jumpy
 /datum/dna/gene/basic/grant_spell/jumpy
-	name = "Jumpy"
+	name = "Прыгучесть"
 	desc = "Позволяет субъекту совершать прыжки на большие расстояния."
 	//cooldown = 30
 	activation_messages = list("Вы чувствуете силу в своих ногах.")
@@ -375,7 +375,7 @@
 				puller.stop_pulling()
 
 		user.visible_message(span_danger("[user.name] дела[pluralize_ru(user, "ет", "ют")] огромный скачок!"))
-		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
+		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 		if(failure)
 			user.Weaken(10 SECONDS)
 			user.visible_message(span_warning("[user] пыта[pluralize_ru(user, "ет", "ют")]ся отпрыгнуть, но снова оказыва[pluralize_ru(user, "ет", "ют")]ся прижатым[pluralize_ru(user, "", "и")] к земле!"),
@@ -400,7 +400,6 @@
 
 		else if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
 			user.visible_message(span_danger("[user.name] пада[pluralize_ru(user, "ет", "ют")] на землю под весом своего тела!"))
-			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(20 SECONDS)
 
 		user.layer = prevLayer
@@ -411,7 +410,7 @@
 		user.AdjustParalysis(6 SECONDS)
 		user.AdjustWeakened(10 SECONDS)
 		container.visible_message(span_danger("[user.loc] изда[pluralize_ru(user, "ет", "ют")] громкий стук и немного дребезжит."))
-		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
+		playsound(user.loc, 'sound/effects/bang.ogg', 50, TRUE)
 		var/wiggle = 6
 		while(wiggle > 0)
 			wiggle--
@@ -427,7 +426,7 @@
 // WAS: /datum/bioEffect/polymorphism
 
 /datum/dna/gene/basic/grant_spell/polymorph
-	name = "Polymorphism"
+	name = "Полиморфизм"
 	desc = "Позволяет субъекту изменять свою внешность, чтобы подражать другим."
 
 	spelltype = /obj/effect/proc_holder/spell/polymorph
@@ -473,7 +472,7 @@
 
 	spawn(1 SECONDS)
 		if(target && user)
-			playsound(user.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+			playsound(user.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 			var/mob/living/carbon/human/H = user
 			H.UpdateAppearance(target.dna.UI)
 			H.real_name = target.real_name
@@ -483,7 +482,7 @@
 
 // WAS: /datum/bioEffect/empath
 /datum/dna/gene/basic/grant_spell/empath
-	name = "Empathic Thought"
+	name = "Эмпатические мысли"
 	desc = "Субъект получает возможность читать мысли других людей, чтобы получить определённую информацию."
 
 	spelltype = /obj/effect/proc_holder/spell/empath
@@ -599,12 +598,11 @@
 
 // WAS: /datum/bioEffect/strong
 /datum/dna/gene/basic/strong
-	name = "Strong"
+	name = "Сила"
 	desc = "Повышает способность субъекта наращивать и удерживать тяжелую мускулатуру."
 	activation_messages = list("Вы чувствуете, что ваши мышцы в тонусе!")
 	deactivation_messages = list("Вы чувствуете себя хилым и слабым.")
-	instability = GENE_INSTABILITY_MAJOR
-	traits_to_add = list(TRAIT_GENE_STRONG)
+	instability = GENE_INSTABILITY_MINOR
 
 
 /datum/dna/gene/basic/strong/New()
@@ -612,64 +610,26 @@
 	block = GLOB.strongblock
 
 
-/datum/dna/gene/basic/strong/can_activate(mob/living/mutant, flags)
-	if(!ishuman(mutant) || HAS_TRAIT(mutant, TRAIT_GENE_WEAK))
+/datum/dna/gene/basic/strong/can_activate(mob/living/carbon/human/mutant, flags)
+	if(!ishuman(mutant))
 		return FALSE
-	return ..()
 
+	if(HAS_TRAIT_FROM(mutant, TRAIT_WEAK_MUSCULS, DNA_TRAIT))
+		return FALSE
+
+	if(!HASBIT(SEND_SIGNAL(mutant, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
+		return FALSE
+
+	return ..()
 
 /datum/dna/gene/basic/strong/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	RegisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED, PROC_REF(on_species_change))
-	add_strong_modifiers(mutant)
-
+	ADD_TRAIT(mutant, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
+	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
+	mutant.update_body(TRUE)
 
 /datum/dna/gene/basic/strong/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	UnregisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED)
-	remove_strong_modifiers(mutant)
-
-
-/datum/dna/gene/basic/strong/proc/on_species_change(mob/living/carbon/human/mutant, datum/species/old_species)
-	SIGNAL_HANDLER
-
-	if(old_species.name != mutant.dna.species.name)
-		remove_strong_modifiers(mutant, old_species)
-		add_strong_modifiers(mutant)
-
-
-/datum/dna/gene/basic/strong/proc/add_strong_modifiers(mob/living/carbon/human/mutant)
-	mutant.physiology.tail_strength_mod *= 1.25
-	switch(mutant.dna.species.name)
-		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
-			mutant.physiology.grab_resist_mod *= 1.1
-			mutant.physiology.punch_damage_low += 1
-			mutant.physiology.punch_damage_high += 2
-		if(SPECIES_HUMAN)
-			mutant.physiology.grab_resist_mod *= 1.25
-			mutant.physiology.punch_damage_low += 3
-			mutant.physiology.punch_damage_high += 4
-		else
-			mutant.physiology.grab_resist_mod *= 1.15
-			mutant.physiology.punch_damage_low += 2
-			mutant.physiology.punch_damage_high += 3
-
-
-/datum/dna/gene/basic/strong/proc/remove_strong_modifiers(mob/living/carbon/human/mutant, datum/species/species)
-	if(!species)
-		species = mutant.dna.species
-	mutant.physiology.tail_strength_mod /= 1.25
-	switch(species.name)
-		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
-			mutant.physiology.grab_resist_mod /= 1.1
-			mutant.physiology.punch_damage_low -= 1
-			mutant.physiology.punch_damage_high -= 2
-		if(SPECIES_HUMAN)
-			mutant.physiology.grab_resist_mod /= 1.25
-			mutant.physiology.punch_damage_low -= 3
-			mutant.physiology.punch_damage_high -= 4
-		else
-			mutant.physiology.grab_resist_mod /= 1.15
-			mutant.physiology.punch_damage_low -= 2
-			mutant.physiology.punch_damage_high -= 3
-
+	REMOVE_TRAIT(mutant, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
+	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
+	mutant.update_body(TRUE)

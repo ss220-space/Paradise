@@ -352,7 +352,7 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 /client/proc/Set_Holiday(T as text|null)
 	set name = "Set Holiday"
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set desc = "Force-set the Holiday variable to make the game think it's a certain day."
 	if(!check_rights(R_SERVER))	return
 
@@ -362,7 +362,7 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 	choice += "--CANCEL--"
 
-	var/selected = input("What holiday would you like to force?","Holiday Forcing","--CANCEL--") in choice
+	var/selected = tgui_input_list(usr, "What holiday would you like to force?", "Holiday Forcing", choice, "--CANCEL--")
 
 	if(selected == "--CANCEL--")
 		return

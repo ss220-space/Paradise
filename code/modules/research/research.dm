@@ -360,12 +360,12 @@ datum/tech/robotics
 	return cost
 
 /obj/item/disk/tech_disk
-	name = "\improper Technology Disk"
+	name = "Technology Disk"
 	desc = "A disk for storing technology data for further research."
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	var/datum/tech/stored
-	var/default_name = "\improper Technology Disk"
+	var/default_name = "Technology Disk"
 	var/default_desc = "A disk for storing technology data for further research."
 
 /obj/item/disk/tech_disk/New()
@@ -438,14 +438,14 @@ datum/tech/robotics
 		new path(src)
 
 /obj/item/disk/design_disk
-	name = "\improper Component Design Disk"
+	name = "Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
 	icon_state = "datadisk2"
 	materials = list(MAT_METAL=100, MAT_GLASS=100)
 	var/datum/design/blueprint
 	// I'm doing this so that disk paths with pre-loaded designs don't get weird names
 	// Otherwise, I'd use "initial()"
-	var/default_name = "\improper Component Design Disk"
+	var/default_name = "Component Design Disk"
 	var/default_desc = "A disk for storing device design data for construction in lathes."
 
 /obj/item/disk/design_disk/New()
@@ -470,7 +470,7 @@ datum/tech/robotics
 	desc = "A gift from the Liberator."
 	icon_state = "datadisk1"
 
-/obj/item/disk/design_disk/golem_shell/Initialize()
+/obj/item/disk/design_disk/golem_shell/Initialize(mapload)
 	. = ..()
 	var/datum/design/golem_shell/G = new
 	blueprint = G
@@ -483,7 +483,7 @@ datum/tech/robotics
 	icon_state = "datadisk5"
 	var/design_type
 
-/obj/item/disk/design_disk/station_goal_machinery/Initialize()
+/obj/item/disk/design_disk/station_goal_machinery/Initialize(mapload)
 	. = ..()
 	if(isnull(design_type))
 		return INITIALIZE_HINT_QDEL

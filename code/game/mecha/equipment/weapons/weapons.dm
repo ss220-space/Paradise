@@ -26,6 +26,9 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot
 
+/obj/item/mecha_parts/mecha_equipment/weapon/get_destroy_sound()
+	return chassis.weapdestrsound
+
 /obj/item/mecha_parts/mecha_equipment/weapon/action(target, params)
 	if(!action_checks(target))
 		return FALSE
@@ -58,7 +61,7 @@
 			chassis.use_power(energy_drain)
 			projectiles--
 			A.fire()
-			playsound(chassis, fire_sound, 50, 1)
+			playsound(chassis, fire_sound, 50, TRUE)
 
 	if(isliving(target))
 		if((get_dist(chassis, target) == 1) && pb_knockback)
@@ -211,7 +214,7 @@
 	if(!equip_ready)
 		return FALSE
 
-	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
+	playsound(chassis, 'sound/items/airhorn.ogg', 100, TRUE)
 	chassis.occupant_message("<font color='red' size='5'>HONK</font>")
 	for(var/mob/living/carbon/M in ohearers(6, chassis))
 		if(ishuman(M))
@@ -271,7 +274,7 @@
 			chassis.use_power(projectile_energy_cost)
 	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 	log_message("Rearmed [name].")
-	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, 1)
+	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, TRUE)
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
@@ -292,7 +295,7 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
-	name = "\improper S.H.H. \"Quietus\" Carbine"
+	name = "S.H.H. \"Quietus\" Carbine"
 	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 1.5 SECONDS
@@ -414,7 +417,7 @@
 		return FALSE
 	var/obj/item/missile/M = new projectile(chassis.loc)
 	M.primed = 1
-	playsound(chassis, fire_sound, 50, 1)
+	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed, spin = FALSE)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
@@ -425,7 +428,12 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "SRX-13 Heavy Missile Launcher"
-	ru_names = list(
+	gender = FEMALE
+	icon_state = "mecha_missilerack"
+	projectile = /obj/item/missile/heavy
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy/get_ru_names()
+	return list(
 		NOMINATIVE = "тяжёлая пусковая ракетная установка SRX-13",
 		GENITIVE = "тяжёлой пусковой ракетной установки SRX-13",
 		DATIVE = "тяжёлой пусковой ракетной установке SRX-13",
@@ -433,13 +441,16 @@
 		INSTRUMENTAL = "тяжёлой пусковой ракетной установкой SRX-13",
 		PREPOSITIONAL = "тяжёлой пусковой ракетной установке SRX-13"
 	)
-	gender = FEMALE
-	icon_state = "mecha_missilerack"
-	projectile = /obj/item/missile/heavy
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
 	name = "SRM-8 Missile Rack"
-	ru_names = list(
+	gender = FEMALE
+	icon_state = "mecha_missilerack"
+	projectile = /obj/item/missile
+
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium/get_ru_names()
+	return list(
 		NOMINATIVE = "пусковая ракетная установка SRM-8",
 		GENITIVE = "пусковой ракетной установки SRM-8",
 		DATIVE = "пусковой ракетной установке SRM-8",
@@ -447,9 +458,6 @@
 		INSTRUMENTAL = "пусковой ракетной установкой SRM-8",
 		PREPOSITIONAL = "пусковой ракетной установке SRM-8"
 	)
-	gender = FEMALE
-	icon_state = "mecha_missilerack"
-	projectile = /obj/item/missile
 
 /obj/item/missile
 	icon = 'icons/obj/weapons/grenade.dmi'
@@ -458,13 +466,13 @@
 	throwforce = 15
 
 /obj/item/missile/proc/primed_explosion(atom/hit_atom)
-	explosion(hit_atom, 0, 2, 3, 4, 0)
+	explosion(hit_atom, devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, adminlog = FALSE)
 
 /obj/item/missile/heavy/primed_explosion(atom/hit_atom)
-	explosion(hit_atom, 2, 3, 4, 6, 0)
+	explosion(hit_atom, devastation_range = 2, heavy_impact_range = 3, light_impact_range = 4, flash_range = 6, adminlog = FALSE)
 
 /obj/item/missile/light/primed_explosion(atom/hit_atom)
-	explosion(hit_atom, 0, 0, 2, 4, 0)
+	explosion(hit_atom, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flash_range = 4, adminlog = FALSE)
 
 /obj/item/missile/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(primed)
@@ -494,7 +502,7 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/obj/item/grenade/flashbang/F = new projectile(chassis.loc)
-	playsound(chassis, fire_sound, 50, 1)
+	playsound(chassis, fire_sound, 50, TRUE)
 	F.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
@@ -602,7 +610,7 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/obj/item/restraints/legcuffs/bola/M = new projectile(chassis.loc)
-	playsound(chassis, fire_sound, 50, 1)
+	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")

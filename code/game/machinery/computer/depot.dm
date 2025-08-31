@@ -11,7 +11,7 @@
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "tcboss"
-	light_color = LIGHT_COLOR_PURE_CYAN
+	light_color = LIGHT_COLOR_ELECTRIC_CYAN
 	req_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	var/window_height = 400 // should be roughly 100 per section. Allow extra space for the lockout alert.
@@ -179,13 +179,13 @@
 		else
 			depotarea.set_emergency_access(FALSE)
 			to_chat(user, span_notice("Emergency Access disabled."))
-		playsound(user, sound_yes, 50, 0)
+		playsound(user, sound_yes, 50, FALSE)
 
 /obj/machinery/computer/syndicate_depot/doors/secondary(mob/user, subcommand)
 	if(depotarea)
 		depotarea.toggle_falsewalls(src)
 		to_chat(user, span_notice("False walls toggled."))
-		playsound(user, sound_yes, 50, 0)
+		playsound(user, sound_yes, 50, FALSE)
 
 
 // Engineering AKA self destruct computer, no useful functions, just a trap for the people who can't resist pushing dangerous-sounding buttons.
@@ -211,7 +211,7 @@
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/primary(mob/user)
 	if(depotarea.used_self_destruct)
-		playsound(user, sound_no, 50, 0)
+		playsound(user, sound_no, 50, FALSE)
 		return
 	if(depotarea)
 		depotarea.activate_self_destruct("Fusion reactor containment field disengaged. All hands, evacuate. All hands, evacuate!", TRUE, user)
@@ -259,7 +259,7 @@
 
 /obj/machinery/computer/syndicate_depot/shieldcontrol/primary(mob/user)
 	if(depotarea.used_self_destruct)
-		playsound(user, sound_no, 50, 0)
+		playsound(user, sound_no, 50, FALSE)
 		return
 	if(!istype(perimeterarea))
 		return
@@ -269,7 +269,7 @@
 	else
 		perimeterarea.perimeter_shields_up()
 		depotarea.perimeter_shield_status = TRUE
-	playsound(user, sound_yes, 50, 0)
+	playsound(user, sound_yes, 50, FALSE)
 
 
 /obj/machinery/computer/syndicate_depot/shieldcontrol/secondary(mob/user)
@@ -279,7 +279,7 @@
 		depotarea.shields_down()
 	else
 		depotarea.shields_up()
-	playsound(user, sound_yes, 50, 0)
+	playsound(user, sound_yes, 50, FALSE)
 
 
 // Syndicate comms computer, used to activate visitor mode, and message syndicate. Traitor-only use.
@@ -327,7 +327,7 @@
 		to_chat(user, "ERROR: No lifesigns detected at terminal, aborting.") // Safety to prevent aghosts accidentally consuming the only use.
 		return
 	if(message_sent)
-		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		to_chat(user, span_warning("[src] has already been used to transmit a message to the Syndicate."))
 		return
 	message_sent = TRUE
@@ -338,7 +338,7 @@
 	Syndicate_announce(input, user)
 	to_chat(user, "Message transmitted.")
 	add_game_logs("has sent a Syndicate comms message from the depot: [input]", user)
-	playsound(user, sound_yes, 50, 0)
+	playsound(user, sound_yes, 50, FALSE)
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/secondary(mob/user)
 	if(!istype(depotarea))
@@ -362,7 +362,7 @@
 	if(!depotarea.on_peaceful)
 		depotarea.peaceful_mode(TRUE, TRUE)
 	grant_syndie_faction(user)
-	playsound(user, sound_yes, 50, 0)
+	playsound(user, sound_yes, 50, FALSE)
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/proc/grant_syndie_faction(mob/user)
 	user.faction += "syndicate"
@@ -399,18 +399,18 @@
 	var/obj/effect/portal/redspace/myportal2
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
-	var/blocked = FALSE 		//Блокирует кнопки телепортера если TRUE
+	var/blocked = FALSE		//Блокирует кнопки телепортера если TRUE
 	var/last_opened_time = null	//Время когда в последний раз было открыто меню выбора телепорта
 	var/last_opener = null		//Последний открывший меню выбора телепорта
 	var/timeout = 300			//Время в течении которого никто не может использовать консоль пока кто то выбирает телепорт
 	var/is_cooldown = FALSE		//На кулдауне ли мы?
-	var/wait_time = 0 			//Сколько осталось до конца кулдауна.
+	var/wait_time = 0			//Сколько осталось до конца кулдауна.
 	var/lifespan = 300			//Сколько будут жить созданные порталы прежде чем удалиться
 
 /obj/machinery/computer/syndicate_depot/teleporter/taipan
 	req_access = list(154)
 	circuit = /obj/item/circuitboard/syndicate_teleporter
-	armor = list("melee" = 0, "bullet" = 100, "laser" = 40, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
+	armor = list(MELEE = 0, BULLET = 100, LASER = 40, ENERGY = 0, BOMB = 20, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
 
 /obj/machinery/computer/syndicate_depot/teleporter/Initialize(mapload)
 	..()
@@ -540,7 +540,7 @@
 		return
 	var/bresult = mybeacon.toggle()
 	to_chat(user, span_notice("Syndicate Teleporter Beacon: [bresult ? span_green("ON") : span_red("OFF")]"))
-	playsound(user, sound_yes, 50, 0)
+	playsound(user, sound_yes, 50, FALSE)
 
 /obj/machinery/computer/syndicate_depot/teleporter/secondary(mob/user)
 /*	if(!depotarea.on_peaceful && !check_rights(R_ADMIN, FALSE, user))
@@ -554,7 +554,7 @@
 	toggle_portal()
 	to_chat(user, span_notice("Outgoing Teleport Portal: [portal_enabled ? span_green("ON") : span_red("OFF")]"))
 	updateUsrDialog()
-	playsound(user, sound_yes, 50, 0)
+	playsound(user, sound_yes, 50, FALSE)
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/toggle_portal()
 	portal_enabled = !portal_enabled
@@ -627,7 +627,7 @@
 	else
 		depotarea.reset_alert()
 	to_chat(user, "Alert level reset.")
-	playsound(user, sound_yes, 50, 0)
+	playsound(user, sound_yes, 50, FALSE)
 
 /obj/machinery/computer/syndicate_depot/aiterminal/secondary(mob/user)
 	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.list_getmobs(depotarea.guard_list))
@@ -636,4 +636,4 @@
 		to_chat(user, "[B] has been recalled.")
 		qdel(B)
 		raise_alert("Sentry bot removed via emergency recall.")
-	playsound(user, sound_yes, 50, 0)
+	playsound(user, sound_yes, 50, FALSE)

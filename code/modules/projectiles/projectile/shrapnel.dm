@@ -38,6 +38,14 @@
 
 /obj/item/embedded/shrapnel
 	name = "shrapnel"
+	ru_names = list(
+		NOMINATIVE = "шрапнель",
+		GENITIVE = "шрапнели",
+		DATIVE = "шрапнели",
+		ACCUSATIVE = "шрапнель",
+		INSTRUMENTAL = "шрапнелью",
+		PREPOSITIONAL = "шрапнели"
+	)
 	icon = 'icons/obj/shards.dmi'
 	throwforce = 10
 	throw_speed =  EMBED_THROWSPEED_THRESHOLD

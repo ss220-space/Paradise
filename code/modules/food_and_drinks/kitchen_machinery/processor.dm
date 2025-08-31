@@ -7,7 +7,7 @@
 	anchored = TRUE
 
 	var/broken = 0
-	var/processing = 0
+	var/processing = FALSE
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
@@ -15,13 +15,13 @@
 	var/rating_speed = 0
 	var/rating_amount = 0
 
-/obj/machinery/processor/New()
-		..()
-		component_parts = list()
-		component_parts += new /obj/item/circuitboard/processor(null)
-		component_parts += new /obj/item/stock_parts/matter_bin(null)
-		component_parts += new /obj/item/stock_parts/manipulator(null)
-		RefreshParts()
+/obj/machinery/processor/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/processor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	RefreshParts()
 
 /obj/machinery/processor/RefreshParts()
 	rating_speed = 0
@@ -241,11 +241,11 @@
 	if(contents.len == 0)
 		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
 		return 1
-	processing = 1
+	processing = TRUE
 	user.visible_message("[user] turns on [src].", \
 		"<span class='notice'>You turn on [src].</span>", \
 		"<span class='italics'>You hear a food processor.</span>")
-	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
+	playsound(loc, 'sound/machines/blender.ogg', 50, TRUE)
 	use_power(500)
 	var/total_time = 0
 	for(var/O in contents)
@@ -262,7 +262,7 @@
 			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
 			continue
 		P.process_food(loc, O, src)
-	processing = 0
+	processing = FALSE
 
 	visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
 		"<span class='notice'>\the [src] has finished processing.</span>", \

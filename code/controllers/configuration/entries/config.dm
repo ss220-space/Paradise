@@ -50,6 +50,9 @@
 /// log game events
 /datum/config_entry/flag/log_game
 
+/// log map manipulations
+/datum/config_entry/flag/log_mapmanip
+
 /// log voting
 /datum/config_entry/flag/log_vote
 
@@ -430,7 +433,7 @@
 
 
 /datum/config_entry/number/antag_paradise_double_antag_chance
-	default = 33
+	default = 10
 	max_val = 100
 	min_val = 0
 
@@ -482,9 +485,11 @@
 	default = list(
 		"hijacker" = 10,
 		"malfai" = 10,
+		"prisoner" = 10,
 		"ninja" = 10,
 		"thief" = 10,
 		"nothing" = 20,
+		"devil" = 10
 	)
 
 

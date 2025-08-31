@@ -1,5 +1,5 @@
 /client/proc/cmd_mass_modify_object_variables(atom/A, var/var_name)
-	set category = "Admin.Debug"
+	set category = STATPANEL_ADMIN_DEBUG
 	set name = "Mass Edit Variables"
 	set desc="(target) Edit all instances of a target item's variables"
 
@@ -20,7 +20,7 @@
 					return
 
 	src.massmodify_variables(A, var_name, method)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Mass Edit Variables") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Mass Edit Variables")
 
 /client/proc/massmodify_variables(datum/O, var_name = "", method = 0)
 	if(!check_rights(R_VAREDIT))
@@ -224,7 +224,7 @@
 			CHECK_TICK
 
 	else if(ispath(T, /obj/machinery))
-		for(var/obj/machinery/thing in GLOB.machines)
+		for(var/obj/machinery/thing in SSmachines.get_by_type(/obj/machinery))
 			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK

@@ -25,10 +25,10 @@
 #define PLANT_PEST_HUD		"20"// Pest level
 #define PLANT_WEED_HUD		"21"// Weed level
 #define DIAG_TRACK_HUD		"22"// Mech tracking beacon
-#define DIAG_PATH_HUD 		"23"//Bot path indicators
-#define GLAND_HUD 			"24"//Gland indicators for abductors
+#define DIAG_PATH_HUD		"23"//Bot path indicators
+#define GLAND_HUD			"24"//Gland indicators for abductors
 #define THOUGHT_HUD			"25"//Telepathy bubbles
-#define KIDAN_PHEROMONES_HUD	"26"//Kidan pheromones hud
+#define KIDAN_PHEROMONES_HUD	"pheromone_hud" // Kidan pheromones hud
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -56,12 +56,15 @@
 #define ANTAG_HUD_VAMPIRE 17
 #define ANTAG_HUD_ABDUCTOR 18
 #define DATA_HUD_ABDUCTOR 19
-#define ANTAG_HUD_DEVIL 20
-#define ANTAG_HUD_EVENTMISC 21
-#define ANTAG_HUD_BLOB 22
-#define TAIPAN_HUD 23
-#define ANTAG_HUD_THIEF 24
-#define THOUGHTS_HUD 25
+#define ANTAG_HUD_DEVIL			20
+#define ANTAG_HUD_SINTOUCHED	21
+#define ANTAG_HUD_SOULLESS		22
+#define ANTAG_HUD_EVENTMISC 23
+#define ANTAG_HUD_BLOB 24
+#define TAIPAN_HUD 25
+#define ANTAG_HUD_THIEF 26
+#define ANTAG_HUD_PRISONER_TRAITOR 27
+#define THOUGHTS_HUD 28
 //species hud
 #define DATA_HUD_KIDAN_PHEROMONES 26
 
@@ -73,7 +76,7 @@
 
 // The kind of things granted by HUD items in game, that do not manifest as
 // on-screen icons, but rather go to examine text.
-#define EXAMINE_HUD_NONE 					0		//"none"
+#define EXAMINE_HUD_NONE					0		//"none"
 #define EXAMINE_HUD_SECURITY_READ			(1<<0)	//"security_read"
 #define EXAMINE_HUD_SECURITY_WRITE			(1<<1)	//"security_write"
 #define EXAMINE_HUD_MEDICAL					(1<<2)	//"medical"
@@ -100,3 +103,12 @@
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"
+
+/// Takes a string or num view, and converts it to pixel width/height in a list(pixel_width, pixel_height)
+/proc/view_to_pixels(view)
+	if(!view)
+		return list(0, 0)
+	var/list/view_info = getviewsize(view)
+	view_info[1] *= ICON_SIZE_X
+	view_info[2] *= ICON_SIZE_Y
+	return view_info

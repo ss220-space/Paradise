@@ -4,14 +4,15 @@
 	name = "dog"
 	icon_state = "blackdog"
 	icon_living = "blackdog"
+	icon_resting = "blackdog_rest"
 	icon_dead = "blackdog_dead"
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
-	speak_emote = list("barks", "woofs")
-	emote_hear = list("barks!", "woofs!", "yaps.", "pants.")
-	emote_see = list("shakes its head.", "chases its tail.", "shivers.")
+	speak_emote = list("лает", "рявкает", "гавкает")
+	emote_hear = list("лает", "гавкает", "тявкает", "пыхтит")
+	emote_see = list("трясёт головой", "пытается поймать свой хвост", "дрожит")
 	tts_seed = "Stetmann"
 	faction = list("neutral")
 	maxHealth = 50
@@ -46,9 +47,9 @@
 	ai_controller = /datum/ai_controller/dog
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
-	set name = "Chase your tail"
+	set name = "Гоняться за хвостом"
 	set desc = "d'awwww."
-	set category = "Dog"
+	set category = STATPANEL_DOG
 
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)
@@ -90,7 +91,7 @@
 
 //Corgis and pugs are now under one dog subtype
 /mob/living/simple_animal/pet/dog/corgi
-	name = "\improper corgi"
+	name = "corgi"
 	real_name = "corgi"
 	desc = "It's a corgi."
 	icon_state = "corgi"
@@ -101,7 +102,7 @@
 	animal_species = /mob/living/simple_animal/pet/dog
 	collar_type = "corgi"
 	var/shaved = FALSE
-	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
+	var/nofur = FALSE		//Corgis that have risen past the material plane of existence.
 	tts_seed = "Stetmann"
 	holder_type = /obj/item/holder/corgi
 
@@ -245,9 +246,9 @@
 	desc = initial(desc)
 	// BYOND/DM doesn't support the use of initial on lists.
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
-	speak_emote = list("barks", "woofs")
-	emote_hear = list("barks!", "woofs!", "yaps.","pants.")
-	emote_see = list("shakes its head.", "chases its tail.","shivers.")
+	speak_emote = list("лает", "рявкает", "гавкает")
+	emote_hear = list("лает", "гавкает", "тявкает","пыхтит")
+	emote_see = list("трясёт головой", "пытается поймать свой хвост","дрожит")
 	desc = initial(desc)
 	set_light_on(FALSE)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
@@ -400,7 +401,7 @@
 /mob/living/simple_animal/pet/dog/corgi/Ian/proc/read_memory()
 	if(fexists("data/npc_saves/Ian.sav")) //legacy compatability to convert old format to new
 		var/savefile/S = new /savefile("data/npc_saves/Ian.sav")
-		S["age"] 		>> age
+		S["age"]		>> age
 		S["record_age"]	>> record_age
 		S["saved_head"] >> saved_head
 		fdel("data/npc_saves/Ian.sav")
@@ -545,9 +546,9 @@
 /mob/living/simple_animal/pet/dog/corgi/narsie/update_dog_fluff()
 	..()
 	speak = list("Tari'karat-pasnar!", "IA! IA!", "BRRUUURGHGHRHR")
-	speak_emote = list("growls", "barks ominously")
-	emote_hear = list("barks echoingly!", "woofs hauntingly!", "yaps in an eldritch manner.", "mutters something unspeakable.")
-	emote_see = list("communes with the unnameable.", "ponders devouring some souls.", "shakes.")
+	speak_emote = list("рычит", "зловеще лает")
+	emote_hear = list("лает эхом", "одержимо гавкает", "жутко тявкает", "непонятно бормочет")
+	emote_see = list("общается с Безымянным", "пытается учуять души", "трясётся")
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/narsie_act()
 	adjustBruteLoss(-maxHealth)
@@ -569,15 +570,15 @@
 /mob/living/simple_animal/pet/dog/corgi/ratvar/update_dog_fluff()
 	..()
 	speak = list("V'z fuvavat jneevbe!", "CLICK!", "KL-KL-KLIK")
-	speak_emote = list("growls", "barks ominously")
-	emote_hear = list("barks echoingly!", "woofs hauntingly!", "yaps in an judicial manner.", "mutters something unspeakable.")
-	emote_see = list("communes with the unnameable.", "seeks the light in souls.", "shakes.")
+	speak_emote = list("рычит", "зловеще лает")
+	emote_hear = list("лает эхом", "одержимо гавкает", "авторитетно тявкает", "непонятно бормочет")
+	emote_see = list("общается с Безымянным", "пытается учуять души заблудших", "трясётся")
 
 /mob/living/simple_animal/pet/dog/corgi/ratvar/ratvar_act()
 	adjustBruteLoss(-maxHealth)
 
 /mob/living/simple_animal/pet/dog/corgi/puppy
-	name = "\improper corgi puppy"
+	name = "corgi puppy"
 	real_name = "corgi"
 	desc = "It's a corgi puppy!"
 	icon_state = "puppy"
@@ -594,7 +595,7 @@
 	strippable_inventory_slots = list(/datum/strippable_item/pet_collar) // Puppies do not have a head or back equipment slot.
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void		//Tribute to the corgis born in nullspace
-	name = "\improper void puppy"
+	name = "void puppy"
 	real_name = "voidy"
 	desc = "A corgi puppy that has been infused with deep space energy. It's staring back..."
 	icon_state = "void_puppy"
@@ -607,7 +608,7 @@
 	maxHealth = 60
 	health = 60
 
-/mob/living/simple_animal/pet/dog/corgi/puppy/void/Initialize()
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_AI_BAGATTACK, INNATE_TRAIT)
 
@@ -622,7 +623,7 @@
 	return TRUE	//Void puppies can navigate space.
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/slime
-	name = "\improper slime puppy"
+	name = "slime puppy"
 	real_name = "slimy"
 	desc = "Крайне склизкий. Но прикольный!"
 	icon_state = "slime_puppy"
@@ -715,7 +716,7 @@
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
 	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
-	explosion(get_turf(src), 0, 1, 4, 7, cause = src)
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 4, flash_range = 7, cause = src)
 	death()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(var/atom/movable/target)
@@ -777,17 +778,28 @@
 ///Pugs
 
 /mob/living/simple_animal/pet/dog/pug
-	name = "\improper pug"
-	real_name = "pug"
-	desc = "It's a pug."
+	name = "pug"
+	real_name = "мопс"
+	desc = "Это мопс, маленькая, смешная, безобидная собака."
+	ru_names = list(
+		NOMINATIVE = "мопс",
+		GENITIVE = "мопса",
+		DATIVE = "мопсу",
+		ACCUSATIVE = "мопса",
+		INSTRUMENTAL = "мопсом",
+		PREPOSITIONAL = "мопсе"
+	)
+	gender = MALE
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "pug"
 	icon_living = "pug"
+	icon_resting = "pug_rest"
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/pug = 3)
 	collar_type = "pug"
 	tts_seed = "Kleiner"
 	holder_type = /obj/item/holder/pug
+	collar_type = "pug"
 	maxHealth = 30
 	health = 30
 
@@ -801,8 +813,20 @@
 					dir = i
 					sleep(1)
 
+/mob/living/simple_animal/pet/dog/pug/update_icons()
+	if(stat == DEAD)
+		icon_state = icon_dead
+		if(collar_type)
+			collar_type = "[initial(collar_type)]_dead"
+		regenerate_icons()
+		return
+	icon_state = icon_living
+	if(collar_type)
+		collar_type = "[initial(collar_type)]"
+	regenerate_icons()
+
 /mob/living/simple_animal/pet/dog/bullterrier
-	name = "\improper bullterrier"
+	name = "bullterrier"
 	real_name = "bullterrier"
 	desc = "Кого-то его мордочка напоминает..."
 	icon = 'icons/mob/pets.dmi'
@@ -813,7 +837,7 @@
 	holder_type = /obj/item/holder/bullterrier
 
 /mob/living/simple_animal/pet/dog/tamaskan
-	name = "\improper tamaskan"
+	name = "tamaskan"
 	real_name = "tamaskan"
 	desc = "Хорошая семейная собака. Уживается с другими собаками и ассистентами."
 	icon = 'icons/mob/pets.dmi'
@@ -824,7 +848,7 @@
 	holder_type = /obj/item/holder/bullterrier
 
 /mob/living/simple_animal/pet/dog/german
-	name = "\improper german"
+	name = "german"
 	real_name = "german"
 	desc = "Немецкая овчарка с помесью двортерьера. Судя по крупу - явно не породистый."
 	icon = 'icons/mob/pets.dmi'
@@ -834,7 +858,7 @@
 	//tts_seed = "Kleiner"
 
 /mob/living/simple_animal/pet/dog/brittany
-	name = "\improper brittany"
+	name = "brittany"
 	real_name = "brittany"
 	desc = "Старая порода, которую любят аристократы."
 	icon = 'icons/mob/pets.dmi'

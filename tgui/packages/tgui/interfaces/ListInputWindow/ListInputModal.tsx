@@ -78,7 +78,7 @@ export const ListInputModal = (props: ListInputModalProps) => {
     }
   };
   // User types into search bar
-  const onSearch = (e: SyntheticEvent<HTMLInputElement>, query: string) => {
+  const onSearch = (query: string) => {
     if (query === searchQuery) {
       return;
     }
@@ -157,7 +157,7 @@ export const ListInputModal = (props: ListInputModalProps) => {
               act('submit', { entry: filteredItems[selected] });
             }}
             expensive
-            onInput={onSearch}
+            onChange={onSearch}
             placeholder="Search..."
             value={searchQuery}
           />

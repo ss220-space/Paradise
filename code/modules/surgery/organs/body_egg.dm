@@ -8,7 +8,7 @@
 
 /obj/item/organ/internal/body_egg/on_find(mob/living/finder)
 	..()
-	to_chat(finder, span_warning("You found an unknown alien organism in [owner]'s [parent_organ_zone]!"))
+	to_chat(finder, span_warning("Вы обнаружили неизвестный инопланетный организм в [genderize_ru(owner.gender,"его","её","его","их")] [GLOB.body_zone[parent_organ_zone][PREPOSITIONAL]]!"))
 
 
 /obj/item/organ/internal/body_egg/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)

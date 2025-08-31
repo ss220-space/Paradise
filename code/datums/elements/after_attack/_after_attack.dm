@@ -4,7 +4,7 @@
 
 /datum/element/after_attack
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY|ELEMENT_BESPOKE
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 	/// Does the effect differ between a block and a successful attack
 	var/has_block_different_effect = TRUE
 
@@ -14,7 +14,7 @@
 	target.AddComponent(/datum/component/after_attacks_hub)
 	SEND_SIGNAL(target, COMSIG_ITEM_REGISTER_AFTERATTACK, src)
 
-/datum/element/after_attack/Detach(datum/source, force)
+/datum/element/after_attack/Detach(datum/source)
 	SEND_SIGNAL(source, COMSIG_ITEM_UNREGISTER_AFTERATTACK, src)
 	. = ..()
 

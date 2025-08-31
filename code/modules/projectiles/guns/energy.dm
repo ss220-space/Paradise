@@ -4,7 +4,6 @@
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/weapons/energy.dmi'
 	fire_sound_text = "laser blast"
-	gun_light_overlay = "flight"
 	ammo_x_offset = 2
 
 	var/obj/item/stock_parts/cell/cell	//What type of power cell this uses
@@ -60,8 +59,8 @@
 
 
 /obj/item/gun/energy/proc/toggle_voice()
-	set name = "Переключить голос Sibyl System"
-	set category = "Object"
+	set name = "Сменить голос Sibyl System"
+	set category = STATPANEL_OBJECT
 	set desc = "Кликните для переключения голосовой подсистемы."
 
 	if(sibyl_mod)
@@ -178,6 +177,9 @@
 /obj/item/gun/energy/Destroy()
 	if(selfcharge)
 		STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(cell)
+	QDEL_NULL(sibyl_mod)
+	QDEL_LIST(ammo_type)
 	return ..()
 
 /obj/item/gun/energy/process()
@@ -340,17 +342,9 @@
 				. += image(icon = icon, icon_state = new_icon_state, pixel_x = ammo_x_offset * (i - 1))
 		else
 			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
-	if(gun_light && gun_light_overlay)
-		var/iconF = gun_light_overlay
-		if(gun_light.on)
-			iconF = "[gun_light_overlay]_on"
-		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
 	if(bayonet && bayonet_overlay)
 		. += bayonet_overlay
 
-
-/obj/item/gun/energy/ui_action_click(mob/user, datum/action/action, leftclick)
-	toggle_gunlight()
 
 
 /obj/item/gun/energy/suicide_act(mob/user)
@@ -390,11 +384,21 @@
 		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
-			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
+			if(R.cell.use(shot.e_cost))		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
 
-/obj/item/gun/energy/proc/turret_check()
-	return TRUE
 
-/obj/item/gun/energy/proc/turret_deconstruct()
+/obj/item/gun/energy/proc/turret_check()
+	return !HAS_TRAIT(src, TRAIT_NOT_TURRET_GUN)
+
+
+/obj/item/gun/energy/proc/turret_deconstruct(list/data)
+	return
+
+
+/obj/item/gun/energy/proc/prepare_gun_data(list/data)
+	return
+
+
+/obj/item/gun/energy/proc/setup_gun_for_turret(list/data)
 	return

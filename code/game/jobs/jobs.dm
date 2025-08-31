@@ -99,7 +99,8 @@ GLOBAL_LIST_INIT(mining_positions, list(
 GLOBAL_LIST_INIT(service_positions, (support_positions - supply_positions))
 
 GLOBAL_LIST_INIT(civilian_positions, list(
-	JOB_TITLE_CIVILIAN
+	JOB_TITLE_CIVILIAN,
+	JOB_TITLE_PRISONER
 ))
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(

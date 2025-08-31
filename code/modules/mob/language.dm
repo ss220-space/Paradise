@@ -481,7 +481,7 @@
 /datum/language/moth/get_random_name()
 	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
 	new_name += "[pick(list(" of"," for"," in Service of",", Servant of"," for the Good of",", Student of"," to"))]"
-	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
+	new_name += " [pick(list("Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
 	return new_name
 
 /datum/language/common
@@ -587,6 +587,11 @@
 
 	return FALSE
 
+/datum/language/wryn/get_random_name()
+	var/new_name = "[pick(list("Ба", "Бо", "Бу", "Бы", "Ва", "Во", "Вы", "Га", "Го", "Гу", "Да", "До", "Ду", "Ел", "Жа", "Жо", "Жу", "За", "Зо", "Зу", "Ив", "Из", "Ин", "Йо", "Ла", "Ле", "Ли", "Ма", "Му", "Мы", "Тру"))]"
+	new_name += "[pick(list("ба", "бо", "бу", "бор", "ва", "во", "век", "га", "гор", "ду", "дар", "ел", "жу", "жар", "зо", "зуб", "ив", "изг", "инт", "йод", "ла", "лес", "лим", "ма", "мир", "тыр", "нос", "обл", "орг", "пот", "тень"))]"
+	return new_name
+
 /datum/language/xenocommon
 	name = LANGUAGE_XENOS
 	colour = "alien"
@@ -666,7 +671,7 @@
 
 /datum/language/shadowling/broadcast(mob/living/speaker, message, speaker_mask)
 	if(speaker.mind && speaker.mind.special_role == SPECIAL_ROLE_SHADOWLING)
-		..(speaker,"<font size=3><b>[message]</b></font>", "<span class='shadowling'><font size=3>([speaker.mind.special_role]) [speaker]</font></span>")
+		..(speaker,"[span_bold(span_fontsize3(message))]", span_shadowling(span_fontsize3("([speaker.mind.special_role]) [speaker]")))
 	else if(speaker.mind && speaker.mind.special_role)
 		..(speaker, message, "([speaker.mind.special_role]) [speaker]")
 	else
@@ -879,7 +884,7 @@
 
 /mob/verb/check_languages()
 	set name = "Меню языков"
-	set category = "IC"
+	set category = STATPANEL_IC
 	set src = usr
 
 	var/datum/browser/popup = new(src, "checklanguage", "Меню языков", 420, 470)

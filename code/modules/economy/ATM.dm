@@ -36,12 +36,9 @@ log transactions
 	var/view_screen = DEFAULT_SCREEN
 	var/lastprint = 0 // Printer needs time to cooldown
 
-/obj/machinery/atm/New()
-	..()
-	machine_id = "[station_name()] RT #[GLOB.num_financial_terminals++]"
-
-/obj/machinery/atm/Initialize()
+/obj/machinery/atm/Initialize(mapload)
 	. = ..()
+	machine_id = "[station_name()] RT #[GLOB.num_financial_terminals++]"
 	reconnect_database()
 	update_icon()
 
@@ -77,7 +74,7 @@ log transactions
 				authenticated_account.charge(-cash_amount, null, "Credit deposit", machine_id, "Terminal")
 
 /obj/machinery/atm/proc/reconnect_database()
-	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
+	for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
 		if(DB.stat & NOPOWER || !DB.activated)
 			continue
 		if(is_station_level(z) && is_station_level(DB.z))
@@ -151,7 +148,7 @@ log transactions
 	if(..())
 		return TRUE
 	if(issilicon(user))
-		to_chat(user, "<span class='warning'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.</span>")
+		to_chat(user, span_warning("Обнаружен искусственный интеллект. Согласно регуляции НаноТрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
 		return
 	if(!linked_db)
 		reconnect_database()

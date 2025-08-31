@@ -36,32 +36,32 @@
 		return ..()
 
 
-/atom/movable/screen/movable/action_button/Click(location,control,params)
+/atom/movable/screen/movable/action_button/Click(location, control, params)
 	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return
 
 	var/list/modifiers = params2list(params)
-	if(modifiers["ctrl"] && modifiers["shift"])
+	if(LAZYACCESS(modifiers, CTRL_CLICK) && LAZYACCESS(modifiers, SHIFT_CLICK))
 		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
 		return TRUE
 	if(usr.next_click > world.time)
 		return FALSE
 	usr.changeNext_click(1)
-	if(modifiers["shift"])
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		if(locked)
-			to_chat(usr, span_warning("Action button \"[name]\" is locked, unlock it first."))
+			to_chat(usr, span_warning("Кнопка действия \"[name]\" заблокирована, сначала разблокируйте её."))
 			return TRUE
 		moved = FALSE
 		usr.update_action_buttons(TRUE) //redraw buttons that are no longer considered "moved"
 		return TRUE
-	if(modifiers["ctrl"])
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		locked = !locked
-		to_chat(usr, span_notice("Action button \"[name]\" [locked ? "" : "un"]locked."))
+		to_chat(usr, span_notice("Кнопка действия \"[name]\" [locked ? "заблокирована" : "разблокирована"]."))
 		return TRUE
-	if(modifiers["alt"])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		usr.base_click_alt(src)
 		return TRUE
-	if(modifiers["middle"])
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		linked_action.Trigger(left_click = FALSE)
 		return TRUE
 	linked_action.Trigger(left_click = TRUE)
@@ -76,7 +76,7 @@
 	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return
 
-	var/keybind_to_set_to = tgui_input_keycombo(user, "What keybind do you want to set this action button to?")
+	var/keybind_to_set_to = tgui_input_keycombo(user, "На какую клавишу назначить эту кнопку действия?")
 	if(length(keybind_to_set_to) == 1)
 		keybind_to_set_to = uppertext(keybind_to_set_to)
 	if(keybind_to_set_to)
@@ -87,10 +87,10 @@
 		user.client.active_keybindings[keybind_to_set_to] += list(triggerer)
 		linked_keybind = triggerer
 		triggerer.binded_to = keybind_to_set_to
-		to_chat(user, span_info("[src] has been binded to [keybind_to_set_to]!"))
+		to_chat(user, span_notice("[src] назначена на клавишу [keybind_to_set_to]!"))
 	else if(linked_keybind)
 		clean_up_keybinds(user)
-		to_chat(user, span_info("Your active keybinding on [src] has been cleared."))
+		to_chat(user, span_notice("Назначение клавиши для [src] удалено."))
 
 
 /atom/movable/screen/movable/action_button/click_alt(mob/user)
@@ -115,10 +115,11 @@
 
 //Hide/Show Action Buttons ... Button
 /atom/movable/screen/movable/action_button/hide_toggle
-	name = "Hide Buttons"
-	desc = "Shift-click any button to reset its position, and Control-click it to lock/unlock its position. \
-	<br> Alt-click this button to reset all buttons to their default positions. \
-	<br> Control-Shift-click on any button to bind it to a hotkey."
+	name = "Скрыть кнопки"
+	desc = "Shift+ЛКМ — сбросить позицию кнопки.\
+			<br> Ctrl+ЛКМ — заблокировать/разблокировать. \
+			<br> Alt+ЛКМ на этой кнопке — сбросить ВСЕ кнопки в стандартные позиции. \
+			<br> Ctrl+Shift+ЛКМ — назначить горячую клавишу."
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "bg_default"
 	var/hidden = FALSE
@@ -140,7 +141,7 @@
 		return FALSE
 	usr.changeNext_click(1)
 	var/list/modifiers = params2list(params)
-	if(modifiers["alt"])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		usr.base_click_alt(src)
 		return TRUE
 
@@ -148,9 +149,9 @@
 
 	hidden = usr.hud_used.action_buttons_hidden
 	if(hidden)
-		name = "Show Buttons"
+		name = "Показать кнопки"
 	else
-		name = "Hide Buttons"
+		name = "Скрыть кнопки"
 	update_icon(UPDATE_OVERLAYS)
 	usr.update_action_buttons()
 
@@ -165,7 +166,7 @@
 	if(moved)
 		moved = FALSE
 	user.update_action_buttons(reload_screen = TRUE)
-	to_chat(user, span_notice("Action button positions have been reset."))
+	to_chat(user, span_notice("Позиции кнопок сброшены."))
 	return CLICK_ACTION_SUCCESS
 
 
@@ -195,13 +196,14 @@
 
 
 /atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
+	. = ..()
 	if(!QDELETED(src))
 		if(!linked_keybind)
 			openToolTip(usr, src, params, title = name, content = desc, theme = actiontooltipstyle)
 		else
 			var/list/desc_information = list()
 			desc_information += desc
-			desc_information += "This action is currently bound to the [linked_keybind.binded_to] key."
+			desc_information += "Сейчас привязано к клавише \"[linked_keybind.binded_to]\""
 			desc_information = desc_information.Join(" ")
 			openToolTip(usr, src, params, title = name, content = desc_information, theme = actiontooltipstyle)
 

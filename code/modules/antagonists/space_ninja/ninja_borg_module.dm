@@ -11,7 +11,7 @@
 	faction = list(ROLE_NINJA)
 	bubble_icon = "syndibot"
 	designation = "Spider Clan"
-	modtype = "Spider Clan"
+	modtype = /obj/item/robot_module/ninja
 	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = 1
 	damage_protection = 5
@@ -45,7 +45,7 @@
 	freqlock = FALSE
 	freerange = TRUE
 
-/obj/item/radio/borg/ninja/Initialize()
+/obj/item/radio/borg/ninja/Initialize(mapload)
 	. = ..()
 	set_frequency(NINJA_FREQ)
 

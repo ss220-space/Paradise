@@ -10,7 +10,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/active = FALSE
 
 
-/obj/machinery/gateway/Initialize()
+/obj/machinery/gateway/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	update_density_from_dir()
@@ -37,14 +37,11 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
 
-/obj/machinery/gateway/centerstation/New()
-	..()
+/obj/machinery/gateway/centerstation/Initialize(mapload)
+	. = ..()
 	if(!GLOB.the_gateway)
 		GLOB.the_gateway = src
 
-
-/obj/machinery/gateway/centerstation/Initialize(mapload)
-	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	wait = world.time + CONFIG_GET(number/gateway_delay)
 	return INITIALIZE_HINT_LATELOAD
@@ -57,7 +54,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/centerstation/LateInitialize()
-	awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
+	awaygate = locate(/obj/machinery/gateway/centeraway) in SSmachines.get_by_type(/obj/machinery/gateway)
 
 
 /obj/machinery/gateway/centerstation/update_density_from_dir()
@@ -111,7 +108,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		to_chat(user, span_notice("Error: Lockdowned by CentComm."))
 		return
 	if(!awaygate)
-		awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
+		awaygate = locate(/obj/machinery/gateway/centeraway) in SSmachines.get_by_type(/obj/machinery/gateway)
 		if(!awaygate)
 			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
 			return
@@ -181,10 +178,10 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	var/obj/machinery/gateway/centeraway/stationgate = null
 
 
-/obj/machinery/gateway/centeraway/Initialize()
+/obj/machinery/gateway/centeraway/Initialize(mapload)
 	. = ..()
 	update_icon()
-	stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
+	stationgate = locate(/obj/machinery/gateway/centerstation) in SSmachines.get_by_type(/obj/machinery/gateway)
 
 
 /obj/machinery/gateway/centeraway/update_density_from_dir()
@@ -221,7 +218,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(length(linked) != 8)
 		return
 	if(!stationgate)
-		stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
+		stationgate = locate(/obj/machinery/gateway/centerstation) in SSmachines.get_by_type(/obj/machinery/gateway)
 		if(!stationgate)
 			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
 			return

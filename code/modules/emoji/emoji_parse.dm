@@ -34,9 +34,9 @@
 	return html
 
 /client/verb/show_all_emojis()
-	set name = "Show Emojis"
+	set name = "Эмодзи"
 	set desc = "Shows all the emojis available in OOC/LOOC/DSAY"
-	set category = "OOC"
+	set category = STATPANEL_OOC
 
 	var/datum/browser/popup = new(usr, "discord_emoji", "Discord emojis", 800, 460)
 	popup.set_content(generateDiscordEmojiTable())

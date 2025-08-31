@@ -5,7 +5,7 @@
 ////////////////////////
 
 /proc/get_money_account(var/account_number, var/from_z=-1)
-	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
+	for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
 		if(from_z > -1 && DB.z != from_z) continue
 		if((DB.stat & NOPOWER) || !DB.activated ) continue
 		var/datum/money_account/acct = DB.get_account(account_number)
@@ -23,6 +23,9 @@
 	if(istype(id))
 		return get_money_account(id.associated_account_number)
 	return null
+
+/proc/get_account_from_card(obj/item/card/id/id)
+	return get_money_account(id.associated_account_number)
 
 /obj/machinery/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user, price, vended_name, datum/money_account/account_we_pay_on = GLOB.vendor_account)
 	if(price > cashmoney.amount)

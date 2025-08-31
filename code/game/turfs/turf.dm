@@ -111,7 +111,7 @@
 		queue_smooth(src)
 
 	for(var/atom/movable/content as anything in src)
-		Entered(content)
+		Entered(content, NONE)
 
 	if(always_lit)
 		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
@@ -128,10 +128,6 @@
 
 	ComponentInitialize()
 	return INITIALIZE_HINT_NORMAL
-
-/turf/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/blob_turf_consuming, 0)
 
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
@@ -183,7 +179,7 @@
 /turf/attack_robot(mob/user)
 	user.Move_Pulled(src)
 
-/turf/ex_act(severity)
+/turf/ex_act(severity, target)
 	return FALSE
 
 /turf/proc/blob_consume()
@@ -205,15 +201,15 @@
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_all_pipes(user, src)
 
-/turf/bullet_act(obj/projectile/Proj)
-	if(istype(Proj, /obj/projectile/beam/pulse))
-		src.ex_act(2)
+/turf/bullet_act(obj/projectile/proj)
+	if(istype(proj, /obj/projectile/beam/pulse))
+		ex_act(2)
 	..()
 	return FALSE
 
-/turf/bullet_act(obj/projectile/Proj)
-	if(istype(Proj, /obj/projectile/bullet/gyro))
-		explosion(src, -1, 0, 2, cause = Proj)
+/turf/bullet_act(obj/projectile/proj)
+	if(istype(proj, /obj/projectile/bullet/gyro))
+		explosion(src, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = proj)
 	..()
 	return FALSE
 
@@ -557,7 +553,7 @@
 
 /turf/handle_fall(mob/living/carbon/faller)
 	if(!no_gravity(src))
-		playsound(src, "bodyfall", 50, TRUE)
+		playsound(src, SFX_BODYFALL, 50, TRUE)
 
 	faller.drop_from_hands()
 
@@ -796,8 +792,10 @@
 	if(mob_hurt || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
-	C.visible_message(span_danger("[C] slams into [src]!"),
-					span_userdanger("You slam into [src]!"))
+	C.visible_message(
+		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[pluralize_ru(C.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
+	)
 	C.take_organ_damage(damage)
 	C.Weaken(0.1 SECONDS)
 

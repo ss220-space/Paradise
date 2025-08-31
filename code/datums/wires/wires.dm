@@ -235,10 +235,13 @@
 /datum/wires/proc/can_see_wire_info(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
-	else if(istype(user.get_active_hand(), /obj/item/multitool))
+
+	if(istype(user.get_active_hand(), /obj/item/multitool))
 		var/obj/item/multitool/M = user.get_active_hand()
 		if(M.shows_wire_information)
 			return TRUE
+	if(HAS_TRAIT(user, TRAIT_CAN_SEE_WIRES))
+		return TRUE
 	return FALSE
 
 /**

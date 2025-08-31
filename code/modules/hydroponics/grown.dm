@@ -8,7 +8,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	var/obj/item/seeds/seed = null // type path, gets converted to item on Initialize(). It's safe to assume it's always a seed item.
 	var/plantname = ""
-	var/bitesize_mod = 0 	// If set, bitesize = 1 + round(reagents.total_volume / bitesize_mod)
+	var/bitesize_mod = 0	// If set, bitesize = 1 + round(reagents.total_volume / bitesize_mod)
 	var/splat_type = /obj/effect/decal/cleanable/plant_smudge
 	var/can_distill = TRUE //If FALSE, this object cannot be distilled into an alcohol.
 	var/distill_reagent //If NULL and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
@@ -221,13 +221,13 @@
 	set_light_on(FALSE)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/send_plant_details(mob/user)
-	var/msg = "<span class='info'>This is \a <span class='name'>[src].</span>\n"
+	var/msg = span_notice("This is \a [span_name(src)].\n")
 	if(seed)
 		msg += seed.get_analyzer_text()
 		for(var/reagent_id in seed.reagents_add)
 			var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 			var/amt = reagents.get_reagent_amount(reagent_id)
-			msg += "\n<span class='info'>- [R.name]: [amt]</span>"
+			msg += span_notice("\n– [R.name]: [amt]")
 	to_chat(user, msg)
 
 /obj/item/reagent_containers/food/snacks/grown/attack_ghost(mob/dead/observer/user)

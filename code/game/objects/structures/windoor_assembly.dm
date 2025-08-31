@@ -33,7 +33,7 @@
 
 /obj/structure/windoor_assembly/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-click</b> to rotate it clockwise.")
+	. += span_notice("<b>Alt-click</b> to rotate it clockwise.")
 
 /obj/structure/windoor_assembly/Initialize(mapload, set_dir)
 	. = ..()
@@ -348,8 +348,8 @@
 
 //Flips the windoor assembly, determines whather the door opens to the left or the right
 /obj/structure/windoor_assembly/verb/flip()
-	set name = "Flip Windoor Assembly"
-	set category = "Object"
+	set name = "Повернуть"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

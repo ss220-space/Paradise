@@ -19,7 +19,7 @@
 #define TIMER_LOOP			(1<<5)
 
 ///Delete the timer on parent datum Destroy() and when deltimer'd
-#define TIMER_DELETE_ME 	(1<<6)
+#define TIMER_DELETE_ME	(1<<6)
 
 #define TIMER_ID_NULL -1
 
@@ -78,8 +78,8 @@
 #define INIT_ORDER_EVENTS 42
 #define INIT_ORDER_HOLIDAY 41
 #define INIT_ORDER_JOBS 40
-#define INIT_ORDER_AI_MOVEMENT 		36 //We need the movement setup
-#define INIT_ORDER_AI_CONTROLLERS 	35 //So the controller can get the ref
+#define INIT_ORDER_AI_MOVEMENT		36 //We need the movement setup
+#define INIT_ORDER_AI_CONTROLLERS	35 //So the controller can get the ref
 #define INIT_ORDER_TICKER 30
 #define INIT_ORDER_NEW_PLAYERS_INFO 31
 #define INIT_ORDER_MAPPING 20
@@ -115,13 +115,14 @@
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
-#define FIRE_PRIORITY_PING         	10
+#define FIRE_PRIORITY_PING        	10
 #define FIRE_PRIORITY_NIGHTSHIFT	10
 #define FIRE_PRIORITY_IDLE_NPC		10
 #define FIRE_PRIORITY_CLEANUP		10
 #define FIRE_PRIORITY_TICKETS		10
 #define FIRE_PRIORITY_AMBIENCE		10
 #define FIRE_PRIORITY_GARBAGE		15
+#define FIRE_PRIORITY_TERRAFORMING	15
 #define FIRE_PRIORITY_WET_FLOORS	20
 #define FIRE_PRIORITY_AIR			20
 #define FIRE_PRIORITY_NPC			20
@@ -137,21 +138,21 @@
 #define FIRE_PRIORITY_BURNING		40
 #define FIRE_PRIORITY_DEFAULT		50
 #define FIRE_PRIORITY_PARALLAX		65
-#define FIRE_PRIORITY_FLUIDS 		80
+#define FIRE_PRIORITY_FLUIDS		80
 #define FIRE_PRIORITY_MOBS			100
-#define FIRE_PRIORITY_ASSETS 		105
+#define FIRE_PRIORITY_ASSETS		105
 #define FIRE_PRIORITY_TGUI			110
-#define FIRE_PRIORITY_NEW_PLAYERS_INFO 	199
+#define FIRE_PRIORITY_NEW_PLAYERS_INFO	199
 #define FIRE_PRIORITY_TICKER		200
 #define FIRE_PRIORITY_STATPANEL		390
-#define FIRE_PRIORITY_CHAT 			400
+#define FIRE_PRIORITY_CHAT			400
 #define FIRE_PRIORITY_RUNECHAT		410 // I hate how high the fire priority on this is -aa
 #define FIRE_PRIORITY_MOUSE_ENTERED 450
 #define FIRE_PRIORITY_OVERLAYS		500
 #define FIRE_PRIORITY_EXPLOSIONS	666
 #define FIRE_PRIORITY_TIMER			700
 #define FIRE_PRIORITY_SPEECH_CONTROLLER 900
-#define FIRE_PRIORITY_DELAYED_VERBS 	950
+#define FIRE_PRIORITY_DELAYED_VERBS	950
 #define FIRE_PRIORITY_INPUT				1000 // This must always always be the max highest priority. Player input must never be lost.
 
 
@@ -192,3 +193,14 @@
 	if(isturf(changed_on)){SSdemo.mark_turf(changed_on);}\
 	if(isobj(changed_on) || ismob(changed_on)){SSdemo.mark_dirty(changed_on);}\
 
+//SSticker.current_state values
+/// Game is loading
+#define GAME_STATE_STARTUP 0
+/// Game is loaded and in pregame lobby
+#define GAME_STATE_PREGAME 1
+/// Game is attempting to start the round
+#define GAME_STATE_SETTING_UP 2
+/// Game has round in progress
+#define GAME_STATE_PLAYING 3
+/// Game has round finished
+#define GAME_STATE_FINISHED 4

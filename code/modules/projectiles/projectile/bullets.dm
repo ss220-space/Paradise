@@ -1,19 +1,38 @@
 /obj/projectile/bullet
 	name = "bullet"
+	ru_names = list(
+		NOMINATIVE = "пуля",
+		GENITIVE = "пули",
+		DATIVE = "пуле",
+		ACCUSATIVE = "пулю",
+		INSTRUMENTAL = "пулей",
+		PREPOSITIONAL = "пуле"
+	)
 	icon_state = "bullet"
 	damage = 50
 	damage_type = BRUTE
-	flag = "bullet"
-	hitsound = "bullet"
-	hitsound_wall = "ricochet"
+	flag = BULLET
+	hitsound = SFX_BULLET
+	hitsound_wall = SFX_RICOCHET
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
 /obj/projectile/bullet/slug
 	armour_penetration = 40
 	damage = 30
 
+/obj/projectile/bullet/desert_eagle
+	stamina = 30
+
 /obj/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
+	ru_names = list(
+		NOMINATIVE = "патрон \"Погремушка\"",
+		GENITIVE = "патрона \"Погремушка\"",
+		DATIVE = "патрону \"Погремушка\"",
+		ACCUSATIVE = "патрон \"Погремушка\"",
+		INSTRUMENTAL = "патроном \"Погремушка\"",
+		PREPOSITIONAL = "патроне \"Погремушка\""
+	)
 	damage = 5
 	stamina = 55
 
@@ -39,6 +58,14 @@
 
 /obj/projectile/bullet/weakbullet2  //detective revolver
 	name = "rubber bullet"
+	ru_names = list(
+		NOMINATIVE = "резиновая пуля",
+		GENITIVE = "резиновой пули",
+		DATIVE = "резиновой пуле",
+		ACCUSATIVE = "резиновую пулю",
+		INSTRUMENTAL = "резиновой пулей",
+		PREPOSITIONAL = "резиновой пуле"
+	)
 	damage = 5
 	stamina = 35
 	icon_state = "bullet-r"
@@ -54,6 +81,14 @@
 
 /obj/projectile/bullet/weakbullet2/invisible //finger gun bullets
 	name = "invisible bullet"
+	ru_names = list(
+		NOMINATIVE = "невидимая пуля",
+		GENITIVE = "невидимой пули",
+		DATIVE = "невидимой пуле",
+		ACCUSATIVE = "невидимую пулю",
+		INSTRUMENTAL = "невидимой пулей",
+		PREPOSITIONAL = "невидимой пуле"
+	)
 	damage = 0
 	weaken = 2 SECONDS
 	stamina = 45
@@ -83,11 +118,27 @@
 
 /obj/projectile/bullet/weakbullet3/fortynr
 	name = "bullet"
+	ru_names = list(
+		NOMINATIVE = "пуля",
+		GENITIVE = "пули",
+		DATIVE = "пуле",
+		ACCUSATIVE = "пулю",
+		INSTRUMENTAL = "пулей",
+		PREPOSITIONAL = "пуле"
+	)
 	damage = 25
 	stamina = 20
 
 /obj/projectile/bullet/weakbullet4
 	name = "rubber bullet"
+	ru_names = list(
+		NOMINATIVE = "резиновая пуля",
+		GENITIVE = "резиновой пули",
+		DATIVE = "резиновой пуле",
+		ACCUSATIVE = "резиновую пулю",
+		INSTRUMENTAL = "резиновой пулей",
+		PREPOSITIONAL = "резиновой пуле"
+	)
 	damage = 5
 	stamina = 30
 	icon_state = "bullet-r"
@@ -123,6 +174,14 @@
 
 /obj/projectile/bullet/pellet
 	name = "pellet"
+	ru_names = list(
+		NOMINATIVE = "гранула",
+		GENITIVE = "гранулы",
+		DATIVE = "грануле",
+		ACCUSATIVE = "гранулу",
+		INSTRUMENTAL = "гранулой",
+		PREPOSITIONAL = "грануле"
+	)
 	damage = 14
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
@@ -145,12 +204,28 @@
 
 /obj/projectile/bullet/pellet/flechette
 	name = "flechette"
+	ru_names = list(
+		NOMINATIVE = "флешетта",
+		GENITIVE = "флешетты",
+		DATIVE = "флешетте",
+		ACCUSATIVE = "флешетту",
+		INSTRUMENTAL = "флешеттой",
+		PREPOSITIONAL = "флешетте"
+	)
 	damage = 16.5
 	tile_dropoff = 0
 	armour_penetration = 20
 
 /obj/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
+	ru_names = list(
+		NOMINATIVE = "резиновый шарик",
+		GENITIVE = "резинового шарика",
+		DATIVE = "резиновому шарику",
+		ACCUSATIVE = "резиновый шарик",
+		INSTRUMENTAL = "резиновым шариком",
+		PREPOSITIONAL = "резиновом шарике"
+	)
 	damage = 3
 	stamina = 15
 	icon_state = "bullet-r"
@@ -164,8 +239,8 @@
 	..()
 
 /obj/projectile/bullet/pellet/weak/on_range()
- 	do_sparks(1, TRUE, src)
- 	..()
+	do_sparks(1, TRUE, src)
+	..()
 
 /obj/projectile/bullet/pellet/overload
 	damage = 3
@@ -184,13 +259,13 @@
 		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
 
 /obj/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
- 	..()
- 	explosion(target, 0, 0, 2, cause = src)
+	..()
+	explosion(target, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 
 /obj/projectile/bullet/pellet/overload/on_range()
- 	explosion(src, 0, 0, 2, cause = src)
- 	do_sparks(3, 3, src)
- 	..()
+	explosion(src, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
+	do_sparks(3, TRUE, src)
+	..()
 
 /obj/projectile/bullet/midbullet
 	damage = 20
@@ -234,6 +309,14 @@
 
 /obj/projectile/bullet/stunshot	//taser slugs for shotguns, nothing special
 	name = "stunshot"
+	ru_names = list(
+		NOMINATIVE = "оглушающая пуля",
+		GENITIVE = "оглушающей пули",
+		DATIVE = "оглушающей пуле",
+		ACCUSATIVE = "оглушающую пулю",
+		INSTRUMENTAL = "оглушающей пулей",
+		PREPOSITIONAL = "оглушающей пуле"
+	)
 	damage = 5
 	weaken = 2 SECONDS
 	stutter = 2 SECONDS
@@ -245,6 +328,14 @@
 
 /obj/projectile/bullet/incendiary/shell
 	name = "incendiary slug"
+	ru_names = list(
+		NOMINATIVE = "зажигательная пуля",
+		GENITIVE = "зажигательной пули",
+		DATIVE = "зажигательной пуле",
+		ACCUSATIVE = "зажигательную пулю",
+		INSTRUMENTAL = "зажигательной пулей",
+		PREPOSITIONAL = "зажигательной пуле"
+	)
 	damage = 20
 
 /obj/projectile/bullet/incendiary/shell/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -256,6 +347,14 @@
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath
 	name = "dragonsbreath round"
+	ru_names = list(
+		NOMINATIVE = "пуля \"Дыхание дракона\"",
+		GENITIVE = "пули \"Дыхание дракона\"",
+		DATIVE = "пуле \"Дыхание дракона\"",
+		ACCUSATIVE = "пулю \"Дыхание дракона\"",
+		INSTRUMENTAL = "пулей \"Дыхание дракона\"",
+		PREPOSITIONAL = "пуле \"Дыхание дракона\""
+	)
 	damage = 5
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/nuclear
@@ -263,10 +362,26 @@
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/mecha
 	name = "liquidlava round"
+	ru_names = list(
+		NOMINATIVE = "пуля \"жидкая лава\"",
+		GENITIVE = "пули \"жидкая лава\"",
+		DATIVE = "пуле \"жидкая лава\"",
+		ACCUSATIVE = "пулю \"жидкая лава\"",
+		INSTRUMENTAL = "пулей \"жидкая лава\"",
+		PREPOSITIONAL = "пуле \"жидкая лава\""
+	)
 	damage = 20
 
 /obj/projectile/bullet/meteorshot
 	name = "meteor"
+	ru_names = list(
+		NOMINATIVE = "метеор",
+		GENITIVE = "метеора",
+		DATIVE = "метеору",
+		ACCUSATIVE = "метеор",
+		INSTRUMENTAL = "метеором",
+		PREPOSITIONAL = "метеоре"
+	)
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	damage = 30
@@ -311,6 +426,14 @@
 
 /obj/projectile/bullet/dart
 	name = "dart"
+	ru_names = list(
+		NOMINATIVE = "дротик",
+		GENITIVE = "дротика",
+		DATIVE = "дротику",
+		ACCUSATIVE = "дротик",
+		INSTRUMENTAL = "дротиком",
+		PREPOSITIONAL = "дротике"
+	)
 	icon_state = "cbbolt"
 	damage = 6
 	var/volume = 50
@@ -332,8 +455,8 @@
 				return TRUE
 			else
 				blocked = 100
-				target.visible_message(span_danger("The [name] was deflected!"), \
-									span_userdanger("You were protected against the [name]!"))
+				target.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] рикошетит!"), \
+									span_userdanger("Ваша защита отражает[declent_ru(ACCUSATIVE)]!"))
 	..(target, blocked, hit_zone)
 	reagents.set_reacting(TRUE)
 	reagents.handle_reactions()
@@ -350,6 +473,14 @@
 //This one is for future syringe guns update
 /obj/projectile/bullet/dart/syringe
 	name = "syringe"
+	ru_names = list(
+		NOMINATIVE = "шприц",
+		GENITIVE = "шприца",
+		DATIVE = "шприцу",
+		ACCUSATIVE = "шприц",
+		INSTRUMENTAL = "шприцем",
+		PREPOSITIONAL = "шприце"
+	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
 	volume = 15
@@ -362,6 +493,14 @@
 
 /obj/projectile/bullet/neurotoxin
 	name = "neurotoxin spit"
+	ru_names = list(
+		NOMINATIVE = "слюна с нейротоксином",
+		GENITIVE = "слюны с нейротоксином",
+		DATIVE = "слюне с нейротоксином",
+		ACCUSATIVE = "слюну с нейротоксином",
+		INSTRUMENTAL = "слюной с нейротоксином",
+		PREPOSITIONAL = "слюне с нейротоксином"
+	)
 	icon_state = "neurotoxin"
 	damage = 33
 	damage_type = TOX
@@ -386,11 +525,27 @@
 
 /obj/projectile/bullet/f545 // Rusted AK
 	name = "Fusty FMJ 5.45 bullet"
+	ru_names = list(
+		NOMINATIVE = "старая пуля FMJ 5.45",
+		GENITIVE = "старой пули FMJ 5.45",
+		DATIVE = "старой пуле FMJ 5.45",
+		ACCUSATIVE = "старую пулю FMJ 5.45",
+		INSTRUMENTAL = "старой пулей FMJ 5.45",
+		PREPOSITIONAL = "старой пуле FMJ 5.45"
+	)
 	damage = 18
 	stamina = 6
 
 /obj/projectile/bullet/ftt762 // Rusted PPSh
 	name = "Fusty FMJ 7.62 TT bullet"
+	ru_names = list(
+		NOMINATIVE = "старая пуля FMJ 7.62 TT",
+		GENITIVE = "старой пули FMJ 7.62 TT",
+		DATIVE = "старой пуле FMJ 7.62 TT",
+		ACCUSATIVE = "старую пулю FMJ 7.62 TT",
+		INSTRUMENTAL = "старой пулей FMJ 7.62 TT",
+		PREPOSITIONAL = "старой пуле FMJ 7.62 TT"
+	)
 	damage = 8
 	stamina = 1
 	armour_penetration = 5

@@ -511,29 +511,25 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	return 100
 
 
-/obj/item/radio/uplink/nuclear/Initialize(mapload)
-	. = ..()
-	GLOB.nuclear_uplink_list += src
-
-
-/obj/item/radio/uplink/nuclear/Destroy()
-	GLOB.nuclear_uplink_list -= src
-	return ..()
-
-
 /obj/item/radio/uplink/nuclear/choose_uplink()
 	return UPLINK_TYPE_NUCLEAR
 
 
+/obj/item/radio/uplink/nuclear/loneop/get_uses_amount()
+	return ..() + count_nuke_uses()
+
 /obj/item/radio/uplink/sst/choose_uplink()
 	return UPLINK_TYPE_SST
 
-/obj/item/radio/uplink/sst/get_uses_amount()
+/proc/count_nuke_uses()
 	var/danger = GLOB.player_list.len
 	var/temp_danger = (danger + 9)
 	danger = temp_danger - temp_danger % 10
 	danger *= NUKESCALINGMODIFIER
-	return ..() + round(danger/ NUKERS_COUNT) + danger % NUKERS_COUNT
+	return round(danger/ NUKERS_COUNT) + danger % NUKERS_COUNT
+
+/obj/item/radio/uplink/sst/get_uses_amount()
+	return ..() + count_nuke_uses()
 
 
 /obj/item/radio/uplink/admin/choose_uplink()

@@ -156,53 +156,68 @@
 	return
 
 /obj/effect/mob_spawn/proc/create(mob/plr, flavour = TRUE, name, prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
-	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
+	var/mob/living/mob = new mob_type(get_turf(src)) // Living mobs only
 	if(!random)
-		M.real_name = mob_name ? mob_name : M.name
-		M.tts_seed = SStts.get_random_seed(M)
-		if(M.dna)
-			M.dna.real_name = mob_name
-			M.dna.tts_seed_dna = M.tts_seed
-		if(M.mind)
-			M.mind.name = mob_name
+		mob.real_name = mob_name ? mob_name : mob.name
+		mob.tts_seed = SStts.get_random_seed(mob)
+		if(mob.dna)
+			mob.dna.real_name = mob_name
+			mob.dna.tts_seed_dna = mob.tts_seed
+
+		if(mob.mind)
+			mob.mind.name = mob_name
+
 		if(!mob_gender)
 			mob_gender = pick(MALE, FEMALE)
-		M.gender = mob_gender
+		mob.gender = mob_gender
+
 	if(faction)
-		M.faction = list(faction)
+		mob.faction = list(faction)
+
 	if(disease)
 		var/datum/disease/D = new disease
-		D.Contract(M)
-	M.apply_damages(brute_damage, burn_damage, oxy_damage, forced = TRUE)
+		D.Contract(mob)
+
+	mob.apply_damages(brute_damage, burn_damage, oxy_damage, forced = TRUE)
+	if(!mob)
+		return
+
 	if(death)
-		M.death() //Kills the new mob
-	M.color = mob_color
-	if(plr)
-		if(prefs)
-			plr.client?.prefs.copy_to(M)
-	equip(M, use_prefs = prefs, _mob_name = _mob_name, _mob_gender = _mob_gender, _mob_species = _mob_species)
+		mob.death() // Kills the new mob
+
+	mob.color = mob_color
+	if(plr && prefs)
+		plr.client?.prefs.copy_to(mob)
+
+	equip(mob, use_prefs = prefs, _mob_name = _mob_name, _mob_gender = _mob_gender, _mob_species = _mob_species)
 
 	if(plr)
-		M.ckey = plr.ckey
+		mob.ckey = plr.ckey
 		if(flavour)
-			to_chat(M, "[flavour_text]")
-		var/datum/mind/MM = M.mind
+
+			to_chat(mob, chat_box_green(flavour_text))
+		var/datum/mind/MM = mob.mind
+
 		if(objectives)
 			for(var/objective in objectives)
 				MM.objectives += new/datum/objective(objective)
+
 		if(assignedrole)
-			M.mind.assigned_role = assignedrole
-		M.mind.offstation_role = offstation_role
-		special(M, name)
-		MM.name = M.real_name
+			mob.mind.assigned_role = assignedrole
+
+		mob.mind.offstation_role = offstation_role
+		special(mob, name)
+		MM.name = mob.real_name
 		if(allow_tts_pick)
-			M.change_voice()
+			mob.change_voice()
+
 	if(uses > 0)
 		uses--
+
 	if(!permanent && !uses)
 		qdel(src)
 
-	return M
+	return mob
 
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human
@@ -252,7 +267,7 @@
 
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
-/obj/effect/mob_spawn/human/Initialize()
+/obj/effect/mob_spawn/human/Initialize(mapload)
 	if(ispath(outfit))
 		outfit = new outfit()
 	if(!outfit)
@@ -435,7 +450,7 @@
 /obj/effect/mob_spawn/mouse
 	name = "sleeper"
 	mob_name = "space mouse"
-	mob_type = 	/mob/living/simple_animal/mouse
+	mob_type =	/mob/living/simple_animal/mouse
 	death = FALSE
 	roundstart = FALSE
 	icon = 'icons/obj/machines/cryogenic2.dmi'
@@ -445,7 +460,7 @@
 /obj/effect/mob_spawn/cow
 	name = "sleeper"
 	mob_name = "space cow"
-	mob_type = 	/mob/living/simple_animal/cow
+	mob_type =	/mob/living/simple_animal/cow
 	death = FALSE
 	roundstart = FALSE
 	mob_gender = FEMALE
@@ -542,7 +557,7 @@
 	id_job = "Clown"
 	outfit = /datum/outfit/job/clown
 
-/obj/effect/mob_spawn/human/clown/Initialize()
+/obj/effect/mob_spawn/human/clown/Initialize(mapload)
 	mob_name = pick(GLOB.clown_names)
 	return ..()
 
@@ -550,7 +565,7 @@
 	name = "Clown Soldier"
 	outfit = /datum/outfit/clownsoldier
 
-/obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
+/obj/effect/mob_spawn/human/corpse/clownmili/Initialize(mapload)
 	mob_name = "Officer [pick(GLOB.clown_names)]"
 	return ..()
 
@@ -558,7 +573,7 @@
 	name = "Clown Officer"
 	outfit = /datum/outfit/clownofficer
 
-/obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
+/obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
 	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
 	return ..()
 
@@ -591,7 +606,7 @@
 	id_job = "Mime"
 	outfit = /datum/outfit/job/mime
 
-/obj/effect/mob_spawn/human/mime/Initialize()
+/obj/effect/mob_spawn/human/mime/Initialize(mapload)
 	mob_name = pick(GLOB.mime_names)
 	return ..()
 
@@ -657,8 +672,8 @@
 	name = "bartender sleeper"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
-	description = "Stuck on Lavaland, you could try getting back to civilisation...or serve drinks to those that wander by."
-	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
+	description = "Застряв на Лаваленде, вы можете попытаться вернуться к цивилизации... или подавать напитки тем, кто забредёт к вам."
+	flavour_text = "Вы космический бармен!\nВремя смешивать напитки и менять жизни. Погодите, куда это ваш бар только что переместился?"
 	assignedrole = "Space Bartender"
 
 /obj/effect/mob_spawn/human/bartender/special(mob/living/carbon/human/H)
@@ -666,9 +681,8 @@
 	return ..()
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
-	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell.\
-					You aren't trained for this, but you'll still keep your guests alive!"
-	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
+	flavour_text = "Вы бодрый спасатель!\nВаша задача — следить, чтобы никто не утонул и не стал обедом для акул.\nНо внезапно весь ваш пляж перенёсся в этот странный ад. Вы не готовы к такому, но всё равно будете защищать своих гостей!"
+	description = "Попытайтесь выжить на Лаваленде с жалким снаряжением спасателя. Или спрячьтесь в своём биодоме."
 	mob_gender = FEMALE
 	name = "lifeguard sleeper"
 	id_job = "Lifeguard"
@@ -699,8 +713,8 @@
 	name = "beach bum sleeper"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "You are a beach bum! You think something just happened to the beach but you don't really pay too much attention."
-	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
+	flavour_text = "Вы просто обожаете пляж!\nСлучилось что-то странное, но вы слишком расслаблены, чтобы беспокоиться."
+	description = "Попытайтесь выжить на Лаваленде или просто наслаждайтесь пляжем, ожидая посетителей."
 	assignedrole = "Beach Bum"
 
 /obj/effect/mob_spawn/human/beach/alive/special(mob/living/carbon/human/H)
@@ -794,10 +808,10 @@
 	assignedrole = "Space Bar Patron"
 
 /obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user)
-	var/despawn = alert("Return to cryosleep? (Warning, Your mob will be deleted!)",,"Yes","No")
-	if(despawn == "No" || !loc || !Adjacent(user))
+	var/despawn = tgui_alert(usr, "Вернуться в криосон? (Внимание, ваш персонаж будет удалён!)", "Выход", list("Да", "Нет"))
+	if(despawn == "Нет" || !loc || !Adjacent(user))
 		return
-	user.visible_message("<span class='notice'>[user.name] climbs back into cryosleep...</span>")
+	user.visible_message(span_notice("[user.name] возвращается в криокамеру..."))
 	qdel(user)
 
 /datum/outfit/cryobartender
@@ -853,7 +867,7 @@
 	l_ear = /obj/item/radio/headset
 	gloves = /obj/item/clothing/gloves/color/black
 
-/obj/effect/mob_spawn/human/corpse/tacticool/Initialize()
+/obj/effect/mob_spawn/human/corpse/tacticool/Initialize(mapload)
 	brute_damage = rand(0, 400)
 	burn_damage = rand(0, 400)
 	return ..()
@@ -875,7 +889,7 @@
 	mask = /obj/item/clothing/mask/balaclava
 	suit = /obj/item/clothing/suit/armor/vest/combat
 
-/obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader/Initialize()
+/obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader/Initialize(mapload)
 	brute_damage = rand(150, 500)
 	burn_damage = rand(100, 300)
 	return ..()

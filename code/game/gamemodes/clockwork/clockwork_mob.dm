@@ -93,7 +93,7 @@
 		if(energy_projectile)
 			playsound(src, 'sound/weapons/effects/searwall.ogg', 50, TRUE)
 		else
-			playsound(src, "ricochet", 50, TRUE)
+			playsound(src, SFX_RICOCHET, 50, TRUE)
 		return TRUE
 	return FALSE
 
@@ -155,7 +155,7 @@
 	if(C && prob(30))
 		if(C.avail())
 			visible_message(span_warning("[src] chews through [C]. [src] sparks for a moment!"))
-			playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
+			playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
 		else
 			visible_message(span_warning("[src] chews through [C]."))
 		investigate_log("was chewed through by a clock mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")

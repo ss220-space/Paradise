@@ -27,7 +27,7 @@
 	anchored = TRUE
 	layer = 5
 	max_integrity = 50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	/// Construction stage (1 = Empty frame | 2 = Wired frame | 3 = Completed frame)
 	var/stage = STAGE_EMPTY
 	/// Light bulb type
@@ -180,7 +180,7 @@
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
 	max_integrity = 10
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 20
@@ -269,6 +269,11 @@
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
 	. = ..()
+
+	if(is_station_level(z))
+		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, PROC_REF(on_security_level_change_planned))
+		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
+
 	var/area/A = get_area(src)
 	if(A && !A.requires_power)
 		on = TRUE
@@ -291,11 +296,43 @@
 	update(FALSE, mapload ? FALSE : TRUE)
 
 
+/obj/machinery/light/proc/on_security_level_change_planned(datum/source, previous_level_number, new_level_number)
+	SIGNAL_HANDLER
+
+	if(status != LIGHT_OK)
+		return
+
+	if(new_level_number != SEC_LEVEL_EPSILON)
+		return
+
+	fire_mode = FALSE
+	emergency_mode = TRUE
+	on = FALSE
+	INVOKE_ASYNC(src, PROC_REF(update), FALSE)
+
+/obj/machinery/light/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
+	SIGNAL_HANDLER
+
+	if(status != LIGHT_OK || !has_power())
+		return
+
+	if(new_level_number >= SEC_LEVEL_EPSILON)
+		fire_mode = TRUE
+		emergency_mode = TRUE
+		on = FALSE
+	else
+		fire_mode = FALSE
+		emergency_mode = FALSE
+		on = TRUE
+
+	INVOKE_ASYNC(src, PROC_REF(update), FALSE)
+
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
 	if(A)
 		on = FALSE
 		LAZYREMOVE(A.lights_cache, src)
+	UnregisterSignal(SSsecurity_level, list(COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, COMSIG_SECURITY_LEVEL_CHANGED))
 	return ..()
 
 
@@ -541,7 +578,7 @@
 		newlight.setDir(dir)
 		newlight.stage = cur_stage
 		if(!disassembled)
-			newlight.obj_integrity = newlight.max_integrity * 0.5
+			newlight.update_integrity(newlight.max_integrity * 0.5)
 			if(status != LIGHT_BROKEN)
 				break_light_tube()
 			if(status != LIGHT_EMPTY)
@@ -776,10 +813,13 @@
 	on = TRUE
 	update()
 
-/obj/machinery/light/tesla_act(power, explosive = FALSE)
+/obj/machinery/light/zap_act(power, zap_flags)
+	var/explosive = zap_flags & ZAP_MACHINE_EXPLOSIVE
+	zap_flags &= ~(ZAP_MACHINE_EXPLOSIVE | ZAP_OBJ_DAMAGE)
+	. = ..()
 	if(explosive)
-		explosion(loc,0,0,0,flame_range = 5, adminlog = 0)
-	qdel(src)
+		explosion(src, flame_range = 3, adminlog = FALSE)
+		qdel(src)
 
 // timed process
 // use power
@@ -803,7 +843,7 @@
 	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
 	sleep(2)
-	explosion(T, 0, 0, 2, 2, cause = src)
+	explosion(T, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flash_range = 2, cause = src)
 	qdel(src)
 
 

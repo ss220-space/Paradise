@@ -11,10 +11,9 @@
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
-	brute_mod = 0.9
 	heatmod = 0.8
 	coldmod = 1.2
-	hunger_drain_mod = 1.6
+	hunger_drain_mod = 1.3
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
@@ -46,8 +45,8 @@
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
-	male_scream_sound = list("u_mscream")
-	female_scream_sound = list("u_fscream")
+	male_scream_sound = list(SFX_U_MSCREAM)
+	female_scream_sound = list(SFX_U_FSCREAM)
 	male_sneeze_sound = list('sound/voice/unathi/m_u_sneeze.ogg')
 	female_sneeze_sound = list('sound/voice/unathi/f_u_sneeze.ogg')
 
@@ -120,6 +119,10 @@
 		lash.Grant(H)
 
 
+/datum/species/unathi/gain_muscles(mob/living/target, datum/strength_level/default, max_level, can_become_stronger)
+	..(target, target.gender == FEMALE ? default.next_level : default, max_level, can_become_stronger)
+
+
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	remove_verb(H, list(
@@ -135,8 +138,6 @@
 
 
 /datum/species/unathi/handle_life(mob/living/carbon/human/H)
-	if(H.stat == DEAD)
-		return
 	..()
 	if(H.reagents.get_reagent_amount("zessulblood") < 5)	//unique unathi chemical, heals over time and increases shock reduction for 20
 		H.reagents.add_reagent("zessulblood", 1)
@@ -159,12 +160,12 @@
 	name_plural = "Ash Walkers"
 	inherent_factions = list("ashwalker")
 
-	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
-	Они бродят по пустошам Лаваленда, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
+	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
+	Они бродят по пустошам Лазиса, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
 
 	language = LANGUAGE_UNATHI
 	default_language = LANGUAGE_UNATHI
-
+	brute_mod = 0.9
 	speed_mod = -0.50
 
 	inherent_traits = list(
@@ -327,7 +328,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 
 //igniter. only for ashwalkers and drakonids because of """lore"""
 /datum/action/innate/ignite_unathi
-	name = "поджог"
+	name = "Поджог"
 	desc = "Вы формируете небольшой сгусток пламени в вашей пасти, достаточный для... розжига костра."
 	icon_icon = 'icons/obj/cigarettes.dmi'
 	button_icon_state = "match_unathi"
@@ -355,25 +356,36 @@ They're basically just lizards with all-around marginally better stats and fire 
 	name = "Помощь некрополя"
 	desc = "Вы используете силу Некрополя, чтобы узнать примерное местоположение точек интереса."
 	icon_icon = 'icons/mob/actions/actions_clockwork.dmi'
-	button_icon_state = "stun" //better than nothing
+	button_icon_state = "stun"
 
 /datum/action/innate/shaman_gps/Activate()
 	var/list/list_of_points = GLOB.lavaland_points_of_interest
 	if(list_of_points)
-		var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "точки интереса", list_of_points)
+		var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "Точки интереса", list_of_points)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, owner, \
 							span_warning("Я чувствую, что [selected_poi] [get_direction(selected_poi)]")), 2 SECONDS)
-	else
+
+	if(!LAZYLEN(GLOB.lavaland_points_of_interest))
 		to_chat(owner, "Все церемониальные тотемы уничтожены.")
+		return
+
+	var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "точки интереса", GLOB.lavaland_points_of_interest)
+
+	if(!selected_poi)
+		return
+
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, owner, \
+							span_warning("Я чувствую, что [selected_poi] [get_direction(selected_poi)]")), 2 SECONDS)
 
 /datum/action/innate/shaman_gps/proc/get_direction(obj/structure/selected_poi)
 	if(!selected_poi)
-		. = "уничтожен."
-		return
-	var/turf/T = get_turf(selected_poi)
-	if(owner.z == T.z) //"кузница находится где-то на северо-востоке" or whatever
-		. = "находится где-то на "
-		. += dir2rustext(get_dir(owner.loc, selected_poi.loc))
-		. += "e."
-	else
-		. = "находится где-то далеко отсюда."
+		return "уничтожен."
+
+	var/turf/turf = get_turf(selected_poi)
+
+	if(owner.z != turf.z)
+		return "находится где-то далеко отсюда."
+
+	. = "находится где-то на "
+	. += dir2rustext(get_dir(owner.loc, selected_poi.loc))
+	. += "e."

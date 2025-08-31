@@ -66,17 +66,17 @@
 
 /mob/living/simple_animal/borer
 	name = "cortical borer"
-	real_name = "cortical borer"
-	desc = "A small, quivering sluglike creature."
+	real_name = "мозговой червь"
+	desc = "Маленькое дрожащее существо, похожее на слизня."
 
-	speak_emote = list("chirrups")
-	emote_hear = list("chirrups")
+	speak_emote = list("щебечет", "стрекочет")
+	emote_hear = list("щебечет", "стрекочет")
 
 	tts_seed = "Gman_e2"
 
-	response_help = "pokes"
-	response_disarm = "prods the"
-	response_harm = "stomps on the"
+	response_help = "тычет"
+	response_disarm = "подталкивает"
+	response_harm = "топчет"
 
 	icon_state = "brainslug"
 	icon_living = "brainslug"
@@ -102,9 +102,9 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	var/static/list/borer_names = list(
-			"Primary", "Secondary", "Tertiary", "Quaternary", "Quinary", "Senary",
-			"Septenary", "Octonary", "Novenary", "Decenary", "Undenary", "Duodenary",
-			)
+		"Первичный", "Вторичный", "Третичный", "Четвертичный", "Пятеричный", "Шестеричный",
+		"Семеричный", "Восьмеричный", "Девятеричный", "Десятеричный", "Одинадцатеричный", "Двенадцатеричный"
+	)
 
 	var/chemicals = 10						// Chemicals used for reproduction and chemical injection.
 	var/max_chems = 250
@@ -142,6 +142,17 @@
 	var/obj/effect/proc_holder/spell/borer_infest/infest_spell = new
 	var/obj/effect/proc_holder/spell/borer_dominate/dominate_spell = new
 
+/mob/living/simple_animal/borer/get_ru_names()
+	return list(
+		NOMINATIVE = "мозговой червь",
+		GENITIVE = "мозгового червя",
+		DATIVE = "мозговому червю",
+		ACCUSATIVE = "мозгового червя",
+		INSTRUMENTAL = "мозговым червём",
+		PREPOSITIONAL = "мозговом черве"
+	)
+
+
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	antag_datum.borer_rank = new BORER_RANK_YOUNG(src)
 	..(newloc)
@@ -149,7 +160,7 @@
 	generation = gen
 	add_language(LANGUAGE_HIVE_BORER)
 	notify_ghosts("Мозговой червь появился в [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
-	real_name = "Cortical Borer [rand(1000,9999)]"
+	real_name = "Мозговой червь [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
 
@@ -170,11 +181,11 @@
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
 	if(cannotPossess(user))
-		to_chat(user, span_boldnotice("Upon using the antagHUD you forfeited the ability to join the round."))
+		to_chat(user, span_boldnotice("Используя antagHUD, вы отказываетесь от возможности присоединиться к раунду."))
 		return
 
 	if(jobban_isbanned(user, "Syndicate"))
-		to_chat(user, span_warning("You are banned from antagonists!"))
+		to_chat(user, span_warning("Вам запрещено играть за антагонистов!"))
 		return
 
 	if(key)
@@ -183,8 +194,8 @@
 	if(stat != CONSCIOUS)
 		return
 
-	var/be_borer = tgui_alert(user, "Become a cortical borer? (Warning, You can no longer be cloned!)", "Cortical Borer", list("Yes", "No"))
-	if(be_borer != "Yes" || !src || QDELETED(src))
+	var/be_borer = tgui_alert(user, "Стать мозговым червём? (Внимание, вы больше не сможете быть клонированы!)", "Мозговой червь", list("Да", "Нет"))
+	if(be_borer != "Да" || !src || QDELETED(src))
 		return
 
 	if(key)
@@ -204,7 +215,7 @@
 	status_tab_data[++status_tab_data.len] = list("Evolution points", antag_datum.evo_points)
 
 
-/mob/living/simple_animal/borer/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/borer/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	var/list/message_pieces = parse_languages(message)
 
 	for(var/datum/multilingual_say_piece/S in message_pieces)
@@ -229,7 +240,7 @@
 		return
 
 	if(!sended_message) //If we use "say", it won't ask us to write the message twice.
-		sended_message = stripped_input(src, "Введите сообщение для носителя.", "Borer", "")
+		sended_message = tgui_input_text(src, "Введите сообщение для носителя.", "Borer", "")
 
 	if(!sended_message)
 		return
@@ -242,14 +253,14 @@
 
 			for(var/M in GLOB.dead_mob_list)
 				if(isobserver(M))
-					to_chat(M, span_changeling("<i>Borer Communication from <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [sended_message]</i>"))
+					to_chat(M, span_changeling("<i>Кортикальная связь <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [sended_message]</i>"))
 
 		to_chat(src, span_changeling("<i>[truename] [say_string]:</i> [sended_message]"))
 		talk_to_borer_action.Grant(host)
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
-	set name = "Toggle speech inside Host"
-	set category = "Borer"
+	set name = "Говорить носителю"
+	set category = STATPANEL_BORER
 	set desc = "Toggle whether you will be able to say audible messages while inside your host."
 
 	if(talk_inside_host)
@@ -270,7 +281,7 @@
 	if(!B)
 		return
 
-	var/input = stripped_input(src, "Введите сообщение для мозгового червя.", "Сообщение", "")
+	var/input = tgui_input_text(src, "Введите сообщение для мозгового червя.", "Сообщение", "")
 	if(!input)
 		return
 
@@ -279,7 +290,7 @@
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
-			to_chat(M, span_changeling("<i>Borer Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
+			to_chat(M, span_changeling("<i>Кортикальная связь <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
 
 	to_chat(src, span_changeling("<i>[src] says:</i> [input]"))
 
@@ -294,7 +305,7 @@
 		return
 
 	var/mob/living/captive_brain/CB = B.host_brain
-	var/input = stripped_input(src, "Введите сообщение для пленённого разума.", "Сообщение", "")
+	var/input = tgui_input_text(src, "Введите сообщение для пленённого разума.", "Сообщение", "")
 
 	if(!input)
 		return
@@ -304,7 +315,7 @@
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
-			to_chat(M, span_changeling("<i>Borer Communication from <b>[B]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
+			to_chat(M, span_changeling("<i>Кортикальная связь <b>[B]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
 
 	to_chat(src, span_changeling("<i>[B.truename] says:</i> [input]"))
 

@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	if(frequency)
 		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
-/obj/machinery/atmospherics/air_sensor/Initialize()
+/obj/machinery/atmospherics/air_sensor/Initialize(mapload)
 	. = ..()
 	GLOB.gas_sensors += src
 	SSair.atmos_machinery += src
@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	multitool_menu_type = /datum/multitool_menu/idtag/freq/general_air_control
 
-/obj/machinery/computer/general_air_control/Initialize()
+/obj/machinery/computer/general_air_control/Initialize(mapload)
 	. = ..()
 	if(!sensors)
 		sensors = list()
@@ -292,7 +292,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	multitool_menu_type = /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control
 
-/obj/machinery/computer/general_air_control/large_tank_control/Initialize()
+/obj/machinery/computer/general_air_control/large_tank_control/Initialize(mapload)
 	. = ..()
 	input_linkable = list(
 		/obj/machinery/atmospherics/unary/outlet_injector,
@@ -447,7 +447,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	add_fingerprint(usr)
 
 	if(href_list["out_set_pressure"])
-		var/response=input(usr,"Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]") as num
+		var/response = tgui_input_number(usr, "Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]")
 		pressure_setting = text2num(response)
 		pressure_setting = between(0, pressure_setting, 50*ONE_ATMOSPHERE)
 

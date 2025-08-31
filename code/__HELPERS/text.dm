@@ -58,15 +58,6 @@
 			index = findtext(t, char)
 	return t
 
-/proc/readd_quotes(var/t)
-	var/list/repl_chars = list("&#34;" = "\"")
-	for(var/char in repl_chars)
-		var/index = findtext(t, char)
-		while(index)
-			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+5)
-			index = findtext(t, char)
-	return t
-
 //Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(var/t,var/list/repl_chars = null)
 	return sanitize_censored_patterns(html_encode(sanitize_simple(t,repl_chars)))
@@ -129,7 +120,7 @@
 /proc/typing_input(mob/user, message = "", title = "", default = "")
 	var/client/C = user.client // Save it in a var in case the client disconnects from the mob
 	C.typing = TRUE
-	var/msg = input(user, message, title, default) as text|null
+	var/msg = tgui_input_text(user, message, title, default)
 	if(!C)
 		return null
 	C.typing = FALSE
@@ -311,8 +302,8 @@
 /proc/trim(text, max_length)
 	if(max_length)
 		text = copytext_char(text, 1, max_length)
-		
-	return trimtext(text) || "" 
+
+	return trimtext(text) || ""
 
 /// Returns a string that does not exceed max_length characters in size
 /proc/trim_length(text, max_length)
@@ -321,6 +312,20 @@
 //Returns a string with the first element of the string capitalized.
 /proc/capitalize(var/t as text)
 	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
+
+//Returns a string depending on number it recieves
+/proc/numeric_ending(num, more, one, three)
+	var/last_digit = num % 10
+	var/last_two_digit = num % 100
+
+	if(last_two_digit >= 11 && last_two_digit <= 14)
+		return more
+	if(last_digit == 1)
+		return one
+	if(last_digit >= 2 && last_digit <= 4)
+		return three
+	else
+		return more
 
 //Centers text by adding spaces to either side of the string.
 /proc/dd_centertext(message, length)
@@ -520,24 +525,24 @@
 		text = replacetext(text, "\[/large\]",	"</font>")
 
 	if(istype(P, /obj/item/toy/crayon) || !format) // If it is a crayon, and he still tries to use these, make them empty!
-		text = replacetext(text, "\[*\]", 		"")
+		text = replacetext(text, "\[*\]",		"")
 		text = replacetext(text, "\[hr\]",		"")
-		text = replacetext(text, "\[small\]", 	"")
-		text = replacetext(text, "\[/small\]", 	"")
-		text = replacetext(text, "\[list\]", 	"")
-		text = replacetext(text, "\[/list\]", 	"")
-		text = replacetext(text, "\[table\]", 	"")
-		text = replacetext(text, "\[/table\]", 	"")
-		text = replacetext(text, "\[row\]", 	"")
-		text = replacetext(text, "\[cell\]", 	"")
-		text = replacetext(text, "\[logo\]", 	"")
-		text = replacetext(text, "\[slogo\]", 	"")
-		text = replacetext(text, "\[time\]", 	"")
-		text = replacetext(text, "\[date\]", 	"")
+		text = replacetext(text, "\[small\]",	"")
+		text = replacetext(text, "\[/small\]",	"")
+		text = replacetext(text, "\[list\]",	"")
+		text = replacetext(text, "\[/list\]",	"")
+		text = replacetext(text, "\[table\]",	"")
+		text = replacetext(text, "\[/table\]",	"")
+		text = replacetext(text, "\[row\]",	"")
+		text = replacetext(text, "\[cell\]",	"")
+		text = replacetext(text, "\[logo\]",	"")
+		text = replacetext(text, "\[slogo\]",	"")
+		text = replacetext(text, "\[time\]",	"")
+		text = replacetext(text, "\[date\]",	"")
 		text = replacetext(text, "\[station\]", "")
 	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
-	else 	// They are using "not a crayon" - formatting is OK and such
+	else	// They are using "not a crayon" - formatting is OK and such
 		text = replacetext(text, "\[*\]",		"<li>")
 		text = replacetext(text, "\[hr\]",		"<hr>")
 		text = replacetext(text, "\[small\]",	"<font size = \"1\">")
@@ -809,3 +814,8 @@
 	if(ofthree == 0)
 		return "[num]"
 	return "[num / (10 ** (ofthree * 3))][GLOB.si_suffixes[round(length(GLOB.si_suffixes) / 2) + ofthree + 1]]"
+
+/// Returns TRUE if the input_text ends with the ending
+/proc/endswith(input_text, ending)
+	var/input_length = LAZYLEN(ending)
+	return !!findtext(input_text, ending, -input_length)

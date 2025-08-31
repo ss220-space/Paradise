@@ -22,8 +22,8 @@
 
 	multitool_menu_type = /datum/multitool_menu/idtag/driver_button
 
-/obj/machinery/driver_button/New(turf/loc, var/w_dir=null)
-	..()
+/obj/machinery/driver_button/Initialize(mapload, w_dir = null)
+	. = ..()
 	switch(w_dir)
 		if(NORTH)
 			pixel_y = 25
@@ -35,10 +35,6 @@
 			pixel_x = -25
 	if(SSradio)
 		set_frequency(frequency)
-
-/obj/machinery/driver_button/Initialize()
-	. = ..()
-	set_frequency(frequency)
 
 /obj/machinery/driver_button/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -185,12 +181,12 @@
 	active = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
-	for(var/obj/machinery/sparker/M in GLOB.machines)
+	for(var/obj/machinery/sparker/M in SSmachines.get_by_type(/obj/machinery/sparker))
 		if(M.id == id)
 			spawn( 0 )
 				M.spark()
 
-	for(var/obj/machinery/igniter/M in GLOB.machines)
+	for(var/obj/machinery/igniter/M in SSmachines.get_by_type(/obj/machinery/igniter))
 		if(M.id == id)
 			use_power(50)
 			M.on = !( M.on )

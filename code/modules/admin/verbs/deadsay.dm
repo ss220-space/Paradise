@@ -1,5 +1,5 @@
 /client/proc/dsay(msg as text)
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	set name = "Dsay" //Gave this shit a shorter name so you only have to time out "dsay" rather than "dead say" to use it --NeoFite
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -43,7 +43,7 @@
 		prefix = "Administrator"
 	say_dead_direct("<span class='name'>[prefix]</span> says, <span class='message'>\"[msg]\"</span>")
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Dsay")
 
 /client/proc/get_dead_say()
 	if(!check_rights(R_ADMIN|R_MOD))

@@ -14,7 +14,7 @@
 	var/collapse_tp_radius = 0
 
 /obj/effect/anomaly/bluespace/proc/teleport(atom/movable/target, radius)
-	if(target.anchored && target != src || isobserver(target) || iseffect(target))
+	if(target.anchored && target != src || isobserver(target) || iseffect(target) && target != src)
 		return
 
 	var/turf/start = get_turf(src)
@@ -27,15 +27,24 @@
 	if(isliving(target))
 		investigate_log("teleported [key_name_log(target)] to [COORD(target)]", INVESTIGATE_TELEPORTATION)
 
+	var/turf/atom_loc = get_turf(target.loc)
+	if(!atom_loc.is_blocked_turf(exclude_mobs = TRUE))
+		return
+
+	for(var/turf/turf in orange(7, target))
+		if(target.Move(turf))
+			return
+
+
 /obj/effect/anomaly/bluespace/mob_touch_effect(mob/living/mob)
 	..()
-	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
+	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strength() / 100)
 	teleport(mob, radius)
 	return FALSE
 
 /obj/effect/anomaly/bluespace/item_touch_effect(obj/item/item)
 	..()
-	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
+	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strength() / 100)
 	if(isturf(item.loc))
 		teleport(item, radius)
 
@@ -43,7 +52,7 @@
 
 /obj/effect/anomaly/bluespace/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
-	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
+	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strength() / 100)
 	teleport(user, radius)
 
 /obj/effect/anomaly/bluespace/collapse()
@@ -55,14 +64,6 @@
 
 /obj/effect/anomaly/bluespace/tier1
 	name = "малая блюспейс аномалия"
-	ru_names = list(
-		NOMINATIVE = "малая ​​блюспейс аномалия", \
-		GENITIVE = "малой ​​блюспейс аномалии", \
-		DATIVE = "малой ​​блюспейс аномалии", \
-		ACCUSATIVE = "малую ​​блюспейс аномалию", \
-		INSTRUMENTAL = "малой ​​блюспейс аномалией", \
-		PREPOSITIONAL = "малой ​​блюспейс аномалии"
-	)
 	icon_state = "bluespace1"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/bluespace/tier2
@@ -76,20 +77,22 @@
 	collapse_radius = 3
 	collapse_tp_radius = 5
 
+/obj/effect/anomaly/bluespace/tier1/get_ru_names()
+	return list(
+		NOMINATIVE = "малая ​​блюспейс аномалия", \
+		GENITIVE = "малой ​​блюспейс аномалии", \
+		DATIVE = "малой ​​блюспейс аномалии", \
+		ACCUSATIVE = "малую ​​блюспейс аномалию", \
+		INSTRUMENTAL = "малой ​​блюспейс аномалией", \
+		PREPOSITIONAL = "малой ​​блюспейс аномалии"
+	)
+
 // Moves only by /datum/anomaly_impulse/move/bs_selftp
 /obj/effect/anomaly/bluespace/tier1/normal_move()
 	return FALSE
 
 /obj/effect/anomaly/bluespace/tier2
 	name = "блюспейс аномалия"
-	ru_names = list(
-		NOMINATIVE = "​​блюспейс аномалия", \
-		GENITIVE = "​​блюспейс аномалии", \
-		DATIVE = "​​блюспейс аномалии", \
-		ACCUSATIVE = "​​блюспейс аномалию", \
-		INSTRUMENTAL = "​​блюспейс аномалией", \
-		PREPOSITIONAL = "​​блюспейс аномалии"
-	)
 	icon_state = "bluespace2"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier2
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier1
@@ -106,16 +109,18 @@
 	collapse_radius = 5
 	collapse_tp_radius = 50
 
+/obj/effect/anomaly/bluespace/tier2/get_ru_names()
+	return list(
+		NOMINATIVE = "​​блюспейс аномалия", \
+		GENITIVE = "​​блюспейс аномалии", \
+		DATIVE = "​​блюспейс аномалии", \
+		ACCUSATIVE = "​​блюспейс аномалию", \
+		INSTRUMENTAL = "​​блюспейс аномалией", \
+		PREPOSITIONAL = "​​блюспейс аномалии"
+	)
+
 /obj/effect/anomaly/bluespace/tier3
 	name = "большая блюспейс аномалия"
-	ru_names = list(
-		NOMINATIVE = "большая ​​блюспейс аномалия", \
-		GENITIVE = "большой ​​блюспейс аномалии", \
-		DATIVE = "большой ​​блюспейс аномалии", \
-		ACCUSATIVE = "большую ​​блюспейс аномалию", \
-		INSTRUMENTAL = "большой ​​блюспейс аномалией", \
-		PREPOSITIONAL = "большой ​​блюспейс аномалии"
-	)
 	icon_state = "bluespace3"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier3
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier2
@@ -131,6 +136,16 @@
 	collapse_radius = 7
 	collapse_tp_radius = 50
 
+/obj/effect/anomaly/bluespace/tier3/get_ru_names()
+	return list(
+		NOMINATIVE = "большая ​​блюспейс аномалия", \
+		GENITIVE = "большой ​​блюспейс аномалии", \
+		DATIVE = "большой ​​блюспейс аномалии", \
+		ACCUSATIVE = "большую ​​блюспейс аномалию", \
+		INSTRUMENTAL = "большой ​​блюспейс аномалией", \
+		PREPOSITIONAL = "большой ​​блюспейс аномалии"
+	)
+
 /obj/effect/anomaly/bluespace/tier3/New()
 	. = ..()
 	for(var/mob/mob as anything in GLOB.player_list)
@@ -141,7 +156,7 @@
 			return
 
 		mob.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
-		to_chat(mob, span_bluespaceanomaly("Вы слышите страшный треск! Это что... трещит пространство?"))
+		to_chat(mob, span_bluespace_anomaly("Вы слышите страшный треск! Это что... трещит пространство?"))
 
 /obj/effect/anomaly/bluespace/tier3/collapse()
 	new /datum/event/wormholes/anomaly()
@@ -155,14 +170,6 @@
 
 /obj/effect/anomaly/bluespace/tier4
 	name = "колоссальная блюспейс аномалия"
-	ru_names = list(
-		NOMINATIVE = "колоссальная ​​блюспейс аномалия", \
-		GENITIVE = "колоссальной ​​блюспейс аномалии", \
-		DATIVE = "колоссальной ​​блюспейс аномалии", \
-		ACCUSATIVE = "колоссальную ​​блюспейс аномалию", \
-		INSTRUMENTAL = "колоссальной ​​блюспейс аномалией", \
-		PREPOSITIONAL = "колоссальной ​​блюспейс аномалии"
-	)
 	icon_state = "bluespace3"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier3/tier4
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier3
@@ -178,6 +185,16 @@
 	collapse_radius = 7
 	collapse_tp_radius = 50
 
+/obj/effect/anomaly/bluespace/tier4/get_ru_names()
+	return list(
+		NOMINATIVE = "колоссальная ​​блюспейс аномалия", \
+		GENITIVE = "колоссальной ​​блюспейс аномалии", \
+		DATIVE = "колоссальной ​​блюспейс аномалии", \
+		ACCUSATIVE = "колоссальную ​​блюспейс аномалию", \
+		INSTRUMENTAL = "колоссальной ​​блюспейс аномалией", \
+		PREPOSITIONAL = "колоссальной ​​блюспейс аномалии"
+	)
+
 /obj/effect/anomaly/bluespace/tier4/New()
 	. = ..()
 	for(var/mob/mob as anything in GLOB.player_list)
@@ -185,7 +202,7 @@
 			continue
 
 		mob.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
-		to_chat(mob, span_bluespaceanomaly("Пространство пало..."))
+		to_chat(mob, span_bluespace_anomaly("Пространство пало..."))
 
 /obj/effect/anomaly/bluespace/tier4/collapse()
 	new /datum/event/wormholes/anomaly()

@@ -56,9 +56,8 @@
 /* //uncomment to enable forced reactions.
 /obj/machinery/r_n_d/experimentor/verb/forceReaction()
 	set name = "Force Experimentor Reaction"
-	set category = "Admin.Debug"
-	set src in oview(1)
-	var/reaction = input(usr,"What reaction?") in list(SCANTYPE_POKE,SCANTYPE_IRRADIATE,SCANTYPE_GAS,SCANTYPE_HEAT,SCANTYPE_COLD,SCANTYPE_OBLITERATE)
+	set category = STATPANEL_ADMIN_DEBUG	set src in oview(1)
+	var/reaction = tgui_input_list(usr, "What reaction?", , list(SCANTYPE_POKE, SCANTYPE_IRRADIATE, SCANTYPE_GAS, SCANTYPE_HEAT, SCANTYPE_COLD, SCANTYPE_OBLITERATE))
 	var/oldReaction = item_reactions["[loaded_item.type]"]
 	item_reactions["[loaded_item.type]"] = reaction
 	experiment(item_reactions["[loaded_item.type]"],loaded_item)
@@ -92,8 +91,8 @@
 				critical_items += I
 
 
-/obj/machinery/r_n_d/experimentor/New()
-	..()
+/obj/machinery/r_n_d/experimentor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/experimentor(src)
 	component_parts += new /obj/item/stock_parts/scanning_module(src)
@@ -101,11 +100,16 @@
 	component_parts += new /obj/item/stock_parts/manipulator(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
-	spawn(1)
-		trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
-		trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
 	SetTypeReactions()
 	RefreshParts()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/r_n_d/experimentor/LateInitialize(mapload)
+	. = ..()
+	// GLOB.mob_living_list gets populated in /mob/Initialize()
+	// so we need to delay searching for those until after the Initialize()
+	trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
+	trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
 
 /obj/machinery/r_n_d/experimentor/RefreshParts()
 	badThingCoeff = initial(badThingCoeff)
@@ -399,7 +403,7 @@
 			investigate_log("Experimentor has released [chosenchem] smoke.", INVESTIGATE_EXPERIMENTOR)
 			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
-			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(inner_reagent)
 			ejectItem(TRUE)
@@ -411,7 +415,7 @@
 			inner_reagent.add_reagent(chosenchem , 375)
 			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
-			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(inner_reagent)
 			ejectItem(TRUE)
@@ -441,7 +445,7 @@
 	if(!isRelict)
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message(span_warning("[src]'s emergency coolant system gives off a small ding!"))
-			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+			playsound(src.loc, 'sound/machines/ding.ogg', 50, TRUE)
 			var/obj/item/reagent_containers/food/drinks/coffee/C = new /obj/item/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
 			chosenchem = pick("plasma","capsaicin","ethanol")
 			C.reagents.remove_any(25)
@@ -464,7 +468,7 @@
 				FB.fire()
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message(span_danger("[src] malfunctions, melting [exp_on] and releasing a burst of flame!"))
-			explosion(src.loc, -1, 0, 0, 0, 0, flame_range = 2, cause = "Experimentor Fire")
+			explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 0, adminlog = FALSE, ignorecap = FALSE, flame_range = 2, cause = "Experimentor Fire")
 			investigate_log("Experimentor started a fire.", INVESTIGATE_EXPERIMENTOR)
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
@@ -506,7 +510,7 @@
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message(span_warning("[src]'s emergency coolant system gives off a small ding!"))
 			var/obj/item/reagent_containers/food/drinks/coffee/C = new /obj/item/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
-			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1) //Ding! Your death coffee is ready!
+			playsound(src.loc, 'sound/machines/ding.ogg', 50, TRUE) //Ding! Your death coffee is ready!
 			chosenchem = pick("uranium","frostoil","ephedrine")
 			C.reagents.remove_any(25)
 			C.reagents.add_reagent(chosenchem , 50)
@@ -521,7 +525,7 @@
 			investigate_log("Experimentor has released frostoil gas.", INVESTIGATE_EXPERIMENTOR)
 			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
-			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+			playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 			smoke.start()
 			qdel(inner_reagent)
 			ejectItem(TRUE)
@@ -569,7 +573,7 @@
 				linked_materials.insert_amount( min((linked_materials.max_amount - linked_materials.total_amount), (exp_on.materials[material])), material)
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message(span_danger("[src]'s crusher goes way too many levels too high, crushing right through space-time!"))
-			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 1, -3)
+			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, TRUE, -3)
 			investigate_log("Experimentor has triggered the 'throw things' reaction.", INVESTIGATE_EXPERIMENTOR)
 			for(var/atom/movable/AM in oview(7,src))
 				if(!AM.anchored)
@@ -578,7 +582,7 @@
 
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message(span_danger("[src]'s crusher goes one level too high, crushing right into space-time!"))
-			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 1, -3)
+			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, TRUE, -3)
 			investigate_log("Experimentor has triggered the 'minor throw things' reaction.", INVESTIGATE_EXPERIMENTOR)
 			var/list/throwAt = list()
 			for(var/atom/movable/AM in oview(7,src))

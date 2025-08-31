@@ -1,7 +1,7 @@
 /** Toggles requiring nodes */
 /mob/camera/blob/verb/toggle_node_req()
-	set category = "Blob"
-	set name = "Переключить требование узла"
+	set category = STATPANEL_BLOB
+	set name = "Требование узла"
 	set desc = "Переключить требование узла для размещения ресурсной плитки и фабрики."
 
 	nodes_required = !nodes_required
@@ -12,7 +12,7 @@
 
 
 /mob/camera/blob/verb/blob_broadcast()
-	set category = "Blob"
+	set category = STATPANEL_BLOB
 	set name = "Ретрянсляция блоба"
 	set desc = "Говорите, используя споры и блобернаутов в качестве рупоров. Это действие бесплатно."
 

@@ -27,8 +27,8 @@
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
 
-/obj/machinery/computer/pandemic/New()
-	..()
+/obj/machinery/computer/pandemic/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/machinery/computer/pandemic/set_broken()
@@ -224,7 +224,7 @@
 		printing = 1
 		var/obj/item/paper/P = new /obj/item/paper(loc)
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 
 		P.info = span_fontsize4("<u><b><center> Выпуск вируса </b></center></u>")
 		P.info += "<hr>"
@@ -289,7 +289,7 @@
 							var/datum/disease/virus/advance/A = D
 							D = GLOB.archive_diseases[A.GetDiseaseID()]
 							if(D)
-								if(D.name == "Unknown")
+								if(D.name == "Неизвестно")
 									dat += "<b><a href='byond://?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><br>"
 								else
 									dat += "[D.name] <b><a href='byond://?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><br>"

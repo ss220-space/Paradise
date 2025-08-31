@@ -152,7 +152,7 @@
 	paintable = FALSE
 	var/event_step = 20
 
-/obj/machinery/door/airlock/uranium/Initialize()
+/obj/machinery/door/airlock/uranium/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/radioactivity, \
 				rad_per_cycle = 15, \
@@ -454,6 +454,19 @@
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
 
+/obj/machinery/door/airlock/highsecurity/red/Initialize(mapload)
+	. = ..()
+	if(!is_station_level(z))
+		return
+	RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
+
+/obj/machinery/door/airlock/highsecurity/red/proc/on_security_level_update(datum/source, previous_level_number, new_level_number)
+	SIGNAL_HANDLER
+
+	if(new_level_number >= SEC_LEVEL_RED)
+		unlock(TRUE)
+	else
+		lock(TRUE)
 
 /obj/machinery/door/airlock/highsecurity/red/attackby(obj/item/I, mob/user, params)
 	if(!issilicon(user) && isElectrified() && shock(user, 75))
@@ -550,13 +563,13 @@
 	overlays_file = 'icons/obj/doors/airlocks/cult/runed/cult-overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult_fake
 
-/obj/machinery/door/airlock/cult_fake/Initialize()
+/obj/machinery/door/airlock/cult_fake/Initialize(mapload)
 	. = ..()
 	icon = SSticker.cultdat?.airlock_runed_icon_file
 	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
 	update_icon()
 
-/obj/machinery/door/airlock/cult/Initialize()
+/obj/machinery/door/airlock/cult/Initialize(mapload)
 	. = ..()
 	icon = SSticker.cultdat?.airlock_runed_icon_file
 	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
@@ -578,7 +591,7 @@
 			new /obj/effect/temp_visual/cult/sac(loc)
 			var/atom/throwtarget
 			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
-			SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
+			SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, TRUE, 50), sound('sound/hallucinations/turn_around2.ogg', 0, TRUE, 50)))
 			L.Weaken(4 SECONDS)
 			L.throw_at(throwtarget, 5, 1,src)
 		return FALSE
@@ -623,7 +636,7 @@
 	glass = TRUE
 	opacity = FALSE
 
-/obj/machinery/door/airlock/cult/glass/Initialize()
+/obj/machinery/door/airlock/cult/glass/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -636,7 +649,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult/unruned
 	openingoverlaytype = /obj/effect/temp_visual/cult/door/unruned
 
-/obj/machinery/door/airlock/cult/unruned/Initialize()
+/obj/machinery/door/airlock/cult/unruned/Initialize(mapload)
 	. = ..()
 	icon = SSticker.cultdat?.airlock_unruned_icon_file
 	overlays_file = SSticker.cultdat?.airlock_unruned_overlays_file
@@ -649,7 +662,7 @@
 	glass = TRUE
 	opacity = FALSE
 
-/obj/machinery/door/airlock/cult/unruned/glass/Initialize()
+/obj/machinery/door/airlock/cult/unruned/glass/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -661,7 +674,7 @@
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 //////////////////////////////////
 /*
@@ -680,7 +693,7 @@
 	/// Will the door let anyone through
 	var/friendly = FALSE
 
-/obj/machinery/door/airlock/clockwork/Initialize()
+/obj/machinery/door/airlock/clockwork/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/door(get_turf(src))
 
@@ -696,7 +709,7 @@
 		new /obj/effect/temp_visual/ratvar/door(loc)
 		var/atom/throwtarget
 		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
-		SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
+		SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, TRUE, 50), sound('sound/hallucinations/turn_around2.ogg', 0, TRUE, 50)))
 		L.Weaken(4 SECONDS)
 		L.throw_at(throwtarget, 5, 1,src)
 		return FALSE
@@ -723,7 +736,7 @@
 	desc = "An airlock made from pure-hands into some brass moving structure."
 	normal_integrity = 150
 	damage_deflection = 5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 //////////////////////////////////
 /*

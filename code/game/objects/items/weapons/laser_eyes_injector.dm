@@ -1,7 +1,12 @@
 /obj/item/laser_eyes_injector
 	name = "laser eyes injector"
 	desc = "Инъектор, который даст вам способность стрелять лазерами из глаз."
-	ru_names = list(
+	icon = 'icons/obj/hypo.dmi'
+	icon_state = "dnainjector"
+	var/used = FALSE
+
+/obj/item/laser_eyes_injector/get_ru_names()
+	return list(
 		NOMINATIVE = "инъектор лазерных глаз",
 		GENITIVE = "инъектора лазерных глаз",
 		DATIVE = "инъектору лазерных глаз",
@@ -9,10 +14,6 @@
 		INSTRUMENTAL = "инъектором лазерных глаз",
 		PREPOSITIONAL = "инъекторе лазерных глаз"
 	)
-	icon = 'icons/obj/hypo.dmi'
-	icon_state = "dnainjector"
-	var/used = FALSE
-
 
 /obj/item/laser_eyes_injector/update_icon_state()
 	. = ..()

@@ -14,6 +14,10 @@
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_EARS
 
+/obj/item/organ/internal/ears/invincible/internal_receive_damage(amount, silent)
+	return FALSE
+
+
 /obj/item/organ/internal/ears/on_life()
 	if(!iscarbon(owner))
 		return
@@ -65,8 +69,8 @@
 	icon_state = "eyes-c"
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
-	pickup_sound = 'sound/items/handling/component_pickup.ogg'
-	drop_sound = 'sound/items/handling/component_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)
 	if(emp_proof)

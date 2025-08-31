@@ -1,13 +1,5 @@
 /obj/item/assembly/tuned_anomalous_teleporter
 	name = "tuned anomalous teleporter"
-	ru_names = list(
-		NOMINATIVE = "настраеваемый аномальный телепортер", \
-		GENITIVE = "настраеваемого аномального телепортера", \
-		DATIVE = "настраеваемому аномальному телепортеру", \
-		ACCUSATIVE = "настраеваемый аномальный телепортер", \
-		INSTRUMENTAL = "настраеваемым аномальным телепортером", \
-		PREPOSITIONAL = "настраеваемом аномальном телепортере"
-	)
 	desc = "Портативный настраиваемый телепортер использующий ядро блюспейс аномалии для телепортации пользователя в \
 			выбранном направлении."
 	icon = 'icons/obj/weapons/techrelic.dmi'
@@ -43,6 +35,16 @@
 
 	COOLDOWN_DECLARE(tuned_anomalous_teleporter_cooldown) // declare cooldown for teleportations
 	COOLDOWN_DECLARE(emp_cooldown) // declare cooldown for EMP
+
+/obj/item/assembly/tuned_anomalous_teleporter/get_ru_names()
+	return list(
+		NOMINATIVE = "настраеваемый аномальный телепортер", \
+		GENITIVE = "настраеваемого аномального телепортера", \
+		DATIVE = "настраеваемому аномальному телепортеру", \
+		ACCUSATIVE = "настраеваемый аномальный телепортер", \
+		INSTRUMENTAL = "настраеваемым аномальным телепортером", \
+		PREPOSITIONAL = "настраеваемом аномальном телепортере"
+	)
 
 /obj/item/assembly/tuned_anomalous_teleporter/Initialize(mapload)
 	. = ..()
@@ -118,7 +120,7 @@
 	if(!core)
 		. += span_warning("В [declent_ru(PREPOSITIONAL)] нет ядра!")
 	else
-		. += span_info("В [declent_ru(PREPOSITIONAL)] есть ядро.")
+		. += span_notice("В [declent_ru(PREPOSITIONAL)] есть ядро.")
 
 	if(emp_timer > world.time)
 		. += span_warning("[declent_ru(NOMINATIVE)] выглядит неработающим.")
@@ -191,7 +193,7 @@ Ranges with core charge 50-100:
 		return
 
 	var/old_max_tp_range = max_tp_range
-	max_tp_range = max(1, round((core.get_strenght() + 10) / 30))
+	max_tp_range = max(1, round((core.get_strength() + 10) / 30))
 	if(tp_range != old_max_tp_range) // If was max, set max, else leave old.
 		tp_range = max_tp_range
 

@@ -2,7 +2,7 @@
 // Spawns a group of player-controlled mobs with an outfit specified by the admin, at their location.
 
 /client/proc/gimmick_team()
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Отправить Гиммик тим"
 	set desc = "Спавнит команду игроков в выбранной экипировке."
 	if(!check_rights(R_EVENT))
@@ -97,6 +97,6 @@
 
 
 	log_and_message_admins("used Spawn Gimmick Team.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Gimmick Team") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Spawn Gimmick Team")
 
 // ---------------------------------------------------------------------------------------------------------
