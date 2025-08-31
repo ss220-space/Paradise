@@ -5233,7 +5233,7 @@
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Фабрикатор с передовой технологией блюспейс-транспортировки ресурсов."
 	icon = 'icons/obj/machines/robotics.dmi'
-	icon_state = "fab-idle"
+	icon_state = "fabricator"
 	products = list(
 		/obj/mecha/combat/durand = 10,
 		/obj/mecha/combat/gygax = 10,
