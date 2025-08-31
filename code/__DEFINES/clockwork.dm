@@ -44,6 +44,9 @@
 #define EMP_G_SPELL 1
 #define HEAL_G_SPELL 2
 #define STUN_G_SPELL 3
+//minigun
+#define MINIGUN_ATTACK 1
+#define MINIGUN_HEAL 2
 
 
 // spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), action needs)
@@ -94,6 +97,10 @@ GLOBAL_LIST_INIT(gun_and_heart_spells, list(
 	new /datum/spell_enchant("EMP", EMP_G_SPELL, time = 1),
 	new /datum/spell_enchant("Heal", HEAL_G_SPELL, time = 1),
 	new /datum/spell_enchant("Stun", STUN_G_SPELL, time = 1)
+))
+GLOBAL_LIST_INIT(minigun_spells, list(
+	new /datum/spell_enchant("Attack sphere", MINIGUN_ATTACK, time = 5),
+	new /datum/spell_enchant("Heal sphere", MINIGUN_HEAL, time = 5),
 ))
 
 

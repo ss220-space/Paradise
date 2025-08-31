@@ -536,3 +536,14 @@
 	icon_state = "laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = COLOR_SOFT_RED
+
+/obj/projectile/beam/laser/light/rat
+	icon_state = "brasslaser"
+
+/obj/projectile/beam/laser/light/rat/on_hit(atom/target, blocked, hit_zone)
+	if(!isliving(target))
+		return ..()
+	var/mob/living/liv_target = target
+	if(isclocker(liv_target))
+		return
+	. = ..()

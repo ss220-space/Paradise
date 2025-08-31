@@ -398,7 +398,7 @@
 		slowdown_duration = 1 SECONDS, \
 		requires_wielded = TRUE, \
 		no_multi_hit = TRUE, \
-		swing_sound = SFX_BLUNT_SWING_HEAVY \
+		swing_sound = "blunt_swing_heavy" \
 	)
 
 /obj/item/twohanded/clock_hammer/update_icon_state()
@@ -508,7 +508,7 @@
 		/datum/component/cleave_attack, \
 		arc_size = 180, \
 		afterswing_slowdown = 0, \
-		swing_sound = SFX_BLADE_SWING_LIGHT \
+		swing_sound = "blade_swing_light" \
 	)
 
 /obj/item/melee/clock_sword/update_overlays()
@@ -839,21 +839,30 @@
 	cell_type = /obj/item/stock_parts/cell/clock/minigun
 	isclockwork = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/light/rat)
+	recoil = new /datum/gun_recoil/high()
+	blocks_emissive = FALSE
+	COOLDOWN_DECLARE(overheated)
+	COOLDOWN_DECLARE(balloon)
 	var/datum/component/automatic_fire/autofire
 	var/overheat = FALSE
 	var/last_fire = 0
 	var/delay_no_beacon = 50
 	var/gun_charge_delay = 20
 	var/last_charge = 0
-	recoil = new /datum/gun_recoil/high()
+	var/charging_amount = 25
+	var/cool_time = 15 SECONDS
+	var/default_bullet = /obj/item/ammo_casing/energy/laser/light/rat
+	var/attack_bullet = /obj/item/ammo_casing/energy/rat_sphere/attack
+	var/heal_bullet = /obj/item/ammo_casing/energy/rat_sphere/heal
 
 /obj/item/gun/energy/gun/minigun/clockwork/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
+	enchants = GLOB.minigun_spells
 
 /obj/item/gun/energy/gun/minigun/clockwork/process()
 	. = ..()
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	var/obj/structure/clockwork/functional/beacon/beacon_near = locate() in range(5, src.loc)
 	if(last_fire == 0)
 		return
@@ -861,8 +870,10 @@
 		return
 	if(!(world.time >= last_charge + gun_charge_delay))
 		return
-	cell.charge = min(cell.charge + 50, cell.maxcharge)
+	cell.charge = min(cell.charge + charging_amount, cell.maxcharge)
 	last_charge = world.time
+	if(COOLDOWN_FINISHED(src, overheated))
+		overheat = FALSE
 
 /obj/item/gun/energy/gun/minigun/clockwork/ComponentInitialize()
 	AddComponent( \
@@ -872,11 +883,14 @@
 	autofire = src.GetComponent(/datum/component/automatic_fire)
 
 /obj/item/gun/energy/gun/minigun/clockwork/update_overlays()
+	. = ..()
 	if(overheat)
-		. += "overheat"
+		. += "[initial(icon_state)]_overheated"
+	if(enchant_type && enchant_type != CASTING_SPELL)
+		. += "[initial(icon_state)]_overlay_[enchant_type]"
 
 /obj/item/gun/energy/gun/minigun/clockwork/update_icon_state()
-	if(autofire.autofire_stat == AUTOFIRE_STAT_FIRING)
+	if(autofire.autofire_stat == AUTOFIRE_STAT_FIRING && !overheat)
 		icon_state = "clockgun_firing"
 	else
 		icon_state = "clockgun"
@@ -888,9 +902,35 @@
 	var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
 
+/obj/item/gun/energy/gun/minigun/clockwork/add_enchant()
+	update_bullet()
+
+/obj/item/gun/energy/gun/minigun/clockwork/proc/update_bullet()
+	switch(enchant_type)
+		if(MINIGUN_ATTACK)
+			ammo_type = list(attack_bullet)
+		if(MINIGUN_HEAL)
+			ammo_type = list(heal_bullet)
+		else
+			ammo_type = list(default_bullet)
+	update_ammo_types()
+	if(chambered)
+		QDEL_NULL(chambered)
+	newshot()
+
 /obj/item/gun/energy/gun/minigun/clockwork/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
-	. = ..()
+	if(overheat)
+		if(COOLDOWN_FINISHED(src, balloon))
+			balloon_alert(user, "миниган перегрет!")
+			COOLDOWN_START(src, balloon, 1 SECONDS)
+		return
+	if(enchant_type > 0)
+		COOLDOWN_START(src, overheated, cool_time)
+		overheat = TRUE
+		enchant_type = NO_SPELL
 	last_fire = world.time
+	. = ..()
+	update_bullet()
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe
@@ -1080,7 +1120,7 @@
 /obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(enchant_type == ABSORB_SPELL && isclocker(owner))
 		owner.visible_message(span_danger("[attack_text] is absorbed by [src] sparks!"))
-		playsound(loc, SFX_SPARKS, 100, TRUE)
+		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		deplete_spell()
 		return TRUE
@@ -1093,7 +1133,7 @@
 	if(owner.wear_suit != src)
 		return FALSE
 	if(enchant_type == REFLECT_SPELL && isclocker(owner))
-		playsound(loc, SFX_SPARKS, 100, TRUE)
+		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		if(reflect_uses <= 0)
 			reflect_uses = initial(reflect_uses)
@@ -1606,7 +1646,7 @@
 			to_chat(user,span_warning("You are too weak to crush this massive shard!"))
 			return
 		user.visible_message(span_warning("[user] crushes [src] in his hands!"), span_notice("You crush [src] in your hand!"))
-		playsound(src, SFX_SHATTER, 50, TRUE)
+		playsound(src, "shatter", 50, TRUE)
 		switch(enchant_type)
 			if(EMP_SPELL)
 				add_attack_logs(user, user, "Clock EMP with [src]")

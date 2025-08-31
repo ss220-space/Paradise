@@ -417,5 +417,58 @@
 		target.emp_act(EMP_HEAVY)
 	. = ..()
 
-/obj/projectile/beam/laser/light/rat
-	icon_state = "brasslaser"
+/obj/projectile/energy/sphere
+	name = "energy sphere"
+	icon_state = "rat_sphere"
+	damage = 0
+	speed = 30
+	range = 1000
+	forcedodge = -1
+	var/beam_icon = "sphere_beam"
+	var/list/bumped_in = list()
+	layer = ABOVE_ALL_MOB_LAYER + 0.1
+
+/obj/projectile/energy/sphere/check_ricochet(atom/A)
+	return isturf(A)
+
+/obj/projectile/energy/sphere/check_ricochet_flag(atom/A)
+	return TRUE
+
+/obj/projectile/energy/sphere/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(process_beam)), 1 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+
+/obj/projectile/energy/sphere/proc/process_beam()
+	for(var/mob/living/target in range(2, loc))
+		process_effects(target)
+
+/obj/projectile/energy/sphere/proc/process_effects(mob/living/target)
+		target.Beam(src, beam_icon, 'icons/obj/weapons/projectiles.dmi', time = 1 SECONDS, maxdistance = 2)
+
+/obj/projectile/energy/sphere/attack
+	damage = 60
+
+/obj/projectile/energy/sphere/attack/process_effects(mob/living/target)
+	if(isclocker(target))
+		return
+	target.apply_damage(15, BURN)
+	. = ..()
+
+/obj/projectile/energy/sphere/heal
+	icon_state = "sphere_heal"
+	beam_icon = "beam_heal"
+
+/obj/projectile/energy/sphere/heal/process_effects(mob/living/target)
+	if(!isclocker(target))
+		return
+	target.heal_overall_damage(0, 15)
+	. = ..()
+
+/obj/projectile/energy/sphere/heal/on_hit(atom/target, blocked, hit_zone)
+	if(!isliving(target))
+		return ..()
+	var/mob/living/to_heal = target
+	if(!isclocker(to_heal))
+		return ..()
+	to_heal.heal_overall_damage(0, 60)

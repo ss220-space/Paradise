@@ -580,3 +580,14 @@
 	projectile_type = /obj/projectile/beam/laser/light/rat
 	e_cost = 1
 	color = COLOR_TANGERINE_YELLOW
+
+/obj/item/ammo_casing/energy/rat_sphere
+	projectile_type = /obj/projectile/energy/sphere
+	e_cost = 0
+	color = COLOR_YELLOW
+
+/obj/item/ammo_casing/energy/rat_sphere/attack
+	projectile_type = /obj/projectile/energy/sphere/attack
+
+/obj/item/ammo_casing/energy/rat_sphere/heal
+	projectile_type = /obj/projectile/energy/sphere/heal
