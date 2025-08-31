@@ -227,7 +227,10 @@
 //TODO: Replace this,bsa and gravgen with some big machinery datum
 /obj/machinery/power/bfl_emitter/Initialize(mapload)
 	. = ..()
-	lavaland_z_lvl = level_name_to_num(MINING)
+	if(exists_level_name(MINING))
+		lavaland_z_lvl = level_name_to_num(MINING)
+	else
+		lavaland_z_lvl = 3 //force station level if not exists lavaland
 	pixel_x = -32
 	pixel_y = 0
 	playsound(src, 'sound/BFL/drill_sound.ogg', 100, TRUE)
@@ -601,7 +604,10 @@
 
 /obj/singularity/bfl_red/New(loc, var/starting_energy = 50, var/temp = 0)
 	starting_energy = 250
-	lavaland_z_lvl = level_name_to_num(MINING)
+	if(exists_level_name(MINING))
+		lavaland_z_lvl = level_name_to_num(MINING)
+	else
+		lavaland_z_lvl = 3 //force station level if not exists lavaland
 	. = ..(loc, starting_energy, temp)
 
 /obj/effect/bfl_laser

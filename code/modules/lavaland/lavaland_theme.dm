@@ -30,6 +30,8 @@
 	lavaland_type = LAVALAND_TYPE_LAVA
 
 /datum/lavaland_theme/lava/setup()
+	if(!exists_level_name(MINING))
+		return
 	var/datum/river_spawner/lava_spawner = new(level_name_to_num(MINING))
 	lava_spawner.generate()
 
@@ -40,6 +42,8 @@
 	lavaland_type = LAVALAND_TYPE_PLASMA
 
 /datum/lavaland_theme/plasma/setup()
+	if(!exists_level_name(MINING))
+		return
 	var/datum/river_spawner/spawner = new(level_name_to_num(MINING))
 	spawner.generate(nodes = 2)
 	spawner.generate(nodes = 2) // twice
@@ -51,6 +55,8 @@
 	lavaland_type = LAVALAND_TYPE_CHASM
 
 /datum/lavaland_theme/chasm/setup()
+	if(!exists_level_name(MINING))
+		return
 	var/datum/river_spawner/spawner = new(level_name_to_num(MINING), spread_prob_ = 10, spread_prob_loss_ = 5)
 	spawner.generate(nodes = 6, min_x = 50, min_y = 7, max_x = 250, max_y = 225)
 

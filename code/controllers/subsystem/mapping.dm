@@ -164,7 +164,8 @@ SUBSYSTEM_DEF(mapping)
 		// Spawn Lavaland ruins and rivers.
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
-		seedRuins(list(level_name_to_num(MINING)), CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+		if(exists_level_name(MINING))
+			seedRuins(list(level_name_to_num(MINING)), CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 		// Run map generation after ruin generation to prevent issues
 		run_map_terrain_generation()
 		if(lavaland_theme)
@@ -394,6 +395,9 @@ SUBSYSTEM_DEF(mapping)
 	qdel(query_set_map)
 
 /datum/controller/subsystem/mapping/proc/loadLavaland()
+	if(!map_datum.lavaland_path)
+		log_startup_progress("Skip Lavaland!")
+		return
 	var/watch = start_watch()
 	log_startup_progress("Loading Lavaland...")
 	var/trait_list = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK, ZTRAIT_BASETURF = /turf/simulated/floor/lava/mapping_lava)

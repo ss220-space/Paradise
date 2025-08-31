@@ -53,3 +53,22 @@
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
 	admin_only = TRUE
+
+/datum/map/delta_low_orbit
+	name = "Delta (low orbit)"
+	map_path = "_maps/map_files/event/Station/delta_low_orbit.dmm"
+	lavaland_path = null //disable load lavalend
+	traits = list(
+		list(STATION_LEVEL = MINING, STATION_CONTACT, ORE_LEVEL, REACHABLE, HAS_WEATHER, AI_OK, ZTRAIT_UP, /turf/simulated/openspace/lavaland),
+		list(STATION_LEVEL = "Under Station", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP, ZTRAIT_DOWN, /turf/simulated/openspace/lavaland),
+		list(MAIN_STATION, STATION_LEVEL = MAIN_STATION, STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_DOWN, /turf/simulated/openspace/lavaland),
+	)
+
+	station_name = "ИСН Керберос (на низкой орбите)"
+	english_station_name = "NSS Kerberos (low orbit)"
+	station_short = "Керберос"
+	dock_name = "АКН Трурль"
+	company_name = "НаноТрейзен"
+	company_short = "НТ"
+	starsys_name = "Эпсилон Лукуста"
+	admin_only = TRUE
