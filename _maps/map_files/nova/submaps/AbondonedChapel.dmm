@@ -755,6 +755,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
+"zJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel,
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedChapel/Incinerator,
+/turf/simulated/floor/plating,
+/area/template_noop)
 "As" = (
 /obj/item/trash/plate,
 /obj/item/toy/figure/clown,
@@ -1008,6 +1014,12 @@
 	},
 /turf/simulated/wall,
 /area/maintenance/server)
+"Iw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel,
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedChapel/ServerRoom,
+/turf/simulated/floor/plating,
+/area/template_noop)
 "IM" = (
 /obj/structure/cable/multiz{
 	color = "#dd1010"
@@ -1313,6 +1325,7 @@
 "Rj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel,
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedChapel/OldPokerClub,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "RM" = (
@@ -1687,7 +1700,7 @@ hp
 ZD
 LR
 HT
-Rj
+Iw
 Ec
 Ec
 Bh
@@ -1700,7 +1713,7 @@ hp
 ZR
 LR
 HT
-Rj
+zJ
 Ec
 Ec
 Bh
