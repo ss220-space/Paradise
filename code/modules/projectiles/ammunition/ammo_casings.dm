@@ -228,8 +228,8 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/shotgun/buckshot
-	name = "buckshot shell"
-	desc = "A 12 gauge buckshot shell."
+	name = "magnum buckshot shell"
+	desc = "A 12 gauge magnum buckshot shell."
 	icon_state = "buckshotshell"
 	projectile_type = /obj/projectile/bullet/pellet
 	pellets = 6
@@ -253,8 +253,8 @@
 	pellets = 6
 	variance = 15
 
-/obj/item/ammo_casing/shotgun/buckshot/nuclear
-	projectile_type = /obj/projectile/bullet/pellet/nuclear
+/obj/item/ammo_casing/shotgun/buckshot/magnum
+	projectile_type = /obj/projectile/bullet/pellet/magnum
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubbershot shell"
@@ -348,8 +348,8 @@
 	variance = 25
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
-/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
-	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath/nuclear
+/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/napalm
+	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
 	pellets = 6
 	variance = 20
 
