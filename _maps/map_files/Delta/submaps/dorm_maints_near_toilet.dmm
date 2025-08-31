@@ -19,6 +19,7 @@
 	pixel_x = 7;
 	pixel_y = 8
 	},
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "bI" = (
@@ -451,6 +452,7 @@
 "wo" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/beer,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
 	},
@@ -819,6 +821,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken7"
 	},
@@ -890,6 +893,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Jk" = (
@@ -961,10 +965,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/template_noop)
-"MV" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
 /area/template_noop)
 "Nn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1043,6 +1043,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "arrival"
@@ -1221,6 +1222,7 @@
 /area/template_noop)
 "WV" = (
 /obj/structure/table,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Xn" = (
@@ -1255,6 +1257,7 @@
 "Yp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/wardrobe/pjs,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -1575,7 +1578,7 @@ uB
 Yt
 hG
 Yt
-MV
+uB
 Wn
 lc
 lc
@@ -1701,7 +1704,7 @@ uB
 Wr
 Oc
 Yt
-MV
+uB
 lF
 lc
 lc
@@ -1819,7 +1822,7 @@ uB
 wo
 tX
 Bv
-MV
+uB
 DP
 lc
 lc
@@ -1827,7 +1830,7 @@ uB
 Yp
 pe
 NY
-MV
+uB
 DP
 lc
 lc
@@ -1835,7 +1838,7 @@ uB
 WV
 yu
 fr
-MV
+uB
 DP
 lc
 lc
