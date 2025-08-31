@@ -206,9 +206,12 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	if(!SSticker || CONFIG_GET(flag/disable_lobby_music) || !CONFIG_GET(string/invoke_youtubedl))
 		return
 
-	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
+	UNTIL(SSticker.login_music_initializated) //wait for SSticker init to set the login music
 	UNTIL(tgui_panel)
 	UNTIL(SSassets.initialized)
+
+	if(!SSticker.login_music)
+		return
 
 	var/url = SSticker.login_music_data["url"]
 	switch(CONFIG_GET(string/asset_transport))

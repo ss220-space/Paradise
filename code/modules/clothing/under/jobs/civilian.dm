@@ -75,14 +75,12 @@
 	name = "chaplain's jumpsuit"
 	icon_state = "chaplain"
 	item_state = "bl_suit"
-	item_color = "chapblack"
 
 /obj/item/clothing/under/rank/chaplain/skirt
 	desc = "It's a black jumpskirt, often worn by religious folk."
 	name = "chaplain's jumpskirt"
-	icon_state = "chapblackf"
+	icon_state = "chaplain_skirt"
 	item_state = "bl_suit"
-	item_color = "chapblackf"
 	over_shoes = TRUE
 
 /obj/item/clothing/under/rank/chaplain/sensor

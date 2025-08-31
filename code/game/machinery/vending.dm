@@ -5509,7 +5509,6 @@
 		/obj/item/storage/box/barrier = 2,
 		/obj/item/storage/box/teargas = 2,
 		/obj/item/ammo_box/a357 = 1,
-		/obj/item/ammo_box/secgl/exp = 1,
 	)
 
 	prices = list(
@@ -5517,7 +5516,6 @@
 		/obj/item/storage/box/barrier = 70,
 		/obj/item/storage/box/teargas = 100,
 		/obj/item/ammo_box/a357 = 300,
-		/obj/item/ammo_box/secgl/exp = 500,
 	)
 
 /obj/machinery/vending/ammo/get_ru_names()
