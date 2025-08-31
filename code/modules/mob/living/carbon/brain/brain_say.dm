@@ -36,7 +36,7 @@
 
 /mob/living/carbon/brain/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
-		if("headset")
+		if(HEADSET_MODE)
 			var/radio_worked = 0 // If any of the radios our brainmob could use functioned, this is set true so that we don't use any others
 			// I'm doing it this way so that if the mecha radio fails for some reason, a radio MMI still has the built-in fallback
 			if(container && istype(container,/obj/item/mmi))
@@ -49,7 +49,7 @@
 				else if(!radio_worked && c.radio)
 					radio_worked = c.radio.talk_into(src, message_pieces, message_mode, verb)
 			return radio_worked
-		if("whisper")
+		if(WHISPER_CHANNEL)
 			whisper_say(message_pieces)
 			return TRUE
 		else

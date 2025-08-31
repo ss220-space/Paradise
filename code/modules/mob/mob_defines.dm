@@ -256,6 +256,7 @@
 	var/last_emote = null
 
 	var/ghost_orbiting = 0
+	var/list/inventory_observers = null
 
 	/// List of movement speed modifiers applying to this mob
 	var/list/movespeed_modification //Lazy list, see mob_movespeed.dm

@@ -58,7 +58,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(!open)
 			to_chat(user, span_warning("The hatch must be open to insert a power cell."))

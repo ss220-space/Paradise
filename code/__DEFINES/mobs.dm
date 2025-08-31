@@ -306,6 +306,11 @@
 #define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
 #define ismorph(A)		(istype((A), /mob/living/simple_animal/hostile/morph))
 #define isborer(A)		(istype((A), /mob/living/simple_animal/borer))
+#define isairmob(A)		(istype(A, /mob/living/simple_animal/hostile/airmob))
+#define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
+#define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
+#define ismarauder(A) 	(istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
+
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
@@ -396,6 +401,8 @@
 
 ///How much a mob's sprite should be moved when they're lying down
 #define PIXEL_Y_OFFSET_LYING -6
+///How much a mob's sprite should be moved when they're lying up (on the ceiling)
+#define PIXEL_Y_OFFSET_LYING_REVERSED 6
 
 // Slip flags, also known as lube flags
 /// The mob will not slip if they're walking intent
@@ -512,3 +519,5 @@
 #define SQUASHED_SHOULD_BE_DOWN (1<<0)
 ///Whether or not to gib when the squashed mob is moved over
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
+
+#define MINING_FACTIONS list("mining", "boss")

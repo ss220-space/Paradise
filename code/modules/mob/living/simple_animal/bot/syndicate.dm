@@ -13,7 +13,7 @@
 	model = "Guardian"
 	icon = 'icons/obj/mecha/mecha.dmi'
 	icon_state = "darkgygax"
-	radio_channel = "Syndicate"
+	radio_channel = SYND_FREQ_NAME
 	health = 300
 	maxHealth = 300
 	declare_arrests = FALSE

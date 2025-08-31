@@ -25,7 +25,17 @@
 
 	SEND_SIGNAL(src, COMSIG_MOB_POINTED, pointed_atom)
 	var/obj/visual = new /obj/effect/temp_visual/point(source_turf, invisibility)
-	animate(visual, pixel_x = (pointed_turf.x - source_turf.x) * world.icon_size + pointed_atom.pixel_x, pixel_y = (pointed_turf.y - source_turf.y) * world.icon_size + pointed_atom.pixel_y, time = 0.5 SECONDS, easing = QUAD_EASING)
+
+	/// Set position
+	var/final_x = (pointed_turf.x - source_turf.x) * world.icon_size + pointed_atom.pixel_x
+	var/final_y = (pointed_turf.y - source_turf.y) * world.icon_size + pointed_atom.pixel_y
+
+	/// Set rotation
+	var/matrix/rotated_matrix = new()
+	rotated_matrix.TurnTo(0, Get_Pixel_Angle(-final_y, -final_x))
+	visual.transform = rotated_matrix
+
+	animate(visual, pixel_x = final_x, pixel_y = final_y, time = 0.5 SECONDS, easing = QUAD_EASING)
 
 
 /**

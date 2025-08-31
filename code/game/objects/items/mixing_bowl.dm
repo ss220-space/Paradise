@@ -46,7 +46,7 @@
 			to_chat(user, span_warning("This [name] is full of ingredients, you cannot put more."))
 			return ATTACK_CHAIN_PROCEED
 		if(isstack(I) && I.get_amount() > 1)
-			var/obj/item/stack/to_add = I.split_stack(user, 1)
+			var/obj/item/stack/to_add = I.split(user, 1)
 			to_add.forceMove(src)
 			user.visible_message(
 				span_notice("[user] adds one of [I] to [src]."),

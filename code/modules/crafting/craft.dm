@@ -348,7 +348,7 @@
 
 	switch(action)
 		if("make")
-			var/datum/crafting_recipe/TR = locate(params["make"]) in GLOB.crafting_recipes
+			var/datum/crafting_recipe/TR = locateUID(params["make"])
 			if(!istype(TR))
 				return
 			busy = TRUE
@@ -419,7 +419,7 @@
 /datum/personal_crafting/proc/build_recipe_data(datum/crafting_recipe/R)
 	var/list/data = list()
 	data["name"] = R.name
-	data["ref"] = "\ref[R]"
+	data["ref"] = R.UID()
 	var/req_text = ""
 	var/tool_text = ""
 	var/catalyst_text = ""

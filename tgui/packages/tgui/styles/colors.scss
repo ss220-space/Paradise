@@ -1,6 +1,8 @@
 /**
  * Copyright (c) 2020 Aleksej Komarov
  * SPDX-License-Identifier: MIT
+
+
  */
 
 @use 'sass:color';
@@ -8,30 +10,28 @@
 @use 'sass:meta';
 
 // Base colors
-$red: #db2828 !default;
-$orange: #f2711c !default;
-$yellow: #fbd608 !default;
-$olive: #b5cc18 !default;
-$green: #20b142 !default;
-$teal: #00b5ad !default;
-$blue: #2185d0 !default;
-$violet: #6435c9 !default;
-$purple: #a333c8 !default;
-$pink: #e03997 !default;
-$brown: #a5673f !default;
-$grey: #767676 !default;
-$primary: #4972a1 !default;
-$label: #7e90a7 !default;
+$black: hsl(0, 0%, 0%) !default;
+$white: hsl(0, 0%, 100%) !default;
+$red: hsl(0, 72%, 50%) !default;
+$orange: hsl(24, 89%, 54%) !default;
+$yellow: hsl(52, 97%, 52%) !default;
+$olive: hsl(68, 76%, 45%) !default;
+$green: hsl(136, 70%, 41%) !default;
+$teal: hsl(178, 100%, 35%) !default;
+$blue: hsl(208, 65%, 47%) !default;
+$violet: hsl(259, 60%, 50%) !default;
+$purple: hsl(288, 60%, 49%) !default;
+$pink: hsl(326, 71%, 56%) !default;
+$brown: hsl(24, 47%, 45%) !default;
+$grey: hsl(0, 0%, 47%) !default;
+$light-grey: hsl(0, 0%, 67%) !default;
 
-// State colors
-$good: #5baa27 !default;
-$average: #f08f11 !default;
-$bad: #db2828 !default;
-$black: #000000 !default;
-$white: #ffffff !default;
-
-// Custom colors
-$gold: #f2a918 !default;
+$primary: hsl(210, 37%, 46%) !default;
+$good: hsl(94, 63%, 41%) !default;
+$average: hsl(33, 89%, 50%) !default;
+$bad: hsl(0, 72%, 50%) !default;
+$label: hsl(210, 18%, 58%) !default;
+$gold: hsl(42, 89%, 52%) !default;
 
 // Background and foreground color lightness ratios
 $bg-lightness: -15% !default;
@@ -62,6 +62,7 @@ $_gen_map: (
   'pink': $pink,
   'brown': $brown,
   'grey': $grey,
+  'light-grey': $light-grey,
   'good': $good,
   'average': $average,
   'bad': $bad,
@@ -76,20 +77,16 @@ $bg-map-keys: map.keys($_gen_map) !default;
 
 $fg-map: ();
 @each $color-name in $fg-map-keys {
-  $fg-map: map-merge(
-    $fg-map,
-    (
-      $color-name: fg(map.get($_gen_map, $color-name)),
-    )
-  );
+  // prettier-ignore
+  $fg-map: map.merge($fg-map, (
+     $color-name: fg(map.get($_gen_map, $color-name)),
+   ));
 }
 
 $bg-map: ();
 @each $color-name in $bg-map-keys {
-  $bg-map: map-merge(
-    $bg-map,
-    (
-      $color-name: bg(map.get($_gen_map, $color-name)),
-    )
-  );
+  // prettier-ignore
+  $bg-map: map.merge($bg-map, (
+     $color-name: bg(map.get($_gen_map, $color-name)),
+   ));
 }

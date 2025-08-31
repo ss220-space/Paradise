@@ -4128,7 +4128,7 @@
 	},
 /area/awaymission/spacebattle/medbay)
 "lR" = (
-/obj/structure/chair/wheelchair,
+/obj/vehicle/ridden/wheelchair,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

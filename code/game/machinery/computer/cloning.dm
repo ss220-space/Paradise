@@ -208,11 +208,11 @@
 			if(pod.efficiency > 5)
 				canpodautoprocess = 1
 
-			var/status = "режим ожидания"
+			var/status = "idle"
 			if(pod.mess)
-				status = "неопознанный объект"
+				status = "mess"
 			else if(pod.occupant && !(pod.stat & NOPOWER))
-				status = "клонирование"
+				status = "cloning"
 			tempods.Add(list(list(
 				"pod" = "\ref[pod]",
 				"name" = sanitize(capitalize(pod.name)),

@@ -18,7 +18,7 @@ import { Icon, Stack } from 'tgui/components';
  * )
  * ```
  */
-export const LoadingScreen = (props) => {
+export const LoadingScreen = (props: unknown) => {
   return (
     <Stack align="center" fill justify="center" vertical>
       <Stack.Item>

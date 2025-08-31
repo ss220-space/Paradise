@@ -150,7 +150,7 @@
 	damage = 25
 	damage_type = BRUTE
 	var/faction_bonus_damage = 13
-	var/nemesis_factions = list("mining", "boss")
+	var/nemesis_factions = MINING_FACTIONS
 	var/nemesis_faction = FALSE
 
 /obj/projectile/bullet/reusable/arrow/prehit(atom/target)

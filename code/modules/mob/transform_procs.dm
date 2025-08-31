@@ -282,7 +282,7 @@
 		/mob/living/simple_animal/goose,
 		/mob/living/simple_animal/hostile/gorilla/cargo_domestic,
 		/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge,
-		/mob/living/simple_animal/mouse/hamster,
+		/mob/living/simple_animal/mouse/wooly,
 		/mob/living/simple_animal/mouse/rat,
 		/mob/living/simple_animal/parrot,
 		/mob/living/simple_animal/pet/cat,

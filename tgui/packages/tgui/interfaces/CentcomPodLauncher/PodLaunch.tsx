@@ -3,7 +3,7 @@ import { Box, Button } from '../../components';
 import { useCompact } from './hooks';
 import { PodLauncherData } from './types';
 
-export const PodLaunch = (props) => {
+export const PodLaunch = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();
   const { giveLauncher } = data;
 

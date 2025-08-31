@@ -17,7 +17,7 @@
 	health = 25
 	maxHealth = 25
 
-	radio_channel = "Engineering"
+	radio_channel = ENG_FREQ_NAME
 	bot_type = FLOOR_BOT
 	bot_filter = RADIO_FLOORBOT
 	model = "Floorbot"

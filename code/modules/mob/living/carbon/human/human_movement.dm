@@ -6,7 +6,7 @@
 
 /mob/living/carbon/human/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	if(!forced && (!old_loc || !old_loc.has_gravity()) && has_gravity())
+	if(!forced && (!old_loc || old_loc.no_gravity()) && get_gravity())
 		thunk()
 
 
@@ -83,7 +83,7 @@
 
 			apply_damage(stamina_damage, STAMINA)
 
-	if(!has_gravity())
+	if(no_gravity())
 		return .
 
 	if(nutrition && stat != DEAD && !isvampire(src))

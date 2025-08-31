@@ -151,15 +151,15 @@ Difficulty: Very Hard
 	var/core_type = null
 	switch(mode)
 		if(BLUESPACE)
-			core_type = /obj/item/assembly/signaler/anomaly/bluespace
+			core_type = /obj/item/assembly/signaler/core/bluespace/tier2
 		if(GRAV)
-			core_type = /obj/item/assembly/signaler/anomaly/grav
+			core_type = /obj/item/assembly/signaler/core/gravitational/tier2
 		if(PYRO)
-			core_type = /obj/item/assembly/signaler/anomaly/pyro
+			core_type = /obj/item/assembly/signaler/core/atmospheric/tier2
 		if(FLUX)
-			core_type = /obj/item/assembly/signaler/anomaly/flux
+			core_type = /obj/item/assembly/signaler/core/energetic/tier2
 		if(VORTEX)
-			core_type = /obj/item/assembly/signaler/anomaly/vortex
+			core_type = /obj/item/assembly/signaler/core/vortex/tier2
 
 	var/crate_type = pick(loot)
 	var/obj/structure/closet/crate/C = new crate_type(loc)
@@ -430,19 +430,19 @@ Difficulty: Very Hard
 		var/time_to_use = enraged ? 25 SECONDS : 15 SECONDS
 		switch(mode)
 			if(BLUESPACE)
-				var/obj/effect/anomaly/bluespace/A = new(spot, time_to_use, FALSE)
+				var/obj/effect/old_anomaly/bluespace/A = new(spot, time_to_use, FALSE)
 				A.mass_teleporting = FALSE
 			if(GRAV)
-				var/obj/effect/anomaly/grav/A = new(spot, time_to_use, FALSE, FALSE)
+				var/obj/effect/old_anomaly/gravitational/A = new(spot, time_to_use, FALSE, FALSE)
 				A.knockdown = TRUE
 			if(PYRO)
-				var/obj/effect/anomaly/pyro/A = new(spot, time_to_use, FALSE)
+				var/obj/effect/old_anomaly/atmospheric/A = new(spot, time_to_use, FALSE)
 				A.produces_slime = FALSE
 			if(FLUX)
-				var/obj/effect/anomaly/flux/A = new(spot, time_to_use, FALSE)
+				var/obj/effect/old_anomaly/energetic/A = new(spot, time_to_use, FALSE)
 				A.explosive = FALSE
 			if(VORTEX)
-				new /obj/effect/anomaly/bhole(spot, time_to_use, FALSE)
+				new /obj/effect/old_anomaly/bhole(spot, time_to_use, FALSE)
 		anomalies++
 	return
 

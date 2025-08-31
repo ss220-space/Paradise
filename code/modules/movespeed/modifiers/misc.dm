@@ -7,3 +7,6 @@
 	multiplicative_slowdown = -1
 	blacklisted_movetypes = (FLYING|FLOATING)
 
+/datum/movespeed_modifier/high_gravity
+	multiplicative_slowdown = 1.5
+	blacklisted_movetypes = (FLYING|FLOATING)

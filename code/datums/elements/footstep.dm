@@ -90,7 +90,7 @@
 	if(steps % 2)
 		return
 
-	if(steps != 0 && !source.has_gravity()) // don't need to step as often when you hop around
+	if(steps != 0 && source.no_gravity()) // don't need to step as often when you hop around
 		return
 
 	. = list(FOOTSTEP_MOB_SHOE = turf.footstep, FOOTSTEP_MOB_BAREFOOT = turf.barefootstep, FOOTSTEP_MOB_HEAVY = turf.heavyfootstep, FOOTSTEP_MOB_CLAW = turf.clawfootstep)

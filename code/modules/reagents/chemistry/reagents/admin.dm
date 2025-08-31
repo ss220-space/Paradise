@@ -116,3 +116,130 @@
 	if(method == REAGENT_TOUCH)
 		M.dust()
 
+
+/datum/reagent/napalm
+	name = "Napalm"
+	id = "napalm"
+	description = "This will probably ignite before you get to read this."
+	reagent_state = LIQUID
+	color = "#ffb300"
+	chemfiresupp = TRUE
+	burncolor = "#D05006"
+	burn_sprite = "red"
+
+/datum/reagent/napalm/sticky
+	name = "Sticky-Napalm"
+	id = "stickynapalm"
+	description = "A custom napalm mix, stickier and lasts longer but lower damage"
+	reagent_state = LIQUID
+	color = "#f8e3b2"
+	burncolor = "#f8e3b2"
+	burn_sprite = "dynamic"
+	intensitymod = -1.5
+	durationmod = -5
+	radiusmod = -0.5
+	intensityfire = BURN_LEVEL_TIER_2
+	durationfire = BURN_TIME_TIER_5
+	rangefire = 5
+
+/datum/reagent/napalm/high_damage
+	name = "High-Combustion Napalm Fuel"
+	id = "highdamagenapalm"
+	description = "A custom napalm mix, higher damage but not as sticky"
+	reagent_state = LIQUID
+	color = "#c51c1c"
+	burncolor = "#c51c1c"
+	burn_sprite = "dynamic"
+	intensitymod = -4.5
+	durationmod = -1
+	radiusmod = -0.5
+	intensityfire = BURN_LEVEL_TIER_8
+	durationfire = BURN_TIME_TIER_1
+	rangefire = 5
+
+// This is the regular flamer fuel and pyro regular flamer fuel.
+/datum/reagent/napalm/ut
+	name = "UT-Napthal Fuel"
+	id = "utnapthal"
+	description = "Known as Ultra Thick Napthal Fuel, a sticky combustible liquid chemical, typically used with flamethrowers."
+	burncolor = "#EE6515"
+	intensityfire = BURN_LEVEL_TIER_5
+	durationfire = BURN_TIME_TIER_2
+	rangefire = 5
+
+// This is gellie fuel. Green Flames.
+/datum/reagent/napalm/gel
+	name = "Napalm B-Gel"
+	id = "napalmgel"
+	description = "Unlike its liquid contemporaries, this gelled variant of napalm is easily extinguished, but shoots far and lingers on the ground in a viscous mess, while reacting with inorganic materials to ignite them."
+	flameshape = FLAMESHAPE_LINE
+	color = COLOR_GREEN
+	burncolor = COLOR_GREEN
+	burn_sprite = "green"
+	intensityfire = BURN_LEVEL_TIER_2
+	durationfire = BURN_TIME_TIER_5
+	rangefire = 7
+	fire_type = FIRE_VARIANT_TYPE_B //Armor Shredding Greenfire
+
+// This is the blue flamer fuel for the pyro.
+/datum/reagent/napalm/blue
+	name = "Napalm X"
+	id = "napalmx"
+	description = "A sticky combustible liquid chemical that burns extremely hot."
+	color = "#00b8ff"
+	burncolor = "#00b8ff"
+	burn_sprite = "blue"
+	intensityfire = BURN_LEVEL_TIER_7
+	durationfire = BURN_TIME_TIER_4
+	rangefire = 5
+
+// This is the green flamer fuel for the pyro.
+/datum/reagent/napalm/green
+	name = "Napalm B"
+	id = "napalmb"
+	description = "A special variant of napalm that's unable to cling well to anything, but disperses over a wide area while burning slowly. The composition reacts with inorganic materials to ignite them, causing severe damage."
+	flameshape = FLAMESHAPE_TRIANGLE
+	color = COLOR_GREEN
+	burncolor = COLOR_GREEN
+	burn_sprite = "green"
+	intensityfire = BURN_LEVEL_TIER_2
+	durationfire = BURN_TIME_TIER_5
+	rangefire = 6
+	fire_type = FIRE_VARIANT_TYPE_B //Armor Shredding Greenfire
+
+/datum/reagent/napalm/penetrating
+	name = "Napalm E"
+	id = "napalme"
+	description = "A sticky combustible liquid chemical that penetrates the best fire retardants."
+	color = COLOR_PURPLE
+	burncolor = COLOR_PURPLE
+	burn_sprite = "dynamic"
+	intensityfire = BURN_LEVEL_TIER_2
+	durationfire = BURN_TIME_TIER_5
+	rangefire = 6
+	fire_penetrating = TRUE
+
+/datum/reagent/napalm/deathsquad //version of fuel for dsquad flamers.
+	name = "Napalm EX"
+	id = "napalmex"
+	description = "A sticky combustible liquid chemical made up of a combonation of rare and dangerous reagents both that penetrates the best fire retardants, and burns extremely hot."
+	color = "#641dd6"
+	burncolor = "#641dd6"
+	burn_sprite = "dynamic"
+	intensityfire = BURN_LEVEL_TIER_7
+	durationfire = BURN_TIME_TIER_4
+	rangefire = 6
+	fire_penetrating = TRUE
+
+/datum/reagent/napalm/upp
+	name = "R189"
+	id = "R189"
+	description = "A UPP chemical, it burns at an extremely high tempature and is designed to melt directly through fortified positions or bunkers."
+	color = "#ffe49c"
+	burncolor = "#ffe49c"
+	burn_sprite = "dynamic"
+	intensityfire = BURN_LEVEL_TIER_9
+	durationfire = BURN_TIME_TIER_3
+	rangefire = 6
+	fire_penetrating = TRUE
+

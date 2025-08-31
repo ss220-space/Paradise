@@ -64,7 +64,7 @@
 			name = ""
 		if("import")
 			var/t = ""
-			t = tgui_input_text(user, "Please paste the entire song, formatted:", parent.name, max_length = (MUSIC_MAXLINECHARS * MUSIC_MAXLINES), multiline = TRUE)
+			t = copytext(params["import"], 1, (MUSIC_MAXLINECHARS * MUSIC_MAXLINES))
 			if(!t || !(state.can_use_topic(parent, user) == UI_INTERACTIVE))
 				return
 			parse_song(t, user)

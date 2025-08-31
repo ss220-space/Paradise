@@ -58,7 +58,7 @@
 		tank = new_tank
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(cell)
 			to_chat(user, span_warning("The [name] already has a cell."))

@@ -564,3 +564,36 @@
 
 /obj/structure/chair/comfy/abductor/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "alien_chair_armrest")
+
+/obj/structure/chair/comfy/mouse
+	name = "Кресло Господина Мышкина"
+	desc = "Очень дорогое красное кресло из натуральной кожи. Сделано специально по заказу Господина Мышкина."
+	ru_names = list(
+		NOMINATIVE = "кресло господина Мышкина",
+		GENITIVE = "кресла господина Мышкина",
+		DATIVE = "креслу господина Мышкина",
+		ACCUSATIVE = "кресло господина Мышкина",
+		INSTRUMENTAL = "креслом господина Мышкина",
+		PREPOSITIONAL = "кресле господина Мышкина"
+	)
+	icon_state = "mouse_chair"
+	anchored = TRUE
+	max_integrity = 375
+	buildstacktype = null
+
+/obj/structure/chair/comfy/mouse/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "mouse_chair_armrest")
+
+/obj/structure/chair/comfy/mouse/is_buckle_possible(mob/living/target, mob/living/user, force, check_loc)
+	. = ..()
+	if(!istype(target, /mob/living/simple_animal/mouse/wooly/rep))
+		target.visible_message(
+			span_warning("[target.declent_ru(NOMINATIVE)] слишком велик для [declent_ru(GENITIVE)]!"),
+			span_userdanger("[src] слишком мало для вас!"),
+		)
+		return FALSE
+
+/obj/structure/chair/comfy/mouse/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	to_chat(user, span_warning("Вы не можете осмелиться разобрать это дорогущее кресло!"))
+	return

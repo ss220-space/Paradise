@@ -684,9 +684,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
-"FT" = (
-/turf/simulated/wall/indestructible/boss,
-/area/template_noop)
 "Gd" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/table/reinforced/brass,
@@ -1310,9 +1307,9 @@ WU
 WU
 WU
 WU
-FT
-FT
-FT
+WU
+WU
+WU
 YS
 Mg
 "}
@@ -1332,9 +1329,9 @@ WU
 MX
 TX
 Zu
-FT
-FT
-FT
+WU
+WU
+WU
 xY
 Mg
 "}
@@ -1355,8 +1352,8 @@ jO
 Zu
 lq
 On
-FT
-FT
+WU
+WU
 xY
 Mg
 "}
@@ -1377,8 +1374,8 @@ US
 US
 lB
 as
-FT
-FT
+WU
+WU
 fl
 Mg
 "}
@@ -1399,8 +1396,8 @@ MH
 GU
 US
 qJ
-FT
-FT
+WU
+WU
 Xt
 Mg
 "}
@@ -1421,8 +1418,8 @@ Zs
 rj
 Or
 US
-FT
-FT
+WU
+WU
 Xt
 Mg
 "}
@@ -1443,8 +1440,8 @@ GU
 eY
 jO
 On
-FT
-FT
+WU
+WU
 Xt
 Mg
 "}
@@ -1464,10 +1461,10 @@ WU
 WU
 Zs
 US
-FT
-FT
-FT
-FT
+WU
+WU
+WU
+WU
 Mg
 "}
 (10,1,1) = {"
@@ -1487,9 +1484,9 @@ eY
 qJ
 tr
 Gd
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (11,1,1) = {"
@@ -1510,8 +1507,8 @@ cv
 Zs
 ex
 Gd
-FT
-FT
+WU
+WU
 Mg
 "}
 (12,1,1) = {"
@@ -1532,8 +1529,8 @@ Uj
 US
 dw
 zY
-FT
-FT
+WU
+WU
 Mg
 "}
 (13,1,1) = {"
@@ -1554,8 +1551,8 @@ eY
 Wy
 CU
 RA
-FT
-FT
+WU
+WU
 Mg
 "}
 (14,1,1) = {"
@@ -1576,8 +1573,8 @@ vl
 Zs
 US
 KC
-FT
-FT
+WU
+WU
 Mg
 "}
 (15,1,1) = {"
@@ -1598,8 +1595,8 @@ fq
 qJ
 fw
 VC
-FT
-FT
+WU
+WU
 Mg
 "}
 (16,1,1) = {"
@@ -1619,9 +1616,9 @@ Fh
 Zu
 Uj
 GU
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (17,1,1) = {"
@@ -1641,9 +1638,9 @@ AB
 AH
 Zs
 US
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (18,1,1) = {"
@@ -1663,9 +1660,9 @@ On
 Jx
 US
 On
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (19,1,1) = {"
@@ -1684,10 +1681,10 @@ WU
 WU
 iv
 fq
-FT
-FT
-FT
-FT
+WU
+WU
+WU
+WU
 Mg
 "}
 (20,1,1) = {"
@@ -1707,9 +1704,9 @@ On
 vl
 Zs
 On
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (21,1,1) = {"
@@ -1730,8 +1727,8 @@ fq
 US
 GU
 VT
-FT
-FT
+WU
+WU
 Mg
 "}
 (22,1,1) = {"
@@ -1753,7 +1750,7 @@ CF
 US
 oz
 Ew
-FT
+WU
 Mg
 "}
 (23,1,1) = {"
@@ -1775,7 +1772,7 @@ GU
 eY
 Jx
 yU
-FT
+WU
 Mg
 "}
 (24,1,1) = {"
@@ -1797,7 +1794,7 @@ US
 ND
 wg
 jq
-FT
+WU
 Mg
 "}
 (25,1,1) = {"
@@ -1819,7 +1816,7 @@ eY
 qJ
 Zs
 eH
-FT
+WU
 Mg
 "}
 (26,1,1) = {"
@@ -1841,7 +1838,7 @@ YG
 GU
 Jk
 Ny
-FT
+WU
 Mg
 "}
 (27,1,1) = {"
@@ -1862,8 +1859,8 @@ Fr
 US
 JT
 On
-FT
-FT
+WU
+WU
 Mg
 "}
 (28,1,1) = {"
@@ -1883,9 +1880,9 @@ US
 eY
 Ln
 CF
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (29,1,1) = {"
@@ -1904,10 +1901,10 @@ TK
 cv
 Zs
 US
-FT
-FT
-FT
-FT
+WU
+WU
+WU
+WU
 Mg
 "}
 (30,1,1) = {"
@@ -1926,10 +1923,10 @@ GU
 Uj
 Wp
 eY
-FT
-FT
-FT
-FT
+WU
+WU
+WU
+WU
 Mg
 "}
 (31,1,1) = {"
@@ -1947,8 +1944,8 @@ Zs
 eb
 dw
 fq
-FT
-FT
+WU
+WU
 Mg
 Mg
 Mg
@@ -1969,8 +1966,8 @@ cv
 WU
 WU
 WU
-FT
-FT
+WU
+WU
 Mg
 Mg
 Mg

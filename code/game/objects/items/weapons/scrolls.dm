@@ -22,7 +22,7 @@
 	dat += "Number of uses: [src.uses]</br>"
 	dat += "<hr>"
 	dat += "<b>Four uses use them wisely:</b></br>"
-	dat += "<a href='byond://?src=[UID()];spell_teleport=1'>Teleport</A></br>"
+	dat += "<a href='byond://?src=[UID()];spell_teleport=1'>Teleport</a></br>"
 	dat += "Kind regards,<br>Wizards Federation<br><br>P.S. Don't forget to bring your gear, you'll need it to cast most spells.<hr>"
 	var/datum/browser/popup = new(user, "scroll", "Teleportation Scroll")
 	popup.set_content(dat)

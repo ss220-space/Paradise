@@ -107,15 +107,15 @@
 			close()
 			return TRUE
 		if("thinking")
-			if(payload["visible"] == TRUE)
+			if(payload?["visible"] == TRUE)
 				start_thinking()
 				return TRUE
-			if(payload["visible"] == FALSE)
+			if(payload?["visible"] == FALSE)
 				stop_thinking()
 				return TRUE
 			return FALSE
 		if("typing")
-			start_typing(payload["isMeChannel"])
+			start_typing(payload?["isMeChannel"])
 			return TRUE
 		if("entry")
 			handle_entry(payload)

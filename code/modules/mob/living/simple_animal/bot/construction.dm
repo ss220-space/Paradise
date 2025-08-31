@@ -250,7 +250,7 @@
 
 		if(9)
 			add_fingerprint(user)
-			if(!istype(I, /obj/item/stock_parts/cell))
+			if(!iscell(I))
 				to_chat(user, span_notice("Для завершения сборки ED-209 нужна батарея."))
 				balloon_alert(user, "неверная деталь")
 				return ATTACK_CHAIN_PROCEED

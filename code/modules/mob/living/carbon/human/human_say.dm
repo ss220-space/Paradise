@@ -207,13 +207,13 @@
 
 /mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
-		if("intercom")
+		if(INTERCOM_MODE)
 			for(var/obj/item/radio/intercom/I in view(1, src))
 				spawn(0)
 					I.talk_into(src, message_pieces, null, verb)
 				used_radios += I
 
-		if("headset")
+		if(HEADSET_MODE)
 			var/obj/item/radio/R = null
 			if(isradio(l_ear))
 				R = l_ear
@@ -227,7 +227,7 @@
 				if(R.talk_into(src, message_pieces, null, verb))
 					return FALSE
 
-		if("right ear")
+		if(R_EAR_MODE)
 			var/obj/item/radio/R
 			if(isradio(r_hand))
 				R = r_hand
@@ -237,7 +237,7 @@
 				used_radios += R
 				R.talk_into(src, message_pieces, null, verb)
 
-		if("left ear")
+		if(L_EAR_MODE)
 			var/obj/item/radio/R
 			if(isradio(l_hand))
 				R = l_hand
@@ -247,7 +247,7 @@
 				used_radios += R
 				R.talk_into(src, message_pieces, null, verb)
 
-		if("whisper")
+		if(WHISPER_CHANNEL)
 			whisper_say(message_pieces)
 			return TRUE
 

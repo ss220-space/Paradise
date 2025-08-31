@@ -4,7 +4,7 @@ import { POD_GREY, TABPAGES } from './constants';
 import { useTab } from './hooks';
 import { PodLauncherData } from './types';
 
-export const ViewTabHolder = (props) => {
+export const ViewTabHolder = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();
   const { mapRef, customDropoff, effectReverse, renderLighting } = data;
 

@@ -139,27 +139,40 @@
 	gold_core_spawnable = NO_SPAWN
 	resting = TRUE
 
-/mob/living/simple_animal/mouse/hamster/Representative
-	name = "Representative Alexiy"
-	desc = "Представитель Федерации Хомяков. Проявите уважение при его виде, ведь он с позитивным исходом решил немало дипломатических вопросов между Федерацией Мышей, Республикой Крыс и корпорацией НаноТрейзен. Да и кто вообще хомяка так назвал?!"
+/mob/living/simple_animal/mouse/wooly/rep
+	name = "Господин Мышкин"
+	desc = "Господин Мышкин - самый влиятельный грызун-дипломат в обозримой вселенной и сооснователь корпорации НаноТрейзен в одном лице. В текущее время находится в командировке в Секторе Эпсилон Лукусты"
 	ru_names = list(
-		NOMINATIVE = "Представитель Алексей",
-		GENITIVE = "Представителя Алексея",
-		DATIVE = "Представителю Алексею",
-		ACCUSATIVE = "Представителя Алексея",
-		INSTRUMENTAL = "Представителем Алексеем",
-		PREPOSITIONAL = "Представителе Алексее"
+		NOMINATIVE = "Господин Мышкин",
+		GENITIVE = "Господина Мышкина",
+		DATIVE = "Господину Мышкину",
+		ACCUSATIVE = "Господина Мышкина",
+		INSTRUMENTAL = "Господином Мышкином",
+		PREPOSITIONAL = "Господине Мышкине"
 	)
-	icon_state = "hamster_rep"
-	icon_living = "hamster_rep"
-	icon_dead = "hamster_rep_dead"
-	icon_resting = "hamster_rep_rest"
+	icon_state = "mouse_rep"
+	icon_living = "mouse_rep"
+	icon_dead = "mouse_rep_dead"
+	icon_resting = "mouse_rep_rest"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
-	holder_type = /obj/item/holder/hamster_rep
+	holder_type = /obj/item/holder/mouse_rep
 	maxHealth = 20
 	health = 20
 	resting = TRUE
+
+/mob/living/simple_animal/mouse/wooly/rep/update_icons()
+	..()
+
+	if(buckled)
+		icon_state = "mouse_rep_buckled"
+		pixel_x = 0
+		pixel_y = 0
+		return
+
+/mob/living/simple_animal/mouse/wooly/rep/set_buckled(new_buckled)
+	. = ..()
+	update_icons()
 
 /mob/living/simple_animal/pet/dog/bullterrier/Genn
 	name = "Gennadiy"

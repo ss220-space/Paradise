@@ -1,6 +1,6 @@
-#define UI_TAB_CONFIG "CONFIG"
-#define UI_TAB_LINKS "LINKS"
-#define UI_TAB_FILTER "FILTER"
+#define UI_TAB_CONFIG "КОНФИГУРАЦИЯ"
+#define UI_TAB_LINKS "УЗЛЫ"
+#define UI_TAB_FILTER "ЧЁРНЫЙ СПИСОК"
 
 /**
   * # Telecommunications Core
@@ -11,8 +11,20 @@
   * The relays dont do any actual processing, they are just objects which can bring tcomms to another zlevel
   */
 /obj/machinery/tcomms/core
-	name = "Telecommunications Core"
-	desc = "A large rack full of communications equipment. Looks important."
+	name = "telecommunications core"
+	desc = "Центральное ядро телекоммуникационной системы станции, обеспечивающее устойчивую \
+			связь между внутренними и внешними сетями. Представляет собой телекоммуникационную стойку, \
+			содержащую модули передачи данных, антенные усилители и интерфейсы для подключения к радиочастотным гарнитурам персонала. \
+			Поддерживает работу всех доступных частот, включая каналы связи отделов и защищённые частоты ЦК."
+	ru_names = list(
+		NOMINATIVE = "ядро телекоммуникаций",
+		GENITIVE = "ядра телекоммуникаций",
+		DATIVE = "ядру телекоммуникаций",
+		ACCUSATIVE = "ядро телекоммуникаций",
+		INSTRUMENTAL = "ядром телекоммуникаций",
+		PREPOSITIONAL = "ядре телекоммуникаций"
+	)
+	gender = NEUTER
 	icon_state = "core"
 	// This starts as off so you cant make cores as hot spares
 	active = FALSE
@@ -53,7 +65,7 @@
 	if(check_power_on())
 		active = TRUE
 	else
-		visible_message(span_warning("Error: Another core is already active in this sector. Power-up cancelled due to radio interference."))
+		visible_message(span_warning("Ошибка: в секторе уже имеется работающее ядро телекоммуникаций. Процесс активации отменён во избежание возможных помех."))
 	update_icon(UPDATE_ICON_STATE)
 
 /**
@@ -204,7 +216,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "TcommsCore", name)
+		ui = new(user, src, "TcommsCore", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/machinery/tcomms/core/ui_data(mob/user)
@@ -213,7 +225,7 @@
 
 	// Z-level list. Note that this will also show sectors with hidden relay links, but you cant see the relays themselves
 	// This allows the crew to realise that sectors have hidden relays
-	data["sectors_available"] = "Count: [length(reachable_zlevels)] | List: [jointext(reachable_zlevels, " ")]"
+	data["sectors_available"] = "Количество: [length(reachable_zlevels)] | Список: [jointext(reachable_zlevels, " ")]"
 	// Toggles
 	data["active"] = active
 	data["nttc_toggle_jobs"] = nttc.toggle_jobs
@@ -262,7 +274,7 @@
 				active = !active
 				update_icon(UPDATE_ICON_STATE)
 			else
-				to_chat(usr, span_warning("Error: Another core is already active in this sector. Power-up cancelled due to radio interference."))
+				to_chat(usr, span_warning("Ошибка: в секторе уже имеется работающее ядро телекоммуникаций. Процесс активации отменён во избежание возможных помех."))
 
 		// NTTC Toggles
 		if("nttc_toggle_jobs")
@@ -281,30 +293,30 @@
 
 		// Job Format
 		if("nttc_job_indicator_type")
-			var/card_style = tgui_input_list(usr, "Pick a job card format", "Job Card Format", nttc.job_card_styles)
+			var/card_style = tgui_input_list(usr, "Выберите формат отображения должности", "Отображение должности", nttc.job_card_styles)
 			if(!card_style)
 				return
 			nttc.job_indicator_type = card_style
-			to_chat(usr, span_notice("Jobs will now have the style of [card_style]."))
+			to_chat(usr, span_notice("Выбранный формат отображения должности: <b>[card_style]</b>."))
 			log_action(usr, "has set NTTC job card format to [card_style]")
 
 		// Language Settings
 		if("nttc_setting_language")
-			var/new_language = tgui_input_list(usr, "Pick a language to convert messages to", "Language Conversion", nttc.valid_languages)
+			var/new_language = tgui_input_list(usr, "Выберите язык перевода сообщений", "Перевод сообщений", nttc.valid_languages)
 			if(!new_language)
 				return
-			if(new_language == "--DISABLE--")
+			if(new_language == "--ВЫКЛЮЧЕНО--")
 				nttc.setting_language = LANGUAGE_NONE
-				to_chat(usr, span_notice("Language conversion disabled."))
+				to_chat(usr, span_notice("Перевод сообщений выключен."))
 			else
 				nttc.setting_language = new_language
-				to_chat(usr, span_notice("Messages will now be converted to [new_language]."))
+				to_chat(usr, span_notice("Сообщения будут переводиться на <b>[new_language]</b>."))
 
-			log_action(usr, new_language == "--DISABLE--" ? "disabled NTTC language conversion" : "set NTTC language conversion to [new_language]", TRUE)
+			log_action(usr, new_language == "--ВЫКЛЮЧЕНО--" ? "disabled NTTC language conversion" : "set NTTC language conversion to [new_language]", TRUE)
 
 		// Imports and exports
 		if("import")
-			var/json = tgui_input_text(usr, "Provide configuration JSON below.", "Load Config", nttc.nttc_serialize(), multiline = TRUE, encode = FALSE)
+			var/json = tgui_input_text(usr, "Загрузите JSON конфигурацию.", "Загрузка конфигурации", nttc.nttc_serialize(), multiline = TRUE, encode = FALSE)
 			if(isnull(json))
 				return
 			if(nttc.nttc_deserialize(json, usr.ckey))
@@ -314,57 +326,57 @@
 			var/datum/browser/popup = new(usr, "save_nttc", "NTTC")
 			popup.set_content(nttc.nttc_serialize())
 			popup.open(FALSE)
-			
+
 
 		// Set network ID
 		if("network_id")
-			var/new_id = tgui_input_text(usr, "Please enter a new network ID", "Network ID", network_id)
+			var/new_id = tgui_input_text(usr, "Введите новый сетевой идентификатор", "Сетевой идентификатор", network_id)
 			if(!new_id)
 				return
 			log_action(usr, "renamed core with ID [network_id] to [new_id]")
-			to_chat(usr, span_notice("Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>."))
+			to_chat(usr, span_notice("Вы меняете сетевой идентификатор устройства с <b>[network_id]</b> на <b>[new_id]</b>."))
 			network_id = new_id
 
 		if("unlink")
 			var/obj/machinery/tcomms/relay/R = locate(params["addr"])
 			if(istype(R, /obj/machinery/tcomms/relay))
-				var/confirm = tgui_alert(usr, "Are you sure you want to unlink this relay?\nID: [R.network_id]\nADDR: \ref[R]", "Relay Unlink", list("Yes", "No"))
-				if(confirm == "Yes")
+				var/confirm = tgui_alert(usr, "Вы хотите отвязать это реле?\nID: [R.network_id]\nADDR: \ref[R].", "Отвязка реле", list("Да", "Нет"))
+				if(confirm == "Да")
 					log_action(usr, "has unlinked tcomms relay with ID [R.network_id] from tcomms core with ID [network_id]", TRUE)
 					R.Reset()
 			else
-				to_chat(usr, span_alert("<b>ERROR:</b> Relay not found. Please file an issue report."))
+				to_chat(usr, span_alert("<b>ОШИБКА:</b> Реле не найдено. Сообщите об этом в #баг-репорты-v2."))
 
 		if("change_password")
-			var/new_password = tgui_input_text(usr, "Please enter a new password", "New Password", link_password)
+			var/new_password = tgui_input_text(usr, "Введите новый пароль", "Новый пароль", link_password)
 			if(!new_password)
 				return
 			log_action(usr, "has changed the password on core with ID [network_id] from [link_password] to [new_password]")
-			to_chat(usr, span_notice("Successfully changed password from <b>[link_password]</b> to <b>[new_password]</b>."))
+			to_chat(usr, span_notice("Вы меняете пароль с <b>[link_password]</b> на <b>[new_password]</b>."))
 			link_password = new_password
 
 		if("add_filter")
 			// This is a stripped input because I did NOT come this far for this system to be abused by HTML injection
-			var/name_to_add = tgui_input_text(usr, "Enter a name to add to the filtering list", "Name Entry")
+			var/name_to_add = tgui_input_text(usr, "Введите имя пользователя для внесения в чёрный список", "Внесение в чёрный список")
 			if(!name_to_add)
 				return
 			if(name_to_add in nttc.filtering)
-				to_chat(usr, span_alert("<b>ERROR:</b> User already in filtering list."))
+				to_chat(usr, span_alert("<b>ОШИБКА:</b> Введённое имя пользователя уже находится в чёрном списке системы телекоммуникаций."))
 			else
 				nttc.filtering |= name_to_add
 				log_action(usr, "has added [name_to_add] to the NTTC filter list on core with ID [network_id]", TRUE)
-				to_chat(usr, span_notice("Successfully added <b>[name_to_add]</b> to the NTTC filtering list."))
+				to_chat(usr, span_notice("Вы добавляете пользователя <b>[name_to_add]</b> в чёрный список системы телекоммуникаций."))
 
 		if("remove_filter")
 			var/name_to_remove = params["user"]
 			if(!(name_to_remove in nttc.filtering))
-				to_chat(usr, span_alert("<b>ERROR:</b> Name does not exist in filter list. Please file an issue report."))
+				to_chat(usr, span_alert("<b>ОШИБКА:</b> Имя пользователя не найдено в чёрном списке. Сообщите об этом в #баг-репорты-v2."))
 			else
-				var/confirm = tgui_alert(usr, "Are you sure you want to remove [name_to_remove] from the filtering list?", "Confirm Removal", list("Yes", "No"))
-				if(confirm == "Yes")
+				var/confirm = tgui_alert(usr, "Вы хотите удалить пользователя [name_to_remove] из чёрного списка?", "Удаление из чёрного списка", list("Да", "Нет"))
+				if(confirm == "Да")
 					nttc.filtering -= name_to_remove
 					log_action(usr, "has removed [name_to_remove] from the NTTC filter list on core with ID [network_id]", TRUE)
-					to_chat(usr, span_notice("Successfully removed <b>[name_to_remove]</b> from the NTTC filtering list."))
+					to_chat(usr, span_notice("Вы удаляете пользователя <b>[name_to_remove]</b> из чёрного списка системы телекоммуникаций."))
 
 
 #undef UI_TAB_CONFIG

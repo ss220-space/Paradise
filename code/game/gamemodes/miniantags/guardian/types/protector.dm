@@ -16,7 +16,7 @@
 	else
 		..()
 	if(toggle)
-		visible_message("<span class='danger'>The explosion glances off [src]'s energy shielding!</span>") //FLEX
+		visible_message(span_danger("The explosion glances off [src]'s energy shielding!")) //FLEX
 
 /mob/living/simple_animal/hostile/guardian/protector/New()
 	..()
@@ -35,7 +35,7 @@
 		melee_damage_upper = initial(melee_damage_upper)
 		obj_damage = initial(obj_damage)
 		damage_transfer = 0.4
-		to_chat(src, "<span class='danger'>Вы переключились в боевой режим.</span>")
+		to_chat(src, span_danger("Вы переключились в боевой режим."))
 		toggle = FALSE
 	else
 
@@ -44,7 +44,7 @@
 		melee_damage_lower = 2
 		melee_damage_upper = 2
 		damage_transfer = 0.05 //damage? what's damage?
-		to_chat(src, "<span class='danger'>Вы переключились в режим защиты.</span>")
+		to_chat(src, span_danger("Вы переключились в режим защиты."))
 		toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/protector/snapback() //snap to what? snap to the guardian!
@@ -54,12 +54,12 @@
 			return
 		else
 			if(istype(summoner.loc, /obj/effect))
-				to_chat(src, "<span class='holoparasite'>Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метров от [summoner.real_name]!</span>")
-				visible_message("<span class='danger'>[src] jumps back to its user.</span>")
+				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метров от [summoner.real_name]!"))
+				visible_message(span_danger("[src] jumps back to its user."))
 				Recall(TRUE)
 			else
-				to_chat(summoner, "<span class='holoparasite'>Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метров от <b>[src]</b>!</span>")
-				summoner.visible_message("<span class='danger'>[summoner] jumps back to [summoner.p_their()] protector.</span>")
+				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метров от <b>[src]</b>!"))
+				summoner.visible_message(span_danger("[summoner] jumps back to [summoner.p_their()] protector."))
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))//Protector

@@ -241,10 +241,10 @@ log transactions
 						req_money = INSURANCE_DELUXE_COST
 
 				if(authenticated_account.charge(req_money))
-					usr.balloon_alert("Тип страховки изменен")
+					usr.balloon_alert(usr, "тип страховки изменен")
 					authenticated_account.insurance_type = new_insurance_type
 				else
-					usr.balloon_alert("Недостаточно средств")
+					usr.balloon_alert(usr, "недостаточно средств")
 
 		if("attempt_auth")
 			if(linked_db)

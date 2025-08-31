@@ -307,6 +307,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/clothing/suit/armor/reactive/teleport)
 	required_tech = list("combat" = 8, "bluespace" = 5)
 
+/datum/supply_packs/emergency/highrisk/reflect_kit
+	name = "Reflector Armor Kit Crate"
+	access = ACCESS_ARMORY
+	contains = list(
+		/obj/item/clothing/suit/armor/reflector,
+		/obj/item/clothing/gloves/reflector,
+		/obj/item/clothing/shoes/reflector,
+		/obj/item/clothing/head/helmet/reflector,
+	)
+	required_tech = list("combat" = 8, "materials" = 7) 
+
 /datum/supply_packs/emergency/highrisk/capt_jet
 	name = "Deluxe Jetpack Crate"
 	access = ACCESS_CAPTAIN
@@ -2071,11 +2082,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter/gosling
 	containername = "gosling crate"
 
-/datum/supply_packs/organic/hamster
-	name = "Hamster Crate"
+/datum/supply_packs/organic/wooly_mouse
+	name = "Wooly mouse Crate"
 	cost = 50
-	containertype = /obj/structure/closet/critter/hamster
-	containername = "hamster crate"
+	containertype = /obj/structure/closet/critter/wooly_mouse
+	containername = "wooly mouse crate"
 
 /datum/supply_packs/organic/frog
 	name = "Frog Crate"

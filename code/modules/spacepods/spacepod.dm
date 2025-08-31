@@ -358,7 +358,7 @@
 			deal_damage(cached_damage)
 		return .
 
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(!hatch_open)
 			to_chat(user, span_warning("The maintenance hatch is closed."))
@@ -1216,7 +1216,7 @@
 		if(!next_step)
 			COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
 			return FALSE
-		var/calculated_move_delay = has_gravity(loc) ? GRAVITY_SPEED : NO_GRAVITY_SPEED
+		var/calculated_move_delay = !no_gravity(loc) ? GRAVITY_SPEED : NO_GRAVITY_SPEED
 		. = Move(next_step, direction)
 		if(ISDIAGONALDIR(direction) && loc == next_step)
 			calculated_move_delay *= sqrt(2)

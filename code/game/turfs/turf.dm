@@ -218,6 +218,25 @@
 	return FALSE
 
 
+// Enter, but hypothetical.
+/turf/proc/can_enter(atom/movable/mover)
+	var/atom/mover_loc = mover.loc
+	var/border_dir = get_dir(src, mover)
+	var/can_pass_self = CanPass(mover, border_dir)
+	if(!can_pass_self)
+		return FALSE
+
+	for(var/atom/movable/obstacle as anything in contents)
+		// Multi tile objects and moving out of other objects.
+		if(obstacle == mover || obstacle == mover_loc)
+			continue
+
+		if(!obstacle.CanPass(mover, border_dir))
+			return FALSE
+
+	return TRUE
+
+
 /turf/Enter(atom/movable/mover)
 	// Do not call ..()
 	// Byond's default turf/Enter() doesn't have the behaviour we want with Bump()
@@ -537,8 +556,9 @@
 
 
 /turf/handle_fall(mob/living/carbon/faller)
-	if(has_gravity(src))
+	if(!no_gravity(src))
 		playsound(src, "bodyfall", 50, TRUE)
+
 	faller.drop_from_hands()
 
 
@@ -692,12 +712,20 @@
 
 /// Precipitates a movable (plus whatever buckled to it) to lower z levels if possible and then calls zImpact()
 /turf/proc/zFall(atom/movable/falling, levels = 1, force = FALSE, falling_from_move = FALSE)
-	var/turf/target = get_step_multiz(src, DOWN)
+	if(no_gravity())
+		return FALSE
+
+	// Yes, you can fall up.
+	var/fall_dir = get_gravity() > 0 ? DOWN : UP
+
+	var/turf/target = get_step_multiz(src, fall_dir)
 	if(!target)
 		return FALSE
+
 	var/isliving = isliving(falling)
 	if(!isliving && !isobj(falling))
 		return FALSE
+
 	var/atom/movable/living_buckled
 	if(isliving)
 		var/mob/living/falling_living = falling
@@ -705,9 +733,11 @@
 		if(falling_living.buckled)
 			living_buckled = falling
 			falling = falling_living.buckled
+
 	if(!falling_from_move && falling.currently_z_moving)
 		return FALSE
-	if(!force && !falling.can_z_move(DOWN, src, target, ZMOVE_FALL_FLAGS))
+
+	if(!force && !falling.can_z_move(fall_dir, src, target, ZMOVE_FALL_FLAGS))
 		falling.set_currently_z_moving(FALSE, TRUE)
 		living_buckled?.set_currently_z_moving(FALSE, TRUE)
 		return FALSE
@@ -868,3 +898,20 @@
 	/// Ought to work
 	turf_mask.color = list(255,255,255,0, 255,255,255,0, 255,255,255,0, 0,0,0,0, 0,0,0,255)
 	underlay_appearance.overlays += turf_mask
+
+/proc/get_random_reachable_space_turf()
+	var/list/datum/space_level/reachable_levels = levels_by_trait(REACHABLE)
+	var/trys = 1000
+	var/turf/target_space_turf
+	while(trys > 0) {
+		var/x = rand(1, world.maxx)
+		var/y = rand(1, world.maxy)
+		var/z = pick(reachable_levels)
+		target_space_turf = locate(x, y, z)
+		if(isspaceturf(target_space_turf))
+			break
+
+		trys--
+	}
+
+	return target_space_turf

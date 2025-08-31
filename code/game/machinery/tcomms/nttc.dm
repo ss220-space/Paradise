@@ -7,10 +7,10 @@
 	All this code was written by Tigercat2000. I take no credit -aa07
 */
 
-#define JOB_STYLE_1 "Name (Job)"
-#define JOB_STYLE_2 "Name - Job"
-#define JOB_STYLE_3 "\[Job\] Name"
-#define JOB_STYLE_4 "(Job) Name"
+#define JOB_STYLE_1 "Имя (Должность)"
+#define JOB_STYLE_2 "Имя - Должность"
+#define JOB_STYLE_3 "\[Должность\] Имя"
+#define JOB_STYLE_4 "(Должность) Имя"
 
 /datum/nttc_configuration
 	var/regex/word_blacklist = new("(<iframe|<embed|<script|<svg|<canvas|<video|<audio|onload)", "i") // Blacklist of naughties
@@ -138,7 +138,7 @@
 	var/list/filtering = list()
 
 	// Used to determine what languages are allowable for conversion. Generated during runtime.
-	var/list/valid_languages = list("--DISABLE--")
+	var/list/valid_languages = list("--ВЫКЛЮЧЕНО--")
 
 /datum/nttc_configuration/proc/reset()
 	toggle_jobs = initial(toggle_jobs)
@@ -265,7 +265,7 @@
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])
-		if(setting_language == "--DISABLE--")
+		if(setting_language == "--ВЫКЛЮЧЕНО--")
 			setting_language = LANGUAGE_NONE
 		else
 			for(var/datum/multilingual_say_piece/S in message_pieces)

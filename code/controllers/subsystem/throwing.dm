@@ -157,7 +157,7 @@ SUBSYSTEM_DEF(throwing)
 	//calculate how many tiles to move, making up for any missed ticks.
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
-		if((dist_travelled >= maxrange || AM.loc == target_turf) && AM.has_gravity(AM.loc))
+		if((dist_travelled >= maxrange || AM.loc == target_turf) && !AM.no_gravity(AM.loc))
 			if(!hitcheck())
 				finalize()
 			return
@@ -181,7 +181,15 @@ SUBSYSTEM_DEF(throwing)
 				finalize()
 			return
 
-		dist_travelled++
+		/*
+		  A - Acceleration of gravity.
+		  H - The height of the object's fall.
+		  T - Past tense of falling.
+		  H(T) = A * T * T / 2
+		  If A will become X times bigger, T will become sqrt(X) times lower.
+		*/
+		if(!AM.no_gravity()) // If no gravity, it causes some problems. I think, it will work normally this way.
+			dist_travelled += 1 * sqrt(abs(AM.get_gravity()))
 
 		if(dist_travelled > MAX_THROWING_DIST)
 			finalize()

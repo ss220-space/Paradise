@@ -4,34 +4,84 @@
  * @license MIT
  */
 
-import { BooleanLike, classes, pureComponentHooks } from 'common/react';
-import { InfernoNode } from 'inferno';
-import { Box, unit } from './Box';
+import type { CSSProperties, PropsWithChildren, ReactNode } from 'react';
+import { type BooleanLike, classes } from 'common/react';
+import { unit } from 'common/ui';
+import { Box } from './Box';
 import { Divider } from './Divider';
 import { Tooltip } from './Tooltip';
 
-type LabeledListProps = {
-  children: InfernoNode;
-};
-
-export const LabeledList = (props: LabeledListProps) => {
+/**
+ * ## LabeledList
+ * LabeledList is a continuous, vertical list of text and other content, where
+ * every item is labeled.
+ *
+ * It works just like a two column table, where first column is labels, and
+ * second column is content.
+ *
+ * @example
+ * ```tsx
+ * <LabeledList>
+ *   <LabeledList.Item label="Item">Content</LabeledList.Item>
+ * </LabeledList>
+ * ```
+ *
+ * If you want to have a button on the right side of an item (for example,
+ * to perform some sort of action), there is a way to do that:
+ *
+ * @example
+ * ```tsx
+ * <LabeledList>
+ *   <LabeledList.Item label="Item" buttons={<Button>Click me!</Button>}>
+ *     Content
+ *   </LabeledList.Item>
+ * </LabeledList>
+ * ```
+ */
+export const LabeledList = (props: PropsWithChildren) => {
   const { children } = props;
-  return <table className="LabeledList">{children}</table>;
+
+  return (
+    <table className="LabeledList">
+      <tbody>{children}</tbody>
+    </table>
+  );
 };
 
-LabeledList.defaultHooks = pureComponentHooks;
-
-type LabeledListItemProps = {
-  className?: string | BooleanLike;
-  label?: string | BooleanLike;
-  labelColor?: string | BooleanLike;
-  color?: string | BooleanLike;
-  textAlign?: string | BooleanLike;
-  buttons?: InfernoNode;
-  tooltip?: string | BooleanLike;
+type LabeledListItemProps = Partial<{
+  /** Buttons to render aside the content. */
+  buttons: ReactNode;
+  /** Content of this labeled item. */
+  children: ReactNode;
+  /** Applies a CSS class to the element. */
+  className: string | BooleanLike;
+  /** Sets the color of the content text. */
+  color: string;
   /** @deprecated */
-  content?: any;
-  children?: InfernoNode;
+  content: any;
+  /**
+   * Sometimes this does not properly register in TS.
+   * See [react key docs](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key) for more info.
+   */
+  key: string | number;
+  /** Item label. Appends a colon at the end. */
+  label: ReactNode;
+  /** Sets the color of the label. */
+  labelColor: string;
+  /** Lets the label wrap and makes it not take the minimum width. */
+  labelWrap: boolean;
+
+  labelStyle: CSSProperties;
+  /**
+   * Align the content text.
+   *
+   * - `left` (default)
+   * - `center`
+   * - `right`
+   */
+  textAlign: string;
+  /** Tooltip text. */
+  tooltip: string;
   /**
    * Align both the label and the content vertically.
    *
@@ -40,37 +90,71 @@ type LabeledListItemProps = {
    * - `middle`
    * - `bottom`
    */
-  verticalAlign?: string;
-};
+  verticalAlign: string;
+}>;
 
 const LabeledListItem = (props: LabeledListItemProps) => {
   const {
     className,
     label,
     labelColor = 'label',
+    labelWrap,
+    labelStyle,
     color,
     textAlign,
     buttons,
-    tooltip,
     content,
     children,
     verticalAlign = 'baseline',
+    tooltip,
   } = props;
-  let listItem = (
+
+  let innerLabel: ReactNode;
+  if (label) {
+    innerLabel = label;
+    if (typeof label === 'string') innerLabel += ':';
+  }
+
+  if (tooltip !== undefined) {
+    innerLabel = (
+      <Tooltip content={tooltip}>
+        <Box
+          as="span"
+          style={{
+            borderBottom: '2px dotted rgba(255, 255, 255, 0.8)',
+          }}
+        >
+          {innerLabel}
+        </Box>
+      </Tooltip>
+    );
+  }
+
+  const labelChild = (
+    <Box
+      as="td"
+      color={labelColor}
+      className={classes([
+        'LabeledList__cell',
+        // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
+        !labelWrap && 'LabeledList__label--nowrap',
+      ])}
+      verticalAlign={verticalAlign}
+      style={labelStyle}
+    >
+      {innerLabel}
+    </Box>
+  );
+
+  return (
     <tr className={classes(['LabeledList__row', className])}>
-      <Box
-        as="td"
-        color={labelColor}
-        className={classes(['LabeledList__cell', 'LabeledList__label'])}
-        verticalAlign={verticalAlign}
-      >
-        {label ? label + ':' : null}
-      </Box>
+      {labelChild}
       <Box
         as="td"
         color={color}
         textAlign={textAlign}
-        className={classes(['LabeledList__cell', 'LabeledList__content'])}
+        className="LabeledList__cell"
+        // @ts-ignore
         colSpan={buttons ? undefined : 2}
         verticalAlign={verticalAlign}
       >
@@ -82,29 +166,23 @@ const LabeledListItem = (props: LabeledListItemProps) => {
       )}
     </tr>
   );
-
-  if (tooltip) {
-    listItem = <Tooltip content={tooltip}>{listItem}</Tooltip>;
-  }
-
-  return listItem;
 };
 
-LabeledListItem.defaultHooks = pureComponentHooks;
-
 type LabeledListDividerProps = {
+  /** Size of the divider. */
   size?: number;
 };
 
 const LabeledListDivider = (props: LabeledListDividerProps) => {
   const padding = props.size ? unit(Math.max(0, props.size - 1)) : 0;
+
   return (
     <tr className="LabeledList__row">
       <td
         colSpan={3}
         style={{
-          'padding-top': padding,
-          'padding-bottom': padding,
+          paddingTop: padding,
+          paddingBottom: padding,
         }}
       >
         <Divider />
@@ -113,7 +191,8 @@ const LabeledListDivider = (props: LabeledListDividerProps) => {
   );
 };
 
-LabeledListDivider.defaultHooks = pureComponentHooks;
-
-LabeledList.Item = LabeledListItem;
+/**
+ * Adds some empty space between LabeledList items.
+ */
 LabeledList.Divider = LabeledListDivider;
+LabeledList.Item = LabeledListItem;

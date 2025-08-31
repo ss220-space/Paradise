@@ -128,9 +128,11 @@
 		if(assembly.secured)
 			to_chat(user, span_warning("The [assembly.name] should not be secured."))
 			return ATTACK_CHAIN_PROCEED
+
 		if(secured)
 			to_chat(user, span_warning("The [name] should not be secured."))
 			return ATTACK_CHAIN_PROCEED
+
 		attach_assembly(assembly, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

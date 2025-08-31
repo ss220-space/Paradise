@@ -265,3 +265,77 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
+
+/obj/projectile/beam/anomaly
+	name = "луч стабилизатора аномалий"
+	ru_names = list(
+		NOMINATIVE = "луч стабилизатора аномалий", \
+		GENITIVE = "луча стабилизатора аномалий", \
+		DATIVE = "лучу стабилизатора аномалий", \
+		ACCUSATIVE = "луч стабилизатора аномалий", \
+		INSTRUMENTAL = "лучом стабилизатора аномалий", \
+		PREPOSITIONAL = "луче стабилизатора аномалий"
+	)
+	icon_state = "xray" // Looks mostly like "blue/red_laser" in green colour.
+	damage = 0
+	hitsound = 'sound/weapons/resonator_blast.ogg'
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	light_color = LIGHT_COLOR_GREEN
+	/// The amount by which the stability of the anomaly changes upon impact.
+	var/stability_delta = 0
+	/// The distance the anomaly is pulled towards the shooter upon impact.
+	var/pull_strenght = 0
+	/// The amount of time that beam increase the blocking of the anomaly's normal movement.
+	var/move_block = 0
+	/// The amount of time that beam increase the blocking of the anomaly's impulsive movement.
+	var/move_impulces_block = 0
+	/// The amount by which the strength of the anomaly's effects is temporarily reduced.
+	var/anom_weaken = 0
+	/// The moment at which the reduction in the effects of the anomaly will be reset.
+	var/weaken_time = 0
+
+/obj/projectile/beam/anomaly/on_hit(atom/target, blocked, hit_zone)
+	if(!isanomaly(target))
+		return ..()
+
+	do_sparks(clamp(abs(stability_delta) * 2, 3, 10))
+	var/obj/effect/anomaly/anomaly = target
+	if(anomaly.tier != 4 || prob(50))
+		anomaly.stability = clamp(anomaly.stability + stability_delta, 0, 100)
+
+	anomaly.move_moment = max(world.time + move_block, anomaly.move_moment)
+	anomaly.move_impulse_moment = max(world.time + move_impulces_block, anomaly.move_impulse_moment)
+	if(anom_weaken)
+		anomaly.weaken = anom_weaken
+		anomaly.weaken_moment = world.time + weaken_time
+
+	INVOKE_ASYNC(anomaly, TYPE_PROC_REF(/obj/effect/anomaly, go_to), get_turf(firer_source_atom), pull_strenght)
+	return TRUE
+
+/obj/projectile/beam/anomaly/stabilizer
+	name = "стабилизирующий луч"
+	ru_names = list(
+		NOMINATIVE = "стабилизирующий луч", \
+		GENITIVE = "стабилизирующего луча", \
+		DATIVE = "стабилизирующему лучу", \
+		ACCUSATIVE = "стабилизирующий луч", \
+		INSTRUMENTAL = "стабилизирующим лучом", \
+		PREPOSITIONAL = "стабилизирующем луче"
+	)
+	icon_state = "bluelaser"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_BLUE
+
+/obj/projectile/beam/anomaly/destabilizer
+	name = "дестабилизирующий луч"
+	ru_names = list(
+		NOMINATIVE = "дестабилизирующий луч", \
+		GENITIVE = "дестабилизирующего луча", \
+		DATIVE = "дестабилизирующему лучу", \
+		ACCUSATIVE = "дестабилизирующий луч", \
+		INSTRUMENTAL = "дестабилизирующим лучом", \
+		PREPOSITIONAL = "дестабилизирующем луче"
+	)
+	icon_state = "laser"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	light_color = LIGHT_COLOR_RED

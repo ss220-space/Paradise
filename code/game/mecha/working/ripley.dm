@@ -157,11 +157,11 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='notice'>You slide the card through [src]'s ID slot.</span>")
+			to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
 		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
+		desc += span_danger("</br>The mech's equipment slots spark dangerously!")
 	else if(user)
-		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
 
 /obj/mecha/working/ripley/full_load
 	name = "Тестовый Рипли"

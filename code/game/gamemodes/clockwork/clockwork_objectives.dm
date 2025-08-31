@@ -32,37 +32,37 @@
 
 	switch(clock_status)
 		if(RATVAR_IS_ASLEEP)
-			to_chat(M, "<span class='clock'>Ratvar is asleep.</span>")
+			to_chat(M, span_clock("Ratvar is asleep."))
 		if(RATVAR_DEMANDS_POWER)
-			to_chat(M, "<span class='clock'>The Ratvar seeks the power throught the station. Help him to overcome the mighty Veil!</span>")
-			to_chat(M, "<span class='clock'>Current goal: </span>")
+			to_chat(M, span_clock("The Ratvar seeks the power throught the station. Help him to overcome the mighty Veil!"))
+			to_chat(M, span_clock("Current goal: "))
 			if(!obj_demand.power_get)
-				to_chat(M, "<span class='clock'>We need to fulfill the power. Power needed: [GLOB.clockwork_power]/[power_goal]</span>")
+				to_chat(M, span_clock("We need to fulfill the power. Power needed: [GLOB.clockwork_power]/[power_goal]"))
 			if(!obj_demand.beacon_get)
-				to_chat(M, "<span class='clock'>The beacons will mark the soft spots of the Veil. Beacons needed: [length(GLOB.clockwork_beacons)]/[beacon_goal]</span>")
+				to_chat(M, span_clock("The beacons will mark the soft spots of the Veil. Beacons needed: [length(GLOB.clockwork_beacons)]/[beacon_goal]"))
 			if(!obj_demand.clockers_get)
-				to_chat(M, "<span class='clock'>Let the power from our clockers assemble the path for our Ratvar! Clockers needed: [SSticker.mode.get_clockers()]/[clocker_goal]</span>")
+				to_chat(M, span_clock("Let the power from our clockers assemble the path for our Ratvar! Clockers needed: [SSticker.mode.get_clockers()]/[clocker_goal]"))
 		if(RATVAR_NEEDS_SUMMONING)
-			to_chat(M, "<span class='clock'>Ratvar is strong enough! It's time to point his power on weak point of the Veil!</span>")
-			to_chat(M, "<span class='clock'>Current goal: [obj_summon.explanation_text]</span>")
+			to_chat(M, span_clock("Ratvar is strong enough! It's time to point his power on weak point of the Veil!"))
+			to_chat(M, span_clock("Current goal: [obj_summon.explanation_text]"))
 		if(RATVAR_HAS_RISEN)
-			to_chat(M, "<span class='clocklarge'>\"I am here.\"</span>")
-			to_chat(M, "<span class='clock'>Current goal:</span> <span class='clocklarge'>\"Bring me unclocked ones.\"</span>")
+			to_chat(M, span_clocklarge("\"I am here.\""))
+			to_chat(M, "[span_clock("Current goal:")] [span_clocklarge("\"Bring me unclocked ones.\"")]")
 		if(RATVAR_HAS_FALLEN)
-			to_chat(M, "<span class='clocklarge'>Ratvar has been banished!</span>")
-			to_chat(M, "<span class='clock'>Current goal: Slaughter the unbelievers!</span>")
+			to_chat(M, span_clocklarge("Ratvar has been banished!"))
+			to_chat(M, span_clock("Current goal: Slaughter the unbelievers!"))
 		else
-			to_chat(M, "<span class='danger'>Error: Clock cult objective status currently unknown. Something went wrong. Oof.</span>")
+			to_chat(M, span_danger("Error: Clock cult objective status currently unknown. Something went wrong. Oof."))
 
 	if(display_members)
 		var/list/clock_cult = SSticker.mode.get_clockers(TRUE)
 		var/total_clockers = clock_cult[1] + clock_cult[2]
 
-		to_chat(M, "<span class='clockitalic'><br><b>Current cult members: [total_clockers]</b></span>")
+		to_chat(M, span_clockitalic("<br><b>Current cult members: [total_clockers]</b>"))
 
 		if(clock_cult[2]) // If there are any constructs, separate them out
-			to_chat(M, "<span class='clockitalic'><b>Clockers:</b> [clock_cult[1]]")
-			to_chat(M, "<span class='clockitalic'><b>Constructs:</b> [clock_cult[2]]")
+			to_chat(M, span_clockitalic("<b>Clockers:</b> [clock_cult[1]]"))
+			to_chat(M, span_clockitalic("<b>Constructs:</b> [clock_cult[2]]"))
 
 /*
  * Makes a check if power or beacon has been completed.
@@ -74,9 +74,9 @@
 		obj_demand.power_get = TRUE
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, "<span class='clocklarge'>Yes! That's enough power i need! Well done...</span>")
+				to_chat(clock_mind.current, span_clocklarge("Yes! That's enough power i need! Well done..."))
 				if(!obj_demand.check_completion())
-					to_chat(clock_mind.current, "<span class='clock'>But there's still more tasks to do.</span>")
+					to_chat(clock_mind.current, span_clock("But there's still more tasks to do."))
 				else
 					ratvar_is_ready()
 		adjust_clockwork_power(-0.6*power_goal)
@@ -86,9 +86,9 @@
 		obj_demand.beacon_get = TRUE
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, "<span class='clocklarge'>Now i see the weak points of the Veil. You have done well...</span>")
+				to_chat(clock_mind.current, span_clocklarge("Now i see the weak points of the Veil. You have done well..."))
 				if(!obj_demand.check_completion())
-					to_chat(clock_mind.current, "<span class='clock'>But there's still more tasks to do.</span>")
+					to_chat(clock_mind.current, span_clock("But there's still more tasks to do."))
 				else
 					ratvar_is_ready()
 
@@ -100,8 +100,8 @@
 	clock_status = RATVAR_NEEDS_SUMMONING
 	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 		if(clock_mind && clock_mind.current)
-			to_chat(clock_mind.current, "<span class='clock'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
-			to_chat(clock_mind.current, "<span class='clock'>Current goal: [obj_summon.explanation_text]</span>")
+			to_chat(clock_mind.current, span_clock("You and your acolytes have succeeded in preparing the station for the ultimate ritual!"))
+			to_chat(clock_mind.current, span_clock("Current goal: [obj_summon.explanation_text]"))
 
 /datum/clockwork_objectives/proc/succesful_summon()
 	clock_status = RATVAR_HAS_RISEN

@@ -123,7 +123,7 @@
 	. = ..()
 	if(ishuman(user))
 		if (user.a_intent == INTENT_HELP)
-			visible_message("<span class='notice'>Вы пощекотали брюшко [src.name].</span>", "<span class='notice'>[user.name] пощекотал[genderize_ru(user.gender,"","а","о","и")] брюшко [src.name].</span>")
+			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[genderize_ru(user.gender,"","а","о","и")] брюшко [src.name]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
@@ -148,7 +148,7 @@
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
 			if(prob(50))
 				visible_message("<b>[src] scrambles into the ventilation ducts!</b>", \
-								"<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+								span_notice("You hear something squeezing through the ventilation ducts."))
 
 			spawn(rand(20,60))
 				loc = exit_vent
@@ -161,7 +161,7 @@
 						return
 
 					if(prob(50))
-						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+						audible_message(span_notice("You hear something squeezing through the ventilation ducts."))
 					sleep(travel_time)
 
 					if(!exit_vent || exit_vent.welded)
@@ -177,7 +177,7 @@
 
 	else if(prob(33))
 		if(random_skitter() && prob(40))
-			visible_message("<span class='notice'>[src] skitters[pick(" away"," around","")].</span>")
+			visible_message(span_notice("[src] skitters[pick(" away"," around","")]."))
 	else if(prob(10))
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
@@ -210,7 +210,7 @@
 						if(C)
 							S.key = C.key
 							if(S.master_commander)
-								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+								to_chat(S, span_dangerbigger("You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost."))
 							add_game_logs("was made giant spider, master: [S.master_commander ? S.master_commander : "None"]")
 			qdel(src)
 
@@ -228,8 +228,8 @@
 
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
-		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
-		"<span class='warning'>It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		user.visible_message(span_notice("[user] sucks [src] into its decompiler. There's a horrible crunching noise."), \
+								span_warning("It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises."))
 		C.stored_comms["wood"] += 2
 		C.stored_comms["glass"] += 2
 		qdel(src)
@@ -254,7 +254,7 @@
 	icon_state = pick("cocoon1","cocoon2","cocoon3")
 
 /obj/structure/spider/cocoon/Destroy()
-	visible_message("<span class='danger'>[src] splits open.</span>")
+	visible_message(span_danger("[src] splits open."))
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)
 	return ..()

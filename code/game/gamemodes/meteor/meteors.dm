@@ -279,7 +279,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 		var/dist = get_dist(mob.loc, loc)
 		if(prob(shake_chance))
 			shake_camera(mob, dist > 20 ? 3 : 5, dist > 20 ? 1 : 3)
-		mob.playsound_local(loc, null, 50, TRUE, random_frequency, 10, S = meteor_sound)
+		mob.playsound_local(loc, null, 50, TRUE, random_frequency, 10, sound = meteor_sound)
 
 
 /**

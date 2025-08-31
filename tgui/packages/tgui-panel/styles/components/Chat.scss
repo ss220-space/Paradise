@@ -4,10 +4,11 @@
  */
 
 @use 'sass:color';
+@use 'sass:math';
 @use '~tgui/styles/base.scss';
 @use '~tgui/styles/colors.scss';
 
-$text-color: #abc6ec !default;
+$text-color: hsl(210, 50%, 80%) !default;
 $color-bg-section: base.$color-bg-section !default;
 $color-bg-reconnect: $color-bg-section !default;
 $color-text-reconnect: colors.$red !default;
@@ -22,13 +23,13 @@ $color-text-reconnect: colors.$red !default;
   font-size: 0.7em;
   padding: 0.2em 0.3em;
   line-height: 1;
-  color: white;
+  color: hsl(0, 0%, 100%);
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  background-color: crimson;
+  background-color: hsl(348, 83%, 47%);
   border-radius: 10px;
-  transition: font-size 200ms;
+  transition: font-size 200ms ease-out;
 
   &:before {
     content: 'x';
@@ -41,7 +42,7 @@ $color-text-reconnect: colors.$red !default;
 }
 
 .Chat__scrollButton {
-  position: fixed;
+  position: fixed !important;
   right: 2em;
   bottom: 1em;
 }
@@ -56,25 +57,25 @@ $color-text-reconnect: colors.$red !default;
     display: inline-block;
     border-radius: 1em;
     padding: 0 0.7em;
-    color: $color-text-reconnect;
-    background-color: $color-bg-reconnect;
+    color: colors.$red;
+    background-color: $color-bg-section;
   }
 
   &:after {
     content: '';
     display: block;
     margin-top: -0.75em;
-    border-bottom: calc(1em / 6) solid colors.$red;
+    border-bottom: math.div(1em, 6) solid colors.$red;
   }
 }
 
 .Chat__highlight {
-  color: #000;
+  color: hsl(0, 0%, 0%);
 }
 
 .Chat__highlight--restricted {
-  color: #fff;
-  background-color: #a00;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(0, 100%, 33.3%);
   font-weight: bold;
 }
 
@@ -84,7 +85,7 @@ $color-text-reconnect: colors.$red !default;
 
 .ChatMessage--highlighted {
   position: relative;
-  border-left: calc(1em / 6) solid rgba(255, 221, 68);
+  border-left: math.div(1em, 6) solid hsl(50, 100%, 63.5%);
   padding-left: 0.5em;
 
   &:after {
@@ -94,7 +95,7 @@ $color-text-reconnect: colors.$red !default;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(255, 221, 68, 0.1);
+    background-color: hsla(50, 100%, 63.5%, 0.1);
     // Make this click-through since this is an overlay
     pointer-events: none;
   }

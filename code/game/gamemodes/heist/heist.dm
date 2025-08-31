@@ -226,7 +226,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		else
 			win_msg += "<b>The Vox Raiders were repelled!</b>"
 
-	to_chat(world, "<span class='warning'><span style='font-size: 3;'><b>[win_type] [win_group] victory!</b></span></span>")
+	to_chat(world, span_warning(span_fontsize3("<b>[win_type] [win_group] victory!</b>")))
 	to_chat(world, "[win_msg]")
 	SSticker.mode_result = "heist - [win_type] [win_group]"
 

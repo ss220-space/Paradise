@@ -607,6 +607,7 @@
 	burn_stuff(arrived)
 
 /obj/effect/bfl_laser/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	burn_stuff(AM)
 
 /obj/effect/bfl_laser/process()

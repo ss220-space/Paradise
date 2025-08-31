@@ -116,7 +116,7 @@
 
 
 /obj/item/gun/throw/crossbow/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(cell)
 			balloon_alert(user, "уже установлено!")

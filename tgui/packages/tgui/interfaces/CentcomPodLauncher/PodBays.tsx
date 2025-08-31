@@ -3,7 +3,7 @@ import { Button, Section } from '../../components';
 import { BAYS } from './constants';
 import { PodLauncherData } from './types';
 
-export const PodBays = (props) => {
+export const PodBays = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();
   const { bayNumber } = data;
 

@@ -314,13 +314,61 @@
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
-	desc = "A vest that excels in protecting the wearer against energy projectiles. Projects an energy field around the user, allowing a chance of energy projectile deflection no matter where on the user it would hit."
+	desc = "Экспериментальный высокотехнологичный бронежилет, изготовленный из светоотражающего материала, предназначен для отражения энергетических лучей. Устаревшая амуниция, была снята с вооружения НаноТрейзен."
+	ru_names = list(
+		NOMINATIVE = "абляционный бронежилет",
+		GENITIVE = "абляционного бронежилета",
+		DATIVE = "абляционному бронежилету",
+		ACCUSATIVE = "абляционный бронежилет",
+		INSTRUMENTAL = "абляционным бронежилетом",
+		PREPOSITIONAL = "абляционном бронежилете"
+	)
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	var/hit_reflect_chance = 40
+	var/hit_reflect_chance = 50
+
+/obj/item/clothing/suit/armor/reflector
+	name = "reflector coat"
+	desc = "Высокотехнологичное инновационное пальто, изготовленное из светоотражающего материала, предназначенное для отражения энергетических лучей. Сочетает в себе стиль и самые передовые технологии."
+	ru_names = list(
+		NOMINATIVE = "рефлекторное пальто",
+		GENITIVE = "рефлекторное пальто",
+		DATIVE = "рефлекторному пальто",
+		ACCUSATIVE = "рефлекторное пальто",
+		INSTRUMENTAL = "рефлекторным пальто",
+		PREPOSITIONAL = "рефлекторном пальто"
+	)
+	icon_state = "reflector"
+	item_state = "reflector"
+	blood_overlay_type = "armor"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 60, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	sprite_sheets = list(
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		)
+	var/list/reflect_zones = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+	var/hit_reflect_chance = 50
+
+/obj/item/clothing/suit/armor/reflector/IsReflect(def_zone)
+	if(!(def_zone in reflect_zones))
+		return FALSE
+	if (prob(hit_reflect_chance))
+		return TRUE
 
 /obj/item/clothing/suit/armor/laserproof/Initialize(mapload)
 	. = ..()

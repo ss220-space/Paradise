@@ -323,8 +323,8 @@
 /obj/machinery/power/supermatter_shard/singularity_act()
 	var/gain = 100
 	investigate_log("consumed by singularity.", INVESTIGATE_ENGINE)
-	message_admins("<span class='danger'>Singularity has consumed a supermatter shard and can now become stage six</span> [ADMIN_COORDJMP(src)].")
-	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
+	message_admins("[span_danger("Singularity has consumed a supermatter shard and can now become stage six")] [ADMIN_COORDJMP(src)].")
+	visible_message(span_userdanger("[src] is consumed by the singularity!"))
 	for(var/mob/M in GLOB.mob_list)
 		M << 'sound/effects/supermatter.ogg' //everyone gunna know bout this
 		to_chat(M, span_boldannounceic("A horrible screeching fills your ears, and a wave of dread washes over you..."))
@@ -347,9 +347,11 @@
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		return
 
-	user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src], inducing a resonance... [user.p_their(TRUE)] body starts to glow and bursts into flames before flashing into ash.</span>",\
-		"<span class=\"danger\">You reach out and touch \the [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>",\
-		"<span class=\"warning\">You hear an uneartly ringing, then what sounds like a shrilling kettle as you are washed with a wave of heat.</span>")
+	user.visible_message(
+		span_warning("\The [user] reaches out and touches \the [src], inducing a resonance... [user.p_their(TRUE)] body starts to glow and bursts into flames before flashing into ash."),
+		span_danger("You reach out and touch \the [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\""),
+		span_warning("You hear an uneartly ringing, then what sounds like a shrilling kettle as you are washed with a wave of heat.")
+	)
 
 	playsound(get_turf(src), 'sound/effects/supermatter.ogg', 50, 1)
 
@@ -463,12 +465,16 @@
 		nuclear_touch(moving_atom)
 		return .
 	if(isliving(moving_atom))
-		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
-		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
-		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
+		moving_atom.visible_message(
+			span_danger("\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash."),\
+			span_userdanger("You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\""),\
+			span_italics("You hear an unearthly noise as a wave of heat washes over you.")
+		)
 	else if(isobj(moving_atom) && !iseffect(moving_atom))
-		moving_atom.visible_message("<span class='danger'>\The [moving_atom] smacks into \the [src] and rapidly flashes to ash.</span>",\
-		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
+		moving_atom.visible_message(
+			span_danger("\The [moving_atom] smacks into \the [src] and rapidly flashes to ash."),\
+			span_italics("You hear a loud crack as you are washed with a wave of heat.")
+		)
 	else
 		return
 
@@ -528,10 +534,10 @@
 		L.apply_effect(rads, IRRADIATE)
 		investigate_log("has irradiated [L] after consuming [AM].", INVESTIGATE_ENGINE)
 		if(src in view(L.client.maxview()))
-			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
-				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
+			L.show_message(span_danger("As \the [src] slowly stops resonating, you find your skin covered in new radiation burns."), 1,\
+				span_danger("The unearthly ringing subsides and you notice you have new radiation burns."), 2)
 		else
-			L.show_message("<span class='italics'>You hear an uneartly ringing and notice your skin is covered in fresh radiation burns.</span>", 2)
+			L.show_message(span_italics("You hear an uneartly ringing and notice your skin is covered in fresh radiation burns."), 2)
 
 /obj/machinery/power/supermatter_shard/proc/get_status()
 	var/turf/T = get_turf(src)

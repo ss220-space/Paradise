@@ -1,38 +1,44 @@
-import { toFixed } from 'common/math';
-import { capitalize } from 'common/string';
-import { useLocalState } from 'tgui/backend';
-import { useDispatch, useSelector } from 'common/redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
   Collapsible,
   Divider,
   Input,
-  Slider,
   LabeledList,
-  NumberInput,
   Section,
+  Slider,
   Stack,
 } from 'tgui/components';
+import { toFixed } from 'common/math';
+import { capitalize } from 'common/string';
 
 import { clearChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
 import { exportSettings, updateSettings } from './actions';
 import { FONTS } from './constants';
-import { setEditPaneSplitters } from './scaling';
+import { resetPaneSplitters, setEditPaneSplitters } from './scaling';
 import { selectSettings } from './selectors';
 import { importChatSettings } from './settingsImExport';
+import { storage } from 'common/storage';
 
-export const SettingsGeneral = (props, context) => {
-  const { theme, fontFamily, fontSize, lineHeight } = useSelector(
-    context,
-    selectSettings
-  );
-  const dispatch = useDispatch(context);
-  const [freeFont, setFreeFont] = useLocalState('freeFont', false);
-  const [editingPanes, setEditingPanes] = useLocalState<boolean>(
-    'editingPanes',
-    false
-  );
+export const SettingsGeneral = (_props: unknown) => {
+  const { theme, fontFamily, fontSize, lineHeight, chatSaving } =
+    useSelector(selectSettings);
+  const dispatch = useDispatch();
+  const [freeFont, setFreeFont] = useState(false);
+
+  const [editingPanes, setEditingPanes] = useState(false);
+
+  const updateChatSaving = (value) => {
+    const boolValue = value === true;
+    dispatch(
+      updateSettings({
+        chatSaving: boolValue,
+      })
+    );
+    storage.set('chat-saving-enabled', boolValue);
+  };
 
   return (
     <Section>
@@ -56,20 +62,27 @@ export const SettingsGeneral = (props, context) => {
           ))}
         </LabeledList.Item>
         <LabeledList.Item label="UI sizes">
-          <Button
-            onClick={() =>
-              setEditingPanes(
-                ((val) => {
-                  setEditPaneSplitters(!val);
-                  return !val;
-                })(editingPanes)
-              )
-            }
-            color={editingPanes ? 'red' : undefined}
-            icon={editingPanes ? 'save' : undefined}
-          >
-            {editingPanes ? 'Save' : 'Adjust UI Sizes'}
-          </Button>
+          <Stack>
+            <Stack.Item>
+              <Button
+                onClick={() =>
+                  setEditingPanes((val) => {
+                    setEditPaneSplitters(!val);
+                    return !val;
+                  })
+                }
+                color={editingPanes ? 'red' : undefined}
+                icon={editingPanes ? 'save' : undefined}
+              >
+                {editingPanes ? 'Save' : 'Adjust UI Sizes'}
+              </Button>
+            </Stack.Item>
+            <Stack.Item>
+              <Button onClick={resetPaneSplitters} icon="refresh" color="red">
+                Reset
+              </Button>
+            </Stack.Item>
+          </Stack>
         </LabeledList.Item>
         <LabeledList.Item label="Font style">
           <Stack.Item>
@@ -140,7 +153,7 @@ export const SettingsGeneral = (props, context) => {
               <Slider
                 width="100%"
                 step={1}
-                stepPixelSize={17.5}
+                stepPixelSize={20}
                 minValue={8}
                 maxValue={32}
                 value={fontSize}
@@ -157,7 +170,6 @@ export const SettingsGeneral = (props, context) => {
           <Slider
             width="100%"
             step={0.01}
-            stepPixelSize={2}
             minValue={0.8}
             maxValue={5}
             value={lineHeight}
@@ -180,7 +192,7 @@ export const SettingsGeneral = (props, context) => {
             tooltip="Export chat settings"
             onClick={() => dispatch(exportSettings())}
           >
-            Export settings
+            Export
           </Button>
         </Stack.Item>
         <Stack.Item mt={0.15}>
@@ -188,10 +200,19 @@ export const SettingsGeneral = (props, context) => {
             accept=".json"
             tooltip="Import chat settings"
             icon="arrow-up-from-bracket"
-            onSelectFiles={(files) => importChatSettings(files, context)}
+            onSelectFiles={(files) => importChatSettings(files)}
           >
-            Import settings
+            Import
           </Button.File>
+        </Stack.Item>
+        <Stack.Item mt={0.15}>
+          <Button.Checkbox
+            checked={!!chatSaving}
+            tooltip="Enable chat persistence"
+            onClick={() => updateChatSaving(!chatSaving)}
+          >
+            Persistent Chat
+          </Button.Checkbox>
         </Stack.Item>
         <Stack.Item grow mt={0.15}>
           <Button

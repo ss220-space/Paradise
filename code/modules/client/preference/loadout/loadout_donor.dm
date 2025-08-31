@@ -1,6 +1,6 @@
 /datum/gear/donor
 	donator_tier = 2
-	sort_category = "Donor"
+	sort_category = "Донат"
 	subtype_path = /datum/gear/donor
 
 /datum/gear/donor/can_select(client/cl, job_name, species_name, silent = FALSE)
@@ -18,13 +18,13 @@
 		return TRUE
 
 	if(cl && !silent)
-		to_chat(cl, span_warning("Для получения \"[index_name]\" необходим [donator_tier] или более высокий уровень пожертвований."))
+		to_chat(cl, span_warning("Для получения \"[display_name]\" необходим [donator_tier] или более высокий уровень пожертвований."))
 
 	return FALSE
 
 
 /datum/gear/donor/get_header_tips()
-	return "\[Tier [donator_tier]\] "
+	return "\[Уровень [donator_tier]\] "
 
 
 /datum/gear/donor/ussptracksuit_black
@@ -336,7 +336,6 @@
 	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_HOP)
 
 /datum/gear/donor/visor_security
-	display_name = "Security Visor"
 	index_name = "Optical Security Visor"
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/visor
 	donator_tier = 3
@@ -345,7 +344,6 @@
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE)
 
 /datum/gear/donor/visor_medical
-	display_name = "Medical Optical Visor"
 	index_name = "Optical Medical Visor"
 	path = /obj/item/clothing/glasses/hud/health/visor
 	donator_tier = 3
@@ -354,7 +352,6 @@
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
 /datum/gear/donor/visor_science
-	display_name = "Scince Optical Visor"
 	index_name = "Optical Science Visor"
 	path = /obj/item/clothing/glasses/science/visor
 	donator_tier = 3
@@ -363,7 +360,6 @@
 	allowed_roles = list(JOB_TITLE_SCIENTIST, JOB_TITLE_RD, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST, JOB_TITLE_CHEMIST)
 
 /datum/gear/donor/visor_diagnostic
-	display_name = "Diagnostic Optical Visor"
 	index_name = "Optical Diagnostic Visor"
 	path = /obj/item/clothing/glasses/hud/diagnostic/visor
 	donator_tier = 3
@@ -372,7 +368,6 @@
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_ROBOTICIST)
 
 /datum/gear/donor/visor_meson
-	display_name = "Meson Optical Visor"
 	index_name = "Optical Meson Visor"
 	path = /obj/item/clothing/glasses/meson/visor
 	donator_tier = 3
@@ -381,7 +376,6 @@
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
 
 /datum/gear/donor/visor_skill
-	display_name = "Skill Optical Visor"
 	index_name = "Optical Skill Visor"
 	path = /obj/item/clothing/glasses/hud/skills/visor
 	donator_tier = 3
@@ -390,7 +384,6 @@
 	allowed_roles = list(JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_HOP, JOB_TITLE_CAPTAIN)
 
 /datum/gear/donor/visor_hydroponic
-	display_name = "Hydroponic Optical Visor"
 	index_name = "Optical Hydroponic Visor"
 	path = /obj/item/clothing/glasses/hud/hydroponic/visor
 	donator_tier = 3
@@ -400,7 +393,7 @@
 
 /datum/gear/donor/night_dress
 	index_name = "night dress, select"
-	display_name = "night dress"
+	display_name = "Ночное платье"
 	description = "A classic night dress."
 	cost = 1
 	donator_tier = 3

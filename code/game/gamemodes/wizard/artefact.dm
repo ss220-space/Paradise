@@ -20,9 +20,9 @@
 	if(charged)
 		new /obj/effect/rend(get_turf(user), spawn_type, spawn_amt, rend_desc)
 		charged = 0
-		user.visible_message("<span class='userdanger'>[src] hums with power as [user] deals a blow to [activate_descriptor] itself!</span>")
+		user.visible_message(span_userdanger("[src] hums with power as [user] deals a blow to [activate_descriptor] itself!"))
 	else
-		to_chat(user, "<span class='danger'>The unearthly energies that powered the blade are now dormant.</span>")
+		to_chat(user, span_danger("The unearthly energies that powered the blade are now dormant."))
 
 
 /obj/effect/rend
@@ -113,8 +113,8 @@
 	hitsound = 'sound/items/welder2.ogg'
 
 /obj/item/scrying/attack_self(mob/user as mob)
-	to_chat(user, "<span class='notice'> You can see...everything!</span>")
-	visible_message("<span class='danger'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>")
+	to_chat(user, span_notice(" You can see...everything!"))
+	visible_message(span_danger("[user] stares into [src], [user.p_their()] eyes glazing over."))
 	user.ghostize(1)
 
 /////////////////////Multiverse Blade////////////////////
@@ -161,7 +161,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/multisword/attack_self(mob/user)
 	if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
-		to_chat(user, "<span class='warning'>You know better than to touch your teacher's stuff.</span>")
+		to_chat(user, span_warning("You know better than to touch your teacher's stuff."))
 		return
 	if(cooldown < world.time)
 		var/faction_check = 0
@@ -177,7 +177,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			if(!usr.mind.special_role)
 				var/list/messages = list()
 				if(prob(probability_evil))
-					messages.Add("<span class='warning'><b>With your new found power you could easily conquer the station!</b></span>")
+					messages.Add(span_warning("<b>With your new found power you could easily conquer the station!</b>"))
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 					hijack_objective.owner = usr.mind
@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = TRUE
 				else
-					messages.Add("<span class='warning'><b>With your new found power you could easily defend the station!</b></span>")
+					messages.Add(span_warning("<b>With your new found power you could easily defend the station!</b>"))
 					var/datum/objective/survive/new_objective = new /datum/objective/survive
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
 					new_objective.owner = usr.mind
@@ -208,12 +208,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 			if(candidates.len)
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)
-				to_chat(user, "<span class='warning'><b>The sword flashes, and you find yourself face to face with...you!</b></span>")
+				to_chat(user, span_warning("<b>The sword flashes, and you find yourself face to face with...you!</b>"))
 
 			else
 				to_chat(user, "You fail to summon any copies of yourself. Perhaps you should try again in a bit.")
 	else
-		to_chat(user, "<span class='warning'><b>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies.</span>")
+		to_chat(user, span_warning("<b>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies."))
 
 
 /obj/item/multisword/proc/spawn_copy(var/client/C, var/turf/T, mob/user)
@@ -737,7 +737,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if(link)
 			target = null
 			link.forceMove(get_turf(src))
-			to_chat(user, "<span class='notice'>You remove the [link] from the doll.</span>")
+			to_chat(user, span_notice("You remove the [link] from the doll."))
 			link = null
 			update_targets()
 			return
@@ -756,7 +756,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					user.reset_perspective(null)
 					user.unset_machine()
 			if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-				to_chat(user, "<span class='notice'>You move the doll's legs around.</span>")
+				to_chat(user, span_notice("You move the doll's legs around."))
 				var/turf/T = get_step(target,pick(GLOB.cardinal))
 				target.Move(T)
 			if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
@@ -771,9 +771,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 					target.ClickOn(T)
 					GiveHint(target)
 			if(BODY_ZONE_HEAD)
-				to_chat(user, "<span class='notice'>You smack the doll's head with your hand.</span>")
+				to_chat(user, span_notice("You smack the doll's head with your hand."))
 				target.Dizzy(20 SECONDS)
-				to_chat(target, "<span class='warning'>You suddenly feel as if your head was hit with a hammer!</span>")
+				to_chat(target, span_warning("You suddenly feel as if your head was hit with a hammer!"))
 				GiveHint(target,user)
 		cooldown = world.time + cooldown_time
 
@@ -789,10 +789,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
 	if(prob(50) || force)
 		var/way = dir2text(get_dir(victim,get_turf(src)))
-		to_chat(victim, "<span class='notice'>You feel a dark presence from [way]</span>")
+		to_chat(victim, span_notice("You feel a dark presence from [way]"))
 	if(prob(20) || force)
 		var/area/A = get_area(src)
-		to_chat(victim, "<span class='notice'>You feel a dark presence from [A.name]</span>")
+		to_chat(victim, span_notice("You feel a dark presence from [A.name]"))
 
 /obj/item/voodoo/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(target)

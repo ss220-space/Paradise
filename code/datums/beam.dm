@@ -88,8 +88,8 @@
 	visuals.layer = beam_layer
 	visuals.update_appearance()
 	Draw()
-	RegisterSignal(origin, COMSIG_MOVABLE_MOVED, PROC_REF(redrawing))
-	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(redrawing))
+	RegisterSignal(origin, COMSIG_MOVABLE_MOVED, PROC_REF(redrawing), TRUE)
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(redrawing), TRUE)
 
 /**
  * Triggered by signals set up when the beam is set up. If it's still sane to create a beam, it removes the old beam, creates a new one. Otherwise it kills the beam.

@@ -19,17 +19,6 @@
 /atom/movable/screen/proc/set_position(x, y, px = 0, py = 0)
 	if(assigned_map)
 		screen_loc = "[assigned_map]:[x]:[px],[y]:[py]"
-		ASYNC
-			// HACK: This fixes the character creator in 516 being small and relying on other byondui things (like cameras) to open in order to update and refresh.
-			// This also will fix the camera console screen being offset, Gateway, and admin pod panel.
-			// Adding 100 then setting it back seemed to do the trick!
-			// Why the fuck does this work? This is some byond bug and I honestly have no fucking clue why this works.
-			// I don't think plane master will be affected, I hope.
-			// We're stuck in the belly of this awful machine.
-			sleep(0.2 SECONDS) // If it's too fast, it has a chance to fail? Idk. This seems like a good number.
-			screen_loc = "[assigned_map]:[x+100]:[px],[y+100]:[py]"
-			sleep(0.2 SECONDS)
-			screen_loc = "[assigned_map]:[x]:[px],[y]:[py]"
 	else
 		screen_loc = "[x]:[px],[y]:[py]"
 
@@ -60,16 +49,13 @@
 
 /**
  * Clears the map of registered screen objects.
- *
- * Not really needed most of the time, as the client's screen list gets reset
- * on relog. any of the buttons are going to get caught by garbage collection
- * anyway. they're effectively qdel'd.
  */
 /client/proc/clear_map(map_name)
-	if(!map_name || !(map_name in screen_maps))
+	if(!map_name || !screen_maps[map_name])
 		return FALSE
 	for(var/atom/movable/screen/screen_obj in screen_maps[map_name])
 		screen_maps[map_name] -= screen_obj
+		screen -= screen_obj
 		if(screen_obj.del_on_map_removal)
 			qdel(screen_obj)
 	screen_maps -= map_name

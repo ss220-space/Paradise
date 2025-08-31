@@ -186,7 +186,7 @@ window "mainwindow"
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		is-default = true
-		saved-params = "pos;size;is-minimized;is-maximized"
+		saved-params = "pos;size;is-minimized;is-maximized;"
 		statusbar = false
 		is-maximized = true
 		icon = 'icons\\paradise.png'
@@ -322,7 +322,7 @@ window "infobuttons"
 		background-color = none
 		saved-params = "is-checked"
 		text = "Свернуть"
-		command = ".winset \"rpanewindow.top=;\""
+		command = ".winset \"info.left=;\""
 		group = "rpanemode"
 		button-type = pushbox
 
@@ -335,7 +335,7 @@ window "infobuttons"
 		background-color = none
 		saved-params = "is-checked"
 		text = "Развернуть"
-		command = ".winset \"rpanewindow.top=infowindow\""
+		command = ".winset \"info.left=statwindow\""
 		is-checked = true
 		group = "rpanemode"
 		button-type = pushbox

@@ -36,6 +36,23 @@
 	var/taste_description = "метафорической соли"
 	var/addict_supertype = /datum/reagent
 
+	// For chemical fire
+	var/chemfiresupp = FALSE
+	var/intensitymod = 0
+	var/durationmod = 0
+	var/radiusmod = 0
+	// For chemical fire from flamethrowers
+	var/intensityfire = 0
+	var/durationfire = 0
+	var/rangefire = 0 // Set to -1 if you want an infinite range
+	var/flameshape = FLAMESHAPE_LINE
+	var/fire_penetrating = FALSE // Whether it can damage fire-immune xenos
+	// For both chemical fires
+	var/burn_sprite = "dynamic"
+	var/burncolor = "#f88818"
+	var/burncolormod = 1
+	var/fire_type = FIRE_VARIANT_DEFAULT //Unique types of fire not modeled by chemfire (1 = Armor Shredding Greenfire). Effects in flamer.dm
+
 /datum/reagent/New()
 	addict_supertype = type
 

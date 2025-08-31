@@ -25,7 +25,17 @@ export default [
       '**/*.bundle.*',
       '**/*.chunk.*',
       '**/*.hot-update.*',
-      '**/packages/inferno/**',
+      '**.lock',
+      '**.log',
+      '**.json',
+      '**.svg',
+      '**.scss',
+      '**.md',
+      '**.css',
+      '**.txt',
+      '**.woff2',
+      '**.eot',
+      '**.ttf',
     ],
     plugins: {
       prettier,
@@ -91,7 +101,7 @@ export default [
       complexity: [
         'error',
         {
-          max: 50,
+          max: 60,
         },
       ],
 

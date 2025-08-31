@@ -1,4 +1,6 @@
 //Station goal stuff goes here
+GLOBAL_LIST_EMPTY(bluespace_taps)
+
 /datum/station_goal/bluespace_tap
 	name = "Bluespace Harvester"
 	var/goal = 25000
@@ -25,7 +27,7 @@
 /datum/station_goal/bluespace_tap/proc/get_highscore()
 	. = 0
 
-	for(var/obj/machinery/power/bluespace_tap/harvester in GLOB.machines)
+	for(var/obj/machinery/power/bluespace_tap/harvester in GLOB.bluespace_taps)
 		. = max(., harvester.total_points)
 
 
@@ -255,6 +257,7 @@
 
 /obj/machinery/power/bluespace_tap/New()
 	..()
+	GLOB.bluespace_taps += src
 	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
@@ -276,6 +279,7 @@
 		connect_to_network()
 
 /obj/machinery/power/bluespace_tap/Destroy()
+	GLOB.bluespace_taps -= src
 	QDEL_LIST(fillers)
 	return ..()
 

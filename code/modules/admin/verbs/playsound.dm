@@ -95,24 +95,37 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 					var/webpage_url = title
 					if(data["webpage_url"])
 						webpage_url = "<a href=\"[data["webpage_url"]]\">[title]</a>"
-					music_extra_data["start"] = data["start_time"]
-					music_extra_data["end"] = data["end_time"]
+					var/mus_len = data["duration"] * 1 SECONDS
+					music_extra_data["duration"] = DisplayTimeText(mus_len)
+					SSticker.music_available = REALTIMEOFDAY + mus_len
 					music_extra_data["link"] = data["webpage_url"]
-					music_extra_data["title"] = data["title"]
-					if(data["duration"])
-						var/mus_len = data["duration"] SECONDS
-						if(data["start_time"])
-							mus_len -= data["start_time"] SECONDS
-						if(data["end_time"])
-							mus_len -= (data["duration"] SECONDS - data["end_time"] SECONDS)
-						SSticker.music_available = REALTIMEOFDAY + mus_len
+					music_extra_data["artist"] = data["artist"]
+					music_extra_data["upload_date"] = data["upload_date"]
+					music_extra_data["album"] = data["album"]
 
-					var/res = tgui_alert(usr, "Show the title of and link to this song to the players?\n[title]",, list("No", "Yes", "Cancel"))
+					var/res = tgui_alert(usr, "Показать игрокам название и ссылку?\n[title]",, list("Нет", "Да", "Отмена"))
 					switch(res)
-						if("Yes")
-							to_chat(world, span_boldannounceooc("Сейчас играет: [webpage_url]"))
-						if("Cancel")
+						if("Да")
+							music_extra_data["title"] = data["title"]
+						if("Нет")
+							music_extra_data["link"] = "Song Link Hidden"
+							music_extra_data["title"] = "Song Title Hidden"
+							music_extra_data["artist"] = "Song Artist Hidden"
+							music_extra_data["upload_date"] = "Song Upload Date Hidden"
+							music_extra_data["album"] = "Song Album Hidden"
+						if("Отмена")
 							return
+
+					var/anon = tgui_alert(usr, "Показывать, кто запустил?", "Указывать себя?", list("Нет", "Да", "Отмена"))
+					switch(anon)
+						if("Yes")
+							if(res == "Yes")
+								to_chat(world, span_boldannounceooc("[src] запустил: [webpage_url]"), confidential = TRUE)
+							else
+								to_chat(world, span_boldannounceooc("[src] запустил музыку"), confidential = TRUE)
+						if("No")
+							if(res == "Yes")
+								to_chat(world, span_boldannounceooc("Запущено админом: [webpage_url]"), confidential = TRUE)
 
 					SSblackbox.record_feedback("nested tally", "played_url", 1, list("[ckey]", "[web_sound_input]"))
 					log_admin("[key_name(src)] played web sound: [web_sound_input]")

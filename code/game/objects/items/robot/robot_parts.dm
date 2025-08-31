@@ -436,7 +436,7 @@
 
 
 /obj/item/robot_parts/chest/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(cell)
 			to_chat(user, span_warning("The [cell.name] is already installed."))

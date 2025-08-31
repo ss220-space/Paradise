@@ -11,6 +11,7 @@
 	var/is_browser = FALSE
 	var/status = TGUI_WINDOW_CLOSED
 	var/locked = FALSE
+	var/visible = FALSE
 	var/datum/tgui/locked_by
 	var/datum/subscriber_object
 	var/subscriber_delegate
@@ -221,11 +222,13 @@
 		return
 	if(can_be_suspended && can_be_suspended())
 		log_tgui(client, "[id]/close: suspending")
+		visible = FALSE
 		status = TGUI_WINDOW_READY
 		send_message("suspend")
 		return
 	log_tgui(client, "[id]/close")
 	release_lock()
+	visible = FALSE
 	status = TGUI_WINDOW_CLOSED
 	message_queue = null
 	// Do not close the window to give user some time
@@ -359,6 +362,9 @@
 	switch(type)
 		if("ping")
 			send_message("ping/reply", payload)
+		if("visible")
+			visible = TRUE
+			SEND_SIGNAL(src, COMSIG_TGUI_WINDOW_VISIBLE, client)
 		if("suspend")
 			close(can_be_suspended = TRUE)
 		if("close")
@@ -371,6 +377,8 @@
 			// Resend the assets
 			for(var/asset in sent_assets)
 				send_asset(asset)
+		if("chat/resend")
+			SSchat.handle_resend(client, payload)
 		if("oversizedPayloadRequest")
 			var/payload_id = payload["id"]
 			var/chunk_count = payload["chunkCount"]

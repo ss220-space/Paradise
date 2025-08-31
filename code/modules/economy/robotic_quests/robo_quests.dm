@@ -60,25 +60,37 @@
 	questinfo["name"] = name
 	generate_flavour()
 	questinfo["desc"] = desc
-	questinfo["icon"] = path2assetID(mech)
+	var/obj/mecha/selected_mech = selected.mech_type
+	questinfo["icon"] = selected_mech.icon
+	questinfo["icon_state"] = selected_mech.icon_state
 	choosen_mech = selected.mech_type //тут мы выбираем меха из заготовок
 	questinfo["modules"] = list()
 	maximum_cash = rand(round(0.75 * selected.cash_reward), round(1.25 * selected.cash_reward))
 	if(length(selected.wanted_modules))
 		var/list/weapons = selected.wanted_modules
-		for(var/i in 1 to rand(1, selected.max_modules))
-			var/the_choosen_one = list(pick_n_take(weapons))
-			choosen_modules += the_choosen_one
+		var/rand_module_amount = rand(1, selected.max_modules)
+		for(var/i in 1 to rand_module_amount)
+			var/the_choosen_one = pick_n_take(weapons)
+			var/obj/item/mecha_parts/mecha_equipment/required = LAZYACCESS(selected.related_modules, the_choosen_one)
+			if(required && !(required in choosen_modules))
+				LAZYREMOVE(weapons, required)
+				LAZYADD(choosen_modules, required)
+				if(rand_module_amount < selected.max_modules)
+					LAZYADD(choosen_modules, the_choosen_one)
+					rand_module_amount += 1
+			else
+				LAZYADD(choosen_modules, the_choosen_one)
+
 		for(var/i in choosen_modules)
 			modules_amount++
 			var/list/newmodule = list()
 			var/obj/module = new i
 			newmodule["id"] = modules_amount
-			newmodule["icon"] = path2assetID(i)
+			newmodule["icon"] = module.icon
+			newmodule["icon_state"] = module.icon_state
 			newmodule["name"] = capitalize(module.name)
 			questinfo["modules"] += list(newmodule)
 			qdel(module)
-
 
 /datum/roboquest/proc/generate_flavour()
 	var/list/working = list("Поступил заказ от правительства колонии [pick("Гаусс", "Кита Эпсилон", "Тартессос")] на приобретение стандартного экзокостюма типа [name]. Запрошенные спецификации вы можете увидеть на консоли.",
@@ -158,7 +170,7 @@
 /datum/roboshop_item/bluespace_core
 	name = "bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	visual_item = /obj/item/assembly/signaler/anomaly/bluespace
+	visual_item = /obj/item/assembly/signaler/core/bluespace/tier3
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
 
 /datum/roboshop_item/advanced_roboquest_pad

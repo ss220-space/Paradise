@@ -23,8 +23,29 @@ else
   rm -rf "$HOME/BYOND"
   mkdir -p "$HOME/BYOND"
   cd "$HOME/BYOND"
-  curl "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${TARGET_MINOR}_byond_linux.zip" -o byond.zip
-  unzip byond.zip
+
+  if ! curl -L --fail --retry 3 \
+  	-A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" \
+    "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${TARGET_MINOR}_byond_linux.zip" \
+    -o byond.zip; then
+    echo "Failed to download BYOND!"
+    exit 1
+  fi
+
+  if ! file byond.zip | grep -q "Zip archive"; then
+    echo "Invalid archive detected:"
+    head -n5 byond.zip
+    exit 1
+  fi
+
+  unzip -q byond.zip
+
+  if [ ! -d "byond" ]; then
+    echo "Extraction failed! Contents:"
+    ls -la
+    exit 1
+  fi
+
   rm byond.zip
   cd byond
   make here
