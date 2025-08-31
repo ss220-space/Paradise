@@ -428,6 +428,17 @@
 	var/list/bumped_in = list()
 	layer = ABOVE_ALL_MOB_LAYER + 0.1
 
+/obj/projectile/energy/sphere/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетическая сфера",
+		GENITIVE = "энергетической сферы",
+		DATIVE = "энергетической сфере",
+		ACCUSATIVE = "энергетическую сферу",
+		INSTRUMENTAL = "энергетической сферой",
+		PREPOSITIONAL = "энергетической сфере",
+	)
+
+
 /obj/projectile/energy/sphere/check_ricochet(atom/A)
 	return isturf(A)
 

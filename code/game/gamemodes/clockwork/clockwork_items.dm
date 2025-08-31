@@ -855,6 +855,16 @@
 	var/attack_bullet = /obj/item/ammo_casing/energy/rat_sphere/attack
 	var/heal_bullet = /obj/item/ammo_casing/energy/rat_sphere/heal
 
+/obj/item/gun/energy/gun/minigun/clockwork/get_ru_names()
+	return list(
+		NOMINATIVE = "латунный миниган",
+		GENITIVE = "латунного минигана",
+		DATIVE = "латунному минигану",
+		ACCUSATIVE = "латунный миниган",
+		INSTRUMENTAL = "латунным миниганом",
+		PREPOSITIONAL = "латунном минигане",
+	)
+
 /obj/item/gun/energy/gun/minigun/clockwork/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)

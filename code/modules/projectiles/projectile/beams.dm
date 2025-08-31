@@ -538,7 +538,19 @@
 	light_color = COLOR_SOFT_RED
 
 /obj/projectile/beam/laser/light/rat
+	name = "clockwork energy laser"
 	icon_state = "brasslaser"
+
+/obj/projectile/beam/laser/light/rat/get_ru_names()
+	return list(
+		NOMINATIVE = "лазер часовой энергии",
+		GENITIVE = "лазера часовой энергии",
+		DATIVE = "лазеру часовой энергии",
+		ACCUSATIVE = "лазер часовой энергии",
+		INSTRUMENTAL = "лазером часовой энергии",
+		PREPOSITIONAL = "лазере часовой энергии"
+	)
+
 
 /obj/projectile/beam/laser/light/rat/on_hit(atom/target, blocked, hit_zone)
 	if(!isliving(target))
