@@ -3,6 +3,7 @@
 	desc = "A tank of compressed gas for use as propulsion in zero-gravity areas. Use with caution."
 	icon_state = "jetpack"
 	w_class = WEIGHT_CLASS_BULKY
+	gender = MALE
 	item_state = "jetpack"
 	distribute_pressure = ONE_ATMOSPHERE * O2STANDARD
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
@@ -175,20 +176,23 @@
 
 	return ..()
 
-
 /obj/item/tank/jetpack/void
 	name = "Void Jetpack (Oxygen)"
-	desc = "It works well in a void."
-	icon_state = "jetpack-void"
-	item_state =  "jetpack-void"
+	desc = "Реактивный ранец, оптимизированный для использования в космическом вакууме. Корпус из жаропрочного сплава покрыт синей изоляционной эмалью. Разработан NASA."
+	icon_state = "jetpack_void"
+	item_state =  "jetpack_void"
+	volume = 40
+	gas_type = "oxygen"
 
-/obj/item/tank/jetpack/void/grey
-	name = "Void Jetpack (Oxygen)"
-	icon_state = "jetpack-void-grey"
-
-/obj/item/tank/jetpack/void/gold
-	name = "Retro Jetpack (Oxygen)"
-	icon_state = "jetpack-void-gold"
+/obj/item/tank/jetpack/void/get_ru_names()
+	ru_names = list(
+		NOMINATIVE = "вакуумный реактивный ранец (Кислород)",
+		GENITIVE = "вакуумного реактивного ранца (Кислород)",
+		DATIVE = "вакуумному реактивному ранцу (Кислород)",
+		ACCUSATIVE = "вакуумный реактивный ранец (Кислород)",
+		INSTRUMENTAL = "вакуумным реактивным ранцем (Кислород)",
+		PREPOSITIONAL = "вакуумном реактивном ранце (Кислород)"
+	)
 
 /obj/item/tank/jetpack/oxygen
 	name = "Jetpack (Oxygen)"

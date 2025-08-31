@@ -202,6 +202,7 @@
 
 	if(change_musculs && HASBIT(SEND_SIGNAL(human, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
 		ADD_TRAIT(human, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
+		SEND_SIGNAL(human, COMSIG_STRENGTH_LEVEL_UP, 4)
 		human.update_body(TRUE)
 
 	for(var/datum/martial_art/art in human.mind.known_martial_arts)
