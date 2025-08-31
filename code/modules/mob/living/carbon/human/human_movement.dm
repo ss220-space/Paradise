@@ -239,7 +239,7 @@
 	if(m_intent != MOVE_INTENT_RUN)
 		return
 
-	to_chat(src, span_userdanger("Gravity exhausts you!"))
+	to_chat(src, span_userdanger("Сила гравитация ослабляет вас!"))
 	apply_damage(10, STAMINA)
 
 
