@@ -378,9 +378,9 @@
 		if(L.affects_vampire(owner))
 			L.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT)
 
-	for(var/turf/turf in range(4, owner))
+	for(var/turf/turf as anything in RANGE_TURFS(4, get_turf(owner)))
 		turf.extinguish_light()
-		for(var/atom/atom in turf.contents)
+		for(var/atom/atom as anything in turf.contents)
 			atom.extinguish_light()
 
 	V.bloodusable = max(V.bloodusable - 5, 0)
