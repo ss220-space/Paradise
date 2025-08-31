@@ -149,6 +149,7 @@ fn mapmanip_submap_extract_insert(
         submap_size_z.try_into().wrap_err("invalid submap_size_z")?,
     );
 
+    // get the submaps map
     #[cfg(not(test))]
     let submaps_dmm: std::path::PathBuf = submaps_dmm.into();
 
