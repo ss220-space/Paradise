@@ -378,10 +378,7 @@
 		var/obj/structure/closet/critter/CritCrate = Crate
 		if(CritCrate.content_mob)
 			var/mob/crittername = CritCrate.content_mob
-			if(crittername.ru_names)
-				slip.info += "<li>[initial(crittername.ru_names[1])]</li>"
-			else
-				slip.info += "<li>[initial(crittername.name)]</li>"
+			slip.info += "<li>[crittername.declent_ru(NOMINATIVE)]</li>"
 
 	if((errors & MANIFEST_ERROR_ITEM))
 		//secure and large crates cannot lose items

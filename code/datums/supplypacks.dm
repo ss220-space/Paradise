@@ -80,7 +80,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	for(var/path in contains)
 		if(!path)	continue
 		var/atom/movable/AM = new path(locate(1, 1, 1))
-		var/content_name = AM.ru_names ? AM.ru_names[1] : initial(AM.name)
+		var/content_name = AM.declent_ru(NOMINATIVE)
 		qdel(AM)
 		manifest += "<li>[content_name]</li>"
 		// Add the name to the UI manifest

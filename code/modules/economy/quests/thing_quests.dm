@@ -31,7 +31,7 @@
 	var/list/difficult_list = generate_goal_list(difficultly)
 	var/obj/item_path = pick(difficult_list)
 	var/atom/AM = new item_path(locate(1, 1, 1))
-	var/object_name = AM.ru_names ? AM.ru_names[1] : initial(AM.name)
+	var/object_name = AM.declent_ru(NOMINATIVE)
 	qdel(AM)
 
 	q_storage.reward += difficult_list[item_path]
@@ -321,7 +321,7 @@
 	desc = list()
 	for(var/mineral in required_minerals)
 		var/atom/AM = new item_path(locate(1, 1, 1))
-		var/object_name = AM.ru_names ? AM.ru_names[1] : initial(AM.name)
+		var/object_name = AM.declent_ru(NOMINATIVE)
 		qdel(AM)
 
 		desc += "[capitalize(object_name)]<br>Объём: [required_minerals[item_path]]<br>"
@@ -763,7 +763,7 @@
 	var/list/difficult_list = generate_goal_list(difficultly)
 	var/mob/item_path = pick(difficult_list)
 	var/atom/AM = new item_path(locate(1, 1, 1))
-	var/object_name = AM.ru_names ? AM.ru_names[1] : initial(AM.name)
+	var/object_name = AM.declent_ru(NOMINATIVE)
 	qdel(AM)
 
 	cargo_quest_reward = difficult_list[item_path]
