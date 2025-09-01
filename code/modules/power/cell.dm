@@ -1,14 +1,6 @@
 /obj/item/stock_parts/cell
 	name = "power cell A"
 	desc = "Перезаряжаемый электрохимический элемент питания."
-	ru_names = list(
-		NOMINATIVE = "батарея А",
-		GENITIVE = "батареи А",
-		DATIVE = "батарее А",
-		ACCUSATIVE = "батарею А",
-		INSTRUMENTAL = "батареей А",
-		PREPOSITIONAL = "батарее А"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "cell"
@@ -36,6 +28,16 @@
 	var/grown_battery = FALSE
 	// For custom overlays.
 	var/overlay_charged = "cell-o2"
+
+/obj/item/stock_parts/cell/get_ru_names()
+	return list(
+		NOMINATIVE = "батарея А",
+		GENITIVE = "батареи А",
+		DATIVE = "батарее А",
+		ACCUSATIVE = "батарею А",
+		INSTRUMENTAL = "батареей А",
+		PREPOSITIONAL = "батарее А"
+	)
 
 /obj/item/stock_parts/cell/laser
 	maxcharge = 1500
@@ -230,7 +232,13 @@
 
 /obj/item/stock_parts/cell/upgraded
 	name = "power cell A+"
-	ru_names = list(
+	maxcharge = 2500
+	materials = list(MAT_GLASS = 50)
+	rating = 2
+	chargerate = 1000
+
+/obj/item/stock_parts/cell/upgraded/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея А+",
 		GENITIVE = "батареи А+",
 		DATIVE = "батарее А+",
@@ -238,14 +246,13 @@
 		INSTRUMENTAL = "батареей А+",
 		PREPOSITIONAL = "батарее А+"
 	)
-	maxcharge = 2500
-	materials = list(MAT_GLASS = 50)
-	rating = 2
-	chargerate = 1000
 
 /obj/item/stock_parts/cell/upgraded/plus
 	name = "power cell A++"
-	ru_names = list(
+	maxcharge = 5000
+
+/obj/item/stock_parts/cell/upgraded/plus/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея А++",
 		GENITIVE = "батареи А++",
 		DATIVE = "батарее А++",
@@ -253,11 +260,16 @@
 		INSTRUMENTAL = "батареей А++",
 		PREPOSITIONAL = "батарее А++"
 	)
-	maxcharge = 5000
 
 /obj/item/stock_parts/cell/secborg
 	name = "security borg power cell"
-	ru_names = list(
+	origin_tech = null
+	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
+	materials = list(MAT_GLASS = 40)
+	rating = 2.5
+
+/obj/item/stock_parts/cell/secborg/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея охранного робота",
 		GENITIVE = "батареи охранного робота",
 		DATIVE = "батарее охранного робота",
@@ -265,10 +277,6 @@
 		INSTRUMENTAL = "батареей охранного робота",
 		PREPOSITIONAL = "батарее охранного робота"
 	)
-	origin_tech = null
-	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
-	materials = list(MAT_GLASS = 40)
-	rating = 2.5
 
 /obj/item/stock_parts/cell/secborg/empty/New()
 	..()
@@ -277,7 +285,12 @@
 
 /obj/item/stock_parts/cell/pulse //265 pulse shots
 	name = "pulse rifle power cell"
-	ru_names = list(
+	maxcharge = 53000
+	rating = 3
+	chargerate = 1500
+
+/obj/item/stock_parts/cell/upgraded/plus/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея пульсовой винтовки",
 		GENITIVE = "батареи пульсовой винтовки",
 		DATIVE = "батарее пульсовой винтовки",
@@ -285,13 +298,13 @@
 		INSTRUMENTAL = "батареей пульсовой винтовки",
 		PREPOSITIONAL = "батарее пульсовой винтовки"
 	)
-	maxcharge = 53000
-	rating = 3
-	chargerate = 1500
 
 /obj/item/stock_parts/cell/pulse/carbine //33 pulse shots
 	name = "pulse carbine power cell"
-	ru_names = list(
+	maxcharge = 6600
+
+/obj/item/stock_parts/cell/pulse/carbine/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея пульсового карабина",
 		GENITIVE = "батареи пульсового карабина",
 		DATIVE = "батарее пульсового карабина",
@@ -299,11 +312,13 @@
 		INSTRUMENTAL = "батареей пульсового карабина",
 		PREPOSITIONAL = "батарее пульсового карабина"
 	)
-	maxcharge = 6600
 
 /obj/item/stock_parts/cell/pulse/pistol //13 pulse shots
 	name = "pulse pistol power cell"
-	ru_names = list(
+	maxcharge = 2600
+
+/obj/item/stock_parts/cell/pulse/pistol/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея пульсового пистолета",
 		GENITIVE = "батареи пульсового пистолета",
 		DATIVE = "батарее пульсового пистолета",
@@ -311,11 +326,15 @@
 		INSTRUMENTAL = "батареей пульсового пистолета",
 		PREPOSITIONAL = "батарее пульсового пистолета"
 	)
-	maxcharge = 2600
 
 /obj/item/stock_parts/cell/dominator
 	name = "Dominator pistol power cell"
-	ru_names = list(
+	maxcharge = 3000
+	chargerate = 200
+	rating = 2
+
+/obj/item/stock_parts/cell/dominator/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея Доминатора",
 		GENITIVE = "батареи Доминатора",
 		DATIVE = "батарее Доминатора",
@@ -323,20 +342,9 @@
 		INSTRUMENTAL = "батареей Доминатора",
 		PREPOSITIONAL = "батарее Доминатора"
 	)
-	maxcharge = 3000
-	chargerate = 200
-	rating = 2
 
 /obj/item/stock_parts/cell/high
 	name = "power cell AA"
-	ru_names = list(
-		NOMINATIVE = "батарея АА",
-		GENITIVE = "батареи АА",
-		DATIVE = "батарее АА",
-		ACCUSATIVE = "батарею АА",
-		INSTRUMENTAL = "батареей АА",
-		PREPOSITIONAL = "батарее АА"
-	)
 	origin_tech = "powerstorage=2"
 	icon_state = "hcell"
 	maxcharge = 10000
@@ -344,9 +352,24 @@
 	rating = 3
 	chargerate = 1500
 
+/obj/item/stock_parts/cell/high/get_ru_names()
+	return list(
+		NOMINATIVE = "батарея АА",
+		GENITIVE = "батареи АА",
+		DATIVE = "батарее АА",
+		ACCUSATIVE = "батарею АА",
+		INSTRUMENTAL = "батареей АА",
+		PREPOSITIONAL = "батарее АА"
+	)
+
 /obj/item/stock_parts/cell/high/plus
 	name = "power cell AA+"
-	ru_names = list(
+	icon_state = "hcell"
+	maxcharge = 15000
+	chargerate = 2250
+
+/obj/item/stock_parts/cell/high/plus/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея АА+",
 		GENITIVE = "батареи АА+",
 		DATIVE = "батарее АА+",
@@ -354,9 +377,6 @@
 		INSTRUMENTAL = "батареей АА+",
 		PREPOSITIONAL = "батарее АА+"
 	)
-	icon_state = "hcell"
-	maxcharge = 15000
-	chargerate = 2250
 
 /obj/item/stock_parts/cell/high/empty/New()
 	..()
@@ -365,7 +385,15 @@
 
 /obj/item/stock_parts/cell/super
 	name = "power cell AAA"
-	ru_names = list(
+	origin_tech = "powerstorage=3;materials=3"
+	icon_state = "scell"
+	maxcharge = 20000
+	materials = list(MAT_GLASS = 300)
+	rating = 4
+	chargerate = 2000
+
+/obj/item/stock_parts/cell/super/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея ААА",
 		GENITIVE = "батареи ААА",
 		DATIVE = "батарее ААА",
@@ -373,12 +401,6 @@
 		INSTRUMENTAL = "батареей ААА",
 		PREPOSITIONAL = "батарее ААА"
 	)
-	origin_tech = "powerstorage=3;materials=3"
-	icon_state = "scell"
-	maxcharge = 20000
-	materials = list(MAT_GLASS = 300)
-	rating = 4
-	chargerate = 2000
 
 /obj/item/stock_parts/cell/super/empty/New()
 	..()
@@ -387,7 +409,15 @@
 
 /obj/item/stock_parts/cell/hyper
 	name = "power cell AAAA"
-	ru_names = list(
+	origin_tech = "powerstorage=4;engineering=4;materials=4"
+	icon_state = "hpcell"
+	maxcharge = 30000
+	materials = list(MAT_GLASS = 400)
+	rating = 5
+	chargerate = 3000
+
+/obj/item/stock_parts/cell/hyper/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея АААА",
 		GENITIVE = "батареи АААА",
 		DATIVE = "батарее АААА",
@@ -395,12 +425,6 @@
 		INSTRUMENTAL = "батареей АААА",
 		PREPOSITIONAL = "батарее АААА"
 	)
-	origin_tech = "powerstorage=4;engineering=4;materials=4"
-	icon_state = "hpcell"
-	maxcharge = 30000
-	materials = list(MAT_GLASS = 400)
-	rating = 5
-	chargerate = 3000
 
 /obj/item/stock_parts/cell/hyper/empty/New()
 	..()
@@ -410,14 +434,6 @@
 /obj/item/stock_parts/cell/bluespace
 	name = "bluespace power cell"
 	desc = "Перезаряжаемый электрохимический элемент питания. Экспериментальная модель, созданная с использованием блюспейс-технологий."
-	ru_names = list(
-		NOMINATIVE = "блюспейс-батарея",
-		GENITIVE = "блюспейс-батареи",
-		DATIVE = "блюспейс-батарее",
-		ACCUSATIVE = "блюспейс-батарею",
-		INSTRUMENTAL = "блюспейс-батареей",
-		PREPOSITIONAL = "блюспейс-батарее"
-	)
 	origin_tech = "powerstorage=5;bluespace=4;materials=4;engineering=4"
 	icon_state = "bscell"
 	maxcharge = 40000
@@ -426,6 +442,16 @@
 	chargerate = 4000
 	overlay_charged = "cell-o2-bs"
 
+/obj/item/stock_parts/cell/bluespace/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс-батарея",
+		GENITIVE = "блюспейс-батареи",
+		DATIVE = "блюспейс-батарее",
+		ACCUSATIVE = "блюспейс-батарею",
+		INSTRUMENTAL = "блюспейс-батареей",
+		PREPOSITIONAL = "блюспейс-батарее"
+	)
+
 /obj/item/stock_parts/cell/bluespace/empty/New()
 	..()
 	charge = 0
@@ -433,14 +459,6 @@
 
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell"
-	ru_names = list(
-		NOMINATIVE = "бесконечная батарея",
-		GENITIVE = "бесконечной батареи",
-		DATIVE = "бесконечной батарее",
-		ACCUSATIVE = "бесконечную батарею",
-		INSTRUMENTAL = "бесконечной батареей",
-		PREPOSITIONAL = "бесконечной батарее"
-	)
 	icon_state = "icell"
 	origin_tech =  "powerstorage=7"
 	maxcharge = 30000
@@ -448,13 +466,30 @@
 	rating = 6
 	chargerate = 30000
 
+/obj/item/stock_parts/cell/infinite/get_ru_names()
+	return list(
+		NOMINATIVE = "бесконечная батарея",
+		GENITIVE = "бесконечной батареи",
+		DATIVE = "бесконечной батарее",
+		ACCUSATIVE = "бесконечную батарею",
+		INSTRUMENTAL = "бесконечной батареей",
+		PREPOSITIONAL = "бесконечной батарее"
+	)
+
 /obj/item/stock_parts/cell/infinite/use()
 	return TRUE
 
 /obj/item/stock_parts/cell/infinite/abductor
 	name = "void core"
 	desc = "Необычного вида предмет, похожий на элемент питания."
-	ru_names = list(
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "cell"
+	maxcharge = 50000
+	rating = 12
+	ratingdesc = FALSE
+
+/obj/item/stock_parts/cell/infinite/abductor/get_ru_names()
+	return list(
 		NOMINATIVE = "пустотное ядро",
 		GENITIVE = "пустотного ядра",
 		DATIVE = "пустотному ядру",
@@ -462,12 +497,6 @@
 		INSTRUMENTAL = "пустотным ядром",
 		PREPOSITIONAL = "пустотном ядре"
 	)
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "cell"
-	maxcharge = 50000
-	rating = 12
-	ratingdesc = FALSE
-
 
 /obj/item/stock_parts/cell/infinite/abductor/update_overlays()
 	return list()
@@ -475,14 +504,6 @@
 /obj/item/stock_parts/cell/potato
 	name = "potato battery"
 	desc = "Перезаряжаемый элемент питания, созданный на основе картофельного клубня."
-	ru_names = list(
-		NOMINATIVE = "картофельная батарея",
-		GENITIVE = "картофельной батареи",
-		DATIVE = "картофельной батарее",
-		ACCUSATIVE = "картофельную батарею",
-		INSTRUMENTAL = "картофельной батареей",
-		PREPOSITIONAL = "картофельной батарее"
-	)
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "potato"
 	origin_tech = "powerstorage=1;biotech=1"
@@ -492,17 +513,19 @@
 	rating = 1
 	grown_battery = TRUE //it has the overlays for wires
 
+/obj/item/stock_parts/cell/potato/get_ru_names()
+	return list(
+		NOMINATIVE = "картофельная батарея",
+		GENITIVE = "картофельной батареи",
+		DATIVE = "картофельной батарее",
+		ACCUSATIVE = "картофельную батарею",
+		INSTRUMENTAL = "картофельной батареей",
+		PREPOSITIONAL = "картофельной батарее"
+	)
+
 /obj/item/stock_parts/cell/high/slime
 	name = "charged slime core"
 	desc = "Ядро слайма жёлтого цвета, заполненное плазмой. Потрескивает от электрического тока."
-	ru_names = list(
-		NOMINATIVE = "заряженное ядро слайма",
-		GENITIVE = "заряженного ядра слайма",
-		DATIVE = "заряженному ядру слайма",
-		ACCUSATIVE = "заряженное ядро слайма",
-		INSTRUMENTAL = "заряженным ядром слайма",
-		PREPOSITIONAL = "заряженном ядре слайма"
-	)
 	origin_tech = "powerstorage=5;biotech=4"
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
@@ -511,11 +534,25 @@
 	self_recharge = 1 // Infused slime cores self-recharge, over time
 	chargerate = 500
 
+/obj/item/stock_parts/cell/high/slime/get_ru_names()
+	return list(
+		NOMINATIVE = "заряженное ядро слайма",
+		GENITIVE = "заряженного ядра слайма",
+		DATIVE = "заряженному ядру слайма",
+		ACCUSATIVE = "заряженное ядро слайма",
+		INSTRUMENTAL = "заряженным ядром слайма",
+		PREPOSITIONAL = "заряженном ядре слайма"
+	)
+
 /obj/item/stock_parts/cell/emproof
 	name = "EMP-proof power cell A"
 	desc = "Перезаряжаемый электрохимический элемент питания. Модицифированная модель, \
 			оснащённая экранированием от ЭМИ."
-	ru_names = list(
+	maxcharge = 500
+	rating = 3
+
+/obj/item/stock_parts/cell/emproof/get_ru_names()
+	return list(
 		NOMINATIVE = "ЭМИ-защищённая батарея А",
 		GENITIVE = "ЭМИ-защищённой батареи А",
 		DATIVE = "ЭМИ-защищённой батарее А",
@@ -523,8 +560,6 @@
 		INSTRUMENTAL = "ЭМИ-защищённой батареей А",
 		PREPOSITIONAL = "ЭМИ-защищённой батарее А"
 	)
-	maxcharge = 500
-	rating = 3
 
 /obj/item/stock_parts/cell/emproof/empty/New()
 	..()
@@ -542,7 +577,11 @@
 
 /obj/item/stock_parts/cell/bsg
 	name = "B.S.G power cell"
-	ru_names = list(
+	maxcharge = 40000
+	chargerate = 2600 // about 30 seconds to charge with a default recharger
+
+/obj/item/stock_parts/cell/bsg/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея Б.С.П.",
 		GENITIVE = "батареи Б.С.П.",
 		DATIVE = "батарее Б.С.П.",
@@ -550,12 +589,14 @@
 		INSTRUMENTAL = "батареей Б.С.П.",
 		PREPOSITIONAL = "батарее Б.С.П."
 	)
-	maxcharge = 40000
-	chargerate = 2600 // about 30 seconds to charge with a default recharger
 
 /obj/item/stock_parts/cell/emittergun // 11 emitter shots
 	name = "emitter gun power cell"
-	ru_names = list(
+	maxcharge = 2200
+	chargerate = 100
+
+/obj/item/stock_parts/cell/emittergun/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея эмитерной пушки",
 		GENITIVE = "батареи эмитерной пушки",
 		DATIVE = "батарее эмитерной пушки",
@@ -563,12 +604,14 @@
 		INSTRUMENTAL = "батареей эмитерной пушки",
 		PREPOSITIONAL = "батарее эмитерной пушки"
 	)
-	maxcharge = 2200
-	chargerate = 100
 
 /obj/item/stock_parts/cell/degraded
 	name = "power cell A-"
-	ru_names = list(
+	maxcharge = 750
+	chargerate = 25
+
+/obj/item/stock_parts/cell/degraded/get_ru_names()
+	return list(
 		NOMINATIVE = "батарея А-",
 		GENITIVE = "батареи А-",
 		DATIVE = "батарее А-",
@@ -576,5 +619,3 @@
 		INSTRUMENTAL = "батареей А-",
 		PREPOSITIONAL = "батарее А-"
 	)
-	maxcharge = 750
-	chargerate = 25

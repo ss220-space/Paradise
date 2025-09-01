@@ -1304,14 +1304,6 @@
 /obj/machinery/vending/assist
 	name = "assistomate"
 	desc = "Торговый автомат, предлагающий ассортимент различных деталей и компонентов."
-	ru_names = list(
-		NOMINATIVE = "торговый автомат Assistomate",
-		GENITIVE = "торгового автомата Assistomate",
-		DATIVE = "торговому автомату Assistomate",
-		ACCUSATIVE = "торговый автомат Assistomate",
-		INSTRUMENTAL = "торговым автоматом Assistomate",
-		PREPOSITIONAL = "торговом автомате Assistomate"
-	)
 	icon_state = "generic_off"
 	panel_overlay = "generic_panel"
 	screen_overlay = "generic"
@@ -1338,6 +1330,16 @@
 	)
 
 	refill_canister = /obj/item/vending_refill/assist
+
+/obj/machinery/vending/assist/get_ru_names()
+	return list(
+		NOMINATIVE = "торговый автомат Assistomate",
+		GENITIVE = "торгового автомата Assistomate",
+		DATIVE = "торговому автомату Assistomate",
+		ACCUSATIVE = "торговый автомат Assistomate",
+		INSTRUMENTAL = "торговым автоматом Assistomate",
+		PREPOSITIONAL = "торговом автомате Assistomate"
+	)
 
 /obj/machinery/vending/boozeomat
 	name = "Booze-O-Mat"

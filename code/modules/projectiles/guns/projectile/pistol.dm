@@ -142,7 +142,11 @@
 /obj/item/gun/projectile/automatic/pistol/enforcer/security
 	name = "Enforcer"
 	desc = "Стандартный пистолет для сотрудников службы безопасности."
-	ru_names = list(
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=4;materials=2"
+
+/obj/item/gun/projectile/automatic/pistol/enforcer/security/get_ru_names()
+	return list(
 		NOMINATIVE = "Блюститель",
 		GENITIVE = "Блюстителя",
 		DATIVE = "Блюстителю",
@@ -150,8 +154,6 @@
 		INSTRUMENTAL = "Блюстителем",
 		PREPOSITIONAL = "Блюстителе"
 	)
-	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=4;materials=2"
 
 //SP8 Pistol OBR and Warden//
 /obj/item/gun/projectile/automatic/pistol/sp8

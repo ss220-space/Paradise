@@ -6,15 +6,7 @@
 
 /obj/machinery/computer/supplyquest
 	name = "Supply Request Console"
-	desc = "Компьютер, используемый для просмотра доступных запросов на поставку от различных клиентов."
-	ru_names = list(
-		NOMINATIVE = "консоль запросов на поставку",
-		GENITIVE = "консоли запросов на поставку",
-		DATIVE = "консоли запросов на поставку",
-		ACCUSATIVE = "консоль запросов на поставку",
-		INSTRUMENTAL = "консолью запросов на поставку",
-		PREPOSITIONAL = "консоли запросов на поставку"
-	)
+	desc = "Компьютер для просмотра запросов на поставку от различных клиентов."
 	icon_keyboard = "cargo_quest_key"
 	icon_screen = "cargo_quest"
 	req_access = list(ACCESS_CARGO)
@@ -27,6 +19,16 @@
 	var/print_delayed
 	/// Permission to order a high-tech disk
 	var/static/hightech_recovery = FALSE
+
+/obj/machinery/computer/supplyquest/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль запросов на поставку",
+		GENITIVE = "консоли запросов на поставку",
+		DATIVE = "консоли запросов на поставку",
+		ACCUSATIVE = "консоль запросов на поставку",
+		INSTRUMENTAL = "консолью запросов на поставку",
+		PREPOSITIONAL = "консоли запросов на поставку"
+	)
 
 /obj/machinery/computer/supplyquest/ui_host()
 	return parent ? parent : src
@@ -224,20 +226,21 @@
 	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
 	paper.stamp(/obj/item/stamp/navcom)
-	paper.name = "Форма запроса на поставку"
+	paper.name = "форма запроса на поставку"
+	paper.ru_names = new /list(6)
+	paper.ru_names = list(
+		NOMINATIVE = "форма запроса о поставке",
+		GENITIVE = "формы запроса о поставке",
+		DATIVE = "форме запроса о поставке",
+		ACCUSATIVE = "форму запроса о поставке",
+		INSTRUMENTAL = "формой запроса о поставке",
+		PREPOSITIONAL = "форме запроса о поставке"
+	)
 
 
 /obj/machinery/computer/supplyquest/workers
 	name = "Supply Request Monitor"
 	desc = "Монитор, используемый для просмотра доступных запросов на поставку от различных клиентов. Оснащён функцией печати списка запросов."
-	ru_names = list(
-		NOMINATIVE = "монитор запросов на поставку",
-		GENITIVE = "монитора запросов на поставку",
-		DATIVE = "монитору запросов на поставку",
-		ACCUSATIVE = "монитор запросов на поставку",
-		INSTRUMENTAL = "монитором запросов на поставку",
-		PREPOSITIONAL = "мониторе запросов на поставку"
-	)
 	gender = MALE
 	icon_state = "quest_console"
 	icon_screen = "quest"
@@ -246,6 +249,15 @@
 	circuit = /obj/item/circuitboard/questcons
 	density = FALSE
 
+/obj/machinery/computer/supplyquest/workers/get_ru_names()
+	return list(
+		NOMINATIVE = "монитор запросов на поставку",
+		GENITIVE = "монитора запросов на поставку",
+		DATIVE = "монитору запросов на поставку",
+		ACCUSATIVE = "монитор запросов на поставку",
+		INSTRUMENTAL = "монитором запросов на поставку",
+		PREPOSITIONAL = "мониторе запросов на поставку"
+	)
 
 /obj/machinery/computer/supplyquest/workers/Initialize(mapload)
 	. = ..()
@@ -309,7 +321,8 @@
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
 	paper.stamp(/obj/item/stamp/navcom)
 	paper.name = "Отчёт о поставке"
-	ru_names = list(
+	paper.ru_names = new /list(6)
+	paper.ru_names = list(
 		NOMINATIVE = "отчёт о поставке",
 		GENITIVE = "отчёта о поставке",
 		DATIVE = "отчёту о поставке",
@@ -320,22 +333,13 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	print_animation()
 
-
 /obj/machinery/computer/supplyquest/workers/proc/print_animation()
 	flick_overlay_view(mutable_appearance(icon, "print_quest_overlay"), 4 SECONDS)
 
 
 /obj/item/qm_quest_tablet
 	name = "Quartermaster Tablet"
-	desc = "Небольшое устройство, предназначенное для просмотра и одобрения доступных запросов на поставку. До чего же удобно, да?"
-	ru_names = list(
-		NOMINATIVE = "планшет Завхоза",
-		GENITIVE = "планшета Завхоза",
-		DATIVE = "планшету Завхоза",
-		ACCUSATIVE = "планшет Завхоза",
-		INSTRUMENTAL = "планшетом Завхоза",
-		PREPOSITIONAL = "планшете Завхоза"
-	)
+	desc = "Небольшое устройство для просмотра и одобрения запросов на поставку. Портативно и удобно."
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state	= "qm_tablet"
@@ -344,6 +348,16 @@
 	origin_tech = "programming=5;engineering=3"
 	/// Integrated console to serve UI data
 	var/obj/machinery/computer/supplyquest/integrated_console = /obj/machinery/computer/supplyquest/iternal
+
+/obj/item/qm_quest_tablet/get_ru_names()
+	return list(
+		NOMINATIVE = "планшет Завхоза",
+		GENITIVE = "планшета Завхоза",
+		DATIVE = "планшету Завхоза",
+		ACCUSATIVE = "планшет Завхоза",
+		INSTRUMENTAL = "планшетом Завхоза",
+		PREPOSITIONAL = "планшете Завхоза"
+	)
 
 /obj/machinery/computer/supplyquest/iternal
 	name = "invasive quest utility"
@@ -370,8 +384,15 @@
 
 /obj/item/qm_quest_tablet/cargotech
 	name = "Portable Quest Monitor"
-	desc = "Небольшое устройство, предназначенное для просмотра доступных запросов на поставку. До чего же удобно, да?"
-	ru_names = list(
+	desc = "Небольшое устройство для просмотра запросов на поставку. Портативно и удобно."
+	icon_state	= "cargo_tablet"
+	w_class		= WEIGHT_CLASS_SMALL
+	item_state	= "cargo_tablet"
+	origin_tech = "programming=2;engineering=2"
+	integrated_console = /obj/machinery/computer/supplyquest/iternal/cargo
+
+/obj/item/qm_quest_tablet/get_ru_names()
+	return list(
 		NOMINATIVE = "планшет запросов на поставку",
 		GENITIVE = "планшета запросов на поставку",
 		DATIVE = "планшету запросов на поставку",
@@ -379,11 +400,6 @@
 		INSTRUMENTAL = "планшетом запросов на поставку",
 		PREPOSITIONAL = "планшете запросов на поставку"
 	)
-	icon_state	= "cargo_tablet"
-	w_class		= WEIGHT_CLASS_SMALL
-	item_state	= "cargo_tablet"
-	origin_tech = "programming=2;engineering=2"
-	integrated_console = /obj/machinery/computer/supplyquest/iternal/cargo
 
 /obj/machinery/computer/supplyquest/iternal/cargo
 	req_access = null

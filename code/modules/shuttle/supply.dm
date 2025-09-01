@@ -1,6 +1,11 @@
 /obj/item/paper/manifest
 	name = "supply manifest"
-	ru_names = list(
+	var/erroneous = 0
+	var/points = 0
+	var/ordernumber = 0
+
+/obj/item/paper/manifest/get_ru_names()
+	return list(
 		NOMINATIVE = "манифест снабжения",
 		GENITIVE = "манифеста снабжения",
 		DATIVE = "манифесту снабжения",
@@ -8,9 +13,6 @@
 		INSTRUMENTAL = "манифестом снабжения",
 		PREPOSITIONAL = "манифесте снабжения"
 	)
-	var/erroneous = 0
-	var/points = 0
-	var/ordernumber = 0
 
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
@@ -284,7 +286,16 @@
 
 	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
-	reqform.name = "Запрос на поставку – [crates] '[object.name]' для [orderedby]"
+	reqform.name = "запрос на поставку – [crates] '[object.name]' для [orderedby]"
+	reqform.ru_names = new /list(6)
+	reqform.ru_names = list(
+		NOMINATIVE = "запрос на поставку – [crates] '[object.name]' для [orderedby]",
+		GENITIVE = "запроса на поставку – [crates] '[object.name]' для [orderedby]",
+		DATIVE = "запросу на поставку – [crates] '[object.name]' для [orderedby]",
+		ACCUSATIVE = "запрос на поставку – [crates] '[object.name]' для [orderedby]",
+		INSTRUMENTAL = "запросом на поставку – [crates] '[object.name]' для [orderedby]",
+		PREPOSITIONAL = "запросе на поставку – [crates] '[object.name]' для [orderedby]"
+	)
 	reqform.info += "<h3>[station_name()] – запрос на поставку грузов</h3><hr>"
 	reqform.info += "ИНДЕКС: №[SSshuttle.ordernum]<br>"
 	reqform.info += "ЗАПРОСИВШИЙ: [orderedby]<br>"
@@ -308,6 +319,7 @@
 	//create the crate
 	var/atom/Crate = new object.containertype(_loc)
 	Crate.name = "[object.containername] [comment ? "([comment])":"" ]"
+	Crate.ru_names = new /list(6)
 	for(var/i = 1; i <= 6; i++)
 		Crate.ru_names[i] = "[object.container_ru_names[i]] [comment ? "([comment])":"" ]"
 
@@ -324,6 +336,15 @@
 	var/packagesAmt = SSshuttle.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Манифест поставки – '[object.name]' для [orderedby]"
+	slip.ru_names = new /list(6)
+	slip.ru_names = list(
+		NOMINATIVE = "манифест поставки – '[object.name]' для [orderedby]",
+		GENITIVE = "манифеста поставки – '[object.name]' для [orderedby]",
+		DATIVE = "манифесту поставки – '[object.name]' для [orderedby]",
+		ACCUSATIVE = "манифест поставки – '[object.name]' для [orderedby]",
+		INSTRUMENTAL = "манифестом поставки – '[object.name]' для [orderedby]",
+		PREPOSITIONAL = "манифесте поставки – '[object.name]' для [orderedby]"
+	)
 	slip.info = "<h3>[command_name()] Манифест поставки</h3><hr><br>"
 	slip.info +="Заказ: №[ordernum]<br>"
 	slip.info +="Пункт назначения: [stationName]<br>"

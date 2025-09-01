@@ -85,14 +85,6 @@
 /obj/structure/closet/supplypod/extractionpod
 	name = "Syndicate Extraction Pod"
 	desc = "Специализированная капсула кроваво-красного цвета для эвакуации ценных целей из зон активных задач. <b>Для правильной доставки цель должна быть помещена в капсулу вручную.</b>"
-	ru_names = list(
-		NOMINATIVE = "капсула эвакуации Синдиката",
-		GENITIVE = "капсулы эвакуации Синдиката",
-		DATIVE = "капсуле эвакуации Синдиката",
-		ACCUSATIVE = "капсулу эвакуации Синдиката",
-		INSTRUMENTAL = "капсулой эвакуации Синдиката",
-		PREPOSITIONAL = "капсуле эвакуации Синдиката"
-	)
 	specialised = TRUE
 	style = /datum/pod_style/contractor
 	bluespace = TRUE

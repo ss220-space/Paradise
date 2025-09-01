@@ -25,9 +25,9 @@
 	/// Reward for quest.
 	var/reward
 	/// Name of the person who accepted the order.
-	var/idname = "Не указано"
+	var/idname = "*Не указано*"
 	/// Name of the person who accepted the order.
-	var/idrank = "Не указано"
+	var/idrank = "*Не указано*"
 	///	If TRUE we can reroll this quest.
 	var/can_reroll = TRUE
 	/// Date when the order was accepted
