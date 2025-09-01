@@ -505,6 +505,7 @@
 		var/dy = newloc.y
 		var/dz = newloc.z
 		new_locs = block(
+			dx, dy, dz,
 			dx + ceil(bound_width / ICON_SIZE_X), dy + ceil(bound_height / ICON_SIZE_Y), dz
 		) // If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
 		for(var/atom/entering_loc as anything in new_locs)
