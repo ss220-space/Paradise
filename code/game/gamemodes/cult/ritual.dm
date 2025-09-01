@@ -163,6 +163,10 @@
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to summon a cultist, you must be on station!</span>")
 			return
 
+	if(ispath(rune, /obj/effect/rune/teleport) && !is_station_level(runeturf.z))
+		to_chat(user, span_cultitalic("Завеса в этом месте недостаточно тонка, эта руна будет работать только на станции!"))
+		return
+
 	var/old_color = user.color  // we'll temporarily redden the user for better feedback to fellow cultists. Store this to revert them back.
 	if(narsie_rune)
 		if(!narsie_rune_check(user, A))
