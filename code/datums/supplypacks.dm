@@ -1522,7 +1522,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis)
-	credits_cost = 10000
+	credits_cost = 6000
 	containertype = /obj/structure/closet/crate/secure
 	containername = "synthetic blood pack oxygenis crate"
 	access = ACCESS_MEDICAL
@@ -1534,7 +1534,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis)
-	credits_cost = 10000
+	credits_cost = 6000
 	containertype = /obj/structure/closet/crate/secure
 	containername = "synthetic blood pack nitrogenis crate"
 	access = ACCESS_MEDICAL
@@ -1550,7 +1550,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/iv_bag/blood/BMinus,
 					/obj/item/reagent_containers/iv_bag/blood/OPlus,
 					/obj/item/reagent_containers/iv_bag/blood/OMinus)
-	credits_cost = 4500
+	credits_cost = 3000
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "human blood pack crate"
 	required_tech = list("biotech" = 3)
@@ -1566,7 +1566,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/iv_bag/blood/diona,
 					/obj/item/reagent_containers/iv_bag/blood/wryn,
 					/obj/item/reagent_containers/iv_bag/blood/nian)
-	credits_cost = 5000
+	credits_cost = 3000
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "xenos blood pack crate"
 	required_tech = list("biotech" = 3)
