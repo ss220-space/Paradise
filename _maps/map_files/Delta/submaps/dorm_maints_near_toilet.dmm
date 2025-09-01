@@ -199,9 +199,6 @@
 	dir = 10
 	},
 /obj/machinery/door/window,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/landmark/ninja_teleport,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -316,6 +313,9 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/chair/stool,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken7"
 	},
@@ -340,9 +340,6 @@
 /area/template_noop)
 "pe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /obj/effect/decal/cleanable/blood,
 /obj/item/radio/intercom{
 	dir = 4;
@@ -378,6 +375,9 @@
 /area/template_noop)
 "rH" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/template_noop)
 "tX" = (
@@ -509,6 +509,9 @@
 	icon_state = "small"
 	},
 /obj/effect/decal/cleanable/glass,
+/obj/machinery/light_construct{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/template_noop)
 "yS" = (
@@ -529,6 +532,9 @@
 "yT" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
+	},
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -621,6 +627,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -867,9 +876,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -964,6 +970,7 @@
 /obj/effect/mapping_helpers/table_flip{
 	dir = 8
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Nn" = (
@@ -976,10 +983,6 @@
 /turf/simulated/floor/plasteel,
 /area/template_noop)
 "NY" = (
-/obj/machinery/power/apc/worn_out{
-	pixel_y = -26
-	},
-/obj/structure/cable,
 /obj/structure/closet/wardrobe/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -1007,9 +1010,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -1019,6 +1019,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
+	},
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/simulated/floor/carpet/green,
 /area/template_noop)
@@ -1056,9 +1059,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -1166,10 +1166,10 @@
 /area/template_noop)
 "UE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/machinery/light/small{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/template_noop)
 "UQ" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
@@ -1211,6 +1211,9 @@
 /obj/machinery/washing_machine,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
+	},
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -1541,7 +1544,7 @@ el
 lc
 lc
 uB
-eV
+UE
 hI
 Ap
 Gk
@@ -1786,7 +1789,7 @@ lc
 lc
 wn
 Js
-UE
+Js
 eV
 Ye
 zl
