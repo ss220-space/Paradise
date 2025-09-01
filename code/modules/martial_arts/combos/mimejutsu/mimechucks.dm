@@ -12,6 +12,6 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 		target.apply_damage(damage, STAMINA, affecting, armor_block)
 		add_attack_logs(user, target, "Melee attacked with [src] : Mimechucks", ATKLOG_ALL)
-		playsound(get_turf(user), 'sound/weapons/mimechucks_mimejutsu.ogg', 10, 1, -1)
+		playsound(get_turf(user), 'sound/weapons/mimechucks_mimejutsu.ogg', 10, TRUE, -1)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_DONE_BASIC_HIT

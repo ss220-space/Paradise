@@ -287,7 +287,7 @@
 
 	if (isnull(operation))
 		balloon_alert(user, "значение не введено")
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 		return
 
 
@@ -309,7 +309,7 @@
 	if (correct)
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
 	else
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 
 
 /obj/item/vending_refill/custom/examine(mob/user)

@@ -116,7 +116,7 @@
 	user.visible_message(span_bold("[user] [bragmessage]!"))
 	AnimateMachine(user)
 
-	playsound(user, 'sound/machines/click.ogg', 60, 1)
+	playsound(user, 'sound/machines/click.ogg', 60, TRUE)
 	in_use = FALSE
 	user.pixel_y = 0
 	var/finishmessage = pick(
@@ -177,7 +177,7 @@
 		sleep(3)
 		animate(user, pixel_y = -4, time = 3)
 		sleep(3)
-		playsound(user, 'sound/goonstation/effects/spring.ogg', 60, 1)
+		playsound(user, 'sound/goonstation/effects/spring.ogg', 60, TRUE)
 
 		if(!SEND_SIGNAL(user, COMSIG_MOB_EXERCISED, 1.0 / EXERCISES_PER_TRY))
 			return
@@ -210,7 +210,7 @@
 			sleep(3)
 			animate(user, pixel_y = (user.pixel_y == 3) ? 5 : 3, time = 3)
 
-		playsound(user, 'sound/goonstation/effects/spring.ogg', 60, 1)
+		playsound(user, 'sound/goonstation/effects/spring.ogg', 60, TRUE)
 		if(!SEND_SIGNAL(user, COMSIG_MOB_EXERCISED, 1.0 / EXERCISES_PER_TRY))
 			break
 
@@ -252,7 +252,7 @@
 		animate(user, pixel_y = 5, time = 2)
 		sleep(2)
 
-		playsound(user, 'sound/goonstation/effects/spring.ogg', 60, 1)
+		playsound(user, 'sound/goonstation/effects/spring.ogg', 60, TRUE)
 		if(!SEND_SIGNAL(user, COMSIG_MOB_EXERCISED, 1.0 / EXERCISES_PER_TRY))
 			break
 

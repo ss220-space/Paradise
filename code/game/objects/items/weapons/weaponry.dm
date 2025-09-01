@@ -332,7 +332,7 @@
 		to_chat(user, span_notice("Вы готовы к хоум-рану!"))
 		return ..()
 	to_chat(user, span_warning("Вы начинаете копить силу..."))
-	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
+	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, TRUE)
 	if(do_after(user, 9 SECONDS, user))
 		to_chat(user, span_userdanger("Вы накопили мощь! Пора сделать хоум-ран!"))
 		homerun_ready = 1

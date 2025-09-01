@@ -136,7 +136,7 @@
 	if(manifest)
 		add_fingerprint(user)
 		to_chat(user, span_notice("You tear the manifest off of the crate."))
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
+		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove_turf()
 		if(ishuman(user))
 			user.put_in_hands(manifest, ignore_anim = FALSE)
@@ -240,7 +240,7 @@
 	if(manifest)
 		add_fingerprint(user)
 		to_chat(user, span_notice("You tear the manifest off of the crate."))
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
+		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove_turf()
 		if(ishuman(user))
 			user.put_in_hands(manifest, ignore_anim = FALSE)
@@ -552,7 +552,7 @@
 	if(locked && !broken)
 		if(user)
 			to_chat(user, span_notice("Отличная попытка, но нет!"))
-		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
+		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, TRUE)
 
 
 /obj/structure/closet/crate/vault

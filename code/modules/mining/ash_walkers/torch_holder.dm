@@ -22,7 +22,7 @@
 
 /obj/item/mounted/frame/torch_holder/do_build(turf/on_wall, mob/user)
 	to_chat(user, span_notice("Вы начинаете устанавливать [declent_ru(ACCUSATIVE)] на [on_wall.declent_ru(ACCUSATIVE)]."))
-	playsound(get_turf(src), 'sound/machines/click.ogg', 75, 1)
+	playsound(get_turf(src), 'sound/machines/click.ogg', 75, TRUE)
 
 	var/constrdir = user.dir
 	var/constrloc = get_turf(user)

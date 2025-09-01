@@ -176,7 +176,7 @@
 		if("change_code")
 			if(world.timeofday < last_change + change_delay)
 				to_chat(user, "[bicon(src)]<span class='notice'> Wait before next access code change.</span>")
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
+				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 				return
 			last_change = world.timeofday
 			if(access_code)
@@ -196,7 +196,7 @@
 			if(duty_mode)
 				//prevents editing of this field on the service device
 				to_chat(user, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
+				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 				return
 			if(!linked_db)
 				reconnect_database()
@@ -215,7 +215,7 @@
 		if("trans_purpose")
 			if (duty_mode)
 				to_chat(user, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
+				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 				return
 			var/purpose = tgui_input_text(user, "Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose, encode = FALSE)
 			if(!Adjacent(user) || isnull(purpose))
@@ -276,7 +276,7 @@
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
 			else
 				to_chat(user, "[bicon(src)]<span class='warning'> Not allowed ID access.</span>")
-				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
+				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 
 /obj/item/eftpos/proc/scan_card(obj/item/card/id/id_card, mob/user)
 	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
@@ -292,7 +292,7 @@
 		if(during_paid)
 			//This check is necessary to prevent multiple payment transactions when clicking
 			to_chat(user, "[bicon(src)]<span class='notice'> End the current operation first.</span>")
-			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
+			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 			return
 
 		if(!transaction_locked || transaction_paid)

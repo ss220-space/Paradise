@@ -200,7 +200,7 @@
 
 		to_chat(H, span_danger("Невыносимая боль проходит через вашу спину, как вдруг оттуда вырываются крылья!"))
 		H.set_species(/datum/species/angel)
-		playsound(H.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
+		playsound(H.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
 		H.adjustBruteLoss(20)
 		H.emote("scream")
 	..()*/
