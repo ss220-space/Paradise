@@ -276,6 +276,58 @@
 				to_chat(M, span_warning("Вас подташнивает..."))
 	..()
 
+/datum/reagent/medicine/traneksam_acid
+	name = "Транексамовая кислота"
+	id = "traneksam_acid"
+	description = "лекарственное средство, которое применяют для лечения или предотвращения чрезмерной потери крови от травмы и хирургического вмешательства."
+	reagent_state = LIQUID
+	overdose_threshold = 20
+	color = "#b9645e"
+	penetrates_skin = TRUE
+	metabolization_rate = REAGENTS_METABOLISM
+	taste_description = "кислоты"
+
+/datum/reagent/medicine/traneksam_acid/on_mob_life(mob/living/user)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!ishuman(user))
+		return ..()
+	var/mob/living/carbon/human/human = user
+	var/heal_internal_bleed = prob(1) ? 1 : 0  // 1% to heal one internal bleeding
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(bodypart.bleeding_amount <= 0)
+			continue
+		bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - 0.1)
+		if(heal_internal_bleed > 0 && bodypart.has_internal_bleeding())
+			heal_internal_bleed--
+			bodypart.stop_internal_bleeding()
+		update_flags |= STATUS_UPDATE_HEALTH
+	return ..() | update_flags
+
+/datum/reagent/medicine/traneksam_acid/overdose_process(mob/living/living, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustOxyLoss(5, FALSE)
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	if(prob(5))
+		var/datum/disease/critical/heart_failure/D = new
+		D.Contract(M)
+	return list(0, update_flags)
+
+
+/datum/reagent/medicine/traneksam_acid/reaction_mob(mob/living/user, method=REAGENT_TOUCH, volume, show_message = TRUE)
+	if(volume < 10)
+		return ..()
+	if(method != REAGENT_TOUCH)
+		return ..()
+	var/bleeding_stop = FALSE
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(bodypart.bleeding_amount <= 0)
+			continue
+		bodypart.bleeding_amount = 0
+		bleeding_stop = TRUE
+	if(bleeding_stop && show_message)
+		to_chat(user, span_notice("Ваши кровотечения останавливаются из-за транексамовой кислоты."))
+	..()
+
 /datum/reagent/medicine/salglu_solution
 	name = "Физиологический раствор"
 	id = "salglu_solution"
@@ -882,6 +934,7 @@
 					M.grab_ghost()
 					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
+
 /proc/necrotize_body(mob/living/carbon/human/human, necrosis_prob)
 	for(var/obj/item/organ/organ as anything in (human.bodyparts|human.internal_organs))
 		if(organ.vital || !prob(necrosis_prob))
