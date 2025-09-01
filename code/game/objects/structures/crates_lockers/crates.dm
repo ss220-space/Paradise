@@ -314,7 +314,7 @@
 	if(!locked || broken != SECURE_CRATE_STAGE_NO_BROKEN || user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	balloon_alert(user, "откручиваем панель")
+	balloon_alert(user, "откручиваем панель...")
 	if(!tool.use_tool(src, user, 160, volume = tool.tool_volume))
 		return
 	if(prob(95)) // EZ
@@ -338,7 +338,7 @@
 	if(!locked || broken != SECURE_CRATE_STAGE_PANEL_OPEN || user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	balloon_alert(user, "подготавливаем провода")
+	balloon_alert(user, "подготавливаем провода...")
 	if(!tool.use_tool(src, user, 16 SECONDS, volume = tool.tool_volume))
 		return
 	if(prob(80)) // Good hacker!
@@ -358,14 +358,14 @@
 	if(!locked || broken != SECURE_CRATE_STAGE_WIRES_PREPARED || user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	balloon_alert(user, "подключаем провода")
+	balloon_alert(user, "подключаем провода...")
 	if(!tool.use_tool(src, user, 16 SECONDS, volume = tool.tool_volume))
 		return
 	if(prob(80)) // Good hacker!
 		if(broken == SECURE_CRATE_STAGE_NO_BROKEN || broken == SECURE_CRATE_STAGE_OPENED)
 			return
 		balloon_alert(user, "взломано!")
-		desc += " Замок отключен."
+		desc += " Замок отключён."
 		broken = SECURE_CRATE_STAGE_OPENED // Can be emagged
 		emag_act(user)
 		return
