@@ -20,6 +20,8 @@
 	drop_sound = 'sound/items/handling/drop/card_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/card_pickup.ogg'
 	var/associated_account_number = 0
+	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/id_righthand.dmi'
 
 	var/list/files = list(  )
 
