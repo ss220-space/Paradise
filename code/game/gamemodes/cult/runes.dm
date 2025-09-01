@@ -385,8 +385,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(is_sacrifice_target(offering.mind))
 			sacrifice_fulfilled = TRUE
 			SSticker.mode.ghost_summons += GHOST_SUMMONS_OBJECTIVE
-	else
-		GLOB.sacrificed += offering
 
 	new /obj/effect/temp_visual/cult/sac(loc)
 	for(var/M in invokers)
@@ -416,7 +414,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/teleport
 	cultist_name = "Teleport"
-	cultist_desc = "warps everything above it to another chosen teleport rune."
+	cultist_desc = "переносит всё, что расположено на руне, на другую выбранную руну телепорта. Работает только в пределах сектора станции, где завеса наиболее тонка."
 	invocation = "Сас'со к'арта форбичи!"
 	icon_state = "teleport"
 	color = RUNE_COLOR_TELEPORT
@@ -452,7 +450,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		else
 			teleportnames += resultkey
 			duplicaterunecount[resultkey] = 1
-		if(R != src && is_level_reachable(R.z))
+		if(R != src && is_level_reachable(R.z) && is_station_level(R.z))
 			potential_runes[resultkey] = R
 
 	if(!length(potential_runes))
@@ -558,7 +556,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of Resurrection: Requires a dead or inactive cultist. When reviving the dead, you can only perform one revival for every three sacrifices your cult has carried out.
 /obj/effect/rune/raise_dead
 	cultist_name = "Revive"
-	cultist_desc = "requires a dead, mindless, or inactive cultist placed upon the rune. For each three bodies sacrificed to the dark patron, one body will be mended and their mind awoken"
+	cultist_desc = "requires a dead, mindless, or inactive cultist placed upon the rune. For each two bodies sacrificed to the dark patron, one body will be mended and their mind awoken"
 	invocation = "Pasnar val'keriam usinar. Savrae ines amutan. Yam'toth remium il'tarat!" //Depends on the name of the user - see below
 	icon_state = "revive"
 	color = RUNE_COLOR_MEDIUMRED
@@ -567,8 +565,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/raise_dead/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD)
-		. += "<b>Sacrifices unrewarded:</b> [span_cultitalic(length(GLOB.sacrificed) - sacrifices_used)]"
-		. += "<b>Sacrifice cost per ressurection: </b>[span_cultitalic(SOULS_TO_REVIVE)]"
+		. += "<b>Sacrifices unrewarded:</b> [span_cultitalic("[length(GLOB.sacrificed) - sacrifices_used]")]"
+		. += "<b>Sacrifice cost per ressurection: </b>[span_cultitalic("[SOULS_TO_REVIVE]")]"
 
 /obj/effect/rune/raise_dead/invoke(list/invokers)
 	var/turf/T = get_turf(src)

@@ -501,12 +501,14 @@
 
 	var/list/new_locs
 	if(is_multi_tile && isturf(newloc))
-		var/dx = newloc.x
-		var/dy = newloc.y
-		var/dz = newloc.z
 		new_locs = block(
-			dx + ceil(bound_width / ICON_SIZE_X), dy + ceil(bound_height / ICON_SIZE_Y), dz
-		) // If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
+			newloc.x,
+			newloc.y,
+			newloc.z,
+			min(world.maxx, newloc.x + (CEILING(bound_width / ICON_SIZE_X, 1) - 1)),
+			min(world.maxy, newloc.y + (CEILING(bound_height / ICON_SIZE_Y, 1) - 1)),
+			newloc.z
+		)	// If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
 		for(var/atom/entering_loc as anything in new_locs)
 			if(!entering_loc.Enter(src))
 				return .
@@ -837,45 +839,39 @@
 		var/same_loc = oldloc == destination
 		var/area/old_area = get_area(oldloc)
 		var/area/destarea = get_area(destination)
-		var/movement_dir = get_dir(src, destination)
 
 		moving_diagonally = NONE
 
 		loc = destination
 
 		if(!same_loc)
-			if(loc == oldloc)
-				// when attempting to move an atom A into an atom B which already contains A, BYOND seems
-				// to silently refuse to move A to the new loc. This can really break stuff (see #77067)
-				stack_trace("Attempt to move [src] to [destination] was rejected by BYOND, possibly due to cyclic contents")
-				return FALSE
-
 			if(is_multi_tile && isturf(destination))
-				var/dx = destination.x
-				var/dy = destination.y
-				var/dz = destination.z
 				var/list/new_locs = block(
-					dx, dy, dz,
-					dx + ROUND_UP(bound_width / ICON_SIZE_X), dy + ROUND_UP(bound_height / ICON_SIZE_Y), dz
+					destination.x,
+					destination.y,
+					destination.z,
+					min(world.maxx, destination.x + (CEILING(bound_width / ICON_SIZE_X, 1) - 1)),
+					min(world.maxy, destination.y + (CEILING(bound_height / ICON_SIZE_Y, 1) - 1)),
+					destination.z
 				)
 				if(old_area && old_area != destarea)
-					old_area.Exited(src, movement_dir)
-				for(var/atom/left_loc as anything in locs - new_locs)
-					left_loc.Exited(src, movement_dir)
+					old_area.Exited(src, destarea)
+				for(var/atom/left_loc as anything in (locs - new_locs))
+					left_loc.Exited(src, destination)
 
-				for(var/atom/entering_loc as anything in new_locs - locs)
-					entering_loc.Entered(src, movement_dir)
-
+				for(var/atom/entering_loc as anything in (new_locs - locs))
+					entering_loc.Entered(src, oldloc)
 				if(old_area && old_area != destarea)
-					destarea.Entered(src, movement_dir)
+					destarea.Entered(src, old_area)
 			else
 				if(oldloc)
-					oldloc.Exited(src, movement_dir)
+					oldloc.Exited(src, destination)
 					if(old_area && old_area != destarea)
-						old_area.Exited(src, movement_dir)
+						old_area.Exited(src, destarea)
 				destination.Entered(src, oldloc)
 				if(destarea && old_area != destarea)
 					destarea.Entered(src, old_area)
+
 
 		. = TRUE
 
@@ -888,12 +884,12 @@
 			var/area/old_area = get_area(oldloc)
 			if(is_multi_tile && isturf(oldloc))
 				for(var/atom/old_loc as anything in locs)
-					old_loc.Exited(src, NONE)
+					old_loc.Exited(src, null)
 			else
-				oldloc.Exited(src, NONE)
+				oldloc.Exited(src, null)
 
 			if(old_area)
-				old_area.Exited(src, NONE)
+				old_area.Exited(src, null)
 
 	RESOLVE_ACTIVE_MOVEMENT
 

@@ -253,8 +253,10 @@
 	pellets = 6
 	variance = 15
 
-/obj/item/ammo_casing/shotgun/buckshot/nuclear
-	projectile_type = /obj/projectile/bullet/pellet/nuclear
+/obj/item/ammo_casing/shotgun/buckshot/magnum
+	name = "magnum buckshot shell"
+	desc = "A 12 gauge magnum buckshot shell."
+	projectile_type = /obj/projectile/bullet/pellet/magnum
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubbershot shell"
@@ -348,8 +350,8 @@
 	variance = 25
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
-/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
-	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath/nuclear
+/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/napalm
+	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
 	pellets = 6
 	variance = 20
 
