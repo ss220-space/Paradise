@@ -205,7 +205,7 @@
 		defib_ref.atom_say("Сердечная аритмия устранена!")
 		target.visible_message(span_warning("Тело [target] слегка вздрагивает."), span_userdanger("Вы чувствуете мощный удар током, после которого ритм вашего сердца приходит в норму."))
 		playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
-		playsound(get_turf(defib_ref), "bodyfall", 50, TRUE)
+		playsound(get_turf(defib_ref), SFX_BODYFALL, 50, TRUE)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, FALSE)
 		target.shock_internal_organs(100)
 		busy = FALSE
@@ -218,7 +218,7 @@
 		return
 
 	target.visible_message(span_warning("Тело [target] слегка вздрагивает."))
-	playsound(get_turf(defib_ref), "bodyfall", 50, TRUE)
+	playsound(get_turf(defib_ref), SFX_BODYFALL, 50, TRUE)
 	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	ghost = target.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
 

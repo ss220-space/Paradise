@@ -31,7 +31,7 @@
 	if(timer_off)
 		. += span_notice("Шахтёрский заряд подключён к детонатору.")
 
-/obj/item/grenade/plastic/miningcharge/Initialize()
+/obj/item/grenade/plastic/miningcharge/Initialize(mapload)
 	. = ..()
 	image_overlay = mutable_appearance(icon, "[icon_state]_active", ON_EDGED_TURF_LAYER)
 
@@ -208,7 +208,7 @@
 			return
 		charge.override_safety()
 		visible_message(span_warning("Из [declent_ru(GENITIVE)] летят искры!"), span_notice("Вы перегружаете [declent_ru(ACCUSATIVE)], отключая его защиту."))
-		playsound(src, "sparks", 50, TRUE)
+		playsound(src, SFX_SPARKS, 50, TRUE)
 		charges--
 		if(charges <= 0)
 			to_chat(user , span_warning("Внутренняя батарея [declent_ru(GENITIVE)], предназначенная для перегрузки шахтёрских зарядов, разрядилась!"))

@@ -355,7 +355,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	qdel(src)
 
 /obj/item/clothing/mask/cigarette/dropped(mob/user, slot, initial)
-	if(istype(user.wear_mask, /obj/item/clothing/mask/cigarette) && (smoketime != 0) && (lit == TRUE))
+	if(slot == ITEM_SLOT_MASK && (smoketime != 0) && (lit == TRUE))
 		if(COOLDOWN_FINISHED(src, smoking_cooldown))
 			user.emote("smoking")
 			COOLDOWN_START(src, smoking_cooldown, 30)

@@ -39,7 +39,7 @@
 	/// FALSE = pick one at a time, TRUE = pick all on tile
 	var/pickup_all_on_tile = TRUE
 	/// Sound played when used. `null` for no sound.
-	var/use_sound = "rustle"
+	var/use_sound = SFX_RUSTLE
 	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
 	var/foldable = null
 	/// How much of the stack item do you get.
@@ -106,7 +106,7 @@
 			continue
 		if(!do_after(user, 0.3 SECONDS, target = user))
 			break
-		playsound(loc, "rustle", 50, TRUE, -5)
+		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 		target.handle_item_insertion(thing, user)
 
 /obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)

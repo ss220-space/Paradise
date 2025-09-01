@@ -33,7 +33,7 @@
 		PREPOSITIONAL = "гравитационных ботинках"
 	)
 
-/obj/item/clothing/shoes/magboots/gravity/Initialize()
+/obj/item/clothing/shoes/magboots/gravity/Initialize(mapload)
 	. = ..()
 	style = new()
 

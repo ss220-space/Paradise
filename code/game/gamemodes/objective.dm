@@ -767,6 +767,43 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return FALSE
 
 
+/datum/objective/prison_escape
+	name = "Prison Escape"
+	antag_menu_name = "Сбежать из тюрьмы"
+	explanation_text = "Сбежать из тюрьмы и улететь на шаттле или эвакуационном челноке живым и свободным."
+	needs_target = FALSE
+
+/datum/objective/prison_escape/check_completion()
+	var/list/owners = get_owners()
+
+	for(var/datum/mind/player as anything in owners)
+		// These are mandatory conditions, they should come before the freebie conditions below.
+		if(QDELETED(player.current) || player.current.stat == DEAD || is_special_dead(player.current))
+			return FALSE
+
+	if(SSticker.force_ending) // This one isn't their fault, so lets just assume good faith.
+		return TRUE
+
+	if(SSticker.mode.station_was_nuked) // If they escaped the blast somehow, let them win.
+		return TRUE
+
+	if(!EMERGENCY_ESCAPED_OR_ENDGAMED)
+		return FALSE
+
+	for(var/datum/mind/player as anything in owners)
+		// Fails traitors if they are in the security area
+		var/area/location = get_area(player.current)
+		if(istype(location, /area/security))
+			return FALSE
+
+		// Fails traitors if they are in the shuttle brig
+		var/turf/turf = get_turf(player.current)
+		if(istype(turf, /turf/simulated/floor/shuttle/objective_check) || istype(turf, /turf/simulated/floor/mineral/plastitanium/red/brig))
+			return FALSE
+
+	return TRUE
+
+
 /datum/objective/die
 	name = "Glorious Death"
 	antag_menu_name = "Умереть славной смертью"

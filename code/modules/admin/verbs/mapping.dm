@@ -62,7 +62,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	if(GLOB.camera_range_display_status)
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			new/obj/effect/debugging/camera_range(C.loc)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Range Display") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Camera Range Display")
 
 /client/proc/sec_camera_report()
 	set category = "Debug.Mapping"
@@ -103,7 +103,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	var/datum/browser/popup = new(usr, "airreport", "CAMERA ANOMALIES REPORT", 1000, 500)
 	popup.set_content(output)
 	popup.open(FALSE)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Report") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Camera Report")
 
 /client/proc/intercom_view()
 	set category = "Debug.Mapping"
@@ -126,7 +126,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if(!(F in view(7,I.loc)))
 					qdel(F)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Intercom Range Display") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Intercom Range Display")
 
 /client/proc/count_objects_on_z_level()
 	set category = "Debug.Mapping"
@@ -164,7 +164,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 					atom_list += A
 
 	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level].")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (On Level)") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Count Objects (On Level)")
 
 /client/proc/count_objects_all()
 	set category = "Debug.Mapping"
@@ -185,4 +185,4 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 			count++
 
 	to_chat(world, "There are [count] objects of type [type_path] in the game world.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (Global)") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Count Objects (Global)")

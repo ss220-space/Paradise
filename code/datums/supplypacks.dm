@@ -1274,12 +1274,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/armory/shotgun_shells
 	name = "Различные боеприпасы 12-го калибра"
-	cost = 250
+	cost = 200
 	contains = list(
 		/obj/item/ammo_box/shotgun/stunslug,
 		/obj/item/ammo_box/shotgun/pulseslug,
 		/obj/item/ammo_box/shotgun/dragonsbreath,
-		/obj/item/ammo_box/shotgun/frag12,
 		/obj/item/ammo_box/shotgun/ion,
 		/obj/item/ammo_box/shotgun/laserslug,
 	)
@@ -5078,6 +5077,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с набором пополнения Mr. Chang"
 	)
 
+/datum/supply_packs/vending/protein
+	name = "Sport Supply Crate"
+	contains = list(/obj/item/vending_refill/protein)
+	cost = 20
+	containername = "protein supply crate"
+
 /datum/supply_packs/vending/customat
 	name = "Наборы пополнения Кастоматов"
 	contains = list(/obj/item/vending_refill/custom,
@@ -5308,7 +5313,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/grenades
 	name = "Гранаты 40 мм"
 	contains = list(/obj/item/ammo_box/a40mm)
-	credits_cost = 16000
+	credits_cost = 20000
 	containername = "ящик 40 мм гранат"
 	container_ru_names = list(
 		NOMINATIVE = "ящик 40 мм гранат",

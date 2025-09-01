@@ -226,7 +226,7 @@
 	helmet_type = /obj/item/clothing/head/radiation
 
 //copied from /obj/effect/nasavoidsuitspawner
-/obj/machinery/suit_storage_unit/telecoms/Initialize()
+/obj/machinery/suit_storage_unit/telecoms/Initialize(mapload)
 	switch(pick(list("red", "green", "ntblue", "purple", "yellow", "ltblue")))
 		if("red")
 			helmet_type = /obj/item/clothing/head/helmet/space/nasavoid
@@ -246,15 +246,11 @@
 		if("ltblue")
 			helmet_type =  /obj/item/clothing/head/helmet/space/nasavoid/ltblue
 			suit_type = /obj/item/clothing/suit/space/nasavoid/ltblue
-	..()
-
-
-/obj/machinery/suit_storage_unit/New()
-	..()
-	wires = new(src)
-
-/obj/machinery/suit_storage_unit/Initialize()
 	. = ..()
+
+/obj/machinery/suit_storage_unit/Initialize(mapload)
+	. = ..()
+	wires = new(src)
 	if(suit_type)
 		suit = new suit_type(src)
 	if(helmet_type)
@@ -758,7 +754,7 @@
 	if(user)
 		to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
 	do_sparks(5, 0, loc)
-	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/machinery/suit_storage_unit/shove_impact(mob/living/target, mob/living/attacker)
 	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || target.buckled)

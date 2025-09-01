@@ -443,7 +443,6 @@
 /area/ruin/space/pirate_base/prison_maint)
 "bk" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -755,8 +754,7 @@
 	dir = 2
 	},
 /obj/effect/turf_decal/caution{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
@@ -1911,7 +1909,6 @@
 /area/ruin/space/pirate_base/lab_hall)
 "ff" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 1
 	},
 /obj/effect/turf_decal/caution,
@@ -1920,9 +1917,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
@@ -2264,9 +2259,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "gi" = (
-/obj/effect/turf_decal/box{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/box,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -2992,7 +2985,6 @@
 /area/ruin/space/pirate_base/arrivals)
 "hV" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 1
 	},
 /obj/effect/turf_decal/caution,
@@ -3265,7 +3257,6 @@
 /area/ruin/space/pirate_base/lab_hall)
 "iL" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -3518,9 +3509,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -3856,7 +3845,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
@@ -3888,8 +3876,7 @@
 /area/ruin/space/pirate_base/telecomms)
 "kG" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -3931,7 +3918,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/closet/crate/trashcart,
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 4
 	},
 /turf/simulated/floor/pod/light,
@@ -5351,7 +5337,6 @@
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 4
 	},
 /turf/simulated/floor/pod/light,
@@ -5823,9 +5808,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -5900,11 +5883,9 @@
 /area/ruin/space/pirate_base/mining)
 "qn" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 8
 	},
 /obj/structure/cable{
@@ -6890,8 +6871,7 @@
 /area/ruin/space/pirate_base/lab_sec)
 "tk" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -7541,7 +7521,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 4
 	},
 /turf/space,
@@ -7732,7 +7711,6 @@
 /area/ruin/space/pirate_base/lab_maint)
 "vu" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
@@ -8426,9 +8404,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "xx" = (
-/obj/effect/turf_decal/box/red{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/box/red,
 /obj/machinery/quantumpad/cere/arrivals_cargo{
 	color = "#A52A2A";
 	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
@@ -8831,7 +8807,6 @@
 "yS" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
@@ -9381,8 +9356,7 @@
 /area/ruin/space/pirate_base/kitchen)
 "Ay" = (
 /obj/effect/turf_decal/caution{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
@@ -10740,9 +10714,7 @@
 	},
 /area/ruin/space/pirate_base/lab_sec)
 "Ey" = (
-/obj/effect/turf_decal/box{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/box,
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -10913,7 +10885,6 @@
 "Fc" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 1
 	},
 /turf/space,
@@ -11571,7 +11542,6 @@
 "GO" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
@@ -11803,11 +11773,9 @@
 /area/ruin/space/pirate_base/security_atrium)
 "HD" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 8
 	},
 /obj/structure/cable{
@@ -11844,8 +11812,7 @@
 /area/ruin/space/pirate_base/observ)
 "HH" = (
 /obj/effect/turf_decal/caution{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
@@ -12099,7 +12066,6 @@
 "Io" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 8
 	},
 /turf/space,
@@ -12553,7 +12519,6 @@
 	},
 /obj/effect/turf_decal/siding/yellow,
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 8
 	},
 /obj/structure/cable{
@@ -12736,7 +12701,6 @@
 /area/ruin/space/pirate_base/prison_maint)
 "Kb" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
@@ -12790,8 +12754,7 @@
 /area/ruin/space/pirate_base/atmos)
 "Kl" = (
 /obj/effect/turf_decal/caution{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/light/small{
 	dir = 1;
@@ -13500,9 +13463,7 @@
 /area/ruin/space/pirate_base/kitchen)
 "My" = (
 /obj/machinery/suit_storage_unit/pirate,
-/obj/effect/turf_decal/delivery{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "Mz" = (
@@ -13650,7 +13611,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
@@ -13849,9 +13809,7 @@
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -15867,9 +15825,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/effect/turf_decal/box/red{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/box/red,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/quantumpad/cere/cargo_arrivals{
 	color = "#A52A2A";
@@ -16506,7 +16462,6 @@
 /area/ruin/space/pirate_base/observ)
 "Vl" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 1
 	},
 /obj/structure/disposaloutlet{
@@ -16714,7 +16669,6 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 4
 	},
 /turf/space,
@@ -16794,7 +16748,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -16817,7 +16770,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -17640,8 +17592,7 @@
 /area/ruin/space/pirate_base/laboratory)
 "YQ" = (
 /obj/effect/turf_decal/caution{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/machinery/light/small{
 	dir = 1;

@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 		return
 	if(holder)
 		holder.fax_panel(usr)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Fax Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Fax Panel")
 	return
 
 /datum/admins/proc/fax_panel(var/mob/living/user)

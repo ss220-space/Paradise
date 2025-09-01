@@ -24,7 +24,7 @@
 	var/datum/objective/find_and_scan/objective
 	var/on_enter_occupant_message = "Попав в устройство вы чувствуете колющую боль в своей голове и... засыпаете..."
 
-/obj/machinery/ninja_mindscan_machine/Initialize()
+/obj/machinery/ninja_mindscan_machine/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 
