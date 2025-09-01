@@ -307,11 +307,11 @@
 
 		switch(brutedamage)
 			if(0.1 to 20)
-				status = "ушиблен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
+				status += "ушиблен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
 			if(20 to 40)
-				status = "побит[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
+				status += "побит[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
 			if(40 to INFINITY)
-				status = "искалечен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
+				status += "искалечен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
 		if(brutedamage > 0 && burndamage > 0)
 			status += " и "
 
@@ -344,7 +344,7 @@
 			status = "выгляд[pluralize_ru(bodypart.gender, "ит", "ят")] неестественно"
 
 		var/msg = span_notice("Ваш[genderize_ru(bodypart.gender, "", "а", "е", "и")] [bodypart.declent_ru(NOMINATIVE)] в порядке.")
-		if(!isnull(status))
+		if(!isnull(status) && status != "")
 			msg = span_warning("Ваш[genderize_ru(bodypart.gender, "", "а", "е", "и")] [bodypart.declent_ru(NOMINATIVE)] [status].")
 		status_list += msg
 
