@@ -580,6 +580,7 @@
 	projectile_type = /obj/projectile/beam/laser/light/rat
 	e_cost = 1
 	color = COLOR_TANGERINE_YELLOW
+	muzzle_flash_color = COLOR_TANGERINE_YELLOW
 
 /obj/item/ammo_casing/energy/rat_sphere
 	projectile_type = /obj/projectile/energy/sphere
@@ -588,6 +589,8 @@
 
 /obj/item/ammo_casing/energy/rat_sphere/attack
 	projectile_type = /obj/projectile/energy/sphere/attack
+	muzzle_flash_color = COLOR_DARK_MODERATE_ORANGE
 
 /obj/item/ammo_casing/energy/rat_sphere/heal
 	projectile_type = /obj/projectile/energy/sphere/heal
+	muzzle_flash_color = LIGHT_COLOR_VIVID_GREEN

@@ -540,6 +540,7 @@
 /obj/projectile/beam/laser/light/rat
 	name = "clockwork energy laser"
 	icon_state = "brasslaser"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/orange_laser
 
 /obj/projectile/beam/laser/light/rat/get_ru_names()
 	return list(

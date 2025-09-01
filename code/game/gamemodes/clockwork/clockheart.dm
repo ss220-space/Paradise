@@ -214,10 +214,14 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	affected.Knockdown(6 SECONDS)
 
 /obj/structure/clockwork/functional/heart/proc/give_blessing(mob/living/user)
+	var/bless_to_give
+	var/chosen_blessing
 	if(isnull(blessings))
+		bless_to_give = new /obj/item/gun/energy/gun/minigun/clockwork
+		user.put_in_hands(bless_to_give)
 		return
-	var/chosen_blessing = pick(blessings)
-	var/bless_to_give = new chosen_blessing(user.loc)
+	chosen_blessing = pick(blessings)
+	bless_to_give = new chosen_blessing(user.loc)
 	user.put_in_hands(bless_to_give)
 	LAZYREMOVE(blessings, chosen_blessing)
 	to_chat(user, span_clockitalic("Благодарю тебя, сын мой. Прими же этот дар!"))
