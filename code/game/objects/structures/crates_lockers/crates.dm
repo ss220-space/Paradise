@@ -278,8 +278,9 @@
 	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), sparking_duration)
-	if(user)
-		to_chat(user, span_notice("Вы разблокировали [declent_ru(ACCUSATIVE)]."))
+	if(!user)
+		return
+	balloon_alert(user, "разблокировано")
 
 
 /obj/structure/closet/crate/secure/emp_act(severity)
@@ -301,10 +302,11 @@
 
 
 /obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
-	if(locked && !broken)
-		if(user)
-			balloon_alert(user, "не удалось!")
-		playsound(loc, "sound/misc/sadtrombone.ogg", 60, TRUE)
+	if(!locked || broken)
+		return
+	if(user)
+		balloon_alert(user, "не удалось!")
+	playsound(loc, "sound/misc/sadtrombone.ogg", 60, TRUE)
 
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/tool)
@@ -312,7 +314,7 @@
 	if(!locked || broken != SECURE_CRATE_STAGE_NO_BROKEN || user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	to_chat(user, span_notice("Вы начинаете откручивать панель замка"))
+	balloon_alert(user, "откручиваем панель")
 	if(!tool.use_tool(src, user, 160, volume = tool.tool_volume))
 		return
 	if(prob(95)) // EZ
@@ -328,7 +330,7 @@
 	var/obj/item/organ/external/affecting = human.get_organ(user.r_hand == tool ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	user.apply_damage(5, BRUTE , affecting)
 	user.emote("scream")
-	to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] сорвалась и повредила [affecting.declent_ru(ACCUSATIVE)]!"))
+	to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] сорвал[genderize_ru(tool.gender, "ся", "ась", "ось", "ись")]ась и повредил[genderize_ru(tool.gender, "", "а", "о", "и")] [affecting.declent_ru(ACCUSATIVE)]!"))
 
 
 /obj/structure/closet/crate/secure/wirecutter_act(mob/living/user, obj/item/tool)
@@ -336,7 +338,7 @@
 	if(!locked || broken != SECURE_CRATE_STAGE_PANEL_OPEN || user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	to_chat(user, span_notice("Вы начинаете подготавливать провода панели"))
+	balloon_alert(user, "подготавливаем провода")
 	if(!tool.use_tool(src, user, 16 SECONDS, volume = tool.tool_volume))
 		return
 	if(prob(80)) // Good hacker!
@@ -356,7 +358,7 @@
 	if(!locked || broken != SECURE_CRATE_STAGE_WIRES_PREPARED || user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	to_chat(user, span_notice("Вы начинаете подключать провода панели замка"))
+	balloon_alert(user, "подключаем провода")
 	if(!tool.use_tool(src, user, 16 SECONDS, volume = tool.tool_volume))
 		return
 	if(prob(80)) // Good hacker!
@@ -565,21 +567,21 @@
 	. = ..()
 	if(!.)//we can hold up to one large item
 		return
-	var/found = 0
-	for(var/obj/structure/S in src.loc)
-		if(S == src)
+	var/found = FALSE
+	for(var/obj/structure/structure in loc)
+		if(structure == src)
 			continue
-		if(S.anchored)
+		if(structure.anchored)
 			continue
-		found = 1
-		S.forceMove(src)
+		found = TRUE
+		structure.forceMove(src)
 		break
 	if(found)
 		return
-	for(var/obj/machinery/M in src.loc)
-		if(M.anchored)
+	for(var/obj/machinery/machinery in loc)
+		if(machinery.anchored)
 			continue
-		M.forceMove(src)
+		machinery.forceMove(src)
 		break
 
 //fluff variant
@@ -731,12 +733,12 @@
 
 /obj/structure/closet/crate/secure/blood/nitrogenis/get_ru_names()
 	return list(
-		NOMINATIVE = "комплект донорской крови (синтетическая кровь - азот)",
-		GENITIVE = "комплекта донорской крови (синтетическая кровь - азот)",
-		DATIVE = "комплекту донорской крови (синтетическая кровь - азот)",
-		ACCUSATIVE = "комплект донорской крови (синтетическая кровь - азот)",
-		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь - азот)",
-		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь - азот)"
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь – азот)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь – азот)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь – азот)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь – азот)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь – азот)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь – азот)"
 	)
 
 
@@ -747,10 +749,10 @@
 
 /obj/structure/closet/crate/secure/blood/oxygenis/get_ru_names()
 	return list(
-		NOMINATIVE = "комплект донорской крови (синтетическая кровь - кислород)",
-		GENITIVE = "комплекта донорской крови (синтетическая кровь - кислород)",
-		DATIVE = "комплекту донорской крови (синтетическая кровь - кислород)",
-		ACCUSATIVE = "комплект донорской крови (синтетическая кровь - кислород)",
-		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь - кислород)",
-		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь - кислород)"
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь – кислород)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь – кислород)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь – кислород)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь – кислород)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь – кислород)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь – кислород)"
 	)
