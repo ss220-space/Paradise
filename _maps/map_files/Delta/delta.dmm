@@ -53634,6 +53634,10 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
+"hji" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/clown_mime,
+/turf/simulated/wall,
+/area/mimeoffice)
 "hjp" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
@@ -56397,6 +56401,15 @@
 	icon_state = "green"
 	},
 /area/hallway/secondary/exit)
+"hRr" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall,
+/area/mimeoffice)
 "hRv" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/alarm{
@@ -71839,6 +71852,15 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
+"lJW" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/clownoffice)
 "lJZ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -94718,7 +94740,7 @@
 	},
 /area/quartermaster/storage)
 "qMZ" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/botany_room,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/botany_room,
 /turf/simulated/wall,
 /area/maintenance/garden)
 "qNb" = (
@@ -121198,6 +121220,13 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/library)
+"wRh" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/clownoffice)
 "wRq" = (
 /obj/structure/sign/poster/official/fruit_bowl{
 	pixel_y = 32
@@ -159740,12 +159769,12 @@ moG
 cjn
 ony
 moG
+hRr
 cEJ
 cEJ
 cEJ
 cEJ
-cEJ
-cEJ
+hji
 iTZ
 iTZ
 iTZ
@@ -161796,12 +161825,12 @@ moG
 moG
 bvR
 moG
+lJW
 ckh
 ckh
 ckh
 ckh
-ckh
-ckh
+wRh
 iTZ
 iTZ
 ayn

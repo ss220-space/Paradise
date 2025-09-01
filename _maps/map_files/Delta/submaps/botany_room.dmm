@@ -43,7 +43,7 @@
 	},
 /area/maintenance/garden)
 "ct" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/surgery,
 /turf/simulated/wall,
 /area/maintenance/garden)
@@ -149,7 +149,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "fW" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/destroyed,
 /turf/simulated/wall,
 /area/maintenance/garden)
@@ -396,7 +396,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "rB" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/better,
 /turf/simulated/wall,
 /area/maintenance/garden)
@@ -423,7 +423,7 @@
 /turf/space,
 /area/template_noop)
 "tt" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/engi,
 /turf/simulated/wall,
 /area/maintenance/garden)
@@ -807,7 +807,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "KF" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/slightly_worse,
 /turf/simulated/wall,
 /area/template_noop)
@@ -925,7 +925,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "PN" = (
-/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room,
 /turf/template_noop,
 /area/template_noop)
 "Qs" = (

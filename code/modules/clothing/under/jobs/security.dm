@@ -118,7 +118,6 @@
 	desc = "Someone who wears this means business."
 	icon_state = "detective"
 	item_state = "det"
-	item_color = "detective"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	strip_delay = 50
 
@@ -169,13 +168,11 @@
 	)
 
 /obj/item/clothing/under/det/alt_a
-	icon_state = "detective_suit"
-	item_color = "detectives_suit_grey"
+	icon_state = "detective_suit_grey"
 
 /obj/item/clothing/under/det/alt_a/skirt
 	name = "hard-worn skirt"
-	icon_state = "detectives_skirt_grey"
-	item_color = "detectives_skirt_grey"
+	icon_state = "detective_skirt_grey"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
