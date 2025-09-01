@@ -135,7 +135,6 @@
 /area/template_noop)
 "cP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/ammo_casing/shotgun/buckshot/nuclear,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "cW" = (
@@ -241,7 +240,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/ammo_casing/shotgun/buckshot/nuclear,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "fc" = (
@@ -461,7 +459,6 @@
 /area/template_noop)
 "ju" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/ammo_casing/shotgun/buckshot/nuclear,
 /obj/structure/bookcase/random/fiction,
 /turf/simulated/floor/wood/dark,
 /area/template_noop)
@@ -1588,10 +1585,6 @@
 /obj/item/coin,
 /turf/simulated/floor/plating,
 /area/template_noop)
-"NQ" = (
-/obj/effect/decal/cleanable/dust,
-/turf/template_noop,
-/area/template_noop)
 "NR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2515,7 +2508,7 @@ QB
 NZ
 mW
 nu
-TR
+kt
 tB
 tB
 tB
@@ -2987,7 +2980,7 @@ tB
 tB
 tB
 tB
-NQ
+tB
 tB
 tB
 tB
