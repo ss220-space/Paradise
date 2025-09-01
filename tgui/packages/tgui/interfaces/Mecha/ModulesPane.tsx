@@ -14,6 +14,7 @@ import {
   Section,
   Stack,
   Divider,
+  Dropdown,
 } from '../../components';
 import { formatPower } from '../../format';
 import { toFixed } from 'common/math';
@@ -226,7 +227,7 @@ export const ModuleDetails = (props) => {
                   <Button
                     color="transparent"
                     icon="eject"
-                    tooltip="Detach"
+                    tooltip="Отсоединить"
                     fontSize={1.5}
                     onClick={() =>
                       act('equip_act', {
@@ -296,7 +297,7 @@ const ModuleDetailsBasic = (props) => {
         <LabeledList.Item label={active_label}>
           <Button
             icon="power-off"
-            content={active ? 'Включен' : 'DВыключен'}
+            content={active ? 'Включен' : ' Выключен'}
             onClick={() =>
               act('equip_act', {
                 ref: ref,
@@ -310,7 +311,7 @@ const ModuleDetailsBasic = (props) => {
       {!!can_be_triggered && (
         <LabeledList.Item label={active_label}>
           <Button
-            icon="power-off"
+            icon="check"
             content="Выбрать"
             disabled={active}
             onClick={() =>
@@ -330,19 +331,13 @@ const MECHA_SNOWFLAKE_ID_SLEEPER = 'sleeper_snowflake';
 const MECHA_SNOWFLAKE_ID_SYRINGE = 'syringe_snowflake';
 const MECHA_SNOWFLAKE_ID_MODE = 'mode_snowflake';
 const MECHA_SNOWFLAKE_ID_EXTINGUISHER = 'extinguisher_snowflake';
-const MECHA_SNOWFLAKE_ID_EJECTOR = 'ejector_snowflake';
-const MECHA_SNOWFLAKE_ID_OREBOX_MANAGER = 'orebox_manager_snowflake';
-const MECHA_SNOWFLAKE_ID_RADIO = 'radio_snowflake';
-const MECHA_SNOWFLAKE_ID_AIR_TANK = 'air_tank_snowflake';
 const MECHA_SNOWFLAKE_ID_WEAPON_BALLISTIC = 'ballistic_weapon_snowflake';
 const MECHA_SNOWFLAKE_ID_GENERATOR = 'generator_snowflake';
-const MECHA_SNOWFLAKE_ID_ORE_SCANNER = 'orescanner_snowflake';
-const MECHA_SNOWFLAKE_ID_CLAW = 'lawclaw_snowflake';
-const MECHA_SNOWFLAKE_ID_RCD = 'rcd_snowflake';
 const MECHA_SNOWFLAKE_ID_HOLO = 'holo_snowflake';
 const MECHA_SNOWFLAKE_ID_TOOLSET = 'toolset_snowflake';
 const MECHA_SNOWFLAKE_ID_MULTI = 'multimodule_snowflake';
 const MECHA_SNOWFLAKE_ID_CABLE = 'cable_snoflake';
+const MECHA_SNOWFLAKE_ID_CAGE = 'cage_snowflake';
 
 export const ModuleDetailsExtra = (props: { module: MechModule }) => {
   const module = props.module;
@@ -357,10 +352,8 @@ export const ModuleDetailsExtra = (props: { module: MechModule }) => {
       return <SnowflakeSyringe module={module} />;
     case MECHA_SNOWFLAKE_ID_MODE:
       return <SnowflakeMode module={module} />;
-    case MECHA_SNOWFLAKE_ID_RADIO:
-      return <SnowflakeRadio module={module} />;
     case MECHA_SNOWFLAKE_ID_GENERATOR:
-      return <SnowflakeGeneraor module={module} />;
+      return <SnowflakeGenerator module={module} />;
     case MECHA_SNOWFLAKE_ID_TOOLSET:
       return <SnowflakeToolset module={module} />;
     case MECHA_SNOWFLAKE_ID_MULTI:
@@ -369,6 +362,8 @@ export const ModuleDetailsExtra = (props: { module: MechModule }) => {
       return <SnowflakeCable module={module} />;
     case MECHA_SNOWFLAKE_ID_HOLO:
       return <SnowflakeHolo module={module} />;
+    case MECHA_SNOWFLAKE_ID_CAGE:
+      return <SnowflakeCage module={module} />;
     default:
       return null;
   }
@@ -379,34 +374,33 @@ const SnowflakeWeaponBallistic = (props) => {
   const { ref } = props.module;
   const { max_ammo, total_ammo } = props.module.snowflake;
   return (
-    <>
-      <LabeledList.Item
-        label="Боеприпасы"
-        buttons={
-          !max_ammo && (
-            <Button
-              icon="redo"
-              disabled={total_ammo === max_ammo}
-              onClick={() =>
-                act('equip_act', {
-                  ref: ref,
-                  gear_action: 'reload',
-                })
-              }
-            >
-              Перезарядка
-            </Button>
-          )
-        }
-      />
+    <LabeledList.Item
+      label="Боеприпасы"
+      buttons={
+        max_ammo !== 0 && (
+          <Button
+            icon="redo"
+            disabled={total_ammo === max_ammo}
+            tooltip="Перезарядка"
+            tooltipPosition="top"
+            onClick={() =>
+              act('equip_act', {
+                ref: ref,
+                gear_action: 'rearm',
+              })
+            }
+          />
+        )
+      }
+    >
       {!max_ammo ? (
-        <LabeledList.Item label="Кол-во">{total_ammo}</LabeledList.Item>
+        total_ammo
       ) : (
         <ProgressBar value={total_ammo / max_ammo}>
           {`${total_ammo} из ${max_ammo}`}
         </ProgressBar>
       )}
-    </>
+    </LabeledList.Item>
   );
 };
 
@@ -652,16 +646,30 @@ const SnowflakeExtinguisher = (props) => {
   );
 };
 
-const SnowflakeGeneraor = (props) => {
+const SnowflakeGenerator = (props) => {
   const { act, data } = useBackend<MainData>();
   const { mineral_material_amount } = data;
-  const { ref, active, name } = props.module;
-  const { fuel } = props.module.snowflake;
+  const { ref, name } = props.module;
+  const { active, fuel_amount } = props.module.snowflake;
   return (
-    <LabeledList.Item label="Топливо">
-      {fuel === null
-        ? 'нет'
-        : `${toFixed(fuel * mineral_material_amount, 0.1)} cm³`}
+    <LabeledList.Item
+      label="Топливо"
+      buttons={
+        <Button
+          icon="power-off"
+          selected={active}
+          tooltip="Включить генерацию энергии"
+          tooltipPosition="top"
+          onClick={() =>
+            act('equip_act', {
+              ref: ref,
+              gear_action: 'toggle_generator',
+            })
+          }
+        />
+      }
+    >
+      {fuel_amount === null ? 'нет' : `${toFixed(fuel_amount, 0.1)} cm³`}
     </LabeledList.Item>
   );
 };
@@ -679,6 +687,32 @@ const SnowflakeHolo = (props) => {
   );
 };
 
+const SnowflakeCage = (props) => {
+  const { act, data } = useBackend<MainData>();
+  const { ref } = props.module;
+  const { prisoner } = props.module.snowflake;
+  return (
+    <LabeledList.Item
+      buttons={
+        <Button
+          icon="eject"
+          tooltip="Освободить"
+          tooltipPosition="top"
+          onClick={() =>
+            act('equip_act', {
+              ref: ref,
+              gear_action: 'eject',
+            })
+          }
+        />
+      }
+      label="Заключенный"
+    >
+      {prisoner ? prisoner : 'Отсутствует'}
+    </LabeledList.Item>
+  );
+};
+
 const SnowflakeMulti = (props) => {
   const { act, data } = useBackend<MainData>();
   const { ref } = props.module;
@@ -686,9 +720,9 @@ const SnowflakeMulti = (props) => {
   return (
     <>
       <LabeledList.Item label="Выбранный модуль">
-        {targeted_module.name}
+        {targeted_module ? targeted_module.name : 'Отсутствует'}
       </LabeledList.Item>
-      <ModuleDetailsExtra module={targeted_module} />
+      {!!targeted_module && <ModuleDetailsExtra module={targeted_module} />}
     </>
   );
 };
@@ -697,16 +731,19 @@ const SnowflakeToolset = (props) => {
   const { act, data } = useBackend<MainData>();
   const { ref } = props.module;
   const { selected_item, items } = props.module.snowflake;
-  return Object.keys(items).map((item) => (
-    <Button
-      content={item}
-      selected={selected_item ? selected_item === item : false}
-      key={item}
-      onClick={() =>
-        act('change_tool', {
-          selected_item: items[item],
-        })
-      }
-    />
-  ));
+  return (
+    <LabeledList.Item label="Инструмент">
+      <Dropdown
+        options={Object.keys(items)}
+        selected={selected_item}
+        onSelected={(val) =>
+          act('equip_act', {
+            ref: ref,
+            gear_action: 'change_tool',
+            selected_item: items[val],
+          })
+        }
+      />
+    </LabeledList.Item>
+  );
 };

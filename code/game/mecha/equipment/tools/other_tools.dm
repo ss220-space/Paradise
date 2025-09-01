@@ -302,6 +302,7 @@
 	return pow_chan
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/toggle_module()
+	set_active(!active)
 	if(active) //inactive
 		START_PROCESSING(SSobj, src)
 		set_ready_state(FALSE)
@@ -349,6 +350,8 @@
 	var/fuel_per_cycle_idle = 10
 	var/fuel_per_cycle_active = 100
 	var/power_per_cycle = 30
+	/// Generator is generating
+	var/generation = FALSE
 
 
 /obj/item/mecha_parts/mecha_equipment/generator/Destroy()
@@ -359,8 +362,8 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/generator/toggle_module()
-	active = !active
-	if(active)
+	generation = !generation
+	if(generation)
 		to_chat(chassis.occupant, "[icon2html(src, chassis.occupant)][span_warning("Power generation enabled.")]")
 		START_PROCESSING(SSobj, src)
 	else
@@ -371,10 +374,21 @@
 	var/list/data = list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_GENERATOR,
 		"fuel_name" = fuel_name,
-		"fuel_amount" = fuel_amount
+		"fuel_amount" = fuel_amount,
+		"active" = generation
 	)
 
 	return data
+
+/obj/item/mecha_parts/mecha_equipment/generator/handle_ui_act(action, list/params)
+	if(action == "toggle_generator")
+		toggle_module()
+		return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/generator/action(target)
+	if(!chassis)
+		return
+	load_fuel(target)
 
 /obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))

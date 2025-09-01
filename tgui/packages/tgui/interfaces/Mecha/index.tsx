@@ -68,10 +68,10 @@ export const Content = (props) => {
                     <LightsBar />
                     <CabinSeal />
                     <DNALock />
-                    <LabeledList.Item label="ID блокировка">
+                    <LabeledList.Item label="ID блок">
                       <Button
                         icon={id_lock_on ? 'lock' : 'lock-open'}
-                        content={id_lock_on ? 'Включена' : 'Выключена'}
+                        content={id_lock_on ? 'Включен' : 'Выключен'}
                         tooltipPosition="top"
                         onClick={() => {
                           editAccess(false);
@@ -144,7 +144,7 @@ const PowerBar = (props) => {
   const { act, data } = useBackend<MainData>();
   const { power_level, power_max } = data;
   return (
-    <LabeledList.Item label="Power">
+    <LabeledList.Item label="Энергия">
       <ProgressBar
         value={power_max ? power_level / power_max : 0}
         ranges={{
@@ -157,10 +157,10 @@ const PowerBar = (props) => {
         }}
       >
         {power_max === null
-          ? 'Power cell missing'
+          ? 'Батарея отсутствует'
           : power_level === 1e31
-            ? 'Infinite'
-            : `${formatSiUnit(power_level, 0, 'J')} of ${formatSiUnit(
+            ? '<Бесконечна>'
+            : `${formatSiUnit(power_level, 0, 'J')} из ${formatSiUnit(
                 power_max,
                 0,
                 'J'
@@ -174,7 +174,7 @@ const IntegrityBar = (props) => {
   const { act, data } = useBackend<MainData>();
   const { integrity, integrity_max } = data;
   return (
-    <LabeledList.Item label="Integrity">
+    <LabeledList.Item label="Состояние">
       <ProgressBar
         value={integrity / integrity_max}
         ranges={{
@@ -186,7 +186,7 @@ const IntegrityBar = (props) => {
           textShadow: '1px 1px 0 black',
         }}
       >
-        {`${integrity} of ${integrity_max}`}
+        {`${integrity} из ${integrity_max}`}
       </ProgressBar>
     </LabeledList.Item>
   );
@@ -197,10 +197,10 @@ const LightsBar = (props) => {
   const { power_level, power_max, lights } = data;
   const lights_on = lights;
   return (
-    <LabeledList.Item label="Lights">
+    <LabeledList.Item label="Свет">
       <Button
         icon="lightbulb"
-        content={lights_on ? 'On' : 'Off'}
+        content={lights_on ? 'Вкл' : 'Выкл'}
         selected={lights_on}
         disabled={!power_max || !power_level}
         onClick={() => act('toggle_lights')}
@@ -232,7 +232,7 @@ const CabinSeal = (props) => {
     cabin_pressure > cabin_pressure_hazard_max;
   return (
     <LabeledList.Item
-      label="Cabin Air"
+      label="Воздух"
       buttons={
         !!use_internal_tank && (
           <>
@@ -240,7 +240,7 @@ const CabinSeal = (props) => {
               color={temp_warning ? 'average' : 'transparent'}
               icon="temperature-low"
               tooltipPosition="top"
-              tooltip={`Air temperature: ${cabin_temp}°C`}
+              tooltip={`Температура воздуха: ${cabin_temp}°C`}
             />
             <Button
               color={
@@ -252,7 +252,7 @@ const CabinSeal = (props) => {
               }
               icon="gauge-high"
               tooltipPosition="top"
-              tooltip={`Air pressure: ${cabin_pressure} kPa`}
+              tooltip={`Давление воздуха: ${cabin_pressure} кПа`}
             />
           </>
         )
@@ -260,7 +260,7 @@ const CabinSeal = (props) => {
     >
       <Button
         icon={use_internal_tank ? 'mask-ventilator' : 'wind'}
-        content={use_internal_tank ? 'Sealed' : 'Exposed'}
+        content={use_internal_tank ? 'Баллон' : 'Атмосфера'}
         onClick={() => act('toggle_internal_tank')}
         selected={use_internal_tank}
       />
@@ -272,12 +272,12 @@ const DNALock = (props) => {
   const { act, data } = useBackend<MainData>();
   const { dna_lock } = data;
   return (
-    <LabeledList.Item label="DNA Lock">
+    <LabeledList.Item label="ДНК блок">
       <Button
         onClick={() => act('dna_lock')}
         icon="syringe"
-        content={dna_lock ? 'Enabled' : 'Unset'}
-        tooltip="Set new DNA key"
+        content={dna_lock ? 'Установлен' : 'Отсутствует'}
+        tooltip="Установить новый ДНК ключ"
         selected={!!dna_lock}
         tooltipPosition="top"
       />
@@ -285,14 +285,14 @@ const DNALock = (props) => {
         <>
           <Button
             icon="key"
-            tooltip={`Key enzyme: ${dna_lock}`}
+            tooltip={`Ключ ДНК: ${dna_lock}`}
             tooltipPosition="top"
             disabled={!dna_lock}
           />
           <Button
             onClick={() => act('reset_dna')}
             icon="ban"
-            tooltip="Reset DNA lock"
+            tooltip="Убрать ДНК блок"
             tooltipPosition="top"
             disabled={!dna_lock}
           />

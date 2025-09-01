@@ -52,7 +52,7 @@
 		return
 	switch(action)
 		if("detach")
-			if(!integrated)
+			if(integrated)
 				return FALSE
 			if(chassis.selected == src)
 				chassis.selected = null

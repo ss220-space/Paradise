@@ -105,6 +105,7 @@
 			"name" = module.name,
 			"desc" = module.desc,
 			"integrity" = (module.get_integrity()/module.max_integrity),
+			"detachable" = !module.integrated,
 			"can_be_toggled" = module.selectable == MODULE_SELECTABLE_TOGGLE,
 			"can_be_triggered" = module.selectable == MODULE_SELECTABLE_FULL,
 			"active" = module.active,
