@@ -28,7 +28,7 @@
 /// Decrease bleeding size if no wounds (units per 2 sec)
 #define BLEEDING_DECREASE 0.025
 /// Multiplyer for bleeding calculate from bodypart value
-#define BLEEDING_MODIFIER 0.32
+#define BLEEDING_MODIFIER 0.42
 /// Minimal brute damage for add bleeding
 #define MIN_BRUTE_DAMAGE_FOR_BLEEDING 12
 #define BRUTE_DAMAGE_FOR_GARANT_BLEEDING 30
