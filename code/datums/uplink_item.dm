@@ -1043,15 +1043,15 @@
 	cost = 5
 
 /datum/uplink_item/ammo/bullbuck
-	name = "Барабан 12x70 — \"Картечь\""
-	desc = "Барабан на 12 патронов картечи калибра 12x70. Отлично подходит для ближней дистанции."
+	name = "Барабан 12x70 — \"Магнум Картечь\""
+	desc = "Барабан на 12 патронов магнум картечи калибра 12x70. Отлично подходит для ближней дистанции."
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldragon
-	name = "Барабан 12x70 — \"Дыхание дракона\""
-	desc = "Барабан на 12 патронов \"Дыхание дракона\" калибра 12x70. Каждый снаряд содержит 4 поражающих элемента, которые при попадании поджигают цель."
+	name = "Барабан 12x70 — \"напалмовое Дыхание дракона\""
+	desc = "Барабан на 12 патронов \"напалмовое Дыхание дракона\" калибра 12x70. Каждый снаряд содержит 6 поражающих элементов, которые при попадании поджигают цель."
 	item = /obj/item/ammo_box/magazine/m12g/dragon
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1067,20 +1067,12 @@
 	name = "Барабан 12x70 — \"Биотеррор\""
 	desc = "Барабан на 12 патронов \"Биотеррор\" калибра 12x70. Эти снаряды наносят повреждения за счёт токсинов и радиации."
 	item = /obj/item/ammo_box/magazine/m12g/bioterror
-	cost = 15
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/ammo/bullmeteor
-	name = "Барабан 12x70 — \"Метеорит\""
-	desc = "Барабан на 12 патронов \"Метеорит\" калибра 12x70. Каждый выстрел отбрасывает цель на три тайла и на некоторое время оглушает её. \
-			С их помощью можно выбить даже шлюз."
-	item = /obj/item/ammo_box/magazine/m12g/breach
-	cost = 25
+	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLbuck
-	name = "Расширенный барабан 12x70 — \"Картечь\""
-	desc = "Расширенный барабан на 24 патронов картечи калибра 12x70. Отлично подходит для ближней дистанции."
+	name = "Расширенный барабан 12x70 — \"Магнум Картечь\""
+	desc = "Расширенный барабан на 24 патронов магнум картечи калибра 12x70. Отлично подходит для ближней дистанции."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1088,14 +1080,14 @@
 /datum/uplink_item/ammo/bull_XLflechette
 	name = "Расширенный барабан 12x70 — \"Флешетта\""
 	desc = "Расширенный барабан на 24 патронов \"Флешетта\" калибра 12x70. \
-			В отличие от картечи, у этих дробинок более узкая траектория полёта. Они обладают бронебойным действием."
+			В отличие от картечи, у этих флашетт более узкая траектория полёта. Они обладают бронебойным действием."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLdragon
-	name = "Расширенный барабан 12x70 — \"Дыхание дракона\""
-	desc = "Расширенный барабан на 24 патронов \"Дыхание дракона\" калибра 12x70. Каждый снаряд содержит 4 поражающих элемента, которые при попадании поджигают цель."
+	name = "Расширенный барабан 12x70 — \"напалмовое Дыхание дракона\""
+	desc = "Расширенный барабан на 24 патронов \"напалмовое Дыхание дракона\" калибра 12x70. Каждый снаряд содержит 6 поражающих элементов, которые при попадании поджигают цель."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1104,14 +1096,14 @@
 	name = "Барабан 12x70 — сумка"
 	desc = "Сумка, содержащая 8 барабанов на 12 патронов калибра 12x70 \"Картечь\" и 1 барабан \"Дыхание дракона\"."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
-	cost = 60 // normally 90
+	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_XLmagsbag
 	name = "Расширенный барабан 12x70 — сумка"
 	desc = "Сумка, содержащая 3 расширенных барабана на 24 патронов калибра 12x70: \"Картечь\", \"Дыхание дракона\", \"Флешетта\"."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
-	cost = 45 // normally 90
+	cost = 45
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg

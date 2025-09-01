@@ -46,7 +46,7 @@
 
 				if(!gripper.gripped_item)
 					continue
-				
+
 				I = gripper.gripped_item
 
 			if(!I.enchants)
@@ -221,8 +221,6 @@
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon = 'icons/obj/clockwork.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "clocked_hand"
 	item_state = "clocked_hand"
 	item_flags = ABSTRACT|DROPDEL

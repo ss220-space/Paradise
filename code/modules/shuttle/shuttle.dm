@@ -81,15 +81,13 @@
 		_y + (-dwidth+width-1)*sin + (-dheight+height-1)*cos
 		)
 
-///returns turfs within our projected rectangle in no particular order
+//returns turfs within our projected rectangle in no particular order
 /obj/docking_port/proc/return_turfs()
-	var/list/coords = return_coords()
-	return block(
-		coords[1], coords[2], z,
-		coords[3], coords[4], z
-	)
+	var/list/L = return_coords()
+	return block(L[1], L[2], z, L[3], L[4], z)
 
-///returns turfs within our projected rectangle in a specific order.this ensures that turfs are copied over in the same order, regardless of any rotation
+//returns turfs within our projected rectangle in a specific order.
+//this ensures that turfs are copied over in the same order, regardless of any rotation
 /obj/docking_port/proc/return_ordered_turfs(_x, _y, _z, _dir, area/A)
 	if(!_dir)
 		_dir = dir
@@ -130,21 +128,18 @@
 				. += T
 
 #ifdef DOCKING_PORT_HIGHLIGHT
-
 //Debug proc used to highlight bounding area
-/obj/docking_port/proc/highlight(_color = "#f00")
-	invisibility = 0
+/obj/docking_port/proc/highlight(_color)
 	SET_PLANE_IMPLICIT(src, GHOST_PLANE)
-	var/list/coords = return_coords()
-	for(var/turf/T in block(coords[1], coords[2], z, coords[3], coords[4], z))
+	var/list/L = return_coords()
+	for(var/turf/T in block(L[1], L[2], z, L[3], L[4], z))
 		T.color = _color
 		T.maptext = null
 	if(_color)
-		var/turf/T = locate(coords[1], coords[2], z)
+		var/turf/T = locate(L[1], L[2], z)
 		T.color = "#0f0"
-		T = locate(coords[3], coords[4], z)
+		T = locate(L[3], L[4], z)
 		T.color = "#00f"
-
 #endif
 
 //return first-found touching dockingport
@@ -153,8 +148,7 @@
 
 /obj/docking_port/proc/getDockedId()
 	var/obj/docking_port/P = get_docked()
-	if(P)
-		return P.id
+	if(P) return P.id
 
 /obj/docking_port/proc/register()
 	return 0
