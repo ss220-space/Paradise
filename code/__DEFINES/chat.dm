@@ -64,5 +64,5 @@
 #define UNKNOWN_NAME_RUS "Неизвестный"
 /// Replaces something (job, sec status, disease' name, etc) if we shouldn't know that
 #define UNKNOWN_STATUS_RUS "Неизвестно"
-/// Replaces job's name of someone if we shouldn't know that
+/// Replaces job's name of someone if they don't have one
 #define NOJOB_STATUS_RUS "Без должности"

@@ -512,7 +512,7 @@
 	if(rankName in job_icons) //Check if the job has a hud icon
 		return rankName
 
-	return UNKNOWN_STATUS_RUS //Return unknown if none of the above apply
+	return "Unknown" //Return unknown if none of the above apply
 
 /proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
 	var/list/retval
