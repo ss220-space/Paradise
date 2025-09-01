@@ -38,9 +38,9 @@
 
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
-/obj/machinery/autolathe/New()
+/obj/machinery/autolathe/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, PROC_REF(AfterMaterialInsert)))
-	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/autolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -54,8 +54,8 @@
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
 
-/obj/machinery/autolathe/upgraded/New()
-	..()
+/obj/machinery/autolathe/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/autolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -501,7 +501,7 @@
 	desc = "Autolathe with preloaded open recipes"
 	icon = 'icons/obj/machines/sec_autolathe.dmi'
 
-/obj/machinery/autolathe/security/New()
+/obj/machinery/autolathe/security/Initialize(mapload)
 	. = ..()
 	wires?.cut(WIRE_AUTOLATHE_HACK)
 	adjust_hacked(TRUE)

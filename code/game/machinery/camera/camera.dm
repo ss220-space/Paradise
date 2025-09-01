@@ -485,7 +485,7 @@
 	use_power = NO_POWER_USE
 	interact_offline = TRUE
 
-/obj/machinery/camera/mortar/Initialize()
+/obj/machinery/camera/mortar/Initialize(mapload)
 	c_tag = "Para-Cam ([x]):([y])"
 	. = ..()
 	QDEL_IN(src, 3 MINUTES)

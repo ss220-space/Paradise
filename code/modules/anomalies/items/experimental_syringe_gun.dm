@@ -33,7 +33,7 @@
 		PREPOSITIONAL = "экспериментальном шприцемёте"
 	)
 
-/obj/item/gun/syringe/rapidsyringe/experimental/Initialize()
+/obj/item/gun/syringe/rapidsyringe/experimental/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 

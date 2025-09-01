@@ -824,12 +824,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/shotgun_shells
 	name = "Various Shotgun Shells Crate"
 	containername = "various shotgun shells crate"
-	cost = 250
+	cost = 200
 	contains = list(
 		/obj/item/ammo_box/shotgun/stunslug,
 		/obj/item/ammo_box/shotgun/pulseslug,
 		/obj/item/ammo_box/shotgun/dragonsbreath,
-		/obj/item/ammo_box/shotgun/frag12,
 		/obj/item/ammo_box/shotgun/ion,
 		/obj/item/ammo_box/shotgun/laserslug,
 	)
@@ -3019,6 +3018,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "chinese supply crate"
 
+/datum/supply_packs/vending/protein
+	name = "Sport Supply Crate"
+	contains = list(/obj/item/vending_refill/protein)
+	cost = 20
+	containername = "protein supply crate"
+
 /datum/supply_packs/vending/customat
 	name = "Customat Resupply Canister Crate"
 	contains = list(/obj/item/vending_refill/custom,
@@ -3137,14 +3142,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/grenades
 	name = "40mm grenade box crate"
 	contains = list(/obj/item/ammo_box/a40mm)
-	credits_cost = 16000
+	credits_cost = 20000
 	containername = "40mm grenade boxe crate"
 
 /datum/supply_packs/contraband/bombard_grenades
 	name = "Bombarda grenades crate"
-	contains = list(/obj/item/ammo_casing/grenade/improvised/exp_shell,
-					/obj/item/ammo_casing/grenade/improvised/flame_shell,
-					/obj/item/ammo_casing/grenade/improvised/smoke_shell)
+	contains = list(/obj/item/ammo_casing/a40mm/improvised/exp_shell,
+					/obj/item/ammo_casing/a40mm/improvised/flame_shell,
+					/obj/item/ammo_casing/a40mm/improvised/smoke_shell)
 	credits_cost = 7000
 	containername = "bombarda grenades crate"
 

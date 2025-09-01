@@ -301,7 +301,7 @@
 	name = "suspicious 'magical' beacon"
 	desc = "It looks battered and old, as if someone tried to crack it with brute force."
 
-/obj/item/radio/beacon/syndicate/bundle/Initialize()
+/obj/item/radio/beacon/syndicate/bundle/Initialize(mapload)
 	. = ..()
 	unselected = bundles.Copy()
 	while(length(selected) < 3)

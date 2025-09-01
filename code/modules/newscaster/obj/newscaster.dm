@@ -27,6 +27,7 @@
 	)
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster"
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	max_integrity = 200
 	integrity_failure = 50
 	light_range = 0
@@ -72,17 +73,14 @@
 	)
 	is_security = TRUE
 
-/obj/machinery/newscaster/New()
+/obj/machinery/newscaster/Initialize(mapload)
+	. = ..()
 	GLOB.allNewscasters += src
 	unit_number = length(GLOB.allNewscasters)
 	update_icon(UPDATE_OVERLAYS) //for any custom ones on the map...
 	if(!last_views)
 		last_views = list()
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
-	..()
 
-/obj/machinery/newscaster/Initialize(mapload)
-	. = ..()
 	if(!jobblacklist)
 		jobblacklist = list(
 			/datum/job/ai,

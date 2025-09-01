@@ -577,7 +577,7 @@
 		if("load_slot")
 			load_slot(params["slot"])
 			UpdateName()
-			registered_user.sec_hud_set_ID()
+			registered_user.update_hud_set()
 			to_chat(registered_user, "<span class='notice'>You have successfully loaded the card data from slot [params["slot"]].</span>")
 		if("clear_slot")
 			clear_slot(params["slot"])
@@ -712,12 +712,13 @@
 			rank = new_rank
 			to_chat(registered_user, "<span class='notice'>Occupation changed to [new_job].</span>")
 			UpdateName()
-			registered_user.sec_hud_set_ID()
+			registered_user.update_hud_set()
 		if("change_money_account")
 			var/new_account = tgui_input_number(registered_user, "What money account would you like to link to this card?", "Agent Card Account", 12345, 9999999)
 			if(!Adjacent(registered_user) || !isnull(new_account))
 				return
 			associated_account_number = new_account
+			registered_user.med_hud_insurance_set_overlay()
 			to_chat(registered_user, "<span class='notice'>Linked money account changed to [new_account].</span>")
 		if("change_blood_type")
 			var/default = "\[UNSET\]"

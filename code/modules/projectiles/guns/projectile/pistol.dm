@@ -148,7 +148,7 @@
 //SP8 Pistol OBR and Warden//
 /obj/item/gun/projectile/automatic/pistol/sp8
 	name = "SP-8"
-	desc = "Базовая версия новейшего пистолета сил защиты активов. Под патрон 40N&R."
+	desc = "Базовая версия новейшего пистолета сил защиты активов. Под патрон .40 S&W."
 	icon_state = "sp8_black"  // thanks split
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/sp8

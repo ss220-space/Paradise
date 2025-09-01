@@ -1,8 +1,7 @@
-#define COMPATIBILITY_STANDART	(1<<0)
-#define COMPATIBILITY_CYBORG	(1<<1)
-#define COMPATIBILITY_MINEBOT	(1<<2)
-#define COMPATIBILITY_UNIVERSAL	(~0)
-
+#define COMPATIBILITY_STANDART (1<<0)
+#define COMPATIBILITY_CYBORG (1<<1)
+#define COMPATIBILITY_MINEBOT (1<<2)
+#define COMPATIBILITY_UNIVERSAL ALL
 
 /**
  * ACCELERATORS
@@ -262,9 +261,9 @@
 	name = "kinetic force"
 	icon_state = null
 	damage = 40
-	hitsound = "bullet"
+	hitsound = SFX_BULLET
 	damage_type = BRUTE
-	flag = "bomb"
+	flag = BOMB
 	range = 3
 	/// How many `hardness` it takes from mineral turfs.
 	var/power = 1

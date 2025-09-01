@@ -8,7 +8,7 @@
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "coil_red"
-	belt_icon = "cable_coil"
+	belt_icon = "coil_red"
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
@@ -70,7 +70,8 @@
 		icon_state = "coil2"
 	else
 		icon_state = "coil"
-	item_state = wire_colors[color]
+	item_state = "coil_[wire_colors[color]]"
+	belt_icon = "coil_[wire_colors[color]]"
 
 /obj/item/stack/cable_coil/update_weight()
 	if(amount == 1)

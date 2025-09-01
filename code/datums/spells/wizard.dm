@@ -45,8 +45,8 @@
 	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
 
 	school = "evocation"
-	base_cooldown = 6 SECONDS
-	cooldown_min = 6 SECONDS
+	base_cooldown = 10 SECONDS
+	cooldown_min = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "HONK GY AMA"
 	invocation_type = "shout"

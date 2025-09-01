@@ -255,8 +255,8 @@
 	icon_state = "sleeper-open"
 	density = FALSE
 
-/obj/machinery/sleeper/survival_pod/New()
-	..()
+/obj/machinery/sleeper/survival_pod/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/survival(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -383,7 +383,7 @@
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
 
-/obj/structure/fans/Initialize(loc)
+/obj/structure/fans/Initialize(mapload, loc)
 	. = ..()
 	air_update_turf(1)
 

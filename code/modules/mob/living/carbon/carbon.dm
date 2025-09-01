@@ -607,8 +607,8 @@
 		var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 		var/turf/end_T = get_turf(target)
 		if(start_T && end_T)
-			var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
-			var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
+			var/start_T_descriptor = "<font color='#6b5d00'>tile at [AREACOORD(start_T)]</font>"
+			var/end_T_descriptor = "<font color='#6b4400'>tile at [AREACOORD(end_T)]</font>"
 			add_attack_logs(src, throwing_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
 
 	//We assign a default frequency number for the sound of the throw.
@@ -696,18 +696,29 @@
 		restraints = wear_suit
 
 	if(restraints)
-		breakout_time = restraints.breakout_time
+		resist_restraints()
+		return
 
 	var/list/breakouttime_modifiers = list()
 	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
 	for(var/mod in breakouttime_modifiers)
 		breakout_time *= mod
 
-	visible_message(
-		span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
-		span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[declension_ru(breakout_time * 0.1, "у", "ы", "")]."),
-	)
-	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+	var/is_processed = LAZYACCESS(do_afters, src)
+
+	if(is_processed)
+		visible_message(
+			span_warning("[name] перестал[genderize_ru(gender, "", "а", "о", "и")] пытаться отстегнуться!"),
+			span_notice("Вы перестали пытаться отстегнуться."),
+		)
+	else
+		visible_message(
+			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
+			span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[declension_ru(breakout_time * 0.1, "у", "ы", "")]."),
+		)
+
+	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1, cancel_on_max = TRUE,
+		cancel_message = ""))
 		if(!buckled)
 			return
 

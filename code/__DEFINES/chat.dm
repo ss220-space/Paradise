@@ -44,7 +44,7 @@
 /// Creates a boxed message with red border for warning/alert messages
 #define chat_box_red(str) ("<div class='boxed_message red_border'>" + str + "</div>")
 /// Creates a boxed message with purple border for unique/special notifications
-#define chat_box_purple(str) ("<div class='boxed_message purple_border'>" + str + "</div>")
+#define chat_box_purple(str) ("<div class='boxed_message purple_border left_align_text'>" + str + "</div>")
 /// Creates a boxed message with yellow border for cautionary messages
 #define chat_box_yellow(str) ("<div class='boxed_message yellow_border'>" + str + "</div>")
 /// Creates a boxed message with green border for positive/success notifications
