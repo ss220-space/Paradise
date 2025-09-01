@@ -1829,26 +1829,26 @@
 
 /datum/crafting_recipe/advanced_trauma_kit
 	name = "Advanced trauma kit"
-	result = /obj/item/stack/medical/bruise_pack/advanced
+	result = /obj/item/stack/medical/bruise_pack/advanced/single
 	time = 3 SECONDS
-	reqs = list(/obj/item/stack/medical/bruise_pack = 5,
-				/datum/reagent/medicine/styptic_powder = 50)
+	reqs = list(/obj/item/stack/medical/bruise_pack = 1,
+				/datum/reagent/medicine/styptic_powder = 45)
 	category = CAT_MISC
 
 
 /datum/crafting_recipe/advanced_burn_kit
 	name = "Advanced burn kit"
-	result = /obj/item/stack/medical/ointment/advanced
+	result = /obj/item/stack/medical/ointment/advanced/single
 	time = 3 SECONDS
-	reqs = list(/obj/item/stack/medical/bruise_pack = 5,
-				/datum/reagent/medicine/silver_sulfadiazine = 50)
+	reqs = list(/obj/item/stack/medical/bruise_pack = 1,
+				/datum/reagent/medicine/silver_sulfadiazine = 45)
 	category = CAT_MISC
 
 
 /datum/crafting_recipe/suture_kit
 	name = "Набор для зашивания ран"
-	result = /obj/item/stack/medical/suture
-	time = 5 SECONDS
-	reqs = list(/obj/item/stack/medical/bruise_pack = 6,
-				/obj/item/stack/cable_coil = 6)
+	result = /obj/item/stack/medical/suture/single
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/medical/bruise_pack = 1,
+				/obj/item/stack/cable_coil = 5)
 	category = CAT_MISC
