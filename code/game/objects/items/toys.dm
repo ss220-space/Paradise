@@ -1574,7 +1574,7 @@
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/wet_owl
-	name = "Wet owl plushie"
+	name = "wet owl plushie"
 	desc = "Плюшевая игрушка поникшей мокрой совы. Она явно видела некоторое дерьмо."
 	icon_state = "wet_owl"
 	item_state = "wet_owl"
@@ -1670,7 +1670,7 @@
 	suicide_count = 0
 
 /obj/item/toy/plushie/wet_owl/evil
-	name = "Evil wet owl plush"
+	name = "evil wet owl plush"
 	desc = "Злобная плюшевая игрушка мокрой совы. Она явно видела некоторое дерьмо — это легко можно понять по её взгляду."
 	icon_state = "evil_wet_owl"
 	item_state = "evil_wet_owl"

@@ -1828,7 +1828,7 @@
 	subcategory = CAT_MISC2
 
 /datum/crafting_recipe/wet_owl_plushie
-	name = "Wet owl plushie"
+	name = "wet owl plushie"
 	result = /obj/item/toy/plushie/wet_owl
 	time = 4 SECONDS
 	reqs = list(
@@ -1840,7 +1840,7 @@
 	category = CAT_MISC
 
 /datum/crafting_recipe/evil_wet_owl_plushie
-	name = "Evil wet owl plushie"
+	name = "evil wet owl plushie"
 	result = /obj/item/toy/plushie/wet_owl/evil
 	time = 4 SECONDS
 	reqs = list(
