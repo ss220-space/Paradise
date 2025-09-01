@@ -139,7 +139,7 @@
 	if(!LAZYLEN(minerals))
 		return
 
-	for(var/turf/simulated/mineral/mineral in minerals)
+	for(var/turf/simulated/mineral/mineral as anything in minerals)
 		mineral.add_overlay(image('icons/effects/ore_overlays.dmi', mineral.scan_state))
 		mineral.addtimer(CALLBACK(mineral, TYPE_PROC_REF(/atom, cut_overlays)), 3.5 SECONDS)
 
