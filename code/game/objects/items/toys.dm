@@ -188,6 +188,8 @@
 	var/active = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("атаковал", "ударил")
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/toy/sword/attack_self(mob/user)
 	active = !active
@@ -1669,6 +1671,8 @@
 
 	suicide_count = 0
 
+#define OWL_CURSE_STUN_TIME 1.25 SECONDS
+
 /obj/item/toy/plushie/wet_owl/evil
 	name = "evil wet owl plush"
 	desc = "Злобная плюшевая игрушка мокрой совы. Она явно видела некоторое дерьмо — это легко можно понять по её взгляду."
@@ -1697,10 +1701,11 @@
 		return
 
 	to_chat(user, span_danger("Вы были прокляты [declent_ru(INSTRUMENTAL)]!"))
-	var/stun_time = 1.25 SECONDS
 	var/mob/living/carbon/carbon = user
-	carbon.electrocute_act(25, src, flags = SHOCK_NOGLOVES, stun_duration = stun_time)
+	carbon.electrocute_act(25, src, flags = SHOCK_NOGLOVES, stun_duration = OWL_CURSE_STUN_TIME)
 	playsound(carbon, 'sound/effects/eleczap.ogg', 30, TRUE)
+
+#undef OWL_CURSE_STUN_TIME
 
 /*
  * Foam Armblade
@@ -1715,6 +1720,8 @@
 	attack_verb = list("уколол", "поглотил", "пронзил")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /*
  * Toy/fake flash
