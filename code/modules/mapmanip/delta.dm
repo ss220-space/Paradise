@@ -12,10 +12,10 @@
 
 
 /// viro maints botany room submap
-/obj/effect/map_effect/marker/mapmanip/submap/extract/better_botany_room
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room
 	name = "better botany"
 
-/obj/effect/map_effect/marker/mapmanip/submap/insert/botany_room
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/botany_room
 	name = "botany insert"
 
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/destroyed
@@ -32,3 +32,15 @@
 
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/slightly_worse
 	name = "дополнительные баррикады, установленные перед входом в старую ботанику"
+
+
+/// Clown-mime rooms submap
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/clown_mime
+	name = "clown to mime shuffle"
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/clown_mime
+	name = "clown_mime insert"
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/clown_mime/shuffle
+	name = "комната клоуна и мима была изменена местами. хихихихи"

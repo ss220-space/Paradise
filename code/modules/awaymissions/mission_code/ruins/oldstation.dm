@@ -53,19 +53,6 @@
 	max_combined_w_class = 12
 
 // Equipment
-/obj/item/clothing/head/helmet/space/nasavoid/old
-	name = "Engineering Void Helmet"
-	desc = "A CentCom engineering dark red space suit helmet. While old and dusty, it still gets the job done."
-	icon_state = "void-red"
-	item_state = "void"
-
-/obj/item/clothing/suit/space/nasavoid/old
-	name = "Engineering Voidsuit"
-	icon_state = "void-red"
-	item_state = "void"
-	desc = "A CentCom engineering dark red space suit. Age has degraded the suit making is difficult to move around in."
-	slowdown = 4
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
 
 /obj/item/clothing/head/helmet/old
 	name = "degrading helmet"
