@@ -109,7 +109,7 @@
 
 /obj/item/mod_defib/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/defib, cooldown = defib_cooldown, speed_multiplier = toolspeed, ignore_hardsuits = !safety, heart_attack_chance = safety ? 0 : 100, robotic = TRUE, safe_by_default = safety, emp_proof = TRUE)
+	AddComponent(/datum/component/defib, cooldown = defib_cooldown, speed_multiplier = toolspeed, ignore_hardsuits = !safety, safe_by_default = safety, robotic = TRUE, safe_by_default = safety, emp_proof = TRUE)
 	ADD_TRAIT(src, TRAIT_NODROP, MODSUIT_TRAIT)
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))

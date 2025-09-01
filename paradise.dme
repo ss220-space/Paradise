@@ -679,6 +679,7 @@
 #include "code\datums\elements\diona_internals.dm"
 #include "code\datums\elements\falling_hazard.dm"
 #include "code\datums\elements\footstep.dm"
+#include "code\datums\elements\forced_gravity.dm"
 #include "code\datums\elements\give_turf_traits.dm"
 #include "code\datums\elements\halo_attach.dm"
 #include "code\datums\elements\high_value_item.dm"

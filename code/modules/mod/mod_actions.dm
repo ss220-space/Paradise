@@ -96,6 +96,8 @@
 	var/obj/item/mod/module/module
 	/// A ref to the mob we are pinned to.
 	var/pinner_uid
+	/// Timer until we remove our cooldown overlay
+	var/cooldown_timer
 
 /datum/action/item_action/mod/pinned_module/New(Target, custom_icon, custom_icon_state, obj/item/mod/module/linked_module, mob/user)
 	name = "Активировать [linked_module.declent_ru(ACCUSATIVE)]"
@@ -106,9 +108,11 @@
 	if(!(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED))
 		check_flags |= AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED
 	Grant(user)
+	RegisterSignal(linked_module, COMSIG_MODULE_COOLDOWN_STARTED, PROC_REF(cooldown_started))
 
 /datum/action/item_action/mod/pinned_module/Destroy()
-	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))
+	deltimer(cooldown_timer)
+	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED, COMSIG_MODULE_COOLDOWN_STARTED))
 	module.pinned_to -= pinner_uid
 	module = null
 	return ..()
@@ -127,3 +131,17 @@
 	if(!.)
 		return
 	module.on_select()
+
+/datum/action/item_action/mod/pinned_module/proc/cooldown_started(datum/source, cooldown_time)
+	SIGNAL_HANDLER
+
+	deltimer(cooldown_timer)
+	UpdateButtonIcon()
+	if (cooldown_time == 0)
+		return
+	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(UpdateButtonIcon)), cooldown_time + 1, TIMER_STOPPABLE)
+
+/datum/action/item_action/mod/pinned_module/IsAvailable()
+	if(..() && COOLDOWN_FINISHED(module, cooldown_timer))
+		return TRUE
+	return FALSE

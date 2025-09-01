@@ -2,6 +2,10 @@
 "a" = (
 /turf/space,
 /area/space)
+"c" = (
+/obj/item/mod/control/pre_equipped/apocryphal,
+/turf/simulated/floor/plating,
+/area/admin)
 "d" = (
 /obj/machinery/light{
 	dir = 1
@@ -26,8 +30,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/admin)
+"m" = (
+/obj/item/mod/core/plasma,
+/turf/simulated/floor/plasteel,
+/area/admin)
 "n" = (
 /turf/simulated/floor/plasteel,
+/area/admin)
+"o" = (
+/obj/item/mod/control/pre_equipped/advanced,
+/turf/simulated/floor/plating,
 /area/admin)
 "q" = (
 /obj/effect/turf_decal/stripes/line{
@@ -35,12 +47,28 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"t" = (
+/obj/item/mod/control/pre_equipped/debug,
+/turf/simulated/floor/plating,
+/area/admin)
 "w" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/landmark/join_late_cyborg,
 /turf/simulated/floor/plasteel,
+/area/admin)
+"y" = (
+/obj/item/mod/core/infinite,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"B" = (
+/obj/item/mod/core/standard,
+/turf/simulated/floor/plasteel,
+/area/admin)
+"D" = (
+/obj/item/mod/control/pre_equipped/cosmohonk,
+/turf/simulated/floor/plating,
 /area/admin)
 "G" = (
 /obj/effect/turf_decal/stripes/line{
@@ -70,6 +98,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/turf/simulated/floor/plating,
+/area/admin)
+"P" = (
+/obj/item/mod/control/pre_equipped/administrative,
 /turf/simulated/floor/plating,
 /area/admin)
 "Q" = (
@@ -2233,7 +2265,7 @@ a
 a
 f
 d
-n
+y
 Z
 Q
 w
@@ -2299,7 +2331,7 @@ a
 a
 f
 n
-n
+m
 Z
 Q
 M
@@ -2365,7 +2397,7 @@ a
 a
 f
 n
-n
+B
 Z
 Q
 M
@@ -2697,11 +2729,11 @@ f
 Q
 Q
 Q
-Q
-Q
-Q
-Q
-Q
+P
+o
+c
+D
+t
 Q
 Q
 Q

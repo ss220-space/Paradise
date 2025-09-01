@@ -153,6 +153,11 @@
 	for(var/obj/item/part as anything in all_parts)
 		part.update_name()
 		part.desc = "[part.desc] [theme.desc]"
+		/// Bad way to fix our not init datumed armor
+		if(islist(part.armor))
+			part.armor = getArmor(arglist(part.armor))
+		if(islist(theme.armor_type_1.armor))
+			theme.armor_type_1.armor = getArmor(arglist(theme.armor_type_1.armor))
 		part.armor = part.armor.attachArmor(theme.armor_type_1.armor)
 		part.resistance_flags = theme.resistance_flags
 		part.flags |= theme.atom_flags //flags like initialization or admin spawning are here, so we cant set, have to add
@@ -358,44 +363,44 @@
 		if(!open)
 			balloon_alert(user, "сначала откройте крышку!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
+			return ATTACK_CHAIN_BLOCKED_ALL
 		install(attacking_item, user)
 		SEND_SIGNAL(src, COMSIG_MOD_MODULE_ADDED, user)
-		return TRUE
+		return ATTACK_CHAIN_PROCEED
 	else if(istype(attacking_item, /obj/item/mod/core))
 		if(!open)
 			balloon_alert(user, "сначала откройте крышку!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
+			return ATTACK_CHAIN_BLOCKED_ALL
 		if(core)
 			balloon_alert(user, "внутри уже есть ядро!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
+			return ATTACK_CHAIN_BLOCKED_ALL
 		var/obj/item/mod/core/attacking_core = attacking_item
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 		user.drop_from_active_hand()
 		attacking_core.install(src)
 		update_charge_alert()
-		return TRUE
+		return ATTACK_CHAIN_PROCEED
 	else if(istype(attacking_item, /obj/item/multitool) && open)
 		if(seconds_electrified && get_charge() && shock(user))
-			return TRUE
+			return ATTACK_CHAIN_PROCEED
 		wires.Interact(user)
-		return TRUE
+		return ATTACK_CHAIN_PROCEED
 	else if(open && attacking_item.GetID())
 		update_access(user, attacking_item.GetID())
-		return TRUE
+		return ATTACK_CHAIN_PROCEED
 	else if(istype(attacking_item, /obj/item/stock_parts/cell))
 		if(!core)
 			balloon_alert(user, "внутри нет ядра!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
+			return ATTACK_CHAIN_BLOCKED_ALL
 		core.on_attackby(attacking_item, user, params)
 	else if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
 			balloon_alert(user, "внутри нет ядра!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
+			return ATTACK_CHAIN_BLOCKED_ALL
 		core.on_attackby(attacking_item, user, params)
 	else if(istype(attacking_item, /obj/item/mod/skin_applier))
 		return ..()

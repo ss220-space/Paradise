@@ -764,3 +764,45 @@
 /obj/item/mod/module/anomaly_locked/teslawall/prebuilt
 	prebuilt = TRUE
 	removable = FALSE // No switching it into another suit / no free anomaly core
+
+///Flamethrower - Launches fire across the area.
+/obj/item/mod/module/flamethrower
+	name = "MOD flamethrower module"
+	desc = "A custom-manufactured flamethrower, used to burn through your path. Burn well."
+	icon_state = "flamethrower"
+	module_type = MODULE_ACTIVE
+	complexity = 3
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
+	incompatible_modules = list(/obj/item/mod/module/flamethrower)
+	cooldown_time = 2.5 SECONDS
+	overlay_state_inactive = "module_flamethrower"
+	overlay_state_active = "module_flamethrower_on"
+
+/obj/item/mod/module/flamethrower/on_select_use(atom/target)
+	. = ..()
+	if(!.)
+		return
+	var/obj/projectile/flame = new /obj/projectile/bullet/incendiary/fire(mod.wearer.loc)
+	flame.original = target
+	flame.firer = mod.wearer
+	flame.preparePixelProjectile(target, get_turf(target), mod.wearer)
+	flame.fire()
+	playsound(src, 'sound/items/modsuit/flamethrower.ogg', 75, TRUE)
+	INVOKE_ASYNC(flame, TYPE_PROC_REF(/obj/projectile, fire))
+	drain_power(use_power_cost)
+
+///Medbeam - Medbeam but built into a modsuit
+/obj/item/mod/module/medbeam
+	name = "MOD medical beamgun module"
+	desc = "A wrist mounted variant of the medbeam gun, allowing the user to heal their allies without the risk of dropping it."
+	icon_state = "chronogun"
+	module_type = MODULE_ACTIVE
+	complexity = 1
+	active_power_cost = DEFAULT_CHARGE_DRAIN
+	device = /obj/item/gun/medbeam/mod
+	incompatible_modules = list(/obj/item/mod/module/medbeam)
+	removable = TRUE
+	cooldown_time = 0.05 SECONDS
+
+/obj/item/gun/medbeam/mod
+	name = "MOD medbeam"

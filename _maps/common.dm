@@ -9,7 +9,7 @@ z3 = engineering stuff (called Z4, dont question it)
 z4 = lavaland
 */
 
-//#define FAST_LOAD
+#define FAST_LOAD
 
 #define MAP_TRANSITION_CONFIG list()
 
