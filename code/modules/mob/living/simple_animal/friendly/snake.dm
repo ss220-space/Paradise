@@ -257,9 +257,6 @@
 
 		add_overlay(head_icon)
 
-
-
-//Доктор зюзя передает вам привет
 /mob/living/simple_animal/hostile/retaliate/poison/snake/riraha
 	name = "Доктор Рираха"
 	desc = "Оранжевая змея в шапочке медсестры, от которой исходит аромат медицинской марихуаны."
