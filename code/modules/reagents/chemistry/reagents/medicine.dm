@@ -292,24 +292,24 @@
 	if(!ishuman(user))
 		return ..()
 	var/mob/living/carbon/human/human = user
-	var/heal_internal_bleed = prob(1) ? 1 : 0  // 1% to heal one internal bleeding
-	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+	var/heal_internal_bleed = prob(1) ? TRUE : FALSE  // 1% to heal one internal bleeding
+	for(var/obj/item/organ/external/bodypart as anything in human.bodyparts)
+		if(heal_internal_bleed && bodypart.has_internal_bleeding())
+			heal_internal_bleed = FALSE
+			bodypart.stop_internal_bleeding()
 		if(bodypart.bleeding_amount <= 0)
 			continue
 		bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - 0.1)
-		if(heal_internal_bleed > 0 && bodypart.has_internal_bleeding())
-			heal_internal_bleed--
-			bodypart.stop_internal_bleeding()
 		update_flags |= STATUS_UPDATE_HEALTH
 	return ..() | update_flags
 
 /datum/reagent/medicine/traneksam_acid/overdose_process(mob/living/living, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustOxyLoss(5, FALSE)
-	update_flags |= M.adjustToxLoss(1, FALSE)
+	update_flags |= living.adjustOxyLoss(5, FALSE)
+	update_flags |= living.adjustToxLoss(1, FALSE)
 	if(prob(5))
-		var/datum/disease/critical/heart_failure/D = new
-		D.Contract(M)
+		var/datum/disease/critical/heart_failure/disease = new
+		disease.Contract(living)
 	return list(0, update_flags)
 
 
@@ -318,8 +318,11 @@
 		return ..()
 	if(method != REAGENT_TOUCH)
 		return ..()
+	if(!ishuman(user))
+		return ..()
+	var/mob/living/carbon/human/human = user
 	var/bleeding_stop = FALSE
-	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+	for(var/obj/item/organ/external/bodypart as anything in human.bodyparts)
 		if(bodypart.bleeding_amount <= 0)
 			continue
 		bodypart.bleeding_amount = 0

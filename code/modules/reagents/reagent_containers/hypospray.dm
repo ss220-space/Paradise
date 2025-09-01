@@ -371,9 +371,9 @@
 	icon_state = "autoinjector"
 	item_state = "autoinjector"
 	belt_icon = "autoinjector"
-	amount_per_transfer_from_this = 10
+	amount_per_transfer_from_this = 15
 	possible_transfer_amounts = null
-	volume = 10
+	volume = 15
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = DRAWABLE
 	flags = null
