@@ -19,7 +19,7 @@
 
 
 /datum/addition_goal/energy_support/spawn_shuttle_contain(list/turf/shuttle_turfs)
-	for(var/i = 0; i < smes_count; i++)
+	for(var/i in 1 to smes_count)
 		var/turf/random_location = pick(shuttle_turfs)
 		new /obj/machinery/power/smes/portable(random_location)
 	return TRUE
@@ -43,10 +43,7 @@
 	var/report_text = "<b>Состояние мобильных СКАНов</b>: [smes_count] шт.<br>"
 	var/scan_number = 1
 	for(var/turf/shittle_turf as anything in shuttle_turfs)
-		for(var/atom/movable/content in shittle_turf.contents)
-			if(!istype(content, /obj/machinery/power/smes/portable))
-				continue
-			var/obj/machinery/power/smes/portable/smes = content
+		for(var/obj/machinery/power/smes/portable/smes in shittle_turf.contents)
 			total_capacity = smes.capacity * smes_count
 			smes_in_shuttle++
 			var/scan_progress = round(smes.charge / smes.capacity * 100, 1)

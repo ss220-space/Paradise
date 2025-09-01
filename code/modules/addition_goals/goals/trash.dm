@@ -39,14 +39,11 @@
 	var/trash_in_shuttle = 0
 	for(var/turf/shittle_turf as anything in shuttle_turfs)
 		//open all containers before check
-		for(var/atom/movable/content in shittle_turf.contents)
-			if(istype(content, /obj/structure/closet))
-				var/obj/structure/closet/closet = content
-				closet.open()
+		for(var/obj/structure/closet/closet in shittle_turf.contents)
+			closet.open()
 		// search trash
-		for(var/atom/movable/content in shittle_turf.contents)
-			if(istype(content, /obj/item/trash))
-				trash_in_shuttle++
+		for(var/obj/item/trash in shittle_turf.contents)
+			trash_in_shuttle++
 	var/complete_trash_count = trash_count - trash_in_shuttle
 	var/progress = clamp(complete_trash_count / trash_count * 100, 0, 100)
 	var/report_text = "<b>Отправлено мусора</b>: [trash_count] шт.<br>"
