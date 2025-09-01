@@ -448,7 +448,7 @@
 	status = LIGHT_BURNED
 
 	visible_message("<span class='boldwarning'>[src] burns out!</span>")
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 
 	on = FALSE
 	set_light(0)

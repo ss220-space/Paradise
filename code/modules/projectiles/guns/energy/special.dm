@@ -880,7 +880,7 @@
 
 /obj/item/gun/energy/plasma_pistol/process_chamber()
 	if(overloaded)
-		do_sparks(2, 1, src)
+		do_sparks(2, TRUE, src)
 		reset_overloaded()
 	..()
 	update_icon()
@@ -903,7 +903,7 @@
 /obj/item/gun/energy/plasma_pistol/proc/discharge() //25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
 	SIGNAL_HANDLER
 	reset_overloaded()
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 	update_icon()
 	if(prob(40))
 		visible_message("<span class='danger'>[src] vents heated plasma!</span>")

@@ -639,7 +639,7 @@
 		playsound(loc, 'sound/voice/minsult.ogg', 50, FALSE)
 
 	do_sparks(3, TRUE, src)
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)

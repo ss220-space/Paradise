@@ -735,10 +735,10 @@
 	A.fire()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
-	..()
+	. = ..()
 	//spark for no reason
 	if(prob(5))
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/handle_automated_action()
 	if(emagged && prob(25))
@@ -773,7 +773,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 ///Pugs
 

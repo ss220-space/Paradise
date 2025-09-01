@@ -960,10 +960,10 @@
 		cell.update_icon()
 		cell = null
 
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 	new /obj/effect/decal/cleanable/blood/oil(loc)
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/bot/mulebot/remove_air(amount) //To prevent riders suffocating

@@ -367,7 +367,7 @@ Difficulty: Very Hard
 /obj/projectile/colossus/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(isturf(target) || isobj(target))
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
 
 #undef RANDOM_SHOTS
 #undef BLAST

@@ -107,7 +107,7 @@ Holotool. All instruments in one object
 	if(emagged)
 		return
 	to_chat(user, span_danger("ZZT- ILLEGAL BLUEPRINT UNLOCKED- CONTACT !#$@^%$# NANOTRASEN SUPPORT-@*%$^%!"))
-	do_sparks(5, 0, src)
+	do_sparks(5, FALSE, src)
 	emagged = TRUE
 
 // holotool modes

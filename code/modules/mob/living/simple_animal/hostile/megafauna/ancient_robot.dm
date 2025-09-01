@@ -325,7 +325,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/projectile/P)
 	if(!body_shield_enabled)
 		return ..()
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 	visible_message(span_danger("Щит [declent_ru(ACCUSATIVE)] отражает [P.declent_ru(ACCUSATIVE)] с искрами!"), span_userdanger("Вы отражаете снаряд!"), projectile_message = TRUE)
 	if(P.damage)
 		disable_shield()
@@ -336,7 +336,7 @@ Difficulty: Very Hard
 		return ..()
 
 	. = ATTACK_CHAIN_BLOCKED
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 	visible_message(
 		span_danger("Щит [declent_ru(ACCUSATIVE)] отражает [I.declent_ru(ACCUSATIVE)] с искрами!"),
 		span_warning("Ваш щит отражает атаку!"),
@@ -594,8 +594,8 @@ Difficulty: Very Hard
 		if(VORTEX)
 			var/turf/T = get_turf(src)
 			for(var/atom/A in T)
-				A.ex_act(3) //Body is immune to explosions of this strength.
-			T.ex_act(3)
+				A.ex_act(EXPLODE_LIGHT) //Body is immune to explosions of this strength.
+			T.ex_act(EXPLODE_LIGHT)
 
 	if(beam && !QDELETED(beam))
 		beam.forceMove(get_turf(src))

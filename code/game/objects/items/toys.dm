@@ -297,8 +297,8 @@
 
 
 /obj/item/toy/snappop/virus/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()
-	do_sparks(3, 1, src)
+	. = ..()
+	do_sparks(3, TRUE, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"), span_warning("Вы слышите хлопок!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
@@ -324,19 +324,19 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/item/toy/snappop/proc/pop_burst(var/n=3, var/c=1)
-	do_sparks(n, c, src)
+/obj/item/toy/snappop/proc/pop_burst(number = 3, cardinal_only = TRUE)
+	do_sparks(number, cardinal_only, src)
 	new ash_type(loc)
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"), span_warning("Вы слышите хлопок!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 	qdel(src)
 
 /obj/item/toy/snappop/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
+	. = ..()
 	pop_burst()
 
 /obj/item/toy/snappop/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()
+	. = ..()
 	pop_burst()
 
 
@@ -350,7 +350,7 @@
 	var/mob/living/arrived_mob = arrived
 	if(is_silicon || arrived_mob.m_intent == MOVE_INTENT_RUN)
 		to_chat(arrived_mob, span_danger("Вы наступаете на хлопушку!"))
-		pop_burst(2, 0)
+		pop_burst(2, FALSE)
 
 
 /obj/item/toy/snappop/phoenix

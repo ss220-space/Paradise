@@ -468,7 +468,7 @@
 			amount = 0
 
 	do_sparks(3, TRUE, src)
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/bot/floorbot/OnUnarmedAttack(atom/A)

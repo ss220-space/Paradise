@@ -83,7 +83,7 @@
 )
 	. = ..()
 	if(. && amount > 0)
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 		passive_mode = FALSE
 		update_icons()
 
@@ -96,7 +96,7 @@
 
 /mob/living/simple_animal/hostile/malf_drone/proc/scramble_settings()
 	if(prob(50))
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 		passive_mode = !passive_mode
 		if(passive_mode)
 			visible_message("<span class='notice'>[src] retracts several targetting vanes.</span>")
@@ -110,7 +110,7 @@
 	adjustHealth(100 / severity) // takes the same damage as a mining drone from emp
 
 /mob/living/simple_animal/hostile/malf_drone/drop_loot()
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 	var/turf/T = get_turf(src)
 

@@ -350,7 +350,7 @@
 		user.visible_message(span_userdanger("Это хоум-ран!"))
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, rand(8, 10), 14, user)
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
 		playsound(loc, 'sound/weapons/homerun.ogg', 100, TRUE)
 		if(!homerun_always_charged)
 			homerun_ready = FALSE

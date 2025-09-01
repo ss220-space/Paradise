@@ -50,7 +50,7 @@
 		if(isliving(usr))
 			var/mob/living/L = usr
 			if(L.electrocute_act(17, "электропака в ящике"))
-				do_sparks(5, 1, src)
+				do_sparks(5, TRUE, src)
 				return 2
 
 	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
@@ -148,7 +148,7 @@
 			if(isliving(user))
 				var/mob/living/L = user
 				if(L.electrocute_act(17, "электропака в ящике"))
-					do_sparks(5, 1, src)
+					do_sparks(5, TRUE, src)
 					return
 		add_fingerprint(user)
 		toggle(user, by_hand = TRUE)
@@ -606,7 +606,7 @@
 					broken = 2
 			else // woopsy
 				to_chat(user, span_warning("Черт! Не тот провод!"))
-				do_sparks(5, 1, src)
+				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
 
@@ -622,6 +622,6 @@
 					emag_act(user)
 			else // woopsy
 				to_chat(user, span_warning("Черт! Не тот провод!"))
-				do_sparks(5, 1, src)
+				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE

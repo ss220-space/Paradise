@@ -127,7 +127,7 @@
 		location = get_atom_on_turf(src)
 	if(location)
 		explosion(location, devastation_range = boom_sizes[1], heavy_impact_range = boom_sizes[2], light_impact_range = boom_sizes[3], cause = src)
-		location.ex_act(2, target)
+		location.ex_act(EXPLODE_HEAVY, target)
 	if(istype(target, /mob))
 		var/mob/M = target
 		M.gib()

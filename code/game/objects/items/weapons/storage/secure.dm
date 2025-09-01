@@ -110,7 +110,7 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
 
 	if(istype(weapon, /obj/item/melee/energy/blade))
-		do_sparks(5, 0, loc)
+		do_sparks(5, FALSE, loc)
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE)
 		playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(user)

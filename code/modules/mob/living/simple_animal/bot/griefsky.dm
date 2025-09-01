@@ -285,7 +285,7 @@
 		new weapon(Tsec)
 	if(prob(5))
 		new weapon(Tsec)
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	qdel(src)
 
