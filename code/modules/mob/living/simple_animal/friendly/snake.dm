@@ -262,7 +262,7 @@
 //Доктор зюзя передает вам привет
 /mob/living/simple_animal/hostile/retaliate/poison/snake/riraha
 	name = "Доктор Рираха"
-	desc = "Змея оранжевой раскраски в шапочке медсестры, вокруг нее веет запах медицинской мариахуаны."
+	desc = "Оранжевая змея в шапочке медсестры, от которой исходит аромат медицинской марихуаны."
 	icon_state = "riraha"
 	icon_living = "riraha"
 	icon_dead = "riraha_dead"
