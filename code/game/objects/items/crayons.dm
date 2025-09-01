@@ -22,7 +22,8 @@
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
 	var/nutrition_value = 5
-	var/eat_message = "Вы откусываете кусочек {GENITIVE}. Вкусно!"
+	var/eat_message
+
 /obj/item/toy/crayon/get_ru_names()
 	return list(
 		NOMINATIVE = "мелок",
@@ -40,6 +41,7 @@
 /obj/item/toy/crayon/Initialize(mapload)
 	. = ..()
 	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1, 8)]")
+	eat_message = "Вы откусываете кусочек [declent_ru(GENITIVE)]. Вкусно!"
 
 /obj/item/toy/crayon/attack_self(mob/living/user as mob)
 	update_window(user)
@@ -97,16 +99,16 @@
 			temp = "letter"
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
-		to_chat(user, span_notice("You start drawing a [temp] on the [target.name]."))
+		to_chat(user, span_notice("Вы начали рисовать [temp] на [target.declent_ru("PREPOSITIONAL")]."))
 		busy = TRUE
 		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
-			to_chat(user, span_notice("You finish drawing [temp]."))
+			balloon_alert(usr, "Вы закончили рисовать [temp].")
 			if(uses)
 				uses--
 				if(!uses)
-					to_chat(user, span_danger("You used up your [name]!"))
+					balloon_alert(usr, ("[src.declent_ru(NOMINATIVE)] закончился!"))
 					qdel(src)
 		busy = FALSE
 
@@ -119,12 +121,11 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(ishuman(user) && !user.check_has_mouth())
-		to_chat(user, span_warning("Вы не имеете рта!"))
+		balloon_alert(usr, "Вы не имеете рта!")
 		return .
 
-	var/huffable = istype(src, /obj/item/toy/crayon/spraycan)
 	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
-	to_chat(user, span_notice(replacetext(eat_message, "{GENITIVE}", src.declent_ru(GENITIVE))))
+	to_chat(user, span_notice(replacetext(eat_message, "[declent_ru(GENITIVE)]", src.declent_ru(GENITIVE))))
 	if(!isvampire(user))
 		user.adjust_nutrition(nutrition_value)
 
@@ -136,7 +137,7 @@
 	uses -= 5
 	if(uses <= 0)
 		. = ATTACK_CHAIN_BLOCKED_ALL
-		to_chat(user, span_warning("[huffable ? "В баллончике больше ничего не осталось!" : "В [name] больше ничего не осталось!"]"))
+		balloon_alert(usr, "Больше ничего не осталось!")
 		qdel(src)
 
 
@@ -389,14 +390,13 @@
 
 /obj/item/toy/crayon/bloodred
 	name = "blood-red crayon"
-	desc = "Мелок, основаный на редспейс-технологии. Выглядит так, будто сделан из крови. Более питательный, чем обычный мелок."
+	desc = "Мелок, пахнущий кровью, выглядит так, будто сделан из неё."
 	icon_state = "crayonbloodred"
-	colour = COLOR_BLOOD
+	colour = COLOR_CULT_RED
 	colourName = "blood"
 	uses = 0
 	dye_color = DYE_BLOOD
 	nutrition_value = 10
-	eat_message = "Вы откусываете кроваво-красный мелок. На вкус как кровь. У вас остается металлический привкус на языке."
 
 /obj/item/toy/crayon/bloodred/get_ru_names()
 	return list(
@@ -407,6 +407,10 @@
 		INSTRUMENTAL = "кроваво-красным мелком",
 		PREPOSITIONAL = "кроваво-красном мелке"
 	)
+
+/obj/item/toy/crayon/bloodred/Initialize(mapload)
+	. = ..()
+	eat_message = "Вы откусываете кроваво-красный мелок. На вкус как кровь. У вас остается металлический привкус на языке."
 
 /obj/item/toy/crayon/bloodred/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -419,14 +423,14 @@
 			temp = "letter"
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
-		to_chat(user, span_notice("Вы начинаете рисовать [temp] кровью на [target.declent_ru("PREPOSITIONAL")]."))
+		to_chat(user, span_notice("Вы начинаете рисовать [temp] на [target.declent_ru("PREPOSITIONAL")]."))
 		busy = TRUE
 		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target, colour, drawtype, temp)
 			C.add_hiddenprint(user)
 			C.blood_graffiti = TRUE
 			C.update_desc()
-			to_chat(user, span_notice("Вы закончили рисовать [temp] кровью."))
+			balloon_alert(usr, "Вы закончили рисовать [temp].")
 		busy = FALSE
 
 
@@ -444,7 +448,6 @@
 					"White Flame" = "welding_white")
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
-	eat_message = "Вы делаете затяжку от {GENITIVE}. Вкусно!"
 
 /obj/item/toy/crayon/spraycan/get_ru_names()
 	return list(
@@ -458,13 +461,14 @@
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
+	eat_message = "Вы делаете затяжку от [declent_ru(GENITIVE)]. Вкусно!"
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
 	var/choice = tgui_input_list(user, "Spraycan options", , list("Toggle Cap", "Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, span_notice("You [capped ? "Remove" : "Replace"] the cap of the [src]"))
+			balloon_alert(usr, "Вы [capped ? "сняли" : "вернули"] колпачок [src.declent_ru(GENITIVE)]")
 			capped = !capped
 			update_icon()
 		if("Change Drawing")
@@ -486,7 +490,7 @@
 			if(uses-10 > 0)
 				uses = uses - 10
 				var/mob/living/carbon/human/C = target
-				user.visible_message(span_danger(" [user] sprays [src] into the face of [target]!"))
+				user.visible_message(span_danger(" [user] распыляет краску на лицо [target] [src.declent_ru(INSTRUMENTAL)]!"))
 				if(C.client)
 					C.EyeBlurry(6 SECONDS)
 					C.EyeBlind(2 SECONDS)

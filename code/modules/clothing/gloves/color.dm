@@ -393,7 +393,7 @@
 
 /obj/item/clothing/gloves/color/bloodred
 	name = "bloodred gloves"
-	desc = "Перчатки кроваво-красного цвета, абсолютно ничем не подозрительны."
+	desc = "Абсолютно ничем не подозрительные перчатки."
 	icon_state = "bloodred"
 	item_state = "bloodredgloves"
 	item_color = "blood"
