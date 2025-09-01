@@ -2,61 +2,18 @@
 "a" = (
 /turf/space,
 /area/space)
-"b" = (
-/obj/mecha/combat/durand/rover/loaded,
-/turf/simulated/floor/plating,
-/area/admin)
 "d" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/camera/autoname,
-/obj/item/mecha_parts/mecha_equipment/wormhole_generator,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "f" = (
 /turf/simulated/wall/r_wall,
 /area/admin)
-"h" = (
-/obj/mecha/combat/lockersyndie/loaded,
-/turf/simulated/floor/plating,
-/area/admin)
 "i" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"j" = (
-/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster,
-/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster,
-/obj/item/mecha_parts/mecha_equipment/cable_layer,
-/obj/item/mecha_parts/mecha_equipment/cage,
-/obj/item/mecha_parts/mecha_equipment/cargo_upgrade,
-/obj/item/mecha_parts/mecha_equipment/drill,
-/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill,
-/obj/item/mecha_parts/mecha_equipment/drill/giga,
-/obj/item/mecha_parts/mecha_equipment/drill/makeshift,
-/obj/item/mecha_parts/mecha_equipment/eng_toolset,
-/obj/item/mecha_parts/mecha_equipment/extinguisher,
-/obj/item/mecha_parts/mecha_equipment/generator,
-/obj/item/mecha_parts/mecha_equipment/generator/nuclear,
-/obj/item/mecha_parts/mecha_equipment/gravcatapult,
-/obj/item/mecha_parts/mecha_equipment/holowall,
-/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp,
-/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system,
-/obj/item/mecha_parts/mecha_equipment/medical/beamgun,
-/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw,
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper,
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun,
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade,
-/obj/item/mecha_parts/mecha_equipment/mimercd,
-/obj/item/mecha_parts/mecha_equipment/mining_scanner,
-/obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module,
-/obj/item/mecha_parts/mecha_equipment/rcd,
-/obj/item/mecha_parts/mecha_equipment/repair_droid,
-/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator,
-/obj/item/mecha_parts/mecha_equipment/teleporter,
-/obj/item/mecha_parts/mecha_equipment/teleporter/precise,
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "k" = (
@@ -69,34 +26,8 @@
 	},
 /turf/simulated/floor/plating,
 /area/admin)
-"m" = (
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/projectiles,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/riot,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndi,
-/turf/simulated/floor/plasteel,
-/area/admin)
 "n" = (
 /turf/simulated/floor/plasteel,
-/area/admin)
-"o" = (
-/obj/mecha/combat/honker/loaded,
-/turf/simulated/floor/plating,
 /area/admin)
 "q" = (
 /obj/effect/turf_decal/stripes/line{
@@ -111,27 +42,11 @@
 /obj/effect/landmark/join_late_cyborg,
 /turf/simulated/floor/plasteel,
 /area/admin)
-"y" = (
-/obj/mecha/working/clarke,
-/turf/simulated/floor/plating,
-/area/admin)
-"B" = (
-/obj/mecha/combat/gygax/ert/loaded,
-/turf/simulated/floor/plating,
-/area/admin)
-"D" = (
-/obj/mecha/combat/durand/loaded,
-/turf/simulated/floor/plating,
-/area/admin)
 "G" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel,
-/area/admin)
-"H" = (
-/obj/mecha/medical/odysseus/full_load,
-/turf/simulated/floor/plating,
 /area/admin)
 "I" = (
 /obj/effect/turf_decal/stripes/line{
@@ -157,22 +72,8 @@
 	},
 /turf/simulated/floor/plating,
 /area/admin)
-"P" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/mecha/combat/marauder/loaded,
-/turf/simulated/floor/plating,
-/area/admin)
 "Q" = (
 /turf/simulated/floor/plating,
-/area/admin)
-"R" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/mecha/working/ripley/full_load,
-/turf/simulated/floor/plasteel,
 /area/admin)
 "S" = (
 /obj/effect/turf_decal/stripes/line{
@@ -180,19 +81,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"V" = (
-/obj/mecha/combat/gygax/loaded,
-/turf/simulated/floor/plating,
-/area/admin)
 "W" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/admin)
-"X" = (
-/obj/mecha/combat/gygax/dark/loaded,
-/turf/simulated/floor/plating,
 /area/admin)
 "Y" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2405,7 +2298,7 @@ a
 a
 a
 f
-m
+n
 n
 Z
 Q
@@ -2471,7 +2364,7 @@ a
 a
 a
 f
-j
+n
 n
 Z
 Q
@@ -2736,7 +2629,7 @@ a
 a
 f
 q
-R
+q
 G
 Q
 I
@@ -2802,7 +2695,7 @@ a
 a
 f
 Q
-y
+Q
 Q
 Q
 Q
@@ -2869,15 +2762,15 @@ a
 f
 Q
 O
-H
-h
-D
-b
-X
-B
-V
-o
-P
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+O
 Q
 f
 a
