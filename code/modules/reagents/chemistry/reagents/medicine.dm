@@ -310,6 +310,10 @@
 	if(prob(5))
 		var/datum/disease/critical/heart_failure/disease = new
 		disease.Contract(living)
+	if(ishuman(living))
+		var/mob/living/carbon/human/human = living
+		if(prob(5) && !human.undergoing_cardiac_arrest())
+			human.set_heartattack(TRUE)
 	return list(0, update_flags)
 
 
