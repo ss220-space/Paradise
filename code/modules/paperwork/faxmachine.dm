@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 		usr.drop_transfer_item_to_loc(I, src)
 		copyitem = I
-		playsound(loc, 'sound/machines/fax_send.ogg', 50, 0)
+		playsound(loc, 'sound/machines/fax_send.ogg', 50, FALSE)
 		to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		flick(insert_anim, src)
 		SStgui.update_uis(src)
@@ -221,7 +221,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 					usr.drop_transfer_item_to_loc(I, src)
 					copyitem = I
-					playsound(loc, 'sound/machines/fax_send.ogg', 50, 0)
+					playsound(loc, 'sound/machines/fax_send.ogg', 50, FALSE)
 					to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 					flick(insert_anim, src)
 				else

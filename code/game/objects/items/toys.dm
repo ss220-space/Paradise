@@ -1117,7 +1117,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/voice/scream_moth.ogg', 10, 0)
+	playsound(src, 'sound/voice/scream_moth.ogg', 10, FALSE)
 	user.visible_message("[bicon(src)] [span_danger("Buzzzz!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1199,7 +1199,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/items/goatsound.ogg', 10, 0)
+	playsound(src, 'sound/items/goatsound.ogg', 10, FALSE)
 	user.visible_message("[bicon(src)] [span_danger("Baaaaah!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1231,7 +1231,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/weapons/bite.ogg', 10, 0)
+	playsound(src, 'sound/weapons/bite.ogg', 10, FALSE)
 	visible_message(span_danger("...!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1277,7 +1277,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/items/axolotl.ogg', 20, 0)
+	playsound(src, 'sound/items/axolotl.ogg', 20, FALSE)
 	user.visible_message("[bicon(src)] [span_danger("Squeeek!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1350,7 +1350,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/effects/extinguish.ogg', 20, 0)
+	playsound(src, 'sound/effects/extinguish.ogg', 20, FALSE)
 	user.visible_message("[bicon(src)] [span_danger("Плазззма Вечна!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1374,7 +1374,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/items/Help.ogg', 10, 0)
+	playsound(src, 'sound/items/Help.ogg', 10, FALSE)
 	user.visible_message("[bicon(src)] [span_danger("Бежиииииим!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)

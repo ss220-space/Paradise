@@ -185,7 +185,7 @@
 					return
 				if(attempt_code != access_code)
 					to_chat(user, "[bicon(src)]<span class='notice'> Incorrect code entered.</span>")
-					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 0)
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, FALSE)
 					return
 			var/trycode = tgui_input_number(user, "Enter a new access code for this device:", "Enter new EFTPOS code", max_value = 999999, min_value = 1000)
 			if(!Adjacent(user) || !isnull(trycode))
@@ -208,10 +208,10 @@
 				if(!Adjacent(user) || !attempt_pin)
 					return
 				linked_account = attempt_account_access(attempt_account_num, attempt_pin, 2)
-				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
+				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, FALSE)
 			else
 				to_chat(user, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support.</span>")
-				playsound(src, 'sound/machines/terminal_alert.ogg', 30, 0)
+				playsound(src, 'sound/machines/terminal_alert.ogg', 30, FALSE)
 		if("trans_purpose")
 			if (duty_mode)
 				to_chat(user, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
@@ -221,7 +221,7 @@
 			if(!Adjacent(user) || isnull(purpose))
 				return
 			transaction_purpose = purpose
-			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
+			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, FALSE)
 		if("trans_value")
 			var/try_num = tgui_input_number(user, "Enter amount for EFTPOS transaction", "Transaction amount", transaction_amount)
 			if(!Adjacent(user) || isnull(try_num))
@@ -234,7 +234,7 @@
 				if((ACCESS_CENT_COMMANDER in access) || (ACCESS_CAPTAIN in access) || (ACCESS_HOP in access) || !access_code)
 					transaction_locked = 0
 					transaction_paid = 0
-					playsound(src, 'sound/machines/terminal_prompt.ogg', 30, 0)
+					playsound(src, 'sound/machines/terminal_prompt.ogg', 30, FALSE)
 					return
 				//exit with access code verification
 				var/attempt_code = tgui_input_number(user, "Enter EFTPOS access code", "Reset Transaction", max_value = 9999, min_value = 1000)
@@ -242,11 +242,11 @@
 					return
 				if(attempt_code != access_code)
 					to_chat(user, "[bicon(src)]<span class='notice'> That is not a valid code!</span>")
-					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 0)
+					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, FALSE)
 					return
 				transaction_locked = 0
 				transaction_paid = 0
-				playsound(src, 'sound/machines/terminal_prompt.ogg', 30, 0)
+				playsound(src, 'sound/machines/terminal_prompt.ogg', 30, FALSE)
 				return
 			if(transaction_locked && transaction_paid)
 				//completion of payment with receipt printing
@@ -257,10 +257,10 @@
 			if(linked_account && !transaction_locked)
 				//switches EFTPOS to payment mode if the recipient account is entered
 				transaction_locked = 1
-				playsound(src, 'sound/machines/terminal_prompt.ogg', 30, 0)
+				playsound(src, 'sound/machines/terminal_prompt.ogg', 30, FALSE)
 			else
 				to_chat(user, "[bicon(src)]<span class='warning'> Client Error #401 No Account Linked To Device.</span>")
-				playsound(src, 'sound/machines/terminal_alert.ogg', 30, 0)
+				playsound(src, 'sound/machines/terminal_alert.ogg', 30, FALSE)
 		if("scan_card")
 			var/obj/item/active_hand = user.get_active_hand()
 			var/obj/item/card/id/id_card = active_hand?.GetID()
@@ -273,7 +273,7 @@
 			if((ACCESS_CENT_COMMANDER in access)  || (ACCESS_CAPTAIN in access) || (ACCESS_HOP in access))
 				access_code = 0
 				to_chat(user, "[bicon(src)]<span class='notice'> Access code reset to 0.</span>")
-				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
+				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, FALSE)
 			else
 				to_chat(user, "[bicon(src)]<span class='warning'> Not allowed ID access.</span>")
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)

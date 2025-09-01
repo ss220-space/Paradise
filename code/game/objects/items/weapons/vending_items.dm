@@ -307,7 +307,7 @@
 			balloon_alert(user, "значение должно быть меньше 3")
 
 	if (correct)
-		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, FALSE)
 	else
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 

@@ -60,7 +60,7 @@
 				span_warning("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] к небу, и оранжевый луч устремляется ввысь!"),
 				span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)] к небу, рассеивая бурю!")
 			)
-			playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
+			playsound(user, 'sound/magic/staff_change.ogg', 200, FALSE)
 			A.wind_down()
 			var/old_color = user.color
 			user.color = list(340/255, 240/255, 0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)

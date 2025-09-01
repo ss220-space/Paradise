@@ -275,7 +275,7 @@
 	else
 		if(do_after(src, 2 SECONDS, G, max_interact_count = 1))
 			visible_message("[capitalize(src.declent_ru(NOMINATIVE))] жадно поглощает [G.declent_ru(ACCUSATIVE)].","Вы жадно пожираете [G.declent_ru(ACCUSATIVE)].")
-			playsound(loc, 'sound/items/eatfood.ogg', 30, 0, frequency = 1.5)
+			playsound(loc, 'sound/items/eatfood.ogg', 30, FALSE, frequency = 1.5)
 			if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)
 				adjust_nutrition(2)
 			else
