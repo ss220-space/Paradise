@@ -98,7 +98,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 			new /obj/effect/gibspawner/clock(tile)
 		playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
 		GLOB.heart = null
-	if(SSticker.mode.clocker_objs.clock_status != RATVAR_NEEDS_SUMMONING)
+	if(SSticker.mode.clocker_objs.clock_status != RATVAR_NEEDS_SUMMONING && SSticker.mode.clocker_objs.clock_status != RATVAR_HAS_RISEN)
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
 				to_chat(clock_mind.current, span_clocklarge("Сердце уничтожено!"))
