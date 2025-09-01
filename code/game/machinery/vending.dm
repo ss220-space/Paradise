@@ -1302,7 +1302,7 @@
 	animate(src, transform = to_turn, 0.2 SECONDS)
 
 /obj/machinery/vending/assist
-	name = "\improper Assistomate"
+	name = "assistomate"
 	desc = "Торговый автомат, предлагающий ассортимент различных деталей и компонентов."
 	ru_names = list(
 		NOMINATIVE = "торговый автомат Assistomate",
