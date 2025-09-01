@@ -312,5 +312,3 @@
 	. = ..()
 	if(blood_graffiti)
 		desc = "Странные символы, нарисованные, похоже, кровью."
-	else
-		desc = initial(desc)
