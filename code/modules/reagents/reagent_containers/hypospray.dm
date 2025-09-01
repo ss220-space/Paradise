@@ -377,7 +377,7 @@
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = DRAWABLE
 	flags = null
-	list_reagents = list("epinephrine" = 10)
+	list_reagents = list("epinephrine" = 10, "traneksam_acid" = 5)
 	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
 	/// Currently selected skin

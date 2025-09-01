@@ -160,13 +160,19 @@
 	if(prev_bleed_rate > 0 && bleed_rate <= 0)
 		clear_alert(ALERT_BLEEDING)
 	// calculate addition bleeding from reagents
-	var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //heparin worsens existing bleeding
+	var/additional_bleed_mod = 1
+	var/heparin_amount = reagents.get_reagent_amount("heparin")
+	if(heparin_amount > 0)
+		additional_bleed_mod += round(clamp((heparin_amount / 20), 0, 1) * 0.75, 0.05) //heparin worsens existing bleeding
+	var/traneksam_amount = reagents.get_reagent_amount("traneksam_acid")
+	if(traneksam_amount > 0)
+		additional_bleed_mod -= round(clamp((traneksam_amount / 10), 0, 1) * 0.75, 0.05) //traneksam acid suppress existing bleeding
 	// apply internal bleeding
 	if(internal_bleeding_rate)
-		bleed_internal(internal_bleeding_rate + additional_bleed)
+		bleed_internal(internal_bleeding_rate * additional_bleed_mod)
 	// apply bleeding
 	if(bleed_rate && !bleedsuppress)
-		bleed(bleed_rate + additional_bleed)
+		bleed(bleed_rate * additional_bleed_mod)
 
 
 /// Makes a blood drop, leaking amt units of blood from the mob
