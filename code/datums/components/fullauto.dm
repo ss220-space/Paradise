@@ -2,6 +2,7 @@
 #define AUTOFIRE_MOUSEDOWN 1
 
 /datum/component/automatic_fire
+	var/enable = TRUE
 	var/client/clicker
 	var/mob/living/shooter
 	var/atom/target
@@ -56,6 +57,8 @@
 
 
 /datum/component/automatic_fire/process(seconds_per_tick)
+	if(!enable)
+		return
 	if(autofire_stat != AUTOFIRE_STAT_FIRING)
 		STOP_PROCESSING(SSprojectiles, src)
 		return
@@ -126,6 +129,9 @@
 
 /datum/component/automatic_fire/proc/on_mouse_down(client/source, atom/_target, turf/location, control, params)
 	SIGNAL_HANDLER
+
+	if(!enable)
+		return
 
 	var/list/modifiers = params2list(params) //If they're shift+clicking, for example, let's not have them accidentally shoot.
 
@@ -204,6 +210,9 @@
 /datum/component/automatic_fire/proc/on_mouse_up(datum/source, atom/object, turf/location, control, params)
 	SIGNAL_HANDLER
 
+	if(!enable)
+		return
+
 	UnregisterSignal(clicker, COMSIG_CLIENT_MOUSEUP)
 	mouse_status = AUTOFIRE_MOUSEUP
 	if(autofire_stat == AUTOFIRE_STAT_FIRING)
@@ -232,6 +241,9 @@
 
 /datum/component/automatic_fire/proc/on_mouse_drag(client/source, atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
 	SIGNAL_HANDLER
+
+	if(!enable)
+		return
 
 	if(isnull(over_location)) //This happens when the mouse is over an inventory or screen object, or on entering deep darkness, for example.
 		var/list/modifiers = params2list(params)

@@ -1,3 +1,7 @@
+#define GPA_SINGLE_MODE 0
+#define GPA_BURST_MODE 1
+#define GPA_AUTO_MODE 2
+
 /obj/item/gun/projectile/automatic
 	w_class = WEIGHT_CLASS_NORMAL
 	var/alarmed = FALSE
@@ -46,21 +50,36 @@
 
 /obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_firemode))
-		burst_select()
+		toggle_firemode()
 		return TRUE
 	. = ..()
 
-/obj/item/gun/projectile/automatic/proc/burst_select()
+/obj/item/gun/projectile/automatic/proc/toggle_firemode()
 	var/mob/living/carbon/human/user = usr
-	select = !select
-	if(!select)
-		burst_size = 1
-		fire_delay = 0
-		balloon_alert(user, "полуавтомат")
-	else
-		burst_size = initial(burst_size)
-		fire_delay = initial(fire_delay)
-		balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
+	var/datum/component/automatic_fire/full_auto_mode = GetComponent(/datum/component/automatic_fire)
+	var/available_modes = GPA_BURST_MODE + 1
+	if(full_auto_mode)
+		available_modes = GPA_AUTO_MODE + 1
+	select = (select + 1) % available_modes
+	switch(select)
+		if(GPA_SINGLE_MODE)
+			burst_size = 1
+			fire_delay = 0
+			balloon_alert(user, "полуавтомат")
+			if(full_auto_mode)
+				full_auto_mode.enable = FALSE
+		if(GPA_BURST_MODE)
+			burst_size = initial(burst_size) == 1 ? 2 : initial(burst_size)
+			fire_delay = initial(fire_delay)
+			balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
+			if(full_auto_mode)
+				full_auto_mode.enable = FALSE
+		if(GPA_AUTO_MODE)
+			burst_size = initial(burst_size)
+			fire_delay = initial(fire_delay)
+			balloon_alert(user, "автоматический")
+			if(full_auto_mode)
+				full_auto_mode.enable = TRUE
 
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
@@ -152,7 +171,6 @@
 	bayonet_x_offset = 25
 	bayonet_y_offset = 12
 	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
-	actions_types = null
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 1),
@@ -305,7 +323,7 @@ TODO Use this name and desc for localisation*/
 			.  += "[initial(icon_state)]burst"
 
 
-/obj/item/gun/projectile/automatic/m90/burst_select()
+/obj/item/gun/projectile/automatic/m90/toggle_firemode()
 	var/mob/living/carbon/human/user = usr
 	switch(select)
 		if(0)
