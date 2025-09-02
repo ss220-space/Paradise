@@ -1818,7 +1818,7 @@
 	subcategory = CAT_MISC2
 
 /datum/crafting_recipe/advanced_trauma_kit
-	name = "Продвинутый набор для лечения мех. травм"
+	name = "Набор для лечения мех. травм"
 	result = /obj/item/stack/medical/bruise_pack/advanced
 	time = 3 SECONDS
 	reqs = list(/obj/item/stack/sheet/cloth = 2,
@@ -1827,7 +1827,7 @@
 
 
 /datum/crafting_recipe/advanced_burn_kit
-	name = "Продвинутый набор для лечения терм. повреждений"
+	name = "Набор для лечения терм. повреждений"
 	result = /obj/item/stack/medical/ointment/advanced
 	time = 3 SECONDS
 	reqs = list(/obj/item/stack/sheet/cloth = 2,
