@@ -9,14 +9,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
 	desc = "Небольшая машинка для работы с факсами. Не смотря на свой размер, обладает большой силой."
-	ru_names = list(
-		NOMINATIVE = "факс",
-		GENITIVE = "факса",
-		DATIVE = "факсу",
-		ACCUSATIVE = "факс",
-		INSTRUMENTAL = "факсом",
-		PREPOSITIONAL = "факсе"
-	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
@@ -51,6 +43,16 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	/// Target department to send outgoing faxes to
 	var/destination
+
+/obj/machinery/photocopier/faxmachine/get_ru_names()
+	return list(
+		NOMINATIVE = "факс",
+		GENITIVE = "факса",
+		DATIVE = "факсу",
+		ACCUSATIVE = "факс",
+		INSTRUMENTAL = "факсом",
+		PREPOSITIONAL = "факсе"
+	)
 
 /obj/machinery/photocopier/faxmachine/New()
 	..()

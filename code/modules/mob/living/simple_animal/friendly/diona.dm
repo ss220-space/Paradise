@@ -5,14 +5,6 @@
 //Mob defines.
 /mob/living/simple_animal/diona
 	name = "diona nymph"
-	ru_names = list(
-		NOMINATIVE = "нимфа дионы",
-		GENITIVE = "нимфы дионы",
-		DATIVE = "нимфе дионы",
-		ACCUSATIVE = "нимфу дионы",
-		INSTRUMENTAL = "нимфой дионы",
-		PREPOSITIONAL = "нимфе дионы"
-	)
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = "nymph"
 	icon_living = "nymph"
@@ -60,6 +52,16 @@
 	var/datum/action/innate/diona/merge/merge_action = new()
 	var/datum/action/innate/diona/evolve/evolve_action = new()
 	var/datum/action/innate/diona/steal_blood/steal_blood_action = new()
+
+/mob/living/simple_animal/diona/get_ru_names()
+	return list(
+		NOMINATIVE = "нимфа дионы",
+		GENITIVE = "нимфы дионы",
+		DATIVE = "нимфе дионы",
+		ACCUSATIVE = "нимфу дионы",
+		INSTRUMENTAL = "нимфой дионы",
+		PREPOSITIONAL = "нимфе дионы"
+	)
 
 /mob/living/simple_animal/diona/ComponentInitialize()
 	AddComponent( \

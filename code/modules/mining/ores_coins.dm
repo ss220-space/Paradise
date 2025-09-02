@@ -7,14 +7,6 @@
 
 /obj/item/stack/ore
 	name = "rock"
-	ru_names = list(
-		NOMINATIVE = "камень",
-		GENITIVE = "камня",
-		DATIVE = "камню",
-		ACCUSATIVE = "камень",
-		INSTRUMENTAL = "камнем",
-		PREPOSITIONAL = "камне"
-	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "ore"
 	max_amount = 50
@@ -23,6 +15,16 @@
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 	var/list/stack_overlays
+
+/obj/item/stack/ore/get_ru_names()
+	return list(
+		NOMINATIVE = "камень",
+		GENITIVE = "камня",
+		DATIVE = "камню",
+		ACCUSATIVE = "камень",
+		INSTRUMENTAL = "камнем",
+		PREPOSITIONAL = "камне"
+	)
 
 
 /obj/item/stack/ore/update_overlays()
@@ -106,14 +108,6 @@
 
 /obj/item/stack/ore/uranium
 	name = "uranium ore"
-	ru_names = list(
-		NOMINATIVE = "урановая руда",
-		GENITIVE = "урановой руды",
-		DATIVE = "урановой руде",
-		ACCUSATIVE = "урановую руду",
-		INSTRUMENTAL = "урановой рудой",
-		PREPOSITIONAL = "урановой руде"
-	)
 	icon_state = "Uranium ore"
 	origin_tech = "materials=5"
 	singular_name = "uranium ore chunk"
@@ -121,16 +115,18 @@
 	refined_type = /obj/item/stack/sheet/mineral/uranium
 	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/uranium/get_ru_names()
+	return list(
+		NOMINATIVE = "урановая руда",
+		GENITIVE = "урановой руды",
+		DATIVE = "урановой руде",
+		ACCUSATIVE = "урановую руду",
+		INSTRUMENTAL = "урановой рудой",
+		PREPOSITIONAL = "урановой руде"
+	)
+
 /obj/item/stack/ore/iron
 	name = "iron ore"
-	ru_names = list(
-		NOMINATIVE = "железная руда",
-		GENITIVE = "железной руды",
-		DATIVE = "железной руде",
-		ACCUSATIVE = "железную руду",
-		INSTRUMENTAL = "железной рудой",
-		PREPOSITIONAL = "железной руде"
-	)
 	icon_state = "Iron ore"
 	origin_tech = "materials=1"
 	singular_name = "iron ore chunk"
@@ -138,9 +134,27 @@
 	refined_type = /obj/item/stack/sheet/metal
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/iron/get_ru_names()
+	return list(
+		NOMINATIVE = "железная руда",
+		GENITIVE = "железной руды",
+		DATIVE = "железной руде",
+		ACCUSATIVE = "железную руду",
+		INSTRUMENTAL = "железной рудой",
+		PREPOSITIONAL = "железной руде"
+	)
+
 /obj/item/stack/ore/glass
 	name = "sand pile"
-	ru_names = list(
+	icon_state = "Glass ore"
+	origin_tech = "materials=1"
+	singular_name = "sand pile"
+	points = 1
+	refined_type = /obj/item/stack/sheet/glass
+	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
+
+/obj/item/stack/ore/glass/get_ru_names()
+	return list(
 		NOMINATIVE = "песок",
 		GENITIVE = "песка",
 		DATIVE = "песку",
@@ -148,12 +162,6 @@
 		INSTRUMENTAL = "песком",
 		PREPOSITIONAL = "песке"
 	)
-	icon_state = "Glass ore"
-	origin_tech = "materials=1"
-	singular_name = "sand pile"
-	points = 1
-	refined_type = /obj/item/stack/sheet/glass
-	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
 		new /datum/stack_recipe("sandstone", /obj/item/stack/sheet/mineral/sandstone, 1, 1, 50), \
@@ -196,7 +204,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
 	desc = "Можно нанести на балку, чтобы создать ложную каменную стену"
-	ru_names = list(
+
+/obj/item/stack/ore/glass/basalt/get_ru_names()
+	return list(
 		NOMINATIVE = "вулканический пепел",
 		GENITIVE = "вулканического пепла",
 		DATIVE = "вулканическому пеплу",
@@ -207,7 +217,12 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/glass/basalt/ancient
 	name = "ancient sand"
-	ru_names = list(
+	icon_state = "volcanic_sand"
+	item_state = "volcanic_sand"
+	singular_name = "ancient sand pile"
+
+/obj/item/stack/ore/glass/basalt/ancient/get_ru_names()
+	return list(
 		NOMINATIVE = "древний песок",
 		GENITIVE = "древнего песка",
 		DATIVE = "древнему песку",
@@ -215,20 +230,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		INSTRUMENTAL = "древним песком",
 		PREPOSITIONAL = "древнем песке"
 	)
-	icon_state = "volcanic_sand"
-	item_state = "volcanic_sand"
-	singular_name = "ancient sand pile"
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
-	ru_names = list(
-		NOMINATIVE = "плазменная руда",
-		GENITIVE = "плазменной руды",
-		DATIVE = "плазменной руде",
-		ACCUSATIVE = "плазменную руду",
-		INSTRUMENTAL = "плазменной рудой",
-		PREPOSITIONAL = "плазменной руде"
-	)
 	icon_state = "Plasma ore"
 	origin_tech = "plasmatech=2;materials=2"
 	singular_name = "plasma ore chunk"
@@ -236,16 +240,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/plasma
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/plasma/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменная руда",
+		GENITIVE = "плазменной руды",
+		DATIVE = "плазменной руде",
+		ACCUSATIVE = "плазменную руду",
+		INSTRUMENTAL = "плазменной рудой",
+		PREPOSITIONAL = "плазменной руде"
+	)
+
 /obj/item/stack/ore/silver
 	name = "silver ore"
-	ru_names = list(
-		NOMINATIVE = "серебряная руда",
-		GENITIVE = "серебряной руды",
-		DATIVE = "серебряной руде",
-		ACCUSATIVE = "серебряную руду",
-		INSTRUMENTAL = "серебряной рудой",
-		PREPOSITIONAL = "серебряной руде"
-	)
 	icon_state = "Silver ore"
 	origin_tech = "materials=3"
 	singular_name = "silver ore chunk"
@@ -253,16 +259,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/silver/get_ru_names()
+	return list(
+		NOMINATIVE = "серебряная руда",
+		GENITIVE = "серебряной руды",
+		DATIVE = "серебряной руде",
+		ACCUSATIVE = "серебряную руду",
+		INSTRUMENTAL = "серебряной рудой",
+		PREPOSITIONAL = "серебряной руде"
+	)
+
 /obj/item/stack/ore/gold
 	name = "gold ore"
-	ru_names = list(
-		NOMINATIVE = "золотая руда",
-		GENITIVE = "золотой руды",
-		DATIVE = "золотой руде",
-		ACCUSATIVE = "золотую руду",
-		INSTRUMENTAL = "золотой рудой",
-		PREPOSITIONAL = "золотой руде"
-	)
 	icon_state = "Gold ore"
 	origin_tech = "materials=4"
 	singular_name = "gold ore chunk"
@@ -270,16 +278,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/gold
 	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/gold/get_ru_names()
+	return list(
+		NOMINATIVE = "золотая руда",
+		GENITIVE = "золотой руды",
+		DATIVE = "золотой руде",
+		ACCUSATIVE = "золотую руду",
+		INSTRUMENTAL = "золотой рудой",
+		PREPOSITIONAL = "золотой руде"
+	)
+
 /obj/item/stack/ore/diamond
 	name = "diamond ore"
-	ru_names = list(
-		NOMINATIVE = "алмазная руда",
-		GENITIVE = "алмазной руды",
-		DATIVE = "алмазной руде",
-		ACCUSATIVE = "алмазную руду",
-		INSTRUMENTAL = "алмазной рудой",
-		PREPOSITIONAL = "алмазной руде"
-	)
 	icon_state = "Diamond ore"
 	origin_tech = "materials=6"
 	singular_name = "diamond ore chunk"
@@ -287,16 +297,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/diamond
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/diamond/get_ru_names()
+	return list(
+		NOMINATIVE = "алмазная руда",
+		GENITIVE = "алмазной руды",
+		DATIVE = "алмазной руде",
+		ACCUSATIVE = "алмазную руду",
+		INSTRUMENTAL = "алмазной рудой",
+		PREPOSITIONAL = "алмазной руде"
+	)
+
 /obj/item/stack/ore/bananium
 	name = "bananium ore"
-	ru_names = list(
-		NOMINATIVE = "бананиумная руда",
-		GENITIVE = "бананиумной руды",
-		DATIVE = "бананиумной руде",
-		ACCUSATIVE = "бананиумную руду",
-		INSTRUMENTAL = "бананиумной рудой",
-		PREPOSITIONAL = "бананиумной руде"
-	)
 	icon_state = "Clown ore"
 	origin_tech = "materials=4"
 	singular_name = "bananium ore chunk"
@@ -304,16 +316,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/bananium
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/bananium/get_ru_names()
+	return list(
+		NOMINATIVE = "бананиумная руда",
+		GENITIVE = "бананиумной руды",
+		DATIVE = "бананиумной руде",
+		ACCUSATIVE = "бананиумную руду",
+		INSTRUMENTAL = "бананиумной рудой",
+		PREPOSITIONAL = "бананиумной руде"
+	)
+
 /obj/item/stack/ore/tranquillite
 	name = "tranquillite ore"
-	ru_names = list(
-		NOMINATIVE = "транквиллитовая руда",
-		GENITIVE = "транквиллитовой руды",
-		DATIVE = "транквиллитовой руде",
-		ACCUSATIVE = "транквиллитовую руду",
-		INSTRUMENTAL = "транквиллитовой рудой",
-		PREPOSITIONAL = "транквиллитовой руде"
-	)
 	icon_state = "Mime ore"
 	origin_tech = "materials=4"
 	singular_name = "transquillite ore chunk"
@@ -321,9 +335,26 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/tranquillite
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/stack/ore/tranquillite/get_ru_names()
+	return list(
+		NOMINATIVE = "транквиллитовая руда",
+		GENITIVE = "транквиллитовой руды",
+		DATIVE = "транквиллитовой руде",
+		ACCUSATIVE = "транквиллитовую руду",
+		INSTRUMENTAL = "транквиллитовой рудой",
+		PREPOSITIONAL = "транквиллитовой руде"
+	)
+
 /obj/item/stack/ore/titanium
 	name = "titanium ore"
-	ru_names = list(
+	icon_state = "Titanium ore"
+	singular_name = "titanium ore chunk"
+	points = 50
+	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
+	refined_type = /obj/item/stack/sheet/mineral/titanium
+
+/obj/item/stack/ore/titanium/get_ru_names()
+	return list(
 		NOMINATIVE = "титановая руда",
 		GENITIVE = "титановой руды",
 		DATIVE = "титановой руде",
@@ -331,16 +362,15 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		INSTRUMENTAL = "титановой рудой",
 		PREPOSITIONAL = "титановой руде"
 	)
-	icon_state = "Titanium ore"
-	singular_name = "titanium ore chunk"
-	points = 50
-	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
-	refined_type = /obj/item/stack/sheet/mineral/titanium
 
 /obj/item/stack/ore/slag
 	name = "slag"
 	desc = "Совершенно бесполезный."
-	ru_names = list(
+	icon_state = "slag"
+	singular_name = "slag chunk"
+
+/obj/item/stack/ore/slag/get_ru_names()
+	return list(
 		NOMINATIVE = "шлак",
 		GENITIVE = "шлака",
 		DATIVE = "шлаку",
@@ -348,20 +378,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		INSTRUMENTAL = "шлаком",
 		PREPOSITIONAL = "шлаке"
 	)
-	icon_state = "slag"
-	singular_name = "slag chunk"
 
 /obj/item/twohanded/required/gibtonite
 	name = "gibtonite ore"
 	desc = "Чрезвычайно взрывоопасна при ударе шахтёрским оборудованием. Шахтёры используют гибтонит как взрывчатку для ускорения работ. Хранение запрещено космическим законодательством для неуполномоченного персонала."
-	ru_names = list(
-		NOMINATIVE = "гибтонит",
-		GENITIVE = "гибтонита",
-		DATIVE = "гибтониту",
-		ACCUSATIVE = "гибтонит",
-		INSTRUMENTAL = "гибтонитом",
-		PREPOSITIONAL = "гибтоните"
-	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Gibtonite ore"
 	item_state = "gibtonite"
@@ -372,6 +392,16 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/quality = GIBTONITE_QUALITY_LOW //How pure this gibtonite is, determines the explosion produced by it and is derived from the det_time of the rock wall it was taken from, higher value = better
 	var/attacher = "UNKNOWN"
 	var/datum/wires/explosive/gibtonite/wires
+
+/obj/item/twohanded/required/gibtonite/get_ru_names()
+	return list(
+		NOMINATIVE = "гибтонит",
+		GENITIVE = "гибтонита",
+		DATIVE = "гибтониту",
+		ACCUSATIVE = "гибтонит",
+		INSTRUMENTAL = "гибтонитом",
+		PREPOSITIONAL = "гибтоните"
+	)
 
 
 /obj/item/twohanded/required/gibtonite/Destroy()
@@ -543,14 +573,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/coin
 	icon = 'icons/obj/economy.dmi'
 	name = "coin"
-	ru_names = list(
-		NOMINATIVE = "монета",
-		GENITIVE = "монеты",
-		DATIVE = "монете",
-		ACCUSATIVE = "монету",
-		INSTRUMENTAL = "монетой",
-		PREPOSITIONAL = "монете"
-	)
 	icon_state = "coin__heads"
 	flags = CONDUCT
 	force = 1
@@ -564,6 +586,16 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/name_by_cmineral = TRUE
 	var/cooldown = 0
 	var/credits = 10
+
+/obj/item/coin/get_ru_names()
+	return list(
+		NOMINATIVE = "монета",
+		GENITIVE = "монеты",
+		DATIVE = "монете",
+		ACCUSATIVE = "монету",
+		INSTRUMENTAL = "монетой",
+		PREPOSITIONAL = "монете"
+	)
 
 /obj/item/coin/New()
 	..()
@@ -644,7 +676,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "coin_thief_heads"
 	cmineral = "thief"
 	desc = "Монета Гильдии Воров, которую выдают каждому уважающему себя члену гильдии для взаимной идентификации. Странный сплав с изображением бюстов черной и белой кошки, стоящих спиной к спине. Ценится коллекционерами, и как правило у них же и возвращают."
-	ru_names = list(
+	credits = 600
+
+/obj/item/coin/twoheaded/thief/get_ru_names()
+	return list(
 		NOMINATIVE = "монета Гильдии Воров",
 		GENITIVE = "монеты Гильдии Воров",
 		DATIVE = "монете Гильдии Воров",
@@ -652,14 +687,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		INSTRUMENTAL = "монетой Гильдии Воров",
 		PREPOSITIONAL = "монете Гильдии Воров"
 	)
-	credits = 600
 
 /obj/item/coin/antagtoken
 	name = "antag token"
 	icon_state = "coin_valid_valid"
 	cmineral = "valid"
 	desc = "Сувенирная монета, помогающая сердцу понять то, что не докажешь фактами."
-	ru_names = list(
+	sideslist = list("valid", "salad")
+	credits = 20
+	name_by_cmineral = FALSE
+
+/obj/item/coin/antagtoken/get_ru_names()
+	return list(
 		NOMINATIVE = "антаг токен",
 		GENITIVE = "антаг токена",
 		DATIVE = "антаг токену",
@@ -667,13 +706,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		INSTRUMENTAL = "антаг токеном",
 		PREPOSITIONAL = "антаг токене"
 	)
-	sideslist = list("valid", "salad")
-	credits = 20
-	name_by_cmineral = FALSE
 
 /obj/item/coin/antagtoken/syndicate
 	name = "syndicate coin"
-	ru_names = list(
+	credits = 160
+
+/obj/item/coin/antagtoken/syndicate/get_ru_names()
+	return list(
 		NOMINATIVE = "монета Синдиката",
 		GENITIVE = "монеты Синдиката",
 		DATIVE = "монете Синдиката",
@@ -681,7 +720,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		INSTRUMENTAL = "монетой Синдиката",
 		PREPOSITIONAL = "монете Синдиката"
 	)
-	credits = 160
 
 
 /obj/item/coin/update_overlays()

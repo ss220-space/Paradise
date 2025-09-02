@@ -2,14 +2,6 @@
 /mob/living/simple_animal/bot/cleanbot
 	name = "Cleanbot"
 	desc = "Маленький робот-уборщик. Он выглядит таким увлечённым!"
-	ru_names = list(
-		NOMINATIVE = "чистобот",
-		GENITIVE = "чистобота",
-		DATIVE = "чистоботу",
-		ACCUSATIVE = "чистобота",
-		INSTRUMENTAL = "чистоботом",
-		PREPOSITIONAL = "чистоботе",
-	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "cleanbot"
 	density = FALSE
@@ -40,7 +32,15 @@
 	var/next_dest
 	var/next_dest_loc
 
-
+/mob/living/simple_animal/bot/cleanbot/get_ru_names()
+	return list(
+		NOMINATIVE = "чистобот",
+		GENITIVE = "чистобота",
+		DATIVE = "чистоботу",
+		ACCUSATIVE = "чистобота",
+		INSTRUMENTAL = "чистоботом",
+		PREPOSITIONAL = "чистоботе",
+	)
 
 /mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
 	. = ..()

@@ -2,14 +2,6 @@
 /obj/item/wormhole_jaunter
 	name = "wormhole jaunter"
 	desc = "Одноразовое устройство, использующее устаревшую технологию червоточин. НаноТрейзен переключилась на блюспейс для более точной телепортации. Перемещение через создаваемые им червоточины, мягко говоря, некомфортно.\nБлагодаря модификациям Свободных Големов, этот генератор червоточин обеспечивает защиту от пропастей."
-	ru_names = list(
-		NOMINATIVE = "генератор червоточин",
-		GENITIVE = "генератора червоточин",
-		DATIVE = "генератору червоточин",
-		ACCUSATIVE = "генератор червоточин",
-		INSTRUMENTAL = "генератором червоточин",
-		PREPOSITIONAL = "генераторе червоточин"
-	)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "Jaunter"
 	item_state = "electronic"
@@ -21,6 +13,15 @@
 	slot_flags = ITEM_SLOT_BELT
 	var/emagged = FALSE
 
+/obj/item/wormhole_jaunter/get_ru_names()
+	return list(
+		NOMINATIVE = "генератор червоточин",
+		GENITIVE = "генератора червоточин",
+		DATIVE = "генератору червоточин",
+		ACCUSATIVE = "генератор червоточин",
+		INSTRUMENTAL = "генератором червоточин",
+		PREPOSITIONAL = "генераторе червоточин"
+	)
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
 	user.visible_message(span_notice("[user.name] активиру[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"))
@@ -100,7 +101,11 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "bhole3"
 	desc = "Стабильная дыра во вселенной, созданная генератором червоточин. Слово \"турбулентный\" не передаёт, насколько жёстким может быть прохождение через неё, но по крайней мере она всегда доставит вас куда-то рядом с маяком."
-	ru_names = list(
+	failchance = 0
+	var/emagged = FALSE
+
+/obj/effect/portal/jaunt_tunnel/get_ru_names()
+	return list(
 		NOMINATIVE = "стабильная червоточина",
 		GENITIVE = "стабильной червоточины",
 		DATIVE = "стабильной червоточине",
@@ -108,9 +113,6 @@
 		INSTRUMENTAL = "стабильной червоточиной",
 		PREPOSITIONAL = "стабильной червоточине"
 	)
-	failchance = 0
-	var/emagged = FALSE
-
 
 /obj/effect/portal/jaunt_tunnel/update_overlays()
 	. = list()	// we need no mask here
@@ -136,7 +138,12 @@
 /obj/item/grenade/jaunter_grenade
 	name = "chasm jaunter recovery grenade"
 	desc = "Граната \"НТ-Пьяный набор\". Первоначально созданная НаноТрейзен для поиска всех маяков в области и создания червоточин к ним, теперь используется шахтёрами для спасения коллег из пропастей."
-	ru_names = list(
+	icon_state = "mirage"
+	/// Mob that threw the grenade.
+	var/mob/living/thrower
+
+/obj/item/grenade/jaunter_grenade/get_ru_names()
+	return list(
 		NOMINATIVE = "граната спасения из пропасти",
 		GENITIVE = "гранаты спасения из пропасти",
 		DATIVE = "гранате спасения из пропасти",
@@ -144,10 +151,6 @@
 		INSTRUMENTAL = "гранатой спасения из пропасти",
 		PREPOSITIONAL = "гранате спасения из пропасти"
 	)
-	icon_state = "mirage"
-	/// Mob that threw the grenade.
-	var/mob/living/thrower
-
 
 /obj/item/grenade/jaunter_grenade/Destroy()
 	thrower = null

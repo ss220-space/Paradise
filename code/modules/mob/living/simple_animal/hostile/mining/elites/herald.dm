@@ -19,14 +19,6 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald
 	name = "herald"
 	desc = "Чудовищный зверь, поражающий угрозы и добычу смертоносными снарядами."
-	ru_names = list(
-		NOMINATIVE = "вестник",
-		GENITIVE = "вестника",
-		DATIVE = "вестнику",
-		ACCUSATIVE = "вестника",
-		INSTRUMENTAL = "вестником",
-		PREPOSITIONAL = "вестнике"
-	)
 	icon_state = "herald"
 	icon_living = "herald"
 	icon_aggro = "herald"
@@ -58,6 +50,16 @@
 
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/my_mirror = null
 	var/is_mirror = FALSE
+
+/mob/living/simple_animal/hostile/asteroid/elite/herald/get_ru_names()
+	return list(
+		NOMINATIVE = "вестник",
+		GENITIVE = "вестника",
+		DATIVE = "вестнику",
+		ACCUSATIVE = "вестника",
+		INSTRUMENTAL = "вестником",
+		PREPOSITIONAL = "вестнике"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/death(gibbed)
 	. = ..()
@@ -211,14 +213,6 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror
 	name = "herald's mirror"
 	desc = "Демоническое творение магии, копирующее атаки Вестника. Логично было бы разбить его."
-	ru_names = list(
-		NOMINATIVE = "зеркало вестника",
-		GENITIVE = "зеркала вестника",
-		DATIVE = "зеркалу вестника",
-		ACCUSATIVE = "зеркало вестника",
-		INSTRUMENTAL = "зеркалом вестника",
-		PREPOSITIONAL = "зеркале вестника"
-	)
 	health = 170
 	maxHealth = 170
 	icon_state = "herald_mirror"
@@ -229,6 +223,16 @@
 	is_mirror = TRUE
 	move_resist = MOVE_FORCE_OVERPOWERING // no dragging your mirror around
 	var/mob/living/simple_animal/hostile/asteroid/elite/herald/my_master = null
+
+/mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/get_ru_names()
+	return list(
+		NOMINATIVE = "зеркало вестника",
+		GENITIVE = "зеркала вестника",
+		DATIVE = "зеркалу вестника",
+		ACCUSATIVE = "зеркало вестника",
+		INSTRUMENTAL = "зеркалом вестника",
+		PREPOSITIONAL = "зеркале вестника"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror/Initialize(mapload)
 	. = ..()
@@ -242,7 +246,13 @@
 
 /obj/projectile/herald
 	name = "death bolt"
-	ru_names = list(
+	icon_state = "chronobolt"
+	damage = 15
+	armour_penetration = 35
+	speed = 2
+
+/obj/projectile/herald/get_ru_names()
+	return list(
 		NOMINATIVE = "смертоносный заряд",
 		GENITIVE = "смертоносного заряда",
 		DATIVE = "смертоносному заряду",
@@ -250,14 +260,14 @@
 		INSTRUMENTAL = "смертоносным зарядом",
 		PREPOSITIONAL = "смертоносном заряде"
 	)
-	icon_state = "chronobolt"
-	damage = 15
-	armour_penetration = 35
-	speed = 2
 
 /obj/projectile/herald/teleshot
 	name = "golden bolt"
-	ru_names = list(
+	damage = 25
+	color = rgb(255,255,102)
+
+/obj/projectile/herald/teleshot/get_ru_names()
+	return list(
 		NOMINATIVE = "золотой заряд",
 		GENITIVE = "золотого заряда",
 		DATIVE = "золотому заряду",
@@ -265,8 +275,6 @@
 		INSTRUMENTAL = "золотым зарядом",
 		PREPOSITIONAL = "золотом заряде"
 	)
-	damage = 25
-	color = rgb(255,255,102)
 
 /obj/projectile/herald/prehit(atom/target)
 	if(ismob(target) && ismob(firer))
@@ -294,14 +302,6 @@
 
 /obj/item/clothing/accessory/necklace/herald_cloak
 	name = "cloak of the prophet"
-	ru_names = list(
-		NOMINATIVE = "плащ пророка",
-		GENITIVE = "плаща пророка",
-		DATIVE = "плащу пророка",
-		ACCUSATIVE = "плащ пророка",
-		INSTRUMENTAL = "плащом пророка",
-		PREPOSITIONAL = "плаще пророка"
-	)
 	desc = "Плащ, позволяющий путешествовать через идеальное отражение мира."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "herald_cloak"
@@ -309,6 +309,16 @@
 	item_color = "herald_cloak"
 	allow_duplicates = FALSE
 	actions_types = list(/datum/action/item_action/accessory/herald)
+
+/obj/item/clothing/accessory/necklace/herald_cloak/get_ru_names()
+	return list(
+		NOMINATIVE = "плащ пророка",
+		GENITIVE = "плаща пророка",
+		DATIVE = "плащу пророка",
+		ACCUSATIVE = "плащ пророка",
+		INSTRUMENTAL = "плащом пророка",
+		PREPOSITIONAL = "плаще пророка"
+	)
 
 /obj/item/clothing/accessory/necklace/herald_cloak/attack_self()
 	if(has_suit)

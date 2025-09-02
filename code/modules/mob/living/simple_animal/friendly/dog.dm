@@ -781,14 +781,6 @@
 	name = "pug"
 	real_name = "мопс"
 	desc = "Это мопс, маленькая, смешная, безобидная собака."
-	ru_names = list(
-		NOMINATIVE = "мопс",
-		GENITIVE = "мопса",
-		DATIVE = "мопсу",
-		ACCUSATIVE = "мопса",
-		INSTRUMENTAL = "мопсом",
-		PREPOSITIONAL = "мопсе"
-	)
 	gender = MALE
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "pug"
@@ -802,6 +794,16 @@
 	collar_type = "pug"
 	maxHealth = 30
 	health = 30
+
+/mob/living/simple_animal/pet/dog/pug/get_ru_names()
+	return list(
+		NOMINATIVE = "мопс",
+		GENITIVE = "мопса",
+		DATIVE = "мопсу",
+		ACCUSATIVE = "мопса",
+		INSTRUMENTAL = "мопсом",
+		PREPOSITIONAL = "мопсе"
+	)
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()

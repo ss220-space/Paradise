@@ -158,14 +158,6 @@
 /obj/structure/spider/terrorweb
 	name = "terror web"
 	desc = "Вязкая и липкая паутина."
-	ru_names = list(
-		NOMINATIVE = "паутина Ужаса",
-		GENITIVE = "паутины Ужаса",
-		DATIVE = "паутине Ужаса",
-		ACCUSATIVE = "паутину Ужаса",
-		INSTRUMENTAL = "паутиной Ужаса",
-		PREPOSITIONAL = "паутине Ужаса"
-	)
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE // prevents people dragging it
 	density = FALSE // prevents it blocking all movement
@@ -173,6 +165,16 @@
 	creates_cover = TRUE
 	icon_state = "stickyweb1"
 	var/creator_ckey = null
+
+/obj/structure/spider/terrorweb/get_ru_names()
+	return list(
+		NOMINATIVE = "паутина Ужаса",
+		GENITIVE = "паутины Ужаса",
+		DATIVE = "паутине Ужаса",
+		ACCUSATIVE = "паутину Ужаса",
+		INSTRUMENTAL = "паутиной Ужаса",
+		PREPOSITIONAL = "паутине Ужаса"
+	)
 
 /obj/structure/spider/terrorweb/Initialize(mapload)
 	. = ..()

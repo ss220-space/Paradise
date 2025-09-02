@@ -4,14 +4,6 @@
 /mob/living/simple_animal/bot/secbot
 	name = "Securitron"
 	desc = "Маленький охранный робот. Он выглядит абсолютно спокойным."
-	ru_names = list(
-		NOMINATIVE = "охранный робот",
-		GENITIVE = "охранного робота",
-		DATIVE = "охранному роботу",
-		ACCUSATIVE = "охранного робота",
-		INSTRUMENTAL = "охранным роботом",
-		PREPOSITIONAL = "охранном роботе",
-	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
 	density = FALSE
@@ -60,11 +52,26 @@
 	var/prev_flashing_lights = FALSE
 	var/speak_cooldown = FALSE
 
+/mob/living/simple_animal/bot/secbot/get_ru_names()
+	return list(
+		NOMINATIVE = "охранный робот",
+		GENITIVE = "охранного робота",
+		DATIVE = "охранному роботу",
+		ACCUSATIVE = "охранного робота",
+		INSTRUMENTAL = "охранным роботом",
+		PREPOSITIONAL = "охранном роботе",
+	)
+	
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
 	desc = "Это Офицер Бипски! Работает с помощью картофеля и рюмки виски."
-	ru_names = list(
+	idcheck = FALSE
+	weaponscheck = FALSE
+	auto_patrol = TRUE
+
+/mob/living/simple_animal/bot/secbot/beepsky/get_ru_names()
+	return list(
 		NOMINATIVE = "Офицер Бипски",
 		GENITIVE = "Офицера Бипски",
 		DATIVE = "Офицеру Бипски",
@@ -72,10 +79,6 @@
 		INSTRUMENTAL = "Офицером Бипски",
 		PREPOSITIONAL = "Офицере Бипски",
 	)
-	idcheck = FALSE
-	weaponscheck = FALSE
-	auto_patrol = TRUE
-
 
 /mob/living/simple_animal/bot/secbot/beepsky/explode()
 	var/turf/Tsec = get_turf(src)
@@ -89,7 +92,10 @@
 /mob/living/simple_animal/bot/secbot/pingsky
 	name = "Officer Pingsky"
 	desc = "Это Офицер Пингски! Переведён на охрану спутника за разжигание античеловеческих настроений."
-	ru_names = list(
+	radio_channel = AI_FREQ_NAME
+
+/mob/living/simple_animal/bot/secbot/pingsky/get_ru_names()
+	return list(
 		NOMINATIVE = "Офицер Пингски",
 		GENITIVE = "Офицера Пингски",
 		DATIVE = "Офицеру Пингски",
@@ -97,13 +103,16 @@
 		INSTRUMENTAL = "Офицером Пингски",
 		PREPOSITIONAL = "Офицере Пингски",
 	)
-	radio_channel = AI_FREQ_NAME
-
 
 /mob/living/simple_animal/bot/secbot/ofitser
 	name = "Prison Ofitser"
 	desc = "Это Офицер Тюремски! Работает с помощью крови, пота и слёз заключённых."
-	ru_names = list(
+	idcheck = FALSE
+	weaponscheck = TRUE
+	auto_patrol = TRUE
+
+/mob/living/simple_animal/bot/secbot/ofitser/get_ru_names()
+	return list(
 		NOMINATIVE = "Офицер Тюремски",
 		GENITIVE = "Офицера Тюремски",
 		DATIVE = "Офицеру Тюремски",
@@ -111,22 +120,10 @@
 		INSTRUMENTAL = "Офицером Тюремски",
 		PREPOSITIONAL = "Офицере Тюремски",
 	)
-	idcheck = FALSE
-	weaponscheck = TRUE
-	auto_patrol = TRUE
-
 
 /mob/living/simple_animal/bot/secbot/buzzsky
 	name = "Officer Buzzsky"
 	desc = "Это Офицер Баззски! Проржавевший и разваливающийся на части, он явно не в восторге от того, что экипаж оставил его в таком состоянии."
-	ru_names = list(
-		NOMINATIVE = "Офицер Баззски",
-		GENITIVE = "Офицера Баззски",
-		DATIVE = "Офицеру Баззски",
-		ACCUSATIVE = "Офицера Баззски",
-		INSTRUMENTAL = "Офицером Баззски",
-		PREPOSITIONAL = "Офицере Баззски",
-	)
 	base_icon = "rustbot"
 	icon_state = "rustbot0"
 	declare_arrests = FALSE
@@ -134,10 +131,26 @@
 	harmbaton = TRUE
 	emagged = 2
 
+/mob/living/simple_animal/bot/secbot/buzzsky/get_ru_names()
+	return list(
+		NOMINATIVE = "Офицер Баззски",
+		GENITIVE = "Офицера Баззски",
+		DATIVE = "Офицеру Баззски",
+		ACCUSATIVE = "Офицера Баззски",
+		INSTRUMENTAL = "Офицером Баззски",
+		PREPOSITIONAL = "Офицере Баззски",
+	)
 
 /mob/living/simple_animal/bot/secbot/armsky
 	name = "Sergeant-at-Armsky"
-	ru_names = list(
+	health = 45
+	idcheck = TRUE
+	arrest_type = TRUE
+	weaponscheck = TRUE
+	auto_patrol = TRUE
+
+/mob/living/simple_animal/bot/secbot/armsky/get_ru_names()
+	return list(
 		NOMINATIVE = "Офицер Арсеналски",
 		GENITIVE = "Офицера Арсеналски",
 		DATIVE = "Офицеру Арсеналски",
@@ -145,16 +158,16 @@
 		INSTRUMENTAL = "Офицером Арсеналски",
 		PREPOSITIONAL = "Офицере Арсеналски",
 	)
+
+/mob/living/simple_animal/bot/secbot/podsky
+	name = "Officer Podsky"
 	health = 45
 	idcheck = TRUE
 	arrest_type = TRUE
 	weaponscheck = TRUE
-	auto_patrol = TRUE
 
-
-/mob/living/simple_animal/bot/secbot/podsky
-	name = "Officer Podsky"
-	ru_names = list(
+/mob/living/simple_animal/bot/secbot/podsky/get_ru_names()
+	return list(
 		NOMINATIVE = "Офицер Подски",
 		GENITIVE = "Офицера Подски",
 		DATIVE = "Офицеру Подски",
@@ -162,11 +175,6 @@
 		INSTRUMENTAL = "Офицером Подски",
 		PREPOSITIONAL = "Офицере Подски",
 	)
-	health = 45
-	idcheck = TRUE
-	arrest_type = TRUE
-	weaponscheck = TRUE
-
 
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
 	. = ..()

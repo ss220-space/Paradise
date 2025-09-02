@@ -1,14 +1,6 @@
 /mob/living/simple_animal/bot/secbot/griefsky //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
 	name = "General Griefsky"
 	desc = "Это охранный робот с четырьмя лазерными мечами в руках..?"
-	ru_names = list(
-		NOMINATIVE = "Генерал Грифски",
-		GENITIVE = "Генерала Грифски",
-		DATIVE = "Генералу Грифски",
-		ACCUSATIVE = "Генерала Грифски",
-		INSTRUMENTAL = "Генералом Грифски",
-		PREPOSITIONAL = "Генерале Грифски",
-	)
 	icon_state = "griefsky0"
 	health = 100
 	maxHealth = 100
@@ -27,18 +19,19 @@
 	var/frustration_number = 15
 	var/syndie = FALSE	// taipan griefsky
 
+/mob/living/simple_animal/bot/secbot/griefsky/get_ru_names()
+	return list(
+		NOMINATIVE = "Генерал Грифски",
+		GENITIVE = "Генерала Грифски",
+		DATIVE = "Генералу Грифски",
+		ACCUSATIVE = "Генерала Грифски",
+		INSTRUMENTAL = "Генералом Грифски",
+		PREPOSITIONAL = "Генерале Грифски",
+	)
 
 /mob/living/simple_animal/bot/secbot/griefsky/toy  //A toy version of general griefsky!
 	name = "Genewul Giftskee"
 	desc = "Очаровательный охранный робот с четырьмя игрушечными мечами в руках. Прелесть!"
-	ru_names = list(
-		NOMINATIVE = "Гиневал Гифтски",
-		GENITIVE = "Гиневала Гифтски",
-		DATIVE = "Гиневалу Гифтски",
-		ACCUSATIVE = "Гиневала Гифтски",
-		INSTRUMENTAL = "Гиневалом Гифтски",
-		PREPOSITIONAL = "Гиневале Гифтски",
-	)
 	spin_icon = "griefskyj-c"
 	health = 50
 	maxHealth = 50
@@ -52,6 +45,15 @@
 	frustration_number = 5
 	locked = FALSE
 
+/mob/living/simple_animal/bot/secbot/griefsky/toy/get_ru_names()
+	return list(
+		NOMINATIVE = "Гиневал Гифтски",
+		GENITIVE = "Гиневала Гифтски",
+		DATIVE = "Гиневалу Гифтски",
+		ACCUSATIVE = "Гиневала Гифтски",
+		INSTRUMENTAL = "Гиневалом Гифтски",
+		PREPOSITIONAL = "Гиневале Гифтски",
+	)
 
 /obj/machinery/bot_core/toy
 	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
@@ -60,14 +62,6 @@
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate
 	name = "General Syndie"
 	desc = "В процессе его создания пострадало как минимум 24 агента. 22 из них не выжили..."
-	ru_names = list(
-		NOMINATIVE = "Генерал Синди",
-		GENITIVE = "Генерала Синди",
-		DATIVE = "Генералу Синди",
-		ACCUSATIVE = "Генерала Синди",
-		INSTRUMENTAL = "Генералом Синди",
-		PREPOSITIONAL = "Генерале Синди",
-	)
 	icon_state = "general_syndie0"
 	base_icon = "general_syndie"
 	spin_icon = "general_syndie-c"
@@ -82,6 +76,15 @@
 	bot_core_type = /obj/machinery/bot_core/syndicate
 	syndie = TRUE
 
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "Генерал Синди",
+		GENITIVE = "Генерала Синди",
+		DATIVE = "Генералу Синди",
+		ACCUSATIVE = "Генерала Синди",
+		INSTRUMENTAL = "Генералом Синди",
+		PREPOSITIONAL = "Генерале Синди",
+	)
 
 /obj/machinery/bot_core/syndicate
 	req_access = list(ACCESS_SYNDICATE)

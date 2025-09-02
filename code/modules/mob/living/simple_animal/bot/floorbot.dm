@@ -2,14 +2,6 @@
 /mob/living/simple_animal/bot/floorbot
 	name = "Floorbot"
 	desc = "Маленький робот для починки полов и обшивки. Он выглядит таким увлечённым!"
-	ru_names = list(
-		NOMINATIVE = "ремонтный робот",
-		GENITIVE = "ремонтного робота",
-		DATIVE = "ремонтному роботу",
-		ACCUSATIVE = "ремонтного робота",
-		INSTRUMENTAL = "ремонтным роботом",
-		PREPOSITIONAL = "ремонтном роботе",
-	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot0"
 	density = FALSE
@@ -51,6 +43,15 @@
 	#define REPLACE_TILE	5
 	#define TILE_EMAG		6
 
+/mob/living/simple_animal/bot/floorbot/get_ru_names()
+	return list(
+		NOMINATIVE = "ремонтный робот",
+		GENITIVE = "ремонтного робота",
+		DATIVE = "ремонтному роботу",
+		ACCUSATIVE = "ремонтного робота",
+		INSTRUMENTAL = "ремонтным роботом",
+		PREPOSITIONAL = "ремонтном роботе",
+	)
 
 /mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
 	. = ..()

@@ -8,7 +8,12 @@
 /obj/item/mounted/frame/torch_holder
 	name = "torch holder"
 	desc = "Один из самых популярных способов осветить пространство в средневековых замках."
-	ru_names = list(
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "torch_holder_item"
+	mount_reqs = list("simfloor", "nospace")
+
+/obj/item/mounted/frame/torch_holder/get_ru_names()
+	return list(
 		NOMINATIVE = "крепление для факела",
 		GENITIVE = "крепления для факела",
 		DATIVE = "креплению для факела",
@@ -16,9 +21,6 @@
 		INSTRUMENTAL = "креплением для факела",
 		PREPOSITIONAL = "креплении для факела",
 	)
-	icon = 'icons/obj/lighting.dmi'
-	icon_state = "torch_holder_item"
-	mount_reqs = list("simfloor", "nospace")
 
 /obj/item/mounted/frame/torch_holder/do_build(turf/on_wall, mob/user)
 	to_chat(user, span_notice("Вы начинаете устанавливать [declent_ru(ACCUSATIVE)] на [on_wall.declent_ru(ACCUSATIVE)]."))
@@ -41,14 +43,6 @@
 /obj/structure/torch_holder
 	name = "torch holder"
 	desc = "Красиво выглядящее крепление для факела."
-	ru_names = list(
-		NOMINATIVE = "крепление для факела",
-		GENITIVE = "крепления для факела",
-		DATIVE = "креплению для факела",
-		ACCUSATIVE = "крепление для факела",
-		INSTRUMENTAL = "креплением для факела",
-		PREPOSITIONAL = "креплении для факела",
-	)
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "torch_holder"
 	/// Our torch, that stored in holder
@@ -70,6 +64,16 @@
 	var/fuel_upp = 0
 	/// Timer for our torch.
 	var/timer = null
+
+/obj/structure/torch_holder/get_ru_names()
+	return list(
+		NOMINATIVE = "крепление для факела",
+		GENITIVE = "крепления для факела",
+		DATIVE = "креплению для факела",
+		ACCUSATIVE = "крепление для факела",
+		INSTRUMENTAL = "креплением для факела",
+		PREPOSITIONAL = "креплении для факела",
+	)
 
 /obj/structure/torch_holder/Initialize(mapload) //mapping version, preloaded with torch
 	. = ..()
@@ -247,7 +251,12 @@
 /obj/structure/torch_holder/mapping //infinite mapping version
 	name = "ancient torch holder"
 	desc = "Красиво выглядящее крепление для факела. Поверхность проржавела от времени, а сам факел практически прирос к креплению."
-	ru_names = list(
+	icon_state = "torch_holder_complete"
+	ancient = TRUE
+
+
+/obj/structure/torch_holder/mapping/get_ru_names()
+	return list(
 		NOMINATIVE = "древнее крепление для факела",
 		GENITIVE = "древнего крепления для факела",
 		DATIVE = "древнему креплению для факела",
@@ -255,8 +264,6 @@
 		INSTRUMENTAL = "древним креплением для факела",
 		PREPOSITIONAL = "древнем креплении для факела",
 	)
-	icon_state = "torch_holder_complete"
-	ancient = TRUE
 
 /obj/structure/torch_holder/mapping/Initialize(mapload)
 	. = ..()

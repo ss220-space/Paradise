@@ -9,14 +9,6 @@
 /mob/living/simple_animal/bot/mulebot
 	name = "MULEbot"
 	desc = "Многофункциональный Узкоспециализированный Легкомоторный робот. Нет, это не просто случайные слова, подобранные для красивого написания. Честно."
-	ru_names = list(
-		NOMINATIVE = "МУЛбот",
-		GENITIVE = "МУЛбота",
-		DATIVE = "МУЛботу",
-		ACCUSATIVE = "МУЛбота",
-		INSTRUMENTAL = "МУЛботом",
-		PREPOSITIONAL = "МУЛботе",
-	)
 	icon_state = "mulebot0"
 	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
@@ -71,6 +63,16 @@
 	var/currentBloodColor = BLOOD_COLOR_RED
 	var/currentDNA = null
 
+/mob/living/simple_animal/bot/mulebot/get_ru_names()
+	return list(
+		NOMINATIVE = "МУЛбот",
+		GENITIVE = "МУЛбота",
+		DATIVE = "МУЛботу",
+		ACCUSATIVE = "МУЛбота",
+		INSTRUMENTAL = "МУЛботом",
+		PREPOSITIONAL = "МУЛботе",
+	)
+	
 
 /mob/living/simple_animal/bot/mulebot/Initialize(mapload)
 	. = ..()

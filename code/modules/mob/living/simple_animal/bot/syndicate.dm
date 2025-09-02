@@ -2,14 +2,6 @@
 /mob/living/simple_animal/bot/ed209/syndicate
 	name = "Syndicate Sentry Bot"
 	desc = "Охранный робот Синдиката."
-	ru_names = list(
-		NOMINATIVE = "робот-часовой Синдиката",
-		GENITIVE = "робота-часового Синдиката",
-		DATIVE = "роботу-часовому Синдиката",
-		ACCUSATIVE = "робота-часового Синдиката",
-		INSTRUMENTAL = "роботом-часовым Синдиката",
-		PREPOSITIONAL = "роботе-часовом Синдиката",
-	)
 	model = "Guardian"
 	icon = 'icons/obj/mecha/mecha.dmi'
 	icon_state = "darkgygax"
@@ -33,6 +25,16 @@
 	var/pathing_failed = FALSE
 	var/turf/spawn_turf
 
+
+/mob/living/simple_animal/bot/ed209/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "робот-часовой Синдиката",
+		GENITIVE = "робота-часового Синдиката",
+		DATIVE = "роботу-часовому Синдиката",
+		ACCUSATIVE = "робота-часового Синдиката",
+		INSTRUMENTAL = "роботом-часовым Синдиката",
+		PREPOSITIONAL = "роботе-часовом Синдиката",
+	)
 
 /mob/living/simple_animal/bot/ed209/syndicate/Initialize(mapload)
 	. = ..()

@@ -2,14 +2,6 @@
 /obj/item/lazarus_injector
 	name = "lazarus injector"
 	desc = "Шприц с коктейлем наномашин и химикатов, способный оживлять мёртвых животных, делая их дружелюбными к пользователю. К сожалению, процесс бесполезен для высших форм жизни и крайне дорог, поэтому устройства хранились на складе, пока какой-то руководитель не решил, что они станут отличной мотивацией для сотрудников."
-	ru_names = list(
-		NOMINATIVE = "инъектор Лазаря",
-		GENITIVE = "инъектора Лазаря",
-		DATIVE = "инъектору Лазаря",
-		ACCUSATIVE = "инъектор Лазаря",
-		INSTRUMENTAL = "инъектором Лазаря",
-		PREPOSITIONAL = "инъекторе Лазаря"
-	)
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
@@ -22,6 +14,15 @@
 	var/malfunctioning = 0
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
+/obj/item/lazarus_injector/get_ru_names()
+	return list(
+		NOMINATIVE = "инъектор Лазаря",
+		GENITIVE = "инъектора Лазаря",
+		DATIVE = "инъектору Лазаря",
+		ACCUSATIVE = "инъектор Лазаря",
+		INSTRUMENTAL = "инъектором Лазаря",
+		PREPOSITIONAL = "инъекторе Лазаря"
+	)
 
 /obj/item/lazarus_injector/update_icon_state()
 	icon_state = "lazarus_[loaded ? "hypo" : "empty"]"
@@ -85,14 +86,6 @@
 /obj/item/mobcapsule
 	name = "lazarus capsule"
 	desc = "Позволяет удобно хранить и транспортировать существ, обработанных инъектором."
-	ru_names = list(
-		NOMINATIVE = "капсула Лазаря",
-		GENITIVE = "капсулы Лазаря",
-		DATIVE = "капсуле Лазаря",
-		ACCUSATIVE = "капсулу Лазаря",
-		INSTRUMENTAL = "капсулой Лазаря",
-		PREPOSITIONAL = "капсуле Лазаря"
-	)
 	icon = 'icons/obj/mobcap.dmi'
 	icon_state = "mobcap0"
 	w_class = WEIGHT_CLASS_TINY
@@ -100,6 +93,16 @@
 	var/mob/living/simple_animal/captured = null
 	var/colorindex = 0
 	var/capture_type = SENTIENCE_ORGANIC //So you can't capture boss monsters or robots with it
+
+/obj/item/mobcapsule/get_ru_names()
+	return list(
+		NOMINATIVE = "капсула Лазаря",
+		GENITIVE = "капсулы Лазаря",
+		DATIVE = "капсуле Лазаря",
+		ACCUSATIVE = "капсулу Лазаря",
+		INSTRUMENTAL = "капсулой Лазаря",
+		PREPOSITIONAL = "капсуле Лазаря"
+	)
 
 /obj/item/mobcapsule/Destroy()
 	if(captured)

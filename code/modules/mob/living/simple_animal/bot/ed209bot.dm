@@ -4,14 +4,6 @@
 /mob/living/simple_animal/bot/ed209
 	name = "ED-209 Security Robot"
 	desc = "Охранный робот. Он выглядит абсолютно спокойным."
-	ru_names = list(
-		NOMINATIVE = "охранный робот ED-209",
-		GENITIVE = "охранного робота ED-209",
-		DATIVE = "охранному роботу ED-209",
-		ACCUSATIVE = "охранного робота ED-209",
-		INSTRUMENTAL = "охранным роботом ED-209",
-		PREPOSITIONAL = "охранном роботе ED-209",
-	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed2090"
 	density = TRUE
@@ -66,6 +58,15 @@
 	var/baton_delayed = FALSE
 	var/speak_cooldown = FALSE
 
+/mob/living/simple_animal/bot/ed209/get_ru_names()
+	return list(
+		NOMINATIVE = "охранный робот ED-209",
+		GENITIVE = "охранного робота ED-209",
+		DATIVE = "охранному роботу ED-209",
+		ACCUSATIVE = "охранного робота ED-209",
+		INSTRUMENTAL = "охранным роботом ED-209",
+		PREPOSITIONAL = "охранном роботе ED-209",
+	)
 
 /mob/living/simple_animal/bot/ed209/Initialize(mapload, created_name, created_lasercolor)
 	. = ..()

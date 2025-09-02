@@ -1,14 +1,6 @@
 /obj/item/storm_staff
 	name = "staff of storms"
 	desc = "Древний посох, извлечённый из останков Легиона. Ветер колышется, когда вы двигаете им."
-	ru_names = list(
-		NOMINATIVE = "посох бурь",
-		GENITIVE = "посоха бурь",
-		DATIVE = "посоху бурь",
-		ACCUSATIVE = "посох бурь",
-		INSTRUMENTAL = "посохом бурь",
-		PREPOSITIONAL = "посохе бурь"
-	)
 	icon_state = "staffofstorms"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -26,6 +18,16 @@
 	var/static/list/excluded_areas = list(/area/space)
 	///This is a list of turfs currently being targeted.
 	var/list/targeted_turfs = list()
+
+/obj/item/storm_staff/get_ru_names()
+	return list(
+		NOMINATIVE = "посох бурь",
+		GENITIVE = "посоха бурь",
+		DATIVE = "посоху бурь",
+		ACCUSATIVE = "посох бурь",
+		INSTRUMENTAL = "посохом бурь",
+		PREPOSITIONAL = "посохе бурь"
+	)
 
 /obj/item/storm_staff/Destroy()
 	targeted_turfs = null

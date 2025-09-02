@@ -2,14 +2,6 @@
 /obj/item/grenade/plastic/miningcharge
 	name = "industrial mining charge"
 	desc = "Применяется для создания больших отверстий в породе. Эффективно только при работе с камнем!"
-	ru_names = list(
-		NOMINATIVE = "промышленный шахтёрский заряд",
-		GENITIVE = "промышленного шахтёрского заряда",
-		DATIVE = "промышленному шахтёрскому заряду",
-		ACCUSATIVE = "промышленный шахтёрский заряд",
-		INSTRUMENTAL = "промышленным шахтёрским зарядом",
-		PREPOSITIONAL = "промышленном шахтёрском заряде"
-	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining-charge-2"
 	item_state = "charge_indust"
@@ -23,6 +15,16 @@
 	var/hacked = FALSE
 	var/installed = FALSE
 	var/smoke_amount = 3
+
+/obj/item/grenade/plastic/miningcharge/get_ru_names()
+	return list(
+		NOMINATIVE = "промышленный шахтёрский заряд",
+		GENITIVE = "промышленного шахтёрского заряда",
+		DATIVE = "промышленному шахтёрскому заряду",
+		ACCUSATIVE = "промышленный шахтёрский заряд",
+		INSTRUMENTAL = "промышленным шахтёрским зарядом",
+		PREPOSITIONAL = "промышленном шахтёрском заряде"
+	)
 
 /obj/item/grenade/plastic/miningcharge/examine(mob/user)
 	. = ..()
@@ -151,7 +153,13 @@
 /obj/item/grenade/plastic/miningcharge/lesser
 	name = "mining charge"
 	desc = "Заряд для шахтёрских работ. Этот кажется менее мощным, чем промышленный. Работает только на породе!"
-	ru_names = list(
+	icon_state = "mining-charge-1"
+	item_state = "charge_lesser"
+	smoke_amount = 1
+	boom_sizes = list(1,2,3)
+
+/obj/item/grenade/plastic/miningcharge/lesser/get_ru_names()
+	return list(
 		NOMINATIVE = "шахтёрский заряд",
 		GENITIVE = "шахтёрского заряда",
 		DATIVE = "шахтёрскому заряду",
@@ -159,15 +167,17 @@
 		INSTRUMENTAL = "шахтёрским зарядом",
 		PREPOSITIONAL = "шахтёрском заряде"
 	)
-	icon_state = "mining-charge-1"
-	item_state = "charge_lesser"
-	smoke_amount = 1
-	boom_sizes = list(1,2,3)
 
 /obj/item/grenade/plastic/miningcharge/mega
 	name = "experimental mining charge"
 	desc = "Заряд для шахтёрских работ. Этот кажется значительно мощнее обычного!"
-	ru_names = list(
+	icon_state = "mining-charge-3"
+	item_state = "charge_mega"
+	smoke_amount = 5
+	boom_sizes = list(4,6,8) //did you see the price? It has to be better..
+
+/obj/item/grenade/plastic/miningcharge/mega/get_ru_names()
+	return list(
 		NOMINATIVE = "экспериментальный шахтёрский заряд",
 		GENITIVE = "экспериментального шахтёрского заряда",
 		DATIVE = "экспериментальному шахтёрскому заряду",
@@ -175,10 +185,6 @@
 		INSTRUMENTAL = "экспериментальным шахтёрским зарядом",
 		PREPOSITIONAL = "экспериментальном шахтёрском заряде"
 	)
-	icon_state = "mining-charge-3"
-	item_state = "charge_mega"
-	smoke_amount = 5
-	boom_sizes = list(4,6,8) //did you see the price? It has to be better..
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
 	for(var/i in 1 to 2)
@@ -218,7 +224,14 @@
 /obj/item/detonator
 	name = "mining charge detonator"
 	desc = "Специализированное устройство для контролируемых подрывных работ с использованием шахтёрских зарядов."
-	ru_names = list(
+	w_class = WEIGHT_CLASS_SMALL
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "Detonator-0"
+	/// list of all bombs connected to a detonator for a moment
+	var/list/bombs = list()
+
+/obj/item/detonator/get_ru_names()
+	return list(
 		NOMINATIVE = "детонатор шахтёрских зарядов",
 		GENITIVE = "детонатора шахтёрских зарядов",
 		DATIVE = "детонатору шахтёрских зарядов",
@@ -226,11 +239,6 @@
 		INSTRUMENTAL = "детонатором шахтёрских зарядов",
 		PREPOSITIONAL = "детонаторе шахтёрских зарядов"
 	)
-	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "Detonator-0"
-	/// list of all bombs connected to a detonator for a moment
-	var/list/bombs = list()
 
 /obj/item/detonator/examine(mob/user)
 	. = ..()

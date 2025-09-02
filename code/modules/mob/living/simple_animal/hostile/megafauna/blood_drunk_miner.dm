@@ -23,14 +23,6 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner
 	name = "blood-drunk miner"
 	desc = "Шахтёр, обречённый вечно скитаться в бесконечной охоте."
-	ru_names = list(
-		NOMINATIVE = "кровожадный шахтёр",
-		GENITIVE = "кровожадного шахтёра",
-		DATIVE = "кровожадному шахтёру",
-		ACCUSATIVE = "кровожадного шахтёра",
-		INSTRUMENTAL = "кровожадным шахтёром",
-		PREPOSITIONAL = "кровожадном шахтёре"
-	)
 	health = 900
 	maxHealth = 900
 	icon_state = "miner"
@@ -69,12 +61,27 @@ Difficulty: Medium
 							/datum/action/innate/megafauna_attack/kinetic_accelerator,
 							/datum/action/innate/megafauna_attack/transform_weapon)
 
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/get_ru_names()
+	return list(
+		NOMINATIVE = "кровожадный шахтёр",
+		GENITIVE = "кровожадного шахтёра",
+		DATIVE = "кровожадному шахтёру",
+		ACCUSATIVE = "кровожадного шахтёра",
+		INSTRUMENTAL = "кровожадным шахтёром",
+		PREPOSITIONAL = "кровожадном шахтёре"
+	)
+
 /* New costume */
 
 /obj/item/clothing/suit/hooded/explorer/blood
 	name = "empowered explorer suit"
 	desc = "Бронированный костюм, созданный для исследования и работы в суровых условиях. Сладкая кровь, ох-х, как она поёт для тебя."
-	ru_names = list(
+	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
+	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
+
+/obj/item/clothing/suit/hooded/explorer/blood/get_ru_names()
+	return list(
 		NOMINATIVE = "усиленный костюм исследователя",
 		GENITIVE = "усиленного костюма исследователя",
 		DATIVE = "усиленному костюму исследователя",
@@ -82,14 +89,14 @@ Difficulty: Medium
 		INSTRUMENTAL = "усиленным костюмом исследователя",
 		PREPOSITIONAL = "усиленном костюме исследователя"
 	)
-	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
-	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
-	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
 
 /obj/item/clothing/head/hooded/explorer/blood
 	name = "empowered explorer hood"
 	desc = "Бронированный капюшон, созданный для исследования и работы в суровых условиях. Сладкая кровь, ох-х, как она поёт для тебя."
-	ru_names = list(
+	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+
+/obj/item/clothing/head/hooded/explorer/blood/get_ru_names()
+	return list(
 		NOMINATIVE = "усиленный капюшон исследователя",
 		GENITIVE = "усиленного капюшона исследователя",
 		DATIVE = "усиленному капюшону исследователя",
@@ -97,7 +104,6 @@ Difficulty: Medium
 		INSTRUMENTAL = "усиленным капюшоном исследователя",
 		PREPOSITIONAL = "усиленном капюшоне исследователя"
 	)
-	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)
 	.=..()

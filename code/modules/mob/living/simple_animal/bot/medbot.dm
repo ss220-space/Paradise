@@ -2,14 +2,6 @@
 /mob/living/simple_animal/bot/medbot
 	name = "Medibot"
 	desc = "Маленький медицинский робот. Выглядит несколько подавленным."
-	ru_names = list(
-		NOMINATIVE = "медбот",
-		GENITIVE = "медбота",
-		DATIVE = "медботу",
-		ACCUSATIVE = "медбота",
-		INSTRUMENTAL = "медботом",
-		PREPOSITIONAL = "медботе",
-	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
 	density = FALSE
@@ -67,6 +59,16 @@
 	var/syndicate_aligned = FALSE
 	var/drops_parts = TRUE
 
+/mob/living/simple_animal/bot/medbot/get_ru_names()
+	return list(
+		NOMINATIVE = "медбот",
+		GENITIVE = "медбота",
+		DATIVE = "медботу",
+		ACCUSATIVE = "медбота",
+		INSTRUMENTAL = "медботом",
+		PREPOSITIONAL = "медботе",
+	)
+
 /mob/living/simple_animal/bot/medbot/tox
 	skin = "tox"
 
@@ -94,7 +96,14 @@
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "Mysterious Medibot"
 	desc = "Загадочный медбот. От него веет тайнами..."
-	ru_names = list(
+	skin = "bezerk"
+	treatment_oxy = "perfluorodecalin"
+	treatment_brute = "bicaridine"
+	treatment_fire = "kelotane"
+	treatment_tox = "charcoal"
+
+/mob/living/simple_animal/bot/medbot/mysterious/get_ru_names()
+	return list(
 		NOMINATIVE = "загадочный медбот",
 		GENITIVE = "загадочного медбота",
 		DATIVE = "загадочному медботу",
@@ -102,23 +111,10 @@
 		INSTRUMENTAL = "загадочным медботом",
 		PREPOSITIONAL = "загадочном медботе",
 	)
-	skin = "bezerk"
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
 
 /mob/living/simple_animal/bot/medbot/syndicate
 	name = "Suspicious Medibot"
 	desc = "Вам лучше быть застрахованным!"
-	ru_names = list(
-		NOMINATIVE = "подозрительный медбот",
-		GENITIVE = "подозрительного медбота",
-		DATIVE = "подозрительному медботу",
-		ACCUSATIVE = "подозрительного медбота",
-		INSTRUMENTAL = "подозрительным медботом",
-		PREPOSITIONAL = "подозрительном медботе",
-	)
 	skin = "bezerk"
 	faction = list("syndicate")
 	treatment_oxy = "perfluorodecalin"
@@ -130,6 +126,16 @@
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
 	radio_channel = SYND_FREQ_NAME
 	radio_config = list(PUB_FREQ_NAME = 1, MED_FREQ_NAME = 1, SYND_FREQ_NAME = 1)
+
+/mob/living/simple_animal/bot/medbot/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "подозрительный медбот",
+		GENITIVE = "подозрительного медбота",
+		DATIVE = "подозрительному медботу",
+		ACCUSATIVE = "подозрительного медбота",
+		INSTRUMENTAL = "подозрительным медботом",
+		PREPOSITIONAL = "подозрительном медботе",
+	)
 
 /mob/living/simple_animal/bot/medbot/syndicate/Initialize(mapload, new_skin)
 	. = ..()
