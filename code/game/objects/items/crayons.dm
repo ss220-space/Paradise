@@ -413,9 +413,7 @@
 	eat_message = "Вы откусываете кроваво-красный мелок. На вкус как кровь. У вас остается металлический привкус на языке."
 
 /obj/item/toy/crayon/bloodred/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
-		return
-	if(busy)
+	if(!proximity || busy)
 		return
 	if(is_type_in_list(target, validSurfaces))
 		var/temp = "rune"
