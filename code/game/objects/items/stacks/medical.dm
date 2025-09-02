@@ -456,6 +456,7 @@
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
 	hitsound = 'sound/misc/moist_impact.ogg'
 	merge_type = /obj/item/stack/medical/bruise_pack/comfrey
+	var/max_heal = 40
 
 /obj/item/stack/medical/bruise_pack/comfrey/update_icon_state()
 	return
@@ -472,6 +473,7 @@
 	self_delay = 2 SECONDS
 	use_duration = 2 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/aloe
+	var/max_heal = 40
 
 /obj/item/stack/medical/ointment/aloe/update_icon_state()
 	return

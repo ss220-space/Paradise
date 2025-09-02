@@ -557,7 +557,7 @@
 
 
 /obj/item/reagent_containers/hypospray/autoinjector/traneksam
-	name = "teporone autoinjector"
+	name = "traneksam acid autoinjector"
 	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу транексамовой кислота. Экстренный способ остановки кровотечений."
 	icon_state = "orangeinjector"
 	list_reagents = list("traneksam_acid" = 5)
