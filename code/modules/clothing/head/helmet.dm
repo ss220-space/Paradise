@@ -152,6 +152,7 @@
 	can_toggle = TRUE
 	toggle_cooldown = 20
 	active_sound = 'sound/items/weeoo1.ogg'
+	active_sound_volume = 50
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/justice/escape
