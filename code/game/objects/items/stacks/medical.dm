@@ -324,9 +324,6 @@
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 
-/obj/item/stack/medical/bruise_pack/advanced/single
-	amount = 1
-
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
 	icon_state = "traumakit_[amount]"
 
@@ -417,9 +414,6 @@
 	max_amount = 4
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/advanced
-
-/obj/item/stack/medical/ointment/advanced/single
-	amount = 1
 
 /obj/item/stack/medical/ointment/advanced/update_icon_state()
 	icon_state = "burnkit_[amount]"
@@ -604,9 +598,6 @@
 	cost = 1
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/suture
-
-/obj/item/stack/medical/suture/single
-	amount = 1
 
 /obj/item/stack/medical/suture/get_ru_names()
 	return list(
