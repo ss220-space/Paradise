@@ -1979,6 +1979,7 @@
 	)
 	req_access = list(ACCESS_MEDICAL)
 	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 10,
+					/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 10,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 10,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 10,
 					/obj/item/stack/medical/bruise_pack = 4, /obj/item/stack/medical/ointment = 4,
@@ -2002,7 +2003,8 @@
 					/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/dropper = 4, /obj/item/reagent_containers/glass/beaker = 4,
 					/obj/item/reagent_containers/iv_bag/slime = 1)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	prices = list(/obj/item/stack/medical/bruise_pack/extended = 200, /obj/item/stack/medical/ointment/extended = 200,
+	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 49,
+					/obj/item/stack/medical/bruise_pack/extended = 200, /obj/item/stack/medical/ointment/extended = 200,
 					/obj/item/stack/medical/bruise_pack/advanced = 100, /obj/item/stack/medical/ointment/advanced = 100,
 					/obj/item/stack/medical/suture/advanced = 149,
 					/obj/item/stack/medical/bruise_pack/military = 300,
@@ -2102,11 +2104,13 @@
 					/obj/item/reagent_containers/hypospray/autoinjector = 4,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 2,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 2,
+					/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 2,
 					/obj/item/stack/medical/suture = 4,
 					/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
 	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 75,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 75,
+					/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 99,
 					/obj/item/stack/medical/suture = 75,
 					/obj/item/healthanalyzer = 100)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)

@@ -284,7 +284,7 @@
 	overdose_threshold = 20
 	color = "#b9645e"
 	penetrates_skin = TRUE
-	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "кислоты"
 
 /datum/reagent/medicine/traneksam_acid/on_mob_life(mob/living/user)

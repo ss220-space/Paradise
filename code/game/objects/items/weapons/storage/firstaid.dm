@@ -207,6 +207,7 @@
 	new /obj/item/reagent_containers/food/pill/patch/styptic/small(src)
 	new /obj/item/healthanalyzer(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
 	new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/firstaid/brute/empty/populate_contents()
@@ -262,6 +263,7 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
 	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 	new /obj/item/stack/medical/bruise_pack(src)
@@ -471,6 +473,7 @@
 
 /obj/item/storage/firstaid/crew/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/patch/styptic(src)

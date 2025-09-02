@@ -371,13 +371,13 @@
 	icon_state = "autoinjector"
 	item_state = "autoinjector"
 	belt_icon = "autoinjector"
-	amount_per_transfer_from_this = 15
+	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
-	volume = 15
+	volume = 10
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = DRAWABLE
 	flags = null
-	list_reagents = list("epinephrine" = 10, "traneksam_acid" = 5)
+	list_reagents = list("epinephrine" = 10)
 	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
 	/// Currently selected skin
@@ -416,6 +416,8 @@
 			base_state = "autoinjector"
 		if("Gray")
 			base_state = "stimpen"
+		if("Orange")
+			base_state = "orangeinjector"
 		else
 			base_state = initial(icon_state)
 
@@ -552,6 +554,24 @@
         INSTRUMENTAL = "автоинъектором (Тепорон)",
         PREPOSITIONAL = "автоинъекторе (Тепорон)"
 	)
+
+
+/obj/item/reagent_containers/hypospray/autoinjector/traneksam
+	name = "teporone autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу транексамовой кислота. Экстренный способ остановки кровотечений."
+	icon_state = "orangeinjector"
+	list_reagents = list("traneksam_acid" = 5)
+
+/obj/item/reagent_containers/hypospray/autoinjector/traneksam/get_ru_names()
+	return list(
+        NOMINATIVE = "автоинъектор (Транексамовая кислота)",
+        GENITIVE = "автоинъектора (Транексамовая кислота)",
+        DATIVE = "автоинъектору (Транексамовая кислота)",
+        ACCUSATIVE = "автоинъектор (Транексамовая кислота)",
+        INSTRUMENTAL = "автоинъектором (Транексамовая кислота)",
+        PREPOSITIONAL = "автоинъекторе (Транексамовая кислота)"
+	)
+
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
 	name = "stimpack autoinjector"

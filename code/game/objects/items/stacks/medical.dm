@@ -260,13 +260,13 @@
 	origin_tech = "biotech=2;combat=1"
 	amount = 1
 	max_amount = 1
-	heal_brute = 20
-	bleedsuppress = 50
+	heal_brute = 5
+	bleedsuppress = 5
 	stop_bleeding = 300 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
-	self_delay = 0.1 SECONDS
-	use_duration = 0.1 SECONDS
+	self_delay = 2 SECONDS
+	use_duration = 2 SECONDS
 	var/heal_bleeding = 1
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
