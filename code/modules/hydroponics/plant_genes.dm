@@ -356,7 +356,7 @@
 	//makes plant emit slightly purple shadows
 	//adds -potency*rate light power to products
 	name = "Shadow Emission"
-	glow_color = "#AAD84B"
+	glow_color = LIGHT_COLOR_PURPLE
 
 /datum/plant_gene/trait/glow/shadow/glow_power(obj/item/seeds/S)
 	return -max(S.potency*rate, 0.1)

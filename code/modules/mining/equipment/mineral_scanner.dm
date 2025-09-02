@@ -130,16 +130,19 @@
 
 /proc/mineral_scan_pulse(turf/T, range = world.view)
 	var/list/minerals = list()
-	for(var/turf/simulated/mineral/M in range(range, T))
-		if(M.scan_state)
-			minerals += M
-	if(LAZYLEN(minerals))
-		for(var/turf/simulated/mineral/M in minerals)
-			var/obj/effect/temp_visual/mining_overlay/oldC = locate(/obj/effect/temp_visual/mining_overlay) in M
-			if(oldC)
-				qdel(oldC)
-			var/obj/effect/temp_visual/mining_overlay/C = new /obj/effect/temp_visual/mining_overlay(M)
-			C.icon_state = M.scan_state
+	for(var/turf/simulated/mineral/mineral in range(range, T))
+		if(!mineral.scan_state)
+			continue
+
+		minerals += mineral
+
+	if(!LAZYLEN(minerals))
+		return
+
+	for(var/turf/simulated/mineral/mineral as anything in minerals)
+		mineral.add_overlay(image('icons/effects/ore_overlays.dmi', mineral.scan_state))
+		mineral.addtimer(CALLBACK(mineral, TYPE_PROC_REF(/atom, cut_overlays)), 3.5 SECONDS)
+
 
 /obj/effect/temp_visual/mining_overlay
 	plane = FULLSCREEN_PLANE
