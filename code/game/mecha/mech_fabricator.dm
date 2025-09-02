@@ -282,8 +282,8 @@
 		stack_name = "bluespace_polycrystal"
 		use_power(MINERAL_MATERIAL_AMOUNT / 10)
 	else
-		var/obj/item/stack/S = type_inserted
-		stack_name = S.protolathe_name
+		var/obj/item/stack/sheet = type_inserted
+		stack_name = sheet.protolathe_name
 		use_power(min(1000, (amount_inserted / 100)))
 	flick_overlay_view(mutable_appearance(icon, "fab-load-[stack_name]"), 1 SECONDS)
 
