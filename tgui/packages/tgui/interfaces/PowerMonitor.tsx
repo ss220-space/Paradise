@@ -73,21 +73,22 @@ const SelectionView = (_props: unknown) => {
 
   return (
     <Section title="Select Power Monitor">
-      {Object.keys(powermonitors)
-        .sort((a, b) => (powermonitors[a] < powermonitors[b] ? -1 : 1))
-        .map((uid) => (
-          <Box key={uid}>
-            <Button
-              icon="arrow-right"
-              mb={0.5}
-              onClick={() =>
-                act('selectmonitor', {
-                  selectmonitor: uid,
-                })
-              }
-            >{`${powermonitors[uid]} Power Monitoring Console`}</Button>
-          </Box>
-        ))}
+      {!!powermonitors &&
+        Object.keys(powermonitors)
+          .sort((a, b) => (powermonitors[a] < powermonitors[b] ? -1 : 1))
+          .map((uid) => (
+            <Box key={uid}>
+              <Button
+                icon="arrow-right"
+                mb={0.5}
+                onClick={() =>
+                  act('selectmonitor', {
+                    selectmonitor: uid,
+                  })
+                }
+              >{`${powermonitors[uid]} Power Monitoring Console`}</Button>
+            </Box>
+          ))}
     </Section>
   );
 };

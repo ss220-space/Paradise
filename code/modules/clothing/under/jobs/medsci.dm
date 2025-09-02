@@ -22,9 +22,8 @@
 /obj/item/clothing/under/rank/scientist
 	name = "scientist's jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - учёный. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "toxins"
+	icon_state = "science"
 	item_state = "w_suit"
-	item_color = "toxinswhite"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -41,8 +40,7 @@
 /obj/item/clothing/under/rank/scientist/skirt
 	name = "scientist's jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - учёный. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "sciencewhitef"
-	item_color = "sciencewhitef"
+	icon_state = "sciencef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/scientist/skirt/get_ru_names()
@@ -58,7 +56,7 @@
 /obj/item/clothing/under/rank/scientist/student
 	name = "scientist student jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - учёный-практикант. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "student_s"
+	icon_state = "student"
 	item_color = "student"
 
 /obj/item/clothing/under/rank/scientist/student/get_ru_names()
@@ -74,7 +72,7 @@
 /obj/item/clothing/under/rank/scientist/student/skirt
 	name = "scientist student jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - учёный-практикант. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "studentf_s"
+	icon_state = "studentf"
 	item_color = "studentf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -91,7 +89,7 @@
 /obj/item/clothing/under/rank/scientist/student/assistant
 	name = "scientist assistant jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - научный ассистент. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "sci_ass_s"
+	icon_state = "sci_ass"
 	item_color = "sci_ass"
 
 /obj/item/clothing/under/rank/scientist/student/assistant/get_ru_names()
@@ -107,7 +105,7 @@
 /obj/item/clothing/under/rank/scientist/student/assistant/skirt
 	name = "scientist assistant jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - научный ассистент. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "sci_ass_f_s"
+	icon_state = "sci_ass_f"
 	item_color = "sci_ass_f"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -126,7 +124,6 @@
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - химик. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "chemistry"
 	item_state = "w_suit"
-	item_color = "chemistrywhite"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 50, ACID = 65)
 
@@ -143,8 +140,7 @@
 /obj/item/clothing/under/rank/chemist/skirt
 	name = "chemist's jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - химик. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "chemistrywhitef"
-	item_color = "chemistrywhitef"
+	icon_state = "chemistryf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/chemist/skirt/get_ru_names()
@@ -201,7 +197,6 @@
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - генетик. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "genetics"
 	item_state = "w_suit"
-	item_color = "geneticswhite"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -218,8 +213,7 @@
 /obj/item/clothing/under/rank/geneticist/skirt
 	name = "geneticist's jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - генетик. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "geneticswhitef"
-	item_color = "geneticswhitef"
+	icon_state = "geneticsf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/geneticist/skirt/get_ru_names()
@@ -237,7 +231,6 @@
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - вирусолог. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
 	icon_state = "virology"
 	item_state = "w_suit"
-	item_color = "virologywhite"
 	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -254,8 +247,7 @@
 /obj/item/clothing/under/rank/virologist/skirt
 	name = "virologist's jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - вирусолог. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "virologywhitef"
-	item_color = "virologywhitef"
+	icon_state = "virologyf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/virologist/skirt/get_ru_names()
@@ -353,7 +345,7 @@
 /obj/item/clothing/under/rank/medical/intern
 	name = "intern jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - интерн. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "intern_s"
+	icon_state = "intern"
 	item_color = "intern"
 
 /obj/item/clothing/under/rank/medical/intern/get_ru_names()
@@ -369,7 +361,7 @@
 /obj/item/clothing/under/rank/medical/intern/skirt
 	name = "intern jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - интерн. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "internf_s"
+	icon_state = "internf"
 	item_color = "internf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -386,7 +378,7 @@
 /obj/item/clothing/under/rank/medical/intern/assistant
 	name = "medical assistant jumpsuit"
 	desc = "Этот комбинезон обладает специальными знаками, которые обозначают то, что его владелец - ассистирующий врач. Он сделан из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "med_ass_s"
+	icon_state = "med_ass"
 	item_color = "med_ass"
 
 /obj/item/clothing/under/rank/medical/intern/assistant/get_ru_names()
@@ -402,7 +394,7 @@
 /obj/item/clothing/under/rank/medical/intern/assistant/skirt
 	name = "medical assistant jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - ассистирующий врач. Она сделана из специальной ткани, предоставляющей некоторую защиту от биологического загрязнения."
-	icon_state = "med_ass_f_s"
+	icon_state = "med_ass_f"
 	item_color = "med_ass_f"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 

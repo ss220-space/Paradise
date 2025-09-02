@@ -93,7 +93,7 @@
 		if(energy_projectile)
 			playsound(src, 'sound/weapons/effects/searwall.ogg', 50, TRUE)
 		else
-			playsound(src, "ricochet", 50, TRUE)
+			playsound(src, SFX_RICOCHET, 50, TRUE)
 		return TRUE
 	return FALSE
 

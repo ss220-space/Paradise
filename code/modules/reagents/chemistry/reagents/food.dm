@@ -65,17 +65,12 @@
 		.[nutriment_taste] = amount
 
 
-/datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
-	name = "Белки"
-	id = "protein"
-	description = "Смесь белков и жиров, которые обычно содержатся в мясе и крови животных."
-	diet_flags = DIET_CARN | DIET_OMNI
-
 /datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
 	name = "Растительная масса"
 	id = "plantmatter"
 	description = "Богатые витаминами волокна и натуральные сахара, которые обычно содержатся в свежих продуктах."
 	diet_flags = DIET_HERB | DIET_OMNI
+
 
 /datum/reagent/consumable/nutriment/vitamin
 	name = "Витамины"
@@ -86,10 +81,48 @@
 	brute_heal = 1
 	burn_heal = 1
 
+
 /datum/reagent/consumable/nutriment/vitamin/on_mob_life(mob/living/M)
 	if(M.satiety < 600)
 		M.satiety += 30
+
 	return ..()
+
+
+/datum/reagent/consumable/nutriment/protein // Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
+	name = "Белки"
+	id = "protein"
+	description = "Вещество, которое обычно содержится в мясе и крови животных."
+	diet_flags = DIET_CARN | DIET_OMNI
+	reagent_state = SOLID
+	/// Type of status effect that applys on reagent add, and deleats on reagent deleat.
+	var/status_effect_type = /datum/status_effect/sport_reagents/protein
+
+
+/datum/reagent/consumable/nutriment/protein/on_mob_add(mob/living/user)
+	. = ..()
+	user.apply_status_effect(status_effect_type)
+
+
+/datum/reagent/consumable/nutriment/protein/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_status_effect(status_effect_type)
+
+
+/datum/reagent/consumable/nutriment/protein/liquid
+	name = "Разбавленный протеин"
+	id = "protein_liquid"
+	reagent_state = LIQUID
+	nutriment_factor = 15 * REAGENTS_METABOLISM / 4
+	metabolization_rate = REAGENTS_METABOLISM / 4
+	status_effect_type = /datum/status_effect/sport_reagents/protein/water
+
+
+/datum/reagent/consumable/nutriment/protein/liquid/milk
+	name = "Разбавленный протеин на молоке"
+	id = "protein_liquid_milk"
+	status_effect_type = /datum/status_effect/sport_reagents/protein/milk
+
 
 /datum/reagent/consumable/sugar
 	name = "Сахар"

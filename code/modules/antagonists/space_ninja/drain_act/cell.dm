@@ -27,7 +27,7 @@
 			// Сама зарядка
 			if(do_after(ninja, 1 SECONDS, src))
 				spark_system.start()
-				playsound(loc, "sparks", 50, TRUE, 5)
+				playsound(loc, SFX_SPARKS, 50, TRUE, 5)
 				use(drain)
 				ninja_suit.cell.give(drain)
 				drain_total += drain

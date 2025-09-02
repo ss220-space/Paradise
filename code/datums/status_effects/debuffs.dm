@@ -133,9 +133,12 @@
 /datum/status_effect/shadow_boxing/tick(seconds_between_ticks)
 	var/mob/living/attacker = locateUID(source_UID)
 	if(attacker in view(owner, 2))
+		var/turf/attacker_turf = get_turf(attacker)
+		var/turf/owner_turf = get_turf(owner)
 		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
 		owner.apply_damage(damage, BRUTE)
-		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
+		playsound(owner_turf, SFX_PUNCH, 30, TRUE, -1)
+		shadow_to_animation(attacker_turf, owner_turf, attacker)
 
 
 /datum/status_effect/saw_bleed
@@ -205,7 +208,7 @@
 		new /obj/effect/temp_visual/bleed/explode(T)
 		for(var/d in GLOB.alldirs)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
-		playsound(T, "desceration", 200, TRUE, -1)
+		playsound(T, SFX_DESECRATION, 200, TRUE, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
