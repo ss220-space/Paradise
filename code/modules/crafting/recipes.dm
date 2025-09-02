@@ -1818,19 +1818,19 @@
 	subcategory = CAT_MISC2
 
 /datum/crafting_recipe/advanced_trauma_kit
-	name = "Advanced trauma kit"
+	name = "Продвинутый набор для лечения мех. травм"
 	result = /obj/item/stack/medical/bruise_pack/advanced
 	time = 3 SECONDS
-	reqs = list(/obj/item/stack/medical/bruise_pack = 4,
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
 				/datum/reagent/medicine/styptic_powder = 120)
 	category = CAT_MISC
 
 
 /datum/crafting_recipe/advanced_burn_kit
-	name = "Advanced burn kit"
+	name = "Продвинутый набор для лечения терм. повреждений"
 	result = /obj/item/stack/medical/ointment/advanced
 	time = 3 SECONDS
-	reqs = list(/obj/item/stack/medical/bruise_pack = 4,
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
 				/datum/reagent/medicine/silver_sulfadiazine = 120)
 	category = CAT_MISC
 
@@ -1839,6 +1839,6 @@
 	name = "Набор для зашивания ран"
 	result = /obj/item/stack/medical/suture
 	time = 3 SECONDS
-	reqs = list(/obj/item/stack/medical/bruise_pack = 3,
+	reqs = list(/obj/item/stack/sheet/cloth = 1,
 				/obj/item/stack/cable_coil = 10)
 	category = CAT_MISC
