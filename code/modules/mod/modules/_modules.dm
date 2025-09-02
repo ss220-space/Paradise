@@ -117,6 +117,7 @@
 
 /// Called when the module is activated
 /obj/item/mod/module/proc/on_activation()
+	SHOULD_CALL_PARENT(TRUE)
 	if(!COOLDOWN_FINISHED(src, cooldown_timer))
 		balloon_alert(mod.wearer, "модуль на перезарядке!")
 		return FALSE
@@ -154,6 +155,7 @@
 
 /// Called when the module is deactivated
 /obj/item/mod/module/proc/on_deactivation(display_message = TRUE, deleting = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 	active = FALSE
 	if(module_type == MODULE_ACTIVE)
 		mod.selected_module = null
