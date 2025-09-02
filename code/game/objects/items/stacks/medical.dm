@@ -260,14 +260,13 @@
 	origin_tech = "biotech=2;combat=1"
 	amount = 1
 	max_amount = 1
-	heal_brute = 5
+	heal_brute = 0
 	bleedsuppress = 5
 	stop_bleeding = 300 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
 	self_delay = 2 SECONDS
 	use_duration = 2 SECONDS
-	var/heal_bleeding = 1
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
 	return list(
@@ -288,6 +287,9 @@
 	return
 
 /obj/item/stack/medical/bruise_pack/military/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
+		return .
 	var/list/all_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM,
 		BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND,
 		BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
@@ -300,9 +302,6 @@
 		affecting.germ_level = 0
 		if(affecting.bleeding_amount > affecting.bleedsuppress)
 			affecting.suppress_bloodloss(user, target, bleedsuppress, stop_bleeding)
-			affecting.heal_bleeding(user, target, heal_bleeding, 0)
-	human_heal(target, user)
-	target.UpdateDamageIcon()
 	use(1)
 	if(!QDELETED(src))
 		update_icon()
