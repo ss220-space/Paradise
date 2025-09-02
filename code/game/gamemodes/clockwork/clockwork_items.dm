@@ -1776,7 +1776,7 @@
 		return
 	animate(src, transform = matrix() * 0.1, time = anim_time)
 
-/obj/effect/temp_visual/ratvar/reconstruct/proc/living_process(target)
+/obj/effect/temp_visual/ratvar/reconstruct/proc/living_process(mob/living/target)
 	var/mob/living/living = target
 	living.ratvar_act(TRUE)
 	if(!ishuman(living))
