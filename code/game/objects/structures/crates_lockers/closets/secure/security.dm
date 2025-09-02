@@ -121,7 +121,7 @@
 		INSTRUMENTAL = "шкафом гранатомета GL-06",
 		PREPOSITIONAL = "шкафе гранатомета GL-06"
 	)
-	desc = "Защищенный шкаф для хранения гранатомета GL-06 и боеприпасов к нему. Шкаф прикручен к полу."
+	desc = "Защищённый шкаф для хранения гранатомета GL-06 и боеприпасов к нему. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
 	icon = 'icons/obj/guncabinet.dmi'
 	icon_state = "guncabinet"
@@ -160,17 +160,17 @@
 
 /obj/structure/closet/secure_closet/guncabinet/wt550
 	name = "security WT-550 PDW gun cabinet"
-	desc = "Защищенный шкаф для хранения ПП WT-550. Шкаф прикручен к полу."
+	desc = "Защищённый шкаф для хранения пистолетов пулемётов WT-550. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/get_ru_names()
 	return list(
-		NOMINATIVE = "шкаф с ПП WT-550",
-		GENITIVE = "шкафа с ПП WT-550",
-		DATIVE = "шкафу ПП с WT-550",
-		ACCUSATIVE = "шкаф с ПП WT-550",
-		INSTRUMENTAL = "шкафом с ПП WT-550",
-		PREPOSITIONAL = "шкафе с ПП WT-550"
+		NOMINATIVE = "шкаф пистолетов пулемётов WT-550",
+		GENITIVE = "шкафа пистолетов пулемётов WT-550",
+		DATIVE = "шкафу пистолетов пулемётов WT-550",
+		ACCUSATIVE = "шкаф пистолетов пулемётов WT-550",
+		INSTRUMENTAL = "шкафом пистолетов пулемётов WT-550",
+		PREPOSITIONAL = "шкафе пистолетов пулемётов WT-550"
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
@@ -182,17 +182,17 @@
 
 /obj/structure/closet/secure_closet/guncabinet/sp91
 	name = "security SP-91-RC gun cabinet"
-	desc = "Защищенный шкаф для хранения ПП SP-91-RC. Шкаф прикручен к полу."
+	desc = "Защищённый шкаф для хранения пистолетов пулемётов SP-91-RC. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/get_ru_names()
 	return list(
-		NOMINATIVE = "шкаф с ПП SP-91-RC",
-		GENITIVE = "шкафа с ПП SP-91-RC",
-		DATIVE = "шкафу с ПП SP-91-RC",
-		ACCUSATIVE = "шкаф с ПП SP-91-RC",
-		INSTRUMENTAL = "шкафом с ПП SP-91-RC",
-		PREPOSITIONAL = "шкафе с  ПП SP-91-RC"
+		NOMINATIVE = "шкаф пистолетов пулемётов SP-91-RC",
+		GENITIVE = "шкафа пистолетов пулемётов SP-91-RC",
+		DATIVE = "шкафу пистолетов пулемётов SP-91-RC",
+		ACCUSATIVE = "шкаф пистолетов пулемётов SP-91-RC",
+		INSTRUMENTAL = "шкафом пистолетов пулемётов SP-91-RC",
+		PREPOSITIONAL = "шкафе пистолетов пулемётов SP-91-RC"
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
@@ -204,17 +204,17 @@
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun
 	name = "security laser gun cabinet"
-	desc = "Защищенный шкаф для хранения лазерных винтовок. Шкаф прикручен к полу."
+	desc = "Защищённый шкаф для хранения лазерных винтовок. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/get_ru_names()
 	return list(
-		NOMINATIVE = "шкаф с лазерными винтовками",
-		GENITIVE = "шкафа с лазерными винтовками",
-		DATIVE = "шкафу с лазерными винтовками",
-		ACCUSATIVE = "шкаф с лазерными винтовками",
-		INSTRUMENTAL = "шкафом с лазерными винтовками",
-		PREPOSITIONAL = "шкафе с лазерными винтовками"
+		NOMINATIVE = "шкаф лазерных винтовок",
+		GENITIVE = "шкафа лазерных винтовок",
+		DATIVE = "шкафу лазерных винтовок",
+		ACCUSATIVE = "шкаф лазерных винтовок",
+		INSTRUMENTAL = "шкафом лазерных винтовок",
+		PREPOSITIONAL = "шкафе лазерных винтовок"
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
@@ -226,17 +226,17 @@
 
 /obj/structure/closet/secure_closet/guncabinet/lr30
 	name = "security LR-30 gun cabinet"
-	desc = "Защищенный шкаф для хранения лазерных винтовок LR-30. Шкаф прикручен к полу."
+	desc = "Защищённый шкаф для хранения лазерных винтовок LR-30. Шкаф прикручен к полу."
 	req_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30/get_ru_names()
 	return list(
-		NOMINATIVE = "шкаф с лазерными винтовками LR-30",
-		GENITIVE = "шкафа с лазерными винтовками LR-30",
-		DATIVE = "шкафу с лазерными винтовками LR-30",
-		ACCUSATIVE = "шкаф с лазерными винтовками LR-30",
-		INSTRUMENTAL = "шкафом с лазерными винтовками LR-30",
-		PREPOSITIONAL = "шкафе с лазерными винтовками LR-30"
+		NOMINATIVE = "шкаф лазерных винтовок LR-30",
+		GENITIVE = "шкафа лазерных винтовок LR-30",
+		DATIVE = "шкафу лазерных винтовок LR-30",
+		ACCUSATIVE = "шкаф лазерных винтовок LR-30",
+		INSTRUMENTAL = "шкафом лазерных винтовок LR-30",
+		PREPOSITIONAL = "шкафе лазерных винтовок LR-30"
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30/populate_contents()
