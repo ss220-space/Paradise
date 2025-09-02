@@ -691,7 +691,7 @@ Difficulty: Medium
 	deathmessage = "визжит, когда его крылья превращаются в пыль и он рушится на пол, жизнь погасла."
 	attack_action_types = list()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/get_ru_name()
+/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/get_ru_names()
 	return list(
 		NOMINATIVE = "космический дракон",
 		GENITIVE = "космического дракона",

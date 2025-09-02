@@ -198,12 +198,12 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/get_ru_names()
 	return list(
-        NOMINATIVE = "чемпионский шлем",
-        GENITIVE = "чемпионского шлема",
-        DATIVE = "чемпионскому шлему",
-        ACCUSATIVE = "чемпионский шлем",
-        INSTRUMENTAL = "чемпионским шлемом",
-        PREPOSITIONAL = "чемпионском шлеме"
+		NOMINATIVE = "чемпионский шлем",
+		GENITIVE = "чемпионского шлема",
+		DATIVE = "чемпионскому шлему",
+		ACCUSATIVE = "чемпионский шлем",
+		INSTRUMENTAL = "чемпионским шлемом",
+		PREPOSITIONAL = "чемпионском шлеме"
 	)
 
 /obj/item/clothing/suit/space/hardsuit/champion
@@ -228,12 +228,12 @@
 
 /obj/item/clothing/suit/space/hardsuit/champion/get_ru_names()
 	return list(
-        NOMINATIVE = "чемпионская броня",
-        GENITIVE = "чемпионской брони",
-        DATIVE = "чемпионской броне",
-        ACCUSATIVE = "чемпионскую броню",
-        INSTRUMENTAL = "чемпионской бронёй",
-        PREPOSITIONAL = "чемпионской броне"
+		NOMINATIVE = "чемпионская броня",
+		GENITIVE = "чемпионской брони",
+		DATIVE = "чемпионской броне",
+		ACCUSATIVE = "чемпионскую броню",
+		INSTRUMENTAL = "чемпионской бронёй",
+		PREPOSITIONAL = "чемпионской броне"
 	)
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
 	name = "dark templar's helmet"
@@ -243,12 +243,12 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/get_ru_names()
 	return list(
-        NOMINATIVE = "шлем Чёрного Храмовника",
-        GENITIVE = "шлема Чёрного Храмовника",
-        DATIVE = "шлему Чёрного Храмовника",
-        ACCUSATIVE = "шлем Чёрного Храмовника",
-        INSTRUMENTAL = "шлемом Чёрного Храмовника",
-        PREPOSITIONAL = "шлеме Чёрного Храмовника"
+		NOMINATIVE = "шлем Чёрного Храмовника",
+		GENITIVE = "шлема Чёрного Храмовника",
+		DATIVE = "шлему Чёрного Храмовника",
+		ACCUSATIVE = "шлем Чёрного Храмовника",
+		INSTRUMENTAL = "шлемом Чёрного Храмовника",
+		PREPOSITIONAL = "шлеме Чёрного Храмовника"
 	)
 /obj/item/clothing/suit/space/hardsuit/champion/templar
 	name = "dark templar's hardsuit"
@@ -260,12 +260,12 @@
 
 /obj/item/clothing/suit/space/hardsuit/champion/templar/get_ru_names()
 	return list(
-        NOMINATIVE = "доспехи Чёрного Храмовника",
-        GENITIVE = "доспехов Чёрного Храмовника",
-        DATIVE = "доспехам Чёрного Храмовника",
-        ACCUSATIVE = "доспехи Чёрного Храмовника",
-        INSTRUMENTAL = "доспехами Чёрного Храмовника",
-        PREPOSITIONAL = "доспехах Чёрного Храмовника"
+		NOMINATIVE = "доспехи Чёрного Храмовника",
+		GENITIVE = "доспехов Чёрного Храмовника",
+		DATIVE = "доспехам Чёрного Храмовника",
+		ACCUSATIVE = "доспехи Чёрного Храмовника",
+		INSTRUMENTAL = "доспехами Чёрного Храмовника",
+		PREPOSITIONAL = "доспехах Чёрного Храмовника"
 	)
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 	name = "high dark templar's helmet"
@@ -275,12 +275,12 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium/get_ru_names()
 	return list(
-        NOMINATIVE = "шлем высшего Чёрного Храмовника",
-        GENITIVE = "шлема высшего Чёрного Храмовника",
-        DATIVE = "шлему высшего Чёрного Храмовника",
-        ACCUSATIVE = "шлем высшего Чёрного Храмовника",
-        INSTRUMENTAL = "шлемом высшего Чёрного Храмовника",
-        PREPOSITIONAL = "шлеме высшего Чёрного Храмовника"
+		NOMINATIVE = "шлем высшего Чёрного Храмовника",
+		GENITIVE = "шлема высшего Чёрного Храмовника",
+		DATIVE = "шлему высшего Чёрного Храмовника",
+		ACCUSATIVE = "шлем высшего Чёрного Храмовника",
+		INSTRUMENTAL = "шлемом высшего Чёрного Храмовника",
+		PREPOSITIONAL = "шлеме высшего Чёрного Храмовника"
 	)
 /obj/item/clothing/suit/space/hardsuit/champion/templar/premium
 	name = "high dark templar's hardsuit"
@@ -291,12 +291,12 @@
 
 /obj/item/clothing/suit/space/hardsuit/champion/templar/premium/get_ru_names()
 	return list(
-        NOMINATIVE = "доспехи высшего Чёрного Храмовника",
-        GENITIVE = "доспехов высшего Чёрного Храмовника",
-        DATIVE = "доспехам высшего Чёрного Храмовника",
-        ACCUSATIVE = "доспехи высшего Чёрного Храмовника",
-        INSTRUMENTAL = "доспехами высшего Чёрного Храмовника",
-        PREPOSITIONAL = "доспехах высшего Чёрного Храмовника"
+		NOMINATIVE = "доспехи высшего Чёрного Храмовника",
+		GENITIVE = "доспехов высшего Чёрного Храмовника",
+		DATIVE = "доспехам высшего Чёрного Храмовника",
+		ACCUSATIVE = "доспехи высшего Чёрного Храмовника",
+		INSTRUMENTAL = "доспехами высшего Чёрного Храмовника",
+		PREPOSITIONAL = "доспехах высшего Чёрного Храмовника"
 	)
 /obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor
 	name = "inquisitor's helmet"
@@ -306,12 +306,12 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor/get_ru_names()
 	return list(
-        NOMINATIVE = "шлем инквизитора",
-        GENITIVE = "шлема инквизитора",
-        DATIVE = "шлему инквизитора",
-        ACCUSATIVE = "шлем инквизитора",
-        INSTRUMENTAL = "шлемом инквизитора",
-        PREPOSITIONAL = "шлеме инквизитора"
+		NOMINATIVE = "шлем инквизитора",
+		GENITIVE = "шлема инквизитора",
+		DATIVE = "шлему инквизитора",
+		ACCUSATIVE = "шлем инквизитора",
+		INSTRUMENTAL = "шлемом инквизитора",
+		PREPOSITIONAL = "шлеме инквизитора"
 	)
 
 /obj/item/clothing/suit/space/hardsuit/champion/inquisitor
@@ -322,12 +322,12 @@
 
 /obj/item/clothing/suit/space/hardsuit/champion/inquisitor/get_ru_names()
 	return list(
-        NOMINATIVE = "скафандр инквизитора",
-        GENITIVE = "скафандра инквизитора",
-        DATIVE = "скафандру инквизитора",
-        ACCUSATIVE = "скафандр инквизитора",
-        INSTRUMENTAL = "скафандром инквизитора",
-        PREPOSITIONAL = "скафандре инквизитора"
+		NOMINATIVE = "скафандр инквизитора",
+		GENITIVE = "скафандра инквизитора",
+		DATIVE = "скафандру инквизитора",
+		ACCUSATIVE = "скафандр инквизитора",
+		INSTRUMENTAL = "скафандром инквизитора",
+		PREPOSITIONAL = "скафандре инквизитора"
   	)
 
 /obj/item/clothing/suit/hooded/pathfinder
@@ -360,12 +360,12 @@
 
 /obj/item/clothing/suit/hooded/pathfinder/get_ru_names()
 	return list(
-        NOMINATIVE = "мантия первопроходца",
-        GENITIVE = "мантии первопроходца",
-        DATIVE = "мантии первопроходца",
-        ACCUSATIVE = "мантию первопроходца",
-        INSTRUMENTAL = "мантией первопроходца",
-        PREPOSITIONAL = "мантии первопроходца"
+		NOMINATIVE = "мантия первопроходца",
+		GENITIVE = "мантии первопроходца",
+		DATIVE = "мантии первопроходца",
+		ACCUSATIVE = "мантию первопроходца",
+		INSTRUMENTAL = "мантией первопроходца",
+		PREPOSITIONAL = "мантии первопроходца"
 	)
 /obj/item/clothing/head/hooded/pathfinder
 	name = "pathfinder kasa"
@@ -393,12 +393,12 @@
 
 /obj/item/clothing/head/hooded/pathfinder/get_ru_names()
 	return list(
-        NOMINATIVE = "каса первопроходца",
-        GENITIVE = "касы первопроходца",
-        DATIVE = "касе первопроходца",
-        ACCUSATIVE = "касу первопроходца",
-        INSTRUMENTAL = "касой первопроходца",
-        PREPOSITIONAL = "касе первопроходца"
+		NOMINATIVE = "каса первопроходца",
+		GENITIVE = "касы первопроходца",
+		DATIVE = "касе первопроходца",
+		ACCUSATIVE = "касу первопроходца",
+		INSTRUMENTAL = "касой первопроходца",
+		PREPOSITIONAL = "касе первопроходца"
 	)
 /obj/item/clothing/suit/hooded/explorer/mining
 	name = "white explorer suit"
