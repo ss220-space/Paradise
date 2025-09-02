@@ -572,10 +572,10 @@
 			span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [AM.declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
 		)
-	tilt(AM, prob(5), FALSE)
-	aggressive = FALSE
-	//Not making same mistakes as offs did.
-	// Don't make this brob more than 5%
+		tilt(AM, prob(5), FALSE)
+		aggressive = FALSE
+		//Not making same mistakes as offs did.
+		// Don't make this brob more than 5%
 
 /obj/machinery/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
@@ -602,11 +602,13 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(anchored)
-		panel_open = !panel_open
-		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
-		update_icon()
-		SStgui.update_uis(src)
+	if(!anchored)
+		balloon_alert(user, "автомат не прикручен!")
+		return
+	panel_open = !panel_open
+	panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	update_icon()
+	SStgui.update_uis(src)
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
