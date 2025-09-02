@@ -2106,10 +2106,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedoffices)
-"xQ" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/fore2)
 "xR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -3011,11 +3007,6 @@
 /area/maintenance/abandonedoffices)
 "GM" = (
 /obj/structure/janitorialcart,
-/turf/simulated/floor/plating,
-/area/maintenance/fore2)
-"GO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "GX" = (
@@ -6097,7 +6088,7 @@ PO
 uR
 co
 uR
-GO
+JH
 co
 uR
 uR
@@ -6164,7 +6155,7 @@ Fb
 PQ
 PQ
 PQ
-xQ
+PQ
 PQ
 kG
 Co
@@ -6188,7 +6179,7 @@ Fb
 PQ
 PQ
 PQ
-xQ
+PQ
 PQ
 uR
 gj
@@ -6267,8 +6258,8 @@ PQ
 TV
 Hh
 PQ
-xQ
-xQ
+PQ
+PQ
 JH
 Fv
 Ov

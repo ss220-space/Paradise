@@ -372,7 +372,9 @@
 	},
 /area/maintenance/club)
 "kP" = (
-/obj/machinery/blackbox_recorder,
+/obj/machinery/computer/old_frame/server/rackframe{
+	name = "Old Server"
+	},
 /turf/simulated/floor/bluegrid,
 /area/maintenance/server)
 "kT" = (
@@ -674,12 +676,14 @@
 	},
 /area/maintenance/club)
 "vR" = (
-/obj/machinery/blackbox_recorder,
 /obj/machinery/light_construct{
 	dir = 4
 	},
 /obj/structure/sign/nosmoking_1{
 	pixel_x = 32
+	},
+/obj/machinery/computer/old_frame/server/rackframe{
+	name = "Old Server"
 	},
 /turf/simulated/floor/bluegrid,
 /area/maintenance/server)

@@ -661,8 +661,8 @@
 /area/maintenance/medroom)
 "ft" = (
 /obj/machinery/door/poddoor/multi_tile/three_tile_hor{
-	id = "hangarshuttlebay4";
-	use_power = 0
+	use_power = 0;
+	id_tag = "hangarshuttlebay4"
 	},
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -857,8 +857,8 @@
 	dir = 8
 	},
 /obj/machinery/door/poddoor/multi_tile/three_tile_hor{
-	id = "hangarshuttlebay3";
-	use_power = 0
+	use_power = 0;
+	id_tag = "hangarshuttlebay3"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom";
@@ -5336,7 +5336,7 @@
 	luminosity = 3
 	},
 /obj/machinery/door/poddoor/multi_tile/three_tile_hor{
-	id = "hangarshuttlebay5"
+	id_tag = "hangarshuttlebay5"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedhangar)
