@@ -408,7 +408,7 @@
 		/obj/item/clothing/head/scorched_skull = 40
 	)
 
-///Security armory random guns
+// Security armory random guns
 /obj/effect/spawner/random_spawners/security_lasers
 	name = "lasers closet spawner"
 	icon_state = "guncabinet_laser"
