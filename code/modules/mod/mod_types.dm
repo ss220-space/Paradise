@@ -459,7 +459,6 @@
 	applied_modules = list( //one of every type of module, for testing if they all work correctly // boy this isn't even 25% the modules
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/bikehorn,
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/injector,
@@ -469,7 +468,8 @@
 		/obj/item/mod/module/noslip/advanced,
 		/obj/item/mod/module/flamethrower,
 		/obj/item/mod/module/medbeam,
-		/obj/item/mod/module/jump_jet
+		/obj/item/mod/module/jump_jet,
+		/obj/item/mod/module/flashlight/darkness
 	)
 	default_pins = list(
 		/obj/item/mod/module/bikehorn,

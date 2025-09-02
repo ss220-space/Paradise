@@ -1695,10 +1695,23 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(gravity_turf.force_no_gravity)
 		return FALSE
 
+	var/list/forced_gravity = list()
+
+	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
+	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
+
+	if(length(forced_gravity))
+		var/positive_grav = max(forced_gravity)
+		var/negative_grav = min(min(forced_gravity), 0) //negative grav needs to be below or equal to 0
+
+		//our gravity is sum of the most massive positive and negative numbers returned by the signal
+		//so that adding two forced_gravity elements with an effect size of 1 each doesnt add to 2 gravity
+		//but negative force gravity effects can cancel out positive ones
+
+		return (positive_grav + negative_grav)
+
 	var/result_gravity = 0
 	var/list/gravity_deltas = list()
-	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, gravity_deltas)
-	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, gravity_deltas)
 
 	var/area/turf_area = gravity_turf.loc
 

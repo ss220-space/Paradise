@@ -567,6 +567,10 @@
 	var/check_range = TRUE
 	return electrocute_mob(user, get_charge_source(), src, 1, check_range)
 
+/// Additional checks for whenever a module can be installed into a suit or not
+/obj/item/mod/module/proc/can_install(obj/item/mod/control/mod)
+	return TRUE
+
 /obj/item/mod/control/proc/install(obj/item/mod/module/new_module, mob/user)
 	for(var/obj/item/mod/module/old_module as anything in modules)
 		if(is_type_in_list(new_module, old_module.incompatible_modules) || is_type_in_list(old_module, new_module.incompatible_modules))
@@ -579,6 +583,11 @@
 	if(complexity_with_module > complexity_max)
 		if(user)
 			to_chat(user, span_warning("[new_module.declent_ru(NOMINATIVE)] превышает максимальную комплексность костюма!"))
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return
+	if(!new_module.can_install(src))
+		if(user)
+			balloon_alert(user, "can't install!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(user)

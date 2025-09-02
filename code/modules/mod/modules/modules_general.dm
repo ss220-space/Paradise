@@ -325,15 +325,12 @@
 	module_type = MODULE_TOGGLE
 	complexity = 1
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
-	incompatible_modules = list(/obj/item/mod/module/flashlight)
-	cooldown_time = 0.5 SECONDS
+	incompatible_modules = list(/obj/item/mod/module/flashlight, /obj/item/mod/module/flashlight/darkness)
 	overlay_state_inactive = "module_light"
-	overlay_state_active = "module_light_on"
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_color = COLOR_WHITE
-	///The light power for the mod
-	var/mod_light_range = 4
-	///The light range for the mod
-	var/mod_light_power = 2
+	light_range = 4
+	light_power = 1
 	light_on = FALSE
 	/// Charge drain per range amount.
 	var/base_power = DEFAULT_CHARGE_DRAIN * 0.1
@@ -341,8 +338,6 @@
 	var/min_range = 2
 	/// Maximum range we can set.
 	var/max_range = 5
-	/// The cooldown before we can re-activate this after having it forcefully extinguished
-	COOLDOWN_DECLARE(activation_cooldown)
 
 /obj/item/mod/module/flashlight/get_ru_names()
 	return list(
@@ -355,56 +350,58 @@
 	)
 
 /obj/item/mod/module/flashlight/on_activation()
-	if(!COOLDOWN_FINISHED(src, activation_cooldown))
-		balloon_alert(mod.wearer, "на перезарядке!")
-		return
 	. = ..()
 	if(!.)
 		return
 
-	COOLDOWN_RESET(src, activation_cooldown)
-
-	active_power_cost = base_power * mod_light_range
-	mod.set_light(mod_light_range, mod_light_power, light_color)
+	set_light_flags(light_flags | LIGHT_ATTACHED)
+	set_light_on(TRUE)
+	active_power_cost = base_power * light_range
 
 /obj/item/mod/module/flashlight/on_deactivation(display_message = TRUE, deleting = FALSE)
-	mod.set_light(0, mod_light_power, light_color)
 	. = ..()
 	if(!.)
 		return
+	set_light_flags(light_flags & ~LIGHT_ATTACHED)
+	set_light_on(FALSE)
 
-/obj/item/mod/module/flashlight/on_process()
-	active_power_cost = base_power * mod_light_range
+/obj/item/mod/module/flashlight/on_process(seconds_per_tick)
+	active_power_cost = base_power * light_range
 	return ..()
 
 /obj/item/mod/module/flashlight/get_configuration()
 	. = ..()
-	.["light_color"] = add_ui_configuration("Цвет", "color", light_color)
-	.["light_range"] = add_ui_configuration("Дальность", "number", mod_light_range)
+	.["light_color"] = add_ui_configuration("Light Color", "color", light_color)
+	.["light_range"] = add_ui_configuration("Light Range", "number", light_range)
 
 /obj/item/mod/module/flashlight/configure_edit(key, value)
 	switch(key)
 		if("light_color")
-			value = input(usr, "Выберите новый цвет", "Цвет Фонарика") as color|null
+			value = input(usr, "Pick new light color", "Flashlight Color") as color|null
 			if(!value)
 				return
 			if(is_color_dark(value, 50))
-				to_chat(mod.wearer, (span_warning("Данный цвет слишком тёмный!")))
+				balloon_alert(mod.wearer, "too dark!")
 				return
-			light_color = value
-			mod.wearer.regenerate_icons()
+			set_light_color(value)
+			//update_clothing_slots()
 		if("light_range")
-			mod_light_range = (clamp(text2num(value), min_range, max_range))
-	mod.set_light(0, mod_light_power, light_color)
-	mod_color_overide = light_color
-	on_deactivation()
+			set_light_range(clamp(value, min_range, max_range))
 
-/obj/item/mod/module/flashlight/extinguish_light(force)
+///Like the flashlight module, except the light color is stuck to black and cannot be changed.
+/obj/item/mod/module/flashlight/darkness
+	name = "MOD flashdark module"
+	desc = "A quirky pair of configurable flashdarks installed on the sides of the helmet, \
+		useful for providing darkness at a configurable range."
+	light_color = COLOR_BLACK
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	min_range = 1
+	max_range = 3
+
+/obj/item/mod/module/flashlight/darkness/get_configuration()
 	. = ..()
-	on_deactivation(FALSE)
-	COOLDOWN_START(src, activation_cooldown, 20 SECONDS)
-
-	to_chat(mod.wearer, span_warning("Фонарь костюма затухает."))
+	. -= "light_color"
 
 ///Dispenser - Dispenses an item after a time passes.
 /obj/item/mod/module/dispenser
@@ -670,3 +667,43 @@
 	return TRUE
 
 #undef FAILED_ACTIVATION_COOLDOWN
+
+///Eating Apparatus - Lets the user eat/drink with the suit on.
+/obj/item/mod/module/mouthhole
+	name = "MOD eating apparatus module"
+	desc = "A favorite by Miners, this modification to the helmet utilizes a nanotechnology barrier infront of the mouth \
+		to allow eating and drinking while retaining protection and atmosphere. However, it won't free you from masks, \
+		lets pepper spray pass through and it will do nothing to improve the taste of a goliath steak."
+	icon_state = "apparatus"
+	complexity = 1
+	incompatible_modules = list(/obj/item/mod/module/mouthhole)
+	/// Former flags of the helmet.
+	var/former_helmet_flags = NONE
+	/// Former visor flags of the helmet.
+	var/former_visor_helmet_flags = NONE
+	/// Former flags of the mask.
+	var/former_mask_flags = NONE
+	/// Former visor flags of the mask.
+	var/former_visor_mask_flags = NONE
+
+/obj/item/mod/module/mouthhole/on_install()
+	. = ..()
+	var/obj/item/clothing/helmet = mod.helmet
+	if(istype(helmet))
+		former_helmet_flags = helmet.flags_cover
+		helmet.flags_cover &= ~HEADCOVERSMOUTH
+
+/obj/item/mod/module/mouthhole/can_install(obj/item/mod/control/mod)
+	var/obj/item/clothing/helmet = mod.helmet
+	if(istype(helmet) && (helmet.flags_cover & HEADCOVERSMOUTH))
+		return ..()
+	return FALSE
+
+/obj/item/mod/module/mouthhole/on_uninstall(deleting = FALSE)
+	. = ..()
+	if(deleting)
+		return
+	var/obj/item/clothing/helmet = mod.helmet
+	if(istype(helmet))
+		helmet.flags_cover |= former_helmet_flags
+
