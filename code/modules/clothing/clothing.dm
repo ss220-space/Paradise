@@ -856,7 +856,9 @@ BLIND     // can't see anything
 		)
 
 	/// Allowed armor plate class
-	var/allowed_armor_plate = BALLISTIC_ARMOR_CLASS_I
+	var/allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
+	/// Allow remove armor plate with screwdriver
+	var/can_remove_armor_plate = TRUE
 	/// Installed armor plate
 	var/obj/item/armor_plate/armor_plate = null
 
@@ -956,45 +958,52 @@ BLIND     // can't see anything
 	if(!istype(item, /obj/item/armor_plate))
 		return ..()
 	var/obj/item/armor_plate/plate = item
-	if(plate.armor_class < allowed_armor_plate)
+	if(plate.plate_slot < allowed_armor_plate)
 		balloon_alert(user, "не совместимо")
 		return ..()
 	balloon_alert(user, "установка бронеплиты")
 	if(!do_after(user, 5 SECONDS, src))
 		return ..()
-	balloon_alert(user, "бронеплита установлена")
-	src.plate = plate
+	if(!user.drop_transfer_item_to_loc(plate, src)) // Make absolutely sure this accessory is removed from hands
+		return ..()
 	plate.forceMove(src)
+	armor_plate = plate
+	balloon_alert(user, "бронеплита установлена")
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
-/obj/item/clothing/suit/click_alt(mob/user)
-	if(handle_plate_removal(user))
-		return CLICK_ACTION_SUCCESS
-	return CLICK_ACTION_BLOCKING
-
-
-/obj/item/clothing/suit/proc/handle_plate_removal(mob/user)
-	if(!plate)
+/obj/item/clothing/suit/screwdriver_act(mob/living/user, obj/item/tool)
+	if(!armor_plate || !can_remove_armor_plate)
 		return FALSE
 	balloon_alert(user, "снятие бронеплиты")
-	if(!do_after(user, 5 SECONDS, src))
+	if(!tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume))
 		return FALSE
 	balloon_alert(user, "бронеплита снята")
-	plate.forceMove(user.loc)
-	user.put_in_hands(plate)
-	plate = null
+	armor_plate.forceMove(user.loc)
+	user.put_in_hands(armor_plate)
+	armor_plate = null
 	return TRUE
 
 
-/obj/item/clothing/under/examine(mob/user)
+/obj/item/clothing/suit/examine(mob/user)
 	. = ..()
-	if(plate)
-		//TODO exmine text about attached plate
+	if(armor_plate)
+		. += span_notice("Установлено: [armor_plate.declent_ru(NOMINATIVE)]")
 		return
-	if(allowed_armor_plate == ARMOR_CLASS_NONE)
+	if(allowed_armor_plate == ARMOR_PLATE_SLOT_NONE)
 		return
-	//TODO examine text about available plate
+	var/allowed_plate_name = ""
+	switch(allowed_armor_plate)
+		if(ARMOR_PLATE_SLOT_HANDMADE)
+			allowed_plate_name = "самодельные бронеплиты"
+		if(ARMOR_PLATE_SLOT_LIGHT)
+			allowed_plate_name = "легкие бронеплиты"
+		if(ARMOR_PLATE_SLOT_MEDIUM)
+			allowed_plate_name = "средние бронеплиты"
+		if(ARMOR_PLATE_SLOT_HEAVY)
+			allowed_plate_name = "тяжелые бронеплиты"
+		if(ARMOR_PLATE_SLOT_MAX)
+			allowed_plate_name = "элитные бронеплиты"
+	. += span_notice("Можно установить [allowed_plate_name].")
 
 
 // MARK: Spacesuit

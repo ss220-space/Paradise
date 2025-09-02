@@ -6,23 +6,24 @@
 
 /obj/item/armor_plate
 	name = "armor plate"
-	icon_state = "roman_shield"
+	icon = 'icons/obj/armor/plates.dmi'
+	icon_state = "ceramicplate_light"
 	/// Plate class
-	var/armor_class = ARMOR_CLASS_ULTRA_LIGHT
+	var/plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	/// Ballistic protection class
-	var/ballistic_class = BALLISTIC_ARMOR_CLASS_I
+	var/ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	/// Laser protection class
-	var/ballistic_class = LASER_ARMOR_CLASS_I
+	var/laser_class = LASER_ARMOR_CLASS_NONE
 	/// Current integrity, default set armor_max_integrity value
 	var/armor_integrity
-	/// Armor integrity when armor begin decreasing
+	/// Armor integrity when armor begin decreasing protection
 	var/armor_protection_integrity = 100
 	/// Armor maximal integrity
 	var/armor_max_integrity = 150
 	/// Repair resource type
 	var/repair_type = /obj/item/stack/sheet/plasteel
 	/// Repair coefficient
-	var/repair_coefficient = 2
+	var/repair_coefficient = 0.6
 
 
 /obj/item/armor_plate/Initialize(mapload)
@@ -34,8 +35,10 @@
 /obj/item/armor_plate/proc/get_armor_efficient()
 	return clamp(armor_integrity / armor_protection_integrity * 100, 0, 100)
 
-/obj/item/armor_plate/proc/take_damage(damage_amount)
+/// Take armor damage proc
+/obj/item/armor_plate/proc/take_armor_damage(damage_amount)
 	armor_integrity = max(armor_integrity - damage_amount, 0)
+
 
 /obj/item/armor_plate/attackby(obj/item/item, mob/user, params)
 	if(!istype(item, repair_type))
@@ -50,8 +53,10 @@
 	if(!consumed_resource)
 		balloon_alert(user, "не хватает ресурсов")
 		return ..()
-	if(stack.amount > consumed_resource)
-		item.use(consumed_resource)
+	if(!do_after(user, 5 SECONDS, src))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	if(resource.amount > consumed_resource)
+		resource.use(consumed_resource)
 	else
 		qdel(item)
 	repair_integrity = consumed_resource * repair_coefficient
@@ -59,3 +64,104 @@
 	balloon_alert(user, "отремонтировано")
 	return ATTACK_CHAIN_BLOCKED_ALL
 
+
+// MARK: Light armor plates
+
+/obj/item/armor_plate/light_steel
+	name = "light steel armor plate"
+	icon_state = "steelplate_light"
+	plate_slot = ARMOR_PLATE_SLOT_LIGHT
+	ballistic_class = BALLISTIC_ARMOR_CLASS_II
+	laser_class = LASER_ARMOR_CLASS_NONE
+	armor_protection_integrity = 100
+	armor_max_integrity = 150
+	repair_type = /obj/item/stack/sheet/metal
+
+/obj/item/armor_plate/light_ceramic
+	name = "light ceramic armor plate"
+	icon_state = "ceramicplate_light"
+	plate_slot = ARMOR_PLATE_SLOT_LIGHT
+	ballistic_class = BALLISTIC_ARMOR_CLASS_IIIA
+	laser_class = LASER_ARMOR_CLASS_NONE
+	armor_protection_integrity = 75
+	armor_max_integrity = 100
+	repair_type = /obj/item/stack/sheet/mineral/titanium
+
+
+/obj/item/armor_plate/light_ablative
+	name = "light ablative armor plate"
+	icon_state = "reflectorplate_light"
+	plate_slot = ARMOR_PLATE_SLOT_LIGHT
+	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
+	laser_class = LASER_ARMOR_CLASS_LIGHT
+	armor_protection_integrity = 75
+	armor_max_integrity = 100
+	repair_type = /obj/item/stack/sheet/plasmarglass
+
+
+// MARK: Medium armor plates
+
+/obj/item/armor_plate/medium_steel
+	name = "medium steel armor plate"
+	icon_state = "steelplate_medium"
+	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
+	ballistic_class = BALLISTIC_ARMOR_CLASS_III
+	laser_class = LASER_ARMOR_CLASS_NONE
+	armor_protection_integrity = 200
+	armor_max_integrity = 250
+	repair_type = /obj/item/stack/sheet/plasteel
+
+/obj/item/armor_plate/medium_ceramic
+	name = "medium ceramic armor plate"
+	icon_state = "ceramicplate_medium"
+	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
+	ballistic_class = BALLISTIC_ARMOR_CLASS_III
+	laser_class = LASER_ARMOR_CLASS_LIGHT
+	armor_protection_integrity = 100
+	armor_max_integrity = 150
+	repair_type = /obj/item/stack/sheet/mineral/titanium
+
+
+/obj/item/armor_plate/medium_ablative
+	name = "medium ablative armor plate"
+	icon_state = "reflectorplate_medium"
+	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
+	ballistic_class = BALLISTIC_ARMOR_CLASS_I
+	laser_class = LASER_ARMOR_CLASS_MEDIUM
+	armor_protection_integrity = 200
+	armor_max_integrity = 250
+	repair_type = /obj/item/stack/sheet/plasmarglass
+
+
+// MARK: Heavy armor plates
+
+/obj/item/armor_plate/heavy_steel
+	name = "heavy steel armor plate"
+	icon_state = "steelplate_heavy"
+	plate_slot = ARMOR_PLATE_SLOT_HEAVY
+	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
+	laser_class = LASER_ARMOR_CLASS_LIGHT
+	armor_protection_integrity = 300
+	armor_max_integrity = 350
+	repair_type = /obj/item/stack/sheet/plasteel
+
+/obj/item/armor_plate/heavy_ceramic
+	name = "heavy ceramic armor plate"
+	icon_state = "ceramicplate_heavy"
+	plate_slot = ARMOR_PLATE_SLOT_HEAVY
+	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
+	laser_class = LASER_ARMOR_CLASS_MEDIUM
+	armor_protection_integrity = 200
+	armor_max_integrity = 250
+	repair_type = /obj/item/stack/sheet/mineral/titanium
+
+
+/obj/item/armor_plate/heavy_ablative
+	name = "heavy ablative armor plate"
+	icon_state = "reflectorplate_heavy"
+	plate_slot = ARMOR_PLATE_SLOT_HEAVY
+	ballistic_class = BALLISTIC_ARMOR_CLASS_IIA
+	laser_class = LASER_ARMOR_CLASS_HEAVY
+	armor_protection_integrity = 300
+	armor_max_integrity = 350
+	repair_type = /obj/item/stack/sheet/plasmarglass
