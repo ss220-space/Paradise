@@ -1,16 +1,28 @@
-#define GPA_SINGLE_MODE 0
-#define GPA_BURST_MODE 1
-#define GPA_AUTO_MODE 2
-
 /obj/item/gun/projectile/automatic
 	w_class = WEIGHT_CLASS_NORMAL
 	var/alarmed = FALSE
-	var/select = 1
+	var/select = GUN_BURST_MODE
 	can_tactical = TRUE
 	can_holster = FALSE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+	var/fire_modes = GUN_MODE_SINGLE_BURST
+	var/autofire_delay = 0.2 SECONDS
+
+/obj/item/gun/projectile/automatic/Initialize(mapload)
+	if(fire_modes == GUN_MODE_SINGLE_ONLY)
+		actions_types = null
+	. = ..()
+
+
+/obj/item/gun/projectile/automatic/ComponentInitialize()
+	. = ..()
+	if(fire_modes != GUN_MODE_SINGLE_BURST_AUTO)
+		return
+	select = GUN_AUTO_MODE
+	burst_size = 1
+	AddComponent(/datum/component/automatic_fire, autofire_delay)
 
 
 /obj/item/gun/projectile/automatic/update_icon_state()
@@ -19,10 +31,11 @@
 
 /obj/item/gun/projectile/automatic/update_overlays()
 	. = ..()
-	if(!select)
-		. += "[initial(icon_state)]semi"
-	if(select == 1)
-		. += "[initial(icon_state)]burst"
+	switch(select)
+		if(GUN_SINGLE_MODE)
+			. += "[initial(icon_state)]semi"
+		if(GUN_BURST_MODE)
+			. += "[initial(icon_state)]burst"
 
 
 /obj/item/gun/projectile/automatic/attackby(obj/item/I, mob/user, params)
@@ -55,32 +68,28 @@
 	. = ..()
 
 /obj/item/gun/projectile/automatic/proc/toggle_firemode()
+	if(fire_modes == GUN_MODE_SINGLE_ONLY)
+		return // not available change modes
 	var/mob/living/carbon/human/user = usr
-	var/datum/component/automatic_fire/full_auto_mode = GetComponent(/datum/component/automatic_fire)
-	var/available_modes = GPA_BURST_MODE + 1
-	if(full_auto_mode)
-		available_modes = GPA_AUTO_MODE + 1
-	select = (select + 1) % available_modes
+	select++
+	if(select >= fire_modes)
+		select = GUN_SINGLE_MODE
+	if(select == GUN_BURST_MODE && initial(burst_size) == 1)
+		select = GUN_AUTO_MODE //skip burst mode if not configured burst size
 	switch(select)
-		if(GPA_SINGLE_MODE)
+		if(GUN_SINGLE_MODE)
 			burst_size = 1
 			fire_delay = 0
 			balloon_alert(user, "полуавтомат")
-			if(full_auto_mode)
-				full_auto_mode.enable = FALSE
-		if(GPA_BURST_MODE)
+		if(GUN_BURST_MODE)
 			burst_size = initial(burst_size) == 1 ? 2 : initial(burst_size)
 			fire_delay = initial(fire_delay)
-			balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
-			if(full_auto_mode)
-				full_auto_mode.enable = FALSE
-		if(GPA_AUTO_MODE)
-			burst_size = initial(burst_size)
+			balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону", "патрона", "патронов")]")
+		if(GUN_AUTO_MODE)
+			burst_size = 1
 			fire_delay = initial(fire_delay)
 			balloon_alert(user, "автоматический")
-			if(full_auto_mode)
-				full_auto_mode.enable = TRUE
-
+	SEND_SIGNAL(src, COMSIG_GUN_TOGGLE_FIREMODE, user, select)
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
 	for(var/X in actions)
@@ -166,7 +175,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
-	burst_size = 1
+	burst_size = 2
 	can_bayonet = TRUE
 	bayonet_x_offset = 25
 	bayonet_y_offset = 12
@@ -179,12 +188,8 @@
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
-
-/obj/item/gun/projectile/automatic/wt550/ComponentInitialize()
-	AddComponent( \
-		/datum/component/automatic_fire, \
-		 0.2 SECONDS \
-		 )
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	autofire_delay = 0.2 SECONDS
 
 /obj/item/gun/projectile/automatic/wt550/update_icon_state()
 	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
@@ -201,10 +206,9 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 2
-	burst_size = 1
+	burst_size = 3
 	can_bayonet = FALSE
 	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
-	actions_types = null
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
@@ -213,12 +217,8 @@
 	)
 	recoil = GUN_RECOIL_MEDIUM
 	weapon_weight = WEAPON_HEAVY
-
-/obj/item/gun/projectile/automatic/sp91rc/ComponentInitialize()
-	AddComponent( \
-		/datum/component/automatic_fire, \
-		 0.2 SECONDS \
-		 )
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	autofire_delay = 0.2 SECONDS
 
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
 	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
@@ -238,7 +238,7 @@ TODO Use this name and desc for localisation*/
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
-	burst_size = 1
+	burst_size = 3
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 14, "y" = 7),
@@ -246,13 +246,8 @@ TODO Use this name and desc for localisation*/
 	)
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
-	actions_types = null
-
-/obj/item/gun/projectile/automatic/mini_uzi/ComponentInitialize()
-	AddComponent( \
-		/datum/component/automatic_fire, \
-		 0.2 SECONDS \
-		 )
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	autofire_delay = 0.2 SECONDS
 
 
 //M-90gl Carbine//
@@ -317,22 +312,22 @@ TODO Use this name and desc for localisation*/
 	if(magazine)
 		. += image(icon = icon, icon_state = "m90-[CEILING(get_ammo(FALSE)/6, 1)*6]")
 	switch(select)
-		if(0)
+		if(GUN_SINGLE_MODE)
 			. += "[initial(icon_state)]gren"
-		if(1)
+		if(GUN_BURST_MODE)
 			.  += "[initial(icon_state)]burst"
 
 
 /obj/item/gun/projectile/automatic/m90/toggle_firemode()
 	var/mob/living/carbon/human/user = usr
 	switch(select)
-		if(0)
-			select = 1
+		if(GUN_SINGLE_MODE)
+			select = GUN_BURST_MODE
 			burst_size = initial(burst_size)
 			fire_delay = initial(fire_delay)
 			balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
-		if(1)
-			select = 0
+		if(GUN_BURST_MODE)
+			select = GUN_SINGLE_MODE
 			balloon_alert(user, "подствольный гранатомёт")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
@@ -419,7 +414,6 @@ TODO Use this name and desc for localisation*/
 	can_suppress = 0
 	burst_size = 1
 	fire_delay = 0
-	actions_types = null
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
@@ -428,6 +422,7 @@ TODO Use this name and desc for localisation*/
 		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -6)
 	)
 	recoil = GUN_RECOIL_HIGH
+	fire_modes = GUN_MODE_SINGLE_ONLY
 
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
@@ -495,6 +490,7 @@ TODO Use this name and desc for localisation*/
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -5)
 	)
 	recoil = GUN_RECOIL_HIGH
+	fire_modes = GUN_MODE_SINGLE_BURST
 
 /obj/item/gun/projectile/automatic/shotgun/minotaur/New()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
@@ -524,6 +520,7 @@ TODO Use this name and desc for localisation*/
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6)
 	)
 	recoil = GUN_RECOIL_HIGH
+	fire_modes = GUN_MODE_SINGLE_BURST
 
 
 /obj/item/gun/projectile/automatic/cats/update_icon_state()
@@ -576,7 +573,6 @@ TODO Use this name and desc for localisation*/
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
 	burst_size = 1
-	actions_types = null
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
@@ -584,6 +580,7 @@ TODO Use this name and desc for localisation*/
 		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -2)
 	)
 	recoil = GUN_RECOIL_MIN
+	fire_modes = GUN_MODE_SINGLE_ONLY
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
 	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"

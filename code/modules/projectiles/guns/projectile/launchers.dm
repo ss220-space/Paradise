@@ -45,6 +45,8 @@
 	actions_types = null
 	accuracy = GUN_ACCURACY_MINIMAL
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	fire_modes = GUN_MODE_SINGLE_ONLY
+
 
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
@@ -72,6 +74,7 @@
 	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = null
+	fire_modes = GUN_MODE_SINGLE_ONLY
 
 
 /obj/item/gun/projectile/automatic/speargun/update_icon_state()

@@ -38,6 +38,7 @@
 		return COMPONENT_INCOMPATIBLE
 	var/obj/item/gun = parent
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(wake_up))
+	RegisterSignal(parent, COMSIG_GUN_TOGGLE_FIREMODE, PROC_REF(toggle_firemode))
 	if(autofire_shot_delay)
 		src.autofire_shot_delay = autofire_shot_delay
 	src.allow_akimbo = allow_akimbo
@@ -76,6 +77,8 @@
 	if(user.is_in_hands(parent))
 		autofire_on(user.client)
 
+/datum/component/automatic_fire/proc/toggle_firemode(datum/source, mob/user, firemode)
+	enable = firemode == GUN_AUTO_MODE
 
 // There is a gun and there is a user wielding it. The component now waits for the mouse click.
 /datum/component/automatic_fire/proc/autofire_on(client/user_client)

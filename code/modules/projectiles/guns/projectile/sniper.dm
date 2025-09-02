@@ -20,6 +20,7 @@
 	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_MEGA
+	fire_modes = GUN_MODE_SINGLE_ONLY
 
 /obj/item/gun/projectile/automatic/sniper_rifle/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gun_module/muzzle/suppressor))
