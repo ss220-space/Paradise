@@ -71459,7 +71459,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/structure/closet/crate/freezer,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
@@ -71469,6 +71468,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/closet/crate/secure/blood/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -79782,10 +79782,10 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/structure/closet/crate/secure/blood/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -103460,7 +103460,6 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/theatre)
 "pmy" = (
-/obj/structure/closet/crate/freezer,
 /obj/machinery/iv_drip,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/item/tank/internals/emergency_oxygen/engi,
@@ -103484,6 +103483,7 @@
 	req_access = list(5);
 	dir = 8
 	},
+/obj/structure/closet/crate/secure/blood,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -108005,7 +108005,6 @@
 	},
 /area/maintenance/fsmaint3)
 "pVd" = (
-/obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/blood/diona,
@@ -108025,6 +108024,7 @@
 	req_access = list(5);
 	dir = 8
 	},
+/obj/structure/closet/crate/secure/blood/xeno,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -134173,7 +134173,6 @@
 /turf/simulated/openspace,
 /area/hallway/primary/central/sw)
 "tGs" = (
-/obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/blood/diona,
@@ -134197,6 +134196,7 @@
 	req_access = list(5);
 	dir = 8
 	},
+/obj/structure/closet/crate/secure/blood/xeno,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"

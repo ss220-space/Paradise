@@ -80,7 +80,13 @@
 
 	var/mob/arrived_mob = arrived
 	for(var/obj/item/storage/bag/ore/bag in arrived_mob.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
-		loc.attackby(bag, arrived)
+		for(var/obj/item/item as anything in loc)
+			if(!bag.can_be_inserted(item, stop_messages = TRUE))
+				continue
+
+			item.do_pickup_animation(arrived_mob)
+			bag.handle_item_insertion(item, prevent_warning = TRUE)
+
 		// Then, if the user is dragging an ore box, empty the satchel into the box.
 		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
 			arrived_mob.pulling.attackby(bag, arrived)

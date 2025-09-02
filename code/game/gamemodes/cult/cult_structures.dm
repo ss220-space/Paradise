@@ -246,10 +246,12 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 		AddComponent( \
 			/datum/component/aura_healing, \
 			range = 5, \
-			brute_heal = 0.4, \
-			burn_heal = 0.4, \
-			blood_heal = 0.4, \
-			simple_heal = 1.2, \
+			brute_heal = 0.8, \
+			burn_heal = 0.8, \
+			suffocation_heal = 0.5, \
+			stamina_heal = 0.5, \
+			blood_heal = 0.8, \
+			simple_heal = 1.6, \
 			requires_visibility = FALSE, \
 			limit_to_trait = TRAIT_HEALS_FROM_CULT_PYLONS, \
 			healing_color = COLOR_CULT_RED, \
