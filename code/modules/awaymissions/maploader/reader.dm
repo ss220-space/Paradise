@@ -167,7 +167,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	GLOB._preloader.reset()
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
-	
+
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
 		CRASH("Bad Map bounds in [fname], Min x: [bounds[MAP_MINX]], Min y: [bounds[MAP_MINY]], Min z: [bounds[MAP_MINZ]], Max x: [bounds[MAP_MAXX]], Max y: [bounds[MAP_MAXY]], Max z: [bounds[MAP_MAXZ]]")
 	else

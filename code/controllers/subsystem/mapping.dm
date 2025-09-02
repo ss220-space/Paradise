@@ -67,6 +67,8 @@ SUBSYSTEM_DEF(mapping)
 	var/max_plane_offset = 0
 	/// Maps played in previous rounds, stores typepaths
 	var/list/previous_maps
+	/// If true, there are empty zlevels below and above the station
+	var/has_side_levels = TRUE
 
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
@@ -370,17 +372,45 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.english_station_name]...")
 	var/map_z_level
+	var/below_level
+	var/above_level
 	if(map_datum.traits && map_datum.traits?.len && islist(map_datum.traits[1])) // we work with list of lists
-		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])
+		has_side_levels = !(ZTRAIT_BASETURF in map_datum.traits[1]) || is_space_or_openspace(map_datum.traits[1][ZTRAIT_BASETURF])
+		if(has_side_levels)
+			below_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION + "(below)", linkage = map_datum.linkage, traits = list(STATION_LEVEL = "Below the station", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP))
+
+		var/list/straits = map_datum.traits[1]
+		if(has_side_levels)
+			straits |= ZTRAIT_DOWN
+			straits[ZTRAIT_BASETURF] = /turf/space/openspace
+
+		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = straits)
 		if(map_datum.traits.len > MULTIZ_WARN)
 			message_admins("Loading station with over [MULTIZ_WARN] levels(It has [map_datum.traits.len]!!). May cause some issues with space levels and/or perfomance on server.")
 
 		for(var/i in 2 to map_datum.traits.len)
-			GLOB.space_manager.add_new_zlevel(MAIN_STATION + "([i])", linkage = map_datum.linkage, traits = map_datum.traits[i])
+			GLOB.space_manager.add_new_zlevel(MAIN_STATION + "([i])", linkage = map_datum.linkage, traits = map_datum.traits[i] + (i == map_datum.traits.len && has_side_levels ? ZTRAIT_UP : null))
+
+		if(has_side_levels)
+			above_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION + "(above)", linkage = map_datum.linkage, traits = list(STATION_LEVEL = "Above the station", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_DOWN, ZTRAIT_BASETURF = /turf/simulated/openspace))
 	else
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
+		has_side_levels = !(ZTRAIT_BASETURF in s_traits) || is_space_or_openspace(s_traits[ZTRAIT_BASETURF])
+		if(has_side_levels)
+			below_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION + "(below)", linkage = map_datum.linkage, traits = list(STATION_LEVEL = "Below the station", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP))
+			s_traits |= ZTRAIT_DOWN
+			s_traits |= ZTRAIT_UP
+			s_traits[ZTRAIT_BASETURF] = /turf/space/openspace
+
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
+
+		if(has_side_levels)
+			above_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION + "(above)", linkage = map_datum.linkage, traits = list(STATION_LEVEL = "Above the station", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_DOWN, ZTRAIT_BASETURF = /turf/simulated/openspace))
+
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+	if(has_side_levels)
+		above_and_below_prepare(below_level, above_level)
+
 	log_startup_progress("Loaded [map_datum.english_station_name] in [stop_watch(watch)]s")
 
 	// Save station name in the DB
@@ -498,6 +528,23 @@ SUBSYSTEM_DEF(mapping)
 			log_world("Failed to place [current_pick.name] ruin.")
 
 	log_world("Ruin loader finished with [budget] left to spend.")
+
+
+/datum/controller/subsystem/mapping/proc/above_and_below_prepare(below_level, above_level)
+	for(var/x = 1; x <= world.maxx; ++x)
+		for(var/y = 1; y <= world.maxy; ++y)
+			var/turf/first = get_turf(locate(x, y, below_level + 1))
+			if(isspaceturf(first) && !isopenspaceturf(first))
+				first.ChangeTurf(/turf/space/openspace)
+
+			var/turf/last = get_turf(locate(x, y, above_level - 1))
+			var/turf/above = get_turf(locate(x, y, above_level))
+			if(is_space_or_openspace(last))
+				above.ChangeTurf(/turf/space/openspace)
+				continue
+
+			above.ChangeTurf(/turf/simulated/floor/engine/hull/reinforced)
+
 
 /datum/controller/subsystem/mapping/proc/make_maint_all_access()
 	for(var/area/maintenance/area in existing_station_areas)
@@ -735,7 +782,7 @@ SUBSYSTEM_DEF(mapping)
 	generate_offset_lists(old_max + 1, max_plane_offset)
 	SEND_SIGNAL(src, COMSIG_PLANE_OFFSET_INCREASE, old_max, max_plane_offset)
 	// Sanity check
-	if(max_plane_offset > MAX_EXPECTED_Z_DEPTH)
+	if(max_plane_offset - has_side_levels * 2 > MAX_EXPECTED_Z_DEPTH)
 		stack_trace("We've loaded a map deeper then the max expected z depth. Preferences won't cover visually disabling all of it!")
 
 /// Takes an offset to generate misc lists to, and a base to start from
