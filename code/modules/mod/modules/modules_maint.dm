@@ -3,10 +3,12 @@
 ///Springlock Mechanism - allows your modsuit to activate faster, but reagents are very dangerous.
 /obj/item/mod/module/springlock
 	name = "MOD springlock module"
-	desc = "A module that spans the entire size of the MOD unit, sitting under the outer shell. \
-		This mechanical exoskeleton pushes out of the way when the user enters and it helps in booting \
-		up, but was taken out of modern suits because of the springlock's tendency to \"snap\" back \
-		into place when exposed to humidity. You know what it's like to have an entire exoskeleton enter you?"
+	desc = "Модуль, располагающийся по всей площади МЭКа под его внешней оболочкой. \
+		Очень компактный в сжатом виде, при активации этот механический каркас экзоскелета раздвигается в стороны, \
+		облегчая облачение пользователя в костюм и ускоряя процесс. Однако из-за критического конструктивного недостатка \
+		в современных моделях от него пришлось отказаться: при воздействии влаги \
+		пружинный механизм имел тенденцию \"защёлкиваться\" в исходное положение. Можете себе представить, каково это — внезапно \
+		почувствовать, как металлический экзоскелет врезается в плоть, сжимаясь вокруг всего вашего тела?"
 	icon_state = "springlock"
 	complexity = 3 // it is inside every part of your suit, so
 	incompatible_modules = list(/obj/item/mod/module/springlock)
@@ -60,7 +62,7 @@
 /obj/item/mod/module/springlock/proc/on_wearer_exposed(atom/source, list/reagents, datum/reagents/source_reagents, methods, volume_modifier, show_message)
 	SIGNAL_HANDLER
 	remove_retraction_block() //No double signals
-	to_chat(mod.wearer, span_danger("[src] издает мерзкий щёлкающий звук..."))
+	to_chat(mod.wearer, span_danger("[capitalize(declent_ru(NOMINATIVE))] издает мерзкий щёлкающий звук..."))
 	incoming_jumpscare = TRUE
 	playsound(src, 'sound/items/modsuit/springlock.ogg', 75, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(snap_shut)), rand(3 SECONDS, 5 SECONDS))
@@ -70,7 +72,7 @@
 /obj/item/mod/module/springlock/proc/on_activate_spring_block(datum/source, user)
 	SIGNAL_HANDLER
 
-	to_chat(mod.wearer, span_userdanger("Кажется пружинные замки не работают...?"))
+	to_chat(mod.wearer, span_userdanger("Кажется пружинные замки не работают?..."))
 	return MOD_CANCEL_ACTIVATE
 
 ///Removes the retraction blocker from the springlock so long as they are not about to be killed
@@ -93,7 +95,7 @@
 ///Balloon Blower - Blows a balloon.
 /obj/item/mod/module/balloon
 	name = "MOD balloon blower module"
-	desc = "A strange module invented years ago by some ingenious mimes. It blows balloons."
+	desc = "Странный модуль, изобретённый множество лет назад какими-то находчивыми мимами. Всего лишь надувает шарики."
 	icon_state = "bloon"
 	module_type = MODULE_USABLE
 	complexity = 1
@@ -127,8 +129,8 @@
 ///Stamper - Extends a stamp that can switch between accept/deny modes.
 /obj/item/mod/module/stamp
 	name = "MOD stamper module"
-	desc = "A module installed into the wrist of the suit, this functions as a high-power stamp, \
-		able to switch between accept and deny modes."
+	desc = "Устанавливаемый в запястье костюма модуль, функционирующий как электронная печать \
+		с возможностью переключения между режимами \"отказано\" и \"одобрено\"."
 	icon_state = "stamp"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -149,7 +151,7 @@
 
 /obj/item/stamp/mod
 	name = "MOD electronic stamp"
-	desc = "A high-power stamp, able to switch between accept and deny mode when used."
+	desc = "Электронная печать. Переключается между режимами \"отказано\" и \"одобрено\"."
 
 /obj/item/stamp/mod/get_ru_names()
 	return list(
