@@ -165,12 +165,12 @@
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/get_ru_names()
 	return list(
-		NOMINATIVE = "шкаф пистолетов пулемётов WT-550",
-		GENITIVE = "шкафа пистолетов пулемётов WT-550",
-		DATIVE = "шкафу пистолетов пулемётов WT-550",
-		ACCUSATIVE = "шкаф пистолетов пулемётов WT-550",
-		INSTRUMENTAL = "шкафом пистолетов пулемётов WT-550",
-		PREPOSITIONAL = "шкафе пистолетов пулемётов WT-550"
+		NOMINATIVE = "шкаф пистолет пулемётов WT-550",
+		GENITIVE = "шкафа пистолет пулемётов WT-550",
+		DATIVE = "шкафу пистолет пулемётов WT-550",
+		ACCUSATIVE = "шкаф пистолет пулемётов WT-550",
+		INSTRUMENTAL = "шкафом пистолет пулемётов WT-550",
+		PREPOSITIONAL = "шкафе пистолет пулемётов WT-550"
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
@@ -187,12 +187,12 @@
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/get_ru_names()
 	return list(
-		NOMINATIVE = "шкаф пистолетов пулемётов SP-91-RC",
-		GENITIVE = "шкафа пистолетов пулемётов SP-91-RC",
-		DATIVE = "шкафу пистолетов пулемётов SP-91-RC",
-		ACCUSATIVE = "шкаф пистолетов пулемётов SP-91-RC",
-		INSTRUMENTAL = "шкафом пистолетов пулемётов SP-91-RC",
-		PREPOSITIONAL = "шкафе пистолетов пулемётов SP-91-RC"
+		NOMINATIVE = "шкаф пистолет пулемётов SP-91-RC",
+		GENITIVE = "шкафа пистолет пулемётов SP-91-RC",
+		DATIVE = "шкафу пистолет пулемётов SP-91-RC",
+		ACCUSATIVE = "шкаф пистолет пулемётов SP-91-RC",
+		INSTRUMENTAL = "шкафом пистолет пулемётов SP-91-RC",
+		PREPOSITIONAL = "шкафе пистолет пулемётов SP-91-RC"
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
