@@ -23,6 +23,8 @@
 
 	mech_type = MECH_TYPE_RETICENCE
 
+	ui_theme = "ntOS95"
+
 /obj/mecha/combat/reticence/loaded/New()
 	..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced

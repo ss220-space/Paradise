@@ -4,14 +4,22 @@
 @use '../colors.scss' with (
   $primary: #4c10ae,
   $label: #ecebec,
-  $red: #b2f63d,
-  $green: #ffe940,
+  $good: #ffe940,
+  $average: #7c45d6,
+  $bad: #b2f63d,
+
   $fg-map-keys: (
     'label',
-    'red',
-    'green',
+    'good',
+    'bad',
+    'average',
   ),
-  $bg-map-keys: ()
+
+  $bg-map-keys: (
+    'good',
+    'bad',
+    'average',
+  )
 );
 
 @use '../base.scss' with (
@@ -56,14 +64,7 @@
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: (
-      'background-color': rgba(0, 0, 0, 0.5),
-      'bg-map': (
-        'good': #ffe940,
-        'average': #7c45d6,
-        'bad': #b2f63d,
-      )
-    )
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
   );
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css(

@@ -33,7 +33,7 @@ export const AlertPane = (props) => {
               <Stack.Item>
                 <Box
                   color={
-                    internal_damage & internal_damage_keys[t] ? 'red' : 'green'
+                    internal_damage & internal_damage_keys[t] ? 'bad' : 'good'
                   }
                 >
                   <Icon
