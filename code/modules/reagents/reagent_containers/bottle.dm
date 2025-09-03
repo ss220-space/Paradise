@@ -35,7 +35,6 @@
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
-			switch(percent)
 			if(0 to 9)
 				filling.icon_state = "[icon_state]-10"
 			if(10 to 24)
@@ -52,7 +51,7 @@
 				filling.icon_state = "[icon_state]100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-			. += filling
+		. += filling
 
 	if(!is_open_container())
 		. += "lid_[icon_state]"
