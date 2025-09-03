@@ -230,7 +230,7 @@
 
 /// Called from MODsuit's uninstall() proc, so when the module is uninstalled.
 /obj/item/mod/module/proc/on_uninstall(deleting = FALSE)
-	mod.wearer.update_inv_back()
+	mod.wearer?.update_inv_back()
 	return
 
 /// Called when the MODsuit is activated
