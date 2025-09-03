@@ -469,7 +469,8 @@
 		/obj/item/mod/module/flamethrower,
 		/obj/item/mod/module/medbeam,
 		/obj/item/mod/module/jump_jet,
-		/obj/item/mod/module/flashlight/darkness
+		/obj/item/mod/module/flashlight/darkness,
+		/obj/item/mod/module/longfall
 	)
 	default_pins = list(
 		/obj/item/mod/module/bikehorn,

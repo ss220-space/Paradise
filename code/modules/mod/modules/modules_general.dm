@@ -707,3 +707,41 @@
 	if(istype(helmet))
 		helmet.flags_cover |= former_helmet_flags
 
+///Longfall - Nullifies fall damage, removing charge instead.
+/obj/item/mod/module/longfall
+	name = "MOD longfall module"
+	desc = "Useful for protecting both the suit and the wearer, \
+		utilizing commonplace systems to convert the possible damage from a fall into kinetic charge, \
+		as well as internal gyroscopes to ensure the user's safe falling. \
+		Useful for mining, monorail tracks, or even skydiving!"
+	icon_state = "longfall"
+	complexity = 1
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	incompatible_modules = list(/obj/item/mod/module/longfall)
+
+/obj/item/mod/module/longfall/on_suit_activation()
+	..()
+	RegisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT, PROC_REF(z_impact_react))
+
+/obj/item/mod/module/longfall/on_suit_deactivation(deleting = FALSE)
+	..()
+	UnregisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT)
+
+/obj/item/mod/module/longfall/proc/z_impact_react(datum/source, levels, turf/fell_on)
+	SIGNAL_HANDLER
+	if(!drain_power(use_power_cost * levels))
+		return NONE
+	new /obj/effect/temp_visual/mook_dust(fell_on)
+
+	/// Boolean that tracks whether we fell more than one z-level. If TRUE, we stagger our wearer.
+	var/extreme_fall = FALSE
+
+	if(levels >= 2)
+		extreme_fall = TRUE
+		mod.wearer.Stun(clamp(3 SECONDS * levels, 0, 10 SECONDS))
+
+	mod.wearer.visible_message(
+		span_notice("[mod.wearer] lands on [fell_on] safely[extreme_fall ? ", but barely manages to stay on [p_their()] feet." : ", and quite stylishly on [p_their()] feet" ]."),
+		span_notice("[src] protects you from the damage!"),
+	)
+	return ZIMPACT_CANCEL_DAMAGE|ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
