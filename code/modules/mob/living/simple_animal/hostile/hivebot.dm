@@ -337,6 +337,7 @@
 	icon_state = "basic"
 
 /obj/effect/spawner/hivebot/Initialize()
+	. = ..()
 	var/mob_type = pickweight(list(
 		/mob/living/simple_animal/hostile/hivebot = 60,
 		/mob/living/simple_animal/hostile/hivebot/melee = 15,
@@ -353,6 +354,7 @@
 	icon_state = "basic"
 
 /obj/effect/spawner/hivebot_heavy/Initialize()
+	. = ..()
 	var/mob_type = pickweight(list(
 		/mob/living/simple_animal/hostile/hivebot = 50,
 		/mob/living/simple_animal/hostile/hivebot/melee = 15,
