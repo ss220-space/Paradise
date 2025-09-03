@@ -29,6 +29,7 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 
 /obj/item/clothing/suit/armor/vest/jacket
 	name = "military jacket"
@@ -36,6 +37,7 @@
 	icon_state = "militaryjacket"
 	item_state = "militaryjacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 
 /obj/item/clothing/suit/armor/vest/combat
 	name = "combat vest"
@@ -132,6 +134,7 @@
 	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
@@ -241,6 +244,7 @@
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
@@ -311,6 +315,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
@@ -357,6 +362,7 @@
 		)
 	var/static/list/reflect_zones = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	var/hit_reflect_chance = 50
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 
 /obj/item/clothing/suit/armor/reflector/get_ru_names()
 	return list(
@@ -408,6 +414,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 
 
 /obj/item/clothing/suit/armor/reactive/update_icon_state()
@@ -560,6 +567,7 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	sprite_sheets = null
 	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
@@ -578,6 +586,7 @@
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 
 /obj/item/clothing/suit/armor/tdome
 	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
@@ -615,6 +624,7 @@
 	icon_state = "ertarmor_cmd"
 	item_state = "armor"
 	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 20, bio = 0, rad = 0, fire = 50, acid = 50)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 
 //Commander
 /obj/item/clothing/suit/armor/vest/ert/command
@@ -734,7 +744,7 @@
 	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	
+
 /obj/item/clothing/suit/hooded/goliath/get_ru_names()
 	return list(
 		NOMINATIVE = "накидка из голиафа",
@@ -817,6 +827,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 
 /obj/item/clothing/suit/armor/bone/get_ru_names()
 	return list(
@@ -835,6 +846,7 @@
 	item_state = "makeshift_armor"
 	resistance_flags = FIRE_PROOF
 	armor = list(MELEE = 8, BULLET = 5, LASER = 5, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 
 //Dredd
 
@@ -846,6 +858,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 
 /obj/item/clothing/suit/armor/cartilage //parent type, used in order not to copy-paste same lines in 3 same armors
 	name = "cartilage armor"
@@ -870,6 +883,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
 
 /obj/item/clothing/suit/armor/cartilage/get_ru_names()
 	return list(
