@@ -955,8 +955,6 @@
 
 	var/list/out_records = list()
 
-	var/i = 1
-
 	for (var/datum/data/vending_product/product_record as anything in records)
 		var/obj/item/item = new product_record.product_path(src)
 		var/list/names = item.ru_names || item.get_ru_names()
@@ -969,7 +967,7 @@
 			max_amount = product_record.max_amount,
 			req_coin = FALSE,
 			is_hidden = FALSE,
-			inum = i++
+			ref = product_record.UID()
 		)
 
 		var/list/category = product_record.category || default_category
@@ -1044,8 +1042,7 @@
 			if(extended_inventory)
 				records_to_check = product_records + coin_records + hidden_records
 
-			var/key = text2num(params["inum"])
-			var/datum/data/vending_product/product_record = records_to_check[key]
+			var/datum/data/vending_product/product_record = locateUID(params["ref"])
 
 			if(!istype(product_record))
 				to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] содержит неизвестный товар. Сообщите о баге."))

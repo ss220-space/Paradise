@@ -20,7 +20,7 @@ type Product = {
   price: number;
   name: string;
   max_amount: number;
-  inum: string;
+  ref: string;
   icon: string;
   icon_state: string;
 };
@@ -77,7 +77,7 @@ const VendingRow = (props: VendingRowProps) => {
           textAlign="left"
           onClick={() =>
             act('vend', {
-              'inum': product.inum,
+              'ref': product.ref,
             })
           }
         >
