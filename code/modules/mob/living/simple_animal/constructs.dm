@@ -57,7 +57,7 @@
 /mob/living/simple_animal/hostile/construct/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
-		minbodytemp = 223, \
+		minbodytemp = 0, \
 	)
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)

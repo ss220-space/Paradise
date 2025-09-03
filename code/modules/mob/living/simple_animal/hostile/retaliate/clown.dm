@@ -1,14 +1,6 @@
 /mob/living/simple_animal/hostile/retaliate/clown
 	name = "clown"
 	desc = "Житель планеты клоунов."
-	ru_names = list(
-		NOMINATIVE = "клоун",
-		GENITIVE = "клоуна",
-		DATIVE = "клоуну",
-		ACCUSATIVE = "клоуна",
-		INSTRUMENTAL = "клоуном",
-		PREPOSITIONAL = "клоуне"
-	)
 	gender = MALE
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "clown"
@@ -37,6 +29,16 @@
 	unsuitable_atmos_damage = 10
 	footstep_type = FOOTSTEP_MOB_SHOE
 
+/mob/living/simple_animal/hostile/retaliate/clown/get_ru_names()
+	return list(
+		NOMINATIVE = "клоун",
+		GENITIVE = "клоуна",
+		DATIVE = "клоуну",
+		ACCUSATIVE = "клоуна",
+		INSTRUMENTAL = "клоуном",
+		PREPOSITIONAL = "клоуне"
+	)
+
 /mob/living/simple_animal/hostile/retaliate/clown/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
@@ -49,14 +51,6 @@
 /mob/living/simple_animal/hostile/retaliate/clown/goblin
 	name = "clown goblin"
 	desc = "Крошечные ходячие маска и клоунские башмачки. Так и хочется расквасить им нос!"
-	ru_names = list(
-		NOMINATIVE = "клоун-гоблин",
-		GENITIVE = "клоуна-гоблина",
-		DATIVE = "клоуну-гоблину",
-		ACCUSATIVE = "клоуна-гоблина",
-		INSTRUMENTAL = "клоуном-гоблином",
-		PREPOSITIONAL = "клоуне-гоблине"
-	)
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "clowngoblin"
 	icon_living = "clowngoblin"
@@ -76,17 +70,19 @@
 
 	holder_type = /obj/item/holder/clowngoblin
 
+/mob/living/simple_animal/hostile/retaliate/clown/goblin/get_ru_names()
+	return list(
+		NOMINATIVE = "клоун-гоблин",
+		GENITIVE = "клоуна-гоблина",
+		DATIVE = "клоуну-гоблину",
+		ACCUSATIVE = "клоуна-гоблина",
+		INSTRUMENTAL = "клоуном-гоблином",
+		PREPOSITIONAL = "клоуне-гоблине"
+	)
+
 /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne
 	name = "cluwne goblin"
 	desc = "Крошечное воплощение страдания и зла. Уничтожьте его, пока оно не добралось до вашей семьи."
-	ru_names = list(
-		NOMINATIVE = "неуклюжий гоблин",
-		GENITIVE = "неуклюжего гоблина",
-		DATIVE = "неуклюжему гоблину",
-		ACCUSATIVE = "неуклюжего гоблина",
-		INSTRUMENTAL = "неуклюжим гоблином",
-		PREPOSITIONAL = "неуклюжем гоблине"
-	)
 	icon_state = "cluwnegoblin"
 	icon_living = "cluwnegoblin"
 	response_help = "henks the"
@@ -102,6 +98,16 @@
 	move_to_delay = 2
 
 	loot = list(/obj/item/clothing/mask/false_cluwne_mask, /obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes) // We'd rather not give them ACTUAL cluwne stuff you know?
+
+/mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne/get_ru_names()
+	return list(
+		NOMINATIVE = "неуклюжий гоблин",
+		GENITIVE = "неуклюжего гоблина",
+		DATIVE = "неуклюжему гоблину",
+		ACCUSATIVE = "неуклюжего гоблина",
+		INSTRUMENTAL = "неуклюжим гоблином",
+		PREPOSITIONAL = "неуклюжем гоблине"
+	)
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne/ComponentInitialize()
 	AddComponent( \

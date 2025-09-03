@@ -86,7 +86,7 @@
 	desc = "Гасит большинство близлежащих источников света."
 	base_cooldown = 15 SECONDS //Short cooldown because people can just turn the lights back on
 	clothes_req = FALSE
-	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime)
+	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime, /obj/structure/glowshroom/shadowshroom)
 	action_icon_state = "veil"
 	aoe_range = 5
 
@@ -109,10 +109,12 @@
 		return
 
 	to_chat(user, span_shadowling("Вы бесшумно отключаете все ближайшие источники света."))
-	for(var/turf/T in targets)
-		T.extinguish_light()
-		for(var/atom/A in T.contents)
-			A.extinguish_light()
+	for(var/turf/turf in targets)
+		turf.extinguish_light()
+		for(var/atom/atom in turf.contents)
+			if(atom in blacklisted_lights)
+				continue
+			atom.extinguish_light()
 
 
 /obj/effect/proc_holder/spell/shadowling_shadow_walk
@@ -614,7 +616,7 @@
 				to_chat(robot, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! ПЕРЕГРУЗКА СЕНСЕРОВ \[$(!@#</b>"))
 				SEND_SOUND(robot, sound('sound/misc/interference.ogg'))
 				playsound(robot, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-				do_sparks(5, 1, robot)
+				do_sparks(5, TRUE, robot)
 				robot.Weaken(12 SECONDS)
 
 		for(var/obj/structure/window/window in turf.contents)

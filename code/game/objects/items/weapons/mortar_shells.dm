@@ -92,7 +92,7 @@
 /obj/item/mortar_shell/incendiary/detonate(turf/detonate_turf)
 	. = ..()
 	flame_radius( radius, detonate_turf, flame_level, burn_level, flameshape, null, fire_type)
-	playsound(detonate_turf, 'sound/weapons/gun_flamethrower2.ogg', 35, 1, 4)
+	playsound(detonate_turf, 'sound/weapons/gun_flamethrower2.ogg', 35, TRUE, 4)
 
 /obj/item/mortar_shell/flare
 	name = "80mm flare/camera mortar shell"

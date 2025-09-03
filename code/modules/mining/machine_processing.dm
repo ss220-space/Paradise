@@ -15,7 +15,15 @@
 /obj/machinery/mineral/processing_unit_console
 	name = "production machine console"
 	icon = 'icons/obj/machines/mining_machines.dmi'
-	ru_names = list(
+	icon_state = "console"
+	density = TRUE
+	anchored = TRUE
+	var/obj/machinery/mineral/processing_unit/machine = null
+	var/machinedir = EAST
+	speed_process = TRUE
+
+/obj/machinery/mineral/processing_unit_console/get_ru_names()
+	return list(
 		NOMINATIVE = "консоль производственного аппарата",
 		GENITIVE = "консоли производственного аппарата",
 		DATIVE = "консоли производственного аппарата",
@@ -23,12 +31,6 @@
 		INSTRUMENTAL = "консолью производственного аппарата",
 		PREPOSITIONAL = "консоли производственного аппарата"
 	)
-	icon_state = "console"
-	density = TRUE
-	anchored = TRUE
-	var/obj/machinery/mineral/processing_unit/machine = null
-	var/machinedir = EAST
-	speed_process = TRUE
 
 /obj/machinery/mineral/processing_unit_console/Initialize(mapload)
 	. = ..()
@@ -86,14 +88,6 @@
 
 /obj/machinery/mineral/processing_unit
 	name = "furnace"
-	ru_names = list(
-		NOMINATIVE = "плавильная печь",
-		GENITIVE = "плавильной печи",
-		DATIVE = "плавильной печи",
-		ACCUSATIVE = "плавильную печь",
-		INSTRUMENTAL = "плавильной печью",
-		PREPOSITIONAL = "плавильной печи"
-	)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "furnace"
 	density = TRUE
@@ -104,6 +98,16 @@
 	var/selected_alloy = null
 	var/datum/research/files
 	speed_process = TRUE
+
+/obj/machinery/mineral/processing_unit/get_ru_names()
+	return list(
+		NOMINATIVE = "плавильная печь",
+		GENITIVE = "плавильной печи",
+		DATIVE = "плавильной печи",
+		ACCUSATIVE = "плавильную печь",
+		INSTRUMENTAL = "плавильной печью",
+		PREPOSITIONAL = "плавильной печи"
+	)
 
 /obj/machinery/mineral/processing_unit/Initialize(mapload)
 	. = ..()
