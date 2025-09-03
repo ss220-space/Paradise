@@ -108,6 +108,7 @@
 	armour_penetration = 50
 	forced_accuracy = TRUE
 	var/breakthings = TRUE
+	armour_penetration_level = BALLISTIC_PENETRATION_HIGH_CAL
 
 /obj/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target) && breakthings))
@@ -139,6 +140,7 @@
 	weaken = 0
 	breakthings = FALSE
 	var/sleep_time = 40 SECONDS
+	armour_penetration_level = BALLISTIC_PENETRATION_PISTOL
 
 /obj/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && isliving(target))
@@ -168,6 +170,7 @@
 	dismemberment = 0
 	weaken = 6 SECONDS
 	breakthings = TRUE
+	armour_penetration_level = BALLISTIC_PENETRATION_HIGH_CAL
 
 /obj/projectile/bullet/sniper/explosive/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target, /mob/living) && breakthings))
@@ -196,6 +199,7 @@
 	weaken = 0
 	breakthings = FALSE
 	var/bleeding = 100
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_RIFLE
 
 /obj/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))
@@ -227,6 +231,7 @@
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
+	armour_penetration_level = BALLISTIC_PENETRATION_HIGH_CAL
 
 //compact and penetrator ammo to avoid taipan abuse by traitors
 /obj/item/ammo_box/magazine/sniper_rounds/compact
@@ -250,6 +255,7 @@
 	armour_penetration = 50
 	breakthings = FALSE
 	dismemberment = 0
+	armour_penetration_level = BALLISTIC_PENETRATION_HIGH_CAL
 
 /obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator
 	name = "penetrator sniper rounds(compact)"
@@ -349,6 +355,7 @@
 /obj/projectile/bullet/sniper/a338
 	damage = 80
 	dismemberment = 0
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_RIFLE
 
 //Sleepy ammo
 /obj/item/ammo_box/magazine/a338/soporific
@@ -397,6 +404,7 @@
 	icon_state = ".50exp"
 
 /obj/projectile/bullet/sniper/explosive/a338
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_RIFLE
 
 //hemorrhage ammo
 /obj/item/ammo_box/magazine/a338/haemorrhage
@@ -420,6 +428,7 @@
 	icon_state = ".50exp"
 
 /obj/projectile/bullet/sniper/haemorrhage/a338
+	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
 
 //penetrator ammo
 /obj/item/ammo_box/magazine/a338/penetrator
@@ -444,3 +453,4 @@
 	icon_state = ".50pen"
 
 /obj/projectile/bullet/sniper/penetrator/a338
+	armour_penetration_level = BALLISTIC_PENETRATION_HIGH_CAL

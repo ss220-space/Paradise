@@ -786,6 +786,7 @@ Difficulty: Very Hard
 /obj/projectile/bullet/ancient_robot_bullet
 	damage = 8
 	damage_type = BRUTE
+	armour_penetration_level = BALLISTIC_PENETRATION_PISTOL
 
 /obj/projectile/bullet/rock
 	name = "thrown rock"
@@ -801,6 +802,7 @@ Difficulty: Very Hard
 	damage_type = BRUTE
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small1"
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_RIFLE
 
 /obj/effect/temp_visual/rock
 	name = "floating rock"

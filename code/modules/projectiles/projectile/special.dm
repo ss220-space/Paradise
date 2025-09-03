@@ -647,6 +647,7 @@
 	armour_penetration = 100
 	dismemberment = 100
 	ricochets_max = 0
+	armour_penetration_level = BALLISTIC_PENETRATION_HIGH_CAL
 
 /obj/projectile/bullet/a84mm_hedp/on_hit(atom/target, blocked = FALSE)
 	..()

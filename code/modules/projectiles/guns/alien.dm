@@ -33,6 +33,7 @@
 	stun = 2 SECONDS
 	armour_penetration = 30
 	icon_state = "magspear"
+	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
 
 /obj/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
 	if((blocked != 100) && ishuman(target))

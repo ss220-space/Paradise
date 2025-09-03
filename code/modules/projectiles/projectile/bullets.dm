@@ -15,13 +15,16 @@
 	hitsound = SFX_BULLET
 	hitsound_wall = SFX_RICOCHET
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_RIFLE
 
 /obj/projectile/bullet/slug
 	armour_penetration = 40
+	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
 	damage = 30
 
 /obj/projectile/bullet/desert_eagle
 	stamina = 30
+	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
 
 /obj/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
@@ -35,6 +38,7 @@
 	)
 	damage = 5
 	stamina = 55
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/weakbullet/booze
 
@@ -66,6 +70,7 @@
 		INSTRUMENTAL = "резиновой пулей",
 		PREPOSITIONAL = "резиновой пуле"
 	)
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 	damage = 5
 	stamina = 35
 	icon_state = "bullet-r"
@@ -73,6 +78,7 @@
 /obj/projectile/bullet/hp38 //Detective hollow-point
 	damage = 33
 	armour_penetration = -50
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/hp38/on_hit(atom/target, blocked, hit_zone)
 	if(..(target, blocked))
@@ -94,6 +100,7 @@
 	stamina = 45
 	icon_state = null
 	hitsound_wall = null
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/weakbullet2/invisible/fake
 	weaken = 0
@@ -103,18 +110,22 @@
 
 /obj/projectile/bullet/weakbullet3
 	damage = 20
+	armour_penetration_level = BALLISTIC_PENETRATION_PISTOL
 
 /obj/projectile/bullet/weakbullet3/foursix
 	damage = 15
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_RIFLE
 
 /obj/projectile/bullet/weakbullet3/foursix/ap
 	damage = 12
 	armour_penetration = 40
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_RIFLE
 
 /obj/projectile/bullet/weakbullet3/foursix/tox
 	damage = 10
 	damage_type = TOX
 	armour_penetration = 10
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_PISTOL
 
 /obj/projectile/bullet/weakbullet3/fortynr
 	name = "bullet"
@@ -128,6 +139,7 @@
 	)
 	damage = 25
 	stamina = 20
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_PISTOL
 
 /obj/projectile/bullet/weakbullet4
 	name = "rubber bullet"
@@ -142,17 +154,21 @@
 	damage = 5
 	stamina = 30
 	icon_state = "bullet-r"
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/weakbullet4/c9mmte
 	name = "9mm TE"
 	damage = 7
 	stamina = 15
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/toxinbullet
 	damage = 15
 	damage_type = TOX
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/incendiary
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/incendiary/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -163,14 +179,17 @@
 
 /obj/projectile/bullet/incendiary/firebullet
 	damage = 10
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/incendiary/foursix
 	damage = 10
 	armour_penetration = 10
+	armour_penetration_level = BALLISTIC_PENETRATION_PISTOL
 
 /obj/projectile/bullet/armourpiercing
 	damage = 17
 	armour_penetration = 10
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_RIFLE
 
 /obj/projectile/bullet/pellet
 	name = "pellet"
@@ -186,15 +205,18 @@
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
 	armour_penetration = -20
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/pellet/magnum
 	damage = 15.5
 	tile_dropoff = 0.4
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_PISTOL
 
 /obj/projectile/bullet/pellet/bioterror
 	damage = 9
 	irradiate = 20
 	tile_dropoff = 0
+	armour_penetration_level = BALLISTIC_PENETRATION_PISTOL
 
 /obj/projectile/bullet/pellet/bioterror/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
@@ -215,6 +237,7 @@
 	damage = 16.5
 	tile_dropoff = 0
 	armour_penetration = 20
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_RIFLE
 
 /obj/projectile/bullet/pellet/rubber
 	name = "rubber pellet"
@@ -229,10 +252,12 @@
 	damage = 3
 	stamina = 15
 	icon_state = "bullet-r"
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/pellet/weak
 	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
 	damage = 8
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/pellet/weak/New()
 	range = rand(1, 8)
@@ -244,6 +269,7 @@
 
 /obj/projectile/bullet/pellet/overload
 	damage = 3
+	armour_penetration_level = BALLISTIC_PENETRATION_PISTOL
 
 /obj/projectile/bullet/pellet/overload/New()
 	range = rand(1, 10)
@@ -252,6 +278,7 @@
 /obj/projectile/bullet/pellet/assassination
 	damage = 12
 	tile_dropoff = 1	// slightly less damage and greater damage falloff compared to normal buckshot
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/pellet/assassination/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
@@ -270,24 +297,30 @@
 /obj/projectile/bullet/midbullet
 	damage = 20
 	stamina = 33 //four rounds from the c20r knocks people down
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_PISTOL
 
 /obj/projectile/bullet/midbullet_AC2S
 	damage = 20
 	stamina = 40 //three rounds from the AC 2 Special knocks people down
+	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
 
 /obj/projectile/bullet/midbullet_r
 	damage = 5
 	stamina = 33 //Still four rounds to knock people down
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/midbullet2
 	damage = 25
+	armour_penetration_level = BALLISTIC_PENETRATION_PISTOL
 
 /obj/projectile/bullet/midbullet3
 	damage = 30
+	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
 
 /obj/projectile/bullet/midbullet3/hp
 	damage = 50
 	armour_penetration = -50
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/midbullet3/hp/on_hit(atom/target, blocked, hit_zone)
 	if(..(target, blocked))
@@ -297,6 +330,7 @@
 /obj/projectile/bullet/midbullet3/ap
 	damage = 27
 	armour_penetration = 40
+	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
 
 /obj/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked))
@@ -306,6 +340,7 @@
 
 /obj/projectile/bullet/heavybullet
 	damage = 35
+	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
 
 /obj/projectile/bullet/stunshot	//taser slugs for shotguns, nothing special
 	name = "stunshot"
@@ -325,6 +360,7 @@
 	range = 7
 	icon_state = "spark"
 	color = "#FFFF00"
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/incendiary/shell
 	name = "incendiary slug"
@@ -337,6 +373,7 @@
 		PREPOSITIONAL = "зажигательной пуле"
 	)
 	damage = 20
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/incendiary/shell/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -361,9 +398,11 @@
 	damage_type = BURN
 	range = 10
 	icon_state = "dragonbreath"
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
 	damage = 14
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/mecha
 	name = "liquidlava round"
@@ -378,6 +417,7 @@
 	damage = 20
 	damage_type = BRUTE
 	range = 50
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/meteorshot
 	name = "meteor"
@@ -394,6 +434,7 @@
 	damage = 30
 	weaken = 4 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_PISTOL
 
 /obj/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)
 	..()
@@ -410,6 +451,7 @@
 	damage = 50
 	weaken = 6 SECONDS
 	stun = 6 SECONDS
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_PISTOL
 
 /obj/projectile/bullet/mime
 	damage = 0
@@ -418,6 +460,7 @@
 	stamina = 45
 	slur = 40 SECONDS
 	stutter = 40 SECONDS
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/mime/on_hit(atom/target, blocked = 0)
 	..(target, blocked)
@@ -445,6 +488,7 @@
 	damage = 6
 	var/volume = 50
 	var/piercing = FALSE
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/dart/New()
 	..()
@@ -470,6 +514,7 @@
 	return TRUE
 
 /obj/projectile/bullet/dart/metalfoam
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/dart/metalfoam/New()
 	..()
@@ -491,6 +536,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
 	volume = 15
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/dart/syringe/tranquilizer
 
@@ -512,6 +558,7 @@
 	damage = 33
 	damage_type = TOX
 	weaken = 1 SECONDS
+	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
 /obj/projectile/bullet/neurotoxin/prehit(atom/target)
 	if(isalien(target))
@@ -542,6 +589,7 @@
 	)
 	damage = 18
 	stamina = 6
+	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
 
 /obj/projectile/bullet/ftt762 // Rusted PPSh
 	name = "Fusty FMJ 7.62 TT bullet"
@@ -556,9 +604,11 @@
 	damage = 8
 	stamina = 1
 	armour_penetration = 5
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_PISTOL
 
 /obj/projectile/bullet/weakbullet3/c257
 	damage = 20
+	armour_penetration_level = BALLISTIC_PENETRATION_PISTOL
 
 /obj/projectile/bullet/weakbullet3/c257/phosphorus/on_hit(atom/target, blocked, hit_zone)
 	do_sparks(rand(1, 3), FALSE, target)
