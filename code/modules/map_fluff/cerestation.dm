@@ -15,3 +15,4 @@
 	starsys_name = "Эпсилон Лукуста"
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/cerestation/"
 	admin_only = TRUE
+	side_levels = BELOW_LEVEL | ABOVE_LEVEL

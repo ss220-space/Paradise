@@ -91,3 +91,6 @@ last: Transit
 
 //Reserved/Transit turf type
 #define RESERVED_TURF_TYPE /turf/space
+
+#define BELOW_LEVEL 1
+#define ABOVE_LEVEL 2

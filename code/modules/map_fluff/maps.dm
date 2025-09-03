@@ -33,3 +33,5 @@
 	var/admin_only = FALSE
 	/// URL to the maps webmap.
 	var/webmap_url
+	/// Does this map has above and below levels?
+	var/side_levels
