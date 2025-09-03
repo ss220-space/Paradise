@@ -276,7 +276,7 @@
 		return // No point pinging a posibrain with a player already inside
 	if(check_observer(O) && (world.time >= next_ping_at))
 		next_ping_at = world.time + (20 SECONDS)
-		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
+		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, FALSE)
 		visible_message("<span class='notice'>[src] pings softly.</span>")
 
 /obj/item/mmi/robotic_brain/positronic

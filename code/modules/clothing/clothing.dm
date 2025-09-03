@@ -44,6 +44,7 @@
 	var/toggle_on_message
 	var/toggle_off_message
 	var/active_sound
+	var/active_sound_volume = 100
 	var/toggle_sound
 	var/toggle_cooldown = 0
 	var/cooldown = 0
@@ -121,7 +122,7 @@
 	if(visor_toggling(user))
 		update_equipped_item(update_speedmods = FALSE)
 		if(user)
-			to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
+			to_chat(user, span_notice("Вы [up ? "поднимаете на лоб" : "опускаете на глаза"] [declent_ru(ACCUSATIVE)]."))
 		return TRUE
 
 	return FALSE
@@ -592,7 +593,7 @@ BLIND     // can't see anything
 	set waitfor = FALSE
 
 	while(up)
-		playsound(loc, active_sound, 100, FALSE, 4)
+		playsound(loc, active_sound, active_sound_volume, FALSE, 4)
 		sleep(1.5 SECONDS)
 
 

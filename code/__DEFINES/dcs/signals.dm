@@ -945,6 +945,9 @@
 #define COMSIG_LANG_PRE_ACT "check_language"
 	#define COMSIG_LANG_SECURED (1<<0)
 
+///from base of obj/gun/projectile/automatic/toggle_firemode(): (/mob/user, firemode)
+#define COMSIG_GUN_TOGGLE_FIREMODE "gun_firemode_toggle"
+
 /// Defib-specific signals
 
 /// Called when a defibrillator is first applied to someone. (mob/living/user, mob/living/target, harmful)
@@ -1489,6 +1492,8 @@
 #define COMSIG_GET_BOLA_MODIFIERS "get_bola_modifiers"
 /// Called when proc need to get hunder modifiers.
 #define COMSIG_GET_HUNGER_MODS "get_hunger_mods"
+/// Called when proc need to upgrade mob's strength level.
+#define COMSIG_STRENGTH_LEVEL_UP "strength_level_up"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
 
 /// Called when attempting to insert a stack into the material container. (obj/item/stack/stack, amount)

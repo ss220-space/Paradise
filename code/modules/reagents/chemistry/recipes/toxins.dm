@@ -136,7 +136,7 @@
 
 /datum/chemical_reaction/teslium/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	do_sparks(6, 1, location)
+	do_sparks(6, TRUE, location)
 
 /datum/chemical_reaction/mutagen
 	name = "Unstable mutagen"

@@ -112,7 +112,7 @@
 		to_chat(user, span_notice(" You start invoking teleportation..."))
 		animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
 		if(do_after(user, 1.5 SECONDS, user) && destination)
-			do_sparks(4, 0, user)
+			do_sparks(4, FALSE, user)
 			user.forceMove(get_turf(destination))
 			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			add_attack_logs(user, destination, "Teleported to by [src]", ATKLOG_ALL)
@@ -1016,7 +1016,7 @@
 		if(isrobot(living))
 			var/mob/living/silicon/robot/robot = living
 			robot.Weaken(1 SECONDS)
-		do_sparks(5, 0, loc)
+		do_sparks(5, FALSE, loc)
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
 		deplete_spell()

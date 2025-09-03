@@ -554,7 +554,7 @@
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		dat += "<span style='color: red;'><b>Станция была эвакуирована.</b></span><br>"
-	else if((SSshuttle.emergency.mode == SHUTTLE_CALL) || EMERGENCY_AT_LEAST_DOCKED)
+	else if((SSshuttle.emergency?.mode == SHUTTLE_CALL) || EMERGENCY_AT_LEAST_DOCKED)
 		dat += "<span style='color: red;'>В настоящее время станция проходит процедуру эвакуации.</span><br>"
 
 	if(length(SSjobs.prioritized_jobs))

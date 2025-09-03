@@ -70,7 +70,7 @@
 				volume = 10
 			else
 				volume = 5
-		playsound(loc, beepsound, volume, 0)
+		playsound(loc, beepsound, volume, FALSE)
 		next_beep = world.time + 10
 
 	if(active && !defused && ((detonation_timer <= world.time) || explode_now))
@@ -256,7 +256,7 @@
 	countdown.start()
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)
-	playsound(loc, 'sound/machines/click.ogg', 30, 1)
+	playsound(loc, 'sound/machines/click.ogg', 30, TRUE)
 
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
 	var/new_timer = tgui_input_number(user, "Please set the timer.", "Timer", "[timer_set]")
@@ -556,7 +556,7 @@
 		message_admins(adminlog)
 		add_game_logs(adminlog)
 
-	playsound(loc, 'sound/effects/bamf.ogg', 75, 1, 5)
+	playsound(loc, 'sound/effects/bamf.ogg', 75, TRUE, 5)
 
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)
@@ -708,7 +708,7 @@
 				B.detonation_timer = world.time + BUTTON_DELAY
 				detonated++
 			existant++
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
+		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 		to_chat(user, span_notice("[existant] found, [detonated] triggered."))
 		if(detonated)
 			var/turf/T = get_turf(src)

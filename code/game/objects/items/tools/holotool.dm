@@ -42,7 +42,7 @@ Holotool. All instruments in one object
 		current_tool.on_unset(src)
 	current_tool = mode
 	current_tool.on_set(src)
-	playsound(loc, 'sound/items/pshoom.ogg', get_clamped_volume(), 1, -1)
+	playsound(loc, 'sound/items/pshoom.ogg', get_clamped_volume(), TRUE, -1)
 	update_state(user)
 
 /obj/item/holotool/proc/update_state(mob/user)
@@ -107,7 +107,7 @@ Holotool. All instruments in one object
 	if(emagged)
 		return
 	to_chat(user, span_danger("ZZT- ILLEGAL BLUEPRINT UNLOCKED- CONTACT !#$@^%$# NANOTRASEN SUPPORT-@*%$^%!"))
-	do_sparks(5, 0, src)
+	do_sparks(5, FALSE, src)
 	emagged = TRUE
 
 // holotool modes

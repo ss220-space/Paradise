@@ -63,7 +63,7 @@
 			return
 	var/turf/target_turf = get_turf(A)
 	target_turf.hotspot_expose(2000, 400)
-	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, 1)
+	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, TRUE)
 
 	var/atom/beam_from = user
 	var/atom/target_atom = A
