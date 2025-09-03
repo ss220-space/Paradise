@@ -1,12 +1,12 @@
 ///Pathfinder - Can fly the suit from a long distance to an implant installed in someone.
 /obj/item/mod/module/pathfinder
 	name = "MOD pathfinder module"
-	desc = "Данный модуль, разработанный корпорацией \"Решения Пайзо\" состоит из двух компонентов. \
-		Первый компонент, установливаемый в модульный костюм, представляет из себя множество \
-		двигателей и подруливателей, вместе с матрицей отслеживания. Всё это позволяет костюму \
+	desc = "Данный модуль, разработанный корпорацией \"Решения Пайзо\", состоит из двух компонентов. \
+		Первый компонент, устанавливаемый в модульный костюм, представляет из себя множество \
+		двигателей и подруливателей вместе с матрицей отслеживания. Всё это позволяет костюму \
 		самостоятельно перемещаться в пространстве навстречу второму компоненту - био-чипу \
 		\"Первопроходец\". Био-чип, вживляемый в тело, позволяет пользователю вызвать свой \
-		модульный костюм в любое время. Био-чип установлен в модуль и его нужно достать перед использованием."
+		модульный костюм в любое время. Био-чип встроен в модуль, и перед использованием его нужно извлечь."
 	icon_state = "pathfinder"
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 200
@@ -49,7 +49,7 @@
 	if(target == user)
 		balloon_alert(user, "био-чип установлен")
 	else
-		target.visible_message(span_notice("[user] устанавливает био-чип в [target]."), span_notice("[user] устанавливает вам [implant.declent_ru(NOMINATIVE)]."))
+		target.visible_message(span_notice("[user] устанавливает био-чип в [target]."), span_notice("[user] устанавливает вам [implant.declent_ru(ACCUSATIVE)]."))
 	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
 	icon_state = "pathfinder_empty"
 	implant = null

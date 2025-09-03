@@ -3,10 +3,10 @@
 ///Armor Booster - Grants your suit more armor and speed in exchange for EVA protection. Also acts as a welding screen.
 /obj/item/mod/module/armor_booster
 	name = "MOD armor booster module"
-	desc = "A retrofitted series of retractable armor plates, allowing the suit to function as essentially power armor, \
-		giving the user incredible protection against conventional firearms, or everyday attacks in close-quarters. \
-		However, the additional plating cannot deploy alongside parts of the suit used for vacuum sealing, \
-		so this extra armor provides zero ability for extravehicular activity while deployed."
+	desc = "Серия модифицированных выдвижных бронепластин, по сути позволяющих костюму функционировать как силовая броня. \
+		Предлагает пользователю превосходную защиту от всех распространённых видов огнестрельного оружия, а также от колюще-режущих \
+		воздействий в ближнем бою. Впрочем, это имеет свою цену: компоновка дополнительного бронепокрытия исключает возможность \
+		изолирования носителя от воздействия вакуума. Таким образом, вся эта броня гарантирует вам невозможность безопасного выхода в открытый космос."
 	icon_state = "armor_booster"
 	module_type = MODULE_TOGGLE
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
@@ -102,10 +102,10 @@
 ///Insignia - Gives you a skin specific stripe
 /obj/item/mod/module/insignia
 	name = "MOD insignia module"
-	desc = "Despite the existence of IFF systems, radio communique, and modern methods of deductive reasoning involving \
-		the wearer's own eyes, colorful paint jobs remain a popular way for different factions in the galaxy to display who \
-		they are. This system utilizes a series of tiny moving paint sprayers to both apply and remove different \
-		color patterns to and from the suit."
+	desc = "Несмотря на существование системы опознавания \"свой-чужой\", радиокоммуникации и современных методов \
+		дедуктивного рассуждения, включающих использование своего зрения, разноцветная покраска остаётся популярным способным \
+		для различных фракций в галактике отличать друг друга. Этот модуль представляет собой набор маленьких движущихся \
+		распылителей для нанесения и снятия краски по заданным цветовым шаблонам."
 	icon_state = "insignia"
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/insignia)
@@ -153,11 +153,11 @@
 ///Anti Slip - Prevents you from slipping on water.
 /obj/item/mod/module/noslip
 	name = "MOD anti slip module"
-	desc = "These are a modified variant of standard magnetic boots, utilizing piezoelectric crystals on the soles. \
-		The two plates on the bottom of the boots automatically extend and magnetize as the user steps; \
-		a pull that's too weak to offer them the ability to affix to a hull, but just strong enough to \
-		protect against the fact that you didn't read the wet floor sign. Honk Co. has come out numerous times \
-		in protest of these modules being legal."
+	desc = "Этот модуль — модифицированный вариант стандартных магнитных ботинок, использующий пьезоэлектрические кристаллы \
+		в конструкции. Две расположенные на подошвах пластины автоматически выдвигаются и примагничиваются \
+		по мере того, как пользователь двигается. Их притяжение слишком слабо, чтобы можно было ходить по стенам или потолку, \
+		но достаточно сильно, чтобы можно было игнорировать таблички \"Мокрый пол!\". Хонк Ко. неоднократно выступали с заявлениями \
+		о незаконности существования этих модулей."
 	icon_state = "noslip"
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
@@ -215,7 +215,7 @@
 ///Power kick - Lets the user launch themselves at someone to kick them.
 /obj/item/mod/module/power_kick
 	name = "MOD power kick module"
-	desc = "This module uses high-power myomer to generate an incredible amount of energy, transferred into the power of a kick."
+	desc = "Этот модуль использует миомеры высокой мощности для генерации невероятного количества энергии, преобразуемой в кинетическую энергию пинка."
 	icon_state = "power_kick"
 	module_type = MODULE_ACTIVE
 	removable = FALSE
@@ -285,8 +285,8 @@
 ///Plate Compression - Compresses the suit to normal size
 /obj/item/mod/module/plate_compression
 	name = "MOD plate compression module"
-	desc = "A module that keeps the suit in a very tightly fit state, lowering the overall size. \
-		Due to the pressure on all the parts, typical storage modules do not fit."
+	desc = "Модуль, позволяющий крайне плотно подогнать друг к другу детали костюма, делая его невероятно компактным. \
+		Оказываемое в процессе давление делает несовместимыми с костюмом большинство стандартных модулей хранилища."
 	icon_state = "plate_compression"
 	complexity = 2
 	incompatible_modules = list(/obj/item/mod/module/plate_compression, /obj/item/mod/module/storage)

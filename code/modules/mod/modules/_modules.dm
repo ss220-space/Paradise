@@ -132,7 +132,7 @@
 		mod.selected_module = src
 		if(device)
 			if(mod.wearer.put_in_hands(device))
-				balloon_alert(mod.wearer, "[device.declent_ru(NOMINATIVE)] развернут[genderize_ru(device.gender, "", "а", "о", "ы")]")
+				balloon_alert(mod.wearer, "[device.declent_ru(NOMINATIVE)] развёрнут[genderize_ru(device.gender, "", "а", "о", "ы")]")
 				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 				RegisterSignal(mod.wearer, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dropkey))
 			else
@@ -163,7 +163,7 @@
 			balloon_alert(mod.wearer, "[device.declent_ru(NOMINATIVE)] втянут[genderize_ru(device.gender, "", "а", "о", "ы")]")
 		else if(display_message)
 			balloon_alert(mod.wearer, "деактивировано")
-			to_chat(mod.wearer, span_notice("[src] deactivated."))
+			to_chat(mod.wearer, span_notice("[capitalize(device.declent_ru(NOMINATIVE))] деактивирован[genderize_ru(device.gender, "", "а", "о", "ы")]."))
 
 		if(device)
 			mod.wearer.drop_transfer_item_to_loc(device, src, TRUE)
@@ -372,7 +372,7 @@
 ///Anomaly Locked - Causes the module to not function without an anomaly.
 /obj/item/mod/module/anomaly_locked
 	name = "MOD anomaly locked module"
-	desc = "A form of a module, locked behind an anomalous core to function."
+	desc = "Модуль, требующий для функционирования ядро аномалии."
 	incompatible_modules = list(/obj/item/mod/module/anomaly_locked)
 	/// The core item the module runs off.
 	var/obj/item/assembly/signaler/core/core
@@ -441,7 +441,7 @@
 	. = ..()
 	if(!core)
 		balloon_alert(mod.wearer, "внутри нет ядра!")
-		to_chat(user, span_warning("A core is not installed!"))
+		to_chat(user, span_warning("Ядро отсутствует!"))
 		return
 	if(!do_after(user, 3 SECONDS, target = src))
 		return
