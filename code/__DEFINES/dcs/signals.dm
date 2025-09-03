@@ -597,6 +597,9 @@
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_MOB_CHANGED_TYPE "mob_changed_type"
 
+/// From /obj/item/melee/baton/baton_effect(): (datum/source, mob/living/user, /obj/item/melee/baton)
+#define COMSIG_MOB_BATONED "mob_batoned"
+
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)

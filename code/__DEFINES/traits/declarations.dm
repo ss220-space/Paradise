@@ -65,6 +65,7 @@
 #define TRAIT_NO_SPELLS "no_spells"	// Used to prevent cast or use any spells
 /// Are we immune to shocks?
 #define TRAIT_SHOCKIMMUNE "shock_immunity"
+#define TRAIT_BATON_RESISTANCE "baton_resistance"
 /// Are we immune to specifically tesla / SM shocks?
 #define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 /// Are we immune to wet effect
