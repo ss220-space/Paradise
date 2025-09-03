@@ -162,7 +162,7 @@ SUBSYSTEM_DEF(explosions)
 */
 /proc/secondaryexplosion(turf/epicenter, range)
 	for(var/turf/tile in prepare_explosion_turfs(range, epicenter))
-		tile.ex_act(2, epicenter)
+		tile.ex_act(EXPLODE_HEAVY, epicenter)
 
 /datum/explosion_data
 	var/orig_dev_range

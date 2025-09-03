@@ -261,7 +261,7 @@
 		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] со всей силы вгоня[pluralize_ru(user.gender,"ет","ют")] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
 		span_warning("Вы со всей мощи вгоняете заряженный топор в [target.declent_ru(ACCUSATIVE)]!")
 	)
-	do_sparks(1, 1, src)
+	do_sparks(1, TRUE, src)
 	target.Weaken(6 SECONDS)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 5, 1)
@@ -972,7 +972,7 @@
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
 	target.Stun(4 SECONDS)
-	do_sparks(5, 1, target.loc)
+	do_sparks(5, TRUE, target.loc)
 	target.visible_message(
 		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[genderize_ru(target.gender,"", "а", "о", "ы")] разрядом [declent_ru(GENITIVE)]!"),
 		span_userdanger("Мощный разряд пронзает ваше тело, отбрасывая вас!"),
@@ -1071,12 +1071,12 @@
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
 			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
-				Z.ex_act(2)
+				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
-				Z.ex_act(2)
+				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 

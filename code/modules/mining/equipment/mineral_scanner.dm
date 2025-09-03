@@ -4,14 +4,6 @@
 	desc = "Устройство, которое сканирует окружающие породы на наличие полезных минералов, также может быть использовано для предотвращения взрыва залежей гибтонита. \
 			Для достижения наилучших результатов рекомендуется применять мезонные очки. \
 			Этот сканер оснащён динамиком, который можно переключать, используя сочетание клавиш \"<b>Alt+ЛКМ</b>\""
-	ru_names = list(
-		NOMINATIVE = "ручной шахтёрский сканер",
-		GENITIVE = "ручного шахтёрского сканера",
-		DATIVE = "ручному шахтёрскому сканеру",
-		ACCUSATIVE = "ручной шахтёрский сканер",
-		INSTRUMENTAL = "ручным шахтёрским сканером",
-		PREPOSITIONAL = "ручном шахтёрском сканере"
-	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "miningmanual"
 	item_state = "analyzer"
@@ -25,6 +17,16 @@
 	var/soundtwo = 'sound/lavaland/area_scan2.ogg'
 
 	origin_tech = "engineering=1;magnets=1"
+
+/obj/item/mining_scanner/get_ru_names()
+	return list(
+		NOMINATIVE = "ручной шахтёрский сканер",
+		GENITIVE = "ручного шахтёрского сканера",
+		DATIVE = "ручному шахтёрскому сканеру",
+		ACCUSATIVE = "ручной шахтёрский сканер",
+		INSTRUMENTAL = "ручным шахтёрским сканером",
+		PREPOSITIONAL = "ручном шахтёрском сканере"
+	)
 
 /obj/item/mining_scanner/click_alt(mob/user)
 	speaker = !speaker
@@ -54,14 +56,6 @@
 	desc = "Устройство, которое автоматически сканирует окружающие породы на наличие полезных минералов, также может быть использовано для предотвращения взрыва залежей гибтонита. \
 			Для достижения наилучших результатов рекомендуется применять мезонные очки. \
 			Этот сканер оснащён динамиком, который можно переключать, используя сочетание клавиш \"<b>Alt+ЛКМ</b>\""
-	ru_names = list(
-		NOMINATIVE = "продвинутый автоматический шахтёрский сканер",
-		GENITIVE = "продвинутого автоматического шахтёрского сканера",
-		DATIVE = "продвинутому автоматическому шахтёрскому сканеру",
-		ACCUSATIVE = "продвинутый автоматический шахтёрский сканер",
-		INSTRUMENTAL = "продвинутым автоматическим шахтёрским сканером",
-		PREPOSITIONAL = "продвинутом автоматическом шахтёрском сканере"
-	)
 	icon_state = "adv_mining0"
 	base_icon_state = "adv_mining"
 	item_state = "analyzer"
@@ -76,6 +70,16 @@
 	var/soundtwo = 'sound/lavaland/area_scan2.ogg'
 
 	origin_tech = "engineering=3;magnets=3"
+
+/obj/item/t_scanner/adv_mining_scanner/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый автоматический шахтёрский сканер",
+		GENITIVE = "продвинутого автоматического шахтёрского сканера",
+		DATIVE = "продвинутому автоматическому шахтёрскому сканеру",
+		ACCUSATIVE = "продвинутый автоматический шахтёрский сканер",
+		INSTRUMENTAL = "продвинутым автоматическим шахтёрским сканером",
+		PREPOSITIONAL = "продвинутом автоматическом шахтёрском сканере"
+	)
 
 /obj/item/t_scanner/adv_mining_scanner/click_alt(mob/user)
 	speaker = !speaker
@@ -96,7 +100,13 @@
 	desc = "Устройство, которое автоматически сканирует окружающие породы на наличие полезных минералов, также может быть использовано для предотвращения взрыва залежей гибтонита. \
 			Для достижения наилучших результатов рекомендуется применять мезонные очки. \
 			Этот сканер оснащён динамиком, который можно переключать, используя сочетание клавиш \"<b>Alt+ЛКМ</b>\""
-	ru_names = list(
+	icon_state = "mining0"
+	base_icon_state = "mining"
+	range = 4
+	cooldown = 50
+
+/obj/item/t_scanner/adv_mining_scanner/lesser/get_ru_names()
+	return list(
 		NOMINATIVE = "автоматический шахтёрский сканер",
 		GENITIVE = "автоматического шахтёрского сканера",
 		DATIVE = "автоматическому шахтёрскому сканеру",
@@ -104,10 +114,6 @@
 		INSTRUMENTAL = "автоматическим шахтёрским сканером",
 		PREPOSITIONAL = "автоматическом шахтёрском сканере"
 	)
-	icon_state = "mining0"
-	base_icon_state = "mining"
-	range = 4
-	cooldown = 50
 
 /obj/item/mining_scanner/cyborg
 	cooldown = 50
@@ -160,14 +166,6 @@
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye
 	name = "bleary eye"
 	desc = "Глаз, вырванный из тела массивного сернистого странника. Даже спустя долгое время, он всё ещё движется и внимательно осматривает местность в поисках руды."
-	ru_names = list(
-		NOMINATIVE = "затуманенный глаз",
-		GENITIVE = "затуманенного глаза",
-		DATIVE = "затуманенному глазу",
-		ACCUSATIVE = "затуманенный глаз",
-		INSTRUMENTAL = "затуманенным глазом",
-		PREPOSITIONAL = "затуманенном глазе"
-	)
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "bleary_eye"
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
@@ -179,6 +177,17 @@
 	speaker = FALSE
 	range = 4
 	cooldown = 3 SECONDS
+
+
+/obj/item/t_scanner/adv_mining_scanner/bleary_eye/get_ru_names()
+	return list(
+		NOMINATIVE = "затуманенный глаз",
+		GENITIVE = "затуманенного глаза",
+		DATIVE = "затуманенному глазу",
+		ACCUSATIVE = "затуманенный глаз",
+		INSTRUMENTAL = "затуманенным глазом",
+		PREPOSITIONAL = "затуманенном глазе"
+	)
 
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye/Initialize(mapload)
 	. = ..()

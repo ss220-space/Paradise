@@ -2,7 +2,7 @@
 	{
 		//старый жилой комплекс
 		"type": "SubmapExtractInsert",
-		"submap_size_x": 14,
+		"submap_size_x": 13,
 		"submap_size_y": 15,
 		"submap_size_z": 1,
 		"submaps_dmm": "_maps/map_files/nova/submaps/AbondonedLivingComplex.dmm",
@@ -34,6 +34,45 @@
         "submaps_dmm": "_maps/map_files/nova/submaps/Banya.dmm",
         "marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/Banya",
         "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/Banya",
+        "submaps_can_repeat": true
+
+	},
+
+	{
+		//Покинутая церковь
+        "type": "SubmapExtractInsert",
+        "submap_size_x": 9,
+        "submap_size_y": 11,
+        "submap_size_z": 1,
+        "submaps_dmm": "_maps/map_files/nova/submaps/AbondonedChapel.dmm",
+        "marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedChapel",
+        "submaps_can_repeat": true
+
+	},
+
+	{
+		//Покинутый медотдел
+        "type": "SubmapExtractInsert",
+        "submap_size_x": 19,
+        "submap_size_y": 15,
+        "submap_size_z": 1,
+        "submaps_dmm": "_maps/map_files/nova/submaps/AbondonedMed.dmm",
+        "marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedMed",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedMed",
+        "submaps_can_repeat": true
+
+	},
+
+	{
+		//Старая библиотека
+        "type": "SubmapExtractInsert",
+        "submap_size_x": 11,
+        "submap_size_y": 14,
+        "submap_size_z": 1,
+        "submaps_dmm": "_maps/map_files/nova/submaps/AbondonedLibrary.dmm",
+        "marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedLibrary",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedLibrary",
         "submaps_can_repeat": true
 
     }

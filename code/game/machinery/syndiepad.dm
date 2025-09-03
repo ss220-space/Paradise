@@ -206,7 +206,7 @@
 	return doteleport(usr)
 
 /obj/machinery/syndiepad/proc/sparks()
-	do_sparks(5, 1, get_turf(src))
+	do_sparks(5, TRUE, get_turf(src))
 
 /obj/machinery/syndiepad/attack_ghost(mob/dead/observer/ghost)
 	if(linked_pad)

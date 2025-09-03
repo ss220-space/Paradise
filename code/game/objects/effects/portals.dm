@@ -72,7 +72,7 @@
 	target = null
 
 	if(create_sparks)
-		do_sparks(5, 0, loc)
+		do_sparks(5, FALSE, loc)
 
 	return ..()
 
@@ -201,7 +201,7 @@
 /obj/effect/portal/proc/invalid_teleport()
 	visible_message(span_warning("[src] flickers and fails due to bluespace interference!"))
 	if(create_sparks)
-		do_sparks(5, 0, loc)
+		do_sparks(5, FALSE, loc)
 	qdel(src)
 
 

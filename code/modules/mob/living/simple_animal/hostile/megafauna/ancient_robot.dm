@@ -48,14 +48,6 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot
 	name = "Vetus Speculator"
 	desc = "Древний робот, принадлежащий к давно исчезнувшей цивилизации, способен адаптироваться к окружающей среде и всему, что в ней находится, что делает его идеальным бойцом."
-	ru_names = list(
-		NOMINATIVE = "Ветус Спекулятор",
-		GENITIVE = "Ветус Спекулятора",
-		DATIVE = "Ветус Спекулятору",
-		ACCUSATIVE = "Ветус Спекулятора",
-		INSTRUMENTAL = "Ветус Спекулятором",
-		PREPOSITIONAL = "Ветус Спекуляторе"
-	)
 	health = 2500
 	maxHealth = 2500
 	attacktext = "сотрясает"
@@ -100,6 +92,16 @@ Difficulty: Very Hard
 	var/mob/living/simple_animal/hostile/ancient_robot_leg/BR = null
 	var/mob/living/simple_animal/hostile/ancient_robot_leg/BL = null
 	var/obj/effect/abstract/beam = null
+
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/get_ru_names()
+	return list(
+		NOMINATIVE = "Ветус Спекулятор",
+		GENITIVE = "Ветус Спекулятора",
+		DATIVE = "Ветус Спекулятору",
+		ACCUSATIVE = "Ветус Спекулятора",
+		INSTRUMENTAL = "Ветус Спекулятором",
+		PREPOSITIONAL = "Ветус Спекуляторе"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Initialize(mapload, mob/living/ancient) //We spawn and move them to clear out area for the legs, rather than risk the legs getting put in a wall
 	. = ..()
@@ -146,7 +148,7 @@ Difficulty: Very Hard
 	..()
 	if(!exploding)
 		return
-	playsound(src, 'sound/items/timer.ogg', 70, 0)
+	playsound(src, 'sound/items/timer.ogg', 70, FALSE)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/drop_loot()
 	var/core_type = null
@@ -325,7 +327,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/projectile/P)
 	if(!body_shield_enabled)
 		return ..()
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 	visible_message(span_danger("Щит [declent_ru(ACCUSATIVE)] отражает [P.declent_ru(ACCUSATIVE)] с искрами!"), span_userdanger("Вы отражаете снаряд!"), projectile_message = TRUE)
 	if(P.damage)
 		disable_shield()
@@ -336,7 +338,7 @@ Difficulty: Very Hard
 		return ..()
 
 	. = ATTACK_CHAIN_BLOCKED
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 	visible_message(
 		span_danger("Щит [declent_ru(ACCUSATIVE)] отражает [I.declent_ru(ACCUSATIVE)] с искрами!"),
 		span_warning("Ваш щит отражает атаку!"),
@@ -480,7 +482,7 @@ Difficulty: Very Hard
 	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
 	visible_message(span_biggerdanger("[declent_ru(NOMINATIVE)] начинает перегружать своё ядро. Оно вот-вот взорвётся!"))
 	SSmove_manager.stop_looping(src)
-	playsound(src,'sound/machines/alarm.ogg',100,0,5)
+	playsound(src,'sound/machines/alarm.ogg',100, FALSE,5)
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
@@ -594,8 +596,8 @@ Difficulty: Very Hard
 		if(VORTEX)
 			var/turf/T = get_turf(src)
 			for(var/atom/A in T)
-				A.ex_act(3) //Body is immune to explosions of this strength.
-			T.ex_act(3)
+				A.ex_act(EXPLODE_LIGHT) //Body is immune to explosions of this strength.
+			T.ex_act(EXPLODE_LIGHT)
 
 	if(beam && !QDELETED(beam))
 		beam.forceMove(get_turf(src))
@@ -612,14 +614,6 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg
 	name = "leg"
 	desc = "Боевая опора с встроенной турелью, предназначенная для стрельбы и раздавливания мелких шахтёров вроде вас."
-	ru_names = list(
-		NOMINATIVE = "опора",
-		GENITIVE = "опоры",
-		DATIVE = "опоре",
-		ACCUSATIVE = "опору",
-		INSTRUMENTAL = "опорой",
-		PREPOSITIONAL = "опоре"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "leg"
 	maxHealth = INFINITY //it's fine trust me
@@ -653,6 +647,16 @@ Difficulty: Very Hard
 	var/fake_hp_regen = 2
 	var/transfer_rate = 0.75
 	var/who_am_i = null
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/get_ru_names()
+	return list(
+		NOMINATIVE = "опора",
+		GENITIVE = "опоры",
+		DATIVE = "опоре",
+		ACCUSATIVE = "опору",
+		INSTRUMENTAL = "опорой",
+		PREPOSITIONAL = "опоре"
+	)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Initialize(mapload, mob/living/ancient, who)
 	. = ..()
@@ -789,7 +793,13 @@ Difficulty: Very Hard
 
 /obj/projectile/bullet/rock
 	name = "thrown rock"
-	ru_names = list(
+	damage = 25
+	damage_type = BRUTE
+	icon = 'icons/obj/meteor.dmi'
+	icon_state = "small1"
+
+/obj/projectile/bullet/rock/get_ru_names()
+	return list(
 		NOMINATIVE = "брошенный камень",
 		GENITIVE = "брошенного камня",
 		DATIVE = "брошенному камню",
@@ -797,15 +807,16 @@ Difficulty: Very Hard
 		INSTRUMENTAL = "брошенным камнем",
 		PREPOSITIONAL = "брошенном камне"
 	)
-	damage = 25
-	damage_type = BRUTE
-	icon = 'icons/obj/meteor.dmi'
-	icon_state = "small1"
 
 /obj/effect/temp_visual/rock
 	name = "floating rock"
 	desc = "Лучше сосредоточьтесь на уклонении, чем разглядывать его."
-	ru_names = list(
+	icon = 'icons/obj/meteor.dmi'
+	icon_state = "small1"
+	duration = 20
+
+/obj/effect/temp_visual/rock/get_ru_names()
+	return list(
 		NOMINATIVE = "парящий камень",
 		GENITIVE = "парящего камня",
 		DATIVE = "парящему камню",
@@ -813,9 +824,6 @@ Difficulty: Very Hard
 		INSTRUMENTAL = "парящим камнем",
 		PREPOSITIONAL = "парящем камне"
 	)
-	icon = 'icons/obj/meteor.dmi'
-	icon_state = "small1"
-	duration = 20
 
 /obj/projectile/energy/shock_revolver/ancient
 	damage = 5

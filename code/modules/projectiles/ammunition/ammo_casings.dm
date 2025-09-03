@@ -238,7 +238,15 @@
 /obj/item/ammo_casing/shotgun/assassination
 	name = "assassination shell"
 	desc = "Специальная гильза для шрапнели, обработанная глушащим токсином."
-	ru_names = list(
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 200)
+	projectile_type = /obj/projectile/bullet/pellet/assassination
+	muzzle_flash_effect = null
+	icon_state = "buckshotshell"
+	pellets = 6
+	variance = 15
+
+/obj/item/ammo_casing/shotgun/assassination/get_ru_names()
+	return list(
 		NOMINATIVE = "патрон для убийства",
 		GENITIVE = "патрона для убийства",
 		DATIVE = "патрону для убийства",
@@ -246,12 +254,6 @@
 		INSTRUMENTAL = "патроном для убийства",
 		PREPOSITIONAL = "патроне для убийства"
 	)
-	materials = list(MAT_METAL = 1500, MAT_GLASS = 200)
-	projectile_type = /obj/projectile/bullet/pellet/assassination
-	muzzle_flash_effect = null
-	icon_state = "buckshotshell"
-	pellets = 6
-	variance = 15
 
 /obj/item/ammo_casing/shotgun/buckshot/magnum
 	name = "magnum buckshot shell"

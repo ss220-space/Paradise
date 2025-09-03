@@ -31,7 +31,7 @@
 		message = span_warning("[user]'s [name] rasps, \"Halt! Security!\"")
 
 	if(sound_to_play)
-		playsound(get_turf(src), sound_to_play, 100, 1, vary = FALSE)
+		playsound(get_turf(src), sound_to_play, 100, TRUE, vary = FALSE)
 
 	if(message)
 		user.visible_message(message)

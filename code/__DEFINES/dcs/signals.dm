@@ -945,6 +945,9 @@
 #define COMSIG_LANG_PRE_ACT "check_language"
 	#define COMSIG_LANG_SECURED (1<<0)
 
+///from base of obj/gun/projectile/automatic/toggle_firemode(): (/mob/user, firemode)
+#define COMSIG_GUN_TOGGLE_FIREMODE "gun_firemode_toggle"
+
 /// Defib-specific signals
 
 /// Called when a defibrillator is first applied to someone. (mob/living/user, mob/living/target, harmful)
