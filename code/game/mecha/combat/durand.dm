@@ -71,6 +71,7 @@
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 	destruction_sleep_duration = 1
 	strafe_allowed = TRUE
+	ui_theme = "syndicate"
 
 /obj/mecha/combat/durand/rover/GrantActions(mob/living/user, human_occupant = 0)
 	..()

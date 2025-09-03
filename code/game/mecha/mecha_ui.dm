@@ -41,7 +41,7 @@
 
 	var/list/user_accesses = user.get_access()
 
-	data["regions"] = length(user_accesses) ? get_accesslist_static_data(list_to_form = user_accesses) : null
+	data["regions"] = length(user_accesses) ? get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND, user_accesses) : null
 	return data
 
 /obj/mecha/ui_data(mob/user)
@@ -102,7 +102,7 @@
 		data += list(list(
 			"icon" = module.icon,
 			"icon_state" = module.icon_state,
-			"name" = module.name,
+			"name" = module.declent_ru(NOMINATIVE),
 			"desc" = module.desc,
 			"integrity" = (module.get_integrity()/module.max_integrity),
 			"detachable" = !module.integrated,

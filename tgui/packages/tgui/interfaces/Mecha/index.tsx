@@ -16,6 +16,7 @@ import { Window } from '../../layouts';
 import { AlertPane } from './AlertPane';
 import type { MainData } from './data';
 import { ModulesPane } from './ModulesPane';
+import { useHonk } from './honk';
 
 export const Mecha = (props) => {
   const { data } = useBackend<MainData>();
@@ -31,7 +32,16 @@ export const Mecha = (props) => {
 export const Content = (props) => {
   const { act, data } = useBackend<MainData>();
   const [edit_access, editAccess] = useState(false);
-  const { name, mech_view, id_lock_on, accesses, one_access, regions } = data;
+  const {
+    name,
+    mech_view,
+    id_lock_on,
+    accesses,
+    one_access,
+    regions,
+    ui_theme,
+  } = data;
+  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
 
   return (
     <Stack fill>
@@ -68,10 +78,12 @@ export const Content = (props) => {
                     <LightsBar />
                     <CabinSeal />
                     <DNALock />
-                    <LabeledList.Item label="ID блок">
+                    <LabeledList.Item label={honk('ID блок')}>
                       <Button
                         icon={id_lock_on ? 'lock' : 'lock-open'}
-                        content={id_lock_on ? 'Включен' : 'Выключен'}
+                        content={
+                          id_lock_on ? honk('Включен') : honk('Выключен')
+                        }
                         tooltipPosition="top"
                         onClick={() => {
                           editAccess(false);
@@ -142,9 +154,10 @@ export const Content = (props) => {
 
 const PowerBar = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { power_level, power_max } = data;
+  const { power_level, power_max, ui_theme } = data;
+  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
   return (
-    <LabeledList.Item label="Энергия">
+    <LabeledList.Item label={honk('Энергия')}>
       <ProgressBar
         value={power_max ? power_level / power_max : 0}
         ranges={{
@@ -156,15 +169,17 @@ const PowerBar = (props) => {
           textShadow: '1px 1px 0 black',
         }}
       >
-        {power_max === null
-          ? 'Батарея отсутствует'
-          : power_level === 1e31
-            ? '<Бесконечна>'
-            : `${formatSiUnit(power_level, 0, 'J')} из ${formatSiUnit(
-                power_max,
-                0,
-                'J'
-              )}`}
+        {honk(
+          power_max === null
+            ? 'Батарея отсутствует'
+            : power_level === 1e31
+              ? '<Бесконечна>'
+              : `${formatSiUnit(power_level, 0, 'J')} из ${formatSiUnit(
+                  power_max,
+                  0,
+                  'J'
+                )}`
+        )}
       </ProgressBar>
     </LabeledList.Item>
   );
@@ -172,9 +187,10 @@ const PowerBar = (props) => {
 
 const IntegrityBar = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { integrity, integrity_max } = data;
+  const { integrity, integrity_max, ui_theme } = data;
+  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
   return (
-    <LabeledList.Item label="Состояние">
+    <LabeledList.Item label={honk('Состояние')}>
       <ProgressBar
         value={integrity / integrity_max}
         ranges={{
@@ -194,13 +210,14 @@ const IntegrityBar = (props) => {
 
 const LightsBar = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { power_level, power_max, lights } = data;
+  const { power_level, power_max, lights, ui_theme } = data;
+  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
   const lights_on = lights;
   return (
-    <LabeledList.Item label="Свет">
+    <LabeledList.Item label={honk('Свет')}>
       <Button
         icon="lightbulb"
-        content={lights_on ? 'Вкл' : 'Выкл'}
+        content={honk(lights_on ? 'Вкл' : 'Выкл')}
         selected={lights_on}
         disabled={!power_max || !power_level}
         onClick={() => act('toggle_lights')}
@@ -221,6 +238,7 @@ const CabinSeal = (props) => {
     cabin_pressure_hazard_max,
     cabin_temp_warning_min,
     cabin_temp_warning_max,
+    ui_theme,
   } = data;
   const temp_warning =
     cabin_temp < cabin_temp_warning_min || cabin_temp > cabin_temp_warning_max;
@@ -230,9 +248,10 @@ const CabinSeal = (props) => {
   const pressure_hazard =
     cabin_pressure < cabin_pressure_hazard_min ||
     cabin_pressure > cabin_pressure_hazard_max;
+  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
   return (
     <LabeledList.Item
-      label="Воздух"
+      label={honk('Воздух')}
       buttons={
         !!use_internal_tank && (
           <>
@@ -260,7 +279,7 @@ const CabinSeal = (props) => {
     >
       <Button
         icon={use_internal_tank ? 'mask-ventilator' : 'wind'}
-        content={use_internal_tank ? 'Баллон' : 'Атмосфера'}
+        content={honk(use_internal_tank ? 'Баллон' : 'Атмосфера')}
         onClick={() => act('toggle_internal_tank')}
         selected={use_internal_tank}
       />
@@ -270,13 +289,14 @@ const CabinSeal = (props) => {
 
 const DNALock = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { dna_lock } = data;
+  const { dna_lock, ui_theme } = data;
+  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
   return (
-    <LabeledList.Item label="ДНК блок">
+    <LabeledList.Item label={honk('ДНК блок')}>
       <Button
         onClick={() => act('dna_lock')}
         icon="syringe"
-        content={dna_lock ? 'Установлен' : 'Отсутствует'}
+        content={honk(dna_lock ? 'Установлен' : 'Отсутствует')}
         tooltip="Установить новый ДНК ключ"
         selected={!!dna_lock}
         tooltipPosition="top"

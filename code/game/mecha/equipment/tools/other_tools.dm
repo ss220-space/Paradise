@@ -608,7 +608,7 @@
 		DATIVE = "модулю \"Клетка SCS-3\"",
 		ACCUSATIVE = "модуль \"Клетка SCS-3\"",
 		INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
-		PREPOSITIONAL = "модулю \"Клетка SCS-3\""
+		PREPOSITIONAL = "модуле \"Клетка SCS-3\""
 	)
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
@@ -868,5 +868,5 @@
 		DATIVE = "механическим клешням",
 		ACCUSATIVE = "механические клешни",
 		INSTRUMENTAL = "механическими клешнями",
-		PREPOSITIONAL = "механических клешней"
+		PREPOSITIONAL = "механических клешнях"
 	)

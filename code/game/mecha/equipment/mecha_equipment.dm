@@ -52,10 +52,6 @@
 		return
 	switch(action)
 		if("detach")
-			if(integrated)
-				return FALSE
-			if(chassis.selected == src)
-				chassis.selected = null
 			detach(get_turf(src))
 			return TRUE
 		if("toggle")
@@ -156,7 +152,7 @@
 	if(loc != M)
 		forceMove(M)
 	if(!M.selected)
-		M.selected = src
+		select_module()
 	attach_act(M)
 	ADD_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
 	if(M.occupant)
@@ -224,7 +220,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/select_module()
 	select_set_alert()
-	chassis.selected.set_active(FALSE)
+	chassis.selected?.set_active(FALSE)
 	chassis.selected = src
 	chassis.selected.set_active(TRUE)
 	chassis.occupant_message(span_notice("You switch to [src]."))
@@ -239,12 +235,17 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/throw_default_alert(var/mob/living/carbon/occupant)
-	if(alert_category == "mecha_module")
-		var/atom/movable/screen/alert/empty_alert/default_alert = occupant.throw_alert(alert_category, /atom/movable/screen/alert/empty_alert, new_master = src)
-		default_alert.name = name
-		default_alert.desc = "Выбран модуль [src.name]"
-		return TRUE
-	return FALSE
+	if(!occupant || !occupant.client)
+		return FALSE
+
+	if(alert_category != "mecha_module")
+		return FALSE
+
+	var/atom/movable/screen/alert/empty_alert/default_alert = occupant.throw_alert(alert_category, /atom/movable/screen/alert/empty_alert, new_master = src)
+	default_alert.name = name
+	default_alert.desc = "Выбран модуль [src.name]"
+
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/toggle_module()
 	return

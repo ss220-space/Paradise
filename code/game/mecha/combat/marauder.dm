@@ -92,6 +92,7 @@
 	operation_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
+	ui_theme = "syndicate"
 
 /obj/mecha/combat/marauder/mauler/loaded/New()
 	..()

@@ -23,6 +23,7 @@ import { useState } from 'react';
 
 import { useBackend } from '../../backend';
 import type { MainData, MechModule } from './data';
+import { useHonk } from './honk';
 
 export const ModulesPane = (props) => {
   const { act, data } = useBackend<MainData>();
@@ -33,8 +34,10 @@ export const ModulesPane = (props) => {
     maint_access,
     maintance_progress,
     radio_data,
+    ui_theme,
   } = data;
   const [tabIndex, setTabIndex] = useState(0);
+  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
   return (
     <Stack fill vertical>
       <Tabs>
@@ -43,21 +46,21 @@ export const ModulesPane = (props) => {
           selected={0 === tabIndex}
           onClick={() => setTabIndex(0)}
         >
-          <Icon name="table" /> Модули
+          <Icon name="table" /> {honk('Модули')}
         </Tabs.Tab>
         <Tabs.Tab
           key="Cargo"
           selected={1 === tabIndex}
           onClick={() => setTabIndex(1)}
         >
-          <Icon name="box" /> Груз
+          <Icon name="box" /> {honk('Груз')}
         </Tabs.Tab>
         <Tabs.Tab
           key="Settings"
           selected={2 === tabIndex}
           onClick={() => setTabIndex(2)}
         >
-          <Icon name="cog" /> Настройки
+          <Icon name="cog" /> {honk('Настройки')}
         </Tabs.Tab>
       </Tabs>
       {tabIndex === 0 && (
@@ -167,7 +170,7 @@ export const ModulesPane = (props) => {
       {tabIndex === 2 && (
         <Section fill style={{ overflowY: 'auto' }}>
           <LabeledList>
-            <LabeledList.Item label="Разрешить тех. обслуживание">
+            <LabeledList.Item label={honk('Разрешить тех. обслуживание')}>
               <Button
                 disabled={maintance_progress}
                 selected={maint_access}
@@ -176,7 +179,7 @@ export const ModulesPane = (props) => {
                 onClick={() => act('toggle_maint_access')}
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Радио">
+            <LabeledList.Item label={honk('Радио')}>
               <Button
                 selected={radio_data.microphone}
                 icon={radio_data.microphone ? 'microphone' : 'microphone-slash'}
@@ -267,6 +270,8 @@ const ModuleDetailsBasic = (props) => {
     equip_cooldown,
     energy_per_use,
   } = props.module;
+  const { ui_theme } = data;
+  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
   return (
     <>
       {integrity < 1 && (
@@ -289,15 +294,15 @@ const ModuleDetailsBasic = (props) => {
         </LabeledList.Item>
       )}
       {!!equip_cooldown && (
-        <LabeledList.Item label="Перезарядка">
+        <LabeledList.Item label={honk('Перезарядка')}>
           {equip_cooldown}
         </LabeledList.Item>
       )}
       {!!can_be_toggled && (
-        <LabeledList.Item label={active_label}>
+        <LabeledList.Item label={honk(active_label)}>
           <Button
             icon="power-off"
-            content={active ? 'Включен' : ' Выключен'}
+            content={honk(active ? 'Включен' : ' Выключен')}
             onClick={() =>
               act('equip_act', {
                 ref: ref,
@@ -309,10 +314,10 @@ const ModuleDetailsBasic = (props) => {
         </LabeledList.Item>
       )}
       {!!can_be_triggered && (
-        <LabeledList.Item label={active_label}>
+        <LabeledList.Item label={honk(active_label)}>
           <Button
             icon="check"
-            content="Выбрать"
+            content={honk('Выбрать')}
             disabled={active}
             onClick={() =>
               act('equip_act', {
@@ -373,9 +378,11 @@ const SnowflakeWeaponBallistic = (props) => {
   const { act, data } = useBackend<MainData>();
   const { ref } = props.module;
   const { max_ammo, total_ammo } = props.module.snowflake;
+  const { ui_theme } = data;
+  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
   return (
     <LabeledList.Item
-      label="Боеприпасы"
+      label={honk('Боеприпасы')}
       buttons={
         max_ammo !== 0 && (
           <Button

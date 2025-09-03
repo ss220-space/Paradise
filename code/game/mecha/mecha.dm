@@ -881,7 +881,7 @@
 
 	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
-		var/choose = tgui_input_list(user, "Выберите взаимодействие.", "Техническое обслуживание", list("Переключить доступ по ID", "Переключить тех. обсуживание"))
+		var/choose = tgui_input_list(user, "Выберите взаимодействие.", "Техническое обслуживание", list("Переключить доступ по ID", "Переключить тех. обслуживание"))
 		if(!choose || !Adjacent(user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -893,7 +893,7 @@
 				id_lock_on = !id_lock_on
 				to_chat(user, "Теперь ID [id_lock_on ? "" : "не"] требуется для управления.")
 
-			if("Переключить тех. обсуживание")
+			if("Переключить тех. обслуживание")
 				switch(maintenance_progress)
 					if(MECHA_LOCKED)
 						maintenance_progress = MECHA_SECURE_BOLTS
