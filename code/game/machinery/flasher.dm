@@ -57,7 +57,6 @@
 		return
 
 	if(anchored)
-		COOLDOWN_START(src, flash_cooldown, flash_cooldown_duration)
 		return flash()
 
 
@@ -106,6 +105,7 @@
 	icon_state = "pflash1"
 	base_icon_state = "pflash"
 	strength = 8 SECONDS
+	range = 1
 	anchored = FALSE
 	density = TRUE
 	/// Proximity monitor associated with this atom, needed for proximity checks.

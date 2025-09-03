@@ -15,7 +15,6 @@
 
 /obj/item/onetankbomb/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/proximity_monitor)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)

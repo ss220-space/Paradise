@@ -82,8 +82,6 @@
 	var/icon/rigged_olay
 	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = TRUE
-	/// Proximity monitor associated with this atom, needed for proximity checks.
-	var/datum/proximity_monitor/proximity_monitor
 
 
 /obj/structure/reagent_dispensers/fueltank/Initialize(mapload)
@@ -97,7 +95,6 @@
 /obj/structure/reagent_dispensers/fueltank/Destroy()
 	QDEL_NULL(rig)
 	QDEL_NULL(rigged_olay)
-	QDEL_NULL(proximity_monitor)
 	return ..()
 
 
@@ -149,7 +146,6 @@
 			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.forceMove(get_turf(usr))
 			rig = null
-			QDEL_NULL(proximity_monitor)
 			lastrigger = null
 			QDEL_NULL(rigged_olay)
 			update_icon(UPDATE_OVERLAYS)
@@ -189,8 +185,6 @@
 		investigate_log("[key_name_log(user)] rigged [name] with [assembly.name] for explosion", INVESTIGATE_BOMB)
 		lastrigger = "[key_name_log(user)]"
 		rig = assembly
-		if(rig.has_prox_sensors())
-			proximity_monitor = new(src)
 		rigged_olay = getFlatIcon(assembly)
 		rigged_olay.Shift(NORTH, 1)
 		rigged_olay.Shift(EAST, 6)

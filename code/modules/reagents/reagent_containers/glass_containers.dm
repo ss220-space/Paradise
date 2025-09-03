@@ -145,8 +145,6 @@
 	belt_icon = "beaker"
 	materials = list(MAT_GLASS=500)
 	var/obj/item/assembly_holder/assembly = null
-	/// Proximity monitor associated with this atom, needed for proximity checks.
-	var/datum/proximity_monitor/proximity_monitor
 	var/can_assembly = TRUE
 
 /obj/item/reagent_containers/glass/beaker/get_ru_names()
@@ -165,11 +163,6 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
-
-/obj/item/reagent_containers/glass/beaker/Destroy()
-	. = ..()
-	QDEL_NULL(proximity_monitor)
 
 
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
@@ -227,7 +220,6 @@
 		assembly.forceMove_turf()
 		usr.put_in_hands(assembly, ignore_anim = FALSE)
 		assembly = null
-		QDEL_NULL(proximity_monitor)
 		update_icon(UPDATE_OVERLAYS)
 	else
 		balloon_alert(usr, "нечего отсоединять!")
@@ -250,8 +242,6 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		balloon_alert(user, "заготовка прикреплена")
-		if(assembly.has_prox_sensors())
-			proximity_monitor = new(src)
 		assembly = I
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
