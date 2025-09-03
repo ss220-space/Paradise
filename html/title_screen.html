@@ -301,10 +301,11 @@
 				display: flex;
 				width: 3.5rem;
 				flex-direction: column;
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
 			}
 
 			#hide_menu:checked ~ .container_links {
-				left: 0;
+				transform: translateX(-20em);
 			}
 
 			.link_button {
@@ -366,6 +367,7 @@
 				right: 5px;
 				z-index: 9999;
 				font-family: Arial, sans-serif;
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
 			}
 
 			.status-box .status-item {
@@ -386,7 +388,7 @@
 			}
 
 			#hide_menu:checked ~ .status-box {
-				display: none;
+				transform: translateX(190px);
 			}
 
 			.hide_lobby {
@@ -697,6 +699,10 @@
 
 			.pixelated .preview {
 				bottom: -2.25em;
+			}
+
+			.pixelated  .game-button, .pixelated .status-box .countdown, .pixelated .game-name, .pixelated .status-box .status-item span {
+				font-weight: normal;
 			}
 
 			/** Remove conditionals with 516*/

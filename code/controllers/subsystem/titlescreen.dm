@@ -234,6 +234,9 @@ SUBSYSTEM_DEF(title)
 
 /// this proc updates character icon and lobby list
 /datum/title_screen/proc/update_lateinfo(client/viewer)
+	if(!viewer)
+		return
+
 	UNTIL(viewer.prefs)
 
 	if(viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU)
@@ -266,13 +269,19 @@ SUBSYSTEM_DEF(title)
 	INVOKE_ASYNC(src, PROC_REF(update_lateinfo), viewer)
 
 /datum/title_screen/proc/hide_from(client/viewer)
-	if(viewer?.mob)
+	if(!viewer)
+		return
+
+	if(viewer.mob)
 		winset(viewer, "title_browser", "is-disabled=true;is-visible=false")
 
 /**
  * Get the HTML of title screen.
  */
 /datum/title_screen/proc/get_title_html(client/viewer, mob/user)
+	if(!viewer)
+		return
+
 	var/list/html = list(title_html)
 	var/mob/new_player/player = user
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
