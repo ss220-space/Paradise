@@ -339,7 +339,7 @@
 /obj/effect/spawner/hivebot/Initialize()
 	. = ..()
 	var/mob_type = pickweight(list(
-		/mob/living/simple_animal/hostile/hivebot = 60,
+		/mob/living/simple_animal/hostile/hivebot = 30,
 		/mob/living/simple_animal/hostile/hivebot/melee = 15,
 		/mob/living/simple_animal/hostile/hivebot/range = 15,
 		/mob/living/simple_animal/hostile/hivebot/heavy_melee = 5,
