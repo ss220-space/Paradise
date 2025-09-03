@@ -20,17 +20,23 @@
  */
 /datum/data/vending_product
 	name = "generic"
-	///Typepath of the product that is created when this record "sells"
+	/// Typepath of the product that is created when this record "sells"
 	var/product_path = null
-	///How many of this product we currently have
+	/// How many of this product we currently have
 	var/amount = 0
-	///How many we can store at maximum
+	/// How many we can store at maximum
 	var/max_amount = 0
-	var/price = 0  // Price to buy one
+	/// Price to buy one
+	var/price = 0
+	/// The category the product was in, if any.
+	/// Sourced directly from product_categories.
+	var/category
+
 
 /obj/machinery/vending
 	name = "Vendomat"
 	desc = "Обычный торговый автомат."
+	gender = MALE
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "generic_off"
 	layer = BELOW_OBJ_LAYER
@@ -39,6 +45,7 @@
 	max_integrity = 300
 	integrity_failure = 100
 	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+
 
 	// All the overlay controlling variables
 	/// Overlay of vendor maintenance panel.
@@ -83,11 +90,42 @@
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
 
-	// To be filled out at compile time
-	var/list/products	= list()	// For each, use the following pattern:
-	var/list/contraband	= list()	// list(/type/path = amount,/type/path2 = amount2)
-	var/list/premium	= list()	// No specified amount = only one in stock
-	var/list/prices     = list()	// Prices for each item, list(/type/path = price), items not in the list don't have a price.
+
+	/**
+	 * List of products this machine sells
+	 *
+	 * form should be list(/type/path = amount, /type/path2 = amount2)
+	 */
+	var/list/products = list()
+
+	/**
+	 * List of products this machine sells, categorized.
+	 * Can only be used as an alternative to `products`, not alongside it.
+	 *
+	 * Form should be list(
+	 ** 	"name" = "Category Name",
+	 ** 	"icon" = "UI Icon (Font Awesome or tgfont)",
+	 ** 	"products" = list(/type/path = amount, ...),
+	 * )
+	 */
+	var/list/product_categories = null
+
+	/**
+	 * List of products this machine sells when you hack it
+	 *
+	 * form should be list(/type/path = amount, /type/path2 = amount2)
+	 */
+	var/list/contraband = list()
+
+	/**
+	 * List of premium products this machine sells
+	 *
+	 * form should be list(/type/path, /type/path2) as there is only ever one in stock
+	 */
+	var/list/premium = list()
+
+	/// Prices for each item, list(/type/path = price), items not in the list don't have a price.
+	var/list/prices = list()
 
 	// List of vending_product items available.
 	var/list/product_records = list()
@@ -98,16 +136,19 @@
 	// Stuff relating vocalizations
 	/// List of slogans the vendor will say, optional
 	var/list/slogan_list = list()
-	var/vend_reply				//Thank you for shopping!
+	/// Thank you for shopping!
+	var/vend_reply
 	/// If true, prevent saying sales pitches
 	var/shut_up = FALSE
-	///can we access the hidden inventory?
+	/// can we access the hidden inventory?
 	var/extended_inventory = FALSE
 	var/last_reply = 0
-	var/last_slogan = 0			//When did we last pitch?
-	var/slogan_delay = 6000		//How long until we can pitch again?
+	/// When did we last pitch?
+	var/last_slogan = 0
+	/// How long until we can pitch again?
+	var/slogan_delay = 6000
 
-	//The type of refill canisters used by this machine.
+	/// The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/refill_canister = null
 
 	// Things that can go wrong
@@ -157,7 +198,6 @@
 	var/static/list/all_possible_crits = list()
 	/// Possible crit effects from this vending machine tipping.
 	var/list/possible_crits = list(
-		// /datum/vendor_crit/pop_head, //too much i think
 		/datum/vendor_crit/embed,
 		/datum/vendor_crit/pin,
 		/datum/vendor_crit/shatter,
@@ -196,10 +236,10 @@
 		RefreshParts()
 
 	wires = new(src)
+
 	if(build_inv) //non-constructable vending machine
-		build_inventory(products, product_records)
-		build_inventory(contraband, hidden_records)
-		build_inventory(premium, coin_records)
+		build_inventories()
+
 	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
@@ -242,19 +282,21 @@
 	QDEL_NULL(inserted_item)
 	return ..()
 
-/obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
+//Better would be to make constructable child
+/obj/machinery/vending/RefreshParts()
 	if(!component_parts)
 		return
+
+	build_products_from_categories()
 
 	product_records = list()
 	hidden_records = list()
 	coin_records = list()
-	if(refill_canister)
-		build_inventory(products, product_records, start_empty = TRUE)
-		build_inventory(contraband, hidden_records, start_empty = TRUE)
-		build_inventory(premium, coin_records, start_empty = TRUE)
-	for(var/obj/item/vending_refill/VR in component_parts)
-		restock(VR)
+
+	build_inventories(start_empty = TRUE)
+
+	for(var/obj/item/vending_refill/installed_refill in component_parts)
+		restock(installed_refill)
 
 
 /obj/machinery/vending/update_icon(updates = ALL)
@@ -377,32 +419,80 @@
 	flickering = FALSE
 
 /**
- *  Build src.produdct_records from the products lists
+ * Build the inventory of the vending machine from it's product and record lists
  *
- *  src.products, src.contraband, src.premium, and src.prices allow specifying
- *  products that the vending machine is to carry without manually populating
- *  src.product_records.
+ * This builds up a full set of /datum/data/vending_product from the product list of the vending machine type
+ * Arguments:
+ * * productlist - the list of products that need to be converted
+ * * recordlist - the list containing /datum/data/vending_product datums
+ * * categories - account list in the format of product_categories to source category from
+ * * startempty - should we set vending_product record amount from the product list (so it's prefilled at roundstart)
  */
-/obj/machinery/vending/proc/build_inventory(list/productlist, list/recordlist, start_empty = FALSE)
+/obj/machinery/vending/proc/build_inventory(list/productlist, list/recordlist, list/categories, start_empty = FALSE)
+
+	var/list/product_to_category = list()
+	for(var/list/category as anything in categories)
+		var/list/products = category["products"]
+		for(var/product_key in products)
+			product_to_category[product_key] = category
+
 	for(var/typepath in productlist)
 		var/amount = productlist[typepath]
 		if(isnull(amount))
 			amount = 0
 
 		var/obj/item = new typepath(src)
-		var/datum/data/vending_product/R = new /datum/data/vending_product()
-		var/list/names = item?.ru_names || item.get_ru_names()
-		R.name = capitalize(names ? names[1] : item.name)
-		R.product_path = typepath
+		var/datum/data/vending_product/record = new /datum/data/vending_product()
+		record.name = capitalize(item.declent_ru(NOMINATIVE))
+		qdel(item)
+		record.product_path = typepath
 		if(!start_empty)
-			R.amount = amount
-		R.max_amount = amount
-		R.price = (typepath in prices) ? prices[typepath] : 0
-		recordlist += R
+			record.amount = amount
+		record.max_amount = amount
+		record.price = (typepath in prices) ? prices[typepath] : 0
+		record.category = product_to_category[typepath]
+		recordlist += record
+
+/**Builds all available inventories for the vendor - standard, contraband and premium
+ * Arguments:
+ * start_empty - bool to pass into build_inventory that determines whether a product entry starts with available stock or not
+*/
+/obj/machinery/vending/proc/build_inventories(start_empty)
+	build_inventory(products, product_records, product_categories, start_empty)
+	build_inventory(contraband, hidden_records, create_categories_from("Контрабанда", "mask", contraband), start_empty)
+	build_inventory(premium, coin_records, create_categories_from("Премиум", "coins", premium), start_empty)
+
+/**
+ * Returns a list of data about the category
+ * Arguments:
+ * name - string for the name of the category
+ * icon - string for the fontawesome icon to use in the UI for the category
+ * products - list of products available in the category
+*/
+/obj/machinery/vending/proc/create_categories_from(name, icon, products)
+	return list(list(
+		"name" = name,
+		"icon" = icon,
+		"products" = products,
+	))
+
+/// Populates list of products with categorized products
+/obj/machinery/vending/proc/build_products_from_categories()
+	if(isnull(product_categories))
+		return
+
+	products = list()
+
+	for(var/list/category in product_categories)
+		var/list/category_products = category["products"]
+		for(var/product_key in category_products)
+			products[product_key] += category_products[product_key]
+
+
 /**
   * Refill a vending machine from a refill canister
   *
-  * This takes the products from the refill canister and then fills the products,contraband and premium product categories
+  * This takes the products from the refill canister and then fills the products, contraband and premium product categories
   *
   * Arguments:
   * * canister - the vending canister we are refilling from
@@ -414,10 +504,28 @@
 		canister.contraband = contraband.Copy()
 	if(!canister.premium)
 		canister.premium = premium.Copy()
+
 	. = 0
-	. += refill_inventory(canister.products, product_records)
+
+	if(isnull(canister.product_categories) && !isnull(product_categories))
+		canister.product_categories = product_categories.Copy()
+
+	if(!isnull(canister.product_categories))
+		var/list/products_unwrapped = list()
+		for(var/list/category as anything in canister.product_categories)
+			var/list/products = category["products"]
+			for(var/product_key in products)
+				products_unwrapped[product_key] += products[product_key]
+
+		. += refill_inventory(products_unwrapped, product_records)
+	else
+		. += refill_inventory(canister.products, product_records)
+
 	. += refill_inventory(canister.contraband, hidden_records)
 	. += refill_inventory(canister.premium, coin_records)
+
+	return .
+
 /**
   * Refill our inventory from the passed in product list into the record list
   *
@@ -427,10 +535,9 @@
   */
 /obj/machinery/vending/proc/refill_inventory(list/productlist, list/recordlist)
 	. = 0
-	for(var/R in recordlist)
-		var/datum/data/vending_product/record = R
+	for(var/datum/data/vending_product/record as anything in recordlist)
 		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
-		if (diff)
+		if(diff)
 			productlist[record.product_path] -= diff
 			record.amount += diff
 			. += diff
@@ -443,22 +550,65 @@
 	if(!component_parts)
 		return
 
-	var/obj/item/vending_refill/R = locate() in component_parts
-	if(!R)
+	var/obj/item/vending_refill/record = locate() in component_parts
+	if(!record)
 		CRASH("Constructible vending machine did not have a refill canister")
 
-	R.products = unbuild_inventory(product_records)
-	R.contraband = unbuild_inventory(hidden_records)
-	R.premium = unbuild_inventory(coin_records)
+	unbuild_inventory_into(product_records, record.products, record.product_categories)
+	record.contraband = unbuild_inventory(hidden_records)
+	record.premium = unbuild_inventory(coin_records)
 
 /**
   * Given a record list, go through and and return a list of type -> amount
   */
 /obj/machinery/vending/proc/unbuild_inventory(list/recordlist)
 	. = list()
-	for(var/R in recordlist)
-		var/datum/data/vending_product/record = R
+	for(var/datum/data/vending_product/record as anything in recordlist)
 		.[record.product_path] += record.amount
+
+/// Put stuff in product_categories if the products have a category, otherwise put them in products
+/obj/machinery/vending/proc/unbuild_inventory_into(list/product_records, list/products, list/product_categories)
+	products?.Cut()
+	product_categories?.Cut()
+
+	var/others_have_category = null
+
+	var/list/categories_to_index = list()
+
+	for(var/datum/data/vending_product/record as anything in product_records)
+		var/list/category = record.category
+		var/has_category = !isnull(category)
+
+		if(isnull(others_have_category))
+			others_have_category = has_category
+		else if(others_have_category != has_category)
+			if(has_category)
+				WARNING("[record.product_path] in [type] has a category, but other products don't")
+			else
+				WARNING("[record.product_path] in [type] does not have a category, but other products do")
+
+			continue
+
+		if(has_category)
+			var/index = categories_to_index.Find(category)
+
+			if(index)
+				var/list/category_in_list = product_categories[index]
+				var/list/products_in_category = category_in_list["products"]
+				products_in_category[record.product_path] += record.amount
+			else
+				categories_to_index += list(category)
+				index = categories_to_index.len
+
+				var/list/category_clone = category.Copy()
+
+				var/list/initial_product_list = list()
+				initial_product_list[record.product_path] = record.amount
+				category_clone["products"] = initial_product_list
+
+				product_categories += list(category_clone)
+		else
+			products[record.product_path] = record.amount
 
 /obj/machinery/vending/deconstruct(disassembled = TRUE)
 	eject_item()
@@ -508,7 +658,7 @@
 			balloon_alert(user, "набор пополнения пуст!")
 			return ATTACK_CHAIN_PROCEED
 
-		// instantiate canister if needed
+		/// Instantiate canister if needed
 		var/transferred = restock(canister)
 		if(transferred)
 			balloon_alert(user, "набор пополнения вставлен")
@@ -528,8 +678,7 @@
 /obj/machinery/vending/proc/try_tilt(obj/item/I, mob/user)
 	if(tiltable && !tilted && I.force)
 		if(resistance_flags & INDESTRUCTIBLE)
-			// no goodies, but also no tilts
-			return
+			return // no goodies, but also no tilts
 		if(COOLDOWN_FINISHED(src, last_hit_time))
 			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] странно покачивается..."))
 			to_chat(user, span_userdanger("Кажется, что [declent_ru(NOMINATIVE)] так и норовит упасть!"))
@@ -550,17 +699,25 @@
 			if(91 to 100)
 				tilt(user, crit = TRUE)
 
+/**
+ * Dispenses free items from the standard stock.
+ * Arguments:
+ * freebies - number of free items to vend
+ */
 /obj/machinery/vending/proc/freebie(mob/user, num_freebies)
 	visible_message(span_notice("Из [declent_ru(GENITIVE)] начинают выпадать товары!"))
+
 	for(var/i in 1 to num_freebies)
-		for(var/datum/data/vending_product/R in shuffle(product_records))
-			if(R.amount <= 0)
+		playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
+		for(var/datum/data/vending_product/record in shuffle(product_records))
+
+			if(record.amount <= 0)
 				continue
-			var/dump_path = R.product_path
+			var/dump_path = record.product_path
 			if(!dump_path)
 				continue
 			new dump_path(get_turf(src))
-			R.amount--
+			record.amount--
 			break
 
 /obj/machinery/vending/HasProximity(atom/movable/AM)
@@ -574,8 +731,8 @@
 		)
 	tilt(AM, prob(5), FALSE)
 	aggressive = FALSE
-	//Not making same mistakes as offs did.
-	// Don't make this brob more than 5%
+	// Not making same mistakes as offs did.
+	// Don't make this prob more than 5%
 
 /obj/machinery/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
@@ -640,7 +797,7 @@
 	if(prob(tilt_prob))
 		tilt()
 
-//Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
+/// Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
 /obj/machinery/vending/proc/item_slot_check(mob/user, obj/item/I)
 	if(!item_slot)
 		return FALSE
@@ -677,7 +834,7 @@
 	else
 		to_chat(user, display_parts(user))
 	if(moved)
-		to_chat(user, "Вы пополнили [moved] товар[declension_ru(moved, "", "а", "ов")].")
+		balloon_alert(user, "пополнено [moved] товар[declension_ru(moved, "", "а", "ов")]")
 		W.play_rped_sound()
 	return TRUE
 
@@ -752,35 +909,35 @@
 
 /obj/machinery/vending/ui_data(mob/user)
 	var/list/data = list()
-	var/datum/money_account/A = null
+	var/datum/money_account/money_account = null
 	data["guestNotice"] = "Предъявите ID-карту или используйте наличные.";
 	data["userMoney"] = 0
 	data["user"] = null
 	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone) && !istype(user, /mob/living/silicon/pai))
-		A = get_card_account(user)
+		money_account = get_card_account(user)
 		data["user"] = list()
-		data["user"]["name"] = A.owner_name
-		data["userMoney"] = A.money
+		data["user"]["name"] = money_account.owner_name
+		data["userMoney"] = money_account.money
 		data["user"]["job"] = "Силикон"
 	if(ishuman(user))
-		A = get_card_account(user)
+		money_account = get_card_account(user)
 		var/mob/living/carbon/human/H = user
-		var/obj/item/stack/spacecash/S = H.get_active_hand()
-		if(istype(S))
-			data["userMoney"] = S.amount
-			data["guestNotice"] = "Принимаем наличные. У вас есть: [S.amount] кредит[pluralize_ru(S.amount, "", "а", "ов")]."
+		var/obj/item/stack/spacecash/cash = H.get_active_hand()
+		if(istype(cash))
+			data["userMoney"] = cash.amount
+			data["guestNotice"] = "Принимаем наличные. У вас есть: [cash.amount] кредит[pluralize_ru(cash.amount, "", "а", "ов")]."
 		else if(istype(H))
 			var/obj/item/card/id/C = H.get_id_card()
-			if(istype(A))
+			if(istype(money_account))
 				data["user"] = list()
-				data["user"]["name"] = A.owner_name
-				data["userMoney"] = A.money
+				data["user"]["name"] = money_account.owner_name
+				data["userMoney"] = money_account.money
 				data["user"]["job"] = (istype(C) && C.rank) ? C.rank : "Должность отсутствует"
 			else
 				data["guestNotice"] = "Обнаруженная ID-карта не привязана к счёту.";
 	data["stock"] = list()
-	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
-		data["stock"][R.name] = R.amount
+	for(var/datum/data/vending_product/product_record in product_records + coin_records + hidden_records)
+		data["stock"][product_record.name] = product_record.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
 	data["coin_name"] = coin ? capitalize(coin.declent_ru(NOMINATIVE)) : FALSE
@@ -790,68 +947,65 @@
 	data["inserted_item_name"] = inserted_item ? capitalize(inserted_item.declent_ru(NOMINATIVE)) : FALSE
 	return data
 
+/obj/machinery/vending/proc/collect_records_for_static_data(list/records, list/categories, premium, index)
+	var/static/list/default_category = list(
+		"name" = "Товары",
+		"icon" = "cart-shopping",
+	)
+
+	var/list/out_records = list()
+
+	var/i = 1
+
+	for (var/datum/data/vending_product/product_record as anything in records)
+		var/obj/item/item = new product_record.product_path(src)
+		var/list/names = item.ru_names || item.get_ru_names()
+		var/list/static_record = list(
+			path = replacetext(replacetext("[product_record.product_path]", "/obj/item/", ""), "/", "-"),
+			name = capitalize(names ? names[1] : item.name),
+			price = (product_record.product_path in prices) ? prices[product_record.product_path] : 0,
+			icon = item.icon,
+			icon_state = item.icon_state,
+			max_amount = product_record.max_amount,
+			req_coin = FALSE,
+			is_hidden = FALSE,
+			inum = i++
+		)
+
+		var/list/category = product_record.category || default_category
+		if (!isnull(category))
+			if (!(category["name"] in categories))
+				categories[category["name"]] = list(
+					"icon" = category["icon"],
+				)
+
+			static_record["category"] = category["name"]
+
+		if (premium)
+			static_record["premium"] = TRUE
+
+		out_records += list(static_record)
+
+	return out_records
 
 /obj/machinery/vending/ui_static_data(mob/user)
 	var/list/data = list()
+
 	data["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
 	data["product_records"] = list()
-	var/i = 1
-	for (var/datum/data/vending_product/R in product_records)
-		var/obj/item/item = new R.product_path(src)
-		var/list/names = item.ru_names || item.get_ru_names()
-		var/list/data_pr = list(
-			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = capitalize(names ? names[1] : item.name),
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
-			max_amount = R.max_amount,
-			req_coin = FALSE,
-			is_hidden = FALSE,
-			inum = i
-		)
-		data["product_records"] += list(data_pr)
-		i++
-	data["coin_records"] = list()
-	for (var/datum/data/vending_product/R in coin_records)
-		var/obj/item/item = new R.product_path(src)
-		var/list/names = item?.ru_names || item.get_ru_names()
-		var/list/data_cr = list(
-			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = capitalize(names ? names[1] : item.name),
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
-			max_amount = R.max_amount,
-			req_coin = TRUE,
-			is_hidden = FALSE,
-			inum = i,
-			premium = TRUE
-		)
-		data["coin_records"] += list(data_cr)
-		i++
-	data["hidden_records"] = list()
-	for (var/datum/data/vending_product/R in hidden_records)
-		var/obj/item/item = new R.product_path(src)
-		var/list/names = item?.ru_names || item.get_ru_names()
-		var/list/data_hr = list(
-			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = capitalize(names ? names[1] : item.name),
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
-			max_amount = R.max_amount,
-			req_coin = FALSE,
-			is_hidden = TRUE,
-			inum = i,
-			premium = TRUE
-		)
-		data["hidden_records"] += list(data_hr)
-		i++
+
+	var/list/categories = list()
+
+	data["product_records"] = collect_records_for_static_data(product_records, categories)
+	data["coin_records"] = collect_records_for_static_data(coin_records, categories, premium = TRUE)
+	data["hidden_records"] = collect_records_for_static_data(hidden_records, categories, premium = TRUE)
+
+	data["categories"] = categories
 	data["imagelist"] = imagelist
+
 	return data
 
-/obj/machinery/vending/ui_act(action, params)
+/obj/machinery/vending/ui_act(action, list/params)
 	. = ..()
 	if(.)
 		return
@@ -885,43 +1039,40 @@
 			if(panel_open)
 				balloon_alert(usr, "техпанель открыта!")
 				return
-			var/key = text2num(params["inum"])
-			var/list/display_records = product_records + coin_records
+
+			var/list/records_to_check = product_records + coin_records
 			if(extended_inventory)
-				display_records = product_records + coin_records + hidden_records
-			if(key < 1 || key > length(display_records))
-				to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] получил недопустимое число. Сообщите о баге."))
-				return
-			var/datum/data/vending_product/R = display_records[key]
-			if(!istype(R))
+				records_to_check = product_records + coin_records + hidden_records
+
+			var/key = text2num(params["inum"])
+			var/datum/data/vending_product/product_record = records_to_check[key]
+
+			if(!istype(product_record))
 				to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] содержит неизвестный товар. Сообщите о баге."))
 				return
-			var/list/record_to_check = product_records + coin_records
-			if(extended_inventory)
-				record_to_check = product_records + coin_records + hidden_records
-			if(!R || !istype(R) || !R.product_path)
+			if(!product_record || !product_record.product_path)
 				to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] содержит неизвестную позицию с товаром. Сообщите о баге."))
 				return
-			if(R in hidden_records)
+			if(product_record in hidden_records)
 				if(!extended_inventory)
 					// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
 					to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] не может расширить ассортимент в текущем состоянии. Сообщите о баге."))
 					return
-			else if (!(R in record_to_check))
+			else if (!(product_record in records_to_check))
 				// Exploit prevention, stop the user
 				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 				return
-			if (R.amount <= 0)
-				to_chat(usr, "Товар \"[R.name]\" закончился!")
+			if (product_record.amount <= 0)
+				to_chat(usr, "Товар \"[product_record.name]\" закончился!")
 				flick_vendor_overlay(FLICK_VEND)
 				return
 
 			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
 
-			if(!(ishuman(usr) || issilicon(usr)) || R.price <= 0)
+			if(!(ishuman(usr) || issilicon(usr)) || product_record.price <= 0)
 				// Either the purchaser is not human nor silicon, or the item is free.
 				// Skip all payment logic.
-				vend(R, usr)
+				vend(product_record, usr)
 				add_fingerprint(usr)
 				vend_ready = TRUE
 				. = TRUE
@@ -934,12 +1085,12 @@
 				vend_ready = TRUE
 				return
 
-			currently_vending = R
+			currently_vending = product_record
 			var/paid = FALSE
 
 			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
-				var/obj/item/stack/spacecash/S = usr.get_active_hand()
-				paid = pay_with_cash(S, usr, currently_vending.price, currently_vending.name)
+				var/obj/item/stack/spacecash/cash = usr.get_active_hand()
+				paid = pay_with_cash(cash, usr, currently_vending.price, currently_vending.name)
 			else if(get_card_account(usr))
 				// Because this uses H.get_id_card(), it will attempt to use:
 				// active hand, inactive hand, wear_id, pda, and then w_uniform ID in that order
@@ -966,21 +1117,21 @@
 
 
 
-/obj/machinery/vending/proc/vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/vending/proc/vend(datum/data/vending_product/product_record, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(user, span_warning("В доступе отказано!"))//Unless emagged of course
 		flick_vendor_overlay(FLICK_DENY)
 		vend_ready = TRUE
 		return
 
-	if(!R.amount)
-		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] закончился этот товар."))
+	if(!product_record.amount)
+		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] закончился выбранный товар."))
 		vend_ready = TRUE
 		return
 
 	vend_ready = FALSE //One thing at a time!!
 
-	if(coin_records.Find(R))
+	if(coin_records.Find(product_record))
 		if(!coin)
 			to_chat(user, span_notice("Вам нужно вставить монету, чтобы получить этот товар."))
 			vend_ready = TRUE
@@ -994,7 +1145,7 @@
 		else
 			QDEL_NULL(coin)
 
-	R.amount--
+	product_record.amount--
 
 	if(((last_reply + (vend_delay + 200)) <= world.time) && vend_reply)
 		speak(src.vend_reply)
@@ -1003,11 +1154,11 @@
 	use_power(vend_power_usage)	//actuators and stuff
 	flick_vendor_overlay(FLICK_VEND)	//Show the vending animation if needed
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(delayed_vend), R, user), vend_delay)
+	addtimer(CALLBACK(src, PROC_REF(delayed_vend), product_record, user), vend_delay)
 
 
-/obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user)
-	do_vend(R, user)
+/obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/product_record, mob/user)
+	do_vend(product_record, user)
 	vend_ready = TRUE
 	currently_vending = null
 
@@ -1016,10 +1167,10 @@
  * Override this proc to add handling for what to do with the vended product
  * when you have a inserted item and remember to include a parent call for this generic handling
  */
-/obj/machinery/vending/proc/do_vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/vending/proc/do_vend(datum/data/vending_product/product_record, mob/user)
 	if(!item_slot || !inserted_item)
 		var/put_on_turf = TRUE
-		var/obj/item/vended = new R.product_path(drop_location())
+		var/obj/item/vended = new product_record.product_path(drop_location())
 		if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
 			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
@@ -1030,10 +1181,10 @@
 	return FALSE
 
 /* Example override for do_vend proc:
-/obj/machinery/vending/example/do_vend(datum/data/vending_product/R)
+/obj/machinery/vending/example/do_vend(datum/data/vending_product/product_record)
 	if(..())
 		return
-	var/obj/item/vended = new R.product_path()
+	var/obj/item/vended = new product_record.product_path()
 	if(inserted_item.force == initial(inserted_item.force)
 		inserted_item.force += vended.force
 	inserted_item.damtype = vended.damtype
@@ -1081,13 +1232,13 @@
 	while (found_anything)
 		found_anything = FALSE
 		for(var/record in shuffle(product_records))
-			var/datum/data/vending_product/R = record
-			if(R.amount <= 0) //Try to use a record that actually has something to dump.
+			var/datum/data/vending_product/product_record = record
+			if(product_record.amount <= 0) //Try to use a record that actually has something to dump.
 				continue
-			var/dump_path = R.product_path
+			var/dump_path = product_record.product_path
 			if(!dump_path)
 				continue
-			R.amount--
+			product_record.amount--
 			// busting open a vendor will destroy some of the contents
 			if(found_anything && prob(80))
 				continue
@@ -1107,16 +1258,16 @@
 	if(!target)
 		return 0
 
-	for(var/datum/data/vending_product/R in product_records)
-		if(R.amount <= 0) //Try to use a record that actually has something to dump.
+	for(var/datum/data/vending_product/product_record in product_records)
+		if(product_record.amount <= 0) //Try to use a record that actually has something to dump.
 			continue
-		if(R.price > 0) // Don't try not free item
+		if(product_record.price > 0) // Don't try not free item
 			continue
-		var/dump_path = R.product_path
+		var/dump_path = product_record.product_path
 		if(!dump_path)
 			continue
 
-		R.amount--
+		product_record.amount--
 		throw_item = new dump_path(loc)
 		break
 	if(!throw_item)
@@ -1476,10 +1627,10 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/vending/coffee/do_vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/vending/coffee/do_vend(datum/data/vending_product/product_record, mob/user)
 	if(..())
 		return
-	var/obj/item/reagent_containers/food/drinks/vended = new R.product_path()
+	var/obj/item/reagent_containers/food/drinks/vended = new product_record.product_path()
 
 	if(istype(vended, /obj/item/reagent_containers/food/drinks/mug))
 		var/put_on_turf = TRUE
@@ -3486,99 +3637,105 @@
 
 	vend_delay = 15
 	vend_reply = "Спас+ибо за исп+ользование ClothesMate!"
-	products = list(/obj/item/clothing/head/that = 2,
-					/obj/item/clothing/head/fedora = 1,
-					/obj/item/clothing/glasses/monocle = 1,
-					/obj/item/clothing/under/suit_jacket/navy = 2,
-					/obj/item/clothing/under/kilt = 1,
-					/obj/item/clothing/under/overalls = 1,
-					/obj/item/clothing/under/suit_jacket/really_black = 2,
-					/obj/item/clothing/suit/storage/lawyer/blackjacket = 2,
-					/obj/item/clothing/under/pants/galifepants = 3,
-					/obj/item/clothing/under/pants/sandpants = 3,
-					/obj/item/clothing/under/pants/jeans = 3,
-					/obj/item/clothing/under/pants/classicjeans = 2,
-					/obj/item/clothing/under/pants/camo = 1,
-					/obj/item/clothing/under/pants/blackjeans = 2,
-					/obj/item/clothing/under/pants/khaki = 2,
-					/obj/item/clothing/under/pants/white = 2,
-					/obj/item/clothing/under/pants/red = 1,
-					/obj/item/clothing/under/pants/black = 2,
-					/obj/item/clothing/under/pants/tan = 2,
-					/obj/item/clothing/under/pants/blue = 1,
-					/obj/item/clothing/under/pants/track = 1,
-					/obj/item/clothing/suit/jacket/miljacket = 1,
-					/obj/item/clothing/head/beanie = 3,
-					/obj/item/clothing/head/beanie/black = 3,
-					/obj/item/clothing/head/beanie/red = 3,
-					/obj/item/clothing/head/beanie/green = 3,
-					/obj/item/clothing/head/beanie/darkblue = 3,
-					/obj/item/clothing/head/beanie/purple = 3,
-					/obj/item/clothing/head/beanie/yellow = 3,
-					/obj/item/clothing/head/beanie/orange = 3,
-					/obj/item/clothing/head/beanie/cyan = 3,
-					/obj/item/clothing/head/beanie/christmas = 3,
-					/obj/item/clothing/head/beanie/striped = 3,
-					/obj/item/clothing/head/beanie/stripedred = 3,
-					/obj/item/clothing/head/beanie/stripedblue = 3,
-					/obj/item/clothing/head/beanie/stripedgreen = 3,
-					/obj/item/clothing/head/beanie/rasta = 3,
-					/obj/item/clothing/accessory/scarf/red = 1,
-					/obj/item/clothing/accessory/scarf/green = 1,
-					/obj/item/clothing/accessory/scarf/darkblue = 1,
-					/obj/item/clothing/accessory/scarf/purple = 1,
-					/obj/item/clothing/accessory/scarf/yellow = 1,
-					/obj/item/clothing/accessory/scarf/orange = 1,
-					/obj/item/clothing/accessory/scarf/lightblue = 1,
-					/obj/item/clothing/accessory/scarf/white = 1,
-					/obj/item/clothing/accessory/scarf/black = 1,
-					/obj/item/clothing/accessory/scarf/zebra = 1,
-					/obj/item/clothing/accessory/scarf/christmas = 1,
-					/obj/item/clothing/accessory/stripedredscarf = 1,
-					/obj/item/clothing/accessory/stripedbluescarf = 1,
-					/obj/item/clothing/accessory/stripedgreenscarf = 1,
-					/obj/item/clothing/accessory/waistcoat = 1,
-					/obj/item/clothing/under/sundress = 2,
-					/obj/item/clothing/under/stripeddress = 1,
-					/obj/item/clothing/under/sailordress = 1,
-					/obj/item/clothing/under/redeveninggown = 1,
-					/obj/item/clothing/under/blacktango = 1,
-					/obj/item/clothing/suit/jacket = 3,
-					/obj/item/clothing/suit/jacket/motojacket = 3,
-					/obj/item/clothing/glasses/regular = 2,
-					/obj/item/clothing/glasses/sunglasses_fake = 2,
-					/obj/item/clothing/head/sombrero = 1,
-					/obj/item/clothing/neck/poncho = 1,
-					/obj/item/clothing/suit/ianshirt = 1,
-					/obj/item/clothing/shoes/laceup = 2,
-					/obj/item/clothing/shoes/black = 4,
-					/obj/item/clothing/shoes/sandal = 1,
-					/obj/item/clothing/shoes/leather_boots = 3,
-					/obj/item/clothing/gloves/brown_short_gloves = 3,
-					/obj/item/clothing/gloves/fingerless = 2,
-					/obj/item/storage/belt/fannypack = 1,
-					/obj/item/storage/belt/fannypack/blue = 1,
-					/obj/item/storage/belt/fannypack/red = 1,
-					/obj/item/clothing/neck/mantle = 2,
-					/obj/item/clothing/neck/mantle/old = 1,
-					/obj/item/clothing/neck/mantle/regal = 2,
-					/obj/item/clothing/neck/cloak/grey = 1,
-					/obj/item/clothing/suit/storage/bomber = 4)
+	products = list(
+		/obj/item/clothing/head/that = 2,
+		/obj/item/clothing/head/fedora = 1,
+		/obj/item/clothing/glasses/monocle = 1,
+		/obj/item/clothing/under/suit_jacket/navy = 2,
+		/obj/item/clothing/under/kilt = 1,
+		/obj/item/clothing/under/overalls = 1,
+		/obj/item/clothing/under/suit_jacket/really_black = 2,
+		/obj/item/clothing/suit/storage/lawyer/blackjacket = 2,
+		/obj/item/clothing/under/pants/galifepants = 3,
+		/obj/item/clothing/under/pants/sandpants = 3,
+		/obj/item/clothing/under/pants/jeans = 3,
+		/obj/item/clothing/under/pants/classicjeans = 2,
+		/obj/item/clothing/under/pants/camo = 1,
+		/obj/item/clothing/under/pants/blackjeans = 2,
+		/obj/item/clothing/under/pants/khaki = 2,
+		/obj/item/clothing/under/pants/white = 2,
+		/obj/item/clothing/under/pants/red = 1,
+		/obj/item/clothing/under/pants/black = 2,
+		/obj/item/clothing/under/pants/tan = 2,
+		/obj/item/clothing/under/pants/blue = 1,
+		/obj/item/clothing/under/pants/track = 1,
+		/obj/item/clothing/suit/jacket/miljacket = 1,
+		/obj/item/clothing/head/beanie = 3,
+		/obj/item/clothing/head/beanie/black = 3,
+		/obj/item/clothing/head/beanie/red = 3,
+		/obj/item/clothing/head/beanie/green = 3,
+		/obj/item/clothing/head/beanie/darkblue = 3,
+		/obj/item/clothing/head/beanie/purple = 3,
+		/obj/item/clothing/head/beanie/yellow = 3,
+		/obj/item/clothing/head/beanie/orange = 3,
+		/obj/item/clothing/head/beanie/cyan = 3,
+		/obj/item/clothing/head/beanie/christmas = 3,
+		/obj/item/clothing/head/beanie/striped = 3,
+		/obj/item/clothing/head/beanie/stripedred = 3,
+		/obj/item/clothing/head/beanie/stripedblue = 3,
+		/obj/item/clothing/head/beanie/stripedgreen = 3,
+		/obj/item/clothing/head/beanie/rasta = 3,
+		/obj/item/clothing/accessory/scarf/red = 1,
+		/obj/item/clothing/accessory/scarf/green = 1,
+		/obj/item/clothing/accessory/scarf/darkblue = 1,
+		/obj/item/clothing/accessory/scarf/purple = 1,
+		/obj/item/clothing/accessory/scarf/yellow = 1,
+		/obj/item/clothing/accessory/scarf/orange = 1,
+		/obj/item/clothing/accessory/scarf/lightblue = 1,
+		/obj/item/clothing/accessory/scarf/white = 1,
+		/obj/item/clothing/accessory/scarf/black = 1,
+		/obj/item/clothing/accessory/scarf/zebra = 1,
+		/obj/item/clothing/accessory/scarf/christmas = 1,
+		/obj/item/clothing/accessory/stripedredscarf = 1,
+		/obj/item/clothing/accessory/stripedbluescarf = 1,
+		/obj/item/clothing/accessory/stripedgreenscarf = 1,
+		/obj/item/clothing/accessory/waistcoat = 1,
+		/obj/item/clothing/under/sundress = 2,
+		/obj/item/clothing/under/stripeddress = 1,
+		/obj/item/clothing/under/sailordress = 1,
+		/obj/item/clothing/under/redeveninggown = 1,
+		/obj/item/clothing/under/blacktango = 1,
+		/obj/item/clothing/suit/jacket = 3,
+		/obj/item/clothing/suit/jacket/motojacket = 3,
+		/obj/item/clothing/glasses/regular = 2,
+		/obj/item/clothing/glasses/sunglasses_fake = 2,
+		/obj/item/clothing/head/sombrero = 1,
+		/obj/item/clothing/neck/poncho = 1,
+		/obj/item/clothing/suit/ianshirt = 1,
+		/obj/item/clothing/shoes/laceup = 2,
+		/obj/item/clothing/shoes/black = 4,
+		/obj/item/clothing/shoes/sandal = 1,
+		/obj/item/clothing/shoes/leather_boots = 3,
+		/obj/item/clothing/gloves/brown_short_gloves = 3,
+		/obj/item/clothing/gloves/fingerless = 2,
+		/obj/item/storage/belt/fannypack = 1,
+		/obj/item/storage/belt/fannypack/blue = 1,
+		/obj/item/storage/belt/fannypack/red = 1,
+		/obj/item/clothing/neck/mantle = 2,
+		/obj/item/clothing/neck/mantle/old = 1,
+		/obj/item/clothing/neck/mantle/regal = 2,
+		/obj/item/clothing/neck/cloak/grey = 1,
+		/obj/item/clothing/suit/storage/bomber = 4,
+	)
 
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
-					/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
-					/obj/item/clothing/mask/balaclava = 1,
-					/obj/item/clothing/under/syndicate/blackops_civ = 1,
-					/obj/item/clothing/head/ushanka = 1,
-					/obj/item/clothing/under/soviet = 1,
-					/obj/item/storage/belt/fannypack/black = 1)
+	contraband = list(
+		/obj/item/clothing/under/syndicate/tacticool = 1,
+		/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
+		/obj/item/clothing/mask/balaclava = 1,
+		/obj/item/clothing/under/syndicate/blackops_civ = 1,
+		/obj/item/clothing/head/ushanka = 1,
+		/obj/item/clothing/under/soviet = 1,
+		/obj/item/storage/belt/fannypack/black = 1,
+	)
 
-	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,
-				   /obj/item/clothing/head/mailman = 1,
-				   /obj/item/clothing/under/rank/mailman = 1,
-				   /obj/item/clothing/suit/jacket/leather = 1,
-				   /obj/item/clothing/under/pants/mustangjeans = 1,
-				   /obj/item/clothing/suit/storage/zazalord = 1)
+	premium = list(
+		/obj/item/clothing/under/suit_jacket/checkered = 1,
+		/obj/item/clothing/head/mailman = 1,
+		/obj/item/clothing/under/rank/mailman = 1,
+		/obj/item/clothing/suit/jacket/leather = 1,
+		/obj/item/clothing/under/pants/mustangjeans = 1,
+		/obj/item/clothing/suit/storage/zazalord = 1,
+	)
 
 	refill_canister = /obj/item/vending_refill/clothing
 
