@@ -63,6 +63,7 @@
 	var/flag = BULLET
 	///How much armor this projectile pierces.
 	var/armour_penetration = 0
+	var/armour_penetration_level = 1
 	var/projectile_type = "/obj/projectile"
 	/// This will de-increment every step. When 0, it will delete the projectile.
 	var/range = 50

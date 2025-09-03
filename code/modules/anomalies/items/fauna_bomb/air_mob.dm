@@ -62,7 +62,7 @@
 
 	req_charge = data.req_charge
 
-/mob/living/simple_animal/hostile/airmob/getarmor(def_zone, attack_flag = MELEE)
+/mob/living/simple_animal/hostile/airmob/getarmor(def_zone, attack_flag = MELEE, penetration_level = 1, damage = 0)
 	return armor[attack_flag]
 
 /mob/living/simple_animal/hostile/airmob/death(gibbed)

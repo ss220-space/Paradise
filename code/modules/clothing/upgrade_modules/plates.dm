@@ -33,9 +33,9 @@
 	armor_integrity = armor_max_integrity
 
 
-/// Calculate armor efficient percent in range 0-100
+/// Calculate armor efficient percent in range 0-1
 /obj/item/armor_plate/proc/get_armor_efficient()
-	return clamp(armor_integrity / armor_protection_integrity * 100, 0, 100)
+	return clamp(armor_integrity / armor_protection_integrity, 0, 1)
 
 /// Take armor damage proc
 /obj/item/armor_plate/proc/take_armor_damage(damage_amount)
@@ -74,18 +74,26 @@
 
 /obj/item/armor_plate/proc/get_suit_examine_text()
 	. = span_notice("Установлен[genderize_decode(gender, "", "а", "о", "ы")] [declent_ru(NOMINATIVE)]. ")
+	. += span_notice(get_integrity_text())
+
+/obj/item/armor_plate/proc/get_integrity_text()
 	if(armor_integrity == armor_max_integrity)
-		. += span_notice("Бронеплита совсем новая.")
+		return "Бронеплита совсем новая."
 	else if(armor_integrity > armor_protection_integrity)
-		. += span_notice("На бронеплите имеется пара царапин.")
+		return "На бронеплите имеется пара царапин."
 	else if(armor_integrity > 0.75 * armor_protection_integrity)
-		. += span_notice("Бронеплита имеет незначительные повреждения.")
+		return "Бронеплита имеет незначительные повреждения."
 	else if(armor_integrity > 0.50 * armor_protection_integrity)
-		. += span_notice("Бронеплита повреждена.")
+		return "Бронеплита повреждена."
 	else if(armor_integrity > 0.25 * armor_protection_integrity)
-		. += span_notice("Бронеплита сильно повреждена.")
-	else
-		. += span_notice("Бронеплита почти сломана.")
+		return "Бронеплита сильно повреждена."
+	else if(armor_integrity > 0)
+		return "Бронеплита почти сломана."
+	return "Бронеплита сломана и уже не защитит."
+
+/obj/item/armor_plate/examine(mob/user)
+	. = ..()
+	. += span_notice(get_integrity_text())
 
 
 /obj/item/armor_plate/attackby(obj/item/item, mob/user, params)
@@ -111,6 +119,97 @@
 	armor_protection_integrity += repair_integrity
 	balloon_alert(user, "отремонтировано")
 	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+// MARK: Balance procs
+
+/proc/calculate_armor_plate_penetration(obj/item/armor_plate/plate, penetration_level, damagetype = BULLET)
+	if(damagetype == BULLET)
+		return calculate_armor_plate_penetration_for_bullet(plate, penetration_level)
+	if(damagetype == LASER)
+		return calculate_armor_plate_penetration_for_laser(plate, penetration_level)
+	return 0
+
+/proc/calculate_armor_plate_penetration_for_bullet(obj/item/armor_plate/plate, penetration_level)
+	var/penetration_delta = plate.ballistic_class - penetration_level
+	switch(penetration_delta)
+		if(0)
+			return 75 * plate.get_armor_efficient()
+		if(1)
+			return 95 * plate.get_armor_efficient()
+		if(2 to 100)
+			return 100 * plate.get_armor_efficient()
+		if(-1)
+			return 50 * plate.get_armor_efficient()
+		if(-2)
+			return 34 * plate.get_armor_efficient()
+		if(-3)
+			return 20 * plate.get_armor_efficient()
+	return 0
+
+/proc/calculate_armor_plate_penetration_for_laser(obj/item/armor_plate/plate, penetration_level)
+	var/penetration_delta = plate.laser_class - penetration_level
+	switch(penetration_delta)
+		if(0)
+			return 75 * plate.get_armor_efficient()
+		if(1)
+			return 95 * plate.get_armor_efficient()
+		if(2 to 100)
+			return 100 * plate.get_armor_efficient()
+		if(-1)
+			return 50 * plate.get_armor_efficient()
+		if(-2)
+			return 25 * plate.get_armor_efficient()
+	return 0
+
+
+/proc/damage_armor_plate(obj/item/armor_plate/plate, penetration_level, damagetype = BULLET, damage)
+	var/damage_mod = 0 //damage only for bullet and lasers, others damage types are ignore
+	if(damagetype == BULLET)
+		damage_mod = calculate_armor_plate_damage_mod_for_bullet(plate, penetration_level)
+	if(damagetype == LASER)
+		damage_mod = calculate_armor_plate_damage_mod_for_laser(plate, penetration_level)
+	var/calculated_damage = damage_mod * damage
+	plate.take_armor_damage(calculated_damage)
+
+
+/proc/calculate_armor_plate_damage_mod_for_bullet(obj/item/armor_plate/plate, penetration_level)
+	var/penetration_delta = plate.ballistic_class - penetration_level
+	switch(penetration_delta)
+		if(0)
+			return 1
+		if(1)
+			return 0.75
+		if(2)
+			return 0.5
+		if(3 to 100)
+			return 0.25
+		if(-1)
+			return 1.25
+		if(-2)
+			return 1.5
+		if(-100 to -3)
+			return 2
+	return 1
+
+/proc/calculate_armor_plate_damage_mod_for_laser(obj/item/armor_plate/plate, penetration_level)
+	var/penetration_delta = plate.laser_class - penetration_level
+	switch(penetration_delta)
+		if(0)
+			return 1
+		if(1)
+			return 0.75
+		if(2)
+			return 0.5
+		if(3 to 100)
+			return 0.25
+		if(-1)
+			return 1.25
+		if(-2)
+			return 1.5
+		if(-100 to -3)
+			return 2
+	return 0
 
 
 // MARK: Light armor plates

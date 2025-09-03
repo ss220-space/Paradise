@@ -10,8 +10,8 @@
 	1 - halfblock
 	2 - fullblock
 */
-/mob/living/proc/run_armor_check(def_zone, attack_flag = MELEE, absorb_text, soften_text, armour_penetration, penetrated_text)
-	var/armor = getarmor(def_zone, attack_flag)
+/mob/living/proc/run_armor_check(def_zone, attack_flag = MELEE, absorb_text, soften_text, armour_penetration, penetrated_text, armour_penetration_level = 1, damage = 0)
+	var/armor = getarmor(def_zone, attack_flag, penetration_level = armour_penetration_level, damage = damage)
 
 	//the if "armor" check is because this is used for everything on /living, including humans
 	if(armor && armor < 100 && armour_penetration) // Armor with 100+ protection can not be penetrated for admin items
@@ -34,7 +34,7 @@
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
-/mob/living/proc/getarmor(def_zone, attack_flag)
+/mob/living/proc/getarmor(def_zone, attack_flag, penetration_level = 1, damage = 0)
 	return 0
 
 /mob/living/proc/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
@@ -45,7 +45,7 @@
 
 /mob/living/bullet_act(var/obj/projectile/P, var/def_zone)
 	//Armor
-	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
+	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration, armour_penetration_level = P.armour_penetration_level, damage = P.damage)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
 		if(P.dismemberment)

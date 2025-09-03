@@ -164,7 +164,7 @@
 	..(gibbed)
 	regenerate_icons()
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/getarmor(def_zone, attack_flag)
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/getarmor(def_zone, attack_flag, penetration_level = 1, damage = 0)
 	var/armorval = inventory_head?.armor.getRating(attack_flag)
 	if(!def_zone)
 		armorval *= 0.5
@@ -286,7 +286,7 @@
 	holder_type = /obj/item/holder/snake
 	can_collar = TRUE
 	unique_pet = TRUE
-	
+
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/riraha/get_ru_names()
 	return list(

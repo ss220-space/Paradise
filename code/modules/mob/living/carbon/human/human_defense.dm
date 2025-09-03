@@ -161,16 +161,16 @@ emp_act
 		affecting.droplimb(FALSE, damtype)
 
 
-/mob/living/carbon/human/getarmor(def_zone, attack_flag)
+/mob/living/carbon/human/getarmor(def_zone, attack_flag, penetration_level = 1, damage = 0)
 	var/armorval = 0
 	var/organnum = 0
 
 	if(def_zone)
 		if(isexternalorgan(def_zone))
-			return getarmor_organ(def_zone, attack_flag)
+			return get_armor_plate_defence(def_zone, attack_flag, penetration_level, damage) + getarmor_organ(def_zone, attack_flag)
 		var/obj/item/organ/external/affecting = get_organ(def_zone)
 		if(affecting)
-			return getarmor_organ(affecting, attack_flag)
+			return get_armor_plate_defence(affecting, attack_flag, penetration_level, damage) + getarmor_organ(affecting, attack_flag)
 		//If a specific bodypart is targetted, check how that bodypart is protected and return the value.
 
 	//If you don't specify a bodypart, it checks ALL your bodyparts for protection, and averages out the values
@@ -180,6 +180,15 @@ emp_act
 
 	return (armorval/max(organnum, 1))
 
+/mob/living/carbon/human/proc/get_armor_plate_defence(obj/item/organ/external/def_zone, attack_flag, penetration_level = 1, damage = 0)
+	var/obj/item/clothing/suit/suit = wear_suit
+	if(!suit || !istype(suit) || !suit.armor_plate)
+		return 0
+	if(!(suit.armor_plate.body_parts_covered & def_zone.limb_body_flag))
+		return 0
+	var/armorval = calculate_armor_plate_penetration(suit.armor_plate, penetration_level, attack_flag)
+	damage_armor_plate(suit.armor_plate, penetration_level, attack_flag, damage)
+	return armorval
 
 /// This proc returns the armour value for a particular external organ.
 /mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, attack_flag)
