@@ -45,6 +45,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	addtimer(CALLBACK(src, PROC_REF(throw_everything_back)), 1 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(spawn_fillers)), 1 SECONDS)
 	spawn_parts()
+	SSticker.mode.clocker_objs.check_heart()
 	. = ..()
 
 /obj/structure/clockwork/functional/heart/proc/spawn_fillers()
@@ -148,6 +149,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	qdel(part)
 	update_icon(UPDATE_OVERLAYS)
 	give_blessing(user)
+	SSticker.mode.clocker_objs.update_seals()
 
 /obj/structure/clockwork/functional/heart/proc/summon(obj/item/wI, mob/user)
 	var/datum/game_mode/gamemode = SSticker.mode
@@ -270,6 +272,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/heart_filler/attackby(obj/item/I, mob/user, params)
 	parent.attackby(I, user, params)
+	return ATTACK_CHAIN_PROCEED
 
 /obj/structure/heart_filler/proc/update_parent(obj/new_parent)
 	parent = new_parent

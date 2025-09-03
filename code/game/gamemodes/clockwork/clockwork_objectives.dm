@@ -5,7 +5,6 @@
 	var/power_goal = 1
 	var/beacon_goal = 1
 	var/clocker_goal = 1
-	var/checktimer
 
 
 /datum/clockwork_objectives/proc/setup()
@@ -117,24 +116,18 @@
 
 /datum/clockwork_objectives/proc/need_heart()
 	clock_status = RATVAR_NEED_HEART
-	checktimer = addtimer(CALLBACK(src, PROC_REF(check_heart)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
 
 /datum/clockwork_objectives/proc/check_heart()
-	if(isnull(GLOB.heart))
-		return
 	for(var/datum/mind/clock_mind as anything in SSticker.mode.clockwork_cult)
 		if(!clock_mind || !clock_mind.current)
 			continue
 		to_chat(clock_mind.current, span_clocklarge("Сердце призвано, теперь необходимо сломать печати. Да воссияет же Ратвар!"))
 	clock_status = RATVAR_BREAK_SEALS
-	deltimer(checktimer)
-	checktimer = addtimer(CALLBACK(src, PROC_REF(update_seals)), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP | TIMER_DELETE_ME)
 
 /datum/clockwork_objectives/proc/update_seals()
 	if(GLOB.total_curses != 0)
 		return
 	ratvar_is_ready()
-	deltimer(checktimer)
 
 // After all goals 've completed check this proc for start summoning
 /datum/clockwork_objectives/proc/ratvar_is_ready()
