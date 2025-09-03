@@ -33,14 +33,6 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon
 	name = "ash drake"
 	desc = "Стражи некрополя."
-	ru_names = list(
-		NOMINATIVE = "пепельный дрейк",
-		GENITIVE = "пепельного дрейка",
-		DATIVE = "пепельному дрейку",
-		ACCUSATIVE = "пепельного дрейка",
-		INSTRUMENTAL = "пепельным дрейком",
-		PREPOSITIONAL = "пепельном дрейке"
-	)
 	health = 2500
 	maxHealth = 2500
 	attacktext = "грызёт"
@@ -76,6 +68,15 @@ Difficulty: Medium
 							   /datum/action/innate/megafauna_attack/mass_fire,
 							   /datum/action/innate/megafauna_attack/lava_swoop)
 
+/mob/living/simple_animal/hostile/megafauna/dragon/get_ru_names()
+	return list(
+		NOMINATIVE = "пепельный дрейк",
+		GENITIVE = "пепельного дрейка",
+		DATIVE = "пепельному дрейку",
+		ACCUSATIVE = "пепельного дрейка",
+		INSTRUMENTAL = "пепельным дрейком",
+		PREPOSITIONAL = "пепельном дрейке"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/Initialize(mapload)
 	. = ..()
@@ -482,14 +483,6 @@ Difficulty: Medium
 /obj/effect/temp_visual/drakewall
 	name = "Fire Barrier"
 	desc = "Истинное пламя пепельного дрейка."
-	ru_names = list(
-		NOMINATIVE = "огненный барьер",
-		GENITIVE = "огненного барьера",
-		DATIVE = "огненному барьеру",
-		ACCUSATIVE = "огненный барьер",
-		INSTRUMENTAL = "огненным барьером",
-		PREPOSITIONAL = "огненном барьере"
-	)
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "1"
 	anchored = TRUE
@@ -497,6 +490,16 @@ Difficulty: Medium
 	density = TRUE
 	duration = 82
 	color = COLOR_DARK_ORANGE
+
+/obj/effect/temp_visual/drakewall/get_ru_names()
+	return list(
+		NOMINATIVE = "огненный барьер",
+		GENITIVE = "огненного барьера",
+		DATIVE = "огненному барьеру",
+		ACCUSATIVE = "огненный барьер",
+		INSTRUMENTAL = "огненным барьером",
+		PREPOSITIONAL = "огненном барьере"
+	)
 
 /obj/effect/temp_visual/drakewall/CanAtmosPass(turf/T, vertical)
 	return !density
@@ -510,14 +513,6 @@ Difficulty: Medium
 
 /obj/effect/temp_visual/dragon_swoop
 	name = "certain death"
-	ru_names = list(
-		NOMINATIVE = "неизбежная смерть",
-		GENITIVE = "неизбежной смерти",
-		DATIVE = "неизбежной смерти",
-		ACCUSATIVE = "неизбежную смерть",
-		INSTRUMENTAL = "неизбежной смертью",
-		PREPOSITIONAL = "неизбежной смерти"
-	)
 	desc = "Не стойте на месте, двигайтесь!"
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "landing"
@@ -526,6 +521,16 @@ Difficulty: Medium
 	pixel_y = -32
 	color = "#FF0000"
 	duration = 10
+
+/obj/effect/temp_visual/dragon_swoop/get_ru_names()
+	return list(
+		NOMINATIVE = "неизбежная смерть",
+		GENITIVE = "неизбежной смерти",
+		DATIVE = "неизбежной смерти",
+		ACCUSATIVE = "неизбежную смерть",
+		INSTRUMENTAL = "неизбежной смертью",
+		PREPOSITIONAL = "неизбежной смерти"
+	)
 
 /obj/effect/temp_visual/dragon_flight
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
@@ -568,7 +573,13 @@ Difficulty: Medium
 	icon_state = "fireball"
 	name = "fireball"
 	desc = "Убирайтесь с дороги!"
-	ru_names = list(
+	layer = FLY_LAYER
+	randomdir = FALSE
+	duration = 9
+	pixel_z = 270
+
+/obj/effect/temp_visual/fireball/get_ru_names()
+	return list(
 		NOMINATIVE = "огненный шар",
 		GENITIVE = "огненного шара",
 		DATIVE = "огненному шару",
@@ -576,10 +587,6 @@ Difficulty: Medium
 		INSTRUMENTAL = "огненным шаром",
 		PREPOSITIONAL = "огненном шаре"
 	)
-	layer = FLY_LAYER
-	randomdir = FALSE
-	duration = 9
-	pixel_z = 270
 
 /obj/effect/temp_visual/fireball/Initialize(mapload)
 	. = ..()
@@ -622,14 +629,6 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 	name = "lesser ash drake"
-	ru_names = list(
-		NOMINATIVE = "младший пепельный дрейк",
-		GENITIVE = "младшего пепельного дрейка",
-		DATIVE = "младшему пепельному дрейку",
-		ACCUSATIVE = "младший пепельный дрейк",
-		INSTRUMENTAL = "младшим пепельным дрейком",
-		PREPOSITIONAL = "младшем пепельном дрейке"
-	)
 	maxHealth = 200
 	health = 200
 	faction = list("neutral")
@@ -642,6 +641,16 @@ Difficulty: Medium
 	crusher_loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	attack_action_types = list()
+
+/mob/living/simple_animal/hostile/megafauna/dragon/lesser/get_ru_names()
+	return list(
+		NOMINATIVE = "младший пепельный дрейк",
+		GENITIVE = "младшего пепельного дрейка",
+		DATIVE = "младшему пепельному дрейку",
+		ACCUSATIVE = "младший пепельный дрейк",
+		INSTRUMENTAL = "младшим пепельным дрейком",
+		PREPOSITIONAL = "младшем пепельном дрейке"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/AltClickOn(atom/movable/A)
 	if(a_intent == INTENT_HELP || intent == INTENT_HELP)
@@ -660,14 +669,6 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
-	ru_names = list(
-		NOMINATIVE = "космический дракон",
-		GENITIVE = "космического дракона",
-		DATIVE = "космическому дракону",
-		ACCUSATIVE = "космический дракон",
-		INSTRUMENTAL = "космическим драконом",
-		PREPOSITIONAL = "космическом драконе"
-	)
 	maxHealth = 250
 	health = 250
 	faction = list("neutral")
@@ -689,6 +690,16 @@ Difficulty: Medium
 	pull_force = MOVE_FORCE_NORMAL
 	deathmessage = "визжит, когда его крылья превращаются в пыль и он рушится на пол, жизнь погасла."
 	attack_action_types = list()
+
+/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/get_ru_names()
+	return list(
+		NOMINATIVE = "космический дракон",
+		GENITIVE = "космического дракона",
+		DATIVE = "космическому дракону",
+		ACCUSATIVE = "космический дракон",
+		INSTRUMENTAL = "космическим драконом",
+		PREPOSITIONAL = "космическом драконе"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/grant_achievement(medaltype, scoretype)
 	return

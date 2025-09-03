@@ -60,7 +60,7 @@
 	spawn(waittime)
 		wait = null
 		update_icon()
-		playsound(loc, 'sound/machines/ping.ogg', 30, 1)
+		playsound(loc, 'sound/machines/ping.ogg', 30, TRUE)
 
 
 /obj/machinery/computer/pandemic/update_icon_state()

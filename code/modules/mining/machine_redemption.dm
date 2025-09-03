@@ -12,14 +12,6 @@
 /obj/machinery/mineral/ore_redemption
 	name = "ore redemption machine"
 	desc = "Устройство, перерабатывающее руду в готовые листы материалов. Начисляет баллы в зависимости от типа руды, которые можно обменять в раздатчике шахтёрского оборудования."
-	ru_names = list(
-		NOMINATIVE = "печь для руды",
-		GENITIVE = "печи для руды",
-		DATIVE = "печи для руды",
-		ACCUSATIVE = "печь для руды",
-		INSTRUMENTAL = "печью для руды",
-		PREPOSITIONAL = "печи для руды"
-	)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "ore_redemption"
 	density = TRUE
@@ -67,6 +59,16 @@
 	var/obj/item/disk/design_disk/inserted_disk
 	var/invalid_material
 	COOLDOWN_DECLARE(messages_cooldown)
+
+/obj/machinery/mineral/ore_redemption/get_ru_names()
+	return list(
+		NOMINATIVE = "печь для руды",
+		GENITIVE = "печи для руды",
+		DATIVE = "печи для руды",
+		ACCUSATIVE = "печь для руды",
+		INSTRUMENTAL = "печью для руды",
+		PREPOSITIONAL = "печи для руды"
+	)
 
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
 	. = ..()
@@ -127,7 +129,11 @@
   */
 /obj/machinery/mineral/ore_redemption/labor
 	name = "labor camp ore redemption machine"
-	ru_names = list(
+	req_access = list()
+	anyone_claim = TRUE
+
+/obj/machinery/mineral/ore_redemption/labor/get_ru_names()
+	return list(
 		NOMINATIVE = "каторжная печь для руды",
 		GENITIVE = "каторжной печи для руды",
 		DATIVE = "каторжной печи для руды",
@@ -135,8 +141,6 @@
 		INSTRUMENTAL = "каторжной печью для руды",
 		PREPOSITIONAL = "каторжной печи для руды"
 	)
-	req_access = list()
-	anyone_claim = TRUE
 
 /obj/machinery/mineral/ore_redemption/labor/Initialize(mapload)
 	. = ..()
