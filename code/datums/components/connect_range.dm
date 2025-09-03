@@ -89,10 +89,14 @@
 			turfs = list()
 			return
 
+	// These lines below were in original TG code but it caused issues
+	// with proximity sensors not updating turfs correctly
+	// when switching locs in the same turf so i commented it out
+
 	//Only register/unregister turf signals if it's moved to a new turf.
-	if(current_turf == get_turf(old_loc))
-		unregister_signals(old_loc, null)
-		return
+	//if(current_turf == get_turf(old_loc))
+	//	unregister_signals(old_loc, null)
+	//	return
 	var/list/old_turfs = turfs
 	turfs = RANGE_TURFS(range, current_turf)
 	unregister_signals(old_loc, old_turfs - turfs)
