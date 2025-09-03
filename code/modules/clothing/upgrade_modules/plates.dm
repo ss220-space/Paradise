@@ -24,6 +24,8 @@
 	var/repair_type = /obj/item/stack/sheet/plasteel
 	/// Repair coefficient
 	var/repair_coefficient = 0.6
+	/// Covered body parts by plate
+	body_parts_covered = UPPER_TORSO
 
 
 /obj/item/armor_plate/Initialize(mapload)
@@ -38,6 +40,52 @@
 /// Take armor damage proc
 /obj/item/armor_plate/proc/take_armor_damage(damage_amount)
 	armor_integrity = max(armor_integrity - damage_amount, 0)
+
+/// Try attach armor plate to suit
+/obj/item/armor_plate/proc/try_attach_to_suit(mob/user, obj/item/clothing/suit/suit)
+	if(plate_slot > suit.allowed_armor_plate)
+		balloon_alert(user, "не совместимо")
+		return FALSE
+	balloon_alert(user, "установка бронеплиты...")
+	if(!do_after(user, 5 SECONDS, suit))
+		return FALSE
+	if(!user.drop_transfer_item_to_loc(src, suit)) // Make absolutely sure this accessory is removed from hands
+		return FALSE
+	forceMove(suit)
+	suit.armor_plate = src
+	balloon_alert(user, "бронеплита установлена")
+	return TRUE
+
+
+/// Try remove armor plate from suit
+/obj/item/armor_plate/proc/try_detach_from_suit(mob/living/user, obj/item/clothing/suit/suit, obj/item/tool)
+	if(!suit.can_remove_armor_plate)
+		balloon_alert(user, "нельзя снять бронеплиту!")
+		return FALSE
+	balloon_alert(user, "снятие бронеплиты...")
+	if(!tool.use_tool(suit, user, 5 SECONDS, volume = tool.tool_volume))
+		return FALSE
+	balloon_alert(user, "бронеплита снята")
+	forceMove(user.loc)
+	user.put_in_hands(src)
+	suit.armor_plate = null
+	return TRUE
+
+
+/obj/item/armor_plate/proc/get_suit_examine_text()
+	. = span_notice("Установлен[genderize_decode(gender, "", "а", "о", "ы")] [declent_ru(NOMINATIVE)]. ")
+	if(armor_integrity == armor_max_integrity)
+		. += span_notice("Бронеплита совсем новая.")
+	else if(armor_integrity > armor_protection_integrity)
+		. += span_notice("На бронеплите имеется пара царапин.")
+	else if(armor_integrity > 0.75 * armor_protection_integrity)
+		. += span_notice("Бронеплита имеет незначительные повреждения.")
+	else if(armor_integrity > 0.50 * armor_protection_integrity)
+		. += span_notice("Бронеплита повреждена.")
+	else if(armor_integrity > 0.25 * armor_protection_integrity)
+		. += span_notice("Бронеплита сильно повреждена.")
+	else
+		. += span_notice("Бронеплита почти сломана.")
 
 
 /obj/item/armor_plate/attackby(obj/item/item, mob/user, params)
@@ -76,6 +124,7 @@
 	armor_protection_integrity = 100
 	armor_max_integrity = 150
 	repair_type = /obj/item/stack/sheet/metal
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/armor_plate/light_ceramic
 	name = "light ceramic armor plate"
@@ -86,6 +135,7 @@
 	armor_protection_integrity = 75
 	armor_max_integrity = 100
 	repair_type = /obj/item/stack/sheet/mineral/titanium
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 
 /obj/item/armor_plate/light_ablative
@@ -97,6 +147,7 @@
 	armor_protection_integrity = 75
 	armor_max_integrity = 100
 	repair_type = /obj/item/stack/sheet/plasmarglass
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 
 // MARK: Medium armor plates
@@ -110,6 +161,7 @@
 	armor_protection_integrity = 200
 	armor_max_integrity = 250
 	repair_type = /obj/item/stack/sheet/plasteel
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/armor_plate/medium_ceramic
 	name = "medium ceramic armor plate"
@@ -120,6 +172,7 @@
 	armor_protection_integrity = 100
 	armor_max_integrity = 150
 	repair_type = /obj/item/stack/sheet/mineral/titanium
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 
 /obj/item/armor_plate/medium_ablative
@@ -131,6 +184,7 @@
 	armor_protection_integrity = 200
 	armor_max_integrity = 250
 	repair_type = /obj/item/stack/sheet/plasmarglass
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 
 // MARK: Heavy armor plates
@@ -144,6 +198,7 @@
 	armor_protection_integrity = 300
 	armor_max_integrity = 350
 	repair_type = /obj/item/stack/sheet/plasteel
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 /obj/item/armor_plate/heavy_ceramic
 	name = "heavy ceramic armor plate"
@@ -154,6 +209,7 @@
 	armor_protection_integrity = 200
 	armor_max_integrity = 250
 	repair_type = /obj/item/stack/sheet/mineral/titanium
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 
 /obj/item/armor_plate/heavy_ablative
@@ -165,3 +221,4 @@
 	armor_protection_integrity = 300
 	armor_max_integrity = 350
 	repair_type = /obj/item/stack/sheet/plasmarglass
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS

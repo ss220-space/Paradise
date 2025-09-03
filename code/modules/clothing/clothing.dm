@@ -955,39 +955,21 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/suit/attackby(obj/item/item, mob/user, params)
-	if(!istype(item, /obj/item/armor_plate))
-		return ..()
-	var/obj/item/armor_plate/plate = item
-	if(plate.plate_slot < allowed_armor_plate)
-		balloon_alert(user, "не совместимо")
-		return ..()
-	balloon_alert(user, "установка бронеплиты")
-	if(!do_after(user, 5 SECONDS, src))
-		return ..()
-	if(!user.drop_transfer_item_to_loc(plate, src)) // Make absolutely sure this accessory is removed from hands
-		return ..()
-	plate.forceMove(src)
-	armor_plate = plate
-	balloon_alert(user, "бронеплита установлена")
-	return ATTACK_CHAIN_BLOCKED_ALL
+	if(istype(item, /obj/item/armor_plate))
+		var/obj/item/armor_plate/armor_plate = item
+		if(armor_plate.try_attach_to_suit(user, src))
+			return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 /obj/item/clothing/suit/screwdriver_act(mob/living/user, obj/item/tool)
-	if(!armor_plate || !can_remove_armor_plate)
+	if(!armor_plate)
 		return FALSE
-	balloon_alert(user, "снятие бронеплиты")
-	if(!tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume))
-		return FALSE
-	balloon_alert(user, "бронеплита снята")
-	armor_plate.forceMove(user.loc)
-	user.put_in_hands(armor_plate)
-	armor_plate = null
-	return TRUE
-
+	return armor_plate.try_detach_from_suit(user, src, tool)
 
 /obj/item/clothing/suit/examine(mob/user)
 	. = ..()
 	if(armor_plate)
-		. += span_notice("Установлено: [armor_plate.declent_ru(NOMINATIVE)]")
+		. += armor_plate.get_suit_examine_text()
 		return
 	if(allowed_armor_plate == ARMOR_PLATE_SLOT_NONE)
 		return
