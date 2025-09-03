@@ -44,11 +44,13 @@ export const AlertPane = (props) => {
                         : 'check'
                     }
                   />
-                  {honk(
-                    internal_damage & internal_damage_keys[t]
-                      ? InternalDamageToDamagedDesc[t]
-                      : InternalDamageToNormalDesc[t]
-                  )}
+                  {ui_theme === 'ntos_lightmode'
+                    ? '...'
+                    : honk(
+                        internal_damage & internal_damage_keys[t]
+                          ? InternalDamageToDamagedDesc[t]
+                          : InternalDamageToNormalDesc[t]
+                      )}
                 </Box>
               </Stack.Item>
             </Stack>

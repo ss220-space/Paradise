@@ -23,7 +23,7 @@
 
 	mech_type = MECH_TYPE_RETICENCE
 
-	ui_theme = "ntOS95"
+	ui_theme = "ntos_lightmode"
 
 /obj/mecha/combat/reticence/loaded/New()
 	..()
