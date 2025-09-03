@@ -136,6 +136,7 @@
 	throwforce = 20
 	w_class = WEIGHT_CLASS_NORMAL
 	block_chance = 35
+	block_type = MELEE_ATTACKS
 	armour_penetration = 40
 	sharp = TRUE
 	item_flags = NOSHARPENING
