@@ -233,19 +233,22 @@
 /obj/machinery/satellite/meteor_shield/proc/shoot_meteor(atom/movable/possible_danger)
 	if(!active)
 		return
-	if(istype(possible_danger, /obj/effect/meteor))
-		var/obj/effect/meteor/meteor_to_destroy = possible_danger
-		if(!space_los(meteor_to_destroy))
-			return
 
-		if(emagged && !is_fake_meteor(meteor_to_destroy))
-			return
+	if(!istype(possible_danger, /obj/effect/meteor))
+		return
 
-		if(meteor_to_destroy.shield_defense(src))
-			Beam(get_turf(meteor_to_destroy), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
-			new /obj/effect/temp_visual/pka_explosion(get_turf(meteor_to_destroy))
+	var/obj/effect/meteor/meteor_to_destroy = possible_danger
+	if(!space_los(meteor_to_destroy))
+		return
 
-		qdel(meteor_to_destroy)
+	if(emagged && !is_fake_meteor(meteor_to_destroy))
+		return
+
+	if(meteor_to_destroy.shield_defense(src))
+		Beam(get_turf(meteor_to_destroy), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
+		new /obj/effect/temp_visual/pka_explosion(get_turf(meteor_to_destroy))
+
+	qdel(meteor_to_destroy)
 
 /obj/machinery/satellite/meteor_shield/toggle(user)
 	if(..(user))
@@ -294,22 +297,21 @@
 	/// Proximity monitor associated with this atom, needed for proximity checks.
 	var/datum/proximity_monitor/proximity_monitor
 
-/obj/effect/abstract/meteor_shield_proxy/Initialize(mapload, obj/machinery/satellite/meteor_shield/parent)
+/obj/effect/abstract/meteor_shield_proxy/Initialize(mapload, obj/machinery/satellite/meteor_shield/shield)
 	. = ..()
-	if(QDELETED(parent))
+	if(QDELETED(shield))
 		return INITIALIZE_HINT_QDEL
-	src.parent = parent
+	parent = shield
 	proximity_monitor = new(src, parent.kill_range)
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_parent_deleted))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_parent_moved))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_parent_z_changed))
-	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_parent_moved))
-	START_PROCESSING(SSfastprocess, src)
+	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_parent_deleted))
 
 /obj/effect/abstract/meteor_shield_proxy/Destroy(force)
-	. = ..()
 	QDEL_NULL(proximity_monitor)
 	parent.proxies -= src
 	parent = null
+	return ..()
 
 /obj/effect/abstract/meteor_shield_proxy/HasProximity(atom/movable/AM)
 	parent.shoot_meteor(AM)
