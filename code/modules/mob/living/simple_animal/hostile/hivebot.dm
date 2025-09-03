@@ -216,9 +216,9 @@
 	anchored = TRUE
 	density = TRUE
 	//Настройки Фабрикатора
-	var/spawn_count = 5			 // Количество хайвботов что произведётся за цикл до ухода на перезарядку
-	var/spawn_interval = 150 	 //Время производства
-	var/cooldown_duration = 1500 //Время после производства
+	var/spawn_count = 2			 // Количество хайвботов что произведётся за цикл до ухода на перезарядку
+	var/spawn_interval = 500 	 //Время производства
+	var/cooldown_duration = 3000 //Время после производства
 	// Internal tracking variables
 	var/next_spawn_time = 0		// When next spawn/action should occur
 	var/cooldown_until = 0		// When cooldown period ends
