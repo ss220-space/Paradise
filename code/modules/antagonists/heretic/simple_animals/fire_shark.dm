@@ -6,14 +6,14 @@
 	icon_living = "fire_shark"
 	pass_flags = PASSTABLE | PASSMOB
 	//mob_biotypes = MOB_ORGANIC | MOB_BEAST | MOB_AQUATIC
-	speed = -0.5
-	health = 35
-	maxHealth = 35
-	melee_damage_lower = 8
-	melee_damage_upper = 8
+	speed = -0.6
+	health = 50
+	maxHealth = 50
+	melee_damage_lower = 10
+	melee_damage_upper = 10
 	attack_sound = 'sound/weapons/bite.ogg'
 	//attack_vis_effect = ATTACK_EFFECT_BITE
-	obj_damage = 0
+	obj_damage = 20
 	attacktext = "кусает"
 	damage_coeff = list(BRUTE = 1, BURN = 0.25, TOX = 0, STAMINA = 0, OXY = 0)
 	faction = list(FACTION_HERETIC)
