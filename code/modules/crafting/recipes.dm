@@ -1842,3 +1842,11 @@
 	reqs = list(/obj/item/stack/sheet/cloth = 1,
 				/obj/item/stack/cable_coil = 10)
 	category = CAT_MISC
+
+/datum/crafting_recipe/synth_kit
+	name = "Набор для лечения мех. и терм. повреждений"
+	result = /obj/item/stack/medical/bruise_pack/synthflesh_kit
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/datum/reagent/medicine/synthflesh = 120)
+	category = CAT_MISC

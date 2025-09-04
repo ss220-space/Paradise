@@ -679,3 +679,25 @@
 
 /obj/item/stack/medical/suture/advanced/update_icon_state()
 	icon_state = "advanced_suture[amount < max_amount ? "_open" : ""]"
+
+
+// MARK: Synthflesh kit
+
+/obj/item/stack/medical/bruise_pack/synthflesh_kit
+	name = "synthflesh trauma kit"
+	singular_name = "synthflesh trauma kit"
+	desc = "Продвинутый набор для мех. и терм. повреждений."
+	icon_state = "synthkit_4"
+	item_state = "traumakit"
+	belt_icon = "advanced_trauma_kit"
+	heal_brute = 20
+	heal_burn = 20
+	amount = 4
+	max_amount = 4
+	stop_bleeding = 0
+	self_delay = 2 SECONDS
+	use_duration = 1.5 SECONDS
+	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
+
+/obj/item/stack/medical/bruise_pack/synthflesh_kit/update_icon_state()
+	icon_state = "synthkit_[amount]"
