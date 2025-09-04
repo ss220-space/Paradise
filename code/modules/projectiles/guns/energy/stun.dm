@@ -25,7 +25,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
 	origin_tech = "combat=4"
 	ammo_x_offset = 2
-	accuracy = GUN_ACCURACY_SNIPER
+	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
