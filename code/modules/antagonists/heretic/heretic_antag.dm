@@ -996,7 +996,8 @@
 
 /datum/objective/minor_sacrifice/update_explanation_text()
 	. = ..()
-	explanation_text = "Принесите в жертву как минимум [target_amount] член[target_amount == 3 ? "а" : "ов"] экипажа." // Only 3 or 4 normaly.
+	explanation_text = "Принесите в жертву как минимум [target_amount] член[target_amount == 3 ? "а" : "ов"] экипажа. \
+						В жертву можно приносить только тех, на кого укажет Живое Сердце." // Only 3 or 4 normaly.
 
 
 /datum/objective/minor_sacrifice/check_completion()
