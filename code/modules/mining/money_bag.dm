@@ -4,15 +4,7 @@
 	name = "money bag"
 	desc = "Просторный мешок из плотной ткани, украшенный крупным символом доллара. \
 	Идеально подходит для хранения монет или банкнот. "
-
-	ru_names = list(
-		NOMINATIVE = "денежный мешок",
-		GENITIVE = "денежного мешка",
-		DATIVE = "денежному мешку",
-		ACCUSATIVE = "денежный мешок",
-		INSTRUMENTAL = "денежным мешком",
-		PREPOSITIONAL = "денежном мешке",
-	)
+	
 	icon_state = "moneybag"
 	item_state = "moneybag"
 	force = 10
@@ -25,6 +17,15 @@
 	max_combined_w_class = 40
 	can_hold = list(/obj/item/coin, /obj/item/stack/spacecash)
 
+/obj/item/storage/bag/money/get_ru_names()
+	return list(
+		NOMINATIVE = "денежный мешок",
+		GENITIVE = "денежного мешка",
+		DATIVE = "денежному мешку",
+		ACCUSATIVE = "денежный мешок",
+		INSTRUMENTAL = "денежным мешком",
+		PREPOSITIONAL = "денежном мешке",
+	)
 
 /obj/item/storage/bag/money/vault/populate_contents()
 	new /obj/item/coin/silver(src)

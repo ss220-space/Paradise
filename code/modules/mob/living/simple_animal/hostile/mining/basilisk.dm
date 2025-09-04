@@ -2,14 +2,6 @@
 /mob/living/simple_animal/hostile/asteroid/basilisk
 	name = "basilisk"
 	desc = "Территориальный зверь, покрытый толстой энергопоглощающей бронёй. Его взгляд заставляет жертв замерзать изнутри."
-	ru_names = list(
-		NOMINATIVE = "базилиск",
-		GENITIVE = "базилиска",
-		DATIVE = "базилиску",
-		ACCUSATIVE = "базилиска",
-		INSTRUMENTAL = "базилиском",
-		PREPOSITIONAL = "базилиске"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Basilisk"
 	icon_living = "Basilisk"
@@ -43,6 +35,16 @@
 				/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER})
 	tts_seed = "Antimage"
 
+/mob/living/simple_animal/hostile/asteroid/basilisk/get_ru_names()
+	return list(
+		NOMINATIVE = "базилиск",
+		GENITIVE = "базилиска",
+		DATIVE = "базилиску",
+		ACCUSATIVE = "базилиска",
+		INSTRUMENTAL = "базилиском",
+		PREPOSITIONAL = "базилиске"
+	)
+
 /obj/projectile/temp/basilisk
 	name = "freezing blast"
 	icon_state = "ice_2"
@@ -70,14 +72,6 @@
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
 	name = "watcher"
 	desc = "Левитирующее создание, похожее на глаз, парящее на крылоподобных мышечных структурах. Из тела торчит острый кристаллический шип."
-	ru_names = list(
-		NOMINATIVE = "наблюдатель",
-		GENITIVE = "наблюдателя",
-		DATIVE = "наблюдателю",
-		ACCUSATIVE = "наблюдателя",
-		INSTRUMENTAL = "наблюдателем",
-		PREPOSITIONAL = "наблюдателе"
-	)
 	icon = 'icons/mob/lavaland/watcher.dmi'
 	icon_state = "watcher"
 	icon_living = "watcher"
@@ -98,6 +92,15 @@
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/get_ru_names()
+	return list(
+		NOMINATIVE = "наблюдатель",
+		GENITIVE = "наблюдателя",
+		DATIVE = "наблюдателю",
+		ACCUSATIVE = "наблюдателя",
+		INSTRUMENTAL = "наблюдателем",
+		PREPOSITIONAL = "наблюдателе"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/Initialize(mapload)
 	. = ..()
@@ -107,14 +110,6 @@
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
 	name = "magmawing watcher"
 	desc = "Когда наблюдатели растут у самой лавы, они адаптируются к жаре и начинают использовать её как оружие."
-	ru_names = list(
-		NOMINATIVE = "магмовый наблюдатель",
-		GENITIVE = "магмового наблюдателя",
-		DATIVE = "магмовому наблюдателю",
-		ACCUSATIVE = "магмового наблюдателя",
-		INSTRUMENTAL = "магмовым наблюдателем",
-		PREPOSITIONAL = "магмовом наблюдателе"
-	)
 	icon_state = "watcher_magmawing"
 	icon_living = "watcher_magmawing"
 	icon_aggro = "watcher_magmawing"
@@ -129,17 +124,19 @@
 	crusher_loot = /obj/item/crusher_trophy/blaster_tubes/magma_wing
 	crusher_drop_mod = 60
 
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/get_ru_names()
+	return list(
+		NOMINATIVE = "магмовый наблюдатель",
+		GENITIVE = "магмового наблюдателя",
+		DATIVE = "магмовому наблюдателю",
+		ACCUSATIVE = "магмового наблюдателя",
+		INSTRUMENTAL = "магмовым наблюдателем",
+		PREPOSITIONAL = "магмовом наблюдателе"
+	)
+
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
 	name = "icewing watcher"
 	desc = "В редких случаях наблюдатели выживают вдали от источников тепла. Без тепла они становятся хрупкими, но обретают мощные ледяные атаки."
-	ru_names = list(
-		NOMINATIVE = "ледяной наблюдатель",
-		GENITIVE = "ледяного наблюдателя",
-		DATIVE = "ледяному наблюдателю",
-		ACCUSATIVE = "ледяного наблюдателя",
-		INSTRUMENTAL = "ледяным наблюдателем",
-		PREPOSITIONAL = "ледяном наблюдателе"
-	)
 	icon_state = "watcher_icewing"
 	icon_living = "watcher_icewing"
 	icon_aggro = "watcher_icewing"
@@ -151,6 +148,16 @@
 	jewelry_loot = /obj/item/gem/fdiamond
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing/ice_wing
 	crusher_drop_mod = 60
+
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/get_ru_names()
+	return list(
+		NOMINATIVE = "ледяной наблюдатель",
+		GENITIVE = "ледяного наблюдателя",
+		DATIVE = "ледяному наблюдателю",
+		ACCUSATIVE = "ледяного наблюдателя",
+		INSTRUMENTAL = "ледяным наблюдателем",
+		PREPOSITIONAL = "ледяном наблюдателе"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)
 	. = ..()
@@ -172,7 +179,14 @@
 
 /obj/projectile/watcher
 	name = "stunning blast"
-	ru_names = list(
+	icon_state = "temp_0"
+	damage = 10 //make it hurt, as it no more freezing
+	damage_type = BURN
+	nodamage = FALSE
+	speed = 0.8
+
+/obj/projectile/watcher/get_ru_names()
+	return list(
 		NOMINATIVE = "оглушающий выброс",
 		GENITIVE = "оглушающего выброса",
 		DATIVE = "оглушающему выбросу",
@@ -180,11 +194,6 @@
 		INSTRUMENTAL = "оглушающим выбросом",
 		PREPOSITIONAL = "оглушающем выбросе"
 	)
-	icon_state = "temp_0"
-	damage = 10 //make it hurt, as it no more freezing
-	damage_type = BURN
-	nodamage = FALSE
-	speed = 0.8
 
 /obj/projectile/watcher/on_hit(atom/target, blocked = FALSE)
 	. = ..()
@@ -198,7 +207,15 @@
 
 /obj/projectile/temp/basilisk/magmawing
 	name = "scorching blast"
-	ru_names = list(
+	icon_state = "lava"
+	damage = 5
+	damage_type = BURN
+	nodamage = FALSE
+	temperature = 700 //Heats you up!
+	speed = 0.6
+
+/obj/projectile/temp/basilisk/magmawing/get_ru_names()
+	return list(
 		NOMINATIVE = "опаляющий выброс",
 		GENITIVE = "опаляющего выброса",
 		DATIVE = "опаляющему выбросу",
@@ -206,12 +223,6 @@
 		INSTRUMENTAL = "опаляющим выбросом",
 		PREPOSITIONAL = "опаляющем выбросе"
 	)
-	icon_state = "lava"
-	damage = 5
-	damage_type = BURN
-	nodamage = FALSE
-	temperature = 700 //Heats you up!
-	speed = 0.6
 
 /obj/projectile/temp/basilisk/magmawing/on_hit(atom/target, blocked = FALSE)
 	. = ..()

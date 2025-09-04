@@ -1,6 +1,8 @@
 /obj/structure/closet/crate/necropolis/dragon
 	name = "dragon chest"
-	ru_names = list(
+
+/obj/structure/closet/crate/necropolis/dragon/get_ru_names()
+	return list(
 		NOMINATIVE = "драконий сундук",
 		GENITIVE = "драконьего сундука",
 		DATIVE = "драконьему сундуку",
@@ -28,7 +30,9 @@
 
 /obj/structure/closet/crate/necropolis/dragon/crusher
 	name = "firey dragon chest"
-	ru_names = list(
+
+/obj/structure/closet/crate/necropolis/dragon/crusher/get_ru_names()
+	return list(
 		NOMINATIVE = "огненный драконий сундук",
 		GENITIVE = "огненного драконьего сундука",
 		DATIVE = "огненному драконьему сундуку",
@@ -47,14 +51,6 @@
 /obj/item/melee/ghost_sword
 	name = "spectral blade"
 	desc = "Ржавый затупленный клинок. Выглядит так, будто не нанесёт много урона. Слабо светится."
-	ru_names = list(
-		NOMINATIVE = "спектральный клинок",
-		GENITIVE = "спектрального клинка",
-		DATIVE = "спектральному клинку",
-		ACCUSATIVE = "спектральный клинок",
-		INSTRUMENTAL = "спектральным клинком",
-		PREPOSITIONAL = "спектральном клинке"
-	)
 	icon_state = "spectral"
 	item_state = "spectral"
 	flags = CONDUCT
@@ -68,6 +64,16 @@
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил")
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
+
+/obj/item/melee/ghost_sword/get_ru_names()
+	return list(
+		NOMINATIVE = "спектральный клинок",
+		GENITIVE = "спектрального клинка",
+		DATIVE = "спектральному клинку",
+		ACCUSATIVE = "спектральный клинок",
+		INSTRUMENTAL = "спектральным клинком",
+		PREPOSITIONAL = "спектральном клинке"
+	)
 
 /obj/item/melee/ghost_sword/New()
 	..()
@@ -151,7 +157,11 @@
 /obj/item/dragons_blood
 	name = "bottle of dragons blood"
 	desc = "Вы же не собираетесь это на самом деле пить, да?"
-	ru_names = list(
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "vial"
+
+/obj/item/dragons_blood/get_ru_names()
+	return list(
 		NOMINATIVE = "бутылка драконьей крови",
 		GENITIVE = "бутылки драконьей крови",
 		DATIVE = "бутылке драконьей крови",
@@ -159,8 +169,6 @@
 		INSTRUMENTAL = "бутылкой драконьей крови",
 		PREPOSITIONAL = "бутылке драконьей крови"
 	)
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "vial"
 
 /obj/item/dragons_blood/attack_self(mob/living/carbon/human/user)
 	if(!ishuman(user))
@@ -190,7 +198,9 @@
 /obj/item/dragons_blood/refined
 	name = "bottle of refined dragons blood"
 	desc = "Вы ведь точно собираетесь это выпить, не так ли?"
-	ru_names = list(
+
+/obj/item/dragons_blood/refined/get_ru_names()
+	return list(
 		NOMINATIVE = "бутылка очищенной драконьей крови",
 		GENITIVE = "бутылки очищенной драконьей крови",
 		DATIVE = "бутылке очищенной драконьей крови",
@@ -231,14 +241,6 @@
 /obj/item/lava_staff
 	name = "staff of lava"
 	desc = "Сила огня и камней в ваших руках!"
-	ru_names = list(
-		NOMINATIVE = "лавовый посох",
-		GENITIVE = "лавового посоха",
-		DATIVE = "лавовому посоху",
-		ACCUSATIVE = "лавовый посох",
-		INSTRUMENTAL = "лавовым посохом",
-		PREPOSITIONAL = "лавовом посохе"
-	)
 	icon_state = "lavastaff"
 	lefthand_file = 'icons/mob/inhands/staff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staff_righthand.dmi'
@@ -260,6 +262,16 @@
 	var/reset_cooldown = 50
 	var/timer = 0
 	var/banned_turfs
+
+/obj/item/lava_staff/get_ru_names()
+	return list(
+		NOMINATIVE = "лавовый посох",
+		GENITIVE = "лавового посоха",
+		DATIVE = "лавовому посоху",
+		ACCUSATIVE = "лавовый посох",
+		INSTRUMENTAL = "лавовым посохом",
+		PREPOSITIONAL = "лавовом посохе"
+	)
 
 /obj/item/lava_staff/New()
 	. = ..()

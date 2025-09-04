@@ -324,7 +324,7 @@
 					var/mob/living/carbon/human/H = M
 					if(H)
 						H.forceMove(get_turf(src))
-						H.ex_act(severity + 1)
+						H.ex_act(severity - 1)
 						to_chat(H, span_warning("Вас с силой выбрасывает из [src.declent_ru(GENITIVE)]!"))
 			qdel(src)
 		if(EXPLODE_HEAVY)

@@ -653,7 +653,7 @@
 	return
 
 /**
- * React to a hit by a blob objecd
+ * React to a hit by a blob object
  *
  * default behaviour is to send the [COMSIG_ATOM_BLOB_ACT] signal
  */

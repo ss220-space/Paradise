@@ -179,7 +179,7 @@
 
 /obj/projectile/beam/pulse/on_hit(var/atom/target, var/blocked = 0)
 	if(istype(target, /turf) || isstructure(target) || ismachinery(target))
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
 	..()
 
 /obj/projectile/beam/pulse/on_hit(atom/target)
@@ -495,7 +495,7 @@
 	if(!isanomaly(target))
 		return ..()
 
-	do_sparks(clamp(abs(stability_delta) * 2, 3, 10))
+	do_sparks(clamp(abs(stability_delta) * 2, TRUE, 10))
 	var/obj/effect/anomaly/anomaly = target
 	if(anomaly.tier != 4 || prob(50))
 		anomaly.stability = clamp(anomaly.stability + stability_delta, 0, 100)
