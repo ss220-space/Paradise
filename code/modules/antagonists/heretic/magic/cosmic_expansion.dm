@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion
 	name = "Расширение территории"
-	desc = "Это заклинание создаёт область космических полей размером 3x3. \
+	desc = "Это заклинание создаёт небольшую область космических полей вокруг вас. \
 			Существа, находящиеся на расстоянии до 7 клеток, получат звёздную метку."
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"

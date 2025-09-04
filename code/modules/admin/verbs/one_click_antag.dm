@@ -28,6 +28,7 @@
 		<a href='byond://?src=[UID()];makeAntag=13'>Make Terror Spiders</a><br>
 		<a href='byond://?src=[UID()];makeAntag=14'>Make Aliens</a><br>
 		<a href='byond://?src=[UID()];makeAntag=15'>Make Nuke Team</a><br>
+		<a href='byond://?src=[UID()];makeAntag=16'>Создать Еретиков</a><br>
 		"}
 	var/datum/browser/popup = new(usr, "oneclickantag", "One-click Antagonist", 400, 400)
 	popup.set_content(dat)
@@ -440,6 +441,33 @@
 
 		return 1
 	return 0
+
+
+/datum/admins/proc/makeHeretics()
+	var/list/mob/living/carbon/human/candidates = SSticker.mode.get_alive_players_for_role(ROLE_HERETIC)
+
+	var/antnum = tgui_input_number(owner, "Сколько Еретиков вы хотите создать? Введите 0 для отмены", "Количество:", 0)
+	if(!antnum || antnum <= 0)
+		return
+
+	log_admin("[key_name(owner)] tried making Heretics with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Heretics with One-Click-Antag")
+
+	if(!candidates.len)
+		return FALSE
+
+	var/numHeretics = min(candidates.len, antnum)
+
+	var/mob/living/carbon/human/human = null
+	for(var/ind = 0, ind < numHeretics, ind++)
+		human = pick(candidates)
+		if(!isheretic(human.mind))
+			human.mind.add_antag_datum(/datum/antagonist/heretic)
+
+		candidates.Remove(human)
+
+	return TRUE
+
 
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.
 

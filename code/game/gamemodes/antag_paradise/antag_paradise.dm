@@ -29,6 +29,7 @@
 		ROLE_ESCAPING_PRISONER = 40,
 		ROLE_DEVIL = 40,
 		ROLE_NINJA = 40,
+		ROLE_HERETIC = 40,
 	)
 	/// Antag weights for main antags
 	var/list/antags_weights
@@ -59,6 +60,7 @@
 	antag_possibilities[ROLE_MALF_AI] = get_alive_AIs_for_role(ROLE_MALF_AI)
 	antag_possibilities[ROLE_DEVIL] = get_alive_players_for_role(ROLE_DEVIL)
 	antag_possibilities[ROLE_ESCAPING_PRISONER] = get_alive_players_for_role(ROLE_ESCAPING_PRISONER, req_job_rank = JOB_TITLE_PRISONER)
+	antag_possibilities[ROLE_HERETIC] = get_alive_players_for_role(ROLE_HERETIC)
 	roll_antagonists(antag_possibilities)
 	initiate_antags()
 
@@ -157,6 +159,15 @@
 			else
 				log_and_message_admins("No positions are found to spawn space ninja antag. Report this to coders.")
 
+		if(ROLE_HERETIC)
+			if(special_antag_amount)
+				var/datum/mind/special_antag = safepick(get_players_for_role(ROLE_HERETIC))
+				if(special_antag)
+					special_antag.restricted_roles = restricted_jobs
+					special_antag.special_role = SPECIAL_ROLE_HERETIC
+					pre_antags[special_antag] = ROLE_HERETIC
+					antags_amount--
+
 	if(antags_amount)
 		for(var/i in 1 to antags_amount)
 			var/antag_type = pick_weight_classic(antags_weights)
@@ -249,7 +260,8 @@
 	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 	antag_possibilities[ROLE_MALF_AI] = get_players_for_role(ROLE_MALF_AI)
 	antag_possibilities[ROLE_ESCAPING_PRISONER] = get_players_for_role(ROLE_ESCAPING_PRISONER, req_job_rank = JOB_TITLE_PRISONER)
-	antag_possibilities[ROLE_DEVIL] =	get_players_for_role(ROLE_DEVIL)
+	antag_possibilities[ROLE_DEVIL] = get_players_for_role(ROLE_DEVIL)
+	antag_possibilities[ROLE_HERETIC] = get_players_for_role(ROLE_HERETIC)
 
 	calculate_antags()
 
@@ -348,6 +360,10 @@
 			if(ROLE_DEVIL)
 				var/datum/antagonist/devil/divil_datum = new
 				antag.add_antag_datum(divil_datum)
+
+			if(ROLE_HERETIC)
+				var/datum/antagonist/heretic/heretic_datum = new
+				antag.add_antag_datum(heretic_datum)
 
 			if(ROLE_MALF_AI)
 				if(isAI(antag.current))
