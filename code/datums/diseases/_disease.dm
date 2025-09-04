@@ -4,7 +4,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 /datum/disease
 	//Fluff
 	var/form = "Болезнь"
-	var/name = "Неизвестно"
+	var/name = UNKNOWN_STATUS_RUS
 	var/desc = ""
 	var/agent = "какие-то микробы"
 	var/cure_text = null

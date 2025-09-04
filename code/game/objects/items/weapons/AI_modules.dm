@@ -33,7 +33,7 @@ AI MODULES
 	laws = new/datum/ai_laws/pranksimov
 	cmagged = TRUE
 
-/obj/item/ai_module/proc/transmit_instructions(mob/living/silicon/ai/target, mob/sender, registered_name = "Unknown")
+/obj/item/ai_module/proc/transmit_instructions(mob/living/silicon/ai/target, mob/sender, registered_name = UNKNOWN_NAME_RUS)
 	log_law_changes(target, sender)
 
 	if(laws)
