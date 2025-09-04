@@ -42,6 +42,8 @@
 
 
 // MARK: Laser penetration
+/// Non penetrive laser: practice laser
+#define LASER_PENETRATION_NONE		0
 /// Light lasers: dominator, specter
 #define LASER_PENETRATION_LIGHT		1
 /// Medium lasers: Energy gun, laser car, AEG, LR-30 and more regular
