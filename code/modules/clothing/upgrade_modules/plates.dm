@@ -21,7 +21,7 @@
 	/// Armor maximal integrity
 	var/armor_max_integrity = 150
 	/// Repair resource type
-	var/repair_type = /obj/item/stack/sheet/plasteel
+	var/repair_type = null
 	/// Repair coefficient
 	var/repair_coefficient = 0.6
 	/// Covered body parts by plate
@@ -97,6 +97,8 @@
 
 
 /obj/item/armor_plate/attackby(obj/item/item, mob/user, params)
+	if(!repair_type)
+		return ..()
 	if(!istype(item, repair_type))
 		return ..()
 	var/obj/item/stack/resource = item
@@ -211,6 +213,39 @@
 			return 2
 	return 0
 
+// MARK: Handmade armor plates
+/obj/item/armor_plate/handmade_steel
+	name = "handmade steel armor plate"
+	icon_state = "steelplate_light" //TODO need icon
+	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
+	ballistic_class = BALLISTIC_ARMOR_CLASS_I
+	laser_class = LASER_ARMOR_CLASS_NONE
+	armor_protection_integrity = 50
+	armor_max_integrity = 50
+	body_parts_covered = UPPER_TORSO
+
+
+/obj/item/armor_plate/handmade_ablative
+	name = "handmade ablative armor plate"
+	icon_state = "reflectorplate_light" //TODO need icon
+	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
+	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
+	laser_class = LASER_ARMOR_CLASS_LIGHT
+	armor_protection_integrity = 50
+	armor_max_integrity = 50
+	body_parts_covered = UPPER_TORSO
+
+/obj/item/armor_plate/kevlar
+	name = "kevlar armor plate"
+	icon_state = "steelplate_light" //TODO need icon
+	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
+	ballistic_class = BALLISTIC_ARMOR_CLASS_IIA
+	laser_class = LASER_ARMOR_CLASS_NONE
+	armor_protection_integrity = 75
+	armor_max_integrity = 75
+	repair_type = /obj/item/stack/sheet/plastic
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
 
 // MARK: Light armor plates
 
@@ -320,4 +355,14 @@
 	armor_protection_integrity = 200
 	armor_max_integrity = 250
 	repair_type = /obj/item/stack/sheet/mineral/titanium
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+
+/obj/item/armor_plate/elite
+	name = "elite armor plate"
+	icon_state = "ceramicplate_heavy" //TODO need icon
+	plate_slot = ARMOR_PLATE_SLOT_MAX
+	ballistic_class = BALLISTIC_ARMOR_CLASS_MAX
+	laser_class = LASER_ARMOR_CLASS_MAX
+	armor_protection_integrity = 250
+	armor_max_integrity = 500
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS

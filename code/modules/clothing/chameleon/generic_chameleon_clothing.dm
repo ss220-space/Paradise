@@ -179,11 +179,13 @@ do { \
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	resistance_flags = FIRE_PROOF|ACID_PROOF
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
 	actions_types = list(/datum/action/item_action/chameleon/change/hat)
+	armor_plate = /obj/item/armor_plate/light_steel
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/chameleon/broken
+	armor_plate = null
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/chameleon/broken/Initialize(mapload)

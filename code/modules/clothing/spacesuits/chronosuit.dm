@@ -4,9 +4,10 @@
 	icon_state = "chronohelmet"
 	item_state = "chronohelmet"
 	slowdown = 1
-	armor = list(MELEE = 60, BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 60, BULLET = 0, LASER = 0, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit = null
+	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 /obj/item/clothing/head/helmet/space/chronos/dropped(mob/user, slot, silent = FALSE)
 	if(suit && slot == ITEM_SLOT_HEAD)
@@ -25,7 +26,7 @@
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
 	actions_types = list(/datum/action/item_action/toggle)
-	armor = list(MELEE = 60, BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 1000)
+	armor = list(MELEE = 60, BULLET = 0, LASER = 0, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 1000)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null
@@ -33,6 +34,8 @@
 	var/activated = 0
 	var/cooldowntime = 50 //deciseconds
 	var/teleporting = 0
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
+	on_start_armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 
 /obj/item/clothing/suit/space/chronos/proc/new_camera(var/mob/user)

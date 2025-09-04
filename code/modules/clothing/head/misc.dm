@@ -1,5 +1,5 @@
 
-
+//WARN: admin only
 /obj/item/clothing/head/centhat
 	name = "CentComm. hat"
 	icon_state = "centcom"
@@ -401,15 +401,17 @@
 	name = "officers beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
+	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/head/beret/centcom/officer/navy
 	name = "navy blue officers beret"
 	desc = "A navy blue beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer_navy"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
+	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret
 	name = "royal marines commando beret"
@@ -570,7 +572,7 @@
 	name = "crown"
 	desc = "A crown fit for a king, a petty king maybe."
 	icon_state = "crown"
-	armor = list(MELEE = 15, BULLET = 0, LASER = 0,ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/crown/fancy
@@ -625,7 +627,7 @@
 		INSTRUMENTAL = "обожжённым черепом",
 		PREPOSITIONAL = "обожжённом черепе"
 	)
-	
+
 
 /obj/item/clothing/head/roach
 	name = "roach"

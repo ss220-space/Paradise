@@ -1113,10 +1113,11 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
-	armor = list(melee = 45, bullet = 65, laser = 10, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 45, bullet = 0, laser = 0, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/head/helmet/clockwork_fake
 	name = "clockwork helmet"
@@ -1128,7 +1129,8 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
-	armor = list(melee = 45, bullet = 65, laser = 10, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 45, bullet = 0, laser = 0, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/head/helmet/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()

@@ -16,11 +16,12 @@
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "ninja_hood_classic"
 	item_state = "ninja_hood_classic"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 20,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 20, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 100, FIRE = 100, ACID = 100)
 	blockTracking = TRUE //Roughly the only unique thing about this helmet.
 	strip_delay = 12
 	permeability_coefficient = 1
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	armor_plate = null
 
 /**
  * # Ninja Scarf

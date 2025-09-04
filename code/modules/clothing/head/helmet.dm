@@ -6,7 +6,7 @@
 	item_flags = BANGPROTECT_MINOR
 	flags_cover = HEADCOVERSEYES
 	item_state = "helmetmaterials"
-	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	flags_inv = HIDEHEADSETS|HIDEGLASSES
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
@@ -28,6 +28,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 	)
+	armor_plate = /obj/item/armor_plate/medium_ceramic
 
 
 /obj/item/clothing/head/helmet/adjust_headgear(mob/user)
@@ -55,6 +56,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 	)
+	armor_plate = /obj/item/armor_plate/medium_ceramic
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"
@@ -92,7 +94,7 @@
 	desc = "A bulletproof helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
 	icon_state = "bullethelmet"
 	item_state = "bullethelmet"
-	armor = list(MELEE = 15, BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = null
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDEHAIR
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
@@ -113,13 +115,14 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
+	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 /obj/item/clothing/head/helmet/riot
 	name = "riot helmet"
 	desc = "It's a helmet specifically designed to protect against close range attacks."
 	icon_state = "riot"
 	item_state = "helmet"
-	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	flags_inv = HIDEHEADSETS
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	strip_delay = 80
@@ -129,6 +132,7 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 	)
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/riot/knight
 	name = "medieval helmet"
@@ -168,7 +172,7 @@
 	desc = "They're often used by highly trained Swat Members."
 	icon_state = "swat"
 	item_state = "swat"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 50, BIO = 90, RAD = 20, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 50, BIO = 90, RAD = 20, FIRE = 50, ACID = 50)
 	item_flags = NONE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -184,7 +188,8 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
+	)
+	armor_plate = /obj/item/armor_plate/medium_ceramic
 
 /obj/item/clothing/head/helmet/swat/syndicate
 	name = "blood-red helmet"
@@ -197,7 +202,7 @@
 	desc = "<i>'Let the battle commence!'</i>"
 	icon_state = "thunderdome"
 	item_state = "thunderdome"
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
+	armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
 	item_flags = NONE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -205,21 +210,24 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
 	dog_fashion = null
+	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 /obj/item/clothing/head/helmet/roman
 	name = "roman helmet"
 	desc = "An ancient helmet made of bronze and leather."
-	armor = list(MELEE = 25, BULLET = 0, LASER = 25, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	item_flags = NONE
 	resistance_flags = FIRE_PROOF
 	icon_state = "roman"
 	item_state = "roman"
 	strip_delay = 100
 	dog_fashion = null
+	armor_plate = /obj/item/armor_plate/handmade_ablative
 
 /obj/item/clothing/head/helmet/roman/fake
 	desc = "An ancient helmet made of plastic and leather."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+	armor_plate = null
 
 /obj/item/clothing/head/helmet/roman/legionaire
 	name = "roman legionaire helmet"
@@ -230,6 +238,7 @@
 /obj/item/clothing/head/helmet/roman/legionaire/fake
 	desc = "An ancient helmet made of plastic and leather. Has a red crest on top of it."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+	armor_plate = null
 
 /obj/item/clothing/head/helmet/gladiator
 	name = "gladiator helmet"
@@ -245,26 +254,29 @@
 	toggle_cooldown = 20
 	toggle_sound = 'sound/items/zippoclose.ogg'
 	dog_fashion = null
+	armor_plate = null
 
 /obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"
 	desc = "They have chosen their own end."
 	icon_state = "redtaghelm"
 	item_state = "redtaghelm"
-	armor = list(MELEE = 15, BULLET = 10, LASER = 20,ENERGY = 10, BOMB = 20, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 20, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
 	item_flags = NONE
 	// Offer about the same protection as a hardhat.
 	dog_fashion = null
+	armor_plate = /obj/item/armor_plate/handmade_ablative
 
 /obj/item/clothing/head/helmet/bluetaghelm
 	name = "blue laser tag helmet"
 	desc = "They'll need more men."
 	icon_state = "bluetaghelm"
 	item_state = "bluetaghelm"
-	armor = list(MELEE = 15, BULLET = 10, LASER = 20,ENERGY = 10, BOMB = 20, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 20, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
 	item_flags = NONE
 	// Offer about the same protection as a hardhat.
 	dog_fashion = null
+	armor_plate = /obj/item/armor_plate/handmade_ablative
 
 /obj/item/clothing/head/blob
 	name = "blob hat"
@@ -282,6 +294,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
+	armor_plate = null
 
 /obj/item/clothing/head/helmet/riot/knight/blue
 	icon_state = "knight_blue"
@@ -309,7 +322,7 @@
 	desc = "Deus Vult."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, rad = 0, fire = 80, acid = 80)
+	armor = list(melee = 20, bullet = 0, laser = 0, energy = 2, bomb = 2, bio = 2, rad = 0, fire = 80, acid = 80)
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
@@ -319,7 +332,7 @@
 	desc = "Этот шлем, который выглядит устрашающе и походит на племенной, кажется не очень удобным."
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDENAME
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 45, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 45, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
@@ -327,6 +340,7 @@
 			SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 			SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/skull/get_ru_names()
 	return list(
@@ -352,13 +366,15 @@
 	icon_state = "durathread"
 	item_state = "durathread"
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 20, BULLET = 10, LASER = 30, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50)
+	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50)
 	strip_delay = 60
+	armor_plate = /obj/item/armor_plate/handmade_ablative
 
 
 /obj/item/clothing/head/helmet/ert
 	item_flags = NONE
 	flags_inv = parent_type::flags_inv|HIDEHAIR
+	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 
 //Commander
@@ -422,7 +438,7 @@
 	item_state = "buckhelm"
 	flags_inv = HIDEHEADSETS
 	resistance_flags = FIRE_PROOF
-	armor = list(MELEE = 8, BULLET = 5, LASER = 5, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 8, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	strip_delay = 7 SECONDS
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
@@ -444,6 +460,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
+	armor_plate = /obj/item/armor_plate/handmade_steel
 
 //Dredd
 /obj/item/clothing/head/helmet/street_judge
@@ -462,6 +479,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
+	armor_plate = /obj/item/armor_plate/medium_ceramic
 
 /obj/item/clothing/head/helmet/lightweighthelmet
 	name = "lightweight helmet"
@@ -483,11 +501,12 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
+	armor_plate = /obj/item/armor_plate/medium_ceramic
 
 /obj/item/clothing/head/helmet/biker
 	name = "Motorcycle helmet"
 	desc = "Самый обычный мотоциклетный шлем."
-	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 30, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 0)
+	armor = list(MELEE = 35, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 0)
 	icon_state = "biker"
 	item_state = "biker"
 	flash_protect = FLASH_PROTECTION_FLASH
@@ -498,6 +517,7 @@
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_DIONA, SPECIES_SHADOW_BASIC, SPECIES_MONKEY)
+	armor_plate = /obj/item/armor_plate/handmade_steel
 
 /obj/item/clothing/head/helmet/biker/Initialize(mapload)
 	. = ..()

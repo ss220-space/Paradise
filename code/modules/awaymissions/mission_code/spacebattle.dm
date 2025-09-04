@@ -715,6 +715,7 @@
 	on = TRUE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
 	actions_types = list(/datum/action/item_action/toggle_helmet)
+	on_start_armor_plate = null
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
@@ -722,6 +723,7 @@
 	item_state = "syndie_helm"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	on = TRUE
+	armor_plate = null
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged/update_icon_state()

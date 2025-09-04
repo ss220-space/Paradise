@@ -7,7 +7,7 @@
 	flags_inv = HIDENAME
 	permeability_coefficient = 0.01
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 50, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 40, BOMB = 50, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
 	sprite_sheets = list(
@@ -19,6 +19,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
+	armor_plate = /obj/item/armor_plate/medium_ceramic
 
 /obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
@@ -39,7 +40,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = ACID_PROOF
 	allowed = list(/obj/item/tank/internals, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
-	armor = list(MELEE = 40, BULLET = 50, LASER = 50, ENERGY = 40, BOMB = 50, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 40, BOMB = 50, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 	flags_inv = HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 
@@ -51,6 +52,8 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	on_start_armor_plate = /obj/item/armor_plate/medium_ceramic
 
 	//Deathsquad space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/deathsquad
@@ -58,7 +61,7 @@
 	desc = "That's not red paint. That's real blood."
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	vision_flags = SEE_MOBS
@@ -67,6 +70,7 @@
 	HUDType = MEDHUD
 	strip_delay = 130
 	species_restricted = null
+	armor_plate = /obj/item/armor_plate/elite
 
 /obj/item/clothing/suit/space/deathsquad
 	name = "deathsquad suit"
@@ -74,7 +78,7 @@
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat)
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 130
@@ -87,6 +91,8 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MAX
+	on_start_armor_plate = /obj/item/armor_plate/elite
 
 	//NEW SWAT suit
 /obj/item/clothing/suit/space/swat
@@ -109,7 +115,7 @@
 	name = "officer's beret"
 	desc = "An armored beret commonly used by special operations officers."
 	icon_state = "beret_officer"
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	flags_inv = NONE
 	flags_cover = NONE
 	sprite_sheets = list(
@@ -119,6 +125,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
+	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
 	name = "Офицерская фуражка Верховного Главнокомандующего"
@@ -140,7 +147,7 @@
 	blood_overlay_type = "coat"
 	flags_inv = NONE
 	slowdown = 0
-	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_NORMAL
 	species_restricted = null
@@ -150,14 +157,16 @@
 	desc = "Парадный плащ, спроектированный и сшитый под индивидуальную мерку действующего Верховного Главнокомандующего Флота NanoTrasen. Внутренний слой формы представляет из себя защитную оболочку, состоящую из миллионов нанитов; кластеры этих миниатюрных роботов способны эффективно рассеивать кинетическую и термальную энергию, обеспечивая превосходный уровень защиты для носителя."
 	icon_state = "ntsc_uniform"
 	item_state = "ntsc_uniform"
-	armor = list(MELEE = 80, BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/suit/space/deathsquad/officer/field
 	name = "Полевая форма Офицера Флота NanoTrasen"
 	desc = "Парадный плащ, разработанный в качестве массового варианта формы Верховного Главнокомандующего. У этой униформы нет тех же защитных свойств, что и у оригинала, но она все ещё является довольно удобным и стильным предметом гардероба."
 	icon_state = "ntsc_uniform"
 	item_state = "ntsc_uniform"
-	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
+	on_start_armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
 	name = "Trans-Solar Federation commander's jacket"
@@ -229,7 +238,7 @@
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75)
 	clothing_flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	strip_delay = 40
@@ -243,6 +252,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/space/pirate
 	name = "pirate coat"
@@ -252,7 +262,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals)
 	slowdown = 0
-	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75)
 	strip_delay = 40
 	put_on_delay = 20
 
@@ -263,6 +273,8 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
 
 	species_restricted = null
 
@@ -287,6 +299,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		)
+	armor_plate = null
 
 
 /obj/item/clothing/suit/space/eva/paramedic
@@ -348,6 +361,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
+	armor_plate = null
 
 
 //Mime's Hardsuit
@@ -361,6 +375,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
+	armor_plate = null
 
 
 /obj/item/clothing/suit/space/eva/mime
@@ -385,6 +400,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
+	armor_plate = null
 
 
 /obj/item/clothing/suit/space/eva/clown
@@ -405,7 +421,7 @@
 	icon_state = "pirate_armor"
 	item_state = "s_suit"
 	desc = "A lightweight pirate-themed EVA suit designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
-	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -423,7 +439,7 @@
 	icon_state = "pirate_armor"
 	item_state = "s_helmet"
 	desc = "A lightweight pirate-themed space helmet with white skull on it designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
-	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	flash_protect = FLASH_PROTECTION_WELDER
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
@@ -436,15 +452,19 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi'
 		)
+	armor_plate = null
 
 /obj/item/clothing/suit/space/eva/pirate/leader
 	name = "pirate leader EVA suit"
 	icon_state = "leader_armor"
 	desc = "A lightweight pirate-themed EVA suit designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid. This one has a red markings."
-	armor = list(melee = 15, bullet = 10, laser = 35, energy = 30, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 15, bullet = 0, laser = 0, energy = 30, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/eva/pirate/leader
 	name = "pirate leader EVA helmet"
 	icon_state = "leader_armor"
 	desc = "A lightweight pirate-themed space helmet with red skull on it designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
-	armor = list(melee = 15, bullet = 10, laser = 35, energy = 30, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor = list(melee = 15, bullet = 0, laser = 0, energy = 30, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
+	armor_plate = /obj/item/armor_plate/light_steel

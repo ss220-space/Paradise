@@ -524,7 +524,7 @@
 	flags_inv = HIDEHEADSETS
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	dog_fashion = null
-	armor = list(MELEE = 10, BULLET = 10, LASER = 60, ENERGY = 60, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 100)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 60, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
@@ -544,6 +544,7 @@
 		)
 	var/list/reflect_zones = list(BODY_ZONE_HEAD)
 	var/hit_reflect_chance = 50
+	armor_plate = /obj/item/armor_plate/medium_ablative
 
 /obj/item/clothing/head/helmet/reflector/get_ru_names()
 	return list(

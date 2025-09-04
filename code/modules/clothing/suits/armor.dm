@@ -21,6 +21,8 @@
 		)
 	w_class = WEIGHT_CLASS_NORMAL
 	undyeable = TRUE
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	on_start_armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"

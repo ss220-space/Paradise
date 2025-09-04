@@ -258,7 +258,7 @@
 	desc = "Магический головной убор робы прислужника школы пространства, оберегающий от перемещений в агрессивных средах."
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS

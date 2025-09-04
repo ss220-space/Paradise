@@ -6,8 +6,9 @@
 	icon_state = "hardsuit0-contractor"
 	item_state = "contractor_helm"
 	item_color = "contractor"
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 35, BIO = 100, RAD = 100, FIRE = 50, ACID = 90)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 35, BIO = 100, RAD = 100, FIRE = 50, ACID = 90)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 /obj/item/clothing/suit/space/hardsuit/contractor
 	name = "Contractor hardsuit"
@@ -15,7 +16,7 @@
 	icon_state = "hardsuit-contractor"
 	item_state = "contractor_hardsuit"
 	item_color = "contractor"
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 35, BIO = 100, RAD = 100, FIRE = 50, ACID = 90)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 35, BIO = 100, RAD = 100, FIRE = 50, ACID = 90)
 	slowdown = 0
 	w_class = WEIGHT_CLASS_NORMAL
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/contractor
@@ -29,6 +30,8 @@
 	//working as ninja hook, deleted when droped
 	var/obj/item/gun/magic/contractor_hook/scorpion
 	var/disguise = FALSE
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
+	on_start_armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 /obj/item/clothing/suit/space/hardsuit/contractor/Destroy()
 	. = ..()

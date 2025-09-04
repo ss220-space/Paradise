@@ -553,7 +553,14 @@ BLIND     // can't see anything
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
+	/// Integrated armor plate (can not detach, plate covering setup is ignored)
+	var/obj/item/armor_plate/armor_plate = null
 
+/obj/item/clothing/head/Initialize(mapload)
+	. = ..()
+	if(ispath(armor_plate))
+		armor_plate = new armor_plate(src)
+		armor_plate.forceMove(src)
 
 /obj/item/clothing/head/update_icon_state()
 	if(..())
@@ -598,6 +605,12 @@ BLIND     // can't see anything
 	while(up)
 		playsound(loc, active_sound, active_sound_volume, FALSE, 4)
 		sleep(1.5 SECONDS)
+
+/obj/item/clothing/head/examine(mob/user)
+	. = ..()
+	if(!armor_plate)
+		return
+	. += span_notice(armor_plate.get_integrity_text())
 
 
 // MARK: Mask

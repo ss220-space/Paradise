@@ -160,12 +160,13 @@
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
+	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
+	armor_plate = /obj/item/armor_plate/medium_ceramic
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
@@ -175,7 +176,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
+	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
@@ -183,6 +184,8 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	on_start_armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robes"
