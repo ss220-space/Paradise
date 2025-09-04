@@ -57,7 +57,7 @@
 			num_of_prizes = rand(0,2)
 	for(var/i = num_of_prizes; i > 0; i--)
 		prizevend()
-	explosion(get_turf(src), -1, 0, 1+num_of_prizes, flame_range = 1+num_of_prizes)
+	explosion(get_turf(src), devastation_range = -1, heavy_impact_range = 0, light_impact_range = (1 + num_of_prizes), flame_range = (1 + num_of_prizes))
 
 
 /obj/machinery/computer/arcade/battle
@@ -1065,7 +1065,7 @@
 	to_chat(user, span_warning("Вы щелкаете выключателем на нижней стороне [declent_ru(GENITIVE)]."))
 	active = 1
 	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] тихо пищит и жужжит, пробуждаясь к жизни!"))
-	playsound(src.loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
+	playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
 	atom_say("Это корабль ID #[rand(1,1000)] руководству порта Орион. Мы заходим на посадку, приём.")
 	sleep(20)
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает вибрировать..."))
@@ -1075,7 +1075,7 @@
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
 	sleep(3.6)
 	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
-	explosion(src.loc, 1,2,4, flame_range = 3, cause = user)
+	explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 3, adminlog = TRUE, cause = user)
 	qdel(src)
 
 /obj/machinery/computer/arcade/orion_trail/pc_frame

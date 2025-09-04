@@ -42,19 +42,19 @@
 	opacity = FALSE
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
-/obj/machinery/door/poddoor/ex_act(severity)
-	if(severity == 3)
+/obj/machinery/door/poddoor/ex_act(severity, target)
+	if(severity <= EXPLODE_LIGHT)
 		return
-	..()
+	return ..()
 
 /obj/machinery/door/poddoor/do_animate(animation)
 	switch(animation)
 		if("opening")
 			flick("opening", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
+			playsound(src, 'sound/machines/blastdoor.ogg', 30, TRUE)
 		if("closing")
 			flick("closing", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
+			playsound(src, 'sound/machines/blastdoor.ogg', 30, TRUE)
 
 /obj/machinery/door/poddoor/update_icon_state()
 	icon_state = density ? "closed" : "open"

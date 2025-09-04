@@ -6,14 +6,6 @@
 /obj/machinery/power/tracker
 	name = "solar tracker"
 	desc = "Устройство, управляющее углом наклона солнечных панелей в зависимости от направления солнечного света."
-	ru_names = list(
-		NOMINATIVE = "солнечный датчик",
-		GENITIVE = "солнечного датчика",
-		DATIVE = "солнечному датчику",
-		ACCUSATIVE = "солнечный датчик",
-		INSTRUMENTAL = "солнечным датчиком",
-		PREPOSITIONAL = "солнечном датчке"
-	)
 	gender = MALE
 	icon = 'icons/obj/engines_and_power/solar_panels.dmi'
 	icon_state = "solar_tracker"
@@ -25,6 +17,16 @@
 	var/id = 0
 	var/sun_angle = 0		// sun angle as set by sun datum
 	var/obj/machinery/power/solar_control/control = null
+
+/obj/machinery/power/tracker/get_ru_names()
+	return list(
+		NOMINATIVE = "солнечный датчик",
+		GENITIVE = "солнечного датчика",
+		DATIVE = "солнечному датчику",
+		ACCUSATIVE = "солнечный датчик",
+		INSTRUMENTAL = "солнечным датчиком",
+		PREPOSITIONAL = "солнечном датчке"
+	)
 
 /obj/machinery/power/tracker/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
@@ -100,7 +102,7 @@
 				S.forceMove(loc)
 				S.give_glass(stat & BROKEN)
 		else
-			playsound(src, "shatter", 70, TRUE)
+			playsound(src, SFX_SHATTER, 70, TRUE)
 			new /obj/item/shard(loc)
 			new /obj/item/shard(loc)
 	qdel(src)

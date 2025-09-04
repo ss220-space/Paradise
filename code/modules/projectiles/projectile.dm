@@ -82,9 +82,11 @@
 	var/slur = 0
 	var/eyeblur = 0
 	var/drowsy = 0
+	var/min_stamina = 0
 	var/stamina = 0
 	var/jitter = 0
 	var/knockdown = 0
+	var/confused = 0
 
 	/// Number of times an object can pass through an object. -1 is infinite
 	var/forcedodge = 0
@@ -134,7 +136,7 @@
 	if(damage && tile_dropoff)
 		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
 	if(stamina && tile_dropoff_s)
-		stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
+		stamina = max(min_stamina, stamina - tile_dropoff_s) // as above, but with stamina
 	if(tile_dropoff_penetration)
 		armour_penetration = clamp(armour_penetration - tile_dropoff_penetration, -100, 100)
 	if(tile_dropoff_forcedodge)
@@ -192,7 +194,7 @@
 			if(isalien(L) || isfacehugger(L))
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
-				var/blood_color = "#A10808"
+				var/blood_color = BLOOD_COLOR_RED
 				if(ishuman(target))
 					H = target
 					blood_color = H.dna.species.blood_color
@@ -221,11 +223,11 @@
 
 		if(suppressed)
 			playsound(loc, hitsound, 5, TRUE, -1)
-			to_chat(L, span_userdanger("Вы стреляете из [declent_ru(ACCUSATIVE)] [organ_hit_text]"))
+			to_chat(L, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] попадает вам [organ_hit_text]"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
-				playsound(loc, hitsound, volume, 1, -1)
+				playsound(loc, hitsound, volume, TRUE, -1)
 			var/hit_text = pick("получа[pluralize_ru(L.gender,"ет","ют")] попадание",
 								"ранен[genderize_ru(L.gender,"","а","о","ы")]",
 								"получа[pluralize_ru(L.gender,"ет","ют")] ранение",
@@ -240,12 +242,17 @@
 				if(L.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
-	var/were_affects_applied = L.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown)
+	var/were_affects_applied = apply_effect_on_hit(L, blocked, def_zone)
 
 	if(!log_override && firer && original)
 		add_attack_logs(firer, L, "Shot [organ_hit_text][blocked ? " blocking [blocked]%" : null]. [fire_log_text]")
 
 	return were_affects_applied
+
+
+
+/obj/projectile/proc/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
+	return target.apply_effects(blocked, stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, stamina, jitter, knockdown, confused)
 
 
 /**
@@ -296,7 +303,7 @@
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
-		playsound(loc, hitsound_wall, volume, 1, -1)
+		playsound(loc, hitsound_wall, volume, TRUE, -1)
 	else if(ishuman(bumped_atom))
 		var/mob/living/carbon/human/bumped_human = bumped_atom
 		var/obj/item/organ/external/organ = bumped_human.get_organ(check_zone(def_zone))

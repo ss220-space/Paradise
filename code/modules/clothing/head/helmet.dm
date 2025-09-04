@@ -152,6 +152,7 @@
 	can_toggle = TRUE
 	toggle_cooldown = 20
 	active_sound = 'sound/items/weeoo1.ogg'
+	active_sound_volume = 50
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/justice/escape
@@ -486,9 +487,10 @@
 /obj/item/clothing/head/helmet/biker
 	name = "Motorcycle helmet"
 	desc = "Самый обычный мотоциклетный шлем."
-	armor = list(MELEE = 25, BULLET = 10, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 0)
+	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 30, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 0)
 	icon_state = "biker"
 	item_state = "biker"
+	flash_protect = FLASH_PROTECTION_FLASH
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	color = "#161515"
@@ -509,3 +511,13 @@
 	. = ..()
 	var/mutable_appearance/biker_overlay = mutable_appearance(icon='icons/obj/clothing/hats.dmi', icon_state = "biker_overlay")
 	. += biker_overlay
+
+/obj/item/clothing/head/helmet/biker/get_ru_names()
+	return list(
+		NOMINATIVE = "мотоциклетный шлем",
+		GENITIVE = "мотоциклетного шлема",
+		DATIVE = "мотоциклетному шлему",
+		ACCUSATIVE = "мотоциклетный шлем",
+		INSTRUMENTAL = "мотоциклетным шлемом",
+		PREPOSITIONAL = "мотоциклетном шлеме"
+	)

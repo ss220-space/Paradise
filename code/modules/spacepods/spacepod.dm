@@ -81,10 +81,10 @@
 	var/lights_power = 6
 	var/can_paint = TRUE
 
-	var/list/icon_light_color = list("pod_civ" = LIGHT_COLOR_WHITE, \
+	var/list/icon_light_color = list("pod_civ" = COLOR_WHITE, \
 									 "pod_mil" = "#BBF093", \
-									 "pod_synd" = LIGHT_COLOR_RED, \
-									 "pod_gold" = LIGHT_COLOR_WHITE, \
+									 "pod_synd" = COLOR_SOFT_RED, \
+									 "pod_gold" = COLOR_WHITE, \
 									 "pod_black" = "#3B8FE5", \
 									 "pod_industrial" = "#CCCC00")
 
@@ -302,7 +302,7 @@
 				for(var/M in passengers + pilot)
 					var/mob/living/L = M
 					L.adjustBruteLoss(300)
-			explosion(loc, 0, 0, 2, cause = src)
+			explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 			robogibs(loc)
 			robogibs(loc)
 			qdel(src)
@@ -315,21 +315,21 @@
 		update_icons()
 
 
-/obj/spacepod/ex_act(severity)
+/obj/spacepod/ex_act(severity, target)
 	occupant_sanity_check()
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			if(passengers || pilot)
 				for(var/mob/M in passengers | pilot)
 					var/mob/living/carbon/human/H = M
 					if(H)
 						H.forceMove(get_turf(src))
-						H.ex_act(severity + 1)
+						H.ex_act(severity - 1)
 						to_chat(H, span_warning("Вас с силой выбрасывает из [src.declent_ru(GENITIVE)]!"))
 			qdel(src)
-		if(2)
+		if(EXPLODE_HEAVY)
 			deal_damage(100)
-		if(3)
+		if(EXPLODE_LIGHT)
 			if(prob(40))
 				deal_damage(50)
 

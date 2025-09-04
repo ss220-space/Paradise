@@ -376,7 +376,7 @@
 /obj/effect/anomaly/narsie_act()
 	collapse()
 
-/obj/effect/anomaly/ex_act(severity)
+/obj/effect/anomaly/ex_act(severity, target)
 	return
 
 #undef ANOMALY_DOUBLE_MOVE_CHANCE

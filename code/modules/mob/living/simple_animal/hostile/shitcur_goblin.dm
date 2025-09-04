@@ -18,7 +18,7 @@
 	projectilesound = 'sound/weapons/taser.ogg'
 	AI_delay_max = 0 SECONDS
 
-/mob/living/simple_animal/hostile/shitcur_goblin/Initialize()
+/mob/living/simple_animal/hostile/shitcur_goblin/Initialize(mapload)
 	. = ..()
 	playsound(src, 'sound/misc/Wild_Griefer_Appeared.ogg', 50, TRUE, -1)
 

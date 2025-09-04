@@ -65,7 +65,7 @@
 /obj/structure/closet/supplypod/bluespacepod
 	style = /datum/pod_style/advanced
 	bluespace = TRUE
-	explosionSize = list(0,0,1,2)
+	explosionSize = list(0, 0, 1, 2)
 
 //type used for one drop spawning items. doesn't have a style as style is set by the helper that creates this
 /obj/structure/closet/supplypod/podspawn
@@ -85,14 +85,17 @@
 	name = "Syndicate Extraction Pod"
 	desc = "Специализированная капсула кроваво-красного цвета для эвакуации ценных целей из зон активных задач. <b>Для правильной доставки цели необходимо вручную поместить в капсулу.</b>"
 	specialised = TRUE
-	style = /datum/pod_style/syndicate
+	style = /datum/pod_style/contractor
 	bluespace = TRUE
-	explosionSize = list(0,0,1,2)
+	explosionSize = list(0, 0, 1, 0)
+	effectLimb = TRUE
+	damage = 70
 	delays = list(POD_TRANSIT = 25, POD_FALLING = 4, POD_OPENING = 30, POD_LEAVING = 30)
 	reversing = TRUE
 	stay_after_drop = TRUE
 	leavingSound = 'sound/effects/podwoosh.ogg'
-	reverse_option_list = list(MOB_OPTION=TRUE, UNANCHORED_OPTION=FALSE, ANCHORED_OPTION=FALSE, MECHA_OPTION=FALSE)
+	reverse_option_list = list(MOB_OPTION = FALSE, UNANCHORED_OPTION = FALSE, ANCHORED_OPTION = FALSE, MECHA_OPTION = FALSE)
+
 
 /obj/structure/closet/supplypod/extractionpod/get_ru_names()
 	return list(
@@ -108,7 +111,7 @@
 	style = /datum/pod_style/centcom
 	bluespace = TRUE
 	explosionSize = list(0,0,0,0)
-	delays = list(POD_TRANSIT = 20, POD_FALLING = 4, POD_OPENING = 30, POD_LEAVING = 30)
+	delays = list(POD_TRANSIT = 5 SECONDS, POD_FALLING = 1 SECONDS, POD_OPENING = 30, POD_LEAVING = 30)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/structure/closet/supplypod/centcompod/sisyphus
@@ -179,7 +182,9 @@
 	name = "blood-red supply pod"
 	desc = "Устрашающая капсула снабжения, покрытая кроваво-красными отметинами."
 	bluespace = TRUE
-	explosionSize = list(0,0,0,0)
+	explosionSize = list(0, 0, 1, 0)
+	effectGib = TRUE
+	delays = list(POD_TRANSIT = 0, POD_FALLING = 4, POD_OPENING = 1 SECONDS, POD_LEAVING = 0)
 	style = /datum/pod_style/syndicate
 	specialised = TRUE
 
@@ -221,7 +226,20 @@
 		forceMove(shippingLane)
 	if (customStyle)
 		style = customStyle
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 	setStyle(style) //Upon initialization, give the supplypod an iconstate, name, and description based on the "style" variable. This system is important for the centcom_podlauncher to function correctly
+
+/obj/structure/closet/supplypod/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_ENTERED, arrived, old_loc, old_locs)
+
+/obj/structure/closet/supplypod/proc/on_exited(datum/source, mob/living/exited, atom/new_loc)
+	SIGNAL_HANDLER
+	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_EXITED, exited, new_loc)
 
 /obj/structure/closet/supplypod/proc/setStyle(datum/pod_style/chosen_style) //Used to give the sprite an icon state, name, and description.
 	style = chosen_style
@@ -328,7 +346,7 @@
 	if(isnull(destination)) //Uuuuh, something went wrong. This is gonna hurt.
 		to_chat(victim, span_holoparasite("Миллион голосов эхом звучит в твоей голове... «Похоже, там, куда тебя отправили, не могут справиться с нашей капсулой...\
 		как будто мы хотели, чтобы пассажир выжил. Держись, корпоративная собака»"))
-		explosionSize = list(0,1,1,1)
+		explosionSize = list(0, 1, 1, 1)
 		destination = get_random_station_turf()
 
 	do_sparks(8, FALSE, victim)
@@ -406,9 +424,9 @@
 			target_living.adjustBruteLoss(damage)
 	var/explosion_sum = B[1] + B[2] + B[3] + B[4]
 	if (explosion_sum != 0) //If the explosion list isn't all zeroes, call an explosion
-		explosion(turf_underneath, B[1], B[2], B[3], flame_range = B[4], silent = effectQuiet, ignorecap = istype(src, /obj/structure/closet/supplypod/centcompod), cause = src) //less advanced equipment than bluespace pod, so larger explosion when landing
+		explosion(turf_underneath, devastation_range = B[1], heavy_impact_range = B[2], light_impact_range = B[3], flame_range = B[4], silent = effectQuiet, ignorecap = istype(src, /obj/structure/closet/supplypod/centcompod), cause = src) //less advanced equipment than bluespace pod, so larger explosion when landing
 	else if (!effectQuiet && !(pod_flags & FIRST_SOUNDS)) //If our explosion list IS all zeroes, we still make a nice explosion sound (unless the effectQuiet var is true)
-		playsound(src, "explosion", landingSound ? soundVolume * 0.25 : soundVolume, TRUE)
+		playsound(src, SFX_EXPLOSION, landingSound ? soundVolume * 0.25 : soundVolume, TRUE)
 	if (landingSound)
 		playsound(turf_underneath, landingSound, soundVolume, FALSE, FALSE)
 	if (effectMissile) //If we are acting like a missile, then right after we land and finish fucking shit up w explosions, we should delete
@@ -472,7 +490,7 @@
 	if (!holder)
 		return
 	take_contents(holder)
-	playsound(holder, close_sound, soundVolume*0.75, TRUE, -3)
+	playsound(holder, close_sound, soundVolume * 0.75, TRUE, -3)
 	holder.setClosed()
 	addtimer(CALLBACK(src, PROC_REF(preReturn), holder), delays[POD_LEAVING] * 0.2) //Start to leave a bit after closing for cinematic effect
 
@@ -531,15 +549,35 @@
 
 /obj/structure/closet/supplypod/proc/preReturn(atom/movable/holder)
 	deleteRubble()
+	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_PRE_RETURN)
 	animate(holder, alpha = 0, time = 8, easing = QUAD_EASING|EASE_IN, flags = ANIMATION_PARALLEL)
 	animate(holder, pixel_z = 400, time = 10, easing = QUAD_EASING|EASE_IN, flags = ANIMATION_PARALLEL) //Animate our rising pod
 	addtimer(CALLBACK(src, PROC_REF(handleReturnAfterDeparting), holder), 15) //Finish up the pod's duties after a certain amount of time
 
 /obj/structure/closet/supplypod/extractionpod/preReturn(atom/movable/holder)
 	// Double ensure we're loaded, this SHOULD be here by now but you never know
-	var/turf/picked_turf = pick(GLOB.ninja_teleport)
+	var/turf/picked_turf = pick(GLOB.syndieprisonwarp)
 	reverse_dropoff_coords = list(picked_turf.x, picked_turf.y, picked_turf.z)
 	return ..()
+
+/obj/structure/closet/supplypod/MouseDrop_T(atom/movable/O, mob/living/user, params)
+	if(!(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, O, user) & COMPONENT_CLIMB))
+		return ..()
+
+	to_chat(user, span_notice("Вы начинаетезаталкивать"))
+	user.visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] начинает запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+						span_notice("Вы начинаете запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+
+	if(!do_after(user, 5 SECONDS, src))
+		return
+
+	. = ..()
+
+	if(!.)
+		return
+
+	O.forceMove(get_turf(src))
+
 
 /obj/structure/closet/supplypod/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE
@@ -547,14 +585,14 @@
 	update_appearance()
 	after_open(null, FALSE)
 
-/obj/structure/closet/supplypod/open()
-	return
-
 /obj/structure/closet/supplypod/extractionpod/setOpened()
 	opened = TRUE
 	set_density(TRUE)
 	update_appearance()
 	after_open(null, FALSE)
+
+/obj/structure/closet/supplypod/open()
+	return
 
 /obj/structure/closet/supplypod/setClosed() //Ditto
 	opened = FALSE
@@ -816,7 +854,7 @@
 		animate(smoke_part.get_filter("smoke_blur"), size = 6, time = 15, easing = CUBIC_EASING|EASE_OUT, flags = ANIMATION_PARALLEL)
 	smoke_effects = null
 
-/obj/effect/pod_landingzone/ex_act(severity)
+/obj/effect/pod_landingzone/ex_act(severity, target)
 	return FALSE
 
 /obj/effect/pod_landingzone/proc/endLaunch()

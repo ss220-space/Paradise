@@ -19,7 +19,7 @@
 #define TROPHIES_CAP_PROT_STAMINA		40
 
 /// Max blood cost reduce for spell.
-#define TROPHIES_CAP_BLOOD_REDUCE		50
+#define TROPHIES_CAP_BLOOD_REDUCE		20
 
 /// Amount of trophies required for certain passives.
 #define TROPHIES_EYES_FLASH				2
@@ -548,7 +548,7 @@
 	gain_desc = "Теперь вы можете заражать жертв могильной лихорадкой. Чем больше вы собрали трофеев, тем сильнее будут эффекты."
 	action_icon_state = "infected_trophy"
 	base_cooldown = 10 SECONDS
-	required_blood = 60
+	required_blood = 30
 	deduct_blood_on_cast = FALSE
 
 
@@ -669,6 +669,9 @@
 
 
 /obj/projectile/skull_projectile/Destroy()
+	var/obj/item/gun/magic/skull_gun/skull_gun = locate() in firer
+	if(skull_gun)
+		qdel(skull_gun)
 	QDEL_NULL(chain)
 	return ..()
 
@@ -676,10 +679,6 @@
 /obj/projectile/skull_projectile/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "sendbeam", time = INFINITY, maxdistance = INFINITY)
-
-		var/obj/item/gun/magic/skull_gun/skull_gun = locate() in firer
-		if(skull_gun)
-			qdel(skull_gun)
 
 		var/datum/antagonist/vampire/vampire = firer.mind?.has_antag_datum(/datum/antagonist/vampire)
 		var/obj/effect/proc_holder/spell/vampire/self/infected_trophy/infected_trophy = locate() in firer.mind?.spell_list
@@ -738,7 +737,7 @@
 	need_active_overlay = TRUE
 	human_req = FALSE
 	base_cooldown = 15 SECONDS
-	required_blood = 55
+	required_blood = 25
 	var/bonus_range = 0
 	var/blood_victim_lose = 0
 	var/effect_aoe = 0
@@ -897,7 +896,7 @@
 	need_active_overlay = TRUE
 	human_req = FALSE
 	base_cooldown = 15 SECONDS
-	required_blood = 55
+	required_blood = 25
 	var/range = 3
 
 
@@ -1121,7 +1120,7 @@
 	action_icon_state = "bats_meta"
 	free_transform_back = TRUE
 	meta_path = /mob/living/simple_animal/hostile/vampire/bats
-	required_blood = 75
+	required_blood = 45
 
 
 /**
@@ -1135,7 +1134,7 @@
 	sound_on_transform = 'sound/creatures/hound_howl.ogg'
 	free_transform_back = TRUE
 	meta_path = /mob/living/simple_animal/hostile/vampire/hound
-	required_blood = 100
+	required_blood = 60
 
 
 /obj/effect/proc_holder/spell/vampire/metamorphosis/hound/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
@@ -1159,7 +1158,7 @@
 	sound = 'sound/effects/creepyshriek.ogg'
 	human_req = FALSE
 	base_cooldown = 20 SECONDS
-	required_blood = 70
+	required_blood = 40
 
 
 /obj/effect/proc_holder/spell/vampire/self/bat_screech/cast(list/targets, mob/living/user = usr)
@@ -1227,7 +1226,7 @@
 	action_icon_state = "lunge_finale"
 	human_req = FALSE
 	base_cooldown = 1 MINUTES
-	required_blood = 110
+	required_blood = 80
 	var/obj/effect/proc_holder/spell/vampire/lunge/lunge
 	/// How many lunges will proceed.
 	var/lunge_counter = 1
@@ -1333,7 +1332,7 @@
 	action_icon_state = "vampire_coffin"
 	sound = 'sound/magic/vampire_anabiosis.ogg'
 	base_cooldown = 3 MINUTES
-	required_blood = 100
+	required_blood = 70
 	var/rejuvenation_time = 30 SECONDS
 
 
@@ -1831,12 +1830,12 @@
 /*
  * Magic...
  */
-/obj/structure/closet/coffin/vampire/ex_act(severity)
-	return
+/obj/structure/closet/coffin/vampire/ex_act(severity, target)
+	return FALSE
 
 /obj/structure/closet/coffin/vampire/singularity_act()
 	return
-	
+
 // Bruh... idk
 /obj/structure/closet/coffin/vampire/zap_act(power, zap_flags)
 	return
@@ -1855,7 +1854,7 @@
 	human_req = FALSE
 	stat_allowed = UNCONSCIOUS
 	base_cooldown = 30 SECONDS
-	required_blood = 80
+	required_blood = 50
 	var/num_bats = 1
 	var/bats_type = /mob/living/simple_animal/hostile/vampire/bats_summoned
 

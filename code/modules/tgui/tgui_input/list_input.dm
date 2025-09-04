@@ -17,6 +17,10 @@
 	if(!length(items))
 		CRASH("[user] tried to open an empty TGUI Input List. Contents are: [items]")
 
+	// auto select if single item select
+	if(length(items) == 1)
+		return items[1]
+
 	if(!istype(user))
 		if(!isclient(user))
 			CRASH("We passed something that wasn't a user/client in a TGUI Input List! The passed user was [user]!")

@@ -466,13 +466,13 @@
 	throwforce = 15
 
 /obj/item/missile/proc/primed_explosion(atom/hit_atom)
-	explosion(hit_atom, 0, 2, 3, 4, 0)
+	explosion(hit_atom, devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, adminlog = FALSE)
 
 /obj/item/missile/heavy/primed_explosion(atom/hit_atom)
-	explosion(hit_atom, 2, 3, 4, 6, 0)
+	explosion(hit_atom, devastation_range = 2, heavy_impact_range = 3, light_impact_range = 4, flash_range = 6, adminlog = FALSE)
 
 /obj/item/missile/light/primed_explosion(atom/hit_atom)
-	explosion(hit_atom, 0, 0, 2, 4, 0)
+	explosion(hit_atom, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flash_range = 4, adminlog = FALSE)
 
 /obj/item/missile/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(primed)
@@ -549,7 +549,7 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/obj/item/grown/bananapeel/B = new projectile(chassis.loc)
-	playsound(chassis, fire_sound, 60, 1)
+	playsound(chassis, fire_sound, 60, TRUE)
 	B.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Bananed from [name], targeting [target]. HONK!")
@@ -579,7 +579,7 @@
 		return FALSE
 	var/obj/item/assembly/mousetrap/M = new projectile(chassis.loc)
 	M.secured = 1
-	playsound(chassis, fire_sound, 60, 1)
+	playsound(chassis, fire_sound, 60, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")

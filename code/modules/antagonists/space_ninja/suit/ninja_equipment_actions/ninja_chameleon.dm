@@ -149,7 +149,7 @@
 			qdel(n_id_card)
 			n_id_card = null
 		//Sparks
-		playsound(ninja, "sparks", 75, TRUE)
+		playsound(ninja, SFX_SPARKS, 75, TRUE)
 		spark_system.start()
 		//Log and info
 		ninja.visible_message(span_warning("[old_name] начинает светиться и меняет форму становясь [ninja]!"), span_notice("Вы маскируете свою внешность становясь [ninja]."), "Вы слышите странный электрический звук!")
@@ -204,7 +204,7 @@
 	qdel(n_id_card)
 	n_id_card = null
 	//Sparks
-	playsound(ninja, "sparks", 150, TRUE)
+	playsound(ninja, SFX_SPARKS, 150, TRUE)
 	spark_system.start()
 	//Info
 	ninja.visible_message(span_warning("[old_name] начинает светиться и меняет форму становясь [ninja]!"), span_notice("Вы возвращаете себе свою внешность."), "Вы слышите странный электрический звук!")

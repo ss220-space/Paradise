@@ -24,7 +24,7 @@
 	var/faction = list("ashwalker")
 	var/meat_counter = 6
 
-/obj/structure/lavaland/ash_walker/Initialize()
+/obj/structure/lavaland/ash_walker/Initialize(mapload)
 	. = ..()
 	AddComponent( \
 			/datum/component/aura_healing, \

@@ -448,7 +448,7 @@
 	status = LIGHT_BURNED
 
 	visible_message("<span class='boldwarning'>[src] burns out!</span>")
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 
 	on = FALSE
 	set_light(0)
@@ -843,7 +843,7 @@
 	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
 	sleep(2)
-	explosion(T, 0, 0, 2, 2, cause = src)
+	explosion(T, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flash_range = 2, cause = src)
 	qdel(src)
 
 
@@ -1020,7 +1020,7 @@
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = TRUE
-		playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
+		playsound(loc, 'sound/effects/glasshit.ogg', 75, TRUE)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 		return TRUE
 

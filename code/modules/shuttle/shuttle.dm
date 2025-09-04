@@ -81,13 +81,15 @@
 		_y + (-dwidth+width-1)*sin + (-dheight+height-1)*cos
 		)
 
-//returns turfs within our projected rectangle in no particular order
+///returns turfs within our projected rectangle in no particular order
 /obj/docking_port/proc/return_turfs()
-	var/list/L = return_coords()
-	return block(L[1], L[2], z, L[3], L[4], z)
+	var/list/coords = return_coords()
+	return block(
+		coords[1], coords[2], z,
+		coords[3], coords[4], z
+	)
 
-//returns turfs within our projected rectangle in a specific order.
-//this ensures that turfs are copied over in the same order, regardless of any rotation
+///returns turfs within our projected rectangle in a specific order.this ensures that turfs are copied over in the same order, regardless of any rotation
 /obj/docking_port/proc/return_ordered_turfs(_x, _y, _z, _dir, area/A)
 	if(!_dir)
 		_dir = dir
@@ -128,18 +130,21 @@
 				. += T
 
 #ifdef DOCKING_PORT_HIGHLIGHT
-//Debug proc used to highlight bounding area
-/obj/docking_port/proc/highlight(_color)
+
+///Debug proc used to highlight bounding area
+/obj/docking_port/proc/highlight(_color = "#f00")
+	invisibility = 0
 	SET_PLANE_IMPLICIT(src, GHOST_PLANE)
-	var/list/L = return_coords()
-	for(var/turf/T in block(L[1], L[2], z, L[3], L[4], z))
+	var/list/coords = return_coords()
+	for(var/turf/T in block(coords[1], coords[2], z, coords[3], coords[4], z))
 		T.color = _color
 		T.maptext = null
 	if(_color)
-		var/turf/T = locate(L[1], L[2], z)
+		var/turf/T = locate(coords[1], coords[2], z)
 		T.color = "#0f0"
-		T = locate(L[3], L[4], z)
+		T = locate(coords[3], coords[4], z)
 		T.color = "#00f"
+
 #endif
 
 //return first-found touching dockingport
@@ -148,7 +153,8 @@
 
 /obj/docking_port/proc/getDockedId()
 	var/obj/docking_port/P = get_docked()
-	if(P) return P.id
+	if(P)
+		return P.id
 
 /obj/docking_port/proc/register()
 	return 0
@@ -170,8 +176,8 @@
 
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
-		throw EXCEPTION("docking port [src] could not initialize.")
-		return 0
+		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
+		return FALSE
 
 	SSshuttle.stationary |= src
 	if(!id)
@@ -257,8 +263,8 @@
 	var/obj/docking_port/stationary/previous
 	var/obj/docking_port/stationary/transit/assigned_transit
 
-/obj/docking_port/mobile/New()
-	..()
+/obj/docking_port/mobile/Initialize(mapload)
+	. = ..()
 
 	var/area/A = get_area(src)
 	if(istype(A, /area/shuttle))
@@ -275,22 +281,19 @@
 	highlight("#0f0")
 	#endif
 
-/obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
 	shuttle_areas = list()
 	var/list/all_turfs = return_ordered_turfs(x, y, z, dir)
-	for(var/i in 1 to all_turfs.len)
+	for(var/i in 1 to length(all_turfs))
 		var/turf/curT = all_turfs[i]
 		var/area/cur_area = curT.loc
 		if(istype(cur_area, areaInstance))
 			shuttle_areas[cur_area] = TRUE
-	. = ..()
 
 /obj/docking_port/mobile/register()
 	if(!SSshuttle)
-		throw EXCEPTION("docking port [src] could not initialize.")
-		return 0
+		CRASH("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 
 	SSshuttle.mobile += src
 
@@ -357,6 +360,7 @@
 	else
 		var/msg = "check_dock(): shuttle [src] cannot dock at [S], error: [status]"
 		message_admins(msg)
+		stack_trace(msg)
 		return FALSE
 
 /obj/docking_port/mobile/proc/transit_failure()
@@ -551,6 +555,8 @@
 			//move mobile to new location
 			for(var/atom/movable/AM in oldT)
 				AM.onShuttleMove(oldT, newT, rotation, last_caller)
+
+			SEND_SIGNAL(oldT, COMSIG_TURF_ON_SHUTTLE_MOVE, newT)
 
 			//rotate turf
 			if(rotation)

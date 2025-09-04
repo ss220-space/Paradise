@@ -15,8 +15,8 @@
 	var/obj/machinery/quantumpad/linked_pad = null
 	var/preset_target = null
 
-/obj/machinery/quantumpad/New()
-	..()
+/obj/machinery/quantumpad/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
@@ -109,7 +109,7 @@
 	doteleport(user)
 
 /obj/machinery/quantumpad/proc/sparks()
-	do_sparks(5, 1, get_turf(src))
+	do_sparks(5, TRUE, get_turf(src))
 
 /obj/machinery/quantumpad/attack_ghost(mob/dead/observer/ghost)
 	if(linked_pad)

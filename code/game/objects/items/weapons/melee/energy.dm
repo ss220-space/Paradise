@@ -20,7 +20,7 @@
 	light_range = 2
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
 
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -70,7 +70,7 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		throw_speed = 4
 		w_class = w_class_on
-		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
+		playsound(user, 'sound/weapons/saberon.ogg', 35, TRUE) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
 		force = initial(force)
@@ -80,7 +80,7 @@
 		if(attack_verb_on.len)
 			attack_verb = list()
 		w_class = initial(w_class)
-		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
+		playsound(user, 'sound/weapons/saberoff.ogg', 35, TRUE)  //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
@@ -108,13 +108,13 @@
 	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	attack_verb_on = list()
 	sharp = 1
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
 
 /obj/item/melee/energy/axe/ComponentInitialize()
 	. = ..()
 	AddComponent( \
 		/datum/component/cleave_attack, \
-		swing_sound = "chop_swing_light" \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
@@ -143,7 +143,7 @@
 	AddComponent( \
 		/datum/component/cleave_attack, \
 		afterswing_slowdown = 0, \
-		swing_sound = "energy_sword_swing" \
+		swing_sound = SFX_ENERGY_SWORD_SWING \
 	)
 
 /obj/item/melee/energy/sword/New()
@@ -183,7 +183,7 @@
 	hitcost = 75 //Costs more than a standard cyborg esword
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
 	tool_behaviour = TOOL_SAW
 
 /obj/item/melee/energy/sword/cyborg/saw/New()
@@ -281,7 +281,7 @@
 	desc = "Arrrr matey."
 	icon_state = "cutlass0"
 	icon_state_on = "cutlass1"
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 
 /obj/item/melee/energy/blade
 	name = "energy blade"
@@ -301,7 +301,7 @@
 	AddComponent( \
 		/datum/component/cleave_attack, \
 		afterswing_slowdown = 0, \
-		swing_sound = "energy_sword_swing" \
+		swing_sound = SFX_ENERGY_SWORD_SWING \
 	)
 
 /obj/item/melee/energy/blade/attack_self(mob/user)
@@ -385,7 +385,7 @@
 		if(attack_verb_on.len)
 			attack_verb = list()
 		w_class = initial(w_class)
-		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
+		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE)  //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)

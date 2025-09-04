@@ -45,7 +45,7 @@
 		PREPOSITIONAL = "ключе-шифраторе Синдиката"
 	)
 
-/obj/item/encryptionkey/syndicate/Initialize()
+/obj/item/encryptionkey/syndicate/Initialize(mapload)
 	if(!LAZYLEN(fakename_list))
 		fakename_list = GLOB.html_colors.Copy()
 	. = ..()

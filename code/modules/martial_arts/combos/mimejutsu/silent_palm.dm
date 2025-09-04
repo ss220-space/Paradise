@@ -11,6 +11,6 @@
 		target.apply_damage(20, BRUTE)
 		objective_damage(user, target, 20, BRUTE)
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
-		playsound(get_turf(user), 'sound/weapons/blunthit_mimejutsu.ogg', 10, 1, -1)
+		playsound(get_turf(user), 'sound/weapons/blunthit_mimejutsu.ogg', 10, TRUE, -1)
 		add_attack_logs(user, target, "Melee attacked with [src] : Silent Palm", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE_BASIC_HIT

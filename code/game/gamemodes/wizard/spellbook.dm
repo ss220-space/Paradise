@@ -1022,12 +1022,12 @@
 
 /obj/item/spellbook/oneuse/get_ru_names()
 	return list(
-		NOMINATIVE = "гримуар ",
-		GENITIVE = "гримуара ",
-		DATIVE = "гримуару ",
-		ACCUSATIVE = "гримуар ",
-		INSTRUMENTAL = "гримуаром ",
-		PREPOSITIONAL = "гримуаре "
+		NOMINATIVE = "гримуар [spellname_ru]",
+		GENITIVE = "гримуара [spellname_ru]",
+		DATIVE = "гримуару [spellname_ru]",
+		ACCUSATIVE = "гримуар [spellname_ru]",
+		INSTRUMENTAL = "гримуаром [spellname_ru]",
+		PREPOSITIONAL = "гримуаре [spellname_ru]"
 	)
 
 /obj/item/spellbook/oneuse/magic_charge_act(mob/user)
@@ -1050,17 +1050,7 @@
 	..()
 	name += spellname
 
-	if(!ru_names)
-		ru_names = get_ru_names_cached()
-
-	ru_names[NOMINATIVE] += spellname_ru
-	ru_names[GENITIVE] += spellname_ru
-	ru_names[DATIVE] += spellname_ru
-	ru_names[ACCUSATIVE] += spellname_ru
-	ru_names[INSTRUMENTAL] += spellname_ru
-	ru_names[PREPOSITIONAL] += spellname_ru
-
-/obj/item/spellbook/oneuse/initialize() //No need to init
+/obj/item/spellbook/oneuse/initialize(mapload) //No need to init
 	return
 
 /obj/item/spellbook/oneuse/attack_self(mob/user)
@@ -1098,7 +1088,7 @@
 
 /obj/item/spellbook/oneuse/fireball/recoil(mob/user as mob)
 	..()
-	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, cause = "Recoiled fireball book")
+	explosion(user.loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flash_range = 3, adminlog = FALSE, flame_range = 2, cause = "Recoiled fireball book")
 	qdel(src)
 
 /obj/item/spellbook/oneuse/smoke
@@ -1138,12 +1128,14 @@
 	desc = "Обложка этой книги выглядит нетронутой, хотя её страницы выглядят изношенными и истрёпанными."
 	var/mob/stored_swap = null //Used in used book recoils to store an identity for mindswaps
 
+/obj/item/spellbook/oneuse/mindswap/get_ru_names_cached()
+	return get_ru_names()
+
 /obj/item/spellbook/oneuse/mindswap/onlearned()
 	spellname = pick("fireball","smoke","blind","forcewall","knock","horses","charge")
 	name_change(spellname)
 	icon_state = "book[spellname]"
 	item_state = "book[spellname]"
-	name = "spellbook of [spellname]" //Note, desc doesn't change by design
 	..()
 
 /obj/item/spellbook/oneuse/mindswap/proc/name_change(spellname)
@@ -1163,15 +1155,10 @@
 		if("charge")
 			spellname_ru = "Заряда"
 
-	if(!ru_names)
-		ru_names = list()
+	name = "spellbook of [spellname]" //Note, desc doesn't change by design
 
-	ru_names[NOMINATIVE] = "гримуар " + spellname_ru
-	ru_names[GENITIVE] = "гримуара " + spellname_ru
-	ru_names[DATIVE] = "гримуару" + spellname_ru
-	ru_names[ACCUSATIVE] = "гримуар " + spellname_ru
-	ru_names[INSTRUMENTAL] = "гримуаром " + spellname_ru
-	ru_names[PREPOSITIONAL] = "гримуаре " + spellname_ru
+	if(!ru_names)
+		ru_names = get_ru_names() // Use normal proc, to mimic normal book
 
 /obj/item/spellbook/oneuse/mindswap/recoil(mob/user)
 	..()
@@ -1304,7 +1291,7 @@
 /obj/item/spellbook/oneuse/random
 	icon_state = "random_book"
 
-/obj/item/spellbook/oneuse/random/Initialize()
+/obj/item/spellbook/oneuse/random/Initialize(mapload)
 	. = ..()
 	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/spellbook/oneuse/fake_gib, /obj/item/spellbook/oneuse/emp/used)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)

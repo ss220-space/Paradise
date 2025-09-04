@@ -105,12 +105,16 @@
 
 	addtimer(CALLBACK(src, PROC_REF(Spread)), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
 	addtimer(CALLBACK(src, PROC_REF(Decay)), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)	// Start decaying the plant
+	RegisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK, PROC_REF(on_cleave_attack))
 
 /obj/structure/glowshroom/Destroy(force)
 	if(!ispath(myseed))
 		QDEL_NULL(myseed)
+	UnregisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK)
 	. = ..()
 
+/obj/structure/glowshroom/proc/on_cleave_attack()
+	return ATOM_ALLOW_CLEAVE_ATTACK // don't have density, but still cleavable
 
 /obj/structure/glowshroom/proc/Spread()
 	//We could be deleted at any point and the timers might not be cleaned up
@@ -266,9 +270,8 @@
 	var/obj/item/scythe/scythe = item
 	//so folded telescythes won't get damage boosts / insta-clears (they instead will be treated like non-scythes)
 	if(istype(item, /obj/item/scythe) && scythe.extend)
-		damage_dealt *= 10
-		for(var/obj/structure/glowshroom/shroom in (view(1, src) - src))
-			shroom.take_damage(damage_dealt, item.damtype, MELEE, TRUE, get_dir(user, shroom), item.armour_penetration)
+		damage_dealt *= 20
+
 	else if(is_sharp(item) || item.damtype == BURN)
 		damage_dealt *= 4
 
