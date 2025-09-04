@@ -285,6 +285,7 @@
 	name = "Proxy Detector For Meteor Shield"
 	/// The meteor shield sat this is proxying - any HasProximity calls will be forwarded to it..
 	var/obj/machinery/satellite/meteor_shield/parent
+	speed_process = TRUE
 
 /obj/effect/abstract/meteor_shield_proxy/Initialize(mapload, obj/machinery/satellite/meteor_shield/parent)
 	. = ..()
@@ -292,10 +293,9 @@
 		return INITIALIZE_HINT_QDEL
 	src.parent = parent
 	AddComponent(/datum/component/proximity_monitor, parent.kill_range)
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_parent_deleted))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_parent_moved))
 	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_parent_z_changed))
-	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_parent_moved))
-	START_PROCESSING(SSfastprocess, src)
+	RegisterSignal(parent, COMSIG_QDELETING, PROC_REF(on_parent_deleted))
 
 /obj/effect/abstract/meteor_shield_proxy/HasProximity(atom/movable/AM)
 	parent.shoot_meteor(AM)

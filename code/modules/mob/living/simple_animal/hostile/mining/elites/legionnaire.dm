@@ -19,14 +19,6 @@
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire
 	name = "legionnaire"
 	desc = "Исполинский скелет, воплощающий ужасающую мощь Легиона."
-	ru_names = list(
-		NOMINATIVE = "легионер",
-		GENITIVE = "легионера",
-		DATIVE = "легионеру",
-		ACCUSATIVE = "легионера",
-		INSTRUMENTAL = "легионером",
-		PREPOSITIONAL = "легионере"
-	)
 	icon_state = "legionnaire"
 	icon_living = "legionnaire"
 	icon_aggro = "legionnaire"
@@ -62,6 +54,16 @@
 	var/charging = FALSE
 	var/charge_damage = 15
 	var/charge_damage_first = 25
+
+/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/get_ru_names()
+	return list(
+		NOMINATIVE = "легионер",
+		GENITIVE = "легионера",
+		DATIVE = "легионеру",
+		ACCUSATIVE = "легионера",
+		INSTRUMENTAL = "легионером",
+		PREPOSITIONAL = "легионере"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/scale_stats(list/activators)
 	. = ..()
@@ -256,14 +258,6 @@
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead
 	name = "legionnaire head"
 	desc = "Отделившаяся голова Легионера. Не стоит подходить слишком близко, хотя если она вас увидела – выбора у вас уже нет."
-	ru_names = list(
-		NOMINATIVE = "голова легионера",
-		GENITIVE = "головы легионера",
-		DATIVE = "голове легионера",
-		ACCUSATIVE = "голову легионера",
-		INSTRUMENTAL = "головой легионера",
-		PREPOSITIONAL = "голове легионера"
-	)
 	icon_state = "legionnaire_head"
 	icon_living = "legionnaire_head"
 	icon_aggro = "legionnaire_head"
@@ -285,6 +279,16 @@
 	ranged = FALSE
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/body = null
 
+/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/get_ru_names()
+	return list(
+		NOMINATIVE = "голова легионера",
+		GENITIVE = "головы легионера",
+		DATIVE = "голове легионера",
+		ACCUSATIVE = "голову легионера",
+		INSTRUMENTAL = "головой легионера",
+		PREPOSITIONAL = "голове легионера"
+	)
+
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/death(gibbed)
 	. = ..()
 	if(body)
@@ -294,14 +298,6 @@
 /obj/structure/legionnaire_bonfire
 	name = "bone pile"
 	desc = "Груда костей, которая иногда слегка шевелится. Вероятно, стоит разбить их."
-	ru_names = list(
-		NOMINATIVE = "груда костей",
-		GENITIVE = "груды костей",
-		DATIVE = "груде костей",
-		ACCUSATIVE = "груду костей",
-		INSTRUMENTAL = "грудой костей",
-		PREPOSITIONAL = "груде костей"
-	)
 	icon = 'icons/obj/lavaland/legionnaire_bonfire.dmi'
 	icon_state = "bonfire"
 	max_integrity = 100
@@ -312,6 +308,15 @@
 	light_color = COLOR_SOFT_RED
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
 
+/obj/structure/legionnaire_bonfire/get_ru_names()
+	return list(
+		NOMINATIVE = "груда костей",
+		GENITIVE = "груды костей",
+		DATIVE = "груде костей",
+		ACCUSATIVE = "груду костей",
+		INSTRUMENTAL = "грудой костей",
+		PREPOSITIONAL = "груде костей"
+	)
 
 /obj/structure/legionnaire_bonfire/Initialize(mapload)
 	. = ..()
@@ -340,7 +345,14 @@
 
 /obj/projectile/legionnaire
 	name = "bone"
-	ru_names = list(
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "bone"
+	damage = 25
+	armour_penetration = 70
+	speed = 1.2
+
+/obj/projectile/legionnaire/get_ru_names()
+	return list(
 		NOMINATIVE = "кость",
 		GENITIVE = "кости",
 		DATIVE = "кости",
@@ -348,11 +360,6 @@
 		INSTRUMENTAL = "костью",
 		PREPOSITIONAL = "кости"
 	)
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "bone"
-	damage = 25
-	armour_penetration = 70
-	speed = 1.2
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/shoot_projectile(turf/marker)
 	var/turf/startloc = get_turf(src)
@@ -377,14 +384,6 @@
 /obj/item/crusher_trophy/legionnaire_spine
 	name = "legionnaire spine"
 	desc = "Позвоночник легионера. Может быть прикреплен на крушитель в качестве трофея. Или можете его потрясти, может что-то случится."
-	ru_names = list(
-            NOMINATIVE = "позвоночник легионера",
-            GENITIVE = "позвоночника легионера",
-            DATIVE = "позвоночнику легионера",
-            ACCUSATIVE = "позвоночник легионера",
-            INSTRUMENTAL = "позвоночником легионера",
-            PREPOSITIONAL = "позвоночнике легионера"
-	)
 	gender = MALE
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "legionnaire_spine"
@@ -392,6 +391,16 @@
 	bonus_value = 75 // listen this dies in one hit, this can be a high chance.
 	/// Time at which the item becomes usable again
 	var/next_use_time
+
+/obj/item/crusher_trophy/legionnaire_spine/get_ru_names()
+	return list(
+		NOMINATIVE = "позвоночник легионера",
+		GENITIVE = "позвоночника легионера",
+		DATIVE = "позвоночнику легионера",
+		ACCUSATIVE = "позвоночник легионера",
+		INSTRUMENTAL = "позвоночником легионера",
+		PREPOSITIONAL = "позвоночнике легионера"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire
 	health = 25

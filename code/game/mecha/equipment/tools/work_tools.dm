@@ -526,7 +526,7 @@
 		playsound(chassis, 'sound/effects/refill.ogg', 50, TRUE, -6)
 	else
 		if(reagents.total_volume > 0)
-			playsound(chassis, 'sound/effects/extinguish.ogg', 75, 1, -3)
+			playsound(chassis, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
 			var/direction = get_dir(chassis,target)
 			var/turf/T = get_turf(target)
 			var/turf/T1 = get_step(T,turn(direction, 90))
@@ -607,7 +607,7 @@
 				occupant_message(span_notice("[src] is projecting at max capacity!"))
 				return FALSE
 			else
-				playsound(loc, 'sound/machines/click.ogg', 20, 1)
+				playsound(loc, 'sound/machines/click.ogg', 20, TRUE)
 				if(creation_time)
 					holocreator_busy = TRUE
 					if(!do_after_mecha(target, creation_time))

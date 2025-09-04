@@ -195,13 +195,13 @@
 	active = !active
 	if(active)
 		to_chat(user, span_notice("Вы выдвигаете пластиковое лезвие лёгким движением руки."))
-		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 20, TRUE)
 		icon_state = "swordblue"
 		item_state = "swordblue"
 		w_class = WEIGHT_CLASS_BULKY
 	else
 		to_chat(user, span_notice("Вы задвигаете пластиковое лезвие обратно в рукоять."))
-		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 20, TRUE)
 		icon_state = "sword0"
 		item_state = "sword0"
 		w_class = WEIGHT_CLASS_SMALL
@@ -299,8 +299,8 @@
 
 
 /obj/item/toy/snappop/virus/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()
-	do_sparks(3, 1, src)
+	. = ..()
+	do_sparks(3, TRUE, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"), span_warning("Вы слышите хлопок!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
@@ -326,19 +326,19 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/item/toy/snappop/proc/pop_burst(var/n=3, var/c=1)
-	do_sparks(n, c, src)
+/obj/item/toy/snappop/proc/pop_burst(number = 3, cardinal_only = TRUE)
+	do_sparks(number, cardinal_only, src)
 	new ash_type(loc)
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"), span_warning("Вы слышите хлопок!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 	qdel(src)
 
 /obj/item/toy/snappop/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
+	. = ..()
 	pop_burst()
 
 /obj/item/toy/snappop/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()
+	. = ..()
 	pop_burst()
 
 
@@ -352,7 +352,7 @@
 	var/mob/living/arrived_mob = arrived
 	if(is_silicon || arrived_mob.m_intent == MOVE_INTENT_RUN)
 		to_chat(arrived_mob, span_danger("Вы наступаете на хлопушку!"))
-		pop_burst(2, 0)
+		pop_burst(2, FALSE)
 
 
 /obj/item/toy/snappop/phoenix
@@ -384,14 +384,14 @@
 /obj/item/toy/prize/attack_self(mob/user as mob)
 	if(cooldown < world.time - 8)
 		to_chat(user, span_notice("Вы играете с [declent_ru(INSTRUMENTAL)]."))
-		playsound(user, 'sound/mecha/mechstep.ogg', 20, 1)
+		playsound(user, 'sound/mecha/mechstep.ogg', 20, TRUE)
 		cooldown = world.time
 
 /obj/item/toy/prize/attack_hand(mob/user as mob)
 	if(loc == user)
 		if(cooldown < world.time - 8)
 			to_chat(user, span_notice("Вы играете с [declent_ru(INSTRUMENTAL)]."))
-			playsound(user, 'sound/mecha/mechturn.ogg', 20, 1)
+			playsound(user, 'sound/mecha/mechturn.ogg', 20, TRUE)
 			cooldown = world.time
 			return
 	..()
@@ -521,7 +521,7 @@
 /obj/item/toy/therapy/attack_self(mob/user)
 	if(cooldown < world.time - 8)
 		to_chat(user, span_notice("Вы снимаете стресс с помощью [declent_ru(GENITIVE)]."))
-		playsound(user, 'sound/items/squeaktoy.ogg', 20, 1)
+		playsound(user, 'sound/items/squeaktoy.ogg', 20, TRUE)
 		cooldown = world.time
 
 /obj/random/therapy
@@ -589,7 +589,7 @@
 
 /obj/item/toy/minimeteor/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
-	playsound(src, 'sound/effects/meteorimpact.ogg', 40, 1)
+	playsound(src, 'sound/effects/meteorimpact.ogg', 40, TRUE)
 	for(var/mob/M in range(10, src))
 		if(!M.stat && !istype(M, /mob/living/silicon/ai))\
 			shake_camera(M, 3, 1)
@@ -1079,7 +1079,7 @@
 
 	switch(rand(1, 20))
 		if(1 to 12)
-			playsound(src, ashwalkerbite, 40, 1)
+			playsound(src, ashwalkerbite, 40, TRUE)
 			user.visible_message("[bicon(src)] [span_danger("Hsss!")]")
 		if(13 to 19)
 			playsound(src, pick('sound/voice/unathi/roar.ogg', 'sound/voice/unathi/roar2.ogg', 'sound/voice/unathi/roar3.ogg',	\
@@ -1122,7 +1122,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/voice/scream_moth.ogg', 10, 0)
+	playsound(src, 'sound/voice/scream_moth.ogg', 10, FALSE)
 	user.visible_message("[bicon(src)] [span_danger("Buzzzz!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1204,7 +1204,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/items/goatsound.ogg', 10, 0)
+	playsound(src, 'sound/items/goatsound.ogg', 10, FALSE)
 	user.visible_message("[bicon(src)] [span_danger("Baaaaah!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1236,7 +1236,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/weapons/bite.ogg', 10, 0)
+	playsound(src, 'sound/weapons/bite.ogg', 10, FALSE)
 	visible_message(span_danger("...!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1282,7 +1282,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/items/axolotl.ogg', 20, 0)
+	playsound(src, 'sound/items/axolotl.ogg', 20, FALSE)
 	user.visible_message("[bicon(src)] [span_danger("Squeeek!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1355,7 +1355,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/effects/extinguish.ogg', 20, 0)
+	playsound(src, 'sound/effects/extinguish.ogg', 20, FALSE)
 	user.visible_message("[bicon(src)] [span_danger("Плазззма Вечна!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1379,7 +1379,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, 'sound/items/Help.ogg', 10, 0)
+	playsound(src, 'sound/items/Help.ogg', 10, FALSE)
 	user.visible_message("[bicon(src)] [span_danger("Бежиииииим!")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1483,7 +1483,7 @@
 	if(cooldown)
 		return ..()
 
-	playsound(src, bubblestep, 40, 1)
+	playsound(src, bubblestep, 40, TRUE)
 	user.visible_message("[bicon(src)] [span_danger("Бубльгум топает...")]")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
@@ -1782,7 +1782,7 @@
 	if(!cooldown) //for the sanity of everyone
 		var/message = generate_ion_law()
 		to_chat(user, span_notice("Вы нажимаете кнопку на [declent_ru(GENITIVE)]."))
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
+		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 		user.visible_message(span_danger("[bicon(src)] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
@@ -1818,7 +1818,7 @@
 	LAZYADD(messages, devil.obligation.law)
 	LAZYADD(messages, devil.banish.law)
 
-	playsound(loc, 'sound/machines/click.ogg', 20, 1)
+	playsound(loc, 'sound/machines/click.ogg', 20, TRUE)
 	COOLDOWN_START(src, cooldown, 2 SECONDS)
 
 	for(var/message in messages)
@@ -1961,12 +1961,12 @@
 	if(stored_minature)
 		user.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] издаёт жуткий скрежет, уничтожая миниатюрную фигурку внутри!"))
 		QDEL_NULL(stored_minature)
-		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
+		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, TRUE)
 		cooldown = world.time
 
 	if(cooldown < world.time - 8)
 		to_chat(user, span_notice("Вы нажимаете кнопку гиба на [declent_ru(PREPOSITIONAL)]."))
-		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
+		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, TRUE)
 		cooldown = world.time
 
 
@@ -2200,7 +2200,7 @@
 	if(cooldown < world.time)
 		cooldown = (world.time + 30) //3 second cooldown
 		user.visible_message(span_notice("[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] говорит \"[toysay]\"."))
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
+		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 
 /obj/item/toy/figure/cmo
 	name = "Chief Medical Officer action figure"
@@ -2484,7 +2484,7 @@
 /obj/item/toy/desk/attack_self(mob/user)
 	on = !on
 	if(activation_sound)
-		playsound(src.loc, activation_sound, 75, 1)
+		playsound(src.loc, activation_sound, 75, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 

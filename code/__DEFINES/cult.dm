@@ -55,7 +55,7 @@
 			"Стив так долго держался за лампочку, что у него отнялись руки.")
 
 // Misc
-#define SOULS_TO_REVIVE 3
+#define SOULS_TO_REVIVE 2
 #define BLOODCULT_EYE COLOR_RED
 #define SUMMON_POSSIBILITIES 3
 #define CULT_CLOTHING list(/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/suit/space/cult, /obj/item/clothing/suit/hooded/cultrobes/cult_shield, \
