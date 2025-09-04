@@ -8,33 +8,33 @@
  *			worldtime2text
  */
 
-//Splits the text of a file at seperator and returns them in a list.
-//returns an empty list if the file doesn't exist
+/// Splits the text of a file at seperator and returns them in a list.
+/// returns an empty list if the file doesn't exist
 /world/proc/file2list(filename, seperator="\n", trim = TRUE)
 	if (trim)
 		return splittext(trim(file2text(filename)),seperator)
 	return splittext(file2text(filename),seperator)
 
-//Returns an integer value for R of R/G/B given a hex color input.
+/// Returns an integer value for R of R/G/B given a hex color input.
 /proc/color2R(hex)
 	if(!(istext(hex)))
 		return
 
-	return hex2num(copytext(hex, 2, 4)) //Returning R
+	return hex2num(copytext(hex, 2, 4)) // Returning R
 
-//Returns an integer value for G of R/G/B given a hex color input.
+/// Returns an integer value for G of R/G/B given a hex color input.
 /proc/color2G(hex)
 	if(!(istext(hex)))
 		return
 
-	return hex2num(copytext(hex, 4, 6)) //Returning G
+	return hex2num(copytext(hex, 4, 6)) // Returning G
 
-//Returns an integer value for B of R/G/B given a hex color input.
+/// Returns an integer value for B of R/G/B given a hex color input.
 /proc/color2B(hex)
 	if(!(istext(hex)))
 		return
 
-	return hex2num(copytext(hex, 6, 8)) //Returning B
+	return hex2num(copytext(hex, 6, 8)) // Returning B
 
 /proc/text2numlist(text, delimiter="\n")
 	var/list/num_list = list()
@@ -42,15 +42,14 @@
 		num_list += text2num(x)
 	return num_list
 
-//Splits the text of a file at seperator and returns them in a list.
+/// Splits the text of a file at seperator and returns them in a list.
 /proc/file2list(filename, seperator="\n", trim = TRUE)
 	if (trim)
 		return splittext(trim(return_file_text(filename)),seperator)
 	return splittext(return_file_text(filename),seperator)
 
 
-//Turns a direction into text
-
+/// Turns a direction into text
 /proc/num2dir(direction)
 	switch(direction)
 		if(1.0) return NORTH
@@ -81,9 +80,9 @@
 		else
 	return
 
-///returns a string the last bit of a type, without the preceeding '/'
+/// Returns a string the last bit of a type, without the preceeding '/'
 /proc/type2top(the_type)
-	//handle the builtins manually
+	// handle the builtins manually
 	if(!ispath(the_type))
 		return
 	switch(the_type)
@@ -99,7 +98,7 @@
 			return "area"
 		if(/turf)
 			return "turf"
-		else //regex everything else (works for /proc too)
+		else // regex everything else (works for /proc too)
 			return lowertext(replacetext("[the_type]", "[type2parent(the_type)]/", ""))
 
 /proc/dir2rustext(direction)
@@ -123,29 +122,52 @@
 		else
 	return
 
-//Turns text into proper directions
+/// Turns text into proper directions
 /proc/text2dir(direction)
 	switch(uppertext(direction))
-		if("NORTH")
+		if(DIR_NAME_ENG_NORTH)
 			return 1
-		if("SOUTH")
+		if(DIR_NAME_ENG_SOUTH)
 			return 2
-		if("EAST")
+		if(DIR_NAME_ENG_EAST)
 			return 4
-		if("WEST")
+		if(DIR_NAME_ENG_WEST)
 			return 8
-		if("NORTHEAST")
+		if(DIR_NAME_ENG_NORTHEAST)
 			return 5
-		if("NORTHWEST")
+		if(DIR_NAME_ENG_NORTHWEST)
 			return 9
-		if("SOUTHEAST")
+		if(DIR_NAME_ENG_SOUTHEAST)
 			return 6
-		if("SOUTHWEST")
+		if(DIR_NAME_ENG_SOUTHWEST)
 			return 10
 		else
 	return
 
-//Converts an angle (degrees) into an ss13 direction
+/// Turns text into proper directions
+/proc/text2dir_rus(direction)
+	switch(uppertext(direction))
+		if(DIR_NAME_RUS_NORTH)
+			return 1
+		if(DIR_NAME_RUS_SOUTH)
+			return 2
+		if(DIR_NAME_RUS_EAST)
+			return 4
+		if(DIR_NAME_RUS_WEST)
+			return 8
+		if(DIR_NAME_RUS_NORTHEAST)
+			return 5
+		if(DIR_NAME_RUS_NORTHWEST)
+			return 9
+		if(DIR_NAME_RUS_SOUTHEAST)
+			return 6
+		if(DIR_NAME_RUS_SOUTHWEST)
+			return 10
+		else
+	return
+
+
+/// Converts an angle (degrees) into an ss13 direction
 GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,SOUTHWEST,WEST,NORTHWEST))
 #define angle2dir(X) (GLOB.modulo_angle_to_dir[round((((X%360)+382.5)%360)/45)+1])
 
@@ -160,7 +182,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 		if(225.6 to 315.5)
 			return WEST
 
-//returns the north-zero clockwise angle in degrees, given a direction
+/// returns the north-zero clockwise angle in degrees, given a direction
 /proc/dir2angle(D)
 	switch(D)
 		if(NORTH)
@@ -182,11 +204,11 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 		else
 			return null
 
-//Returns the angle in english
+/// Returns the angle in english
 /proc/angle2text(var/degree)
 	return dir2text(angle2dir(degree))
 
-//Converts a blend_mode constant to one acceptable to icon.Blend()
+/// Converts a blend_mode constant to one acceptable to icon.Blend()
 /proc/blendMode2iconMode(blend_mode)
 	switch(blend_mode)
 		if(BLEND_MULTIPLY) return ICON_MULTIPLY
@@ -194,7 +216,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 		if(BLEND_SUBTRACT) return ICON_SUBTRACT
 		else               return ICON_OVERLAY
 
-//Converts a rights bitfield into a string
+/// Converts a rights bitfield into a string
 /proc/rights2text(rights,seperator="")
 	if(rights & R_BUILDMODE)	. += "[seperator]+BUILDMODE"
 	if(rights & R_ADMIN)		. += "[seperator]+ADMIN"
@@ -233,7 +255,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 		else
 			return 'icons/mob/screen_midnight.dmi'
 
-//colour formats
+/// colour formats
 /proc/rgb2hsl(red, green, blue)
 	red /= 255;green /= 255;blue /= 255;
 	var/max = max(red,green,blue)
@@ -287,17 +309,17 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 /proc/num2septext(var/theNum, var/sigFig = 7,var/sep=",") // default sigFig (1,000,000)
 	var/finalNum = num2text(theNum, sigFig)
 
-	// Start from the end, or from the decimal point
+	/// Start from the end, or from the decimal point
 	var/end = findtextEx(finalNum, ".") || length(finalNum) + 1
 
-	// Moving towards start of string, insert comma every 3 characters
+	/// Moving towards start of string, insert comma every 3 characters
 	for(var/pos = end - 3, pos > 1, pos -= 3)
 		finalNum = copytext(finalNum, 1, pos) + sep + copytext(finalNum, pos)
 
 	return finalNum
 
 
-// heat2color functions. Adapted from: http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/
+/// heat2color functions. Adapted from: http://www.tannerhelland.com/4435/convert-temperature-rgb-algorithm-code/
 /proc/heat2color(temp)
 	return rgb(heat2color_r(temp), heat2color_g(temp), heat2color_b(temp))
 
@@ -325,7 +347,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 		else
 			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
 
-//Argument: Give this a space-separated string consisting of 6 numbers. Returns null if you don't
+/// Argument: Give this a space-separated string consisting of 6 numbers. Returns null if you don't
 /proc/text2matrix(var/matrixtext)
 	var/list/matrixtext_list = splittext(matrixtext, " ")
 	var/list/matrix_list = list()
@@ -344,16 +366,17 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 	var/f = matrix_list[6]
 	return matrix(a, b, c, d, e, f)
 
+/**
+* This is a weird one:
+* It returns a list of all var names found in the string
+* These vars must be in the [var_name] format
+* It's only a proc because it's used in more than one place
 
-//This is a weird one:
-//It returns a list of all var names found in the string
-//These vars must be in the [var_name] format
-//It's only a proc because it's used in more than one place
-
-//Takes a string and a datum
-//The string is well, obviously the string being checked
-//The datum is used as a source for var names, to check validity
-//Otherwise every single word could technically be a variable!
+* Takes a string and a datum
+* The string is well, obviously the string being checked
+* The datum is used as a source for var names, to check validity
+* Otherwise every single word could technically be a variable!
+**/
 /proc/string2listofvars(var/t_string, var/datum/var_source)
 	if(!t_string || !var_source)
 		return list()
@@ -362,7 +385,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 
 	var/var_found = findtext(t_string, "\[") //Not the actual variables, just a generic "should we even bother" check
 	if(var_found)
-		//Find var names
+		// Find var names
 
 		// "A dog said hi [name]!"
 		// splittext() --> list("A dog said hi ","name]!"

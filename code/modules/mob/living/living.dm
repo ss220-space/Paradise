@@ -1804,7 +1804,7 @@
 
 
 /mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
-	return "Unknown"
+	return UNKNOWN_STATUS_RUS
 
 
 /**
@@ -1841,7 +1841,7 @@
 
 	if(examine_time && target != src)
 		var/visible_gender = target.get_visible_gender()
-		var/visible_species = "Unknown"
+		var/visible_species = UNKNOWN_STATUS_RUS
 
 		// If we did not see the target with our own eyes when starting the examine, then there is no need to check whether it is close.
 		var/near_target = examine_distance_check(target)
