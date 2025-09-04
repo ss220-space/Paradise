@@ -47828,6 +47828,10 @@
 "fSD" = (
 /turf/simulated/floor/grass,
 /area/hydroponics)
+"fSJ" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_doorm_room,
+/turf/simulated/wall,
+/area/maintenance/fsmaint)
 "fSK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -91598,6 +91602,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/starboard/east)
+"qeP" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall,
+/area/crew_quarters/locker)
 "qfb" = (
 /obj/machinery/iv_drip,
 /obj/effect/decal/warning_stripes/blue/hollow,
@@ -108772,6 +108785,15 @@
 	icon_state = "whitehall"
 	},
 /area/maintenance/tourist)
+"tWt" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/crew_quarters/cabin3)
 "tWK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -124176,6 +124198,15 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)
+"xye" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/crew_quarters/cabin3)
 "xyi" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -175267,12 +175298,12 @@ cnP
 icS
 vAa
 icS
-cnP
+qeP
 onT
 onT
 jfE
 onT
-onT
+fSJ
 gvQ
 uNE
 oYp
@@ -176295,12 +176326,12 @@ cnP
 vHh
 mSR
 igC
+xye
 pts
 pts
 pts
 pts
-pts
-pts
+tWt
 xWh
 sGS
 xWh
