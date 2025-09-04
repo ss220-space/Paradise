@@ -421,6 +421,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/external{
+	name = "Engineering External Access";
+	req_access = list(271)
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "bt" = (
@@ -10160,10 +10164,6 @@
 	icon_state = "redcorner"
 	},
 /area/ruin/space/ancientstation/charlie_corridor)
-"Jm" = (
-/obj/machinery/atmospherics/unary/tank/air,
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/charlie_recycler)
 "Jn" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -13159,9 +13159,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
-	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "Uo" = (
@@ -13963,13 +13960,20 @@
 	},
 /area/ruin/space/ancientstation/charlie_sec)
 "Xx" = (
-/obj/machinery/door/poddoor{
-	id_tag = "ancient";
-	use_power = 0
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
-/obj/effect/spawner/airlock/w_to_e/old,
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/external{
+	name = "Engineering External Access";
+	req_access = list(271)
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/charlie_recycler)
 "Xy" = (
 /obj/effect/decal/cleanable/dirt,
@@ -23292,7 +23296,7 @@ cc
 SR
 SR
 cc
-Jm
+zi
 Un
 lw
 kV
@@ -23416,7 +23420,7 @@ Xn
 cc
 hv
 bs
-Xx
+hv
 qF
 yL
 zQ
@@ -23659,7 +23663,7 @@ WD
 lE
 WD
 LR
-Pu
+Xx
 LR
 WD
 lE
