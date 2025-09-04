@@ -5,7 +5,7 @@
 #define EXOTIC_BLEED_MULTIPLIER 3 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
 
 /// Natural bleed regeneration size (units per 2 sec)
-#define BLOOD_REGENERATION 0.15
+#define BLOOD_REGENERATION 0.1
 
 // Blood level damage constants
 /// Damage for blood volume from BLOOD_VOLUME_PALE to BLOOD_VOLUM5E_SAFE
@@ -26,7 +26,7 @@
 #define BODYPART_INTERNAL_BLEEDING 0.5
 
 /// Decrease bleeding size if no wounds (units per 2 sec)
-#define BLEEDING_DECREASE 0.01
+#define BLEEDING_DECREASE 0.005
 /// Multiplyer for bleeding calculate from bodypart value
 #define BLEEDING_MODIFIER 0.45
 /// Minimal brute damage for add bleeding
@@ -45,6 +45,9 @@
 
 #define HEAVY_BLEEDING_RATE 5
 
+/// Suppressed bleeding modifier
+#define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
+
 
 /obj/item/organ/external/proc/suppress_bloodloss(mob/living/user, mob/living/carbon/human/target, amount, duration)
 	var/calculated_bleeding = max(0, bleeding_amount - bleedsuppress)
@@ -53,16 +56,16 @@
 	var/suppress_amount = calculated_bleeding
 	if(calculated_bleeding > amount)
 		suppress_amount = amount
-		balloon_alert(user, "кровотечение ослаблено")
+		balloon_alert(user, "кровотечение перевязано")
 	else
-		balloon_alert(user, "кровотечение остановлено")
+		balloon_alert(user, "кровотечение ослаблено")
 	bleedsuppress += suppress_amount
 	addtimer(CALLBACK(src, PROC_REF(resume_bleeding), target, suppress_amount), duration)
 
 /obj/item/organ/external/proc/resume_bleeding(mob/living/carbon/human/target, amount)
-	bleedsuppress -= amount
+	bleedsuppress = max(bleedsuppress - amount, 0)
 	if(target.stat != DEAD && (bleeding_amount - bleedsuppress) > 0)
-		to_chat(target, span_warning("Кровь просачивается через вашу повязку."))
+		to_chat(target, span_warning("Повязка полностью пропиталась кровью и больше не ослабляет кровотечение."))
 
 
 /obj/item/organ/external/proc/heal_bleeding(mob/living/user, mob/living/carbon/human/target, bleeding_heal_amount, brute_damage)
@@ -144,7 +147,10 @@
 			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
 		if(bodypart.bleeding_amount > 0)
 			bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - BLEEDING_DECREASE)
-		var/bodypart_bleeding = max(bodypart.bleeding_amount - bodypart.bleedsuppress, 0) * BLEEDING_MODIFIER * bodypart.bleeding_mod
+			if(bodypart.bleedsuppress > bodypart.bleeding_amount)
+				bodypart.bleedsuppress = bodypart.bleeding_amount
+		var/bodypart_bleeding = max(bodypart.bleeding_amount - bodypart.bleedsuppress * BRUISE_PACK_SUPPRESS_BLEEDING_MOD, 0)
+		bodypart_bleeding = bodypart_bleeding * BLEEDING_MODIFIER * bodypart.bleeding_mod
 		current_bleed += bodypart_bleeding
 		var/embedded_length = LAZYLEN(bodypart.embedded_objects)
 		if(embedded_length && bodypart.bleedsuppress > 0)
@@ -533,3 +539,4 @@
 #undef OPEN_BODYPART_BLEEDING
 #undef BLEEDING_DECREASE
 #undef BLEEDING_MODIFIER
+#undef BRUISE_PACK_SUPPRESS_BLEEDING_MOD

@@ -166,7 +166,7 @@
 //We will round to this value in damage calculations.
 #define DAMAGE_PRECISION 0.1
 //We will round to this value in bleeding calculations.
-#define BLEEDING_PRECISION 0.01
+#define BLEEDING_PRECISION 0.005
 
 //Gun Stuff
 #define SAWN_INTACT  0
