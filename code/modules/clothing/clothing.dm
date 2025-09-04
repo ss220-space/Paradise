@@ -862,11 +862,14 @@ BLIND     // can't see anything
 	var/can_remove_armor_plate = TRUE
 	/// Installed armor plate
 	var/obj/item/armor_plate/armor_plate = null
+	/// On start armor plate type, if null - not exists plate on start
+	var/on_start_armor_plate = null
 
 
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()
 	setup_shielding()
+	setup_armor_plate()
 
 /**
  * Wrapper proc to apply shielding through AddComponent().
@@ -876,6 +879,13 @@ BLIND     // can't see anything
  **/
 /obj/item/clothing/suit/proc/setup_shielding()
 	return
+
+/obj/item/clothing/suit/proc/setup_armor_plate()
+	if(!on_start_armor_plate)
+		return
+	armor_plate = new on_start_armor_plate(src)
+	armor_plate.forceMove(src)
+
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(mob/user)

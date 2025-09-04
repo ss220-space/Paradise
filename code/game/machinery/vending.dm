@@ -2225,9 +2225,9 @@
 		/obj/item/flashlight/sectaclight = 2,
 		/obj/item/grenade/smokebomb = 8,
 		/obj/item/storage/belt/security/judobelt = 3,
-		/obj/item/armor_plate/light_steel = 8,
-		/obj/item/armor_plate/light_ablative = 8,
-		/obj/item/armor_plate/light_ceramic = 4,
+		/obj/item/armor_plate/light_steel = 4,
+		/obj/item/armor_plate/light_ablative = 4,
+		/obj/item/armor_plate/light_ceramic = 2,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,
@@ -4476,21 +4476,11 @@
 		/obj/item/ammo_box/tox46x30mm = 4,
 		/obj/item/ammo_box/ap46x30mm = 4,
 		/obj/item/ammo_box/laserammobox = 4,
-
-		/obj/item/armor_plate/light_steel = 5,
-		/obj/item/armor_plate/light_ablative = 5,
-		/obj/item/armor_plate/light_ceramic = 3,
-		/obj/item/armor_plate/medium_steel = 3,
-		/obj/item/armor_plate/medium_ablative = 3,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,
 		/obj/item/storage/fancy/donut_box = 2,
 		/obj/item/grenade/clusterbuster/apocalypsefake = 1
-	)
-	prices = list(
-		/obj/item/armor_plate/medium_steel = 999,
-		/obj/item/armor_plate/medium_ablative = 999,
 	)
 
 	refill_canister = /obj/item/vending_refill/nta
@@ -5547,6 +5537,8 @@
 		/obj/item/ammo_box/secgl/barricade = 1,
 		/obj/item/ammo_box/secgl/paint = 1,
 
+		/obj/item/armor_plate/medium_steel = 3,
+		/obj/item/armor_plate/medium_ablative = 3,
 	)
 	contraband = list(
 		/obj/item/storage/box/flashbangs = 2,
@@ -5560,6 +5552,8 @@
 		/obj/item/storage/box/barrier = 69,
 		/obj/item/storage/box/teargas = 99,
 		/obj/item/ammo_box/a357 = 299,
+		/obj/item/armor_plate/medium_steel = 999,
+		/obj/item/armor_plate/medium_ablative = 999,
 	)
 
 /obj/machinery/vending/ammo/get_ru_names()

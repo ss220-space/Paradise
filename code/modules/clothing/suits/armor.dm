@@ -30,6 +30,7 @@
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	on_start_armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/armor/vest/jacket
 	name = "military jacket"
@@ -38,6 +39,7 @@
 	item_state = "militaryjacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = null
 
 /obj/item/clothing/suit/armor/vest/combat
 	name = "combat vest"
@@ -45,6 +47,7 @@
 	icon_state = "armor-combat"
 	item_state = "bulletproof"
 	blood_overlay_type = "armor"
+	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
@@ -135,6 +138,7 @@
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = null
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"
@@ -147,6 +151,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	strip_delay = 80
+	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/armor/hos/alt
 	name = "armored trenchoat"
@@ -177,6 +182,7 @@
 	strip_delay = 70
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
+	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/armor/vest/warden/alt
 	name = "warden's jacket"
@@ -188,6 +194,8 @@
 	desc = "A belt-shoulder system for officers that are more inclined towards style than safety."
 	icon_state = "sec_rps"
 	armor=  list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_NONE
+	on_start_armor_plate = null
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
@@ -198,6 +206,7 @@
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
+	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/armor/vest/capcarapace/alt
 	name = "captain's parade jacket"
@@ -232,6 +241,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
+	on_start_armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -245,6 +255,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = null
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
@@ -316,6 +327,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
+	on_start_armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
@@ -326,6 +338,7 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 5, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 50
+	on_start_armor_plate = /obj/item/armor_plate/medium_ablative
 
 /obj/item/clothing/suit/armor/laserproof/get_ru_names()
 	return list(
@@ -363,6 +376,7 @@
 	var/static/list/reflect_zones = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	var/hit_reflect_chance = 50
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/medium_ablative
 
 /obj/item/clothing/suit/armor/reflector/get_ru_names()
 	return list(
@@ -415,6 +429,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/light_steel //TODO kevlar plate
 
 
 /obj/item/clothing/suit/armor/reactive/update_icon_state()
@@ -568,6 +583,7 @@
 	sprite_sheets = null
 	armor = list(MELEE = 80, BULLET = 25, LASER = 10, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
+	on_start_armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
@@ -587,6 +603,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
+	on_start_armor_plate = /obj/item/armor_plate/heavy_steel
 
 /obj/item/clothing/suit/armor/tdome
 	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
@@ -596,6 +613,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	hide_tail_by_species = list(SPECIES_VOX, SPECIES_VULPKANIN)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_NONE
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "Red Thunderdome Armor"
@@ -625,6 +643,7 @@
 	item_state = "armor"
 	armor = list(melee = 30, bullet = 5, laser = 5, energy = 30, bomb = 20, bio = 0, rad = 0, fire = 50, acid = 50)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
+	on_start_armor_plate = /obj/item/armor_plate/heavy_steel
 
 //Commander
 /obj/item/clothing/suit/armor/vest/ert/command
@@ -859,6 +878,7 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/armor/cartilage //parent type, used in order not to copy-paste same lines in 3 same armors
 	name = "cartilage armor"

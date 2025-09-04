@@ -225,17 +225,6 @@
 	repair_type = /obj/item/stack/sheet/metal
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
-/obj/item/armor_plate/light_ceramic
-	name = "light ceramic armor plate"
-	icon_state = "ceramicplate_light"
-	plate_slot = ARMOR_PLATE_SLOT_LIGHT
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IIIA
-	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 75
-	armor_max_integrity = 100
-	repair_type = /obj/item/stack/sheet/mineral/titanium
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
 
 /obj/item/armor_plate/light_ablative
 	name = "light ablative armor plate"
@@ -246,6 +235,17 @@
 	armor_protection_integrity = 75
 	armor_max_integrity = 100
 	repair_type = /obj/item/stack/sheet/plasmarglass
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/armor_plate/light_ceramic
+	name = "light ceramic armor plate"
+	icon_state = "ceramicplate_light"
+	plate_slot = ARMOR_PLATE_SLOT_LIGHT
+	ballistic_class = BALLISTIC_ARMOR_CLASS_IIIA
+	laser_class = LASER_ARMOR_CLASS_NONE
+	armor_protection_integrity = 75
+	armor_max_integrity = 100
+	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 
@@ -262,17 +262,6 @@
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/armor_plate/medium_ceramic
-	name = "medium ceramic armor plate"
-	icon_state = "ceramicplate_medium"
-	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
-	ballistic_class = BALLISTIC_ARMOR_CLASS_III
-	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 100
-	armor_max_integrity = 150
-	repair_type = /obj/item/stack/sheet/mineral/titanium
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-
 
 /obj/item/armor_plate/medium_ablative
 	name = "medium ablative armor plate"
@@ -283,6 +272,17 @@
 	armor_protection_integrity = 200
 	armor_max_integrity = 250
 	repair_type = /obj/item/stack/sheet/plasmarglass
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/armor_plate/medium_ceramic
+	name = "medium ceramic armor plate"
+	icon_state = "ceramicplate_medium"
+	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
+	ballistic_class = BALLISTIC_ARMOR_CLASS_III
+	laser_class = LASER_ARMOR_CLASS_LIGHT
+	armor_protection_integrity = 100
+	armor_max_integrity = 150
+	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 
@@ -299,17 +299,6 @@
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
-/obj/item/armor_plate/heavy_ceramic
-	name = "heavy ceramic armor plate"
-	icon_state = "ceramicplate_heavy"
-	plate_slot = ARMOR_PLATE_SLOT_HEAVY
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
-	laser_class = LASER_ARMOR_CLASS_MEDIUM
-	armor_protection_integrity = 200
-	armor_max_integrity = 250
-	repair_type = /obj/item/stack/sheet/mineral/titanium
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-
 
 /obj/item/armor_plate/heavy_ablative
 	name = "heavy ablative armor plate"
@@ -320,4 +309,15 @@
 	armor_protection_integrity = 300
 	armor_max_integrity = 350
 	repair_type = /obj/item/stack/sheet/plasmarglass
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+
+/obj/item/armor_plate/heavy_ceramic
+	name = "heavy ceramic armor plate"
+	icon_state = "ceramicplate_heavy"
+	plate_slot = ARMOR_PLATE_SLOT_HEAVY
+	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
+	laser_class = LASER_ARMOR_CLASS_MEDIUM
+	armor_protection_integrity = 200
+	armor_max_integrity = 250
+	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
