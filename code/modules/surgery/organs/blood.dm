@@ -5,7 +5,7 @@
 #define EXOTIC_BLEED_MULTIPLIER 3 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
 
 /// Natural bleed regeneration size (units per 2 sec)
-#define BLOOD_REGENERATION 0.25
+#define BLOOD_REGENERATION 0.15
 
 // Blood level damage constants
 /// Damage for blood volume from BLOOD_VOLUME_PALE to BLOOD_VOLUM5E_SAFE
@@ -26,9 +26,9 @@
 #define BODYPART_INTERNAL_BLEEDING 0.5
 
 /// Decrease bleeding size if no wounds (units per 2 sec)
-#define BLEEDING_DECREASE 0.025
+#define BLEEDING_DECREASE 0.01
 /// Multiplyer for bleeding calculate from bodypart value
-#define BLEEDING_MODIFIER 0.42
+#define BLEEDING_MODIFIER 0.45
 /// Minimal brute damage for add bleeding
 #define MIN_BRUTE_DAMAGE_FOR_BLEEDING 15
 #define BRUTE_DAMAGE_FOR_GARANT_BLEEDING 30
@@ -37,7 +37,7 @@
 /// Brute damage to bleeding calculation coefficient
 #define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.1
 /// Minimal brute damage for add bleeding
-#define BURN_DAMAGE_STOP_BLEEDING_MOD 0.2
+#define BURN_DAMAGE_STOP_BLEEDING_MOD 0.15
 /// Heal damage to bleeding reduction calculation coefficient
 #define HEAL_DAMAGE_TO_BLEEDING_MOD 0.05
 /// Minimal brute damage for bodypart
