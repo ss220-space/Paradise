@@ -5459,10 +5459,6 @@
 /obj/item/hand_labeler,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
-"py" = (
-/mob/living/simple_animal/hostile/hivebot/strong,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaymission)
 "pA" = (
 /obj/machinery/porta_turret/syndicate/assault_pod{
 	dir = 5
@@ -8490,10 +8486,6 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway8)
-"xJ" = (
-/mob/living/simple_animal/hostile/hivebot/tele,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/awaymission)
 "xK" = (
 /obj/structure/dresser,
 /turf/simulated/floor/wood,
@@ -15123,10 +15115,6 @@
 	icon_state = "floor4"
 	},
 /area/awaymission/spacebattle/syndicate3)
-"PR" = (
-/mob/living/simple_animal/hostile/hivebot/rapid,
-/turf/simulated/mineral/random,
-/area/awaymission)
 "PT" = (
 /obj/machinery/mecha_part_fabricator/spacepod,
 /obj/item/circuitboard/mecha/pod,
@@ -15419,10 +15407,6 @@
 	icon_state = "blue"
 	},
 /area/awaymission/spacebattle/bridge)
-"QD" = (
-/mob/living/simple_animal/hostile/hivebot/strong,
-/turf/simulated/mineral/random,
-/area/awaymission)
 "QE" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -15878,10 +15862,6 @@
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle,
 /turf/simulated/floor/pod,
 /area/awaymission/spacebattle/syndicate6)
-"RV" = (
-/mob/living/simple_animal/hostile/hivebot/rapid,
-/turf/simulated/mineral,
-/area/awaymission)
 "RW" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/arrows{
@@ -17813,10 +17793,6 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/prhallway1)
-"Xm" = (
-/mob/living/simple_animal/hostile/hivebot/strong,
-/turf/simulated/mineral,
-/area/awaymission)
 "Xn" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/living)
@@ -50194,7 +50170,7 @@ aa
 aa
 aa
 GV
-RV
+GV
 aa
 aa
 aa
@@ -50454,7 +50430,7 @@ aa
 aa
 aa
 GV
-Xm
+GV
 GV
 GV
 GV
@@ -50718,7 +50694,7 @@ aa
 aa
 aa
 aa
-PR
+aa
 aa
 aa
 aa
@@ -51230,12 +51206,12 @@ do
 aa
 GV
 GV
-QD
+aa
 aa
 aa
 aa
 do
-QD
+aa
 aa
 aa
 aa
@@ -51480,10 +51456,10 @@ jr
 GV
 GV
 aa
-Xm
+GV
 aa
 aa
-QD
+aa
 aa
 aa
 GV
@@ -51742,7 +51718,7 @@ aa
 aa
 aa
 aa
-Xm
+GV
 GV
 GV
 GV
@@ -51754,7 +51730,7 @@ GV
 GV
 aa
 aa
-PR
+aa
 aa
 ab
 ab
@@ -51988,7 +51964,7 @@ jr
 rK
 nG
 nG
-py
+nG
 nG
 jr
 jr
@@ -52244,7 +52220,7 @@ aa
 jr
 nG
 VC
-py
+nG
 rK
 VC
 nG
@@ -52252,9 +52228,9 @@ jr
 GV
 aa
 aa
-RV
 GV
-QD
+GV
+aa
 aa
 aa
 aa
@@ -52500,9 +52476,9 @@ GV
 aa
 jr
 nG
-py
-xJ
-py
+nG
+nG
+nG
 rK
 hF
 JL
@@ -52756,11 +52732,11 @@ aa
 GV
 aa
 jr
-py
-xJ
+nG
+nG
 VC
-xJ
-py
+nG
+nG
 nG
 JL
 GV
@@ -53014,21 +52990,21 @@ GV
 aa
 jr
 nG
-py
+nG
 rK
-py
+nG
 VC
 nG
 jr
 GV
 aa
 aa
-QD
+aa
 GV
 GV
 aa
 aa
-QD
+aa
 GV
 ab
 ab
@@ -53283,7 +53259,7 @@ aa
 aa
 GV
 aa
-PR
+aa
 GV
 GV
 GV
@@ -53793,7 +53769,7 @@ jr
 GV
 GV
 GV
-Xm
+GV
 GV
 aa
 aa
@@ -54054,11 +54030,11 @@ GV
 GV
 aa
 aa
-QD
+aa
 aa
 GV
 aa
-PR
+aa
 aa
 aa
 aa
@@ -54306,7 +54282,7 @@ GV
 GV
 aa
 aa
-QD
+aa
 GV
 GV
 aa
@@ -54569,12 +54545,12 @@ aa
 aa
 GV
 GV
-RV
+GV
 GV
 GV
 GV
 aa
-QD
+aa
 aa
 aa
 aa
@@ -54835,7 +54811,7 @@ GV
 GV
 GV
 GV
-RV
+GV
 aa
 aa
 GV
