@@ -616,7 +616,7 @@
 				to_chat(robot, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! ПЕРЕГРУЗКА СЕНСЕРОВ \[$(!@#</b>"))
 				SEND_SOUND(robot, sound('sound/misc/interference.ogg'))
 				playsound(robot, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-				do_sparks(5, 1, robot)
+				do_sparks(5, TRUE, robot)
 				robot.Weaken(12 SECONDS)
 
 		for(var/obj/structure/window/window in turf.contents)

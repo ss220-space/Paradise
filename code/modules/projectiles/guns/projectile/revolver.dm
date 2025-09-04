@@ -436,7 +436,7 @@
 			user.put_in_hands(magazine)
 			magazine = null
 			verbs -= /obj/item/gun/projectile/revolver/verb/spin
-	playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
+	playsound(src, 'sound/items/screwdriver.ogg', 40, TRUE)
 	update_icon(UPDATE_OVERLAYS)
 
 

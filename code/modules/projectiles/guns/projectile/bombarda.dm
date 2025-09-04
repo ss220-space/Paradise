@@ -48,6 +48,8 @@
 /obj/item/gun/projectile/bombarda/chamber_round()
 	return
 
+/obj/item/gun/projectile/bombarda/get_ammo(countchambered = FALSE, countempties = FALSE)
+	return ..(countchambered, countempties)
 
 /obj/item/gun/projectile/bombarda/can_shoot(mob/user)
 	if(!chambered)
@@ -74,7 +76,7 @@
 	opened = TRUE
 	chambered = null
 	var/atom/drop_loc = drop_location()
-	while(get_ammo() > 0)
+	while(get_ammo(countempties = TRUE) > 0)
 		var/obj/item/ammo_casing/casing
 		casing = magazine.get_round(FALSE)
 		if(!casing)

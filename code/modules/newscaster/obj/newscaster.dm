@@ -17,14 +17,6 @@
 /obj/machinery/newscaster
 	name = "newscaster"
 	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано НаноТрейзен для использования на коммерческих объектах."
-	ru_names = list(
-			NOMINATIVE = "новостник",
-			GENITIVE = "новостника",
-			DATIVE = "новостнику",
-			ACCUSATIVE = "новостник",
-			INSTRUMENTAL = "новостником",
-			PREPOSITIONAL = "новостнике"
-	)
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster"
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
@@ -59,11 +51,24 @@
 	/// Static, lazy list containing a user's last view time per channel.
 	var/static/last_views
 
+/obj/machinery/newscaster/get_ru_names()
+	return list(
+			NOMINATIVE = "новостник",
+			GENITIVE = "новостника",
+			DATIVE = "новостнику",
+			ACCUSATIVE = "новостник",
+			INSTRUMENTAL = "новостником",
+			PREPOSITIONAL = "новостнике"
+	)
+
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
 	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано НаноТрейзен для использования на коммерческих объектах. \
 			Эта модель оснащена расширенным функционалом, специально для службы безопасности."
-	ru_names = list(
+	is_security = TRUE
+
+/obj/machinery/newscaster/security_unit/get_ru_names()
+	return list(
 			NOMINATIVE = "новостник службы безопасности",
 			GENITIVE = "новостника службы безопасности",
 			DATIVE = "новостнику службы безопасности",
@@ -71,7 +76,6 @@
 			INSTRUMENTAL = "новостником службы безопасности",
 			PREPOSITIONAL = "новостнике службы безопасности"
 	)
-	is_security = TRUE
 
 /obj/machinery/newscaster/Initialize(mapload)
 	. = ..()

@@ -141,7 +141,7 @@
 		throw_speed = 2
 		update_icon()
 		w_class = WEIGHT_CLASS_BULKY
-		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 35, TRUE)
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
 		force = 3
@@ -149,7 +149,7 @@
 		throw_speed = 3
 		update_icon()
 		w_class = WEIGHT_CLASS_TINY
-		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 35, TRUE)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

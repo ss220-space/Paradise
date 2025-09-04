@@ -398,7 +398,7 @@
 	. = ..()
 	if(blocked >= 100)
 		return .
-	do_sparks(3, 1, target)
+	do_sparks(3, TRUE, target)
 	target.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
 	playsound(target, 'sound/effects/snap.ogg', 50, TRUE)
 	if(isturf(target.loc) && !target.loc.density)
