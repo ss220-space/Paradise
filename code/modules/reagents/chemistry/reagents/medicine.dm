@@ -299,7 +299,7 @@
 			bodypart.stop_internal_bleeding()
 		if(bodypart.bleeding_amount <= 0)
 			continue
-		bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - 0.1)
+		bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - 0.025)
 		update_flags |= STATUS_UPDATE_HEALTH
 	return ..() | update_flags
 
