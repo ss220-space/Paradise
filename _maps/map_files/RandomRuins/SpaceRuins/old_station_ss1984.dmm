@@ -42,9 +42,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/hivebot/rapid,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/theta_storage)
+/area/ruin/space/ancientstation/theta_mine)
 "ak" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -115,7 +115,7 @@
 /obj/item/storage/bag/trash,
 /obj/item/mop,
 /obj/item/reagent_containers/glass/bucket,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "aw" = (
 /turf/simulated/wall/rust,
@@ -123,6 +123,7 @@
 "ax" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/hivebot_spawner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
 "ay" = (
@@ -350,9 +351,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
 "bh" = (
-/mob/living/simple_animal/hostile/hivebot,
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/hivebot)
+/obj/effect/spawner/hivebot,
+/turf/template_noop,
+/area/template_noop)
 "bj" = (
 /obj/item/shard{
 	icon_state = "medium";
@@ -417,14 +418,10 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/obj/machinery/door/airlock/external{
-	name = "Engineering External Access";
-	req_access = list(271)
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "bt" = (
 /obj/effect/decal/cleanable/dirt,
@@ -705,10 +702,10 @@
 /turf/template_noop,
 /area/template_noop)
 "cp" = (
-/mob/living/simple_animal/hostile/hivebot/strong,
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
+/obj/structure/hivebot_spawner,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "cv" = (
@@ -825,7 +822,7 @@
 /obj/structure/transit_tube/horizontal{
 	dir = 1
 	},
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_sec)
 "cJ" = (
@@ -853,6 +850,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_proto)
 "cQ" = (
@@ -886,7 +884,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/hivebot/range,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
 "cY" = (
@@ -956,7 +954,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "dk" = (
 /obj/item/folder/white,
@@ -997,6 +995,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_proto)
 "dr" = (
@@ -1071,18 +1070,9 @@
 /area/ruin/space/ancientstation/beta_surgery)
 "dB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/mob/living/simple_animal/hostile/hivebot/range,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/theta_mine)
+/area/ruin/space/ancientstation/theta_corridor)
 "dC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1135,11 +1125,6 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_comm)
-"dN" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/strong,
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/theta_docks)
 "dP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
@@ -1330,8 +1315,9 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/beta_atmos)
 "et" = (
-/mob/living/simple_animal/hostile/hivebot/rapid,
-/turf/simulated/floor/plating/airless,
+/obj/effect/decal/remains/robot,
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "eu" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1716,7 +1702,9 @@
 /obj/machinery/power/apc{
 	dir = 4;
 	pixel_x = 26;
-	name = "storage power controller"
+	name = "storage power controller";
+	report_power_alarm = 0;
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_rnd)
@@ -1811,15 +1799,15 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "gw" = (
-/obj/structure/lattice,
-/obj/item/shard{
-	icon_state = "small"
-	},
-/turf/template_noop,
-/area/ruin/space/ancientstation/charlie_recycler)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/ore_box,
+/obj/item/spacepod_equipment/cargo/ore,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/theta_storage)
 "gy" = (
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/theta_storage)
@@ -1833,7 +1821,7 @@
 	input_dir = 2;
 	stack_amt = 10
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "gB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2113,9 +2101,12 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_secrest)
 "hv" = (
-/obj/structure/lattice,
-/obj/item/shard,
-/turf/template_noop,
+/obj/machinery/door/poddoor{
+	id_tag = "ancient";
+	use_power = 0
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "hx" = (
 /turf/simulated/mineral/random,
@@ -2383,7 +2374,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/hivebot/rapid,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2393,7 +2383,7 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_dininghall)
 "iy" = (
@@ -2428,12 +2418,16 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating/airless,
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "iB" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/ancientstation/charlie_recycler)
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ancientstation/theta_experi)
 "iC" = (
 /turf/simulated/wall,
 /area/ruin/space/ancientstation/beta_medstorage)
@@ -2481,14 +2475,15 @@
 	},
 /area/ruin/space/ancientstation/beta_surgery)
 "iJ" = (
-/obj/structure/lattice,
-/obj/item/shard{
-	icon_state = "medium";
-	pixel_x = -7;
-	pixel_y = -10
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
-/turf/template_noop,
-/area/ruin/space/ancientstation/charlie_recycler)
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/charlie_sec)
 "iM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small{
@@ -2510,7 +2505,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/mob/living/simple_animal/hostile/hivebot/strong,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
 "iU" = (
@@ -2533,6 +2527,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2586,7 +2581,7 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_sec)
 "jb" = (
@@ -2827,9 +2822,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_corridor)
 "jX" = (
-/mob/living/simple_animal/hostile/hivebot/tele,
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/hivebot)
+/mob/living/simple_animal/hostile/hivebot/support,
+/turf/simulated/floor/engine,
+/area/ruin/space/ancientstation/theta_experi)
 "kb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor/preopen,
@@ -3123,7 +3118,7 @@
 	pixel_y = 26
 	},
 /obj/structure/chair/stool,
-/mob/living/simple_animal/hostile/hivebot/range,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_mine)
 "kV" = (
@@ -3133,7 +3128,7 @@
 /obj/structure/closet/crate/trashcart,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/belt/janitor,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "kW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3164,6 +3159,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
 "lc" = (
@@ -3319,7 +3315,7 @@
 	dir = 1;
 	scrub_Toxins = 0
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "lC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3346,29 +3342,15 @@
 /turf/template_noop,
 /area/template_noop)
 "lF" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/mob/living/simple_animal/hostile/hivebot/strong,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/theta_docks)
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/hivebot)
 "lG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/machinery/door/poddoor{
-	id_tag = "ancient";
-	use_power = 0
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3387,7 +3369,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating/airless,
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "lM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3554,14 +3537,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "mo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/old,
-/obj/item/clothing/shoes/workboots,
-/obj/item/clothing/gloves/color/fyellow/old,
-/obj/effect/decal/remains/human,
-/obj/item/card/id/away/old/eng,
-/obj/item/flashlight,
-/obj/item/clothing/under/retro/engineering,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "mp" = (
 /turf/simulated/mineral/random/high_chance,
@@ -3632,7 +3608,7 @@
 /obj/machinery/conveyor{
 	id = "trash"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "mC" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3652,12 +3628,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/mob/living/simple_animal/hostile/hivebot/strong,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/charlie_sec)
+/area/ruin/space/ancientstation/theta_corridor)
 "mI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
@@ -3721,7 +3694,7 @@
 	use_power = 0
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_sec)
 "mS" = (
@@ -3938,7 +3911,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
 "nQ" = (
-/mob/living/simple_animal/hostile/hivebot/rapid,
+/mob/living/simple_animal/hostile/hivebot/support,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "nS" = (
@@ -4024,7 +3997,8 @@
 "oi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/trashcart,
-/turf/simulated/floor/plating/airless,
+/obj/item/stock_parts/capacitor,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "oj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4048,6 +4022,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
 "on" = (
@@ -4072,7 +4047,6 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/mob/living/simple_animal/hostile/hivebot/rapid,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
 "or" = (
@@ -4174,6 +4148,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
 "oJ" = (
@@ -4637,14 +4612,12 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/hivebot/range,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "qf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/mob/living/simple_animal/hostile/hivebot/range,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
 "qh" = (
@@ -4803,6 +4776,7 @@
 	dir = 4;
 	pixel_x = -26
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
 "qE" = (
@@ -4819,7 +4793,7 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "qI" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4926,7 +4900,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/girder,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "rb" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5009,7 +4983,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "rp" = (
 /obj/machinery/door/poddoor{
@@ -5048,7 +5022,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/hostile/hivebot/range,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_warden)
 "ry" = (
@@ -5102,12 +5076,10 @@
 "rE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/crate,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1;
 	scrub_Toxins = 0
 	},
-/obj/item/spacepod_equipment/cargo/ore,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
 "rF" = (
@@ -5129,6 +5101,9 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/crate,
 /obj/machinery/light_construct/small,
+/obj/item/spacepod_equipment/cargo/crate,
+/obj/item/spacepod_equipment/weaponry/mining_laser_basic,
+/obj/item/pod_parts/armor,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
 "rM" = (
@@ -5221,7 +5196,7 @@
 /obj/machinery/conveyor_switch{
 	id = "trash"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "sg" = (
 /obj/structure/window/reinforced{
@@ -5229,7 +5204,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/mopbucket,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "si" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5428,15 +5403,10 @@
 /area/template_noop)
 "sY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/window/westleft{
-	dir = 2
-	},
-/obj/effect/decal/warning_stripes/south,
-/mob/living/simple_animal/hostile/hivebot/strong,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/ancientstation/theta_rnd)
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/theta_storage)
 "sZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5692,14 +5662,18 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "tQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/mob/living/simple_animal/hostile/hivebot/rapid,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/theta_docks)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/theta_exit)
 "tR" = (
 /obj/machinery/particle_accelerator/control_box,
 /turf/simulated/floor/plating,
@@ -5751,7 +5725,6 @@
 	name = "Prototype Laboratory";
 	req_access = list(271)
 	},
-/obj/machinery/door/firedoor/heavy,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -6002,6 +5975,7 @@
 	dir = 8;
 	pixel_x = 26
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
 "uU" = (
@@ -6284,15 +6258,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/airlock/external{
-	name = "Engineering External Access";
-	req_access = list(271)
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/ancientstation/charlie_recycler)
+/mob/living/simple_animal/hostile/hivebot/support,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/charlie_sec)
 "vW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6560,7 +6528,8 @@
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "wG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6742,16 +6711,12 @@
 "xk" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
-"xl" = (
-/mob/living/simple_animal/hostile/hivebot,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/ancientstation/charlie_recycler)
 "xm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/hivebot/strong,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
 "xn" = (
@@ -7077,7 +7042,6 @@
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "yq" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/tele,
 /obj/machinery/light_construct/small,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_secintel)
@@ -7197,7 +7161,7 @@
 /obj/machinery/conveyor{
 	id = "trash"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "yL" = (
 /obj/effect/spawner/random_spawners/fungus_70,
@@ -7291,10 +7255,11 @@
 /turf/simulated/floor/engine/co2,
 /area/ruin/space/ancientstation/beta_atmos)
 "ze" = (
-/obj/effect/decal/remains/robot,
-/mob/living/simple_animal/hostile/hivebot/range,
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/hivebot)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/theta_docks)
 "zf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -7317,8 +7282,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/beta_atmos)
 "zi" = (
-/obj/structure/lattice,
-/turf/template_noop,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "zj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7371,9 +7335,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_comm)
 "zu" = (
-/mob/living/simple_animal/hostile/hivebot/strong,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/hivebot)
+/area/ruin/space/ancientstation/charlie_recycler)
 "zv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -7543,15 +7508,9 @@
 /area/ruin/space/ancientstation/charlie_prison)
 "Ae" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/mob/living/simple_animal/hostile/hivebot/range,
+/mob/living/simple_animal/hostile/hivebot/support,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/theta_corridor)
+/area/ruin/space/ancientstation/theta_docks)
 "Af" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating,
@@ -8144,33 +8103,20 @@
 /turf/template_noop,
 /area/template_noop)
 "BY" = (
-/mob/living/simple_animal/hostile/hivebot,
-/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/mob/living/simple_animal/hostile/hivebot/range_heavy,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/hivebot)
+/area/ruin/space/ancientstation/theta_docks)
 "BZ" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/window/full/basic,
 /turf/simulated/floor/grass,
 /area/template_noop)
 "Cb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/item/pod_parts/core,
-/obj/item/pod_parts/armor,
-/obj/structure/closet/crate,
-/obj/item/spacepod_equipment/weaponry/mining_laser_basic,
-/obj/item/spacepod_equipment/cargo/crate,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/theta_mine)
+/area/ruin/space/ancientstation/charlie_sec)
 "Cc" = (
 /obj/machinery/light_construct/small,
 /turf/simulated/floor/grass,
@@ -8199,11 +8145,7 @@
 "Ci" = (
 /obj/machinery/door/firedoor/closed,
 /obj/machinery/door/airlock/maintenance_hatch,
-/obj/machinery/door/poddoor{
-	id_tag = "ancient";
-	use_power = 0
-	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "Ck" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8217,9 +8159,9 @@
 /area/ruin/space/ancientstation/theta_exit)
 "Cm" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/range,
+/mob/living/simple_animal/hostile/hivebot/support,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/theta_docks)
+/area/ruin/space/ancientstation/charlie_armory)
 "Co" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
@@ -8313,6 +8255,7 @@
 /area/ruin/space/ancientstation/theta_proto)
 "CE" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -8333,7 +8276,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/mob/living/simple_animal/hostile/hivebot/rapid,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
 "CH" = (
@@ -8438,6 +8381,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/mob/living/simple_animal/hostile/hivebot/range_heavy,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
 "Dc" = (
@@ -8661,6 +8605,7 @@
 	report_power_alarm = 0;
 	start_charge = 0
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -8910,14 +8855,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "EL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 1
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = -32
 	},
-/obj/structure/railing,
-/mob/living/simple_animal/hostile/hivebot/range,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/theta_docks)
+/obj/structure/hivebot_spawner,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/hivebot)
 "EM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/transit_tube/station{
@@ -9153,7 +9097,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "FH" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9203,8 +9147,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/mob/living/simple_animal/hostile/hivebot/strong,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "FS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9236,9 +9179,11 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "FX" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/strong,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/charlie_armory)
+/area/ruin/space/ancientstation/theta_corridor)
 "FY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -9269,12 +9214,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_punishmentcell)
 "Gd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/mineral/stacking_unit_console{
-	machinedir = 2
-	},
-/turf/simulated/wall/rust,
-/area/ruin/space/ancientstation/charlie_recycler)
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/hivebot)
 "Ge" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/recharge_station,
@@ -9305,7 +9248,7 @@
 /obj/machinery/conveyor{
 	id = "trash"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "Gi" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9331,12 +9274,8 @@
 	id = "trash";
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
-"Gp" = (
-/mob/living/simple_animal/hostile/hivebot/range,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/ancientstation/hivebot)
 "Gs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/dark{
@@ -9455,6 +9394,7 @@
 /area/ruin/space/ancientstation/beta_medstorage)
 "GG" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_exit)
 "GH" = (
@@ -9879,6 +9819,7 @@
 	dir = 8;
 	pixel_x = 26
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_exit)
 "Ie" = (
@@ -10094,8 +10035,12 @@
 /area/ruin/space/ancientstation/charlie_hydroroom)
 "IV" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/template_noop,
-/area/template_noop)
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "red"
+	},
+/area/ruin/space/ancientstation/charlie_sec)
 "IW" = (
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/charlie_warden)
@@ -10216,7 +10161,8 @@
 	},
 /area/ruin/space/ancientstation/charlie_corridor)
 "Jm" = (
-/turf/simulated/floor/plating/airless,
+/obj/machinery/atmospherics/unary/tank/air,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "Jn" = (
 /obj/effect/spawner/window/reinforced,
@@ -10540,7 +10486,6 @@
 /area/template_noop)
 "KH" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/range,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
@@ -10749,6 +10694,7 @@
 /obj/machinery/light_switch{
 	pixel_y = 26
 	},
+/mob/living/simple_animal/hostile/hivebot/support,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
 "Lr" = (
@@ -10821,6 +10767,7 @@
 	report_power_alarm = 0;
 	start_charge = 0
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -11162,7 +11109,7 @@
 	dir = 9;
 	id = "trash"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "MX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -11822,10 +11769,10 @@
 /area/ruin/space/ancientstation/hivebot)
 "OT" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/range,
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
 "OV" = (
@@ -11858,18 +11805,6 @@
 "Pc" = (
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
-"Pd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/mob/living/simple_animal/hostile/hivebot/rapid,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/ancientstation/theta_rnd)
 "Pg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -12002,6 +11937,7 @@
 /obj/item/solar_assembly,
 /obj/item/solar_assembly,
 /obj/item/solar_assembly,
+/obj/item/circuitboard/solar_control,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
 "PB" = (
@@ -12021,7 +11957,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/mob/living/simple_animal/hostile/hivebot/range,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_mine)
 "PE" = (
@@ -12276,7 +12212,6 @@
 "Qz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/mob/living/simple_animal/hostile/hivebot/strong,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
 "QD" = (
@@ -12345,6 +12280,7 @@
 	dir = 1
 	},
 /obj/structure/chair/stool,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_mine)
 "QN" = (
@@ -12439,7 +12375,7 @@
 	report_power_alarm = 0;
 	start_charge = 0
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "Ra" = (
 /obj/effect/decal/cleanable/dirt,
@@ -12462,7 +12398,7 @@
 /area/ruin/space/ancientstation/theta_proto)
 "Rd" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/strong,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_solar)
 "Rf" = (
@@ -12698,7 +12634,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "RV" = (
 /obj/effect/decal/cleanable/dirt,
@@ -12873,9 +12809,9 @@
 /area/ruin/space/ancientstation/theta_experi)
 "SF" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/range,
-/turf/simulated/floor/engine,
-/area/ruin/space/ancientstation/theta_experi)
+/obj/effect/spawner/hivebot,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/charlie_sec)
 "SG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/hydroponics/constructable,
@@ -13067,7 +13003,6 @@
 	name = "Prototype Laboratory";
 	req_access = list(271)
 	},
-/obj/machinery/door/firedoor/heavy,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -13108,8 +13043,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "TR" = (
-/mob/living/simple_animal/hostile/hivebot/range,
-/turf/simulated/floor/plating,
+/obj/structure/hivebot_spawner,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/hivebot)
 "TV" = (
 /obj/effect/decal/cleanable/dirt,
@@ -13224,7 +13159,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating/airless,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "Uo" = (
 /obj/effect/decal/cleanable/dirt,
@@ -13273,7 +13211,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_sec)
 "Uz" = (
@@ -13307,7 +13245,6 @@
 /area/ruin/space/ancientstation/charlie_restroom)
 "UE" = (
 /obj/machinery/power/solar,
-/obj/item/circuitboard/solar_control,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -13368,6 +13305,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
 "UY" = (
@@ -13509,7 +13447,6 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "Vy" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/rapid,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_warden)
 "VA" = (
@@ -13718,7 +13655,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "Wo" = (
 /obj/machinery/light_construct/small{
@@ -14030,7 +13967,9 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/turf/simulated/floor/plating/airless,
+/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/airlock/w_to_e/old,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "Xy" = (
 /obj/effect/decal/cleanable/dirt,
@@ -14089,7 +14028,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/hivebot/range,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_warden)
 "XJ" = (
@@ -14153,7 +14091,7 @@
 /area/ruin/space/ancientstation/charlie_restroom)
 "XV" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_recycler)
 "XW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -14449,10 +14387,10 @@
 /area/ruin/space/ancientstation/theta_rnd)
 "Zq" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/hivebot/range,
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_warden)
 "Zs" = (
@@ -14596,6 +14534,7 @@
 /area/ruin/space/ancientstation/theta_proto)
 "ZQ" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/hivebot,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -20821,16 +20760,16 @@ sA
 sA
 sA
 fJ
-yc
+IV
 Sa
 sv
 sv
 XJ
-FX
+sv
 cW
 sv
 OT
-sv
+Cm
 GW
 WD
 WD
@@ -21308,7 +21247,7 @@ ay
 pp
 To
 qv
-mF
+Li
 Si
 Ol
 Ol
@@ -22159,7 +22098,7 @@ WD
 WD
 ja
 qJ
-hI
+SF
 yc
 hI
 cC
@@ -22172,7 +22111,7 @@ LU
 GO
 YD
 Vy
-rx
+UR
 CE
 hG
 WD
@@ -22412,7 +22351,7 @@ Fb
 WD
 hG
 pE
-UR
+rx
 qo
 Fl
 GO
@@ -22867,7 +22806,7 @@ wF
 QX
 iA
 Wl
-Jm
+zi
 mz
 yK
 Gh
@@ -22987,11 +22926,11 @@ cc
 cc
 cc
 cc
-xl
+zi
 lL
-Jm
+zi
 sd
-iB
+zu
 av
 Gm
 zQ
@@ -23017,7 +22956,7 @@ xk
 Ol
 xk
 Os
-xk
+Cb
 pV
 hI
 hI
@@ -23106,15 +23045,15 @@ GS
 GS
 fr
 cc
-OS
-et
+EL
+SR
 cc
-Jm
+zi
 qX
 zi
 dj
-iB
-Gd
+zu
+mo
 gz
 zQ
 in
@@ -23141,7 +23080,7 @@ mb
 qy
 YS
 mb
-YS
+iJ
 YS
 zc
 km
@@ -23228,15 +23167,15 @@ WD
 WD
 fr
 cc
-Gp
-Gp
-cc
-gw
+SR
+lF
+Ll
+gv
 FG
 FO
 sg
 mo
-iB
+zu
 oi
 zQ
 Rr
@@ -23261,11 +23200,11 @@ JI
 Ol
 iP
 xk
-xk
+Cb
 fl
 xk
 xk
-fl
+vS
 xk
 Fs
 hj
@@ -23349,10 +23288,10 @@ Rr
 WD
 WD
 lE
-sO
-wY
-Gp
-sO
+cc
+SR
+SR
+cc
 Jm
 Un
 lw
@@ -23597,7 +23536,7 @@ cc
 Wf
 Wf
 cc
-iJ
+LR
 Pu
 LR
 WD
@@ -23720,7 +23659,7 @@ WD
 lE
 WD
 LR
-vS
+Pu
 LR
 WD
 lE
@@ -23875,7 +23814,7 @@ WD
 WD
 WD
 WD
-WD
+bh
 WD
 WD
 WD
@@ -24240,7 +24179,7 @@ wH
 WD
 Fy
 oT
-wY
+TR
 wY
 wY
 cc
@@ -24351,7 +24290,7 @@ wH
 wH
 cc
 xp
-bh
+SR
 ZB
 cc
 wH
@@ -24473,7 +24412,7 @@ wH
 wH
 cc
 Xg
-BY
+Gd
 mM
 cc
 wH
@@ -24566,11 +24505,11 @@ lE
 fC
 PE
 yF
-CQ
+iB
 sl
-SF
 uI
-ar
+uI
+jX
 Et
 bJ
 qE
@@ -24595,7 +24534,7 @@ cc
 cc
 cc
 ti
-bh
+SR
 Xg
 cc
 cc
@@ -24687,7 +24626,7 @@ WD
 WD
 gm
 CQ
-CQ
+iB
 qK
 sl
 MU
@@ -24696,7 +24635,7 @@ sl
 Et
 iM
 GG
-KD
+tQ
 Nf
 Ck
 rf
@@ -24712,16 +24651,16 @@ Do
 Fv
 cc
 cc
-TR
 SR
-TR
+lF
+SR
 uB
 uB
 Ll
 uB
 uB
-TR
-nQ
+SR
+SR
 SR
 cc
 cc
@@ -24824,7 +24763,7 @@ Du
 Xk
 Vd
 EF
-Po
+FX
 Po
 oY
 kZ
@@ -24834,16 +24773,16 @@ mC
 SM
 Ll
 SR
+lF
 SR
-nQ
-nQ
+lF
 Ll
-TR
-zD
-TR
+lF
+Gd
+SR
 Ll
 SR
-TR
+lF
 zD
 SR
 Ll
@@ -24948,7 +24887,7 @@ RO
 Jg
 FK
 ZV
-ZV
+dB
 kX
 ZV
 QD
@@ -24956,17 +24895,17 @@ EN
 Fv
 cc
 cc
-zu
-zD
-zu
+SR
+Gd
+SR
 uB
-TR
-zu
-TR
+lF
+SR
+SR
 uB
-zu
-zu
-TR
+SR
+SR
+SR
 cc
 cc
 WD
@@ -25079,15 +25018,15 @@ fq
 wH
 cc
 cc
-nQ
-TR
-uB
-ze
-nQ
-TR
-uB
 SR
-nQ
+SR
+uB
+Ul
+lF
+SR
+uB
+lF
+SR
 cc
 cc
 wH
@@ -25269,7 +25208,7 @@ WT
 WD
 WD
 WD
-WD
+DS
 WD
 WD
 WD
@@ -25327,7 +25266,7 @@ bM
 bM
 cc
 ti
-bh
+SR
 Xg
 cc
 bM
@@ -25437,7 +25376,7 @@ lE
 lE
 RO
 vi
-Ae
+mF
 qf
 RO
 WD
@@ -25449,7 +25388,7 @@ bM
 WL
 cc
 iq
-bh
+lF
 lc
 cc
 Se
@@ -25559,7 +25498,7 @@ WD
 WD
 RO
 Zv
-Ae
+kX
 EC
 RO
 WD
@@ -25571,7 +25510,7 @@ bM
 bM
 cc
 ZB
-bh
+SR
 EK
 cc
 bM
@@ -25814,7 +25753,7 @@ cc
 cc
 lT
 bP
-zu
+lF
 SR
 Ly
 Ly
@@ -25937,9 +25876,9 @@ Ah
 Ar
 ac
 SR
-Ul
-TR
-jX
+et
+SR
+SR
 Ly
 SR
 cc
@@ -26047,7 +25986,7 @@ WD
 WD
 Gj
 kU
-Cb
+cJ
 CK
 Gj
 WD
@@ -26058,11 +25997,11 @@ cc
 pY
 yN
 pY
-TR
-zu
+lF
+SR
 SR
 zD
-SR
+lF
 Tv
 cc
 wH
@@ -26169,7 +26108,7 @@ lE
 lE
 Gj
 QM
-dB
+aj
 he
 Gj
 WD
@@ -26181,10 +26120,10 @@ lq
 pY
 aY
 SR
-zu
-nQ
 SR
-zu
+lF
+SR
+SR
 SR
 cc
 cc
@@ -26301,11 +26240,11 @@ bM
 cc
 pY
 aY
-TR
-TR
 SR
 SR
-jX
+lF
+SR
+lF
 Ul
 pa
 cc
@@ -26422,13 +26361,13 @@ bM
 WL
 cc
 No
-SR
-jX
-zu
-zu
 nQ
 SR
-nQ
+lF
+SR
+SR
+SR
+SR
 bD
 cc
 Se
@@ -26533,7 +26472,7 @@ WD
 gy
 gy
 gy
-lW
+gw
 nS
 WW
 XR
@@ -26548,10 +26487,10 @@ pm
 TQ
 zD
 SR
-zu
-zu
-aY
+lF
 SR
+aY
+nQ
 cc
 bM
 bM
@@ -26656,8 +26595,8 @@ gy
 nS
 gb
 lW
-XR
-aj
+sY
+WW
 rL
 Ir
 WD
@@ -26668,11 +26607,11 @@ cc
 Bv
 Af
 tR
-nQ
+SR
 Ul
 SR
-nQ
 SR
+nQ
 St
 cc
 cc
@@ -26747,7 +26686,7 @@ yV
 WD
 WD
 WD
-DS
+WD
 WD
 WD
 Pc
@@ -26761,7 +26700,7 @@ WD
 WD
 wq
 rF
-sY
+ag
 ig
 WP
 kN
@@ -26885,13 +26824,13 @@ wq
 gn
 Iu
 fk
-Pd
+Na
 Na
 JS
 Na
 xN
 Bl
-tQ
+Bl
 Bl
 Fi
 BR
@@ -27015,9 +26954,9 @@ aZ
 vM
 zL
 gp
-lF
+zo
 oA
-Gw
+Ae
 uZ
 mP
 xG
@@ -27157,7 +27096,7 @@ bM
 WL
 cc
 Ey
-jX
+SR
 Ey
 cc
 Se
@@ -27260,7 +27199,7 @@ yP
 BU
 ax
 sc
-mK
+ze
 ha
 WY
 qC
@@ -27383,11 +27322,11 @@ wA
 Gw
 sc
 mK
-EL
+ha
 bE
 At
 vx
-dN
+tN
 wa
 Ch
 tN
@@ -27633,7 +27572,7 @@ hP
 iT
 tN
 tN
-dN
+tN
 tN
 mD
 WD
@@ -27746,10 +27685,10 @@ HN
 mD
 jn
 jn
-Cm
+Gw
 Bw
 ak
-DU
+BY
 DU
 Wy
 tN
@@ -28232,7 +28171,7 @@ WD
 WD
 lE
 WD
-IV
+WD
 WD
 WD
 WD
