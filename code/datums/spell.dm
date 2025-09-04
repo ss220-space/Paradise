@@ -196,7 +196,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	/// Handles a given spells cooldowns. Tracks the time until its off cooldown.
 	var/datum/spell_cooldown/cooldown_handler
 	/// Flag for certain states that the spell requires the user be in to cast. TG
-	var/spell_requirements = SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_NO_ANTIMAGIC
+	var/spell_requirements = SPELL_REQUIRES_WIZARD_GARB
 	/// This determines what type of antimagic is needed to block the spell.
 	/// (MAGIC_RESISTANCE, MAGIC_RESISTANCE_MIND, MAGIC_RESISTANCE_HOLY)
 	/// If SPELL_REQUIRES_NO_ANTIMAGIC is set in Spell requirements,
@@ -625,7 +625,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			to_chat(user, span_warning("You shouldn't have this spell! Something's wrong."))
 		return FALSE
 
-	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && !user.can_cast_magic(antimagic_flags))
+	if(HASBIT(spell_requirements, SPELL_REQUIRES_NO_ANTIMAGIC) && !user.can_cast_magic(antimagic_flags))
 		if(!feedback)
 			return FALSE
 
