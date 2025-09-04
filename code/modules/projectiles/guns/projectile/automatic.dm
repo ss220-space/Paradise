@@ -167,11 +167,10 @@
 /obj/item/gun/projectile/automatic/c20r/auto
 	name = "C-20rm SMG"
 	desc = "Новейшая модификация автоматического пистолет-пулемета \"C-20r\" под .45 калибр."
-	fire_delay = 1.5
-	burst_size = 1
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
-	actions_types = null
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	autofire_delay = 0.15 SECONDS
 
 /obj/item/gun/projectile/automatic/c20r/auto/get_ru_names()
 	return list(
@@ -182,10 +181,6 @@
 		INSTRUMENTAL = "пистолет-пулеметом C-20rm",
 		PREPOSITIONAL = "пистолет-пулемете C-20rm"
 	)
-
-/obj/item/gun/projectile/automatic/c20r/auto/ComponentInitialize()
-	..()
-	AddComponent(/datum/component/automatic_fire, 0.15 SECONDS)
 
 
 //WT550//
