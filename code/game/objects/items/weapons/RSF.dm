@@ -111,6 +111,6 @@ RSF
 		to_chat(user, "The [name_short] now holds [matter]/30 fabrication-units.")
 
 	to_chat(user, "Dispensing " + configured_items[mode][1] + "...")
-	playsound(loc, 'sound/machines/click.ogg', 10, 1)
+	playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
 	var/type_path = configured_items[mode][3]
 	new type_path(spawn_location)

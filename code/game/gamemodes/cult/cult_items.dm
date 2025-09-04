@@ -467,7 +467,6 @@
 
 /obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
-	force = 15
 	item_flags = DROPDEL
 
 
@@ -594,7 +593,7 @@
 				T.visible_message(span_warning("The sheer force from [P] shatters the mirror shield!"))
 				new /obj/effect/temp_visual/cult/sparks(T)
 				playsound(T, 'sound/effects/glassbr3.ogg', 100)
-				owner.Weaken(6 SECONDS)
+				owner.Knockdown(6 SECONDS)
 				qdel(src)
 				return FALSE
 
@@ -690,7 +689,7 @@
 				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
 		else if(!..())
 			if(!L.null_rod_check())
-				L.Weaken(6 SECONDS)
+				L.Knockdown(6 SECONDS)
 			break_spear(T)
 	else
 		..()

@@ -91,7 +91,7 @@
 	user.balloon_alert(user, "клинок появился")
 	var/obj/item/weapon = new weapon_type(user, src)
 	user.put_in_hands(weapon)
-	playsound(user, "sound/items/unsheath.ogg", 50, 1)
+	playsound(user, "sound/items/unsheath.ogg", 50, TRUE)
 	blade_action.set_reload_mode()
 
 

@@ -5,14 +5,6 @@
 /mob/living/simple_animal/hostile/mining_drone
 	name = "nanotrasen minebot"
 	desc = "Инструкция на корпусе: Этот небольшой робот предназначен для помощи шахтёрам. Может быть настроен на поиск и сбор руды или защиту от фауны. Сканером можно дать команду на выгрузку руды. Полевой ремонт осуществляется сварочным аппаратом."
-	ru_names = list(
-		NOMINATIVE = "шахтёрский бот",
-		GENITIVE = "шахтёрского бота",
-		DATIVE = "шахтёрскому боту",
-		ACCUSATIVE = "шахтёрский бот",
-		INSTRUMENTAL = "шахтёрским ботом",
-		PREPOSITIONAL = "шахтёрском боте"
-	)
 	gender = NEUTER
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "mining_drone"
@@ -54,6 +46,16 @@
 	var/datum/action/innate/minedrone/toggle_meson_vision/toggle_meson_vision_action
 	var/datum/action/innate/minedrone/toggle_mode/toggle_mode_action
 	var/datum/action/innate/minedrone/dump_ore/dump_ore_action
+
+/mob/living/simple_animal/hostile/mining_drone/get_ru_names()
+	return list(
+		NOMINATIVE = "шахтёрский бот",
+		GENITIVE = "шахтёрского бота",
+		DATIVE = "шахтёрскому боту",
+		ACCUSATIVE = "шахтёрский бот",
+		INSTRUMENTAL = "шахтёрским ботом",
+		PREPOSITIONAL = "шахтёрском боте"
+	)
 
 /mob/living/simple_animal/hostile/mining_drone/New()
 	..()
@@ -304,7 +306,11 @@
 /obj/item/mine_bot_upgrade
 	name = "minebot melee upgrade"
 	desc = "Апгрейд для шахтёрского бота."
-	ru_names = list(
+	icon_state = "door_electronics"
+	icon = 'icons/obj/doors/door_assembly.dmi'
+
+/obj/item/mine_bot_upgrade/get_ru_names()
+	return list(
 		NOMINATIVE = "модуль ближнего боя для шахтёрского бота",
 		GENITIVE = "модуля ближнего боя для шахтёрского бота",
 		DATIVE = "модулю ближнего боя для шахтёрского бота",
@@ -312,8 +318,6 @@
 		INSTRUMENTAL = "модулем ближнего боя для шахтёрского бота",
 		PREPOSITIONAL = "модуле ближнего боя для шахтёрского бота"
 	)
-	icon_state = "door_electronics"
-	icon = 'icons/obj/doors/door_assembly.dmi'
 
 /obj/item/mine_bot_upgrade/afterattack(mob/living/simple_animal/hostile/mining_drone/M, mob/user, proximity, params)
 	if(!istype(M) || !proximity)
@@ -333,7 +337,9 @@
 
 /obj/item/mine_bot_upgrade/health
 	name = "minebot armor upgrade"
-	ru_names = list(
+
+/obj/item/mine_bot_upgrade/health/get_ru_names()
+	return list(
 		NOMINATIVE = "модуль брони для шахтёрского бота",
 		GENITIVE = "модуля брони для шахтёрского бота",
 		DATIVE = "модулю брони для шахтёрского бота",
@@ -355,14 +361,6 @@
 /obj/item/slimepotion/sentience/mining
 	name = "minebot AI upgrade"
 	desc = "Может использоваться для наделения шахтёрских ботов самосознанием."
-	ru_names = list(
-		NOMINATIVE = "модуль ИИ для шахтёрского бота",
-		GENITIVE = "модуля ИИ для шахтёрского бота",
-		DATIVE = "модулю ИИ для шахтёрского бота",
-		ACCUSATIVE = "модуль ИИ для шахтёрского бота",
-		INSTRUMENTAL = "модулем ИИ для шахтёрского бота",
-		PREPOSITIONAL = "модуле ИИ для шахтёрского бота"
-	)
 	icon_state = "door_electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	sentience_type = SENTIENCE_MINEBOT
@@ -371,6 +369,16 @@
 	var/base_damage_add = 1 //this thus disables other minebot upgrades
 	var/base_speed_add = 1
 	var/base_cooldown_add = 10 //base cooldown isn't reset to normal, it's just added on, since it's not practical to disable the cooldown module
+
+/obj/item/slimepotion/sentience/mining/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль ИИ для шахтёрского бота",
+		GENITIVE = "модуля ИИ для шахтёрского бота",
+		DATIVE = "модулю ИИ для шахтёрского бота",
+		ACCUSATIVE = "модуль ИИ для шахтёрского бота",
+		INSTRUMENTAL = "модулем ИИ для шахтёрского бота",
+		PREPOSITIONAL = "модуле ИИ для шахтёрского бота"
+	)
 
 /obj/item/slimepotion/sentience/mining/after_success(mob/living/user, mob/living/simple_animal/SM)
 	if(istype(SM, /mob/living/simple_animal/hostile/mining_drone))
@@ -389,7 +397,13 @@
 /obj/item/mining_drone_cube
 	name = "mining drone cube"
 	desc = "Сжатый шахтёрский дрон, готовый к развёртыванию. Просто нажмите кнопку для активации!"
-	ru_names = list(
+	w_class = WEIGHT_CLASS_SMALL
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "minedronecube"
+	item_state = "electronic"
+
+/obj/item/mining_drone_cube/get_ru_names()
+	return list(
 		NOMINATIVE = "куб шахтёрского бота",
 		GENITIVE = "куба шахтёрского бота",
 		DATIVE = "кубу шахтёрского бота",
@@ -397,10 +411,6 @@
 		INSTRUMENTAL = "кубом шахтёрского бота",
 		PREPOSITIONAL = "кубе шахтёрского бота"
 	)
-	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/aibots.dmi'
-	icon_state = "minedronecube"
-	item_state = "electronic"
 
 /obj/item/mining_drone_cube/attack_self(mob/user)
 	user.visible_message(

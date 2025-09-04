@@ -111,7 +111,7 @@
 		queue_smooth(src)
 
 	for(var/atom/movable/content as anything in src)
-		Entered(content, NONE)
+		Entered(content)
 
 	if(always_lit)
 		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
@@ -203,7 +203,7 @@
 
 /turf/bullet_act(obj/projectile/proj)
 	if(istype(proj, /obj/projectile/beam/pulse))
-		ex_act(2)
+		ex_act(EXPLODE_HEAVY)
 	..()
 	return FALSE
 

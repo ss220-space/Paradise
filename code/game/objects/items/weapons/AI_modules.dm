@@ -426,5 +426,5 @@ AI MODULES
 /obj/item/ai_module/toy_ai/attack_self(mob/user)
 	laws[1] = generate_ion_law()
 	to_chat(user, span_notice("You press the button on [src]."))
-	playsound(user, 'sound/machines/click.ogg', 20, 1)
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 	user.visible_message(span_warning("[bicon(src)] [laws[1]]"))

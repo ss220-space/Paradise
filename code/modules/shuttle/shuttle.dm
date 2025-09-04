@@ -131,7 +131,7 @@
 
 #ifdef DOCKING_PORT_HIGHLIGHT
 
-//Debug proc used to highlight bounding area
+///Debug proc used to highlight bounding area
 /obj/docking_port/proc/highlight(_color = "#f00")
 	invisibility = 0
 	SET_PLANE_IMPLICIT(src, GHOST_PLANE)
