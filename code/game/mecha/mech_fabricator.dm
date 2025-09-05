@@ -278,20 +278,9 @@
   */
 /obj/machinery/mecha_part_fabricator/proc/on_material_insert(type_inserted, id_inserted, amount_inserted)
 	var/stack_name
-	if(ispath(type_inserted, /obj/item/stack/ore/bluespace_crystal))
-		stack_name = "bluespace_polycrystal"
-		use_power(MINERAL_MATERIAL_AMOUNT / 10)
-	else
-		var/obj/item/stack/sheet = type_inserted
-		stack_name = sheet.protolathe_name
-		use_power(min(1000, (amount_inserted / 100)))
+	var/obj/item/stack/sheet = type_inserted
+	stack_name = sheet.protolathe_name
 	flick_overlay_view(mutable_appearance(icon, "fab-load-[stack_name]"), 1 SECONDS)
-
-/**
-  * Called when the timer after inserting material sheets finishes.
-  */
-/obj/machinery/mecha_part_fabricator/proc/on_material_insert_timer_finish()
-	cut_overlays()
 
 /**
   * Returns whether the machine can accept new materials.
