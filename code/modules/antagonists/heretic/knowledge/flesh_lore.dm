@@ -278,7 +278,7 @@
 
 /datum/heretic_knowledge/summon/stalker
 	name = "Ритуал Одиночества"
-	desc = "Позволяет трансмутировать любой хвост, голосовые связки, ручку и лист бумаги, чтобы создать Ловца Плоти. \
+	desc = "Позволяет трансмутировать любой хвост, печень, ручку и лист бумаги, чтобы создать Ловца Плоти. \
 			Ловцы Плоти умеют становиться нематериальными, выпускать ЭМИ, превращаться в животных или роботов, \
 			а также сильны в бою."
 	gain_text = "Мне удалось объединить жадность и желания в жуткого зверя. \
@@ -287,7 +287,7 @@
 	required_atoms = list(
 		/obj/item/organ/external/tail = 1,
 		///obj/item/organ/internal/stomach = 1,
-		/obj/item/organ/internal/vocal_cords = 1,
+		/obj/item/organ/internal/liver = 1,
 		/obj/item/pen = 1,
 		/obj/item/paper = 1,
 	)

@@ -83,12 +83,9 @@
 		door.locked = FALSE
 		INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door, open), TRUE)
 
-/*
-	else if(istype(target, /obj/machinery/computer))
-		var/obj/machinery/computer/computer = target
-		computer.authenticated = TRUE
-		computer.balloon_alert(source, "unlocked")
-*/
+	else if(istype(target, /obj/structure/closet))
+		var/obj/structure/closet/closet = target
+		closet.open(TRUE)
 
 	//var/turf/target_turf = get_turf(target)
 	//SEND_SIGNAL(target_turf, COMSIG_ATOM_MAGICALLY_UNLOCKED, src, source)
