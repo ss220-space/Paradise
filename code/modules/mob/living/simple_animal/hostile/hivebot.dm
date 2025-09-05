@@ -217,7 +217,7 @@
 	density = TRUE
 	//Настройки Фабрикатора
 	var/spawn_count = 2			 // Количество хайвботов что произведётся за цикл до ухода на перезарядку
-	var/spawn_interval = 500 	 //Время производства
+	var/spawn_interval = 1500 	 //Время производства
 	var/cooldown_duration = 3000 //Время после производства
 	// Internal tracking variables
 	var/next_spawn_time = 0		// When next spawn/action should occur
@@ -275,6 +275,10 @@
 //MARK: LOOT
 //////////////
 
+//////////////
+//MARK: LOOT
+//////////////
+
 /obj/effect/loot_spawner/hivebot
 	var/spawned = FALSE
 
@@ -289,16 +293,6 @@
 	spawned = TRUE
 
 	var/list/common_loot = list(
-		/obj/item/robot_parts/chest,
-		/obj/item/robot_parts/head,
-		/obj/item/robot_parts/l_arm,
-		/obj/item/robot_parts/l_leg,
-		/obj/item/robot_parts/r_arm,
-		/obj/item/robot_parts/r_leg,
-		/obj/item/stock_parts/cell
-	)
-
-	var/list/uncommon_loot = list(
 		/obj/item/broken_device,
 		/obj/item/robot_parts/robot_component/actuator,
 		/obj/item/robot_parts/robot_component/armour,
@@ -306,12 +300,23 @@
 		/obj/item/robot_parts/robot_component/camera,
 		/obj/item/robot_parts/robot_component/diagnosis_unit,
 		/obj/item/robot_parts/robot_component/radio,
+	)
+
+	var/list/uncommon_loot = list(
+		/obj/item/robot_parts/chest,
+		/obj/item/robot_parts/head,
+		/obj/item/robot_parts/l_arm,
+		/obj/item/robot_parts/l_leg,
+		/obj/item/robot_parts/r_arm,
+		/obj/item/robot_parts/r_leg,
+		/obj/item/stock_parts/cell,
 		/obj/item/robot_parts/robot_suit
 	)
 
 	var/list/rare_loot = list(
+		/obj/item/flash/synthetic,
 		/obj/item/mmi/robotic_brain,
-		/obj/item/robot_parts/robot_suit,
+		/obj/item/robot_parts/robot_suit
 //		/obj/item/ai_module/hivebot
 	)
 
