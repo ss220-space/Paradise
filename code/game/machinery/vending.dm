@@ -21,12 +21,9 @@
 /datum/data/vending_product
 	name = "generic"
 	/// Typepath of the product that is created when this record "sells"
-	/// Typepath of the product that is created when this record "sells"
 	var/product_path = null
 	/// How many of this product we currently have
-	/// How many of this product we currently have
 	var/amount = 0
-	/// How many we can store at maximum
 	/// How many we can store at maximum
 	var/max_amount = 0
 	/// Price to buy one
@@ -35,17 +32,9 @@
 	/// Sourced directly from product_categories.
 	var/category
 
-	/// Price to buy one
-	var/price = 0
-	/// The category the product was in, if any.
-	/// Sourced directly from product_categories.
-	var/category
-
-
 /obj/machinery/vending
 	name = "Vendomat"
 	desc = "Обычный торговый автомат."
-	gender = MALE
 	gender = MALE
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "generic_off"
@@ -55,7 +44,6 @@
 	max_integrity = 300
 	integrity_failure = 100
 	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
-
 
 	// All the overlay controlling variables
 	/// Overlay of vendor maintenance panel.
@@ -97,46 +85,9 @@
 	var/vend_ready = TRUE
 	/// How long vendor takes to vend one item.
 	var/vend_delay = 0.2 SECONDS
-	var/vend_delay = 0.2 SECONDS
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
 
-
-	/**
-	 * List of products this machine sells
-	 *
-	 * form should be list(/type/path = amount, /type/path2 = amount2)
-	 */
-	var/list/products = list()
-
-	/**
-	 * List of products this machine sells, categorized.
-	 * Can only be used as an alternative to `products`, not alongside it.
-	 *
-	 * Form should be list(
-	 ** 	"name" = "Category Name",
-	 ** 	"icon" = "UI Icon (Font Awesome or tgfont)",
-	 ** 	"products" = list(/type/path = amount, ...),
-	 * )
-	 */
-	var/list/product_categories = null
-
-	/**
-	 * List of products this machine sells when you hack it
-	 *
-	 * form should be list(/type/path = amount, /type/path2 = amount2)
-	 */
-	var/list/contraband = list()
-
-	/**
-	 * List of premium products this machine sells
-	 *
-	 * form should be list(/type/path, /type/path2) as there is only ever one in stock
-	 */
-	var/list/premium = list()
-
-	/// Prices for each item, list(/type/path = price), items not in the list don't have a price.
-	var/list/prices = list()
 
 	/**
 	 * List of products this machine sells
@@ -185,11 +136,8 @@
 	var/list/slogan_list = list()
 	/// Thank you for shopping!
 	var/vend_reply
-	/// Thank you for shopping!
-	var/vend_reply
 	/// If true, prevent saying sales pitches
 	var/shut_up = FALSE
-	/// can we access the hidden inventory?
 	/// can we access the hidden inventory?
 	var/extended_inventory = FALSE
 	var/last_reply = 0
@@ -197,12 +145,7 @@
 	var/last_slogan = 0
 	/// How long until we can pitch again?
 	var/slogan_delay = 6000
-	/// When did we last pitch?
-	var/last_slogan = 0
-	/// How long until we can pitch again?
-	var/slogan_delay = 6000
 
-	/// The type of refill canisters used by this machine.
 	/// The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/refill_canister = null
 
@@ -282,10 +225,7 @@
 
 	wires = new(src)
 
-
 	if(build_inv) //non-constructable vending machine
-		build_inventories()
-
 		build_inventories()
 
 	if(LAZYLEN(slogan_list))
@@ -330,8 +270,6 @@
 	QDEL_NULL(inserted_item)
 	return ..()
 
-//Better would be to make constructable child
-/obj/machinery/vending/RefreshParts()
 //Better would be to make constructable child
 /obj/machinery/vending/RefreshParts()
 	if(!component_parts)
@@ -477,23 +415,7 @@
  * * recordlist - the list containing /datum/data/vending_product datums
  * * categories - account list in the format of product_categories to source category from
  * * startempty - should we set vending_product record amount from the product list (so it's prefilled at roundstart)
- * Build the inventory of the vending machine from it's product and record lists
- *
- * This builds up a full set of /datum/data/vending_product from the product list of the vending machine type
- * Arguments:
- * * productlist - the list of products that need to be converted
- * * recordlist - the list containing /datum/data/vending_product datums
- * * categories - account list in the format of product_categories to source category from
- * * startempty - should we set vending_product record amount from the product list (so it's prefilled at roundstart)
  */
-/obj/machinery/vending/proc/build_inventory(list/productlist, list/recordlist, list/categories, start_empty = FALSE)
-
-	var/list/product_to_category = list()
-	for(var/list/category as anything in categories)
-		var/list/products = category["products"]
-		for(var/product_key in products)
-			product_to_category[product_key] = category
-
 /obj/machinery/vending/proc/build_inventory(list/productlist, list/recordlist, list/categories, start_empty = FALSE)
 
 	var/list/product_to_category = list()
@@ -559,7 +481,6 @@
   * Refill a vending machine from a refill canister
   *
   * This takes the products from the refill canister and then fills the products, contraband and premium product categories
-  * This takes the products from the refill canister and then fills the products, contraband and premium product categories
   *
   * Arguments:
   * * canister - the vending canister we are refilling from
@@ -571,22 +492,7 @@
 		canister.contraband = contraband.Copy()
 	if(!canister.premium)
 		canister.premium = premium.Copy()
-
-
 	. = 0
-
-	if(isnull(canister.product_categories) && !isnull(product_categories))
-		canister.product_categories = product_categories.Copy()
-
-	if(!isnull(canister.product_categories))
-		var/list/products_unwrapped = list()
-		for(var/list/category as anything in canister.product_categories)
-			var/list/products = category["products"]
-			for(var/product_key in products)
-				products_unwrapped[product_key] += products[product_key]
-
-		. += refill_inventory(products_unwrapped, product_records)
-	else
 		. += refill_inventory(canister.products, product_records)
 
 
@@ -609,9 +515,6 @@
 
 	return .
 
-
-	return .
-
 /**
   * Refill our inventory from the passed in product list into the record list
   *
@@ -622,9 +525,7 @@
 /obj/machinery/vending/proc/refill_inventory(list/productlist, list/recordlist)
 	. = 0
 	for(var/datum/data/vending_product/record as anything in recordlist)
-	for(var/datum/data/vending_product/record as anything in recordlist)
 		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
-		if(diff)
 		if(diff)
 			productlist[record.product_path] -= diff
 			record.amount += diff
@@ -640,13 +541,8 @@
 
 	var/obj/item/vending_refill/record = locate() in component_parts
 	if(!record)
-	var/obj/item/vending_refill/record = locate() in component_parts
-	if(!record)
 		CRASH("Constructible vending machine did not have a refill canister")
 
-	unbuild_inventory_into(product_records, record.products, record.product_categories)
-	record.contraband = unbuild_inventory(hidden_records)
-	record.premium = unbuild_inventory(coin_records)
 	unbuild_inventory_into(product_records, record.products, record.product_categories)
 	record.contraband = unbuild_inventory(hidden_records)
 	record.premium = unbuild_inventory(coin_records)
@@ -657,52 +553,7 @@
 /obj/machinery/vending/proc/unbuild_inventory(list/recordlist)
 	. = list()
 	for(var/datum/data/vending_product/record as anything in recordlist)
-	for(var/datum/data/vending_product/record as anything in recordlist)
 		.[record.product_path] += record.amount
-
-/// Put stuff in product_categories if the products have a category, otherwise put them in products
-/obj/machinery/vending/proc/unbuild_inventory_into(list/product_records, list/products, list/product_categories)
-	products?.Cut()
-	product_categories?.Cut()
-
-	var/others_have_category = null
-
-	var/list/categories_to_index = list()
-
-	for(var/datum/data/vending_product/record as anything in product_records)
-		var/list/category = record.category
-		var/has_category = !isnull(category)
-
-		if(isnull(others_have_category))
-			others_have_category = has_category
-		else if(others_have_category != has_category)
-			if(has_category)
-				WARNING("[record.product_path] in [type] has a category, but other products don't")
-			else
-				WARNING("[record.product_path] in [type] does not have a category, but other products do")
-
-			continue
-
-		if(has_category)
-			var/index = categories_to_index.Find(category)
-
-			if(index)
-				var/list/category_in_list = product_categories[index]
-				var/list/products_in_category = category_in_list["products"]
-				products_in_category[record.product_path] += record.amount
-			else
-				categories_to_index += list(category)
-				index = categories_to_index.len
-
-				var/list/category_clone = category.Copy()
-
-				var/list/initial_product_list = list()
-				initial_product_list[record.product_path] = record.amount
-				category_clone["products"] = initial_product_list
-
-				product_categories += list(category_clone)
-		else
-			products[record.product_path] = record.amount
 
 /// Put stuff in product_categories if the products have a category, otherwise put them in products
 /obj/machinery/vending/proc/unbuild_inventory_into(list/product_records, list/products, list/product_categories)
@@ -797,7 +648,6 @@
 			return ATTACK_CHAIN_PROCEED
 
 		/// Instantiate canister if needed
-		/// Instantiate canister if needed
 		var/transferred = restock(canister)
 		if(transferred)
 			balloon_alert(user, "набор пополнения вставлен")
@@ -817,7 +667,6 @@
 /obj/machinery/vending/proc/try_tilt(obj/item/I, mob/user)
 	if(tiltable && !tilted && I.force)
 		if(resistance_flags & INDESTRUCTIBLE)
-			return // no goodies, but also no tilts
 			return // no goodies, but also no tilts
 		if(COOLDOWN_FINISHED(src, last_hit_time))
 			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] странно покачивается..."))
@@ -852,23 +701,16 @@
 /obj/machinery/vending/proc/freebie(mob/user, num_freebies)
 	visible_message(span_notice("Из [declent_ru(GENITIVE)] начинают выпадать товары!"))
 
-
 	for(var/i in 1 to num_freebies)
 		playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
-		for(var/datum/data/vending_product/record in shuffle(product_records))
 
-			if(record.amount <= 0)
-		playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
 		for(var/datum/data/vending_product/record in shuffle(product_records))
-
 			if(record.amount <= 0)
 				continue
-			var/dump_path = record.product_path
 			var/dump_path = record.product_path
 			if(!dump_path)
 				continue
 			new dump_path(get_turf(src))
-			record.amount--
 			record.amount--
 			break
 
@@ -959,7 +801,6 @@
 		tilt()
 
 /// Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
-/// Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
 /obj/machinery/vending/proc/item_slot_check(mob/user, obj/item/I)
 	if(!item_slot)
 		return FALSE
@@ -996,7 +837,6 @@
 	else
 		to_chat(user, display_parts(user))
 	if(moved)
-		balloon_alert(user, "пополнено [moved] товар[declension_ru(moved, "", "а", "ов")]")
 		balloon_alert(user, "пополнено [moved] товар[declension_ru(moved, "", "а", "ов")]")
 		W.play_rped_sound()
 	return TRUE
@@ -1162,63 +1002,6 @@
 	data["inserted_item_name"] = inserted_item ? capitalize(inserted_item.declent_ru(NOMINATIVE)) : FALSE
 	return data
 
-/obj/machinery/vending/proc/collect_records_for_static_data(list/records, list/categories, premium, hidden, index)
-	var/static/list/default_category = list(
-		"name" = "Товары",
-		"icon" = "cart-shopping",
-	)
-
-	var/list/out_records = list()
-
-	for (var/datum/data/vending_product/product_record as anything in records)
-		var/obj/item/item = new product_record.product_path(src)
-		var/list/names = item.ru_names || item.get_ru_names()
-		var/list/static_record = list(
-			path = replacetext(replacetext("[product_record.product_path]", "/obj/item/", ""), "/", "-"),
-			name = capitalize(names ? names[1] : item.name),
-			price = (product_record.product_path in prices) ? prices[product_record.product_path] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
-			max_amount = product_record.max_amount,
-			ref = product_record.UID()
-		)
-
-		var/list/category = product_record.category || default_category
-		if (!isnull(category))
-			if (!(category["name"] in categories))
-				categories[category["name"]] = list(
-					"icon" = category["icon"],
-				)
-
-			static_record["category"] = category["name"]
-
-		if (premium)
-			static_record["req_coin"] = TRUE
-
-		if (hidden)
-			static_record["is_hidden"] = TRUE
-
-		out_records += list(static_record)
-
-	return out_records
-
-/obj/machinery/vending/ui_static_data(mob/user)
-	var/list/data = list()
-
-	data["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
-	data["product_records"] = list()
-
-	var/list/categories = list()
-
-	data["product_records"] = collect_records_for_static_data(product_records, categories)
-	data["coin_records"] = collect_records_for_static_data(coin_records, categories, premium = TRUE)
-	data["hidden_records"] = collect_records_for_static_data(hidden_records, categories, hidden = TRUE)
-
-	data["categories"] = categories
-	data["imagelist"] = imagelist
-
-	return data
-
 /obj/machinery/vending/ui_act(action, list/params)
 	. = ..()
 	if(.)
@@ -1297,12 +1080,6 @@
 				. = TRUE
 				return
 
-			if(issilicon(usr))
-				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается продавать вам товар, поскольку вы не входите в его целевую аудиторию!"))
-				vend_ready = TRUE
-				. = TRUE
-				return
-
 			// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
 			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
 				to_chat(usr, "Удалённый сервер торговых автоматов отключён. Не удается обработать операцию.")
@@ -1314,8 +1091,6 @@
 			var/paid = FALSE
 
 			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
-				var/obj/item/stack/spacecash/cash = usr.get_active_hand()
-				paid = pay_with_cash(cash, usr, currently_vending.price, currently_vending.name)
 				var/obj/item/stack/spacecash/cash = usr.get_active_hand()
 				paid = pay_with_cash(cash, usr, currently_vending.price, currently_vending.name)
 			else if(get_card_account(usr))
@@ -1752,7 +1527,6 @@
 					/obj/item/reagent_containers/food/drinks/ice = 9)
 	contraband = list(/obj/item/reagent_containers/food/drinks/tea = 10,
 					/obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
-					/obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
 
 	slogan_list = list(
 		"Над+еюсь, никт+о не попр+осит мен+я о ч+ёртовой кр+ужке ч+ая…",
@@ -1830,15 +1604,6 @@
 		/obj/item/reagent_containers/food/drinks/mug = 15,
 		/obj/item/reagent_containers/food/drinks/mug/novelty = 5)
 	contraband = list(/obj/item/reagent_containers/food/drinks/ice = 10)
-	prices = list(/obj/item/reagent_containers/food/drinks/coffee = 19,
-		/obj/item/reagent_containers/food/drinks/tea = 19,
-		/obj/item/reagent_containers/food/drinks/h_chocolate = 19,
-		/obj/item/reagent_containers/food/drinks/chocolate = 19,
-		/obj/item/reagent_containers/food/drinks/chicken_soup = 29,
-		/obj/item/reagent_containers/food/drinks/weightloss = 49,
-		/obj/item/reagent_containers/food/drinks/mug = 49,
-		/obj/item/reagent_containers/food/drinks/mug/novelty = 99,
-		/obj/item/reagent_containers/food/drinks/ice = 39)
 	prices = list(/obj/item/reagent_containers/food/drinks/coffee = 19,
 		/obj/item/reagent_containers/food/drinks/tea = 19,
 		/obj/item/reagent_containers/food/drinks/h_chocolate = 19,
@@ -1954,18 +1719,6 @@
 					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 19,
 					/obj/item/reagent_containers/food/snacks/tastybread = 29,
 					/obj/item/reagent_containers/food/snacks/syndicake = 49)
-	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 19,
-					/obj/item/reagent_containers/food/drinks/dry_ramen = 29,
-					/obj/item/reagent_containers/food/snacks/doshik = 29,
-					/obj/item/reagent_containers/food/snacks/doshik_spicy = 149,
-					/obj/item/reagent_containers/food/snacks/chips =19,
-					/obj/item/reagent_containers/food/snacks/sosjerky = 29,
-					/obj/item/reagent_containers/food/snacks/no_raisin = 19,
-					/obj/item/reagent_containers/food/snacks/pistachios = 29,
-					/obj/item/reagent_containers/food/snacks/spacetwinkie = 29,
-					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 19,
-					/obj/item/reagent_containers/food/snacks/tastybread = 29,
-					/obj/item/reagent_containers/food/snacks/syndicake = 49)
 	refill_canister = /obj/item/vending_refill/snack
 
 /obj/machinery/vending/snack/get_ru_names()
@@ -2018,15 +1771,6 @@
 	)
 
 	prices = list(
-		/obj/item/reagent_containers/food/snacks/chinese/chowmein = 49,
-		/obj/item/reagent_containers/food/snacks/chinese/tao = 49,
-		/obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 49,
-		/obj/item/reagent_containers/food/snacks/chinese/newdles = 49,
-		/obj/item/reagent_containers/food/snacks/chinese/rice = 49,
-		/obj/item/reagent_containers/food/snacks/fortunecookie = 49,
-		/obj/item/storage/box/crayfish_bucket = 249,
-		/obj/item/storage/box/mr_cheng = 199,
-		/obj/item/clothing/under/martialsuit/random = 249,
 		/obj/item/reagent_containers/food/snacks/chinese/chowmein = 49,
 		/obj/item/reagent_containers/food/snacks/chinese/tao = 49,
 		/obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 49,
@@ -2100,18 +1844,6 @@
 		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 39,
 		/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 79,
 		/obj/item/reagent_containers/food/drinks/zaza = 199)
-		/obj/item/reagent_containers/food/drinks/cans/cola = 19,
-		/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 19,
-		/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 19,
-		/obj/item/reagent_containers/food/drinks/cans/starkist = 19,
-		/obj/item/reagent_containers/food/drinks/cans/space_up = 19,
-		/obj/item/reagent_containers/food/drinks/cans/grape_juice = 19,
-		/obj/item/reagent_containers/food/drinks/cans/energy = 39,
-		/obj/item/reagent_containers/food/drinks/cans/energy/trop = 39,
-		/obj/item/reagent_containers/food/drinks/cans/energy/milk = 39,
-		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 39,
-		/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 79,
-		/obj/item/reagent_containers/food/drinks/zaza = 199)
 	refill_canister = /obj/item/vending_refill/cola
 
 /obj/machinery/vending/cola/get_ru_names()
@@ -2154,25 +1886,7 @@
 					/obj/item/cartridge/janitor = 10,
 					/obj/item/cartridge/signal/toxins = 10,
 					/obj/item/cartridge/signal = 10)
-	products = list(/obj/item/pda = 10,
-					/obj/item/eftpos = 6,
-					/obj/item/cartridge/medical = 10,
-					/obj/item/cartridge/chemistry = 10,
-					/obj/item/cartridge/engineering = 10,
-					/obj/item/cartridge/atmos = 10,
-					/obj/item/cartridge/janitor = 10,
-					/obj/item/cartridge/signal/toxins = 10,
-					/obj/item/cartridge/signal = 10)
 	contraband = list(/obj/item/cartridge/clown = 1,/obj/item/cartridge/mime = 1)
-	prices = list(/obj/item/pda = 299,
-					/obj/item/eftpos = 199,
-					/obj/item/cartridge/medical = 199,
-					/obj/item/cartridge/chemistry = 149,
-					/obj/item/cartridge/engineering = 99,
-					/obj/item/cartridge/atmos = 69,
-					/obj/item/cartridge/janitor = 99,
-					/obj/item/cartridge/signal/toxins = 149,
-					/obj/item/cartridge/signal = 69)
 	prices = list(/obj/item/pda = 299,
 					/obj/item/eftpos = 199,
 					/obj/item/cartridge/medical = 199,
@@ -2232,15 +1946,6 @@
 					/obj/item/gun/projectile/automatic/gyropistol = 1,
 					/obj/item/gun/projectile/shotgun = 2,
 					/obj/item/gun/projectile/automatic/ar = 2)
-	products = list(/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,
-
-	/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
-					/obj/item/gun/projectile/automatic/pistol/m1911 = 2,
-					/obj/item/gun/projectile/automatic/proto = 2,
-					/obj/item/gun/projectile/shotgun/automatic/combat = 2,
-					/obj/item/gun/projectile/automatic/gyropistol = 1,
-					/obj/item/gun/projectile/shotgun = 2,
-					/obj/item/gun/projectile/automatic/ar = 2)
 	premium = list(/obj/item/ammo_box/magazine/smgm9mm = 2,/obj/item/ammo_box/magazine/m50 = 4,/obj/item/ammo_box/magazine/m45 = 2,/obj/item/ammo_box/magazine/m75 = 2)
 	contraband = list(/obj/item/clothing/under/patriotsuit = 1,/obj/item/bedsheet/patriot = 3)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
@@ -2289,13 +1994,6 @@
 					/obj/item/clothing/suit/syndicatefake = 5,
 					/obj/item/clothing/head/syndicatefake = 5) //OPS IN DORMS oh wait it's just an assistant
 	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow = 10,   //Congrats, you unlocked the +18 setting!
-					/obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
-					/obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
- 					/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
-					/obj/item/ammo_box/foambox/riot = 20,
-					/obj/item/toy/katana = 10,
-					/obj/item/twohanded/dualsaber/toy = 5,
-					/obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
 					/obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
 					/obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
  					/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
@@ -2367,18 +2065,6 @@
 					/obj/item/clothing/mask/cigarette/cigar/havana = 999,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 699,
 					/obj/item/storage/fancy/cigarettes/cigpack_med = 499
-	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 179,
-					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 239,
-					/obj/item/storage/fancy/cigarettes/cigpack_random = 359,
-					/obj/item/reagent_containers/food/pill/patch/nicotine = 69,
-					/obj/item/storage/box/matches = 9,
-					/obj/item/lighter/random = 59,
-					/obj/item/storage/fancy/rollingpapers = 19,
-					/obj/item/clothing/mask/cigarette/pipe/oldpipe = 249,
-					/obj/item/lighter/zippo = 249,
-					/obj/item/clothing/mask/cigarette/cigar/havana = 999,
-					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 699,
-					/obj/item/storage/fancy/cigarettes/cigpack_med = 499
 					)
 	refill_canister = /obj/item/vending_refill/cigarette
 
@@ -2434,8 +2120,6 @@
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 					/obj/item/lighter/zippo = 3)
-					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
-					/obj/item/lighter/zippo = 3)
 	prices = list()
 
 /obj/machinery/vending/cigarette/beach/get_ru_names()
@@ -2472,9 +2156,6 @@
 	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 10,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 10,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 10,
-	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 10,
-					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 10,
-					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 10,
 					/obj/item/stack/medical/bruise_pack = 4, /obj/item/stack/medical/ointment = 4,
 					/obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4,
 					/obj/item/stack/medical/bruise_pack/extended = 2, /obj/item/stack/medical/ointment/extended = 2,
@@ -2494,17 +2175,6 @@
 					/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/dropper = 4, /obj/item/reagent_containers/glass/beaker = 4,
 					/obj/item/reagent_containers/iv_bag/slime = 1)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	prices = list(/obj/item/stack/medical/bruise_pack/extended = 199,
-					/obj/item/stack/medical/ointment/extended = 199,
-					/obj/item/stack/medical/bruise_pack/advanced = 99,
-					/obj/item/stack/medical/ointment/advanced = 99,
-					/obj/item/reagent_containers/hypospray/safety = 199,
-					/obj/item/pinpointer/crew = 299,
-					/obj/item/sensor_device = 599,
-					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 19,
-					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 19,
-					/obj/item/reagent_containers/applicator/brute = 149,
-					/obj/item/reagent_containers/applicator/burn = 149)
 	prices = list(/obj/item/stack/medical/bruise_pack/extended = 199,
 					/obj/item/stack/medical/ointment/extended = 199,
 					/obj/item/stack/medical/bruise_pack/advanced = 99,
@@ -2608,16 +2278,7 @@
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 2,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 2,
 					/obj/item/healthanalyzer = 1)
-	products = list(/obj/item/stack/medical/bruise_pack = 2,
-					/obj/item/stack/medical/ointment = 2,
-					/obj/item/reagent_containers/hypospray/autoinjector = 4,
-					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 2,
-					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 2,
-					/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
-	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 69,
-					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 69,
-					/obj/item/healthanalyzer = 99)
 	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 69,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 69,
 					/obj/item/healthanalyzer = 99)
@@ -2867,8 +2528,6 @@
 		/obj/item/gun_module/under/flashlight/rifle = 10,
 		/obj/item/gun_module/under/hand/angle = 5,
 		/obj/item/ammo_box/magazine/enforcer/extended = 10
-		/obj/item/gun_module/under/hand/angle = 5,
-		/obj/item/ammo_box/magazine/enforcer/extended = 10
 	)
 	contraband = list(
 		/obj/item/gun_module/muzzle/suppressor = 3,
@@ -2881,7 +2540,6 @@
 		/obj/item/gun_module/under/flashlight/pistol = 199,
 		/obj/item/gun_module/under/flashlight/rifle = 249,
 		/obj/item/gun_module/under/hand/angle = 499,
-		/obj/item/ammo_box/magazine/enforcer/extended = 149,
 		/obj/item/ammo_box/magazine/enforcer/extended = 149,
 		/obj/item/gun_module/muzzle/suppressor = 499,
 		/obj/item/gun_module/rail/scope/x4 = 4999,
@@ -3240,17 +2898,6 @@
 	contraband = list(/obj/item/weldingtool/hugetank = 2,
 					/obj/item/clothing/gloves/color/yellow = 1
 					)
-	prices = list(/obj/item/stack/cable_coil/random = 29,
-					/obj/item/crowbar = 49,
-					/obj/item/weldingtool = 49,
-					/obj/item/wirecutters = 49,
-					/obj/item/wrench = 49,
-					/obj/item/analyzer = 29,
-					/obj/item/t_scanner = 29,
-					/obj/item/screwdriver = 49,
-					/obj/item/clothing/gloves/color/fyellow = 249,
-					/obj/item/weldingtool/hugetank = 199,
-					/obj/item/clothing/gloves/color/yellow = 499
 	prices = list(/obj/item/stack/cable_coil/random = 29,
 					/obj/item/crowbar = 49,
 					/obj/item/weldingtool = 49,
@@ -4298,25 +3945,6 @@
 		/obj/item/toy/crayon/mime = 49,
 		/obj/item/toy/crayon/rainbow = 49,
 		/obj/item/weaponcrafting/receiver = 249
-		/obj/item/toy/crayon/spraycan = 49,
-		/obj/item/stack/cable_coil/random = 29,
-		/obj/item/camera = 19,
-		/obj/item/camera_film = 9,
-		/obj/item/storage/photo_album = 9,
-		/obj/item/stack/wrapping_paper = 19,
-		/obj/item/stack/tape_roll = 19,
-		/obj/item/stack/packageWrap = 9,
-		/obj/item/storage/fancy/crayons = 29,
-		/obj/item/storage/fancy/glowsticks_box = 99,
-		/obj/item/hand_labeler = 29,
-		/obj/item/paper = 9,
-		/obj/item/c_tube = 9,
-		/obj/item/pen = 9,
-		/obj/item/pen/blue = 9,
-		/obj/item/pen/red = 9,
-		/obj/item/toy/crayon/mime = 49,
-		/obj/item/toy/crayon/rainbow = 49,
-		/obj/item/weaponcrafting/receiver = 249
 	)
 
 /obj/machinery/vending/artvend/get_ru_names()
@@ -4376,23 +4004,6 @@
 	)
 
 	prices = list(
-		/obj/item/clothing/accessory/petcollar = 49,
-		/obj/item/storage/firstaid/aquatic_kit/full = 59,
-		/obj/item/fish_eggs/goldfish = 9,
-		/obj/item/fish_eggs/clownfish = 9,
-		/obj/item/fish_eggs/shark = 9,
-		/obj/item/fish_eggs/feederfish = 9,
-		/obj/item/fish_eggs/salmon = 9,
-		/obj/item/fish_eggs/catfish = 9,
-		/obj/item/fish_eggs/glofish = 9,
-		/obj/item/fish_eggs/electric_eel = 9,
-		/obj/item/fish_eggs/crayfish = 49,
-		/obj/item/fish_eggs/shrimp = 9,
-		/obj/item/toy/pet_rock = 99,
-		/obj/item/pet_carrier/normal = 249,
-		/obj/item/pet_carrier = 99,
-		/obj/item/reagent_containers/food/condiment/animalfeed = 99,
-		/obj/item/reagent_containers/glass/pet_bowl = 49,
 		/obj/item/clothing/accessory/petcollar = 49,
 		/obj/item/storage/firstaid/aquatic_kit/full = 59,
 		/obj/item/fish_eggs/goldfish = 9,
@@ -5551,15 +5162,6 @@
 		/obj/item/pai_cartridge/snake = 599,
 		/obj/item/pai_cartridge/reset = 599,
 		/obj/item/pai_cartridge/memory = 349
-		/obj/item/paicard = 199,
-		/obj/item/robot_parts/l_arm = 549,
-		/obj/item/robot_parts/r_arm = 549,
-		/obj/item/pai_cartridge/female = 149,
-		/obj/item/pai_cartridge/doorjack = 399,
-		/obj/item/pai_cartridge/syndi_emote = 649,
-		/obj/item/pai_cartridge/snake = 599,
-		/obj/item/pai_cartridge/reset = 599,
-		/obj/item/pai_cartridge/memory = 349
 	)
 	refill_canister = /obj/item/vending_refill/pai
 
@@ -6076,7 +5678,6 @@
 
 /obj/machinery/vending/protein
 	name = "Автомат спортивного питания"
-	name = "Автомат спортивного питания"
 	desc = "Автомат самообслуживания, любезно предоставленный корпорацией Donk Co. Исключительная польза!"
 
 	slogan_list = list(
@@ -6108,12 +5709,6 @@
 		/obj/item/reagent_containers/food/drinks/protein/bananastrawberry = 1,
 		/obj/item/reagent_containers/food/drinks/creatine = 4,
 		/obj/item/reagent_containers/food/drinks/guarana = 12,
-		/obj/item/reagent_containers/food/drinks/protein/zaza = 1,
-		/obj/item/reagent_containers/food/drinks/protein/cherry = 1,
-		/obj/item/reagent_containers/food/drinks/protein/chocolate = 1,
-		/obj/item/reagent_containers/food/drinks/protein/bananastrawberry = 1,
-		/obj/item/reagent_containers/food/drinks/creatine = 4,
-		/obj/item/reagent_containers/food/drinks/guarana = 12,
 	)
 	contraband = list(
 		/obj/item/reagent_containers/syringe/steroids = 5,
@@ -6123,12 +5718,6 @@
 		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 199,
 		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 249,
 		/obj/item/reagent_containers/syringe/steroids = 149,
-		/obj/item/reagent_containers/food/drinks/protein/zaza = 499,
-		/obj/item/reagent_containers/food/drinks/protein/cherry = 499,
-		/obj/item/reagent_containers/food/drinks/protein/chocolate = 499,
-		/obj/item/reagent_containers/food/drinks/protein/bananastrawberry = 499,
-		/obj/item/reagent_containers/food/drinks/creatine = 349,
-		/obj/item/reagent_containers/food/drinks/guarana = 129,
 		/obj/item/reagent_containers/food/drinks/protein/zaza = 499,
 		/obj/item/reagent_containers/food/drinks/protein/cherry = 499,
 		/obj/item/reagent_containers/food/drinks/protein/chocolate = 499,
@@ -6180,12 +5769,6 @@
 		/obj/item/ammo_box/secgl/barricade = 1,
 		/obj/item/ammo_box/secgl/paint = 1,
 
-		/obj/item/ammo_box/secgl/solid = 2,
-		/obj/item/ammo_box/secgl/flash = 2,
-		/obj/item/ammo_box/secgl/gas = 1,
-		/obj/item/ammo_box/secgl/barricade = 1,
-		/obj/item/ammo_box/secgl/paint = 1,
-
 	)
 	contraband = list(
 		/obj/item/storage/box/flashbangs = 2,
@@ -6195,10 +5778,6 @@
 	)
 
 	prices = list(
-		/obj/item/storage/box/flashbangs = 99,
-		/obj/item/storage/box/barrier = 69,
-		/obj/item/storage/box/teargas = 99,
-		/obj/item/ammo_box/a357 = 299,
 		/obj/item/storage/box/flashbangs = 99,
 		/obj/item/storage/box/barrier = 69,
 		/obj/item/storage/box/teargas = 99,
