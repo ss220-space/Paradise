@@ -891,6 +891,24 @@
 	pixels_per_unit = 8
 
 
+
+/obj/item/canvas/thirtytwo_thirtytwo
+	name = "холст (32x32)"
+	ru_names = list(
+		NOMINATIVE = "холст (32x32)",
+		GENITIVE = "холста (32x32)",
+		DATIVE = "холсту (32x32)",
+		ACCUSATIVE = "холст (32x32)",
+		INSTRUMENTAL = "холстом (32x32)",
+		PREPOSITIONAL = "холсте (32x32)"
+	)
+	desc = "Помимо того, что он слишком велик для стандартной рамки, \
+			ИИ может использовать его в качестве дисплея из своей внутренней базы данных после того, как вы его повесите."
+	icon_state = "32x32"
+	width = 32
+	height = 32
+
+
 /obj/item/canvas/thirtysix_twentyfour
 	name = "холст (36x24)"
 	ru_names = list(
@@ -1447,6 +1465,7 @@
 		"23x19" = /obj/item/canvas/twentythree_nineteen,
 		"23x23" = /obj/item/canvas/twentythree_twentythree,
 		"24x24" = /obj/item/canvas/twentyfour_twentyfour,
+		"32x32" = /obj/item/canvas/thirtytwo_thirtytwo,
 		"36x24" = /obj/item/canvas/thirtysix_twentyfour,
 		"45x27" = /obj/item/canvas/fortyfive_twentyseven,
 	)
