@@ -487,3 +487,14 @@
 		var/mob/living/U = user
 		U.IgniteMob()
 
+
+/obj/effect/proc_holder/spell/nullspace_box
+	name = "Призыв нульспейс коробки"
+	desc = "Позволяет призывать нульспейс коробку, способную проходить сквозь пол и потолок между этажами (Клавиши PgUp/PgDn). \
+			Если у сектора один этаж, коробка бесполезна."
+	base_cooldown = 15 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
+	invocation_type = "none"
+	action_icon_state = "sacredflame"
+	sound = 'sound/magic/magic_missile.ogg'
