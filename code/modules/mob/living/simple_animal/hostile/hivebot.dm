@@ -94,7 +94,7 @@
 	icon_living = "basic"
 	icon_dead = "basic"
 	health = 40
-	maxHealth = 60
+	maxHealth = 40
 	melee_damage_lower = 12
 	melee_damage_upper = 12
 	attacktext = "Вбивает"
