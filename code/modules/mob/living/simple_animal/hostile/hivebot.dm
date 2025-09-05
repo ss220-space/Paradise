@@ -147,7 +147,7 @@
 	icon_dead = "basic"
 	ranged = 1
 	rapid = 1
-	rapid_fire_delay = 6
+	rapid_fire_delay = 12
 	retreat_distance = 8
 	minimum_distance = 4
 	melee_damage_lower = 0
