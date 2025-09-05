@@ -610,7 +610,7 @@ Class Procs:
 		return FALSE
 	if(!prob(prb))
 		return FALSE
-	do_sparks(5, 1, src)
+	do_sparks(5, TRUE, src)
 	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))
 		return TRUE
 	return FALSE

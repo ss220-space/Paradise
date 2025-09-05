@@ -283,8 +283,8 @@
 					R.fields["name"] = active1.fields["name"]
 					R.fields["id"] = active1.fields["id"]
 					R.name = "Медицинская запись №[R.fields["id"]]"
-					R.fields["blood_type"] = "Неизвестно"
-					R.fields["b_dna"] = "Неизвестно"
+					R.fields["blood_type"] = UNKNOWN_STATUS_RUS
+					R.fields["b_dna"] = UNKNOWN_STATUS_RUS
 					R.fields["mi_dis"] = "Отсутствуют"
 					R.fields["mi_dis_d"] = "Незначительные отклонения не указаны."
 					R.fields["ma_dis"] = "Отсутствуют"

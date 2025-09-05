@@ -10,14 +10,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/destroyer
 	name = "Destroyer of Terror"
 	desc = "Зловещего вида паук, коричневый, как земля, из которой он выполз. На предплечьях имеются острые когти."
-	ru_names = list(
-		NOMINATIVE = "Разрушитель Ужаса",
-		GENITIVE = "Разрушителя Ужаса",
-		DATIVE = "Разрушителю Ужаса",
-		ACCUSATIVE = "Разрушителя Ужаса",
-		INSTRUMENTAL = "Разрушителем Ужаса",
-		PREPOSITIONAL = "Разрушителе Ужаса",
-	)
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_brown"
 	icon_living = "terror_brown"
@@ -43,6 +35,16 @@
 							/obj/effect/proc_holder/spell/explosion/terror_burn)
 	spider_intro_text = "Будучи Разрушителем Ужаса, ваша цель - саботировать станцию. Выбивайте заваренную вентиляцию, ломайте канистры с опасными газами, уничтожайте АПЦ и любое оборудование, до которого доберётесь. Помните, вы - не боевой паук, хоть вы и можете справиться с небольшой угрозой, убийства это не ваша забота!"
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
+
+/mob/living/simple_animal/hostile/poison/terror_spider/destroyer/get_ru_names()
+	return list(
+		NOMINATIVE = "Разрушитель Ужаса",
+		GENITIVE = "Разрушителя Ужаса",
+		DATIVE = "Разрушителю Ужаса",
+		ACCUSATIVE = "Разрушителя Ужаса",
+		INSTRUMENTAL = "Разрушителем Ужаса",
+		PREPOSITIONAL = "Разрушителе Ужаса",
+	)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/destroyer/New()
 	..()

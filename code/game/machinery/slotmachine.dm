@@ -193,6 +193,9 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 /obj/machinery/computer/slot_machine/ui_act(action, params)
 	if(..())
 		return
+	if(issilicon(usr))
+		to_chat(usr, span_warning("Обнаружен искусственный интеллект. Согласно регуляции НаноТрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
+		return
 	add_fingerprint(usr)
 
 	if(action == "spin")
@@ -295,7 +298,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 
 /obj/machinery/computer/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
 	if(sound)
-		playsound(loc, sound, 55, 1)
+		playsound(loc, sound, 55, TRUE)
 	if(!account)
 		return
 	account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)

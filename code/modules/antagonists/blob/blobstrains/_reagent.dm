@@ -33,7 +33,7 @@
 
 // These can only be applied by blobs. They are what (reagent) blobs are made out of.
 /datum/reagent/blob
-	name = "Неизвестно"
+	name = UNKNOWN_STATUS_RUS
 	description = "Это не должно существовать, вам следует немедленно обратиться за помощью в adminhelp и написать баг-репорт в Discord'е."
 	color = COLOR_WHITE
 	taste_description = "ошибок в коде"

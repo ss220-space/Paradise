@@ -29,6 +29,7 @@
 	fire_delay = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_PISTOL
+	fire_modes = GUN_MODE_SINGLE_ONLY
 
 
 /obj/item/gun/projectile/automatic/toy/pistol/update_icon_state()

@@ -2,14 +2,6 @@
 /mob/living/simple_animal/hostile/asteroid/goliath
 	name = "goliath"
 	desc = "Массивный зверь, использующий длинные щупальца для поимки добычи. Угрожать ему – плохая идея при любых обстоятельствах."
-	ru_names = list(
-		NOMINATIVE = "голиаф",
-		GENITIVE = "голиафа",
-		DATIVE = "голиафу",
-		ACCUSATIVE = "голиафа",
-		INSTRUMENTAL = "голиафом",
-		PREPOSITIONAL = "голиафе"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goliath"
 	icon_living = "Goliath"
@@ -52,8 +44,17 @@
 	bonus_tame_chance = 10
 	COOLDOWN_DECLARE(post_charge_delay)
 
+/mob/living/simple_animal/hostile/asteroid/goliath/get_ru_names()
+	return list(
+		NOMINATIVE = "голиаф",
+		GENITIVE = "голиафа",
+		DATIVE = "голиафу",
+		ACCUSATIVE = "голиафа",
+		INSTRUMENTAL = "голиафом",
+		PREPOSITIONAL = "голиафе"
+	)
 
-/mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/projectile/P)
+/mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(obj/projectile/P)
 	if(prob(reflect_chance) && !istype(P, /obj/projectile/destabilizer))
 		visible_message(span_danger("[capitalize(P.declent_ru(NOMINATIVE))] отскакивает от крепкой шкуры [declent_ru(GENITIVE)]!"), span_userdanger("[capitalize(P.declent_ru(NOMINATIVE))] отскакивает от крепой шкуры [declent_ru(GENITIVE)]!"), projectile_message = TRUE)
 		P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
@@ -219,14 +220,6 @@
 //Lavaland Goliath
 /mob/living/simple_animal/hostile/asteroid/goliath/beast
 	name = "goliath"
-	ru_names = list(
-		NOMINATIVE = "голиаф",
-		GENITIVE = "голиафа",
-		DATIVE = "голиафу",
-		ACCUSATIVE = "голиафа",
-		INSTRUMENTAL = "голиафом",
-		PREPOSITIONAL = "голиафе"
-	)
 	desc = "Громадный зверь в бронированном панцире, со щупальцами, изгибающимися у него за спиной."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath"
@@ -241,6 +234,16 @@
 	stat_attack = UNCONSCIOUS
 	robust_searching = TRUE
 
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/get_ru_names()
+	return list(
+		NOMINATIVE = "голиаф",
+		GENITIVE = "голиафа",
+		DATIVE = "голиафу",
+		ACCUSATIVE = "голиафа",
+		INSTRUMENTAL = "голиафом",
+		PREPOSITIONAL = "голиафе"
+	)
+
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random/Initialize(mapload)
 	. = ..()
 	if(prob(10))
@@ -249,14 +252,6 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
 	name = "ancient goliath"
-	ru_names = list(
-		NOMINATIVE = "древний голиаф",
-		GENITIVE = "древнего голиафа",
-		DATIVE = "древнему голиафу",
-		ACCUSATIVE = "древнего голиафа",
-		INSTRUMENTAL = "древним голиафом",
-		PREPOSITIONAL = "древнем голиафе"
-	)
 	desc = "Голиафы биологически бессмертны, и редкие особи живут веками. Этот явно древний, и его щупальца постоянно взрыхляют землю вокруг."
 	icon_state = "Goliath"
 	icon_living = "Goliath"
@@ -276,6 +271,16 @@
 	var/tentacle_recheck_cooldown = 100
 	reflect_chance = 50
 	bonus_tame_chance = 5
+
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/get_ru_names()
+	return list(
+		NOMINATIVE = "древний голиаф",
+		GENITIVE = "древнего голиафа",
+		DATIVE = "древнему голиафу",
+		ACCUSATIVE = "древнего голиафа",
+		INSTRUMENTAL = "древним голиафом",
+		PREPOSITIONAL = "древнем голиафе"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Life()
 	. = ..()
@@ -301,7 +306,13 @@
 //Tentacles
 /obj/effect/temp_visual/goliath_tentacle
 	name = "goliath tentacle"
-	ru_names = list(
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	icon_state = "Goliath_tentacle_spawn"
+	layer = BELOW_MOB_LAYER
+	var/mob/living/spawner
+
+/obj/effect/temp_visual/goliath_tentacle/get_ru_names()
+	return list(
 		NOMINATIVE = "щупальце голиафа",
 		GENITIVE = "щупальца голиафа",
 		DATIVE = "щупальцу голиафа",
@@ -309,10 +320,6 @@
 		INSTRUMENTAL = "щупальцем голиафа",
 		PREPOSITIONAL = "щупальце голиафа"
 	)
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
-	icon_state = "Goliath_tentacle_spawn"
-	layer = BELOW_MOB_LAYER
-	var/mob/living/spawner
 
 /obj/effect/temp_visual/goliath_tentacle/Initialize(mapload, mob/living/new_spawner)
 	. = ..()

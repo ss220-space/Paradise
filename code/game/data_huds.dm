@@ -227,6 +227,30 @@
 	else
 		holder.icon_state = "hudhealthy"
 
+/mob/living/carbon/human/proc/med_hud_insurance_set_overlay()
+	var/image/holder = hud_list[STATUS_HUD]
+	var/datum/money_account/account = null
+	var/obj/item/card/id/temp_id = null
+	holder.overlays.Cut()
+
+	if(!wear_id)
+		if((wear_mask && wear_mask.flags_inv & HIDENAME) || (head && head.flags_inv & HIDENAME))
+			return
+	else
+		temp_id = wear_id.GetID()
+
+	if(!temp_id)
+		if(dna.real_name == get_visible_name(add_id_name = FALSE))
+			account = get_insurance_account_DNA(src)
+	else
+		account = get_money_account(temp_id.associated_account_number)
+
+	if(account)
+		holder.overlays += image('icons/mob/hud.dmi', icon_state = "hudhealthy_[account.insurance_type]")
+
+/mob/living/carbon/human/proc/update_hud_set()
+	sec_hud_set_ID()
+	med_hud_insurance_set_overlay()
 
 
 /***********************************************
@@ -266,9 +290,9 @@
 	var/perpname = get_visible_name(add_id_name = FALSE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!SSticker) return //wait till the game starts or the monkeys runtime....
 	if(perpname)
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-		if(R)
-			switch(R.fields["criminal"])
+		var/datum/data/record/record = find_record("name", perpname, GLOB.data_core.security)
+		if(record)
+			switch(record.fields["criminal"])
 				if(SEC_RECORD_STATUS_EXECUTE)
 					holder.icon_state = "hudexecute"
 					return
@@ -532,13 +556,13 @@
 	var/perpname = get_visible_name(add_id_name = FALSE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!perpname)
 		return
-	var/datum/data/record/R
+	var/datum/data/record/record
 	switch(comment_kind)
 		if("security")
-			R = find_record("name", perpname, GLOB.data_core.security)
+			record = find_record("name", perpname, GLOB.data_core.security)
 		if("medical")
-			R = find_record("name", perpname, GLOB.data_core.medical)
-	if(!R)
+			record = find_record("name", perpname, GLOB.data_core.medical)
+	if(!record)
 		return
 
 	var/commenter_display = "Something(???)"
@@ -553,6 +577,6 @@
 		commenter_display = "[U.name] (artificial intelligence)"
 	comment_text = "Made by [commenter_display] on [GLOB.current_date_string] [station_time_timestamp()]:<br>[comment_text]"
 
-	if(!R.fields["comments"])
-		R.fields["comments"] = list()
-	R.fields["comments"] += list(comment_text)
+	if(!record.fields["comments"])
+		record.fields["comments"] = list()
+	record.fields["comments"] += list(comment_text)

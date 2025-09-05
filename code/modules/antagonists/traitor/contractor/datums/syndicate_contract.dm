@@ -1,5 +1,3 @@
-#define DEFAULT_NAME "Unknown"
-#define DEFAULT_RANK "Unknown"
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
 #define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
@@ -136,7 +134,7 @@
 
 	// Fill data
 	var/datum/data/record/record = find_record("name", target.name, GLOB.data_core.general)
-	target_name = "[record?.fields["name"] || target.current?.real_name || DEFAULT_NAME], the [record?.fields["rank"] || target.assigned_role || DEFAULT_RANK]"
+	target_name = "[record?.fields["name"] || target.current?.real_name || UNKNOWN_NAME_RUS], the [record?.fields["rank"] || target.assigned_role || UNKNOWN_STATUS_RUS]"
 	reward_credits = credits_base * rand(credits_lower_mult, credits_upper_mult)
 
 	// Fluff message
@@ -657,13 +655,13 @@
 	// Newscaster story
 	var/datum/data/record/record = find_record("name", contract.target.name, GLOB.data_core.general)
 	var/initials = ""
-	for(var/string in splittext(record?.fields["name"] || victim.real_name || DEFAULT_NAME, " "))
+	for(var/string in splittext(record?.fields["name"] || victim.real_name || UNKNOWN_NAME_RUS, " "))
 		initials = initials + "[string[1]]."
 
 	var/datum/feed_message/news_message = new
 	news_message.author = NEWS_CHANNEL_NYX
 	news_message.admin_locked = TRUE
-	news_message.body = "В системе зафиксирована подозрительная активность, предположительно связанная с Синдикатом. Появились слухи о том, что [record?.fields["rank"] || victim?.mind.assigned_role || DEFAULT_RANK] на борту [SSmapping.map_datum.station_name] стал жертвой похищения.\n\n" +\
+	news_message.body = "В системе зафиксирована подозрительная активность, предположительно связанная с Синдикатом. Появились слухи о том, что [record?.fields["rank"] || victim?.mind.assigned_role || UNKNOWN_STATUS_RUS] на борту [SSmapping.map_datum.station_name] стал жертвой похищения.\n\n" +\
 				"Надёжный источник сообщил следующее: Была найдена записка с инициалами жертвы — \"[initials]\", а также каракулями, гласящими: \"[fluff_message]\""
 	GLOB.news_network.get_channel_by_name("Никс Дейли")?.add_message(news_message)
 
@@ -704,8 +702,6 @@
 	extraction_deadline = -1
 	extraction_timer_handle = null
 
-#undef DEFAULT_NAME
-#undef DEFAULT_RANK
 #undef EXTRACTION_PHASE_PREPARE
 #undef EXTRACTION_PHASE_PORTAL
 #undef COMPLETION_NOTIFY_DELAY

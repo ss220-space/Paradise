@@ -770,7 +770,7 @@
 	category = list("hacked", "Security")
 
 /datum/design/sp8box
-	name = "Ammo Box (40n&r)"
+	name = "Ammo Box (.40 S&W)"
 	id = "fortynrbox"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 45000)
@@ -778,7 +778,7 @@
 	category = list("hacked", "Security")
 
 /datum/design/sp8mag
-	name = "handgun magazine (40n&r)"
+	name = "handgun magazine (.40 S&W)"
 	id = "fortynrmag"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 13000)
@@ -840,6 +840,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/buckshot
+	category = list("hacked", "Security")
+
+/datum/design/dragonsbreath
+	name = "Dragonsbreath shell"
+	id = "dragonsbreath_shell"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 	category = list("hacked", "Security")
 
 /datum/design/shotgun_dart

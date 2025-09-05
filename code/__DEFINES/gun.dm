@@ -32,3 +32,14 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_RAIL = "верхняя планка",
 	ATTACHMENT_SLOT_UNDER = "цевьё"
 ))
+
+/// Single shot firemode
+#define GUN_SINGLE_MODE 0
+/// Burst fire mode
+#define GUN_BURST_MODE 1
+/// Full auto friemode
+#define GUN_AUTO_MODE 2
+
+#define GUN_MODE_SINGLE_ONLY 1
+#define GUN_MODE_SINGLE_BURST 2
+#define GUN_MODE_SINGLE_BURST_AUTO 3
