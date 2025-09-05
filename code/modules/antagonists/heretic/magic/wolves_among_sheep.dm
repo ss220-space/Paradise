@@ -87,13 +87,15 @@
 /// Applies a visual to each turf
 /obj/effect/proc_holder/spell/wolves_among_sheep/proc/apply_visual(list/turfs)
 	for(var/turf/target as anything in turfs)
+		/*
 		if(isfloorturf(target))
 			var/turf_icon = "rose_stone_" + "[pick(1, 2, 3, 4, 5, 6, 7, 8)]"
-			//target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena[target.UID()]", image('icons/turf/floors/rose_stone_turf.dmi', target, turf_icon, layer = ABOVE_OPEN_TURF_LAYER))
+			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena[target.UID()]", image('icons/turf/floors/rose_stone_turf.dmi', target, turf_icon, layer = ABOVE_OPEN_TURF_LAYER))
 
 		else if(iswallturf(target))
 			var/wall_icon = "rose_stone_" + "[pick(1, 2, 3, 4, 5, 6, 7, 8)]"
-			//target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena[target.UID()]", image('icons/turf/walls/rose_stone_wall.dmi', target, wall_icon, layer = ABOVE_OPEN_TURF_LAYER))
+			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena[target.UID()]", image('icons/turf/walls/rose_stone_wall.dmi', target, wall_icon, layer = ABOVE_OPEN_TURF_LAYER))
+		*/
 
 		target.turf_flags |= NOJAUNT // We make the arena a NOJAUNT area so that stinky people cannot teleport in
 
