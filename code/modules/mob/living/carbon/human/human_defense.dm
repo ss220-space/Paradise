@@ -182,12 +182,16 @@ emp_act
 
 /mob/living/carbon/human/proc/get_armor_plate_defence(obj/item/organ/external/def_zone, attack_flag, penetration_level = 1, damage = 0)
 	var/obj/item/clothing/suit/suit = wear_suit
-	if(!suit || !istype(suit) || !suit.armor_plate)
+	var/obj/item/armor_plate/armor_plate = null
+	if(suit && istype(suit) && suit.armor_plate)
+		armor_plate = suit.armor_plate
+	var/obj/item/clothing/head/head = head
+	if(!armor_plate && head && istype(head) && head.armor_plate)
+		armor_plate = head.armor_plate
+	if(!(armor_plate.body_parts_covered & def_zone.limb_body_flag))
 		return 0
-	if(!(suit.armor_plate.body_parts_covered & def_zone.limb_body_flag))
-		return 0
-	var/armorval = calculate_armor_plate_penetration(suit.armor_plate, penetration_level, attack_flag)
-	damage_armor_plate(suit.armor_plate, penetration_level, attack_flag, damage)
+	var/armorval = calculate_armor_plate_penetration(armor_plate, penetration_level, attack_flag)
+	damage_armor_plate(armor_plate, penetration_level, attack_flag, damage)
 	return armorval
 
 /// This proc returns the armour value for a particular external organ.

@@ -684,7 +684,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/clockhood
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
-	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
@@ -694,6 +694,8 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	on_start_armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/hooded/clockrobe_fake
 	name = "clock robes"
@@ -704,13 +706,15 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/clockhood_fake
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
-	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	on_start_armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/hooded/clockrobe/can_store_weighted()
 	return TRUE
@@ -772,8 +776,9 @@
 	desc = "A hood worn by the followers of ratvar."
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
+	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/head/hooded/clockhood_fake
 	name = "clock hood"
@@ -783,8 +788,9 @@
 	desc = "A hood worn by the followers of ratvar. but now its just a simple hood."
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
+	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/hooded/clockrobe/equipped(mob/living/user, slot, initial)
 	. = ..()
@@ -832,6 +838,8 @@
 	var/reflect_uses = 4
 	var/normal_armor
 	var/harden_armor = list(MELEE = 80, BULLET = 70, LASER = 80, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_NONE
+
 
 /obj/item/clothing/suit/armor/clockwork_fake
 	name = "clockwork cuirass"
