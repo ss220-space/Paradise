@@ -278,3 +278,236 @@
 		max_weight_of_contents = A_is_item.w_class
 	folding_bodybag.w_class = max_weight_of_contents
 	the_folder.put_in_hands(folding_bodybag)
+
+
+/obj/item/bodybag/environmental
+	name = "environmental protection bag"
+	desc = "A folded, reinforced bag designed to protect against exoplanetary environmental storms."
+	icon_state = "envirobag_folded"
+	unfoldedbag_path = /obj/structure/closet/body_bag/environmental
+	w_class = WEIGHT_CLASS_NORMAL //It's reinforced and insulated, like a beefed-up sleeping bag, so it has a higher bulkiness than regular bodybag
+	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF
+
+/obj/item/bodybag/environmental/nanotrasen
+	name = "elite environmental protection bag"
+	desc = "A folded, heavily reinforced, and insulated bag, capable of fully isolating its contents from external factors."
+	icon_state = "ntenvirobag_folded"
+	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/nanotrasen
+	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
+
+/obj/item/bodybag/environmental/prisoner
+	name = "prisoner transport bag"
+	desc = "Intended for transport of prisoners through hazardous environments, this folded environmental protection bag comes with straps to keep an occupant secure."
+	icon_state = "prisonerenvirobag_folded"
+	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner
+
+/obj/item/bodybag/environmental/prisoner/pressurized
+	name = "pressurized prisoner transport bag"
+	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner/pressurized
+
+/obj/item/bodybag/environmental/prisoner/syndicate
+	name = "syndicate prisoner transport bag"
+	desc = "An alteration of Nanotrasen's environmental protection bag which has been used in several high-profile kidnappings. Designed to keep a victim unconscious, alive, and secured until they are transported to a required location."
+	icon_state = "syndieenvirobag_folded"
+	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner/pressurized/syndicate
+	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
+
+/// Environmental bags. They protect against bad weather.
+
+/obj/structure/closet/body_bag/environmental
+	name = "environmental protection bag"
+	desc = "An insulated, reinforced bag designed to protect against exoplanetary storms and other environmental factors."
+	icon_state = "envirobag"
+	mob_storage_capacity = 1
+	contents_pressure_protection = 0.8
+	contents_thermal_insulation = 0.5
+	foldedbag_path = /obj/item/bodybag/environmental
+	/// The list of weathers we protect from.
+	var/list/weather_protection = list(TRAIT_ASHSTORM_IMMUNE, TRAIT_RADSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE) // Does not protect against lava or the The Floor Is Lava spell.
+	/// The contents of the gas to be distributed to an occupant. Set in Initialize()
+	var/datum/gas_mixture/air_contents = null
+
+/obj/structure/closet/body_bag/environmental/Initialize(mapload)
+	. = ..()
+	add_traits(weather_protection, INNATE_TRAIT)
+	refresh_air()
+
+/obj/structure/closet/body_bag/environmental/Destroy()
+	if(air_contents)
+		QDEL_NULL(air_contents)
+	return ..()
+
+/obj/structure/closet/body_bag/environmental/return_air()
+	refresh_air()
+	return air_contents
+
+/obj/structure/closet/body_bag/environmental/remove_air(amount)
+	refresh_air()
+	return air_contents.remove(amount)
+
+/obj/structure/closet/body_bag/environmental/return_analyzable_air()
+	refresh_air()
+	return air_contents
+
+/obj/structure/closet/body_bag/environmental/togglelock(mob/living/user, silent)
+	. = ..()
+	for(var/mob/living/target in contents)
+		to_chat(target, span_warning("You hear a faint hiss, and a white mist fills your vision..."))
+
+/obj/structure/closet/body_bag/environmental/proc/refresh_air()
+	air_contents = null
+	air_contents = new	//liters
+	air_contents.temperature = T20C
+	air_contents.volume = 50
+
+	air_contents.oxygen = O2STANDARD*ONE_ATMOSPHERE*50/(R_IDEAL_GAS_EQUATION*T20C)
+	air_contents.nitrogen = N2STANDARD*ONE_ATMOSPHERE*50/(R_IDEAL_GAS_EQUATION*T20C)
+
+/obj/structure/closet/body_bag/environmental/nanotrasen
+	name = "elite environmental protection bag"
+	desc = "A heavily reinforced and insulated bag, capable of fully isolating its contents from external factors."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "ntenvirobag"
+	contents_pressure_protection = 1
+	contents_thermal_insulation = 1
+	foldedbag_path = /obj/item/bodybag/environmental/nanotrasen
+	weather_protection = list(TRAIT_WEATHER_IMMUNE)
+
+/// Securable enviro. bags
+
+/obj/structure/closet/body_bag/environmental/prisoner
+	name = "prisoner transport bag"
+	desc = "Intended for transport of prisoners through hazardous environments, this environmental protection bag comes with straps to keep an occupant secure."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "prisonerenvirobag"
+	foldedbag_path = /obj/item/bodybag/environmental/prisoner
+	breakout_time = 4 MINUTES // because it's probably about as hard to get out of this as it is to get out of a straightjacket.
+	/// How long it takes to sinch the bag.
+	var/sinch_time = 10 SECONDS
+	/// Whether or not the bag is sinched. Starts unsinched.
+	var/sinched = FALSE
+	/// The sound that plays when the bag is done sinching.
+	var/sinch_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
+
+/obj/structure/closet/body_bag/environmental/prisoner/attempt_fold(mob/living/carbon/human/the_folder)
+	if(sinched)
+		to_chat(the_folder, span_warning("You wrestle with [src], but it won't fold while its straps are fastened."))
+		return FALSE
+	return ..()
+
+/obj/structure/closet/body_bag/environmental/prisoner/can_open()
+	if(!.)
+		return FALSE
+
+	if(sinched)
+		return FALSE
+
+	return TRUE
+
+/obj/structure/closet/body_bag/environmental/prisoner/update_icon()
+	. = ..()
+	if(sinched)
+		icon_state = initial(icon_state) + "_sinched"
+	else
+		icon_state = initial(icon_state)
+
+/obj/structure/closet/body_bag/environmental/prisoner/container_resist(mob/living/user)
+	// copy-pasted with changes because flavor text as well as some other misc stuff
+	if(opened || ismovable(loc) || !sinched)
+		return ..()
+
+	user.visible_message(span_warning("Someone in [src] begins to wriggle!"), \
+		span_notice("You start wriggling, attempting to loosen [src]'s buckles... (this will take about [DisplayTimeText(breakout_time)].)"), \
+		span_hear("You hear straining cloth from [src]."))
+	if(do_after(user,(breakout_time), target = src))
+		if(!user || user.stat != CONSCIOUS || user.loc != src || opened || !sinched )
+			return
+		//we check after a while whether there is a point of resisting anymore and whether the user is capable of resisting
+		user.visible_message(span_danger("[user] successfully broke out of [src]!"),
+							span_notice("You successfully break out of [src]!"))
+		if(istype(loc, /obj/machinery/disposal))
+			return ..()
+		bust_open()
+	else
+		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
+			to_chat(user, span_warning("You fail to break out of [src]!"))
+
+
+/obj/structure/closet/body_bag/environmental/prisoner/bust_open()
+	sinched = FALSE
+	// We don't break the bag, because the buckles were backed out as opposed to fully broken.
+	open()
+
+/obj/structure/closet/body_bag/environmental/prisoner/ShiftClick(mob/user)
+	if(!user.can_perform_action(src) || !isturf(loc))
+		return
+	togglelock(user)
+
+/obj/structure/closet/body_bag/environmental/prisoner/togglelock(mob/living/user, silent)
+	if(opened)
+		to_chat(user, span_warning("You can't close the buckles while [src] is unzipped!"))
+		return
+	if(user in contents)
+		to_chat(user, span_warning("You can't reach the buckles from here!"))
+		return
+	if(iscarbon(user))
+		add_fingerprint(user)
+	if(!sinched)
+		for(var/mob/living/target in contents)
+			to_chat(target, span_userdanger("You feel the lining of [src] tighten around you! Soon, you won't be able to escape!"))
+		user.visible_message(span_notice("[user] begins sinching down the buckles on [src]."))
+		if(!(do_after(user,(sinch_time),target = src)))
+			return
+	sinched = !sinched
+	if(sinched)
+		playsound(loc, sinch_sound, 15, TRUE, -2)
+	user.visible_message(span_notice("[user] [sinched ? null : "un"]sinches [src]."),
+							span_notice("You [sinched ? null : "un"]sinch [src]."),
+							span_hear("You hear stretching followed by metal clicking from [src]."))
+	add_game_logs("[sinched ? "sinched":"unsinched"] secure environmental bag [src]", user)
+	update_appearance()
+
+/obj/structure/closet/body_bag/environmental/prisoner/syndicate
+	name = "syndicate prisoner transport bag"
+	desc = "An alteration of Nanotrasen's environmental protection bag which has been used in several high-profile kidnappings. Designed to keep a victim unconscious, alive, and secured during transport."
+	icon = 'icons/obj/bodybag.dmi'
+	icon_state = "syndieenvirobag"
+	contents_pressure_protection = 1
+	contents_thermal_insulation = 1
+	foldedbag_path = /obj/item/bodybag/environmental/prisoner/syndicate
+	weather_protection = list(TRAIT_WEATHER_IMMUNE)
+	breakout_time = 8 MINUTES
+	sinch_time = 20 SECONDS
+
+/obj/structure/closet/body_bag/environmental/prisoner/pressurized/syndicate/refresh_air()
+	air_contents = null
+	air_contents = new	//liters
+	air_contents.temperature = T20C
+	air_contents.volume = 50
+
+	air_contents.oxygen = O2STANDARD*ONE_ATMOSPHERE*50/(R_IDEAL_GAS_EQUATION*T20C)
+	air_contents.sleeping_agent = N2STANDARD*ONE_ATMOSPHERE*50/(R_IDEAL_GAS_EQUATION*T20C)
+
+/obj/structure/closet/body_bag/environmental/hardlight
+	name = "hardlight bodybag"
+	desc = "A hardlight bag for storing bodies. Resistant to space."
+	icon_state = "holobag_med"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	foldedbag_path = null
+	weather_protection = list(TRAIT_SNOWSTORM_IMMUNE)
+
+/obj/structure/closet/body_bag/environmental/hardlight/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	if(damage_type in list(BRUTE, BURN))
+		playsound(src, 'sound/weapons/egloves.ogg', 80, TRUE)
+
+/obj/structure/closet/body_bag/environmental/prisoner/hardlight
+	name = "hardlight prisoner bodybag"
+	desc = "A hardlight bag for storing bodies. Resistant to space, can be sinched to prevent escape."
+	icon_state = "holobag_sec"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	foldedbag_path = null
+	weather_protection = list(TRAIT_SNOWSTORM_IMMUNE)
+
+/obj/structure/closet/body_bag/environmental/prisoner/hardlight/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	if(damage_type in list(BRUTE, BURN))
+		playsound(src, 'sound/weapons/egloves.ogg', 80, TRUE)

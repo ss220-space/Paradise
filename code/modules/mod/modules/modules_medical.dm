@@ -1,4 +1,89 @@
-//Medical modules for MODsuits. Not much here, sorry.
+//Medical modules for MODsuits
+
+#define HEALTH_SCAN "Health"
+#define CHEM_SCAN "Chemical"
+
+///Health Analyzer - Gives the user a ranged health analyzer and their health status in the panel.
+/obj/item/mod/module/health_analyzer
+	name = "MOD health analyzer module"
+	desc = "A module installed into the glove of the suit. This is a high-tech biological scanning suite, \
+		allowing the user indepth information on the vitals and injuries of others even at a distance, \
+		all with the flick of the wrist. Data is displayed in a convenient package, but it's up to you to do something with it."
+	icon_state = "health"
+	module_type = MODULE_ACTIVE
+	complexity = 1
+	use_power_cost = DEFAULT_CHARGE_DRAIN
+	incompatible_modules = list(/obj/item/mod/module/health_analyzer)
+	cooldown_time = 0.5 SECONDS
+	tgui_id = "health_analyzer"
+	//required_slots = list(ITEM_SLOT_GLOVES)
+	/// Scanning mode, changes how we scan something.
+	var/mode = HEALTH_SCAN
+
+	/// List of all scanning modes.
+	var/static/list/modes = list(HEALTH_SCAN, CHEM_SCAN)
+
+/obj/item/mod/module/health_analyzer/add_ui_data()
+	. = ..()
+	.["health"] = mod.wearer?.health || 0
+	.["health_max"] = mod.wearer?.getMaxHealth() || 0
+	.["loss_brute"] = mod.wearer?.getBruteLoss() || 0
+	.["loss_fire"] = mod.wearer?.getFireLoss() || 0
+	.["loss_tox"] = mod.wearer?.getToxLoss() || 0
+	.["loss_oxy"] = mod.wearer?.getOxyLoss() || 0
+
+	return .
+
+/obj/item/mod/module/health_analyzer/on_select_use(atom/target)
+	. = ..()
+	if(!.)
+		return
+	if(!isliving(target) || !is_monkeybasic(mod.wearer))
+		return
+	switch(mode)
+		if(HEALTH_SCAN)
+			healthscan(mod.wearer, target)
+		if(CHEM_SCAN)
+			chemscan(mod.wearer, target)
+	drain_power(use_power_cost)
+
+/obj/item/mod/module/health_analyzer/get_configuration()
+	. = ..()
+	.["mode"] = add_ui_configuration("Scan Mode", "list", mode, modes)
+
+/obj/item/mod/module/health_analyzer/configure_edit(key, value)
+	switch(key)
+		if("mode")
+			mode = value
+
+#undef HEALTH_SCAN
+#undef CHEM_SCAN
+
+///Quick Carry - Lets the user carry bodies quicker.
+/obj/item/mod/module/quick_carry
+	name = "MOD quick carry module"
+	desc = "A suite of advanced servos, redirecting power from the suit's arms to help carry the wounded; \
+		or simply for fun. However, Nanotrasen has locked the module's ability to assist in hand-to-hand combat."
+	icon_state = "carry"
+	complexity = 1
+	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
+	incompatible_modules = list(/obj/item/mod/module/quick_carry) //TODO MODSUIT: add /obj/item/mod/module/constructor
+	//required_slots = list(ITEM_SLOT_GLOVES)
+	var/quick_carry_trait = TRAIT_QUICK_CARRY
+
+/obj/item/mod/module/quick_carry/on_suit_activation()
+	. = ..()
+	ADD_TRAIT(mod.wearer, quick_carry_trait, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/mod/module/quick_carry/on_suit_deactivation(deleting = FALSE)
+	. = ..()
+	REMOVE_TRAIT(mod.wearer, quick_carry_trait, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/mod/module/quick_carry/advanced
+	name = "MOD advanced quick carry module"
+	removable = FALSE
+	complexity = 0
+	quick_carry_trait = TRAIT_QUICKER_CARRY
 
 ///Injector - Gives the suit an extendable large-capacity piercing syringe.
 /obj/item/mod/module/injector
@@ -216,3 +301,117 @@
 /obj/item/sensor_device/mod/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, MODSUIT_TRAIT)
+
+///Organizer - Lets you shoot organs, immediately replacing them if the target has the organ manipulation surgery.
+/obj/item/mod/module/organizer
+	name = "MOD organizer module"
+	desc = "A device recovered from a crashed Interdyne Pharmaceuticals vessel, \
+		this module has been unearthed for better or for worse. \
+		It's an arm-mounted device utilizing technology similar to modern rapid part exchange devices, \
+		capable of instantly replacing up to 5 organs at once in surgery without the need to remove them first, even from range. \
+		It's recommended by the DeForest Medical Corporation to not inform patients it has been used."
+	icon_state = "organizer"
+	module_type = MODULE_ACTIVE
+	complexity = 2
+	use_power_cost = DEFAULT_CHARGE_DRAIN
+	incompatible_modules = list(/obj/item/mod/module/organizer) //TODO modsuit: add /obj/item/mod/module/microwave_beam
+	cooldown_time = 0.5 SECONDS
+	//required_slots = list(ITEM_SLOT_GLOVES)
+	/// How many organs the module can hold.
+	var/max_organs = 5
+	/// A list of all our organs.
+	var/organ_list = list()
+
+/obj/item/mod/module/organizer/on_select_use(atom/target)
+	. = ..()
+	if(!.)
+		return
+	var/mob/living/carbon/human/wearer_human = mod.wearer
+	if(is_organ(target))
+		if(!wearer_human.Adjacent(target))
+			return
+		var/atom/movable/organ = target
+		if(length(organ_list) >= max_organs)
+			balloon_alert(mod.wearer, "too many organs!")
+			return
+		organ_list += organ
+		organ.forceMove(src)
+		balloon_alert(mod.wearer, "picked up [organ]")
+		playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
+		drain_power(use_power_cost)
+		return
+	if(!length(organ_list))
+		return
+	var/atom/movable/fired_organ = pop(organ_list)
+	var/obj/projectile/organ/projectile = new /obj/projectile/organ(mod.wearer.loc, fired_organ)
+	projectile.original = target
+	projectile.firer = mod.wearer
+	projectile.preparePixelProjectile(target, get_turf(target), mod.wearer)
+	projectile.fire()
+	playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
+	INVOKE_ASYNC(projectile, TYPE_PROC_REF(/obj/projectile, fire))
+	drain_power(use_power_cost)
+
+/obj/projectile/organ
+	name = "organ"
+	damage = 0
+	hitsound = 'sound/effects/attackblob.ogg'
+	hitsound_wall = 'sound/effects/attackblob.ogg'
+	/// A reference to the organ we "are".
+	var/obj/item/organ/internal/organ
+
+/obj/projectile/organ/Initialize(mapload, obj/item/stored_organ)
+	. = ..()
+	if(!stored_organ)
+		return INITIALIZE_HINT_QDEL
+	appearance = stored_organ.appearance
+	stored_organ.forceMove(src)
+	organ = stored_organ
+
+/obj/projectile/organ/Destroy()
+	organ = null
+	return ..()
+
+/obj/projectile/organ/on_hit(atom/target, blocked = 0, pierce_hit)
+	. = ..()
+	if(!isliving(target))
+		organ.forceMove(drop_location())
+		organ = null
+		return
+	var/mob/living/carbon/human/organ_receiver = target
+	var/succeed = FALSE
+	if(organ_receiver.surgeries.len)
+		for(var/datum/surgery/organ_manipulation/procedure in organ_receiver.surgeries)
+			if(procedure.location != organ.parent_organ_zone)
+				continue
+			if(!ispath(procedure.steps[procedure.step_number], /datum/surgery_step/internal))
+				continue
+			succeed = TRUE
+			break
+
+	if(!succeed)
+		organ.forceMove(drop_location())
+		organ = null
+		return
+
+	var/list/organs_to_boot_out = organ_receiver.get_organ_slot(organ.parent_organ_zone)
+	for(var/obj/item/organ/internal/organ_evacced as anything in organs_to_boot_out)
+		organ_evacced.remove(target, special = TRUE)
+		organ_evacced.forceMove(get_turf(target))
+
+	organ.insert(target)
+	organ = null
+
+///Patrient Transport - Generates hardlight bags you can put people in.
+/obj/item/mod/module/criminalcapture/patienttransport
+	name = "MOD patient transport module"
+	desc = "A module built into the forearm of the suit. Countless waves of mostly-lost mining teams being sent to \
+		Indecipheries and other hazardous locations have taught the DeForest Medical Company many lessons. \
+		Physical bodybags are difficult to store, hard to deploy, and even worse to keep intact in tough scenarios. \
+		Enter the hardlight transport bag. Summonable with merely a gesture, weightless, and immunized against \
+		any extreme scenario the wearer could think of, this bag is perfectly designed for \
+		transport of any body in any environment, any time."
+	icon_state = "patient_transport"
+	bodybag_type = /obj/structure/closet/body_bag/environmental/hardlight
+	capture_time = 1.5 SECONDS
+	packup_time = 0.5 SECONDS

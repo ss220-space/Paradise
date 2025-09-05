@@ -1432,34 +1432,20 @@
 	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 0.2 SECONDS, loop = loop_amount, flags = ANIMATION_PARALLEL)
 	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS)
 
-
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
-	if(istype(loc, /obj/structure/closet/critter))
-		return environment.temperature
-	if(ismecha(loc))
-		var/obj/mecha/M = loc
-		return  M.return_temperature()
-	if(isvampirecoffin(loc))
-		var/obj/structure/closet/coffin/vampire/coffin = loc
-		return coffin.return_temperature()
-	if(isspacepod(loc))
-		var/obj/spacepod/S = loc
-		return S.return_temperature()
-	if(istype(loc, /obj/structure/transit_tube_pod))
-		return environment.temperature
-	if(istype(get_turf(src), /turf/space))
+	var/loc_temp = environment ? environment.temperature : T0C
+	if(isobj(loc))
+		var/obj/oloc = loc
+		var/obj_temp = oloc.return_temperature()
+		if(obj_temp != null)
+			loc_temp = obj_temp
+	else if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
-		return heat_turf.temperature
-	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
-		if(C.air_contents.total_moles() < 10)
-			return environment.temperature
-		else
-			return C.air_contents.temperature
-	if(environment)
-		return environment.temperature
-	return T0C
-
+		loc_temp = heat_turf.temperature
+	if(ismovable(loc))
+		var/atom/movable/occupied_space = loc
+		loc_temp = ((1 - occupied_space.contents_thermal_insulation) * loc_temp) + (occupied_space.contents_thermal_insulation * bodytemperature)
+	return loc_temp
 
 /mob/living/proc/spawn_dust()
 	new /obj/effect/decal/cleanable/ash(loc)

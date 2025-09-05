@@ -280,3 +280,91 @@
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt
 	prebuilt = TRUE
 	removable = FALSE // No switching it into another suit / no free anomaly core
+
+///Criminal Capture - Generates hardlight bags you can put people in and sinch.
+/obj/item/mod/module/criminalcapture
+	name = "MOD criminal capture module"
+	desc = "The private security that had orders to take in people dead were quite \
+		happy with their space-proofed suit, but for those who wanted to bring back \
+		whomever their targets were still breathing needed a way to \"share\" the \
+		space-proofing. And thus: criminal capture! Creates a hardlight prisoner transport bag \
+		around the apprehended that has breathable atmospheric conditions."
+	icon_state = "criminal_capture"
+	module_type = MODULE_ACTIVE
+	complexity = 2
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
+	incompatible_modules = list(/obj/item/mod/module/criminalcapture)
+	cooldown_time = 0.5 SECONDS
+	//required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	/// Time to capture a prisoner.
+	var/capture_time = 2.5 SECONDS
+	/// Time to dematerialize a bodybag.
+	var/packup_time = 1 SECONDS
+	/// Typepath of our bodybag
+	var/bodybag_type = /obj/structure/closet/body_bag/environmental/prisoner/hardlight
+	/// Our linked bodybag.
+	var/obj/structure/closet/body_bag/linked_bodybag
+
+/obj/item/mod/module/criminalcapture/on_process(seconds_per_tick)
+	idle_power_cost = linked_bodybag ? (DEFAULT_CHARGE_DRAIN * 3) : 0
+	return ..()
+
+/obj/item/mod/module/criminalcapture/on_deactivation(display_message = TRUE, deleting = FALSE)
+	if(!..())
+		return
+
+	if(!linked_bodybag)
+		return
+	packup()
+
+/obj/item/mod/module/criminalcapture/on_select_use(atom/target)
+	. = ..()
+	if(!.)
+		return
+	if(!mod.wearer.Adjacent(target))
+		return
+	if(target == linked_bodybag)
+		playsound(src, 'sound/machines/ding.ogg', 25, TRUE)
+		if(!do_after(mod.wearer, packup_time, target = target))
+			balloon_alert(mod.wearer, "interrupted!")
+		packup()
+		return
+	if(linked_bodybag)
+		return
+	var/turf/target_turf = get_turf(target)
+	if(target_turf.is_blocked_turf(exclude_mobs = TRUE))
+		return
+	playsound(src, 'sound/machines/ding.ogg', 25, TRUE)
+	if(!do_after(mod.wearer, capture_time, target = target))
+		balloon_alert(mod.wearer, "interrupted!")
+		return
+	if(linked_bodybag)
+		return
+	linked_bodybag = new bodybag_type(target_turf)
+	linked_bodybag.take_contents()
+	playsound(linked_bodybag, 'sound/weapons/egloves.ogg', 80, TRUE)
+	RegisterSignal(linked_bodybag, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
+	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
+
+/obj/item/mod/module/criminalcapture/proc/packup()
+	if(!linked_bodybag)
+		return
+	playsound(linked_bodybag, 'sound/weapons/egloves.ogg', 80, TRUE)
+	apply_wibbly_filters(linked_bodybag)
+	animate(linked_bodybag, 0.5 SECONDS, alpha = 50, flags = ANIMATION_PARALLEL)
+	addtimer(CALLBACK(src, PROC_REF(delete_bag), linked_bodybag), 0.5 SECONDS)
+	linked_bodybag = null
+
+/obj/item/mod/module/criminalcapture/proc/check_range()
+	SIGNAL_HANDLER
+
+	if(get_dist(mod.wearer, linked_bodybag) <= 9)
+		return
+	packup()
+
+/obj/item/mod/module/criminalcapture/proc/delete_bag(obj/structure/closet/body_bag/bag)
+	if(mod?.wearer)
+		UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(check_range))
+		balloon_alert(mod.wearer, "bag dissipated")
+	bag.open()
+	qdel(bag)

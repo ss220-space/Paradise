@@ -1769,7 +1769,7 @@
 	return interior_air
 
 
-/obj/structure/closet/coffin/vampire/proc/return_temperature()
+/obj/structure/closet/coffin/vampire/return_temperature()
 	return interior_air.return_temperature()
 
 

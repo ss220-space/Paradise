@@ -795,15 +795,39 @@
 
 /obj/item/mod/module/shock_absorber/on_suit_activation()
 	. = ..()
-	ADD_TRAIT(mod.wearer, TRAIT_BATON_RESISTANCE, UID())
+	ADD_TRAIT(mod.wearer, TRAIT_BATON_RESISTANCE, UNIQUE_TRAIT_SOURCE(src))
 	RegisterSignal(mod.wearer, COMSIG_MOB_BATONED, PROC_REF(mob_batoned))
 
 /obj/item/mod/module/shock_absorber/on_suit_deactivation(deleting)
 	. = ..()
-	REMOVE_TRAIT(mod.wearer, TRAIT_BATON_RESISTANCE, UID())
+	REMOVE_TRAIT(mod.wearer, TRAIT_BATON_RESISTANCE, UNIQUE_TRAIT_SOURCE(src))
 	UnregisterSignal(mod.wearer, COMSIG_MOB_BATONED)
 
 /obj/item/mod/module/shock_absorber/proc/mob_batoned(datum/source)
 	SIGNAL_HANDLER
 	drain_power(use_power_cost)
 	do_sparks(5, TRUE, mod.wearer.loc)
+
+/obj/item/mod/module/hearing_protection
+	name = "MOD hearing protection module"
+	desc = "A module that protects the users ears from loud sounds"
+	complexity = 0
+	removable = FALSE
+	incompatible_modules = list(/obj/item/mod/module/hearing_protection)
+	//required_slots = list(ITEM_SLOT_HEAD)
+
+/obj/item/mod/module/hearing_protection/on_suit_activation()
+	..()
+	//var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
+	var/obj/item/clothing/head_cover = mod.helmet
+	if(istype(head_cover))
+		head_cover.item_flags |= BANGPROTECT_TOTAL
+
+/obj/item/mod/module/hearing_protection/on_suit_deactivation(deleting = FALSE)
+	..()
+	if(deleting)
+		return
+	//var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
+	var/obj/item/clothing/head_cover = mod.helmet
+	if(istype(head_cover))
+		head_cover.item_flags &= ~BANGPROTECT_TOTAL

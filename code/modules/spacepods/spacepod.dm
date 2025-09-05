@@ -794,7 +794,7 @@
 		if(t_air)
 			. = t_air.return_pressure()
 
-/obj/spacepod/proc/return_temperature()
+/obj/spacepod/return_temperature()
 	. = 0
 	if(use_internal_tank)
 		. = cabin_air.return_temperature()
