@@ -1,14 +1,6 @@
 /obj/machinery/papershredder
 	name = "paper shredder"
 	desc = "Устройство для тех документов, которых вы не хотите видеть."
-	ru_names = list(
-		NOMINATIVE = "измельчитель бумаги",
-		GENITIVE = "измельчителя бумаги",
-		DATIVE = "измельчителю бумаги",
-		ACCUSATIVE = "измельчитель бумаги",
-		INSTRUMENTAL = "измельчителем бумаги",
-		PREPOSITIONAL = "измельчителе бумаги"
-	)
 	gender = MALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "papershredder0"
@@ -27,6 +19,15 @@
 		/obj/item/book = 5
 		)
 
+/obj/machinery/papershredder/get_ru_names()
+	return list(
+		NOMINATIVE = "измельчитель бумаги",
+		GENITIVE = "измельчителя бумаги",
+		DATIVE = "измельчителю бумаги",
+		ACCUSATIVE = "измельчитель бумаги",
+		INSTRUMENTAL = "измельчителем бумаги",
+		PREPOSITIONAL = "измельчителе бумаги"
+	)
 
 /obj/machinery/papershredder/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -163,14 +164,6 @@
 /obj/item/shredded_paper
 	name = "shredded paper"
 	desc = "Куча разорванной бумаги."
-	ru_names = list(
-		NOMINATIVE = "измельчённая бумага",
-		GENITIVE = "измельчённой бумаги",
-		DATIVE = "измельчённой бумаге",
-		ACCUSATIVE = "измельчённую бумагу",
-		INSTRUMENTAL = "измельчонной бумагой",
-		PREPOSITIONAL = "измельчённой бумаге"
-	)
 	gender = MALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "shredded_paper"
@@ -181,6 +174,16 @@
 	max_integrity = 25
 	throw_range = 3
 	throw_speed = 2
+
+/obj/item/shredded_paper/get_ru_names()
+	return list(
+		NOMINATIVE = "измельчённая бумага",
+		GENITIVE = "измельчённой бумаги",
+		DATIVE = "измельчённой бумаге",
+		ACCUSATIVE = "измельчённую бумагу",
+		INSTRUMENTAL = "измельчонной бумагой",
+		PREPOSITIONAL = "измельчённой бумаге"
+	)
 
 /obj/item/shredded_paper/Initialize(mapload)
 	. = ..()

@@ -18,14 +18,6 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	name = "marker beacon"
 	singular_name = "marker beacon"
 	desc = "Устройства освещения пути. Используются шахтёрами для разметки маршрутов и обозначения опасностей."
-	ru_names = list(
-		NOMINATIVE = "маркерный маячок",
-		GENITIVE = "маркерного маячка",
-		DATIVE = "маркерному маячку",
-		ACCUSATIVE = "маркерный маячок",
-		INSTRUMENTAL = "маркерным маячком",
-		PREPOSITIONAL = "маркерном маячке"
-	)
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "marker"
 	armor = list(MELEE = 50, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, BIO = 100, RAD = 100, FIRE = 25, ACID = 0)
@@ -33,6 +25,16 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	merge_type = /obj/item/stack/marker_beacon
 	max_amount = 100
 	var/picked_color = "random"
+
+/obj/item/stack/marker_beacon/get_ru_names()
+	return list(
+		NOMINATIVE = "маркерный маячок",
+		GENITIVE = "маркерного маячка",
+		DATIVE = "маркерному маячку",
+		ACCUSATIVE = "маркерный маячок",
+		INSTRUMENTAL = "маркерным маячком",
+		PREPOSITIONAL = "маркерном маячке"
+	)
 
 /obj/item/stack/marker_beacon/ten //miners start with 10 of these
 	amount = 10

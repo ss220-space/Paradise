@@ -7471,7 +7471,9 @@
 	},
 /area/storage/tech)
 "beN" = (
-/obj/structure/table/wood,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "beR" = (
@@ -9539,6 +9541,17 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
+"bta" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "btd" = (
 /obj/structure/chair{
 	dir = 8
@@ -34672,7 +34685,7 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/chapel)
+/area/maintenance/tourist)
 "fbc" = (
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/northwest,
@@ -42753,6 +42766,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"giy" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedMed,
+/turf/simulated/wall,
+/area/maintenance/apmaint)
 "giJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -50380,6 +50397,7 @@
 	dir = 8
 	},
 /obj/structure/fans/tiny,
+/obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -54683,6 +54701,7 @@
 /obj/machinery/door/window/brigdoor/southright{
 	req_access = list(17,75)
 	},
+/obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -56728,6 +56747,7 @@
 /area/maintenance/fsmaint2)
 "ioB" = (
 /obj/item/stack/tape_roll,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "ioD" = (
@@ -56911,9 +56931,11 @@
 	},
 /area/medical/research/restroom)
 "ipA" = (
-/obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/carpet,
-/area/library)
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "ipK" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -62930,10 +62952,11 @@
 	},
 /area/bridge/checkpoint/north)
 "jkU" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/turf/simulated/floor/plating/airless,
-/area/space)
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "jkV" = (
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel{
@@ -66935,8 +66958,8 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/power/apc{
-	name = "south bump";
+/obj/machinery/power/apc/worn_out{
+	cell_type = 0;
 	pixel_y = -26
 	},
 /turf/simulated/floor/carpet,
@@ -69052,6 +69075,19 @@
 	icon_state = "red"
 	},
 /area/security/prison/cell_block/A)
+"kgH" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "kgI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
@@ -92222,6 +92258,7 @@
 	dir = 4
 	},
 /obj/structure/fans/tiny,
+/obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -92923,7 +92960,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/light/small,
+/obj/effect/spawner/random_spawners/grille_13,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "nJC" = (
@@ -108682,6 +108723,7 @@
 	dir = 1
 	},
 /obj/structure/fans/tiny,
+/obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -110036,6 +110078,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
+"qjo" = (
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedLibrary,
+/turf/simulated/wall,
+/area/maintenance/library)
 "qjp" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -131442,13 +131488,10 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/perma)
 "tnj" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/red/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless,
-/area/space)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedChapel,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
 "tnk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -163688,6 +163731,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "xZb" = (
@@ -184980,7 +185026,7 @@ ttn
 eix
 ttn
 smE
-ttn
+tnj
 ttn
 jNq
 ttn
@@ -186754,7 +186800,7 @@ jmb
 sbP
 jOC
 oSy
-ipA
+dyL
 qel
 geO
 dGr
@@ -199146,7 +199192,7 @@ kgX
 cUH
 jbs
 bDr
-nVC
+wSa
 eIe
 rSe
 tkq
@@ -199660,8 +199706,8 @@ iUx
 gEF
 uYx
 rPD
-wSa
-eIe
+hRv
+nVC
 rSe
 tkq
 tkq
@@ -199917,8 +199963,8 @@ gMV
 gEF
 kEU
 jFb
-wSa
-tkq
+beN
+nVC
 eIe
 tkq
 tkq
@@ -200174,7 +200220,7 @@ lqP
 gEF
 hsL
 hnk
-hRv
+jkU
 nVC
 eIe
 rSe
@@ -200431,7 +200477,7 @@ npx
 gEF
 kXE
 hnk
-xYi
+jkU
 nVC
 eIe
 eIe
@@ -200688,7 +200734,7 @@ nJd
 nJd
 seP
 hnk
-beN
+rDK
 wSa
 eIe
 lBr
@@ -265197,7 +265243,7 @@ dHw
 cdV
 bOY
 sBh
-bkc
+giy
 bkc
 bkc
 bkc
@@ -265452,9 +265498,9 @@ pKW
 qod
 vbO
 dHw
-bcT
+kgH
+ipA
 sBh
-bkc
 bkc
 bkc
 bkc
@@ -265710,7 +265756,7 @@ jqE
 xuX
 cdV
 sQM
-sBh
+mze
 sBh
 bkc
 bkc
@@ -266722,7 +266768,7 @@ xrd
 tQe
 uaG
 uaG
-xrd
+bta
 uaG
 fcE
 dHw
@@ -274169,7 +274215,7 @@ wJE
 wJE
 pkq
 yfm
-tnj
+yfm
 gYD
 wQZ
 uJG
@@ -274426,7 +274472,7 @@ jEB
 jEB
 bsg
 gfy
-jkU
+gfy
 szR
 wQZ
 uJG
@@ -274683,7 +274729,7 @@ jEB
 jEB
 bsg
 gfy
-jkU
+gfy
 szR
 wQZ
 uJG
@@ -277713,7 +277759,7 @@ sld
 nzB
 pNb
 bio
-sld
+qjo
 tbH
 dHU
 fpa
@@ -280286,7 +280332,7 @@ sld
 wXI
 uUw
 dTH
-hyj
+uUw
 uUw
 wYP
 tpe
@@ -280543,7 +280589,7 @@ fVo
 xnc
 flP
 gzl
-uUw
+hyj
 ikt
 dvK
 tpe

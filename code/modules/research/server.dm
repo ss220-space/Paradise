@@ -450,7 +450,7 @@
 /obj/machinery/computer/rdservercontrol/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 		emagged = 1
 		if(user)
 			to_chat(user, "<span class='notice'>You you disable the security protocols</span>")

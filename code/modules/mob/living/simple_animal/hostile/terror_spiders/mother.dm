@@ -11,14 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/mother
 	name = "Mother of Terror"
 	desc = "Огромный паук. По нему ползают крошечные паучки. Их маленькие глазки-бусинки смотрят на вас. Ужас!"
-	ru_names = list(
-		NOMINATIVE = "Мать Ужаса",
-		GENITIVE = "Матери Ужаса",
-		DATIVE = "Матери Ужаса",
-		ACCUSATIVE = "Мать Ужаса",
-		INSTRUMENTAL = "Матерью Ужаса",
-		PREPOSITIONAL = "Матери Ужаса",
-	)
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_mother"
 	icon_living = "terror_mother"
@@ -37,6 +29,16 @@
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 	tts_seed = "Deathwhisper"
+
+/mob/living/simple_animal/hostile/poison/terror_spider/mother/get_ru_names()
+	return list(
+		NOMINATIVE = "Мать Ужаса",
+		GENITIVE = "Матери Ужаса",
+		DATIVE = "Матери Ужаса",
+		ACCUSATIVE = "Мать Ужаса",
+		INSTRUMENTAL = "Матерью Ужаса",
+		PREPOSITIONAL = "Матери Ужаса",
+	)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/New()
 	..()

@@ -36,7 +36,7 @@
 					balloon_alert(user, "уже в работе!")
 					return
 				if(signs.len < max_signs)
-					playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
+					playsound(src.loc, 'sound/machines/click.ogg', 20, TRUE)
 					if(creation_time)
 						holocreator_busy = TRUE
 						if(!do_after(user, creation_time, target))
@@ -163,7 +163,7 @@
 		ACCUSATIVE = "атмосферный голо-проектор",
 		INSTRUMENTAL = "атмосферным голо-проектором",
 		PREPOSITIONAL = "атмосферном голо-проекторе"
-	) 
+	)
 
 /obj/item/holosign_creator/cyborg
 	name = "Energy Barrier Projector"
@@ -181,7 +181,7 @@
 		ACCUSATIVE = "проектор энерго-барьера",
 		INSTRUMENTAL = "проектором энерго-барьера",
 		PREPOSITIONAL = "проекторе энерго-барьера"
-	) 
+	)
 
 /obj/item/holosign_creator/cyborg/attack_self(mob/user)
 	if(isrobot(user))

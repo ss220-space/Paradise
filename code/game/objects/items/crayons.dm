@@ -332,7 +332,7 @@
 				C.lip_color = colour
 				C.update_body()
 		if(loc == user) //sound play only if it in user hands
-			playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+			playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		..()
 
 /obj/item/toy/crayon/spraycan/update_overlays()
@@ -345,7 +345,7 @@
 	uses--
 	if(!uses)
 		to_chat(user, span_warning("Вы израсходовали [name]!"))
-		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		qdel(src)
 
 /obj/item/toy/crayon/spraycan/proc/can_paint(obj/object, mob/living/user)

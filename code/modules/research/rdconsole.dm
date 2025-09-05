@@ -221,7 +221,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 		req_access = list()
 		emagged = TRUE
 		if(user)

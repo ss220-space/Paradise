@@ -161,7 +161,7 @@
 			return
 
 		cursed_heart.last_pump = world.time
-		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
+		playsound(owner,'sound/effects/singlebeat.ogg',40, TRUE)
 		owner.balloon_alert(owner, "ваше сердце бьётся")
 
 		var/mob/living/carbon/human/H = owner

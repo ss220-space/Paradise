@@ -11,14 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen
 	name = "Queen of Terror spider"
 	desc = "Огромный, ужасающий паук. Её яйцевой мешок почти такого же размера, как и её тело, и изобилует паучьими яйцами!"
-	ru_names = list(
-		NOMINATIVE = "Королева Ужаса",
-		GENITIVE = "Королевы Ужаса",
-		DATIVE = "Королеве Ужаса",
-		ACCUSATIVE = "Королеву Ужаса",
-		INSTRUMENTAL = "Королевой Ужаса",
-		PREPOSITIONAL = "Королеве Ужаса",
-	)
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
@@ -71,6 +63,16 @@
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 	tts_seed = "Anivia"
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/get_ru_names()
+	return list(
+		NOMINATIVE = "Королева Ужаса",
+		GENITIVE = "Королевы Ужаса",
+		DATIVE = "Королеве Ужаса",
+		ACCUSATIVE = "Королеву Ужаса",
+		INSTRUMENTAL = "Королевой Ужаса",
+		PREPOSITIONAL = "Королеве Ужаса",
+	)
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
@@ -388,7 +390,10 @@
 /obj/structure/spider/terrorweb/queen
 	name = "airtight web"
 	desc = "Эта многослойная паутина, кажется, способна противостоять давлению воздуха."
-	ru_names = list(
+	max_integrity = 30
+
+/obj/structure/spider/terrorweb/queen/get_ru_names()
+	return list(
 		NOMINATIVE = "воздухонепроницаемая паутина",
 		GENITIVE = "воздухонепроницаемой паутины",
 		DATIVE = "воздухонепроницаемой паутине",
@@ -396,8 +401,6 @@
 		INSTRUMENTAL = "воздухонепроницаемой паутиной",
 		PREPOSITIONAL = "воздухонепроницаемой паутине",
 	)
-	max_integrity = 30
-
 
 /obj/structure/spider/terrorweb/queen/Initialize(mapload)
 	. = ..()
