@@ -10803,7 +10803,7 @@
 	},
 /area/coldcolony/malta/security/hos)
 "dUj" = (
-/obj/machinery/vending/clothing/departament/security,
+/obj/machinery/vending/department_clothesmate/security,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -16041,7 +16041,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/obj/machinery/vending/clothing/departament/cargo,
+/obj/machinery/vending/department_clothesmate/cargo,
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 4
 	},
@@ -35012,7 +35012,7 @@
 	dir = 8;
 	pixel_x = -26
 	},
-/obj/machinery/vending/clothing/departament/medical,
+/obj/machinery/vending/department_clothesmate/medical,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/biostorage)
 "mSx" = (
@@ -45281,7 +45281,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/ruin/sm_division)
 "qCk" = (
-/obj/machinery/vending/clothing/departament/engineering,
+/obj/machinery/vending/department_clothesmate/engineering,
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
 	},
@@ -64522,7 +64522,7 @@
 	},
 /area/coldcolony/malta/quartermaster/sorting)
 "xAe" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
 	},

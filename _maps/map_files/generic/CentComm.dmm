@@ -2723,7 +2723,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "biy" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19528,7 +19528,7 @@
 	},
 /area/centcom/zone3)
 "jtQ" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "jue" = (
@@ -23593,7 +23593,7 @@
 /turf/simulated/floor/beach/sand,
 /area/centcom/evac)
 "ljo" = (
-/obj/machinery/vending/clothing/departament/law,
+/obj/machinery/vending/department_clothesmate/law,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29432,7 +29432,7 @@
 /obj/structure/window/reinforced{
 	layer = 2.9
 	},
-/obj/machinery/vending/clothing/departament/security,
+/obj/machinery/vending/department_clothesmate/security,
 /turf/simulated/floor/wood,
 /area/centcom/jail)
 "nEN" = (
@@ -37193,7 +37193,7 @@
 /obj/effect/turf_decal/stripes/gold{
 	dir = 4
 	},
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},

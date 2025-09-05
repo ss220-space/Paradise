@@ -27254,7 +27254,7 @@
 	},
 /area/medical/virology)
 "dXy" = (
-/obj/machinery/vending/clothing/departament/security,
+/obj/machinery/vending/department_clothesmate/security,
 /obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -63977,7 +63977,7 @@
 /area/medical/genetics)
 "jsu" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/vending/clothing/departament/engineering,
+/obj/machinery/vending/department_clothesmate/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69689,7 +69689,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/machinery/vending/clothing/departament/cargo,
+/obj/machinery/vending/department_clothesmate/cargo,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -72939,7 +72939,7 @@
 	},
 /area/crew_quarters/fitness)
 "kMd" = (
-/obj/machinery/vending/clothing/departament/medical,
+/obj/machinery/vending/department_clothesmate/medical,
 /obj/machinery/camera{
 	c_tag = "Medbay Storage";
 	network = list("SS13","Medical")
@@ -76151,7 +76151,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "lkT" = (
-/obj/machinery/vending/clothing/departament/science,
+/obj/machinery/vending/department_clothesmate/science,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -93316,7 +93316,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "nMl" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -125695,7 +125695,7 @@
 	},
 /area/bridge/checkpoint/south)
 "sxI" = (
-/obj/machinery/vending/clothing/departament/law,
+/obj/machinery/vending/department_clothesmate/law,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "sxN" = (
@@ -149071,7 +149071,7 @@
 	},
 /area/hallway/primary/central/second/north)
 "vTo" = (
-/obj/machinery/vending/clothing/departament/service/chaplain,
+/obj/machinery/vending/department_clothesmate/service/chaplain,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -165378,7 +165378,7 @@
 /area/security/processing)
 "ykE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},

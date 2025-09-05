@@ -4236,7 +4236,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/break_room)
 "cQn" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5900,7 +5900,7 @@
 /turf/simulated/floor/carpet,
 /area/library)
 "dZk" = (
-/obj/machinery/vending/clothing/departament/cargo,
+/obj/machinery/vending/department_clothesmate/cargo,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -15622,7 +15622,7 @@
 /area/toxins/lab)
 "kbL" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "kcw" = (
@@ -16742,7 +16742,7 @@
 	},
 /area/crew_quarters/heads/cmo)
 "kOT" = (
-/obj/machinery/vending/clothing/departament/medical,
+/obj/machinery/vending/department_clothesmate/medical,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 1
@@ -18502,7 +18502,7 @@
 /area/crew_quarters/dorms)
 "lWi" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/secondary/entry)
 "lWs" = (
@@ -21354,7 +21354,7 @@
 	},
 /area/security/prisonershuttle)
 "nJb" = (
-/obj/machinery/vending/clothing/departament/law,
+/obj/machinery/vending/department_clothesmate/law,
 /obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/wood,
 /area/lawoffice)
@@ -24613,7 +24613,7 @@
 	},
 /area/atmos)
 "pQp" = (
-/obj/machinery/vending/clothing/departament/security,
+/obj/machinery/vending/department_clothesmate/security,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -35452,7 +35452,7 @@
 	},
 /area/medical/sleeper)
 "wFZ" = (
-/obj/machinery/vending/clothing/departament/science,
+/obj/machinery/vending/department_clothesmate/science,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"

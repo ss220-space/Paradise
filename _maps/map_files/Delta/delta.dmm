@@ -18328,7 +18328,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "cgJ" = (
-/obj/machinery/vending/clothing/departament/science,
+/obj/machinery/vending/department_clothesmate/science,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
@@ -21630,7 +21630,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/securehallway)
 "cyG" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -21776,7 +21776,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/vending/clothing/departament/engineering,
+/obj/machinery/vending/department_clothesmate/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25999,7 +25999,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/vending/clothing/departament/medical,
+/obj/machinery/vending/department_clothesmate/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -33934,7 +33934,7 @@
 	dir = 4;
 	pixel_y = -27
 	},
-/obj/machinery/vending/clothing/departament/cargo,
+/obj/machinery/vending/department_clothesmate/cargo,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -67739,7 +67739,7 @@
 /area/crew_quarters/theatre)
 "kHQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -103806,7 +103806,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "sUp" = (
-/obj/machinery/vending/clothing/departament/law,
+/obj/machinery/vending/department_clothesmate/law,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "sUw" = (
@@ -110396,7 +110396,7 @@
 /turf/simulated/wall/r_wall/rust,
 /area/maintenance/brig)
 "usy" = (
-/obj/machinery/vending/clothing/departament/security,
+/obj/machinery/vending/department_clothesmate/security,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -117683,7 +117683,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "wcE" = (
@@ -121695,7 +121695,7 @@
 /area/security/prisonershuttle)
 "xaG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},

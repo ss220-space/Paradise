@@ -25703,7 +25703,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
 "vmB" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},

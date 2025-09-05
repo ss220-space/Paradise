@@ -82950,7 +82950,7 @@
 /area/hallway/primary/central/east)
 "puM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel,
 /area/maintenance/fsmaint)
 "puN" = (
@@ -105530,7 +105530,7 @@
 	},
 /area/hallway/primary/central/west)
 "vwy" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

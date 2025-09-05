@@ -12992,7 +12992,7 @@
 	},
 /area/engineering/engine)
 "bMk" = (
-/obj/machinery/vending/clothing/departament/engineering,
+/obj/machinery/vending/department_clothesmate/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -20815,7 +20815,7 @@
 	},
 /area/maintenance/disposal)
 "cLb" = (
-/obj/machinery/vending/clothing/departament/law,
+/obj/machinery/vending/department_clothesmate/law,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -43892,7 +43892,7 @@
 	},
 /area/engineering/engine)
 "iQn" = (
-/obj/machinery/vending/clothing/departament/security,
+/obj/machinery/vending/department_clothesmate/security,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -54894,7 +54894,7 @@
 	},
 /area/hallway/primary/central)
 "lVC" = (
-/obj/machinery/vending/clothing/departament/science,
+/obj/machinery/vending/department_clothesmate/science,
 /turf/simulated/floor/plasteel/white,
 /area/medical/research/restroom)
 "lVJ" = (
@@ -65178,7 +65178,7 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
-/obj/machinery/vending/clothing/departament/medical,
+/obj/machinery/vending/department_clothesmate/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -68718,7 +68718,7 @@
 	},
 /area/hallway/primary/central)
 "pLN" = (
-/obj/machinery/vending/clothing/departament/cargo,
+/obj/machinery/vending/department_clothesmate/cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
@@ -86252,7 +86252,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "uOJ" = (
