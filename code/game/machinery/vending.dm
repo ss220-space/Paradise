@@ -768,7 +768,7 @@
 	if(!anchored)
 		balloon_alert(user, "автомат не прикручен!")
 		return
-		
+
 	panel_open = !panel_open
 	panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
 	update_icon()
@@ -3705,8 +3705,8 @@
 		),
 
 		list(
-			"name" = "Special",
-			"icon" = "star",
+			"name" = "Прочее",
+			"icon" = "ellipsis",
 			"products" = list(
 				/obj/item/cane = 10,
 				/obj/item/twohanded/staff/broom = 10,
