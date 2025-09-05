@@ -947,7 +947,7 @@
 	data["inserted_item_name"] = inserted_item ? capitalize(inserted_item.declent_ru(NOMINATIVE)) : FALSE
 	return data
 
-/obj/machinery/vending/proc/collect_records_for_static_data(list/records, list/categories, premium, index)
+/obj/machinery/vending/proc/collect_records_for_static_data(list/records, list/categories, premium, hidden, index)
 	var/static/list/default_category = list(
 		"name" = "Товары",
 		"icon" = "cart-shopping",
@@ -965,8 +965,6 @@
 			icon = item.icon,
 			icon_state = item.icon_state,
 			max_amount = product_record.max_amount,
-			req_coin = FALSE,
-			is_hidden = FALSE,
 			ref = product_record.UID()
 		)
 
@@ -980,7 +978,10 @@
 			static_record["category"] = category["name"]
 
 		if (premium)
-			static_record["premium"] = TRUE
+			static_record["req_coin"] = TRUE
+
+		if (hidden)
+			static_record["is_hidden"] = TRUE
 
 		out_records += list(static_record)
 
@@ -996,7 +997,7 @@
 
 	data["product_records"] = collect_records_for_static_data(product_records, categories)
 	data["coin_records"] = collect_records_for_static_data(coin_records, categories, premium = TRUE)
-	data["hidden_records"] = collect_records_for_static_data(hidden_records, categories, premium = TRUE)
+	data["hidden_records"] = collect_records_for_static_data(hidden_records, categories, hidden = TRUE)
 
 	data["categories"] = categories
 	data["imagelist"] = imagelist
