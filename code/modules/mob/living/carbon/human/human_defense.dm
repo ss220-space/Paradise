@@ -185,9 +185,9 @@ emp_act
 	var/obj/item/armor_plate/armor_plate = null
 	if(suit && istype(suit) && suit.armor_plate)
 		armor_plate = suit.armor_plate
-	var/obj/item/clothing/head/head = head
-	if(!armor_plate && head && istype(head) && head.armor_plate)
-		armor_plate = head.armor_plate
+	var/obj/item/clothing/head/helmet = head
+	if(!armor_plate && helmet && istype(helmet) && helmet.armor_plate)
+		armor_plate = helmet.armor_plate
 	if(!(armor_plate.body_parts_covered & def_zone.limb_body_flag))
 		return 0
 	var/armorval = calculate_armor_plate_penetration(armor_plate, penetration_level, attack_flag)
