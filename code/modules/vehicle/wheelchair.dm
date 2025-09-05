@@ -31,6 +31,7 @@
 	chair_overlay = mutable_appearance(icon, "wheelchair_overlay", ABOVE_MOB_LAYER)
 	update_icon(UPDATE_OVERLAYS)
 	bell_action = new /datum/action/innate/wheelchair/bell(callback = CALLBACK(src, PROC_REF(on_bell_action)))
+	// wheelchair can not give speed bonus
 
 /obj/vehicle/ridden/wheelchair/Destroy()
 	chair_overlay = null
