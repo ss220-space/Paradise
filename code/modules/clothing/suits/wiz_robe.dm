@@ -154,7 +154,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	allowed = list(/obj/item/teleportation_scroll)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
@@ -162,6 +162,8 @@
 	put_on_delay = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
+	on_start_armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"
@@ -328,7 +330,7 @@
 	desc = "Not all wizards are afraid of getting up close and personal. Not spaceproof despite its appearance."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"
-	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -336,19 +338,22 @@
 	flags_inv = HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	slowdown = 0
 	magical = TRUE
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	name = "battlemage helmet"
 	desc = "A suitably impressive helmet."
 	icon_state = "hardsuit0-wiz"
 	item_state = "wiz_helm"
-	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
 	item_color = "wiz"
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	actions_types = null //No inbuilt light
 	magical = TRUE
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)
 	return
