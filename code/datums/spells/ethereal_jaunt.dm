@@ -61,7 +61,8 @@
 
 	ADD_TRAIT(target, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 	//holder.reappearing = TRUE
-	playsound(mobloc, sound_out, 50, TRUE, -1)
+	if(sound_out)
+		playsound(mobloc, sound_out, 50, TRUE, -1)
 
 	sleep(jaunt_in_time * 4)
 	mobloc = get_turf(target.loc)
