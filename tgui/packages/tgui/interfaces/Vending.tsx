@@ -13,6 +13,7 @@ import {
 import { Window } from '../layouts';
 
 type ProductRecord = {
+  is_hidden: boolean;
   req_coin: boolean;
   price: number;
   name: string;
