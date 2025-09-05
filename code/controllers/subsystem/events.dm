@@ -55,9 +55,11 @@ SUBSYSTEM_DEF(events)
 	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
 
 	// Add the event back to the list of available events
-	if(E.severity != EVENT_LEVEL_NONE)
-		var/datum/event_container/EC = event_containers[E.severity]
-		EC.available_events += EM
+	if(E.severity == EVENT_LEVEL_NONE || !EM.readd_to_rotation)
+		return
+
+	var/datum/event_container/EC = event_containers[E.severity]
+	EC.available_events += EM
 
 /datum/controller/subsystem/events/proc/delay_events(severity, delay)
 	var/datum/event_container/EC = event_containers[severity]

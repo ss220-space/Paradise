@@ -681,8 +681,8 @@
 	item_state = "straight_jacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
-	strip_delay = 60
-	breakout_time = 3000
+	strip_delay = 6 SECONDS
+	breakout_time = 2 MINUTES
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -1775,7 +1775,7 @@
 	icon_state = "hoody_undershirt"
 	item_state = "hoody_undershirt"
 	color = "#ffffffff"
-	
+
 /obj/item/clothing/suit/storage/bomber/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
@@ -1800,7 +1800,7 @@
 	desc = "Бомбер, выпущенный ограниченным тиражом корпорацией \"Robust Softdrinks\" в рамках рекламной компании нового напитка \"Заза\". Выдавался за собранные крышки от бутылок."
 	icon_state = "hoody_zaza"
 	item_state = "hoody_zaza"
-	
+
 /obj/item/clothing/suit/storage/zazalord/get_ru_names()
 	return list(
 		NOMINATIVE = "заза-лорд бомбер",
@@ -1811,3 +1811,21 @@
 		PREPOSITIONAL = "заза-лорд бомбере"
 	)
 
+/obj/item/clothing/under/chad
+	name = "Chad suit"
+	desc = "Должно быть абсолютно очевидным – перед вами настоящая легенда."
+	over_shoes = TRUE
+	can_adjust = FALSE
+	icon_state = "chadsuit"
+	item_state = "chadsuit"
+	species_restricted = list(SPECIES_HUMAN)
+
+/obj/item/clothing/under/chad/get_ru_names()
+	return list(
+		NOMINATIVE = "костюм Гигачада",
+		GENITIVE = "костюма Гигачада",
+		DATIVE = "костюму Гигачада",
+		ACCUSATIVE = "костюм Гигачада",
+		INSTRUMENTAL = "костюмом Гигачада",
+		PREPOSITIONAL = "костюме Гигачада"
+	)

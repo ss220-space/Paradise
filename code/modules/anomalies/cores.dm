@@ -383,7 +383,7 @@
 	user.gib()
 	return OBLITERATION
 
-/obj/item/assembly/signaler/core/gravitational/tier3/Initialize()
+/obj/item/assembly/signaler/core/gravitational/tier3/Initialize(mapload)
 	. = ..()
 	old_owner = get_external_loc()
 	update_gravity(TRUE)
@@ -444,7 +444,7 @@
 	visible_message(span_warning("[declent_ru(NOMINATIVE)] внезапно испустил[genderize_ru(gender, "", "а", "о", "и")] электрический разряд!"))
 	var/mob/living/carbon/human/H = target
 	if(H.electrocute_act(charge, "[declent_ru(GENITIVE)]"))
-		do_sparks(max(1, charge / 20))
+		do_sparks(max(1, charge / 20), FALSE, src)
 		return TRUE
 
 	return FALSE

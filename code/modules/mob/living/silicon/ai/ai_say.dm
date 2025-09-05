@@ -21,25 +21,25 @@
 				impersonating = I
 				jobname = impersonating.get_assignment()
 			else
-				jobname = "Unknown"
+				jobname = UNKNOWN_STATUS_RUS
 		else
 			jobname = H.get_assignment()
 
 	else if(iscarbon(speaker)) // Nonhuman carbon mob
-		jobname = "No ID"
+		jobname = "Без ID"
 	else if(isAI(speaker))
 		jobname = JOB_TITLE_AI
 	else if(iscogscarab(speaker))
-		jobname = "Unknown"
+		jobname = UNKNOWN_STATUS_RUS
 	else if(isrobot(speaker))
 		var/mob/living/silicon/robot/R = speaker
 		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG
 	else if(ispAI(speaker))
-		jobname = "Personal AI"
+		jobname = "Персональный ИИ"
 	else if(isradio(speaker))
 		jobname = "Автоматическое оповещение"
 	else
-		jobname = "Unknown"
+		jobname = UNKNOWN_STATUS_RUS
 
 	var/track = ""
 	var/mob/mob_to_track = null

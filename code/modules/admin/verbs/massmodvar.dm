@@ -20,7 +20,7 @@
 					return
 
 	src.massmodify_variables(A, var_name, method)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Mass Edit Variables") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Mass Edit Variables")
 
 /client/proc/massmodify_variables(datum/O, var_name = "", method = 0)
 	if(!check_rights(R_VAREDIT))
@@ -74,13 +74,13 @@
 		var/dir_text = ""
 		if(dir < 0 && dir < 16)
 			if(dir & 1)
-				dir_text += "NORTH"
+				dir_text += DIR_NAME_ENG_NORTH
 			if(dir & 2)
-				dir_text += "SOUTH"
+				dir_text += DIR_NAME_ENG_SOUTH
 			if(dir & 4)
-				dir_text += "EAST"
+				dir_text += DIR_NAME_ENG_EAST
 			if(dir & 8)
-				dir_text += "WEST"
+				dir_text += DIR_NAME_ENG_WEST
 
 		if(dir_text)
 			to_chat(src, "If a direction, direction is: [dir_text]")

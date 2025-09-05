@@ -1,14 +1,6 @@
 /mob/living/basic/cockroach
 	name = "cockroach"
 	desc = "Эта станция просто кишит вредителями."
-	ru_names = list(
-		NOMINATIVE = "таракан",
-		GENITIVE = "таракана",
-		DATIVE = "таракану",
-		ACCUSATIVE = "таракана",
-		INSTRUMENTAL = "тараканом",
-		PREPOSITIONAL = "таракане"
-	)
 	icon_state = "cockroach"
 	icon_dead = "cockroach" //Make this work
 	density = FALSE
@@ -36,7 +28,17 @@
 
 	ai_controller = /datum/ai_controller/basic_controller/cockroach
 
-/mob/living/basic/cockroach/Initialize()
+/mob/living/basic/cockroach/get_ru_names()
+	return list(
+		NOMINATIVE = "таракан",
+		GENITIVE = "таракана",
+		DATIVE = "таракану",
+		ACCUSATIVE = "таракана",
+		INSTRUMENTAL = "тараканом",
+		PREPOSITIONAL = "таракане"
+	)
+
+/mob/living/basic/cockroach/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/death_drops, list(/obj/effect/decal/cleanable/insectguts))
 	AddComponent(/datum/component/squashable, squash_chance = 30, squash_damage = 1)
@@ -68,7 +70,10 @@
 /obj/item/ammo_casing/caseless/glockroach
 	name = "0.9mm bullet casing"
 	desc = "Это... 0.9mm гильза? Чего?"
-	ru_names = list(
+	projectile_type = /obj/projectile/glockroachbullet
+
+/obj/item/ammo_casing/caseless/glockroach/get_ru_names()
+	return list(
 		NOMINATIVE = "гильза 0.9 мм",
 		GENITIVE = "гильзы 0.9 мм",
 		DATIVE = "гильзе 0.9 мм",
@@ -76,18 +81,9 @@
 		INSTRUMENTAL = "гильзой 0.9 мм",
 		PREPOSITIONAL = "гильзе 0.9 мм"
 	)
-	projectile_type = /obj/projectile/glockroachbullet
 
 /mob/living/basic/cockroach/glockroach
 	name = "glockroach"
-	ru_names = list(
-		NOMINATIVE = "таракан с пушкой",
-		GENITIVE = "таракана с пушкой",
-		DATIVE = "таракану с пушкой",
-		ACCUSATIVE = "таракана с пушкой",
-		INSTRUMENTAL = "тараканом с пушкой",
-		PREPOSITIONAL = "таракане с пушкой"
-	)
 	desc = "КТО, ЧЁРТ ВОЗЬМИ, ДАЛ ТАРАКАНУ ПИСТОЛЕТ?"
 	icon_state = "glockroach"
 	obj_damage = 5
@@ -95,7 +91,17 @@
 	faction = list("hostile")
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/glockroach
 
-/mob/living/basic/cockroach/glockroach/Initialize()
+/mob/living/basic/cockroach/glockroach/get_ru_names()
+	return list(
+		NOMINATIVE = "таракан с пушкой",
+		GENITIVE = "таракана с пушкой",
+		DATIVE = "таракану с пушкой",
+		ACCUSATIVE = "таракана с пушкой",
+		INSTRUMENTAL = "тараканом с пушкой",
+		PREPOSITIONAL = "таракане с пушкой"
+	)
+
+/mob/living/basic/cockroach/glockroach/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/ranged_attacks, /obj/item/ammo_casing/caseless/glockroach, 'sound/weapons/gunshots/gunshot3.ogg')
 
@@ -116,14 +122,6 @@
 /mob/living/basic/cockroach/hauberoach
 	name = "hauberoach"
 	desc = "Погодите, этот таракан носит на голове небольшую реплику остроконечного шлема Прусской армии образца 19 века? Это.. это плохо?"
-	ru_names = list(
-		NOMINATIVE = "таракан-солдат",
-		GENITIVE = "таракана-солдата",
-		DATIVE = "таракану-солдату",
-		ACCUSATIVE = "таракана-солдата",
-		INSTRUMENTAL = "тараканом-солдатом",
-		PREPOSITIONAL = "таракане-солдате"
-	)
 	icon_state = "hauberoach"
 	attack_verb_continuous = "тыкает своим шлемом"
 	attack_verb_simple = "тыкаете своим шлемом"
@@ -134,7 +132,17 @@
 	faction = list("hostile")
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/hauberoach
 
-/mob/living/basic/cockroach/hauberoach/Initialize()
+/mob/living/basic/cockroach/hauberoach/get_ru_names()
+	return list(
+		NOMINATIVE = "таракан-солдат",
+		GENITIVE = "таракана-солдата",
+		DATIVE = "таракану-солдату",
+		ACCUSATIVE = "таракана-солдата",
+		INSTRUMENTAL = "тараканом-солдатом",
+		PREPOSITIONAL = "таракане-солдате"
+	)
+
+/mob/living/basic/cockroach/hauberoach/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, min_damage = 10, max_damage = 15, flags = (CALTROP_BYPASS_SHOES))
 	AddComponent( \

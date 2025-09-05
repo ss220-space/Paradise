@@ -5,14 +5,6 @@
 /obj/machinery/photocopier
 	name = "photocopier"
 	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ!\"."
-	ru_names = list(
-		NOMINATIVE = "ксерокс",
-		GENITIVE = "ксерокса",
-		DATIVE = "ксероксу",
-		ACCUSATIVE = "ксерокс",
-		INSTRUMENTAL = "ксероксом",
-		PREPOSITIONAL = "ксероксе"
-	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 	anchored = TRUE
@@ -72,18 +64,19 @@
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
 
+/obj/machinery/photocopier/get_ru_names()
+	return list(
+		NOMINATIVE = "ксерокс",
+		GENITIVE = "ксерокса",
+		DATIVE = "ксероксу",
+		ACCUSATIVE = "ксерокс",
+		INSTRUMENTAL = "ксероксом",
+		PREPOSITIONAL = "ксероксе"
+	)
 
 /obj/machinery/photocopier/syndie
 	name = "Syndicate photocopier"
 	desc = "Устройство для сканирования и печати важных документов. Они даже не пытаются скрыть, что это их собственность..."
-	ru_names = list(
-		NOMINATIVE = "ксерокс Синдиката",
-		GENITIVE = "ксерокса Синдиката",
-		DATIVE = "ксероксу Синдиката",
-		ACCUSATIVE = "ксерокс Синдиката",
-		INSTRUMENTAL = "ксероксом Синдиката",
-		PREPOSITIONAL = "ксероксе Синдиката"
-	)
 	syndicate = TRUE
 	icon_state = "syndiebigscanner"
 	insert_anim = "syndiebigscanner_work"
@@ -92,6 +85,16 @@
 				Синдикат напоминает, что в ваших же интересах \
 				соблюдать данные указания."
 	ui_theme = "syndicate"
+
+/obj/machinery/photocopier/syndie/get_ru_names()
+	return list(
+		NOMINATIVE = "ксерокс Синдиката",
+		GENITIVE = "ксерокса Синдиката",
+		DATIVE = "ксероксу Синдиката",
+		ACCUSATIVE = "ксерокс Синдиката",
+		INSTRUMENTAL = "ксероксом Синдиката",
+		PREPOSITIONAL = "ксероксе Синдиката"
+	)
 
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
@@ -194,6 +197,30 @@
 		p.scribble = photocopy.scribble
 	return p
 
+/obj/machinery/photocopier/proc/blueprintcopy(obj/item/craft_blueprints/original)
+	if(!original.copy_type)
+		balloon_alert(usr, "невозможно копировать!")
+		return
+
+	if(toner < original.required_toner)
+		balloon_alert(usr, "недостаточно чернил!")
+		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
+		return
+
+	total_copies++
+
+	var/obj/item/craft_blueprints/copy = new original.copy_type(loc)
+	copy.name = original.name
+	copy.crafting_name = original.crafting_name
+	copy.crafting_item = original.crafting_item
+	copy.tools = original.tools
+	copy.components = original.components
+	copy.craft_duration = original.craft_duration
+	copy.crafting_name = original.crafting_name
+	copy.copy_type = null
+	copy.pixel_x = rand(-10, 10)
+	copy.pixel_y = rand(-10, 10)
+	return copy
 
 /obj/machinery/photocopier/proc/copyass(scanning = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
@@ -360,31 +387,42 @@
 				break
 			toner -= 1
 			use_power(active_power_usage)
-			sleep(PHOTOCOPIER_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/photo))
 		for(var/i in copies to 1 step -1)
 			if(!photocopy(C))
 				break
 			toner -= 5
 			use_power(active_power_usage)
-			sleep(PHOTOCOPIER_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/paper_bundle))
 		var/obj/item/paper_bundle/B = C
 		for(var/i in copies to 1 step -1)
 			if(!bundlecopy(C, use_toner = TRUE))
 				break
 			use_power(active_power_usage)
-			sleep(PHOTOCOPIER_DELAY * (B.amount + 1))
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY * (B.amount + 1))
 	else if(check_mob()) //Once we've scanned the copy_mob's ass we do not need to again
 		for(var/i in copies to 1 step -1)
 			if(!copyass())
 				break
 			toner -= 5
+			finish_copying()
+	else if(istype(C, /obj/item/craft_blueprints))
+		var/obj/item/craft_blueprints/original = C
+		for(var/i in copies to 1 step -1)
+			if(!blueprintcopy(original))
+				break
+			toner -= original.required_toner
+			use_power(active_power_usage)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else
 		balloon_alert(usr, "нельзя отсканировать!")
 		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлеч[genderize_ru(copyitem.gender, "ён", "ена", "ено", "ены")]."))
 		copyitem.forceMove(loc) // fuckery detected! get off my photocopier... shitbird!
+		finish_copying()
 
+/obj/machinery/photocopier/proc/finish_copying()
 	copying = FALSE
 
 /obj/machinery/photocopier/proc/scan_document() //scan a document into a file
@@ -585,18 +623,21 @@
 	copying = TRUE
 	playsound(loc, pick(print_sounds), 50)
 	use_power(active_power_usage)
-	sleep(PHOTOCOPIER_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(do_print_form_paper), form), PHOTOCOPIER_DELAY)
+
+
+/obj/machinery/photocopier/proc/do_print_form_paper(var/obj/item/paper/form/form)
 	var/obj/item/paper/paper = new form(loc)
 	paper.pixel_x = rand(-10, 10)
 	paper.pixel_y = rand(-10, 10)
-	copying = FALSE
+	finish_copying()
 
 
 /obj/machinery/photocopier/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
+	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle) || istype(I, /obj/item/craft_blueprints))
 		add_fingerprint(user)
 		if(copyitem)
 			balloon_alert(user, "ксерокс занят!")

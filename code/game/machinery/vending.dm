@@ -86,7 +86,7 @@
 	/// If off, vendor is busy and unusable until current action finishes
 	var/vend_ready = TRUE
 	/// How long vendor takes to vend one item.
-	var/vend_delay = 1 SECONDS
+	var/vend_delay = 0.2 SECONDS
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
 
@@ -729,10 +729,10 @@
 			span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [AM.declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
 		)
-	tilt(AM, prob(5), FALSE)
-	aggressive = FALSE
-	// Not making same mistakes as offs did.
-	// Don't make this prob more than 5%
+		tilt(AM, prob(5), FALSE)
+		aggressive = FALSE
+		// Not making same mistakes as offs did.
+		// Don't make this prob more than 5%
 
 /obj/machinery/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
@@ -759,11 +759,13 @@
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(anchored)
-		panel_open = !panel_open
-		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
-		update_icon()
-		SStgui.update_uis(src)
+	if(!anchored)
+		balloon_alert(user, "автомат не прикручен!")
+		return
+	panel_open = !panel_open
+	panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	update_icon()
+	SStgui.update_uis(src)
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -1072,6 +1074,12 @@
 				// Skip all payment logic.
 				vend(product_record, usr)
 				add_fingerprint(usr)
+				vend_ready = TRUE
+				. = TRUE
+				return
+
+			if(issilicon(usr))
+				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается продавать вам товар, поскольку вы не входите в его целевую аудиторию!"))
 				vend_ready = TRUE
 				. = TRUE
 				return
@@ -1511,8 +1519,7 @@
 					/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass = 30,
 					/obj/item/reagent_containers/food/drinks/ice = 9)
 	contraband = list(/obj/item/reagent_containers/food/drinks/tea = 10,
-					  /obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
-	vend_delay = 15
+					/obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
 
 	slogan_list = list(
 		"Над+еюсь, никт+о не попр+осит мен+я о ч+ёртовой кр+ужке ч+ая…",
@@ -1581,7 +1588,6 @@
 	vend_lightmask = "coffee_vend_lightmask"
 
 	item_slot = TRUE
-	vend_delay = 34
 	products = list(/obj/item/reagent_containers/food/drinks/coffee = 25,
 		/obj/item/reagent_containers/food/drinks/tea = 25,
 		/obj/item/reagent_containers/food/drinks/h_chocolate = 25,
@@ -1591,15 +1597,15 @@
 		/obj/item/reagent_containers/food/drinks/mug = 15,
 		/obj/item/reagent_containers/food/drinks/mug/novelty = 5)
 	contraband = list(/obj/item/reagent_containers/food/drinks/ice = 10)
-	prices = list(/obj/item/reagent_containers/food/drinks/coffee = 25,
-		/obj/item/reagent_containers/food/drinks/tea = 25,
-		/obj/item/reagent_containers/food/drinks/h_chocolate = 25,
-		/obj/item/reagent_containers/food/drinks/chocolate = 25,
-		/obj/item/reagent_containers/food/drinks/chicken_soup = 30,
-		/obj/item/reagent_containers/food/drinks/weightloss = 50,
-		/obj/item/reagent_containers/food/drinks/mug = 50,
-		/obj/item/reagent_containers/food/drinks/mug/novelty = 100,
-		/obj/item/reagent_containers/food/drinks/ice = 40)
+	prices = list(/obj/item/reagent_containers/food/drinks/coffee = 19,
+		/obj/item/reagent_containers/food/drinks/tea = 19,
+		/obj/item/reagent_containers/food/drinks/h_chocolate = 19,
+		/obj/item/reagent_containers/food/drinks/chocolate = 19,
+		/obj/item/reagent_containers/food/drinks/chicken_soup = 29,
+		/obj/item/reagent_containers/food/drinks/weightloss = 49,
+		/obj/item/reagent_containers/food/drinks/mug = 49,
+		/obj/item/reagent_containers/food/drinks/mug/novelty = 99,
+		/obj/item/reagent_containers/food/drinks/ice = 39)
 	refill_canister = /obj/item/vending_refill/coffee
 
 /obj/machinery/vending/coffee/get_ru_names()
@@ -1694,18 +1700,18 @@
 					/obj/item/reagent_containers/food/snacks/tastybread = 6
 					)
 	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 6)
-	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 20,
-					/obj/item/reagent_containers/food/drinks/dry_ramen = 30,
-					/obj/item/reagent_containers/food/snacks/doshik = 30,
-					/obj/item/reagent_containers/food/snacks/doshik_spicy = 150,
-					/obj/item/reagent_containers/food/snacks/chips =25,
-					/obj/item/reagent_containers/food/snacks/sosjerky = 30,
-					/obj/item/reagent_containers/food/snacks/no_raisin = 20,
-					/obj/item/reagent_containers/food/snacks/pistachios = 35,
-					/obj/item/reagent_containers/food/snacks/spacetwinkie = 30,
-					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 25,
-					/obj/item/reagent_containers/food/snacks/tastybread = 30,
-					/obj/item/reagent_containers/food/snacks/syndicake = 50)
+	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 19,
+					/obj/item/reagent_containers/food/drinks/dry_ramen = 29,
+					/obj/item/reagent_containers/food/snacks/doshik = 29,
+					/obj/item/reagent_containers/food/snacks/doshik_spicy = 149,
+					/obj/item/reagent_containers/food/snacks/chips =19,
+					/obj/item/reagent_containers/food/snacks/sosjerky = 29,
+					/obj/item/reagent_containers/food/snacks/no_raisin = 19,
+					/obj/item/reagent_containers/food/snacks/pistachios = 29,
+					/obj/item/reagent_containers/food/snacks/spacetwinkie = 29,
+					/obj/item/reagent_containers/food/snacks/cheesiehonkers = 19,
+					/obj/item/reagent_containers/food/snacks/tastybread = 29,
+					/obj/item/reagent_containers/food/snacks/syndicake = 49)
 	refill_canister = /obj/item/vending_refill/snack
 
 /obj/machinery/vending/snack/get_ru_names()
@@ -1758,15 +1764,15 @@
 	)
 
 	prices = list(
-		/obj/item/reagent_containers/food/snacks/chinese/chowmein = 50,
-		/obj/item/reagent_containers/food/snacks/chinese/tao = 50,
-		/obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 50,
-		/obj/item/reagent_containers/food/snacks/chinese/newdles = 50,
-		/obj/item/reagent_containers/food/snacks/chinese/rice = 50,
-		/obj/item/reagent_containers/food/snacks/fortunecookie = 50,
-		/obj/item/storage/box/crayfish_bucket = 250,
-		/obj/item/storage/box/mr_cheng = 200,
-		/obj/item/clothing/under/martialsuit/random = 250,
+		/obj/item/reagent_containers/food/snacks/chinese/chowmein = 49,
+		/obj/item/reagent_containers/food/snacks/chinese/tao = 49,
+		/obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 49,
+		/obj/item/reagent_containers/food/snacks/chinese/newdles = 49,
+		/obj/item/reagent_containers/food/snacks/chinese/rice = 49,
+		/obj/item/reagent_containers/food/snacks/fortunecookie = 49,
+		/obj/item/storage/box/crayfish_bucket = 249,
+		/obj/item/storage/box/mr_cheng = 199,
+		/obj/item/clothing/under/martialsuit/random = 249,
 	)
 
 	refill_canister = /obj/item/vending_refill/chinese
@@ -1819,18 +1825,18 @@
 		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 10)
 	contraband = list(/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5, /obj/item/reagent_containers/food/drinks/zaza = 1)
 	prices = list(
-		/obj/item/reagent_containers/food/drinks/cans/cola = 20,
-		/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 20,
-		/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 20,
-		/obj/item/reagent_containers/food/drinks/cans/starkist = 20,
-		/obj/item/reagent_containers/food/drinks/cans/space_up = 20,
-		/obj/item/reagent_containers/food/drinks/cans/grape_juice = 20,
-		/obj/item/reagent_containers/food/drinks/cans/energy = 40,
-		/obj/item/reagent_containers/food/drinks/cans/energy/trop = 40,
-		/obj/item/reagent_containers/food/drinks/cans/energy/milk = 40,
-		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 40,
-		/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 80,
-		/obj/item/reagent_containers/food/drinks/zaza = 200)
+		/obj/item/reagent_containers/food/drinks/cans/cola = 19,
+		/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 19,
+		/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 19,
+		/obj/item/reagent_containers/food/drinks/cans/starkist = 19,
+		/obj/item/reagent_containers/food/drinks/cans/space_up = 19,
+		/obj/item/reagent_containers/food/drinks/cans/grape_juice = 19,
+		/obj/item/reagent_containers/food/drinks/cans/energy = 39,
+		/obj/item/reagent_containers/food/drinks/cans/energy/trop = 39,
+		/obj/item/reagent_containers/food/drinks/cans/energy/milk = 39,
+		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 39,
+		/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 79,
+		/obj/item/reagent_containers/food/drinks/zaza = 199)
 	refill_canister = /obj/item/vending_refill/cola
 
 /obj/machinery/vending/cola/get_ru_names()
@@ -1864,13 +1870,25 @@
 	broken_lightmask_overlay = "cart_broken_lightmask"
 	deny_overlay = "cart_deny"
 
-	products = list(/obj/item/pda = 10,/obj/item/eftpos = 6,/obj/item/cartridge/medical = 10,/obj/item/cartridge/chemistry = 10,
-					/obj/item/cartridge/engineering = 10,/obj/item/cartridge/atmos = 10,/obj/item/cartridge/janitor = 10,
-					/obj/item/cartridge/signal/toxins = 10,/obj/item/cartridge/signal = 10)
+	products = list(/obj/item/pda = 10,
+					/obj/item/eftpos = 6,
+					/obj/item/cartridge/medical = 10,
+					/obj/item/cartridge/chemistry = 10,
+					/obj/item/cartridge/engineering = 10,
+					/obj/item/cartridge/atmos = 10,
+					/obj/item/cartridge/janitor = 10,
+					/obj/item/cartridge/signal/toxins = 10,
+					/obj/item/cartridge/signal = 10)
 	contraband = list(/obj/item/cartridge/clown = 1,/obj/item/cartridge/mime = 1)
-	prices = list(/obj/item/pda = 300,/obj/item/eftpos = 200,/obj/item/cartridge/medical = 200,/obj/item/cartridge/chemistry = 150,/obj/item/cartridge/engineering = 100,
-					/obj/item/cartridge/atmos = 75,/obj/item/cartridge/janitor = 100,/obj/item/cartridge/signal/toxins = 150,
-					/obj/item/cartridge/signal = 75)
+	prices = list(/obj/item/pda = 299,
+					/obj/item/eftpos = 199,
+					/obj/item/cartridge/medical = 199,
+					/obj/item/cartridge/chemistry = 149,
+					/obj/item/cartridge/engineering = 99,
+					/obj/item/cartridge/atmos = 69,
+					/obj/item/cartridge/janitor = 99,
+					/obj/item/cartridge/signal/toxins = 149,
+					/obj/item/cartridge/signal = 69)
 	refill_canister = /obj/item/vending_refill/cart
 
 /obj/machinery/vending/cart/get_ru_names()
@@ -1912,10 +1930,15 @@
 		"ЗА СВОБ+ОДУ!!!"
 	)
 	vend_reply = "Зап+омни мо+ё +имя: Liberation Station!"
-	products = list(/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
-					/obj/item/gun/projectile/automatic/pistol/m1911 = 2,/obj/item/gun/projectile/automatic/proto = 2,
-					/obj/item/gun/projectile/shotgun/automatic/combat = 2,/obj/item/gun/projectile/automatic/gyropistol = 1,
-					/obj/item/gun/projectile/shotgun = 2,/obj/item/gun/projectile/automatic/ar = 2)
+	products = list(/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,
+
+	/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
+					/obj/item/gun/projectile/automatic/pistol/m1911 = 2,
+					/obj/item/gun/projectile/automatic/proto = 2,
+					/obj/item/gun/projectile/shotgun/automatic/combat = 2,
+					/obj/item/gun/projectile/automatic/gyropistol = 1,
+					/obj/item/gun/projectile/shotgun = 2,
+					/obj/item/gun/projectile/automatic/ar = 2)
 	premium = list(/obj/item/ammo_box/magazine/smgm9mm = 2,/obj/item/ammo_box/magazine/m50 = 4,/obj/item/ammo_box/magazine/m45 = 2,/obj/item/ammo_box/magazine/m75 = 2)
 	contraband = list(/obj/item/clothing/under/patriotsuit = 1,/obj/item/bedsheet/patriot = 3)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
@@ -1964,13 +1987,13 @@
 					/obj/item/clothing/suit/syndicatefake = 5,
 					/obj/item/clothing/head/syndicatefake = 5) //OPS IN DORMS oh wait it's just an assistant
 	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow = 10,   //Congrats, you unlocked the +18 setting!
-					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
-					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
- 					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
-					  /obj/item/ammo_box/foambox/riot = 20,
-					  /obj/item/toy/katana = 10,
-					  /obj/item/twohanded/dualsaber/toy = 5,
-					  /obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
+					/obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
+					/obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
+ 					/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
+					/obj/item/ammo_box/foambox/riot = 20,
+					/obj/item/toy/katana = 10,
+					/obj/item/twohanded/dualsaber/toy = 5,
+					/obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -2002,8 +2025,6 @@
 		"Сигар+еты с мн+ожеством нагр+ад!"
 	)
 
-	vend_delay = 34
-
 	icon_state = "cigs_off"
 	panel_overlay = "cigs_panel"
 	screen_overlay = "cigs"
@@ -2025,18 +2046,18 @@
 	contraband = list( /obj/item/clothing/mask/cigarette/pipe/oldpipe = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_med = 1
 					)
-	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 180,
-					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 240,
-					/obj/item/storage/fancy/cigarettes/cigpack_random = 360,
-					/obj/item/reagent_containers/food/pill/patch/nicotine = 70,
-					/obj/item/storage/box/matches = 10,
-					/obj/item/lighter/random = 60,
-					/obj/item/storage/fancy/rollingpapers = 20,
-					/obj/item/clothing/mask/cigarette/pipe/oldpipe = 250,
-					/obj/item/lighter/zippo = 250,
-					/obj/item/clothing/mask/cigarette/cigar/havana = 1000,
-					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 700,
-					/obj/item/storage/fancy/cigarettes/cigpack_med = 500
+	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 179,
+					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 239,
+					/obj/item/storage/fancy/cigarettes/cigpack_random = 359,
+					/obj/item/reagent_containers/food/pill/patch/nicotine = 69,
+					/obj/item/storage/box/matches = 9,
+					/obj/item/lighter/random = 59,
+					/obj/item/storage/fancy/rollingpapers = 19,
+					/obj/item/clothing/mask/cigarette/pipe/oldpipe = 249,
+					/obj/item/lighter/zippo = 249,
+					/obj/item/clothing/mask/cigarette/cigar/havana = 999,
+					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 699,
+					/obj/item/storage/fancy/cigarettes/cigpack_med = 499
 					)
 	refill_canister = /obj/item/vending_refill/cigarette
 
@@ -2090,8 +2111,8 @@
 					/obj/item/lighter/random = 4,
 					/obj/item/storage/fancy/rollingpapers = 5)
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
-				   /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
-				   /obj/item/lighter/zippo = 3)
+					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+					/obj/item/lighter/zippo = 3)
 	prices = list()
 
 /obj/machinery/vending/cigarette/beach/get_ru_names()
@@ -2125,7 +2146,9 @@
 		"М+ожет с+ами пр+имете?"
 	)
 	req_access = list(ACCESS_MEDICAL)
-	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 5,
+	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 10,
+					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 10,
+					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 10,
 					/obj/item/stack/medical/bruise_pack = 4, /obj/item/stack/medical/ointment = 4,
 					/obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4,
 					/obj/item/stack/medical/bruise_pack/extended = 2, /obj/item/stack/medical/ointment/extended = 2,
@@ -2145,7 +2168,17 @@
 					/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/dropper = 4, /obj/item/reagent_containers/glass/beaker = 4,
 					/obj/item/reagent_containers/iv_bag/slime = 1)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	prices = list(/obj/item/stack/medical/bruise_pack/extended = 200, /obj/item/stack/medical/ointment/extended = 200)
+	prices = list(/obj/item/stack/medical/bruise_pack/extended = 199,
+					/obj/item/stack/medical/ointment/extended = 199,
+					/obj/item/stack/medical/bruise_pack/advanced = 99,
+					/obj/item/stack/medical/ointment/advanced = 99,
+					/obj/item/reagent_containers/hypospray/safety = 199,
+					/obj/item/pinpointer/crew = 299,
+					/obj/item/sensor_device = 599,
+					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 19,
+					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 19,
+					/obj/item/reagent_containers/applicator/brute = 149,
+					/obj/item/reagent_containers/applicator/burn = 149)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
@@ -2232,8 +2265,16 @@
 	deny_overlay = "wallmed_deny"
 
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
-	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
+	products = list(/obj/item/stack/medical/bruise_pack = 2,
+					/obj/item/stack/medical/ointment = 2,
+					/obj/item/reagent_containers/hypospray/autoinjector = 4,
+					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 2,
+					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 2,
+					/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
+	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 69,
+					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 69,
+					/obj/item/healthanalyzer = 99)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
@@ -2478,7 +2519,8 @@
 		/obj/item/gun_module/rail/scope/collimator = 5,
 		/obj/item/gun_module/under/flashlight/pistol = 10,
 		/obj/item/gun_module/under/flashlight/rifle = 10,
-		/obj/item/gun_module/under/hand/angle = 5
+		/obj/item/gun_module/under/hand/angle = 5,
+		/obj/item/ammo_box/magazine/enforcer/extended = 10
 	)
 	contraband = list(
 		/obj/item/gun_module/muzzle/suppressor = 3,
@@ -2491,6 +2533,7 @@
 		/obj/item/gun_module/under/flashlight/pistol = 199,
 		/obj/item/gun_module/under/flashlight/rifle = 249,
 		/obj/item/gun_module/under/hand/angle = 499,
+		/obj/item/ammo_box/magazine/enforcer/extended = 149,
 		/obj/item/gun_module/muzzle/suppressor = 499,
 		/obj/item/gun_module/rail/scope/x4 = 4999,
 	)
@@ -2684,7 +2727,6 @@
 		"АБРАКАД+АБРА!"
 	)
 
-	vend_delay = 15
 	vend_reply = "Жел+аю вам чуд+есного в+ечера!"
 
 	products = list(/obj/item/clothing/head/wizard = 5,
@@ -2849,16 +2891,17 @@
 	contraband = list(/obj/item/weldingtool/hugetank = 2,
 					/obj/item/clothing/gloves/color/yellow = 1
 					)
-	prices = list(/obj/item/stack/cable_coil/random = 30,
-					/obj/item/crowbar = 50,/obj/item/weldingtool = 50,
-					/obj/item/wirecutters = 50,
-					/obj/item/wrench = 50,
-					/obj/item/analyzer = 30,
-					/obj/item/t_scanner = 30,
-					/obj/item/screwdriver = 50,
-					/obj/item/clothing/gloves/color/fyellow = 250,
-					/obj/item/weldingtool/hugetank = 200,
-					/obj/item/clothing/gloves/color/yellow = 500
+	prices = list(/obj/item/stack/cable_coil/random = 29,
+					/obj/item/crowbar = 49,
+					/obj/item/weldingtool = 49,
+					/obj/item/wirecutters = 49,
+					/obj/item/wrench = 49,
+					/obj/item/analyzer = 29,
+					/obj/item/t_scanner = 29,
+					/obj/item/screwdriver = 49,
+					/obj/item/clothing/gloves/color/fyellow = 249,
+					/obj/item/weldingtool/hugetank = 199,
+					/obj/item/clothing/gloves/color/yellow = 499
 	)
 	refill_canister = /obj/item/vending_refill/youtool
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
@@ -3192,7 +3235,6 @@
 		"Сигар+еты с мн+ожеством нагр+ад."
 	)
 
-	vend_delay = 34
 
 	icon_state = "cigs_off"
 	panel_overlay = "cigs_panel"
@@ -3317,7 +3359,6 @@
 		"Зач+ем оставл+ять стиль на произв+ол судьб+ы? Исп+ользуйте ClothesMate!"
 	)
 
-	vend_delay = 15
 	vend_reply = "Спас+ибо за исп+ользование ClothesMate!"
 
 	product_categories = list(
@@ -3845,7 +3886,6 @@
 		"Пор+адуйте ваш+его вн+утреннего реб+ёнка!"
 	)
 
-	vend_delay = 15
 
 	icon_state = "artvend_off"
 	panel_overlay = "artvend_panel"
@@ -3879,25 +3919,25 @@
 	premium = list(/obj/item/poster/random_contraband = 5
 	)
 	prices = list(
-		/obj/item/toy/crayon/spraycan = 50,
-		/obj/item/stack/cable_coil/random = 30,
-		/obj/item/camera = 20,
-		/obj/item/camera_film = 10,
-		/obj/item/storage/photo_album = 10,
-		/obj/item/stack/wrapping_paper = 20,
-		/obj/item/stack/tape_roll = 20,
-		/obj/item/stack/packageWrap = 10,
-		/obj/item/storage/fancy/crayons = 35,
-		/obj/item/storage/fancy/glowsticks_box = 100,
-		/obj/item/hand_labeler = 30,
-		/obj/item/paper = 5,
-		/obj/item/c_tube = 10,
-		/obj/item/pen = 5,
-		/obj/item/pen/blue = 10,
-		/obj/item/pen/red = 10,
-		/obj/item/toy/crayon/mime = 50,
-		/obj/item/toy/crayon/rainbow = 50,
-		/obj/item/weaponcrafting/receiver = 250
+		/obj/item/toy/crayon/spraycan = 49,
+		/obj/item/stack/cable_coil/random = 29,
+		/obj/item/camera = 19,
+		/obj/item/camera_film = 9,
+		/obj/item/storage/photo_album = 9,
+		/obj/item/stack/wrapping_paper = 19,
+		/obj/item/stack/tape_roll = 19,
+		/obj/item/stack/packageWrap = 9,
+		/obj/item/storage/fancy/crayons = 29,
+		/obj/item/storage/fancy/glowsticks_box = 99,
+		/obj/item/hand_labeler = 29,
+		/obj/item/paper = 9,
+		/obj/item/c_tube = 9,
+		/obj/item/pen = 9,
+		/obj/item/pen/blue = 9,
+		/obj/item/pen/red = 9,
+		/obj/item/toy/crayon/mime = 49,
+		/obj/item/toy/crayon/rainbow = 49,
+		/obj/item/weaponcrafting/receiver = 249
 	)
 
 /obj/machinery/vending/artvend/get_ru_names()
@@ -3928,7 +3968,6 @@
 		"Вокс х+очет кр+екер?"
 	)
 
-	vend_delay = 15
 
 	icon_state = "crittercare_off"
 	panel_overlay = "crittercare_panel"
@@ -3958,23 +3997,23 @@
 	)
 
 	prices = list(
-		/obj/item/clothing/accessory/petcollar = 50,
-		/obj/item/storage/firstaid/aquatic_kit/full = 60,
-		/obj/item/fish_eggs/goldfish = 10,
-		/obj/item/fish_eggs/clownfish = 10,
-		/obj/item/fish_eggs/shark = 10,
-		/obj/item/fish_eggs/feederfish = 5,
-		/obj/item/fish_eggs/salmon = 10,
-		/obj/item/fish_eggs/catfish = 10,
-		/obj/item/fish_eggs/glofish = 10,
-		/obj/item/fish_eggs/electric_eel = 10,
-		/obj/item/fish_eggs/crayfish = 50,
-		/obj/item/fish_eggs/shrimp = 5,
-		/obj/item/toy/pet_rock = 100,
-		/obj/item/pet_carrier/normal = 250,
-		/obj/item/pet_carrier = 100,
-		/obj/item/reagent_containers/food/condiment/animalfeed = 100,
-		/obj/item/reagent_containers/glass/pet_bowl = 50,
+		/obj/item/clothing/accessory/petcollar = 49,
+		/obj/item/storage/firstaid/aquatic_kit/full = 59,
+		/obj/item/fish_eggs/goldfish = 9,
+		/obj/item/fish_eggs/clownfish = 9,
+		/obj/item/fish_eggs/shark = 9,
+		/obj/item/fish_eggs/feederfish = 9,
+		/obj/item/fish_eggs/salmon = 9,
+		/obj/item/fish_eggs/catfish = 9,
+		/obj/item/fish_eggs/glofish = 9,
+		/obj/item/fish_eggs/electric_eel = 9,
+		/obj/item/fish_eggs/crayfish = 49,
+		/obj/item/fish_eggs/shrimp = 9,
+		/obj/item/toy/pet_rock = 99,
+		/obj/item/pet_carrier/normal = 249,
+		/obj/item/pet_carrier = 99,
+		/obj/item/reagent_containers/food/condiment/animalfeed = 99,
+		/obj/item/reagent_containers/glass/pet_bowl = 49,
 	)
 
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
@@ -4028,7 +4067,6 @@
 		"Ну крас+авец!"
 	)
 
-	vend_delay = 15
 	vend_reply = "Спас+ибо за исп+ользование автом+ата-пом+ощника в в+ыборе од+ежды отд+ела!"
 	products = list()
 	contraband = list()
@@ -5108,15 +5146,15 @@
 		/obj/item/pai_cartridge/snake = 1
 	)
 	prices = list(
-		/obj/item/paicard = 200,
-		/obj/item/robot_parts/l_arm = 550,
-		/obj/item/robot_parts/r_arm = 550,
-		/obj/item/pai_cartridge/female = 150,
-		/obj/item/pai_cartridge/doorjack = 400,
-		/obj/item/pai_cartridge/syndi_emote = 650,
-		/obj/item/pai_cartridge/snake = 600,
-		/obj/item/pai_cartridge/reset = 500,
-		/obj/item/pai_cartridge/memory = 350
+		/obj/item/paicard = 199,
+		/obj/item/robot_parts/l_arm = 549,
+		/obj/item/robot_parts/r_arm = 549,
+		/obj/item/pai_cartridge/female = 149,
+		/obj/item/pai_cartridge/doorjack = 399,
+		/obj/item/pai_cartridge/syndi_emote = 649,
+		/obj/item/pai_cartridge/snake = 599,
+		/obj/item/pai_cartridge/reset = 599,
+		/obj/item/pai_cartridge/memory = 349
 	)
 	refill_canister = /obj/item/vending_refill/pai
 
@@ -5632,7 +5670,7 @@
 	)
 
 /obj/machinery/vending/protein
-	name = "Автомат спортивного пит+ания"
+	name = "Автомат спортивного питания"
 	desc = "Автомат самообслуживания, любезно предоставленный корпорацией Donk Co. Исключительная польза!"
 
 	slogan_list = list(
@@ -5658,6 +5696,12 @@
 		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 10,
 		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 10,
 		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 10,
+		/obj/item/reagent_containers/food/drinks/protein/zaza = 1,
+		/obj/item/reagent_containers/food/drinks/protein/cherry = 1,
+		/obj/item/reagent_containers/food/drinks/protein/chocolate = 1,
+		/obj/item/reagent_containers/food/drinks/protein/bananastrawberry = 1,
+		/obj/item/reagent_containers/food/drinks/creatine = 4,
+		/obj/item/reagent_containers/food/drinks/guarana = 12,
 	)
 	contraband = list(
 		/obj/item/reagent_containers/syringe/steroids = 5,
@@ -5667,6 +5711,12 @@
 		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 199,
 		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 249,
 		/obj/item/reagent_containers/syringe/steroids = 149,
+		/obj/item/reagent_containers/food/drinks/protein/zaza = 499,
+		/obj/item/reagent_containers/food/drinks/protein/cherry = 499,
+		/obj/item/reagent_containers/food/drinks/protein/chocolate = 499,
+		/obj/item/reagent_containers/food/drinks/protein/bananastrawberry = 499,
+		/obj/item/reagent_containers/food/drinks/creatine = 349,
+		/obj/item/reagent_containers/food/drinks/guarana = 129,
 	)
 	refill_canister = /obj/item/vending_refill/protein
 
@@ -5706,6 +5756,12 @@
 		/obj/item/grenade/flashbang = 10,
 		/obj/item/grenade/barrier = 10,
 		/obj/item/grenade/chem_grenade/teargas = 10,
+		/obj/item/ammo_box/secgl/solid = 2,
+		/obj/item/ammo_box/secgl/flash = 2,
+		/obj/item/ammo_box/secgl/gas = 1,
+		/obj/item/ammo_box/secgl/barricade = 1,
+		/obj/item/ammo_box/secgl/paint = 1,
+
 	)
 	contraband = list(
 		/obj/item/storage/box/flashbangs = 2,
@@ -5715,10 +5771,10 @@
 	)
 
 	prices = list(
-		/obj/item/storage/box/flashbangs = 100,
-		/obj/item/storage/box/barrier = 70,
-		/obj/item/storage/box/teargas = 100,
-		/obj/item/ammo_box/a357 = 300,
+		/obj/item/storage/box/flashbangs = 99,
+		/obj/item/storage/box/barrier = 69,
+		/obj/item/storage/box/teargas = 99,
+		/obj/item/ammo_box/a357 = 299,
 	)
 
 /obj/machinery/vending/ammo/get_ru_names()

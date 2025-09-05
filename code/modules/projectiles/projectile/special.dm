@@ -41,7 +41,7 @@
 	)
 	icon_state= "bolter"
 	damage = 50
-	flag = "bullet"
+	flag = BULLET
 
 /obj/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
@@ -61,7 +61,7 @@
 	desc = "USE A WEEL GUN"
 	icon_state= "bolter"
 	damage = 60
-	flag = "bullet"
+	flag = BULLET
 
 /obj/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	..()
@@ -252,7 +252,7 @@
 	damage = 0
 	damage_type = BRUTE
 	nodamage = TRUE
-	flag = "bullet"
+	flag = BULLET
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 
@@ -398,7 +398,7 @@
 	. = ..()
 	if(blocked >= 100)
 		return .
-	do_sparks(3, 1, target)
+	do_sparks(3, TRUE, target)
 	target.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
 	playsound(target, 'sound/effects/snap.ogg', 50, TRUE)
 	if(isturf(target.loc) && !target.loc.density)
@@ -416,7 +416,7 @@
 		PREPOSITIONAL = "блюспейс-луче"
 	)
 	icon_state = "spark"
-	hitsound = "sparks"
+	hitsound = SFX_SPARKS
 	damage = 0
 	color = "#33CCFF"
 	nodamage = TRUE
@@ -457,8 +457,8 @@
 		INSTRUMENTAL = "разрывной пулей",
 		PREPOSITIONAL = "разрывной пуле"
 	)
-	damage = 25
-	weaken = 10 SECONDS
+	damage = 20
+	knockdown = 5 SECONDS
 
 /obj/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
@@ -478,7 +478,7 @@
 	icon_state = "plasmacutter"
 	damage_type = BRUTE
 	damage = 5
-	hitsound = "bullet"
+	hitsound = SFX_BULLET
 	range = 3
 	dismemberment = 20
 	dismember_limbs = TRUE

@@ -112,7 +112,7 @@
 				var/obj/effect/decal/cleanable/blood/clock/streak = new(src.loc)
 				streak.update_icon()
 			else if(prob(10))
-				do_sparks(3, 1, src)
+				do_sparks(3, TRUE, src)
 		if(step_to(src, get_step(src, direction), 0))
 			break
 
@@ -153,7 +153,7 @@
 /obj/structure/clockwork/wall_gear/fake/displaced
 	anchored = FALSE
 
-/obj/structure/clockwork/wall_gear/Initialize()
+/obj/structure/clockwork/wall_gear/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/gear(get_turf(src))
 

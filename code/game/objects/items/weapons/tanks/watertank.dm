@@ -302,7 +302,7 @@
 		R.remove_any(100)
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
 		add_game_logs("used Nanofrost at [AREACOORD(user)].", user)
-		playsound(src,'sound/items/syringeproj.ogg',40,1)
+		playsound(src,'sound/items/syringeproj.ogg',40, TRUE)
 		for(var/a=0, a<5, a++)
 			step_towards(A, target)
 			sleep(2)
@@ -342,7 +342,7 @@
 	F.color = "#B2FFFF"
 	F.name = "nanofrost residue"
 	F.desc = "Residue left behind from a nanofrost detonation. Perhaps there was a fire here?"
-	playsound(src,'sound/effects/bamf.ogg',100,1)
+	playsound(src,'sound/effects/bamf.ogg',100, TRUE)
 	qdel(src)
 
 #undef EXTINGUISHER

@@ -162,8 +162,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 100)
 
-/obj/item/spentcasing/Initialize()
-	..()
+/obj/item/spentcasing/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-10.0, 10)
 	pixel_y = rand(-10.0, 10)
 	dir = pick(GLOB.alldirs)

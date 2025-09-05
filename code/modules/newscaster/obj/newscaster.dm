@@ -17,16 +17,9 @@
 /obj/machinery/newscaster
 	name = "newscaster"
 	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано НаноТрейзен для использования на коммерческих объектах."
-	ru_names = list(
-			NOMINATIVE = "новостник",
-			GENITIVE = "новостника",
-			DATIVE = "новостнику",
-			ACCUSATIVE = "новостник",
-			INSTRUMENTAL = "новостником",
-			PREPOSITIONAL = "новостнике"
-	)
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster"
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	max_integrity = 200
 	integrity_failure = 50
 	light_range = 0
@@ -42,7 +35,7 @@
 	/// The newcaster's index among all newscasters (GLOB.allNewscasters).
 	var/unit_number = 0
 	/// The name of the mob currently using the newscaster.
-	var/scanned_user = "Неизвестный"
+	var/scanned_user = UNKNOWN_NAME_RUS
 	/// The currently attached photo.
 	var/obj/item/photo/photo = null
 	/// The currently viewed channel.
@@ -58,11 +51,24 @@
 	/// Static, lazy list containing a user's last view time per channel.
 	var/static/last_views
 
+/obj/machinery/newscaster/get_ru_names()
+	return list(
+			NOMINATIVE = "новостник",
+			GENITIVE = "новостника",
+			DATIVE = "новостнику",
+			ACCUSATIVE = "новостник",
+			INSTRUMENTAL = "новостником",
+			PREPOSITIONAL = "новостнике"
+	)
+
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
 	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано НаноТрейзен для использования на коммерческих объектах. \
 			Эта модель оснащена расширенным функционалом, специально для службы безопасности."
-	ru_names = list(
+	is_security = TRUE
+
+/obj/machinery/newscaster/security_unit/get_ru_names()
+	return list(
 			NOMINATIVE = "новостник службы безопасности",
 			GENITIVE = "новостника службы безопасности",
 			DATIVE = "новостнику службы безопасности",
@@ -70,19 +76,15 @@
 			INSTRUMENTAL = "новостником службы безопасности",
 			PREPOSITIONAL = "новостнике службы безопасности"
 	)
-	is_security = TRUE
 
-/obj/machinery/newscaster/New()
+/obj/machinery/newscaster/Initialize(mapload)
+	. = ..()
 	GLOB.allNewscasters += src
 	unit_number = length(GLOB.allNewscasters)
 	update_icon(UPDATE_OVERLAYS) //for any custom ones on the map...
 	if(!last_views)
 		last_views = list()
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
-	..()
 
-/obj/machinery/newscaster/Initialize(mapload)
-	. = ..()
 	if(!jobblacklist)
 		jobblacklist = list(
 			/datum/job/ai,
@@ -644,7 +646,7 @@
   * * user - The user
   */
 /obj/machinery/newscaster/proc/get_scanned_user(mob/user)
-	. = list(name = "Неизвестный", security = user.can_admin_interact())
+	. = list(name = UNKNOWN_NAME_RUS, security = user.can_admin_interact())
 	if(ishuman(user))
 		var/mob/living/carbon/human/M = user
 		// No ID, no luck

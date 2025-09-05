@@ -1090,8 +1090,7 @@
 /area/centcom/zone1)
 "auF" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/administration)
@@ -1289,9 +1288,7 @@
 	pixel_y = -28
 	},
 /obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -1722,8 +1719,7 @@
 /area/syndicate_mothership)
 "aJb" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -1972,8 +1968,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -2091,8 +2086,7 @@
 /area/shuttle/ussp)
 "aTJ" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -3069,12 +3063,10 @@
 /area/shuttle/escape)
 "buk" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -3417,8 +3409,7 @@
 	req_access = list(150)
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -3610,8 +3601,7 @@
 /area/ninja/holding)
 "bEU" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -3730,8 +3720,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -4229,9 +4218,7 @@
 /obj/machinery/suit_storage_unit/syndicate{
 	pixel_y = 6
 	},
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "plastitanium"
@@ -4390,8 +4377,7 @@
 	name = "NTV Argos shuttle navigation computer"
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -5124,12 +5110,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -5143,7 +5126,6 @@
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -6880,8 +6862,7 @@
 "dik" = (
 /obj/machinery/sleeper/syndie,
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -7768,8 +7749,7 @@
 /area/centcom/specops)
 "dEc" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/administration)
@@ -7860,8 +7840,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -8395,12 +8374,10 @@
 /area/centcom/specops)
 "dVg" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/effect/turf_decal/stripes/black{
 	dir = 10;
-	do_not_delete_me = 1;
 	icon_state = "bs_deadlock"
 	},
 /turf/simulated/floor/shuttle{
@@ -8471,8 +8448,7 @@
 	id_tag = "synd_pump_bottom"
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9;
-	do_not_delete_me = 1
+	dir = 9
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -10733,12 +10709,10 @@
 	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -10933,8 +10907,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/caution/stand_clear{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
@@ -11030,7 +11003,6 @@
 "flG" = (
 /obj/effect/turf_decal/stripes/black{
 	dir = 8;
-	do_not_delete_me = 1;
 	icon_state = "bs_deadlock"
 	},
 /turf/simulated/floor/shuttle{
@@ -11296,9 +11268,7 @@
 /turf/simulated/floor/carpet/red,
 /area/centcom/zone1)
 "fsf" = (
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/carpet/blue,
 /area/shuttle/trade/sol)
 "fsg" = (
@@ -13464,9 +13434,7 @@
 	},
 /area/shuttle/ussp)
 "gnl" = (
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -14157,12 +14125,9 @@
 /area/syndicate_mothership)
 "gJa" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -14188,8 +14153,7 @@
 "gJj" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
@@ -14617,8 +14581,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -15141,8 +15104,7 @@
 /area/syndicate_mothership/jail)
 "hlv" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/carpet/blue,
 /area/shuttle/trade/sol)
@@ -15574,8 +15536,7 @@
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9;
-	do_not_delete_me = 1
+	dir = 9
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -15898,12 +15859,9 @@
 /area/centcom/specops)
 "hHU" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "trader shuttle airlock";
 	req_access = list(160);
@@ -15942,12 +15900,9 @@
 	},
 /area/ninja/outpost)
 "hIt" = (
+/obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -16452,12 +16407,9 @@
 /area/centcom/evac)
 "hYm" = (
 /obj/effect/turf_decal/caution/stand_clear{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -16519,12 +16471,9 @@
 	},
 /area/syndicate_mothership/jail)
 "iac" = (
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -17169,8 +17118,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -18442,8 +18390,7 @@
 /area/syndicate_mothership/outside)
 "iTh" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 9;
-	do_not_delete_me = 1
+	dir = 9
 	},
 /turf/simulated/floor/carpet/green,
 /area/shuttle/trade/sol)
@@ -18537,8 +18484,7 @@
 /area/syndicate_mothership/outside)
 "iWu" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/carpet/green,
 /area/shuttle/trade/sol)
@@ -18593,8 +18539,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -19375,8 +19320,7 @@
 /area/syndicate_mothership/outside)
 "jpA" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -19400,12 +19344,10 @@
 /area/syndicate_mothership/outside)
 "jqj" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "trader shuttle airlock";
@@ -20587,8 +20529,7 @@
 /area/ninja/holding)
 "jSC" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /turf/simulated/floor/carpet/green,
 /area/shuttle/trade/sol)
@@ -21204,8 +21145,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
@@ -21442,8 +21382,7 @@
 /area/centcom/specops)
 "knt" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/carpet/green,
 /area/shuttle/trade/sol)
@@ -22002,9 +21941,7 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/siberia)
 "kAK" = (
-/obj/effect/turf_decal/stripes/corner{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -22646,9 +22583,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
 "kPU" = (
@@ -22948,8 +22883,7 @@
 /area/centcom/jail)
 "kVb" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
@@ -23210,12 +23144,10 @@
 /area/syndicate_mothership/infteam)
 "laj" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /obj/effect/turf_decal/stripes/black{
 	dir = 5;
-	do_not_delete_me = 1;
 	icon_state = "bs_deadlock"
 	},
 /turf/simulated/floor/shuttle{
@@ -23284,12 +23216,9 @@
 	},
 /area/centcom/supplypod/loading/four)
 "lbH" = (
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -23325,8 +23254,7 @@
 /area/centcom/zone1)
 "lcs" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/carpet/blue,
 /area/shuttle/trade/sol)
@@ -23476,8 +23404,7 @@
 "lgc" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/siding/wood{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
@@ -24416,8 +24343,7 @@
 /area/centcom/zone1)
 "lBU" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/carpet/green,
 /area/shuttle/trade/sol)
@@ -25820,8 +25746,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -26090,8 +26015,7 @@
 /area/centcom/specops)
 "mpN" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/carpet/blue,
 /area/shuttle/trade/sol)
@@ -26325,8 +26249,7 @@
 /area/shuttle/trade/sol)
 "mtw" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/machinery/door_control{
 	id = "trader_privacy";
@@ -26364,7 +26287,6 @@
 /area/centcom/jail)
 "muh" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo16"
 	},
@@ -27039,12 +26961,9 @@
 	name = "Security Doors";
 	opacity = 0
 	},
+/obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/door/airlock/shuttle/glass{
 	id_tag = "soltradeship_south";
@@ -27066,8 +26985,7 @@
 /area/centcom/evac)
 "mHL" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 9;
-	do_not_delete_me = 1
+	dir = 9
 	},
 /turf/simulated/floor/carpet/blue,
 /area/shuttle/trade/sol)
@@ -28104,8 +28022,7 @@
 /obj/item/tank/internals/oxygen/red,
 /obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/stripes/line{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -28723,8 +28640,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -29654,8 +29570,7 @@
 /area/syndicate_mothership/jail)
 "nKo" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
@@ -30251,8 +30166,7 @@
 "nYg" = (
 /obj/machinery/sleeper/syndie,
 /obj/effect/turf_decal/stripes/line{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -30403,8 +30317,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/caution/stand_clear{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
@@ -30978,8 +30891,7 @@
 "ooE" = (
 /obj/structure/dispenser/oxygen,
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -33367,8 +33279,7 @@
 "puD" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -35259,8 +35170,7 @@
 "qoS" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -35718,7 +35628,6 @@
 /area/syndicate_mothership/infteam)
 "qyg" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo17"
 	},
@@ -35741,8 +35650,7 @@
 /area/shuttle/administration)
 "qyL" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -35933,9 +35841,7 @@
 	},
 /area/shuttle/administration)
 "qBj" = (
-/obj/effect/turf_decal/box{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/box,
 /obj/effect/landmark/nuclear_bomb,
 /obj/machinery/door/window/brigdoor/westleft{
 	color = "#d70000";
@@ -36136,8 +36042,7 @@
 	id_tag = "synd_pump_bottom"
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -36615,8 +36520,7 @@
 	id_tag = "synd_pump_bottom"
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -36900,8 +36804,7 @@
 /area/shuttle/pod_4)
 "qZj" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /turf/simulated/floor/carpet/blue,
 /area/shuttle/trade/sol)
@@ -36952,7 +36855,6 @@
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -37042,8 +36944,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -37137,8 +37038,7 @@
 /area/shuttle/administration)
 "rcE" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor12"
@@ -37350,8 +37250,7 @@
 /area/centcom/zone1)
 "rhC" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -37839,8 +37738,7 @@
 /area/syndicate_mothership/outside)
 "rrU" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/administration)
@@ -38203,8 +38101,7 @@
 	id_tag = "synd_pump_bottom"
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/structure/sign/vacuum{
 	pixel_y = -32
@@ -39356,8 +39253,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -39474,12 +39370,10 @@
 "seE" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -39661,8 +39555,7 @@
 /area/syndicate_mothership/cargo)
 "sik" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -39835,8 +39728,7 @@
 /area/shuttle/escape)
 "snA" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/carpet/blue,
 /area/shuttle/trade/sol)
@@ -40034,8 +39926,7 @@
 /area/syndicate_mothership/elite_squad)
 "ssr" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/carpet/blue,
 /area/shuttle/trade/sol)
@@ -41055,12 +40946,10 @@
 	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -41943,8 +41832,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/caution/stand_clear{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters/preopen/invincible{
 	dir = 1;
@@ -46571,8 +46459,7 @@
 /obj/item/aicard,
 /obj/item/storage/box/zipties,
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -46798,8 +46685,7 @@
 "vnw" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /obj/effect/turf_decal/stripes/corner{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -47475,7 +47361,6 @@
 /area/centcom/zone2)
 "vFb" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo4"
 	},
@@ -47743,8 +47628,7 @@
 /area/shuttle/syndicate_sit)
 "vLM" = (
 /obj/effect/turf_decal/number/number_4{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -47789,8 +47673,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9;
-	do_not_delete_me = 1
+	dir = 9
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -48655,8 +48538,7 @@
 /area/shuttle/ninja)
 "whO" = (
 /obj/effect/turf_decal/number/number_6{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -48667,9 +48549,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -49150,7 +49030,6 @@
 /area/shuttle/pod_3)
 "wua" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo19"
 	},
@@ -49532,8 +49411,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -49558,8 +49436,7 @@
 "wEb" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/door/airlock/syndicate/security/glass{
 	name = "Security Airlock";
@@ -49906,8 +49783,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/caution/stand_clear{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
@@ -50238,7 +50114,6 @@
 /area/syndicate_mothership)
 "wXm" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo18"
 	},
@@ -50438,7 +50313,6 @@
 /area/shuttle/ninja)
 "xaN" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo1"
 	},
@@ -50478,7 +50352,6 @@
 /area/syndicate_mothership)
 "xbx" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo2"
 	},
@@ -50531,7 +50404,6 @@
 /area/shuttle/syndicate)
 "xca" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo3"
 	},
@@ -50565,8 +50437,7 @@
 /area/shuttle/trade/sol)
 "xcS" = (
 /obj/effect/turf_decal/number/number_5{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -50833,8 +50704,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -50849,8 +50719,7 @@
 /area/centcom/specops)
 "xir" = (
 /obj/effect/turf_decal/number/number_3{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -50864,7 +50733,6 @@
 /area/syndicate_mothership/cargo)
 "xiW" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo5"
 	},
@@ -50875,7 +50743,6 @@
 /area/shuttle/syndicate)
 "xjg" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo6"
 	},
@@ -50983,7 +50850,6 @@
 /area/centcom/specops)
 "xkM" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo7"
 	},
@@ -50997,7 +50863,6 @@
 /area/shuttle/syndicate)
 "xla" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo8"
 	},
@@ -51291,8 +51156,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -51356,8 +51220,7 @@
 /area/centcom/evac)
 "xun" = (
 /obj/effect/turf_decal/number/number_2{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -51398,7 +51261,6 @@
 /area/shuttle/syndicate)
 "xuG" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo9"
 	},
@@ -51439,7 +51301,6 @@
 /area/shuttle/trade/sol)
 "xvJ" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo10"
 	},
@@ -51481,7 +51342,6 @@
 /area/shuttle/assault_pod)
 "xwn" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo11"
 	},
@@ -51523,7 +51383,6 @@
 /area/syndicate_mothership/outside)
 "xwS" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo12"
 	},
@@ -51546,8 +51405,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -51805,8 +51663,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -51854,8 +51711,7 @@
 /area/centcom/specops)
 "xEv" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/carpet/green,
 /area/shuttle/trade/sol)
@@ -51881,8 +51737,7 @@
 /area/centcom/jail)
 "xEX" = (
 /obj/effect/turf_decal/number/number_1{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -51901,8 +51756,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/caution/stand_clear{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
@@ -51988,9 +51842,7 @@
 /area/syndicate_mothership/control)
 "xGZ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -52019,7 +51871,6 @@
 /area/centcom/specops)
 "xHG" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo13"
 	},
@@ -52110,7 +51961,6 @@
 /area/centcom/evac)
 "xKB" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo14"
 	},
@@ -52138,7 +51988,6 @@
 /area/centcom/bridge)
 "xKO" = (
 /obj/effect/turf_decal{
-	do_not_delete_me = 1;
 	icon = 'icons/obj/syndie_logo.dmi';
 	icon_state = "logo15"
 	},
@@ -52182,9 +52031,7 @@
 	icon_state = "rightsecure";
 	req_access = list(150)
 	},
-/obj/effect/turf_decal/box{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/box,
 /obj/structure/table,
 /obj/item/book/manual/nuclear{
 	pixel_x = 2;
@@ -52382,8 +52229,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/royalblack,
@@ -52601,9 +52447,7 @@
 /area/syndicate_mothership/jail)
 "xYT" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -52626,9 +52470,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/box{
-	do_not_delete_me = 1
-	},
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "plastitanium"
@@ -52792,8 +52634,7 @@
 /area/syndicate_mothership)
 "ydm" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 9;
-	do_not_delete_me = 1
+	dir = 9
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/administration)

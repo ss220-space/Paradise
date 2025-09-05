@@ -239,7 +239,7 @@
 	var/list/datum/money_account/accounts_weights = list()
 	var/sum_of_weigths = 0
 
-/obj/item/vending_refill/custom/Initialize()
+/obj/item/vending_refill/custom/Initialize(mapload)
 	linked_accounts = list(GLOB.station_account)
 	accounts_weights = list(100)
 	sum_of_weigths = 100
@@ -314,7 +314,7 @@
 
 	if (isnull(operation))
 		balloon_alert(user, "значение не введено")
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 		return
 
 
@@ -334,9 +334,9 @@
 			balloon_alert(user, "значение должно быть меньше 3")
 
 	if (correct)
-		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, FALSE)
 	else
-		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 
 
 /obj/item/vending_refill/custom/examine(mob/user)

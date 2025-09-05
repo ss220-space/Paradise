@@ -91,6 +91,7 @@
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/energy/gun/pdw9/ert
 
@@ -135,14 +136,6 @@
 /obj/item/gun/energy/gun/minigun
 	name = "Laser gatling gun"
 	desc = "Огромное лазерное орудие, обладающее выдающейся скорострельностью и поражающей силой. Говорят, что 12 секунд стрельбы из этой малышки обойдутся вам в 400 тысяч кредитов."
-	ru_names = list(
-		NOMINATIVE = "Гатлинг-лазер",
-		GENITIVE = "Гатлинг-лазера",
-		DATIVE = "Гатлинг-лазеру",
-		ACCUSATIVE = "Гатлинг-лазер",
-		INSTRUMENTAL = "Гатлинг-лазером",
-		PREPOSITIONAL = "Гатлинг-лазере"
-	)
 	icon_state = "gatling"
 	item_state = "gatling"
 	fire_sound = "lasergatling"
@@ -165,6 +158,16 @@
 	accuracy = new /datum/gun_accuracy/minimal/gatling()
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+
+/obj/item/gun/energy/gun/minigun/get_ru_names()
+	return list(
+		NOMINATIVE = "Гатлинг-лазер",
+		GENITIVE = "Гатлинг-лазера",
+		DATIVE = "Гатлинг-лазеру",
+		ACCUSATIVE = "Гатлинг-лазер",
+		INSTRUMENTAL = "Гатлинг-лазером",
+		PREPOSITIONAL = "Гатлинг-лазере"
+	)
 
 /obj/item/gun/energy/gun/minigun/Initialize(mapload)
 	. = ..()
@@ -199,7 +202,11 @@
 	item_state = "gatling_pulse"
 	desc = "Огромное пульсовое орудие, обладающее выдающейся скорострельностью и разрушительной силой. \
 	Является модификацией Гатлинг-лазера. Имеет самую совершенную батарею в мире, самозаряд которой полностью компенсирует энергозатраты при стрельбе."
-	ru_names = list(
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
+	cell_type = /obj/item/stock_parts/cell/infinite
+
+/obj/item/gun/energy/gun/minigun/pulse/get_ru_names()
+	return list(
 		NOMINATIVE = "Гатлинг-пульсер",
 		GENITIVE = "Гатлинг-пульсера",
 		DATIVE = "Гатлинг-пульсеру",
@@ -207,5 +214,3 @@
 		INSTRUMENTAL = "Гатлинг-пульсером",
 		PREPOSITIONAL = "Гатлинг-пульсере"
 	)
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
-	cell_type = /obj/item/stock_parts/cell/infinite

@@ -13,6 +13,8 @@
 	desc = "Если вы видите это, напишите сообщение об ошибке, что-то пошло не так!"
 	gender = FEMALE
 	icon_state = "firstaid"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	drop_sound = 'sound/items/handling/drop/plasticbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/plasticbox_pickup.ogg'
 	use_sound = 'sound/items/handling/plasticbox_open.ogg'
@@ -412,6 +414,10 @@
 	desc = "Тактическая версия спортивной сумки с медицинскими опознавательными знаками. Содержит в себе набор инструментов для полевой хирургии."
 	gender = MALE
 	icon_state = "duffel-med"
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
+	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 21
 	storage_slots = 10
@@ -525,7 +531,7 @@
 	storage_slots = 50
 	max_combined_w_class = 50
 	display_contents_with_number = TRUE
-	use_sound = "pillbottle"
+	use_sound = SFX_PILLBOTTLE
 	pickup_sound = 'sound/items/handling/pickup/pillbottle_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/pillbottle_drop.ogg'
 	var/base_name = ""
@@ -622,7 +628,7 @@
 	belt_icon = "patch_pack"
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop1.ogg'
-	use_sound = "patchpack"
+	use_sound = SFX_PATCHPACK
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
 	wrapper_state = "patch_pack_wrap"
