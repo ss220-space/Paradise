@@ -2071,6 +2071,7 @@
 			Скафандр обеспечивает хорошую защиту, но при этом замедляет передвижение. Шлем защищает от вспышек."
 	cost = 46 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Элитный ИКС Синдиката"
@@ -2172,6 +2173,7 @@
 			Позволяет развернуть коробку, которая полностью скрывает вас от посторонних глаз."
 	item = /obj/item/implanter/stealth
 	cost = 40
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/implants/macrobomb
 	name = "Имплант макробомбы"
