@@ -3746,6 +3746,7 @@
 					/obj/item/clothing/suit/wizrobe/fake = 100,
 					/obj/item/clothing/head/wizard/fake = 20,
 					/obj/item/twohanded/staff = 20,
+					/obj/item/clothing/mask/gas/clown_hat = 50,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 50,
 					/obj/item/clothing/under/rank/clown/sexy = 20,
 					/obj/item/clothing/under/rank/clown/clussy = 20,

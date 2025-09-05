@@ -27,7 +27,7 @@ type ProductRecord = {
 type VendingRowProps = {
   product: ProductRecord;
   productStock: number;
-  inventory: (ProductRecord)[];
+  inventory: ProductRecord[];
   stockSearch: string;
   setStockSearch: (search: string) => void;
   selectedCategory: string | null;
@@ -37,7 +37,15 @@ type VendingRowProps = {
 /** Displays products in a section */
 const VendingRow = (props: VendingRowProps) => {
   const { act, data } = useBackend<VendingData>();
-  const { product, inventory, productStock, stockSearch, setStockSearch, selectedCategory, setSelectedCategory } = props;
+  const {
+    product,
+    inventory,
+    productStock,
+    stockSearch,
+    setStockSearch,
+    selectedCategory,
+    setSelectedCategory,
+  } = props;
   const { chargesMoney, userMoney, vend_ready, coin_name } = data;
   const free = !chargesMoney || product.price === 0;
 
@@ -148,9 +156,14 @@ export const Vending = (_props: unknown) => {
   } = data;
 
   const [stockSearch, setStockSearch] = useState('');
-  const stockSearchFn = createSearch(stockSearch, (item: ProductRecord) => item.name);
+  const stockSearchFn = createSearch(
+    stockSearch,
+    (item: ProductRecord) => item.name
+  );
 
-  const [selectedCategory, setSelectedCategory] = useState(Object.keys(categories)[0]);
+  const [selectedCategory, setSelectedCategory] = useState(
+    Object.keys(categories)[0]
+  );
 
   let inventory: ProductRecord[];
 
@@ -185,7 +198,6 @@ export const Vending = (_props: unknown) => {
     >
       <Window.Content>
         <Stack fill vertical>
-
           <Stack.Item>
             {!!chargesMoney && (
               <Section title="Пользователь">
@@ -258,30 +270,31 @@ export const Vending = (_props: unknown) => {
                     }
                   })
                   .map((product) => (
-                  <VendingRow
-                    key={product.name}
-                    product={product}
-                    inventory={inventory}
-                    productStock={stock[product.name]}
-                    stockSearch={stockSearch}
-                    setStockSearch={setStockSearch}
-                    selectedCategory={selectedCategory}
-                    setSelectedCategory={setSelectedCategory}
-                  />
-                ))}
+                    <VendingRow
+                      key={product.name}
+                      product={product}
+                      inventory={inventory}
+                      productStock={stock[product.name]}
+                      stockSearch={stockSearch}
+                      setStockSearch={setStockSearch}
+                      selectedCategory={selectedCategory}
+                      setSelectedCategory={setSelectedCategory}
+                    />
+                  ))}
               </Table>
             </Section>
           </Stack.Item>
 
-          {stockSearch.length < 2 && Object.keys(filteredCategories).length > 1 && (
-            <Stack.Item>
-              <CategorySelector
-                categories={filteredCategories}
-                selectedCategory={selectedCategory!}
-                onSelect={setSelectedCategory}
-              />
-            </Stack.Item>
-          )}
+          {stockSearch.length < 2 &&
+            Object.keys(filteredCategories).length > 1 && (
+              <Stack.Item>
+                <CategorySelector
+                  categories={filteredCategories}
+                  selectedCategory={selectedCategory!}
+                  onSelect={setSelectedCategory}
+                />
+              </Stack.Item>
+            )}
         </Stack>
       </Window.Content>
     </Window>
@@ -308,11 +321,11 @@ const CategorySelector = (props: {
           selected={name === selectedCategory}
           color={CATEGORY_COLORS[name]}
           icon={category.icon}
-          onClick={() => onSelect(name)}>
+          onClick={() => onSelect(name)}
+        >
           {name}
         </Button>
       ))}
     </Section>
   );
 };
-
