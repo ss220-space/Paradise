@@ -207,39 +207,44 @@
 	name = "broken component"
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "broken"
+	materials = list(MAT_METAL=250, MAT_GLASS=250)
 
 /obj/item/robot_parts/robot_component
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "working"
 	var/brute = 0
 	var/burn = 0
-
+	materials = list(MAT_METAL=250, MAT_GLASS=250)
 
 /obj/item/robot_parts/robot_component/binary_communication_device
 	name = "binary communication device"
 	icon_state = "binary_translator"
+	materials = list(MAT_METAL=500, MAT_GLASS=250)
 
 /obj/item/robot_parts/robot_component/actuator
 	name = "actuator"
 	icon_state = "actuator"
+	materials = list(MAT_METAL=800)
 
 /obj/item/robot_parts/robot_component/armour
 	name = "armour plating"
 	icon_state = "armor_plating"
+	materials = list(MAT_METAL=1500)
 
 /obj/item/robot_parts/robot_component/camera
 	name = "camera"
 	icon_state = "camera"
-
-
+	materials = list(MAT_METAL=250, MAT_GLASS=250)
 
 /obj/item/robot_parts/robot_component/diagnosis_unit
 	name = "diagnosis unit"
 	icon_state = "diagnosis_unit"
+	materials = list(MAT_METAL=250)
 
 /obj/item/robot_parts/robot_component/radio
 	name = "radio"
 	icon_state = "radio"
+	materials = list(MAT_METAL=250)
 
 ////////////////////////////////////////
 // MARK:	Cyborg analyzer
