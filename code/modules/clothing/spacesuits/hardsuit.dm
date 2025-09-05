@@ -740,7 +740,7 @@
 	item_state = "hardsuit0-blueshield"
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 25, BIO = 100, RAD = 50, FIRE = 80, ACID = 80)
 	item_color = "blueshield"
-	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/space/hardsuit/blueshield
 	name = "blueshield's hardsuit"
