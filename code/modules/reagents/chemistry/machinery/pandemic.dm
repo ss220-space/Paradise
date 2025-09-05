@@ -50,9 +50,9 @@
 				return resistances[index]
 
 /obj/machinery/computer/pandemic/proc/GetDiseaseTypeByIndex(index)
-	var/datum/disease/D = GetDiseaseByIndex(index)
-	if(D)
-		return D.GetDiseaseID()
+	var/datum/disease/disease = GetDiseaseByIndex(index)
+	if(disease)
+		return disease.GetDiseaseID()
 
 /obj/machinery/computer/pandemic/proc/replicator_cooldown(waittime)
 	wait = 1
@@ -91,18 +91,18 @@
 				B.pixel_y = rand(-3, 3)
 				var/path = GetResistancesByIndex(text2num(href_list["create_vaccine"]))
 				var/vaccine_type = path
-				var/vaccine_name = "Неизвестно"
+				var/vaccine_name = UNKNOWN_STATUS_RUS
 
 				if(!ispath(vaccine_type))
 					if(GLOB.archive_diseases[path])
-						var/datum/disease/D = GLOB.archive_diseases[path]
-						if(D)
-							vaccine_name = D.name
+						var/datum/disease/disease = GLOB.archive_diseases[path]
+						if(disease)
+							vaccine_name = disease.name
 							vaccine_type = path
 				else if(vaccine_type)
-					var/datum/disease/D = new vaccine_type
-					if(D)
-						vaccine_name = D.name
+					var/datum/disease/disease = new vaccine_type
+					if(disease)
+						vaccine_name = disease.name
 
 				if(vaccine_type)
 
@@ -123,17 +123,17 @@
 		return
 	else if(href_list["create_disease_culture"])
 		if(!wait)
-			var/datum/disease/D = GetDiseaseByIndex(text2num(href_list["create_disease_culture"]))
+			var/datum/disease/disease = GetDiseaseByIndex(text2num(href_list["create_disease_culture"]))
 			var/datum/disease/copy
-			if(istype(D, /datum/disease/virus/advance))
-				var/datum/disease/virus/advance/A = GLOB.archive_diseases[D.GetDiseaseID()]
+			if(istype(disease, /datum/disease/virus/advance))
+				var/datum/disease/virus/advance/A = GLOB.archive_diseases[disease.GetDiseaseID()]
 				if(A)
 					copy = A.Copy()
 			if(!copy)
-				copy = D.Copy()
+				copy = disease.Copy()
 			if(!copy)
 				return
-			var/name = tgui_input_text(usr, "Название:", "Введите название культуры", D.name, MAX_NAME_LEN)
+			var/name = tgui_input_text(usr, "Название:", "Введите название культуры", disease.name, MAX_NAME_LEN)
 			if(name == null || wait)
 				return
 			var/obj/item/reagent_containers/glass/bottle/B = new(loc)
@@ -185,9 +185,9 @@
 				AD.Refresh(update_properties = FALSE)
 		updateUsrDialog()
 	else if(href_list["print_form"])
-		var/datum/disease/D = GetDiseaseByIndex(text2num(href_list["print_form"]))
-		D = GLOB.archive_diseases[D.GetDiseaseID()]//We know it's advanced no need to check
-		print_form(D, usr)
+		var/datum/disease/disease = GetDiseaseByIndex(text2num(href_list["print_form"]))
+		disease = GLOB.archive_diseases[disease.GetDiseaseID()]//We know it's advanced no need to check
+		print_form(disease, usr)
 
 
 	else
@@ -203,13 +203,13 @@
 	icon_state = "mixer0"
 
 //Prints a nice virus release form. Props to Urbanliner for the layout
-/obj/machinery/computer/pandemic/proc/print_form(var/datum/disease/virus/advance/D, mob/living/user)
-	D = GLOB.archive_diseases[D.GetDiseaseID()]
-	if(!(printing) && D)
+/obj/machinery/computer/pandemic/proc/print_form(var/datum/disease/virus/advance/disease, mob/living/user)
+	disease = GLOB.archive_diseases[disease.GetDiseaseID()]
+	if(!(printing) && disease)
 		var/reason = tgui_input_text(user,"Укажите причину выпуска", "Указать", multiline = TRUE)
 		reason += "<span class=\"paper_field\"></span>"
 		var/symptoms_list = list()
-		for(var/I in D.symptoms)
+		for(var/I in disease.symptoms)
 			var/datum/symptom/S = I
 			symptoms_list += S.name
 		var/symtoms = russian_list(symptoms_list)
@@ -217,7 +217,7 @@
 
 		var/signature
 		if(tgui_alert(user, "Вы хотите подписать этот документ?", "Подпись", list("Да","Нет")) == "Да")
-			signature = "<span style='font-face: \"[SIGNFONT]\";'><i>[user ? user.real_name : "Неизвестный"]</i></span>"
+			signature = "<span style='font-face: \"[SIGNFONT]\";'><i>[user ? user.real_name : UNKNOWN_NAME_RUS]</i></span>"
 		else
 			signature = "<span class=\"paper_field\"></span>"
 
@@ -228,10 +228,10 @@
 
 		P.info = span_fontsize4("<u><b><center> Выпуск вируса </b></center></u>")
 		P.info += "<hr>"
-		P.info += "<u>Название вируса:</u> [D.name] <br>"
+		P.info += "<u>Название вируса:</u> [disease.name] <br>"
 		P.info += "<u>Симптомы:</u> [symtoms]<br>"
-		P.info += "<u>Путь передачи:</u> [D.additional_info]<br>"
-		P.info += "<u>Лекарство от вируса:</u> [D.cure_text]<br>"
+		P.info += "<u>Путь передачи:</u> [disease.additional_info]<br>"
+		P.info += "<u>Лекарство от вируса:</u> [disease.cure_text]<br>"
 		P.info += "<br>"
 		P.info += "<u>Причина выпуска:</u> [reason]"
 		P.info += "<hr>"
@@ -240,7 +240,7 @@
 		P.info += "Печать ответственного лица, разрешившего выпуск вируса:"
 		P.populatefields()
 		P.updateinfolinks()
-		P.name = "Выпуск вируса «[D.name]»"
+		P.name = "Выпуск вируса «[disease.name]»"
 		P.update_icon()
 		printing = null
 
@@ -279,34 +279,34 @@
 			dat += "<h3>Данные о заболеваниях:</h3>"
 			if(Blood.data["diseases"])
 				var/i = 0
-				for(var/datum/disease/D in Blood.data["diseases"])
+				for(var/datum/disease/disease in Blood.data["diseases"])
 					i++
-					if(!(D.visibility_flags & HIDDEN_PANDEMIC))
+					if(!(disease.visibility_flags & HIDDEN_PANDEMIC))
 
 						dat += "<b>Общепринятое название: </b>"
 
-						if(istype(D, /datum/disease/virus/advance))
-							var/datum/disease/virus/advance/A = D
-							D = GLOB.archive_diseases[A.GetDiseaseID()]
-							if(D)
-								if(D.name == "Неизвестно")
+						if(istype(disease, /datum/disease/virus/advance))
+							var/datum/disease/virus/advance/A = disease
+							disease = GLOB.archive_diseases[A.GetDiseaseID()]
+							if(disease)
+								if(disease.name == UNKNOWN_STATUS_RUS)
 									dat += "<b><a href='byond://?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><br>"
 								else
-									dat += "[D.name] <b><a href='byond://?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><br>"
+									dat += "[disease.name] <b><a href='byond://?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><br>"
 						else
-							dat += "[D.name]<br>"
+							dat += "[disease.name]<br>"
 
-						if(!D)
+						if(!disease)
 							CRASH("We weren't able to get the advance disease from the archive.")
 
-						dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] — <a href='byond://?src=[UID()];create_disease_culture=[i]'>Создать образец</a>":"нет"]<br>"
-						dat += "<b>Описание: </b> [(D.desc||"нет")]<br>"
-						dat += "<b>Путь передачи:</b> [(D.additional_info||"нет")]<br>"
-						dat += "<b>Возможное лекарство:</b> [(D.cure_text||"нет")]<br>"
-						dat += "<b>Возможность выработки антител:</b> [(D.can_immunity ? "Присутствует" : "Отсутствует")]<br>"
+						dat += "<b>Болезнетворный агент:</b> [disease?"[disease.agent] — <a href='byond://?src=[UID()];create_disease_culture=[i]'>Создать образец</a>":"нет"]<br>"
+						dat += "<b>Описание: </b> [(disease.desc||"нет")]<br>"
+						dat += "<b>Путь передачи:</b> [(disease.additional_info||"нет")]<br>"
+						dat += "<b>Возможное лекарство:</b> [(disease.cure_text||"нет")]<br>"
+						dat += "<b>Возможность выработки антител:</b> [(disease.can_immunity ? "Присутствует" : "Отсутствует")]<br>"
 
-						if(istype(D, /datum/disease/virus/advance))
-							var/datum/disease/virus/advance/A = D
+						if(istype(disease, /datum/disease/virus/advance))
+							var/datum/disease/virus/advance/A = disease
 							dat += "<br><b>Симптомы:</b> "
 							var/symptoms_list = list()
 							for(var/datum/symptom/S in A.symptoms)
@@ -325,15 +325,15 @@
 					var/i = 0
 					for(var/type in Blood.data["resistances"])
 						i++
-						var/disease_name = "Неизвестно"
+						var/disease_name = UNKNOWN_STATUS_RUS
 
 						if(!ispath(type))
 							var/datum/disease/virus/advance/A = GLOB.archive_diseases[type]
 							if(A)
 								disease_name = A.name
 						else
-							var/datum/disease/D = new type()
-							disease_name = D.name
+							var/datum/disease/disease = new type()
+							disease_name = disease.name
 
 						dat += "<li>[disease_name] - <a href='byond://?src=[UID()];create_vaccine=[i]'>Создать бутылка с вакциной</a></li>"
 					dat += "</ul><br>"

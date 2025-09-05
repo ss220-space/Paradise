@@ -5,8 +5,8 @@
 	var/list/overlays
 	//используется только для ниндзя
 	var/examine_text
-	var/assignment = "Unknown"
-	var/rank = "Unknown"
+	var/assignment = UNKNOWN_STATUS_RUS
+	var/rank = UNKNOWN_STATUS_RUS
 
 /datum/icon_snapshot/proc/makeImg()
 	if(!icon || !icon_state)
