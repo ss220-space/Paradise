@@ -311,7 +311,13 @@
 	desc = "Кофемашина модели \"Моделло 3\" — устройство для приготовления кофе при температуре в 80°C. \
 			Кофейные зёрна загружаются в виде специальных картриджей. Машина оборудована слотами для сахара, подсластителей и сливок, \
 			а также стойкой для бумажных стаканов. Произведено компанией \"Бытовая Техника Пиччонайя\"."
-	ru_names = list(
+	icon_state = "coffeemaker_nopot_nocart"
+	base_icon_state = "coffeemaker"
+	coffee = null
+	uses_cartridges = TRUE
+
+/obj/machinery/coffeemaker/standard/get_ru_names()
+	return list(
 		NOMINATIVE = "кофемашина \"Моделло 3\"",
 		GENITIVE = "кофемашины \"Моделло 3\"",
 		DATIVE = "кофемашине \"Моделло 3\"",
@@ -319,10 +325,6 @@
 		INSTRUMENTAL = "кофемашиной \"Моделло 3\"",
 		PREPOSITIONAL = "кофемашине \"Моделло 3\""
 	)
-	icon_state = "coffeemaker_nopot_nocart"
-	base_icon_state = "coffeemaker"
-	coffee = null
-	uses_cartridges = TRUE
 
 /obj/machinery/coffeemaker/standard/Initialize(mapload)
 	. = ..()
@@ -489,7 +491,15 @@
 	desc = "Картридж, содержащий перемолотые кофейные зёрна. \
 			Совместим с кофемашиной \"Моделло 3\". \
 			Произведён компанией \"Бытовая Техника Пиччонайя\"."
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/food/cartridges.dmi'
+	icon_state = "cartridge_basic"
+	w_class = WEIGHT_CLASS_SMALL
+	var/charges = 4
+	var/list/drink_type = list("coffee" = 150)
+
+/obj/item/coffee_cartridge/get_ru_names()
+	return list(
 		NOMINATIVE = "кофейный картридж \"Каффе Дженерико\"",
 		GENITIVE = "кофейного картриджа \"Каффе Дженерико\"",
 		DATIVE = "кофейному картриджу \"Каффе Дженерико\"",
@@ -497,12 +507,6 @@
 		INSTRUMENTAL = "кофейным картриджем \"Каффе Дженерико\"",
 		PREPOSITIONAL = "кофейном картридже \"Каффе Дженерико\""
 	)
-	gender = MALE
-	icon = 'icons/obj/food/cartridges.dmi'
-	icon_state = "cartridge_basic"
-	w_class = WEIGHT_CLASS_SMALL
-	var/charges = 4
-	var/list/drink_type = list("coffee" = 150)
 
 /obj/item/coffee_cartridge/examine(mob/user)
 	. = ..()
@@ -582,7 +586,10 @@
 			из которых был искусственно удалён кофеин. \
 			Совместим с кофемашиной \"Моделло 3\". \
 			Произведён компанией \"Бытовая Техника Пиччонайя\"."
-	ru_names = list(
+	icon_state = "cartridge_decaf"
+
+/obj/item/coffee_cartridge/decaf/get_ru_names()
+	return list(
 		NOMINATIVE = "кофе-картридж \"Каффе Декаффинато\"",
 		GENITIVE = "кофе-картриджа \"Каффе Декаффинато\"",
 		DATIVE = "кофе-картриджу \"Каффе Декаффинато\"",
@@ -590,7 +597,6 @@
 		INSTRUMENTAL = "кофе-картриджем \"Каффе Декаффинато\"",
 		PREPOSITIONAL = "кофе-картридже \"Каффе Декаффинато\""
 	)
-	icon_state = "cartridge_decaf"
 
 // no you can't just squeeze the juice bag into a glass!
 /obj/item/coffee_cartridge/bootleg
@@ -598,7 +604,10 @@
 	desc = "Самодельный картридж, содержащий перемолотые кофейные зёрна. \
 			Теоретически совместим с кофемашиной \"Моделло 3\", \
 			но никто этого не гарантирует."
-	ru_names = list(
+	icon_state = "cartridge_bootleg"
+
+/obj/item/coffee_cartridge/bootleg/get_ru_names()
+	return list(
 		NOMINATIVE = "кофе-картридж \"Ботанический специальный\"",
 		GENITIVE = "кофе-картриджа \"Ботанический специальный\"",
 		DATIVE = "кофе-картриджу \"Ботанический специальный\"",
@@ -606,14 +615,19 @@
 		INSTRUMENTAL = "кофе-картриджем \"Ботанический специальный\"",
 		PREPOSITIONAL = "кофе-картридже \"Ботанический специальный\""
 	)
-	icon_state = "cartridge_bootleg"
 
 // blank cartridge for crafting's sake, can be made at the service lathe
 /obj/item/blank_coffee_cartridge
 	name = "blank coffee cartridge"
 	desc = "Пустой картридж для перемолотых кофейных зёрен. \
 			Совместим с кофемашиной \"Моделло 3\"."
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/food/cartridges.dmi'
+	icon_state = "cartridge_blank"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/blank_coffee_cartridge/get_ru_names()
+	return list(
 		NOMINATIVE = "пустой кофе-картридж",
 		GENITIVE = "пустого кофе-картриджа",
 		DATIVE = "пустому кофе-картриджу",
@@ -621,10 +635,6 @@
 		INSTRUMENTAL = "пустым кофе-картриджем",
 		PREPOSITIONAL = "пустом кофе-картридже"
 	)
-	gender = MALE
-	icon = 'icons/obj/food/cartridges.dmi'
-	icon_state = "cartridge_blank"
-	w_class = WEIGHT_CLASS_SMALL
 
 /*
  * Impressa coffee maker
@@ -635,7 +645,11 @@
 	desc = "Кофемашина промышленного класса модели \"Импресса Моделло 5\" — устройство для приготовления кофе при температуре в 80°C. \
 			В отличие от стандартных моделей, не использует предварительно упакованные картриджи, а работает непосредственно с цельными зёрнами кофе. \
 			Такие пользуются спросом в кофейнях по всей Галактике. Произведено компанией \"Бытовая Техника Пиччонайя\"."
-	ru_names = list(
+	icon_state = "coffeemaker_impressa"
+	pixel_x = 2 //needed to make it sit nicely on tables
+
+/obj/machinery/coffeemaker/impressa/get_ru_names()
+	return list(
 		NOMINATIVE = "кофемашина \"Импресса Моделло 5\"",
 		GENITIVE = "кофемашины \"Импресса Моделло 5\"",
 		DATIVE = "кофемашине \"Импресса Моделло 5\"",
@@ -643,8 +657,6 @@
 		INSTRUMENTAL = "кофемашиной \"Импресса Моделло 5\"",
 		PREPOSITIONAL = "кофемашине \"Импресса Моделло 5\""
 	)
-	icon_state = "coffeemaker_impressa"
-	pixel_x = 2 //needed to make it sit nicely on tables
 
 /obj/machinery/coffeemaker/impressa/Initialize(mapload)
 	. = ..()

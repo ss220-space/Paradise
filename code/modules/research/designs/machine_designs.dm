@@ -490,7 +490,7 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/coffeemaker/standard
-  category = list("Misc. Machinery")
+	category = list("Misc. Machinery")
 
 /datum/design/slotmachine
 	name = "Machine Board (Slotmachine Arcade)"

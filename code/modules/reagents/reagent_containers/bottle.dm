@@ -1295,7 +1295,7 @@
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/examine(mob/user)
 	. = ..()
-	. += span_info("Используйте контейнер на [declent_ru(PREPOSITIONAL)], чтобы переместить в него содержимое бутылки.")
+	. += span_notice("Используйте контейнер на [declent_ru(PREPOSITIONAL)], чтобы переместить в него содержимое бутылки.")
 	return
 
 

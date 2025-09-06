@@ -427,8 +427,16 @@
 
 /obj/item/storage/box/coffeepack
 	name = "arabica beans"
-	desc = "Пакет, содержащий свежие, высушенные зёрна кофе арабика. Произведено Waffle Corp."
-	ru_names = list(
+	desc = "Пакет, содержащий высушенные зёрна кофе арабика. Произведено \"Waffle Corp\"."
+	gender = PLURAL
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "arabica_beans"
+	storage_slots = 5
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown/coffee)
+	var/beantype = /obj/item/reagent_containers/food/snacks/grown/coffee
+
+/obj/item/storage/box/coffeepack/get_ru_names()
+	return list(
 		NOMINATIVE = "зёрна кофе арабика",
 		GENITIVE = "зёрен кофе арабика",
 		DATIVE = "зёрнам кофе арабика",
@@ -436,12 +444,6 @@
 		INSTRUMENTAL = "зёрнами кофе арабика",
 		PREPOSITIONAL = "зёрнах кофе арабика"
 	)
-	gender = PLURAL
-	icon = 'icons/obj/food/containers.dmi'
-	icon_state = "arabica_beans"
-	storage_slots = 5
-	can_hold = list(/obj/item/reagent_containers/food/snacks/grown/coffee)
-	var/beantype = /obj/item/reagent_containers/food/snacks/grown/coffee
 
 /obj/item/storage/box/coffeepack/populate_contents()
 	for(var/i in 1 to storage_slots)
@@ -458,8 +460,12 @@
 
 /obj/item/storage/box/coffeepack/robusta
 	name = "robusta beans"
-	desc = "Пакет, содержащий свежие, высушенные зёрна кофе робуста. Произведено Waffle Corp."
-	ru_names = list(
+	desc = "Пакет, содержащий высушенные зёрна кофе робуста. Произведено \"Waffle Corp\"."
+	icon_state = "robusta_beans"
+	beantype = /obj/item/reagent_containers/food/snacks/grown/coffee/robusta
+
+/obj/item/storage/box/coffeepack/robusta/get_ru_names()
+	return list(
 		NOMINATIVE = "зёрна кофе робуста",
 		GENITIVE = "зёрен кофе робуста",
 		DATIVE = "зёрнам кофе робуста",
@@ -467,8 +473,6 @@
 		INSTRUMENTAL = "зёрнами кофе робуста",
 		PREPOSITIONAL = "зёрнах кофе робуста"
 	)
-	icon_state = "robusta_beans"
-	beantype = /obj/item/reagent_containers/food/snacks/grown/coffee/robusta
 
 /obj/item/storage/box/monkeycubes
 	name = "monkey cube box"

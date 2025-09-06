@@ -19,7 +19,15 @@
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal
 	name = "coffee cup"
 	desc = "Удобный бумажный стакан со снимаемой крышкой. Предназначен для питья кофе."
-	ru_names = list(
+	icon_state = "coffeecup"
+	base_icon_state = "coffeecup"
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(10,25,50)
+	volume = 50
+	has_cup = TRUE
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/get_ru_names()
+	return list(
         NOMINATIVE = "стакан кофе",
         GENITIVE = "стакана кофе",
         DATIVE = "стакану кофе",
@@ -27,12 +35,6 @@
         INSTRUMENTAL = "стаканом кофе",
         PREPOSITIONAL = "стакане кофе"
 	)
-	icon_state = "coffeecup"
-	base_icon_state = "coffeecup"
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(10,25,50)
-	volume = 50
-	has_cup = TRUE
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/examine(mob/user)
 	. = ..()
@@ -81,7 +83,14 @@
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small
 	name = "small coffee cup"
 	desc = "Небольшой бумажный стакан. Обычно в таких подают кофе. Далеко не самый удобный."
-	ru_names = list(
+	icon_state = "coffeecup_small"
+	base_icon_state = "coffeecup_small"
+	possible_transfer_amounts = list(10,30)
+	volume = 30
+	has_cup = FALSE
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/get_ru_names()
+	return list(
         NOMINATIVE = "стаканчик кофе",
         GENITIVE = "стаканчика кофе",
         DATIVE = "стаканчику кофе",
@@ -89,11 +98,6 @@
         INSTRUMENTAL = "стаканчиком кофе",
         PREPOSITIONAL = "стаканчике кофе"
 	)
-	icon_state = "coffeecup_small"
-	base_icon_state = "coffeecup_small"
-	possible_transfer_amounts = list(10,30)
-	volume = 30
-	has_cup = FALSE
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/update_overlays()
 	. = ..()

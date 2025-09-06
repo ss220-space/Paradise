@@ -662,14 +662,6 @@
 	name = "coffee condiments display"
 	desc = "Небольшая деревянная коробка, предназначенная для хранения \
 			и демонстрации добавок к кофе."
-	ru_names = list(
-		NOMINATIVE = "шоу-бокс для добавок к кофе",
-		GENITIVE = "шоу-бокса для добавок к кофе",
-		DATIVE = "шоу-боксу для добавок к кофе",
-		ACCUSATIVE = "шоу-бокс для добавок к кофе",
-		INSTRUMENTAL = "шоу-боксом для добавок к кофе",
-		PREPOSITIONAL = "шоу-боксе для добавок к кофе"
-	)
 	gender = MALE
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "coffee_condi_display"
@@ -679,6 +671,16 @@
 					/obj/item/reagent_containers/food/condiment/pack/creamer,
 					/obj/item/reagent_containers/food/condiment/pack/aspartame,
 					/obj/item/reagent_containers/food/condiment/pack/chocolate)
+
+/obj/item/storage/fancy/coffee_condi_display/get_ru_names()
+	return list(
+		NOMINATIVE = "шоу-бокс для добавок к кофе",
+		GENITIVE = "шоу-бокса для добавок к кофе",
+		DATIVE = "шоу-боксу для добавок к кофе",
+		ACCUSATIVE = "шоу-бокс для добавок к кофе",
+		INSTRUMENTAL = "шоу-боксом для добавок к кофе",
+		PREPOSITIONAL = "шоу-боксе для добавок к кофе"
+	)
 
 /obj/item/storage/fancy/coffee_condi_display/update_icon_state()
 	return
@@ -728,14 +730,6 @@
 	name = "coffeemaker cartridge rack"
 	desc = "Небольшая стойка для хранения кофе-картриджей, \
 			совместимых с кофемашиной \"Моделло 3\"."
-	ru_names = list(
-		NOMINATIVE = "стойка для кофе-картриджей",
-		GENITIVE = "стойки для кофе-картриджей",
-		DATIVE = "стойке для кофе-картриджей",
-		ACCUSATIVE = "стойку для кофе-картриджей",
-		INSTRUMENTAL = "стойкой для кофе-картриджей",
-		PREPOSITIONAL = "стойке для кофе-картриджей"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "coffee_cartrack0"
@@ -743,6 +737,16 @@
 	storage_slots = 4
 	can_hold = list(/obj/item/coffee_cartridge,
 					/obj/item/blank_coffee_cartridge)
+
+/obj/item/storage/fancy/coffee_cart_rack/get_ru_names()
+	return list(
+		NOMINATIVE = "стойка для кофе-картриджей",
+		GENITIVE = "стойки для кофе-картриджей",
+		DATIVE = "стойке для кофе-картриджей",
+		ACCUSATIVE = "стойку для кофе-картриджей",
+		INSTRUMENTAL = "стойкой для кофе-картриджей",
+		PREPOSITIONAL = "стойке для кофе-картриджей"
+	)
 
 /obj/item/storage/fancy/coffee_cart_rack/populate_contents()
 	var/cartridges = rand(1, storage_slots)
