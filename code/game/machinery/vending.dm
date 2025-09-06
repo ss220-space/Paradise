@@ -2370,7 +2370,8 @@
 		/obj/item/gun_module/rail/scope/collimator = 5,
 		/obj/item/gun_module/under/flashlight/pistol = 10,
 		/obj/item/gun_module/under/flashlight/rifle = 10,
-		/obj/item/gun_module/under/hand/angle = 5,
+		/obj/item/gun_module/under/hand/angle = 3,
+		/obj/item/gun_module/under/hand/foregrip = 3,
 		/obj/item/ammo_box/magazine/enforcer/extended = 10
 	)
 	contraband = list(
@@ -2385,6 +2386,7 @@
 		/obj/item/gun_module/under/flashlight/pistol = 199,
 		/obj/item/gun_module/under/flashlight/rifle = 249,
 		/obj/item/gun_module/under/hand/angle = 499,
+		/obj/item/gun_module/under/hand/foregrip = 499,
 		/obj/item/ammo_box/magazine/enforcer/extended = 149,
 		/obj/item/gun_module/muzzle/suppressor = 499,
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 799,
@@ -2406,7 +2408,8 @@
 		/obj/item/gun_module/rail/hud/security = 5,
 		/obj/item/gun_module/under/flashlight/pistol = 5,
 		/obj/item/gun_module/under/flashlight/rifle = 5,
-		/obj/item/gun_module/under/hand/angle = 5,
+		/obj/item/gun_module/under/hand/angle = 3,
+		/obj/item/gun_module/under/hand/foregrip = 3,
 		/obj/item/gun_module/muzzle/suppressor = 5,
 		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
 		/obj/item/gun_module/muzzle/suppressor/heavy = 2,
