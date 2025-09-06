@@ -1756,7 +1756,8 @@
 	reconstruct()
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/reconstruct()
-	playsound(src, sound, 50, TRUE)
+	if(!isnull(sound))
+		playsound(src, sound, 50, TRUE)
 	if(!isnull(icon_state))
 		animate(src, transform = matrix() * 1, time = anim_time)
 	addtimer(CALLBACK(src, PROC_REF(process_affected)), sleep_time)
@@ -1803,10 +1804,10 @@
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/curse(mob/living/target)
 	var/obj/item/nullrod/N = locate() in target
-	if(!isnull(N) || target.mind.isblessed)
+	if(!isnull(N) || target.mind?.isblessed)
 		return
-	emp()
-	stun()
+	emp(target)
+	stun(target)
 
 /obj/effect/temp_visual/ratvar/reconstruct/proc/emp(mob/living/target)
 	if(!do_emp)
@@ -1851,7 +1852,7 @@
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/reconstruct()
 	. = ..()
-	playsound(src, 'sound/magic/clockwork/heart_beat.ogg', vol = 100, vary = FALSE, extrarange = radius, pressure_affected = FALSE, falloff_distance = radius)
+	playsound(src, soundin = 'sound/magic/clockwork/heart_beat.ogg', vol = 100, vary = FALSE, extrarange = radius, pressure_affected = FALSE, falloff_distance = radius)
 
 /obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/New()
 	radius = GLOB.heart.pulse_range
