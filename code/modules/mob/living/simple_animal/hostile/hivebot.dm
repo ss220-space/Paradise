@@ -259,7 +259,7 @@ ru_names = list(
 /obj/structure/hivebot_spawner/proc/start_production()
 	is_active = TRUE
 	icon_state = "fab_robot"
-	visible_message("span_warning("[capitalise(declent_ru(NOMINATIVE))] начинает гудеть!")")
+	visible_message("<span class='warning'>[src] начинает гудеть!</span>")
 	next_spawn_time = world.time + (spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/spawn_bots()
@@ -280,7 +280,7 @@ ru_names = list(
 		next_spawn_time = world.time + (spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/finish_production()
-	visible_message("span_warning("[capitalise(declent_ru(NOMINATIVE))] останавливается.")")
+	visible_message("<span class='warning'>[src] останавливается.</span>")
 	is_active = FALSE
 	spawn_count = initial(spawn_count)
 	cooldown_until = world.time + cooldown_duration
