@@ -295,7 +295,6 @@ export const Vending = (_props: unknown) => {
               </Table>
             </Section>
           </Stack.Item>
-
         </Stack>
       </Window.Content>
     </Window>
