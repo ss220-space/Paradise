@@ -756,7 +756,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		// These smiting types are valid for all living mobs
 		if("Lightning bolt")
 			M.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
-			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
+			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, TRUE, -1)
 			M.adjustFireLoss(75)
 			M.Weaken(10 SECONDS)
 			to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
@@ -867,7 +867,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			H.set_nutrition(NUTRITION_LEVEL_FAT * 2)
 
 		if("Fakebwoink")
-			SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
+			SEND_SOUND(H, sound('sound/effects/adminhelp.ogg'))
 
 		if("Nugget")
 			H.Weaken(12 SECONDS, TRUE)
@@ -906,9 +906,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 					pdelay = tgui_input_number(src, "Input pump delay.")
 					oxy_dmg = tgui_input_number(src, "Input oxy damage.")
 				else
-					var/list/strenght = text2numlist(effect_strength, " - ")
-					pdelay = strenght[1]
-					oxy_dmg = strenght[2]
+					var/list/strength = text2numlist(effect_strength, " - ")
+					pdelay = strength[1]
+					oxy_dmg = strength[2]
 				H.curse_high_rp(pdelay*10, oxy_dmg)
 				LAZYADD(H.mind.curses, "high_rp")
 				logmsg = "high rp([pdelay] - [oxy_dmg])"

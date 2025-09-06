@@ -1,5 +1,5 @@
 /obj/item/gun/energy/bsg
-	name = "Б.С.П." // No \improper because it's russian name. "The Б.С.П." is worse than just "Б.С.П.".
+	name = "Б.С.П."
 	desc = "Большая С*** Пушка. Использует ядро энергетической аномалии и блюспейс кристалл для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
 	icon_state = "bsg"
 	item_state = "bsg"
@@ -68,7 +68,7 @@
 			return ATTACK_CHAIN_PROCEED
 
 		var/obj/item/assembly/signaler/core/Icore = item
-		if(Icore.get_strenght() < 140)
+		if(Icore.get_strength() < 140)
 			balloon_alert(user, "ядро слишком слабо")
 			return
 
@@ -110,7 +110,7 @@
 		return ..()
 
 	var/obj/projectile/energy/bsg/bsg_BB = chambered.BB
-	bsg_BB.core_strenght = core.get_strenght()
+	bsg_BB.core_strength = core.get_strength()
 	return ..()
 
 

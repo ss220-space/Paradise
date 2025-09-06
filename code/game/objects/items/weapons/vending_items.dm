@@ -23,7 +23,7 @@
 
 /obj/item/vending_refill/Initialize(mapload)
 	. = ..()
-	name = "\improper [machine_name] restocking unit"
+	name = "[machine_name] restocking unit"
 
 /obj/item/vending_refill/examine(mob/user)
 	. = ..()
@@ -191,6 +191,13 @@
 /obj/item/vending_refill/plasma
 	machine_name = "PlasmaMate"
 	icon_state = "refill_plasma"
+
+/obj/item/vending_refill/snack
+	machine_name = "Getmore Chocolate Corp"
+
+/obj/item/vending_refill/protein
+	machine_name = "Автомат спортивного питания"
+
 
 /obj/item/vending_refill/custom
 	machine_name = "Customat"

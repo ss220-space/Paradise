@@ -2,7 +2,7 @@
 #define SPEAK_COOLDOWN 10 SECONDS
 
 /mob/living/simple_animal/bot/ed209
-	name = "\improper ED-209 Security Robot"
+	name = "ED-209 Security Robot"
 	desc = "Охранный робот. Он выглядит абсолютно спокойным."
 	ru_names = list(
 		NOMINATIVE = "охранный робот ED-209",
@@ -411,7 +411,7 @@
 			target = C
 			oldtarget_name = C.name
 			speak("Вижу преступника! Уровень опасности - <b>[threatlevel]</b>!")
-			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, 0)
+			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, FALSE)
 			visible_message("<b>[capitalize(declent_ru(NOMINATIVE))]</b> указывает на [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
@@ -503,7 +503,7 @@
 		return
 
 	var/obj/projectile/A = new projectile(loc)
-	playsound(loc, shoot_sound, 50, 1)
+	playsound(loc, shoot_sound, 50, TRUE)
 	A.current = U
 	A.firer = src
 	A.yo = U.y - T.y

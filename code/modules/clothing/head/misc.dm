@@ -1,7 +1,7 @@
 
 
 /obj/item/clothing/head/centhat
-	name = "\improper CentComm. hat"
+	name = "CentComm. hat"
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
 	item_state = "centhat"
@@ -518,7 +518,7 @@
 
 /obj/item/clothing/head/griffin/proc/caw()
 	if(cooldown < world.time - 20) // A cooldown, to stop people being jerks
-		playsound(src.loc, 'sound/creatures/caw.ogg', 50, 1)
+		playsound(src.loc, 'sound/creatures/caw.ogg', 50, TRUE)
 		cooldown = world.time
 
 

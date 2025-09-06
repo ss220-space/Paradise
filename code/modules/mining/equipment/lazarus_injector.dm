@@ -1,7 +1,15 @@
 /**********************Lazarus Injector**********************/
 /obj/item/lazarus_injector
 	name = "lazarus injector"
-	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead, making them become friendly to the user. Unfortunately, the process is useless on higher forms of life and incredibly costly, so these were hidden in storage until an executive thought they'd be great motivation for some of their employees."
+	desc = "Шприц с коктейлем наномашин и химикатов, способный оживлять мёртвых животных, делая их дружелюбными к пользователю. К сожалению, процесс бесполезен для высших форм жизни и крайне дорог, поэтому устройства хранились на складе, пока какой-то руководитель не решил, что они станут отличной мотивацией для сотрудников."
+	ru_names = list(
+		NOMINATIVE = "инъектор Лазаря",
+		GENITIVE = "инъектора Лазаря",
+		DATIVE = "инъектору Лазаря",
+		ACCUSATIVE = "инъектор Лазаря",
+		INSTRUMENTAL = "инъектором Лазаря",
+		PREPOSITIONAL = "инъекторе Лазаря"
+	)
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "lazarus_hypo"
 	item_state = "hypo"
@@ -43,7 +51,7 @@
 					else
 						H.attack_same = 0
 				loaded = FALSE
-				user.visible_message("<span class='notice'>[user] injects [M] with [src], reviving it.</span>")
+				user.visible_message(span_notice("[user] ввод[pluralize_ru(user.gender,"ит","яд")] в [M.declent_ru(ACCUSATIVE)] инъектор Лазаря, оживляя его."))
 				playsound(src,'sound/effects/refill.ogg',50,1)
 				update_icon(UPDATE_ICON_STATE)
 				return
@@ -68,15 +76,23 @@
 /obj/item/lazarus_injector/examine(mob/user)
 	. = ..()
 	if(!loaded)
-		. += "<span class='notice'>[src] is empty.</span>"
+		. += span_notice("[capitalize(declent_ru(NOMINATIVE))] пуст.")
 	if(malfunctioning)
-		. += "<span class='notice'>The display on [src] seems to be flickering.</span>"
+		. += span_notice("Дисплей [declent_ru(GENITIVE)] мерцает.")
 
 /*********************Mob Capsule*************************/
 
 /obj/item/mobcapsule
 	name = "lazarus capsule"
-	desc = "It allows you to store and deploy lazarus-injected creatures easier."
+	desc = "Позволяет удобно хранить и транспортировать существ, обработанных инъектором."
+	ru_names = list(
+		NOMINATIVE = "капсула Лазаря",
+		GENITIVE = "капсулы Лазаря",
+		DATIVE = "капсуле Лазаря",
+		ACCUSATIVE = "капсулу Лазаря",
+		INSTRUMENTAL = "капсулой Лазаря",
+		PREPOSITIONAL = "капсуле Лазаря"
+	)
 	icon = 'icons/obj/mobcap.dmi'
 	icon_state = "mobcap0"
 	w_class = WEIGHT_CLASS_TINY
@@ -100,17 +116,17 @@
 
 /obj/item/mobcapsule/proc/capture(mob/living/simple_animal/S, mob/living/M)
 	if(captured)
-		to_chat(M, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
+		to_chat(M, span_notice("Ошибка захвата! В капсуле уже зарегистрировано существо!"))
 	else
 		if("neutral" in S.faction)
 			S.forceMove(src)
 			S.name = "[M.name]'s [initial(S.name)]"
 			S.cancel_camera()
 			name = "Lazarus Capsule: [initial(S.name)]"
-			to_chat(M, "<span class='notice'>You placed a [S.name] inside the Lazarus Capsule!</span>")
+			to_chat(M, span_notice("Вы поместили [S.name] в капсулу Лазаря!"))
 			captured = S
 		else
-			to_chat(M, "You can't capture that mob!")
+			to_chat(M, span_warning("Это существо нельзя захватить!"))
 
 /obj/item/mobcapsule/throw_impact(atom/A, datum/thrownthing/throwingdatum)
 	..()

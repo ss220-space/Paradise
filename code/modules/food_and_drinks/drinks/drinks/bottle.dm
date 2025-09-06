@@ -758,6 +758,6 @@
 		if(!isGlass)
 			to_chat(user, span_danger("Пламя распространилось уже слишком далеко!"))
 			return
-		to_chat(user, span_info("Вы гасите пламя у [src.declent_ru(GENITIVE)]."))
+		to_chat(user, span_notice("Вы гасите пламя у [src.declent_ru(GENITIVE)]."))
 		active = FALSE
 		update_icon(UPDATE_OVERLAYS)

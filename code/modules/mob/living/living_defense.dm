@@ -73,7 +73,7 @@
 	if(!(flags & SHOCK_ILLUSION))
 		apply_damage(shock_damage, BURN, spread_damage = TRUE)
 		if(shock_damage > 200)
-			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
+			playsound(loc, 'sound/effects/eleczap.ogg', 50, TRUE, -1)
 			explosion(loc, -1, 0, 2, 2, cause = "[name] over electrocuted by [source]")
 	else
 		apply_damage(shock_damage, STAMINA)
@@ -452,11 +452,20 @@
 /mob/living/proc/get_grab_upgrade_time(mob/living/grabber)
 	if(!grabber.mind)
 		return GRAB_UPGRADE_TIME
+
 	var/datum/antagonist/vampire/vampire = grabber.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/datum/vampire_passive/upgraded_grab/vampire_grab = vampire?.get_ability(/datum/vampire_passive/upgraded_grab)
 	if(vampire_grab)
 		return vampire_grab.grab_speed
-	return isnull(grabber.mind?.martial_art?.grab_speed) ? GRAB_UPGRADE_TIME : grabber.mind.martial_art.grab_speed
+
+	var/mod = 1
+	var/list/mods = list()
+	SEND_SIGNAL(src, COMSIG_GET_GRAB_SPEED_MODIFIERS, mods)
+	for(var/modifier in mods)
+		mod *= modifier
+
+	var/normal_grab_update_time = GRAB_UPGRADE_TIME * mod
+	return isnull(grabber.mind?.martial_art?.grab_speed) ? normal_grab_update_time / mod : grabber.mind.martial_art.grab_speed
 
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
@@ -493,7 +502,7 @@
 		return FALSE
 
 	if(M.attack_sound)
-		playsound(loc, M.attack_sound, 50, 1, 1)
+		playsound(loc, M.attack_sound, 50, TRUE, 1)
 	M.do_attack_animation(src)
 	visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [M.attacktext] [declent_ru(ACCUSATIVE)]!"), \
 					span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [M.attacktext] [declent_ru(ACCUSATIVE)]!"))
@@ -517,7 +526,7 @@
 				add_attack_logs(L, src, "Larva attacked")
 				visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] куса[pluralize_ru(L.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"), \
 						span_userdanger("[capitalize(L.declent_ru(NOMINATIVE))] куса[pluralize_ru(L.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"))
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 				return TRUE
 			else
 				visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] пыта[pluralize_ru(L.gender,"ет","ют")]ся укусить [declent_ru(ACCUSATIVE)]!"), \
@@ -562,7 +571,7 @@
 	if(body_position == LYING_DOWN)
 		return FALSE
 	add_attack_logs(attacker, target, "pushed into [src]", ATKLOG_ALL)
-	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
 	target.Knockdown(1 SECONDS) // knock them both down
 	Knockdown(1 SECONDS)
 	return TRUE
@@ -579,7 +588,7 @@
 		return FALSE
 
 	if(user.attack_sound)
-		playsound(loc, user.attack_sound, 50, TRUE, TRUE)
+		playsound(loc, user.attack_sound, 50, TRUE, 1)
 	user.do_attack_animation(src)
 	visible_message(span_danger("[user] [user.attack_verb_continuous] [declent_ru(ACCUSATIVE)]!"), \
 					span_userdanger("[user] [user.attack_verb_continuous] вас!"))

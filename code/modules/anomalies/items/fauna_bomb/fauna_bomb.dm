@@ -121,11 +121,11 @@
 		use_charge(0) // Stop charging.
 		return
 
-	max_charge = core.get_strenght()
+	max_charge = core.get_strength()
 	charge_speed = max_charge / 75
 	var/req_charge = 0
 	for(var/mob/living/simple_animal/hostile/airmob/airmob as anything in created_mobs)
-		airmob.leash_radius = round(core.get_strenght() / 15 + 0.5)
+		airmob.leash_radius = round(core.get_strength() / 15 + 0.5)
 		if (get_dist(src, airmob) > airmob.leash_radius)
 			airmob.dust()
 			continue
@@ -152,10 +152,10 @@
 		. += span_warning("В [declent_ru(PREPOSITIONAL)] нет ядра атмосферной аномалии!")
 		return
 
-	. += span_info("Текущий заряд: [charge != max_charge ? charge : span_boldnotice("[charge]")]/[max_charge + used_charge]")
-	. += span_info("Свободный заряд: [max_charge != max_charge + used_charge ? max_charge : span_boldnotice("[max_charge]")]/[max_charge + used_charge]")
-	. += span_info("Скорость восстановления заряда: [charge_speed]")
-	. += span_info("Проецируется существ: [created_mobs.len != MAX_CREATED_MOBS ? created_mobs.len : span_boldnotice("[created_mobs.len]")]/[MAX_CREATED_MOBS]")
+	. += span_notice("Текущий заряд: [charge != max_charge ? charge : span_boldnotice("[charge]")]/[max_charge + used_charge]")
+	. += span_notice("Свободный заряд: [max_charge != max_charge + used_charge ? max_charge : span_boldnotice("[max_charge]")]/[max_charge + used_charge]")
+	. += span_notice("Скорость восстановления заряда: [charge_speed]")
+	. += span_notice("Проецируется существ: [created_mobs.len != MAX_CREATED_MOBS ? created_mobs.len : span_boldnotice("[created_mobs.len]")]/[MAX_CREATED_MOBS]")
 
 /obj/item/fauna_bomb/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] направля[pluralize_ru(user.gender,"ет","ют")] проецирующую систему [declent_ru(GENITIVE)] себе в рот, \

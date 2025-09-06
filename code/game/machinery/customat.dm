@@ -36,7 +36,7 @@
 
 
 /obj/machinery/customat
-	name = "\improper Customat"
+	name = "Customat"
 	desc = "Торговый автомат с кастомным содержимым."
 	icon = 'icons/obj/machines/customat.dmi'
 	icon_state = "custommate-off"

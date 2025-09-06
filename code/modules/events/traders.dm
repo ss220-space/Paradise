@@ -15,19 +15,28 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 /datum/event/traders/fake_announce()
 	. = TRUE
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
-		GLOB.event_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].", "Оповещение: Запрос на стыковку шаттла торговцев отклонен.")
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
+		GLOB.minor_announcement.announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].",
+										"Запрос на стыковку шаттла торговцев отклонен.",
+										'sound/AI/traderdeny.ogg'
+		)
 		return
 	var/map_trader_port = 5
 	if(station_name() == "NSS Cyberiad")
 		map_trader_port = 4
-	GLOB.event_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].", "Оповещение: Запрос на стыковку шаттла торговцев принят.")
+	GLOB.minor_announcement.announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",
+									"Запрос на стыковку шаттла торговцев принят.",
+									'sound/AI/tradergranted.ogg'
+	)
 
 /datum/event/traders/start()
 	if(!station) // If there are no unused stations, just no.
 		return
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
-		GLOB.event_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].", "Оповещение: Запрос на стыковку шаттла торговцев отклонен.")
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
+		GLOB.minor_announcement.announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].",
+										"Запрос на стыковку шаттла торговцев отклонен.",
+										'sound/AI/traderdeny.ogg'
+		)
 		// if the docking request was refused, fire another moderate event in 60 seconds
 		reroll_event_in_category(EVENT_LEVEL_MODERATE)
 		return
@@ -68,7 +77,10 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			var/map_trader_port = 5
 			if(station_name() == "NSS Cyberiad")
 				map_trader_port = 4
-			GLOB.event_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].", "Оповещение: Запрос на стыковку шаттла торговцев принят.")
+			GLOB.minor_announcement.announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",
+											"Запрос на стыковку шаттла торговцев принят.",
+											'sound/AI/tradergranted.ogg'
+			)
 		else
 			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 

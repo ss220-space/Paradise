@@ -128,14 +128,14 @@
 	receive = !receive
 	if(receive)
 		to_chat(user, span_notice("Включен режим получения посылок."))
-		var/new_id = input("Задайте ID этому телепаду для получения им посылок")
+		var/new_id = tgui_input_text(usr, "Задайте ID этому телепаду для получения им посылок")
 		if(new_id)
 			id = new_id
 		linked_pad = null
 		target_id = null
 	else
 		to_chat(user, span_notice("Включен режим отправки посылок."))
-		var/new_target_id = input("Задайте ID телепада на который будут приходить посылки.")
+		var/new_target_id = tgui_input_text(usr, "Задайте ID телепада на который будут приходить посылки.")
 		if(new_target_id && new_target_id != id)
 			target_id = new_target_id
 		linked_pad = null
@@ -214,7 +214,7 @@
 
 /obj/machinery/syndiepad/proc/doteleport(mob/user)
 	if(linked_pad)
-		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, 1)
+		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
 		teleporting = 1
 		spawn(teleport_speed)
 			if(!src || QDELETED(src))

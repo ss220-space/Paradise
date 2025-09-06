@@ -62,7 +62,7 @@
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
 						M.show_message(span_warning("[user] атаку[pluralize_ru(user.gender, "ет", "ют")] стенку желудка [name], используя [I.declent_ru(ACCUSATIVE)]!"), 2)
-				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
+				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, TRUE)
 
 				if(prob(getBruteLoss() - 50))
 					gib()
@@ -234,7 +234,7 @@
 				adjustStaminaLoss(-10)
 				if(body_position != STANDING_UP && !resting && !buckled)
 					get_up(instant = TRUE)
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				if(!player_logged)
 					M.visible_message( \
 						span_notice("[M] тряс[pluralize_ru(M.gender, "ёт", "ут")] [name], пытаясь поднять [genderize_ru(gender, "его", "её", "его", "их")]."),\
@@ -254,12 +254,12 @@
 						H.update_icons()
 
 				M.visible_message(span_warning("[M] пыта[pluralize_ru(M.gender, "ет", "ют")]ся потушить [name]."), self_message)
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				adjust_fire_stacks(-0.5)
 
 			// BEGIN HUGCODE - N3X
 			else
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				if(M.zone_selected == BODY_ZONE_HEAD)
 					M.visible_message(\
 					span_notice("[M] глад[pluralize_ru(M.gender, "ит", "ят")] [name] по голове."),\
@@ -343,7 +343,7 @@
 		if(staminaloss > 30)
 			status_list += span_danger("Вы истощены!")
 		else
-			status_list += span_info("Вы чувствуете усталость.")
+			status_list += span_notice("Вы чувствуете усталость.")
 
 	to_chat(src, chat_box_examine(status_list.Join("\n")))
 
@@ -548,6 +548,27 @@
 	return TRUE
 
 
+/mob/living/carbon/proc/get_throw_speed(speed)
+	var/list/speed_mods = list()
+	SEND_SIGNAL(src, COMSIG_GET_THROW_SPEED_MODIFIERS, speed_mods)
+	for(var/mod in speed_mods)
+		speed *= mod
+
+	return speed
+
+
+/mob/living/carbon/proc/get_throw_range(range)
+	var/list/range_deltas = list()
+	if(range <= 1)
+		return range
+
+	SEND_SIGNAL(src, COMSIG_GET_THROW_RANGE_DELTAS, range_deltas)
+	for(var/delta in range_deltas)
+		range += delta
+
+	return max(0, range)
+
+
 /mob/living/carbon/throw_item(atom/target)
 	. = ..()
 
@@ -617,19 +638,22 @@
 		throwsound = 'sound/weapons/throwsoft.ogg'
 		power_throw_text = " слабо"
 
+	var/speed = get_throw_speed(max(1, thrown_thing.throw_speed + power_throw))
+	var/range = get_throw_range(thrown_thing.throw_range)
+
 	// Adds a bit of randomness in the frequency to not sound exactly the same.
 	// The volume of the sound takes the minimum between the distance thrown or the max range an item,
 	// but no more than 50. Short throws are quieter. A fast throwing speed also makes the noise sharper.
 	frequency_number = frequency_number + (rand(-5, 5) / 100)
 
-	playsound(src, throwsound, min(8 * min(get_dist(loc, target), thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1, frequency = frequency_number)
+	playsound(src, throwsound, min(8 * min(get_dist(loc, target), range), 50), vary = TRUE, extrarange = -1, frequency = frequency_number)
 
 	visible_message(
 		span_danger("[name][power_throw_text] броса[pluralize_ru(gender, "ет", "ют")] [thrown_thing.declent_ru(ACCUSATIVE)]."),
 		span_danger("Вы[power_throw_text] бросаете [thrown_thing.declent_ru(ACCUSATIVE)]."),
 	)
 	newtonian_move(get_dir(target, src))
-	thrown_thing.throw_at(target, thrown_thing.throw_range, max(1, thrown_thing.throw_speed + power_throw), src, null, null, null, move_force)
+	thrown_thing.throw_at(target, range, speed, src, null, null, null, move_force)
 
 
 //generates realistic-ish pulse output based on preset levels
@@ -662,26 +686,39 @@
 
 /mob/living/carbon/resist_buckle()
 	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
-	if(HAS_TRAIT(src, TRAIT_RESTRAINED))
-		var/breakouttime = 60 SECONDS
-		var/obj/item/restraints = handcuffed
-		if(wear_suit?.breakouttime)
-			restraints = wear_suit
-		if(restraints)
-			breakouttime = restraints.breakouttime
-		visible_message(
-			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
-			span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakouttime / 10] секунд[declension_ru(breakouttime / 10, "у", "ы", "")]."),
-		)
-		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-			if(!buckled)
-				return
-			buckled.user_unbuckle_mob(src, src)
-		else
-			if(src && buckled)
-				to_chat(src, span_warning("Вам не удалось себя отстегнуть."))
-	else
+	if(!HAS_TRAIT(src, TRAIT_RESTRAINED))
 		buckled.user_unbuckle_mob(src, src)
+		return
+
+	var/breakout_time = 60 SECONDS
+	var/obj/item/restraints = handcuffed
+	if(wear_suit?.breakout_time)
+		restraints = wear_suit
+
+	if(restraints)
+		breakout_time = restraints.breakout_time
+
+	var/list/breakouttime_modifiers = list()
+	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
+	for(var/mod in breakouttime_modifiers)
+		breakout_time *= mod
+
+	visible_message(
+		span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
+		span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[declension_ru(breakout_time * 0.1, "у", "ы", "")]."),
+	)
+	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+		if(!buckled)
+			return
+
+		buckled.user_unbuckle_mob(src, src)
+		return
+
+	if(!src || !buckled)
+		return
+
+	to_chat(src, span_warning("Вам не удалось себя отстегнуть."))
+
 
 
 /mob/living/carbon/resist_fire()

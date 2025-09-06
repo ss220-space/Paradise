@@ -1014,7 +1014,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
 "mV" = (

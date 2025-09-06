@@ -14,8 +14,8 @@
 	var/obj/structure/computerframe/frame = /obj/structure/computerframe
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
-	var/light_range_on = 1
-	var/light_power_on = 0.7
+	var/light_range_on = 2
+	var/light_power_on = 0.9
 	var/abductor = FALSE
 	/// Are we in the middle of a flicker event?
 	var/flickering = FALSE
@@ -132,7 +132,12 @@
 	if((stat & (BROKEN|NOPOWER)))
 		set_light_on(FALSE)
 	else
-		set_light(light_range_on, light_power_on, l_on = TRUE)
+		// Get the average color of the computer screen so it can be used as a tinted glow
+		// Shamelessly stolen from /tg/'s /datum/component/customizable_reagent_holder.
+		var/icon/emissive_avg_screen_color = new(icon, icon_screen)
+		emissive_avg_screen_color.Scale(1, 1)
+		var/screen_emissive_color = copytext(emissive_avg_screen_color.GetPixel(1, 1), 1, 8) // remove opacity
+		set_light(l_range = light_range_on, l_power = light_power_on, l_color = screen_emissive_color, l_on = TRUE)
 	if(.)
 		update_icon()
 

@@ -290,7 +290,7 @@
 	if(has_team)
 		return TRUE
 
-	team.scale_challange()
+	team.scale_telecrystals()
 	team.share_telecrystals()
 	return TRUE
 

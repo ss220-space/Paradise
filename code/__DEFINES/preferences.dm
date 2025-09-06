@@ -10,6 +10,7 @@
 #define SOUND_DISCO			(1<<9)
 #define SOUND_AI_VOICE		(1<<10)
 #define SOUND_PRAYERNOTIFY	(1<<11)
+#define SOUND_MUTE_END_OF_ROUND  (1<<12)
 
 #define SOUND_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|SOUND_HEARTBEAT|SOUND_BUZZ|SOUND_INSTRUMENTS|SOUND_MENTORHELP|SOUND_DISCO|SOUND_AI_VOICE|SOUND_PRAYERNOTIFY)
 
@@ -38,7 +39,7 @@
 #define PREFTOGGLE_CHAT_GHOSTPDA 			(1<<22)
 // #define PREFTOGGLE_NUMPAD_TARGET 			8388608 // Made obsolete with key bindings
 
-#define TOGGLES_TOTAL 						3014591 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_TOTAL 						16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_DEFAULT (PREFTOGGLE_CHAT_OOC|PREFTOGGLE_CHAT_DEAD|PREFTOGGLE_CHAT_GHOSTEARS|PREFTOGGLE_CHAT_GHOSTSIGHT|PREFTOGGLE_CHAT_PRAYER|PREFTOGGLE_CHAT_RADIO|PREFTOGGLE_CHAT_LOOC|PREFTOGGLE_MEMBER_PUBLIC|PREFTOGGLE_DONATOR_PUBLIC|PREFTOGGLE_AMBIENT_OCCLUSION|PREFTOGGLE_CHAT_GHOSTPDA)
 
@@ -192,8 +193,8 @@
 #define PREF_ORGANNAME_HEAD 		"Голова"
 #define PREF_ORGANNAME_L_ARM 		"Левая рука"
 #define PREF_ORGANNAME_R_ARM 		"Правая рука"
-#define PREF_ORGANNAME_L_HAND 		"Левая ладонь"
-#define PREF_ORGANNAME_R_HAND 		"Правая ладонь"
+#define PREF_ORGANNAME_L_HAND 		"Левая кисть"
+#define PREF_ORGANNAME_R_HAND 		"Правая кисть"
 #define PREF_ORGANNAME_L_LEG 		"Левая нога"
 #define PREF_ORGANNAME_R_LEG 		"Правая нога"
 #define PREF_ORGANNAME_L_FOOT 		"Левая ступня"

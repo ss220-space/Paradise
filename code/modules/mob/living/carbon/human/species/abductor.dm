@@ -43,6 +43,7 @@
 	toxic_food = NONE
 	disliked_food = NONE
 
+
 /datum/species/abductor/can_understand(mob/other) //Abductors can understand everyone, but they can only speak over their mindlink to another team-member
 	return TRUE
 

@@ -9,9 +9,9 @@
 	var/icon_sit = "sit"
 	gender = MALE
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
-	speak_emote = list("purrs", "meows")
-	emote_hear = list("meows", "mews")
-	emote_see = list("shakes its head", "shivers")
+	speak_emote = list("мурлычет", "мяукает")
+	emote_hear = list("мурлычет", "мяукает")
+	emote_see = list("трясёт головой", "дрожит", "вылизывается")
 	var/meow_sound = 'sound/creatures/cat_meow.ogg'	//Used in emote.
 	speak_chance = 1
 	turns_per_move = 5

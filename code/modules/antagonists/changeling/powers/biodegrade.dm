@@ -38,7 +38,7 @@
 		addtimer(CALLBACK(src, PROC_REF(dissolve_restraint), user, legcuffs), 3 SECONDS)
 		used = TRUE
 
-	if(user.wear_suit?.breakouttime && !used)
+	if(user.wear_suit?.breakout_time && !used)
 		var/obj/item/clothing/suit/res_suit = user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
 		if(!istype(res_suit))
 			return FALSE

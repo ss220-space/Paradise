@@ -6,35 +6,53 @@ SUBSYSTEM_DEF(sun)
 	offline_implications = "Solar panels will no longer rotate. No immediate action is needed."
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "sun"
+
+	var/angle
+	var/dx
+	var/dy
+	var/rate
+
+	var/list/solars	= list()
 	var/solar_gen_rate = 1500
 
 
 /datum/controller/subsystem/sun/Initialize()
-	RUSTLIB_CALL(sun_subsystem_initialize)
+	// Lets work out an angle for the "sun" to rotate around the station
+	angle = rand (0, 360)			// the station position to the sun is randomised at round start
+	rate = rand(50, 200) / 100			// 50% - 200% of standard rotation
+
+	if(prob(50))					// same chance to rotate clockwise than counter-clockwise
+		rate = -rate
+
+	// Solar consoles need to load after machines init, so this handles that
+	for(var/obj/machinery/power/solar_control/control in solars)
+		control.setup()
+
 	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/sun/get_stat_details()
-	return "P:[get_solars_length()]"
+	return "P:[solars.len]"
 
 
 /datum/controller/subsystem/sun/fire()
-	RUSTLIB_CALL(sun_subsystem_fire)
+	angle = (360 + angle + rate * 6) % 360	 // increase/decrease the angle to the sun, adjusted by the rate
 
-/datum/controller/subsystem/sun/proc/get_angle()
-	return RUSTLIB_CALL(get_sun_angle)
+	// now calculate and cache the (dx,dy) increments for line drawing
+	var/ang_sin = sin(angle)
+	var/ang_cos = cos(angle)
 
-/datum/controller/subsystem/sun/proc/add_solar(obj/machinery/power/solar_control/solar)
-	return RUSTLIB_CALL(add_solar, solar, solar.get_num_uid())
+	if(abs(ang_sin) < abs(ang_cos))
+		dx = ang_sin / abs(ang_cos)
+		dy = ang_cos / abs(ang_cos)
+	else
+		dx = ang_sin / abs(ang_sin)
+		dy = ang_cos / abs(ang_sin)
 
-/datum/controller/subsystem/sun/proc/remove_solar(obj/machinery/power/solar_control/solar)
-	return RUSTLIB_CALL(remove_solar, solar.get_num_uid())
+	// now tell the solar control computers to update their status and linked devices
+	for(var/obj/machinery/power/solar_control/control in solars)
+		if(!control.powernet)
+			solars.Remove(control)
+			continue
 
-/datum/controller/subsystem/sun/proc/get_solars_length()
-	return RUSTLIB_CALL(get_solars_length)
-
-/datum/controller/subsystem/sun/proc/get_dy()
-	return RUSTLIB_CALL(get_sun_dy)
-
-/datum/controller/subsystem/sun/proc/get_dx()
-	return RUSTLIB_CALL(get_sun_dx)
+		control.update()

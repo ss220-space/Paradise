@@ -1,6 +1,14 @@
 /turf/simulated/floor/chasm
 	name = "chasm"
-	desc = "Watch your step."
+	desc = "Смотри куда идёшь."
+	ru_names = list(
+		NOMINATIVE = "пропасть",
+		GENITIVE = "пропасти",
+		DATIVE = "пропасти",
+		ACCUSATIVE = "пропасть",
+		INSTRUMENTAL = "пропастью",
+		PREPOSITIONAL = "пропасти"
+	)
 	baseturf = /turf/simulated/floor/chasm
 	smooth = SMOOTH_BITMASK
 	icon = 'icons/turf/floors/Chasms.dmi'
@@ -116,7 +124,7 @@
 		var/mob/fish = pick(fishing_contents)
 		var/obj/effect/abstract/chasm_storage/pool = fish.loc
 		pool.get_fish(fish, user.loc)
-		to_chat(user, span_boldnotice("Попался [fish.name]!"))
+		to_chat(user, span_boldnotice("Попался [fish.declent_ru(NOMINATIVE)]!"))
 		playsound(rod, 'sound/effects/fishing_rod_catch.ogg', 30)
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -192,6 +200,13 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
 
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize(mapload)
+	. = ..()
+	GLOB.lazis_primary_turfs |= src
+
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Destroy()
+	GLOB.lazis_primary_turfs -= src
+	. = ..()
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD

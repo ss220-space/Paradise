@@ -123,7 +123,7 @@
 			return
 		else
 			return
-	playsound(src, 'sound/effects/pop.ogg', 50, 0)
+	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)
 	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
 
 /obj/item/rcd/syndicate/combat

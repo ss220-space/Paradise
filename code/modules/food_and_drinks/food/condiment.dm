@@ -212,7 +212,7 @@
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/syndisauce
-	name = "\improper Chef Excellence's Special Sauce"
+	name = "Chef Excellence's Special Sauce"
 	desc = "Этот ароматный соус, приготовленный из мухоморов, просто восхитителен! Смерть никогда не была такой приятной на вкус."
 	ru_names = list(
 		NOMINATIVE = "элитарный соус шефа",

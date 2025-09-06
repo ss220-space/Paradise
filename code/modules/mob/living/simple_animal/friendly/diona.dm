@@ -27,14 +27,14 @@
 	maxHealth = 50
 	health = 50
 	voice_name = "нимфа дионы"
-	speak_emote = list("chirrups")
-	emote_hear = list("chirrups")
-	emote_see = list("chirrups")
+	speak_emote = list("щебечет", "стрекочет")
+	emote_hear = list("щебечет", "стрекочет")
+	emote_see = list("щебечет", "стрекочет")
 	tts_seed = "Priest"
 
 	response_help  = "гладит"
 	response_disarm = "толкает"
-	response_harm   = "бъет"
+	response_harm   = "бьёт"
 
 	melee_damage_lower = 1
 	melee_damage_upper = 1
@@ -186,7 +186,7 @@
 		balloon_alert(src, "нет подходящей дионы!")
 		return FALSE
 
-	var/mob/living/M = input(src,"С кем вы хотите слиться?") in null|choices
+	var/mob/living/M = tgui_input_list(src, "С кем вы хотите слиться?", , choices)
 
 	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE
@@ -295,7 +295,7 @@
 		balloon_alert(src, "нет подходящего донора!")
 		return FALSE
 
-	var/mob/living/carbon/human/M = input(src,"У кого вы хотите взять образец крови?") in null|choices
+	var/mob/living/carbon/human/M = tgui_input_list(src, "У кого вы хотите взять образец крови?", , choices)
 
 	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE

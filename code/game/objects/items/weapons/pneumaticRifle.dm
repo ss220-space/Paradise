@@ -153,7 +153,7 @@
 		return
 	if(tank && tank.air_contents.total_moles() < gasPerShot)
 		to_chat(user, span_warning("[src] lets out a weak hiss and doesn't react!"))
-		playsound(loc, 'sound/effects/refill.ogg', 50, 1)
+		playsound(loc, 'sound/effects/refill.ogg', 50, TRUE)
 		return
 	tank.air_contents.remove(gasPerShot)
 	..()

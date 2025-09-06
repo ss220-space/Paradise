@@ -192,8 +192,8 @@ SUBSYSTEM_DEF(shuttle)
 		return
 
 	var/area/signal_origin = get_area(user)
-	var/emergency_reason = "\nNature of emergency:\n\n[call_reason]"
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
+	var/emergency_reason = "\nПричина вызова шаттла:\n\n[call_reason]"
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		var/extra_minutes = 0
 		var/priority_time = emergencyCallTime * 0.5
 		if(world.time - emergency_sec_level_time < priority_time)
@@ -226,7 +226,7 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	if(SSticker.mode.name == "meteor")
 		return
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		if(emergency.timeLeft(1) < emergencyCallTime * 0.25)
 			return
 	else
@@ -279,22 +279,24 @@ SUBSYSTEM_DEF(shuttle)
 
 
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
-	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
-	var/obj/docking_port/stationary/D = getDock(dockId)
+	var/obj/docking_port/mobile/mobile = getShuttle(shuttleId)
+	var/obj/docking_port/stationary/dockAt = getDock(dockId)
+	var/hyperspace_mini = sound(mobile.fly_sound)
+	var/area = mobile.areaInstance
 
-	if(M.mode == SHUTTLE_RECHARGING)
+	if(mobile.mode == SHUTTLE_RECHARGING)
 		return SHUTTLE_CONSOLE_RECHARGING
 
-	if(!M)
+	if(!mobile)
 		return 1
-	M.last_caller = user // Save the caller of the shuttle for later logging
+	mobile.last_caller = user // Save the caller of the shuttle for later logging
 	if(timed)
-		if(M.request(D))
+		if(mobile.request(dockAt))
 			return 2
 	else
-		if(M.dock(D))
+		if(mobile.dock(dockAt))
 			return 2
-	M.areaInstance << M.fly_sound
+	SEND_SOUND(area, hyperspace_mini)
 	return 0	//dock successful
 
 
@@ -485,7 +487,7 @@ SUBSYSTEM_DEF(shuttle)
 	if(!ishuman(occupant) || !occupant.mind)
 		return
 
-	if(GLOB.security_level < SEC_LEVEL_GAMMA)
+	if(SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_GAMMA)
 		return
 
 	if(!is_station_level(pod.z) && !istype(get_area(pod), /area/mine))

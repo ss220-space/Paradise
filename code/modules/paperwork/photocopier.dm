@@ -491,7 +491,7 @@
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/text = clean_input("Enter what you want to write:", "Write")
+	var/text = tgui_input_text(usr, "Enter what you want to write:", "Write")
 	if(!text)
 		return
 	if(toner < 1 || !user)

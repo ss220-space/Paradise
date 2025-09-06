@@ -203,7 +203,7 @@
 	speak = list()
 
 /mob/living/simple_animal/bot/ed209/combat_drone
-	name = "\improper Combat Drone"
+	name = "Combat Drone"
 	desc = "An automated combat drone armed with state of the art weaponry and shielding."
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "drone3"

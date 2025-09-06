@@ -52,6 +52,18 @@
 	if(update)
 		update_icon(UPDATE_ICON_STATE)
 
+/obj/structure/bookcase/MouseDrop_T(atom/movable/thing, mob/user, params)
+	if(!istype(user, /mob/living/simple_animal/pet/library_owl))
+		return
+	if(!is_type_in_typecache(thing, allowed_books))
+		return
+	if(!user.drop_transfer_item_to_loc(thing, src))
+		return ..()
+	to_chat(user, span_notice("You have added [thing] into [src]."))
+	add_fingerprint(user)
+	update_icon(UPDATE_ICON_STATE)
+
+
 
 /obj/structure/bookcase/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -117,6 +129,11 @@
 	user.put_in_hands(choice, ignore_anim = FALSE)
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/structure/bookcase/attack_animal(mob/living/simple_animal/M)
+	if(istype(M, /mob/living/simple_animal/pet/library_owl))
+		attack_hand(M)
+	else
+		. = ..()
 
 /obj/structure/bookcase/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/wood(loc, 5)
@@ -179,8 +196,8 @@
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("ударил", "огрел")
 	resistance_flags = FLAMMABLE
-	drop_sound = 'sound/items/handling/book_drop.ogg'
-	pickup_sound =  'sound/items/handling/book_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/book_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/book_pickup.ogg'
 
 	/// Actual page content
 	var/dat

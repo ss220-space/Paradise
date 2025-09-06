@@ -8,7 +8,7 @@
 	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
-			playsound(holder, C.usesound, 50, 1)
+			playsound(holder, C.usesound, 50, TRUE)
 		else
 			to_chat(user, ("There's not enough cable to finish the task."))
 			return 0
@@ -29,7 +29,7 @@
 	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
-			playsound(holder, C.usesound, 50, 1)
+			playsound(holder, C.usesound, 50, TRUE)
 		else
 			to_chat(user, ("There's not enough cable to finish the task."))
 			return 0
@@ -787,7 +787,7 @@
 		return 0
 
 	if(istype(used_atom, /obj/item/bikehorn))
-		playsound(holder, 'sound/items/bikehorn.ogg', 50, 1)
+		playsound(holder, 'sound/items/bikehorn.ogg', 50, TRUE)
 		user.visible_message("HONK!")
 
 	//TODO: better messages.
@@ -1295,7 +1295,7 @@
 
 /datum/construction/reversible/mecha/phazon/after_spawn_result(atom/A)
 	var/obj/mecha/phazon = A
-	phazon.phase_modifier = core.get_strenght() / 150
+	phazon.phase_modifier = core.get_strength() / 150
 	core.forceMove(A)
 
 /datum/construction/reversible/mecha/phazon/custom_action(index, diff, atom/used_atom, mob/user)
@@ -1478,7 +1478,7 @@
 		if(1)
 			if(diff==FORWARD)
 				var/obj/item/assembly/signaler/core/bluespace/core = used_atom
-				if(core.get_strenght() < 100)
+				if(core.get_strength() < 100)
 					to_chat(user, span_warning("Ядро слишком слабо!"))
 					return FALSE
 

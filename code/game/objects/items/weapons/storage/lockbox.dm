@@ -178,7 +178,7 @@
 	new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/shellguard/l(src)
 
 /obj/item/storage/lockbox/medal/hardmode_box
-	name = "\improper HRD-MDE program medal box"
+	name = "HRD-MDE program medal box"
 	desc = "A locked box used to store medals of pride. Use a fauna research disk on the box to transmit the data and print a medal."
 	req_access = list(ACCESS_MINING) //No grubby assistant hands on my hard earned medals
 	can_hold = list(/obj/item/clothing/accessory, /obj/item/coin) //Whoops almost gave miners boxes that could store 12 legion cores. Scoped to accessory if they want to store neclaces or hope or something in there. Or a coin collection.

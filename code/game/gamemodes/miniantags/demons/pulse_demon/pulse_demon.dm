@@ -17,8 +17,8 @@
 
 	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // Pulse demons take damage from nothing
 
-	emote_hear = list("vibrates", "sizzles")
-	speak_emote = list("modulates")
+	emote_hear = list("вибрирует", "шипит")
+	speak_emote = list("трещит", "потрёскивает", "шипит")
 
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "pulsedem"

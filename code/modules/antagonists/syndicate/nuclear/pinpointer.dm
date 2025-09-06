@@ -210,7 +210,7 @@
 /obj/item/pinpointer/advpinpointer/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += span_info("You can <b>Alt-Click</b> to choose tracking target.")
+		. += span_notice("You can <b>Alt-Click</b> to choose tracking target.")
 
 
 /obj/item/pinpointer/advpinpointer/process()
@@ -239,10 +239,10 @@
 		if("Location")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(user, "Enter X coordinate to search.", "Location X Define" , "") as null|num
+			var/locationx = tgui_input_number(user, "Enter X coordinate to search.", "Location X Define")
 			if(isnull(locationx) || !(user in view(1,src)))
 				return
-			var/locationy = input(user, "Enter Y coordinate to search.", "Location Y Define" , "") as null|num
+			var/locationy = tgui_input_number(user, "Enter Y coordinate to search.", "Location Y Define")
 			if(isnull(locationy) || !(user in view(1,src)))
 				return
 
@@ -283,7 +283,7 @@
 						to_chat(user, span_warning("Could not find [targetitem] signature!"))
 
 				if("DNA")
-					var/DNAstring = input("Input DNA string to search for." , "Please Enter String" , "")
+					var/DNAstring = tgui_input_text(usr, "Input DNA string to search for." , "Please Enter String" , "")
 					if(!DNAstring)
 						return
 
@@ -460,7 +460,7 @@
 /obj/item/pinpointer/crew/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += span_info("You can <b>Alt-Click</b> to choose whom to track.")
+		. += span_notice("You can <b>Alt-Click</b> to choose whom to track.")
 
 
 /obj/item/pinpointer/crew/proc/is_trackable(mob/living/carbon/human/pin_target)
@@ -572,7 +572,7 @@
 /obj/item/pinpointer/thief/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += span_info("Нажмите <b>Alt-Click</b> для выбора режима отслеживания.")
+		. += span_notice("Нажмите <b>Alt-Click</b> для выбора режима отслеживания.")
 
 
 /obj/item/pinpointer/thief/process()
@@ -606,10 +606,10 @@
 		if("Локация")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(user, "Введите X координату для поиска.", "Локация?" , "") as null|num
+			var/locationx = tgui_input_number(user, "Введите X координату для поиска.", "Локация?")
 			if(isnull(locationx) || !(user in view(1,src)))
 				return
-			var/locationy = input(user, "Введите Y координату для поиска.", "Локация?" , "") as null|num
+			var/locationy = tgui_input_number(user, "Введите Y координату для поиска.", "Локация?")
 			if(isnull(locationy) || !(user in view(1,src)))
 				return
 

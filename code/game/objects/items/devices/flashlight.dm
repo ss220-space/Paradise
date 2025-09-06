@@ -50,7 +50,7 @@
 		to_chat(user, "You cannot turn the light on while in this [user.loc].")	//To prevent some lighting anomalities.
 		return FALSE
 	on = !on
-	playsound(user, togglesound, 100, 1)
+	playsound(user, togglesound, 100, TRUE)
 	update_brightness()
 	update_equipped_item(update_speedmods = FALSE)
 	return TRUE
@@ -125,7 +125,15 @@
 
 /obj/item/flashlight/seclite
 	name = "seclite"
-	desc = "A robust flashlight used by security."
+	desc = "Надежный фонарик, используемый службой безопасности."
+	ru_names = list(
+		NOMINATIVE = "фонарик",
+		GENITIVE = "фонарика",
+		DATIVE = "фонарику",
+		ACCUSATIVE = "фонарик",
+		INSTRUMENTAL = "фонариком",
+		PREPOSITIONAL = "фонарике"
+	)
 	icon_state = "seclite"
 	item_state = "seclite"
 	belt_icon = "seclite"

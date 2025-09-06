@@ -12,7 +12,7 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
-	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 
 	flick("gibbed-a", animation)
 	xgibs(loc)

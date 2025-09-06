@@ -48,7 +48,7 @@
 	if(playstyle_string)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, src, playstyle_string), 5 DECISECONDS)
 
-	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/syndicate/Login()
 	. = ..()
@@ -153,7 +153,7 @@
 	set desc = "Tag yourself for delivery through the disposals system."
 	set category = STATPANEL_SABOTEUR
 
-	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in GLOB.TAGGERLOCATIONS
+	var/tag = tgui_input_list(usr, "Select the desired destination.", "Set Mail Tag", GLOB.TAGGERLOCATIONS, null)
 
 	if(!tag || GLOB.TAGGERLOCATIONS[tag])
 		mail_destination = 0

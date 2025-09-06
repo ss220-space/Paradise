@@ -22,9 +22,9 @@
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/back.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/back.dmi'
 		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
-	equip_sound = 'sound/items/handling/backpack_equip.ogg'
-	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
-	drop_sound = 'sound/items/handling/backpack_drop.ogg'
+	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
+	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 
 
 /obj/item/storage/backpack/attackby(obj/item/I, mob/user, params)
@@ -919,7 +919,7 @@
 
 //Solgov
 /obj/item/storage/backpack/ert/solgov
-	name = "\improper TSF marine backpack"
+	name = "TSF marine backpack"
 	desc = "A spacious backpack with lots of pockets, worn by marines of the Trans-Solar Federation."
 	icon_state = "ert_solgov"
 

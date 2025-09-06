@@ -27,9 +27,9 @@
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
 	slot_flags = ITEM_SLOT_BELT
-	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
-	equip_sound = 'sound/items/handling/backpack_equip.ogg'
-	drop_sound = 'sound/items/handling/backpack_drop.ogg'
+	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
+	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
+	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 
 ////////////////////////////////////////
 // MARK:	Trash bag
@@ -50,7 +50,7 @@
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
-	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
+	playsound(loc, 'sound/items/eatfood.ogg', 50, TRUE, -1)
 	return TOXLOSS
 
 
@@ -132,7 +132,15 @@
 ////////////////////////////////////////
 /obj/item/storage/bag/ore
 	name = "mining satchel"
-	desc = "This little bugger can be used to store and transport ores."
+	desc = "Эта малютка может хранить и переносить руду."
+	ru_names = list(
+		NOMINATIVE = "шахтёрская сумка",
+		GENITIVE = "шахтёрской сумки",
+		DATIVE = "шахтёрской сумке",
+		ACCUSATIVE = "шахтёрскую сумку",
+		INSTRUMENTAL = "шахтёрской сумкой",
+		PREPOSITIONAL = "шахтёрской сумке"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
@@ -146,7 +154,15 @@
 
 /obj/item/storage/bag/ore/bigger
 	name = "industrial mining satchel"
-	desc = "This bugger can be used to store and transport ores. This one has additional utility pockets for ore."
+	desc = "Усовершенствованная версия с дополнительными карманами для руды."
+	ru_names = list(
+		NOMINATIVE = "промышленная шахтёрская сумка",
+		GENITIVE = "промышленной шахтёрской сумки",
+		DATIVE = "промышленной шахтёрской сумке",
+		ACCUSATIVE = "промышленную шахтёрскую сумку",
+		INSTRUMENTAL = "промышленной шахтёрской сумкой",
+		PREPOSITIONAL = "промышленной шахтёрской сумке"
+	)
 	icon_state = "satchel_better"
 	storage_slots = 16 //little better
 
@@ -161,7 +177,15 @@
 
 /obj/item/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
-	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
+	desc = "Революционное решение – бесконечное хранилище для руды с защитой от сбоев."
+	ru_names = list(
+		NOMINATIVE = "шахтёрская сумка хранения",
+		GENITIVE = "шахтёрской сумки хранения",
+		DATIVE = "шахтёрской сумке хранения",
+		ACCUSATIVE = "шахтёрскую сумку хранения",
+		INSTRUMENTAL = "шахтёрской сумкой хранения",
+		PREPOSITIONAL = "шахтёрской сумке хранения"
+	)
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=4;materials=3;engineering=3"
@@ -178,7 +202,15 @@
 
 /obj/item/storage/bag/gem
 	name = "gem satchel"
-	desc = "You thought it would be more like what those cartoon robbers wear."
+	desc = "Вы ожидали чего-то более стильного, как в мультфильмах про грабителей."
+	ru_names = list(
+		NOMINATIVE = "сумка для самоцветов",
+		GENITIVE = "сумки для самоцветов",
+		DATIVE = "сумке для самоцветов",
+		ACCUSATIVE = "сумку для самоцветов",
+		INSTRUMENTAL = "сумкой для самоцветов",
+		PREPOSITIONAL = "сумке для самоцветов"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "gem_satchel"
 	slot_flags = ITEM_SLOT_BELT
@@ -597,7 +629,7 @@
 	set category = STATPANEL_OBJECT
 	set src in usr
 
-	var/new_radius = input(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12) as num
+	var/new_radius = tgui_input_number(usr, "Select placement radius between 0 and 16 (in pixels)", "Placement radius", 12)
 	new_radius = clamp(new_radius, 0, 16)
 	placement_radius = new_radius
 

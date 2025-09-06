@@ -7,6 +7,7 @@
  *		Kitty ears
  *		Cardborg Disguise
  *		Head Mirror
+		frog hat
  */
 
 /*
@@ -203,19 +204,19 @@
 	)
 
 /obj/item/clothing/head/sovietsidecap
-	name = "\improper Soviet side cap"
+	name = "Soviet side cap"
 	desc = "A simple military cap with a Soviet star on the front. What it lacks in protection it makes up for in revolutionary spirit."
 	icon_state = "sovietsidecap"
 	item_state = "sovietsidecap"
 
 /obj/item/clothing/head/sovietofficerhat
-	name = "\improper Soviet officer hat"
+	name = "Soviet officer hat"
 	desc = "A military officer hat designed to stand out so the conscripts know who is in charge."
 	icon_state = "sovietofficerhat"
 	item_state = "sovietofficerhat"
 
 /obj/item/clothing/head/sovietadmiralhat
-	name = "\improper Soviet admiral hat"
+	name = "Soviet admiral hat"
 	desc = "This hat clearly belongs to someone very important."
 	icon_state = "sovietadmiralhat"
 	item_state = "sovietadmiralhat"
@@ -362,3 +363,27 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
+/obj/item/clothing/head/shapka_pepega
+	name = "frog hat"
+	desc = "Милая шапочка в виде головы лягушки, окутывающая голову. Мило, мягко и приятно!"
+	ru_names = list(
+		NOMINATIVE = "лягушачья шапка",
+		GENITIVE = "лягушачьей шапки",
+		DATIVE = "лягушачьей шапке",
+		ACCUSATIVE = "лягушачью шапку",
+		INSTRUMENTAL = "лягушачьей шапкой",
+		PREPOSITIONAL = "лягушачьей шапке"
+	)
+	icon_state = "shapka_pepega"
+	item_state = "shapka_pepega"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+	)
+	flags_inv = HIDEHEADSETS|HIDEHAIR

@@ -372,7 +372,7 @@ Class Procs:
 	. = M
 	M.set_anchored(anchored)
 	if(!disassembled)
-		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
+		M.update_integrity(M.max_integrity * 0.5) //the frame is already half broken
 	transfer_fingerprints_to(M)
 	M.state = 2	// STATE_WIRED
 	M.update_icon(UPDATE_ICON_STATE)
@@ -469,7 +469,7 @@ Class Procs:
 		if(!nanopaste.use(1))
 			to_chat(user, span_warning("You don't have enough nanopaste to complete this task!")) // this is here, as we don't want to use nanopaste until you finish applying
 			return ATTACK_CHAIN_PROCEED
-		obj_integrity = min(obj_integrity + 50, max_integrity)
+		update_integrity(min(obj_integrity + 50, max_integrity))
 		user.visible_message(
 			span_notice("[user] applied some [I.name] at [src]'s damaged areas."),
 			span_notice("You apply some [I.name] at [src]'s damaged areas."),
