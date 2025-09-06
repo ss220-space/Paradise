@@ -684,18 +684,18 @@
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
-	poof_sound() // Play the whoosh sound in local area
+	play_poof_sound() // Play the whoosh sound in local area
 	if(iscarbon(target) && prob(10))
 		target.reagents.add_reagent("hugs", 10)
 
 /// Use this to override how your poof sound plays
-/obj/item/toy/plushie/proc/poof_sound()
+/obj/item/toy/plushie/proc/play_poof_sound()
 	playsound(get_turf(src), poof_sound, 30, TRUE)
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
 	var/cuddle_verb = pick("обнима[pluralize_ru(user.gender,"ет","ют")]", "тиска[pluralize_ru(user.gender,"ет","ют")]", "прижима[pluralize_ru(user.gender,"ет","ют")]")
 	user.visible_message(span_notice("[user] [cuddle_verb] the [src]."))
-	poof_sound()
+	play_poof_sound()
 	return ..()
 
 /obj/random/plushie
@@ -1575,17 +1575,15 @@
 	playsound(loc, 'sound/items/wahwah.ogg', 50, FALSE)
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
+#define EVIL_MODE_CHANCE 5
+
 /obj/item/toy/plushie/wet_owl
 	name = "wet owl plushie"
 	desc = "Плюшевая игрушка поникшей мокрой совы. Она явно видела некоторое дерьмо."
 	icon_state = "wet_owl"
 	item_state = "wet_owl"
-	attack_verb = list("ухнул", "клюнул")
+	attack_verb = list("ухнул", "клюнул", "цапнул")
 	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | LAVA_PROOF
-	/// To track how many people killed themself with the plushie (why would they do that?)
-	var/suicide_count = 0
-	/// Contains stolen souls in a list to retrieve them later
-	var/list/stolen_souls
 
 /obj/item/toy/plushie/wet_owl/get_ru_names()
 	return list(
@@ -1599,113 +1597,42 @@
 
 /obj/item/toy/plushie/wet_owl/water_act(volume, temperature, source, method)
 	. = ..()
-	visible_message(span_cultlarge("[capitalize(declent_ru(NOMINATIVE))] недовольно завывает и возвращает всё, что поглотила."))
-	playsound(src, 'sound/hallucinations/wail.ogg', 70, TRUE, -1)
-	retrieve_all_souls()
-	update_desc()
+	visible_message(span_cultitalic("[capitalize(declent_ru(NOMINATIVE))] недовольно завывает."))
+	playsound(src, 'sound/effects/wet_owl_horror.ogg', 50, FALSE, -1)
+	temporary_become_evil(30 SECONDS)
 
 /obj/item/toy/plushie/wet_owl/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] всматривается в бездну глаз [declent_ru(GENITIVE)], и бездна начинает всматриваться в ответ!"))
-	playsound(src, 'sound/hallucinations/wail.ogg', 50, TRUE, -1)
-
-	if(!steal_soul(user))
-		return SHAME
-
+	playsound(src, 'sound/effects/wet_owl_horror.ogg', 70, FALSE, -1)
 	user.emote("scream")
-	suicide_count++
-	if(suicide_count < 3)
-		update_desc()
-		return SHAME
-
-	become_evil()
 	return SHAME
 
-/obj/item/toy/plushie/wet_owl/update_desc(updates)
-	. = ..()
-	desc = initial(desc)
-	if(suicide_count)
-		desc += "\nПосле того, как она поглотила душ[declension_ru(suicide_count, "у", "и", "и")] [suicide_count] [declension_ru(suicide_count, "человека", "человек", "человек")], не так уж и хочется её тискать..."
-
-/obj/item/toy/plushie/wet_owl/proc/become_evil()
-	var/obj/item/toy/plushie/wet_owl/evil/evil_owl = new(get_turf(src))
-	if(stolen_souls)
-		evil_owl.stolen_souls = stolen_souls.Copy()
-	evil_owl.suicide_count = suicide_count
-	evil_owl.update_desc()
-	qdel(src)
-
-/obj/item/toy/plushie/wet_owl/proc/steal_soul(mob/living/carbon/human/user)
-	if(!istype(user) || !user.mind)
-		return FALSE
-
-	if(!user.mind.hasSoul)
-		to_chat(user, span_cultlarge("[capitalize(declent_ru(NOMINATIVE))] не заинтересована вами, у вас больше нечего отнимать."))
-		return FALSE
-
-	if(HAS_TRAIT(user.mind, TRAIT_BAD_SOUL))
-		to_chat(user, span_cultlarge("Ваша душа омерзительна, [declent_ru(NOMINATIVE)] брезгует касаться её."))
-		return FALSE
-
+/obj/item/toy/plushie/wet_owl/attack_self(mob/living/user)
 	var/mob/living/carbon/human/human = user
-	var/datum/mind/user_mind = human.mind
+	human.human.AdjustConfused(3 SECONDS, bound_lower = 0, bound_upper = 15 SECONDS)
+	if(prob(EVIL_MODE_CHANCE))
+		temporary_become_evil(4 SECONDS)
+	..()
 
-	to_chat(user, span_cultlarge("Вы чувствуете, как скользкие отростки потусторонней сущности обвивают вашу душу, и когда они отступают — на их месте остаётся [span_bold("пустота")]."))
-	LAZYADD(stolen_souls, user_mind)
-	user_mind.hasSoul = FALSE
-	user_mind.soulOwner = null
-	return TRUE
-
-/obj/item/toy/plushie/wet_owl/proc/retrieve_all_souls()
-	if(stolen_souls.len == 0)
-		return
-
-	for(var/datum/mind/soul as anything in stolen_souls)
-		if(!soul)
-			LAZYREMOVE(stolen_souls, soul)
-			continue
-
-		soul.soulOwner = soul
-		soul.hasSoul = TRUE
-		to_chat(soul.current, span_boldnotice("Вас окутывает волна облегчения, словно ноющая боль, терзавшая вас годами, наконец отступила."))
-		LAZYREMOVE(stolen_souls, soul)
-
-	suicide_count = 0
-
-#define OWL_CURSE_STUN_TIME 1.25 SECONDS
-
-/obj/item/toy/plushie/wet_owl/evil
-	name = "evil wet owl plush"
-	desc = "Злобная плюшевая игрушка мокрой совы. Она явно видела некоторое дерьмо — это легко можно понять по её взгляду."
+/obj/item/toy/plushie/wet_owl/proc/temporary_become_evil(evil_mode_duration)
 	icon_state = "evil_wet_owl"
 	item_state = "evil_wet_owl"
-	attack_verb = list("ухнул", "клюнул", "цапнул")
+	desc = "Злобная плюшевая игрушка мокрой совы. Она явно видела некоторое дерьмо — это легко можно понять по её взгляду."
 	poof_sound = 'sound/effects/wet_owl_horror.ogg'
+	update_appearance()
+	addtimer(CALLBACK(src, PROC_REF(become_normal)), evil_mode_duration)
 
-/obj/item/toy/plushie/wet_owl/evil/get_ru_names()
-	return list(
-		NOMINATIVE = "злобная мокрая сова",
-		GENITIVE = "злобной мокрой совы",
-		DATIVE = "злобной мокрой сове",
-		ACCUSATIVE = "злобную мокрую сову",
-		INSTRUMENTAL = "злобной мокрой совой",
-		PREPOSITIONAL = "злобной мокрой сове"
-	)
+/obj/item/toy/plushie/wet_owl/proc/become_normal()
+	icon_state = initial(icon_state)
+	item_state = initial(item_state)
+	desc = initial(desc)
+	poof_sound = initial(poof_sound)
+	update_appearance()
 
-/obj/item/toy/plushie/wet_owl/evil/poof_sound()
+/obj/item/toy/plushie/wet_owl/play_poof_sound()
 	playsound(loc, poof_sound, 20, FALSE)
 
-/obj/item/toy/plushie/wet_owl/evil/attack_self(mob/living/user)
-	. = ..()
-	if(!iscarbon(user))
-		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] не заинтересована вами."))
-		return
-
-	to_chat(user, span_danger("Вы были прокляты [declent_ru(INSTRUMENTAL)]!"))
-	var/mob/living/carbon/carbon = user
-	carbon.electrocute_act(25, src, flags = SHOCK_NOGLOVES, stun_duration = OWL_CURSE_STUN_TIME)
-	playsound(carbon, 'sound/effects/eleczap.ogg', 30, TRUE)
-
-#undef OWL_CURSE_STUN_TIME
+#undef EVIL_MODE_CHANCE
 
 /*
  * Foam Armblade
