@@ -27,7 +27,7 @@
 
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(!COOLDOWN_FINISHED(src, recently_moved_cd) || !istype(user) || opened || user.incapacitated() || !isturf(loc) || no_gravity() || !relaymove_multiz_check())
+	if(!COOLDOWN_FINISHED(src, recently_moved_cd) || !istype(user) || opened || user.incapacitated() || !isturf(loc) || no_gravity() || !relaymove_multiz_check(direction))
 		return
 
 	var/turf/cur_pos = get_turf(src)
