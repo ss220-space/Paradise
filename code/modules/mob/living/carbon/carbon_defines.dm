@@ -12,7 +12,6 @@
 
 	var/life_tick = 0      // The amount of life ticks that have processed on this mob.
 
-	var/obj/item/handcuffed = null //Whether or not the mob is handcuffed
 	var/obj/item/legcuffed = null  //Same as handcuffs but for legs. Bear traps use this.
 
 	var/obj/item/head = null
@@ -35,4 +34,8 @@
 	var/revival_in_progress = FALSE
 	/// Just a timer stamp for [/mob/living/carbon/relaymove]
 	var/last_stomach_attack
+	///Whether or not the mob is currently handcuffed, defined as the handcuff item restraining them
+	var/obj/item/restraints/handcuffs/handcuffed = null
+	///used to track how many times the mob has tried breaking away from their handcuffs since being cuffed. Reset to zero in update_handcuffed()
+	var/cuff_breakout_attempts = 0
 

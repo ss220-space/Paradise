@@ -29,7 +29,7 @@
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 
-	playsound(D.loc, "boxing", 50, TRUE, -1)
+	playsound(D.loc, SFX_BOXING, 50, TRUE, -1)
 
 	D.visible_message("<span class='danger'>[A] has hit [D] with a [atk_verb]!</span>", \
 								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")

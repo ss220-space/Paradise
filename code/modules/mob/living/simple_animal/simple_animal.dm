@@ -129,7 +129,7 @@
 
 	var/allow_movement_on_non_turfs = FALSE
 
-	var/attacked_sound = "punch"
+	var/attacked_sound = SFX_PUNCH
 
 	/// The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever).
 	var/AIStatus = AI_ON
@@ -515,7 +515,7 @@
 /mob/living/simple_animal/update_fire()
 	if(!can_be_on_fire)
 		return
-	var/static/simple_mob_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "Generic_mob_burning")
+	var/static/simple_mob_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "human_generic_burn")
 	cut_overlay(simple_mob_fire_olay)
 	if(on_fire)
 		add_overlay(simple_mob_fire_olay)
@@ -771,32 +771,32 @@
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/attack_robot(mob/living/user)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	if(pull_constraint(pulled_atom, state, supress_message))

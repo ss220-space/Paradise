@@ -52,7 +52,7 @@
 	set_density(FALSE)
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
-		playsound(src, "shatter", 70, 1)
+		playsound(src, SFX_SHATTER, 70, TRUE)
 	QDEL_NULL(electronics)
 	return ..()
 
@@ -284,7 +284,7 @@
 		emagged = TRUE
 		operating = TRUE
 		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		sleep(6)
 		operating = FALSE
 		open(2)
@@ -296,7 +296,7 @@
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 	operating = TRUE
 	flick("[base_state]spark", src)
-	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	sleep(6)
 	operating = FALSE
 	return TRUE

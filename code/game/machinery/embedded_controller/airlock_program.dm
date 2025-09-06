@@ -31,7 +31,7 @@
 	memory["internal_sensor_pressure"] = ONE_ATMOSPHERE
 	memory["exterior_status"] = list(state = "closed", lock = "locked")		//assume closed and locked in case the doors dont report in
 	memory["interior_status"] = list(state = "closed", lock = "locked")
-	memory["pump_status"] = "unknown"
+	memory["pump_status"] = UNKNOWN_STATUS_RUS
 	memory["target_pressure"] = ONE_ATMOSPHERE
 	memory["purge"] = 0
 	memory["secure"] = 0

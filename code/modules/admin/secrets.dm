@@ -15,7 +15,7 @@
 	dat += "<hr>"
 	switch(current_tab)
 		if(0) // Debug
-			if(check_rights(R_ADMIN,0))
+			if(check_rights(R_ADMIN, FALSE))
 				dat += {"
 						<center><b><h2>Admin Secrets</h2></b>
 						<b>Game</b><br>
@@ -25,7 +25,7 @@
 						<a href='byond://?src=[UID()];secretsadmin=night_shift_set'>Set Night Shift Mode</a><br>
 						<a href='byond://?src=[UID()];secretsadmin=lavatype'>Изменить тип Лазиса</a><br>
 						<b>Bombs</b><br>
-						[check_rights(R_SERVER, 0) ? "&nbsp;&nbsp;<a href='byond://?src=[UID()];secretsfun=togglebombcap'>Toggle bomb cap</a><br>" : "<br>"]
+						[check_rights(R_SERVER,  FALSE) ? "&nbsp;&nbsp;<a href='byond://?src=[UID()];secretsfun=togglebombcap'>Toggle bomb cap</a><br>" : "<br>"]
 						<b>Lists</b><br>
 						<a href='byond://?src=[UID()];secretsadmin=list_signalers'>Show last [length(GLOB.lastsignalers)] signalers</a>&nbsp;&nbsp;
 						<a href='byond://?src=[UID()];secretsadmin=list_lawchanges'>Show last [length(GLOB.lawchanges)] law changes</a><br>
@@ -42,10 +42,10 @@
 						</center>
 					"}
 
-			else if(check_rights(R_SERVER,0)) //only add this if admin secrets are unavailiable; otherwise, it's added inline
+			else if(check_rights(R_SERVER, FALSE)) //only add this if admin secrets are unavailiable; otherwise, it's added inline
 				dat += "<center><b>Bomb cap: </b><a href='byond://?src=[UID()];secretsfun=togglebombcap'>Toggle bomb cap</a><br></center>"
 				dat += "<br>"
-			if(check_rights(R_DEBUG,0))
+			if(check_rights(R_DEBUG, FALSE))
 				dat += {"
 					<center>
 					<b>Security Level Elevated</b><br>
@@ -63,7 +63,7 @@
 					"}
 
 		if(1)
-			if(check_rights((R_EVENT|R_SERVER),0))
+			if(check_rights((R_EVENT|R_SERVER), FALSE))
 				var/security_levels_data = ""
 				for (var/level_name in SSsecurity_level.available_levels)
 					var/datum/security_level/this_level = SSsecurity_level.available_levels[level_name]
@@ -96,21 +96,13 @@
 					<a href='byond://?src=[UID()];secretsfun=shuttle_start'>Переключить старт с шаттла</a><br>
 					</center>"}
 		if(2)
-			if(check_rights((R_SERVER|R_EVENT),0))
+			if(check_rights((R_SERVER|R_EVENT), FALSE))
 				dat += {"
 					<center>
 					<h2><b>OOC Events</b></h2>
 					<b>Thunderdome</b><br>
 					<a href='byond://?src=[UID()];secretsfun=tdomestart'>Start a Thunderdome match</a>&nbsp;&nbsp;
 					<a href='byond://?src=[UID()];secretsfun=tdomereset'>Reset Thunderdome to default state</a><br><br>"}
-					/*	У нас не используется
-				dat+= {"<b>ERT Armory</b><br>
-					<a href='byond://?src=[UID()];secretsfun=armotyreset'>Reset Armory to default state</a><br><br>
-					<a href='byond://?src=[UID()];secretsfun=armotyreset1'>Set Armory to 1 option</a><br><br>
-					<a href='byond://?src=[UID()];secretsfun=armotyreset2'>Set Armory to 2 option</a><br><br>
-					<a href='byond://?src=[UID()];secretsfun=armotyreset3'>Set Armory to 3 option</a><br><br>
-					<b>Clothing</b><br>"}
-					*/
 				dat+={"<b>Clothes</b><br>
 					<a href='byond://?src=[UID()];secretsfun=sec_clothes'>Remove 'internal' clothing</a>&nbsp;&nbsp;
 					<a href='byond://?src=[UID()];secretsfun=sec_all_clothes'>Remove ALL clothing</a><br>

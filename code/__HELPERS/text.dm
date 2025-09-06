@@ -563,7 +563,7 @@
 		text = replacetext(text, "\[date\]",	"[GLOB.current_date_string]")
 		text = replacetext(text, "\[station\]", "[station_name()]")
 		text = replacetext(text, "\[gender\]", "[user ? user.gender : "neuter"]")
-		text = replacetext(text, "\[species\]", "[user?.dna?.species ? user.dna.species : "unknown"]")
+		text = replacetext(text, "\[species\]", "[user?.dna?.species ? user.dna.species : UNKNOWN_STATUS_RUS]")
 		if(!no_font)
 			if(P)
 				text = "<font face=\"[P.fake_signing ? signfont : deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
@@ -814,3 +814,8 @@
 	if(ofthree == 0)
 		return "[num]"
 	return "[num / (10 ** (ofthree * 3))][GLOB.si_suffixes[round(length(GLOB.si_suffixes) / 2) + ofthree + 1]]"
+
+/// Returns TRUE if the input_text ends with the ending
+/proc/endswith(input_text, ending)
+	var/input_length = LAZYLEN(ending)
+	return !!findtext(input_text, ending, -input_length)

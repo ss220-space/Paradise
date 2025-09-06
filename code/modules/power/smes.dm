@@ -452,7 +452,7 @@
 			qdel(src)
 			return
 		if(prob(15)) //Power drain
-			do_sparks(3, 1, src)
+			do_sparks(3, TRUE, src)
 			if(prob(50))
 				emp_act(1)
 			else

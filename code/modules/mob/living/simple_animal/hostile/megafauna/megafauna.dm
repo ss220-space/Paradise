@@ -1,14 +1,6 @@
 /mob/living/simple_animal/hostile/megafauna
 	name = "megafauna"
 	desc = "Атакуйте слабое место для нанесения массивного урона."
-	ru_names = list(
-		NOMINATIVE = "мегафауна",
-		GENITIVE = "мегафауны",
-		DATIVE = "мегафауне",
-		ACCUSATIVE = "мегафауну",
-		INSTRUMENTAL = "мегафауной",
-		PREPOSITIONAL = "мегафауне"
-	)
 	health = 1000
 	maxHealth = 1000
 	a_intent = INTENT_HARM
@@ -53,6 +45,16 @@
 	/// Hardmode one loot
 	var/enraged_unique_loot
 	/// Only one loot from hardmode
+
+/mob/living/simple_animal/hostile/megafauna/get_ru_names()
+	return list(
+		NOMINATIVE = "мегафауна",
+		GENITIVE = "мегафауны",
+		DATIVE = "мегафауне",
+		ACCUSATIVE = "мегафауну",
+		INSTRUMENTAL = "мегафауной",
+		PREPOSITIONAL = "мегафауне"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
