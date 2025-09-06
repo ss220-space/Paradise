@@ -50,14 +50,14 @@
 	var/can_retreat = TRUE
 
 /mob/living/simple_animal/hostile/hivebot/get_ru_names()
-ru_names = list(
-	NOMINATIVE = "Бот улья",
-	GENITIVE = "Бота улья",
-	DATIVE = "Боту улья",
-	ACCUSATIVE = "Бота улья",
-	INSTRUMENTAL = "Ботом улья",
-	PREPOSITIONAL = "Боте улья"
-)
+	ru_names = list(
+		NOMINATIVE = "Бот улья",
+		GENITIVE = "Бота улья",
+		DATIVE = "Боту улья",
+		ACCUSATIVE = "Бота улья",
+		INSTRUMENTAL = "Ботом улья",
+		PREPOSITIONAL = "Боте улья"
+	)
 
 /mob/living/simple_animal/hostile/hivebot/ComponentInitialize()
 	AddComponent( \
@@ -231,14 +231,14 @@ ru_names = list(
 	var/is_active = FALSE		// Whether currently producing bots
 
 /obj/structure/hivebot_spawner/get_ru_names()
-ru_names = list(
-	NOMINATIVE = "Фабрикатор ботов улья",
-	GENITIVE = "Фабрикатора ботов улья",
-	DATIVE = "Фабрикатору ботов улья",
-	ACCUSATIVE = "Фабрикатор ботов улья",
-	INSTRUMENTAL = "Фабрикатором ботов улья",
-	PREPOSITIONAL = "Фабрикаторе ботов улья"
-)
+	ru_names = list(
+		NOMINATIVE = "Фабрикатор ботов улья",
+		GENITIVE = "Фабрикатора ботов улья",
+		DATIVE = "Фабрикатору ботов улья",
+		ACCUSATIVE = "Фабрикатор ботов улья",
+		INSTRUMENTAL = "Фабрикатором ботов улья",
+		PREPOSITIONAL = "Фабрикаторе ботов улья"
+	)
 
 /obj/structure/hivebot_spawner/Initialize(mapload)
 	. = ..()
