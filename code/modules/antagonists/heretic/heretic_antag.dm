@@ -1,4 +1,4 @@
-
+#define REQ_ASCEND_SACS 5
 
 /*
  * Simple helper to generate a string of
@@ -926,7 +926,7 @@
 		return FALSE
 	*/
 
-	return total_sacrifices == all_sac_targets.len
+	return total_sacrifices >= REQ_ASCEND_SACS
 
 /**
  * Helper to determine if a Heretic
@@ -1096,3 +1096,5 @@
 		return FALSE
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/heretic)
+
+#undef REQ_ASCEND_SACS
