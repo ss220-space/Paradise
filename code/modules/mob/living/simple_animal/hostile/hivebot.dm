@@ -49,6 +49,16 @@
 	var/retreating = FALSE
 	var/can_retreat = TRUE
 
+/mob/living/simple_animal/hostile/hivebot/get_ru_names()
+ru_names = list(
+	NOMINATIVE = "Бот улья",
+	GENITIVE = "Бота улья",
+	DATIVE = "Боту улья",
+	ACCUSATIVE = "Бота улья",
+	INSTRUMENTAL = "Ботом улья",
+	PREPOSITIONAL = "Боте улья"
+)
+
 /mob/living/simple_animal/hostile/hivebot/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
@@ -84,7 +94,6 @@
 // Дробилка
 
 /mob/living/simple_animal/hostile/hivebot/melee
-	name = "Hivebot"
 	desc = "Многофункциональный робот с шестью манипуляторами. Его клешни похожи на молотки. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "basic"
 	icon_living = "basic"
@@ -99,7 +108,6 @@
 	can_retreat = FALSE
 
 /mob/living/simple_animal/hostile/hivebot/heavy_melee
-	name = "Hivebot"
 	desc = "Многофункциональный робот, грубо обшитый металлическими пластинами. На корпусе видны заклёпки, а щели между пластинами залиты бетоном. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны вмятины, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "basic"
 	icon_living = "basic"
@@ -119,7 +127,6 @@
 // Зашиватель гвоздей
 
 /mob/living/simple_animal/hostile/hivebot/range
-	name = "Hivebot"
 	desc = "Многофункциональный робот с шестью манипуляторами. К его клешням приварены гвоздомёты. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "basic"
 	icon_living = "basic"
@@ -136,7 +143,6 @@
 	projectilesound = 'sound/weapons/gunshots/1autorifle.ogg'
 
 /mob/living/simple_animal/hostile/hivebot/range_heavy
-	name = "Hivebot"
 	desc = "Многофункциональный робот с шестью манипуляторами. В его клешнях модифицированный заклёпочный аппарат. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "basic"
 	icon_living = "basic"
@@ -155,7 +161,6 @@
 // Инженер
 
 /mob/living/simple_animal/hostile/hivebot/support
-	name = "Hivebot Support"
 	desc = "Специализированный робот с набором ремонтных инструментов. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "EngBot"
 	icon_living = "EngBot"
@@ -219,6 +224,16 @@
 	var/next_spawn_time = 0		// When next spawn/action should occur
 	var/cooldown_until = 0		// When cooldown period ends
 	var/is_active = FALSE		// Whether currently producing bots
+
+/obj/structure/hivebot_spawner/get_ru_names
+ru_names = list(
+	NOMINATIVE = "Фабрикатор ботов улья",
+	GENITIVE = "Фабрикатора ботов улья",
+	DATIVE = "Фабрикатору ботов улья",
+	ACCUSATIVE = "Фабрикатор ботов улья",
+	INSTRUMENTAL = "Фабрикатором ботов улья",
+	PREPOSITIONAL = "Фабрикаторе ботов улья"
+)
 
 /obj/structure/hivebot_spawner/Initialize(mapload)
 	. = ..()
