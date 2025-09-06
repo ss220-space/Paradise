@@ -22,6 +22,7 @@ tmp/
 tools/Runtime Condenser/Input.txt
 tools/Runtime Condenser/Output.txt
 tools/MapDaemon/logs/*.txt
+fast_paradise.dme
 
 #Visual studio stuff
 *.vscode/*
