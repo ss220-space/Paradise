@@ -553,10 +553,7 @@
 	)
 
 
-/obj/projectile/beam/laser/light/rat/on_hit(atom/target, blocked, hit_zone)
-	if(!isliving(target))
-		return ..()
-	var/mob/living/liv_target = target
-	if(isclocker(liv_target))
-		return
+/obj/projectile/beam/laser/light/rat/prehit(atom/target)
+	if(isclocker(target))
+		damage = 0
 	. = ..()

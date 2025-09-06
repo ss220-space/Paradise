@@ -786,7 +786,7 @@
 /obj/item/gun/energy/clockwork/proc/remove_enchanted_bullet()
 	deplete_spell()
 	pb_knockback = 2
-	ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
+	ammo_type = list(def_bullet)
 	update_ammo_types()
 	if(chambered)
 		QDEL_NULL(chambered)
@@ -807,7 +807,7 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	cell_type = /obj/item/stock_parts/cell/clock/sniper
 	charge_rate = 1
-	recoil = 2
+	recoil = new /datum/gun_recoil/mega()
 	charge_speed = 10 SECONDS
 	pb_knockback = 0
 	haveKnockback = FALSE

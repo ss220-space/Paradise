@@ -267,10 +267,11 @@
 		PREPOSITIONAL = "латунной пуле",
 	)
 
-/obj/projectile/energy/rat/slug/on_hit(atom/target, blocked, hit_zone)
-	if(!isclocker(target))
-		. = ..()
-	return
+/obj/projectile/energy/rat/slug/prehit(atom/target)
+	if(isclocker(target))
+		damage = 0
+		nodamage = TRUE
+	. = ..()
 
 /obj/projectile/energy/rat/slug/emp
 	name = "brass EMP slug"
@@ -285,13 +286,14 @@
 	icon_state = "brassslug_emp"
 	damage = 0
 
-/obj/projectile/energy/rat/slug/emp/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/energy/rat/slug/emp/prehit(atom/target)
 	if(isclocker(target))
-		return
+		return . = ..()
 	if(iscarbon(target))
 		target.emp_act(EMP_LIGHT)
 	if(ismecha(target) || issilicon(target))
 		target.emp_act(EMP_HEAVY)
+	new /obj/effect/temp_visual/emp/clock(get_turf(target))
 	. = ..()
 
 /obj/projectile/energy/rat/slug/heal
@@ -307,11 +309,14 @@
 	icon_state = "brassslug_heal"
 	damage = 25
 
-/obj/projectile/energy/rat/slug/heal/on_hit(mob/living/target, blocked, hit_zone)
-	damage = 25
+/obj/projectile/energy/rat/slug/heal/prehit(atom/target)
 	if(isclocker(target))
-		target.heal_overall_damage(25, 25, TRUE)
-	return ..()
+		damage = 0
+		nodamage = TRUE
+		if(isliving(target))
+			var/mob/living/to_heal = target
+			to_heal.heal_overall_damage(25, 25, TRUE)
+	. = ..()
 
 /obj/projectile/energy/rat/slug/stun
 	name = "brass stun slug"
@@ -324,14 +329,14 @@
 		PREPOSITIONAL = "латунной оглушающей пуле",
 	)
 	icon_state = "brassslug_stun"
+	weaken = 10 SECONDS
 
-/obj/projectile/energy/rat/slug/stun/on_hit(mob/living/target, blocked, hit_zone)
+/obj/projectile/energy/rat/slug/stun/prehit(atom/target)
 	if(isclocker(target))
-		return
-	if(iscarbon(target))
-		target.Weaken(10 SECONDS)
-	if(issilicon(target))
+		weaken = 0 SECONDS
+	if(issilicon(target) && !isclocker(target))
 		target.emp_act(EMP_HEAVY)
+		new /obj/effect/temp_visual/emp/clock(get_turf(target))
 	. = ..()
 
 /obj/projectile/energy/rat/snipe
@@ -347,12 +352,15 @@
 	icon_state = "brassshot"
 	damage = 60
 	armour_penetration = 60
-	stun = 2
+	weaken = 2
 
-/obj/projectile/energy/rat/snipe/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/energy/rat/snipe/prehit(atom/target)
 	if(isclocker(target))
-		return
+		damage = 0
+		weaken = 0
+		nodamage = TRUE
 	. = ..()
+
 
 /obj/projectile/energy/rat/snipe/emp
 	name = "brass sniper EMP bullet"
@@ -365,14 +373,17 @@
 		PREPOSITIONAL = "латунной снайперской ЭМИ пуле",
 	)
 	icon_state = "brassshot_emp"
+	weaken = 0
+	damage = 0
 
-/obj/projectile/energy/rat/snipe/emp/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/energy/rat/snipe/emp/prehit(atom/target)
 	if(isclocker(target))
-		return
+		return . = ..()
 	if(iscarbon(target))
 		target.emp_act(EMP_LIGHT)
 	if(ismecha(target) || issilicon(target))
 		target.emp_act(EMP_HEAVY)
+	new /obj/effect/temp_visual/emp/clock(get_turf(target))
 	. = ..()
 
 /obj/projectile/energy/rat/snipe/heal
@@ -386,15 +397,18 @@
 		PREPOSITIONAL = "латунной снайперской исцеляющей пуле",
 	)
 	icon_state = "brassshot_heal"
-	damage = 25
-	stun = 2
-
-/obj/projectile/energy/rat/snipe/heal/on_hit(mob/living/target, blocked, hit_zone)
-	if(!isclocker(target))
-		return ..()
 	damage = 0
 	stun = 0
-	target.heal_overall_damage(50, 50, TRUE)
+
+/obj/projectile/energy/rat/snipe/heal/prehit(atom/target)
+	if(isclocker(target))
+		damage = 0
+		nodamage = TRUE
+		if(isliving(target))
+			var/mob/living/to_heal = target
+			to_heal.heal_overall_damage(50, 50, TRUE)
+	. = ..()
+
 
 /obj/projectile/energy/rat/snipe/stun
 	name = "brass sniper stun bullet"
@@ -408,13 +422,14 @@
 	)
 	icon_state = "brassshot_stun"
 	damage = 0
-	stun = 15
+	weaken = 15 SECONDS
 
-/obj/projectile/energy/rat/snipe/stun/on_hit(mob/living/target, blocked, hit_zone)
+/obj/projectile/energy/rat/snipe/stun/prehit(atom/target)
 	if(isclocker(target))
-		return
-	if(issilicon(target))
+		weaken = 0 SECONDS
+	if(issilicon(target) && !isclocker(target))
 		target.emp_act(EMP_HEAVY)
+		new /obj/effect/temp_visual/emp/clock(get_turf(target))
 	. = ..()
 
 /obj/projectile/energy/sphere
