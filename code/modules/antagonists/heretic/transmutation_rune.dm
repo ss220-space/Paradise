@@ -118,9 +118,8 @@
 		if(close_atom.invisibility)
 			continue
 
-		//if(close_atom == user)
-		//	continue
-		// I need it for selfsuc. I think it won't break code.
+		if(close_atom == user)
+			continue
 
 		atoms_in_range += close_atom
 
