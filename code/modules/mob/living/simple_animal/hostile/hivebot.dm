@@ -230,7 +230,7 @@ ru_names = list(
 	var/cooldown_until = 0		// When cooldown period ends
 	var/is_active = FALSE		// Whether currently producing bots
 
-/obj/structure/hivebot_spawner/get_ru_names
+/obj/structure/hivebot_spawner/get_ru_names()
 ru_names = list(
 	NOMINATIVE = "Фабрикатор ботов улья",
 	GENITIVE = "Фабрикатора ботов улья",
