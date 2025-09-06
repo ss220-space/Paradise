@@ -604,7 +604,7 @@
 							span_notice("You slipped and got soaked!"),
 						)
 						if(istype(M, /mob/living/simple_animal/pet/cat/Syndi))
-							do_sparks(3, 1, src)
+							do_sparks(3, TRUE, src)
 					else								//No water or didn't slip, get that fish!
 						M.visible_message(
 							span_warning("[M.name] catches and devours a live fish!"),

@@ -1,14 +1,6 @@
 /mob/living/basic/mothroach
 	name = "mothroach"
 	desc = "Это очень милый побочный продукт скрещивания мотылей и тараканов."
-	ru_names = list(
-		NOMINATIVE = "мотылёк",
-		GENITIVE = "мотылька",
-		DATIVE = "мотыльку",
-		ACCUSATIVE = "мотылька",
-		INSTRUMENTAL = "мотыльком",
-		PREPOSITIONAL = "мотыльке"
-	)
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "mothroach"
 	icon_living = "mothroach"
@@ -38,6 +30,16 @@
 	response_help_simple = "гладите"
 
 	ai_controller = /datum/ai_controller/basic_controller/mothroach
+
+/mob/living/basic/mothroach/get_ru_names()
+	return list(
+		NOMINATIVE = "мотылёк",
+		GENITIVE = "мотылька",
+		DATIVE = "мотыльку",
+		ACCUSATIVE = "мотылька",
+		INSTRUMENTAL = "мотыльком",
+		PREPOSITIONAL = "мотыльке"
+	)
 
 /mob/living/basic/mothroach/Initialize(mapload)
 	. = ..()

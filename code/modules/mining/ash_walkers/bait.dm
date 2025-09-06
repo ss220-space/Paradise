@@ -1,14 +1,6 @@
 /obj/item/reagent_containers/food/snacks/bait
 	name = "worm"
 	desc = "Тестовая наживка, если вы это видите, пингуйте Зюзю."
-	ru_names = list(
-		NOMINATIVE = "червяк",
-		GENITIVE = "червяков",
-		DATIVE = "червяку",
-		ACCUSATIVE = "червяка",
-		INSTRUMENTAL = "червяком",
-		PREPOSITIONAL = "червякам",
-	)
 	gender = MALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "ash_eater"
@@ -22,6 +14,16 @@
 	antable = FALSE
 	/// This will be visually shown on fishing rod.
 	var/rod_overlay  = "ash_eater_rod"
+
+/obj/item/reagent_containers/food/snacks/bait/get_ru_names()
+	return list(
+		NOMINATIVE = "червяк",
+		GENITIVE = "червяков",
+		DATIVE = "червяку",
+		ACCUSATIVE = "червяка",
+		INSTRUMENTAL = "червяком",
+		PREPOSITIONAL = "червякам",
+	)
 
 /obj/item/reagent_containers/food/snacks/bait/examine(mob/user)
 	. = ..()
@@ -37,7 +39,11 @@
 /obj/item/reagent_containers/food/snacks/bait/ash_eater
 	name = "ash eater"
 	desc = "Маленький червячок со множеством невероятно острых зубов, покрывающих его ротовую полость. Ходят слухи, что эти крохи способны вырастать до размеров целого города. Пепел должен течь рекой."
-	ru_names = list(
+	icon_state = "ash_eater"
+	rod_overlay = "ash_eater_rod"
+
+/obj/item/reagent_containers/food/snacks/bait/ash_eater/get_ru_names()
+	return list(
 		NOMINATIVE = "пожиратель пепла",
 		GENITIVE = "пожирателя пепла",
 		DATIVE = "пожирателю пепла",
@@ -45,13 +51,17 @@
 		INSTRUMENTAL = "пожирателем пепла",
 		PREPOSITIONAL = "пожирателе пепла",
 	)
-	icon_state = "ash_eater"
-	rod_overlay = "ash_eater_rod"
 
 /obj/item/reagent_containers/food/snacks/bait/bloody_leach
 	name = "bloody leach"
 	desc = "Паразитическая форма жизни Лазис Ардакса, которая цепляется к оголённым участкам кожи и питается своими жертвами. Её брюшко краснеет от количества выпитой ею крови."
-	ru_names = list(
+	gender = FEMALE
+	icon_state = "bloody_leach"
+	item_state = "bloody_leach"
+	rod_overlay = "bloody_leach_rod"
+
+/obj/item/reagent_containers/food/snacks/bait/bloody_leach/get_ru_names()
+	return list(
 		NOMINATIVE = "кровавая пиявка",
 		GENITIVE = "кровавой пиявки",
 		DATIVE = "кровавой пиявке",
@@ -59,15 +69,17 @@
 		INSTRUMENTAL = "кровавой пиявкой",
 		PREPOSITIONAL = "кровавой пиявке",
 	)
-	gender = FEMALE
-	icon_state = "bloody_leach"
-	item_state = "bloody_leach"
-	rod_overlay = "bloody_leach_rod"
 
 /obj/item/reagent_containers/food/snacks/bait/goldgrub_larva
 	name = "goldgrub larva"
 	desc = "Небольшой червячок, который питается минералами, закопанными в пепле. Он так же пуглив, как и его более старшие сородичи."
-	ru_names = list(
+	gender = FEMALE
+	icon_state = "goldgrub_larva"
+	item_state = "goldgrub_larva"
+	rod_overlay = "goldgrub_larva_rod"
+
+/obj/item/reagent_containers/food/snacks/bait/goldgrub_larva/get_ru_names()
+	return list(
 		NOMINATIVE = "личинка златожора",
 		GENITIVE = "личинки златожора",
 		DATIVE = "личинке златожора",
@@ -75,22 +87,10 @@
 		INSTRUMENTAL = "личинкой златожора",
 		PREPOSITIONAL = "личинке златожора",
 	)
-	gender = FEMALE
-	icon_state = "goldgrub_larva"
-	item_state = "goldgrub_larva"
-	rod_overlay = "goldgrub_larva_rod"
 
 /obj/item/reagent_containers/food/snacks/charred_krill
 	name = "charred krill"
 	desc = "Одна из самых редких обитателей Лазис Ардакса, множество лет признанная вымершей. Эта креветка - одно из самых любимых угощений для местной \"подводной\" фауны."
-	ru_names = list(
-		NOMINATIVE = "обугленная креветка",
-		GENITIVE = "обугленной креветки",
-		DATIVE = "обугленной креветке",
-		ACCUSATIVE = "обугленную креветку",
-		INSTRUMENTAL = "обугленной креветкой",
-		PREPOSITIONAL = "обугленной креветке",
-	)
 	gender = FEMALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "charred_krill"
@@ -100,6 +100,16 @@
 	antable = FALSE
 	tastes = list("пепла" = 5, "упущенных возможностей" = 1)
 	var/in_lava = FALSE
+
+/obj/item/reagent_containers/food/snacks/charred_krill/get_ru_names()\
+	return list(
+		NOMINATIVE = "обугленная креветка",
+		GENITIVE = "обугленной креветки",
+		DATIVE = "обугленной креветке",
+		ACCUSATIVE = "обугленную креветку",
+		INSTRUMENTAL = "обугленной креветкой",
+		PREPOSITIONAL = "обугленной креветке",
+	)
 
 /obj/item/reagent_containers/food/snacks/charred_krill/examine(mob/user)
 	. = ..()

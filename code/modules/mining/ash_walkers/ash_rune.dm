@@ -1,14 +1,6 @@
 /obj/effect/decal/ash_rune_centre
 	name = "ash sigil"
 	desc = "Незаконченная руна, нарисованная на пепле."
-	ru_names = list(
-		NOMINATIVE = "пепельный сигил",
-		GENITIVE = "пепельного сигила",
-		DATIVE = "пепельному сигилу",
-		ACCUSATIVE = "пепельный сигил",
-		INSTRUMENTAL = "пепельным сигилом",
-		PREPOSITIONAL = "пепельном сигиле"
-	)
 	gender = MALE
 	icon = 'icons/effects/ash_runes.dmi'
 	icon_state = "runaash_1"
@@ -17,6 +9,16 @@
 	var/transforming = FALSE
 	///Is our rune activated? Another sanity check, love it
 	var/activated = FALSE
+
+/obj/effect/decal/ash_rune_centre/get_ru_names()
+	return list(
+		NOMINATIVE = "пепельный сигил",
+		GENITIVE = "пепельного сигила",
+		DATIVE = "пепельному сигилу",
+		ACCUSATIVE = "пепельный сигил",
+		INSTRUMENTAL = "пепельным сигилом",
+		PREPOSITIONAL = "пепельном сигиле"
+	)
 
 /obj/effect/decal/ash_rune_centre/Initialize(mapload)
 	. = ..()
@@ -64,14 +66,6 @@
 // Our little cheat in order to make first rune activation unforgetable
 /obj/effect/rune_fluff_marks
 	name = "ash rune"
-	ru_names = list(
-		NOMINATIVE = "пепельная руна",
-		GENITIVE = "пепельной руны",
-		DATIVE = "пепельной руне",
-		ACCUSATIVE = "пепельную руну",
-		INSTRUMENTAL = "пепельной руной",
-		PREPOSITIONAL = "пепельной руне"
-	)
 	gender = FEMALE
 	icon = 'icons/effects/ash_runes.dmi'
 	icon_state = "runaash_2"
@@ -79,6 +73,16 @@
 	anchored = TRUE
 	plane = FLOOR_PLANE
 	layer = TURF_DECAL_LAYER
+
+/obj/effect/rune_fluff_marks/get_ru_names()
+	return list(
+		NOMINATIVE = "пепельная руна",
+		GENITIVE = "пепельной руны",
+		DATIVE = "пепельной руне",
+		ACCUSATIVE = "пепельную руну",
+		INSTRUMENTAL = "пепельной руной",
+		PREPOSITIONAL = "пепельной руне"
+	)
 
 /obj/effect/rune_fluff_marks/Initialize(mapload)
 	. = ..()
@@ -92,14 +96,6 @@
 
 /obj/effect/rune_animation_landmark
 	name = "ash rune"
-	ru_names = list(
-		NOMINATIVE = "пепельная руна",
-		GENITIVE = "пепельной руны",
-		DATIVE = "пепельной руне",
-		ACCUSATIVE = "пепельную руну",
-		INSTRUMENTAL = "пепельной руной",
-		PREPOSITIONAL = "пепельной руне"
-	)
 	gender = FEMALE
 	icon = 'icons/effects/ashwalker_rune.dmi'
 	icon_state = "AshRun"
@@ -107,6 +103,16 @@
 	anchored = TRUE
 	plane = FLOOR_PLANE
 	layer = TURF_DECAL_LAYER
+
+/obj/effect/rune_animation_landmark/get_ru_names()
+	return list(
+		NOMINATIVE = "пепельная руна",
+		GENITIVE = "пепельной руны",
+		DATIVE = "пепельной руне",
+		ACCUSATIVE = "пепельную руну",
+		INSTRUMENTAL = "пепельной руной",
+		PREPOSITIONAL = "пепельной руне"
+	)
 
 /obj/effect/rune_animation_landmark/Initialize(mapload)
 	. = ..()

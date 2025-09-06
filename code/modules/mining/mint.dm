@@ -5,14 +5,6 @@
 	desc = "Массивная, слегка шумящая машина с  тяжелыми стальными прессами. \
 	Она используется для чеканки монет из различных матриалов. \
 	На корпусе расположена панель управления с настройками для выбора металла и нанесения уникальных штампов."
-	ru_names = list(
-		NOMINATIVE = "монетный пресс",
-		GENITIVE = "монетного пресса",
-		DATIVE = "монетному прессу",
-		ACCUSATIVE = "монетный пресс",
-		INSTRUMENTAL = "монетным прессом",
-		PREPOSITIONAL = "монетном прессе",
-	)
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "coin_press"
 	density = TRUE
@@ -28,6 +20,16 @@
 	/// Inserted money bag.
 	var/obj/item/storage/bag/money/money_bag
 
+
+/obj/machinery/mineral/mint/get_ru_names()
+	return list(
+		NOMINATIVE = "монетный пресс",
+		GENITIVE = "монетного пресса",
+		DATIVE = "монетному прессу",
+		ACCUSATIVE = "монетный пресс",
+		INSTRUMENTAL = "монетным прессом",
+		PREPOSITIONAL = "монетном прессе",
+	)
 
 /obj/machinery/mineral/mint/Initialize(mapload)
 	. = ..()

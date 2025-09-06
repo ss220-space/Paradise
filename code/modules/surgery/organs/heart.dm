@@ -1,14 +1,6 @@
 /obj/item/organ/internal/heart
 	name = "heart"
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало человеку."
-	ru_names = list(
-		NOMINATIVE = "сердце человека",
-		GENITIVE = "сердца человека",
-		DATIVE = "сердцу человека",
-		ACCUSATIVE = "сердце человека",
-		INSTRUMENTAL = "сердцем человека",
-		PREPOSITIONAL = "сердце человека"
-	)
 	gender = NEUTER
 	icon_state = "heart-on"
 	parent_organ_zone = BODY_ZONE_CHEST
@@ -19,6 +11,16 @@
 	var/icon_base = "heart"
 	var/item_base = "heart"
 
+
+/obj/item/organ/internal/heart/get_ru_names()
+	return list(
+		NOMINATIVE = "сердце человека",
+		GENITIVE = "сердца человека",
+		DATIVE = "сердцу человека",
+		ACCUSATIVE = "сердце человека",
+		INSTRUMENTAL = "сердцем человека",
+		PREPOSITIONAL = "сердце человека"
+	)
 
 /obj/item/organ/internal/heart/update_icon_state()
 	if(beating)
@@ -159,7 +161,7 @@
 			return
 
 		cursed_heart.last_pump = world.time
-		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
+		playsound(owner,'sound/effects/singlebeat.ogg',40, TRUE)
 		owner.balloon_alert(owner, "ваше сердце бьётся")
 
 		var/mob/living/carbon/human/H = owner

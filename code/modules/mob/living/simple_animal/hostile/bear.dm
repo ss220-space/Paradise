@@ -49,7 +49,7 @@
 
 /mob/living/simple_animal/hostile/bear/handle_automated_movement()
 	if(..())
-		playsound(src, src.trigger_sound, 40, 1)
+		playsound(src, src.trigger_sound, 40, TRUE)
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson
