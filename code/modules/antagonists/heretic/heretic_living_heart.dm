@@ -67,7 +67,7 @@
  */
 /obj/effect/proc_holder/spell/track_target
 	name = "Биение живого сердца"
-	desc = "ЛКМ: Выберите одну из целей жертвоприношения для отслеживания.\nСКМ: Выбирает последнюю цель."
+	desc = "ЛКМ: Выберите одну из целей жертвоприношения для отслеживания.\nАльтклик: Переключает автовыбор последней выбранной цели."
 	stat_allowed = CONSCIOUS
 	action_background_icon_state = "bg_heretic"
 	action_icon = 'icons/obj/eldritch.dmi'
@@ -76,7 +76,7 @@
 	clothes_req = FALSE
 
 	/// Tracks whether we were right clicked or left clicked in our last trigger
-	var/right_clicked = FALSE
+	var/alt_clicked = FALSE
 	/// The real name of the last thing we tracked
 	var/last_tracked_name
 	/// Whether the target radial is currently opened.
@@ -101,6 +101,11 @@
 		return FALSE
 
 	return TRUE
+
+
+/obj/effect/proc_holder/spell/track_target/click_alt(mob/user)
+	. = ..()
+	alt_clicked = !alt_clicked
 
 
 /obj/effect/proc_holder/spell/track_target/cast(list/targets, mob/user = usr)
@@ -146,7 +151,7 @@
 
 	// If we don't have a last tracked name, open a radial to set one.
 	// If we DO have a last tracked name, we skip the radial if they right click the spell.
-	if(isnull(last_tracked_name) || !right_clicked)
+	if(isnull(last_tracked_name) || !alt_clicked)
 		radial_open = TRUE
 		last_tracked_name = show_radial_menu(
 			action.owner,
