@@ -599,7 +599,6 @@
 	if(num_heads < 2)
 		return
 
-	var/datum/objective/major_sacrifice/other_sac_objective = new()
 	other_sac_objective.owner = owner
 	objectives += other_sac_objective
 
@@ -1007,20 +1006,6 @@
 		return FALSE
 
 	return completed || (heretic_datum.total_sacrifices >= target_amount)
-
-
-/// Heretic's major sacrifice objective. "Major sacrifices" are heads of staff.
-/datum/objective/major_sacrifice
-	name = "значительная жертва"
-	target_amount = 1
-	explanation_text = "Принесите в жертву одного из глав. КМ тоже глава."
-
-/datum/objective/major_sacrifice/check_completion()
-	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
-	if(!heretic_datum)
-		return FALSE
-
-	return completed || (heretic_datum.high_value_sacrifices >= target_amount)
 
 /// Heretic's research objective. "Research" is heretic knowledge nodes (You start with some).
 /datum/objective/heretic_research
