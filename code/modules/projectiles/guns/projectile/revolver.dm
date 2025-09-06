@@ -658,7 +658,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	sawn_desc = "Прошу прощения, но зачем вы распилили свою трость?"
 	attack_verb = list("огрел", "проучил")
-	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
+	suppressed_fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	suppressed = TRUE
 	needs_permit = FALSE //its just a cane beepsky.....
 	accuracy = GUN_ACCURACY_SHOTGUN

@@ -20,6 +20,7 @@
 	drop_sound = 'sound/items/handling/drop/gun_drop.ogg'
 
 	var/fire_sound = SFX_GUNSHOT
+	var/suppressed_fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
 	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
 	var/fire_sound_text = "выстрел" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
@@ -260,7 +261,7 @@
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
 	if(suppressed)
-		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+		playsound(user, suppressed_fire_sound, 30, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	else
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)

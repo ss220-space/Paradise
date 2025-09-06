@@ -90,8 +90,10 @@
 	sawn_desc = "Come with me if you want to live."
 	sawn_state = SAWN_INTACT
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	suppressed_fire_sound = 'sound/weapons/gunshots/1heavysuppres.ogg'
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 1),
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
 	)
@@ -121,6 +123,9 @@
 
 
 /obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
+	if(attachments_by_slot[ATTACHMENT_SLOT_MUZZLE])
+		balloon_alert(user, "нужно снять дульный модуль!")
+		return
 	if(sawn_state == SAWN_OFF)
 		balloon_alert(user, "уже укорочено!")
 		return
@@ -173,10 +178,18 @@
 	sawn_state = SAWN_OFF
 	accuracy = GUN_ACCURACY_MINIMAL
 	magazine.max_ammo = 3
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
+	)
 	update_icon()
 
 
 /obj/item/gun/projectile/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
+	if(attachments_by_slot[ATTACHMENT_SLOT_MUZZLE])
+		balloon_alert(user, "нужно снять дульный модуль!")
+		return
 	if(sawn_state == SAWN_INTACT)
 		balloon_alert(user, "операция провалилась!")
 		return
@@ -216,6 +229,11 @@
 	slot_flags |= ITEM_SLOT_BACK
 	sawn_state = SAWN_INTACT
 	magazine.max_ammo = 6
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
+	)
 	update_icon()
 
 /obj/item/gun/projectile/shotgun/riot/update_icon_state() //Can't use the old proc as it makes it go to riotshotgun-short_sawn
@@ -255,7 +273,7 @@
 	bayonet_y_offset = 13
 	pb_knockback = 0
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
+	attachable_allowed =  GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 4)
 	)
@@ -367,6 +385,7 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 22, "y" = 3),
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -4)
 	)
@@ -385,7 +404,7 @@
 	var/obj/item/ammo_box/magazine/internal/shot/alternate_magazine
 	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
 	accuracy = GUN_ACCURACY_SHOTGUN
-	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
+	attachable_allowed =  GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7)
 	)

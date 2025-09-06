@@ -84,8 +84,17 @@
 
 /obj/item/gun_module/muzzle/suppressor
 	name = "suppressor"
-	desc = "Глушитель, совместимый с широким диапазоном огнестрельного оружия. Существенно снижает шум, производимый при выстреле."
-	ru_names = list(
+	desc = "Глушитель, совместимый с широким диапазоном огнестрельного оружия. Существенно снижает шум, производимый при выстреле и интенсивность вспышки."
+	icon_state = "supp"
+	item_state = "supp"
+	overlay_state = "supp_o"
+	overlay_offset = list("x" = -1, "y" = 0)
+	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE
+	var/oldsound
+	var/initial_w_class
+
+/obj/item/gun_module/muzzle/suppressor/get_ru_names()
+	return list(
 		NOMINATIVE = "универсальный глушитель",
 		GENITIVE = "универсального глушителя",
 		DATIVE = "универсальному глушителю",
@@ -93,36 +102,69 @@
 		INSTRUMENTAL = "универсальным глушителем",
 		PREPOSITIONAL = "универсальном глушителе"
 	)
-	icon_state = "supp"
-	item_state = "supp"
-	overlay_state = "supp_o"
-	overlay_offset = list("x" = -1, "y" = 0)
-	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
-	var/oldsound
-	var/initial_w_class
-
 
 /obj/item/gun_module/muzzle/suppressor/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppressed = TRUE
 	target_gun.suppress_muzzle_flash = TRUE
 	oldsound = target_gun.fire_sound
 	initial_w_class = target_gun.w_class
-	target_gun.fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	if(target_gun.w_class < WEIGHT_CLASS_NORMAL)
 		target_gun.w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/gun_module/muzzle/suppressor/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppressed = FALSE
 	target_gun.suppress_muzzle_flash = FALSE
-	target_gun.fire_sound = oldsound
 	target_gun.w_class = initial_w_class
 
+/obj/item/gun_module/muzzle/suppressor/shotgun
+	name = "shotgun suppressor"
+	desc = "Тяжёлый глушитель, совместимый с различными ружьями, позволяет значительно снизить шум от выстрелов и интенсивность вспышки."
+	icon_state = "suppshotgun"
+	overlay_state = "suppshotgun_o"
+	class = GUN_MODULE_CLASS_SHOTGUN_MUZZLE
 
+/obj/item/gun_module/muzzle/suppressor/shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "ружейный глушитель",
+		GENITIVE = "ружейного глушителя",
+		DATIVE = "ружейному глушителю",
+		ACCUSATIVE = "ружейный глушитель",
+		INSTRUMENTAL = "ружейным глушителем",
+		PREPOSITIONAL = "ружейном глушителе"
+	)
+
+/obj/item/gun_module/muzzle/suppressor/heavy
+	name = "heavy suppressor"
+	desc = "Массивный глушитель, подходящий для крупнокалиберных винтовок, снижает шум выстрелов и уменьшает интенсивность вспышки."
+	icon_state = "suppheavy"
+	overlay_state = "suppheavy_o"
+	class = GUN_MODULE_CLASS_SNIPER_MUZZLE
+
+/obj/item/gun_module/muzzle/suppressor/heavy/get_ru_names()
+	return list(
+		NOMINATIVE = "тяжёлый глушитель",
+		GENITIVE = "тяжёлого глушителя",
+		DATIVE = "тяжёлому глушителю",
+		ACCUSATIVE = "тяжёлый глушитель",
+		INSTRUMENTAL = "тяжёлым глушителем",
+		PREPOSITIONAL = "тёжёлом глушителе"
+	)
 
 /obj/item/gun_module/muzzle/compensator
 	name = "compensator"
-	desc = "Глушитель, совместимый с широким диапазоном огнестрельного оружия. Уменьшает дульную вспышку и отдачу, производимую при выстреле, тем самым немного повышая точность стрельбы."
-	ru_names = list(
+	desc = "Компенсатор, совместимый с широким диапазоном огнестрельного оружия. Уменьшает дульную вспышку и отдачу, производимую при выстреле, тем самым немного повышая точность стрельбы."
+	icon_state = "comp"
+	item_state = "comp"
+	overlay_state = "comp_o"
+	overlay_offset = list("x" = -3, "y" = 0)
+	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE
+	var/bonus_accuracy = 10
+	var/initial_w_class
+	var/spread_decrease = 0
+	var/initial_recoil
+
+/obj/item/gun_module/muzzle/compensator/get_ru_names()
+	return list(
 		NOMINATIVE = "универсальный компенсатор",
 		GENITIVE = "универсального компенсатора",
 		DATIVE = "универсальному компенсатору",
@@ -130,16 +172,6 @@
 		INSTRUMENTAL = "универсальным компенсатором",
 		PREPOSITIONAL = "универсальном компенсаторе"
 	)
-	icon_state = "comp"
-	item_state = "comp"
-	overlay_state = "comp_o"
-	overlay_offset = list("x" = -3, "y" = 0)
-	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
-	var/bonus_accuracy = 10
-	var/initial_w_class
-	var/spread_decrease = 0
-	var/initial_recoil
-
 
 /obj/item/gun_module/muzzle/compensator/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.suppress_muzzle_flash = TRUE

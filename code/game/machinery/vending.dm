@@ -2374,7 +2374,8 @@
 		/obj/item/ammo_box/magazine/enforcer/extended = 10
 	)
 	contraband = list(
-		/obj/item/gun_module/muzzle/suppressor = 3,
+		/obj/item/gun_module/muzzle/suppressor = 4,
+		/obj/item/gun_module/muzzle/suppressor/shotgun = 2,
 		/obj/item/gun_module/rail/scope/x4 = 3,
 	)
 	prices = list(
@@ -2386,6 +2387,7 @@
 		/obj/item/gun_module/under/hand/angle = 499,
 		/obj/item/ammo_box/magazine/enforcer/extended = 149,
 		/obj/item/gun_module/muzzle/suppressor = 499,
+		/obj/item/gun_module/muzzle/suppressor/shotgun = 799,
 		/obj/item/gun_module/rail/scope/x4 = 4999,
 	)
 	refill_canister = /obj/item/vending_refill/gun_mods
@@ -2406,6 +2408,8 @@
 		/obj/item/gun_module/under/flashlight/rifle = 5,
 		/obj/item/gun_module/under/hand/angle = 5,
 		/obj/item/gun_module/muzzle/suppressor = 5,
+		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
+		/obj/item/gun_module/muzzle/suppressor/heavy = 2,
 		/obj/item/gun_module/rail/scope/x8 = 5,
 		/obj/item/gun_module/rail/scope/x16 = 3,
 	)
@@ -4538,6 +4542,7 @@
 		/obj/item/gun/projectile/automatic/lasercarbine = 3,
 		/obj/item/ammo_box/magazine/laser = 6,
 		/obj/item/gun_module/muzzle/suppressor = 4,
+		/obj/item/gun_module/muzzle/suppressor/shotgun = 4,
 		/obj/item/ammo_box/speedloader/shotgun = 4,
 		/obj/item/gun/projectile/automatic/sfg = 3,
 		/obj/item/ammo_box/magazine/sfg9mm = 6,

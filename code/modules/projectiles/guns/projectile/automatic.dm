@@ -417,7 +417,7 @@ TODO Use this name and desc for localisation*/
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 9),
 		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -6)
 	)
@@ -485,7 +485,7 @@ TODO Use this name and desc for localisation*/
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 0),
 		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 4),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -5)
 	)
@@ -516,7 +516,7 @@ TODO Use this name and desc for localisation*/
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6)
 	)
 	recoil = GUN_RECOIL_HIGH
