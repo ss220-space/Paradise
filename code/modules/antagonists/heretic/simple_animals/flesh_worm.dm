@@ -11,8 +11,8 @@
 	icon_state = "armsy_start"
 	icon_living = "armsy_start"
 	base_icon_state = "armsy"
-	maxHealth = 800
-	health = 800
+	maxHealth = 500
+	health = 500
 	melee_damage_lower = 30
 	melee_damage_upper = 50
 	obj_damage = 200

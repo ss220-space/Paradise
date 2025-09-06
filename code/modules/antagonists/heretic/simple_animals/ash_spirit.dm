@@ -8,8 +8,8 @@
 	desc = "Живое облако пепла."
 	icon_state = "ash_walker"
 	icon_living = "ash_walker"
-	maxHealth = 150
-	health = 150
+	maxHealth = 100
+	health = 100
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 	sight = SEE_TURFS

@@ -10,8 +10,8 @@
 	)
 	can_repair = FALSE
 	faction = list(FACTION_HERETIC)
-	maxHealth = 45
-	health = 45
+	maxHealth = 60
+	health = 60
 	melee_damage_lower = 20
 	melee_damage_upper = 25
 	sight = SEE_MOBS

@@ -218,6 +218,9 @@
 	if(.)
 		return
 
+	if(isobserver(usr))
+		return FALSE
+
 	var/mob/living/carbon/human/user = usr
 	switch(action)
 		if("paint", "fill")

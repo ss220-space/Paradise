@@ -6,8 +6,8 @@
 	gender = MALE
 	icon_state = "stalker"
 	icon_living = "stalker"
-	maxHealth = 300
-	health = 300
+	maxHealth = 200
+	health = 200
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 	sight = SEE_MOBS

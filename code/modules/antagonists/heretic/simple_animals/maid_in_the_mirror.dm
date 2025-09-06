@@ -11,8 +11,8 @@
 	movement_type = FLOATING
 	status_flags = CANSTUN | CANPUSH
 	attack_sound = 'sound/effects/glassbr1.ogg'
-	maxHealth = 160
-	health = 160
+	maxHealth = 100
+	health = 100
 	melee_damage_lower = 12
 	melee_damage_upper = 16
 	sight = SEE_MOBS | SEE_OBJS | SEE_TURFS
