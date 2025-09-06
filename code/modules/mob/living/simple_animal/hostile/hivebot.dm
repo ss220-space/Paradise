@@ -1,7 +1,3 @@
-// 15 ХП сбивается за 2 удара приблизительно 3 секунды
-// 200 хп же снесёт если игрок без брони, за 20 выстрелов
-// Виталя МУсорщик СОбиратель
-
 //////////////
 //MARK: ROBOT
 //////////////
@@ -24,7 +20,7 @@
 
 /mob/living/simple_animal/hostile/hivebot
 	name = "Hivebot"
-	desc = "Многофункциональный робот с шестью манипуляторами. Он собран из разных хаотичных деталей, видны грубые швы и вмятины от молотка. На корпусе нацарапано ВМС."
+	desc = "Многофункциональный робот с шестью манипуляторами. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись [pick("ВМС", "Сделано в космосе", "Заткнись и грабь", "Собственность НаноТрейзен", "Смерть НаноТрейзен")]."
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "basic"
 	icon_living = "basic"
@@ -45,7 +41,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	speak_emote = list("констатирует")
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot, /obj/effect/loot_spawner/hivebot)
-	deathmessage = "Разваливается!"
+	deathmessage = "разваливается!"
 	bubble_icon = "machine"
 	del_on_death = 1
 	footstep_type = FOOTSTEP_MOB_CLAW
@@ -89,7 +85,7 @@
 
 /mob/living/simple_animal/hostile/hivebot/melee
 	name = "Hivebot"
-	desc = "Многофункциональный робот с шестью манипуляторами. Его клешни похожи на молотки. Он собран из разных хаотичных деталей, видны грубые швы и вмятины от молотка. На корпусе нацарапано ВМС."
+	desc = "Многофункциональный робот с шестью манипуляторами. Его клешни похожи на молотки. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись [pick("ВМС", "Свобода или Смерть", "ХОЙ", "Это был Вася", "Смерть Donk Co!")]."
 	icon_state = "basic"
 	icon_living = "basic"
 	icon_dead = "basic"
@@ -97,14 +93,14 @@
 	maxHealth = 40
 	melee_damage_lower = 12
 	melee_damage_upper = 12
-	attacktext = "Вбивает"
+	attacktext = "вбивает"
 	speed = 3
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	can_retreat = FALSE
 
 /mob/living/simple_animal/hostile/hivebot/heavy_melee
 	name = "Hivebot"
-	desc = "Многофункциональный робот зашитый в металл. На корпусе грубые швы, заклёпки, между щелями виднеется бетон. "
+	desc = "Многофункциональный робот, грубо обшитый металлическими пластинами. На корпусе видны заклёпки, а щели между пластинами залиты бетоном. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны вмятины, а также выцарапанная надпись [pick("ВМС", "Тяжеловес", "Капитан Флинт", "Хватит скулить", "Смерть корпоратам!")]."
 	icon_state = "basic"
 	icon_living = "basic"
 	icon_dead = "basic"
@@ -112,11 +108,11 @@
 	maxHealth = 80
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	attacktext = "Сокрушает"
+	attacktext = "сокрушает"
 	speed = 5
 	ranged = FALSE
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	deathmessage = "Скидывает щиты!"
+	deathmessage = "скидывает щиты!"
 	loot = list(/obj/effect/spawner/hivebot_heavy, /obj/effect/loot_spawner/hivebot, /obj/effect/loot_spawner/hivebot)
 	can_retreat = FALSE
 
@@ -124,7 +120,7 @@
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "Hivebot"
-	desc = "Многофункциональный робот с шестью манипуляторами. В его клешнях гвоздомёты. Он собран из разных хаотичных деталей, видны грубые швы и вмятины от молотка. На корпусе нацарапано ВМС."
+	desc = "Многофункциональный робот с шестью манипуляторами. К его клешням приварены гвоздомёты. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись [pick("ВМС", "Собственность Варлока", "Убери свои руки!", "Осторожно! Радиация!", "Смерть!")]."
 	icon_state = "basic"
 	icon_living = "basic"
 	icon_dead = "basic"
@@ -141,7 +137,7 @@
 
 /mob/living/simple_animal/hostile/hivebot/range_heavy
 	name = "Hivebot"
-	desc = "Многофункциональный робот с шестью манипуляторами. В его клешнях тяжёлый гвоздомёт. Он собран из разных хаотичных деталей, видны грубые швы и вмятины от молотка. На корпусе нацарапано ВМС."
+	desc = "Многофункциональный робот с шестью манипуляторами. В его клешнях модифицированный заклёпочный аппарат. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись [pick("ВМС", "Держись подальше!", "Беги!", "ПОНТэра", "Жнец")]."
 	icon_state = "basic"
 	icon_living = "basic"
 	icon_dead = "basic"
@@ -160,7 +156,7 @@
 
 /mob/living/simple_animal/hostile/hivebot/support
 	name = "Hivebot Support"
-	desc = "Специализированный робот с шестью ремонтными инструментами. Он собран из разных хаотичных деталей, видны грубые швы и вмятины от молотка. На корпусе нацарапано ВМС."
+	desc = "Специализированный робот с набором ремонтных инструментов. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись [pick("ВМС", "Добряк", "Спасатель", "Пальцы не сувать!", "Верный пёс")]."
 	icon_state = "EngBot"
 	icon_living = "EngBot"
 	icon_dead = "EngBot"
@@ -198,7 +194,7 @@
 		var/mob/living/simple_animal/hostile/hivebot/target = pick(targets)
 
 		target.adjustHealth(-heal_amount)
-		visible_message("<span class='redtext'>[src] чинит [target] с помощью нанитов в воздухе.</span>")
+		visible_message("<span class='redtext'>[src] чинит [target] с помощью ремонтных нанитов.</span>")
 
 		var/datum/effect_system/spark_spread/sparks = new
 		sparks.set_up(3, 0, get_turf(target))
@@ -210,7 +206,7 @@
 
 /obj/structure/hivebot_spawner
 	name = "Hivebot Fabricator"
-	desc = "Прочная машина, которая периодически собирает роботов-ульев из металлолома. На боку грубо выгравирована надпись VMS."
+	desc = "Крупная машина, печатающая роботов улья из металлолома с определённой периодичностью. На боку грубо нацарапанная надпись \"ВМС\"."
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "fab_robot"
 	anchored = TRUE
@@ -270,10 +266,6 @@
 	cooldown_until = world.time + cooldown_duration
 	icon_state = "fab_robot"
 	next_spawn_time = cooldown_until + spawn_interval
-
-//////////////
-//MARK: LOOT
-//////////////
 
 //////////////
 //MARK: LOOT
