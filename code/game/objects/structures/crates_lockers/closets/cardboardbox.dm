@@ -237,11 +237,6 @@
 	return
 
 
-/obj/structure/closet/cardboard/agent/nullspace/Initialize(mapload)
-	. = ..()
-	change_colour()
-
-
 /obj/structure/closet/cardboard/agent/nullspace/proc/change_colour()
 	color = RANDOM_COLOUR
 
@@ -261,3 +256,7 @@
 	new_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "появляется из под пола" : "падает сквозь потолок"]!"))
 	do_sparks(rand(2, 5), TRUE, new_loc)
 	change_colour()
+
+
+/obj/structure/closet/cardboard/agent/nullspace/create_fake_box()
+	return
