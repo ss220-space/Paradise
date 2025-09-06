@@ -1,13 +1,5 @@
 /obj/machinery/computer/drone_control
 	name = "maintenance drone control console"
-	ru_names = list(
-		NOMINATIVE = "консоль управления дронами",
-		GENITIVE = "консоли управления дронами",
-		DATIVE = "консоли управления дронами",
-		ACCUSATIVE = "консоль управления дронами",
-		INSTRUMENTAL = "консолью управления дронами",
-		PREPOSITIONAL = "консоли управления дронами"
-	)
 	desc = "Используется для наблюдения за популяцией дронов на станции и сборщиком, который их обслуживает."
 	icon_screen = "power"
 	icon_keyboard = "power_key"
@@ -21,11 +13,21 @@
 	var/request_cooldown = 30 SECONDS
 	var/last_drone_request_time = 0
 
-/obj/machinery/computer/drone_control/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/drone_control/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления дронами",
+		GENITIVE = "консоли управления дронами",
+		DATIVE = "консоли управления дронами",
+		ACCUSATIVE = "консоль управления дронами",
+		INSTRUMENTAL = "консолью управления дронами",
+		PREPOSITIONAL = "консоли управления дронами"
+	)
+
+/obj/machinery/computer/drone_control/attack_ai(mob/user)
 	return src.attack_hand(user)
 
 
-/obj/machinery/computer/drone_control/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/drone_control/attack_hand(mob/user)
 	if(..())
 		return
 
@@ -36,7 +38,7 @@
 
 	interact(user)
 
-/obj/machinery/computer/drone_control/attack_ghost(mob/user as mob)
+/obj/machinery/computer/drone_control/attack_ghost(mob/user)
 	interact(user)
 
 /obj/machinery/computer/drone_control/interact(mob/user)

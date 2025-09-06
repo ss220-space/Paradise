@@ -771,32 +771,32 @@
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/attack_robot(mob/living/user)
 	. = ..()
 	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+		playsound(src, pick(src.damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	if(pull_constraint(pulled_atom, state, supress_message))

@@ -182,7 +182,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
-		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
+		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
 	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
@@ -191,14 +191,6 @@
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"
 	desc = "Шахтёрский инструмент, стреляющий сконцентрированной плазмой. Можете отрезать конечности ксеносам! Или, ну там... руду добывать."
-	ru_names = list(
-		NOMINATIVE = "плазменный резак",
-		GENITIVE = "плазменного резака",
-		DATIVE = "плазменному резаку",
-		ACCUSATIVE = "плазменный резак",
-		INSTRUMENTAL = "плазменным резаком",
-		PREPOSITIONAL = "плазменном резаке"
-	)
 	icon_state = "plasmacutter"
 	item_state = "plasmacutter"
 	modifystate = FALSE
@@ -213,6 +205,16 @@
 	sharp = 1
 	can_charge = FALSE
 	accuracy = GUN_ACCURACY_RIFLE
+
+/obj/item/gun/energy/plasmacutter/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменный резак",
+		GENITIVE = "плазменного резака",
+		DATIVE = "плазменному резаку",
+		ACCUSATIVE = "плазменный резак",
+		INSTRUMENTAL = "плазменным резаком",
+		PREPOSITIONAL = "плазменном резаке"
+	)
 
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
@@ -261,14 +263,6 @@
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
-	ru_names = list(
-		NOMINATIVE = "продвинутый плазменный резак",
-		GENITIVE = "продвинутого плазменного резака",
-		DATIVE = "продвинутому плазменному резаку",
-		ACCUSATIVE = "продвинутый плазменный резак",
-		INSTRUMENTAL = "продвинутым плазменным резаком",
-		PREPOSITIONAL = "продвинутом плазменном резаке"
-	)
 	icon_state = "adv_plasmacutter"
 	item_state = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
@@ -276,12 +270,26 @@
 	force = 15
 	accuracy = GUN_ACCURACY_SNIPER
 
+/obj/item/gun/energy/plasmacutter/adv/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый плазменный резак",
+		GENITIVE = "продвинутого плазменного резака",
+		DATIVE = "продвинутому плазменному резаку",
+		ACCUSATIVE = "продвинутый плазменный резак",
+		INSTRUMENTAL = "продвинутым плазменным резаком",
+		PREPOSITIONAL = "продвинутом плазменном резаке"
+	)
+
 /obj/item/gun/energy/plasmacutter/adv/mega
 	name = "magmite plasma cutter"
 	icon_state = "adv_plasmacutter_m"
 	item_state = "plasmacutter_mega"
 	desc = "Улучшенная версия плазменного резака с использованием плазменного магмита. Режет ксеносов вдвое эффективнее! И руду тоже."
-	ru_names = list(
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv/mega)
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+
+/obj/item/gun/energy/plasmacutter/adv/mega/get_ru_names()
+	return list(
 		NOMINATIVE = "магмитовый плазменный резак",
 		GENITIVE = "магмитового плазменного резака",
 		DATIVE = "магмитовому плазменному резаку",
@@ -289,20 +297,10 @@
 		INSTRUMENTAL = "магмитовым плазменным резаком",
 		PREPOSITIONAL = "магмитовом плазменном резаке"
 	)
-	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv/mega)
-	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 /obj/item/gun/energy/plasmacutter/shotgun
 	name = "plasma cutter shotgun"
 	desc = "Промышленный тяжелый дробовик для шахтёрских работ."
-	ru_names = list(
-		NOMINATIVE = "плазменный дробовик",
-		GENITIVE = "плазменного дробовика",
-		DATIVE = "плазменному дробовику",
-		ACCUSATIVE = "плазменный дробовик",
-		INSTRUMENTAL = "плазменным дробовиком",
-		PREPOSITIONAL = "плазменном дробовике"
-	)
 	icon_state = "miningshotgun"
 	item_state = "miningshotgun"
 	origin_tech = "combat=5;materials=5;magnets=5;plasmatech=6;engineering=5"
@@ -310,12 +308,26 @@
 	force = 10
 	accuracy = GUN_ACCURACY_SHOTGUN
 
+/obj/item/gun/energy/plasmacutter/shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменный дробовик",
+		GENITIVE = "плазменного дробовика",
+		DATIVE = "плазменному дробовику",
+		ACCUSATIVE = "плазменный дробовик",
+		INSTRUMENTAL = "плазменным дробовиком",
+		PREPOSITIONAL = "плазменном дробовике"
+	)
+
 /obj/item/gun/energy/plasmacutter/shotgun/mega
 	name = "magmite plasma cutter shotgun"
 	icon_state = "miningshotgun_mega"
 	item_state = "miningshotgun_mega"
 	desc = "Улучшенный промышленный дробовик с плазменным магмитом. Разрезает... значит добывает."
-	ru_names = list(
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun/mega)
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+
+/obj/item/gun/energy/plasmacutter/shotgun/mega/get_ru_names()
+	return list(
 		NOMINATIVE = "магмитовый плазменный дробовик",
 		GENITIVE = "магмитового плазменного дробовика",
 		DATIVE = "магмитовому плазменному дробовику",
@@ -323,8 +335,6 @@
 		INSTRUMENTAL = "магмитовым плазменным дробовиком",
 		PREPOSITIONAL = "магмитовом плазменном дробовике"
 	)
-	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun/mega)
-	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 // Wormhole Projectors //
 /obj/item/gun/energy/wormhole_projector
@@ -823,7 +833,7 @@
 		cell.charge -= PLASMA_CHARGE_USE_PER_SECOND / 5 //2.5 per second, 25 every 10 seconds
 		if(cell.charge <= PLASMA_CHARGE_USE_PER_SECOND * 10 && !warned)
 			warned = TRUE
-			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 75, 1)
+			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 75, TRUE)
 			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
 		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
 			discharge()
@@ -845,7 +855,7 @@
 	else
 		charging = FALSE
 		atom_say("Overloading failure.")
-		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, 1)
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, TRUE)
 
 /obj/item/gun/energy/plasma_pistol/proc/overload()
 	if(ishuman(loc))
@@ -853,16 +863,16 @@
 		select_fire(C)
 		overloaded = TRUE
 		cell.charge -= 125
-		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
+		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, TRUE)
 		cell.use(125)
-		playsound(C.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
+		playsound(C.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, TRUE)
 		atom_say("Overloading successful.")
 		set_light(3) //extra visual effect to make it more noticable to user and victims alike
 		holder = C
 		RegisterSignal(holder, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(discharge))
 	else
 		atom_say("Overloading failure.")
-		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, 1)
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, TRUE)
 	charging = FALSE
 
 /obj/item/gun/energy/plasma_pistol/proc/reset_overloaded()
@@ -880,7 +890,7 @@
 
 /obj/item/gun/energy/plasma_pistol/process_chamber()
 	if(overloaded)
-		do_sparks(2, 1, src)
+		do_sparks(2, TRUE, src)
 		reset_overloaded()
 	..()
 	update_icon()
@@ -903,7 +913,7 @@
 /obj/item/gun/energy/plasma_pistol/proc/discharge() //25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
 	SIGNAL_HANDLER
 	reset_overloaded()
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 	update_icon()
 	if(prob(40))
 		visible_message("<span class='danger'>[src] vents heated plasma!</span>")

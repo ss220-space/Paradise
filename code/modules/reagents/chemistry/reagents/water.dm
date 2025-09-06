@@ -4,6 +4,8 @@
 //
 //
 */
+#define BLOOD_ANTIGEN_A (1 << 0)
+#define BLOOD_ANTIGEN_B (1 << 1)
 
 GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			"blood",
@@ -111,6 +113,50 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	taste_description = "крови"
 	taste_mult = 1.3
 
+/datum/reagent/blood/proc/get_antigens(blood_type)
+	var/antigens = null
+
+	if(findtext(blood_type, "AB"))
+		antigens = (BLOOD_ANTIGEN_A | BLOOD_ANTIGEN_B)
+	else if(findtext(blood_type, "A"))
+		antigens = BLOOD_ANTIGEN_A
+	else if(findtext(blood_type, "B"))
+		antigens = BLOOD_ANTIGEN_B
+
+	return antigens
+
+/datum/reagent/blood/proc/mix_blood_type(list/mix_data)
+	var/blood_type = null
+	var/antigens = get_antigens(data["blood_type"])
+	var/antigens2 = get_antigens(mix_data["blood_type"])
+	var/rh = (findtext(data["blood_type"], "+") > 0)
+	var/rh2 = (findtext(mix_data["blood_type"], "+") > 0)
+
+	var/combined_antigens = antigens | antigens2
+	var/combined_rh = rh || rh2
+
+	if(!combined_antigens)
+		blood_type = "O"
+	else if(combined_antigens == (BLOOD_ANTIGEN_A | BLOOD_ANTIGEN_B))
+		blood_type = "AB"
+	else if(combined_antigens & BLOOD_ANTIGEN_A)
+		blood_type = "A"
+	else if(combined_antigens & BLOOD_ANTIGEN_B)
+		blood_type = "B"
+
+	blood_type += combined_rh ? "+" : "-"
+	return blood_type
+
+/datum/reagent/blood/proc/merge_type_and_species(list/mix_data)
+	if(!data || !mix_data)
+		return FALSE
+
+	if(data["blood_type"] != mix_data["blood_type"])
+		data["blood_type"] = mix_blood_type(mix_data)
+
+	if(data["blood_species"] != mix_data["blood_species"])
+		data["blood_species"] = "Unsorted"
+
 /datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["diseases"])
 		for(var/datum/disease/virus/V in data["diseases"])
@@ -137,11 +183,17 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 /datum/reagent/blood/on_merge(list/mix_data)
 	merge_diseases_data(mix_data)
-	if(data && mix_data)
-		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc
-		if(mix_data["blood_color"])
-			color = mix_data["blood_color"]
-	return 1
+
+	if(!data || !mix_data)
+		return TRUE
+
+	merge_type_and_species(mix_data)
+
+	data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc
+	if(mix_data["blood_color"])
+		color = mix_data["blood_color"]
+
+	return TRUE
 
 /datum/reagent/blood/on_update(atom/A)
 	if(data["blood_color"])
@@ -578,3 +630,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	human.update_hair()
 	human.update_fhair()
 	ADD_TRAIT(human, TRAIT_BALD, id)
+
+#undef BLOOD_ANTIGEN_A
+#undef BLOOD_ANTIGEN_B
+

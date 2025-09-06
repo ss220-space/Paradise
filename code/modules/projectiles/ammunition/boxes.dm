@@ -92,19 +92,19 @@
 		PREPOSITIONAL = "коробке патронов (шрапнель с глушащим токсином 12х70)"
 	)
 
-/obj/item/ammo_box/shotgun/buck/nuclear
+/obj/item/ammo_box/shotgun/buck/magnum
 	name = "elite ammunition box (buckshot)"
-	desc = "Коробка, содержащая патроны с крупной картечью калибра 12х70."
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
+	desc = "Коробка, содержащая патроны с магнум картечью калибра 12х70."
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/magnum
 
-/obj/item/ammo_box/shotgun/buck/nuclear/get_ru_names()
+/obj/item/ammo_box/shotgun/buck/magnum/get_ru_names()
 	return list(
-		NOMINATIVE = "коробка патронов (крупная картечь 12х70)",
-		GENITIVE = "коробки патронов (крупная картечь 12х70)",
-		DATIVE = "коробке патронов (крупная картечь 12х70)",
-		ACCUSATIVE = "коробку патронов (крупная картечь 12х70)",
-		INSTRUMENTAL = "коробкой патронов (крупная картечь 12х70)",
-		PREPOSITIONAL = "коробке патронов (крупная картечь 12х70)"
+		NOMINATIVE = "коробка патронов (магнум картечь 12х70)",
+		GENITIVE = "коробки патронов (магнум картечь 12х70)",
+		DATIVE = "коробке патронов (магнум картечь 12х70)",
+		ACCUSATIVE = "коробку патронов (магнум картечь 12х70)",
+		INSTRUMENTAL = "коробкой патронов (магнум картечь 12х70)",
+		PREPOSITIONAL = "коробке патронов (магнум картечь 12х70)"
 	)
 
 /obj/item/ammo_box/shotgun/rubbershot
@@ -253,19 +253,19 @@
 		PREPOSITIONAL = "коробке патронов (дыхание дракона 12х70)"
 	)
 
-/obj/item/ammo_box/shotgun/dragonsbreath/nuclear
+/obj/item/ammo_box/shotgun/dragonsbreath/napalm
 	name = "elite ammunition box (dragonsbreath)"
 	desc = "Коробка, содержащая усиленные патроны \"Дыхание дракона\" калибра 12х70."
-	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
+	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/napalm
 
-/obj/item/ammo_box/shotgun/dragonsbreath/nuclear/get_ru_names()
+/obj/item/ammo_box/shotgun/dragonsbreath/napalm/get_ru_names()
 	return list(
-		NOMINATIVE = "коробка патронов (усиленное дыхание дракона 12х70)",
-		GENITIVE = "коробки патронов (усиленное дыхание дракона 12х70)",
-		DATIVE = "коробке патронов (усиленное дыхание дракона 12х70)",
-		ACCUSATIVE = "коробку патронов (усиленное дыхание дракона 12х70)",
-		INSTRUMENTAL = "коробкой патронов (усиленное дыхание дракона 12х70)",
-		PREPOSITIONAL = "коробке патронов (усиленное дыхание дракона 12х70)"
+		NOMINATIVE = "коробка патронов (напалмовое дыхание дракона 12х70)",
+		GENITIVE = "коробки патронов (напалмовое дыхание дракона 12х70)",
+		DATIVE = "коробке патронов (напалмовое дыхание дракона 12х70)",
+		ACCUSATIVE = "коробку патронов (напалмовое дыхание дракона 12х70)",
+		INSTRUMENTAL = "коробкой патронов (напалмовое дыхание дракона 12х70)",
+		PREPOSITIONAL = "коробке патронов (напалмовое дыхание дракона 12х70)"
 	)
 
 /obj/item/ammo_box/shotgun/ion

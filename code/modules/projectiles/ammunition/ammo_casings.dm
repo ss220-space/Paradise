@@ -238,14 +238,6 @@
 /obj/item/ammo_casing/shotgun/assassination
 	name = "assassination shell"
 	desc = "Специальная гильза для шрапнели, обработанная глушащим токсином."
-	ru_names = list(
-		NOMINATIVE = "патрон для убийства",
-		GENITIVE = "патрона для убийства",
-		DATIVE = "патрону для убийства",
-		ACCUSATIVE = "патрон для убийства",
-		INSTRUMENTAL = "патроном для убийства",
-		PREPOSITIONAL = "патроне для убийства"
-	)
 	materials = list(MAT_METAL = 1500, MAT_GLASS = 200)
 	projectile_type = /obj/projectile/bullet/pellet/assassination
 	muzzle_flash_effect = null
@@ -253,8 +245,20 @@
 	pellets = 6
 	variance = 15
 
-/obj/item/ammo_casing/shotgun/buckshot/nuclear
-	projectile_type = /obj/projectile/bullet/pellet/nuclear
+/obj/item/ammo_casing/shotgun/assassination/get_ru_names()
+	return list(
+		NOMINATIVE = "патрон для убийства",
+		GENITIVE = "патрона для убийства",
+		DATIVE = "патрону для убийства",
+		ACCUSATIVE = "патрон для убийства",
+		INSTRUMENTAL = "патроном для убийства",
+		PREPOSITIONAL = "патроне для убийства"
+	)
+
+/obj/item/ammo_casing/shotgun/buckshot/magnum
+	name = "magnum buckshot shell"
+	desc = "A 12 gauge magnum buckshot shell."
+	projectile_type = /obj/projectile/bullet/pellet/magnum
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubbershot shell"
@@ -348,8 +352,8 @@
 	variance = 25
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
-/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
-	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath/nuclear
+/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/napalm
+	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
 	pellets = 6
 	variance = 20
 

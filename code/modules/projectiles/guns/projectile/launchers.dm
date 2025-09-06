@@ -45,6 +45,8 @@
 	actions_types = null
 	accuracy = GUN_ACCURACY_MINIMAL
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	fire_modes = GUN_MODE_SINGLE_ONLY
+
 
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
@@ -72,6 +74,7 @@
 	accuracy = GUN_ACCURACY_DEFAULT
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = null
+	fire_modes = GUN_MODE_SINGLE_ONLY
 
 
 /obj/item/gun/projectile/automatic/speargun/update_icon_state()
@@ -206,7 +209,7 @@
 	user.visible_message("<span class='warning'>[user] aims [src] at the ground! It looks like [user.p_theyre()] performing a sick rocket jump!<span>")
 	if(can_shoot(user))
 		ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-		playsound(src, 'sound/weapons/rocketlaunch.ogg', 80, 1, 5)
+		playsound(src, 'sound/weapons/rocketlaunch.ogg', 80, TRUE, 5)
 		animate(user, pixel_z = 300, time = 3 SECONDS, easing = LINEAR_EASING)
 		sleep(7 SECONDS)
 		animate(user, pixel_z = 0, time = 0.5 SECONDS, easing = LINEAR_EASING)

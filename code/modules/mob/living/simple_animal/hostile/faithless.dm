@@ -1,14 +1,6 @@
 /mob/living/simple_animal/hostile/faithless
 	name = "faithless"
 	desc = "Воплощённая в жизнь вера в человечество Исполнителя желаний."
-	ru_names = list(
-		NOMINATIVE = "неверующий",
-		GENITIVE = "неверующего",
-		DATIVE = "неверующему",
-		ACCUSATIVE = "неверующего",
-		INSTRUMENTAL = "неверующим",
-		PREPOSITIONAL = "неверующем"
-	)
 	gender = MALE
 	icon_state = "faithless"
 	icon_living = "faithless"
@@ -37,6 +29,16 @@
 	faction = list("faithless")
 	gold_core_spawnable = HOSTILE_SPAWN
 	AI_delay_max = 0 SECONDS
+
+/mob/living/simple_animal/hostile/faithless/get_ru_names()
+	return list(
+		NOMINATIVE = "неверующий",
+		GENITIVE = "неверующего",
+		DATIVE = "неверующему",
+		ACCUSATIVE = "неверующего",
+		INSTRUMENTAL = "неверующим",
+		PREPOSITIONAL = "неверующем"
+	)
 
 /mob/living/simple_animal/hostile/faithless/ComponentInitialize()
 	AddComponent( \

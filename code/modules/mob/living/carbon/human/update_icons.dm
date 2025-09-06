@@ -678,7 +678,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(blood_DNA || clock_hands)
 			var/mutable_appearance/standing = mutable_appearance(layer = -GLOVES_LAYER, appearance_flags = KEEP_TOGETHER)
 			if(clock_hands)
-				standing.overlays += mutable_appearance(dna.species.blood_mask, "clockedhands")
+				standing.overlays += mutable_appearance(dna.species.blood_mask, "clockedhands", color = COLOR_LIGHT_ORANGE)
 			else if(blood_DNA)
 				standing.overlays += mutable_appearance(dna.species.blood_mask, "bloodyhands", color = blood_color)
 

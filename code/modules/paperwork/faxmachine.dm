@@ -9,14 +9,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
 	desc = "Небольшая машинка для работы с факсами. Не смотря на свой размер, обладает большой силой."
-	ru_names = list(
-		NOMINATIVE = "факс",
-		GENITIVE = "факса",
-		DATIVE = "факсу",
-		ACCUSATIVE = "факс",
-		INSTRUMENTAL = "факсом",
-		PREPOSITIONAL = "факсе"
-	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
@@ -47,10 +39,20 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/cooldown_time_local = 50
 
 	/// Our department, determines whether this machine gets faxes sent to a department
-	var/department = "Unknown"
+	var/department = UNKNOWN_STATUS_RUS
 
 	/// Target department to send outgoing faxes to
 	var/destination
+
+/obj/machinery/photocopier/faxmachine/get_ru_names()
+	return list(
+		NOMINATIVE = "факс",
+		GENITIVE = "факса",
+		DATIVE = "факсу",
+		ACCUSATIVE = "факс",
+		INSTRUMENTAL = "факсом",
+		PREPOSITIONAL = "факсе"
+	)
 
 /obj/machinery/photocopier/faxmachine/New()
 	..()
@@ -58,7 +60,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	update_network()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
-	if(department != "Unknown")
+	if(department != UNKNOWN_STATUS_RUS)
 		if(!(("[department]" in GLOB.alldepartments) || ("[department]" in GLOB.hidden_departments) || ("[department]" in GLOB.admin_departments) || ("[department]" in GLOB.hidden_admin_departments) || ("[department]" in GLOB.hidden_ussp)))
 			GLOB.alldepartments |= department
 
@@ -75,7 +77,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	//No point setting fax network, being emagged overrides that anyway.
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
-	if(department != "Unknown")
+	if(department != UNKNOWN_STATUS_RUS)
 		GLOB.hidden_departments |= department
 
 /obj/machinery/photocopier/faxmachine/longrange/ussp
@@ -87,7 +89,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	active_power_usage = 300
 
 /obj/machinery/photocopier/faxmachine/longrange/ussp/update_network()
-	if(department != "Unknown")
+	if(department != UNKNOWN_STATUS_RUS)
 		GLOB.hidden_ussp |= department
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
@@ -118,7 +120,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 		usr.drop_transfer_item_to_loc(I, src)
 		copyitem = I
-		playsound(loc, 'sound/machines/fax_send.ogg', 50, 0)
+		playsound(loc, 'sound/machines/fax_send.ogg', 50, FALSE)
 		to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		flick(insert_anim, src)
 		SStgui.update_uis(src)
@@ -221,7 +223,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 					usr.drop_transfer_item_to_loc(I, src)
 					copyitem = I
-					playsound(loc, 'sound/machines/fax_send.ogg', 50, 0)
+					playsound(loc, 'sound/machines/fax_send.ogg', 50, FALSE)
 					to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 					flick(insert_anim, src)
 				else
@@ -378,7 +380,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
 
-	if(department == "Unknown")
+	if(department == UNKNOWN_STATUS_RUS)
 		return FALSE //You can't send faxes to "Unknown"
 
 	flick("faxreceive", src)
