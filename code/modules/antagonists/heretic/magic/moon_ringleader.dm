@@ -48,9 +48,11 @@
 /obj/effect/proc_holder/spell/aoe/moon_ringleader/cast(list/targets, mob/caster = usr)
 	for(var/mob/living/carbon/victim as anything in targets)
 		victim.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 160)
-		victim.Hallucinate(60 SECONDS)
-		victim.Confused(10 SECONDS)
-		victim.EyeBlurry(10 SECONDS)
+		victim.Hallucinate(120 SECONDS)
+		victim.Confused(20 SECONDS)
+		victim.EyeBlurry(20 SECONDS)
+		victim.Druggy(20 SECONDS)
+		victim.Slur(20 SECONDS)
 
 
 /obj/effect/temp_visual/moon_ringleader
