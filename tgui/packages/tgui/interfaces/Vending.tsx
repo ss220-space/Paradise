@@ -258,6 +258,17 @@ export const Vending = (_props: unknown) => {
             )}
           </Stack.Item>
 
+          {stockSearch.length < 2 &&
+            Object.keys(filteredCategories).length > 1 && (
+              <Stack.Item>
+                <CategorySelector
+                  categories={filteredCategories}
+                  selectedCategory={selectedCategory!}
+                  onSelect={setSelectedCategory}
+                />
+              </Stack.Item>
+            )}
+
           <Stack.Item grow>
             <Section title="Продукция" fill scrollable>
               <Table>
@@ -285,16 +296,6 @@ export const Vending = (_props: unknown) => {
             </Section>
           </Stack.Item>
 
-          {stockSearch.length < 2 &&
-            Object.keys(filteredCategories).length > 1 && (
-              <Stack.Item>
-                <CategorySelector
-                  categories={filteredCategories}
-                  selectedCategory={selectedCategory!}
-                  onSelect={setSelectedCategory}
-                />
-              </Stack.Item>
-            )}
         </Stack>
       </Window.Content>
     </Window>
