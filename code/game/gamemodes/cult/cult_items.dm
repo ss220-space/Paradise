@@ -122,7 +122,7 @@
 	desc = "A hood worn by the followers of a cult."
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	magical = TRUE
@@ -140,7 +140,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
@@ -149,6 +149,8 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	icon_state = "cultrobesalt"

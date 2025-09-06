@@ -822,7 +822,7 @@
 	item_state = "clockwork_cuirass"
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEGLOVES|HIDESHOES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -837,8 +837,9 @@
 		)
 	var/reflect_uses = 4
 	var/normal_armor
-	var/harden_armor = list(MELEE = 80, BULLET = 70, LASER = 80, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_NONE
+	var/harden_armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	on_start_armor_plate = /obj/item/armor_plate/light_steel
 
 
 /obj/item/clothing/suit/armor/clockwork_fake
@@ -909,8 +910,10 @@
 			return
 		carbon.visible_message(span_danger("[carbon] concentrates as [carbon.p_their()] curiass shifts his plates!"),
 		span_notice("The [src.name] becomes more hardened as the plates becomes to shift for any attack!"))
-		//armor = list(MELEE = 80, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+		//armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 		armor = harden_armor
+		armor_plate = new /obj/item/armor_plate/medium_steel(src)
+		armor_plate.forceMove(src)
 		ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(ARMOR_SPELL))
 		enchant_type = CASTING_SPELL
 		add_attack_logs(carbon, carbon, "Hardened [src]", ATKLOG_ALL)
@@ -954,7 +957,7 @@
 	icon_state = "clockwork_gauntlets"
 	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 5, LASER = 3, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 	var/north_star = FALSE
 	var/fire_casting = FALSE
 
@@ -965,7 +968,7 @@
 	icon_state = "clockwork_gauntlets"
 	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 5, LASER = 3, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/gloves/clockwork/Initialize(mapload)
 	. = ..()
@@ -1079,7 +1082,7 @@
 	item_state = "clockwork_treads"
 	strip_delay = 60
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 5, LASER = 3, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/shoes/clockwork_fake
 	name = "clockwork treads"
@@ -1089,7 +1092,7 @@
 	item_state = "clockwork_treads"
 	strip_delay = 60
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 5, LASER = 3, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
