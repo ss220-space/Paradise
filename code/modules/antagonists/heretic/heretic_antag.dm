@@ -596,13 +596,6 @@
 
 	objectives += sac_objective
 
-	if(num_heads < 2)
-		return
-
-	other_sac_objective.owner = owner
-	objectives += other_sac_objective
-
-
 /**
  * Add [target] as a sacrifice target for the heretic.
  * Generates a preview image and associates it with a weakref of the mob.

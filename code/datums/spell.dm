@@ -360,6 +360,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 
 /obj/effect/proc_holder/spell/InterceptClickOn(mob/user, params, atom/A)
+	if(!user)
+		qdel(src)
+
 	. = ..()
 	if(.)
 		return
