@@ -210,7 +210,7 @@
 	user.forceMove(target_turf)
 	var/sound/sound = sound('sound/magic/mindswap.ogg')
 	sound.volume = 30
-	SEND_SOUND(target, sound)
+	SEND_SOUND(user, sound)
 
 	if(target.affects_vampire(user))
 		target.Slowed(4 SECONDS)

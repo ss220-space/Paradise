@@ -99,7 +99,7 @@
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
 
 	if(hud)
-		qdel(hud)
+		QDEL_NULL(hud)
 
 /datum/status_effect/fang_exhaust
 	id = "fang_exhaust"
