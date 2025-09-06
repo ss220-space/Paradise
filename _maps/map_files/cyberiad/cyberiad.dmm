@@ -43491,11 +43491,12 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "cJY" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
 	c_tag = "Atmospherics Control Room";
 	dir = 6
 	},
+/obj/structure/closet/secure_closet/atmos_personal,
+/obj/item/storage/briefcase/inflatable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -45516,7 +45517,7 @@
 "cQc" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/east,
-/obj/structure/closet/secure_closet/atmos_personal,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cQe" = (
@@ -47412,7 +47413,6 @@
 	name = "west fire alarm";
 	pixel_x = -24
 	},
-/obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cVs" = (
@@ -48542,9 +48542,13 @@
 	},
 /area/atmos)
 "cYU" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel,
-/area/atmos)
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/atmos/control)
 "cYX" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -50171,8 +50175,7 @@
 "dex" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/southeast,
-/obj/structure/closet/secure_closet/atmos_personal,
-/obj/item/storage/briefcase/inflatable,
+/obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dey" = (
@@ -64862,6 +64865,9 @@
 	name = "Atmospherics Desc";
 	req_access = list(10,24)
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74693,6 +74699,9 @@
 	},
 /obj/effect/turf_decal/box,
 /obj/machinery/hologram/holopad,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -76624,6 +76633,9 @@
 	},
 /area/quartermaster/miningdock)
 "pjl" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -79890,6 +79902,9 @@
 /obj/effect/spawner/random_spawners/rodent,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -85912,6 +85927,16 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/patients_rooms)
+"tRj" = (
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/atmos/control)
 "tRr" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/structure/cable{
@@ -118770,9 +118795,9 @@ ahZ
 qRB
 pjl
 iOx
-ruC
-ruC
-ruC
+cYU
+cYU
+tRj
 fLj
 dkV
 lTl
@@ -126212,7 +126237,7 @@ gDu
 lPw
 cHN
 xgs
-cYU
+cSd
 pad
 cIR
 dbJ
