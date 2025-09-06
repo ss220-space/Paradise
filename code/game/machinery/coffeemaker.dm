@@ -88,9 +88,9 @@
 				. += span_notice("- [coffeepot.declent_ru(NOMINATIVE)] содержит <b>[cawfee.volume]</b> единиц[declension_ru(cawfee.volume, "у", "ы", "")] вещества.")
 		if(cartridge)
 			if(cartridge.charges < 1)
-				. += span_notice("- картридж <b>пуст</b>.")
+				. += span_notice("- Картридж <b>пуст</b>.")
 			else
-				. += span_notice("- картриджа хватит ещё на <b>[cartridge.charges]</b> использовани[declension_ru(cartridge.charges, "е", "я", "й")].")
+				. += span_notice("- Картриджа хватит ещё на <b>[cartridge.charges]</b> использовани[declension_ru(cartridge.charges, "е", "я", "й")].")
 	else
 		. += span_boldwarning("Дислей не работает!")
 
