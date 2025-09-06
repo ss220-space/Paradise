@@ -30,7 +30,7 @@
 
 
 /obj/effect/proc_holder/spell/pointed/sword_fling/can_cast(mob/user, charge_check, show_message)
-	if(flinged_sword.bound)
+	if(flinged_sword?.bound)
 		return FALSE
 
 	return ..()

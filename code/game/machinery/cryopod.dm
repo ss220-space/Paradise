@@ -416,6 +416,21 @@
 			O.on_target_cryo()
 		occupant.mind.remove_all_antag_datums()
 
+		for(var/datum/objective/minor_sacrifice/objective in GLOB.all_objectives)
+			var/datum/antagonist/heretic/heretic = objective.owner.has_antag_datum(/datum/antagonist/heretic)
+			if(!(occupant.real_name in heretic.all_sac_targets))
+				continue
+
+			var/list/targets = list()
+			for(var/mob/living/carbon/human/human in GLOB.human_list)
+				if(!human.client || !is_station_level(human.z))
+					continue
+
+				targets |= human
+
+			heretic.add_sacrifice_target(pick(targets))
+			heretic.remove_sacrifice_target(occupant)
+
 	if(occupant.mind && occupant.mind.assigned_role)
 		// Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role

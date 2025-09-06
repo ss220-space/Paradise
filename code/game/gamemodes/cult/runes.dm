@@ -302,28 +302,35 @@ structure_check() searches for nearby cultist structures required for the invoca
 	rune_in_use = TRUE
 	color = RUNE_COLOR_DARKRED
 
-	var/mob/living/L = pick(offer_targets)
-	if(!CONFIG_GET(number/can_cult_convert) && !is_sacrifice_target(L.mind))
+	var/mob/living/target = pick(offer_targets)
+	if(!CONFIG_GET(number/can_cult_convert) && !is_sacrifice_target(target.mind))
 		fail_invoke()
 		for(var/I in invokers)
 			to_chat(I, span_warning("You can not convert new cultists!"))
 		rune_in_use = FALSE
 		return
 
-	if(L.mind in GLOB.sacrificed)
+	if(target.mind in GLOB.sacrificed)
 		fail_invoke()
 		rune_in_use = FALSE
 		return
 
-	if(L.stat != DEAD && is_convertable_to_cult(L.mind))
+	if(isheretic(target))
+		target.grab_ghost(TRUE)
+		new /obj/item/melee/cultblade/haunted(target.loc, target, invokers[1], TRUE)
+		target.gib()
+		rune_in_use = FALSE
+		return
+
+	if(target.stat != DEAD && is_convertable_to_cult(target.mind))
 		..()
-		do_convert(L, invokers)
+		do_convert(target, invokers)
 	else
 		invocation = "Barhah hra zar'garis!"
 		..()
-		do_sacrifice(L, invokers)
-		if(isbrain(L))
-			qdel(L.loc) // Don't need this anymore!
+		do_sacrifice(target, invokers)
+		if(isbrain(target))
+			qdel(target.loc) // Don't need this anymore!
 	rune_in_use = FALSE
 
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)

@@ -458,23 +458,34 @@
 	if(N)
 		target.visible_message(	span_warning("[target]'s holy weapon absorbs the red light!"), \
 								span_userdanger("Your holy weapon absorbs the blinding light!"))
-	else
-		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
-		// These are in life cycles, so double the time that's stated.
-		L.Knockdown(3 SECONDS)
-		L.apply_damage(55, STAMINA)
-		if(!ismindshielded(L))
-			L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
-		L.flash_eyes(1, TRUE)
-		if(issilicon(target))
-			var/mob/living/silicon/S = L
-			S.emp_act(EMP_HEAVY)
-		else if(iscarbon(target))
-			var/mob/living/carbon/C = L
-			C.Silence(10 SECONDS)
-			C.Stuttering(16 SECONDS)
-			C.CultSlur(20 SECONDS)
-			C.Jitter(16 SECONDS)
+		uses--
+		..()
+		return
+
+	to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
+	// These are in life cycles, so double the time that's stated.
+	var/heretic = isheretic(target)
+	var/efects_mod = heretic ? 0.8 : 1
+	L.Knockdown(3 SECONDS * efects_mod)
+	L.apply_damage(55 * efects_mod, STAMINA)
+	if(!ismindshielded(L) && !heretic)
+		L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+
+	L.flash_eyes(1, TRUE)
+	if(issilicon(target))
+		var/mob/living/silicon/S = L
+		S.emp_act(EMP_HEAVY)
+		uses--
+		..()
+		return
+
+	if(iscarbon(target))
+		var/mob/living/carbon/carbon = L
+		carbon.Silence(10 SECONDS * efects_mod)
+		carbon.Stuttering(16 SECONDS * efects_mod)
+		carbon.CultSlur(20 SECONDS * efects_mod)
+		carbon.Jitter(16 SECONDS * efects_mod)
+
 	uses--
 	..()
 

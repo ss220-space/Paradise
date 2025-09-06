@@ -300,7 +300,7 @@
 		stack_trace("[soul_to_bind] in but not a heretic on the heretic soul blade.")
 
 	// Give the spirit a spell that lets them try to fly around.
-	trapped_entity.AddSpell(new /obj/effect/proc_holder/spell/pointed/sword_fling)
+	trapped_entity.AddSpell(new /obj/effect/proc_holder/spell/pointed/sword_fling(null, awakener))
 
 	// Set the sword's path for spell selection.
 	heretic_path = heretic_holder.heretic_path
@@ -350,8 +350,8 @@
 	if((!(slot & ITEM_SLOT_HANDS)) || bound)
 		return
 
-	for(var/spell_type in path_wielder_actions)
-		user.mind.AddSpell(new spell_type())
+	for(var/spell in path_wielder_actions)
+		user.mind.AddSpell(spell)
 
 	binding_filters_update()
 
