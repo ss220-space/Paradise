@@ -86,7 +86,7 @@ for i in commitsSorted:
         prefix = split[0].lower()
         change = split[1]
         prefixes = prefix.split('/')
-        for i in range(prefixes.len):
+        for i in range(len(prefixes)):
             temp_prefix = prefixes[i]
             if temp_prefix.startswith("fix") or temp_prefix == "hotfix":
                 prefixes[i] = "bugfix"
