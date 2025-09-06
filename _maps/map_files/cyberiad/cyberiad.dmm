@@ -32518,7 +32518,7 @@
 /turf/simulated/floor/plating,
 /area/medical/cloning)
 "cbW" = (
-/obj/machinery/constructable_frame/machine_frame,
+/obj/machinery/clonepod,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -34404,7 +34404,7 @@
 /area/medical/reception)
 "chi" = (
 /obj/machinery/light,
-/obj/machinery/constructable_frame/machine_frame,
+/obj/machinery/dna_scannernew,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -69250,7 +69250,7 @@
 	},
 /area/quartermaster/qm)
 "msX" = (
-/obj/structure/computerframe,
+/obj/machinery/computer/cloning,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
