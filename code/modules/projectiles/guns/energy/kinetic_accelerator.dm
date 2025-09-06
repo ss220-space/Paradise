@@ -1,8 +1,7 @@
-#define COMPATIBILITY_STANDART	(1<<0)
-#define COMPATIBILITY_CYBORG	(1<<1)
-#define COMPATIBILITY_MINEBOT	(1<<2)
-#define COMPATIBILITY_UNIVERSAL	(~0)
-
+#define COMPATIBILITY_STANDART (1<<0)
+#define COMPATIBILITY_CYBORG (1<<1)
+#define COMPATIBILITY_MINEBOT (1<<2)
+#define COMPATIBILITY_UNIVERSAL ALL
 
 /**
  * ACCELERATORS
@@ -16,9 +15,6 @@
 	cell_type = /obj/item/stock_parts/cell/emproof
 	needs_permit = FALSE
 	origin_tech = "combat=3;powerstorage=3;engineering=3"
-	can_flashlight = TRUE
-	flight_x_offset = 15
-	flight_y_offset = 9
 	can_bayonet = TRUE
 	bayonet_x_offset = 20
 	bayonet_y_offset = 12
@@ -40,6 +36,11 @@
 	var/empty_state = "kineticgun_empty"
 	/// Saved timer that can be overrided by modkits after hitting target.
 	var/recharge_timerid
+	accuracy = GUN_ACCURACY_SNIPER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
+	)
 
 
 /obj/item/gun/energy/kinetic_accelerator/examine(mob/user)
@@ -145,7 +146,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	. = ..()
-	attempt_reload()
+	addtimer(CALLBACK(src, PROC_REF(attempt_reload)), 1)
 
 
 /obj/item/gun/energy/kinetic_accelerator/equipped(mob/user, slot, initial)
@@ -260,9 +261,9 @@
 	name = "kinetic force"
 	icon_state = null
 	damage = 40
-	hitsound = "bullet"
+	hitsound = SFX_BULLET
 	damage_type = BRUTE
-	flag = "bomb"
+	flag = BOMB
 	range = 3
 	/// How many `hardness` it takes from mineral turfs.
 	var/power = 1
@@ -563,7 +564,7 @@
 /obj/item/borg/upgrade/modkit/aoe/projectile_strike(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(stats_stolen)
 		return
-	new /obj/effect/temp_visual/explosion/fast(target_turf)
+	new /obj/effect/temp_visual/pka_explosion(target_turf)
 	if(turf_aoe)
 		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
 			if(ismineralturf(T) && !isancientturf(T))
@@ -716,7 +717,13 @@
 /obj/item/borg/upgrade/modkit/indoors
 	name = "decrease pressure penalty"
 	desc = "Специальный модкит, который позволяет повысить урон, наносимый кинетическим акселератором в условиях повышенного давления."
-	ru_names = list(
+	modifier = 2
+	denied_type = /obj/item/borg/upgrade/modkit/indoors
+	maximum_of_type = 2
+	cost = 35
+
+/obj/item/borg/upgrade/modkit/indoors/get_ru_names()
+	return list(
 		NOMINATIVE = "уменьшение штрафа от давления",
 		GENITIVE = "уменьшения штрафа от давления",
 		DATIVE = "уменьшению штрафа от давления",
@@ -724,10 +731,6 @@
 		INSTRUMENTAL = "уменьшением штрафа от давления",
 		PREPOSITIONAL = "уменьшении штрафа от давления"
 	)
-	modifier = 2
-	denied_type = /obj/item/borg/upgrade/modkit/indoors
-	maximum_of_type = 2
-	cost = 35
 
 
 /obj/item/borg/upgrade/modkit/indoors/modify_projectile(obj/projectile/kinetic/K)

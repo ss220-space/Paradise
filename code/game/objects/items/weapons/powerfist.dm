@@ -9,7 +9,7 @@
 	throwforce = 10
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 40)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=5;powerstorage=3;syndicate=1"
 	var/click_delay = 1.5
@@ -19,7 +19,7 @@
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/datum/effect_system/spark_spread/spark_system
 
-/obj/item/melee/powerfist/Initialize()
+/obj/item/melee/powerfist/Initialize(mapload)
 	. = ..()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)

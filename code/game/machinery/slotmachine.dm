@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	new /obj/item/stack/sheet/metal(location, 5)
 	new /obj/item/shard(location)
 	new /obj/item/shard(location)
-	explosion(location, 0, 0, 1, cause = "Emagged slotmachine self-destroy")
+	explosion(location, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, adminlog = TRUE, cause = "Emagged slotmachine self-destroy")
 
 
 /datum/slotmachine_prize/minimal
@@ -193,6 +193,9 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 /obj/machinery/computer/slot_machine/ui_act(action, params)
 	if(..())
 		return
+	if(issilicon(usr))
+		to_chat(usr, span_warning("Обнаружен искусственный интеллект. Согласно регуляции НаноТрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
+		return
 	add_fingerprint(usr)
 
 	if(action == "spin")
@@ -295,7 +298,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 
 /obj/machinery/computer/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
 	if(sound)
-		playsound(loc, sound, 55, 1)
+		playsound(loc, sound, 55, TRUE)
 	if(!account)
 		return
 	account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)

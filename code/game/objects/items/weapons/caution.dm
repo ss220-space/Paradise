@@ -1,14 +1,6 @@
 /obj/item/caution
 	desc = "Осторожно! Мокрый пол!"
 	name = "wet floor sign"
-	ru_names = list(
-		NOMINATIVE = "знак мокрого пола",
-		GENITIVE = "знака мокрого пола",
-		DATIVE = "знаку мокрого пола",
-		ACCUSATIVE = "знак мокрого пола",
-		INSTRUMENTAL = "знаком мокрого пола",
-		PREPOSITIONAL = "знаке мокрого пола"
-	)
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "caution"
 	force = 1.0
@@ -17,6 +9,16 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("предупредил", "насторожил")
+
+/obj/item/caution/get_ru_names()
+	return list(
+		NOMINATIVE = "знак мокрого пола",
+		GENITIVE = "знака мокрого пола",
+		DATIVE = "знаку мокрого пола",
+		ACCUSATIVE = "знак мокрого пола",
+		INSTRUMENTAL = "знаком мокрого пола",
+		PREPOSITIONAL = "знаке мокрого пола"
+	)
 
 /obj/item/caution/proximity_sign
 	var/timing = 0
@@ -57,8 +59,8 @@
 		if(iscarbon(AM) && !isbrain(AM))
 			var/mob/living/carbon/C = AM
 			if(C.m_intent != MOVE_INTENT_WALK)
-				visible_message("[capitalize(declent_ru(NOMINATIVE))] сообщает, \"Бег по мокрому полу может быть опасен для вашего здоровья!\"")
-				explosion(loc,-1,0,2, cause = src)
+				visible_message("[capitalize(declent_ru(NOMINATIVE))] сообщает: \"Бег по мокрому полу может быть опасен для вашего здоровья!\"")
+				explosion(loc, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 				if(ishuman(C))
 					dead_legs(C)
 				if(src)

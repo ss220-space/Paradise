@@ -158,10 +158,10 @@
 		var/y = width - round((id - 1) / width)
 		var/x = ((id - 1) % width) + 1
 
-		var/x_start = 1 + (x - 1) * world.icon_size
-		var/x_end = x_start + world.icon_size - 1
-		var/y_start = 1 + ((y - 1) * world.icon_size)
-		var/y_end = y_start + world.icon_size - 1
+		var/x_start = 1 + (x - 1) * ICON_SIZE_X
+		var/x_end = x_start + ICON_SIZE_X - 1
+		var/y_start = 1 + ((y - 1) * ICON_SIZE_Y)
+		var/y_end = y_start + ICON_SIZE_Y - 1
 
 		var/icon/T = get_base_icon()
 		T.Crop(x_start,y_start,x_end,y_end)
@@ -292,7 +292,7 @@
 
 //Some armor so it's harder to kill someone by mistake.
 /obj/structure/puzzle_element/prison
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 50, ACID = 50)
 
 /obj/structure/puzzle_element/prison/relaymove(mob/user)
 	return

@@ -1,4 +1,4 @@
-/mob/living/Initialize()
+/mob/living/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/movetype_handler)
 	register_init_signals()
@@ -516,19 +516,21 @@
 
 /// Special projectiles handling for living mobs
 /mob/living/proc/projectile_allow_through(obj/projectile/projectile, border_dir)
-	// default behavior for generic mobs
-	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))
-		return !density
 	// DEAD mobs are fine to skip if they are not dense or lying
-	if(stat == DEAD)
+	if(stat == DEAD && projectile.original != src)
 		return !density || body_position == LYING_DOWN
 	// always hitting dense/standing mobs
 	if(density || body_position == STANDING_UP)
-		return FALSE
+		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+		return !prob(def_zone_hit_chance)
+	//if this is clicked target in lying down
+	if(projectile.original == src)
+		var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+		return !prob(def_zone_hit_chance)
 	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
-	if(projectile.hit_crawling_mobs_chance > 0 && projectile.hit_crawling_mobs_chance <= 100)
-		return !prob(projectile.hit_crawling_mobs_chance)
-	return TRUE
+	var/def_zone_hit_chance = projectile.calculate_hit_chance(projectile, src)
+	var/total_hit_chance = projectile.hit_crawling_mobs_chance * def_zone_hit_chance / 100
+	return !prob(total_hit_chance)
 
 
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
@@ -622,8 +624,8 @@
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
 
-/mob/living/ex_act(severity)
-	..()
+/mob/living/ex_act(severity, target)
+	. = ..()
 	flash_eyes()
 
 /mob/living/acid_act(acidpwr, acid_volume)
@@ -644,6 +646,7 @@
 	med_hud_set_status()
 	update_health_hud()
 	update_stamina_hud()
+	update_nutrition_hud()
 	update_damage_hud()
 	if(should_log)
 		log_debug("[src] update_stat([reason][HAS_TRAIT(src, TRAIT_GODMODE) ? ", GODMODE" : ""])")
@@ -990,7 +993,7 @@
 								TH.color = H.dna.species.blood_color
 
 						else
-							TH.color = "#A10808"
+							TH.color = BLOOD_COLOR_RED
 
 
 /mob/living/carbon/human/makeTrail(turf/T)
@@ -1117,7 +1120,7 @@
 		if(ishuman(src))
 			var/mob/living/carbon/human/human = src
 			. *= human.physiology.grab_resist_mod
-		. = round(. * (1 - (clamp(getStaminaLoss(), 0, maxHealth) / maxHealth)))
+		. = round(. * (1 - (clamp(getStaminaLoss(), 0, get_max_stamina()) / get_max_stamina())))
 	else if(. < 0)
 		. = 0
 		stack_trace("Wrong resist chance passed to get_resist_chance(), defaulting to zero.")
@@ -1709,7 +1712,7 @@
 			victim.apply_damage(damage*rand(90, 110)/100, BRUTE, BODY_ZONE_HEAD, victim.run_armor_check(head, MELEE))
 			if(prob(40))
 				victim.Knockdown(2 SECONDS)
-			playsound(victim.loc, "desceration", 35, TRUE, -1)
+			playsound(victim.loc, SFX_DESECRATION, 35, TRUE, -1)
 			add_attack_logs(attacker, victim, "Headbutted")
 
 		if(INTENT_GRAB)
@@ -1801,7 +1804,7 @@
 
 
 /mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
-	return "Unknown"
+	return UNKNOWN_STATUS_RUS
 
 
 /**
@@ -1838,7 +1841,7 @@
 
 	if(examine_time && target != src)
 		var/visible_gender = target.get_visible_gender()
-		var/visible_species = "Unknown"
+		var/visible_species = UNKNOWN_STATUS_RUS
 
 		// If we did not see the target with our own eyes when starting the examine, then there is no need to check whether it is close.
 		var/near_target = examine_distance_check(target)
@@ -2075,9 +2078,7 @@
 
 /// Returns what the body_position_pixel_y_offset should be if the current size were `value`
 /mob/living/proc/get_pixel_y_offset_standing(value)
-	var/icon/living_icon = icon(icon)
-	var/height = living_icon.Height()
-	return (value-1) * height * 0.5
+	return (value-1) * get_cached_height() * 0.5
 
 
 /mob/living/proc/toggle_resting()
@@ -2276,7 +2277,7 @@
 	if(enable)
 		if(stat == DEAD)	// dead mobs are skipped, unless we are removing SSD status
 			return FALSE
-		if(!mind.active || (ckey && ckey[1] == "@")) 	// aghosting will do this, we want to avoid SSDing admemes
+		if(!mind.active || (ckey && ckey[1] == "@"))	// aghosting will do this, we want to avoid SSDing admemes
 			return FALSE
 		if(!isnull(player_logged))	// already in SSD, return TRUE and we are done
 			return TRUE

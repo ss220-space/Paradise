@@ -1,7 +1,11 @@
 /obj/item/tome
 	name = "arcane tome"
 	desc = "An old, dusty tome with frayed edges and a sinister-looking cover."
+	icon = 'icons/obj/cult.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "tome"
+	item_state = "book"
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
@@ -37,6 +41,18 @@
 /obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/melee/cultblade/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		arc_size = 180, \
+		swing_speed_mod = 2, \
+		afterswing_slowdown = 0.25, \
+		slowdown_duration = 0.75 SECONDS, \
+		swing_sound = SFX_BLADE_SWING_HEAVY \
+	)
 
 
 /obj/item/melee/cultblade/update_icon_state()
@@ -76,16 +92,27 @@
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
-	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Will not hit fellow cultists."
+	desc = "Тяжёлая бола, наполненная тёмной магией. При попадании она опрокинет и замедлит вашу цель, но не повлияет на других культистов."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
-	breakout_time = 45
+	breakout_time = 4 SECONDS
 	knockdown_amt = 2 SECONDS
+
+
+/obj/item/restraints/legcuffs/bola/cult/get_ru_names()
+	return list(
+		NOMINATIVE = "руническая бола",
+		GENITIVE = "рунической болы",
+		DATIVE = "рунической боле",
+		ACCUSATIVE = "руническую болу",
+		INSTRUMENTAL = "рунической болой",
+		PREPOSITIONAL = "рунической боле"
+	)
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
-		hit_atom.visible_message(span_warning("[src] bounces off of [hit_atom], as if repelled by an unseen force!"))
+		hit_atom.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] отскакивает от [hit_atom.declent_ru(GENITIVE)], отброшенная невидимой силой!"))
 		return
 	. = ..()
 
@@ -113,7 +140,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
@@ -133,7 +160,7 @@
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
+	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
@@ -148,7 +175,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
 	slowdown = 1
-	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
+	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
@@ -163,7 +190,7 @@
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 50, "acid" = 60)
+	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60)
 	flags_inv_transparent = HIDEGLOVES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
@@ -177,7 +204,7 @@
 	name = "empowered cultist hood"
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 40,ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	body_parts_covered = HEAD
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
@@ -210,7 +237,7 @@
 	item_state = "flagellantrobe"
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list("melee" = -50, "bullet" = -50, "laser" = -50,"energy" = -50, "bomb" = -50, "bio" = -50, "rad" = -50, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = -50, BULLET = -50, LASER = -50,ENERGY = -50, BOMB = -50, BIO = -50, RAD = -50, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -248,7 +275,7 @@
 	item_state = "flagellanthood"
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
@@ -266,9 +293,9 @@
 	icon_state = "cult_sharpener"
 	increment = 5
 	max = 40
-	prefix = "darkened"
 	claws_increment = 4
-
+	gender = MALE
+	prefix = "Потемневшее"
 
 /obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[!uses ? "_used" : ""]"
@@ -391,6 +418,8 @@
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, span_warning("[src] flickers out of your hands, too eager to move!"))
 		return
+	if(!do_after(user, 1 SECONDS, user))
+		return
 
 	var/outer_tele_radius = 9
 
@@ -417,7 +446,7 @@
 		uses--
 		var/turf/destination = pick(turfs)
 		update_icon(UPDATE_ICON_STATE)
-		playsound(mobloc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
@@ -431,14 +460,13 @@
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 	else
 		to_chat(C, span_danger("The veil cannot be torn here!"))
 
 /obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
-	force = 15
 	item_flags = DROPDEL
 
 
@@ -565,7 +593,7 @@
 				T.visible_message(span_warning("The sheer force from [P] shatters the mirror shield!"))
 				new /obj/effect/temp_visual/cult/sparks(T)
 				playsound(T, 'sound/effects/glassbr3.ogg', 100)
-				owner.Weaken(6 SECONDS)
+				owner.Knockdown(6 SECONDS)
 				qdel(src)
 				return FALSE
 
@@ -661,7 +689,7 @@
 				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
 		else if(!..())
 			if(!L.null_rod_check())
-				L.Weaken(6 SECONDS)
+				L.Knockdown(6 SECONDS)
 			break_spear(T)
 	else
 		..()

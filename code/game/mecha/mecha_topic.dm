@@ -46,8 +46,8 @@
 	var/integrity = obj_integrity/max_integrity*100
 	var/cell_charge = get_charge()
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
-	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
-	var/tank_temperature_c = internal_tank ? internal_tank.return_temperature() - T0C : "Unknown"
+	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : UNKNOWN_STATUS_RUS
+	var/tank_temperature_c = internal_tank ? internal_tank.return_temperature() - T0C : UNKNOWN_STATUS_RUS
 	var/cabin_pressure = round(return_pressure(),0.01)
 	var/list/stats_part_list = list()
 	stats_part_list += "[report_internal_damage()]"
@@ -378,7 +378,6 @@
 			else
 				occupant_message("<font color='red'>Recalibration failed.</font>")
 				log_message("Recalibration of coordination system failed with 1 error.",1)
-
 	if(href_list["drop_from_cargo"])
 		var/atom/movable/cargo_thing = locateUID(href_list["drop_from_cargo"])
 		if(istype(cargo_thing) && (cargo_thing in cargo))
@@ -386,15 +385,4 @@
 			cargo_thing.forceMove(loc)
 			cargo -= cargo_thing
 			log_message("Unloaded [cargo_thing]. Cargo compartment capacity: [cargo_capacity - length(cargo)]")
-
-	//debug
-	/*
-	if(href_list["debug"])
-		if(href_list["set_i_dam"])
-			setInternalDamage(afilter.getNum("set_i_dam"))
-		if(href_list["clear_i_dam"])
-			clearInternalDamage(afilter.getNum("clear_i_dam"))
-		return
-	*/
-
 	return

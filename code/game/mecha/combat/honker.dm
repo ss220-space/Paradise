@@ -7,7 +7,7 @@
 	max_integrity = 140
 	deflect_chance = 60
 	internal_damage_threshold = 60
-	armor = list("melee" = -20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = -20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	max_temperature = 25000
 	infra_luminosity = 5
 	maint_access = TRUE
@@ -33,7 +33,7 @@
 	var/integrity = obj_integrity/max_integrity*100
 	var/cell_charge = get_charge()
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
-	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
+	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : UNKNOWN_STATUS_RUS
 	var/cabin_pressure = round(return_pressure(),0.01)
 	var/output = {"[report_internal_damage()]
 						[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]
@@ -99,7 +99,7 @@
 	var/result = step(src,direction)
 	if(result)
 		if(!squeak)
-			playsound(src, "clownstep", 70, 1)
+			playsound(src, SFX_CLOWN_STEP, 70, TRUE)
 			squeak = 1
 		else
 			squeak = 0

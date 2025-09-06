@@ -94,7 +94,7 @@
 /**
  * MARK: Admin/Mentor
  */
-#define span_mentorhelp(str) ("<span class='mentorhelp'>" + str + "</span>")
+#define span_mentorhelp(str) ("<span class='mentorhelp'> " + str + "</span>")
 #define span_admin(str) ("<span class='admin'>" + str + "</span>")
 #define span_adminhelp(str) ("<span class='adminhelp'>" + str + "</span>")
 #define span_adminticket(str) ("<span class='adminticket'>" + str + "</span>")

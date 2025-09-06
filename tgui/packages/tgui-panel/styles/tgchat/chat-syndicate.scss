@@ -7,23 +7,22 @@
 }
 
 // MARK: Boxed messages
-
 .boxed_message {
-  background: #360a0a;
+  background: hsl(0, 70%, 12.5%);
 }
 
 .boxed_message.red_border {
-  background: #400000;
+  background: hsl(0, 100%, 12.5%);
 }
 
 .boxed_message.green_border {
-  background: #261900;
+  background: hsl(40, 100%, 7.5%);
 }
 
 .boxed_message.purple_border {
-  background: #260026;
+  background: hsl(300, 100%, 7.5%);
 }
 
 .boxed_message.notice_border {
-  background: #260016;
+  background: hsl(325, 100%, 7.5%);
 }

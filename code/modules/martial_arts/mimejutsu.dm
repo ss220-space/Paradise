@@ -27,7 +27,7 @@
 	D.apply_damage(bonus_damage, BRUTE)
 	if(prob(30))
 		D.Weaken(2 SECONDS)
-	playsound(get_turf(A), 'sound/weapons/blunthit_mimejutsu.ogg', 10, 1, -1)
+	playsound(get_turf(A), 'sound/weapons/blunthit_mimejutsu.ogg', 10, TRUE, -1)
 	objective_damage(A, D, bonus_damage, BRUTE)
 	add_attack_logs(A, D, "Melee attacked with [src]", ATKLOG_ALL)
 	return TRUE
@@ -44,14 +44,20 @@
 			D.Jitter(4 SECONDS)
 			D.apply_damage(5, BRUTE)
 			objective_damage(A, D, 5, BRUTE)
-	playsound(D, 'sound/weapons/punchmiss.ogg', 10, 1, -1)
+	playsound(D, 'sound/weapons/punchmiss.ogg', 10, TRUE, -1)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	return TRUE
 
 /obj/item/mimejutsu_scroll
 	name = "Mimejutsu manual"
 	desc =	"Старое пособие по боевому искусству мимов."
-	ru_names = list(
+	icon = 'icons/obj/library.dmi'
+	icon_state = "mimemanual"
+	item_state = "mimemanual"
+	var/used = FALSE
+
+/obj/item/mimejutsu_scroll/get_ru_names()
+	return list(
 		NOMINATIVE = "мануал Мимдзютсю",
 		GENITIVE = "мануала Мимдзютсю",
 		DATIVE = "мануалу Мимдзютсю",
@@ -59,11 +65,8 @@
 		INSTRUMENTAL = "мануалом Мимдзютсю",
 		PREPOSITIONAL = "мануале Мимдзютсю"
 	)
-	icon = 'icons/obj/library.dmi'
-	icon_state = "mimemanual"
-	var/used = FALSE
 
-/obj/item/mimejutsu_scroll/attack_self(mob/user as mob)
+/obj/item/mimejutsu_scroll/attack_self(mob/user)
 	if(!ishuman(user))
 		return
 	if(!used)

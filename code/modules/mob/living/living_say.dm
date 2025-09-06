@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 
 	Busy letters by radio(eng):
-	c e h i l m n p r s t u w x
+	c e h i l m n p r s t u w x z
 
 
 	Busy letters by radio(rus):
@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":n" = SCI_FREQ_NAME,				"#n" = SCI_FREQ_NAME,			"№n" = SCI_FREQ_NAME,			".n" = SCI_FREQ_NAME,
 	  ":m" = MED_FREQ_NAME,				"#m" = MED_FREQ_NAME,			"№m" = MED_FREQ_NAME,			".m" = MED_FREQ_NAME,
 	  ":x" = PROC_FREQ_NAME,			"#x" = PROC_FREQ_NAME,			"№x" = PROC_FREQ_NAME,			".x" = PROC_FREQ_NAME,
-	  ":e" = ENG_FREQ_NAME, 			"#e" = ENG_FREQ_NAME,			"№e" = ENG_FREQ_NAME,			".e" = ENG_FREQ_NAME,
+	  ":e" = ENG_FREQ_NAME,			"#e" = ENG_FREQ_NAME,			"№e" = ENG_FREQ_NAME,			".e" = ENG_FREQ_NAME,
 	  ":s" = SEC_FREQ_NAME,				"#s" = SEC_FREQ_NAME,			"№s" = SEC_FREQ_NAME,			".s" = SEC_FREQ_NAME,
 	  ":w" = WHISPER_CHANNEL,			"#w" = WHISPER_CHANNEL,			"№w" = WHISPER_CHANNEL,			".w" = WHISPER_CHANNEL,
 	  ":t" = SYND_FREQ_NAME,			"#t" = SYND_FREQ_NAME,			"№t" = SYND_FREQ_NAME,			".t" = SYND_FREQ_NAME,
@@ -58,6 +58,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":U" = SUP_FREQ_NAME,				"#U" = SUP_FREQ_NAME,			"№U" = SUP_FREQ_NAME,			".U" = SUP_FREQ_NAME,
 	  ":Z" = SRV_FREQ_NAME,				"#Z" = SRV_FREQ_NAME,			"№Z" = SRV_FREQ_NAME,			".Z" = SRV_FREQ_NAME,
 	  ":P" = AI_FREQ_NAME,				"#P" = AI_FREQ_NAME,			"№P" = AI_FREQ_NAME,			".P" = AI_FREQ_NAME,
+	  ":." = PRS_FREQ_NAME,				"#." = PRS_FREQ_NAME,			"№." = PRS_FREQ_NAME,			".." = PRS_FREQ_NAME,
 
 	// Russian text lowercase
 	  ":к" = R_EAR_MODE,				"#к" = R_EAR_MODE,				"№к" = R_EAR_MODE,				".к" = R_EAR_MODE,
@@ -68,7 +69,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":т" = SCI_FREQ_NAME,				"#т" = SCI_FREQ_NAME,			"№т" = SCI_FREQ_NAME,			".т" = SCI_FREQ_NAME,
 	  ":ь" = MED_FREQ_NAME,				"#ь" = MED_FREQ_NAME,			"№ь" = MED_FREQ_NAME,			".ь" = MED_FREQ_NAME,
 	  ":ч" = PROC_FREQ_NAME,			"#ч" = PROC_FREQ_NAME,			"№ч" = PROC_FREQ_NAME,			".ч" = PROC_FREQ_NAME,
-	  ":у" = ENG_FREQ_NAME, 			"#у" = ENG_FREQ_NAME,			"№у" = ENG_FREQ_NAME,			".у" = ENG_FREQ_NAME,
+	  ":у" = ENG_FREQ_NAME,			"#у" = ENG_FREQ_NAME,			"№у" = ENG_FREQ_NAME,			".у" = ENG_FREQ_NAME,
 	  ":ы" = SEC_FREQ_NAME,				"#ы" = SEC_FREQ_NAME,			"№ы" = SEC_FREQ_NAME,			".ы" = SEC_FREQ_NAME,
 	  ":ц" = WHISPER_CHANNEL,			"#ц" = WHISPER_CHANNEL,			"№ц" = WHISPER_CHANNEL,			".ц" = WHISPER_CHANNEL,
 	  ":е" = SYND_FREQ_NAME,			"#е" = SYND_FREQ_NAME,			"№е" = SYND_FREQ_NAME,			".е" = SYND_FREQ_NAME,
@@ -78,6 +79,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":я" = SRV_FREQ_NAME,				"#я" = SRV_FREQ_NAME,			"№я" = SRV_FREQ_NAME,			".я" = SRV_FREQ_NAME,
 	  ":з" = AI_FREQ_NAME,				"#з" = AI_FREQ_NAME,			"№з" = AI_FREQ_NAME,			".з" = AI_FREQ_NAME,
 	  ":ё" = CORDS_MODE,				"#ё" = CORDS_MODE,				"№ё" = CORDS_MODE,				".ё" = CORDS_MODE,
+	  ":ю" = PRS_FREQ_NAME,				"#ю" = PRS_FREQ_NAME,			"№ю" = PRS_FREQ_NAME,			".ю" = PRS_FREQ_NAME,
 
 	// Russian text uppercase
 	  ":К" = R_EAR_MODE,				"#К" = R_EAR_MODE,				"№К" = R_EAR_MODE,				".К" = R_EAR_MODE,
@@ -97,6 +99,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":Я" = SRV_FREQ_NAME,				"#Я" = SRV_FREQ_NAME,			"№Я" = SRV_FREQ_NAME,			".Я" = SRV_FREQ_NAME,
 	  ":З" = AI_FREQ_NAME,				"#З" = AI_FREQ_NAME,			"№З" = AI_FREQ_NAME,			".З" = AI_FREQ_NAME,
 	  ":Ё" = CORDS_MODE,				"#Ё" = CORDS_MODE,				"№Ё" = CORDS_MODE,				".Ё" = CORDS_MODE,
+	  ":Ю" = PRS_FREQ_NAME,				"#Ю" = PRS_FREQ_NAME,			"№Ю" = PRS_FREQ_NAME,			".Ю" = PRS_FREQ_NAME,
 
 	// English symbols no case
 	  ":~" = CORDS_MODE,				"#~" = CORDS_MODE,				"№~" = CORDS_MODE,				".~" = CORDS_MODE,
@@ -108,9 +111,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		// None yet.
 
 	// Special symbols only (that means that they don't have/use an english/russian analogue)
- 	  ":*" = NINJA_FREQ_NAME,			"#*" = NINJA_FREQ_NAME,			"№*" = NINJA_FREQ_NAME,			".*" = NINJA_FREQ_NAME,
-	  ":$" = ERT_FREQ_NAME,				"#$" = ERT_FREQ_NAME, 			"№$" = ERT_FREQ_NAME,			".$" = ERT_FREQ_NAME,
-  	  ":_" = SYNDTEAM_FREQ_NAME,		"#_" = SYNDTEAM_FREQ_NAME,		"№_" = SYNDTEAM_FREQ_NAME,		"._" = SYNDTEAM_FREQ_NAME,
+	  ":*" = NINJA_FREQ_NAME,			"#*" = NINJA_FREQ_NAME,			"№*" = NINJA_FREQ_NAME,			".*" = NINJA_FREQ_NAME,
+	  ":$" = ERT_FREQ_NAME,				"#$" = ERT_FREQ_NAME,			"№$" = ERT_FREQ_NAME,			".$" = ERT_FREQ_NAME,
+ 	  ":_" = SYNDTEAM_FREQ_NAME,		"#_" = SYNDTEAM_FREQ_NAME,		"№_" = SYNDTEAM_FREQ_NAME,		"._" = SYNDTEAM_FREQ_NAME,
 	  ":-" = DTH_FREQ_NAME,				"#-" = DTH_FREQ_NAME,			"№-" = DTH_FREQ_NAME,			".-" = DTH_FREQ_NAME,
 	  ":+" = SPEC_FREQ_NAME,			"#+" = SPEC_FREQ_NAME,			"№+" = SPEC_FREQ_NAME,			".+" = SPEC_FREQ_NAME //activate radio-specific special functions
 ))

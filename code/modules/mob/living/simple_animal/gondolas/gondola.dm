@@ -29,7 +29,8 @@
 		/obj/effect/decal/cleanable/blood/gibs = 1,
 	)
 
-	ru_names = list(
+/mob/living/simple_animal/pet/gondola/get_ru_names()
+	return list(
 		NOMINATIVE = "гандола",
 		GENITIVE = "гандолы",
 		DATIVE = "гандоле",
@@ -37,7 +38,6 @@
 		INSTRUMENTAL = "гандолой",
 		PREPOSITIONAL = "гандоле"
 	)
-
 
 /mob/living/simple_animal/pet/gondola/Initialize(mapload)
 	. = ..()

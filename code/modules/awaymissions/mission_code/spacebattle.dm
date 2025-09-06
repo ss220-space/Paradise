@@ -320,7 +320,7 @@
 	var/SynMelee //Лут с милишников
 	var/SynRange //Лут с дальников
 
-/mob/living/simple_animal/hostile/syndicate/Initialize()
+/mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	var/rollforloot = rand(1,50) //Лучшего варианта я не нашел
 	switch(rollforloot)
 		if(1 to 8) // 16%
@@ -354,7 +354,7 @@
 			synmobdrop = /obj/item/ammo_casing/c10mm
 	. = ..()
 
-/mob/living/simple_animal/hostile/syndicate/Initialize()
+/mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	switch(rand(1,33))
 		if(1) // 3%
 			SynSpace = /obj/item/clothing/suit/space/hardsuit/syndi
@@ -362,7 +362,7 @@
 			SynSpace = /obj/item/ammo_casing/c10mm
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/melee/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/Initialize(mapload)
 	switch(rand(1,100))
 		if(1) // 1%
 			SynMelee = /obj/item/melee/energy/sword/saber
@@ -372,7 +372,7 @@
 			SynMelee = /obj/item/ammo_casing/c10mm
 	return ..()
 
-/mob/living/simple_animal/hostile/syndicate/ranged/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/Initialize(mapload)
 	switch(rand(rand(1,100)))
 		if(25 to 35) // 10%
 			SynRange = /obj/item/ammo_box/magazine/m10mm
@@ -386,39 +386,39 @@
 			SynRange = /obj/item/gun/projectile/automatic/c20r
 		else
 			SynRange = /obj/item/ammo_casing/c10mm
-	.=..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle
-	damage_coeff = list("brute" = 0.8, "fire" = 0.8, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0.5)
+	damage_coeff = list(BRUTE = 0.8, FIRE = 0.8, TOX = 1, CLONE = 2, STAMINA = 0, OXY = 0.5)
 	melee_damage_type = BURN
 	attack_sound = 'sound/weapons/saberon.ogg'
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynMelee)
 	return .
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle
-	damage_coeff = list("brute" = 0.8, "fire" = 0.8, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0)
+	damage_coeff = list(BRUTE = 0.8, FIRE = 0.8, TOX = 1, CLONE = 2, STAMINA = 0, OXY = 0)
 	melee_damage_type = BURN
 	attack_sound = 'sound/weapons/saberon.ogg'
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynMelee, SynSpace)
 	return .
 
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle
-	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 2, "stamina" = 0, "oxy" = 0.5)
+	damage_coeff = list(BRUTE = 1, FIRE = 1, TOX = 1, CLONE = 2, STAMINA = 0, OXY = 0.5)
 
-/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynRange)
 	return .
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle/Initialize()
+/mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle/Initialize(mapload)
 	. = ..()
 	loot = list(/obj/effect/decal/cleanable/ash, synmobdrop, SynRange, SynSpace)
 	return .
@@ -441,7 +441,7 @@
 	eyeblur = 2 SECONDS
 
 /mob/living/simple_animal/hostile/malf_drone/spacebattle/drop_loot()
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 	var/turf/T = get_turf(src)
 
 	//shards
@@ -557,7 +557,7 @@
 		/obj/item/toy/crayon/white,
 		)
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/Initialize(mapload)
 	l_pocket = pick(pocketloot)
 	r_pocket = pick(pocketloot)
 	return ..()
@@ -582,7 +582,7 @@
 	gloves = /obj/item/clothing/gloves/fingerless
 	back = /obj/item/storage/backpack/satchel_sec
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/security/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/security/Initialize(mapload)
 	var/secgun = rand(1,10)
 	switch(secgun)
 		if(1 to 7) //70%
@@ -667,7 +667,7 @@
 	id = /obj/item/card/id/medical
 	back = /obj/item/storage/backpack/satchel_med
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/medic/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/medic/Initialize(mapload)
 	backpack_contents = list(
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/pill_bottle/random_drug_bottle = 1,
@@ -688,7 +688,7 @@
 	gloves = /obj/item/clothing/gloves/fingerless
 	back = /obj/item/storage/backpack/satchel
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer/Initialize()
+/obj/effect/mob_spawn/human/corpse/spacebattle/bridgeofficer/Initialize(mapload)
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/pill/patch/silver_sulf/small = 1,
 		/obj/item/reagent_containers/food/pill/patch/styptic/small = 1,
@@ -709,7 +709,7 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/damaged
 	name = "damaged blood-red hardsuit"
 	desc = "Damaged advanced hardsuit designed for work in special operations. There are a many patches visible on the suit. Its mode switcher system looks damaged and forced in travel mode. Property of Gorlex Marauders."
-	armor = list("melee" = 30, "bullet" = 40, "laser" = 20, "energy" = 20, "bomb" = 30, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 90)
+	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 50, FIRE = 50, ACID = 90)
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "hardsuit1-syndi"
 	on = TRUE

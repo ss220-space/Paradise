@@ -156,7 +156,7 @@
 		M.forceMove(drop_loc)
 		visible_message(span_danger("[M] вырыва[pluralize_ru(M.gender, "ет", "ют")]ся из нутра [name]!"))
 
-
+/// Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
 /mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	. = ..()
 	if(!.)
@@ -201,7 +201,7 @@
 	return shock_damage
 
 
-///Called slightly after electrocute act to apply a secondary stun.
+/// Called slightly after electrocute act to apply a secondary stun.
 /mob/living/carbon/proc/secondary_shock(knockdown, stun_duration)
 	if(knockdown)
 		Knockdown(stun_duration)
@@ -433,13 +433,13 @@
 		return .
 
 	var/alien_trait = HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALIEN)
-	if(alien_trait && length(get_equipped_items(include_hands = TRUE)))
+	if(alien_trait && length(get_equipped_items(INCLUDE_HELD)))
 		if(provide_feedback)
 			balloon_alert(src, "ваши руки заняты!")
 		return FALSE
 
 	if(!alien_trait && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ITEM_BASED) && HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && \
-		!HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS) && length(get_equipped_items(include_pockets = TRUE, include_hands = TRUE)))
+		!HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS) && length(get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD)))
 		if(provide_feedback)
 			balloon_alert(src, "ваши предметы мешают!")
 		return FALSE
@@ -607,8 +607,8 @@
 		var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 		var/turf/end_T = get_turf(target)
 		if(start_T && end_T)
-			var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
-			var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
+			var/start_T_descriptor = "<font color='#6b5d00'>tile at [AREACOORD(start_T)]</font>"
+			var/end_T_descriptor = "<font color='#6b4400'>tile at [AREACOORD(end_T)]</font>"
 			add_attack_logs(src, throwing_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
 
 	//We assign a default frequency number for the sound of the throw.
@@ -675,7 +675,7 @@
 			temp = rand(120, 160)
 			return num2text(method ? temp : temp + rand(-10, 10))
 		if(PULSE_THREADY)
-			return method ? ">250" : "очень слабый и быстрый, сердце пациента работает на пределе"
+			return method ? ">250" : "очень слабый и быстрый"
 //			output for machines^	^^^^^^^output for people^^^^^^^^^
 
 
@@ -696,18 +696,29 @@
 		restraints = wear_suit
 
 	if(restraints)
-		breakout_time = restraints.breakout_time
+		resist_restraints()
+		return
 
 	var/list/breakouttime_modifiers = list()
 	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
 	for(var/mod in breakouttime_modifiers)
 		breakout_time *= mod
 
-	visible_message(
-		span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
-		span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[declension_ru(breakout_time * 0.1, "у", "ы", "")]."),
-	)
-	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+	var/is_processed = LAZYACCESS(do_afters, src)
+
+	if(is_processed)
+		visible_message(
+			span_warning("[name] перестал[genderize_ru(gender, "", "а", "о", "и")] пытаться отстегнуться!"),
+			span_notice("Вы перестали пытаться отстегнуться."),
+		)
+	else
+		visible_message(
+			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
+			span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakout_time * 0.1] секунд[declension_ru(breakout_time * 0.1, "у", "ы", "")]."),
+		)
+
+	if(do_after(src, breakout_time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1, cancel_on_max = TRUE,
+		cancel_message = ""))
 		if(!buckled)
 			return
 
@@ -910,16 +921,20 @@ so that different stomachs can handle things in different ways VB*/
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
 		add_sight(cyber_eyes.vision_flags)
+
 		if(cyber_eyes.see_in_dark)
 			nightvision = max(nightvision, cyber_eyes.see_in_dark)
+
 		if(cyber_eyes.see_invisible)
 			set_invis_see(min(see_invisible, cyber_eyes.see_invisible))
+
 		if(!isnull(cyber_eyes.lighting_alpha))
 			lighting_alpha = min(lighting_alpha, cyber_eyes.lighting_alpha)
 
-	if(client.eye != src)
-		var/atom/A = client.eye
-		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+	if(client.eye && client.eye != src)
+		var/atom/atom = client.eye
+
+		if(atom.update_remote_sight(src)) // returns TRUE if we override all other sight updates.
 			return
 
 	if(HAS_TRAIT(src, TRAIT_XRAY))

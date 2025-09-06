@@ -168,8 +168,3 @@
 /datum/dna/gene/basic/fake/fake2/New()
 	..()
 	block = GLOB.fakeblock2
-
-
-/datum/dna/gene/basic/fake/fake3/New()
-	..()
-	block = GLOB.fakeblock3

@@ -103,6 +103,13 @@
 	plane = WALL_PLANE
 	render_relay_planes = list(RENDER_PLANE_GAME_WORLD, EMISSIVE_MASK_PLANE)
 
+/atom/movable/screen/plane_master/below_game
+	name = "Под основными объектами"
+	documentation = "Содержит то, что должно быть выше турфов, но ниже большинства игровых объектов. \
+					Используется в случаях, когда спрайт объекта вылазит за свою плитку и перекрывает спрайты находящиеся выше."
+	plane = BELOW_GAME_PLANE
+	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
+
 /atom/movable/screen/plane_master/game
 	name = "Lower game world"
 	documentation = "Holds anything that draws just above floor. Runes, crayons and etc."

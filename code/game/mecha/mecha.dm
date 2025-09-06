@@ -129,7 +129,7 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-/obj/mecha/Initialize()
+/obj/mecha/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_WEATHER_IMMUNE, INNATE_TRAIT)
 	icon_state += "-open"
@@ -232,7 +232,7 @@
 
 	if(GLOB.pacifism_after_gt)
 		var/mob/living/L = user
-		if(!target.Adjacent(src))
+		if(!Adjacent(target))
 			if(selected && selected.is_ranged())
 				if(selected.harmful)
 					to_chat(L, span_warning("Вы не хотите навредить другим живым существам!"))
@@ -259,7 +259,7 @@
 		if(user.mind?.martial_art?.no_guns)
 			to_chat(L, span_warning("[L.mind.martial_art.no_guns_message]"))
 			return
-		if(!target.Adjacent(src))
+		if(!Adjacent(target))
 			selected.action(target, params)
 			return
 		else
@@ -275,7 +275,7 @@
 
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		target = safepick(oview(1, src))
-	if(!melee_can_hit || !isatom(target))
+	if(!melee_can_hit || !isatom(target) || !Adjacent(target))
 		return
 	target.mech_melee_attack(src)
 	melee_can_hit = FALSE
@@ -444,7 +444,7 @@
 		var/turf/above = GET_TURF_ABOVE(T)
 		if(!(direction & UP) || !can_z_move(DOWN, above, null, ZMOVE_FALL_FLAGS|ZMOVE_CAN_FLY_CHECKS|ZMOVE_FEEDBACK, occupant))
 			if(zMove(direction, z_move_flags = ZMOVE_FLIGHT_FLAGS))
-				playsound(src, stepsound, 40, 1)
+				playsound(src, stepsound, 40, TRUE)
 				move_result = TRUE
 				move_type = MECHAMOVE_STEP
 	else if(dir != direction && !strafe || keyheld) //Player can use ALT button while strafe is active to change direction on fly
@@ -510,7 +510,7 @@
 /obj/mecha/proc/mechturn(direction)
 	dir = direction
 	if(turnsound)
-		playsound(src,turnsound,40,1)
+		playsound(src,turnsound,40, TRUE)
 	return TRUE
 
 /obj/mecha/proc/mechstep(direction, old_direction, step_in_final)
@@ -521,7 +521,7 @@
 		if(strafe) //Cooldown and sound effect if mecha failed to step
 			can_move = world.time + step_in_final
 			if(turnsound)
-				playsound(src, turnsound, 40, 1)
+				playsound(src, turnsound, 40, TRUE)
 		if(phasing && get_charge() >= phasing_energy_drain / phase_modifier)
 			if(strafe) //No strafe while phase mode is active
 				toggle_strafe(silent = TRUE)
@@ -530,15 +530,15 @@
 				flick("[initial_icon]-phase", src)
 				forceMove(get_step(src, direction))
 				use_power(phasing_energy_drain / phase_modifier)
-				playsound(src, stepsound, 40, 1)
+				playsound(src, stepsound, 40, TRUE)
 				can_move = world.time + (step_in * 3 / phase_modifier)
 	else if(stepsound)
-		playsound(src, stepsound, 40, 1)
+		playsound(src, stepsound, 40, TRUE)
 
 /obj/mecha/proc/mechsteprand()
 	. = step_rand(src)
 	if(. && stepsound)
-		playsound(src, stepsound, 40, 1)
+		playsound(src, stepsound, 40, TRUE)
 
 
 /obj/mecha/Bump(atom/bumped_atom)
@@ -667,9 +667,9 @@
 	if(. && obj_integrity > 0)
 		spark_system.start()
 		switch(damage_flag)
-			if("fire")
+			if(FIRE)
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL))
-			if("melee")
+			if(MELEE)
 				check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 			else
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
@@ -711,7 +711,7 @@
 /obj/mecha/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
+	playsound(loc, 'sound/weapons/tap.ogg', 40, TRUE, -1)
 	user.visible_message(span_notice("[user] hits [name]. Nothing happens."), span_notice("You hit [name] with no visible effect."))
 	log_message("Attack by hand/paw. Attacker - [user].")
 
@@ -738,7 +738,7 @@
 		animal_damage = min(animal_damage, 20*user.environment_smash)
 		if(animal_damage)
 			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
-		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
+		attack_generic(user, animal_damage, user.melee_damage_type, MELEE, play_soundeffect)
 		return TRUE
 
 /obj/mecha/blob_act(obj/structure/blob/B)
@@ -766,7 +766,7 @@
 	if(prob(deflect_chance))
 		severity++
 		log_message("Armor saved, changing severity to [severity]")
-	..()
+	. = ..()
 	severity++
 	for(var/X in equipment)
 		var/obj/item/mecha_parts/mecha_equipment/ME = X
@@ -834,7 +834,7 @@
 /obj/mecha/emp_act(severity)
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
-		take_damage(30 / severity, BURN, "energy", 1)
+		take_damage(30 / severity, BURN, ENERGY, 1)
 	log_message("EMP detected", 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
@@ -1516,7 +1516,8 @@
 		dir = dir_in
 
 	if(L && L.client)
-		L.client.RemoveViewMod("mecha")
+		ASYNC
+			L.client.RemoveViewMod("mecha")
 		zoom_mode = FALSE
 
 	if(ishuman(L))

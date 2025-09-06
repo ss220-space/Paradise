@@ -156,6 +156,10 @@
 		if(!mind.current)
 			continue
 		LAZYADDASSOC(mobs, mind.current.real_name, mind)
+
+	if(!mobs)
+		return
+
 	var/datum/mind/soul = mobs[tgui_input_list(user, "Кому вы хотите вернуть душу?", "Вернуть душу", mobs)]
 
 	if(!soul)
@@ -385,7 +389,7 @@
 	desc = "Призывает огненные волны в радиусе заклинания."
 	action_icon_state = "explosion_old"
 
-	base_cooldown = 10 SECONDS
+	base_cooldown = 15 SECONDS
 	aoe_range = 10
 	invocation = "Che? non ' stimiti te faccende del inferno!"
 	invocation_type = "shout"
@@ -405,6 +409,14 @@
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/devil_fire/cast(list/targets, mob/user = usr)
+	var/obj/item/clothing/suit/straight_jacket/jacket = user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
+
+	if(istype(jacket))
+		user.temporarily_remove_item_from_inventory(jacket, force = TRUE)
+		user.visible_message(span_warning("[jacket.declent_ru(NOMINATIVE)] сгорает в адском пламени!"), \
+							span_warning("Вы испепеляете сковывающую вас [jacket.declent_ru(ACCUSATIVE)]!"))
+		qdel(jacket)
+
 	for(var/mob/living/living in targets)
 		living.Slowed(slow_time)
 
@@ -430,7 +442,7 @@
 
 	base_cooldown = 300 SECONDS
 	var/cast_time = 5 SECONDS
-	var/fail_cooldown = 2 SECONDS
+	var/fail_cooldown = 5 SECONDS
 	var/say_name_prob = 40
 
 	clothes_req = FALSE
@@ -459,7 +471,6 @@
 	if(prob(say_name_prob))
 		carbon.say("INF' [devil.info.truename] NO")
 	playsound(get_turf(carbon), 'sound/magic/narsie_attack.ogg', 100, TRUE)
-
 	human.Knockdown(1 SECONDS)
 
 	if(!do_after(user, cast_time, user, NONE))
@@ -484,7 +495,9 @@
 	LAZYADD(human.mind.objectives, kill)
 	LAZYADD(human.faction, "hell")
 
-	human.mind.prepare_announce_objectives()
+	var/list/messages = human.mind.prepare_announce_objectives()
+	to_chat(human, chat_box_red(messages.Join("<br>")))
+
 	LAZYOR(devil.shadows, human.mind)
 	playsound(human, 'sound/magic/mutate.ogg', 100, TRUE)
 

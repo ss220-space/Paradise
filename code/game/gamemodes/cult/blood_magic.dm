@@ -368,8 +368,6 @@
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon = 'icons/obj/items.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	item_flags = ABSTRACT|DROPDEL
@@ -386,12 +384,12 @@
 	var/datum/action/innate/cult/blood_spell/source
 	var/max_charges
 
-/obj/item/melee/blood_magic/New(loc, spell)
-	if(has_source)
+/obj/item/melee/blood_magic/Initialize(mapload, spell)
+	. = ..()
+	if(spell && has_source)
 		source = spell
 		uses = source.charges
 		health_cost = source.health_cost
-	..()
 
 /obj/item/melee/blood_magic/Destroy()
 	if(has_source && !QDELETED(source))
@@ -447,8 +445,10 @@
 	if(!isliving(target) || !proximity)
 		return
 	var/mob/living/L = target
+
 	if(iscultist(target))
 		return
+
 	user.visible_message(	span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"), \
 							span_cultitalic("You attempt to stun [L] with the spell!"))
 
@@ -462,8 +462,9 @@
 		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
 		// These are in life cycles, so double the time that's stated.
 		L.Knockdown(3 SECONDS)
-		L.apply_damage(30, STAMINA)
-		L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+		L.apply_damage(55, STAMINA)
+		if(!ismindshielded(L))
+			L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 		L.flash_eyes(1, TRUE)
 		if(issilicon(target))
 			var/mob/living/silicon/S = L
@@ -501,11 +502,13 @@
 		else
 			teleportnames.Add(resultkey)
 			duplicaterunecount[resultkey] = 1
-		potential_runes[resultkey] = T
+		if(is_station_level(T.z))
+			potential_runes[resultkey] = T
 
 	if(!length(potential_runes))
 		to_chat(user, span_warning("There are no valid runes to teleport to!"))
 		return
+
 	if(!is_level_reachable(user.z))
 		to_chat(user, span_cultitalic("You are not in the right dimension!"))
 		return
@@ -513,12 +516,12 @@
 	var/mob/living/L = target
 	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
+	var/turf/destination = get_turf(actual_selected_rune)
+	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune || !destination)
 		return
 	uses--
 
 	var/turf/origin = get_turf(user)
-	var/turf/destination = get_turf(actual_selected_rune)
 	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), user, origin, destination)
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
@@ -647,7 +650,7 @@
 		else
 			to_chat(user, span_warning("The spell will not work on [target]!"))
 			return
-		..()
+		return ..()
 
 //Armor: Gives the target a basic cultist combat loadout
 /obj/item/melee/blood_magic/armor

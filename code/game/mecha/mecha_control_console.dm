@@ -3,7 +3,7 @@
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"
-	light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_LAVENDER
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
@@ -99,7 +99,7 @@
 	answer["airtank"] = M.return_pressure()
 	answer["pilot"] = "[M.occupant||"None"]"
 	var/area/area = get_area(M)
-	answer["location"] = "[sanitize(area.name)||"Unknown"]"
+	answer["location"] = "[sanitize(area.name)||UNKNOWN_STATUS_RUS]"
 	answer["equipment"] = "[M.selected||"None"]"
 	if(istype(M, /obj/mecha/working))
 		var/obj/mecha/working/RM = M
@@ -119,7 +119,7 @@
 						<b>Cell charge:</b> [isnull(cell_charge)?"Not found":"[M.cell.percent()]%"]
 						<b>Airtank:</b> [M.return_pressure()]kPa
 						<b>Pilot:</b> [M.occupant||"None"]
-						<b>Location:</b> [sanitize(A.name)||"Unknown"]
+						<b>Location:</b> [sanitize(A.name)||UNKNOWN_STATUS_RUS]
 						<b>Active equipment:</b> [M.selected||"None"]<br>"}
 	if(istype(M, /obj/mecha/working))
 		var/obj/mecha/working/RM = M

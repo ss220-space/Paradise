@@ -50,7 +50,7 @@
 	var/datum/action/innate/gorilla/gorilla_toggle/gorilla_toggle
 
 
-/mob/living/simple_animal/hostile/gorilla/Initialize()
+/mob/living/simple_animal/hostile/gorilla/Initialize(mapload)
 	. = ..()
 	gorilla_toggle = new
 	gorilla_toggle.Grant(src)
@@ -65,7 +65,7 @@
 	)
 
 /mob/living/simple_animal/hostile/gorilla/Destroy()
-	reset_behavior(play_emote = FALSE)
+	INVOKE_ASYNC(src, PROC_REF(reset_behavior), play_emote = FALSE)
 	LAZYCLEARLIST(crates_in_hand)
 	QDEL_NULL(gorilla_toggle)
 	return ..()

@@ -116,7 +116,7 @@
 				if(isfloorturf(T))
 					for(var/obj/structure/S in T.contents)
 						if(istype(S,/obj/structure/window))
-							S.ex_act(2)
+							S.ex_act(EXPLODE_HEAVY)
 						if(istype(S,/obj/structure/grille))
 							qdel(S)
 				if(iswallturf(T))
@@ -229,6 +229,9 @@
 
 /obj/effect/proc_holder/spell/hulk_jump/cast(list/targets, mob/living/user)
 	var/failure = 0
+	if(!user)
+		return
+
 	if(ismob(user.loc) || user.incapacitated() || user.buckled)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
@@ -417,10 +420,11 @@
 	return new /datum/spell_targeting/self
 
 
-/obj/effect/proc_holder/spell/hulk_mill/cast(list/targets,mob/user = user)
+/obj/effect/proc_holder/spell/hulk_mill/cast(list/targets, mob/user = usr)
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
+
 	for(var/i in 1 to 45)
 		if(user.dir == 1)
 			user.setDir(2)

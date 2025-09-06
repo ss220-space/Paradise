@@ -20,6 +20,8 @@
 	drop_sound = 'sound/items/handling/drop/card_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/card_pickup.ogg'
 	var/associated_account_number = 0
+	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/id_righthand.dmi'
 
 	var/list/files = list(  )
 
@@ -76,7 +78,13 @@
 /obj/item/card/cmag
 	desc = "Это карта, покрытая жидкостью из электромагнитного бананиума."
 	name = "jestographic sequencer"
-	ru_names = list(
+	icon_state = "cmag"
+	item_state = "card-id"
+	origin_tech = "magnets=2;syndicate=2"
+	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
+
+/obj/item/card/cmag/get_ru_names()
+	return list(
 		NOMINATIVE = "шутографический считыватель",
 		GENITIVE = "шутографического считывателя",
 		DATIVE = "шутографическому считывателю",
@@ -84,11 +92,6 @@
 		INSTRUMENTAL = "шутографическим считывателем",
 		PREPOSITIONAL = "шутографическом считывателе"
 	)
-	icon_state = "cmag"
-	item_state = "card-id"
-	origin_tech = "magnets=2;syndicate=2"
-	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
-
 
 /obj/item/card/cmag/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
@@ -116,9 +119,10 @@
 	/// Total mining points for the Shift.
 	var/total_mining_points = 0
 	var/list/access = list()
-	var/registered_name = "Unknown" // The name registered_name on the card
+	var/law_level = LAW_LEVEL_BASE
+	var/registered_name = UNKNOWN_NAME_RUS // The name registered_name on the card
 	slot_flags = ITEM_SLOT_ID
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
 
@@ -161,7 +165,12 @@
 
 /obj/item/card/id/proc/freeze_linked_account(datum/source)
 	SIGNAL_HANDLER
+
 	var/datum/money_account/acc = get_money_account(associated_account_number)
+
+	if(!acc)
+		return
+
 	acc.suspended = TRUE
 
 /obj/item/card/id/examine(mob/user)
@@ -570,7 +579,7 @@
 		if("load_slot")
 			load_slot(params["slot"])
 			UpdateName()
-			registered_user.sec_hud_set_ID()
+			registered_user.update_hud_set()
 			to_chat(registered_user, "<span class='notice'>You have successfully loaded the card data from slot [params["slot"]].</span>")
 		if("clear_slot")
 			clear_slot(params["slot"])
@@ -705,12 +714,13 @@
 			rank = new_rank
 			to_chat(registered_user, "<span class='notice'>Occupation changed to [new_job].</span>")
 			UpdateName()
-			registered_user.sec_hud_set_ID()
+			registered_user.update_hud_set()
 		if("change_money_account")
 			var/new_account = tgui_input_number(registered_user, "What money account would you like to link to this card?", "Agent Card Account", 12345, 9999999)
 			if(!Adjacent(registered_user) || !isnull(new_account))
 				return
 			associated_account_number = new_account
+			registered_user.med_hud_insurance_set_overlay()
 			to_chat(registered_user, "<span class='notice'>Linked money account changed to [new_account].</span>")
 		if("change_blood_type")
 			var/default = "\[UNSET\]"

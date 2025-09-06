@@ -6,24 +6,28 @@
 #define WOOD 2
 #define SAND 3
 
-//Barricades/cover
-
+/**
+ * MARK: Barricade
+ */
 /obj/structure/barricade
 	name = "chest high wall"
 	desc = "Looks like this would make good cover."
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 100
-	var/proj_pass_rate = 50 //How many projectiles will pass the cover. Lower means stronger cover
+	/// How many projectiles will pass the cover. Lower means stronger cover.
+	var/proj_pass_rate = 50
 	var/bar_material = METAL
 	var/drop_amount = 3
 	var/stacktype = /obj/item/stack/sheet/metal
+
+/obj/structure/barricade/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
 		make_debris()
 	qdel(src)
-
 
 /obj/structure/barricade/proc/make_debris()
 	if(stacktype)
@@ -46,7 +50,6 @@
 		update_icon()
 	return TRUE
 
-
 /obj/structure/barricade/CanAllowThrough(atom/movable/mover, border_dir)//So bullets will fly over and stuff.
 	. = ..()
 	if(locate(/obj/structure/barricade) in get_turf(mover))
@@ -61,7 +64,6 @@
 			return TRUE
 		return FALSE
 
-
 /obj/structure/barricade/attack_hand(mob/living/carbon/human/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
@@ -72,10 +74,9 @@
 	else
 		..()
 
-
-
-/////BARRICADE TYPES///////
-
+/**
+ * MARK: Wooden Barricade
+ */
 /obj/structure/barricade/wooden
 	name = "wooden barricade"
 	desc = "This space is blocked off by a wooden barricade."
@@ -134,6 +135,9 @@
 	icon_state = "woodenbarricade-snow-old"
 	max_integrity = 75
 
+/**
+ * MARK: Sandbags
+ */
 /obj/structure/barricade/sandbags
 	name = "sandbags"
 	desc = "Bags of sand. Self explanatory."
@@ -150,6 +154,9 @@
 	canSmoothWith = SMOOTH_GROUP_SECURITY_BARRICADE + SMOOTH_GROUP_SANDBAGS + SMOOTH_GROUP_WALLS
 	stacktype = null
 
+/**
+ * MARK: Security Barrier
+ */
 /obj/structure/barricade/security
 	name = "security barrier"
 	desc = "A deployable barrier. Provides good cover in fire fights."
@@ -175,7 +182,9 @@
 	if(deploy_message)
 		visible_message(span_warning("[src] deploys!"))
 
-
+/**
+ * MARK: Barrier Grenade
+ */
 /obj/item/grenade/barrier
 	name = "barrier grenade"
 	desc = "Instant cover."
@@ -228,7 +237,9 @@
 /obj/item/grenade/barrier/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_mode(user)
 
-
+/**
+ * MARK: Mime
+ */
 /obj/structure/barricade/mime
 	name = "floor"
 	desc = "Is... this a floor?"

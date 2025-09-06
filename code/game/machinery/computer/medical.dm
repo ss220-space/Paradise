@@ -10,14 +10,6 @@
 /obj/machinery/computer/med_data //TODO:SANITY
 	name = "medical records console"
 	desc = "Консоль, подключённая к станционной базе данных. Позволяет просматривать и редактировать медицинские записи членов экипажа."
-	ru_names = list(
-		NOMINATIVE = "консоль медицинских записей",
-		GENITIVE = "консоли медицинских записей",
-		DATIVE = "консоли медицинских записей",
-		ACCUSATIVE = "консоль медицинских записей",
-		INSTRUMENTAL = "консолью медицинских записей",
-		PREPOSITIONAL = "консоли медицинских записей"
-	)
 	icon_keyboard = "med_key"
 	icon_screen = "medcomp"
 	req_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
@@ -31,9 +23,19 @@
 	var/static/list/field_edit_questions
 	var/static/list/field_edit_choices
 
-	light_color = LIGHT_COLOR_DARKBLUE
+	light_color = LIGHT_COLOR_DARK_BLUE
 
-/obj/machinery/computer/med_data/Initialize()
+/obj/machinery/computer/med_data/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль медицинских записей",
+		GENITIVE = "консоли медицинских записей",
+		DATIVE = "консоли медицинских записей",
+		ACCUSATIVE = "консоль медицинских записей",
+		INSTRUMENTAL = "консолью медицинских записей",
+		PREPOSITIONAL = "консоли медицинских записей"
+	)
+
+/obj/machinery/computer/med_data/Initialize(mapload)
 	. = ..()
 	field_edit_questions = list(
 		// General
@@ -281,8 +283,8 @@
 					R.fields["name"] = active1.fields["name"]
 					R.fields["id"] = active1.fields["id"]
 					R.name = "Медицинская запись №[R.fields["id"]]"
-					R.fields["blood_type"] = "Неизвестно"
-					R.fields["b_dna"] = "Неизвестно"
+					R.fields["blood_type"] = UNKNOWN_STATUS_RUS
+					R.fields["b_dna"] = UNKNOWN_STATUS_RUS
 					R.fields["mi_dis"] = "Отсутствуют"
 					R.fields["mi_dis_d"] = "Незначительные отклонения не указаны."
 					R.fields["ma_dis"] = "Отсутствуют"
@@ -470,7 +472,13 @@
 /obj/machinery/computer/med_data/laptop
 	name = "medical laptop"
 	desc = "Дешёвый ноутбук, произведённый Nanotrasen."
-	ru_names = list(
+	icon_state = "laptop"
+	icon_keyboard = "laptop_key"
+	icon_screen = "medlaptop"
+	density = FALSE
+
+/obj/machinery/computer/med_data/laptop/get_ru_names()
+	return list(
 		NOMINATIVE = "медицинский ноутбук",
 		GENITIVE = "медицинского ноутбука",
 		DATIVE = "медицинскому ноутбуку",
@@ -478,10 +486,6 @@
 		INSTRUMENTAL = "медицинским ноутбуком",
 		PREPOSITIONAL = "медицинском ноутбуке"
 	)
-	icon_state = "laptop"
-	icon_keyboard = "laptop_key"
-	icon_screen = "medlaptop"
-	density = FALSE
 
 #undef MED_DATA_R_LIST
 #undef MED_DATA_MAINT

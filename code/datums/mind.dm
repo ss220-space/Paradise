@@ -82,8 +82,6 @@
 
 	var/list/learned_recipes //List of learned recipe TYPES.
 
-	var/ambition_limit = 6 //Лимит амбиций
-
 	var/list/curses
 
 	var/madeby_sentience_potion = FALSE
@@ -228,23 +226,6 @@
 		for(var/datum/job_objective/objective in job_objectives)
 			output += "<li><b>Task #[obj_count]</b>: [objective.get_description()]</li>"
 			obj_count++
-		output += "</ul>"
-
-	if(iscarbon(current))
-		// Кнопки для амбиций и их отображение
-		output += "<hr><b>Амбиции:</b><ul>"
-		if(LAZYLEN(ambition_objectives))
-
-			var/amb_count = 1
-			for(var/datum/ambition_objective/objective in ambition_objectives)
-				output += "<li><b>Амбиция #[amb_count]</b>: [objective.description]</li>"
-				output += "<a href='byond://?src=[UID()];amb_delete=\ref[objective]'>Удалить</a> " // Удалить амбицию
-				output += "<a href='byond://?src=[UID()];amb_completed=\ref[objective]'>" // Определить завершенность амбиции
-				output += "<font color=[objective.completed ? "green" : "red"]>[objective.completed ? "Передумать" : "Выполнить"]</font>"
-				output += "</a>"
-				output += "<br>"
-				amb_count++
-		output += "<a href='byond://?src=[UID()];amb_add=1'>Добавить амбицию</a><br><br>"
 		output += "</ul>"
 
 	if(window)
@@ -724,8 +705,8 @@
 		"cult",
 		"clockwork",
 		"wizard",
-		"changeling", 	// "traitorchan", "thiefchan", "changelingthief",
-		"vampire", 		// "traitorvamp", "thiefvamp", "vampirethief",
+		"changeling",	// "traitorchan", "thiefchan", "changelingthief",
+		"vampire",		// "traitorvamp", "thiefvamp", "vampirethief",
 		"nuclear",
 		"traitor",
 		"ninja",
@@ -872,11 +853,6 @@
 	onclose(usr, "edit_memory[src]")
 
 /datum/mind/Topic(href, href_list)
-	//проверяем на амбиции, после чего прерываем выполнение, иначе он залезет в админский антаг-панель
-	var/ambition_func = ambition_topic(href, href_list)
-	if (ambition_func)
-		return
-
 	if(!check_rights(R_ADMIN))
 		return
 
@@ -2085,8 +2061,8 @@
 					return
 				// Update
 				var/datum/data/record/R = find_record("name", target.name, GLOB.data_core.general)
-				var/name = R?.fields["name"] || target.name || "Unknown"
-				var/rank = R?.fields["rank"] || target.assigned_role || "Unknown"
+				var/name = R?.fields["name"] || target.name || UNKNOWN_STATUS_RUS
+				var/rank = R?.fields["rank"] || target.assigned_role || UNKNOWN_STATUS_RUS
 				CO.contract.target = target
 				CO.target_name = "[name], the [rank]"
 				if(R?.fields["photo"])
@@ -2279,8 +2255,8 @@
 				SSticker.mode.shadows += src
 				special_role = SPECIAL_ROLE_SHADOWLING
 				SSticker.mode.recount_required_thralls()
-				to_chat(current, span_shadowling("<b>Что-то всплывает в глубинах твоего разума. Твой взгляд заливает красным свечением и ты медленно вспоминаешь. Твоя маскировка под гуманойда послужила тебе прекрасно, но \
-												время отбросить её и вернутся к своей истинной форме. Ты замаскировался под гуманойда, но ты не один из них. Ты тенелинг и ты должен возвыситься любой ценой.</b>"))
+				to_chat(current, span_shadowling("<b>Что-то всплывает в глубинах вашего разума. Ваш взгляд заливает красным свечением, и вы медленно вспоминаете. Ваша маскировка под гуманоида прекрасно вам послужила, но \
+												время отбросить её и вернуться к своей истинной форме. Вы замаскировались под гуманоида, но вы не один из них. Вы — тенеморф, и вы должны возвыситься любой ценой.</b>"))
 				SSticker.mode.finalize_shadowling(src)
 				SSticker.mode.update_shadow_icons_added(src)
 				log_admin("[key_name(usr)] has shadowlinged [key_name(current)]")

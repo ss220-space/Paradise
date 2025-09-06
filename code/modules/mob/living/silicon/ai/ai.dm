@@ -306,7 +306,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			robot_status = "DEPOWERED"
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
-		var/area_name = A ? sanitize(A.name) : "Unknown"
+		var/area_name = A ? sanitize(A.name) : UNKNOWN_STATUS_RUS
 		status_tab_data[++status_tab_data.len] = list("[R.name]:", "S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
 		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
 	return status_tab_data
@@ -676,16 +676,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(2)
 				ai_call_shuttle()
 
-/mob/living/silicon/ai/ex_act(severity)
-	..()
+/mob/living/silicon/ai/ex_act(severity, target)
+	. = ..()
 
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			gib()
-		if(2.0)
+		if(EXPLODE_HEAVY)
 			if(stat != 2)
 				apply_damages(60, 60)
-		if(3.0)
+		if(EXPLODE_LIGHT)
 			if(stat != 2)
 				apply_damage(30)
 
@@ -1343,7 +1343,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		update_blind_effects()
 		update_sight()
 		control_disabled = TRUE//Can't control things remotely if you're stuck in a card!
-		aiRadio.disabledAi = TRUE 	//No talking on the built-in radio for you either!
+		aiRadio.disabledAi = TRUE	//No talking on the built-in radio for you either!
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")

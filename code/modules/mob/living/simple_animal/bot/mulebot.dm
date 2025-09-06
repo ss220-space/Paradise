@@ -2,21 +2,13 @@
 // Navigates via floor navbeacons
 // Remote Controlled from QM's PDA
 
-#define SIGH 	0
+#define SIGH	0
 #define ANNOYED 1
 #define DELIGHT 2
 
 /mob/living/simple_animal/bot/mulebot
 	name = "MULEbot"
 	desc = "Многофункциональный Узкоспециализированный Легкомоторный робот. Нет, это не просто случайные слова, подобранные для красивого написания. Честно."
-	ru_names = list(
-		NOMINATIVE = "МУЛбот",
-		GENITIVE = "МУЛбота",
-		DATIVE = "МУЛботу",
-		ACCUSATIVE = "МУЛбота",
-		INSTRUMENTAL = "МУЛботом",
-		PREPOSITIONAL = "МУЛботе",
-	)
 	icon_state = "mulebot0"
 	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
@@ -68,9 +60,19 @@
 	var/obj/item/stock_parts/cell/cell
 	var/datum/wires/mulebot/wires = null
 	var/bloodiness = 0
-	var/currentBloodColor = "#A10808"
+	var/currentBloodColor = BLOOD_COLOR_RED
 	var/currentDNA = null
 
+/mob/living/simple_animal/bot/mulebot/get_ru_names()
+	return list(
+		NOMINATIVE = "МУЛбот",
+		GENITIVE = "МУЛбота",
+		DATIVE = "МУЛботу",
+		ACCUSATIVE = "МУЛбота",
+		INSTRUMENTAL = "МУЛботом",
+		PREPOSITIONAL = "МУЛботе",
+	)
+	
 
 /mob/living/simple_animal/bot/mulebot/Initialize(mapload)
 	. = ..()
@@ -249,15 +251,15 @@
 		. += load_overlay
 
 
-/mob/living/simple_animal/bot/mulebot/ex_act(severity)
+/mob/living/simple_animal/bot/mulebot/ex_act(severity, target)
 	unload(0)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			qdel(src)
-		if(2)
-			for(var/i = 1; i < 3; i++)
-				wires.cut_random()
-		if(3)
+		if(EXPLODE_HEAVY)
+			wires.cut_random()
+			wires.cut_random()
+		if(EXPLODE_LIGHT)
 			wires.cut_random()
 
 
@@ -716,7 +718,7 @@
 			loaddir = dir //The MULE will attempt to load a crate in whatever direction the MULE is "facing".
 			if(calling_ai)
 				to_chat(calling_ai, "<span class='notice'>[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] удалённо проигрывает звук звонка!</span>")
-				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
+				playsound(calling_ai, 'sound/machines/chime.ogg',40, FALSE)
 				calling_ai = null
 				radio_channel = AI_FREQ_NAME //Report on AI Private instead if the AI is controlling us.
 
@@ -960,10 +962,10 @@
 		cell.update_icon()
 		cell = null
 
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 	new /obj/effect/decal/cleanable/blood/oil(loc)
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/bot/mulebot/remove_air(amount) //To prevent riders suffocating

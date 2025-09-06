@@ -4,14 +4,6 @@
 /mob/living/simple_animal/bot/ed209
 	name = "ED-209 Security Robot"
 	desc = "Охранный робот. Он выглядит абсолютно спокойным."
-	ru_names = list(
-		NOMINATIVE = "охранный робот ED-209",
-		GENITIVE = "охранного робота ED-209",
-		DATIVE = "охранному роботу ED-209",
-		ACCUSATIVE = "охранного робота ED-209",
-		INSTRUMENTAL = "охранным роботом ED-209",
-		PREPOSITIONAL = "охранном роботе ED-209",
-	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed2090"
 	density = TRUE
@@ -66,6 +58,15 @@
 	var/baton_delayed = FALSE
 	var/speak_cooldown = FALSE
 
+/mob/living/simple_animal/bot/ed209/get_ru_names()
+	return list(
+		NOMINATIVE = "охранный робот ED-209",
+		GENITIVE = "охранного робота ED-209",
+		DATIVE = "охранному роботу ED-209",
+		ACCUSATIVE = "охранного робота ED-209",
+		INSTRUMENTAL = "охранным роботом ED-209",
+		PREPOSITIONAL = "охранном роботе ED-209",
+	)
 
 /mob/living/simple_animal/bot/ed209/Initialize(mapload, created_name, created_lasercolor)
 	. = ..()
@@ -328,7 +329,7 @@
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
+			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= target.get_max_stamina())
 				back_to_hunt()
 				return
 
@@ -355,7 +356,7 @@
 				back_to_idle()
 				return
 
-			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
+			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= target.get_max_stamina())) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
 			else
@@ -465,10 +466,10 @@
 			if(lasercolor == "r")
 				new /obj/item/clothing/suit/redtag(Tsec)
 
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 	new /obj/effect/decal/cleanable/blood/oil(loc)
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
@@ -645,7 +646,7 @@
 
 /mob/living/simple_animal/bot/ed209/proc/start_cuffing(mob/living/carbon/C)
 	mode = BOT_ARREST
-	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает надевать стяжки на [C]!"),
 					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пытается надеть на вас стяжки!"))
 	addtimer(CALLBACK(src, PROC_REF(cuff_callback), C), 6 SECONDS)

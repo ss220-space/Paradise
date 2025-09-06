@@ -298,6 +298,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/Destroy()
 	QDEL_NULL(action)
 	QDEL_NULL(cooldown_handler)
+	QDEL_NULL(custom_handler)
+	targeting = null
 	return ..()
 
 
@@ -498,7 +500,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			to_chat(target, text("[message]"))
 
 		if(sparks_spread)
-			do_sparks(sparks_amt, 0, location)
+			do_sparks(sparks_amt, FALSE, location)
 
 		if(smoke_type)
 			var/datum/effect_system/fluid_spread/smoke/smoke

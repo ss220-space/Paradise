@@ -100,7 +100,7 @@
 	..()
 
 /obj/item/storage/funeral_urn/Destroy()
-	playsound(src, "shatter", 70, 1)
+	playsound(src, SFX_SHATTER, 70, TRUE)
 	for(var/obj/O in contents)
 		if(istype(O,/obj/item/ash_holder))
 			var/obj/effect/decal/cleanable/ash/return_ash = new(get_turf(src))
@@ -214,6 +214,7 @@
 	name = "Философия смерти"
 	desc = "Эта книга переплетена вручную и украшена по краям позолотой. Видно, что ее создатель не сомневался в ее важности."
 	icon_state = "demonomicon"
+	item_state = "demonomicon"
 	author = "Немрис Мудрый"
 	title = "Философия смерти"
 	unique = TRUE

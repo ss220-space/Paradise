@@ -19,7 +19,7 @@
 	max_integrity = 100
 
 /obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BRUTE)
 				damage_amount *= ALIEN_RESIN_BRUTE_MOD
@@ -58,7 +58,10 @@
 	max_integrity = 200
 	smooth = SMOOTH_BITMASK
 
-/obj/structure/alien/resin/Initialize()
+/obj/structure/alien/resin/add_debris_element()
+	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+
+/obj/structure/alien/resin/Initialize(mapload)
 	air_update_turf(1)
 	. = ..()
 
@@ -123,7 +126,7 @@
 				damage = max_integrity/ALIEN_RESIN_BRUTE_MOD
 			else
 				return ..()
-		if(attack_generic(A, damage, BRUTE, "melee", 0, 100))
+		if(attack_generic(A, damage, BRUTE, MELEE, 0, 100))
 			playsound(loc, 'sound/effects/attackblob.ogg', 50, TRUE)
 
 
@@ -152,7 +155,7 @@
 	var/autoclose_delay = 10 SECONDS
 
 
-/obj/structure/alien/resin/door/Initialize()
+/obj/structure/alien/resin/door/Initialize(mapload)
 	. = ..()
 	update_freelook_sight()
 
@@ -438,8 +441,8 @@
 	var/node_range = NODERANGE
 
 
-/obj/structure/alien/weeds/node/New()
-	..(loc, src)
+/obj/structure/alien/weeds/node/Initialize(mapload)
+	return ..(loc, src)
 
 /obj/structure/alien/weeds/attack_alien(mob/living/carbon/alien/humanoid/A)
 	if(A.a_intent == INTENT_HARM)

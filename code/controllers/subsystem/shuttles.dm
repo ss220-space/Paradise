@@ -192,7 +192,7 @@ SUBSYSTEM_DEF(shuttle)
 		return
 
 	var/area/signal_origin = get_area(user)
-	var/emergency_reason = "\nПричина вызова шаттла:\n\n[call_reason]"
+	var/emergency_reason = "\n\nПричина вызова шаттла:\n[call_reason]"
 	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		var/extra_minutes = 0
 		var/priority_time = emergencyCallTime * 0.5
@@ -510,7 +510,7 @@ SUBSYSTEM_DEF(shuttle)
 	SSshuttle.initial_load()
 
 	log_and_message_admins(span_notice("[key_name(usr)] re-registered docking ports for SSshuttle."))
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-register Docking Ports") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Re-register Docking Ports")
 
 
 #undef CALL_SHUTTLE_REASON_LENGTH

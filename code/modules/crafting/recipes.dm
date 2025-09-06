@@ -247,23 +247,13 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/dragonsbreath
-	name = "Dragonsbreath Shell"
-	result = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
-	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
-				/datum/reagent/phosphorus = 5,)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
 /datum/crafting_recipe/frag12
 	name = "FRAG-12 Shell"
 	result = /obj/item/ammo_casing/shotgun/frag12
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
-				/datum/reagent/glycerol = 5,
-				/datum/reagent/acid = 5,
-				/datum/reagent/acid/facid = 5,)
+				/datum/reagent/glycerol = 15,
+				/datum/reagent/acid = 15,
+				/datum/reagent/acid/facid = 15,)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
@@ -352,7 +342,7 @@
 
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
-	result = /obj/item/twohanded/required/chainsaw
+	result = /obj/item/twohanded/chainsaw_handmade
 	reqs = list(/obj/item/circular_saw = 1,
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/stack/sheet/plasteel = 1)

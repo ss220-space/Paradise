@@ -1,20 +1,12 @@
 /mob/living/simple_animal/possessed_object
 	name = "possessed doodad"
-	ru_names = list(
-		NOMINATIVE = "одержимая штука",
-		GENITIVE = "одержимой штуки",
-		DATIVE = "одержимой штуке",
-		ACCUSATIVE = "одержимую штуку",
-		INSTRUMENTAL = "одержимой штукой",
-		PREPOSITIONAL = "одержимой штуке"
-	)
 	var/spirit_name = "mysterious force" // What we call ourselves in attack messages.
 	health = 50
 	maxHealth = 50
 
-	pass_flags = PASSTABLE 	// Floating past tables is pretty damn spooky.
-	status_flags = null 	// No canpush to prevent grabs ...
-	density = FALSE 			//  ... But a density of 0 means we won't be blocking anyone's way.
+	pass_flags = PASSTABLE	// Floating past tables is pretty damn spooky.
+	status_flags = null	// No canpush to prevent grabs ...
+	density = FALSE			//  ... But a density of 0 means we won't be blocking anyone's way.
 	healable = 0			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
 	wander = 0				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
 
@@ -30,6 +22,16 @@
 	var/escape_chance = 10
 	/// What is the actual item we are "possessing"
 	var/obj/item/possessed_item
+
+/mob/living/simple_animal/possessed_object/get_ru_names()
+	return list(
+		NOMINATIVE = "одержимая штука",
+		GENITIVE = "одержимой штуки",
+		DATIVE = "одержимой штуке",
+		ACCUSATIVE = "одержимую штуку",
+		INSTRUMENTAL = "одержимой штукой",
+		PREPOSITIONAL = "одержимой штуке"
+	)
 
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)

@@ -15,7 +15,7 @@
 	icon_state = "warden"
 	item_state = "r_suit"
 	item_color = "warden"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/warden/skirt
@@ -39,8 +39,7 @@
 	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for robust protection."
 	icon_state = "security"
 	item_state = "r_suit"
-	item_color = "secred"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/security/sensor
@@ -49,32 +48,31 @@
 
 /obj/item/clothing/under/rank/security/cadet
 	name = "security cadet jumpsuit"
-	icon_state = "cadet_s"
+	icon_state = "cadet"
 	item_color = "cadet"
 
 /obj/item/clothing/under/rank/security/cadet/skirt
 	name = "security cadet jumpskirt"
-	icon_state = "cadetf_s"
+	icon_state = "cadetf"
 	item_color = "cadetf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/security/cadet/assistant
 	name = "security assistant jumpsuit"
-	icon_state = "sec_ass_s"
+	icon_state = "sec_ass"
 	item_color = "sec_ass"
 
 /obj/item/clothing/under/rank/security/cadet/assistant/skirt
 	name = "security assistant jumpskirt"
-	icon_state = "sec_ass_f_s"
+	icon_state = "sec_ass_f"
 	item_color = "sec_ass_f"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/security/skirt
 	name = "security officer's jumpskirt"
 	desc = "Standard feminine fashion for Security Officers.  It's made of sturdier material than the standard jumpskirts."
-	icon_state = "secredf"
+	icon_state = "securityf"
 	item_state = "r_suit"
-	item_color = "secredf"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
@@ -92,7 +90,7 @@
 	icon_state = "dispatch"
 	item_state = "dispatch"
 	item_color = "dispatch"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/rank/security2
 	name = "security officer's uniform"
@@ -100,7 +98,7 @@
 	icon_state = "redshirt2"
 	item_state = "r_suit"
 	item_color = "redshirt2"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/rank/security/corp
 	icon_state = "sec_corporate"
@@ -120,8 +118,7 @@
 	desc = "Someone who wears this means business."
 	icon_state = "detective"
 	item_state = "det"
-	item_color = "detective"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	strip_delay = 50
 
 	sprite_sheets = list(
@@ -171,13 +168,11 @@
 	)
 
 /obj/item/clothing/under/det/alt_a
-	icon_state = "detective_suit"
-	item_color = "detectives_suit_grey"
+	icon_state = "detective_suit_grey"
 
 /obj/item/clothing/under/det/alt_a/skirt
 	name = "hard-worn skirt"
-	icon_state = "detectives_skirt_grey"
-	item_color = "detectives_skirt_grey"
+	icon_state = "detective_skirt_grey"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
@@ -202,16 +197,14 @@
 	name = "head of security's jumpsuit"
 	icon_state = "hos"
 	item_state = "r_suit"
-	item_color = "hosred"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/under/rank/head_of_security/skirt
 	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
 	name = "head of security's jumpskirt"
-	icon_state = "hosredf"
+	icon_state = "hosf"
 	item_state = "r_suit"
-	item_color = "hosredf"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',

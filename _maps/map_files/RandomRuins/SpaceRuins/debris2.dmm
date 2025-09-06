@@ -26,7 +26,6 @@
 /area/space)
 "o" = (
 /obj/machinery/door/airlock/command{
-	max_integrity = 40
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)

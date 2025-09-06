@@ -59,7 +59,6 @@
 /// Checks whether the item was upgraded with a speed potion
 #define SPEEDPOTION_APPLIED (1<<17)
 
-
 // Flags for the clothing_flags var on /obj/item/clothing
 
 /// Prevents usage of syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag

@@ -27,14 +27,6 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus
 	name = "colossus"
 	desc = "Чудовищное существо, защищённое тяжёлой бронёй."
-	ru_names = list(
-		NOMINATIVE = "Колосс",
-		GENITIVE = "Колосса",
-		DATIVE = "Колоссу",
-		ACCUSATIVE = "Колосса",
-		INSTRUMENTAL = "Колоссом",
-		PREPOSITIONAL = "Колоссе"
-	)
 	health = 2500
 	maxHealth = 2500
 	attacktext = "осуждает"
@@ -57,7 +49,6 @@ Difficulty: Very Hard
 	del_on_death = TRUE
 	universal_speak = TRUE
 	tts_seed = null
-	internal_type = /obj/item/gps/internal/colossus
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
@@ -71,6 +62,16 @@ Difficulty: Very Hard
 							   /datum/action/innate/megafauna_attack/alternating_cardinals)
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
+
+/mob/living/simple_animal/hostile/megafauna/colossus/get_ru_names()
+	return list(
+		NOMINATIVE = "Колосс",
+		GENITIVE = "Колосса",
+		DATIVE = "Колоссу",
+		ACCUSATIVE = "Колосса",
+		INSTRUMENTAL = "Колоссом",
+		PREPOSITIONAL = "Колоссе"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
 	. = ..()
@@ -256,7 +257,7 @@ Difficulty: Very Hard
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))
-	var/angle_to_target = Get_Angle(src, target_turf)
+	var/angle_to_target = get_angle(src, target_turf)
 	if(isnum(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
@@ -349,14 +350,6 @@ Difficulty: Very Hard
 
 /obj/projectile/colossus
 	name = "смертоносный заряд"
-	ru_names = list(
-		NOMINATIVE = "смертоносный заряд",
-		GENITIVE = "смертоносного заряда",
-		DATIVE = "смертоносному заряду",
-		ACCUSATIVE = "смертоносный заряд",
-		INSTRUMENTAL = "смертоносным зарядом",
-		PREPOSITIONAL = "смертоносном заряде"
-	)
 	icon_state= "chronobolt"
 	damage = 25
 	armour_penetration = 100
@@ -365,16 +358,20 @@ Difficulty: Very Hard
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
 
+/obj/projectile/colossus/get_ru_names()
+	return list(
+		NOMINATIVE = "смертоносный заряд",
+		GENITIVE = "смертоносного заряда",
+		DATIVE = "смертоносному заряду",
+		ACCUSATIVE = "смертоносный заряд",
+		INSTRUMENTAL = "смертоносным зарядом",
+		PREPOSITIONAL = "смертоносном заряде"
+	)
+
 /obj/projectile/colossus/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(isturf(target) || isobj(target))
-		target.ex_act(2)
-
-/obj/item/gps/internal/colossus
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "Get in the fucking robot."
-	invisibility = INVISIBILITY_ABSTRACT
+		target.ex_act(EXPLODE_HEAVY)
 
 #undef RANDOM_SHOTS
 #undef BLAST

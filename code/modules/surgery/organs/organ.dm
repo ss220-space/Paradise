@@ -314,7 +314,7 @@
 
 
 //Adds autopsy data for used_weapon.
-/obj/item/organ/proc/add_autopsy_data(used_weapon = "Неизвестно", damage)
+/obj/item/organ/proc/add_autopsy_data(used_weapon = UNKNOWN_STATUS_RUS, damage)
 	LAZYINITLIST(autopsy_data)
 
 	var/datum/autopsy_data/weapon_data = autopsy_data[used_weapon]
@@ -447,7 +447,7 @@
 		status = data["status"]
 	if(islist(data["dna"]))
 		// The only thing the official proc does is
-	 	//instantiate the list and call this proc
+		//instantiate the list and call this proc
 		dna.deserialize(data["dna"])
 		..()
 

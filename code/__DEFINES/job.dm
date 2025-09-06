@@ -57,6 +57,7 @@
 #define JOB_FLAG_CIVILIAN			(1<<13)
 #define JOB_FLAG_EXPLORER			(1<<14)
 #define JOB_FLAG_MINING_MEDIC		(1<<15)
+#define JOB_FLAG_PRISONER			(1<<16)
 
 #define JOBCAT_KARMA				(1<<3) // DELETE THIS SHIT!!!
 
@@ -76,6 +77,7 @@
 
 // Assistant
 #define JOB_TITLE_CIVILIAN				"Civilian"
+#define JOB_TITLE_PRISONER				"Prisoner"
 
 // Command (Solo command, not department heads)
 #define JOB_TITLE_CAPTAIN				"Captain"
@@ -164,11 +166,20 @@
 #define CYBORG							"Cyborg"
 
 #define TAIPAN_HUD_SCIENTIST	1
-#define TAIPAN_HUD_MEDIC 		2
+#define TAIPAN_HUD_MEDIC		2
 #define TAIPAN_HUD_BOTANIST		3
 #define TAIPAN_HUD_CARGO		4
 #define TAIPAN_HUD_CHEF			5
 #define TAIPAN_HUD_ENGINEER		6
-#define TAIPAN_HUD_COMMS 		7
+#define TAIPAN_HUD_COMMS		7
 #define TAIPAN_HUD_RD			8
 #define TAIPAN_HUD_CYBORG		9
+
+
+/// MARK: Job lists
+
+GLOBAL_LIST_INIT(ai_death_alarm_jobs, list(
+	JOB_TITLE_CAPTAIN,
+	JOB_TITLE_CHIEF,
+	JOB_TITLE_RD,
+))

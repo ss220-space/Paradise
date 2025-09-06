@@ -49,12 +49,13 @@ Notes:
 
 
 /datum/tooltip/proc/show(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
-	if(!thing || !params || (!title && !content) || !owner || !isnum(world.icon_size))
-		return 0
+	if(!thing || !params || (!title && !content) || !owner || !isnum(ICON_SIZE_ALL))
+		return FALSE
+
 	if(!init)
 		//Initialize some vars
 		init = 1
-		owner << output(list2params(list(world.icon_size, control)), "[control]:tooltip.init")
+		owner << output(list2params(list(ICON_SIZE_ALL, control)), "[control]:tooltip.init")
 
 	showing = 1
 
@@ -78,7 +79,7 @@ Notes:
 	if(queueHide)
 		hide()
 
-	return 1
+	return TRUE
 
 
 /datum/tooltip/proc/hide()
@@ -88,9 +89,9 @@ Notes:
 	else
 		winshow(owner, control, 0)
 
-	queueHide = showing ? 1 : 0
+	queueHide = showing ? TRUE : FALSE
 
-	return 1
+	return TRUE
 
 
 /* TG SPECIFIC CODE */
@@ -101,11 +102,14 @@ Notes:
 //Includes sanity.checks
 /proc/openToolTip(mob/user = null, atom/movable/tip_src = null, params = null, title = "", content = "", theme = "")
 	if(istype(user))
-		if(user.client && user.client.tooltips)
+		if(user.client && user.client.tooltips && (user.client.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS))
 			if(!theme && user.client.prefs && user.client.prefs.UI_style)
 				theme = lowertext(user.client.prefs.UI_style)
 			if(!theme)
 				theme = "default"
+			// Strip macros from item names
+			title = replacetext(title, "\proper", "")
+			title = replacetext(title, "\improper", "")
 			user.client.tooltips.show(tip_src, params, title, content, theme)
 
 

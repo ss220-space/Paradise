@@ -10,7 +10,11 @@
 	speak_emote = list("квакает", "куакает", "квуакает")
 	emote_hear = list("квакает", "куакает", "квуакает")
 	emote_see = list("расслаблено лежит", "издаёт гортанные звуки", "лупает глазками")
-	var/scream_sound = list ('sound/creatures/frog_scream_1.ogg','sound/creatures/frog_scream_2.ogg','sound/creatures/frog_scream_3.ogg')
+	var/scream_sound = list(
+		'sound/creatures/frog_scream_1.ogg',
+		'sound/creatures/frog_scream_2.ogg',
+		'sound/creatures/frog_scream_3.ogg'
+	)
 	talk_sound = list('sound/creatures/frog_talk1.ogg', 'sound/creatures/frog_talk2.ogg')
 	damaged_sound = list('sound/creatures/frog_damaged.ogg')
 	death_sound = 'sound/creatures/frog_death.ogg'
@@ -119,7 +123,11 @@
 	name = "орущая лягушка"
 	real_name = "орущая лягушка"
 	desc = "Не любит когда на неё наступают. Используется в качестве наказания за проступки"
-	var/squeak_sound = list ('sound/creatures/frog_scream1.ogg','sound/creatures/frog_scream2.ogg')
+	var/squeak_sound = list(
+		'sound/creatures/frog_scream_1.ogg',
+		'sound/creatures/frog_scream_2.ogg',
+		'sound/creatures/frog_scream_3.ogg'
+	)
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/frog/scream/Initialize(mapload)
@@ -127,7 +135,11 @@
 	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, dead_check = TRUE) //as quiet as a frog or whatever
 
 /mob/living/simple_animal/frog/toxic/scream
-	var/squeak_sound = list ('sound/creatures/frog_scream1.ogg','sound/creatures/frog_scream2.ogg')
+	var/squeak_sound = list(
+		'sound/creatures/frog_scream_1.ogg',
+		'sound/creatures/frog_scream_2.ogg',
+		'sound/creatures/frog_scream_3.ogg'
+	)
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/frog/toxic/scream/Initialize(mapload)
@@ -144,7 +156,7 @@
 	real_name = "Маппер"
 	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0)
 	butcher_results = list(/obj/item/areaeditor/blueprints=1)
-	damage_coeff = list("brute"=0,"fire"=0,"tox"=0,"clone"=0,"stamina"=0,"oxy"=0)
+	damage_coeff = list(BRUTE = 0, FIRE = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	death_sound = 'sound/creatures/mapper_death.ogg'
 	desc = "Окупировавшая один из офисов на Центральном командовании лягушка. Постоянно кричит что-то в монитор."
 	emote_hear = list("МГРЛЬК","МРГЛ","УААМРГЛ")

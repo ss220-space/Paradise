@@ -24,7 +24,7 @@
 	embed_chance = 5
 	embedded_ignore_throwspeed_threshold = TRUE
 	toolspeed = 1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
 
@@ -100,7 +100,7 @@
 		var/obj/item/organ/external/head/head = H.bodyparts_by_name[BODY_ZONE_HEAD]
 		if(head)
 			head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
-			playsound(loc, "desceration" ,50, TRUE, -1)
+			playsound(loc, SFX_DESECRATION, 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/wirecutters/power/attack_self(mob/user)

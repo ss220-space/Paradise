@@ -161,7 +161,7 @@
 	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 		return
 	clear_holosign()
-	playsound(src, 'sound/machines/click.ogg', 20, 1)
+	playsound(src, 'sound/machines/click.ogg', 20, TRUE)
 	sign = new holosign_type(get_turf(target), src)
 	update_icon()
 	to_chat(user, "<span class='notice'>You create [sign.name] with [src].</span>")
@@ -169,14 +169,6 @@
 /obj/structure/holosoap
 	name = "holographic soap"
 	desc = "Настоящее мыло, только не настоящее."
-	ru_names = list(
-		NOMINATIVE = "голографическое мыло",
-		GENITIVE = "голографического мыла",
-		DATIVE = "голографическому мылу",
-		ACCUSATIVE = "голографическое мыло",
-		INSTRUMENTAL = "голографическим мылом",
-		PREPOSITIONAL = "голографическом мыле"
-	)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "holo_soap"
 	density = FALSE
@@ -186,6 +178,16 @@
 	max_integrity = 1
 
 	var/obj/item/signmaker/projector = null
+
+/obj/structure/holosoap/get_ru_names()
+	return list(
+		NOMINATIVE = "голографическое мыло",
+		GENITIVE = "голографического мыла",
+		DATIVE = "голографическому мылу",
+		ACCUSATIVE = "голографическое мыло",
+		INSTRUMENTAL = "голографическим мылом",
+		PREPOSITIONAL = "голографическом мыле"
+	)
 
 
 /obj/structure/holosoap/Initialize(mapload, new_projector)
@@ -226,7 +228,7 @@
 		return
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	take_damage(5 , BRUTE, "melee", 1)
+	take_damage(5 , BRUTE, MELEE, 1)
 
 /obj/structure/holosoap/holosoap_emagged
 	name = "solid holographic soap"

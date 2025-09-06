@@ -1,13 +1,5 @@
 /obj/item/gun/syringe/rapidsyringe/experimental
 	name = "experimental syringe gun"
-	ru_names = list(
-		NOMINATIVE = "экспериментальный шприцемёт", \
-		GENITIVE = "экспериментального шприцемёта", \
-		DATIVE = "экспериментальному шприцемёту", \
-		ACCUSATIVE = "экспериментальный шприцемёт", \
-		INSTRUMENTAL = "экспериментальным шприцемётом", \
-		PREPOSITIONAL = "экспериментальном шприцемёте"
-	)
 	desc = "Экспериментальный шприцемёт с 6 слотами для шприцев, со встроенным, самовосполняющимся хранилищем \
 			химикатов и новейшей системой автозаправки шприцев. Для смены синтезируемых химикатов залейте новую \
 			смесь внутрь. Не может синтезировать некоторые, особенно сложные вещества."
@@ -31,7 +23,17 @@
 	/// Inserted vortex anomaly core.
 	var/obj/item/assembly/signaler/core/vortex/core = null
 
-/obj/item/gun/syringe/rapidsyringe/experimental/Initialize()
+/obj/item/gun/syringe/rapidsyringe/experimental/get_ru_names()
+	return list(
+		NOMINATIVE = "экспериментальный шприцемёт", \
+		GENITIVE = "экспериментального шприцемёта", \
+		DATIVE = "экспериментальному шприцемёту", \
+		ACCUSATIVE = "экспериментальный шприцемёт", \
+		INSTRUMENTAL = "экспериментальным шприцемётом", \
+		PREPOSITIONAL = "экспериментальном шприцемёте"
+	)
+
+/obj/item/gun/syringe/rapidsyringe/experimental/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 

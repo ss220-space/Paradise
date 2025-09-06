@@ -1,6 +1,6 @@
 /* Parrots!
  * Contains
- * 		Defines
+ *		Defines
  *		Inventory (headset stuff)
  *		Attack responces
  *		AI
@@ -14,28 +14,20 @@
 
 //Only a maximum of one action and one intent should be active at any given time.
 //Actions
-#define PARROT_PERCH 	1		//Sitting/sleeping, not moving
-#define PARROT_SWOOP 	2		//Moving towards or away from a target
-#define PARROT_WANDER 	4		//Moving without a specific target in mind
+#define PARROT_PERCH	1		//Sitting/sleeping, not moving
+#define PARROT_SWOOP	2		//Moving towards or away from a target
+#define PARROT_WANDER	4		//Moving without a specific target in mind
 
 //Intents
-#define PARROT_STEAL 	8		//Flying towards a target to steal it/from it
-#define PARROT_ATTACK 	16		//Flying towards a target to attack it
-#define PARROT_RETURN 	32		//Flying towards its perch
-#define PARROT_FLEE 	64		//Flying away from its attacker
+#define PARROT_STEAL	8		//Flying towards a target to steal it/from it
+#define PARROT_ATTACK	16		//Flying towards a target to attack it
+#define PARROT_RETURN	32		//Flying towards its perch
+#define PARROT_FLEE	64		//Flying away from its attacker
 
 
 /mob/living/simple_animal/parrot
 	name = "parrot"
 	desc = "Попугай пронзительно кричит: \"Это попугай! БВАХ-бах!\""
-	ru_names = list(
-		NOMINATIVE = "попугай",
-		GENITIVE = "попугая",
-		DATIVE = "попугаю",
-		ACCUSATIVE = "попугая",
-		INSTRUMENTAL = "попугаем",
-		PREPOSITIONAL = "попугае"
-	)
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
 	icon_living = "parrot_fly"
@@ -100,6 +92,16 @@
 	var/obj/item/held_item = null
 	gold_core_spawnable = FRIENDLY_SPAWN
 
+/mob/living/simple_animal/parrot/get_ru_names()
+	return list(
+		NOMINATIVE = "попугай",
+		GENITIVE = "попугая",
+		DATIVE = "попугаю",
+		ACCUSATIVE = "попугая",
+		INSTRUMENTAL = "попугаем",
+		PREPOSITIONAL = "попугае"
+	)
+
 
 /mob/living/simple_animal/parrot/Initialize(mapload)
 	. = ..()
@@ -118,7 +120,7 @@
 			  /mob/living/simple_animal/parrot/verb/drop_held_item_player, \
 			  /mob/living/simple_animal/parrot/proc/perch_player)
 
-	desired_perches = typecacheof(list(/obj/structure/computerframe, 	/obj/structure/displaycase, \
+	desired_perches = typecacheof(list(/obj/structure/computerframe,	/obj/structure/displaycase, \
 									/obj/structure/filingcabinet,	/obj/machinery/teleport, \
 									/obj/machinery/suit_storage_unit,/obj/machinery/clonepod, \
 									/obj/machinery/dna_scannernew,	/obj/machinery/tcomms, \
@@ -478,7 +480,7 @@
 				var/mob/living/carbon/human/H = parrot_interest
 				var/obj/item/organ/external/affecting = H.get_organ(ran_zone(pick(parrot_dam_zone)))
 
-				H.apply_damage(damage, BRUTE, affecting, H.run_armor_check(affecting, "melee"), sharp = TRUE)
+				H.apply_damage(damage, BRUTE, affecting, H.run_armor_check(affecting, MELEE), sharp = TRUE)
 				custom_emote(EMOTE_VISIBLE, pick("клюёт [H.declent_ru(ACCUSATIVE)] в [affecting.declent_ru(ACCUSATIVE)].", "царапает [H.declent_ru(ACCUSATIVE)] когтями."))
 			else
 				L.adjustBruteLoss(damage)

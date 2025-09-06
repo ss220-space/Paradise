@@ -15,7 +15,7 @@
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
-	light_color = LIGHT_COLOR_LIGHTBLUE
+	light_color = LIGHT_COLOR_BLUE
 	tts_seed = "Livsy"
 	token_price = 10
 	/// Livsy says after win
@@ -53,7 +53,7 @@
 	var/generation_bombs = MINESWEEPER_BOMBS
 	var/ui_width = MINESWEEPER_WIDTH
 
-/obj/machinery/arcade/minesweeper/New()
+/obj/machinery/arcade/minesweeper/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	component_parts = list()
@@ -220,7 +220,7 @@
 		var/emag_prize = pick(emag_prizes)
 		new emag_prize(get_turf(src))
 	speak(pick(win_phrases))
-	playsound(loc, 'sound/machines/ping.ogg', 20, 1)
+	playsound(loc, 'sound/machines/ping.ogg', 20, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)
 
 /obj/machinery/arcade/minesweeper/proc/on_loose(mob/user)

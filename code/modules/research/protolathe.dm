@@ -30,8 +30,8 @@ Note: Must be placed west/left of and R&D console to function.
 	reagents = new()
 
 
-/obj/machinery/r_n_d/protolathe/New()
-	..()
+/obj/machinery/r_n_d/protolathe/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/protolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -46,8 +46,8 @@ Note: Must be placed west/left of and R&D console to function.
 		base_icon_state = "syndie_protolathe"
 	reagents.my_atom = src
 
-/obj/machinery/r_n_d/protolathe/upgraded/New()
-	..()
+/obj/machinery/r_n_d/protolathe/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/protolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)

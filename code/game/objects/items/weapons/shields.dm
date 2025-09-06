@@ -1,7 +1,7 @@
 /obj/item/shield
 	name = "shield"
 	block_chance = 50
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 	obj_integrity = 380
 	max_integrity = 380
 
@@ -85,14 +85,6 @@
 /obj/item/shield/riot/goliath
 	name = "goliath shield"
 	desc = "Щит, сплетённый из пластин шкуры голиафа."
-	ru_names = list(
-		NOMINATIVE = "щит из пластин голиафа",
-		GENITIVE = "щита из пластин голиафа",
-		DATIVE = "щиту из пластин голиафа",
-		ACCUSATIVE = "щит из пластин голиафа",
-		INSTRUMENTAL = "щитом из пластин голиафа",
-		PREPOSITIONAL = "щите из пластин голиафа"
-	)
 	icon_state = "goliath_shield"
 	item_state = "goliath_shield"
 	materials = list()
@@ -100,6 +92,16 @@
 	block_chance = 45
 	obj_integrity = 380
 	max_integrity = 380
+
+/obj/item/shield/riot/goliath/get_ru_names()
+	return list(
+		NOMINATIVE = "щит из пластин голиафа",
+		GENITIVE = "щита из пластин голиафа",
+		DATIVE = "щиту из пластин голиафа",
+		ACCUSATIVE = "щит из пластин голиафа",
+		INSTRUMENTAL = "щитом из пластин голиафа",
+		PREPOSITIONAL = "щите из пластин голиафа"
+	)
 
 /obj/item/shield/energy
 	name = "energy combat shield"
@@ -139,7 +141,7 @@
 		throw_speed = 2
 		update_icon()
 		w_class = WEIGHT_CLASS_BULKY
-		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 35, TRUE)
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
 		force = 3
@@ -147,7 +149,7 @@
 		throw_speed = 3
 		update_icon()
 		w_class = WEIGHT_CLASS_TINY
-		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 35, TRUE)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
