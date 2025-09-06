@@ -143,7 +143,7 @@
 	if(!user.is_literate())
 		to_chat(user, "<span class='notice'>You don't know how to read.</span>")
 		return
-	var/n_name = rename_interactive(user, use_prefix = FALSE)
+	var/n_name = rename_interactive(user)
 	if(isnull(n_name))
 		return
 	if(n_name != "")
