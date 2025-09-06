@@ -39,9 +39,7 @@
 		add_to_alive_mob_list()
 	set_focus(src)
 	prepare_huds()
-	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
-		alt_hud.apply_to_new_mob(src)
-
+	update_seeable_alt_appearances()
 	. = ..()
 	update_config_movespeed()
 	update_movespeed()

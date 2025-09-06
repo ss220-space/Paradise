@@ -320,3 +320,11 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		return TRUE
 
 	return FALSE
+
+
+/mob/proc/update_seeable_alt_appearances()
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		if(alt_hud.apply_to_new_mob(src))
+			continue
+
+		alt_hud.remove_hud_from(src)

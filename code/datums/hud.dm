@@ -161,6 +161,8 @@ GLOBAL_LIST_INIT(huds, list( \
 				var/datum/atom_hud/my_hud = GLOB.huds[implant.HUDType]
 				my_hud?.add_hud_to(src, only_once=TRUE)
 
+	update_seeable_alt_appearances()
+
 
 /mob/new_player/reload_huds()
 	return

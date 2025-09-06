@@ -92,6 +92,7 @@
 		/obj/machinery/alarm,
 		/obj/structure/window,
 		/obj/structure/grille,
+		/obj/structure/sign/poster,
 	))
 	/// Cached list of allowed typecaches for each type in dreams_what_you_can_see
 	var/static/list/dreams_allowed_typecaches_by_root_type = null
