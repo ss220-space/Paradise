@@ -1066,21 +1066,26 @@ BLIND     // can't see anything
 	return ..()
 
 
-/obj/item/clothing/suit/space/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
+/obj/item/clothing/suit/space/screwdriver_act(mob/user, obj/item/item)
+	if(jetpack && try_remove_jetack(user, item))
+		return TRUE
+	. = ..()
+
+/obj/item/clothing/suit/space/proc/try_remove_jetack(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
+		return FALSE
 	if(!jetpack)
 		to_chat(user, span_warning("[src] has no jetpack installed."))
-		return
+		return FALSE
 	if(src == user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER))
 		to_chat(user, span_warning("You cannot remove the jetpack from [src] while wearing it."))
-		return
+		return FALSE
 	jetpack.turn_off(user)
 	jetpack.our_suit = null
 	jetpack.forceMove(drop_location())
 	jetpack = null
 	to_chat(user, span_notice("You successfully remove the jetpack from [src]."))
+	return TRUE
 
 
 /obj/item/clothing/suit/space/equipped(mob/user, slot, initial = FALSE)
