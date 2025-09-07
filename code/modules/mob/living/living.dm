@@ -627,7 +627,7 @@
 /mob/living/ex_act(severity, target)
 	if(HAS_TRAIT(src, TRAIT_BOMBIMMUNE))
 		return FALSE
-    
+
 	. = ..()
 	flash_eyes()
 
@@ -882,8 +882,11 @@
 	SetKnockdown(0)
 	SetImmobilized(0)
 	SetSleeping(0)
-	setStaminaLoss(0)
 	SetSlowed(0)
+	if(!ishuman(src))
+		return
+
+	setStaminaLoss(0)
 
 /mob/living/proc/UpdateDamageIcon()
 	return
@@ -1493,7 +1496,7 @@
 /mob/living/proc/harvest(mob/living/user)
 	if(QDELETED(src) || !butcher_results)
 		return
-		
+
 	for(var/path in butcher_results)
 		for(var/i in 1 to butcher_results[path])
 			new path(loc)
