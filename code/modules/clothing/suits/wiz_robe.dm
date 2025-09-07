@@ -4,13 +4,14 @@
 	icon_state = "wizard"
 	gas_transfer_coefficient = 0.01 // IT'S MAGICAL OKAY JEEZ +1 TO NOT DIE
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	//Not given any special protective value since the magic robes are full-body protection --NEO
 	strip_delay = 50
 	put_on_delay = 50
 	magical = TRUE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
+	armor_plate = /obj/item/armor_plate/medium_ceramic
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"

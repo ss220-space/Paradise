@@ -101,7 +101,7 @@
 	icon_state = "heavy"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat)
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 50, BIO = 90, RAD = 20, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 50, BIO = 90, RAD = 20, FIRE = 100, ACID = 100)
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -110,6 +110,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	on_start_armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer's beret"

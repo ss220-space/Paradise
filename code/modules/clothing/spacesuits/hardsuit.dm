@@ -81,7 +81,7 @@
 	icon_state = "hardsuit-engineering"
 	item_state = "eng_hardsuit"
 	max_integrity = 300
-	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 75, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 75, FIRE = 50, ACID = 75)
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 	siemens_coefficient = 0
 	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
@@ -690,7 +690,7 @@
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	icon_state = "hardsuit-sec"
 	item_state = "sec_hardsuit"
-	armor = list(MELEE = 45, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 100, RAD = 50, FIRE = 75, ACID = 75)
+	armor = list(MELEE = 45, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 50, FIRE = 75, ACID = 75)
 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM

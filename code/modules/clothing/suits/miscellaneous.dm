@@ -440,7 +440,7 @@
 	icon_state = "wintercoat_captain"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatcaptain"
-	armor = list(MELEE = 25, BULLET = 30, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
 
@@ -452,7 +452,7 @@
 	icon_state = "wintercoat_sec"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatsecurity"
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
 
@@ -565,20 +565,20 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatminer"
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
 
 /obj/item/clothing/head/hooded/winterhood/miner
 	icon_state = "winterhood_miner"
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/suit/hooded/wintercoat/hop
 	name = "head of personel winter coat"
 	icon_state = "wintercoat_hop"
 	item_state = "coathop"
-	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/hop
 
 /obj/item/clothing/head/hooded/winterhood/hop
@@ -734,7 +734,7 @@
 	icon_state = "leathercoat"
 	item_state = "leathercoat"
 	resistance_flags = FIRE_PROOF
-	armor = list(melee = 10, bullet = 5, laser = 10, energy = 15, bomb = 15, bio = 0, rad = 0, fire = 15, acid = 15)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 15, bomb = 15, bio = 0, rad = 0, fire = 15, acid = 15)
 
 /obj/item/clothing/suit/browncoat
 	name = "brown leather coat"
@@ -778,7 +778,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
-	armor = list(melee = 5, bullet = 5, laser = 10, energy = 10, bomb = 15, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 5, bullet = 0, laser = 0, energy = 10, bomb = 15, bio = 0, rad = 0, fire = 10, acid = 10)
 
 /obj/item/clothing/suit/storage/leather_trenchcoat/runner
 	name = "leather trenchcoat"
@@ -981,7 +981,9 @@
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	strip_delay = 60
 	put_on_delay = 40
-	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
+	armor = list(melee = 25, bullet = 0, laser = 0, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/kevlar
 	//End of inheritance from Security armour.
 
 /obj/item/clothing/suit/jacket/leather
@@ -992,7 +994,7 @@
 	actions_types = null
 	adjust_flavour = null
 	resistance_flags = NONE
-	armor = list(melee = 10, bullet = 5, laser = 10, energy = 15, bomb = 15, bio = 0, rad = 0, fire = 15, acid = 15)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 15, bomb = 15, bio = 0, rad = 0, fire = 15, acid = 15)
 
 /obj/item/clothing/suit/jacket/motojacket
 	name = "leather motorcycle jacket"
@@ -1014,7 +1016,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
-	armor = list(melee = 10, bullet = 5, laser = 10, energy = 15, bomb = 15, bio = 0, rad = 0, fire = 15, acid = 15)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 15, bomb = 15, bio = 0, rad = 0, fire = 15, acid = 15)
 
 /obj/item/clothing/suit/jacket/leather/overcoat
 	name = "leather overcoat"
@@ -1069,18 +1071,22 @@
 	icon_state = "sovietcoat"
 	item_state = "sovietcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(melee = 15, bullet = 15, laser = 15, energy = 5, bomb = 15, bio = 0, rad = 0, fire = 30, acid = 30)
+	armor = list(melee = 15, bullet = 0, laser = 0, energy = 5, bomb = 15, bio = 0, rad = 0, fire = 30, acid = 30)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/flashlight,/obj/item/gun/energy,/obj/item/gun/projectile,/obj/item/ammo_box)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/sovietcoat/officer
 	name = "Soviet officer's greatcoat"
 	desc = "A military overcoat made with expensive wool. The U.S.S.P armband means it must belong to someone important."
 	icon_state = "sovietofficercoat"
 	item_state = "sovietofficercoat"
-	armor = list(melee = 25, bullet = 25, laser = 25, energy = 10, bomb = 20, bio = 0, rad = 0, fire = 30, acid = 30)
+	armor = list(melee = 25, bullet = 0, laser = 0, energy = 10, bomb = 20, bio = 0, rad = 0, fire = 30, acid = 30)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/russiancoat
 	name = "russian coat"
@@ -1104,7 +1110,7 @@
 
 
 ///Advanced Protective Suit, AKA, God Mode in wearable form.
-
+//WARN: amdin only
 /obj/item/clothing/suit/advanced_protective_suit
 	name = "Advanced Protective Suit"
 	desc = "An incredibly advanced and complex suit; it has so many buttons and dials as to be incomprehensible."
@@ -1165,7 +1171,7 @@
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe
 	description_antag = "This robe is made of reinforced fibers, granting it superior protection. The robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn."
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list(melee = 10, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 15, fire = 30, acid = 30)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 15, fire = 30, acid = 30)
 	var/obj/item/nullrod/missionary_staff/linked_staff = null
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/Destroy()
@@ -1316,15 +1322,17 @@
 	desc = "Standard issue orange jacket manufactured by Suragi Kit. Extremely durable. This particular one unobtrusively makes you want to dance. How strange."
 	icon_state = "suragi_jacket_civ"
 	item_state = "suragi_jacket_civ"
-	armor = list(MELEE = 5, BULLET = 2, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/suit/storage/suragi_jacket/sec
 	name = "Security Suragi Jacket"
 	desc = "Standard issue black and red jacket manufactured by Suragi Kit. Extremely durable. Is that a blood stain?"
 	icon_state = "suragi_jacket_sec"
 	item_state = "suragi_jacket_sec"
-	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/storage/suragi_jacket/cargo
 	name = "Cargo Suragi Jacket"
@@ -1415,7 +1423,7 @@
 	desc = "Standard issue white and black jacket manufactured by Suragi Kit. Extremely durable. This one is particulary interesting. It seems that because of some bluespace anomaly pockets have switched places. Very fascinating and very useless effect."
 	icon_state = "suragi_jacket_scien"
 	item_state = "suragi_jacket_scien"
-	armor = list(MELEE = 1, BULLET = 1, LASER = 1, ENERGY = 1, BOMB = 1, BIO = 1, RAD = 1, FIRE = 1, ACID = 1)
+	armor = list(MELEE = 1, BULLET = 0, LASER = 0, ENERGY = 1, BOMB = 1, BIO = 1, RAD = 1, FIRE = 1, ACID = 1)
 	allowed = list(/obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
 
 /obj/item/clothing/suit/storage/suragi_jacket/janitor
@@ -1432,7 +1440,7 @@
 	desc = "Fascinating apparel for every self-respecting salesman. Composition: 95% polyester, 15% cotton, 5% ramen noodles, 456% profit."
 	icon_state = "mr_chang_coat"
 	item_state = "mr_chang_coat"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 12, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	allowed = list()
 	sprite_sheets = list(
@@ -1683,7 +1691,7 @@
 	)
 
 /obj/item/clothing/head/hooded/ghostface/true
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/devil
 	desc = "Чёрный с прожилками красного просторный балахон, что может навеивать смутные напоминания о чём-то."
@@ -1702,11 +1710,11 @@
 
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/true
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	hoodtype = /obj/item/clothing/head/hooded/ghostface/true
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/devil/true
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	hoodtype = /obj/item/clothing/head/hooded/ghostface/true
 
 /obj/item/clothing/suit/hooded/penguin_costume

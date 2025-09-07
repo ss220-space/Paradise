@@ -106,7 +106,7 @@
 	desc = "Прочный комбинезон, созданный для тайных операций в тылу врага. Благодаря кевларовым вставкам, он обеспечивает лёгкую защиту."
 	icon_state = "blackops"
 	item_state = "blackops"
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15,ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 10, ACID = 0)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 10, ACID = 0)
 
 /obj/item/clothing/under/syndicate/blackops/get_ru_names()
 	return list(

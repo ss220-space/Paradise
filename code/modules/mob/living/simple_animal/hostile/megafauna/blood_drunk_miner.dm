@@ -76,9 +76,11 @@ Difficulty: Medium
 /obj/item/clothing/suit/hooded/explorer/blood
 	name = "empowered explorer suit"
 	desc = "Бронированный костюм, созданный для исследования и работы в суровых условиях. Сладкая кровь, ох-х, как она поёт для тебя."
-	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 55, BULLET = 0, LASER = 0, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
 	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	on_start_armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/hooded/explorer/blood/get_ru_names()
 	return list(
@@ -93,7 +95,7 @@ Difficulty: Medium
 /obj/item/clothing/head/hooded/explorer/blood
 	name = "empowered explorer hood"
 	desc = "Бронированный капюшон, созданный для исследования и работы в суровых условиях. Сладкая кровь, ох-х, как она поёт для тебя."
-	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 55, BULLET = 0, LASER = 0, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/head/hooded/explorer/blood/get_ru_names()
 	return list(

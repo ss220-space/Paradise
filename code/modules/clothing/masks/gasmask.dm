@@ -83,7 +83,7 @@
 	desc = "Противогаз военного качества, который можно подключить к системе подачи воздуха."
 	icon_state = "gas_mining"
 	actions_types = list(/datum/action/item_action/adjust)
-	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	can_toggle = TRUE
 
@@ -114,7 +114,7 @@
 		INSTRUMENTAL = "противогазом исследователя",
 		PREPOSITIONAL = "противогазе исследователя"
 	)
-	
+
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
@@ -178,14 +178,14 @@
 	)
 
 /obj/item/clothing/mask/gas/plaguedoctor/armoured
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 5, BOMB = 0, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 
 /obj/item/clothing/mask/gas/swat
 	name = "SWAT mask"
 	desc = "Плотно прилегающая к коже тактическая маска, которую можно подключить к системе подачи воздуха."
 	gender = FEMALE
 	icon_state = "swat"
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 15, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 
 /obj/item/clothing/mask/gas/swat/get_ru_names()
 	return list(
@@ -202,7 +202,7 @@
 	desc = "Плотно прилегающая к коже тактическая маска, которую можно подключить к системе подачи воздуха."
 	gender = FEMALE
 	icon_state = "swat"
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 15, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 	strip_delay = 60
 
 /obj/item/clothing/mask/gas/syndicate/get_ru_names()
@@ -617,7 +617,7 @@
 	desc = "Стандартный противогаз, выдаваемый службе безопасности. Внутри установлен \"Подчи-о-натор 3000\", который проигрывает с дюжину фраз, требующих всякое отребье прекратить всякое сопротивление."
 	icon_state = "sechailer"
 	item_state = "sechailer"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 5, BOMB = 0, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	flags_inv = HIDENAME
 	flags_cover = MASKCOVERSMOUTH
 	adjusted_flags_inv = HIDENAME
@@ -678,7 +678,7 @@
 	name = "Security gas mask FCO-26"
 	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией N&R специально для сотрудников станционной службы безопасности НаноТрейзен. Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
 	icon_state = "tactical_mask"
-	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 10, ACID = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 10, ACID = 30)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -698,7 +698,7 @@
 	name = "HOS SWAT mask"
 	desc = "Тактический противогаз чёрного цвета с более агрессивным Подчи-о-натором 3000."
 	icon_state = "hosmask"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -718,7 +718,7 @@
 	name = "Warden SWAT mask"
 	desc = "Тактический противогаз синего цвета с более агрессивным Подчи-о-натором 3000."
 	icon_state = "wardenmask"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -738,7 +738,7 @@
 	name = "SWAT mask"
 	desc = "Тактический противогаз с более агрессивным Подчи-о-натором 3000."
 	icon_state = "officermask"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -758,7 +758,7 @@
 	desc = "Тактический противогаз, окрашенный в неоново-синие цвета. Используется для деморализации Грейтадеров."
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -939,7 +939,7 @@
 	. = ..()
 
 /obj/item/clothing/mask/gas/ghostface/true
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	var/obj/item/voice_changer/ghostface/voice_changer
 
 /obj/item/clothing/mask/gas/ghostface/true/devil

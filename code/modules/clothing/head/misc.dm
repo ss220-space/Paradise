@@ -1,12 +1,12 @@
 
-//WARN: admin only
 /obj/item/clothing/head/centhat
 	name = "CentComm. hat"
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
 	item_state = "centhat"
-	armor = list(MELEE = 30, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 80
+	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/head/hairflower
 	name = "hair flower pin"

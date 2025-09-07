@@ -9,7 +9,7 @@
 	put_on_delay = 40
 	max_integrity = 250
 	resistance_flags = NONE
-	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 20, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -148,7 +148,7 @@
 	icon_state = "hos"
 	item_state = "hos"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 25, BOMB = 25, BIO = 0, RAD = 0, FIRE = 70, ACID = 90)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 25, BOMB = 25, BIO = 0, RAD = 0, FIRE = 70, ACID = 90)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -312,7 +312,7 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(MELEE = 15, BULLET = 60, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 70
 	put_on_delay = 50
 	sprite_sheets = list(
@@ -583,7 +583,7 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	sprite_sheets = null
-	armor = list(MELEE = 80, BULLET = 25, LASER = 10, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
+	armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	on_start_armor_plate = /obj/item/armor_plate/heavy_ceramic
 
@@ -592,7 +592,7 @@
 	desc = "A heavily armored suit that protects against moderate damage."
 	icon_state = "heavy"
 	item_state = "swat_suit"
-	armor = list(MELEE = 80, BULLET = 15, LASER = 10, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
+	armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
 	clothing_flags = THICKMATERIAL
@@ -643,7 +643,7 @@
 	desc = "A set of armor worn by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ertarmor_cmd"
 	item_state = "armor"
-	armor = list(melee = 30, bullet = 5, laser = 5, energy = 30, bomb = 20, bio = 0, rad = 0, fire = 50, acid = 50)
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 30, bomb = 20, bio = 0, rad = 0, fire = 50, acid = 50)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	on_start_armor_plate = /obj/item/armor_plate/heavy_steel
 
@@ -708,7 +708,7 @@
 	item_state = "dragon"
 	desc = "Доспехи, созданные из останков пепельного дракона."
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
-	armor = list(MELEE = 70, BULLET = 5, LASER = 10, ENERGY = 40, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 40, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100)
 	hoodtype = /obj/item/clothing/head/hooded/drake
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -723,6 +723,8 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	on_start_armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/hooded/drake/get_ru_names()
 	return list(
@@ -739,12 +741,13 @@
 	icon_state = "dragon"
 	item_state = "dragon"
 	desc = "Череп дрейка."
-	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 40, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/head/hooded/drake/get_ru_names()
 	return list(
@@ -781,9 +784,10 @@
 	icon_state = "golhood"
 	item_state = "golhood"
 	desc = "Защитный и скрывающий капюшон."
-	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
+	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/hooded/goliath/get_ru_names()
 	return list(
@@ -836,7 +840,7 @@
 	icon_state = "bonearmor"
 	item_state = "bonearmor"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 45, BULLET = 5, LASER = 5, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 45, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	sprite_sheets = list(

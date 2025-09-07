@@ -212,13 +212,11 @@
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0,ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
-	armor_plate.forcemove(src)
 	body_parts_covered = HEAD
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot, initial)
 	. = ..()

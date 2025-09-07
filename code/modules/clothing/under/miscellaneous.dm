@@ -249,6 +249,7 @@
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 
+//WARN: admin only
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
 	icon_state = "syndicate"

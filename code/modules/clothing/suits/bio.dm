@@ -79,12 +79,15 @@
 
 //Security biosuit, grey with red stripe across the chest
 /obj/item/clothing/head/bio_hood/security
-	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 80, FIRE = 30, ACID = 100)
+	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 80, FIRE = 30, ACID = 100)
 	icon_state = "bio_security"
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/bio_suit/security
-	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 80, FIRE = 30, ACID = 100)
+	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 80, FIRE = 30, ACID = 100)
 	icon_state = "bio_security"
+	allowed_armor_plate = ARMOR_PLATE_SLOT_light
+	on_start_armor_plate = /obj/item/armor_plate/light_steel
 
 
 //Janitor's biosuit, grey with purple arms
