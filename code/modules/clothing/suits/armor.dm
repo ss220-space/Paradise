@@ -747,7 +747,7 @@
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/head/hooded/drake/get_ru_names()
 	return list(
@@ -787,7 +787,7 @@
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel/helmet
 
 /obj/item/clothing/head/hooded/goliath/get_ru_names()
 	return list(

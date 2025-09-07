@@ -24,7 +24,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi')
-	armor_plate = /obj/item/armor_plate/handmade_steel
+	armor_plate = /obj/item/armor_plate/handmade_steel/helmet
 
 /obj/item/clothing/head/helmet/space/nasavoid/get_ru_names()
 	return list(
@@ -131,7 +131,7 @@
 	item_state = "void_green_helmet"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	armor_plate = /obj/item/armor_plate/medium_ceramic
+	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/nasavoid/green/get_ru_names()
 	return list(
@@ -176,7 +176,7 @@
 	item_state = "void_ntblue_helmet"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/nasavoid/ntblue/get_ru_names()
 	return list(
@@ -348,7 +348,7 @@
 	item_state = "void_captian_helmet"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/nasavoid/captain/get_ru_names()
 	return list(
@@ -395,7 +395,7 @@
 	item_state = "void_syndi_helmet"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
-	armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel/helmet
 
 /obj/item/clothing/head/helmet/space/nasavoid/syndi/get_ru_names()
 	return list(

@@ -29,7 +29,7 @@
 	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
-	armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel/helmet
 
 /obj/item/clothing/head/caphat/get_ru_names()
 	return list(
@@ -118,7 +118,7 @@
 	icon_state = "hopcap"
 	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/hop
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/hopcap/get_ru_names()
 	return list(
@@ -197,7 +197,7 @@
 
 /obj/item/clothing/head/hooded/chaplain_hood/armoured
 	armor = list(MELEE = 35, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
-	armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/head/hooded/chaplain_hood/no_name
 	name = "dark robe's hood"
@@ -381,7 +381,7 @@
 	icon_state = "hoscap"
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	strip_delay = 80
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/HoS/get_ru_names()
 	return list(
@@ -418,7 +418,7 @@
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 60)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/warden/get_ru_names()
 	return list(
@@ -438,7 +438,7 @@
 	item_state = "customshelm"
 	armor = list(MELEE = 35, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/officer/get_ru_names()
 	return list(
@@ -458,7 +458,7 @@
 	strip_delay = 60
 	dog_fashion = null
 	muhtar_fashion = /datum/muhtar_fashion/head/beret
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/beret/sec/get_ru_names()
 	return list(
@@ -490,7 +490,7 @@
 	desc = "Специализированный берет с вышитым на нём значком смотрителя. Для тех смотрителей, кто больше предпочитает стиль, чем безопасность головы."
 	icon_state = "beret_warden"
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 50)
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/beret/sec/warden/get_ru_names()
 	return list(
@@ -717,7 +717,7 @@
 	dog_fashion = null
 	armor = list(MELEE = 35, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 80
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/beret/solgov/command/get_ru_names()
 	return list(
@@ -734,7 +734,7 @@
 	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель принадлежит отделу специальных операций флота."
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	icon_state = "solgov_elite_beret"
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/beret/solgov/command/elite/get_ru_names()
 	return list(

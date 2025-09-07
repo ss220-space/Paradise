@@ -544,7 +544,7 @@
 		)
 	var/list/reflect_zones = list(BODY_ZONE_HEAD)
 	var/hit_reflect_chance = 50
-	armor_plate = /obj/item/armor_plate/medium_ablative
+	armor_plate = /obj/item/armor_plate/medium_ablative/helmet
 
 /obj/item/clothing/head/helmet/reflector/get_ru_names()
 	return list(

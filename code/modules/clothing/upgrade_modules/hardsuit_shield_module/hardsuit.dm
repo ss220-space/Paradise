@@ -16,7 +16,7 @@
 	desc = "An advanced hardsuit helmet with built in energy shielding."
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 35, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
-	armor_plate = /obj/item/armor_plate/medium_ceramic
+	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 //////Wizard Versions
 /obj/item/clothing/suit/space/hardsuit/wizard/shielded/setup_shielding()

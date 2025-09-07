@@ -56,6 +56,8 @@
 
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
 	var/list/clothing_traits
+	/// Installed armor plate
+	var/obj/item/armor_plate/armor_plate = null
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
@@ -553,8 +555,6 @@ BLIND     // can't see anything
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
-	/// Integrated armor plate (can not detach, plate covering setup is ignored)
-	var/obj/item/armor_plate/armor_plate = null
 
 /obj/item/clothing/head/Initialize(mapload)
 	. = ..()
@@ -873,8 +873,6 @@ BLIND     // can't see anything
 	var/allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
 	/// Allow remove armor plate with screwdriver
 	var/can_remove_armor_plate = TRUE
-	/// Installed armor plate
-	var/obj/item/armor_plate/armor_plate = null
 	/// On start armor plate type, if null - not exists plate on start
 	var/on_start_armor_plate = null
 

@@ -778,7 +778,7 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/hooded/clockhood_fake
 	name = "clock hood"
@@ -790,7 +790,7 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/suit/hooded/clockrobe/equipped(mob/living/user, slot, initial)
 	. = ..()
@@ -1128,7 +1128,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
-	armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/head/helmet/clockwork_fake
 	name = "clockwork helmet"
@@ -1141,7 +1141,7 @@
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	armor = list(melee = 45, bullet = 0, laser = 0, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
-	armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/head/helmet/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()

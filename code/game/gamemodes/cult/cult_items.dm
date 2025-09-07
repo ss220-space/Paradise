@@ -168,7 +168,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
-	armor_plate = /obj/item/armor_plate/medium_ceramic
+	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
@@ -216,7 +216,7 @@
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
-	armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot, initial)
 	. = ..()

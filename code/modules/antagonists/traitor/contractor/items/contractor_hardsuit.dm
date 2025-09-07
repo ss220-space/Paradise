@@ -8,7 +8,7 @@
 	item_color = "contractor"
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 35, BIO = 100, RAD = 100, FIRE = 50, ACID = 90)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	armor_plate = /obj/item/armor_plate/heavy_ceramic
+	armor_plate = /obj/item/armor_plate/heavy_ceramic/helmet
 
 /obj/item/clothing/suit/space/hardsuit/contractor
 	name = "Contractor hardsuit"

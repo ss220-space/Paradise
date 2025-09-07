@@ -6,7 +6,7 @@
 	item_state = "centhat"
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	strip_delay = 80
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/hairflower
 	name = "hair flower pin"
@@ -403,7 +403,7 @@
 	icon_state = "beret_centcom_officer"
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/beret/centcom/officer/navy
 	name = "navy blue officers beret"
@@ -411,7 +411,7 @@
 	icon_state = "beret_centcom_officer_navy"
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret
 	name = "royal marines commando beret"

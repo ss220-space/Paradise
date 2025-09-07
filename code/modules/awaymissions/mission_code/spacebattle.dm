@@ -726,7 +726,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	on = TRUE
 	armor_plate = null
-	armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged/update_icon_state()

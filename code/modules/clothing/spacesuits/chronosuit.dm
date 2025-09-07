@@ -7,7 +7,7 @@
 	armor = list(MELEE = 60, BULLET = 0, LASER = 0, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit = null
-	armor_plate = /obj/item/armor_plate/heavy_ceramic
+	armor_plate = /obj/item/armor_plate/heavy_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/chronos/dropped(mob/user, slot, silent = FALSE)
 	if(suit && slot == ITEM_SLOT_HEAD)

@@ -130,7 +130,7 @@
 	armor = list(MELEE = 35, BULLET = 0, LASER = 0,ENERGY = 10, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
-	armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel/helmet
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/get_ru_names()
 	return list(
@@ -150,7 +150,7 @@
 	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE | EXAMINE_HUD_SCIENCE
-	armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel/helmet
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/dec/get_ru_names()
 	return list(
@@ -532,7 +532,7 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	upgradable = TRUE
-	armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel/helmet
 
 /obj/item/clothing/head/helmet/space/plasmaman/mining/get_ru_names()
 	return list(
@@ -726,7 +726,7 @@
 	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
 	HUDType = DATA_HUD_SECURITY_BASIC
 	examine_extensions = EXAMINE_HUD_SKILLS
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/helmet/space/plasmaman/hop/get_ru_names()
 	return list(
@@ -746,7 +746,7 @@
 	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
 	HUDType = DATA_HUD_SECURITY_BASIC
 	examine_extensions = EXAMINE_HUD_SKILLS
-	armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel/helmet
 
 /obj/item/clothing/head/helmet/space/plasmaman/captain/get_ru_names()
 	return list(
@@ -766,7 +766,7 @@
 	armor = list(MELEE = 35, BULLET = 0, LASER = 0,ENERGY = 10, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = EXAMINE_HUD_MEDICAL
-	armor_plate = /obj/item/armor_plate/medium_ceramic
+	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/plasmaman/blueshield/get_ru_names()
 	return list(
@@ -788,7 +788,7 @@
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
-	armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel/helmet
 
 /obj/item/clothing/head/helmet/space/plasmaman/wizard/get_ru_names()
 	return list(

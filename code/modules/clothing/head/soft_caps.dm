@@ -154,7 +154,7 @@
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	icon_state = "solgovelitesoft_flipped"
 	item_color = "solgovelite"
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/soft/solgov/command
 	name = "Trans-Solar Federation Lieutenant's cap"
@@ -163,7 +163,7 @@
 	icon_state = "solgovcsoft"
 	item_color = "solgovc"
 	dog_fashion = null
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/soft/solgov/command/elite
 	name = "Trans-Solar Federation Specops Lieutenant's cap"

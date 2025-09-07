@@ -15,7 +15,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
-	armor_plate = /obj/item/armor_plate/medium_ceramic
+	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/suit/space/syndicate
 	name = "red space suit"
@@ -96,7 +96,7 @@
 	armor = list(melee = 80, bullet = 0, laser = 0, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
-	armor_plate = /obj/item/armor_plate/heavy_steel
+	armor_plate = /obj/item/armor_plate/heavy_steel/helmet
 
 /obj/item/clothing/suit/space/syndicate/black
 	name = "Black Space Suit"
@@ -172,7 +172,7 @@
 	armor = list(melee = 80, bullet = 0, laser = 0, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
-	armor_plate = /obj/item/armor_plate/heavy_steel
+	armor_plate = /obj/item/armor_plate/heavy_steel/helmet
 
 /obj/item/clothing/suit/space/syndicate/black/red
 	name = "Black and Red Space Suit"

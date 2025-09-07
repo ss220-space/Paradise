@@ -224,6 +224,8 @@
 	armor_max_integrity = 50
 	body_parts_covered = UPPER_TORSO
 
+/obj/item/armor_plate/handmade_steel/helmet
+	body_parts_covered = HEAD
 
 /obj/item/armor_plate/handmade_ablative
 	name = "handmade ablative armor plate"
@@ -234,6 +236,9 @@
 	armor_protection_integrity = 50
 	armor_max_integrity = 50
 	body_parts_covered = UPPER_TORSO
+
+/obj/item/armor_plate/handmade_ablative/helmet
+	body_parts_covered = HEAD
 
 /obj/item/armor_plate/kevlar
 	name = "kevlar armor plate"
@@ -246,6 +251,8 @@
 	repair_type = /obj/item/stack/sheet/plastic
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/armor_plate/kevlar/helmet
+	body_parts_covered = HEAD
 
 // MARK: Light armor plates
 
@@ -260,6 +267,8 @@
 	repair_type = /obj/item/stack/sheet/metal
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/armor_plate/light_steel/helmet
+	body_parts_covered = HEAD
 
 /obj/item/armor_plate/light_ablative
 	name = "light ablative armor plate"
@@ -272,6 +281,9 @@
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/armor_plate/light_ablative/helmet
+	body_parts_covered = HEAD
+
 /obj/item/armor_plate/light_ceramic
 	name = "light ceramic armor plate"
 	icon_state = "ceramicplate_light"
@@ -282,6 +294,9 @@
 	armor_max_integrity = 100
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/armor_plate/light_ceramic/helmet
+	body_parts_covered = HEAD
 
 
 // MARK: Medium armor plates
@@ -297,6 +312,8 @@
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/armor_plate/medium_steel/helmet
+	body_parts_covered = HEAD
 
 /obj/item/armor_plate/medium_ablative
 	name = "medium ablative armor plate"
@@ -309,6 +326,9 @@
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/armor_plate/medium_ablative/helmet
+	body_parts_covered = HEAD
+
 /obj/item/armor_plate/medium_ceramic
 	name = "medium ceramic armor plate"
 	icon_state = "ceramicplate_medium"
@@ -319,6 +339,9 @@
 	armor_max_integrity = 150
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/armor_plate/medium_ceramic/helmet
+	body_parts_covered = HEAD
 
 
 // MARK: Heavy armor plates
@@ -334,6 +357,8 @@
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
+/obj/item/armor_plate/heavy_steel/helmet
+	body_parts_covered = HEAD
 
 /obj/item/armor_plate/heavy_ablative
 	name = "heavy ablative armor plate"
@@ -346,6 +371,9 @@
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
+/obj/item/armor_plate/heavy_ablative/helmet
+	body_parts_covered = HEAD
+
 /obj/item/armor_plate/heavy_ceramic
 	name = "heavy ceramic armor plate"
 	icon_state = "ceramicplate_heavy"
@@ -357,6 +385,9 @@
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
+/obj/item/armor_plate/heavy_ceramic/helmet
+	body_parts_covered = HEAD
+
 /obj/item/armor_plate/elite
 	name = "elite armor plate"
 	icon_state = "ceramicplate_heavy" //TODO need icon
@@ -366,3 +397,6 @@
 	armor_protection_integrity = 250
 	armor_max_integrity = 500
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+
+/obj/item/armor_plate/elite/helmet
+	body_parts_covered = HEAD

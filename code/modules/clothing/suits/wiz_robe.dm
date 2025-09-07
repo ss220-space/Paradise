@@ -11,7 +11,7 @@
 	put_on_delay = 50
 	magical = TRUE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
-	armor_plate = /obj/item/armor_plate/medium_ceramic
+	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
@@ -354,7 +354,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	actions_types = null //No inbuilt light
 	magical = TRUE
-	armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/medium_steel/helmet
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)
 	return

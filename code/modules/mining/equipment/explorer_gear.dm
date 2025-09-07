@@ -31,7 +31,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
-	armor_plate = /obj/item/armor_plate/handmade_steel
+	armor_plate = /obj/item/armor_plate/handmade_steel/helmet
 
 /obj/item/clothing/suit/hooded/explorer/get_ru_names()
 	return list(
@@ -73,7 +73,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
-	armor_plate = /obj/item/armor_plate/handmade_steel
+	armor_plate = /obj/item/armor_plate/handmade_steel/helmet
 
 /obj/item/clothing/head/hooded/explore/get_ru_names()
 	return list(
@@ -159,7 +159,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 	)
-	armor_plate = /obj/item/armor_plate/medium_ceramic
+	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/hostile_environment/get_ru_names()
 	return list(
@@ -200,7 +200,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
-	armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel/helmet
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/get_ru_names()
 	return list(
@@ -401,7 +401,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 	)
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/hooded/pathfinder/get_ru_names()
 	return list(

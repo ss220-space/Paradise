@@ -181,20 +181,16 @@ emp_act
 	return (armorval/max(organnum, 1))
 
 /mob/living/carbon/human/proc/get_armor_plate_defence(obj/item/organ/external/def_zone, attack_flag, penetration_level = 1, damage = 0)
-	var/obj/item/clothing/suit/suit = wear_suit
-	var/obj/item/armor_plate/armor_plate = null
-	if(suit && istype(suit) && suit.armor_plate)
-		armor_plate = suit.armor_plate
-	if(!(armor_plate.body_parts_covered & def_zone.limb_body_flag))
-		armor_plate = null
-	var/obj/item/clothing/head/helmet = head
-	if(!armor_plate && helmet && istype(helmet) && helmet.armor_plate && HEAD & def_zone.limb_body_flag)
-		armor_plate = helmet.armor_plate
-	if(!armor_plate)
-		return 0
-	var/armorval = calculate_armor_plate_penetration(armor_plate, penetration_level, attack_flag)
-	damage_armor_plate(armor_plate, penetration_level, attack_flag, damage)
-	return armorval
+	var/list/clothing_items = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	for(var/obj/item/clothing/cloth in clothing_items)
+		if(!cloth.armor_plate)
+			continue
+		if(!((cloth.armor_plate.body_parts_covered & cloth.body_parts_covered) & def_zone.limb_body_flag))
+			continue
+		var/armorval = calculate_armor_plate_penetration(cloth.armor_plate, penetration_level, attack_flag)
+		damage_armor_plate(cloth.armor_plate, penetration_level, attack_flag, damage)
+		return armorval
+	return 0
 
 /// This proc returns the armour value for a particular external organ.
 /mob/living/carbon/human/proc/getarmor_organ(obj/item/organ/external/def_zone, attack_flag)
