@@ -1584,6 +1584,11 @@
 	item_state = "wet_owl"
 	attack_verb = list("ухнул", "клюнул", "цапнул")
 	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | LAVA_PROOF
+	/// Is it in evil mode now or not
+	var/is_evil = FALSE
+	/// Cooldown to prevent evil sound spam
+	var/cooldown_time = 2 SECONDS
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/wet_owl/get_ru_names()
 	return list(
@@ -1608,13 +1613,18 @@
 	return SHAME
 
 /obj/item/toy/plushie/wet_owl/attack_self(mob/living/user)
-	var/mob/living/carbon/human/human = user
-	human.human.AdjustConfused(3 SECONDS, bound_lower = 0, bound_upper = 15 SECONDS)
+	. = ..()
 	if(prob(EVIL_MODE_CHANCE))
-		temporary_become_evil(4 SECONDS)
-	..()
+		temporary_become_evil(5 SECONDS)
+
+	if(!is_evil)
+		return .
+
+	var/mob/living/carbon/human/human = user
+	human.AdjustConfused(3 SECONDS, bound_lower = 0, bound_upper = 15 SECONDS)
 
 /obj/item/toy/plushie/wet_owl/proc/temporary_become_evil(evil_mode_duration)
+	is_evil = TRUE
 	icon_state = "evil_wet_owl"
 	item_state = "evil_wet_owl"
 	desc = "Злобная плюшевая игрушка мокрой совы. Она явно видела некоторое дерьмо — это легко можно понять по её взгляду."
@@ -1623,6 +1633,7 @@
 	addtimer(CALLBACK(src, PROC_REF(become_normal)), evil_mode_duration)
 
 /obj/item/toy/plushie/wet_owl/proc/become_normal()
+	is_evil = FALSE
 	icon_state = initial(icon_state)
 	item_state = initial(item_state)
 	desc = initial(desc)
@@ -1630,6 +1641,13 @@
 	update_appearance()
 
 /obj/item/toy/plushie/wet_owl/play_poof_sound()
+	if(!is_evil)
+		return ..()
+
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return
+
+	COOLDOWN_START(src, cooldown, cooldown_time)
 	playsound(loc, poof_sound, 20, FALSE)
 
 #undef EVIL_MODE_CHANCE
