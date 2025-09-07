@@ -707,13 +707,17 @@
 		K = apply_status_effect(STATUS_EFFECT_KNOCKDOWN, amount)
 	return K
 
+
 /mob/living/proc/unbuckle_if_not_cuffed()
 	if(!buckled)
 		return
+
 	var/mob/living/carbon/carbon = src
 	if(!istype(carbon) || carbon.handcuffed)
 		return
+
 	buckled.unbuckle_mob(src, force = TRUE)
+
 
 // MARK: IMMOBILIZED
 
