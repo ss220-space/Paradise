@@ -118,7 +118,7 @@
 
 /// Attempts to teleport the passed mob to somewhere safe on the station, if they can use the blade.
 /obj/item/melee/sickly_blade/proc/seek_safety(mob/user)
-	if(!do_after(user, 0.5 SECONDS, src, timed_action_flags = DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_TARGET_LOC_CHANGE))
+	if(!do_after(user, 0.5 SECONDS, src, timed_action_flags = DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_TARGET_LOC_CHANGE | DA_IGNORE_LYING))
 		return
 
 	var/turf/safe_turf = find_safe_turf(zlevels = z/*, extended_safety_checks = TRUE*/)
