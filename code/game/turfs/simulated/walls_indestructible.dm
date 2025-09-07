@@ -292,7 +292,7 @@
 	smooth = NONE
 
 
-/turf/simulated/wall/get_ru_names()
+/turf/simulated/wall/indestructible/flesh/get_ru_names()
 	return list(
 		NOMINATIVE = "плоть",
 		GENITIVE = "плоти",
