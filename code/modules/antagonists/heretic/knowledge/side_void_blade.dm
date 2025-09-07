@@ -120,7 +120,7 @@
 			теперь является месивом из острых костяных осколков."
 	color = "#001aff"
 	hitsound = 'sound/effects/glassbr1.ogg'
-	force = 16
+	force = 25
 	//wound_bonus = -30
 	//bare_wound_bonus = 15
 	//demolition_mod = 1.5
