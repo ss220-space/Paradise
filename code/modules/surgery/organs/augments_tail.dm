@@ -69,7 +69,7 @@
 
 	if(owner)
 		to_chat(owner, span_warning("Имплант лезвия отключился от воздействия ЭМИ!"))
-		do_sparks(3, 0, owner)
+		do_sparks(3, FALSE, owner)
 		owner.update_action_buttons()
 
 	implant_emp_downtime = TRUE

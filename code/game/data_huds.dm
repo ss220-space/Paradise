@@ -290,9 +290,9 @@
 	var/perpname = get_visible_name(add_id_name = FALSE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!SSticker) return //wait till the game starts or the monkeys runtime....
 	if(perpname)
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-		if(R)
-			switch(R.fields["criminal"])
+		var/datum/data/record/record = find_record("name", perpname, GLOB.data_core.security)
+		if(record)
+			switch(record.fields["criminal"])
 				if(SEC_RECORD_STATUS_EXECUTE)
 					holder.icon_state = "hudexecute"
 					return
@@ -556,13 +556,13 @@
 	var/perpname = get_visible_name(add_id_name = FALSE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!perpname)
 		return
-	var/datum/data/record/R
+	var/datum/data/record/record
 	switch(comment_kind)
 		if("security")
-			R = find_record("name", perpname, GLOB.data_core.security)
+			record = find_record("name", perpname, GLOB.data_core.security)
 		if("medical")
-			R = find_record("name", perpname, GLOB.data_core.medical)
-	if(!R)
+			record = find_record("name", perpname, GLOB.data_core.medical)
+	if(!record)
 		return
 
 	var/commenter_display = "Something(???)"
@@ -577,6 +577,6 @@
 		commenter_display = "[U.name] (artificial intelligence)"
 	comment_text = "Made by [commenter_display] on [GLOB.current_date_string] [station_time_timestamp()]:<br>[comment_text]"
 
-	if(!R.fields["comments"])
-		R.fields["comments"] = list()
-	R.fields["comments"] += list(comment_text)
+	if(!record.fields["comments"])
+		record.fields["comments"] = list()
+	record.fields["comments"] += list(comment_text)

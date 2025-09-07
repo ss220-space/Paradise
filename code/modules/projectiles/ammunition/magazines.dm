@@ -839,10 +839,10 @@
 
 // this drum magazine uses for Buldog, Mastiff and AS-12 Minotaur shotguns
 /obj/item/ammo_box/magazine/m12g
-	name = "shotgun magazine (12g buckshot slugs)"
-	desc = "Барабанный магазин, предназначенный для патронов калибра 12х70."
+	name = "shotgun magazine (12g magnum buckshot)"
+	desc = "Барабанный магазин, предназначенный для картечных магнум патронов калибра 12х70."
 	icon_state = "m12gbc"
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/magnum
 	caliber = ".12"
 	max_ammo = 12
 	multiple_sprites = 2
@@ -869,17 +869,17 @@
 
 /obj/item/ammo_box/magazine/cheap_m12g/get_ru_names()
 	return list(
-		NOMINATIVE = "барабанный магазин (кртечный 12х70)",
-		GENITIVE = "барабанного магазина (кртечный 12х70)",
-		DATIVE = "барабанному магазину (кртечный 12х70)",
-		ACCUSATIVE = "барабанный магазина (кртечный 12х70)",
-		INSTRUMENTAL = "барабанным магазином (кртечный 12х70)",
-		PREPOSITIONAL = "барабанном магазине (кртечный 12х70)"
+		NOMINATIVE = "барабанный магазин (картечный 12х70)",
+		GENITIVE = "барабанного магазина (картечный 12х70)",
+		DATIVE = "барабанному магазину (картечный 12х70)",
+		ACCUSATIVE = "барабанный магазина (картечный 12х70)",
+		INSTRUMENTAL = "барабанным магазином (картечный 12х70)",
+		PREPOSITIONAL = "барабанном магазине (картечный 12х70)"
 	)
 
 /obj/item/ammo_box/magazine/m12g/slug
 	name = "shotgun magazine (12g slugs)"
-	desc = "Барабанный магазин, предназначенный для различных патронов калибра 12х70."
+	desc = "Барабанный магазин, предназначенный для пулевых патронов калибра 12х70."
 	icon_state = "m12gb"
 	ammo_type = /obj/item/ammo_casing/shotgun
 
@@ -910,10 +910,10 @@
 	)
 
 /obj/item/ammo_box/magazine/m12g/dragon
-	name = "shotgun magazine (12g dragon's breath)"
-	desc = "Барабанный магазин, предназначенный для патронов \"Дыхание дракона\" калибра 12х70."
+	name = "shotgun magazine (12g napalm dragon's breath)"
+	desc = "Барабанный магазин, предназначенный для патронов \"напалмовое Дыхание дракона\" калибра 12х70."
 	icon_state = "m12gf"
-	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
+	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/napalm
 
 /obj/item/ammo_box/magazine/m12g/dragon/get_ru_names()
 	return list(
@@ -975,10 +975,10 @@
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg
 	name = "XL shotgun magazine (12g buckshot slugs)"
-	desc = "Увеличенный барабанный магазин, предназначенный для усиленных патронов калибра 12х70."
+	desc = "Увеличенный барабанный магазин, предназначенный для картечных магнум патронов калибра 12х70."
 	icon_state = "m12gXlBs"
 	w_class = WEIGHT_CLASS_NORMAL
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/nuclear
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/magnum
 	max_ammo = 24
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/get_ru_names()
@@ -1024,19 +1024,19 @@
 	)
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
-	name = "XL shotgun magazine (12g dragon's breath)"
-	desc = "Увеличенный барабанный магазин, предназначенный для патронов \"Дыхание дракона\" калибра 12х70."
+	name = "XL shotgun magazine (12g napalm dragon's breath)"
+	desc = "Увеличенный барабанный магазин, предназначенный для патронов \"напалмовое Дыхание дракона\" калибра 12х70."
 	icon_state = "m12gXlDb"
-	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/nuclear
+	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/napalm
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon/get_ru_names()
 	return list(
-		NOMINATIVE = "увеличенный барабанный магазин (дыхание дракона 12х70)",
-		GENITIVE = "увеличенного барабанного магазина (дыхание дракона 12х70)",
-		DATIVE = "увеличенному барабанному магазину (дыхание дракона 12х70)",
-		ACCUSATIVE = "увеличенный барабанный магазин (дыхание дракона 12х70)",
-		INSTRUMENTAL = "увеличенным барабанным магазином (дыхание дракона 12х70)",
-		PREPOSITIONAL = "увеличенном барабанном магазине (дыхание дракона 12х70)"
+		NOMINATIVE = "увеличенный барабанный магазин (напалмовое дыхание дракона 12х70)",
+		GENITIVE = "увеличенного барабанного магазина (напалмовое дыхание дракона 12х70)",
+		DATIVE = "увеличенному барабанному магазину (напалмовое дыхание дракона 12х70)",
+		ACCUSATIVE = "увеличенный барабанный магазин (напалмовое дыхание дракона 12х70)",
+		INSTRUMENTAL = "увеличенным барабанным магазином (напалмовое дыхание дракона 12х70)",
+		PREPOSITIONAL = "увеличенном барабанном магазине (напалмовое дыхание дракона 12х70)"
 	)
 
 /obj/item/ammo_box/magazine/toy

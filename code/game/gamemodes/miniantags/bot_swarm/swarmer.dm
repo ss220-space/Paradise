@@ -565,7 +565,7 @@
 	if(istype(c_target) && !c_target.handcuffed)
 		c_target.apply_restraints(new /obj/item/restraints/handcuffs/energy/used(null), TRUE)
 
-	do_sparks(4, 0, target)
+	do_sparks(4, FALSE, target)
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	do_teleport(target, F, 0)
 	investigate_log("[key_name_log(src)] teleported [key_name_log(target)] to [COORD(F)]", INVESTIGATE_TELEPORTATION)

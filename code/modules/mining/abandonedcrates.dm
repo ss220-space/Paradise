@@ -3,7 +3,15 @@
 /obj/structure/closet/crate/secure/loot
 	name = "abandoned crate"
 	desc = "Что может быть внутри?"
-	ru_names = list(
+	icon_state = "securecrate"
+	var/code = null
+	var/lastattempt = null
+	var/attempts = 10
+	var/codelen = 4
+	integrity_failure = 0 //no breaking open the crate
+
+/obj/structure/closet/crate/secure/loot/get_ru_names()
+	return list(
 		NOMINATIVE = "заброшенный ящик",
 		GENITIVE = "заброшенного ящика",
 		DATIVE = "заброшенному ящику",
@@ -11,12 +19,6 @@
 		INSTRUMENTAL = "заброшенным ящиком",
 		PREPOSITIONAL = "заброшенном ящике"
 	)
-	icon_state = "securecrate"
-	var/code = null
-	var/lastattempt = null
-	var/attempts = 10
-	var/codelen = 4
-	integrity_failure = 0 //no breaking open the crate
 
 /obj/structure/closet/crate/secure/loot/Initialize(mapload)
 	. = ..()

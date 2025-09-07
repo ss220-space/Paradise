@@ -411,7 +411,7 @@ effective or pretty fucking useless.
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
 	playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
-	destination.ex_act(rand(1,2))
+	destination.ex_act(rand(EXPLODE_DEVASTATE, EXPLODE_HEAVY))
 	for(var/obj/item/thing as anything in user.get_equipped_items(TRUE, TRUE))
 		if(!user.drop_item_ground(thing))
 			qdel(thing)

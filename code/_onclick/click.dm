@@ -402,7 +402,7 @@
 	var/obj/projectile/beam/LE = new /obj/projectile/beam(loc)
 	LE.icon = 'icons/effects/genetics.dmi'
 	LE.icon_state = "eyelasers"
-	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)
+	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, TRUE)
 
 	LE.firer = src
 	LE.def_zone = ran_zone(zone_selected)

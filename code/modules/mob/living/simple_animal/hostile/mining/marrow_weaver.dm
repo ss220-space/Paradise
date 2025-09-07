@@ -1,14 +1,6 @@
 /mob/living/simple_animal/hostile/asteroid/marrowweaver
 	name = "marrow weaver"
 	desc = "Большой, злой и ядовитый паук. Обожает костный мозг. И его любимый источник пищи - это вы."
-	ru_names = list(
-		NOMINATIVE = "костномозговой ткач",
-		GENITIVE = "костномозгового ткача",
-		DATIVE = "костномозговому ткачу",
-		ACCUSATIVE = "костномозгового ткача",
-		INSTRUMENTAL = "костномозговым ткачом",
-		PREPOSITIONAL = "костномозговом ткаче"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "weaver"
 	icon_living = "weaver"
@@ -44,6 +36,15 @@
 	var/anger_move_to_delay = 8
 	var/anger_speed = 4
 
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/get_ru_names()	
+	return list(
+		NOMINATIVE = "костномозговой ткач",
+		GENITIVE = "костномозгового ткача",
+		DATIVE = "костномозговому ткачу",
+		ACCUSATIVE = "костномозгового ткача",
+		INSTRUMENTAL = "костномозговым ткачом",
+		PREPOSITIONAL = "костномозговом ткаче"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/adjustHealth(
 	amount = 0,
@@ -118,7 +119,13 @@
 
 /obj/item/stack/sheet/animalhide/weaver_chitin
 	name = "weaver chitin"
-	ru_names = list(
+	desc = "Фрагмент закалённого многослойного хитина из панциря костномозгового ткача."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "chitin"
+	singular_name = "chitin chunk"
+
+/obj/item/stack/sheet/animalhide/weaver_chitin/get_ru_names()
+	return list(
 		NOMINATIVE = "хитин ткача",
 		GENITIVE = "хитина ткача",
 		DATIVE = "хитину ткача",
@@ -126,10 +133,6 @@
 		INSTRUMENTAL = "хитином ткача",
 		PREPOSITIONAL = "хитине ткача"
 	)
-	desc = "Фрагмент закалённого многослойного хитина из панциря костномозгового ткача."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "chitin"
-	singular_name = "chitin chunk"
 
 /obj/item/stack/sheet/animalhide/weaver_chitin/five
 	amount = 5
@@ -154,14 +157,6 @@
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/frost
 	name = "frostbite weaver"
-	ru_names = list(
-		NOMINATIVE = "морозный костномозговой ткач",
-		GENITIVE = "морозного костномозгового ткача",
-		DATIVE = "морозному костномозговому ткачу",
-		ACCUSATIVE = "морозного костномозгового ткача",
-		INSTRUMENTAL = "морозным костномозговым ткачом",
-		PREPOSITIONAL = "морозном костномозговом ткаче"
-	)
 	desc = "Большой, злой и ядовитый ледяной паук. Обожает костный мозг. И его любимый источник пищи — это вы."
 
 	icon_state = "weaver_ice"
@@ -176,6 +171,16 @@
 	poison_per_bite = 5
 
 	crusher_loot = /obj/item/crusher_trophy/gland
+
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/get_ru_names()
+	return list(
+		NOMINATIVE = "морозный костномозговой ткач",
+		GENITIVE = "морозного костномозгового ткача",
+		DATIVE = "морозному костномозговому ткачу",
+		ACCUSATIVE = "морозного костномозгового ткача",
+		INSTRUMENTAL = "морозным костномозговым ткачом",
+		PREPOSITIONAL = "морозном костномозговом ткаче"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril
 	fromtendril = TRUE

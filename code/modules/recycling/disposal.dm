@@ -250,7 +250,7 @@
 	)
 	target.forceMove(src)
 	add_attack_logs(attacker, target, "Shoved into disposals")
-	playsound(src, "sound/effects/bang.ogg")
+	playsound(src, "sound/effects/bang.ogg", 30)
 	update()
 	return TRUE
 
