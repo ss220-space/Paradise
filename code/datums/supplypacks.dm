@@ -875,6 +875,96 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "officer starter crate"
 
 
+/datum/supply_packs/security/armor_plates_kevlar
+	name = "Комплект кевларовых бронеплит"
+	contains =	list(/obj/item/armor_plate/kevlar,
+				/obj/item/armor_plate/kevlar,
+				/obj/item/armor_plate/kevlar,
+				/obj/item/armor_plate/kevlar,
+				/obj/item/armor_plate/kevlar)
+	cost = 40
+	containername = "kevlar armor plates crate"
+
+/datum/supply_packs/security/armor_plates_kevlar_credit
+	name = "Комплект кевларовых бронеплит"
+	contains =	list(/obj/item/armor_plate/kevlar,
+				/obj/item/armor_plate/kevlar,
+				/obj/item/armor_plate/kevlar,
+				/obj/item/armor_plate/kevlar,
+				/obj/item/armor_plate/kevlar)
+	credits_cost = 3000
+	containername = "kevlar armor plates crate"
+
+/datum/supply_packs/security/armor_plates_light
+	name = "Комплект легких бронеплит"
+	contains =	list(/obj/item/armor_plate/light_steel,
+				/obj/item/armor_plate/light_steel,
+				/obj/item/armor_plate/light_steel,
+				/obj/item/armor_plate/light_ablative,
+				/obj/item/armor_plate/light_ablative,
+				/obj/item/armor_plate/light_ablative)
+	cost = 50
+	containername = "light armor plates crate"
+
+/datum/supply_packs/security/armor_plates_light_credit
+	name = "Комплект легких бронеплит"
+	contains =	list(/obj/item/armor_plate/light_steel,
+				/obj/item/armor_plate/light_steel,
+				/obj/item/armor_plate/light_steel,
+				/obj/item/armor_plate/light_ablative,
+				/obj/item/armor_plate/light_ablative,
+				/obj/item/armor_plate/light_ablative)
+	credits_cost = 5000
+	containername = "light armor plates crate"
+
+/datum/supply_packs/security/armor_plates_light_ceramic
+	name = "Комплект легких керамических бронеплит"
+	contains =	list(/obj/item/armor_plate/light_ceramic,
+				/obj/item/armor_plate/light_ceramic,
+				/obj/item/armor_plate/light_ceramic)
+	cost = 50
+	containername = "light ceramic armor plates crate"
+
+/datum/supply_packs/security/armor_plates_light_ceramic_credit
+	name = "Комплект легких керамических бронеплит"
+	contains =	list(/obj/item/armor_plate/light_ceramic,
+				/obj/item/armor_plate/light_ceramic,
+				/obj/item/armor_plate/light_ceramic)
+	credits_cost = 5000
+	containername = "light ceramic armor plates crate"
+
+/datum/supply_packs/security/armor_plates_medium
+	name = "Комплект средних бронеплит"
+	contains =	list(/obj/item/armor_plate/medium_steel,
+				/obj/item/armor_plate/medium_steel,
+				/obj/item/armor_plate/medium_steel,
+				/obj/item/armor_plate/medium_ablative,
+				/obj/item/armor_plate/medium_ablative,
+				/obj/item/armor_plate/medium_ablative)
+	cost = 150
+	containername = "medium armor plates crate"
+
+/datum/supply_packs/security/armor_plates_medium_ceramic
+	name = "Комплект средних керамических бронеплит"
+	contains =	list(/obj/item/armor_plate/medium_ceramic,
+				/obj/item/armor_plate/medium_ceramic,
+				/obj/item/armor_plate/medium_ceramic)
+	cost = 150
+	containername = "medium ceramic armor plates crate"
+
+/datum/supply_packs/security/armor_plates_heavy
+	name = "Комплект тяжелых бронеплит"
+	contains =	list(/obj/item/armor_plate/heavy_steel,
+				/obj/item/armor_plate/heavy_steel,
+				/obj/item/armor_plate/heavy_steel,
+				/obj/item/armor_plate/heavy_ablative,
+				/obj/item/armor_plate/heavy_ablative,
+				/obj/item/armor_plate/heavy_ablative)
+	cost = 250
+	containername = "heavy armor plates crate"
+
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Engineering
