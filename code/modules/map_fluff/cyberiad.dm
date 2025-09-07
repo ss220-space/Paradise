@@ -12,6 +12,6 @@
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/cyberiad/"
 
 
-/datum/map/cyberiad/multiz
+/datum/map/cyberiad/side_levels
 	admin_only = TRUE
 	side_levels = BELOW_LEVEL | ABOVE_LEVEL

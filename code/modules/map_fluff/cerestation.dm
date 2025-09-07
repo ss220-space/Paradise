@@ -17,6 +17,6 @@
 	admin_only = TRUE
 
 
-/datum/map/cerestation/multiz
+/datum/map/cerestation/side_levels
 	admin_only = TRUE
 	side_levels = BELOW_LEVEL | ABOVE_LEVEL

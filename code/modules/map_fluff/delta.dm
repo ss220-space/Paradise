@@ -17,6 +17,6 @@ Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidz
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/deltastation/"
 
 
-/datum/map/delta/multiz
+/datum/map/delta/side_levels
 	admin_only = TRUE
 	side_levels = BELOW_LEVEL | ABOVE_LEVEL

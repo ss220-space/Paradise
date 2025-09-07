@@ -19,6 +19,6 @@
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/nova/"
 
 
-/datum/map/nova/multiz
+/datum/map/nova/side_levels
 	admin_only = TRUE
 	side_levels = BELOW_LEVEL | ABOVE_LEVEL

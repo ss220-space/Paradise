@@ -26,7 +26,7 @@
 	admin_only = TRUE
 
 
-/datum/map/cyberiad/multiz
+/datum/map/cyberiad/side_levels
 	admin_only = TRUE
 	side_levels = BELOW_LEVEL | ABOVE_LEVEL
 
@@ -46,7 +46,7 @@
 	admin_only = TRUE
 
 
-/datum/map/delta_old/multiz
+/datum/map/delta_old/side_levels
 	admin_only = TRUE
 	side_levels = BELOW_LEVEL | ABOVE_LEVEL
 
@@ -68,6 +68,6 @@
 	admin_only = TRUE
 
 
-/datum/map/coldcolony/multiz
+/datum/map/coldcolony/side_levels
 	admin_only = TRUE
 	side_levels = ABOVE_LEVEL
