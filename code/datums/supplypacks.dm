@@ -2311,7 +2311,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis)
 	cost = 300
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/blood/oxygenis
 	containername = "ящик синетической крови (Кислород)"
 	container_ru_names = list(
 		NOMINATIVE = "ящик синетической крови (Кислород)",
@@ -2331,7 +2331,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis)
 	cost = 300
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/blood/nitrogenis
 	containername = "ящик синтетической крови (Азот)"
 	container_ru_names = list(
 		NOMINATIVE = "ящик синтетической крови (Азот)",
@@ -2355,7 +2355,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/iv_bag/blood/OPlus,
 					/obj/item/reagent_containers/iv_bag/blood/OMinus)
 	cost = 40
-	containertype = /obj/structure/closet/crate/freezer
+	containertype = /obj/structure/closet/crate/secure/blood
 	containername = "ящик пакетов крови (Человек)"
 	container_ru_names = list(
 		NOMINATIVE = "ящик пакетов крови (Человек)",
@@ -2365,6 +2365,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком пакетов крови (Человек)",
 		PREPOSITIONAL = "ящике пакетов крови (Человек)"
 	)
+  access = ACCESS_MEDICAL
 	required_tech = list("biotech" = 3)
 
 /datum/supply_packs/medical/bloodpacks_xenos
@@ -2379,7 +2380,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/reagent_containers/iv_bag/blood/wryn,
 					/obj/item/reagent_containers/iv_bag/blood/nian)
 	cost = 65
-	containertype = /obj/structure/closet/crate/freezer
+	containertype = /obj/structure/closet/crate/secure/blood/xeno
 	containername = "ящик пакетов крови (Ксеносы)"
 	container_ru_names = list(
 		NOMINATIVE = "ящик пакетов крови (Ксеносы)",

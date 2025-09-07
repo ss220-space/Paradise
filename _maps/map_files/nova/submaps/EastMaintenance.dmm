@@ -88,6 +88,15 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"aZ" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
 "bc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -129,6 +138,15 @@
 /obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"bw" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
 "bz" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -1205,6 +1223,15 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"oP" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/maintenance/starboard)
 "oQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -1233,7 +1260,7 @@
 /area/maintenance/fore2)
 "pf" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct,
@@ -1267,6 +1294,15 @@
 /obj/structure/chair,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"pv" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
 "pw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -1665,6 +1701,15 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/maintenance/abandonedoffices)
+"uh" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
 "um" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2061,10 +2106,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedoffices)
-"xQ" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/maintenance/fore2)
 "xR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -2968,11 +3009,6 @@
 /obj/structure/janitorialcart,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
-"GO" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/maintenance/fore2)
 "GX" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3520,7 +3556,7 @@
 	req_access = list(12)
 	},
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3774,7 +3810,7 @@
 "PG" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/turf_decal/siding/wood{
-	dir = 8;
+	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
 /area/maintenance/abandonedoffices)
@@ -4318,6 +4354,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/abandonedoffices)
+"Vs" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/template_noop,
+/area/template_noop)
 "VA" = (
 /obj/structure/closet{
 	icon_state = "cabinet"
@@ -4512,6 +4555,15 @@
 /turf/simulated/floor/carpet/blue,
 /area/maintenance/abandonedoffices)
 "Xf" = (
+/turf/simulated/wall,
+/area/maintenance/starboard)
+"Xh" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
 /turf/simulated/wall,
 /area/maintenance/starboard)
 "Xk" = (
@@ -5035,7 +5087,7 @@ Fb
 (5,1,1) = {"
 Fb
 Fb
-Fb
+pv
 Fb
 Fb
 Fb
@@ -5058,7 +5110,7 @@ Fb
 Fb
 sQ
 Fb
-Fb
+pv
 Fb
 Fb
 Fb
@@ -5082,7 +5134,7 @@ Fb
 iQ
 Fb
 Fb
-Fb
+aZ
 Fb
 Fb
 Fb
@@ -6036,7 +6088,7 @@ PO
 uR
 co
 uR
-GO
+JH
 co
 uR
 uR
@@ -6103,7 +6155,7 @@ Fb
 PQ
 PQ
 PQ
-xQ
+PQ
 PQ
 kG
 Co
@@ -6127,7 +6179,7 @@ Fb
 PQ
 PQ
 PQ
-xQ
+PQ
 PQ
 uR
 gj
@@ -6206,8 +6258,8 @@ PQ
 TV
 Hh
 PQ
-xQ
-xQ
+PQ
+PQ
 JH
 Fv
 Ov
@@ -8069,6 +8121,7 @@ Fb
 (46,1,1) = {"
 Fb
 Fb
+bw
 Fb
 Fb
 Fb
@@ -8089,10 +8142,9 @@ Fb
 Fb
 Fb
 Fb
+Vs
 Fb
-Fb
-Fb
-Xf
+Xh
 QB
 Xf
 NG
@@ -8113,10 +8165,10 @@ NG
 Fb
 Fb
 Fb
+Vs
 Fb
 Fb
-Fb
-Xf
+oP
 QB
 Xf
 NG
@@ -8137,7 +8189,7 @@ NG
 Fb
 Fb
 Fb
-Fb
+uh
 Fb
 "}
 (47,1,1) = {"

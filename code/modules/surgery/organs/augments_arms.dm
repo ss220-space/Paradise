@@ -449,7 +449,7 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_int_organ(/obj/item/organ/internal/cell))
 		if(A.emagged || A.stat & BROKEN)
-			do_sparks(3, 1, A)
+			do_sparks(3, TRUE, A)
 			to_chat(H, span_warning("The APC power currents surge erratically, damaging your chassis!"))
 			H.adjustFireLoss(10)
 		else if(A.cell && A.cell.charge > 0)

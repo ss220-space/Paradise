@@ -34,6 +34,37 @@
 	name = "дополнительные баррикады, установленные перед входом в старую ботанику"
 
 
+// dorm maints near toilet submap
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/dorm_maints_near_toilet
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/dorm_maints_near_toilet
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/dorm_maints_near_toilet/old_poker
+	name = "заброшенная покерная зона вместо старой комнаты под туалетами"
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/dorm_maints_near_toilet/laundry
+	name = "заброшенная комната для стирки вместо старой комнаты под туалетами"
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/dorm_maints_near_toilet/gaming_room
+	name = "заброшенная игровая с игрушками вместо старой комнаты под туалетами"
+
+
+// old sm room
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_sm_room
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_sm_room
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_sm_room/pod_hangar
+	name = "заброшенный ангар подов вместо старого СМа"
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_sm_room/assistant_room
+	name = "заброшеное логово ассистентов вместо старого СМа"
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_sm_room/old_rooms
+	name = "старые комнаты вместо старого СМа"
+
 /// Clown-mime rooms submap
 
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/clown_mime
@@ -44,3 +75,4 @@
 
 /obj/effect/map_effect/marker_helper/submap_def/delta/clown_mime/shuffle
 	name = "комната клоуна и мима была изменена местами. хихихихи"
+

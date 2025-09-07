@@ -15,6 +15,7 @@
 	pixel_x = 9;
 	pixel_y = -8
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "bi" = (
@@ -574,7 +575,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/barricade/wooden/crude,
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
 	id_tag = "botany_room_door"
 	},
 /turf/simulated/floor/plating,
@@ -788,6 +790,16 @@
 "Jg" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/barricade/wooden/crude,
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "botany_room_door"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/garden)
+"JY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "Kb" = (
@@ -808,6 +820,7 @@
 	dir = 4
 	},
 /obj/item/reagent_containers/glass/bucket,
+/obj/machinery/light/small,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5";
 	tag = "icon-wood-broken5"
@@ -1298,7 +1311,7 @@ WQ
 WQ
 UN
 uA
-AI
+JY
 qr
 qr
 qr

@@ -797,7 +797,11 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/gun_mods
 	name = "gun upgrade kit"
 	desc = "Коробка, содержащая различные модуля для улучшения оружия."
-	ru_names = list(
+	icon_state = "box_gun_mods"
+	item_state = "box_gun_mods"
+
+/obj/item/storage/box/syndie_kit/gun_mods/get_ru_names()
+	return list(
 		NOMINATIVE = "набор оружейных модулей",
 		GENITIVE = "набора оружейных модулей",
 		DATIVE = "набору оружейных модулей",
@@ -805,8 +809,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		INSTRUMENTAL = "набором оружейных модулей",
 		PREPOSITIONAL = "наборе оружейных модулей"
 	)
-	icon_state = "box_gun_mods"
-	item_state = "box_gun_mods"
 
 /obj/item/storage/box/syndie_kit/gun_mods/populate_contents()
 	new /obj/item/gun_module/muzzle/suppressor(src)

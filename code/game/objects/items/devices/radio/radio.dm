@@ -470,11 +470,11 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	// --- Cogscarab ---
 	else if(iscogscarab(M))
-		jobname = "Неизвестный"
+		jobname = UNKNOWN_STATUS_RUS
 
 	// --- Unidentifiable mob ---
 	else
-		jobname = "Неизвестный"
+		jobname = UNKNOWN_STATUS_RUS
 
 	// --- Modifications to the mob's identity ---
 
@@ -487,8 +487,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
 		displayname = syndiekey.fake_name
-		jobname = "Неизвестный"
-		rankname = "Неизвестный"
+		jobname = UNKNOWN_STATUS_RUS
+		rankname = UNKNOWN_STATUS_RUS
 		voicemask = TRUE
 
 	// Copy the message pieces so we can safely edit comms line without affecting the actual line

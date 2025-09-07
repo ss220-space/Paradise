@@ -332,7 +332,7 @@
 		to_chat(user, span_notice("Вы готовы к хоум-рану!"))
 		return ..()
 	to_chat(user, span_warning("Вы начинаете копить силу..."))
-	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
+	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, TRUE)
 	if(do_after(user, 9 SECONDS, user))
 		to_chat(user, span_userdanger("Вы накопили мощь! Пора сделать хоум-ран!"))
 		homerun_ready = 1
@@ -350,7 +350,7 @@
 		user.visible_message(span_userdanger("Это хоум-ран!"))
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, rand(8, 10), 14, user)
-		target.ex_act(2)
+		target.ex_act(EXPLODE_HEAVY)
 		playsound(loc, 'sound/weapons/homerun.ogg', 100, TRUE)
 		if(!homerun_always_charged)
 			homerun_ready = FALSE

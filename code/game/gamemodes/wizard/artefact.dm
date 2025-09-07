@@ -650,7 +650,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	H.equip_to_slot_or_del(new /obj/item/melee/katana(H), ITEM_SLOT_HAND_RIGHT)
 	H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), ITEM_SLOT_HAND_LEFT)
 	H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), ITEM_SLOT_BACK)
-	if(!H.real_name || H.real_name == "unknown")
+	if(!H.real_name || H.real_name == UNKNOWN_NAME_RUS)
 		H.real_name = "Neko-chan"
 	else
 		H.real_name = "[H.name]-chan"

@@ -50,7 +50,7 @@
 /// Get text where shuttle docked
 /datum/controller/subsystem/addition_goals/proc/get_shuttle_location()
 	if(!shuttle)
-		return "Неизвестно"
+		return UNKNOWN_STATUS_RUS
 	var/dock_id = shuttle.getDockedId()
 	switch(dock_id)
 		if(AGS_SHUTTLE_CENTCOM_DOCK)

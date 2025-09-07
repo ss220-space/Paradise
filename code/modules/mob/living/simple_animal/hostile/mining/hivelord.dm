@@ -1,13 +1,5 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord
 	name = "hivelord"
-	ru_names = list(
-		NOMINATIVE = "рой",
-		GENITIVE = "роя",
-		DATIVE = "рою",
-		ACCUSATIVE = "рой",
-		INSTRUMENTAL = "роем",
-		PREPOSITIONAL = "рое"
-	)
 	desc = "Поистине чуждое создание — бесформенная масса неизвестной органики, постоянно пульсирующая. При атаке от него отделяются фрагменты, атакующие вместе с основным телом."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Hivelord"
@@ -41,6 +33,16 @@
 	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/get_ru_names()
+	return list(
+		NOMINATIVE = "рой",
+		GENITIVE = "роя",
+		DATIVE = "рою",
+		ACCUSATIVE = "рой",
+		INSTRUMENTAL = "роем",
+		PREPOSITIONAL = "рое"
+	)
+	
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -70,14 +72,6 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 	name = "hivelord brood"
 	desc = "Фрагмент оригинала, действующий в унисон с ним. Один не опасен, но..."
-	ru_names = list(
-		NOMINATIVE = "фрагмент роя",
-		GENITIVE = "фрагмента роя",
-		DATIVE = "фрагменту роя",
-		ACCUSATIVE = "фрагмент роя",
-		INSTRUMENTAL = "фрагментом роя",
-		PREPOSITIONAL = "фрагменте роя"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Hivelordbrood"
 	icon_living = "Hivelordbrood"
@@ -106,6 +100,15 @@
 	del_on_death = 1
 	var/life_time = 10 SECONDS
 
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/get_ru_names()
+	return list(
+		NOMINATIVE = "фрагмент роя",
+		GENITIVE = "фрагмента роя",
+		DATIVE = "фрагменту роя",
+		ACCUSATIVE = "фрагмент роя",
+		INSTRUMENTAL = "фрагментом роя",
+		PREPOSITIONAL = "фрагменте роя"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
@@ -117,7 +120,14 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
 	name = "blood brood"
 	desc = "Живая нить из крови и чужеродных материалов."
-	ru_names = list(
+	icon_state = "bloodbrood"
+	icon_living = "bloodbrood"
+	icon_aggro = "bloodbrood"
+	attacktext = "пронзает"
+	color = BLOOD_COLOR_RED
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/get_ru_names()
+	return list(
 		NOMINATIVE = "кровавый рой",
 		GENITIVE = "кровавого роя",
 		DATIVE = "кровавому рою",
@@ -125,11 +135,6 @@
 		INSTRUMENTAL = "кровавым роем",
 		PREPOSITIONAL = "кровавом рое"
 	)
-	icon_state = "bloodbrood"
-	icon_living = "bloodbrood"
-	icon_aggro = "bloodbrood"
-	attacktext = "пронзает"
-	color = BLOOD_COLOR_RED
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death(gibbed)
 	if(can_die() && loc)
@@ -183,14 +188,6 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion
 	name = "legion"
 	desc = "Под этой массой разложения ещё можно разглядеть очертания бывшего человека."
-	ru_names = list(
-		NOMINATIVE = "легион",
-		GENITIVE = "легиона",
-		DATIVE = "легиону",
-		ACCUSATIVE = "легион",
-		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "legion"
 	icon_living = "legion"
@@ -216,6 +213,16 @@
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/get_ru_names()
+	return list(
+		NOMINATIVE = "легион",
+		GENITIVE = "легиона",
+		DATIVE = "легиону",
+		ACCUSATIVE = "легион",
+		INSTRUMENTAL = "легионом",
+		PREPOSITIONAL = "легионе"
+	)
+
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/random/Initialize(mapload)
 	. = ..()
 	if(prob(5))
@@ -225,14 +232,6 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
 	name = "dwarf legion"
 	desc = "Под этой массой разложения ещё можно разглядеть очертания бывшего карлика."
-	ru_names = list(
-		NOMINATIVE = "легион-карлик",
-		GENITIVE = "легиона-карлика",
-		DATIVE = "легиону-карлику",
-		ACCUSATIVE = "легион-карлика",
-		INSTRUMENTAL = "легионом-карликом",
-		PREPOSITIONAL = "легионе-карлике"
-	)
 	icon_state = "dwarf_legion"
 	icon_living = "dwarf_legion"
 	icon_aggro = "dwarf_legion"
@@ -242,6 +241,16 @@
 	speed = 2 //faster!
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf/get_ru_names()
+	return list(
+		NOMINATIVE = "легион-карлик",
+		GENITIVE = "легиона-карлика",
+		DATIVE = "легиону-карлику",
+		ACCUSATIVE = "легион-карлика",
+		INSTRUMENTAL = "легионом-карликом",
+		PREPOSITIONAL = "легионе-карлике"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
 	fromtendril = TRUE
@@ -271,14 +280,6 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	name = "legion"
 	desc = "Один из многих."
-	ru_names = list(
-		NOMINATIVE = "легион",
-		GENITIVE = "легиона",
-		DATIVE = "легиону",
-		ACCUSATIVE = "легион",
-		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "legion_head"
 	icon_living = "legion_head"
@@ -301,6 +302,16 @@
 	robust_searching = 1
 	var/can_infest = TRUE
 	var/can_infest_dead = FALSE
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/get_ru_names()
+	return list(
+		NOMINATIVE = "легион",
+		GENITIVE = "легиона",
+		DATIVE = "легиону",
+		ACCUSATIVE = "легион",
+		INSTRUMENTAL = "легионом",
+		PREPOSITIONAL = "легионе"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life(seconds, times_fired)
 	if(isturf(loc) && can_infest)
@@ -365,14 +376,6 @@
 /mob/living/simple_animal/hostile/big_legion
 	name = "legion"
 	desc = "Один из многих."
-	ru_names = list(
-		NOMINATIVE = "легион",
-		GENITIVE = "легиона",
-		DATIVE = "легиону",
-		ACCUSATIVE = "легион",
-		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
-	)
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "legion"
 	icon_living = "legion"
@@ -402,6 +405,16 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	tts_seed = "Mannoroth"
 
+/mob/living/simple_animal/hostile/big_legion/get_ru_names()
+	return list(
+		NOMINATIVE = "легион",
+		GENITIVE = "легиона",
+		DATIVE = "легиону",
+		ACCUSATIVE = "легион",
+		INSTRUMENTAL = "легионом",
+		PREPOSITIONAL = "легионе"
+	)
+
 /mob/living/simple_animal/hostile/big_legion/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
@@ -415,7 +428,15 @@
 //Tendril-spawned Legion remains, the charred skeletons of those whose bodies sank into laval or fell into chasms.
 /obj/effect/mob_spawn/human/corpse/charredskeleton
 	name = "charred skeletal remains"
-	ru_names = list(
+	burn_damage = 1000
+	mob_name = "ashen skeleton"
+	mob_gender = NEUTER
+	husk = FALSE
+	mob_species = /datum/species/skeleton
+	mob_color = "#454545"
+
+/obj/effect/mob_spawn/human/corpse/charredskeleton/get_ru_names()
+	return list(
 		NOMINATIVE = "обугленные останки",
 		GENITIVE = "обугленных останков",
 		DATIVE = "обугленным останкам",
@@ -423,12 +444,6 @@
 		INSTRUMENTAL = "обугленными останками",
 		PREPOSITIONAL = "об обугленных останках"
 	)
-	burn_damage = 1000
-	mob_name = "ashen skeleton"
-	mob_gender = NEUTER
-	husk = FALSE
-	mob_species = /datum/species/skeleton
-	mob_color = "#454545"
 
 //Legion infested mobs
 

@@ -106,7 +106,7 @@
 
 	shocking = TRUE
 	update_icon()
-	do_sparks(12, 1, src)
+	do_sparks(12, TRUE, src)
 	visible_message(span_danger("The electric chair went off!"))
 	addtimer(CALLBACK(src, PROC_REF(reset_echair)), delay_time, TIMER_DELETE_ME)
 
