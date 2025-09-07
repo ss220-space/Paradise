@@ -101,6 +101,10 @@
 			allowed_plate_name = "элитные бронеплиты"
 	. += span_notice("Можно установить [allowed_plate_name].")
 
+/obj/item/clothing/get_description_info()
+	if (!armor_plate)
+		return ..()
+	return armor_plate.description_info
 
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
