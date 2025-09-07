@@ -89,9 +89,10 @@
 		return
 
 	user.visible_message(
-		"[user] начинает возить по полу [declent_ru(INSTRUMENTAL)].",
-		span_notice("Вы начинаете возить по полу [declent_ru(INSTRUMENTAL)]...")
+		"[user] начина[user.pluralize_ru("ет", "ют")] возить по полу [declent_ru(INSTRUMENTAL)].",
+		ignored_mobs = user
 	)
+	user.balloon_alert(user, "мытьё пола...")
 
 	var/list/bubbles = list()
 	for(var/turf/turf as anything in turfs)
