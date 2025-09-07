@@ -250,10 +250,10 @@
 		return
 
 	playsound(old_loc, 'sound/magic/blink.ogg', 50)
-	old_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "улетает ввысь, сквозь потолок" : "проваливается сквозь пол"]!"))
+	old_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "улета[pluralize_ru("ет", "ют")] ввысь, сквозь потолок" : "провалива[pluralize_ru("ет", "ют")]ся сквозь пол"]!"))
 	do_sparks(rand(2, 5), TRUE, old_loc)
 	playsound(new_loc, 'sound/magic/blink.ogg', 50)
-	new_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "появляется из под пола" : "падает сквозь потолок"]!"))
+	new_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "появля[pluralize_ru("ет", "ют")]ся из под пола" : "пада[pluralize_ru("ет", "ют")] сквозь потолок"]!"))
 	do_sparks(rand(2, 5), TRUE, new_loc)
 	change_colour()
 
