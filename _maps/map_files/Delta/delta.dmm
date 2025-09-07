@@ -37160,6 +37160,13 @@
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/chief)
+"dOz" = (
+/obj/structure/girder,
+/obj/structure/girder,
+/obj/structure/girder,
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/maintenance/engineering)
 "dOB" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
@@ -154488,7 +154495,7 @@ cxK
 cxK
 nTm
 mDe
-qUe
+dOz
 cDz
 cbC
 cbC
