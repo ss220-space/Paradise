@@ -217,20 +217,20 @@
 
 
 /obj/structure/closet/cardboard/agent/nullspace
-	name = "нульспейс коробка"
-	desc = "Коробка пропитанная силой нульспейса, созданная лучшими учёными с планеты клоунов."
+	name = "блюспейс коробка"
+	desc = "Коробка пропитанная силой блюспейса, созданная лучшими учёными с планеты клоунов."
 	gender = FEMALE
 	default_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 
 
 /obj/structure/closet/cardboard/agent/nullspace/get_ru_names()
 	return list(
-		NOMINATIVE = "нульспейс коробка",
-		GENITIVE = "нульспейс коробки",
-		DATIVE = "нульспейс коробке",
-		ACCUSATIVE = "нульспейс коробку",
-		INSTRUMENTAL = "нульспейс коробкой",
-		PREPOSITIONAL = "нульспейс коробке",
+		NOMINATIVE = "блюспейс коробка",
+		GENITIVE = "блюспейс коробки",
+		DATIVE = "блюспейс коробке",
+		ACCUSATIVE = "блюспейс коробку",
+		INSTRUMENTAL = "блюспейс коробкой",
+		PREPOSITIONAL = "блюспейс коробке",
 	)
 
 /obj/structure/closet/cardboard/agent/nullspace/go_invisible()

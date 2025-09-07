@@ -293,7 +293,7 @@
 
 
 /datum/spellbook_entry/nullspace_box
-	name = "Призыв нульспейс коробки"
+	name = "Призыв блюспейс коробки"
 	spell_type = /obj/effect/proc_holder/spell/nullspace_box
 	cost = 1
 	category = "Mobility"
