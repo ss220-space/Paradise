@@ -88,8 +88,10 @@
 	if(!turfs.len)
 		return
 
-	user.visible_message("[user] begins to clean [clicked_turf] with [src].",
-						span_notice("You begin to clean [clicked_turf] with [src]..."))
+	user.visible_message(
+		"[user] начинает возить по полу [declent_ru(INSTRUMENTAL)].",
+		span_notice("Вы начинаете возить по полу [declent_ru(INSTRUMENTAL)]...")
+	)
 
 	var/list/bubbles = list()
 	for(var/turf/turf as anything in turfs)
