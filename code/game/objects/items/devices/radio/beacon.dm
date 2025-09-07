@@ -217,7 +217,8 @@
 								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK
 			"Professional" = list("Name" = "'Professional' Bundle",	// 180-187 TK
 								"Desc" = "Suit up and handle yourself like a professional with a long-distance sniper rifle, additional .50 standard and penetrator rounds and thermal glasses to easily scope out your target.",
-								/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator = 1,	// 100 TK
+								/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator = 1,   // 100 TK
+								/obj/item/gun_module/rail/scope/x8 = 1,                                     // 0 TK
 								/obj/item/ammo_box/magazine/sniper_rounds/compact = 1,						// 10 TK
 								/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator = 2,			// 25 TK
 								/obj/item/ammo_box/magazine/sniper_rounds/compact/soporific = 1,			// 15 TK

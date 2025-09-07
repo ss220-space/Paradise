@@ -118,7 +118,7 @@
 
 /obj/item/gun_module/muzzle/suppressor/shotgun
 	name = "shotgun suppressor"
-	desc = "Тяжёлый квадратный глушитель, совместимый с различными ружьями, позволяет значительно снизить шум от выстрелов и интенсивность вспышки."
+	desc = "Тяжёлый квадратный глушитель, предназначенный для дробовиков и ружей, позволяет значительно снизить шум от выстрелов и интенсивность вспышки."
 	icon_state = "suppshotgun"
 	overlay_state = "suppshotgun_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_MUZZLE

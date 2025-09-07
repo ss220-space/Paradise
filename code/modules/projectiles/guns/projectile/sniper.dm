@@ -7,6 +7,7 @@
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
 	icon = 'icons/obj/weapons/guns_48x32.dmi'
 	fire_sound = 'sound/weapons/gunshots/1sniper.ogg'
+	suppressed_fire_sound = 'sound/weapons/gunshots/snipersupp.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	fire_delay = 40

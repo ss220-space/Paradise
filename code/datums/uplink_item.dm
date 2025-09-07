@@ -2343,7 +2343,7 @@
 
 /datum/uplink_item/bundles_TC/sniper
 	name = "Набор — Снайперская винтовка Bubz FX1000"
-	desc = "Портфель, в которой находятся: снайперская винтовка Bubz FX1000, красный галстук, тактический комбинезон и 2 магазина .50 \"Снотворный\"."
+	desc = "Портфель, в которой находятся: снайперская винтовка Bubz FX1000, красный галстук, тактический комбинезон, глушитель, оптический прицел и 2 магазина .50 \"Снотворный\"."
 	item = /obj/item/storage/briefcase/sniperbundle
 	cost = 110 // normally 135
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
