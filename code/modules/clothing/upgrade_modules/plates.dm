@@ -74,6 +74,10 @@
 
 /obj/item/armor_plate/proc/get_examine_text()
 	. = span_notice("Установлен[genderize_decode(gender, "", "а", "о", "ы")] [declent_ru(NOMINATIVE)]. ")
+	// if(ballistic_class > BALLISTIC_ARMOR_CLASS_NONE)
+	// 	. = span_notice("Обеспечивает баллистическую защиту [GLOB.ballistic_armor_class_name[ballistic_class]] класса. ")
+	// if(laser_class > BALLISTIC_ARMOR_CLASS_NONE)
+	// 	. = span_notice("Обеспечивает лазерную защиту [GLOB.laser_armor_class_name[laser_class]] класса. ")
 	. += span_notice(get_integrity_text())
 
 /obj/item/armor_plate/proc/get_integrity_text()
