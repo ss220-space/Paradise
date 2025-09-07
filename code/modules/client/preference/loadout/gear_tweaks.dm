@@ -155,3 +155,52 @@
 		return
 
 	gear.name = metadata
+
+/*
+* Custom adjustment
+*/
+
+/datum/gear_tweak/custom
+	display_type = "Кастом"
+	fa_icon = "paint"
+	info = "Собственный предмет"
+	var/datum/gear/parent
+
+/datum/gear_tweak/custom/New(datum/gear/parent)
+	src.parent = parent
+	..()
+
+/datum/gear_tweak/custom/get_contents(metadata)
+	return "Type: [metadata]"
+
+/datum/gear_tweak/custom/get_default()
+	return null
+
+/datum/gear_tweak/custom/get_metadata(mob/user, metadata)
+	var/sprite = input(user, "Выберите dmi файл", "Загрузка спрайта") as null|file
+	if(!sprite)
+		return
+	if(copytext("[sprite]",-4) != ".dmi")
+		to_chat(user, "Bad sprite file: [sprite]")
+		return
+
+	var/icon/new_icon = new(sprite)
+	SScustom_item.save_icon(user.ckey, new_icon)
+
+	return user.ckey
+
+/datum/gear_tweak/custom/update_gear_intro(ckey)
+	UNTIL(SScustom_item.initialized)
+	var/my_icon = LAZYACCESS(SScustom_item.custom_gear_info, ckey)
+	if(!my_icon)
+		return
+
+	parent.base64icon = icon2base64(my_icon)
+
+/datum/gear_tweak/custom/get_tgui_data(param)
+	var/tgui_data = list()
+	tgui_data["icon"] = parent.base64icon
+	return tgui_data
+
+/datum/gear_tweak/custom/tweak_item(obj/item/gear, metadata)
+	return

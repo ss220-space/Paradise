@@ -1306,6 +1306,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(!(text_path in item_cache))
 				continue
 			var/params = item_cache[text_path]
+			tweak.update_gear_intro(params)
 			var/list/data =tweak?.get_tgui_data(params)
 			if (!data)
 				continue

@@ -325,7 +325,7 @@
 		var/list/unformated_loadout_gear = params2list(query.item[54])
 		for(var/gear in unformated_loadout_gear)
 			loadout_gear[gear] = params2list(unformated_loadout_gear[gear])
-		form_choosen_gears()
+		INVOKE_ASYNC(src, PROC_REF(form_choosen_gears))
 		autohiss_mode = text2num(query.item[55])
 		uplink_pref = query.item[56]
 
