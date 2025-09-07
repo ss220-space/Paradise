@@ -88,10 +88,8 @@
 	if(!turfs.len)
 		return
 
-	user.visible_message(
-		"[user] begins to clean [clicked_turf] with [src].",
-		span_notice("You begin to clean [clicked_turf] with [src]...")
-	)
+	user.visible_message("[user] begins to clean [clicked_turf] with [src].",
+						span_notice("You begin to clean [clicked_turf] with [src]..."))
 
 	var/list/bubbles = list()
 	for(var/turf/turf as anything in turfs)
@@ -101,7 +99,8 @@
 		QDEL_LAZYLIST(bubbles)
 		return
 
-	to_chat(user, span_notice("You finish mopping."))
+	user.balloon_alert(user, "")
+	to_chat(user, span_notice("мытьё закончено"))
 	for(var/turf/turf as anything in turfs)
 		clean(turf)
 
