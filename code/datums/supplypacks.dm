@@ -64,8 +64,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/special = FALSE
 	var/special_enabled = FALSE
 
-	/// The number of times one can order a cargo crate, before it becomes restricted. -1 for infinite
-	///	var/order_limit = -1	// Unused for now (Crate limit #3056).
+	// The number of times one can order a cargo crate, before it becomes restricted. -1 for infinite
+	// var/order_limit = -1	// Unused for now (Crate limit #3056).
+
 	/// Number of times a crate has been ordered in a shift
 	var/times_ordered = 0
 
@@ -369,14 +370,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/grenade/chem_grenade/incendiary)
 	cost = 60
 	containertype = /obj/structure/closet/crate
-	containername = "ящик c оборудованием для плеловодства для спецопераций"
+	containername = "ящик c набором для спецопераций"
 	container_ru_names = list(
-		NOMINATIVE = "ящик c оборудованием для плеловодства для спецопераций",
-		GENITIVE = "ящика c оборудованием для плеловодства для спецопераций",
-		DATIVE = "ящику c оборудованием для плеловодства для спецопераций",
-		ACCUSATIVE = "ящик c оборудованием для плеловодства для спецопераций",
-		INSTRUMENTAL = "ящиком c оборудованием для плеловодства для спецопераций",
-		PREPOSITIONAL = "ящике c оборудованием для плеловодства для спецопераций"
+		NOMINATIVE = "ящик c набором для спецопераций",
+		GENITIVE = "ящика c набором для спецопераций",
+		DATIVE = "ящику c набором для спецопераций",
+		ACCUSATIVE = "ящик c набором для спецопераций",
+		INSTRUMENTAL = "ящиком c набором для спецопераций",
+		PREPOSITIONAL = "ящике c набором для спецопераций"
 	)
 	hidden = TRUE
 
@@ -570,14 +571,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Набор пополнения SecTech"
 	cost = 75
 	contains = list(/obj/item/vending_refill/security)
-	containername = "ящик с оборудованием для плеловодства пополнения SecTech"
+	containername = "ящик с набором пополнения SecTech"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с оборудованием для плеловодства пополнения SecTech",
-		GENITIVE = "ящика с оборудованием для плеловодства пополнения SecTech",
-		DATIVE = "ящику с оборудованием для плеловодства пополнения SecTech",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства пополнения SecTech",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства пополнения SecTech",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства пополнения SecTech"
+		NOMINATIVE = "ящик с набором пополнения SecTech",
+		GENITIVE = "ящика с набором пополнения SecTech",
+		DATIVE = "ящику с набором пополнения SecTech",
+		ACCUSATIVE = "ящик с набором пополнения SecTech",
+		INSTRUMENTAL = "ящиком с набором пополнения SecTech",
+		PREPOSITIONAL = "ящике с набором пополнения SecTech"
 	)
 
 /datum/supply_packs/security/vending/security_mods
@@ -595,14 +596,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/mask/gas/sechailer,
 					/obj/item/clothing/mask/gas/sechailer)
 	cost = 45 //justice comes at a price. An expensive, noisy price.
-	containername = "ящик с оборудованием для плеловодства исполнения правосудия"
+	containername = "ящик с набором для исполнения правосудия"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с оборудованием для плеловодства исполнения правосудия",
-		GENITIVE = "ящика с оборудованием для плеловодства исполнения правосудия",
-		DATIVE = "ящику с оборудованием для плеловодства исполнения правосудия",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства исполнения правосудия",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства исполнения правосудия",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства исполнения правосудия"
+		NOMINATIVE = "ящик с набором для исполнения правосудия",
+		GENITIVE = "ящика с набором для исполнения правосудия",
+		DATIVE = "ящику с набором для исполнения правосудия",
+		ACCUSATIVE = "ящик с набором для исполнения правосудия",
+		INSTRUMENTAL = "ящиком с набором для исполнения правосудия",
+		PREPOSITIONAL = "ящике с набором для исполнения правосудия"
 	)
 
 /datum/supply_packs/security/armor
@@ -1032,14 +1033,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/gun/projectile/automatic/wt550,
 					/obj/item/gun/projectile/automatic/wt550)
 	cost = 35
-	containername = "ящик ПП WT-550"
+	containername = "ящик WT-550"
 	container_ru_names = list(
-		NOMINATIVE = "ящик ПП WT-550",
-		GENITIVE = "ящика ПП WT-550",
-		DATIVE = "ящику ПП WT-550",
-		ACCUSATIVE = "ящик ПП WT-550",
-		INSTRUMENTAL = "ящиком ПП WT-550",
-		PREPOSITIONAL = "ящике ПП WT-550"
+		NOMINATIVE = "ящик WT-550",
+		GENITIVE = "ящика WT-550",
+		DATIVE = "ящику WT-550",
+		ACCUSATIVE = "ящик WT-550",
+		INSTRUMENTAL = "ящиком WT-550",
+		PREPOSITIONAL = "ящике WT-550"
 	)
 
 /datum/supply_packs/security/armory/ga12
@@ -1414,17 +1415,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/structure/reagent_dispensers/fueltank)
 	cost = 8
 	containertype = /obj/structure/largecrate
-	containername = "ящик с ботаническим ранцем для сварочного топлива"
+	containername = "ящик с баком сварочного топлива"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с ботаническим ранцем для сварочного топлива",
-		GENITIVE = "ящика с ботаническим ранцем для сварочного топлива",
-		DATIVE = "ящику с ботаническим ранцем для сварочного топлива",
-		ACCUSATIVE = "ящик с ботаническим ранцем для сварочного топлива",
-		INSTRUMENTAL = "ящиком с ботаническим ранцем для сварочного топлива",
-		PREPOSITIONAL = "ящике с ботаническим ранцем для сварочного топлива"
+		NOMINATIVE = "ящик с баком сварочного топлива",
+		GENITIVE = "ящика с баком сварочного топлива",
+		DATIVE = "ящику с баком сварочного топлива",
+		ACCUSATIVE = "ящик с баком сварочного топлива",
+		INSTRUMENTAL = "ящиком с баком сварочного топлива",
+		PREPOSITIONAL = "ящике с баком сварочного топлива"
 	)
 
-/datum/supply_packs/engineering/tools		//the most robust crate
+/datum/supply_packs/engineering/tools
 	name = "Ящики для инструментов"
 	contains = list(/obj/item/storage/toolbox/electrical,
 					/obj/item/storage/toolbox/electrical,
@@ -1433,15 +1434,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/toolbox/mechanical)
 	cost = 10
-	// тавтология моя тавтология
-	containername = "ящик ящиков для инструментов"
+	containername = "ящик с набором ящиков для инструментов"
 	container_ru_names = list(
-		NOMINATIVE = "ящик ящиков для инструментов",
-		GENITIVE = "ящика ящиков для инструментов",
-		DATIVE = "ящику ящиков для инструментов",
-		ACCUSATIVE = "ящик ящиков для инструментов",
-		INSTRUMENTAL = "ящиком ящиков для инструментов",
-		PREPOSITIONAL = "ящике ящиков для инструментов"
+		NOMINATIVE = "ящик с набором ящиков для инструментов",
+		GENITIVE = "ящика с набором ящиков для инструментов",
+		DATIVE = "ящику с набором ящиков для инструментов",
+		ACCUSATIVE = "ящик с набором ящиков для инструментов",
+		INSTRUMENTAL = "ящиком с набором ящиков для инструментов",
+		PREPOSITIONAL = "ящике с набором ящиков для инструментов"
 	)
 
 /datum/supply_packs/vending/engivend
@@ -1545,14 +1545,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/tracker_electronics,
 					/obj/item/paper/solar)
 	cost = 15
-	containername = "ящик с оборудованием для плеловодства солнечных панелей"
+	containername = "ящик с набором солнечных панелей"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с оборудованием для плеловодства солнечных панелей",
-		GENITIVE = "ящика с оборудованием для плеловодства солнечных панелей",
-		DATIVE = "ящику с оборудованием для плеловодства солнечных панелей",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства солнечных панелей",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства солнечных панелей",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства солнечных панелей"
+		NOMINATIVE = "ящик с набором солнечных панелей",
+		GENITIVE = "ящика с набором солнечных панелей",
+		DATIVE = "ящику с набором солнечных панелей",
+		ACCUSATIVE = "ящик с набором солнечных панелей",
+		INSTRUMENTAL = "ящиком с набором солнечных панелей",
+		PREPOSITIONAL = "ящике с набором солнечных панелей"
 	)
 	containertype = /obj/structure/closet/crate/engineering/electrical
 
@@ -1981,14 +1981,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/disk/design_disk/station_goal_machinery/brs_portable_scanner,
 		/obj/item/disk/design_disk/station_goal_machinery/brs_stationary_scanner,
 	)
-	containername = "ящик с оборудованием для плеловодства сканирования БС-разлома"
+	containername = "ящик с набором сканирования БС-разлома"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с оборудованием для плеловодства сканирования БС-разлома",
-		GENITIVE = "ящика с оборудованием для плеловодства сканирования БС-разлома",
-		DATIVE = "ящику с оборудованием для плеловодства сканирования БС-разлома",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства сканирования БС-разлома",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства сканирования БС-разлома",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства сканирования БС-разлома"
+		NOMINATIVE = "ящик с набором сканирования БС-разлома",
+		GENITIVE = "ящика с набором сканирования БС-разлома",
+		DATIVE = "ящику с набором сканирования БС-разлома",
+		ACCUSATIVE = "ящик с набором сканирования БС-разлома",
+		INSTRUMENTAL = "ящиком с набором сканирования БС-разлома",
+		PREPOSITIONAL = "ящике с набором сканирования БС-разлома"
 	)
 	containertype = /obj/structure/closet/crate/sci
 	required_tech = list("engineering" = 3, "programming" = 6, "bluespace" = 7)
@@ -2365,7 +2365,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком пакетов крови (Человек)",
 		PREPOSITIONAL = "ящике пакетов крови (Человек)"
 	)
-  access = ACCESS_MEDICAL
+	access = ACCESS_MEDICAL
 	required_tech = list("biotech" = 3)
 
 /datum/supply_packs/medical/bloodpacks_xenos
@@ -2494,14 +2494,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/circuitboard/mecha/ripley/main,
 					/obj/item/circuitboard/mecha/ripley/peripherals)
 	cost = 25
-	containername = "ящик с оборудованием для плеловодства плат (АТМЕ \"Рипли\")"
+	containername = "ящик с набором плат (АТМЕ \"Рипли\")"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с оборудованием для плеловодства плат (АТМЕ \"Рипли\")",
-		GENITIVE = "ящика с оборудованием для плеловодства плат (АТМЕ \"Рипли\")",
-		DATIVE = "ящику с оборудованием для плеловодства плат (АТМЕ \"Рипли\")",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства плат (АТМЕ \"Рипли\")",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства плат (АТМЕ \"Рипли\")",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства плат (АТМЕ \"Рипли\")"
+		NOMINATIVE = "ящик с набором плат (АТМЕ \"Рипли\")",
+		GENITIVE = "ящика с набором плат (АТМЕ \"Рипли\")",
+		DATIVE = "ящику с набором плат (АТМЕ \"Рипли\")",
+		ACCUSATIVE = "ящик с набором плат (АТМЕ \"Рипли\")",
+		INSTRUMENTAL = "ящиком с набором плат (АТМЕ \"Рипли\")",
+		PREPOSITIONAL = "ящике с набором плат (АТМЕ \"Рипли\")"
 	)
 
 /datum/supply_packs/science/robotics/mecha_odysseus
@@ -2509,14 +2509,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/circuitboard/mecha/odysseus/peripherals,
 					/obj/item/circuitboard/mecha/odysseus/main)
 	cost = 55
-	containername = "ящик с оборудованием для плеловодства плат (Одиссей)"
+	containername = "ящик с набором плат (Одиссей)"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с оборудованием для плеловодства плат (Одиссей)",
-		GENITIVE = "ящика с оборудованием для плеловодства плат (Одиссей)",
-		DATIVE = "ящику с оборудованием для плеловодства плат (Одиссей)",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства плат (Одиссей)",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства плат (Одиссей)",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства плат (Одиссей)"
+		NOMINATIVE = "ящик с набором плат (Одиссей)",
+		GENITIVE = "ящика с набором плат (Одиссей)",
+		DATIVE = "ящику с набором плат (Одиссей)",
+		ACCUSATIVE = "ящик с набором плат (Одиссей)",
+		INSTRUMENTAL = "ящиком с набором плат (Одиссей)",
+		PREPOSITIONAL = "ящике с набором плат (Одиссей)"
 	)
 
 /datum/supply_packs/science/firstaidmachine
@@ -3133,14 +3133,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/grenade/confetti,
 					/obj/item/grenade/confetti)
 	cost = 20
-	containername = "ящик с оборудованием для плеловодства для вечеринки"
+	containername = "ящик с набором для вечеринки"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с оборудованием для плеловодства для вечеринки",
-		GENITIVE = "ящика с оборудованием для плеловодства для вечеринки",
-		DATIVE = "ящику с оборудованием для плеловодства для вечеринки",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства для вечеринки",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства для вечеринки",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства для вечеринки"
+		NOMINATIVE = "ящик с набором для вечеринки",
+		GENITIVE = "ящика с набором для вечеринки",
+		DATIVE = "ящику с набором для вечеринки",
+		ACCUSATIVE = "ящик с набором для вечеринки",
+		INSTRUMENTAL = "ящиком с набором для вечеринки",
+		PREPOSITIONAL = "ящике с набором для вечеринки"
 	)
 	announce_beacons = list("Bar" = list("Bar"))
 
@@ -3150,14 +3150,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/circuitboard/chem_dispenser/soda,
 					/obj/item/circuitboard/chem_dispenser/beer)
 	cost = 25
-	containername = "ящик с оборудованием для плеловодства для создания бара"
+	containername = "ящик с набором для создания бара"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с оборудованием для плеловодства для создания бара",
-		GENITIVE = "ящика с оборудованием для плеловодства для создания бара",
-		DATIVE = "ящику с оборудованием для плеловодства для создания бара",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства для создания бара",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства для создания бара",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства для создания бара"
+		NOMINATIVE = "ящик с набором для создания бара",
+		GENITIVE = "ящика с набором для создания бара",
+		DATIVE = "ящику с набором для создания бара",
+		ACCUSATIVE = "ящик с набором для создания бара",
+		INSTRUMENTAL = "ящиком с набором для создания бара",
+		PREPOSITIONAL = "ящике с набором для создания бара"
 	)
 	announce_beacons = list("Bar" = list("Bar"))
 
@@ -3592,14 +3592,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/organic/barthender_rare
 	name = "Набор для опытных барменов"
-	containername = "ящик с оборудованием для плеловодства для опытных барменов"
+	containername = "ящик с набором для опытных барменов"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с оборудованием для плеловодства для опытных барменов",
-		GENITIVE = "ящика с оборудованием для плеловодства для опытных барменов",
-		DATIVE = "ящику с оборудованием для плеловодства для опытных барменов",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства для опытных барменов",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства для опытных барменов",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства для опытных барменов"
+		NOMINATIVE = "ящик с набором для опытных барменов",
+		GENITIVE = "ящика с набором для опытных барменов",
+		DATIVE = "ящику с набором для опытных барменов",
+		ACCUSATIVE = "ящик с набором для опытных барменов",
+		INSTRUMENTAL = "ящиком с набором для опытных барменов",
+		PREPOSITIONAL = "ящике с набором для опытных барменов"
 	)
 	cost = 60
 	contains = list(
@@ -3608,14 +3608,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/organic/chef_rare
 	name = "Набор для опытных поваров"
-	containername = "ящик с оборудованием для плеловодства для опытных поваров"
+	containername = "ящик с набором для опытных поваров"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с оборудованием для плеловодства для опытных поваров",
-		GENITIVE = "ящика с оборудованием для плеловодства для опытных поваров",
-		DATIVE = "ящику с оборудованием для плеловодства для опытных поваров",
-		ACCUSATIVE = "ящик с оборудованием для плеловодства для опытных поваров",
-		INSTRUMENTAL = "ящиком с оборудованием для плеловодства для опытных поваров",
-		PREPOSITIONAL = "ящике с оборудованием для плеловодства для опытных поваров"
+		NOMINATIVE = "ящик с набором для опытных поваров",
+		GENITIVE = "ящика с набором для опытных поваров",
+		DATIVE = "ящику с набором для опытных поваров",
+		ACCUSATIVE = "ящик с набором для опытных поваров",
+		INSTRUMENTAL = "ящиком с набором для опытных поваров",
+		PREPOSITIONAL = "ящике с набором для опытных поваров"
 	)
 	cost = 40
 	contains = list(

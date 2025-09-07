@@ -286,15 +286,15 @@
 
 	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
-	reqform.name = "запрос на поставку – [crates] '[object.name]' для [orderedby]"
+	reqform.name = "запрос на поставку – [crates] \"[object.name]\" для [orderedby]"
 	reqform.ru_names = new /list(6)
 	reqform.ru_names = list(
-		NOMINATIVE = "запрос на поставку – [crates] '[object.name]' для [orderedby]",
-		GENITIVE = "запроса на поставку – [crates] '[object.name]' для [orderedby]",
-		DATIVE = "запросу на поставку – [crates] '[object.name]' для [orderedby]",
-		ACCUSATIVE = "запрос на поставку – [crates] '[object.name]' для [orderedby]",
-		INSTRUMENTAL = "запросом на поставку – [crates] '[object.name]' для [orderedby]",
-		PREPOSITIONAL = "запросе на поставку – [crates] '[object.name]' для [orderedby]"
+		NOMINATIVE = "запрос на поставку – [crates] \"[object.name]\" для [orderedby]",
+		GENITIVE = "запроса на поставку – [crates] \"[object.name]\" для [orderedby]",
+		DATIVE = "запросу на поставку – [crates] \"[object.name]\" для [orderedby]",
+		ACCUSATIVE = "запрос на поставку – [crates] \"[object.name]\" для [orderedby]",
+		INSTRUMENTAL = "запросом на поставку – [crates] \"[object.name]\" для [orderedby]",
+		PREPOSITIONAL = "запросе на поставку – [crates] \"[object.name]\" для [orderedby]"
 	)
 	reqform.info += "<h3>[station_name()] – запрос на поставку грузов</h3><hr>"
 	reqform.info += "ИНДЕКС: №[SSshuttle.ordernum]<br>"
@@ -335,15 +335,15 @@
 	var/stationName = (errors & MANIFEST_ERROR_NAME) ? new_station_name() : station_name()
 	var/packagesAmt = SSshuttle.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
-	slip.name = "Манифест поставки – '[object.name]' для [orderedby]"
+	slip.name = "Манифест поставки – \"[object.name]\" для [orderedby]"
 	slip.ru_names = new /list(6)
 	slip.ru_names = list(
-		NOMINATIVE = "манифест поставки – '[object.name]' для [orderedby]",
-		GENITIVE = "манифеста поставки – '[object.name]' для [orderedby]",
-		DATIVE = "манифесту поставки – '[object.name]' для [orderedby]",
-		ACCUSATIVE = "манифест поставки – '[object.name]' для [orderedby]",
-		INSTRUMENTAL = "манифестом поставки – '[object.name]' для [orderedby]",
-		PREPOSITIONAL = "манифесте поставки – '[object.name]' для [orderedby]"
+		NOMINATIVE = "манифест поставки – \"[object.name]\" для [orderedby]",
+		GENITIVE = "манифеста поставки – \"[object.name]\" для [orderedby]",
+		DATIVE = "манифесту поставки – \"[object.name]\" для [orderedby]",
+		ACCUSATIVE = "манифест поставки – \"[object.name]\" для [orderedby]",
+		INSTRUMENTAL = "манифестом поставки – \"[object.name]\" для [orderedby]",
+		PREPOSITIONAL = "манифесте поставки – \"[object.name]\" для [orderedby]"
 	)
 	slip.info = "<h3>[command_name()] Манифест поставки</h3><hr><br>"
 	slip.info +="Заказ: №[ordernum]<br>"
@@ -412,14 +412,6 @@
 /obj/machinery/computer/supplycomp
 	name = "Supply Shuttle Console"
 	desc = "Компьютер, используемый для оформления заказов на поставку. Предназначен для пользования персоналом Отдела снабжения."
-	ru_names = list(
-		NOMINATIVE = "консоль оформления заказов",
-		GENITIVE = "консоли оформления заказов",
-		DATIVE = "консоли оформления заказов",
-		ACCUSATIVE = "консоль оформления заказов",
-		INSTRUMENTAL = "консолью оформления заказов",
-		PREPOSITIONAL = "консоли оформления заказов"
-	)
 	icon_screen = "supply"
 	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/supplycomp
@@ -430,10 +422,27 @@
 	/// Can we order contraband
 	var/can_order_contraband = FALSE
 
+/obj/machinery/computer/supplycomp/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль оформления заказов",
+		GENITIVE = "консоли оформления заказов",
+		DATIVE = "консоли оформления заказов",
+		ACCUSATIVE = "консоль оформления заказов",
+		INSTRUMENTAL = "консолью оформления заказов",
+		PREPOSITIONAL = "консоли оформления заказов"
+	)
+
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
 	desc = "Компьютер, используемый для оформления заказов на поставку. Предназначен для общего пользования."
-	ru_names = list(
+	icon = 'icons/obj/machines/computer.dmi'
+	icon_screen = "request"
+	circuit = /obj/item/circuitboard/ordercomp
+	req_access = list()
+	is_public = TRUE
+
+/obj/machinery/computer/supplycomp/public/get_ru_names()
+	return list(
 		NOMINATIVE = "публичная консоль оформления заказов",
 		GENITIVE = "публичной консоли оформления заказов",
 		DATIVE = "публичной консоли оформления заказов",
@@ -441,12 +450,6 @@
 		INSTRUMENTAL = "публичной консолью оформления заказов",
 		PREPOSITIONAL = "публичной консоли оформления заказов"
 	)
-	icon = 'icons/obj/machines/computer.dmi'
-	icon_screen = "request"
-	circuit = /obj/item/circuitboard/ordercomp
-	req_access = list()
-	is_public = TRUE
-
 
 /obj/machinery/computer/supplycomp/Initialize(mapload, obj/structure/computerframe/frame)
 	. = ..()
@@ -618,8 +621,8 @@
 				return
 			reason = sanitize(copytext_char(reason, 1, 100)) //Preventing tgui overflow
 
-			var/idname = "Не указано"
-			var/idrank = "Не указано"
+			var/idname = "*Не указано*"
+			var/idrank = "*Не указано*"
 
 			if(ishuman(usr))
 				var/mob/living/carbon/human/H = usr
@@ -685,7 +688,7 @@
 			// Public consoles cant view messages
 			if(is_public)
 				return
-			var/datum/browser/ccmsg_browser = new(usr, "ccmsg", "Журнал сообщений снабжения Центрального Командования.", 800, 600)
+			var/datum/browser/ccmsg_browser = new(usr, "ccmsg", "Журнал сообщений снабжения Центрального командования.", 800, 600)
 			ccmsg_browser.set_content(SSshuttle.centcom_message)
 			ccmsg_browser.open()
 

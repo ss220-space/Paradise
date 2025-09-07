@@ -217,7 +217,7 @@
 	var/obj/item/paper/paper = new(get_turf(src))
 	paper.info = "<div id=\"output\"><center> <h3> Форма запроса на поставку </h3> </center><br><hr><br>"
 	paper.info += "Заказчик: [quest.customer.departament_name]<br>"
-	paper.info += "Запрос одобрил: [quest.idname] - [quest.idrank]<br>"
+	paper.info += "Запрос одобрил: [quest.idname] – [quest.idrank]<br>"
 	paper.info += "Время приёма запроса: [quest.order_date] [quest.order_time]<br>"
 	paper.info += "<ul> <h3> Позиции запроса:</h3>"
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
@@ -279,7 +279,7 @@
 
 	paper.info = "<div id=\"output\"><center> <h3> Отчёт о поставке </h3> </center><br><hr><br>"
 	paper.info += "Заказчик: [quest.customer.departament_name]<br>"
-	paper.info += "Запрос одобрил: [quest.idname] - [quest.idrank]<br>"
+	paper.info += "Запрос одобрил: [quest.idname] – [quest.idrank]<br>"
 	paper.info += "Время приёма запроса: [GLOB.current_date_string]  [station_time_timestamp()]<br>"
 	paper.info += "<ul> <h3> Позиции запроса:</h3>"
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
@@ -351,12 +351,12 @@
 
 /obj/item/qm_quest_tablet/get_ru_names()
 	return list(
-		NOMINATIVE = "планшет Завхоза",
-		GENITIVE = "планшета Завхоза",
-		DATIVE = "планшету Завхоза",
-		ACCUSATIVE = "планшет Завхоза",
-		INSTRUMENTAL = "планшетом Завхоза",
-		PREPOSITIONAL = "планшете Завхоза"
+		NOMINATIVE = "планшет Квартирмейстера",
+		GENITIVE = "планшета Квартирмейстера",
+		DATIVE = "планшету Квартирмейстера",
+		ACCUSATIVE = "планшет Квартирмейстера",
+		INSTRUMENTAL = "планшетом Квартирмейстера",
+		PREPOSITIONAL = "планшете Квартирмейстера"
 	)
 
 /obj/machinery/computer/supplyquest/iternal
