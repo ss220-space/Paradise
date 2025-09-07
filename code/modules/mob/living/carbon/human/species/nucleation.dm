@@ -28,6 +28,7 @@
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 	)
 	bodyflags = HAS_BODY_MARKINGS
+	dies_at_threshold = TRUE // Nucleations die at the normal health threshold
 	ignore_critical_condition = TRUE // Nucleations do not suffer from complex critical condition
 	var/touched_supermatter = FALSE
 
