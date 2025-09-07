@@ -169,7 +169,7 @@
 
 	var/mob/living/mob = target
 
-	if(mob.stat != DEAD || !target.mind.is_revivable())
+	if(mob.stat != DEAD || !(mob.mind.is_revivable()))
 		return .
 
 	mob.revive()
