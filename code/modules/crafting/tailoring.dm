@@ -496,3 +496,22 @@
 /datum/crafting_recipe/hudsunthermalremoval/monocle
 	result = /obj/item/clothing/glasses/monocle
 	reqs = list(/obj/item/clothing/glasses/thermal/monothermal = 1)
+
+
+/datum/crafting_recipe/armor_plate_steel
+	name = "Самодельная стальная бронеплита"
+	result = /obj/item/armor_plate/handmade_steel
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	reqs = list(/obj/item/stack/sheet/metal = 50,
+				/obj/item/stack/cable_coil = 10)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/armor_plate_ablative
+	name = "Самодельная аблятивная бронеплита"
+	result = /obj/item/armor_plate/handmade_ablative
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	reqs = list(/obj/item/stack/sheet/glass = 50,
+				/obj/item/stack/cable_coil = 10)
+	category = CAT_CLOTHING
