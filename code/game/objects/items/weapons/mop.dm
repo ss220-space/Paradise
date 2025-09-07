@@ -64,7 +64,7 @@
 		qdel(effect)
 
 	SEND_SIGNAL(atom, COMSIG_COMPONENT_CLEAN_ACT, 5)
-	reagents.reaction(atom, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
+	reagents.reaction(atom, REAGENT_TOUCH, 10) //10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
 
