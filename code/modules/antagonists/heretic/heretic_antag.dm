@@ -1,5 +1,3 @@
-#define REQ_ASCEND_SACS 5
-
 /*
  * Simple helper to generate a string of
  * garbled symbols up to [length] characters.
@@ -588,7 +586,7 @@
 
 		num_heads++
 
-	var/datum/objective/minor_sacrifice/sac_objective = new()
+	var/datum/objective/heretic_sacrifice/sac_objective = new()
 	sac_objective.owner = owner
 	if(num_heads < 2) // They won't get major sacrifice, so bump up minor sacrifice a bit
 		sac_objective.target_amount += 2
@@ -903,22 +901,44 @@
  *
  * Returns FALSE if not all of our objectives are complete, or TRUE otherwise.
  */
-/datum/antagonist/heretic/proc/can_ascend()
+/datum/antagonist/heretic/proc/can_ascend(say_result)
+	var/mob/user = owner.current
 	if(force_can_ascend)
+		if(!say_result)
+			return TRUE
+
+		user.balloon_alert(user, "вам дозволенно вознестись")
 		return TRUE
 
 	if(feast_of_owls)
+		if(!say_result)
+			return FALSE
+
+		user.balloon_alert(user, "ваши амбиции поглощены")
 		return FALSE // We sold our ambition for immediate power :/
 
-	/*
-	for(var/datum/objective/must_be_done as anything in objectives)
-		if(must_be_done.check_completion())
+	for(var/datum/objective/heretic_research/research in objectives)
+		if(research.check_completion())
 			continue
 
-		return FALSE
-	*/
+		if(!say_result)
+			return FALSE
 
-	return total_sacrifices >= REQ_ASCEND_SACS
+		user.balloon_alert(user, "слишком мало знаний")
+		return FALSE
+
+
+	for(var/datum/objective/heretic_sacrifice/sacrifice in objectives)
+		if(sacrifice.check_completion())
+			continue
+
+		if(!say_result)
+			return FALSE
+
+		user.balloon_alert(user, "слишком мало жертв")
+		return FALSE
+
+	return TRUE
 
 /**
  * Helper to determine if a Heretic
@@ -977,23 +997,14 @@
 #undef DREAM_VIEW_RANGE
 
 /// Heretic's minor sacrifice objective. "Minor sacrifices" includes anyone.
-/datum/objective/minor_sacrifice
-	name = "незначительная жертва"
+/datum/objective/heretic_sacrifice
+	name = "жертва мансусу"
+	target_amount = 5
+	explanation_text = "Принесите мансусу как минимум 5 жертв. \
+						В жертву можно приносить только тех, на кого укажет Живое Сердце."
 
 
-/datum/objective/minor_sacrifice/New(text)
-	. = ..()
-	target_amount = rand(3, 4)
-	update_explanation_text()
-
-
-/datum/objective/minor_sacrifice/update_explanation_text()
-	. = ..()
-	explanation_text = "Принесите в жертву как минимум [target_amount] член[target_amount == 3 ? "а" : "ов"] экипажа. \
-						В жертву можно приносить только тех, на кого укажет Живое Сердце." // Only 3 or 4 normaly.
-
-
-/datum/objective/minor_sacrifice/check_completion()
+/datum/objective/heretic_sacrifice/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_datum)
 		return FALSE
@@ -1074,5 +1085,3 @@
 		return FALSE
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/heretic)
-
-#undef REQ_ASCEND_SACS

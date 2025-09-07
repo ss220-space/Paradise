@@ -416,7 +416,7 @@
 			O.on_target_cryo()
 		occupant.mind.remove_all_antag_datums()
 
-		for(var/datum/objective/minor_sacrifice/objective in GLOB.all_objectives)
+		for(var/datum/objective/heretic_sacrifice/objective in GLOB.all_objectives)
 			var/datum/antagonist/heretic/heretic = objective.owner.has_antag_datum(/datum/antagonist/heretic)
 			if(!(occupant.real_name in heretic.all_sac_targets))
 				continue

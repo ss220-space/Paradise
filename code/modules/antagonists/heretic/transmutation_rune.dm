@@ -132,7 +132,7 @@
 
 	// Do the snowflake check to see if we can continue or not.
 	// selected_atoms is passed and can be modified by this proc.
-	if(!ritual.recipe_snowflake_check(user, atoms_in_range, selected_atoms, loc))
+	if(!ritual.recipe_snowflake_check(user, atoms_in_range, selected_atoms, loc, TRUE))
 		return FALSE
 
 	// Now go through all our nearby atoms and see which are good for our ritual.

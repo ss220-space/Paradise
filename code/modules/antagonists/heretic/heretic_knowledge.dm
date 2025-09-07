@@ -511,6 +511,7 @@
 	// 1 uncommon item.
 	required_atoms[pick(potential_uncommoner_items)] += 1
 
+
 /datum/heretic_knowledge/knowledge_ritual/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 
@@ -525,11 +526,14 @@
 	to_chat(user, span_hierophant("Завершив этот ритуал вы получите в награду [KNOWLEDGE_RITUAL_POINTS] очков знаний. Вы можете проверить свои знания в разделе «Изученные знания»."))
 	desc = "Позволяет трансмутировать [english_list(requirements_string)] в [KNOWLEDGE_RITUAL_POINTS] дополнительных очков знаний. Этот ритуал может быть проведен только один раз."
 
+
 /datum/heretic_knowledge/knowledge_ritual/can_be_invoked(datum/antagonist/heretic/invoker)
 	return !was_completed
 
+
 /datum/heretic_knowledge/knowledge_ritual/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	return !was_completed
+
 
 /datum/heretic_knowledge/knowledge_ritual/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/our_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -561,41 +565,41 @@
 	/// The sound that's played for the ascension announcement.
 	var/announcement_sound
 
-/datum/heretic_knowledge/ultimate/on_research(mob/user, datum/antagonist/heretic/our_heretic)
-	. = ..()
-	var/total_points = 0
-	for(var/datum/heretic_knowledge/knowledge as anything in flatten_list(our_heretic.researched_knowledge))
-		total_points += knowledge.cost
 
-/datum/heretic_knowledge/ultimate/can_be_invoked(datum/antagonist/heretic/invoker)
+/datum/heretic_knowledge/ultimate/can_be_invoked(datum/antagonist/heretic/invoker, say_result = FALSE)
 	if(invoker.ascended)
 		return FALSE
 
-	if(!invoker.can_ascend())
+	if(!invoker.can_ascend(say_result))
 		return FALSE
 
 	return TRUE
 
-/datum/heretic_knowledge/ultimate/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+
+/datum/heretic_knowledge/ultimate/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc, say_result = FALSE)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	if(!can_be_invoked(heretic_datum))
+	if(!can_be_invoked(heretic_datum, TRUE))
 		return FALSE
 
 	// Remove all non-dead humans from the atoms list.
 	// (We only want to sacrifice dead folk.)
 	for(var/mob/living/carbon/human/sacrifice in atoms)
-		if(!is_valid_sacrifice(sacrifice))
-			atoms -= sacrifice
+		if(is_valid_sacrifice(sacrifice))
+			continue
+
+		atoms -= sacrifice
 
 	// All the non-dead humans are removed in this proc.
 	// We handle checking if we have enough humans in the ritual itself.
 	return TRUE
+
 
 /**
  * Checks if the passed human is a valid sacrifice for our ritual.
  */
 /datum/heretic_knowledge/ultimate/proc/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
 	return (sacrifice.stat == DEAD) && !ismonkey(sacrifice)
+
 
 /datum/heretic_knowledge/ultimate/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -623,6 +627,7 @@
 
 	heretic_datum.increase_rust_strength()
 	return TRUE
+
 
 /datum/heretic_knowledge/ultimate/cleanup_atoms(list/selected_atoms)
 	for(var/mob/living/carbon/human/sacrifice in selected_atoms)
