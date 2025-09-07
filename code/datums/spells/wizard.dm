@@ -510,9 +510,12 @@
 	fake_box.pixel_z = 30
 	var/atom/movable/flick_visual/fake_box_visual = user.flick_overlay_view(fake_box, 0.4 SECONDS)
 	animate(fake_box_visual, pixel_z = 0, time = 0.3 SECONDS)
-	sleep(0.3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(finish_hide), user, fake_box), 0.3 SECONDS)
+
+
+/obj/effect/proc_holder/spell/nullspace_box/proc/finish_hide(mob/user, mutable_appearance/fake_box)
 	if(!isturf(user.loc))
-		to_chat(user, span_warning("Вам нужно больше места!"))
+		user.balloon_alert(user, "нужно больше места!")
 		return
 
 	// Spawn the actual box
