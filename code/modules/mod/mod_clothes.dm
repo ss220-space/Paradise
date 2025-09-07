@@ -115,6 +115,7 @@
 	desc = "Пара стандартный рукавиц для модульного экзо-костюма."
 	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	icon_state = "standard-gauntlets"
+	item_state = null //don't fucking ask
 	base_icon_state = "gauntlets"
 	permeability_coefficient = 0.01
 	onmob_sheets = list(

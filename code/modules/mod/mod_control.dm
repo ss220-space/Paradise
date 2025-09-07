@@ -7,7 +7,7 @@
 /obj/item/mod/control
 	name = "MOD control unit"
 	desc = "Устройство управления модульным экзо-костюмом - высокотехнологичной бронёй, используемой для защиты пользователя от опасной внешней среды."
-	icon_state = "mod_control"
+	icon_state = "standard-control"
 	item_state = "mod_control"
 	base_icon_state = "control"
 	w_class = WEIGHT_CLASS_BULKY
@@ -19,6 +19,9 @@
 		/datum/action/item_action/mod/activate,
 		/datum/action/item_action/mod/panel,
 		/datum/action/item_action/mod/module,
+	)
+	onmob_sheets = list(
+		ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	)
 	resistance_flags = NONE
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
@@ -152,7 +155,7 @@
 	var/list/all_parts = mod_parts + src
 	for(var/obj/item/part as anything in all_parts)
 		part.update_name()
-		part.desc = "[part.desc] [theme.desc]"
+		part.desc = "[part.desc] </p> [theme.desc]"
 		/// Bad way to fix our not init datumed armor
 		if(islist(part.armor))
 			part.armor = getArmor(arglist(part.armor))

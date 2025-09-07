@@ -691,13 +691,3 @@
 	enable_message = "Теперь сообщения о боли будут выводиться на основной экран."
 	disable_message = "Теперь сообщения о боли будут писаться в чат."
 	blackbox_message = "Toggle painblurb"
-
-/datum/preference_toggle/modsuit_activation_method
-	name = "Переключить метод активации МЭК"
-	description = "При положении \"Включено\" модульный костюм будет активироваться с помощью СКМ вместо альт-клика."
-	preftoggle_bitflag = PREFTOGGLE_3_PAIN_BLURB
-	preftoggle_toggle = PREFTOGGLE_3_MOD_ACTIVATION_METHOD
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "Теперь модульный костюм будет активироваться на СКМ."
-	disable_message = "Теперь модульный костюм будет активироваться на alt+ЛКМ."
-	blackbox_message = "Toggle modsuit activation method"

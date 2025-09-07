@@ -141,8 +141,6 @@
 				return FALSE
 		else
 			var/used_button = "Middle Click"
-			if(!mod.wearer || !mod.wearer.get_preference(PREFTOGGLE_3_MOD_ACTIVATION_METHOD))
-				used_button = "Alt Click"
 			update_signal(used_button)
 			balloon_alert(mod.wearer, "активировано. Используйте [used_button]")
 	else
@@ -163,8 +161,6 @@
 			balloon_alert(mod.wearer, "[device.declent_ru(NOMINATIVE)] втянут[genderize_ru(device.gender, "", "а", "о", "ы")]")
 		else if(display_message)
 			balloon_alert(mod.wearer, "деактивировано")
-			to_chat(mod.wearer, span_notice("[capitalize(device.declent_ru(NOMINATIVE))] деактивирован[genderize_ru(device.gender, "", "а", "о", "ы")]."))
-
 		if(device)
 			mod.wearer.drop_transfer_item_to_loc(device, src, TRUE)
 			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)

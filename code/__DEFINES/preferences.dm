@@ -87,12 +87,11 @@
 #define PREFTOGGLE_3_UI_SCALE        			(1<<1) // 2
 #define PREFTOGGLE_3_FACING_TO_MOUSE			(1<<2) // 4
 #define PREFTOGGLE_3_PAIN_BLURB	 				(1<<3) // 8
-#define PREFTOGGLE_3_MOD_ACTIVATION_METHOD		(1<<4) // 16
 
-#define TOGGLES_3_TOTAL                       	31 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_3_TOTAL                       	15 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 
-#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_FACING_TO_MOUSE|PREFTOGGLE_3_MOD_ACTIVATION_METHOD)
+#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_FACING_TO_MOUSE)
 
 #if TOGGLES_3_TOTAL > 16777215
 #error toggles_3 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.

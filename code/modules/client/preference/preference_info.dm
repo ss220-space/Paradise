@@ -288,6 +288,3 @@ GLOBAL_LIST_EMPTY(preferences_info)
 
     var/mob/dead/observer/ghost = source.ghostize()
     ghost.apply_dnr()
-
-/datum/preference_info/modsuit_activation_method/get_preference_toggle()
-	return GLOB.preference_toggles[/datum/preference_toggle/modsuit_activation_method]

@@ -78,7 +78,7 @@
 	var/obj/item/grenade/mirage/grenade = .
 	grenade.attack_self(mod.wearer)
 
-/obj/item/mod/module/holster/get_ru_names()
+/obj/item/mod/module/dispenser/mirage/get_ru_names()
 	return list(
 		NOMINATIVE = "модуль диспенсера гранат класса \"Мираж\" для МЭК",
 		GENITIVE = "модуля диспенсера гранат класса \"Мираж\" для МЭК",
