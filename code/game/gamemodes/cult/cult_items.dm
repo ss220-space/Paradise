@@ -150,7 +150,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	icon_state = "cultrobesalt"
@@ -187,7 +187,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robes"
@@ -205,7 +205,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist hood"

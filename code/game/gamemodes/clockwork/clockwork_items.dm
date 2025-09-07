@@ -695,7 +695,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/hooded/clockrobe_fake
 	name = "clock robes"
@@ -714,7 +714,7 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/hooded/clockrobe/can_store_weighted()
 	return TRUE
@@ -839,7 +839,7 @@
 	var/normal_armor
 	var/harden_armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 
 /obj/item/clothing/suit/armor/clockwork_fake

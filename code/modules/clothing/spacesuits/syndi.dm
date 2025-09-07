@@ -34,7 +34,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi')
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 //Green syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/green
@@ -110,7 +110,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/heavy_steel
+	armor_plate = /obj/item/armor_plate/heavy_steel
 
 //Black-green syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/black/green
@@ -186,7 +186,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/heavy_steel
+	armor_plate = /obj/item/armor_plate/heavy_steel
 
 
 //Black with yellow/red engineering syndicate space suit

@@ -42,7 +42,7 @@
 	armor_integrity = max(armor_integrity - damage_amount, 0)
 
 /// Try attach armor plate to suit
-/obj/item/armor_plate/proc/try_attach_to_suit(mob/user, obj/item/clothing/suit/suit)
+/obj/item/armor_plate/proc/try_attach_to_clothing(mob/user, obj/item/clothing/suit)
 	if(plate_slot > suit.allowed_armor_plate)
 		balloon_alert(user, "не совместимо")
 		return FALSE
@@ -58,7 +58,7 @@
 
 
 /// Try remove armor plate from suit
-/obj/item/armor_plate/proc/try_detach_from_suit(mob/living/user, obj/item/clothing/suit/suit, obj/item/tool)
+/obj/item/armor_plate/proc/try_detach_from_clothing(mob/living/user, obj/item/clothing/suit/suit, obj/item/tool)
 	if(!suit.can_remove_armor_plate)
 		balloon_alert(user, "нельзя снять бронеплиту!")
 		return FALSE
@@ -72,7 +72,7 @@
 	return TRUE
 
 
-/obj/item/armor_plate/proc/get_suit_examine_text()
+/obj/item/armor_plate/proc/get_examine_text()
 	. = span_notice("Установлен[genderize_decode(gender, "", "а", "о", "ы")] [declent_ru(NOMINATIVE)]. ")
 	. += span_notice(get_integrity_text())
 

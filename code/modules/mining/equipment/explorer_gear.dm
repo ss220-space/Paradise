@@ -108,7 +108,7 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
 	)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
-	on_start_armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/suit/space/hostile_environment/get_ru_names()
 	return list(
@@ -232,7 +232,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/suit/space/hardsuit/champion/get_ru_names()
 	return list(
@@ -366,7 +366,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar
 	can_remove_armor_plate = FALSE
 
 /obj/item/clothing/suit/hooded/pathfinder/get_ru_names()

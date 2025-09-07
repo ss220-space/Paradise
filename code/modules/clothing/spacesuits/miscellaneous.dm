@@ -53,7 +53,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/medium_ceramic
+	armor_plate = /obj/item/armor_plate/medium_ceramic
 
 	//Deathsquad space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/deathsquad
@@ -92,7 +92,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MAX
-	on_start_armor_plate = /obj/item/armor_plate/elite
+	armor_plate = /obj/item/armor_plate/elite
 
 	//NEW SWAT suit
 /obj/item/clothing/suit/space/swat
@@ -111,7 +111,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer's beret"
@@ -168,7 +168,7 @@
 	item_state = "ntsc_uniform"
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 60, ACID = 75)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
-	on_start_armor_plate = /obj/item/armor_plate/heavy_ceramic
+	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
 	name = "Trans-Solar Federation commander's jacket"
@@ -276,7 +276,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 	species_restricted = null
 
@@ -462,7 +462,7 @@
 	desc = "A lightweight pirate-themed EVA suit designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid. This one has a red markings."
 	armor = list(melee = 15, bullet = 0, laser = 0, energy = 30, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/eva/pirate/leader
 	name = "pirate leader EVA helmet"

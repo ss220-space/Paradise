@@ -161,7 +161,7 @@
 	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/armoured
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/no_name
 	name = "dark hoodie"
@@ -262,7 +262,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/handmade_ablative
+	armor_plate = /obj/item/armor_plate/handmade_ablative
 
 /obj/item/clothing/suit/storage/det_suit/black
 	sprite_sheets = list(
@@ -323,7 +323,7 @@
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_ablative
+	armor_plate = /obj/item/armor_plate/light_ablative
 
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
@@ -340,7 +340,7 @@
 	desc = "Dark blue armored coat. Excellent defense against most types of damage."
 	armor = list(melee = 45, bullet = 0, laser = 0, energy = 20, bomb = 50, rad = 40, fire = 40, acid = 90)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 //Engineering
 /obj/item/clothing/suit/storage/hazardvest

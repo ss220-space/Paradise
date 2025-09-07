@@ -61,7 +61,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi')
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/handmade_steel
+	armor_plate = /obj/item/armor_plate/handmade_steel
 
 /obj/item/clothing/suit/space/nasavoid/get_ru_names()
 	return list(
@@ -154,7 +154,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/suit/space/nasavoid/green/get_ru_names()
 	return list(
@@ -199,7 +199,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/space/nasavoid/ntblue/get_ru_names()
 	return list(
@@ -371,7 +371,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/space/nasavoid/captain/get_ru_names()
 	return list(
@@ -418,7 +418,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/suit/space/nasavoid/syndi/get_ru_names()
 	return list(

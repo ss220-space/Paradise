@@ -715,9 +715,8 @@
 	on = TRUE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
 	actions_types = list(/datum/action/item_action/toggle_helmet)
-	on_start_armor_plate = null
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged

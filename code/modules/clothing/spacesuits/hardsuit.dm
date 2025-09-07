@@ -103,7 +103,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = null
+	armor_plate = null
 
 
 /obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
@@ -476,7 +476,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/suit/space/hardsuit/syndi/on/Initialize(mapload)
 	. = ..()
@@ -534,7 +534,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/heavy_ceramic
+	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/comms
 	name = "Comms Officer elite syndicate hardsuit helmet"
@@ -621,7 +621,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/soviet
 	jetpack = /obj/item/tank/jetpack/suit
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/hardsuit/soviet/commander
 	name = "Soviet command hardsuit helmet"
@@ -683,7 +683,7 @@
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 15, BIO = 100, RAD = 50, FIRE = 80, ACID = 85)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/warden
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/space/hardsuit/security
 	name = "security hardsuit"
@@ -694,7 +694,7 @@
 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	name = "head of security's hardsuit helmet"
@@ -712,7 +712,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	jetpack = /obj/item/tank/jetpack/suit
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/head/helmet/space/hardsuit/security/brigmed
 	name = "brig physician's hardsuit helmet"
@@ -753,7 +753,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/blueshield
 	jetpack = /obj/item/tank/jetpack/suit
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 //Research Director hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/rd
@@ -828,7 +828,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	sprite_sheets = null
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 //Battlemage Hardsuit — code\modules\clothing\suits\wiz_robe.dm
 //Deathsquad Hardsuit — code\modules\clothing\spacesuits\ert.dm

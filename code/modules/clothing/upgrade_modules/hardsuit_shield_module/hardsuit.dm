@@ -7,7 +7,7 @@
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 35, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/suit/space/hardsuit/syndi/shielded/setup_shielding()
 	AddComponent(/datum/component/shielded, shield_icon = "shield-red")

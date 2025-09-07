@@ -80,7 +80,8 @@ Difficulty: Medium
 	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
 	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	can_remove_armor_plate = FALSE
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/hooded/explorer/blood/get_ru_names()
 	return list(

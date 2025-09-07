@@ -70,13 +70,13 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
-	on_start_armor_plate = /obj/item/armor_plate/heavy_steel
+	armor_plate = /obj/item/armor_plate/heavy_steel
 
 /obj/item/clothing/suit/space/hardsuit/ert/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	armor = list(melee = 65, bullet = 0, laser = 0, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
-	on_start_armor_plate = /obj/item/armor_plate/heavy_ceramic
+	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 //Commander
 /obj/item/clothing/head/helmet/space/hardsuit/ert/commander
@@ -348,7 +348,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MAX
-	on_start_armor_plate = /obj/item/armor_plate/elite
+	armor_plate = /obj/item/armor_plate/elite
 
 
 /obj/item/clothing/suit/space/hardsuit/deathsquad/update_icon_state()
@@ -369,7 +369,7 @@
 	strip_delay = 130
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form", SPECIES_VOX)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_ceramic
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/head/helmet/space/ert_eva_amber
 	name = "ERT Amber Space helmet"

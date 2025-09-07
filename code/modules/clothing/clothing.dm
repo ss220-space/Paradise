@@ -58,6 +58,16 @@
 	var/list/clothing_traits
 	/// Installed armor plate
 	var/obj/item/armor_plate/armor_plate = null
+	/// Allowed armor plate class
+	var/allowed_armor_plate = ARMOR_PLATE_SLOT_NONE
+	/// Allow remove armor plate with screwdriver
+	var/can_remove_armor_plate = FALSE
+
+/obj/item/clothing/Initialize(mapload)
+	. = ..()
+	if(ispath(armor_plate))
+		armor_plate = new armor_plate(src)
+		armor_plate.forceMove(src)
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
@@ -69,6 +79,27 @@
 			. +=  span_notice("Выглядит сильно повреждённ[genderize_ru(gender, "ым", "ой", "ым", "ыми")].")
 		if(0 to 25)
 			. +=  span_warning("Да [genderize_ru(gender, "он разваливается", "она разваливается", "оно разваливается", "они разваливаются")] на глазах!")
+
+	if(armor_plate)
+		. += armor_plate.get_examine_text()
+		return
+
+	if(allowed_armor_plate == ARMOR_PLATE_SLOT_NONE)
+		return
+
+	var/allowed_plate_name = ""
+	switch(allowed_armor_plate)
+		if(ARMOR_PLATE_SLOT_HANDMADE)
+			allowed_plate_name = "самодельные бронеплиты"
+		if(ARMOR_PLATE_SLOT_LIGHT)
+			allowed_plate_name = "легкие бронеплиты"
+		if(ARMOR_PLATE_SLOT_MEDIUM)
+			allowed_plate_name = "средние бронеплиты"
+		if(ARMOR_PLATE_SLOT_HEAVY)
+			allowed_plate_name = "тяжелые бронеплиты"
+		if(ARMOR_PLATE_SLOT_MAX)
+			allowed_plate_name = "элитные бронеплиты"
+	. += span_notice("Можно установить [allowed_plate_name].")
 
 
 /obj/item/clothing/update_icon_state()
@@ -115,6 +146,12 @@
 			span_notice("Вы нанесли немного нанопасты на [declent_ru(ACCUSATIVE)]. [capitalize(declent_ru(NOMINATIVE))] выглядит целее."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/armor_plate))
+		var/obj/item/armor_plate/armor_plate = I
+		if(armor_plate.try_attach_to_clothing(user, src))
+			return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
@@ -196,6 +233,12 @@
   */
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
+
+/obj/item/clothing/screwdriver_act(mob/living/user, obj/item/tool)
+	if(!armor_plate)
+		return ..()
+	return armor_plate.try_detach_from_clothing(user, src, tool)
+
 
 // MARK: Ears
 /obj/item/clothing/ears
@@ -556,12 +599,6 @@ BLIND     // can't see anything
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
 
-/obj/item/clothing/head/Initialize(mapload)
-	. = ..()
-	if(ispath(armor_plate))
-		armor_plate = new armor_plate(src)
-		armor_plate.forceMove(src)
-
 /obj/item/clothing/head/update_icon_state()
 	if(..())
 		item_state = "[replacetext("[item_state]", "_up", "")][up ? "_up" : ""]"
@@ -605,12 +642,6 @@ BLIND     // can't see anything
 	while(up)
 		playsound(loc, active_sound, active_sound_volume, FALSE, 4)
 		sleep(1.5 SECONDS)
-
-/obj/item/clothing/head/examine(mob/user)
-	. = ..()
-	if(!armor_plate)
-		return
-	. += span_notice(armor_plate.get_integrity_text())
 
 
 // MARK: Mask
@@ -869,18 +900,13 @@ BLIND     // can't see anything
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
-	/// Allowed armor plate class
-	var/allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
-	/// Allow remove armor plate with screwdriver
-	var/can_remove_armor_plate = TRUE
-	/// On start armor plate type, if null - not exists plate on start
-	var/on_start_armor_plate = null
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
+	can_remove_armor_plate = TRUE
 
 
 /obj/item/clothing/suit/Initialize(mapload)
 	. = ..()
 	setup_shielding()
-	setup_armor_plate()
 
 /**
  * Wrapper proc to apply shielding through AddComponent().
@@ -890,12 +916,6 @@ BLIND     // can't see anything
  **/
 /obj/item/clothing/suit/proc/setup_shielding()
 	return
-
-/obj/item/clothing/suit/proc/setup_armor_plate()
-	if(!on_start_armor_plate)
-		return
-	armor_plate = new on_start_armor_plate(src)
-	armor_plate.forceMove(src)
 
 
 //Proc that opens and closes jackets.
@@ -975,39 +995,6 @@ BLIND     // can't see anything
 	else
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
 
-
-/obj/item/clothing/suit/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/armor_plate))
-		var/obj/item/armor_plate/armor_plate = item
-		if(armor_plate.try_attach_to_suit(user, src))
-			return ATTACK_CHAIN_BLOCKED_ALL
-	return ..()
-
-/obj/item/clothing/suit/screwdriver_act(mob/living/user, obj/item/tool)
-	if(!armor_plate)
-		return FALSE
-	return armor_plate.try_detach_from_suit(user, src, tool)
-
-/obj/item/clothing/suit/examine(mob/user)
-	. = ..()
-	if(armor_plate)
-		. += armor_plate.get_suit_examine_text()
-		return
-	if(allowed_armor_plate == ARMOR_PLATE_SLOT_NONE)
-		return
-	var/allowed_plate_name = ""
-	switch(allowed_armor_plate)
-		if(ARMOR_PLATE_SLOT_HANDMADE)
-			allowed_plate_name = "самодельные бронеплиты"
-		if(ARMOR_PLATE_SLOT_LIGHT)
-			allowed_plate_name = "легкие бронеплиты"
-		if(ARMOR_PLATE_SLOT_MEDIUM)
-			allowed_plate_name = "средние бронеплиты"
-		if(ARMOR_PLATE_SLOT_HEAVY)
-			allowed_plate_name = "тяжелые бронеплиты"
-		if(ARMOR_PLATE_SLOT_MAX)
-			allowed_plate_name = "элитные бронеплиты"
-	. += span_notice("Можно установить [allowed_plate_name].")
 
 
 // MARK: Spacesuit

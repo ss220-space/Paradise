@@ -92,7 +92,7 @@
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/suit.dmi',
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/vox
 	armor = list(melee = 40, bullet = 0, laser = 0, energy = 15, bomb = 30, bio = 30, rad = 30, fire = 80, acid = 85)

@@ -87,7 +87,7 @@
 	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 80, FIRE = 30, ACID = 100)
 	icon_state = "bio_security"
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 
 //Janitor's biosuit, grey with purple arms

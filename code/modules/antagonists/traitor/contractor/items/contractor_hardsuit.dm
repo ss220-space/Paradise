@@ -31,7 +31,7 @@
 	var/obj/item/gun/magic/contractor_hook/scorpion
 	var/disguise = FALSE
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
-	on_start_armor_plate = /obj/item/armor_plate/heavy_ceramic
+	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 /obj/item/clothing/suit/space/hardsuit/contractor/Destroy()
 	. = ..()

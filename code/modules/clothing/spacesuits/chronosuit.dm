@@ -35,7 +35,7 @@
 	var/cooldowntime = 50 //deciseconds
 	var/teleporting = 0
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
-	on_start_armor_plate = /obj/item/armor_plate/heavy_ceramic
+	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 
 /obj/item/clothing/suit/space/chronos/proc/new_camera(var/mob/user)

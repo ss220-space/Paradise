@@ -251,7 +251,7 @@
 	put_on_delay = 5 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/head/psyamp
 	magical = TRUE
@@ -291,7 +291,7 @@
 	put_on_delay = 5 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 
 /obj/item/clothing/head/fedora/head/saboteur
@@ -346,7 +346,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /datum/magick_school/sculpt
 	name = "Школа Ваяния"
@@ -411,7 +411,7 @@
 	magical = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /datum/magick_school/necromantic
 	name = "Школа Некромантии"

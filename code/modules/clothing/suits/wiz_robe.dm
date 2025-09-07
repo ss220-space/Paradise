@@ -164,7 +164,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
-	on_start_armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"
@@ -340,7 +340,7 @@
 	slowdown = 0
 	magical = TRUE
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	on_start_armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	name = "battlemage helmet"
