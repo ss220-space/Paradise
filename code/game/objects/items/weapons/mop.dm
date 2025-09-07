@@ -52,8 +52,8 @@
 
 /obj/item/mop/proc/clean(turf/simulated/atom)
 	if(!reagents.has_reagent("water", 1) && !reagents.has_reagent("cleaner", 1) && !reagents.has_reagent("holywater", 1))
-		reagents.reaction(atom, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
-		reagents.remove_any(1)			//reaction() doesn't use up the reagents
+		reagents.reaction(atom, REAGENT_TOUCH, 10) //10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
+		reagents.remove_any(1) //reaction() doesn't use up the reagents
 		return
 
 	atom.clean_blood()
@@ -64,7 +64,7 @@
 		qdel(effect)
 
 	SEND_SIGNAL(atom, COMSIG_COMPONENT_CLEAN_ACT, 5)
-	reagents.reaction(atom, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
+	reagents.reaction(atom, REAGENT_TOUCH, 10) //10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
 
