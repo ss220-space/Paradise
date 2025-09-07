@@ -1,10 +1,10 @@
 // Radial menu stuff
-#define RADIAL_MENU_BREW 				"Варка"
+#define RADIAL_MENU_BREW 				"Варка кофе"
 #define RADIAL_MENU_EJECT_POT 			"Извлечь кофейник"
 #define RADIAL_MENU_EJECT_CARTRIDGE 	"Извлечь картридж"
 #define RADIAL_MENU_TAKE_CUP 			"Взять стакан"
 #define RADIAL_MENU_TAKE_SUGAR 			"Взять сахар"
-#define RADIAL_MENU_TAKE_SWEETENER 		"Взять подсластитель"
+#define RADIAL_MENU_TAKE_SWEETENER 		"Взять аспартам"
 #define RADIAL_MENU_TAKE_CREAMER 		"Взять сливки"
 
 /obj/machinery/coffeemaker
@@ -182,7 +182,7 @@
 /obj/machinery/coffeemaker/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return
-	if(user.incapacitated())
+	if(user.incapacitated() || !user.Adjacent(src))
 		return
 	if(brewing)
 		balloon_alert(user, "в процессе варки!")
