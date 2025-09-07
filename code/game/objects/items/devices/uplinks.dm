@@ -113,6 +113,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(is_jammed)
 		to_chat(buyer, span_warning("[declent_ru(NOMINATIVE)], похоже, заблокирован - нельзя использовать!"))
 		return FALSE
+	if(!buyer.mind.special_role)
+		return FALSE
 	if(!uplink_item)
 		return FALSE
 	if(uplink_item.limited_stock == 0)
@@ -393,6 +395,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				return
 			if(is_jammed)
 				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован - нельзя использовать!"))
+				return
+			if(!ui.user.mind.special_role)
 				return
 
 			// Buying of the uplink stuff

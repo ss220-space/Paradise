@@ -149,6 +149,9 @@
 	if(cost > target_uplink.uses)
 		return FALSE
 
+	if(!buyer.mind.special_role)
+		return FALSE
+
 	. = TRUE
 
 	buyer.set_machine(target_uplink)
