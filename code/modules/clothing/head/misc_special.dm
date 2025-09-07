@@ -227,8 +227,9 @@
 	icon_state = "soviethelm"
 	item_state = "soviethelm"
 	flags_inv = HIDEHEADSETS|HIDEHAIR
-	armor = list(MELEE = 25, BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 30, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
+	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 30, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	materials = list(MAT_METAL=2500)
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 /*
  * Pumpkin head
