@@ -164,7 +164,7 @@
 	..(gibbed)
 	regenerate_icons()
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/getarmor(def_zone, attack_flag, penetration_level = 1, damage = 0)
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/getarmor(def_zone, attack_flag, penetration_level = BASIC_PENETRATION, damage = 0)
 	var/armorval = inventory_head?.armor.getRating(attack_flag)
 	if(!def_zone)
 		armorval *= 0.5

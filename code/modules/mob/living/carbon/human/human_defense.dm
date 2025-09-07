@@ -161,7 +161,7 @@ emp_act
 		affecting.droplimb(FALSE, damtype)
 
 
-/mob/living/carbon/human/getarmor(def_zone, attack_flag, penetration_level = 1, damage = 0)
+/mob/living/carbon/human/getarmor(def_zone, attack_flag, penetration_level = BASIC_PENETRATION, damage = 0)
 	var/armorval = 0
 	var/organnum = 0
 

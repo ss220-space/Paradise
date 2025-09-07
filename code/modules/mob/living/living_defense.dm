@@ -34,7 +34,7 @@
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
-/mob/living/proc/getarmor(def_zone, attack_flag, penetration_level = 1, damage = 0)
+/mob/living/proc/getarmor(def_zone, attack_flag, penetration_level = BASIC_PENETRATION, damage = 0)
 	return 0
 
 /mob/living/proc/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
