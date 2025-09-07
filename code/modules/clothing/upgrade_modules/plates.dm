@@ -46,6 +46,9 @@
 	if(plate_slot > suit.allowed_armor_plate)
 		balloon_alert(user, "не совместимо")
 		return FALSE
+	if(suit == user.get_item_by_slot(suit.slot_flags))
+		balloon_alert(user, "нужно сначала снять с себя!")
+		return FALSE
 	balloon_alert(user, "установка бронеплиты...")
 	if(!do_after(user, 5 SECONDS, suit))
 		return FALSE
@@ -58,9 +61,12 @@
 
 
 /// Try remove armor plate from suit
-/obj/item/armor_plate/proc/try_detach_from_clothing(mob/living/user, obj/item/clothing/suit/suit, obj/item/tool)
+/obj/item/armor_plate/proc/try_detach_from_clothing(mob/living/user, obj/item/clothing/suit, obj/item/tool)
 	if(!suit.can_remove_armor_plate)
 		balloon_alert(user, "нельзя снять бронеплиту!")
+		return FALSE
+	if(suit == user.get_item_by_slot(suit.slot_flags))
+		balloon_alert(user, "нужно сначала снять с себя!")
 		return FALSE
 	balloon_alert(user, "снятие бронеплиты...")
 	if(!tool.use_tool(suit, user, 5 SECONDS, volume = tool.tool_volume))
