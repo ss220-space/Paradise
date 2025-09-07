@@ -281,6 +281,9 @@
 	var/obj/item/stack/sheet = type_inserted
 	stack_name = sheet.protolathe_name
 	flick_overlay_view(mutable_appearance(icon, "fab-load-[stack_name]"), 1 SECONDS)
+	process_queue()
+
+	SStgui.update_uis(src)
 
 /**
   * Returns whether the machine can accept new materials.
