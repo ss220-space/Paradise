@@ -89,7 +89,7 @@
 		return
 
 	user.visible_message(
-		"[user] начина[user.pluralize_ru("ет", "ют")] возить по полу [declent_ru(INSTRUMENTAL)].",
+		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] возить по полу [declent_ru(INSTRUMENTAL)].",
 		ignored_mobs = user
 	)
 	user.balloon_alert(user, "мытьё пола...")
