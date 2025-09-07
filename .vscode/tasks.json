@@ -36,7 +36,7 @@
             "command": "cmd",
             "args": [
                 "/c",
-                "timeout /t 3 /nobreak >nul && if exist \"fast_paradise.dme\" (del \"fast_paradise.dme\" && echo Temporary file cleaned up)"
+                "timeout /t 3 /nobreak >nul && del \"fast_paradise.dme\" && echo Temporary file cleaned up"
             ],
             "problemMatcher": []
         },
