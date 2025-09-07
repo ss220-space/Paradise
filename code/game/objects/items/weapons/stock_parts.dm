@@ -85,9 +85,9 @@
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
 	if(alt_sound && prob(3))
-		playsound(src, alt_sound, 40, 1)
+		playsound(src, alt_sound, 40, TRUE)
 	else
-		playsound(src, primary_sound, 40, 1)
+		playsound(src, primary_sound, 40, TRUE)
 
 //Sorts stock parts inside an RPED by their rating.
 //Only use /obj/item/stock_parts/ with this sort proc!

@@ -1,14 +1,6 @@
 /obj/item/storm_staff
 	name = "staff of storms"
 	desc = "Древний посох, извлечённый из останков Легиона. Ветер колышется, когда вы двигаете им."
-	ru_names = list(
-		NOMINATIVE = "посох бурь",
-		GENITIVE = "посоха бурь",
-		DATIVE = "посоху бурь",
-		ACCUSATIVE = "посох бурь",
-		INSTRUMENTAL = "посохом бурь",
-		PREPOSITIONAL = "посохе бурь"
-	)
 	icon_state = "staffofstorms"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -26,6 +18,16 @@
 	var/static/list/excluded_areas = list(/area/space)
 	///This is a list of turfs currently being targeted.
 	var/list/targeted_turfs = list()
+
+/obj/item/storm_staff/get_ru_names()
+	return list(
+		NOMINATIVE = "посох бурь",
+		GENITIVE = "посоха бурь",
+		DATIVE = "посоху бурь",
+		ACCUSATIVE = "посох бурь",
+		INSTRUMENTAL = "посохом бурь",
+		PREPOSITIONAL = "посохе бурь"
+	)
 
 /obj/item/storm_staff/Destroy()
 	targeted_turfs = null
@@ -60,7 +62,7 @@
 				span_warning("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] к небу, и оранжевый луч устремляется ввысь!"),
 				span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)] к небу, рассеивая бурю!")
 			)
-			playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
+			playsound(user, 'sound/magic/staff_change.ogg', 200, FALSE)
 			A.wind_down()
 			var/old_color = user.color
 			user.color = list(340/255, 240/255, 0,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0)

@@ -441,7 +441,7 @@
 	eyeblur = 2 SECONDS
 
 /mob/living/simple_animal/hostile/malf_drone/spacebattle/drop_loot()
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 	var/turf/T = get_turf(src)
 
 	//shards

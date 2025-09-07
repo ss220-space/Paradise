@@ -81,13 +81,15 @@
 		_y + (-dwidth+width-1)*sin + (-dheight+height-1)*cos
 		)
 
-//returns turfs within our projected rectangle in no particular order
+///returns turfs within our projected rectangle in no particular order
 /obj/docking_port/proc/return_turfs()
-	var/list/L = return_coords()
-	return block(L[1], L[2], z, L[3], L[4], z)
+	var/list/coords = return_coords()
+	return block(
+		coords[1], coords[2], z,
+		coords[3], coords[4], z
+	)
 
-//returns turfs within our projected rectangle in a specific order.
-//this ensures that turfs are copied over in the same order, regardless of any rotation
+///returns turfs within our projected rectangle in a specific order.this ensures that turfs are copied over in the same order, regardless of any rotation
 /obj/docking_port/proc/return_ordered_turfs(_x, _y, _z, _dir, area/A)
 	if(!_dir)
 		_dir = dir
@@ -128,18 +130,21 @@
 				. += T
 
 #ifdef DOCKING_PORT_HIGHLIGHT
-//Debug proc used to highlight bounding area
-/obj/docking_port/proc/highlight(_color)
+
+///Debug proc used to highlight bounding area
+/obj/docking_port/proc/highlight(_color = "#f00")
+	invisibility = 0
 	SET_PLANE_IMPLICIT(src, GHOST_PLANE)
-	var/list/L = return_coords()
-	for(var/turf/T in block(L[1], L[2], z, L[3], L[4], z))
+	var/list/coords = return_coords()
+	for(var/turf/T in block(coords[1], coords[2], z, coords[3], coords[4], z))
 		T.color = _color
 		T.maptext = null
 	if(_color)
-		var/turf/T = locate(L[1], L[2], z)
+		var/turf/T = locate(coords[1], coords[2], z)
 		T.color = "#0f0"
-		T = locate(L[3], L[4], z)
+		T = locate(coords[3], coords[4], z)
 		T.color = "#00f"
+
 #endif
 
 //return first-found touching dockingport
@@ -148,7 +153,8 @@
 
 /obj/docking_port/proc/getDockedId()
 	var/obj/docking_port/P = get_docked()
-	if(P) return P.id
+	if(P)
+		return P.id
 
 /obj/docking_port/proc/register()
 	return 0
@@ -771,7 +777,7 @@
 
 /obj/docking_port/mobile/proc/getStatusText()
 	var/obj/docking_port/stationary/dockedAt = get_docked()
-	. = (dockedAt && dockedAt.name) ? dockedAt.name : "unknown"
+	. = (dockedAt && dockedAt.name) ? dockedAt.name : lowertext(UNKNOWN_STATUS_RUS)
 	if(istype(dockedAt, /obj/docking_port/stationary/transit))
 		var/obj/docking_port/stationary/dst
 		if(mode == SHUTTLE_RECALL)
@@ -852,7 +858,7 @@
 	var/list/data = list()
 	var/obj/docking_port/mobile/mobile_docking_port = SSshuttle.getShuttle(shuttleId)
 	var/lockdown_check = lockdown_affected && GLOB.full_lockdown
-	data["docked_location"] = mobile_docking_port ? mobile_docking_port.getStatusText() : "Unknown"
+	data["docked_location"] = mobile_docking_port ? mobile_docking_port.getStatusText() : lowertext(UNKNOWN_STATUS_RUS)
 	data["timer_str"] = mobile_docking_port ? mobile_docking_port.getTimerStr() : "00:00"
 	if(!mobile_docking_port)
 		data["status"] = "Missing"

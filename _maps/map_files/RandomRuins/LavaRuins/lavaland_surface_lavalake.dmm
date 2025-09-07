@@ -6,6 +6,12 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
+"bZ" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/surrounding/burnt,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "cc" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/flora/ausbushes/fullgrass/hell,
@@ -250,6 +256,17 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall/mineral/wood,
 /area/ruin/unpowered/safe_cave)
+"Eg" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "EO" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -310,6 +327,14 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
+"Jq" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/block/burnt,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "KI" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/effect/mapping_helpers/no_lava,
@@ -372,6 +397,17 @@
 /obj/structure/stone_tile/cracked,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"QB" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
 /area/lavaland/surface/outdoors)
 "Rn" = (
 /obj/structure/stone_tile/slab/cracked{
@@ -463,13 +499,13 @@
 /area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
-pg
-pg
-pg
-pg
-pg
-pg
-pg
+tZ
+tZ
+tZ
+tZ
+tZ
+tZ
+tZ
 pg
 pg
 pg
@@ -485,7 +521,7 @@ pg
 pg
 "}
 (2,1,1) = {"
-pg
+tZ
 tZ
 tZ
 tZ
@@ -507,7 +543,7 @@ pg
 pg
 "}
 (3,1,1) = {"
-pg
+tZ
 tZ
 tZ
 tZ
@@ -529,7 +565,7 @@ cc
 pg
 "}
 (4,1,1) = {"
-pg
+tZ
 tZ
 Yd
 Yd
@@ -551,7 +587,7 @@ tZ
 pg
 "}
 (5,1,1) = {"
-pg
+tZ
 tZ
 tZ
 Yd
@@ -692,7 +728,7 @@ Yd
 Yd
 Yd
 Yd
-Yd
+Eg
 Yd
 Yd
 Yd
@@ -736,7 +772,7 @@ Mn
 Yd
 Yd
 Yd
-Yd
+Jq
 Yd
 Yd
 Yd
@@ -758,7 +794,7 @@ tZ
 Yd
 Yd
 Yd
-Yd
+QB
 Yd
 Yd
 Yd
@@ -802,7 +838,7 @@ tZ
 lN
 Mn
 Yd
-Yd
+bZ
 Yd
 tZ
 tZ

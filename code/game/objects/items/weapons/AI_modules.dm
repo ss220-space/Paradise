@@ -33,7 +33,7 @@ AI MODULES
 	laws = new/datum/ai_laws/pranksimov
 	cmagged = TRUE
 
-/obj/item/ai_module/proc/transmit_instructions(mob/living/silicon/ai/target, mob/sender, registered_name = "Unknown")
+/obj/item/ai_module/proc/transmit_instructions(mob/living/silicon/ai/target, mob/sender, registered_name = UNKNOWN_NAME_RUS)
 	log_law_changes(target, sender)
 
 	if(laws)
@@ -426,5 +426,5 @@ AI MODULES
 /obj/item/ai_module/toy_ai/attack_self(mob/user)
 	laws[1] = generate_ion_law()
 	to_chat(user, span_notice("You press the button on [src]."))
-	playsound(user, 'sound/machines/click.ogg', 20, 1)
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 	user.visible_message(span_warning("[bicon(src)] [laws[1]]"))
