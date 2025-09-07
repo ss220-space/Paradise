@@ -100,10 +100,10 @@
 	add_fingerprint(user)
 	var/obj/item/ammo_box/box = item
 	if(!isturf(loc))
-		to_chat(user, span_warning("Вы можете собирать гильзы только с пола."))
+		balloon_alert(user, "не получилось собрать")
 		return ATTACK_CHAIN_PROCEED
 	if(length(box.stored_ammo) >= box.max_ammo)
-		to_chat(user, span_warning("[box.declent_ru(NOMINATIVE)] переполнена."))
+		balloon_alert(user, "уже полный")
 		return ATTACK_CHAIN_PROCEED
 	var/boolets = 0
 	for(var/obj/item/ammo_casing/bullet in loc)
@@ -119,7 +119,7 @@
 		if(box.give_round(bullet, FALSE))
 			boolets++
 	if(!boolets)
-		to_chat(user, span_warning("Вам не удалось ничего собрать."))
+		balloon_alert(user, "не получилось собрать")
 		return ATTACK_CHAIN_PROCEED
 	box.update_appearance(UPDATE_ICON|UPDATE_DESC)
 	to_chat(user, span_notice("Вы собрали [boolets] гильз[declension_ru(boolets,"у","ы","")]. Теперь в [box.declent_ru(GENITIVE)] [length(box.stored_ammo)] гильз[declension_ru(length(box.stored_ammo),"а","ы","")]."))
