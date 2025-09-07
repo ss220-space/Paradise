@@ -24,7 +24,12 @@
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
 	admin_only = TRUE
+
+
+/datum/map/cyberiad/multiz
+	admin_only = TRUE
 	side_levels = BELOW_LEVEL | ABOVE_LEVEL
+
 
 /datum/map/delta_old
 	name = "Delta Legacy"
@@ -39,7 +44,13 @@
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
 	admin_only = TRUE
+
+
+/datum/map/delta_old/multiz
+	admin_only = TRUE
 	side_levels = BELOW_LEVEL | ABOVE_LEVEL
+
+
 
 /datum/map/coldcolony
 	name = "Malta"
@@ -54,5 +65,9 @@
 	company_name = "НаноТрейзен"
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
+	admin_only = TRUE
+
+
+/datum/map/coldcolony/multiz
 	admin_only = TRUE
 	side_levels = ABOVE_LEVEL
