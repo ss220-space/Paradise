@@ -103,7 +103,7 @@
 		balloon_alert(user, "не получилось собрать")
 		return ATTACK_CHAIN_PROCEED
 	if(length(box.stored_ammo) >= box.max_ammo)
-		balloon_alert(user, "уже полный")
+		balloon_alert(user, "магазин заполнен")
 		return ATTACK_CHAIN_PROCEED
 	var/boolets = 0
 	for(var/obj/item/ammo_casing/bullet in loc)
