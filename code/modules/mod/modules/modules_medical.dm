@@ -384,7 +384,7 @@
 		for(var/datum/surgery/organ_manipulation/procedure in organ_receiver.surgeries)
 			if(procedure.location != organ.parent_organ_zone)
 				continue
-			if(!ispath(procedure.steps[procedure.step_number], /datum/surgery_step/internal))
+			if(!ispath(procedure.steps[procedure.step_number], /datum/surgery_step/proxy/manipulate_organs))
 				continue
 			succeed = TRUE
 			break

@@ -363,6 +363,16 @@
 	air_contents.oxygen = O2STANDARD*ONE_ATMOSPHERE*50/(R_IDEAL_GAS_EQUATION*T20C)
 	air_contents.nitrogen = N2STANDARD*ONE_ATMOSPHERE*50/(R_IDEAL_GAS_EQUATION*T20C)
 
+/obj/structure/closet/body_bag/environmental/update_icon_state()
+	return
+
+/obj/structure/closet/body_bag/environmental/update_overlays()
+	. = ..()
+	if(opened)
+		var/mutable_appearance/open_overlay = mutable_appearance(icon, "[icon_state]_open", alpha = src.alpha)
+		. += open_overlay
+		open_overlay.overlays += emissive_blocker(open_overlay.icon, open_overlay.icon_state, src, alpha = open_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
+
 /obj/structure/closet/body_bag/environmental/nanotrasen
 	name = "elite environmental protection bag"
 	desc = "A heavily reinforced and insulated bag, capable of fully isolating its contents from external factors."
@@ -396,6 +406,7 @@
 	return ..()
 
 /obj/structure/closet/body_bag/environmental/prisoner/can_open()
+	. = ..()
 	if(!.)
 		return FALSE
 
@@ -438,12 +449,19 @@
 	// We don't break the bag, because the buckles were backed out as opposed to fully broken.
 	open()
 
-/obj/structure/closet/body_bag/environmental/prisoner/ShiftClick(mob/user)
+/obj/structure/closet/body_bag/environmental/prisoner/click_alt(mob/user)
 	if(!user.can_perform_action(src) || !isturf(loc))
-		return
+		return CLICK_ACTION_BLOCKING
 	togglelock(user)
 
+	return CLICK_ACTION_SUCCESS
+
+/obj/structure/closet/body_bag/environmental/prisoner/proc/is_closed()
+	return !opened
+
 /obj/structure/closet/body_bag/environmental/prisoner/togglelock(mob/living/user, silent)
+	if(DOING_INTERACTION_WITH_TARGET(user, src))
+		return
 	if(opened)
 		to_chat(user, span_warning("You can't close the buckles while [src] is unzipped!"))
 		return
@@ -456,7 +474,7 @@
 		for(var/mob/living/target in contents)
 			to_chat(target, span_userdanger("You feel the lining of [src] tighten around you! Soon, you won't be able to escape!"))
 		user.visible_message(span_notice("[user] begins sinching down the buckles on [src]."))
-		if(!(do_after(user,(sinch_time),target = src)))
+		if(!(do_after(user,(sinch_time),target = src, CALLBACK(src, PROC_REF(is_closed)))))
 			return
 	sinched = !sinched
 	if(sinched)
