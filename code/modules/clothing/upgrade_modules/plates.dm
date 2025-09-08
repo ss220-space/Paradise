@@ -138,7 +138,7 @@
 	if(!consumed_resource)
 		balloon_alert(user, "недостаточно ресурсов!")
 		return ..()
-	if(!do_after(user, 5 SECONDS, src))
+	if(!do_after(user, 10 SECONDS, src))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	if(resource.amount > consumed_resource)
 		resource.use(consumed_resource)
