@@ -2,7 +2,8 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array
 	name = "tachyon-doppler array"
-	desc = "A highly precise directional sensor array which measures the release of quants from decaying tachyons. The doppler shifting of the mirror-image formed by these quants can reveal the size, location and temporal affects of energetic disturbances within a large radius ahead of the array."
+	desc = "Высокоточная cистема датчиков направления, которая измеряет высвобождение квантов из распадающихся тахионов. Доплеровское смещение зеркального изображения, формируемого этими квантами, может выявить размер, местоположение и временные последствия энергетических всплесков в большом радиусе перед матрицей."
+	gender = FEMALE
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "tdoppler"
 	base_icon_state = "tdoppler"
@@ -14,6 +15,16 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	var/explosion_target
 	var/datum/tech/toxins/toxins_tech
 	var/max_toxins_tech = 7
+
+/obj/machinery/doppler_array/get_ru_names()
+	return list(
+		NOMINATIVE = "тахионно-доплеровская установка",
+		GENITIVE = "тахионно-доплеровской установки",
+		DATIVE = "тахионно-доплеровской установке",
+		ACCUSATIVE = "тахионно-доплеровскую установку",
+		INSTRUMENTAL = "тахионно-доплеровской установкой",
+		PREPOSITIONAL = "тахионно-доплеровской установке",
+	)
 
 /datum/explosion_log
 	var/logged_time
@@ -164,9 +175,9 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/update_icon_state()
 	if(stat & BROKEN)
-		icon_state = "[base_icon_state]-broken"
+		icon_state = "[base_icon_state]_broken"
 	else
-		icon_state = (!(stat & NOPOWER) && anchored) ? base_icon_state : "[base_icon_state]-off"
+		icon_state = (!(stat & NOPOWER) && anchored) ? base_icon_state : "[base_icon_state]_off"
 
 
 /obj/machinery/doppler_array/power_change(forced = FALSE)	// overrides base power_change to check to make sure machine is anchored

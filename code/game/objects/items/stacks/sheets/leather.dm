@@ -182,6 +182,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4),
 	new/datum/stack_recipe("leather bed", /obj/structure/bed/leather, 10, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS),
 	new/datum/stack_recipe("gem satchel", /obj/item/storage/bag/gem, 1),
+	new/datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 2),
 	))
 
 /obj/item/stack/sheet/leather/Initialize(mapload, new_amount, merge = TRUE)
@@ -208,6 +209,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 
 GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1), \
+	new/datum/stack_recipe("cloth", /obj/item/stack/sheet/cloth, 1), \
 	))
 
 /obj/item/stack/sheet/sinew/Initialize(mapload, new_amount, merge = TRUE)
