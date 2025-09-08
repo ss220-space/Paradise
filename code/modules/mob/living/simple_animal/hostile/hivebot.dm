@@ -51,12 +51,12 @@
 
 /mob/living/simple_animal/hostile/hivebot/get_ru_names()
 	ru_names = list(
-		NOMINATIVE = "Бот улья",
-		GENITIVE = "Бота улья",
-		DATIVE = "Боту улья",
-		ACCUSATIVE = "Бота улья",
-		INSTRUMENTAL = "Ботом улья",
-		PREPOSITIONAL = "Боте улья"
+		NOMINATIVE = "кустарный робот",
+		GENITIVE = "кустарного робота",
+		DATIVE = "кустарному роботу",
+		ACCUSATIVE = "кустарного робота",
+		INSTRUMENTAL = "кустарным роботом",
+		PREPOSITIONAL = "кустарном роботе"
 	)
 
 /mob/living/simple_animal/hostile/hivebot/ComponentInitialize()
@@ -108,6 +108,16 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	can_retreat = FALSE
 
+/mob/living/simple_animal/hostile/hivebot/melee/get_ru_names()
+	ru_names = list(
+		NOMINATIVE = "бронированный кустарный робот",
+		GENITIVE = "бронированного кустарного робота",
+		DATIVE = "бронированному кустарному роботу",
+		ACCUSATIVE = "бронированного кустарного робота",
+		INSTRUMENTAL = "бронированным кустарным роботом",
+		PREPOSITIONAL = "бронированном кустарном роботе"
+	)
+
 /mob/living/simple_animal/hostile/hivebot/heavy_melee
 	name = "Hivebot"
 	desc = "Многофункциональный робот, грубо обшитый металлическими пластинами. На корпусе видны заклёпки, а щели между пластинами залиты бетоном. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны вмятины, а также выцарапанная надпись \"ВМС\"."
@@ -125,6 +135,16 @@
 	deathmessage = "скидывает щиты!"
 	loot = list(/obj/effect/spawner/hivebot_heavy, /obj/effect/loot_spawner/hivebot, /obj/effect/loot_spawner/hivebot)
 	can_retreat = FALSE
+
+/mob/living/simple_animal/hostile/hivebot/heavy_melee/get_ru_names()
+	ru_names = list(
+		NOMINATIVE = "бронированный кустарный робот",
+		GENITIVE = "бронированного кустарного робота",
+		DATIVE = "бронированному кустарному роботу",
+		ACCUSATIVE = "бронированного кустарного робота",
+		INSTRUMENTAL = "бронированным кустарным роботом",
+		PREPOSITIONAL = "бронированном кустарном роботе"
+	)
 
 // Зашиватель гвоздей
 
@@ -145,6 +165,16 @@
 	projectiletype = /obj/projectile/hivebot/light_bullet
 	projectilesound = 'sound/weapons/gunshots/1autorifle.ogg'
 
+/mob/living/simple_animal/hostile/hivebot/range/get_ru_names()
+	ru_names = list(
+		NOMINATIVE = "кустарный робот с гвоздомётами",
+		GENITIVE = "кустарного робота с гвоздомётами",
+		DATIVE = "кустарному роботу с гвоздомётами",
+		ACCUSATIVE = "кустарного робота с гвоздомётами",
+		INSTRUMENTAL = "кустарным роботом с гвоздомётами",
+		PREPOSITIONAL = "кустарном роботе с гвоздомётами"
+	)
+
 /mob/living/simple_animal/hostile/hivebot/range_heavy
 	name = "Hivebot"
 	desc = "Многофункциональный робот с шестью манипуляторами. В его клешнях модифицированный заклёпочный аппарат. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
@@ -161,6 +191,16 @@
 	speed = -2
 	projectiletype = /obj/projectile/hivebot/heavy_bullet
 	projectilesound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+
+/mob/living/simple_animal/hostile/hivebot/range_heavy/get_ru_names()
+	ru_names = list(
+		NOMINATIVE = "кустарный робот с заклёпкомётом",
+		GENITIVE = "кустарного робота с заклёпкомётом",
+		DATIVE = "кустарному роботу с заклёпкомётом",
+		ACCUSATIVE = "кустарного робота с заклёпкомётом",
+		INSTRUMENTAL = "кустарным роботом с заклёпкомётом",
+		PREPOSITIONAL = "кустарном роботе с заклёпкомётом"
+	)
 
 // Инженер
 
@@ -182,6 +222,16 @@
 	var/heal_amount = 15
 	var/heal_range = 5
 	var/last_heal_time = 0
+
+/mob/living/simple_animal/hostile/hivebot/support/get_ru_names()
+	ru_names = list(
+		NOMINATIVE = "кустарный робот-механик",
+		GENITIVE = "кустарного робота-механика",
+		DATIVE = "кустарному роботу-механику",
+		ACCUSATIVE = "кустарного робота-механика",
+		INSTRUMENTAL = "кустарным роботом-механиком",
+		PREPOSITIONAL = "кустарном роботе-механике"
+	)
 
 /mob/living/simple_animal/hostile/hivebot/support/Initialize(mapload)
 	. = ..()
@@ -232,12 +282,12 @@
 
 /obj/structure/hivebot_spawner/get_ru_names()
 	ru_names = list(
-		NOMINATIVE = "Фабрикатор ботов улья",
-		GENITIVE = "Фабрикатора ботов улья",
-		DATIVE = "Фабрикатору ботов улья",
-		ACCUSATIVE = "Фабрикатор ботов улья",
-		INSTRUMENTAL = "Фабрикатором ботов улья",
-		PREPOSITIONAL = "Фабрикаторе ботов улья"
+		NOMINATIVE = "фабрикатор",
+		GENITIVE = "фабрикатора",
+		DATIVE = "фабрикатору",
+		ACCUSATIVE = "фабрикатор",
+		INSTRUMENTAL = "фабрикатором",
+		PREPOSITIONAL = "фабрикаторе"
 	)
 
 /obj/structure/hivebot_spawner/Initialize(mapload)
