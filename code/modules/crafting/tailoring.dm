@@ -508,7 +508,7 @@
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/armor_plate_ablative
-	name = "Самодельная аблятивная бронеплита"
+	name = "Самодельная противолазерная бронеплита"
 	result = /obj/item/armor_plate/handmade_ablative
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)

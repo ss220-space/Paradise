@@ -876,27 +876,27 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 
 /datum/supply_packs/security/armor_plates_kevlar
-	name = "Комплект кевларовых бронеплит"
+	name = "Кевларовые бронеплиты"
 	contains =	list(/obj/item/armor_plate/kevlar,
 				/obj/item/armor_plate/kevlar,
 				/obj/item/armor_plate/kevlar,
 				/obj/item/armor_plate/kevlar,
 				/obj/item/armor_plate/kevlar)
 	cost = 40
-	containername = "kevlar armor plates crate"
+	containername = "ящик кевларовых бронеплит"
 
 /datum/supply_packs/security/armor_plates_kevlar_credit
-	name = "Комплект кевларовых бронеплит"
+	name = "Кевларовые бронеплиты"
 	contains =	list(/obj/item/armor_plate/kevlar,
 				/obj/item/armor_plate/kevlar,
 				/obj/item/armor_plate/kevlar,
 				/obj/item/armor_plate/kevlar,
 				/obj/item/armor_plate/kevlar)
 	credits_cost = 3000
-	containername = "kevlar armor plates crate"
+	containername = "ящик кевларовых бронеплит"
 
 /datum/supply_packs/security/armor_plates_light
-	name = "Комплект легких бронеплит"
+	name = "Лёгкие бронеплиты"
 	contains =	list(/obj/item/armor_plate/light_steel,
 				/obj/item/armor_plate/light_steel,
 				/obj/item/armor_plate/light_steel,
@@ -904,10 +904,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 				/obj/item/armor_plate/light_ablative,
 				/obj/item/armor_plate/light_ablative)
 	cost = 50
-	containername = "light armor plates crate"
+	containername = "ящик лёгких бронеплит"
 
 /datum/supply_packs/security/armor_plates_light_credit
-	name = "Комплект легких бронеплит"
+	name = "Лёгкие бронеплиты"
 	contains =	list(/obj/item/armor_plate/light_steel,
 				/obj/item/armor_plate/light_steel,
 				/obj/item/armor_plate/light_steel,
@@ -915,26 +915,26 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 				/obj/item/armor_plate/light_ablative,
 				/obj/item/armor_plate/light_ablative)
 	credits_cost = 5000
-	containername = "light armor plates crate"
+	containername = "ящик лёгких бронеплит"
 
 /datum/supply_packs/security/armor_plates_light_ceramic
-	name = "Комплект легких керамических бронеплит"
+	name = "Лёгкие керамические бронеплиты"
 	contains =	list(/obj/item/armor_plate/light_ceramic,
 				/obj/item/armor_plate/light_ceramic,
 				/obj/item/armor_plate/light_ceramic)
 	cost = 50
-	containername = "light ceramic armor plates crate"
+	containername = "ящик лёгких керамических бронеплит"
 
 /datum/supply_packs/security/armor_plates_light_ceramic_credit
-	name = "Комплект легких керамических бронеплит"
+	name = "Лёгкие керамические бронеплиты"
 	contains =	list(/obj/item/armor_plate/light_ceramic,
 				/obj/item/armor_plate/light_ceramic,
 				/obj/item/armor_plate/light_ceramic)
 	credits_cost = 5000
-	containername = "light ceramic armor plates crate"
+	containername = "ящик лёгких керамических бронеплит"
 
 /datum/supply_packs/security/armor_plates_medium
-	name = "Комплект средних бронеплит"
+	name = "Средние бронеплиты"
 	contains =	list(/obj/item/armor_plate/medium_steel,
 				/obj/item/armor_plate/medium_steel,
 				/obj/item/armor_plate/medium_steel,
@@ -942,18 +942,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 				/obj/item/armor_plate/medium_ablative,
 				/obj/item/armor_plate/medium_ablative)
 	cost = 150
-	containername = "medium armor plates crate"
+	containername = "ящик средних бронеплит"
 
 /datum/supply_packs/security/armor_plates_medium_ceramic
-	name = "Комплект средних керамических бронеплит"
+	name = "Средние керамические бронеплиты"
 	contains =	list(/obj/item/armor_plate/medium_ceramic,
 				/obj/item/armor_plate/medium_ceramic,
 				/obj/item/armor_plate/medium_ceramic)
 	cost = 150
-	containername = "medium ceramic armor plates crate"
+	containername = "ящик средних керамических бронеплит"
 
 /datum/supply_packs/security/armor_plates_heavy
-	name = "Комплект тяжелых бронеплит"
+	name = "Тяжёлые бронеплиты"
 	contains =	list(/obj/item/armor_plate/heavy_steel,
 				/obj/item/armor_plate/heavy_steel,
 				/obj/item/armor_plate/heavy_steel,
@@ -961,7 +961,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 				/obj/item/armor_plate/heavy_ablative,
 				/obj/item/armor_plate/heavy_ablative)
 	cost = 250
-	containername = "heavy armor plates crate"
+	containername = "ящик тяжёлых бронеплит"
 
 
 

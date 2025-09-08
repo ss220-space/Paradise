@@ -6,8 +6,11 @@
 
 /obj/item/armor_plate
 	name = "armor plate"
-	desc = "Базовая бронеплита, если вы видите этот текст, значит этой плите не сделали нормально описание."
-	description_info = "Бронепробитие — это способность поражающего элемента (пули, снаряда) преодолеть защиту цели, определяемая его кинетической энергией, материалом и конструкцией (например, стальным сердечником). Защита классифицируется по уровням (классам брони) от I (легкие пистолетные пули) до V (мощные винтовочные бронебойные патроны). Каждый класс соответствует определённым типам угроз: так, бронежилет класса III остановит пулю АК-47, но будет пробит бронебойным патроном, для которого требуется класс IV или выше."
+	desc = "Базовая бронеплита, которую вы не должны были увидеть. Сообщите о баге."
+	description_info = "Бронепробитие — это способность поражающего элемента (пули, снаряда) преодолеть защиту цели, определяемая его кинетической энергией, материалом и конструкцией (например, стальным сердечником). \
+						Защита классифицируется по уровням (классам брони) от I (лёгкие пистолетные пули) до V (мощные винтовочные бронебойные патроны). \
+						Каждый класс соответствует определённым типам угроз: так, бронежилет класса III остановит пулю АК-814, но будет пробит бронебойным патроном, для которого требуется класс IV или выше."
+	gender = FEMALE
 	icon = 'icons/obj/armor/plates.dmi'
 	lefthand_file = 'icons/mob/inhands/plates_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/plates_righthand.dmi'
@@ -48,10 +51,10 @@
 /// Try attach armor plate to suit
 /obj/item/armor_plate/proc/try_attach_to_clothing(mob/user, obj/item/clothing/suit)
 	if(plate_slot > suit.allowed_armor_plate)
-		balloon_alert(user, "не совместимо")
+		balloon_alert(user, "несовместимо!")
 		return FALSE
 	if(suit == user.get_item_by_slot(suit.slot_flags))
-		balloon_alert(user, "нужно сначала снять с себя!")
+		balloon_alert(user, "сначала снимите с себя!")
 		return FALSE
 	balloon_alert(user, "установка бронеплиты...")
 	if(!do_after(user, 5 SECONDS, suit))
@@ -67,15 +70,15 @@
 /// Try remove armor plate from suit
 /obj/item/armor_plate/proc/try_detach_from_clothing(mob/living/user, obj/item/clothing/suit, obj/item/tool)
 	if(!suit.can_remove_armor_plate)
-		balloon_alert(user, "нельзя снять бронеплиту!")
+		balloon_alert(user, "бронеплиту нельзя извлечь!")
 		return FALSE
 	if(suit == user.get_item_by_slot(suit.slot_flags))
-		balloon_alert(user, "нужно сначала снять с себя!")
+		balloon_alert(user, "сначала снимите с себя!")
 		return FALSE
-	balloon_alert(user, "снятие бронеплиты...")
+	balloon_alert(user, "извлечение бронеплиты...")
 	if(!tool.use_tool(suit, user, 5 SECONDS, volume = tool.tool_volume))
 		return FALSE
-	balloon_alert(user, "бронеплита снята")
+	balloon_alert(user, "бронеплита извлечена")
 	forceMove(user.loc)
 	user.put_in_hands(src)
 	suit.armor_plate = null
@@ -83,7 +86,7 @@
 
 
 /obj/item/armor_plate/proc/get_examine_text()
-	. = span_notice("Установлен[genderize_decode(gender, "", "а", "о", "ы")] [declent_ru(NOMINATIVE)]. ")
+	. = span_notice("Установлен[genderize_ru(gender, "", "а", "о", "ы")] <b>[declent_ru(NOMINATIVE)]</b>. ")
 	. += span_notice(get_armor_text())
 	. += span_notice(get_integrity_text())
 
@@ -112,7 +115,7 @@
 		return "Бронеплита сильно повреждена."
 	else if(armor_integrity > 0)
 		return "Бронеплита почти сломана."
-	return "Бронеплита сломана и уже не защитит."
+	return "Бронеплита сломана и не обеспечивает защиту."
 
 /obj/item/armor_plate/examine(mob/user)
 	. = ..()
@@ -128,12 +131,12 @@
 	var/obj/item/stack/resource = item
 	var/can_repair_integrity = max(0, armor_protection_integrity - armor_integrity)
 	if(!can_repair_integrity)
-		balloon_alert(user, "невозможно отремонтировать")
+		balloon_alert(user, "невозможно отремонтировать!")
 		return ..()
 	var/repair_integrity = min(repair_coefficient * resource.get_amount(), can_repair_integrity)
 	var/consumed_resource = round(repair_integrity / repair_coefficient, 1)
 	if(!consumed_resource)
-		balloon_alert(user, "не хватает ресурсов")
+		balloon_alert(user, "недостаточно ресурсов!")
 		return ..()
 	if(!do_after(user, 5 SECONDS, src))
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -222,6 +225,9 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 // MARK: Handmade armor plates
 /obj/item/armor_plate/handmade_steel
 	name = "handmade steel armor plate"
+	desc = "Бронеплита из приваренных друг к другу стальных пластин, созданная кустарным способом. \
+			Предназначена для защиты от пистолетных калибров и осколков. \
+			Тяжёлая и недолговечная, но лучше, чем ничего."
 	icon_state = "steelplate_light" //TODO need icon
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
@@ -230,11 +236,24 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	armor_max_integrity = 75
 	body_parts_covered = UPPER_TORSO
 
+/obj/item/armor_plate/handmade_steel/get_ru_names()
+	return list(
+        NOMINATIVE = "самодельная стальная бронеплита",
+        GENITIVE = "самодельной стальной бронеплиты",
+        DATIVE = "самодельной стальной бронеплите",
+        ACCUSATIVE = "самодельную стальную бронеплиту",
+        INSTRUMENTAL = "самодельной стальной бронеплитой",
+        PREPOSITIONAL = "самодельной стальной бронеплите"
+	)
+
 /obj/item/armor_plate/handmade_steel/helmet
 	body_parts_covered = HEAD
 
 /obj/item/armor_plate/handmade_ablative
 	name = "handmade ablative armor plate"
+	desc = "Бронеплита из приваренных друг к другу листов стекла, созданная кустарным способом. \
+			Предназначена для защиты от маломощных энергетических снарядов. \
+			Тяжёлая и недолговечная, но лучше, чем ничего."
 	icon_state = "reflectorplate_light" //TODO need icon
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
@@ -243,11 +262,23 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	armor_max_integrity = 75
 	body_parts_covered = UPPER_TORSO
 
+/obj/item/armor_plate/handmade_ablative/get_ru_names()
+	return list(
+        NOMINATIVE = "самодельная противолазерная бронеплита",
+        GENITIVE = "самодельной противолазерной бронеплиты",
+        DATIVE = "самодельной противолазерной бронеплите",
+        ACCUSATIVE = "самодельную противолазерную бронеплиту",
+        INSTRUMENTAL = "самодельной противолазерной бронеплитой",
+        PREPOSITIONAL = "самодельной противолазерной бронеплите"
+	)
+
 /obj/item/armor_plate/handmade_ablative/helmet
 	body_parts_covered = HEAD
 
 /obj/item/armor_plate/kevlar
 	name = "kevlar armor plate"
+	desc = "Бронеплита из кевлара, предназначенная для защиты от пистолетных калибров и осколков. \
+			Лёгкая и достаточно дешёвая."
 	icon_state = "steelplate_light" //TODO need icon
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
@@ -257,6 +288,16 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/plastic
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/armor_plate/kevlar/get_ru_names()
+	return list(
+        NOMINATIVE = "кевларовая бронеплита",
+        GENITIVE = "кевларовой бронеплиты",
+        DATIVE = "кевларовой бронеплите",
+        ACCUSATIVE = "кевларовую бронеплиту",
+        INSTRUMENTAL = "кевларовой бронеплитой",
+        PREPOSITIONAL = "кевларовой бронеплите"
+	)
+
 /obj/item/armor_plate/kevlar/helmet
 	body_parts_covered = HEAD
 
@@ -264,6 +305,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/light_steel
 	name = "light steel armor plate"
+	desc = "Бронеплита из баллистической стали, предназначенная для защиты от пистолетных калибров и осколков. \
+			Легковесная и не сковывает движения носящего, что компенсируется относительно слабым классом защиты."
 	icon_state = "steelplate_light"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_III
@@ -273,11 +316,24 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/metal
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/armor_plate/light_steel/get_ru_names()
+	return list(
+        NOMINATIVE = "лёгкая стальная бронеплита",
+        GENITIVE = "лёгкой стальной бронеплиты",
+        DATIVE = "лёгкой стальной бронеплите",
+        ACCUSATIVE = "лёгкую стальную бронеплиту",
+        INSTRUMENTAL = "лёгкой стальной бронеплитой",
+        PREPOSITIONAL = "лёгкой стальной бронеплите"
+	)
+
 /obj/item/armor_plate/light_steel/helmet
 	body_parts_covered = HEAD
 
 /obj/item/armor_plate/light_ablative
 	name = "light ablative armor plate"
+	desc = "Бронеплита из светоотражающих элементов, \
+			предназначенная для защиты от маломощных энергетических снарядов. \
+			Легковесная и не сковывает движения носящего, что компенсируется относительно слабым классом защиты."
 	icon_state = "reflectorplate_light"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
@@ -287,11 +343,24 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/armor_plate/light_ablative/get_ru_names()
+	return list(
+        NOMINATIVE = "лёгкая противолазерная бронеплита",
+        GENITIVE = "лёгкой противолазерной бронеплиты",
+        DATIVE = "лёгкой противолазерной бронеплите",
+        ACCUSATIVE = "лёгкую противолазерную бронеплиту",
+        INSTRUMENTAL = "лёгкой противолазерной бронеплитой",
+        PREPOSITIONAL = "лёгкой противолазерной бронеплите"
+	)
+
 /obj/item/armor_plate/light_ablative/helmet
 	body_parts_covered = HEAD
 
 /obj/item/armor_plate/light_ceramic
 	name = "light ceramic armor plate"
+	desc = "Бронеплита из керамики, предназначенная для защиты от промежуточных калибров. \
+			Легковесная и не сковывает движения носящего, \
+			однако хорошо защищает относительно других плит той же весовой категории."
 	icon_state = "ceramicplate_light"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
@@ -301,6 +370,16 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/armor_plate/light_ceramic/get_ru_names()
+	return list(
+        NOMINATIVE = "лёгкая керамическая бронеплита",
+        GENITIVE = "лёгкой керамической бронеплиты",
+        DATIVE = "лёгкой керамической бронеплите",
+        ACCUSATIVE = "лёгкую керамическую бронеплиту",
+        INSTRUMENTAL = "лёгкой керамической бронеплитой",
+        PREPOSITIONAL = "лёгкой керамической бронеплите"
+	)
+
 /obj/item/armor_plate/light_ceramic/helmet
 	body_parts_covered = HEAD
 
@@ -309,6 +388,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/medium_steel
 	name = "medium steel armor plate"
+	desc = "Бронеплита из баллистической стали, предназначенная для защиты от винтовочных калибров. \
+			Обеспечивает баланс между защитой пользователя и удобством ношения."
 	icon_state = "steelplate_medium"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
@@ -318,11 +399,24 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/armor_plate/medium_steel/get_ru_names()
+	return list(
+        NOMINATIVE = "средняя стальная бронеплита",
+        GENITIVE = "средней стальной бронеплиты",
+        DATIVE = "средней стальной бронеплите",
+        ACCUSATIVE = "среднюю стальную бронеплиту",
+        INSTRUMENTAL = "средней стальной бронеплитой",
+        PREPOSITIONAL = "средней стальной бронеплите"
+	)
+
 /obj/item/armor_plate/medium_steel/helmet
 	body_parts_covered = HEAD
 
 /obj/item/armor_plate/medium_ablative
 	name = "medium ablative armor plate"
+	desc = "Бронеплита из светоотражающих элементов, \
+			предназначенная для защиты от энергетических снарядов средней мощности. \
+			Обеспечивает баланс между защитой пользователя и удобством ношения."
 	icon_state = "reflectorplate_medium"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
@@ -332,11 +426,24 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/armor_plate/medium_ablative/get_ru_names()
+	return list(
+        NOMINATIVE = "средняя противолазерная бронеплита",
+        GENITIVE = "средней противолазерной бронеплиты",
+        DATIVE = "средней противолазерной бронеплите",
+        ACCUSATIVE = "среднюю противолазерную бронеплиту",
+        INSTRUMENTAL = "средней противолазерной бронеплитой",
+        PREPOSITIONAL = "средней противолазерной бронеплите"
+	)
+
 /obj/item/armor_plate/medium_ablative/helmet
 	body_parts_covered = HEAD
 
 /obj/item/armor_plate/medium_ceramic
 	name = "medium ceramic armor plate"
+	desc = "Бронеплита из керамики, предназначенная для защиты от винтовочных калибров. \
+			Несколько сковывает движения пользователя, при этом превосходя плиты той же весовой категории \
+			по защитным характеристикам."
 	icon_state = "ceramicplate_medium"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
@@ -346,6 +453,16 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/armor_plate/medium_ceramic/get_ru_names()
+	return list(
+        NOMINATIVE = "средняя керамическая бронеплита",
+        GENITIVE = "средней керамической бронеплиты",
+        DATIVE = "средней керамической бронеплите",
+        ACCUSATIVE = "среднюю керамическую бронеплиту",
+        INSTRUMENTAL = "средней керамической бронеплитой",
+        PREPOSITIONAL = "средней керамической бронеплите"
+	)
+
 /obj/item/armor_plate/medium_ceramic/helmet
 	body_parts_covered = HEAD
 
@@ -354,6 +471,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/heavy_steel
 	name = "heavy steel armor plate"
+	desc = "Бронеплита из баллистической стали, предназначенная для защиты от мощных винтовочных калибров. \
+			Тяжёлая и неудобная, что компенсируется высоким классом защиты."
 	icon_state = "steelplate_heavy"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
@@ -363,11 +482,24 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
+/obj/item/armor_plate/heavy_steel/get_ru_names()
+	return list(
+        NOMINATIVE = "тяжёлая стальная бронеплита",
+        GENITIVE = "тяжёлой стальной бронеплиты",
+        DATIVE = "тяжёлой стальной бронеплите",
+        ACCUSATIVE = "тяжёлую стальную бронеплиту",
+        INSTRUMENTAL = "тяжёлой стальной бронеплитой",
+        PREPOSITIONAL = "тяжёлой стальной бронеплите"
+	)
+
 /obj/item/armor_plate/heavy_steel/helmet
 	body_parts_covered = HEAD
 
 /obj/item/armor_plate/heavy_ablative
 	name = "heavy ablative armor plate"
+	desc = "Бронеплита из светоотражающих элементов, \
+			предназначенная для защиты от энергетических снарядов высокой мощности. \
+			Тяжёлая и неудобная, что компенсируется высоким классом защиты."
 	icon_state = "reflectorplate_heavy"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
@@ -377,11 +509,24 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
+/obj/item/armor_plate/heavy_ablative/get_ru_names()
+	return list(
+        NOMINATIVE = "тяжёлая противолазерная бронеплита",
+        GENITIVE = "тяжёлой противолазерной бронеплиты",
+        DATIVE = "тяжёлой противолазерной бронеплите",
+        ACCUSATIVE = "тяжёлую противолазерную бронеплиту",
+        INSTRUMENTAL = "тяжёлой противолазерной бронеплитой",
+        PREPOSITIONAL = "тяжёлой противолазерной бронеплите"
+	)
+
 /obj/item/armor_plate/heavy_ablative/helmet
 	body_parts_covered = HEAD
 
 /obj/item/armor_plate/heavy_ceramic
 	name = "heavy ceramic armor plate"
+	desc = "Бронеплита из керамики, предназначенная для защиты от мощных винтовочных калибров. \
+			Тяжёлая и неудобная, что компенсируется высоким классом защиты. \
+			Несколько превосходит плиты той же весовой категории по защитным характеристикам."
 	icon_state = "ceramicplate_heavy"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
@@ -391,11 +536,24 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
+/obj/item/armor_plate/heavy_ceramic/get_ru_names()
+	return list(
+        NOMINATIVE = "тяжёлая керамическая бронеплита",
+        GENITIVE = "тяжёлой керамической бронеплиты",
+        DATIVE = "тяжёлой керамической бронеплите",
+        ACCUSATIVE = "тяжёлую керамическую бронеплиту",
+        INSTRUMENTAL = "тяжёлой керамической бронеплитой",
+        PREPOSITIONAL = "тяжёлой керамической бронеплите"
+	)
+
 /obj/item/armor_plate/heavy_ceramic/helmet
 	body_parts_covered = HEAD
 
 /obj/item/armor_plate/elite
 	name = "elite armor plate"
+	desc = "Бронеплита из высокотехнологичных комбинированных материалов. \
+			Обеспечивает выдающуюся защиту как от баллистических, так и от энергетических снарядов, \
+			при этом не сказываясь на мобильности пользователя. Такие выдают самым элитным бойцам."
 	icon_state = "eliteplate"
 	plate_slot = ARMOR_PLATE_SLOT_MAX
 	ballistic_class = BALLISTIC_ARMOR_CLASS_MAX
@@ -403,6 +561,16 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	armor_protection_integrity = 300
 	armor_max_integrity = 600
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+
+/obj/item/armor_plate/elite/get_ru_names()
+	return list(
+        NOMINATIVE = "элитная бронеплита",
+        GENITIVE = "элитной бронеплиты",
+        DATIVE = "элитной бронеплите",
+        ACCUSATIVE = "элитную бронеплиту",
+        INSTRUMENTAL = "элитной бронеплитой",
+        PREPOSITIONAL = "элитной бронеплите"
+	)
 
 /obj/item/armor_plate/elite/helmet
 	body_parts_covered = HEAD
