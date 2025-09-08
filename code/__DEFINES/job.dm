@@ -68,6 +68,11 @@
 #define JOB_FLAG_JUDGE				(1<<6)
 #define JOB_FLAG_PILOT				(1<<7)
 
+#define JOBCAT_COMBAT_TEAM			(1<<4)
+#define JOB_FLAG_TEAM1				(1<<0)
+#define JOB_FLAG_TEAM2				(1<<1)
+#define JOB_FLAG_TEAM3				(1<<2)
+
 /// MARK: Job titles
 /// Defines below used as jobs' titles (from /tg/), credit to JohnFulpWillard
 
@@ -153,6 +158,10 @@
 #define SYNDICATE_COMMANDO				"Syndicate Commando"
 #define VOX_RAIDER						"Vox Raider"
 #define VOX_TRADER						"Vox Trader"
+
+#define JOB_TITLE_TEAM1					"Team 1"
+#define JOB_TITLE_TEAM2					"Team 2"
+#define JOB_TITLE_TEAM3					"Team 3"
 
 // Taipan
 #define TAIPAN_SCIENTIST				"Space Base Syndicate Scientist"
