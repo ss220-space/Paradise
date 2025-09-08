@@ -274,6 +274,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	var/datum/ui_module/loadout/loadout
 
+	var/list/exoframe_names = list(
+		PREF_EXOFRAME_REINFORCED = "Укрепленный каркас экзоскелета",
+		PREF_EXOFRAME_INDUSTRIAL = "Промышленный каркас экзоскелета"
+		)
+	var/exoframe_type = PREF_EXOFRAME_REINFORCED
+
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -463,6 +469,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 				dat += "<b>Альтернативный тип головы:</b> "
 				dat += "<a href='byond://?_src_=prefs;preference=alt_head;task=input'>[alt_head]</a><br>"
+			if(species == SPECIES_MACNINEPERSON)
+				var/exoframe_name = exoframe_names[exoframe_type] || exoframe_type
+				dat += "<b>Каркас экзоскелета:</b> <a href='byond://?_src_=prefs;preference=exoframe;task=input'>[exoframe_name]</a><br>"
 			dat += "<b>Части тела:</b> <a href='byond://?_src_=prefs;preference=limbs;task=input'>Изменить</a><br>"
 			if(species != SPECIES_SLIMEPERSON && species != SPECIES_MACNINEPERSON)
 				dat += "<b>Внутренние органы:</b> <a href='byond://?_src_=prefs;preference=organs;task=input'>Изменить</a><br>"
@@ -2368,6 +2377,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							parent.fps = clientfps
 						else
 							parent.fps = CONFIG_GET(number/clientfps)
+				if("exoframe")
+					var/available_frames = list()
+					for(var/path in exoframe_names)
+						available_frames[exoframe_names[path]] = path
+
+					var/chosen_name = tgui_input_list(user, "Выберите желаемый каркас экзоскелета", "Каркас экзоскелета", available_frames)
+					if(chosen_name && available_frames[chosen_name])
+						exoframe_type = available_frames[chosen_name]
 		else
 			switch(href_list["preference"])
 				if("publicity")

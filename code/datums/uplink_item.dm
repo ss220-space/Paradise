@@ -692,6 +692,15 @@
 	cost = 40
 	race = list(SPECIES_MACNINEPERSON)
 
+/datum/uplink_item/racial/combat_exoframe
+	name = "Боевой каркас экзоскелета"
+	desc = "Укреплённый титановыми вставками каркас экзоскелета, который значительно повышает прочность корпуса пользователя, практически не увеличивая вес. \
+        Благодаря усовершенствованной системе контроля позволяет пользователю по желанию передвигаться с повышенной скоростью без потери боевых характеристик. \
+        Поставляется с одноразовым автоимплантером для замены каркаса внутри пользователя."
+	item = /obj/item/storage/box/syndie_kit/combat_exoframe
+	cost = 43
+	race = list(SPECIES_MACNINEPERSON)
+
 //Slime People
 
 /datum/uplink_item/racial/anomaly_extract

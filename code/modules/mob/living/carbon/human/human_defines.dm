@@ -91,3 +91,9 @@
 
 	/// What types of mobs are allowed to ride/buckle to this mob. Only human for now
 	var/static/list/can_ride_typecache = typecacheof(list(/mob/living/carbon/human))
+
+	var/robotic_limb_repair_time = 1 SECONDS
+	var/limb_repair_in_progress = FALSE
+	var/emp_damage_multiplier_internal = 1
+	var/emp_damage_multiplier_external = 1
+
