@@ -1,6 +1,7 @@
 // MARK: Internal magazines
 /obj/item/ammo_box/magazine/internal
 	desc = "Oh god, this shouldn't be here!"
+	can_fast_load = TRUE
 
 
 //internals magazines are accessible, so replace spent ammo if full when trying to put a live one in
@@ -260,6 +261,7 @@
 // MARK: External magazines
 /obj/item/ammo_box/magazine
 	materials = list(MAT_METAL = 2000)
+	can_fast_load = FALSE
 
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"

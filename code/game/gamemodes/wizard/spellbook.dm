@@ -291,6 +291,13 @@
 	spell_type = /obj/effect/proc_holder/spell/area_teleport/teleport
 	category = "Mobility"
 
+
+/datum/spellbook_entry/nullspace_box
+	name = "Призыв блюспейс коробки"
+	spell_type = /obj/effect/proc_holder/spell/nullspace_box
+	cost = 1
+	category = "Mobility"
+
 //Assistance
 
 /datum/spellbook_entry/shapeshift

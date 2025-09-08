@@ -18,7 +18,7 @@
 	outfit = /datum/outfit/job/qm
 	insurance_type = INSURANCE_TYPE_DELUXE // Always has been.
 
-	//QM IS NOT THE HEAD!!
+	//QM IS THE HEAD!!
 	salary = 300
 	min_start_money = 400
 	max_start_money = 700
@@ -57,9 +57,9 @@
 	alt_titles = list("Supply Manager","Loader")
 	outfit = /datum/outfit/job/cargo_tech
 
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
+	salary = 130
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/cargo_tech
 	name = "Cargo Technician"
@@ -161,7 +161,7 @@
 	exp_requirements = 600 //10 hours
 	exp_type = EXP_TYPE_MEDICAL
 
-	salary = 150
+	salary = 170
 	min_start_money = 250
 	max_start_money = 500
 

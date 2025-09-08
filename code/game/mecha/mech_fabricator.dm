@@ -10,11 +10,12 @@
   */
 /obj/machinery/mecha_part_fabricator
 	name = "exosuit fabricator"
-	desc = "Nothing is being built."
+	desc = "Крупное устройство, предназначенное для печати крупных роботизированных деталей. \n Сейчас в нём ничего не печатается."
+	gender = MALE
 	icon = 'icons/obj/machines/robotics.dmi'
-	icon_state = "fab-idle"
-	var/icon_open = "fab-o"
-	var/icon_closed = "fab-idle"
+	icon_state = "fabricator"
+	var/icon_open = "fabricator_unscrewed"
+	var/icon_closed = "fabricator"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -49,6 +50,16 @@
 	/// Whether the queue is currently being processed.
 	var/processing_queue = FALSE
 	var/ui_theme = "nanotrasen"
+
+/obj/machinery/mecha_part_fabricator/get_ru_names()
+	return list(
+		NOMINATIVE = "фабрикатор экзоскелетов",
+		GENITIVE = "фабрикатора экзоскелетов",
+		DATIVE = "фабрикатору экзоскелетов",
+		ACCUSATIVE = "фабрикатор экзоскелетов",
+		INSTRUMENTAL = "фабрикатором экзоскелетов",
+		PREPOSITIONAL = "фабрикаторе экзоскелетов",
+	)
 
 /obj/machinery/mecha_part_fabricator/Initialize(mapload)
 	. = ..()
@@ -187,9 +198,9 @@
 	being_built = D
 	build_start = world.time
 	build_end = build_start + build_time
-	desc = "It's building \a [initial(D.name)]."
+	desc = "Крупное устройство, предназначенное для печати крупных роботизированных деталей. \n Сейчас в нём печатается [initial(D.name)]."
 	use_power = ACTIVE_POWER_USE
-	add_overlay("[icon_state]-active")
+	add_overlay("fabricator_active")
 	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), D, final_cost), build_time)
 
 	return TRUE
@@ -266,17 +277,13 @@
   * * amount_inserted - The amount of sheets inserted.
   */
 /obj/machinery/mecha_part_fabricator/proc/on_material_insert(type_inserted, id_inserted, amount_inserted)
-	var/stack_name = copytext(id_inserted, 2)
-	add_overlay("fab-load-[stack_name]")
-	addtimer(CALLBACK(src, PROC_REF(on_material_insert_timer_finish)), 1 SECONDS)
+	var/stack_name
+	var/obj/item/stack/sheet = type_inserted
+	stack_name = sheet.protolathe_name
+	flick_overlay_view(mutable_appearance(icon, "fab-load-[stack_name]"), 1 SECONDS)
 	process_queue()
-	SStgui.update_uis(src)
 
-/**
-  * Called when the timer after inserting material sheets finishes.
-  */
-/obj/machinery/mecha_part_fabricator/proc/on_material_insert_timer_finish()
-	cut_overlays()
+	SStgui.update_uis(src)
 
 /**
   * Returns whether the machine can accept new materials.
@@ -552,9 +559,9 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 	if(is_taipan(z))
-		icon_state = "fabsyndie-idle"
-		icon_open = "fabsyndie-o"
-		icon_closed = "fabsyndie-idle"
+		icon_state = "syndie_fabricator"
+		icon_open = "syndie_fabricator_unscrewed"
+		icon_closed = "syndie_fabricator"
 
 /obj/machinery/mecha_part_fabricator/syndicate/Initialize(mapload)
 	. = ..()
