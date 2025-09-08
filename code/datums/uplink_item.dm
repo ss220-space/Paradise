@@ -546,7 +546,7 @@
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF, \
 			JOB_TITLE_MECHANIC, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
 
-//RD
+//SCI
 
 /datum/uplink_item/jobspecific/telegun
 	name = "Телепушка"
@@ -554,7 +554,7 @@
 			Вам необходимо выбрать целевой маяк на телепушке, и тогда её снаряды будут отправлять цели к этому маяку."
 	item = /obj/item/gun/energy/telegun
 	cost = 66
-	job = list(JOB_TITLE_RD)
+	job = list(JOB_TITLE_SCIENTIST)
 
 //Roboticist
 
