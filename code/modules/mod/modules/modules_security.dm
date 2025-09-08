@@ -368,3 +368,133 @@
 		balloon_alert(mod.wearer, "bag dissipated")
 	bag.open()
 	qdel(bag)
+
+//Security modules for MODsuits
+
+///Magnetic Harness - Automatically puts guns in your suit storage when you drop them.
+/obj/item/mod/module/magnetic_harness
+	name = "MOD magnetic harness module"
+	desc = "Based off old TerraGov harness kits, this magnetic harness automatically attaches dropped guns back to the wearer."
+	icon_state = "mag_harness"
+	complexity = 2
+	use_power_cost = DEFAULT_CHARGE_DRAIN
+	incompatible_modules = list(/obj/item/mod/module/magnetic_harness)
+	//required_slots = list(ITEM_SLOT_OCLOTHING)
+	/// Time before we activate the magnet.
+	var/magnet_delay = 0.8 SECONDS
+	/// The typecache of all guns we allow.
+	var/static/list/guns_typecache
+	/// The guns already allowed by the modsuit chestplate.
+	var/list/already_allowed_guns = list()
+
+/obj/item/mod/module/magnetic_harness/Initialize(mapload)
+	. = ..()
+	if(!guns_typecache)
+		guns_typecache = typecacheof(list(/obj/item/gun/projectile, /obj/item/gun/energy, /obj/item/gun/grenadelauncher, /obj/item/gun/syringe))
+
+/obj/item/mod/module/magnetic_harness/on_install()
+	. = ..()
+	var/obj/item/clothing/suit = mod.chestplate
+	if(!istype(suit))
+		return
+	already_allowed_guns = guns_typecache & suit.allowed
+	suit.allowed |= guns_typecache
+
+/obj/item/mod/module/magnetic_harness/on_uninstall(deleting = FALSE)
+	. = ..()
+	if(deleting)
+		return
+	var/obj/item/clothing/suit = mod.chestplate
+	if(!istype(suit))
+		return
+	suit.allowed -= (guns_typecache - already_allowed_guns)
+
+/obj/item/mod/module/magnetic_harness/on_suit_activation()
+	RegisterSignal(mod.wearer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(check_dropped_item))
+
+/obj/item/mod/module/magnetic_harness/on_suit_deactivation(deleting = FALSE)
+	UnregisterSignal(mod.wearer, COMSIG_MOB_UNEQUIPPED_ITEM)
+
+/obj/item/mod/module/magnetic_harness/proc/check_dropped_item(datum/source, obj/item/dropped_item, force, new_location)
+	SIGNAL_HANDLER
+
+	if(!is_type_in_typecache(dropped_item, guns_typecache))
+		return
+	if(new_location != get_turf(src))
+		return
+	addtimer(CALLBACK(src, PROC_REF(pick_up_item), dropped_item), magnet_delay)
+
+/obj/item/mod/module/magnetic_harness/proc/pick_up_item(obj/item/item)
+	if(!isturf(item.loc) || !item.Adjacent(mod.wearer))
+		return
+	if(!mod.wearer.equip_to_slot_if_possible(item, ITEM_SLOT_SUITSTORE, qdel_on_fail = FALSE, disable_warning = TRUE))
+		return
+	playsound(src, 'sound/items/modsuit/magnetic_harness.ogg', 50, TRUE)
+	balloon_alert(mod.wearer, "[item] reattached")
+	drain_power(use_power_cost)
+
+///Pepper Shoulders - When hit, reacts with a spray of pepper spray around the user.
+/obj/item/mod/module/pepper_shoulders
+	name = "MOD pepper shoulders module"
+	desc = "A module that attaches two pepper sprayers on shoulders of a MODsuit, reacting to touch with a spray around the user."
+	icon_state = "pepper_shoulder"
+	module_type = MODULE_USABLE
+	complexity = 1
+	use_power_cost = DEFAULT_CHARGE_DRAIN
+	incompatible_modules = list(/obj/item/mod/module/pepper_shoulders)
+	cooldown_time = 5 SECONDS
+	overlay_state_inactive = "module_pepper"
+	overlay_state_use = "module_pepper_used"
+	//required_slots = list(ITEM_SLOT_OCLOTHING)
+
+/obj/item/mod/module/pepper_shoulders/on_suit_activation()
+	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(on_check_block))
+
+/obj/item/mod/module/pepper_shoulders/on_suit_deactivation(deleting = FALSE)
+	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
+
+/obj/item/mod/module/pepper_shoulders/on_use()
+	playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
+	var/datum/reagents/capsaicin_holder = new(10)
+	capsaicin_holder.add_reagent(/datum/reagent/consumable/condensedcapsaicin, 10)
+	var/datum/effect_system/fluid_spread/smoke/chem/quick/smoke = new
+	smoke.set_up(1, holder = src, location = get_turf(src), carry = capsaicin_holder)
+	smoke.start(log = TRUE)
+	QDEL_NULL(capsaicin_holder) // Reagents have a ref to their holder which has a ref to them. No leaks please.
+
+/obj/item/mod/module/pepper_shoulders/proc/on_check_block()
+	SIGNAL_HANDLER
+
+	if(!COOLDOWN_FINISHED(src, cooldown_timer))
+		return
+	if(!check_power(use_power_cost))
+		return
+	mod.wearer.visible_message(span_warning("[src] reacts to the attack with a smoke of pepper spray!"), span_notice("Your [src] releases a cloud of pepper spray!"))
+	on_use()
+
+///Megaphone - Lets you speak loud.
+/obj/item/mod/module/megaphone
+	name = "MOD megaphone module"
+	desc = "A microchip megaphone linked to a MODsuit, for very important purposes, like: loudness."
+	icon_state = "megaphone"
+	module_type = MODULE_ACTIVE
+	complexity = 1
+	device = /obj/item/megaphone
+	incompatible_modules = list(/obj/item/mod/module/megaphone)
+	removable = TRUE
+	cooldown_time = 0.05 SECONDS
+
+/obj/item/mod/module/quick_cuff
+	name = "MOD restraint assist module"
+	desc = "Enhanced gauntlet grip pads that help with placing individuals in restraints more quickly. Doesn't look like they'll come off."
+	removable = FALSE
+	complexity = 0
+	required_slots = list(ITEM_SLOT_GLOVES)
+
+/obj/item/mod/module/quick_cuff/on_suit_activation()
+	. = ..()
+	ADD_TRAIT(mod.wearer, TRAIT_FAST_CUFFING, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/mod/module/quick_cuff/on_suit_deactivation(deleting = FALSE)
+	. = ..()
+	REMOVE_TRAIT(mod.wearer, TRAIT_FAST_CUFFING, UNIQUE_TRAIT_SOURCE(src))

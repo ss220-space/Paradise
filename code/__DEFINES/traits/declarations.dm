@@ -71,6 +71,8 @@
 /// Are we immune to wet effect
 #define TRAIT_WET_IMMUNITY "wet_immunity"
 
+/// Makes the user handcuff others faster
+#define TRAIT_FAST_CUFFING "fast_cuffing"
 /// We place people into a fireman carry quicker than standard
 #define TRAIT_QUICK_CARRY "quick-carry"
 /// We place people into a fireman carry especially quickly compared to quick_carry

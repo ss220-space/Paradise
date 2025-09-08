@@ -124,3 +124,41 @@
 
 /obj/item/mod/module/anomaly_locked/teleporter/prebuilt
 	prebuilt = TRUE
+
+///Anti-Gravity - Makes the user weightless.
+/obj/item/mod/module/anomaly_locked/antigrav
+	name = "MOD anti-gravity module"
+	desc = "A module that uses a gravitational core to make the user completely weightless."
+	icon_state = "antigrav"
+	module_type = MODULE_TOGGLE
+	complexity = 2
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.7
+	incompatible_modules = list( /obj/item/mod/module/anomaly_locked/antigrav) //TODO: add /obj/item/mod/module/atrocinator
+	accepted_anomalies = list(/obj/item/assembly/signaler/core/gravitational)
+	//required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+
+/obj/item/mod/module/anomaly_locked/antigrav/on_activation()
+	. = ..()
+	if(!.)
+		return
+	if(mod.wearer.get_gravity())
+		new /obj/effect/temp_visual/mook_dust(get_turf(src))
+	mod.wearer.AddElement(/datum/element/forced_gravity, 0)
+	playsound(src, 'sound/effects/gravhit.ogg', 50)
+
+/obj/item/mod/module/anomaly_locked/antigrav/on_deactivation(display_message = TRUE, deleting = FALSE)
+	. = ..()
+	if(!.)
+		return
+	mod.wearer.RemoveElement(/datum/element/forced_gravity, 0)
+	if(deleting)
+		return
+	if(mod.wearer.get_gravity())
+		new /obj/effect/temp_visual/mook_dust(get_turf(src))
+	playsound(src, 'sound/effects/gravhit.ogg', 50)
+
+/obj/item/mod/module/anomaly_locked/antigrav/prebuilt
+	prebuilt = TRUE
+
+// /obj/item/mod/module/anomaly_locked/antigrav/prebuilt/locked
+// 	core_removable = FALSE
