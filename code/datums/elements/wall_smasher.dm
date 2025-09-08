@@ -18,7 +18,7 @@
 
 	src.strength_flag = strength_flag
 	RegisterSignal(target, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_unarm_attack)) // Players
-	RegisterSignal(target, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_pre_attackingtarget)) // AI
+	RegisterSignal(target, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_pre_attackingtarget), override = TRUE) // AI
 
 	if(!isanimal(target))
 		return

@@ -290,18 +290,28 @@
 
 /datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
+
+	var/control_self = tgui_alert(usr, "Вы хотите стать Звёздным Глашатаем самостоятельно, вместо того чтобы отдавать контроль призраку? (Ваше оригинальное тело в этом случае будет уничтоженно.)", "Выбор управляющего глашатаем", list("Да", "Нет")) == "Да"
+
 	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_mob = new /mob/living/simple_animal/hostile/heretic_summon/star_gazer(loc)
-	star_gazer_mob.maxHealth = INFINITY
-	star_gazer_mob.health = INFINITY
-	user.AddComponent(/datum/component/death_linked, star_gazer_mob)
-	star_gazer_mob.AddComponent(/datum/component/obeys_commands, star_gazer_commands, radial_menu_offset = list(30,0), radial_menu_lifetime = 15 SECONDS, radial_relative_to_user = TRUE)
 	star_gazer_mob.AddComponent(/datum/component/damage_aura, range = 7, burn_damage = 0.5, simple_damage = 0.5, immune_factions = list(FACTION_HERETIC), current_owner = user)
-	star_gazer_mob.befriend(user)
-	user.AddSpell(new /obj/effect/proc_holder/spell/open_mob_commands(star_gazer_mob))
-	var/obj/effect/proc_holder/spell/touch/star_touch/star_touch_spell = locate() in user.mob_spell_list
-	if(star_touch_spell)
-		star_touch_spell.set_star_gazer(star_gazer_mob)
-		star_touch_spell.ascended = TRUE
+
+	if(!control_self)
+		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите стать [star_gazer_mob.declent_ru(INSTRUMENTAL)]?", SPECIAL_ROLE_HERETIC_MONSTER, FALSE, poll_time = 10 SECONDS, source = star_gazer_mob)
+		if(!candidates.len)
+			to_chat(user, span_warning("Разум [star_gazer_mob.declent_ru(GENITIVE)] повреждён. Вам [span_bold("придётся")] занять его тело."))
+			control_self = TRUE
+		else
+			var/mob/dead/observer/observer = pick(candidates)
+			star_gazer_mob.key = observer.key
+			var/datum/antagonist/heretic_monster/heretic_monster = star_gazer_mob.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+			heretic_monster.set_owner(user.mind)
+
+	if(control_self)
+		to_chat(user, span_warning("[capitalize(star_gazer_mob.declent_ru(NOMINATIVE))] смотр[pluralize_ru(star_gazer_mob.gender, "ит", "ят")] на вас."))
+		user.mind.transfer_to(star_gazer_mob)
+		user.gib()
+		return
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/datum/heretic_knowledge/blade_upgrade/cosmic/blade_upgrade = heretic_datum.get_knowledge(/datum/heretic_knowledge/blade_upgrade/cosmic)
@@ -309,9 +319,13 @@
 	blade_upgrade.combo_duration_amount = 10 SECONDS
 	blade_upgrade.max_combo_duration = 30 SECONDS
 	blade_upgrade.increase_amount = 2 SECONDS
-
 	var/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.mob_spell_list
 	cosmic_expansion_spell?.ascended = TRUE
+	user.AddComponent(/datum/component/death_linked, star_gazer_mob)
+	var/obj/effect/proc_holder/spell/touch/star_touch/star_touch_spell = locate() in user.mob_spell_list
+	if(star_touch_spell)
+		star_touch_spell.set_star_gazer(star_gazer_mob)
+		star_touch_spell.ascended = TRUE
 
 
 /obj/effect/proc_holder/spell/open_mob_commands

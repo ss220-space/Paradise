@@ -10,8 +10,8 @@
 	//mob_biotypes = MOB_HUMANOID | MOB_SPECIAL
 	response_help = "проходит сквозь"
 	speed = -0.2
-	maxHealth = 8000
-	health = 8000
+	maxHealth = 4000
+	health = 4000
 
 	obj_damage = 400
 	armour_penetration = 20
