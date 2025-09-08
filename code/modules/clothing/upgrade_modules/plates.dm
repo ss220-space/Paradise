@@ -7,9 +7,10 @@
 /obj/item/armor_plate
 	name = "armor plate"
 	desc = "Базовая бронеплита, которую вы не должны были увидеть. Сообщите о баге."
-	description_info = "Бронепробитие — это способность поражающего элемента (пули, снаряда) преодолеть защиту цели, определяемая его кинетической энергией, материалом и конструкцией (например, стальным сердечником). \
-						Защита классифицируется по уровням (классам брони) от I (лёгкие пистолетные пули) до V (мощные винтовочные бронебойные патроны). \
-						Каждый класс соответствует определённым типам угроз: так, бронежилет класса III остановит пулю АК-814, но будет пробит бронебойным патроном, для которого требуется класс IV или выше."
+	description_info = "Бронепробитие — это способность поражающего элемента (пули, снаряда) преодолеть защиту цели, \
+						определяемая его кинетической энергией, материалом и конструкцией (например, стальным сердечником). \
+						Защита классифицируется по уровням (классам брони) от 1 (лёгкие пистолетные пули) до 7 (крупнокалиберные бронебойные патроны). \
+						Каждый класс соответствует определённым типам угроз: так, бронежилет 5 класса остановит пулю АК-814, но будет пробит бронебойным патроном, для защиты от которого требуется класс 6 или выше."
 	gender = FEMALE
 	icon = 'icons/obj/armor/plates.dmi'
 	lefthand_file = 'icons/mob/inhands/plates_lefthand.dmi'
@@ -87,35 +88,35 @@
 
 /obj/item/armor_plate/proc/get_examine_text()
 	. = span_notice("Установлен[genderize_ru(gender, "", "а", "о", "ы")] <b>[declent_ru(NOMINATIVE)]</b>. ")
-	. += span_notice(get_armor_text())
-	. += span_notice(get_integrity_text())
+	. += span_notice("\n- [get_armor_text()]")
+	. += span_notice("\n- [get_integrity_text()]")
 
 /obj/item/armor_plate/proc/get_armor_text()
 	. = ""
 	if(ballistic_class > BALLISTIC_ARMOR_CLASS_NONE)
-		. += "Обеспечивает баллистическую защиту от [GLOB.ballistic_armor_class_name["[ballistic_class]"]]"
+		. += "Обеспечивает <b>баллистическую</b> защиту <b>[GLOB.ballistic_armor_class_name["[ballistic_class]"]] класса</b>"
 	if(laser_class > BALLISTIC_ARMOR_CLASS_NONE)
 		if(ballistic_class > BALLISTIC_ARMOR_CLASS_NONE)
-			. += " и "
+			. += " и"
 		else
-			. += "Обеспечивает "
-		. += " лазерную защиту от [GLOB.laser_armor_class_name["[laser_class]"]]"
+			. += "Обеспечивает"
+		. += " <b>лазерную</b> защиту <b>[GLOB.laser_armor_class_name["[laser_class]"]] класса</b>"
 	. += ". "
 
 /obj/item/armor_plate/proc/get_integrity_text()
-	if(armor_integrity == armor_max_integrity)
-		return "Бронеплита совсем новая."
-	else if(armor_integrity > armor_protection_integrity)
-		return "На бронеплите имеется пара царапин."
+	var/integrity_text = "В идеальном состоянии."
+	if(armor_integrity > armor_protection_integrity)
+		text = "Имеется пара царапин."
 	else if(armor_integrity > 0.75 * armor_protection_integrity)
-		return "Бронеплита имеет незначительные повреждения."
+		text = "Имеются незначительные повреждения."
 	else if(armor_integrity > 0.50 * armor_protection_integrity)
-		return "Бронеплита повреждена."
+		text = "Имеются изрядные повреждения."
 	else if(armor_integrity > 0.25 * armor_protection_integrity)
-		return "Бронеплита сильно повреждена."
+		text = "Имеются сильные повреждения."
 	else if(armor_integrity > 0)
-		return "Бронеплита почти сломана."
-	return "Бронеплита сломана и не обеспечивает защиту."
+		text = "Имеются критические повреждения."
+	text = "Уничтожен[genderize_ru(gender, "", "а", "о", "ы")] и не предоставля[pluralize_ru(gender, "ет", "ют")] защиту."
+	return "<b>[integrity_text]</b>"
 
 /obj/item/armor_plate/examine(mob/user)
 	. = ..()

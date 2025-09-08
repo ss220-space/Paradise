@@ -82,11 +82,12 @@
 
 	if(armor_plate)
 		. += armor_plate.get_examine_text()
+		. += span_notice("Используйте <b>ALT+ЛКМ</b>, чтобы извлечь бронеплиту.")
 		return
 
 	if(allowed_armor_plate == ARMOR_PLATE_SLOT_NONE)
 		return
-	. += span_notice("Можно установить [GLOB.armor_slot_name["[allowed_armor_plate]"]].")
+	. += span_notice("Совместимо с <b>[GLOB.armor_slot_name["[allowed_armor_plate]"]]</b>.")
 
 /obj/item/clothing/get_description_info()
 	if (!armor_plate)
