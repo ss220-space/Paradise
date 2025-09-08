@@ -236,6 +236,8 @@
 
 			if(G.slot)
 				var/obj/item/placed_in = G.spawn_item(H, H.client.prefs.get_gear_metadata(G))
+				if(!placed_in)
+					continue
 				if(H.equip_to_slot_or_del(placed_in, G.slot, TRUE))
 					to_chat(H, span_notice("Equipping you with [placed_in.name]!"))
 				else
@@ -256,6 +258,8 @@
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
 			var/obj/item/placed_in = G.spawn_item(null, H.client.prefs.get_gear_metadata(G))
+			if(!placed_in)
+				continue
 			if(placed_in.equip_to_best_slot(H))
 				to_chat(H, span_notice("Placing [placed_in.name] in your inventory!"))
 				continue

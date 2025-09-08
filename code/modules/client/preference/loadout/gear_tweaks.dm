@@ -177,6 +177,14 @@
 	return null
 
 /datum/gear_tweak/custom/get_metadata(mob/user, metadata)
+	var/custom_type = tgui_input_list(user, "Выберите тип кастома.", "Кастом", GLOB.custom_item_datums)
+	if(!custom_type)
+		return
+
+	var/custom_name = tgui_input_text(user, "Выберите название предмета.", "Название", max_length = 32)
+	if(!custom_name)
+		return
+
 	var/sprite = input(user, "Выберите dmi файл", "Загрузка спрайта") as null|file
 	if(!sprite)
 		return
@@ -185,22 +193,35 @@
 		return
 
 	var/icon/new_icon = new(sprite)
-	SScustom_item.save_icon(user.ckey, new_icon)
+	SScustom_item.save_icon(user.ckey, new_icon, custom_type, custom_name)
 
 	return user.ckey
 
 /datum/gear_tweak/custom/update_gear_intro(ckey)
 	UNTIL(SScustom_item.initialized)
-	var/my_icon = LAZYACCESS(SScustom_item.custom_gear_info, ckey)
-	if(!my_icon)
+	var/datum/custom_item_datum/item = LAZYACCESS(SScustom_item.custom_gear_info, ckey)
+	if(!item || !item.item_icon)
 		return
 
-	parent.base64icon = icon2base64(my_icon)
+	parent.base64icon = icon2base64(item.item_icon)
 
 /datum/gear_tweak/custom/get_tgui_data(param)
 	var/tgui_data = list()
 	tgui_data["icon"] = parent.base64icon
 	return tgui_data
 
+/datum/gear_tweak/custom/tweak_gear_data(metadata, datum/gear_data/data)
+	if(!SScustom_item.custom_gear_info[metadata])
+		return
+	var/datum/custom_item_datum/custom = SScustom_item.custom_gear_info[metadata]
+	data.path = custom.base_item
+	return
+
 /datum/gear_tweak/custom/tweak_item(obj/item/gear, metadata)
+	if(!SScustom_item.custom_gear_info[metadata])
+		qdel(gear)
+	var/datum/custom_item_datum/custom = SScustom_item.custom_gear_info[metadata]
+	gear.name = custom.item_name
+	gear.icon_state = icon_states(custom.item_icon)[1]
+	gear.icon = custom.item_icon
 	return

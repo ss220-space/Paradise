@@ -613,15 +613,11 @@
 	index_name = "meta-banhammer"
 	path = /obj/item/banhammer/meta_hammer
 
-/datum/gear/donor/custom
-	donator_tier = 0
+/datum/gear/accessory/custom
 	cost = 5
 	index_name = "custom"
 	path = /obj/item/toy/plushie/custom
 
-/datum/gear/donor/custom/New()
+/datum/gear/accessory/custom/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/custom(parent = src)
-
-/obj/item/toy/plushie/custom
-	name = "custom"
