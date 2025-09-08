@@ -60,10 +60,12 @@
 		balloon_alert(user, "сначала снимите с себя!")
 		return FALSE
 	balloon_alert(user, "установка бронеплиты...")
+	playsound(suit, 'sound/items/velcro/velcro_open.ogg', 30, TRUE, ignore_walls = FALSE)
 	if(!do_after(user, 5 SECONDS, suit))
 		return FALSE
 	if(!user.drop_transfer_item_to_loc(src, suit)) // Make absolutely sure this accessory is removed from hands
 		return FALSE
+	playsound(suit, 'sound/items/velcro/velcro_close.ogg', 30, TRUE, ignore_walls = FALSE)
 	forceMove(suit)
 	suit.armor_plate = src
 	suit.slowdown += equipped_slowdown
@@ -80,8 +82,10 @@
 		balloon_alert(user, "сначала снимите с себя!")
 		return FALSE
 	balloon_alert(user, "извлечение бронеплиты...")
+	playsound(suit, 'sound/items/velcro/velcro_open.ogg', 30, TRUE, ignore_walls = FALSE)
 	if(!do_after(user, 5 SECONDS, suit))
 		return FALSE
+	playsound(suit, 'sound/items/velcro/velcro_close.ogg', 30, TRUE, ignore_walls = FALSE)
 	balloon_alert(user, "бронеплита извлечена")
 	forceMove(user.loc)
 	user.put_in_hands(src)
