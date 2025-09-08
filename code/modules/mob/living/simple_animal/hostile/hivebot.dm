@@ -309,7 +309,7 @@
 /obj/structure/hivebot_spawner/proc/start_production()
 	is_active = TRUE
 	icon_state = "fab_robot"
-	visible_message("<span class='warning'>[src] начинает гудеть!</span>")
+	visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] начинает гудеть!</span>")
 	next_spawn_time = world.time + (spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/spawn_bots()
@@ -330,7 +330,7 @@
 		next_spawn_time = world.time + (spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/finish_production()
-	visible_message("<span class='warning'>[src] останавливается.</span>")
+	visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] останавливается.</span>")
 	is_active = FALSE
 	spawn_count = initial(spawn_count)
 	cooldown_until = world.time + cooldown_duration
