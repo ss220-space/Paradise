@@ -54,7 +54,7 @@
 		//drop the mag
 		magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
 		magazine.forceMove(drop_location())
-		user.put_in_hands(magazine)
+		user.put_in_hands(magazine, silent = TRUE)
 		magazine = null
 		playsound(src, magout_sound, 50, TRUE)
 		update_icon()

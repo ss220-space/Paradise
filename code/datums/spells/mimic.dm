@@ -197,7 +197,7 @@
 
 /datum/mimic_form
 	/// What the visible species of the form is (Only for human forms)?
-	var/examine_species = "Unknown"
+	var/examine_species = UNKNOWN_STATUS_RUS
 	/// What the visible gender of the form is (Only for human forms)?
 	var/examine_gender
 	/// What is the examine text paired with this form?

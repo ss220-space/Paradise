@@ -369,7 +369,7 @@
 
 	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type)))	//cursed masks only
 		originalname = user.real_name
-		if(!user.real_name || user.real_name == "Unknown")
+		if(!user.real_name || user.real_name == UNKNOWN_NAME_RUS)
 			user.real_name = "A Horse With No Name" //it felt good to be out of the rain
 		else
 			user.real_name = "[user.name][temporaryname]"

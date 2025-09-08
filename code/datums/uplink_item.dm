@@ -2071,6 +2071,7 @@
 			Скафандр обеспечивает хорошую защиту, но при этом замедляет передвижение. Шлем защищает от вспышек."
 	cost = 46 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Элитный ИКС Синдиката"
@@ -2172,6 +2173,7 @@
 			Позволяет развернуть коробку, которая полностью скрывает вас от посторонних глаз."
 	item = /obj/item/implanter/stealth
 	cost = 40
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/implants/macrobomb
 	name = "Имплант макробомбы"
@@ -2302,6 +2304,13 @@
 	desc = "Устройство, замаскированное под игральную карту, способно телепортировать оружие вашего противника прямо к вам в руку, когда он пытается выстрелить в вас."
 	item = /obj/item/syndicate_reverse_card
 	cost = 10
+
+
+/datum/uplink_item/badass/bandage
+	name = "Военный перевязочный пакет"
+	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
+	item = /obj/item/stack/medical/bruise_pack/military
+	cost = 1
 
 /**
  * MARK: Bundles & TC
