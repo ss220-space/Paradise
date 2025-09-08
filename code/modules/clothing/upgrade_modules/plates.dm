@@ -244,8 +244,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 50
-	armor_max_integrity = 50
+	armor_protection_integrity = 75
+	armor_max_integrity = 75
 	body_parts_covered = UPPER_TORSO
 
 /obj/item/armor_plate/handmade_steel/helmet
@@ -257,8 +257,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 50
-	armor_max_integrity = 50
+	armor_protection_integrity = 75
+	armor_max_integrity = 75
 	body_parts_covered = UPPER_TORSO
 
 /obj/item/armor_plate/handmade_ablative/helmet
@@ -271,7 +271,7 @@
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_NONE
 	armor_protection_integrity = 75
-	armor_max_integrity = 75
+	armor_max_integrity = 100
 	repair_type = /obj/item/stack/sheet/plastic
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -286,8 +286,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_III
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 100
-	armor_max_integrity = 150
+	armor_protection_integrity = 150
+	armor_max_integrity = 200
 	repair_type = /obj/item/stack/sheet/metal
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -300,8 +300,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 75
-	armor_max_integrity = 100
+	armor_protection_integrity = 150
+	armor_max_integrity = 200
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -314,8 +314,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 75
-	armor_max_integrity = 100
+	armor_protection_integrity = 125
+	armor_max_integrity = 150
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -331,8 +331,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 200
-	armor_max_integrity = 250
+	armor_protection_integrity = 250
+	armor_max_integrity = 300
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -345,8 +345,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
-	armor_protection_integrity = 200
-	armor_max_integrity = 250
+	armor_protection_integrity = 250
+	armor_max_integrity = 300
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -359,8 +359,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 100
-	armor_max_integrity = 150
+	armor_protection_integrity = 175
+	armor_max_integrity = 200
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -376,8 +376,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 300
-	armor_max_integrity = 350
+	armor_protection_integrity = 350
+	armor_max_integrity = 400
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
@@ -390,8 +390,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_HEAVY
-	armor_protection_integrity = 300
-	armor_max_integrity = 350
+	armor_protection_integrity = 350
+	armor_max_integrity = 4000
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
@@ -404,8 +404,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
-	armor_protection_integrity = 200
-	armor_max_integrity = 250
+	armor_protection_integrity = 250
+	armor_max_integrity = 300
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
@@ -418,8 +418,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_MAX
 	ballistic_class = BALLISTIC_ARMOR_CLASS_MAX
 	laser_class = LASER_ARMOR_CLASS_MAX
-	armor_protection_integrity = 250
-	armor_max_integrity = 500
+	armor_protection_integrity = 300
+	armor_max_integrity = 600
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 /obj/item/armor_plate/elite/helmet
