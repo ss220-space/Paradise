@@ -99,6 +99,57 @@
 	target.apply_damage(10, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
+
+/datum/surgery_step/generic/suture
+	name = "зашить раны"
+	begin_sound = 'sound/surgery/cautery1.ogg'
+	end_sound = 'sound/surgery/cautery2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
+	allowed_tools = list(
+		TOOL_CAUTERY = 100,
+		/obj/item/scalpel/laser = 100,
+		/obj/item/stack/medical/suture = 100,
+		/obj/item/stack/sheet/sinew = 80,
+		/obj/item/stack/cable_coil = 75,
+		/obj/item/clothing/mask/cigarette = 75,
+		/obj/item/lighter = 60,
+		TOOL_WELDER = 30,
+		/obj/item/flashlight/flare/torch = 30
+	)
+	time = 3 SECONDS
+
+/datum/surgery_step/generic/suture/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message(
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] зашивать раны в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете зашивать раны в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+	target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+	return ..()
+
+/datum/surgery_step/generic/suture/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message(
+		span_notice("[user] зашива[pluralize_ru(user.gender, "ет", "ют")] раны в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы зашиваете раны в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+	spread_germs_to_organ(affected, user, tool)
+	affected.bleeding_amount = 0
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/generic/suture/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message(
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] сосуды в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] сосуды в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+	target.apply_damage(10, def_zone = affected, sharp = TRUE)
+	return SURGERY_STEP_RETRY
+
+
 /datum/surgery_step/generic/retract_skin
 	name = "расширение краёв раны"
 	begin_sound = 'sound/surgery/retractor1.ogg'

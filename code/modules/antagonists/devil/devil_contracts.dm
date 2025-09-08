@@ -111,7 +111,6 @@
 		/obj/effect/proc_holder/spell/goliath_tentacles,
 		/obj/effect/proc_holder/spell/touch/healtouch/advanced,
 		/obj/effect/proc_holder/spell/watchers_look,
-
 	)
 
 /datum/devil_contract/magic/check_contract(mob/living/carbon/human/user)

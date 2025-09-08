@@ -86,9 +86,9 @@
 	outfit = /datum/outfit/job/warden
 	insurance_type = INSURANCE_TYPE_DELUXE
 
-	salary = 170
-	min_start_money = 200
-	max_start_money = 550
+	salary = 200
+	min_start_money = 300
+	max_start_money = 600
 
 /datum/outfit/job/warden
 	name = "Warden"
@@ -141,7 +141,7 @@
 	outfit = /datum/outfit/job/detective
 	insurance_type = INSURANCE_TYPE_DELUXE
 
-	salary = 170
+	salary = 180
 	min_start_money = 200
 	max_start_money = 550
 
@@ -209,9 +209,9 @@
 	outfit = /datum/outfit/job/officer
 	insurance_type = INSURANCE_TYPE_DELUXE
 
-	salary = 170
+	salary = 150
 	min_start_money = 200
-	max_start_money = 550
+	max_start_money = 500
 
 /datum/outfit/job/officer
 	name = "Security Officer"
@@ -322,9 +322,9 @@
 	outfit = /datum/outfit/job/pilot
 	insurance_type = INSURANCE_TYPE_DELUXE
 
-	salary = 170
-	min_start_money = 200
-	max_start_money = 550
+	salary = 180
+	min_start_money = 250
+	max_start_money = 600
 
 /datum/outfit/job/pilot
 	name = "Security Pod Pilot"
