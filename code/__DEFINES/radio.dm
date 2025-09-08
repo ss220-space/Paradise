@@ -42,6 +42,9 @@
 #define SUP_FREQ 1347 //cargo
 #define SRV_FREQ 1349 //service
 #define PRS_FREQ 1361 //prisoners
+#define T1_FREQ 1371 //team 1
+#define T2_FREQ 1381 //team 2
+#define T3_FREQ 1391 //team 3
 
 // Internal department channels
 #define MED_I_FREQ 1485

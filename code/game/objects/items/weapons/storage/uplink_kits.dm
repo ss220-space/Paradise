@@ -818,6 +818,15 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/gun_module/rail/scope/x4(src)
 	new /obj/item/gun_module/under/hand/angle(src)
 
+/obj/item/storage/box/syndie_kit/gun_mods/super/populate_contents()
+	. = ..()
+	new /obj/item/gun_module/under/flashlight/pistol(src)
+	new /obj/item/gun_module/under/flashlight/rifle(src)
+	new /obj/item/gun_module/rail/hud/medical(src)
+	new /obj/item/gun_module/rail/hud/security(src)
+	new /obj/item/gun_module/rail/scope/x16(src)
+	new /obj/item/gun_module/rail/scope/x8(src)
+
 /obj/item/storage/box/syndie_kit/compact_sniper
 	name = "compact sniper rifle kit"
 	desc = "Коробка, содержащая компактную снайперскую винтовку \"Bubz Mini\", дополнительный магазин, и коробку патронов."
