@@ -173,7 +173,7 @@
 
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)
-	// if(SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
+	// if(SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, target) & COMPONENT_CANCEL_ATTACK_CHAIN)
 	// 	return FALSE //but more importantly return before attack_animal called
 	var/result = target.attack_basic_mob(src)
 	// SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result) //Bee edit: We don't have pre_attackingtarget nor hostile simplemobs, so I'll just leave these here for anyone who stumbles upon this down the line

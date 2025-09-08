@@ -274,7 +274,7 @@
 /datum/movespeed_modifier/shadow_cloak
 	blacklisted_movetypes = FLYING
 	// While cloaked, you move faster
-	multiplicative_slowdown = -0.25
+	multiplicative_slowdown = -0.4
 
 
 /datum/movespeed_modifier/shadow_cloak/early_remove

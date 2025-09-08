@@ -44,14 +44,14 @@
 /*
 	if(DOING_INTERACTION_WITH_TARGET(tearer, target) || (!isnull(do_after_key) && DOING_INTERACTION(tearer, do_after_key)))
 		tearer.balloon_alert(tearer, "busy!")
-		return COMPONENT_HOSTILE_NO_ATTACK
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 */
 	var/is_valid = validate_target(target, tearer)
 	if(is_valid != WALL_TEAR_ALLOWED)
-		return is_valid == WALL_TEAR_FAIL_CANCEL_CHAIN ? COMPONENT_HOSTILE_NO_ATTACK : NONE
+		return is_valid == WALL_TEAR_FAIL_CANCEL_CHAIN ? COMPONENT_CANCEL_ATTACK_CHAIN : NONE
 
 	INVOKE_ASYNC(src, PROC_REF(rip_and_tear), tearer, target)
-	return COMPONENT_HOSTILE_NO_ATTACK
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 
 /datum/element/wall_tearer/proc/rip_and_tear(mob/living/tearer, atom/target)

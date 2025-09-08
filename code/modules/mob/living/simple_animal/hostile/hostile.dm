@@ -5,7 +5,6 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //Bitflags. Set to ENVIRONMENT_SMASH_STRUCTURES to break closets,tables,racks, etc; ENVIRONMENT_SMASH_WALLS for walls; ENVIRONMENT_SMASH_RWALLS for rwalls
 	AI_delay_max = 1.5 SECONDS
 	a_intent = INTENT_HARM
-	var/atom/target
 	var/ranged = FALSE
 	var/ranged_distance = INFINITY
 	var/rapid = 0 //How many shots per volley.
@@ -492,7 +491,7 @@
 
 /mob/living/simple_animal/hostile/AttackingTarget()
 	in_melee = TRUE
-	if(SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, target) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 
 	SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, target)

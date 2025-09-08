@@ -35,10 +35,10 @@
 	src.pre_hit_callback = pre_hit_callback
 
 /datum/component/amputating_limbs/RegisterWithParent()
-	RegisterSignal(parent, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_HOSTILE_ATTACKINGTARGET), PROC_REF(try_amputate))
+	RegisterSignal(parent, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_LIVING_UNARMED_ATTACK), PROC_REF(try_amputate))
 
 /datum/component/amputating_limbs/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_HOSTILE_ATTACKINGTARGET))
+	UnregisterSignal(parent, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_LIVING_UNARMED_ATTACK))
 
 /// Called when you click on literally anything with your hands, see if it is an injured carbon and then try to cut it up
 /datum/component/amputating_limbs/proc/try_amputate(mob/living/surgeon, atom/victim, proximity, modifiers)

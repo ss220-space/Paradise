@@ -18,7 +18,7 @@
 
 	src.strength_flag = strength_flag
 	RegisterSignal(target, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_unarm_attack)) // Players
-	RegisterSignal(target, COMSIG_HOSTILE_ATTACKINGTARGET, PROC_REF(on_pre_attackingtarget)) // AI
+	RegisterSignal(target, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_pre_attackingtarget)) // AI
 
 	if(!isanimal(target))
 		return
@@ -27,7 +27,7 @@
 	animal_target.environment_smash = strength_flag
 
 /datum/element/wall_smasher/Detach(datum/target)
-	UnregisterSignal(target, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_HOSTILE_ATTACKINGTARGET))
+	UnregisterSignal(target, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_LIVING_UNARMED_ATTACK))
 	if(!isanimal(target))
 		return ..()
 
@@ -54,15 +54,15 @@
 	puncher.do_attack_animation(target)
 
 	if(!iswallturf(target)) // In case you're some kind of non-wall non-mineral closed turf yet to be invented
-		return COMPONENT_HOSTILE_NO_ATTACK
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	var/turf/simulated/wall/wall_turf = target
 
 	if(istype(wall_turf, /turf/simulated/wall/r_wall) && strength_flag != ENVIRONMENT_SMASH_RWALLS)
 		playsound(wall_turf, 'sound/effects/bang.ogg', 50, vary = TRUE)
 		wall_turf.balloon_alert(puncher, "слишком твердая!")
-		return COMPONENT_HOSTILE_NO_ATTACK
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 	wall_turf.dismantle_wall(devastated = TRUE)
 	playsound(wall_turf, 'sound/effects/meteorimpact.ogg', 100, vary = TRUE)
-	return COMPONENT_HOSTILE_NO_ATTACK
+	return COMPONENT_CANCEL_ATTACK_CHAIN
