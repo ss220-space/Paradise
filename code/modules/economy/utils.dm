@@ -84,7 +84,7 @@
 
 // Seperated from charge so they can reuse the code and also because there's many instances where a log will be made without actually making a transaction
 /datum/money_account/proc/makeTransactionLog(transaction_amount = 0, transaction_purpose, terminal_name = "",
- dest_name = "UNKNOWN", charging = TRUE, date = GLOB.current_date_string, time = "")
+ dest_name = UNKNOWN_STATUS_RUS, charging = TRUE, date = GLOB.current_date_string, time = "")
 	var/datum/transaction/T = new()
 	T.target_name = dest_name
 	T.purpose = transaction_purpose
@@ -103,7 +103,7 @@
 
  // Charge is for transferring money from an account to another. The destination account can possibly not exist (Magical money sink)
 /datum/money_account/proc/charge(transaction_amount = 0, datum/money_account/dest, transaction_purpose,
- terminal_name = "", dest_name = "UNKNOWN", dest_purpose, dest_target_name)
+ terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, dest_purpose, dest_target_name)
 	if(suspended)
 		to_chat(usr, "<span class='warning'>Unable to access source account: account suspended.</span>")
 		return 0
@@ -138,7 +138,7 @@
 
 // Credit is for giving money to an account out of thin air. Suspension does not matter.
 /datum/money_account/proc/credit(transaction_amount = 0, transaction_purpose,
- terminal_name = "", dest_name = "UNKNOWN", date = GLOB.current_date_string, time = "")
+ terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, date = GLOB.current_date_string, time = "")
 
 	money += transaction_amount
 	makeTransactionLog(transaction_amount, transaction_purpose, terminal_name, dest_name, FALSE, date, time)

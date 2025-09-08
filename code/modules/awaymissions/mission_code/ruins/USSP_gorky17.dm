@@ -500,7 +500,7 @@
 	name = "USSP conscript corpse"
 	icon = 'icons/mob/clothing/uniform.dmi'
 	icon_state = "soviet_s"
-	mob_name = "Unknown"
+	mob_name = UNKNOWN_NAME_RUS
 	random = TRUE
 	death = TRUE
 	disable_sensors = TRUE
