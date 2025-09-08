@@ -20,6 +20,8 @@
 	var/dont_let_you_come_back = FALSE
 	///If this is true, we are about to spring shut on someone, and should not remove the retraction blocking.
 	var/incoming_jumpscare = FALSE
+	/// in order not to make 1000 snups, we make sanity check
+	COOLDOWN_DECLARE(springlock_cooldown)
 
 /obj/item/mod/module/holster/get_ru_names() //i have to look on fucking fnaf wiki to find out how to translate this shit
 	return list(
@@ -38,7 +40,8 @@
 	mod.activation_step_time *= activation_step_time_booster
 
 /obj/item/mod/module/springlock/on_suit_activation()
-	RegisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_wearer_exposed))
+
+	RegisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_wearer_exposed), override = TRUE)
 	if(dont_let_you_come_back)
 		RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_activate_spring_block))
 		addtimer(CALLBACK(src, PROC_REF(remove_retraction_block)), 10 SECONDS)
@@ -61,6 +64,9 @@
 ///Signal fired when wearer is exposed to reagents
 /obj/item/mod/module/springlock/proc/on_wearer_exposed(atom/source, list/reagents, datum/reagents/source_reagents, methods, volume_modifier, show_message)
 	SIGNAL_HANDLER
+	if(!COOLDOWN_FINISHED(src, springlock_cooldown))
+		return
+	COOLDOWN_START(src, springlock_cooldown, 5 MINUTES)
 	remove_retraction_block() //No double signals
 	to_chat(mod.wearer, span_danger("[capitalize(declent_ru(NOMINATIVE))] издает мерзкий щёлкающий звук..."))
 	incoming_jumpscare = TRUE

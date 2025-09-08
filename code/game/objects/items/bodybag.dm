@@ -474,7 +474,7 @@
 		for(var/mob/living/target in contents)
 			to_chat(target, span_userdanger("You feel the lining of [src] tighten around you! Soon, you won't be able to escape!"))
 		user.visible_message(span_notice("[user] begins sinching down the buckles on [src]."))
-		if(!(do_after(user,(sinch_time),target = src, CALLBACK(src, PROC_REF(is_closed)))))
+		if(!(do_after(user, sinch_time, src, extra_checks = CALLBACK(src, PROC_REF(is_closed)))))
 			return
 	sinched = !sinched
 	if(sinched)

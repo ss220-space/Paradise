@@ -381,6 +381,7 @@
 
 //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXPOSE_REAGENTS, volume, temperature, source, method)
 	return TRUE
 
 /atom/proc/bullet_act(obj/projectile/P, def_zone)
