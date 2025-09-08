@@ -10,6 +10,16 @@
 	var/codelen = 4
 	integrity_failure = 0 //no breaking open the crate
 
+
+/obj/structure/closet/crate/secure/loot/can_close()
+	. = ..()
+	if(!.)
+		return
+
+	var/mob/living/mob = locate() in get_turf(src)
+	return !mob
+
+
 /obj/structure/closet/crate/secure/loot/get_ru_names()
 	return list(
 		NOMINATIVE = "заброшенный ящик",

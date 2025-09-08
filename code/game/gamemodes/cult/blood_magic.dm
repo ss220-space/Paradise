@@ -658,6 +658,7 @@
 			else
 				channeling = FALSE
 				return
+
 		else
 			to_chat(user, span_warning("The spell will not work on [target]!"))
 			return

@@ -348,6 +348,7 @@ SUBSYSTEM_DEF(mapping)
 		create_landmarks(centre)
 		return
 
+#ifndef FAST_LOAD
 	if(CONFIG_GET(string/default_map) && !CONFIG_GET(string/override_map) && map_datum == fallback_map)
 		var/map_datum_path = text2path(CONFIG_GET(string/default_map))
 		if(map_datum_path)
@@ -360,6 +361,9 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = new map_datum_path
 		else
 			to_chat(world, span_danger("ERROR: The map datum specified to load is invalid. Falling back to... delta probably?"))
+#else
+	map_datum = new /datum/map/fast_load
+#endif
 
 	ASSERT(map_datum.map_path)
 	if(!fexists(map_datum.map_path))
