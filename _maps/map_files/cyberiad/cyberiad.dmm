@@ -23202,6 +23202,10 @@
 /obj/machinery/computer/security/mining{
 	dir = 8
 	},
+/obj/machinery/light_switch{
+	name = "south light switch";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -26172,6 +26176,8 @@
 /area/medical/chemistry)
 "bKQ" = (
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "bKR" = (
@@ -32028,6 +32034,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "white"
@@ -32556,6 +32564,9 @@
 	name = "NTR Office";
 	sortType = 26
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "ceu" = (
@@ -32572,6 +32583,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "cev" = (
@@ -32581,6 +32595,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
@@ -32595,43 +32612,40 @@
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "ceA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/central/south)
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "ceB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/disposalpipe/sortjunction/reversed{
 	dir = 8;
 	name = "Janitor";
 	sortType = 22
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "ceC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/light_switch{
+	name = "west light switch";
+	pixel_x = -24
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "yellow"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/central/se)
+/area/engineering/break_room)
 "ceD" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -32646,6 +32660,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "ceE" = (
@@ -32670,6 +32687,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
@@ -32831,7 +32851,9 @@
 	pixel_y = -24
 	},
 /obj/structure/closet/l3closet/janitor,
-/obj/machinery/light,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -32850,6 +32872,10 @@
 	},
 /area/janitor)
 "cfp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "white"
@@ -33507,6 +33533,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "chb" = (
@@ -34622,6 +34651,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "ckx" = (
@@ -34758,6 +34790,9 @@
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/box/mousetraps,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -35010,6 +35045,10 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
+/obj/machinery/light_switch{
+	name = "west light switch";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -35101,6 +35140,8 @@
 	name = "Custodial Maintenance";
 	req_access = list(26)
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cmd" = (
@@ -35420,6 +35461,9 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "cnv" = (
@@ -35678,6 +35722,9 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "cop" = (
@@ -35701,6 +35748,9 @@
 	pixel_y = -32
 	},
 /obj/structure/janitorialcart,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -38016,6 +38066,10 @@
 	pixel_y = -3
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light_switch{
+	name = "west light switch";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkpurplefull"
@@ -49958,6 +50012,10 @@
 	location = "QM #2"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light_switch{
+	name = "south light switch";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "diY" = (
@@ -54219,6 +54277,12 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "eiU" = (
@@ -54279,6 +54343,10 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -26
+	},
+/obj/machinery/light_switch{
+	name = "north light switch";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
@@ -56011,6 +56079,10 @@
 "fgO" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/closet/jcloset,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
@@ -57830,6 +57902,10 @@
 	pixel_y = -28
 	},
 /obj/machinery/vending/clothing/departament/cargo,
+/obj/machinery/light_switch{
+	name = "east light switch";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -59408,6 +59484,8 @@
 	req_access = list(26)
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "white"
@@ -65163,6 +65241,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/light_switch{
+	name = "north light switch";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -65907,6 +65989,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/machinery/light_switch{
+	name = "north light switch";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -66706,6 +66792,10 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "white"
@@ -67347,6 +67437,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -70139,6 +70232,10 @@
 /area/engineering/break_room)
 "nnt" = (
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/light_switch{
+	name = "north light switch";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -70239,6 +70336,10 @@
 /area/maintenance/apmaint)
 "nqB" = (
 /obj/machinery/light,
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blue"
@@ -73814,6 +73915,10 @@
 /area/maintenance/turbine)
 "ptO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/light_switch{
+	name = "north light switch";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -82802,7 +82907,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Engineering Foyer";
-	dir = 4
+	dir = 4;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -85719,6 +85825,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "vKj" = (
@@ -89766,6 +89875,10 @@
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/machinery/light_switch{
+	name = "north light switch";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -119370,7 +119483,7 @@ wDm
 bZg
 jev
 mxu
-ceA
+cdZ
 yfG
 chc
 jXL
@@ -119884,7 +119997,7 @@ wEX
 bZn
 jev
 uSX
-ceA
+cdZ
 cWC
 lTy
 ltZ
@@ -120141,7 +120254,7 @@ bSi
 bSi
 bSi
 pNI
-ceA
+cdZ
 msv
 chc
 lOB
@@ -120405,7 +120518,7 @@ lvx
 ccO
 cfp
 cmc
-dJD
+ceA
 csL
 dvL
 ece
@@ -120416,7 +120529,7 @@ cyx
 cBb
 dcj
 cFu
-bVn
+ceC
 cOY
 mTq
 hTc
@@ -120655,7 +120768,7 @@ xic
 szY
 bSi
 cdN
-ceA
+cdZ
 cdN
 chc
 lTD
@@ -121169,7 +121282,7 @@ xic
 xtd
 bSi
 cgI
-ceC
+ccn
 rkW
 chf
 cNg
