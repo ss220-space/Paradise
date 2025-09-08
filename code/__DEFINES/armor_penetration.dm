@@ -10,11 +10,11 @@
 
 GLOBAL_LIST_INIT(armor_slot_name, list(
 	"[ARMOR_PLATE_SLOT_NONE]" = "",
-	"[ARMOR_PLATE_SLOT_HANDMADE]" = "самодельные бронеплиты",
-	"[ARMOR_PLATE_SLOT_LIGHT]" = "легкие бронеплиты",
-	"[ARMOR_PLATE_SLOT_MEDIUM]" = "средние бронеплиты",
-	"[ARMOR_PLATE_SLOT_HEAVY]" = "тяжелые бронеплиты",
-	"[ARMOR_PLATE_SLOT_MAX]" = "элитные бронеплиты",
+	"[ARMOR_PLATE_SLOT_HANDMADE]" = "самодельными бронеплитами",
+	"[ARMOR_PLATE_SLOT_LIGHT]" = "лёгкими бронеплитами",
+	"[ARMOR_PLATE_SLOT_MEDIUM]" = "средними бронеплитами",
+	"[ARMOR_PLATE_SLOT_HEAVY]" = "тяжёлыми бронеплитами",
+	"[ARMOR_PLATE_SLOT_MAX]" = "элитными бронеплитами",
 ))
 
 // MARK: Laser protection
@@ -31,10 +31,10 @@ GLOBAL_LIST_INIT(armor_slot_name, list(
 
 GLOBAL_LIST_INIT(laser_armor_class_name, list(
 	"[LASER_ARMOR_CLASS_NONE]" = "",
-	"[LASER_ARMOR_CLASS_LIGHT]" = "легких лазеров",
-	"[LASER_ARMOR_CLASS_MEDIUM]" = "стандартных лазеров",
-	"[LASER_ARMOR_CLASS_HEAVY]" = "мощных лазеров",
-	"[LASER_ARMOR_CLASS_MAX]" = "любого лазера",
+	"[LASER_ARMOR_CLASS_LIGHT]" = "1",
+	"[LASER_ARMOR_CLASS_MEDIUM]" = "2",
+	"[LASER_ARMOR_CLASS_HEAVY]" = "3",
+	"[LASER_ARMOR_CLASS_MAX]" = "4",
 ))
 
 // MARK: Ballistic protection
@@ -57,13 +57,13 @@ GLOBAL_LIST_INIT(laser_armor_class_name, list(
 
 GLOBAL_LIST_INIT(ballistic_armor_class_name, list(
 	"[BALLISTIC_ARMOR_CLASS_NONE]" = "",
-	"[BALLISTIC_ARMOR_CLASS_I]" = "маломощных пистолетных калибров",
-	"[BALLISTIC_ARMOR_CLASS_II]" = "пистолетных калибров",
-	"[BALLISTIC_ARMOR_CLASS_III]" = "мощных пистолетных калибров",
-	"[BALLISTIC_ARMOR_CLASS_IV]" = "промежуточных калибров",
-	"[BALLISTIC_ARMOR_CLASS_V]" = "винтовочных калибров",
-	"[BALLISTIC_ARMOR_CLASS_VI]" = "бронебойных винтовочных калибров",
-	"[BALLISTIC_ARMOR_CLASS_MAX]" = "крупных калибров",
+	"[BALLISTIC_ARMOR_CLASS_I]" = "1",
+	"[BALLISTIC_ARMOR_CLASS_II]" = "2",
+	"[BALLISTIC_ARMOR_CLASS_III]" = "3",
+	"[BALLISTIC_ARMOR_CLASS_IV]" = "4",
+	"[BALLISTIC_ARMOR_CLASS_V]" = "5",
+	"[BALLISTIC_ARMOR_CLASS_VI]" = "6",
+	"[BALLISTIC_ARMOR_CLASS_MAX]" = "7",
 ))
 
 
