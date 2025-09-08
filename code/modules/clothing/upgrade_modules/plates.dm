@@ -68,7 +68,7 @@
 
 
 /// Try remove armor plate from suit
-/obj/item/armor_plate/proc/try_detach_from_clothing(mob/living/user, obj/item/clothing/suit, obj/item/tool)
+/obj/item/armor_plate/proc/try_detach_from_clothing(mob/living/user, obj/item/clothing/suit)
 	if(!suit.can_remove_armor_plate)
 		balloon_alert(user, "бронеплиту нельзя извлечь!")
 		return FALSE
@@ -76,7 +76,7 @@
 		balloon_alert(user, "сначала снимите с себя!")
 		return FALSE
 	balloon_alert(user, "извлечение бронеплиты...")
-	if(!tool.use_tool(suit, user, 5 SECONDS, volume = tool.tool_volume))
+	if(!do_after(user, 5 SECONDS, suit))
 		return FALSE
 	balloon_alert(user, "бронеплита извлечена")
 	forceMove(user.loc)
