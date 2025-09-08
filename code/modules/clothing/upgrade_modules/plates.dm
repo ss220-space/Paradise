@@ -88,9 +88,14 @@
 /obj/item/armor_plate/proc/get_armor_text()
 	. = ""
 	if(ballistic_class > BALLISTIC_ARMOR_CLASS_NONE)
-		. += "Обеспечивает баллистическую защиту [GLOB.ballistic_armor_class_name["[ballistic_class]"]] класса. "
+		. += "Обеспечивает баллистическую защиту от [GLOB.ballistic_armor_class_name["[ballistic_class]"]]"
 	if(laser_class > BALLISTIC_ARMOR_CLASS_NONE)
-		. += "Обеспечивает лазерную защиту [GLOB.laser_armor_class_name["[laser_class]"]] класса. "
+		if(ballistic_class > BALLISTIC_ARMOR_CLASS_NONE)
+			. += " и "
+		else
+			. += "Обеспечивает "
+		. += " лазерную защиту от [GLOB.laser_armor_class_name["[laser_class]"]]"
+	. += ". "
 
 /obj/item/armor_plate/proc/get_integrity_text()
 	if(armor_integrity == armor_max_integrity)
@@ -261,7 +266,7 @@
 	name = "kevlar armor plate"
 	icon_state = "steelplate_light" //TODO need icon
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IIA
+	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_NONE
 	armor_protection_integrity = 75
 	armor_max_integrity = 75
@@ -277,7 +282,7 @@
 	name = "light steel armor plate"
 	icon_state = "steelplate_light"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
-	ballistic_class = BALLISTIC_ARMOR_CLASS_II
+	ballistic_class = BALLISTIC_ARMOR_CLASS_III
 	laser_class = LASER_ARMOR_CLASS_NONE
 	armor_protection_integrity = 100
 	armor_max_integrity = 150
@@ -305,7 +310,7 @@
 	name = "light ceramic armor plate"
 	icon_state = "ceramicplate_light"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IIIA
+	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
 	laser_class = LASER_ARMOR_CLASS_NONE
 	armor_protection_integrity = 75
 	armor_max_integrity = 100
@@ -322,7 +327,7 @@
 	name = "medium steel armor plate"
 	icon_state = "steelplate_medium"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
-	ballistic_class = BALLISTIC_ARMOR_CLASS_III
+	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_NONE
 	armor_protection_integrity = 200
 	armor_max_integrity = 250
@@ -350,7 +355,7 @@
 	name = "medium ceramic armor plate"
 	icon_state = "ceramicplate_medium"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
-	ballistic_class = BALLISTIC_ARMOR_CLASS_III
+	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_LIGHT
 	armor_protection_integrity = 100
 	armor_max_integrity = 150
@@ -367,7 +372,7 @@
 	name = "heavy steel armor plate"
 	icon_state = "steelplate_heavy"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
+	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_LIGHT
 	armor_protection_integrity = 300
 	armor_max_integrity = 350
@@ -381,7 +386,7 @@
 	name = "heavy ablative armor plate"
 	icon_state = "reflectorplate_heavy"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IIA
+	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_HEAVY
 	armor_protection_integrity = 300
 	armor_max_integrity = 350
@@ -395,7 +400,7 @@
 	name = "heavy ceramic armor plate"
 	icon_state = "ceramicplate_heavy"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
+	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
 	armor_protection_integrity = 200
 	armor_max_integrity = 250
