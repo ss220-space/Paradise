@@ -37,6 +37,8 @@
 	var/parent_stack = FALSE
 	/// The weight class the stack has at amount > 2/3rds of max_amount
 	var/full_w_class = WEIGHT_CLASS_NORMAL
+	/// for icons when inserted in protolathe
+	var/protolathe_name
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 

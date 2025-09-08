@@ -141,6 +141,8 @@
 	var/obj/effect/fake_box
 	/// The box image attached to the `fake_box` object.
 	var/image/box_img
+	/// Alpha that box have when it spawns.
+	var/default_alpha = 128
 
 
 /obj/structure/closet/cardboard/agent/Destroy()
@@ -169,7 +171,7 @@
 	fake_box.pass_flags = PASSEVERYTHING
 	fake_box.mouse_opacity = MOUSE_OPACITY_TRANSPARENT // This object should be completely invisible.
 	box_img = image(icon, fake_box, icon_state, ABOVE_MOB_LAYER)
-	box_img.alpha = 128
+	box_img.alpha = default_alpha
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(move_fake_box))
 	RegisterSignal(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, PROC_REF(on_glide_size_update))
 	var/mob/living/implant_user = locateUID(implant_user_UID)
