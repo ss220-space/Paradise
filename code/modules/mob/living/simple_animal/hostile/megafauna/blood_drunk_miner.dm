@@ -79,7 +79,7 @@ Difficulty: Medium
 	armor = list(MELEE = 55, BULLET = 0, LASER = 0, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
 	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	can_remove_armor_plate = FALSE
 	armor_plate = /obj/item/armor_plate/light_steel
 

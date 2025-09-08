@@ -322,7 +322,7 @@
 	armor = list(melee = 25, bullet = 0, laser = 0, energy = 10, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 45)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_ablative
 
 	sprite_sheets = list(
@@ -339,7 +339,7 @@
 	name = "SRT coat"
 	desc = "Dark blue armored coat. Excellent defense against most types of damage."
 	armor = list(melee = 45, bullet = 0, laser = 0, energy = 20, bomb = 50, rad = 40, fire = 40, acid = 90)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	armor_plate = /obj/item/armor_plate/light_ceramic
 
 //Engineering

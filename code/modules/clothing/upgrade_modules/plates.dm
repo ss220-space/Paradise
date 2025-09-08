@@ -9,6 +9,8 @@
 	desc = "Базовая бронеплита, если вы видите этот текст, значит этой плите не сделали нормально описание."
 	description_info = "Бронепробитие — это способность поражающего элемента (пули, снаряда) преодолеть защиту цели, определяемая его кинетической энергией, материалом и конструкцией (например, стальным сердечником). Защита классифицируется по уровням (классам брони) от I (легкие пистолетные пули) до V (мощные винтовочные бронебойные патроны). Каждый класс соответствует определённым типам угроз: так, бронежилет класса III остановит пулю АК-47, но будет пробит бронебойным патроном, для которого требуется класс IV или выше."
 	icon = 'icons/obj/armor/plates.dmi'
+	lefthand_file = 'icons/mob/inhands/plates_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/plates_righthand.dmi'
 	icon_state = "ceramicplate_light"
 	/// Plate class
 	var/plate_slot = ARMOR_PLATE_SLOT_HANDMADE
@@ -412,7 +414,7 @@
 
 /obj/item/armor_plate/elite
 	name = "elite armor plate"
-	icon_state = "ceramicplate_heavy" //TODO need icon
+	icon_state = "eliteplate"
 	plate_slot = ARMOR_PLATE_SLOT_MAX
 	ballistic_class = BALLISTIC_ARMOR_CLASS_MAX
 	laser_class = LASER_ARMOR_CLASS_MAX

@@ -982,7 +982,7 @@
 	strip_delay = 60
 	put_on_delay = 40
 	armor = list(melee = 25, bullet = 0, laser = 0, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/kevlar
 	//End of inheritance from Security armour.
 
@@ -1076,7 +1076,7 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/flashlight,/obj/item/gun/energy,/obj/item/gun/projectile,/obj/item/ammo_box)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/sovietcoat/officer
@@ -1085,7 +1085,7 @@
 	icon_state = "sovietofficercoat"
 	item_state = "sovietofficercoat"
 	armor = list(melee = 25, bullet = 0, laser = 0, energy = 10, bomb = 20, bio = 0, rad = 0, fire = 30, acid = 30)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/russiancoat
@@ -1331,7 +1331,7 @@
 	item_state = "suragi_jacket_sec"
 	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/storage/suragi_jacket/cargo

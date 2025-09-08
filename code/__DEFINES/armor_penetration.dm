@@ -8,6 +8,14 @@
 #define ARMOR_PLATE_SLOT_HEAVY 4
 #define ARMOR_PLATE_SLOT_MAX 5
 
+GLOBAL_LIST_INIT(armor_slot_name, list(
+	"[ARMOR_PLATE_SLOT_NONE]" = "",
+	"[ARMOR_PLATE_SLOT_HANDMADE]" = "самодельные бронеплиты",
+	"[ARMOR_PLATE_SLOT_LIGHT]" = "легкие бронеплиты",
+	"[ARMOR_PLATE_SLOT_MEDIUM]" = "средние бронеплиты",
+	"[ARMOR_PLATE_SLOT_HEAVY]" = "тяжелые бронеплиты",
+	"[ARMOR_PLATE_SLOT_MAX]" = "элитные бронеплиты",
+))
 
 // MARK: Laser protection
 /// Not exists protection
@@ -26,7 +34,7 @@ GLOBAL_LIST_INIT(laser_armor_class_name, list(
 	"[LASER_ARMOR_CLASS_LIGHT]" = "легких лазеров",
 	"[LASER_ARMOR_CLASS_MEDIUM]" = "стандартных лазеров",
 	"[LASER_ARMOR_CLASS_HEAVY]" = "мощных лазеров",
-	"[LASER_ARMOR_CLASS_MAX]" = "всего лазера",
+	"[LASER_ARMOR_CLASS_MAX]" = "любого лазера",
 ))
 
 // MARK: Ballistic protection

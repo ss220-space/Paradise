@@ -33,7 +33,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi')
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	armor_plate = /obj/item/armor_plate/medium_steel
 
 //Green syndicate space suit
@@ -109,7 +109,7 @@
 	armor = list(melee = 80, bullet = 0, laser = 0, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MAX
 	armor_plate = /obj/item/armor_plate/heavy_steel
 
 //Black-green syndicate space suit
@@ -185,7 +185,7 @@
 	armor = list(melee = 80, bullet = 0, laser = 0, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = ACID_PROOF
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MAX
 	armor_plate = /obj/item/armor_plate/heavy_steel
 
 

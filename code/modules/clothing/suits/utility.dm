@@ -37,7 +37,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 	armor_plate = /obj/item/armor_plate/handmade_ablative
 
 /obj/item/clothing/suit/fire/firefighter
@@ -54,6 +54,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 
 /obj/item/clothing/suit/fire/heavy
 	name = "firesuit"

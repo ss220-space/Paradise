@@ -368,7 +368,7 @@
 	/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
 	strip_delay = 130
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form", SPECIES_VOX)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/head/helmet/space/ert_eva_amber
