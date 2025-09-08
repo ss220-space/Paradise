@@ -33,6 +33,8 @@
 	var/repair_coefficient = 0.6
 	/// Covered body parts by plate
 	body_parts_covered = UPPER_TORSO
+	/// Armor plate slowdown
+	var/equipped_slowdown = 0
 
 
 /obj/item/armor_plate/Initialize(mapload)
@@ -63,6 +65,7 @@
 		return FALSE
 	forceMove(suit)
 	suit.armor_plate = src
+	suit.slowdown += equipped_slowdown
 	balloon_alert(user, "бронеплита установлена")
 	return TRUE
 
@@ -82,6 +85,7 @@
 	forceMove(user.loc)
 	user.put_in_hands(src)
 	suit.armor_plate = null
+	suit.slowdown -= equipped_slowdown
 	return TRUE
 
 
@@ -398,6 +402,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	armor_max_integrity = 300
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	equipped_slowdown = 0.25
 
 /obj/item/armor_plate/medium_steel/get_ru_names()
 	return list(
@@ -425,6 +430,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	armor_max_integrity = 300
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	equipped_slowdown = 0.25
 
 /obj/item/armor_plate/medium_ablative/get_ru_names()
 	return list(
@@ -452,6 +458,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	armor_max_integrity = 200
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	equipped_slowdown = 0.2
 
 /obj/item/armor_plate/medium_ceramic/get_ru_names()
 	return list(
@@ -481,6 +488,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	armor_max_integrity = 400
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	equipped_slowdown = 0.5
 
 /obj/item/armor_plate/heavy_steel/get_ru_names()
 	return list(
@@ -508,6 +516,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	armor_max_integrity = 4000
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	equipped_slowdown = 0.5
 
 /obj/item/armor_plate/heavy_ablative/get_ru_names()
 	return list(
@@ -535,6 +544,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	armor_max_integrity = 300
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	equipped_slowdown = 0.4
 
 /obj/item/armor_plate/heavy_ceramic/get_ru_names()
 	return list(

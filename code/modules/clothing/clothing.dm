@@ -68,6 +68,7 @@
 	if(ispath(armor_plate))
 		armor_plate = new armor_plate(src)
 		armor_plate.forceMove(src)
+		slowdown += armor_plate.equipped_slowdown
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
