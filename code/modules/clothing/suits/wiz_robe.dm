@@ -163,7 +163,7 @@
 	put_on_delay = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
-	allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/wizrobe/red

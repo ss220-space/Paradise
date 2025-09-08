@@ -52,7 +52,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	armor_plate = /obj/item/armor_plate/medium_ceramic
 
 	//Deathsquad space suit, not hardsuits because no flashlight!
@@ -110,7 +110,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
@@ -275,7 +275,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_ceramic
 
 	species_restricted = null
@@ -461,7 +461,7 @@
 	icon_state = "leader_armor"
 	desc = "A lightweight pirate-themed EVA suit designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid. This one has a red markings."
 	armor = list(melee = 15, bullet = 0, laser = 0, energy = 30, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/eva/pirate/leader

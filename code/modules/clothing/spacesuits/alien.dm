@@ -91,7 +91,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/suit.dmi',
 		)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/vox

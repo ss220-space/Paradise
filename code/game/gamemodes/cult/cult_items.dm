@@ -149,7 +149,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
@@ -204,7 +204,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/hooded/cult_hoodie

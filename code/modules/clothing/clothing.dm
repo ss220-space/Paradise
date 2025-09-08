@@ -86,20 +86,7 @@
 
 	if(allowed_armor_plate == ARMOR_PLATE_SLOT_NONE)
 		return
-
-	var/allowed_plate_name = ""
-	switch(allowed_armor_plate)
-		if(ARMOR_PLATE_SLOT_HANDMADE)
-			allowed_plate_name = "с самодельными бронеплитами"
-		if(ARMOR_PLATE_SLOT_LIGHT)
-			allowed_plate_name = "с лёгкими бронеплитами"
-		if(ARMOR_PLATE_SLOT_MEDIUM)
-			allowed_plate_name = "со средними бронеплитами"
-		if(ARMOR_PLATE_SLOT_HEAVY)
-			allowed_plate_name = "с тяжёлыми бронеплитами"
-		if(ARMOR_PLATE_SLOT_MAX)
-			allowed_plate_name = "с элитными бронеплитами"
-	. += span_notice("Совместимо <b>[allowed_plate_name]</b>.")
+	. += span_notice("Можно установить [GLOB.armor_slot_name["[allowed_armor_plate]"]].")
 
 /obj/item/clothing/get_description_info()
 	if (!armor_plate)

@@ -12,6 +12,8 @@
 						Каждый класс соответствует определённым типам угроз: так, бронежилет класса III остановит пулю АК-814, но будет пробит бронебойным патроном, для которого требуется класс IV или выше."
 	gender = FEMALE
 	icon = 'icons/obj/armor/plates.dmi'
+	lefthand_file = 'icons/mob/inhands/plates_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/plates_righthand.dmi'
 	icon_state = "ceramicplate_light"
 	/// Plate class
 	var/plate_slot = ARMOR_PLATE_SLOT_HANDMADE
@@ -91,9 +93,14 @@
 /obj/item/armor_plate/proc/get_armor_text()
 	. = ""
 	if(ballistic_class > BALLISTIC_ARMOR_CLASS_NONE)
-		. += "Обеспечивает <b>баллистическую</b> защиту <b>[GLOB.ballistic_armor_class_name["[ballistic_class]"]]</b> класса. "
+		. += "Обеспечивает баллистическую защиту от [GLOB.ballistic_armor_class_name["[ballistic_class]"]]"
 	if(laser_class > BALLISTIC_ARMOR_CLASS_NONE)
-		. += "Обеспечивает <b>лазерную</b> защиту <b>[GLOB.laser_armor_class_name["[laser_class]"]]</b> класса. "
+		if(ballistic_class > BALLISTIC_ARMOR_CLASS_NONE)
+			. += " и "
+		else
+			. += "Обеспечивает "
+		. += " лазерную защиту от [GLOB.laser_armor_class_name["[laser_class]"]]"
+	. += ". "
 
 /obj/item/armor_plate/proc/get_integrity_text()
 	if(armor_integrity == armor_max_integrity)
@@ -292,7 +299,7 @@
 			Лёгкая и достаточно дешёвая."
 	icon_state = "steelplate_light" //TODO need icon
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IIA
+	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_NONE
 	armor_protection_integrity = 75
 	armor_max_integrity = 75
@@ -320,7 +327,7 @@
 			Легковесная и не сковывает движения носящего, что компенсируется относительно слабым классом защиты."
 	icon_state = "steelplate_light"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
-	ballistic_class = BALLISTIC_ARMOR_CLASS_II
+	ballistic_class = BALLISTIC_ARMOR_CLASS_III
 	laser_class = LASER_ARMOR_CLASS_NONE
 	armor_protection_integrity = 100
 	armor_max_integrity = 150
@@ -374,7 +381,7 @@
 			однако хорошо защищает относительно других плит той же весовой категории."
 	icon_state = "ceramicplate_light"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IIIA
+	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
 	laser_class = LASER_ARMOR_CLASS_NONE
 	armor_protection_integrity = 75
 	armor_max_integrity = 100
@@ -403,7 +410,7 @@
 			Обеспечивает баланс между защитой пользователя и удобством ношения."
 	icon_state = "steelplate_medium"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
-	ballistic_class = BALLISTIC_ARMOR_CLASS_III
+	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_NONE
 	armor_protection_integrity = 200
 	armor_max_integrity = 250
@@ -457,7 +464,7 @@
 			по защитным характеристикам."
 	icon_state = "ceramicplate_medium"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
-	ballistic_class = BALLISTIC_ARMOR_CLASS_III
+	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_LIGHT
 	armor_protection_integrity = 100
 	armor_max_integrity = 150
@@ -486,7 +493,7 @@
 			Тяжёлая и неудобная, что компенсируется высоким классом защиты."
 	icon_state = "steelplate_heavy"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
+	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_LIGHT
 	armor_protection_integrity = 300
 	armor_max_integrity = 350
@@ -513,7 +520,7 @@
 			Тяжёлая и неудобная, что компенсируется высоким классом защиты."
 	icon_state = "reflectorplate_heavy"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IIA
+	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_HEAVY
 	armor_protection_integrity = 300
 	armor_max_integrity = 350
@@ -540,7 +547,7 @@
 			Несколько превосходит плиты той же весовой категории по защитным характеристикам."
 	icon_state = "ceramicplate_heavy"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
-	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
+	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
 	armor_protection_integrity = 200
 	armor_max_integrity = 250
@@ -565,7 +572,7 @@
 	desc = "Бронеплита из высокотехнологичных комбинированных материалов. \
 			Обеспечивает выдающуюся защиту как от баллистических, так и от энергетических снарядов, \
 			при этом не сказываясь на мобильности пользователя. Такие выдают самым элитным бойцам."
-	icon_state = "ceramicplate_heavy" //TODO need icon
+	icon_state = "eliteplate"
 	plate_slot = ARMOR_PLATE_SLOT_MAX
 	ballistic_class = BALLISTIC_ARMOR_CLASS_MAX
 	laser_class = LASER_ARMOR_CLASS_MAX

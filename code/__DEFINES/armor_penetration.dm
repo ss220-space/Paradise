@@ -8,6 +8,14 @@
 #define ARMOR_PLATE_SLOT_HEAVY 4
 #define ARMOR_PLATE_SLOT_MAX 5
 
+GLOBAL_LIST_INIT(armor_slot_name, list(
+	"[ARMOR_PLATE_SLOT_NONE]" = "",
+	"[ARMOR_PLATE_SLOT_HANDMADE]" = "самодельные бронеплиты",
+	"[ARMOR_PLATE_SLOT_LIGHT]" = "легкие бронеплиты",
+	"[ARMOR_PLATE_SLOT_MEDIUM]" = "средние бронеплиты",
+	"[ARMOR_PLATE_SLOT_HEAVY]" = "тяжелые бронеплиты",
+	"[ARMOR_PLATE_SLOT_MAX]" = "элитные бронеплиты",
+))
 
 // MARK: Laser protection
 /// Not exists protection
@@ -19,14 +27,14 @@
 /// Protects from: accelerator
 #define LASER_ARMOR_CLASS_HEAVY 3
 /// Not exists. Protects from: annihilator
-#define LASER_ARMOR_CLASS_MAX 4
+#define LASER_ARMOR_CLASS_MAX 5
 
 GLOBAL_LIST_INIT(laser_armor_class_name, list(
 	"[LASER_ARMOR_CLASS_NONE]" = "",
-	"[LASER_ARMOR_CLASS_LIGHT]" = "I",
-	"[LASER_ARMOR_CLASS_MEDIUM]" = "II",
-	"[LASER_ARMOR_CLASS_HEAVY]" = "III",
-	"[LASER_ARMOR_CLASS_MAX]" = "IV",
+	"[LASER_ARMOR_CLASS_LIGHT]" = "легких лазеров",
+	"[LASER_ARMOR_CLASS_MEDIUM]" = "стандартных лазеров",
+	"[LASER_ARMOR_CLASS_HEAVY]" = "мощных лазеров",
+	"[LASER_ARMOR_CLASS_MAX]" = "любого лазера",
 ))
 
 // MARK: Ballistic protection
@@ -35,27 +43,27 @@ GLOBAL_LIST_INIT(laser_armor_class_name, list(
 /// Protects from light pistols
 #define BALLISTIC_ARMOR_CLASS_I 1
 /// Protects from pistols
-#define BALLISTIC_ARMOR_CLASS_IIA 2
+#define BALLISTIC_ARMOR_CLASS_II 2
 /// Protects from heavy pistols
-#define BALLISTIC_ARMOR_CLASS_II 3
+#define BALLISTIC_ARMOR_CLASS_III 3
 /// Protects from light rifles
-#define BALLISTIC_ARMOR_CLASS_IIIA 4
+#define BALLISTIC_ARMOR_CLASS_IV 4
 /// Protects from rifles
-#define BALLISTIC_ARMOR_CLASS_III 5
+#define BALLISTIC_ARMOR_CLASS_V 5
 /// Protects from heavy rifles
-#define BALLISTIC_ARMOR_CLASS_IV 6
+#define BALLISTIC_ARMOR_CLASS_VI 6
 /// Not exists. Protects from high calibers. DO NOT USE FOR IN-GAME ARMOR (for admin variants only)
-#define BALLISTIC_ARMOR_CLASS_MAX 7
+#define BALLISTIC_ARMOR_CLASS_MAX 8
 
 GLOBAL_LIST_INIT(ballistic_armor_class_name, list(
 	"[BALLISTIC_ARMOR_CLASS_NONE]" = "",
-	"[BALLISTIC_ARMOR_CLASS_I]" = "I",
-	"[BALLISTIC_ARMOR_CLASS_IIA]" = "IIA",
-	"[BALLISTIC_ARMOR_CLASS_II]" = "II",
-	"[BALLISTIC_ARMOR_CLASS_IIIA]" = "IIIA",
-	"[BALLISTIC_ARMOR_CLASS_III]" = "III",
-	"[BALLISTIC_ARMOR_CLASS_IV]" = "IV",
-	"[BALLISTIC_ARMOR_CLASS_MAX]" = "V",
+	"[BALLISTIC_ARMOR_CLASS_I]" = "маломощных пистолетных калибров",
+	"[BALLISTIC_ARMOR_CLASS_II]" = "пистолетных калибров",
+	"[BALLISTIC_ARMOR_CLASS_III]" = "мощных пистолетных калибров",
+	"[BALLISTIC_ARMOR_CLASS_IV]" = "промежуточных калибров",
+	"[BALLISTIC_ARMOR_CLASS_V]" = "винтовочных калибров",
+	"[BALLISTIC_ARMOR_CLASS_VI]" = "бронебойных винтовочных калибров",
+	"[BALLISTIC_ARMOR_CLASS_MAX]" = "крупных калибров",
 ))
 
 

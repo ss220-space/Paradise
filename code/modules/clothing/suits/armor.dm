@@ -31,7 +31,7 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/armor/vest/jacket
@@ -256,7 +256,7 @@
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = null
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
@@ -377,7 +377,7 @@
 		)
 	var/static/list/reflect_zones = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	var/hit_reflect_chance = 50
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/medium_ablative
 
 /obj/item/clothing/suit/armor/reflector/get_ru_names()
@@ -909,7 +909,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
+	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 
 /obj/item/clothing/suit/armor/cartilage/get_ru_names()
 	return list(
