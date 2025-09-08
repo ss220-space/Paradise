@@ -536,3 +536,37 @@
 	target_gun.accuracy.add_accuracy(-bonus_accuracy)
 	target_gun.accuracy.max_spread += spread_decrease
 	spread_decrease = 0
+
+
+/obj/item/gun_module/under/laser
+	name = "laser sight"
+	desc = "Модуль лазерного целеуказателя, повышает точность стрельбы и демонстрирует куда вы целитесь." //TODO описание хуйни - переделать
+	ru_names = list(
+		NOMINATIVE = "лазерный целеуказатель",
+		GENITIVE = "лазерного целеуказателя",
+		DATIVE = "лазерному целеуказателю",
+		ACCUSATIVE = "лазерный целеуказатель",
+		INSTRUMENTAL = "лазерным целеуказателем",
+		PREPOSITIONAL = "лазерном целеуказателе"
+	)
+	gender = MALE
+	icon_state = "laser"
+	item_state = "laser"
+	overlay_state = "laser_o"
+	class = GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_SNIPER_UNDER
+	overlay_offset = list("x" = -2, "y" = 3)
+	var/bonus_accuracy = 10
+	var/spread_decrease = 0
+
+/obj/item/gun_module/under/laser/on_attach(obj/item/gun/target_gun, mob/user)
+	target_gun.accuracy.add_accuracy(bonus_accuracy)
+	if(!target_gun.accuracy.max_spread)
+		return
+	spread_decrease = initial(target_gun.accuracy.max_spread) * 0.25
+	target_gun.accuracy.max_spread = target_gun.accuracy.max_spread - spread_decrease
+
+
+/obj/item/gun_module/under/laser/on_detach(obj/item/gun/target_gun, mob/user)
+	target_gun.accuracy.add_accuracy(-bonus_accuracy)
+	target_gun.accuracy.max_spread += spread_decrease
+	spread_decrease = 0
