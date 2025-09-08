@@ -524,7 +524,7 @@
 /mob/living/simple_animal/bot/bullet_act(obj/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		if(prob(75) && Proj.damage > 0)
-			do_sparks(5, 1, src)
+			do_sparks(5, TRUE, src)
 	return ..()
 
 
@@ -917,7 +917,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return
 
 	if(client)
-		bot_control_message(r_command, user, signal.data["target"] ? signal.data["target"] : "Unknown")
+		bot_control_message(r_command, user, signal.data["target"] ? signal.data["target"] : UNKNOWN_STATUS_RUS)
 
 	// process control input
 	switch(r_command)

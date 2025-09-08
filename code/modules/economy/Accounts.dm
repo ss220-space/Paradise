@@ -107,7 +107,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 
 		R.name = "Account information: [M.owner_name]"
 
-		var/overseer = "Unknown"
+		var/overseer = UNKNOWN_NAME_RUS
 		var/datum/ui_login/L = source_db.ui_login_get()
 		if(L.id)
 			overseer = L.id.registered_name

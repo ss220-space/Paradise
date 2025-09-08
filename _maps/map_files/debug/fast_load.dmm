@@ -2,132 +2,132 @@
 "a" = (
 /turf/space,
 /area/space)
-"c" = (
-/obj/item/mod/control/pre_equipped/apocryphal,
-/turf/simulated/floor/plating,
+"b" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/plating,
 /area/admin)
-"d" = (
+"e" = (
+/obj/effect/landmark/join_late,
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"g" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/admin)
+"h" = (
+/obj/item/mod/control/pre_equipped/administrative,
+/turf/simulated/floor/indestructible/plating,
+/area/admin)
+"j" = (
+/obj/item/mod/core/standard,
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"m" = (
+/obj/machinery/light,
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"o" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"p" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"r" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"s" = (
+/obj/item/mod/control/pre_equipped/cosmohonk,
+/turf/simulated/floor/indestructible/plating,
+/area/admin)
+"t" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"u" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"v" = (
+/obj/item/mod/core/infinite,
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"x" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"z" = (
+/obj/item/mod/core/plasma,
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"A" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"B" = (
+/obj/item/mod/control/pre_equipped/debug,
+/turf/simulated/floor/indestructible/plating,
+/area/admin)
+"C" = (
+/obj/item/mod/control/pre_equipped/advanced,
+/turf/simulated/floor/indestructible/plating,
+/area/admin)
+"D" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"E" = (
+/obj/item/mod/control/pre_equipped/apocryphal,
+/turf/simulated/floor/indestructible/plating,
+/area/admin)
+"F" = (
+/turf/simulated/wall/indestructible/metal,
+/area/admin)
+"K" = (
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"N" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/carpet,
+/area/admin)
+"R" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/camera/autoname,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/indestructible/carpet,
 /area/admin)
-"f" = (
-/turf/simulated/wall/r_wall,
+"U" = (
+/turf/simulated/floor/indestructible/plating,
 /area/admin)
-"i" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"k" = (
-/obj/effect/landmark/join_late,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"l" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/admin)
-"m" = (
-/obj/item/mod/core/plasma,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"n" = (
-/turf/simulated/floor/plasteel,
-/area/admin)
-"o" = (
-/obj/item/mod/control/pre_equipped/advanced,
-/turf/simulated/floor/plating,
-/area/admin)
-"q" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"t" = (
-/obj/item/mod/control/pre_equipped/debug,
-/turf/simulated/floor/plating,
-/area/admin)
-"w" = (
+"X" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/landmark/join_late_cyborg,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"y" = (
-/obj/item/mod/core/infinite,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"B" = (
-/obj/item/mod/core/standard,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"D" = (
-/obj/item/mod/control/pre_equipped/cosmohonk,
-/turf/simulated/floor/plating,
-/area/admin)
-"G" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"I" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"J" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"M" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"O" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/admin)
-"P" = (
-/obj/item/mod/control/pre_equipped/administrative,
-/turf/simulated/floor/plating,
-/area/admin)
-"Q" = (
-/turf/simulated/floor/plating,
-/area/admin)
-"S" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"W" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"Y" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"Z" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/indestructible/carpet,
 /area/admin)
 
 (1,1,1) = {"
@@ -1933,20 +1933,20 @@ a
 a
 a
 a
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
 a
 a
 a
@@ -1999,20 +1999,20 @@ a
 a
 a
 a
-f
-Q
-l
-Q
-Q
-Q
-Q
-Q
-Q
-Q
-Q
-l
-Q
-f
+F
+U
+b
+U
+U
+U
+U
+U
+U
+U
+U
+b
+U
+F
 a
 a
 a
@@ -2065,20 +2065,20 @@ a
 a
 a
 a
-f
-Q
-Q
-Q
-Q
-Q
-Q
-Q
-Q
-Q
-Q
-Q
-Q
-f
+F
+U
+U
+U
+U
+U
+U
+U
+U
+U
+U
+U
+U
+F
 a
 a
 a
@@ -2131,20 +2131,20 @@ a
 a
 a
 a
-f
-Y
-Y
-S
-Q
-J
-Y
-Y
-S
-Q
-J
-Y
-Y
-f
+F
+N
+N
+u
+U
+o
+N
+N
+u
+U
+o
+N
+N
+F
 a
 a
 a
@@ -2197,20 +2197,20 @@ a
 a
 a
 a
-f
-n
-n
-Z
-Q
-M
-n
-n
-Z
-Q
-M
-n
-n
-f
+F
+K
+K
+A
+U
+r
+K
+K
+A
+U
+r
+K
+K
+F
 a
 a
 a
@@ -2263,20 +2263,20 @@ a
 a
 a
 a
-f
-d
-y
-Z
-Q
-w
-k
-n
-Z
-Q
-M
-n
-i
-f
+F
+R
+v
+A
+U
+X
+e
+K
+A
+U
+r
+K
+m
+F
 a
 a
 a
@@ -2329,20 +2329,20 @@ a
 a
 a
 a
-f
-n
-m
-Z
-Q
-M
-n
-n
-Z
-Q
-M
-n
-n
-f
+F
+K
+z
+A
+U
+r
+K
+K
+A
+U
+r
+K
+K
+F
 a
 a
 a
@@ -2395,20 +2395,20 @@ a
 a
 a
 a
-f
-n
-B
-Z
-Q
-M
-n
-n
-Z
-Q
-M
-n
-n
-f
+F
+K
+j
+A
+U
+r
+K
+K
+A
+U
+r
+K
+K
+F
 a
 a
 a
@@ -2461,20 +2461,20 @@ a
 a
 a
 a
-f
-n
-n
-Z
-Q
-M
-n
-n
-Z
-Q
-M
-n
-n
-f
+F
+K
+K
+A
+U
+r
+K
+K
+A
+U
+r
+K
+K
+F
 a
 a
 a
@@ -2527,20 +2527,20 @@ a
 a
 a
 a
-f
-W
-n
-Z
-Q
-M
-n
-n
-Z
-Q
-M
-n
-i
-f
+F
+p
+K
+A
+U
+r
+K
+K
+A
+U
+r
+K
+m
+F
 a
 a
 a
@@ -2593,20 +2593,20 @@ a
 a
 a
 a
-f
-n
-n
-Z
-Q
-M
-n
-n
-Z
-Q
-M
-n
-n
-f
+F
+K
+K
+A
+U
+r
+K
+K
+A
+U
+r
+K
+K
+F
 a
 a
 a
@@ -2659,20 +2659,20 @@ a
 a
 a
 a
-f
-q
-q
-G
-Q
-I
-q
-q
-G
-Q
-I
-q
-q
-f
+F
+x
+x
+t
+U
+D
+x
+x
+t
+U
+D
+x
+x
+F
 a
 a
 a
@@ -2725,20 +2725,20 @@ a
 a
 a
 a
-f
-Q
-Q
-Q
-P
-o
-c
-D
-t
-Q
-Q
-Q
-Q
-f
+F
+U
+U
+U
+h
+C
+E
+s
+B
+U
+U
+U
+U
+F
 a
 a
 a
@@ -2791,20 +2791,20 @@ a
 a
 a
 a
-f
-Q
-O
-Q
-Q
-Q
-Q
-Q
-Q
-Q
-Q
-O
-Q
-f
+F
+U
+g
+U
+U
+U
+U
+U
+U
+U
+U
+g
+U
+F
 a
 a
 a
@@ -2857,20 +2857,20 @@ a
 a
 a
 a
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
-f
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
+F
 a
 a
 a

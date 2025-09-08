@@ -186,7 +186,7 @@
 		return
 
 	if(COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
-		playsound(src, 'sound/machines/burglar_alarm.ogg', AM.throwforce * 5, 0)
+		playsound(src, 'sound/machines/burglar_alarm.ogg', AM.throwforce * 5, FALSE)
 		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
 		return ..()
 
@@ -194,7 +194,7 @@
 	. = ..(P, def_zone)
 
 	if(COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
-		playsound(src, 'sound/machines/burglar_alarm.ogg', P.damage * 5, 0)
+		playsound(src, 'sound/machines/burglar_alarm.ogg', P.damage * 5, FALSE)
 		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
 		return ..()
 
@@ -418,7 +418,7 @@
 
 /obj/machinery/customat/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM && COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
-		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, 0)
+		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, FALSE)
 		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
 		return ..()
 
@@ -435,7 +435,7 @@
 
 	if(!istype(I, /obj/item/stack/nanopaste) && !istype(I, /obj/item/detective_scanner) && COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
 		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
-		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, 0)
+		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, FALSE)
 
 	return ..()
 

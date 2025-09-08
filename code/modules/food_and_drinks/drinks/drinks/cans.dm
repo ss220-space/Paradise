@@ -28,7 +28,7 @@
 	if(times_shaken)
 		fizzy_open(user)
 		return ..()
-	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
+	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), TRUE)
 	canopened = TRUE
 	container_type |= OPENCONTAINER
 	to_chat(user, span_notice("Вы открываете [declent_ru(ACCUSATIVE)] с громким хлопком!"))
@@ -41,10 +41,10 @@
 	crushed_can.is_glass = is_glass
 	crushed_can.is_plastic = is_plastic
 	if(is_glass)
-		playsound(user.loc, 'sound/effects/glassbr3.ogg', rand(10, 50), 1)
+		playsound(user.loc, 'sound/effects/glassbr3.ogg', rand(10, 50), TRUE)
 		crushed_can.name = "broken bottle"
 	else
-		playsound(user.loc, 'sound/weapons/pierce.ogg', rand(10, 50), 1)
+		playsound(user.loc, 'sound/weapons/pierce.ogg', rand(10, 50), TRUE)
 	qdel(src)
 	return crushed_can
 
@@ -123,7 +123,7 @@
 		handle_bursting()
 
 /obj/item/reagent_containers/food/drinks/cans/proc/fizzy_open(mob/user, burstopen = FALSE)
-	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), 1)
+	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), TRUE)
 	canopened = TRUE
 	container_type |= OPENCONTAINER
 

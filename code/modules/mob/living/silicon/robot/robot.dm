@@ -218,7 +218,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		lawupdate = FALSE
 
-	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
+	playsound(loc, 'sound/voice/liveagain.ogg', 75, TRUE)
 
 /mob/living/silicon/robot/rename_character(oldname, newname)
 	if(!..(oldname, newname))

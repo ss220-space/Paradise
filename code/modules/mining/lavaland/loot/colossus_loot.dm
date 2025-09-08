@@ -1,7 +1,9 @@
 //Colossus
 /obj/structure/closet/crate/necropolis/colossus
 	name = "colossus chest"
-	ru_names = list(
+
+/obj/structure/closet/crate/necropolis/colossus/get_ru_names()
+	return list(
 		NOMINATIVE = "сундук колосса",
 		GENITIVE = "сундука колосса",
 		DATIVE = "сундуку колосса",
@@ -19,7 +21,9 @@
 
 /obj/structure/closet/crate/necropolis/colossus/crusher
 	name = "angelic colossus chest"
-	ru_names = list(
+
+/obj/structure/closet/crate/necropolis/colossus/crusher/get_ru_names()
+	return list(
 		NOMINATIVE = "ангельский сундук колосса",
 		GENITIVE = "ангельского сундука колосса",
 		DATIVE = "ангельскому сундуку колосса",
@@ -38,14 +42,6 @@
 /obj/machinery/anomalous_crystal
 	name = "anomalous crystal"
 	desc = "Странный осколок кристалла. Нахождение рядом с ним наполняет вас смесью восторга и ужаса."
-	ru_names = list(
-		NOMINATIVE = "аномальный кристалл",
-		GENITIVE = "аномального кристалла",
-		DATIVE = "аномальному кристаллу",
-		ACCUSATIVE = "аномальный кристалл",
-		INSTRUMENTAL = "аномальным кристаллом",
-		PREPOSITIONAL = "аномальном кристалле"
-	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
 	light_range = 8
@@ -58,6 +54,16 @@
 	var/cooldown_add = 30
 	var/list/affected_targets = list()
 	var/activation_sound = 'sound/effects/break_stone.ogg'
+
+/obj/machinery/anomalous_crystal/get_ru_names()
+	return list(
+		NOMINATIVE = "аномальный кристалл",
+		GENITIVE = "аномального кристалла",
+		DATIVE = "аномальному кристаллу",
+		ACCUSATIVE = "аномальный кристалл",
+		INSTRUMENTAL = "аномальным кристаллом",
+		PREPOSITIONAL = "аномальном кристалле"
+	)
 
 /obj/machinery/anomalous_crystal/Initialize(mapload)
 	. = ..()
@@ -280,14 +286,6 @@
 /mob/living/simple_animal/hostile/lightgeist
 	name = "lightgeist"
 	desc = "Это маленькое парящее создание – абсолютно неизвестная форма жизни... Его присутствие наполняет вас чувством умиротворения."
-	ru_names = list(
-		NOMINATIVE = "дух света",
-		GENITIVE = "духа света",
-		DATIVE = "духу света",
-		ACCUSATIVE = "духа света",
-		INSTRUMENTAL = "духом света",
-		PREPOSITIONAL = "духе света"
-	)
 	icon_state = "lightgeist"
 	icon_living = "lightgeist"
 	icon_dead = "butterfly_dead"
@@ -316,6 +314,16 @@
 	AIStatus = AI_OFF
 	stop_automated_movement = 1
 	var/heal_power = 5
+
+/mob/living/simple_animal/hostile/lightgeist/get_ru_names()
+	return list(
+		NOMINATIVE = "дух света",
+		GENITIVE = "духа света",
+		DATIVE = "духу света",
+		ACCUSATIVE = "духа света",
+		INSTRUMENTAL = "духом света",
+		PREPOSITIONAL = "духе света"
+	)
 
 /mob/living/simple_animal/hostile/lightgeist/Initialize(mapload)
 	. = ..()
@@ -397,7 +405,14 @@
 /obj/structure/closet/stasis
 	name = "quantum entanglement stasis warp field"
 	desc = "Вы едва можете осознать эту вещь... поэтому и не видите её."
-	ru_names = list(
+	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
+	density = TRUE
+	anchored = TRUE
+	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
+	var/mob/living/simple_animal/holder_animal
+
+/obj/structure/closet/stasis/get_ru_names()
+	return list(
 		NOMINATIVE = "квантовое стазисное поле",
 		GENITIVE = "квантового стазисного поля",
 		DATIVE = "квантовому стазисному полю",
@@ -405,11 +420,6 @@
 		INSTRUMENTAL = "квантовым стазисным полем",
 		PREPOSITIONAL = "квантовом стазисном поле"
 	)
-	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
-	density = TRUE
-	anchored = TRUE
-	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
-	var/mob/living/simple_animal/holder_animal
 
 /obj/structure/closet/stasis/process()
 	if(holder_animal)

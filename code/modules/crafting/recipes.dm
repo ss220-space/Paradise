@@ -247,23 +247,13 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/dragonsbreath
-	name = "Dragonsbreath Shell"
-	result = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
-	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
-				/datum/reagent/phosphorus = 5,)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
 /datum/crafting_recipe/frag12
 	name = "FRAG-12 Shell"
 	result = /obj/item/ammo_casing/shotgun/frag12
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
-				/datum/reagent/glycerol = 5,
-				/datum/reagent/acid = 5,
-				/datum/reagent/acid/facid = 5,)
+				/datum/reagent/glycerol = 15,
+				/datum/reagent/acid = 15,
+				/datum/reagent/acid/facid = 15,)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
@@ -1826,3 +1816,37 @@
 				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
+
+/datum/crafting_recipe/advanced_trauma_kit
+	name = "Набор для лечения мех. травм"
+	result = /obj/item/stack/medical/bruise_pack/advanced
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/datum/reagent/medicine/styptic_powder = 120)
+	category = CAT_MISC
+
+
+/datum/crafting_recipe/advanced_burn_kit
+	name = "Набор для лечения терм. повреждений"
+	result = /obj/item/stack/medical/ointment/advanced
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/datum/reagent/medicine/silver_sulfadiazine = 120)
+	category = CAT_MISC
+
+
+/datum/crafting_recipe/suture_kit
+	name = "Набор для зашивания ран"
+	result = /obj/item/stack/medical/suture
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 1,
+				/obj/item/stack/cable_coil = 10)
+	category = CAT_MISC
+
+/datum/crafting_recipe/synth_kit
+	name = "Набор для лечения мех. и терм. повреждений"
+	result = /obj/item/stack/medical/bruise_pack/synthflesh_kit
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/datum/reagent/medicine/synthflesh = 120)
+	category = CAT_MISC

@@ -305,7 +305,7 @@
 
 
 /**
- * Takes any datum `source` and checks it for changeling datum.
+ * Takes any datum `source` and checks it for devil datum.
  */
 /proc/isdevilantag(datum/source)
 	if(!source)

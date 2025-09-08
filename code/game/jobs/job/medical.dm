@@ -103,7 +103,7 @@
 	is_novice = TRUE
 	outfit = /datum/outfit/job/doctor/intern
 
-	salary = 150
+	salary = 130
 	min_start_money = 200
 	max_start_money = 400
 
@@ -256,7 +256,7 @@
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/geneticist
 
-	salary = 150
+	salary = 170
 	min_start_money = 200
 	max_start_money = 400
 
@@ -296,7 +296,7 @@
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/virologist
 
-	salary = 150
+	salary = 170
 	min_start_money = 200
 	max_start_money = 400
 
@@ -333,7 +333,7 @@
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
 
-	salary = 150
+	salary = 130
 	min_start_money = 200
 	max_start_money = 400
 
@@ -378,7 +378,7 @@
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/paramedic
 
-	salary = 150
+	salary = 170
 	min_start_money = 200
 	max_start_money = 400
 

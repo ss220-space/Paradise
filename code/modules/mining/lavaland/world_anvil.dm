@@ -1,14 +1,6 @@
 /obj/structure/world_anvil
 	name = "World Anvil"
 	desc = "Кузня, соединённая лавовыми резервуарами с ядром Лазиса. Последний, кто ей пользовался, создавал нечто могущественное."
-	ru_names = list(
-		NOMINATIVE = "Мировая Кузня",
-		GENITIVE = "Мировой Кузни",
-		DATIVE = "Мировой Кузне",
-		ACCUSATIVE = "Мировую Кузню",
-		INSTRUMENTAL = "Мировой Кузней",
-		PREPOSITIONAL = "Мировой Кузне"
-	)
 	icon = 'icons/obj/lavaland/anvil.dmi'
 	icon_state = "anvil"
 	density = TRUE
@@ -21,6 +13,16 @@
 	var/atom/movable/forging
 	var/forge_charges = 0
 	var/obj/item/gps/internal
+
+/obj/structure/world_anvil/get_ru_names()
+	return list(
+		NOMINATIVE = "Мировая Кузня",
+		GENITIVE = "Мировой Кузни",
+		DATIVE = "Мировой Кузне",
+		ACCUSATIVE = "Мировую Кузню",
+		INSTRUMENTAL = "Мировой Кузней",
+		PREPOSITIONAL = "Мировой Кузне"
+	)
 
 /obj/item/gps/internal/world_anvil
 	icon_state = null

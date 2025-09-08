@@ -470,7 +470,7 @@
 	return GLOB.joblist + list("Prisoner")
 
 /obj/item/proc/GetJobName() //Used in secHUD icon generation
-	var/rankName = "Unknown"
+	var/rankName = UNKNOWN_STATUS_RUS
 	if(is_pda(src))
 		var/obj/item/pda/P = src
 		rankName = P.ownrank

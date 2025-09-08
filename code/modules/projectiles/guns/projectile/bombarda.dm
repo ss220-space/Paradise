@@ -48,6 +48,8 @@
 /obj/item/gun/projectile/bombarda/chamber_round()
 	return
 
+/obj/item/gun/projectile/bombarda/get_ammo(countchambered = FALSE, countempties = FALSE)
+	return ..(countchambered, countempties)
 
 /obj/item/gun/projectile/bombarda/can_shoot(mob/user)
 	if(!chambered)
@@ -74,7 +76,7 @@
 	opened = TRUE
 	chambered = null
 	var/atom/drop_loc = drop_location()
-	while(get_ammo() > 0)
+	while(get_ammo(countempties = TRUE) > 0)
 		var/obj/item/ammo_casing/casing
 		casing = magazine.get_round(FALSE)
 		if(!casing)
@@ -313,7 +315,8 @@
 /datum/crafting_recipe/explosion_shell
 	name = "Improvised explosive shell"
 	result = /obj/item/ammo_casing/a40mm/improvised/exp_shell
-	reqs = list(/obj/item/grenade/iedcasing = 1,
+	reqs = list(/datum/reagent/blackpowder = 20,
+				/obj/item/grenade/iedcasing = 1,
 				/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/assembly/prox_sensor = 1)

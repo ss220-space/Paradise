@@ -25,11 +25,16 @@
 	if(!isliving(source))
 		return ELEMENT_INCOMPATIBLE
 
-	src.reagent_id = reagent_id
-	src.reagent_amount = reagent_amount
-	src.piercing = piercing
-	src.reagent_limit = reagent_limit
-	src.allowed_zones = allowed_zones
+	if(!isnull(reagent_id))
+		src.reagent_id = reagent_id
+	if(!isnull(reagent_amount))
+		src.reagent_amount = reagent_amount
+	if(!isnull(piercing))
+		src.piercing = piercing
+	if(!isnull(reagent_limit))
+		src.reagent_limit = reagent_limit
+	if(!isnull(allowed_zones))
+		src.allowed_zones = allowed_zones
 
 	RegisterSignal(source, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(mob_attack))
 
@@ -75,7 +80,7 @@
 	reagent_amount
 	)
 
-	if(!inject(source, target, target_zone))
+	if(!inject(source, target, target_zone, reagent_id, reagent_amount))
 		return FALSE
 
 	SEND_SIGNAL(source, COMSIG_REAGENT_INJECTED, target, reagent_id, reagent_amount, target_zone)
@@ -94,8 +99,6 @@
 	return FALSE
 
 /datum/element/reagent_attack/bee
-	reagent_id = "beetoxin"
-	reagent_amount = 5
 
 /datum/element/reagent_attack/bee/pre_inject(
 	mob/source,
