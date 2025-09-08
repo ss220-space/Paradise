@@ -580,7 +580,7 @@
 	given_health = 20
 	repair_time = 2 SECONDS
 	traits_added = list(TRAIT_IGNOREDAMAGESLOWDOWN)
-	strength_gain = STRENGTH_LEVEL_STRONG
+	strength_gain = 3
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/reinforced/get_ru_names()
 	return list(
@@ -597,7 +597,7 @@
 	desc = "Каркас экзоскелета укрепленный титановыми вставками. Создан специально для работы в открытом космосе."
 	icon_state = "exoframe_industrial"
 	traits_added = list(TRAIT_SHOCKIMMUNE)
-	strength_gain = STRENGTH_LEVEL_IDEAL
+	strength_gain = 4
 	low_pressure_hazard = 1
 	low_pressure_warning = -300
 	coldmod = -1
@@ -621,7 +621,7 @@
 	given_health = 40
 	repair_time = 4 SECONDS
 	traits_added = list(TRAIT_IGNOREDAMAGESLOWDOWN)
-	strength_gain = STRENGTH_LEVEL_IDEAL
+	strength_gain = 4
 	internal_emp_damage = 0.25
 	external_emp_damage = 0.5
 	var/active = FALSE
