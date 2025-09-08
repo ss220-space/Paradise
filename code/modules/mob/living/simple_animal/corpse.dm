@@ -130,10 +130,6 @@
 	id = /obj/item/card/id/gold/battle
 	l_pocket = /obj/item/lighter/zippo/cap
 	pda = /obj/item/pda/captain
-	backpack_contents = list(
-		/obj/item/storage/box/ids = 1,
-		/obj/item/melee/baton/telescopic = 1
-	)
 	implants = list(/obj/item/implant/mindshield/ert)
 
 /obj/effect/mob_spawn/human/corpse/warden
@@ -154,10 +150,6 @@
 	suit_store = /obj/item/gun/energy/gun/advtaser
 	pda = /obj/item/pda/warden
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
-	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 1,
-		/obj/item/security_voucher = 1
-	)
 
 	implants = list(/obj/item/implant/mindshield)
 	box = /obj/item/storage/box/survival_security/warden

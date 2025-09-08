@@ -24,6 +24,7 @@
 	shoes = /obj/item/clothing/shoes/green
 	l_hand = /obj/item/crowbar/red
 	id = /obj/item/card/id/syndicate/anyone
+	implants = list(/obj/item/implant/mindshield/ert)
 
 /datum/job/civilian/team2
 	title = JOB_TITLE_TEAM2
@@ -51,6 +52,7 @@
 	shoes = /obj/item/clothing/shoes/blue
 	l_hand = /obj/item/crowbar/red
 	id = /obj/item/card/id/syndicate/anyone
+	implants = list(/obj/item/implant/mindshield/ert)
 
 /datum/job/civilian/team3
 	title = JOB_TITLE_TEAM3
@@ -78,3 +80,4 @@
 	shoes = /obj/item/clothing/shoes/red
 	l_hand = /obj/item/crowbar/red
 	id = /obj/item/card/id/syndicate/anyone
+	implants = list(/obj/item/implant/mindshield/ert)
