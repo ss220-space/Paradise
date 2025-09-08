@@ -159,7 +159,7 @@
 		if(DEAD)
 			t1 = "*dead*"
 		else
-			t1 = "Unknown"
+			t1 = UNKNOWN_STATUS_RUS
 	return {"<b>Health:</b> <font color="[patient.health > 50 ? "green" : "red"]">[patient.stat > 1 ? "[t1]" : "[patient.health]% ([t1])"]</font><br />
 				<b>Core Temperature:</b> <font color="[patient.bodytemperature > 50 ? "green" : "red"]">[patient.bodytemperature-T0C]&deg;C ([patient.bodytemperature*1.8-459.67]&deg;F)</font><br />
 				<b>Brute Damage:</b> <font color="[patient.getBruteLoss() < 60 ? "green" : "red"]">[patient.getBruteLoss()]%</font><br />

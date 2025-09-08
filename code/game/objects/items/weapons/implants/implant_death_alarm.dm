@@ -5,7 +5,7 @@
 	activated = BIOCHIP_ACTIVATED_PASSIVE
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/death_alarm
-	var/mobname = "Unknown"
+	var/mobname = UNKNOWN_NAME_RUS
 	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_mothership, /area/shuttle/syndicate_elite))
 
 
