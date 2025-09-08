@@ -50,14 +50,14 @@
 	else
 		text += span_fontsize3("<br><b>Полная победа команды <span style='color:[team_color];'>[name]</span></b>")
 		text += "<br><b>Команда <span style='color:[team_color];'>[name]</span> смогла эвакуироваться, помешав это сделать другим командам.</b>"
-	
+
 	text += span_fontsize4("<b>Успешно эакуировались:</b>")
 	for(var/mob/living/evacuated as anything in evacuations[team_role])
 		text += "<br>[evacuated.name]([evacuated.key])"
 
 	return text
 
-	
+
 /datum/team/battle_team/pre_declare_completion()
 	if(!evacuations[team_role])
 		evacuations[team_role] = list()
@@ -73,7 +73,7 @@
 			continue
 
 		evacuations[team_role] += living_member
-	
+
 /datum/team/battle_team/green
 	name = "Зеленые"
 	team_color = "#09ff00"
