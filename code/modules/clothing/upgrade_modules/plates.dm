@@ -69,7 +69,7 @@
 
 
 /// Try remove armor plate from suit
-/obj/item/armor_plate/proc/try_detach_from_clothing(mob/living/user, obj/item/clothing/suit, obj/item/tool)
+/obj/item/armor_plate/proc/try_detach_from_clothing(mob/living/user, obj/item/clothing/suit)
 	if(!suit.can_remove_armor_plate)
 		balloon_alert(user, "бронеплиту нельзя извлечь!")
 		return FALSE
@@ -77,7 +77,7 @@
 		balloon_alert(user, "сначала снимите с себя!")
 		return FALSE
 	balloon_alert(user, "извлечение бронеплиты...")
-	if(!tool.use_tool(suit, user, 5 SECONDS, volume = tool.tool_volume))
+	if(!do_after(user, 5 SECONDS, suit))
 		return FALSE
 	balloon_alert(user, "бронеплита извлечена")
 	forceMove(user.loc)
@@ -139,7 +139,7 @@
 	if(!consumed_resource)
 		balloon_alert(user, "недостаточно ресурсов!")
 		return ..()
-	if(!do_after(user, 5 SECONDS, src))
+	if(!do_after(user, 10 SECONDS, src))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	if(resource.amount > consumed_resource)
 		resource.use(consumed_resource)
@@ -151,95 +151,77 @@
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 
-// MARK: Balance procs
+// MARK: Balance
+/// Datum for armor penetration table
+/datum/armor_penetration_balance
+	/// delta = armor - penetration
+	var/penetration_delta
+	/// Armor damage multiplicator in range 0-1
+	var/armor_damage
+	/// Mob damage multiplicator in range 0-1
+	var/mob_damage
+
+/datum/armor_penetration_balance/New(penetration_delta, armor_damage, mob_damage)
+	. = ..()
+	src.penetration_delta = penetration_delta
+	src.armor_damage = armor_damage
+	src.mob_damage = mob_damage
+
+/// Ballistic armor penetration table
+GLOBAL_LIST_INIT(ballistic_armor_penetration_table, list(
+	new /datum/armor_penetration_balance(penetration_delta=3, armor_damage=0.25, mob_damage=0.00), //armor > penetration
+	new /datum/armor_penetration_balance(penetration_delta=2, armor_damage=0.50, mob_damage=0.00),
+	new /datum/armor_penetration_balance(penetration_delta=1, armor_damage=0.75, mob_damage=0.05),
+	new /datum/armor_penetration_balance(penetration_delta=0, armor_damage=1.00, mob_damage=0.25), // armor = penetration
+	new /datum/armor_penetration_balance(penetration_delta=-1, armor_damage=1.25, mob_damage=0.50),
+	new /datum/armor_penetration_balance(penetration_delta=-2, armor_damage=1.50, mob_damage=0.66),
+	new /datum/armor_penetration_balance(penetration_delta=-3, armor_damage=2.00, mob_damage=0.80),
+	new /datum/armor_penetration_balance(penetration_delta=-4, armor_damage=2.00, mob_damage=1.00), //armor < penetration
+))
+
+/// Laser armor penetration table
+GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
+	new /datum/armor_penetration_balance(penetration_delta=3, armor_damage=0.25, mob_damage=0.00), //armor > penetration
+	new /datum/armor_penetration_balance(penetration_delta=2, armor_damage=0.50, mob_damage=0.00),
+	new /datum/armor_penetration_balance(penetration_delta=1, armor_damage=0.75, mob_damage=0.05),
+	new /datum/armor_penetration_balance(penetration_delta=0, armor_damage=1.00, mob_damage=0.25), // armor = penetration
+	new /datum/armor_penetration_balance(penetration_delta=-1, armor_damage=1.25, mob_damage=0.50),
+	new /datum/armor_penetration_balance(penetration_delta=-2, armor_damage=1.50, mob_damage=0.75),
+	new /datum/armor_penetration_balance(penetration_delta=-3, armor_damage=2.00, mob_damage=1.00), //armor < penetration
+))
 
 /proc/calculate_armor_plate_penetration(obj/item/armor_plate/plate, penetration_level, damagetype = BULLET)
-	if(damagetype == BULLET)
-		return calculate_armor_plate_penetration_for_bullet(plate, penetration_level)
-	if(damagetype == LASER)
-		return calculate_armor_plate_penetration_for_laser(plate, penetration_level)
-	return 0
-
-/proc/calculate_armor_plate_penetration_for_bullet(obj/item/armor_plate/plate, penetration_level)
-	var/penetration_delta = plate.ballistic_class - penetration_level
-	switch(penetration_delta)
-		if(0)
-			return 75 * plate.get_armor_efficient()
-		if(1)
-			return 95 * plate.get_armor_efficient()
-		if(2 to 100)
-			return 100 * plate.get_armor_efficient()
-		if(-1)
-			return 50 * plate.get_armor_efficient()
-		if(-2)
-			return 34 * plate.get_armor_efficient()
-		if(-3)
-			return 20 * plate.get_armor_efficient()
-	return 0
-
-/proc/calculate_armor_plate_penetration_for_laser(obj/item/armor_plate/plate, penetration_level)
-	var/penetration_delta = plate.laser_class - penetration_level
-	switch(penetration_delta)
-		if(0)
-			return 75 * plate.get_armor_efficient()
-		if(1)
-			return 95 * plate.get_armor_efficient()
-		if(2 to 100)
-			return 100 * plate.get_armor_efficient()
-		if(-1)
-			return 50 * plate.get_armor_efficient()
-		if(-2)
-			return 25 * plate.get_armor_efficient()
-	return 0
-
+	var/datum/armor_penetration_balance/balance = find_armor_plate_penetration_balance(plate, penetration_level, damagetype)
+	if(!balance)
+		return 0
+	return (1 - balance.mob_damage) * plate.get_armor_efficient() * 100
 
 /proc/damage_armor_plate(obj/item/armor_plate/plate, penetration_level, damagetype = BULLET, damage)
-	var/damage_mod = 0 //damage only for bullet and lasers, others damage types are ignore
-	if(damagetype == BULLET)
-		damage_mod = calculate_armor_plate_damage_mod_for_bullet(plate, penetration_level)
-	if(damagetype == LASER)
-		damage_mod = calculate_armor_plate_damage_mod_for_laser(plate, penetration_level)
-	var/calculated_damage = damage_mod * damage
+	var/datum/armor_penetration_balance/balance = find_armor_plate_penetration_balance(plate, penetration_level, damagetype)
+	if(!balance)
+		return
+	var/calculated_damage = round(balance.armor_damage * damage, 0.1)
 	plate.take_armor_damage(calculated_damage)
 
+/proc/find_armor_plate_penetration_balance(obj/item/armor_plate/plate, penetration_level, damagetype = BULLET)
+	var/list/table
+	var/penetration_delta
+	if(damagetype == BULLET)
+		table = GLOB.ballistic_armor_penetration_table
+		penetration_delta = plate.ballistic_class - penetration_level
+	else if(damagetype == LASER)
+		table = GLOB.laser_armor_penetration_table
+		penetration_delta = plate.laser_class - penetration_level
+	else
+		return null
+	var/datum/armor_penetration_balance/select = null
+	for(var/datum/armor_penetration_balance/row as anything in table)
+		if(row.penetration_delta == penetration_delta)
+			return row
+		if(!select || (row.penetration_delta < 0 && row.penetration_delta < select.penetration_delta) || (row.penetration_delta > 0 && row.penetration_delta > select.penetration_delta))
+			select = row
+	return select
 
-/proc/calculate_armor_plate_damage_mod_for_bullet(obj/item/armor_plate/plate, penetration_level)
-	var/penetration_delta = plate.ballistic_class - penetration_level
-	switch(penetration_delta)
-		if(0)
-			return 1
-		if(1)
-			return 0.75
-		if(2)
-			return 0.5
-		if(3 to 100)
-			return 0.25
-		if(-1)
-			return 1.25
-		if(-2)
-			return 1.5
-		if(-100 to -3)
-			return 2
-	return 1
-
-/proc/calculate_armor_plate_damage_mod_for_laser(obj/item/armor_plate/plate, penetration_level)
-	var/penetration_delta = plate.laser_class - penetration_level
-	switch(penetration_delta)
-		if(0)
-			return 1
-		if(1)
-			return 0.75
-		if(2)
-			return 0.5
-		if(3 to 100)
-			return 0.25
-		if(-1)
-			return 1.25
-		if(-2)
-			return 1.5
-		if(-100 to -3)
-			return 2
-	return 0
 
 // MARK: Handmade armor plates
 /obj/item/armor_plate/handmade_steel
@@ -251,8 +233,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 50
-	armor_max_integrity = 50
+	armor_protection_integrity = 75
+	armor_max_integrity = 75
 	body_parts_covered = UPPER_TORSO
 
 /obj/item/armor_plate/handmade_steel/get_ru_names()
@@ -277,8 +259,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 50
-	armor_max_integrity = 50
+	armor_protection_integrity = 75
+	armor_max_integrity = 75
 	body_parts_covered = UPPER_TORSO
 
 /obj/item/armor_plate/handmade_ablative/get_ru_names()
@@ -303,7 +285,7 @@
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_NONE
 	armor_protection_integrity = 75
-	armor_max_integrity = 75
+	armor_max_integrity = 100
 	repair_type = /obj/item/stack/sheet/plastic
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -330,8 +312,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_III
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 100
-	armor_max_integrity = 150
+	armor_protection_integrity = 150
+	armor_max_integrity = 200
 	repair_type = /obj/item/stack/sheet/metal
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -357,8 +339,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 75
-	armor_max_integrity = 100
+	armor_protection_integrity = 150
+	armor_max_integrity = 200
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -384,8 +366,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 75
-	armor_max_integrity = 100
+	armor_protection_integrity = 125
+	armor_max_integrity = 150
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -413,8 +395,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 200
-	armor_max_integrity = 250
+	armor_protection_integrity = 250
+	armor_max_integrity = 300
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -440,8 +422,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
-	armor_protection_integrity = 200
-	armor_max_integrity = 250
+	armor_protection_integrity = 250
+	armor_max_integrity = 300
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -467,8 +449,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 100
-	armor_max_integrity = 150
+	armor_protection_integrity = 175
+	armor_max_integrity = 200
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -496,8 +478,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 300
-	armor_max_integrity = 350
+	armor_protection_integrity = 350
+	armor_max_integrity = 400
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
@@ -523,8 +505,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_HEAVY
-	armor_protection_integrity = 300
-	armor_max_integrity = 350
+	armor_protection_integrity = 350
+	armor_max_integrity = 4000
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
@@ -550,8 +532,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
-	armor_protection_integrity = 200
-	armor_max_integrity = 250
+	armor_protection_integrity = 250
+	armor_max_integrity = 300
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
@@ -577,8 +559,8 @@
 	plate_slot = ARMOR_PLATE_SLOT_MAX
 	ballistic_class = BALLISTIC_ARMOR_CLASS_MAX
 	laser_class = LASER_ARMOR_CLASS_MAX
-	armor_protection_integrity = 250
-	armor_max_integrity = 500
+	armor_protection_integrity = 300
+	armor_max_integrity = 600
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 /obj/item/armor_plate/elite/get_ru_names()

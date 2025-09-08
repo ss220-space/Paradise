@@ -226,11 +226,10 @@
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
-/obj/item/clothing/screwdriver_act(mob/living/user, obj/item/tool)
-	if(!armor_plate)
-		return ..()
-	return armor_plate.try_detach_from_clothing(user, src, tool)
-
+/obj/item/clothing/click_alt(mob/user)
+	if(armor_plate && armor_plate.try_detach_from_clothing(user, src))
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
 // MARK: Ears
 /obj/item/clothing/ears
@@ -1272,7 +1271,7 @@ BLIND     // can't see anything
 /obj/item/clothing/under/click_alt(mob/user)
 	if(handle_accessories_removal(user))
 		return CLICK_ACTION_SUCCESS
-	return CLICK_ACTION_BLOCKING
+	return ..()
 
 
 /obj/item/clothing/under/proc/handle_accessories_removal(mob/user)
