@@ -2,14 +2,6 @@
 	name = "autoimplanter"
 	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. \
 			It has a slot to insert implants and a screwdriver slot for removing accidentally added implants."
-	ru_names = list(
-		NOMINATIVE = "автоимплантер",
-		GENITIVE = "автоимплантера",
-		DATIVE = "автоимплантеру",
-		ACCUSATIVE = "автоимплантер",
-		INSTRUMENTAL = "автоимплантером",
-		PREPOSITIONAL = "автоимплантере"
-	)
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-autoimplanter"
@@ -18,6 +10,15 @@
 	usesound = 'sound/weapons/circsawhit.ogg'
 	var/obj/item/organ/internal/cyberimp/storedorgan
 
+/obj/item/autoimplanter/get_ru_names()
+	return list(
+		NOMINATIVE = "автоимплантер",
+		GENITIVE = "автоимплантера",
+		DATIVE = "автоимплантеру",
+		ACCUSATIVE = "автоимплантер",
+		INSTRUMENTAL = "автоимплантером",
+		PREPOSITIONAL = "автоимплантере"
+	)
 
 /obj/item/autoimplanter/old
 	icon_state = "autoimplanter"
