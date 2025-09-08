@@ -1,11 +1,11 @@
 // Radial menu stuff
-#define RADIAL_MENU_BREW 				"Варка кофе"
-#define RADIAL_MENU_EJECT_POT 			"Извлечь кофейник"
-#define RADIAL_MENU_EJECT_CARTRIDGE 	"Извлечь картридж"
-#define RADIAL_MENU_TAKE_CUP 			"Взять стакан"
-#define RADIAL_MENU_TAKE_SUGAR 			"Взять сахар"
-#define RADIAL_MENU_TAKE_SWEETENER 		"Взять аспартам"
-#define RADIAL_MENU_TAKE_CREAMER 		"Взять сливки"
+#define RADIAL_MENU_BREW "Варка кофе"
+#define RADIAL_MENU_EJECT_POT "Извлечь кофейник"
+#define RADIAL_MENU_EJECT_CARTRIDGE "Извлечь картридж"
+#define RADIAL_MENU_TAKE_CUP "Взять стакан"
+#define RADIAL_MENU_TAKE_SUGAR "Взять сахар"
+#define RADIAL_MENU_TAKE_SWEETENER "Взять аспартам"
+#define RADIAL_MENU_TAKE_CREAMER "Взять сливки"
 
 /obj/machinery/coffeemaker
 	name = "coffeemaker"
