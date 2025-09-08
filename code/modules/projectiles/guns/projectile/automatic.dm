@@ -410,7 +410,6 @@ TODO Use this name and desc for localisation*/
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_sound = 'sound/weapons/gunshots/bulldog.ogg'
-	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 0
@@ -419,7 +418,7 @@ TODO Use this name and desc for localisation*/
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
 		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 9),
 		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -6)
 	)
@@ -479,7 +478,6 @@ TODO Use this name and desc for localisation*/
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
 	fire_sound = 'sound/weapons/gunshots/minotaur.ogg'
-	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_in.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_out.ogg'
 	can_suppress = 0
@@ -488,7 +486,7 @@ TODO Use this name and desc for localisation*/
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 0),
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
 		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 4),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -5)
 	)
@@ -514,13 +512,12 @@ TODO Use this name and desc for localisation*/
 	mag_type = /obj/item/ammo_box/magazine/cats12g
 	fire_delay = 0
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
-	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	burst_size = 2
 	can_suppress = 0
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
-		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
 		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6)
 	)
 	recoil = GUN_RECOIL_HIGH
