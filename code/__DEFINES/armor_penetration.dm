@@ -12,13 +12,13 @@
 // MARK: Laser protection
 /// Not exists protection
 #define LASER_ARMOR_CLASS_NONE 0
-/// Protect from: dominator, specter
+/// Protects from: dominator, specter
 #define LASER_ARMOR_CLASS_LIGHT 1
-/// Protect from: energy gun, aeg, lr-30 and other
+/// Protects from: energy gun, aeg, lr-30 and other
 #define LASER_ARMOR_CLASS_MEDIUM 2
-/// Protect from: accelerator
+/// Protects from: accelerator
 #define LASER_ARMOR_CLASS_HEAVY 3
-/// Not exists protect from: annihilator
+/// Not exists. Protects from: annihilator
 #define LASER_ARMOR_CLASS_MAX 4
 
 GLOBAL_LIST_INIT(laser_armor_class_name, list(
@@ -32,19 +32,19 @@ GLOBAL_LIST_INIT(laser_armor_class_name, list(
 // MARK: Ballistic protection
 /// Not exists protection
 #define BALLISTIC_ARMOR_CLASS_NONE 0
-/// Protect from light pistols
+/// Protects from light pistols
 #define BALLISTIC_ARMOR_CLASS_I 1
-/// Protect from pistols
+/// Protects from pistols
 #define BALLISTIC_ARMOR_CLASS_IIA 2
-/// Protect from heavy pistols
+/// Protects from heavy pistols
 #define BALLISTIC_ARMOR_CLASS_II 3
-/// Protect from light rifles
+/// Protects from light rifles
 #define BALLISTIC_ARMOR_CLASS_IIIA 4
-/// Protect from rifles
+/// Protects from rifles
 #define BALLISTIC_ARMOR_CLASS_III 5
-/// Protect from heavy rifles
+/// Protects from heavy rifles
 #define BALLISTIC_ARMOR_CLASS_IV 6
-/// Not exists protect from high calibers. DO NOT USE FOR ARMOR (admin only)
+/// Not exists. Protects from high calibers. DO NOT USE FOR IN-GAME ARMOR (for admin variants only)
 #define BALLISTIC_ARMOR_CLASS_MAX 7
 
 GLOBAL_LIST_INIT(ballistic_armor_class_name, list(
