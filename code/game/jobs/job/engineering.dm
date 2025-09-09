@@ -70,9 +70,9 @@
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/engineer
 
-	salary = 160
+	salary = 150
 	min_start_money = 200
-	max_start_money = 500
+	max_start_money = 400
 
 /datum/outfit/job/engineer
 	name = "Station Engineer"
@@ -109,9 +109,9 @@
 	is_novice = TRUE
 	outfit = /datum/outfit/job/engineer/trainee
 
-	salary = 130
-	min_start_money = 150
-	max_start_money = 300
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/engineer/trainee
 	name = "Trainee Engineer"
@@ -160,9 +160,9 @@
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/atmos
 
-	salary = 170
+	salary = 150
 	min_start_money = 200
-	max_start_money = 500
+	max_start_money = 400
 
 /datum/outfit/job/atmos
 	name = "Life Support Specialist"

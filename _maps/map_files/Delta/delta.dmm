@@ -28189,7 +28189,9 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "daC" = (
-/obj/machinery/r_n_d/protolathe,
+/obj/machinery/r_n_d/protolathe{
+	pixel_x = 1
+	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -31960,7 +31962,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "dqz" = (
-/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -35749,7 +35750,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/r_n_d/protolathe,
+/obj/machinery/r_n_d/protolathe{
+	pixel_x = 1
+	},
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -47825,10 +47828,6 @@
 "fSD" = (
 /turf/simulated/floor/grass,
 /area/hydroponics)
-"fSJ" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_doorm_room,
-/turf/simulated/wall,
-/area/maintenance/fsmaint)
 "fSK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -62569,7 +62568,7 @@
 	},
 /area/turret_protected/ai)
 "jru" = (
-/obj/machinery/computer/cloning,
+/obj/structure/computerframe,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -72142,7 +72141,6 @@
 "lNh" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/toy/plushie/wet_owl,
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "lNp" = (
@@ -77393,7 +77391,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "mWR" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -77695,8 +77693,7 @@
 /area/maintenance/asmaint2)
 "nan" = (
 /obj/machinery/r_n_d/circuit_imprinter{
-	pixel_y = 3;
-	pixel_x = -1
+	pixel_y = 3
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/northeast,
@@ -91601,15 +91598,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/starboard/east)
-"qeP" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 8
-	},
-/turf/simulated/wall,
-/area/crew_quarters/locker)
 "qfb" = (
 /obj/machinery/iv_drip,
 /obj/effect/decal/warning_stripes/blue/hollow,
@@ -96864,7 +96852,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/clonepod,
+/obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -108784,15 +108772,6 @@
 	icon_state = "whitehall"
 	},
 /area/maintenance/tourist)
-"tWt" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 6
-	},
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/crew_quarters/cabin3)
 "tWK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -124197,15 +124176,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)
-"xye" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
-	},
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/turf/simulated/wall,
-/area/crew_quarters/cabin3)
 "xyi" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -175297,12 +175267,12 @@ cnP
 icS
 vAa
 icS
-qeP
+cnP
 onT
 onT
 jfE
 onT
-fSJ
+onT
 gvQ
 uNE
 oYp
@@ -176325,12 +176295,12 @@ cnP
 vHh
 mSR
 igC
-xye
 pts
 pts
 pts
 pts
-tWt
+pts
+pts
 xWh
 sGS
 xWh

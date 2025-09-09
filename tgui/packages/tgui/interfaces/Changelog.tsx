@@ -273,8 +273,8 @@ export class Changelog extends Component<Props, State> {
                   <Box ml={3}>
                     <Table>
                       {changes.map((c) => {
-                        const changeTypes = Object.keys(c)[0];
-                        const change = c[changeTypes];
+                        const changeType = Object.keys(c)[0];
+                        const change = c[changeType];
                         const prMatch = change.match(prNumberMatcher);
                         const icon = (
                           <Table.Cell
@@ -283,27 +283,24 @@ export class Changelog extends Component<Props, State> {
                               'Changelog__Cell--Icon',
                             ])}
                           >
-                            {changeTypes.split('/').map((changeType) => (
-                              <Icon
-                                key={changeType}
-                                color={
-                                  icons[changeType]
-                                    ? icons[changeType].color
-                                    : icons['unknown'].color
-                                }
-                                name={
-                                  icons[changeType]
-                                    ? icons[changeType].icon
-                                    : icons['unknown'].icon
-                                }
-                              />
-                            ))}
+                            <Icon
+                              color={
+                                icons[changeType]
+                                  ? icons[changeType].color
+                                  : icons['unknown'].color
+                              }
+                              name={
+                                icons[changeType]
+                                  ? icons[changeType].icon
+                                  : icons['unknown'].icon
+                              }
+                            />
                           </Table.Cell>
                         );
 
                         return (
                           (prMatch !== null && (
-                            <Table.Row key={changeTypes + change}>
+                            <Table.Row key={changeType + change}>
                               {icon}
                               <Table.Cell className="Changelog__Cell">
                                 <a
@@ -319,7 +316,7 @@ export class Changelog extends Component<Props, State> {
                               </Table.Cell>
                             </Table.Row>
                           )) || (
-                            <Table.Row key={changeTypes + change}>
+                            <Table.Row key={changeType + change}>
                               {icon}
                               <Table.Cell className="Changelog__Cell">
                                 {change}
@@ -338,7 +335,7 @@ export class Changelog extends Component<Props, State> {
 
     return (
       <Window title="Changelog" width={675} height={650}>
-        <Window.Content scrollable className="Changelog">
+        <Window.Content scrollable>
           {header}
           {changes}
           {typeof data === 'string' && <p>{data}</p>}

@@ -193,7 +193,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
 	icon_state = "sheet-diamond"
-	protolathe_name = "diamond"
 	item_state = "sheet-diamond"
 	singular_name = "diamond"
 	origin_tech = "materials=6"
@@ -212,7 +211,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/uranium
 	name = "uranium"
 	icon_state = "sheet-uranium"
-	protolathe_name = "uranium"
 	item_state = "sheet-uranium"
 	singular_name = "uranium sheet"
 	origin_tech = "materials=5"
@@ -231,7 +229,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
-	protolathe_name = "solid_plasma"
 	item_state = "sheet-plasma"
 	singular_name = "plasma sheet"
 	origin_tech = "plasmatech=2;materials=2"
@@ -275,7 +272,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/gold
 	name = "gold"
 	icon_state = "sheet-gold"
-	protolathe_name = "gold"
 	item_state = "sheet-gold"
 	singular_name = "gold bar"
 	origin_tech = "materials=4"
@@ -294,7 +290,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
 	icon_state = "sheet-silver"
-	protolathe_name = "silver"
 	item_state = "sheet-silver"
 	singular_name = "silver bar"
 	origin_tech = "materials=4"
@@ -313,7 +308,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/bananium
 	name = "bananium"
 	icon_state = "sheet-clown"
-	protolathe_name = "bananium"
 	singular_name = "bananium sheet"
 	origin_tech = "materials=4"
 	sheettype = "bananium"
@@ -468,7 +462,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	name = "adamantine"
 	desc = "A strange mineral used in the construction of sentient golems."
 	icon_state = "sheet-adamantine"
-	protolathe_name = "adamantine"
 	item_state = "sheet-adamantine"
 	singular_name = "adamantine sheet"
 	origin_tech = "materials=5"

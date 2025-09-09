@@ -9,8 +9,7 @@ Note: Must be placed west/left of and R&D console to function.
 */
 /obj/machinery/r_n_d/protolathe
 	name = "Protolathe"
-	desc = "Крупное устройство, предназначенное для печати сложных предметов и устройств из разнообразных ресурсов."
-	gender = MALE
+	desc = "Converts raw materials into useful objects."
 	icon_state = "protolathe"
 	base_icon_state = "protolathe"
 	container_type = OPENCONTAINER
@@ -29,16 +28,6 @@ Note: Must be placed west/left of and R&D console to function.
 								)
 
 	reagents = new()
-
-/obj/machinery/r_n_d/protolathe/get_ru_names()
-	return list(
-		NOMINATIVE = "протолат",
-		GENITIVE = "протолата",
-		DATIVE = "протолату",
-		ACCUSATIVE = "протолат",
-		INSTRUMENTAL = "протолатом",
-		PREPOSITIONAL = "протолате"
-	)
 
 
 /obj/machinery/r_n_d/protolathe/Initialize(mapload)
@@ -122,7 +111,7 @@ Note: Must be placed west/left of and R&D console to function.
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_t", base_icon_state, I)
 	if(. && linked_console)
 		linked_console.linked_lathe = null
 		linked_console = null
