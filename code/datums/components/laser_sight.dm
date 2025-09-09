@@ -15,12 +15,17 @@
 		return COMPONENT_INCOMPATIBLE
 	action = new /datum/action/toggle_laser_sight(src)
 	action.sight = src
+
+/datum/component/laser_sight/RegisterWithParent()
+	. = ..()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 
+/datum/component/laser_sight/UnregisterFromParent()
+	. = ..()
+	UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)
 
 /datum/component/laser_sight/Destroy()
-	UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)
 	QDEL_NULL(action)
 	sight_target = null
 	return ..()
@@ -58,6 +63,8 @@
 
 	if(old_enable == enable)
 		return // no changes
+	else if(parent)
+		SEND_SIGNAL(parent, COMSIG_GUN_LASER_SIGHT_TOGGLE, user, enable)
 
 	if(enable)
 		on_enable_sight(user)
@@ -90,6 +97,10 @@
 /datum/component/laser_sight/proc/on_update_sight(mob/user)
 	return
 
+/datum/component/laser_sight/ClearFromParent()
+	if(enable)
+		process_aim(usr, FALSE)
+	. = ..()
 
 // MARK: Point
 

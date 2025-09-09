@@ -553,20 +553,31 @@
 
 
 /obj/item/gun_module/under/laser/on_attach(obj/item/gun/target_gun, mob/user)
-	target_gun.accuracy.add_accuracy(bonus_accuracy)
-	if(!target_gun.accuracy.max_spread)
-		return
-	spread_decrease = initial(target_gun.accuracy.max_spread) * 0.25
-	target_gun.accuracy.max_spread = target_gun.accuracy.max_spread - spread_decrease
-	target_gun.AddComponent(component_type)
-
+	RegisterSignal(target_gun, COMSIG_GUN_LASER_SIGHT_TOGGLE, PROC_REF(laser_sight_toggle))
+	gun.AddComponent(component_type)
 
 /obj/item/gun_module/under/laser/on_detach(obj/item/gun/target_gun, mob/user)
-	target_gun.accuracy.add_accuracy(-bonus_accuracy)
-	target_gun.accuracy.max_spread += spread_decrease
-	spread_decrease = 0
 	var/datum/component/comp = target_gun.GetComponent(component_type)
-	comp.ClearFromParent()
+	QDEL_NULL(comp)
+	UnregisterSignal(target_gun, COMSIG_GUN_LASER_SIGHT_TOGGLE)
+
+/obj/item/gun_module/under/laser/proc/laser_sight_toggle(datum/source, mob/user, enable)
+	if(enable)
+		add_bonus_accuracy()
+		return
+	remove_bonus_accuracy()
+
+/obj/item/gun_module/under/laser/proc/add_bonus_accuracy()
+	gun.accuracy.add_accuracy(bonus_accuracy)
+	if(!gun.accuracy.max_spread)
+		return
+	spread_decrease = initial(gun.accuracy.max_spread) * 0.25
+	gun.accuracy.max_spread = gun.accuracy.max_spread - spread_decrease
+
+/obj/item/gun_module/under/laser/proc/remove_bonus_accuracy()
+	gun.accuracy.add_accuracy(-bonus_accuracy)
+	gun.accuracy.max_spread += spread_decrease
+	spread_decrease = 0
 
 
 /obj/item/gun_module/under/laser/ray
