@@ -30509,7 +30509,7 @@
 	},
 /area/medical/research)
 "bWm" = (
-/obj/item/roller,
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -88431,6 +88431,13 @@
 	icon_state = "grimy"
 	},
 /area/civilian/vacantoffice)
+"yjJ" = (
+/obj/item/roller,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/sleeper)
 "yjM" = (
 /obj/structure/punching_bag,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -122841,7 +122848,7 @@ rpg
 bZG
 cuv
 bWo
-bWs
+yjJ
 ckS
 caz
 cgJ

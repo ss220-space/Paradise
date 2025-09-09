@@ -27,8 +27,10 @@
 
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(!COOLDOWN_FINISHED(src, recently_moved_cd) || !istype(user) || opened || user.incapacitated() || !isturf(loc) || no_gravity() || direction == UP || direction == DOWN)
+	if(!COOLDOWN_FINISHED(src, recently_moved_cd) || !istype(user) || opened || user.incapacitated() || !isturf(loc) || no_gravity() || !relaymove_multiz_check(direction))
 		return
+
+	var/turf/cur_pos = get_turf(src)
 	var/turf/next_step = get_step(src, direction)
 	if(!next_step)
 		return
@@ -45,8 +47,19 @@
 	if(. && ISDIAGONALDIR(direction))
 		delay *= sqrt(2)
 
+	if(.)
+		on_move(cur_pos, next_step, direction)
+
 	set_glide_size(DELAY_TO_GLIDE_SIZE(delay))
 	COOLDOWN_START(src, recently_moved_cd, delay)
+
+
+/obj/structure/closet/cardboard/proc/relaymove_multiz_check(direction)
+	return direction != UP && direction != DOWN
+
+
+/obj/structure/closet/cardboard/proc/on_move(turf/old_loc, turf/new_loc, direction)
+	return
 
 
 /obj/structure/closet/cardboard/open()
@@ -201,3 +214,49 @@
 
 #undef SNAKE_ALERT_COOLDOWN
 
+
+
+/obj/structure/closet/cardboard/agent/nullspace
+	name = "блюспейс коробка"
+	desc = "Коробка пропитанная силой блюспейса, созданная лучшими учёными с планеты клоунов."
+	gender = FEMALE
+	default_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+
+
+/obj/structure/closet/cardboard/agent/nullspace/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс коробка",
+		GENITIVE = "блюспейс коробки",
+		DATIVE = "блюспейс коробке",
+		ACCUSATIVE = "блюспейс коробку",
+		INSTRUMENTAL = "блюспейс коробкой",
+		PREPOSITIONAL = "блюспейс коробке",
+	)
+
+/obj/structure/closet/cardboard/agent/nullspace/go_invisible()
+	return
+
+
+/obj/structure/closet/cardboard/agent/nullspace/proc/change_colour()
+	color = RANDOM_COLOUR
+
+
+/obj/structure/closet/cardboard/agent/nullspace/relaymove_multiz_check(direction)
+	return TRUE
+
+
+/obj/structure/closet/cardboard/agent/nullspace/on_move(turf/old_loc, turf/new_loc, direction)
+	if(direction != UP && direction != DOWN)
+		return
+
+	playsound(old_loc, 'sound/magic/blink.ogg', 50)
+	old_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "улета[pluralize_ru(gender, "ет", "ют")] ввысь, сквозь потолок" : "провалива[pluralize_ru(gender, "ет", "ют")]ся сквозь пол"]!"))
+	do_sparks(rand(2, 5), TRUE, old_loc)
+	playsound(new_loc, 'sound/magic/blink.ogg', 50)
+	new_loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] [direction == UP ? "появля[pluralize_ru(gender, "ет", "ют")]ся из под пола" : "пада[pluralize_ru(gender, "ет", "ют")] сквозь потолок"]!"))
+	do_sparks(rand(2, 5), TRUE, new_loc)
+	change_colour()
+
+
+/obj/structure/closet/cardboard/agent/nullspace/create_fake_box()
+	return

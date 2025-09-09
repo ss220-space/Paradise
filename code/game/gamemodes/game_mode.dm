@@ -814,3 +814,6 @@
 		intercepttext += "<br>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической угрозы директива 7-10 может быть дополнена директивой 7-12.<br>"
 		intercepttext += "Конец сообщения."
 	print_command_report(intercepttext, interceptname, FALSE)
+
+/datum/game_mode/proc/late_join(mob/new_player/player)
+	return FALSE

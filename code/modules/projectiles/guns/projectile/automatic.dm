@@ -45,11 +45,12 @@
 		if(!istype(new_magazine, mag_type))
 			balloon_alert(user, "не совместимо!")
 			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(new_magazine, src))
+		if(!user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
 			return ..()
 		if(magazine)
 			magazine.forceMove(get_turf(src))
 			magazine.update_appearance()
+		playsound(loc, magin_sound, 50, TRUE)
 		balloon_alert(user, "заряжено")
 		alarmed = FALSE	// Reset the alarm once a magazine is loaded
 		magazine = new_magazine
