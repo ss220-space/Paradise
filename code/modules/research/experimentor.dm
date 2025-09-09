@@ -801,6 +801,8 @@
 	name = "strange teleporter"
 	desc = "Странный объект телепортирующий вас при активации."
 	icon_state = "prox-multitool2"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "materials=4;bluespace=4"
 	cooldown = 10 SECONDS
@@ -882,5 +884,5 @@
 
 /obj/item/relic/New()
 	..()
-	icon_state = pick("shock_kit","armor-igniter-analyzer","infra-igniter0","infra-igniter1","radio-multitool","prox-radio1","radio-radio","timer-multitool0","radio-igniter-tank")
+	icon_state = pick("shock_kit","armor-igniter-analyzer","infra-igniter0","infra-igniter1","radio-multitool","prox-radio1","prox-multitool2","prox-multitool1","radio-radio","timer-multitool0","radio-igniter-tank")
 	realName = "[pick("broken","twisted","spun","improved","silly","regular","badly made")] [pick("device","object","toy","suspicious tech","gear")]"
