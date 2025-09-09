@@ -261,12 +261,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/door_control{
-	id = "Cargo Office Windows";
-	name = "Cargo Office Shutters Control";
-	pixel_x = 7;
-	pixel_y = 24;
-	req_access = list(50)
+/obj/machinery/firealarm{
+	name = "north fire alarm";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20365,6 +20362,11 @@
 	c_tag = "Mining Dock";
 	dir = 8
 	},
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east fire alarm";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -22003,7 +22005,7 @@
 /area/library)
 "bvm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -25814,16 +25816,16 @@
 	},
 /area/medical/reception)
 "bJE" = (
-/obj/machinery/computer/supplycomp{
-	dir = 4
-	},
 /obj/machinery/alarm{
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/sign/cargo{
-	pixel_x = 32;
-	pixel_y = 32
+/obj/machinery/door_control{
+	id = "Cargo Office Windows";
+	name = "Cargo Office Shutters Control";
+	pixel_x = 26;
+	pixel_y = 24;
+	req_access = list(50)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -46418,7 +46420,8 @@
 	dir = 1;
 	name = "north bump Engineering";
 	pixel_y = 24;
-	shock_proof = 1
+	shock_proof = 1;
+	cell_type = 25000
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -51374,10 +51377,16 @@
 	},
 /obj/item/pen,
 /obj/effect/spawner/lootdrop/officetoys,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "dne" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
 /turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
 "dnf" = (
@@ -51778,9 +51787,6 @@
 /turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
 "doe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -51820,6 +51826,9 @@
 /area/hallway/secondary/garden)
 "dok" = (
 /obj/effect/landmark/ninja_teleport,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -56414,6 +56423,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
+"fst" = (
+/obj/machinery/computer/supplycomp{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/quartermaster/office)
 "fsK" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -56949,10 +56967,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "fHH" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
+/obj/structure/chair/comfy/black{
+	dir = 1
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "fHS" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
@@ -66715,6 +66734,16 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/research/restroom)
+"ltc" = (
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south fire alarm";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/quartermaster/office)
 "ltR" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -68566,6 +68595,10 @@
 /obj/item/rcs,
 /obj/machinery/status_display{
 	pixel_y = 32
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -79994,6 +80027,10 @@
 /area/maintenance/apmaint)
 "sDO" = (
 /obj/machinery/recharge_station,
+/obj/structure/sign/cargo{
+	pixel_x = 32;
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -80299,11 +80336,7 @@
 	color = "yellow"
 	},
 /obj/structure/safe/floor,
-/obj/item/whetstone{
-	desc = "Каменный брусок для тупления инструментов.";
-	increment = -20;
-	claws_increment = 20
-	},
+/obj/item/whetstone/anti,
 /turf/simulated/floor/engine,
 /area/maintenance/apmaint)
 "sKE" = (
@@ -82654,6 +82687,15 @@
 	icon_state = "dark"
 	},
 /area/security/main)
+"tWk" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "Cargo Office Windows";
+	name = "Cargo Office Shutters"
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/quartermaster/office)
 "tWU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -86360,6 +86402,19 @@
 	icon_state = "white"
 	},
 /area/medical/medbay2)
+"vWm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/firealarm{
+	name = "north fire alarm";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "vWo" = (
 /turf/simulated/wall,
 /area/toxins/explab)
@@ -103272,7 +103327,7 @@ bqr
 djy
 aME
 dnb
-rbW
+dne
 btL
 bqr
 bzr
@@ -103529,7 +103584,7 @@ bqr
 buf
 buS
 buX
-rbW
+doe
 bBs
 bqr
 xrY
@@ -103785,7 +103840,7 @@ bre
 bgG
 djz
 djz
-dne
+djz
 doe
 bBr
 bqr
@@ -104042,7 +104097,7 @@ brk
 bwx
 gUQ
 yjn
-fHH
+gUQ
 bvm
 bBG
 bqr
@@ -104300,7 +104355,7 @@ bqr
 djC
 buX
 kDZ
-gUQ
+bvm
 drV
 dwd
 fDl
@@ -104556,7 +104611,7 @@ aSf
 bqr
 djD
 btF
-kDZ
+fHH
 dok
 dsa
 bqr
@@ -113042,14 +113097,14 @@ xUA
 uBc
 urI
 vRd
-bJi
+ltc
 wfX
 acJ
 nXh
 lxn
 nqX
 wfX
-mvf
+vWm
 nfX
 bUm
 bzy
@@ -113814,9 +113869,9 @@ sDO
 alI
 bBn
 uGy
-qET
+tWk
 bJE
-bBn
+fst
 qRA
 bKZ
 dyj

@@ -149,4 +149,5 @@
 	increment = -20
 	prefix = "Крайне тупое"
 	requires_sharpness = FALSE
-	claws_increment = 20
+	claws_increment = -20
+	uses = 10
