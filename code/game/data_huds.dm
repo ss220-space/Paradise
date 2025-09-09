@@ -213,13 +213,15 @@
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
+		var/can_reenter = ghost_can_reenter() && !suiciding && mind
 		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
-		if(!ghost_can_reenter() || suiciding) // DNR or AntagHUD or Suicide
-			revivable = FALSE
-		if(revivable)
+		if(revivable && can_reenter)
 			holder.icon_state = "hudflatline"
 		else
-			holder.icon_state = ghost_can_reenter() ? "huddead" : "huddeaddnr"
+			if(can_reenter)
+				holder.icon_state = "huddead"
+			else
+				holder.icon_state = "huddeaddnr"
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
 	else if(HAS_TRAIT(src, TRAIT_LEGION_TUMOUR))
