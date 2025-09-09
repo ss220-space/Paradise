@@ -280,7 +280,7 @@ SUBSYSTEM_DEF(blackbox)
 		return
 
 	var/area/placeofdeath = get_area(L.loc)
-	var/podname = "Unknown"
+	var/podname = UNKNOWN_STATUS_RUS
 	if(placeofdeath)
 		podname = placeofdeath.name
 

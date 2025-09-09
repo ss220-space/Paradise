@@ -230,7 +230,7 @@
 					if(!temp) continue
 					joblist += temp.title
 			if("medicaldept")
-				for(var/jobPos in GLOB.medical_positions)
+				for(var/jobPos in GLOB.medical_positions + GLOB.additional_medical_positions) 
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
@@ -905,7 +905,7 @@
 					if(!temp) continue
 					joblist += temp.title
 			if("medicaldept")
-				for(var/jobPos in GLOB.medical_positions)
+				for(var/jobPos in GLOB.medical_positions + GLOB.additional_medical_positions)
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
