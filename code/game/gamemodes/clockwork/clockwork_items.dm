@@ -693,8 +693,8 @@
 	can_charge = FALSE
 	pb_knockback = 2
 	cell_type = /obj/item/stock_parts/cell/clock/shotgun
-	var/charge_rate = 4
-	var/charge_speed = 5 SECONDS
+	var/charge_rate = 2
+	var/charge_speed = 7 SECONDS
 	var/haveKnockback = TRUE
 	var/defaultpb_knockback = 2
 	var/def_bullet = /obj/item/ammo_casing/energy/rat/slug
