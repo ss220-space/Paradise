@@ -204,7 +204,7 @@
 /obj/item/ammo_box/magazine/internal/bombarda
 	name = "bombarda internal magazine"
 	ammo_type = /obj/item/ammo_casing/a40mm/improvised
-	caliber = "40mm"
+	caliber = CALIBER_40MM
 	max_ammo = 1
 	insert_sound = 'sound/weapons/bombarda/load.ogg'
 	remove_sound = 'sound/weapons/bombarda/open.ogg'
@@ -374,7 +374,7 @@
 /obj/item/ammo_box/magazine/internal/bombarda/secgl
 	name = "security grenade launcher internal magazine"
 	ammo_type = /obj/item/ammo_casing/a40mm
-	caliber = "40mm"
+	caliber = CALIBER_40MM
 	max_ammo = 1
 	insert_sound = 'sound/weapons/bombarda/load.ogg'
 	remove_sound = 'sound/weapons/bombarda/open.ogg'
@@ -398,7 +398,7 @@
 	icon = 'icons/obj/weapons/bombarda.dmi'
 	icon_state = "secgl_solid"
 	item_state = "secgl_solid"
-	caliber = "40mm"
+	caliber = CALIBER_40MM
 	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 
