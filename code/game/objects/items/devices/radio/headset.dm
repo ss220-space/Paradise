@@ -333,6 +333,104 @@
 	. = ..()
 	set_frequency(PRS_FREQ)
 
+/obj/item/radio/headset/green
+	name = "green radio headset"
+	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
+			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
+			Используется зелеными."
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+	ks2type = /obj/item/encryptionkey/green
+	freqlock = TRUE
+
+/obj/item/radio/headset/prisoner/get_ru_names()
+	return list(
+		NOMINATIVE = "радиочастотная гарнитура зеленых",
+		GENITIVE = "радиочастотную гарнитуру зеленых",
+		DATIVE = "радиочастотной гарнитуры зеленых",
+		ACCUSATIVE = "радиочастотную гарнитуру зеленых",
+		INSTRUMENTAL = "радиочастотной гарнитурой зеленых",
+		PREPOSITIONAL = "радиочастотной гарнитуре зеленых"
+	)
+
+/obj/item/radio/headset/prisoner/New()
+	. = ..()
+	set_frequency(T1_FREQ)
+
+
+/obj/item/radio/headset/green
+	name = "green radio headset"
+	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
+			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
+			Используется зелеными."
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+	ks2type = /obj/item/encryptionkey/green
+	freqlock = TRUE
+
+/obj/item/radio/headset/green/get_ru_names()
+	return list(
+		NOMINATIVE = "радиочастотная гарнитура зеленых",
+		GENITIVE = "радиочастотную гарнитуру зеленых",
+		DATIVE = "радиочастотной гарнитуры зеленых",
+		ACCUSATIVE = "радиочастотную гарнитуру зеленых",
+		INSTRUMENTAL = "радиочастотной гарнитурой зеленых",
+		PREPOSITIONAL = "радиочастотной гарнитуре зеленых"
+	)
+
+/obj/item/radio/headset/green/New()
+	. = ..()
+	set_frequency(T1_FREQ)
+
+
+/obj/item/radio/headset/blue
+	name = "blue radio headset"
+	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
+			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
+			Используется синими."
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+	ks2type = /obj/item/encryptionkey/blue
+	freqlock = TRUE
+
+/obj/item/radio/headset/blue/get_ru_names()
+	return list(
+		NOMINATIVE = "радиочастотная гарнитура синих",
+		GENITIVE = "радиочастотную гарнитуру синих",
+		DATIVE = "радиочастотной гарнитуры синих",
+		ACCUSATIVE = "радиочастотную гарнитуру синих",
+		INSTRUMENTAL = "радиочастотной гарнитурой синих",
+		PREPOSITIONAL = "радиочастотной гарнитуре синих"
+	)
+
+/obj/item/radio/headset/blue/New()
+	. = ..()
+	set_frequency(T2_FREQ)
+
+/obj/item/radio/headset/red
+	name = "red radio headset"
+	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
+			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
+			Используется красными."
+	icon_state = "syndie_headset"
+	item_state = "syndie_headset"
+	ks2type = /obj/item/encryptionkey/red
+	freqlock = TRUE
+
+/obj/item/radio/headset/red/get_ru_names()
+	return list(
+		NOMINATIVE = "радиочастотная гарнитура красных",
+		GENITIVE = "радиочастотную гарнитуру красных",
+		DATIVE = "радиочастотной гарнитуры красных",
+		ACCUSATIVE = "радиочастотную гарнитуру красных",
+		INSTRUMENTAL = "радиочастотной гарнитурой красных",
+		PREPOSITIONAL = "радиочастотной гарнитуре красных"
+	)
+
+/obj/item/radio/headset/red/New()
+	. = ..()
+	set_frequency(T3_FREQ)
+
 /obj/item/radio/headset/headset_iaa
 	name = "internal affairs radio headset"
 	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \

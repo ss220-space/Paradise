@@ -256,9 +256,9 @@
 	outfit = /datum/outfit/job/judge
 	insurance_type = INSURANCE_TYPE_DELUXE
 
-	salary = 170
-	min_start_money = 200
-	max_start_money = 550
+	salary = 300
+	min_start_money = 500
+	max_start_money = 1000
 
 /datum/outfit/job/judge
 	name = "Magistrate"

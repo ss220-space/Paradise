@@ -392,6 +392,9 @@
 	icon_state = "gold"
 	item_state = "gold-id"
 
+/obj/item/card/id/gold/battle
+	access = list(ACCESS_CAPTAIN_REAL)
+
 /obj/item/card/id/syndicate
 	name = "agent card"
 	var/list/initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS)
@@ -1087,6 +1090,9 @@
 	icon_state = "warden"
 	item_state = "warden-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+
+/obj/item/card/id/warden/battle
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_ARMORY_REAL)
 
 /obj/item/card/id/iaa
 	name = "IAA ID"
