@@ -12,7 +12,7 @@
 
 /obj/structure/closet/loot_crate/obj_destruction(damage_flag)
 	if(locked)
-		explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, flame_range = 4)
+		explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flame_range = 3)
 		qdel(src)
 		return
 	. = ..()

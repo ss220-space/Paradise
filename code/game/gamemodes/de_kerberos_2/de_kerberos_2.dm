@@ -1,6 +1,6 @@
 #define AIRDROP_TIME 10 MINUTES
 #define GAMMA_TIME 1 MINUTES
-#define ROCKET_TIME 30 MINUTES
+#define ROCKET_TIME 25 MINUTES
 #define AIRDROP_COUNT 5
 #define AIRDROP_GUARD_COUND 7
 
@@ -43,7 +43,7 @@
 /datum/game_mode/de_kerberos_2/post_setup()
 	for(var/datum/team/battle_team/team as anything in list(/datum/team/battle_team/green, /datum/team/battle_team/blue, /datum/team/battle_team/red))\
 		teams[team.team_role] = new team
-	
+
 	for(var/datum/mind/mind as anything in players)
 		var/datum/team/team = teams[mind.special_role]
 		team.add_member(mind)
@@ -67,7 +67,7 @@
 		var/obj/structure/closet/supplypod/pod = new /obj/structure/closet/supplypod/bluespacepod/airdrop()
 		new /obj/structure/closet/loot_crate/epsilon(pod)
 		new /obj/effect/pod_landingzone(pick(GLOB.airdrops_points), pod)
-	
+
 	for(var/i in 1 to AIRDROP_GUARD_COUND + 1)
 		var/obj/structure/closet/supplypod/pod = new /obj/structure/closet/supplypod/bluespacepod/airdrop_guard()
 		new /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib/spacebattle(pod)

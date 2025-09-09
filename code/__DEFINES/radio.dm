@@ -103,5 +103,10 @@
 #define EVENT_BETA_FREQ_NAME "Бета частота"
 #define EVENT_GAMMA_FRE_NAME "Гамма частота"
 
+#define RED_NAME "Красные"
+#define BLUE_NAME "Синие"
+#define GREEN_NAME "Зеленые"
+
+
 #define SPEC_FREQ_NAME "Cпециальный"
 #define DEPARTMENT_FREQ_NAME "Отдел"
