@@ -12,6 +12,7 @@
 	max_start_money = 10
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
+	admin_only = TRUE
 
 /datum/job/civilian/team1/get_access()
 	return get_all_accesses()
@@ -41,6 +42,7 @@
 	max_start_money = 10
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
+	admin_only = TRUE
 
 /datum/job/civilian/team2/get_access()
 	return get_all_accesses()
@@ -70,6 +72,7 @@
 	max_start_money = 10
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
+	admin_only = TRUE
 
 /datum/job/civilian/team3/get_access()
 	return get_all_accesses()
