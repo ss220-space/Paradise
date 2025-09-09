@@ -18,7 +18,15 @@
 	if(!length(stations_z))
 		return
 
-	var/list/station_turfs = block(1, 1, stations_z[1], world.maxx, world.maxy, stations_z[length(stations_z)])
+	var/first_floor = stations_z[1]
+	if(HASBIT(SSmapping.map_datum.side_levels, BELOW_LEVEL))
+		first_floor++
+
+	var/last_floor = stations_z[length(stations_z)]
+	if(HASBIT(SSmapping.map_datum.side_levels, ABOVE_LEVEL))
+		last_floor--
+
+	var/list/station_turfs = block(1, 1, first_floor, world.maxx, world.maxy, last_floor)
 	for(var/turf/simulated/floor/new_turf in station_turfs)
 		pick_turfs |= new_turf
 

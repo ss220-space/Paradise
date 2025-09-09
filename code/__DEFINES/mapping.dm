@@ -11,10 +11,10 @@ GLOBAL_LIST_EMPTY(lazis_primary_turfs)
 
 GLOBAL_LIST_INIT(multiz_protected_areas, list(
 	/area/derelict/bridge,
-	/area/crew_quarters,
 	/area/comms,
 	/area/server,
 	/area/ntrep,
+	/area/bridge,
 	/area/crew_quarters/captain,
 	/area/crew_quarters/captain/bedroom,
 	/area/crew_quarters/recruit,

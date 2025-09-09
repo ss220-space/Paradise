@@ -530,6 +530,14 @@ SUBSYSTEM_DEF(mapping)
 	log_world("Ruin loader finished with [budget] left to spend.")
 
 
+/datum/controller/subsystem/mapping/proc/is_protected_area(area)
+	for(var/type in GLOB.multiz_protected_areas)
+		if(istype(area, type))
+			return TRUE
+
+	return FALSE
+
+
 // Allow to climb to the first level and set up roofs on the level above last.
 /datum/controller/subsystem/mapping/proc/above_and_below_prepare(first_level, last_level)
 	var/list/req_above_transforms = list()
@@ -546,14 +554,22 @@ SUBSYSTEM_DEF(mapping)
 			req_above_transforms[list(x, y)] = /turf/space/openspace
 			for(var/z = first_level; z <= last_level; ++z)
 				var/turf/turf = get_turf(locate(x, y, z))
-				if(turf.loc.type in GLOB.multiz_protected_areas)
+				if(is_protected_area(turf.loc))
 					req_above_transforms[list(x, y)] = /turf/simulated/wall/r_wall
 
 				else if(isfloorglass(turf))
 					req_above_transforms[list(x, y)] = turf.type
 
 				else if(!is_space_or_openspace(turf) && !iswallturf(turf))
-					req_above_transforms[list(x, y)] = /turf/simulated/floor/engine/hull/reinforced
+					var/obj/structure/window/window = locate() in turf
+					var/obj/machinery/door/airlock/airlock = locate() in turf
+					if(window || airlock)
+						req_above_transforms[list(x, y)] = /turf/simulated/floor/engine/hull
+					else
+						req_above_transforms[list(x, y)] = /turf/simulated/floor/engine/hull/reinforced
+
+				else if(iswallturf(turf))
+					req_above_transforms[list(x, y)] = /turf/simulated/floor/engine/hull
 
 				if(!istype(turf, /turf/simulated/floor/engine/hull))
 					continue
@@ -570,7 +586,7 @@ SUBSYSTEM_DEF(mapping)
 	for(var/x = 1; x <= world.maxx; ++x)
 		for(var/y = 1; y <= world.maxy; ++y)
 			var/turf/first_floor_turf = get_turf(locate(x, y, first_level))
-			if(!(first_floor_turf.loc.type in GLOB.multiz_protected_areas))
+			if(!is_protected_area(first_floor_turf.loc))
 				continue
 
 			var/turf/turf = get_turf(locate(x, y, first_level - 1))
