@@ -532,7 +532,7 @@ SUBSYSTEM_DEF(mapping)
 
 // Allow to climb to the first level and set up roofs on the level above last.
 /datum/controller/subsystem/mapping/proc/above_and_below_prepare(first_level, last_level)
-	var/list/req_transforms = list()
+	var/list/req_above_transforms = list()
 	for(var/x = 1; x <= world.maxx; ++x)
 		for(var/y = 1; y <= world.maxy; ++y)
 			if(HASBIT(map_datum.side_levels, BELOW_LEVEL))
@@ -543,20 +543,39 @@ SUBSYSTEM_DEF(mapping)
 			if(!HASBIT(map_datum.side_levels, ABOVE_LEVEL))
 				continue
 
-			req_transforms[list(x, y)] = /turf/space/openspace
+			req_above_transforms[list(x, y)] = /turf/space/openspace
 			for(var/z = first_level; z <= last_level; ++z)
 				var/turf/turf = get_turf(locate(x, y, z))
-				if(!is_space_or_openspace(turf))
-					req_transforms[list(x, y)] = /turf/simulated/floor/engine/hull/reinforced
+				if(turf.loc.type in GLOB.multiz_protected_areas)
+					req_above_transforms[list(x, y)] = /turf/simulated/wall/r_wall
+
+				else if(isfloorglass(turf))
+					req_above_transforms[list(x, y)] = turf.type
+
+				else if(!is_space_or_openspace(turf) && !iswallturf(turf))
+					req_above_transforms[list(x, y)] = /turf/simulated/floor/engine/hull/reinforced
 
 				if(!istype(turf, /turf/simulated/floor/engine/hull))
 					continue
 
-				req_transforms[list(x, y)] = /turf/space/openspace
+				req_above_transforms[list(x, y)] = /turf/space/openspace
 
-	for(var/list/cords in req_transforms)
+	for(var/list/cords in req_above_transforms)
 		var/turf/turf = get_turf(locate(cords[1], cords[2], last_level + 1))
-		turf.ChangeTurf(req_transforms[cords])
+		turf.ChangeTurf(req_above_transforms[cords])
+
+	if(!HASBIT(map_datum.side_levels, BELOW_LEVEL))
+		return
+
+	for(var/x = 1; x <= world.maxx; ++x)
+		for(var/y = 1; y <= world.maxy; ++y)
+			var/turf/first_floor_turf = get_turf(locate(x, y, first_level))
+			if(!(first_floor_turf.loc.type in GLOB.multiz_protected_areas))
+				continue
+
+			var/turf/turf = get_turf(locate(x, y, first_level - 1))
+			turf.ChangeTurf(/turf/simulated/wall/r_wall)
+
 
 
 /datum/controller/subsystem/mapping/proc/make_maint_all_access()
