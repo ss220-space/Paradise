@@ -924,14 +924,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/combat_exoframe
 	name = "combat exoframe kit"
 	desc = "Коробка, содержащая боевой модуль экзоскелета и автоимплантер."
-	ru_names = list(
-		NOMINATIVE = "набор боевого экзоскелета",
-		GENITIVE = "набора боевого экзоскелета",
-		DATIVE = "набору боевого экзоскелета",
-		ACCUSATIVE = "набор боевого экзоскелета",
-		INSTRUMENTAL = "набором боевого экзоскелета",
-		PREPOSITIONAL = "наборе боевого экзоскелета"
-	)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/combat_exoframe/get_ru_names()
