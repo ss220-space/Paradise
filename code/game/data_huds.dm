@@ -102,6 +102,12 @@
 			return TRUE
 	return FALSE
 
+/mob/living/proc/has_bleeding()
+	return FALSE
+
+/mob/living/proc/has_heavy_bleeding()
+	return FALSE
+
 //helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
 	if(M.stat == DEAD || HAS_TRAIT(M, TRAIT_FAKEDEATH))
@@ -222,6 +228,10 @@
 		holder.icon_state = "hudbrainworm"
 	else if(is_in_crit())
 		holder.icon_state = "huddefib"
+	else if(has_heavy_bleeding())
+		holder.icon_state = "hudbleeding2"
+	else if(has_bleeding())
+		holder.icon_state = "hudbleeding1"
 	else if(has_virus())
 		holder.icon_state = "hudill"
 	else

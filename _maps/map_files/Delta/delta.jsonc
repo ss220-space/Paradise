@@ -55,6 +55,17 @@
 		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/clown_mime",
         "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/clown_mime",
         "submaps_can_repeat": true
+	},
+
+	{
+		"type": "SubmapExtractInsert",
+		"submap_size_x" : 5,
+		"submap_size_y" : 6,
+		"submap_size_z" : 1,
+		"submaps_dmm": "_maps/map_files/Delta/submaps/old_dorm_room.dmm",
+		"marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_doorm_room",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_doorm_room",
+        "submaps_can_repeat": true
 	}
 
 ]

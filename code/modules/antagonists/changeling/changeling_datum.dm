@@ -150,7 +150,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			power.Grant(user)
 
 	// Else, this is their first time gaining the datum, or they're transfering from a headslug into a monkey.
-	else
+	if(!acquired_powers.len && ishuman(user))
 		for(var/power_type in innate_powers)
 			give_power(new power_type, user)
 
@@ -175,7 +175,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 /datum/antagonist/changeling/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	old_body.RemoveElement(/datum/element/pref_viewer)
+	old_body?.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/changeling/handle_last_instance_removal()
 	owner.current.RemoveElement(/datum/element/pref_viewer)
@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			power.Remove(user)
 	// Else, they're losing the datum, or transferring into a headslug. Fully remove and delete all powers.
 	else
-		respec(FALSE, FALSE)
+		respec(FALSE, TRUE)
 
 	var/mob/living/carbon/carbon_user = user
 	if(!istype(carbon_user))

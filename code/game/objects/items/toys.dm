@@ -188,6 +188,8 @@
 	var/active = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("атаковал", "ударил")
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/toy/sword/attack_self(mob/user)
 	active = !active
@@ -682,15 +684,18 @@
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
-	playsound(loc, poof_sound, 20, TRUE)	// Play the whoosh sound in local area
+	play_poof_sound() // Play the whoosh sound in local area
 	if(iscarbon(target) && prob(10))
 		target.reagents.add_reagent("hugs", 10)
 
+/// Use this to override how your poof sound plays
+/obj/item/toy/plushie/proc/play_poof_sound()
+	playsound(get_turf(src), poof_sound, 30, TRUE)
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
 	var/cuddle_verb = pick("обнима[pluralize_ru(user.gender,"ет","ют")]", "тиска[pluralize_ru(user.gender,"ет","ют")]", "прижима[pluralize_ru(user.gender,"ет","ют")]")
 	user.visible_message(span_notice("[user] [cuddle_verb] the [src]."))
-	playsound(get_turf(src), poof_sound, 50, TRUE, -1)
+	play_poof_sound()
 	return ..()
 
 /obj/random/plushie
@@ -1570,6 +1575,83 @@
 	playsound(loc, 'sound/items/wahwah.ogg', 50, FALSE)
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
+#define EVIL_MODE_CHANCE 5
+
+/obj/item/toy/plushie/wet_owl
+	name = "wet owl plushie"
+	desc = "Плюшевая игрушка поникшей мокрой совы. Она явно видела некоторое дерьмо."
+	icon_state = "wet_owl"
+	item_state = "wet_owl"
+	attack_verb = list("ухнул", "клюнул", "цапнул")
+	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | LAVA_PROOF
+	/// Is it in evil mode now or not
+	var/is_evil = FALSE
+	/// Cooldown to prevent evil sound spam
+	var/cooldown_time = 2 SECONDS
+	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/plushie/wet_owl/get_ru_names()
+	return list(
+		NOMINATIVE = "мокрая сова",
+		GENITIVE = "мокрой совы",
+		DATIVE = "мокрой сове",
+		ACCUSATIVE = "мокрую сову",
+		INSTRUMENTAL = "мокрой совой",
+		PREPOSITIONAL = "мокрой сове"
+	)
+
+/obj/item/toy/plushie/wet_owl/water_act(volume, temperature, source, method)
+	. = ..()
+	visible_message(span_cultitalic("[capitalize(declent_ru(NOMINATIVE))] недовольно завывает."))
+	playsound(src, 'sound/effects/wet_owl_horror.ogg', 50, FALSE, -1)
+	temporary_become_evil(30 SECONDS)
+
+/obj/item/toy/plushie/wet_owl/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] всматривается в бездну глаз [declent_ru(GENITIVE)], и бездна начинает всматриваться в ответ!"))
+	playsound(src, 'sound/effects/wet_owl_horror.ogg', 70, FALSE, -1)
+	user.emote("scream")
+	return SHAME
+
+/obj/item/toy/plushie/wet_owl/attack_self(mob/living/user)
+	. = ..()
+	if(prob(EVIL_MODE_CHANCE))
+		temporary_become_evil(5 SECONDS)
+
+	if(!is_evil)
+		return .
+
+	var/mob/living/carbon/human/human = user
+	human.AdjustConfused(3 SECONDS, bound_lower = 0, bound_upper = 15 SECONDS)
+
+/obj/item/toy/plushie/wet_owl/proc/temporary_become_evil(evil_mode_duration)
+	is_evil = TRUE
+	icon_state = "evil_wet_owl"
+	item_state = "evil_wet_owl"
+	desc = "Злобная плюшевая игрушка мокрой совы. Она явно видела некоторое дерьмо — это легко можно понять по её взгляду."
+	poof_sound = 'sound/effects/wet_owl_horror.ogg'
+	update_appearance()
+	addtimer(CALLBACK(src, PROC_REF(become_normal)), evil_mode_duration)
+
+/obj/item/toy/plushie/wet_owl/proc/become_normal()
+	is_evil = FALSE
+	icon_state = initial(icon_state)
+	item_state = initial(item_state)
+	desc = initial(desc)
+	poof_sound = initial(poof_sound)
+	update_appearance()
+
+/obj/item/toy/plushie/wet_owl/play_poof_sound()
+	if(!is_evil)
+		return ..()
+
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return
+
+	COOLDOWN_START(src, cooldown, cooldown_time)
+	playsound(loc, poof_sound, 20, FALSE)
+
+#undef EVIL_MODE_CHANCE
+
 /*
  * Foam Armblade
  */
@@ -1583,6 +1665,8 @@
 	attack_verb = list("уколол", "поглотил", "пронзил")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /*
  * Toy/fake flash

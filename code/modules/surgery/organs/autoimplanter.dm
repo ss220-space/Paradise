@@ -2,14 +2,6 @@
 	name = "autoimplanter"
 	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. \
 			It has a slot to insert implants and a screwdriver slot for removing accidentally added implants."
-	ru_names = list(
-		NOMINATIVE = "автоимплантер",
-		GENITIVE = "автоимплантера",
-		DATIVE = "автоимплантеру",
-		ACCUSATIVE = "автоимплантер",
-		INSTRUMENTAL = "автоимплантером",
-		PREPOSITIONAL = "автоимплантере"
-	)
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndi-autoimplanter"
@@ -18,6 +10,15 @@
 	usesound = 'sound/weapons/circsawhit.ogg'
 	var/obj/item/organ/internal/cyberimp/storedorgan
 
+/obj/item/autoimplanter/get_ru_names()
+	return list(
+		NOMINATIVE = "автоимплантер",
+		GENITIVE = "автоимплантера",
+		DATIVE = "автоимплантеру",
+		ACCUSATIVE = "автоимплантер",
+		INSTRUMENTAL = "автоимплантером",
+		PREPOSITIONAL = "автоимплантере"
+	)
 
 /obj/item/autoimplanter/old
 	icon_state = "autoimplanter"
@@ -139,6 +140,71 @@
 /obj/item/autoimplanter/oneuse/laserblade
 	name = "autoimplanter (laserblade)"
 	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade/laser/syndi
+
+/obj/item/autoimplanter/oneuse/sec_hud
+	name = "autoimplanter (sechud)"
+	desc = "Одноразовый автоимплантер, содержащий в себе охранный ИЛС. Имплант можно достать отверткой, но вставить назад уже нельзя."
+	storedorgan = new /obj/item/organ/internal/cyberimp/eyes/hud/security
+	icon_state = "autoimplanter"
+
+/obj/item/autoimplanter/oneuse/sec_hud/get_ru_names()
+	return list(
+		NOMINATIVE = "автоимплантер с охранным ИЛС",
+		GENITIVE = "автоимплантера с охранным ИЛС",
+		DATIVE = "автоимплантеру с охранным ИЛС",
+		ACCUSATIVE = "автоимплантер с охранным ИЛС",
+		INSTRUMENTAL = "автоимплантером с охранным ИЛС",
+		PREPOSITIONAL = "автоимплантере с охранным ИЛС"
+	)
+
+/obj/item/autoimplanter/oneuse/med_hud
+	name = "autoimplanter (medhud)"
+	desc = "Одноразовый автоимплантер, содержащий в себе медицинский ИЛС. Имплант можно достать отверткой, но вставить назад уже нельзя."
+	storedorgan = new /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	icon_state = "autoimplanter"
+
+/obj/item/autoimplanter/oneuse/med_hud/get_ru_names()
+	return list(
+		NOMINATIVE = "автоимплантер с медицинским ИЛС",
+		GENITIVE = "автоимплантера с медицинским ИЛС",
+		DATIVE = "автоимплантеру с медицинским ИЛС",
+		ACCUSATIVE = "автоимплантер с медицинским ИЛС",
+		INSTRUMENTAL = "автоимплантером с медицинским ИЛС",
+		PREPOSITIONAL = "автоимплантере с медицинским ИЛС"
+	)
+
+/obj/item/autoimplanter/oneuse/diagnostic_hud
+	name = "autoimplanter (diagnostic hud)"
+	desc = "Одноразовый автоимплантер, содержащий в себе диагностический ИЛС. Имплант можно достать отверткой, но вставить назад уже нельзя."
+	storedorgan = new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
+	icon_state = "autoimplanter"
+
+/obj/item/autoimplanter/oneuse/diagnostic_hud/get_ru_names()
+	return list(
+		NOMINATIVE = "автоимплантер с диагностическим ИЛС",
+		GENITIVE = "автоимплантера с диагностическим ИЛС",
+		DATIVE = "автоимплантеру с диагностическим ИЛС",
+		ACCUSATIVE = "автоимплантер с диагностическим ИЛС",
+		INSTRUMENTAL = "автоимплантером с диагностическим ИЛС",
+		PREPOSITIONAL = "автоимплантере с диагностическим ИЛС"
+	)
+
+/obj/item/autoimplanter/oneuse/meson_eyes
+	name = "autoimplanter (meson)"
+	desc = "Одноразовый автоимплантер, содержащий в себе мезонный ИЛС. Имплант можно достать отверткой, но вставить назад уже нельзя."
+	storedorgan = new /obj/item/organ/internal/cyberimp/eyes/meson
+	icon_state = "autoimplanter"
+
+/obj/item/autoimplanter/oneuse/meson_eyes/get_ru_names()
+	return list(
+		NOMINATIVE = "автоимплантер с мезонным ИЛС",
+		GENITIVE = "автоимплантера с мезонным ИЛС",
+		DATIVE = "автоимплантеру с мезонным ИЛС",
+		ACCUSATIVE = "автоимплантер с мезонным ИЛС",
+		INSTRUMENTAL = "автоимплантером с мезонным ИЛС",
+		PREPOSITIONAL = "автоимплантере с мезонным ИЛС"
+	)
+
 
 /obj/item/autoimplanter/traitor
 	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. This model is capable of implanting up to three implants before destroing."

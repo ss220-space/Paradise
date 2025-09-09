@@ -21,9 +21,9 @@
 	bitesize_mod = 2
 
 /obj/item/reagent_containers/food/snacks/grown/comfrey/attack_self(mob/user)
-	var/obj/item/stack/medical/bruise_pack/comfrey/C = new(get_turf(user))
-	C.heal_brute = seed.potency
-	to_chat(user, "<span class='notice'>You mash [src] into a poultice.</span>")
+	var/obj/item/stack/medical/bruise_pack/comfrey/comfrey = new(get_turf(user))
+	comfrey.heal_brute = min(seed.potency * 0.75, comfrey.max_heal)
+	to_chat(user, span_notice("You mash [src] into a poultice."))
 	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 
@@ -51,8 +51,8 @@
 	bitesize_mod = 2
 
 /obj/item/reagent_containers/food/snacks/grown/aloe/attack_self(mob/user)
-	var/obj/item/stack/medical/ointment/aloe/A = new(get_turf(user))
-	A.heal_burn = seed.potency
-	to_chat(user, "<span class='notice'>You mash [src] into a poultice.</span>")
+	var/obj/item/stack/medical/ointment/aloe/aloe = new(get_turf(user))
+	aloe.heal_burn = min(seed.potency * 0.75, aloe.max_heal)
+	to_chat(user, span_notice("You mash [src] into a poultice."))
 	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
