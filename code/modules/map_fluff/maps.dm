@@ -33,7 +33,7 @@
 	var/admin_only = FALSE
 	/// URL to the maps webmap.
 	var/webmap_url
-  /// This gamemode will be forced by this map
-  var/datum/game_mode/forced_mode
+	/// This gamemode will be forced by this map
+	var/datum/game_mode/forced_mode
 	/// Does this map has above and below levels?
 	var/side_levels
