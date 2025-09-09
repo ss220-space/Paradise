@@ -330,7 +330,7 @@
 		next_spawn_time = world.time + (spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/finish_production()
-	visible_message("span_warning([capitalize(declent_ru(NOMINATIVE)] останавливается.)")
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE)] останавливается."))
 	is_active = FALSE
 	spawn_count = initial(spawn_count)
 	cooldown_until = world.time + cooldown_duration
