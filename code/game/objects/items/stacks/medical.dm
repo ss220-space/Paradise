@@ -235,6 +235,9 @@
 	affecting.germ_level = 0
 	if(stop_bleeding && affecting.bleeding_amount > affecting.bleedsuppress)	//so you can't stack bleed suppression
 		affecting.suppress_bloodloss(user, target, bleedsuppress, stop_bleeding)
+		var/var/obj/item/organ/external/addition_affecting = target.get_affecting_limb_bodypart(affecting)
+		if(addition_affecting)
+			addition_affecting.suppress_bloodloss(user, target, bleedsuppress, stop_bleeding)
 	human_heal(target, user)
 	target.UpdateDamageIcon()
 	update_icon()
@@ -644,6 +647,9 @@
 	affecting.germ_level = 0
 	if(affecting.bleeding_amount > 0)	//so you can't stack bleed suppression
 		affecting.heal_bleeding(user, target, bleeding_heal, damage)
+		var/var/obj/item/organ/external/addition_affecting = target.get_affecting_limb_bodypart(affecting)
+		if(addition_affecting)
+			addition_affecting.heal_bleeding(user, target, bleeding_heal, 0)
 		target.updatehealth("[name] heal")
 	user.balloon_alert(user, "зашито!")
 	target.UpdateDamageIcon()
