@@ -1,14 +1,6 @@
 /obj/item/gun/medbeam
 	name = "Medical Beamgun"
 	desc = "Передает целебные наниты своим сфокусированным лучом. Не скрещивайте лучи!"
-	ru_names = list(
-		NOMINATIVE = "Медицинская лучевая пушка",
-		GENITIVE = "Медицинской лучевой пушки",
-		DATIVE = "Медицинской лучевой пушке",
-		ACCUSATIVE = "Медицинскую лучевую пушку",
-		INSTRUMENTAL = "Медицинской лучевой пушкой",
-		PREPOSITIONAL = "Медицинской лучевой пушке"
-	)
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
@@ -26,6 +18,16 @@
 	var/active = FALSE
 	var/mounted = FALSE
 	accuracy = GUN_ACCURACY_SNIPER
+
+/obj/item/gun/medbeam/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинская лучевая пушка",
+		GENITIVE = "медицинской лучевой пушки",
+		DATIVE = "медицинской лучевой пушке",
+		ACCUSATIVE = "медицинскую лучевую пушку",
+		INSTRUMENTAL = "медицинской лучевой пушкой",
+		PREPOSITIONAL = "медицинской лучевой пушке"
+	)
 
 
 /obj/item/gun/medbeam/Initialize(mapload)

@@ -58,8 +58,8 @@
 			deploy(null, part, TRUE)
 		else if(!deploy && part.loc != src)
 			retract(null, part, TRUE)
-	wearer.visible_message(span_notice(" [declent_ru(NOMINATIVE)] у [wearer] [deploy ? "выдвигает свои компоненты." : "втягивает свои компоненты обратно"]."),
-		span_notice("С механическим шипением [declent_ru(NOMINATIVE)] [deploy ? "выдвигает свои компоненты." : "втягивает свои компоненты обратно"]."),
+	wearer.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] у [wearer] [deploy ? "выдвигает свои компоненты" : "втягивает свои компоненты обратно"]."),
+		span_notice("С механическим шипением [declent_ru(NOMINATIVE)] [deploy ? "выдвигает свои компоненты" : "втягивает свои компоненты обратно"]."),
 		"Вы слышите механическое шипение.")
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(deploy)
@@ -85,8 +85,8 @@
 		ADD_TRAIT(part, TRAIT_NODROP, MODSUIT_TRAIT)
 		if(mass)
 			return TRUE
-		wearer.visible_message(span_notice("[part.declent_ru(NOMINATIVE)] у [wearer] выдвигается."),
-			span_notice("с характерным механическим шипением [part.declent_ru(NOMINATIVE)] выдвигается."),
+		wearer.visible_message(span_notice("[capitalize(part.declent_ru(NOMINATIVE))] у [wearer] выдвигается."),
+			span_notice("С характерным механическим шипением [part.declent_ru(NOMINATIVE)] выдвигается."),
 			"Вы слышите механическое шипение.")
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		return TRUE
@@ -114,8 +114,8 @@
 		overslotting_parts[part] = null
 	if(mass)
 		return TRUE
-	wearer.visible_message(span_notice("[part.declent_ru(NOMINATIVE)] у [wearer] втягивается обратно."),
-			span_notice("с характерным механическим шипением [part.declent_ru(NOMINATIVE)] втягивается обратно."),
+	wearer.visible_message(span_notice("[capitalize(part.declent_ru(NOMINATIVE))] у [wearer] втягивается обратно."),
+			span_notice("С характерным механическим шипением [part.declent_ru(NOMINATIVE)] втягивается обратно."),
 			"Вы слышите механическое шипение.")
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
@@ -158,23 +158,23 @@
 	activating = TRUE
 	balloon_alert(user, "костюм [active ? "отключается" : "включается"]")
 	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
-		to_chat(wearer, span_notice("[boots.declent_ru(NOMINATIVE)] [active ? "ослабляются на ваших ногах" : "плотно обхватывают ваши ноги"]."))
+		to_chat(wearer, span_notice("[capitalize(boots.declent_ru(NOMINATIVE))] [active ? "ослабляются на ваших ногах" : "плотно обхватывают ваши ноги"]."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		seal_part(boots, seal = !active)
 	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
-		to_chat(wearer, span_notice("[gauntlets.declent_ru(NOMINATIVE)] [active ? "ослабляются на ваших руках" : "плотно обхватывают ваши руки"]."))
+		to_chat(wearer, span_notice("[capitalize(gauntlets.declent_ru(NOMINATIVE))] [active ? "ослабляются на ваших руках" : "плотно обхватывают ваши руки"]."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		seal_part(gauntlets, seal = !active)
 	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
-		to_chat(wearer, span_notice("[chestplate.declent_ru(NOMINATIVE)] [active ? "ослабляются на вашей груди" : "плотно обхватывают вашу грудь"]."))
+		to_chat(wearer, span_notice("[capitalize(chestplate.declent_ru(NOMINATIVE))] [active ? "ослабляется на вашей груди" : "плотно обхватывает вашу грудь"]."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		seal_part(chestplate, seal = !active)
 	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
-		to_chat(wearer, span_notice("[helmet.declent_ru(NOMINATIVE)] с шипением [active ? "открывается" : "закрывается"]."))
+		to_chat(wearer, span_notice("[capitalize(helmet.declent_ru(NOMINATIVE))] с шипением [active ? "открывается" : "закрывается"]."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		seal_part(helmet, seal = !active)
 	if(do_after(wearer, activation_step_time, FALSE, target = src, timed_action_flags = MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
-		to_chat(wearer, span_notice("Systems [active ? "Выключается. Все компоненты отключены. До свидания" : "Включается. Все компоненты полностью готовы к работе. Здравствуйте"], [wearer]."))
+		to_chat(wearer, span_notice("Система [active ? "выключается. Все компоненты отключены. До свидания" : "включается. Все компоненты полностью готовы к работе. Здравствуйте"], [wearer]."))
 		finish_activation(on = !active)
 		if(active)
 			playsound(src, 'sound/machines/synth_yes.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)

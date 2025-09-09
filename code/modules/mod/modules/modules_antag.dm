@@ -103,7 +103,7 @@
 /obj/item/mod/module/insignia
 	name = "MOD insignia module"
 	desc = "Несмотря на существование системы опознавания \"свой-чужой\", радиокоммуникации и современных методов \
-		дедуктивного рассуждения, включающих использование своего зрения, разноцветная покраска остаётся популярным способным \
+		дедуктивного анализа, включающих использование собственных глаз, разноцветная покраска остаётся популярным способным \
 		для различных фракций в галактике отличать друг друга. Этот модуль представляет собой набор маленьких движущихся \
 		распылителей для нанесения и снятия краски по заданным цветовым шаблонам."
 	icon_state = "insignia"
@@ -277,7 +277,7 @@
 		living_target.apply_damage(damage, BRUTE, mod.wearer.zone_selected)
 		add_attack_logs(mod.wearer, target, "[target] was charged by [mod.wearer]'s [src]", ATKLOG_ALMOSTALL)
 		living_target.Weaken(knockdown_time)
-		mod.wearer.visible_message(span_danger("[mod.wearer] врезается в [target]"), span_userdanger("Вы врезаетесь в [target]!"))
+		mod.wearer.visible_message(span_danger("[mod.wearer] врезается в [target.declent_ru(ACCUSATIVE)]"), span_userdanger("Вы врезаетесь в [target.declent_ru(ACCUSATIVE)]!"))
 	else
 		return
 	mod.wearer.do_attack_animation(target, ATTACK_EFFECT_SMASH)
@@ -323,9 +323,10 @@
 ///Cloaking - Lowers the user's visibility, can be interrupted by being touched or attacked.
 /obj/item/mod/module/stealth
 	name = "MOD prototype cloaking module"
-	desc = "A complete retrofitting of the suit, this is a form of visual concealment tech employing esoteric technology \
-		to bend light around the user, as well as mimetic materials to make the surface of the suit match the \
-		surroundings based off sensor data. For some reason, this tech is rarely seen."
+	desc = "Модуль, полностью изменяющий устройство костюма. Представляет собой комбинацию \
+		технологий визуального стелса, использующих преломление света у поверхности костюма, и адаптивных наноматериалов, \
+		позволяющих костюму мимикрировать под окружающую среду на основе показателей внешних сенсоров. \
+		По какой-то причине эта технология встречается крайне редко."
 	icon_state = "cloak"
 	module_type = MODULE_TOGGLE
 	complexity = 4
@@ -392,11 +393,11 @@
 //Advanced Cloaking - Doesn't turf off on bump, less power drain, more stealthy.
 /obj/item/mod/module/stealth/ninja
 	name = "MOD advanced cloaking module"
-	desc = "The latest in stealth technology, this module is a definite upgrade over previous versions. \
-		The field has been tuned to be even more responsive and fast-acting, with enough stability to \
-		continue operation of the field even if the user bumps into others. \
-		The power draw has been reduced drastically, making this perfect for activities like \
-		standing near sentry turrets for extended periods of time."
+	desc = "Этот модуль — вершина стелс-технологий, стоящий на голову выше всех предыдущих версии. \
+		Преломляющее поле было усовершенствовано, приобретя гораздо более высокую скорость и точность реагирования, \
+		поддерживая при этом маскировку даже в случае столкновения носителя с твёрдыми объектами. \
+		Энергоэффективнось также многократно возросла, делая этот модуль идеальным выбором для ситуаций, когда нужно \
+		в течение нескольки часов неподвижно стоять в радиусе поражения автоматических турелей."
 	icon_state = "cloak_ninja"
 	bumpoff = FALSE
 	cooldown_time = 5 SECONDS
@@ -418,11 +419,12 @@
 ///Status Readout - Puts a lot of information including health, nutrition, fingerprints, temperature to the suit TGUI.
 /obj/item/mod/module/status_readout
 	name = "MOD status readout module"
-	desc = "A once-common module, this technology went unfortunately out of fashion; \
-		and right into the arachnid grip of the Spider Clan. This hooks into the suit's spine, \
-		capable of capturing and displaying all possible biometric data of the wearer; sleep, nutrition, fitness, fingerprints, \
-		and even useful information such as their overall health and wellness. \
-		The syndicate has been seen using this module of late, with NT as well getting into the technology on their elitest of suits."
+	desc = "Широко распространённая в прошлом технология, ныне же отправленная на свалку истории... \
+		где была тут же \"подобрана\" цепкими лапками Клана Паука и затем усовершенствована под собственные нужды. \
+		Этот модуль подключается к позвоночному столбу костюма, напрямую считывая и отображая всевозможные биометрические \
+		данные носителя; уровень утомления, насыщения, физическая форма, здоровье и даже настроение. \
+		Поговаривают, что к незаслуженно забытой технологии вновь начали присматриваться как Синдикат, так и Нанотрейзен, встраивая \
+		её в свои самые последние разработки."
 	icon_state = "status"
 	complexity = 1
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
@@ -494,9 +496,10 @@
 ///Camera Module - Puts a camera in the modsuit that the ERT commander can see
 /obj/item/mod/module/ert_camera
 	name = "MOD camera module"
-	desc = "This combination camera and broadcasting module grants the modsuit a camera that tracks what the user see, and sends it to the nearest station and \
-	CC blackbox. This is used for ERT commander tracking, performance review, Nanotrasen's Funniest Home Videos, \
-	and used for reference for their Deathsquad Cartoon Series."
+	desc = "Модуль, представляющий собой комбинацию записывающей камеры и транслирующего устройства. В прямом эфире отправляет всё, \
+	что видит носитель, на чёрный ящик станции и центрального командования. Используется подразделениями ОБР для координации \
+	действий через командный центр, для последующего разбора полевых операций, и для записи смешнейших провалов лучших бойцов Нанотрейзен. \
+	Модуль также послужил прототипом для схожих устройств в известном мультфильме \"Отряд смерти\"."
 	icon_state = "eradicationlock" //looks like a bluespace transmitter or something, probably could use an actual camera look.
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/ert_camera)
@@ -534,7 +537,7 @@
 ///Chameleon - lets the suit disguise as any item that would fit on that slot.
 /obj/item/mod/module/chameleon
 	name = "MOD chameleon module"
-	desc = "A module using chameleon technology to disguise the suit as another object."
+	desc = "Модуль с технологией \"хамелеон\", позволяющий замаскировать костюм под другой объект."
 	icon_state = "chameleon"
 	module_type = MODULE_USABLE
 	complexity = 2
@@ -594,10 +597,10 @@
 ///Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
 /obj/item/mod/module/energy_shield
 	name = "MOD energy shield module"
-	desc = "A personal, protective forcefield typically seen in military applications. \
-		This advanced deflector shield is essentially a scaled down version of those seen on starships, \
-		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
-		though with its' low amount of separate charges, the user remains mortal."
+	desc = "Модуль персонального защитного силового поля, обычно встречающийся в военных разработках. \
+		По сути представляет собой уменьшенную версию отражателей, устанавливаемых на космические корабли, \
+		что можно легко заметить по его энергозатратности. Впрочем, благодаря этому модуль способен отразить практически любую атаку. \
+		К счастью или нет, но из-за малого количества зарядов носитель всё ещё может внезапно оказаться смертен."
 	icon_state = "energy_shield"
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
@@ -667,7 +670,11 @@
 
 /obj/item/mod/module/anomaly_locked/teslawall
 	name = "MOD arc-shield module" // temp
-	desc = "A module that uses a flux core to project an unstable protective shield." //change
+	desc = "Экспериментальный модуль, требующий для своей работы ядро энергетической аномалии. \
+		Крохотная сеть проводящих элементов модуля, располагающихся под обшивкой костюма, позволяет генерировать наведённое силовое поле \
+		высокой интенсивности. К сожалению, труднодоступность ядер для массового производства и тот факт, что реактор силового \
+		поля на основе энергии аномальной природы более нестабилен, привели к тому, что эти модули уступают в популярности \
+		более распространённым модулям щитов."
 	icon_state = "tesla"
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 3
@@ -768,7 +775,8 @@
 ///Flamethrower - Launches fire across the area.
 /obj/item/mod/module/flamethrower
 	name = "MOD flamethrower module"
-	desc = "A custom-manufactured flamethrower, used to burn through your path. Burn well."
+	desc = "Изготовленный на заказ модуль ручного огнемёта. Поддерживает достаточную температуру, чтобы прожечь вам путь через любые \
+	препятствия, будь то деревянные баррикады или опостылевший агент внутренних дел. Гори, гори ясно!"
 	icon_state = "flamethrower"
 	module_type = MODULE_ACTIVE
 	complexity = 3
@@ -777,6 +785,16 @@
 	cooldown_time = 2.5 SECONDS
 	overlay_state_inactive = "module_flamethrower"
 	overlay_state_active = "module_flamethrower_on"
+
+/obj/item/mod/module/flamethrower/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль огнемёта для МЭК",
+		GENITIVE = "модуля огнемёта для МЭК",
+		DATIVE = "модулю огнемёта для МЭК",
+		ACCUSATIVE = "модуль огнемёта для МЭК",
+		INSTRUMENTAL = "модулем огнемёта для МЭК",
+		PREPOSITIONAL = "модуле огнемёта для МЭК",
+	)
 
 /obj/item/mod/module/flamethrower/on_select_use(atom/target)
 	. = ..()
@@ -794,7 +812,8 @@
 ///Medbeam - Medbeam but built into a modsuit
 /obj/item/mod/module/medbeam
 	name = "MOD medical beamgun module"
-	desc = "A wrist mounted variant of the medbeam gun, allowing the user to heal their allies without the risk of dropping it."
+	desc = "Модуль медицинской лучевой пушки, встроенный в рукав костюма. Позволяет исцелять союзников без риска \
+		выронить столь ценную экипировку. Впрочем, её всё ещё можно потерять вместе с рукой."
 	icon_state = "chronogun"
 	module_type = MODULE_ACTIVE
 	complexity = 1
@@ -804,5 +823,25 @@
 	removable = TRUE
 	cooldown_time = 0.05 SECONDS
 
+/obj/item/mod/module/medbeam/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль мед-пушки для МЭК",
+		GENITIVE = "модуля мед-пушки для МЭК",
+		DATIVE = "модулю мед-пушки для МЭК",
+		ACCUSATIVE = "модуль мед-пушки для МЭК",
+		INSTRUMENTAL = "модулем мед-пушки для МЭК",
+		PREPOSITIONAL = "модуле мед-пушки для МЭК",
+	)
+
 /obj/item/gun/medbeam/mod
 	name = "MOD medbeam"
+
+/obj/item/gun/medbeam/mod/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинская лучевая пушка МЭК",
+		GENITIVE = "медицинской лучевой пушки МЭК",
+		DATIVE = "медицинской лучевой пушке МЭК",
+		ACCUSATIVE = "медицинскую лучевую пушку МЭК",
+		INSTRUMENTAL = "медицинской лучевой пушкой МЭК",
+		PREPOSITIONAL = "медицинской лучевой пушке МЭК"
+	)

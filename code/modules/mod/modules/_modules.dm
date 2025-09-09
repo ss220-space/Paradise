@@ -353,7 +353,7 @@
 		return
 	var/datum/action/item_action/mod/pinned_module/new_action = new(Target = mod, custom_icon = src.icon, custom_icon_state = src.icon_state, linked_module = src, user = user)
 
-	to_chat(mod.wearer, span_notice("действие \"[new_action]\" закреплено на панели!"))
+	to_chat(mod.wearer, span_notice("Действие \"[new_action]\" закреплено на панели!"))
 
 
 /// On drop key, concels a device item.
