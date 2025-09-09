@@ -18,16 +18,7 @@
 	GLOB.data_core.manifest_inject(character)
 	var/spawnpoint = pick(GLOB.battle_teams_spawns[landmark])
 	character.forceMove(spawnpoint)
-	greet_member(new_member)
 	. = ..()
-
-/datum/team/battle_team/proc/greet_member(datum/mind/member)
-	var/list/messages = list()
-	messages.Add(span_danger("<center>Вы член команды [name]!</center>"))
-	messages.Add("<center>Ваша задача: заполучить доступ к консоли связи, вызвать шаттл и эвакуироваться, не дав эвакуироваться остальным командам.</center>")
-	messages.Add("<center>В скором времени на станцию будет отправлены охраняемые капсулы с особо ценным снаряжением, которое может очень сильно вам помочь в вашей миссии.</center>")
-	messages.Add("<center>Спустя еще некоторое время станция будет уничтожена ядерной ракетой. Поторопитесь, если не хотите стать горстью пепла.</center>")
-	to_chat(member.current, chat_box_red(messages.Join("<br>")))
 
 /datum/team/battle_team/declare_completion()
 	var/list/text = list()
@@ -79,15 +70,18 @@
 	team_color = "#09ff00"
 	team_role = JOB_TITLE_TEAM1
 	landmark = /obj/effect/landmark/team1
+	antag_datum_type = /datum/antagonist/battle/team1
 
 /datum/team/battle_team/blue
 	name = "Синие"
 	team_color = "#1100ff"
 	team_role = JOB_TITLE_TEAM2
 	landmark = /obj/effect/landmark/team2
+	antag_datum_type = /datum/antagonist/battle/team2
 
 /datum/team/battle_team/red
 	name = "Красные"
 	team_color = "#ff0000"
 	team_role = JOB_TITLE_TEAM3
 	landmark = /obj/effect/landmark/team3
+	antag_datum_type = /datum/antagonist/battle/team3

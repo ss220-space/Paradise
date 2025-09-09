@@ -24,6 +24,7 @@
 	shoes = /obj/item/clothing/shoes/green
 	l_hand = /obj/item/crowbar/red
 	id = /obj/item/card/id/syndicate/anyone
+	l_ear = /obj/item/radio/headset/green
 	implants = list(/obj/item/implant/mindshield/ert)
 
 /datum/job/civilian/team2
@@ -52,6 +53,7 @@
 	shoes = /obj/item/clothing/shoes/blue
 	l_hand = /obj/item/crowbar/red
 	id = /obj/item/card/id/syndicate/anyone
+	l_ear = /obj/item/radio/headset/blue
 	implants = list(/obj/item/implant/mindshield/ert)
 
 /datum/job/civilian/team3
@@ -62,7 +64,7 @@
 	alt_titles = list()
 	total_positions = 0
 	spawn_positions = 0
-	outfit = /datum/outfit/job/assistant/team2
+	outfit = /datum/outfit/job/assistant/team3
 	insurance_type = INSURANCE_TYPE_NONE
 	min_start_money = 0
 	max_start_money = 10
@@ -80,4 +82,5 @@
 	shoes = /obj/item/clothing/shoes/red
 	l_hand = /obj/item/crowbar/red
 	id = /obj/item/card/id/syndicate/anyone
+	l_ear = /obj/item/radio/headset/red
 	implants = list(/obj/item/implant/mindshield/ert)

@@ -416,6 +416,7 @@
 			/obj/item/clothing/shoes/reflector,
 		),
 		/obj/item/clothing/suit/hooded/drake,
+		/obj/item/implanter/adrenalin/prototype,
 	)
 
 /datum/loot_tier/fourth
@@ -532,7 +533,8 @@
 		/obj/item/clothing/suit/space/hardsuit/champion,
 		/obj/item/clothing/suit/space/hardsuit/champion/inquisitor,
 		/obj/item/clothing/suit/space/hardsuit/syndi/elite/med,
-		/obj/item/clothing/suit/space/hardsuit/syndi/elite/comms
+		/obj/item/clothing/suit/space/hardsuit/syndi/elite/comms,
+		/obj/item/implanter/adrenalin,
 	)
 
 /datum/loot_tier/fifth
@@ -737,7 +739,7 @@
 		/obj/item/storage/firstaid/fire,
 		list(
 			/obj/item/storage/firstaid/regular,
-			///obj/item/stack/medical/suture,
+			/obj/item/stack/medical/suture,
 		),
 		/obj/item/storage/firstaid/toxin,
 		/obj/item/storage/firstaid/doctor/mining_medic,
@@ -749,7 +751,7 @@
 		/obj/item/storage/firstaid/ertm,
 		list(
 			/obj/item/storage/firstaid/ancient,
-			///obj/item/stack/medical/suture,
+			/obj/item/stack/medical/suture,
 		),
 		/obj/item/storage/firstaid/surgery,
 		list(
@@ -763,14 +765,14 @@
 		),
 		/obj/item/reagent_containers/glass/bottle/morphine,
 		/obj/item/reagent_containers/glass/bottle/potassium_iodide,
-		/*list(
+		list(
 			/obj/item/stack/medical/bruise_pack/military,
 			/obj/item/stack/medical/suture/advanced,
-		),*/
+		),
 		/obj/item/reagent_containers/glass/bottle/abductor/rezadone,
 		list(
-			/obj/item/handheld_defibrillator/syndie,
-			/obj/item/defibrillator/compact/combat/loaded
+			/obj/item/handheld_defibrillator,
+			/obj/item/defibrillator/compact/loaded
 		),
 		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
 		list(

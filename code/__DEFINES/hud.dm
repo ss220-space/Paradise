@@ -65,10 +65,13 @@
 #define TAIPAN_HUD 25
 #define ANTAG_HUD_THIEF 26
 #define ANTAG_HUD_PRISONER_TRAITOR 27
-#define THOUGHTS_HUD 28
+#define ANTAG_HUD_TEAM_1 28
+#define ANTAG_HUD_TEAM_2 29
+#define ANTAG_HUD_TEAM_3 30
+#define THOUGHTS_HUD 31
+#define ANTAG_HUD_HERETIC 32
 //species hud
-#define DATA_HUD_KIDAN_PHEROMONES 28
-#define ANTAG_HUD_HERETIC 29
+#define DATA_HUD_KIDAN_PHEROMONES 33
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
