@@ -1,18 +1,10 @@
 // Laser sight component
 
-#define LASER_SIGHT_MOUSEUP 0
-#define LASER_SIGHT_MOUSEDOWN 1
 
-//MARK: Component
+//MARK: Base component
 /datum/component/laser_sight
-	var/datum/action/toggle_laser_sight/action = null
 	var/enable = FALSE
-	var/atom/target
-	var/turf/target_loc
-	var/mouse_parameters
-	var/mouse_status = LASER_SIGHT_MOUSEUP
-	var/obj/effect/overlay/crosshair = null
-	var/obj/effect/overlay/laser_sight_line/current_beam = null
+	var/datum/action/toggle_laser_sight/action = null
 	var/sight_timer = null
 	var/atom/sight_target = null
 
@@ -29,8 +21,6 @@
 
 /datum/component/laser_sight/Destroy()
 	UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)
-	QDEL_NULL(crosshair)
-	QDEL_NULL(current_beam)
 	QDEL_NULL(action)
 	sight_target = null
 	return ..()
@@ -70,72 +60,103 @@
 		return // no changes
 
 	if(enable)
-		crosshair = new /obj/effect/overlay/laser_sight_dot(user.loc)
-		current_beam = new /obj/effect/overlay/laser_sight_line(user.loc)
+		on_enable_sight(user)
 		update_sight_laser(user)
 		sight_timer = addtimer(CALLBACK(src, PROC_REF(update_sight_laser), user), 0.1, TIMER_STOPPABLE | TIMER_LOOP)
 	else
-		QDEL_NULL(crosshair)
-		QDEL_NULL(current_beam)
+		on_disable_sight(user)
 		if(sight_timer)
 			deltimer(sight_timer)
 			sight_timer = null
 
+/datum/component/laser_sight/proc/on_enable_sight(mob/user)
+	return
+
+/datum/component/laser_sight/proc/on_disable_sight(mob/user)
+	return
 
 /datum/component/laser_sight/proc/update_sight_laser(mob/user)
 	if(!isturf(user.loc)) //No laser from inside lockers and stuff.
-		//current_beam.alpha = 0
 		return
 	var/atom/current_target = SSmouse_entered.hovers[user.client]
-	if(current_target)
+	if(current_target) //Target updated
 		sight_target = current_target
-	if(!sight_target)
-		//current_beam.alpha = 0
-		return
-	if(!isturf(sight_target))
+	if(sight_target && !isturf(sight_target)) //convert target to turf
 		sight_target = sight_target.loc
-	if(!sight_target)
-		//current_beam.alpha = 0
+	if(!sight_target)//No still exists target, skip it
 		return
+	on_update_sight(user)
 
+/datum/component/laser_sight/proc/on_update_sight(mob/user)
+	return
+
+
+// MARK: Point
+
+/datum/component/laser_sight/point
+	var/obj/effect/overlay/point = null
+
+/datum/component/laser_sight/point/Destroy()
+	QDEL_NULL(point)
+	. = ..()
+
+/datum/component/laser_sight/point/on_enable_sight(mob/user)
+	point = new /obj/effect/overlay/laser_sight_dot(user.loc)
+
+/datum/component/laser_sight/point/on_disable_sight(mob/user)
+	QDEL_NULL(point)
+
+/datum/component/laser_sight/point/on_update_sight(mob/user)
+	if(point.loc != sight_target)
+		point.forceMove(sight_target)
+
+
+
+// MARK: Ray
+
+/datum/component/laser_sight/ray
+	var/obj/effect/overlay/laser_sight_line/current_beam = null
+
+/datum/component/laser_sight/ray/Destroy()
+	QDEL_NULL(current_beam)
+	. = ..()
+
+/datum/component/laser_sight/ray/on_enable_sight(mob/user)
+	current_beam = new /obj/effect/overlay/laser_sight_line(user.loc)
+
+/datum/component/laser_sight/ray/on_disable_sight(mob/user)
+	QDEL_NULL(current_beam)
+
+/datum/component/laser_sight/ray/on_update_sight(mob/user)
 	if(current_beam.loc != user.loc)
 		current_beam.Move(user.loc, update_dir = FALSE)
-	if(crosshair.loc != sight_target)
-		crosshair.forceMove(sight_target)
-	update_beam(user, crosshair)
+	update_beam(user, sight_target)
 
-/datum/component/laser_sight/proc/update_beam(atom/start, atom/end)
+/datum/component/laser_sight/ray/proc/update_beam(atom/start, atom/end)
 	if(QDELETED(start) || QDELETED(end))
-		current_beam.alpha = 0
 		return
-
 	var/turf/start_turf = get_turf(start)
 	var/turf/end_turf = get_turf(end)
-
 	if(!start_turf || !end_turf)
-		current_beam.alpha = 0
 		return
-
-	current_beam.alpha = 255
-	// Вычисляем трансформацию
+	//calculate transform
 	var/dx = (start_turf.x - end_turf.x) * ICON_SIZE_ALL
 	var/dy = (start_turf.y - end_turf.y) * ICON_SIZE_ALL
 	var/distance = sqrt(dx*dx + dy*dy)
 	var/angle = get_stable_angle(dx, dy)
-	// Создаем матрицу трансформации
 	var/matrix/trans = matrix()
 	trans.Translate(0, -ICON_SIZE_ALL/2)
-	var/scale = max(distance / ICON_SIZE_ALL, 1)
-	trans.Scale(1, scale)  // Растягиваем по X
+	//scale to distance
+	var/scale = max(distance / ICON_SIZE_ALL, 0)
+	trans.Scale(1, scale)
 	trans.Turn(angle)
 	animate(current_beam, transform = trans, time = 2)
-	// current_beam.transform = trans
 
-/proc/get_stable_angle(dx, dy)
+/datum/component/laser_sight/ray/proc/get_stable_angle(dx, dy)
 	var/angle = arctan(dy, dx)
 	return normalize_angle(angle)
 
-/proc/normalize_angle(angle)
+/datum/component/laser_sight/ray/proc/normalize_angle(angle)
 	while(angle > 90)
 		angle -= 360
 	while(angle < -90)
@@ -143,7 +164,7 @@
 	return angle
 
 
-// MARK: Laser sight action
+// MARK: Action
 
 /datum/action/toggle_laser_sight
 	name = "Лазерный целеуказатель"
@@ -164,8 +185,8 @@
 	..()
 
 
+// MARK: Effects
 
-//used to show where dropship ordnance will impact.
 /obj/effect/overlay/laser_sight_dot
 	name = "laser sight dot"
 	anchored = TRUE
@@ -176,7 +197,7 @@
 	icon_state = "laser_dot"
 
 /obj/effect/overlay/laser_sight_line
-	name = "laser sight beam"
+	name = "laser sight ray"
 	layer = OBJ_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/effects/beam.dmi'

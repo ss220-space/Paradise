@@ -540,15 +540,7 @@
 
 /obj/item/gun_module/under/laser
 	name = "laser sight"
-	desc = "Модуль лазерного целеуказателя, повышает точность стрельбы и демонстрирует куда вы целитесь." //TODO описание хуйни - переделать
-	ru_names = list(
-		NOMINATIVE = "лазерный целеуказатель",
-		GENITIVE = "лазерного целеуказателя",
-		DATIVE = "лазерному целеуказателю",
-		ACCUSATIVE = "лазерный целеуказатель",
-		INSTRUMENTAL = "лазерным целеуказателем",
-		PREPOSITIONAL = "лазерном целеуказателе"
-	)
+	desc = "Модуль лазерного целеуказателя, позволяет увидеть куда вы целитесь с помощью лазерного луча. Повышает точность стрельбы и понижает разброс." //TODO описание хуйни - переделать
 	gender = MALE
 	icon_state = "laser"
 	item_state = "laser"
@@ -557,6 +549,8 @@
 	overlay_offset = list("x" = -2, "y" = 3)
 	var/bonus_accuracy = 10
 	var/spread_decrease = 0
+	var/datum/component/laser_sight/component_type
+
 
 /obj/item/gun_module/under/laser/on_attach(obj/item/gun/target_gun, mob/user)
 	target_gun.accuracy.add_accuracy(bonus_accuracy)
@@ -564,12 +558,41 @@
 		return
 	spread_decrease = initial(target_gun.accuracy.max_spread) * 0.25
 	target_gun.accuracy.max_spread = target_gun.accuracy.max_spread - spread_decrease
-	target_gun.AddComponent(/datum/component/laser_sight)
+	target_gun.AddComponent(component_type)
 
 
 /obj/item/gun_module/under/laser/on_detach(obj/item/gun/target_gun, mob/user)
 	target_gun.accuracy.add_accuracy(-bonus_accuracy)
 	target_gun.accuracy.max_spread += spread_decrease
 	spread_decrease = 0
-	var/datum/component/comp = target_gun.GetComponent(/datum/component/laser_sight)
+	var/datum/component/comp = target_gun.GetComponent(component_type)
 	comp.ClearFromParent()
+
+
+/obj/item/gun_module/under/laser/ray
+	name = "laser sight (ray)"
+	component_type = /datum/component/laser_sight/ray
+
+/obj/item/gun_module/under/laser/ray/get_ru_names()
+	return list(
+		NOMINATIVE = "лазерный целеуказатель (луч)",
+		GENITIVE = "лазерного целеуказателя (луч)",
+		DATIVE = "лазерному целеуказателю (луч)",
+		ACCUSATIVE = "лазерный целеуказатель (луч)",
+		INSTRUMENTAL = "лазерным целеуказателем (луч)",
+		PREPOSITIONAL = "лазерном целеуказателе (луч)"
+	)
+
+/obj/item/gun_module/under/laser/point
+	name = "laser sight (point)"
+	component_type = /datum/component/laser_sight/point
+
+/obj/item/gun_module/under/laser/point/get_ru_names()
+	return list(
+		NOMINATIVE = "лазерный целеуказатель (точка)",
+		GENITIVE = "лазерного целеуказателя (точка)",
+		DATIVE = "лазерному целеуказателю (точка)",
+		ACCUSATIVE = "лазерный целеуказатель (точка)",
+		INSTRUMENTAL = "лазерным целеуказателем (точка)",
+		PREPOSITIONAL = "лазерном целеуказателе (точка)"
+	)
