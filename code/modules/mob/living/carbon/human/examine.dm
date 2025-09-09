@@ -484,7 +484,7 @@
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
-		msg += span_deptradio("Состояние: ")
+		msg += span_notice("Состояние: ")
 		switch(hud_list[STATUS_HUD].icon_state)
 			if("hudflatline")
 				msg += span_notice("Отсутствует сердцебиение. Требуется немедленная дефибрилляция.\n")
