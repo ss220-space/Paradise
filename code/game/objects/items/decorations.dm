@@ -323,7 +323,7 @@
 	. = ..()
 
 /obj/structure/decorative_structures/corpse/Destroy()
-	playsound(src, 'sound/goonstation/effects/gib.ogg', 30, 0)
+	playsound(src, 'sound/goonstation/effects/gib.ogg', 30, FALSE)
 	var/turf/T = get_turf(src)
 	new /obj/effect/particle_effect/fluid/smoke/vomiting(T)
 	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
@@ -423,7 +423,7 @@
 	..()
 
 /obj/structure/decorative_structures/cult_crystal/Destroy()
-	playsound(src, 'sound/effects/glassbr3.ogg', 30, 0)
+	playsound(src, 'sound/effects/glassbr3.ogg', 30, FALSE)
 	var/turf/T = get_turf(src)
 	var/mob/living/simple_animal/crystal_soul = new /mob/living/simple_animal/hostile/construct/armoured/hostile(T)
 	crystal_soul.loot = list(pick(

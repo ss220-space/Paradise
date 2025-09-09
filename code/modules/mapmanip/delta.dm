@@ -76,3 +76,19 @@
 /obj/effect/map_effect/marker_helper/submap_def/delta/clown_mime/shuffle
 	name = "комната клоуна и мима была изменена местами. хихихихи"
 
+/// Old doorms room sumbap
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/old_doorm_room
+	name = "clown to mime shuffle"
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_doorm_room
+	name = "clown_mime insert"
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_doorm_room/working
+	name = "старая комната дормиторий была восстановлена."
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_doorm_room/passage
+	name = "старая комната дормиторий заменена на проходную со всяким мусором"
+
+/obj/effect/map_effect/marker_helper/submap_def/delta/old_doorm_room/medical
+	name = "старая комната дормиторий заменена на дополнительное помещение заброшенного лазарета"

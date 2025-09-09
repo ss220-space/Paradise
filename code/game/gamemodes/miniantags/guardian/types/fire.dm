@@ -109,6 +109,6 @@
 				to_chat(silicon, span_warning("<b>ОШИБКА #!^: ПЕРЕГРУЗКА СЕНСОРОВ\[$(!@#</b>"))
 				SEND_SOUND(silicon, sound('sound/misc/interference.ogg'))
 				playsound(silicon, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-				do_sparks(5, 1, silicon)
+				do_sparks(5, TRUE, silicon)
 				silicon.Weaken(6 SECONDS)
 

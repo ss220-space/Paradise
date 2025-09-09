@@ -2,6 +2,7 @@
 #define AUTOFIRE_MOUSEDOWN 1
 
 /datum/component/automatic_fire
+	var/enable = TRUE
 	var/client/clicker
 	var/mob/living/shooter
 	var/atom/target
@@ -37,6 +38,7 @@
 		return COMPONENT_INCOMPATIBLE
 	var/obj/item/gun = parent
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(wake_up))
+	RegisterSignal(parent, COMSIG_GUN_TOGGLE_FIREMODE, PROC_REF(toggle_firemode))
 	if(autofire_shot_delay)
 		src.autofire_shot_delay = autofire_shot_delay
 	src.allow_akimbo = allow_akimbo
@@ -56,6 +58,8 @@
 
 
 /datum/component/automatic_fire/process(seconds_per_tick)
+	if(!enable)
+		return
 	if(autofire_stat != AUTOFIRE_STAT_FIRING)
 		STOP_PROCESSING(SSprojectiles, src)
 		return
@@ -73,6 +77,8 @@
 	if(user.is_in_hands(parent))
 		autofire_on(user.client)
 
+/datum/component/automatic_fire/proc/toggle_firemode(datum/source, mob/user, firemode)
+	enable = firemode == GUN_AUTO_MODE
 
 // There is a gun and there is a user wielding it. The component now waits for the mouse click.
 /datum/component/automatic_fire/proc/autofire_on(client/user_client)
@@ -126,6 +132,9 @@
 
 /datum/component/automatic_fire/proc/on_mouse_down(client/source, atom/_target, turf/location, control, params)
 	SIGNAL_HANDLER
+
+	if(!enable)
+		return
 
 	var/list/modifiers = params2list(params) //If they're shift+clicking, for example, let's not have them accidentally shoot.
 
@@ -204,6 +213,9 @@
 /datum/component/automatic_fire/proc/on_mouse_up(datum/source, atom/object, turf/location, control, params)
 	SIGNAL_HANDLER
 
+	if(!enable)
+		return
+
 	UnregisterSignal(clicker, COMSIG_CLIENT_MOUSEUP)
 	mouse_status = AUTOFIRE_MOUSEUP
 	if(autofire_stat == AUTOFIRE_STAT_FIRING)
@@ -232,6 +244,9 @@
 
 /datum/component/automatic_fire/proc/on_mouse_drag(client/source, atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
 	SIGNAL_HANDLER
+
+	if(!enable)
+		return
 
 	if(isnull(over_location)) //This happens when the mouse is over an inventory or screen object, or on entering deep darkness, for example.
 		var/list/modifiers = params2list(params)

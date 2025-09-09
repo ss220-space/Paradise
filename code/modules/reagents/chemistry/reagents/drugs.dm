@@ -964,7 +964,7 @@
 	M.Stuttering(10 SECONDS)
 	if(prob(10))
 		to_chat(M, span_danger("Ваши процессоры перегружаются, вызывая короткое замыкание!"))
-		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, 1)
+		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, TRUE)
 		//Lightning effect for electrical discharge visualization
 		var/icon/I=new('icons/obj/zap.dmi',"lightningend")
 		I.Turn(-135)

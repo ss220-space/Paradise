@@ -73,26 +73,31 @@
 	* examine_list: The current list of text getting passed from the parent's normal examine() proc.
 */
 /datum/component/label/proc/Examine(datum/source, mob/user, list/examine_list)
-	examine_list += "<span class='notice'>It has a label with some words written on it. Use a hand labeler to remove it.</span>"
+	examine_list += span_notice("It has a label with some words written on it. Use a hand labeler to remove it.")
 
 /// Applies a label to the name of the parent in the format of: "parent_name (label)"
 /datum/component/label/proc/apply_label()
 	var/atom/owner = parent
 	owner.name += " ([label_name])"
 	var/list/names = owner.ru_names || owner.get_ru_names_cached()
-	if(names)
-		owner.ru_names = names
-		for(var/i = 1; i <= 6; i++)
-			owner.ru_names[i] += " ([label_name])"
+	if(!names)
+		return
+
+	owner.ru_names = names.Copy()
+	for(var/i in NOMINATIVE to PREPOSITIONAL)
+		owner.ru_names[i] += " ([label_name])"
 
 /// Removes the label from the parent's name
 /datum/component/label/proc/remove_label()
 	var/atom/owner = parent
 	owner.name = replacetext(owner.name, "([label_name])", "") // Remove the label text from the parent's name, wherever it's located.
 	if(owner.ru_names)
-		for(var/i = 1; i <= 6; i++)
+		for(var/i in NOMINATIVE to PREPOSITIONAL)
 			owner.ru_names[i] = replacetext(owner.ru_names[i], "([label_name])", "")
+
 	owner.name = trim(owner.name) // Shave off any white space from the beginning or end of the parent's name.
-	if(owner.ru_names)
-		for(var/i = 1; i <= 6; i++)
-			owner.ru_names[i] = trim(owner.ru_names[i])
+	if(!owner.ru_names)
+		return
+
+	for(var/i in NOMINATIVE to PREPOSITIONAL)
+		owner.ru_names[i] = trim(owner.ru_names[i])

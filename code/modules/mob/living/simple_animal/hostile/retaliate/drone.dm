@@ -83,7 +83,7 @@
 )
 	. = ..()
 	if(. && amount > 0)
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 		passive_mode = FALSE
 		update_icons()
 
@@ -96,7 +96,7 @@
 
 /mob/living/simple_animal/hostile/malf_drone/proc/scramble_settings()
 	if(prob(50))
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 		passive_mode = !passive_mode
 		if(passive_mode)
 			visible_message("<span class='notice'>[src] retracts several targetting vanes.</span>")
@@ -110,7 +110,7 @@
 	adjustHealth(100 / severity) // takes the same damage as a mining drone from emp
 
 /mob/living/simple_animal/hostile/malf_drone/drop_loot()
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 	var/turf/T = get_turf(src)
 
@@ -299,7 +299,15 @@
 /obj/item/drone_manual
 	name = "Strange looking Manual"
 	desc = "На обложке этой книги вы можете увидеть изображение боевого дрона. Это руководство по его эксплуатации."
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/library.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
+	icon_state = "drone_manual"
+	item_state = "book7"
+	
+/obj/item/drone_manual/get_ru_names()
+	return list(
 		NOMINATIVE = "странное руководство",
 		GENITIVE = "странного руководства",
 		DATIVE = "странному руководству",
@@ -307,13 +315,7 @@
 		INSTRUMENTAL = "странным руководством",
 		PREPOSITIONAL = "странном руководстве"
 	)
-	gender = MALE
-	icon = 'icons/obj/library.dmi'
-	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
-	icon_state = "drone_manual"
-	item_state = "book7"
-
+	
 /obj/item/drone_manual/attack_self(mob/user)
 	. = ..()
 	to_chat(user, span_alert("После того как вы пробежались глазами по содержанию книги, она рассыпалась пеплом. Но, кажется, вы можете вспомнить пару методов работы, описанных там - самодельные платы и базовую модель самого дрона."))

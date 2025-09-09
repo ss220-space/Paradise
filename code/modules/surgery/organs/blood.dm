@@ -2,90 +2,183 @@
 				BLOOD SYSTEM
 ****************************************************/
 
-#define EXOTIC_BLEED_MULTIPLIER 4 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
+#define EXOTIC_BLEED_MULTIPLIER 3 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
 
-/mob/living/carbon/human/proc/suppress_bloodloss(amount)
-	if(bleedsuppress)
+/// Natural bleed regeneration size (units per 2 sec)
+#define BLOOD_REGENERATION 0.1
+
+// Blood level damage constants
+/// Damage for blood volume from BLOOD_VOLUME_PALE to BLOOD_VOLUM5E_SAFE
+#define BLOOD_PALE_DAMAGE 1
+/// Damage for blood volume from BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE
+#define BLOOD_OKAY_DAMAGE 2
+/// Damage for blood volume from BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY
+#define BLOOD_BAD_DAMAGE 4
+/// Damage for blood volume from BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD
+#define BLOOD_SURVIVE_DAMAGE 8
+
+// Bledding calculation constants
+/// Bleeding per embedded item (units per 2 sec)
+#define EMBEDDED_ITEM_BLEEDING 0.2
+/// Open bodypart bleeding (units per 2 sec)
+#define OPEN_BODYPART_BLEEDING 0.75
+/// Internal bleeding size (units per 2 sec)
+#define BODYPART_INTERNAL_BLEEDING 0.5
+
+/// Decrease bleeding size if no wounds (units per 2 sec)
+#define BLEEDING_DECREASE 0.005
+/// Multiplyer for bleeding calculate from bodypart value
+#define BLEEDING_MODIFIER 0.45
+/// Minimal brute damage for add bleeding
+#define MIN_BRUTE_DAMAGE_FOR_BLEEDING 15
+#define BRUTE_DAMAGE_FOR_GARANT_BLEEDING 30
+/// Minimal brute damage for add bleeding
+#define MIN_BURN_DAMAGE_FOR_STOP_BLEEDING 5
+/// Brute damage to bleeding calculation coefficient
+#define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.1
+/// Minimal brute damage for add bleeding
+#define BURN_DAMAGE_STOP_BLEEDING_MOD 0.15
+/// Heal damage to bleeding reduction calculation coefficient
+#define HEAL_DAMAGE_TO_BLEEDING_MOD 0.05
+/// Minimal brute damage for bodypart
+#define MIN_DAMAGE_FROM_BLEEDING_MOD 1.5
+
+#define HEAVY_BLEEDING_RATE 5
+
+/// Suppressed bleeding modifier
+#define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
+
+
+/obj/item/organ/external/proc/suppress_bloodloss(mob/living/user, mob/living/carbon/human/target, amount, duration)
+	var/calculated_bleeding = max(0, bleeding_amount - bleedsuppress)
+	if(calculated_bleeding <= 0)
 		return
+	var/suppress_amount = calculated_bleeding
+	if(calculated_bleeding > amount)
+		suppress_amount = amount
+		balloon_alert(user, "кровотечение перевязано")
 	else
-		bleedsuppress = TRUE
-		addtimer(CALLBACK(src, PROC_REF(resume_bleeding)), amount)
+		balloon_alert(user, "кровотечение ослаблено")
+	bleedsuppress += suppress_amount
+	addtimer(CALLBACK(src, PROC_REF(resume_bleeding), target, suppress_amount), duration)
 
-/mob/living/carbon/human/proc/resume_bleeding()
-	bleedsuppress = FALSE
-	if(stat != DEAD && bleed_rate)
-		to_chat(src, span_warning("Кровь просачивается через вашу повязку."))
+/obj/item/organ/external/proc/resume_bleeding(mob/living/carbon/human/target, amount)
+	bleedsuppress = max(bleedsuppress - amount, 0)
+	if(target.stat != DEAD && (bleeding_amount - bleedsuppress) > 0)
+		to_chat(target, span_warning("Повязка полностью пропиталась кровью и больше не ослабляет кровотечение."))
+
+
+/obj/item/organ/external/proc/heal_bleeding(mob/living/user, mob/living/carbon/human/target, bleeding_heal_amount, brute_damage)
+	bleeding_amount = max(0, bleeding_amount - bleeding_heal_amount)
+	if(brute_damage > 0)
+		target.apply_damage(brute_damage, def_zone = src)
+	if(!bleeding_amount)
+		balloon_alert(user, "кровотечение остановлено")
+		return
+	balloon_alert(user, "кровотечение ослаблено")
+
+/mob/living/carbon/human/has_bleeding()
+	return bleed_rate > 0
+
+/mob/living/carbon/human/has_heavy_bleeding()
+	return bleed_rate >= HEAVY_BLEEDING_RATE
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
 	if(HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		bleed_rate = 0
 		return
+	// cryosleep or husked people do not pump the blood.
+	if(bodytemperature < TCRYO || HAS_TRAIT(src, TRAIT_NO_CLONE))
+		return
+	// regenerate blood VERY slowly
+	if(!HAS_TRAIT(src, TRAIT_NO_BLOOD_RESTORE) && blood_volume < BLOOD_VOLUME_NORMAL)
+		AdjustBlood(BLOOD_REGENERATION)
+	apply_current_blood_level_effect()
+	calculate_current_bleeding()
 
-	if(bodytemperature >= TCRYO && !HAS_TRAIT(src, TRAIT_NO_CLONE)) //cryosleep or husked people do not pump the blood.
-		if(!HAS_TRAIT(src, TRAIT_NO_BLOOD_RESTORE) && blood_volume < BLOOD_VOLUME_NORMAL)
-			AdjustBlood(0.1) // regenerate blood VERY slowly
+/mob/living/carbon/human/proc/apply_current_blood_level_effect()
+	switch(blood_volume)
+		if(BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE)
+			apply_damage(BLOOD_OKAY_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
 
-		switch(blood_volume)
-			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
-				if(prob(5))
-					var/symptom = pick("слабость",
-						"лёгкое головокружение",
-						"небольшую тошноту")
-					to_chat(src, span_warning("Вы чувствуете [symptom]."))
-				apply_damage(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.014, 1), dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
-			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				apply_damage(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.028, 1), dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
-				if(prob(5))
-					EyeBlurry(12 SECONDS)
-					var/symptom = pick("сильную слабость",
-						"сильное головокружение",
-						"нарастающую тошноту",
-						"спутанность сознания")
-					to_chat(src, span_warning("Вы чувствуете [symptom]."))
-			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				apply_damage(5, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
-				if(prob(15))
-					Paralyse(rand(2 SECONDS, 6 SECONDS))
-					var/symptom = pick("крайнюю слабость",
-						"очень сильное головокружение",
-						"невыносимую тошноту",
-						"полную дезориентацию")
-					to_chat(src, span_warning("Вы чувствуете [symptom]."))
-			if(-INFINITY to BLOOD_VOLUME_SURVIVE)
-				death()
+		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE)
+			apply_damage(BLOOD_OKAY_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			if(prob(5))
+				var/symptom = pick("слабость",
+					"лёгкое головокружение",
+					"небольшую тошноту")
+				to_chat(src, span_warning("Вы чувствуете [symptom]."))
 
-		var/temp_bleed = 0
-		var/internal_bleeding_rate = 0
-		//Bleeding out
-		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
-			var/brutedamage = bodypart.brute_dam
+		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
+			apply_damage(BLOOD_BAD_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			if(prob(5))
+				EyeBlurry(12 SECONDS)
+				var/symptom = pick("сильную слабость",
+					"сильное головокружение",
+					"нарастающую тошноту",
+					"спутанность сознания")
+				to_chat(src, span_warning("Вы чувствуете [symptom]."))
 
-			if(bodypart.is_robotic())
-				continue
+		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
+			apply_damage(BLOOD_SURVIVE_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			if(prob(15))
+				Paralyse(rand(2 SECONDS, 6 SECONDS))
+				var/symptom = pick("крайнюю слабость",
+					"очень сильное головокружение",
+					"невыносимую тошноту",
+					"полную дезориентацию")
+				to_chat(src, span_warning("Вы чувствуете [symptom]."))
 
-			var/embedded_length = LAZYLEN(bodypart.embedded_objects)
-			if(embedded_length)
-				temp_bleed += 0.5 * embedded_length
+		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
+			death()
 
-			if(brutedamage >= 20)
-				temp_bleed += (brutedamage * 0.013)
-
-			if(bodypart.open)
-				temp_bleed += 0.5
-
-			if(bodypart.has_internal_bleeding())
-				internal_bleeding_rate += 0.5
-
-		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects naturally decreases
-
-		var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //Heparin worsens existing bleeding
-
-		if(internal_bleeding_rate && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
-			bleed_internal(internal_bleeding_rate + additional_bleed)
-
-		if(bleed_rate && !bleedsuppress && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
-			bleed(bleed_rate + additional_bleed)
+/mob/living/carbon/human/proc/calculate_current_bleeding()
+	//not calculate bleeding for fake dath
+	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
+		return
+	var/current_bleed = 0
+	var/internal_bleeding_rate = 0
+	// calculate total bleeding from bodyparts
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(bodypart.is_robotic())
+			continue
+		if(bodypart.has_internal_bleeding())
+			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
+		if(bodypart.bleeding_amount > 0)
+			bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - BLEEDING_DECREASE)
+			if(bodypart.bleedsuppress > bodypart.bleeding_amount)
+				bodypart.bleedsuppress = bodypart.bleeding_amount
+		var/bodypart_bleeding = max(bodypart.bleeding_amount - bodypart.bleedsuppress * BRUISE_PACK_SUPPRESS_BLEEDING_MOD, 0)
+		bodypart_bleeding = bodypart_bleeding * BLEEDING_MODIFIER * bodypart.bleeding_mod
+		current_bleed += bodypart_bleeding
+		var/embedded_length = LAZYLEN(bodypart.embedded_objects)
+		if(embedded_length && bodypart.bleedsuppress > 0)
+			current_bleed += EMBEDDED_ITEM_BLEEDING * embedded_length
+		if(bodypart.open)
+			current_bleed += OPEN_BODYPART_BLEEDING
+	// calculate bleed rate with regenretion and current bleed
+	var/prev_bleed_rate = bleed_rate
+	bleed_rate = current_bleed
+	//manage alert
+	if(prev_bleed_rate <= 0 && bleed_rate > 0)
+		throw_alert(ALERT_BLEEDING, /atom/movable/screen/alert/bleeding)
+	if(prev_bleed_rate > 0 && bleed_rate <= 0)
+		clear_alert(ALERT_BLEEDING)
+	// calculate addition bleeding from reagents
+	var/additional_bleed_mod = 1
+	var/heparin_amount = reagents.get_reagent_amount("heparin")
+	if(heparin_amount > 0)
+		additional_bleed_mod += round(clamp((heparin_amount / 20), 0, 1) * 0.75, 0.05) //heparin worsens existing bleeding
+	var/traneksam_amount = reagents.get_reagent_amount("traneksam_acid")
+	if(traneksam_amount > 0)
+		additional_bleed_mod -= round(clamp((traneksam_amount / 10), 0, 1) * 0.75, 0.05) //traneksam acid suppress existing bleeding
+	// apply internal bleeding
+	if(internal_bleeding_rate)
+		bleed_internal(internal_bleeding_rate * additional_bleed_mod)
+	// apply bleeding
+	if(bleed_rate && !bleedsuppress)
+		bleed(bleed_rate * additional_bleed_mod)
 
 
 /// Makes a blood drop, leaking amt units of blood from the mob
@@ -436,3 +529,14 @@
 	if(shift_x || shift_y)
 		oil.off_floor = TRUE
 		oil.layer = BELOW_MOB_LAYER
+
+#undef BLOOD_REGENERATION
+#undef BLOOD_PALE_DAMAGE
+#undef BLOOD_OKAY_DAMAGE
+#undef BLOOD_BAD_DAMAGE
+#undef BLOOD_SURVIVE_DAMAGE
+#undef EMBEDDED_ITEM_BLEEDING
+#undef OPEN_BODYPART_BLEEDING
+#undef BLEEDING_DECREASE
+#undef BLEEDING_MODIFIER
+#undef BRUISE_PACK_SUPPRESS_BLEEDING_MOD

@@ -108,6 +108,22 @@
 
 		if("Syndicate-Spawn")
 			GLOB.nukespawn += loc
+			
+		if(/obj/effect/landmark/captain::name)
+			GLOB.captain_body_spawns += loc
+			qdel(src)
+		
+		if(/obj/effect/landmark/armory::name)
+			GLOB.armory_body_spawns += loc
+			qdel(src)
+
+		if(/obj/effect/landmark/airdrop::name)
+			GLOB.airdrops_points += loc
+			qdel(src)
+
+		if((/obj/effect/landmark/team1::name), (/obj/effect/landmark/team2::name), (/obj/effect/landmark/team3::name))
+			LAZYADD(GLOB.battle_teams_spawns[type], loc)
+			qdel(src)
 
 	if(!QDELETED(src))
 		GLOB.landmarks_list += src
@@ -755,3 +771,27 @@
 
 /obj/effect/landmark/start_override/prisoner
 	connected_outfit = /datum/outfit/job/assistant/prisoner
+
+/obj/effect/landmark/team1
+	name = "team1"
+	icon_state = "GREEN"
+
+/obj/effect/landmark/team2
+	name = "team2"
+	icon_state = "BLUE"
+
+/obj/effect/landmark/team3
+	name = "team3"
+	icon_state = "RED"
+
+/obj/effect/landmark/airdrop
+	name = "airdrop"
+	icon_state = "airdrop"
+
+/obj/effect/landmark/captain
+	name = "captain body"
+	icon_state = "captain"
+
+/obj/effect/landmark/armory
+	name = "armory body"
+	icon_state = "armory"

@@ -140,7 +140,7 @@
 		if(has_owner)
 			var/datum/species/golem/G = H.dna.species
 			G.owner = owner
-		if(!name || name == "Unknown")
+		if(!name || name == UNKNOWN_NAME_RUS)
 			H.rename_character(null, H.dna.species.get_random_name())
 		else
 			H.rename_character(null, name)

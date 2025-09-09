@@ -521,9 +521,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/security/armory/l6_saw_ammo
 	name = "Syndicate L6 SAW - 5.56x45mm Box Magazine Crate"
-	contains = list(/obj/item/ammo_box/magazine/mm556x45,
-					/obj/item/ammo_box/magazine/mm556x45,
-					/obj/item/ammo_box/magazine/mm556x45)
+	contains = list(/obj/item/ammo_box/magazine/a762x51,
+					/obj/item/ammo_box/magazine/a762x51,
+					/obj/item/ammo_box/magazine/a762x51)
 	cost = 36000
 	containername = "L6 SAW - 5.56x45mm Box Magazine crate"
 

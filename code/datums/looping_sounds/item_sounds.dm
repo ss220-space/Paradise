@@ -5,7 +5,9 @@
 
 /datum/looping_sound/ambulance_alarm/justice
 	mid_length = 1.5 SECONDS
+	falloff_distance = 4
 	falloff_exponent = 4
+	volume = 40
 
 /datum/looping_sound/chainsaw
 	start_sound = list('sound/weapons/chainsaw_start.ogg')

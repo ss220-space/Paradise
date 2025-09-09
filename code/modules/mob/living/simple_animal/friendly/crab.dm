@@ -2,14 +2,6 @@
 /mob/living/simple_animal/crab
 	name = "crab"
 	desc = "Небольшое ракообразное с твёрдым панцирем. Похоже, что ему нравится шляться без дела."
-	ru_names = list(
-		NOMINATIVE = "краб",
-		GENITIVE = "краба",
-		DATIVE = "крабу",
-		ACCUSATIVE = "краба",
-		INSTRUMENTAL = "крабом",
-		PREPOSITIONAL = "крабе"
-	)
 	icon_state = "crab"
 	icon_living = "crab"
 	icon_dead = "crab_dead"
@@ -34,18 +26,19 @@
 	holder_type = /obj/item/holder/crab
 	mob_size = MOB_SIZE_SMALL
 
+/mob/living/simple_animal/crab/get_ru_names()
+	return list(
+		NOMINATIVE = "краб",
+		GENITIVE = "краба",
+		DATIVE = "крабу",
+		ACCUSATIVE = "краба",
+		INSTRUMENTAL = "крабом",
+		PREPOSITIONAL = "крабе"
+	)
 
 /mob/living/simple_animal/crab/royal
 	name = "royal crab"
 	desc = "Величественный королевский краб."
-	ru_names = list(
-		NOMINATIVE = "королевский краб",
-		GENITIVE = "королевского краба",
-		DATIVE = "королевскому крабу",
-		ACCUSATIVE = "королевского краба",
-		INSTRUMENTAL = "королевским крабом",
-		PREPOSITIONAL = "королевском крабе"
-	)
 	icon_state = "royalcrab"
 	icon_living = "royalcrab"
 	icon_dead = "royalcrab_dead"
@@ -56,13 +49,26 @@
 	maxHealth = 50
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 
+/mob/living/simple_animal/crab/royal/get_ru_names()
+	return list(
+		NOMINATIVE = "королевский краб",
+		GENITIVE = "королевского краба",
+		DATIVE = "королевскому крабу",
+		ACCUSATIVE = "королевского краба",
+		INSTRUMENTAL = "королевским крабом",
+		PREPOSITIONAL = "королевском крабе"
+	)
 
 //COFFEE! SQUEEEEEEEEE!
 /mob/living/simple_animal/crab/Coffee
 	name = "Coffee"
 	real_name = "Коффи"
 	desc = "Любитель потягать топливные баки и штангу. Коффи? Кофе?"
-	ru_names = list(
+	gold_core_spawnable = NO_SPAWN
+	unique_pet = TRUE
+
+/mob/living/simple_animal/crab/Coffee/get_ru_names()
+	return list(
 		NOMINATIVE = "Коффи",
 		GENITIVE = "Коффи",
 		DATIVE = "Коффи",
@@ -70,8 +76,6 @@
 		INSTRUMENTAL = "Коффи",
 		PREPOSITIONAL = "Коффи"
 	)
-	gold_core_spawnable = NO_SPAWN
-	unique_pet = TRUE
 
 // Billy Crabbington, MASTER OF THE GYM
 
@@ -80,14 +84,6 @@
 	real_name = "Билли Крабингтон"
 	desc = "Босс качалки в этом и всех ближайших секторах, известен также как мастер глубоководных подземелий. \
 			От долгого нахождения в обществе суровых мужчин научился говорить несколько фраз."
-	ru_names = list(
-		NOMINATIVE = "Билли Крабингтон",
-		GENITIVE = "Билли Крабингтона",
-		DATIVE = "Билли Крабингтону",
-		ACCUSATIVE = "Билли Крабингтона",
-		INSTRUMENTAL = "Билли Крабингтоном",
-		PREPOSITIONAL = "Билли Крабингтоне"
-	)
 	speak = list("ААААРГХ!", "О, йес сэр!", "Шёл бы ты, кожевник")
 	emote_hear = list("клацает по своему блестящему панцирю")
 	emote_see = list("играет панцирем")
@@ -95,18 +91,20 @@
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
+/mob/living/simple_animal/crab/billy/get_ru_names()
+	return list(
+		NOMINATIVE = "Билли Крабингтон",
+		GENITIVE = "Билли Крабингтона",
+		DATIVE = "Билли Крабингтону",
+		ACCUSATIVE = "Билли Крабингтона",
+		INSTRUMENTAL = "Билли Крабингтоном",
+		PREPOSITIONAL = "Билли Крабингтоне"
+	)
+
 /mob/living/simple_animal/crab/evil
 	name = "evil crab"
 	real_name = "Злой краб"
 	desc = "Жуткий, да? Похоже, он что-то замышляет..."
-	ru_names = list(
-		NOMINATIVE = "злой краб",
-		GENITIVE = "злого краба",
-		DATIVE = "злому крабу",
-		ACCUSATIVE = "злого краба",
-		INSTRUMENTAL = "злым крабом",
-		PREPOSITIONAL = "злом крабе"
-	)
 	icon_state = "evilcrab"
 	icon_living = "evilcrab"
 	icon_dead = "evilcrab_dead"
@@ -115,3 +113,13 @@
 	response_harm = "топчет"
 	gold_core_spawnable = HOSTILE_SPAWN
 	holder_type = /obj/item/holder/evilcrab
+
+/mob/living/simple_animal/crab/evil/get_ru_names()
+	return list(
+		NOMINATIVE = "злой краб",
+		GENITIVE = "злого краба",
+		DATIVE = "злому крабу",
+		ACCUSATIVE = "злого краба",
+		INSTRUMENTAL = "злым крабом",
+		PREPOSITIONAL = "злом крабе"
+	)
