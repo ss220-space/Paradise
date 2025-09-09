@@ -4,8 +4,6 @@
 
 //To do: Allow corpses to appear mangled, bloody, etc. Allow customizing the bodies appearance (they're all bald and white right now).
 
-GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
-
 /obj/effect/mob_spawn
 	name = "Unknown"
 	density = TRUE
@@ -53,8 +51,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	var/mob/dead/observer/O = user
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
-	if(GLOB.off_mob_spawns)
-		return 
 	if(!uses)
 		to_chat(user, span_warning("This spawner is out of charges!"))
 		return

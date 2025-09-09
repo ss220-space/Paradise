@@ -90,7 +90,7 @@
 
 
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/new_magazine, mob/user)
-	if(user && magazine.loc == user && !user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
+	if(user && magazine.loc == user && !user.drop_transfer_item_to_loc(new_magazine, src))
 		return FALSE
 	. = TRUE
 	magazine = new_magazine
@@ -135,7 +135,7 @@
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(magazine)
 		magazine.forceMove(drop_location())
-		user.put_in_hands(magazine, silent = TRUE)
+		user.put_in_hands(magazine)
 		magazine.update_appearance()
 		magazine = null
 		update_weight()

@@ -30509,7 +30509,7 @@
 	},
 /area/medical/research)
 "bWm" = (
-/obj/machinery/vending/medical,
+/obj/item/roller,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -57599,13 +57599,6 @@
 	icon_state = "whitegreenfull"
 	},
 /area/medical/virology/lab)
-"eNM" = (
-/obj/item/roller,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/sleeper)
 "eNP" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
@@ -122848,7 +122841,7 @@ rpg
 bZG
 cuv
 bWo
-eNM
+bWs
 ckS
 caz
 cgJ

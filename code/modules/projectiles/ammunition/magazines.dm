@@ -1,7 +1,6 @@
 // MARK: Internal magazines
 /obj/item/ammo_box/magazine/internal
 	desc = "Oh god, this shouldn't be here!"
-	can_fast_load = TRUE
 
 
 //internals magazines are accessible, so replace spent ammo if full when trying to put a live one in
@@ -13,7 +12,7 @@
 /obj/item/ammo_box/magazine/internal/cylinder
 	name = "revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/a357
-	caliber = CALIBER_DOT_357
+	caliber = ".357"
 	max_ammo = 7
 
 
@@ -78,7 +77,7 @@
 /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	name = "detective revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/c38
-	caliber = CALIBER_DOT_38
+	caliber = ".38"
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
@@ -92,13 +91,13 @@
 /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	name = "nagant revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/n762
-	caliber = CALIBER_7_DOT_62X38MM
+	caliber = "7.62x38mm"
 	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev36
 	name = ".36 revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/c38/c36
-	caliber = CALIBER_DOT_36
+	caliber = ".36"
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvised
@@ -108,7 +107,7 @@
 	icon_state = "rev_cylinder"
 	ammo_type = null
 	start_empty = TRUE
-	caliber = list(CALIBER_DOT_257)
+	caliber = list(".257")
 	max_ammo = 4
 
 
@@ -123,27 +122,27 @@
 	desc = "High quality steel revolver cylinder with increased amount of bullets."
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "s_rev_cylinder"
-	caliber = list(CALIBER_DOT_257, CALIBER_DOT_38)
+	caliber = list(".257", ".38")
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
 	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/cap
-	caliber = CALIBER_CAP
+	caliber = "cap"
 	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	name = ".12 revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/shotgun
-	caliber = CALIBER_12X70
+	caliber = ".12"
 	max_ammo = 3
 
 // Shotgun internal mags
 /obj/item/ammo_box/magazine/internal/shot
 	name = "shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
-	caliber = CALIBER_12X70
+	caliber = ".12"
 	max_ammo = 4
 	multiload = FALSE
 
@@ -194,7 +193,7 @@
 /obj/item/ammo_box/magazine/internal/grenadelauncher
 	name = "grenade launcher internal magazine"
 	ammo_type = /obj/item/ammo_casing/a40mm
-	caliber = CALIBER_40MM
+	caliber = "40mm"
 	max_ammo = 1
 
 /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi
@@ -205,19 +204,19 @@
 /obj/item/ammo_box/magazine/internal/speargun
 	name = "speargun internal magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/magspear
-	caliber = CALIBER_SPEAR
+	caliber = "spear"
 	max_ammo = 1
 
 /obj/item/ammo_box/magazine/internal/rocketlauncher
 	name = "rocket launcher internal magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/rocket
-	caliber = CALIBER_84MM
+	caliber = "84mm"
 	max_ammo = 1
 
 /obj/item/ammo_box/magazine/internal/rus357
 	name = "russian revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/a357
-	caliber = CALIBER_DOT_357
+	caliber = ".357"
 	max_ammo = 6
 	multiload = FALSE
 	start_empty = TRUE
@@ -239,7 +238,7 @@
 	name = "bolt action rifle internal magazine"
 	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/a762
-	caliber = CALIBER_7_DOT_62X54MM
+	caliber = "7.62x54mm"
 	max_ammo = 5
 	multiload = TRUE
 
@@ -249,7 +248,7 @@
 
 /obj/item/ammo_box/magazine/internal/shot/toy
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
-	caliber = CALIBER_FOAM_FORCE
+	caliber = "foam_force"
 	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
@@ -261,14 +260,13 @@
 // MARK: External magazines
 /obj/item/ammo_box/magazine
 	materials = list(MAT_METAL = 2000)
-	can_fast_load = FALSE
 
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
 	desc = "Магазин пистолета \"Стечкин\", заряженный патронами калибра 10 мм. Эти патроны примерно в два раза менее эффективны, чем патроны .357 калибра."
 	icon_state = "9x19p"
 	ammo_type = /obj/item/ammo_casing/c10mm
-	caliber = CALIBER_10MM
+	caliber = "10mm"
 	max_ammo = 15
 	multiple_sprites = 2
 
@@ -338,7 +336,7 @@
 	desc = "Магазин пистолета \"M1911\", заряженный патронами .45 калибра. Эти патроны обладают сильным останавливающим действием, способным сбить с ног большинство целей, однако они не наносят серьёзных повреждений."
 	icon_state = "45"
 	ammo_type = /obj/item/ammo_casing/c45
-	caliber = CALIBER_DOT_45
+	caliber = ".45"
 	max_ammo = 8
 	multiple_sprites = 1
 
@@ -359,7 +357,7 @@
 	ammo_type = /obj/item/ammo_casing/rubber9mm
 	max_ammo = 8
 	multiple_sprites = 1
-	caliber = CALIBER_9MM
+	caliber = "9mm"
 
 /obj/item/ammo_box/magazine/enforcer/get_ru_names()
 	return list(
@@ -428,7 +426,7 @@
 	icon_state = "sp8mag"
 	ammo_type = /obj/item/ammo_casing/fortynr
 	max_ammo = 10
-	caliber = CALIBER_40NR
+	caliber = "40nr"
 
 /obj/item/ammo_box/magazine/sp8/get_ru_names()
 	return list(
@@ -448,7 +446,7 @@
 	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", заряженный патронами калибра 4,6x30 мм."
 	icon_state = "46x30mmt-20"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
-	caliber = CALIBER_4_DOT_6X30MM
+	caliber = "4.6x30mm"
 	max_ammo = 30
 
 /obj/item/ammo_box/magazine/wt550m9/get_ru_names()
@@ -514,7 +512,7 @@
 	desc = "Магазин пистолет-пулемета \"SP-91-RC\", заряженный нелетальными патронами калибра 9 мм TE."
 	icon_state = "9mm-te"
 	ammo_type = /obj/item/ammo_casing/c9mmte
-	caliber = CALIBER_9MM_TE
+	caliber = "9mm TE"
 	max_ammo = 20
 
 /obj/item/ammo_box/magazine/sp91rc/get_ru_names()
@@ -540,7 +538,7 @@
 	desc = "Магазин пистолет-пулемета \"UZI\", заряженный патронами калибра 9 мм."
 	icon_state = "uzi9mm-32"
 	ammo_type = /obj/item/ammo_casing/c9mm
-	caliber = CALIBER_9MM
+	caliber = "9mm"
 	max_ammo = 32
 
 /obj/item/ammo_box/magazine/uzim9mm/get_ru_names()
@@ -561,7 +559,7 @@
 	desc = "Магазин пистолет-пулемёта SMG, предназначенный для патронов калибра 9 мм."
 	icon_state = "smg9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
-	caliber = CALIBER_9MM
+	caliber = "9mm"
 	max_ammo = 21
 
 /obj/item/ammo_box/magazine/smgm9mm/get_ru_names()
@@ -642,7 +640,7 @@
 	desc = "Магазин пистолет-пулемёта SFG-5 SMG, предназначенный для патронов калибра 9 мм."
 	icon_state = "sfg5"
 	ammo_type = /obj/item/ammo_casing/c9mm
-	caliber = CALIBER_9MM
+	caliber = "9mm"
 	max_ammo = 30
 
 /obj/item/ammo_box/magazine/sfg9mm/get_ru_names()
@@ -663,7 +661,7 @@
 	desc = "Магазин пистолета APS, предназначенный для патронов калибра 9 мм."
 	icon_state = "9x19p-15"
 	ammo_type = /obj/item/ammo_casing/c9mm
-	caliber = CALIBER_9MM
+	caliber = "9mm"
 	max_ammo = 15
 
 /obj/item/ammo_box/magazine/pistolm9mm/get_ru_names()
@@ -684,7 +682,7 @@
 	desc = "Магазин пистолет-пулемёта SMG, предназначенный для патронов .45 калибра."
 	icon_state = "c20r45"
 	ammo_type = /obj/item/ammo_casing/c45
-	caliber = CALIBER_DOT_45
+	caliber = ".45"
 	max_ammo = 20
 
 /obj/item/ammo_box/magazine/smgm45/get_ru_names()
@@ -705,7 +703,7 @@
 	desc = "Барабанный магазин пистолет-пулемёта SMG, предназначенный для патронов .45 калибра."
 	icon_state = "drum45"
 	ammo_type = /obj/item/ammo_casing/c45
-	caliber = CALIBER_DOT_45
+	caliber = ".45"
 	max_ammo = 50
 
 /obj/item/ammo_box/magazine/tommygunm45/get_ru_names()
@@ -723,7 +721,7 @@
 	desc = "Магазин пистолета \"Desert Eagle\", предназначенный для патронов .50 калибра AE."
 	icon_state = "50ae"
 	ammo_type = /obj/item/ammo_casing/a50
-	caliber = CALIBER_DOT_50AE
+	caliber = ".50ae"
 	max_ammo = 7
 	multiple_sprites = 1
 
@@ -742,7 +740,7 @@
 	desc = "Магазин гиро-пистолета, предназначенный для патронов .75 калибра"
 	icon_state = "75"
 	ammo_type = /obj/item/ammo_casing/caseless/a75
-	caliber = CALIBER_DOT_75
+	caliber = ".75"
 	multiple_sprites = 2
 	max_ammo = 8
 
@@ -763,7 +761,7 @@
 	icon_state = "5.56m"
 	origin_tech = "combat=5"
 	ammo_type = /obj/item/ammo_casing/a556
-	caliber = CALIBER_5_DOT_56X45MM
+	caliber = "5.56mm"
 	max_ammo = 30
 	multiple_sprites = 2
 
@@ -784,7 +782,7 @@
 	desc= "A universal magazine for an AK style rifle."
 	origin_tech = "combat=5;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a545
-	caliber = CALIBER_5_DOT_45X39MM
+	caliber = "5.45x39mm"
 	max_ammo = 30
 	multiple_sprites = 2
 
@@ -804,7 +802,7 @@
 	icon_state = "ak47mag"
 	origin_tech = "combat=4;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/a545/fusty
-	caliber = CALIBER_5_DOT_45X39MM
+	caliber = "5.45x39mm"
 	max_ammo = 30
 	multiple_sprites = 2
 
@@ -825,7 +823,7 @@
 	desc= "An antique drum for an PPSh submacnine."
 	origin_tech = "combat=3;syndicate=1"
 	ammo_type = /obj/item/ammo_casing/ftt762
-	caliber = CALIBER_7_DOT_62X25MM
+	caliber = "7.62x25mm"
 	max_ammo = 71
 	multiple_sprites = 2
 
@@ -845,7 +843,7 @@
 	desc = "Барабанный магазин, предназначенный для картечных магнум патронов калибра 12х70."
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/magnum
-	caliber = CALIBER_12X70
+	caliber = ".12"
 	max_ammo = 12
 	multiple_sprites = 2
 
@@ -864,7 +862,7 @@
 	desc = "Барабанный магазин, предназначенный для картечных патронов калибра 12х70."
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
-	caliber = CALIBER_12X70
+	caliber = ".12"
 	max_ammo = 12
 	multiple_sprites = 2
 	color = COLOR_ASSEMBLY_BROWN
@@ -1045,7 +1043,7 @@
 	name = "foam force META magazine"
 	desc = "Магазин предназначенный для пенных патронов."
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
-	caliber = CALIBER_FOAM_FORCE
+	caliber = "foam_force"
 
 /obj/item/ammo_box/magazine/toy/get_ru_names()
 	return list(
@@ -1187,7 +1185,7 @@
 	desc = "Коробчатый магазин IK-60, предназначенный для лазерных патронов."
 	icon_state = "laser"
 	ammo_type = /obj/item/ammo_casing/laser
-	caliber = CALIBER_LASER
+	caliber = "laser"
 	max_ammo = 20
 
 /obj/item/ammo_box/magazine/laser/get_ru_names()
@@ -1208,7 +1206,7 @@
 	desc = "Коробчатый магазин LR-30, предназначенный для лазерных патронов."
 	icon_state = "lmag"
 	ammo_type = /obj/item/ammo_casing/laser
-	caliber = CALIBER_LASER
+	caliber = "laser"
 	max_ammo = 20
 
 /obj/item/ammo_box/magazine/lr30mag/get_ru_names()
@@ -1232,8 +1230,8 @@
 	name = "M-52 magazine"
 	desc = "Коробчатый магазин M-52, предназначенный для патронов калибра 5,56х45 мм."
 	icon_state = "m52_ammo"
-	ammo_type = /obj/item/ammo_casing/a762x51
-	caliber = CALIBER_7_DOT_62X51MM
+	ammo_type = /obj/item/ammo_casing/mm556x45
+	caliber = "mm55645"
 	max_ammo = 24
 	multiple_sprites = 2
 
@@ -1317,7 +1315,7 @@
 	name = "C.A.T.S. magazine (12g)-U"
 	desc = "Барабанный магазин дробовика C.A.T.S., предназначенный для любых патронов калибра 12х70."
 	icon_state = "cats_mag"
-	caliber = CALIBER_12X70
+	caliber = ".12"
 	ammo_type = null
 
 /obj/item/ammo_box/magazine/cats12g/universal/get_ru_names()
@@ -1353,7 +1351,7 @@
 	ammo_type = /obj/item/ammo_casing/specter/disable
 	max_ammo = 8
 	multiple_sprites = 1
-	caliber = CALIBER_SPECTER
+	caliber = "specter"
 	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/specter/get_ru_names()

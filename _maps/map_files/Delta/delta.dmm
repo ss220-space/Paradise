@@ -28210,7 +28210,9 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "daC" = (
-/obj/machinery/r_n_d/protolathe,
+/obj/machinery/r_n_d/protolathe{
+	pixel_x = 1
+	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -31988,7 +31990,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "dqz" = (
-/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -35776,7 +35777,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/r_n_d/protolathe,
+/obj/machinery/r_n_d/protolathe{
+	pixel_x = 1
+	},
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -45120,15 +45123,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"fhX" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 8
-	},
-/turf/simulated/wall,
-/area/crew_quarters/locker)
 "fif" = (
 /obj/structure/dresser,
 /turf/simulated/floor/wood,
@@ -47243,10 +47237,6 @@
 	},
 /turf/simulated/floor/engine/co2,
 /area/atmos)
-"fKh" = (
-/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/old_doorm_room,
-/turf/simulated/wall,
-/area/maintenance/fsmaint)
 "fKi" = (
 /obj/item/radio/intercom{
 	pixel_y = 28
@@ -53778,15 +53768,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/podbay)
-"hks" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
-	},
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 1
-	},
-/turf/simulated/wall,
-/area/crew_quarters/cabin3)
 "hkF" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
@@ -72174,7 +72155,6 @@
 "lNh" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/toy/plushie/wet_owl,
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "lNp" = (
@@ -77727,8 +77707,7 @@
 /area/maintenance/asmaint2)
 "nan" = (
 /obj/machinery/r_n_d/circuit_imprinter{
-	pixel_y = 3;
-	pixel_x = -1
+	pixel_y = 3
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/northeast,
@@ -102979,15 +102958,6 @@
 	icon_state = "purplefull"
 	},
 /area/toxins/xenobiology)
-"sHs" = (
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 6
-	},
-/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/crew_quarters/cabin3)
 "sHA" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -175324,12 +175294,12 @@ cnP
 icS
 vAa
 icS
-fhX
+cnP
 onT
 onT
 jfE
 onT
-fKh
+onT
 gvQ
 uNE
 oYp
@@ -176352,12 +176322,12 @@ cnP
 vHh
 mSR
 igC
-hks
 pts
 pts
 pts
 pts
-sHs
+pts
+pts
 xWh
 sGS
 xWh

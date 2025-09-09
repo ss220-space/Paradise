@@ -4,8 +4,7 @@
 
 /obj/machinery/autolathe
 	name = "autolathe"
-	desc = "Крупное устройство, предназначенное для печати различных вещей из металла и стекла."
-	gender = MALE
+	desc = "It produces items using metal and glass."
 	icon_state = "autolathe"
 	density = TRUE
 
@@ -38,16 +37,6 @@
 	var/list/recipiecache = list()
 
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
-
-/obj/machinery/autolathe/get_ru_names()
-	return list(
-		NOMINATIVE = "автолат",
-		GENITIVE = "автолата",
-		DATIVE = "автолату",
-		ACCUSATIVE = "автолат",
-		INSTRUMENTAL = "автолатом",
-		PREPOSITIONAL = "автолате",
-	)
 
 /obj/machinery/autolathe/Initialize(mapload)
 	. = ..()
@@ -322,7 +311,7 @@
 	if(busy)
 		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return
-	default_deconstruction_screwdriver(user, "autolathe_unscrewed", "autolathe", I)
+	default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
 
 /obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -349,9 +338,9 @@
 /obj/machinery/autolathe/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	switch(id_inserted)
 		if(MAT_METAL)
-			flick("autolathe_metal", src)//plays metal insertion animation
+			flick("autolathe_o", src)//plays metal insertion animation
 		if(MAT_GLASS)
-			flick("autolathe_glass", src)//plays glass insertion animation
+			flick("autolathe_r", src)//plays glass insertion animation
 	use_power(min(1000, amount_inserted / 100))
 	SStgui.update_uis(src)
 
@@ -391,7 +380,7 @@
 	if(can_build(D, multiplier))
 		being_built = list(D, multiplier)
 		use_power(power)
-		flick("autolathe_work", src)
+		flick("autolathe_n", src)
 		if(is_stack)
 			var/list/materials_used = list(MAT_METAL=metal_cost*multiplier, MAT_GLASS=glass_cost*multiplier)
 			materials.use_amount(materials_used)

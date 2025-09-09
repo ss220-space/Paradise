@@ -307,12 +307,9 @@
 		holder.remove_reagent("frostoil", 5)
 	return ..() | update_flags
 
-/datum/reagent/consumable/drink/coffee/overdose_process(mob/living/target, severity)
+/datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)
 	if(volume > 45)
-		target.Jitter(10 SECONDS)
-	if(volume > 50 && prob(10)) //10% to knockdown
-		target.unbuckle_if_not_cuffed()
-		target.Knockdown(2 SECONDS)
+		M.Jitter(10 SECONDS)
 	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/consumable/drink/coffee/icecoffee

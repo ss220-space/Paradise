@@ -412,15 +412,13 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
  * Creates a new antagonist team.
  */
 /datum/antagonist/proc/create_team(datum/team/team)
-	src.team = create_antag_team(team)
-	return
-
-/proc/create_antag_team(datum/team/team)
 	if(!ispath(team))
 		team = team.type
 	if(!GLOB.antagonist_teams[team])
 		new team
-	return GLOB.antagonist_teams[team]
+	src.team = GLOB.antagonist_teams[team]
+	return
+
 
 /**
  * Returns the team the antagonist belongs to, if any.

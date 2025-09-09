@@ -27,7 +27,6 @@
 #define ALERT_NUTRITION "nutrition"
 #define ALERT_DIRECTION_LOCK "direction_lock"
 #define ALERT_UNPOSSESS_OBJECT "unpossess_object"
-#define ALERT_BLEEDING "bleeding"
 
 /** Silicon related */
 #define ALERT_LOCKED "locked"
