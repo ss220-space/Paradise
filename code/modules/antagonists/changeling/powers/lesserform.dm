@@ -17,6 +17,9 @@
 	if(!istype(user))
 		return FALSE
 
+	if(HAS_TRAIT(user, TRAIT_NO_TRANSFORM))
+		return FALSE
+
 	if(user.has_brain_worms())
 		to_chat(user, span_warning("Alien intelligence in our body prevents transformation!"))
 		return FALSE

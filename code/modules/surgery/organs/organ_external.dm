@@ -104,6 +104,13 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 
+	/// How many bleeding stopped
+	var/bleedsuppress = 0
+	/// Timer for stop blood loss
+	var/bleedsuppress_timer = null
+	/// Bleeding mod
+	var/bleeding_mod = 1
+
 
 /obj/item/organ/external/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
@@ -285,6 +292,7 @@
 	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
 		return FALSE
 
+	var/basic_brute = brute
 	var/brute_was = brute_dam
 	var/burn_was = burn_dam
 
@@ -339,6 +347,7 @@
 	// Need to update health, but need a reference in case the below checks cuts off a limb.
 	var/mob/living/carbon/organ_owner = owner
 
+	var/remaining_health = max_damage - (brute_dam + burn_dam)
 	// Make sure we don't exceed the maximum damage a limb can take before dismembering
 	if((brute_dam + burn_dam + brute + burn) < max_damage)
 		brute_dam = round(brute_dam + brute, DAMAGE_PRECISION)
@@ -346,7 +355,6 @@
 	else
 		// If we can't inflict the full amount of damage, spread the damage in other ways
 		// How much damage can we actually cause?
-		var/remaining_health = max_damage - (brute_dam + burn_dam)
 		if(remaining_health)
 			if(brute > 0)
 				// Inflict all brute damage we can
@@ -413,11 +421,33 @@
 					limb_dropped = TRUE
 				if(!limb_dropped && original_burn && prob(original_burn / 2))
 					droplimb(clean = FALSE, disintegrate = DROPLIMB_BURN, silent = silent)
+	if(burn >= MIN_BURN_DAMAGE_FOR_STOP_BLEEDING)
+		if(bleeding_amount > 0)
+			var/bleeding_heal = min(bleeding_amount, burn * BURN_DAMAGE_STOP_BLEEDING_MOD)
+			bleeding_amount = round(bleeding_amount - bleeding_heal, BLEEDING_PRECISION)
+
+	calculate_take_bleeding(brute, burn, basic_brute, sharp, remaining_health)
 
 	if(updating_health && (QDELETED(src) || loc != organ_owner || brute_dam != brute_was || burn_dam != burn_was))
 		organ_owner?.updatehealth("limb receive damage")
 
 	return update_state()
+
+/obj/item/organ/external/proc/calculate_take_bleeding(brute, burn, basic_brute, sharp, remaining_health)
+	//no allowed bleeding for robotic bodyparts
+	if(is_robotic())
+		return
+	if(basic_brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING || sharp || brute_dam > BRUTE_DAMAGE_FOR_GARANT_BLEEDING)
+		var/basic_chance = 25 + basic_brute * 2.5
+		var/already_bleeding_chance = bleeding_amount > 0 ? 25 : 0
+		var/total_brute_chance = brute_dam >= remaining_health ? 25 : 0
+		var/bleeding_probe = min(100, basic_chance + already_bleeding_chance + total_brute_chance)
+		if(sharp || prob(bleeding_probe))
+			var/bleeding = brute * BRUTE_DAMAGE_TO_BLEEDING_MOD
+			if(sharp)
+				bleeding = bleeding * 2
+			bleeding_amount += round(bleeding, BLEEDING_PRECISION)
+			bleeding_amount = min(bleeding_amount, max_bleeding_amount)
 
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = FALSE, robo_repair = FALSE, updating_health = TRUE)
@@ -426,6 +456,16 @@
 
 	var/brute_was = brute_dam
 	var/burn_was = burn_dam
+
+	if(brute > 0 && bleeding_amount > 0)
+		var/bleeding_heal = brute * HEAL_DAMAGE_TO_BLEEDING_MOD
+		bleeding_amount -= round(bleeding_heal, BLEEDING_PRECISION)
+		bleeding_amount = max(bleeding_amount, 0)
+		var/min_brute_from_bleeding = bleeding_amount * MIN_DAMAGE_FROM_BLEEDING_MOD
+		if(brute_dam - brute < min_brute_from_bleeding)
+			// can not full heal bleeding bodypart
+			brute = brute_dam - min_brute_from_bleeding
+
 	brute_dam = max(round(brute_dam - brute, DAMAGE_PRECISION), 0)
 	burn_dam  = max(round(burn_dam - burn, DAMAGE_PRECISION), 0)
 	if(brute_dam == brute_was && burn_dam == burn_was)
@@ -434,6 +474,8 @@
 	if(internal)
 		mend_fracture()
 		stop_internal_bleeding()
+
+	brute = HEAL_DAMAGE_TO_BLEEDING_MOD
 
 	if(updating_health)
 		owner.updatehealth("limb heal damage")
@@ -500,6 +542,8 @@ This function completely restores a damaged organ to perfect condition.
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
+	bleeding_amount = 0
+	bleedsuppress = 0
 	open = ORGAN_CLOSED //Closing all wounds.
 
 	// handle internal organs
@@ -1193,7 +1237,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(total_damage < 10) //small amounts of damage aren't infectable
 			return FALSE
 
-		if(owner && owner.bleedsuppress && total_damage < 25)
+		if(owner && !owner.bleed_rate && total_damage < 25)
 			return FALSE
 
 		var/dam_coef = round(total_damage / 10)
