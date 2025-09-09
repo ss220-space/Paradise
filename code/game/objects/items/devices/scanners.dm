@@ -416,6 +416,10 @@ BODY SCANNERS
 		for(var/damage in scan_data["damageLocalization"])
 			P.header += "&emsp;[span_notice(capitalize(damage["name"]))]: <span style='color: red;'><font color='#FF8000'>[damage["burn"]]</font> - <font color='red'>[damage["brute"]]</font><br>"
 
+	if(scan_data["bleedingList"])
+		for(var/bleeding in scan_data["bleedingList"])
+			P.header += span_red("Кровотечение в [fracture].<br>")
+
 	if(scan_data["fractureList"])
 		for(var/fracture in scan_data["fractureList"])
 			P.header += span_red("Обнаружен перелом в [fracture].<br>")
@@ -749,20 +753,27 @@ BODY SCANNERS
 
 	var/list/fractureList = list()
 	var/list/infectedList = list()
+	var/list/bleedingList = list()
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 		if(!e)
 			continue
-		var/limb = e.name
+		var/limb = e.declent_ru(PREPOSITIONAL)
 		if(e.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			if((e.limb_zone in check_list) && !e.is_splinted())
 				fractureList += "[limb]"
 		if(e.has_infected_wound())
 			infectedList += "[limb]"
+		if(e.bleeding_amount > 0)
+			if(e.bleeding_amount <= e.bleedsuppress)
+				bleedingList += "[limb] перевязано"
+			else
+				bleedingList += "[limb]"
 
 	data["fractureList"] = fractureList
 	data["infectedList"] = infectedList
+	data["bleedingList"] = bleedingList
 
 
 	for(var/name in H.bodyparts_by_name)
@@ -909,7 +920,12 @@ BODY SCANNERS
 				scan_data += span_warning("Обнаружен перелом в [limb].")
 		if(e.has_infected_wound())
 			scan_data += span_warning("Заражение в [limb].")
-
+	for(var/name in H.bodyparts_by_name)
+		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
+		if(!e)
+			continue
+		if(e.bleeding_amount > 0)
+			scan_data += span_warning("Обнаружено [e.bleeding_amount < e.bleedsuppress ? "перевязанное " : ""]кровотечение в [e.declension_ru(PREPOSITIONAL)].")
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 		if(!e)
@@ -1755,7 +1771,8 @@ BODY SCANNERS
 				infected = "Acute Infection++:"
 			if(INFECTION_LEVEL_THREE to INFINITY)
 				infected = "Septic:"
-
+		if(e.bleeding_amount > 0)
+			bled = "[round(e.bleeding_amount, 0.01)] "
 		if(LAZYLEN(e.embedded_objects) || e.hidden)
 			imp += "Unknown body present:"
 		if(!AN && !open && !infected && !imp)
