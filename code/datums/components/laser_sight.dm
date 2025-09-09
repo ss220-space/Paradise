@@ -36,6 +36,7 @@
 
 /datum/component/laser_sight/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
+
 	if(!(slot & ITEM_SLOT_HANDS))
 		// If its not in their hands, disable laser, and remove the action button.
 		process_aim(user, FALSE)
@@ -48,6 +49,7 @@
 
 /datum/component/laser_sight/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER
+
 	process_aim(user, FALSE)
 	action.Remove(user)
 	sight_target = null
@@ -148,8 +150,6 @@
 	if(point.loc != sight_target)
 		point.forceMove(sight_target)
 
-
-
 // MARK: Ray
 
 /datum/component/laser_sight/ray
@@ -233,7 +233,7 @@
 
 /datum/action/toggle_laser_sight/Remove(mob/living/living)
 	sight.process_aim(living, FALSE)
-	..()
+	return ..()
 
 
 // MARK: Effects
