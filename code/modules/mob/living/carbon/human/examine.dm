@@ -484,33 +484,7 @@
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
-		msg += span_deptradio("Состояние: ")
-		switch(hud_list[STATUS_HUD].icon_state)
-			if("hudflatline")
-				msg += span_notice("Отсутствует сердцебиение. Требуется немедленная дефибрилляция.\n")
-			if("huddead")
-				msg += span_notice("Пациент мертв. Возвращение возможно только через клонирование или иное вмешательство.\n")
-			if("huddeaddnr")
-				msg += span_notice("Пациент отказался от реанимации или активность мозга не обнаружена.\n")
-			if("hudxeno")
-				msg += span_notice("Обнаружена инопланетная форма жизни в грудной клетке. Требуется срочное хирургическое удаление!\n")
-			if("hudtumour")
-				msg += span_notice("Обнаружена опухоль. Требуется срочное хирургическое удаление!\n")
-			if("hudbrainworm")
-				msg += span_notice("Обнаружена аномальная активность в мозге. Возможно наличие паразита или иного воздействия.\n")
-			if("huddefib")
-				msg += span_notice("КРИТИЧЕСКОЕ СОСТОЯНИЕ. Пациент близок к смерти. Требуется немедленная помощь для стабилизации!\n")
-			if("hudbleeding2")
-				msg += span_notice("Пациент интенсивно истекает кровью.\n")
-			if("hudbleeding1")
-				msg += span_notice("Пациент истекает кровью.\n")
-			if("hudill")
-				msg += span_notice("Обнаружены признаки инфекции или интоксикации. Требуется применение лекарства или диагностика причины интоксикации.\n")
-			if("hudhealthy")
-				msg += span_notice("Серьезных проблем со здоровьем пациента не обнаружено.\n")
-			else
-				msg += span_notice("ОШИБКА СКАНИРОВАНИЯ. Невозможно определить состояние.\n")
-
+		msg += "[span_deptradio("Состояние:")] [span_notice(get_desc_for_medical_status(hud_list[STATUS_HUD].icon_state))]\n"
 		msg += "[span_deptradio("Психологический статус:")] <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "[span_deptradio("Медицинские записи:")] <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n"
 
