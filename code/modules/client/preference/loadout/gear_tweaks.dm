@@ -188,11 +188,17 @@
 	var/sprite = input(user, "Выберите dmi файл", "Загрузка спрайта") as null|file
 	if(!sprite)
 		return
+
 	if(copytext("[sprite]",-4) != ".dmi")
 		to_chat(user, "Bad sprite file: [sprite]")
 		return
 
 	var/icon/new_icon = new(sprite)
+	var/datum/custom_item_datum/custom = GLOB.custom_item_datums[custom_type]
+	if(!custom.validate_icon(new_icon))
+		to_chat(user, "Bad sprite file: [sprite]")
+		return
+
 	SScustom_item.save_icon(user.ckey, new_icon, custom_type, custom_name)
 
 	return user.ckey

@@ -18,7 +18,7 @@ SUBSYSTEM_DEF(custom_item)
 
 /datum/controller/subsystem/custom_item/proc/init_custom_datums()
 	for(var/datum/custom_item_datum/type as anything in subtypesof(/datum/custom_item_datum))
-		GLOB.custom_item_datums[type::name] = type
+		GLOB.custom_item_datums[type::name] = new type
 
 /datum/controller/subsystem/custom_item/Recover()
 	init_custom_datums()
@@ -40,10 +40,10 @@ SUBSYSTEM_DEF(custom_item)
 		var/name = query.item[2]
 		var/dummy = query.item[3]
 		var/type = query.item[4]
-		var/datum_type = GLOB.custom_item_datums[type]
+		var/datum/datum_type = GLOB.custom_item_datums[type]
 		dummySave.ImportText("dummy", dummy)
 		READ_FILE(dummySave["dummy"], icon)
-		var/datum/custom_item_datum/new_custom = new datum_type(name, icon)
+		var/datum/custom_item_datum/new_custom = new datum_type.type(name, icon)
 		LAZYADDASSOC(custom_gear_info, ckey, new_custom)
 
 	qdel(query)
@@ -72,10 +72,22 @@ SUBSYSTEM_DEF(custom_item)
 /datum/custom_item_datum
 	var/name = "base"
 	var/possible_icon_states
+	var/necessary_icon_states
 	var/base_item
 
 	var/item_name
 	var/icon/item_icon
+
+/datum/custom_item_datum/proc/validate_icon(icon/new_icon)
+	var/check_list = icon_states(new_icon)
+	if(length(check_list - (check_list & possible_icon_states)))
+		return FALSE
+	if(length(necessary_icon_states - (check_list & necessary_icon_states)))
+		return FALSE
+	if((new_icon.Width() != 32) || (new_icon.Height() != 32))
+		return FALSE
+
+	return TRUE
 
 /datum/custom_item_datum/New(new_name, new_icon)
 	item_name = new_name
@@ -84,6 +96,7 @@ SUBSYSTEM_DEF(custom_item)
 /datum/custom_item_datum/plushie
 	name = "plushie"
 	possible_icon_states = list("plushie")
+	necessary_icon_states = list("plushie")
 	base_item = /obj/item/toy/plushie/custom
 
 /obj/item/toy/plushie/custom
