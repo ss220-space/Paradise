@@ -154,21 +154,34 @@
 
 /datum/component/laser_sight/ray
 	var/obj/effect/overlay/laser_sight_line/current_beam = null
+	var/obj/effect/overlay/laser_sight_dot/point = null
+	var/move_range = 8
 
 /datum/component/laser_sight/ray/Destroy()
 	QDEL_NULL(current_beam)
+	QDEL_NULL(point)
 	. = ..()
 
 /datum/component/laser_sight/ray/on_enable_sight(mob/user)
 	current_beam = new /obj/effect/overlay/laser_sight_line(user.loc)
+	point = new /obj/effect/overlay/laser_sight_dot/invisible(user.loc)
 
 /datum/component/laser_sight/ray/on_disable_sight(mob/user)
 	QDEL_NULL(current_beam)
+	QDEL_NULL(point)
 
 /datum/component/laser_sight/ray/on_update_sight(mob/user)
 	if(current_beam.loc != user.loc)
 		current_beam.Move(user.loc, update_dir = FALSE)
-	update_beam(user, sight_target)
+	update_point(user)
+	update_beam(user, point)
+
+/datum/component/laser_sight/ray/proc/update_point(mob/user)
+	if(point.loc != sight_target)
+		point.forceMove(sight_target)
+	if(prob(50))
+		point.pixel_x = clamp(point.pixel_x + rand(-1, 1), -move_range, move_range)
+		point.pixel_y = clamp(point.pixel_y + rand(-1, 1), -move_range, move_range)
 
 /datum/component/laser_sight/ray/proc/update_beam(atom/start, atom/end)
 	if(QDELETED(start) || QDELETED(end))
@@ -178,8 +191,8 @@
 	if(!start_turf || !end_turf)
 		return
 	//calculate transform
-	var/dx = (start_turf.x - end_turf.x) * ICON_SIZE_ALL
-	var/dy = (start_turf.y - end_turf.y) * ICON_SIZE_ALL
+	var/dx = (start_turf.x - end_turf.x) * ICON_SIZE_ALL + (start.pixel_x - end.pixel_x)
+	var/dy = (start_turf.y - end_turf.y) * ICON_SIZE_ALL + (start.pixel_y - end.pixel_y)
 	var/distance = sqrt(dx*dx + dy*dy)
 	var/angle = get_stable_angle(dx, dy)
 	var/matrix/trans = matrix()
@@ -233,6 +246,9 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "laser_dot"
+
+/obj/effect/overlay/laser_sight_dot/invisible
+	alpha = 0
 
 /obj/effect/overlay/laser_sight_line
 	name = "laser sight ray"
