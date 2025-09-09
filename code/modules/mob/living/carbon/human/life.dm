@@ -740,7 +740,7 @@
 				return
 
 		if(health <= HEALTH_THRESHOLD_CRIT)
-			if(get_perceived_trauma(shock_reduction()) <= 0))
+			if(get_perceived_trauma(shock_reduction()) <= 0)
 				if(prob(5))
 					emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
 				SetStuttering(10 SECONDS)
