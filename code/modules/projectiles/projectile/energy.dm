@@ -249,8 +249,8 @@
 		PREPOSITIONAL = "латунной пуле",
 	)
 	icon_state = "brassslug"
-	damage = 25
-	armour_penetration = 50
+	damage = 20
+	armour_penetration = 40
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = BRUTE
 	flag = "bullet"
@@ -350,7 +350,7 @@
 		PREPOSITIONAL = "латунной снайперской пуле",
 	)
 	icon_state = "brassshot"
-	damage = 60
+	damage = 70
 	armour_penetration = 60
 	weaken = 2
 
@@ -462,7 +462,7 @@
 
 /obj/projectile/energy/sphere/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 10 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 15 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(process_beam)), 1 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 
 /obj/projectile/energy/sphere/proc/process_beam()
@@ -473,12 +473,12 @@
 		target.Beam(src, beam_icon, 'icons/obj/weapons/projectiles.dmi', time = 1 SECONDS, maxdistance = 2)
 
 /obj/projectile/energy/sphere/attack
-	damage = 60
+	damage = 75
 
 /obj/projectile/energy/sphere/attack/process_effects(mob/living/target)
 	if(isclocker(target))
 		return
-	target.apply_damage(15, BURN)
+	target.apply_damage(30, BURN)
 	. = ..()
 
 /obj/projectile/energy/sphere/heal
@@ -488,7 +488,7 @@
 /obj/projectile/energy/sphere/heal/process_effects(mob/living/target)
 	if(!isclocker(target))
 		return
-	target.heal_overall_damage(0, 15)
+	target.heal_overall_damage(0, 30)
 	. = ..()
 
 /obj/projectile/energy/sphere/heal/on_hit(atom/target, blocked, hit_zone)
@@ -497,4 +497,4 @@
 	var/mob/living/to_heal = target
 	if(!isclocker(to_heal))
 		return ..()
-	to_heal.heal_overall_damage(0, 60)
+	to_heal.heal_overall_damage(0, 75)
