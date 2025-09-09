@@ -418,7 +418,7 @@ BODY SCANNERS
 
 	if(scan_data["bleedingList"])
 		for(var/bleeding in scan_data["bleedingList"])
-			P.header += span_red("Кровотечение в [fracture].<br>")
+			P.header += span_red("Кровотечение в [bleeding].<br>")
 
 	if(scan_data["fractureList"])
 		for(var/fracture in scan_data["fractureList"])
@@ -925,7 +925,7 @@ BODY SCANNERS
 		if(!e)
 			continue
 		if(e.bleeding_amount > 0)
-			scan_data += span_warning("Обнаружено [e.bleeding_amount < e.bleedsuppress ? "перевязанное " : ""]кровотечение в [e.declension_ru(PREPOSITIONAL)].")
+			scan_data += span_warning("Обнаружено [e.bleeding_amount < e.bleedsuppress ? "перевязанное " : ""]кровотечение в [e.declent_ru(PREPOSITIONAL)].")
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 		if(!e)
