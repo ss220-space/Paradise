@@ -254,7 +254,7 @@
 		var/mob/living/simple_animal/hostile/hivebot/target = pick(targets)
 
 		target.adjustHealth(-heal_amount)
-		visible_message(span_redtext([capitalize(declent_ru(NOMINATIVE))] чинит [target.declent_ru(ACCUSATIVE)] с помощью ремонтных нанитов."))
+		visible_message("<span class='redtext'>[src.declent_ru(NOMINATIVE)] чинит [target] с помощью ремонтных нанитов.</span>")
 
 		var/datum/effect_system/spark_spread/sparks = new
 		sparks.set_up(3, 0, get_turf(target))
