@@ -28,6 +28,9 @@
 /datum/component/laser_sight/Destroy()
 	QDEL_NULL(action)
 	sight_target = null
+	if(sight_timer)
+		deltimer(sight_timer)
+		sight_timer = null
 	return ..()
 
 
@@ -106,16 +109,40 @@
 
 /datum/component/laser_sight/point
 	var/obj/effect/overlay/point = null
+	var/move_range = 8
+	var/animation_speed = 2 SECONDS
+	var/rand_move_timer = null
 
 /datum/component/laser_sight/point/Destroy()
 	QDEL_NULL(point)
+	if(rand_move_timer)
+		deltimer(rand_move_timer)
+		rand_move_timer = null
 	. = ..()
 
 /datum/component/laser_sight/point/on_enable_sight(mob/user)
 	point = new /obj/effect/overlay/laser_sight_dot(user.loc)
+	start_point_random_move()
+
+/datum/component/laser_sight/point/proc/start_point_random_move()
+	if(QDELETED(src))
+		return
+	var/target_x = rand(-move_range, move_range)
+	var/target_y = rand(-move_range, move_range)
+	var/duration = rand(animation_speed * 0.5, animation_speed * 1.5)
+	animate(point,
+		pixel_x = target_x,
+		pixel_y = target_y,
+		time = duration,
+		easing = SINE_EASING,
+		flags = ANIMATION_PARALLEL)
+	rand_move_timer = addtimer(CALLBACK(src, PROC_REF(start_point_random_move)), duration, TIMER_STOPPABLE)
 
 /datum/component/laser_sight/point/on_disable_sight(mob/user)
 	QDEL_NULL(point)
+	if(rand_move_timer)
+		deltimer(rand_move_timer)
+		rand_move_timer = null
 
 /datum/component/laser_sight/point/on_update_sight(mob/user)
 	if(point.loc != sight_target)
