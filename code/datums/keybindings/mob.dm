@@ -427,7 +427,9 @@
 	for(var/datum/action/action in human.actions)
 		if(istype(action, /datum/action/toggle_scope_zoom))
 			action.Trigger()
-			break
+			return
+	// not found scope, now we can try trigger laser sight
+	for(var/datum/action/action in human.actions)
 		if(istype(action, /datum/action/toggle_laser_sight))
 			action.Trigger()
 			break
