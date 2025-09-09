@@ -853,7 +853,7 @@
 				healthdoll.cut_overlay(cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
-		if(health <= HEALTH_THRESHOLD_CRIT)
+		if(health <= HEALTH_THRESHOLD_CRIT && get_perceived_trauma(shock_reduction) < 0)
 			throw_alert("succumb", /atom/movable/screen/alert/succumb)
 		else
 			clear_alert("succumb")
