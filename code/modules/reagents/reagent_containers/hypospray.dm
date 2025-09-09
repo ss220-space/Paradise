@@ -416,6 +416,8 @@
 			base_state = "autoinjector"
 		if("Gray")
 			base_state = "stimpen"
+		if("Orange")
+			base_state = "orangeinjector"
 		else
 			base_state = initial(icon_state)
 
@@ -552,6 +554,24 @@
         INSTRUMENTAL = "автоинъектором (Тепорон)",
         PREPOSITIONAL = "автоинъекторе (Тепорон)"
 	)
+
+
+/obj/item/reagent_containers/hypospray/autoinjector/traneksam
+	name = "traneksam acid autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу транексамовой кислота. Экстренный способ остановки кровотечений."
+	icon_state = "orangeinjector"
+	list_reagents = list("traneksam_acid" = 5)
+
+/obj/item/reagent_containers/hypospray/autoinjector/traneksam/get_ru_names()
+	return list(
+        NOMINATIVE = "автоинъектор (Транексамовая кислота)",
+        GENITIVE = "автоинъектора (Транексамовая кислота)",
+        DATIVE = "автоинъектору (Транексамовая кислота)",
+        ACCUSATIVE = "автоинъектор (Транексамовая кислота)",
+        INSTRUMENTAL = "автоинъектором (Транексамовая кислота)",
+        PREPOSITIONAL = "автоинъекторе (Транексамовая кислота)"
+	)
+
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
 	name = "stimpack autoinjector"
