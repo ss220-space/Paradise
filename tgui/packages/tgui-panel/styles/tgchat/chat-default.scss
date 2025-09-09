@@ -389,6 +389,18 @@ h2.alert {
   color: hsl(12, 62%, 56%);
 }
 
+.t1radio {
+  color: hsl(84, 100%, 59%);
+}
+
+.t2radio {
+  color: hsl(216, 85%, 39%);
+}
+
+.t3radio {
+  color: hsl(0, 100%, 50%);
+}
+
 // MARK: Alerts
 .alert {
   color: hsl(0, 74%, 49%);
@@ -854,14 +866,9 @@ h2.alert {
   text-align: left;
 }
 
-.t1radio {
-  color: greenyellow;
-}
-
-.t2radio {
-  color: #0f52ba;
-}
-
-.t3radio {
-  color: red;
-}
+/**
+ * ATTENTION! PLEASE!
+ *
+ * Follow the sorting by groups! No need to turn this file into a garbage сan, again.
+ * Thank you for your understanding!
+ */
