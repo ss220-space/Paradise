@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
 	origin_tech = "combat=6;engineering=3;syndicate=6"
-	mag_type = /obj/item/ammo_box/magazine/mm556x45
+	mag_type = /obj/item/ammo_box/magazine/a762x51
 	weapon_weight = WEAPON_HEAVY
 	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
@@ -115,64 +115,157 @@
 
 //magazines//
 
-/obj/item/ammo_box/magazine/mm556x45
-	name = "box magazine (5.56x45mm)"
+/obj/item/ammo_box/magazine/a762x51
+	name = "box magazine (7.62x51mm)"
 	icon_state = "a762"
 	origin_tech = "combat=2"
-	ammo_type = /obj/item/ammo_casing/mm556x45/weak
-	caliber = "mm55645"
+	ammo_type = /obj/item/ammo_casing/a762x51/weak
+	caliber = CALIBER_7_DOT_62X51MM
 	max_ammo = 100
 
-/obj/item/ammo_box/magazine/mm556x45/bleeding
-	name = "box magazine (Bleeding 5.56x45mm)"
+/obj/item/ammo_box/magazine/a762x51/bleeding
+	name = "box magazine (Bleeding 7.62x51mm)"
 	origin_tech = "combat=3"
-	ammo_type = /obj/item/ammo_casing/mm556x45/bleeding
+	ammo_type = /obj/item/ammo_casing/a762x51/bleeding
 
-/obj/item/ammo_box/magazine/mm556x45/hollow
-	name = "box magazine (Hollow-Point 5.56x45mm)"
+/obj/item/ammo_box/magazine/a762x51/hollow
+	name = "box magazine (Hollow-Point 7.62x51mm)"
 	origin_tech = "combat=3"
-	ammo_type = /obj/item/ammo_casing/mm556x45/hollow
+	ammo_type = /obj/item/ammo_casing/a762x51/hollow
 
-/obj/item/ammo_box/magazine/mm556x45/ap
-	name = "box magazine (Armor Penetrating 5.56x45mm)"
+/obj/item/ammo_box/magazine/a762x51/ap
+	name = "box magazine (Armor Penetrating 7.62x51mm)"
 	origin_tech = "combat=4"
-	ammo_type = /obj/item/ammo_casing/mm556x45/ap
+	ammo_type = /obj/item/ammo_casing/a762x51/ap
 
-/obj/item/ammo_box/magazine/mm556x45/incen
-	name = "box magazine (Incendiary 5.56x45mm)"
+/obj/item/ammo_box/magazine/a762x51/incen
+	name = "box magazine (Incendiary 7.62x51mm)"
 	origin_tech = "combat=4"
-	ammo_type = /obj/item/ammo_casing/mm556x45/incen
+	ammo_type = /obj/item/ammo_casing/a762x51/incen
 
-/obj/item/ammo_box/magazine/mm556x45/update_icon_state()
+/obj/item/ammo_box/magazine/a762x51/update_icon_state()
 	icon_state = "a762-[round(ammo_count(), 20)]"
 
 //casings//
 
-/obj/item/ammo_casing/mm556x45
-	desc = "A 556x45mm bullet casing."
+/obj/item/ammo_casing/a762x51
+	desc = "A 7.62x51mm bullet casing."
 	icon_state = "762-casing"
-	caliber = "mm55645"
+	caliber = CALIBER_7_DOT_62X51MM
 	projectile_type = /obj/projectile/bullet/saw
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
-/obj/item/ammo_casing/mm556x45/weak
+/obj/item/ammo_casing/a762x51/weak
 	projectile_type = /obj/projectile/bullet/saw/weak
 
-/obj/item/ammo_casing/mm556x45/bleeding
-	desc = "A 556x45mm bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."
+/obj/item/ammo_casing/a762x51/bleeding
+	desc = "A 7.62x51mm bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."
 	icon_state = "762-casing"
 	projectile_type = /obj/projectile/bullet/saw/bleeding
 
-/obj/item/ammo_casing/mm556x45/hollow
-	desc = "A 556x45mm bullet casing designed to cause more damage to unarmored targets."
+/obj/item/ammo_casing/a762x51/hollow
+	desc = "A 7.62x51mm bullet casing designed to cause more damage to unarmored targets."
 	projectile_type = /obj/projectile/bullet/saw/hollow
 
-/obj/item/ammo_casing/mm556x45/ap
-	desc = "A 556x45mm bullet casing designed with a hardened-tipped core to help penetrate armored targets."
+/obj/item/ammo_casing/a762x51/ap
+	desc = "A 7.62x51mm bullet casing designed with a hardened-tipped core to help penetrate armored targets."
 	projectile_type = /obj/projectile/bullet/saw/ap
 
-/obj/item/ammo_casing/mm556x45/incen
-	desc = "A 556x45mm bullet casing designed with a chemical-filled capsule on the tip that when bursted, reacts with the atmosphere to produce a fireball, engulfing the target in flames. "
+/obj/item/ammo_casing/a762x51/incen
+	desc = "A 7.62x51mm bullet casing designed with a chemical-filled capsule on the tip that when bursted, reacts with the atmosphere to produce a fireball, engulfing the target in flames. "
 	projectile_type = /obj/projectile/bullet/saw/incen
 	muzzle_flash_color = LIGHT_COLOR_FIRE
+
+/obj/item/ammo_box/a762x51
+	name = "ammo box (7.62x51mm)"
+	desc = "Коробка, содержащая патроны калибра 7.62x51мм."
+	icon_state = "ammobox_762x51"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/a762x51
+	max_ammo = 60
+
+/obj/item/ammo_box/a762x51/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (7.62x51мм)",
+		GENITIVE = "коробки патронов (7.62x51мм)",
+		DATIVE = "коробке патронов (7.62x51мм)",
+		ACCUSATIVE = "коробку патронов (7.62x51мм)",
+		INSTRUMENTAL = "коробкой патронов (7.62x51мм)",
+		PREPOSITIONAL = "коробке патронов (7.62x51мм)"
+	)
+
+/obj/item/ammo_box/a762x51/weak
+	name = "weak ammo box (7.62x51mm)"
+	desc = "Коробка, содержащая ослабленные патроны калибра 7.62x51мм."
+	ammo_type = /obj/item/ammo_casing/a762x51/weak
+
+/obj/item/ammo_box/a762x51/weak/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка ослабленныx патронов (7.62x51мм)",
+		GENITIVE = "коробки ослабленныx патронов (7.62x51мм)",
+		DATIVE = "коробке ослабленныx патронов (7.62x51мм)",
+		ACCUSATIVE = "коробку ослабленныx патронов (7.62x51мм)",
+		INSTRUMENTAL = "коробкой ослабленныx патронов (7.62x51мм)",
+		PREPOSITIONAL = "коробке ослабленныx патронов (7.62x51мм)"
+	)
+
+/obj/item/ammo_box/a762x51/bleeding
+	name = "bleeding ammo box (7.62x51mm)"
+	desc = "Коробка, содержащая кровопускающие патроны калибра 7.62x51мм."
+	ammo_type = /obj/item/ammo_casing/a762x51/bleeding
+
+/obj/item/ammo_box/a762x51/bleeding/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка кровопускающих патронов (7.62x51мм)",
+		GENITIVE = "коробки кровопускающих патронов (7.62x51мм)",
+		DATIVE = "коробке кровопускающих патронов (7.62x51мм)",
+		ACCUSATIVE = "коробку кровопускающих патронов (7.62x51мм)",
+		INSTRUMENTAL = "коробкой кровопускающих патронов (7.62x51мм)",
+		PREPOSITIONAL = "коробке кровопускающих патронов (7.62x51мм)"
+	)
+
+/obj/item/ammo_box/a762x51/hollow
+	name = "hollow ammo box (7.62x51mm)"
+	desc = "Коробка, содержащая экспансивные патроны калибра 7.62x51мм."
+	ammo_type = /obj/item/ammo_casing/a762x51/hollow
+
+/obj/item/ammo_box/a762x51/hollow/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка экспансивных патронов (7.62x51мм)",
+		GENITIVE = "коробки экспансивных патронов (7.62x51мм)",
+		DATIVE = "коробке экспансивных патронов (7.62x51мм)",
+		ACCUSATIVE = "коробку экспансивных патронов (7.62x51мм)",
+		INSTRUMENTAL = "коробкой экспансивных патронов (7.62x51мм)",
+		PREPOSITIONAL = "коробке экспансивных патронов (7.62x51мм)"
+	)
+
+/obj/item/ammo_box/a762x51/ap
+	name = "ap ammo box (7.62x51mm)"
+	desc = "Коробка, содержащая бронебойные патроны калибра 7.62x51мм."
+	ammo_type = /obj/item/ammo_casing/a762x51/ap
+
+/obj/item/ammo_box/a762x51/ap/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка бронебойных патронов (7.62x51мм)",
+		GENITIVE = "коробки бронебойных патронов (7.62x51мм)",
+		DATIVE = "коробке бронебойных патронов (7.62x51мм)",
+		ACCUSATIVE = "коробку бронебойных патронов (7.62x51мм)",
+		INSTRUMENTAL = "коробкой бронебойных патронов (7.62x51мм)",
+		PREPOSITIONAL = "коробке бронебойных патронов (7.62x51мм)"
+	)
+
+/obj/item/ammo_box/a762x51/incen
+	name = "incendiary ammo box (7.62x51mm)"
+	desc = "Коробка, содержащая зажигательные патроны калибра 7.62x51мм."
+	ammo_type = /obj/item/ammo_casing/a762x51/incen
+
+/obj/item/ammo_box/a762x51/incen/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка зажигательных патронов (7.62x51мм)",
+		GENITIVE = "коробки зажигательных патронов (7.62x51мм)",
+		DATIVE = "коробке зажигательных патронов (7.62x51мм)",
+		ACCUSATIVE = "коробку зажигательных патронов (7.62x51мм)",
+		INSTRUMENTAL = "коробкой зажигательных патронов (7.62x51мм)",
+		PREPOSITIONAL = "коробке зажигательных патронов (7.62x51мм)"
+	)

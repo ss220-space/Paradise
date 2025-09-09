@@ -27,11 +27,14 @@ SUBSYSTEM_DEF(radio)
 	"Клан Паука"			= NINJA_FREQ,
 	"Альфа частота"			= EVENT_ALPHA_FREQ,
 	"Бета частота"			= EVENT_BETA_FREQ,
-	"Гамма частота"			= EVENT_GAMMA_FREQ
+	"Гамма частота"			= EVENT_GAMMA_FREQ,
+	"Команда 1"				= T1_FREQ,
+	"Команда 2"				= T2_FREQ,
+	"Команда 3"				= T3_FREQ
 	)
 	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
 	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ, SYND_TAIPAN_FREQ)
-	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, PRS_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ)
+	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, PRS_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ, T1_FREQ, T2_FREQ, T3_FREQ)
 	var/list/syndicate_blacklist = list(SPY_SPIDER_FREQ, EVENT_ALPHA_FREQ, EVENT_BETA_FREQ, EVENT_GAMMA_FREQ)	//list of frequencies syndicate headset can't hear
 	var/list/datum/radio_frequency/frequencies = list()
 
@@ -86,6 +89,12 @@ SUBSYSTEM_DEF(radio)
 			return "event_beta"
 		if(EVENT_GAMMA_FREQ)
 			return "event_gamma"
+		if(T1_FREQ)
+			return "t1radio"
+		if(T2_FREQ)
+			return "t2radio"
+		if(T3_FREQ)
+			return "t3radio"
 
 	// If the above switch somehow failed. And it needs the SSradio. part otherwise it fails to compile
 	if(frequency in DEPT_FREQS)

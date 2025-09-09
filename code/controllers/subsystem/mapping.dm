@@ -87,6 +87,9 @@ SUBSYSTEM_DEF(mapping)
 		return
 
 	map_datum = fallback_map // Assume delta if non-existent
+	if(!map_datum?.forced_mode)
+		return
+	GLOB.master_mode = map_datum.forced_mode.name
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round

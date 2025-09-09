@@ -4733,7 +4733,7 @@
 		/obj/item/gun/projectile/automatic/gyropistol = 8,
 		/obj/item/ammo_box/magazine/m75 = 12,
 		/obj/item/gun/projectile/automatic/l6_saw = 6,
-		/obj/item/ammo_box/magazine/mm556x45/ap = 12,
+		/obj/item/ammo_box/magazine/a762x51/ap = 12,
 		/obj/item/gun/projectile/automatic/shotgun/bulldog = 6,
 		/obj/item/gun/energy/immolator = 6,
 		/obj/item/storage/backpack/duffel/syndie/ammo/shotgun = 12,
