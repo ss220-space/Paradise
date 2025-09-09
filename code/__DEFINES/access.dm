@@ -129,6 +129,10 @@
 //MONEY
 #define ACCESS_CRATE_CASH 200
 
+// de_kerberos 2
+#define ACCESS_CAPTAIN_REAL 310
+#define ACCESS_ARMORY_REAL 311
+
 //Awaymissions
 #define ACCESS_AWAY01 271
 

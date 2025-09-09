@@ -148,6 +148,51 @@
 		PREPOSITIONAL = "ключе-шифраторе канала заключенных"
 	)
 
+/obj/item/encryptionkey/green
+	name = "Green tean Radio Encryption Key"
+	icon_state = "bin_cypherkey"
+	channels = list(GREEN_NAME = 1)
+
+/obj/item/encryptionkey/green/get_ru_names()
+	return list(
+		NOMINATIVE = "ключ-шифратор канала зеленых",
+		GENITIVE = "ключа-шифратора канала зеленых",
+		DATIVE = "ключу-шифратор канала зеленых",
+		ACCUSATIVE = "ключ-шифратор канала зеленых",
+		INSTRUMENTAL = "ключом-шифратором канала зеленых",
+		PREPOSITIONAL = "ключе-шифраторе канала зеленых"
+	)
+
+/obj/item/encryptionkey/blue
+	name = "Blue tean Radio Encryption Key"
+	icon_state = "bin_cypherkey"
+	channels = list(BLUE_NAME = 1)
+
+/obj/item/encryptionkey/green/get_ru_names()
+	return list(
+		NOMINATIVE = "ключ-шифратор канала синих",
+		GENITIVE = "ключа-шифратора канала синих",
+		DATIVE = "ключу-шифратор канала синих",
+		ACCUSATIVE = "ключ-шифратор канала синих",
+		INSTRUMENTAL = "ключом-шифратором канала синих",
+		PREPOSITIONAL = "ключе-шифраторе канала синих"
+	)
+
+/obj/item/encryptionkey/red
+	name = "Red tean Radio Encryption Key"
+	icon_state = "bin_cypherkey"
+	channels = list(RED_NAME = 1)
+
+/obj/item/encryptionkey/green/get_ru_names()
+	return list(
+		NOMINATIVE = "ключ-шифратор канала красных",
+		GENITIVE = "ключа-шифратора канала красных",
+		DATIVE = "ключу-шифратор канала красных",
+		ACCUSATIVE = "ключ-шифратор канала красных",
+		INSTRUMENTAL = "ключом-шифратором канала красных",
+		PREPOSITIONAL = "ключе-шифраторе канала красных"
+	)
+
 /obj/item/encryptionkey/headset_iaa
 	name = "Internal Affairs Radio Encryption Key"
 	icon_state = "sec_cypherkey"

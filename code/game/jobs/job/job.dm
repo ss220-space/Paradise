@@ -82,6 +82,7 @@
 
 	var/insurance = INSURANCE_STANDART
 	var/insurance_type = INSURANCE_TYPE_STANDART
+	var/announce_job = TRUE
 
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
