@@ -77,6 +77,7 @@
 		/obj/item/clothing/suit/armor/vest/warden/alt,
 		/obj/item/clothing/suit/armor/vest/det_suit,
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
+
 		)
 
 /datum/loot_tier/second
@@ -207,6 +208,10 @@
 		/obj/item/clothing/suit/armor/vest/capcarapace,
 		/obj/item/clothing/suit/armor/vest/capcarapace/alt,
 		/obj/item/clothing/suit/armor/laserproof,
+		/obj/item/whetstone/cult,
+		/obj/item/implanter/emp,
+		/obj/item/storage/box/cyber_implants/reviver_hardened,
+		/obj/item/storage/box/cyber_implants/anti_stun_hardened,
 		list(
 			/obj/item/clothing/head/helmet/ert/security,
 			/obj/item/clothing/suit/armor/vest/ert/security,
@@ -397,6 +402,7 @@
 		/obj/item/clothing/suit/space/hardsuit/ert/solgov,
 		/obj/item/clothing/suit/space/hardsuit/soviet,
 		/obj/item/clothing/suit/space/hardsuit/singuloth,
+		/obj/item/clothing/shoes/magboots/syndie/advance,
 		list(
 			/obj/item/clothing/suit/armor/bulletproof,
 			/obj/item/clothing/head/helmet/alt,
@@ -415,8 +421,14 @@
 			/obj/item/clothing/gloves/reflector,
 			/obj/item/clothing/shoes/reflector,
 		),
+		list(
+			/obj/item/clothing/suit/space/syndicate/contractor,
+			/obj/item/clothing/head/helmet/space/syndicate/contractor,
+		),
 		/obj/item/clothing/suit/hooded/drake,
 		/obj/item/implanter/adrenalin/prototype,
+		/obj/item/implanter/krav_maga,
+		/obj/item/storage/box/syndie_kit/blackops_kit,
 	)
 
 /datum/loot_tier/fourth
@@ -535,6 +547,8 @@
 		/obj/item/clothing/suit/space/hardsuit/syndi/elite/med,
 		/obj/item/clothing/suit/space/hardsuit/syndi/elite/comms,
 		/obj/item/implanter/adrenalin,
+		/obj/item/implanter/explosive_macro,
+		/obj/item/gun/magic/hook,
 	)
 
 /datum/loot_tier/fifth
@@ -586,6 +600,7 @@
 		/obj/item/storage/firstaid/tactical,
 		/obj/item/clothing/suit/space/hardsuit/deathsquad,
 		/obj/item/clothing/suit/space/hardsuit/syndi/elite/sst,
+		/obj/item/gun/magic/staff/spellblade,
 	)
 
 /datum/loot_tier/ammo

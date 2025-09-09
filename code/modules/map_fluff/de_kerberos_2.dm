@@ -11,7 +11,7 @@
 	starsys_name = "Эпсилон Лукуста"
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/deltastation/"
 	admin_only = TRUE
-
+	forced_mode = /datum/game_mode/de_kerberos_2
 
 /datum/map/de_kerberos_2/side_levels
 	admin_only = TRUE
