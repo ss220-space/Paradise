@@ -18,6 +18,8 @@
 	var/mopspeed = 30
 	/// The cooldown between each mopping sound effect
 	var/mop_sound_cooldown
+	/// Max range of mopping.
+	var/mop_range = 1
 
 /obj/item/mop/Initialize(mapload)
 	. = ..()
@@ -48,44 +50,82 @@
 	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
 
-/obj/item/mop/proc/clean(turf/simulated/A)
-	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))
-		A.clean_blood()
-		for(var/obj/effect/O in A)
-			if(O.is_cleanable())
-				qdel(O)
-		SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, 5)
-	reagents.reaction(A, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
+/obj/item/mop/proc/clean(turf/simulated/atom)
+	if(!reagents.has_reagent("water", 1) && !reagents.has_reagent("cleaner", 1) && !reagents.has_reagent("holywater", 1))
+		reagents.reaction(atom, REAGENT_TOUCH, 10) //10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
+		reagents.remove_any(1) //reaction() doesn't use up the reagents
+		return
+
+	atom.clean_blood()
+	for(var/obj/effect/effect in atom)
+		if(!effect.is_cleanable())
+			continue
+
+		qdel(effect)
+
+	SEND_SIGNAL(atom, COMSIG_COMPONENT_CLEAN_ACT, 5)
+	reagents.reaction(atom, REAGENT_TOUCH, 10) //10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
-/obj/item/mop/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity || iseffect(A))
+
+/obj/item/mop/afterattack(atom/atom, mob/user, proximity, params)
+	if(!proximity || iseffect(atom))
 		return
 
 	if(reagents.total_volume < 1)
 		to_chat(user, span_warning("Your mop is dry!"))
 		return
 
-	var/turf/simulated/T = get_turf(A)
-
-	if(istype(A, /obj/item/reagent_containers/glass/bucket) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/structure/mopbucket))
+	if(istype(atom, /obj/item/reagent_containers/glass/bucket) || istype(atom, /obj/structure/janitorialcart) || istype(atom, /obj/structure/mopbucket))
 		return
 
 	if(world.time > mop_sound_cooldown)
 		playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
 		mop_sound_cooldown = world.time + MOP_SOUND_CD
 
-	if(istype(T))
-		var/obj/effect/temp_visual/bubbles/E = new /obj/effect/temp_visual/bubbles(T, mopspeed)
-		user.visible_message(
-			"[user] begins to clean [T] with [src].",
-			span_notice("You begin to clean [T] with [src]...")
-		)
+	var/clicked_turf = get_turf(atom)
+	var/list/turf/turfs = get_mopping_turfs(user, clicked_turf)
+	if(!turfs.len)
+		return
 
-		if(do_after(user, mopspeed, T))
-			to_chat(user, span_notice("You finish mopping."))
-			clean(T)
-		qdel(E)
+	user.visible_message(
+		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] возить по полу [declent_ru(INSTRUMENTAL)].",
+		ignored_mobs = user
+	)
+	user.balloon_alert(user, "мытьё пола...")
+
+	var/list/bubbles = list()
+	for(var/turf/turf as anything in turfs)
+		bubbles += new /obj/effect/temp_visual/bubbles(turf, mopspeed)
+
+	if(!do_after(user, mopspeed, clicked_turf))
+		QDEL_LAZYLIST(bubbles)
+		return
+
+	user.balloon_alert(user, "")
+	to_chat(user, span_notice("мытьё закончено"))
+	for(var/turf/turf as anything in turfs)
+		clean(turf)
+
+	QDEL_LAZYLIST(bubbles)
+
+
+/obj/item/mop/proc/get_mopping_turfs(mob/user, turf/click_turf)
+	var/turf/user_turf = get_turf(user)
+	if(user_turf == click_turf)
+		return list(click_turf)
+
+	var/list/turfs = list()
+	for(var/turf/simulated/turf in range(mop_range, click_turf) - user_turf)
+		if(abs(turf.x - click_turf.x) + abs(turf.y - click_turf.y) > mop_range)
+			continue
+
+		if(get_dist(user_turf, turf) > mop_range)
+			continue
+
+		turfs |= turf
+
+	return turfs
 
 
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
@@ -126,6 +166,7 @@
 	throwforce = 8
 	throw_range = 4
 	mopspeed = 20
+	mop_range = 2
 	var/refill_enabled = TRUE //Self-refill toggle for when a janitor decides to mop with something other than water.
 	var/refill_rate = 1 //Rate per process() tick mop refills itself
 	var/refill_reagent = "water" //Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING

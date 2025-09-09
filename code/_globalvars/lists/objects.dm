@@ -66,3 +66,5 @@ GLOBAL_LIST_EMPTY(wire_name_directory)
 
 GLOBAL_LIST_EMPTY(visual_portals)
 GLOBAL_LIST_EMPTY(pod_styles_by_type)
+
+GLOBAL_LIST_EMPTY(loot_tiers)

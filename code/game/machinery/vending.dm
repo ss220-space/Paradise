@@ -1998,11 +1998,15 @@
 	)
 	req_access = list(ACCESS_MEDICAL)
 	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 10,
+					/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 10,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 10,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 10,
 					/obj/item/stack/medical/bruise_pack = 4, /obj/item/stack/medical/ointment = 4,
-					/obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4,
-					/obj/item/stack/medical/bruise_pack/extended = 2, /obj/item/stack/medical/ointment/extended = 2,
+					/obj/item/stack/medical/bruise_pack/advanced = 6, /obj/item/stack/medical/ointment/advanced = 6,
+					/obj/item/stack/medical/bruise_pack/synthflesh_kit = 3,
+					/obj/item/stack/medical/bruise_pack/extended = 3, /obj/item/stack/medical/ointment/extended = 3,
+					/obj/item/stack/medical/suture = 15, /obj/item/stack/medical/suture/advanced = 5,
+					/obj/item/stack/medical/bruise_pack/military = 10,
 					/obj/item/stack/medical/splint = 4,
 					/obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4,
 					/obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
@@ -2019,10 +2023,14 @@
 					/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/dropper = 4, /obj/item/reagent_containers/glass/beaker = 4,
 					/obj/item/reagent_containers/iv_bag/slime = 1)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	prices = list(/obj/item/stack/medical/bruise_pack/extended = 199,
+	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 49,
+					/obj/item/stack/medical/bruise_pack/extended = 199,
 					/obj/item/stack/medical/ointment/extended = 199,
 					/obj/item/stack/medical/bruise_pack/advanced = 99,
 					/obj/item/stack/medical/ointment/advanced = 99,
+					/obj/item/stack/medical/bruise_pack/synthflesh_kit = 99,
+					/obj/item/stack/medical/suture/advanced = 149,
+					/obj/item/stack/medical/bruise_pack/military = 299,
 					/obj/item/reagent_containers/hypospray/safety = 199,
 					/obj/item/pinpointer/crew = 299,
 					/obj/item/sensor_device = 599,
@@ -2121,10 +2129,14 @@
 					/obj/item/reagent_containers/hypospray/autoinjector = 4,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 2,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 2,
+					/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 2,
+					/obj/item/stack/medical/suture = 4,
 					/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
 	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 69,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 69,
+					/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 99,
+					/obj/item/stack/medical/suture = 99,
 					/obj/item/healthanalyzer = 99)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
@@ -2165,8 +2177,17 @@
 	)
 
 	req_access = list(ACCESS_SYNDICATE)
-	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/reagent_containers/hypospray/autoinjector = 4,/obj/item/healthanalyzer = 1)
-	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
+	products = list(
+		/obj/item/stack/medical/bruise_pack = 2,
+		/obj/item/stack/medical/ointment = 2,
+		/obj/item/stack/medical/suture = 4,
+		/obj/item/reagent_containers/hypospray/autoinjector = 4,
+		/obj/item/healthanalyzer = 1
+	)
+	contraband = list(
+		/obj/item/reagent_containers/syringe/charcoal = 4,
+		/obj/item/reagent_containers/syringe/antiviral = 4,
+		/obj/item/reagent_containers/food/pill/tox = 1)
 
 /obj/machinery/vending/wallmed/syndicate/get_ru_names()
 	return list(
@@ -2225,6 +2246,7 @@
 		/obj/item/flashlight/sectaclight = 2,
 		/obj/item/grenade/smokebomb = 8,
 		/obj/item/storage/belt/security/judobelt = 3,
+		/obj/item/stack/medical/bruise_pack/military = 5,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,
@@ -2237,7 +2259,8 @@
 		/obj/item/storage/pouch/fast = 999,
 		/obj/item/clothing/mask/gas/sechailer/tactical = 299,
 		/obj/item/flashlight/sectaclight = 299,
-		/obj/item/grenade/smokebomb = 249
+		/obj/item/grenade/smokebomb = 249,
+		/obj/item/stack/medical/bruise_pack/military = 299,
 	)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -4710,7 +4733,7 @@
 		/obj/item/gun/projectile/automatic/gyropistol = 8,
 		/obj/item/ammo_box/magazine/m75 = 12,
 		/obj/item/gun/projectile/automatic/l6_saw = 6,
-		/obj/item/ammo_box/magazine/mm556x45/ap = 12,
+		/obj/item/ammo_box/magazine/a762x51/ap = 12,
 		/obj/item/gun/projectile/automatic/shotgun/bulldog = 6,
 		/obj/item/gun/energy/immolator = 6,
 		/obj/item/storage/backpack/duffel/syndie/ammo/shotgun = 12,
@@ -5257,7 +5280,7 @@
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Фабрикатор с передовой технологией блюспейс-транспортировки ресурсов."
 	icon = 'icons/obj/machines/robotics.dmi'
-	icon_state = "fab-idle"
+	icon_state = "fabricator"
 	products = list(
 		/obj/mecha/combat/durand = 10,
 		/obj/mecha/combat/gygax = 10,

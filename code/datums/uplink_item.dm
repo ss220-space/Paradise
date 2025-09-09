@@ -546,7 +546,7 @@
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF, \
 			JOB_TITLE_MECHANIC, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
 
-//RD
+//SCI
 
 /datum/uplink_item/jobspecific/telegun
 	name = "Телепушка"
@@ -554,7 +554,7 @@
 			Вам необходимо выбрать целевой маяк на телепушке, и тогда её снаряды будут отправлять цели к этому маяку."
 	item = /obj/item/gun/energy/telegun
 	cost = 66
-	job = list(JOB_TITLE_RD)
+	job = list(JOB_TITLE_SCIENTIST)
 
 //Roboticist
 
@@ -1146,7 +1146,7 @@
 /datum/uplink_item/ammo/machinegun
 	name = "Ручной пулемёт L6 SAW — магазин 5.56x45 мм"
 	desc = "Магазин на 50 патронов калибра 5.56x45 мм."
-	item = /obj/item/ammo_box/magazine/mm556x45
+	item = /obj/item/ammo_box/magazine/a762x51
 	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -2071,6 +2071,7 @@
 			Скафандр обеспечивает хорошую защиту, но при этом замедляет передвижение. Шлем защищает от вспышек."
 	cost = 46 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Элитный ИКС Синдиката"
@@ -2172,6 +2173,7 @@
 			Позволяет развернуть коробку, которая полностью скрывает вас от посторонних глаз."
 	item = /obj/item/implanter/stealth
 	cost = 40
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/implants/macrobomb
 	name = "Имплант макробомбы"
@@ -2302,6 +2304,13 @@
 	desc = "Устройство, замаскированное под игральную карту, способно телепортировать оружие вашего противника прямо к вам в руку, когда он пытается выстрелить в вас."
 	item = /obj/item/syndicate_reverse_card
 	cost = 10
+
+
+/datum/uplink_item/badass/bandage
+	name = "Военный перевязочный пакет"
+	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
+	item = /obj/item/stack/medical/bruise_pack/military
+	cost = 1
 
 /**
  * MARK: Bundles & TC

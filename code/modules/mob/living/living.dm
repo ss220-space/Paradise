@@ -997,7 +997,7 @@
 
 
 /mob/living/carbon/human/makeTrail(turf/T)
-	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || !bleed_rate || bleedsuppress)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || !bleed_rate)
 		return
 	..()
 
