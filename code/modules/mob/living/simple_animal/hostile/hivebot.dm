@@ -91,7 +91,7 @@
 		return FALSE
 	do_sparks(3, 1, src)
 
-// Дробилка
+//Melee
 
 /mob/living/simple_animal/hostile/hivebot/melee
 	name = "Hivebot"
@@ -146,7 +146,7 @@
 		PREPOSITIONAL = "бронированном кустарном роботе"
 	)
 
-// Зашиватель гвоздей
+//Range
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "Hivebot"
@@ -272,9 +272,9 @@
 	anchored = TRUE
 	density = TRUE
 	//Настройки Фабрикатора
-	var/spawn_count = 2			 // Количество хайвботов что произведётся за цикл до ухода на перезарядку
-	var/spawn_interval = 1500 	 //Время производства
-	var/cooldown_duration = 3000 //Время после производства
+	var/spawn_count = 2			 //The number of hivebots that will be produced per cycle before going into recharge
+	var/spawn_interval = 1500 	 //Production time
+	var/cooldown_duration = 3000 //Cooldown after Production time
 	// Internal tracking variables
 	var/next_spawn_time = 0		// When next spawn/action should occur
 	var/cooldown_until = 0		// When cooldown period ends
@@ -309,7 +309,7 @@
 /obj/structure/hivebot_spawner/proc/start_production()
 	is_active = TRUE
 	icon_state = "fab_robot"
-	visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] начинает гудеть!</span>")
+	visible_message("span_warning([capitalize(declent_ru(NOMINATIVE)] начинает гудеть!)")
 	next_spawn_time = world.time + (spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/spawn_bots()
@@ -330,7 +330,7 @@
 		next_spawn_time = world.time + (spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/finish_production()
-	visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] останавливается.</span>")
+	visible_message("span_warning([capitalize(declent_ru(NOMINATIVE)] останавливается.)")
 	is_active = FALSE
 	spawn_count = initial(spawn_count)
 	cooldown_until = world.time + cooldown_duration
