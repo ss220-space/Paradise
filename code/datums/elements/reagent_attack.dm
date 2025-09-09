@@ -80,7 +80,7 @@
 	reagent_amount
 	)
 
-	if(!inject(source, target, target_zone))
+	if(!inject(source, target, target_zone, reagent_id, reagent_amount))
 		return FALSE
 
 	SEND_SIGNAL(source, COMSIG_REAGENT_INJECTED, target, reagent_id, reagent_amount, target_zone)
@@ -99,8 +99,6 @@
 	return FALSE
 
 /datum/element/reagent_attack/bee
-	reagent_id = "beetoxin"
-	reagent_amount = 5
 
 /datum/element/reagent_attack/bee/pre_inject(
 	mob/source,

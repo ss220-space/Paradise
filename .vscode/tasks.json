@@ -1,0 +1,55 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dreammaker",
+			"dme": "paradise.dme",
+			"problemMatcher": [
+				"$dreammaker"
+			],
+			"group": "build",
+			"label": "dm: build - paradise.dme"
+		},
+		{
+            "label": "Create FAST_LOAD DME",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "(echo #define FAST_LOAD && type \"paradise.dme\") > \"fast_paradise.dme\" && echo Created fast_paradise.dme"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Build FAST_LOAD DME",
+            "dependsOn": "Create FAST_LOAD DME",
+            "type": "dreammaker",
+            "dme": "fast_paradise.dme",
+            "problemMatcher": [
+                "$dreammaker"
+            ]
+        },
+        {
+            "label": "Remove FAST_LOAD DME",
+            "dependsOn": "Create FAST_LOAD DME",
+            "type": "shell",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "timeout /t 3 /nobreak >nul && del \"fast_paradise.dme\" && echo Temporary file cleaned up"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "dm: build - fast_paradise.dme",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Create FAST_LOAD DME",
+                "Build FAST_LOAD DME",
+                "Remove FAST_LOAD DME"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        }
+	]
+}

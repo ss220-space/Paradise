@@ -1573,10 +1573,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			ru_names = get_ru_names_cached()
 			name = "[initial(name)]"
 		else
-			var/list/names =  get_ru_names_cached()
-			ru_names = names? names.Copy() : new /list(6)
-			for(var/i = 1; i <= 6; i++)
-				ru_names[i] = "[names ? names[i] : initial(name)] - [t]"
+			var/list/names = get_ru_names_cached()
+			ru_names = names ? names.Copy() : new /list(6)
+			if(use_prefix)
+				for(var/i = 1; i <= 6; i++)
+					ru_names[i] = "[names ? names[i] : initial(name)] - [t]"
+			else
+				for(var/i = 1; i <= 6; i++)
+					ru_names[i] = "[t]"
 			name = "[prefix][t]"
 	return t
 
