@@ -249,8 +249,8 @@
 		PREPOSITIONAL = "латунной пуле",
 	)
 	icon_state = "brassslug"
-	damage = 25
-	armour_penetration = 50
+	damage = 20
+	armour_penetration = 40
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = BRUTE
 	flag = "bullet"
@@ -350,7 +350,7 @@
 		PREPOSITIONAL = "латунной снайперской пуле",
 	)
 	icon_state = "brassshot"
-	damage = 60
+	damage = 70
 	armour_penetration = 60
 	weaken = 2
 
