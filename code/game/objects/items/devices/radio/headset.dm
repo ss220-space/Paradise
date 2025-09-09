@@ -333,30 +333,6 @@
 	. = ..()
 	set_frequency(PRS_FREQ)
 
-/obj/item/radio/headset/green
-	name = "green radio headset"
-	desc = "Радиочастотная гарнитура, выполненная из ударопрочного полимера. \
-			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
-			Используется зелеными."
-	icon_state = "syndie_headset"
-	item_state = "syndie_headset"
-	ks2type = /obj/item/encryptionkey/green
-	freqlock = TRUE
-
-/obj/item/radio/headset/prisoner/get_ru_names()
-	return list(
-		NOMINATIVE = "радиочастотная гарнитура зеленых",
-		GENITIVE = "радиочастотную гарнитуру зеленых",
-		DATIVE = "радиочастотной гарнитуры зеленых",
-		ACCUSATIVE = "радиочастотную гарнитуру зеленых",
-		INSTRUMENTAL = "радиочастотной гарнитурой зеленых",
-		PREPOSITIONAL = "радиочастотной гарнитуре зеленых"
-	)
-
-/obj/item/radio/headset/prisoner/New()
-	. = ..()
-	set_frequency(T1_FREQ)
-
 
 /obj/item/radio/headset/green
 	name = "green radio headset"
