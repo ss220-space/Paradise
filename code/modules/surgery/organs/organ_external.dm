@@ -437,6 +437,8 @@
 	//no allowed bleeding for robotic bodyparts
 	if(is_robotic())
 		return
+	if(HAS_TRAIT(owner, TRAIT_NO_BLOOD))
+		return
 	if(basic_brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING || sharp || brute_dam > BRUTE_DAMAGE_FOR_GARANT_BLEEDING)
 		var/basic_chance = 25 + basic_brute * 2.5
 		var/already_bleeding_chance = bleeding_amount > 0 ? 25 : 0
