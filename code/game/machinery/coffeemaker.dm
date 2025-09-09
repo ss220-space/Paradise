@@ -331,10 +331,7 @@
 	if(mapload)
 		coffeepot = new /obj/item/reagent_containers/glass/coffeepot(src)
 		cartridge = new /obj/item/coffee_cartridge(src)
-	update_appearance(UPDATE_OVERLAYS)
 
-/obj/machinery/coffeemaker/standard/New()
-	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/coffeemaker/standard(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
@@ -342,6 +339,7 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	RefreshParts()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/coffeemaker/standard/overlay_checks()
 	. = list()
@@ -663,10 +661,7 @@
 	if(mapload)
 		coffeepot = new /obj/item/reagent_containers/glass/coffeepot(src)
 		cartridge = null
-	update_appearance(UPDATE_OVERLAYS)
 
-/obj/machinery/coffeemaker/impressa/New()
-	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/coffeemaker/impressa(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
@@ -675,6 +670,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser/high(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/high(null)
 	RefreshParts()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/coffeemaker/impressa/overlay_checks()
 	. = list()
@@ -804,27 +800,28 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(attack_item, /obj/item/storage/box/coffeepack))
+		var/obj/item/storage/box/coffeepack/new_coffee_pack = attack_item
+
 		if(coffee_amount >= max_coffee_amount)
 			balloon_alert(user, "отсек для зёрен полон!")
 			return ATTACK_CHAIN_PROCEED
-		var/obj/item/storage/box/coffeepack/new_coffee_pack = attack_item
-		var/coffee_added = FALSE
+		if(!length(new_coffee_pack.contents))
+			balloon_alert(user, "пакет пуст!")
+			return ATTACK_CHAIN_PROCEED
+
+		var/coffee_added = FALSE // so we won't get 10 balloon_alerts at once
+
 		for(var/obj/item/reagent_containers/food/snacks/grown/coffee/new_coffee in new_coffee_pack.contents)
-			if(new_coffee.dry) //the coffee beans inside must be dry
-				if(coffee_amount < max_coffee_amount)
-					if(user.transfer_item_to_loc(new_coffee, src))
-						coffee += new_coffee
-						coffee_added = TRUE
-						coffee_amount++
-						new_coffee.forceMove(src)
-						update_appearance(UPDATE_OVERLAYS)
-					else
-						return ATTACK_CHAIN_PROCEED
-				else
-					return ATTACK_CHAIN_PROCEED
-			else
+			if(!new_coffee.dry) //the coffee beans inside must be dry
 				balloon_alert(user, "невысушенные зёрна внутри!")
 				return ATTACK_CHAIN_PROCEED
+			if(!user.transfer_item_to_loc(new_coffee, src))
+				return ATTACK_CHAIN_PROCEED
+			coffee += new_coffee
+			coffee_added = TRUE
+			coffee_amount++
+			new_coffee.forceMove(src)
+
 		if(coffee_added)
 			balloon_alert(user, "зёрна добавлены")
 		update_appearance(UPDATE_OVERLAYS)
