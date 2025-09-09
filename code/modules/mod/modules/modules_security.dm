@@ -489,7 +489,7 @@
 	desc = "Enhanced gauntlet grip pads that help with placing individuals in restraints more quickly. Doesn't look like they'll come off."
 	removable = FALSE
 	complexity = 0
-	required_slots = list(ITEM_SLOT_GLOVES)
+	//required_slots = list(ITEM_SLOT_GLOVES)
 
 /obj/item/mod/module/quick_cuff/on_suit_activation()
 	. = ..()
