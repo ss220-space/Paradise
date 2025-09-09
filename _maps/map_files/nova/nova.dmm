@@ -18154,18 +18154,6 @@
 	icon_state = "dark"
 	},
 /area/security/evidence)
-"cEN" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/clonepod,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/cloning)
 "cEO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
@@ -26861,6 +26849,13 @@
 "dTS" = (
 /turf/simulated/wall,
 /area/hallway/primary/central/south)
+"dTU" = (
+/obj/machinery/computer/cloning,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue"
+	},
+/area/medical/cloning)
 "dTV" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -35801,12 +35796,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/medbay2)
-"fjl" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/sleeper)
 "fjn" = (
 /obj/structure/fluff/drake_statue/falling{
 	max_integrity = 100
@@ -51666,13 +51655,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/assembly/showroom)
-"hAC" = (
-/obj/machinery/dna_scannernew,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/medical/cloning)
 "hAE" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -71274,6 +71256,17 @@
 	slowdown = -0.3
 	},
 /area/hallway/primary/central)
+"kyg" = (
+/obj/machinery/door/window/brigdoor,
+/obj/machinery/shower{
+	dir = 4;
+	pixel_y = 4;
+	tag = "icon-shower (EAST)"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/cloning)
 "kyh" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -77685,16 +77678,6 @@
 	icon_state = "purplefull"
 	},
 /area/medical/research)
-"lyy" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/blue,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/cloning)
 "lyK" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 8
@@ -82514,13 +82497,6 @@
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
-"miZ" = (
-/obj/machinery/computer/cloning,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whiteblue"
-	},
-/area/medical/cloning)
 "mja" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -83541,6 +83517,13 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/crew_quarters/bar)
+"mqF" = (
+/obj/machinery/dna_scannernew,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/medical/cloning)
 "mqL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair{
@@ -115651,6 +115634,16 @@
 	icon_state = "purple"
 	},
 /area/hallway/primary/central/north)
+"rao" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/blue,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/cloning)
 "raq" = (
 /obj/effect/turf_decal/arrows/white{
 	dir = 1
@@ -120129,6 +120122,12 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/miningstorage)
+"rIn" = (
+/obj/structure/closet/cabinet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/plushie/wet_owl,
+/turf/simulated/floor/wood,
+/area/maintenance/library)
 "rIF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -134241,6 +134240,18 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
+"tGS" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/clonepod,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/medical/cloning)
 "tGV" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
@@ -151080,17 +151091,6 @@
 	icon_state = "red"
 	},
 /area/security/checkpoint)
-"win" = (
-/obj/machinery/door/window/brigdoor,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4;
-	tag = "icon-shower (EAST)"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/medical/cloning)
 "wiu" = (
 /obj/structure/table/wood,
 /obj/item/folder,
@@ -153835,6 +153835,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"wBo" = (
+/obj/machinery/vending/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/medical/sleeper)
 "wBC" = (
 /obj/effect/turf_decal/number/number_1{
 	dir = 1
@@ -160890,11 +160896,6 @@
 	icon_state = "purple"
 	},
 /area/assembly/robotics)
-"xFa" = (
-/obj/structure/closet/cabinet,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood,
-/area/maintenance/library)
 "xFb" = (
 /obj/effect/turf_decal/stripes/gold,
 /obj/structure/cable{
@@ -189004,9 +189005,9 @@ jCW
 rox
 hiN
 qZi
-cEN
-win
-lyy
+tGS
+kyg
+rao
 akC
 hqS
 fOK
@@ -189261,7 +189262,7 @@ xzV
 gsB
 mBq
 qRz
-miZ
+dTU
 hsm
 hsm
 asB
@@ -189518,7 +189519,7 @@ cvY
 taI
 uBn
 qRz
-hAC
+mqF
 rzH
 uJn
 mIM
@@ -192607,7 +192608,7 @@ tFf
 tiK
 idT
 bTd
-fjl
+wBo
 mDH
 dFh
 rcC
@@ -192615,7 +192616,7 @@ fHm
 rcC
 mPA
 xTG
-fjl
+wBo
 bzf
 djf
 wkV
@@ -277692,7 +277693,7 @@ xxM
 cac
 gBb
 aKU
-xFa
+rIn
 sld
 wdu
 sld
