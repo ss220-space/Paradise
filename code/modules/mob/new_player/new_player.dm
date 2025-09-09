@@ -220,7 +220,8 @@
 				to_chat(usr, span_danger("К сожалению, выбранный вами голос персонажа больше не доступен на вашем текущем уровне подписки."))
 				client.prefs.ShowChoices(src)
 				return FALSE
-
+		if(SSticker?.mode?.late_join(src))
+			return 
 		LateChoices()
 
 	if(href_list["manifest"])

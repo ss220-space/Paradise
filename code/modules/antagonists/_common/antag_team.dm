@@ -274,5 +274,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		content += "<hr>"
 	return content.Join()
 
+/datum/team/proc/pre_declare_completion()
+	return
+
 /datum/team/proc/declare_completion()
 	return

@@ -23241,8 +23241,8 @@
 /area/ninja/outpost)
 "qOI" = (
 /obj/structure/closet/syndicate/sst,
-/obj/item/ammo_box/magazine/mm556x45/bleeding,
-/obj/item/ammo_box/magazine/mm556x45,
+/obj/item/ammo_box/magazine/a762x51/bleeding,
+/obj/item/ammo_box/magazine/a762x51,
 /turf/simulated/floor/indestructible{
 	dir = 8;
 	icon_state = "vault"
@@ -27396,26 +27396,26 @@
 	name = "LMG M249 SAW";
 	req_access = list(114)
 	},
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
 /obj/item/gun/projectile/automatic/l6_saw{
 	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
@@ -33668,7 +33668,7 @@
 /obj/item/gun/projectile/automatic/l6_saw,
 /obj/item/gun/projectile/automatic/l6_saw,
 /obj/item/gun/projectile/automatic/l6_saw,
-/obj/item/ammo_box/magazine/mm556x45/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
 /obj/machinery/light/small{
 	brightness_range = 10;
 	dir = 4;
@@ -33676,17 +33676,17 @@
 	nightshift_light_range = 10;
 	throw_range = 6
 	},
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
 /turf/simulated/floor/indestructible{
 	dir = 8;
 	icon_state = "vault"
