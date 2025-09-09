@@ -117,7 +117,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_t", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
 	if(. && linked_console)
 		linked_console.linked_imprinter = null
 		linked_console = null
