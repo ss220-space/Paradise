@@ -4136,26 +4136,26 @@
 	name = "LMG M249 SAW";
 	req_access = list(114)
 	},
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
-/obj/item/ammo_box/magazine/mm556x45/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
+/obj/item/ammo_box/magazine/a762x51/ap,
 /obj/item/gun/projectile/automatic/l6_saw{
 	desc = "A heavily modified 5.56 light machine gun, designated 'M249 SAW'.";
 	name = "M249 SAW"
@@ -19999,8 +19999,8 @@
 /area/centcom/supply)
 "jGH" = (
 /obj/structure/closet/syndicate/sst,
-/obj/item/ammo_box/magazine/mm556x45/bleeding,
-/obj/item/ammo_box/magazine/mm556x45,
+/obj/item/ammo_box/magazine/a762x51/bleeding,
+/obj/item/ammo_box/magazine/a762x51,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -38026,8 +38026,8 @@
 /area/syndicate_mothership/elite_squad)
 "rAk" = (
 /obj/structure/closet/syndicate/sst,
-/obj/item/ammo_box/magazine/mm556x45/bleeding,
-/obj/item/ammo_box/magazine/mm556x45,
+/obj/item/ammo_box/magazine/a762x51/bleeding,
+/obj/item/ammo_box/magazine/a762x51,
 /obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
@@ -39087,8 +39087,8 @@
 /area/centcom/jail)
 "rWt" = (
 /obj/structure/closet/syndicate/sst,
-/obj/item/ammo_box/magazine/mm556x45/bleeding,
-/obj/item/ammo_box/magazine/mm556x45,
+/obj/item/ammo_box/magazine/a762x51/bleeding,
+/obj/item/ammo_box/magazine/a762x51,
 /obj/machinery/light/small{
 	dir = 8
 	},

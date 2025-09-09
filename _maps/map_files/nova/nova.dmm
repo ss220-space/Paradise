@@ -35802,7 +35802,7 @@
 	},
 /area/medical/medbay2)
 "fjl" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -160893,6 +160893,7 @@
 "xFa" = (
 /obj/structure/closet/cabinet,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/toy/plushie/wet_owl,
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "xFb" = (

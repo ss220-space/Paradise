@@ -125,7 +125,7 @@
 /obj/item/ammo_box/magazine/internal/bow
 	name = "bow internal magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
-	caliber = "arrow"
+	caliber = CALIBER_ARROW
 	max_ammo = 1
 	start_empty = TRUE
 	replacing_sound = list(
@@ -207,7 +207,7 @@
 	force = 10
 	projectile_type = /obj/projectile/bullet/reusable/arrow
 	muzzle_flash_effect = null
-	caliber = "arrow"
+	caliber = CALIBER_ARROW
 
 /obj/item/ammo_casing/caseless/arrow/bone_tipped
 	name = "bone-tipped arrow"
@@ -226,7 +226,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 12
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
-	caliber = "arrow"
+	caliber = CALIBER_ARROW
 
 /obj/item/ammo_casing/caseless/arrow/jagged
 	name = "jagged-tipped arrow"
@@ -242,7 +242,7 @@
 	icon_state = "jagged_arrow"
 	force = 16
 	projectile_type = /obj/projectile/bullet/reusable/arrow/jagged
-	caliber = "arrow"
+	caliber = CALIBER_ARROW
 
 //quiver
 /obj/item/storage/backpack/quiver
