@@ -424,11 +424,12 @@
 	var/mob/living/carbon/human/human = user.mob
 	if (!istype(human))
 		return .
-	var/obj/item/gun/gun = human.get_item_by_slot(ITEM_SLOT_HAND_LEFT)
-	if(!gun || !istype(gun))
-		gun = human.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
-	if (!gun || !istype(gun))
-		return .
-	if(!gun.azoom)
-		return
-	gun.azoom.Trigger()
+	for(var/datum/action/action in human.actions)
+		if(istype(action, /datum/action/toggle_scope_zoom))
+			action.Trigger()
+			break
+		if(istype(action, /datum/action/toggle_laser_sight))
+			action.Trigger()
+			break
+
+

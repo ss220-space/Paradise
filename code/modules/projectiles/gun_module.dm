@@ -554,7 +554,9 @@
 
 /obj/item/gun_module/under/laser/on_attach(obj/item/gun/target_gun, mob/user)
 	RegisterSignal(target_gun, COMSIG_GUN_LASER_SIGHT_TOGGLE, PROC_REF(laser_sight_toggle))
-	gun.AddComponent(component_type)
+	var/datum/component/laser_sight/comp = gun.AddComponent(component_type)
+	if(user.is_in_hands(target_gun))
+		comp.on_equip(src, user, ITEM_SLOT_HANDS)
 
 /obj/item/gun_module/under/laser/on_detach(obj/item/gun/target_gun, mob/user)
 	var/datum/component/comp = target_gun.GetComponent(component_type)
