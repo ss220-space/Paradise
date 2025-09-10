@@ -327,7 +327,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /datum/player_info/var/content // text content of the information
 /datum/player_info/var/timestamp // Because this is bloody annoying
 
-#define PLAYER_NOTES_ENTRIES_PER_PAGE 50
 /datum/admins/proc/PlayerNotes()
 	set category = STATPANEL_ADMIN_BAN
 	set name = "Player Notes"

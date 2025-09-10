@@ -107,3 +107,5 @@
 #define START_PROCESSING_MANUALLY (1<<1)
 
 #define ORE_REDEMPTION "Плавильная печь"
+
+#define MACHINE_FLICKER_CHANCE 0.05 // roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.

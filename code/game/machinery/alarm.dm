@@ -1,3 +1,34 @@
+#define AALARM_MODE_SCRUBBING 1
+#define AALARM_MODE_VENTING 2 //makes draught
+#define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
+#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
+#define AALARM_MODE_SIPHON 5 //Scrubbers suck air
+#define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
+#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
+#define AALARM_MODE_OFF 8
+#define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
+
+#define AALARM_PRESET_HUMAN 1 // Default
+#define AALARM_PRESET_VOX 2 // Support Vox
+#define AALARM_PRESET_COLDROOM 3 // Kitchen coldroom
+#define AALARM_PRESET_SERVER 4 // Server coldroom
+
+#define AALARM_REPORT_TIMEOUT 100
+
+#define RCON_NO 1
+#define RCON_AUTO 2
+#define RCON_YES 3
+
+/// 1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
+#define MAX_ENERGY_CHANGE 1000
+
+#define MAX_TEMPERATURE 363.15 // 90C
+#define MIN_TEMPERATURE 233.15 // -40C
+
+#define AIR_ALARM_FRAME 0
+#define AIR_ALARM_BUILDING 1
+#define AIR_ALARM_READY 2
+
 // A datum for dealing with threshold limit values
 // used in /obj/machinery/alarm
 /datum/tlv
@@ -28,37 +59,6 @@
 	min1 = other.min1
 	max1 = other.max1
 	max2 = other.max2
-
-#define AALARM_MODE_SCRUBBING 1
-#define AALARM_MODE_VENTING 2 //makes draught
-#define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
-#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
-#define AALARM_MODE_SIPHON 5 //Scrubbers suck air
-#define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
-#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
-#define AALARM_MODE_OFF 8
-#define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
-
-#define AALARM_PRESET_HUMAN     1 // Default
-#define AALARM_PRESET_VOX       2 // Support Vox
-#define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
-#define AALARM_PRESET_SERVER    4 // Server coldroom
-
-#define AALARM_REPORT_TIMEOUT 100
-
-#define RCON_NO		1
-#define RCON_AUTO	2
-#define RCON_YES	3
-
-//1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
-#define MAX_ENERGY_CHANGE 1000
-
-#define MAX_TEMPERATURE 363.15 // 90C
-#define MIN_TEMPERATURE 233.15 // -40C
-
-#define AIR_ALARM_FRAME		0
-#define AIR_ALARM_BUILDING	1
-#define AIR_ALARM_READY		2
 
 //all air alarms in area are connected via magic
 /area
@@ -1161,11 +1161,6 @@ Just an object used in constructing air alarms
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
-
-#undef AIR_ALARM_FRAME
-#undef AIR_ALARM_BUILDING
-#undef AIR_ALARM_READY
-
 //for oldstation
 
 /obj/machinery/alarm/old
@@ -1174,3 +1169,27 @@ Just an object used in constructing air alarms
     report_danger_level = FALSE
     remote_control = FALSE
     req_access = null
+
+#undef AALARM_MODE_SCRUBBING
+#undef AALARM_MODE_VENTING
+#undef AALARM_MODE_PANIC
+#undef AALARM_MODE_REPLACEMENT
+#undef AALARM_MODE_SIPHON
+#undef AALARM_MODE_CONTAMINATED
+#undef AALARM_MODE_REFILL
+#undef AALARM_MODE_OFF
+#undef AALARM_MODE_FLOOD
+#undef AALARM_PRESET_HUMAN
+#undef AALARM_PRESET_VOX
+#undef AALARM_PRESET_COLDROOM
+#undef AALARM_PRESET_SERVER
+#undef AALARM_REPORT_TIMEOUT
+#undef RCON_NO
+#undef RCON_AUTO
+#undef RCON_YES
+#undef MAX_ENERGY_CHANGE
+#undef MAX_TEMPERATURE
+#undef MIN_TEMPERATURE
+#undef AIR_ALARM_FRAME
+#undef AIR_ALARM_BUILDING
+#undef AIR_ALARM_READY

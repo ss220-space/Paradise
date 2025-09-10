@@ -28,10 +28,6 @@ Possible to do for anyone motivated enough:
 // 1 = AREA BASED
 #define HOLOPAD_PASSIVE_POWER_USAGE 1
 #define HOLOGRAM_POWER_USAGE 2
-#define RANGE_BASED 0
-#define AREA_BASED 1
-
-#define HOLOPAD_MODE RANGE_BASED
 
 GLOBAL_LIST_EMPTY(holopads)
 

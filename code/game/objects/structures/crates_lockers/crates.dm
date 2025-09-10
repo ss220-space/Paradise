@@ -3,9 +3,7 @@
 #define SECURE_CRATE_STAGE_WIRES_PREPARED 2
 #define SECURE_CRATE_STAGE_OPENED 1
 
-
 // MARK: Basic crate
-
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
@@ -756,3 +754,8 @@
 		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь – кислород)",
 		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь – кислород)"
 	)
+
+#undef SECURE_CRATE_STAGE_NO_BROKEN
+#undef SECURE_CRATE_STAGE_PANEL_OPEN
+#undef SECURE_CRATE_STAGE_WIRES_PREPARED
+#undef SECURE_CRATE_STAGE_OPENED

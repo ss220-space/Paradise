@@ -262,5 +262,5 @@
 	var/spell = new /obj/effect/proc_holder/spell/conjure_item/contract_gun(null, gun_type)
 	user.mind.AddSpell(spell)
 
-
 #undef MAGIC_SPELLS_COUNT
+#undef HULK_COOLDOWN

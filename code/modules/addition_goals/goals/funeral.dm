@@ -175,3 +175,13 @@
 	death = TRUE
 	uniform = /obj/item/clothing/under/suit_jacket/charcoal
 	shoes = /obj/item/clothing/shoes/centcom
+
+#undef CORPSE_METHOD_CREMATION
+#undef CORPSE_METHOD_SPACE
+#undef CORPSE_METHOD_UTILIZATION
+#undef CREDITS_BY_CREMATION
+#undef CARGOPOINTS_BY_CREMATION
+#undef CREDITS_BY_SPACE
+#undef CARGOPOINTS_BY_SPACE
+#undef CREDITS_BY_UTILIZATION
+#undef CARGOPOINTS_BY_UTILIZATION

@@ -1,6 +1,7 @@
 //HONKsquad
 
 #define HONKSQUAD_POSSIBLE 6 //if more Commandos are needed in the future
+
 GLOBAL_VAR_INIT(sent_honksquad, 0)
 GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
@@ -155,3 +156,5 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 			new_honksquad.equipOutfit(/datum/outfit/admin/clown_security)
 
 	return new_honksquad
+
+#undef HONKSQUAD_POSSIBLE
