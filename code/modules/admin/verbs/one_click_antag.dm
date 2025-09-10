@@ -444,7 +444,12 @@
 
 
 /datum/admins/proc/makeHeretics()
-	var/list/mob/living/carbon/human/candidates = SSticker.mode.get_alive_players_for_role(ROLE_HERETIC)
+	var/list/mob/living/carbon/human/candidates = list()
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(!CandCheck(ROLE_HERETIC, applicant, SSticker.mode))
+			continue
+
+		candidates += applicant
 
 	var/antnum = tgui_input_number(owner, "Сколько Еретиков вы хотите создать? Введите 0 для отмены", "Количество:", 0)
 	if(!antnum || antnum <= 0)
@@ -461,10 +466,14 @@
 	var/mob/living/carbon/human/human = null
 	for(var/ind = 0, ind < numHeretics, ind++)
 		human = pick(candidates)
-		if(!isheretic(human.mind))
-			human.mind.add_antag_datum(/datum/antagonist/heretic)
-
 		candidates.Remove(human)
+		if(!isheretic(human))
+			ind--
+			continue
+
+		human.mind.add_antag_datum(/datum/antagonist/heretic)
+
+
 
 	return TRUE
 
