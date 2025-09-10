@@ -1055,7 +1055,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	else if(check_rights(R_MENTOR, FALSE))
 		GLOB.de_mentors |= ckey
 	else
-		GLOB.de_viewruntimes |= ckey
+		GLOB.de_devs |= ckey
 
 	deadmin()
 	add_verb(src, /client/proc/readmin)
@@ -1162,7 +1162,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		remove_verb(src, /client/proc/readmin)
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
-		GLOB.de_viewruntimes -= ckey
+		GLOB.de_devs -= ckey
 		return
 
 /client/proc/select_next_map()
