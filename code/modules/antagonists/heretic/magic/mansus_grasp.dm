@@ -77,7 +77,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(!isliving(victim))
-		return ..()
+		return FALSE
 
 	attack_effect(victim, caster)
 	return ..()

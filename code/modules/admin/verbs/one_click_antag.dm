@@ -464,10 +464,10 @@
 	var/numHeretics = min(candidates.len, antnum)
 
 	var/mob/living/carbon/human/human = null
-	for(var/ind = 0, ind < numHeretics, ind++)
+	for(var/ind = 0, candidates.len && ind < numHeretics, ind++)
 		human = pick(candidates)
 		candidates.Remove(human)
-		if(!isheretic(human))
+		if(isheretic(human))
 			ind--
 			continue
 
