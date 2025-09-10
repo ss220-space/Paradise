@@ -38,10 +38,14 @@
 		return FALSE
 
 	cast_on.Confused(10 SECONDS)
+	cast_on.EyeBlurry(10 SECONDS)
+	cast_on.Druggy(10 SECONDS)
+	cast_on.Slur(10 SECONDS)
+	cast_on.Jitter(10 SECONDS)
 	cast_on.adjustOxyLoss(30)
-	cast_on.Hallucinate(60 SECONDS)
+	cast_on.Hallucinate(120 SECONDS)
 	cast_on.cause_hallucination(/datum/hallucination/delusion/preset/heretic/gate, "Эффект Врат Разума")
 	cast_on.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 30)
 
 	var/mob/living/living_owner = action.owner
-	living_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 140)
+	living_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 140)
