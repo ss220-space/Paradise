@@ -141,3 +141,13 @@
 		INSTRUMENTAL = "панцирем пепельного рака",
 		PREPOSITIONAL = "панцире пепельного рака"
 	)
+
+
+/obj/item/whetstone/anti
+	name = "whetstone"
+	desc = "Каменный брусок для затупки инструментов."
+	increment = -20
+	prefix = "Крайне тупое"
+	requires_sharpness = FALSE
+	claws_increment = -20
+	uses = 10
