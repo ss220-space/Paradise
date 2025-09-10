@@ -2172,7 +2172,7 @@
 	desc = "Имплант, который можно вживить в организм и активировать по желанию. Может быть активирован многократно.\
 			Позволяет развернуть коробку, которая полностью скрывает вас от посторонних глаз."
 	item = /obj/item/implanter/stealth
-	cost = 40
+	cost = 25
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/implants/macrobomb
