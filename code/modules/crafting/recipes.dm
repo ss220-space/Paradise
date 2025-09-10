@@ -1816,3 +1816,37 @@
 				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
+
+/datum/crafting_recipe/advanced_trauma_kit
+	name = "Набор для лечения мех. травм"
+	result = /obj/item/stack/medical/bruise_pack/advanced
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/datum/reagent/medicine/styptic_powder = 120)
+	category = CAT_MISC
+
+
+/datum/crafting_recipe/advanced_burn_kit
+	name = "Набор для лечения терм. повреждений"
+	result = /obj/item/stack/medical/ointment/advanced
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/datum/reagent/medicine/silver_sulfadiazine = 120)
+	category = CAT_MISC
+
+
+/datum/crafting_recipe/suture_kit
+	name = "Набор для зашивания ран"
+	result = /obj/item/stack/medical/suture
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 1,
+				/obj/item/stack/cable_coil = 10)
+	category = CAT_MISC
+
+/datum/crafting_recipe/synth_kit
+	name = "Набор для лечения мех. и терм. повреждений"
+	result = /obj/item/stack/medical/bruise_pack/synthflesh_kit
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/datum/reagent/medicine/synthflesh = 120)
+	category = CAT_MISC

@@ -94,33 +94,38 @@
 	return ..()
 
 
-/obj/item/ammo_casing/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box) && can_be_box_inserted)
-		add_fingerprint(user)
-		var/obj/item/ammo_box/box = I
-		if(!isturf(loc))
-			to_chat(user, span_warning("Вы можете собирать гильзы только с пола."))
-			return ATTACK_CHAIN_PROCEED
+/obj/item/ammo_casing/attackby(obj/item/item, mob/user, params)
+	if(!istype(item, /obj/item/ammo_box) || !can_be_box_inserted)
+		return ..()
+	add_fingerprint(user)
+	var/obj/item/ammo_box/box = item
+	if(!isturf(loc))
+		balloon_alert(user, "не получилось собрать")
+		return ATTACK_CHAIN_PROCEED
+	if(length(box.stored_ammo) >= box.max_ammo)
+		balloon_alert(user, "уже заполнено")
+		return ATTACK_CHAIN_PROCEED
+	var/boolets = 0
+	for(var/obj/item/ammo_casing/bullet in loc)
 		if(length(box.stored_ammo) >= box.max_ammo)
-			to_chat(user, span_warning("[box.declent_ru(NOMINATIVE)] переполнена."))
-			return ATTACK_CHAIN_PROCEED
-		var/boolets = 0
-		for(var/obj/item/ammo_casing/bullet in loc)
-			if(length(box.stored_ammo) >= box.max_ammo)
+			break
+		if(!bullet.BB)
+			continue
+		if(!box.can_fast_load)
+			playsound(box, box.insert_sound, 50, TRUE)
+			if(!do_after(user, box.bullet_load_duration, box, max_interact_count = 1))
 				break
-			if(!bullet.BB)
-				continue
-			if(box.give_round(bullet, FALSE))
-				boolets++
-		if(!boolets)
-			to_chat(user, span_warning("Вам не удалось ничего собрать."))
-			return ATTACK_CHAIN_PROCEED
-		box.update_appearance(UPDATE_ICON|UPDATE_DESC)
-		to_chat(user, span_notice("Вы собрали [boolets] гильз[declension_ru(boolets,"у","ы","")]. Теперь в [box.declent_ru(GENITIVE)] [length(box.stored_ammo)] гильз[declension_ru(length(box.stored_ammo),"а","ы","")]."))
+			box.update_appearance(UPDATE_ICON|UPDATE_DESC)
+		if(box.give_round(bullet, FALSE))
+			boolets++
+	if(!boolets)
+		balloon_alert(user, "не получилось собрать")
+		return ATTACK_CHAIN_PROCEED
+	box.update_appearance(UPDATE_ICON|UPDATE_DESC)
+	to_chat(user, span_notice("Вы собрали [boolets] гильз[declension_ru(boolets,"у","ы","")]. Теперь в [box.declent_ru(GENITIVE)] [length(box.stored_ammo)] гильз[declension_ru(length(box.stored_ammo),"а","ы","")]."))
+	if(box.can_fast_load)
 		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, TRUE)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 
 /obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
@@ -193,6 +198,10 @@
 	var/remove_sound = 'sound/weapons/gun_interactions/remove_bullet.ogg'
 	var/insert_sound = 'sound/weapons/gun_interactions/bulletinsert.ogg'
 	var/load_sound = 'sound/weapons/gun_interactions/shotguninsert.ogg'
+	/// Reload ammo box without progress bar
+	var/can_fast_load = TRUE
+	/// One bullet load duration
+	var/bullet_load_duration = 0.4 SECONDS
 
 
 /obj/item/ammo_box/Initialize(mapload)
@@ -296,6 +305,16 @@
 	if(ammo_box)
 		var/obj/item/ammo_box/box = I
 		for(var/obj/item/ammo_casing/casing in box.stored_ammo)
+			if(!can_fast_load)
+				playsound(src, insert_sound, 50, TRUE)
+				if(!do_after(user, bullet_load_duration, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
+					break
+				box.update_appearance()
+				box.update_equipped_item()
+				update_appearance()
+				update_equipped_item()
+				if(!user.Adjacent(src))
+					break
 			var/did_load = give_round(casing, replace_spent, count_chambered, user)
 			if(did_load)
 				box.stored_ammo -= casing
