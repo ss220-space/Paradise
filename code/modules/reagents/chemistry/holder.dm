@@ -1,8 +1,6 @@
 #define ADDICTION_TIME 8 MINUTES
 #define MINOR_ADDICTION_TIME 45 MINUTES
 
-///////////////////////////////////////////////////////////////////////////////////
-
 /datum/reagents
 	var/list/datum/reagent/reagent_list = new/list()
 	var/total_volume = 0
@@ -939,3 +937,6 @@
 	addiction_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
+
+#undef ADDICTION_TIME
+#undef MINOR_ADDICTION_TIME

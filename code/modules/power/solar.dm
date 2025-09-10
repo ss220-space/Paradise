@@ -1,5 +1,3 @@
-#define SOLAR_MAX_DIST 40
-
 /obj/machinery/power/solar
 	name = "solar panel"
 	desc = "Преобразует солнечный свет в электрическую энергию."
@@ -334,10 +332,6 @@
 //
 // Solar Control Computer
 //
-
-#define TRACKER_OFF 0
-#define TRACKER_TIMED 1
-#define TRACKER_AUTO 2
 
 /obj/machinery/power/solar_control
 	name = "solar panel control"

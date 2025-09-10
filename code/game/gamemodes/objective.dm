@@ -1,12 +1,3 @@
-#define THEFT_FLAG_HIGHRISK	1
-#define THEFT_FLAG_UNIQUE		2
-#define THEFT_FLAG_HARD		3
-#define THEFT_FLAG_MEDIUM		4
-#define THEFT_FLAG_STRUCTURE	5
-#define THEFT_FLAG_ANIMAL		6
-#define THEFT_FLAG_COLLECT		7
-
-
 GLOBAL_LIST_EMPTY(all_objectives)
 
 /// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.

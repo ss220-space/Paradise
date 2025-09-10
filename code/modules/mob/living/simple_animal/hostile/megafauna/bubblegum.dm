@@ -755,3 +755,7 @@ Difficulty: Hard
 	for(var/mob/living/carbon/human/H in range(20))
 		to_chat(H, span_colossus("<b>МОИ РУКИ НАСЛАДЯТСЯ, РАЗРЫВАЯ ТЕБЯ... ПРЯМО ЗДЕСЬ И СЕЙЧАС!</b>"))
 		FindTarget(list(H))
+
+#undef BUBBLEGUM_SMASH
+#undef BUBBLEGUM_CAN_ENRAGE
+#undef BUBBLEGUM_IS_ENRAGED

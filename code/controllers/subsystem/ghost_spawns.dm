@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(ghost_spawns)
   * Polls for candidates with a question and a preview of the role
   *
   * This proc replaces /proc/pollCandidates.
-  * Should NEVER be used in a proc that has waitfor set to FALSE/0 (due to #define UNTIL)
+  * Should NEVER be used in a proc that has waitfor set to FALSE/0 (due to define UNTIL)
   * Arguments:
   * * question - The question to ask to potential candidates
   * * role - The role to poll for. Should be a ROLE_x enum. If set, potential candidates who aren't eligible will be ignored

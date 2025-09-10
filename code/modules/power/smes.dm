@@ -1,11 +1,5 @@
-// the SMES
-// stores power
-
-#define SMESMAXCHARGELEVEL 200000
-#define SMESMAXOUTPUT 200000
-#define SMESRATE 0.05			// rate of internal charge to external power
-
-
+/// Rate of internal charge to external power
+#define SMESRATE 0.05
 
 /obj/machinery/power/smes
 	name = "power storage unit"

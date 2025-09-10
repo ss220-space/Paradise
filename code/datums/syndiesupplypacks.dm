@@ -2419,7 +2419,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/encryptionkey/syndicate,
 					/obj/item/melee/energy/sword,
 					/obj/item/melee/energy/sword,
-					/obj/item/melee/energy/sword,											
+					/obj/item/melee/energy/sword,
 					/obj/item/melee/energy/sword,
 					/obj/item/storage/belt/military/traitor,
 					/obj/item/storage/toolbox/syndisuper,
@@ -2427,3 +2427,14 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
+
+#undef SYNDIE_SUPPLY_EMERGENCY
+#undef SYNDIE_SUPPLY_SECURITY
+#undef SYNDIE_SUPPLY_ENGINEER
+#undef SYNDIE_SUPPLY_MEDICAL
+#undef SYNDIE_SUPPLY_SCIENCE
+#undef SYNDIE_SUPPLY_ORGANIC
+#undef SYNDIE_SUPPLY_MATERIALS
+#undef SYNDIE_SUPPLY_MISC
+#undef SYNDIE_SUPPLY_VEND
+#undef SUPPLY_SYNDICATE_SPECIAL

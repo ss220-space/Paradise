@@ -1,5 +1,6 @@
 #define FREQUENCY_SALARY 5 MINUTES
 #define EXTRA_MONEY 10000
+
 SUBSYSTEM_DEF(capitalism)
 	name = "Capitalism"
 	ss_id = "capitalism_subsystem"
@@ -165,3 +166,6 @@ SUBSYSTEM_DEF(capitalism)
 	for(var/datum/money_account/account_pay in list_payment_account)
 		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name)
 	return
+
+#undef FREQUENCY_SALARY
+#undef EXTRA_MONEY

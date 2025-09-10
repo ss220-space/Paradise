@@ -1,14 +1,19 @@
-#define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
-#define MAX_PATCH_SPRITE 20 //max icon state of the patch sprites
-#define MAX_MULTI_AMOUNT 20 // Max number of pills/patches that can be made at once
-#define MAX_UNITS_PER_PILL 100 // Max amount of units in a pill
-#define MAX_UNITS_PER_PATCH 20 // Max amount of units in a patch
-#define MAX_CUSTOM_NAME_LEN 64 // Max length of a custom pill/condiment/whatever
+// Max icon state of the pill sprites
+#define MAX_PILL_SPRITE 20
+// Max icon state of the patch sprites
+#define MAX_PATCH_SPRITE 20
+// Max number of pills/patches that can be made at once
+#define MAX_MULTI_AMOUNT 20
+// Max amount of units in a pill
+#define MAX_UNITS_PER_PILL 100
+// Max amount of units in a patch
+#define MAX_UNITS_PER_PATCH 20
+// Max length of a custom pill/condiment/whatever
+#define MAX_CUSTOM_NAME_LEN 64
 
 #define CUSTOM_NAME_DISABLED null
 
-#define TRANSFER_TO_DISPOSAL 0
-#define TRANSFER_TO_BEAKER   1
+#define TRANSFER_TO_BEAKER 1
 
 /obj/machinery/chem_master
 	name = "ChemMaster 3000"
@@ -709,9 +714,10 @@
 	return reagents.get_master_reagent_name()
 
 #undef MAX_PILL_SPRITE
+#undef MAX_PATCH_SPRITE
+#undef MAX_MULTI_AMOUNT
+#undef MAX_UNITS_PER_PILL
+#undef MAX_UNITS_PER_PATCH
 #undef MAX_CUSTOM_NAME_LEN
-
 #undef CUSTOM_NAME_DISABLED
-
-#undef TRANSFER_TO_DISPOSAL
 #undef TRANSFER_TO_BEAKER

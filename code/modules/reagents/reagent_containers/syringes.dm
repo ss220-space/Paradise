@@ -1,6 +1,5 @@
 #define SYRINGE_DRAW 0
 #define SYRINGE_INJECT 1
-#define SYRINGE_BROKEN 2
 
 /obj/item/reagent_containers/syringe
 	name = "syringe"
@@ -393,3 +392,5 @@
         PREPOSITIONAL = "шприце (Стероиды)"
 	)
 
+#undef SYRINGE_DRAW
+#undef SYRINGE_INJECT

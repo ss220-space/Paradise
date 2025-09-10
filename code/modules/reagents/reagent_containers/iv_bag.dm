@@ -391,3 +391,5 @@
 	name = "[initial(name)] - Slime Jelly"
 	. = ..()
 
+#undef IV_DRAW
+#undef IV_INJECT

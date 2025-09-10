@@ -1,6 +1,3 @@
-#define CULT_ELDERGOD "eldergod"
-#define CULT_SLAUGHTER "slaughter"
-
 /obj/item/melee/cultblade/dagger
 	name = "ritual dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."

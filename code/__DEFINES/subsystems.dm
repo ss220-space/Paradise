@@ -193,7 +193,7 @@
 	if(isturf(changed_on)){SSdemo.mark_turf(changed_on);}\
 	if(isobj(changed_on) || ismob(changed_on)){SSdemo.mark_dirty(changed_on);}\
 
-//SSticker.current_state values
+// SSticker.current_state values
 /// Game is loading
 #define GAME_STATE_STARTUP 0
 /// Game is loaded and in pregame lobby
