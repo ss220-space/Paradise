@@ -262,7 +262,7 @@
 
 		last_heal_time = world.time
 
-//Фабрикатор
+//Fabricator
 
 /obj/structure/hivebot_spawner
 	name = "Hivebot Fabricator"
@@ -271,7 +271,7 @@
 	icon_state = "fab_robot"
 	anchored = TRUE
 	density = TRUE
-	//Настройки Фабрикатора
+	//Setting
 	var/spawn_count = 2			 //The number of hivebots that will be produced per cycle before going into recharge
 	var/spawn_interval = 1500 	 //Production time
 	var/cooldown_duration = 3000 //Cooldown after Production time
