@@ -786,7 +786,7 @@
 						D.Contract(src)
 					if(prob(5))
 						to_chat(src, span_userdanger("Вы чувствуете [pick("себя ужасно", "себя отвратительно", "себя, как дерьмо", "боль", "онемение", "холод", "покалывание", "себя кошмарно")]!"))
-						Weaken(6 SECONDS)
+						Knockdown(6 SECONDS)
 
 
 #define BODYPART_PAIN_REDUCTION 5
