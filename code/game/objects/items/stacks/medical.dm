@@ -647,7 +647,7 @@
 	affecting.germ_level = 0
 	if(affecting.bleeding_amount > 0)	//so you can't stack bleed suppression
 		affecting.heal_bleeding(user, target, bleeding_heal, damage)
-		var/var/obj/item/organ/external/addition_affecting = target.get_affecting_limb_bodypart(affecting)
+		var/obj/item/organ/external/addition_affecting = target.get_affecting_limb_bodypart(affecting)
 		if(addition_affecting)
 			addition_affecting.heal_bleeding(user, target, bleeding_heal, 0)
 		target.updatehealth("[name] heal")
@@ -707,3 +707,165 @@
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit/update_icon_state()
 	icon_state = "synthkit_[amount]"
+
+
+// MARK: Tourniquet
+
+/obj/item/tourniquet
+	name = "tourniquet"
+	desc = "Обычный жгут для остановки всех видов кровотечений на конечностях. При долгом ношении конечность может отмереть. Можно наложить только на конечности."
+	icon = 'icons/obj/medicine/packs.dmi'
+	icon_state = "tourniquet"
+	item_state = "tourniquet"
+	origin_tech = "biotech=3"
+	var/self_duration = 3 SECONDS
+	var/other_duration = 2 SECONDS
+	var/remove_duration = 2.5 SECONDS
+	var/obj/item/organ/external/applyed_bodypart = null
+	var/obj/item/organ/external/applyed_addition_bodypart = null
+
+/obj/item/tourniquet/get_ru_names()
+	return list(
+		NOMINATIVE = "жгут",
+		GENITIVE = "жгута",
+		DATIVE = "жгуту",
+		ACCUSATIVE = "жгут",
+		INSTRUMENTAL = "жгутом",
+		PREPOSITIONAL = "жгуте"
+	)
+
+/obj/item/tourniquet/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!ishuman(target))
+		return .
+
+	if(!acceptable_zone(user.zone_selected))
+		balloon_alert(user, "недопустимая зона!")
+		return .
+
+	var/mob/living/carbon/human/human_target = target
+	var/obj/item/organ/external/affecting = human_target.get_organ(user.zone_selected)
+	var/obj/item/organ/external/addition_affecting = human_target.get_affecting_limb_bodypart(affecting)
+	if(affecting.tourniquet)
+		balloon_alert(user, "уже наложен жгут!")
+		return .
+
+	var/selected_zone = user.zone_selected
+	if(human_target == user)
+		user.visible_message(
+			span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять [declension_ru(NOMINATIVE)] на себе."),
+			span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на себе..."),
+		)
+		if(!do_after(human_target, self_duration, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applyed_bodypart)
+			return .
+		var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
+		if(!affecting_rechecked)
+			balloon_alert(user, "Часть тела отсутствует!")
+			return .
+		if(affecting_rechecked.tourniquet)
+			balloon_alert(user, "уже наложен жгут!")
+			return .
+		if(affecting_rechecked.is_robotic())
+			to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
+			return .
+	else
+		user.visible_message(
+			span_notice("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [human_target]."),
+			span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
+		)
+		if(!do_after(user, other_duration, human_target) || applyed_bodypart)
+			return .
+		var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
+		if(!affecting_rechecked)
+			balloon_alert(user, "Часть тела отсутствует!")
+			return .
+		if(affecting_rechecked.tourniquet)
+			balloon_alert(user, "уже наложен жгут!")
+			return .
+		if(affecting_rechecked.is_robotic())
+			to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
+			return .
+		user.visible_message(
+			span_green("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [human_target.declent_ru(NOMINATIVE)]."),
+			span_green("Вы применяете [declent_ru(NOMINATIVE)] на [human_target.declent_ru(NOMINATIVE)]."),
+		)
+
+	affecting.tourniquet = src
+	applyed_bodypart = affecting
+	if(addition_affecting)
+		addition_affecting.tourniquet = src
+		applyed_addition_bodypart = addition_affecting
+	user.drop_item_ground(src)
+	src.forceMove(affecting)
+
+	balloon_alert(user, "жгут наложен.")
+	target.UpdateDamageIcon()
+	update_icon()
+
+/obj/item/tourniquet/proc/remove_from_bodypart(mob/living/user)
+	if(!applyed_bodypart)
+		return FALSE
+	balloon_alert(user, "снятие жгута...")
+	if(!do_after(user, remove_duration, applyed_bodypart.owner) || !applyed_bodypart)
+		return FALSE
+	var/drop_loc = applyed_bodypart.drop_location()
+	src.forceMove(drop_loc)
+	applyed_bodypart.tourniquet = null
+	applyed_bodypart = null
+	if(applyed_addition_bodypart)
+		applyed_addition_bodypart.tourniquet = null
+		applyed_addition_bodypart = null
+	user.put_in_any_hand_if_possible(src)
+	balloon_alert(user, "жгут снят.")
+	return TRUE
+
+/obj/item/tourniquet/proc/acceptable_zone(zone_selected)
+	if(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)
+		return TRUE
+	if(zone_selected == BODY_ZONE_L_LEG || zone_selected == BODY_ZONE_R_LEG)
+		return TRUE
+	if(zone_selected == BODY_ZONE_HEAD)
+		return TRUE
+	return FALSE
+
+/obj/item/tourniquet/makeshift
+	name = "makeshift tourniquet"
+	desc = "Самодельный жгут для остановки всех видов кровотечений на конечностях. При долгом ношении конечность может отмереть. Можно наложить только на конечности."
+	icon_state = "makeshift_tourniquet"
+	item_state = "makeshift_tourniquet"
+	self_duration = 4 SECONDS
+	other_duration = 3 SECONDS
+	remove_duration = 5 SECONDS
+
+/obj/item/tourniquet/makeshift/remove_from_bodypart(mob/living/user)
+	if(..())
+		QDEL_NULL(src)
+
+/obj/item/tourniquet/makeshift/get_ru_names()
+	return list(
+		NOMINATIVE = "самодельный жгут",
+		GENITIVE = "самодельного жгута",
+		DATIVE = "самодельному жгуту",
+		ACCUSATIVE = "самодельный жгут",
+		INSTRUMENTAL = "самодельным жгутом",
+		PREPOSITIONAL = "самодельном жгуте"
+	)
+
+/obj/item/tourniquet/advanced
+	name = "advanced tourniquet"
+	desc = "Турникет для остановки всех видов кровотечений на конечностях. При долгом ношении конечность может отмереть. Можно наложить только на конечности."
+	icon_state = "advanced_tourniquet"
+	item_state = "advanced_tourniquet"
+	self_duration = 1.5 SECONDS
+	other_duration = 1 SECONDS
+	remove_duration = 1 SECONDS
+
+/obj/item/tourniquet/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "турникет",
+		GENITIVE = "турникета",
+		DATIVE = "турникету",
+		ACCUSATIVE = "турникет",
+		INSTRUMENTAL = "турникетом",
+		PREPOSITIONAL = "турникете"
+	)

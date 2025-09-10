@@ -148,6 +148,8 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(bodypart.is_robotic())
 			continue
+		if(bodypart.tourniquet) //all bloodloss suppressed
+			continue
 		if(bodypart.has_internal_bleeding())
 			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
 		if(bodypart.has_arterial_bleeding())

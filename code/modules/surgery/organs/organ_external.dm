@@ -118,6 +118,8 @@
 	var/bleedsuppress_timer = null
 	/// Bleeding mod
 	var/bleeding_mod = 1
+	/// Applyed tourniquet, suppress any bloddloss, but can necrotize bodypart after timer
+	var/obj/item/tourniquet/tourniquet = null
 
 
 /obj/item/organ/external/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
@@ -176,6 +178,9 @@
 
 	QDEL_LIST(embedded_objects)
 	QDEL_NULL(hidden)
+	if(tourniquet && !QDELETED(tourniquet))
+		QDEL_NULL(tourniquet)
+	tourniquet = null
 
 	if(owner && !owner.has_embedded_objects())
 		owner.clear_alert(ALERT_EMBEDDED)
@@ -221,6 +226,7 @@
 
 	remove_splint(silent = TRUE)
 	remove_all_embedded_objects()
+	remove_tourniquet()
 
 	. = ..()
 
@@ -1371,6 +1377,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(throw_alert)
 		owner?.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
 
+
+
+/obj/item/organ/external/proc/remove_tourniquet(atom/drop_loc)
+	if(!tourniquet)
+		return
+	tourniquet.forceMove(drop_loc ? drop_loc : drop_location())
+	tourniquet = null
 
 #undef LIMB_SHARP_THRESH_INT_DMG
 #undef LIMB_THRESH_INT_DMG
