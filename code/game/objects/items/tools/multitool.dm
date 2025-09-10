@@ -200,8 +200,8 @@
 /obj/item/multitool/old
 	name = "old multimeter"
 	desc = "Электрический прибор для измерения параметров постоянного или переменного тока, прозвонки электрических цепей. Этот кажется весьма устаревшим."
-	icon_state = "multitool_old"
-	belt_icon = "multitool_old"
+	icon_state = "multitool_old_wire"
+	belt_icon = "multitool_old_wire"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	emp_shielded = TRUE
