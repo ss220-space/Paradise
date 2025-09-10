@@ -36,8 +36,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				subject.attack_ai(M)
 	return is_in_use
 
-#define TEXT_ANNOUNCEMENT_COOLDOWN 1 MINUTES
-
 /mob/living/silicon/ai
 	name = "AI"
 	icon = 'icons/mob/ai.dmi'//
@@ -573,6 +571,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	show_station_manifest()
 
 /mob/living/silicon/ai/var/message_cooldown = 0
+
+#define TEXT_ANNOUNCEMENT_COOLDOWN 1 MINUTES
+
 /mob/living/silicon/ai/proc/ai_announcement_text()
 	set category = STATPANEL_AICOMMANDS
 	set name = "Станционное объявление"
@@ -593,6 +594,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	announcer.announce(input)
 	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
+
+#undef TEXT_ANNOUNCEMENT_COOLDOWN
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	set name = "Вызвать эвакуационный шаттл"

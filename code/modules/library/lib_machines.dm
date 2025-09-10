@@ -1,5 +1,3 @@
-#define LIBRARY_BOOKS_PER_PAGE 25
-
 GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
 GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion"))
 

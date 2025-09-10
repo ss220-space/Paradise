@@ -48,6 +48,8 @@
 		return
 	SScargo_quests.remove_bfl_quests(COUNT_PLASMA_QUESTS)
 
+#undef COUNT_PLASMA_QUESTS
+
 ////////////
 //Building//
 ////////////

@@ -1,4 +1,4 @@
-//#define KARMA_ENABLE
+//# define KARMA_ENABLE
 
 /*	KARMA
 	Everything karma related is here.

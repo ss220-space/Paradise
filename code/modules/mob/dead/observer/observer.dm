@@ -1,6 +1,3 @@
-#define GHOST_CAN_REENTER 1
-#define GHOST_IS_OBSERVER 2
-
 GLOBAL_LIST_EMPTY(ghost_images)
 
 GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
