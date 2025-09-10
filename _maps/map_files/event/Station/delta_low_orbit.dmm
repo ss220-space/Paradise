@@ -8864,9 +8864,11 @@
 	},
 /area/security/medbay)
 "bCk" = (
-/obj/structure/lattice,
-/turf/simulated/openspace/lavaland,
-/area/lavaland/surface/outdoors)
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/maintenance/library)
 "bCq" = (
 /obj/structure/table/reinforced,
 /obj/item/weldingtool,
@@ -11839,6 +11841,9 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/library)
 "ccq" = (
@@ -12965,6 +12970,9 @@
 	dir = 2;
 	name = "Chemistry Delivery";
 	req_access = list(33)
+	},
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -17759,6 +17767,12 @@
 	req_access = list(10)
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "der" = (
@@ -23612,6 +23626,7 @@
 "egA" = (
 /obj/machinery/vending/cola,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -25950,6 +25965,9 @@
 "eBd" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/officetoys,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -31319,6 +31337,7 @@
 "fAf" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -43927,6 +43946,7 @@
 	req_access = list(28)
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "hGC" = (
@@ -56401,6 +56421,7 @@
 	icon_state = "pos";
 	name = "point of sale"
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -58093,6 +58114,9 @@
 "klN" = (
 /obj/machinery/vending/coffee,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -65285,6 +65309,9 @@
 	name = "Robotic Delivery";
 	req_access = list(29)
 	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitepurple"
@@ -67433,6 +67460,10 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "lSI" = (
@@ -73580,6 +73611,9 @@
 	req_access = list(25);
 	tag = "icon-left (WEST)"
 	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74700,6 +74734,9 @@
 /obj/item/paper_bin,
 /obj/item/pen/multi,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -74987,6 +75024,9 @@
 	dir = 2;
 	name = "Chapel Delivery";
 	req_access = list(22)
+	},
+/obj/structure/window/reinforced{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -82395,6 +82435,9 @@
 	req_access = list(26)
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "purple"
@@ -93188,6 +93231,7 @@
 	name = "Clown Delivery";
 	req_access = list(46)
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -94202,6 +94246,7 @@
 /obj/item/twohanded/required/kirbyplants{
 	layer = 3.1
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -97088,6 +97133,7 @@
 /area/chapel/main)
 "rdf" = (
 /obj/item/shard,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -107029,6 +107075,9 @@
 "sPZ" = (
 /obj/machinery/vending/snack,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -114049,6 +114098,7 @@
 	name = "Mime Delivery";
 	req_access = list(46)
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "tranquillite"
@@ -124440,6 +124490,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -133339,6 +133395,9 @@
 "xnN" = (
 /obj/structure/closet/crate/can,
 /obj/item/stock_parts/cell/potato,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -277089,7 +277148,7 @@ fpk
 fpk
 fpk
 kCQ
-bCk
+fpk
 xGZ
 rww
 rww
@@ -298730,7 +298789,7 @@ ipT
 kUq
 nRS
 nRS
-nRS
+bCk
 cco
 lmr
 nge
