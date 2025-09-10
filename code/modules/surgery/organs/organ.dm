@@ -21,6 +21,8 @@
 	var/min_broken_damage = 30
 	/// Minimal threshold for internal bleeding to occure
 	var/min_internal_bleeding_damage = 30
+	/// Minimal threshold for arterial bleeding to occure
+	var/min_arterial_bleeding_damage = 30
 	/// Basically organ max health.
 	var/max_damage
 

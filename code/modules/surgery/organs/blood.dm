@@ -1,6 +1,7 @@
 /****************************************************
 				BLOOD SYSTEM
 ****************************************************/
+// MARK: Definitions
 
 #define EXOTIC_BLEED_MULTIPLIER 3 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
 
@@ -42,12 +43,20 @@
 #define HEAL_DAMAGE_TO_BLEEDING_MOD 0.05
 /// Minimal brute damage for bodypart
 #define MIN_DAMAGE_FROM_BLEEDING_MOD 1.5
-
+/// Bleeding size after this bleeding is heavy
 #define HEAVY_BLEEDING_RATE 5
-
 /// Suppressed bleeding modifier
 #define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
 
+/// How many blood loss every tick per arterial bleeding
+#define BODYPART_ARTERIAL_BLEEDING 3
+/// Arterial bleeding chance after brute damage
+#define MIN_BRUTE_MOD_FOR_ARTERIAL_BLEEDING 0.8
+/// Arterial bleeding chance after brute damage
+#define ARTERIAL_BLEEDING_CHANCE 10
+
+
+// MARK: External organ procs
 
 /obj/item/organ/external/proc/suppress_bloodloss(mob/living/user, mob/living/carbon/human/target, amount, duration)
 	var/calculated_bleeding = max(0, bleeding_amount - bleedsuppress)
@@ -83,6 +92,8 @@
 /mob/living/carbon/human/has_heavy_bleeding()
 	return bleed_rate >= HEAVY_BLEEDING_RATE
 
+
+// MARK: Human bleeding
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
 	if(HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_BLOOD))

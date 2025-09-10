@@ -8,6 +8,10 @@
 #define LIMB_FRACTURE_MIN_DMG 15
 /// Threshold needed to have a chance of inflicting internal bleeding
 #define LIMB_INT_BLEEDING_MIN_DMG 15
+/// Threshold needed to have a chance of inflicting arterial bleeding
+#define LIMB_ARTERIAL_BLEEDING_MIN_DMG 15
+/// Chance for arterial bleeding based on inflicting damage
+#define LIMB_ARTERIAL_BLEEDING_CHANCE_MOD 0.5
 
 
 /****************************************************
@@ -74,6 +78,8 @@
 	var/cannot_break = FALSE
 	/// Whether bodypart can have internal bleeding
 	var/cannot_internal_bleed = FALSE
+	/// Whether bodypart can have arterial bleeding
+	var/cannot_arterial_bleed = FALSE
 	/// Whether bodypart will drop if maximum damage is reached
 	var/dismember_at_max_damage = FALSE
 	// Does the organ take reduce damage from EMPs? IPC limbs get this by default
@@ -342,6 +348,7 @@
 	if(!forced && owner)
 		// See if internal bleeding/fracture has place; distributed damage doesn't inflict it
 		try_internal_bleeding(brute, silent)
+		try_arterial_bleeding(brute, silent)
 		try_fracture(brute, silent)
 
 	// Need to update health, but need a reference in case the below checks cuts off a limb.
@@ -422,7 +429,7 @@
 				if(!limb_dropped && original_burn && prob(original_burn / 2))
 					droplimb(clean = FALSE, disintegrate = DROPLIMB_BURN, silent = silent)
 	if(burn >= MIN_BURN_DAMAGE_FOR_STOP_BLEEDING)
-		if(bleeding_amount > 0)
+		if(bleeding_amount > 0 && !has_arterial_bleeding()) //can not stop arterial bleeding
 			var/bleeding_heal = min(bleeding_amount, burn * BURN_DAMAGE_STOP_BLEEDING_MOD)
 			bleeding_amount = round(bleeding_amount - bleeding_heal, BLEEDING_PRECISION)
 
@@ -439,6 +446,8 @@
 		return
 	if(HAS_TRAIT(owner, TRAIT_NO_BLOOD))
 		return
+	if(has_arterial_bleeding())
+		return //has arterial bleeding, no more bleedings
 	if(basic_brute >= MIN_BRUTE_DAMAGE_FOR_BLEEDING || sharp || brute_dam > BRUTE_DAMAGE_FOR_GARANT_BLEEDING)
 		var/basic_chance = 25 + basic_brute * 2.5
 		var/already_bleeding_chance = bleeding_amount > 0 ? 25 : 0
@@ -682,6 +691,18 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 	if(internal_bleeding(silent))
 		add_attack_logs(owner, null, "Suffered internal bleeding to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
+		return TRUE
+	return FALSE
+
+/obj/item/organ/external/proc/try_arterial_bleeding(inflicted_damage, silent = FALSE)
+	if(inflicted_damage <= LIMB_ARTERIAL_BLEEDING_MIN_DMG)
+		return FALSE
+	if(brute_dam + burn_dam + inflicted_damage <= min_arterial_bleeding_damage)
+		return FALSE
+	if(!prob(inflicted_damage * LIMB_ARTERIAL_BLEEDING_CHANCE_MOD))
+		return FALSE
+	if(arterial_bleeding(silent))
+		add_attack_logs(owner, null, "Suffered arterial bleeding to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 		return TRUE
 	return FALSE
 
@@ -982,6 +1003,41 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	return TRUE
 
+/obj/item/organ/external/proc/arterial_bleeding(silent = FALSE)
+	if(owner)
+		if(HAS_TRAIT(owner, TRAIT_GODMODE))
+			return FALSE
+		if(HAS_TRAIT(owner, TRAIT_NO_BLOOD))
+			return FALSE
+	if(is_robotic())
+		return FALSE
+	if(has_arterial_bleeding() || cannot_arterial_bleed)
+		return FALSE
+
+	status |= ORGAN_ARTERIAL_BLEED
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
+
+	if(owner && !silent)
+		owner.custom_pain("Вы чувствуете, как из ваш[genderize_ru(gender, "ем", "ей", "ем", "ем")] [declent_ru(PREPOSITIONAL)] кровь хлещет фонтаном!")
+
+	return TRUE
+
+
+/obj/item/organ/external/proc/has_arterial_bleeding()
+	return bleeding_amount > 1.5 * max_bleeding_amount
+
+
+/obj/item/organ/external/proc/stop_arterial_bleeding()
+	if(owner && HAS_TRAIT(owner, TRAIT_NO_BLOOD))
+		return FALSE
+	if(is_robotic())
+		return FALSE
+	if(!has_arterial_bleeding())
+		return FALSE
+
+	bleeding_amount = max_bleeding_amount * 2
+
+	return TRUE
 
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(!CONFIG_GET(flag/bones_can_break))

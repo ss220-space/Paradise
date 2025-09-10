@@ -235,7 +235,7 @@
 	affecting.germ_level = 0
 	if(stop_bleeding && affecting.bleeding_amount > affecting.bleedsuppress)	//so you can't stack bleed suppression
 		affecting.suppress_bloodloss(user, target, bleedsuppress, stop_bleeding)
-		var/var/obj/item/organ/external/addition_affecting = target.get_affecting_limb_bodypart(affecting)
+		var/obj/item/organ/external/addition_affecting = target.get_affecting_limb_bodypart(affecting)
 		if(addition_affecting)
 			addition_affecting.suppress_bloodloss(user, target, bleedsuppress, stop_bleeding)
 	human_heal(target, user)
