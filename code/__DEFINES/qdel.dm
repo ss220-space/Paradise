@@ -1,3 +1,5 @@
+//#define PASSIVE_GC
+
 //! Defines that give qdel hints.
 //!
 //! These can be given as a return in [/atom/proc/Destroy] or by calling [/proc/qdel].

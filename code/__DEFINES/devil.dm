@@ -136,3 +136,22 @@ GLOBAL_LIST_INIT(devil_pre_title, list("Dark ", "Hellish ", "Fallen ", "Fiery ",
 GLOBAL_LIST_INIT(devil_title, list("Lord ", "Prelate ", "Count ", "Viscount ", "Vizier ", "Elder ", "Adept "))
 GLOBAL_LIST_INIT(devil_syllable, list("hal", "ve", "odr", "neit", "ci", "quon", "mya", "folth", "wren", "geyr", "hil", "niet", "twou", "phi", "coa"))
 GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", ", the Lord of all things", ", Jr."))
+
+#define NOT_DEVIL_GUNS list(\
+		/obj/item/gun/energy/pulse,\
+		/obj/item/gun/energy/pulse/carbine,\
+		/obj/item/gun/projectile/automatic/sniper_rifle\
+	)
+
+#define DEVIL_GUNS list(\
+		/obj/item/gun/projectile/automatic/sniper_rifle/compact,\
+		/obj/item/gun/projectile/automatic/sniper_rifle/axmc,\
+		/obj/item/gun/projectile/automatic/m52,\
+		/obj/item/gun/projectile/automatic/lr30,\
+		/obj/item/gun/projectile/automatic/lasercarbine,\
+		/obj/item/gun/projectile/automatic/cats,\
+		/obj/item/gun/projectile/automatic/ak814,\
+		/obj/item/gun/projectile/automatic/sfg\
+	)
+
+GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))

@@ -442,3 +442,6 @@ SUBSYSTEM_DEF(title)
 	html += "</body></html>"
 
 	return html.Join()
+
+#undef DEFAULT_TITLE_SCREEN_HTML_PATH
+#undef TITLE_SCREENS_LOCATION

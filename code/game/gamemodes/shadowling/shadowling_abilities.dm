@@ -1,6 +1,5 @@
 #define EMPOWERED_THRALL_LIMIT 5
 
-
 /obj/effect/proc_holder/spell/proc/shadowling_check(mob/living/carbon/human/user)
 	if(!istype(user))
 		return FALSE
@@ -1073,3 +1072,4 @@
 
 	user.announce(text)
 
+#undef EMPOWERED_THRALL_LIMIT

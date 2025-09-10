@@ -29,9 +29,12 @@
 #define POD_OPENING "3"
 #define POD_LEAVING "4"
 
-#define MOB_OPTION			"Mobs"
-#define UNANCHORED_OPTION	"Unanchored"
-#define ANCHORED_OPTION	"Anchored"
-#define MECHA_OPTION		"Mecha"
+#define MOB_OPTION "Mobs"
+#define UNANCHORED_OPTION "Unanchored"
+#define ANCHORED_OPTION "Anchored"
+#define MECHA_OPTION "Mecha"
 
 #define SUPPLYPOD_X_OFFSET -16
+
+// Shit from a moron, delete and redo the Cut()
+#define SUPPLY_CONTRABAND 10

@@ -1,7 +1,3 @@
-#define VV_MSG_MARKED "<br><font size='1' color='red'><b>Marked Object</b></font>"
-#define VV_MSG_EDITED "<br><font size='1' color='red'><b>Var Edited</b></font>"
-#define VV_MSG_ADMIN_SPAWNED "<br><font size='1' color='red'><b>Admin Spawned</b></font>"
-#define VV_MSG_DELETED "<br><font size='1' color='red'><b>Deleted</b></font>"
 // reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
 
 /**

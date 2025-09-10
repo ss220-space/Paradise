@@ -521,3 +521,6 @@
 	add_game_logs("was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.", new_revenant)
 
 	qdel(src)
+
+#undef INVISIBILITY_REVENANT
+#undef REVENANT_NAME_FILE

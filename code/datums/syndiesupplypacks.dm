@@ -17,7 +17,7 @@
 
 GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_SUPPLY_SECURITY,SYNDIE_SUPPLY_ENGINEER,SYNDIE_SUPPLY_MEDICAL,SYNDIE_SUPPLY_SCIENCE,SYNDIE_SUPPLY_ORGANIC,SYNDIE_SUPPLY_MATERIALS,SYNDIE_SUPPLY_MISC,SYNDIE_SUPPLY_VEND,SUPPLY_SYNDICATE_SPECIAL))
 
-/proc/get_syndie_supply_group_name(var/cat)
+/proc/get_syndie_supply_group_name(cat)
 	switch(cat)
 		if(SYNDIE_SUPPLY_EMERGENCY)
 			return "Emergency"
@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 			return "Medical"
 		if(SYNDIE_SUPPLY_SCIENCE)
 			return "Science"
-		if(SUPPLY_ORGANIC)
+		if(SYNDIE_SUPPLY_ORGANIC)
 			return "Food and Livestock"
 		if(SYNDIE_SUPPLY_MATERIALS)
 			return "Raw Materials"
@@ -1048,7 +1048,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/organic
 	name = "HEADER"
-	group = SUPPLY_ORGANIC
+	group = SYNDIE_SUPPLY_ORGANIC
 	containertype = /obj/structure/closet/crate/freezer
 
 

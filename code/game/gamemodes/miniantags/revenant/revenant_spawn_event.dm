@@ -50,3 +50,5 @@
 
 /datum/event/revenant/start()
 	get_revenant()
+
+#undef REVENANT_SPAWN_THRESHOLD
