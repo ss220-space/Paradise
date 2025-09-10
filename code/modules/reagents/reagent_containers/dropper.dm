@@ -157,7 +157,7 @@
 /obj/item/reagent_containers/dropper/precision/on_reagent_change()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/reagent_containers/dropper/update_icon_state()
+/obj/item/reagent_containers/dropper/precision/update_icon_state()
 	icon_state = "[initial(icon_state)][reagents.total_volume ? "1" : ""]"
 
 /obj/item/reagent_containers/dropper/precision/get_ru_names()

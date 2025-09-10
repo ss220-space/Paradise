@@ -58,6 +58,9 @@
 #define BLOOD_VOLUME_BAD			234 // 41.8%
 #define BLOOD_VOLUME_SURVIVE		168 // 30%
 
+/// High bleeding value
+#define HIGH_BLEEDING_VALUE 2.5
+
 //Sizes of mobs, used by mob/living/var/mob_size
 #define MOB_SIZE_TINY 0
 #define MOB_SIZE_SMALL 1

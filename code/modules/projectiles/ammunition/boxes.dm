@@ -42,6 +42,26 @@
 		PREPOSITIONAL = "коробке патронов (7,62x38 мм)"
 	)
 
+/obj/item/ammo_box/speedloader/n762
+	name = "speed loader (7.62x38)"
+	desc = "Устройство для быстрой зарядки револьверов патронами 7.62x38 калибра."
+	materials = list(MAT_METAL = 2000)
+	ammo_type = /obj/item/ammo_casing/n762
+	max_ammo = 7
+	caliber = CALIBER_7_DOT_62X38MM
+	icon_state = "762x38-7"
+	icon_prefix = "762x38"
+
+/obj/item/ammo_box/speedloader/n762/get_ru_names()
+	return list(
+		NOMINATIVE = "устройство быстрой зарядки (7.62x38)",
+		GENITIVE = "устройства быстрой зарядки (7.62x38)",
+		DATIVE = "устройству быстрой зарядки (7.62x38)",
+		ACCUSATIVE = "устройство быстрой зарядки (7.62x38)",
+		INSTRUMENTAL = "устройством быстрой зарядки (7.62x38)",
+		PREPOSITIONAL = "устройстве быстрой зарядки (7.62x38)"
+	)
+
 // SHOTGUN
 /obj/item/ammo_box/shotgun
 	name = "ammunition box (Slug)"
@@ -504,6 +524,23 @@
 		PREPOSITIONAL = "большой коробке патронов (.45)"
 	)
 
+/obj/item/ammo_box/a762x25
+	name = "ammo box (7.62x25mm)"
+	desc = "Большая коробка, содержащая патроны калибра 7.62x25мм."
+	icon_state = "ammobox_762x25"
+	ammo_type = /obj/item/ammo_casing/ftt762
+	max_ammo = 70
+
+/obj/item/ammo_box/a762x25/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка патронов (7.62x25мм)",
+		GENITIVE = "коробки патронов (7.62x25мм)",
+		DATIVE = "коробке патронов (7.62x25мм)",
+		ACCUSATIVE = "коробку патронов (7.62x25мм)",
+		INSTRUMENTAL = "коробкой патронов (7.62x25мм)",
+		PREPOSITIONAL = "коробке патронов (7.62x25мм)"
+	)
+
 /obj/item/ammo_box/rubber45
 	name = "ammo box (.45 rubber)"
 	desc = "Коробка, содержащая нелетальные патроны .45 калибра."
@@ -571,6 +608,21 @@
 		ACCUSATIVE = "коробку патронов (5,45х39 мм)",
 		INSTRUMENTAL = "коробкой патронов (5,45х39 мм)",
 		PREPOSITIONAL = "коробке патронов (5,45х39 мм)"
+	)
+
+/obj/item/ammo_box/ak814/fusty
+	name = "AK fusty ammo box (5.45x39mm)"
+	desc = "Коробка, содержащая затхлые патроны калибра 5,45х39 мм."
+	ammo_type = /obj/item/ammo_casing/a545/fusty
+
+/obj/item/ammo_box/ak814/fusty/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка затхлых патронов (5,45х39 мм)",
+		GENITIVE = "коробки затхлых патронов (5,45х39 мм)",
+		DATIVE = "коробке затхлых патронов (5,45х39 мм)",
+		ACCUSATIVE = "коробку затхлых патронов (5,45х39 мм)",
+		INSTRUMENTAL = "коробкой затхлых патронов (5,45х39 мм)",
+		PREPOSITIONAL = "коробке затхлых патронов (5,45х39 мм)"
 	)
 
 /obj/item/ammo_box/c46x30mm
@@ -774,6 +826,21 @@
 		PREPOSITIONAL = "коробке патронов (.50L COMP)"
 	)
 
+/obj/item/ammo_box/sniper_rounds_compact/penetrator
+	name = "Box of compact penetrator sniper rounds (.50L COMP)"
+	desc = "Коробка, содержащая компактные бронебойные снайперские патроны .50L калибра COMP."
+	ammo_type = /obj/item/ammo_casing/compact/penetrator
+
+/obj/item/ammo_box/sniper_rounds_compact/penetrator/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка бронебойных патронов (.50L COMP)",
+		GENITIVE = "коробки бронебойных патронов (.50L COMP)",
+		DATIVE = "коробке бронебойных патронов (.50L COMP)",
+		ACCUSATIVE = "коробку бронебойных патронов (.50L COMP)",
+		INSTRUMENTAL = "коробкой бронебойных патронов (.50L COMP)",
+		PREPOSITIONAL = "коробке бронебойных патронов (.50L COMP)"
+	)
+
 /obj/item/ammo_box/sniper_rounds_penetrator
 	name = "Box of penetrator sniper rounds (.50 PE)"
 	desc = "Коробка, содержащая бронебойные патроны .50 калибра."
@@ -904,7 +971,7 @@
 	materials = list(MAT_METAL = 2000)
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 7
-	caliber = ".357"
+	caliber = CALIBER_DOT_357
 	icon_state = "357-7" // DEFAULT icon, composed of prefix + "-" + max_ammo for multiple_sprites == 1 boxes
 	multiple_sprites = 1 // see: /obj/item/ammo_box/update_icon()
 	icon_prefix = "357" // icon prefix, used in above formula to generate dynamic icons
@@ -926,7 +993,7 @@
 	ammo_type = null
 	icon_state = "makeshift_speedloader"
 	max_ammo = 4
-	caliber = ".257"
+	caliber = CALIBER_DOT_257
 
 /obj/item/ammo_box/speedloader/improvised/get_ru_names()
 	return list(
@@ -954,7 +1021,7 @@
 	materials = list(MAT_METAL = 2000)
 	ammo_type = /obj/item/ammo_casing/c38
 	max_ammo = 6
-	caliber = ".38"
+	caliber = CALIBER_DOT_38
 	icon_state = "38-6"
 	multiple_sprites = 1
 	icon_prefix = "38"
@@ -1010,7 +1077,7 @@
 	icon_state = "shotgunloader"
 	icon_prefix = "shotgunloader"
 	origin_tech = "combat=2"
-	caliber = ".12"
+	caliber = CALIBER_12X70
 	max_ammo = 7
 	ammo_type = null
 	w_class = WEIGHT_CLASS_NORMAL
@@ -1126,6 +1193,7 @@
 	desc = "Устройство для быстрой зарядки револьверов холостыми патронами .357 калибра."
 	icon_state = "357"
 	ammo_type = /obj/item/ammo_casing/cap
+	caliber = CALIBER_CAP
 	max_ammo = 7
 	multiple_sprites = 1
 
@@ -1139,6 +1207,23 @@
 		PREPOSITIONAL = "устройстве быстрой зарядки (холостые .357)"
 	)
 
+/obj/item/ammo_box/a75
+	name = "ammo box (.75)"
+	desc = "Коробка, содержащая ракетные заряды калибра .75."
+	icon_state = "75box"
+	ammo_type = /obj/item/ammo_casing/caseless/a75
+	max_ammo = 10
+
+/obj/item/ammo_box/a75/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка ракетных зарядов (.75)",
+		GENITIVE = "коробки ракетных зарядов (.75)",
+		DATIVE = "коробке ракетных зарядов (.75)",
+		ACCUSATIVE = "коробку ракетных зарядов (.75)",
+		INSTRUMENTAL = "коробкой ракетных зарядов (.75)",
+		PREPOSITIONAL = "коробке ракетных зарядов (.75)"
+	)
+
 /**
  * STRIPPER CLIP
  */
@@ -1147,7 +1232,7 @@
 	name = "stripper clip (7.62mm)"
 	desc = "Устройство для быстрой зарядки револьверов холостыми патронами калибра 7,62х54 мм. Вмещает 5 патронов."
 	icon_state = "762"
-	caliber = "7.62x54mm"
+	caliber = CALIBER_7_DOT_62X54MM
 	ammo_type = /obj/item/ammo_casing/a762
 	max_ammo = 5
 	multiple_sprites = 1

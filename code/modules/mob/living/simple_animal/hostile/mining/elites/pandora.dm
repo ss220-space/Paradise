@@ -144,7 +144,7 @@
 		C.damage = 30 * dif_mult
 		C.moving = 2
 		C.standard_moving_before_recalc = recalculation_speed
-		C.moving_dir = text2dir(pick("NORTH", "SOUTH", "EAST", "WEST"))
+		C.moving_dir = text2dir(pick(DIR_NAME_ENG_NORTH, DIR_NAME_ENG_SOUTH, DIR_NAME_ENG_EAST, DIR_NAME_ENG_WEST))
 		active_chasers += 1
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/singular_shot_line(procsleft, angleused, turf/T)

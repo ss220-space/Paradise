@@ -130,7 +130,7 @@
   * * user - The user
   * * scanned_user - The user's identifying information on the newscaster
   */
-/datum/feed_channel/proc/can_publish(mob/user, scanned_user = "Неизвестный")
+/datum/feed_channel/proc/can_publish(mob/user, scanned_user = UNKNOWN_NAME_RUS)
 	return (!frozen && (is_public || (author == scanned_user))) || user?.can_admin_interact()
 
 /**
@@ -140,7 +140,7 @@
   * * user - The user
   * * scanned_user - The user's identifying information on the newscaster
   */
-/datum/feed_channel/proc/can_modify(mob/user, scanned_user = "Неизвестный")
+/datum/feed_channel/proc/can_modify(mob/user, scanned_user = UNKNOWN_NAME_RUS)
 	return (!frozen && author == scanned_user) || user?.can_admin_interact()
 
 /**

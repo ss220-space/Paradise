@@ -59,7 +59,11 @@
 	regenerate_icons()
 	AddComponent(/datum/component/swarming)
 	AddElement(/datum/element/simple_flying)
-	AddElement(/datum/element/reagent_attack/bee)
+	AddElement( \
+		/datum/element/reagent_attack/bee, \
+		reagent_id = "beetoxin", \
+		reagent_amount = 5, \
+	)
 
 /mob/living/simple_animal/hostile/poison/bees/ComponentInitialize()
 	AddComponent( \
@@ -333,9 +337,9 @@
 	AI_delay_max = 0 SECONDS
 	var/list/master_and_friends = list()
 
-/mob/living/simple_animal/hostile/poison/bees/syndi/New()
+/mob/living/simple_animal/hostile/poison/bees/syndi/Initialize(mapload)
+	. = ..()
 	beegent = GLOB.chemical_reagents_list["facid"] //Prepare to die
-	..()
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/Destroy()
 	master_and_friends.Cut()
