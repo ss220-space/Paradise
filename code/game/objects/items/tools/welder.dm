@@ -17,7 +17,7 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
@@ -234,7 +234,7 @@
 	desc = "A miniature welder used during emergencies."
 	icon_state = "miniwelder"
 	maximum_fuel = 10
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	low_fuel_changes_icon = FALSE
 
@@ -251,6 +251,7 @@
 	requires_fuel = FALSE
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weldingtool/hugetank
 	name = "upgraded welding tool"
