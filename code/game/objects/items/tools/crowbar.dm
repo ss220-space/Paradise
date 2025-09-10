@@ -27,15 +27,20 @@
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
+/obj/item/crowbar/small
+	name = "miniature titanium crowbar"
+	desc = "Уменьшенная версия монтировки из титана. Хорошо лежит в руке."
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 7.5
+	materials = list(MAT_TITANIUM = 250)
+	icon_state = "crowbar_titanium"
+	item_state = "crowbar_titanium"
+	origin_tech = "materials=2"
+	toolspeed = 1.25
+
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"
-	force = 10
-
-/obj/item/crowbar/red/sec
-	icon_state = "crowbar_sec"
-	item_state = "crowbar_sec"
-	force = 11
 
 /obj/item/crowbar/brass
 	name = "brass crowbar"
