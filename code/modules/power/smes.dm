@@ -5,6 +5,11 @@
 #define SMESMAXOUTPUT 200000
 #define SMESRATE 0.05			// rate of internal charge to external power
 
+#define PORTABLE_SMES_LEVEL_ZERO 0.05
+#define PORTABLE_SMES_LEVEL_LOW 0.30
+#define PORTABLE_SMES_LEVEL_MIDDLE 0.50
+#define PORTABLE_SMES_LEVEL_HIGH 0.70
+#define PORTABLE_SMES_LEVEL_FULL 0.95
 
 
 /obj/machinery/power/smes
@@ -115,52 +120,59 @@
 
 	//building and linking a terminal
 	if(iscoil(I))
-		add_fingerprint(user)
-		var/obj/item/stack/cable_coil/coil = I
-		if(terminal)	//is there already a terminal ?
-			to_chat(user, span_warning("This SMES already has a power terminal."))
-			return ATTACK_CHAIN_PROCEED
-		var/terminal_dir = get_dir(user, src)
-		if(ISDIAGONALDIR(terminal_dir))	//we don't want diagonal click
-			to_chat(user, span_warning("You should face the SMES from any cardinal direction."))
-			return ATTACK_CHAIN_PROCEED
-		if(!panel_open)	//is the panel open ?
-			to_chat(user, span_warning("You should open the maintenance panel first."))
-			return ATTACK_CHAIN_PROCEED
-		var/turf/terminal_turf = get_step(src, REVERSE_DIR(terminal_dir))
-		if(!terminal_turf.can_have_cabling() || terminal_turf.intact)	//is the floor plating removed or is it a spaceturf ?
-			to_chat(user, span_warning("You should remove or change the floor plating beneath you."))
-			return ATTACK_CHAIN_PROCEED
-		if(user.loc == loc)	// somehow???
-			to_chat(user, span_warning("You must not be on the same tile as the SMES."))
-			return ATTACK_CHAIN_PROCEED
-		if(coil.get_amount() < 10)
-			to_chat(user, span_warning("You need at least ten length of cable to construct a power terminal."))
-			return ATTACK_CHAIN_PROCEED
-		user.visible_message(
-			span_notice("[user] starts to construct the cable terminal for the SMES."),
-			span_notice("You start to construct the cable terminal for the SMES..."),
-		)
-		coil.play_tool_sound(src)
-		if(!do_after(user, 5 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || !panel_open || !terminal_turf.can_have_cabling() || terminal_turf.intact || QDELETED(coil))
-			return ATTACK_CHAIN_PROCEED
-		var/obj/structure/cable/node = terminal_turf.get_cable_node()
-		if(prob(50) && electrocute_mob(user, node, node, 1, TRUE))
-			do_sparks(5, TRUE, src)
-			return ATTACK_CHAIN_BLOCKED_ALL
-		if(!coil.use(10))
-			to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have ten lengths before trying again."))
-			return ATTACK_CHAIN_PROCEED
-		user.visible_message(
-			span_notice("[user] has finished the construction of the cable terminal for the SMES."),
-			span_notice("You have finished the construction of the cable terminal for the SMES."),
-		)
-		make_terminal(terminal_dir, terminal_turf)
-		terminal.add_fingerprint(user)
-		terminal.connect_to_network()
+		create_terminal_and_connect_to_network(I, user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
+
+/obj/machinery/power/smes/proc/create_terminal_and_connect_to_network(obj/item/stack/cable_coil/coil, mob/user, panel_check = TRUE)
+	add_fingerprint(user)
+	if(terminal)	//is there already a terminal ?
+		to_chat(user, span_warning("This SMES already has a power terminal."))
+		return
+	var/terminal_dir = get_dir(user, src)
+	if(ISDIAGONALDIR(terminal_dir))	//we don't want diagonal click
+		to_chat(user, span_warning("You should face the SMES from any cardinal direction."))
+		return
+	if(panel_check && !panel_open)	//is the panel open ?
+		to_chat(user, span_warning("You should open the maintenance panel first."))
+		return
+	var/turf/terminal_turf = get_step(src, REVERSE_DIR(terminal_dir))
+	if(!terminal_turf.can_have_cabling() || terminal_turf.intact)	//is the floor plating removed or is it a spaceturf ?
+		to_chat(user, span_warning("You should remove or change the floor plating beneath you."))
+		return
+	if(user.loc == loc)	// somehow???
+		to_chat(user, span_warning("You must not be on the same tile as the SMES."))
+		return
+	if(coil.get_amount() < 10)
+		to_chat(user, span_warning("You need at least ten length of cable to construct a power terminal."))
+		return
+	user.visible_message(
+		span_notice("[user] starts to construct the cable terminal for the SMES."),
+		span_notice("You start to construct the cable terminal for the SMES..."),
+	)
+	coil.play_tool_sound(src)
+	if(!do_after(user, 5 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || (panel_check && !panel_open) || !terminal_turf.can_have_cabling() || terminal_turf.intact || QDELETED(coil))
+		return
+	var/obj/structure/cable/node = terminal_turf.get_cable_node()
+	if(check_electrocute(user, node, node))
+		return
+	if(!coil.use(10))
+		to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have ten lengths before trying again."))
+		return
+	user.visible_message(
+		span_notice("[user] has finished the construction of the cable terminal for the SMES."),
+		span_notice("You have finished the construction of the cable terminal for the SMES."),
+	)
+	make_terminal(terminal_dir, terminal_turf)
+	terminal.add_fingerprint(user)
+	terminal.connect_to_network()
+
+/obj/machinery/power/smes/proc/check_electrocute(mob/user, power_source, obj/source)
+	if(prob(50) && electrocute_mob(user, power_source, source, 1, TRUE))
+		do_sparks(5, TRUE, src)
+		return TRUE
+	return FALSE
 
 
 /obj/machinery/power/smes/screwdriver_act(mob/living/user, obj/item/I)
@@ -188,38 +200,43 @@
 	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/machinery/power/smes/wirecutter_act(mob/living/user, obj/item/I)
+/obj/machinery/power/smes/wirecutter_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	add_fingerprint(user)
-	if(QDELETED(terminal))
-		to_chat(user, span_warning("The [name] has no power terminal."))
-		return .
 	var/turf/terminal_turf = get_turf(terminal)
-	if(terminal_turf.intact)
-		to_chat(user, span_warning("You should expose the power terminal first."))
-		return .
-	if(!panel_open)
-		to_chat(user, span_warning("You cannot dismantle the power terminal while the maintenance panel is closed."))
-		return .
-	to_chat(user, span_notice("You start to dismantle the power terminal..."))
-	user.visible_message(
-		span_notice("[user] starts to dismantle the power terminal."),
-		span_notice("You start to dismantle the power terminal..."),
-	)
-	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume) || QDELETED(terminal) || terminal_turf.intact || !panel_open)
-		return .
-	if(prob(50) && electrocute_mob(user, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
-		do_sparks(5, TRUE, src)
-		return .
-	user.visible_message(
-		span_notice("[user] has dismantled the power terminal."),
-		span_notice("You have dismantled the power terminal."),
-	)
+	if(!do_dismantle_terminal(user, tool))
+		return
 	var/obj/item/stack/cable_coil/coil = new(terminal_turf, 10)	//give the wires back and delete the terminal
 	terminal.transfer_fingerprints_to(coil)
 	coil.add_fingerprint(user)
 	inputting = 0 //stop inputting, since we have don't have a terminal anymore
 	qdel(terminal)
+
+/obj/machinery/power/smes/proc/do_dismantle_terminal(mob/living/user, obj/item/tool, panel_check = TRUE)
+	if(QDELETED(terminal))
+		to_chat(user, span_warning("The [name] has no power terminal."))
+		return FALSE
+	var/turf/terminal_turf = get_turf(terminal)
+	if(terminal_turf.intact)
+		to_chat(user, span_warning("You should expose the power terminal first."))
+		return FALSE
+	if(panel_check && !panel_open)
+		to_chat(user, span_warning("You cannot dismantle the power terminal while the maintenance panel is closed."))
+		return FALSE
+	to_chat(user, span_notice("You start to dismantle the power terminal..."))
+	user.visible_message(
+		span_notice("[user] starts to dismantle the power terminal."),
+		span_notice("You start to dismantle the power terminal..."),
+	)
+	if(!tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume) || QDELETED(terminal) || terminal_turf.intact || (panel_check && !panel_open))
+		return FALSE
+	if(check_electrocute(user, terminal.powernet, terminal)) //animate the electrocution if uncautious and unlucky
+		return FALSE
+	user.visible_message(
+		span_notice("[user] has dismantled the power terminal."),
+		span_notice("You have dismantled the power terminal."),
+	)
+	return TRUE
 
 
 /obj/machinery/power/smes/crowbar_act(mob/living/user, obj/item/I)
@@ -501,4 +518,78 @@
 	icon_state = "oldsmes"
 	capacity = 2500000
 
+
+// MARK: Portable smes
+
+/obj/machinery/power/smes/portable
+	name = "portable power storage unit"
+	desc = "A high-capacity portable superconducting magnetic energy storage (Portable SMES) unit. Lower capacity then stationary variant, but can be moved to another place."
+	icon_state = "minismes_0"
+	capacity = 3000000
+	interact_offline = TRUE
+	anchored = FALSE
+
+
+/obj/machinery/power/smes/portable/Initialize(mapload)
+	. = ..()
+	stat = 0
+
+
+/obj/machinery/power/smes/portable/wrench_act(mob/living/user, obj/item/tool)
+	if(!anchored)
+		return FALSE
+	if(!do_dismantle_terminal(user, tool, panel_check = FALSE))
+		return
+	inputting = 0 //stop inputting, since we have don't have a terminal anymore
+	qdel(terminal)
+	anchored = FALSE
+	return TRUE
+
+
+/obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	//building and linking a terminal
+	if(iscoil(I))
+		if(create_terminal_and_connect_to_network(I, user, panel_check = FALSE))
+			anchored = TRUE
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+
+/obj/machinery/power/smes/portable/screwdriver_act(mob/living/user, obj/item/I)
+	return FALSE
+
+/obj/machinery/power/smes/portable/update_icon(updates)
+	. = ..(updates | UPDATE_ICON_STATE)
+
+/obj/machinery/power/smes/portable/update_icon_state()
+	. = ..()
+	var/clevel = chargedisplay()
+	icon_state = "minismes_[clevel]"
+
+
+/obj/machinery/power/smes/portable/chargedisplay()
+	if(charge >= PORTABLE_SMES_LEVEL_FULL * capacity)
+		return 5
+	if(charge >= PORTABLE_SMES_LEVEL_HIGH * capacity)
+		return 4
+	if(charge >= PORTABLE_SMES_LEVEL_MIDDLE * capacity)
+		return 3
+	if(charge >= PORTABLE_SMES_LEVEL_LOW * capacity)
+		return 2
+	if(charge >= PORTABLE_SMES_LEVEL_ZERO * capacity)
+		return 1
+	return 0
+
+/obj/machinery/power/smes/portable/update_overlays()
+	return
+
 #undef SMESRATE
+#undef PORTABLE_SMES_LEVEL_ZERO
+#undef PORTABLE_SMES_LEVEL_LOW
+#undef PORTABLE_SMES_LEVEL_MIDDLE
+#undef PORTABLE_SMES_LEVEL_HIGH
+#undef PORTABLE_SMES_LEVEL_FULL

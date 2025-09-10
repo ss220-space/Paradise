@@ -74,7 +74,7 @@
 	reset_perspective(loc)
 
 
-	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
+	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors) || (ckey in GLOB.de_devs))
 		add_verb(src, /client/proc/readmin)
 
 	//Clear ability list and update from mob.

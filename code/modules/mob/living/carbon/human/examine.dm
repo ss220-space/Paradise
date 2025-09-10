@@ -484,6 +484,7 @@
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
+		msg += "[span_deptradio("Состояние:")] [span_notice(get_desc_for_medical_status(hud_list[STATUS_HUD].icon_state))]\n"
 		msg += "[span_deptradio("Психологический статус:")] <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "[span_deptradio("Медицинские записи:")] <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n"
 

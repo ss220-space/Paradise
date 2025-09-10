@@ -87,9 +87,6 @@ SUBSYSTEM_DEF(mapping)
 		return
 
 	map_datum = fallback_map // Assume delta if non-existent
-	if(!map_datum?.forced_mode)
-		return
-	GLOB.master_mode = map_datum.forced_mode.name
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
@@ -231,6 +228,7 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.station_name = station_name()
 	GLOB.english_station_name = english_station_name()
 	update_world_name()
+
 
 	return SS_INIT_SUCCESS
 
@@ -388,6 +386,10 @@ SUBSYSTEM_DEF(mapping)
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+	
+	if(map_datum?.forced_mode)
+		GLOB.master_mode = map_datum.forced_mode.name
+
 	log_startup_progress("Loaded [map_datum.english_station_name] in [stop_watch(watch)]s")
 
 	// Save station name in the DB
