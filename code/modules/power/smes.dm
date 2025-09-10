@@ -129,37 +129,37 @@
 	add_fingerprint(user)
 	if(terminal)	//is there already a terminal ?
 		to_chat(user, span_warning("This SMES already has a power terminal."))
-		return ATTACK_CHAIN_PROCEED
+		return
 	var/terminal_dir = get_dir(user, src)
 	if(ISDIAGONALDIR(terminal_dir))	//we don't want diagonal click
 		to_chat(user, span_warning("You should face the SMES from any cardinal direction."))
-		return ATTACK_CHAIN_PROCEED
+		return
 	if(panel_check && !panel_open)	//is the panel open ?
 		to_chat(user, span_warning("You should open the maintenance panel first."))
-		return ATTACK_CHAIN_PROCEED
+		return
 	var/turf/terminal_turf = get_step(src, REVERSE_DIR(terminal_dir))
 	if(!terminal_turf.can_have_cabling() || terminal_turf.intact)	//is the floor plating removed or is it a spaceturf ?
 		to_chat(user, span_warning("You should remove or change the floor plating beneath you."))
-		return ATTACK_CHAIN_PROCEED
+		return
 	if(user.loc == loc)	// somehow???
 		to_chat(user, span_warning("You must not be on the same tile as the SMES."))
-		return ATTACK_CHAIN_PROCEED
+		return
 	if(coil.get_amount() < 10)
 		to_chat(user, span_warning("You need at least ten length of cable to construct a power terminal."))
-		return ATTACK_CHAIN_PROCEED
+		return
 	user.visible_message(
 		span_notice("[user] starts to construct the cable terminal for the SMES."),
 		span_notice("You start to construct the cable terminal for the SMES..."),
 	)
 	coil.play_tool_sound(src)
 	if(!do_after(user, 5 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || (panel_check && !panel_open) || !terminal_turf.can_have_cabling() || terminal_turf.intact || QDELETED(coil))
-		return ATTACK_CHAIN_PROCEED
+		return
 	var/obj/structure/cable/node = terminal_turf.get_cable_node()
 	if(check_electrocute(user, node, node))
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return
 	if(!coil.use(10))
 		to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have ten lengths before trying again."))
-		return ATTACK_CHAIN_PROCEED
+		return
 	user.visible_message(
 		span_notice("[user] has finished the construction of the cable terminal for the SMES."),
 		span_notice("You have finished the construction of the cable terminal for the SMES."),
