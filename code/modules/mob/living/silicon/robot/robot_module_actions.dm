@@ -40,3 +40,20 @@
 	sight_mode = SILICONMESON
 	icon_icon = 'icons/obj/clothing/glasses.dmi'
 	button_icon_state = "meson"
+
+/datum/action/innate/robot_sight_hydro
+	name = "Гидропоническое зрение"
+	icon_icon = 'icons/obj/clothing/glasses.dmi'
+	button_icon_state = "hydroponichud"
+
+/datum/action/innate/robot_sight_hydro/Activate()
+	var/datum/atom_hud/hydrosensors = GLOB.huds[DATA_HUD_HYDROPONIC]
+	hydrosensors.add_hud_to(src)
+
+	active = TRUE
+
+/datum/action/innate/robot_sight_hydro/Deactivate()
+	var/datum/atom_hud/hydrosensors = GLOB.huds[DATA_HUD_HYDROPONIC]
+	hydrosensors.remove_from_hud(src)
+
+	active = FALSE
