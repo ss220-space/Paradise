@@ -105,7 +105,10 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 				to_chat(clock_mind.current, span_clocklarge("Сердце уничтожено!"))
 				SSticker.mode.clocker_objs.need_heart()
 	QDEL_LIST(fillers)
-	QDEL_LIST(spawned_parts)
+	for(var/part in spawned_parts)
+		LAZYREMOVE(GLOB.poi_list, part)
+		qdel(part)
+	spawned_parts = null
 	GLOB.total_curses = 3
 	. = ..()
 /obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
