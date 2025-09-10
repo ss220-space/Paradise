@@ -766,10 +766,16 @@ BODY SCANNERS
 		if(e.has_infected_wound())
 			infectedList += "[limb]"
 		if(e.bleeding_amount > 0)
+			var/bleeding = "[limb] -"
 			if(e.bleeding_amount <= e.bleedsuppress)
-				bleedingList += "[limb] перевязано"
+				bleeding += " перевязаное "
+			if(e.has_arterial_bleeding())
+				bleeding += " артериальное"
+			else if(e.has_heavy_bleeding())
+				bleeding += " обильное"
 			else
-				bleedingList += "[limb]"
+				bleeding += " обычное"
+			bleedingList += bleeding
 
 	data["fractureList"] = fractureList
 	data["infectedList"] = infectedList
@@ -925,7 +931,14 @@ BODY SCANNERS
 		if(!e)
 			continue
 		if(e.bleeding_amount > 0)
-			scan_data += span_warning("Обнаружено [e.bleeding_amount < e.bleedsuppress ? "перевязанное " : ""]кровотечение в [e.declent_ru(PREPOSITIONAL)].")
+			var/bleed_stat = ""
+			if(e.has_arterial_bleeding())
+				bleed_stat += "артериальное "
+			else if(e.has_heavy_bleeding())
+				bleed_stat += "обильное "
+			if(e.bleeding_amount <= e.bleedsuppress)
+				bleed_stat += "перевязанное "
+			scan_data += span_warning("Обнаружено [bleed_stat]кровотечение в [e.declent_ru(PREPOSITIONAL)].")
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 		if(!e)

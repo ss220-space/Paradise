@@ -11,7 +11,9 @@
 /// Threshold needed to have a chance of inflicting arterial bleeding
 #define LIMB_ARTERIAL_BLEEDING_MIN_DMG 15
 /// Chance for arterial bleeding based on inflicting damage
-#define LIMB_ARTERIAL_BLEEDING_CHANCE_MOD 0.5
+#define LIMB_ARTERIAL_BLEEDING_CHANCE_MOD 0.75
+/// Arterial bleeding size multiply by bodypart max bleeding
+#define LIMB_ARTERIAL_BLEEDING_SIZE 5
 
 
 /****************************************************
@@ -444,7 +446,7 @@
 	//no allowed bleeding for robotic bodyparts
 	if(is_robotic())
 		return
-	if(HAS_TRAIT(owner, TRAIT_NO_BLOOD))
+	if(owner && HAS_TRAIT(owner, TRAIT_NO_BLOOD))
 		return
 	if(has_arterial_bleeding())
 		return //has arterial bleeding, no more bleedings
@@ -1014,17 +1016,21 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(has_arterial_bleeding() || cannot_arterial_bleed)
 		return FALSE
 
-	status |= ORGAN_ARTERIAL_BLEED
+	bleeding_amount = max_bleeding_amount * LIMB_ARTERIAL_BLEEDING_SIZE
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	if(owner && !silent)
 		owner.custom_pain("Вы чувствуете, как из ваш[genderize_ru(gender, "ем", "ей", "ем", "ем")] [declent_ru(PREPOSITIONAL)] кровь хлещет фонтаном!")
+		owner.visible_message(span_warning("У [owner] фонтаном хлещет кровь из [declent_ru(PREPOSITIONAL)]!"))
 
 	return TRUE
 
 
 /obj/item/organ/external/proc/has_arterial_bleeding()
-	return bleeding_amount > 1.5 * max_bleeding_amount
+	return bleeding_amount > max_bleeding_amount
+
+/obj/item/organ/external/proc/has_heavy_bleeding()
+	return bleeding_amount > 0.5 * max_bleeding_amount
 
 
 /obj/item/organ/external/proc/stop_arterial_bleeding()
@@ -1035,9 +1041,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!has_arterial_bleeding())
 		return FALSE
 
-	bleeding_amount = max_bleeding_amount * 2
+	bleeding_amount = 0.1 * max_bleeding_amount //low bleeding exists after stop arterial bleed
 
 	return TRUE
+
+/obj/item/organ/external/proc/stop_bleeding()
+	bleeding_amount = 0
 
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(!CONFIG_GET(flag/bones_can_break))

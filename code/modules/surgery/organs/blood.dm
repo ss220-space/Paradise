@@ -3,7 +3,7 @@
 ****************************************************/
 // MARK: Definitions
 
-#define EXOTIC_BLEED_MULTIPLIER 3 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
+#define EXOTIC_BLEED_MULTIPLIER 8 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
 
 /// Natural bleed regeneration size (units per 2 sec)
 #define BLOOD_REGENERATION 0.1
@@ -47,13 +47,6 @@
 #define HEAVY_BLEEDING_RATE 5
 /// Suppressed bleeding modifier
 #define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
-
-/// How many blood loss every tick per arterial bleeding
-#define BODYPART_ARTERIAL_BLEEDING 3
-/// Arterial bleeding chance after brute damage
-#define MIN_BRUTE_MOD_FOR_ARTERIAL_BLEEDING 0.8
-/// Arterial bleeding chance after brute damage
-#define ARTERIAL_BLEEDING_CHANCE 10
 
 
 // MARK: External organ procs
@@ -150,12 +143,15 @@
 		return
 	var/current_bleed = 0
 	var/internal_bleeding_rate = 0
+	var/has_arterial_bleed = FALSE
 	// calculate total bleeding from bodyparts
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(bodypart.is_robotic())
 			continue
 		if(bodypart.has_internal_bleeding())
 			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
+		if(bodypart.has_arterial_bleeding())
+			has_arterial_bleed = TRUE
 		if(bodypart.bleeding_amount > 0)
 			bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - BLEEDING_DECREASE)
 			if(bodypart.bleedsuppress > bodypart.bleeding_amount)
@@ -190,6 +186,11 @@
 	// apply bleeding
 	if(bleed_rate && !bleedsuppress)
 		bleed(bleed_rate * additional_bleed_mod)
+	if(has_arterial_bleed)
+		var/blood_color = dna.species.blood_color
+		var/splatter_dir = rand(0, 360)
+		var/target_loc = get_turf(src)
+		new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loc, splatter_dir, blood_color)
 
 
 /// Makes a blood drop, leaking amt units of blood from the mob

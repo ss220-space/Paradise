@@ -326,11 +326,12 @@
 		if(bodypart.bleeding_amount)
 			if(brutedamage > 0 && burndamage > 0)
 				status += ", "
-			var/high_bleeding = bodypart.bleeding_amount > HIGH_BLEEDING_VALUE
 			var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
 			if(suppressed)
 				status += " перевязан[genderize_ru(bodypart.gender, "", "а", "о", "ы")] чем-то окровавленным"
-			else if(high_bleeding)
+			else if(bodypart.has_arterial_bleeding())
+				status += " кровь течет фонтаном"
+			if(bodypart.has_heavy_bleeding())
 				status += " обильно кровоточ[pluralize_ru(bodypart.gender, "ит", "ат")]"
 			else
 				status += " кровоточ[pluralize_ru(bodypart.gender, "ит", "ат")]"

@@ -339,6 +339,7 @@
 			organData["broken"] = E.min_broken_damage
 			organData["bleed"] = round(E.bleeding_amount, 0.01)
 			organData["bleed_supp"] = "[(E.bleeding_amount <= E.bleedsuppress) ? "перевязано" : ""]"
+			organData["bleed_type"] = "[E.has_arterial_bleeding() ? "артериальное" : (E.has_heavy_bleeding() ? "обильное" : "")]"
 
 			var/shrapnelData[0]
 			for(var/obj/item/I in E.embedded_objects)
@@ -531,10 +532,14 @@
 			var/internal_bleeding = ""
 			var/lung_ruptured = ""
 			if(e.bleeding_amount > 0)
+				bleeding = "<br>"
 				if(e.bleeding_amount <= e.bleedsuppress)
-					bleeding = "<br>Кровотечение"
-				else
-					bleeding = "<br>Перевязанное кровотечение"
+					bleeding += "перевязанное "
+				if(e.has_arterial_bleeding())
+					bleeding += "артериальное "
+				else if (e.has_heavy_bleeding())
+					bleeding += "обильное "
+				bleeding += "кровотечение"
 			if(e.has_internal_bleeding())
 				if(bleeding == "")
 					internal_bleeding = "<br>"

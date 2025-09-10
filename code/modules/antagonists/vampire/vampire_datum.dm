@@ -319,9 +319,11 @@
 						to_chat(cur, span_notice("Вы чувствуете жжение, когда [bodypart.name] непроизвольно выпрямляется!"))
 						bodypart.mend_fracture()
 
-					if(bodypart.has_internal_bleeding() && prob(5))
+					if((bodypart.has_internal_bleeding() || bodypart.has_arterial_bleeding()) && prob(5))
 						to_chat(cur, span_notice("Вы чувствуете жжение в [bodypart.name], когда ваши вены начинают восстанавливаться!"))
 						bodypart.stop_internal_bleeding()
+						bodypart.stop_arterial_bleeding()
+						bodypart.stop_bleeding()
 
 				if(bloodtotal >= REQ_BLOOD_FOR_SUBCLASS_ACT)
 					subclass?.on_blood_sucking(cur)

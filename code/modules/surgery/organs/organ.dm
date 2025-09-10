@@ -300,6 +300,7 @@
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
+	bleeding_amount = 0
 	surgeryize()
 	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT

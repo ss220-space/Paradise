@@ -381,11 +381,12 @@
 			if(bodypart.bleedsuppress)
 				msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] [bodypart.declent_ru(NOMINATIVE)] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то.\n")
 			continue
-		var/high_bleeding = bodypart.bleeding_amount > HIGH_BLEEDING_VALUE
 		var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
 		if(suppressed)
 			msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] [bodypart.declent_ru(NOMINATIVE)] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то окровавленным.\n")
-		else if (high_bleeding)
+		else if(bodypart.has_arterial_bleeding())
+			msg += span_warning(span_bold("У [genderize_ru(gender, "него", "неё", "него", "них")] кровь течет фонтаном из [bodypart.declent_ru(ACCUSATIVE)]!\n"))
+		if (bodypart.has_heavy_bleeding())
 			msg += span_warning(span_bold("У [genderize_ru(gender, "него", "неё", "него", "них")] обильно кровоточ[pluralize_ru(gender, "ит", "ат")] [bodypart.declent_ru(NOMINATIVE)]!\n"))
 		else
 			msg += span_warning(span_bold("У [genderize_ru(gender, "него", "неё", "него", "них")] кровоточ[pluralize_ru(gender, "ит", "ат")] [bodypart.declent_ru(NOMINATIVE)]!\n"))

@@ -1489,6 +1489,8 @@
 			var/mob/living/carbon/human/H = living
 			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 				bodypart.stop_internal_bleeding()
+				bodypart.stop_arterial_bleeding()
+				bodypart.stop_bleeding()
 				bodypart.mend_fracture()
 		else
 			affected.ratvar_act()
