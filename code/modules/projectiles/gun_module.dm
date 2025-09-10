@@ -504,6 +504,43 @@
 	overlay_offset = list("x" = 0, "y" = 0)
 
 
+/obj/item/gun_module/under/hand
+	var/bonus_accuracy = 15
+	var/spread_reduction = 0.30
+	var/spread_decrease = 0
+
+/obj/item/gun_module/under/hand/on_attach(obj/item/gun/target_gun, mob/user)
+	target_gun.accuracy.add_accuracy(bonus_accuracy)
+	if(!target_gun.accuracy.max_spread)
+		return
+	spread_decrease = initial(target_gun.accuracy.max_spread) * spread_reduction
+	target_gun.accuracy.max_spread = target_gun.accuracy.max_spread - spread_decrease
+
+/obj/item/gun_module/under/hand/on_detach(obj/item/gun/target_gun, mob/user)
+	target_gun.accuracy.add_accuracy(-bonus_accuracy)
+	target_gun.accuracy.max_spread += spread_decrease
+	spread_decrease = 0
+
+/obj/item/gun_module/under/hand/simple
+	name = "rifle hand"
+	desc = "Прямая рукоятка, предназначенная для установки на нижнюю планку цевья. Повышает удобство стрельбы."
+	ru_names = list(
+		NOMINATIVE = "прямая рукоятка",
+		GENITIVE = "прямую рукоятку",
+		DATIVE = "прямой рукоятке",
+		ACCUSATIVE = "прямая рукоятка",
+		INSTRUMENTAL = "прямой рукояткой",
+		PREPOSITIONAL = "прямой рукоятке"
+	)
+	gender = FEMALE
+	icon_state = "hand"
+	item_state = "hand"
+	overlay_state = "hand_o"
+	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
+	overlay_offset = list("x" = 1, "y" = 0)
+	bonus_accuracy = 10
+	spread_reduction = 0.20
+
 /obj/item/gun_module/under/hand/angle
 	name = "rifle angle hand"
 	desc = "Угловая рукоятка, предназначенная для установки на нижнюю планку цевья. Повышает удобство стрельбы."
@@ -521,21 +558,8 @@
 	overlay_state = "hand_a_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
-	var/bonus_accuracy = 15
-	var/spread_decrease = 0
-
-
-/obj/item/gun_module/under/hand/angle/on_attach(obj/item/gun/target_gun, mob/user)
-	target_gun.accuracy.add_accuracy(bonus_accuracy)
-	if(!target_gun.accuracy.max_spread)
-		return
-	spread_decrease = initial(target_gun.accuracy.max_spread) * 0.30
-	target_gun.accuracy.max_spread = target_gun.accuracy.max_spread - spread_decrease
-
-/obj/item/gun_module/under/hand/angle/on_detach(obj/item/gun/target_gun, mob/user)
-	target_gun.accuracy.add_accuracy(-bonus_accuracy)
-	target_gun.accuracy.max_spread += spread_decrease
-	spread_decrease = 0
+	bonus_accuracy = 15
+	spread_reduction = 0.30
 
 
 /obj/item/gun_module/under/laser
@@ -546,11 +570,30 @@
 	item_state = "laser"
 	overlay_state = "laser_o"
 	class = GUN_MODULE_CLASS_PISTOL_UNDER | GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER | GUN_MODULE_CLASS_SNIPER_UNDER
-	overlay_offset = list("x" = -2, "y" = 3)
+	overlay_offset = list("x" = -1, "y" = 1)
+	var/enable = FALSE
+	var/buffered_overlay_on
 	var/bonus_accuracy = 10
 	var/spread_decrease = 0
 	var/datum/component/laser_sight/component_type
 
+/obj/item/gun_module/under/laser/Destroy()
+	. = ..()
+	if(buffered_overlay_on)
+		QDEL_NULL(buffered_overlay_on)
+
+/obj/item/gun_module/under/laser/create_overlay()
+	if(!enable)
+		return ..()
+	if(!buffered_overlay_on)
+		buffered_overlay_on = mutable_appearance(icon, overlay_state + "_on", layer = FLOAT_LAYER - 1)
+	return buffered_overlay_on
+
+/obj/item/gun_module/under/laser/update_icon_state()
+	if(enable)
+		icon_state = "[initial(icon_state)]_on"
+	else
+		icon_state = "[initial(icon_state)]"
 
 /obj/item/gun_module/under/laser/on_attach(obj/item/gun/target_gun, mob/user)
 	RegisterSignal(target_gun, COMSIG_GUN_LASER_SIGHT_TOGGLE, PROC_REF(laser_sight_toggle))
@@ -564,6 +607,12 @@
 	UnregisterSignal(target_gun, COMSIG_GUN_LASER_SIGHT_TOGGLE)
 
 /obj/item/gun_module/under/laser/proc/laser_sight_toggle(datum/source, mob/user, enable)
+	SIGNAL_HANDLER
+
+	src.enable = enable
+	if(gun)
+		gun.add_attachment_overlay(src)
+		update_icon()
 	if(enable)
 		add_bonus_accuracy()
 		return

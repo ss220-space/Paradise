@@ -2395,6 +2395,7 @@
 		/obj/item/gun_module/under/flashlight/rifle = 10,
 		/obj/item/gun_module/under/laser/point = 5,
 		/obj/item/gun_module/under/laser/ray = 5,
+		/obj/item/gun_module/under/hand/simple = 5,
 		/obj/item/gun_module/under/hand/angle = 5,
 		/obj/item/ammo_box/magazine/enforcer/extended = 10,
 	)
@@ -2410,6 +2411,7 @@
 		/obj/item/gun_module/under/flashlight/rifle = 249,
 		/obj/item/gun_module/under/laser/point = 299,
 		/obj/item/gun_module/under/laser/ray = 349,
+		/obj/item/gun_module/under/hand/simple = 399,
 		/obj/item/gun_module/under/hand/angle = 499,
 		/obj/item/ammo_box/magazine/enforcer/extended = 149,
 		/obj/item/gun_module/muzzle/suppressor = 499,
@@ -2433,6 +2435,7 @@
 		/obj/item/gun_module/under/flashlight/rifle = 5,
 		/obj/item/gun_module/under/laser/point = 5,
 		/obj/item/gun_module/under/laser/ray = 5,
+		/obj/item/gun_module/under/hand/simple = 5,
 		/obj/item/gun_module/under/hand/angle = 5,
 		/obj/item/gun_module/muzzle/suppressor = 5,
 		/obj/item/gun_module/rail/scope/x8 = 5,

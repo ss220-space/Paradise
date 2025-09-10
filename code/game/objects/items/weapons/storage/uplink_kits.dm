@@ -816,6 +816,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/gun_module/rail/scope/collimator/pistol(src)
 	new /obj/item/gun_module/rail/scope/collimator(src)
 	new /obj/item/gun_module/rail/scope/x4(src)
+	new /obj/item/gun_module/under/hand/simple(src)
 	new /obj/item/gun_module/under/hand/angle(src)
 	new /obj/item/gun_module/under/laser/ray(src)
 	new /obj/item/gun_module/under/laser/point(src)
