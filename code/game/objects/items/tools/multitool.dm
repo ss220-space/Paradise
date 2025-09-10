@@ -15,6 +15,7 @@
 	belt_icon = "multitool"
 	flags = CONDUCT
 	force = 5.0
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
 	throw_range = 7
@@ -85,6 +86,7 @@
 	desc = "Электрический прибор для измерения параметров постоянного или переменного тока. Похоже, он полностью сгорел."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool_broken"
+	belt_icon = "multitool_broken"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -199,10 +201,10 @@
 	name = "old multimeter"
 	desc = "Электрический прибор для измерения параметров постоянного или переменного тока, прозвонки электрических цепей. Этот кажется весьма устаревшим."
 	icon_state = "multitool_old"
+	belt_icon = "multitool_old"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	emp_shielded = TRUE
-	origin_tech = "magnets=2;engineering=1"
 
 /obj/item/multitool/old/get_ru_names()
 	ru_names = list(
