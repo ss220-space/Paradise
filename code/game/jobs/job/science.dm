@@ -111,7 +111,7 @@
 	is_novice = TRUE
 	outfit = /datum/outfit/job/scientist/student
 
-	salary = 200
+	salary = 150
 	min_start_money = 250
 	max_start_money = 500
 

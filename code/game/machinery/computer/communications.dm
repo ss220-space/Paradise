@@ -15,6 +15,8 @@
 #define ADMIN_CHECK(user) ((check_rights(R_ADMIN, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM) || user.can_admin_interact())
 #define FULL_ADMIN_CHECK(user) (check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && (authenticated >= COMM_AUTHENTICATION_CENTCOM || user.can_admin_interact()))
 
+GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
+
 // The communications computer
 /obj/machinery/computer/communications
 	name = "communications console"
@@ -114,7 +116,7 @@
 		var/list/access = ui.user.get_access()
 		if(allowed(ui.user))
 			authenticated = COMM_AUTHENTICATION_HEAD
-		if(ACCESS_CAPTAIN in access)
+		if(GLOB.captain_auth_access in access)
 			authenticated = COMM_AUTHENTICATION_CAPT
 			var/mob/living/carbon/human/H = ui.user
 			var/obj/item/card/id = H.get_id_card()
@@ -700,4 +702,8 @@
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
 
+
+/obj/machinery/computer/communications/indestrusctable
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	
 

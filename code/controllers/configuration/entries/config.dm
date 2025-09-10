@@ -669,6 +669,10 @@
 /datum/config_entry/number/respawn_delay
 	default = 20
 
+/datum/config_entry/number/respawn_delay/ValidateAndSet(str_val)
+	. = ..()
+	GLOB.respawn_delay = config_entry_value
+
 /datum/config_entry/number/respawn_delay_drone
 	default = 10
 

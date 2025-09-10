@@ -59,7 +59,7 @@
 	user.visible_message(span_danger("[user] перд[pluralize_ru(user.gender, "ит", "ят")] на [declent_ru(ACCUSATIVE)]!"))
 	user.visible_message(span_userdanger("Загадочная сила поражает [user]!"))
 	user.suiciding = TRUE
-	do_sparks(3, 1, user)
+	do_sparks(3, TRUE, user)
 	user.gib()
 	return TRUE // Don't run the fart emote
 

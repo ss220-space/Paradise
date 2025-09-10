@@ -53,7 +53,7 @@
 
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
-	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, 1)
+	playsound(M, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, TRUE)
 	pump_unload(M)
 	pump_reload(M)
 	update_icon() //I.E. fix the desc
@@ -63,7 +63,7 @@
 	if(chambered)//We have a shell in the chamber
 		chambered.loc = get_turf(src)//Eject casing
 		chambered.SpinAnimation(5, 1)
-		playsound(src, chambered.casing_drop_sound, 60, 1)
+		playsound(src, chambered.casing_drop_sound, 60, TRUE)
 		chambered = null
 
 /obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
@@ -262,7 +262,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
-	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
+	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, TRUE)
 	if(bolt_open)
 		pump_reload(M)
 	else

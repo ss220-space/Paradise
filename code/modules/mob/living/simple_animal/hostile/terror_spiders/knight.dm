@@ -12,14 +12,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/knight
 	name = "Knight of Terror"
 	desc = "Зловещий на вид красный паук c восемью красными глазами-бусинками и ужасными, большими, заострёнными клыками! Похоже, у него порочная полоса шириной в милю."
-	ru_names = list(
-		NOMINATIVE = "Рыцарь Ужаса",
-		GENITIVE = "Рыцаря Ужаса",
-		DATIVE = "Рыцарю Ужаса",
-		ACCUSATIVE = "Рыцаря Ужаса",
-		INSTRUMENTAL = "Рыцарем Ужаса",
-		PREPOSITIONAL = "Рыцаре Ужаса",
-	)
 	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_red"
@@ -53,6 +45,16 @@
 	var/datum/action/innate/terrorspider/knight/defaultm/defaultmaction
 	var/datum/action/innate/terrorspider/knight/attackm/attackmaction
 	var/datum/action/innate/terrorspider/knight/defencem/defencemaction
+
+/mob/living/simple_animal/hostile/poison/terror_spider/knight/get_ru_names()
+	return list(
+		NOMINATIVE = "Рыцарь Ужаса",
+		GENITIVE = "Рыцаря Ужаса",
+		DATIVE = "Рыцарю Ужаса",
+		ACCUSATIVE = "Рыцаря Ужаса",
+		INSTRUMENTAL = "Рыцарем Ужаса",
+		PREPOSITIONAL = "Рыцаре Ужаса",
+	)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/New()
 	..()
@@ -125,7 +127,9 @@
 	max_integrity = 30
 	name = "reinforced web"
 	desc = "Эта паутина усилена прочными нитями для дополнительной прочности."
-	ru_names = list(
+
+/obj/structure/spider/terrorweb/knight/get_ru_names()
+	return list(
 		NOMINATIVE = "укрепленная паутина",
 		GENITIVE = "укрепленной паутины",
 		DATIVE = "укрепленной паутине",

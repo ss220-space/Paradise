@@ -280,7 +280,7 @@
 /mob/living/simple_animal/demon/slaughter/laughter/release_consumed(mob/living/M)
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
-		playsound(get_turf(src), feast_sound, 50, 1, -1)
+		playsound(get_turf(src), feast_sound, 50, TRUE, -1)
 		to_chat(M, span_clown("Вы покидаете тёплые объятия [declent_ru(GENITIVE)] и чувствуете себя готовым покорить мир."))
 	..(M)
 

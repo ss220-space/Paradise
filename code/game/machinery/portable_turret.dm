@@ -654,7 +654,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(stat & BROKEN)
 		return
 	set_raised_raising(raised, TRUE)
-	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
+	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
@@ -675,7 +675,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(stat & BROKEN)
 		return
 	set_raised_raising(raised, TRUE)
-	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
+	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
@@ -732,11 +732,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(emagged || lethal)
 		if(eprojectile)
 			A = new eprojectile(loc)
-			playsound(loc, eshot_sound, 75, 1)
+			playsound(loc, eshot_sound, 75, TRUE)
 	else
 		if(projectile)
 			A = new projectile(loc)
-			playsound(loc, shot_sound, 75, 1)
+			playsound(loc, shot_sound, 75, TRUE)
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates

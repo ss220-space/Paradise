@@ -27,7 +27,7 @@
 
 	new /obj/effect/payload_spawner(loc, payload, numspawned, payload_power)//Launches payload
 
-	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 
 	qdel(src)
 
@@ -56,7 +56,7 @@
 
 	new /obj/effect/payload_spawner(loc, payload, rand(4,8), payload_power)
 
-	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 
 	qdel(src)
 

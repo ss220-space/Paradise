@@ -133,9 +133,12 @@
 /datum/status_effect/shadow_boxing/tick(seconds_between_ticks)
 	var/mob/living/attacker = locateUID(source_UID)
 	if(attacker in view(owner, 2))
+		var/turf/attacker_turf = get_turf(attacker)
+		var/turf/owner_turf = get_turf(owner)
 		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
 		owner.apply_damage(damage, BRUTE)
-		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
+		playsound(owner_turf, SFX_PUNCH, 30, TRUE, -1)
+		shadow_to_animation(attacker_turf, owner_turf, attacker)
 
 
 /datum/status_effect/saw_bleed
@@ -621,7 +624,7 @@
 		owner.AdjustConfused(6 SECONDS, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
 	// THRESHOLD_SPARK (100 SECONDS)
 	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(0.5))
-		do_sparks(3, 1, owner)
+		do_sparks(3, TRUE, owner)
 	// THRESHOLD_VOMIT (120 SECONDS)
 	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.2))
 		owner.fakevomit()
@@ -631,7 +634,7 @@
 	// THRESHOLD_COLLAPSE (150 SECONDS)
 	if(actual_strength >= THRESHOLD_COLLAPSE && prob(0.2))
 		owner.emote("collapse")
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 	// THRESHOLD_FAINT (180 SECONDS)
 	if(actual_strength >= THRESHOLD_FAINT && prob(0.2))
 		owner.Paralyse(10 SECONDS)

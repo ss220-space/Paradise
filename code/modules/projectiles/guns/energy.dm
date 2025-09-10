@@ -134,8 +134,8 @@
 		sibyl_mod.unlock()
 		if(user)
 			user.visible_message(span_warning("От [src] летят искры!"), span_notice("Вы взломали [src], что привело к выключению болтов предохранителя."))
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 30, 1)
-		do_sparks(5, 1, src)
+		playsound(loc, 'sound/effects/sparks4.ogg', 30, TRUE)
+		do_sparks(5, TRUE, src)
 		return
 
 /obj/item/gun/energy/emp_act(severity)

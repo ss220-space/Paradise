@@ -66,7 +66,7 @@
 			var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			if(affecting.droplimb())
 				H.UpdateDamageIcon()
-				playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, 1)
+				playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, TRUE)
 				to_chat(user, span_userdanger("That was a bad idea."))
 				H.emote("scream")
 

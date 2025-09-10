@@ -2,14 +2,6 @@
 //Limited use.
 /obj/item/gripper
 	name = "magnetic gripper"
-	ru_names = list(
-		NOMINATIVE = "магнитный захват",
-		GENITIVE = "магнитного захвата",
-		DATIVE = "магнитному захвату",
-		ACCUSATIVE = "магнитный захват",
-		INSTRUMENTAL = "магнитным захватом",
-		PREPOSITIONAL = "магнитном захвате"
-	)
 	desc = "Простой захватывающий инструмент для синтетических материалов."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gripper"
@@ -47,16 +39,18 @@
 	//Item currently being held.
 	var/obj/item/gripped_item = null
 
+/obj/item/gripper/get_ru_names()
+	return list(
+		NOMINATIVE = "магнитный захват",
+		GENITIVE = "магнитного захвата",
+		DATIVE = "магнитному захвату",
+		ACCUSATIVE = "магнитный захват",
+		INSTRUMENTAL = "магнитным захватом",
+		PREPOSITIONAL = "магнитном захвате"
+	)
+
 /obj/item/gripper/medical
 	name = "medical gripper"
-	ru_names = list(
-		NOMINATIVE = "медицинский захват",
-		GENITIVE = "медицинского захвата",
-		DATIVE = "медицинскому захвату",
-		ACCUSATIVE = "медицинский захват",
-		INSTRUMENTAL = "медицинским захватом",
-		PREPOSITIONAL = "медицинском захвате"
-	)
 	desc = "Захватывающий инструмент, используемый для удержания органов и помощи пациентам после завершения операции."
 	can_hold = list(/obj/item/organ,
 					/obj/item/reagent_containers/iv_bag,
@@ -67,6 +61,16 @@
 					/obj/item/robot_parts/r_leg,
 					/obj/item/robot_parts/chest,
 					/obj/item/stack/sheet/mineral/plasma) //for repair plasmamans
+
+/obj/item/gripper/medical/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинский захват",
+		GENITIVE = "медицинского захвата",
+		DATIVE = "медицинскому захвату",
+		ACCUSATIVE = "медицинский захват",
+		INSTRUMENTAL = "медицинским захватом",
+		PREPOSITIONAL = "медицинском захвате"
+	)
 
 /obj/item/gripper/medical/attack_self(mob/user)
 	return
@@ -95,14 +99,6 @@
 
 /obj/item/gripper/service
 	name = "Card gripper"
-	ru_names = list(
-		NOMINATIVE = "карточный захват",
-		GENITIVE = "карточного захвата",
-		DATIVE = "карточному захвату",
-		ACCUSATIVE = "карточный захват",
-		INSTRUMENTAL = "карточным захватом",
-		PREPOSITIONAL = "карточном захвате"
-	)
 	desc = "Захватывающий инструмент, используемый для изъятия ID-карт, для уплаты налогов, и пробуждения пьяных членов экипажа."
 	can_hold = list(/obj/item/card,
 					/obj/item/camera_film,
@@ -113,13 +109,28 @@
 					/obj/item/seeds,
 					/obj/item/disk/plantgene)
 
+/obj/item/gripper/service/get_ru_names()
+	return list(
+		NOMINATIVE = "карточный захват",
+		GENITIVE = "карточного захвата",
+		DATIVE = "карточному захвату",
+		ACCUSATIVE = "карточный захват",
+		INSTRUMENTAL = "карточным захватом",
+		PREPOSITIONAL = "карточном захвате"
+	)
+
 /obj/item/gripper/service/melee_attack_chain(mob/living/user, atom/target, params)
 	try_shake_up(user, target)
 	. = ..()
 
 /obj/item/gripper/cogscarab
 	name = "ancient gripper"
-	ru_names = list(
+	desc = "Латунный захватывающий инструмент для поддержки коллег."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "clock_gripper"
+
+/obj/item/gripper/cogscarab/get_ru_names()
+	return list(
 		NOMINATIVE = "древний захват",
 		GENITIVE = "древнего захвата",
 		DATIVE = "древнему захвату",
@@ -127,9 +138,6 @@
 		INSTRUMENTAL = "древним захватом",
 		PREPOSITIONAL = "древнем захвате"
 	)
-	desc = "Латунный захватывающий инструмент для поддержки коллег."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "clock_gripper"
 
 /obj/item/gripper/cogscarab/New()
 	//Has a list of items that it can hold.
@@ -143,14 +151,6 @@
 
 /obj/item/gripper/universal
 	name = "Universal gripper"
-	ru_names = list(
-		NOMINATIVE = "универсальный захват",
-		GENITIVE = "универсального захвата",
-		DATIVE = "универсальному захвату",
-		ACCUSATIVE = "универсальный захват",
-		INSTRUMENTAL = "универсальным захватом",
-		PREPOSITIONAL = "универсальном захвате"
-	)
 	desc = "Универсальный захватывающий инструмент, используемый для выполнения сверх секретных заданий клана паука."
 	icon_state = "diskgripper"
 	can_hold = list(/obj/item/firealarm_electronics,
@@ -197,9 +197,24 @@
 		/obj/item/seeds,
 		/obj/item/disk/plantgene)
 
+/obj/item/gripper/universal/get_ru_names()
+	return list(
+		NOMINATIVE = "универсальный захват",
+		GENITIVE = "универсального захвата",
+		DATIVE = "универсальному захвату",
+		ACCUSATIVE = "универсальный захват",
+		INSTRUMENTAL = "универсальным захватом",
+		PREPOSITIONAL = "универсальном захвате"
+	)
+
 /obj/item/gripper/nuclear
 	name = "Nuclear gripper"
-	ru_names = list(
+	desc = "Создан для всех ваших ядерных нужд."
+	icon_state = "diskgripper"
+	can_hold = list(/obj/item/disk/nuclear)
+
+/obj/item/gripper/nuclear/get_ru_names()
+	return list(
 		NOMINATIVE = "ядерный захват",
 		GENITIVE = "ядерного захвата",
 		DATIVE = "ядерному захвату",
@@ -207,9 +222,6 @@
 		INSTRUMENTAL = "ядерным захватом",
 		PREPOSITIONAL = "ядерном захвате"
 	)
-	desc = "Создан для всех ваших ядерных нужд."
-	icon_state = "diskgripper"
-	can_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/gripper/New()
 	..()
@@ -339,14 +351,6 @@
 /obj/item/matter_decompiler
 
 	name = "matter decompiler"
-	ru_names = list(
-		NOMINATIVE = "декомпилятор материи",
-		GENITIVE = "декомпилятора материи",
-		DATIVE = "декомпилятору материи",
-		ACCUSATIVE = "декомпилятор материи",
-		INSTRUMENTAL = "декомпилятором материи",
-		PREPOSITIONAL = "декомпиляторе материи"
-	)
 	desc = "Поедание мусора, осколков стекла или другого мусора пополнит ваши запасы."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minigibber"
@@ -358,6 +362,15 @@
 		"wood" = 0
 		)
 
+/obj/item/matter_decompiler/get_ru_names()
+	return list(
+		NOMINATIVE = "декомпилятор материи",
+		GENITIVE = "декомпилятора материи",
+		DATIVE = "декомпилятору материи",
+		ACCUSATIVE = "декомпилятор материи",
+		INSTRUMENTAL = "декомпилятором материи",
+		PREPOSITIONAL = "декомпиляторе материи"
+	)
 
 /obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED

@@ -647,7 +647,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/restraints/handcuffs/energy/used/dropped(mob/user, slot, silent = FALSE)
 	user.visible_message(span_danger("[src] restraining [user] breaks in a discharge of energy!"), \
 							span_userdanger("[src] restraining [user] breaks in a discharge of energy!"))
-	do_sparks(4, 0, user.loc)
+	do_sparks(4, FALSE, user.loc)
 	. = ..()
 
 
