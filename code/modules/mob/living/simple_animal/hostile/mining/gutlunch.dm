@@ -2,14 +2,6 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch
 	name = "gutlunch"
 	desc = "Падальщик, питающийся сырым мясом. Часто встречается рядом с пеплоходцами. Производит густое питательное молоко."
-	ru_names = list(
-		NOMINATIVE = "кишкожор",
-		GENITIVE = "кишкожора",
-		DATIVE = "кишкожору",
-		ACCUSATIVE = "кишкожора",
-		INSTRUMENTAL = "кишкожором",
-		PREPOSITIONAL = "кишкожоре"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "gutlunch"
 	icon_living = "gutlunch"
@@ -48,6 +40,16 @@
 
 	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/organ/internal)
 	var/obj/item/udder/gutlunch/udder = null
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/get_ru_names()
+	return list(
+		NOMINATIVE = "кишкожор",
+		GENITIVE = "кишкожора",
+		DATIVE = "кишкожору",
+		ACCUSATIVE = "кишкожора",
+		INSTRUMENTAL = "кишкожором",
+		PREPOSITIONAL = "кишкожоре"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
 	udder = new()
@@ -124,7 +126,9 @@
 
 /obj/item/udder/gutlunch
 	name = "nutrient sac"
-	ru_names = list(
+
+/obj/item/udder/gutlunch/get_ru_names()
+	return list(
 		NOMINATIVE = "питательный мешок",
 		GENITIVE = "питательного мешка",
 		DATIVE = "питательному мешку",
@@ -144,7 +148,10 @@
 //Male gutlunch. They're smaller and more colorful!
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
 	name = "gubbuck"
-	ru_names = list(
+	gender = MALE
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/get_ru_names()
+	return list(
 		NOMINATIVE = "жирохрюн",
 		GENITIVE = "жирохрюна",
 		DATIVE = "жирохрюну",
@@ -152,7 +159,6 @@
 		INSTRUMENTAL = "жирохрюном",
 		PREPOSITIONAL = "жирохрюне"
 	)
-	gender = MALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/Initialize(mapload)
 	. = ..()
@@ -162,7 +168,10 @@
 //Lady gutlunch. They make the babby.
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen
 	name = "guthen"
-	ru_names = list(
+	gender = FEMALE
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/get_ru_names()
+	return list(
 		NOMINATIVE = "квохтун",
 		GENITIVE = "квохтуна",
 		DATIVE = "квохтуну",
@@ -170,7 +179,6 @@
 		INSTRUMENTAL = "квохтуном",
 		PREPOSITIONAL = "квохтуне"
 	)
-	gender = FEMALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/Life()
 	..()
@@ -185,7 +193,12 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch
 	name = "grublunch"
-	ru_names = list(
+	wanted_objects = list() //They don't eat.
+	gold_core_spawnable = NO_SPAWN
+	var/growth = 0
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/get_ru_names()	
+	return list(
 		NOMINATIVE = "червожор",
 		GENITIVE = "червожора",
 		DATIVE = "червожору",
@@ -193,9 +206,6 @@
 		INSTRUMENTAL = "червожором",
 		PREPOSITIONAL = "червожоре"
 	)
-	wanted_objects = list() //They don't eat.
-	gold_core_spawnable = NO_SPAWN
-	var/growth = 0
 
 //Baby gutlunch
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Initialize(mapload)

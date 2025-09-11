@@ -55,6 +55,7 @@ jobs:
           find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/ci/json_verifier.py
           tgui/bin/tgui --ci
           tools/ci/check_grep.sh
+          tools/bootstrap/python -m define_sanity.check
           python3 tools/ci/check_line_endings.py
           python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
 
@@ -126,6 +127,6 @@ jobs:
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/dm.sh -DCIBUILDING paradise.dme
+          tools/ci/dm.sh -DMULTIINSTANCE -DCIBUILDING paradise.dme
           echo '${{ matrix.maptype }}' > data/next_map.txt
           tools/ci/run_server.sh

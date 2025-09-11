@@ -523,7 +523,7 @@
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/broke()
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 	visible_message("<span class='alert'>The [src] breaks!</span>") //Let them know they're stupid
 	if(can_broke)
 		broken = BROKEN_NEEDS_SCREWDRIVER // Make it broken so it can't be used util fixed

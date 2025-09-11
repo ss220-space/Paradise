@@ -60,7 +60,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 /mob/living/simple_animal/hostile/hivebot/tele//this still needs work
 	name = "Beacon"

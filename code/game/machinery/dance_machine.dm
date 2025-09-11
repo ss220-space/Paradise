@@ -410,7 +410,7 @@
 		for(var/i in 1 to speed)
 			M.setDir(pick(GLOB.cardinal))
 			M.set_resting(!M.resting, instant = TRUE)
-		 time--
+		time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)
 	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
@@ -491,7 +491,7 @@
 		active = FALSE
 		STOP_PROCESSING(SSobj, src)
 		dance_over()
-		playsound(src,'sound/machines/terminal_off.ogg',50,1)
+		playsound(src,'sound/machines/terminal_off.ogg',50, TRUE)
 		update_icon()
 		stop = world.time + 100
 

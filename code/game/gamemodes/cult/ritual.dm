@@ -1,6 +1,3 @@
-#define CULT_ELDERGOD "eldergod"
-#define CULT_SLAUGHTER "slaughter"
-
 /obj/item/melee/cultblade/dagger
 	name = "ritual dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
@@ -163,6 +160,10 @@
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to summon a cultist, you must be on station!</span>")
 			return
 
+	if(ispath(rune, /obj/effect/rune/teleport) && !is_station_level(runeturf.z))
+		to_chat(user, span_cultitalic("Завеса в этом месте недостаточно тонка, эта руна будет работать только на станции!"))
+		return
+
 	var/old_color = user.color  // we'll temporarily redden the user for better feedback to fellow cultists. Store this to revert them back.
 	if(narsie_rune)
 		if(!narsie_rune_check(user, A))
@@ -208,8 +209,10 @@
 		drawing_rune = FALSE
 		return
 
-	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
-						 "<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>")
+	user.visible_message(
+		"<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
+		"<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>"
+	)
 
 	var/obj/effect/rune/R = new rune(runeturf, keyword)
 	drawing_rune = FALSE

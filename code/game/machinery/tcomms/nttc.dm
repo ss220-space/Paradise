@@ -27,6 +27,10 @@
 		// Assistant
 		JOB_TITLE_CIVILIAN = "radio",
 		JOB_TITLE_PRISONER = "radio",
+		//Teams radio
+		JOB_TITLE_TEAM1 = "t1radio",
+		JOB_TITLE_TEAM2 = "t2radio",
+		JOB_TITLE_TEAM3 = "t3radio",
 		// Command (Solo command, not department heads)
 		JOB_TITLE_BLUESHIELD = "comradio",
 		JOB_TITLE_CAPTAIN = "comradio",
@@ -175,7 +179,7 @@
 
 // This loads a configuration from a JSON string.
 // Fucking broken as shit, someone help me fix this.
-/datum/nttc_configuration/proc/nttc_deserialize(text, var/ckey)
+/datum/nttc_configuration/proc/nttc_deserialize(text, ckey)
 	if(word_blacklist.Find(text)) //uh oh, they tried to be naughty
 		message_admins(span_danger("EXPLOIT WARNING: ") + "[ckey] attempted to upload an NTTC configuration containing JS abusable tags!")
 		log_admin("EXPLOIT WARNING: [ckey] attempted to upload an NTTC configuration containing JS abusable tags")

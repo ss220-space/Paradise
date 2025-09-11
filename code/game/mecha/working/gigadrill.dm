@@ -54,7 +54,7 @@
 	QDEL_NULL(soundloop)
 	return ..()
 
-/obj/mecha/working/gigadrill/moved_inside(var/mob/living/carbon/human/H as mob)
+/obj/mecha/working/gigadrill/moved_inside(mob/living/carbon/human/H as mob)
 	..()
 	soundloop.start()
 

@@ -29,6 +29,7 @@
 	)
 	bodyflags = HAS_BODY_MARKINGS
 	dies_at_threshold = TRUE
+	ignore_critical_condition = TRUE // Nucleations do not suffer from complex critical condition
 	var/touched_supermatter = FALSE
 
 	speciesbox = /obj/item/storage/box/survival_nucleation

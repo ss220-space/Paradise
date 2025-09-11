@@ -1,14 +1,6 @@
 /mob/living/simple_animal/bot/honkbot
 	name = "honkbot"
 	desc = "Маленький робот. У него есть гудок. Он счастлив."
-	ru_names = list(
-		NOMINATIVE = "хонкобот",
-		GENITIVE = "хонкобота",
-		DATIVE = "хонкоботу",
-		ACCUSATIVE = "хонкобота",
-		INSTRUMENTAL = "хонкоботом",
-		PREPOSITIONAL = "хонкоботе",
-	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot"
 	density = FALSE
@@ -38,6 +30,15 @@
 	var/threatlevel = FALSE
 	var/arrest_type = FALSE
 
+/mob/living/simple_animal/bot/honkbot/get_ru_names()
+	return list(
+		NOMINATIVE = "хонкобот",
+		GENITIVE = "хонкобота",
+		DATIVE = "хонкоботу",
+		ACCUSATIVE = "хонкобота",
+		INSTRUMENTAL = "хонкоботом",
+		PREPOSITIONAL = "хонкоботе",
+	)
 
 /obj/machinery/bot_core/honkbot
 	req_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)

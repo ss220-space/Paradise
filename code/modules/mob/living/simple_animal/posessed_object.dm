@@ -1,13 +1,5 @@
 /mob/living/simple_animal/possessed_object
 	name = "possessed doodad"
-	ru_names = list(
-		NOMINATIVE = "одержимая штука",
-		GENITIVE = "одержимой штуки",
-		DATIVE = "одержимой штуке",
-		ACCUSATIVE = "одержимую штуку",
-		INSTRUMENTAL = "одержимой штукой",
-		PREPOSITIONAL = "одержимой штуке"
-	)
 	var/spirit_name = "mysterious force" // What we call ourselves in attack messages.
 	health = 50
 	maxHealth = 50
@@ -30,6 +22,16 @@
 	var/escape_chance = 10
 	/// What is the actual item we are "possessing"
 	var/obj/item/possessed_item
+
+/mob/living/simple_animal/possessed_object/get_ru_names()
+	return list(
+		NOMINATIVE = "одержимая штука",
+		GENITIVE = "одержимой штуки",
+		DATIVE = "одержимой штуке",
+		ACCUSATIVE = "одержимую штуку",
+		INSTRUMENTAL = "одержимой штукой",
+		PREPOSITIONAL = "одержимой штуке"
+	)
 
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
@@ -107,7 +109,7 @@
 	to_chat(src, span_shadowling("<b>Ваш дух вселился в [src.declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя – почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
 
 
-/mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
+/mob/living/simple_animal/possessed_object/New(atom/loc as obj)
 	..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
@@ -145,7 +147,7 @@
 		. = possessed_id.access
 
 
-/mob/living/simple_animal/possessed_object/ClickOn(var/atom/A, var/params)
+/mob/living/simple_animal/possessed_object/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return

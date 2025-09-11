@@ -75,7 +75,7 @@
 	return attack_hand(user)
 
 
-/obj/machinery/computer/guestpass/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/guestpass/attack_hand(mob/user as mob)
 	if(..())
 		return
 
@@ -208,7 +208,7 @@
 	if(. && (ACCESS_CHANGE_IDS in .))
 		return get_taipan_syndicate_access()
 
-/obj/machinery/computer/guestpass/syndicate/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/guestpass/syndicate/attack_hand(mob/user as mob)
 	if(..())
 		return
 

@@ -1,7 +1,3 @@
-#define FORWARD -1
-#define BACKWARD 1
-#define CONSTRUCTION_TOOL_BEHAVIOURS list(TOOL_CROWBAR, TOOL_SCREWDRIVER, TOOL_WELDER, TOOL_WRENCH)
-
 /datum/construction
 	var/list/steps
 	var/atom/holder
@@ -219,7 +215,7 @@
 	text = replacetext(text,"{HOLDER}","[holder]")
 	return text
 
-/datum/construction/reversible2/custom_action(index, diff, used_atom, var/mob/user)
+/datum/construction/reversible2/custom_action(index, diff, used_atom, mob/user)
 	if(!..(index,used_atom,user))
 		return 0
 

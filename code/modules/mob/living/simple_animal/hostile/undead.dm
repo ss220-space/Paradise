@@ -76,14 +76,6 @@
 /mob/living/simple_animal/hostile/skeleton
 	name = "reanimated skeleton"
 	desc = "Настоящий костлявый скелет, не похоже, что он хочет общаться."
-	ru_names = list(
-		NOMINATIVE = "оживший скелет",
-		GENITIVE = "ожившего скелета",
-		DATIVE = "ожившему скелету",
-		ACCUSATIVE = "ожившего скелета",
-		INSTRUMENTAL = "ожившим скелетом",
-		PREPOSITIONAL = "ожившем скелете"
-	)
 	gender = MALE
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "skeleton"
@@ -115,6 +107,16 @@
 	deathmessage = "превращается в груду костей!"
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/remains/human)
+
+/mob/living/simple_animal/hostile/skeleton/get_ru_names()
+	return list(
+		NOMINATIVE = "оживший скелет",
+		GENITIVE = "ожившего скелета",
+		DATIVE = "ожившему скелету",
+		ACCUSATIVE = "ожившего скелета",
+		INSTRUMENTAL = "ожившим скелетом",
+		PREPOSITIONAL = "ожившем скелете"
+	)
 
 /mob/living/simple_animal/hostile/skeleton/ComponentInitialize()
 	AddComponent( \

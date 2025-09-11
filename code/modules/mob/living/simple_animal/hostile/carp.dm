@@ -3,14 +3,6 @@
 /mob/living/simple_animal/hostile/carp
 	name = "space carp"
 	desc = "Свирепое, клыкастое существо, похожее на рыбу."
-	ru_names = list(
-		NOMINATIVE = "космокарп",
-		GENITIVE = "космокарпа",
-		DATIVE = "космокарпу",
-		ACCUSATIVE = "космокарпа",
-		INSTRUMENTAL = "космокарпом",
-		PREPOSITIONAL = "космокарпе"
-	)
 	icon = 'icons/mob/carp.dmi'
 	icon_state = "base"
 	icon_living = "base"
@@ -66,6 +58,16 @@
 	)
 	var/static/list/carp_colors_rare = list(\
 	"silver" = "#fdfbf3", \
+	)
+
+/mob/living/simple_animal/hostile/carp/get_ru_names()
+	return list(
+		NOMINATIVE = "космокарп",
+		GENITIVE = "космокарпа",
+		DATIVE = "космокарпу",
+		ACCUSATIVE = "космокарпа",
+		INSTRUMENTAL = "космокарпом",
+		PREPOSITIONAL = "космокарпе"
 	)
 
 
@@ -152,14 +154,6 @@
 /mob/living/simple_animal/hostile/carp/megacarp
 	name = "Mega Space Carp"
 	desc = "Свирепое, клыкастое существо, напоминающее акулу. Похоже, оно особенно озлоблено."
-	ru_names = list(
-		NOMINATIVE = "мегакосмокарп",
-		GENITIVE = "мегакосмокарпа",
-		DATIVE = "мегакосмокарпу",
-		ACCUSATIVE = "мегакосмокарпа",
-		INSTRUMENTAL = "мегакосмокарпом",
-		PREPOSITIONAL = "мегакосмокарпе"
-	)
 	icon = 'icons/mob/alienqueen.dmi'
 	icon_state = "megacarp"
 	icon_living = "megacarp"
@@ -175,6 +169,16 @@
 
 	var/regen_cooldown = 0
 	tts_seed = "Shaker"
+
+/mob/living/simple_animal/hostile/carp/megacarp/get_ru_names()
+	return list(
+		NOMINATIVE = "мегакосмокарп",
+		GENITIVE = "мегакосмокарпа",
+		DATIVE = "мегакосмокарпу",
+		ACCUSATIVE = "мегакосмокарпа",
+		INSTRUMENTAL = "мегакосмокарпом",
+		PREPOSITIONAL = "мегакосмокарпе"
+	)
 
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
 	. = ..()
@@ -204,14 +208,6 @@
 /mob/living/simple_animal/hostile/carp/sea
 	name = "sea carp"
 	desc = "Большая рыба, имеющая сходства с дальними космическими родственниками."
-	ru_names = list(
-		NOMINATIVE = "морской карп",
-		GENITIVE = "морского карпа",
-		DATIVE = "морскому карпу",
-		ACCUSATIVE = "морского карпа",
-		INSTRUMENTAL = "морским карпом",
-		PREPOSITIONAL = "морском карпе"
-	)
 	icon_state = "carp"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 1)
 	response_help = "гладит"
@@ -223,6 +219,16 @@
 	gold_core_spawnable = NO_SPAWN
 	var/carp_color = "carp" //holder for icon set
 
+/mob/living/simple_animal/hostile/carp/sea/get_ru_names()
+	return list(
+		NOMINATIVE = "морской карп",
+		GENITIVE = "морского карпа",
+		DATIVE = "морскому карпу",
+		ACCUSATIVE = "морского карпа",
+		INSTRUMENTAL = "морским карпом",
+		PREPOSITIONAL = "морском карпе"
+	)
+
 /mob/living/simple_animal/hostile/carp/sea/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
@@ -233,14 +239,6 @@
 /mob/living/simple_animal/hostile/carp/mcarp
 	name = "mutated Carp"
 	desc = "Космический карп со странной внешностью."
-	ru_names = list(
-		NOMINATIVE = "мутировавший карп",
-		GENITIVE = "мутирововшего карпа",
-		DATIVE = "мутирововшему карпу",
-		ACCUSATIVE = "мутировавшего карпа",
-		INSTRUMENTAL = "мутировавшим карпом",
-		PREPOSITIONAL = "мутировавшем карпе"
-	)
 	icon_state = "Mcarp"
 	icon_living = "Mcarp"
 	icon_dead = "MCarp_Dead"
@@ -251,17 +249,19 @@
 	maxHealth = 150
 	health = 150
 
+/mob/living/simple_animal/hostile/carp/mcarp/get_ru_names()
+	return list(
+		NOMINATIVE = "мутировавший карп",
+		GENITIVE = "мутирововшего карпа",
+		DATIVE = "мутирововшему карпу",
+		ACCUSATIVE = "мутировавшего карпа",
+		INSTRUMENTAL = "мутировавшим карпом",
+		PREPOSITIONAL = "мутировавшем карпе"
+	)
+
 /mob/living/simple_animal/hostile/carp/koi
 	name = "space koi"
 	desc = "Дружелюбный кои, бороздящий просторы космоса."
-	ru_names = list(
-		NOMINATIVE = "космический кои",
-		GENITIVE = "космического кои",
-		DATIVE = "космическому кои",
-		ACCUSATIVE = "космического кои",
-		INSTRUMENTAL = "космическим кои",
-		PREPOSITIONAL = "космическом кои"
-	)
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "koi1"
 	icon_living = "koi1"
@@ -279,6 +279,16 @@
 	var/randomize_icon = TRUE
 
 	retaliate_only = TRUE
+
+/mob/living/simple_animal/hostile/carp/koi/get_ru_names()
+	return list(
+		NOMINATIVE = "космический кои",
+		GENITIVE = "космического кои",
+		DATIVE = "космическому кои",
+		ACCUSATIVE = "космического кои",
+		INSTRUMENTAL = "космическим кои",
+		PREPOSITIONAL = "космическом кои"
+	)
 
 /mob/living/simple_animal/hostile/carp/koi/Initialize(mapload)
 	. = ..()

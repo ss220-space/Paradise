@@ -1,4 +1,4 @@
-/client/proc/cmd_mass_modify_object_variables(atom/A, var/var_name)
+/client/proc/cmd_mass_modify_object_variables(atom/A, var_name)
 	set category = STATPANEL_ADMIN_DEBUG
 	set name = "Mass Edit Variables"
 	set desc="(target) Edit all instances of a target item's variables"
@@ -74,13 +74,13 @@
 		var/dir_text = ""
 		if(dir < 0 && dir < 16)
 			if(dir & 1)
-				dir_text += "NORTH"
+				dir_text += DIR_NAME_ENG_NORTH
 			if(dir & 2)
-				dir_text += "SOUTH"
+				dir_text += DIR_NAME_ENG_SOUTH
 			if(dir & 4)
-				dir_text += "EAST"
+				dir_text += DIR_NAME_ENG_EAST
 			if(dir & 8)
-				dir_text += "WEST"
+				dir_text += DIR_NAME_ENG_WEST
 
 		if(dir_text)
 			to_chat(src, "If a direction, direction is: [dir_text]")
@@ -205,7 +205,7 @@
 	log_admin("[key_name(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] ([accepted] objects modified)")
 	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [html_encode(translate_bitfield(default, variable, O.vars[variable]))] (Type: [class]) ([accepted] objects modified)")
 
-/proc/get_all_of_type(var/T, subtypes = TRUE)
+/proc/get_all_of_type(T, subtypes = TRUE)
 	var/list/typecache = list()
 	typecache[T] = 1
 	if(subtypes)

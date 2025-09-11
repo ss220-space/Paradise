@@ -6,7 +6,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/inflatable/attack_self(mob/user)
-	playsound(loc, 'sound/items/zip.ogg', 75, 1)
+	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
 	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
 	transfer_fingerprints_to(R)
@@ -53,7 +53,7 @@
 
 
 /obj/structure/inflatable/deconstruct(disassembled = TRUE)
-	playsound(loc, 'sound/machines/hiss.ogg', 75, 1)
+	playsound(loc, 'sound/machines/hiss.ogg', 75, TRUE)
 	if(!disassembled)
 		visible_message("[src] rapidly deflates!")
 		var/obj/item/inflatable/torn/R = new torn(loc)
@@ -86,7 +86,7 @@
 	icon_state = "folded_door"
 
 /obj/item/inflatable/door/attack_self(mob/user)
-	playsound(loc, 'sound/items/zip.ogg', 75, 1)
+	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
 	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	var/obj/structure/inflatable/door/R = new /obj/structure/inflatable/door(user.loc)
 	src.transfer_fingerprints_to(R)

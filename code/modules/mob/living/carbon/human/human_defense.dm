@@ -222,13 +222,13 @@ emp_act
 
 
 /mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, head, shoes, gloves or wear_suit based on the reflection chance var of the object
-    var/list/reflectable_slots = list(wear_suit, head, shoes, gloves, l_hand, r_hand)
-    for(var/obj/item/slot in reflectable_slots)
-        var/reflectability = slot?.IsReflect(def_zone)
-        if(reflectability)
-            return reflectability
+	var/list/reflectable_slots = list(wear_suit, head, shoes, gloves, l_hand, r_hand)
+	for(var/obj/item/slot in reflectable_slots)
+		var/reflectability = slot?.IsReflect(def_zone)
+		if(reflectability)
+			return reflectability
 
-    return 0
+	return 0
 
 
 //End Here
@@ -641,8 +641,7 @@ emp_act
 	return ..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 
-/mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
-
+/mob/living/carbon/human/proc/bloody_hands(mob/living/source, amount = 2)
 	if(gloves)
 		gloves.add_mob_blood(source)
 		gloves:transfer_blood = amount
@@ -651,7 +650,7 @@ emp_act
 		bloody_hands = amount
 	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
-/mob/living/carbon/human/proc/bloody_body(var/mob/living/source)
+/mob/living/carbon/human/proc/bloody_body(mob/living/source)
 	if(wear_suit)
 		wear_suit.add_mob_blood(source)
 		update_inv_wear_suit()
