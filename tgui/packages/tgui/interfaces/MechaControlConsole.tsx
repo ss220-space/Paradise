@@ -49,12 +49,6 @@ export const MechaControlConsole = (props: unknown) => {
                   >
                     Message
                   </Button>
-                  <Button
-                    icon="eye"
-                    onClick={() => act('get_log', { mt: beacon.uid })}
-                  >
-                    View Log
-                  </Button>
                   <Button.Confirm
                     color="red"
                     icon="bomb"
