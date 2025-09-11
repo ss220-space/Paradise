@@ -240,12 +240,12 @@
 
 /obj/item/reagent_containers/food/drinks/ice/get_ru_names()
 	return list(
-        NOMINATIVE = "стаканчик льда",
-        GENITIVE = "стаканчика льда",
-        DATIVE = "стаканчику льда",
-        ACCUSATIVE = "стаканчик льда",
-        INSTRUMENTAL = "стаканчиком льда",
-        PREPOSITIONAL = "стаканчике льда"
+		NOMINATIVE = "стаканчик льда",
+		GENITIVE = "стаканчика льда",
+		DATIVE = "стаканчику льда",
+		ACCUSATIVE = "стаканчик льда",
+		INSTRUMENTAL = "стаканчиком льда",
+		PREPOSITIONAL = "стаканчике льда"
 	)
 
 /obj/item/reagent_containers/food/drinks/tea

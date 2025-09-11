@@ -170,7 +170,7 @@
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
 
-/obj/mecha/proc/add_cell(var/obj/item/stock_parts/cell/C=null)
+/obj/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)
 	if(C)
 		C.forceMove(src)
 		cell = C
@@ -1108,7 +1108,7 @@
 	if(!..())
 		return
 
- //Transfer from core or card to mech. Proc is called by mech.
+	//Transfer from core or card to mech. Proc is called by mech.
 	switch(interaction)
 		if(AI_TRANS_TO_CARD) //Upload AI from mech to AI card.
 			if(!maint_access) //Mech must be in maint mode to allow carding.
@@ -1349,7 +1349,7 @@
 	else
 		return FALSE
 
-/obj/mecha/proc/mmi_move_inside(var/obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
+/obj/mecha/proc/mmi_move_inside(obj/item/mmi/mmi_as_oc as obj, mob/user as mob)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 		to_chat(user, span_warning("Consciousness matrix not detected!"))
 		return FALSE

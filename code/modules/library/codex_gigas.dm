@@ -3,6 +3,7 @@
 #define SYLLABLE 3
 #define MULTIPLE_SYLLABLE 4
 #define SUFFIX 5
+
 /obj/item/book/codex_gigas
 	name = "Codex Gigas"
 	icon_state = "demonomicon"
@@ -155,3 +156,9 @@
 	data["names"] = GLOB.devil_syllable
 	data["suffixes"] = GLOB.devil_suffix
 	return data
+
+#undef PRE_TITLE
+#undef TITLE
+#undef SYLLABLE
+#undef MULTIPLE_SYLLABLE
+#undef SUFFIX

@@ -30,8 +30,8 @@
 	return messages
 
 /**
-  * Accepts the offer to be a contractor if possible.
-  */
+ * Accepts the offer to be a contractor if possible.
+ */
 /datum/contractor_pending/proc/become_contractor(mob/living/carbon/human/user, obj/item/uplink/uplink)
 	if(!istype(user))
 		return

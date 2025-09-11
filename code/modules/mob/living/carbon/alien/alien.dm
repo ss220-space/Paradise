@@ -117,7 +117,7 @@
 		return default_language
 	return GLOB.all_languages[LANGUAGE_XENOS]
 
-/mob/living/carbon/alien/say_quote(var/message, var/datum/language/speaking = null)
+/mob/living/carbon/alien/say_quote(message, datum/language/speaking = null)
 	var/ending = copytext(message, length(message))
 
 	if(speaking && (speaking.name != "Galactic Common"))						//this is so adminbooze xenos speaking common have their custom verbs,
@@ -155,8 +155,7 @@
 /mob/living/carbon/alien/check_eye_prot()
 	return FLASH_PROTECTION_WELDER
 
-/mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
-
+/mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment)
 	if(!environment)
 		return
 
@@ -264,7 +263,7 @@
 		update_pipe_vision()
 
 
-/mob/living/carbon/alien/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
+/mob/living/carbon/alien/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
 	if(judgebot.emagged == 2)
 		return 10 //Everyone is a criminal!
 	var/threatcount = 0

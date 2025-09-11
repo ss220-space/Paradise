@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		else
 			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
-/datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
+/datum/event/traders/proc/greet_trader(mob/living/carbon/human/M)
 	var/list/messages = list()
 	messages.Add(span_boldnotice("Вы - торговец!"))
 	messages.Add(span_notice("В данный момент вы находитесь на [get_area(M)]."))

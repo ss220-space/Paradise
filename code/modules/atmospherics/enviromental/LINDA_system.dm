@@ -141,10 +141,10 @@
 	if(SSair)
 		SSair.add_to_active(src, command)
 
-/atom/movable/proc/move_update_air(var/turf/T)
-    if(istype(T,/turf))
-        T.air_update_turf(1)
-    air_update_turf(1)
+/atom/movable/proc/move_update_air(turf/T)
+	if(istype(T,/turf))
+		T.air_update_turf(1)
+	air_update_turf(1)
 
 
 

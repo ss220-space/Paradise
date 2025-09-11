@@ -4,7 +4,6 @@
 
 // Minimum pressure difference to fail building falsewalls.
 // Also affects admin alerts.
-#define FALSEDOOR_MAX_PRESSURE_DIFF 25.0
 
 /obj/structure/falsewall
 	name = "wall"

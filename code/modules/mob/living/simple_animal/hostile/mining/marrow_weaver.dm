@@ -36,7 +36,7 @@
 	var/anger_move_to_delay = 8
 	var/anger_speed = 4
 
-/mob/living/simple_animal/hostile/asteroid/marrowweaver/get_ru_names()	
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/get_ru_names()
 	return list(
 		NOMINATIVE = "костномозговой ткач",
 		GENITIVE = "костномозгового ткача",
@@ -105,7 +105,7 @@
 			return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/asteroid/marrowweaver/proc/fiesta(var/mob/living/carbon/human/snack, preparing = TRUE)
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/proc/fiesta(mob/living/carbon/human/snack, preparing = TRUE)
 	var/foundorgans = 0
 	var/list/organs = snack.get_organs_zone(BODY_ZONE_CHEST)
 	for(var/obj/item/organ/internal/I as anything in organs)
