@@ -1457,44 +1457,44 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/mint
-	name = "Mint"
+	name = "Мята"
 	icon_state = "green"
 
 /area/comms
-	name = "Communications Relay"
+	name = "Реле коммуникаций"
 	icon_state = "tcomms"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/server
-	name = "Messaging Server Room"
+	name = "Сервер обмена сообщениями"
 	icon_state = "server"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/ntrep
-	name = "Nanotrasen Representative's Офис "
+	name = "Офис Представителя Нанотрейзен"
 	icon_state = "ntrep"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/blueshield
-	name = "Blueshield's Офис "
+	name = "Офис Офицера \"Синий щит\""
 	icon_state = "blueshield"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/centcomdocks
-	name = "Central Command Docks"
+	name = "Центком – доки"
 	icon_state = "centcom"
 
 /area/bridge/checkpoint
-	name = "Command Checkpoint"
+	name = "КПП командования"
 	icon_state = "bridge"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/bridge/checkpoint/north
-	name = "North Command Checkpoint"
+	name = "КПП командования – северный"
 	icon_state = "bridge"
 
 /area/bridge/checkpoint/south
-	name = "South Command Checkpoint"
+	name = "КПП командования – южный"
 	icon_state = "bridge"
 
 
@@ -1503,137 +1503,137 @@ This applies to all STANDARD station areas
  */
 
 /area/crew_quarters
-	name = "Dormitories"
+	name = "Дормитории"
 	icon_state = "Sleep"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_DORMS
 
 /area/crew_quarters/serviceyard
-	name = "Service Yard"
+	name = "Крыло Отдела обслуживания"
 	icon_state = "Sleep"
 
 /area/crew_quarters/cabin1
-	name = "First Cabin"
+	name = "Жилая каюта №1"
 
 /area/crew_quarters/cabin2
-	name = "Second Cabin"
+	name = "Жилая каюта №2"
 
 /area/crew_quarters/cabin3
-	name = "Third Cabin"
+	name = "Жилая каюта №3"
 
 /area/crew_quarters/cabin4
-	name = "Fourth Cabin"
+	name = "Жилая каюта №4"
 
 /area/crew_quarters/toilet
-	name = "Dormitory Toilets"
+	name = "Уборная – дормитории"
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/crew_quarters/toilet2
-	name = "West Toilets"
+	name = "Уборная – западная"
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/crew_quarters/toilet3
-	name = "Theatre Toilets"
+	name = "Уборная – театр"
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/crew_quarters/toilet4
-	name = "Arrivals Toilets"
+	name = "Уборная – пункт прибытия"
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	holomap_color = HOLOMAP_AREACOLOR_ARRIVALS
 
 /area/crew_quarters/sleep
-	name = "Dormitories"
+	name = "Дормитории"
 	icon_state = "Sleep"
 	valid_territory = FALSE
 
 /area/crew_quarters/sleep/secondary
-	name = "Secondary Dormitories"
+	name = "Дормитории – вторичные"
 	icon_state = "Sleep"
 
 /area/crew_quarters/sleep_male
-	name = "Male Dorm"
+	name = "Жилая каюта – мужская"
 	icon_state = "Sleep"
 
 /area/crew_quarters/sleep_male/toilet_male
-	name = "Male Toilets"
+	name = "Мужская уборная"
 	icon_state = "toilet"
 
 /area/crew_quarters/sleep_female
-	name = "Female Dorm"
+	name = "Женская уборная"
 	icon_state = "Sleep"
 
 /area/crew_quarters/sleep_female/toilet_female
-	name = "Female Toilets"
+	name = "Женская уборная"
 	icon_state = "toilet"
 
 /area/crew_quarters/locker
-	name = "Locker Room"
+	name = "Раздевалка"
 	icon_state = "locker"
 
 /area/crew_quarters/locker/locker_toilet
-	name = "Locker Toilets"
+	name = "Уборная – раздевалка"
 	icon_state = "toilet"
 
 /area/crew_quarters/fitness
-	name = "Fitness Room"
+	name = "Фитнесс-зал"
 	icon_state = "fitness"
 
 /area/crew_quarters/dorms
-	name = "Dorms"
+	name = "Дормитории"
 	icon_state = "dorms"
 
 /area/crew_quarters/trading
-	name = "Заброшенный Tradiders Room"
+	name = "Заброшенный торговый пункт"
 	icon_state = "blue"
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
 /area/crew_quarters/arcade
-	name = "Arcade"
+	name = "Игровой зал"
 	icon_state = "arcade"
 
 /area/crew_quarters/cafeteria
-	name = "Cafeteria"
+	name = "Кафетерий"
 	icon_state = "cafeteria"
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
 /area/crew_quarters/kitchen
-	name = "Kitchen"
+	name = "Кухня"
 	icon_state = "kitchen"
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
 /area/crew_quarters/bar
-	name = "Bar"
+	name = "Бар"
 	icon_state = "barstation"
 	sound_environment = SOUND_AREA_WOODFLOOR
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
 /area/crew_quarters/bar/atrium
-	name = "Atrium"
+	name = "Атриум"
 	icon_state = "bar"
 
 /area/crew_quarters/theatre
-	name = "Theatre"
+	name = "Театр"
 	icon_state = "Theatre"
 	sound_environment = SOUND_AREA_WOODFLOOR
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
 /area/crew_quarters/mrchangs
-	name = "Mr Chang's"
+	name = "Кафетерий \"У Мистера Чанга\""
 	icon_state = "Theatre"
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
 /area/library
-	name = "Library"
+	name = "Библиотека"
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
 /area/library/game_zone
-	name = "Library Games Room"
+	name = "Игровая библиотеки"
 	icon_state = "library"
 
 /area/chapel
@@ -1643,47 +1643,47 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
 /area/chapel/main
-	name = "Chapel"
+	name = "Церковь"
 
 /area/chapel/office
-	name = "Chapel Office"
+	name = "Церковь – офис Священника"
 	icon_state = "chapeloffice"
 
 /area/chapel/morgue
-	name = "Chapel Morgue"
+	name = "Церковь – морг"
 
 /area/chapel/massdriver
-	name = "Chapel Mass Driver"
+	name = "Церковь – ускоритель частиц"
 
 /area/escapepodbay
-	name = "Escape Shuttle Hallway Podbay"
+	name = "Проход к эвакуационному шаттлу – ангар для челноков"
 	icon_state = "escape"
 	holomap_color = HOLOMAP_AREACOLOR_HANGAR
 
 /area/lawoffice
-	name = "Law Office"
+	name = "Юридический офис"
 	icon_state = "law"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/magistrateoffice
-	name = "Magistrate's Офис "
+	name = "Офис Магистрата"
 	icon_state = "magistrate"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/clownoffice
-	name = "Clown's Офис "
+	name = "Офис клоуна"
 	icon_state = "clown_office"
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
 /area/clownoffice/secret
-	name = "Top Secret Clown HQ"
+	name = "Сверхсекретная клоунская штаб-квартира"
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
 /area/mimeoffice
-	name = "Mime's Офис "
+	name = "Офис Мима"
 	icon_state = "mime_office"
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
@@ -3421,11 +3421,11 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	name = "Chapel"
 
 /area/coldcolony/malta/chapel/office
-	name = "Chapel Office"
+	name = "Церковь – Office"
 	icon_state = "chapeloffice"
 
 /area/coldcolony/malta/escape_toilet
-	name = "Arrivals Toilets"
+	name = "Arrivals Уборная – "
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	holomap_color = HOLOMAP_AREACOLOR_ARRIVALS
@@ -3460,10 +3460,10 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	holomap_color = HOLOMAP_AREACOLOR_DORMS
 
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin1
-	name = "First Cabin"
+	name = "First Жилая каюта №"
 
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2
-	name = "Second Cabin"
+	name = "Second Жилая каюта №"
 
 /area/coldcolony/malta/resid_serv/crew_quarters/sleep
 	name = "Dormitories"
@@ -3478,7 +3478,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "locker"
 
 /area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet
-	name = "Locker Toilets"
+	name = "Locker Уборная – "
 	icon_state = "toilet"
 
 /area/coldcolony/malta/resid_serv/crew_quarters/barber
