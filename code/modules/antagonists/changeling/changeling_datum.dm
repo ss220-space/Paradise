@@ -1,19 +1,6 @@
 /// Helper to format the text that gets thrown onto the chem hud element.
 #define FORMAT_CHEM_CHARGES_TEXT(charges) MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(charges)]</font></div>")
 
-/// Time before changeling can revive himself.
-#define LING_FAKEDEATH_TIME					60 SECONDS
-/// The lowest value of genetic_damage [/datum/antagonist/changeling/process()] can take it to while dead.
-#define LING_DEAD_GENETIC_DAMAGE_HEAL_CAP	50
-/// The amount of recent spoken lines to gain on absorbing a mob
-#define LING_ABSORB_RECENT_SPEECH			8
-/// Denotes that this power is free and should be given to all changelings by default.
-#define CHANGELING_INNATE_POWER			"changeling_innate_power"
-/// Denotes that this power can only be obtained by purchasing it.
-#define CHANGELING_PURCHASABLE_POWER	"changeling_purchasable_power"
-/// Denotes that this power can not be obtained normally. Primarily used for base types such as [/datum/action/changeling/weapon].
-#define CHANGELING_UNOBTAINABLE_POWER	"changeling_unobtainable_power"
-
 /// Changeling aliases.
 GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega"))
 
@@ -656,6 +643,5 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		return FALSE
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/changeling)
-
 
 #undef FORMAT_CHEM_CHARGES_TEXT

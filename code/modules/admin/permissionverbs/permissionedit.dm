@@ -17,9 +17,9 @@
 <body onload='selectTextField(); updateSearch();'>
 <style>
 table {
-    table-layout: fixed; /* Фиксирует ширину колонок */
-    width: 100%; /* Заставляет таблицу занимать всю доступную ширину */
-    border-collapse: collapse;
+	table-layout: fixed; /* Фиксирует ширину колонок */
+	width: 100%; /* Заставляет таблицу занимать всю доступную ширину */
+	border-collapse: collapse;
 	max-width: 100%;
 }
 
@@ -29,7 +29,7 @@ table {
 }
 
 td, th {
-    overflow: hidden; /* Скрывает содержимое, выходящее за пределы */
+	overflow: hidden; /* Скрывает содержимое, выходящее за пределы */
 	white-space: nowrap; /* Запрещает перенос текста */
 	margin: 5px;
 	text-align:center;
@@ -41,9 +41,9 @@ td, th {
 <div id='main'>
 <table id='searchable'>
 <colgroup>
-    <col style='width: 20%;'>
-    <col style='width: 20%;'>
-    <col style='width: 60%;'>
+	<col style='width: 20%;'>
+	<col style='width: 20%;'>
+	<col style='width: 60%;'>
 </colgroup>
 <thead>
 <tr class='title'>

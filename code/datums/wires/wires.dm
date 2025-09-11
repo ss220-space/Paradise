@@ -176,7 +176,7 @@
 	holder.add_hiddenprint(user)
 
 	switch(action)
-		 // Toggles the cut/mend status.
+		// Toggles the cut/mend status.
 		if("cut")
 			if(!I)
 				return
@@ -206,7 +206,7 @@
 
 			return TRUE
 
-		 // Attach a signaler to a wire.
+		// Attach a signaler to a wire.
 		if("attach")
 			if(is_attached(color))
 				var/obj/item/O = detach_assembly(color)

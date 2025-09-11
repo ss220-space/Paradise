@@ -15,11 +15,10 @@
 #define SUPPLY_MATERIALS 7
 #define SUPPLY_MISC 8
 #define SUPPLY_VEND 9
-#define SUPPLY_CONTRABAND 10
 
 GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINEER,SUPPLY_MEDICAL,SUPPLY_SCIENCE,SUPPLY_ORGANIC,SUPPLY_MATERIALS,SUPPLY_MISC,SUPPLY_VEND, SUPPLY_CONTRABAND))
 
-/proc/get_supply_group_name(var/cat)
+/proc/get_supply_group_name(cat)
 	switch(cat)
 		if(SUPPLY_EMERGENCY)
 			return "Чрезвычайные ситуации"
@@ -5435,3 +5434,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком игрушечных пистолетов",
 		PREPOSITIONAL = "ящике игрушечных пистолетов"
 	)
+
+#undef SUPPLY_EMERGENCY
+#undef SUPPLY_SECURITY
+#undef SUPPLY_ENGINEER
+#undef SUPPLY_MEDICAL
+#undef SUPPLY_SCIENCE
+#undef SUPPLY_ORGANIC
+#undef SUPPLY_MATERIALS
+#undef SUPPLY_MISC
+#undef SUPPLY_VEND

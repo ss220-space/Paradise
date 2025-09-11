@@ -35,8 +35,10 @@
 
 	var/data = pick("scans from our long-range sensors", "our sophisticated probabilistic models", "our omnipotence", "the communications traffic on your station", "energy emissions we detected", "\[REDACTED\]", "Steve")
 	var/pets = pick("animals", "pets", "simple animals", "lesser lifeforms", "\[REDACTED\]")
-	var/strength = pick("human", "skrell", "vox", "grey", "diona", "IPC", "tajaran", "vulpakanin", "kidan", "plasmaman", "drask",
-					 "slime", "monkey", "moderate", "lizard", "security", "command", "clown", "mime", "low", "very low", "greytide", "catgirl", "\[REDACTED\]")
+	var/strength = pick(
+		"human", "skrell", "vox", "grey", "diona", "IPC", "tajaran", "vulpakanin", "kidan", "plasmaman", "drask", \
+		"slime", "monkey", "moderate", "lizard", "security", "command", "clown", "mime", "low", "very low", "greytide", "catgirl", "\[REDACTED\]" \
+	)
 
 	sentience_report += "<br><br>Based on [data], we believe that one of the station's [pets] has developed [strength] level intelligence, and the ability to communicate."
 
@@ -61,8 +63,6 @@
 	print_command_report(sentience_report, "[command_name()] Update", FALSE)
 	processing = TRUE // Let it naturally end, if it runs successfully
 
-/datum/event/sentience/proc/greet_sentient(var/mob/living/carbon/human/M)
-	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained \
-							human level intelligence and the ability to speak and understand \
-							human language!</span>"))
+/datum/event/sentience/proc/greet_sentient(mob/living/carbon/human/M)
+	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained human level intelligence and the ability to speak and understand human language!</span>"))
 	log_game("[M] was made into a sentient animal")

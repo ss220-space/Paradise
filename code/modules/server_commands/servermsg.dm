@@ -1,12 +1,12 @@
 /**
-  * # Server Command
-  *
-  * Datum to handle both sending and receiving of server commands
-  *
-  * This datum is an extension of the redis callback and is designed for tighter integration with the BYOND servers.
-  * This list is registered and managed by SSintancing, not SSredis.
-  * NOTE: These commands are "fire and forget". If you need specific data from each server, use world/Topic still
-  */
+ * # Server Command
+ *
+ * Datum to handle both sending and receiving of server commands
+ *
+ * This datum is an extension of the redis callback and is designed for tighter integration with the BYOND servers.
+ * This list is registered and managed by SSintancing, not SSredis.
+ * NOTE: These commands are "fire and forget". If you need specific data from each server, use world/Topic still
+ */
 /datum/server_command
 	/// Does the sending server want to ignore this command? This is almost always yes unless you are doing testing stuff
 	var/ignoreself = TRUE

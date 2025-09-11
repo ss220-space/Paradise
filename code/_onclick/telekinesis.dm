@@ -154,7 +154,7 @@
 	if(!.)
 		return I == focus
 
-/obj/item/tk_grab/proc/focus_object(var/obj/target, var/mob/user)
+/obj/item/tk_grab/proc/focus_object(obj/target, mob/user)
 	if(!isobj(target))
 		return//Cant throw non objects atm might let it do mobs later
 	if(target.anchored || !isturf(target.loc))
@@ -199,3 +199,5 @@
 	focus_overlay.layer = layer + 0.01
 	SET_PLANE_EXPLICIT(focus_overlay, ABOVE_HUD_PLANE, focus)
 	. += focus_overlay
+
+#undef TK_MAXRANGE
