@@ -481,13 +481,13 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		var/dir_text = ""
 		if(dir < 0 && dir < 16)
 			if(dir & 1)
-				dir_text += "NORTH"
+				dir_text += DIR_NAME_ENG_NORTH
 			if(dir & 2)
-				dir_text += "SOUTH"
+				dir_text += DIR_NAME_ENG_SOUTH
 			if(dir & 4)
-				dir_text += "EAST"
+				dir_text += DIR_NAME_ENG_EAST
 			if(dir & 8)
-				dir_text += "WEST"
+				dir_text += DIR_NAME_ENG_WEST
 
 		if(dir_text)
 			to_chat(src, "If a direction, direction is: [dir_text]")
@@ -610,13 +610,13 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		var/dir_text = ""
 		if(dir < 0 && dir < 16)
 			if(dir & 1)
-				dir_text += "NORTH"
+				dir_text += DIR_NAME_ENG_NORTH
 			if(dir & 2)
-				dir_text += "SOUTH"
+				dir_text += DIR_NAME_ENG_SOUTH
 			if(dir & 4)
-				dir_text += "EAST"
+				dir_text += DIR_NAME_ENG_EAST
 			if(dir & 8)
-				dir_text += "WEST"
+				dir_text += DIR_NAME_ENG_WEST
 
 		if(dir_text)
 			to_chat(src, "If a direction, direction is: [dir_text]")

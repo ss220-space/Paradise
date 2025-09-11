@@ -133,4 +133,4 @@
 
 	if((honkamt > 0) && (prob(60))) //For clown virus.
 		honkamt--
-		playsound(src, 'sound/items/bikehorn.ogg', 30, 1)
+		playsound(src, 'sound/items/bikehorn.ogg', 30, TRUE)

@@ -1,6 +1,8 @@
 /obj/structure/closet/crate/necropolis/bubblegum
 	name = "bubblegum chest"
-	ru_names = list(
+
+/obj/structure/closet/crate/necropolis/bubblegum/get_ru_names()
+	return list(
 		NOMINATIVE = "сундук Бубльгума",
 		GENITIVE = "сундука Бубльгума",
 		DATIVE = "сундуку Бубльгума",
@@ -17,7 +19,9 @@
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher
 	name = "bloody bubblegum chest"
-	ru_names = list(
+
+/obj/structure/closet/crate/necropolis/bubblegum/crusher/get_ru_names()
+	return list(
 		NOMINATIVE = "кровавый сундук Бубльгума",
 		GENITIVE = "кровавого сундука Бубльгума",
 		DATIVE = "кровавому сундуку Бубльгума",
@@ -35,7 +39,11 @@
 /obj/item/mayhem
 	name = "mayhem in a bottle"
 	desc = "Зачарованная бутыль с кровью, чей аромат повергает всех вокруг в убийственное безумие."
-	ru_names = list(
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "vial"
+
+/obj/item/mayhem/get_ru_names()
+	return list(
 		NOMINATIVE = "бутылка хаоса",
 		GENITIVE = "бутылки хаоса",
 		DATIVE = "бутылке хаоса",
@@ -43,8 +51,6 @@
 		INSTRUMENTAL = "бутылкой хаоса",
 		PREPOSITIONAL = "бутылке хаоса"
 	)
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "vial"
 
 /obj/item/mayhem/attack_self(mob/user)
 	for(var/mob/living/carbon/human/H in range(7,user))
@@ -63,7 +69,10 @@
 	icon_state = "scroll2"
 	color = "#FF0000"
 	desc = "Отметьте цель для смертной казни."
-	ru_names = list(
+	var/used = FALSE
+
+/obj/item/blood_contract/get_ru_names()
+	return list(
 		NOMINATIVE = "кровавый контракт",
 		GENITIVE = "кровавого контракта",
 		DATIVE = "кровавому контракту",
@@ -71,7 +80,6 @@
 		INSTRUMENTAL = "кровавым контрактом",
 		PREPOSITIONAL = "кровавом контракте"
 	)
-	var/used = FALSE
 
 /obj/item/blood_contract/attack_self(mob/user)
 	if(used)
@@ -187,14 +195,6 @@
 /obj/item/soulscythe
 	name = "soulscythe"
 	desc = "Старый пережиток ада, созданный дьяволами, чтобы утвердить себя в качестве лидера над демонами. Он становится сильнее, пока в нем заточена мощная душа."
-	ru_names = list(
-		NOMINATIVE = "коса души",
-		GENITIVE = "косы души",
-		DATIVE = "косе души",
-		ACCUSATIVE = "косу души",
-		INSTRUMENTAL = "косой души",
-		PREPOSITIONAL = "косе души"
-	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "soulscythe"
 	item_state = "soulscythe"
@@ -220,6 +220,16 @@
 	COOLDOWN_DECLARE(move_cooldown)
 	/// Cooldown between attacks
 	COOLDOWN_DECLARE(attack_cooldown)
+
+/obj/item/soulscythe/get_ru_names()
+	return list(
+		NOMINATIVE = "коса души",
+		GENITIVE = "косы души",
+		DATIVE = "косе души",
+		ACCUSATIVE = "косу души",
+		INSTRUMENTAL = "косой души",
+		PREPOSITIONAL = "косе души"
+	)
 
 /obj/item/soulscythe/Initialize(mapload)
 	. = ..()
@@ -496,14 +506,6 @@
 
 /mob/living/simple_animal/soulscythe
 	name = "mysterious spirit"
-	ru_names = list(
-		NOMINATIVE = "таинственный дух",
-		GENITIVE = "таинственного духа",
-		DATIVE = "таинственному духу",
-		ACCUSATIVE = "таинственный дух",
-		INSTRUMENTAL = "таинственным духом",
-		PREPOSITIONAL = "таинственном духе"
-	)
 	maxHealth = 200
 	health = 200
 	icon = 'icons/mob/mob.dmi'
@@ -517,6 +519,17 @@
 	hud_type = /datum/hud/simple_animal/lang
 	/// Blood level, used for movement and abilities in a soulscythe
 	var/blood_level = MAX_BLOOD_LEVEL
+
+/mob/living/simple_animal/soulscythe/get_ru_names()
+	return list(
+		NOMINATIVE = "таинственный дух",
+		GENITIVE = "таинственного духа",
+		DATIVE = "таинственному духу",
+		ACCUSATIVE = "таинственный дух",
+		INSTRUMENTAL = "таинственным духом",
+		PREPOSITIONAL = "таинственном духе"
+	)
+	
 
 /mob/living/simple_animal/soulscythe/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -533,7 +546,15 @@
 
 /obj/projectile/soulscythe
 	name = "soulslash"
-	ru_names = list(
+	icon_state = "soulslash"
+	flag = MELEE //jokair
+	damage = 15
+	light_range = 1
+	light_power = 1
+	light_color = LIGHT_COLOR_BLOOD_MAGIC
+
+/obj/projectile/soulscythe/get_ru_names()
+	return list(
 		NOMINATIVE = "рассечение души",
 		GENITIVE = "рассечения души",
 		DATIVE = "рассечению души",
@@ -541,12 +562,6 @@
 		INSTRUMENTAL = "рассечением души",
 		PREPOSITIONAL = "рассечении души"
 	)
-	icon_state = "soulslash"
-	flag = MELEE //jokair
-	damage = 15
-	light_range = 1
-	light_power = 1
-	light_color = LIGHT_COLOR_BLOOD_MAGIC
 
 /obj/projectile/soulscythe/on_hit(atom/target, blocked = 0, pierce_hit)
 	if (isliving(target))

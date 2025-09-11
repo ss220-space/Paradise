@@ -350,7 +350,7 @@
 	var/mob/target = targets[1]
 	if(!V.get_ability(/datum/vampire_passive/eternal_darkness))
 		V.force_add_ability(/datum/vampire_passive/eternal_darkness)
-		target.set_light(6, shroud_power, "#AAD84B")
+		target.set_light(6, shroud_power, COLOR_VOID_PURPLE)
 	else
 		for(var/datum/vampire_passive/eternal_darkness/E in V.powers)
 			V.remove_ability(E)
@@ -377,6 +377,11 @@
 	for(var/mob/living/L in view(6, owner))
 		if(L.affects_vampire(owner))
 			L.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT)
+
+	for(var/turf/turf as anything in RANGE_TURFS(4, get_turf(owner)))
+		turf.extinguish_light()
+		for(var/atom/atom as anything in turf.contents)
+			atom.extinguish_light()
 
 	V.bloodusable = max(V.bloodusable - 5, 0)
 

@@ -280,6 +280,7 @@
 	modules += new /obj/item/surgicaldrill(src)
 	modules += new /obj/item/stack/medical/bruise_pack/advanced(src)
 	modules += new /obj/item/stack/medical/ointment/advanced(src)
+	modules += new /obj/item/stack/medical/suture/advanced(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/rlf(src)

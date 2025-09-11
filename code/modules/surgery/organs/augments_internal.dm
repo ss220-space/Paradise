@@ -7,7 +7,8 @@
 	tough = TRUE // Immune to damage
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
-
+	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 
 /obj/item/organ/internal/cyberimp/New(var/mob/M = null)
 	. = ..()

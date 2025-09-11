@@ -30,14 +30,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum
 	name = "bubblegum"
 	desc = "В иерархии демонов резни, он – король."
-	ru_names = list(
-		NOMINATIVE = "Бубльгум",
-		GENITIVE = "Бубльгума",
-		DATIVE = "Бубльгуму",
-		ACCUSATIVE = "Бубльгума",
-		INSTRUMENTAL = "Бубльгумом",
-		PREPOSITIONAL = "Бубльгуме"
-	)
 	health = 2500
 	maxHealth = 2500
 	attacktext = "кромсает"
@@ -85,6 +77,16 @@ Difficulty: Hard
 							   /datum/action/innate/megafauna_attack/hallucination_charge,
 							   /datum/action/innate/megafauna_attack/hallucination_surround,
 							   /datum/action/innate/megafauna_attack/blood_warp)
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/get_ru_names()
+	return list(
+		NOMINATIVE = "Бубльгум",
+		GENITIVE = "Бубльгума",
+		DATIVE = "Бубльгуму",
+		ACCUSATIVE = "Бубльгума",
+		INSTRUMENTAL = "Бубльгумом",
+		PREPOSITIONAL = "Бубльгуме"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()
@@ -544,7 +546,11 @@ Difficulty: Hard
 /obj/effect/decal/cleanable/blood/gibs/bubblegum
 	name = "thick blood"
 	desc = "Густая, разбрызганная кровь."
-	ru_names = list(
+	random_icon_states = list("gib3", "gib5", "gib6")
+	bloodiness = 20
+
+/obj/effect/decal/cleanable/blood/gibs/bubblegum/get_ru_names()
+	return list(
 		NOMINATIVE = "густая кровь",
 		GENITIVE = "густой крови",
 		DATIVE = "густой крови",
@@ -552,8 +558,6 @@ Difficulty: Hard
 		INSTRUMENTAL = "густой кровью",
 		PREPOSITIONAL = "густой крови"
 	)
-	random_icon_states = list("gib3", "gib5", "gib6")
-	bloodiness = 20
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/can_bloodcrawl_in()
 	return TRUE
@@ -661,14 +665,6 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination
 	name = "bubblegum's hallucination"
-	ru_names = list(
-		NOMINATIVE = "галлюцинация Бубльгума",
-		GENITIVE = "галлюцинации Бубльгума",
-		DATIVE = "галлюцинации Бубльгума",
-		ACCUSATIVE = "галлюцинацию Бубльгума",
-		INSTRUMENTAL = "галлюцинацией Бубльгума",
-		PREPOSITIONAL = "галлюцинации Бубльгума"
-	)
 	desc = "Погодите, это реально просто галлюцинация?"
 	health = 1
 	maxHealth = 1
@@ -681,6 +677,15 @@ Difficulty: Hard
 	true_spawn = FALSE
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/get_ru_names()
+	return list(
+		NOMINATIVE = "галлюцинация Бубльгума",
+		GENITIVE = "галлюцинации Бубльгума",
+		DATIVE = "галлюцинации Бубльгума",
+		ACCUSATIVE = "галлюцинацию Бубльгума",
+		INSTRUMENTAL = "галлюцинацией Бубльгума",
+		PREPOSITIONAL = "галлюцинации Бубльгума"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize(mapload)
 	. = ..()

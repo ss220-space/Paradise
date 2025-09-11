@@ -727,7 +727,7 @@
 	var/obj/projectile/beam/A = new /obj/projectile/beam(loc)
 	A.icon = 'icons/effects/genetics.dmi'
 	A.icon_state = "eyelasers"
-	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, 1)
+	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, TRUE)
 	A.current = T
 	A.firer = src
 	A.yo = U.y - T.y
@@ -735,10 +735,10 @@
 	A.fire()
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
-	..()
+	. = ..()
 	//spark for no reason
 	if(prob(5))
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/handle_automated_action()
 	if(emagged && prob(25))
@@ -773,7 +773,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 ///Pugs
 
@@ -781,14 +781,6 @@
 	name = "pug"
 	real_name = "мопс"
 	desc = "Это мопс, маленькая, смешная, безобидная собака."
-	ru_names = list(
-		NOMINATIVE = "мопс",
-		GENITIVE = "мопса",
-		DATIVE = "мопсу",
-		ACCUSATIVE = "мопса",
-		INSTRUMENTAL = "мопсом",
-		PREPOSITIONAL = "мопсе"
-	)
 	gender = MALE
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "pug"
@@ -802,6 +794,16 @@
 	collar_type = "pug"
 	maxHealth = 30
 	health = 30
+
+/mob/living/simple_animal/pet/dog/pug/get_ru_names()
+	return list(
+		NOMINATIVE = "мопс",
+		GENITIVE = "мопса",
+		DATIVE = "мопсу",
+		ACCUSATIVE = "мопса",
+		INSTRUMENTAL = "мопсом",
+		PREPOSITIONAL = "мопсе"
+	)
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()

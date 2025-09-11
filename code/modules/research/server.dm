@@ -160,7 +160,7 @@
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_o", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
 
 
 /obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
@@ -450,7 +450,7 @@
 /obj/machinery/computer/rdservercontrol/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 		emagged = 1
 		if(user)
 			to_chat(user, "<span class='notice'>You you disable the security protocols</span>")

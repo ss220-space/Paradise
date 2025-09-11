@@ -5,14 +5,6 @@
 /obj/machinery/photocopier
 	name = "photocopier"
 	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ!\"."
-	ru_names = list(
-		NOMINATIVE = "ксерокс",
-		GENITIVE = "ксерокса",
-		DATIVE = "ксероксу",
-		ACCUSATIVE = "ксерокс",
-		INSTRUMENTAL = "ксероксом",
-		PREPOSITIONAL = "ксероксе"
-	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 	anchored = TRUE
@@ -72,18 +64,19 @@
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
 
+/obj/machinery/photocopier/get_ru_names()
+	return list(
+		NOMINATIVE = "ксерокс",
+		GENITIVE = "ксерокса",
+		DATIVE = "ксероксу",
+		ACCUSATIVE = "ксерокс",
+		INSTRUMENTAL = "ксероксом",
+		PREPOSITIONAL = "ксероксе"
+	)
 
 /obj/machinery/photocopier/syndie
 	name = "Syndicate photocopier"
 	desc = "Устройство для сканирования и печати важных документов. Они даже не пытаются скрыть, что это их собственность..."
-	ru_names = list(
-		NOMINATIVE = "ксерокс Синдиката",
-		GENITIVE = "ксерокса Синдиката",
-		DATIVE = "ксероксу Синдиката",
-		ACCUSATIVE = "ксерокс Синдиката",
-		INSTRUMENTAL = "ксероксом Синдиката",
-		PREPOSITIONAL = "ксероксе Синдиката"
-	)
 	syndicate = TRUE
 	icon_state = "syndiebigscanner"
 	insert_anim = "syndiebigscanner_work"
@@ -92,6 +85,16 @@
 				Синдикат напоминает, что в ваших же интересах \
 				соблюдать данные указания."
 	ui_theme = "syndicate"
+
+/obj/machinery/photocopier/syndie/get_ru_names()
+	return list(
+		NOMINATIVE = "ксерокс Синдиката",
+		GENITIVE = "ксерокса Синдиката",
+		DATIVE = "ксероксу Синдиката",
+		ACCUSATIVE = "ксерокс Синдиката",
+		INSTRUMENTAL = "ксероксом Синдиката",
+		PREPOSITIONAL = "ксероксе Синдиката"
+	)
 
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()

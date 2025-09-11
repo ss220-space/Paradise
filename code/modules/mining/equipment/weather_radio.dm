@@ -8,14 +8,6 @@
 	icon = 'icons/obj/miningradio.dmi'
 	icon_state = "miningradio"
 	desc = "Метеорологическое радио, предназначенное для использования в неблагоприятных условиях. Подает звуковые предупреждения о приближении шторма. Имеет доступ к каналу карго."
-	ru_names = list(
-		NOMINATIVE = "метеорологическое радио",
-		GENITIVE = "метеорологического радио",
-		DATIVE = "метеорологическому радио",
-		ACCUSATIVE = "метеорологическое радио",
-		INSTRUMENTAL = "метеорологическим радио",
-		PREPOSITIONAL = "метеорологическом радио"
-	)
 	freqlock = TRUE
 	luminosity = 1
 	light_power = 1
@@ -31,6 +23,16 @@
 	/// Overlay added when you are in danger
 	var/state_danger = "direwarning"
 	light_system = MOVABLE_LIGHT
+
+/obj/item/radio/weather_monitor/get_ru_names()
+	return list(
+		NOMINATIVE = "метеорологическое радио",
+		GENITIVE = "метеорологического радио",
+		DATIVE = "метеорологическому радио",
+		ACCUSATIVE = "метеорологическое радио",
+		INSTRUMENTAL = "метеорологическим радио",
+		PREPOSITIONAL = "метеорологическом радио"
+	)
 
 /obj/item/radio/weather_monitor/Initialize(mapload)
 	. = ..()

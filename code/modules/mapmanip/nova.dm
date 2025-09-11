@@ -38,3 +38,51 @@
 
 /obj/effect/map_effect/marker_helper/submap_def/nova/Banya/consarea
 	name = "Старая баня заменена на инженерную стройплощадку с автолатом"
+
+
+// Abandoned Chapel submap
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedChapel
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedChapel/OldPokerClub
+	name = "Старая церковь заменена на покерный клуб"
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedChapel/Incinerator
+	name = "Старая церковь заменена на сжигатель"
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedChapel/ServerRoom
+	name = "Старая церковь заменена на комнату с серверами"
+
+
+// Abondoned Med submap
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedMed
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedMed
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedMed/hangar
+	name = "Старый медотдел заменен на ангар карго"
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedMed/entrance
+	name = "Старый медотдел заменен на проходную из техов"
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedMed/med2
+	name = "Чуть измененная версия старого медотдела"
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedMed/oldrestaurant
+	name = "Старый медотдел заменен на проходную с рестораном"
+
+
+// Abondoned Library submap
+
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedLibrary
+
+/obj/effect/map_effect/marker/mapmanip/submap/insert/nova/AbondonedLibrary
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedLibrary/electronicsden
+	name = "Старая библиотека заменена на магазин электроники"
+
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedLibrary/entrance
+	name = "Старая библиотека заменена на проходную из техов"

@@ -220,7 +220,8 @@
 				to_chat(usr, span_danger("К сожалению, выбранный вами голос персонажа больше не доступен на вашем текущем уровне подписки."))
 				client.prefs.ShowChoices(src)
 				return FALSE
-
+		if(SSticker?.mode?.late_join(src))
+			return 
 		LateChoices()
 
 	if(href_list["manifest"])
@@ -264,6 +265,19 @@
 
 	if(href_list["leave_notice"])
 		client.change_title_screen_notice()
+		return
+
+	if(href_list["switch_server"])
+		var/selected_port = text2num(href_list["switch_server"])
+		if(selected_port == world.port)
+			to_chat(usr, span_warning("Вы уже подключены к данному серверу."))
+			return
+
+		to_chat(usr, span_warning("Подключение к новому серверу..."))
+
+		// Formulate a connection URL
+		var/target = "byond://[world.internet_address]:[selected_port]"
+		src << link(target)
 		return
 
 	if(href_list["focus"])
@@ -637,6 +651,16 @@
 	popup.set_content(dat)
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
+
+// If current character can't be antagonist, try to pick random character, who can.
+/mob/new_player/proc/handle_can_be_antagonist()
+	var/has_antags = (length(client.prefs.be_special) > 0)
+	if(!has_antags || client.prefs.can_be_antagonist)
+		return
+
+	client.prefs.get_possible_antagonist()
+
+
 /mob/new_player/proc/create_character()
 	spawning = TRUE
 	close_spawn_windows()
@@ -645,9 +669,11 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
+	handle_can_be_antagonist()
 	if(SSticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
+
 	client.prefs.copy_to(new_character)
 
 	// stop_sound_channel(CHANNEL_LOBBYMUSIC)

@@ -167,7 +167,7 @@
 /obj/machinery/computer/HolodeckControl/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 		emagged = 1
 		if(user)
 			to_chat(user, span_notice("You vastly increase projector power and override the safety and security protocols."))
@@ -220,8 +220,8 @@
 
 			for(var/turf/T in linkedholodeck)
 				if(prob(30))
-					do_sparks(2, 1, T)
-				T.ex_act(3)
+					do_sparks(2, TRUE, T)
+				T.ex_act(EXPLODE_LIGHT)
 				T.hotspot_expose(1000,500,1)
 
 /obj/machinery/computer/HolodeckControl/proc/derez(var/obj/obj , var/silent = 1)
@@ -251,17 +251,6 @@
 	if(toggleOn)
 		var/area/targetsource = locate(/area/holodeck/source_emptycourt)
 		holographic_items = targetsource.copy_contents_to(linkedholodeck)
-
-/*		spawn(30)
-			for(var/obj/effect/landmark/L in linkedholodeck)
-				if(L.name=="Atmospheric Test Start")
-					spawn(20)
-						var/turf/T = get_turf(L)
-						do_sparks(2, 1, T)
-						if(T)
-							T.temperature = 5000
-							T.hotspot_expose(50000,50000,1)*/
-
 		active = 1
 	else
 		for(var/item in holographic_items)
@@ -301,13 +290,6 @@
 
 	spawn(30)
 		for(var/obj/effect/landmark/L in linkedholodeck)
-/*			if(L.name=="Atmospheric Test Start")
-				spawn(20)
-					var/turf/T = get_turf(L)
-					do_sparks(2, 1, T)
-					if(T)
-						T.temperature = 5000
-						T.hotspot_expose(50000,50000,1)*/
 			if(L.name=="Holocarp Spawn")
 				new /mob/living/simple_animal/hostile/carp/holocarp(L.loc)
 
@@ -478,13 +460,13 @@
 		force = 30
 		hitsound = "sound/weapons/blade1.ogg"
 		w_class = WEIGHT_CLASS_BULKY
-		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 20, TRUE)
 		to_chat(user, span_notice("[src] is now active."))
 	else
 		force = 3
 		hitsound = "swing_hit"
 		w_class = WEIGHT_CLASS_SMALL
-		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 20, TRUE)
 		to_chat(user, span_notice("[src] can now be concealed."))
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

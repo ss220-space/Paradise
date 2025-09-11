@@ -1,0 +1,2167 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"al" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/light_construct{
+	dir = 8
+	},
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'HIGH VOLTAGE'";
+	icon_state = "shock";
+	name = "HIGH VOLTAGE";
+	pixel_x = -32
+	},
+/turf/simulated/floor/bluegrid,
+/area/maintenance/server)
+"am" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/chair/wood,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"as" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"ax" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak-broken3"
+	},
+/area/maintenance/club)
+"aL" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/template_noop,
+/area/template_noop)
+"aM" = (
+/obj/item/chair/wood/wings,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"aS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/rat,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"bD" = (
+/obj/machinery/computer/slot_machine,
+/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"bN" = (
+/obj/item/deck/cards{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"bW" = (
+/obj/structure/chair/office/dark,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"cy" = (
+/obj/structure/chair/wood,
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"cP" = (
+/obj/item/chair/wood/wings{
+	dir = 1
+	},
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"dh" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/maintenance/incinerator)
+"dy" = (
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel,
+/turf/template_noop,
+/area/template_noop)
+"dB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/table/reinforced,
+/obj/machinery/ignition_switch{
+	id = "disposal";
+	pixel_x = -7;
+	pixel_y = 3
+	},
+/obj/machinery/door_control{
+	id = "burn";
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"ep" = (
+/obj/structure/table,
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"eB" = (
+/obj/structure/reagent_dispensers/beerkeg{
+	pixel_y = 5
+	},
+/obj/structure/table/wood/fancy/red,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak-broken"
+	},
+/area/maintenance/club)
+"eR" = (
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"ft" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"fu" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"fN" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak-broken3"
+	},
+/area/maintenance/club)
+"fP" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor/bluegrid,
+/area/maintenance/server)
+"gp" = (
+/obj/effect/spawner/random_spawners/oil_20,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"gO" = (
+/obj/structure/chair/wood,
+/obj/structure/sign/poster/contraband/smoke{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"gW" = (
+/obj/item/trash/popcorn,
+/obj/item/trash/semki,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"hi" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall,
+/area/maintenance/incinerator)
+"hp" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 2
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"hw" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"hC" = (
+/obj/machinery/atmospherics/unary/tank/oxygen{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"hN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"ig" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flashlight/lamp{
+	pixel_x = -3;
+	pixel_y = 4
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"ik" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"jp" = (
+/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/dropper,
+/obj/structure/table/wood/fancy,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"jv" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/obj/item/flashlight/lamp/bananalamp{
+	pixel_y = 10
+	},
+/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"jw" = (
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -26
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"jA" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"jC" = (
+/obj/item/paper,
+/obj/item/paper{
+	pixel_x = 4;
+	pixel_y = -6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"jD" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"jK" = (
+/obj/effect/spawner/random_spawners/fungus_70,
+/turf/simulated/wall,
+/area/maintenance/club)
+"kC" = (
+/obj/effect/spawner/random_spawners/rat,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"kG" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-dead";
+	tag = "plant-dead"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak-broken"
+	},
+/area/maintenance/club)
+"kP" = (
+/obj/machinery/computer/old_frame/server/rackframe{
+	name = "Old Server"
+	},
+/turf/simulated/floor/bluegrid,
+/area/maintenance/server)
+"kT" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"li" = (
+/obj/item/stock_parts/cell/potato,
+/obj/item/trash/tastybread{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 2
+	},
+/obj/item/trash/raisins,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"ls" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east fire alarm";
+	pixel_x = 24
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"lx" = (
+/turf/simulated/wall/rust,
+/area/maintenance/club)
+"lE" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"lL" = (
+/obj/item/trash/candy,
+/obj/item/trash/chips{
+	pixel_x = 7;
+	pixel_y = -8
+	},
+/obj/item/reagent_containers/syringe{
+	pixel_x = 7;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 2;
+	scrub_Toxins = 0
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"lO" = (
+/obj/machinery/atmospherics/trinary/mixer{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"mt" = (
+/obj/effect/spawner/random_spawners/rat,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"mA" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"mF" = (
+/obj/item/clothing/mask/cigarette,
+/obj/item/clothing/mask/cigarette{
+	pixel_x = -7;
+	pixel_y = -7
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"nL" = (
+/obj/structure/table,
+/obj/machinery/computer/library/public{
+	pixel_y = 5;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"nM" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"nQ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"oc" = (
+/obj/effect/spawner/random_spawners/wall_rusted_70,
+/turf/simulated/wall,
+/area/maintenance/incinerator)
+"op" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"oq" = (
+/obj/machinery/computer/library/public,
+/obj/structure/table,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"oJ" = (
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 9;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"oK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"py" = (
+/obj/item/trash/pistachios,
+/obj/item/trash/can{
+	pixel_x = 10;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/syringe,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 2
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"pF" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall,
+/area/maintenance/club)
+"pY" = (
+/obj/item/trash/waffles{
+	pixel_x = -14;
+	pixel_y = -5
+	},
+/obj/effect/decal/remains/robot,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/syringe{
+	pixel_x = -4;
+	pixel_y = -7
+	},
+/obj/item/trash/sosjerky,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"qi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"qV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"rv" = (
+/obj/machinery/computer/library/public,
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"rx" = (
+/turf/simulated/wall,
+/area/maintenance/incinerator)
+"rL" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/structure/sign/deathsposal{
+	pixel_x = -32
+	},
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"rT" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
+"rY" = (
+/obj/machinery/computer/slot_machine,
+/obj/structure/sign/poster/contraband/red_rum{
+	pixel_x = 32
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"sO" = (
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = -10;
+	pixel_y = 13
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = -15;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = -5;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/item/deck/cards{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/structure/sign/barsign{
+	pixel_y = 32
+	},
+/obj/structure/table/wood/fancy/red,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"tj" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/effect/decal/remains/mouse,
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = -7;
+	pixel_y = -10
+	},
+/obj/item/shard{
+	icon_state = "small"
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"ut" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"vR" = (
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/obj/structure/sign/nosmoking_1{
+	pixel_x = 32
+	},
+/obj/machinery/computer/old_frame/server/rackframe{
+	name = "Old Server"
+	},
+/turf/simulated/floor/bluegrid,
+/area/maintenance/server)
+"wp" = (
+/obj/item/clothing/gloves/color/fyellow{
+	pixel_y = -8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/maintenance/server)
+"wP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/maintenance/club)
+"yh" = (
+/obj/structure/cable{
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"yu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
+/turf/simulated/wall,
+/area/maintenance/club)
+"yL" = (
+/obj/structure/barricade/wooden,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"yM" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"yO" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/maintenance/server)
+"yV" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "burn";
+	name = "Blast Door"
+	},
+/obj/machinery/door/airlock/highsecurity{
+	heat_proof = 1;
+	name = "Waste Incinerator";
+	req_access = list(12,24,39)
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"zp" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"zJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel,
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedChapel/Incinerator,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"As" = (
+/obj/item/trash/plate,
+/obj/item/toy/figure/clown,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"Bd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/highsecurity{
+	heat_proof = 1;
+	name = "Waste Incinerator";
+	req_access = list(12,24,39)
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"Be" = (
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/generic,
+/obj/effect/decal/cleanable/glass/plasma{
+	pixel_y = -3;
+	pixel_x = 2
+	},
+/obj/item/paper/crumpled{
+	pixel_x = 14;
+	pixel_y = -13
+	},
+/obj/item/shard/plasma,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/maintenance/server)
+"Bh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Bl" = (
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
+	},
+/obj/structure/sign/poster/contraband/borg_fancy_1{
+	pixel_x = -33
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"Bq" = (
+/obj/structure/cable/multiz{
+	color = "#dd1010"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"Bv" = (
+/obj/item/paper/crumpled,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"Bz" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east fire alarm";
+	pixel_x = 24
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak-broken"
+	},
+/area/maintenance/club)
+"Ch" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/rat,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"Cs" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/maintenance/server)
+"Dj" = (
+/obj/machinery/photocopier,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"DF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"DP" = (
+/obj/machinery/vending/boozeomat,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"DT" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"Ec" = (
+/turf/template_noop,
+/area/template_noop)
+"En" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
+"EF" = (
+/obj/machinery/alarm{
+	pixel_y = 0;
+	dir = 4;
+	pixel_x = -22
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"EU" = (
+/obj/structure/chair/wood,
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak-broken3"
+	},
+/area/maintenance/club)
+"Ft" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"Gq" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/tourist)
+"Hi" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/raisins,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"HF" = (
+/obj/item/trash/syndi_cakes{
+	pixel_y = 7
+	},
+/obj/item/trash/tray{
+	pixel_x = -10;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/syringe{
+	pixel_y = 7
+	},
+/obj/machinery/igniter{
+	id = "disposal";
+	luminosity = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"HJ" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"HO" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"HT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/girder,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Ih" = (
+/obj/effect/spawner/random_spawners/fungus_70,
+/turf/simulated/wall,
+/area/maintenance/incinerator)
+"Iq" = (
+/obj/effect/spawner/random_spawners/wall_rusted_70,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/maintenance/server)
+"Iw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel,
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedChapel/ServerRoom,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"IM" = (
+/obj/structure/cable/multiz{
+	color = "#dd1010"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"IP" = (
+/obj/item/trash/doshik,
+/obj/item/trash/candy{
+	pixel_x = -14;
+	pixel_y = 11
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"Ju" = (
+/obj/structure/table,
+/obj/item/folder/yellow,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_y = 6;
+	pixel_x = -15
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"JL" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"JS" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"JU" = (
+/obj/machinery/atmospherics/unary/tank/toxins{
+	volume = 2000;
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"La" = (
+/obj/item/storage/toolbox/electrical,
+/obj/item/stack/tape_roll{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/glass,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/maintenance/server)
+"Lf" = (
+/obj/machinery/door/airlock/multi_tile{
+	dir = 1;
+	glass = 1;
+	name = "Abandoned Server Room";
+	welded = 1
+	},
+/obj/structure/barricade/wooden,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"Lx" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"LF" = (
+/obj/machinery/firealarm{
+	pixel_y = 26;
+	pixel_x = 28
+	},
+/obj/effect/spawner/random_spawners/oil_20,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"LI" = (
+/obj/effect/decal/cleanable/dust,
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/deck/cards/syndicate/black{
+	pixel_y = 6
+	},
+/obj/item/clothing/glasses/sunglasses,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak-broken6"
+	},
+/area/maintenance/club)
+"LR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"LT" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"Mq" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"MC" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"MI" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "burn";
+	name = "Blast Door"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/incinerator)
+"Na" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -8;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"No" = (
+/turf/simulated/wall/r_wall/coated,
+/area/maintenance/incinerator)
+"NB" = (
+/turf/simulated/wall,
+/area/maintenance/server)
+"NJ" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing,
+/obj/item/trash/waffles{
+	pixel_x = 16
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"Oi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/multi_tile{
+	dir = 1;
+	glass = 1;
+	name = "Abandoned Server Room";
+	welded = 1
+	},
+/obj/structure/barricade/wooden,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"Or" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/spawner/random_spawners/rat,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"Oz" = (
+/obj/item/stack/rods,
+/obj/item/assembly/igniter{
+	pixel_x = 12;
+	pixel_y = -9
+	},
+/obj/machinery/power/apc/worn_out{
+	cell_type = 0;
+	dir = 8;
+	pixel_x = -26
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"Py" = (
+/obj/effect/spawner/random_spawners/wall_rusted_70,
+/turf/simulated/wall,
+/area/maintenance/server)
+"PI" = (
+/obj/effect/spawner/random_spawners/fungus_30,
+/turf/simulated/wall,
+/area/maintenance/server)
+"PP" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/item/trash/pistachios,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"PZ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"Qd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/rodent,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"Qs" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "burn";
+	name = "Blast Door"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/simulated/floor/plating,
+/area/maintenance/incinerator)
+"QG" = (
+/obj/item/weldingtool/mini,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak-broken"
+	},
+/area/maintenance/club)
+"QK" = (
+/obj/structure/table,
+/obj/machinery/computer/library/public{
+	pixel_y = 5;
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"Rj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedChapel,
+/obj/effect/map_effect/marker_helper/submap_def/nova/AbondonedChapel/OldPokerClub,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"RM" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/structure/sign/nosmoking_2{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"RU" = (
+/obj/effect/spawner/random_spawners/fungus_70,
+/turf/simulated/wall,
+/area/maintenance/server)
+"RV" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -22
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"Sn" = (
+/obj/item/reagent_containers/food/drinks/bottle/tequila,
+/obj/structure/table/wood/fancy,
+/obj/item/clothing/mask/cigarette/cigar,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"SA" = (
+/obj/item/stock_parts/matter_bin{
+	pixel_y = 4
+	},
+/obj/item/stock_parts/matter_bin{
+	pixel_x = 3;
+	pixel_y = -7
+	},
+/obj/item/stock_parts/matter_bin/adv{
+	pixel_x = -7
+	},
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"To" = (
+/obj/structure/cable/multiz{
+	color = "#dd1010"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"Tq" = (
+/turf/simulated/wall/rust,
+/area/maintenance/incinerator)
+"TC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = 9;
+	pixel_y = -12
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"Us" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/template_noop)
+"VT" = (
+/obj/effect/spawner/random_spawners/wall_rusted_70,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall,
+/area/maintenance/server)
+"VW" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "burn";
+	name = "Blast Door"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
+/area/maintenance/incinerator)
+"Wf" = (
+/obj/item/storage/belt/utility,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"Wn" = (
+/obj/structure/chair/office/dark,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/worn_out{
+	cell_type = 0;
+	dir = 8;
+	pixel_x = -26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
+"Wp" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak-broken7"
+	},
+/area/maintenance/club)
+"Wu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/syndi_cakes,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"WI" = (
+/turf/simulated/wall,
+/area/maintenance/club)
+"WM" = (
+/obj/item/trash/tapetrash,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"WP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
+"XI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"Yc" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-oak"
+	},
+/area/maintenance/club)
+"Yp" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"YJ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"YP" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/item/paper/crumpled,
+/obj/item/paper{
+	pixel_x = 4;
+	pixel_y = -6
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/server)
+"Zu" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+"Zx" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1;
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/maintenance/server)
+"ZD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ZR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/template_noop)
+"ZU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/chair/office{
+	dir = 1;
+	layer = 4.2
+	},
+/turf/simulated/floor/engine,
+/area/maintenance/incinerator)
+
+(1,1,1) = {"
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+"}
+(2,1,1) = {"
+Ec
+En
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+dy
+Ec
+Ec
+Bh
+Qd
+Us
+Us
+Us
+Us
+hp
+ZD
+LR
+HT
+Iw
+Ec
+Ec
+Bh
+Qd
+Us
+Us
+Us
+Us
+hp
+ZR
+LR
+HT
+zJ
+Ec
+Ec
+Bh
+Qd
+Us
+Us
+Us
+Us
+hp
+ZR
+LR
+HT
+Rj
+Ec
+"}
+(3,1,1) = {"
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Py
+NB
+NB
+Py
+NB
+Py
+yL
+Lf
+RU
+NB
+Py
+Ec
+Ec
+Gq
+No
+No
+No
+No
+rx
+rx
+Tq
+rx
+Ih
+oc
+Ec
+Ec
+yu
+WI
+Ft
+WI
+lx
+jK
+lx
+jK
+hw
+Us
+Us
+Ec
+"}
+(4,1,1) = {"
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+NB
+rv
+RV
+fu
+Wn
+nL
+mt
+DF
+kP
+al
+kP
+Ec
+Ec
+No
+No
+As
+Wu
+MI
+rL
+EF
+jw
+oK
+qV
+nM
+Ec
+Ec
+jK
+eB
+lE
+cy
+Bl
+aM
+ut
+lx
+WI
+lx
+WI
+Ec
+"}
+(5,1,1) = {"
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Py
+ep
+jC
+Wf
+as
+Ju
+SA
+HJ
+Zx
+Be
+Cs
+Ec
+Ec
+No
+WM
+lL
+tj
+VW
+dB
+XI
+nQ
+qi
+ft
+nM
+Ec
+Ec
+lx
+sO
+Or
+ax
+yM
+bN
+Wp
+Oz
+EU
+Sn
+DP
+Ec
+"}
+(6,1,1) = {"
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+NB
+RM
+PZ
+LT
+jD
+yh
+To
+YP
+PZ
+LT
+gp
+Ec
+Ec
+No
+HF
+li
+NJ
+yV
+Zu
+IM
+MC
+Ch
+zp
+zp
+Ec
+Ec
+WI
+lE
+yM
+mF
+QG
+lE
+Bq
+kT
+jA
+JL
+aS
+Ec
+"}
+(7,1,1) = {"
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+RU
+oq
+op
+Bv
+kC
+Dj
+LT
+YJ
+yO
+wp
+La
+Ec
+Ec
+No
+pY
+py
+Hi
+Qs
+ig
+ZU
+nQ
+qi
+lO
+JU
+Ec
+Ec
+WI
+cP
+fN
+mA
+Yc
+oJ
+JS
+TC
+yM
+PP
+Mq
+Ec
+"}
+(8,1,1) = {"
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+NB
+jv
+Lx
+eR
+bW
+QK
+LF
+ik
+kP
+vR
+fP
+Ec
+Ec
+No
+No
+gW
+IP
+MI
+DT
+ls
+Yp
+HO
+hN
+hC
+Ec
+Ec
+WI
+bD
+rY
+am
+LI
+Bz
+aS
+Na
+kG
+gO
+jp
+Ec
+"}
+(9,1,1) = {"
+Ec
+rT
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+aL
+Ec
+Ec
+Iq
+RU
+NB
+NB
+Py
+NB
+yL
+Oi
+PI
+NB
+VT
+Ec
+Ec
+dh
+No
+No
+No
+No
+Ih
+rx
+Bd
+oc
+Tq
+hi
+Ec
+Ec
+wP
+WI
+WI
+lx
+WI
+jK
+WI
+WP
+WI
+WI
+pF
+Ec
+"}
+(10,1,1) = {"
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+Ec
+"}

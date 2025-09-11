@@ -82,7 +82,7 @@
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(C)
 		if(electrocute_mob(user, C, src, 1, TRUE))
-			do_sparks(3, 1, src)
+			do_sparks(3, TRUE, src)
 			return TRUE
 	return FALSE
 

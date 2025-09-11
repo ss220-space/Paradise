@@ -76,7 +76,7 @@
 /obj/item/handheld_defibrillator/proc/recharge()
 	cooldown = FALSE
 	update_icon(UPDATE_ICON_STATE)
-	playsound(loc, "sound/weapons/flash.ogg", 75, 1)
+	playsound(loc, "sound/weapons/flash.ogg", 75, TRUE)
 
 /obj/item/handheld_defibrillator/syndie
 	name = "combat handheld defibrillator"
