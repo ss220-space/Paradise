@@ -504,34 +504,46 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.ready && player.mind)
-			if(player.mind.assigned_role == JOB_TITLE_AI)
-				player.close_spawn_windows()
-				var/mob/living/character = player.create_character()
-				var/mob/living/silicon/ai/ai_character = character.AIize()
-				ai_character.moveToAILandmark()
-				SSticker?.score?.save_silicon_laws(ai_character, additional_info = "job assignment", log_all_laws = TRUE)
-			else if(!player.mind.assigned_role)
-				continue
-			else
-				player.create_character()
-				qdel(player)
+		if(!player.ready || !player.mind)
+			continue
+
+		if(!player.mind.assigned_role)
+			continue
+
+		if(player.mind.assigned_role != JOB_TITLE_AI)
+			player.create_character()
+			qdel(player)
+			continue
+
+		player.close_spawn_windows()
+		var/mob/living/character = player.create_character()
+		var/mob/living/silicon/ai/ai_character = character.AIize()
+		ai_character.moveToAILandmark()
+		SSticker?.score?.save_silicon_laws(ai_character, additional_info = "job assignment", log_all_laws = TRUE)
 
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
 	var/captainless = TRUE
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player && player.mind && player.mind.assigned_role)
-			if(player.mind.assigned_role == JOB_TITLE_CAPTAIN)
-				captainless = FALSE
-			if(player.mind.assigned_role != player.mind.special_role)
-				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
-				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
-				EquipCustomItems(player)
-	if(captainless)
-		for(var/mob/M in GLOB.player_list)
-			if(!isnewplayer(M))
-				to_chat(M, "Captainship not forced on anyone.")
+		if(!player || !player.mind || !player.mind.assigned_role)
+			continue
+
+		captainless = captainless || player.mind.assigned_role == JOB_TITLE_CAPTAIN
+		if(player.mind.assigned_role == player.mind.special_role)
+			continue
+
+		SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
+		SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
+		EquipCustomItems(player)
+
+	if(!captainless)
+		return
+
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(isnewplayer(mob))
+			return
+
+		to_chat(mob, "Captainship not forced on anyone.")
 
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()

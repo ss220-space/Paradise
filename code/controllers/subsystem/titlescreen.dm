@@ -3,7 +3,7 @@
 
 SUBSYSTEM_DEF(title)
 	name = "Title Screen"
-	flags = SS_NO_FIRE
+	wait = 300
 	init_order = INIT_ORDER_TITLE
 	init_stage = INITSTAGE_EARLY
 	ss_id = "title_screen"
@@ -13,14 +13,54 @@ SUBSYSTEM_DEF(title)
 	var/datum/title_screen/current_title_screen
 	/// The list of image files available to be picked for title screen
 	var/list/title_images_pool = list()
+	// Servers` info for lobby switch
+	var/list/formatted_servers = list()
 
 /datum/controller/subsystem/title/Initialize()
 	import_html()
 	fill_title_images_pool()
+
+	if(!CONFIG_GET(flag/enable_multi_instance))
+		flags |= SS_NO_FIRE
+	else
+		update_servers_info()
+
 	current_title_screen = new(title_html = base_html, screen_image_file = pick_title_image())
 	if(!CONFIG_GET(flag/enable_titlescreen_lateload))
 		show_title_screen_to_all_new_players()
+
 	return SS_INIT_SUCCESS
+
+/datum/controller/subsystem/title/fire(resumed = 0)
+	update_servers_info()
+	for(var/mob/new_player/viewer in GLOB.player_list)
+		update_servers_list(viewer.client)
+
+/datum/controller/subsystem/title/proc/update_servers_info()
+	formatted_servers = list()
+	// First get our peers
+	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
+		SELECT server_id, key_name, key_value FROM instance_data_cache WHERE server_id IN
+		(SELECT server_id FROM instance_data_cache WHERE
+		key_name='heartbeat' AND last_updated BETWEEN NOW() - INTERVAL 60 SECOND AND NOW())
+		AND key_name IN ("playercount", "server_port", "server_name", "round_time")"})
+	if(!dbq1.warn_execute())
+		qdel(dbq1)
+		return
+
+	var/servers_outer = list()
+	while(dbq1.NextRow())
+		if(!servers_outer[dbq1.item[1]])
+			servers_outer[dbq1.item[1]] = list()
+
+		servers_outer[dbq1.item[1]][dbq1.item[2]] = dbq1.item[3] // This should assoc load our data
+
+	qdel(dbq1) //clear our query
+	// Format the server names into an assoc list of K: name V: port
+	for(var/server in servers_outer)
+		var/server_data = servers_outer[server]
+		formatted_servers.Add(list2params(list("name" = server_data["server_name"], "players" = server_data["playercount"], \
+		"port" = server_data["server_port"], "round_time" = server_data["round_time"])))
 
 /datum/controller/subsystem/title/OnMasterLoad()
 	if(CONFIG_GET(flag/enable_titlescreen_lateload))
@@ -128,6 +168,13 @@ SUBSYSTEM_DEF(title)
 		viewer << output("", "title_browser:update_preview_515")
 	else
 		viewer << output("", "title_browser:update_preview")
+
+/datum/controller/subsystem/title/proc/update_servers_list(client/viewer)
+	if(!viewer)
+		return
+
+	viewer << output(list2params(formatted_servers), "title_browser:update_servers_list")
+
 /**
  * Changes title image to desired
  */
@@ -185,9 +232,15 @@ SUBSYSTEM_DEF(title)
 
 	screen_image = SSassets.transport.register_asset("[screen_image_file]", screen_image_file)
 
-/datum/title_screen/proc/update_character(client/viewer)
+/// this proc updates character icon and lobby list
+/datum/title_screen/proc/update_lateinfo(client/viewer)
+	if(!viewer)
+		return
+
 	UNTIL(viewer.prefs)
 
+	if(viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU)
+		viewer << output("", "title_browser:set_pixelated")
 	viewer.prefs.update_preview_icon()
 	viewer << browse_rsc(viewer.prefs.preview_icon_front, "previewicon.png")
 
@@ -195,6 +248,7 @@ SUBSYSTEM_DEF(title)
 
 	// here we hope that our browser already updated. :pepepray:
 	SStitle.update_preview(viewer)
+	SStitle.update_servers_list(viewer)
 	viewer << output((viewer?.tgui_panel_theme)? viewer.tgui_panel_theme : "dark", "title_browser:set_theme")
 
 /datum/title_screen/proc/show_to(client/viewer)
@@ -212,16 +266,22 @@ SUBSYSTEM_DEF(title)
 
 	viewer << browse(get_title_html(viewer, viewer.mob), "window=title_browser")
 
-	INVOKE_ASYNC(src, PROC_REF(update_character), viewer)
+	INVOKE_ASYNC(src, PROC_REF(update_lateinfo), viewer)
 
 /datum/title_screen/proc/hide_from(client/viewer)
-	if(viewer?.mob)
+	if(!viewer)
+		return
+
+	if(viewer.mob)
 		winset(viewer, "title_browser", "is-disabled=true;is-visible=false")
 
 /**
  * Get the HTML of title screen.
  */
 /datum/title_screen/proc/get_title_html(client/viewer, mob/user)
+	if(!viewer)
+		return
+
 	var/list/html = list(title_html)
 	var/mob/new_player/player = user
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
@@ -230,6 +290,7 @@ SUBSYSTEM_DEF(title)
 	html += {"<body class="[color2tguitheme[winget(viewer, "mainwindow", "background-color")]][viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
 
 	html += {"<input type="checkbox" id="hide_menu">"}
+	html += {"<input type="checkbox" id="hide_lobby">"}
 
 	if(notice)
 		html += {"
@@ -278,7 +339,6 @@ SUBSYSTEM_DEF(title)
 		<a class="menu_button" href='byond://?src=[player.UID()];sound_options=1'>Настройки громкости</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];poll_panel=1'>Открыть голосование</a>
 	"}
-	// html += "<a class="menu_button" href='byond://?src=[player.UID()];swap_server=1'>Сменить сервер</a>" // TODO: add this after regis merge
 	if(!viewer?.prefs.discord_id || (viewer?.prefs.discord_id && length(viewer?.prefs.discord_id) == 32))
 		html += {"<a class="menu_button" href='byond://?src=[player.UID()];connect_discord=1'>Привязка Discord</a>"}
 	if(GLOB.join_tos && !viewer.tos_consent)
@@ -309,6 +369,8 @@ SUBSYSTEM_DEF(title)
 			<div class="status-item">Игроков: <span id="players-count">0</span></div>
 			<div class="status-item">Готовых игроков: <span id="ready-players">0/0</span></div>
 	</div>"}
+	html += {"<label class="hide_button hide_lobby" for="hide_lobby">Лобби</label>"}
+	html += {"<div class="lobby-box"><div class="lobby-flex-box"></div></div>"}
 	html += {"
 		<script language="JavaScript">
 			let ready_int = 0;
@@ -354,6 +416,11 @@ SUBSYSTEM_DEF(title)
 				}
 			}
 
+			function set_pixelated() {
+				document.body.classList.add('pixelated');
+				document.documentElement.classList.add('pixelated');
+			}
+
 			const charPreview = document.getElementById("preview");
 
 			function update_preview() {
@@ -365,6 +432,33 @@ SUBSYSTEM_DEF(title)
 				setTimeout(update_preview, 100); // TODO: change after 516
 			}
 
+			function update_servers_list() {
+				const args = Array.from(arguments);
+				const servers = \[];
+
+				for (const queryString of args) {
+					const server = Object.fromEntries(
+							queryString.split('&').map(item => item.split('='))
+						);
+
+					servers.push(server);
+				}
+
+				const lobbyBox = document.querySelector('.lobby-flex-box');
+				lobbyBox.innerHTML = '';
+
+				servers.forEach(game => {
+					const gameHTML = `
+						<div class="game-item">
+							<div class="game-name">${game.name.replace("+", " ")}</div>
+							<div class="game-players"><i class="fas fa-users icon"></i> Игроки: ${game.players}</div>
+							<div class="game-state"><i class="fas fa-clock icon"></i> Время: ${game.round_time.replaceAll("%3a", ":")}</div>
+							<a class="game-button" href='byond://?src=[player.UID()];switch_server=${game.port}'><i class="fas fa-plug icon"></i> Подключиться</a>
+						</div>`;
+					lobbyBox.innerHTML += gameHTML;
+				});
+			}
+
 			const gameMode = document.getElementById('game-mode');
 			const countdown = document.getElementById('countdown-timer');
 			const playersCount = document.getElementById('players-count');
@@ -374,8 +468,6 @@ SUBSYSTEM_DEF(title)
 				const args = Object.fromEntries(
 										Array.from(arguments).map(item => item.split('='))
 									);
-				console.log(arguments);
-				console.log(args);
 				const time = args.time_remaining;
 				const players = args.players;
 				const ready = args.total_players_ready;
@@ -409,7 +501,9 @@ SUBSYSTEM_DEF(title)
 				}
 			}
 
+			let pixel_check;
 			function set_theme(which) {
+				pixel_check = document.body.className.indexOf("pixelated") != -1
 				if (which == 'light') {
 					document.body.className = '';
 					document.documentElement.className = 'light';
@@ -426,6 +520,7 @@ SUBSYSTEM_DEF(title)
 					document.body.className = 'syndicate';
 					document.documentElement.className = 'syndicate';
 				}
+				if (pixel_check) set_pixelated();
 			}
 
 			/* Return focus to Byond after click */
