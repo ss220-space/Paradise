@@ -290,3 +290,5 @@
 		if(D.occupant == deadbeat)
 			// they still haven't checked out...
 			checkout(roomid)
+
+#undef PAY_INTERVAL

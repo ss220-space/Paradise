@@ -76,8 +76,8 @@
 	else
 		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 
- // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
- // Wise words. - Bxil
+// Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
+// Wise words. - Bxil
 /obj/machinery/door/poddoor/multi_tile
 	name = "large pod door"
 	layer = CLOSED_DOOR_LAYER

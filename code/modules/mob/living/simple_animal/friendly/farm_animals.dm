@@ -43,7 +43,7 @@
 		INSTRUMENTAL = "козлом",
 		PREPOSITIONAL = "козле"
 	)
-	
+
 
 /mob/living/simple_animal/hostile/retaliate/goat/New()
 	udder = new()
@@ -440,6 +440,8 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 			if(GLOB.chicken_count < MAX_CHICKENS && prob(25))
 				START_PROCESSING(SSobj, E)
 
+#undef MAX_CHICKENS
+
 /obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0
 /obj/item/reagent_containers/food/snacks/egg/process()
 	if(isturf(loc))
@@ -708,7 +710,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
-/mob/living/simple_animal/walrus/get_ru_names()	
+/mob/living/simple_animal/walrus/get_ru_names()
 	return list(
 		NOMINATIVE = "морж",
 		GENITIVE = "моржа",

@@ -1,8 +1,6 @@
-// Logging large amounts of test failures can cause performance issues
-// significant enough to hit GitHub Actions timeout thresholds. This can happen
-// intentionally (if there's a lot of legitimate map errors), or accidentally if
-// a test condition is written incorrectly and starts e.g. logging failures for
-// every single tile.
+/// Logging large amounts of test failures can cause performance issues significant enough to hit GitHub Actions timeout thresholds.
+/// This can happen intentionally (if there's a lot of legitimate map errors), or accidentally if a test condition is written incorrectly and starts e.g.
+/// logging failures for every single tile.
 #define MAX_MAP_TEST_FAILURE_COUNT 20
 
 /datum/test_runner
@@ -111,3 +109,5 @@
 
 	sleep(0)	//yes, 0, this'll let Reboot finish and prevent byond memes
 	del(world)	//shut it down
+
+#undef MAX_MAP_TEST_FAILURE_COUNT

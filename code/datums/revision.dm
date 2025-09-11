@@ -2,10 +2,10 @@ GLOBAL_DATUM_INIT(revision_info, /datum/code_revision, new)
 GLOBAL_PROTECT(revision_info) // Dont mess with this
 
 /**
-  * Code Revision Datum
-  *
-  * Allows the server code to be aware of the Git environment it is running in, and lets commit hash be viewed
-  */
+ * Code Revision Datum
+ *
+ * Allows the server code to be aware of the Git environment it is running in, and lets commit hash be viewed
+ */
 /datum/code_revision
 	/// Current commit hash the server is running
 	var/commit_hash
@@ -23,10 +23,10 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	originmastercommit = rustg_git_revparse("origin/master220")
 
 /**
-  * Code Revision Logging Helper
-  *
-  * Small proc to simplify logging all this stuff
-  */
+ * Code Revision Logging Helper
+ *
+ * Small proc to simplify logging all this stuff
+ */
 /datum/code_revision/proc/log_info()
 	// Put revision info in the world log
 	var/logmsg

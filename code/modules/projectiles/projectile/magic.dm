@@ -128,7 +128,7 @@
 	)
 	icon_state = "ion"
 
-/obj/projectile/magic/resurrection/on_hit(var/mob/living/carbon/target)
+/obj/projectile/magic/resurrection/on_hit(mob/living/carbon/target)
 	. = ..()
 	if(ismob(target))
 		if(target.mind && !target.mind.hasSoul)
@@ -160,7 +160,7 @@
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 
-/obj/projectile/magic/teleport/on_hit(var/mob/target)
+/obj/projectile/magic/teleport/on_hit(mob/target)
 	. = ..()
 	var/teleammount = 0
 	var/teleloc = target
@@ -189,7 +189,7 @@
 		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
 		/obj/structure/mineral_door/transparent/diamond)
 
-/obj/projectile/magic/door/on_hit(var/atom/target)
+/obj/projectile/magic/door/on_hit(atom/target)
 	. = ..()
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
@@ -207,13 +207,13 @@
 	T.ChangeTurf(/turf/simulated/floor/plasteel)
 	D.Open()
 
-/obj/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
+/obj/projectile/magic/door/proc/OpenDoor(obj/machinery/door/D)
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		A.locked = FALSE
 	D.open()
 
-/obj/projectile/magic/door/proc/OpenCloset(var/obj/structure/closet/C)
+/obj/projectile/magic/door/proc/OpenCloset(obj/structure/closet/C)
 	if(C?.locked)
 		C.locked = FALSE
 	C.open()
@@ -231,7 +231,7 @@
 	icon_state = "ice_1"
 	damage_type = BURN
 
-/obj/projectile/magic/change/on_hit(var/atom/change)
+/obj/projectile/magic/change/on_hit(atom/change)
 	. = ..()
 	wabbajack(change)
 

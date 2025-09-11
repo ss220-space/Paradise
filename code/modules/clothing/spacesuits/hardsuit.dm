@@ -2,7 +2,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-    //alt_desc =
 	icon_state = "hardsuit0-engineering"
 	base_icon_state = "hardsuit"
 	item_state = "eng_helm"

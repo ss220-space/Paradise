@@ -1,11 +1,13 @@
-
-#define BEEBOX_MAX_FRAMES				3		//Max frames per box
-#define BEES_RATIO						0.5	//Multiplied by the max number of honeycombs to find the max number of bees
-#define BEE_PROB_NEW_BEE				20		//The chance for spare bee_resources to be turned into new bees
-#define BEE_RESOURCE_HONEYCOMB_COST		100		//The amount of bee_resources for a new honeycomb to be produced, percentage cost 1-100
-#define BEE_RESOURCE_NEW_BEE_COST		50		//The amount of bee_resources for a new bee to be produced, percentage cost 1-100
-
-
+/// Max frames per box
+#define BEEBOX_MAX_FRAMES 3
+/// Multiplied by the max number of honeycombs to find the max number of bees
+#define BEES_RATIO 0.5
+/// The chance for spare bee_resources to be turned into new bees
+#define BEE_PROB_NEW_BEE 20
+/// The amount of bee_resources for a new honeycomb to be produced, percentage cost 1-100
+#define BEE_RESOURCE_HONEYCOMB_COST 100
+/// The amount of bee_resources for a new bee to be produced, percentage cost 1-100
+#define BEE_RESOURCE_NEW_BEE_COST 50
 
 /mob/proc/bee_friendly()
 	return FALSE
@@ -294,3 +296,9 @@
 
 /obj/structure/beebox/unwrenched
 	anchored = FALSE
+
+#undef BEEBOX_MAX_FRAMES
+#undef BEES_RATIO
+#undef BEE_PROB_NEW_BEE
+#undef BEE_RESOURCE_HONEYCOMB_COST
+#undef BEE_RESOURCE_NEW_BEE_COST

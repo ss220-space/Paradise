@@ -113,7 +113,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		log_admin("OOC was toggled off automatically.")
 		message_admins("OOC has been toggled off automatically.")
 
-/proc/auto_toggle_ooc(var/on)
+/proc/auto_toggle_ooc(on)
 	if(CONFIG_GET(flag/auto_toggle_ooc_during_round) && CONFIG_GET(flag/ooc_allowed) != on)
 		toggle_ooc()
 

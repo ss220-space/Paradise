@@ -111,7 +111,7 @@
 	..(user, target)
 
 
-/datum/action/changeling/suit/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
 	if(!user.can_unEquip(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
 		return FALSE

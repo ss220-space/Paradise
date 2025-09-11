@@ -188,7 +188,7 @@
 	light_color = LIGHT_COLOR_DARK_BLUE
 	armour_penetration_level = LASER_PENETRATION_MAX
 
-/obj/projectile/beam/pulse/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
 	if(istype(target, /turf) || isstructure(target) || ismachinery(target))
 		target.ex_act(EXPLODE_HEAVY)
 	..()
@@ -396,7 +396,7 @@
 	damage = 15
 	armour_penetration_level = LASER_PENETRATION_MEDIUM
 
-/obj/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/beam/immolator/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target

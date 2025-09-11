@@ -85,6 +85,7 @@ CREATE TABLE `characters` (
   `hair_gradient_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000',
   `hair_gradient_alpha` tinyint(3) UNSIGNED NOT NULL DEFAULT '200',
   `custom_emotes` longtext COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
+  `can_be_antagonist` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=125467 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -124,6 +125,7 @@ CREATE TABLE `death` (
   `pod` text NOT NULL COMMENT 'Place of death',
   `coord` text NOT NULL COMMENT 'X, Y, Z POD',
   `tod` datetime NOT NULL COMMENT 'Time of death',
+  `server_id` TEXT NULL DEFAULT NULL,
   `job` text NOT NULL,
   `special` text NOT NULL,
   `name` text NOT NULL,
@@ -206,6 +208,7 @@ CREATE TABLE `ban` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bantime` datetime NOT NULL,
   `serverip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL COLLATE utf8mb4_unicode_ci,
   `bantype` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `reason` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `job` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -335,6 +338,7 @@ CREATE TABLE `karma` (
   `receiverspecial` text,
   `isnegative` tinyint(1) DEFAULT NULL,
   `spenderip` text NOT NULL,
+  `server_id` TEXT NULL DEFAULT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=73614 DEFAULT CHARSET=utf8mb4;
@@ -389,6 +393,7 @@ CREATE TABLE `legacy_population` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `playercount` int(11) DEFAULT NULL,
   `admincount` int(11) DEFAULT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2550 DEFAULT CHARSET=utf8mb4;
@@ -545,6 +550,7 @@ CREATE TABLE `connection_log` (
   `ckey` varchar(32) NOT NULL,
   `ip` varchar(32) NOT NULL,
   `computerid` varchar(32) NOT NULL,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
   KEY `ip` (`ip`),
@@ -596,6 +602,7 @@ CREATE TABLE `round` (
   `shuttle_name` VARCHAR(64) NULL,
   `map_name` VARCHAR(32) NULL,
   `station_name` VARCHAR(80) NULL,
+  `server_id` VARCHAR(50) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -748,3 +755,14 @@ UPDATE `poll_textreply` SET deleted = 1 WHERE pollid = poll_id;
 END
 $$
 DELIMITER ;
+
+--
+-- Table structure for table `instance_data_cache`
+--
+CREATE TABLE `instance_data_cache` (
+	`server_id` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`key_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`key_value` VARCHAR(5000) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`last_updated` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	PRIMARY KEY (`server_id`, `key_name`) USING HASH
+) COLLATE='utf8mb4_unicode_ci' ENGINE=MEMORY;
