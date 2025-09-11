@@ -120,6 +120,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	desc = "Sheets made out of metal."
 	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
+	protolathe_name = "metal"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10.0
 	flags = CONDUCT
@@ -170,6 +171,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	name = "plasteel"
 	singular_name = "plasteel sheet"
 	desc = "This sheet is an alloy of iron and plasma."
+	protolathe_name = "metal"
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-plasteel"
 	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
@@ -512,14 +514,14 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 	return ..()
 
 /datum/stack_recipe/cult
-   one_per_turf = TRUE
-   on_floor = TRUE
+	one_per_turf = TRUE
+	on_floor = TRUE
 
 /datum/stack_recipe/cult/post_build(obj/item/stack/S, obj/result)
-   if(ishuman(S.loc))
-      var/mob/living/carbon/human/H = S.loc
-      H.bleed(5)
-   ..()
+	if(ishuman(S.loc))
+		var/mob/living/carbon/human/H = S.loc
+		H.bleed(5)
+	..()
 
 /obj/item/stack/sheet/runed_metal/ten
 	amount = 10
@@ -797,6 +799,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 /obj/item/stack/sheet/plastic
 	name = "plastic"
 	desc = "Compress dinosaur over millions of years, then refine, split and mold, and voila! You have plastic."
+	protolathe_name = "silver"
 	singular_name = "plastic sheet"
 	icon_state = "sheet-plastic"
 	item_state = "sheet-plastic"

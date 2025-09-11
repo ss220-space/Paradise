@@ -16,7 +16,7 @@
 	return
 
 /obj/structure/pit/AllowDrop()
-    return TRUE
+	return TRUE
 
 
 /obj/structure/pit/attackby(obj/item/I, mob/user, params)
@@ -118,7 +118,7 @@
 				M.update_tint()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/pit/proc/close(var/user)
+/obj/structure/pit/proc/close(user)
 	name = "mound"
 	desc = "Some things are better left buried."
 	open = FALSE

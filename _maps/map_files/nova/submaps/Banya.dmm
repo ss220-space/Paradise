@@ -9,7 +9,7 @@
 /obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/chapel)
+/area/maintenance/tourist)
 "aG" = (
 /obj/structure/curtain/open/shower/security{
 	alpha = 255;
@@ -110,6 +110,22 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
+"cW" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/maintenance/abandonedclub)
+"dz" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/template_noop,
+/area/template_noop)
 "eh" = (
 /obj/structure/barricade/wooden,
 /obj/effect/decal/cleanable/dirt,
@@ -178,6 +194,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
+"hm" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/maintenance/abandonedclub)
 "hq" = (
 /turf/template_noop,
 /area/template_noop)
@@ -186,9 +211,6 @@
 /obj/effect/map_effect/marker_helper/submap_def/nova/Banya/entrance,
 /turf/simulated/wall,
 /area/maintenance/tourist)
-"hI" = (
-/turf/simulated/wall/rust,
-/area/maintenance/chapel)
 "hM" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 10
@@ -201,6 +223,15 @@
 	},
 /turf/simulated/floor/wood/dark,
 /area/maintenance/abandonedclub)
+"hV" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/maintenance/tourist)
 "iL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -215,6 +246,15 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
+"iX" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall,
+/area/maintenance/abandonedclub)
 "jh" = (
 /obj/machinery/computer/old_frame/thick,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -696,6 +736,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/consarea)
+"tb" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge,
+/turf/simulated/wall,
+/area/maintenance/tourist)
 "tB" = (
 /turf/simulated/floor/engine,
 /area/maintenance/tourist)
@@ -708,6 +755,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
+"tN" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/template_noop,
+/area/template_noop)
 "ud" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -747,6 +803,15 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
+/area/maintenance/consarea)
+"uv" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 6
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/turf/simulated/wall,
 /area/maintenance/consarea)
 "uE" = (
 /obj/effect/turf_decal{
@@ -1066,6 +1131,15 @@
 	icon_state = "Dark"
 	},
 /area/maintenance/abandonedclub)
+"Er" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/template_noop,
+/area/template_noop)
 "EF" = (
 /obj/effect/decal/warning_stripes/southwest,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -1154,6 +1228,15 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/consarea)
+"IC" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 4
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/maintenance/consarea)
 "IO" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
@@ -1197,6 +1280,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
+"KA" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 8
+	},
+/turf/simulated/wall/rust,
+/area/maintenance/consarea)
 "KB" = (
 /turf/simulated/floor/plating,
 /area/maintenance/consarea)
@@ -1295,9 +1387,6 @@
 	state = 7
 	},
 /area/maintenance/abandonedclub)
-"Oj" = (
-/turf/simulated/wall,
-/area/maintenance/chapel)
 "Or" = (
 /obj/effect/turf_decal/siding/wideplating/dark,
 /obj/structure/closet/wardrobe,
@@ -1545,6 +1634,12 @@
 /obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
+"UO" = (
+/obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/maintenance/tourist)
 "UV" = (
 /obj/effect/decal/cleanable/glass/plasma,
 /obj/effect/decal/cleanable/dust,
@@ -1618,11 +1713,6 @@
 /area/maintenance/tourist)
 "Xc" = (
 /obj/structure/table,
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 26
-	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -1636,6 +1726,11 @@
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/worn_out{
+	cell_type = 0;
+	dir = 1;
+	pixel_y = 26
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
 "Xl" = (
@@ -1707,7 +1802,7 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/chapel)
+/area/maintenance/abandonedclub)
 "ZI" = (
 /obj/effect/turf_decal/siding/red/corner{
 	dir = 1
@@ -1791,7 +1886,7 @@ hq
 "}
 (2,1,1) = {"
 hq
-hq
+tN
 hq
 hq
 hq
@@ -1802,7 +1897,7 @@ hq
 hq
 cM
 hq
-hI
+KA
 eh
 Iv
 Rb
@@ -1813,7 +1908,7 @@ qk
 YC
 nV
 hq
-Oj
+UO
 CT
 Le
 DE
@@ -1824,7 +1919,7 @@ Jn
 SI
 hC
 hq
-Oj
+iX
 CA
 CA
 CA
@@ -1849,7 +1944,7 @@ hq
 hq
 hq
 hq
-hI
+Rb
 JH
 JH
 YC
@@ -1860,7 +1955,7 @@ cD
 fL
 YC
 hq
-hI
+DE
 by
 uk
 OK
@@ -1871,7 +1966,7 @@ Yj
 Kd
 CT
 hq
-hI
+Zd
 lF
 OW
 xs
@@ -1896,7 +1991,7 @@ hq
 hq
 hq
 hq
-Oj
+YC
 gq
 Gm
 YC
@@ -1907,7 +2002,7 @@ EF
 RU
 xk
 hq
-Oj
+CT
 uk
 pr
 tB
@@ -1918,7 +2013,7 @@ Kd
 Nk
 CT
 hq
-Oj
+CA
 yh
 jN
 yh
@@ -1943,7 +2038,7 @@ hq
 hq
 hq
 hq
-Oj
+YC
 vq
 JH
 AP
@@ -1990,7 +2085,7 @@ hq
 hq
 hq
 hq
-hI
+Rb
 JH
 KB
 qk
@@ -2001,7 +2096,7 @@ Yz
 Rq
 xk
 hq
-hI
+DE
 bK
 zZ
 uW
@@ -2012,7 +2107,7 @@ xV
 Kd
 AZ
 hq
-hI
+Zd
 WW
 Dr
 NW
@@ -2037,7 +2132,7 @@ hq
 hq
 hq
 hq
-Oj
+YC
 Hx
 jj
 qk
@@ -2048,7 +2143,7 @@ Ir
 jT
 YC
 hq
-Oj
+CT
 CT
 DE
 CT
@@ -2059,7 +2154,7 @@ Kd
 Kd
 CT
 hq
-Oj
+CA
 li
 yE
 vR
@@ -2084,7 +2179,7 @@ hq
 hq
 hq
 hq
-Oj
+YC
 YC
 YC
 YC
@@ -2095,7 +2190,7 @@ qk
 YC
 YC
 hq
-Oj
+CT
 Un
 Yi
 nQ
@@ -2106,7 +2201,7 @@ Ug
 aw
 CT
 hq
-Oj
+CA
 yh
 xi
 bo
@@ -2355,6 +2450,7 @@ hq
 "}
 (14,1,1) = {"
 hq
+Er
 hq
 hq
 hq
@@ -2363,10 +2459,9 @@ hq
 hq
 hq
 hq
+dz
 hq
-hq
-hq
-YC
+IC
 YC
 qk
 YC
@@ -2375,9 +2470,9 @@ YC
 YC
 YC
 YC
-YC
+uv
 hq
-CT
+hV
 CT
 QT
 CT
@@ -2386,9 +2481,9 @@ CT
 CT
 Jn
 Jn
-CT
+tb
 hq
-CA
+hm
 CA
 CA
 CA
@@ -2397,7 +2492,7 @@ CA
 CA
 CA
 CA
-CA
+cW
 hq
 "}
 (15,1,1) = {"

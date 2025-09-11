@@ -48,5 +48,5 @@
 
 /obj/effect/temp_visual/teleport_abductor/Initialize(mapload)
 	. = ..()
-	do_sparks(10, 0, loc)
+	do_sparks(10, FALSE, loc)
 

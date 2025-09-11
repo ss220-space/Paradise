@@ -170,7 +170,7 @@
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
 
-/obj/mecha/proc/add_cell(var/obj/item/stock_parts/cell/C=null)
+/obj/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)
 	if(C)
 		C.forceMove(src)
 		cell = C
@@ -444,7 +444,7 @@
 		var/turf/above = GET_TURF_ABOVE(T)
 		if(!(direction & UP) || !can_z_move(DOWN, above, null, ZMOVE_FALL_FLAGS|ZMOVE_CAN_FLY_CHECKS|ZMOVE_FEEDBACK, occupant))
 			if(zMove(direction, z_move_flags = ZMOVE_FLIGHT_FLAGS))
-				playsound(src, stepsound, 40, 1)
+				playsound(src, stepsound, 40, TRUE)
 				move_result = TRUE
 				move_type = MECHAMOVE_STEP
 	else if(dir != direction && !strafe || keyheld) //Player can use ALT button while strafe is active to change direction on fly
@@ -510,7 +510,7 @@
 /obj/mecha/proc/mechturn(direction)
 	dir = direction
 	if(turnsound)
-		playsound(src,turnsound,40,1)
+		playsound(src,turnsound,40, TRUE)
 	return TRUE
 
 /obj/mecha/proc/mechstep(direction, old_direction, step_in_final)
@@ -521,7 +521,7 @@
 		if(strafe) //Cooldown and sound effect if mecha failed to step
 			can_move = world.time + step_in_final
 			if(turnsound)
-				playsound(src, turnsound, 40, 1)
+				playsound(src, turnsound, 40, TRUE)
 		if(phasing && get_charge() >= phasing_energy_drain / phase_modifier)
 			if(strafe) //No strafe while phase mode is active
 				toggle_strafe(silent = TRUE)
@@ -530,15 +530,15 @@
 				flick("[initial_icon]-phase", src)
 				forceMove(get_step(src, direction))
 				use_power(phasing_energy_drain / phase_modifier)
-				playsound(src, stepsound, 40, 1)
+				playsound(src, stepsound, 40, TRUE)
 				can_move = world.time + (step_in * 3 / phase_modifier)
 	else if(stepsound)
-		playsound(src, stepsound, 40, 1)
+		playsound(src, stepsound, 40, TRUE)
 
 /obj/mecha/proc/mechsteprand()
 	. = step_rand(src)
 	if(. && stepsound)
-		playsound(src, stepsound, 40, 1)
+		playsound(src, stepsound, 40, TRUE)
 
 
 /obj/mecha/Bump(atom/bumped_atom)
@@ -711,7 +711,7 @@
 /obj/mecha/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
+	playsound(loc, 'sound/weapons/tap.ogg', 40, TRUE, -1)
 	user.visible_message(span_notice("[user] hits [name]. Nothing happens."), span_notice("You hit [name] with no visible effect."))
 	log_message("Attack by hand/paw. Attacker - [user].")
 
@@ -1108,7 +1108,7 @@
 	if(!..())
 		return
 
- //Transfer from core or card to mech. Proc is called by mech.
+	//Transfer from core or card to mech. Proc is called by mech.
 	switch(interaction)
 		if(AI_TRANS_TO_CARD) //Upload AI from mech to AI card.
 			if(!maint_access) //Mech must be in maint mode to allow carding.
@@ -1349,7 +1349,7 @@
 	else
 		return FALSE
 
-/obj/mecha/proc/mmi_move_inside(var/obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
+/obj/mecha/proc/mmi_move_inside(obj/item/mmi/mmi_as_oc as obj, mob/user as mob)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 		to_chat(user, span_warning("Consciousness matrix not detected!"))
 		return FALSE

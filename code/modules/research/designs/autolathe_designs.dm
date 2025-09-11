@@ -842,6 +842,14 @@
 	build_path = /obj/item/ammo_casing/shotgun/buckshot
 	category = list("hacked", "Security")
 
+/datum/design/dragonsbreath
+	name = "Dragonsbreath shell"
+	id = "dragonsbreath_shell"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 4000)
+	build_path = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
+	category = list("hacked", "Security")
+
 /datum/design/shotgun_dart
 	name = "Shotgun Dart"
 	id = "shotgun_dart"

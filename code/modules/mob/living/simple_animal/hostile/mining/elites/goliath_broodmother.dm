@@ -19,14 +19,6 @@
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother
 	name = "goliath broodmother"
 	desc = "Пример полового диморфизма - эта самка голиафа сильно отличается от самцов своего вида. Однако она столь же опасна, если не опаснее."
-	ru_names = list(
-		NOMINATIVE = "матка голиафов",
-		GENITIVE = "матки голиафов",
-		DATIVE = "матке голиафов",
-		ACCUSATIVE = "матку голиафов",
-		INSTRUMENTAL = "маткой голиафов",
-		PREPOSITIONAL = "матке голиафов"
-	)
 	gender = FEMALE
 	icon_state = "broodmother"
 	icon_living = "broodmother"
@@ -55,6 +47,17 @@
 
 	var/rand_tent = 0
 	var/list/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/children_list = list()
+
+/mob/living/simple_animal/hostile/asteroid/elite/broodmother/get_ru_names()
+	return list(
+		NOMINATIVE = "матка голиафов",
+		GENITIVE = "матки голиафов",
+		DATIVE = "матке голиафов",
+		ACCUSATIVE = "матку голиафов",
+		INSTRUMENTAL = "маткой голиафов",
+		PREPOSITIONAL = "матке голиафов"
+	)
+	
 
 /datum/action/innate/elite_attack/tentacle_patch
 	name = "Поле из щупалец"
@@ -205,14 +208,6 @@
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child
 	name = "baby goliath"
 	desc = "Молодой голиаф, недавно появившийся на свет. Хотя они вылупляются из яиц, эти яйца инкубируются в матери, пока не будут готовы к рождению."
-	ru_names = list(
-		NOMINATIVE = "детёныш голиафа",
-		GENITIVE = "детёныша голиафа",
-		DATIVE = "детёнышу голиафа",
-		ACCUSATIVE = "детёныша голиафа",
-		INSTRUMENTAL = "детёнышем голиафа",
-		PREPOSITIONAL = "детёныше голиафа"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath_baby"
 	icon_living = "goliath_baby"
@@ -235,6 +230,15 @@
 	status_flags = CANPUSH
 	var/mob/living/simple_animal/hostile/asteroid/elite/broodmother/mother = null
 
+/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/get_ru_names()
+	return list(
+		NOMINATIVE = "детёныш голиафа",
+		GENITIVE = "детёныша голиафа",
+		DATIVE = "детёнышу голиафа",
+		ACCUSATIVE = "детёныша голиафа",
+		INSTRUMENTAL = "детёнышем голиафа",
+		PREPOSITIONAL = "детёныше голиафа"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/Destroy()
 	if(!QDELETED(mother))
@@ -299,14 +303,6 @@
 /obj/item/crusher_trophy/broodmother_tongue
 	name = "broodmother tongue"
 	desc = "Язык матери целой стаи. На ощупь очень губчатый, интересно что будет если на него надавить? Может быть прикреплен на крушитель в качестве трофея."
-	ru_names = list(
-            NOMINATIVE = "материнский язык",
-            GENITIVE = "материнского языка",
-            DATIVE = "материнскому языку",
-            ACCUSATIVE = "материнский язык",
-            INSTRUMENTAL = "материнским языком",
-            PREPOSITIONAL = "материнском языке"
-	)
 	gender = MALE
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "broodmother_tongue"
@@ -314,6 +310,16 @@
 	bonus_value = 75 // same reasoning as legionnaire trophy, target if moving will dodge it, and things like hiero trophy does more anyway.
 	/// Time at which the item becomes usable again
 	var/use_time
+
+/obj/item/crusher_trophy/broodmother_tongue/get_ru_names()
+	return list(
+		NOMINATIVE = "материнский язык",
+		GENITIVE = "материнского языка",
+		DATIVE = "материнскому языку",
+		ACCUSATIVE = "материнский язык",
+		INSTRUMENTAL = "материнским языком",
+		PREPOSITIONAL = "материнском языке"
+	)
 
 /obj/item/crusher_trophy/broodmother_tongue/effect_desc()
 	return "Взрыв метки с <b>[bonus_value]%</b> шансом призывает поле щупалец под врагом"

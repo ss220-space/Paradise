@@ -1372,7 +1372,7 @@
 				smoke.set_up(amount = 3, location = loc)
 				smoke.attach(src)
 				smoke.start()
-				do_sparks(3, 1, src)
+				do_sparks(3, TRUE, src)
 				for(var/mob/M in viewers(src))
 					M.show_message("<span class='danger'>The [name] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
 

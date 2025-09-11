@@ -2,14 +2,6 @@
 /mob/living/simple_animal/hostile/facehugger
 	name = "facehugger"
 	desc = "На конце хвоста у него есть что-то вроде трубки."
-	ru_names = list(
-		NOMINATIVE = "лицехват",
-		GENITIVE = "лицехвата",
-		DATIVE = "лицехвату",
-		ACCUSATIVE = "лицехвата",
-		INSTRUMENTAL = "лицехватом",
-		PREPOSITIONAL = "лицехвате"
-	)
 	unique_name = TRUE
 	icon = 'icons/mob/facehugger.dmi'
 	icon_state = "facehugger"
@@ -68,6 +60,16 @@
 	var/impregnated = FALSE
 	var/impregnated_death = FALSE
 	var/obj/item/clothing/mask/facehugger/hugger_holder
+
+/mob/living/simple_animal/hostile/facehugger/get_ru_names()
+	return  list(
+		NOMINATIVE = "лицехват",
+		GENITIVE = "лицехвата",
+		DATIVE = "лицехвату",
+		ACCUSATIVE = "лицехвата",
+		INSTRUMENTAL = "лицехватом",
+		PREPOSITIONAL = "лицехвате"
+	)
 
 /mob/living/simple_animal/hostile/facehugger/ComponentInitialize()
 	AddComponent( \
@@ -364,7 +366,12 @@
 
 /mob/living/simple_animal/hostile/facehugger/lamarr
 	name = "Lamarr"
-	ru_names = list(
+	desc = "В худшем случае она попытается... спариться с вашей головой."
+	gender = FEMALE
+	holder_type = /obj/item/clothing/mask/facehugger/lamarr
+
+/mob/living/simple_animal/hostile/facehugger/lamarr/get_ru_names()
+	return list(
 		NOMINATIVE = "ламарр",
 		GENITIVE = "ламарр",
 		DATIVE = "ламарр",
@@ -372,6 +379,3 @@
 		INSTRUMENTAL = "ламарр",
 		PREPOSITIONAL = "ламарр"
 	)
-	desc = "В худшем случае она попытается... спариться с вашей головой."
-	gender = FEMALE
-	holder_type = /obj/item/clothing/mask/facehugger/lamarr

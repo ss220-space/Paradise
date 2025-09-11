@@ -6,14 +6,6 @@
 /obj/structure/spider/spiderling/terror_spiderling
 	name = "spiderling"
 	desc = "Быстро движущийся крошечный паук, склонный издавать агрессивные шипящие звуки. Надеюсь, оно не вырастет."
-	ru_names = list(
-		NOMINATIVE = "паучок",
-		GENITIVE = "паучка",
-		DATIVE = "паучку",
-		ACCUSATIVE = "паучка",
-		INSTRUMENTAL = "паучком",
-		PREPOSITIONAL = "паучке",
-	)
 	icon_state = "spiderling"
 	anchored = FALSE
 	layer = 2.75
@@ -30,6 +22,16 @@
 	var/debug_ai_choices = FALSE
 	var/movement_disabled = FALSE
 	var/mob/asigned_ghost
+
+/obj/structure/spider/spiderling/terror_spiderling/get_ru_names()
+	return list(
+		NOMINATIVE = "паучок",
+		GENITIVE = "паучка",
+		DATIVE = "паучку",
+		ACCUSATIVE = "паучка",
+		INSTRUMENTAL = "паучком",
+		PREPOSITIONAL = "паучке",
+	)
 
 /obj/structure/spider/spiderling/terror_spiderling/Initialize(mapload)
 	. = ..()
@@ -335,14 +337,6 @@
 
 /obj/structure/spider/eggcluster/terror_eggcluster/empress
 	name = "empress egg cluster"
-	ru_names = list(
-		NOMINATIVE = "яйца Императрицы Ужаса",
-		GENITIVE = "яиц Императрицы Ужаса",
-		DATIVE = "яйцам Императрицы Ужаса",
-		ACCUSATIVE = "яйца Императрицы Ужаса",
-		INSTRUMENTAL = "яйцами Императрицы Ужаса",
-		PREPOSITIONAL = "яйцах Императрицы Ужаса",
-	)
 	spiderling_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/weak
 	max_integrity = 1000
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 100, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -351,6 +345,15 @@
 	explosion_vertical_block = 100
 	var/save_burst = FALSE
 
+/obj/structure/spider/eggcluster/terror_eggcluster/empress/get_ru_names()
+	return list(
+		NOMINATIVE = "яйца Императрицы Ужаса",
+		GENITIVE = "яиц Императрицы Ужаса",
+		DATIVE = "яйцам Императрицы Ужаса",
+		ACCUSATIVE = "яйца Императрицы Ужаса",
+		INSTRUMENTAL = "яйцами Императрицы Ужаса",
+		PREPOSITIONAL = "яйцах Императрицы Ужаса",
+	)
 
 /obj/structure/spider/eggcluster/terror_eggcluster/empress/Initialize(mapload, lay_type)
 	. = ..(mapload, spiderling_type)
@@ -373,7 +376,11 @@
 /obj/structure/spider/royaljelly
 	name = "royal jelly"
 	desc = "Пульсирующая масса слизи, желе, крови или сжиженных органов гуманоидов, которую Пауки Ужаса считают вкусной и очень питательной."
-	ru_names = list(
+	gender = NEUTER
+	icon_state = "spiderjelly"
+
+/obj/structure/spider/royaljelly/get_ru_names()
+	return list(
 		NOMINATIVE = "королевское желе",
 		GENITIVE = "королевского желе",
 		DATIVE = "королевскому желе",
@@ -381,5 +388,3 @@
 		INSTRUMENTAL = "королевским желе",
 		PREPOSITIONAL = "королевском желе",
 	)
-	gender = NEUTER
-	icon_state = "spiderjelly"

@@ -1,6 +1,25 @@
 #define MAGIC_SPELLS_COUNT 3
 #define HULK_COOLDOWN 10 MINUTES
 
+#define NOT_DEVIL_GUNS list(\
+		/obj/item/gun/energy/pulse,\
+		/obj/item/gun/energy/pulse/carbine,\
+		/obj/item/gun/projectile/automatic/sniper_rifle\
+	)
+
+#define DEVIL_GUNS list(\
+		/obj/item/gun/projectile/automatic/sniper_rifle/compact,\
+		/obj/item/gun/projectile/automatic/sniper_rifle/axmc,\
+		/obj/item/gun/projectile/automatic/m52,\
+		/obj/item/gun/projectile/automatic/lr30,\
+		/obj/item/gun/projectile/automatic/lasercarbine,\
+		/obj/item/gun/projectile/automatic/cats,\
+		/obj/item/gun/projectile/automatic/ak814,\
+		/obj/item/gun/projectile/automatic/sfg\
+	)
+
+GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
+
 /datum/devil_contract
 	var/name = "Ошибка"
 	var/contract_type = 0
@@ -111,7 +130,6 @@
 		/obj/effect/proc_holder/spell/goliath_tentacles,
 		/obj/effect/proc_holder/spell/touch/healtouch/advanced,
 		/obj/effect/proc_holder/spell/watchers_look,
-
 	)
 
 /datum/devil_contract/magic/check_contract(mob/living/carbon/human/user)
@@ -263,5 +281,7 @@
 	var/spell = new /obj/effect/proc_holder/spell/conjure_item/contract_gun(null, gun_type)
 	user.mind.AddSpell(spell)
 
-
 #undef MAGIC_SPELLS_COUNT
+#undef HULK_COOLDOWN
+#undef NOT_DEVIL_GUNS
+#undef DEVIL_GUNS

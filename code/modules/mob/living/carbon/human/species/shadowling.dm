@@ -1,3 +1,7 @@
+#define LIGHT_DAM_THRESHOLD 4
+#define LIGHT_HEAL_THRESHOLD 2
+#define LIGHT_DAMAGE_TAKEN 6
+
 /datum/species/shadow/ling
 	//Normal shadowpeople but with enhanced effects
 	name = SPECIES_SHADOWLING
@@ -116,3 +120,7 @@
 	deform = 'icons/mob/human_races/r_lshadowling.dmi'
 	burn_mod = 1.1
 	heatmod = 1.1
+
+#undef LIGHT_DAM_THRESHOLD
+#undef LIGHT_HEAL_THRESHOLD
+#undef LIGHT_DAMAGE_TAKEN

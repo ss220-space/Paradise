@@ -11,14 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
 	name = "Princess of Terror spider"
 	desc = "Огромный паук. Он выглядит необычайно милым и пушистым."
-	ru_names = list(
-		NOMINATIVE = "Принцесса Ужаса",
-		GENITIVE = "Принцессы Ужаса",
-		DATIVE = "Принцессе Ужаса",
-		ACCUSATIVE = "Принцессу Ужаса",
-		INSTRUMENTAL = "Принцессой Ужаса",
-		PREPOSITIONAL = "Принцессе Ужаса",
-	)
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_princess1"
 	icon_living = "terror_princess1"
@@ -45,6 +37,16 @@
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_shriek_princess)
 	var/spider_max_children = 20
 	tts_seed = "Lissandra"
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/get_ru_names()
+	return list(
+		NOMINATIVE = "Принцесса Ужаса",
+		GENITIVE = "Принцессы Ужаса",
+		DATIVE = "Принцессе Ужаса",
+		ACCUSATIVE = "Принцессу Ужаса",
+		INSTRUMENTAL = "Принцессой Ужаса",
+		PREPOSITIONAL = "Принцессе Ужаса",
+	)
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/grant_queen_subtype_abilities()

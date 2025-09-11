@@ -63,7 +63,7 @@
 	new /obj/item/gun/energy/gun/hos(src)
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
-	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
+	new /obj/item/autoimplanter/oneuse/sec_hud(src)
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/aviators(src)
 	new /obj/item/megaphone(src)	//added here deleted on maps
@@ -113,7 +113,13 @@
 
 /obj/structure/closet/secure_closet/security_grenade_launcher
 	name = "security grenade launcher cabinet"
-	ru_names = list(
+	desc = "Защищенный шкаф для хранения гранатомета GL-06 и боеприпасов к нему. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+	icon = 'icons/obj/guncabinet.dmi'
+	icon_state = "guncabinet"
+
+/obj/structure/closet/secure_closet/security_grenade_launcher/get_ru_names()
+	return list(
 		NOMINATIVE = "шкаф гранатомета GL-06",
 		GENITIVE = "шкафа гранатомета GL-06",
 		DATIVE = "шкафу гранатомета GL-06",
@@ -121,10 +127,6 @@
 		INSTRUMENTAL = "шкафом гранатомета GL-06",
 		PREPOSITIONAL = "шкафе гранатомета GL-06"
 	)
-	desc = "Защищенный шкаф для хранения гранатомета GL-06 и боеприпасов к нему. Шкаф прикручен к полу."
-	req_access = list(ACCESS_ARMORY)
-	icon = 'icons/obj/guncabinet.dmi'
-	icon_state = "guncabinet"
 
 /obj/structure/closet/secure_closet/security_grenade_launcher/populate_contents()
 	new /obj/item/gun/projectile/bombarda/secgl(src)

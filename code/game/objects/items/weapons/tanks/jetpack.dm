@@ -185,7 +185,7 @@
 	gas_type = "oxygen"
 
 /obj/item/tank/jetpack/void/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "вакуумный реактивный ранец (Кислород)",
 		GENITIVE = "вакуумного реактивного ранца (Кислород)",
 		DATIVE = "вакуумному реактивному ранцу (Кислород)",

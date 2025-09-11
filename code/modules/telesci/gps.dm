@@ -3,10 +3,10 @@ GLOBAL_LIST_EMPTY(GPS_list)
 #define EMP_DISABLE_TIME 30 SECONDS
 
 /**
-  * # GPS
-  *
-  * A small item that reports its current location. Has a tag to help distinguish between them.
-  */
+ * # GPS
+ *
+ * A small item that reports its current location. Has a tag to help distinguish between them.
+ */
 /obj/item/gps
 	name = "default gps"
 	desc = "Helping lost spacemen find their way through the planets since 2016."
@@ -166,8 +166,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			return FALSE
 
 /**
-  * Turns off the GPS's EMPed state. Called automatically after an EMP.
-  */
+ * Turns off the GPS's EMPed state. Called automatically after an EMP.
+ */
 /obj/item/gps/proc/reboot()
 	emped = FALSE
 	update_icon(UPDATE_OVERLAYS)

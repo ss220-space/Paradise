@@ -1,10 +1,10 @@
 /**
-  * # Rapid Crate Sender (RCS)
-  *
-  * Used to teleport crates and closets to cargo telepads.
-  *
-  * If emagged, it allows you to teleport crates to a random location, and also teleport yourself while inside a locker.
-  */
+ * # Rapid Crate Sender (RCS)
+ *
+ * Used to teleport crates and closets to cargo telepads.
+ *
+ * If emagged, it allows you to teleport crates to a random location, and also teleport yourself while inside a locker.
+ */
 /obj/item/rcs
 	name = "rapid-crate-sender (RCS)"
 	desc = "Устройство для телепортации ящиков и шкафов на телепады карго."
@@ -54,8 +54,8 @@
 	return ..()
 
 /**
-  * Used to select telepad location.
-  */
+ * Used to select telepad location.
+ */
 /obj/item/rcs/attack_self(mob/user)
 	if(teleporting)
 		to_chat(user, span_warning("ОШИБКА: Невозможно изменить цель во время использования."))
@@ -89,12 +89,12 @@
 
 
 /**
-  * Returns a random location in a z level
-  *
-  * Defaults to Z level 1, with a 50% chance of being a different one.
-  * Z levels 1 to 4 are excluded from the alternatives.
-  * Coordinates are constrained within 50-200 x & y.
-  */
+ * Returns a random location in a z level
+ *
+ * Defaults to Z level 1, with a 50% chance of being a different one.
+ * Z levels 1 to 4 are excluded from the alternatives.
+ * Coordinates are constrained within 50-200 x & y.
+ */
 /obj/item/rcs/proc/random_coords()
 	var/Z = pick(levels_by_trait(STATION_LEVEL)) // Z level
 	// Random Coordinates

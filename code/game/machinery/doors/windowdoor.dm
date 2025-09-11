@@ -332,8 +332,10 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(panel_open && !density && !operating)
-		user.visible_message(span_warning("[user] removes the electronics from the [name]."), \
-							 "You start to remove electronics from the [name]...")
+		user.visible_message(
+			span_warning("[user] removes the electronics from the [name]."), \
+			"You start to remove electronics from the [name]..."
+		)
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(panel_open && !density && !operating && loc)
 				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)

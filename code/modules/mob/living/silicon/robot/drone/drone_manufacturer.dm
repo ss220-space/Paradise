@@ -1,13 +1,5 @@
 /obj/machinery/drone_fabricator
 	name = "drone fabricator"
-	ru_names = list(
-		NOMINATIVE = "фабрикатор дронов",
-		GENITIVE = "фабрикатора дронов",
-		DATIVE = "фабрикатору дронов",
-		ACCUSATIVE = "фабрикатор дронов",
-		INSTRUMENTAL = "фабрикатором дронов",
-		PREPOSITIONAL = "фабрикаторе дронов"
-	)
 	desc = "Большая автоматизированная фабрика для производства дронов обслуживания."
 	icon = 'icons/obj/machines/drone_fab.dmi'
 	icon_state = "drone_fab_idle"
@@ -20,6 +12,15 @@
 	var/produce_drones = TRUE
 	var/time_last_drone = 500
 
+/obj/machinery/drone_fabricator/get_ru_names()
+	return list(
+		NOMINATIVE = "фабрикатор дронов",
+		GENITIVE = "фабрикатора дронов",
+		DATIVE = "фабрикатору дронов",
+		ACCUSATIVE = "фабрикатор дронов",
+		INSTRUMENTAL = "фабрикатором дронов",
+		PREPOSITIONAL = "фабрикаторе дронов"
+	)
 
 /obj/machinery/drone_fabricator/update_icon_state()
 	if(stat & NOPOWER)
@@ -72,7 +73,7 @@
 			drones++
 	return drones
 
-/obj/machinery/drone_fabricator/proc/create_drone(var/client/player)
+/obj/machinery/drone_fabricator/proc/create_drone(client/player)
 
 	if(stat & NOPOWER)
 		return

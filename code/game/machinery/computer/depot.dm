@@ -1,9 +1,3 @@
-
-#define DEPOT_VISITOR_START	1
-#define DEPOT_VISITOR_END	2
-#define DEPOT_VISITOR_ADD	3
-
-
 // Generic parent depot computer type
 
 /obj/machinery/computer/syndicate_depot
@@ -215,7 +209,7 @@
 		return
 	if(depotarea)
 		depotarea.activate_self_destruct("Fusion reactor containment field disengaged. All hands, evacuate. All hands, evacuate!", TRUE, user)
-		playsound(user, sound_click, 20, 1)
+		playsound(user, sound_click, 20, TRUE)
 
 
 // Shield computer, used to manipulate base shield, and armory shield
