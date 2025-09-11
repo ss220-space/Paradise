@@ -56,7 +56,7 @@
 	F.floor_regular_dir = floor_dir
 	F.dir = floor_dir
 
-/obj/item/floor_painter/attack_self(var/mob/user)
+/obj/item/floor_painter/attack_self(mob/user)
 	if(!user)
 		return 0
 	user.set_machine(src)

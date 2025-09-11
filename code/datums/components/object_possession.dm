@@ -30,7 +30,7 @@
 	RegisterSignal(parent, COMSIG_MOB_GHOSTIZE, PROC_REF(end_possession))
 
 /datum/component/object_possession/UnregisterFromParent()
-    UnregisterSignal(parent, list(
+	UnregisterSignal(parent, list(
 		COMSIG_MOB_CLIENT_PRE_LIVING_MOVE,
 		COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE,
 		COMSIG_MOB_GHOSTIZE,

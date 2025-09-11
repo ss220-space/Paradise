@@ -50,7 +50,7 @@
 		return ..(active_with_role)
 	return 0
 
-/*/datum/event_meta/ninja/get_weight(var/list/active_with_role)
+/*/datum/event_meta/ninja/get_weight(list/active_with_role)
 	if(toggle_space_ninja)
 		return ..(active_with_role)
 	return 0*/
@@ -91,66 +91,66 @@
 /datum/event/nothing
 
 /**
-  * Called first before processing.
-  *
-  * Allows you to setup your event, such as randomly
-  * setting the startWhen and or announceWhen variables.
-  * Only called once.
-  */
+ * Called first before processing.
+ *
+ * Allows you to setup your event, such as randomly
+ * setting the startWhen and or announceWhen variables.
+ * Only called once.
+ */
 /datum/event/proc/setup()
 	return
 
 /**
-  * Called when the tick is equal to the startWhen variable.
-  *
-  * Allows you to start before announcing or vice versa.
-  * Only called once.
-  */
+ * Called when the tick is equal to the startWhen variable.
+ *
+ * Allows you to start before announcing or vice versa.
+ * Only called once.
+ */
 /datum/event/proc/start()
 	return
 
 /**
-  * Called when the tick is equal to the announceWhen variable.
-  *
-  * Allows you to announce before starting or vice versa.
-  * Only called once.
-  */
+ * Called when the tick is equal to the announceWhen variable.
+ *
+ * Allows you to announce before starting or vice versa.
+ * Only called once.
+ */
 /datum/event/proc/announce(false_alarm = FALSE)
 	return
 
 /**
-  * Called on or after the tick counter is equal to startWhen.
-  *
-  * You can include code related to your event or add your own
-  * time stamped events.
-  * Called more than once.
-  */
+ * Called on or after the tick counter is equal to startWhen.
+ *
+ * You can include code related to your event or add your own
+ * time stamped events.
+ * Called more than once.
+ */
 /datum/event/proc/tick()
 	return
 
 /**
-  * Called on or after the tick is equal or more than endWhen
-  *
-  * You can include code related to the event ending.
-  * Do not place spawn() in here, instead use tick() to check for
-  * the activeFor variable.
-  * For example: if(activeFor == myOwnVariable + 30) doStuff()
-  * Only called once.
-  */
+ * Called on or after the tick is equal or more than endWhen
+ *
+ * You can include code related to the event ending.
+ * Do not place spawn() in here, instead use tick() to check for
+ * the activeFor variable.
+ * For example: if(activeFor == myOwnVariable + 30) doStuff()
+ * Only called once.
+ */
 /datum/event/proc/end()
 	return
 
 /**
-  * Returns the latest point of event processing.
-  */
+ * Returns the latest point of event processing.
+ */
 /datum/event/proc/lastProcessAt()
 	return max(startWhen, max(announceWhen, endWhen))
 
 /**
-  * Do not override this proc, instead use the appropiate procs.
-  *
-  * This proc will handle the calls to the appropiate procs.
-  */
+ * Do not override this proc, instead use the appropiate procs.
+ *
+ * This proc will handle the calls to the appropiate procs.
+ */
 /datum/event/process()
 	if(!processing)
 		return
@@ -176,8 +176,8 @@
 	activeFor++
 
 /**
-  * Called when start(), announce() and end() has all been called.
-  */
+ * Called when start(), announce() and end() has all been called.
+ */
 /datum/event/proc/kill()
 	// If this event was forcefully killed run end() for individual cleanup
 	if(isRunning)
@@ -261,15 +261,15 @@
 		notify_ghosts("[name] has an object of interest: [atom_of_interest]!", title = "Something's Interesting!", source = atom_of_interest, action = NOTIFY_FOLLOW)
 
 /**
-  * Override this to make a custom fake announcement that differs from the normal announcement.
-  * Used for false alarms.
-  * If this proc returns TRUE, the regular Announce() won't be called.
-  */
+ * Override this to make a custom fake announcement that differs from the normal announcement.
+ * Used for false alarms.
+ * If this proc returns TRUE, the regular Announce() won't be called.
+ */
 /datum/event/proc/fake_announce()
 	return FALSE
 
 /**
-  * Override this to allow admins to configure the force event.
-  */
+ * Override this to allow admins to configure the force event.
+ */
 /datum/event/proc/admin_setup()
 	return

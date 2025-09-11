@@ -209,7 +209,7 @@
 /obj/item/card/id/proc/UpdateName()
 	name = "[src.registered_name]'s ID Card ([src.assignment])"
 
-/obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
+/obj/item/card/id/proc/SetOwnerInfo(mob/living/carbon/human/H)
 	if(!H || !H.dna)
 		return
 
@@ -391,6 +391,9 @@
 	desc = "A golden card which shows power and might."
 	icon_state = "gold"
 	item_state = "gold-id"
+
+/obj/item/card/id/gold/battle
+	access = list(ACCESS_CAPTAIN_REAL)
 
 /obj/item/card/id/syndicate
 	name = "agent card"
@@ -1087,6 +1090,9 @@
 	icon_state = "warden"
 	item_state = "warden-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+
+/obj/item/card/id/warden/battle
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_ARMORY_REAL)
 
 /obj/item/card/id/iaa
 	name = "IAA ID"

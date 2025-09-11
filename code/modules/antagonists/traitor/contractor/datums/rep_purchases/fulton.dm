@@ -1,6 +1,6 @@
 /**
-  * # Rep Purchase - Fulton Extraction Kit
-  */
+ * # Rep Purchase - Fulton Extraction Kit
+ */
 /datum/rep_purchase/item/fulton
 	name = "Набор для эвакуации \"Фултон\""
 	description = "Устройство, похожее на шахтёрское оборудование, но предназначенное для работы на космической станции. Оно используется для транспортировки целей в труднодоступные места."

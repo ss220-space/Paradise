@@ -10,17 +10,19 @@
 
 /datum/gear/accessory/scarf/New()
 	..()
-	var/list/scarfs = list(/obj/item/clothing/accessory/scarf/red,
-					 	   /obj/item/clothing/accessory/scarf/green,
-					 	   /obj/item/clothing/accessory/scarf/darkblue,
-					 	   /obj/item/clothing/accessory/scarf/purple,
-					 	   /obj/item/clothing/accessory/scarf/yellow,
-					 	   /obj/item/clothing/accessory/scarf/orange,
-					 	   /obj/item/clothing/accessory/scarf/lightblue,
-					 	   /obj/item/clothing/accessory/scarf/white,
-					 	   /obj/item/clothing/accessory/scarf/black,
-					 	   /obj/item/clothing/accessory/scarf/zebra,
-					 	   /obj/item/clothing/accessory/scarf/christmas,)
+	var/list/scarfs = list(
+		/obj/item/clothing/accessory/scarf/red,
+		/obj/item/clothing/accessory/scarf/green,
+		/obj/item/clothing/accessory/scarf/darkblue,
+		/obj/item/clothing/accessory/scarf/purple,
+		/obj/item/clothing/accessory/scarf/yellow,
+		/obj/item/clothing/accessory/scarf/orange,
+		/obj/item/clothing/accessory/scarf/lightblue,
+		/obj/item/clothing/accessory/scarf/white,
+		/obj/item/clothing/accessory/scarf/black,
+		/obj/item/clothing/accessory/scarf/zebra,
+		/obj/item/clothing/accessory/scarf/christmas
+	)
 	gear_tweaks += new /datum/gear_tweak/path(scarfs, src, TRUE)
 
 /datum/gear/accessory/scarfstriped
@@ -57,10 +59,12 @@
 
 /datum/gear/accessory/tie/New()
 	..()
-	var/list/ties = list(/obj/item/clothing/accessory/blue,
-						 /obj/item/clothing/accessory/red,
-						 /obj/item/clothing/accessory/black,
-						 /obj/item/clothing/accessory/horrible,)
+	var/list/ties = list(
+		/obj/item/clothing/accessory/blue,
+		/obj/item/clothing/accessory/red,
+		/obj/item/clothing/accessory/black,
+		/obj/item/clothing/accessory/horrible
+	)
 	gear_tweaks += new /datum/gear_tweak/path(ties, src, TRUE)
 
 /datum/gear/accessory/stethoscope

@@ -1,10 +1,10 @@
 /**
-  * # Telecommunications Relay
-  *
-  * Extends the reach of telecomms to the z-level it is built on
-  *
-  * Relays themselves dont do any processing, they just tell the core that this z-level is available in the tcomms network.
-  */
+ * # Telecommunications Relay
+ *
+ * Extends the reach of telecomms to the z-level it is built on
+ *
+ * Relays themselves dont do any processing, they just tell the core that this z-level is available in the tcomms network.
+ */
 /obj/machinery/tcomms/relay
 	name = "telecommunications relay"
 	desc = "Реле телекоммуникационной системы - узел маршрутизации сигнала, обеспечивающий связь на объекте посредством подключения к удалённому ядру телекоммуникаций. \
@@ -34,10 +34,10 @@
 	)
 
 /**
-  * Initializer for the relay.
-  *
-  * Calls parent to ensure its added to the GLOB of tcomms machines, before checking if there is an autolink that needs to be added.
-  */
+ * Initializer for the relay.
+ *
+ * Calls parent to ensure its added to the GLOB of tcomms machines, before checking if there is an autolink that needs to be added.
+ */
 /obj/machinery/tcomms/relay/Initialize(mapload)
 	. = ..()
 	component_parts += new /obj/item/circuitboard/tcomms/relay(null)
@@ -50,19 +50,19 @@
 		return INITIALIZE_HINT_LATELOAD
 
 /**
-  * Descrutor for the relay.
-  *
-  * Ensures that the machine is taken out of the global list when destroyed, and also removes the link to the core.
-  */
+ * Descrutor for the relay.
+ *
+ * Ensures that the machine is taken out of the global list when destroyed, and also removes the link to the core.
+ */
 /obj/machinery/tcomms/relay/Destroy()
 	Reset()
 	return ..()
 
 /**
-  * Late Initialize for the relay.
-  *
-  * Calls parent, then adds links to the cores. This is a LateInitialize because the core MUST be initialized first
-  */
+ * Late Initialize for the relay.
+ *
+ * Calls parent, then adds links to the cores. This is a LateInitialize because the core MUST be initialized first
+ */
 /obj/machinery/tcomms/relay/LateInitialize()
 	. = ..()
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
@@ -72,10 +72,10 @@
 			break
 
 /**
-  * Z-Level transit change helper
-  *
-  * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels on the linked core
-  */
+ * Z-Level transit change helper
+ *
+ * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels on the linked core
+ */
 /obj/machinery/tcomms/relay/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer)
 	. = ..()
 	if(linked_core)
@@ -83,10 +83,10 @@
 
 
 /**
-  * Power-on checker
-  *
-  * Checks the z-level to see if an existing relay is already powered on, and deny this one turning on if there is one. Returns TRUE if it can power on, or FALSE if it cannot
-  */
+ * Power-on checker
+ *
+ * Checks the z-level to see if an existing relay is already powered on, and deny this one turning on if there is one. Returns TRUE if it can power on, or FALSE if it cannot
+ */
 /obj/machinery/tcomms/relay/proc/check_power_on()
 	// Cancel if we are already on
 	if(active)
@@ -110,13 +110,13 @@
 	return TRUE
 
 /**
-  * Proc to link the relay to the core.
-  *
-  * Sets the linked core to the target (argument below), before adding it to the list of linked relays, then re-freshing the zlevel list
-  * The relay is then marked as linked
-  * Arguments:
-  * * target - The telecomms core that this relay should be linked to
-  */
+ * Proc to link the relay to the core.
+ *
+ * Sets the linked core to the target (argument below), before adding it to the list of linked relays, then re-freshing the zlevel list
+ * The relay is then marked as linked
+ * Arguments:
+ * * target - The telecomms core that this relay should be linked to
+ */
 /obj/machinery/tcomms/relay/proc/AddLink(obj/machinery/tcomms/core/target)
 	linked_core = target
 	target.linked_relays |= src
@@ -124,10 +124,10 @@
 	linked = TRUE
 
 /**
-  * Proc to rest the relay.
-  *
-  * Resets the relay, removing its linkage status, and refreshing the core's list of z-levels
-  */
+ * Proc to rest the relay.
+ *
+ * Resets the relay, removing its linkage status, and refreshing the core's list of z-levels
+ */
 /obj/machinery/tcomms/relay/proc/Reset()
 	if(linked_core)
 		linked_core.linked_relays -= src
@@ -136,10 +136,10 @@
 		linked = FALSE
 
 /**
-  * Power Change Handler
-  *
-  * Proc which ensures the host core has its zlevels updated (icons are updated by parent call)
-  */
+ * Power Change Handler
+ *
+ * Proc which ensures the host core has its zlevels updated (icons are updated by parent call)
+ */
 /obj/machinery/tcomms/relay/power_change(forced = FALSE)
 	if(!..())
 		return

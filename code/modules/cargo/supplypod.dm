@@ -62,10 +62,21 @@
 		PREPOSITIONAL = "капсуле снабжения"
 	)
 
+
 /obj/structure/closet/supplypod/bluespacepod
 	style = /datum/pod_style/advanced
 	bluespace = TRUE
 	explosionSize = list(0, 0, 1, 2)
+
+/obj/structure/closet/supplypod/bluespacepod/airdrop
+	style = /datum/pod_style/seethrough
+	explosionSize = list(0, 0, 0, 0)
+	delays = list(POD_TRANSIT = 30 SECONDS, POD_FALLING = 10 SECONDS, POD_OPENING = 1 SECONDS, POD_LEAVING = 0)
+
+/obj/structure/closet/supplypod/bluespacepod/airdrop_guard
+	style = /datum/pod_style/syndicate
+	explosionSize = list(0, 0, 0, 0)
+	delays = list(POD_TRANSIT = 30 SECONDS, POD_FALLING = 10 SECONDS, POD_OPENING = 1 SECONDS, POD_LEAVING = 0)
 
 //type used for one drop spawning items. doesn't have a style as style is set by the helper that creates this
 /obj/structure/closet/supplypod/podspawn
@@ -218,6 +229,38 @@
 		PREPOSITIONAL = "крылатой ракетой"
 	)
 
+/obj/structure/closet/supplypod/deadmatch_missile/endgame
+	explosionSize = list(255, 255, 255, 0)
+	delays = list(POD_TRANSIT = 30 SECONDS, POD_FALLING = 10 SECONDS)
+
+/obj/structure/closet/supplypod/deadmatch_missile/endgame/preOpen()
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(nuke_effect), z)
+	. = ..()
+
+/proc/nuke_effect(z)
+	for(var/mob/living as anything in GLOB.mob_list)
+		if(living.stat == DEAD)
+			continue
+
+		var/turf/turf = get_turf(living)
+
+		if(!turf || (turf.z != z) || isnewplayer(living) || istype(living.loc, /obj/structure/closet/secure_closet/freezer))
+			continue
+
+		living.ghostize()
+		living.dust() //no mercy
+		CHECK_TICK
+
+	for(var/core in GLOB.blob_cores)
+		var/turf/turf = get_turf(core)
+
+		if(!(turf && (turf.z == z)))
+			continue
+
+		qdel(core)
+		CHECK_TICK
+
+	SSticker.mode.end_game()
 
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()

@@ -1,15 +1,11 @@
-#define VV_MSG_MARKED "<br><font size='1' color='red'><b>Marked Object</b></font>"
-#define VV_MSG_EDITED "<br><font size='1' color='red'><b>Var Edited</b></font>"
-#define VV_MSG_ADMIN_SPAWNED "<br><font size='1' color='red'><b>Admin Spawned</b></font>"
-#define VV_MSG_DELETED "<br><font size='1' color='red'><b>Deleted</b></font>"
-// reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
+// reference: /client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
 
 /**
-  * Proc to check if a datum allows proc calls on it
-  *
-  * Returns TRUE if you can call a proc on the datum, FALSE if you cant
-  *
-  */
+ * Proc to check if a datum allows proc calls on it
+ *
+ * Returns TRUE if you can call a proc on the datum, FALSE if you cant
+ *
+ */
 /datum/proc/CanProcCall(procname)
 	return TRUE
 
@@ -475,7 +471,7 @@
 	src << output("[span]:[content]", "variables[D.UID()].browser:replace_span")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
-/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE, display_flags)
+/proc/debug_variable(name, value, level, datum/DA = null, sanitize = TRUE, display_flags)
 	var/header
 	if(DA)
 		if(islist(DA))

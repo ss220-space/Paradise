@@ -1,13 +1,19 @@
-#define BEE_IDLE_ROAMING		70 //The value of idle at which a bee in a beebox will try to wander
-#define BEE_IDLE_GOHOME			0  //The value of idle at which a bee will try to go home
-#define BEE_PROB_GOHOME			35 //Probability to go home when idle is below BEE_IDLE_GOHOME
-#define BEE_PROB_GOROAM			5 //Probability to go roaming when idle is above BEE_IDLE_ROAMING
-#define BEE_TRAY_RECENT_VISIT	200	//How long in deciseconds until a tray can be visited by a bee again
-#define BEE_DEFAULT_COLOUR		"#e5e500" //the colour we make the stripes of the bee if our reagent has no colour (or we have no reagent)
+///The value of idle at which a bee in a beebox will try to wander
+#define BEE_IDLE_ROAMING 70
+///The value of idle at which a bee will try to go home
+#define BEE_IDLE_GOHOME 0
+///Probability to go home when idle is below BEE_IDLE_GOHOME
+#define BEE_PROB_GOHOME 35
+///Probability to go roaming when idle is above BEE_IDLE_ROAMING
+#define BEE_PROB_GOROAM 5
+///How long in deciseconds until a tray can be visited by a bee again
+#define BEE_TRAY_RECENT_VISIT 200
+///The colour we make the stripes of the bee if our reagent has no colour (or we have no reagent)
+#define BEE_DEFAULT_COLOUR "#e5e500"
 
-#define BEE_POLLINATE_YIELD_CHANCE		33
-#define BEE_POLLINATE_PEST_CHANCE		33
-#define BEE_POLLINATE_POTENCY_CHANCE	50
+#define BEE_POLLINATE_YIELD_CHANCE 33
+#define BEE_POLLINATE_PEST_CHANCE 33
+#define BEE_POLLINATE_POTENCY_CHANCE 50
 
 /mob/living/simple_animal/hostile/poison/bees
 	name = "bee"
@@ -372,3 +378,13 @@
 		var/mob/living/L = target
 		if(L.stat)
 			lose_target()
+
+#undef BEE_IDLE_ROAMING
+#undef BEE_IDLE_GOHOME
+#undef BEE_PROB_GOHOME
+#undef BEE_PROB_GOROAM
+#undef BEE_TRAY_RECENT_VISIT
+#undef BEE_DEFAULT_COLOUR
+#undef BEE_POLLINATE_YIELD_CHANCE
+#undef BEE_POLLINATE_PEST_CHANCE
+#undef BEE_POLLINATE_POTENCY_CHANCE
