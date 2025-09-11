@@ -1,3 +1,6 @@
+#define REAGENT_UNITS_1 1
+#define REAGENT_UNITS_5 5
+
 /datum/reagent/spider_eggs
 	name = "Паучьи яйца"
 	id = "spidereggs"
@@ -251,3 +254,6 @@
 	name = "Ослабленная вирусная плазма"
 	id = "weakplasmavirusfood"
 	color = "#CEC3C6" // rgb: 206,195,198
+
+#undef REAGENT_UNITS_1
+#undef REAGENT_UNITS_5

@@ -58,8 +58,8 @@
 	return TRUE
 
 /**
-  * Updates the `patient` var to be the mob occupying the table
-  */
+ * Updates the `patient` var to be the mob occupying the table
+ */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/patient_carbon = locate(/mob/living/carbon, loc)
 	if(patient_carbon && patient_carbon.body_position == LYING_DOWN)

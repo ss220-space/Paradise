@@ -110,14 +110,14 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	. = ..()
 
 /**
-  * Decides at the start of the round how many conversions are needed to reveal or how many power supplied to reveal.
-  *
-  * The number is decided by (Percentage * (Players - clockers)), so for example at 110 players it would be 16 conversions for rise. (0.15 * (110 - 4))
-  * These values change based on population because 20 clockers are MUCH more powerful if there's only 50 players, compared to 120.
-  *
-  * Below 100 players, [CLOCK_POWER_REVEAL_LOW] and [CLOCK_CREW_REVEAL_LOW] are used.
-  * Above 100 players, [CLOCK_POWER_REVEAL_HIGH] and [CLOCK_CREW_REVEAL_HIGH] are used.
-  */
+ * Decides at the start of the round how many conversions are needed to reveal or how many power supplied to reveal.
+ *
+ * The number is decided by (Percentage * (Players - clockers)), so for example at 110 players it would be 16 conversions for rise. (0.15 * (110 - 4))
+ * These values change based on population because 20 clockers are MUCH more powerful if there's only 50 players, compared to 120.
+ *
+ * Below 100 players, [CLOCK_POWER_REVEAL_LOW] and [CLOCK_CREW_REVEAL_LOW] are used.
+ * Above 100 players, [CLOCK_POWER_REVEAL_HIGH] and [CLOCK_CREW_REVEAL_HIGH] are used.
+ */
 /datum/game_mode/proc/clockwork_threshold_check()
 	var/players = length(GLOB.player_list)
 	var/clockers = get_clockers() // Don't count the starting clockers towards the number of needed conversions
@@ -136,12 +136,12 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	add_game_logs("Clockwork Cult power/crew reveal numbers: [power_reveal_number]/[crew_reveal_number].")
 
 /**
-  * Returns the current number of clockers and constructs.
-  *
-  * Returns the number of clockers and constructs in a list ([1] = Clockers, [2] = Constructs), or as one combined number.
-  *
-  * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
-  */
+ * Returns the current number of clockers and constructs.
+ *
+ * Returns the number of clockers and constructs in a list ([1] = Clockers, [2] = Constructs), or as one combined number.
+ *
+ * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
+ */
 /datum/game_mode/proc/get_clockers(separate = FALSE)
 	var/clockers = 0
 	var/constructs = 0

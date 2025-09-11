@@ -1,6 +1,7 @@
 //HONKsquad
 
 #define HONKSQUAD_POSSIBLE 6 //if more Commandos are needed in the future
+
 GLOBAL_VAR_INIT(sent_honksquad, 0)
 GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
@@ -94,7 +95,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	new_honksquad.equip_honksquad(honk_leader_selected, rankName)
 	return new_honksquad
 
-/mob/living/carbon/human/proc/equip_honksquad(honk_leader_selected = 0, var/rankName)
+/mob/living/carbon/human/proc/equip_honksquad(honk_leader_selected = 0, rankName)
 
 	var/obj/item/radio/R = new /obj/item/radio/headset(src)
 	R.set_frequency(1442)
@@ -155,3 +156,5 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 			new_honksquad.equipOutfit(/datum/outfit/admin/clown_security)
 
 	return new_honksquad
+
+#undef HONKSQUAD_POSSIBLE

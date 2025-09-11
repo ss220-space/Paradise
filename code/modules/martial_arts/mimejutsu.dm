@@ -20,7 +20,7 @@
 		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
 	return TRUE
 
-/datum/martial_art/mimejutsu/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/mimejutsu/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 	var/bonus_damage = 15

@@ -1,7 +1,6 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS
 #define COCOON_EMERGE_DELAY 15 SECONDS
 #define COCOON_HARM_AMOUNT 50
-#define COCOON_NUTRITION_REQUIREMENT 201
 #define COCOON_NUTRITION_AMOUNT -200
 #define FLYSWATTER_DAMAGE_MULTIPLIER 10
 #define MOTH_PITCH_SHIFT 0.15 // a bit higher emotes
@@ -268,7 +267,6 @@
 /datum/species/moth/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	. = ..()
 	. += MOTH_PITCH_SHIFT
-
 
 #undef COCOON_WEAVE_DELAY
 #undef COCOON_EMERGE_DELAY

@@ -1,11 +1,11 @@
 /*
-	AI ClickOn()
-
-	The AI can double click to move the camera (this was already true but is cleaner),
-	or double click a mob to track them.
-
-	Note that AI have no need for the adjacency proc, and so this proc is a lot cleaner.
-*/
+ * AI ClickOn()
+ *
+ * The AI can double click to move the camera (this was already true but is cleaner),
+ * or double click a mob to track them.
+ *
+ * Note that AI have no need for the adjacency proc, and so this proc is a lot cleaner.
+ */
 /mob/living/silicon/ai/DblClickOn(atom/A, params)
 	if(client.click_intercept)
 		// Not doing a click intercept here, because otherwise we double-tap with the `ClickOn` proc.
@@ -146,7 +146,7 @@
 /mob/living/silicon/ai/CtrlClickOn(atom/A)
 	A.AICtrlClick(src)
 /mob/living/silicon/ai/MiddleClickOn(atom/A)
-    A.AIMiddleClick(src)
+	A.AIMiddleClick(src)
 
 // DEFAULT PROCS TO OVERRIDE
 

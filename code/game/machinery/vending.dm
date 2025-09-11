@@ -496,13 +496,13 @@
 
 
 /**
-  * Refill a vending machine from a refill canister
-  *
-  * This takes the products from the refill canister and then fills the products, contraband and premium product categories
-  *
-  * Arguments:
-  * * canister - the vending canister we are refilling from
-  */
+ * Refill a vending machine from a refill canister
+ *
+ * This takes the products from the refill canister and then fills the products,contraband and premium product categories
+ *
+ * Arguments:
+ * * canister - the vending canister we are refilling from
+ */
 /obj/machinery/vending/proc/restock(obj/item/vending_refill/canister)
 	if(!canister.products)
 		canister.products = products.Copy()
@@ -533,12 +533,12 @@
 	return .
 
 /**
-  * Refill our inventory from the passed in product list into the record list
-  *
-  * Arguments:
-  * * productlist - list of types -> amount
-  * * recordlist - existing record datums
-  */
+ * Refill our inventory from the passed in product list into the record list
+ *
+ * Arguments:
+ * * productlist - list of types -> amount
+ * * recordlist - existing record datums
+ */
 /obj/machinery/vending/proc/refill_inventory(list/productlist, list/recordlist)
 	. = 0
 	for(var/datum/data/vending_product/record as anything in recordlist)
@@ -548,10 +548,10 @@
 			record.amount += diff
 			. += diff
 /**
-  * Set up a refill canister that matches this machines products
-  *
-  * This is used when the machine is deconstructed, so the items aren't "lost"
-  */
+ * Set up a refill canister that matches this machines products
+ *
+ * This is used when the machine is deconstructed, so the items aren't "lost"
+ */
 /obj/machinery/vending/proc/update_canister()
 	if(!component_parts)
 		return
@@ -565,8 +565,8 @@
 	record.premium = unbuild_inventory(coin_records)
 
 /**
-  * Given a record list, go through and and return a list of type -> amount
-  */
+ * Given a record list, go through and and return a list of type -> amount
+ */
 /obj/machinery/vending/proc/unbuild_inventory(list/recordlist)
 	. = list()
 	for(var/datum/data/vending_product/record as anything in recordlist)
@@ -1994,13 +1994,13 @@
 					/obj/item/clothing/suit/syndicatefake = 5,
 					/obj/item/clothing/head/syndicatefake = 5) //OPS IN DORMS oh wait it's just an assistant
 	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow = 10,   //Congrats, you unlocked the +18 setting!
-					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
-					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
- 					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
-					  /obj/item/ammo_box/foambox/riot = 20,
-					  /obj/item/toy/katana = 10,
-					  /obj/item/twohanded/dualsaber/toy = 5,
-					  /obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
+					/obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
+					/obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
+					/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
+					/obj/item/ammo_box/foambox/riot = 20,
+					/obj/item/toy/katana = 10,
+					/obj/item/twohanded/dualsaber/toy = 5,
+					/obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 

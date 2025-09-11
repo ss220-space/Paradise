@@ -113,7 +113,7 @@ Pipelines + Other Objects -> Pipe network
 		return FALSE
 	return TRUE
 
-/obj/machinery/atmospherics/proc/color_cache_name(var/obj/machinery/atmospherics/node)
+/obj/machinery/atmospherics/proc/color_cache_name(obj/machinery/atmospherics/node)
 	//Don't use this for standard pipes
 	if(!istype(node))
 		return null

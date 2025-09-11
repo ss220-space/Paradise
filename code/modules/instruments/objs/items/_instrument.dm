@@ -47,10 +47,10 @@
 	return song.ui_act(action, params, ui, state)
 
 /**
-  * Whether the instrument should stop playing
-  *
-  * Arguments:
-  * * user - The user
-  */
+ * Whether the instrument should stop playing
+ *
+ * Arguments:
+ * * user - The user
+ */
 /obj/item/instrument/proc/should_stop_playing(mob/user)
 	return !(src in user) || !isliving(user) || user.incapacitated()
