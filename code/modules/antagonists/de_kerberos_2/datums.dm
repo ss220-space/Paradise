@@ -2,7 +2,7 @@
 	name = "Зеленые"
 	special_role = JOB_TITLE_TEAM1
 	show_in_roundend = FALSE
-	show_in_orbit = TRUE
+	show_in_orbit = FALSE
 	antag_menu_name = "Зеленые"
 	antag_hud_name = "team1"
 	antag_hud_type = ANTAG_HUD_TEAM_1
@@ -20,7 +20,7 @@
 	name = "Синие"
 	special_role = JOB_TITLE_TEAM2
 	show_in_roundend = FALSE
-	show_in_orbit = TRUE
+	show_in_orbit = FALSE
 	antag_menu_name = "Синие"
 	antag_hud_name = "team2"
 	antag_hud_type = ANTAG_HUD_TEAM_2
@@ -29,7 +29,7 @@
 	name = "Красные"
 	special_role = JOB_TITLE_TEAM3
 	show_in_roundend = FALSE
-	show_in_orbit = TRUE
+	show_in_orbit = FALSE
 	antag_menu_name = "Красные"
 	antag_hud_name = "team3"
 	antag_hud_type = ANTAG_HUD_TEAM_3

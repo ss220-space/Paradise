@@ -3,6 +3,7 @@
 #define ROCKET_TIME 25 MINUTES
 #define AIRDROP_COUNT 5
 #define AIRDROP_GUARD_COUND 7
+#define RESPAWN_DELAY 10
 
 /datum/game_mode/de_kerberos_2
 	name = "de_kerberos_2"
@@ -52,6 +53,7 @@
 	SSevents.can_fire = FALSE
 	GLOB.off_mob_spawns = TRUE
 	GLOB.captain_auth_access = ACCESS_CAPTAIN_REAL
+	GLOB.respawn_delay = RESPAWN_DELAY
 	spawn_corpses()
 	addtimer(CALLBACK(src, PROC_REF(set_gamma_code)), GAMMA_TIME)
 	addtimer(CALLBACK(src, PROC_REF(spawn_airdrop)), AIRDROP_TIME)
@@ -108,3 +110,4 @@
 #undef ROCKET_TIME
 #undef AIRDROP_COUNT
 #undef AIRDROP_GUARD_COUND
+#undef RESPAWN_DELAY

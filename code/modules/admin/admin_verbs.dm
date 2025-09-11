@@ -1045,15 +1045,18 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "De-admin self"
 	set category = STATPANEL_ADMIN_ADMIN
 
-	if(!check_rights(R_ADMIN|R_MENTOR))
+	if(!check_rights(R_ADMIN|R_MENTOR|R_VIEWRUNTIMES))
 		return
 
 	log_admin("[key_name(usr)] deadmined themself.")
 	message_admins("[key_name_admin(usr)] deadmined themself.")
 	if(check_rights(R_ADMIN, FALSE))
 		GLOB.de_admins |= ckey
-	else
+	else if(check_rights(R_MENTOR, FALSE))
 		GLOB.de_mentors |= ckey
+	else
+		GLOB.de_devs |= ckey
+
 	deadmin()
 	add_verb(src, /client/proc/readmin)
 	update_active_keybindings()
@@ -1159,6 +1162,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		remove_verb(src, /client/proc/readmin)
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
+		GLOB.de_devs -= ckey
 		return
 
 /client/proc/select_next_map()
