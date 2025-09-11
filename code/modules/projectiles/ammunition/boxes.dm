@@ -630,7 +630,7 @@
 	desc = "Коробка, содержащая патроны калибра 4,6x30 мм."
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
-	max_ammo = 40
+	max_ammo = 60
 
 /obj/item/ammo_box/c46x30mm/get_ru_names()
 	return list(
