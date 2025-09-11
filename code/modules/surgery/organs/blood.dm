@@ -21,6 +21,9 @@
 #define BLOODLOSS_SPEED_BY_VOLUME_MAX 1
 #define BLOODLOSS_SPEED_BY_VOLUME_MIN 0.5
 
+#define BLOODLOSS_SPEED_BY_TEMP_MAX 1
+#define BLOODLOSS_SPEED_BY_TEMP_MIN 0.5
+
 // Bledding calculation constants
 /// Bleeding per embedded item (units per 2 sec)
 #define EMBEDDED_ITEM_BLEEDING 0.2
@@ -190,13 +193,15 @@
 	if(traneksam_amount > 0)
 		additional_bleed_mod -= round(clamp((traneksam_amount / 10), 0, 1) * 0.75, 0.05) //traneksam acid suppress existing bleeding
 	// calculate speed mod by blood volume
-	var/speed_by_volume = get_bloodloss_speed_mod()
+	var/speed_by_volume = get_bloodloss_speed_mod_by_volume()
+	// calculate speed mod by body temperature
+	var/speed_by_bodytemperature = get_bloodloss_speed_mod_by_temperature()
 	// apply internal bleeding
 	if(internal_bleeding_rate)
-		bleed_internal(internal_bleeding_rate * additional_bleed_mod * speed_by_volume)
+		bleed_internal(internal_bleeding_rate * additional_bleed_mod * speed_by_volume * speed_by_bodytemperature)
 	// apply bleeding
 	if(bleed_rate && !bleedsuppress)
-		bleed(bleed_rate * additional_bleed_mod * speed_by_volume)
+		bleed(bleed_rate * additional_bleed_mod * speed_by_volume * speed_by_bodytemperature)
 	// make bloodsplatter for arterial bleeding
 	if(has_arterial_bleed)
 		var/blood_color = dna.species.blood_color
@@ -204,9 +209,17 @@
 		var/target_loc = get_turf(src)
 		new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loc, splatter_dir, blood_color)
 
-/mob/living/carbon/human/proc/get_bloodloss_speed_mod()
+/mob/living/carbon/human/proc/get_bloodloss_speed_mod_by_volume()
 	var/blood_volume_percent = clamp(blood_volume / BLOOD_VOLUME_NORMAL, 0, 1)
 	return BLOODLOSS_SPEED_BY_VOLUME_MIN + (BLOODLOSS_SPEED_BY_VOLUME_MAX - BLOODLOSS_SPEED_BY_VOLUME_MIN) * blood_volume_percent
+
+/mob/living/carbon/human/proc/get_bloodloss_speed_mod_by_temperature()
+	if(bodytemperature >= BODYTEMP_NORMAL * 0.75)
+		return BLOODLOSS_SPEED_BY_TEMP_MAX
+	if(bodytemperature <= T0C)
+		return BLOODLOSS_SPEED_BY_TEMP_MIN
+	var/temperature_percent = clamp((bodytemperature - T0C) / (BODYTEMP_NORMAL * 0.75 - T0C), 0, 1)
+	return BLOODLOSS_SPEED_BY_TEMP_MIN + (BLOODLOSS_SPEED_BY_TEMP_MAX - BLOODLOSS_SPEED_BY_TEMP_MIN) * temperature_percent
 
 
 /// Makes a blood drop, leaking amt units of blood from the mob
