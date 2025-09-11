@@ -688,6 +688,18 @@ MINUTE_TOPIC_LIMIT 150
 SECOND_CLICK_LIMIT 15
 MINUTE_CLICK_LIMIT 400
 
+## INSTANCE
+ENABLE_MULTI_INSTANCE
+#ENABLE_INSTANCE_ANNOUNCE
+INSTANCE_ID paradise_main
+INTERNAL_IP 127.0.0.1
+
+## REDIS
+## Enable redis subsystem
+#ENABLE_REDIS
+## Redis connection string
+#REDIS_CONNSTRING redis://127.0.0.1/
+
 ## Assets can opt-in to caching their results into `cache/`.
 ## This is important, as preferences assets take upwards of 30 seconds (without sleeps) to collect.
 ## The cache is assumed to be cleared by TGS recompiling, which deletes `cache/`.

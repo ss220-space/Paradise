@@ -80,9 +80,9 @@
 		var/image/holder = hud_list[STATUS_HUD]
 		holder.pixel_y = get_cached_height() - ICON_SIZE_Y
 		if(summoner.stat == DEAD)
-			holder.icon_state = "huddead"
+			holder.icon_state = STATUS_HUD_DEAD
 		else
-			holder.icon_state = "hudhealthy"
+			holder.icon_state = STATUS_HUD_HEALTHY
 
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()
