@@ -227,7 +227,7 @@ if grep '#define FAST_LOAD' _maps/common.dm | grep -v '\/\/#define FAST_LOAD'; t
 	echo
     st=1
 fi;
-if grep -P '^/[\w/]\S+\(.*(var/|, ?var/.*).*\)' code/**/*.dm; then
+if grep -P '^/[\w/]\S+\((var/)?.*(, ?var/.*).*\)' code/**/*.dm; then
 	echo -e "${RED}ERROR: Changed files contains a proc argument starting with 'var'.${NC}"
 	echo
 	st=1
