@@ -40,7 +40,7 @@
 		if(EXPLODE_DEVASTATE)
 			for(var/atom/movable/AM in contents)
 				AM.forceMove(loc)
-				AM.ex_act(severity++)
+				AM.ex_act(severity--)
 
 			qdel(src)
 			return
@@ -48,7 +48,7 @@
 			if(prob(50))
 				for(var/atom/movable/AM in contents)
 					AM.forceMove(loc)
-					AM.ex_act(severity++)
+					AM.ex_act(severity--)
 
 				qdel(src)
 				return

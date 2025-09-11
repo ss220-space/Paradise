@@ -763,11 +763,12 @@
 
 /obj/mecha/ex_act(severity, target)
 	log_message("Affected by explosion of severity: [severity].")
-	if(prob(deflect_chance))
-		severity++
+	if(prob(deflect_chance) && severity)
+		severity--
 		log_message("Armor saved, changing severity to [severity]")
 	. = ..()
-	severity++
+	if(severity)
+		severity--
 	for(var/X in equipment)
 		var/obj/item/mecha_parts/mecha_equipment/ME = X
 		ME.ex_act(severity)
@@ -779,7 +780,7 @@
 
 	for(var/X in cargo)
 		var/atom/movable/cargo_thing = X
-		if(prob(30 / severity))
+		if(prob(10 * severity))
 			cargo -= cargo_thing
 			cargo_thing.forceMove(drop_location())
 
