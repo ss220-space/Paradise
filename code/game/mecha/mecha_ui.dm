@@ -80,6 +80,7 @@
 	data["modules"] = get_module_ui_data()
 	data["cargo"] = get_cargo_ui_data()
 	data["selected_module_index"] = ui_selected_module_index
+	data["ui_honked"] = ui_honked
 
 	return data
 

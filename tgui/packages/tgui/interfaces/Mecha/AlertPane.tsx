@@ -22,8 +22,8 @@ export const InternalDamageToNormalDesc = {
 
 export const AlertPane = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { internal_damage, internal_damage_keys, ui_theme } = data;
-  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
+  const { internal_damage, internal_damage_keys, ui_honked } = data;
+  const honk = useHonk(ui_honked ? 0.4 : 0);
   return (
     <Section title={honk('Статус')}>
       <Stack vertical>
@@ -35,6 +35,7 @@ export const AlertPane = (props) => {
                   color={
                     internal_damage & internal_damage_keys[t] ? 'bad' : 'good'
                   }
+                  style={{ textShadow: '1px 1px 0 black' }}
                 >
                   <Icon
                     mr={1}
@@ -44,13 +45,11 @@ export const AlertPane = (props) => {
                         : 'check'
                     }
                   />
-                  {ui_theme === 'ntos_lightmode'
-                    ? '...'
-                    : honk(
-                        internal_damage & internal_damage_keys[t]
-                          ? InternalDamageToDamagedDesc[t]
-                          : InternalDamageToNormalDesc[t]
-                      )}
+                  {honk(
+                    internal_damage & internal_damage_keys[t]
+                      ? InternalDamageToDamagedDesc[t]
+                      : InternalDamageToNormalDesc[t]
+                  )}
                 </Box>
               </Stack.Item>
             </Stack>

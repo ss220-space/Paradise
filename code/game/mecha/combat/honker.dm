@@ -18,6 +18,7 @@
 	starting_voice = /obj/item/mecha_modkit/voice/honk
 	var/squeak = 0
 	ui_theme = "honker"
+	ui_honked = TRUE
 
 	mech_type = MECH_TYPE_HONKER
 

@@ -15,6 +15,7 @@
 	max_integrity = 300 //max_integrity is base health
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
 	bubble_icon = "machine"
+	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
@@ -139,8 +140,8 @@
 	var/ui_theme = "ntos"
 	/// Index of selected item for ui
 	var/ui_selected_module_index
-
-	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
+	/// Honkify interface
+	var/ui_honked = FALSE
 
 /obj/mecha/Initialize(mapload)
 	. = ..()
@@ -850,6 +851,9 @@
 ////// AttackBy //////
 //////////////////////
 
+#define TOGGLE_ID "Переключить доступ по ID"
+#define TOGGLE_MAINTENANCE "Переключить тех. обслуживание"
+
 /obj/mecha/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		if(I.force)
@@ -881,32 +885,18 @@
 
 	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
-		var/choose = tgui_input_list(user, "Выберите взаимодействие.", "Техническое обслуживание", list("Переключить доступ по ID", "Переключить тех. обслуживание"))
+		var/choose = tgui_input_list(user, "Выберите взаимодействие.", "Техническое обслуживание", list(TOGGLE_ID, TOGGLE_MAINTENANCE))
 		if(!choose || !Adjacent(user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 		switch(choose)
-			if("Переключить доступ по ID")
+			if(TOGGLE_ID)
 				if(!operation_allowed(user))
 					return ATTACK_CHAIN_PROCEED
-
 				id_lock_on = !id_lock_on
 				to_chat(user, "Теперь ID [id_lock_on ? "" : "не"] требуется для управления.")
-
-			if("Переключить тех. обслуживание")
-				switch(maintenance_progress)
-					if(MECHA_LOCKED)
-						maintenance_progress = MECHA_SECURE_BOLTS
-						to_chat(user, "Крепежные болты зафиксированы.")
-						if(occupant)
-							occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
-					if(MECHA_SECURE_BOLTS)
-						maintenance_progress = MECHA_LOCKED
-						to_chat(user, "Крепежные болты убраны.")
-						if(occupant)
-							occupant.clear_alert("locked")
-					else
-						to_chat(user, "[declent_ru(NOMINATIVE)] не готов к взаимодействию.")
+			if(TOGGLE_MAINTENANCE)
+				toggle_maintenance(user)
 
 		return ATTACK_CHAIN_PROCEED
 
@@ -988,6 +978,24 @@
 		add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[name]' using [I]")
 
 	return ..()
+
+#undef TOGGLE_ID
+#undef TOGGLE_MAINTENANCE
+
+/obj/mecha/proc/toggle_maintenance(mob/user)
+	switch(maintenance_progress)
+		if(MECHA_LOCKED)
+			maintenance_progress = MECHA_SECURE_BOLTS
+			to_chat(user, "Крепежные болты зафиксированы.")
+			if(occupant)
+				occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
+		if(MECHA_SECURE_BOLTS)
+			maintenance_progress = MECHA_LOCKED
+			to_chat(user, "Крепежные болты убраны.")
+			if(occupant)
+				occupant.clear_alert("locked")
+		else
+			to_chat(user, "[declent_ru(NOMINATIVE)] не готов к взаимодействию.")
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)

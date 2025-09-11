@@ -243,7 +243,7 @@
 
 	var/atom/movable/screen/alert/empty_alert/default_alert = occupant.throw_alert(alert_category, /atom/movable/screen/alert/empty_alert, new_master = src)
 	default_alert.name = name
-	default_alert.desc = "Выбран модуль [src.name]"
+	default_alert.desc = "Выбран модуль [declent_ru(NOMINATIVE)]"
 
 	return TRUE
 

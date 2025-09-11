@@ -39,9 +39,9 @@ export const Content = (props) => {
     accesses,
     one_access,
     regions,
-    ui_theme,
+    ui_honked,
   } = data;
-  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
+  const honk = useHonk(ui_honked ? 0.4 : 0);
 
   return (
     <Stack fill>
@@ -154,8 +154,8 @@ export const Content = (props) => {
 
 const PowerBar = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { power_level, power_max, ui_theme } = data;
-  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
+  const { power_level, power_max, ui_honked } = data;
+  const honk = useHonk(ui_honked ? 0.4 : 0);
   return (
     <LabeledList.Item label={honk('Энергия')}>
       <ProgressBar
@@ -187,8 +187,8 @@ const PowerBar = (props) => {
 
 const IntegrityBar = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { integrity, integrity_max, ui_theme } = data;
-  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
+  const { integrity, integrity_max, ui_honked } = data;
+  const honk = useHonk(ui_honked ? 0.4 : 0);
   return (
     <LabeledList.Item label={honk('Состояние')}>
       <ProgressBar
@@ -210,8 +210,8 @@ const IntegrityBar = (props) => {
 
 const LightsBar = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { power_level, power_max, lights, ui_theme } = data;
-  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
+  const { power_level, power_max, lights, ui_honked } = data;
+  const honk = useHonk(ui_honked ? 0.4 : 0);
   const lights_on = lights;
   return (
     <LabeledList.Item label={honk('Свет')}>
@@ -238,7 +238,7 @@ const CabinSeal = (props) => {
     cabin_pressure_hazard_max,
     cabin_temp_warning_min,
     cabin_temp_warning_max,
-    ui_theme,
+    ui_honked,
   } = data;
   const temp_warning =
     cabin_temp < cabin_temp_warning_min || cabin_temp > cabin_temp_warning_max;
@@ -248,7 +248,7 @@ const CabinSeal = (props) => {
   const pressure_hazard =
     cabin_pressure < cabin_pressure_hazard_min ||
     cabin_pressure > cabin_pressure_hazard_max;
-  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
+  const honk = useHonk(ui_honked ? 0.4 : 0);
   return (
     <LabeledList.Item
       label={honk('Воздух')}
@@ -289,8 +289,8 @@ const CabinSeal = (props) => {
 
 const DNALock = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { dna_lock, ui_theme } = data;
-  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
+  const { dna_lock, ui_honked } = data;
+  const honk = useHonk(ui_honked ? 0.4 : 0);
   return (
     <LabeledList.Item label={honk('ДНК блок')}>
       <Button

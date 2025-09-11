@@ -34,10 +34,10 @@ export const ModulesPane = (props) => {
     maint_access,
     maintance_progress,
     radio_data,
-    ui_theme,
+    ui_honked,
   } = data;
   const [tabIndex, setTabIndex] = useState(0);
-  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
+  const honk = useHonk(ui_honked ? 0.4 : 0);
   return (
     <Stack fill vertical>
       <Tabs>
@@ -270,8 +270,8 @@ const ModuleDetailsBasic = (props) => {
     equip_cooldown,
     energy_per_use,
   } = props.module;
-  const { ui_theme } = data;
-  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
+  const { ui_honked } = data;
+  const honk = useHonk(ui_honked ? 0.4 : 0);
   return (
     <>
       {integrity < 1 && (
@@ -378,8 +378,8 @@ const SnowflakeWeaponBallistic = (props) => {
   const { act, data } = useBackend<MainData>();
   const { ref } = props.module;
   const { max_ammo, total_ammo } = props.module.snowflake;
-  const { ui_theme } = data;
-  const honk = useHonk(ui_theme === 'honker' ? 0.4 : 0);
+  const { ui_honked } = data;
+  const honk = useHonk(ui_honked ? 0.4 : 0);
   return (
     <LabeledList.Item
       label={honk('Боеприпасы')}

@@ -26,11 +26,12 @@
 		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/get_reagent_data(list/datum/reagent/reagent_list)
-	var/list/contained_reagents = list()
-	if(length(reagent_list))
-		for(var/datum/reagent/reagent as anything in reagent_list)
-			contained_reagents += list(list("name" = reagent.name, "id" = reagent.id, "volume" = round(reagent.volume, 0.01))) // list in a list because Byond merges the first list...
-	return contained_reagents
+	. = list()
+	if(!length(reagent_list))
+		return
+
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		. += list(list("name" = reagent.name, "id" = reagent.id, "volume" = round(reagent.volume, 0.01)))
 
 /obj/item/mecha_parts/mecha_equipment/medical/detach_act()
 	STOP_PROCESSING(SSobj, src)
@@ -274,7 +275,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_snowflake_data()
 	var/list/analyzed_reagents = list() // we need to make this list because .tsk wont map over an indexed array
 
-	for(var/i=1 to known_reagents.len)
+	for(var/i = 1 to known_reagents.len)
 		var/enabled = FALSE
 		if(known_reagents[i] in processed_reagents)
 			enabled = TRUE
@@ -299,12 +300,17 @@
 		occupant_message("Достигнут максимум одновременных реагентов.")
 		return
 
-	if(reagent && (reagent in known_reagents))
-		processed_reagents += reagent
+	if(!reagent || !(reagent in known_reagents))
+		occupant_message("ОШИБКА. Неизвестный реагент.")
+		return
 
-	if(processed_reagents.len == 1)
-		START_PROCESSING(SSobj, src)
-		occupant_message("Реагенты синтезируются.")
+	processed_reagents += reagent
+
+	if(processed_reagents.len != 1)
+		return
+
+	START_PROCESSING(SSobj, src)
+	occupant_message("Реагенты синтезируются.")
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/handle_ui_act(action, list/params)
 	switch(action)

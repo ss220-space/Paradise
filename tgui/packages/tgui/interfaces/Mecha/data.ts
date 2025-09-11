@@ -58,6 +58,7 @@ export type MainData = {
   radio_data: RadioData;
   cargo: CargoData;
   diagnostic_status: BooleanLike;
+  ui_honked: BooleanLike;
 };
 
 export type MechModule = {
