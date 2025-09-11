@@ -2,7 +2,7 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: hsl(2.0, 37.6%, 45.9%),
+  $primary: hsl(2, 37.6%, 45.9%),
   $blue: hsl(355.9, 72.6%, 47.3%),
   $label: hsl(4.4, 18.9%, 57.5%),
   $fg-map-keys: (
@@ -29,7 +29,7 @@
   );
   @include meta.load-css(
     '../components/Input.scss',
-    $with: ('border-color': hsl(2.5, 100.0%, 76.7%))
+    $with: ('border-color': hsl(2.5, 100%, 76.7%))
   );
   @include meta.load-css('../components/NoticeBox.scss');
   @include meta.load-css('../components/Section.scss');

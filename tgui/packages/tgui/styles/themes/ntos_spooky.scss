@@ -4,11 +4,11 @@
 
 @use '../colors.scss' with (
   $primary: hsl(336.4, 93.8%, 12.7%),
-  $good: hsl(0.0, 79.3%, 52.5%),
+  $good: hsl(0, 79.3%, 52.5%),
   $bad: hsl(341.8, 88.8%, 31.4%)
 );
 @use '../base.scss' with (
-  $color-bg: hsl(0.0, 94.6%, 7.3%),
+  $color-bg: hsl(0, 94.6%, 7.3%),
   $color-bg-grad-spread: 12%
 );
 
@@ -21,10 +21,10 @@
     '../components/Button.scss',
     $with: (
       'color-default': hsl(344.9, 95.3%, 25.3%),
-      'color-disabled': hsl(0.0, 0.0%, 21.2%),
-      'color-selected': hsl(0.0, 81.3%, 21.0%),
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(0, 81.3%, 21%),
       'color-caution': hsl(239.2, 78.1%, 35.9%),
-      'color-danger': hsl(278.0, 62.0%, 31.0%)
+      'color-danger': hsl(278, 62%, 31%)
     )
   );
   @include meta.load-css(
@@ -38,14 +38,14 @@
   @include meta.load-css('../components/Modal.scss');
   @include meta.load-css(
     '../components/NoticeBox.scss',
-    $with: ('background-color': hsl(0.0, 88.6%, 24.1%))
+    $with: ('background-color': hsl(0, 88.6%, 24.1%))
   );
   @include meta.load-css('../components/NumberInput.scss');
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css('../components/Table.scss');
   @include meta.load-css(
     '../components/Tooltip.scss',
-    $with: ('background-color': hsl(0.0, 0.0%, 0.0%))
+    $with: ('background-color': hsl(0, 0%, 0%))
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
@@ -60,7 +60,7 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('background-color': hsl(0.0, 86.1%, 22.5%))
+    $with: ('background-color': hsl(0, 86.1%, 22.5%))
   );
 
   .Layout__content {

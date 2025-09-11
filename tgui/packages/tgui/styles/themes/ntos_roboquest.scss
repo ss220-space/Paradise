@@ -9,27 +9,26 @@
 
 //palette
 $dark-purple: hsl(279.9, 67.2%, 47.8%);
-$purple: hsl(279.9, 58.4%, 52.0%);
-$light-purple: hsl(280.0, 50.0%, 60.0%);
+$purple: hsl(279.9, 58.4%, 52%);
+$light-purple: hsl(280, 50%, 60%);
 
 $light-gray: hsl(282.9, 21.2%, 93.5%);
-$dark-gray: hsl(280.0, 5.6%, 78.8%);
+$dark-gray: hsl(280, 5.6%, 78.8%);
 $scrollbar-color-multiplier: 0.5;
 
-$nanotrasen: hsl(0.0, 0.0%, 17.3%);
+$nanotrasen: hsl(0, 0%, 17.3%);
 
 @use '../colors.scss' with (
   $primary: hsl(280.2, 63.9%, 32.5%),
-  $label: hsl(280.0, 5.6%, 78.8%),
-  $good: hsl(280.0, 5.6%, 78.8%),
-
+  $label: hsl(280, 5.6%, 78.8%),
+  $good: hsl(280, 5.6%, 78.8%),
   $bad: red,
   // $fg-map-keys: (),
   // $bg-map-keys: (),
 );
 
 @use '../base.scss' with (
-    $color-bg: hsl(280.0, 89.7%, 19.0%),
+    $color-bg: hsl(280, 89.7%, 19%),
     $color-bg-grad-spread: 12%,
     //$border-radius: 0,
   );
@@ -42,11 +41,11 @@ $nanotrasen: hsl(0.0, 0.0%, 17.3%);
   @include meta.load-css(
     '../components/Button.scss',
     $with: (
-      'color-default': hsl(271.0, 100.0%, 57.1%),
+      'color-default': hsl(271, 100%, 57.1%),
       'color-transparent-text': rgba(227, 240, 255, 0.75),
-      'color-disabled': hsl(0.0, 0.0%, 21.2%),
-      'color-selected': hsl(227.0, 37.2%, 43.7%),
-      'color-caution': hsl(29.5, 91.0%, 39.0%)
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(227, 37.2%, 43.7%),
+      'color-caution': hsl(29.5, 91%, 39%)
     )
   );
   @include meta.load-css(
@@ -60,7 +59,7 @@ $nanotrasen: hsl(0.0, 0.0%, 17.3%);
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css(
     '../components/Tooltip.scss',
-    $with: ('background-color': hsl(280.0, 5.6%, 78.8%))
+    $with: ('background-color': hsl(280, 5.6%, 78.8%))
   );
 
   // Layouts
@@ -150,7 +149,7 @@ $nanotrasen: hsl(0.0, 0.0%, 17.3%);
     background-color: rgb(255, 132, 153);
   }
   .Box {
-    outline: 3px outset hsl(0.0, 0.0%, 75.3%);
+    outline: 3px outset hsl(0, 0%, 75.3%);
   }
   .Tooltip {
     color: black;

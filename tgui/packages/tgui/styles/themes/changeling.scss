@@ -19,7 +19,10 @@
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: ('color-default': colors.$primary, 'color-selected': hsl(151.9, 69.4%, 30.8%))
+    $with: (
+      'color-default': colors.$primary,
+      'color-selected': hsl(151.9, 69.4%, 30.8%)
+    )
   );
   @include meta.load-css(
     '../components/ImageButton.scss',

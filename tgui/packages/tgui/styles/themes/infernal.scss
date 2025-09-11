@@ -2,7 +2,7 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: hsl(0.0, 100.0%, 27.3%),
+  $primary: hsl(0, 100%, 27.3%),
   $fg-map-keys: (),
   $bg-map-keys: ()
 );
@@ -20,31 +20,31 @@
     '../components/Button.scss',
     $with: (
       'color-default': colors.$primary,
-      'color-disabled': hsl(19.0, 28.7%, 28.0%),
-      'color-selected': hsl(0.0, 67.9%, 41.6%),
+      'color-disabled': hsl(19, 28.7%, 28%),
+      'color-selected': hsl(0, 67.9%, 41.6%),
       'color-caution': hsl(29.6, 58.7%, 52.5%),
-      'color-danger': hsl(0.0, 100.0%, 27.3%)
+      'color-danger': hsl(0, 100%, 27.3%)
     )
   );
   @include meta.load-css(
     '../components/ImageButton.scss',
     $with: (
       'color-default': color.adjust(colors.$primary, $lightness: -20%),
-      'color-disabled': hsl(19.0, 28.7%, 28.0%),
-      'color-selected': hsl(0.0, 67.9%, 41.6%)
+      'color-disabled': hsl(19, 28.7%, 28%),
+      'color-selected': hsl(0, 67.9%, 41.6%)
     )
   );
   @include meta.load-css(
     '../components/Input.scss',
-    $with: ('border-color': hsl(0.0, 59.4%, 40.6%))
+    $with: ('border-color': hsl(0, 59.4%, 40.6%))
   );
   @include meta.load-css(
     '../components/NoticeBox.scss',
-    $with: ('background-color': hsl(0.0, 41.5%, 20.8%))
+    $with: ('background-color': hsl(0, 41.5%, 20.8%))
   );
   @include meta.load-css(
     '../components/NumberInput.scss',
-    $with: ('border-color': hsl(0.0, 59.4%, 40.6%))
+    $with: ('border-color': hsl(0, 59.4%, 40.6%))
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
@@ -53,7 +53,7 @@
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css(
     '../components/Tooltip.scss',
-    $with: ('background-color': hsl(0.0, 65.8%, 14.9%))
+    $with: ('background-color': hsl(0, 65.8%, 14.9%))
   );
 
   // Layouts
@@ -61,7 +61,7 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('background-color': hsl(0.0, 41.5%, 20.8%))
+    $with: ('background-color': hsl(0, 41.5%, 20.8%))
   );
 
   .Layout__content {

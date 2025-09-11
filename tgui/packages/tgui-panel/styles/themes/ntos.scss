@@ -22,7 +22,7 @@
   @include meta.load-css('~tgui/styles/components/Section.scss');
   @include meta.load-css(
     '~tgui/styles/components/Button.scss',
-    $with: ('color-default': hsl(212.5, 30.0%, 31.4%))
+    $with: ('color-default': hsl(212.5, 30%, 31.4%))
   );
   @include meta.load-css('~tgui/styles/components/NumberInput.scss');
   @include meta.load-css('~tgui/styles/components/TextArea.scss');

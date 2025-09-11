@@ -7,14 +7,14 @@
 @use 'sass:color';
 
 @use '~tgui/styles/colors.scss' with (
-  $primary: hsl(180.0, 60.0%, 31.4%),
-  $label: hsl(24.3, 19.0%, 61.8%)
+  $primary: hsl(180, 60%, 31.4%),
+  $label: hsl(24.3, 19%, 61.8%)
 );
 
 @use '~tgui/styles/base.scss' with (
   $color-bg: hsl(340.2, 81.6%, 27.6%),
   $color-bg-section: rgba(0, 0, 0, 0.5),
-  $color-bg-start: hsl(325.0, 98.4%, 25.3%),
+  $color-bg-start: hsl(325, 98.4%, 25.3%),
   $color-bg-end: hsl(29.7, 81.6%, 27.6%)
 );
 
@@ -31,12 +31,15 @@
     $with: (
       'color-default': colors.$primary,
       'color-selected': hsl(20.1, 59.8%, 46.9%),
-      'color-danger': hsl(269.3, 100.0%, 55.9%)
+      'color-danger': hsl(269.3, 100%, 55.9%)
     )
   );
   @include meta.load-css(
     '~tgui/styles/components/Input.scss',
-    $with: ('border-color': hsl(15.0, 78.6%, 54.1%), 'background-color': rgba(0, 0, 0, 0.25))
+    $with: (
+      'border-color': hsl(15, 78.6%, 54.1%),
+      'background-color': rgba(0, 0, 0, 0.25)
+    )
   );
   @include meta.load-css('~tgui/styles/components/NumberInput.scss');
   @include meta.load-css('~tgui/styles/components/TextArea.scss');
@@ -47,7 +50,10 @@
   // Components specific to tgui-panel
   @include meta.load-css(
     '../components/Chat.scss',
-    $with: ('color-bg-reconnect': hsl(0.0, 71.3%, 50.8%), 'color-text-reconnect': hsl(0.0, 0.0%, 100.0%))
+    $with: (
+      'color-bg-reconnect': hsl(0, 71.3%, 50.8%),
+      'color-text-reconnect': hsl(0, 0%, 100%)
+    )
   );
 
   // Layouts

@@ -10,7 +10,7 @@
     text-align: center;
 
     &--arrow {
-      color: hsl(217.3, 25.9%, 28.0%);
+      color: hsl(217.3, 25.9%, 28%);
     }
 
     &--hinge {
@@ -28,7 +28,7 @@
     margin-bottom: 0.5rem;
 
     &--number {
-      color: hsl(0.0, 0.0%, 73.3%);
+      color: hsl(0, 0%, 73.3%);
       display: inline;
       background-color: hsl(218.8, 25.4%, 13.1%);
       font-size: 1.5rem;
@@ -51,7 +51,7 @@
 
   &--contents {
     border: 10px solid hsl(218.8, 25.4%, 13.1%);
-    background-color: hsl(218.2, 26.8%, 8.0%);
+    background-color: hsl(218.2, 26.8%, 8%);
     height: calc(85% + 7.5px);
     text-align: left;
     padding: 5px;
