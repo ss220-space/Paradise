@@ -9,7 +9,7 @@
 #define BLOOD_REGENERATION 0.1
 
 // Blood level damage constants
-/// Damage for blood volume from BLOOD_VOLUME_PALE to BLOOD_VOLUM5E_SAFE
+/// Damage for blood volume from BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE
 #define BLOOD_PALE_DAMAGE 1
 /// Damage for blood volume from BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE
 #define BLOOD_OKAY_DAMAGE 2
@@ -17,6 +17,18 @@
 #define BLOOD_BAD_DAMAGE 4
 /// Damage for blood volume from BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD
 #define BLOOD_SURVIVE_DAMAGE 8
+
+// Blood loss speed mod by blood level constants
+/// Bloodloss mod for blood volume from BLOOD_VOLUME_SAFE to MAX
+#define BLOOD_SAFE_SPEED 1
+/// Bloodloss mod for blood volume from BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE
+#define BLOOD_PALE_SPEED 0.9
+/// Bloodloss mod for blood volume from BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE
+#define BLOOD_OKAY_SPEED 0.8
+/// Bloodloss mod for blood volume from BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY
+#define BLOOD_BAD_SPEED 0.75
+/// Bloodloss mod for blood volume from BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD
+#define BLOOD_SURVIVE_SPEED 0.65
 
 // Bledding calculation constants
 /// Bleeding per embedded item (units per 2 sec)
@@ -104,7 +116,7 @@
 /mob/living/carbon/human/proc/apply_current_blood_level_effect()
 	switch(blood_volume)
 		if(BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE)
-			apply_damage(BLOOD_OKAY_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
+			apply_damage(BLOOD_PALE_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
 
 		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE)
 			apply_damage(BLOOD_OKAY_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
@@ -186,17 +198,32 @@
 	var/traneksam_amount = reagents.get_reagent_amount("traneksam_acid")
 	if(traneksam_amount > 0)
 		additional_bleed_mod -= round(clamp((traneksam_amount / 10), 0, 1) * 0.75, 0.05) //traneksam acid suppress existing bleeding
+	// calculate speed mod by blood volume
+	var/speed_by_volume = get_bloodloss_speed_mod()
 	// apply internal bleeding
 	if(internal_bleeding_rate)
-		bleed_internal(internal_bleeding_rate * additional_bleed_mod)
+		bleed_internal(internal_bleeding_rate * additional_bleed_mod * speed_by_volume)
 	// apply bleeding
 	if(bleed_rate && !bleedsuppress)
-		bleed(bleed_rate * additional_bleed_mod)
+		bleed(bleed_rate * additional_bleed_mod * speed_by_volume)
+	// make bloodsplatter for arterial bleeding
 	if(has_arterial_bleed)
 		var/blood_color = dna.species.blood_color
 		var/splatter_dir = rand(0, 360)
 		var/target_loc = get_turf(src)
 		new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loc, splatter_dir, blood_color)
+
+/mob/living/carbon/human/proc/get_bloodloss_speed_mod()
+	switch(blood_volume)
+		if(BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE)
+			return BLOOD_PALE_SPEED
+		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE)
+			return BLOOD_OKAY_SPEED
+		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
+			return BLOOD_BAD_SPEED
+		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
+			return BLOOD_SURVIVE_SPEED
+	return BLOOD_SAFE_SPEED
 
 
 /// Makes a blood drop, leaking amt units of blood from the mob
@@ -553,6 +580,11 @@
 #undef BLOOD_OKAY_DAMAGE
 #undef BLOOD_BAD_DAMAGE
 #undef BLOOD_SURVIVE_DAMAGE
+#undef BLOOD_SAFE_SPEED
+#undef BLOOD_PALE_SPEED
+#undef BLOOD_OKAY_SPEED
+#undef BLOOD_BAD_SPEED
+#undef BLOOD_SURVIVE_SPEED
 #undef EMBEDDED_ITEM_BLEEDING
 #undef OPEN_BODYPART_BLEEDING
 #undef BLEEDING_DECREASE
