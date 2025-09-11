@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 /datum/heretic_knowledge/spell/cloak_of_shadows
 	name = "Плащ Тьмы"
-	desc = "Даёт вам заклинание «Плащ Тени». Это заклинание полностью скроет вашу личность в фиолетовом дыму \
+	desc = "Даёт вам заклинание «Плащ тьмы». Это заклинание полностью скроет вашу личность в фиолетовом дыму \
 			на три минуты, помогая вам сохранять скрытность. Для применения требуется концентрация."
 	research_tree_icon_path = 'icons/effects/effects.dmi'
 	research_tree_icon_state = "curse"

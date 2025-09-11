@@ -112,7 +112,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	remove_from_hud(source)
 
 
-/datum/atom_hud/alternate_appearance/add_hud_to(atom/atom, only_once=FALSE, image/I)
+/datum/atom_hud/alternate_appearance/add_hud_to(atom/atom, only_once=FALSE, image/img)
 	. = ..()
 	if(!atom)
 		return
@@ -142,14 +142,14 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	//uses_global_hud_category = FALSE
 
 
-/datum/atom_hud/alternate_appearance/basic/New(key, image/I, options = AA_TARGET_SEE_APPEARANCE)
+/datum/atom_hud/alternate_appearance/basic/New(key, image/img, options = AA_TARGET_SEE_APPEARANCE)
 	..()
-	transfer_overlays = options & AA_MATCH_TARGET_OVERLAYS
-	image = I
-	target = I.loc
+	//transfer_overlays = options & AA_MATCH_TARGET_OVERLAYS
+	image = img
+	target = img.loc
 	LAZYADD(target.update_on_z, image)
-	if(transfer_overlays)
-		I.copy_overlays(target)
+	//if(transfer_overlays)
+	//	img.copy_overlays(target)
 
 	add_to_hud(target)
 	//target.set_hud_image_active(appearance_key, exclusive_hud = src)
@@ -160,7 +160,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	if(!add_ghost_version)
 		return
 
-	var/image/ghost_image = image(icon = I.icon , icon_state = I.icon_state, loc = I.loc)
+	var/image/ghost_image = image(icon = img.icon , icon_state = img.icon_state, loc = img.loc)
 	ghost_image.override = FALSE
 	ghost_image.alpha = 128
 	ghost_appearance = new /datum/atom_hud/alternate_appearance/basic/observers(key + "_observer", ghost_image, NONE)
@@ -243,7 +243,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	var/mob/seer
 
 
-/datum/atom_hud/alternate_appearance/basic/silicons_or_self/New(key, image/I, options = NONE, mob/living/seer)
+/datum/atom_hud/alternate_appearance/basic/silicons_or_self/New(key, image/img, options = NONE, mob/living/seer)
 	src.seer = seer
 	return ..()
 
@@ -296,7 +296,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	return mob == seer
 
 
-/datum/atom_hud/alternate_appearance/basic/one_person/New(key, image/I, options = NONE, mob/living/seer)
+/datum/atom_hud/alternate_appearance/basic/one_person/New(key, image/img, options = NONE, mob/living/seer)
 	src.seer = seer
 	return ..()
 
