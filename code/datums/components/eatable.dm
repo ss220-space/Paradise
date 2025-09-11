@@ -163,7 +163,7 @@
 			qdel(item)
 	return
 
-/datum/component/eatable/proc/forceFed(mob/target, mob/user, var/instant_application = FALSE)
+/datum/component/eatable/proc/forceFed(mob/target, mob/user, instant_application = FALSE)
 	var/obj/item/item = parent
 
 	if(!instant_application)

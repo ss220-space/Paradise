@@ -1,6 +1,3 @@
-#define CULT_ELDERGOD "eldergod"
-#define CULT_SLAUGHTER "slaughter"
-
 /obj/item/melee/cultblade/dagger
 	name = "ritual dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
@@ -212,8 +209,10 @@
 		drawing_rune = FALSE
 		return
 
-	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
-						 "<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>")
+	user.visible_message(
+		"<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
+		"<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>"
+	)
 
 	var/obj/effect/rune/R = new rune(runeturf, keyword)
 	drawing_rune = FALSE

@@ -47,16 +47,16 @@
 	info = "<p> ...гда это раздражает. Он относится к некоторым из них как к  собственным детям...  Как же порой тяжело заставить его утилизировать некоторые неудачные образцы... его самого бы утилизировать, но нельзя! А что делать!? Где мне ещё нормального ксенобиолога, согласного работать с эт... </p>"
 
 /mob/living/simple_animal/hostile/killertomato/spacebotany
-    name = "Unsatable Tomato"
-    atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-    maxHealth = 120
-    health = 120
-    melee_damage_lower = 0
-    melee_damage_upper = 40
-    can_hide = TRUE
-    xenobiology_spawned = FALSE
-    aggro_vision_range = 6
-    damage_coeff = list(BRUTE = 1, FIRE = -0.1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
+	name = "Unsatable Tomato"
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	maxHealth = 120
+	health = 120
+	melee_damage_lower = 0
+	melee_damage_upper = 40
+	can_hide = TRUE
+	xenobiology_spawned = FALSE
+	aggro_vision_range = 6
+	damage_coeff = list(BRUTE = 1, FIRE = -0.1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
 /mob/living/simple_animal/hostile/killertomato/spacebotany/ComponentInitialize()
 	AddComponent( \

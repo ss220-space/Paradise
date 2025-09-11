@@ -439,7 +439,7 @@ GLOBAL_LIST_EMPTY(closets)
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/container_resist(var/mob/living/L)
+/obj/structure/closet/container_resist(mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
 	if(opened)
 		if(L.loc == src)

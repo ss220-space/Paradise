@@ -622,6 +622,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -9331,6 +9334,9 @@
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -14147,6 +14153,15 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/auxport)
+"bLX" = (
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/bridge)
 "bLY" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -15244,6 +15259,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -16908,6 +16926,9 @@
 "bZb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/carpet/orange,
 /area/crew_quarters/heads/hop)
 "bZf" = (
@@ -17160,6 +17181,26 @@
 	icon_state = "vault"
 	},
 /area/security/warden)
+"cad" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central/south)
 "cae" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -33228,6 +33269,9 @@
 	pixel_x = -24;
 	pixel_y = -24
 	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain)
 "dvg" = (
@@ -37825,6 +37869,9 @@
 /obj/machinery/flasher{
 	id = "hopflash";
 	pixel_x = 58
+	},
+/obj/effect/mine/explosive{
+	faction = null
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge/vip)
@@ -45942,6 +45989,16 @@
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/theatre)
+"flO" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
 "flW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -46930,6 +46987,9 @@
 	pixel_y = -28
 	},
 /obj/machinery/light,
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -56776,6 +56836,19 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/bar/atrium)
+"hLp" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central/nw)
 "hLD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -58723,6 +58796,14 @@
 /obj/random/tool,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"ikD" = (
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "ikJ" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -58849,6 +58930,26 @@
 	icon_state = "dark"
 	},
 /area/security/permahallway)
+"imt" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central/north)
 "imB" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -59770,6 +59871,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
+"iwq" = (
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/north)
 "iwt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -67174,6 +67284,9 @@
 /obj/machinery/light_switch{
 	pixel_x = -24
 	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -67715,6 +67828,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
+"krO" = (
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/west)
 "kss" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -71849,6 +71971,15 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay2)
+"lul" = (
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
 "luu" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -75799,6 +75930,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain/bedroom)
 "mpA" = (
@@ -76384,6 +76518,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/north)
+"mwE" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/aft)
 "mwH" = (
 /obj/structure/lattice,
 /obj/machinery/camera{
@@ -80003,6 +80147,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/exit)
+"nkx" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/crew_quarters/captain)
 "nkH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -80559,6 +80714,23 @@
 	icon_state = "redfull"
 	},
 /area/crew_quarters/kitchen)
+"nrb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central/north)
 "nrd" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -80627,6 +80799,9 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 26
+	},
+/obj/effect/mine/explosive{
+	faction = null
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -81770,6 +81945,12 @@
 	icon_state = "dark"
 	},
 /area/aisat/maintenance)
+"nEQ" = (
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/space,
+/area/bridge/meeting_room)
 "nFe" = (
 /obj/effect/spawner/random_spawners/fungus_30,
 /turf/simulated/wall,
@@ -83474,6 +83655,15 @@
 	icon_state = "dark"
 	},
 /area/hydroponics)
+"nYl" = (
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/reception)
 "nYp" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
@@ -83538,6 +83728,9 @@
 "nZz" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small,
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -88045,6 +88238,18 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"oZf" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge)
 "oZh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -95197,6 +95402,9 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "qwW" = (
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "qwX" = (
@@ -95393,6 +95601,26 @@
 	icon_state = "darkblue"
 	},
 /area/tcommsat/chamber)
+"qzs" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/starboard/east)
 "qzC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -98236,6 +98464,14 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
+"rfv" = (
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/central/south)
 "rfA" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -100798,6 +101034,23 @@
 	icon_state = "neutralcorner"
 	},
 /area/maintenance/consarea_virology)
+"rJU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/bridge/vip)
 "rJZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -103693,6 +103946,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/mine/explosive{
+	faction = null
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -107214,6 +107470,15 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
+"thy" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
+/area/hallway/primary/aft)
 "thA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -110378,6 +110643,9 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/blueshield)
 "tOD" = (
@@ -110744,6 +111012,19 @@
 "tSQ" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/electrical)
+"tTf" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central/east)
 "tTu" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
@@ -112273,6 +112554,9 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/effect/mine/explosive{
+	faction = null
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge/vip)
@@ -115487,6 +115771,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -119199,6 +119486,9 @@
 	pixel_x = 24;
 	pixel_y = 24
 	},
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "vPB" = (
@@ -121511,6 +121801,20 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
+"wqN" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/obj/effect/mine/explosive{
+	faction = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central/se)
 "wqQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/closet/loot_crate/blue,
@@ -122059,6 +122363,9 @@
 /area/maintenance/incinerator)
 "wwp" = (
 /obj/effect/decal/warning_stripes/south,
+/obj/effect/mine/explosive{
+	faction = null
+	},
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "wws" = (
@@ -122858,6 +123165,9 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	pixel_x = -26
+	},
+/obj/effect/mine/explosive{
+	faction = null
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -123805,6 +124115,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/effect/mine/explosive{
+	faction = null
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
@@ -163081,7 +163394,7 @@ jXw
 qMp
 rqO
 six
-bOw
+krO
 vse
 dPt
 dPt
@@ -163335,7 +163648,7 @@ dil
 ufo
 mLE
 oWu
-mLE
+hLp
 mLE
 hFg
 inI
@@ -164358,7 +164671,7 @@ aaq
 bwf
 mMQ
 uXu
-mMQ
+bLX
 mMQ
 cks
 dsz
@@ -164382,7 +164695,7 @@ dNO
 sZn
 mfs
 qDm
-lRu
+rJU
 cCL
 csK
 mnN
@@ -166448,7 +166761,7 @@ rnJ
 fXK
 csK
 aVO
-xMi
+cad
 vzv
 saY
 dkn
@@ -166706,9 +167019,9 @@ eDn
 csK
 pCP
 xMi
-vzv
+lul
 saY
-dkn
+ikD
 njP
 dWu
 dkn
@@ -166919,7 +167232,7 @@ iqk
 aXF
 qiF
 wVn
-aEp
+nrb
 oBf
 luQ
 aaq
@@ -166943,7 +167256,7 @@ bHj
 cHC
 nvt
 gQD
-kiG
+nEQ
 cyh
 xbk
 hMR
@@ -167736,7 +168049,7 @@ cCM
 cEQ
 vRc
 slb
-xUN
+mwE
 xUN
 xQG
 fWS
@@ -168251,7 +168564,7 @@ bAN
 pBs
 slb
 xUV
-xUV
+thy
 xUV
 xUV
 gJw
@@ -169021,7 +169334,7 @@ cEN
 xcb
 xhm
 ixo
-hmB
+nYl
 cPy
 rYG
 dFQ
@@ -169489,7 +169802,7 @@ hcx
 dZg
 fjY
 bnc
-jya
+imt
 kow
 luQ
 aaq
@@ -169533,7 +169846,7 @@ czR
 csV
 muF
 xMi
-liV
+rfv
 ixo
 jrm
 cPy
@@ -171330,7 +171643,7 @@ cvH
 lWj
 ely
 gHM
-cCT
+flO
 xMi
 liV
 qMm
@@ -171564,7 +171877,7 @@ bHx
 rRl
 ixi
 fYM
-bQf
+nkx
 cvt
 bQf
 bKE
@@ -171809,7 +172122,7 @@ vPO
 vPO
 vPO
 bwf
-cFK
+oZf
 lVo
 byU
 nZz
@@ -172317,7 +172630,7 @@ sIy
 gAB
 hpc
 ifK
-kow
+iwq
 dfk
 pXO
 pXO
@@ -172600,7 +172913,7 @@ hHs
 hHs
 wFD
 stf
-hHs
+tTf
 rVS
 hHs
 hHs
@@ -172609,7 +172922,7 @@ sRr
 mgb
 rai
 ydj
-wPQ
+wqN
 wPQ
 lTQ
 wPQ
@@ -173619,7 +173932,7 @@ wxT
 qcA
 xTn
 xPg
-vIi
+qzs
 mnL
 ydS
 uoK

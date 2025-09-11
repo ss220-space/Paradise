@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	return max(0, minimal_player_age_antag - C.player_age)
 
-/proc/check_client_age(client/C, var/days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
+/proc/check_client_age(client/C, days) // If days isn't provided, returns the age of the client. If it is provided, it returns the days until the player_age is equal to or greater than the days variable
 	if(!days)
 		return C.player_age
 	else
@@ -72,10 +72,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
-#define TAB_CHAR	0
-#define TAB_GAME	1
-#define TAB_SPEC	2
-#define TAB_KEYS	3
+#define TAB_CHAR 0
+#define TAB_GAME 1
+#define TAB_SPEC 2
+#define TAB_KEYS 3
 #define TAB_TOGGLES 4
 
 /datum/preferences
@@ -188,6 +188,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	//Special role pref
 	var/uplink_pref = PREF_UPLINK_PDA
+
+	/// Can this character be antagonist.
+	var/can_be_antagonist = TRUE
 
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 2
@@ -543,6 +546,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<br><b>Носки:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[socks]</a>"
 			dat += "<br><b>Сумка на спину:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[backbag]</a><br><br>"
+			dat += "<b>Может ли персонаж быть антагонистом?</b> <a href='byond://?_src_=prefs;preference=can_be_antagonist;task=input'>[can_be_antagonist ? "Да" : "Нет"]</a><br><br>"
 			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Меню выбора снаряжения</a><br>"
 
 			dat += "</td></tr></table>"
@@ -774,21 +778,28 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.set_content(dat.Join(""))
 	popup.open(FALSE)
 
+#undef MAX_SAVE_SLOTS
+#undef MAX_SAVE_SLOTS_MEMBER
+#undef TAB_CHAR
+#undef TAB_GAME
+#undef TAB_SPEC
+#undef TAB_KEYS
+#undef TAB_TOGGLES
 
-/datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
+/datum/preferences/proc/get_gear_metadata(datum/gear/G)
 	. = loadout_gear[G.index_name]
 	if(!.)
 		. = list()
 		loadout_gear[G.index_name] = .
 
-/datum/preferences/proc/get_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak)
+/datum/preferences/proc/get_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak)
 	var/list/metadata = get_gear_metadata(G)
 	. = metadata["[tweak]"]
 	if(!.)
 		. = tweak.get_default()
 		metadata["[tweak]"] = .
 
-/datum/preferences/proc/set_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak, var/new_metadata)
+/datum/preferences/proc/set_tweak_metadata(datum/gear/G, datum/gear_tweak/tweak, new_metadata)
 	var/list/metadata = get_gear_metadata(G)
 	metadata["[tweak]"] = new_metadata
 	tweak.update_gear_intro(new_metadata)
@@ -1030,7 +1041,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.open(FALSE)
 	onclose(user, "capturekeypress", src)
 
-/datum/preferences/proc/SetJobPreferenceLevel(var/datum/job/job, var/level)
+/datum/preferences/proc/SetJobPreferenceLevel(datum/job/job, level)
 	if(!job)
 		return 0
 
@@ -1266,16 +1277,16 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	return 1
 
 /**
-  * Rebuilds the `loadout_gear` list of the [active_character], and returns the total end cost.
-  *
-  * Caches and cuts the existing [/datum/character_save/var/loadout_gear] list and remakes it, checking the `subtype_selection_cost` and overall cost validity of each item.
-  *
-  * If the item's [/datum/gear/var/subtype_selection_cost] is `FALSE`, any future items with the same [/datum/gear/var/main_typepath] will have their cost skipped.
-  * If adding the item will take the total cost over the maximum, it won't be added to the list.
-  *
-  * Arguments:
-  * * new_item - A new [/datum/gear] item to be added to the `loadout_gear` list.
-  */
+ * Rebuilds the `loadout_gear` list of the [active_character], and returns the total end cost.
+ *
+ * Caches and cuts the existing [/datum/character_save/var/loadout_gear] list and remakes it, checking the `subtype_selection_cost` and overall cost validity of each item.
+ *
+ * If the item's [/datum/gear/var/subtype_selection_cost] is `FALSE`, any future items with the same [/datum/gear/var/main_typepath] will have their cost skipped.
+ * If adding the item will take the total cost over the maximum, it won't be added to the list.
+ *
+ * Arguments:
+ * * new_item - A new [/datum/gear] item to be added to the `loadout_gear` list.
+ */
 /datum/preferences/proc/build_loadout(datum/gear/new_item)
 	var/total_cost = 0
 	var/list/type_blacklist = list()
@@ -1337,7 +1348,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	job_karma_low = 0
 
 
-/datum/preferences/proc/GetJobDepartment(var/datum/job/job, var/level)
+/datum/preferences/proc/GetJobDepartment(datum/job/job, level)
 	if(!job || !level)	return 0
 	switch(job.department_flag)
 		if(JOBCAT_SUPPORT)
@@ -1374,7 +1385,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					return job_karma_low
 	return 0
 
-/datum/preferences/proc/SetJobDepartment(var/datum/job/job, var/level)
+/datum/preferences/proc/SetJobDepartment(datum/job/job, level)
 	if(!job || !level)	return 0
 	switch(level)
 		if(1)//Only one of these should ever be active at once so clear them all here
@@ -2188,6 +2199,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/new_uplink_pref = tgui_input_list(user, "Выберите желаемое местонахождение аплинка", "Местонахождение аплинка", list(PREF_UPLINK_PDA, PREF_UPLINK_HEADSET))
 					if(new_uplink_pref)
 						uplink_pref = new_uplink_pref
+
+				if("can_be_antagonist")
+					can_be_antagonist = tgui_alert(user, "Выберите, может ли текущий персонаж быть антагонистом. Если у выбранного в начале игры персонажа эта опция отключена, при выпадении антагониста будет выбран случайный ваш персонаж, у которого она включена. Если она отключена у всех, выбранный персонаж останется.", \
+																"Может ли быть антагонистом", list("Да", "Нет")) == "Да"
 
 				if("tts_seed")
 					var/static/list/explorer_users = list()
@@ -3047,3 +3062,26 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			return UI_THEME_OPERATIVE_RUS
 		if(UI_THEME_WHITE)
 			return UI_THEME_WHITE_RUS
+
+
+/// Get random charecter with can_be_antagonist on. If no such characters, don't change current.
+/datum/preferences/proc/get_possible_antagonist()
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey AND can_be_antagonist=:req_can_be_antagonist ORDER BY slot", list(
+		"ckey" = parent.ckey,
+		"req_can_be_antagonist" = 1,
+	))
+
+	if(!query.warn_execute(async = FALSE)) // Dont async this. Youll make roundstart slow.
+		qdel(query)
+		return
+
+	var/list/saves = list()
+	while(query.NextRow())
+		saves += text2num(query.item[1])
+
+	qdel(query)
+	if(!saves.len)
+		return
+
+	load_character(parent, pick(saves))
+	return

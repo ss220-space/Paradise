@@ -217,7 +217,7 @@
 	if(istype(T))
 		adjacent_turfs = T.GetAtmosAdjacentTurfs(TRUE)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(var/turf/simulated/tile)
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(turf/simulated/tile)
 	if(!tile || !istype(tile))
 		return 0
 
@@ -277,7 +277,7 @@
 
 	return 1
 
-/obj/machinery/atmospherics/unary/vent_scrubber/hide(var/i) //to make the little pipe section invisible, the icon changes.
+/obj/machinery/atmospherics/unary/vent_scrubber/hide(i) //to make the little pipe section invisible, the icon changes.
 	update_icon()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/receive_signal(datum/signal/signal)

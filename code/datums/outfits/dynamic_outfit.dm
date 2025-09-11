@@ -31,7 +31,7 @@
 		prom.close(H)
 	H.temporarily_remove_item_from_inventory(I, TRUE, FALSE, TRUE)
 
- //																				all flags lmao xD
+//all flags lmao xD
 /datum/dynamic_outfit/proc/equip(mob/living/carbon/human/H, selfdestroy = TRUE, selective_mode = INFINITY)
 	debug_switch = TRUE
 
@@ -76,7 +76,7 @@
 		H.equip_or_collect(r_pocket, ITEM_SLOT_POCKET_RIGHT)
 
 	H.regenerate_icons()
-	
+
 	if(selfdestroy)
 		qdel(src)
 

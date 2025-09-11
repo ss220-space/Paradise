@@ -93,8 +93,8 @@
 
 
 /**
-  * Shows the results for a poll
-  */
+ * Shows the results for a poll
+ */
 /datum/admins/proc/poll_results_panel(datum/poll_question/poll, start_index = 0)
 	if(!check_rights(R_SERVER))
 		return
