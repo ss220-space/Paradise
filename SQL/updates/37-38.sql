@@ -1,4 +1,4 @@
-# Updates DB from 36 to 37
+# Updates DB from 37 to 38
 # Adds a new table for instance data caching, and server_id fields on other tables
 
 CREATE TABLE `instance_data_cache` (
