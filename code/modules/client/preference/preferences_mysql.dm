@@ -238,8 +238,9 @@
 					hair_gradient,
 					hair_gradient_offset,
 					hair_gradient_colour,
-					hair_gradient_alpha
-					FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
+					hair_gradient_alpha,
+					can_be_antagonist
+				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						 "ckey" = C.ckey,
 						 "slot" = slot
 					 ))
@@ -341,6 +342,9 @@
 		h_grad_colour = query.item[61]
 		h_grad_alpha = query.item[62]
 
+		// Can be antagonist
+		can_be_antagonist = query.item[63]
+
 		saved = TRUE
 
 	qdel(query)
@@ -384,6 +388,7 @@
 	tts_seed		= sanitize_inlist(tts_seed, SStts.tts_seeds, initial(tts_seed))
 	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
 	custom_emotes = init_custom_emotes(custom_emotes_tmp)
+	can_be_antagonist = sanitize_integer(can_be_antagonist, 0, 1, 1)
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
@@ -537,7 +542,8 @@
 												hair_gradient_alpha=:h_grad_alpha,
 												uplink_pref=:uplink_pref,
 												tts_seed=:tts_seed,
-												custom_emotes=:custom_emotes
+												custom_emotes=:custom_emotes,
+												can_be_antagonist=:can_be_antagonist
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -603,6 +609,7 @@
 													"uplink_pref" = uplink_pref,
 													"tts_seed" = tts_seed,
 													"custom_emotes" = json_encode(custom_emotes),
+													"can_be_antagonist" = can_be_antagonist,
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
@@ -645,7 +652,7 @@
 											exploit_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed, custom_emotes)
+											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed, custom_emotes, can_be_antagonist)
 
 					VALUES
 											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
@@ -674,7 +681,7 @@
 											:exploit_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed, :custom_emotes)
+											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed, :custom_emotes, :can_be_antagonist)
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
@@ -741,6 +748,7 @@
 		"h_grad_alpha" = h_grad_alpha,
 		"uplink_pref" = uplink_pref,
 		"tts_seed" = tts_seed,
+		"can_be_antagonist" = can_be_antagonist,
 		"custom_emotes" = json_encode(custom_emotes)
 	))
 
