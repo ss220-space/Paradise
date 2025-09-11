@@ -1696,27 +1696,27 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_DORMS
 
 /area/civilian/vacantoffice
-	name = "Vacant Office"
+	name = "Свободный офис"
 	icon_state = "green"
 
 /area/civilian/barber
-	name = "Barber Shop"
+	name = "Парикмахерская"
 	icon_state = "barber"
 
 /area/civilian/clothing
-	name = "Clothing Shop"
+	name = "Магазин одежды"
 	icon_state = "Theatre"
 
 /area/civilian/pet_store
-	name = "Pet Store"
+	name = "Зоомагазин"
 	icon_state = "pet_store"
 
 /area/civilian/vacantoffice2
-	name = "Vacant Office"
+	name = "Свободный офис"
 	icon_state = "security"
 
 /area/holodeck
-	name = "Holodeck"
+	name = "Голопалуба"
 	icon_state = "Holodeck"
 	static_lighting = FALSE
 	base_lighting_color = COLOR_WHITE
@@ -1724,55 +1724,55 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_DORMS
 
 /area/holodeck/alphadeck
-	name = "Holodeck Alpha"
+	name = "Голопалуба альфа"
 
 
 /area/holodeck/source_plating
-	name = "Holodeck - Off"
+	name = "Голопалуба – неактивная"
 	icon_state = "Holodeck"
 
 /area/holodeck/source_emptycourt
-	name = "Holodeck - Empty Court"
+	name = "Голопалуба – пустая комната"
 
 /area/holodeck/source_boxingcourt
-	name = "Holodeck - Boxing Court"
+	name = "Голопалуба – бойцовский ринг"
 
 /area/holodeck/source_basketball
-	name = "Holodeck - Basketball Court"
+	name = "Голопалуба – баскетбольная площадка"
 
 /area/holodeck/source_thunderdomecourt
-	name = "Holodeck - Thunderdome Court"
+	name = "Голопалуба – тандердом"
 
 /area/holodeck/source_beach
-	name = "Holodeck - Beach"
-	icon_state = "Holodeck" // Lazy.
+	name = "Голопалуба – пляж"
+	icon_state = "Holodeck"
 
 /area/holodeck/source_burntest
-	name = "Holodeck - Atmospheric Burn Test"
+	name = "Голопалуба – тест атмосферного горения"
 
 /area/holodeck/source_wildlife
-	name = "Holodeck - Wildlife Simulation"
+	name = "Голопалуба – симуляция пожара"
 
 /area/holodeck/source_meetinghall
-	name = "Holodeck - Meeting Hall"
+	name = "Голопалуба – конференц-зал"
 
 /area/holodeck/source_theatre
-	name = "Holodeck - Theatre"
+	name = "Голопалуба – театр"
 
 /area/holodeck/source_picnicarea
-	name = "Holodeck - Picnic Area"
+	name = "Голопалуба – место для пикника"
 
 /area/holodeck/source_snowfield
-	name = "Holodeck - Snow Field"
+	name = "Голопалуба – снежное поле"
 
 /area/holodeck/source_desert
-	name = "Holodeck - Desert"
+	name = "Голопалуба – пустыня"
 
 /area/holodeck/source_space
-	name = "Holodeck - Space"
+	name = "Голопалуба – космос"
 
 /area/holodeck/source_knightarena
-	name = "Holodeck - Knight Arena"
+	name = "Голопалуба – рыцарская арена"
 
 /**
  * MARK: ENGINEERING
