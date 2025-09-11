@@ -626,10 +626,10 @@
 		remove_from_storage(I, T)
 
 /**
-  * Populates the container with items
-  *
-  * Override with whatever you want to put in the container
-  */
+ * Populates the container with items
+ *
+ * Override with whatever you want to put in the container
+ */
 /obj/item/storage/proc/populate_contents()
 	return // Override
 

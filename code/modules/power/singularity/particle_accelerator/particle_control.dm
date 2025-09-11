@@ -116,7 +116,7 @@
 		part.strength = strength
 		part.update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/particle_accelerator/control_box/proc/add_strength(var/s)
+/obj/machinery/particle_accelerator/control_box/proc/add_strength(s)
 	if(!assembled)
 		return
 	strength++
@@ -131,7 +131,7 @@
 		investigate_log("increased to <span style='color: red;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 	strength_change()
 
-/obj/machinery/particle_accelerator/control_box/proc/remove_strength(var/s)
+/obj/machinery/particle_accelerator/control_box/proc/remove_strength(s)
 	if(!assembled)
 		return
 

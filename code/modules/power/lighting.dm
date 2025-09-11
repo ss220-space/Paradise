@@ -1,24 +1,17 @@
 // The Lighting System
-//
 // Consists of light fixtures (/obj/machinery/light) and light tube/bulb items (/obj/item/light)
-
-// status values shared between lighting fixtures and items
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
 
 #define STAGE_EMPTY 1
 #define STAGE_WIRED 2
 #define STAGE_COMPLETED 3
 
 /**
-  * # Light fixture frame
-  *
-  * Incomplete light tube fixture
-  *
-  * Becomes a [Light fixture] when completed
-  */
+ * # Light fixture frame
+ *
+ * Incomplete light tube fixture
+ *
+ * Becomes a [Light fixture] when completed
+ */
 /obj/machinery/light_construct
 	name = "light fixture frame"
 	desc = "A light fixture under construction."
@@ -148,12 +141,12 @@
 
 
 /**
-  * # Small light fixture frame
-  *
-  * Incomplete light bulb fixture
-  *
-  * Becomes a [Small light fixture] when completed
-  */
+ * # Small light fixture frame
+ *
+ * Incomplete light bulb fixture
+ *
+ * Becomes a [Small light fixture] when completed
+ */
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
 	desc = "A small light fixture under construction."
@@ -167,10 +160,10 @@
 
 
 /**
-  * # Light fixture
-  *
-  * The standard light tube fixture
-  */
+ * # Light fixture
+ *
+ * The standard light tube fixture
+ */
 /obj/machinery/light
 	name = "light fixture"
 	icon = 'icons/obj/lighting.dmi'
@@ -237,10 +230,10 @@
 
 
 /**
-  * # Small light fixture
-  *
-  * The smaller light bulb fixture
-  */
+ * # Small light fixture
+ *
+ * The smaller light bulb fixture
+ */
 /obj/machinery/light/small
 	icon_state = "bulb1"
 	base_icon_state = "bulb"
@@ -367,14 +360,14 @@
 
 
 /**
-  * Updates the light's properties
-  *
-  * Updates the icon_state, luminosity, colour, and power usage of the light.
-  * Also handles rigged light bulbs exploding.
-  * Arguments:
-  * * trigger - Should this update make the light explode/burn out? (Defaults to TRUE)
-  * * play_sound - Will the lightbulb play a sound when it's turned on.
-  */
+ * Updates the light's properties
+ *
+ * Updates the icon_state, luminosity, colour, and power usage of the light.
+ * Also handles rigged light bulbs exploding.
+ * Arguments:
+ * * trigger - Should this update make the light explode/burn out? (Defaults to TRUE)
+ * * play_sound - Will the lightbulb play a sound when it's turned on.
+ */
 /obj/machinery/light/proc/update(trigger = TRUE, play_sound = TRUE)
 	var/area/current_area = get_area(src)
 	UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
@@ -683,9 +676,9 @@
 	return TRUE
 
 /**
-  * Flicker routine for the light.
-  * Called by invoke_async so the parent proc can return immediately.
-  */
+ * Flicker routine for the light.
+ * Called by invoke_async so the parent proc can return immediately.
+ */
 /obj/machinery/light/proc/flicker_event(amount)
 	if(on && status == LIGHT_OK)
 		for(var/i = 0; i < amount; i++)
@@ -848,12 +841,12 @@
 
 
 /**
-  * # Light item
-  *
-  * Parent type of light fittings (Light bulbs, light tubes)
-  *
-  * Will fit into empty [/obj/machinery/light] of the corresponding type
-  */
+ * # Light item
+ *
+ * Parent type of light fittings (Light bulbs, light tubes)
+ *
+ * Will fit into empty [/obj/machinery/light] of the corresponding type
+ */
 /obj/item/light
 	icon = 'icons/obj/lighting.dmi'
 	force = 2
@@ -903,10 +896,10 @@
 	return TRUE
 
 /**
-  * # Light Tube
-  *
-  * For use in an empty [/obj/machinery/light]
-  */
+ * # Light Tube
+ *
+ * For use in an empty [/obj/machinery/light]
+ */
 /obj/item/light/tube
 	name = "light tube"
 	desc = "A replacement light tube."
@@ -922,10 +915,10 @@
 	brightness_power = 2
 
 /**
-  * # Light Bulb
-  *
-  * For use in an empty [/obj/machinery/light/small]
-  */
+ * # Light Bulb
+ *
+ * For use in an empty [/obj/machinery/light/small]
+ */
 /obj/item/light/bulb
 	name = "light bulb"
 	desc = "A replacement light bulb."
@@ -1053,11 +1046,6 @@
 	no_emergency = FALSE
 	update(FALSE)
 
-
-#undef LIGHT_OK
-#undef LIGHT_EMPTY
-#undef LIGHT_BROKEN
 #undef STAGE_EMPTY
 #undef STAGE_WIRED
 #undef STAGE_COMPLETED
-

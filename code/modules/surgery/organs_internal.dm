@@ -3,8 +3,6 @@
 /// Amount of mito necessary to revive an organ
 #define MITO_REVIVAL_COST 5
 
-
-
 /datum/surgery/organ_manipulation
 	name = "Манипуляция с внутренними органами"
 	steps = list(
@@ -1177,3 +1175,4 @@
 	return SURGERY_STEP_RETRY
 
 #undef MITO_REVIVAL_COST
+#undef GHETTO_DISINFECT_AMOUNT

@@ -5,7 +5,7 @@
 
 	if(!client || !client.holder)
 		return
-	if(ckey && (ckey in (GLOB.de_admins + GLOB.de_mentors)))
+	if(ckey && (ckey in (GLOB.de_admins + GLOB.de_mentors + GLOB.de_devs)))
 		return
 
 	for(var/datum/action/innate/admin/action as anything in subtypesof(/datum/action/innate/admin))

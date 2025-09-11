@@ -4,15 +4,15 @@
 	change_musculs = FALSE
 	weight = 1
 
-/datum/martial_art/boxing/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/boxing/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	to_chat(A, "<span class='warning'>Can't disarm while boxing!</span>")
 	return 1
 
-/datum/martial_art/boxing/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/boxing/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	to_chat(A, "<span class='warning'>Can't grab while boxing!</span>")
 	return 1
 
-/datum/martial_art/boxing/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/boxing/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 
@@ -52,7 +52,7 @@
 	name = "Drunken Brawling"
 	weight = 2
 
-/datum/martial_art/drunk_brawling/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/drunk_brawling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(prob(70))
 		A.visible_message("<span class='warning'>[A] tries to grab ahold of [D], but fails!</span>", \
 							"<span class='warning'>You fail to grab ahold of [D]!</span>")
@@ -63,7 +63,7 @@
 								"<span class='userdanger'>[A] grabs ahold of [D] drunkenly!</span>")
 	return TRUE
 
-/datum/martial_art/drunk_brawling/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/drunk_brawling/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 

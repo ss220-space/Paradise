@@ -46,7 +46,7 @@
 	age = get_rand_age(S)
 
 
-/datum/preferences/proc/randomize_hair_color(var/target = "hair")
+/datum/preferences/proc/randomize_hair_color(target = "hair")
 	if(prob (75) && target == "facial") // Chance to inherit hair color
 		f_colour = h_colour
 		return
@@ -146,7 +146,7 @@
 
 	e_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/randomize_skin_color(var/pass_on)
+/datum/preferences/proc/randomize_skin_color(pass_on)
 	var/red
 	var/green
 	var/blue
@@ -195,7 +195,7 @@
 	else
 		s_colour = rgb(red, green, blue)
 
-/datum/preferences/proc/blend_backpack(var/icon/clothes_s,var/backbag,var/satchel,var/backpack="backpack")
+/datum/preferences/proc/blend_backpack(icon/clothes_s, backbag, satchel, backpack="backpack")
 	switch(backbag)
 		if(2)
 			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', backpack), ICON_OVERLAY)

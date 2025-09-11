@@ -400,13 +400,13 @@
 		R.price = (typepath in prices) ? prices[typepath] : 0
 		recordlist += R
 /**
-  * Refill a vending machine from a refill canister
-  *
-  * This takes the products from the refill canister and then fills the products,contraband and premium product categories
-  *
-  * Arguments:
-  * * canister - the vending canister we are refilling from
-  */
+ * Refill a vending machine from a refill canister
+ *
+ * This takes the products from the refill canister and then fills the products,contraband and premium product categories
+ *
+ * Arguments:
+ * * canister - the vending canister we are refilling from
+ */
 /obj/machinery/vending/proc/restock(obj/item/vending_refill/canister)
 	if(!canister.products)
 		canister.products = products.Copy()
@@ -419,12 +419,12 @@
 	. += refill_inventory(canister.contraband, hidden_records)
 	. += refill_inventory(canister.premium, coin_records)
 /**
-  * Refill our inventory from the passed in product list into the record list
-  *
-  * Arguments:
-  * * productlist - list of types -> amount
-  * * recordlist - existing record datums
-  */
+ * Refill our inventory from the passed in product list into the record list
+ *
+ * Arguments:
+ * * productlist - list of types -> amount
+ * * recordlist - existing record datums
+ */
 /obj/machinery/vending/proc/refill_inventory(list/productlist, list/recordlist)
 	. = 0
 	for(var/R in recordlist)
@@ -435,10 +435,10 @@
 			record.amount += diff
 			. += diff
 /**
-  * Set up a refill canister that matches this machines products
-  *
-  * This is used when the machine is deconstructed, so the items aren't "lost"
-  */
+ * Set up a refill canister that matches this machines products
+ *
+ * This is used when the machine is deconstructed, so the items aren't "lost"
+ */
 /obj/machinery/vending/proc/update_canister()
 	if(!component_parts)
 		return
@@ -452,8 +452,8 @@
 	R.premium = unbuild_inventory(coin_records)
 
 /**
-  * Given a record list, go through and and return a list of type -> amount
-  */
+ * Given a record list, go through and and return a list of type -> amount
+ */
 /obj/machinery/vending/proc/unbuild_inventory(list/recordlist)
 	. = list()
 	for(var/R in recordlist)
@@ -1840,7 +1840,7 @@
 	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow = 10,   //Congrats, you unlocked the +18 setting!
 					/obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
 					/obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
- 					/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
+					/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
 					/obj/item/ammo_box/foambox/riot = 20,
 					/obj/item/toy/katana = 10,
 					/obj/item/twohanded/dualsaber/toy = 5,

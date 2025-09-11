@@ -1,8 +1,4 @@
 #define SPACEVINE_SPAWN_THRESHOLD 5
-//Types of usual mutations
-#define	POSITIVE			1
-#define	NEGATIVE			2
-#define	MINOR_NEGATIVE		3
 
 /datum/event/spacevine
 	announceWhen = 120

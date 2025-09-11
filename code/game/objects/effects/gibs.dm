@@ -34,12 +34,12 @@
 	return INITIALIZE_HINT_QDEL // qdel once done
 
 /**
-  * Spawns the gibs (and sparks if applicable) from the gib spawner.
-  *
-  * Arguments:
-  * * location - The position to spawn the gibs on.
-  * * mob_dna - The [/datum/dna] controlling the blood DNA and colour of the gibs.
-  */
+ * Spawns the gibs (and sparks if applicable) from the gib spawner.
+ *
+ * Arguments:
+ * * location - The position to spawn the gibs on.
+ * * mob_dna - The [/datum/dna] controlling the blood DNA and colour of the gibs.
+ */
 /obj/effect/gibspawner/proc/spawn_gibs(atom/location, datum/dna/mob_dna)
 	var/obj/effect/decal/cleanable/blood/gibs/gib = null
 
@@ -63,13 +63,13 @@
 				gib.streak(directions)
 
 /**
-  * Assigns DNA and blood colour to mob gibs.
-  *
-  * Returns FALSE if there was no DNA data to transfer to the gibs, and TRUE if there was.
-  * Arguments:
-  * * gib - The [/obj/effect/decal/cleanable/blood/gibs] that is being edited.
-  * * mob_dna - The [/datum/dna] which is being transferred onto the gib.
-  */
+ * Assigns DNA and blood colour to mob gibs.
+ *
+ * Returns FALSE if there was no DNA data to transfer to the gibs, and TRUE if there was.
+ * Arguments:
+ * * gib - The [/obj/effect/decal/cleanable/blood/gibs] that is being edited.
+ * * mob_dna - The [/datum/dna] which is being transferred onto the gib.
+ */
 /obj/effect/gibspawner/proc/gib_dna(obj/effect/decal/cleanable/blood/gibs/gib, datum/dna/mob_dna)
 	if(!mob_dna)
 		return FALSE
