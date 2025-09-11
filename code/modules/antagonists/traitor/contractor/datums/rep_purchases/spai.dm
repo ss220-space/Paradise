@@ -1,6 +1,6 @@
 /**
-  * # Rep Purchase - SPAI Kit
-  */
+ * # Rep Purchase - SPAI Kit
+ */
 /datum/rep_purchase/item/spai_kit
 	name = "Набор СПИИ"
 	description = "Усовершенствованная версия обычного ПИИ. Он отличается большим объёмом памяти и наличием специальных программ, \

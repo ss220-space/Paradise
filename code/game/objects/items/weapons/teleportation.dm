@@ -96,5 +96,4 @@
 
 
 /obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)
-    active_portals--
-
+	active_portals--

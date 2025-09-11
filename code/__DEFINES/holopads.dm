@@ -1,0 +1,1 @@
+#define HOLOPAD_MAX_DIAL_TIME 200

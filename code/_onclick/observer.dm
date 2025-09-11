@@ -73,7 +73,7 @@
 	A.attack_ghost(src)
 
 // We don't need a fucking toggle.
-/mob/dead/observer/ShiftClickOn(var/atom/A)
+/mob/dead/observer/ShiftClickOn(atom/A)
 	examinate(A)
 
 /atom/proc/attack_ghost(mob/dead/observer/user)

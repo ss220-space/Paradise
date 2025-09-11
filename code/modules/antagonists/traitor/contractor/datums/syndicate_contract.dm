@@ -6,10 +6,10 @@
 #define RETURN_SOUVENIR_CHANCE 10
 
 /**
-  * # Syndicate Contract
-  *
-  * Describes a contract that can be completed by a [/datum/antagonist/contractor].
-  */
+ * # Syndicate Contract
+ *
+ * Describes a contract that can be completed by a [/datum/antagonist/contractor].
+ */
 /datum/syndicate_contract
 	// Settings
 	/// Cooldown before making another extraction request in deciseconds.
@@ -110,8 +110,8 @@
 	generate(target_override)
 
 /**
-  * Fills the contract with valid data to be used.
-  */
+ * Fills the contract with valid data to be used.
+ */
 /datum/syndicate_contract/proc/generate(target_override)
 	. = FALSE
 	// Select the target
@@ -157,12 +157,12 @@
 	return TRUE
 
 /**
-  * Begins the contract if possible.
-  *
-  * Arguments:
-  * * contractor - The contractor.
-  * * difficulty - The chosen difficulty level.
-  */
+ * Begins the contract if possible.
+ *
+ * Arguments:
+ * * contractor - The contractor.
+ * * difficulty - The chosen difficulty level.
+ */
 /datum/syndicate_contract/proc/initiate(mob/living/contractor, difficulty = EXTRACTION_DIFFICULTY_EASY)
 	. = FALSE
 	if(status != CONTRACT_STATUS_INACTIVE || !ISINDEXSAFE(reward_tc, difficulty))
@@ -182,11 +182,11 @@
 	return TRUE
 
 /**
-  * Marks the contract as completed and gives the rewards to the contractor.
-  *
-  * Arguments:
-  * * target_dead - Whether the target was extracted dead.
-  */
+ * Marks the contract as completed and gives the rewards to the contractor.
+ *
+ * Arguments:
+ * * target_dead - Whether the target was extracted dead.
+ */
 /datum/syndicate_contract/proc/complete(target_dead = FALSE)
 	if(status != CONTRACT_STATUS_ACTIVE)
 		return
@@ -203,8 +203,8 @@
 	addtimer(CALLBACK(src, PROC_REF(notify_completion), final_tc_reward, reward_credits, target_dead), COMPLETION_NOTIFY_DELAY)
 
 /**
-  * Marks the contract as invalid and effectively cancels it for later use.
-  */
+ * Marks the contract as invalid and effectively cancels it for later use.
+ */
 /datum/syndicate_contract/proc/invalidate()
 	if(!owning_hub)
 		return
@@ -234,11 +234,11 @@
 		SStgui.update_uis(owning_hub)
 
 /**
-  * Marks the contract as failed and stops it.
-  *
-  * Arguments:
-  * * difficulty - The visual reason as to why the contract failed.
-  */
+ * Marks the contract as failed and stops it.
+ *
+ * Arguments:
+ * * difficulty - The visual reason as to why the contract failed.
+ */
 /datum/syndicate_contract/proc/fail(reason)
 	if(status != CONTRACT_STATUS_ACTIVE)
 		return
@@ -252,11 +252,11 @@
 	owning_hub.contractor_uplink?.message_holder("Вам не удалось похитить цель, агент. Впредь постарайтесь так не разочаровывать нас!", 'sound/machines/terminal_prompt_deny.ogg')
 
 /**
-  * Initiates the extraction process if conditions are met.
-  *
-  * Arguments:
-  * * contractor - The contractor.
-  */
+ * Initiates the extraction process if conditions are met.
+ *
+ * Arguments:
+ * * contractor - The contractor.
+ */
 /datum/syndicate_contract/proc/start_extraction_process(obj/item/contractor_uplink/uplink, mob/living/carbon/human/contractor)
 	if(!uplink?.Adjacent(contractor))
 		return "Где ваш чёртов аплинк?!"
@@ -288,13 +288,13 @@
 	extraction_timer_handle = addtimer(CALLBACK(src, PROC_REF(deadline_reached)), portal_duration, TIMER_STOPPABLE)
 
 /**
-  * Opens the extraction portal.
-  *
-  * Arguments:
-  * * uplink - The uplink.
-  * * contractor - The contractor.
-  * * flare - The flare.
-  */
+ * Opens the extraction portal.
+ *
+ * Arguments:
+ * * uplink - The uplink.
+ * * contractor - The contractor.
+ * * flare - The flare.
+ */
 /datum/syndicate_contract/proc/open_extraction_portal(obj/item/contractor_uplink/uplink, mob/living/carbon/human/contractor, obj/effect/contractor_flare/flare)
 	if(!uplink || !contractor || status != CONTRACT_STATUS_ACTIVE)
 		invalidate()
@@ -400,19 +400,22 @@
 	complete(person_sent.stat == DEAD)
 
 /**
-  * Notifies the uplink's holder that a contract has been completed.
-  *
-  * Arguments:
-  * * tc - How many telecrystals they have received.
-  * * creds - How many credits they have received.
-  * * target_dead - Whether the target was extracted dead.
-  */
+ * Notifies the uplink's holder that a contract has been completed.
+ *
+ * Arguments:
+ * * tc - How many telecrystals they have received.
+ * * creds - How many credits they have received.
+ * * target_dead - Whether the target was extracted dead.
+ */
 /datum/syndicate_contract/proc/notify_completion(tc, creds, target_dead)
 	var/penalty_text = ""
 	if(target_dead)
 		penalty_text = " (штраф применяется, если цель была эвакуирована мёртвой)"
-	owning_hub.contractor_uplink?.message_holder("Отличная работа, агент! Цель доставлена и в ближайшее время её обработают, после чего отправят обратно. "\
-									 + "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[declension_ru(creds, "", "а", "ов")].", 'sound/machines/terminal_prompt_confirm.ogg')
+	owning_hub.contractor_uplink?.message_holder(
+		"Отличная работа, агент! Цель доставлена и в ближайшее время её обработают, после чего отправят обратно. " \
+		+ "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[declension_ru(creds, "", "а", "ов")].", \
+		'sound/machines/terminal_prompt_confirm.ogg'
+	)
 
 
 /datum/syndicate_contract/proc/remove_victim_items(mob/living/victim, turf/portal_turf)
@@ -595,11 +598,11 @@
 #undef VICTIM_EXPERIENCE_LAST_HIT
 
 /**
-  * Handles the target's return to station.
-  *
-  * Arguments:
-  * * victim - The target mob.
-  */
+ * Handles the target's return to station.
+ *
+ * Arguments:
+ * * victim - The target mob.
+ */
 /datum/syndicate_contract/proc/handle_target_return(mob/living/victim)
 	var/list/turf/possible_turfs = list()
 	for(var/turf/turf in contract.extraction_zone.contents)
@@ -683,16 +686,16 @@
 	GLOB.prisoner_belongings.prisoners[victim] = null
 
 /**
-  * Called when the extraction window closes.
-  */
+ * Called when the extraction window closes.
+ */
 /datum/syndicate_contract/proc/deadline_reached()
 	clean_up()
 	owning_hub.contractor_uplink?.message_holder("Окно эвакуации закрылось, агент. Капсула возвращается на базу. Вам придется начать процесс эвакуации ещё раз, чтобы мы могли направить ее еще раз.")
 	SStgui.update_uis(owning_hub)
 
 /**
-  * Cleans up the contract.
-  */
+ * Cleans up the contract.
+ */
 /datum/syndicate_contract/proc/clean_up(clean_pod = TRUE)
 	QDEL_NULL(extraction_flare)
 	if(clean_pod)
