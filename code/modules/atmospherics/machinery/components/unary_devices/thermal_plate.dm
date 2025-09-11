@@ -1,4 +1,5 @@
 #define RADIATION_CAPACITY 30000 //Radiation isn't particularly effective (TODO BALANCE)
+
 /obj/machinery/atmospherics/unary/thermal_plate
 //Based off Heat Reservoir and Space Heater
 //Transfers heat between a pipe system and environment, based on which has a greater thermal energy concentration
@@ -78,3 +79,5 @@
 	parent.update = 1
 
 	return 1
+
+#undef RADIATION_CAPACITY

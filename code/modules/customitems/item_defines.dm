@@ -1104,12 +1104,12 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
-    icon = 'icons/obj/custom_items.dmi'
-    name = "Soviet Casual Uniform"
-    desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
-    icon_state = "soviet_casual_uniform"
-    item_state = "soviet_casual_uniform"
-    item_color = "soviet_casual_uniform"
+	icon = 'icons/obj/custom_items.dmi'
+	name = "Soviet Casual Uniform"
+	desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
+	icon_state = "soviet_casual_uniform"
+	item_state = "soviet_casual_uniform"
+	item_color = "soviet_casual_uniform"
 
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
@@ -1273,8 +1273,10 @@
 	attack_verb = list("тыкнул")
 	actions_types = list(/datum/action/item_action/adjust)
 	var/prompting_change = FALSE
-	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
-								 "coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
+	var/list/plush_colors = list(
+		"red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
+		"coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox"
+	)
 
 /obj/item/toy/plushie/fluff/fox/proc/change_color(mob/user)
 	if(prompting_change)
@@ -1607,12 +1609,12 @@
 	item_color = "Xann_necklace"
 
 /obj/item/clothing/accessory/rbscarf //Rb303: Isthel Eisenwald
-    name = "Old purple scarf"
-    desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
-    icon = 'icons/obj/custom_items.dmi'
-    icon_state = "rbscarf"
-    item_state = "rbscarf"
-    item_color = "rbscarf"
+	name = "Old purple scarf"
+	desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "rbscarf"
+	item_state = "rbscarf"
+	item_color = "rbscarf"
 
 /obj/item/instrument/accordion/fluff/asmer_accordion //Asmerath: Coloratura
 	name = "Rara's Somber Accordion"

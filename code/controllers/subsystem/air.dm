@@ -438,6 +438,7 @@ SUBSYSTEM_DEF(air)
 		stack_trace("[shouldnt_be_active] was active before init, turf x=[shouldnt_be_active.x], turf y=[shouldnt_be_active.y], turf z=[shouldnt_be_active.z], turf area=[shouldnt_be_active.loc]")
 		message_admins("[shouldnt_be_active] was active before init, [ADMIN_JMP(shouldnt_be_active)])")
 
+#undef SSAIR_DEFERREDPIPENETS
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY
 #undef SSAIR_ACTIVETURFS

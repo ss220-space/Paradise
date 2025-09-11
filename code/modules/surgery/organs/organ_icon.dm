@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	for(var/child_i in child_icons)
 		cut_overlay(child_i)
 	LAZYREINITLIST(child_icons)
-	 // This is a kludge, only one icon has more than one generation of children though.
+	// This is a kludge, only one icon has more than one generation of children though.
 	for(var/obj/item/organ/external/childpart as anything in children)
 		add_overlay(childpart.mob_icon)
 		child_icons += childpart.mob_icon
@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		s_tone = null
 		s_col = rgb(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
 
-/obj/item/organ/external/head/sync_colour_to_human(var/mob/living/carbon/human/H)
+/obj/item/organ/external/head/sync_colour_to_human(mob/living/carbon/human/H)
 	..()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes) eyes.update_colour()

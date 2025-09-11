@@ -74,3 +74,6 @@ stddef.dm
 
 # Rust output.
 /rust/target/*
+
+# From /tools/define_sanity/check.py - potential output file that we load onto the user's machine that we don't want to have committed.
+define_sanity_output.txt

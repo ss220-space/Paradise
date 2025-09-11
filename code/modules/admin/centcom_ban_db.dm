@@ -5,13 +5,13 @@
 
 
 /**
-  * CCBDB Lookup Initiator
-  *
-  * Checks the configuration before invoking the request to the CCBDB server.
-  *
-  * Arguments:
-  * * ckey - ckey to be looked up
-  */
+ * CCBDB Lookup Initiator
+ *
+ * Checks the configuration before invoking the request to the CCBDB server.
+ *
+ * Arguments:
+ * * ckey - ckey to be looked up
+ */
 /datum/admins/proc/create_ccbdb_lookup(ckey)
 	// Bail if disabled
 	if(!CONFIG_GET(string/centcom_ban_db_url))
@@ -25,15 +25,15 @@
 	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "[CONFIG_GET(string/centcom_ban_db_url)][ckey]", proc_callback=cb)
 
 /**
-  * CCBDB Lookup Callback
-  *
-  * Callback assigned in [/datum/admins/proc/create_ccbdb_lookup] for async operations without a sleep()
-  *
-  * Arguments:
-  * * user - Mob calling the lookup so the UI can be opened
-  * * ckey - Ckey being looked up
-  * * response - [/datum/http_response] passed through from [SShttp]
-  */
+ * CCBDB Lookup Callback
+ *
+ * Callback assigned in [/datum/admins/proc/create_ccbdb_lookup] for async operations without a sleep()
+ *
+ * Arguments:
+ * * user - Mob calling the lookup so the UI can be opened
+ * * ckey - Ckey being looked up
+ * * response - [/datum/http_response] passed through from [SShttp]
+ */
 /datum/admins/proc/ccbdb_lookup_callback(mob/user, ckey, datum/http_response/response)
 	// If the admin DC'd during the lookup, dont try and do things
 	if(!user)
