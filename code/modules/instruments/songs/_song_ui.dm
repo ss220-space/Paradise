@@ -156,8 +156,8 @@
 	parent.add_fingerprint(user)
 
 /**
-  * Parses a song the user has input into lines and stores them.
-  */
+ * Parses a song the user has input into lines and stores them.
+ */
 /datum/song/proc/parse_song(text, mob/user)
 	set waitfor = FALSE
 	stop_playing()

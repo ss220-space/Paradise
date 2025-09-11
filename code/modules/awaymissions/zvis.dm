@@ -129,7 +129,7 @@
 	QDEL_NULL(sensor)
 	return ..()
 
-/turf/simulated/floor/indestructible/upperlevel/proc/init(var/obj/effect/levelref/R)
+/turf/simulated/floor/indestructible/upperlevel/proc/init(obj/effect/levelref/R)
 	lower_turf = locate(x + R.offset_x, y + R.offset_y, z + R.offset_z)
 	if(lower_turf)
 		sensor = new(lower_turf, src)

@@ -1,5 +1,5 @@
 /****************************************************
-			   ORGAN DEFINES
+				ORGAN DEFINES
 ****************************************************/
 
 /obj/item/organ/external/chest
@@ -628,7 +628,7 @@
 		icon_name = null
 		return
 
-/obj/item/organ/external/tail/sync_colour_to_human(var/mob/living/carbon/human/H)
+/obj/item/organ/external/tail/sync_colour_to_human(mob/living/carbon/human/H)
 	..()
 	var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[H.m_styles["tail"]]
 	if(body_accessory && (dna.species.name in body_accessory.allowed_species))

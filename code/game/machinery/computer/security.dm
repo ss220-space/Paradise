@@ -318,12 +318,12 @@
 	add_fingerprint(usr)
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/machinery/computer/secure_data/proc/ui_act_modal(action, list/params)
 	if(!ui_login_get().logged_in)
 		return
@@ -443,8 +443,8 @@
 			return FALSE
 
 /**
-  * Called when the print record timer finishes
-  */
+ * Called when the print record timer finishes
+ */
 /obj/machinery/computer/secure_data/proc/print_record_finish()
 	var/obj/item/paper/P = new(loc)
 	P.info = "<center><b>Security Record</b></center><br>"
@@ -483,8 +483,8 @@
 	SStgui.update_uis(src)
 
 /**
-  * Called when the print cell log timer finishes
-  */
+ * Called when the print cell log timer finishes
+ */
 /obj/machinery/computer/secure_data/proc/print_cell_log_finish(name, info)
 	var/obj/item/paper/P = new(loc)
 	P.name = name
@@ -522,12 +522,12 @@
 	..(severity)
 
 /**
-  * Sets a temporary message to display to the user
-  *
-  * Arguments:
-  * * text - Text to display, null/empty to clear the message from the UI
-  * * style - The style of the message: (color name), info, success, warning, danger
-  */
+ * Sets a temporary message to display to the user
+ *
+ * Arguments:
+ * * text - Text to display, null/empty to clear the message from the UI
+ * * style - The style of the message: (color name), info, success, warning, danger
+ */
 /obj/machinery/computer/secure_data/proc/set_temp(text = "", style = "info", update_now = FALSE)
 	temp_notice = list(text = text, style = style)
 	if(update_now)

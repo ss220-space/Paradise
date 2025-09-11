@@ -195,8 +195,10 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/emp/Activate()
-	owner.visible_message(span_warning("[owner]'s body flashes a bright blue!"), \
-						 span_cultitalic("You speak the cursed words, channeling an electromagnetic pulse from your body."))
+	owner.visible_message(
+		span_warning("[owner]'s body flashes a bright blue!"), \
+		span_cultitalic("You speak the cursed words, channeling an electromagnetic pulse from your body.")
+	)
 	owner.emp_act(2)
 	add_attack_logs(owner, owner, "activated EMP spell")
 	empulse(owner, 2, 5, cause = "cult")

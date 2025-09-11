@@ -197,7 +197,7 @@
 	else
 		style_preview_icon_state = "ninja_preview_[design_choice]_[scarf_or_hood]_[scarf_or_hood == "scarf" ? "[scarf_design_choice]_" : "" ][color_choice]"
 
-/obj/item/clothing/suit/space/space_ninja/proc/get_suit_ability(var/ability)
+/obj/item/clothing/suit/space/space_ninja/proc/get_suit_ability(ability)
 	if(!ability)
 		return
 	var/return_ability_type

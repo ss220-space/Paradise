@@ -48,28 +48,28 @@
 	CRASH(msg)
 
 /proc/dmjit_compile_proc(name)
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_install_compiled()
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_toggle_hooks()
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_toggle_call_counts()
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_get_datum_ref_count(arg)
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_mark_time(name)
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_report_time(name)
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_call_hierarchy(name)
-    DMJIT_NATIVE
+	DMJIT_NATIVE
 
 /proc/dmjit_dump_deopts()
-    DMJIT_NATIVE
+	DMJIT_NATIVE
