@@ -241,15 +241,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
 
-	if(SEND_SIGNAL( \
-        src, \
-        COMSIG_LIVING_EARLY_SAY, \
-        message, \
-        verb, \
-        ignore_speech_problems, \
-        ignore_atmospherics, \
-        ignore_languages, \
-        first_piece) & COMPONENT_PREVENT_SPEAKING)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_EARLY_SAY, message, verb, ignore_speech_problems, ignore_atmospherics, ignore_languages, first_piece) & COMPONENT_PREVENT_SPEAKING)
 		return FALSE
 
 	if(first_piece.speaking?.flags & HIVEMIND)

@@ -190,8 +190,8 @@
 	for(var/trait in clothing_traits)
 		ADD_CLOTHING_TRAIT(user, src, trait)
 /**
-  * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
-  */
+ * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
+ */
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
@@ -1157,11 +1157,11 @@ BLIND     // can't see anything
 
 
 /*
-  * # can_attach_accessory
-  *
-  * Arguments:
-  * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
-*/
+ * # can_attach_accessory
+ *
+ * Arguments:
+ * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+ */
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/checked_acc)
 	if(!istype(checked_acc))
 		return FALSE

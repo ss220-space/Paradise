@@ -310,8 +310,8 @@
 	deathgasp_on_death = FALSE
 
 /mob/living/carbon/human/skeleton/dead/Initialize(mapload)
-    . = ..()
-    rename_character(src.name, "A skeleton")
+	. = ..()
+	rename_character(src.name, "A skeleton")
 
 /datum/outfit/space_graveyard/suit_and_shoes
 	name = "Jacket and shoes"

@@ -1,8 +1,8 @@
 /**
-  * # Contractor Uplink
-  *
-  * A contractor's point of contact with their Contractor Hub.
-  */
+ * # Contractor Uplink
+ *
+ * A contractor's point of contact with their Contractor Hub.
+ */
 /obj/item/contractor_uplink
 	name = "contractor uplink"
 	desc = "Устройство, выданное Синдикатом, для работы с контрактами в полевых условиях."
@@ -38,12 +38,12 @@
 	hub.ui_interact(user)
 
 /**
-  * Sends a message to the mob holding this item.
-  *
-  * Arguments:
-  * * text - The text to send.
-  * * sndfile - The sound to play to the holder only.
-  */
+ * Sends a message to the mob holding this item.
+ *
+ * Arguments:
+ * * text - The text to send.
+ * * sndfile - The sound to play to the holder only.
+ */
 /obj/item/contractor_uplink/proc/message_holder(text, sndfile)
 	var/mob/living/M = loc
 	while(!istype(M) && M?.loc)

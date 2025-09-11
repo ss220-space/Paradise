@@ -83,8 +83,7 @@
 	return "$[num2septext(money)]"
 
 // Seperated from charge so they can reuse the code and also because there's many instances where a log will be made without actually making a transaction
-/datum/money_account/proc/makeTransactionLog(transaction_amount = 0, transaction_purpose, terminal_name = "",
- dest_name = UNKNOWN_STATUS_RUS, charging = TRUE, date = GLOB.current_date_string, time = "")
+/datum/money_account/proc/makeTransactionLog(transaction_amount = 0, transaction_purpose, terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, charging = TRUE, date = GLOB.current_date_string, time = "")
 	var/datum/transaction/T = new()
 	T.target_name = dest_name
 	T.purpose = transaction_purpose
@@ -102,8 +101,7 @@
 	transaction_log.Add(T)
 
  // Charge is for transferring money from an account to another. The destination account can possibly not exist (Magical money sink)
-/datum/money_account/proc/charge(transaction_amount = 0, datum/money_account/dest, transaction_purpose,
- terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, dest_purpose, dest_target_name)
+/datum/money_account/proc/charge(transaction_amount = 0, datum/money_account/dest, transaction_purpose, terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, dest_purpose, dest_target_name)
 	if(suspended)
 		to_chat(usr, "<span class='warning'>Unable to access source account: account suspended.</span>")
 		return 0

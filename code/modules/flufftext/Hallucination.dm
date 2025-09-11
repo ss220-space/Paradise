@@ -866,12 +866,12 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	qdel(src)
 
 /**
-  * Spawns an hallucination for the mob.
-  *
-  * Arguments:
-  * * H - The name of the hallucination. "xeno", etc.
-  * * specific - used to specify a particular hallucination
-  */
+ * Spawns an hallucination for the mob.
+ *
+ * Arguments:
+ * * H - The name of the hallucination. "xeno", etc.
+ * * specific - used to specify a particular hallucination
+ */
 /mob/living/proc/hallucinate_living(hal_type, specific) // specific is used to specify a particular hallucination
 	investigate_log("was afflicted with a hallucination of type [hal_type] by [last_hallucinator_log ? last_hallucinator_log : "Unknown source"].", INVESTIGATE_HALLUCINATIONS)
 	switch(hal_type)

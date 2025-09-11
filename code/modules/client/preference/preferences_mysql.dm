@@ -805,8 +805,8 @@
 	return TRUE
 
 /**
-  * Saves [/datum/preferences/proc/volume_mixer] for the current client.
-  */
+ * Saves [/datum/preferences/proc/volume_mixer] for the current client.
+ */
 /datum/preferences/proc/save_volume_mixer()
 	volume_mixer_saving = null
 	//save_volume_mixer is called with a timer, the client may no longer be there.
