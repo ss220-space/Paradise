@@ -189,6 +189,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	//Special role pref
 	var/uplink_pref = PREF_UPLINK_PDA
 
+	/// Can this character be antagonist.
+	var/can_be_antagonist = TRUE
+
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 2
 
@@ -543,6 +546,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<br><b>Носки:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[socks]</a>"
 			dat += "<br><b>Сумка на спину:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[backbag]</a><br><br>"
+			dat += "<b>Может ли персонаж быть антагонистом?</b> <a href='byond://?_src_=prefs;preference=can_be_antagonist;task=input'>[can_be_antagonist ? "Да" : "Нет"]</a><br><br>"
 			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Меню выбора снаряжения</a><br>"
 
 			dat += "</td></tr></table>"
@@ -2189,6 +2193,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(new_uplink_pref)
 						uplink_pref = new_uplink_pref
 
+				if("can_be_antagonist")
+					can_be_antagonist = tgui_alert(user, "Выберите, может ли текущий персонаж быть антагонистом. Если у выбранного в начале игры персонажа эта опция отключена, при выпадении антагониста будет выбран случайный ваш персонаж, у которого она включена. Если она отключена у всех, выбранный персонаж останется.", \
+																"Может ли быть антагонистом", list("Да", "Нет")) == "Да"
+
 				if("tts_seed")
 					var/static/list/explorer_users = list()
 					var/datum/ui_module/tts_seeds_explorer/explorer = explorer_users[user]
@@ -3047,3 +3055,26 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			return UI_THEME_OPERATIVE_RUS
 		if(UI_THEME_WHITE)
 			return UI_THEME_WHITE_RUS
+
+
+/// Get random charecter with can_be_antagonist on. If no such characters, don't change current.
+/datum/preferences/proc/get_possible_antagonist()
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey=:ckey AND can_be_antagonist=:req_can_be_antagonist ORDER BY slot", list(
+		"ckey" = parent.ckey,
+		"req_can_be_antagonist" = 1,
+	))
+
+	if(!query.warn_execute(async = FALSE)) // Dont async this. Youll make roundstart slow.
+		qdel(query)
+		return
+
+	var/list/saves = list()
+	while(query.NextRow())
+		saves += text2num(query.item[1])
+
+	qdel(query)
+	if(!saves.len)
+		return
+
+	load_character(parent, pick(saves))
+	return

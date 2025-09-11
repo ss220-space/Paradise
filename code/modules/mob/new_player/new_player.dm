@@ -638,6 +638,16 @@
 	popup.set_content(dat)
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
+
+// If current character can't be antagonist, try to pick random character, who can.
+/mob/new_player/proc/handle_can_be_antagonist()
+	var/has_antags = (length(client.prefs.be_special) > 0)
+	if(!has_antags || client.prefs.can_be_antagonist)
+		return
+
+	client.prefs.get_possible_antagonist()
+
+
 /mob/new_player/proc/create_character()
 	spawning = TRUE
 	close_spawn_windows()
@@ -646,9 +656,11 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
+	handle_can_be_antagonist()
 	if(SSticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
+
 	client.prefs.copy_to(new_character)
 
 	// stop_sound_channel(CHANNEL_LOBBYMUSIC)
