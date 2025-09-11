@@ -62,10 +62,21 @@
 		PREPOSITIONAL = "капсуле снабжения"
 	)
 
+
 /obj/structure/closet/supplypod/bluespacepod
 	style = /datum/pod_style/advanced
 	bluespace = TRUE
 	explosionSize = list(0, 0, 1, 2)
+
+/obj/structure/closet/supplypod/bluespacepod/airdrop
+	style = /datum/pod_style/seethrough
+	explosionSize = list(0, 0, 0, 0)
+	delays = list(POD_TRANSIT = 30 SECONDS, POD_FALLING = 10 SECONDS, POD_OPENING = 1 SECONDS, POD_LEAVING = 0)
+
+/obj/structure/closet/supplypod/bluespacepod/airdrop_guard
+	style = /datum/pod_style/syndicate
+	explosionSize = list(0, 0, 0, 0)
+	delays = list(POD_TRANSIT = 30 SECONDS, POD_FALLING = 10 SECONDS, POD_OPENING = 1 SECONDS, POD_LEAVING = 0)
 
 //type used for one drop spawning items. doesn't have a style as style is set by the helper that creates this
 /obj/structure/closet/supplypod/podspawn
@@ -218,6 +229,38 @@
 		PREPOSITIONAL = "крылатой ракетой"
 	)
 
+/obj/structure/closet/supplypod/deadmatch_missile/endgame
+	explosionSize = list(255, 255, 255, 0)
+	delays = list(POD_TRANSIT = 30 SECONDS, POD_FALLING = 10 SECONDS)
+
+/obj/structure/closet/supplypod/deadmatch_missile/endgame/preOpen()
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(nuke_effect), z)
+	. = ..()
+
+/proc/nuke_effect(z)
+	for(var/mob/living as anything in GLOB.mob_list)
+		if(living.stat == DEAD)
+			continue
+
+		var/turf/turf = get_turf(living)
+
+		if(!turf || (turf.z != z) || isnewplayer(living) || istype(living.loc, /obj/structure/closet/secure_closet/freezer))
+			continue
+
+		living.ghostize()
+		living.dust() //no mercy
+		CHECK_TICK
+
+	for(var/core in GLOB.blob_cores)
+		var/turf/turf = get_turf(core)
+
+		if(!(turf && (turf.z == z)))
+			continue
+
+		qdel(core)
+		CHECK_TICK
+
+	SSticker.mode.end_game()
 
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()
@@ -426,7 +469,7 @@
 	if (explosion_sum != 0) //If the explosion list isn't all zeroes, call an explosion
 		explosion(turf_underneath, devastation_range = B[1], heavy_impact_range = B[2], light_impact_range = B[3], flame_range = B[4], silent = effectQuiet, ignorecap = istype(src, /obj/structure/closet/supplypod/centcompod), cause = src) //less advanced equipment than bluespace pod, so larger explosion when landing
 	else if (!effectQuiet && !(pod_flags & FIRST_SOUNDS)) //If our explosion list IS all zeroes, we still make a nice explosion sound (unless the effectQuiet var is true)
-		playsound(src, "explosion", landingSound ? soundVolume * 0.25 : soundVolume, TRUE)
+		playsound(src, SFX_EXPLOSION, landingSound ? soundVolume * 0.25 : soundVolume, TRUE)
 	if (landingSound)
 		playsound(turf_underneath, landingSound, soundVolume, FALSE, FALSE)
 	if (effectMissile) //If we are acting like a missile, then right after we land and finish fucking shit up w explosions, we should delete

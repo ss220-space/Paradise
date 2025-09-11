@@ -159,6 +159,37 @@
 	return TRUE
 
 
+/datum/surgery/suture
+	name = "Зашить кровотечения"
+	steps = list(
+		/datum/surgery_step/generic/suture
+	)
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_TAIL
+	)
+	requires_organic_bodypart = TRUE
+
+/datum/surgery/suture/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	if(affected.bleeding_amount > 0)
+		return TRUE
+	return FALSE
+
+
 /datum/surgery_step/fix_vein
 	name = "заживление кровеносных сосудов"
 	begin_sound = 'sound/surgery/fixovein1.ogg'

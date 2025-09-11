@@ -42,12 +42,12 @@
 		if(resistance_flags & ON_FIRE)
 			name = "flaming [name]"
 			if(ru_names)
-				ru_names[1] = "горящая " + ru_names[1]
-				ru_names[2] = "горящей " + ru_names[2]
-				ru_names[3] = "горящей " + ru_names[3]
-				ru_names[4] = "горящую " + ru_names[4]
-				ru_names[5] = "горящей " + ru_names[5]
-				ru_names[6] = "горящей " + ru_names[6]
+				ru_names[NOMINATIVE] = "горящая " + ru_names[NOMINATIVE]
+				ru_names[GENITIVE] = "горящей " + ru_names[GENITIVE]
+				ru_names[DATIVE] = "горящей " + ru_names[DATIVE]
+				ru_names[ACCUSATIVE] = "горящую " + ru_names[ACCUSATIVE]
+				ru_names[INSTRUMENTAL] = "горящей " + ru_names[INSTRUMENTAL]
+				ru_names[PREPOSITIONAL] = "горящей " + ru_names[PREPOSITIONAL]
 	else
 		name = "shot glass"
 		ru_names = list(

@@ -127,7 +127,7 @@
 		apply_to_card(I, H, new_access, "Clown Security", "clownsecurity")
 		I.access.Add(ACCESS_CLOWN, ACCESS_MIME, ACCESS_THEATRE)
 		I.assignment = name
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 	H.grant_mimicking()
 
 

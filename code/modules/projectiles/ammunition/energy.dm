@@ -118,7 +118,7 @@
 	select_name = "stun"
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	e_cost = 100
-	delay = 15
+	delay = 2 SECONDS
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/electrode/advanced //admin-bus only, k? dont give this thing to 100 year old Charlie crew or other ghost role
@@ -467,7 +467,7 @@
 	fluff_select_name = "stun"
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	e_cost = 250
-	delay = 15
+	delay = 2 SECONDS
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/dominator/paralyzer

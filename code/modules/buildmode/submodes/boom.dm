@@ -1,33 +1,50 @@
+#define BOOM_DEVASTATION "devastation"
+#define BOOM_HEAVY "heavy"
+#define BOOM_LIGHT "light"
+#define BOOM_FLASH "flash"
+#define BOOM_FLAMES "flames"
+
 /datum/buildmode_mode/boom
 	key = "boom"
 
-	var/devastation = -1
-	var/heavy = -1
-	var/light = -1
-	var/flash = -1
-	var/flames = -1
+	var/list/explosions = list(
+		BOOM_DEVASTATION = 0,
+		BOOM_HEAVY = 0,
+		BOOM_LIGHT = 0,
+		BOOM_FLASH = 0,
+		BOOM_FLAMES = 0
+		)
 
-/datum/buildmode_mode/boom/show_help(mob/user)
-	to_chat(user, span_notice("***********************************************************"))
-	to_chat(user, span_notice("Кнопка мыши на объекте = Кабум"))
-	to_chat(user, span_notice("ПРИМЕЧАНИЕ. Использование кнопки «Event/Launch Supplypod» позволяет вам сделать в IC поле (т. е. заставить крылатую ракету упасть с неба и взорваться там, где вы щелкнете!)"))
-	to_chat(user, span_notice("***********************************************************"))
+/datum/buildmode_mode/boom/show_help(mob/builder)
+	to_chat(builder, span_purple(chat_box_examine(
+		"[span_bold("Установить силу взрыва")] -> ПКМ по кнопке buildmode\n\
+		[span_bold("KABOOM")] -> ЛКМ на obj\n\n\
+		[span_warning("ПРИМЕЧАНИЕ:")] Использование кнопки \"Event/Launch Supplypod\" позволит вам сделать это в IC поле (т. е. заставить крылатую ракету упасть с неба и взорваться там, где вы щелкнете!)"))
+	)
 
 /datum/buildmode_mode/boom/change_settings(mob/user)
-	devastation = tgui_input_number(usr, "Дальность тотального разрушения.", text("Ввод"))
-	if(devastation == null) devastation = -1
-	heavy = tgui_input_number(usr, "Дальность сильного удара.", text("Ввод"))
-	if(heavy == null) heavy = -1
-	light = tgui_input_number(usr, "Дальность легкого удара.", text("Ввод"))
-	if(light == null) light = -1
-	flash = tgui_input_number(usr, "Дальность вспышки.", text("Ввод"))
-	if(flash == null) flash = -1
-	flames = tgui_input_number(usr, "Дальность пламени.", text("Ввод"))
-	if(flames == null) flames = -1
+	for(var/explosion_level in explosions)
+		explosions[explosion_level] = tgui_input_number(user, "Дальность тотального [explosion_level]. \"0\" – значит нет.", text("Ввод"))
+		if(explosions[explosion_level] == null || explosions[explosion_level] < 0)
+			explosions[explosion_level] = 0
 
 /datum/buildmode_mode/boom/handle_click(user, params, obj/object)
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
+	var/list/modifiers = params2list(params)
 
-	if(left_click)
-		explosion(object, devastation_range = devastation, heavy_impact_range = heavy, light_impact_range = light, flash_range = flash, adminlog = null, ignorecap = TRUE, flame_range = flames, cause = "build mode")
+	var/value_valid = FALSE
+	for(var/explosion_type in explosions)
+		if(explosions[explosion_type] > 0)
+			value_valid = TRUE
+			break
+	if(!value_valid)
+		return
+
+	if(LAZYACCESS(modifiers, LEFT_CLICK))
+		log_admin("Build Mode: [key_name(user)] caused an explosion(dev=[explosions[BOOM_DEVASTATION]], hvy=[explosions[BOOM_HEAVY]], lgt=[explosions[BOOM_LIGHT]], flash=[explosions[BOOM_FLASH]], flames=[explosions[BOOM_FLAMES]]) at [AREACOORD(object)]")
+		explosion(object, explosions[BOOM_DEVASTATION], explosions[BOOM_HEAVY], explosions[BOOM_LIGHT], explosions[BOOM_FLASH], flame_range = explosions[BOOM_FLAMES], adminlog = null, ignorecap = TRUE, cause = "Buildmode Boom")
+
+#undef BOOM_DEVASTATION
+#undef BOOM_HEAVY
+#undef BOOM_LIGHT
+#undef BOOM_FLASH
+#undef BOOM_FLAMES

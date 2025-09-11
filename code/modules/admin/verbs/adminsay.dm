@@ -128,7 +128,7 @@
 	set name = "Devsay"
 	set hidden = TRUE
 
-	if(!check_rights(R_ADMIN | R_VIEWRUNTIMES)) // Catch any non-admins trying to use this proc
+	if(!check_rights(R_VIEWRUNTIMES | R_ADMIN)) // Catch any non-admins trying to use this proc
 		return
 
 	// Do this up here before it gets sent to everyone & emoji'd
@@ -150,7 +150,7 @@
 	mob.create_log(OOC_LOG, "DEVSAY: [msg]")
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_ADMIN | R_VIEWRUNTIMES, FALSE, C.mob))
+		if(check_rights(R_VIEWRUNTIMES | R_ADMIN, FALSE, C.mob))
 			var/display_name = key
 			if(holder.fakekey)
 				if(C.holder && C.holder.rights & R_ADMIN)

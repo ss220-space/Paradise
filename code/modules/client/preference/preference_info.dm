@@ -204,8 +204,10 @@ GLOBAL_LIST_EMPTY(preferences_info)
 /datum/preference_info/ghost_death_notifs/get_preference_toggle()
     return GLOB.preference_toggles[/datum/preference_toggle/toggle_ghost_death_notifs]
 
+/*
 /datum/preference_info/reverb/get_preference_toggle()
     return GLOB.preference_toggles[/datum/preference_toggle/toggle_reverb]
+*/
 
 /datum/preference_info/simple_stat_panel/get_preference_toggle()
     return GLOB.preference_toggles[/datum/preference_toggle/toggle_simple_stat_panel]

@@ -14,19 +14,6 @@
 #define SIBYL_LETHAL 2
 #define SIBYL_DESTRUCTIVE 3
 
-//Click cooldowns
-#define CLICK_CD_MELEE (0.8 SECONDS)
-#define CLICK_CD_RANGE (0.4 SECONDS)
-#define CLICK_CD_HANDCUFFED (1 SECONDS)
-#define CLICK_CD_TKSTRANGLE (1 SECONDS)
-#define CLICK_CD_POINT (1 SECONDS)
-#define CLICK_CD_RESIST (2 SECONDS)
-#define CLICK_CD_PULLING (0.2 SECONDS)
-#define CLICK_CD_GRABBING (1 SECONDS)
-#define CLICK_CD_CLICK_ABILITY (0.6 SECONDS)
-#define CLICK_CD_RAPID (0.2 SECONDS)
-#define CLICK_CD_LOOK_UP_DOWN (0.5 SECONDS)
-
 /// Amount of time after the rounds starts, that the player disconnect report is issued.
 #define ROUNDSTART_LOGOUT_REPORT_TIME (10 MINUTES)
 
@@ -377,15 +364,6 @@
 
 //Melting Temperatures for various specific objects
 #define GIRDER_MELTING_TEMP 5000
-
-// Area selection defines
-#define AREASELECT_CORNERA "corner A"
-#define AREASELECT_CORNERB "corner B"
-
-//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
-#define MOUSE_OPACITY_TRANSPARENT 0
-#define MOUSE_OPACITY_ICON 1
-#define MOUSE_OPACITY_OPAQUE 2
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).

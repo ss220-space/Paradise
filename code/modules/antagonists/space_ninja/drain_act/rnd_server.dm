@@ -33,7 +33,7 @@
 			return
 
 		ninja_suit.spark_system.start()
-		playsound(loc, "sparks", 50, TRUE, 5)
+		playsound(loc, SFX_SPARKS, 50, TRUE, 5)
 		var/datum/tech/current_tech
 		var/datum/design/current_design
 		//Удаление данных у серверов

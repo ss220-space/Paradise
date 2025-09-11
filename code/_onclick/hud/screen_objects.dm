@@ -101,8 +101,8 @@
 
 /atom/movable/screen/act_intent/Click(location, control, params)
 	if(ishuman(usr) || isdevil(usr))
-		var/_x = text2num(params2list(params)["icon-x"])
-		var/_y = text2num(params2list(params)["icon-y"])
+		var/_x = text2num(LAZYACCESS(params2list(params), ICON_X))
+		var/_y = text2num(LAZYACCESS(params2list(params), ICON_Y))
 		if(_x<=16 && _y<=16)
 			usr.a_intent_change(INTENT_HARM)
 		else if(_x<=16 && _y>=17)
@@ -305,14 +305,14 @@
 	if(isobserver(usr))
 		return FALSE
 
-	var/list/PL = params2list(params)
-	var/icon_x = text2num(PL["icon-x"])
-	var/icon_y = text2num(PL["icon-y"])
+	var/list/modifiers = params2list(params)
+	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
+	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
 	var/choice = get_zone_at(icon_x, icon_y)
 	if(!choice)
 		return TRUE
 
-	if(PL["alt"])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		click_alt(usr, choice)
 		return
 
@@ -344,8 +344,10 @@
 	if(isobserver(usr))
 		return
 
-	var/list/PL = params2list(params)
-	var/choice = get_zone_at(text2num(PL["icon-x"]), text2num(PL["icon-y"]))
+	var/list/modifiers = params2list(params)
+	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
+	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
+	var/choice = get_zone_at(icon_x, icon_y)
 
 	if(!choice)
 		cut_overlay(hover_overlays_cache[hovering])

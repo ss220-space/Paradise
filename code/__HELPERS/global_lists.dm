@@ -27,6 +27,8 @@
 
 	init_datum_subtypes(/datum/robot_skin, GLOB.robot_skins, null, "type")
 
+	init_datum_subtypes(/datum/fake_administrator, GLOB.cached_fake_admins, null, "type")
+
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
 	init_subtypes(/datum/preference_info, GLOB.preferences_info)

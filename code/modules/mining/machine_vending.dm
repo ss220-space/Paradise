@@ -13,14 +13,6 @@
 /obj/machinery/mineral/equipment_vendor
 	name = "mining equipment vendor"
 	desc = "Оборудование для шахтёров. Очки, полученные в печке, можно потратить здесь."
-	ru_names = list(
-		NOMINATIVE = "раздатчик шахтёрского снаряжения",
-		GENITIVE = "раздатчика шахтёрского снаряжения",
-		DATIVE = "раздатчику шахтёрского снаряжения",
-		ACCUSATIVE = "раздатчик шахтёрского снаряжения",
-		INSTRUMENTAL = "раздатчиком шахтёрского снаряжения",
-		PREPOSITIONAL = "раздатчике шахтёрского снаряжения"
-	)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "mining"
 	density = TRUE
@@ -29,6 +21,16 @@
 	var/list/categories = list("Gear", "Consumables", "Kinetic Accelerator", "Digging Tools", "Minebot", "Miscellaneous")
 	var/list/prize_list // Initialized just below! (if you're wondering why - check CONTRIBUTING.md, look for: "hidden" init proc)
 	var/dirty_items = FALSE // Used to refresh the static/redundant data in case the machine gets VV'd
+
+/obj/machinery/mineral/equipment_vendor/get_ru_names()
+	return list(
+		NOMINATIVE = "раздатчик шахтёрского снаряжения",
+		GENITIVE = "раздатчика шахтёрского снаряжения",
+		DATIVE = "раздатчику шахтёрского снаряжения",
+		ACCUSATIVE = "раздатчик шахтёрского снаряжения",
+		INSTRUMENTAL = "раздатчиком шахтёрского снаряжения",
+		PREPOSITIONAL = "раздатчике шахтёрского снаряжения"
+	)
 
 /obj/machinery/mineral/equipment_vendor/Initialize(mapload)
 	. = ..()
@@ -264,7 +266,10 @@
 
 /obj/machinery/mineral/equipment_vendor/golem
 	name = "golem ship equipment vendor"
-	ru_names = list(
+	categories = list("Gear", "Consumables", "Kinetic Accelerator", "Digging Tools", "Minebot", "Miscellaneous", "Extra")
+
+/obj/machinery/mineral/equipment_vendor/golem/get_ru_names()
+	return list(
 		NOMINATIVE = "раздатчик снаряжения големов",
 		GENITIVE = "раздатчика снаряжения големов",
 		DATIVE = "раздатчику снаряжения големов",
@@ -272,7 +277,6 @@
 		INSTRUMENTAL = "раздатчиком снаряжения големов",
 		PREPOSITIONAL = "раздатчике снаряжения големов"
 	)
-	categories = list("Gear", "Consumables", "Kinetic Accelerator", "Digging Tools", "Minebot", "Miscellaneous", "Extra")
 
 /obj/machinery/mineral/equipment_vendor/golem/Initialize(mapload)
 	. = ..()
@@ -293,7 +297,10 @@
 /obj/machinery/mineral/equipment_vendor/labor
 	name = "labor camp equipment vendor"
 	desc = "Оборудование для отбросов. Очки, полученные в печке, можно потратить здесь."
-	ru_names = list(
+	categories = list("Scum")
+
+/obj/machinery/mineral/equipment_vendor/labor/get_ru_names()
+	return list(
 		NOMINATIVE = "раздатчик снаряжения каторги",
 		GENITIVE = "раздатчика снаряжения каторги",
 		DATIVE = "раздатчику снаряжения каторги",
@@ -301,7 +308,6 @@
 		INSTRUMENTAL = "раздатчиком снаряжения каторги",
 		PREPOSITIONAL = "раздатчике снаряжения каторги"
 	)
-	categories = list("Scum")
 
 /obj/machinery/mineral/equipment_vendor/labor/Initialize(mapload)
 	. = ..()
@@ -331,7 +337,12 @@
 /obj/item/mining_voucher
 	name = "mining voucher"
 	desc = "Жетон для получения снаряжения. Используйте на раздатчике шахтёрского снаряжения."
-	ru_names = list(
+	icon = 'icons/obj/items.dmi'
+	icon_state = "mining_voucher"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/mining_voucher/get_ru_names()
+	return list(
 		NOMINATIVE = "шахтёрский ваучер",
 		GENITIVE = "шахтёрского ваучера",
 		DATIVE = "шахтёрскому ваучеру",
@@ -339,16 +350,17 @@
 		INSTRUMENTAL = "шахтёрским ваучером",
 		PREPOSITIONAL = "шахтёрском ваучере"
 	)
-	icon = 'icons/obj/items.dmi'
-	icon_state = "mining_voucher"
-	w_class = WEIGHT_CLASS_TINY
 
 /**********************Mining Point Card**********************/
 
 /obj/item/card/mining_point_card
 	name = "mining point card"
 	desc = "Карта с предзагруженными очками. Проведите ID-картой для перевода очков, затем утилизируйте."
-	ru_names = list(
+	icon_state = "data"
+	var/points = 500
+
+/obj/item/card/mining_point_card/get_ru_names()
+	return list(
 		NOMINATIVE = "карта шахтёрских очков",
 		GENITIVE = "карты шахтёрских очков",
 		DATIVE = "карте шахтёрских очков",
@@ -356,8 +368,6 @@
 		INSTRUMENTAL = "картой шахтёрских очков",
 		PREPOSITIONAL = "карте шахтёрских очков"
 	)
-	icon_state = "data"
-	var/points = 500
 
 /obj/item/card/mining_point_card/thousand
 	points = 1000
@@ -390,7 +400,10 @@
 /obj/item/storage/box/jumpbootimplant
 	name = "box of jumpboot implants"
 	desc = "Коробка с набором имплантов прыжковых ботинок. Для работы потребуется хирургическая установка."
-	ru_names = list(
+	icon_state = "cyber_implants"
+
+/obj/item/storage/box/jumpbootimplant/get_ru_names()
+	return list(
 		NOMINATIVE = "коробка с имплантами прыжковых ботинок",
 		GENITIVE = "коробки с имплантами прыжковых ботинок",
 		DATIVE = "коробке с имплантами прыжковых ботинок",
@@ -398,7 +411,6 @@
 		INSTRUMENTAL = "коробкой с имплантами прыжковых ботинок",
 		PREPOSITIONAL = "коробке с имплантами прыжковых ботинок"
 	)
-	icon_state = "cyber_implants"
 
 /obj/item/storage/box/jumpbootimplant/populate_contents()
 	new /obj/item/organ/internal/cyberimp/leg/jumpboots(src)
@@ -408,7 +420,10 @@
 /obj/item/card/mining_access_card
 	name = "mining access card"
 	desc = "Карта, которая добавляет доступ к шахтёрскому оборудованию при использовании на любой ID."
-	ru_names = list(
+	icon_state = "data"
+
+/obj/item/card/mining_access_card/get_ru_names()
+	return list(
 		NOMINATIVE = "карта доступа шахтёра",
 		GENITIVE = "карты доступа шахтёра",
 		DATIVE = "карте доступа шахтёра",
@@ -416,7 +431,6 @@
 		INSTRUMENTAL = "картой доступа шахтёра",
 		PREPOSITIONAL = "карте доступа шахтёра"
 	)
-	icon_state = "data"
 
 /obj/item/card/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity, params)
 	if(!istype(AM, /obj/item/card/id))

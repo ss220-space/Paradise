@@ -242,6 +242,7 @@
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	to_chat(wearer, span_notice("You engage the helmet on [src]."))
 	wearer.update_inv_wear_suit()
+	wearer.wear_glasses_update(wearer.get_item_by_slot(ITEM_SLOT_EYES))
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
 

@@ -241,8 +241,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!move_resist)
 		determine_move_resist()
 
-	if(embed_disarm)
-		AddComponent(/datum/component/stick_it_in)
+	// temp disable reason: pelmen
+	//if(embed_disarm)
+		//AddComponent(/datum/component/stick_it_in)
 
 	add_eatable_component()
 	scatter_item()
@@ -528,9 +529,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(bag.can_be_inserted(I))
 				return ..()
 		var/obj/item/stack/tape_roll/tape = I
-		var/list/clickparams = params2list(params)
-		var/x_offset = text2num(clickparams["icon-x"])
-		var/y_offset = text2num(clickparams["icon-y"])
+		var/list/modifiers = params2list(params)
+		var/x_offset = text2num(LAZYACCESS(modifiers, ICON_X))
+		var/y_offset = text2num(LAZYACCESS(modifiers, ICON_Y))
 		add_fingerprint(user)
 		if(GetComponent(/datum/component/ducttape))
 			to_chat(user, span_notice("На [src.declent_ru(PREPOSITIONAL)] уже есть изолента!"))
@@ -1172,7 +1173,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(ITEM_SLOT_ID)
 			if(ishuman(owner))
 				var/mob/living/carbon/human/h_owner = owner
-				h_owner.sec_hud_set_ID()
+				h_owner.update_hud_set()
 			owner.update_inv_wear_id()
 
 		if(ITEM_SLOT_PDA)

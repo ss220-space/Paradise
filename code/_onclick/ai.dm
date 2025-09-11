@@ -61,36 +61,42 @@
 
 	var/list/modifiers = params2list(params)
 
-	if(modifiers["middle"] && modifiers["shift"] && modifiers["alt"])
-		MiddleShiftAltClickOn(A)
-		return
-	if(modifiers["middle"] && modifiers["ctrl"])
-		MiddleControlClickOn(A)
-		return
-	if(modifiers["middle"] && modifiers["shift"])
-		MiddleShiftClickOn(A)
-		return
-	if(modifiers["middle"] && modifiers["alt"])
-		MiddleAltClickOn(A)
-		return
-	if(modifiers["shift"] && modifiers["ctrl"])
-		CtrlShiftClickOn(A)
-		return
-	if(modifiers["shift"] && modifiers["alt"])
-		AltShiftClickOn(A)
-		return
-	if(modifiers["middle"])
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
+		if(LAZYACCESS(modifiers, SHIFT_CLICK))
+			if(LAZYACCESS(modifiers, ALT_CLICK))
+				MiddleShiftAltClickOn(A)
+				return
+			if(LAZYACCESS(modifiers, CTRL_CLICK))
+				MiddleControlClickOn(A)
+				return
+			MiddleShiftClickOn(A)
+			return
+		if(LAZYACCESS(modifiers, CTRL_CLICK))
+			MiddleControlClickOn(A)
+			return
+		if(LAZYACCESS(modifiers, ALT_CLICK))
+			MiddleAltClickOn(A)
+			return
 		MiddleClickOn(A)
-		if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.
-			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.
+		if(controlled_mech)
+			controlled_mech.click_action(A, src, params)
 		return
-	if(modifiers["shift"])
+
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
+		if(LAZYACCESS(modifiers, CTRL_CLICK))
+			CtrlShiftClickOn(A)
+			return
+		if(LAZYACCESS(modifiers, ALT_CLICK))
+			AltShiftClickOn(A)
+			return
 		ShiftClickOn(A)
 		return
-	if(modifiers["alt"]) // alt and alt-gr (rightalt)
+
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		ai_base_click_alt(A)
 		return
-	if(modifiers["ctrl"])
+
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
 

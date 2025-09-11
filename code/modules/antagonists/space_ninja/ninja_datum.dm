@@ -244,7 +244,7 @@
 		creeping_widow = owner.martial_art
 		hud.ninja_focus_display = new /atom/movable/screen()
 		hud.ninja_focus_display.name = "Концентрация"
-		hud.ninja_focus_display.screen_loc = "EAST:-6,CENTER-2:15"
+		hud.ninja_focus_display.screen_loc = "EAST:-6,CENTER-4:0"
 		hud.infodisplay += hud.ninja_focus_display
 		hud.show_hud(hud.hud_version)
 		hud.hidden_inventory_update()

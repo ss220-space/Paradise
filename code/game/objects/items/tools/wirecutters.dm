@@ -100,7 +100,7 @@
 		var/obj/item/organ/external/head/head = H.bodyparts_by_name[BODY_ZONE_HEAD]
 		if(head)
 			head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
-			playsound(loc, "desceration" ,50, TRUE, -1)
+			playsound(loc, SFX_DESECRATION, 50, TRUE, -1)
 	return BRUTELOSS
 
 /obj/item/wirecutters/power/attack_self(mob/user)

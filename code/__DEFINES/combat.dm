@@ -165,6 +165,8 @@
 
 //We will round to this value in damage calculations.
 #define DAMAGE_PRECISION 0.1
+//We will round to this value in bleeding calculations.
+#define BLEEDING_PRECISION 0.005
 
 //Gun Stuff
 #define SAWN_INTACT  0
@@ -241,3 +243,16 @@
 /// Helper to check whether attack chain result wasn't blocked and was successful
 #define ATTACK_CHAIN_SUCCESS_CHECK(bitflags) ((!ATTACK_CHAIN_CANCEL_CHECK(bitflags) && ((bitflags) & ATTACK_CHAIN_SUCCESS)))
 
+//Click cooldowns
+#define CLICK_CD_MELEE (0.8 SECONDS)
+#define CLICK_CD_RANGE (0.4 SECONDS)
+#define CLICK_CD_HANDCUFFED (1 SECONDS)
+#define CLICK_CD_TKSTRANGLE (1 SECONDS)
+#define CLICK_CD_POINT (1 SECONDS)
+#define CLICK_CD_RESIST (2 SECONDS)
+#define CLICK_CD_PULLING (0.2 SECONDS)
+#define CLICK_CD_GRABBING (1 SECONDS)
+#define CLICK_CD_CLICK_ABILITY (0.6 SECONDS)
+#define CLICK_CD_RAPID (0.2 SECONDS)
+#define CLICK_CD_LOOK_UP_DOWN (0.5 SECONDS)
+#define CLICK_CD_THROW (0.8 SECONDS)

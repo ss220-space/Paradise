@@ -11,14 +11,14 @@
 	var/nitrox = 0
 	var/agentbx = 0
 
-
 /datum/buildmode_mode/atmos/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on turf      = Select corner</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button + Ctrl on turf = Set 'base atmos conditions' for space turfs in region</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on buildmode button = Adjust target atmos</span>")
-	to_chat(user, "<span class='notice'><b>Notice:</b> Starts out with standard breathable/liveable defaults</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, span_purple(chat_box_examine(
+		"[span_bold("Select corner")] -> Left Mouse Button on turf\n\
+		[span_bold("Set 'base atmos conditions' for space turfs in region")] -> Left Mouse Button + Ctrl on turf\n\
+		[span_bold("Adjust target atmos")] -> Right Mouse Button on buildmode button\n\
+		\n\
+		Starts out with standard breathable/liveable defaults."))
+	)
 
 // FIXME this is a little tedious, something where you don't have to fill in each field would be cooler
 // maybe some kind of stat panel thing?
@@ -38,11 +38,12 @@
 	// Moles = (Pressure * Volume) / (r * Temperature)
 	return ((ppratio * pressure) * CELL_VOLUME) / (temperature * R_IDEAL_GAS_EQUATION)
 
-/datum/buildmode_mode/atmos/handle_selected_region(mob/user, params)
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
-	var/ctrl_click = pa.Find("ctrl")
-	if(left_click) //rectangular
+/datum/buildmode_mode/atmos/handle_selected_area(mob/user, params)
+	var/list/modifiers = params2list(params)
+
+	var/ctrl_click = LAZYACCESS(modifiers, CTRL_CLICK)
+
+	if(LAZYACCESS(modifiers, LEFT_CLICK))
 		for(var/turf/T in block(cornerA,cornerB))
 			if(issimulatedturf(T))
 				// fill the turf with the appropriate gasses
@@ -58,7 +59,7 @@
 					S.air.agent_b = ppratio_to_moles(agentbx)
 					S.update_visuals()
 					S.air_update_turf()
-			else if(ctrl_click) // overwrite "default" space air
+			else if(ctrl_click)
 				T.temperature = temperature
 				T.oxygen = ppratio_to_moles(oxygen)
 				T.nitrogen = ppratio_to_moles(nitrogen)

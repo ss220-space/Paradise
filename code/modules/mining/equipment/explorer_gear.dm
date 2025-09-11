@@ -2,14 +2,6 @@
 /obj/item/clothing/suit/hooded/explorer
 	name = "explorer suit"
 	desc = "Бронированный костюм, созданный для исследования и работы в суровых условиях."
-	ru_names = list(
-		NOMINATIVE = "костюм исследователя",
-		GENITIVE = "костюма исследователя",
-		DATIVE = "костюму исследователя",
-		ACCUSATIVE = "костюм исследователя",
-		INSTRUMENTAL = "костюмом исследователя",
-		PREPOSITIONAL = "костюме исследователя"
-	)
 	icon_state = "explorer"
 	item_state = "explorer"
 	item_color = "explorer"
@@ -40,17 +32,19 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
 
+/obj/item/clothing/suit/hooded/explorer/get_ru_names()
+	return list(
+		NOMINATIVE = "костюм исследователя",
+		GENITIVE = "костюма исследователя",
+		DATIVE = "костюму исследователя",
+		ACCUSATIVE = "костюм исследователя",
+		INSTRUMENTAL = "костюмом исследователя",
+		PREPOSITIONAL = "костюме исследователя"
+	)
+
 /obj/item/clothing/head/hooded/explorer
 	name = "explorer hood"
 	desc = "Бронированный капюшон, созданный для исследования и работы в суровых условиях."
-	ru_names = list(
-		NOMINATIVE = "капюшон исследователя",
-		GENITIVE = "капюшона исследователя",
-		DATIVE = "капюшону исследователя",
-		ACCUSATIVE = "капюшон исследователя",
-		INSTRUMENTAL = "капюшоном исследователя",
-		PREPOSITIONAL = "капюшоне исследователя"
-	)
 	icon_state = "explorer"
 	item_state = "explorer"
 	body_parts_covered = HEAD
@@ -79,17 +73,19 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
+/obj/item/clothing/head/hooded/explore/get_ru_names()
+	return list(
+		NOMINATIVE = "капюшон исследователя",
+		GENITIVE = "капюшона исследователя",
+		DATIVE = "капюшону исследователя",
+		ACCUSATIVE = "капюшон исследователя",
+		INSTRUMENTAL = "капюшоном исследователя",
+		PREPOSITIONAL = "капюшоне исследователя"
+	)
+
 /obj/item/clothing/suit/space/hostile_environment
 	name = "H.E.C.K. suit"
 	desc = "Экспериментальный Кинетический Защитный Обшитый Костюм: костюм, специально созданный для защиты от широкого спектра опасностей Лазиса. Прошлому его владельцу этого, видимо, не хватило."
-	ru_names = list(
-		NOMINATIVE = "Э.К.З.О. костюм",
-		GENITIVE = "Э.К.З.О. костюма ",
-		DATIVE = "Э.К.З.О. костюму",
-		ACCUSATIVE = "Э.К.З.О. костюм",
-		INSTRUMENTAL = "Э.К.З.О. костюмом",
-		PREPOSITIONAL = "Э.К.З.О. костюме"
-	)
 	icon_state = "hostile_env"
 	item_state = "hostile_env"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -110,6 +106,15 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
 	)
 
+/obj/item/clothing/suit/space/hostile_environment/get_ru_names()
+	return list(
+		NOMINATIVE = "Э.К.З.О. костюм",
+		GENITIVE = "Э.К.З.О. костюма ",
+		DATIVE = "Э.К.З.О. костюму",
+		ACCUSATIVE = "Э.К.З.О. костюм",
+		INSTRUMENTAL = "Э.К.З.О. костюмом",
+		PREPOSITIONAL = "Э.К.З.О. костюме"
+	)
 
 /obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
 	. = ..()
@@ -134,14 +139,6 @@
 /obj/item/clothing/head/helmet/space/hostile_environment
 	name = "H.E.C.K. helmet"
 	desc = "Экспериментальный Кинетический Защитный Обшитый Шлем: шлем, специально созданный для защиты от широкого спектра опасностей Лазиса. Прошлому его владельцу этого, видимо, не хватило."
-	ru_names = list(
-		NOMINATIVE = "Э.К.З.О. шлем",
-		GENITIVE = "Э.К.З.О. шлема ",
-		DATIVE = "Э.К.З.О. шлему",
-		ACCUSATIVE = "Э.К.З.О. шлем",
-		INSTRUMENTAL = "Э.К.З.О. шлемом",
-		PREPOSITIONAL = "Э.К.З.О. шлеме"
-	)
 	icon_state = "hostile_env"
 	item_state = "hostile_env"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -159,6 +156,15 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 	)
 
+/obj/item/clothing/head/helmet/space/hostile_environment/get_ru_names()
+	return list(
+		NOMINATIVE = "Э.К.З.О. шлем",
+		GENITIVE = "Э.К.З.О. шлема ",
+		DATIVE = "Э.К.З.О. шлему",
+		ACCUSATIVE = "Э.К.З.О. шлем",
+		INSTRUMENTAL = "Э.К.З.О. шлемом",
+		PREPOSITIONAL = "Э.К.З.О. шлеме"
+	)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
 	. = ..()
@@ -174,14 +180,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/champion
 	name = "champion's helmet"
 	desc = "Лишь одного взгляда в глаза этого шлема хватит, чтобы посеять ужас."
-	ru_names = list(
-        NOMINATIVE = "чемпионский шлем",
-        GENITIVE = "чемпионского шлема",
-        DATIVE = "чемпионскому шлему",
-        ACCUSATIVE = "чемпионский шлем",
-        INSTRUMENTAL = "чемпионским шлемом",
-        PREPOSITIONAL = "чемпионском шлеме"
-	)
 	icon_state = "hardsuit0-berserker"
 	item_color = "berserker"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -198,17 +196,19 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
+/obj/item/clothing/head/helmet/space/hardsuit/champion/get_ru_names()
+	return list(
+		NOMINATIVE = "чемпионский шлем",
+		GENITIVE = "чемпионского шлема",
+		DATIVE = "чемпионскому шлему",
+		ACCUSATIVE = "чемпионский шлем",
+		INSTRUMENTAL = "чемпионским шлемом",
+		PREPOSITIONAL = "чемпионском шлеме"
+	)
+
 /obj/item/clothing/suit/space/hardsuit/champion
 	name = "champion's hardsuit"
 	desc = "Изнутри этой брони эхом проносятся голоса, медленно сводя с ума своего носителя."
-	ru_names = list(
-        NOMINATIVE = "чемпионская броня",
-        GENITIVE = "чемпионской брони",
-        DATIVE = "чемпионской броне",
-        ACCUSATIVE = "чемпионскую броню",
-        INSTRUMENTAL = "чемпионской бронёй",
-        PREPOSITIONAL = "чемпионской броне"
-	)
 	icon_state = "hardsuit-berserker"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = 0.25 // you are wearing a POWERFUL energy suit, after all
@@ -226,104 +226,113 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 
+/obj/item/clothing/suit/space/hardsuit/champion/get_ru_names()
+	return list(
+		NOMINATIVE = "чемпионская броня",
+		GENITIVE = "чемпионской брони",
+		DATIVE = "чемпионской броне",
+		ACCUSATIVE = "чемпионскую броню",
+		INSTRUMENTAL = "чемпионской бронёй",
+		PREPOSITIONAL = "чемпионской броне"
+	)
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
 	name = "dark templar's helmet"
 	desc = "Сквозь тьму мы видим свет."
-	ru_names = list(
-        NOMINATIVE = "шлем Чёрного Храмовника",
-        GENITIVE = "шлема Чёрного Храмовника",
-        DATIVE = "шлему Чёрного Храмовника",
-        ACCUSATIVE = "шлем Чёрного Храмовника",
-        INSTRUMENTAL = "шлемом Чёрного Храмовника",
-        PREPOSITIONAL = "шлеме Чёрного Храмовника"
-	)
 	icon_state = "hardsuit0-templar"
 	item_color = "templar"
 
+/obj/item/clothing/head/helmet/space/hardsuit/champion/templar/get_ru_names()
+	return list(
+		NOMINATIVE = "шлем Чёрного Храмовника",
+		GENITIVE = "шлема Чёрного Храмовника",
+		DATIVE = "шлему Чёрного Храмовника",
+		ACCUSATIVE = "шлем Чёрного Храмовника",
+		INSTRUMENTAL = "шлемом Чёрного Храмовника",
+		PREPOSITIONAL = "шлеме Чёрного Храмовника"
+	)
 /obj/item/clothing/suit/space/hardsuit/champion/templar
 	name = "dark templar's hardsuit"
 	desc = "Без жалости! Без сожалений! Без страха!"
-	ru_names = list(
-        NOMINATIVE = "доспехи Чёрного Храмовника",
-        GENITIVE = "доспехов Чёрного Храмовника",
-        DATIVE = "доспехам Чёрного Храмовника",
-        ACCUSATIVE = "доспехи Чёрного Храмовника",
-        INSTRUMENTAL = "доспехами Чёрного Храмовника",
-        PREPOSITIONAL = "доспехах Чёрного Храмовника"
-	)
 	icon_state = "darktemplar-follower0"
 	item_color = "darktemplar-follower0"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
 	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN, SPECIES_DIONA, SPECIES_KIDAN, SPECIES_SHADOW_BASIC) // only humanoids. And we don't have animal sprites.
 
+/obj/item/clothing/suit/space/hardsuit/champion/templar/get_ru_names()
+	return list(
+		NOMINATIVE = "доспехи Чёрного Храмовника",
+		GENITIVE = "доспехов Чёрного Храмовника",
+		DATIVE = "доспехам Чёрного Храмовника",
+		ACCUSATIVE = "доспехи Чёрного Храмовника",
+		INSTRUMENTAL = "доспехами Чёрного Храмовника",
+		PREPOSITIONAL = "доспехах Чёрного Храмовника"
+	)
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 	name = "high dark templar's helmet"
 	desc = "Галактика принадлежит Императору..."
-	ru_names = list(
-        NOMINATIVE = "шлем высшего Чёрного Храмовника",
-        GENITIVE = "шлема высшего Чёрного Храмовника",
-        DATIVE = "шлему высшего Чёрного Храмовника",
-        ACCUSATIVE = "шлем высшего Чёрного Храмовника",
-        INSTRUMENTAL = "шлемом высшего Чёрного Храмовника",
-        PREPOSITIONAL = "шлеме высшего Чёрного Храмовника"
-	)
 	icon_state = "hardsuit0-hightemplar"
 	item_color = "hightemplar"
 
+/obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium/get_ru_names()
+	return list(
+		NOMINATIVE = "шлем высшего Чёрного Храмовника",
+		GENITIVE = "шлема высшего Чёрного Храмовника",
+		DATIVE = "шлему высшего Чёрного Храмовника",
+		ACCUSATIVE = "шлем высшего Чёрного Храмовника",
+		INSTRUMENTAL = "шлемом высшего Чёрного Храмовника",
+		PREPOSITIONAL = "шлеме высшего Чёрного Храмовника"
+	)
 /obj/item/clothing/suit/space/hardsuit/champion/templar/premium
 	name = "high dark templar's hardsuit"
 	desc = "...и любой, кто оспаривает это — враг, которого необходимо уничтожить."
-	ru_names = list(
-        NOMINATIVE = "доспехи высшего Чёрного Храмовника",
-        GENITIVE = "доспехов высшего Чёрного Храмовника",
-        DATIVE = "доспехам высшего Чёрного Храмовника",
-        ACCUSATIVE = "доспехи высшего Чёрного Храмовника",
-        INSTRUMENTAL = "доспехами высшего Чёрного Храмовника",
-        PREPOSITIONAL = "доспехах высшего Чёрного Храмовника"
-	)
 	icon_state = "darktemplar-chaplain0"
 	item_color = "darktemplar-chaplain0"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 
+/obj/item/clothing/suit/space/hardsuit/champion/templar/premium/get_ru_names()
+	return list(
+		NOMINATIVE = "доспехи высшего Чёрного Храмовника",
+		GENITIVE = "доспехов высшего Чёрного Храмовника",
+		DATIVE = "доспехам высшего Чёрного Храмовника",
+		ACCUSATIVE = "доспехи высшего Чёрного Храмовника",
+		INSTRUMENTAL = "доспехами высшего Чёрного Храмовника",
+		PREPOSITIONAL = "доспехах высшего Чёрного Храмовника"
+	)
 /obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor
 	name = "inquisitor's helmet"
 	desc = "Шлем, носимый теми, кто зарабатывает на хлеб борьбой с паранормальным."
-	ru_names = list(
-        NOMINATIVE = "шлем инквизитора",
-        GENITIVE = "шлема инквизитора",
-        DATIVE = "шлему инквизитора",
-        ACCUSATIVE = "шлем инквизитора",
-        INSTRUMENTAL = "шлемом инквизитора",
-        PREPOSITIONAL = "шлеме инквизитора"
-	)
 	icon_state = "hardsuit0-inquisitor"
 	item_color = "inquisitor"
+
+/obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor/get_ru_names()
+	return list(
+		NOMINATIVE = "шлем инквизитора",
+		GENITIVE = "шлема инквизитора",
+		DATIVE = "шлему инквизитора",
+		ACCUSATIVE = "шлем инквизитора",
+		INSTRUMENTAL = "шлемом инквизитора",
+		PREPOSITIONAL = "шлеме инквизитора"
+	)
 
 /obj/item/clothing/suit/space/hardsuit/champion/inquisitor
 	name = "inquisitor's hardsuit"
 	desc = "На этот скафандр наложены мощные охранные чары, защищающие владельца от паранормальных угроз любого характера."
-	ru_names = list(
-        NOMINATIVE = "скафандр инквизитора",
-        GENITIVE = "скафандра инквизитора",
-        DATIVE = "скафандру инквизитора",
-        ACCUSATIVE = "скафандр инквизитора",
-        INSTRUMENTAL = "скафандром инквизитора",
-        PREPOSITIONAL = "скафандре инквизитора"
-  )
 	icon_state = "hardsuit-inquisitor"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor
+
+/obj/item/clothing/suit/space/hardsuit/champion/inquisitor/get_ru_names()
+	return list(
+		NOMINATIVE = "скафандр инквизитора",
+		GENITIVE = "скафандра инквизитора",
+		DATIVE = "скафандру инквизитора",
+		ACCUSATIVE = "скафандр инквизитора",
+		INSTRUMENTAL = "скафандром инквизитора",
+		PREPOSITIONAL = "скафандре инквизитора"
+  	)
 
 /obj/item/clothing/suit/hooded/pathfinder
 	name = "pathfinder cloak"
 	desc = "Тяжёлая мантия, сшитая из сухожилий и шкур, предназначенная для защиты носителя от опасной погоды."
-	ru_names = list(
-        NOMINATIVE = "мантия первопроходца",
-        GENITIVE = "мантии первопроходца",
-        DATIVE = "мантии первопроходца",
-        ACCUSATIVE = "мантию первопроходца",
-        INSTRUMENTAL = "мантией первопроходца",
-        PREPOSITIONAL = "мантии первопроходца"
-	)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	icon_state = "pathcloak"
 	item_state = "pathcloak"
@@ -349,17 +358,18 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 	)
 
+/obj/item/clothing/suit/hooded/pathfinder/get_ru_names()
+	return list(
+		NOMINATIVE = "мантия первопроходца",
+		GENITIVE = "мантии первопроходца",
+		DATIVE = "мантии первопроходца",
+		ACCUSATIVE = "мантию первопроходца",
+		INSTRUMENTAL = "мантией первопроходца",
+		PREPOSITIONAL = "мантии первопроходца"
+	)
 /obj/item/clothing/head/hooded/pathfinder
 	name = "pathfinder kasa"
 	desc = "Головной убор, созданный из костей и связок, предназначенный для защиты носителя от опасной погоды."
-	ru_names = list(
-        NOMINATIVE = "каса первопроходца",
-        GENITIVE = "касы первопроходца",
-        DATIVE = "касе первопроходца",
-        ACCUSATIVE = "касу первопроходца",
-        INSTRUMENTAL = "касой первопроходца",
-        PREPOSITIONAL = "касе первопроходца"
-	)
 	icon_state = "pathhead"
 	item_state = "pathhead"
 	body_parts_covered = HEAD
@@ -381,10 +391,25 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 	)
 
+/obj/item/clothing/head/hooded/pathfinder/get_ru_names()
+	return list(
+		NOMINATIVE = "каса первопроходца",
+		GENITIVE = "касы первопроходца",
+		DATIVE = "касе первопроходца",
+		ACCUSATIVE = "касу первопроходца",
+		INSTRUMENTAL = "касой первопроходца",
+		PREPOSITIONAL = "касе первопроходца"
+	)
 /obj/item/clothing/suit/hooded/explorer/mining
 	name = "white explorer suit"
 	desc = "Ярко-белый бронированный костюм, созданный для экстренного спасения людей в суровых условиях. У вас не получится сохранять его чистым долгое время."
-	ru_names = list(
+	icon_state = "mining_explorer"
+	item_state = "mining_explorer"
+	item_color = "mining_explorer"
+	hoodtype = /obj/item/clothing/head/hooded/explorer/mining
+
+/obj/item/clothing/suit/hooded/explorer/mining/get_ru_names()
+	return list(
 		NOMINATIVE = "белый костюм исследователя",
 		GENITIVE = "белого костюма исследователя",
 		DATIVE = "белому костюму исследователя",
@@ -392,15 +417,14 @@
 		INSTRUMENTAL = "белым костюмом исследователя",
 		PREPOSITIONAL = "белом костюме исследователя"
 	)
-	icon_state = "mining_explorer"
-	item_state = "mining_explorer"
-	item_color = "mining_explorer"
-	hoodtype = /obj/item/clothing/head/hooded/explorer/mining
-
 /obj/item/clothing/head/hooded/explorer/mining
 	name = "white explorer hood"
 	desc = "Ярко-белый бронированный капюшон, созданный для экстренного спасения людей в суровых условиях. У вас не получится сохранять его чистым долгое время."
-	ru_names = list(
+	icon_state = "mining_explorer"
+	item_state = "mining_explorer"
+
+/obj/item/clothing/head/hooded/explorer/mining/get_ru_names()
+	return list(
 		NOMINATIVE = "белый капюшон исследователя",
 		GENITIVE = "белого капюшона исследователя",
 		DATIVE = "белому капюшону исследователя",
@@ -408,5 +432,3 @@
 		INSTRUMENTAL = "белым капюшоном исследователя",
 		PREPOSITIONAL = "белом капюшоне исследователя"
 	)
-	icon_state = "mining_explorer"
-	item_state = "mining_explorer"

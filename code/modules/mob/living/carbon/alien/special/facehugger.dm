@@ -13,14 +13,6 @@
 /obj/item/clothing/mask/facehugger
 	name = "alien"
 	desc = "На конце хвоста у него есть что-то вроде трубки."
-	ru_names = list(
-		NOMINATIVE = "лицехват",
-		GENITIVE = "лицехвата",
-		DATIVE = "лицехвату",
-		ACCUSATIVE = "лицехвата",
-		INSTRUMENTAL = "лицехватом",
-		PREPOSITIONAL = "лицехвате"
-	)
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "facehugger"
 	item_state = "facehugger"
@@ -50,6 +42,15 @@
 
 	var/mob/living/simple_animal/hostile/facehugger/holdered_mob
 
+/obj/item/clothing/mask/facehugger/get_ru_names()
+	return list(
+		NOMINATIVE = "лицехват",
+		GENITIVE = "лицехвата",
+		DATIVE = "лицехвату",
+		ACCUSATIVE = "лицехвата",
+		INSTRUMENTAL = "лицехватом",
+		PREPOSITIONAL = "лицехвате"
+	)
 
 /obj/item/clothing/mask/facehugger/Initialize(mapload, mob/hugger)
 	. = ..()
@@ -388,7 +389,13 @@
 
 /obj/item/clothing/mask/facehugger/lamarr
 	name = "Lamarr"
-	ru_names = list(
+	desc = "В худшем случае она попытается... спариться с вашей головой." //hope we don't get sued over a harmless reference, rite?
+	sterile = 1
+	gender = FEMALE
+	holder_flags = ALIEN_HOLDER | HUMAN_HOLDER
+
+/obj/item/clothing/mask/facehugger/lamarr/get_ru_names()
+	return list(
 		NOMINATIVE = "ламарр",
 		GENITIVE = "ламарр",
 		DATIVE = "ламарр",
@@ -396,10 +403,6 @@
 		INSTRUMENTAL = "ламарр",
 		PREPOSITIONAL = "ламарр"
 	)
-	desc = "В худшем случае она попытается... спариться с вашей головой." //hope we don't get sued over a harmless reference, rite?
-	sterile = 1
-	gender = FEMALE
-	holder_flags = ALIEN_HOLDER | HUMAN_HOLDER
 
 /obj/item/clothing/mask/facehugger/lamarr/Initialize(mapload, hugger)
 	. = ..()

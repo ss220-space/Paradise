@@ -13,14 +13,14 @@
 
 /obj/item/ttsdevice/attack_self(mob/user)
 	visible_message("[user] starts typing on [src].", "You begin typing on [src].", "You hear faint, continuous mechanical clicking noises.")
-	playsound(src, "terminal_type", 50, TRUE)
+	playsound(src, SFX_TERMINAL_TYPE, 50, TRUE)
 	var/input = tgui_input_text(user, "What would you like the device to say?", , "", max_length = 500)
 	if(!src.Adjacent(user) || QDELETED(src))
 		return
 
 	if(!input)
 		visible_message("[user] stops typing on [src].", "You stop typing on [src].", "You hear the clicking noises stop.")
-		playsound(src, "terminal_type", 50, TRUE)
+		playsound(src, SFX_TERMINAL_TYPE, 50, TRUE)
 		return
 	atom_say(input)
 	add_say_logs(user, input, language = "TTS")

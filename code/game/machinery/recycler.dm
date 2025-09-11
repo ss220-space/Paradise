@@ -79,7 +79,7 @@
 		if(emergency_mode)
 			emergency_mode = FALSE
 			update_icon(UPDATE_ICON_STATE)
-		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(user)
 			to_chat(user, span_notice("You use the cryptographic sequencer on the [name]."))
 		add_attack_logs(user, src, "emagged")

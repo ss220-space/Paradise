@@ -344,6 +344,9 @@
 
 	// Assemble a list of active players without jobbans and role enabled
 	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
+		if(req_job_rank && player.job != req_job_rank)
+			continue
+
 		if(!player.client \
 			|| jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, role) \
 			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
@@ -373,7 +376,6 @@
 					candidates += player.mind
 
 	return candidates
-
 
 /datum/game_mode/proc/get_alive_AIs_for_role(role)
 	. = list()
@@ -835,3 +837,6 @@
 		intercepttext += "<br>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической угрозы директива 7-10 может быть дополнена директивой 7-12.<br>"
 		intercepttext += "Конец сообщения."
 	print_command_report(intercepttext, interceptname, FALSE)
+
+/datum/game_mode/proc/late_join(mob/new_player/player)
+	return FALSE

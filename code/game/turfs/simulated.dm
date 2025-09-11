@@ -52,9 +52,9 @@
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
 		if(istype(arrived, /mob/living/simple_animal/hulk/clown_hulk))
 			if(Hulk.body_position != LYING_DOWN)
-				playsound(src, "clownstep", CHANNEL_BUZZ)
+				playsound(src, SFX_CLOWN_STEP, CHANNEL_BUZZ)
 	if(istype(arrived, /mob/living/simple_animal/hostile/shitcur_goblin))
-		playsound(src, "clownstep", CHANNEL_BUZZ)
+		playsound(src, SFX_CLOWN_STEP, CHANNEL_BUZZ)
 
 
 /turf/simulated/copyTurf(turf/simulated/copy_to_turf, copy_air = FALSE)

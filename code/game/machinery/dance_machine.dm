@@ -491,7 +491,7 @@
 		active = FALSE
 		STOP_PROCESSING(SSobj, src)
 		dance_over()
-		playsound(src,'sound/machines/terminal_off.ogg',50,1)
+		playsound(src,'sound/machines/terminal_off.ogg',50, TRUE)
 		update_icon()
 		stop = world.time + 100
 

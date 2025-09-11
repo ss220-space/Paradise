@@ -6,19 +6,20 @@
 		return
 
 	var/list/modifiers = params2list(params)
-	if(modifiers["middle"])
+
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		MiddleClickOn(A)
 		return
 
-	if(modifiers["shift"])
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		ShiftClickOn(A)
 		return
 
-	if(modifiers["alt"])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		AltClickOn(A)
 		return
 
-	if(modifiers["ctrl"])
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
 
@@ -270,7 +271,7 @@
 		return
 
 	L.visible_message(span_boldwarning("[capitalize(L.declent_ru(NOMINATIVE))] внезапно вспыхивает и начинает искрить!"))
-	do_sparks(4, 0, L)
+	do_sparks(4, FALSE, L)
 	new /obj/effect/temp_visual/revenant(L.loc)
 	sleep(2 SECONDS)
 	if(!L.on) //wait, wait, don't shock me
@@ -284,7 +285,7 @@
 		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 		M.electrocute_act(shock_damage, "настенной лампы", flags = SHOCK_NOGLOVES)
 
-		do_sparks(4, 0, M)
+		do_sparks(4, FALSE, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
 

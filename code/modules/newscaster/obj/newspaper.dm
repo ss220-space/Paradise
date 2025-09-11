@@ -59,7 +59,7 @@
 		INSTRUMENTAL = "газетой",
 		PREPOSITIONAL = "газете"
 	)
-	
+
 
 /obj/item/newspaper/Initialize(mapload)
 	. = ..()
@@ -126,7 +126,7 @@
 		else
 			return TRUE
 	SStgui.update_uis(src)
-	playsound(loc, "pageturn", 50, TRUE)
+	playsound(loc, SFX_PAGE_TURN, 50, TRUE)
 	return TRUE
 
 /obj/item/newspaper/ui_data(mob/user)

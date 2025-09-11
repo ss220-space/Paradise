@@ -549,7 +549,7 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/obj/item/grown/bananapeel/B = new projectile(chassis.loc)
-	playsound(chassis, fire_sound, 60, 1)
+	playsound(chassis, fire_sound, 60, TRUE)
 	B.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Bananed from [name], targeting [target]. HONK!")
@@ -579,7 +579,7 @@
 		return FALSE
 	var/obj/item/assembly/mousetrap/M = new projectile(chassis.loc)
 	M.secured = 1
-	playsound(chassis, fire_sound, 60, 1)
+	playsound(chassis, fire_sound, 60, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")

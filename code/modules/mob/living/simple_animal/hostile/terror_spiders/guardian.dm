@@ -12,14 +12,6 @@
 	name = "Guardian of Terror"
 	desc = "Зловещего вида фиолетовый паук. Он смотрит по сторонам настороженно, словно чего-то ожидая."
 	ai_target_method = TS_DAMAGE_BRUTE
-	ru_names = list(
-		NOMINATIVE = "Защитник Ужаса",
-		GENITIVE = "Защитника Ужаса",
-		DATIVE = "Защитнику Ужаса",
-		ACCUSATIVE = "Защитника Ужаса",
-		INSTRUMENTAL = "Защитником Ужаса",
-		PREPOSITIONAL = "Защитнике Ужаса",
-	)
 	gender = MALE
 	icon_state = "terror_purple"
 	icon_living = "terror_purple"
@@ -52,6 +44,16 @@
 	var/queen_visible = TRUE
 	var/cycles_noqueen = 0
 	var/max_queen_range = 15
+
+/mob/living/simple_animal/hostile/poison/terror_spider/guardian/get_ru_names()
+	return list(
+		NOMINATIVE = "Защитник Ужаса",
+		GENITIVE = "Защитника Ужаса",
+		DATIVE = "Защитнику Ужаса",
+		ACCUSATIVE = "Защитника Ужаса",
+		INSTRUMENTAL = "Защитником Ужаса",
+		PREPOSITIONAL = "Защитнике Ужаса",
+	)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/guardian/spider_specialattack(mob/living/carbon/human/L)
 	. = ..()
@@ -142,7 +144,9 @@
 	desc = "Эта паутина настолько толстая, что большинство не может видеть сквозь нее."
 	opacity = TRUE
 	max_integrity = 40
-	ru_names = list(
+
+/obj/structure/spider/terrorweb/purple/get_ru_names()
+	return list(
 		NOMINATIVE = "толстая паутина",
 		GENITIVE = "толстой паутины",
 		DATIVE = "толстой паутине",

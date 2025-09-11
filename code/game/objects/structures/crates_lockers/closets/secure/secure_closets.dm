@@ -35,7 +35,7 @@
 
 	if(prob(50 / severity))
 		locked = !locked
-		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), sparking_duration)
 
@@ -52,7 +52,7 @@
 		add_attack_logs(user, src, "emagged")
 		broken = TRUE
 		locked = FALSE
-		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance), UPDATE_ICON|UPDATE_DESC), sparking_duration)
 		if(user)
@@ -159,7 +159,7 @@
 		return
 
 	//Well then break it!
-	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 	broken = TRUE
 	locked = FALSE

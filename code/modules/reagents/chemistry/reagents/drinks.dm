@@ -183,6 +183,17 @@
 		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
+
+/datum/reagent/consumable/drink/strawwberry
+	name = "Клубничный сок"
+	id = "strawwberry"
+	description = "Сырая сущность клубники."
+	color = "#fc2525"
+	drink_name = "стакан клубничного сока"
+	drink_desc = "Сырая сущность клубники."
+	taste_description = "клубники"
+
+
 /datum/reagent/consumable/drink/nothing
 	name = "Ничего"
 	id = "nothing"
@@ -296,9 +307,12 @@
 		holder.remove_reagent("frostoil", 5)
 	return ..() | update_flags
 
-/datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)
+/datum/reagent/consumable/drink/coffee/overdose_process(mob/living/target, severity)
 	if(volume > 45)
-		M.Jitter(10 SECONDS)
+		target.Jitter(10 SECONDS)
+	if(volume > 50 && prob(10)) //10% to knockdown
+		target.unbuckle_if_not_cuffed()
+		target.Knockdown(2 SECONDS)
 	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/consumable/drink/coffee/icecoffee

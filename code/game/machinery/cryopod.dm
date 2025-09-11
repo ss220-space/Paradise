@@ -154,10 +154,10 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(!objective_items.len)
 		visible_message(span_warning("The console buzzes in an annoyed manner."))
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
 	visible_message(span_warning("The console sparks, and some items fall out!"))
-	do_sparks(5, 1, src)
+	do_sparks(5, TRUE, src)
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
 
@@ -265,7 +265,7 @@
 		INSTRUMENTAL = "криогенным морозильником",
 		PREPOSITIONAL = "криогенном морозильнике"
 	)
-	
+
 
 //////
 //Syndie cryopod.

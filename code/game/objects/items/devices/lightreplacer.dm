@@ -160,7 +160,7 @@
 	if(!emagged)
 		emagged = TRUE
 		add_attack_logs(user, src, "emagged")
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 
@@ -271,7 +271,7 @@
 		if(istype(A, /obj/machinery/light))
 			if(!proximity)  // only beams if at a distance
 				U.Beam(A, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
-				playsound(src, 'sound/items/pshoom.ogg', 40, 1)
+				playsound(src, 'sound/items/pshoom.ogg', 40, TRUE)
 			ReplaceLight(A, U)
 
 	if(!used)

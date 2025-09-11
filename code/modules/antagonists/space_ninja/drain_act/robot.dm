@@ -14,7 +14,7 @@
 	to_chat(src, span_danger("Warni-***BZZZZZZZZZRT*** UPLOADING SPYDERPATCHER VERSION 9.5.2..."))
 	if(do_after(ninja, 1 MINUTES, src))
 		spark_system.start()
-		playsound(loc, "sparks", 50, TRUE, 5)
+		playsound(loc, SFX_SPARKS, 50, TRUE, 5)
 		to_chat(src, span_danger("UPLOAD COMPLETE. NEW CYBORG MODEL DETECTED. INSTALLING..."))
 		sleep(5)
 		// Это либо худшая! Либо лучшая из моих идей XD

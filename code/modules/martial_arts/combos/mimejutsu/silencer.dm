@@ -11,7 +11,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 		target.AdjustSilence(10 SECONDS)
 		target.Weaken(3 SECONDS)
-		playsound(get_turf(user), 'sound/weapons/silencer_mimejutsu.ogg', 10, 1, -1)
+		playsound(get_turf(user), 'sound/weapons/silencer_mimejutsu.ogg', 10, TRUE, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Silencer", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL

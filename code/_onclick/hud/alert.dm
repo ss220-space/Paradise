@@ -195,6 +195,11 @@
 	desc = "Вы ужасно замёрзли! Найдите место потеплее и снимите изолирующую одежду, например, скафандр."
 	icon_state = "cold"
 
+/atom/movable/screen/alert/bleeding
+	name = "Кровотечение"
+	desc = "У вас кровотечение! Проверьте свое тело и побыстрее остановите кровотечение чтобы не умереть."
+	icon_state = "bleeding"
+
 /atom/movable/screen/alert/cold/drask
     name = "Холод"
     desc = "Вы вдыхаете переохлаждённый газ! Это ускоряет метаболизм и заживление."
@@ -801,8 +806,8 @@
 	if(!usr || !usr.client || HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return FALSE
 
-	var/paramslist = params2list(params)
-	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "[span_boldnotice(name)] – [span_notice(desc)]")
 		return FALSE
 

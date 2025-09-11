@@ -19,7 +19,7 @@
 	pickup_sound = 'sound/items/handling/pickup/gun_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/gun_drop.ogg'
 
-	var/fire_sound = "gunshot"
+	var/fire_sound = SFX_GUNSHOT
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
 	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
 	var/fire_sound_text = "выстрел" //the fire sound that shows in chat messages: laser blast, gunshot, etc.

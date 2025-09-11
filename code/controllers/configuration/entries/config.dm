@@ -50,6 +50,9 @@
 /// log game events
 /datum/config_entry/flag/log_game
 
+/// log map manipulations
+/datum/config_entry/flag/log_mapmanip
+
 /// log voting
 /datum/config_entry/flag/log_vote
 
@@ -482,6 +485,7 @@
 	default = list(
 		"hijacker" = 10,
 		"malfai" = 10,
+		"prisoner" = 10,
 		"ninja" = 10,
 		"thief" = 10,
 		"nothing" = 20,
@@ -664,6 +668,10 @@
 // Delay before respawning for players and drones (minutes)
 /datum/config_entry/number/respawn_delay
 	default = 20
+
+/datum/config_entry/number/respawn_delay/ValidateAndSet(str_val)
+	. = ..()
+	GLOB.respawn_delay = config_entry_value
 
 /datum/config_entry/number/respawn_delay_drone
 	default = 10

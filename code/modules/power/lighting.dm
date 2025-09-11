@@ -448,7 +448,7 @@
 	status = LIGHT_BURNED
 
 	visible_message("<span class='boldwarning'>[src] burns out!</span>")
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 
 	on = FALSE
 	set_light(0)
@@ -1020,7 +1020,7 @@
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = TRUE
-		playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
+		playsound(loc, 'sound/effects/glasshit.ogg', 75, TRUE)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 		return TRUE
 

@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/mutable_appearance/crack_overlay
 	var/list/debris = list()
 	var/real_explosion_block	//ignore this, just use explosion_block
-	var/breaksound = "shatter"
+	var/breaksound = SFX_SHATTER
 	var/hitsound = 'sound/effects/glasshit.ogg'
 
 	/// If we added a leaning component to ourselves
@@ -430,7 +430,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(QDELETED(src))
 		return
 	if(!disassembled)
-		playsound(src, breaksound, 70, 1)
+		playsound(src, breaksound, 70, TRUE)
 		if(!(obj_flags & NODECONSTRUCT))
 			for(var/i in debris)
 				var/obj/item/I = i

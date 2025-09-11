@@ -102,6 +102,12 @@
 			return TRUE
 	return FALSE
 
+/mob/living/proc/has_bleeding()
+	return FALSE
+
+/mob/living/proc/has_heavy_bleeding()
+	return FALSE
+
 //helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
 	if(M.stat == DEAD || HAS_TRAIT(M, TRAIT_FAKEDEATH))
@@ -180,11 +186,11 @@
 /mob/living/proc/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
 	if(stat == DEAD)
-		holder.icon_state = "huddead"
+		holder.icon_state = STATUS_HUD_DEAD
 	else if(has_virus())
-		holder.icon_state = "hudill"
+		holder.icon_state = STATUS_HUD_ILL
 	else
-		holder.icon_state = "hudhealthy"
+		holder.icon_state = STATUS_HUD_HEALTHY
 
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/carbon/med_hud_set_status()
@@ -207,27 +213,80 @@
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
+		var/can_reenter = ghost_can_reenter() && !suiciding && mind
 		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
-		if(!ghost_can_reenter() || suiciding) // DNR or AntagHUD or Suicide
-			revivable = FALSE
-		if(revivable)
-			holder.icon_state = "hudflatline"
+		if(revivable && can_reenter)
+			holder.icon_state = STATUS_HUD_FLATLINE
 		else
-			holder.icon_state = ghost_can_reenter() ? "huddead" : "huddeaddnr"
+			if(can_reenter)
+				holder.icon_state = STATUS_HUD_DEAD
+			else
+				holder.icon_state = STATUS_HUD_DNR
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
-		holder.icon_state = "hudxeno"
+		holder.icon_state = STATUS_HUD_XENO
 	else if(HAS_TRAIT(src, TRAIT_LEGION_TUMOUR))
-		holder.icon_state = "hudtumour"
+		holder.icon_state = STATUS_HUD_TUMOUR
 	else if(B && B.controlling && !B.sneaking)
-		holder.icon_state = "hudbrainworm"
+		holder.icon_state = STATUS_HUD_BRAINWORM
 	else if(is_in_crit())
-		holder.icon_state = "huddefib"
+		holder.icon_state = STATUS_HUD_DEFIB
+	else if(has_heavy_bleeding())
+		holder.icon_state = STATUS_HUD_RAPID_BLEEDING
+	else if(has_bleeding())
+		holder.icon_state = STATUS_HUD_BLEEDING
 	else if(has_virus())
-		holder.icon_state = "hudill"
+		holder.icon_state = STATUS_HUD_ILL
 	else
-		holder.icon_state = "hudhealthy"
+		holder.icon_state = STATUS_HUD_HEALTHY
 
+/mob/living/carbon/human/proc/med_hud_insurance_set_overlay()
+	var/image/holder = hud_list[STATUS_HUD]
+	var/datum/money_account/account = null
+	var/obj/item/card/id/temp_id = null
+	holder.overlays.Cut()
 
+	if(!wear_id)
+		if((wear_mask && wear_mask.flags_inv & HIDENAME) || (head && head.flags_inv & HIDENAME))
+			return
+	else
+		temp_id = wear_id.GetID()
+
+	if(!temp_id)
+		if(dna.real_name == get_visible_name(add_id_name = FALSE))
+			account = get_insurance_account_DNA(src)
+	else
+		account = get_money_account(temp_id.associated_account_number)
+
+	if(account)
+		holder.overlays += image('icons/mob/hud.dmi', icon_state = "[STATUS_HUD_HEALTHY]_[account.insurance_type]")
+
+/mob/living/carbon/human/proc/update_hud_set()
+	sec_hud_set_ID()
+	med_hud_insurance_set_overlay()
+
+/mob/living/proc/get_desc_for_medical_status(icon_state)
+	var/static/list/icon_states = list(
+			STATUS_HUD_FLATLINE = "Отсутствует сердцебиение. Требуется немедленная дефибрилляция.",
+			STATUS_HUD_DEAD = "Пациент мертв. Возвращение возможно только через клонирование или иное вмешательство.",
+			STATUS_HUD_DNR ="Пациент отказался от реанимации или активность мозга не обнаружена.",
+			STATUS_HUD_XENO = "Обнаружена инопланетная форма жизни в грудной клетке. Требуется срочное хирургическое удаление!",
+			STATUS_HUD_TUMOUR = "Обнаружена опухоль. Требуется срочное хирургическое удаление!",
+			STATUS_HUD_BRAINWORM = "Обнаружена аномальная активность в мозге. Возможно наличие паразита или иного воздействия.",
+			STATUS_HUD_DEFIB = "Критическое состояние! Пациент близок к смерти. Требуется немедленная помощь для стабилизации!",
+			STATUS_HUD_RAPID_BLEEDING = "Пациент интенсивно истекает кровью.",
+			STATUS_HUD_BLEEDING = "Пациент истекает кровью.",
+			STATUS_HUD_ILL = "Обнаружены признаки инфекции или интоксикации. Требуется применение лекарства или диагностика причины интоксикации.",
+			STATUS_HUD_HEALTHY = "Серьезных проблем со здоровьем пациента не обнаружено."
+		)
+	if(!icon_state)
+		return "ОШИБКА. Не удалось обнаружить статус пациента."
+
+	var/desc_medical_status = icon_states[icon_state]
+
+	if(isnull(desc_medical_status))
+		return "ОШИБКА. Неизвестное состояние пациента."
+
+	return desc_medical_status
 
 /***********************************************
  Security HUDs! Basic mode shows only the job.
@@ -266,9 +325,9 @@
 	var/perpname = get_visible_name(add_id_name = FALSE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!SSticker) return //wait till the game starts or the monkeys runtime....
 	if(perpname)
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-		if(R)
-			switch(R.fields["criminal"])
+		var/datum/data/record/record = find_record("name", perpname, GLOB.data_core.security)
+		if(record)
+			switch(record.fields["criminal"])
 				if(SEC_RECORD_STATUS_EXECUTE)
 					holder.icon_state = "hudexecute"
 					return
@@ -462,7 +521,7 @@
 		holder.icon_state = "hudharvest"
 		return
 	if(dead)
-		holder.icon_state = "huddead"
+		holder.icon_state = STATUS_HUD_DEAD
 		return
 	holder.icon_state = ""
 
@@ -532,13 +591,13 @@
 	var/perpname = get_visible_name(add_id_name = FALSE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!perpname)
 		return
-	var/datum/data/record/R
+	var/datum/data/record/record
 	switch(comment_kind)
 		if("security")
-			R = find_record("name", perpname, GLOB.data_core.security)
+			record = find_record("name", perpname, GLOB.data_core.security)
 		if("medical")
-			R = find_record("name", perpname, GLOB.data_core.medical)
-	if(!R)
+			record = find_record("name", perpname, GLOB.data_core.medical)
+	if(!record)
 		return
 
 	var/commenter_display = "Something(???)"
@@ -553,6 +612,6 @@
 		commenter_display = "[U.name] (artificial intelligence)"
 	comment_text = "Made by [commenter_display] on [GLOB.current_date_string] [station_time_timestamp()]:<br>[comment_text]"
 
-	if(!R.fields["comments"])
-		R.fields["comments"] = list()
-	R.fields["comments"] += list(comment_text)
+	if(!record.fields["comments"])
+		record.fields["comments"] = list()
+	record.fields["comments"] += list(comment_text)

@@ -33,7 +33,7 @@
 	var/integrity = obj_integrity/max_integrity*100
 	var/cell_charge = get_charge()
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
-	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
+	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : UNKNOWN_STATUS_RUS
 	var/cabin_pressure = round(return_pressure(),0.01)
 	var/output = {"[report_internal_damage()]
 						[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]
@@ -99,7 +99,7 @@
 	var/result = step(src,direction)
 	if(result)
 		if(!squeak)
-			playsound(src, "clownstep", 70, 1)
+			playsound(src, SFX_CLOWN_STEP, 70, TRUE)
 			squeak = 1
 		else
 			squeak = 0

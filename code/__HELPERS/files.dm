@@ -70,25 +70,72 @@
 
 	var/extension = copytext(path,-4,0)
 	if( !fexists(path) || !(extension in valid_extensions) )
-		to_chat(src, "<font color='red'>Error: browse_files(): File not found/Invalid file([path]).</font>")
+		to_chat(src, span_red("Error: browse_files(): File not found/Invalid file([path])."))
 		return
 
 	return path
 
-#define FTPDELAY 200	//200 tick delay to discourage spam
-/*	This proc is a failsafe to prevent spamming of file requests.
-	It is just a timer that only permits a download every [FTPDELAY] ticks.
-	This can be changed by modifying FTPDELAY's value above.
+#define FTPDELAY 200 // 200 tick delay to discourage spam
+#define ADMIN_FTPDELAY_MODIFIER 0.5 // Admins get to spam files faster since we ~trust~ them!
 
-	PLEASE USE RESPONSIBLY, Some log files canr each sizes of 4MB!	*/
+/**
+ * This proc is a failsafe to prevent spamming of file requests.
+ * It is just a timer that only permits a download every [FTPDELAY] ticks.
+ * This can be changed by modifying FTPDELAY's value above.
+ *
+ * PLEASE USE RESPONSIBLY, Some log files can reach sizes of 4MB!
+ */
 /client/proc/file_spam_check()
 	var/time_to_wait = GLOB.fileaccess_timer - world.time
 	if(time_to_wait > 0)
-		to_chat(src, "<font color='red'>Error: file_spam_check(): Spam. Please wait [round(time_to_wait/10)] seconds.</font>")
-		return 1
-	GLOB.fileaccess_timer = world.time + FTPDELAY
-	return 0
+		to_chat(src, span_red("Error: file_spam_check(): Spam. Please wait [DisplayTimeText(time_to_wait)]."))
+		return TRUE
+	var/delay = FTPDELAY
+	if(holder)
+		delay *= ADMIN_FTPDELAY_MODIFIER
+	GLOB.fileaccess_timer = world.time + delay
+	return FALSE
+
 #undef FTPDELAY
+#undef ADMIN_FTPDELAY_MODIFIER
+
+/**
+ * Takes a directory and returns every file within every sub directory.
+ * If extensions_filter is provided then only files that end in that extension are given back.
+ * If extensions_filter is a list, any file that matches at least one entry is given back.
+ */
+/proc/pathwalk(path, extensions_filter)
+	var/list/jobs = list(path)
+	var/list/filenames = list()
+
+	while(jobs.len)
+		var/current_dir = pop(jobs)
+		var/list/new_filenames = flist(current_dir)
+
+		for(var/new_filename in new_filenames)
+			// if filename ends in / it is a directory, append to currdir
+			if(findtext(new_filename, "/", -1))
+				jobs += "[current_dir][new_filename]"
+				continue
+
+			// if no extension filter, add filename and continue
+			if(!extensions_filter)
+				filenames += "[current_dir][new_filename]"
+				continue
+
+			// handle list of extensions
+			if(islist(extensions_filter))
+				for(var/allowed_extension in extensions_filter)
+					if(endswith(new_filename, allowed_extension))
+						filenames += "[current_dir][new_filename]"
+						break
+				continue
+
+			// handle single extension
+			if(endswith(new_filename, extensions_filter))
+				filenames += "[current_dir][new_filename]"
+
+	return filenames
 
 /// Returns the md5 of a file at a given path.
 /proc/md5filepath(path)

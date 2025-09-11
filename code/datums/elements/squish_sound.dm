@@ -1,7 +1,7 @@
 ///Plays a sound when walked into.
 /datum/element/squish_sound
 	element_flags = ELEMENT_BESPOKE
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 	///The sound to play when something holding this element is entered.
 	var/sound_to_play
 

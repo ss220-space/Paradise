@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 		update_icon(UPDATE_ICON_STATE)
 		return
 	if(prob(3))
-		playsound(loc, "computer_ambience", 50, TRUE)
+		playsound(loc, SFX_COMPUTER_AMBIENCE, 50, TRUE)
 
 
 /obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
@@ -128,11 +128,11 @@ GLOBAL_LIST_EMPTY(message_servers)
 
 /obj/machinery/message_server/update_icon_state()
 	if((stat & (BROKEN|NOPOWER)))
-		icon_state = "server-nopower"
+		icon_state = "server_nopower"
 	else if(!active)
-		icon_state = "server-off"
+		icon_state = "server_off"
 	else
-		icon_state = "server-on"
+		icon_state = "server_on"
 
 /proc/find_pda_server()
 	if(GLOB.message_servers)

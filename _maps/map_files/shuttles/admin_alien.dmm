@@ -23,8 +23,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle{
@@ -47,8 +46,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -73,8 +71,7 @@
 /area/shuttle/administration)
 "dw" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle,
@@ -165,8 +162,7 @@
 /area/shuttle/administration)
 "gF" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -195,20 +191,17 @@
 /area/shuttle/administration)
 "iX" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 9;
-	do_not_delete_me = 1
+	dir = 9
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle,
 /area/shuttle/administration)
 "jB" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle{
@@ -218,12 +211,10 @@
 /area/shuttle/administration)
 "jD" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/door,
@@ -242,8 +233,7 @@
 /area/shuttle/administration)
 "jU" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /obj/structure/alien/weeds/node,
 /obj/structure/alien/weeds,
@@ -256,8 +246,7 @@
 /area/shuttle/administration)
 "kj" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -276,12 +265,10 @@
 /area/shuttle/administration)
 "kF" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/effect/turf_decal/stripes/black{
 	dir = 10;
-	do_not_delete_me = 1;
 	icon_state = "bs_deadlock"
 	},
 /obj/structure/alien/weeds,
@@ -357,12 +344,9 @@
 	},
 /area/shuttle/administration)
 "nA" = (
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/structure/alien/resin/door,
 /turf/simulated/floor/shuttle{
@@ -371,12 +355,9 @@
 	},
 /area/shuttle/administration)
 "nE" = (
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -413,12 +394,10 @@
 	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle{
@@ -445,12 +424,9 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "qk" = (
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin/door,
@@ -519,8 +495,7 @@
 /area/shuttle/administration)
 "tJ" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/suit_storage_unit{
@@ -613,8 +588,7 @@
 	name = "Broken Computer"
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/machinery/light_construct/small{
 	dir = 1
@@ -674,8 +648,7 @@
 /area/shuttle/administration)
 "zW" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/alien/weeds,
 /obj/item/stack/sheet/metal,
@@ -707,8 +680,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle{
@@ -731,8 +703,7 @@
 /area/shuttle/administration)
 "Cm" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/suit_storage_unit{
@@ -748,7 +719,6 @@
 "Cn" = (
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /obj/structure/computerframe,
@@ -774,8 +744,7 @@
 /area/shuttle/administration)
 "Dp" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/structure/alien/weeds,
 /obj/item/stack/sheet/metal{
@@ -879,7 +848,6 @@
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -929,8 +897,7 @@
 /area/shuttle/administration)
 "LI" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle{
@@ -957,12 +924,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -973,8 +937,7 @@
 /area/shuttle/administration)
 "Nh" = (
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -1005,8 +968,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle{
@@ -1016,12 +978,10 @@
 /area/shuttle/administration)
 "OG" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /obj/effect/turf_decal/stripes/black{
 	dir = 5;
-	do_not_delete_me = 1;
 	icon_state = "bs_deadlock"
 	},
 /obj/structure/alien/weeds/node,
@@ -1077,8 +1037,7 @@
 /area/shuttle/administration)
 "Qr" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle,
@@ -1111,12 +1070,10 @@
 /area/shuttle/administration)
 "Rq" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/structure/alien/weeds,
 /obj/structure/alien/weeds,
@@ -1153,7 +1110,6 @@
 "RS" = (
 /obj/effect/turf_decal/stripes/black{
 	dir = 8;
-	do_not_delete_me = 1;
 	icon_state = "bs_deadlock"
 	},
 /obj/structure/alien/weeds,
@@ -1166,8 +1122,7 @@
 "RY" = (
 /obj/structure/dispenser/oxygen,
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle{
@@ -1177,8 +1132,7 @@
 /area/shuttle/administration)
 "Sf" = (
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/machinery/light/small,
 /obj/machinery/computer{
@@ -1207,8 +1161,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/shuttle{
@@ -1269,8 +1222,7 @@
 /area/shuttle/administration)
 "Xl" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/machinery/suit_storage_unit{
 	state_open = 1
