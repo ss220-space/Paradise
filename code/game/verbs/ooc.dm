@@ -1,5 +1,6 @@
 GLOBAL_VAR_INIT(normal_ooc_colour, "#275FC5")
 GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
+GLOBAL_VAR_INIT(devs_ooc_colour, "#129c00")
 GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
@@ -69,6 +70,8 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 				display_colour = src.prefs.ooccolor
 			else
 				display_colour = GLOB.admin_ooc_colour
+		else if(check_rights(R_VIEWRUNTIMES, 0))
+			display_colour = GLOB.devs_ooc_colour
 
 	if(prefs.unlock_content)
 		if(display_colour == GLOB.normal_ooc_colour)
