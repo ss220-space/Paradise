@@ -305,14 +305,14 @@
 		)
 
 /*
-SEE_SELF  // can see self, no matter what
-SEE_MOBS  // can see all mobs, no matter what
-SEE_OBJS  // can see all objs, no matter what
-SEE_TURFS // can see all turfs (and areas), no matter what
-SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
-          // in a lit area (via pixel_x,y or smooth movement), can see those pixels
-BLIND     // can't see anything
-*/
+ * SEE_SELF  // can see self, no matter what
+ * SEE_MOBS  // can see all mobs, no matter what
+ * SEE_OBJS  // can see all objs, no matter what
+ * SEE_TURFS // can see all turfs (and areas), no matter what
+ * SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
+ *           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
+ * BLIND     // can't see anything
+ */
 
 
 /obj/item/clothing/glasses/update_icon_state()
@@ -699,7 +699,7 @@ BLIND     // can't see anything
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
-    return
+	return
 
 //Shoes
 /obj/item/clothing/shoes

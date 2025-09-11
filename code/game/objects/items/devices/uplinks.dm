@@ -47,13 +47,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	return loc
 
 
- /**
-  * Build the item lists for use with the UI
-  * Generates a list of items for use in the UI, based on job and other parameters.
-  *
-  * Arguments:
-  * * user - User to check.
-  */
+/**
+ * Build the item lists for use with the UI
+ * Generates a list of items for use in the UI, based on job and other parameters.
+ *
+ * Arguments:
+ * * user - User to check.
+ */
 /obj/item/uplink/proc/generate_item_lists(mob/user)
 	if(!job)
 		job = user.mind?.assigned_role
@@ -449,12 +449,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 
 /**
-  * Called in tgui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in tgui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/item/uplink/hidden/proc/tgui_act_modal(action, list/params)
 	. = TRUE
 	var/id = params["id"]

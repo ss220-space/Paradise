@@ -16,7 +16,7 @@
 	return
 
 /obj/structure/pit/AllowDrop()
-    return TRUE
+	return TRUE
 
 
 /obj/structure/pit/attackby(obj/item/I, mob/user, params)

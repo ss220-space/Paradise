@@ -21,7 +21,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Arguments:
  * msg - The message being send
  * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
-               send a sound and flash the window. Defaults to FALSE
+ * send a sound and flash the window. Defaults to FALSE
  */
 /proc/message_adminTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Arguments:
  * msg - The message being send
  * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
-               send a sound and flash the window. Defaults to FALSE
+ * send a sound and flash the window. Defaults to FALSE
  */
 /proc/message_mentorTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
@@ -718,11 +718,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /**
-  * A proc that return whether the mob is a "Special Character" aka Antagonist
-  *
-  * Arguments:
-  * * M - the mob you're checking
-  */
+ * A proc that return whether the mob is a "Special Character" aka Antagonist
+ *
+ * Arguments:
+ * * M - the mob you're checking
+ */
 /proc/is_special_character(mob/M)
 	if(!SSticker.mode)
 		return FALSE
@@ -738,11 +738,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /**
-  * A proc that return an array of capitalized strings containing name of the antag types they are
-  *
-  * Arguments:
-  * * M - the mob you're checking
-  */
+ * A proc that return an array of capitalized strings containing name of the antag types they are
+ *
+ * Arguments:
+ * * M - the mob you're checking
+ */
 /proc/get_antag_type_strings_list(mob/M) // return an array of all the antag types they are with name
 	var/list/antag_list = list()
 
@@ -781,15 +781,15 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /**
-  * A proc that return a string containing all the singled out antags . Empty string if not antag
-  *
-  * Usually, you'd return a FALSE, but since this is consumed by javascript you're in
-  * for a world of hurt if you pass a byond FALSE which get converted into a fucking string anyway and pass for TRUE in check. Fuck.
-  * It always append "(May be other antag)"
-  * Arguments:
-  * * M - the mob you're checking
-  * *
-  */
+ * A proc that return a string containing all the singled out antags . Empty string if not antag
+ *
+ * Usually, you'd return a FALSE, but since this is consumed by javascript you're in
+ * for a world of hurt if you pass a byond FALSE which get converted into a fucking string anyway and pass for TRUE in check. Fuck.
+ * It always append "(May be other antag)"
+ * Arguments:
+ * * M - the mob you're checking
+ * *
+ */
 /proc/get_antag_type_truncated_plaintext_string(mob/M as mob)
 	var/list/antag_list = get_antag_type_strings_list(M)
 
