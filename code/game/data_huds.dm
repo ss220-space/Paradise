@@ -67,6 +67,10 @@
 /datum/atom_hud/heretic
 	hud_icons = list(HERETIC_HUD)
 
+/datum/atom_hud/pacifism
+	hud_icons = list(PACIFISM_HUD)
+
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*

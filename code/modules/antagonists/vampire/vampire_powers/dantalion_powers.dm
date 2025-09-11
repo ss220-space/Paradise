@@ -154,7 +154,7 @@
 
 /obj/effect/proc_holder/spell/vampire/pacify
 	name = "Умиротворение"
-	desc = "Временно умиротворяет цель, делая её неспособной причинить вред."
+	desc = "Временно умиротворяет цель, делая её неспособной причинить вред. Возможно использовать сквозь стены."
 	gain_desc = "Вы обрели способность умиротворять агрессивные порывы гуманоида, не позволяя ему причинить кому-либо физический вред."
 	action_icon_state = "pacify"
 	base_cooldown = 10 SECONDS
@@ -163,23 +163,27 @@
 
 
 /obj/effect/proc_holder/spell/vampire/pacify/create_new_targeting()
-	var/datum/spell_targeting/click/T = new
-	T.range = 7
-	T.click_radius = 1
-	T.allowed_type = /mob/living/carbon/human
-	return T
+	var/datum/spell_targeting/click/targeting = new
+	targeting.range = 7
+	targeting.click_radius = 1
+	targeting.allowed_type = /mob/living/carbon/human
+	targeting.selection_type = SPELL_SELECTION_RANGE
+	return targeting
 
 
 /obj/effect/proc_holder/spell/vampire/pacify/cast(list/targets, mob/user)
-	for(var/mob/living/carbon/human/H as anything in targets)
-		to_chat(H, span_notice("Вы вдруг почувствовали себя очень спокойно..."))
-		SEND_SOUND(H, sound('sound/hallucinations/i_see_you1.ogg'))
-		H.apply_status_effect(STATUS_EFFECT_PACIFIED)
+	var/sound/sound = sound('sound/magic/cult_spell.ogg')
+	sound.volume = 30
+	SEND_SOUND(user, sound)
+	for(var/mob/living/carbon/human/target as anything in targets)
+		to_chat(target, span_notice("Вы вдруг почувствовали себя очень спокойно..."))
+		SEND_SOUND(target, sound('sound/hallucinations/i_see_you1.ogg'))
+		target.apply_status_effect(STATUS_EFFECT_PACIFIED, user) // we wont to see, whom we already pacify
 
 
 /obj/effect/proc_holder/spell/vampire/switch_places
 	name = "Подпространственный обмен"
-	desc = "Поменяйтесь местами с целью. Также замедляет жертву и вызывает у нее галлюцинации."
+	desc = "Поменяйтесь местами с целью. Также замедляет жертву и вызывает у нее галлюцинации. Возможно использовать сквозь стены."
 	gain_desc = "Вы получили возможность меняться местами с выбранным существом."
 	centcom_cancast = FALSE
 	action_icon_state = "subspace_swap"
@@ -193,6 +197,7 @@
 	T.range = 7
 	T.click_radius = 1
 	T.try_auto_target = FALSE
+	T.selection_type = SPELL_SELECTION_RANGE
 	T.allowed_type = /mob/living
 	return T
 
@@ -203,6 +208,9 @@
 	var/turf/target_turf = get_turf(target)
 	target.forceMove(user_turf)
 	user.forceMove(target_turf)
+	var/sound/sound = sound('sound/magic/mindswap.ogg')
+	sound.volume = 30
+	SEND_SOUND(user, sound)
 
 	if(target.affects_vampire(user))
 		target.Slowed(4 SECONDS)
