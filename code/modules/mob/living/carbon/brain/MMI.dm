@@ -293,8 +293,8 @@
 	return TRUE
 
 /obj/item/mmi/syndie/Destroy()
-    QDEL_NULL(overdrive)
-    return ..()
+	QDEL_NULL(overdrive)
+	return ..()
 
 /obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!brainmob)

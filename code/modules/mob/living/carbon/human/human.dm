@@ -995,12 +995,12 @@
 
 
 /**
-  * Set up DNA and species.
-  *
-  * Arguments:
-  * * new_species - The new species to assign.
-  * * monkeybasic - If `TRUE` will skip randomization of the last SE block
-  */
+ * Set up DNA and species.
+ *
+ * Arguments:
+ * * new_species - The new species to assign.
+ * * monkeybasic - If `TRUE` will skip randomization of the last SE block
+ */
 /mob/living/carbon/human/proc/setup_dna(datum/species/new_species, monkeybasic = FALSE)
 	set_species(new_species, use_default_color = TRUE, delay_icon_update = TRUE, skip_same_check = TRUE)
 	// Name
@@ -1870,12 +1870,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /**
-  * Helper to get the mobs runechat colour span
-  *
-  * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
-  */
+ * Helper to get the mobs runechat colour span
+ *
+ * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
+ */
 /mob/living/carbon/human/get_runechat_color()
-   return dna.species.get_species_runechat_color(src)
+	return dna.species.get_species_runechat_color(src)
 
 /mob/living/carbon/human/limb_attack_self()
 	var/obj/item/organ/external/arm = hand ? get_organ(BODY_ZONE_L_ARM) : get_organ(BODY_ZONE_R_ARM)

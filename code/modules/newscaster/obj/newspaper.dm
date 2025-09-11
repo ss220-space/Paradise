@@ -1,4 +1,4 @@
- #define SCREEN_COVER 0
+#define SCREEN_COVER 0
 #define SCREEN_PAGE_INNER 1
 #define SCREEN_PAGE_LAST 2
 

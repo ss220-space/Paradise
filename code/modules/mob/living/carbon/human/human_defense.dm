@@ -222,13 +222,13 @@ emp_act
 
 
 /mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, head, shoes, gloves or wear_suit based on the reflection chance var of the object
-    var/list/reflectable_slots = list(wear_suit, head, shoes, gloves, l_hand, r_hand)
-    for(var/obj/item/slot in reflectable_slots)
-        var/reflectability = slot?.IsReflect(def_zone)
-        if(reflectability)
-            return reflectability
+	var/list/reflectable_slots = list(wear_suit, head, shoes, gloves, l_hand, r_hand)
+	for(var/obj/item/slot in reflectable_slots)
+		var/reflectability = slot?.IsReflect(def_zone)
+		if(reflectability)
+			return reflectability
 
-    return 0
+	return 0
 
 
 //End Here
