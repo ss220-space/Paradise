@@ -1,3 +1,5 @@
+#define COLLAPSE_DURATION 7
+
 /obj/effect/sliding_puzzle
 	name = "Sliding puzzle generator"
 	icon = 'icons/obj/items.dmi' //mapping
@@ -77,8 +79,6 @@
 			E.source = null
 		elements.Cut()
 	return ..()
-
-#define COLLAPSE_DURATION 7
 
 /obj/effect/sliding_puzzle/proc/finish()
 	finished = TRUE
@@ -349,3 +349,5 @@
 	var/obj/structure/puzzle_element/E = pick(cube.elements)
 	prisoner.forceMove(E)
 	return TRUE
+
+#undef COLLAPSE_DURATION

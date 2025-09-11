@@ -93,10 +93,10 @@
 	return data
 
 /**
-  * Supermatter List Refresher
-  *
-  * This proc loops through the list of supermatters in the atmos SS and adds them to this console's cache list
-  */
+ * Supermatter List Refresher
+ *
+ * This proc loops through the list of supermatters in the atmos SS and adds them to this console's cache list
+ */
 /obj/machinery/computer/sm_monitor/proc/refresh()
 	supermatters = list()
 	var/turf/T = get_turf(ui_host()) // Get the UI host incase this ever turned into a supermatter monitoring module for AIs to use or something

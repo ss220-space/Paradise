@@ -18,12 +18,12 @@
 
 /obj/item/reagent_containers/food/pill/patch/get_ru_names()
 	return list(
-        NOMINATIVE = "пластырь",
-        GENITIVE = "пластыря",
-        DATIVE = "пластырю",
-        ACCUSATIVE = "пластырь",
-        INSTRUMENTAL = "пластырем",
-        PREPOSITIONAL = "пластыре"
+		NOMINATIVE = "пластырь",
+		GENITIVE = "пластыря",
+		DATIVE = "пластырю",
+		ACCUSATIVE = "пластырь",
+		INSTRUMENTAL = "пластырем",
+		PREPOSITIONAL = "пластыре"
 	)
 
 /obj/item/reagent_containers/food/pill/patch/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -56,12 +56,12 @@
 
 /obj/item/reagent_containers/food/pill/patch/styptic/get_ru_names()
 	return list(
-        NOMINATIVE = "пластырь (Мех. Повреждения)",
-        GENITIVE = "пластыря (Мех. Повреждения)",
-        DATIVE = "пластырю (Мех. Повреждения)",
-        ACCUSATIVE = "пластырь (Мех. Повреждения)",
-        INSTRUMENTAL = "пластырем (Мех. Повреждения)",
-        PREPOSITIONAL = "пластыре (Мех. Повреждения)"
+		NOMINATIVE = "пластырь (Мех. Повреждения)",
+		GENITIVE = "пластыря (Мех. Повреждения)",
+		DATIVE = "пластырю (Мех. Повреждения)",
+		ACCUSATIVE = "пластырь (Мех. Повреждения)",
+		INSTRUMENTAL = "пластырем (Мех. Повреждения)",
+		PREPOSITIONAL = "пластыре (Мех. Повреждения)"
 	)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/small
@@ -71,12 +71,12 @@
 
 /obj/item/reagent_containers/food/pill/patch/styptic/small/get_ru_names()
 	return list(
-        NOMINATIVE = "мини-пластырь (Мех. Повреждения)",
-        GENITIVE = "мини-пластыря (Мех. Повреждения)",
-        DATIVE = "мини-пластырю (Мех. Повреждения)",
-        ACCUSATIVE = "мини-пластырь (Мех. Повреждения)",
-        INSTRUMENTAL = "мини-пластырем (Мех. Повреждения)",
-        PREPOSITIONAL = "мини-пластыре (Мех. Повреждения)"
+		NOMINATIVE = "мини-пластырь (Мех. Повреждения)",
+		GENITIVE = "мини-пластыря (Мех. Повреждения)",
+		DATIVE = "мини-пластырю (Мех. Повреждения)",
+		ACCUSATIVE = "мини-пластырь (Мех. Повреждения)",
+		INSTRUMENTAL = "мини-пластырем (Мех. Повреждения)",
+		PREPOSITIONAL = "мини-пластыре (Мех. Повреждения)"
 	)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf
@@ -88,12 +88,12 @@
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/get_ru_names()
 	return list(
-        NOMINATIVE = "пластырь (Терм. Повреждения)",
-        GENITIVE = "пластыря (Терм. Повреждения)",
-        DATIVE = "пластырю (Терм. Повреждения)",
-        ACCUSATIVE = "пластырь (Терм. Повреждения)",
-        INSTRUMENTAL = "пластырем (Терм. Повреждения)",
-        PREPOSITIONAL = "пластыре (Терм. Повреждения)"
+		NOMINATIVE = "пластырь (Терм. Повреждения)",
+		GENITIVE = "пластыря (Терм. Повреждения)",
+		DATIVE = "пластырю (Терм. Повреждения)",
+		ACCUSATIVE = "пластырь (Терм. Повреждения)",
+		INSTRUMENTAL = "пластырем (Терм. Повреждения)",
+		PREPOSITIONAL = "пластыре (Терм. Повреждения)"
 	)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small
@@ -103,12 +103,12 @@
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small/get_ru_names()
 	return list(
-        NOMINATIVE = "мини-пластырь (Терм. Повреждения)",
-        GENITIVE = "мини-пластыря (Терм. Повреждения)",
-        DATIVE = "мини-пластырю (Терм. Повреждения)",
-        ACCUSATIVE = "мини-пластырь (Терм. Повреждения)",
-        INSTRUMENTAL = "мини-пластырем (Терм. Повреждения)",
-        PREPOSITIONAL = "мини-пластыре (Терм. Повреждения)"
+		NOMINATIVE = "мини-пластырь (Терм. Повреждения)",
+		GENITIVE = "мини-пластыря (Терм. Повреждения)",
+		DATIVE = "мини-пластырю (Терм. Повреждения)",
+		ACCUSATIVE = "мини-пластырь (Терм. Повреждения)",
+		INSTRUMENTAL = "мини-пластырем (Терм. Повреждения)",
+		PREPOSITIONAL = "мини-пластыре (Терм. Повреждения)"
 	)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh
@@ -120,12 +120,12 @@
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh/get_ru_names()
 	return list(
-        NOMINATIVE = "пластырь (Синт-плоть)",
-        GENITIVE = "пластыря (Синт-плоть)",
-        DATIVE = "пластырю (Синт-плоть)",
-        ACCUSATIVE = "пластырь (Синт-плоть)",
-        INSTRUMENTAL = "пластырем (Синт-плоть)",
-        PREPOSITIONAL = "пластыре (Синт-плоть)"
+		NOMINATIVE = "пластырь (Синт-плоть)",
+		GENITIVE = "пластыря (Синт-плоть)",
+		DATIVE = "пластырю (Синт-плоть)",
+		ACCUSATIVE = "пластырь (Синт-плоть)",
+		INSTRUMENTAL = "пластырем (Синт-плоть)",
+		PREPOSITIONAL = "пластыре (Синт-плоть)"
 	)
 
 /obj/item/reagent_containers/food/pill/patch/nicotine
@@ -135,12 +135,12 @@
 
 /obj/item/reagent_containers/food/pill/patch/nicotine/get_ru_names()
 	return list(
-        NOMINATIVE = "пластырь (Никотин)",
-        GENITIVE = "пластыря (Никотин)",
-        DATIVE = "пластырю (Никотин)",
-        ACCUSATIVE = "пластырь (Никотин)",
-        INSTRUMENTAL = "пластырем (Никотин)",
-        PREPOSITIONAL = "пластыре (Никотин)"
+		NOMINATIVE = "пластырь (Никотин)",
+		GENITIVE = "пластыря (Никотин)",
+		DATIVE = "пластырю (Никотин)",
+		ACCUSATIVE = "пластырь (Никотин)",
+		INSTRUMENTAL = "пластырем (Никотин)",
+		PREPOSITIONAL = "пластыре (Никотин)"
 	)
 
 /obj/item/reagent_containers/food/pill/patch/jestosterone
@@ -151,10 +151,10 @@
 
 /obj/item/reagent_containers/food/pill/patch/jestosterone/get_ru_names()
 	return list(
-        NOMINATIVE = "пластырь (Шутостерон)",
-        GENITIVE = "пластыря (Шутостерон)",
-        DATIVE = "пластырю (Шутостерон)",
-        ACCUSATIVE = "пластырь (Шутостерон)",
-        INSTRUMENTAL = "пластырем (Шутостерон)",
-        PREPOSITIONAL = "пластыре (Шутостерон)"
+		NOMINATIVE = "пластырь (Шутостерон)",
+		GENITIVE = "пластыря (Шутостерон)",
+		DATIVE = "пластырю (Шутостерон)",
+		ACCUSATIVE = "пластырь (Шутостерон)",
+		INSTRUMENTAL = "пластырем (Шутостерон)",
+		PREPOSITIONAL = "пластыре (Шутостерон)"
 	)

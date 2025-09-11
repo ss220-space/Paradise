@@ -190,8 +190,8 @@
 	for(var/trait in clothing_traits)
 		ADD_CLOTHING_TRAIT(user, src, trait)
 /**
-  * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
-  */
+ * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
+ */
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
@@ -305,14 +305,14 @@
 		)
 
 /*
-SEE_SELF  // can see self, no matter what
-SEE_MOBS  // can see all mobs, no matter what
-SEE_OBJS  // can see all objs, no matter what
-SEE_TURFS // can see all turfs (and areas), no matter what
-SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
-          // in a lit area (via pixel_x,y or smooth movement), can see those pixels
-BLIND     // can't see anything
-*/
+ * SEE_SELF  // can see self, no matter what
+ * SEE_MOBS  // can see all mobs, no matter what
+ * SEE_OBJS  // can see all objs, no matter what
+ * SEE_TURFS // can see all turfs (and areas), no matter what
+ * SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
+ *           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
+ * BLIND     // can't see anything
+ */
 
 
 /obj/item/clothing/glasses/update_icon_state()
@@ -699,7 +699,7 @@ BLIND     // can't see anything
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
-    return
+	return
 
 //Shoes
 /obj/item/clothing/shoes
@@ -1157,11 +1157,11 @@ BLIND     // can't see anything
 
 
 /*
-  * # can_attach_accessory
-  *
-  * Arguments:
-  * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
-*/
+ * # can_attach_accessory
+ *
+ * Arguments:
+ * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+ */
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/checked_acc)
 	if(!istype(checked_acc))
 		return FALSE

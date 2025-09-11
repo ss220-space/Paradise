@@ -8,12 +8,12 @@
 
 /obj/item/storage/pill_bottle/dice/get_ru_names()
 	return list(
-        NOMINATIVE = "мешок игральных костей",
-        GENITIVE = "мешка игральных костей",
-        DATIVE = "мешку игральных костей",
-        ACCUSATIVE = "мешок игральных костей",
-        INSTRUMENTAL = "мешком игральных костей",
-        PREPOSITIONAL = "мешке игральных костей"
+		NOMINATIVE = "мешок игральных костей",
+		GENITIVE = "мешка игральных костей",
+		DATIVE = "мешку игральных костей",
+		ACCUSATIVE = "мешок игральных костей",
+		INSTRUMENTAL = "мешком игральных костей",
+		PREPOSITIONAL = "мешке игральных костей"
 	)
 
 /obj/item/storage/pill_bottle/dice/populate_contents()

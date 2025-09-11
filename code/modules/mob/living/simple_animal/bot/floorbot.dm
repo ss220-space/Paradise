@@ -1,3 +1,10 @@
+#define HULL_BREACH 1
+#define BRIDGE_MODE 2
+#define FIX_TILE 3
+#define AUTO_TILE 4
+#define REPLACE_TILE 5
+#define TILE_EMAG 6
+
 //Floorbot
 /mob/living/simple_animal/bot/floorbot
 	name = "Floorbot"
@@ -35,13 +42,6 @@
 	var/turf/target
 	var/oldloc = null
 	var/toolbox_color = ""
-
-	#define HULL_BREACH		1
-	#define BRIDGE_MODE		2
-	#define FIX_TILE		3
-	#define AUTO_TILE		4
-	#define REPLACE_TILE	5
-	#define TILE_EMAG		6
 
 /mob/living/simple_animal/bot/floorbot/get_ru_names()
 	return list(
@@ -486,3 +486,9 @@
 /obj/machinery/bot_core/floorbot
 	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 
+#undef HULL_BREACH
+#undef BRIDGE_MODE
+#undef FIX_TILE
+#undef AUTO_TILE
+#undef REPLACE_TILE
+#undef TILE_EMAG

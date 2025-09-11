@@ -232,7 +232,7 @@
 	playsound(loc, 'sound/effects/explosionfar.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)
 
-/obj/machinery/arcade/minesweeper/proc/generate_matrix(var/x, var/y)
+/obj/machinery/arcade/minesweeper/proc/generate_matrix(x, y)
 	flagged_bombs = 0
 	setted_flags = 0
 	opened_cells = 0
@@ -350,3 +350,7 @@
 #undef MINESWEEPER_ROWS
 #undef MINESWEEPER_COLUMNS
 #undef MINESWEEPER_BOMBS
+#undef MINESWEEPER_WIDTH
+#undef MINESWEEPER_9X9
+#undef MINESWEEPER_16X16
+#undef MINESWEEPER_16X30

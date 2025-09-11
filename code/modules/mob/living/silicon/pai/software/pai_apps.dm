@@ -341,11 +341,11 @@
 				pai_holder.visible_message(span_warning("На интелкарте пИИ открывается порт, из которого тут же выпадает кабель."))
 
 /**
-  * Door jack hack loop
-  *
-  * Self-contained proc for handling the hacking of a machinery.
-  * Invoked asyncly, but will only allow one instance at a time
-  */
+ * Door jack hack loop
+ *
+ * Self-contained proc for handling the hacking of a machinery.
+ * Invoked asyncly, but will only allow one instance at a time
+ */
 /datum/pai_software/door_jack/proc/hackloop()
 	if(!is_type_in_list(cable.machine, cable.allowed_types))
 		cleanup_hack()
@@ -390,10 +390,10 @@
 	cleanup_hack()
 
 /**
-  * Door jack cleanup proc
-  *
-  * Self-contained proc for cleaning up failed hack attempts
-  */
+ * Door jack cleanup proc
+ *
+ * Self-contained proc for cleaning up failed hack attempts
+ */
 /datum/pai_software/door_jack/proc/cleanup_hack()
 	hackmachine = null
 	cable.machine = null

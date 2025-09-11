@@ -1444,7 +1444,7 @@
 		user.Confused(20 SECONDS)
 		user.Jitter(12 SECONDS)
 
-/obj/item/clockwork/shard/proc/give_ghost(var/mob/living/carbon/human/golem)
+/obj/item/clockwork/shard/proc/give_ghost(mob/living/carbon/human/golem)
 	set waitfor = FALSE
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Brass Golem?", ROLE_CLOCKER, TRUE, poll_time = 10 SECONDS, source = /obj/item/clockwork/clockslab)
 	if(length(candidates))

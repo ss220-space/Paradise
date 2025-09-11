@@ -137,7 +137,7 @@
 
 	return TRUE
 
-/obj/structure/proc/clumse_stuff(var/mob/living/user)
+/obj/structure/proc/clumse_stuff(mob/living/user)
 	if(!user)
 		return
 	var/slopchance = 80 //default for all human-sized livings

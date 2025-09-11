@@ -117,7 +117,7 @@
 	log_and_message_admins("<span class='boldnotice'>Sent Global Narrate: [msg]<br></span>")
 	BLACKBOX_LOG_ADMIN_VERB("Global Narrate")
 
-/client/proc/cmd_admin_local_narrate(var/atom/A)
+/client/proc/cmd_admin_local_narrate(atom/A)
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Local Narrate"
 
@@ -134,7 +134,7 @@
 	log_and_message_admins("<span class='boldnotice'>local narrated at [AREACOORD(A)]: [msg]<br></span>")
 	BLACKBOX_LOG_ADMIN_VERB("Local Narrate")
 
-/client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
+/client/proc/cmd_admin_direct_narrate(mob/M)	// Targetted narrate -- TLE
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
@@ -546,7 +546,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	return 1
 
 
-/client/proc/get_ghosts(var/notify = 0,var/what = 2)
+/client/proc/get_ghosts(notify = 0, what = 2)
 	// what = 1, return ghosts ass list.
 	// what = 2, return mob list
 

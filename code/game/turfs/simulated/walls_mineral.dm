@@ -139,7 +139,7 @@
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-/turf/simulated/wall/mineral/plasma/bullet_act(var/obj/projectile/Proj)
+/turf/simulated/wall/mineral/plasma/bullet_act(obj/projectile/Proj)
 	if(Proj.damage == 0)//lasertag guns and so on don't set off plasma anymore. can't use nodamage here because lasertag guns actually don't have it.
 		return
 	if(istype(Proj,/obj/projectile/beam))
