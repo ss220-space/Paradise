@@ -39,8 +39,10 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		GLOB.station_account.money = STATION_START_CASH * 2
 
 		//create an entry in the account transaction log for when it was created
-		GLOB.station_account.makeTransactionLog(STATION_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, GLOB.station_account.owner_name, FALSE,
-		 STATION_CREATION_DATE, STATION_CREATION_TIME)
+		GLOB.station_account.makeTransactionLog(
+			STATION_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, GLOB.station_account.owner_name, FALSE,
+			STATION_CREATION_DATE, STATION_CREATION_TIME
+		)
 
 		//add the account
 		GLOB.all_money_accounts.Add(GLOB.station_account)
@@ -55,8 +57,10 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	department_account.money = DEPARTMENT_START_CASH
 
 	//create an entry in the account transaction log for when it was created
-	department_account.makeTransactionLog(DEPARTMENT_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, department_account.owner_name, FALSE,
-	 STATION_CREATION_DATE, STATION_CREATION_TIME)
+	department_account.makeTransactionLog(
+		DEPARTMENT_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, department_account.owner_name, FALSE,
+		STATION_CREATION_DATE, STATION_CREATION_TIME
+	)
 
 	//add the account
 	GLOB.all_money_accounts.Add(department_account)
@@ -66,7 +70,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 //the current ingame time (hh:mm:ss) can be obtained by calling:
 //station_time_timestamp("hh:mm:ss")
 
-/proc/create_account(var/new_owner_name = "Default user", var/starting_funds = 0, var/obj/machinery/computer/account_database/source_db, var/datum/job/link_job = /datum/job ,var/salary_active = FALSE)
+/proc/create_account(new_owner_name = "Default user", starting_funds = 0, obj/machinery/computer/account_database/source_db, datum/job/link_job = /datum/job , salary_active = FALSE)
 
 	//create a new account
 	var/datum/money_account/M = new()

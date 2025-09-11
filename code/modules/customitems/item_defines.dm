@@ -1273,8 +1273,10 @@
 	attack_verb = list("тыкнул")
 	actions_types = list(/datum/action/item_action/adjust)
 	var/prompting_change = FALSE
-	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
-								 "coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
+	var/list/plush_colors = list(
+		"red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
+		"coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox"
+	)
 
 /obj/item/toy/plushie/fluff/fox/proc/change_color(mob/user)
 	if(prompting_change)

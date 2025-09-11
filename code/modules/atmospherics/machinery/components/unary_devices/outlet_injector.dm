@@ -101,7 +101,7 @@
 		"power" = on,
 		"volume_rate" = volume_rate,
 		"sigtype" = "status"
-	 )
+	)
 
 	radio_connection.post_signal(src, signal, RADIO_ATMOSIA)
 

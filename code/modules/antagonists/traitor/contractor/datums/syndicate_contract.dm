@@ -411,8 +411,11 @@
 	var/penalty_text = ""
 	if(target_dead)
 		penalty_text = " (штраф применяется, если цель была эвакуирована мёртвой)"
-	owning_hub.contractor_uplink?.message_holder("Отличная работа, агент! Цель доставлена и в ближайшее время её обработают, после чего отправят обратно. "\
-									 + "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[declension_ru(creds, "", "а", "ов")].", 'sound/machines/terminal_prompt_confirm.ogg')
+	owning_hub.contractor_uplink?.message_holder(
+		"Отличная работа, агент! Цель доставлена и в ближайшее время её обработают, после чего отправят обратно. " \
+		+ "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[declension_ru(creds, "", "а", "ов")].", \
+		'sound/machines/terminal_prompt_confirm.ogg'
+	)
 
 
 /datum/syndicate_contract/proc/remove_victim_items(mob/living/victim, turf/portal_turf)
