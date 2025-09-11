@@ -26,7 +26,7 @@
 
 	// Lets see if they are logged in on another paradise server
 	#ifdef MULTIINSTANCE
-	if(SSdbcore.IsConnected())
+	if(!admin && SSdbcore.IsConnected()) // we allow admins to multijoin
 		var/other_server_login = SSinstancing.check_player(ckey)
 		if(other_server_login)
 			return list("reason"="duplicate login", "desc"="\nReason: You are already logged in on server '[other_server_login]'. Please contact the server host if you believe this is an error.")
