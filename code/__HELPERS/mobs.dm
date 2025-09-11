@@ -1,4 +1,4 @@
-/proc/GetOppositeDir(var/dir)
+/proc/GetOppositeDir(dir)
 	switch(dir)
 		if(NORTH)     return SOUTH
 		if(SOUTH)     return NORTH

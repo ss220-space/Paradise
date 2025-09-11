@@ -271,7 +271,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		return 1
 	return 0
 
-/datum/paiController/proc/question(var/client/C)
+/datum/paiController/proc/question(client/C)
 	spawn(0)
 		if(!C)	return
 		asked.Add(C.key)

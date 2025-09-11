@@ -57,7 +57,7 @@
 	update_icons()
 	return TRUE
 
-/mob/living/silicon/robot/proc/activate_module(var/obj/item/O)
+/mob/living/silicon/robot/proc/activate_module(obj/item/O)
 	if(!(locate(O) in src.module.modules) && O != src.module.emag)
 		return
 	if(activated(O))

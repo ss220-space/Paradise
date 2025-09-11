@@ -335,7 +335,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
   /* ###### Organize the receivers into categories for displaying the message ###### */
 
- 	// Understood the message:
+	// Understood the message:
 	var/list/heard_masked	= list() // masked name or no real name
 	var/list/heard_normal	= list() // normal message
 
@@ -373,10 +373,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			heard_garbled += R
 
 
-  /* ###### Begin formatting and sending the message ###### */
+	/* ###### Begin formatting and sending the message ###### */
 	if(length(heard_masked) || length(heard_normal) || length(heard_voice) || length(heard_garbled) || length(heard_gibberish))
 
-	  /* --- Some miscellaneous variables to format the string output --- */
+		/* --- Some miscellaneous variables to format the string output --- */
 		var/freq_text = get_frequency_name(display_freq)
 
 		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><b>\[[freq_text]\]</b> <span class='name'>" // goes in the actual output

@@ -1222,10 +1222,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, S, current_size)
 
 /**
-  * Respond to acid being used on our atom
-  *
-  * Default behaviour is to send COMSIG_ATOM_ACID_ACT and return
-  */
+ * Respond to acid being used on our atom
+ *
+ * Default behaviour is to send COMSIG_ATOM_ACID_ACT and return
+ */
 /atom/proc/acid_act(acidpwr, acid_volume)
 	SEND_SIGNAL(src, COMSIG_ATOM_ACID_ACT, acidpwr, acid_volume)
 

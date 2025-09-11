@@ -869,7 +869,7 @@ The _flatIcons list is a cache for generated icon files.
 		composite.Blend(icon(I.icon, I.icon_state, I.dir, 1), ICON_OVERLAY)
 	return composite
 
-/proc/adjust_brightness(var/color, var/value)
+/proc/adjust_brightness(color, value)
 	if(!color) return "#FFFFFF"
 	if(!value) return color
 
@@ -879,7 +879,7 @@ The _flatIcons list is a cache for generated icon files.
 	RGB[3] = clamp(RGB[3]+value,0,255)
 	return rgb(RGB[1],RGB[2],RGB[3])
 
-/proc/sort_atoms_by_layer(var/list/atoms)
+/proc/sort_atoms_by_layer(list/atoms)
 	// Comb sort icons based on levels
 	var/list/result = atoms.Copy()
 	var/gap = result.len
@@ -935,7 +935,7 @@ The _flatIcons list is a cache for generated icon files.
 
 //Imagine removing pixels from the main icon that are covered by pixels from the mask icon.
 //Standard behaviour is to cut pixels from the main icon that are covered by pixels from the mask icon unless passed mask_ready, see below.
-/proc/get_icon_difference(var/icon/main, var/icon/mask, var/mask_ready)
+/proc/get_icon_difference(icon/main, icon/mask, mask_ready)
 	/*You should skip prep if the mask is already sprited properly. This significantly improves performance by eliminating most of the realtime icon work.
 	e.g. A 'ready' mask is a mask where the part you want cut out is missing (no pixels, 0 alpha) from the sprite, and everything else is solid white.*/
 

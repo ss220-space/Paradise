@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 /********************
-    SUPPLY ORDER //доработать
+	SUPPLY ORDER //доработать
  ********************/
 /datum/syndie_supply_order
 
@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 
 /***************************
-    Хранилище данных.
+	Хранилище данных.
 	Консоли её находят и используют как сервер для снхронизации данных.
 	Если консоль построить в зоне без хранилища данных, консоль создаст новое хранилище данных в своей зоне при попытке синхронизации через кнопку "Link pads"
 	Такой подход позволяет игрокам построить собственное синдикарго
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	researchDesigns = null
 	return ..()
 /***************************
-    Консоль заказов синдикарго
+	Консоль заказов синдикарго
  **************************/
 /obj/machinery/computer/syndie_supplycomp
 	name = "Supply Pad Console"
