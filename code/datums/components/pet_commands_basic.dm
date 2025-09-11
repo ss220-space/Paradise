@@ -221,44 +221,6 @@
 	return SUBTREE_RETURN_FINISH_PLANNING
 
 
-// TG, what the fuck?
-/**
- * # Breed command. breed with a partner!
- */
- /*
-/datum/pet_command/breed
-	command_name = "Breed"
-	command_desc = "Command your pet to attempt to breed with a partner."
-	requires_pointing = TRUE
-	radial_icon_state = "breed"
-	speech_commands = list("breed", "consummate")
-	///the behavior we use to make babies
-	var/datum/ai_behavior/reproduce_behavior = /datum/ai_behavior/make_babies
-
-/datum/pet_command/breed/set_command_target(mob/living/parent, atom/target)
-	if(isnull(target) || !isliving(target))
-		return FALSE
-	if(!HAS_TRAIT(parent, TRAIT_MOB_BREEDER) || !HAS_TRAIT(target, TRAIT_MOB_BREEDER))
-		return FALSE
-	if(isnull(parent.ai_controller))
-		return FALSE
-	if(!parent.ai_controller.blackboard[BB_BREED_READY] || isnull(parent.ai_controller.blackboard[BB_BABIES_PARTNER_TYPES]))
-		return FALSE
-	var/mob/living/living_target = target
-	if(!living_target.ai_controller?.blackboard[BB_BREED_READY])
-		return FALSE
-	return ..()
-
-/datum/pet_command/breed/execute_action(datum/ai_controller/controller)
-	if(is_type_in_list(controller.blackboard[BB_CURRENT_PET_TARGET], controller.blackboard[BB_BABIES_PARTNER_TYPES]))
-		controller.queue_behavior(reproduce_behavior, BB_CURRENT_PET_TARGET)
-		controller.clear_blackboard_key(BB_ACTIVE_PET_COMMAND)
-	return SUBTREE_RETURN_FINISH_PLANNING
-
-/datum/pet_command/breed/retrieve_command_text(atom/living_pet, atom/target)
-	return isnull(target) ? null : "приказывает [living_pet.declent_ru(DATIVE)]breed with [target]!"
-*/
-
 /**
  * # Pet Command: Targetted Ability
  * Tells a pet to use some kind of ability on the next thing you point at
@@ -339,12 +301,6 @@
 	set_command_target(parent, victim)
 
 
-/*
-/datum/pet_command/protect_owner/valid_callout_target(mob/living/speaker, datum/callout_option/callout, atom/target)
-	return target == speaker || get_dist(speaker, target) <= 1
-*/
-
-
 /datum/pet_command/protect_owner/proc/set_attacking_target(atom/source, mob/living/attacker)
 	SIGNAL_HANDLER
 
@@ -371,26 +327,6 @@
 
 	set_command_active(owner, attacker)
 
-
-/*
-/**
- * # Fish command: command the mob to fish at the next fishing spot you point at. Requires the profound fisher component
- */
-/datum/pet_command/fish
-	command_name = "Fish"
-	command_desc = "Command your pet to try fishing at a nearby fishing spot."
-	requires_pointing = TRUE
-	radial_icon_state = "fish"
-	speech_commands = list("fish")
-
-/datum/pet_command/fish/execute_action(datum/ai_controller/controller)
-	if(controller.blackboard_key_exists(BB_CURRENT_PET_TARGET))
-		controller.queue_behavior(/datum/ai_behavior/interact_with_target/fishing, BB_CURRENT_PET_TARGET)
-	return SUBTREE_RETURN_FINISH_PLANNING
-
-/datum/pet_command/fish/retrieve_command_text(atom/living_pet, atom/target)
-	return "приказывает [living_pet.declent_ru(DATIVE)]go fish!"
-*/
 
 /datum/pet_command/move
 	command_name = "Иди"
