@@ -1784,62 +1784,62 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/engineering/engine/smes
-	name = "Engineering SMES"
+	name = "Инженерный отдел – СКАН'ы"
 	icon_state = "engine_smes"
 
 /area/engineering/engine
-	name = "Engineering"
+	name = "Инженерный отдел – двигательный отсек"
 	icon_state = "engine_smes"
 
 /area/engineering/engine/monitor
-	name = "Engineering Monitoring Room"
+	name = "Инженерный отдел – комната слежения за двигателем"
 	icon_state = "engine_control"
 
 /area/engineering/break_room
-	name = "Engineering Foyer"
+	name = "Инженерный отдел – фойе"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/engineering/aienter
-	name = "AI Sattelit Access Point"
+	name = "Инженерный отдел – проход на спутник ИИ"
 	icon_state = "engine"
 
 /area/engineering/equipmentstorage
-	name = "Engineering Equipment Storage"
+	name = "Инженерный отдел – склад снаряжения"
 	icon_state = "storage"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/engineering/hardsuitstorage
-	name = "Engineering Hardsuit Storage"
+	name = "Инженерный отдел – склад ИКС"
 	icon_state = "storage"
 
 /area/engineering/controlroom
-	name = "Engineering Control Room"
+	name = "Инженерный отдел – комната слежения"
 	icon_state = "engine_control"
 
 /area/engineering/gravitygenerator
-	name = "Gravity Generator"
+	name = "Инженерный отдел – генератор гравитации"
 	icon_state = "engine"
 
 /area/engineering/chiefs_office
-	name = "Chief Engineer's Офис "
+	name = "Офис Главного Инженера"
 	icon_state = "engine_control"
 
 /area/engineering/mechanic_workshop
-	name = "Mechanic Workshop"
+	name = "Мастерская Механика"
 	icon_state = "engine"
 	holomap_color = HOLOMAP_AREACOLOR_HANGAR
 
 /area/engineering/mechanic_workshop/expedition
-	name = "Hangar Expedition"
+	name = "Склад снаряжения для исследования космоса"
 	icon_state = "engine"
 
 /area/engineering/mechanic_workshop/hangar
-	name = "Hangаr Bay"
+	name = "Ангар для челноков"
 	icon_state = "engine"
 
 /area/engineering/supermatter
-	name = "Supermatter Engine"
+	name = "Отсек Суперматерии"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
@@ -1857,70 +1857,70 @@ This applies to all STANDARD station areas
 	base_lighting_alpha = 255
 
 /area/solar/auxport
-	name = "North-West Solar Array"
+	name = "Солнечная батарея – северо-запад"
 	icon_state = "panelsA"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/solar/auxstarboard
-	name = "North-East Solar Array"
+	name = "Солнечная батарея – северо-восток"
 	icon_state = "panelsA"
 
 /area/solar/fore
-	name = "North Solar Array"
+	name = "Солнечная батарея – север"
 	icon_state = "yellow"
 
 /area/solar/aft
-	name = "South Solar Array"
+	name = "Солнечная батарея – юг"
 	icon_state = "aft"
 
 /area/solar/starboardaux
-	name = "East Solar Array"
+	name = "Солнечная батарея – восток"
 	icon_state = "panelsS"
 
 /area/solar/starboard
-	name = "South-East Solar Array"
+	name = "Солнечная батарея – юго-восток"
 	icon_state = "panelsS"
 
 /area/solar/west
-	name = "West Solar Array"
+	name = "Солнечная батарея – запад"
 	icon_state = "panelsS"
 
 /area/solar/port
-	name = "South-West Solar Array"
+	name = "Солнечная батарея – юго-запад"
 	icon_state = "panelsP"
 
 /area/maintenance/auxsolarport
-	name = "North-West Solar Технические тоннели – "
+	name = "Технические тоннели у солнечной батареи – северо-запад"
 	icon_state = "SolarcontrolA"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/north_solars
-	name = "North Solar Технические тоннели – "
+	name = "Технические тоннели у солнечной батареи – север"
 	icon_state = "SolarcontrolA"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/starboardaux
-	name = "East Solar Технические тоннели – "
+	name = "Технические тоннели у солнечной батареи – восток"
 	icon_state = "SolarcontrolS"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/starboardsolar
-	name = "South-East Solar Технические тоннели – "
+	name = "Технические тоннели у солнечной батареи – юго-восток"
 	icon_state = "SolarcontrolS"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/portsolar
-	name = "South-West Solar Технические тоннели – "
+	name = "Технические тоннели у солнечной батареи – юго-запад"
 	icon_state = "SolarcontrolP"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/auxsolarstarboard
-	name = "North-East Solar Технические тоннели – "
+	name = "Технические тоннели у солнечной батареи – северо-восток"
 	icon_state = "SolarcontrolA"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/maintenance/west_solars
-	name = "West Solar Технические тоннели – "
+	name = "Технические тоннели у солнечной батареи – запад"
 	icon_state = "SolarcontrolA"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
@@ -1928,19 +1928,19 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_SCIENCE
 
 /area/assembly/chargebay
-	name = "Mech Bay"
+	name = "Ангар для экзоскелетов"
 	icon_state = "mechbay"
 
 /area/assembly/showroom
-	name = "Robotics Showroom"
+	name = "Робототехника – демонстрационный зал"
 	icon_state = "showroom"
 
 /area/assembly/robotics
-	name = "Robotics Lab"
+	name = "Отсек робототехники"
 	icon_state = "ass_line"
 
 /area/assembly/assembly_line //Derelict Assembly Line
-	name = "Assembly Line"
+	name = "Сборочный конвейер"
 	icon_state = "ass_line"
 	power_equip = FALSE
 	power_light = FALSE
@@ -1990,7 +1990,7 @@ This applies to all STANDARD station areas
 	name = "Medical Quantum Pad"
 
 /area/teleporter/quantum/engi
-	name = "Engineering Quantum Pad"
+	name = "Инженерный отдел – Quantum Pad"
 
 /area/gateway
 	name = "Gateway"
@@ -2742,7 +2742,7 @@ This applies to all STANDARD station areas
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/engipost
-	name = "Engineering Outpost"
+	name = "Инженерный отдел – Outpost"
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/station
@@ -2750,11 +2750,11 @@ This applies to all STANDARD station areas
 	icon_state = "yellow"
 
 /area/solar/derelict_starboard
-	name = "Derelict East Solar Array"
+	name = "Derelict East Солнечная батарея – "
 	icon_state = "panelsS"
 
 /area/solar/derelict_aft
-	name = "Derelict South Solar Array"
+	name = "Derelict South Солнечная батарея – "
 	icon_state = "aft"
 
 /area/derelict/singularity_engine
@@ -3657,7 +3657,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "asmaint"
 
 /area/coldcolony/malta/maintenance/engineering
-	name = "Engineering Технические тоннели – "
+	name = "Инженерный отдел – Технические тоннели – "
 	icon_state = "green"
 
 /area/coldcolony/malta/maintenance/perma
@@ -3979,7 +3979,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/coldcolony/malta/engineering/break_room
-	name = "Engineering Foyer"
+	name = "Инженерный отдел – Foyer"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
@@ -3989,11 +3989,11 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/coldcolony/malta/engineering/monitor
-	name = "Engineering Monitoring Room"
+	name = "Инженерный отдел – Monitoring Room"
 	icon_state = "engine_control"
 
 /area/coldcolony/malta/engineering/engine
-	name = "Engineering SMES"
+	name = "Инженерный отдел – SMES"
 	icon_state = "engine_smes"
 
 /area/coldcolony/malta/engineering/atmos
@@ -4010,5 +4010,5 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "head_quarters"
 
 /area/coldcolony/malta/engineering/teg
-	name = "Engineering Thermo Generator"
+	name = "Инженерный отдел – Thermo Generator"
 	icon_state = "engine"
