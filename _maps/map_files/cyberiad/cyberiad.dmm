@@ -668,7 +668,7 @@
 /obj/structure/girder,
 /obj/structure/window/reinforced/tinted,
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/disposalpipe/broken,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "aek" = (
@@ -12294,9 +12294,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "aQh" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12723,7 +12720,8 @@
 /obj/machinery/atmospherics/trinary/mixer{
 	node1_concentration = 1;
 	node2_concentration = 0;
-	on = 1
+	on = 1;
+	target_pressure = 4000
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
@@ -16082,14 +16080,11 @@
 	},
 /area/hallway/primary/port)
 "bcX" = (
-/obj/machinery/camera{
-	c_tag = "Arrivals Lounge"
-	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/structure/sign/double/map/left{
 	pixel_y = 31
+	},
+/obj/machinery/camera{
+	c_tag = "Arrivals Hallway 2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -25592,6 +25587,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/light_switch{
+	name = "north light switch";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -31387,6 +31386,7 @@
 "cdO" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "cdT" = (
@@ -40918,8 +40918,8 @@
 /obj/structure/sign/double/map/right{
 	pixel_y = 31
 	},
-/obj/machinery/camera{
-	c_tag = "Arrivals Hallway 2"
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -47235,6 +47235,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -63887,6 +63888,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/disposalpipe/segment,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
@@ -65184,6 +65186,7 @@
 "kyB" = (
 /obj/structure/table,
 /obj/item/tank/internals/oxygen,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "kyC" = (
@@ -72519,7 +72522,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "blue"
@@ -76366,6 +76368,19 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
+"qgo" = (
+/obj/item/radio/intercom{
+	name = "north station intercom (General)";
+	pixel_y = 28
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/hallway/primary/port)
 "qgu" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating/airless,
@@ -77317,7 +77332,11 @@
 	},
 /area/medical/patients_rooms)
 "qAn" = (
-/obj/machinery/space_heater,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/structure/closet{
+	welded = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "qAr" = (
@@ -82973,6 +82992,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/alarm{
+	pixel_y = 24
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
@@ -92683,6 +92705,7 @@
 	dir = 8;
 	id = "comdel"
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -93235,10 +93258,8 @@
 	},
 /area/hallway/primary/aft)
 "xVa" = (
-/obj/structure/closet{
-	welded = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/space_heater,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "xVj" = (
@@ -93454,6 +93475,7 @@
 	name = "south station intercom (General)";
 	pixel_y = -28
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -106011,7 +106033,7 @@ czh
 cCA
 cFb
 bge
-cLf
+qgo
 ckG
 cPq
 aSX
@@ -107302,7 +107324,7 @@ aHr
 cCN
 vbk
 bqf
-dfk
+fZz
 bqr
 djC
 buX
@@ -107559,7 +107581,7 @@ hti
 cTk
 aFX
 bqf
-fZz
+brl
 bqr
 djD
 btF
@@ -108073,7 +108095,7 @@ ceS
 aSY
 bdO
 bys
-brl
+dfk
 bqr
 bqr
 bqr
@@ -114729,7 +114751,7 @@ bgR
 abN
 jQu
 wxn
-xVa
+bmS
 wol
 qEV
 jxo
@@ -115500,7 +115522,7 @@ bgZ
 aAt
 axb
 axb
-kdC
+xVa
 uXR
 mKE
 wnc
