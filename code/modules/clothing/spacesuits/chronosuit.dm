@@ -193,7 +193,7 @@
 /obj/effect/chronos_cam/singularity_pull()
 	return
 
-/obj/effect/chronos_cam/relaymove(var/mob/user, direction)
+/obj/effect/chronos_cam/relaymove(mob/user, direction)
 	if(holder)
 		if(user == holder)
 			if(user.client && user.client.eye != src)

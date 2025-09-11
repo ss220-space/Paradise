@@ -153,7 +153,7 @@
 	icon_state = "ash"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/ash_holder/Initialize(mapload, var/obj/effect/decal/cleanable/ash/parent_ash = new)
+/obj/item/ash_holder/Initialize(mapload, obj/effect/decal/cleanable/ash/parent_ash = new)
 	name = parent_ash.name
 	desc = parent_ash.desc
 	. = ..()

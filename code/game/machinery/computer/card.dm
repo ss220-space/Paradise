@@ -313,7 +313,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 	return FALSE
 
-/obj/machinery/computer/card/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/card/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
 /obj/machinery/computer/card/attack_hand(mob/user as mob)

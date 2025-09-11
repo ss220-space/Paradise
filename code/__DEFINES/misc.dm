@@ -184,7 +184,7 @@
 #define REGION_TAIPAN		9
 
 //Just space
-#define SPACE_ICON_STATE	"[((x + y) ^ ~(x * y) + z) % 25]"
+#define SPACE_ICON_STATE "[((x + y) ^ ~(x * y) + z) % 25]"
 
 //used for maploader
 #define MAP_MINX 1
@@ -195,17 +195,20 @@
 #define MAP_MAXZ 6
 
 //Matricies
-#define MATRIX_GREYSCALE list(0.33, 0.33, 0.33,\
-                              0.33, 0.33, 0.33,\
-                              0.33, 0.33, 0.33)
+#define MATRIX_GREYSCALE list(\
+	0.33, 0.33, 0.33,\
+	0.33, 0.33, 0.33,\
+	0.33, 0.33, 0.33)
 
-#define MATRIX_VULP_CBLIND list(0.51, 0.4, 0.12,\
-                               0.49, 0.41, 0.12,\
-			                   0, 0.2, 0.76)
+#define MATRIX_VULP_CBLIND list(\
+	0.51, 0.4, 0.12,\
+	0.49, 0.41, 0.12,\
+	0, 0.2, 0.76)
 
-#define MATRIX_TAJ_CBLIND list(0.95, 0.07, 0,\
-                               0, 0.44, 0.52,\
-			                   0.05, 0.49, 0.48)
+#define MATRIX_TAJ_CBLIND list(\
+	0.95, 0.07, 0,\
+	0, 0.44, 0.52,\
+	0.05, 0.49, 0.48)
 
 /*
 	Used for wire name appearances. Replaces the color name on the left with the one on the right.

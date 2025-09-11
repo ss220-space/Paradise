@@ -16,7 +16,7 @@
 	to_chat(world, "<b>The current game mode is - Ragin' Mages!</b>")
 	to_chat(world, "<b>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</b>")
 
-/datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
+/datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
 	var/list/messages = list()
 	if(you_are)
 		messages.Add(span_danger("You are the Space Wizard!"))

@@ -1010,7 +1010,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/steal/exchange/backstab
 	antag_menu_name = "Сохранить"
 
-/datum/objective/steal/exchange/backstab/set_faction(var/faction)
+/datum/objective/steal/exchange/backstab/set_faction(faction)
 	var/datum/theft_objective/unique/targetinfo
 	if(faction == "red")
 		targetinfo = new /datum/theft_objective/unique/docs_red

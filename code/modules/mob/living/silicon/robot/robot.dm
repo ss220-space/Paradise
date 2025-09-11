@@ -419,7 +419,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	robot_module_hat_offset(icon_state)
 
-/mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, var/robot_to_spawn, turf/T)
+/mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, robot_to_spawn, turf/T)
 
 	var/mob/living/silicon/robot/syndicate/R
 	switch(robot_to_spawn)
@@ -714,7 +714,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				apply_damage(30)
 
 
-/mob/living/silicon/robot/bullet_act(var/obj/projectile/Proj)
+/mob/living/silicon/robot/bullet_act(obj/projectile/Proj)
 	..(Proj)
 
 	if(prob(75) && Proj.damage > 0)

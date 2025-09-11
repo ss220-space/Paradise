@@ -66,17 +66,17 @@
 		[span_green("To use your moves you must have focus!")] <br> Your focus passively regenerates over time.<br>\
 		To learn more about it, check the Martial Arts tab."))
 
-/datum/martial_art/ninja_martial_art/harm_act(var/mob/living/carbon/human/attacker, var/mob/living/carbon/human/defender)
+/datum/martial_art/ninja_martial_art/harm_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
 	basic_hit(attacker,defender)
 	return TRUE
 
-/datum/martial_art/ninja_martial_art/disarm_act(var/mob/living/carbon/human/attacker, var/mob/living/carbon/human/defender)
+/datum/martial_art/ninja_martial_art/disarm_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
 	basic_hit(attacker,defender)
 	return TRUE
 
-/datum/martial_art/ninja_martial_art/grab_act(var/mob/living/carbon/human/attacker, var/mob/living/carbon/human/defender)
+/datum/martial_art/ninja_martial_art/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
 	var/old_grab_state = attacker.grab_state
 	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)

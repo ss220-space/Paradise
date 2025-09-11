@@ -73,7 +73,7 @@
 	foes, and protected the station for years. Your tech gadgets make you a force to be reckoned with. You are the hero this \
 	station deserves."
 
-/datum/superheroes/owlman/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/owlman/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), ITEM_SLOT_FEET)
@@ -92,7 +92,7 @@
 	of the command staff of this station. Along with your gang of dim-witted yet trusty henchmen, you will be able to execute \
 	the most dastardly plans."
 
-/datum/superheroes/griffin/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/griffin/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), ITEM_SLOT_FEET)
@@ -112,7 +112,7 @@
 	station's hero roster, you intend to leave your mark."
 	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/lightning/lightnian)
 
-/datum/superheroes/lightnian/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/lightnian/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), ITEM_SLOT_FEET)
@@ -131,7 +131,7 @@
 	intend to take your revenge and make them all pay thanks to your magnetic powers."
 	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/magnet)
 
-/datum/superheroes/electro/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/electro/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), ITEM_SLOT_FEET)

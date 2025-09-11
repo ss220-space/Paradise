@@ -4,7 +4,7 @@
  * The spin from being thrown will interrupt most of these animations as will grabs, account for that accordingly.
  */
 
-/proc/animate_fade_grayscale(atom/A, var/time = 5)
+/proc/animate_fade_grayscale(atom/A, time = 5)
 	if(!istype(A) && !isclient(A))
 		return
 	A.color = null

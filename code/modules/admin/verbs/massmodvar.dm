@@ -1,4 +1,4 @@
-/client/proc/cmd_mass_modify_object_variables(atom/A, var/var_name)
+/client/proc/cmd_mass_modify_object_variables(atom/A, var_name)
 	set category = STATPANEL_ADMIN_DEBUG
 	set name = "Mass Edit Variables"
 	set desc="(target) Edit all instances of a target item's variables"

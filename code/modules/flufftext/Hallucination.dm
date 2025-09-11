@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	image_icon = 'icons/mob/alien.dmi'
 	image_state = "alienh_pounce"
 
-/obj/effect/hallucination/simple/xeno/New(loc,var/mob/living/carbon/T)
+/obj/effect/hallucination/simple/xeno/New(loc, mob/living/carbon/T)
 	..()
 	name = "alien hunter ([rand(1, 1000)])"
 
@@ -811,7 +811,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 
 /obj/effect/hallucination/whispers
 
-/obj/effect/hallucination/whispers/New(loc,var/mob/living/carbon/T)
+/obj/effect/hallucination/whispers/New(loc, mob/living/carbon/T)
 	. = ..()
 	target = T
 	var/speak_messages = list("Я слежу за тобой…","[target.name]!","Уйди!","Ты слышал это?","Что ты натворил?","Почему?","Отдай!","Хонк!","ПОМОГИТЕ!!","БЕГИТЕ!!","УБЕЙТЕ МЕНЯ!","О бидай набора се'сма!","EI NATH!!","Kchck-Chkck? Kchchck!")
@@ -848,7 +848,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 
 /obj/effect/hallucination/message
 
-/obj/effect/hallucination/message/New(loc,var/mob/living/carbon/T)
+/obj/effect/hallucination/message/New(loc, mob/living/carbon/T)
 	. = ..()
 	target = T
 	var/chosen = pick("<span class='userdanger'>The light burns you!</span>",

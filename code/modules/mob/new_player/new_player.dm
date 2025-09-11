@@ -221,7 +221,7 @@
 				client.prefs.ShowChoices(src)
 				return FALSE
 		if(SSticker?.mode?.late_join(src))
-			return 
+			return
 		LateChoices()
 
 	if(href_list["manifest"])
@@ -355,7 +355,7 @@
 	EquipCustomItems(.)
 
 
-/mob/new_player/proc/AttemptLateSpawn(rank, var/spawning_at)
+/mob/new_player/proc/AttemptLateSpawn(rank, spawning_at)
 	if(src != usr)
 		return FALSE
 

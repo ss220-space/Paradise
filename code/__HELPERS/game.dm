@@ -467,7 +467,7 @@
 	var/dest_x
 	var/dest_y
 
-/datum/projectile_data/New(var/src_x, var/src_y, var/time, var/distance, var/power_x, var/power_y, var/dest_x, var/dest_y)
+/datum/projectile_data/New(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
 	src.src_x = src_x
 	src.src_y = src_y
 	src.time = time
@@ -600,18 +600,18 @@
 	winset(C, "mainwindow", "flash=5")
 
 /**
-  * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments
-  *
-  * Will not include parent-less vents to the returned list.
-  * Arguments:
-  * * unwelded_only - Whether the list should only include vents that are unwelded
-  * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility
-  * * nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument
-  * * exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob
-  * * min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list
-  * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
-  * * z_level - The Z-level number to look for vents in. Defaults to all
-  */
+ * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments
+ *
+ * Will not include parent-less vents to the returned list.
+ * Arguments:
+ * * unwelded_only - Whether the list should only include vents that are unwelded
+ * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility
+ * * nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument
+ * * exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob
+ * * min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list
+ * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
+ * * z_level - The Z-level number to look for vents in. Defaults to all
+ */
 /proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, nearby_mobs_range = world.view, exclude_visible_by_mobs = FALSE, min_network_size = 50, station_levels_only = TRUE, z_level = 0)
 	ASSERT(min_network_size >= 0)
 	ASSERT(z_level >= 0)

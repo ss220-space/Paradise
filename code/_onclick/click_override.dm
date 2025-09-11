@@ -35,7 +35,7 @@
 /datum/middleClickOverride/badminClicker
 	var/summon_path = /obj/item/reagent_containers/food/snacks/cookie
 
-/datum/middleClickOverride/badminClicker/onClick(var/atom/A, var/mob/living/user)
+/datum/middleClickOverride/badminClicker/onClick(atom/A, mob/living/user)
 	var/atom/movable/newObject = new summon_path
 	newObject.loc = get_turf(A)
 	to_chat(user, "<span class='notice'>You release the power you had stored up, summoning \a [newObject.name]!</span>")

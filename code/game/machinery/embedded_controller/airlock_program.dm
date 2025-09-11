@@ -23,7 +23,7 @@
 	var/state = STATE_IDLE
 	var/target_state = TARGET_NONE
 
-/datum/computer/file/embedded_program/airlock/New(var/obj/machinery/embedded_controller/M)
+/datum/computer/file/embedded_program/airlock/New(obj/machinery/embedded_controller/M)
 	..(M)
 
 	memory["chamber_sensor_pressure"] = ONE_ATMOSPHERE

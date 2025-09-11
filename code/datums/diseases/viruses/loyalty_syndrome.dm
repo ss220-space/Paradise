@@ -23,7 +23,7 @@
 	var/need_meating_message = FALSE
 	var/need_master_death_message = FALSE
 
-/datum/disease/virus/loyalty/New(var/mob/living/carbon/human/new_master)
+/datum/disease/virus/loyalty/New(mob/living/carbon/human/new_master)
 	..()
 	if(new_master)
 		master = new_master

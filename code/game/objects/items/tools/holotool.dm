@@ -171,10 +171,10 @@ Holotool. All instruments in one object
 	name = "off"
 	sound =  'sound/items/jaws_cut.ogg'
 
-/datum/holotool_mode/knife/can_be_used(var/obj/item/holotool/H)
+/datum/holotool_mode/knife/can_be_used(obj/item/holotool/H)
 	return H.emagged
 
-/datum/holotool_mode/knife/on_set(var/obj/item/holotool/H)
+/datum/holotool_mode/knife/on_set(obj/item/holotool/H)
 	..()
 	H.sharp = TRUE
 	H.force = 17
@@ -185,7 +185,7 @@ Holotool. All instruments in one object
 	H.embedded_pain_multiplier = 5
 	H.hitsound = 'sound/weapons/blade1.ogg'
 
-/datum/holotool_mode/knife/on_unset(var/obj/item/holotool/H)
+/datum/holotool_mode/knife/on_unset(obj/item/holotool/H)
 	..()
 	H.sharp = initial(H.sharp)
 	H.force = initial(H.force)

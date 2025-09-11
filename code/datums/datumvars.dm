@@ -475,7 +475,7 @@
 	src << output("[span]:[content]", "variables[D.UID()].browser:replace_span")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
-/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE, display_flags)
+/proc/debug_variable(name, value, level, datum/DA = null, sanitize = TRUE, display_flags)
 	var/header
 	if(DA)
 		if(islist(DA))

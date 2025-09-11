@@ -141,7 +141,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 // Returns true if direction is blocked from loc
 // Checks if doors are open
-/proc/DirBlocked(turf/loc,var/dir)
+/proc/DirBlocked(turf/loc, dir)
 	for(var/obj/structure/window/D in loc)
 		if(!D.density)
 			continue

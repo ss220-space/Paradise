@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	spend_karma(pickedmob)
 
-/mob/verb/spend_karma(var/mob/M)
+/mob/verb/spend_karma(mob/M)
 	set name = "Award Karma to Player"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
 	set category = STATPANEL_SPECIALVERBS

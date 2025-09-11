@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 	reqform.update_icon()	//Fix for appearing blank when printed.
 
-/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, var/datum/syndie_data_storage/data_storage) // тут код создающий ящики
+/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, datum/syndie_data_storage/data_storage) // тут код создающий ящики
 	if(!object)
 		return
 
@@ -505,7 +505,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	return
 
 
-/obj/machinery/computer/syndie_supplycomp/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/syndie_supplycomp/attack_hand(mob/user as mob)
 	if(..())
 		return TRUE
 

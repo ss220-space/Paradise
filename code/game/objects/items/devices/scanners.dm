@@ -555,7 +555,7 @@ BODY SCANNERS
 
 	return data
 
-/obj/item/healthanalyzer/proc/medical_scan_action(mob/living/user, atom/target, var/obj/item/healthanalyzer/scanner, var/mode, var/advanced)
+/obj/item/healthanalyzer/proc/medical_scan_action(mob/living/user, atom/target, obj/item/healthanalyzer/scanner, mode, advanced)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, span_warning("Вам не хватает ловкости, чтобы использовать [declent_ru(ACCUSATIVE)]!"))
 		balloon_alert(user, "невозможно!")

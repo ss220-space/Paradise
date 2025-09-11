@@ -101,7 +101,7 @@
 	do_smash_into_toilet(grabber, victim)
 
 
-/obj/structure/toilet/proc/do_swirlie(mob/living/grabber, var/mob/living/victim)
+/obj/structure/toilet/proc/do_swirlie(mob/living/grabber, mob/living/victim)
 	swirlie = victim
 	var/prev_angle = victim.lying_angle
 	var/oldx = victim.pixel_x
@@ -147,12 +147,12 @@
 	victim.set_lying_angle(prev_angle)
 	swirlie = null
 
-/obj/structure/toilet/proc/apply_swirlie_effect(mob/living/grabber, var/mob/living/victim)
+/obj/structure/toilet/proc/apply_swirlie_effect(mob/living/grabber, mob/living/victim)
 	if(!victim.internal)
 		victim.adjustOxyLoss(15)
 	victim.SetEyeBlurry(5 SECONDS)
 
-/obj/structure/toilet/proc/do_smash_into_toilet(mob/living/grabber, var/mob/living/victim)
+/obj/structure/toilet/proc/do_smash_into_toilet(mob/living/grabber, mob/living/victim)
 	playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
 	victim.visible_message(
 		span_danger("[grabber] бь[pluralize_ru(grabber.gender, "ет", "ют")] [victim] головой об [declent_ru(NOMINATIVE)]!"),

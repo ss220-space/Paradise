@@ -18,7 +18,7 @@
 	var/units_requested = INFINITY
 	var/completion_payment = 0			// Credits paid to owner when completed
 
-/datum/job_objective/New(var/datum/mind/new_owner)
+/datum/job_objective/New(datum/mind/new_owner)
 	owner = new_owner
 	owner.job_objectives += src
 

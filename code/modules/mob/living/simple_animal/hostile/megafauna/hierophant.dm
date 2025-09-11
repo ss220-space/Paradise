@@ -311,7 +311,7 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(src, 8)
 	blinking = FALSE
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blasts(mob/victim, var/list/directions = GLOB.cardinal) //fires cross blasts with a delay
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blasts(mob/victim, list/directions = GLOB.cardinal) //fires cross blasts with a delay
 	var/turf/T = get_turf(victim)
 	if(!T)
 		return

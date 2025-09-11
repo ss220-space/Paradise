@@ -50,7 +50,7 @@
 	return data
 
 
-/atom/deserialize(var/list/data)
+/atom/deserialize(list/data)
 	for(var/thing in vars_to_save())
 		if(thing in data)
 			vars[thing] = data[thing]
