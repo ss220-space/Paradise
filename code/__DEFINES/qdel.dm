@@ -2,8 +2,6 @@
 //!
 //! These can be given as a return in [/atom/proc/Destroy] or by calling [/proc/qdel].
 
-//#define PASSIVE_GC
-
 /// `qdel` should queue the object for deletion.
 #define QDEL_HINT_QUEUE 0
 /// `qdel` should let the object live after calling [/atom/proc/Destroy].
