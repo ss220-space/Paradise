@@ -134,8 +134,10 @@
 
 
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
-	user.visible_message(span_warning("[user] поднимает [declent_ru(ACCUSATIVE)] ко рту и вгрызается в него зубами!"), \
-						 span_danger("Неестественный голод охватывает вас. Вы поднимаете [declent_ru(ACCUSATIVE)] ко рту и пожираете его!"))
+	user.visible_message(
+		span_warning("[user] поднимает [declent_ru(ACCUSATIVE)] ко рту и вгрызается в него зубами!"), \
+		span_danger("Неестественный голод охватывает вас. Вы поднимаете [declent_ru(ACCUSATIVE)] ко рту и пожираете его!")
+	)
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 
 

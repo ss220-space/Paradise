@@ -215,3 +215,7 @@
 		INSTRUMENTAL = "старым мультиметром",
 		PREPOSITIONAL = "старом мультиметре"
 	)
+
+#undef PROXIMITY_NONE
+#undef PROXIMITY_ON_SCREEN
+#undef PROXIMITY_NEAR

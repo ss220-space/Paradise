@@ -127,7 +127,7 @@
 	var/msg = file2text(vl["CONTENT"])
 	return json_decode(msg)
 
-/proc/DB_ban_record_SyndiCat(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/job = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
+/proc/DB_ban_record_SyndiCat(bantype, mob/banned_mob, duration = -1, reason, job = "", rounds = 0, banckey = null, banip = null, bancid = null)
 	if(!SSdbcore.IsConnected())
 		return
 

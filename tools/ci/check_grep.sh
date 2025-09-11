@@ -183,18 +183,16 @@ fi;
 
 echo -e "${BLUE}Checking for whitespace issues...${NC}"
 
-# TODO: Uncomment in the future, when our code are standardized
-# if grep -P '(^ {2})|(^ [^ * ])|(^    +)' code/**/*.dm; then
-#     echo -e "${RED}ERROR: Space indentation detected, please use tab indentation.${NC}"
-# 	echo
-#     st=1
-# fi;
-# TODO: Uncomment in the future, when our code are standardized
-# if grep -P '^\t+ [^ *]' code/**/*.dm; then
-#     echo -e "${RED}ERROR: Mixed <tab><space> indentation detected, please stick to tab indentation.${NC}"
-# 	echo
-#     st=1
-# fi;
+ if grep -P '(^ {2})|(^ [^ * ])|(^    +)' code/**/*.dm; then
+	echo -e "${RED}ERROR: Space indentation detected, please use tab indentation.${NC}"
+	echo
+	st=1
+fi;
+if grep -P '^\t+ [^ *]' code/**/*.dm; then
+	echo -e "${RED}ERROR: Mixed <tab><space> indentation detected, please stick to tab indentation.${NC}"
+	echo
+	st=1
+fi;
 nl='
 '
 nl=$'\n'
@@ -229,12 +227,11 @@ if grep '#define FAST_LOAD' _maps/common.dm | grep -v '\/\/#define FAST_LOAD'; t
 	echo
     st=1
 fi;
-# TODO: Uncomment in the future, when our code are standardized
-# if grep -P '^/[\w/]\S+\(.*(var/|, ?var/.*).*\)' code/**/*.dm; then
-#     echo -e "${RED}ERROR: Changed files contains a proc argument starting with 'var'.${NC}"
-# 	echo
-#     st=1
-# fi;
+if grep -P '^/[\w/]\S+\((var/)?.*(, ?var/.*).*\)' code/**/*.dm; then
+	echo -e "${RED}ERROR: Changed files contains a proc argument starting with 'var'.${NC}"
+	echo
+	st=1
+fi;
 if grep -ni 'nanotransen' code/**/*.dm; then
     echo -e "${RED}ERROR: Misspelling(s) of Nanotrasen detected in code, please remove the extra N(s).${NC}"
 	echo

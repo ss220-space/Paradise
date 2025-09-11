@@ -230,7 +230,7 @@
 					if(!temp) continue
 					joblist += temp.title
 			if("medicaldept")
-				for(var/jobPos in GLOB.medical_positions + GLOB.additional_medical_positions) 
+				for(var/jobPos in GLOB.medical_positions + GLOB.additional_medical_positions)
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
@@ -4083,7 +4083,7 @@
 		popup.open()
 		onclose(usr, "show_dna")
 
-/client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
+/client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))
 		return
 	var/admin_outfits = subtypesof(/datum/outfit/admin)
@@ -4141,7 +4141,7 @@
 	tatorhud.join_hud(hunter_mob)
 	set_antag_hud(hunter_mob, "hudsyndicate")
 
-/proc/admin_jump_link(var/atom/target)
+/proc/admin_jump_link(atom/target)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
 
