@@ -89,7 +89,7 @@
 		shard.embedded_impact_pain_multiplier = initial(shard.embedded_pain_multiplier)
 		shard.embedded_ignore_throwspeed_threshold = initial(shard.embedded_ignore_throwspeed_threshold)
 
-	playsound(machine, "shatter", 50)
+	playsound(machine, SFX_SHATTER, 50)
 
 	return machine.squish_damage * (3/4)
 

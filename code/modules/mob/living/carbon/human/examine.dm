@@ -376,10 +376,19 @@
 	if(istype(vampire_datum) && vampire_datum.draining)
 		msg += span_warning("<b>[genderize_ru(gender, "Он", "Она", "Оно", "Они")] впил[genderize_ru(gender, "ся", "ась", "ось", "ись")] своими клыками в шею [vampire_datum.draining].\n</b>")
 
-	if(bleedsuppress)
-		msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то.\n")
-	else if(bleed_rate)
-		msg += span_warning("<b>[genderize_ru(gender, "Он", "Она", "Оно", "Они")] кровоточ[pluralize_ru(gender, "ит", "ат")]!</b>\n")
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(!bodypart.bleeding_amount)
+			if(bodypart.bleedsuppress)
+				msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] [bodypart.declent_ru(NOMINATIVE)] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то.\n")
+			continue
+		var/high_bleeding = bodypart.bleeding_amount > HIGH_BLEEDING_VALUE
+		var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
+		if(suppressed)
+			msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] [bodypart.declent_ru(NOMINATIVE)] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то окровавленным.\n")
+		else if (high_bleeding)
+			msg += span_warning(span_bold("У [genderize_ru(gender, "него", "неё", "него", "них")] обильно кровоточ[pluralize_ru(gender, "ит", "ат")] [bodypart.declent_ru(NOMINATIVE)]!\n"))
+		else
+			msg += span_warning(span_bold("У [genderize_ru(gender, "него", "неё", "него", "них")] кровоточ[pluralize_ru(gender, "ит", "ат")] [bodypart.declent_ru(NOMINATIVE)]!\n"))
 
 	if(reagents.has_reagent("teslium"))
 		msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] излуча[pluralize_ru(gender, "ет", "ют")] мягкое голубое свечение!\n")
@@ -475,6 +484,7 @@
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
+		msg += "[span_deptradio("Состояние:")] [span_notice(get_desc_for_medical_status(hud_list[STATUS_HUD].icon_state))]\n"
 		msg += "[span_deptradio("Психологический статус:")] <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "[span_deptradio("Медицинские записи:")] <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n"
 

@@ -289,6 +289,8 @@
 	name = "surgery bag"
 	desc = "Небольшой кожанный футляр, хранящий в себе различные хирургические предметы. От него исходит едва заметный запах... пепла?"
 	icon_state = "surgery_bag"
+	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 	flags = NONE
 	force = 2
 	throwforce = 4

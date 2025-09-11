@@ -176,7 +176,7 @@
 	holder.add_hiddenprint(user)
 
 	switch(action)
-		 // Toggles the cut/mend status.
+		// Toggles the cut/mend status.
 		if("cut")
 			if(!I)
 				return
@@ -185,7 +185,7 @@
 				return
 
 			if(istype(I))
-				playsound(holder, I.usesound, 20, 1)
+				playsound(holder, I.usesound, 20, TRUE)
 				cut_color(color)
 				return TRUE
 
@@ -197,7 +197,7 @@
 				to_chat(user, "<span class='error'>You need a multitool!</span>")
 				return
 
-			playsound(holder, 'sound/weapons/empty.ogg', 20, 1)
+			playsound(holder, 'sound/weapons/empty.ogg', 20, TRUE)
 			pulse_color(color)
 
 			// If they pulse the electrify wire, call interactable() and try to shock them.
@@ -206,7 +206,7 @@
 
 			return TRUE
 
-		 // Attach a signaler to a wire.
+		// Attach a signaler to a wire.
 		if("attach")
 			if(is_attached(color))
 				var/obj/item/O = detach_assembly(color)

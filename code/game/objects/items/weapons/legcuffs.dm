@@ -210,6 +210,8 @@
 	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
 	throw_range = 0 // increased when throw mode is enabled
+	/// Bola shouldn't slow people down by itself, it simply forces you to walk mode
+	slowdown = 0
 	/// Number of spins till the bola gets the maximum throw distance. Each spin takes 1 second.
 	var/max_spins = 3
 	/// Current spin cycle.

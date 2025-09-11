@@ -45,8 +45,8 @@
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
-	male_scream_sound = list("u_mscream")
-	female_scream_sound = list("u_fscream")
+	male_scream_sound = list(SFX_U_MSCREAM)
+	female_scream_sound = list(SFX_U_FSCREAM)
 	male_sneeze_sound = list('sound/voice/unathi/m_u_sneeze.ogg')
 	female_sneeze_sound = list('sound/voice/unathi/f_u_sneeze.ogg')
 
@@ -78,8 +78,10 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/unathi),
 	)
 
-	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
-								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
+	allowed_consumed_mobs = list(
+		/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken, \
+		/mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble
+	)
 
 	suicide_messages = list(
 		"пытается откусить себе язык!",

@@ -15,20 +15,39 @@
 
 /obj/item/reagent_containers/dropper/get_ru_names()
 	return list(
-        NOMINATIVE = "пипетка",
-        GENITIVE = "пипетки",
-        DATIVE = "пипетке",
-        ACCUSATIVE = "пипетку",
-        INSTRUMENTAL = "пипеткой",
-        PREPOSITIONAL = "пипетке"
+		NOMINATIVE = "пипетка",
+		GENITIVE = "пипетки",
+		DATIVE = "пипетке",
+		ACCUSATIVE = "пипетку",
+		INSTRUMENTAL = "пипеткой",
+		PREPOSITIONAL = "пипетке"
 	)
 
-/obj/item/reagent_containers/dropper/update_icon_state()
-	icon_state = "[initial(icon_state)][reagents.total_volume ? "1" : ""]"
+/obj/item/reagent_containers/dropper/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if(reagents.total_volume)
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+
+		var/percent = round((reagents.total_volume / volume) * 100)
+		switch(percent)
+			if(0 to 24)
+				filling.icon_state = "[icon_state]10"
+			if(25 to 49)
+				filling.icon_state = "[icon_state]25"
+			if(50 to 74)
+				filling.icon_state = "[icon_state]50"
+			if(75 to 90)
+				filling.icon_state = "[icon_state]75"
+			if(91 to INFINITY)
+				filling.icon_state = "[icon_state]100"
+
+		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		. += filling
 
 
 /obj/item/reagent_containers/dropper/on_reagent_change()
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/reagent_containers/dropper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -119,12 +138,12 @@
 
 /obj/item/reagent_containers/dropper/cyborg/get_ru_names()
 	return list(
-        NOMINATIVE = "промышленная пипетка",
-        GENITIVE = "промышленной пипетки",
-        DATIVE = "промышленной пипетке",
-        ACCUSATIVE = "промышленную пипетку",
-        INSTRUMENTAL = "промышленной пипеткой",
-        PREPOSITIONAL = "промышленной пипетке"
+		NOMINATIVE = "промышленная пипетка",
+		GENITIVE = "промышленной пипетки",
+		DATIVE = "промышленной пипетке",
+		ACCUSATIVE = "промышленную пипетку",
+		INSTRUMENTAL = "промышленной пипеткой",
+		PREPOSITIONAL = "промышленной пипетке"
 	)
 
 /obj/item/reagent_containers/dropper/precision
@@ -135,14 +154,20 @@
 	possible_transfer_amounts = list(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
 	volume = 1
 
+/obj/item/reagent_containers/dropper/precision/on_reagent_change()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/reagent_containers/dropper/precision/update_icon_state()
+	icon_state = "[initial(icon_state)][reagents.total_volume ? "1" : ""]"
+
 /obj/item/reagent_containers/dropper/precision/get_ru_names()
 	return list(
-        NOMINATIVE = "микропипетка",
-        GENITIVE = "микропипетки",
-        DATIVE = "микропипетке",
-        ACCUSATIVE = "микропипетку",
-        INSTRUMENTAL = "микропипеткой",
-        PREPOSITIONAL = "микропипетке"
+		NOMINATIVE = "микропипетка",
+		GENITIVE = "микропипетки",
+		DATIVE = "микропипетке",
+		ACCUSATIVE = "микропипетку",
+		INSTRUMENTAL = "микропипеткой",
+		PREPOSITIONAL = "микропипетке"
 	)
 
 //Syndicate item. Virus transmitting mini hypospray

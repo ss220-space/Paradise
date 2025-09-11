@@ -20,6 +20,8 @@
 	drop_sound = 'sound/items/handling/drop/card_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/card_pickup.ogg'
 	var/associated_account_number = 0
+	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/id_righthand.dmi'
 
 	var/list/files = list(  )
 
@@ -118,7 +120,7 @@
 	var/total_mining_points = 0
 	var/list/access = list()
 	var/law_level = LAW_LEVEL_BASE
-	var/registered_name = "Unknown" // The name registered_name on the card
+	var/registered_name = UNKNOWN_NAME_RUS // The name registered_name on the card
 	slot_flags = ITEM_SLOT_ID
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -207,7 +209,7 @@
 /obj/item/card/id/proc/UpdateName()
 	name = "[src.registered_name]'s ID Card ([src.assignment])"
 
-/obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
+/obj/item/card/id/proc/SetOwnerInfo(mob/living/carbon/human/H)
 	if(!H || !H.dna)
 		return
 
@@ -389,6 +391,9 @@
 	desc = "A golden card which shows power and might."
 	icon_state = "gold"
 	item_state = "gold-id"
+
+/obj/item/card/id/gold/battle
+	access = list(ACCESS_CAPTAIN_REAL)
 
 /obj/item/card/id/syndicate
 	name = "agent card"
@@ -577,7 +582,7 @@
 		if("load_slot")
 			load_slot(params["slot"])
 			UpdateName()
-			registered_user.sec_hud_set_ID()
+			registered_user.update_hud_set()
 			to_chat(registered_user, "<span class='notice'>You have successfully loaded the card data from slot [params["slot"]].</span>")
 		if("clear_slot")
 			clear_slot(params["slot"])
@@ -712,12 +717,13 @@
 			rank = new_rank
 			to_chat(registered_user, "<span class='notice'>Occupation changed to [new_job].</span>")
 			UpdateName()
-			registered_user.sec_hud_set_ID()
+			registered_user.update_hud_set()
 		if("change_money_account")
 			var/new_account = tgui_input_number(registered_user, "What money account would you like to link to this card?", "Agent Card Account", 12345, 9999999)
 			if(!Adjacent(registered_user) || !isnull(new_account))
 				return
 			associated_account_number = new_account
+			registered_user.med_hud_insurance_set_overlay()
 			to_chat(registered_user, "<span class='notice'>Linked money account changed to [new_account].</span>")
 		if("change_blood_type")
 			var/default = "\[UNSET\]"
@@ -1084,6 +1090,9 @@
 	icon_state = "warden"
 	item_state = "warden-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+
+/obj/item/card/id/warden/battle
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_ARMORY_REAL)
 
 /obj/item/card/id/iaa
 	name = "IAA ID"

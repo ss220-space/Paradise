@@ -220,7 +220,8 @@
 				to_chat(usr, span_danger("К сожалению, выбранный вами голос персонажа больше не доступен на вашем текущем уровне подписки."))
 				client.prefs.ShowChoices(src)
 				return FALSE
-
+		if(SSticker?.mode?.late_join(src))
+			return
 		LateChoices()
 
 	if(href_list["manifest"])
@@ -264,6 +265,19 @@
 
 	if(href_list["leave_notice"])
 		client.change_title_screen_notice()
+		return
+
+	if(href_list["switch_server"])
+		var/selected_port = text2num(href_list["switch_server"])
+		if(selected_port == world.port)
+			to_chat(usr, span_warning("Вы уже подключены к данному серверу."))
+			return
+
+		to_chat(usr, span_warning("Подключение к новому серверу..."))
+
+		// Formulate a connection URL
+		var/target = "byond://[world.internet_address]:[selected_port]"
+		src << link(target)
 		return
 
 	if(href_list["focus"])
@@ -335,15 +349,37 @@
 		return FALSE
 	return pick(jobs_available)
 
-/mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
+
+/mob/proc/move_to_spawn(list/spawn_turfs)
+	if(length(GLOB.start_override))
+		forceMove(pick(GLOB.start_override))
+		return
+
+	forceMove(pick(spawn_turfs))
+
+
+/mob/proc/spawn_equip(rank)
+	if(GLOB.start_override_outfit)
+		var/datum/outfit/outfit_override = new GLOB.start_override_outfit
+		outfit_override.equip(src)
+		return src
+
+	. = SSjobs.EquipRank(src, rank, 1)
+	EquipCustomItems(.)
+
+
+/mob/new_player/proc/AttemptLateSpawn(rank, spawning_at)
 	if(src != usr)
 		return FALSE
+
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		to_chat(usr, span_warning("Раунд либо ещё не готов, либо уже завершился..."))
 		return FALSE
+
 	if(!GLOB.enter_allowed)
 		to_chat(usr, span_notice("Администратор заблокировал вход в игру!"))
 		return FALSE
+
 	if(rank == "RandomJob")
 		rank = random_job()
 		if(!rank)
@@ -351,17 +387,20 @@
 			to_chat(src, msg)
 			alert(msg)
 			return FALSE
+
 	if(!IsJobAvailable(rank))
 		var/msg = "Должность [rank] недоступна. Пожалуйста, попробуйте другую."
 		to_chat(src, msg)
 		alert(msg)
 		return FALSE
+
 	var/datum/job/thisjob = SSjobs.GetJob(rank)
 	if(thisjob.barred_by_disability(client))
 		var/msg = "Должность [rank] недоступна в связи с инвалидностью персонажа. Пожалуйста, попробуйте другую."
 		to_chat(src, msg)
 		alert(msg)
 		return FALSE
+
 	if(!thisjob.character_old_enough(client))
 		var/datum/species/species = GLOB.all_species[client?.prefs.species]
 		var/msg = "Должность [rank] недоступна в связи с недостаточным возрастом персонажа ([client?.prefs.age]). Минимальный возраст – [get_age_limits(species, thisjob.min_age_type)]"
@@ -395,59 +434,71 @@
 
 	//Find our spawning point.
 	var/join_message
-	var/datum/spawnpoint/S
+	var/datum/spawnpoint/spawnpoint
 
 	if(IsAdminJob(rank))
 		if(IsERTSpawnJob(rank))
 			character.loc = pick(GLOB.ertdirector)
+
 		else if(IsSyndicateCommand(rank))
 			character.loc = pick(GLOB.syndicateofficer)
+
 		else
 			character.forceMove(pick(GLOB.aroomwarp))
+
 		join_message = "прибыл"
+
 	else
 		if(spawning_at)
-			S = GLOB.spawntypes[spawning_at]
-		if(S && istype(S))
-			if(S.check_job_spawning(rank))
-				character.forceMove(pick(S.turfs))
-				join_message = S.msg
+			spawnpoint = GLOB.spawntypes[spawning_at]
+
+		if(spawnpoint && istype(spawnpoint))
+			if(spawnpoint.check_job_spawning(rank))
+				character.move_to_spawn(spawnpoint.turfs)
+				join_message = spawnpoint.msg
+
 			else
-				to_chat(character, "Выбранная вами зона появления ([S.display_name]) недоступна для выбранной вами профессии. Вместо этого мы отправляем вас на шаттл Прибытия.")
-				character.forceMove(pick(GLOB.latejoin))
+				to_chat(character, "Выбранная вами зона появления ([spawnpoint.display_name]) недоступна для выбранной вами профессии. Вместо этого мы отправляем вас на шаттл Прибытия.")
+				character.move_to_spawn(GLOB.latejoin)
 				join_message = "прибыл на станцию"
+
 		else
 			if(character.mind.assigned_role == JOB_TITLE_PRISONER && length(GLOB.latejoin_prisoner))
-				character.forceMove(pick(GLOB.latejoin_prisoner))
+				character.move_to_spawn(GLOB.latejoin_prisoner)
 				join_message = "очнулся от криогенного сна"
+
 			else
-				character.forceMove(pick(GLOB.latejoin))
+				character.move_to_spawn(GLOB.latejoin)
 				join_message = "прибыл на станцию"
 
 	character.lastarea = get_area(loc)
-
-	character = SSjobs.EquipRank(character, rank, 1)					//equips the human
-	EquipCustomItems(character)
-
+	character = character.spawn_equip(rank)
 	SSticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role == JOB_TITLE_CYBORG)
 		var/mob/living/silicon/robot/R = character
 		AnnounceCyborg(character, R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG, join_message)
-	else
-		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-		if(!IsAdminJob(rank))
-			GLOB.data_core.manifest_inject(character)
-			AnnounceArrival(character, rank, join_message)
-			AddEmploymentContract(character)
+		if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
+			SSjobs.prioritized_jobs -= thisjob
 
-			if(GLOB.summon_guns_triggered)
-				give_guns(character)
-			if(GLOB.summon_magic_triggered)
-				give_magic(character)
+		qdel(src)
+		return
+
+	SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
+	if(!IsAdminJob(rank))
+		GLOB.data_core.manifest_inject(character)
+		AnnounceArrival(character, rank, join_message)
+		AddEmploymentContract(character)
+
+		if(GLOB.summon_guns_triggered)
+			give_guns(character)
+		if(GLOB.summon_magic_triggered)
+			give_magic(character)
+
 
 	if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 		SSjobs.prioritized_jobs -= thisjob
+
 	qdel(src)
 
 
@@ -517,7 +568,7 @@
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		dat += "<span style='color: red;'><b>Станция была эвакуирована.</b></span><br>"
-	else if((SSshuttle.emergency.mode == SHUTTLE_CALL) || EMERGENCY_AT_LEAST_DOCKED)
+	else if((SSshuttle.emergency?.mode == SHUTTLE_CALL) || EMERGENCY_AT_LEAST_DOCKED)
 		dat += "<span style='color: red;'>В настоящее время станция проходит процедуру эвакуации.</span><br>"
 
 	if(length(SSjobs.prioritized_jobs))
@@ -600,6 +651,16 @@
 	popup.set_content(dat)
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
+
+// If current character can't be antagonist, try to pick random character, who can.
+/mob/new_player/proc/handle_can_be_antagonist()
+	var/has_antags = (length(client.prefs.be_special) > 0)
+	if(!has_antags || client.prefs.can_be_antagonist)
+		return
+
+	client.prefs.get_possible_antagonist()
+
+
 /mob/new_player/proc/create_character()
 	spawning = TRUE
 	close_spawn_windows()
@@ -608,9 +669,11 @@
 	var/mob/living/carbon/human/new_character = new(loc)
 	new_character.lastarea = get_area(loc)
 
+	handle_can_be_antagonist()
 	if(SSticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
+
 	client.prefs.copy_to(new_character)
 
 	// stop_sound_channel(CHANNEL_LOBBYMUSIC)

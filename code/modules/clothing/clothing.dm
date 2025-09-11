@@ -44,6 +44,7 @@
 	var/toggle_on_message
 	var/toggle_off_message
 	var/active_sound
+	var/active_sound_volume = 100
 	var/toggle_sound
 	var/toggle_cooldown = 0
 	var/cooldown = 0
@@ -121,7 +122,7 @@
 	if(visor_toggling(user))
 		update_equipped_item(update_speedmods = FALSE)
 		if(user)
-			to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
+			to_chat(user, span_notice("Вы [up ? "поднимаете на лоб" : "опускаете на глаза"] [declent_ru(ACCUSATIVE)]."))
 		return TRUE
 
 	return FALSE
@@ -189,8 +190,8 @@
 	for(var/trait in clothing_traits)
 		ADD_CLOTHING_TRAIT(user, src, trait)
 /**
-  * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
-  */
+ * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
+ */
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
@@ -304,14 +305,14 @@
 		)
 
 /*
-SEE_SELF  // can see self, no matter what
-SEE_MOBS  // can see all mobs, no matter what
-SEE_OBJS  // can see all objs, no matter what
-SEE_TURFS // can see all turfs (and areas), no matter what
-SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
-          // in a lit area (via pixel_x,y or smooth movement), can see those pixels
-BLIND     // can't see anything
-*/
+ * SEE_SELF  // can see self, no matter what
+ * SEE_MOBS  // can see all mobs, no matter what
+ * SEE_OBJS  // can see all objs, no matter what
+ * SEE_TURFS // can see all turfs (and areas), no matter what
+ * SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
+ *           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
+ * BLIND     // can't see anything
+ */
 
 
 /obj/item/clothing/glasses/update_icon_state()
@@ -592,7 +593,7 @@ BLIND     // can't see anything
 	set waitfor = FALSE
 
 	while(up)
-		playsound(loc, active_sound, 100, FALSE, 4)
+		playsound(loc, active_sound, active_sound_volume, FALSE, 4)
 		sleep(1.5 SECONDS)
 
 
@@ -698,7 +699,7 @@ BLIND     // can't see anything
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
-    return
+	return
 
 //Shoes
 /obj/item/clothing/shoes
@@ -1156,11 +1157,11 @@ BLIND     // can't see anything
 
 
 /*
-  * # can_attach_accessory
-  *
-  * Arguments:
-  * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
-*/
+ * # can_attach_accessory
+ *
+ * Arguments:
+ * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+ */
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/checked_acc)
 	if(!istype(checked_acc))
 		return FALSE
@@ -1266,28 +1267,20 @@ BLIND     // can't see anything
 
 	var/mob/living/carbon/human/owner = usr
 	if(owner.incapacitated() || HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
-		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
+		to_chat(owner, span_notice("Вы не можете изменить стиль этой одежды прямо сейчас!"))
 		return
 
 	if(!can_adjust)
-		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
+		to_chat(owner, span_notice("Вы не можете изменить стиль этой одежды прямо сейчас!"))
 		return
 
 	var/icon/our_icon = onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING]
 	if(sprite_sheets?[owner.dna.species.name])
 		our_icon = sprite_sheets[owner.dna.species.name]
 
-	var/initial_state = replacetext(item_color, "_d", "")
-
-	if(!icon_exists(our_icon, "[initial_state]_d_s"))
-		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
+	if(!icon_exists(our_icon, "[icon_state]_d_s"))
+		to_chat(owner, span_notice("Вы не можете изменить стиль этой одежды прямо сейчас!"))
 		return
-
-	rolled_down = findtext(item_color, "_d")
-	if(rolled_down)
-		item_color = initial_state
-	else
-		item_color = "[initial_state]_d"
 
 	rolled_down = !rolled_down
 	update_equipped_item(update_speedmods = FALSE)

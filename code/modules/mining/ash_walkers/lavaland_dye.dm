@@ -18,7 +18,13 @@
 /obj/item/lavaland_dye/cinnabar
 	name = "cinnabar-colored spleen"
 	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы киновари и обладает характерным коричневато-красным цветом."
-	ru_names = list(
+	icon_state = "cinnabar_spleen"
+	picked_dye = "Cinnabar Dyes"
+	totem_dye = "cinnabar"
+	fluff_name = "киноварная"
+
+/obj/item/lavaland_dye/cinnabar/get_ru_names()
+	return list(
 		NOMINATIVE = "селезёнка киноварного цвета",
 		GENITIVE = "селезёнки киноварного цвета",
 		DATIVE = "селезёнке киноварного цвета",
@@ -26,15 +32,17 @@
 		INSTRUMENTAL = "селезёнкой киноварного цвета",
 		PREPOSITIONAL = "селезёнке киноварного цвета",
 	)
-	icon_state = "cinnabar_spleen"
-	picked_dye = "Cinnabar Dyes"
-	totem_dye = "cinnabar"
-	fluff_name = "киноварная"
 
 /obj/item/lavaland_dye/crimson
 	name = "crimson-colored spleen"
 	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы неизвестной жидкости, похожей на кровь, и обладает характерным кроваво-красным цветом."
-	ru_names = list(
+	icon_state = "crimson_spleen"
+	picked_dye = "Crimson Dyes"
+	totem_dye = "crimson"
+	fluff_name = "кровавая"
+
+/obj/item/lavaland_dye/crimson/get_ru_names()
+	return list(
 		NOMINATIVE = "селезёнка кровавого цвета",
 		GENITIVE = "селезёнки кровавого цвета",
 		DATIVE = "селезёнке кровавого цвета",
@@ -42,15 +50,17 @@
 		INSTRUMENTAL = "селезёнкой кровавого цвета",
 		PREPOSITIONAL = "селезёнке кровавого цвета",
 	)
-	icon_state = "crimson_spleen"
-	picked_dye = "Crimson Dyes"
-	totem_dye = "crimson"
-	fluff_name = "кровавая"
 
 /obj/item/lavaland_dye/indigo
 	name = "indigo-colored spleen"
 	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе вещество, похожее на чернила, и обладает характерным тёмно-синим цветом."
-	ru_names = list(
+	icon_state = "indigo_spleen"
+	picked_dye = "Indigo Dyes"
+	totem_dye = "indigo"
+	fluff_name = "тёмно-синяя"
+
+/obj/item/lavaland_dye/indigo/get_ru_names()
+	return list(
 		NOMINATIVE = "селезёнка тёмно-синего цвета",
 		GENITIVE = "селезёнки тёмно-синего цвета",
 		DATIVE = "селезёнке тёмно-синего цвета",
@@ -58,15 +68,17 @@
 		INSTRUMENTAL = "селезёнкой тёмно-синего цвета",
 		PREPOSITIONAL = "селезёнке тёмно-синего цвета",
 	)
-	icon_state = "indigo_spleen"
-	picked_dye = "Indigo Dyes"
-	totem_dye = "indigo"
-	fluff_name = "тёмно-синяя"
 
 /obj/item/lavaland_dye/mint
 	name = "mint-colored spleen"
 	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы минералов и обладает характерным мятно-зелёным цветом."
-	ru_names = list(
+	icon_state = "mint_spleen"
+	picked_dye = "Mint Dyes"
+	totem_dye = "mint"
+	fluff_name = "мятная"
+
+/obj/item/lavaland_dye/mint/get_ru_names()
+	return list(
 		NOMINATIVE = "селезёнка мятного цвета",
 		GENITIVE = "селезёнки мятного цвета",
 		DATIVE = "селезёнке мятного цвета",
@@ -74,15 +86,17 @@
 		INSTRUMENTAL = "селезёнкой мятного цвета",
 		PREPOSITIONAL = "селезёнке мятного цвета",
 	)
-	icon_state = "mint_spleen"
-	picked_dye = "Mint Dyes"
-	totem_dye = "mint"
-	fluff_name = "мятная"
 
 /obj/item/lavaland_dye/amber
 	name = "amber-colored spleen"
 	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы природного янтаря и обладает характерным янтарно-желтым цветом."
-	ru_names = list(
+	icon_state = "amber_spleen"
+	picked_dye = "Amber Dyes"
+	totem_dye = "amber"
+	fluff_name = "янтарная"
+
+/obj/item/lavaland_dye/amber/get_ru_names()
+	return list(
 		NOMINATIVE = "селезёнка янтарного цвета",
 		GENITIVE = "селезёнки янтарного цвета",
 		DATIVE = "селезёнке янтарного цвета",
@@ -90,22 +104,10 @@
 		INSTRUMENTAL = "селезёнкой янтарного цвета",
 		PREPOSITIONAL = "селезёнке янтарного цвета",
 	)
-	icon_state = "amber_spleen"
-	picked_dye = "Amber Dyes"
-	totem_dye = "amber"
-	fluff_name = "янтарная"
 
 /obj/item/lavaland_mortar
 	name = "wooden mortar"
 	desc = "Небольшая ступка с находящейся в ней растолочённой селезёнкой. Используется для нанесения красок на тело."
-	ru_names = list(
-		NOMINATIVE = "деревянная ступка",
-		GENITIVE = "деревянной ступки",
-		DATIVE = "деревянной ступке",
-		ACCUSATIVE = "деревянную ступку",
-		INSTRUMENTAL = "деревянной ступкой",
-		PREPOSITIONAL = "деревянной ступке",
-	)
 	gender = FEMALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "amber_dyes"
@@ -121,6 +123,16 @@
 	var/fluff_name = "киноварная"
 	/// How many times you can use it
 	var/uses = 5
+
+/obj/item/lavaland_mortar/get_ru_names()
+	return list(
+		NOMINATIVE = "деревянная ступка",
+		GENITIVE = "деревянной ступки",
+		DATIVE = "деревянной ступке",
+		ACCUSATIVE = "деревянную ступку",
+		INSTRUMENTAL = "деревянной ступкой",
+		PREPOSITIONAL = "деревянной ступке",
+	)
 
 /obj/item/lavaland_mortar/examine(mob/user)
 	. = ..()

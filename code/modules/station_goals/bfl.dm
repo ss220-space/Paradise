@@ -48,6 +48,8 @@
 		return
 	SScargo_quests.remove_bfl_quests(COUNT_PLASMA_QUESTS)
 
+#undef COUNT_PLASMA_QUESTS
+
 ////////////
 //Building//
 ////////////
@@ -528,7 +530,7 @@
 
 /obj/machinery/bfl_lens/Destroy()
 	visible_message(span_danger("Линза разлетается на миллионы осколков!"))
-	playsound(src, "shatter", 70, TRUE)
+	playsound(src, SFX_SHATTER, 70, TRUE)
 	return ..()
 
 
@@ -599,7 +601,7 @@
 /obj/singularity/bfl_red/singularity_act()
 	return 0
 
-/obj/singularity/bfl_red/New(loc, var/starting_energy = 50, var/temp = 0)
+/obj/singularity/bfl_red/New(loc, starting_energy = 50, temp = 0)
 	starting_energy = 250
 	lavaland_z_lvl = level_name_to_num(MINING)
 	. = ..(loc, starting_energy, temp)

@@ -149,7 +149,7 @@
 		/datum/component/cleave_attack, \
 		afterswing_slowdown = 0.15, \
 		no_multi_hit = TRUE, \
-		swing_sound = "chop_swing_light" \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
 
 /obj/item/hatchet/suicide_act(mob/user)
@@ -205,7 +205,7 @@
 		swing_speed_mod = 1.25, \
 		afterswing_slowdown = 0.3, \
 		slowdown_duration = 0.75, \
-		swing_sound = "chop_swing_light" \
+		swing_sound = SFX_CHOP_SWING_LIGHT \
 	)
 
 /obj/item/scythe/suicide_act(mob/user)
@@ -215,7 +215,7 @@
 		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
-			playsound(loc, "desceration", 50, TRUE, -1)
+			playsound(loc, SFX_DESECRATION, 50, TRUE, -1)
 	return BRUTELOSS
 
 
@@ -291,12 +291,12 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра",
-        GENITIVE = "канистры",
-        DATIVE = "канистре",
-        ACCUSATIVE = "канистру",
-        INSTRUMENTAL = "канистрой",
-        PREPOSITIONAL = "канистре"
+		NOMINATIVE = "канистра",
+		GENITIVE = "канистры",
+		DATIVE = "канистре",
+		ACCUSATIVE = "канистру",
+		INSTRUMENTAL = "канистрой",
+		PREPOSITIONAL = "канистре"
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/New()
@@ -354,12 +354,12 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра (И-ЗИ-Нутриент)",
-        GENITIVE = "канистры (И-ЗИ-Нутриент)",
-        DATIVE = "канистре (И-ЗИ-Нутриент)",
-        ACCUSATIVE = "канистру (И-ЗИ-Нутриент)",
-        INSTRUMENTAL = "канистрой (И-ЗИ-Нутриент)",
-        PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)"
+		NOMINATIVE = "канистра (И-ЗИ-Нутриент)",
+		GENITIVE = "канистры (И-ЗИ-Нутриент)",
+		DATIVE = "канистре (И-ЗИ-Нутриент)",
+		ACCUSATIVE = "канистру (И-ЗИ-Нутриент)",
+		INSTRUMENTAL = "канистрой (И-ЗИ-Нутриент)",
+		PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
@@ -371,12 +371,12 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра (Лефт-Фо-Зед)",
-        GENITIVE = "канистры (Лефт-Фо-Зед)",
-        DATIVE = "канистре (Лефт-Фо-Зед)",
-        ACCUSATIVE = "канистру (Лефт-Фо-Зед)",
-        INSTRUMENTAL = "канистрой (Лефт-Фо-Зед)",
-        PREPOSITIONAL = "канистре (Лефт-Фо-Зед)"
+		NOMINATIVE = "канистра (Лефт-Фо-Зед)",
+		GENITIVE = "канистры (Лефт-Фо-Зед)",
+		DATIVE = "канистре (Лефт-Фо-Зед)",
+		ACCUSATIVE = "канистру (Лефт-Фо-Зед)",
+		INSTRUMENTAL = "канистрой (Лефт-Фо-Зед)",
+		PREPOSITIONAL = "канистре (Лефт-Фо-Зед)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
@@ -388,12 +388,12 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра (Робаст-Харвест)",
-        GENITIVE = "канистры (Робаст-Харвест)",
-        DATIVE = "канистре (Робаст-Харвест)",
-        ACCUSATIVE = "канистру (Робаст-Харвест)",
-        INSTRUMENTAL = "канистрой (Робаст-Харвест)",
-        PREPOSITIONAL = "канистре (Робаст-Харвест)"
+		NOMINATIVE = "канистра (Робаст-Харвест)",
+		GENITIVE = "канистры (Робаст-Харвест)",
+		DATIVE = "канистре (Робаст-Харвест)",
+		ACCUSATIVE = "канистру (Робаст-Харвест)",
+		INSTRUMENTAL = "канистрой (Робаст-Харвест)",
+		PREPOSITIONAL = "канистре (Робаст-Харвест)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
@@ -419,12 +419,12 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра (Атразин)",
-        GENITIVE = "канистры (Атразин)",
-        DATIVE = "канистре (Атразин)",
-        ACCUSATIVE = "канистру (Атразин)",
-        INSTRUMENTAL = "канистрой (Атразин)",
-        PREPOSITIONAL = "канистре (Атразин)"
+		NOMINATIVE = "канистра (Атразин)",
+		GENITIVE = "канистры (Атразин)",
+		DATIVE = "канистре (Атразин)",
+		ACCUSATIVE = "канистру (Атразин)",
+		INSTRUMENTAL = "канистрой (Атразин)",
+		PREPOSITIONAL = "канистре (Атразин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
@@ -436,12 +436,12 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра (Пестициды)",
-        GENITIVE = "канистры (Пестициды)",
-        DATIVE = "канистре (Пестициды)",
-        ACCUSATIVE = "канистру (Пестициды)",
-        INSTRUMENTAL = "канистрой (Пестициды)",
-        PREPOSITIONAL = "канистре (Пестициды)"
+		NOMINATIVE = "канистра (Пестициды)",
+		GENITIVE = "канистры (Пестициды)",
+		DATIVE = "канистре (Пестициды)",
+		ACCUSATIVE = "канистру (Пестициды)",
+		INSTRUMENTAL = "канистрой (Пестициды)",
+		PREPOSITIONAL = "канистре (Пестициды)"
 	)
 
 /obj/item/conductive_organ

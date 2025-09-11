@@ -1,6 +1,3 @@
-// 5 seconds
-#define TRACKS_CRUSTIFY_TIME   50
-
 // color-dir-dry
 GLOBAL_LIST_EMPTY(fluidtrack_cache)
 

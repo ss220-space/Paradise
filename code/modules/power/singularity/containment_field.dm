@@ -99,7 +99,7 @@
 // Used for overriding certain procs
 
 /obj/machinery/field
-	var/hasShocked = 0 //Used to add a delay between shocks. In some cases this used to crash servers by spawning hundreds of sparks every second.
+	var/hasShocked = FALSE //Used to add a delay between shocks. In some cases this used to crash servers by spawning hundreds of sparks every second.
 
 
 /obj/machinery/field/Bumped(atom/movable/moving_atom)
@@ -143,9 +143,9 @@
 /obj/machinery/field/proc/bump_field(atom/movable/AM)
 	if(hasShocked)
 		return 0
-	hasShocked = 1
-	do_sparks(5, 1, AM.loc)
+	hasShocked = TRUE
+	do_sparks(5, TRUE, AM.loc)
 	var/atom/target = get_edge_target_turf(AM, get_dir(src, get_step_away(AM, src)))
 	AM.throw_at(target, 200, 4)
 	spawn(5)
-		hasShocked = 0
+		hasShocked = FALSE

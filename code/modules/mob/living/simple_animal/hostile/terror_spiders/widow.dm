@@ -11,14 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/widow
 	name = "Widow of Terror"
 	desc = "Зловещий паук, черный, как самая темная ночь. У него безжалостные глаза и кроваво-красный узор в виде песочных часов на спине."
-	ru_names = list(
-		NOMINATIVE = "Вдова Ужаса",
-		GENITIVE = "Вдовы Ужаса",
-		DATIVE = "Вдове Ужаса",
-		ACCUSATIVE = "Вдову Ужаса",
-		INSTRUMENTAL = "Вдовой Ужаса",
-		PREPOSITIONAL = "Вдове Ужаса",
-	)
 	ai_target_method = TS_DAMAGE_POISON
 	icon_state = "terror_widow"
 	icon_living = "terror_widow"
@@ -42,6 +34,16 @@
 	tts_seed = "Karastamper"
 	spider_intro_text = "Будучи Вдовой Ужаса, ваша цель - внести хаос на поле боя при помощи своих плевков, вы также смертоносны вблизи и с каждым укусом вводите в противников опасный яд. Несмотря на скорость и смертоносность, вы довольно хрупки, поэтому не стоит атаковать тяжело вооружённых противников!"
 
+/mob/living/simple_animal/hostile/poison/terror_spider/widow/get_ru_names()
+	return list(
+		NOMINATIVE = "Вдова Ужаса",
+		GENITIVE = "Вдовы Ужаса",
+		DATIVE = "Вдове Ужаса",
+		ACCUSATIVE = "Вдову Ужаса",
+		INSTRUMENTAL = "Вдовой Ужаса",
+		PREPOSITIONAL = "Вдове Ужаса",
+	)
+
 /mob/living/simple_animal/hostile/poison/terror_spider/widow/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/reagent_attack/widow)
@@ -64,7 +66,9 @@
 /obj/structure/spider/terrorweb/widow
 	name = "sinister web"
 	desc = "На нитях этой паутины сверкают капли тёмной жидкости."
-	ru_names = list(
+
+/obj/structure/spider/terrorweb/widow/get_ru_names()
+	return list(
 		NOMINATIVE = "зловещая паутина",
 		GENITIVE = "зловещей паутины",
 		DATIVE = "зловещей паутине",

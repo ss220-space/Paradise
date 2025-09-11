@@ -1,12 +1,3 @@
-#define THEFT_FLAG_HIGHRISK	1
-#define THEFT_FLAG_UNIQUE		2
-#define THEFT_FLAG_HARD		3
-#define THEFT_FLAG_MEDIUM		4
-#define THEFT_FLAG_STRUCTURE	5
-#define THEFT_FLAG_ANIMAL		6
-#define THEFT_FLAG_COLLECT		7
-
-
 GLOBAL_LIST_EMPTY(all_objectives)
 
 /// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.
@@ -138,8 +129,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /**
-  * Called when the objective's target goes to cryo.
-  */
+ * Called when the objective's target goes to cryo.
+ */
 /datum/objective/proc/on_target_cryo()
 	if(!check_cryo)
 		return
@@ -157,8 +148,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /**
-  * Called a tick after when the objective's target goes to cryo.
-  */
+ * Called a tick after when the objective's target goes to cryo.
+ */
 /datum/objective/proc/post_target_cryo(list/owners)
 
 	find_target(existing_targets_blacklist())
@@ -338,15 +329,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/debrain/find_target(list/target_blacklist)
-    ..()
-    if(target?.current)
-        var/obj/item/organ/internal/brains = target.current.get_organ_slot(INTERNAL_ORGAN_BRAIN)
-        explanation_text = "Украсть [brains.declent_ru(ACCUSATIVE)] у [target.current.real_name], [target.assigned_role]."
-        if(!(target in SSticker.mode.victims))
-            SSticker.mode.victims.Add(target)
-    else
-        explanation_text = "Свободная цель"
-    return target
+	..()
+	if(target?.current)
+		var/obj/item/organ/internal/brains = target.current.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+		explanation_text = "Украсть [brains.declent_ru(ACCUSATIVE)] у [target.current.real_name], [target.assigned_role]."
+		if(!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
+	else
+		explanation_text = "Свободная цель"
+	return target
 
 
 /datum/objective/debrain/check_completion()
@@ -767,6 +758,43 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return FALSE
 
 
+/datum/objective/prison_escape
+	name = "Prison Escape"
+	antag_menu_name = "Сбежать из тюрьмы"
+	explanation_text = "Сбежать из тюрьмы и улететь на шаттле или эвакуационном челноке живым и свободным."
+	needs_target = FALSE
+
+/datum/objective/prison_escape/check_completion()
+	var/list/owners = get_owners()
+
+	for(var/datum/mind/player as anything in owners)
+		// These are mandatory conditions, they should come before the freebie conditions below.
+		if(QDELETED(player.current) || player.current.stat == DEAD || is_special_dead(player.current))
+			return FALSE
+
+	if(SSticker.force_ending) // This one isn't their fault, so lets just assume good faith.
+		return TRUE
+
+	if(SSticker.mode.station_was_nuked) // If they escaped the blast somehow, let them win.
+		return TRUE
+
+	if(!EMERGENCY_ESCAPED_OR_ENDGAMED)
+		return FALSE
+
+	for(var/datum/mind/player as anything in owners)
+		// Fails traitors if they are in the security area
+		var/area/location = get_area(player.current)
+		if(istype(location, /area/security))
+			return FALSE
+
+		// Fails traitors if they are in the shuttle brig
+		var/turf/turf = get_turf(player.current)
+		if(istype(turf, /turf/simulated/floor/shuttle/objective_check) || istype(turf, /turf/simulated/floor/mineral/plastitanium/red/brig))
+			return FALSE
+
+	return TRUE
+
+
 /datum/objective/die
 	name = "Glorious Death"
 	antag_menu_name = "Умереть славной смертью"
@@ -959,7 +987,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	antag_menu_name = "Заполучить"
 
 
-/datum/objective/steal/exchange/proc/set_faction(var/faction,var/otheragent)
+/datum/objective/steal/exchange/proc/set_faction(faction, otheragent)
 	target = otheragent
 	var/datum/theft_objective/unique/targetinfo
 	if(faction == "red")
@@ -973,7 +1001,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/steal/exchange/backstab
 	antag_menu_name = "Сохранить"
 
-/datum/objective/steal/exchange/backstab/set_faction(var/faction)
+/datum/objective/steal/exchange/backstab/set_faction(faction)
 	var/datum/theft_objective/unique/targetinfo
 	if(faction == "red")
 		targetinfo = new /datum/theft_objective/unique/docs_red

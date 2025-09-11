@@ -203,7 +203,7 @@
 
 /turf/bullet_act(obj/projectile/proj)
 	if(istype(proj, /obj/projectile/beam/pulse))
-		ex_act(2)
+		ex_act(EXPLODE_HEAVY)
 	..()
 	return FALSE
 
@@ -553,7 +553,7 @@
 
 /turf/handle_fall(mob/living/carbon/faller)
 	if(!no_gravity(src))
-		playsound(src, "bodyfall", 50, TRUE)
+		playsound(src, SFX_BODYFALL, 50, TRUE)
 
 	faller.drop_from_hands()
 

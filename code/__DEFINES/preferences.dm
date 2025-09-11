@@ -55,7 +55,7 @@
 //#define PREFTOGGLE_2_EMOTE_BUBBLE					(1<<8) // 256 tgui say(maybe temporary)
 #define PREFTOGGLE_2_SEE_ITEM_OUTLINES				(1<<9) // 512
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
-#define PREFTOGGLE_2_REVERB_DISABLE					(1<<10) // 1024
+//#define PREFTOGGLE_2_REVERB_DISABLE					(1<<10) // 1024
 #define PREFTOGGLE_2_MC_TAB							(1<<11) // 2048
 #define PREFTOGGLE_2_DISABLE_TGUI_INPUT				(1<<12) // 4096
 #define PREFTOGGLE_2_PARALLAX_MULTIZ				(1<<13) // 8192
@@ -64,7 +64,7 @@
 #define PREFTOGGLE_2_LARGE_INPUT_BUTTONS			(1<<16) // 65536
 #define PREFTOGGLE_2_BIG_STRIP_MENU					(1<<17) // 131072
 #define PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE		(1<<18) // 262144
-#define PREFTOGGLE_2_PIXELATED_MENU				(1<<19) // 524288
+#define PREFTOGGLE_2_PIXELATED_MENU					(1<<19) // 524288
 #define PREFTOGGLE_2_DESC_TIPS						(1<<20) // 1048576
 #define PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE			(1<<21) // 2097152
 #define PREFTOGGLE_2_SPLIT_ADMIN_TABS				(1<<22) // 4194304

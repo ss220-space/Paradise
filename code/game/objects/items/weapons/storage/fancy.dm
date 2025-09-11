@@ -150,7 +150,7 @@
 	storage_slots = 5
 	throwforce = 2
 	slot_flags = ITEM_SLOT_BELT
-	use_sound = "patchpack"
+	use_sound = SFX_PATCHPACK
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
 	for(var/I = 1 to storage_slots)
@@ -177,7 +177,7 @@
 	storage_slots = 8
 	icon_type = "crayon"
 	can_hold = list(/obj/item/toy/crayon)
-	use_sound = "patchpack"
+	use_sound = SFX_PATCHPACK
 
 /obj/item/storage/fancy/crayons/populate_contents()
 	new /obj/item/toy/crayon/white(src)
@@ -637,12 +637,12 @@
 
 /obj/item/storage/firstaid/aquatic_kit/get_ru_names()
 	return list(
-        NOMINATIVE = "набор для ухода за аквариумом",
-        GENITIVE = "набора для ухода за аквариумом",
-        DATIVE = "набору для ухода за аквариумом",
-        ACCUSATIVE = "набор для ухода за аквариумом",
-        INSTRUMENTAL = "набором для ухода за аквариумом",
-        PREPOSITIONAL = "наборе для ухода за аквариумом"
+		NOMINATIVE = "набор для ухода за аквариумом",
+		GENITIVE = "набора для ухода за аквариумом",
+		DATIVE = "набору для ухода за аквариумом",
+		ACCUSATIVE = "набор для ухода за аквариумом",
+		INSTRUMENTAL = "набором для ухода за аквариумом",
+		PREPOSITIONAL = "наборе для ухода за аквариумом"
 	)
 
 /obj/item/storage/firstaid/aquatic_kit/full/populate_contents()

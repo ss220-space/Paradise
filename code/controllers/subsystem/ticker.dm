@@ -29,6 +29,7 @@ SUBSYSTEM_DEF(ticker)
 	var/datum/game_mode/mode = null
 	/// The current pick of lobby music played in the lobby
 	var/login_music
+	var/login_music_initializated = FALSE
 	var/login_music_data
 	var/selected_lobby_music
 	/// List of all minds in the game. Used for objective tracking
@@ -83,7 +84,9 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music_data = list()
-	login_music = choose_lobby_music()
+
+	ASYNC
+		login_music = choose_lobby_music()
 
 	if(!login_music)
 		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
@@ -132,7 +135,7 @@ SUBSYSTEM_DEF(ticker)
 				SSvote.start_vote(new /datum/vote/crew_transfer)
 				next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_interval)
 
-			var/game_finished = SSshuttle.emergency.mode == SHUTTLE_ENDGAME || mode.station_was_nuked
+			var/game_finished = SSshuttle.emergency?.mode == SHUTTLE_ENDGAME || mode.station_was_nuked
 			if(CONFIG_GET(flag/continuous_rounds))
 				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 			else
@@ -406,12 +409,14 @@ SUBSYSTEM_DEF(ticker)
 				break
 
 	if(!selected_lobby_music)
+		login_music_initializated = TRUE
 		return
 
 	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
 	if(!ytdl)
 		to_chat(world, span_boldwarning("yt-dlp was not configured."))
 		log_world("Could not play lobby song because yt-dlp is not configured properly, check the config.")
+		login_music_initializated = TRUE
 		return
 
 	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o \"cache/songs/%(id)s.%(ext)s\" --dump-single-json --no-simulate \"[selected_lobby_music]\"")
@@ -427,6 +432,7 @@ SUBSYSTEM_DEF(ticker)
 			to_chat(world, span_boldwarning("yt-dlp JSON parsing FAILED."))
 			log_world(span_boldwarning("yt-dlp JSON parsing FAILED:"))
 			log_world(span_warning("[e]: [stdout]"))
+			login_music_initializated = TRUE
 			return
 		if(data["title"])
 			login_music_data["title"] = data["title"]
@@ -438,7 +444,9 @@ SUBSYSTEM_DEF(ticker)
 	if(errorlevel)
 		to_chat(world, span_boldwarning("yt-dlp failed."))
 		log_world("Could not play lobby song [selected_lobby_music]: [stderr]")
+		login_music_initializated = TRUE
 		return
+	login_music_initializated = TRUE
 	return stdout
 
 
@@ -496,34 +504,46 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.ready && player.mind)
-			if(player.mind.assigned_role == JOB_TITLE_AI)
-				player.close_spawn_windows()
-				var/mob/living/character = player.create_character()
-				var/mob/living/silicon/ai/ai_character = character.AIize()
-				ai_character.moveToAILandmark()
-				SSticker?.score?.save_silicon_laws(ai_character, additional_info = "job assignment", log_all_laws = TRUE)
-			else if(!player.mind.assigned_role)
-				continue
-			else
-				player.create_character()
-				qdel(player)
+		if(!player.ready || !player.mind)
+			continue
+
+		if(!player.mind.assigned_role)
+			continue
+
+		if(player.mind.assigned_role != JOB_TITLE_AI)
+			player.create_character()
+			qdel(player)
+			continue
+
+		player.close_spawn_windows()
+		var/mob/living/character = player.create_character()
+		var/mob/living/silicon/ai/ai_character = character.AIize()
+		ai_character.moveToAILandmark()
+		SSticker?.score?.save_silicon_laws(ai_character, additional_info = "job assignment", log_all_laws = TRUE)
 
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
 	var/captainless = TRUE
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player && player.mind && player.mind.assigned_role)
-			if(player.mind.assigned_role == JOB_TITLE_CAPTAIN)
-				captainless = FALSE
-			if(player.mind.assigned_role != player.mind.special_role)
-				SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
-				SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
-				EquipCustomItems(player)
-	if(captainless)
-		for(var/mob/M in GLOB.player_list)
-			if(!isnewplayer(M))
-				to_chat(M, "Captainship not forced on anyone.")
+		if(!player || !player.mind || !player.mind.assigned_role)
+			continue
+
+		captainless = captainless || player.mind.assigned_role == JOB_TITLE_CAPTAIN
+		if(player.mind.assigned_role == player.mind.special_role)
+			continue
+
+		SSjobs.AssignRank(player, player.mind.assigned_role, FALSE)
+		SSjobs.EquipRank(player, player.mind.assigned_role, FALSE)
+		EquipCustomItems(player)
+
+	if(!captainless)
+		return
+
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(isnewplayer(mob))
+			return
+
+		to_chat(mob, "Captainship not forced on anyone.")
 
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
@@ -608,6 +628,10 @@ SUBSYSTEM_DEF(ticker)
 			end_of_round_info += printeventplayer(eventmind)
 			end_of_round_info += printobjectives(eventmind)
 		end_of_round_info += "<br>"
+
+	for(var/team_type in GLOB.antagonist_teams)
+		var/datum/team/team = GLOB.antagonist_teams[team_type]
+		team.pre_declare_completion()
 
 	for(var/team_type in GLOB.antagonist_teams)
 		var/datum/team/team = GLOB.antagonist_teams[team_type]

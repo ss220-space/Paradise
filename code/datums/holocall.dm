@@ -1,5 +1,3 @@
-#define HOLOPAD_MAX_DIAL_TIME 200
-
 /mob/camera/aiEye/remote/holo/setLoc(turf/destination, force_update = FALSE)
 	. = ..()
 	var/obj/machinery/hologram/holopad/H = origin

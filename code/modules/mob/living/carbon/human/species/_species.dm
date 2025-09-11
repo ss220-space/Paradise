@@ -155,6 +155,7 @@
 	var/has_gender = TRUE
 	var/blacklisted = FALSE
 	var/dangerous_existence = FALSE
+	var/ignore_critical_condition = FALSE // If true, this species will not be affected by complex critical condition
 
 	/// Death vars. See [/proc/genderize_decode] for more info.
 	var/death_message = "цепене%(ет,ют)% и расслабля%(ет,ют)%ся, %(его,её,его,их)% взгляд становится пустым и безжизненным..."
@@ -785,7 +786,7 @@
 /datum/unarmed_attack
 	var/attack_verb = list("ударил", "вмазал", "стукнул", "вдарил", "влепил")	// Empty hand hurt intent verb.
 	var/damage = 0						// How much flat bonus damage an attack will do. This is a *bonus* guaranteed damage amount on top of the random damage attacks do.
-	var/attack_sound = "punch"
+	var/attack_sound = SFX_PUNCH
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = FALSE
 	var/animation_type = ATTACK_EFFECT_PUNCH
@@ -1226,13 +1227,13 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 
 /**
-  * Species-specific runechat colour handler
-  *
-  * Checks the species datum flags and returns the appropriate colour
-  * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
-  * Arguments:
-  * * H - The human who this DNA belongs to
-  */
+ * Species-specific runechat colour handler
+ *
+ * Checks the species datum flags and returns the appropriate colour
+ * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
+ * Arguments:
+ * * H - The human who this DNA belongs to
+ */
 /datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
 	if(bodyflags & HAS_SKIN_COLOR)
 		return H.skin_colour

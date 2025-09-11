@@ -289,7 +289,7 @@
 		if(KNOCKDOWN)
 			Knockdown(effect * blocked)
 		if(CONFUSED)
-			Confused(effect * blocked)
+			AdjustConfused(effect * blocked)
 
 
 	updatehealth("apply effect")

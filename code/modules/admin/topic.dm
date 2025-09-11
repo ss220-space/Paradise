@@ -230,7 +230,7 @@
 					if(!temp) continue
 					joblist += temp.title
 			if("medicaldept")
-				for(var/jobPos in GLOB.medical_positions)
+				for(var/jobPos in GLOB.medical_positions + GLOB.additional_medical_positions)
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
@@ -905,7 +905,7 @@
 					if(!temp) continue
 					joblist += temp.title
 			if("medicaldept")
-				for(var/jobPos in GLOB.medical_positions)
+				for(var/jobPos in GLOB.medical_positions + GLOB.additional_medical_positions)
 					if(!jobPos)	continue
 					var/datum/job/temp = SSjobs.GetJob(jobPos)
 					if(!temp) continue
@@ -1624,7 +1624,7 @@
 		usr.client.view_msays()
 
 	else if(href_list["devsays"])
-		if(!check_rights(R_ADMIN | R_VIEWRUNTIMES))
+		if(!check_rights(R_VIEWRUNTIMES | R_ADMIN))
 			return
 
 		usr.client.view_devsays()
@@ -2407,13 +2407,12 @@
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
-		var/mob/M = locateUID(href_list["adminmoreinfo"])
-
-		if(!istype(M, /mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential=TRUE)
+		var/mob/subject = locateUID(href_list["adminmoreinfo"])
+		if(!ismob(subject))
+			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
-		admin_mob_info(M)
+		admin_mob_info(subject)
 
 	else if(href_list["adminspawncookie"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
@@ -3723,6 +3722,9 @@
 				shuttle_start()
 
 			if("borg_skins")
+				if(!check_rights(R_SKINS))
+					return
+
 				if(!you_realy_want_do_this())
 					return
 				GLOB.all_robot_skins_permited = !GLOB.all_robot_skins_permited
@@ -3734,7 +3736,8 @@
 				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
 
 	else if(href_list["secretsadmin"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/ok = 0
 		switch(href_list["secretsadmin"])
@@ -4080,7 +4083,7 @@
 		popup.open()
 		onclose(usr, "show_dna")
 
-/client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
+/client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))
 		return
 	var/admin_outfits = subtypesof(/datum/outfit/admin)
@@ -4138,7 +4141,7 @@
 	tatorhud.join_hud(hunter_mob)
 	set_antag_hud(hunter_mob, "hudsyndicate")
 
-/proc/admin_jump_link(var/atom/target)
+/proc/admin_jump_link(atom/target)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
 
@@ -4176,7 +4179,7 @@
 
 /proc/doPortalSpawn(turf/loc, mobtype, numtospawn, portal_appearance)
 	loc.flick_overlay_static(portal_appearance, 15)
-	playsound(loc, "sparks", rand(80, 100), 1)
+	playsound(loc, SFX_SPARKS, rand(80, 100), TRUE)
 	for (var/i in 1 to numtospawn)
 		new mobtype(loc)
 

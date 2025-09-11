@@ -28,7 +28,7 @@
 	return "\[Раса: [russian_list(whitelisted_species)]\] "
 
 
- // TAJARAN //
+// TAJARAN //
 
 /datum/gear/racial/taj
 	index_name = "embroidered veil"

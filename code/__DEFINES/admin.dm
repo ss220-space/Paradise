@@ -45,9 +45,10 @@
 #define R_MENTOR (1<<14)
 #define R_PROCCALL (1<<15)
 #define R_VIEWRUNTIMES (1<<16)
+#define R_SKINS (1<<17) // To access sex skins for robots
 
 /// This holds the maximum value for a permission. It is used in iteration, so keep it updated.
-#define R_MAXPERMISSION (1<<16)
+#define R_MAXPERMISSION (1<<17)
 
 /// Sum of all permissions to allow easy setting.
 #define R_HOST (~0)
@@ -66,7 +67,8 @@
 #define ADMIN_SC(user,display) "<a href='byond://?_src_=holder;adminspawncookie=[user.UID()]'>[display]</a>"
 #define ADMIN_LOOKUP(user) "[key_name_admin(user)]([ADMIN_QUE(user,"?")])"
 #define ADMIN_LOOKUPFLW(user) "[key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")])"
-#define ADMIN_FULLMONTY(user) "[key_name_admin(user)] ([ADMIN_QUE(user,"?")]) ([ADMIN_PP(user,"PP")]) ([ADMIN_VV(user,"VV")]) ([ADMIN_SM(user,"SM")]) ([ADMIN_FLW(user,"FLW")]) ([ADMIN_TP(user,"TP")])"
+#define ADMIN_FULLMONTY_NONAME(user) "([ADMIN_QUE(user,"?")]) ([ADMIN_PP(user,"PP")]) ([ADMIN_VV(user,"VV")]) ([ADMIN_SM(user,"SM")]) ([ADMIN_FLW(user,"FLW")]) ([ADMIN_TP(user,"TP")])"
+#define ADMIN_FULLMONTY(user) "[key_name_admin(user)] [ADMIN_FULLMONTY_NONAME(user)]"
 #define ADMIN_JMP(src) "(<a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[src.x];Y=[src.y];Z=[src.z]'>JMP</a>)"
 #define COORD(src) "[src ? "([src.x],[src.y],[src.z])" : "nonexistent location"]"
 #define AREACOORD(src) "[src ? "[get_area_name(src, TRUE)] [COORD(src)]" : "nonexistent location" ]"

@@ -1,10 +1,4 @@
-#define EMAGGED_SLOT_MACHINE_PRIZE_MOD 5
-#define EMAGGED_SLOT_MACHINE_GIB_CHANCE 10
-#define EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE 20
-
-
 GLOBAL_LIST_EMPTY(slotmachine_prizes)
-
 
 /datum/slotmachine_prize
 	/// Unique prize identifier
@@ -298,7 +292,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 
 /obj/machinery/computer/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
 	if(sound)
-		playsound(loc, sound, 55, 1)
+		playsound(loc, sound, 55, TRUE)
 	if(!account)
 		return
 	account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)

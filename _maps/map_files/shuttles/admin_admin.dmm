@@ -138,8 +138,7 @@
 "aK" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -186,12 +185,10 @@
 "aT" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -204,8 +201,7 @@
 	name = "NTV Argos shuttle navigation computer"
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -331,8 +327,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -355,8 +350,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -365,8 +359,7 @@
 /area/shuttle/administration)
 "bC" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/administration)
@@ -411,12 +404,10 @@
 /area/shuttle/administration)
 "eo" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/effect/turf_decal/stripes/black{
 	dir = 10;
-	do_not_delete_me = 1;
 	icon_state = "bs_deadlock"
 	},
 /turf/simulated/floor/shuttle{
@@ -445,8 +436,7 @@
 /area/shuttle/administration)
 "hw" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/administration)
@@ -527,8 +517,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -584,12 +573,10 @@
 /area/shuttle/administration)
 "oI" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /obj/effect/turf_decal/stripes/black{
 	dir = 5;
-	do_not_delete_me = 1;
 	icon_state = "bs_deadlock"
 	},
 /turf/simulated/floor/shuttle{
@@ -629,8 +616,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -640,8 +626,7 @@
 "qY" = (
 /obj/structure/dispenser/oxygen,
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -663,8 +648,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -679,12 +663,10 @@
 	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -779,7 +761,6 @@
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -823,7 +804,6 @@
 "FB" = (
 /obj/effect/turf_decal/stripes/black{
 	dir = 8;
-	do_not_delete_me = 1;
 	icon_state = "bs_deadlock"
 	},
 /turf/simulated/floor/shuttle{
@@ -883,7 +863,6 @@
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -924,8 +903,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/royalblack,
@@ -935,18 +913,14 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "IC" = (
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -974,12 +948,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1017,12 +988,10 @@
 /area/shuttle/administration)
 "Mg" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1064,12 +1033,9 @@
 /turf/simulated/floor/carpet/black,
 /area/shuttle/administration)
 "QB" = (
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1078,8 +1044,7 @@
 /area/shuttle/administration)
 "QL" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 9;
-	do_not_delete_me = 1
+	dir = 9
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/administration)
@@ -1091,8 +1056,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1107,12 +1071,10 @@
 	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1134,12 +1096,9 @@
 /area/shuttle/administration)
 "UZ" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/effect/turf_decal/stripes/black,
 /obj/effect/turf_decal/stripes/black{
-	do_not_delete_me = 1
-	},
-/obj/effect/turf_decal/stripes/black{
-	dir = 1;
-	do_not_delete_me = 1
+	dir = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1185,8 +1144,7 @@
 /area/shuttle/administration)
 "YW" = (
 /obj/effect/turf_decal/stripes/black{
-	dir = 10;
-	do_not_delete_me = 1
+	dir = 10
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/administration)

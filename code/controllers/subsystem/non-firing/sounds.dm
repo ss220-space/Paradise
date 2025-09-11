@@ -7,32 +7,37 @@ SUBSYSTEM_DEF(sounds)
 	offline_implications = "Sounds may not play correctly. Shuttle call recommended."
 	ss_id = "sounds"
 
-	var/using_channels_max = CHANNEL_HIGHEST_AVAILABLE // BYOND max channels
+	/// BYOND max channels
+	var/static/using_channels_max = CHANNEL_HIGHEST_AVAILABLE
 	/// Amount of channels to reserve for random usage rather than reservations being allowed to reserve all channels. Also a nice safeguard for when someone screws up.
-	var/random_channels_min = 50
+	var/static/random_channels_min = 50
+
 	// Hey uh these two needs to be initialized fast because the whole "things get deleted before init" thing.
-	/// Assoc list, "[channel]" = either the datum using it or TRUE for an unsafe-reserved (datumless reservation) channel
+	/// Assoc list, `"[channel]" =` either the datum using it or TRUE for an unsafe-reserved (datumless reservation) channel
 	var/list/using_channels
 	/// Assoc list datum = list(channel1, channel2, ...) for what channels something reserved.
 	var/list/using_channels_by_datum
 	// Special datastructure for fast channel management
 	/// List of all channels as numbers
 	var/list/channel_list
-	/// Associative list of all reserved channels associated to their position. "[channel_number]" = index as number
+	/// Associative list of all reserved channels associated to their position. `"[channel_number]" =` index as number
 	var/list/reserved_channels
 	/// lower iteration position - Incremented and looped to get "random" sound channels for normal sounds. The channel at this index is returned when asking for a random channel.
 	var/channel_random_low
 	/// higher reserve position - decremented and incremented to reserve sound channels, anything above this is reserved. The channel at this index is the highest unreserved channel.
 	var/channel_reserve_high
 
+	/// All valid sound files in the sound directory
+	var/list/all_sounds
 
 /datum/controller/subsystem/sounds/Initialize()
 	setup_available_channels()
+	find_all_available_sounds()
+	init_sound_keys()
+
 	return SS_INIT_SUCCESS
 
-/**
-  * Sets up all available sound channels
-  */
+/// Sets up all available sound channels.
 /datum/controller/subsystem/sounds/proc/setup_available_channels()
 	channel_list = list()
 	reserved_channels = list()
@@ -43,30 +48,38 @@ SUBSYSTEM_DEF(sounds)
 	channel_random_low = 1
 	channel_reserve_high = length(channel_list)
 
+/datum/controller/subsystem/sounds/proc/find_all_available_sounds()
+	all_sounds = list()
+	// Put more common extensions first to speed this up a bit
+	var/static/list/valid_file_extensions = list(
+		".ogg",
+		".wav",
+		".mid",
+		".midi",
+		".mod",
+		".it",
+		".s3m",
+		".xm",
+		".oxm",
+		".raw",
+		".wma",
+		".aiff",
+	)
 
-/**
-  * Removes a channel from using list
-  *
-  * Arguments:
-  * * channel - The channel number
-  */
+	all_sounds = pathwalk("sound/", valid_file_extensions)
+
+/// Removes a channel from using list.
 /datum/controller/subsystem/sounds/proc/free_sound_channel(channel)
 	var/text_channel = num2text(channel)
 	var/using = using_channels[text_channel]
 	using_channels -= text_channel
-	if(!using)		// datum channel
+	if(!istrue(using)) // datum channel
 		using_channels_by_datum[using] -= channel
 		if(!length(using_channels_by_datum[using]))
 			using_channels_by_datum -= using
 	free_channel(channel)
 
-
-/**
-  * Frees all the channels a datum is using
-  *
-  * Arguments:
-  * * D - The datum
-  */
+/// Frees all the channels a datum is using.
 /datum/controller/subsystem/sounds/proc/free_datum_channels(datum/D)
 	var/list/L = using_channels_by_datum[D]
 	if(!L)
@@ -76,61 +89,42 @@ SUBSYSTEM_DEF(sounds)
 		free_channel(channel)
 	using_channels_by_datum -= D
 
-
-/**
-  * Frees all datumless channels
-  */
+/// Frees all datumless channels.
 /datum/controller/subsystem/sounds/proc/free_datumless_channels()
 	free_datum_channels(DATUMLESS)
 
-
-/**
-  * NO AUTOMATIC CLEANUP - If you use this, you better manually free it later!
-  *
-  * Returns an integer for channel
-  */
+/// NO AUTOMATIC CLEANUP - If you use this, you better manually free it later! Returns an integer for channel.
 /datum/controller/subsystem/sounds/proc/reserve_sound_channel_datumless()
 	. = reserve_channel()
-	if(!.) // oh no..
+	if(!.) //oh no..
 		return FALSE
 	var/text_channel = num2text(.)
 	using_channels[text_channel] = DATUMLESS
-	LAZYADD(using_channels_by_datum[DATUMLESS], .)
+	LAZYINITLIST(using_channels_by_datum[DATUMLESS])
+	using_channels_by_datum[DATUMLESS] += .
 
-
-/**
-  * Reserves a channel for a datum. Automatic cleanup only when the datum is deleted.
-  *
-  * Returns an integer for channel
-  * Arguments:
-  * * D - The datum
-  */
+/// Reserves a channel for a datum. Automatic cleanup only when the datum is deleted. Returns an integer for channel.
 /datum/controller/subsystem/sounds/proc/reserve_sound_channel(datum/D)
-	if(!D) // i don't like typechecks but someone will fuck it up
+	if(!D) //i don't like typechecks but someone will fuck it up
 		CRASH("Attempted to reserve sound channel without datum using the managed proc.")
 	. = reserve_channel()
 	if(!.)
-		return FALSE
+		CRASH("No more sound channels can be reserved.")
 	var/text_channel = num2text(.)
 	using_channels[text_channel] = D
-	LAZYADD(using_channels_by_datum[D], .)
+	LAZYINITLIST(using_channels_by_datum[D])
+	using_channels_by_datum[D] += .
 
-
-/**
-  * Reserves a channel and updates the datastructure. Private proc.
-  */
+/// Reserves a channel and updates the datastructure. Private proc.
 /datum/controller/subsystem/sounds/proc/reserve_channel()
 	PRIVATE_PROC(TRUE)
-	if(channel_reserve_high <= random_channels_min)		// out of channels
+	if(channel_reserve_high <= random_channels_min) // out of channels
 		return
 	var/channel = channel_list[channel_reserve_high]
 	reserved_channels[num2text(channel)] = channel_reserve_high--
 	return channel
 
-
-/**
-  * Frees a channel and updates the datastructure. Private proc.
-  */
+/// Frees a channel and updates the datastructure. Private proc.
 /datum/controller/subsystem/sounds/proc/free_channel(number)
 	PRIVATE_PROC(TRUE)
 	var/text_channel = num2text(number)
@@ -149,30 +143,28 @@ SUBSYSTEM_DEF(sounds)
 		return
 	reserved_channels[text_reserved] = index
 
-
-/**
-  * Random available channel, returns text
-  */
+/// Random available channel, returns text.
 /datum/controller/subsystem/sounds/proc/random_available_channel_text()
 	if(channel_random_low > channel_reserve_high)
 		channel_random_low = 1
 	. = "[channel_list[channel_random_low++]]"
 
-
-/**
-  * Random available channel, returns number
-  */
+/// Random available channel, returns number
 /datum/controller/subsystem/sounds/proc/random_available_channel()
 	if(channel_random_low > channel_reserve_high)
 		channel_random_low = 1
 	. = channel_list[channel_random_low++]
 
-
-/**
-  * How many channels we have left
-  */
+/// How many channels we have left.
 /datum/controller/subsystem/sounds/proc/available_channels_left()
 	return length(channel_list) - random_channels_min
 
+/datum/controller/subsystem/sounds/proc/init_sound_keys()
+	for(var/datum/sound_effect/sfx as anything in subtypesof(/datum/sound_effect))
+		// this is for the assoc subtype
+		if(isnull(sfx.key))
+			continue
+
+		GLOB.sfx_datum_by_key[sfx.key] = new sfx()
 
 #undef DATUMLESS

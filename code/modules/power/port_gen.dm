@@ -1,5 +1,8 @@
 #define SHEET_VOLUME 1000 //cm3
 
+#define TEMPERATURE_DIVISOR 40
+#define TEMPERATURE_CHANGE_MAX 20
+
 //Baseline portable generator. Has all the default handling. Not intended to be used on it's own (since it generates unlimited power).
 /obj/machinery/power/port_gen
 	name = "Placeholder Generator"	//seriously, don't use this. It can't be anchored without VV magic.
@@ -93,9 +96,6 @@
 /obj/machinery/power/port_gen/proc/explode()
 	explosion(loc, devastation_range = -1, heavy_impact_range = 3, light_impact_range = 5, flash_range = -1, cause = src)
 	qdel(src)
-
-#define TEMPERATURE_DIVISOR 40
-#define TEMPERATURE_CHANGE_MAX 20
 
 //A power generator that runs on solid plasma sheets.
 /obj/machinery/power/port_gen/pacman
@@ -484,3 +484,7 @@
 	//no special effects, but the explosion is pretty big (same as a supermatter shard).
 	explosion(loc, devastation_range = 3, heavy_impact_range = 6, light_impact_range = 12, flash_range = 16, adminlog = TRUE, cause = src)
 	qdel(src)
+
+#undef SHEET_VOLUME
+#undef TEMPERATURE_DIVISOR
+#undef TEMPERATURE_CHANGE_MAX

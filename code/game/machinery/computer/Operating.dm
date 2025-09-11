@@ -247,3 +247,5 @@
 	icon_screen = "med_oldframe"
 	icon_state = "frame-med"
 	icon_keyboard = "kb5"
+
+#undef OP_COMPUTER_COOLDOWN
