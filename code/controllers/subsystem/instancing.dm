@@ -56,10 +56,10 @@ SUBSYSTEM_DEF(instancing)
 	server_command.execute(source, arguments)
 
 /**
-  * Playercache updater
-  *
-  * Updates the player cache in the DB. Different from heartbeat so we can force invoke it on player operations
-  */
+ * Playercache updater
+ *
+ * Updates the player cache in the DB. Different from heartbeat so we can force invoke it on player operations
+ */
 /datum/controller/subsystem/instancing/proc/update_playercache(optional_ckey)
 	// You may be wondering, why the fuck is an "optional ckey" variable here
 	// Well, this is invoked in client/New(), and needs to read from GLOB.clients
@@ -95,10 +95,10 @@ SUBSYSTEM_DEF(instancing)
 	qdel(count_query)
 
 /**
-  * Heartbeat updater
-  *
-  * Updates the heartbeat in the DB. Used so other servers can see when this one was alive
-  */
+ * Heartbeat updater
+ *
+ * Updates the heartbeat in the DB. Used so other servers can see when this one was alive
+ */
 /datum/controller/subsystem/instancing/proc/update_heartbeat()
 	// this could probably just go in fire() but clean code and profiler ease who cares
 	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=NOW() WHERE key_name='heartbeat' AND server_id=:sid", list(
@@ -109,10 +109,10 @@ SUBSYSTEM_DEF(instancing)
 	qdel(query)
 
 /**
-  * Round time updater
-  *
-  * Updates the round time in the DB. Used so other servers' lobby could use this info
-  */
+ * Round time updater
+ *
+ * Updates the round time in the DB. Used so other servers' lobby could use this info
+ */
 /datum/controller/subsystem/instancing/proc/update_roundtime()
 	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE instance_data_cache SET key_value=:round_time WHERE key_name='round_time' AND server_id=:sid", list(
 		"sid" = CONFIG_GET(string/instance_id),
@@ -124,11 +124,11 @@ SUBSYSTEM_DEF(instancing)
 
 
 /**
-  * Seed data
-  *
-  * Seeds all our data into the DB for other servers to discover from.
-  * This is called during world/New() instead of on initialize so it can be done *instantly*
-  */
+ * Seed data
+ *
+ * Seeds all our data into the DB for other servers to discover from.
+ * This is called during world/New() instead of on initialize so it can be done *instantly*
+ */
 /datum/controller/subsystem/instancing/proc/seed_data()
 	// We need to seed a lot of keys, so lets just use a key-value-pair-map to do this easily
 	var/list/kvp_map = list()
@@ -157,13 +157,13 @@ SUBSYSTEM_DEF(instancing)
 		qdel(query)
 
 /**
-  * Player checker
-  *
-  * Check all connected peers to see if a player exists in the player cache
-  * This is used to make sure players dont log into 2 servers at once
-  * Arguments:
-  * ckey - The ckey to check if they are logged into another server
-  */
+ * Player checker
+ *
+ * Check all connected peers to see if a player exists in the player cache
+ * This is used to make sure players dont log into 2 servers at once
+ * Arguments:
+ * ckey - The ckey to check if they are logged into another server
+ */
 /datum/controller/subsystem/instancing/proc/check_player(ckey)
 	// Please see above rant on L127
 	var/datum/db_query/query = SSdbcore.NewQuery({"

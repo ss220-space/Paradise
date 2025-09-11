@@ -197,3 +197,6 @@
 	shoes = /obj/item/clothing/shoes/prison
 	head = /obj/item/clothing/head/prison
 	id = /obj/item/card/id/prisoner
+
+#undef AGS_CREDITS_PER_PRISONER
+#undef AGS_CAPRGOPOINTS_PER_PRISONER

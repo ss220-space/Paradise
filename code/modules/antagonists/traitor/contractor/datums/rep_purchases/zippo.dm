@@ -1,6 +1,6 @@
 /**
-  * # Rep Purchase - Contractor Zippo Lighter
-  */
+ * # Rep Purchase - Contractor Zippo Lighter
+ */
 /datum/rep_purchase/item/zippo
 	name = "Зажигалка Контрактника"
 	description = "Изящная зажигалка, оформленная в чёрно-золотых тонах и украшенная символикой Контрактников. \

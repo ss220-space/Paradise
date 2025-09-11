@@ -1,7 +1,3 @@
-#define REAGENT_UNITS_1 1
-#define REAGENT_UNITS_5 5
-#define REAGENT_UNITS_10 10
-
 /datum/reagent
 	var/name = "Реагент"
 	var/id = "reagent"

@@ -83,7 +83,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	popup.open(FALSE)
 
 
-/datum/admins/proc/cmd_mentor_show_exp_panel(var/client/C)
+/datum/admins/proc/cmd_mentor_show_exp_panel(client/C)
 	if(!C)
 		to_chat(usr, "ERROR: Client not found.")
 		return
@@ -196,10 +196,10 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 			return_text += "</li></ul>"
 	return return_text
 
-/client/proc/get_exp_type(var/etype)
+/client/proc/get_exp_type(etype)
 	return get_exp_format(get_exp_type_num(etype))
 
-/client/proc/get_exp_type_num(var/etype)
+/client/proc/get_exp_type_num(etype)
 	var/list/play_records = params2list(prefs.exp)
 	return text2num(play_records[etype])
 
@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	return result_text.Join("")
 
 
-/proc/get_exp_format(var/expnum)
+/proc/get_exp_format(expnum)
 	if(expnum > 60)
 		return num2text(round(expnum / 60)) + "ч"
 	else if(expnum > 0)
