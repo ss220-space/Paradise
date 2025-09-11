@@ -42,7 +42,7 @@
 		INSTRUMENTAL = "роем",
 		PREPOSITIONAL = "рое"
 	)
-	
+
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -164,8 +164,10 @@
 		return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/reabsorb_host(mob/living/carbon/C)
-	C.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] поглощается телом [C.declent_ru(GENITIVE)]."), \
-                 span_notice("[capitalize(declent_ru(NOMINATIVE))] поглощается вашим телом."))
+	C.visible_message(
+		span_notice("[capitalize(declent_ru(NOMINATIVE))] поглощается телом [C.declent_ru(GENITIVE)]."), \
+		span_notice("[capitalize(declent_ru(NOMINATIVE))] поглощается вашим телом.")
+	)
 	transfer_reagents(C)
 	death()
 

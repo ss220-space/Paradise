@@ -17,7 +17,7 @@
  *		Toy xeno
  *		Toy chainsaws
  *		Action Figures
- *      Rubber Toolbox
+ *		Rubber Toolbox
  */
 
 
@@ -2103,7 +2103,7 @@
 
 /*
  * Cat Toy
-  */
+ */
 /obj/item/toy/cattoy
 	name = "toy mouse"
 	desc = "A colorful toy mouse!"

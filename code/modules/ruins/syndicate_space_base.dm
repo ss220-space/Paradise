@@ -40,9 +40,9 @@
 	exp_type = EXP_TYPE_LIVING
 
 /obj/effect/mob_spawn/human/space_base_syndicate/Destroy()
-    var/obj/machinery/cryopod/syndie/S = new(get_turf(src))
-    S.setDir(dir)
-    return ..()
+	var/obj/machinery/cryopod/syndie/S = new(get_turf(src))
+	S.setDir(dir)
+	return ..()
 
 /datum/outfit/space_base_syndicate
 	name = "Space Base Syndicate Scientist"

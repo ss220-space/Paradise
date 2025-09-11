@@ -1,6 +1,6 @@
 /**
-  * # Rep Purchase - Contractor Hardsuit
-  */
+ * # Rep Purchase - Contractor Hardsuit
+ */
 /datum/rep_purchase/item/contractor_hardsuit
 	name = "ИКС Контрактника"
 	description = "ИКС, оснащённый технологией \"Хамелеон\". В комплект также входит оборудование для поддержания жизнедеятельности. \

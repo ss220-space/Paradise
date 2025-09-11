@@ -1,5 +1,3 @@
-#define CELL_CHARGE_AMOUNT 175 // Beeb-
-
 /obj/machinery/cell_charger
 	name = "cell charger"
 	desc = "It charges power cells."

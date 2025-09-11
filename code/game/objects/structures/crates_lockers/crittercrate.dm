@@ -18,8 +18,8 @@
 	env.temperature = T20C
 
 /obj/structure/closet/critter/Initialize(mapload)
-    . = ..()
-    updateEnv()
+	. = ..()
+	updateEnv()
 
 /obj/structure/closet/critter/Destroy()
 	. = ..()

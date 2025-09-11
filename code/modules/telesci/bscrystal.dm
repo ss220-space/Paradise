@@ -21,7 +21,7 @@
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/stack/ore/bluespace_crystal/attack_self(var/mob/user)
+/obj/item/stack/ore/bluespace_crystal/attack_self(mob/user)
 	if(do_after(user, 1 SECONDS, user))
 		var/mob/living/carbon/human/bs_user = user
 		if(use(1))
@@ -31,7 +31,7 @@
 	else
 		to_chat(user, span_notice("Вам нужно оставаться неподвижным, чтобы раздавить [singular_name]."))
 
-/obj/item/stack/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
+/obj/item/stack/ore/bluespace_crystal/proc/blink_mob(mob/living/L)
 	if(!is_teleport_allowed(L.z))
 		src.visible_message(span_warning("Осколки [src.declent_ru(GENITIVE)] начинают быстро вибрировать и исчезают."))
 		qdel(src)
