@@ -40,8 +40,10 @@
 
 /obj/item/stack/spacecash/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(istype(throwingdatum?.thrower?.mind?.martial_art, /datum/martial_art/mr_chang))
-		throwingdatum.thrower.say(pick("Бесплатные деньги!!", "Настоящий денежный дождь!!",\
-								 "Деньги, деньги, деньги!!!", "Это лучшая сделка!!"))
+		throwingdatum.thrower.say(pick(
+			"Бесплатные деньги!!", "Настоящий денежный дождь!!",\
+			"Деньги, деньги, деньги!!!", "Это лучшая сделка!!")
+		)
 		switch(amount)
 			if(CASH1 to CASH2 - 1)
 				throwforce = 5

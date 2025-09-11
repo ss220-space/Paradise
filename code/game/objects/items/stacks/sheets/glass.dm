@@ -5,9 +5,7 @@
  *		Glass shards - TODO: Move this into code/game/object/item/weapons
  *		Plasma Glass Sheets
  *		Reinforced Plasma Glass Sheets (AKA Holy fuck strong windows)
-
- Todo: Create a unified construct_window(sheet, user, created_window, full_window)
-
+ * Todo: Create a unified construct_window(sheet, user, created_window, full_window)
  */
 
 /*

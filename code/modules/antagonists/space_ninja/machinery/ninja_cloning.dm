@@ -186,7 +186,7 @@
 
 	suits_data += ninja_suit_data
 
-/obj/machinery/ninja_clonepod/proc/find_record(var/find_key)
+/obj/machinery/ninja_clonepod/proc/find_record(find_key)
 	var/selected_record = null
 	for(var/datum/dna2/record/ninja_dna_record in src.records)
 		if(ninja_dna_record.ckey == find_key)
@@ -194,7 +194,7 @@
 			break
 	return selected_record
 
-/obj/machinery/ninja_clonepod/proc/find_suit_data(var/find_key)
+/obj/machinery/ninja_clonepod/proc/find_suit_data(find_key)
 	var/selected_suit = null
 	for(var/datum/ninja_suit_cloning_data/ninja_suit_data in src.suits_data)
 		if(ninja_suit_data.ckey == find_key)

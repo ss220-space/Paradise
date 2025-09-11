@@ -200,8 +200,7 @@
 				F.deconstruct(src);
 				return
 	if(D.density)
-		to_chat(src, "<span class='userdanger'>You force your fingers between \
-		 the doors and begin to pry them open...</span>")
+		to_chat(src, "<span class='userdanger'>You force your fingers between the doors and begin to pry them open...</span>")
 		playsound(D, 'sound/machines/airlock_force_open.ogg', CHANNEL_BUZZ, 30, null, -4)
 		D.open(1)
 

@@ -65,7 +65,7 @@
 						<div id='commands'>
 						[get_commands()]
 						</div>
-					 "}
+					"}
 	return output
 
 /obj/mecha/combat/honker/config_dropdown(datum/browser/popup)

@@ -21,7 +21,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/back.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/back.dmi'
-		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
+	) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
 	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
 	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
@@ -556,14 +556,14 @@
 	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
 
 /obj/item/storage/backpack/duffel/syndie/ammo/lmg
-    desc = "A large duffel bag containing 5 LMG box magazines"
+	desc = "A large duffel bag containing 5 LMG box magazines"
 
 /obj/item/storage/backpack/duffel/syndie/ammo/lmg/populate_contents()
 	for(var/i in 1 to 5)
 		new /obj/item/ammo_box/magazine/a762x51(src)
 
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine
-    desc = "A large duffel bag containing a lot of 5.56 toploader magazines, and a 40mm Grenade Ammo Box"
+	desc = "A large duffel bag containing a lot of 5.56 toploader magazines, and a 40mm Grenade Ammo Box"
 
 /obj/item/storage/backpack/duffel/syndie/ammo/carbine/populate_contents()
 	new /obj/item/ammo_box/a40mm(src)
@@ -576,7 +576,7 @@ desc = "Сумка, содержащая 10 магазинов на 30 патр�
 TODO Use this name and desc for localisation*/
 
 /obj/item/storage/backpack/duffel/syndie/ammo/uzi
-    desc = "A large duffel bag, packed to the brim with Type U3 Uzi magazines"
+	desc = "A large duffel bag, packed to the brim with Type U3 Uzi magazines"
 
 /obj/item/storage/backpack/duffel/syndie/ammo/uzi/populate_contents()
 	for(var/i in 1 to 10)

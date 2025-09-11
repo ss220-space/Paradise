@@ -52,13 +52,13 @@
 		item_parent.forceMove(holder)
 
 /datum/component/holderloving/proc/can_be_moved(
-    obj/item/I, 
-    force, 
-    atom/newloc, 
-    no_move, 
-    invdrop, 
-    silent
-    )
+	obj/item/I,
+	force,
+	atom/newloc,
+	no_move,
+	invdrop,
+	silent
+	)
 	SIGNAL_HANDLER
 
 	// allow the item to be dropped on the turf so it can be later moved back into the holder as a convinience tool

@@ -557,19 +557,19 @@
 	return ..()
 
 /**
-  * Reflect/Block/Shatter proc.
-  *
-  * Projectiles:
-  * If you have been hit by a projectile, the 'threshold' will be set depending on the damage type.
-  * By default, energy weapons have a 70% chance of being reflected, so you're going to want to use ballistics against mirror shields. (Reflection is calculated beforehand in [/mob/living/carbon/human/bullet_act])
-  * For every point of damage above the threshold, the shield will have a 3% chance to shatter. (Up to a maximum of 75%)
-  * If a ballistic projectile doesn't shatter the shield, it will move on to the melee section.
-  *
-  * Melee and blocked projectiles:
-  * Melee attacks and bullets have a 50|50 chance of being blocked by the mirror shield. (Based on the 'block_chance' variable)
-  * If they are blocked, and the shield has an illusion charge, an illusion will be spawned at src.
-  * The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.
-  */
+ * Reflect/Block/Shatter proc.
+ *
+ * Projectiles:
+ * If you have been hit by a projectile, the 'threshold' will be set depending on the damage type.
+ * By default, energy weapons have a 70% chance of being reflected, so you're going to want to use ballistics against mirror shields. (Reflection is calculated beforehand in [/mob/living/carbon/human/bullet_act])
+ * For every point of damage above the threshold, the shield will have a 3% chance to shatter. (Up to a maximum of 75%)
+ * If a ballistic projectile doesn't shatter the shield, it will move on to the melee section.
+ *
+ * Melee and blocked projectiles:
+ * Melee attacks and bullets have a 50|50 chance of being blocked by the mirror shield. (Based on the 'block_chance' variable)
+ * If they are blocked, and the shield has an illusion charge, an illusion will be spawned at src.
+ * The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.
+ */
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(iscultist(owner)) // Cultist holding the shield
 

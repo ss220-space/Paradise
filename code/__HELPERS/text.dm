@@ -22,7 +22,7 @@
 		return html_encode(txt)
 
 //Simply removes < and > and limits the length of the message
-/proc/strip_html_simple(var/t,var/limit=MAX_MESSAGE_LEN)
+/proc/strip_html_simple(t, limit=MAX_MESSAGE_LEN)
 	var/list/strip_chars = list("<",">")
 	t = copytext(t,1,limit)
 	for(var/char in strip_chars)
@@ -33,12 +33,12 @@
 	return t
 
 //Removes a few problematic characters
-/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#"))
+/proc/sanitize_simple(t, list/repl_chars = list("\n"="#","\t"="#"))
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
 	return t
 
-/proc/sanitize_censored_patterns(var/t)
+/proc/sanitize_censored_patterns(t)
 	if(!global.config || !CONFIG_GET(flag/twitch_censor) || !GLOB.twitch_censor_list)
 		return t
 
@@ -49,7 +49,7 @@
 
 	return text
 
-/proc/readd_quote(var/t)
+/proc/readd_quote(t)
 	var/list/repl_chars = list("&#39;" = "'")
 	for(var/char in repl_chars)
 		var/index = findtext(t, char)
@@ -59,7 +59,7 @@
 	return t
 
 //Runs byond's sanitization proc along-side sanitize_simple
-/proc/sanitize(var/t,var/list/repl_chars = null)
+/proc/sanitize(t, list/repl_chars = null)
 	return sanitize_censored_patterns(html_encode(sanitize_simple(t,repl_chars)))
 
 // Gut ANYTHING that isnt alphanumeric, or brackets
@@ -79,7 +79,7 @@
 
 //Runs sanitize and strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
-/proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
+/proc/strip_html(t, limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
 // Used to get a properly sanitized multiline input, of max_length
@@ -92,12 +92,12 @@
 
 //Runs byond's sanitization proc along-side strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
-/proc/adminscrub(var/t,var/limit=MAX_MESSAGE_LEN)
+/proc/adminscrub(t, limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
 
 //Returns null if there is any bad text in the string
-/proc/reject_bad_text(var/text, var/max_length=512)
+/proc/reject_bad_text(text, max_length=512)
 	if(length_char(text) > max_length)	return			//message too long
 	var/non_whitespace = 0
 	for(var/i=1, i<=length_char(text), i++)
@@ -129,7 +129,7 @@
 	return msg
 
 //Filters out undesirable characters from names
-/proc/reject_bad_name(var/t_in, var/allow_numbers=0, var/max_length=MAX_NAME_LEN)
+/proc/reject_bad_name(t_in, allow_numbers=0, max_length=MAX_NAME_LEN)
 	// Decode so that names with characters like < are still rejected
 	t_in = html_decode(t_in)
 	if(!t_in || length_char(t_in) > max_length)
@@ -169,7 +169,7 @@
 				t_out += ascii2text(ascii_char)
 				last_char_group = 2
 
-			// ~   |   @  :  #  $  %  &  *  +  !
+			// ~   |   @  :  #  $  %  & *  +  !
 			if(126, 124, 64, 58, 35, 36, 37, 38, 42, 43, 33)			//Other symbols that we'll allow (mainly for AI)
 				if(!last_char_group)		continue	//suppress at start of string
 				if(!allow_numbers)			continue
@@ -197,7 +197,7 @@
 //checks text for html tags
 //if tag is not in whitelist (var/list/paper_tag_whitelist in global.dm)
 //relpaces < with &lt;
-/proc/checkhtml(var/t)
+/proc/checkhtml(t)
 	t = sanitize_simple(t, list("&#"="."))
 	var/p = findtext(t,"<",1)
 	while(p)	//going through all the tags
@@ -249,7 +249,7 @@
  * Text modification
  */
 // See bygex.dm
-/proc/replace_characters(var/t,var/list/repl_chars, case_sensitive = FALSE)
+/proc/replace_characters(t, list/repl_chars, case_sensitive = FALSE)
 	for(var/char in repl_chars)
 		if(case_sensitive)
 			t = replacetextEx_char(t, char, repl_chars[char])
@@ -310,7 +310,7 @@
 	return copytext_char(text, 1, max_length)
 
 //Returns a string with the first element of the string capitalized.
-/proc/capitalize(var/t as text)
+/proc/capitalize(t as text)
 	return uppertext(copytext_char(t, 1, 2)) + copytext_char(t, 2)
 
 //Returns a string depending on number it recieves
@@ -352,7 +352,7 @@
 	return copytext(message, 1, length + 1)
 
 
-/proc/stringmerge(var/text,var/compare,replace = "*")
+/proc/stringmerge(text,compare,replace = "*")
 //This proc fills in all spaces with the "replace" var (* by default) with whatever
 //is in the other string at the same spot (assuming it is not a replace char).
 //This is used for fingerprints
@@ -373,7 +373,7 @@
 				return 0
 	return newtext
 
-/proc/stringpercent(var/text,character = "*")
+/proc/stringpercent(text,character = "*")
 //This proc returns the number of chars of the string that is the character
 //This is used for detective work to determine fingerprint completion.
 	if(!text || !character)
@@ -385,7 +385,7 @@
 			count++
 	return count
 
-/proc/reverse_text(var/text = "")
+/proc/reverse_text(text = "")
 	var/new_text = ""
 	for(var/i = length(text); i > 0; i--)
 		new_text += copytext(text, i, i+1)
@@ -394,7 +394,7 @@
 //This proc strips html properly, but it's not lazy like the other procs.
 //This means that it doesn't just remove < and > and call it a day.
 //Also limit the size of the input, if specified.
-/proc/strip_html_properly(var/input, var/max_length = MAX_MESSAGE_LEN, allow_lines = 0)
+/proc/strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
 	if(!input)
 		return
 	var/opentag = 1 //These store the position of < and > respectively.
@@ -418,12 +418,12 @@
 		input = copytext_char(input,1,max_length)
 	return sanitize(input, allow_lines ? list("\t" = " ") : list("\n" = " ", "\t" = " "))
 
-/proc/trim_strip_html_properly(var/input, var/max_length = MAX_MESSAGE_LEN, allow_lines = 0)
-    return trim(strip_html_properly(input, max_length, allow_lines))
+/proc/trim_strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
+	return trim(strip_html_properly(input, max_length, allow_lines))
 
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
-/proc/TextPreview(var/string,var/len=60)
+/proc/TextPreview(string, len=60)
 	if(length_char(string) <= len)
 		if(!length_char(string))
 			return "\[...\]"
@@ -433,14 +433,14 @@
 		return "[copytext_preserve_html(string, 1, len-3)]..."
 
 //alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
-/proc/copytext_preserve_html(var/text, var/first, var/last)
+/proc/copytext_preserve_html(text, first, last)
 	return html_encode(copytext_char(html_decode(text), first, last))
 
 //Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after html_encode().
 //Best used for sanitize object names, window titles.
 //If you have a problem with sanitize() in chat, when quotes and >, < are displayed as html entites -
 //this is a problem of double-encode(when & becomes &amp;), use sanitize() with encode=0, but not the sanitizeSafe()!
-/proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
+/proc/sanitizeSafe(input, max_length = MAX_MESSAGE_LEN, encode = 1, trim = 1, extra = 1)
 	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
 
 /proc/dmm_encode(text)
@@ -794,13 +794,13 @@
 	return regex.Replace(text, "")
 
 /**
-  * Formats num with an SI prefix.
-  *
-  * Returns a string formatted with a multiple of num and an SI prefix corresponding to an exponent of 10.
-  * Only considers exponents that are multiples of 3 (deca, deci, hecto, and centi are not included).
-  * A unit is not included in the string, the prefix is placed after the number with no spacing added anywhere.
-  * Listing of prefixes: https://en.wikipedia.org/wiki/Metric_prefix#List_of_SI_prefixes
-  */
+ * Formats num with an SI prefix.
+ *
+ * Returns a string formatted with a multiple of num and an SI prefix corresponding to an exponent of 10.
+ * Only considers exponents that are multiples of 3 (deca, deci, hecto, and centi are not included).
+ * A unit is not included in the string, the prefix is placed after the number with no spacing added anywhere.
+ * Listing of prefixes: https://en.wikipedia.org/wiki/Metric_prefix#List_of_SI_prefixes
+ */
 /proc/format_si_suffix(num)
 	if(num == 0)
 		return "[num]"

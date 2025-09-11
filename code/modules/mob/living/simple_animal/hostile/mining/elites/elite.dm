@@ -129,7 +129,7 @@
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(25)
 
-/mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
+/mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(list/activators)
 	dif_mult = enemies_count_scale ** (length(activators)-1)
 	dif_mult_dmg = (dif_mult + 1) * 0.5
 	if(scale_with_time && world.time > STRENGTH_INCREASE_TIME)

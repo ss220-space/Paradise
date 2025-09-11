@@ -359,12 +359,14 @@ SUBSYSTEM_DEF(shuttle)
 	var/turf/bottomleft = proposal.bottom_left_turfs[1]
 	// Then create a transit docking port in the middle
 	var/coords = M.return_coords(0, 0, dock_dir)
-	/*  0------2
-        |      |
-        |      |
-        |  x   |
-        3------1
-	*/
+
+/**
+ * 0--------2
+ * |		|
+ * |		|
+ * |   x	|
+ * 3--------1
+ */
 
 	var/x0 = coords[1]
 	var/y0 = coords[2]

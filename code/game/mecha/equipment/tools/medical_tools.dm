@@ -670,9 +670,9 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/detach()
-    STOP_PROCESSING(SSobj, src)
-    mbeam.LoseTarget()
-    return ..()
+	STOP_PROCESSING(SSobj, src)
+	mbeam.LoseTarget()
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/handle_occupant_exit()
 	. = ..()
