@@ -132,13 +132,13 @@
 	else
 		to_chat(user,"<span class = 'warning'>Вы не определили все предметы в коробке!</span>")
 
-/obj/item/thief_kit/proc/clearKit(var/mob/user)
+/obj/item/thief_kit/proc/clearKit(mob/user)
 	for(var/datum/thief_kit/kit in choosen_kit_list)
 		undoKit(kit)
 	uses = 0
 	to_chat(user,"<span class = 'warning'>Вы очистили выбор! Наверное в коробке лежали другие наборы?</span>")
 
-/obj/item/thief_kit/proc/pickKit(var/kit_type)
+/obj/item/thief_kit/proc/pickKit(kit_type)
 	if(uses >= possible_uses)
 		return FALSE
 	var/datum/thief_kit/kit = convert_kit_type(kit_type, all_kits)
@@ -151,7 +151,7 @@
 		SStgui.close_uis(src)
 		interact(usr)
 
-/obj/item/thief_kit/proc/undoKit(var/kit_type)
+/obj/item/thief_kit/proc/undoKit(kit_type)
 	if(uses <= 0)
 		return FALSE
 	var/datum/thief_kit/kit = convert_kit_type(kit_type, choosen_kit_list)
@@ -164,7 +164,7 @@
 		interact(usr)
 
 
-/obj/item/thief_kit/proc/randomKit(var/kit_type)
+/obj/item/thief_kit/proc/randomKit(kit_type)
 	var/list/possible_kits = list()
 	for(var/datum/thief_kit/kit in all_kits)
 		if(kit.was_taken)
@@ -175,7 +175,7 @@
 	else
 		to_chat(usr,"<span class = 'warning'>Превышен допустимый лимит наборов!</span>")
 
-/obj/item/thief_kit/proc/convert_kit_type(var/kit_type, var/list/kits_list)
+/obj/item/thief_kit/proc/convert_kit_type(kit_type, list/kits_list)
 	if(istype(kit_type, /datum/thief_kit))
 		return kit_type
 	for(var/datum/thief_kit/kit in kits_list)

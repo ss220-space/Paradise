@@ -1,8 +1,8 @@
 /**
-  * # Syndicate Hub
-  *
-  * Describes and manages the contracts and rewards for a single contractor.
-  */
+ * # Syndicate Hub
+ *
+ * Describes and manages the contracts and rewards for a single contractor.
+ */
 /datum/contractor_hub
 	// Settings
 	/// The number of contracts to generate initially.
@@ -78,8 +78,8 @@
 	return contractor_uplink
 
 /**
-  * Called when the loading animation completes for the first time.
-  */
+ * Called when the loading animation completes for the first time.
+ */
 /datum/contractor_hub/proc/first_login(mob/user)
 	if(!is_user_authorized(user))
 		return
@@ -88,8 +88,8 @@
 	SStgui.update_uis(src)
 
 /**
-  * Regenerates a list of contracts for the contractor to take up.
-  */
+ * Regenerates a list of contracts for the contractor to take up.
+ */
 /datum/contractor_hub/proc/generate_contracts()
 	contracts = list()
 	targets = list()
@@ -126,23 +126,23 @@
 		C.reward_tc[difficulty] += missing
 
 /**
-  * Generates an amount of TC to be used as a contract reward for the given difficulty.
-  *
-  * Arguments:
-  * * total_contracts - The number of contracts being generated.
-  * * difficulty - The difficulty to base the threshold from.
-  */
+ * Generates an amount of TC to be used as a contract reward for the given difficulty.
+ *
+ * Arguments:
+ * * total_contracts - The number of contracts being generated.
+ * * difficulty - The difficulty to base the threshold from.
+ */
 /datum/contractor_hub/proc/calculate_tc_reward(total_contracts, difficulty = EXTRACTION_DIFFICULTY_EASY)
 	ASSERT(total_contracts > 0)
 	return CEILING((difficulty_tc_thresholds[difficulty] / total_contracts) * (1 + (rand(-100, 100) / 100) * tc_variation), 1)
 
 /**
-  * Called when a [/datum/syndicate_contract] has been completed.
-  *
-  * Arguments:
-  * * tc - The final amount of TC to award.
-  * * creds - The final amount of credits to award.
-  */
+ * Called when a [/datum/syndicate_contract] has been completed.
+ *
+ * Arguments:
+ * * tc - The final amount of TC to award.
+ * * creds - The final amount of credits to award.
+ */
 /datum/contractor_hub/proc/on_completion(tc, creds)
 	completed_contracts++
 	reward_tc_available += tc
@@ -160,11 +160,11 @@
 	current_contract = null
 
 /**
-  * Gives any unclaimed TC to the given mob.
-  *
-  * Arguments:
-  * * M - The mob to give the TC to.
-  */
+ * Gives any unclaimed TC to the given mob.
+ *
+ * Arguments:
+ * * M - The mob to give the TC to.
+ */
 /datum/contractor_hub/proc/claim_tc(mob/living/M)
 	if(reward_tc_available <= 0)
 		return
@@ -182,10 +182,10 @@
 	reward_tc_available = 0
 
 /**
-  * Returns whether the given mob is allowed to connect to the uplink.
-  *
-  * Arguments:
-  * * M - The mob.
-  */
+ * Returns whether the given mob is allowed to connect to the uplink.
+ *
+ * Arguments:
+ * * M - The mob.
+ */
 /datum/contractor_hub/proc/is_user_authorized(mob/living/carbon/user)
 	return user?.mind?.has_antag_datum(/datum/antagonist/contractor)

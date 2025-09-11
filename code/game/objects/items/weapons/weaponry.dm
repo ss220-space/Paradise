@@ -1,6 +1,6 @@
 /**
-  * # Banhammer
-  */
+ * # Banhammer
+ */
 /obj/item/banhammer
 	desc = "banhammer"
 	name = "banhammer"

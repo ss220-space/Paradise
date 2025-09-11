@@ -3,8 +3,9 @@
 	endWhen		= 900
 
 	var/list/spawned_mobs = list(
-    /mob/living/simple_animal/hostile/carp = 95,
-    /mob/living/simple_animal/hostile/carp/megacarp = 5)
+		/mob/living/simple_animal/hostile/carp = 95,
+		/mob/living/simple_animal/hostile/carp/megacarp = 5
+	)
 
 /datum/event/carp_migration/setup()
 	announceWhen = rand(40, 60)
@@ -16,8 +17,9 @@
 		announcement = "Массовая миграция неизвестных биологических объектов была зафиксирована вблизи станции [station_name()], будьте наготове."
 	else
 		announcement = "Неизвестные биологические объекты были зафиксированы вблизи станции [station_name()], будьте наготове."
-	GLOB.minor_announcement.announce(announcement,
-									ANNOUNCE_UNID_LIFEFORMS_RU
+	GLOB.minor_announcement.announce(
+		announcement,
+		ANNOUNCE_UNID_LIFEFORMS_RU
 	)
 
 /datum/event/carp_migration/start()

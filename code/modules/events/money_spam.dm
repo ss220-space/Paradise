@@ -18,7 +18,7 @@
 
 	if(useMS)
 		if(prob(5))
-			// /obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
+			// /obj/machinery/message_server/proc/send_pda_message(recipient = "", sender = "", message = "")
 			var/list/viables = list()
 			for(var/obj/item/pda/check_pda in GLOB.PDAs)
 				var/datum/data/pda/app/messenger/check_m = check_pda.find_program(/datum/data/pda/app/messenger)

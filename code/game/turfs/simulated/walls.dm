@@ -1,7 +1,3 @@
-#define WALL_DENT_HIT 1
-#define WALL_DENT_SHOT 2
-#define MAX_DENT_DECALS 15
-
 /turf/simulated/wall
 	name = "wall"
 	desc = "A huge chunk of metal used to seperate rooms."
@@ -614,8 +610,6 @@
 		dent_decals = list(decal)
 
 	add_overlay(dent_decals)
-
-#undef MAX_DENT_DECALS
 
 /turf/simulated/wall/flamer_fire_act(damage)
 	take_damage(damage)

@@ -113,14 +113,14 @@ GLOBAL_LIST_EMPTY(all_cults)
 	..()
 
 /**
-  * Decides at the start of the round how many conversions are needed to rise/ascend.
-  *
-  * The number is decided by (Percentage * (Players - Cultists)), so for example at 110 players it would be 11 conversions for rise. (0.1 * (110 - 4))
-  * These values change based on population because 20 cultists are MUCH more powerful if there's only 50 players, compared to 120.
-  *
-  * Below 100 players, [CULT_RISEN_LOW] and [CULT_ASCENDANT_LOW] are used.
-  * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
-  */
+ * Decides at the start of the round how many conversions are needed to rise/ascend.
+ *
+ * The number is decided by (Percentage * (Players - Cultists)), so for example at 110 players it would be 11 conversions for rise. (0.1 * (110 - 4))
+ * These values change based on population because 20 cultists are MUCH more powerful if there's only 50 players, compared to 120.
+ *
+ * Below 100 players, [CULT_RISEN_LOW] and [CULT_ASCENDANT_LOW] are used.
+ * Above 100 players, [CULT_RISEN_HIGH] and [CULT_ASCENDANT_HIGH] are used.
+ */
 /datum/game_mode/proc/cult_threshold_check()
 	var/players = length(GLOB.player_list)
 	var/cultists = get_cultists() // Don't count the starting cultists towards the number of needed conversions
@@ -137,12 +137,12 @@ GLOBAL_LIST_EMPTY(all_cults)
 	add_game_logs("Blood Cult rise/ascend numbers: [rise_number]/[ascend_number].")
 
 /**
-  * Returns the current number of cultists and constructs.
-  *
-  * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
-  *
-  * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
-  */
+ * Returns the current number of cultists and constructs.
+ *
+ * Returns the number of cultists and constructs in a list ([1] = Cultists, [2] = Constructs), or as one combined number.
+ *
+ * * separate - Should the number be returned in two separate values (Humans and Constructs) or as one?
+ */
 /datum/game_mode/proc/get_cultists(separate = FALSE)
 	var/cultists = 0
 	var/constructs = 0
