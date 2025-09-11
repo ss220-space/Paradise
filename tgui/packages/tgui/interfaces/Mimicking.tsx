@@ -18,7 +18,7 @@ export const Mimicking = (props: unknown) => {
   const slots = data.slots || [];
 
   return (
-    <Window width={400} height={300}>
+    <Window width={400} height={300} theme="honker">
       <Window.Content scrollable>
         <Stack vertical fill>
           <Section fill scrollable>

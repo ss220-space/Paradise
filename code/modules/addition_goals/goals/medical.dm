@@ -139,3 +139,11 @@
 	mob_type = /mob/living/carbon/human/monkeybrain
 	uniform = /obj/item/clothing/under/color/white
 	suit = /obj/item/clothing/suit/straight_jacket
+
+#undef AGS_DIFFICULTY_EASY
+#undef AGS_DIFFICULTY_NORMAL
+#undef AGS_DIFFICULTY_HARD
+#undef AGS_MIN_CREDITS_PER_PATIEN
+#undef AGS_MAX_CREDITS_PER_PATIEN
+#undef AGS_MIN_CARGOPOINTS_PER_PATIEN
+#undef AGS_MAX_CARGOPOINTS_PER_PATIEN

@@ -530,3 +530,6 @@
 /obj/machinery/door_timer/cell_8
 	name = "Cell 8"
 	id = "Cell 8"
+
+#undef CELL_NONE
+#undef PERMABRIG_TIME

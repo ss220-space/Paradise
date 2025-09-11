@@ -209,7 +209,7 @@
 /obj/item/card/id/proc/UpdateName()
 	name = "[src.registered_name]'s ID Card ([src.assignment])"
 
-/obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
+/obj/item/card/id/proc/SetOwnerInfo(mob/living/carbon/human/H)
 	if(!H || !H.dna)
 		return
 

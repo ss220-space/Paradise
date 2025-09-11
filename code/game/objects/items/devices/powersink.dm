@@ -90,7 +90,7 @@
 /obj/item/powersink/attack_ai()
 	return
 
-/obj/item/powersink/attack_hand(var/mob/user)
+/obj/item/powersink/attack_hand(mob/user)
 	switch(mode)
 		if(DISCONNECTED)
 			..()

@@ -17,12 +17,12 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/get_ru_names()
 	return list(
-        NOMINATIVE = "стакан",
-        GENITIVE = "стакана",
-        DATIVE = "стакану",
-        ACCUSATIVE = "стакан",
-        INSTRUMENTAL = "стаканом",
-        PREPOSITIONAL = "стакане"
+		NOMINATIVE = "стакан",
+		GENITIVE = "стакана",
+		DATIVE = "стакану",
+		ACCUSATIVE = "стакан",
+		INSTRUMENTAL = "стаканом",
+		PREPOSITIONAL = "стакане"
 	)
 
 /obj/item/reagent_containers/food/drinks/set_APTFT()

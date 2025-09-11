@@ -333,7 +333,7 @@ BODY SCANNERS
 		return
 	print_report(user)
 
-/obj/item/healthanalyzer/proc/print_report(var/mob/living/user)
+/obj/item/healthanalyzer/proc/print_report(mob/living/user)
 	if(!scan_data)
 		to_chat(user, "Нет данных для печати.")
 		return
@@ -555,7 +555,7 @@ BODY SCANNERS
 
 	return data
 
-/obj/item/healthanalyzer/proc/medical_scan_action(mob/living/user, atom/target, var/obj/item/healthanalyzer/scanner, var/mode, var/advanced)
+/obj/item/healthanalyzer/proc/medical_scan_action(mob/living/user, atom/target, obj/item/healthanalyzer/scanner, mode, advanced)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, span_warning("Вам не хватает ловкости, чтобы использовать [declent_ru(ACCUSATIVE)]!"))
 		balloon_alert(user, "невозможно!")
@@ -614,7 +614,7 @@ BODY SCANNERS
 	return data
 
 // Scan data to TGUI
-/proc/medical_scan_results(var/mob/living/M, var/mode = 1, var/advanced = FALSE)
+/proc/medical_scan_results(mob/living/M, mode = 1, advanced = FALSE)
 	var/mob/living/carbon/human/H = M
 	var/list/data = list()
 	var/DNR = !H.ghost_can_reenter()

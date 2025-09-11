@@ -282,12 +282,17 @@ SUBSYSTEM_DEF(title)
 	if(!viewer)
 		return
 
+	var/current_theme = color2tguitheme[winget(viewer, "mainwindow", "background-color")]// we sleep here and can loose client
+	if(!viewer)
+		return
+
 	var/list/html = list(title_html)
 	var/mob/new_player/player = user
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
+	var/icon_url = SSassets.transport.get_asset_url(asset_name = current_icon)
 
 	//hope that client won`t use custom theme
-	html += {"<body class="[color2tguitheme[winget(viewer, "mainwindow", "background-color")]][viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
+	html += {"<body class="[current_theme][viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
 
 	html += {"<input type="checkbox" id="hide_menu">"}
 	html += {"<input type="checkbox" id="hide_lobby">"}
@@ -306,7 +311,7 @@ SUBSYSTEM_DEF(title)
 		<div class="container_logo">
 			<div class="random_title_message">[random_phrase]</div>
 			<div class="logo_and_preview">
-				<img class="logo" src="[SSassets.transport.get_asset_url(asset_name = current_icon)]">
+				<img class="logo" src="[icon_url]">
 				<div class="preview">
 					<img src="" alt="" id="preview" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAgAB/IsDkAAAAABJRU5ErkJggg=='">
 				</div>
@@ -448,9 +453,10 @@ SUBSYSTEM_DEF(title)
 				lobbyBox.innerHTML = '';
 
 				servers.forEach(game => {
+					console.log(game.name)
 					const gameHTML = `
 						<div class="game-item">
-							<div class="game-name">${game.name.replace("+", " ")}</div>
+							<div class="game-name">${decodeURI(game.name).replaceAll("+", " ")}</div>
 							<div class="game-players"><i class="fas fa-users icon"></i> Игроки: ${game.players}</div>
 							<div class="game-state"><i class="fas fa-clock icon"></i> Время: ${game.round_time.replaceAll("%3a", ":")}</div>
 							<a class="game-button" href='byond://?src=[player.UID()];switch_server=${game.port}'><i class="fas fa-plug icon"></i> Подключиться</a>
@@ -537,3 +543,6 @@ SUBSYSTEM_DEF(title)
 	html += "</body></html>"
 
 	return html.Join()
+
+#undef DEFAULT_TITLE_SCREEN_HTML_PATH
+#undef TITLE_SCREENS_LOCATION

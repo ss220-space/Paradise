@@ -1,6 +1,6 @@
 /**
-  * # Rep Purchase - Contractor Baton and upgrades
-  */
+ * # Rep Purchase - Contractor Baton and upgrades
+ */
 /datum/rep_purchase/item/baton
 	name = "Дубинка Контрактника"
 	description = "Компактная специализированная дубинка, которую выдают контрактникам Синдиката. \
