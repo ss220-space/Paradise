@@ -18,17 +18,8 @@
 /// Damage for blood volume from BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD
 #define BLOOD_SURVIVE_DAMAGE 8
 
-// Blood loss speed mod by blood level constants
-/// Bloodloss mod for blood volume from BLOOD_VOLUME_SAFE to MAX
-#define BLOOD_SAFE_SPEED 1
-/// Bloodloss mod for blood volume from BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE
-#define BLOOD_PALE_SPEED 0.9
-/// Bloodloss mod for blood volume from BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE
-#define BLOOD_OKAY_SPEED 0.8
-/// Bloodloss mod for blood volume from BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY
-#define BLOOD_BAD_SPEED 0.75
-/// Bloodloss mod for blood volume from BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD
-#define BLOOD_SURVIVE_SPEED 0.65
+#define BLOODLOSS_SPEED_BY_VOLUME_MAX 1
+#define BLOODLOSS_SPEED_BY_VOLUME_MIN 0.5
 
 // Bledding calculation constants
 /// Bleeding per embedded item (units per 2 sec)
@@ -214,16 +205,8 @@
 		new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loc, splatter_dir, blood_color)
 
 /mob/living/carbon/human/proc/get_bloodloss_speed_mod()
-	switch(blood_volume)
-		if(BLOOD_VOLUME_PALE to BLOOD_VOLUME_SAFE)
-			return BLOOD_PALE_SPEED
-		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE)
-			return BLOOD_OKAY_SPEED
-		if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-			return BLOOD_BAD_SPEED
-		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-			return BLOOD_SURVIVE_SPEED
-	return BLOOD_SAFE_SPEED
+	var/blood_volume_percent = clamp(blood_volume / BLOOD_VOLUME_NORMAL, 0, 1)
+	return BLOODLOSS_SPEED_BY_VOLUME_MIN + (BLOODLOSS_SPEED_BY_VOLUME_MAX - BLOODLOSS_SPEED_BY_VOLUME_MIN) * blood_volume_percent
 
 
 /// Makes a blood drop, leaking amt units of blood from the mob
@@ -580,11 +563,8 @@
 #undef BLOOD_OKAY_DAMAGE
 #undef BLOOD_BAD_DAMAGE
 #undef BLOOD_SURVIVE_DAMAGE
-#undef BLOOD_SAFE_SPEED
-#undef BLOOD_PALE_SPEED
-#undef BLOOD_OKAY_SPEED
-#undef BLOOD_BAD_SPEED
-#undef BLOOD_SURVIVE_SPEED
+#undef BLOODLOSS_SPEED_BY_VOLUME_MAX
+#undef BLOODLOSS_SPEED_BY_VOLUME_MIN
 #undef EMBEDDED_ITEM_BLEEDING
 #undef OPEN_BODYPART_BLEEDING
 #undef BLEEDING_DECREASE
