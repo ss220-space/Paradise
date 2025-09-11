@@ -19,12 +19,12 @@
 GLOBAL_LIST(ui_logins)
 
 /**
-  * Call this from a proc that is called in ui_act() to process login actions
-  *
-  * Arguments:
-  * * action - The called action
-  * * params - The params to the action
-  */
+ * Call this from a proc that is called in ui_act() to process login actions
+ *
+ * Arguments:
+ * * action - The called action
+ * * params - The params to the action
+ */
 /obj/proc/ui_login_act(action = "", params)
 	. = null
 	switch(action)
@@ -42,13 +42,13 @@ GLOBAL_LIST(ui_logins)
 			return ui_login_logout()
 
 /**
-  * Appends login state data.
-  *
-  * Arguments:
-  * * data - The data list to be returned
-  * * user - The user calling ui_data()
-  * * state - The current login state
-  */
+ * Appends login state data.
+ *
+ * Arguments:
+ * * data - The data list to be returned
+ * * user - The user calling ui_data()
+ * * state - The current login state
+ */
 /obj/proc/ui_login_data(list/data, mob/user, datum/ui_login/state = ui_login_get())
 	data["loginState"] = list(
 		"id" = state.id ? state.id.name : null,
@@ -66,13 +66,13 @@ GLOBAL_LIST(ui_logins)
 	data["isAdmin"] = user.can_admin_interact()
 
 /**
-  * Convenience function to perform login actions when
-  * the source object is hit by specific items.
-  *
-  * Arguments:
-  * * O - The object
-  * * user - The user
-  */
+ * Convenience function to perform login actions when
+ * the source object is hit by specific items.
+ *
+ * Arguments:
+ * * O - The object
+ * * user - The user
+ */
 /obj/proc/ui_login_attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/card/id) && ui_login_insert(O))
 		add_fingerprint(user)
@@ -80,12 +80,12 @@ GLOBAL_LIST(ui_logins)
 		return TRUE
 
 /**
-  * Attempts to insert an object as an ID.
-  *
-  * Arguments:
-  * * O - The object to try inserting
-  * * state - The current login state
-  */
+ * Attempts to insert an object as an ID.
+ *
+ * Arguments:
+ * * O - The object to try inserting
+ * * state - The current login state
+ */
 /obj/proc/ui_login_insert(obj/item/O, datum/ui_login/state = ui_login_get())
 	if(state.id)
 		return FALSE
@@ -101,11 +101,11 @@ GLOBAL_LIST(ui_logins)
 		return TRUE
 
 /**
-  * Attempts to eject the inserted ID.
-  *
-  * Arguments:
-  * * state - The current login state
-  */
+ * Attempts to eject the inserted ID.
+ *
+ * Arguments:
+ * * state - The current login state
+ */
 /obj/proc/ui_login_eject(datum/ui_login/state = ui_login_get())
 	if(!state.id)
 		return
@@ -121,12 +121,12 @@ GLOBAL_LIST(ui_logins)
 	return TRUE
 
 /**
-  * Attempts to log in with the given login type.
-  *
-  * Arguments:
-  * * login_type - The login type: LOGIN_TYPE_NORMAL (checks for inserted ID), LOGIN_TYPE_AI, LOGIN_TYPE_ROBOT and LOGIN_TYPE_ADMIN
-  * * state - The current login state
-  */
+ * Attempts to log in with the given login type.
+ *
+ * Arguments:
+ * * login_type - The login type: LOGIN_TYPE_NORMAL (checks for inserted ID), LOGIN_TYPE_AI, LOGIN_TYPE_ROBOT and LOGIN_TYPE_ADMIN
+ * * state - The current login state
+ */
 /obj/proc/ui_login_login(login_type = LOGIN_TYPE_NORMAL, datum/ui_login/state = ui_login_get())
 	if(state.logged_in)
 		return
@@ -162,11 +162,11 @@ GLOBAL_LIST(ui_logins)
 	return TRUE
 
 /**
-  * Attempts to log out.
-  *
-  * Arguments:
-  * * state - The current login state
-  */
+ * Attempts to log out.
+ *
+ * Arguments:
+ * * state - The current login state
+ */
 /obj/proc/ui_login_logout(datum/ui_login/state = ui_login_get())
 	if(!state.logged_in)
 		return
@@ -180,11 +180,11 @@ GLOBAL_LIST(ui_logins)
 	return TRUE
 
 /**
-  * Returns (or creates) the login state for the source object.
-  *
-  * Arguments:
-  * * state - The current login state
-  */
+ * Returns (or creates) the login state for the source object.
+ *
+ * Arguments:
+ * * state - The current login state
+ */
 /obj/proc/ui_login_get()
 	RETURN_TYPE(/datum/ui_login)
 	. = LAZYACCESS(GLOB.ui_logins, UID())
@@ -193,26 +193,26 @@ GLOBAL_LIST(ui_logins)
 		. = GLOB.ui_logins[UID()] = new /datum/ui_login
 
 /**
-  * Called on successful login.
-  *
-  * Arguments:
-  * * state - The current login state
-  */
+ * Called on successful login.
+ *
+ * Arguments:
+ * * state - The current login state
+ */
 /obj/proc/ui_login_on_login(datum/ui_login/state = ui_login_get())
 	return
 
 /**
-  * Called on successful logout.
-  *
-  * Arguments:
-  * * state - The current login state
-  */
+ * Called on successful logout.
+ *
+ * Arguments:
+ * * state - The current login state
+ */
 /obj/proc/ui_login_on_logout(datum/ui_login/state = ui_login_get())
 	return
 
 /**
-  * Login state (there should be only one for one datum)
-  */
+ * Login state (there should be only one for one datum)
+ */
 /datum/ui_login
 	var/obj/item/card/id/id = null
 	var/name = ""

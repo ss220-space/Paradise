@@ -1,4 +1,5 @@
 #define ALLOWED_LOOSE_TURFS 500
+
 /**
  * Responsible for managing the sizes of area.contained_turfs and area.turfs_to_uncontain
  * These lists do not check for duplicates, which is fine, but it also means they can balloon in size over time
@@ -52,3 +53,5 @@ SUBSYSTEM_DEF(area_contents)
 
 		clear.turfs_to_uncontain = list()
 		marked_for_clearing.len--
+
+#undef ALLOWED_LOOSE_TURFS

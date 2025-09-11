@@ -1,8 +1,7 @@
 /// The evolution menu will be shown in the compact mode, with only powers and costs being displayed.
-#define COMPACT_MODE	0
+#define COMPACT_MODE 0
 /// The evolution menu will be shown in the expanded mode, with powers, costs, and ability descriptions being displayed.
-#define EXPANDED_MODE	1
-
+#define EXPANDED_MODE 1
 
 /datum/action/changeling/evolution_menu
 	name = "-Evolution Menu-" //Dashes are so it's listed before all the other abilities.
@@ -120,3 +119,5 @@
 	cling.give_power(new power_type)
 	return TRUE
 
+#undef COMPACT_MODE
+#undef EXPANDED_MODE

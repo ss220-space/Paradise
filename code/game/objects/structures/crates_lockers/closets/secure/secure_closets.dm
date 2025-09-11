@@ -1,4 +1,4 @@
-#define CLOSET_BREAKOUT_TIME (2 MINUTES)
+#define CLOSET_BREAKOUT_TIME 2 MINUTES
 
 /obj/structure/closet/secure_closet
 	name = "secure locker"
@@ -228,3 +228,5 @@
 				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
+
+#undef CLOSET_BREAKOUT_TIME

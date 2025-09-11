@@ -3,7 +3,6 @@
 #define AGS_CREDITS_PER_SMES 10000
 #define AGS_CAPRGOPOINTS_PER_SMES 75
 #define AGS_FINE_CREDITS_PER_SMES 25000
-#define AGS_FINE_CAPRGOPOINTS_PER_SMES 100
 
 /datum/addition_goal/energy_support
 	id = "energy_support"
@@ -79,3 +78,7 @@
 	system.add_reward(reward_credits, reward_cargopoints)
 	var/paper_content = system.create_paper_content("Отчет о поставке энергии №[request_number]", report_text, "Официальный документ заверенный печатью Центрального командования Нанотрейзен")
 	system.print_report_on_console("Отчет [name]", paper_content, stamp = TRUE)
+
+#undef AGS_CREDITS_PER_SMES
+#undef AGS_CAPRGOPOINTS_PER_SMES
+#undef AGS_FINE_CREDITS_PER_SMES

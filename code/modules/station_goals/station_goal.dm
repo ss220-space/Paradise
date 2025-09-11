@@ -68,3 +68,5 @@
 		send_report()
 	else if(href_list["remove"])
 		qdel(src)
+
+#undef STATION_GOAL_DEFAULT_BOUNTY

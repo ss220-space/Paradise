@@ -1,5 +1,3 @@
-//#define PASSIVE_GC
-
 SUBSYSTEM_DEF(garbage)
 	name = "Garbage"
 	priority = FIRE_PRIORITY_GARBAGE
