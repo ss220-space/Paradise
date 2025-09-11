@@ -1951,16 +1951,16 @@ This applies to all STANDARD station areas
  */
 
 /area/teleporter
-	name = "Teleporter"
+	name = "Телепортерная"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/teleporter/research
-	name = "Robotics Teleporter"
+	name = "Робототехника – телепортерная"
 
 /area/teleporter/abandoned
-	name = "Заброшенный Teleporter"
+	name = "Заброшенная телепортерная"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
@@ -1969,37 +1969,37 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
 /area/teleporter/quantum/security
-	name = "Security Quantum Pad"
+	name = "Телепортерная – Служба безопасности"
 
 /area/teleporter/quantum/docking
-	name = "Docking Quantum Pad"
+	name = "Телепортерная – стыковочный пункт"
 
 /area/teleporter/quantum/science
-	name = "Science Quantum Pad"
+	name = "Телепортерная – НИО"
 
 /area/teleporter/quantum/cargo
-	name = "Cargo Quantum Pad"
+	name = "Телепортерная – Отдел снабжения"
 
 /area/teleporter/quantum/comand
-	name = "Comand Quantum Pad"
+	name = "Телепортерная – Командование"
 
 /area/teleporter/quantum/service
-	name = "Service Quantum Pad"
+	name = "Телепортерная – Отдел обслуживания"
 
 /area/teleporter/quantum/medbay
-	name = "Medical Quantum Pad"
+	name = "Телепортерная – Медицинский отдел"
 
 /area/teleporter/quantum/engi
-	name = "Инженерный отдел – Quantum Pad"
+	name = "Телепортерная – инженерия"
 
 /area/gateway
-	name = "Gateway"
+	name = "Врата"
 	icon_state = "teleporter"
 	ambientsounds = ENGINEERING_SOUNDS
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/AIsattele
-	name = "Unknown Teleporter"
+	name = "Телепортер – спутник ИИ"
 	icon_state = "teleporter"
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
 	area_flags = UNIQUE_AREA
@@ -2015,58 +2015,58 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_MEDICAL
 
 /area/medical/medbay
-	name = "Medbay"
+	name = "Медицинский отдел"
 	icon_state = "medbay"
 
 //Medbay is a large area, these additional areas help level out APC load. wtf dude, nobody use THIS MUCH ZONES
 /area/medical/medbay2
-	name = "Medbay"
+	name = "Медицинский отдел"
 	icon_state = "medbay2"
 
 /area/medical/medbay3
-	name = "Medbay"
+	name = "Медицинский отдел"
 	icon_state = "medbay3"
 
 
 /area/medical/biostorage
-	name = "Medical Storage"
+	name = "Медицинский отдел – склад снаряжения"
 	icon_state = "medbaysecstorage"
 
 /area/medical/reception
-	name = "Medbay Reception"
+	name = "Медицинский отдел – приёмная"
 	icon_state = "medbay"
 
 /area/medical/psych
-	name = "Psych Room"
+	name = "Медицинский отдел – кабинет Психиатра"
 	icon_state = "medbaypsych"
 
 /area/medical/medbreak
-	name = "Break Room"
+	name = "Медицинский отдел – комната отдыха"
 	icon_state = "medbaybreak"
 
 /area/medical/medrest
-	name = "Med Restroom"
+	name = "Медицинский отдел – комната отдыха"
 	icon_state = "medbaybreak"
 
 /area/medical/patients_rooms
-	name = "Patient's Rooms"
+	name = "Медицинский отдел – палаты пациентов"
 	icon_state = "patients"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/medical/ward
-	name = "Medbay Patient Ward"
+	name = "Медицинский отдел – крыло пациентов"
 	icon_state = "patientsward"
 
 /area/medical/patient_a
-	name = "Isolation A"
+	name = "Медицинский отдел – изолятор №1"
 	icon_state = "medbayisoa"
 
 /area/medical/patient_b
-	name = "Isolation B"
+	name = "Медицинский отдел – изолятор №2"
 	icon_state = "medbayisob"
 
 /area/medical/patient_c
-	name = "Isolation C"
+	name = "Медицинский отдел – изолятор №3
 	icon_state = "medbayisoc"
 
 /area/medical/iso_access
@@ -2074,95 +2074,95 @@ This applies to all STANDARD station areas
 	icon_state = "medbayisoaccess"
 
 /area/medical/cmo
-	name = "Chief Medical Officer's Офис "
+	name = "Офис Главного Врача"
 	icon_state = "CMO"
 
 /area/medical/cmostore
-	name = "Medical Secondary Storage"
+	name = "Медицинский отдел – вторичный склад снаряжения"
 	icon_state = "medbaysecstorage"
 
 /area/medical/robotics //why
-	name = "Robotics"
+	name = "Робототехника"
 	icon_state = "research"
 
 /area/medical/research
-	name = "Research Division"
+	name = "Научно-исследовательский отдел"
 	icon_state = "research"
 	holomap_color = HOLOMAP_AREACOLOR_SCIENCE
 
 /area/medical/research/nhallway
-	name = "RnD North проход"
+	name = "НИО – северный коридор"
 	icon_state = "research"
 
 /area/medical/research/shallway
-	name = "RnD South проход"
+	name = "НИО – южный коридор"
 	icon_state = "research"
 
 /area/medical/research/restroom
-	name = "RnD Restroom"
+	name = "НИО – Restroom"
 	icon_state = "research"
 
 /area/medical/virology
-	name = "Virology"
+	name = "Медицинский отдел – вирусология"
 	icon_state = "virology"
 
 /area/medical/virology/lab
-	name = "Virology Laboratory"
+	name = "Медицинский отдел – лаборатория вирусологии"
 	icon_state = "virology"
 
 /area/medical/morgue
-	name = "Morgue"
+	name = "Медицинский отдел – морг"
 	icon_state = "morgue"
 	ambientsounds = SPOOKY_SOUNDS
 	is_haunted = TRUE
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/medical/chemistry
-	name = "Chemistry"
+	name = "Медицинский отдел – химическая лаборатория"
 	icon_state = "chem"
 
 /area/medical/surgery
-	name = "Surgery"
+	name = "Медицинский отдел – операционная"
 	icon_state = "surgery"
 
 /area/medical/surgery/north
-	name = "Surgery 1"
+	name = "Медицинский отдел – операционная №1"
 	icon_state = "surgery1"
 
 /area/medical/surgery/south
-	name = "Surgery 2"
+	name = "Медицинский отдел – операционная №2"
 	icon_state = "surgery2"
 
 /area/medical/surgery/theatre
-	name = "Surgery Theatre"
+	name = "Медицинский отдел – операционный театр"
 	icon_state = "surgery_theatre"
 
 /area/medical/surgeryobs
-	name = "Surgery Observation"
+	name = "Медицинский отдел – пункт наблюдения за операционными"
 	icon_state = "surgery"
 
 /area/medical/cryo
-	name = "Cryogenics"
+	name = "Медицинский отдел – отсек криогеники"
 	icon_state = "cryo"
 
 /area/medical/exam_room
-	name = "Exam Room"
+	name = "Медицинский отдел – смотровой кабинет"
 	icon_state = "exam_room"
 
 /area/medical/genetics
-	name = "Genetics Lab"
+	name = "Медицинский отдел – лаборатория генетики"
 	icon_state = "genetics"
 
 /area/medical/cloning
-	name = "Cloning Lab"
+	name = "Медицинский отдел – отсек клонирования"
 	icon_state = "cloning"
 
 /area/medical/sleeper
-	name = "Medical Treatment Center"
+	name = "Медицинский отдел – центр медицинской помощи"
 	icon_state = "exam_room"
 
 /area/medical/paramedic
-	name = "Paramedic"
+	name = "Медицинский отдел – кабинет Парамедика"
 	icon_state = "medbay"
 
 /**
@@ -3696,7 +3696,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "medbaysecstorage"
 
 /area/coldcolony/malta/medical/medbay
-	name = "Medbay"
+	name = "Медицинский отдел"
 	icon_state = "medbay"
 
 /area/coldcolony/malta/medical/paramedic
@@ -3708,15 +3708,15 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "chem"
 
 /area/coldcolony/malta/medical/surgery
-	name = "Surgery"
+	name = "Медицинский отдел – операционная"
 	icon_state = "surgery"
 
 /area/coldcolony/malta/medical/surgery/west
-	name = "Surgery 1"
+	name = "Медицинский отдел – операционная 1"
 	icon_state = "surgery1"
 
 /area/coldcolony/malta/medical/surgery/east
-	name = "Surgery 2"
+	name = "Медицинский отдел – операционная 2"
 	icon_state = "surgery2"
 
 /area/coldcolony/malta/medical/biostorage
@@ -3937,7 +3937,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "mechbay"
 
 /area/coldcolony/malta/research/hallway
-	name = "RnD проход"
+	name = "НИО – проход"
 	icon_state = "research"
 
 /area/coldcolony/malta/research/robotics
@@ -3949,7 +3949,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "server"
 
 /area/coldcolony/malta/research/shallway
-	name = "RnD South проход"
+	name = "НИО – South проход"
 	icon_state = "research"
 
 /area/coldcolony/malta/research/explab
