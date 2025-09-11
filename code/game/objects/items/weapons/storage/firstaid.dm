@@ -31,12 +31,12 @@
 
 /obj/item/storage/firstaid/get_ru_names()
 	return list(
-        NOMINATIVE = "аптечка первой помощи",
-        GENITIVE = "аптечки первой помощи",
-        DATIVE = "аптечке первой помощи",
-        ACCUSATIVE = "аптечку первой помощи",
-        INSTRUMENTAL = "аптечкой первой помощи",
-        PREPOSITIONAL = "аптечке первой помощи"
+		NOMINATIVE = "аптечка первой помощи",
+		GENITIVE = "аптечки первой помощи",
+		DATIVE = "аптечке первой помощи",
+		ACCUSATIVE = "аптечку первой помощи",
+		INSTRUMENTAL = "аптечкой первой помощи",
+		PREPOSITIONAL = "аптечке первой помощи"
 	)
 
 
@@ -49,12 +49,12 @@
 
 /obj/item/storage/firstaid/fire/get_ru_names()
 	return list(
-        NOMINATIVE = "аптечка первой помощи (Терм.)",
-        GENITIVE = "аптечки первой помощи (Терм.)",
-        DATIVE = "аптечке первой помощи (Терм.)",
-        ACCUSATIVE = "аптечку первой помощи (Терм.)",
-        INSTRUMENTAL = "аптечкой первой помощи (Терм.)",
-        PREPOSITIONAL = "аптечке первой помощи (Терм.)"
+		NOMINATIVE = "аптечка первой помощи (Терм.)",
+		GENITIVE = "аптечки первой помощи (Терм.)",
+		DATIVE = "аптечке первой помощи (Терм.)",
+		ACCUSATIVE = "аптечку первой помощи (Терм.)",
+		INSTRUMENTAL = "аптечкой первой помощи (Терм.)",
+		PREPOSITIONAL = "аптечке первой помощи (Терм.)"
 	)
 
 /obj/item/storage/firstaid/fire/New()
@@ -77,12 +77,12 @@
 
 /obj/item/storage/firstaid/regular/get_ru_names()
 	return list(
-        NOMINATIVE = "аптечка первой помощи (Общая)",
-        GENITIVE = "аптечки первой помощи (Общая)",
-        DATIVE = "аптечке первой помощи (Общая)",
-        ACCUSATIVE = "аптечку первой помощи (Общая)",
-        INSTRUMENTAL = "аптечкой первой помощи (Общая)",
-        PREPOSITIONAL = "аптечке первой помощи (Общая)"
+		NOMINATIVE = "аптечка первой помощи (Общая)",
+		GENITIVE = "аптечки первой помощи (Общая)",
+		DATIVE = "аптечке первой помощи (Общая)",
+		ACCUSATIVE = "аптечку первой помощи (Общая)",
+		INSTRUMENTAL = "аптечкой первой помощи (Общая)",
+		PREPOSITIONAL = "аптечке первой помощи (Общая)"
 	)
 
 /obj/item/storage/firstaid/regular/populate_contents()
@@ -103,12 +103,12 @@
 
 /obj/item/storage/firstaid/doctor/get_ru_names()
 	return list(
-        NOMINATIVE = "аптечка первой помощи (Общая+)",
-        GENITIVE = "аптечки первой помощи (Общая+)",
-        DATIVE = "аптечке первой помощи (Общая+)",
-        ACCUSATIVE = "аптечку первой помощи (Общая+)",
-        INSTRUMENTAL = "аптечкой первой помощи (Общая+)",
-        PREPOSITIONAL = "аптечке первой помощи (Общая+)"
+		NOMINATIVE = "аптечка первой помощи (Общая+)",
+		GENITIVE = "аптечки первой помощи (Общая+)",
+		DATIVE = "аптечке первой помощи (Общая+)",
+		ACCUSATIVE = "аптечку первой помощи (Общая+)",
+		INSTRUMENTAL = "аптечкой первой помощи (Общая+)",
+		PREPOSITIONAL = "аптечке первой помощи (Общая+)"
 	)
 
 /obj/item/storage/firstaid/doctor/populate_contents()
@@ -132,12 +132,12 @@
 
 /obj/item/storage/firstaid/toxin/get_ru_names()
 	return list(
-        NOMINATIVE = "аптечка первой помощи (Отравления)",
-        GENITIVE = "аптечки первой помощи (Отравления)",
-        DATIVE = "аптечке первой помощи (Отравления)",
-        ACCUSATIVE = "аптечку первой помощи (Отравления)",
-        INSTRUMENTAL = "аптечкой первой помощи (Отравления)",
-        PREPOSITIONAL = "аптечке первой помощи (Отравления)"
+		NOMINATIVE = "аптечка первой помощи (Отравления)",
+		GENITIVE = "аптечки первой помощи (Отравления)",
+		DATIVE = "аптечке первой помощи (Отравления)",
+		ACCUSATIVE = "аптечку первой помощи (Отравления)",
+		INSTRUMENTAL = "аптечкой первой помощи (Отравления)",
+		PREPOSITIONAL = "аптечке первой помощи (Отравления)"
 	)
 
 /obj/item/storage/firstaid/toxin/Initialize(mapload)
@@ -165,12 +165,12 @@
 
 /obj/item/storage/firstaid/o2/get_ru_names()
 	return list(
-        NOMINATIVE = "аптечка первой помощи (Удушье)",
-        GENITIVE = "аптечки первой помощи (Удушье)",
-        DATIVE = "аптечке первой помощи (Удушье)",
-        ACCUSATIVE = "аптечку первой помощи (Удушье)",
-        INSTRUMENTAL = "аптечкой первой помощи (Удушье)",
-        PREPOSITIONAL = "аптечке первой помощи (Удушье)"
+		NOMINATIVE = "аптечка первой помощи (Удушье)",
+		GENITIVE = "аптечки первой помощи (Удушье)",
+		DATIVE = "аптечке первой помощи (Удушье)",
+		ACCUSATIVE = "аптечку первой помощи (Удушье)",
+		INSTRUMENTAL = "аптечкой первой помощи (Удушье)",
+		PREPOSITIONAL = "аптечке первой помощи (Удушье)"
 	)
 
 /obj/item/storage/firstaid/o2/populate_contents()
@@ -192,12 +192,12 @@
 
 /obj/item/storage/firstaid/brute/get_ru_names()
 	return list(
-        NOMINATIVE = "аптечка первой помощи (Мех.)",
-        GENITIVE = "аптечки первой помощи (Мех.)",
-        DATIVE = "аптечке первой помощи (Мех.)",
-        ACCUSATIVE = "аптечку первой помощи (Мех.)",
-        INSTRUMENTAL = "аптечкой первой помощи (Мех.)",
-        PREPOSITIONAL = "аптечке первой помощи (Мех.)"
+		NOMINATIVE = "аптечка первой помощи (Мех.)",
+		GENITIVE = "аптечки первой помощи (Мех.)",
+		DATIVE = "аптечке первой помощи (Мех.)",
+		ACCUSATIVE = "аптечку первой помощи (Мех.)",
+		INSTRUMENTAL = "аптечкой первой помощи (Мех.)",
+		PREPOSITIONAL = "аптечке первой помощи (Мех.)"
 	)
 
 /obj/item/storage/firstaid/brute/New()
@@ -224,12 +224,12 @@
 
 /obj/item/storage/firstaid/adv/get_ru_names()
 	return list(
-        NOMINATIVE = "аптечка первой помощи (Продвинутая)",
-        GENITIVE = "аптечки первой помощи (Продвинутая)",
-        DATIVE = "аптечке первой помощи (Продвинутая)",
-        ACCUSATIVE = "аптечку первой помощи (Продвинутая)",
-        INSTRUMENTAL = "аптечкой первой помощи (Продвинутая)",
-        PREPOSITIONAL = "аптечке первой помощи (Продвинутая)"
+		NOMINATIVE = "аптечка первой помощи (Продвинутая)",
+		GENITIVE = "аптечки первой помощи (Продвинутая)",
+		DATIVE = "аптечке первой помощи (Продвинутая)",
+		ACCUSATIVE = "аптечку первой помощи (Продвинутая)",
+		INSTRUMENTAL = "аптечкой первой помощи (Продвинутая)",
+		PREPOSITIONAL = "аптечке первой помощи (Продвинутая)"
 	)
 
 /obj/item/storage/firstaid/adv/populate_contents()
@@ -253,12 +253,12 @@
 
 /obj/item/storage/firstaid/paramed/get_ru_names()
 	return list(
-        NOMINATIVE = "аптечка первой помощи (Парамедик)",
-        GENITIVE = "аптечки первой помощи (Парамедик)",
-        DATIVE = "аптечке первой помощи (Парамедик)",
-        ACCUSATIVE = "аптечку первой помощи (Парамедик)",
-        INSTRUMENTAL = "аптечкой первой помощи (Парамедик)",
-        PREPOSITIONAL = "аптечке первой помощи (Парамедик)"
+		NOMINATIVE = "аптечка первой помощи (Парамедик)",
+		GENITIVE = "аптечки первой помощи (Парамедик)",
+		DATIVE = "аптечке первой помощи (Парамедик)",
+		ACCUSATIVE = "аптечку первой помощи (Парамедик)",
+		INSTRUMENTAL = "аптечкой первой помощи (Парамедик)",
+		PREPOSITIONAL = "аптечке первой помощи (Парамедик)"
 	)
 
 /obj/item/storage/firstaid/paramed/populate_contents()
@@ -284,12 +284,12 @@
 
 /obj/item/storage/firstaid/machine/get_ru_names()
 	return list(
-        NOMINATIVE = "ремонтный набор (Синт.)",
-        GENITIVE = "ремонтного набора (Синт.)",
-        DATIVE = "ремонтному набору (Синт.)",
-        ACCUSATIVE = "ремонтный набор (Синт.)",
-        INSTRUMENTAL = "ремонтным набором (Синт.)",
-        PREPOSITIONAL = "ремонтном наборе (Синт.)"
+		NOMINATIVE = "ремонтный набор (Синт.)",
+		GENITIVE = "ремонтного набора (Синт.)",
+		DATIVE = "ремонтному набору (Синт.)",
+		ACCUSATIVE = "ремонтный набор (Синт.)",
+		INSTRUMENTAL = "ремонтным набором (Синт.)",
+		PREPOSITIONAL = "ремонтном наборе (Синт.)"
 	)
 
 /obj/item/storage/firstaid/machine/populate_contents()
@@ -318,12 +318,12 @@
 
 /obj/item/storage/firstaid/tactical/get_ru_names()
 	return list(
-        NOMINATIVE = "тактическая аптечка НТ",
-        GENITIVE = "тактической аптечки НТ",
-        DATIVE = "тактической аптечке НТ",
-        ACCUSATIVE = "тактическую аптечку НТ",
-        INSTRUMENTAL = "тактической аптечкой НТ",
-        PREPOSITIONAL = "тактической аптечке НТ"
+		NOMINATIVE = "тактическая аптечка НТ",
+		GENITIVE = "тактической аптечки НТ",
+		DATIVE = "тактической аптечке НТ",
+		ACCUSATIVE = "тактическую аптечку НТ",
+		INSTRUMENTAL = "тактической аптечкой НТ",
+		PREPOSITIONAL = "тактической аптечке НТ"
 	)
 
 /obj/item/storage/firstaid/tactical/sst
@@ -332,12 +332,12 @@
 
 /obj/item/storage/firstaid/tactical/sst/get_ru_names()
 	return list(
-        NOMINATIVE = "продвинутая тактическая аптечка",
-        GENITIVE = "продвинутой тактической аптечки",
-        DATIVE = "продвинутой тактической аптечке",
-        ACCUSATIVE = "продвинутую тактическую аптечку",
-        INSTRUMENTAL = "продвинутой тактической аптечкой",
-        PREPOSITIONAL = "продвинутой тактической аптечке"
+		NOMINATIVE = "продвинутая тактическая аптечка",
+		GENITIVE = "продвинутой тактической аптечки",
+		DATIVE = "продвинутой тактической аптечке",
+		ACCUSATIVE = "продвинутую тактическую аптечку",
+		INSTRUMENTAL = "продвинутой тактической аптечкой",
+		PREPOSITIONAL = "продвинутой тактической аптечке"
 	)
 
 /obj/item/storage/firstaid/tactical/populate_contents()
@@ -364,12 +364,12 @@
 
 /obj/item/storage/firstaid/ertm/get_ru_names()
 	return list(
-        NOMINATIVE = "продвинутая тактическая аптечка НТ",
-        GENITIVE = "продвинутой тактической аптечки НТ",
-        DATIVE = "продвинутой тактической аптечке НТ",
-        ACCUSATIVE = "продвинутую тактическую аптечку НТ",
-        INSTRUMENTAL = "продвинутой тактической аптечкой НТ",
-        PREPOSITIONAL = "продвинутой тактической аптечке НТ"
+		NOMINATIVE = "продвинутая тактическая аптечка НТ",
+		GENITIVE = "продвинутой тактической аптечки НТ",
+		DATIVE = "продвинутой тактической аптечке НТ",
+		ACCUSATIVE = "продвинутую тактическую аптечку НТ",
+		INSTRUMENTAL = "продвинутой тактической аптечкой НТ",
+		PREPOSITIONAL = "продвинутой тактической аптечке НТ"
 	)
 
 /obj/item/storage/firstaid/ertm/populate_contents()
@@ -398,12 +398,12 @@
 
 /obj/item/storage/firstaid/syndie/get_ru_names()
 	return list(
-        NOMINATIVE = "тактическая аптечка",
-        GENITIVE = "тактической аптечки",
-        DATIVE = "тактической аптечке",
-        ACCUSATIVE = "тактическую аптечку",
-        INSTRUMENTAL = "тактической аптечкой",
-        PREPOSITIONAL = "тактической аптечке"
+		NOMINATIVE = "тактическая аптечка",
+		GENITIVE = "тактической аптечки",
+		DATIVE = "тактической аптечке",
+		ACCUSATIVE = "тактическую аптечку",
+		INSTRUMENTAL = "тактической аптечкой",
+		PREPOSITIONAL = "тактической аптечке"
 	)
 
 /obj/item/storage/firstaid/syndie/populate_contents()
@@ -434,12 +434,12 @@
 
 /obj/item/storage/firstaid/surgery/get_ru_names()
 	return list(
-        NOMINATIVE = "набор полевой хирургии",
-        GENITIVE = "набора полевой хирургии",
-        DATIVE = "набору полевой хирургии",
-        ACCUSATIVE = "набор полевой хирургии",
-        INSTRUMENTAL = "набором полевой хирургии",
-        PREPOSITIONAL = "наборе полевой хирургии"
+		NOMINATIVE = "набор полевой хирургии",
+		GENITIVE = "набора полевой хирургии",
+		DATIVE = "набору полевой хирургии",
+		ACCUSATIVE = "набор полевой хирургии",
+		INSTRUMENTAL = "набором полевой хирургии",
+		PREPOSITIONAL = "наборе полевой хирургии"
 	)
 
 /obj/item/storage/firstaid/surgery/populate_contents()
@@ -469,12 +469,12 @@
 
 /obj/item/storage/firstaid/crew/get_ru_names()
 	return list(
-        NOMINATIVE = "экстренная аптечка",
-        GENITIVE = "экстренной аптечки",
-        DATIVE = "экстренной аптечке",
-        ACCUSATIVE = "экстренную аптечку",
-        INSTRUMENTAL = "экстренной аптечкой",
-        PREPOSITIONAL = "экстренной аптечке"
+		NOMINATIVE = "экстренная аптечка",
+		GENITIVE = "экстренной аптечки",
+		DATIVE = "экстренной аптечке",
+		ACCUSATIVE = "экстренную аптечку",
+		INSTRUMENTAL = "экстренной аптечкой",
+		PREPOSITIONAL = "экстренной аптечке"
 	)
 
 /obj/item/storage/firstaid/crew/populate_contents()
@@ -492,12 +492,12 @@
 
 /obj/item/storage/firstaid/crew/nucleation/get_ru_names()
 	return list(
-        NOMINATIVE = "экстренная аптечка (Нуклеация)",
-        GENITIVE = "экстренной аптечки (Нуклеация)",
-        DATIVE = "экстренной аптечке (Нуклеация)",
-        ACCUSATIVE = "экстренную аптечку (Нуклеация)",
-        INSTRUMENTAL = "экстренной аптечкой (Нуклеация)",
-        PREPOSITIONAL = "экстренной аптечке (Нуклеация)"
+		NOMINATIVE = "экстренная аптечка (Нуклеация)",
+		GENITIVE = "экстренной аптечки (Нуклеация)",
+		DATIVE = "экстренной аптечке (Нуклеация)",
+		ACCUSATIVE = "экстренную аптечку (Нуклеация)",
+		INSTRUMENTAL = "экстренной аптечкой (Нуклеация)",
+		PREPOSITIONAL = "экстренной аптечке (Нуклеация)"
 	)
 
 /obj/item/storage/firstaid/crew/nucleation/populate_contents()
@@ -517,12 +517,12 @@
 
 /obj/item/storage/firstaid/doctor/mining_medic/get_ru_names()
 	return list(
-        NOMINATIVE = "аптечка первой помощи (Шахтёрский Врач)",
-        GENITIVE = "аптечки первой помощи (Шахтёрский Врач)",
-        DATIVE = "аптечке первой помощи (Шахтёрский Врач)",
-        ACCUSATIVE = "аптечку первой помощи (Шахтёрский Врач)",
-        INSTRUMENTAL = "аптечкой первой помощи (Шахтёрский Врач)",
-        PREPOSITIONAL = "аптечке первой помощи (Шахтёрский Врач)"
+		NOMINATIVE = "аптечка первой помощи (Шахтёрский Врач)",
+		GENITIVE = "аптечки первой помощи (Шахтёрский Врач)",
+		DATIVE = "аптечке первой помощи (Шахтёрский Врач)",
+		ACCUSATIVE = "аптечку первой помощи (Шахтёрский Врач)",
+		INSTRUMENTAL = "аптечкой первой помощи (Шахтёрский Врач)",
+		PREPOSITIONAL = "аптечке первой помощи (Шахтёрский Врач)"
 	)
 
 /*
@@ -560,12 +560,12 @@
 
 /obj/item/storage/pill_bottle/get_ru_names()
 	return list(
-        NOMINATIVE = "пузырёк для таблеток",
-        GENITIVE = "пузырька для таблеток",
-        DATIVE = "пузырьку для таблеток",
-        ACCUSATIVE = "пузырёк для таблеток",
-        INSTRUMENTAL = "пузырьком для таблеток",
-        PREPOSITIONAL = "пузырьке для таблеток"
+		NOMINATIVE = "пузырёк для таблеток",
+		GENITIVE = "пузырька для таблеток",
+		DATIVE = "пузырьку для таблеток",
+		ACCUSATIVE = "пузырёк для таблеток",
+		INSTRUMENTAL = "пузырьком для таблеток",
+		PREPOSITIONAL = "пузырьке для таблеток"
 	)
 
 /obj/item/storage/pill_bottle/Initialize(mapload)
@@ -649,12 +649,12 @@
 
 /obj/item/storage/pill_bottle/patch_pack/get_ru_names()
 	return list(
-        NOMINATIVE = "коробок для пластырей",
-        GENITIVE = "коробка для пластырей",
-        DATIVE = "коробку для пластырей",
-        ACCUSATIVE = "коробок для пластырей",
-        INSTRUMENTAL = "коробком для пластырей",
-        PREPOSITIONAL = "коробке для пластырей"
+		NOMINATIVE = "коробок для пластырей",
+		GENITIVE = "коробка для пластырей",
+		DATIVE = "коробку для пластырей",
+		ACCUSATIVE = "коробок для пластырей",
+		INSTRUMENTAL = "коробком для пластырей",
+		PREPOSITIONAL = "коробке для пластырей"
 	)
 
 /obj/item/storage/pill_bottle/patch_pack/filled/populate_contents()
@@ -698,12 +698,12 @@
 
 /obj/item/storage/pill_bottle/bluespace/get_ru_names()
 	return list(
-        NOMINATIVE = "блюспейс-хранилище для лекарств",
-        GENITIVE = "блюспейс-хранилищя для лекарств",
-        DATIVE = "блюспейс-хранилищу для лекарств",
-        ACCUSATIVE = "блюспейс-хранилище для лекарств",
-        INSTRUMENTAL = "блюспейс-хранилищем для лекарств",
-        PREPOSITIONAL = "блюспейс-хранилище для лекарств"
+		NOMINATIVE = "блюспейс-хранилище для лекарств",
+		GENITIVE = "блюспейс-хранилищя для лекарств",
+		DATIVE = "блюспейс-хранилищу для лекарств",
+		ACCUSATIVE = "блюспейс-хранилище для лекарств",
+		INSTRUMENTAL = "блюспейс-хранилищем для лекарств",
+		PREPOSITIONAL = "блюспейс-хранилище для лекарств"
 	)
 
 /obj/item/storage/pill_bottle/charcoal
@@ -713,12 +713,12 @@
 
 /obj/item/storage/pill_bottle/charcoal/get_ru_names()
 	return list(
-        NOMINATIVE = "пузырёк для таблеток (Активированный уголь)",
-        GENITIVE = "пузырька для таблеток (Активированный уголь)",
-        DATIVE = "пузырьку для таблеток (Активированный уголь)",
-        ACCUSATIVE = "пузырёк для таблеток (Активированный уголь)",
-        INSTRUMENTAL = "пузырьком для таблеток (Активированный уголь)",
-        PREPOSITIONAL = "пузырьке для таблеток (Активированный уголь)"
+		NOMINATIVE = "пузырёк для таблеток (Активированный уголь)",
+		GENITIVE = "пузырька для таблеток (Активированный уголь)",
+		DATIVE = "пузырьку для таблеток (Активированный уголь)",
+		ACCUSATIVE = "пузырёк для таблеток (Активированный уголь)",
+		INSTRUMENTAL = "пузырьком для таблеток (Активированный уголь)",
+		PREPOSITIONAL = "пузырьке для таблеток (Активированный уголь)"
 	)
 
 /obj/item/storage/pill_bottle/charcoal/populate_contents()
@@ -732,12 +732,12 @@
 
 /obj/item/storage/pill_bottle/painkillers/get_ru_names()
 	return list(
-        NOMINATIVE = "пузырёк для таблеток (Салициловая кислота)",
-        GENITIVE = "пузырька для таблеток (Салициловая кислота)",
-        DATIVE = "пузырьку для таблеток (Салициловая кислота)",
-        ACCUSATIVE = "пузырёк для таблеток (Салициловая кислота)",
-        INSTRUMENTAL = "пузырьком для таблеток (Салициловая кислота)",
-        PREPOSITIONAL = "пузырьке для таблеток (Салициловая кислота)"
+		NOMINATIVE = "пузырёк для таблеток (Салициловая кислота)",
+		GENITIVE = "пузырька для таблеток (Салициловая кислота)",
+		DATIVE = "пузырьку для таблеток (Салициловая кислота)",
+		ACCUSATIVE = "пузырёк для таблеток (Салициловая кислота)",
+		INSTRUMENTAL = "пузырьком для таблеток (Салициловая кислота)",
+		PREPOSITIONAL = "пузырьке для таблеток (Салициловая кислота)"
 	)
 
 /obj/item/storage/pill_bottle/painkillers/populate_contents()

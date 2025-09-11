@@ -121,6 +121,7 @@
 
 #undef SYNDICATE_CYBORG
 #undef NUCLEAR_OPERATIVE
+#undef CANCER_SWITCH_ROLES_CHOICE
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/spawn_antag(client/C, turf/T, datum/mind/user)
 	if(!(user.has_antag_datum(/datum/antagonist/nuclear_operative)))

@@ -28,8 +28,9 @@
 		"cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
 		"oliveoil" = list("oliveoil", "olive oil bottle", "A delicious oil used in cooking. Made from olives"),
 		"sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
-	//Can't use initial(name) for this. This stores the name set by condimasters.
-	var/originalname = "condiment"
+	)
+	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
+
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
 	return
 

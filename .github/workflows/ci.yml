@@ -55,6 +55,7 @@ jobs:
           find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/ci/json_verifier.py
           tgui/bin/tgui --ci
           tools/ci/check_grep.sh
+          tools/bootstrap/python -m define_sanity.check
           python3 tools/ci/check_line_endings.py
           python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
 

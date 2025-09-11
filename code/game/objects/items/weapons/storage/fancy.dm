@@ -637,12 +637,12 @@
 
 /obj/item/storage/firstaid/aquatic_kit/get_ru_names()
 	return list(
-        NOMINATIVE = "набор для ухода за аквариумом",
-        GENITIVE = "набора для ухода за аквариумом",
-        DATIVE = "набору для ухода за аквариумом",
-        ACCUSATIVE = "набор для ухода за аквариумом",
-        INSTRUMENTAL = "набором для ухода за аквариумом",
-        PREPOSITIONAL = "наборе для ухода за аквариумом"
+		NOMINATIVE = "набор для ухода за аквариумом",
+		GENITIVE = "набора для ухода за аквариумом",
+		DATIVE = "набору для ухода за аквариумом",
+		ACCUSATIVE = "набор для ухода за аквариумом",
+		INSTRUMENTAL = "набором для ухода за аквариумом",
+		PREPOSITIONAL = "наборе для ухода за аквариумом"
 	)
 
 /obj/item/storage/firstaid/aquatic_kit/full/populate_contents()

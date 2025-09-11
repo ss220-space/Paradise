@@ -9,9 +9,9 @@
 	RegisterSignal(internal, COMSIG_ORGAN_REMOVED, PROC_REF(transform_organ))
 
 /datum/element/diona_internals/Detach(datum/target)
-    . = ..()
+	. = ..()
 
-    UnregisterSignal(target, COMSIG_ORGAN_REMOVED)
+	UnregisterSignal(target, COMSIG_ORGAN_REMOVED)
 
 /datum/element/diona_internals/proc/transform_organ(obj/item/organ/internal/internal, mob/owner)
 	SIGNAL_HANDLER
@@ -24,7 +24,7 @@
 
 /datum/element/diona_internals/proc/handle_brain_removal(obj/item/organ/internal/brain/brain, mob/living/simple_animal/diona/nymph)
 	if(!istype(brain) \
-    || !brain.brainmob)
+	|| !brain.brainmob)
 		return
 
 	nymph.random_name = FALSE

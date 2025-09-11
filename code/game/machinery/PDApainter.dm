@@ -228,7 +228,7 @@
 				statusLabel = "PDA очищен"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd
 
-/obj/machinery/pdapainter/proc/eject_pda(var/obj/item/pda/pda = null)
+/obj/machinery/pdapainter/proc/eject_pda(obj/item/pda/pda = null)
 	if(storedpda) // PDA is in machine.
 		if(ishuman(usr))
 			storedpda.forceMove(get_turf(src))

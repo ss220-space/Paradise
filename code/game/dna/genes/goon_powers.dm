@@ -1,4 +1,4 @@
-#define EAT_MOB_DELAY 300 // 30s
+#define EAT_MOB_DELAY 30 SECONDS
 
 // WAS: /datum/bioEffect/alcres
 /datum/dna/gene/basic/sober
@@ -633,3 +633,5 @@
 	REMOVE_TRAIT(mutant, TRAIT_STRONG_MUSCLES, DNA_TRAIT)
 	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
 	mutant.update_body(TRUE)
+
+#undef EAT_MOB_DELAY
