@@ -34,6 +34,10 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	SSdbcore.SetRoundID() // Set the round ID here
 	load_poll_data()
 
+	#ifdef MULTIINSTANCE
+	SSinstancing.seed_data() // Set us up in the DB
+	#endif
+
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
 
@@ -317,6 +321,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
 		CALL_EXT(debug_server, "auxtools_shutdown")()
+	if(SSredis.connected)
+		rustg_redis_disconnect() // Disconnects the redis connection. See above.
 	prof_stop()
 	..()
 
