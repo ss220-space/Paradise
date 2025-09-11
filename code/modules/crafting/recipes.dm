@@ -598,8 +598,10 @@
 	name = "Bone Talisman"
 	result = /obj/item/clothing/accessory/necklace/talisman
 	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/sinew = 1)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 2,
+		/obj/item/stack/sheet/sinew = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
 
@@ -607,8 +609,10 @@
 	name = "Skull Codpiece"
 	result = /obj/item/clothing/accessory/necklace/skullcodpiece
 	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 2,
+		/obj/item/stack/sheet/animalhide/goliath_hide = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
 
@@ -616,8 +620,10 @@
 	name = "Bone Bracers"
 	result = /obj/item/clothing/gloves/bracer
 	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/sinew = 1)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 2,
+		/obj/item/stack/sheet/sinew = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
 
@@ -781,8 +787,10 @@
 /datum/crafting_recipe/primitive_surgical_kit
 	name = "Primitive surgical kit"
 	time = 30
-	reqs = list(/obj/item/stack/sheet/bone = 6,
-				/obj/item/stack/sheet/sinew = 3)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 6,
+		/obj/item/stack/sheet/sinew = 3
+	)
 	result = list(/obj/item/storage/toolbox/surgery/ashwalker)
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
@@ -817,8 +825,10 @@
 	name = "Bone Spear"
 	result = /obj/item/twohanded/spear/bonespear
 	time = 30
-	reqs = list(/obj/item/stack/sheet/bone = 4,
-				 /obj/item/stack/sheet/sinew = 1)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 4,
+		/obj/item/stack/sheet/sinew = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
@@ -849,9 +859,11 @@
 	name = "Wooden Bow"
 	result = /obj/item/gun/projectile/bow
 	time = 30
-	reqs = list(/obj/item/stack/sheet/wood = 2,
-				 /obj/item/stack/sheet/sinew = 2,
-				 /obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 2,
+		/obj/item/stack/sheet/sinew = 2,
+		/obj/item/stack/sheet/animalhide/goliath_hide = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
@@ -873,8 +885,10 @@
 				/obj/item/ammo_casing/caseless/arrow,
 				/obj/item/ammo_casing/caseless/arrow)
 	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 1,
-				 /obj/item/stack/sheet/wood = 1)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 1,
+		/obj/item/stack/sheet/wood = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
@@ -909,8 +923,10 @@
 	name = "Quiver"
 	result = /obj/item/storage/backpack/quiver
 	time = 30
-	reqs = list(/obj/item/stack/sheet/wood = 2,
-				 /obj/item/stack/sheet/sinew = 1)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 2,
+		/obj/item/stack/sheet/sinew = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
@@ -935,8 +951,10 @@
 	name = "Bone Axe"
 	result = /obj/item/twohanded/fireaxe/boneaxe
 	time = 50
-	reqs = list(/obj/item/stack/sheet/bone = 6,
-				 /obj/item/stack/sheet/sinew = 3)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 6,
+		/obj/item/stack/sheet/sinew = 3
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
@@ -1816,3 +1834,37 @@
 				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
+
+/datum/crafting_recipe/advanced_trauma_kit
+	name = "Набор для лечения мех. травм"
+	result = /obj/item/stack/medical/bruise_pack/advanced
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/datum/reagent/medicine/styptic_powder = 120)
+	category = CAT_MISC
+
+
+/datum/crafting_recipe/advanced_burn_kit
+	name = "Набор для лечения терм. повреждений"
+	result = /obj/item/stack/medical/ointment/advanced
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/datum/reagent/medicine/silver_sulfadiazine = 120)
+	category = CAT_MISC
+
+
+/datum/crafting_recipe/suture_kit
+	name = "Набор для зашивания ран"
+	result = /obj/item/stack/medical/suture
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 1,
+				/obj/item/stack/cable_coil = 10)
+	category = CAT_MISC
+
+/datum/crafting_recipe/synth_kit
+	name = "Набор для лечения мех. и терм. повреждений"
+	result = /obj/item/stack/medical/bruise_pack/synthflesh_kit
+	time = 3 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 2,
+				/datum/reagent/medicine/synthflesh = 120)
+	category = CAT_MISC

@@ -112,8 +112,8 @@
 		owner.adjustToxLoss(5)
 
 	if((time >= EGG_INCUBATION_DEAD_TIME && owner.stat == DEAD) || time >= EGG_INCUBATION_LIVING_TIME)
-		Pop()
 		STOP_PROCESSING(SSobj, src)
+		Pop()
 		qdel(src)
 
 

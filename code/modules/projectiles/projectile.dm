@@ -218,7 +218,7 @@
 
 		else if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
-		if(L.has_limbs)
+		if(L.has_limbs && def_zone)
 			organ_hit_text = "в [GLOB.body_zone[def_zone][ACCUSATIVE]]!"
 
 		if(suppressed)

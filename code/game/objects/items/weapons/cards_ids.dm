@@ -120,7 +120,7 @@
 	var/total_mining_points = 0
 	var/list/access = list()
 	var/law_level = LAW_LEVEL_BASE
-	var/registered_name = "Unknown" // The name registered_name on the card
+	var/registered_name = UNKNOWN_NAME_RUS // The name registered_name on the card
 	slot_flags = ITEM_SLOT_ID
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -209,7 +209,7 @@
 /obj/item/card/id/proc/UpdateName()
 	name = "[src.registered_name]'s ID Card ([src.assignment])"
 
-/obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
+/obj/item/card/id/proc/SetOwnerInfo(mob/living/carbon/human/H)
 	if(!H || !H.dna)
 		return
 
@@ -391,6 +391,9 @@
 	desc = "A golden card which shows power and might."
 	icon_state = "gold"
 	item_state = "gold-id"
+
+/obj/item/card/id/gold/battle
+	access = list(ACCESS_CAPTAIN_REAL)
 
 /obj/item/card/id/syndicate
 	name = "agent card"
@@ -1087,6 +1090,9 @@
 	icon_state = "warden"
 	item_state = "warden-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+
+/obj/item/card/id/warden/battle
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_ARMORY_REAL)
 
 /obj/item/card/id/iaa
 	name = "IAA ID"

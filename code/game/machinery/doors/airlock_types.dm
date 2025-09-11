@@ -228,11 +228,11 @@
 /obj/machinery/door/airlock/tranquillite
 	name = "tranquillite airlock"
 	icon = 'icons/obj/doors/airlocks/station/freezer.dmi'
-	doorOpen = null // it's silent!
+/*	doorOpen = null // it's silent!
 	doorClose = null
 	doorDeni = null
 	boltUp = null
-	boltDown = null
+	boltDown = null*/
 	paintable = FALSE
 
 /obj/machinery/door/airlock/sandstone

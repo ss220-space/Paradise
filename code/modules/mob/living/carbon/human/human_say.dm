@@ -5,7 +5,7 @@
 
 /mob/living/carbon/human/GetAltName()
 	if(name != GetVoice())
-		return " (как [get_id_name("Unknown")])"
+		return " (как [get_id_name(UNKNOWN_NAME_RUS)])"
 	return ..()
 
 

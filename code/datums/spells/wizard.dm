@@ -487,3 +487,40 @@
 		var/mob/living/U = user
 		U.IgniteMob()
 
+
+/obj/effect/proc_holder/spell/nullspace_box
+	name = "Призыв блюспейс коробки"
+	desc = "Позволяет призывать блюспейс коробку, способную проходить сквозь пол и потолок между этажами, как если бы вы находились в космосе. \
+			Если у станции один этаж, коробка бесполезна. Нельзя перейти на другой этаж, если в целевом месте кто-то или что-то находится."
+	base_cooldown = 25 SECONDS
+	clothes_req = FALSE // You should be able to dress up in a clown suit. Don't ask why.
+	invocation_type = "none"
+	action_icon_state = "move_up_down"
+	sound = 'sound/magic/magic_missile.ogg'
+
+
+/obj/effect/proc_holder/spell/nullspace_box/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
+/obj/effect/proc_holder/spell/nullspace_box/cast(list/targets, mob/user)
+	. = ..()
+	var/mutable_appearance/fake_box = mutable_appearance('icons/obj/cardboard_boxes.dmi', "agentbox")
+	fake_box.color = RANDOM_COLOUR
+	fake_box.pixel_z = 30
+	var/atom/movable/flick_visual/fake_box_visual = user.flick_overlay_view(fake_box, 0.4 SECONDS)
+	animate(fake_box_visual, pixel_z = 0, time = 0.3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(finish_hide), user, fake_box), 0.3 SECONDS)
+
+
+/obj/effect/proc_holder/spell/nullspace_box/proc/finish_hide(mob/user, mutable_appearance/fake_box)
+	if(!isturf(user.loc))
+		user.balloon_alert(user, "нужно больше места!")
+		return
+
+	// Spawn the actual box
+	var/obj/structure/closet/cardboard/agent/nullspace/box = new(user.loc)
+	box.color = fake_box.color
+	box.implant_user_UID = user.UID()
+	box.create_fake_box()
+	user.forceMove(box)

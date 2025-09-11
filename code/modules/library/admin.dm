@@ -39,11 +39,10 @@
 
 	var/dat = {"<meta charset="UTF-8"><table><tr><th>ISBN</th><th>Title</th><th>Total Flags</th><th>Flagged by (Last ckey)</th><th>Options</th></tr>"}
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, title, flagged, flaggedby FROM [format_table_name("library")] WHERE \
-	 flagged > 0 ORDER BY flagged DESC LIMIT :lowerlimit, :upperlimit", list(
-		"lowerlimit" = text2num((page_num - 1) * FLAGGED_BOOKS_PER_PAGE),
-		"upperlimit" = FLAGGED_BOOKS_PER_PAGE
-		))
+	var/datum/db_query/query = SSdbcore.NewQuery(
+		"SELECT id, title, flagged, flaggedby FROM [format_table_name("library")] WHERE flagged > 0 ORDER BY flagged DESC LIMIT :lowerlimit, :upperlimit",
+		list("lowerlimit" = text2num((page_num - 1) * FLAGGED_BOOKS_PER_PAGE), "upperlimit" = FLAGGED_BOOKS_PER_PAGE)
+	)
 
 
 	if(!query.warn_execute())

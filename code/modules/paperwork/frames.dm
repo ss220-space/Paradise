@@ -161,7 +161,7 @@
 
 	playsound(PF.loc, usesound, 100, TRUE)
 
-/obj/item/picture_frame/examine(mob/user, var/infix = "", var/suffix = "")
+/obj/item/picture_frame/examine(mob/user, infix = "", suffix = "")
 	. = ..()
 	if(displayed)
 		. += displayed.examine(user, infix, suffix)
@@ -299,7 +299,7 @@
 	qdel(src)
 
 
-/obj/structure/sign/picture_frame/examine(mob/user, var/infix = "", var/suffix = "")
+/obj/structure/sign/picture_frame/examine(mob/user, infix = "", suffix = "")
 	if(frame)
 		. += frame.examine(user, infix, suffix)
 	else
