@@ -59,13 +59,13 @@
 	. += span_notice("This is a [generation]\th generation [name]!")
 
 /**
-  *	Creates a new glowshroom structure.
-  *
-  * Arguments:
-  * * newseed - Seed of the shroom
-  * * mutate_stats - If the plant needs to mutate their stats
-  * * spread - If the plant is a result of spreading, reduce its stats
-  */
+ *	Creates a new glowshroom structure.
+ *
+ * Arguments:
+ * * newseed - Seed of the shroom
+ * * mutate_stats - If the plant needs to mutate their stats
+ * * spread - If the plant is a result of spreading, reduce its stats
+ */
 
 /obj/structure/glowshroom/Initialize(mapload, obj/item/seeds/newseed, mutate_stats, spread)
 	. = ..()
@@ -211,12 +211,12 @@
 	is_on_floor = TRUE
 	return NORTH
 /**
-  * Causes the glowshroom to decay by decreasing its endurance.
-  *
-  * Arguments:
-  * * spread - Boolean to indicate if the decay is due to spreading or natural decay.
-  * * amount - Amount of endurance to be reduced due to spread decay.
-  */
+ * Causes the glowshroom to decay by decreasing its endurance.
+ *
+ * Arguments:
+ * * spread - Boolean to indicate if the decay is due to spreading or natural decay.
+ * * amount - Amount of endurance to be reduced due to spread decay.
+ */
 /obj/structure/glowshroom/proc/Decay(spread, amount)
 	// Decay due to spread
 	if(spread)

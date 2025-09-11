@@ -3068,8 +3068,8 @@ This applies to all STANDARD station areas
 
 /////////////////////////////////////////////////////////////////////
 /*
- Lists of areas to be used with is_type_in_list.
- Used in gamemodes code at the moment. --rastaf0
+	Lists of areas to be used with is_type_in_list.
+	Used in gamemodes code at the moment. --rastaf0
 */
 
 // CENTCOM

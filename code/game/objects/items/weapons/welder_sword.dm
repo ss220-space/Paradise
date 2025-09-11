@@ -128,7 +128,7 @@
 
 /obj/item/weldingtool/sword/double/remove_fuel(amount)
 	reagents.remove_reagent("fuel", amount * requires_fuel)
-	if(!GET_FUEL && tool_enabled)
+	if(!(reagents.get_reagent_amount("fuel")) && tool_enabled)
 		attack_self(usr)
 
 

@@ -1,7 +1,3 @@
-#define CQC_ARENA_RADIUS	6 //how much tiles away from a center players will spawn
-#define RANGED_ARENA_RADIUS	10
-
-
 /**
  * This datum is designed to determine special settings for thunderdome battle.
  */

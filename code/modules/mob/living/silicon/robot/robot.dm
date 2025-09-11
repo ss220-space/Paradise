@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return TRUE
 
 
-/mob/living/silicon/robot/proc/get_default_name(var/prefix as text)
+/mob/living/silicon/robot/proc/get_default_name(prefix as text)
 	if(mmi)
 		if(istype(mmi, /obj/item/mmi/robotic_brain))
 			braintype = "Android"
@@ -332,7 +332,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return ..()
 
-/mob/living/silicon/robot/proc/pick_module(var/forced_module = null)
+/mob/living/silicon/robot/proc/pick_module(forced_module = null)
 	if(module)
 		return
 
@@ -419,7 +419,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	robot_module_hat_offset(icon_state)
 
-/mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, var/robot_to_spawn, turf/T)
+/mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, robot_to_spawn, turf/T)
 
 	var/mob/living/silicon/robot/syndicate/R
 	switch(robot_to_spawn)
@@ -714,7 +714,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				apply_damage(30)
 
 
-/mob/living/silicon/robot/bullet_act(var/obj/projectile/Proj)
+/mob/living/silicon/robot/bullet_act(obj/projectile/Proj)
 	..(Proj)
 
 	if(prob(75) && Proj.damage > 0)
@@ -1743,7 +1743,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	update_icons()
 
-/mob/living/silicon/robot/proc/transform_animation(var/animated_icon, var/default = FALSE)
+/mob/living/silicon/robot/proc/transform_animation(animated_icon, default = FALSE)
 	Immobilize(5 SECONDS)
 	say("Загрузка модуля...")
 	setDir(SOUTH)
@@ -1759,7 +1759,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/complete_loading()
 	say("Инициализация успешна")
 
-/mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
+/mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
 		return
 
@@ -1776,7 +1776,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		sync() // One last sync attempt
 		set_connected_ai(null)
 
-/mob/living/silicon/robot/proc/connect_to_ai(var/mob/living/silicon/ai/AI)
+/mob/living/silicon/robot/proc/connect_to_ai(mob/living/silicon/ai/AI)
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		set_connected_ai(AI)

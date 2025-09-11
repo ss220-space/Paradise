@@ -16,21 +16,8 @@
 #define ACCEPT_GOAL_SHUTTLE_SEND_DELAY 3
 /// Delay between complete goal and send shuttle to centcom
 #define COMPLETE_GOAL_SHUTTLE_SEND_DELAY 10
-/// Addition goals system shuttle identifier
-#define AGS_SHUTTLE_ID "addition_goal"
-/// Funeral shuttle identifier (for recall if dock is busy)
-#define AGS_FUNERAL_SHUTTLE_ID "funeral"
-/// Centom stationary dock id
-#define AGS_SHUTTLE_CENTCOM_DOCK "addition_goal_dock"
-/// Station stationary dock id
-#define AGS_SHUTTLE_STATION_DOCK "graveyard_church"
-/// Funeral shuttle away stationary dock id
-#define AGS_FUNERAL_SHUTTLE_AWAY_DOCK "graveyard_dock"
 
-
-
-// MARK:	Sybsystem
-
+// MARK: Sybsystem
 SUBSYSTEM_DEF(addition_goals)
 	name = "Addition Goals"
 	wait = 1 SECONDS
@@ -265,3 +252,13 @@ GLOBAL_LIST_INIT(addition_goal_spawn_human_types, list(
 /obj/effect/mob_spawn/human/addition_goal/create(mob/plr, flavour, name, prefs, _mob_name, _mob_gender, _mob_species)
 	mob_type = pick(GLOB.addition_goal_spawn_human_types)
 	. = ..()
+
+#undef AGS_STATE_NOT_STARTED
+#undef AGS_STATE_IDLE
+#undef AGS_STATE_GOAL_PREPARE
+#undef AGS_STATE_GOAL_IN_PROGRESS
+#undef AGS_STATE_GOAL_COMPLETE
+#undef AVAILABLE_GOALS_COUNT
+#undef REFRESH_AVAILABLE_GOALS_COOLDOWN
+#undef ACCEPT_GOAL_SHUTTLE_SEND_DELAY
+#undef COMPLETE_GOAL_SHUTTLE_SEND_DELAY

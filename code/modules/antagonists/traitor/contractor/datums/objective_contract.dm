@@ -1,8 +1,8 @@
 /**
-  * # Contract Objective
-  *
-  * Describes the target to kidnap and the extraction area of a [/datum/syndicate_contract].
-  */
+ * # Contract Objective
+ *
+ * Describes the target to kidnap and the extraction area of a [/datum/syndicate_contract].
+ */
 /datum/objective/contract
 	antag_menu_name = "Контракт"
 	// Settings
@@ -228,23 +228,23 @@
 	owning_contract.invalidate()
 
 /**
-  * Assigns a randomly selected zone to the contract's selectable zone at the given difficulty.
-  *
-  * Arguments:
-  * * difficulty - The difficulty to assign.
-  */
+ * Assigns a randomly selected zone to the contract's selectable zone at the given difficulty.
+ *
+ * Arguments:
+ * * difficulty - The difficulty to assign.
+ */
 /datum/objective/contract/proc/pick_candidate_zone(difficulty = EXTRACTION_DIFFICULTY_EASY)
 	if(!candidate_zones)
 		candidate_zones = list(null, null, null)
 	candidate_zones[difficulty] = pick(possible_zones[difficulty])
 
 /**
-  * Updates the objective's information with the given difficulty.
-  *
-  * Arguments:
-  * * difficulty - The chosen difficulty.
-  * * S - The parent [/datum/syndicate_contract].
-  */
+ * Updates the objective's information with the given difficulty.
+ *
+ * Arguments:
+ * * difficulty - The chosen difficulty.
+ * * S - The parent [/datum/syndicate_contract].
+ */
 /datum/objective/contract/proc/choose_difficulty(difficulty = EXTRACTION_DIFFICULTY_EASY, datum/syndicate_contract/S)
 	. = FALSE
 	if(!ISINDEXSAFE(candidate_zones, difficulty))
@@ -257,10 +257,10 @@
 	return TRUE
 
 /**
-  * Returns whether the extraction process can be started.
-  *
-  * Arguments:
-  * * requester - The person trying to call the extraction.
-  */
+ * Returns whether the extraction process can be started.
+ *
+ * Arguments:
+ * * requester - The person trying to call the extraction.
+ */
 /datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/requester)
 	return get_area(requester) == extraction_zone && get_area(target.current) == extraction_zone

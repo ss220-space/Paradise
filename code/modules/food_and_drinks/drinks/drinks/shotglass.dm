@@ -13,12 +13,12 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/get_ru_names()
 	return list(
-        NOMINATIVE = "рюмка",
-        GENITIVE = "рюмки",
-        DATIVE = "рюмке",
-        ACCUSATIVE = "рюмку",
-        INSTRUMENTAL = "рюмкой",
-        PREPOSITIONAL = "рюмке"
+		NOMINATIVE = "рюмка",
+		GENITIVE = "рюмки",
+		DATIVE = "рюмке",
+		ACCUSATIVE = "рюмку",
+		INSTRUMENTAL = "рюмкой",
+		PREPOSITIONAL = "рюмке"
 	)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
