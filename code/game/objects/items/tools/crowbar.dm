@@ -36,7 +36,7 @@
 	icon_state = "crowbar_titanium"
 	item_state = "crowbar_titanium"
 	origin_tech = "materials=2"
-	toolspeed = 1.25
+	toolspeed = 3
 
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
