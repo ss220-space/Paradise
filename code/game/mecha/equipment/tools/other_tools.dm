@@ -787,7 +787,7 @@
 	flick(icon, button)
 	button.UpdateButtonIcon()
 
-/obj/item/mecha_parts/mecha_equipment/cage/proc/change_alert(var/stage_define)
+/obj/item/mecha_parts/mecha_equipment/cage/proc/change_alert(stage_define)
 	var/mob/living/carbon/H = chassis.occupant
 	for(var/I in subtypesof(/atom/movable/screen/alert/mech_cage))
 		var/atom/movable/screen/alert/mech_cage/alert = I

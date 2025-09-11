@@ -74,11 +74,11 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 	return S.zpos
 
 /**
-  * Proc to get a list of all the linked-together Z-Levels
-  *
-  * Returns a list of zlevel numbers which can be accessed from travelling space naturally
-  * ignores Taipan tho
-  */
+ * Proc to get a list of all the linked-together Z-Levels
+ *
+ * Returns a list of zlevel numbers which can be accessed from travelling space naturally
+ * ignores Taipan tho
+ */
 /proc/get_all_linked_levels_zpos()
 	var/list/znums = list()
 	for(var/i in GLOB.space_manager.z_list)

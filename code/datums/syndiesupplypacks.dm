@@ -776,9 +776,9 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/reagent_containers/iv_bag/salglu,
 					/obj/item/storage/box/beakers,
 					/obj/item/storage/box/syringes,
-				    /obj/item/storage/box/bodybags,
-				    /obj/item/storage/box/iv_bags,
-				    /obj/item/vending_refill/medical)
+					/obj/item/storage/box/bodybags,
+					/obj/item/storage/box/iv_bags,
+					/obj/item/vending_refill/medical)
 	cost = 200
 	containertype = /obj/structure/closet/crate/medical
 	containername = "medical supplies crate"
@@ -1035,12 +1035,12 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	access = ACCESS_RESEARCH
 
 /datum/syndie_supply_packs/science/oil
-    name = "Oil Tank Crate"
-    contains = list(/obj/structure/reagent_dispensers/oil,
+	name = "Oil Tank Crate"
+	contains = list(/obj/structure/reagent_dispensers/oil,
 					/obj/item/reagent_containers/food/drinks/oilcan)
-    cost = 100
-    containertype = /obj/structure/largecrate
-    containername = "oil tank crate"
+	cost = 100
+	containertype = /obj/structure/largecrate
+	containername = "oil tank crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
@@ -2391,21 +2391,21 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/syndicate_special/ocelot
 	name = "Syndicate 'Ocelot' Bundle"
-	contains = list(/obj/item/kitchen/knife/combat,											// 0 TK
-					/obj/item/gun/projectile/revolver,                                      // 50 TK
-					/obj/item/gun/projectile/revolver,                                      // 50 TK
-					/obj/item/ammo_box/a357,												// 0 TK
-					/obj/item/ammo_box/a357,												// 0 TK
-					/obj/item/ammo_box/speedloader/a357,                                    // 5 TK
-					/obj/item/ammo_box/speedloader/a357,                                    // 5 TK
-					/obj/item/clothing/under/syndicate/tacticool,                           // 0 TK
-					/obj/item/clothing/gloves/combat,                                       // 0 TK
-					/obj/item/clothing/shoes/combat,                                        // 0 TK
-					/obj/item/clothing/accessory/holster,                                   // 5 TK
-					/obj/item/clothing/head/beret,                                          // 0 TK
-					/obj/item/clothing/accessory/scarf/red,                               	// 0 TK
-					/obj/item/encryptionkey/syndicate,										// 0-2 TK
-					/obj/item/clothing/mask/holo_cigar,                                     // 10 TK
+	contains = list(/obj/item/kitchen/knife/combat, // 0 TK
+					/obj/item/gun/projectile/revolver, // 50 TK
+					/obj/item/gun/projectile/revolver, // 50 TK
+					/obj/item/ammo_box/a357, // 0 TK
+					/obj/item/ammo_box/a357, // 0 TK
+					/obj/item/ammo_box/speedloader/a357, // 5 TK
+					/obj/item/ammo_box/speedloader/a357, // 5 TK
+					/obj/item/clothing/under/syndicate/tacticool, // 0 TK
+					/obj/item/clothing/gloves/combat, // 0 TK
+					/obj/item/clothing/shoes/combat, // 0 TK
+					/obj/item/clothing/accessory/holster, // 5 TK
+					/obj/item/clothing/head/beret, // 0 TK
+					/obj/item/clothing/accessory/scarf/red, // 0 TK
+					/obj/item/encryptionkey/syndicate, // 0-2 TK
+					/obj/item/clothing/mask/holo_cigar, // 10 TK
 					)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate

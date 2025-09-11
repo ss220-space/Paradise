@@ -50,19 +50,20 @@
 
 /datum/gear/plushie/plasmamanplushie/New()
 	..()
-	var/list/plasmamans = list(/obj/item/toy/plushie/plasmamanplushie,
-					 		/obj/item/toy/plushie/plasmamanplushie/standart/sindie,
-							/obj/item/toy/plushie/plasmamanplushie/standart/doctor,
-							/obj/item/toy/plushie/plasmamanplushie/standart/brigmed,
-							/obj/item/toy/plushie/plasmamanplushie/standart/chemist,
-							/obj/item/toy/plushie/plasmamanplushie/standart/scientist,
-							/obj/item/toy/plushie/plasmamanplushie/standart/engineer,
-							/obj/item/toy/plushie/plasmamanplushie/standart/atmostech,
-							/obj/item/toy/plushie/plasmamanplushie/standart/officer,
-							/obj/item/toy/plushie/plasmamanplushie/standart/captain,
-							/obj/item/toy/plushie/plasmamanplushie/standart/ntr,
-							/obj/item/toy/plushie/plasmamanplushie/standart/miner,
-							)
+	var/list/plasmamans = list(
+		/obj/item/toy/plushie/plasmamanplushie,
+		/obj/item/toy/plushie/plasmamanplushie/standart/sindie,
+		/obj/item/toy/plushie/plasmamanplushie/standart/doctor,
+		/obj/item/toy/plushie/plasmamanplushie/standart/brigmed,
+		/obj/item/toy/plushie/plasmamanplushie/standart/chemist,
+		/obj/item/toy/plushie/plasmamanplushie/standart/scientist,
+		/obj/item/toy/plushie/plasmamanplushie/standart/engineer,
+		/obj/item/toy/plushie/plasmamanplushie/standart/atmostech,
+		/obj/item/toy/plushie/plasmamanplushie/standart/officer,
+		/obj/item/toy/plushie/plasmamanplushie/standart/captain,
+		/obj/item/toy/plushie/plasmamanplushie/standart/ntr,
+		/obj/item/toy/plushie/plasmamanplushie/standart/miner
+	)
 	gear_tweaks += new /datum/gear_tweak/path(plasmamans, src, TRUE)
 
 /datum/gear/plushie/shardplushie

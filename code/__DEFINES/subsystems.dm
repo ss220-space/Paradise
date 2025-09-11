@@ -27,21 +27,21 @@
 #define FLIGHTSUIT_PROCESSING_NONE 0
 #define FLIGHTSUIT_PROCESSING_FULL 1
 
-#define INITIALIZATION_INSSATOMS 0	//New should not call Initialize
-#define INITIALIZATION_INNEW_MAPLOAD 2	//New should call Initialize(TRUE)
-#define INITIALIZATION_INNEW_REGULAR 1	//New should call Initialize(FALSE)
+#define INITIALIZATION_INSSATOMS 0 //New should not call Initialize
+#define INITIALIZATION_INNEW_MAPLOAD 2 //New should call Initialize(TRUE)
+#define INITIALIZATION_INNEW_REGULAR 1 //New should call Initialize(FALSE)
 
-#define INITIALIZE_HINT_NORMAL 0    //Nothing happens
-#define INITIALIZE_HINT_LATELOAD 1  //Call LateInitialize
-#define INITIALIZE_HINT_QDEL 2  //Call qdel on the atom
+#define INITIALIZE_HINT_NORMAL 0 //Nothing happens
+#define INITIALIZE_HINT_LATELOAD 1 //Call LateInitialize
+#define INITIALIZE_HINT_QDEL 2 //Call qdel on the atom
 
 //type and all subtypes should always call Initialize in New()
 #define INITIALIZE_IMMEDIATE(X) ##X/New(loc, ...){\
-    ..();\
-    if(!(flags & INITIALIZED)) {\
-        args[1] = TRUE;\
-        SSatoms.InitAtom(src, args);\
-    }\
+	..();\
+	if(!(flags & INITIALIZED)) {\
+		args[1] = TRUE;\
+		SSatoms.InitAtom(src, args);\
+	}\
 }
 
 
@@ -116,7 +116,7 @@
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
-#define FIRE_PRIORITY_PING        	10
+#define FIRE_PRIORITY_PING			10
 #define FIRE_PRIORITY_NIGHTSHIFT	10
 #define FIRE_PRIORITY_IDLE_NPC		10
 #define FIRE_PRIORITY_CLEANUP		10

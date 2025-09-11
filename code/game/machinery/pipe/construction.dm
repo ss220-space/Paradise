@@ -154,7 +154,7 @@
 	rotate()
 	return CLICK_ACTION_SUCCESS
 
-/obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
+/obj/item/pipe/proc/update(obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
 	icon_state = get_pipe_icon(pipe_type)
 	var/obj/machinery/atmospherics/trinary/triP = make_from
@@ -306,7 +306,7 @@
 		else
 			return 0
 
-/obj/item/pipe/proc/unflip(var/direction)
+/obj/item/pipe/proc/unflip(direction)
 	if(!(direction in GLOB.cardinal))
 		return turn(direction, 45)
 

@@ -361,7 +361,7 @@
 			if(ROLE_PAI in O.client.prefs.be_special)
 				question(O.client,O)
 
-/mob/living/silicon/robot/drone/proc/question(var/client/C,var/mob/M)
+/mob/living/silicon/robot/drone/proc/question(client/C, mob/M)
 	spawn(0)
 		if(!C || !M || jobban_isbanned(M,"nonhumandept") || jobban_isbanned(M,"Drone"))	return
 		var/response = tgui_alert(C, "Кто-то пытается перезагрузить дрона обслуживания. Хотите сыграть за него?", "Перезагрузка дрона обслуживания", list("Да", "Нет"))
@@ -370,7 +370,7 @@
 		if(response == "Да")
 			transfer_personality(C)
 
-/mob/living/silicon/robot/drone/proc/transfer_personality(var/client/player)
+/mob/living/silicon/robot/drone/proc/transfer_personality(client/player)
 
 	if(!player) return
 

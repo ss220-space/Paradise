@@ -372,7 +372,7 @@
 			to_chat(usr, "Cancelled", confidential=TRUE)
 			return
 
-/datum/admins/proc/DB_ban_unban_by_id(var/id)
+/datum/admins/proc/DB_ban_unban_by_id(id)
 
 	if(!check_rights(R_BAN))
 		return

@@ -79,7 +79,7 @@
 	H.mind.martial_art.reset_combos()
 	H.mind.martial_art.in_stance = TRUE
 
-/datum/martial_art/krav_maga/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
+/datum/martial_art/krav_maga/teach(mob/living/carbon/human/H, make_temporary=0)
 	..()
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
 		to_chat(H, "<span class='warning'>The arts of Krav Maga echo uselessly in your head, the thought of their violence repulsive to you!</span>")
@@ -91,7 +91,7 @@
 	legsweep.Grant(H)
 	lungpunch.Grant(H)
 
-/datum/martial_art/krav_maga/remove(var/mob/living/carbon/human/H)
+/datum/martial_art/krav_maga/remove(mob/living/carbon/human/H)
 	..()
 	to_chat(H, "<span class = 'userdanger'>You suddenly forget the arts of Krav Maga...</span>")
 	neutral.Remove(H)
@@ -99,7 +99,7 @@
 	legsweep.Remove(H)
 	lungpunch.Remove(H)
 
-/datum/martial_art/krav_maga/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/krav_maga/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	var/picked_hit_type = pick("punches", "kicks")
@@ -117,11 +117,13 @@
 	else
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
-	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+	D.visible_message(
+		"<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
+		"<span class='userdanger'>[A] [picked_hit_type] you!</span>"
+	)
 	return TRUE
 
-/datum/martial_art/krav_maga/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	if(prob(60))
 		if(D.hand)

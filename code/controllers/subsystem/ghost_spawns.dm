@@ -29,22 +29,22 @@ SUBSYSTEM_DEF(ghost_spawns)
 			polling_finished(P)
 
 /**
-  * Polls for candidates with a question and a preview of the role
-  *
-  * This proc replaces /proc/pollCandidates.
-  * Should NEVER be used in a proc that has waitfor set to FALSE/0 (due to define UNTIL)
-  * Arguments:
-  * * question - The question to ask to potential candidates
-  * * role - The role to poll for. Should be a ROLE_x enum. If set, potential candidates who aren't eligible will be ignored
-  * * antag_age_check - Whether to filter out potential candidates who don't have an old enough account
-  * * poll_time - How long to poll for in deciseconds
-  * * ignore_respawnability - Whether to ignore the player's respawnability
-  * * min_hours - The amount of hours needed for a potential candidate to be eligible
-  * * flash_window - Whether the poll should flash a potential candidate's game window
-  * * check_antaghud - Whether to filter out potential candidates who enabled AntagHUD
-  * * source - The atom, atom prototype, icon or mutable appearance to display as an icon in the alert
-  * * role_cleanname - The name override to display to clients
-  */
+ * Polls for candidates with a question and a preview of the role
+ *
+ * This proc replaces /proc/pollCandidates.
+ * Should NEVER be used in a proc that has waitfor set to FALSE/0 (due to # define UNTIL)
+ * Arguments:
+ * * question - The question to ask to potential candidates
+ * * role - The role to poll for. Should be a ROLE_x enum. If set, potential candidates who aren't eligible will be ignored
+ * * antag_age_check - Whether to filter out potential candidates who don't have an old enough account
+ * * poll_time - How long to poll for in deciseconds
+ * * ignore_respawnability - Whether to ignore the player's respawnability
+ * * min_hours - The amount of hours needed for a potential candidate to be eligible
+ * * flash_window - Whether the poll should flash a potential candidate's game window
+ * * check_antaghud - Whether to filter out potential candidates who enabled AntagHUD
+ * * source - The atom, atom prototype, icon or mutable appearance to display as an icon in the alert
+ * * role_cleanname - The name override to display to clients
+ */
 /datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Вы хотите сыграть за особую роль?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
 	log_debug("Polling candidates [role ? "for [role_cleanname || role]" : "\"[question]\""] for [poll_time / 10] seconds")
 
@@ -146,16 +146,16 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 
 /**
-  * Returns whether an observer is eligible to be an event mob
-  *
-  * Arguments:
-  * * M - The mob to check eligibility
-  * * role - The role to check eligibility for. Checks 1. the client has enabled the role 2. the account's age for this role if antag_age_check is TRUE
-  * * antag_age_check - Whether to check the account's age or not for the given role.
-  * * role_text - The role's clean text. Used for checking job bans to determine eligibility
-  * * min_hours - The amount of minimum hours the client needs before being eligible
-  * * check_antaghud - Whether to consider a client who enabled AntagHUD ineligible or not
-  */
+ * Returns whether an observer is eligible to be an event mob
+ *
+ * Arguments:
+ * * M - The mob to check eligibility
+ * * role - The role to check eligibility for. Checks 1. the client has enabled the role 2. the account's age for this role if antag_age_check is TRUE
+ * * antag_age_check - Whether to check the account's age or not for the given role.
+ * * role_text - The role's clean text. Used for checking job bans to determine eligibility
+ * * min_hours - The amount of minimum hours the client needs before being eligible
+ * * check_antaghud - Whether to consider a client who enabled AntagHUD ineligible or not
+ */
 /datum/controller/subsystem/ghost_spawns/proc/is_eligible(mob/M, role, antag_age_check, role_text, min_hours, check_antaghud)
 	. = FALSE
 	if(!M.key || !M.client)
@@ -179,12 +179,12 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 
 /**
-  * Called by the subsystem when a poll's timer runs out
-  *
-  * Can be called manually to finish a poll prematurely
-  * Arguments:
-  * * P - The poll to finish
-  */
+ * Called by the subsystem when a poll's timer runs out
+ *
+ * Can be called manually to finish a poll prematurely
+ * Arguments:
+ * * P - The poll to finish
+ */
 /datum/controller/subsystem/ghost_spawns/proc/polling_finished(datum/candidate_poll/P)
 	// Trim players who aren't eligible anymore
 	var/len_pre_trim = length(P.signed_up)
@@ -235,14 +235,14 @@ SUBSYSTEM_DEF(ghost_spawns)
 	return ..()
 
 /**
-  * Attempts to sign a (controlled) mob up
-  *
-  * Will fail if the mob is already signed up or the poll's timer ran out.
-  * Does not check for eligibility
-  * Arguments:
-  * * M - The (controlled) mob to sign up
-  * * silent - Whether no messages should appear or not. If not TRUE, signing up to this poll will also sign the mob up for identical polls
-  */
+ * Attempts to sign a (controlled) mob up
+ *
+ * Will fail if the mob is already signed up or the poll's timer ran out.
+ * Does not check for eligibility
+ * Arguments:
+ * * M - The (controlled) mob to sign up
+ * * silent - Whether no messages should appear or not. If not TRUE, signing up to this poll will also sign the mob up for identical polls
+ */
 /datum/candidate_poll/proc/sign_up(mob/dead/observer/M, silent = FALSE)
 	. = FALSE
 	if(!istype(M) || !M.key || !M.client)
@@ -303,8 +303,8 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 
 /**
-  * Deletes any candidates who may have disconnected from the list
-  */
+ * Deletes any candidates who may have disconnected from the list
+ */
 /datum/candidate_poll/proc/trim_candidates()
 	listclearnulls(signed_up)
 	for(var/mob in signed_up)
@@ -314,7 +314,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 
 /**
-  * Returns the time left for a poll
-  */
+ * Returns the time left for a poll
+ */
 /datum/candidate_poll/proc/time_left()
 	return duration - (world.time - time_started)

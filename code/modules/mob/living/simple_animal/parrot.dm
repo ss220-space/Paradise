@@ -673,11 +673,11 @@
 
 
 /**
-  * Attempts to pick up an adjacent item
-  *
-  * Arguments:
-  * * I - The item to try and pick up
-  */
+ * Attempts to pick up an adjacent item
+ *
+ * Arguments:
+ * * I - The item to try and pick up
+ */
 /mob/living/simple_animal/parrot/proc/try_grab_item(obj/I)
 	if(!Adjacent(I))
 		return

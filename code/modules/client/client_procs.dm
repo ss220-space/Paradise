@@ -565,16 +565,16 @@
 	browser.set_window_options("border=0;titlebar=0;focus=1;can_close=0;can_resize=0;")
 	browser.set_content({"
 			<h1>Вы перенаправлены на сервер [url].<br> Нажмите на ссылку, если переход не произошел автоматически.</h1>
-            <a id='link' href='[url]' style='text-align: center; width=100%;' onclick='closeByond()' >
-                Ссылка
-            </a>
+			<a id='link' href='[url]' style='text-align: center; width=100%;' onclick='closeByond()' >
+				Ссылка
+			</a>
 			<script type='text/javascript'>
 				function closeByond(){
 					window.location="byond://winset?command=.quit"
 				}
 				document.getElementById("link").click();
-            </script>
-            "})
+			</script>
+			"})
 	browser.open(FALSE)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 20)
 
@@ -1318,11 +1318,11 @@
 			return
 
 /**
-  * Retrieves the BYOND accounts data from the BYOND servers
-  *
-  * Makes a web request to byond.com to retrieve the details for the BYOND account associated with the clients ckey.
-  * Returns the data in a parsed, associative list
-  */
+ * Retrieves the BYOND accounts data from the BYOND servers
+ *
+ * Makes a web request to byond.com to retrieve the details for the BYOND account associated with the clients ckey.
+ * Returns the data in a parsed, associative list
+ */
 /client/proc/retrieve_byondacc_data()
 	// Do not refactor this to use SShttp, because that requires the subsystem to be firing for requests to be made, and this will be triggered before the MC has finished loading
 	var/list/http[] = world.Export("http://www.byond.com/members/[ckey]?format=text")
@@ -1370,13 +1370,13 @@
 
 
 /**
-  * Sets the clients BYOND date up properly
-  *
-  * If the client does not have a saved BYOND account creation date, retrieve it from the website
-  * If they do have a saved date, use that from the DB, because this value will never change
-  * Arguments:
-  * * notify - Do we notify admins of this new accounts date
-  */
+ * Sets the clients BYOND date up properly
+ *
+ * If the client does not have a saved BYOND account creation date, retrieve it from the website
+ * If they do have a saved date, use that from the DB, because this value will never change
+ * Arguments:
+ * * notify - Do we notify admins of this new accounts date
+ */
 /client/proc/get_byond_account_date(notify = FALSE)
 	// First we see if the client has a saved date in the DB
 	var/datum/db_query/query_date = SSdbcore.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey=:ckey", list(
@@ -1469,11 +1469,11 @@
 	SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye)
 
 /**
-  * Checks if the client has accepted TOS
-  *
-  * Runs some checks against vars and the DB to see if the client has accepted TOS.
-  * Returns TRUE or FALSE if they have or have not
-  */
+ * Checks if the client has accepted TOS
+ *
+ * Runs some checks against vars and the DB to see if the client has accepted TOS.
+ * Returns TRUE or FALSE if they have or have not
+ */
 /client/proc/check_tos_consent()
 	// If there is no TOS, auto accept
 	if(!GLOB.join_tos)

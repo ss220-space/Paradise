@@ -33,12 +33,12 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	var/is_cleansing_going = FALSE
 
 /**
-  * Starts poll for candidates with a question and a preview of the mode
-  *
-  * Arguments:
-  * * mode - Name of the tdome mode: "ranged", "cqc", "mixed"
-  * * center - Object in the center of a thunderdome
-  */
+ * Starts poll for candidates with a question and a preview of the mode
+ *
+ * Arguments:
+ * * mode - Name of the tdome mode: "ranged", "cqc", "mixed"
+ * * center - Object in the center of a thunderdome
+ */
 /datum/mini_game/thunderdome_battle/proc/start(obj/center, datum/thunderdome_gamemode/gamemode)
 	if(is_going)
 		return
@@ -118,13 +118,13 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), time_limit)
 
 /**
-  * Rolls items from a list and returns associative list with keys and values.
-  *	Does not check if it's not associative list or some values don't have them.
-  *
-  * Arguments:
-  * * from - list we are collecting items from
-  * * count - how many items we will roll from a list
-  */
+ * Rolls items from a list and returns associative list with keys and values.
+ *	Does not check if it's not associative list or some values don't have them.
+ *
+ * Arguments:
+ * * from - list we are collecting items from
+ * * count - how many items we will roll from a list
+ */
 
 /datum/mini_game/thunderdome_battle/proc/get_random_items(list/from, count)
 	if(!length(from))

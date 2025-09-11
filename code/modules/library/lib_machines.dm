@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/flagged = 0
 	var/flaggedby
 
-/datum/cachedbook/proc/LoadFromRow(var/list/row)
+/datum/cachedbook/proc/LoadFromRow(list/row)
 	id = row["id"]
 	author = row["author"]
 	title = row["title"]

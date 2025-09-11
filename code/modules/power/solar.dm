@@ -39,7 +39,7 @@
 	return ..()
 
 //set the control of the panel to a given computer if closer than SOLAR_MAX_DIST
-/obj/machinery/power/solar/proc/set_control(var/obj/machinery/power/solar_control/SC)
+/obj/machinery/power/solar/proc/set_control(obj/machinery/power/solar_control/SC)
 	if(!SC || (get_dist(src, SC) > SOLAR_MAX_DIST))
 		return 0
 	control = SC
@@ -52,7 +52,7 @@
 		control.connected_panels.Remove(src)
 	control = null
 
-/obj/machinery/power/solar/proc/Make(var/obj/item/solar_assembly/S)
+/obj/machinery/power/solar/proc/Make(obj/item/solar_assembly/S)
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
@@ -161,7 +161,7 @@
 	unset_control()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/power/solar/fake/New(var/turf/loc, var/obj/item/solar_assembly/S)
+/obj/machinery/power/solar/fake/New(turf/loc, obj/item/solar_assembly/S)
 	..(loc, S, 0)
 
 /obj/machinery/power/solar/fake/process()
@@ -577,7 +577,7 @@
 		set_panels(cdir)
 
 //rotates the panel to the passed angle
-/obj/machinery/power/solar_control/proc/set_panels(var/cdir)
+/obj/machinery/power/solar_control/proc/set_panels(cdir)
 
 	for(var/obj/machinery/power/solar/S in connected_panels)
 		S.adir = cdir //instantly rotates the panel

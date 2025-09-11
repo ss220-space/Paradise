@@ -379,8 +379,10 @@
 	if(!istype(user))
 		return
 
-	user.visible_message(span_warning("Кожа [user] начинает пузыриться и перемещаться по телу!"), \
-					 span_shadowling("Вы восстанавливаете свою броню и очищаете свою форму от дефектов."))
+	user.visible_message(
+		span_warning("Кожа [user] начинает пузыриться и перемещаться по телу!"), \
+		span_shadowling("Вы восстанавливаете свою броню и очищаете свою форму от дефектов.")
+	)
 	user.set_species(/datum/species/shadow/ling)
 	user.adjustCloneLoss(-(user.getCloneLoss()))
 	user.set_vision_override(/datum/vision_override/nightvision) // nighvision withot button

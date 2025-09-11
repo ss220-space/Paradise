@@ -620,7 +620,7 @@ GLOBAL_VAR(bomb_set)
 		add_game_logs("[fingerprintslast] who touched the lost [src] in [COORD(diskturf)].")
 		qdel(src)
 
- //station disk is allowed on z1, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise
+//station disk is allowed on z1, escape shuttle/pods, CC, and syndicate shuttles/base, reset otherwise
 /obj/item/disk/nuclear/proc/check_disk_loc()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)

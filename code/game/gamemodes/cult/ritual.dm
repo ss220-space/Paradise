@@ -209,8 +209,10 @@
 		drawing_rune = FALSE
 		return
 
-	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
-						 "<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>")
+	user.visible_message(
+		"<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
+		"<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>"
+	)
 
 	var/obj/effect/rune/R = new rune(runeturf, keyword)
 	drawing_rune = FALSE

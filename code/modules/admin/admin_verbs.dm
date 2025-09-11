@@ -1008,7 +1008,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		togglebuildmode(src.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Build Mode")
 
-/client/proc/object_talk(var/msg as text) // -- TLE
+/client/proc/object_talk(msg as text) // -- TLE
 	set name = "oSay"
 	set desc = "Display a message to everyone who can hear the target"
 

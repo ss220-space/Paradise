@@ -303,7 +303,7 @@
 
 /obj/machinery/power/supermatter_shard
 
-/obj/machinery/power/supermatter_shard/bullet_act(var/obj/projectile/Proj)
+/obj/machinery/power/supermatter_shard/bullet_act(obj/projectile/Proj)
 	var/turf/L = loc
 	if(!istype(L))		// We don't run process() when we are in space
 		return 0	// This stops people from being able to really power up the supermatter
@@ -580,10 +580,10 @@
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 
 /obj/machinery/power/supermatter_shard/proc/emergency_lighting(active)
-    if(active)
-        post_status(STATUS_DISPLAY_ALERT, "radiation")
-    else
-        post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
+	if(active)
+		post_status(STATUS_DISPLAY_ALERT, "radiation")
+	else
+		post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 
 /obj/machinery/power/supermatter_shard/proc/supermatter_zap()
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = zap_sound_extrarange)
@@ -614,7 +614,7 @@
 	user.apply_effect(150, IRRADIATE)
 
 
-/obj/machinery/power/supermatter_shard/proc/nuclear_touch(var/mob/living/user)
+/obj/machinery/power/supermatter_shard/proc/nuclear_touch(mob/living/user)
 	var/datum/species/nucleation/nuclear = user.dna.species
 	if(nuclear.touched_supermatter == FALSE)
 		user.revive()

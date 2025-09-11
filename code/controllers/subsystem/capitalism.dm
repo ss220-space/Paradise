@@ -114,7 +114,7 @@ SUBSYSTEM_DEF(capitalism)
 			else
 				return FALSE
 
-/datum/controller/subsystem/capitalism/proc/smart_bounty_payment(var/list/jobs_payment, var/money)
+/datum/controller/subsystem/capitalism/proc/smart_bounty_payment(list/jobs_payment, money)
 	. = FALSE //If nothing is paid to anyone
 	var/list_payment_account = list() //which people should I pay
 	var/bounty = 0 //What kind of money for each person
@@ -133,7 +133,7 @@ SUBSYSTEM_DEF(capitalism)
 			account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении заказа.\" (Невозможно Ответить)", FALSE)
 	return
 
-/datum/controller/subsystem/capitalism/proc/smart_job_payment(var/list/jobs_payment)
+/datum/controller/subsystem/capitalism/proc/smart_job_payment(list/jobs_payment)
 	. = FALSE //If nothing is paid to anyone
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
 		if(jobs_payment?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
@@ -144,7 +144,7 @@ SUBSYSTEM_DEF(capitalism)
 	return
 
 // In short, as for beggars, but for departments
-/datum/controller/subsystem/capitalism/proc/smart_departament_payment(var/list/keys_departament, var/money)
+/datum/controller/subsystem/capitalism/proc/smart_departament_payment(list/keys_departament, money)
 	. = FALSE							//If nothing is paid to anyone
 	var/list_payment_account = list()	//which people should I pay
 	var/bounty = 0						//What kind of money for each department

@@ -1,5 +1,3 @@
-
-
 /turf
 	var/pressure_difference = 0
 	var/pressure_direction = 0
@@ -364,7 +362,7 @@
 
 #undef LAST_SHARE_CHECK
 
-/turf/proc/consider_pressure_difference(var/turf/simulated/T, var/difference, var/direction = get_dir(src, T))
+/turf/proc/consider_pressure_difference(turf/simulated/T, difference, direction = get_dir(src, T))
 	SSair.high_pressure_delta |= src
 	if(difference > pressure_difference)
 		pressure_direction = direction
@@ -412,13 +410,13 @@
 	if(SSair)
 		SSair.excited_groups += src
 
-/datum/excited_group/proc/add_turf(var/turf/simulated/T)
+/datum/excited_group/proc/add_turf(turf/simulated/T)
 	turf_list += T
 	T.excited_group = src
 	T.recently_active = 1
 	reset_cooldowns()
 
-/datum/excited_group/proc/merge_groups(var/datum/excited_group/E)
+/datum/excited_group/proc/merge_groups(datum/excited_group/E)
 	if(length(turf_list) > length(E.turf_list))
 		SSair.excited_groups -= E
 		for(var/turf/simulated/T in E.turf_list)

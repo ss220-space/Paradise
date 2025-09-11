@@ -261,7 +261,7 @@
 	qdel(src)
 	return TRUE
 
-/mob/living/simple_animal/slime/proc/reproduce_baby_stats(var/list/babies, var/datum/slime_age/baby_type, var/new_nutrition, var/new_powerlevel, var/can_mutate)
+/mob/living/simple_animal/slime/proc/reproduce_baby_stats(list/babies, datum/slime_age/baby_type, new_nutrition, new_powerlevel, can_mutate)
 	var/child_colour = colour
 	if(can_mutate)
 		if(mutation_chance >= 100)

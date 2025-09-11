@@ -5,10 +5,10 @@
 #define MESSAGES_WAIT_TIME 1 MINUTES
 
 /**
-  * # Ore Redemption Machine
-  *
-  * Turns all the various mining machines into a single unit to speed up tmining and establish a point system.
-  */
+ * # Ore Redemption Machine
+ *
+ * Turns all the various mining machines into a single unit to speed up tmining and establish a point system.
+ */
 /obj/machinery/mineral/ore_redemption
 	name = "ore redemption machine"
 	desc = "Устройство, перерабатывающее руду в готовые листы материалов. Начисляет баллы в зависимости от типа руды, которые можно обменять в раздатчике шахтёрского оборудования."
@@ -103,10 +103,10 @@
 	RefreshParts()
 
 /**
-  * # Ore Redemption Machine (Golem)
-  *
-  * Golem variant of the ORM.
-  */
+ * # Ore Redemption Machine (Golem)
+ *
+ * Golem variant of the ORM.
+ */
 /obj/machinery/mineral/ore_redemption/golem
 	req_access = list(ACCESS_FREE_GOLEMS)
 	req_access_claim = ACCESS_FREE_GOLEMS
@@ -123,10 +123,10 @@
 	RefreshParts()
 
 /**
-  * # Ore Redemption Machine (Labor Camp)
-  *
-  * Labor camp variant of the ORM. Points can be claimed by anyone.
-  */
+ * # Ore Redemption Machine (Labor Camp)
+ *
+ * Labor camp variant of the ORM. Points can be claimed by anyone.
+ */
 /obj/machinery/mineral/ore_redemption/labor
 	name = "labor camp ore redemption machine"
 	req_access = list()
@@ -447,11 +447,11 @@
 	)
 
 /**
-  * Smelts the given stack of ore.
-  *
-  * Arguments:
-  * * O - The ore stack to smelt.
-  */
+ * Smelts the given stack of ore.
+ *
+ * Arguments:
+ * * O - The ore stack to smelt.
+ */
 /obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/stack/ore/O)
 	// Award points if the ore actually smelts to something
 	if(O.refined_type)
@@ -469,11 +469,11 @@
 	qdel(O)
 
 /**
-  * Returns the amount of alloy sheets that can be produced from the given design.
-  *
-  * Arguments:
-  * * D - The smelting design.
-  */
+ * Returns the amount of alloy sheets that can be produced from the given design.
+ *
+ * Arguments:
+ * * D - The smelting design.
+ */
 /obj/machinery/mineral/ore_redemption/proc/get_num_smeltable_alloy(datum/design/D)
 	if(length(D.make_reagents))
 		return 0
@@ -494,18 +494,18 @@
 	return result
 
 /**
-  * Processes the given list of ores.
-  *
-  * Arguments:
-  * * L - List of ores to process.
-  */
+ * Processes the given list of ores.
+ *
+ * Arguments:
+ * * L - List of ores to process.
+ */
 /obj/machinery/mineral/ore_redemption/proc/process_ores(list/obj/item/stack/ore/L)
 	for(var/ore in L)
 		smelt_ore(ore)
 
 /**
-  * Notifies all relevant supply consoles with the machine's contents.
-  */
+ * Notifies all relevant supply consoles with the machine's contents.
+ */
 /obj/machinery/mineral/ore_redemption/proc/send_console_message()
 	if(!is_station_level(z))
 		return
@@ -533,11 +533,11 @@
 			C.createMessage(ORE_REDEMPTION, "Новые ресурсы доступны!", msg, 1) // RQ_NORMALPRIORITY
 
 /**
-  * Tries to insert the ID card held by the given user into the machine.
-  *
-  * Arguments:
-  * * user - The ID whose active hand to check for an ID card to insert.
-  */
+ * Tries to insert the ID card held by the given user into the machine.
+ *
+ * Arguments:
+ * * user - The ID whose active hand to check for an ID card to insert.
+ */
 /obj/machinery/mineral/ore_redemption/proc/try_insert_id(mob/user)
 	. = FALSE
 	var/obj/item/card/id/I = user.get_active_hand()
@@ -558,13 +558,13 @@
 	return TRUE
 
 /**
-  * Called when an item is inserted manually as material.
-  *
-  * Arguments:
-  * * inserted_type - The type of the inserted item.
-  * * last_inserted_id - The ID of the last material to have been inserted.
-  * * inserted - The amount of material inserted.
-  */
+ * Called when an item is inserted manually as material.
+ *
+ * Arguments:
+ * * inserted_type - The type of the inserted item.
+ * * last_inserted_id - The ID of the last material to have been inserted.
+ * * inserted - The amount of material inserted.
+ */
 /obj/machinery/mineral/ore_redemption/proc/on_material_insert(inserted_type, last_inserted_id, inserted)
 	SStgui.update_uis(src)
 

@@ -51,15 +51,15 @@ Made by Xhuis
 	var/victory_warning_announced = FALSE
 	var/thrall_ratio = 1
 
-/proc/is_thrall(var/mob/living/M)
+/proc/is_thrall(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.shadowling_thralls)
 
 
-/proc/is_shadow_or_thrall(var/mob/living/M)
+/proc/is_shadow_or_thrall(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && ((M.mind in SSticker.mode.shadowling_thralls) || (M.mind in SSticker.mode.shadows))
 
 
-/proc/is_shadow(var/mob/living/M)
+/proc/is_shadow(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.shadows)
 
 
@@ -116,7 +116,7 @@ Made by Xhuis
 		//give_shadowling_abilities(shadow)
 	..()
 
-/datum/game_mode/proc/greet_shadow(var/datum/mind/shadow)
+/datum/game_mode/proc/greet_shadow(datum/mind/shadow)
 	var/list/messages = list()
 	messages.Add("<b>В настоящее время ты замаскирован под члена экипажа [station_name()].</b>")
 	messages.Add("<b>В твоём текущем состоянии у тебя есть две способности: Раскрытие и Телепатическая сеть тенелингов. '[get_language_prefix(LANGUAGE_HIVE_SHADOWLING)]'.</b>")
@@ -125,7 +125,7 @@ Made by Xhuis
 	return messages
 
 
-/datum/game_mode/proc/process_shadow_objectives(var/datum/mind/shadow_mind)
+/datum/game_mode/proc/process_shadow_objectives(datum/mind/shadow_mind)
 	var/objective = "enthrall" //may be devour later, but for now it seems murderbone-y
 
 	if(objective == "enthrall")
@@ -135,7 +135,7 @@ Made by Xhuis
 		return "<b>Цель #1</b>: [objective_explanation]<br>"
 
 
-/datum/game_mode/proc/finalize_shadowling(var/datum/mind/shadow_mind)
+/datum/game_mode/proc/finalize_shadowling(datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
 	shadow_mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_hatch(null))
 	spawn(0)
@@ -194,7 +194,7 @@ Made by Xhuis
 			log_game("Shadowling reveal. Powergame and validhunt allowed.")
 		return 1
 
-/datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, var/kill = 0)
+/datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, kill = 0)
 	if(!istype(thrall_mind) || !(thrall_mind in shadowling_thralls) || !isliving(thrall_mind.current))
 		return 0 //If there is no mind, the mind isn't a thrall, or the mind's mob isn't alive, return
 	shadowling_thralls.Remove(thrall_mind)

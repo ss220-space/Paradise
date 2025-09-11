@@ -129,7 +129,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 // Setting the choice to 0 will remove the camera from the chunks.
 // If you want to update the chunks around an object, without adding/removing a camera, use choice 2.
 
-/datum/cameranet/proc/majorChunkChange(atom/c, var/choice)
+/datum/cameranet/proc/majorChunkChange(atom/c, choice)
 	if(QDELETED(c) && choice == 1)
 		CRASH("Tried to add a qdeleting camera to the net")
 
@@ -174,7 +174,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 	var/turf/position = get_turf(target)
 	return checkTurfVis(position)
 
-/datum/cameranet/proc/checkTurfVis(var/turf/position)
+/datum/cameranet/proc/checkTurfVis(turf/position)
 	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.z)
 	if(chunk)
 		if(chunk.changed)

@@ -2,14 +2,14 @@ GLOBAL_VAR_INIT(BSACooldown, 0)
 GLOBAL_VAR_INIT(nologevent, 0)
 
 ////////////////////////////////
-/proc/message_admins(var/msg)
+/proc/message_admins(msg)
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
 				to_chat(C, msg, MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 
-/proc/msg_admin_attack(var/text, var/loglevel)
+/proc/msg_admin_attack(text, loglevel)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
@@ -21,7 +21,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Arguments:
  * msg - The message being send
  * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
-               send a sound and flash the window. Defaults to FALSE
+ * send a sound and flash the window. Defaults to FALSE
  */
 /proc/message_adminTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Arguments:
  * msg - The message being send
  * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
-               send a sound and flash the window. Defaults to FALSE
+ * send a sound and flash the window. Defaults to FALSE
  */
 /proc/message_mentorTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
@@ -50,7 +50,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 					SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 				window_flash(C)
 
-/proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)
+/proc/admin_ban_mobsearch(mob/M, ckey_to_find, mob/admin_to_notify)
 	if(!M || !M.ckey)
 		if(ckey_to_find)
 			for(var/mob/O in GLOB.mob_list)
@@ -336,7 +336,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	show_note()
 
-/datum/admins/proc/show_player_notes(var/key as text)
+/datum/admins/proc/show_player_notes(key as text)
 	set category = STATPANEL_ADMIN_BAN
 	set name = "Show Player Notes"
 
@@ -717,11 +717,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /**
-  * A proc that return whether the mob is a "Special Character" aka Antagonist
-  *
-  * Arguments:
-  * * M - the mob you're checking
-  */
+ * A proc that return whether the mob is a "Special Character" aka Antagonist
+ *
+ * Arguments:
+ * * M - the mob you're checking
+ */
 /proc/is_special_character(mob/M)
 	if(!SSticker.mode)
 		return FALSE
@@ -737,11 +737,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /**
-  * A proc that return an array of capitalized strings containing name of the antag types they are
-  *
-  * Arguments:
-  * * M - the mob you're checking
-  */
+ * A proc that return an array of capitalized strings containing name of the antag types they are
+ *
+ * Arguments:
+ * * M - the mob you're checking
+ */
 /proc/get_antag_type_strings_list(mob/M) // return an array of all the antag types they are with name
 	var/list/antag_list = list()
 
@@ -780,15 +780,15 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /**
-  * A proc that return a string containing all the singled out antags . Empty string if not antag
-  *
-  * Usually, you'd return a FALSE, but since this is consumed by javascript you're in
-  * for a world of hurt if you pass a byond FALSE which get converted into a fucking string anyway and pass for TRUE in check. Fuck.
-  * It always append "(May be other antag)"
-  * Arguments:
-  * * M - the mob you're checking
-  * *
-  */
+ * A proc that return a string containing all the singled out antags . Empty string if not antag
+ *
+ * Usually, you'd return a FALSE, but since this is consumed by javascript you're in
+ * for a world of hurt if you pass a byond FALSE which get converted into a fucking string anyway and pass for TRUE in check. Fuck.
+ * It always append "(May be other antag)"
+ * Arguments:
+ * * M - the mob you're checking
+ * *
+ */
 /proc/get_antag_type_truncated_plaintext_string(mob/M as mob)
 	var/list/antag_list = get_antag_type_strings_list(M)
 
@@ -867,7 +867,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")
 
 
-/datum/admins/proc/show_traitor_panel(var/mob/M in GLOB.mob_list)
+/datum/admins/proc/show_traitor_panel(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_ADMIN
 	set desc = "Edit mobs's memory and role"
 	set name = "\[Admin\] Show Traitor Panel"
@@ -947,7 +947,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 //ALL DONE
 //*********************************************************************************************************
 
-/proc/formatJumpTo(var/location,var/where="")
+/proc/formatJumpTo(location, where="")
 	var/turf/loc
 	if(istype(location,/turf/))
 		loc = location
@@ -957,7 +957,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		where=formatLocation(loc)
 	return "<a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>[where]</a>"
 
-/proc/formatLocation(var/location)
+/proc/formatLocation(location)
 	var/turf/loc
 	if(istype(location,/turf/))
 		loc = location
@@ -966,7 +966,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/area/A = get_area(location)
 	return "[A.name] - [loc.x],[loc.y],[loc.z]"
 
-/proc/formatPlayerPanel(var/mob/U,var/text="PP")
+/proc/formatPlayerPanel(mob/U, text="PP")
 	return "[ADMIN_PP(U,"[text]")]"
 
 //Kicks all the clients currently in the lobby. The second parameter (kick_only_afk) determins if an is_afk() check is ran, or if all clients are kicked

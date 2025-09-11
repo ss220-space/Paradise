@@ -138,7 +138,7 @@
 /obj/machinery/alarm/kitchen_cold_room
 	preset = AALARM_PRESET_COLDROOM
 
-/obj/machinery/alarm/proc/apply_preset(var/no_cycle_after=0)
+/obj/machinery/alarm/proc/apply_preset(no_cycle_after=0)
 	// Propogate settings.
 	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.preset != src.preset)
@@ -1164,11 +1164,11 @@ Just an object used in constructing air alarms
 //for oldstation
 
 /obj/machinery/alarm/old
-    name = "old air alarm"
-    desc = "This atmos control unit is too old, that it no longer requires access."
-    report_danger_level = FALSE
-    remote_control = FALSE
-    req_access = null
+	name = "old air alarm"
+	desc = "This atmos control unit is too old, that it no longer requires access."
+	report_danger_level = FALSE
+	remote_control = FALSE
+	req_access = null
 
 #undef AALARM_MODE_SCRUBBING
 #undef AALARM_MODE_VENTING

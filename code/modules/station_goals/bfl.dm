@@ -601,7 +601,7 @@
 /obj/singularity/bfl_red/singularity_act()
 	return 0
 
-/obj/singularity/bfl_red/New(loc, var/starting_energy = 50, var/temp = 0)
+/obj/singularity/bfl_red/New(loc, starting_energy = 50, temp = 0)
 	starting_energy = 250
 	lavaland_z_lvl = level_name_to_num(MINING)
 	. = ..(loc, starting_energy, temp)

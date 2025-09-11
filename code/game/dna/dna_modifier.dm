@@ -803,12 +803,12 @@
 			disk = null
 
 /**
-  * Creates a blank injector with the name of the buffer at the given buffer_id
-  *
-  * Arguments:
-  * * buffer_id - The ID of the buffer
-  * * copy_buffer - Whether the injector should copy the buffer contents
-  */
+ * Creates a blank injector with the name of the buffer at the given buffer_id
+ *
+ * Arguments:
+ * * buffer_id - The ID of the buffer
+ * * copy_buffer - Whether the injector should copy the buffer contents
+ */
 /obj/machinery/computer/scan_consolenew/proc/create_injector(buffer_id, copy_buffer = FALSE)
 	if(buffer_id < 1 || buffer_id > length(buffers))
 		return
@@ -829,18 +829,18 @@
 	return I
 
 /**
-  * Called when the injector creation cooldown finishes
-  */
+ * Called when the injector creation cooldown finishes
+ */
 /obj/machinery/computer/scan_consolenew/proc/injector_cooldown_finish()
 	injector_ready = TRUE
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/machinery/computer/scan_consolenew/proc/ui_act_modal(action, params)
 	. = TRUE
 	var/id = params["id"] // The modal's ID

@@ -258,7 +258,7 @@
 	supplied_laws.Cut()
 	sorted_laws.Cut()
 
-/datum/ai_laws/proc/show_laws(var/who)
+/datum/ai_laws/proc/show_laws(who)
 	sort_laws()
 	for(var/datum/ai_law/law in sorted_laws)
 		if(law == zeroth_law_borg)

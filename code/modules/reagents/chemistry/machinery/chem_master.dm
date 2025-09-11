@@ -465,12 +465,12 @@
 	return data
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/machinery/chem_master/proc/ui_act_modal(action, params, datum/tgui/ui, datum/ui_state/state)
 	. = TRUE
 	var/id = params["id"] // The modal's ID

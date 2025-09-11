@@ -382,7 +382,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		else if(occupant.cloneloss > (100 - heal_level))
 			occupant.Paralyse(8 SECONDS)
 
-			 //Slowly get that clone healed and finished.
+			//Slowly get that clone healed and finished.
 			occupant.adjustCloneLoss(-((speed_coeff/2)))
 
 			// For human species that lack non-vital parts for some weird reason
@@ -526,7 +526,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	balloon_alert(user, "хонкнуто!")
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
-/obj/machinery/clonepod/proc/update_clone_antag(var/mob/living/carbon/human/H)
+/obj/machinery/clonepod/proc/update_clone_antag(mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
 	if((H.mind in SSticker.mode:revolutionaries) || (H.mind in SSticker.mode:head_revolutionaries))
 		SSticker.mode.update_rev_icons_added() //So the icon actually appears

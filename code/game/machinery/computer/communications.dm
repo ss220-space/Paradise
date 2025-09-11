@@ -679,7 +679,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	SSshuttle.autoEvac()
 	return ..()
 
-/proc/print_command_report(text = "", title = "Уведомление Центрального командования", add_to_records = TRUE, var/datum/station_goal/goal = null)
+/proc/print_command_report(text = "", title = "Уведомление Центрального командования", add_to_records = TRUE, datum/station_goal/goal = null)
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/paper/P = new (C.loc)

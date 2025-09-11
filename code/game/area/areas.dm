@@ -255,10 +255,10 @@
 	return ..()
 
 /**
-  * Generate a power alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  */
+ * Generate a power alert for this area
+ *
+ * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+ */
 /area/proc/poweralert(state, obj/source)
 	if(state != poweralm)
 		poweralm = state
@@ -277,10 +277,10 @@
 				SSalarm.triggerAlarm("Power", src, cameras, source)
 
 /**
-  * Generate an atmospheric alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  */
+ * Generate an atmospheric alert for this area
+ *
+ * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+ */
 /area/proc/atmosalert(danger_level, obj/source)
 	if(danger_level != atmosalm)
 		if(danger_level == ATMOS_ALARM_DANGER)
@@ -306,8 +306,8 @@
 	return FALSE
 
 /**
-  * Try to close all the firedoors in the area
-  */
+ * Try to close all the firedoors in the area
+ */
 /area/proc/ModifyFiredoors(opening)
 	if(!firedoors)
 		return
@@ -338,12 +338,12 @@
 			INVOKE_ASYNC(firedoor, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, open) : TYPE_PROC_REF(/obj/machinery/door/firedoor, close)))
 
 /**
-  * Generate a firealarm alert for this area
-  *
-  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
-  *
-  * Also starts the area processing on SSobj
-  */
+ * Generate a firealarm alert for this area
+ *
+ * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+ *
+ * Also starts the area processing on SSobj
+ */
 /area/proc/firealert(obj/source)
 	if(always_unpowered) //no fire alarms in space/asteroid
 		return
@@ -362,13 +362,13 @@
 	START_PROCESSING(SSobj, src)
 
 /**
-  * Reset the firealarm alert for this area
-  *
-  * resets the alert sent to all ai players, alert consoles, drones and alarm monitor programs
-  * in the world
-  *
-  * Also cycles the icons of all firealarms and deregisters the area from processing on SSOBJ
-  */
+ * Reset the firealarm alert for this area
+ *
+ * resets the alert sent to all ai players, alert consoles, drones and alarm monitor programs
+ * in the world
+ *
+ * Also cycles the icons of all firealarms and deregisters the area from processing on SSOBJ
+ */
 /area/proc/firereset(obj/source)
 	if(fire)
 		unset_fire_alarm_effects()
@@ -384,17 +384,17 @@
 	STOP_PROCESSING(SSobj, src)
 
 /**
-  * If 100 ticks has elapsed, toggle all the firedoors closed again
-  */
+ * If 100 ticks has elapsed, toggle all the firedoors closed again
+ */
 /area/process()
 	if(firedoors_last_closed_on + 100 < world.time)	//every 10 seconds
 		ModifyFiredoors(FALSE)
 
 /**
-  * Close and lock a door passed into this proc
-  *
-  * Does this need to exist on area? probably not
-  */
+ * Close and lock a door passed into this proc
+ *
+ * Does this need to exist on area? probably not
+ */
 /area/proc/close_and_lock_door(obj/machinery/door/DOOR)
 	set waitfor = FALSE
 	DOOR.close()
@@ -402,12 +402,12 @@
 		DOOR.lock()
 
 /**
-  * Raise a burglar alert for this area
-  *
-  * Close and locks all doors in the area and alerts silicon mobs of a break in
-  *
-  * Alarm auto resets after 600 ticks
-  */
+ * Raise a burglar alert for this area
+ *
+ * Close and locks all doors in the area and alerts silicon mobs of a break in
+ *
+ * Alarm auto resets after 600 ticks
+ */
 /area/proc/burglaralert(obj/trigger)
 	if(always_unpowered) //no burglar alarms in space/asteroid
 		return
@@ -423,10 +423,10 @@
 		addtimer(CALLBACK(SSalarm, TYPE_PROC_REF(/datum/controller/subsystem/alarm, cancelAlarm), "Burglar", src, trigger), 600)
 
 /**
-  * Trigger the fire alarm visual affects in an area
-  *
-  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
-  */
+ * Trigger the fire alarm visual affects in an area
+ *
+ * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
+ */
 /area/proc/set_fire_alarm_effect()
 	fire = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -484,10 +484,10 @@
 	return FALSE
 
 /**
-  * Called when the area power status changes
-  *
-  * Updates the area icon, calls power change on all machines in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
-  */
+ * Called when the area power status changes
+ *
+ * Updates the area icon, calls power change on all machines in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
+ */
 /area/proc/power_change()
 	for(var/obj/machinery/machine as anything in machinery_cache)	// for each machine in the area
 		machine.power_change()										// reverify power status (to update icons etc.)

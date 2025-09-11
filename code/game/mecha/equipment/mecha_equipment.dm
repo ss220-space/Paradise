@@ -246,7 +246,7 @@
 		return throw_default_alert(occupant)
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/proc/throw_default_alert(var/mob/living/carbon/occupant)
+/obj/item/mecha_parts/mecha_equipment/proc/throw_default_alert(mob/living/carbon/occupant)
 	if(alert_category == "mecha_module")
 		var/atom/movable/screen/alert/empty_alert/default_alert = occupant.throw_alert(alert_category, /atom/movable/screen/alert/empty_alert, new_master = src)
 		default_alert.name = name

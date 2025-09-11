@@ -328,7 +328,7 @@
 		ACCUSATIVE = "скафандр инквизитора",
 		INSTRUMENTAL = "скафандром инквизитора",
 		PREPOSITIONAL = "скафандре инквизитора"
-  	)
+	)
 
 /obj/item/clothing/suit/hooded/pathfinder
 	name = "pathfinder cloak"
