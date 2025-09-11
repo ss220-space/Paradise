@@ -4,11 +4,11 @@
 #define CORPSE_METHOD_UTILIZATION "утилизация тела"
 
 #define CREDITS_BY_CREMATION 2000
-#define CARGOPOINTS_BY_CREMATION 5
+#define CARGOPOINTS_BY_CREMATION 25
 #define CREDITS_BY_SPACE 3000
-#define CARGOPOINTS_BY_SPACE 10
+#define CARGOPOINTS_BY_SPACE 35
 #define CREDITS_BY_UTILIZATION 1000
-#define CARGOPOINTS_BY_UTILIZATION 2
+#define CARGOPOINTS_BY_UTILIZATION 20
 
 ////////////////////////////////////////
 // MARK:	Goal datum
@@ -175,3 +175,13 @@
 	death = TRUE
 	uniform = /obj/item/clothing/under/suit_jacket/charcoal
 	shoes = /obj/item/clothing/shoes/centcom
+
+#undef CORPSE_METHOD_CREMATION
+#undef CORPSE_METHOD_SPACE
+#undef CORPSE_METHOD_UTILIZATION
+#undef CREDITS_BY_CREMATION
+#undef CARGOPOINTS_BY_CREMATION
+#undef CREDITS_BY_SPACE
+#undef CARGOPOINTS_BY_SPACE
+#undef CREDITS_BY_UTILIZATION
+#undef CARGOPOINTS_BY_UTILIZATION

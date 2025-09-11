@@ -3,7 +3,7 @@
 	set name = "Список законов"
 	show_laws()
 
-/mob/living/silicon/robot/show_laws(var/everyone = 0)
+/mob/living/silicon/robot/show_laws(everyone = 0)
 	laws_sanity_check()
 	var/who
 

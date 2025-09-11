@@ -72,7 +72,7 @@
 	for(var/i = 1; i <= DNA_COUNT; i++)
 		write_dna_data(i, DNA_NO_DATA, DNA_COLOR_UNKNOWN)
 
-/obj/item/dna_notepad/proc/print_report(var/mob/living/user)
+/obj/item/dna_notepad/proc/print_report(mob/living/user)
 	if(printing)
 		return
 	printing = TRUE

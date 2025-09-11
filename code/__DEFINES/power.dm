@@ -1,0 +1,5 @@
+#define SOLAR_MAX_DIST 40
+
+#define TRACKER_OFF 0
+#define TRACKER_TIMED 1
+#define TRACKER_AUTO 2

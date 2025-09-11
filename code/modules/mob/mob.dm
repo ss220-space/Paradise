@@ -251,19 +251,19 @@
 	return seen_mobs
 
 /**
-  * Called by using Activate Held Object with an empty hand/limb
-  *
-  * Does nothing by default. The intended use is to allow limbs to call their
-  * own attack_self procs. It is up to the individual mob to override this
-  * parent and actually use it.
-  */
+ * Called by using Activate Held Object with an empty hand/limb
+ *
+ * Does nothing by default. The intended use is to allow limbs to call their
+ * own attack_self procs. It is up to the individual mob to override this
+ * parent and actually use it.
+ */
 /mob/proc/limb_attack_self()
 	return
 
 /**
  * Returns an assoc list which contains the mobs in range and their "visible" name.
  * Mobs out of view but in range will be listed as unknown. Else they will have their visible name
-*/
+ */
 /mob/proc/get_telepathic_targets()
 	var/list/validtargets = new /list()
 	var/turf/T = get_turf(src)
@@ -470,7 +470,7 @@
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	flavor_text = msg
 
-/mob/proc/print_flavor_text(var/shrink = TRUE)
+/mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 60 || !shrink)
@@ -835,12 +835,12 @@
 
 
 /**
-  * Buckle to another mob
-  *
-  * You can buckle on mobs if you're next to them since most are dense
-  *
-  * Turns you to face the other mob too
-  */
+ * Buckle to another mob
+ *
+ * You can buckle on mobs if you're next to them since most are dense
+ *
+ * Turns you to face the other mob too
+ */
 /mob/is_buckle_possible(mob/living/target, force = FALSE, check_loc = TRUE)
 	if(target.buckled)
 		return FALSE

@@ -1,24 +1,5 @@
 // Accuracy datum for /obj/item/gun
 
-/// Default accuracy for all projectile weapon
-#define GUN_ACCURACY_DEFAULT new /datum/gun_accuracy/default()
-/// Minimal gun accuracy
-#define GUN_ACCURACY_MINIMAL new /datum/gun_accuracy/minimal()
-/// Shotgun accuracy (less than default)
-#define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
-/// Pistol accuracy (near default)
-#define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
-/// Uplink pistol accuracy (better than normal pistols)
-#define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
-/// Rifle accuracy (more than default)
-#define GUN_ACCURACY_RIFLE new /datum/gun_accuracy/rifle()
-/// Laser rifle accuracy (default but lesser spread)
-#define GUN_ACCURACY_RIFLE_LASER new /datum/gun_accuracy/rifle/laser()
-/// Uplink rifles accuracy (better than default rifles)
-#define GUN_ACCURACY_RIFLE_UPLINK new /datum/gun_accuracy/rifle/uplink()
-/// Sniper rifle accuracy (100% hit)
-#define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
-
 GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 
 //MARK: Accuracy datum

@@ -21,12 +21,12 @@
 
 /obj/item/reagent_containers/applicator/get_ru_names()
 	return list(
-        NOMINATIVE = "авто-мендер",
-        GENITIVE = "авто-мендера",
-        DATIVE = "авто-мендеру",
-        ACCUSATIVE = "авто-мендер",
-        INSTRUMENTAL = "авто-мендером",
-        PREPOSITIONAL = "авто-мендере"
+		NOMINATIVE = "авто-мендер",
+		GENITIVE = "авто-мендера",
+		DATIVE = "авто-мендеру",
+		ACCUSATIVE = "авто-мендер",
+		INSTRUMENTAL = "авто-мендером",
+		PREPOSITIONAL = "авто-мендере"
 	)
 
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
@@ -147,12 +147,12 @@
 
 /obj/item/reagent_containers/applicator/brute/get_ru_names()
 	return list(
-        NOMINATIVE = "авто-мендер (Мех. Повреждения)",
-        GENITIVE = "авто-мендера (Мех. Повреждения)",
-        DATIVE = "авто-мендеру (Мех. Повреждения)",
-        ACCUSATIVE = "авто-мендер (Мех. Повреждения)",
-        INSTRUMENTAL = "авто-мендером (Мех. Повреждения)",
-        PREPOSITIONAL = "авто-мендере (Мех. Повреждения)"
+		NOMINATIVE = "авто-мендер (Мех. Повреждения)",
+		GENITIVE = "авто-мендера (Мех. Повреждения)",
+		DATIVE = "авто-мендеру (Мех. Повреждения)",
+		ACCUSATIVE = "авто-мендер (Мех. Повреждения)",
+		INSTRUMENTAL = "авто-мендером (Мех. Повреждения)",
+		PREPOSITIONAL = "авто-мендере (Мех. Повреждения)"
 	)
 
 /obj/item/reagent_containers/applicator/burn
@@ -162,12 +162,12 @@
 
 /obj/item/reagent_containers/applicator/burn/get_ru_names()
 	return list(
-        NOMINATIVE = "авто-мендер (Терм. Повреждения)",
-        GENITIVE = "авто-мендера (Терм. Повреждения)",
-        DATIVE = "авто-мендеру (Терм. Повреждения)",
-        ACCUSATIVE = "авто-мендер (Терм. Повреждения)",
-        INSTRUMENTAL = "авто-мендером (Терм. Повреждения)",
-        PREPOSITIONAL = "авто-мендере (Терм. Повреждения)"
+		NOMINATIVE = "авто-мендер (Терм. Повреждения)",
+		GENITIVE = "авто-мендера (Терм. Повреждения)",
+		DATIVE = "авто-мендеру (Терм. Повреждения)",
+		ACCUSATIVE = "авто-мендер (Терм. Повреждения)",
+		INSTRUMENTAL = "авто-мендером (Терм. Повреждения)",
+		PREPOSITIONAL = "авто-мендере (Терм. Повреждения)"
 	)
 
 /obj/item/reagent_containers/applicator/dual
@@ -177,12 +177,12 @@
 
 /obj/item/reagent_containers/applicator/dual/get_ru_names()
 	return list(
-        NOMINATIVE = "авто-мендер (Синт-плоть)",
-        GENITIVE = "авто-мендера (Синт-плоть)",
-        DATIVE = "авто-мендеру (Синт-плоть)",
-        ACCUSATIVE = "авто-мендер (Синт-плоть)",
-        INSTRUMENTAL = "авто-мендером (Синт-плоть)",
-        PREPOSITIONAL = "авто-мендере (Синт-плоть)"
+		NOMINATIVE = "авто-мендер (Синт-плоть)",
+		GENITIVE = "авто-мендера (Синт-плоть)",
+		DATIVE = "авто-мендеру (Синт-плоть)",
+		ACCUSATIVE = "авто-мендер (Синт-плоть)",
+		INSTRUMENTAL = "авто-мендером (Синт-плоть)",
+		PREPOSITIONAL = "авто-мендере (Синт-плоть)"
 	)
 
 /obj/item/reagent_containers/applicator/dual/syndi // It magically goes through hardsuits. Don't ask how.

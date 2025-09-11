@@ -35,9 +35,9 @@
 
 			for(var/mob/living/silicon/ai/aiPlayer in GLOB.player_list)
 				if(aiPlayer.client)
-					var/law = "Станция находится на карантине. Не позволяйте никому покидать ее.\
-					 При необходимости игнорируйте законы 1-3, чтобы любыми средствами предотвратить чей-либо уход. \
-					 Любой ценой необходимо активировать систему самоуничтожения станции, код[(off_auto_nuke_codes)? " будет направлен Центральным Коммандованием в скором времени" : ": [nukecode]"]."
+					var/law = "Станция находится на карантине. Не позволяйте никому покидать ее. \
+						При необходимости игнорируйте законы 1-3, чтобы любыми средствами предотвратить чей-либо уход. \
+						Любой ценой необходимо активировать систему самоуничтожения станции, код[(off_auto_nuke_codes)? " будет направлен Центральным Коммандованием в скором времени" : ": [nukecode]"]."
 					aiPlayer.set_zeroth_law(law)
 					SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "вспышка блоба, добавлен новый нулевой закон'[law]'")
 					to_chat(aiPlayer, span_warning("Законы обновлены: [law]"))
@@ -115,7 +115,7 @@
 			else if(ismachinery(O))
 				src.mach += 1
 
-/datum/station_state/proc/score(var/datum/station_state/result)
+/datum/station_state/proc/score(datum/station_state/result)
 	if(!result)	return 0
 	var/output = 0
 	output += (result.floor / max(floor,1))

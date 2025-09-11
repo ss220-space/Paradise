@@ -354,7 +354,7 @@
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
 
 /// Get rank from ID from hands, wear_id, pda, and then from uniform
-/mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "Без ID", var/if_no_job = "Без должности")
+/mob/living/carbon/human/proc/get_authentification_rank(if_no_id = "Без ID", if_no_job = "Без должности")
 	var/obj/item/card/id/id = get_id_card()
 	if(id)
 		return id.rank ? id.rank : if_no_job
@@ -375,7 +375,7 @@
 
 /// gets name from ID or ID inside PDA or PDA itself
 /// Useful when player do something with computers
-/mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = UNKNOWN_NAME_RUS)
+/mob/living/carbon/human/proc/get_authentification_name(if_no_id = UNKNOWN_NAME_RUS)
 	var/name = if_no_id
 	if(wear_id)
 		if(wear_id.GetID())
@@ -995,12 +995,12 @@
 
 
 /**
-  * Set up DNA and species.
-  *
-  * Arguments:
-  * * new_species - The new species to assign.
-  * * monkeybasic - If `TRUE` will skip randomization of the last SE block
-  */
+ * Set up DNA and species.
+ *
+ * Arguments:
+ * * new_species - The new species to assign.
+ * * monkeybasic - If `TRUE` will skip randomization of the last SE block
+ */
 /mob/living/carbon/human/proc/setup_dna(datum/species/new_species, monkeybasic = FALSE)
 	set_species(new_species, use_default_color = TRUE, delay_icon_update = TRUE, skip_same_check = TRUE)
 	// Name
@@ -1382,7 +1382,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	return FALSE
 
-/mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
+/mob/living/carbon/human/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
 	if(judgebot.emagged == 2)
 		return 10 //Everyone is a criminal!
 
@@ -1655,7 +1655,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return FALSE
 
 
-/mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
+/mob/living/carbon/human/proc/change_icobase(new_icobase, new_deform, owner_sensitive)
 	for(var/obj/item/organ/external/O as anything in bodyparts)
 		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
@@ -1870,12 +1870,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /**
-  * Helper to get the mobs runechat colour span
-  *
-  * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
-  */
+ * Helper to get the mobs runechat colour span
+ *
+ * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
+ */
 /mob/living/carbon/human/get_runechat_color()
-   return dna.species.get_species_runechat_color(src)
+	return dna.species.get_species_runechat_color(src)
 
 /mob/living/carbon/human/limb_attack_self()
 	var/obj/item/organ/external/arm = hand ? get_organ(BODY_ZONE_L_ARM) : get_organ(BODY_ZONE_R_ARM)

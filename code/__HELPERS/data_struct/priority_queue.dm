@@ -62,9 +62,9 @@
 
 
 /priority_queue/proc/swap(a, b)
-    var/list/temp = heap[a]
-    heap[a] = heap[b]
-    heap[b] = temp
+	var/list/temp = heap[a]
+	heap[a] = heap[b]
+	heap[b] = temp
 
 
 /priority_queue/Destroy(force)
