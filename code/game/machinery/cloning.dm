@@ -17,8 +17,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	/obj/item/reagent_containers/food/snacks/carpmeat, \
 	/obj/item/reagent_containers/food/snacks/salmonmeat, \
 	/obj/item/reagent_containers/food/snacks/catfishmeat, \
-	/obj/item/reagent_containers/food/snacks/tofurkey)
-)
+	/obj/item/reagent_containers/food/snacks/tofurkey))
 
 /obj/machinery/clonepod
 	anchored = TRUE
