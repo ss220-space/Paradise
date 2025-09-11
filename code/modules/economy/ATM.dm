@@ -382,3 +382,11 @@ log transactions
 
 /obj/machinery/atm/proc/replenish_insurance(amount)
 	authenticated_account.addInsurancePoints(amount)
+
+#undef DEFAULT_SCREEN
+#undef CHANGE_SECURITY_LEVEL
+#undef TRANSFER_FUNDS
+#undef VIEW_TRANSACTION_LOGS
+#undef CHANGE_INSURANCE_TYPE
+#undef PRINT_DELAY
+#undef LOCKOUT_TIME

@@ -309,13 +309,13 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		qdel(src)
 
 
-/obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_ghost(mob/user)
 	return ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
