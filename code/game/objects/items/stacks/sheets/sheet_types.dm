@@ -514,14 +514,14 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 	return ..()
 
 /datum/stack_recipe/cult
-   one_per_turf = TRUE
-   on_floor = TRUE
+	one_per_turf = TRUE
+	on_floor = TRUE
 
 /datum/stack_recipe/cult/post_build(obj/item/stack/S, obj/result)
-   if(ishuman(S.loc))
-      var/mob/living/carbon/human/H = S.loc
-      H.bleed(5)
-   ..()
+	if(ishuman(S.loc))
+		var/mob/living/carbon/human/H = S.loc
+		H.bleed(5)
+	..()
 
 /obj/item/stack/sheet/runed_metal/ten
 	amount = 10

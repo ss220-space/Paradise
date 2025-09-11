@@ -29,7 +29,7 @@
 	..()
 	initialize_directions = dir
 
-/obj/machinery/atmospherics/pipe/multiz/hide(var/i)
+/obj/machinery/atmospherics/pipe/multiz/hide(i)
 	return
 
 /obj/machinery/atmospherics/pipe/multiz/pipeline_expansion()
@@ -102,5 +102,5 @@
 		return FALSE //No nodes exist
 	return TRUE
 
-/obj/machinery/atmospherics/pipe/multiz/change_color(var/new_color)
+/obj/machinery/atmospherics/pipe/multiz/change_color(new_color)
 	return // no

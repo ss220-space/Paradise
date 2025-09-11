@@ -1,5 +1,3 @@
-#define VOTE_RESULT_TYPE_MAJORITY "Majority"
-
 /datum/vote
 	/// Person who started the vote
 	var/initiator = "сервером"
@@ -215,4 +213,3 @@
 				to_chat(world, "<b>Голосование было отменено!</b>")
 				log_and_message_admins("Canceled a vote")
 				qdel(src)
-
