@@ -670,9 +670,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/disposalpipe/segment,
 /obj/structure/grille,
-/obj/structure/window/reinforced/tinted{
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "aek" = (
@@ -11320,9 +11317,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aME" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "aMG" = (
@@ -13410,6 +13404,9 @@
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -24
+	},
+/obj/structure/chair/office/dark{
+	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
@@ -17352,10 +17349,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bgH" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Vacant Office"
+/obj/effect/turf_decal/siding/brown{
+	dir = 9
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -21044,8 +21040,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "btL" = (
-/obj/structure/bookcase,
-/obj/machinery/light/small,
+/obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
 "btM" = (
@@ -21109,8 +21104,7 @@
 	},
 /area/hallway/secondary/exit)
 "buf" = (
-/obj/structure/table/wood,
-/obj/item/paicard,
+/obj/structure/bookcase/random,
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "bui" = (
@@ -21343,9 +21337,12 @@
 	},
 /area/crew_quarters/bar/atrium)
 "buS" = (
-/obj/structure/table/wood,
-/obj/item/taperecorder,
-/turf/simulated/floor/carpet,
+/obj/effect/turf_decal/siding/brown{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
 /area/civilian/vacantoffice)
 "buU" = (
 /obj/machinery/newscaster{
@@ -21369,8 +21366,7 @@
 /turf/simulated/wall,
 /area/medical/reception)
 "buX" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
+/obj/structure/bookcase,
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "buY" = (
@@ -21440,12 +21436,11 @@
 /turf/simulated/floor/carpet,
 /area/library)
 "bvm" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/structure/table/wood,
+/obj/machinery/photocopier{
+	pixel_y = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "bvn" = (
 /obj/structure/rack{
@@ -22961,12 +22956,18 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/item/poster/random_contraband,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
 /area/civilian/vacantoffice)
 "bBs" = (
-/obj/structure/bookcase,
-/turf/simulated/floor/wood,
-/area/civilian/vacantoffice)
+/obj/machinery/hydroponics/soil,
+/obj/item/radio/intercom{
+	name = "south station intercom (General)";
+	pixel_y = -28
+	},
+/turf/simulated/floor/grass,
+/area/hallway/secondary/garden)
 "bBt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -30257,6 +30258,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -48598,14 +48600,30 @@
 	},
 /area/maintenance/trading)
 "djx" = (
-/obj/structure/computerframe,
+/obj/structure/sign/poster/official/random{
+	pixel_x = -32
+	},
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp{
+	pixel_y = 12;
+	pixel_x = -5
+	},
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "djy" = (
-/obj/structure/computerframe,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/table/wood,
+/obj/item/taperecorder,
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "djz" = (
@@ -49760,20 +49778,13 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "dna" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
+/obj/machinery/light_switch{
+	name = "west light switch";
+	pixel_x = -24
 	},
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "dnb" = (
-/obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/pen,
-/obj/effect/spawner/lootdrop/officetoys,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
@@ -50215,9 +50226,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
+/turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
 "dol" = (
 /obj/machinery/atmospherics/meter,
@@ -50989,13 +50998,12 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/maintenance/apmaint)
 "drR" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/machinery/light_switch{
-	name = "west light switch";
-	pixel_x = -24
+/obj/structure/extinguisher_cabinet{
+	name = "east extinguisher cabinet";
+	pixel_x = 27
 	},
-/turf/simulated/floor/wood,
-/area/civilian/vacantoffice)
+/turf/simulated/floor/grass,
+/area/hallway/secondary/garden)
 "drS" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -51037,7 +51045,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/light/small,
 /obj/machinery/vending/wallmed{
 	name = "South Emergency NanoMed";
 	pixel_y = -30
@@ -57290,13 +57297,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"gpi" = (
-/obj/structure/extinguisher_cabinet{
-	name = "east extinguisher cabinet";
-	pixel_x = 27
-	},
-/turf/simulated/floor/grass,
-/area/hallway/secondary/garden)
 "gpu" = (
 /obj/machinery/camera{
 	c_tag = "Research E.X.P.E.R.I-MENTOR Chamber";
@@ -58533,6 +58533,9 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
 "gUQ" = (
+/obj/effect/turf_decal/siding/brown{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -60027,6 +60030,13 @@
 	dir = 1;
 	name = "south fire alarm";
 	pixel_y = -24
+	},
+/obj/machinery/door_control{
+	id = "stationawaygate";
+	name = "Gateway Shutters Access Control";
+	pixel_y = 7;
+	req_access = list(62);
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -62021,13 +62031,6 @@
 	icon_state = "tranquillite"
 	},
 /area/crew_quarters/bar/atrium)
-"iJK" = (
-/obj/structure/extinguisher_cabinet{
-	name = "west extinguisher cabinet";
-	pixel_x = -27
-	},
-/turf/simulated/floor/wood,
-/area/civilian/vacantoffice)
 "iJY" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -69977,6 +69980,22 @@
 	icon_state = "darkgrey"
 	},
 /area/toxins/mixing)
+"mEZ" = (
+/obj/structure/extinguisher_cabinet{
+	name = "west extinguisher cabinet";
+	pixel_x = -27
+	},
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/turf_decal/siding/brown{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/civilian/vacantoffice)
 "mFb" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -74329,6 +74348,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
+"oWj" = (
+/obj/effect/turf_decal/siding/brown{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/civilian/vacantoffice)
 "oWo" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plating/airless,
@@ -84668,9 +84695,14 @@
 /turf/space,
 /area/solar/port)
 "tMD" = (
-/obj/machinery/photocopier,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
+	},
+/obj/effect/turf_decal/siding/brown{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -94361,7 +94393,11 @@
 /area/security/warden)
 "yjn" = (
 /obj/machinery/hologram/holopad{
-	pixel_x = -16
+	pixel_x = -16;
+	pixel_y = 16
+	},
+/obj/effect/turf_decal/siding/brown{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -106654,8 +106690,8 @@ djx
 aUl
 dna
 rbW
-iJK
-drR
+mEZ
+btL
 bqr
 aSC
 gwT
@@ -106911,7 +106947,7 @@ djy
 aME
 dnb
 dne
-djz
+gUQ
 btL
 bqr
 bzr
@@ -107165,11 +107201,11 @@ bqf
 brj
 bqr
 buf
-buS
+buX
 buX
 doe
-djz
-bBs
+gUQ
+btL
 bqr
 gdr
 bFM
@@ -107422,10 +107458,10 @@ dcS
 bre
 vsQ
 djz
-djz
-djz
+bgH
+oWj
 doe
-djz
+gUQ
 bBr
 bqr
 xrY
@@ -107677,11 +107713,11 @@ lIO
 emA
 bqf
 oxU
-bgH
-gUQ
-gUQ
+vsQ
+djz
+buS
 yjn
-bvm
+doe
 gUQ
 bBG
 bqr
@@ -107936,9 +107972,9 @@ bqf
 fZz
 bqr
 djC
-buX
-kDZ
 bvm
+kDZ
+doe
 gUQ
 drV
 dwd
@@ -108452,7 +108488,7 @@ bqr
 lNa
 brU
 dnf
-gUQ
+djz
 tMD
 bBH
 bqr
@@ -113318,11 +113354,11 @@ jHY
 oUc
 aTu
 bbL
-gpi
+drR
 bWR
 bqT
 foF
-bbL
+bBs
 aTu
 aHj
 jui
