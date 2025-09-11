@@ -1,8 +1,8 @@
 /**
-  * # Contractor Extraction Flare
-  *
-  * Used to designate where the [/obj/effect/portal/redspace/contractor] should spawn during the extraction process.
-  */
+ * # Contractor Extraction Flare
+ *
+ * Used to designate where the [/obj/effect/portal/redspace/contractor] should spawn during the extraction process.
+ */
 /obj/effect/contractor_flare
 	name = "contractor extraction flare"
 	gender = MALE
@@ -39,11 +39,11 @@
 
 
 /**
-  * # Prisoner Belongings Closet
-  *
-  * Cannot be opened. Contains the belongings of all kidnapped targets.
-  * Any item added inside stops processing and starts again when removed.
-  */
+ * # Prisoner Belongings Closet
+ *
+ * Cannot be opened. Contains the belongings of all kidnapped targets.
+ * Any item added inside stops processing and starts again when removed.
+ */
 /obj/structure/closet/secure_closet/contractor
 	anchored = TRUE
 	can_be_emaged = FALSE
@@ -69,11 +69,11 @@
 	return FALSE
 
 /**
-  * Tries to add an atom for temporary holding, suspending its processing.
-  *
-  * Arguments:
-  * * A - The atom to add.
-  */
+ * Tries to add an atom for temporary holding, suspending its processing.
+ *
+ * Arguments:
+ * * A - The atom to add.
+ */
 /obj/structure/closet/secure_closet/contractor/proc/give_item(atom/A)
 	if(ismob(A)) // No mobs allowed
 		return FALSE
@@ -87,11 +87,11 @@
 	return TRUE
 
 /**
-  * Removes an atom from temporary holding.
-  *
-  * Arguments:
-  * * A - The atom to remove.
-  */
+ * Removes an atom from temporary holding.
+ *
+ * Arguments:
+ * * A - The atom to remove.
+ */
 /obj/structure/closet/secure_closet/contractor/proc/remove_item(atom/A)
 	if(!(A in contents))
 		return

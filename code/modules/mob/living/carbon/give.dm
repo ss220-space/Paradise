@@ -15,10 +15,10 @@
 		to_chat(usr, span_warning("У вас ничего нет в руке, чтобы передать [target.declent_ru(ACCUSATIVE)]."))
 		return
 	if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
-		to_chat(usr, span_warning("Это нельзя просто так взять и передать это."))
+		to_chat(usr, span_warning("Это нельзя просто так взять и передать."))
 		return
 	if(target.r_hand == null || target.l_hand == null)
-		var/ans = tgui_alert(target,"[usr] хоч[pluralize_ru(usr.gender,"ет","ят")] передать вам [I.declent_ru(ACCUSATIVE)]?", "Передача предмета", list("Взять","Не брать"))
+		var/ans = tgui_alert(target,"[usr] хо[pluralize_ru(usr.gender,"чет","тят")] передать вам [I.declent_ru(ACCUSATIVE)]?", "Передача предмета", list("Взять","Не брать"))
 		if(!I || !target)
 			return
 		switch(ans)
@@ -122,18 +122,31 @@
 /datum/click_intercept/give
 	/// If the intercept user has succesfully offered the item to another player.
 	var/item_offered = FALSE
+	/// The mob offering the receiver an item.
+	var/mob/living/giver
+	/// The item being given.
+	var/obj/item/giving_item
 
 /datum/click_intercept/give/New(client/C)
 	..()
+	giver = holder.mob
+	giving_item = giver.get_active_hand()
 	holder.mouse_pointer_icon = 'icons/misc/mouse_icons/give_item.dmi'
-	to_chat(holder, span_notice("ЛКМ по игроку – предложить предмет в руке."))
-	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
-	RegisterSignal(holder.mob, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(signal_qdel))
+	to_chat(giver, span_notice("ЛКМ по игроку – предложить предмет в руке."))
+	RegisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
+	RegisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(signal_qdel))
+
 
 /datum/click_intercept/give/Destroy(force = FALSE)
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
 	if(!item_offered)
-		to_chat(holder.mob, span_notice("Вы прекратили попытку передачи предмета."))
+		to_chat(giver, span_notice("Вы прекратили попытку передачи предмета."))
+	if(giving_item)
+		UnregisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+		giving_item = null
+	if(giver)
+		UnregisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
+		giver = null
 	return ..()
 
 
@@ -147,18 +160,18 @@
 	if(!receiver.IsAdvancedToolUser())
 		to_chat(user, span_warning("[receiver] недостаточно лов[genderize_ru(receiver.gender,"ок","ка","ок","ки")] для передачи!"))
 		return
-	var/obj/item/I = user.get_active_hand()
+	var/obj/item/item = giving_item
 	if(!user.Adjacent(receiver))
-		to_chat(user, span_warning("Подойдите ближе к [receiver] для передачи [I.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_warning("Подойдите ближе к [receiver] для передачи [item.declent_ru(GENITIVE)]."))
 		return
 	if(!receiver.client)
-		to_chat(user, span_warning("Вы предлагаете [I.declent_ru(ACCUSATIVE)] [receiver], но реакции нет..."))
+		to_chat(user, span_warning("Вы предлагаете [item.declent_ru(ACCUSATIVE)] [receiver], но реакции нет..."))
 		return
 	// We use UID() here so that the receiver can have more then one give request at one time.
 	// Otherwise, throwing a new "take item" alert would override any current one also named "take item".
-	receiver.throw_alert("Вам предлагают [I.UID()]", /atom/movable/screen/alert/take_item, alert_args = list(user, receiver, I))
+	receiver.throw_alert("take item [item.UID()]", /atom/movable/screen/alert/take_item, alert_args = list(user, receiver, item))
 	item_offered = TRUE // TRUE so we don't give them the default chat message in Destroy.
-	to_chat(user, span_notice("Вы предлагаете [I.declent_ru(ACCUSATIVE)] [receiver]."))
+	to_chat(user, span_notice("Вы предлагаете [item.declent_ru(ACCUSATIVE)] [receiver]."))
 	qdel(src)
 
 
@@ -181,29 +194,31 @@
 	var/item_UID
 
 
-/atom/movable/screen/alert/take_item/Initialize(mapload, mob/living/giver, mob/living/receiver, obj/item/I)
+/atom/movable/screen/alert/take_item/Initialize(mapload, mob/living/giver, mob/living/receiver, obj/item/item)
 	. = ..()
-	desc = "[giver] хоч[pluralize_ru(giver.gender, "ет", "ют")] передать вам [I.declent_ru(ACCUSATIVE)]. Нажмите чтобы принять!"
+	desc = "[giver] хо[pluralize_ru(giver.gender, "чет", "тят")] передать вам [item.declent_ru(ACCUSATIVE)]. Нажмите чтобы принять!"
 	giver_UID = giver.UID()
 	receiver_UID = receiver.UID()
-	item_UID = I.UID()
+	item_UID = item.UID()
 	giver.apply_status_effect(STATUS_EFFECT_OFFERING_ITEM, receiver_UID, item_UID)
-	add_overlay(icon(I.icon, I.icon_state, SOUTH))
+	add_overlay(icon(item.icon, item.icon_state, SOUTH))
 	add_overlay("alert_flash")
 	// If either of these atoms are deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
-	RegisterSignal(I, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give), override = TRUE)
-	RegisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(cancel_give), override = TRUE)
+	// So there is no more COMSIG_QDELETING for giver, because it overrides the same registration
+	// in /atom/movable/screen/proc/set_new_hud, which is probably worse then not having it here, because alert will be cleared
+	// anyway in do_timeout()
+	RegisterSignal(item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
+	RegisterSignal(giver, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(cancel_give))
 
 
 /atom/movable/screen/alert/take_item/Destroy()
 	var/mob/living/giver = locateUID(giver_UID)
 	var/obj/item/giving_item = locateUID(item_UID)
-	
 	if(giver)
 		giver.remove_status_effect(STATUS_EFFECT_OFFERING_ITEM)
-		UnregisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
+		UnregisterSignal(giver, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
 	if(giving_item)
-		UnregisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
+		UnregisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 
 	return ..()
 
@@ -215,13 +230,19 @@
 	var/mob/living/receiver = locateUID(receiver_UID)
 
 	to_chat(giver, span_warning("Держите предмет в активной руке для передачи!"))
-	to_chat(receiver, span_warning("[giver] передум[genderize_ru(giver.gender, "ал", "ала", "ал", "ало")] передавать вам [locateUID(item_UID)]."))
+	to_chat(receiver, span_warning("[giver] передум[genderize_ru(giver.gender, "ал", "ала", "ало", "али")] передавать вам [locateUID(item_UID)]."))
 
 	receiver.clear_alert("take item [item_UID]")
 
 
 /atom/movable/screen/alert/take_item/Click(location, control, params)
+	var/mob/living/giver = locateUID(giver_UID)
 	var/mob/living/receiver = locateUID(receiver_UID)
+	// hopefully this will do instead of COMSIG_QDELETING
+	if(!giver)
+		to_chat(receiver, span_warning("Что-то пошло не так при передаче предмета, сообщите об этом в баг-репорты!"))
+		return
+
 	if(receiver.stat != CONSCIOUS)
 		return
 
@@ -233,7 +254,6 @@
 		to_chat(receiver, span_warning("Освободите руки для принятия [I.declent_ru(ACCUSATIVE)]!"))
 		return
 
-	var/mob/living/giver = locateUID(giver_UID)
 	if(!giver.Adjacent(receiver))
 		to_chat(receiver, span_warning("Подойдите ближе к [giver] чтобы взять [I.declent_ru(ACCUSATIVE)]!"))
 		return

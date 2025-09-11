@@ -1,8 +1,8 @@
 /**
-  * # Smart Fridge
-  *
-  * Stores items of a specified type.
-  */
+ * # Smart Fridge
+ *
+ * Stores items of a specified type.
+ */
 /obj/machinery/smartfridge
 	name = "SmartFridge"
 	desc = "Это холодильник. Он умный. Просто удивительно, да?"
@@ -380,12 +380,12 @@
 
 
 /**
-  * Tries to load an item if it is accepted by [/obj/machinery/smartfridge/proc/accept_check].
-  *
-  * Arguments:
-  * * I - The item to load.
-  * * user - The user trying to load the item.
-  */
+ * Tries to load an item if it is accepted by [/obj/machinery/smartfridge/proc/accept_check].
+ *
+ * Arguments:
+ * * I - The item to load.
+ * * user - The user trying to load the item.
+ */
 /obj/machinery/smartfridge/proc/load(obj/item/I, mob/user)
 	if(!accept_check(I))
 		return FALSE
@@ -416,8 +416,8 @@
 
 
 /**
-  * Tries to shoot a random at a nearby living mob.
-  */
+ * Tries to shoot a random at a nearby living mob.
+ */
 /obj/machinery/smartfridge/proc/throw_item()
 	var/obj/item/throw_item = null
 	var/mob/living/target = locate() in view(7, src)
@@ -442,18 +442,18 @@
 	return TRUE
 
 /**
-  * Returns whether the smart fridge can accept the given item.
-  *
-  * By default checks if the item is in [the typecache][/obj/machinery/smartfridge/var/accepted_items_typecache].
-  * Arguments:
-  * * O - The item to check.
-  */
+ * Returns whether the smart fridge can accept the given item.
+ *
+ * By default checks if the item is in [the typecache][/obj/machinery/smartfridge/var/accepted_items_typecache].
+ * Arguments:
+ * * O - The item to check.
+ */
 /obj/machinery/smartfridge/proc/accept_check(obj/item/I)
 	return is_type_in_typecache(I, accepted_items_typecache)
 
 /**
-  * # Syndie Fridge
-  */
+ * # Syndie Fridge
+ */
 /obj/machinery/smartfridge/syndie
 	name = "Suspicious SmartFridge"
 	desc = "Это холодильник. Он умный. Подозрительно умный."
@@ -471,11 +471,11 @@
 	)
 
 /**
-  * # Secure Fridge
-  *
-  * Secure variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  * Can be emagged and EMP'd to short the lock.
-  */
+ * # Secure Fridge
+ *
+ * Secure variant of the [Smart Fridge][/obj/machinery/smartfridge].
+ * Can be emagged and EMP'd to short the lock.
+ */
 /obj/machinery/smartfridge/secure
 	is_secure = TRUE
 
@@ -490,18 +490,18 @@
 		emagged = TRUE
 
 /**
-  * # Seed Storage
-  *
-  * Seeds variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/vending/hydroseeds].
-  */
+ * # Seed Storage
+ *
+ * Seeds variant of the [Smart Fridge][/obj/machinery/smartfridge].
+ * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/vending/hydroseeds].
+ */
 /obj/machinery/smartfridge/seeds
 	name = "Seed Storage"
 	desc = "Это холодильник, предназначенный для растений и их плодов."
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "seeds_off"
 	base_icon_state = "seeds"
-	
+
 /obj/machinery/smartfridge/seeds/get_ru_names()
 	return list(
 		NOMINATIVE = "ботанический холодильник",
@@ -542,10 +542,10 @@
 
 
 /**
-  * # Refrigerated Medicine Storage
-  *
-  * Medical variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  */
+ * # Refrigerated Medicine Storage
+ *
+ * Medical variant of the [Smart Fridge][/obj/machinery/smartfridge].
+ */
 /obj/machinery/smartfridge/medbay
 	name = "Refrigerated Medicine Storage"
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
@@ -577,10 +577,10 @@
 
 
 /**
-  * # Slime Extract Storage
-  *
-  * Secure, Xenobiology variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  */
+ * # Slime Extract Storage
+ *
+ * Secure, Xenobiology variant of the [Smart Fridge][/obj/machinery/smartfridge].
+ */
 /obj/machinery/smartfridge/secure/extract
 	name = "Slime Extract Storage"
 	desc = "Это холодильник, предназначенный для хранения слаймовых экстрактов."
@@ -609,10 +609,10 @@
 	))
 
 /**
-  * # Secure Refrigerated Medicine Storage
-  *
-  * Secure, Medical variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  */
+ * # Secure Refrigerated Medicine Storage
+ *
+ * Secure, Medical variant of the [Smart Fridge][/obj/machinery/smartfridge].
+ */
 /obj/machinery/smartfridge/secure/medbay
 	icon_state = "smartfridge" //To fix the icon in the map editor.
 	req_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
@@ -633,10 +633,10 @@
 	req_access = list(ACCESS_SYNDICATE)
 
 /**
-  * # Smart Chemical Storage
-  *
-  * Secure, Chemistry variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  */
+ * # Smart Chemical Storage
+ *
+ * Secure, Chemistry variant of the [Smart Fridge][/obj/machinery/smartfridge].
+ */
 /obj/machinery/smartfridge/secure/chemistry
 	name = "Smart Chemical Storage"
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
@@ -662,10 +662,10 @@
 	))
 
 /**
-  * # Smart Chemical Storage (Preloaded)
-  *
-  * A [Smart Chemical Storage][/obj/machinery/smartfridge/secure/chemistry] but with some items already in.
-  */
+ * # Smart Chemical Storage (Preloaded)
+ *
+ * A [Smart Chemical Storage][/obj/machinery/smartfridge/secure/chemistry] but with some items already in.
+ */
 /obj/machinery/smartfridge/secure/chemistry/preloaded
 	// I exist!
 
@@ -679,10 +679,10 @@
 	. = ..()
 
 /**
-  * # Smart Chemical Storage (Preloaded, Syndicate)
-  *
-  * A [Smart Chemical Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/preloaded] but with exclusive access to Syndicate.
-  */
+ * # Smart Chemical Storage (Preloaded, Syndicate)
+ *
+ * A [Smart Chemical Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/preloaded] but with exclusive access to Syndicate.
+ */
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate
 	req_access = list(ACCESS_SYNDICATE)
 	icon_state = "smartfridge-syndie"
@@ -720,10 +720,10 @@
 
 
 /**
-  * # Disk Compartmentalizer
-  *
-  * Disk variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  */
+ * # Disk Compartmentalizer
+ *
+ * Disk variant of the [Smart Fridge][/obj/machinery/smartfridge].
+ */
 /obj/machinery/smartfridge/disks
 	name = "disk compartmentalizer"
 	desc = "Машина, предназначенная для хранения различного рода дискет."
@@ -765,11 +765,11 @@
 
 
 /**
-  * # Smart Virus Storage
-  *
-  * Secure, Virology variant of the [Smart Chemical Storage][/obj/machinery/smartfridge/secure/chemistry].
-  * Comes with some items.
-  */
+ * # Smart Virus Storage
+ *
+ * Secure, Virology variant of the [Smart Chemical Storage][/obj/machinery/smartfridge/secure/chemistry].
+ * Comes with some items.
+ */
 /obj/machinery/smartfridge/secure/chemistry/virology
 	name = "Smart Virus Storage"
 	desc = "Это холодильник, предназначенный для хранения образцов вирусов."
@@ -797,10 +797,10 @@
 
 
 /**
-  * # Smart Virus Storage (Preloaded)
-  *
-  * A [Smart Virus Storage][/obj/machinery/smartfridge/secure/chemistry/virology] but with some additional items.
-  */
+ * # Smart Virus Storage (Preloaded)
+ *
+ * A [Smart Virus Storage][/obj/machinery/smartfridge/secure/chemistry/virology] but with some additional items.
+ */
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded
 	// I exist!
 
@@ -818,10 +818,10 @@
 	. = ..()
 
 /**
-  * # Smart Virus Storage (Preloaded, Syndicate)
-  *
-  * A [Smart Virus Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/virology/preloaded] but with exclusive access to Syndicate.
-  */
+ * # Smart Virus Storage (Preloaded, Syndicate)
+ *
+ * A [Smart Virus Storage (Preloaded)][/obj/machinery/smartfridge/secure/chemistry/virology/preloaded] but with exclusive access to Syndicate.
+ */
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate
 	icon_state = "smartfridge-syndie"
 	contents_overlay = "smartfridge-syndie"
@@ -829,10 +829,10 @@
 
 
 /**
-  * # Drink Showcase
-  *
-  * Drink variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  */
+ * # Drink Showcase
+ *
+ * Drink variant of the [Smart Fridge][/obj/machinery/smartfridge].
+ */
 /obj/machinery/smartfridge/drinks
 	name = "Drink Showcase"
 	desc = "Это холодильник, предназначенный для хранения напитков."
@@ -856,10 +856,10 @@
 	))
 
 /**
-  * # Dish Showcase
-  *
-  * Dish variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  */
+ * # Dish Showcase
+ *
+ * Dish variant of the [Smart Fridge][/obj/machinery/smartfridge].
+ */
 /obj/machinery/smartfridge/dish
 	name = "Dish Showcase"
 	desc = "Это холодильник, предназначенный для хранения органов, конечностей, имплантов и капельниц."
@@ -884,11 +884,11 @@
 	))
 
 /**
-  * # Drying Rack
-  *
-  * Variant of the [Smart Fridge][/obj/machinery/smartfridge] for drying stuff.
-  * Doesn't have components.
-  */
+ * # Drying Rack
+ *
+ * Variant of the [Smart Fridge][/obj/machinery/smartfridge] for drying stuff.
+ * Doesn't have components.
+ */
 /obj/machinery/smartfridge/drying_rack
 	name = "drying rack"
 	desc = "A wooden contraption, used to dry plant products, food and leather."
@@ -999,11 +999,11 @@
 			return FALSE
 
 /**
-  * Toggles the drying process.
-  *
-  * Arguments:
-  * * forceoff - Whether to force turn off the drying rack.
-  */
+ * Toggles the drying process.
+ *
+ * Arguments:
+ * * forceoff - Whether to force turn off the drying rack.
+ */
 /obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff = FALSE)
 	if(drying || forceoff)
 		drying = FALSE
@@ -1014,8 +1014,8 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /**
-  * Called in [/obj/machinery/smartfridge/drying_rack/process] to dry the contents.
-  */
+ * Called in [/obj/machinery/smartfridge/drying_rack/process] to dry the contents.
+ */
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry()
 	for(var/obj/item/reagent_containers/food/snacks/S in contents)
 		if(S.dried_type == S.type)//if the dried type is the same as the object's type, don't bother creating a whole new item...

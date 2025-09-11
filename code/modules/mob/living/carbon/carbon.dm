@@ -301,17 +301,17 @@
 
 	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 		missing -= bodypart.limb_zone
-		var/status
+		var/status = ""
 		var/brutedamage = bodypart.brute_dam
 		var/burndamage = bodypart.burn_dam
 
 		switch(brutedamage)
 			if(0.1 to 20)
-				status = "ушиблен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
+				status += "ушиблен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
 			if(20 to 40)
-				status = "побит[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
+				status += "побит[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
 			if(40 to INFINITY)
-				status = "искалечен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
+				status += "искалечен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
 		if(brutedamage > 0 && burndamage > 0)
 			status += " и "
 
@@ -323,11 +323,28 @@
 			if(40 to INFINITY)
 				status += "сло[pluralize_ru(bodypart.gender, "ит", "ят")]ся кусками обожённой плоти"
 
+		if(bodypart.bleeding_amount)
+			if(brutedamage > 0 && burndamage > 0)
+				status += ", "
+			var/high_bleeding = bodypart.bleeding_amount > HIGH_BLEEDING_VALUE
+			var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
+			if(suppressed)
+				status += " перевязан[genderize_ru(bodypart.gender, "", "а", "о", "ы")] чем-то окровавленным"
+			else if(high_bleeding)
+				status += " обильно кровоточ[pluralize_ru(bodypart.gender, "ит", "ат")]"
+			else
+				status += " кровоточ[pluralize_ru(bodypart.gender, "ит", "ат")]"
+		else
+			if(bodypart.bleedsuppress)
+				if(brutedamage > 0 && burndamage > 0)
+					status += ", "
+				status += " перевязан[genderize_ru(bodypart.gender, "", "а", "о", "ы")] чем-то"
+
 		if(bodypart.status & ORGAN_MUTATED)
 			status = "выгляд[pluralize_ru(bodypart.gender, "ит", "ят")] неестественно"
 
 		var/msg = span_notice("Ваш[genderize_ru(bodypart.gender, "", "а", "е", "и")] [bodypart.declent_ru(NOMINATIVE)] в порядке.")
-		if(!isnull(status))
+		if(!isnull(status) && status != "")
 			msg = span_warning("Ваш[genderize_ru(bodypart.gender, "", "а", "е", "и")] [bodypart.declent_ru(NOMINATIVE)] [status].")
 		status_list += msg
 
@@ -337,8 +354,6 @@
 	for(var/t in missing)
 		status_list += span_boldannounceic("У вас отсутствует [parse_zone(t)]!")
 
-	if(H.bleed_rate)
-		status_list += span_danger("У вас кровотечение!")
 	if(staminaloss)
 		if(staminaloss > 30)
 			status_list += span_danger("Вы истощены!")
@@ -423,7 +438,7 @@
 	return dna
 
 
-/mob/living/carbon/proc/setDNA(var/datum/dna/newDNA)
+/mob/living/carbon/proc/setDNA(datum/dna/newDNA)
 	dna = newDNA
 
 
@@ -657,7 +672,7 @@
 
 
 //generates realistic-ish pulse output based on preset levels
-/mob/living/carbon/proc/get_pulse(var/method)	//method 0 is for hands, 1 is for machines, more accurate
+/mob/living/carbon/proc/get_pulse(method)	//method 0 is for hands, 1 is for machines, more accurate
 	var/temp = 0								//see setup.dm:694
 	switch(src.pulse)
 		if(PULSE_NONE)
@@ -675,7 +690,7 @@
 			temp = rand(120, 160)
 			return num2text(method ? temp : temp + rand(-10, 10))
 		if(PULSE_THREADY)
-			return method ? ">250" : "очень слабый и быстрый, сердце пациента работает на пределе"
+			return method ? ">250" : "очень слабый и быстрый"
 //			output for machines^	^^^^^^^output for people^^^^^^^^^
 
 
@@ -830,7 +845,7 @@
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(var/obj/item/reagent_containers/food/toEat, var/bitesize_override, var/can_taste_container = TRUE)
+/mob/living/carbon/proc/consume(obj/item/reagent_containers/food/toEat, bitesize_override, can_taste_container = TRUE)
 	var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 	if(!toEat.reagents)
 		return

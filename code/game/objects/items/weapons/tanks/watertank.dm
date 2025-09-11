@@ -130,7 +130,7 @@
 /obj/item/reagent_containers/spray/mister/attack_self()
 	return
 
-/proc/check_tank_exists(parent_tank, var/mob/living/carbon/human/M, var/obj/O)
+/proc/check_tank_exists(parent_tank, mob/living/carbon/human/M, obj/O)
 	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
 		M.temporarily_remove_item_from_inventory(O)
 		qdel(O)
@@ -173,7 +173,7 @@
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
-/obj/item/reagent_containers/spray/mister/janitor/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/mister/janitor/attack_self(mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
@@ -302,7 +302,7 @@
 		R.remove_any(100)
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
 		add_game_logs("used Nanofrost at [AREACOORD(user)].", user)
-		playsound(src,'sound/items/syringeproj.ogg',40,1)
+		playsound(src,'sound/items/syringeproj.ogg',40, TRUE)
 		for(var/a=0, a<5, a++)
 			step_towards(A, target)
 			sleep(2)
@@ -342,7 +342,7 @@
 	F.color = "#B2FFFF"
 	F.name = "nanofrost residue"
 	F.desc = "Residue left behind from a nanofrost detonation. Perhaps there was a fire here?"
-	playsound(src,'sound/effects/bamf.ogg',100,1)
+	playsound(src,'sound/effects/bamf.ogg',100, TRUE)
 	qdel(src)
 
 #undef EXTINGUISHER

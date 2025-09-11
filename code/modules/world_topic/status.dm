@@ -30,7 +30,7 @@
 		player_count++
 	status_info["players"] = player_count
 	status_info["admins"] = admin_count
-	status_info["map_name"] = SSmapping.map_datum ? SSmapping.map_datum.name : "Unknown"
+	status_info["map_name"] = SSmapping.map_datum ? SSmapping.map_datum.name : UNKNOWN_STATUS_RUS
 
 	if(SSticker)
 		status_info["ticker_state"] = SSticker.current_state

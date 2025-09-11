@@ -96,7 +96,7 @@
 		On_Stage()
 
 	if(stage == STAGE_ATTACK)
-		playsound(src, 'sound/spookoween/ghost_whisper.ogg', 75, 1)
+		playsound(src, 'sound/spookoween/ghost_whisper.ogg', 75, TRUE)
 
 	if(eating)
 		return

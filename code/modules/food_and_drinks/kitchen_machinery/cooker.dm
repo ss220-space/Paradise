@@ -190,5 +190,5 @@
 		return 0
 	return 0
 
-/obj/machinery/cooker/proc/cookSpecial(var/special)
+/obj/machinery/cooker/proc/cookSpecial(special)
 	return

@@ -314,7 +314,7 @@
 			to_chat(target, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! СЕНСОРНАЯ ПЕРЕГРУЗКА \[$(!@#</b>"))
 			SEND_SOUND(target, sound('sound/misc/interference.ogg'))
 			playsound(target, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-			do_sparks(5, 1, target)
+			do_sparks(5, TRUE, target)
 			target.Weaken(12 SECONDS)
 
 
@@ -354,7 +354,7 @@
 			to_chat(target, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! СЕНСОРНАЯ ПЕРЕГРУЗКА \[$(!@#</b>"))
 			SEND_SOUND(target, sound('sound/misc/interference.ogg'))
 			playsound(target, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-			do_sparks(5, 1, target)
+			do_sparks(5, TRUE, target)
 			target.Weaken(12 SECONDS)
 
 //PRINCE//
@@ -452,7 +452,7 @@
 				to_chat(target, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! СЕНСОРНАЯ ПЕРЕГРУЗКА \[$(!@#</b>"))
 				SEND_SOUND(target, sound('sound/misc/interference.ogg'))
 				playsound(target, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-				do_sparks(5, 1, target)
+				do_sparks(5, TRUE, target)
 				target.Weaken(16 SECONDS)
 
 		for(var/obj/machinery/light/lamp in target_turf.contents)

@@ -57,7 +57,7 @@
 /mob/living/simple_animal/hostile/construct/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
-		minbodytemp = 223, \
+		minbodytemp = 0, \
 	)
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
@@ -109,15 +109,15 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "behemoth"
 	icon_living = "behemoth"
-	maxHealth = 250
-	health = 250
+	maxHealth = 400
+	health = 400
 	response_harm   = "harmlessly punches"
 	harm_intent_damage = 0
 	obj_damage = 90
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	attacktext = "бьёт тяжёлой бронированной перчаткой"
-	speed = 3
+	speed = 2
 	environment_smash = 2
 	attack_sound = 'sound/weapons/punch3.ogg'
 	status_flags = 0
@@ -133,7 +133,7 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
-/mob/living/simple_animal/hostile/construct/armoured/bullet_act(var/obj/projectile/P)
+/mob/living/simple_animal/hostile/construct/armoured/bullet_act(obj/projectile/P)
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/reflectchance = 80 - round(P.damage/3)
 		if(prob(reflectchance))
@@ -168,8 +168,8 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "floating"
 	icon_living = "floating"
-	maxHealth = 75
-	health = 75
+	maxHealth = 150
+	health = 150
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "рубит"
@@ -206,11 +206,11 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "artificer"
 	icon_living = "artificer"
-	maxHealth = 50
-	health = 50
+	maxHealth = 100
+	health = 100
 	response_harm = "viciously beats"
 	harm_intent_damage = 5
-	obj_damage = 60
+	obj_damage = 80
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	attacktext = "таранит"
@@ -250,7 +250,7 @@
 	if(Found(the_target) || ..()) //If we Found it or Can_Attack it normally, we Can_Attack it as long as it wasn't invisible
 		return 1 //as a note this shouldn't be added to base hostile mobs because it'll mess up retaliate hostile mobs
 
-/mob/living/simple_animal/hostile/construct/builder/MoveToTarget(var/list/possible_targets)
+/mob/living/simple_animal/hostile/construct/builder/MoveToTarget(list/possible_targets)
 	..()
 	if(isliving(target))
 		var/mob/living/L = target

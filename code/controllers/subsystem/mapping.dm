@@ -229,6 +229,7 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.english_station_name = english_station_name()
 	update_world_name()
 
+
 	return SS_INIT_SUCCESS
 
 
@@ -348,6 +349,7 @@ SUBSYSTEM_DEF(mapping)
 		create_landmarks(centre)
 		return
 
+#ifndef FAST_LOAD
 	if(CONFIG_GET(string/default_map) && !CONFIG_GET(string/override_map) && map_datum == fallback_map)
 		var/map_datum_path = text2path(CONFIG_GET(string/default_map))
 		if(map_datum_path)
@@ -360,6 +362,9 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = new map_datum_path
 		else
 			to_chat(world, span_danger("ERROR: The map datum specified to load is invalid. Falling back to... delta probably?"))
+#else
+	map_datum = new /datum/map/fast_load
+#endif
 
 	ASSERT(map_datum.map_path)
 	if(!fexists(map_datum.map_path))
@@ -381,6 +386,10 @@ SUBSYSTEM_DEF(mapping)
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+	
+	if(map_datum?.forced_mode)
+		GLOB.master_mode = map_datum.forced_mode.name
+
 	log_startup_progress("Loaded [map_datum.english_station_name] in [stop_watch(watch)]s")
 
 	// Save station name in the DB

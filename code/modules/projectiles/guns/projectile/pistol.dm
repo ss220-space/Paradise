@@ -12,7 +12,6 @@
 	magout_sound = 'sound/weapons/gun_interactions/pistol_magout.ogg'
 	burst_size = 1
 	fire_delay = 0
-	actions_types = null
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
@@ -20,6 +19,7 @@
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
 		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 7)
 	)
+	fire_modes = GUN_MODE_SINGLE_ONLY
 
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
@@ -258,7 +258,6 @@
 	mag_type = /obj/item/ammo_box/magazine/pistolm9mm
 	burst_size = 3
 	fire_delay = 2
-	actions_types = list(/datum/action/item_action/toggle_firemode)
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEDIUM
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
@@ -266,3 +265,4 @@
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 5),
 		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 8)
 	)
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO

@@ -11,7 +11,7 @@
 		return
 
 	new type(new /datum/event_meta/force(EVENT_LEVEL_MAJOR, "Зафоршенное событие [type.name || type]"), forced = TRUE)
-	message_admins("[key_name_admin(usr)] has triggered an event. ([type])")
+	log_and_message_admins("has triggered an event. ([type])")
 
 /client/proc/event_manager_panel()
 	set name = "Event Manager Panel"

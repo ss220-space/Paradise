@@ -70,7 +70,7 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		throw_speed = 4
 		w_class = w_class_on
-		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
+		playsound(user, 'sound/weapons/saberon.ogg', 35, TRUE) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
 		force = initial(force)
@@ -80,7 +80,7 @@
 		if(attack_verb_on.len)
 			attack_verb = list()
 		w_class = initial(w_class)
-		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
+		playsound(user, 'sound/weapons/saberoff.ogg', 35, TRUE)  //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
@@ -385,7 +385,7 @@
 		if(attack_verb_on.len)
 			attack_verb = list()
 		w_class = initial(w_class)
-		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
+		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE)  //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)

@@ -24,6 +24,11 @@
 	/// Basically organ max health.
 	var/max_damage
 
+	/// Current bleeding amount
+	var/bleeding_amount = 0
+	/// Maximum of bleeding amount for this organ
+	var/max_bleeding_amount = 0
+
 	/// Defined body zone of parent organ.
 	var/parent_organ_zone = BODY_ZONE_CHEST
 	/// Data saved for autopsy scanner
@@ -137,6 +142,7 @@
 		return FALSE
 
 	damage = max_damage
+	bleeding_amount = 0
 	status |= ORGAN_DEAD
 	STOP_PROCESSING(SSobj, src)
 
@@ -314,7 +320,7 @@
 
 
 //Adds autopsy data for used_weapon.
-/obj/item/organ/proc/add_autopsy_data(used_weapon = "Неизвестно", damage)
+/obj/item/organ/proc/add_autopsy_data(used_weapon = UNKNOWN_STATUS_RUS, damage)
 	LAZYINITLIST(autopsy_data)
 
 	var/datum/autopsy_data/weapon_data = autopsy_data[used_weapon]
