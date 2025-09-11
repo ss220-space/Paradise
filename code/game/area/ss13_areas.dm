@@ -468,7 +468,7 @@ This applies to all STANDARD station areas
 
 // New CC
 /area/centcom/bridge
-	name = "Centcom Bridge"
+	name = "Центком – мостик"
 	icon_state = "centcom_bridge"
 
 /area/centcom/court
@@ -922,7 +922,7 @@ This applies to all STANDARD station areas
 	icon_state = "asmaint"
 
 /area/maintenance/asmaint5
-	name = "Технические тоннели – прибытие"
+	name = "Технические тоннели – пункт прибытия"
 	icon_state = "asmaint"
 
 /area/maintenance/asmaint6
@@ -1168,7 +1168,7 @@ This applies to all STANDARD station areas
 	name = "Технические тоннели (цокольный этаж) – Инженерный отдел"
 
 /area/maintenance/cele/arrival
-	name = "Технические тоннели (цокольный этаж) – прибытие"
+	name = "Технические тоннели (цокольный этаж) – пункт прибытия"
 
 /**
  * MARK: HALLWAY
@@ -1181,71 +1181,71 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
 /area/hallway/primary/fore
-	name = "North Primary Hallway"
+	name = "Основной северный проход"
 	icon_state = "hallF"
 
 /area/hallway/primary/fore/west
-	name = "North-West Hallway"
+	name = "Северо-западный проход"
 
 /area/hallway/primary/fore/east
-	name = "North-East Hallway"
+	name = "Северо-восточный проход"
 
 /area/hallway/primary/fore/north
-	name = "North-North Hallway"
+	name = "Дальний северный проход"
 
 /area/hallway/primary/fore/south
-	name = "North-South Hallway"
+	name = "Север-юг проход"
 
 /area/hallway/primary/starboard
-	name = "East Primary Hallway"
+	name = "Восточнй основной проход"
 	icon_state = "hallS"
 
 /area/hallway/primary/starboard/west
-	name = "East-West Hallway"
+	name = "Восток-запад проход"
 
 /area/hallway/primary/starboard/east
-	name = "East-East Hallway"
+	name = "Дальний восточный проход"
 
 /area/hallway/primary/starboard/north
-	name = "East-North Hallway"
+	name = "Северо-восточный проход"
 
 /area/hallway/primary/starboard/south
-	name = "East-South Hallway"
+	name = "Юго-восточный проход"
 
 /area/hallway/primary/aft
-	name = "South Primary Hallway"
+	name = "Основной южный проход"
 	icon_state = "hallA"
 
 /area/hallway/primary/aft/west
-	name = "South-West Hallway"
+	name = "Юго-западный проход"
 
 /area/hallway/primary/aft/east
-	name = "South-East Hallway"
+	name = "Юго-восточный проход"
 
 /area/hallway/primary/aft/north
-	name = "South-North Hallway"
+	name = "Юг-север проход"
 
 /area/hallway/primary/aft/south
-	name = "South-South Hallway"
+	name = "Дальний южный проход"
 
 /area/hallway/primary/port
-	name = "West Primary Hallway"
+	name = "Основной западный проход"
 	icon_state = "hallP"
 
 /area/hallway/primary/port/west
-	name = "West-West Hallway"
+	name = "Дальний западный проход"
 
 /area/hallway/primary/port/east
-	name = "West-East Hallway"
+	name = "Запад-восток проход"
 
 /area/hallway/primary/port/north
-	name = "West-North Hallway"
+	name = "Северо-западный проход"
 
 /area/hallway/primary/port/south
-	name = "West-South Hallway"
+	name = "Юго-западный проход"
 
 /area/hallway/primary/central //pay attention to THIS SHIT
-	name = "Central Primary Hallway"
+	name = "Основной центральный проход"
 	icon_state = "hallC"
 
 /area/hallway/primary/central/north
@@ -1258,7 +1258,7 @@ This applies to all STANDARD station areas
 /area/hallway/primary/central/se
 
 /area/hallway/primary/command
-	name = "Command Primary Hallway"
+	name = "Основной проход – командование"
 	icon_state = "hallC"
 
 /area/hallway/primary/command/north
@@ -1269,7 +1269,7 @@ This applies to all STANDARD station areas
 /area/hallway/primary/command/ne
 
 /area/hallway/primary/central/second
-	name = "Second Floor Central Primary Hallway"
+	name = "Основной центральный проход – второй этаж"
 	icon_state = "hallC"
 
 /area/hallway/primary/central/second/north
@@ -1286,86 +1286,86 @@ This applies to all STANDARD station areas
 	icon_state = "hall_space"
 
 /area/hallway/spacebridge/dockmed
-	name = "Docking-Medical Bridge"
+	name = "Мост – стыковка-медотсек"
 
 /area/hallway/spacebridge/scidock
-	name = "Science-Docking Bridge"
+	name = "Мост – НИО-стыковка"
 
 /area/hallway/spacebridge/somsec
-	name = "Comand-Security Bridge"
+	name = "Мост – командование-СБ"
 
 /area/hallway/spacebridge/sersec
-	name = "Service-Security Bridge"
+	name = "Мост – обслуживание-СБ"
 
 /area/hallway/spacebridge/engdock
-	name = "Engineering-Docking Bridge"
+	name = "Мост – инженерия-стыковка"
 
 /area/hallway/spacebridge/servsci
-	name = "Service-Science Bridge"
+	name = "Мост – обслуживание-НИО"
 
 /area/hallway/spacebridge/serveng
-	name = "Service-Engineering Bridge"
+	name = "Мост – НИО-инженерия"
 
 /area/hallway/spacebridge/engmed
-	name = "Engineering-Medical Bridge"
+	name = "Мост – инженерия-медотсек"
 
 /area/hallway/spacebridge/medcargo
-	name = "Medical-Cargo Bridge"
+	name = "Мост – медотсек-снабжение"
 
 /area/hallway/spacebridge/cargocom
-	name = "Cargo-AI-Command Bridge"
+	name = "Мост – снабжение-ИИ-командование"
 
 /area/hallway/spacebridge/sercom
-	name = "Command-Service Bridge"
+	name = "Мост – командование-обслуживание"
 
 /area/hallway/spacebridge/comeng
-	name = "Command-Engineering Bridge"
+	name = "Мост – командование-инженерия"
 
 /area/hallway/spacebridge/comcar
-	name = "Command-Cargo Bridge"
+	name = "Мост – командование-снабжение"
 
 /area/hallway/secondary/exit
-	name = "Escape Shuttle Hallway"
+	name = "Проход к эвакуационному шаттлу"
 	icon_state = "escape"
 	holomap_color = HOLOMAP_AREACOLOR_ESCAPE
 
 /area/hallway/secondary/exit/maint
-	name = "Заброшенный Escape Shuttle Hallway"
+	name = "Заброшенный проход к эвакуационному шаттлу"
 	icon_state = "escape"
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
 /area/hallway/secondary/construction
-	name = "Construction Area"
+	name = "Строительная площадка"
 	icon_state = "construction"
 
 /area/hallway/secondary/garden
-	name = "Garden"
+	name = "Сад"
 	icon_state = "hydro"
 
 /area/hallway/secondary/entry
-	name = "Arrivals Hallway"
+	name = "Проход к пункту прибытия"
 	icon_state = "entry"
 	holomap_color = HOLOMAP_AREACOLOR_ARRIVALS
 
 
 /area/hallway/secondary/entry/eastarrival
-	name = "Arrival Shuttle East Hallway"
+	name = "Проход к пункту прибытия – восточный"
 
 /area/hallway/secondary/entry/westarrival
-	name = "Arrival Shuttle West Hallway"
+	name = "Проход к пункту прибытия – западный"
 
 /area/hallway/secondary/entry/additional
-	name = "Arrival Additional West Hallway"
+	name = "Проход к пункту прибытия – западный дополнительный"
 
 /area/hallway/secondary/entry/commercial
-	name = "Arrival Commercial West Hallway"
+	name = "Проход к пункту прибытия – западный торговый"
 
 /area/hallway/secondary/entry/north
 
 /area/hallway/secondary/entry/south
 
 /area/hallway/secondary/entry/lounge
-	name = "Arrivals Lounge"
+	name = "Зал прибытия"
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
 /**
@@ -2091,11 +2091,11 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_SCIENCE
 
 /area/medical/research/nhallway
-	name = "RnD North Hallway"
+	name = "RnD North проход"
 	icon_state = "research"
 
 /area/medical/research/shallway
-	name = "RnD South Hallway"
+	name = "RnD South проход"
 	icon_state = "research"
 
 /area/medical/research/restroom
@@ -2239,7 +2239,7 @@ This applies to all STANDARD station areas
 	can_get_auto_cryod = FALSE
 
 /area/security/permahallway
-	name = "Permabrig Hallway"
+	name = "Permabrig проход"
 	icon_state = "sec_prison_perma"
 
 /area/security/processing
@@ -2265,7 +2265,7 @@ This applies to all STANDARD station areas
 	icon_state = "brig"
 
 /area/security/interrogationhallway
-	name = "Interrogation Hallway"
+	name = "Interrogation проход"
 	icon_state = "interrogationhall"
 
 /area/security/courtroomdandp
@@ -2314,7 +2314,7 @@ This applies to all STANDARD station areas
 	icon_state = "secarmory"
 
 /area/security/securehallway
-	name = "Brig Secure Hallway"
+	name = "Brig Secure проход"
 	icon_state = "securehall"
 
 /area/security/hos
@@ -2619,11 +2619,11 @@ This applies to all STANDARD station areas
 	has_gravity = STANDARD_GRAVITY
 
 /area/derelict/hallway/primary
-	name = "Derelict Primary Hallway"
+	name = "Derelict Primary проход"
 	icon_state = "hallP"
 
 /area/derelict/hallway/secondary
-	name = "Derelict Secondary Hallway"
+	name = "Derelict Secondary проход"
 	icon_state = "hallS"
 
 /area/derelict/arrival
@@ -2823,12 +2823,12 @@ This applies to all STANDARD station areas
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/aisat
-	name = "AI Satellite Hallway"
+	name = "AI Satellite проход"
 	icon_state = "yellow"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/aisat/aihallway
-	name = "AI Satellite Exterior Hallway"
+	name = "AI Satellite Exterior проход"
 	icon_state = "yellow"
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
@@ -3247,7 +3247,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "awaycontent11"
 
 /area/ruin/space/pirate_base/lab_hall
-	name = "Laboratory Hallway"
+	name = "Laboratory проход"
 	icon_state = "awaycontent12"
 
 /area/ruin/space/pirate_base/laboratory
@@ -3554,22 +3554,22 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	name = "North Service Entrance"
 
 /area/coldcolony/malta/hallway/service/nw
-	name = "Заброшенный Service Hallway"
+	name = "Заброшенный Service проход"
 
 /area/coldcolony/malta/hallway/service/central
-	name = "Central Service Hallway"
+	name = "Central Service проход"
 
 /area/coldcolony/malta/hallway/service/east
-	name = "East Service Hallway"
+	name = "East Service проход"
 
 /area/coldcolony/malta/hallway/service/south
 	name = "South Service Entrance"
 
 /area/coldcolony/malta/hallway/cargo_escape/north
-	name = "North Escape Hallway"
+	name = "North Escape проход"
 
 /area/coldcolony/malta/hallway/cargo_escape/exit
-	name = "Escape Shuttle Hallway"
+	name = "Escape Shuttle проход"
 	icon_state = "escape"
 	holomap_color = HOLOMAP_AREACOLOR_ESCAPE
 
@@ -3580,13 +3580,13 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "entry"
 
 /area/coldcolony/malta/hallway/cargo_escape/port/west
-	name = "Port Commercial West Hallway"
+	name = "Port Commercial West проход"
 
 /area/coldcolony/malta/hallway/cargo_escape/port/central
-	name = "Port Central Hallway"
+	name = "Port Central проход"
 
 /area/coldcolony/malta/hallway/cargo_escape/port/east
-	name = "Port East Hallway"
+	name = "Port East проход"
 
 /**
  * MARK: Malta maintenance
@@ -3809,7 +3809,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "securityoffice"
 
 /area/coldcolony/malta/security/securehallway
-	name = "Brig Secure Hallway"
+	name = "Brig Secure проход"
 	icon_state = "securehall"
 
 /area/coldcolony/malta/security/warden
@@ -3827,7 +3827,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	can_get_auto_cryod = FALSE
 
 /area/coldcolony/malta/security/permahallway
-	name = "Permabrig Hallway"
+	name = "Permabrig проход"
 	icon_state = "sec_prison_perma"
 
 /area/coldcolony/malta/security/permabrig
@@ -3912,7 +3912,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "ai_chamber"
 
 /area/coldcolony/malta/turret_protected/aisat
-	name = "AI Hallway"
+	name = "AI проход"
 	icon_state = "ai"
 
 /**
@@ -3937,7 +3937,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "mechbay"
 
 /area/coldcolony/malta/research/hallway
-	name = "RnD Hallway"
+	name = "RnD проход"
 	icon_state = "research"
 
 /area/coldcolony/malta/research/robotics
@@ -3949,7 +3949,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "server"
 
 /area/coldcolony/malta/research/shallway
-	name = "RnD South Hallway"
+	name = "RnD South проход"
 	icon_state = "research"
 
 /area/coldcolony/malta/research/explab
