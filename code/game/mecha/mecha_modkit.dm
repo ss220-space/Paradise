@@ -5,7 +5,7 @@
 	icon_state = "harddisk_mini"
 	var/install_time = 15
 
-/obj/item/mecha_modkit/proc/install(var/obj/mecha/mech, var/mob/user)
+/obj/item/mecha_modkit/proc/install(obj/mecha/mech, mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>You install [src] into [mech].</span>")
 	return TRUE

@@ -447,3 +447,9 @@
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
 
 #define MINING_FACTIONS list("mining", "boss")
+
+//Health hud screws for carbon mobs
+#define SCREWYHUD_NONE 0
+#define SCREWYHUD_CRIT 1
+#define SCREWYHUD_DEAD 2
+#define SCREWYHUD_HEALTHY 3

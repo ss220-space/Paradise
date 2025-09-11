@@ -284,3 +284,4 @@
 	M.Translate(x_offset,y_offset)
 	button.transform = M
 
+#undef AB_MAX_COLUMNS

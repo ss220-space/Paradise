@@ -1,6 +1,6 @@
 /**
-  * # Rep Purchase - Blackout and Comms Outage
-  */
+ * # Rep Purchase - Blackout and Comms Outage
+ */
 /datum/rep_purchase/blackout
 	name = "Блэкаут"
 	description = "Перегружает силовую сеть станции, закорачивая случайные ЛКП."

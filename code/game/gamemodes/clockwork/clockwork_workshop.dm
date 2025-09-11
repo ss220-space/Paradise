@@ -236,3 +236,5 @@
 	brass_cost = brass
 	power_cost = power
 	build_time = time
+
+#undef CLOCK_DESIGN
