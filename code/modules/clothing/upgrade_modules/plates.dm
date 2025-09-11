@@ -53,6 +53,9 @@
 
 /// Try attach armor plate to suit
 /obj/item/armor_plate/proc/try_attach_to_clothing(mob/user, obj/item/clothing/suit)
+	if(suit.armor_plate)
+		balloon_alert(user, "внутри есть другая плита!")
+		return
 	if(plate_slot > suit.allowed_armor_plate)
 		balloon_alert(user, "несовместимо!")
 		return FALSE
@@ -237,7 +240,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	desc = "Бронеплита из приваренных друг к другу стальных пластин, созданная кустарным способом. \
 			Предназначена для защиты от пистолетных калибров и осколков. \
 			Тяжёлая и недолговечная, но лучше, чем ничего."
-	icon_state = "steelplate_light" //TODO need icon
+	icon_state = "steelplate_handmade"
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
 	laser_class = LASER_ARMOR_CLASS_NONE
@@ -263,7 +266,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	desc = "Бронеплита из приваренных друг к другу листов стекла, созданная кустарным способом. \
 			Предназначена для защиты от маломощных энергетических снарядов. \
 			Тяжёлая и недолговечная, но лучше, чем ничего."
-	icon_state = "reflectorplate_light" //TODO need icon
+	icon_state = "reflectorplate_handmade"
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	laser_class = LASER_ARMOR_CLASS_LIGHT
@@ -288,7 +291,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	name = "kevlar armor plate"
 	desc = "Бронеплита из кевлара, предназначенная для защиты от пистолетных калибров и осколков. \
 			Лёгкая и достаточно дешёвая."
-	icon_state = "steelplate_light" //TODO need icon
+	icon_state = "kevlar"
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_NONE
