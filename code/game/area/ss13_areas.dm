@@ -1373,19 +1373,19 @@ This applies to all STANDARD station areas
  */
 
 /area/bridge
-	name = "Bridge"
+	name = "Мостик"
 	icon_state = "bridge"
 	ambientsounds = list('sound/ambience/signal.ogg')
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/bridge/meeting_room
-	name = "Heads of Staff Meeting Room"
+	name = "Зал совещаний Командования"
 	icon_state = "meeting"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 
 /area/bridge/vip
-	name = "VIP Area"
+	name = "ВИП-зона"
 	icon_state = "meeting"
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
@@ -1393,66 +1393,66 @@ This applies to all STANDARD station areas
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/crew_quarters/captain
-	name = "Captain's Office"
+	name = "Офис Капитана"
 	icon_state = "captain"
 	sound_environment = SOUND_AREA_WOODFLOOR
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/crew_quarters/captain/bedroom
-	name = "Captain's Bedroom"
+	name = "Спальня Капитана"
 	icon_state = "captain"
 
 /area/crew_quarters/recruit
-	name = "Recruitment Office"
+	name = "Офис по подбору персонала"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/heads/hop
-	name = "Head of Personnel's Quarters"
+	name = "Каюта Главы Персонала"
 	icon_state = "head_quarters"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/crew_quarters/heads/hor
-	name = "Research Director's Quarters"
+	name = "Каюта Научного Руководителя"
 	icon_state = "head_quarters"
 	holomap_color = HOLOMAP_AREACOLOR_SCIENCE
 
 /area/crew_quarters/heads/chief
-	name = "Chief Engineer's Quarters"
+	name = "Каюта Главного Инженера"
 	icon_state = "head_quarters"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/crew_quarters/heads/hos
-	name = "Head of Security's Quarters"
+	name = "Каюта Главы Службы Безопасности"
 	icon_state = "head_quarters"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/crew_quarters/heads/cmo
-	name = "Chief Medical Officer's Quarters"
+	name = "Каюта Главного Врача"
 	icon_state = "head_quarters"
 	holomap_color = HOLOMAP_AREACOLOR_MEDICAL
 
 /area/crew_quarters/courtroom
-	name = "Courtroom"
+	name = "Зал суда"
 	icon_state = "courtroom"
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/crew_quarters/heads
-	name = "Head of Personnel's Office"
+	name = "Офис Главы Персонала"
 	icon_state = "head_quarters"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/crew_quarters/hor
-	name = "Research Director's Office"
+	name = "Офис Научного Руководителя"
 	icon_state = "head_quarters"
 	holomap_color = HOLOMAP_AREACOLOR_SCIENCE
 
 /area/crew_quarters/hos
-	name = "Head of Security's Office"
+	name = "Офис Главы Службы Безопасности"
 	icon_state = "head_quarters"
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/crew_quarters/chief
-	name = "Chief Engineer's Office"
+	name = "Офис Главного Инженера"
 	icon_state = "head_quarters"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
@@ -1471,12 +1471,12 @@ This applies to all STANDARD station areas
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/ntrep
-	name = "Nanotrasen Representative's Office"
+	name = "Nanotrasen Representative's Офис "
 	icon_state = "ntrep"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/blueshield
-	name = "Blueshield's Office"
+	name = "Blueshield's Офис "
 	icon_state = "blueshield"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
@@ -1667,13 +1667,13 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/magistrateoffice
-	name = "Magistrate's Office"
+	name = "Magistrate's Офис "
 	icon_state = "magistrate"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/clownoffice
-	name = "Clown's Office"
+	name = "Clown's Офис "
 	icon_state = "clown_office"
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
@@ -1683,7 +1683,7 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
 /area/mimeoffice
-	name = "Mime's Office"
+	name = "Mime's Офис "
 	icon_state = "mime_office"
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
@@ -1822,7 +1822,7 @@ This applies to all STANDARD station areas
 	icon_state = "engine"
 
 /area/engineering/chiefs_office
-	name = "Chief Engineer's Office"
+	name = "Chief Engineer's Офис "
 	icon_state = "engine_control"
 
 /area/engineering/mechanic_workshop
@@ -2074,7 +2074,7 @@ This applies to all STANDARD station areas
 	icon_state = "medbayisoaccess"
 
 /area/medical/cmo
-	name = "Chief Medical Officer's Office"
+	name = "Chief Medical Officer's Офис "
 	icon_state = "CMO"
 
 /area/medical/cmostore
@@ -2301,7 +2301,7 @@ This applies to all STANDARD station areas
 	can_get_auto_cryod = FALSE
 
 /area/security/warden
-	name = "Warden's Office"
+	name = "Warden's Офис "
 	icon_state = "Warden"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
@@ -2318,7 +2318,7 @@ This applies to all STANDARD station areas
 	icon_state = "securehall"
 
 /area/security/hos
-	name = "Head of Security's Office"
+	name = "Head of Security's Офис "
 	icon_state = "sec_hos"
 
 /area/security/podbay
@@ -2326,7 +2326,7 @@ This applies to all STANDARD station areas
 	icon_state = "securitypodbay"
 
 /area/security/detectives_office
-	name = "Detective's Office"
+	name = "Detective's Офис "
 	icon_state = "detective"
 	ambientsounds = list('sound/ambience/ambidet1.ogg', 'sound/ambience/ambidet2.ogg')
 
@@ -2404,7 +2404,7 @@ This applies to all STANDARD station areas
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/quartermaster/qm
-	name = "Quartermaster's Office"
+	name = "Quartermaster's Офис "
 	icon_state = "quart"
 
 /area/quartermaster/miningdock
@@ -2469,7 +2469,7 @@ This applies to all STANDARD station areas
 	icon_state = "toxlab"
 
 /area/toxins/rdoffice
-	name = "Research Director's Office"
+	name = "Research Director's Офис "
 	icon_state = "head_quarters"
 
 /area/toxins/xenobiology
@@ -3404,7 +3404,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "quartoffice"
 
 /area/coldcolony/malta/quartermaster/qm
-	name = "Quartermaster's Office"
+	name = "Quartermaster's Офис "
 	icon_state = "quart"
 
 /**
@@ -3491,12 +3491,12 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/coldcolony/malta/resid_serv/clownoffice
-	name = "Clown's Office"
+	name = "Clown's Офис "
 	icon_state = "clown_office"
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 
 /area/coldcolony/malta/resid_serv/mimeoffice
-	name = "Mime's Office"
+	name = "Mime's Офис "
 	icon_state = "mime_office"
 
 /area/coldcolony/malta/resid_serv/bar
@@ -3688,7 +3688,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "exam_room"
 
 /area/coldcolony/malta/medical/cmo
-	name = "Chief Medical Officer's Office"
+	name = "Chief Medical Officer's Офис "
 	icon_state = "CMO"
 
 /area/coldcolony/malta/medical/cmostore
@@ -3745,7 +3745,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "securitylobby"
 
 /area/coldcolony/malta/security/magistrateoffice
-	name = "Magistrate's Office"
+	name = "Magistrate's Офис "
 	icon_state = "magistrate"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
@@ -3784,7 +3784,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	can_get_auto_cryod = FALSE
 
 /area/coldcolony/malta/security/detectives_office
-	name = "Detective's Office"
+	name = "Detective's Офис "
 	icon_state = "detective"
 	ambientsounds = list('sound/ambience/ambidet1.ogg', 'sound/ambience/ambidet2.ogg')
 
@@ -3801,7 +3801,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "evidence"
 
 /area/coldcolony/malta/security/hos
-	name = "Head of Security's Office"
+	name = "Head of Security's Офис "
 	icon_state = "sec_hos"
 
 /area/coldcolony/malta/security/main
@@ -3813,7 +3813,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "securehall"
 
 /area/coldcolony/malta/security/warden
-	name = "Warden's Office"
+	name = "Warden's Офис "
 	icon_state = "Warden"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
@@ -3861,11 +3861,11 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 
 /area/coldcolony/malta/bridge/hop
-	name = "Head of Personnel's Quarters"
+	name = "Head of Personnel's Кабинет"
 	icon_state = "head_quarters"
 
 /area/coldcolony/malta/bridge/ntrep
-	name = "Nanotrasen Representative's Office"
+	name = "Nanotrasen Representative's Офис "
 	icon_state = "ntrep"
 
 /area/coldcolony/malta/bridge/vip
@@ -3873,11 +3873,11 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "meeting"
 
 /area/coldcolony/malta/bridge/blueshield
-	name = "Blueshield's Office"
+	name = "Blueshield's Офис "
 	icon_state = "blueshield"
 
 /area/coldcolony/malta/bridge/captain
-	name = "Captain's Office"
+	name = "Captain's Офис "
 	icon_state = "captain"
 	sound_environment = SOUND_AREA_WOODFLOOR
 
@@ -3929,7 +3929,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "toxlab"
 
 /area/coldcolony/malta/research/hor
-	name = "Research Director's Office"
+	name = "Research Director's Офис "
 	icon_state = "head_quarters"
 
 /area/coldcolony/malta/research/chargebay
@@ -4006,7 +4006,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	ambientsounds = HIGHSEC_SOUNDS
 
 /area/coldcolony/malta/engineering/chief
-	name = "Chief Engineer's Office"
+	name = "Chief Engineer's Офис "
 	icon_state = "head_quarters"
 
 /area/coldcolony/malta/engineering/teg
