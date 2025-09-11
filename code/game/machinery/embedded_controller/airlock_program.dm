@@ -1,14 +1,13 @@
 //Handles the control of airlocks
 
-#define STATE_IDLE			0
-#define STATE_PREPARE		1
-#define STATE_DEPRESSURIZE	2
-#define STATE_PRESSURIZE	3
+#define STATE_IDLE 0
+#define STATE_PREPARE 1
+#define STATE_DEPRESSURIZE 2
+#define STATE_PRESSURIZE 3
 
-#define TARGET_NONE			0
-#define TARGET_INOPEN		-1
-#define TARGET_OUTOPEN		-2
-
+#define TARGET_NONE 0
+#define TARGET_INOPEN -1
+#define TARGET_OUTOPEN -2
 
 /datum/computer/file/embedded_program/airlock
 	var/tag_exterior_door
@@ -372,11 +371,10 @@ send an additional command to open the door again.
 	if(doorCommand)
 		signalDoor(doorTag, doorCommand)
 
-
 #undef STATE_IDLE
+#undef STATE_PREPARE
 #undef STATE_DEPRESSURIZE
 #undef STATE_PRESSURIZE
-
 #undef TARGET_NONE
 #undef TARGET_INOPEN
 #undef TARGET_OUTOPEN

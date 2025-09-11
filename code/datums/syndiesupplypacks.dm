@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 			return "Medical"
 		if(SYNDIE_SUPPLY_SCIENCE)
 			return "Science"
-		if(SUPPLY_ORGANIC)
+		if(SYNDIE_SUPPLY_ORGANIC)
 			return "Food and Livestock"
 		if(SYNDIE_SUPPLY_MATERIALS)
 			return "Raw Materials"
@@ -1048,7 +1048,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/organic
 	name = "HEADER"
-	group = SUPPLY_ORGANIC
+	group = SYNDIE_SUPPLY_ORGANIC
 	containertype = /obj/structure/closet/crate/freezer
 
 
@@ -2427,3 +2427,14 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate
 	containername = "crate"
+
+#undef SYNDIE_SUPPLY_EMERGENCY
+#undef SYNDIE_SUPPLY_SECURITY
+#undef SYNDIE_SUPPLY_ENGINEER
+#undef SYNDIE_SUPPLY_MEDICAL
+#undef SYNDIE_SUPPLY_SCIENCE
+#undef SYNDIE_SUPPLY_ORGANIC
+#undef SYNDIE_SUPPLY_MATERIALS
+#undef SYNDIE_SUPPLY_MISC
+#undef SYNDIE_SUPPLY_VEND
+#undef SUPPLY_SYNDICATE_SPECIAL

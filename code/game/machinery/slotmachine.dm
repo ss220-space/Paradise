@@ -1,10 +1,4 @@
-#define EMAGGED_SLOT_MACHINE_PRIZE_MOD 5
-#define EMAGGED_SLOT_MACHINE_GIB_CHANCE 10
-#define EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE 20
-
-
 GLOBAL_LIST_EMPTY(slotmachine_prizes)
-
 
 /datum/slotmachine_prize
 	/// Unique prize identifier

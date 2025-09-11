@@ -267,6 +267,19 @@
 		client.change_title_screen_notice()
 		return
 
+	if(href_list["switch_server"])
+		var/selected_port = text2num(href_list["switch_server"])
+		if(selected_port == world.port)
+			to_chat(usr, span_warning("Вы уже подключены к данному серверу."))
+			return
+
+		to_chat(usr, span_warning("Подключение к новому серверу..."))
+
+		// Formulate a connection URL
+		var/target = "byond://[world.internet_address]:[selected_port]"
+		src << link(target)
+		return
+
 	if(href_list["focus"])
 		winset(client, "mapwindow.map", "focus=true")
 		return

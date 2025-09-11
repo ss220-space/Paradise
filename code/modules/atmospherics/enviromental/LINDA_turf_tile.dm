@@ -1,5 +1,3 @@
-
-
 /turf
 	var/pressure_difference = 0
 	var/pressure_direction = 0
@@ -361,6 +359,8 @@
 			else
 				T.consider_pressure_difference(src, difference)
 		LAST_SHARE_CHECK
+
+#undef LAST_SHARE_CHECK
 
 /turf/proc/consider_pressure_difference(turf/simulated/T, difference, direction = get_dir(src, T))
 	SSair.high_pressure_delta |= src

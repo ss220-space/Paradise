@@ -1,12 +1,5 @@
 // The Lighting System
-//
 // Consists of light fixtures (/obj/machinery/light) and light tube/bulb items (/obj/item/light)
-
-// status values shared between lighting fixtures and items
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
 
 #define STAGE_EMPTY 1
 #define STAGE_WIRED 2
@@ -1053,11 +1046,6 @@
 	no_emergency = FALSE
 	update(FALSE)
 
-
-#undef LIGHT_OK
-#undef LIGHT_EMPTY
-#undef LIGHT_BROKEN
 #undef STAGE_EMPTY
 #undef STAGE_WIRED
 #undef STAGE_COMPLETED
-

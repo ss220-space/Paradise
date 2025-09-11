@@ -199,3 +199,5 @@
 	focus_overlay.layer = layer + 0.01
 	SET_PLANE_EXPLICIT(focus_overlay, ABOVE_HUD_PLANE, focus)
 	. += focus_overlay
+
+#undef TK_MAXRANGE

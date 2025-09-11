@@ -1,8 +1,8 @@
-#define NITROGEN_RETARDATION_FACTOR 0.15	//Higher == N2 slows reaction more
-#define THERMAL_RELEASE_MODIFIER 10000		//Higher == more heat released during reaction
-#define PLASMA_RELEASE_MODIFIER 1500		//Higher == less phor.. plasma released by reaction
-#define OXYGEN_RELEASE_MODIFIER 15000		//Higher == less oxygen released at high temperature/power
-#define REACTION_POWER_MODIFIER 1.1			//Higher == more overall power
+#define NITROGEN_RETARDATION_FACTOR 0.15 //Higher == N2 slows reaction more
+#define THERMAL_RELEASE_MODIFIER 10000 //Higher == more heat released during reaction
+#define PLASMA_RELEASE_MODIFIER 1500 //Higher == less phor.. plasma released by reaction
+#define OXYGEN_RELEASE_MODIFIER 15000 //Higher == less oxygen released at high temperature/power
+#define REACTION_POWER_MODIFIER 1.1 //Higher == more overall power
 #define SHARD_CUT_COEF 7
 
 /*
@@ -628,3 +628,18 @@
 	icon_state = "light"
 	pixel_x = -176
 	pixel_y = -176
+
+#undef NITROGEN_RETARDATION_FACTOR
+#undef THERMAL_RELEASE_MODIFIER
+#undef PLASMA_RELEASE_MODIFIER
+#undef OXYGEN_RELEASE_MODIFIER
+#undef REACTION_POWER_MODIFIER
+#undef SHARD_CUT_COEF
+#undef POWER_FACTOR
+#undef DECAY_FACTOR
+#undef CRITICAL_TEMPERATURE
+#undef CHARGING_FACTOR
+#undef DAMAGE_RATE_LIMIT
+#undef DETONATION_RADS
+#undef DETONATION_HALLUCINATION
+#undef WARNING_DELAY

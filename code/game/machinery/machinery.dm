@@ -1,5 +1,3 @@
-#define MACHINE_FLICKER_CHANCE 0.05 // roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.
-
 /**
  * Machines in the world, such as computers, pipes, and airlocks.
  *
@@ -86,6 +84,7 @@
  *     Called by the 'air subsystem' once per atmos tick for each machine that is listed in its 'atmos_machines' list.
  * Compiled by Aygar
  */
+
 /obj/machinery
 	name = "machinery"
 	gender = MALE

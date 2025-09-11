@@ -527,7 +527,6 @@ GLOBAL_VAR(bomb_set)
 	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
-#define NUKERANGE 80
 /obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
 		timing = FALSE

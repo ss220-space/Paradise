@@ -172,3 +172,7 @@
 		for(var/I in reagents.reagent_list)
 			var/datum/reagent/R = I
 			. += "<span class='notice'>[R.volume] units of [R.name]</span>"
+
+#undef HATE_MESSAGES
+#undef DISLIKE_MESSAGES
+#undef LOVE_MESSAGES

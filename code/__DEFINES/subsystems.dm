@@ -70,6 +70,7 @@
 #define INIT_ORDER_SPEECH_CONTROLLER 95
 #define INIT_ORDER_GARBAGE 92
 #define INIT_ORDER_DBCORE 91
+#define INIT_ORDER_REDIS 90
 #define INIT_ORDER_BLACKBOX 56
 #define INIT_ORDER_CLEANUP 55
 #define INIT_ORDER_INPUT 50
@@ -193,7 +194,7 @@
 	if(isturf(changed_on)){SSdemo.mark_turf(changed_on);}\
 	if(isobj(changed_on) || ismob(changed_on)){SSdemo.mark_dirty(changed_on);}\
 
-//SSticker.current_state values
+// SSticker.current_state values
 /// Game is loading
 #define GAME_STATE_STARTUP 0
 /// Game is loaded and in pregame lobby

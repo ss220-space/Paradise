@@ -1,12 +1,8 @@
-// original implementation: https://ss13.moe/wiki/index.php/Pulse_Demon
-
 #define PULSEDEMON_PLATING_SPARK_CHANCE 20
 #define PULSEDEMON_APC_CHARGE_MULTIPLIER 2
 #define PULSEDEMON_SMES_DRAIN_MULTIPLIER 10
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
-
-#define PULSEDEMON_SOURCE_DRAIN_INVALID (-1)
 
 /mob/living/simple_animal/demon/pulse_demon
 	name = "pulse demon"
@@ -909,5 +905,8 @@
 	desc = "You've been EMP'd and cannot regenerate health!"
 	icon_state = "pd_noregen"
 
+#undef PULSEDEMON_PLATING_SPARK_CHANCE
+#undef PULSEDEMON_APC_CHARGE_MULTIPLIER
+#undef PULSEDEMON_SMES_DRAIN_MULTIPLIER
 #undef ALERT_CATEGORY_NOPOWER
 #undef ALERT_CATEGORY_NOREGEN

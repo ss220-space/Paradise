@@ -12,17 +12,24 @@
  * Defines
  */
 
-//Only a maximum of one action and one intent should be active at any given time.
-//Actions
-#define PARROT_PERCH	1		//Sitting/sleeping, not moving
-#define PARROT_SWOOP	2		//Moving towards or away from a target
-#define PARROT_WANDER	4		//Moving without a specific target in mind
+// Only a maximum of one action and one intent should be active at any given time.
+// Actions
+/// Sitting/sleeping, not moving
+#define PARROT_PERCH 1
+/// Moving towards or away from a target
+#define PARROT_SWOOP 2
+/// Moving without a specific target in mind
+#define PARROT_WANDER 4
 
-//Intents
-#define PARROT_STEAL	8		//Flying towards a target to steal it/from it
-#define PARROT_ATTACK	16		//Flying towards a target to attack it
-#define PARROT_RETURN	32		//Flying towards its perch
-#define PARROT_FLEE	64		//Flying away from its attacker
+// Intents
+/// Flying towards a target to steal it/from it
+#define PARROT_STEAL 8
+/// Flying towards a target to attack it
+#define PARROT_ATTACK 16
+/// Flying towards its perch
+#define PARROT_RETURN 32
+/// Flying away from its attacker
+#define PARROT_FLEE 64
 
 
 /mob/living/simple_animal/parrot
@@ -911,3 +918,10 @@
 	animate(held_item_icon, transform = m180)
 	underlays += held_item_icon
 
+#undef PARROT_PERCH
+#undef PARROT_SWOOP
+#undef PARROT_WANDER
+#undef PARROT_STEAL
+#undef PARROT_ATTACK
+#undef PARROT_RETURN
+#undef PARROT_FLEE

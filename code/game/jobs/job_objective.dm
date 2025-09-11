@@ -1,6 +1,7 @@
 /datum/mind/var/list/job_objectives = list()
 
 #define FINDJOBTASK_DEFAULT_NEW 1 // Make a new task of this type if one can't be found.
+
 /datum/mind/proc/findJobTask(typepath, options = 0)
 	var/datum/job_objective/task = locate(typepath) in job_objectives
 	if(!istype(task,typepath))
@@ -8,6 +9,8 @@
 			task = new typepath()
 			job_objectives += task
 	return task
+
+#undef FINDJOBTASK_DEFAULT_NEW
 
 /datum/job_objective
 	var/datum/mind/owner = null			//Who owns the objective.

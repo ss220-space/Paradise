@@ -25,3 +25,8 @@
 		freq_text = format_frequency(display_freq)
 
 	return freq_text
+
+#undef TELECOMMS_RECEPTION_NONE
+#undef TELECOMMS_RECEPTION_SENDER
+#undef TELECOMMS_RECEPTION_RECEIVER
+#undef TELECOMMS_RECEPTION_BOTH

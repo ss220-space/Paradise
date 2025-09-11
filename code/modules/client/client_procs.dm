@@ -1,24 +1,21 @@
 	////////////
 	//SECURITY//
 	////////////
-//debugging, uncomment for viewing topic calls
-//#define TOPIC_DEBUGGING 1
 
-#define TOPIC_SPAM_DELAY	2		//2 ticks is about 2/10ths of a second; it was 4 ticks, but that caused too many clicks to be lost due to lag
-#define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
-#define MIN_CLIENT_VERSION	515		// Minimum byond major version required to play.
+#define UPLOAD_LIMIT 10485760 //Restricts client uploads to the server to 10MB //Boosted this thing. What's the worst that can happen?
+#define MIN_CLIENT_VERSION 515 // Minimum byond major version required to play.
 									//I would just like the code ready should it ever need to be used.
-#define SUGGESTED_CLIENT_VERSION	515		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
-#define SUGGESTED_CLIENT_BUILD	1633		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
+#define SUGGESTED_CLIENT_VERSION 515 // only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
+#define SUGGESTED_CLIENT_BUILD 1633 // only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
-#define LIMITER_SIZE	5
-#define CURRENT_SECOND	1
-#define SECOND_COUNT	2
-#define CURRENT_MINUTE	3
-#define MINUTE_COUNT	4
-#define ADMINSWARNED_AT	5
+#define LIMITER_SIZE 5
+#define CURRENT_SECOND 1
+#define SECOND_COUNT 2
+#define CURRENT_MINUTE 3
+#define MINUTE_COUNT 4
+#define ADMINSWARNED_AT 5
 
 	/*
 	When somebody clicks a link in game, this Topic is called first.
@@ -272,6 +269,9 @@
 		GLOB.admins += src
 		holder.owner = src
 
+	// We have a holder. Inform the relevant places
+	INVOKE_ASYNC(src, PROC_REF(announce_join))
+
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
 	prefs = GLOB.preferences_datums[ckey]
 	if(!prefs)
@@ -296,6 +296,11 @@
 
 	// Check if the client has or has not accepted TOS
 	check_tos_consent()
+
+	#ifdef MULTIINSTANCE
+	// This sleeps so it has to go here. Dont fucking move it.
+	SSinstancing.update_playercache(ckey)
+	#endif
 
 	// This has to go here to avoid issues
 	// If you sleep past this point, you will get SSinput errors as well as goonchat errors
@@ -421,12 +426,18 @@
 	SSdebugview.stop_processing(src)
 	mob?.become_uncliented()
 
+	announce_leave() // Do not put this below
+
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
 
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+
+	#ifdef MULTIINSTANCE
+	INVOKE_ASYNC(SSinstancing, TYPE_PROC_REF(/datum/controller/subsystem/instancing, update_playercache)) // Clear us out
+	#endif
 
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
@@ -445,6 +456,62 @@
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
+
+/client/proc/announce_join()
+	if(!holder)
+		return
+
+	if(!SSredis.connected)
+		return
+
+	if(check_rights(R_ADMIN, FALSE))
+		var/list/admincounter = staff_countup(R_ADMIN)
+		var/msg = "<b>[ckey]</b> зашел на сервер. Админов в сети: <b>[admincounter[1]]</b>."
+		var/list/data = list()
+		data["author"] = "warden"
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = msg
+		SSredis.publish("byond.asay", json_encode(data))
+
+	else if(check_rights(R_MENTOR, FALSE))
+		var/list/mentorcounter = staff_countup(R_MENTOR)
+		var/msg = "<b>[ckey]</b> зашел на сервер. Менторов в сети: <b>[mentorcounter[1]]</b>."
+		var/list/data = list()
+		data["author"] = "warden"
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = msg
+		SSredis.publish("byond.msay", json_encode(data))
+
+/client/proc/announce_leave()
+	if(!holder)
+		return
+
+	if(!SSredis.connected)
+		return
+
+	if(check_rights(R_ADMIN, FALSE))
+		var/list/admincounter = staff_countup(R_ADMIN)
+		var/admin_count = admincounter[1]
+		if(!(holder.fakekey || is_afk()))
+			admin_count-- // Exclude ourself
+		var/msg = "<b>[ckey]</b> покинул сервер. Админов в сети: <b>[admin_count]</b>."
+		var/list/data = list()
+		data["author"] = "warden"
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = msg
+		SSredis.publish("byond.asay", json_encode(data))
+
+	else if(check_rights(R_MENTOR, FALSE))
+		var/list/mentorcounter = staff_countup(R_MENTOR)
+		var/mentor_count = mentorcounter[1]
+		if(!(holder.fakekey || is_afk()))
+			mentor_count-- // Exclude ourself
+		var/msg = "<b>[ckey]</b> покинул сервер. Менторов в сети: <b>[mentor_count]</b>."
+		var/list/data = list()
+		data["author"] = "warden"
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = msg
+		SSredis.publish("byond.msay", json_encode(data))
 
 
 /client/proc/donator_check()
@@ -662,10 +729,11 @@
 		INVOKE_ASYNC(src, TYPE_PROC_REF(/client, get_byond_account_date), TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
-	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(), :ckey, :ip, :cid)", list(
+	var/datum/db_query/query_accesslog = SSdbcore.NewQuery("INSERT INTO `[format_table_name("connection_log")]` (`datetime`, `ckey`, `ip`, `computerid`, `server_id`) VALUES(Now(), :ckey, :ip, :cid, :server_id)", list(
 		"ckey" = ckey,
 		"ip" = "[address ? address : ""]", // This is important. NULL is not the same as "", and if you directly open the `.dmb` file, you get a NULL IP.
-		"cid" = computer_id
+		"cid" = computer_id,
+		"server_id" = CONFIG_GET(string/instance_id)
 	))
 	// We do nothing with output here, or anything else after, so we dont need to if() wrap it
 	// If you ever extend this proc below this point, please wrap these with an if() in the same way its done above
@@ -781,7 +849,6 @@
 	src << link(url)
 	return
 
-#undef TOPIC_SPAM_DELAY
 #undef UPLOAD_LIMIT
 #undef MIN_CLIENT_VERSION
 

@@ -1,4 +1,3 @@
-#define EMAG_TIMER 3000
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
@@ -246,6 +245,7 @@
 	to_chat(user, span_warning("Дрон герметично запечатан. Вы не можете открыть корпус."))
 	return TRUE
 
+#define EMAG_TIMER 3000
 
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)
@@ -293,6 +293,8 @@
 	laws.show_laws(src)
 	to_chat(src, span_boldwarning("ВНИМАНИЕ: [H.real_name] теперь ваш новый хозяин. Соблюдайте новые законы и команды [H.real_name]."))
 	return
+
+#undef EMAG_TIMER
 
 /mob/living/silicon/robot/drone/ratvar_act(weak)
 	if(client)

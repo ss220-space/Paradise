@@ -47,6 +47,7 @@
 				return 0
 	return 1
 
+#undef STANDARD_STACK_AMOUNT
 
 /datum/construction/mecha/ripley_chassis
 	steps = list(

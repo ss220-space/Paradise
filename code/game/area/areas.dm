@@ -466,13 +466,6 @@
 /area/space/update_icon_state()
 	icon_state = null
 
-
-/*
-#define EQUIP 1
-#define LIGHT 2
-#define ENVIRON 3
-*/
-
 /area/proc/powered(chan)		// return true if the area has power to given channel
 	if(!requires_power)
 		return TRUE

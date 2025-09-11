@@ -1,5 +1,7 @@
-#define DRAKE_SWOOP_HEIGHT 270 //how high up drakes go, in pixels
-#define DRAKE_SWOOP_DIRECTION_CHANGE_RANGE 5 //the range our x has to be within to not change the direction we slam from
+/// How high up drakes go, in pixels
+#define DRAKE_SWOOP_HEIGHT 270
+/// The range our x has to be within to not change the direction we slam from
+#define DRAKE_SWOOP_DIRECTION_CHANGE_RANGE 5
 
 #define SWOOP_DAMAGEABLE 1
 #define SWOOP_INVULNERABLE 2
@@ -746,3 +748,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
 	return
+
+#undef DRAKE_SWOOP_HEIGHT
+#undef DRAKE_SWOOP_DIRECTION_CHANGE_RANGE
+#undef SWOOP_DAMAGEABLE
+#undef SWOOP_INVULNERABLE

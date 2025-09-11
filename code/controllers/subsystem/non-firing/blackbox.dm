@@ -293,8 +293,8 @@ SUBSYSTEM_DEF(blackbox)
 		lakey = L.lastattackerckey
 
 	var/datum/db_query/deathquery = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("death")] (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord)
-		VALUES (:name, :key, :job, :special, :pod, NOW(), :laname, :lakey, :gender, :bruteloss, :fireloss, :brainloss, :oxyloss, :coord)"},
+		INSERT INTO [format_table_name("death")] (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord, server_id)
+		VALUES (:name, :key, :job, :special, :pod, NOW(), :laname, :lakey, :gender, :bruteloss, :fireloss, :brainloss, :oxyloss, :coord, :server_id)"},
 		list(
 			"name" = L.real_name,
 			"key" = L.key,
@@ -308,7 +308,8 @@ SUBSYSTEM_DEF(blackbox)
 			"fireloss" = L.getFireLoss(),
 			"brainloss" = L.getBrainLoss(),
 			"oxyloss" = L.getOxyLoss(),
-			"coord" = "[L.x], [L.y], [L.z]"
+			"coord" = "[L.x], [L.y], [L.z]",
+			"server_id" = CONFIG_GET(string/instance_id)
 		)
 	)
 	deathquery.warn_execute()

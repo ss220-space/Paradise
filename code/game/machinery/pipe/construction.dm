@@ -1,4 +1,3 @@
-#define CIRC_LEFT WEST
 #define CIRC_RIGHT EAST
 
 /obj/item/pipe
@@ -573,3 +572,5 @@
 		our_rpd.delete_single_pipe(user, src)
 	else
 		..()
+
+#undef CIRC_RIGHT

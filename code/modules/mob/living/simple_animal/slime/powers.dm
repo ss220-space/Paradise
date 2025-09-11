@@ -1,12 +1,8 @@
-#define SIZE_DOESNT_MATTER	-1
-#define BABIES_ONLY			0
-#define ADULTS_ONLY			1
+#define NO_GROWTH_NEEDED 0
+#define GROWTH_NEEDED 1
 
-#define NO_GROWTH_NEEDED	0
-#define GROWTH_NEEDED		1
-
-#define NO_SPLIT_NEEDED		0
-#define SPLIT_NEEDED		1
+#define NO_SPLIT_NEEDED 0
+#define SPLIT_NEEDED 1
 
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
@@ -292,3 +288,8 @@
 /datum/action/innate/slime/reproduce/Activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Reproduce()
+
+#undef NO_GROWTH_NEEDED
+#undef GROWTH_NEEDED
+#undef NO_SPLIT_NEEDED
+#undef SPLIT_NEEDED

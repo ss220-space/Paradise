@@ -330,4 +330,7 @@
 	layer = BELOW_OBJ_LAYER
 	var/obj/machinery/autodoc/doc
 
-#undef BODY_ZONE_BY_GROUPS */
+#undef BODY_ZONE_BY_GROUPS
+#undef HEAL_PER_TIME
+#undef FIXING_TIME
+*/

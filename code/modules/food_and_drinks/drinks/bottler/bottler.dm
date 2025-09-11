@@ -1,4 +1,3 @@
-
 //adjust these to change the maximum capacity of the bottler for each container type
 #define MAX_GLASS 10
 #define MAX_PLAST 20
@@ -436,3 +435,10 @@
 /obj/machinery/bottler/proc/resetSlots()
 	QDEL_LIST_ASSOC_VAL(slots)
 	slots.len = 3
+
+#undef MAX_GLASS
+#undef MAX_PLAST
+#undef MAX_METAL
+#undef RATIO_GLASS
+#undef RATIO_PLAST
+#undef RATIO_METAL
