@@ -169,7 +169,7 @@
 				t_out += ascii2text(ascii_char)
 				last_char_group = 2
 
-			// ~   |   @  :  #  $  %  &  *  +  !
+			// ~   |   @  :  #  $  %  & *  +  !
 			if(126, 124, 64, 58, 35, 36, 37, 38, 42, 43, 33)			//Other symbols that we'll allow (mainly for AI)
 				if(!last_char_group)		continue	//suppress at start of string
 				if(!allow_numbers)			continue
@@ -794,13 +794,13 @@
 	return regex.Replace(text, "")
 
 /**
-  * Formats num with an SI prefix.
-  *
-  * Returns a string formatted with a multiple of num and an SI prefix corresponding to an exponent of 10.
-  * Only considers exponents that are multiples of 3 (deca, deci, hecto, and centi are not included).
-  * A unit is not included in the string, the prefix is placed after the number with no spacing added anywhere.
-  * Listing of prefixes: https://en.wikipedia.org/wiki/Metric_prefix#List_of_SI_prefixes
-  */
+ * Formats num with an SI prefix.
+ *
+ * Returns a string formatted with a multiple of num and an SI prefix corresponding to an exponent of 10.
+ * Only considers exponents that are multiples of 3 (deca, deci, hecto, and centi are not included).
+ * A unit is not included in the string, the prefix is placed after the number with no spacing added anywhere.
+ * Listing of prefixes: https://en.wikipedia.org/wiki/Metric_prefix#List_of_SI_prefixes
+ */
 /proc/format_si_suffix(num)
 	if(num == 0)
 		return "[num]"

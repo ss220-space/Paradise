@@ -1,13 +1,13 @@
 /*
- Click Overrides
-
- These are overrides for a living mob's middle and alt clicks.
- If the mob in question has their middleClickOverride var set to one of these datums, when they middle or alt click the onClick proc for the datum their clickOverride var is
- set equal to will be called.
- See click.dm 251 and 196.
-
- If you have any questions, contact me on the Paradise forums.
- - DaveTheHeacrab
+ * Click Overrides
+ *
+ * These are overrides for a living mob's middle and alt clicks.
+ * If the mob in question has their middleClickOverride var set to one of these datums, when they middle or alt click the onClick proc for the datum their clickOverride var is
+ * set equal to will be called.
+ * See click.dm 251 and 196.
+ *
+ * If you have any questions, contact me on the Paradise forums.
+ * - DaveTheHeacrab
  */
 
 /datum/middleClickOverride/

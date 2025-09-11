@@ -333,7 +333,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	// Get a list of mobs who can hear from the radios we collected.
 	var/list/receive = get_mobs_in_radio_ranges(radios)
 
-  /* ###### Organize the receivers into categories for displaying the message ###### */
+	/* ###### Organize the receivers into categories for displaying the message ###### */
 
 	// Understood the message:
 	var/list/heard_masked	= list() // masked name or no real name

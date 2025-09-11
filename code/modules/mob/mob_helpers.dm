@@ -190,7 +190,7 @@
 	for(var/datum/multilingual_say_piece/piece in message_pieces)
 		piece.message = stars(piece.message, probability)
 
-/proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
+/proc/slur(phrase, list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
 	var/leng=length_char(phrase)
 	var/counter=length_char(phrase)

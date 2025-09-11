@@ -436,26 +436,26 @@
 	return FALSE
 
 /**
-  * Returns a STRING, containing the NAMES of the mobs in the provided list, JOINED together with ", "
-  *
-  * E.g. list_show(depotarea.guard_list) returns a string like:
-  * "Syndicate Backup (123), Syndicate Backup(456), Syndicate Backup(789)", etc.
-  * Arguments:
-  * * list/L, the list of UIDs from which to draw members
-  * * show_ckeys, bool, if true will display ckeys in addition to names
-  */
+ * Returns a STRING, containing the NAMES of the mobs in the provided list, JOINED together with ", "
+ *
+ * E.g. list_show(depotarea.guard_list) returns a string like:
+ * "Syndicate Backup (123), Syndicate Backup(456), Syndicate Backup(789)", etc.
+ * Arguments:
+ * * list/L, the list of UIDs from which to draw members
+ * * show_ckeys, bool, if true will display ckeys in addition to names
+ */
 /area/syndicate_depot/core/proc/list_show(list/L, show_ckeys = FALSE)
 	var/list/formatted = list_shownames(L, show_ckeys)
 	return formatted.Join(", ")
 
 /**
-  * Returns a LIST of the NAMES of the mobs in the provided list.
-  *
-  * E.g. list_shownames(depotarea.guard_list) returns a list of the names of extra guard mobs in depot.
-  * Arguments:
-  * * list/L, the list of UIDs from which to draw members
-  * * show_ckeys, bool, if true will display ckeys in addition to names
-  */
+ * Returns a LIST of the NAMES of the mobs in the provided list.
+ *
+ * E.g. list_shownames(depotarea.guard_list) returns a list of the names of extra guard mobs in depot.
+ * Arguments:
+ * * list/L, the list of UIDs from which to draw members
+ * * show_ckeys, bool, if true will display ckeys in addition to names
+ */
 /area/syndicate_depot/core/proc/list_shownames(list/L, show_ckeys = FALSE)
 	var/list/names = list()
 	for(var/uid in L)
@@ -469,13 +469,13 @@
 	return names
 
 /**
-  * Returns a LIST of the MOBS in one of the depot area's lists.
-  *
-  * E.g. list_getmobs(depotarea.guard_list) returns a list of the extra guard mobs in the depot.
-  * Arguments:
-  * * list/L, the list of UIDs from which to draw members
-  * * show_ckeys, bool, if true will display ckeys in addition to names
-  */
+ * Returns a LIST of the MOBS in one of the depot area's lists.
+ *
+ * E.g. list_getmobs(depotarea.guard_list) returns a list of the extra guard mobs in the depot.
+ * Arguments:
+ * * list/L, the list of UIDs from which to draw members
+ * * show_ckeys, bool, if true will display ckeys in addition to names
+ */
 /area/syndicate_depot/core/proc/list_getmobs(list/L, show_ckeys = FALSE)
 	var/list/moblist = list()
 	for(var/uid in L)
