@@ -33,7 +33,6 @@
 					O.loc = chassis
 					O.set_anchored(FALSE)
 					occupant_message(span_notice("[target] successfully loaded."))
-					log_message("Loaded [O]. Cargo compartment capacity: [chassis.cargo_capacity - length(chassis.cargo)]")
 					return TRUE
 				else
 					O.set_anchored(initial(O.anchored))
@@ -67,7 +66,6 @@
 						M.loc = chassis
 						M.set_anchored(FALSE)
 						occupant_message(span_notice("[target] successfully loaded."))
-						log_message("Loaded [M]. Cargo compartment capacity: [chassis.cargo_capacity - length(chassis.cargo)]")
 						return TRUE
 					else
 						M.set_anchored(initial(M.anchored))
@@ -232,8 +230,21 @@
 			if(RCD_MODE_FIRELOCK)
 				occupant_message("Switched RCD to Construct Firelock.")
 
-/obj/item/mecha_parts/mecha_equipment/rcd/get_module_equip_info()
-	return " \[<a href='byond://?src=[UID()];mode=[RCD_MODE_DECON]'>D</a>|<a href='byond://?src=[UID()];mode=[RCD_MODE_TURF]'>C</a>|<a href='byond://?src=[UID()];mode=[RCD_MODE_AIRLOCK]'>A</a>|<a href='byond://?src=[UID()];mode=[RCD_MODE_WINDOW]'>W</a>|<a href='byond://?src=[UID()];mode=[RCD_MODE_FIRELOCK]'>F</a>\]"
+/obj/item/mecha_parts/mecha_equipment/rcd/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_MODE,
+		"mode" = rcd_holder.mode,
+		"mode_label" = "РЦД"
+	)
+
+	return data
+
+/obj/item/mecha_parts/mecha_equipment/rcd/handle_ui_act(action, list/params)
+	var/static/list/modes = list(RCD_MODE_TURF = 2, RCD_MODE_AIRLOCK = 3, RCD_MODE_WINDOW = 4, RCD_MODE_DECON = 5,  RCD_MODE_FIRELOCK = 1) // cursed, need another way
+	if(action == "change_mode")
+		rcd_holder.mode = modes[modes[rcd_holder.mode]]
+
+		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/mimercd
 	name = "mounted MRCD"
@@ -306,7 +317,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/action(atom/target)
 	targeted_module.action(target)
-	update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/self_occupant_attack()
 	radial_menu(chassis.occupant)
@@ -330,27 +340,29 @@
 			break
 	if(selected)
 		targeted_module = selected
-		update_equip_info()
 		occupant_message("Switched to [targeted_module]")
 
-/obj/item/mecha_parts/mecha_equipment/multimodule/get_equip_info()
-	. = "<dt>[..()]"
+/obj/item/mecha_parts/mecha_equipment/multimodule/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_MULTI,
+	)
 
-/obj/item/mecha_parts/mecha_equipment/multimodule/get_module_equip_info()
-	. = "</dt>"
-	for(var/thing in modules)
-		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
-		if(module == targeted_module)
-			. += "<dd> [module.name] [module.get_module_equip_info()]</dd>"
-		else
-			. += "<dd><a href='byond://?src=[UID()];module=[module.UID()]'>Select [module.name]</a> [module.get_module_equip_info()]</dd>"
+	if(!targeted_module)
+		return data
 
-/obj/item/mecha_parts/mecha_equipment/multimodule/Topic(href, href_list)
-	..()
-	if(href_list["module"])
-		targeted_module = locateUID(href_list["module"])
-		update_equip_info()
+	data["targeted_module"] = list("name" = targeted_module.declent_ru(NOMINATIVE),
+		"snowflake" = targeted_module.get_snowflake_data(),
+		"ref" = targeted_module.UID())
+
+	return data
+
+/obj/item/mecha_parts/mecha_equipment/multimodule/handle_ui_act(action, list/params)
+	if(action == "switch_module")
+		targeted_module = locateUID(params["module"])
 		occupant_message("Switched to [targeted_module]")
+		return TRUE
+
+	return targeted_module.handle_ui_act(action, params)
 
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/attackby(obj/item/I, mob/user, params)
@@ -411,7 +423,6 @@
 			cable.amount += to_load
 			target_coil.use(to_load)
 			occupant_message(span_notice("[to_load] meters of cable successfully loaded."))
-			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 			return TRUE
 		else
 			occupant_message(span_warning("Reel is full."))
@@ -423,39 +434,44 @@
 	return FALSE
 
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/Topic(href,href_list)
-	..()
-	if(href_list["toggle"])
-		set_ready_state(!equip_ready)
-		occupant_message("[src] [equip_ready?"dea":"a"]ctivated.")
-		log_message("[equip_ready?"Dea":"A"]ctivated.")
-		update_equip_info()
-		return
-	if(href_list["cut"])
-		if(cable && cable.amount)
+/obj/item/mecha_parts/mecha_equipment/cable_layer/handle_ui_act(action, list/params)
+	switch(action)
+		if("toggle")
+			set_ready_state(!equip_ready)
+			occupant_message("[src] [equip_ready?"dea":"a"]ctivated.")
+			return TRUE
+
+		if("cut")
+			if(!cable || !cable.amount)
+				occupant_message("There's no more cable on the reel.")
+				return FALSE
+
 			var/m = round(tgui_input_number(chassis.occupant, "Please specify the length of cable to cut", "Cut cable", min(cable.amount,30)), 1)
 			m = min(m, cable.amount)
 			if(m)
 				use_cable(m)
 				new /obj/item/stack/cable_coil(get_turf(chassis), m)
-		else
-			occupant_message("There's no more cable on the reel.")
-	return
+			return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/get_module_equip_info()
-	return " \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='byond://?src=[UID()];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='byond://?src=[UID()];cut=1'>Cut</a>" : null]"
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/cable_layer/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_CABLE,
+		"cable" = cable?.amount
+	)
+
+	return data
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/use_cable(amount)
 	if(!cable || cable.amount<1)
 		set_ready_state(TRUE)
 		occupant_message("Cable depleted, [src] deactivated.")
-		log_message("Cable depleted, [src] deactivated.")
 		return FALSE
 	if(cable.amount < amount)
 		occupant_message("No enough cable to finish the task.")
 		return FALSE
 	cable.use(amount)
-	update_equip_info()
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/reset()
@@ -499,7 +515,6 @@
 
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
-	update_equip_info()
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher
@@ -562,9 +577,6 @@
 							break
 						sleep(2)
 
-/obj/item/mecha_parts/mecha_equipment/extinguisher/get_module_equip_info()
-	return " \[[reagents.total_volume]\]"
-
 /obj/item/mecha_parts/mecha_equipment/extinguisher/on_reagent_change()
 	return
 
@@ -573,6 +585,13 @@
 		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
 			return TRUE
 	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/extinguisher/get_snowflake_data()
+	return list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_EXTINGUISHER,
+		"reagents" = reagents.total_volume,
+		"total_reagents" = reagents.maximum_volume,
+	)
 
 /obj/item/mecha_parts/mecha_equipment/holowall
 	name = "holowall module"
@@ -623,16 +642,26 @@
 				occupant_message(span_notice("You create [H] with [src]."))
 				start_cooldown()
 
-/obj/item/mecha_parts/mecha_equipment/holowall/get_module_equip_info()
-	return " \[Holobarriers left: [max_barriers - length(barriers)]|<a href='byond://?src=[UID()];remove_all=1'>Return all barriers</a>\]"
+/obj/item/mecha_parts/mecha_equipment/holowall/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_HOLO,
+		"max_barriers" = max_barriers,
+		"total_barriers" = length(barriers)
+	)
 
-/obj/item/mecha_parts/mecha_equipment/holowall/Topic(href,href_list)
-	..()
-	if(href_list["remove_all"])
-		if(length(barriers))
-			for(var/H in barriers)
-				qdel(H)
-			occupant_message(span_notice("You clear all active holobarriers."))
+	return data
+
+/obj/item/mecha_parts/mecha_equipment/holowall/handle_ui_act(action, list/params)
+	if(action == "remove_all")
+		if(!length(barriers))
+			return FALSE
+
+		for(var/H in barriers)
+			qdel(H)
+		occupant_message(span_notice("You clear all active holobarriers."))
+		return TRUE
+
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/holowall/can_attach(obj/mecha/M)
 	if(..())
@@ -674,21 +703,26 @@
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/eng_toolset/get_module_equip_info()
-	for(var/obj/item/item as anything in items_list)
-		var/short_name = uppertext(item.name[1])
-		if(item == selected_item)
-			. += "|<b>[short_name]</b> "
-		else
-			. += "|<a href='byond://?src=[UID()];select=[item.UID()]'>[short_name]</a>"
-	. += "|"
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_TOOLSET,
+		"selected_item" = selected_item.declent_ru(NOMINATIVE),
+	)
 
-/obj/item/mecha_parts/mecha_equipment/eng_toolset/Topic(href,href_list)
-	..()
-	if(href_list["select"])
-		selected_item = locateUID(href_list["select"])
+	var/list/items = list()
+	for(var/obj/item/cur_item as anything in items_list)
+		items[cur_item.declent_ru(NOMINATIVE)] = cur_item.UID()
+	data["items"] = items
+
+	return data
+
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/handle_ui_act(action, list/params)
+	if(action == "change_tool")
+		selected_item = locateUID(params["selected_item"])
 		occupant_message("Switched to [selected_item]")
-		update_equip_info()
+		return TRUE
+
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/action(atom/target)
 	if(!action_checks(target))
@@ -724,7 +758,6 @@
 	if(selected in items_list)
 		selected_item = selected
 		occupant_message("Switched to [selected_item]")
-		update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/emag_act(mob/user)
 	if(!emagged)
@@ -734,4 +767,3 @@
 		emagged = TRUE
 		user.visible_message(span_warning("Sparks fly out of [name]"), span_notice("You short out the safeties on [name]."))
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
-		update_equip_info()
