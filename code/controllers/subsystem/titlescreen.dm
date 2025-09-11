@@ -448,9 +448,10 @@ SUBSYSTEM_DEF(title)
 				lobbyBox.innerHTML = '';
 
 				servers.forEach(game => {
+					console.log(game.name)
 					const gameHTML = `
 						<div class="game-item">
-							<div class="game-name">${game.name.replace("+", " ")}</div>
+							<div class="game-name">${decodeURI(game.name).replaceAll("+", " ")}</div>
 							<div class="game-players"><i class="fas fa-users icon"></i> Игроки: ${game.players}</div>
 							<div class="game-state"><i class="fas fa-clock icon"></i> Время: ${game.round_time.replaceAll("%3a", ":")}</div>
 							<a class="game-button" href='byond://?src=[player.UID()];switch_server=${game.port}'><i class="fas fa-plug icon"></i> Подключиться</a>
