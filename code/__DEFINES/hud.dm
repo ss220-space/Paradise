@@ -76,6 +76,19 @@
 #define NOTIFY_ATTACK "attack"
 #define NOTIFY_FOLLOW "orbit"
 
+// Icon_state for MEDICAL_HUD
+#define STATUS_HUD_DEAD	"huddead"
+#define STATUS_HUD_DNR "huddeaddnr"
+#define STATUS_HUD_FLATLINE "hudflatline"
+#define STATUS_HUD_XENO "hudxeno"
+#define STATUS_HUD_TUMOUR "hudtumour"
+#define STATUS_HUD_BRAINWORM "hudbrainworm"
+#define STATUS_HUD_DEFIB "huddefib"
+#define STATUS_HUD_RAPID_BLEEDING "hudbleeding2"
+#define STATUS_HUD_BLEEDING "hudbleeding1"
+#define STATUS_HUD_ILL "hudill"
+#define STATUS_HUD_HEALTHY "hudhealthy"
+
 
 // The kind of things granted by HUD items in game, that do not manifest as
 // on-screen icons, but rather go to examine text.

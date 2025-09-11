@@ -10,6 +10,14 @@
 
 /mob/dead/Logout()
 	update_z(null)
+
+	if(!mind || !mind.current)
+		return ..()
+
+	var/mob/living/old_current = mind.current
+	mind.current.mind = null
+	old_current.med_hud_set_status()
+
 	return ..()
 
 
