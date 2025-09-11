@@ -94,11 +94,11 @@
 	if(!proximity) return
 	if(busy) return
 	if(is_type_in_list(target,validSurfaces))
-		var/temp = "rune"
+		var/temp = "руну"
 		if(letters.Find(drawtype))
-			temp = "letter"
+			temp = "букву"
 		else if(graffiti.Find(drawtype))
-			temp = "graffiti"
+			temp = "граффити"
 		to_chat(user, span_notice("Вы начали рисовать [temp] на [target.declent_ru("PREPOSITIONAL")]."))
 		busy = TRUE
 		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
@@ -108,7 +108,7 @@
 			if(uses)
 				uses--
 				if(!uses)
-					balloon_alert(usr, ("[src.declent_ru(NOMINATIVE)] закончился!"))
+					balloon_alert(usr, "[src.declent_ru(NOMINATIVE)] закончился!")
 					qdel(src)
 		busy = FALSE
 
@@ -415,21 +415,25 @@
 /obj/item/toy/crayon/bloodred/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || busy)
 		return
-	if(is_type_in_list(target, validSurfaces))
-		var/temp = "rune"
-		if(letters.Find(drawtype))
-			temp = "letter"
-		else if(graffiti.Find(drawtype))
-			temp = "graffiti"
-		to_chat(user, span_notice("Вы начинаете рисовать [temp] на [target.declent_ru("PREPOSITIONAL")]."))
-		busy = TRUE
-		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
-			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target, colour, drawtype, temp)
-			C.add_hiddenprint(user)
-			C.blood_graffiti = TRUE
-			C.update_desc()
-			balloon_alert(usr, "Вы закончили рисовать [temp].")
-		busy = FALSE
+	if(!is_type_in_list(target, validSurfaces))
+		return
+	var/temp = "руну"
+	if(letters.Find(drawtype))
+		temp = "букву"
+	else if(graffiti.Find(drawtype))
+		temp = "граффити"
+	to_chat(user, span_notice("Вы начали рисовать [temp] на [target.declent_ru("PREPOSITIONAL")]."))
+	busy = TRUE
+	if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
+		var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
+		C.add_hiddenprint(user)
+		balloon_alert(usr, "Вы закончили рисовать [temp].")
+		if(uses)
+			uses--
+			if(!uses)
+				balloon_alert(usr, "[src.declent_ru(NOMINATIVE)] закончился!")
+				qdel(src)
+	busy = FALSE
 
 
 //Spraycan stuff
