@@ -122,12 +122,12 @@
 			INVOKE_ASYNC(poddoor, TYPE_PROC_REF(/obj/machinery/door, close))
 
 
-/obj/machinery/computer/pod/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/pod/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
 	return attack_hand(user)
 
 
-/obj/machinery/computer/pod/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/pod/attack_hand(mob/user as mob)
 	if(..())
 		return
 
@@ -285,7 +285,7 @@
 	circuit = /obj/item/circuitboard/syndicatedoor
 	light_color = "#00FFFF"
 
-/obj/machinery/computer/pod/old/syndicate/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/pod/old/syndicate/attack_hand(mob/user as mob)
 	if(!allowed(user))
 		to_chat(user, span_warning("Access Denied"))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)

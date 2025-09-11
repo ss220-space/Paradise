@@ -1,9 +1,9 @@
 /**
-  * Returns a DB-friendly version of a volume mixer list.
-  *
-  * Arguments
-  * * vm - The volume mixer list to serialize.
-  */
+ * Returns a DB-friendly version of a volume mixer list.
+ *
+ * Arguments
+ * * vm - The volume mixer list to serialize.
+ */
 /datum/preferences/proc/serialize_volume_mixer(list/vm)
 	var/list/temp = list()
 	for(var/channel in vm)
@@ -14,13 +14,13 @@
 
 
 /**
-  * Returns a volume mixer list from text, usually from the DB.
-  *
-  * Failure to deserialize will return the current value.
-  *
-  * Arguments
-  * * vmt - The volume mixer list to deserialize.
-  */
+ * Returns a volume mixer list from text, usually from the DB.
+ *
+ * Failure to deserialize will return the current value.
+ *
+ * Arguments
+ * * vmt - The volume mixer list to deserialize.
+ */
 /datum/preferences/proc/deserialize_volume_mixer(vmt)
 	if(!istext(vmt))
 		return volume_mixer
@@ -39,13 +39,13 @@
 
 
 /**
-  * Changes a channel's volume then queues it for DB save.
-  *
-  * Arguments:
-  * * channel - The channel whose volume to change.
-  * * volume - The new volume, clamped between 0 and 100.
-  * * debounce_save - Whether to debounce the save call to prevent spamming of DB calls.
-  */
+ * Changes a channel's volume then queues it for DB save.
+ *
+ * Arguments:
+ * * channel - The channel whose volume to change.
+ * * volume - The new volume, clamped between 0 and 100.
+ * * debounce_save - Whether to debounce the save call to prevent spamming of DB calls.
+ */
 /datum/preferences/proc/set_channel_volume(channel, volume, debounce_save = TRUE)
 	if(!get_channel_name(channel))
 		return
@@ -80,11 +80,11 @@
 
 
 /**
-  * Returns a volume multiplier for the given channel, from 0 to 1 (default).
-  *
-  * Arguments:
-  * * channel - The channel whose volume to get.
-  */
+ * Returns a volume multiplier for the given channel, from 0 to 1 (default).
+ *
+ * Arguments:
+ * * channel - The channel whose volume to get.
+ */
 /datum/preferences/proc/get_channel_volume(channel)
 	if(!istext(channel))
 		channel = "[channel]"

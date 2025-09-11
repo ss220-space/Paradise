@@ -12,7 +12,7 @@
 #define PERCENTAGE_PAYMENTS_PERSONAL	0.15	//15 percent on the account of the beggars
 
 #define POINT_TO_CREDITS 10
-#define COMMERCIAL_MODIFIER 3 
+#define COMMERCIAL_MODIFIER 3
 
 //Give up hope, hope, everyone who enters here
 
@@ -47,7 +47,7 @@
 /datum/quest_customer/proc/get_difficulty()
 	return
 
-/datum/quest_customer/proc/send_reward(reward, var/list/copmpleted_quests = list())
+/datum/quest_customer/proc/send_reward(reward, list/copmpleted_quests = list())
 	return FALSE
 
 /datum/quest_customer/proc/special(datum/cargo_quests_storage/quest)
@@ -174,7 +174,7 @@
 /datum/quest_customer/corp/change_reward(datum/cargo_quests_storage/quest)
 	quest.reward *= POINT_TO_CREDITS * COMMERCIAL_MODIFIER
 
-/datum/quest_customer/corp/send_reward(reward, var/list/copmpleted_quests = list())
+/datum/quest_customer/corp/send_reward(reward, list/copmpleted_quests = list())
 	var/list/nishebrod_jobs = list()
 	var/list/linked_departaments = list() //HEHE HI HA
 	var/personals_reward = round(reward * PERCENTAGE_PAYMENTS_PERSONAL)
@@ -190,7 +190,7 @@
 	var/datum/money_account/station_money_account = SScapitalism.base_account
 	station_money_account.credit(round(reward * PERCENTAGE_PAYMENTS_STATION), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Station Account")
 
-	
+
 	SScapitalism.total_cargo_bounty += round(reward * PERCENTAGE_PAYMENTS_CARGO)
 	var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
 	cargo_money_account.credit(round(reward * PERCENTAGE_PAYMENTS_CARGO), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Cargo Account")
