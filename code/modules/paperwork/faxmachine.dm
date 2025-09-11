@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/cooldown_time_local = 50
 
 	/// Our department, determines whether this machine gets faxes sent to a department
-	var/department = "Unknown"
+	var/department = UNKNOWN_STATUS_RUS
 
 	/// Target department to send outgoing faxes to
 	var/destination
@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	update_network()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
-	if(department != "Unknown")
+	if(department != UNKNOWN_STATUS_RUS)
 		if(!(("[department]" in GLOB.alldepartments) || ("[department]" in GLOB.hidden_departments) || ("[department]" in GLOB.admin_departments) || ("[department]" in GLOB.hidden_admin_departments) || ("[department]" in GLOB.hidden_ussp)))
 			GLOB.alldepartments |= department
 
@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	//No point setting fax network, being emagged overrides that anyway.
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
-	if(department != "Unknown")
+	if(department != UNKNOWN_STATUS_RUS)
 		GLOB.hidden_departments |= department
 
 /obj/machinery/photocopier/faxmachine/longrange/ussp
@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	active_power_usage = 300
 
 /obj/machinery/photocopier/faxmachine/longrange/ussp/update_network()
-	if(department != "Unknown")
+	if(department != UNKNOWN_STATUS_RUS)
 		GLOB.hidden_ussp |= department
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
@@ -380,7 +380,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
 
-	if(department == "Unknown")
+	if(department == UNKNOWN_STATUS_RUS)
 		return FALSE //You can't send faxes to "Unknown"
 
 	flick("faxreceive", src)
@@ -419,11 +419,11 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	//message badmins that a fax has arrived
 	switch(destination)
-		if("Центральное Командование")
+		if("Central Command")
 			message_admins(sender, "CENTCOM FAX", destination, copyitem, "#006100")
-		if("Синдикат")
+		if("Syndicate")
 			message_admins(sender, "SYNDICATE FAX", destination, copyitem, "#DC143C")
-		if("Центральный Коммитет СССП")
+		if("USSP Central Committee")
 			message_admins(sender, "USSP FAX", destination, copyitem, "#b60226")
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)

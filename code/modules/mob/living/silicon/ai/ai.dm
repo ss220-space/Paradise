@@ -306,7 +306,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			robot_status = "DEPOWERED"
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
-		var/area_name = A ? sanitize(A.name) : "Unknown"
+		var/area_name = A ? sanitize(A.name) : UNKNOWN_STATUS_RUS
 		status_tab_data[++status_tab_data.len] = list("[R.name]:", "S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
 		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
 	return status_tab_data

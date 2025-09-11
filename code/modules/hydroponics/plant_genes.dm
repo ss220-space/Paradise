@@ -152,7 +152,7 @@
 
 /datum/plant_gene/reagent/proc/set_reagent(reag_id)
 	reagent_id = reag_id
-	name = "UNKNOWN"
+	name = UNKNOWN_STATUS_RUS
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
 	if(R && R.id == reagent_id)

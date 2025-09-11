@@ -35,7 +35,7 @@
 	/// The newcaster's index among all newscasters (GLOB.allNewscasters).
 	var/unit_number = 0
 	/// The name of the mob currently using the newscaster.
-	var/scanned_user = "Неизвестный"
+	var/scanned_user = UNKNOWN_NAME_RUS
 	/// The currently attached photo.
 	var/obj/item/photo/photo = null
 	/// The currently viewed channel.
@@ -646,7 +646,7 @@
   * * user - The user
   */
 /obj/machinery/newscaster/proc/get_scanned_user(mob/user)
-	. = list(name = "Неизвестный", security = user.can_admin_interact())
+	. = list(name = UNKNOWN_NAME_RUS, security = user.can_admin_interact())
 	if(ishuman(user))
 		var/mob/living/carbon/human/M = user
 		// No ID, no luck

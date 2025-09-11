@@ -46,3 +46,23 @@
 #define NSDIRFLIP(d) (d ^ (NORTH|SOUTH))
 ///Flips the dir for east/west directions
 #define EWDIRFLIP(d) (d ^ (EAST|WEST))
+
+// Names for directions (English)
+#define DIR_NAME_ENG_NORTH		"NORTH"
+#define DIR_NAME_ENG_SOUTH		"SOUTH"
+#define DIR_NAME_ENG_EAST		"EAST"
+#define DIR_NAME_ENG_WEST		"WEST"
+#define DIR_NAME_ENG_NORTHEAST	"NORTHEAST"
+#define DIR_NAME_ENG_SOUTHEAST 	"SOUTHEAST"
+#define DIR_NAME_ENG_NORTHWEST 	"NORTHWEST"
+#define DIR_NAME_ENG_SOUTHWEST 	"SOUTHWEST"
+
+// Names for directions (Russian)
+#define DIR_NAME_RUS_NORTH		"СЕВЕР"
+#define DIR_NAME_RUS_SOUTH		"ЮГ"
+#define DIR_NAME_RUS_EAST		"ВОСТОК"
+#define DIR_NAME_RUS_WEST		"ЗАПАД"
+#define DIR_NAME_RUS_NORTHEAST	"СЕВЕРО-ВОСТОК"
+#define DIR_NAME_RUS_SOUTHEAST 	"ЮГО-ВОСТОК"
+#define DIR_NAME_RUS_NORTHWEST 	"СЕВЕРО-ЗАПАД"
+#define DIR_NAME_RUS_SOUTHWEST 	"ЮГО-ЗАПАД"

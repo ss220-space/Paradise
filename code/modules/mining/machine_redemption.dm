@@ -510,7 +510,7 @@
 	if(!is_station_level(z))
 		return
 
-	var/msg = "Сейчас доступно в [get_area_name(src, TRUE) || "Unknown"]:"
+	var/msg = "Сейчас доступно в [get_area_name(src, TRUE) || UNKNOWN_STATUS_RUS]:"
 	var/mats_in_stock = list()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/MAT in materials.materials)

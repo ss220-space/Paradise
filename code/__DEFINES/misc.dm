@@ -349,7 +349,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 36
+#define SQL_VERSION 38
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -506,3 +506,5 @@
 	if(istype(I, /datum/mind))
 		var/datum/mind/B = I
 		return B.current.client
+
+#define SERVER_MESSAGES_REDIS_CHANNEL "byond.servermessages"
