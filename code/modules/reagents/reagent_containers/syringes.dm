@@ -22,12 +22,12 @@
 
 /obj/item/reagent_containers/syringe/get_ru_names()
 	return list(
-        NOMINATIVE = "шприц",
-        GENITIVE = "шприца",
-        DATIVE = "шприцу",
-        ACCUSATIVE = "шприц",
-        INSTRUMENTAL = "шприцем",
-        PREPOSITIONAL = "шприце"
+		NOMINATIVE = "шприц",
+		GENITIVE = "шприца",
+		DATIVE = "шприцу",
+		ACCUSATIVE = "шприц",
+		INSTRUMENTAL = "шприцем",
+		PREPOSITIONAL = "шприце"
 	)
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)

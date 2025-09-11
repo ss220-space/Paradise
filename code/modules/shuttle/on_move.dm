@@ -36,20 +36,20 @@
 		INVOKE_ASYNC(src, PROC_REF(lock))
 
 /mob/onShuttleMove(turf/oldT, turf/T1, rotation)
-    if(!move_on_shuttle)
-        return 0
-    . = ..()
-    if(!.)
-        return
-    if(!client)
-        return
+	if(!move_on_shuttle)
+		return 0
+	. = ..()
+	if(!.)
+		return
+	if(!client)
+		return
 
-    if(buckled)
-        shake_camera(src, 2, 1) // turn it down a bit come on
-    else
-        shake_camera(src, 7, 1)
+	if(buckled)
+		shake_camera(src, 2, 1) // turn it down a bit come on
+	else
+		shake_camera(src, 7, 1)
 
-    update_parallax_contents()
+	update_parallax_contents()
 
 /mob/living/carbon/onShuttleMove()
 	. = ..()

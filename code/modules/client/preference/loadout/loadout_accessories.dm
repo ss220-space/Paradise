@@ -59,10 +59,12 @@
 
 /datum/gear/accessory/tie/New()
 	..()
-	var/list/ties = list(/obj/item/clothing/accessory/blue,
-						 /obj/item/clothing/accessory/red,
-						 /obj/item/clothing/accessory/black,
-						 /obj/item/clothing/accessory/horrible,)
+	var/list/ties = list(
+		/obj/item/clothing/accessory/blue,
+		/obj/item/clothing/accessory/red,
+		/obj/item/clothing/accessory/black,
+		/obj/item/clothing/accessory/horrible
+	)
 	gear_tweaks += new /datum/gear_tweak/path(ties, src, TRUE)
 
 /datum/gear/accessory/stethoscope

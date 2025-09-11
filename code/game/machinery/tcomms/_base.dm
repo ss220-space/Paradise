@@ -388,10 +388,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		SSblackbox.LogBroadcast(display_freq)
 
-	 /* ###### Send the message ###### */
+	/* ###### Send the message ###### */
 
 
-	 	/* --- Process all the mobs that heard a masked voice (understood) --- */
+		/* --- Process all the mobs that heard a masked voice (understood) --- */
 
 		if(length(heard_masked))
 			for(var/M in heard_masked)

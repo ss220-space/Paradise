@@ -295,15 +295,15 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 	possible_states = list(
-	 "ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."),
-	 "capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"),
-	 "soysauce" = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"),
-	 "frostoil" = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"),
-	 "sodiumchloride" = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"),
-	 "blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"),
-	 "cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"),
-	 "oliveoil" = list("condi_oliveoil", "Olive Oil", "A delicious oil used in cooking. Made from olives"),
-	 "sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!")
+		"ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."),
+		"capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"),
+		"soysauce" = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"),
+		"frostoil" = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"),
+		"sodiumchloride" = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"),
+		"blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"),
+		"cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"),
+		"oliveoil" = list("condi_oliveoil", "Olive Oil", "A delicious oil used in cooking. Made from olives"),
+		"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!")
 	)
 
 

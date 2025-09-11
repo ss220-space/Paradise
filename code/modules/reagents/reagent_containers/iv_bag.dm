@@ -21,12 +21,12 @@
 
 /obj/item/reagent_containers/iv_bag/get_ru_names()
 	return list(
-        NOMINATIVE = "капельница",
-        GENITIVE = "капельницы",
-        DATIVE = "капельнице",
-        ACCUSATIVE = "капельницу",
-        INSTRUMENTAL = "капельницей",
-        PREPOSITIONAL = "капельнице"
+		NOMINATIVE = "капельница",
+		GENITIVE = "капельницы",
+		DATIVE = "капельнице",
+		ACCUSATIVE = "капельницу",
+		INSTRUMENTAL = "капельницей",
+		PREPOSITIONAL = "капельнице"
 	)
 
 /obj/item/reagent_containers/iv_bag/empty()
@@ -215,12 +215,12 @@
 
 /obj/item/reagent_containers/iv_bag/salglu/get_ru_names()
 	return list(
-        NOMINATIVE = "капельница (Физраствор)",
-        GENITIVE = "капельницы (Физраствор)",
-        DATIVE = "капельнице (Физраствор)",
-        ACCUSATIVE = "капельницу (Физраствор)",
-        INSTRUMENTAL = "капельницей (Физраствор)",
-        PREPOSITIONAL = "капельнице (Физраствор)"
+		NOMINATIVE = "капельница (Физраствор)",
+		GENITIVE = "капельницы (Физраствор)",
+		DATIVE = "капельнице (Физраствор)",
+		ACCUSATIVE = "капельницу (Физраствор)",
+		INSTRUMENTAL = "капельницей (Физраствор)",
+		PREPOSITIONAL = "капельнице (Физраствор)"
 	)
 
 /obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
