@@ -907,7 +907,7 @@
 	..()
 
 /datum/species/golem/bananium/handle_death(gibbed, mob/living/carbon/human/H)
-	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, 0)
+	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, FALSE)
 
 /datum/unarmed_attack/golem/bananium
 	attack_verb = list("хонкнул")

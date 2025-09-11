@@ -677,7 +677,7 @@
 	production_name = "Бутылки"
 	production_icon = "wine-bottle"
 	item_type = /obj/item/reagent_containers/glass/bottle/reagent
-	sprites = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
+	sprites = list("bottle", "wide_bottle", "round_bottle", "reagent_bottle")
 
 	max_items_amount = 5
 	max_units_per_item = 50

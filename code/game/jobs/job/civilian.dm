@@ -15,9 +15,9 @@
 	outfit = /datum/outfit/job/assistant
 	insurance_type = INSURANCE_TYPE_BUDGETARY
 
-	salary = SALARY_FOR_NISHEBROD
-	min_start_money = 10
-	max_start_money = 200
+	salary = 0
+	min_start_money = 100
+	max_start_money = 300
 
 
 /datum/outfit/job/assistant

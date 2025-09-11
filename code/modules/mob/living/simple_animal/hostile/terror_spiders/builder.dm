@@ -11,14 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/builder
 	name = "Drone of Terror"
 	desc = "Зловещий на вид паук, несмотря на размер, он кажется тяжелым."
-	ru_names = list(
-		NOMINATIVE = "Дрон Ужаса",
-		GENITIVE = "Дрона Ужаса",
-		DATIVE = "Дрону Ужаса",
-		ACCUSATIVE = "Дрона Ужаса",
-		INSTRUMENTAL = "Дроном Ужаса",
-		PREPOSITIONAL = "Дроне Ужаса",
-	)
 	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_drone"
@@ -43,6 +35,16 @@
 	can_wrap = FALSE
 	tts_seed = "F_darkelf"
 	spider_intro_text = "Будучи Дроном Ужаса, ваша задача - постройка и защита гнезда. Плетите паутину, используйте свои замедляющие плевки и замораживающие укусы для защиты яиц и гнезда. Помните, вы не регенерируете и двигаетесь медленно вне паутины!."
+
+/mob/living/simple_animal/hostile/poison/terror_spider/builder/get_ru_names()
+	return list(
+		NOMINATIVE = "Дрон Ужаса",
+		GENITIVE = "Дрона Ужаса",
+		DATIVE = "Дрону Ужаса",
+		ACCUSATIVE = "Дрона Ужаса",
+		INSTRUMENTAL = "Дроном Ужаса",
+		PREPOSITIONAL = "Дроне Ужаса",
+	)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/builder/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	. = ..()
@@ -80,7 +82,9 @@
 	opacity = TRUE
 	name = "drone web"
 	desc = "Очень толстая паутина."
-	ru_names = list(
+
+/obj/structure/spider/terrorweb/queen/builder/get_ru_names()
+	return list(
 		NOMINATIVE = "паутина Дрона Ужаса",
 		GENITIVE = "паутиы Дрона Ужаса",
 		DATIVE = "паутине Дрона Ужаса",

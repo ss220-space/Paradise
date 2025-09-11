@@ -221,7 +221,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 		req_access = list()
 		emagged = TRUE
 		if(user)
@@ -435,10 +435,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(is_lathe)
 		add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
-		flick("[machine.base_icon_state]_n", machine)
+		flick("[machine.base_icon_state]_work", machine)
 	else
 		add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct)
-		flick("[machine.base_icon_state]_ani", machine)
+		flick("[machine.base_icon_state]_work", machine)
 
 	machine.busy = TRUE
 	use_power(power)

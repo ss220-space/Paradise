@@ -6,7 +6,11 @@
 	icon_state = "orebox0"
 	name = "ore box"
 	desc = "Прочный деревянный ящик для хранения больших объёмов руды."
-	ru_names = list(
+	density = TRUE
+	pressure_resistance = 5 * ONE_ATMOSPHERE
+
+/obj/structure/ore_box/get_ru_names()
+	return list(
 		NOMINATIVE = "ящик для руды",
 		GENITIVE = "ящика для руды",
 		DATIVE = "ящику для руды",
@@ -14,8 +18,6 @@
 		INSTRUMENTAL = "ящиком для руды",
 		PREPOSITIONAL = "ящике для руды"
 	)
-	density = TRUE
-	pressure_resistance = 5 * ONE_ATMOSPHERE
 
 
 /obj/structure/ore_box/attackby(obj/item/I, mob/user, params)

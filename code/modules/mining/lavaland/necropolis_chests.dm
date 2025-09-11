@@ -3,7 +3,13 @@
 /obj/structure/closet/crate/necropolis
 	name = "necropolis chest"
 	desc = "Он внимательно наблюдает за тобой."
-	ru_names = list(
+	icon_state = "necrocrate"
+	icon_opened = "necrocrateopen"
+	icon_closed = "necrocrate"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/structure/closet/crate/necropolis/get_ru_names()
+	return list(
 		NOMINATIVE = "сундук некрополя",
 		GENITIVE = "сундука некрополя",
 		DATIVE = "сундуку некрополя",
@@ -11,10 +17,6 @@
 		INSTRUMENTAL = "сундуком некрополя",
 		PREPOSITIONAL = "сундуке некрополя"
 	)
-	icon_state = "necrocrate"
-	icon_opened = "necrocrateopen"
-	icon_closed = "necrocrate"
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "Он подозрительно наблюдает за тобой."
@@ -121,7 +123,9 @@
 
 /obj/structure/closet/crate/necropolis/puzzle
 	name = "puzzling chest"
-	ru_names = list(
+
+/obj/structure/closet/crate/necropolis/puzzle/get_ru_names()
+	return list(
 		NOMINATIVE = "загадочный сундук",
 		GENITIVE = "загадочного сундука",
 		DATIVE = "загадочному сундуку",
@@ -211,7 +215,14 @@
 /obj/item/rod_of_asclepius
 	name = "Rod of Asclepius"
 	desc = "Деревянный посох, размером с вашу руку. На нём змея вырезана. От него прям веет ответственностью и желанием помогать другим."
-	ru_names = list(
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "asclepius_dormant"
+	item_state = "asclepius_dormant"
+	var/activated = FALSE
+	var/usedHand
+
+/obj/item/rod_of_asclepius/get_ru_names()
+	return list(
 		NOMINATIVE = "посох асклепия",
 		GENITIVE = "посоха асклепия",
 		DATIVE = "посоху асклепия",
@@ -219,11 +230,6 @@
 		INSTRUMENTAL = "посохом асклепия",
 		PREPOSITIONAL = "посохе асклепия"
 	)
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "asclepius_dormant"
-	item_state = "asclepius_dormant"
-	var/activated = FALSE
-	var/usedHand
 
 /obj/item/rod_of_asclepius/attack_self(mob/user)
 	if(activated)
@@ -296,7 +302,14 @@
 /obj/item/eflowers
 	name ="enchanted flowers"
 	desc = "Очаровательный букет, делающий носителя дружелюбным в глазах фауны. Сожмите букет, чтобы призвать приручённых существ. Не призывает мегафауну. <b>Для приручения мегафауны требуется 35 контактов.</b>"
-	ru_names = list(
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "eflower"
+	var/next_summon = 0
+	var/list/summons = list()
+	attack_verb = list("коснулся", "погладил", "провёл")
+
+/obj/item/eflowers/get_ru_names()
+	return list(
 		NOMINATIVE = "зачарованные цветы",
 		GENITIVE = "зачарованных цветов",
 		DATIVE = "зачарованным цветам",
@@ -304,11 +317,6 @@
 		INSTRUMENTAL = "зачарованными цветами",
 		PREPOSITIONAL = "зачарованных цветах"
 	)
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "eflower"
-	var/next_summon = 0
-	var/list/summons = list()
-	attack_verb = list("коснулся", "погладил", "провёл")
 
 /obj/item/eflowers/attack_self(mob/user)
 	var/turf/T = get_turf(user)
@@ -365,14 +373,6 @@
 /obj/item/rune_scimmy
 	name = "rune scimitar"
 	desc = "Изогнутый меч из неизвестного металла. При взгляде на него возникает потустороннее желание продать его за \"30k\", что бы это ни значило."
-	ru_names = list(
-		NOMINATIVE = "рунический ятаган",
-		GENITIVE = "рунического ятагана",
-		DATIVE = "руническому ятагану",
-		ACCUSATIVE = "рунический ятаган",
-		INSTRUMENTAL = "руническим ятаганом",
-		PREPOSITIONAL = "руническом ятагане"
-	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "rune_scimmy"
 	force = 28
@@ -381,6 +381,16 @@
 	sharp = TRUE
 	hitsound = 'sound/weapons/rs_slash.ogg'
 	attack_verb = list("плс'л","атк'л","руб'л")
+
+/obj/item/rune_scimmy/get_ru_names()
+	return list(
+		NOMINATIVE = "рунический ятаган",
+		GENITIVE = "рунического ятагана",
+		DATIVE = "руническому ятагану",
+		ACCUSATIVE = "рунический ятаган",
+		INSTRUMENTAL = "руническим ятаганом",
+		PREPOSITIONAL = "руническом ятагане"
+	)
 
 /obj/item/rune_scimmy/ComponentInitialize()
 	. = ..()
@@ -392,7 +402,14 @@
 /obj/item/organ/internal/cyberimp/arm/katana
 	name = "dark shard"
 	desc = "Зловещий металлический осколок, окутанный тёмной энергией."
-	ru_names = list(
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "cursed_katana_organ"
+	status = NONE
+	item_flags = NO_PIXEL_RANDOM_DROP
+	contents = newlist(/obj/item/cursed_katana)
+
+/obj/item/organ/internal/cyberimp/arm/katana/get_ru_names()
+	return list(
 		NOMINATIVE = "тёмный осколок",
 		GENITIVE = "тёмного осколка",
 		DATIVE = "тёмному осколку",
@@ -400,11 +417,6 @@
 		INSTRUMENTAL = "тёмным осколком",
 		PREPOSITIONAL = "тёмном осколке"
 	)
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "cursed_katana_organ"
-	status = NONE
-	item_flags = NO_PIXEL_RANDOM_DROP
-	contents = newlist(/obj/item/cursed_katana)
 
 /obj/item/organ/internal/cyberimp/arm/katana/prepare_eat()
 	return
@@ -467,14 +479,6 @@
 /obj/item/cursed_katana
 	name = "cursed katana"
 	desc = "Катана, некогда сдерживавшая ужасное существо, была разрушена. Однако даже после этого её фрагменты, в которых заключена сущность, вновь объединились, чтобы найти нового хозяина."
-	ru_names = list(
-		NOMINATIVE = "проклятая катана",
-		GENITIVE = "проклятой катаны",
-		DATIVE = "проклятой катане",
-		ACCUSATIVE = "проклятую катану",
-		INSTRUMENTAL = "проклятой катаной",
-		PREPOSITIONAL = "проклятой катане"
-	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -497,6 +501,16 @@
 		ATTACK_HEAL = list(COMBO_STEPS = list(HARM_SLASH, DISARM_SLASH, HARM_SLASH, DISARM_SLASH), COMBO_PROC = PROC_REF(heal)),
 		ATTACK_SHATTER = list(COMBO_STEPS = list(DISARM_SLASH, HARM_SLASH, DISARM_SLASH, HARM_SLASH), COMBO_PROC = PROC_REF(shatter)),
 		)
+
+/obj/item/cursed_katana/get_ru_names()
+	return list(
+		NOMINATIVE = "проклятая катана",
+		GENITIVE = "проклятой катаны",
+		DATIVE = "проклятой катане",
+		ACCUSATIVE = "проклятую катану",
+		INSTRUMENTAL = "проклятой катаной",
+		PREPOSITIONAL = "проклятой катане"
+	)
 
 /obj/item/cursed_katana/ComponentInitialize()
 	. = ..()

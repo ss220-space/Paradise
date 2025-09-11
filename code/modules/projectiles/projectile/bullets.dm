@@ -187,9 +187,9 @@
 	tile_dropoff_s = 1.25
 	armour_penetration = -20
 
-/obj/projectile/bullet/pellet/nuclear
+/obj/projectile/bullet/pellet/magnum
 	damage = 15.5
-	tile_dropoff = 0
+	tile_dropoff = 0.4
 
 /obj/projectile/bullet/pellet/bioterror
 	damage = 9
@@ -344,6 +344,8 @@
 	if(location)
 		new /obj/effect/hotspot(location)
 		location.hotspot_expose(700, 50, 1)
+	if(prob(10))
+		do_sparks(1, TRUE, src)
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath
 	name = "dragonsbreath round"
@@ -355,10 +357,13 @@
 		INSTRUMENTAL = "пулей \"Дыхание дракона\"",
 		PREPOSITIONAL = "пуле \"Дыхание дракона\""
 	)
-	damage = 5
+	damage = 15
+	damage_type = BURN
+	range = 10
+	icon_state = "dragonbreath"
 
-/obj/projectile/bullet/incendiary/shell/dragonsbreath/nuclear
-	damage = 13.5
+/obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
+	damage = 14
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/mecha
 	name = "liquidlava round"
@@ -371,6 +376,8 @@
 		PREPOSITIONAL = "пуле \"жидкая лава\""
 	)
 	damage = 20
+	damage_type = BRUTE
+	range = 50
 
 /obj/projectile/bullet/meteorshot
 	name = "meteor"

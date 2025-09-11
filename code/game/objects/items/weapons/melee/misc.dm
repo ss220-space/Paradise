@@ -195,7 +195,7 @@
 		return
 
 	if(prob(25))
-		do_sparks(rand(1, 6), 1, loc)
+		do_sparks(rand(1, 6), TRUE, loc)
 
 	if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target

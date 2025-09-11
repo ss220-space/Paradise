@@ -1125,6 +1125,10 @@ This applies to all STANDARD station areas
 	name = "Abandoned Club"
 	icon_state = "yellow"
 
+/area/maintenance/abandonedhangar
+	name = "Abandoned Hangar"
+	icon_state = "yellow"
+
 /area/maintenance/cele //for SDMM group of zones
 	icon_state = "green"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED

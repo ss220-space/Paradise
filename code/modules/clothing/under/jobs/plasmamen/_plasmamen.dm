@@ -24,7 +24,7 @@
 		INSTRUMENTAL = "защитным костюмом плазмолюда",
 		PREPOSITIONAL = "защитном костюме плазмолюда"
 	)
-	
+
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()
@@ -46,7 +46,7 @@
 			)
 			if(!extinguishes_left)
 				to_chat(H, span_warning("Заряд встроенного огнетушителя израсходован."))
-			playsound(H.loc, 'sound/effects/spray.ogg', 10, 1, -3)
+			playsound(H.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 			H.ExtinguishMob()
 			new /obj/effect/particle_effect/water(get_turf(H))
 	return FALSE

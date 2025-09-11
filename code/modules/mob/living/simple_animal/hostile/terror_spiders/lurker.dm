@@ -11,14 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/lurker
 	name = "Lurker of Terror"
 	desc = "Зловещего вида серый паук. Кажется, что он сливается с паутиной, из-за чего его трудно увидеть."
-	ru_names = list(
-		NOMINATIVE = "Наблюдатель Ужаса",
-		GENITIVE = "Наблюдателя Ужаса",
-		DATIVE = "Наблюдателю Ужаса",
-		ACCUSATIVE = "Наблюдателя Ужаса",
-		INSTRUMENTAL = "Наблюдателем Ужаса",
-		PREPOSITIONAL = "Наблюдателе Ужаса",
-	)
 	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_gray"
@@ -39,6 +31,16 @@
 	ai_spins_webs = FALSE // uses massweb instead
 	tts_seed = "Cassiopeia"
 	var/prob_ai_massweb = 10
+
+/mob/living/simple_animal/hostile/poison/terror_spider/lurker/get_ru_names()
+	return list(
+		NOMINATIVE = "Наблюдатель Ужаса",
+		GENITIVE = "Наблюдателя Ужаса",
+		DATIVE = "Наблюдателю Ужаса",
+		ACCUSATIVE = "Наблюдателя Ужаса",
+		INSTRUMENTAL = "Наблюдателем Ужаса",
+		PREPOSITIONAL = "Наблюдателе Ужаса",
+	)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/lurker/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -89,7 +91,9 @@
 	alpha = 80
 	name = "transparent web"
 	desc = "Эта паутина частично прозрачна, поэтому её труднее увидеть и легче попасться."
-	ru_names = list(
+
+/obj/structure/spider/terrorweb/gray/get_ru_names()
+	return list(
 		NOMINATIVE = "прозрачная паутина",
 		GENITIVE = "прозрачной паутины",
 		DATIVE = "прозрачной паутине",

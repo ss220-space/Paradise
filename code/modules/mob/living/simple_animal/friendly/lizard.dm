@@ -1,14 +1,6 @@
 /mob/living/simple_animal/lizard
 	name = "lizard"
 	desc = "Милая маленькая ящерица."
-	ru_names = list(
-		NOMINATIVE = "ящерица",
-		GENITIVE = "ящерицы",
-		DATIVE = "ящерице",
-		ACCUSATIVE = "ящерицу",
-		INSTRUMENTAL = "ящерицей",
-		PREPOSITIONAL = "ящерице"
-	)
 	icon_state = "lizard"
 	icon_living = "lizard"
 	icon_dead = "lizard_dead"
@@ -36,6 +28,16 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	holder_type = /obj/item/holder/lizard
 
+/mob/living/simple_animal/lizard/get_ru_names()
+	return list(
+		NOMINATIVE = "ящерица",
+		GENITIVE = "ящерицы",
+		DATIVE = "ящерице",
+		ACCUSATIVE = "ящерицу",
+		INSTRUMENTAL = "ящерицей",
+		PREPOSITIONAL = "ящерице"
+	)
+
 /mob/living/simple_animal/lizard/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
@@ -50,7 +52,13 @@
 /mob/living/simple_animal/lizard/axolotl
 	name = "axolotl"
 	desc = "Маленький милый аксолотль."
-	ru_names = list(
+	icon_state = "axolotl"
+	icon_living = "axolotl"
+	icon_dead = "axolotl_dead"
+	holder_type = /obj/item/holder/axolotl
+
+/mob/living/simple_animal/lizard/axolotl/get_ru_names()
+	return list(
 		NOMINATIVE = "аксолотль",
 		GENITIVE = "аксолотля",
 		DATIVE = "аксолотлю",
@@ -58,7 +66,3 @@
 		INSTRUMENTAL = "аксолотлем",
 		PREPOSITIONAL = "аксолотле"
 	)
-	icon_state = "axolotl"
-	icon_living = "axolotl"
-	icon_dead = "axolotl_dead"
-	holder_type = /obj/item/holder/axolotl

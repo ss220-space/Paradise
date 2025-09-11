@@ -11,14 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/healer
 	name = "Healer of Terror"
 	desc = "Зловещий зелёный паук. К нему прикреплен небольшой яичный мешок, а на панцире виднеются засохшие пятна крови."
-	ru_names = list(
-		NOMINATIVE = "Лекарь Ужаса",
-		GENITIVE = "Лекаря Ужаса",
-		DATIVE = "Лекарю Ужаса",
-		ACCUSATIVE = "Лекаря Ужаса",
-		INSTRUMENTAL = "Лекарем Ужаса",
-		PREPOSITIONAL = "Лекаре Ужаса",
-	)
 	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_green"
@@ -36,6 +28,16 @@
 	var/feedings_to_lay = 3
 	var/datum/action/innate/terrorspider/greeneggs/greeneggs_action
 	tts_seed = "Jolene"
+
+/mob/living/simple_animal/hostile/poison/terror_spider/healer/get_ru_names()
+	return list(
+		NOMINATIVE = "Лекарь Ужаса",
+		GENITIVE = "Лекаря Ужаса",
+		DATIVE = "Лекарю Ужаса",
+		ACCUSATIVE = "Лекаря Ужаса",
+		INSTRUMENTAL = "Лекарем Ужаса",
+		PREPOSITIONAL = "Лекаре Ужаса",
+	)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/healer/strong
 	maxHealth = 220
@@ -137,7 +139,9 @@
 /obj/structure/spider/terrorweb/green
 	name = "slimy web"
 	desc = "Эта паутина частично состоит из нитей зелёной слизи."
-	ru_names = list(
+
+/obj/structure/spider/terrorweb/green/get_ru_names()
+	return list(
 		NOMINATIVE = "скользкая паутина",
 		GENITIVE = "скользкой паутины",
 		DATIVE = "скользкой паутине",

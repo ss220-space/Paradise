@@ -28,14 +28,6 @@
 /mob/living/simple_animal/parrot
 	name = "parrot"
 	desc = "Попугай пронзительно кричит: \"Это попугай! БВАХ-бах!\""
-	ru_names = list(
-		NOMINATIVE = "попугай",
-		GENITIVE = "попугая",
-		DATIVE = "попугаю",
-		ACCUSATIVE = "попугая",
-		INSTRUMENTAL = "попугаем",
-		PREPOSITIONAL = "попугае"
-	)
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
 	icon_living = "parrot_fly"
@@ -99,6 +91,16 @@
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
 	gold_core_spawnable = FRIENDLY_SPAWN
+
+/mob/living/simple_animal/parrot/get_ru_names()
+	return list(
+		NOMINATIVE = "попугай",
+		GENITIVE = "попугая",
+		DATIVE = "попугаю",
+		ACCUSATIVE = "попугая",
+		INSTRUMENTAL = "попугаем",
+		PREPOSITIONAL = "попугае"
+	)
 
 
 /mob/living/simple_animal/parrot/Initialize(mapload)
