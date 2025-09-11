@@ -31,7 +31,7 @@
 	/// Repair resource type
 	var/repair_type = null
 	/// Repair coefficient
-	var/repair_coefficient = 0.6
+	var/repair_coefficient = 2
 	/// Covered body parts by plate
 	body_parts_covered = UPPER_TORSO
 	/// Armor plate slowdown
@@ -117,16 +117,17 @@
 /obj/item/armor_plate/proc/get_integrity_text()
 	var/integrity_text = "В идеальном состоянии."
 	if(armor_integrity > armor_protection_integrity)
-		text = "Имеется пара царапин."
+		integrity_text = "Имеется пара царапин."
 	else if(armor_integrity > 0.75 * armor_protection_integrity)
-		text = "Имеются незначительные повреждения."
+		integrity_text = "Имеются незначительные повреждения."
 	else if(armor_integrity > 0.50 * armor_protection_integrity)
-		text = "Имеются изрядные повреждения."
+		integrity_text = "Имеются изрядные повреждения."
 	else if(armor_integrity > 0.25 * armor_protection_integrity)
-		text = "Имеются сильные повреждения."
+		integrity_text = "Имеются сильные повреждения."
 	else if(armor_integrity > 0)
-		text = "Имеются критические повреждения."
-	text = "Уничтожен[genderize_ru(gender, "", "а", "о", "ы")] и не предоставля[pluralize_ru(gender, "ет", "ют")] защиту."
+		integrity_text = "Имеются критические повреждения."
+	else
+		integrity_text = "Уничтожен[genderize_ru(gender, "", "а", "о", "ы")] и не предоставля[pluralize_ru(gender, "ет", "ют")] защиту."
 	return "<b>[integrity_text]</b>"
 
 /obj/item/armor_plate/examine(mob/user)
@@ -150,14 +151,15 @@
 	if(!consumed_resource)
 		balloon_alert(user, "недостаточно ресурсов!")
 		return ..()
-	if(!do_after(user, 10 SECONDS, src))
+	balloon_alert(user, "ремонт бронеплиты...")
+	if(!do_after(user, 15 SECONDS, src))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	if(resource.amount > consumed_resource)
 		resource.use(consumed_resource)
 	else
 		qdel(item)
 	repair_integrity = consumed_resource * repair_coefficient
-	armor_protection_integrity += repair_integrity
+	armor_integrity += repair_integrity
 	balloon_alert(user, "отремонтировано")
 	return ATTACK_CHAIN_BLOCKED_ALL
 
