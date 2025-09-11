@@ -549,3 +549,5 @@
 
 /datum/effect_system/fluid_spread/smoke/chem/quick/vapor
 	effect_type = /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor
+
+#undef SMOKE_TICK_TO_SECONDS

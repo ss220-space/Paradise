@@ -11,9 +11,11 @@
 
 /datum/gear/hat/hhat/New()
 	..()
-	var/list/hats = list("yellow" = /obj/item/clothing/head/hardhat,
-						 "orange" = /obj/item/clothing/head/hardhat/orange,
-						 "blue" = /obj/item/clothing/head/hardhat/dblue)
+	var/list/hats = list(
+		"yellow" = /obj/item/clothing/head/hardhat,
+		"orange" = /obj/item/clothing/head/hardhat/orange,
+		"blue" = /obj/item/clothing/head/hardhat/dblue
+	)
 	gear_tweaks += new /datum/gear_tweak/path(hats, src)
 
 /datum/gear/hat/that
@@ -51,9 +53,11 @@
 
 /datum/gear/hat/fedora/New()
 	..()
-	var/list/hats = list(/obj/item/clothing/head/fedora,
-						 /obj/item/clothing/head/fedora/whitefedora,
-						 /obj/item/clothing/head/fedora/brownfedora)
+	var/list/hats = list(
+		/obj/item/clothing/head/fedora,
+		/obj/item/clothing/head/fedora/whitefedora,
+		/obj/item/clothing/head/fedora/brownfedora
+	)
 	gear_tweaks += new /datum/gear_tweak/path(hats, src, TRUE)
 
 /datum/gear/hat/capcsec
@@ -73,16 +77,18 @@
 
 /datum/gear/hat/capred/New()
 	..()
-	var/list/hats = list(/obj/item/clothing/head/soft/red,
-						 /obj/item/clothing/head/soft/blue,
-						 /obj/item/clothing/head/soft/green,
-						 /obj/item/clothing/head/soft/black,
-						 /obj/item/clothing/head/soft/purple,
-						 /obj/item/clothing/head/soft/mime,
-						 /obj/item/clothing/head/soft/orange,
-						 /obj/item/clothing/head/soft/grey,
-						 /obj/item/clothing/head/soft/yellow,
-						 /obj/item/clothing/head/soft/solgov,)
+	var/list/hats = list(
+		/obj/item/clothing/head/soft/red,
+		/obj/item/clothing/head/soft/blue,
+		/obj/item/clothing/head/soft/green,
+		/obj/item/clothing/head/soft/black,
+		/obj/item/clothing/head/soft/purple,
+		/obj/item/clothing/head/soft/mime,
+		/obj/item/clothing/head/soft/orange,
+		/obj/item/clothing/head/soft/grey,
+		/obj/item/clothing/head/soft/yellow,
+		/obj/item/clothing/head/soft/solgov
+	)
 	gear_tweaks += new /datum/gear_tweak/path(hats, src, TRUE)
 /datum/gear/hat/cowboyhat
 	index_name = "cowboy hat, select"
@@ -91,11 +97,13 @@
 
 /datum/gear/hat/cowboyhat/New()
 	..()
-	var/list/hats = list(/obj/item/clothing/head/cowboyhat,
-						 /obj/item/clothing/head/cowboyhat/tan,
-						 /obj/item/clothing/head/cowboyhat/black,
-						 /obj/item/clothing/head/cowboyhat/white,
-						 /obj/item/clothing/head/cowboyhat/pink)
+	var/list/hats = list(
+		/obj/item/clothing/head/cowboyhat,
+		/obj/item/clothing/head/cowboyhat/tan,
+		/obj/item/clothing/head/cowboyhat/black,
+		/obj/item/clothing/head/cowboyhat/white,
+		/obj/item/clothing/head/cowboyhat/pink
+	)
 	gear_tweaks += new /datum/gear_tweak/path(hats, src, TRUE)
 
 /datum/gear/hat/beret
@@ -105,10 +113,12 @@
 
 /datum/gear/hat/beret/New()
 	..()
-	var/list/berets = list("red" = /obj/item/clothing/head/beret,
-						   "purple" = /obj/item/clothing/head/beret/purple_normal,
-						   "black" = /obj/item/clothing/head/beret/black,
-						   "blue" = /obj/item/clothing/head/beret/blue)
+	var/list/berets = list(
+		"red" = /obj/item/clothing/head/beret,
+		"purple" = /obj/item/clothing/head/beret/purple_normal,
+		"black" = /obj/item/clothing/head/beret/black,
+		"blue" = /obj/item/clothing/head/beret/blue
+		)
 	gear_tweaks += new /datum/gear_tweak/path(berets, src)
 
 /datum/gear/hat/beret_job
@@ -163,9 +173,11 @@
 
 /datum/gear/hat/surgicalcap/New()
 	..()
-	var/list/caps = list("purple" = /obj/item/clothing/head/surgery/purple,
-						 "lightgreen" = /obj/item/clothing/head/surgery/lightgreen,
-						 "green" = /obj/item/clothing/head/surgery/green,)
+	var/list/caps = list(
+		"purple" = /obj/item/clothing/head/surgery/purple,
+		"lightgreen" = /obj/item/clothing/head/surgery/lightgreen,
+		"green" = /obj/item/clothing/head/surgery/green
+	)
 	gear_tweaks += new /datum/gear_tweak/path(caps, src)
 
 /datum/gear/hat/flowerpin

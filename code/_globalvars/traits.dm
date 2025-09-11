@@ -1,11 +1,10 @@
 /*
- FUN ZONE OF ADMIN LISTINGS
- Try to keep this in sync with __DEFINES/traits.dm
- quirks have it's own panel so we don't need them here.
-
- USE ALPABETIC ORDER HERE! (please)
-*/
-
+ * FUN ZONE OF ADMIN LISTINGS
+ * Try to keep this in sync with __DEFINES/traits.dm
+ * quirks have it's own panel so we don't need them here.
+ *
+ * USE ALPABETIC ORDER HERE! (please)
+ */
 
 GLOBAL_LIST_INIT(traits_by_type, list(
 	/datum/mind = list(

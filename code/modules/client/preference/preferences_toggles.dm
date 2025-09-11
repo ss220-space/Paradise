@@ -602,74 +602,74 @@
 	blackbox_message = "Toggle TGUI Input"
 
 /datum/preference_toggle/toggle_strip_tgui_size
-    name = "Размер TGUI strip-menu"
-    description = "Переключает размер TGUI strip-menu между миниатюрным и полноэкранным."
-    preftoggle_bitflag = PREFTOGGLE_2_BIG_STRIP_MENU
-    preftoggle_toggle = PREFTOGGLE_TOGGLE2
-    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-    enable_message = "Теперь вы будете видеть TGUI strip menu в полноэкранном режиме."
-    disable_message = "Теперь вы будете видеть TGUI strip menu в миниатюрном режиме."
-    blackbox_message = "Toggle TGUI strip menu size"
+	name = "Размер TGUI strip-menu"
+	description = "Переключает размер TGUI strip-menu между миниатюрным и полноэкранным."
+	preftoggle_bitflag = PREFTOGGLE_2_BIG_STRIP_MENU
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь вы будете видеть TGUI strip menu в полноэкранном режиме."
+	disable_message = "Теперь вы будете видеть TGUI strip menu в миниатюрном режиме."
+	blackbox_message = "Toggle TGUI strip menu size"
 
 /datum/preference_toggle/toggle_item_description_tips
-    name = "Описания предметов при наведении"
-    description = "Включает отображение описаний предмета при наведении курсора."
-    preftoggle_bitflag = PREFTOGGLE_2_DESC_TIPS
-    preftoggle_toggle = PREFTOGGLE_TOGGLE2
-    preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
-    enable_message = "Теперь вы будете видеть описание предмета при наведении курсора на него."
-    disable_message = "Теперь вы не будете видеть описание предмета при наведении курсора на него."
-    blackbox_message = "Toggle item description tips on hover"
+	name = "Описания предметов при наведении"
+	description = "Включает отображение описаний предмета при наведении курсора."
+	preftoggle_bitflag = PREFTOGGLE_2_DESC_TIPS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+	enable_message = "Теперь вы будете видеть описание предмета при наведении курсора на него."
+	disable_message = "Теперь вы не будете видеть описание предмета при наведении курсора на него."
+	blackbox_message = "Toggle item description tips on hover"
 
 /datum/preference_toggle/toggle_facing_to_mouse
-    name = "Следовать за курсором мыши"
-    description = "Когда включено – при выбранном намерении ВРЕД ваш персонаж будет поворачиваться в сторону курсора."
-    preftoggle_bitflag = PREFTOGGLE_3_FACING_TO_MOUSE
-    preftoggle_toggle = PREFTOGGLE_TOGGLE3
-    preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
-    enable_message = "Теперь ваш персонаж будет поворачиваться в сторону курсора мыши при выбранном намерении ВРЕД."
-    disable_message = "Теперь ваш персонаж не будет поворачиваться в сторону курсора мыши при выбранном намерении ВРЕД."
-    blackbox_message = "Переключение следования за курсором мыши."
+	name = "Следовать за курсором мыши"
+	description = "Когда включено – при выбранном намерении ВРЕД ваш персонаж будет поворачиваться в сторону курсора."
+	preftoggle_bitflag = PREFTOGGLE_3_FACING_TO_MOUSE
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+	enable_message = "Теперь ваш персонаж будет поворачиваться в сторону курсора мыши при выбранном намерении ВРЕД."
+	disable_message = "Теперь ваш персонаж не будет поворачиваться в сторону курсора мыши при выбранном намерении ВРЕД."
+	blackbox_message = "Переключение следования за курсором мыши."
 
 /datum/preference_toggle/toggle_take_out_of_the_round_without_obj
-    name = "Вывод из игры без цели"
-    description = "Переключает разрешение антагонистам выводить вас из раунда без соответствующей цели."
-    preftoggle_bitflag = PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE
-    preftoggle_toggle = PREFTOGGLE_TOGGLE2
-    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-    enable_message = "Антагонисты теперь имеют право выводить вас из раунда без цели."
-    disable_message = "Антагонисты больше не имеют права выводить вас из раунда без цели."
-    blackbox_message = "Переключение разрешения выводить игрока из раунда"
+	name = "Вывод из игры без цели"
+	description = "Переключает разрешение антагонистам выводить вас из раунда без соответствующей цели."
+	preftoggle_bitflag = PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Антагонисты теперь имеют право выводить вас из раунда без цели."
+	disable_message = "Антагонисты больше не имеют права выводить вас из раунда без цели."
+	blackbox_message = "Переключение разрешения выводить игрока из раунда"
 
 /datum/preference_toggle/toggle_off_projectile_messages
-    name = "Выключить боевые сообщения выстрелов"
-    description = "Выключает большую часть сообщений, появляющихся при стрельбе."
-    preftoggle_bitflag = PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES
-    preftoggle_toggle = PREFTOGGLE_TOGGLE2
-    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-    enable_message = "Теперь вы не будете видеть сообщения, появляющиеся при стрельбе."
-    disable_message = "Теперь вы будете видеть сообщения, появляющиеся при стрельбе."
-    blackbox_message = "Переключение комбат логов от выстрелов"
+	name = "Выключить боевые сообщения выстрелов"
+	description = "Выключает большую часть сообщений, появляющихся при стрельбе."
+	preftoggle_bitflag = PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь вы не будете видеть сообщения, появляющиеся при стрельбе."
+	disable_message = "Теперь вы будете видеть сообщения, появляющиеся при стрельбе."
+	blackbox_message = "Переключение комбат логов от выстрелов"
 
 /datum/preference_toggle/toggle_auto_dnr
-    name = "Запрет реанимации при смерти"
-    description = "При смерти автоматически запрещает реанимацию вашего персонажа."
-    preftoggle_bitflag = PREFTOGGLE_3_DNR_AFTER_DEATH
-    preftoggle_toggle = PREFTOGGLE_TOGGLE3
-    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-    enable_message = "Смерть вашего персонажа теперь перманентная."
-    disable_message = "Смерть персонажа более не перманентная."
-    blackbox_message = "Переключение установки статуса DNR после смерти"
+	name = "Запрет реанимации при смерти"
+	description = "При смерти автоматически запрещает реанимацию вашего персонажа."
+	preftoggle_bitflag = PREFTOGGLE_3_DNR_AFTER_DEATH
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Смерть вашего персонажа теперь перманентная."
+	disable_message = "Смерть персонажа более не перманентная."
+	blackbox_message = "Переключение установки статуса DNR после смерти"
 
 /datum/preference_toggle/ui_scale
-    name = "Маштабирование UI"
-    description = "Включает маштабирование содержимого UI окон."
-    preftoggle_bitflag = PREFTOGGLE_3_UI_SCALE
-    preftoggle_toggle = PREFTOGGLE_TOGGLE3
-    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-    enable_message = "Теперь содержимое UI маштабируется."
-    disable_message = "Теперь содержимое UI не маштабируется."
-    blackbox_message = "Переключение маштабирования UI"
+	name = "Маштабирование UI"
+	description = "Включает маштабирование содержимого UI окон."
+	preftoggle_bitflag = PREFTOGGLE_3_UI_SCALE
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь содержимое UI маштабируется."
+	disable_message = "Теперь содержимое UI не маштабируется."
+	blackbox_message = "Переключение маштабирования UI"
 
 
 /datum/preference_toggle/ui_scale/set_toggles(client/user)

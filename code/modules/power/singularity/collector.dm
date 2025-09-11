@@ -158,7 +158,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		update_icon()
 
 
-/obj/machinery/power/rad_collector/proc/receive_pulse(var/pulse_strength)
+/obj/machinery/power/rad_collector/proc/receive_pulse(pulse_strength)
 	if(P && active)
 		var/power_produced = 0
 		power_produced = P.air_contents.toxins*pulse_strength*20

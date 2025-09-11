@@ -70,7 +70,7 @@ research holder datum.
 
 //Checks to see if tech has all the required pre-reqs.
 //Input: datum/tech; Output: 0/1 (false/true)
-/datum/research/proc/TechHasReqs(var/datum/tech/T)
+/datum/research/proc/TechHasReqs(datum/tech/T)
 	if(T.req_tech.len == 0)
 		return TRUE
 	for(var/req in T.req_tech)
@@ -94,7 +94,7 @@ research holder datum.
 
 //Adds a tech to known_tech list. Checks to make sure there aren't duplicates and updates existing tech's levels if needed.
 //Input: datum/tech; Output: Null
-/datum/research/proc/AddTech2Known(var/datum/tech/T)
+/datum/research/proc/AddTech2Known(datum/tech/T)
 	if(T.id in known_tech)
 		var/datum/tech/known = known_tech[T.id]
 		if(T.level > known.level)
@@ -103,12 +103,12 @@ research holder datum.
 	var/datum/tech/copy = T.copyTech()
 	known_tech[T.id] = copy
 
-/datum/research/proc/CanAddDesign2Known(var/datum/design/D)
+/datum/research/proc/CanAddDesign2Known(datum/design/D)
 	if (D.id in known_designs)
 		return FALSE
 	return TRUE
 
-/datum/research/proc/AddDesign2Known(var/datum/design/D)
+/datum/research/proc/AddDesign2Known(datum/design/D)
 	if(!CanAddDesign2Known(D))
 		return
 	// Global datums make me nervous
@@ -129,7 +129,7 @@ research holder datum.
 
 //Refreshes the levels of a given tech.
 //Input: Tech's ID and Level; Output: new level or Null
-/datum/research/proc/UpdateTech(var/ID, var/level)
+/datum/research/proc/UpdateTech(ID, level)
 	var/datum/tech/KT = known_tech[ID]
 	if(KT)
 		if(KT.level <= level)
@@ -151,7 +151,7 @@ research holder datum.
 		else
 			return FALSE
 
-/datum/research/proc/FindDesignByID(var/id)
+/datum/research/proc/FindDesignByID(id)
 	return known_designs[id]
 
 // A common task is for one research datum to copy over its techs and designs
@@ -172,10 +172,10 @@ research holder datum.
 //Autolathe files
 /datum/research/autolathe
 
-/datum/research/autolathe/DesignHasReqs(var/datum/design/D)
+/datum/research/autolathe/DesignHasReqs(datum/design/D)
 	return D && (D.build_type & AUTOLATHE) && ("initial" in D.category)
 
-/datum/research/autolathe/CanAddDesign2Known(var/datum/design/design)
+/datum/research/autolathe/CanAddDesign2Known(datum/design/design)
 	// Specifically excludes circuit imprinter and mechfab
 	if(design.locked || !(design.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE)))
 		return FALSE
@@ -343,7 +343,7 @@ datum/tech/robotics
 	copied.level = src.level
 	return copied
 
-/datum/tech/proc/getCost(var/current_level = null)
+/datum/tech/proc/getCost(current_level = null)
 	// Calculates tech disk's supply points sell cost
 	if(!current_level)
 		current_level = initial(level)

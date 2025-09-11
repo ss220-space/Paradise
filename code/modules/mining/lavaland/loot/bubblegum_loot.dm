@@ -529,7 +529,7 @@
 		INSTRUMENTAL = "таинственным духом",
 		PREPOSITIONAL = "таинственном духе"
 	)
-	
+
 
 /mob/living/simple_animal/soulscythe/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -573,3 +573,4 @@
 	return ..()
 
 #undef MAX_BLOOD_LEVEL
+#undef BLOOD_LEVEL_PER_SECOND

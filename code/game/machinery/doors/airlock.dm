@@ -1249,8 +1249,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 
 	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0) && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
-		user.visible_message("[user] removes the electronics from the airlock assembly.", \
-							 span_notice("You start to remove electronics from the airlock assembly..."))
+		user.visible_message(
+			"[user] removes the electronics from the airlock assembly.", \
+			span_notice("You start to remove electronics from the airlock assembly...")
+		)
 		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 		return

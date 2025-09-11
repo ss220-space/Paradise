@@ -499,7 +499,7 @@
 /datum/mimicking_voice/proc/voice_data()
 	return list("name" = name, "voice" = voice, "selected" = selected, "id" = UID())
 
-/mob/living/carbon/human/proc/mimicking(var/mob/living/carbon/human/H)
+/mob/living/carbon/human/proc/mimicking(mob/living/carbon/human/H)
 	set name = "Имитировать голос"
 	set category = STATPANEL_IC
 	if(!H)

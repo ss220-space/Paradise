@@ -29,12 +29,12 @@
 
 /obj/item/craft_blueprints/get_ru_names()
 	return list(
-        NOMINATIVE = "чертежи для крафта",
-        GENITIVE = "чертежей для крафта",
-        DATIVE = "чертежам для крафта",
-        ACCUSATIVE = "чертежи для крафта",
-        INSTRUMENTAL = "чертежами для крафта",
-        PREPOSITIONAL = "чертежах для крафта"
+		NOMINATIVE = "чертежи для крафта",
+		GENITIVE = "чертежей для крафта",
+		DATIVE = "чертежам для крафта",
+		ACCUSATIVE = "чертежи для крафта",
+		INSTRUMENTAL = "чертежами для крафта",
+		PREPOSITIONAL = "чертежах для крафта"
 	)
 
 /obj/item/craft_blueprints/copy
