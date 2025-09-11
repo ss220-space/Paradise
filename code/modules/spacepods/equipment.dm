@@ -59,7 +59,7 @@
 	var/obj/item/spacepod_equipment/lock/lock_system // lock system
 	var/obj/item/spacepod_equipment/locators/locator_system //locator_system
 
-/datum/spacepod/equipment/New(var/obj/spacepod/SP)
+/datum/spacepod/equipment/New(obj/spacepod/SP)
 	..()
 	if(istype(SP))
 		my_atom = SP
@@ -71,7 +71,7 @@
 	var/occupant_mod = 0	// so any module can modify occupancy
 	var/list/storage_mod = list("slots" = 0, "w_class" = 0)		// so any module can modify storage slots
 
-/obj/item/spacepod_equipment/proc/removed(var/mob/user) // So that you can unload cargo when you remove the module
+/obj/item/spacepod_equipment/proc/removed(mob/user) // So that you can unload cargo when you remove the module
 	return
 
 /*
@@ -190,7 +190,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	icon_state = "cargo_blank"
 	var/obj/storage = null
 
-/obj/item/spacepod_equipment/cargo/proc/passover(var/obj/item/I)
+/obj/item/spacepod_equipment/cargo/proc/passover(obj/item/I)
 	return
 
 /obj/item/spacepod_equipment/cargo/proc/unload() // called by unload verb
@@ -198,7 +198,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 		storage.forceMove(get_turf(my_atom))
 		storage = null
 
-/obj/item/spacepod_equipment/cargo/removed(var/mob/user) // called when system removed
+/obj/item/spacepod_equipment/cargo/removed(mob/user) // called when system removed
 	. = ..()
 	unload()
 
@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	desc = "An ore storage system for spacepods. Scoops up any ore you drive over."
 	icon_state = "cargo_ore"
 
-/obj/item/spacepod_equipment/cargo/ore/passover(var/obj/item/I)
+/obj/item/spacepod_equipment/cargo/ore/passover(obj/item/I)
 	if(storage && istype(I,/obj/item/stack/ore))
 		I.forceMove(storage)
 
@@ -317,7 +317,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 		return
 	atom_say("Результаты поиска:[message_user]")
 
-/obj/item/spacepod_equipment/locators/proc/object_size(var/square)
+/obj/item/spacepod_equipment/locators/proc/object_size(square)
 	if(square <= 500)
 		return "Малый"
 	else if(square <= 900)

@@ -1,4 +1,4 @@
-/proc/GetOppositeDir(var/dir)
+/proc/GetOppositeDir(dir)
 	switch(dir)
 		if(NORTH)     return SOUTH
 		if(SOUTH)     return NORTH
@@ -171,11 +171,11 @@
 	return m_style
 
 /**
-  * Returns a random body accessory for a given species name. Can be null based on is_optional argument.
-  *
-  * Arguments:
-  * * species - The name of the species to filter valid body accessories.
-  * * is_optional - Whether *no* body accessory (null) is an option.
+ * Returns a random body accessory for a given species name. Can be null based on is_optional argument.
+ *
+ * Arguments:
+ * * species - The name of the species to filter valid body accessories.
+ * * is_optional - Whether *no* body accessory (null) is an option.
  */
 /proc/random_body_accessory(species = SPECIES_VULPKANIN, is_optional = FALSE)
 	var/list/valid_body_accessories = list()
@@ -681,17 +681,17 @@
 
 
 /**
-  * Safe ckey getter
-  *
-  * Should be used whenever broadcasting public information about a mob,
-  * as this proc will make a best effort to hide the users ckey if they request it.
-  * It will first check the mob for a client, then use the mobs last ckey as a directory lookup.
-  * If a client cant be found to check preferences on, it will just show as DC'd.
-  * This proc should only be used for public facing stuff, not administration related things.
-  *
-  * Arguments:
-  * * M - Mob to get a safe ckey of
-  */
+ * Safe ckey getter
+ *
+ * Should be used whenever broadcasting public information about a mob,
+ * as this proc will make a best effort to hide the users ckey if they request it.
+ * It will first check the mob for a client, then use the mobs last ckey as a directory lookup.
+ * If a client cant be found to check preferences on, it will just show as DC'd.
+ * This proc should only be used for public facing stuff, not administration related things.
+ *
+ * Arguments:
+ * * M - Mob to get a safe ckey of
+ */
 /proc/safe_get_ckey(mob/M)
 	var/client/C = null
 	if(M.client)

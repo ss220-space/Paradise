@@ -1,16 +1,11 @@
-// the SMES
-// stores power
-
-#define SMESMAXCHARGELEVEL 200000
-#define SMESMAXOUTPUT 200000
-#define SMESRATE 0.05			// rate of internal charge to external power
+/// Rate of internal charge to external power
+#define SMESRATE 0.05
 
 #define PORTABLE_SMES_LEVEL_ZERO 0.05
 #define PORTABLE_SMES_LEVEL_LOW 0.30
 #define PORTABLE_SMES_LEVEL_MIDDLE 0.50
 #define PORTABLE_SMES_LEVEL_HIGH 0.70
 #define PORTABLE_SMES_LEVEL_FULL 0.95
-
 
 /obj/machinery/power/smes
 	name = "power storage unit"
@@ -476,12 +471,12 @@
 			smoke.start()
 
 
-/obj/machinery/power/smes/proc/inputting(var/do_input)
+/obj/machinery/power/smes/proc/inputting(do_input)
 	input_attempt = do_input
 	if(!input_attempt)
 		inputting = 0
 
-/obj/machinery/power/smes/proc/outputting(var/do_output)
+/obj/machinery/power/smes/proc/outputting(do_output)
 	output_attempt = do_output
 	if(!output_attempt)
 		outputting = 0

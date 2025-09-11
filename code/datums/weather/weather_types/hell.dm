@@ -232,3 +232,15 @@
 		return
 	deltimer(timer_id)
 	qdel(src)
+
+#undef TURF_LAVA_COUNT
+#undef TURF_PORTAL_COUNT
+#undef TURF_METEOR_COUNT
+#undef PORTAL_LIFETIME
+#undef PORTAL_MAX_IMPS
+#undef LAVA_TIME
+#undef LAVA_MODE
+#undef PORTAL_MODE
+#undef METEOR_MODE
+#undef EMPTY_MODE
+#undef TELEGRAPH_TIME
