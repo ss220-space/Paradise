@@ -327,7 +327,7 @@
 	for(var/obj/machinery/computer/syndicate_depot/C in machinery_cache)
 		C.security_lockout = FALSE
 
-/area/syndicate_depot/core/proc/set_emergency_access(var/openaccess)
+/area/syndicate_depot/core/proc/set_emergency_access(openaccess)
 	for(var/obj/machinery/door/airlock/A in machinery_cache)
 		if(istype(A, /obj/machinery/door/airlock/hatch/syndicate/vault))
 			continue

@@ -226,7 +226,7 @@
 	return ..()
 
 
-/mob/living/simple_animal/borer/proc/Communicate(var/sended_message)
+/mob/living/simple_animal/borer/proc/Communicate(sended_message)
 	if(!host)
 		to_chat(src, "У вас нет носителя!")
 		return
@@ -775,7 +775,7 @@
 	return
 
 
-/mob/living/simple_animal/borer/proc/transfer_personality(var/client/candidate)
+/mob/living/simple_animal/borer/proc/transfer_personality(client/candidate)
 	if(QDELETED(candidate) || QDELETED(candidate.mob))
 		return
 

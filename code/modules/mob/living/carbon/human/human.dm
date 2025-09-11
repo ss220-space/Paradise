@@ -354,7 +354,7 @@
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
 
 /// Get rank from ID from hands, wear_id, pda, and then from uniform
-/mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "Без ID", var/if_no_job = "Без должности")
+/mob/living/carbon/human/proc/get_authentification_rank(if_no_id = "Без ID", if_no_job = "Без должности")
 	var/obj/item/card/id/id = get_id_card()
 	if(id)
 		return id.rank ? id.rank : if_no_job
@@ -375,7 +375,7 @@
 
 /// gets name from ID or ID inside PDA or PDA itself
 /// Useful when player do something with computers
-/mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = UNKNOWN_NAME_RUS)
+/mob/living/carbon/human/proc/get_authentification_name(if_no_id = UNKNOWN_NAME_RUS)
 	var/name = if_no_id
 	if(wear_id)
 		if(wear_id.GetID())
@@ -1655,7 +1655,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return FALSE
 
 
-/mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
+/mob/living/carbon/human/proc/change_icobase(new_icobase, new_deform, owner_sensitive)
 	for(var/obj/item/organ/external/O as anything in bodyparts)
 		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 

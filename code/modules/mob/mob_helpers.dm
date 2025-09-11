@@ -1,6 +1,6 @@
 /mob/proc/get_screen_colour()
 
-/mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
+/mob/proc/update_client_colour(time = 10) //Update the mob's client.color with an animation the specified time in length.
 	if(!client) //No client_colour without client. If the player logs back in they'll be back through here anyway.
 		return
 	client.colour_transition(get_screen_colour(), time = time) //Get the colour matrix we're going to transition to depending on relevance (magic glasses first, eyes second).
@@ -596,7 +596,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			objective.explanation_text = copytext_char(objective.explanation_text, 1, pos)+newname+copytext_char(objective.explanation_text, pos+length)
 	return 1
 
-/mob/proc/rename_self(var/role, var/allow_numbers = FALSE, var/force = FALSE)
+/mob/proc/rename_self(role, allow_numbers = FALSE, force = FALSE)
 	spawn(0)
 		var/oldname = real_name
 

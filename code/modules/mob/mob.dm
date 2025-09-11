@@ -470,7 +470,7 @@
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	flavor_text = msg
 
-/mob/proc/print_flavor_text(var/shrink = TRUE)
+/mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 60 || !shrink)

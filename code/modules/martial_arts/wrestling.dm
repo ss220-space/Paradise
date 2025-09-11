@@ -23,7 +23,7 @@
 	return TRUE
 
 
-/datum/martial_art/wrestling/proc/Suplex(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/wrestling/proc/Suplex(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
 	D.visible_message("<span class='danger'>[A] suplexes [D]!</span>", \
 								"<span class='userdanger'>[A] suplexes [D]!</span>")

@@ -224,7 +224,7 @@
 				T.ex_act(EXPLODE_LIGHT)
 				T.hotspot_expose(1000,500,1)
 
-/obj/machinery/computer/HolodeckControl/proc/derez(var/obj/obj , var/silent = 1)
+/obj/machinery/computer/HolodeckControl/proc/derez(obj/obj , silent = 1)
 	holographic_items.Remove(obj)
 
 	if(obj == null)

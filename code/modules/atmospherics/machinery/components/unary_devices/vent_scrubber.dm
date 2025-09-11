@@ -217,7 +217,7 @@
 	if(istype(T))
 		adjacent_turfs = T.GetAtmosAdjacentTurfs(TRUE)
 
-/obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(var/turf/simulated/tile)
+/obj/machinery/atmospherics/unary/vent_scrubber/proc/scrub(turf/simulated/tile)
 	if(!tile || !istype(tile))
 		return 0
 

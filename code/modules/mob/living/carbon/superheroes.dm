@@ -11,7 +11,7 @@
 	var/activated = FALSE //for wishgranters to not give an option if someone already has it.
 
 
-/datum/superheroes/proc/create(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/create(mob/living/carbon/human/H)
 	assign_genes(H)
 	assign_spells(H)
 	equip(H)
@@ -19,13 +19,13 @@
 	assign_id(H)
 	H.mind.special_role = SPECIAL_ROLE_SUPER
 
-/datum/superheroes/proc/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/equip(mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)
 	for(var/obj/item/W in H.get_all_slots())
 		H.drop_item_ground(W)
 	H.equip_to_slot_or_del(new /obj/item/radio/headset(H), ITEM_SLOT_EAR_LEFT)
 
-/datum/superheroes/proc/fixflags(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/fixflags(mob/living/carbon/human/H)
 	for(var/obj/item/W in H.get_all_slots())
 		ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
 
@@ -37,7 +37,7 @@
 	H.gene_stability = 100
 
 
-/datum/superheroes/proc/assign_spells(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
 	if(default_spells.len)
 		for(var/spell in default_spells)
 			var/obj/effect/proc_holder/spell/S = spell
@@ -45,7 +45,7 @@
 				return
 			H.mind.AddSpell(new S(null))
 
-/datum/superheroes/proc/assign_id(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/assign_id(mob/living/carbon/human/H)
 	var/obj/item/card/id/syndicate/W = new(H)
 	W.registered_name = H.real_name
 	W.access = list(ACCESS_MAINT_TUNNELS)

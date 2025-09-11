@@ -156,7 +156,7 @@ Difficulty: Medium
 		if(prob(enraged ? 44 : 11))
 			new /obj/effect/temp_visual/target(turf)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(var/amount, var/delay = 0.8)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(amount, delay = 0.8)
 	if(!target)
 		return
 	target.visible_message(span_boldwarning("Вокруг вас начинают образовываться лужи лавы!"))
@@ -168,7 +168,7 @@ Difficulty: Medium
 		amount--
 		SLEEP_CHECK_DEATH(src, delay)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_swoop(var/amount = 30)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_swoop(amount = 30)
 	if(health < maxHealth * 0.5)
 		return swoop_attack(lava_arena = TRUE, swoop_cooldown = enraged ? 2 SECONDS : 6 SECONDS)
 	INVOKE_ASYNC(src, PROC_REF(lava_pools), enraged ? 60 : amount)
@@ -182,7 +182,7 @@ Difficulty: Medium
 		fire_cone()
 	SetRecoveryTime(40)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/mass_fire(var/spiral_count = 12, var/range = 15, var/times = 3)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/mass_fire(spiral_count = 12, range = 15, times = 3)
 	SLEEP_CHECK_DEATH(src, 0)
 	if(prob(50) && enraged)
 		INVOKE_ASYNC(src, PROC_REF(fire_rain))
@@ -255,7 +255,7 @@ Difficulty: Medium
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
 	light_range = initial(light_range)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_cone(var/atom/at = target, var/meteors = TRUE)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_cone(atom/at = target, meteors = TRUE)
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 	SLEEP_CHECK_DEATH(src, 0)
 	if(prob(50) && meteors)
@@ -269,7 +269,7 @@ Difficulty: Medium
 	turfs = line_target(40, range, at)
 	INVOKE_ASYNC(src, PROC_REF(fire_line), turfs)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/line_target(var/offset, var/range, var/atom/at = target)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/line_target(offset, range, atom/at = target)
 	if(!at)
 		return
 	var/angle = ATAN2(at.x - src.x, at.y - src.y) + offset
@@ -281,12 +281,12 @@ Difficulty: Medium
 		T = check
 	return (get_line(src, T) - get_turf(src))
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(var/list/turfs)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(list/turfs)
 	SLEEP_CHECK_DEATH(src, 0)
 	dragon_fire_line(src, turfs)
 
 //fire line keeps going even if dragon is deleted
-/proc/dragon_fire_line(var/source, var/list/turfs)
+/proc/dragon_fire_line(source, list/turfs)
 	var/list/hit_list = list()
 	for(var/turf/T in turfs)
 		if(T.density)
@@ -456,7 +456,7 @@ Difficulty: Medium
 	src.alpha = 63.75
 	animate(src, alpha = 255, time = duration)
 
-/obj/effect/temp_visual/lava_warning/proc/fall(var/reset_time)
+/obj/effect/temp_visual/lava_warning/proc/fall(reset_time)
 	var/turf/T = get_turf(src)
 	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
 	sleep(duration)
@@ -708,7 +708,7 @@ Difficulty: Medium
 	AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse/spacedragon(src))
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(var/atom/at = target)
+/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(atom/at = target)
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 	SLEEP_CHECK_DEATH(src, 0)
 	var/range = 20

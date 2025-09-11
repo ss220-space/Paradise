@@ -185,7 +185,7 @@
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
-/obj/item/mmi/proc/dropbrain(var/turf/dropspot)
+/obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
 		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
 		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")

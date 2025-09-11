@@ -142,7 +142,7 @@
 	apply_swirlie_effect(grabber, victim)
 	cancel_swirlie_act(victim, oldx, oldy, prev_angle)
 
-/obj/structure/toilet/proc/cancel_swirlie_act(var/mob/living/victim, oldx, oldy, prev_angle)
+/obj/structure/toilet/proc/cancel_swirlie_act(mob/living/victim, oldx, oldy, prev_angle)
 	animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
 	victim.set_lying_angle(prev_angle)
 	swirlie = null

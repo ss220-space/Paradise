@@ -1490,7 +1490,7 @@
 	gib()
 
 
-/mob/living/proc/can_use_guns(var/obj/item/gun/G)
+/mob/living/proc/can_use_guns(obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
 		to_chat(src, span_warning("У вас недостаточно ловкости для этого!"))
 		return 0

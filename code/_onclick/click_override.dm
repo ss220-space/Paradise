@@ -12,7 +12,7 @@
 
 /datum/middleClickOverride/
 
-/datum/middleClickOverride/proc/onClick(var/atom/A, var/mob/living/user)
+/datum/middleClickOverride/proc/onClick(atom/A, mob/living/user)
 	user.middleClickOverride = null
 	return 1
 	/* Note, when making a new click override it is ABSOLUTELY VITAL that you set the source's clickOverride to null at some point if you don't want them to be stuck with it forever.

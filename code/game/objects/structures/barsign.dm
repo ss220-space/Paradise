@@ -25,7 +25,7 @@
 	//randomly assigning a sign
 	set_sign(pick(barsigns))
 
-/obj/structure/sign/barsign/proc/set_sign(var/datum/barsign/sign)
+/obj/structure/sign/barsign/proc/set_sign(datum/barsign/sign)
 	if(!istype(sign))
 		return
 	icon_state = sign.icon

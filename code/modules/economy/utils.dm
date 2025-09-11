@@ -4,7 +4,7 @@
 // Economy system is such a mess of spaghetti.  This should help.
 ////////////////////////
 
-/proc/get_money_account(var/account_number, var/from_z=-1)
+/proc/get_money_account(account_number, from_z=-1)
 	for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
 		if(from_z > -1 && DB.z != from_z) continue
 		if((DB.stat & NOPOWER) || !DB.activated ) continue

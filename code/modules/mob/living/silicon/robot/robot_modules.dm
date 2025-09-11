@@ -74,7 +74,7 @@
 		stack.is_cyborg = TRUE
 
 
-/obj/item/robot_module/proc/get_or_create_estorage(var/storage_type)
+/obj/item/robot_module/proc/get_or_create_estorage(storage_type)
 	for(var/datum/robot_energy_storage/S in storages)
 		if(istype(S, storage_type))
 			return S

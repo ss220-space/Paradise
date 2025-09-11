@@ -17,7 +17,7 @@
 
 GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_SUPPLY_SECURITY,SYNDIE_SUPPLY_ENGINEER,SYNDIE_SUPPLY_MEDICAL,SYNDIE_SUPPLY_SCIENCE,SYNDIE_SUPPLY_ORGANIC,SYNDIE_SUPPLY_MATERIALS,SYNDIE_SUPPLY_MISC,SYNDIE_SUPPLY_VEND,SUPPLY_SYNDICATE_SPECIAL))
 
-/proc/get_syndie_supply_group_name(var/cat)
+/proc/get_syndie_supply_group_name(cat)
 	switch(cat)
 		if(SYNDIE_SUPPLY_EMERGENCY)
 			return "Emergency"
@@ -2419,7 +2419,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/encryptionkey/syndicate,
 					/obj/item/melee/energy/sword,
 					/obj/item/melee/energy/sword,
-					/obj/item/melee/energy/sword,											
+					/obj/item/melee/energy/sword,
 					/obj/item/melee/energy/sword,
 					/obj/item/storage/belt/military/traitor,
 					/obj/item/storage/toolbox/syndisuper,

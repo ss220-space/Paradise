@@ -205,7 +205,7 @@
 	log_admin("[key_name(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] ([accepted] objects modified)")
 	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [html_encode(translate_bitfield(default, variable, O.vars[variable]))] (Type: [class]) ([accepted] objects modified)")
 
-/proc/get_all_of_type(var/T, subtypes = TRUE)
+/proc/get_all_of_type(T, subtypes = TRUE)
 	var/list/typecache = list()
 	typecache[T] = 1
 	if(subtypes)

@@ -79,7 +79,7 @@
 
 	last_ant_time = world.time
 
-/obj/item/reagent_containers/food/proc/check_liked(var/fraction, mob/M)
+/obj/item/reagent_containers/food/proc/check_liked(fraction, mob/M)
 	if(last_check_time + 2 SECONDS < world.time)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -100,7 +100,7 @@
 				H.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
 			last_check_time = world.time
 
-/obj/item/reagent_containers/food/proc/format_message(var/type, var/list/messages, var/datum/species/species)
+/obj/item/reagent_containers/food/proc/format_message(type, list/messages, datum/species/species)
 	var/plural = cmptext(type[length(type)], "s") ? "are" : "is"
 
 	var/with_type = replacetext(pick(messages), "$TYPE", type)
@@ -113,7 +113,7 @@
 /obj/item/reagent_containers/food/proc/on_mob_eating_effect(mob/user)
 	return
 
-/obj/item/reagent_containers/food/proc/matched_food_type(var/matching_flags)
+/obj/item/reagent_containers/food/proc/matched_food_type(matching_flags)
 	if(matching_flags & MEAT)
 		return pick("meat", "flesh", "dead animals")
 	if(matching_flags & VEGETABLES)

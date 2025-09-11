@@ -614,7 +614,7 @@
 		form["category"] = initial(ff.category)
 		forms[++forms.len] = form
 
-/obj/machinery/photocopier/proc/print_form(var/obj/item/paper/form/form)
+/obj/machinery/photocopier/proc/print_form(obj/item/paper/form/form)
 	if(copying)
 		balloon_alert(usr, "сканер ещё работает!")
 		return FALSE
@@ -626,7 +626,7 @@
 	addtimer(CALLBACK(src, PROC_REF(do_print_form_paper), form), PHOTOCOPIER_DELAY)
 
 
-/obj/machinery/photocopier/proc/do_print_form_paper(var/obj/item/paper/form/form)
+/obj/machinery/photocopier/proc/do_print_form_paper(obj/item/paper/form/form)
 	var/obj/item/paper/paper = new form(loc)
 	paper.pixel_x = rand(-10, 10)
 	paper.pixel_y = rand(-10, 10)

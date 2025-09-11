@@ -118,15 +118,15 @@ Holotool. All instruments in one object
 	var/behavior
 	var/speed = 0.5 //upgraded instruments are 0.25 speed
 
-/datum/holotool_mode/proc/can_be_used(var/obj/item/holotool/H)
+/datum/holotool_mode/proc/can_be_used(obj/item/holotool/H)
 	return TRUE
 
-/datum/holotool_mode/proc/on_set(var/obj/item/holotool/H)
+/datum/holotool_mode/proc/on_set(obj/item/holotool/H)
 	H.usesound = sound ? sound :  'sound/items/pshoom.ogg'
 	H.toolspeed = speed ? speed : 1
 	H.tool_behaviour = behavior ? behavior : null
 
-/datum/holotool_mode/proc/on_unset(var/obj/item/holotool/H)
+/datum/holotool_mode/proc/on_unset(obj/item/holotool/H)
 	H.usesound = initial(H.usesound)
 	H.toolspeed = initial(H.toolspeed)
 	H.tool_behaviour = initial(H.tool_behaviour)

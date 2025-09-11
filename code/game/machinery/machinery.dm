@@ -250,7 +250,7 @@
 		stat &= ~BROKEN
 
 //sets the use_power var and then forces an area power update
-/obj/machinery/proc/update_use_power(var/new_use_power)
+/obj/machinery/proc/update_use_power(new_use_power)
 	use_power = new_use_power
 
 /obj/machinery/proc/auto_use_power()
@@ -269,10 +269,10 @@
 		return 1
 	return 0
 
-/obj/machinery/proc/operable(var/additional_flags = 0)
+/obj/machinery/proc/operable(additional_flags = 0)
 	return !inoperable(additional_flags)
 
-/obj/machinery/proc/inoperable(var/additional_flags = 0)
+/obj/machinery/proc/inoperable(additional_flags = 0)
 	return (stat & (NOPOWER|BROKEN|additional_flags))
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)

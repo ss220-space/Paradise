@@ -115,7 +115,7 @@
 			else if(ismachinery(O))
 				src.mach += 1
 
-/datum/station_state/proc/score(var/datum/station_state/result)
+/datum/station_state/proc/score(datum/station_state/result)
 	if(!result)	return 0
 	var/output = 0
 	output += (result.floor / max(floor,1))

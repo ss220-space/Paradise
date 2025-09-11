@@ -614,7 +614,7 @@
 	user.apply_effect(150, IRRADIATE)
 
 
-/obj/machinery/power/supermatter_shard/proc/nuclear_touch(var/mob/living/user)
+/obj/machinery/power/supermatter_shard/proc/nuclear_touch(mob/living/user)
 	var/datum/species/nucleation/nuclear = user.dna.species
 	if(nuclear.touched_supermatter == FALSE)
 		user.revive()

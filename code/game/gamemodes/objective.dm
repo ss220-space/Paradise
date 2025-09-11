@@ -996,7 +996,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	antag_menu_name = "Заполучить"
 
 
-/datum/objective/steal/exchange/proc/set_faction(var/faction,var/otheragent)
+/datum/objective/steal/exchange/proc/set_faction(faction, otheragent)
 	target = otheragent
 	var/datum/theft_objective/unique/targetinfo
 	if(faction == "red")

@@ -26,7 +26,7 @@
 	user.showLaws(src)
 
 
-/mob/proc/showLaws(var/mob/living/silicon/S)
+/mob/proc/showLaws(mob/living/silicon/S)
 	return
 
 /mob/dead/observer/showLaws(var/mob/living/silicon/S)
