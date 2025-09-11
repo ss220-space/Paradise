@@ -70,7 +70,7 @@
 
 	if(ismecha(target))
 		var/obj/mecha/mecha = target
-		mecha.dna = null
+		mecha.dna_lock = null
 		//mecha.mecha_flags &= ~ID_LOCK_ON
 		if(mecha.occupant)
 			var/mob/living/occupant = mecha.occupant
