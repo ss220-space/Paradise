@@ -356,3 +356,5 @@
 
 /// Temporally  trait when target tasered
 #define TRAIT_TASERED "tasered"
+
+#define TRAIT_SUPERMATTERIMMUNE "supermatter_immune"

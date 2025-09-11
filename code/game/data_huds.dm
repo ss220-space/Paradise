@@ -64,6 +64,9 @@
 /datum/atom_hud/kidan_pheromones
 	hud_icons = list(KIDAN_PHEROMONES_HUD)
 
+/datum/atom_hud/pacifism
+	hud_icons = list(PACIFISM_HUD)
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*

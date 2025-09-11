@@ -49,6 +49,7 @@
 	mech_enter_time = 20
 	max_equip = 4
 	wreckage = null
+	ui_theme = "syndicate"
 
 /obj/mecha/combat/lockersyndie/get_ru_names()
 	return list(
