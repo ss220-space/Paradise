@@ -153,7 +153,7 @@
 	icon_state = "ash"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/ash_holder/Initialize(mapload, var/obj/effect/decal/cleanable/ash/parent_ash = new)
+/obj/item/ash_holder/Initialize(mapload, obj/effect/decal/cleanable/ash/parent_ash = new)
 	name = parent_ash.name
 	desc = parent_ash.desc
 	. = ..()
@@ -310,8 +310,8 @@
 	deathgasp_on_death = FALSE
 
 /mob/living/carbon/human/skeleton/dead/Initialize(mapload)
-    . = ..()
-    rename_character(src.name, "A skeleton")
+	. = ..()
+	rename_character(src.name, "A skeleton")
 
 /datum/outfit/space_graveyard/suit_and_shoes
 	name = "Jacket and shoes"

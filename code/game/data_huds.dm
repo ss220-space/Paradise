@@ -1,4 +1,4 @@
- /* Data HUDs have been rewritten in a more generic way.
+/* Data HUDs have been rewritten in a more generic way.
  * In short, they now use an observer-listener pattern.
  * See code/datum/hud.dm for the generic hud datum.
  * Update the HUD icons when needed with the appropriate hook. (see below)
@@ -74,7 +74,7 @@
  */
 
 /***********************************************
- Medical HUD! Basic mode needs suit sensors on.
+	Medical HUD! Basic mode needs suit sensors on.
 ************************************************/
 
 //HELPERS
@@ -292,7 +292,7 @@
 	return desc_medical_status
 
 /***********************************************
- Security HUDs! Basic mode shows only the job.
+	Security HUDs! Basic mode shows only the job.
 ************************************************/
 
 //HOOKS
@@ -358,7 +358,7 @@
 	holder.icon_state = null
 
 /***********************************************
- Diagnostic HUDs!
+	Diagnostic HUDs!
 ************************************************/
 
 //For Diag health and cell bars!

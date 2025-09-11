@@ -74,7 +74,7 @@
 		stack.is_cyborg = TRUE
 
 
-/obj/item/robot_module/proc/get_or_create_estorage(var/storage_type)
+/obj/item/robot_module/proc/get_or_create_estorage(storage_type)
 	for(var/datum/robot_energy_storage/S in storages)
 		if(istype(S, storage_type))
 			return S
@@ -604,7 +604,7 @@
 
 	fix_modules()
 
-/obj/item/robot_module/butler/respawn_consumable(var/mob/living/silicon/robot/R)
+/obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
 		B.reagents.add_reagent("beer2", 2)
@@ -614,7 +614,7 @@
 
 	..()
 
-/obj/item/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
+/obj/item/robot_module/butler/add_languages(mob/living/silicon/robot/R)
 	//full set of languages
 	R.add_language(LANGUAGE_GALACTIC_COMMON, 1)
 	R.add_language(LANGUAGE_SOL_COMMON, 1)
@@ -1023,7 +1023,7 @@
 		acidSpray.reagents.add_reagent("facid", 3)
 	..()
 
-/obj/item/robot_module/hunter/add_languages(var/mob/living/silicon/robot/R)
+/obj/item/robot_module/hunter/add_languages(mob/living/silicon/robot/R)
 	..()
 	R.add_language(LANGUAGE_XENOS, 1)
 
@@ -1259,7 +1259,7 @@
 	var/recharge_rate
 	var/energy
 
-/datum/robot_energy_storage/New(var/obj/item/robot_module/R = null)
+/datum/robot_energy_storage/New(obj/item/robot_module/R = null)
 	if(!energy)
 		energy = max_energy
 

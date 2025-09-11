@@ -3,13 +3,13 @@
 #define UI_TAB_FILTER "ЧЁРНЫЙ СПИСОК"
 
 /**
-  * # Telecommunications Core
-  *
-  * The core of the entire telecomms operation
-  *
-  * This thing basically handles the main broadcasting of the data, as well as NTTC configs
-  * The relays dont do any actual processing, they are just objects which can bring tcomms to another zlevel
-  */
+ * # Telecommunications Core
+ *
+ * The core of the entire telecomms operation
+ *
+ * This thing basically handles the main broadcasting of the data, as well as NTTC configs
+ * The relays dont do any actual processing, they are just objects which can bring tcomms to another zlevel
+ */
 /obj/machinery/tcomms/core
 	name = "telecommunications core"
 	desc = "Центральное ядро телекоммуникационной системы станции, обеспечивающее устойчивую \
@@ -42,10 +42,10 @@
 	)
 
 /**
-  * Initializer for the core.
-  *
-  * Calls parent to ensure its added to the GLOB of tcomms machines, before generating a link password and adding itself to the list of reachable Zs.
-  */
+ * Initializer for the core.
+ *
+ * Calls parent to ensure its added to the GLOB of tcomms machines, before generating a link password and adding itself to the list of reachable Zs.
+ */
 /obj/machinery/tcomms/core/Initialize(mapload)
 	. = ..()
 	link_password = GenerateKey()
@@ -71,10 +71,10 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /**
-  * Destructor for the core.
-  *
-  * Ensures that the machine is taken out of the global list when destroyed, and also unlinks all connected relays
-  */
+ * Destructor for the core.
+ *
+ * Ensures that the machine is taken out of the global list when destroyed, and also unlinks all connected relays
+ */
 /obj/machinery/tcomms/core/Destroy()
 	for(var/obj/machinery/tcomms/relay/R in linked_relays)
 		R.Reset()
@@ -83,14 +83,14 @@
 	return ..()
 
 /**
-  * Helper to see if a zlevel is reachable
-  *
-  * This is a simple check to see if the input z-level is in the list of reachable ones
-  * Returns TRUE if it can, FALSE if it cant
-  *
-  * Arguments:
-  * * zlevel - The input z level to test
-  */
+ * Helper to see if a zlevel is reachable
+ *
+ * This is a simple check to see if the input z-level is in the list of reachable ones
+ * Returns TRUE if it can, FALSE if it cant
+ *
+ * Arguments:
+ * * zlevel - The input z level to test
+ */
 /obj/machinery/tcomms/core/proc/zlevel_reachable(zlevel)
 	// Nothing is reachable if the core is offline, unpowered, or ion'd
 	if(!active || (stat & NOPOWER) || ion)
@@ -101,14 +101,14 @@
 		return FALSE
 
 /**
-  * Proc which takes in the message datum
-  *
-  * Some checks are ran on the signal, and NTTC is applied
-  * After that, it is broadcasted out to the required Z-levels
-  *
-  * Arguments:
-  * * tcm - The tcomms message datum
-  */
+ * Proc which takes in the message datum
+ *
+ * Some checks are ran on the signal, and NTTC is applied
+ * After that, it is broadcasted out to the required Z-levels
+ *
+ * Arguments:
+ * * tcm - The tcomms message datum
+ */
 /obj/machinery/tcomms/core/proc/handle_message(datum/tcomms_message/tcm)
 	// Don't do anything with rejected signals, if were offline, if we are ion'd, or if we have no power
 	if(tcm.reject || !active || (stat & NOPOWER) || ion)
@@ -137,12 +137,12 @@
 	return FALSE
 
 /**
-  * Proc to remake the list of available zlevels
-  *
-  * Loops through the list of connected relays and adds their zlevels in.
-  * This is called if a relay is added or removed
-  *
-  */
+ * Proc to remake the list of available zlevels
+ *
+ * Loops through the list of connected relays and adds their zlevels in.
+ * This is called if a relay is added or removed
+ *
+ */
 /obj/machinery/tcomms/core/proc/refresh_zlevels()
 	if(QDELING(src))
 		return
@@ -172,19 +172,19 @@
 
 
 /**
-  * Z-Level transit change helper
-  *
-  * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels
-  */
+ * Z-Level transit change helper
+ *
+ * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels
+ */
 /obj/machinery/tcomms/core/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	. = ..()
 	refresh_zlevels()
 
 /**
-  * Power-on checker
-  *
-  * Checks the z-level to see if an existing core is already powered on, and deny this one turning on if there is one. Returns TRUE if it can power on, or FALSE if it cannot
-  */
+ * Power-on checker
+ *
+ * Checks the z-level to see if an existing core is already powered on, and deny this one turning on if there is one. Returns TRUE if it can power on, or FALSE if it cannot
+ */
 /obj/machinery/tcomms/core/proc/check_power_on()
 	// Cancel if we are already on
 	if(active)

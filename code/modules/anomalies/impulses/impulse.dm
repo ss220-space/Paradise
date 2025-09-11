@@ -14,7 +14,7 @@
 	/// The object emitting the pulse. If it does not exist, the pulse should be removed.
 	var/obj/effect/anomaly/owner = null
 
-/datum/anomaly_impulse/New(var/owner)
+/datum/anomaly_impulse/New(owner)
 	. = ..()
 	src.owner = owner
 

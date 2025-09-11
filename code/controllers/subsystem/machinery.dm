@@ -2,6 +2,7 @@
 #define SSMACHINES_POWERNETS 2
 #define SSMACHINES_PREMACHINERY 3
 #define SSMACHINES_MACHINERY 4
+
 SUBSYSTEM_DEF(machines)
 	name = "Machines"
 	init_order = INIT_ORDER_MACHINES
@@ -163,3 +164,8 @@ SUBSYSTEM_DEF(machines)
 		processing = SSmachines.processing
 	if(istype(SSmachines.powernets))
 		powernets = SSmachines.powernets
+
+#undef SSMACHINES_DEFERREDPOWERNETS
+#undef SSMACHINES_POWERNETS
+#undef SSMACHINES_PREMACHINERY
+#undef SSMACHINES_MACHINERY

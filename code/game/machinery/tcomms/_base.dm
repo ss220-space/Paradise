@@ -20,13 +20,13 @@
 GLOBAL_LIST_EMPTY(tcomms_machines)
 
 /**
-  * # Telecommunications Device
-  *
-  * This is the base machine for both tcomms devices (core + relay)
-  *
-  * This holds a few base procs (Icon updates, enable/disable, etc)
-  * It also has the initial overrides for Initialize() and Destroy()
-  */
+ * # Telecommunications Device
+ *
+ * This is the base machine for both tcomms devices (core + relay)
+ *
+ * This holds a few base procs (Icon updates, enable/disable, etc)
+ * It also has the initial overrides for Initialize() and Destroy()
+ */
 /obj/machinery/tcomms
 	name = "Telecommunications Device"
 	desc = "Если вы это видите, составьте баг-репорт в Discord."
@@ -54,10 +54,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	)
 
 /**
-  * Base Initializer
-  *
-  * Ensures that the machine is put into the global list of tcomms devices, and then its made sure that the icon is correct if the machine starts offline
-  */
+ * Base Initializer
+ *
+ * Ensures that the machine is put into the global list of tcomms devices, and then its made sure that the icon is correct if the machine starts offline
+ */
 /obj/machinery/tcomms/Initialize(mapload)
 	. = ..()
 	GLOB.tcomms_machines += src
@@ -77,10 +77,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 /**
-  * Base Destructor
-  *
-  * Ensures that the machine is taken out of the global list when destroyed
-  */
+ * Base Destructor
+ *
+ * Ensures that the machine is taken out of the global list when destroyed
+ */
 /obj/machinery/tcomms/Destroy()
 	GLOB.tcomms_machines -= src
 	if(usr)
@@ -88,10 +88,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	return ..()
 
 /**
-  * Icon Updater
-  *
-  * Ensures that the icon updates properly based on if the machine is active or not. This removes the need for this check in many other places.
-  */
+ * Icon Updater
+ *
+ * Ensures that the icon updates properly based on if the machine is active or not. This removes the need for this check in many other places.
+ */
 /obj/machinery/tcomms/update_icon_state()
 	// Show the off sprite if were inactive, ion'd or unpowered
 	if(!active || (stat & NOPOWER) || ion)
@@ -119,28 +119,28 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	return
 
 /**
-  * Start of Ion Anomaly Event
-  *
-  * Proc to easily start an Ion Anomaly's effects, and update the icon
-  */
+ * Start of Ion Anomaly Event
+ *
+ * Proc to easily start an Ion Anomaly's effects, and update the icon
+ */
 /obj/machinery/tcomms/proc/start_ion()
 	ion = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
 /**
-  * End of Ion Anomaly Event
-  *
-  * Proc to easily stop an Ion Anomaly's effects, and update the icon
-  */
+ * End of Ion Anomaly Event
+ *
+ * Proc to easily stop an Ion Anomaly's effects, and update the icon
+ */
 /obj/machinery/tcomms/proc/end_ion()
 	ion = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
 /**
-  * Z-Level transit change helper
-  *
-  * Proc to make sure you cant have two of these active on a Z-level at once. It also makes sure to update the linkage
-  */
+ * Z-Level transit change helper
+ *
+ * Proc to make sure you cant have two of these active on a Z-level at once. It also makes sure to update the linkage
+ */
 /obj/machinery/tcomms/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer)
 	. = ..()
 	if(active)
@@ -151,38 +151,38 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 
 /**
-  * Logging helper
-  *
-  * Proc which allows easy logging of changs made to tcomms machines
-  * Arguments:
-  * * user - The user who did the action
-  * * msg - The log message
-  * * adminmsg - Should an admin log be sent when this happens
-  */
+ * Logging helper
+ *
+ * Proc which allows easy logging of changs made to tcomms machines
+ * Arguments:
+ * * user - The user who did the action
+ * * msg - The log message
+ * * adminmsg - Should an admin log be sent when this happens
+ */
 /obj/machinery/tcomms/proc/log_action(user, msg, adminmsg = FALSE)
 	add_misc_logs(user, "NTTC: [key_name(user)] [msg]")
 	if(adminmsg)
 		message_admins("[key_name_admin(user)] [msg]")
 /**
-  * Power Change Handler
-  *
-  * Proc which ensures icons are updated when machines lose power
-  */
+ * Power Change Handler
+ *
+ * Proc which ensures icons are updated when machines lose power
+ */
 /obj/machinery/tcomms/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
 
 /**
-  * # Telecommunications Message
-  *
-  * Datum which holds all the data for a message being sent
-  *
-  * This used to be a single associative list with just keys and values
-  * It had no typepath or presence checking, and was absolutely awful to work with
-  * This fixes that
-  *
-  */
+ * # Telecommunications Message
+ *
+ * Datum which holds all the data for a message being sent
+ *
+ * This used to be a single associative list with just keys and values
+ * It had no typepath or presence checking, and was absolutely awful to work with
+ * This fixes that
+ *
+ */
 /datum/tcomms_message
 	/// Who sent the message
 	var/sender_name = "Ошибка"
@@ -224,10 +224,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/pass = TRUE
 
 /**
-  * Destructor for the TCM datum.
-  *
-  * This needs to happen like this so that things dont keep references held in place
-  */
+ * Destructor for the TCM datum.
+ *
+ * This needs to happen like this so that things dont keep references held in place
+ */
 /datum/tcomms_message/Destroy()
 	connection = null
 	radio = null
@@ -240,14 +240,14 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 #define SYNDICATE_RADIO_TYPE 2
 
 /**
-  * Connection checker
-  *
-  * Checks the connection frequency against the intended frequency for the message
-  * NOTE: I barely know what on earth this does, but it works and it scares me
-  * Arguments:
-  * * old_freq - Frequency of the connection
-  * * new_freq - Frequency of the message
-  */
+ * Connection checker
+ *
+ * Checks the connection frequency against the intended frequency for the message
+ * NOTE: I barely know what on earth this does, but it works and it scares me
+ * Arguments:
+ * * old_freq - Frequency of the connection
+ * * new_freq - Frequency of the message
+ */
 /proc/is_bad_connection(old_freq, new_freq)
 	var/old_type = CREW_RADIO_TYPE
 	var/new_type = CREW_RADIO_TYPE
@@ -271,13 +271,13 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 
 /**
-  * Message Broadcast Proc
-  *
-  * This big fat disaster is responsible for sending the message out to all headsets and radios on the station
-  * It is absolutely disgusting, but used to take about 20 arguments before I slimmed it down to just one
-  * Arguments:
-  * * tcm - The tcomms message datum
-  */
+ * Message Broadcast Proc
+ *
+ * This big fat disaster is responsible for sending the message out to all headsets and radios on the station
+ * It is absolutely disgusting, but used to take about 20 arguments before I slimmed it down to just one
+ * Arguments:
+ * * tcm - The tcomms message datum
+ */
 /proc/broadcast_message(datum/tcomms_message/tcm)
 
 
@@ -333,9 +333,9 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	// Get a list of mobs who can hear from the radios we collected.
 	var/list/receive = get_mobs_in_radio_ranges(radios)
 
-  /* ###### Organize the receivers into categories for displaying the message ###### */
+	/* ###### Organize the receivers into categories for displaying the message ###### */
 
- 	// Understood the message:
+	// Understood the message:
 	var/list/heard_masked	= list() // masked name or no real name
 	var/list/heard_normal	= list() // normal message
 
@@ -373,10 +373,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			heard_garbled += R
 
 
-  /* ###### Begin formatting and sending the message ###### */
+	/* ###### Begin formatting and sending the message ###### */
 	if(length(heard_masked) || length(heard_normal) || length(heard_voice) || length(heard_garbled) || length(heard_gibberish))
 
-	  /* --- Some miscellaneous variables to format the string output --- */
+		/* --- Some miscellaneous variables to format the string output --- */
 		var/freq_text = get_frequency_name(display_freq)
 
 		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><b>\[[freq_text]\]</b> <span class='name'>" // goes in the actual output
@@ -388,10 +388,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		SSblackbox.LogBroadcast(display_freq)
 
-	 /* ###### Send the message ###### */
+	/* ###### Send the message ###### */
 
 
-	 	/* --- Process all the mobs that heard a masked voice (understood) --- */
+		/* --- Process all the mobs that heard a masked voice (understood) --- */
 
 		if(length(heard_masked))
 			for(var/M in heard_masked)
@@ -432,14 +432,14 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 
 /**
-  * # Telecommunications Password Paper
-  *
-  * Piece of paper that spawns with the default link password
-  *
-  * This is spawned in the CE office and has the default link password
-  * While convenient, this is not necessary and doesnt matter if it gets lost or destroyed
-  * Because you can view the password easily by just looking at the core link page
-  */
+ * # Telecommunications Password Paper
+ *
+ * Piece of paper that spawns with the default link password
+ *
+ * This is spawned in the CE office and has the default link password
+ * While convenient, this is not necessary and doesnt matter if it gets lost or destroyed
+ * Because you can view the password easily by just looking at the core link page
+ */
 /obj/item/paper/tcommskey
 	name = "Telecommunications linkage password"
 	desc = "Памятка, содержащая коды для изменения конфигурации телекоммуникационных систем."
@@ -455,20 +455,20 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	)
 
 /**
-  * Password Paper Initializer
-  *
-  * This paper MUST be LateInitialized so the core has a chance to initialize and setup its password
-  * Otherwise shit breaks BADLY
-  */
+ * Password Paper Initializer
+ *
+ * This paper MUST be LateInitialized so the core has a chance to initialize and setup its password
+ * Otherwise shit breaks BADLY
+ */
 /obj/item/paper/tcommskey/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
 /**
-  * Password Paper Late Initializer
-  *
-  * Since the core was regularly initialized, we can now use the LateInitialize here to grab its password, then put it on paper
-  */
+ * Password Paper Late Initializer
+ *
+ * Since the core was regularly initialized, we can now use the LateInitialize here to grab its password, then put it on paper
+ */
 /obj/item/paper/tcommskey/LateInitialize(mapload)
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		if(C.network_id == "СТАНЦИЯ-ЯДРО")
@@ -482,19 +482,19 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	return ..()
 
 /**
-  * Screwdriver Act Handler
-  *
-  * Handles the screwdriver action for all tcomms machines, so they can be open and closed to be deconstructed
-  */
+ * Screwdriver Act Handler
+ *
+ * Handles the screwdriver action for all tcomms machines, so they can be open and closed to be deconstructed
+ */
 /obj/machinery/tcomms/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 
 /**
-  * Crowbar Act Handler
-  *
-  * Handles the crowbar action for all tcomms machines, so they can be deconstructed
-  */
+ * Crowbar Act Handler
+ *
+ * Handles the crowbar action for all tcomms machines, so they can be deconstructed
+ */
 /obj/machinery/tcomms/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_crowbar(user, I)

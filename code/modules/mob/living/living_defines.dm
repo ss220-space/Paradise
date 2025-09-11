@@ -9,7 +9,7 @@
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
-  /// Maximum stamina, currently could be changed only with nutrition bonuses, MUST be lower than MAX_STAMINA_LOSS
+	/// Maximum stamina, currently could be changed only with nutrition bonuses, MUST be lower than MAX_STAMINA_LOSS
 	var/max_stamina = BASE_MAX_STAMINA
 	var/health = 100 	//A mob's health
 

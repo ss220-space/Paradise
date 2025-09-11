@@ -184,9 +184,6 @@
 
 	necrotize_body(mob, REVIVE_SPELL_NECROSIS_PROB)
 
-#undef REVIVE_SPELL_TIME
-
-
 /obj/effect/proc_holder/spell/conjure_item/contract_gun
 	name = "Призвать верное оружие"
 	desc = "Призвать оружие, полученное в обмен на душу."
@@ -208,3 +205,6 @@
 	item.materials = list()
 	ADD_TRAIT(item, TRAIT_NODROP, INNATE_TRAIT)
 	ADD_TRAIT(item, TRAIT_NOT_TURRET_GUN, INNATE_TRAIT)
+
+#undef REVIVE_SPELL_TIME
+#undef REVIVE_SPELL_NECROSIS_PROB

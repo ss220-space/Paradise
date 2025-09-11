@@ -490,16 +490,16 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(MUTATIONS_LAYER)
 
 /mob/living/carbon/human/proc/update_mutant_ears()
-    remove_overlay(MUTANT_EARS_LAYER)
-    var/datum/dna/gene/disability/catears/ears_gene = locate(/datum/dna/gene/disability/catears) in GLOB.dna_genes
-    if(!ears_gene.is_active(src))
-        return
+	remove_overlay(MUTANT_EARS_LAYER)
+	var/datum/dna/gene/disability/catears/ears_gene = locate(/datum/dna/gene/disability/catears) in GLOB.dna_genes
+	if(!ears_gene.is_active(src))
+		return
 
-    var/mutable_appearance/felinide_ears = mutable_appearance('icons/effects/genetics.dmi', layer = -MUTANT_EARS_LAYER)
-    var/painted_ears = ears_gene.paint_felinide_ears(src)
-    felinide_ears.underlays += painted_ears
-    overlays_standing[MUTANT_EARS_LAYER] = felinide_ears
-    apply_overlay(MUTANT_EARS_LAYER)
+	var/mutable_appearance/felinide_ears = mutable_appearance('icons/effects/genetics.dmi', layer = -MUTANT_EARS_LAYER)
+	var/painted_ears = ears_gene.paint_felinide_ears(src)
+	felinide_ears.underlays += painted_ears
+	overlays_standing[MUTANT_EARS_LAYER] = felinide_ears
+	apply_overlay(MUTANT_EARS_LAYER)
 
 /mob/living/carbon/human/update_fire()
 	remove_overlay(FIRE_LAYER)

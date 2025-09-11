@@ -29,18 +29,12 @@
 			to_chat(src, span_danger("[used_item_name ? "You try to use [used_item_name], but y": "Y"]our [active_hand] don't withstand the load!"))
 			active_hand.fracture()
 
-
 /atom/proc/attack_hand(mob/user)
 	. = FALSE
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
-/*
-/mob/living/carbon/human/RestrainedClickOn(var/atom/A) -- Handled by carbons
-	return
-*/
-
-/mob/living/carbon/RestrainedClickOn(var/atom/A)
+/mob/living/carbon/RestrainedClickOn(atom/A)
 	return 0
 
 /mob/living/carbon/human/RangedAttack(atom/A, params)

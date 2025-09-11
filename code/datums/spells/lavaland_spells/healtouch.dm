@@ -26,13 +26,13 @@
 
 /obj/item/melee/touch_attack/healtouch/get_ru_names()
 	return list(
-        NOMINATIVE = "целебное касание",
-        GENITIVE = "целебного касания",
-        DATIVE = "целебному касанию",
-        ACCUSATIVE = "целебное касание",
-        INSTRUMENTAL = "целебным касанием",
-        PREPOSITIONAL = "целебном касании"
- 	)
+		NOMINATIVE = "целебное касание",
+		GENITIVE = "целебного касания",
+		DATIVE = "целебному касанию",
+		ACCUSATIVE = "целебное касание",
+		INSTRUMENTAL = "целебным касанием",
+		PREPOSITIONAL = "целебном касании"
+	)
 
 /obj/item/melee/touch_attack/healtouch/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!proximity || (target == user && !heal_self) || !ismob(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

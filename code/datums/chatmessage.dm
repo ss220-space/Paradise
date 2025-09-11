@@ -25,10 +25,10 @@
 
 
 /**
-  * # Chat Message Overlay
-  *
-  * Datum for generating a message overlay on the map
-  */
+ * # Chat Message Overlay
+ *
+ * Datum for generating a message overlay on the map
+ */
 /datum/chatmessage
 	/// The visual element of the chat messsage
 	var/image/message
@@ -95,8 +95,8 @@
 
 
 /**
-  * Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal
-  */
+ * Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal
+ */
 /datum/chatmessage/proc/on_parent_qdel()
 	SIGNAL_HANDLER
 	if(!QDELETED(src))
@@ -386,12 +386,12 @@
 
 
 /**
-  * Proc to allow atoms to set their own runechat colour
-  *
-  * This is a proc designed to be overridden in places if you want a specific atom to use a specific runechat colour
-  * Exampls include consoles using a colour based on their screen colour, and mobs using a colour based off of a customisation property
-  *
-  */
+ * Proc to allow atoms to set their own runechat colour
+ *
+ * This is a proc designed to be overridden in places if you want a specific atom to use a specific runechat colour
+ * Exampls include consoles using a colour based on their screen colour, and mobs using a colour based off of a customisation property
+ *
+ */
 /atom/proc/get_runechat_color()
 	return chat_color
 

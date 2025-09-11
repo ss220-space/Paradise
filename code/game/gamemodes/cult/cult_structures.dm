@@ -111,8 +111,8 @@
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
 
 /**
-  * Returns the cooldown time in minutes and seconds
-  */
+ * Returns the cooldown time in minutes and seconds
+ */
 /obj/structure/cult/functional/proc/get_ETA()
 	var/time = cooldowntime - world.time
 	var/minutes = round(time / 600)

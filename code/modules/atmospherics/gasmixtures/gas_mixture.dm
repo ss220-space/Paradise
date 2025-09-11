@@ -1,20 +1,20 @@
- /*
+/*
 What are the archived variables for?
 	Calculations are done using the archived variables with the results merged into the regular variables.
 	This prevents race conditions that arise based on the order of tile processing.
 */
 
-#define SPECIFIC_HEAT_TOXIN		200
-#define SPECIFIC_HEAT_AIR		20
-#define SPECIFIC_HEAT_CDO		30
-#define SPECIFIC_HEAT_N2O		40
-#define SPECIFIC_HEAT_AGENT_B	300
+#define SPECIFIC_HEAT_TOXIN 200
+#define SPECIFIC_HEAT_AIR 20
+#define SPECIFIC_HEAT_CDO 30
+#define SPECIFIC_HEAT_N2O 40
+#define SPECIFIC_HEAT_AGENT_B 300
 
 #define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b) \
 	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B)
 
-#define MINIMUM_HEAT_CAPACITY	0.0003
-#define QUANTIZE(variable)		(round(variable, 0.0001))
+#define MINIMUM_HEAT_CAPACITY 0.0003
+#define QUANTIZE(variable) (round(variable, 0.0001))
 
 /datum/gas_mixture
 	var/oxygen = 0
@@ -599,3 +599,12 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 10 = 2.5/5*20
 
 */
+
+#undef SPECIFIC_HEAT_TOXIN
+#undef SPECIFIC_HEAT_AIR
+#undef SPECIFIC_HEAT_CDO
+#undef SPECIFIC_HEAT_N2O
+#undef SPECIFIC_HEAT_AGENT_B
+#undef HEAT_CAPACITY_CALCULATION
+#undef MINIMUM_HEAT_CAPACITY
+#undef QUANTIZE

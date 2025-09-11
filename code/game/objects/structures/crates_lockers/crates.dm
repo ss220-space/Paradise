@@ -3,9 +3,7 @@
 #define SECURE_CRATE_STAGE_WIRES_PREPARED 2
 #define SECURE_CRATE_STAGE_OPENED 1
 
-
 // MARK: Basic crate
-
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
@@ -162,7 +160,7 @@
 		toggle(user, by_hand = TRUE)
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
-/obj/structure/closet/crate/proc/notifyRecipient(var/destination)
+/obj/structure/closet/crate/proc/notifyRecipient(destination)
 	var/msg = "[capitalize(name)] has arrived at [destination]."
 	if(destination in announce_beacons)
 		for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
@@ -756,3 +754,8 @@
 		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь – кислород)",
 		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь – кислород)"
 	)
+
+#undef SECURE_CRATE_STAGE_NO_BROKEN
+#undef SECURE_CRATE_STAGE_PANEL_OPEN
+#undef SECURE_CRATE_STAGE_WIRES_PREPARED
+#undef SECURE_CRATE_STAGE_OPENED

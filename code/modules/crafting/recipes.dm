@@ -611,8 +611,10 @@
 	name = "Bone Talisman"
 	result = /obj/item/clothing/accessory/necklace/talisman
 	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/sinew = 1)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 2,
+		/obj/item/stack/sheet/sinew = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
 
@@ -620,8 +622,10 @@
 	name = "Skull Codpiece"
 	result = /obj/item/clothing/accessory/necklace/skullcodpiece
 	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 2,
+		/obj/item/stack/sheet/animalhide/goliath_hide = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
 
@@ -629,8 +633,10 @@
 	name = "Bone Bracers"
 	result = /obj/item/clothing/gloves/bracer
 	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/sinew = 1)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 2,
+		/obj/item/stack/sheet/sinew = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
 
@@ -794,8 +800,10 @@
 /datum/crafting_recipe/primitive_surgical_kit
 	name = "Primitive surgical kit"
 	time = 30
-	reqs = list(/obj/item/stack/sheet/bone = 6,
-				/obj/item/stack/sheet/sinew = 3)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 6,
+		/obj/item/stack/sheet/sinew = 3
+	)
 	result = list(/obj/item/storage/toolbox/surgery/ashwalker)
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
@@ -830,8 +838,10 @@
 	name = "Bone Spear"
 	result = /obj/item/twohanded/spear/bonespear
 	time = 30
-	reqs = list(/obj/item/stack/sheet/bone = 4,
-				 /obj/item/stack/sheet/sinew = 1)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 4,
+		/obj/item/stack/sheet/sinew = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
@@ -862,9 +872,11 @@
 	name = "Wooden Bow"
 	result = /obj/item/gun/projectile/bow
 	time = 30
-	reqs = list(/obj/item/stack/sheet/wood = 2,
-				 /obj/item/stack/sheet/sinew = 2,
-				 /obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 2,
+		/obj/item/stack/sheet/sinew = 2,
+		/obj/item/stack/sheet/animalhide/goliath_hide = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
@@ -886,8 +898,10 @@
 				/obj/item/ammo_casing/caseless/arrow,
 				/obj/item/ammo_casing/caseless/arrow)
 	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 1,
-				 /obj/item/stack/sheet/wood = 1)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 1,
+		/obj/item/stack/sheet/wood = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
@@ -922,8 +936,10 @@
 	name = "Quiver"
 	result = /obj/item/storage/backpack/quiver
 	time = 30
-	reqs = list(/obj/item/stack/sheet/wood = 2,
-				 /obj/item/stack/sheet/sinew = 1)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 2,
+		/obj/item/stack/sheet/sinew = 1
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
@@ -948,8 +964,10 @@
 	name = "Bone Axe"
 	result = /obj/item/twohanded/fireaxe/boneaxe
 	time = 50
-	reqs = list(/obj/item/stack/sheet/bone = 6,
-				 /obj/item/stack/sheet/sinew = 3)
+	reqs = list(
+		/obj/item/stack/sheet/bone = 6,
+		/obj/item/stack/sheet/sinew = 3
+	)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
