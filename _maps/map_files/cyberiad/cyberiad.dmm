@@ -26877,6 +26877,10 @@
 "bQr" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
+/obj/structure/extinguisher_cabinet{
+	name = "east extinguisher cabinet";
+	pixel_x = 27
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
@@ -57286,6 +57290,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
+"gpi" = (
+/obj/structure/extinguisher_cabinet{
+	name = "east extinguisher cabinet";
+	pixel_x = 27
+	},
+/turf/simulated/floor/grass,
+/area/hallway/secondary/garden)
 "gpu" = (
 /obj/machinery/camera{
 	c_tag = "Research E.X.P.E.R.I-MENTOR Chamber";
@@ -58486,7 +58497,6 @@
 /area/medical/surgery/north)
 "gTQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/soap,
 /obj/item/trash/pistachios{
 	pixel_x = 12
 	},
@@ -62011,6 +62021,13 @@
 	icon_state = "tranquillite"
 	},
 /area/crew_quarters/bar/atrium)
+"iJK" = (
+/obj/structure/extinguisher_cabinet{
+	name = "west extinguisher cabinet";
+	pixel_x = -27
+	},
+/turf/simulated/floor/wood,
+/area/civilian/vacantoffice)
 "iJY" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -63232,6 +63249,10 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "east extinguisher cabinet";
+	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -71211,6 +71232,10 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
+/obj/structure/extinguisher_cabinet{
+	name = "east extinguisher cabinet";
+	pixel_x = 27
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluefull"
@@ -87010,6 +87035,11 @@
 /area/maintenance/fsmaint2)
 "uTT" = (
 /obj/machinery/light,
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south fire alarm";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -93692,6 +93722,10 @@
 "xRs" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 10
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "west extinguisher cabinet";
+	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -106620,7 +106654,7 @@ djx
 aUl
 dna
 rbW
-djz
+iJK
 drR
 bqr
 aSC
@@ -113284,7 +113318,7 @@ jHY
 oUc
 aTu
 bbL
-cCX
+gpi
 bWR
 bqT
 foF
