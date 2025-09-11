@@ -896,7 +896,7 @@
 	item = /obj/item/twohanded/chainsaw
 	cost = 60
 	hijack_only = TRUE
-	surplus = 0
+	surplus = FALSE
 
 /datum/uplink_item/dangerous/rapier
 	name = "Рапира Синдиката"
