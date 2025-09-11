@@ -109,6 +109,7 @@
 		if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_PALE)
 			apply_damage(BLOOD_OKAY_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
 			if(prob(5))
+				Confused(2 SECONDS)
 				var/symptom = pick("слабость",
 					"лёгкое головокружение",
 					"небольшую тошноту")
@@ -118,6 +119,7 @@
 			apply_damage(BLOOD_BAD_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
 			if(prob(5))
 				EyeBlurry(12 SECONDS)
+				Confused(12 SECONDS)
 				var/symptom = pick("сильную слабость",
 					"сильное головокружение",
 					"нарастающую тошноту",
@@ -127,6 +129,8 @@
 		if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
 			apply_damage(BLOOD_SURVIVE_DAMAGE, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
 			if(prob(15))
+				Confused(10 SECONDS)
+				Slowed(15 SECONDS)
 				Paralyse(rand(2 SECONDS, 6 SECONDS))
 				var/symptom = pick("крайнюю слабость",
 					"очень сильное головокружение",
