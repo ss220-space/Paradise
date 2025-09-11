@@ -259,7 +259,7 @@
 	SSshuttle.centcom_message += "[msg]<hr>"
 
 /********************
-    SUPPLY ORDER
+	SUPPLY ORDER
  ********************/
 /datum/supply_order
 	var/ordernum
@@ -374,7 +374,7 @@
 	return Crate
 
 /***************************
-    ORDER/REQUESTS CONSOLE
+	ORDER/REQUESTS CONSOLE
  **************************/
 /obj/machinery/computer/supplycomp
 	name = "Supply Shuttle Console"

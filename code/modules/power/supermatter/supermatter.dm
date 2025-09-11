@@ -580,10 +580,10 @@
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 
 /obj/machinery/power/supermatter_shard/proc/emergency_lighting(active)
-    if(active)
-        post_status(STATUS_DISPLAY_ALERT, "radiation")
-    else
-        post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
+	if(active)
+		post_status(STATUS_DISPLAY_ALERT, "radiation")
+	else
+		post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 
 /obj/machinery/power/supermatter_shard/proc/supermatter_zap()
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = zap_sound_extrarange)

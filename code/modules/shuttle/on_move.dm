@@ -12,12 +12,12 @@
 	return TRUE
 
 /obj/effect/landmark/shuttle_import/onShuttleMove()
-    // Used for marking where to preview/load shuttles
-    return FALSE
+	// Used for marking where to preview/load shuttles
+	return FALSE
 
 /obj/docking_port/onShuttleMove()
-    // Stationary ports shouldn't move, mobile ones move themselves
-    return FALSE
+	// Stationary ports shouldn't move, mobile ones move themselves
+	return FALSE
 
 /obj/machinery/door/airlock/onShuttleMove()
 	. = ..()

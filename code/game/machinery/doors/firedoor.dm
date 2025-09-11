@@ -161,8 +161,10 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	user.visible_message(span_notice("[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts."), \
-						 span_notice("You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts."))
+	user.visible_message(
+		span_notice("[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts."), \
+		span_notice("You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts.")
+	)
 	boltslocked = !boltslocked
 
 /obj/machinery/door/firedoor/wrench_act(mob/user, obj/item/I)
@@ -176,12 +178,16 @@
 	if(boltslocked)
 		to_chat(user, span_notice("There are screws locking the bolts in place!"))
 		return
-	user.visible_message(span_notice("[user] starts undoing [src]'s bolts..."), \
-						 span_notice("You start unfastening [src]'s floor bolts..."))
+	user.visible_message(
+		span_notice("[user] starts undoing [src]'s bolts..."), \
+		span_notice("You start unfastening [src]'s floor bolts...")
+	)
 	if(!I.use_tool(src, user, 50, volume = I.tool_volume) || boltslocked)
 		return
-	user.visible_message(span_notice("[user] unfastens [src]'s bolts."), \
-							span_notice("You undo [src]'s floor bolts."))
+	user.visible_message(
+		span_notice("[user] unfastens [src]'s bolts."), \
+		span_notice("You undo [src]'s floor bolts.")
+	)
 	deconstruct(TRUE)
 
 /obj/machinery/door/firedoor/welder_act(mob/user, obj/item/I)
