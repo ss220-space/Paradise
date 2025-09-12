@@ -31,16 +31,26 @@
 #define OPEN_BODYPART_BLEEDING 0.75
 /// Internal bleeding size (units per 2 sec)
 #define BODYPART_INTERNAL_BLEEDING 0.5
-
 /// Decrease bleeding size if no wounds (units per 2 sec)
 #define BLEEDING_DECREASE 0.005
 /// Multiplyer for bleeding calculate from bodypart value
 #define BLEEDING_MODIFIER 0.45
+/// How many bleeding is heavy bleeding
+#define HEAVY_BLEEDING_RATE 5
+/// Suppressed bleeding modifier
+#define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
+/// Oxy damage if use tourniquet on head
+#define OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD 10
+/// Tourniquet duration for necrotize limb
+#define TOURNIQUET_LIMB_NECROTIZE_DURATION (1 MINUTES)
+
 /// Minimal brute damage for add bleeding
 #define MIN_BRUTE_DAMAGE_FOR_BLEEDING 15
+/// Brute damage for 100% bleeding chance
 #define BRUTE_DAMAGE_FOR_GARANT_BLEEDING 30
 /// Minimal brute damage for add bleeding
 #define MIN_BURN_DAMAGE_FOR_STOP_BLEEDING 5
+/// Bleeding size after this bleeding is heavy
 /// Brute damage to bleeding calculation coefficient
 #define BRUTE_DAMAGE_TO_BLEEDING_MOD 0.1
 /// Minimal brute damage for add bleeding
@@ -49,11 +59,6 @@
 #define HEAL_DAMAGE_TO_BLEEDING_MOD 0.05
 /// Minimal brute damage for bodypart
 #define MIN_DAMAGE_FROM_BLEEDING_MOD 1.5
-/// Bleeding size after this bleeding is heavy
-#define HEAVY_BLEEDING_RATE 5
-/// Suppressed bleeding modifier
-#define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
-
 
 // MARK: External organ procs
 
@@ -159,6 +164,8 @@
 		if(bodypart.is_robotic())
 			continue
 		if(bodypart.tourniquet) //all bloodloss suppressed
+			if(bodypart.limb_zone == BODY_ZONE_HEAD)
+				apply_damage(OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD, OXY, spread_damage = TRUE, forced = TRUE)
 			continue
 		if(bodypart.has_internal_bleeding())
 			internal_bleeding_rate += BODYPART_INTERNAL_BLEEDING
@@ -571,6 +578,7 @@
 		oil.off_floor = TRUE
 		oil.layer = BELOW_MOB_LAYER
 
+#undef EXOTIC_BLEED_MULTIPLIER
 #undef BLOOD_REGENERATION
 #undef BLOOD_PALE_DAMAGE
 #undef BLOOD_OKAY_DAMAGE
@@ -578,8 +586,14 @@
 #undef BLOOD_SURVIVE_DAMAGE
 #undef BLOODLOSS_SPEED_BY_VOLUME_MAX
 #undef BLOODLOSS_SPEED_BY_VOLUME_MIN
+#undef BLOODLOSS_SPEED_BY_TEMP_MAX
+#undef BLOODLOSS_SPEED_BY_TEMP_MIN
 #undef EMBEDDED_ITEM_BLEEDING
 #undef OPEN_BODYPART_BLEEDING
 #undef BLEEDING_DECREASE
 #undef BLEEDING_MODIFIER
 #undef BRUISE_PACK_SUPPRESS_BLEEDING_MOD
+#undef HEAVY_BLEEDING_RATE
+#undef BODYPART_INTERNAL_BLEEDING
+#undef OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD
+#undef TOURNIQUET_LIMB_NECROTIZE_DURATION
