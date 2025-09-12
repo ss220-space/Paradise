@@ -401,7 +401,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency, FALSE)
+		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency, is_whisper = FALSE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
