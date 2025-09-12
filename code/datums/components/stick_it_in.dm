@@ -37,3 +37,5 @@
 		target_human.embed_item_inside(parent, user.zone_selected)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	return NONE
+
+#undef MELEE_BONUS_EMBED
