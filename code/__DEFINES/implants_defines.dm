@@ -34,4 +34,4 @@
 #define BIOCHIP_IMPLANT_NOROOM 0
 
 /// Stealth box alpha
-#define STEALTHXBOX_ALPHA 20
+#define STEALTHBOX_ALPHA 20
