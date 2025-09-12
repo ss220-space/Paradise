@@ -179,6 +179,7 @@
 
 	suck_rate = initial(suck_rate)
 	remove_all_powers()
+	subclass?.on_remove(src)
 	QDEL_NULL(subclass)
 	check_vampire_upgrade()
 
@@ -463,7 +464,6 @@
 /datum/antagonist/vampire/proc/remove_all_powers()
 	for(var/power in powers)
 		remove_ability(power)
-
 
 /datum/antagonist/vampire/proc/check_vampire_upgrade(announce = TRUE)
 	var/list/old_powers = powers.Copy()

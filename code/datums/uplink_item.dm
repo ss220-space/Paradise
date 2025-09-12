@@ -546,7 +546,7 @@
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF, \
 			JOB_TITLE_MECHANIC, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
 
-//RD
+//SCI
 
 /datum/uplink_item/jobspecific/telegun
 	name = "Телепушка"
@@ -554,7 +554,7 @@
 			Вам необходимо выбрать целевой маяк на телепушке, и тогда её снаряды будут отправлять цели к этому маяку."
 	item = /obj/item/gun/energy/telegun
 	cost = 66
-	job = list(JOB_TITLE_RD)
+	job = list(JOB_TITLE_SCIENTIST)
 
 //Roboticist
 
@@ -896,6 +896,7 @@
 	item = /obj/item/twohanded/chainsaw
 	cost = 60
 	hijack_only = TRUE
+	surplus = FALSE
 
 /datum/uplink_item/dangerous/rapier
 	name = "Рапира Синдиката"
@@ -1043,15 +1044,15 @@
 	cost = 5
 
 /datum/uplink_item/ammo/bullbuck
-	name = "Барабан 12x70 — \"Картечь\""
-	desc = "Барабан на 12 патронов картечи калибра 12x70. Отлично подходит для ближней дистанции."
+	name = "Барабан 12x70 — \"Магнум Картечь\""
+	desc = "Барабан на 12 патронов магнум картечи калибра 12x70. Отлично подходит для ближней дистанции."
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldragon
-	name = "Барабан 12x70 — \"Дыхание дракона\""
-	desc = "Барабан на 12 патронов \"Дыхание дракона\" калибра 12x70. Каждый снаряд содержит 4 поражающих элемента, которые при попадании поджигают цель."
+	name = "Барабан 12x70 — \"напалмовое Дыхание дракона\""
+	desc = "Барабан на 12 патронов \"напалмовое Дыхание дракона\" калибра 12x70. Каждый снаряд содержит 6 поражающих элементов, которые при попадании поджигают цель."
 	item = /obj/item/ammo_box/magazine/m12g/dragon
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1067,20 +1068,12 @@
 	name = "Барабан 12x70 — \"Биотеррор\""
 	desc = "Барабан на 12 патронов \"Биотеррор\" калибра 12x70. Эти снаряды наносят повреждения за счёт токсинов и радиации."
 	item = /obj/item/ammo_box/magazine/m12g/bioterror
-	cost = 15
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
-/datum/uplink_item/ammo/bullmeteor
-	name = "Барабан 12x70 — \"Метеорит\""
-	desc = "Барабан на 12 патронов \"Метеорит\" калибра 12x70. Каждый выстрел отбрасывает цель на три тайла и на некоторое время оглушает её. \
-			С их помощью можно выбить даже шлюз."
-	item = /obj/item/ammo_box/magazine/m12g/breach
-	cost = 25
+	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLbuck
-	name = "Расширенный барабан 12x70 — \"Картечь\""
-	desc = "Расширенный барабан на 24 патронов картечи калибра 12x70. Отлично подходит для ближней дистанции."
+	name = "Расширенный барабан 12x70 — \"Магнум Картечь\""
+	desc = "Расширенный барабан на 24 патронов магнум картечи калибра 12x70. Отлично подходит для ближней дистанции."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1088,14 +1081,14 @@
 /datum/uplink_item/ammo/bull_XLflechette
 	name = "Расширенный барабан 12x70 — \"Флешетта\""
 	desc = "Расширенный барабан на 24 патронов \"Флешетта\" калибра 12x70. \
-			В отличие от картечи, у этих дробинок более узкая траектория полёта. Они обладают бронебойным действием."
+			В отличие от картечи, у этих флашетт более узкая траектория полёта. Они обладают бронебойным действием."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLdragon
-	name = "Расширенный барабан 12x70 — \"Дыхание дракона\""
-	desc = "Расширенный барабан на 24 патронов \"Дыхание дракона\" калибра 12x70. Каждый снаряд содержит 4 поражающих элемента, которые при попадании поджигают цель."
+	name = "Расширенный барабан 12x70 — \"напалмовое Дыхание дракона\""
+	desc = "Расширенный барабан на 24 патронов \"напалмовое Дыхание дракона\" калибра 12x70. Каждый снаряд содержит 6 поражающих элементов, которые при попадании поджигают цель."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1104,14 +1097,14 @@
 	name = "Барабан 12x70 — сумка"
 	desc = "Сумка, содержащая 8 барабанов на 12 патронов калибра 12x70 \"Картечь\" и 1 барабан \"Дыхание дракона\"."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
-	cost = 60 // normally 90
+	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_XLmagsbag
 	name = "Расширенный барабан 12x70 — сумка"
 	desc = "Сумка, содержащая 3 расширенных барабана на 24 патронов калибра 12x70: \"Картечь\", \"Дыхание дракона\", \"Флешетта\"."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
-	cost = 45 // normally 90
+	cost = 45
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg
@@ -1154,7 +1147,7 @@
 /datum/uplink_item/ammo/machinegun
 	name = "Ручной пулемёт L6 SAW — магазин 5.56x45 мм"
 	desc = "Магазин на 50 патронов калибра 5.56x45 мм."
-	item = /obj/item/ammo_box/magazine/mm556x45
+	item = /obj/item/ammo_box/magazine/a762x51
 	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -2079,6 +2072,7 @@
 			Скафандр обеспечивает хорошую защиту, но при этом замедляет передвижение. Шлем защищает от вспышек."
 	cost = 46 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Элитный ИКС Синдиката"
@@ -2180,6 +2174,7 @@
 			Позволяет развернуть коробку, которая полностью скрывает вас от посторонних глаз."
 	item = /obj/item/implanter/stealth
 	cost = 40
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/implants/macrobomb
 	name = "Имплант макробомбы"
@@ -2310,6 +2305,13 @@
 	desc = "Устройство, замаскированное под игральную карту, способно телепортировать оружие вашего противника прямо к вам в руку, когда он пытается выстрелить в вас."
 	item = /obj/item/syndicate_reverse_card
 	cost = 10
+
+
+/datum/uplink_item/badass/bandage
+	name = "Военный перевязочный пакет"
+	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
+	item = /obj/item/stack/medical/bruise_pack/military
+	cost = 1
 
 /**
  * MARK: Bundles & TC

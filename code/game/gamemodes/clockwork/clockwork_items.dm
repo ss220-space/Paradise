@@ -112,7 +112,7 @@
 		to_chat(user, span_notice(" You start invoking teleportation..."))
 		animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
 		if(do_after(user, 1.5 SECONDS, user) && destination)
-			do_sparks(4, 0, user)
+			do_sparks(4, FALSE, user)
 			user.forceMove(get_turf(destination))
 			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			add_attack_logs(user, destination, "Teleported to by [src]", ATKLOG_ALL)
@@ -1016,7 +1016,7 @@
 		if(isrobot(living))
 			var/mob/living/silicon/robot/robot = living
 			robot.Weaken(1 SECONDS)
-		do_sparks(5, 0, loc)
+		do_sparks(5, FALSE, loc)
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
 		deplete_spell()
@@ -1444,7 +1444,7 @@
 		user.Confused(20 SECONDS)
 		user.Jitter(12 SECONDS)
 
-/obj/item/clockwork/shard/proc/give_ghost(var/mob/living/carbon/human/golem)
+/obj/item/clockwork/shard/proc/give_ghost(mob/living/carbon/human/golem)
 	set waitfor = FALSE
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Brass Golem?", ROLE_CLOCKER, TRUE, poll_time = 10 SECONDS, source = /obj/item/clockwork/clockslab)
 	if(length(candidates))

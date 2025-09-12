@@ -258,7 +258,7 @@
 
 	var/delay = (installed_module in shorten_delay) ? SHORTEN_UPLOAD_DELAY : NORMAL_UPLOAD_DELAY
 	to_chat(user, span_notice("Upload process has started. ETA: [delay/10] seconds."))
-	reg_name = istype(installed_module, /obj/item/ai_module/syndicate) ? "UNKNOWN" : id.registered_name
+	reg_name = istype(installed_module, /obj/item/ai_module/syndicate) ? uppertext(UNKNOWN_STATUS_RUS) : id.registered_name
 	timer_id = addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/aiupload, finish_upload), user), delay, TIMER_STOPPABLE)
 
 /obj/machinery/computer/aiupload/cyborg/finish_upload(mob/user)

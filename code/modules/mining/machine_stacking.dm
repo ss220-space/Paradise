@@ -5,7 +5,13 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	desc = "Управляет упаковочной машиной... по крайней мере в теории."
-	ru_names = list(
+	density = FALSE
+	anchored = TRUE
+	var/obj/machinery/mineral/stacking_machine/machine = null
+	var/machinedir = SOUTHEAST
+
+/obj/machinery/mineral/stacking_unit_console/get_ru_names()
+	return list(
 		NOMINATIVE = "консоль упаковочной машины",
 		GENITIVE = "консоли упаковочной машины",
 		DATIVE = "консоли упаковочной машины",
@@ -13,10 +19,6 @@
 		INSTRUMENTAL = "консолью упаковочной машины",
 		PREPOSITIONAL = "консоли упаковочной машины"
 	)
-	density = FALSE
-	anchored = TRUE
-	var/obj/machinery/mineral/stacking_machine/machine = null
-	var/machinedir = SOUTHEAST
 
 /obj/machinery/mineral/stacking_unit_console/Initialize(mapload)
 	. = ..()
@@ -72,14 +74,6 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "stacker"
 	desc = "Автоматически формирует стопки материалов. Управляется через консоль."
-	ru_names = list(
-		NOMINATIVE = "упаковочная машина",
-		GENITIVE = "упаковочной машины",
-		DATIVE = "упаковочной машине",
-		ACCUSATIVE = "упаковочную машину",
-		INSTRUMENTAL = "упаковочной машиной",
-		PREPOSITIONAL = "упаковочной машине"
-	)
 	density = TRUE
 	anchored = TRUE
 	var/obj/machinery/mineral/stacking_unit_console/CONSOLE
@@ -90,6 +84,16 @@
 	input_dir = EAST
 	output_dir = WEST
 	speed_process = TRUE
+
+/obj/machinery/mineral/stacking_machine/get_ru_names()
+	return list(
+		NOMINATIVE = "упаковочная машина",
+		GENITIVE = "упаковочной машины",
+		DATIVE = "упаковочной машине",
+		ACCUSATIVE = "упаковочную машину",
+		INSTRUMENTAL = "упаковочной машиной",
+		PREPOSITIONAL = "упаковочной машине"
+	)
 
 /obj/machinery/mineral/stacking_machine/process()
 	var/turf/T = get_step(src, input_dir)

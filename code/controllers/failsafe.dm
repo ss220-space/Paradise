@@ -1,7 +1,7 @@
- /**
-  * Failsafe
-  *
-  * Pretty much pokes the MC to make sure it's still alive.
+/**
+ * Failsafe
+ *
+ * Pretty much pokes the MC to make sure it's still alive.
  **/
 
 // See initialization order in /code/game/world.dm

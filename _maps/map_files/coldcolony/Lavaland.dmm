@@ -173,6 +173,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"cp" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "cz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -375,6 +379,27 @@
 /obj/structure/clockwork/wall_gear,
 /turf/simulated/wall/indestructible/boss,
 /area/mine/necropolis)
+"eF" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"eH" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "eO" = (
 /obj/item/camera_assembly,
 /turf/simulated/floor/plating,
@@ -386,6 +411,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/eva)
+"eZ" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/flora/firebush,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "fa" = (
 /obj/structure/stone_tile/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -425,6 +455,11 @@
 "fI" = (
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/unpowered)
+"fP" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "fV" = (
 /obj/structure/stone_tile/surrounding_tile,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -447,6 +482,19 @@
 /obj/item/twohanded/ratvarian_spear,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"gh" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "gj" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -478,6 +526,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/necropolis)
+"gu" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "gv" = (
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plating,
@@ -767,6 +819,18 @@
 /obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"iD" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/twohanded/fishing_rod/tribal,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "iK" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -870,6 +934,17 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"jw" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "jx" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -1298,6 +1373,14 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"lC" = (
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "lD" = (
 /obj/structure/stone_tile{
 	dir = 4
@@ -1752,12 +1835,26 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
+"nt" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic/hard,
+/area/lavaland/surface/outdoors)
 "nA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"nI" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "nK" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/cracked{
@@ -1775,6 +1872,13 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
+"oj" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "ok" = (
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1807,6 +1911,16 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
+"oy" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "oN" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -1820,6 +1934,13 @@
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plating,
 /area/mine/eva)
+"oT" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "pj" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -2141,6 +2262,9 @@
 /obj/item/stock_parts/capacitor,
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/mine/living_quarters)
+"to" = (
+/turf/simulated/mineral/random/volcanic/hard,
+/area/lavaland/surface/outdoors)
 "tq" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -2321,6 +2445,16 @@
 /obj/structure/firelock_frame,
 /turf/simulated/floor/plating,
 /area/mine/production)
+"vp" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/surrounding/burnt,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"vB" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/indestructible/boss,
+/area/ruin/unpowered/safe_cave)
 "vF" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -2387,6 +2521,18 @@
 /obj/item/radio/headset/headset_mining_medic,
 /turf/simulated/floor/plating,
 /area/mine/production)
+"wk" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "wp" = (
 /turf/simulated/wall/indestructible/boss{
 	opacity = 0
@@ -2402,6 +2548,16 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"wy" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "wz" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/mineral/random/volcanic,
@@ -2467,6 +2623,19 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"xn" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"xo" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "xu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -2476,12 +2645,32 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/eva)
+"xv" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/center,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "xw" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "xD" = (
 /turf/simulated/wall/r_wall,
 /area/mine/living_quarters)
+"xG" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "xM" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -2528,6 +2717,11 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"yb" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "yd" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
@@ -2548,6 +2742,13 @@
 /obj/structure/stone_tile/center,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
+"yo" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/table/wood,
+/obj/item/flashlight/lantern,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "yr" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
@@ -2565,6 +2766,17 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"yN" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "yO" = (
 /obj/structure/ore_box,
 /obj/machinery/alarm{
@@ -2642,6 +2854,19 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"zK" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "zM" = (
 /obj/structure/stone_tile/surrounding/burnt,
 /obj/structure/stone_tile/center/burnt,
@@ -2681,6 +2906,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"Af" = (
+/obj/structure/stone_tile/slab,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "Ai" = (
 /obj/structure/stone_tile/slab,
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
@@ -2692,6 +2922,30 @@
 	dir = 8
 	},
 /turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Am" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"As" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Aw" = (
 /obj/structure/stone_tile/cracked,
@@ -2706,6 +2960,13 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"Ax" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/fluff/ash_statue{
+	special_name = "лавовое озеро"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "AC" = (
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/lava/lava_land_surface,
@@ -2778,6 +3039,13 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Bf" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "Bg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2810,6 +3078,13 @@
 	icon_state = "dark"
 	},
 /area/mine/production)
+"BA" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "BN" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -2891,6 +3166,13 @@
 /obj/structure/table/reinforced/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"CT" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Dh" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -2904,6 +3186,10 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"Di" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
 "Dl" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
@@ -2986,6 +3272,11 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Eu" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/flora/ausbushes/genericbush/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Ey" = (
 /obj/structure/table,
 /obj/item/sensor_device/advanced/mining,
@@ -3033,6 +3324,13 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
+"EY" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "Fb" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3173,6 +3471,10 @@
 /obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"GG" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/mineral/wood,
+/area/ruin/unpowered/safe_cave)
 "GS" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -3221,6 +3523,21 @@
 	icon_state = "clockwork_floor"
 	},
 /area/mine/necropolis)
+"Hi" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/center,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "Hu" = (
 /obj/structure/marker_beacon{
 	icon_state = "markerburgundy-on"
@@ -3262,6 +3579,13 @@
 	icon_state = "clockwork_floor"
 	},
 /area/mine/necropolis)
+"HG" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "HI" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8
@@ -3440,6 +3764,14 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
+"Jl" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/block/burnt,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "Jy" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
@@ -3455,6 +3787,17 @@
 /obj/structure/stone_tile/slab,
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/necropolis)
+"JC" = (
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "JF" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -3489,6 +3832,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Ke" = (
+/obj/structure/stone_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Kf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3520,6 +3868,17 @@
 	icon_state = "clockwork_floor"
 	},
 /area/mine/necropolis)
+"Ky" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "KA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -3530,6 +3889,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"KC" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "KL" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -3551,6 +3920,13 @@
 /obj/item/camera_assembly,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"KW" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "KY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3691,6 +4067,16 @@
 	},
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/necropolis)
+"My" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "MC" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -3952,6 +4338,16 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"Qa" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Qb" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/block{
@@ -4000,6 +4396,11 @@
 	temperature = 293.15
 	},
 /area/ruin/unpowered)
+"QF" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "QJ" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile/cracked{
@@ -4066,6 +4467,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
+"RL" = (
+/turf/simulated/wall/mineral/wood,
+/area/lavaland/surface/outdoors)
 "RN" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/cracked{
@@ -4103,6 +4507,24 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"Si" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"Sj" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Ss" = (
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
@@ -4165,6 +4587,10 @@
 /obj/structure/fluff/drake_statue/falling,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"SW" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/mineral/wood,
+/area/lavaland/surface/outdoors)
 "Tb" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -4201,6 +4627,11 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"TB" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "TF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4236,6 +4667,26 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/eva)
+"TQ" = (
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/shovel/spade/wooden{
+	pixel_x = -2;
+	pixel_y = -8
+	},
+/obj/item/shovel/spade/wooden{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "Uf" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -4316,6 +4767,11 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"UQ" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/flora/ausbushes/grassybush/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Vb" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -4609,6 +5065,18 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"Yg" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Yh" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/indestructible/plating,
@@ -4626,6 +5094,23 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"Yl" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Yo" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "YA" = (
 /obj/structure/stone_tile/center,
 /obj/structure/stone_tile/surrounding_tile,
@@ -4684,6 +5169,12 @@
 /obj/structure/closet/secure_closet/miner,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"Za" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/bonfire,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "Ze" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -59287,26 +59778,26 @@ aj
 ab
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+rk
+rk
+rk
+rk
+rk
+rk
+rk
+to
+to
+to
+to
+to
+QF
+Yg
+Yl
+to
+to
+to
+to
+to
 Vh
 Vh
 Vh
@@ -59544,26 +60035,26 @@ aj
 ab
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+rk
+rk
+rk
+rk
+rk
+rk
+rk
+rk
+rk
+SW
+SW
+Di
+rk
+xG
+rk
+to
+to
+to
+to
+to
 Vh
 Vh
 Vh
@@ -59801,26 +60292,26 @@ aj
 aj
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+rk
+rk
+rk
+rk
+cp
+cp
+rk
+eZ
+rk
+rk
+Ax
+rk
+rk
+rk
+rk
+rk
+RL
+jR
+xG
+to
 Vh
 Vh
 Vh
@@ -60058,26 +60549,26 @@ aj
 aj
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+rk
+rk
+cp
+cp
+cp
+cp
+cp
+rk
+Yo
+rk
+rk
+rk
+UQ
+My
+rk
+rk
+rk
+rk
+rk
+to
 Vh
 Vh
 Vh
@@ -60315,26 +60806,26 @@ aj
 aj
 aj
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+rk
+rk
+rk
+cp
+cp
+cp
+cp
+cp
+Am
+Eu
+rk
+Sj
+rk
+cp
+cp
+rk
+Eu
+rk
+lC
+to
 Vh
 Vh
 Vh
@@ -60572,26 +61063,26 @@ aj
 aj
 aj
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+wk
+eZ
+rk
+rk
+cp
+Hi
+cp
+cp
+cp
+cp
+rk
+eF
+EY
+cp
+cp
+cp
+rk
+rk
+rk
+to
 Vh
 Vh
 Vh
@@ -60829,26 +61320,26 @@ aj
 aj
 aj
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+Yl
+rk
+oy
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+TB
+rk
+rk
+JC
 Vh
 Vh
 Vh
@@ -61086,26 +61577,26 @@ aj
 aj
 aj
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+QF
+rk
+rk
+CT
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+rk
+rk
+rk
+oy
 Vh
 Vh
 Vh
@@ -61343,26 +61834,26 @@ aj
 aj
 aj
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+to
+xG
+rk
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+rk
+rk
+rk
+xn
 Vh
 Vh
 Vh
@@ -61600,26 +62091,26 @@ aj
 aj
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+to
+jR
+rk
+rk
+Bf
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+cp
+Qa
+rk
+eZ
+to
 Vh
 Vh
 Vh
@@ -61857,26 +62348,26 @@ aj
 ab
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+to
+jR
+jR
+rk
+cp
+cp
+cp
+cp
+yN
+cp
+cp
+cp
+xv
+cp
+cp
+rk
+rk
+rk
+to
 Vh
 Vh
 Vh
@@ -62114,26 +62605,26 @@ aj
 ab
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+to
+to
+rk
+rk
+cp
+cp
+cp
+cp
+eH
+cp
+cp
+cp
+cp
+cp
+rk
+rk
+rk
+xG
+to
 Vh
 Vh
 Vh
@@ -62371,26 +62862,26 @@ ab
 ab
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+to
+to
+rk
+KW
+UQ
+cp
+cp
+cp
+Jl
+cp
+cp
+cp
+cp
+rk
+rk
+xG
+vB
+GG
+GG
 Vh
 Vh
 Vh
@@ -62628,26 +63119,26 @@ ab
 ab
 Vh
 Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+rk
+jR
+rk
+rk
+rk
+cp
+cp
+cp
+jw
+cp
+cp
+cp
+zK
+rk
+rk
+vB
+GG
+TQ
+vB
 Vh
 Vh
 Vh
@@ -62885,26 +63376,26 @@ Vh
 Vh
 Vh
 Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+eZ
+rk
+rk
+rk
+rk
+rk
+cp
+cp
+Si
+cp
+cp
+cp
+fP
+rk
+gu
+yb
+BA
+oj
+GG
 Vh
 Vh
 Vh
@@ -63142,26 +63633,26 @@ Vh
 Vh
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+rk
+rk
+rk
+rk
+rk
+lC
+UQ
+cp
+vp
+cp
+rk
+rk
+rk
+vB
+vB
+HG
+KC
+Ky
+vB
 Vh
 Vh
 Vh
@@ -63399,26 +63890,26 @@ ab
 ab
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+rk
+rk
+Ke
+Eu
+rk
+rk
+rk
+xn
+rk
+Ke
+rk
+rk
+rk
+vB
+yb
+gh
+Za
+Af
+vB
 Vh
 Vh
 Vh
@@ -63656,26 +64147,26 @@ aj
 ab
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+to
+RL
+rk
+rk
+rk
+rk
+rk
+rk
+eZ
+rk
+rk
+KW
+rk
+GG
+GG
+xo
+oT
+nI
+GG
 Vh
 Vh
 Vh
@@ -63913,26 +64404,26 @@ aj
 aj
 ab
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+to
+RL
+RL
+rk
+xG
+to
+jR
+rk
+rk
+rk
+RL
+rk
+xG
+nt
+GG
+vB
+iD
+yo
+GG
 Vh
 Vh
 Vh
@@ -64170,26 +64661,26 @@ aj
 aj
 aj
 ab
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
-Vh
+to
+to
+to
+to
+to
+to
+to
+to
+wy
+As
+QF
+to
+to
+to
+to
+to
+vB
+vB
+GG
+GG
 Vh
 Vh
 Vh

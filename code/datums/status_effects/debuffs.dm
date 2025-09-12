@@ -71,7 +71,24 @@
 	id = "pacifism_debuff"
 	alert_type = null
 	duration = 40 SECONDS
+	var/datum/atom_hud/pacifism/hud
 
+/datum/status_effect/pacifism/on_creation(mob/living/new_owner, mob/mob_to_inform)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(!mob_to_inform)
+		return TRUE
+
+	hud = new
+	hud.add_to_hud(new_owner)
+	hud.add_hud_to(mob_to_inform)
+	var/image/holder = new_owner.hud_list[PACIFISM_HUD]
+	if(holder)
+		holder.icon_state = "hudpacifism"
+
+	return TRUE
 
 /datum/status_effect/pacifism/on_apply()
 	ADD_TRAIT(owner, TRAIT_PACIFISM, id)
@@ -80,6 +97,9 @@
 
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
+
+	if(hud)
+		QDEL_NULL(hud)
 
 /datum/status_effect/fang_exhaust
 	id = "fang_exhaust"
@@ -133,9 +153,12 @@
 /datum/status_effect/shadow_boxing/tick(seconds_between_ticks)
 	var/mob/living/attacker = locateUID(source_UID)
 	if(attacker in view(owner, 2))
+		var/turf/attacker_turf = get_turf(attacker)
+		var/turf/owner_turf = get_turf(owner)
 		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
 		owner.apply_damage(damage, BRUTE)
-		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
+		playsound(owner_turf, SFX_PUNCH, 30, TRUE, -1)
+		shadow_to_animation(attacker_turf, owner_turf, attacker)
 
 
 /datum/status_effect/saw_bleed
@@ -621,7 +644,7 @@
 		owner.AdjustConfused(6 SECONDS, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
 	// THRESHOLD_SPARK (100 SECONDS)
 	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(0.5))
-		do_sparks(3, 1, owner)
+		do_sparks(3, TRUE, owner)
 	// THRESHOLD_VOMIT (120 SECONDS)
 	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.2))
 		owner.fakevomit()
@@ -631,7 +654,7 @@
 	// THRESHOLD_COLLAPSE (150 SECONDS)
 	if(actual_strength >= THRESHOLD_COLLAPSE && prob(0.2))
 		owner.emote("collapse")
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 	// THRESHOLD_FAINT (180 SECONDS)
 	if(actual_strength >= THRESHOLD_FAINT && prob(0.2))
 		owner.Paralyse(10 SECONDS)

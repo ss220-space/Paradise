@@ -101,7 +101,7 @@
 		"power" = on,
 		"volume_rate" = volume_rate,
 		"sigtype" = "status"
-	 )
+	)
 
 	radio_connection.post_signal(src, signal, RADIO_ATMOSIA)
 
@@ -156,5 +156,5 @@
 	. = TRUE
 	multitool_menu_interact(user, I)
 
-/obj/machinery/atmospherics/unary/outlet_injector/hide(var/i)
+/obj/machinery/atmospherics/unary/outlet_injector/hide(i)
 	update_underlays()

@@ -203,7 +203,7 @@
 
 /turf/bullet_act(obj/projectile/proj)
 	if(istype(proj, /obj/projectile/beam/pulse))
-		ex_act(2)
+		ex_act(EXPLODE_HEAVY)
 	..()
 	return FALSE
 

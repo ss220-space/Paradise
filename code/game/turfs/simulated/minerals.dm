@@ -124,6 +124,7 @@
 	var/cached_mineralAmt = mineralAmt
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
+
 	ChangeTurf(turf_type, defer_change)
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE) //beautiful destruction

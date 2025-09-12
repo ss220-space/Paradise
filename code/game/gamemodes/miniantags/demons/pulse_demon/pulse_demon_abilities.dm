@@ -2,12 +2,12 @@
 #define PULSEDEMON_REMOTE_DRAIN_MULTIPLIER 5
 
 #define PD_UPGRADE_HIJACK_SPEED "Speed"
-#define PD_UPGRADE_DRAIN_SPEED  "Absorption"
-#define PD_UPGRADE_HEALTH_LOSS  "Endurance"
+#define PD_UPGRADE_DRAIN_SPEED "Absorption"
+#define PD_UPGRADE_HEALTH_LOSS "Endurance"
 #define PD_UPGRADE_HEALTH_REGEN "Recovery"
-#define PD_UPGRADE_MAX_HEALTH   "Strength"
-#define PD_UPGRADE_HEALTH_COST  "Efficiency"
-#define PD_UPGRADE_MAX_CHARGE   "Capacity"
+#define PD_UPGRADE_MAX_HEALTH "Strength"
+#define PD_UPGRADE_HEALTH_COST "Efficiency"
+#define PD_UPGRADE_MAX_CHARGE "Capacity"
 
 /obj/effect/proc_holder/spell/pulse_demon
 	school = "pulse demon"
@@ -489,3 +489,12 @@
 	return TRUE
 
 #undef KW
+#undef PULSEDEMON_REMOTE_DRAIN_MULTIPLIER
+
+#undef PD_UPGRADE_HIJACK_SPEED
+#undef PD_UPGRADE_DRAIN_SPEED
+#undef PD_UPGRADE_HEALTH_LOSS
+#undef PD_UPGRADE_HEALTH_REGEN
+#undef PD_UPGRADE_MAX_HEALTH
+#undef PD_UPGRADE_HEALTH_COST
+#undef PD_UPGRADE_MAX_CHARGE

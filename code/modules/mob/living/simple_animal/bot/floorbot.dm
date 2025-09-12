@@ -1,15 +1,14 @@
+#define HULL_BREACH 1
+#define BRIDGE_MODE 2
+#define FIX_TILE 3
+#define AUTO_TILE 4
+#define REPLACE_TILE 5
+#define TILE_EMAG 6
+
 //Floorbot
 /mob/living/simple_animal/bot/floorbot
 	name = "Floorbot"
 	desc = "Маленький робот для починки полов и обшивки. Он выглядит таким увлечённым!"
-	ru_names = list(
-		NOMINATIVE = "ремонтный робот",
-		GENITIVE = "ремонтного робота",
-		DATIVE = "ремонтному роботу",
-		ACCUSATIVE = "ремонтного робота",
-		INSTRUMENTAL = "ремонтным роботом",
-		PREPOSITIONAL = "ремонтном роботе",
-	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot0"
 	density = FALSE
@@ -44,13 +43,15 @@
 	var/oldloc = null
 	var/toolbox_color = ""
 
-	#define HULL_BREACH		1
-	#define BRIDGE_MODE		2
-	#define FIX_TILE		3
-	#define AUTO_TILE		4
-	#define REPLACE_TILE	5
-	#define TILE_EMAG		6
-
+/mob/living/simple_animal/bot/floorbot/get_ru_names()
+	return list(
+		NOMINATIVE = "ремонтный робот",
+		GENITIVE = "ремонтного робота",
+		DATIVE = "ремонтному роботу",
+		ACCUSATIVE = "ремонтного робота",
+		INSTRUMENTAL = "ремонтным роботом",
+		PREPOSITIONAL = "ремонтном роботе",
+	)
 
 /mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
@@ -468,7 +469,7 @@
 			amount = 0
 
 	do_sparks(3, TRUE, src)
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/bot/floorbot/OnUnarmedAttack(atom/A)
@@ -485,3 +486,9 @@
 /obj/machinery/bot_core/floorbot
 	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 
+#undef HULL_BREACH
+#undef BRIDGE_MODE
+#undef FIX_TILE
+#undef AUTO_TILE
+#undef REPLACE_TILE
+#undef TILE_EMAG

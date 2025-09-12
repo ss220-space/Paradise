@@ -19,14 +19,6 @@
 /obj/singularity/energy_ball
 	name = "energy ball"
 	desc = "Энергетический шар."
-	ru_names = list(
-		NOMINATIVE = "энергетический шар",
-		GENITIVE = "энергетического шара",
-		DATIVE = "энергетическому шару",
-		ACCUSATIVE = "энергетический шар",
-		INSTRUMENTAL = "энергетическим шаром",
-		PREPOSITIONAL = "энергетическом шаре"
-	)
 	icon = 'icons/obj/engines_and_power/tesla/energy_ball.dmi'
 	icon_state = "energy_ball"
 	density = TRUE
@@ -52,6 +44,16 @@
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
 	var/list/shocked_things = list()
+
+/obj/singularity/energy_ball/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетический шар",
+		GENITIVE = "энергетического шара",
+		DATIVE = "энергетическому шару",
+		ACCUSATIVE = "энергетический шар",
+		INSTRUMENTAL = "энергетическим шаром",
+		PREPOSITIONAL = "энергетическом шаре"
+	)
 
 /obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
 	. = ..()

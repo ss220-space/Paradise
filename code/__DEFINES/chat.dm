@@ -59,3 +59,10 @@
 #define chat_box_ahelp(str) ("<div class='boxed_message red_border'>" + str + "</div>")
 /// Creates a notice-bordered box for mentor help messages (mhelp)
 #define chat_box_mhelp(str) ("<div class='boxed_message notice_border'>" + str + "</div>")
+
+/// Replaces name of someone if we shouldn't know that
+#define UNKNOWN_NAME_RUS "Неизвестный"
+/// Replaces something (job, sec status, disease' name, etc) if we shouldn't know that
+#define UNKNOWN_STATUS_RUS "Неизвестно"
+/// Replaces job's name of someone if they don't have one
+#define NOJOB_STATUS_RUS "Без должности"

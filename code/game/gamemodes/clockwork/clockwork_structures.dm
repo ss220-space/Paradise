@@ -337,14 +337,14 @@
 	else if(first_stage)
 		stop_convert()
 
-/obj/structure/clockwork/functional/altar/proc/first_stage_check(var/mob/living/carbon/human/target)
+/obj/structure/clockwork/functional/altar/proc/first_stage_check(mob/living/carbon/human/target)
 	first_stage = TRUE
 	target.visible_message(span_warning("[src] begins to glow a piercing amber!"), span_clock("You feel something start to invade your mind..."))
 	glow = new (get_turf(src))
 	animate(glow, alpha = 255, time = 8 SECONDS)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/clockwork/functional/altar/proc/second_stage_check(var/mob/living/carbon/human/target)
+/obj/structure/clockwork/functional/altar/proc/second_stage_check(mob/living/carbon/human/target)
 	second_stage = TRUE
 	if(!is_convertable_to_clocker(target.mind) || target.stat == DEAD) // mindshield or holy or mindless monkey. or dead guy
 		target.visible_message(span_warning("[src] in glowing manner starts corrupting [target]!"), \
@@ -361,7 +361,7 @@
 		target.EyeBlind(10 SECONDS)
 		stop_convert(TRUE)
 
-/obj/structure/clockwork/functional/altar/proc/stop_convert(var/silent = FALSE)
+/obj/structure/clockwork/functional/altar/proc/stop_convert(silent = FALSE)
 	QDEL_NULL(glow)
 	first_stage = FALSE
 	second_stage = FALSE

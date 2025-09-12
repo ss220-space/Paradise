@@ -17,7 +17,7 @@
 	flag = "energy"
 	hitsound = 'sound/weapons/tap.ogg'
 
-/obj/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/ion/on_hit(atom/target, blocked = 0)
 	. = ..()
 	empulse(target, emp_range, emp_range, 1, cause = "[type] fired by [key_name(firer)]")
 	return 1
@@ -370,7 +370,7 @@
 		PREPOSITIONAL = "заряде мозгоёба"
 	)
 
-/obj/projectile/beam/mindflayer/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/beam/mindflayer/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
@@ -398,7 +398,7 @@
 	. = ..()
 	if(blocked >= 100)
 		return .
-	do_sparks(3, 1, target)
+	do_sparks(3, TRUE, target)
 	target.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
 	playsound(target, 'sound/effects/snap.ogg', 50, TRUE)
 	if(isturf(target.loc) && !target.loc.density)
@@ -457,8 +457,8 @@
 		INSTRUMENTAL = "разрывной пулей",
 		PREPOSITIONAL = "разрывной пуле"
 	)
-	damage = 25
-	weaken = 10 SECONDS
+	damage = 20
+	knockdown = 5 SECONDS
 
 /obj/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
@@ -546,7 +546,7 @@
 	if(tele_target)
 		teleport_target = tele_target
 
-/obj/projectile/energy/teleport/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
 	if(isliving(target))
 		if(teleport_target)
 			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon
@@ -700,7 +700,7 @@
 	stun = 0.5
 	eyeblur = 20
 
-/obj/projectile/limb/New(loc, var/obj/item/organ/external/limb)
+/obj/projectile/limb/New(loc, obj/item/organ/external/limb)
 	..(loc)
 	if(istype(limb))
 		name = limb.name

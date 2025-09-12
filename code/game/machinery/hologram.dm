@@ -28,10 +28,6 @@ Possible to do for anyone motivated enough:
 // 1 = AREA BASED
 #define HOLOPAD_PASSIVE_POWER_USAGE 1
 #define HOLOGRAM_POWER_USAGE 2
-#define RANGE_BASED 0
-#define AREA_BASED 1
-
-#define HOLOPAD_MODE RANGE_BASED
 
 GLOBAL_LIST_EMPTY(holopads)
 
@@ -383,7 +379,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			update_holoray(user,new_turf)
 	return TRUE
 
-/obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, var/force = 0)
+/obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, force = 0)
 	var/mob/living/silicon/ai/AI = user
 	if(!istype(AI))
 		AI = null
@@ -451,7 +447,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	update_icon()
 
 
-/obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, var/obj/effect/overlay/holo_pad_hologram/h)
+/obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
 	masters[user] = h
 	holorays[user] = new /obj/effect/overlay/holoray(loc)
 	var/mob/living/silicon/ai/AI = user

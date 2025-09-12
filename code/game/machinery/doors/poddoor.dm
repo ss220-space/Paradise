@@ -51,10 +51,10 @@
 	switch(animation)
 		if("opening")
 			flick("opening", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
+			playsound(src, 'sound/machines/blastdoor.ogg', 30, TRUE)
 		if("closing")
 			flick("closing", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
+			playsound(src, 'sound/machines/blastdoor.ogg', 30, TRUE)
 
 /obj/machinery/door/poddoor/update_icon_state()
 	icon_state = density ? "closed" : "open"
@@ -76,8 +76,8 @@
 	else
 		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 
- // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
- // Wise words. - Bxil
+// Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
+// Wise words. - Bxil
 /obj/machinery/door/poddoor/multi_tile
 	name = "large pod door"
 	layer = CLOSED_DOOR_LAYER

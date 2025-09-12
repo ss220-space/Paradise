@@ -801,6 +801,19 @@
 	icon_state = "green"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/exit)
+"aoq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Armory_sprava";
+	location = "Armory_South"
+	},
+/mob/living/simple_animal/bot/secbot/armsky,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/coldcolony/malta/security/securearmory)
 "aoB" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1063,6 +1076,26 @@
 	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
+"ast" = (
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=V1";
+	location = "V4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/bridge/meeting_room)
 "asy" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
@@ -6986,6 +7019,7 @@
 /obj/item/shield/riot,
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/head/helmet/riot,
+/obj/item/clothing/shoes/combat/riot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7756,20 +7790,7 @@
 /area/coldcolony/malta/bridge/blueshield)
 "cMv" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/ammo_box/shotgun/buck{
-	pixel_x = 3
-	},
-/obj/item/ammo_box/shotgun/buck{
-	pixel_y = 3
-	},
-/obj/item/ammo_box/shotgun{
-	pixel_x = -3;
-	pixel_y = 6
-	},
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Lethal Bullets"
-	},
+/obj/structure/closet/l3closet/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13865,6 +13886,9 @@
 /obj/item/gun/projectile/automatic/wt550{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -21628,6 +21652,7 @@
 /obj/item/shield/riot,
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/head/helmet/riot,
+/obj/item/clothing/shoes/combat/riot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -22515,6 +22540,7 @@
 /obj/item/shield/riot,
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/head/helmet/riot,
+/obj/item/clothing/shoes/combat/riot,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -27973,25 +27999,9 @@
 	},
 /area/coldcolony/malta/hallway/service/nw)
 "kkt" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/grenade/barrier{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 6;
-	pixel_y = -6
-	},
 /obj/machinery/light,
+/obj/machinery/vending/ammo,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35863,6 +35873,27 @@
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/quartermaster/office)
+"ngA" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=V3";
+	location = "V2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/bridge/meeting_room)
 "ngL" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -40937,37 +40968,21 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "pai" = (
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/rack/gunrack,
+/obj/item/gun/projectile/automatic/sp91rc{
+	pixel_x = -7
+	},
+/obj/item/gun/projectile/automatic/sp91rc{
+	pixel_x = -2
+	},
+/obj/item/gun/projectile/automatic/sp91rc{
+	pixel_x = 2
+	},
+/obj/item/gun/projectile/automatic/sp91rc{
+	pixel_x = 7
+	},
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced,
-/obj/structure/closet/secure_closet/guncabinet{
-	anchored = 1;
-	name = "Magazines for SMG"
-	},
-/obj/item/ammo_box/magazine/wt550m9{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/ammo_box/magazine/wt550m9{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/ammo_box/magazine/wt550m9{
-	pixel_x = 4;
-	pixel_y = -4
-	},
-/obj/item/ammo_box/magazine/wt550m9{
-	pixel_x = 6;
-	pixel_y = -6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -41805,6 +41820,19 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/turret_protected/ai)
+"pqf" = (
+/mob/living/simple_animal/bot/secbot/beepsky{
+	desc = "It's Officer Vipsky! Powered by a potato and a shot of whiskey.";
+	name = "Officer Vipsky"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=V2";
+	location = "V1"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/bridge/meeting_room)
 "pqi" = (
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/exit)
@@ -63263,6 +63291,15 @@
 	icon_state = "caution"
 	},
 /area/coldcolony/malta/engineering/control)
+"xeP" = (
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=V4";
+	location = "V3"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/bridge/meeting_room)
 "xfi" = (
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 8
@@ -63762,6 +63799,10 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Armory_South";
+	location = "Armory_North"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -63978,27 +64019,12 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/resid_serv/bar)
 "xrC" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/grenade/barrier{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 6;
-	pixel_y = -6
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65966,6 +65992,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/server)
+"ycu" = (
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Armory_North";
+	location = "Armory_sprava"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/coldcolony/malta/security/securearmory)
 "ycN" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/britcup,
@@ -111590,7 +111626,7 @@ xmy
 lcW
 ouV
 cAu
-uHR
+aoq
 kkt
 lgI
 dOK
@@ -112873,7 +112909,7 @@ lgT
 nAk
 qOe
 dKo
-dKo
+ycu
 dKo
 sjV
 euD
@@ -119850,7 +119886,7 @@ pEu
 bmy
 tqW
 pZP
-anq
+ast
 gKn
 gKn
 qiA
@@ -119858,7 +119894,7 @@ pCA
 uep
 uep
 gKn
-gKn
+xeP
 cce
 qLG
 aaQ
@@ -121392,7 +121428,7 @@ tvs
 tvs
 tvs
 iOc
-gKn
+pqf
 uep
 gKn
 cwA
@@ -121400,7 +121436,7 @@ gOa
 rQj
 gKn
 gKn
-hKw
+ngA
 reE
 lXT
 arv

@@ -4,17 +4,18 @@
 #define EXOFAB_SPEED_UPGRADE_MULTIPLIER 0.2
 
 /**
-  * # Exosuit Fabricator
-  *
-  * A machine that allows for the production of exosuits and robotic parts.
-  */
+ * # Exosuit Fabricator
+ *
+ * A machine that allows for the production of exosuits and robotic parts.
+ */
 /obj/machinery/mecha_part_fabricator
 	name = "exosuit fabricator"
-	desc = "Nothing is being built."
+	desc = "Крупное устройство, предназначенное для печати крупных роботизированных деталей. \n Сейчас в нём ничего не печатается."
+	gender = MALE
 	icon = 'icons/obj/machines/robotics.dmi'
-	icon_state = "fab-idle"
-	var/icon_open = "fab-o"
-	var/icon_closed = "fab-idle"
+	icon_state = "fabricator"
+	var/icon_open = "fabricator_unscrewed"
+	var/icon_closed = "fabricator"
 	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -49,6 +50,16 @@
 	/// Whether the queue is currently being processed.
 	var/processing_queue = FALSE
 	var/ui_theme = "nanotrasen"
+
+/obj/machinery/mecha_part_fabricator/get_ru_names()
+	return list(
+		NOMINATIVE = "фабрикатор экзоскелетов",
+		GENITIVE = "фабрикатора экзоскелетов",
+		DATIVE = "фабрикатору экзоскелетов",
+		ACCUSATIVE = "фабрикатор экзоскелетов",
+		INSTRUMENTAL = "фабрикатором экзоскелетов",
+		PREPOSITIONAL = "фабрикаторе экзоскелетов",
+	)
 
 /obj/machinery/mecha_part_fabricator/Initialize(mapload)
 	. = ..()
@@ -115,11 +126,11 @@
 	time_coeff = round(initial(time_coeff) - (initial(time_coeff) * coef_speed) * EXOFAB_SPEED_UPGRADE_MULTIPLIER, 0.01)
 
 /**
-  * Calculates the total resource cost of a design, applying [/obj/machinery/mecha_part_fabricator/var/component_coeff].
-  *
-  * Arguments:
-  * * D - The design whose cost to calculate.
-  */
+ * Calculates the total resource cost of a design, applying [/obj/machinery/mecha_part_fabricator/var/component_coeff].
+ *
+ * Arguments:
+ * * D - The design whose cost to calculate.
+ */
 /obj/machinery/mecha_part_fabricator/proc/get_design_cost(datum/design/D, roundto = 1)
 	var/list/resources = list()
 	for(var/R in D.materials)
@@ -130,20 +141,20 @@
 	return resources
 
 /**
-  * Calculates the total build time of a design, applying [/obj/machinery/mecha_part_fabricator/var/time_coeff].
-  *
-  * Arguments:
-  * * D - The design whose build time to calculate.
-  */
+ * Calculates the total build time of a design, applying [/obj/machinery/mecha_part_fabricator/var/time_coeff].
+ *
+ * Arguments:
+ * * D - The design whose build time to calculate.
+ */
 /obj/machinery/mecha_part_fabricator/proc/get_design_build_time(datum/design/D, roundto = 1)
 	return round(initial(D.construction_time) * time_coeff, roundto)
 
 /**
-  * Returns whether the machine contains enough resources to build the given design.
-  *
-  * Arguments:
-  * * D - The design to check.
-  */
+ * Returns whether the machine contains enough resources to build the given design.
+ *
+ * Arguments:
+ * * D - The design to check.
+ */
 /obj/machinery/mecha_part_fabricator/proc/can_afford_design(datum/design/D)
 	if(length(D.reagents_list)) // No reagents storage - no reagent designs.
 		return FALSE
@@ -151,8 +162,8 @@
 	return materials.has_materials(get_design_cost(D))
 
 /**
-  * Attempts to build the first item in the queue.
-  */
+ * Attempts to build the first item in the queue.
+ */
 /obj/machinery/mecha_part_fabricator/proc/process_queue()
 	if(!processing_queue || being_built || !length(build_queue) || !is_operational())
 		return
@@ -161,11 +172,11 @@
 		build_queue.Cut(1, 2)
 
 /**
-  * Given a design, attempts to build it.
-  *
-  * Arguments:
-  * * D - The design to build.
-  */
+ * Given a design, attempts to build it.
+ *
+ * Arguments:
+ * * D - The design to build.
+ */
 /obj/machinery/mecha_part_fabricator/proc/build_design(datum/design/D)
 	. = FALSE
 	if(!local_designs.known_designs[D.id] || !(D.build_type & allowed_design_types))
@@ -187,9 +198,9 @@
 	being_built = D
 	build_start = world.time
 	build_end = build_start + build_time
-	desc = "It's building \a [initial(D.name)]."
+	desc = "Крупное устройство, предназначенное для печати крупных роботизированных деталей. \n Сейчас в нём печатается [initial(D.name)]."
 	use_power = ACTIVE_POWER_USE
-	add_overlay("[icon_state]-active")
+	add_overlay("fabricator_active")
 	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), D, final_cost), build_time)
 
 	return TRUE
@@ -204,12 +215,12 @@
 			S.add_usage_log(usr, D, src)
 
 /**
-  * Called when the timer for building a design finishes.
-  *
-  * Arguments:
-  * * D - The design being built.
-  * * final_cost - The materials consumed during the build.
-  */
+ * Called when the timer for building a design finishes.
+ *
+ * Arguments:
+ * * D - The design being built.
+ * * final_cost - The materials consumed during the build.
+ */
 /obj/machinery/mecha_part_fabricator/proc/build_design_timer_finish(datum/design/D, list/final_cost)
 	// Spawn the item (in a lockbox if restricted) OR mob (e.g. IRC body)
 	var/atom/A = new D.build_path(get_step(src, dir))
@@ -237,15 +248,15 @@
 	SStgui.update_uis(src)
 
 /**
-  * Syncs the R&D designs from the first [/obj/machinery/computer/rdconsole] in the area.
-  */
+ * Syncs the R&D designs from the first [/obj/machinery/computer/rdconsole] in the area.
+ */
 /obj/machinery/mecha_part_fabricator/proc/sync()
 	addtimer(CALLBACK(src, PROC_REF(sync_timer_finish)), 3 SECONDS)
 	syncing = TRUE
 
 /**
-  * Called when the timer for syncing finishes.
-  */
+ * Called when the timer for syncing finishes.
+ */
 /obj/machinery/mecha_part_fabricator/proc/sync_timer_finish()
 	syncing = FALSE
 	var/area/A = get_area(src)
@@ -258,29 +269,25 @@
 	SStgui.update_uis(src)
 
 /**
-  * Called by [/datum/component/material_container] when material sheets are inserted in the machine.
-  *
-  * Arguments:
-  * * type_inserted - The material type.
-  * * id_inserted - The material ID.
-  * * amount_inserted - The amount of sheets inserted.
-  */
+ * Called by [/datum/component/material_container] when material sheets are inserted in the machine.
+ *
+ * Arguments:
+ * * type_inserted - The material type.
+ * * id_inserted - The material ID.
+ * * amount_inserted - The amount of sheets inserted.
+ */
 /obj/machinery/mecha_part_fabricator/proc/on_material_insert(type_inserted, id_inserted, amount_inserted)
-	var/stack_name = copytext(id_inserted, 2)
-	add_overlay("fab-load-[stack_name]")
-	addtimer(CALLBACK(src, PROC_REF(on_material_insert_timer_finish)), 1 SECONDS)
+	var/stack_name
+	var/obj/item/stack/sheet = type_inserted
+	stack_name = sheet.protolathe_name
+	flick_overlay_view(mutable_appearance(icon, "fab-load-[stack_name]"), 1 SECONDS)
 	process_queue()
+
 	SStgui.update_uis(src)
 
 /**
-  * Called when the timer after inserting material sheets finishes.
-  */
-/obj/machinery/mecha_part_fabricator/proc/on_material_insert_timer_finish()
-	cut_overlays()
-
-/**
-  * Returns whether the machine can accept new materials.
-  */
+ * Returns whether the machine can accept new materials.
+ */
 /obj/machinery/mecha_part_fabricator/proc/can_insert_materials(mob/user)
 	if(panel_open)
 		to_chat(user, "<span class='warning'>[src] cannot be loaded with new materials while opened!</span>")
@@ -477,10 +484,10 @@
 	add_fingerprint(usr)
 
 /**
-  * # Exosuit Fabricator (upgraded)
-  *
-  * Upgraded variant of [/obj/machinery/mecha_part_fabricator].
-  */
+ * # Exosuit Fabricator (upgraded)
+ *
+ * Upgraded variant of [/obj/machinery/mecha_part_fabricator].
+ */
 /obj/machinery/mecha_part_fabricator/upgraded/Initialize(mapload)
 	. = ..()
 	// Upgraded components
@@ -494,10 +501,10 @@
 	RefreshParts()
 
 /**
-  * # Spacepod Fabricator
-  *
-  * Spacepod variant of [/obj/machinery/mecha_part_fabricator].
-  */
+ * # Spacepod Fabricator
+ *
+ * Spacepod variant of [/obj/machinery/mecha_part_fabricator].
+ */
 /obj/machinery/mecha_part_fabricator/spacepod
 	name = "spacepod fabricator"
 	allowed_design_types = PODFAB
@@ -526,10 +533,10 @@
 	)
 
 /**
-  * # Robotic Fabricator
-  *
-  * Cyborgs-only variant of [/obj/machinery/mecha_part_fabricator].
-  */
+ * # Robotic Fabricator
+ *
+ * Cyborgs-only variant of [/obj/machinery/mecha_part_fabricator].
+ */
 /obj/machinery/mecha_part_fabricator/robot
 	name = "robotic fabricator"
 	categories = list("Cyborg")
@@ -552,9 +559,9 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 	if(is_taipan(z))
-		icon_state = "fabsyndie-idle"
-		icon_open = "fabsyndie-o"
-		icon_closed = "fabsyndie-idle"
+		icon_state = "syndie_fabricator"
+		icon_open = "syndie_fabricator_unscrewed"
+		icon_closed = "syndie_fabricator"
 
 /obj/machinery/mecha_part_fabricator/syndicate/Initialize(mapload)
 	. = ..()
