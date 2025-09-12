@@ -16,7 +16,7 @@
 
 /obj/structure/snow/click_alt(mob/user)
 	if(cooldown > world.time)
-		balloon_alert(user, "Снег копиться!")
+		balloon_alert(user, "снег копиться!")
 		return CLICK_ACTION_BLOCKING
 
 	var/mob/living/carbon/human/H = user
