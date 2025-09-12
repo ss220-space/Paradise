@@ -1,8 +1,3 @@
-//Travel through pools of blood. Slaughter Demon powers for everyone!
-#define BLOODCRAWL     1
-#define BLOODCRAWL_EAT 2
-
-
 /obj/effect/proc_holder/spell/bloodcrawl
 	name = "Кровавый путь"
 	desc = "Используйте лужи крови, чтобы исчезнуть из реальности."

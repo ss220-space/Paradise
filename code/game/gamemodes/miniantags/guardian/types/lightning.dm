@@ -101,6 +101,6 @@
 				. = 1
 
 /mob/living/simple_animal/hostile/guardian/beam/death(gibbed)
-    if(HAS_TRAIT(summoner, TRAIT_SHOCKIMMUNE))
-        REMOVE_TRAIT(summoner, TRAIT_SHOCKIMMUNE, "guardian")
-    return ..()
+	if(HAS_TRAIT(summoner, TRAIT_SHOCKIMMUNE))
+		REMOVE_TRAIT(summoner, TRAIT_SHOCKIMMUNE, "guardian")
+	return ..()

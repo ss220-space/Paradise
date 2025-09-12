@@ -361,6 +361,9 @@
 	multiple_sprites = 1
 	caliber = CALIBER_9MM
 
+/obj/item/ammo_box/magazine/enforcer/empty
+	start_empty = TRUE
+
 /obj/item/ammo_box/magazine/enforcer/get_ru_names()
 	return list(
 		NOMINATIVE = "магазин пистолета \"Блюститель\" (нелетальные 9 мм)",
@@ -430,6 +433,9 @@
 	max_ammo = 10
 	caliber = CALIBER_40NR
 
+/obj/item/ammo_box/magazine/sp8/empty
+	start_empty = TRUE
+
 /obj/item/ammo_box/magazine/sp8/get_ru_names()
 	return list(
 		NOMINATIVE = "магазин пистолета \"SP-8\" (.40 S&W)",
@@ -450,6 +456,9 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = CALIBER_4_DOT_6X30MM
 	max_ammo = 30
+
+/obj/item/ammo_box/magazine/wt550m9/empty
+	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/wt550m9/get_ru_names()
 	return list(
@@ -517,6 +526,9 @@
 	caliber = CALIBER_9MM_TE
 	max_ammo = 20
 
+/obj/item/ammo_box/magazine/sp91rc/empty
+	start_empty = TRUE
+
 /obj/item/ammo_box/magazine/sp91rc/get_ru_names()
 	return list(
 		NOMINATIVE = "магазин пистолет-пулемета \"SP-91-RC\" (9 мм TE)",
@@ -529,11 +541,6 @@
 
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
 	icon_state = "9mm-te-[round(ammo_count(),5)]"
-
-/* UZI magazine
- name = "Пистолет-пулемёт Uzi — магазин 9 мм"
- desc = "Магазин на 30 патронов калибра 9 мм."
- TODO Use this name and desc for localisation*/
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
@@ -1355,6 +1362,9 @@
 	multiple_sprites = 1
 	caliber = CALIBER_SPECTER
 	materials = list(MAT_METAL = 3000)
+
+/obj/item/ammo_box/magazine/specter/empty
+	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/specter/get_ru_names()
 	return list(

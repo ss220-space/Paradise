@@ -291,3 +291,5 @@
 	requires_master = FALSE
 	ejected_flavor_text = "metal cube"
 	dead_icon = "posibrain"
+
+#undef ROBOTIC_BRAIN_COOLDOWN

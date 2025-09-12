@@ -8,15 +8,15 @@
 	var/cold_damage = 2
 	/// Damage when above max temp
 	var/heat_damage = 2
-    /// If true - alert will be shown
+	/// If true - alert will be shown
 	var/show_alert = FALSE
 
 /datum/component/animal_temperature/Initialize(
-    minbodytemp,
-    maxbodytemp,
-    cold_damage,
-    heat_damage,
-    show_alert
+	minbodytemp,
+	maxbodytemp,
+	cold_damage,
+	heat_damage,
+	show_alert
 )
 	if(!isanimal(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -40,10 +40,10 @@
 	datum/component/animal_temperature/new_comp,
 	i_am_original,
 	minbodytemp,
-    maxbodytemp,
-    cold_damage,
-    heat_damage,
-    show_alert
+	maxbodytemp,
+	cold_damage,
+	heat_damage,
+	show_alert
 )
 	if(!i_am_original)
 		return

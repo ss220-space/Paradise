@@ -1,7 +1,3 @@
-#define AUTOLATHE_MAIN_MENU		1
-#define AUTOLATHE_CATEGORY_MENU	2
-#define AUTOLATHE_SEARCH_MENU	3
-
 /obj/machinery/autolathe
 	name = "autolathe"
 	desc = "Крупное устройство, предназначенное для печати различных вещей из металла и стекла."

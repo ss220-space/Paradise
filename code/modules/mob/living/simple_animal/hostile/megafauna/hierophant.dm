@@ -233,7 +233,7 @@ Difficulty: Hard
 				UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE)
 			break
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(var/blink_counter, var/target_slowness, var/cross_counter)
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
 	if(((health < maxHealth * 0.5) || enraged) && blink_counter > 1)
 		visible_message(span_hierophant("\"Mx ampp rsx iwgeti.\""))
@@ -258,7 +258,7 @@ Difficulty: Hard
 	else
 		blink(target)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/cross_blast_spam(var/blink_counter, var/target_slowness, var/cross_counter)
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/cross_blast_spam(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
 	visible_message(span_hierophant("\"Piezi mx rsalivi xs vyr.\""))
 	blinking = TRUE
@@ -281,7 +281,7 @@ Difficulty: Hard
 	blinking = FALSE
 
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/chaser_swarm(var/blink_counter, var/target_slowness, var/cross_counter)
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/chaser_swarm(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
 	visible_message(span_hierophant("\"Mx gerrsx lmhi.\""))
 	blinking = TRUE
@@ -311,7 +311,7 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(src, 8)
 	blinking = FALSE
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blasts(mob/victim, var/list/directions = GLOB.cardinal) //fires cross blasts with a delay
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blasts(mob/victim, list/directions = GLOB.cardinal) //fires cross blasts with a delay
 	var/turf/T = get_turf(victim)
 	if(!T)
 		return

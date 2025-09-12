@@ -50,7 +50,7 @@
 	var/chargesa = 1
 	var/insistinga = 0
 
-/obj/machinery/wish_granter_dark/attack_hand(var/mob/living/carbon/human/user as mob)
+/obj/machinery/wish_granter_dark/attack_hand(mob/living/carbon/human/user as mob)
 	usr.set_machine(src)
 
 	if(chargesa <= 0)
@@ -182,7 +182,7 @@
 	to_chat(C, "<span class='notice'>Death is not your end!</span>")
 	addtimer(CALLBACK(C, PROC_REF(resurrect), C), rand(80 SECONDS, 120 SECONDS))
 
-/mob/living/carbon/proc/resurrect(var/mob/living/carbon/user)
+/mob/living/carbon/proc/resurrect(mob/living/carbon/user)
 	user.revive()
 	user.revival_in_progress = FALSE
 	to_chat(user, "<span class='notice'>You have regenerated.</span>")

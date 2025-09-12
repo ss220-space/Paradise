@@ -6,26 +6,25 @@
 /// Under slot identifier
 #define ATTACHMENT_SLOT_UNDER "under"
 
-#define GUN_MODULE_CLASS_NONE 			0
+#define GUN_MODULE_CLASS_NONE 0
 // Rail slot types flags
-#define GUN_MODULE_CLASS_PISTOL_RAIL 	(1<<0)
-#define GUN_MODULE_CLASS_SHOTGUN_RAIL 	(1<<1)
-#define GUN_MODULE_CLASS_RIFLE_RAIL 	(1<<2)
-#define GUN_MODULE_CLASS_SNIPER_RAIL 	(1<<3)
+#define GUN_MODULE_CLASS_PISTOL_RAIL (1<<0)
+#define GUN_MODULE_CLASS_SHOTGUN_RAIL (1<<1)
+#define GUN_MODULE_CLASS_RIFLE_RAIL (1<<2)
+#define GUN_MODULE_CLASS_SNIPER_RAIL (1<<3)
 
 // Muzzle slot types flags
-#define GUN_MODULE_CLASS_PISTOL_MUZZLE 	(1<<4)
+#define GUN_MODULE_CLASS_PISTOL_MUZZLE (1<<4)
 #define GUN_MODULE_CLASS_SHOTGUN_MUZZLE (1<<5)
-#define GUN_MODULE_CLASS_RIFLE_MUZZLE 	(1<<6)
-#define GUN_MODULE_CLASS_SNIPER_MUZZLE 	(1<<7)
+#define GUN_MODULE_CLASS_RIFLE_MUZZLE (1<<6)
+#define GUN_MODULE_CLASS_SNIPER_MUZZLE (1<<7)
 #define GUN_MODULE_CLASS_ANY_MUZZLE (GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE)
 
 // Under slot types flags
-#define GUN_MODULE_CLASS_PISTOL_UNDER 	(1<<8)
-#define GUN_MODULE_CLASS_SHOTGUN_UNDER 	(1<<9)
-#define GUN_MODULE_CLASS_RIFLE_UNDER 	(1<<10)
-#define GUN_MODULE_CLASS_SNIPER_UNDER 	(1<<11)
-
+#define GUN_MODULE_CLASS_PISTOL_UNDER (1<<8)
+#define GUN_MODULE_CLASS_SHOTGUN_UNDER (1<<9)
+#define GUN_MODULE_CLASS_RIFLE_UNDER (1<<10)
+#define GUN_MODULE_CLASS_SNIPER_UNDER (1<<11)
 
 GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_MUZZLE = "ствол",
@@ -80,3 +79,33 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 
 #define FAKE_CALIBER_40MM_IMP "improvised 40mm"
 #define FAKE_CALIBER_80MM_MORTAR "80mm mortar"
+
+/// Minimal recoil
+#define GUN_RECOIL_MIN new /datum/gun_recoil/minimal()
+/// Low recoil
+#define GUN_RECOIL_LOW new /datum/gun_recoil/low()
+/// Medium recoil
+#define GUN_RECOIL_MEDIUM new /datum/gun_recoil/medium()
+/// High recoil
+#define GUN_RECOIL_HIGH new /datum/gun_recoil/high()
+/// Mega recoil
+#define GUN_RECOIL_MEGA new /datum/gun_recoil/mega()
+
+/// Default accuracy for all projectile weapon
+#define GUN_ACCURACY_DEFAULT new /datum/gun_accuracy/default()
+/// Minimal gun accuracy
+#define GUN_ACCURACY_MINIMAL new /datum/gun_accuracy/minimal()
+/// Shotgun accuracy (less than default)
+#define GUN_ACCURACY_SHOTGUN new /datum/gun_accuracy/shotgun()
+/// Pistol accuracy (near default)
+#define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
+/// Uplink pistol accuracy (better than normal pistols)
+#define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
+/// Rifle accuracy (more than default)
+#define GUN_ACCURACY_RIFLE new /datum/gun_accuracy/rifle()
+/// Laser rifle accuracy (default but lesser spread)
+#define GUN_ACCURACY_RIFLE_LASER new /datum/gun_accuracy/rifle/laser()
+/// Uplink rifles accuracy (better than default rifles)
+#define GUN_ACCURACY_RIFLE_UPLINK new /datum/gun_accuracy/rifle/uplink()
+/// Sniper rifle accuracy (100% hit)
+#define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()

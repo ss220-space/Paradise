@@ -35,7 +35,7 @@
 	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
-/obj/effect/rend/New(loc, var/spawn_type, var/spawn_amt, var/desc)
+/obj/effect/rend/New(loc, spawn_type, spawn_amt, desc)
 	..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		to_chat(user, span_warning("<b>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies."))
 
 
-/obj/item/multisword/proc/spawn_copy(var/client/C, var/turf/T, mob/user)
+/obj/item/multisword/proc/spawn_copy(client/C, turf/T, mob/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 	if(duplicate_self)
 		user.client.prefs.copy_to(M)
@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", M)
 
-/obj/item/multisword/proc/equip_copy(var/mob/living/carbon/human/M)
+/obj/item/multisword/proc/equip_copy(mob/living/carbon/human/M)
 
 	var/obj/item/multisword/sword = new sword_type
 	sword.assigned = assigned
