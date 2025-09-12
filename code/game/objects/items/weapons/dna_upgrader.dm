@@ -42,7 +42,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(HAS_TRAIT(H, TRAIT_NO_DNA))
-		balloon_alert(H, "ДНК не обнаружена!")
+		balloon_alert(H, UNLINT("ДНК не обнаружена!"))
 		return
 	switch(choosen_mod)
 		if(VAULT_TOXIN)
