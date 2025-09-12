@@ -169,13 +169,13 @@
 
 /obj/projectile/magic/demonic_grasp/get_ru_names()
 	return list(
-            NOMINATIVE = "демоническая хватка",
-            GENITIVE = "демонической хватки",
-            DATIVE = "демонической хватке",
-            ACCUSATIVE = "демоническую хватку",
-            INSTRUMENTAL = "демонической хваткой",
-            PREPOSITIONAL = "демонической хватке"
-        )
+			NOMINATIVE = "демоническая хватка",
+			GENITIVE = "демонической хватки",
+			DATIVE = "демонической хватке",
+			ACCUSATIVE = "демоническую хватку",
+			INSTRUMENTAL = "демонической хваткой",
+			PREPOSITIONAL = "демонической хватке"
+		)
 
 /obj/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
 	. = ..()

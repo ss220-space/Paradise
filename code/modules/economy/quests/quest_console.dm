@@ -68,6 +68,8 @@
 	data["points"] = round(SSshuttle.points)
 	return data
 
+#undef BASE_HIGHTECH_COST
+
 /obj/machinery/computer/supplyquest/ui_data(mob/user)
 	var/list/data = list()
 	var/list/quest_storages = list()

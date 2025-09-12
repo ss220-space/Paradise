@@ -1,6 +1,6 @@
 /**
-  * # Rep Purchase - Contract Reroll
-  */
+ * # Rep Purchase - Contract Reroll
+ */
 /datum/rep_purchase/reroll
 	name = "Обновление контрактов"
 	description = "Заменяет неактивные контракты на новые, содержащие новую цель и зоны для эвакуации."

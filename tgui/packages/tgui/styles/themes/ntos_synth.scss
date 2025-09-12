@@ -8,10 +8,10 @@
 //@use 'sass:map';
 
 //palette
-$cyan: #5edba5;
-$pink: #ed12f5;
-$orange: #ff9900;
-$purple: #463191;
+$cyan: hsl(154.1, 63.5%, 61.4%);
+$pink: hsl(297.9, 91.9%, 51.6%);
+$orange: hsl(36, 100%, 50%);
+$purple: hsl(253.1, 49.5%, 38%);
 
 @use '../colors.scss' with (
   $primary: $pink,
@@ -36,9 +36,9 @@ $purple: #463191;
     $with: (
       'color-default': $cyan,
       'color-transparent-text': rgba(227, 240, 255, 0.75),
-      'color-disabled': #363636,
-      'color-selected': #465899,
-      'color-caution': #be6209
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(227, 37.2%, 43.7%),
+      'color-caution': hsl(29.5, 91%, 39%)
     )
   );
   @include meta.load-css(

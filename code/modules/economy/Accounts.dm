@@ -39,8 +39,10 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		GLOB.station_account.money = STATION_START_CASH * 2
 
 		//create an entry in the account transaction log for when it was created
-		GLOB.station_account.makeTransactionLog(STATION_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, GLOB.station_account.owner_name, FALSE,
-		 STATION_CREATION_DATE, STATION_CREATION_TIME)
+		GLOB.station_account.makeTransactionLog(
+			STATION_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, GLOB.station_account.owner_name, FALSE,
+			STATION_CREATION_DATE, STATION_CREATION_TIME
+		)
 
 		//add the account
 		GLOB.all_money_accounts.Add(GLOB.station_account)
@@ -55,8 +57,10 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	department_account.money = DEPARTMENT_START_CASH
 
 	//create an entry in the account transaction log for when it was created
-	department_account.makeTransactionLog(DEPARTMENT_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, department_account.owner_name, FALSE,
-	 STATION_CREATION_DATE, STATION_CREATION_TIME)
+	department_account.makeTransactionLog(
+		DEPARTMENT_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, department_account.owner_name, FALSE,
+		STATION_CREATION_DATE, STATION_CREATION_TIME
+	)
 
 	//add the account
 	GLOB.all_money_accounts.Add(department_account)
@@ -66,7 +70,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 //the current ingame time (hh:mm:ss) can be obtained by calling:
 //station_time_timestamp("hh:mm:ss")
 
-/proc/create_account(var/new_owner_name = "Default user", var/starting_funds = 0, var/obj/machinery/computer/account_database/source_db, var/datum/job/link_job = /datum/job ,var/salary_active = FALSE)
+/proc/create_account(new_owner_name = "Default user", starting_funds = 0, obj/machinery/computer/account_database/source_db, datum/job/link_job = /datum/job , salary_active = FALSE)
 
 	//create a new account
 	var/datum/money_account/M = new()
@@ -153,7 +157,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 /datum/money_account/proc/addInsurancePoints(amount)
 	insurance += amount
 
-/datum/money_account/proc/notify_pda_owner(var/text, var/noti = FALSE)
+/datum/money_account/proc/notify_pda_owner(text, noti = FALSE)
 	for(var/obj/item/pda/send_pda in GLOB.name_to_PDAs?[owner_name])
 		var/datum/data/pda/app/messenger/PM = send_pda.find_program(/datum/data/pda/app/messenger)
 		if(PM && PM.can_receive())
@@ -182,23 +186,23 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	return 0
 
 //this returns the first account datum that matches the supplied accnum/pin combination, it returns null if the combination did not match any account
-/proc/attempt_account_access(var/attempt_account_number, var/attempt_pin_number, var/security_level_passed = 0,var/pin_needed=1)
+/proc/attempt_account_access(attempt_account_number, attempt_pin_number, security_level_passed = 0, pin_needed=1)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number)
 			if( D.security_level <= security_level_passed && (!D.security_level || D.remote_access_pin == attempt_pin_number || !pin_needed) )
 				return D
 
-/obj/machinery/computer/account_database/proc/get_account(var/account_number)
+/obj/machinery/computer/account_database/proc/get_account(account_number)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == account_number)
 			return D
 
-/proc/get_account_with_name(var/name_owner)
+/proc/get_account_with_name(name_owner)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.owner_name == name_owner)
 			return D
 
-/proc/attempt_account_access_nosec(var/attempt_account_number)
+/proc/attempt_account_access_nosec(attempt_account_number)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number)
 			return D

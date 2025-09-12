@@ -1,6 +1,4 @@
-/****************************************************
-				BLOOD SYSTEM
-****************************************************/
+// Blood system
 // MARK: Definitions
 
 #define EXOTIC_BLEED_MULTIPLIER 8 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.

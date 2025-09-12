@@ -91,7 +91,7 @@
 
 //Sorts stock parts inside an RPED by their rating.
 //Only use /obj/item/stock_parts/ with this sort proc!
-/proc/cmp_rped_sort(var/obj/item/stock_parts/A, var/obj/item/stock_parts/B)
+/proc/cmp_rped_sort(obj/item/stock_parts/A, obj/item/stock_parts/B)
 	return B.rating - A.rating
 
 /obj/item/stock_parts
@@ -328,5 +328,7 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "high_micro_laser"
 	desc = "A debug item for filling protolathes or furnaces with all types of resources"
-	materials = list(MAT_METAL=8000, MAT_GLASS=8000, MAT_SILVER=8000, MAT_GOLD=8000, MAT_DIAMOND=8000, MAT_URANIUM=8000,
-				 MAT_PLASMA=8000, MAT_BLUESPACE=8000, MAT_BANANIUM=8000, MAT_TRANQUILLITE=8000, MAT_TITANIUM=8000)
+	materials = list(
+		MAT_METAL=8000, MAT_GLASS=8000, MAT_SILVER=8000, MAT_GOLD=8000, MAT_DIAMOND=8000, MAT_URANIUM=8000,
+		MAT_PLASMA=8000, MAT_BLUESPACE=8000, MAT_BANANIUM=8000, MAT_TRANQUILLITE=8000, MAT_TITANIUM=8000
+	)

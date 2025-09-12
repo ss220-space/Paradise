@@ -17,7 +17,7 @@
 	var/selfdestructing = FALSE
 	var/charges = 1
 
-/obj/machinery/syndicate_beacon/attack_hand(var/mob/user as mob)
+/obj/machinery/syndicate_beacon/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 	usr.set_machine(src)
 	var/dat = {"<span style='color: #005500;'><i>Scanning [pick("retina pattern", "voice print", "fingerprints", "dna sequence")]...<br>Identity confirmed,<br></i></span>"}
@@ -158,7 +158,7 @@
 	return
 
 
-/obj/machinery/power/singularity_beacon/attack_hand(var/mob/user as mob)
+/obj/machinery/power/singularity_beacon/attack_hand(mob/user as mob)
 	if(anchored)
 		add_fingerprint(user)
 		return active ? Deactivate(user) : Activate(user)
