@@ -2066,7 +2066,7 @@ This applies to all STANDARD station areas
 	icon_state = "medbayisob"
 
 /area/medical/patient_c
-	name = "Медицинский отдел – изолятор №3
+	name = "Медицинский отдел – изолятор №3"
 	icon_state = "medbayisoc"
 
 /area/medical/iso_access
@@ -2175,15 +2175,15 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/security/main
-	name = "Security Office"
+	name = "Служба безопасности – главный офис"
 	icon_state = "securityoffice"
 
 /area/security/lobby
-	name = "Security Lobby"
+	name = "Служба безопасности – вестибюль"
 	icon_state = "securitylobby"
 
 /area/security/brig
-	name = "Brig"
+	name = "Служба безопасности – бриг"
 	icon_state = "brig"
 
 /area/security/brig/prison_break()
@@ -2195,13 +2195,13 @@ This applies to all STANDARD station areas
 	..()
 
 /area/security/permabrig
-	name = "Prison Wing"
+	name = "Служба безопасности – пермабриг"
 	icon_state = "sec_prison_perma"
 	fast_despawn = TRUE
 	can_get_auto_cryod = FALSE
 
 /area/security/prison
-	name = "Prison Wing"
+	name = "Служба безопасности – пермабриг"
 	icon_state = "sec_prison"
 	can_get_auto_cryod = FALSE
 
@@ -2214,165 +2214,165 @@ This applies to all STANDARD station areas
 	..()
 
 /area/security/prison/cell_block
-	name = "Prison Cell Block"
+	name = "Служба безопасности – камера заключения"
 	icon_state = "brig"
 
 /area/security/prison/cell_block/A
-	name = "Prison Cell Block A"
+	name = "Служба безопасности – камера заключения №1"
 	icon_state = "brigcella"
 
 /area/security/prison/cell_block/B
-	name = "Prison Cell Block B"
+	name = "Служба безопасности – камера заключения №2"
 	icon_state = "brigcellb"
 
 /area/security/prison/cell_block/C
-	name = "Prison Cell Block C"
+	name = "Служба безопасности – камера заключения №3"
 	icon_state = "brig"
 
 /area/security/reception
-	name = "Brig Reception"
+	name = "Служба безопасности – приёмная"
 	icon_state = "brig"
 
 /area/security/execution
-	name = "Execution"
+	name = "Служба безопасности – комната казни"
 	icon_state = "execution"
 	can_get_auto_cryod = FALSE
 
 /area/security/permahallway
-	name = "Permabrig проход"
+	name = "Служба безопасности – проход к пермабрига"
 	icon_state = "sec_prison_perma"
 
 /area/security/processing
-	name = "Prisoner Processing"
+	name = "Служба безопасности – обработка заключённых"
 	icon_state = "prisonerprocessing"
 	can_get_auto_cryod = FALSE
 
 /area/security/holding_cell
-	name = "Temporary Holding Cell"
+	name = "Служба безопасности – пункт временного удержания"
 	icon_state = "holdingcell"
 
 /area/security/interrogation
-	name = "Interrogation"
+	name = "Служба безопасности – допросная"
 	icon_state = "interrogation"
 	can_get_auto_cryod = FALSE
 
 /area/security/seceqstorage
-	name = "Security Equipment Storage"
+	name = "Служба безопасности – склад снаряжения"
 	icon_state = "securityequipmentstorage"
 
 /area/security/brigstaff
-	name = "Brig Staff Room"
+	name = "Служба безопасности – комната отдыха"
 	icon_state = "brig"
 
 /area/security/interrogationhallway
-	name = "Interrogation проход"
+	name = "Служба безопасности – проход к допросной"
 	icon_state = "interrogationhall"
 
 /area/security/courtroomdandp
-	name = "Courtroom Defense and Prosecution"
+	name = "Зал суда – защита и обвинение"
 	icon_state = "seccourt"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/security/interrogationobs
-	name = "Interrogation Observation"
+	name = "Служба безопасности – наблюдение за допросной"
 	icon_state = "security"
 	can_get_auto_cryod = FALSE
 
 /area/security/evidence
-	name = "Evidence Room"
+	name = "Служба безопасности – комната хранения улик"
 	icon_state = "evidence"
 
 /area/security/visiting_room
-	name = "Visiting Room"
+	name = "Служба безопасности – комната для свиданий"
 	icon_state = "visiting-room"
 
 /area/security/prisonlockers
-	name = "Prisoner Lockers"
+	name = "PСлужба безопасности – шкафчики заключённых"
 	icon_state = "sec_prison_lockers"
 	can_get_auto_cryod = FALSE
 
 /area/security/medbay
-	name = "Security Medbay"
+	name = "Служба безопасности – лазарет"
 	icon_state = "security_medbay"
 
 /area/security/prisonershuttle
-	name = "Security Prisoner Shuttle"
+	name = "Служба безопасности – шаттл трудового лагеря"
 	icon_state = "security"
 	can_get_auto_cryod = FALSE
 
 /area/security/warden
-	name = "Warden's Офис "
+	name = "Офис Смотрителя"
 	icon_state = "Warden"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/security/armory
-	name = "Armory"
+	name = "Служба безопасности – арсенал"
 	icon_state = "armory"
 
 /area/security/securearmory
-	name = "Secure Armory"
+	name = "Служба безопасности – защищённый арсенал"
 	icon_state = "secarmory"
 
 /area/security/securehallway
-	name = "Brig Secure проход"
+	name = "Служба безопасности – защищённый проход"
 	icon_state = "securehall"
 
 /area/security/hos
-	name = "Head of Security's Офис "
+	name = "Офис Главы службы безопасности"
 	icon_state = "sec_hos"
 
 /area/security/podbay
-	name = "Security Podbay"
+	name = "Служба безопасности – ангар для челнока"
 	icon_state = "securitypodbay"
 
 /area/security/detectives_office
-	name = "Detective's Офис "
+	name = "Офис Детектива"
 	icon_state = "detective"
 	ambientsounds = list('sound/ambience/ambidet1.ogg', 'sound/ambience/ambidet2.ogg')
 
 /area/security/range
-	name = "Firing Range"
+	name = "Служба безопасности – стрельбище"
 	icon_state = "firingrange"
 
 /area/security/nuke_storage
-	name = "Vault"
+	name = "Защищённое хранилище"
 	icon_state = "nuke_storage"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/security/customs
-	name = "Customs"
+	name = "КПП"
 	icon_state = "checkpoint1"
 
 /area/security/customs2
-	name = "Customs"
+	name = "КПП"
 	icon_state = "security"
 
 /area/security/checkpoint
-	name = "Security Checkpoint"
+	name = "Служба безопасности – КПП"
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint2
-	name = "Security Checkpoint"
+	name = "Служба безопасности – КПП"
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint/south
-	name = "Escape Security Checkpoint"
+	name = "Служба безопасности – КПП пункта отбытия"
 	icon_state = "security"
 
 /area/security/checkpoint/supply
-	name = "Security Post - Cargo Bay"
+	name = "Служба безопасности – охранный пост Отдела снабжения"
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint/engineering
-	name = "Security Post - Engineering"
+	name = "Служба безопасности – охранный пост Инженерноо отдела"
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint/medical
-	name = "Security Post - Medbay"
+	name = "Служба безопасности – охранный пост Медицинского отдела"
 	icon_state = "checkpoint1"
 
 /area/security/checkpoint/science
-	name = "Security Post - Science"
+	name = "Служба безопасности – охранный пост НИО"
 	icon_state = "checkpoint1"
 
 /area/quartermaster
@@ -2404,7 +2404,7 @@ This applies to all STANDARD station areas
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/quartermaster/qm
-	name = "Quartermaster's Офис "
+	name = "Офис Квартирмейстера"
 	icon_state = "quart"
 
 /area/quartermaster/miningdock
@@ -3227,7 +3227,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "awaycontent6"
 
 /area/ruin/space/pirate_base/security_atrium
-	name = "Security Atrium"
+	name = "Служба безопасности – Atrium"
 	icon_state = "awaycontent7"
 
 /area/ruin/space/pirate_base/security_maint
@@ -3720,11 +3720,11 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "surgery2"
 
 /area/coldcolony/malta/medical/biostorage
-	name = "Medical Storage"
+	name = "Медицинский отдел – склад медицины"
 	icon_state = "medbaysecstorage"
 
 /area/coldcolony/malta/medical/genetics
-	name = "Genetics Lab"
+	name = "Медицинский отдел – ла"
 	icon_state = "genetics"
 
 /area/coldcolony/malta/medical/virology
@@ -3741,7 +3741,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
 /area/coldcolony/malta/security/lobby
-	name = "Security Lobby"
+	name = "Служба безопасности – Lobby"
 	icon_state = "securitylobby"
 
 /area/coldcolony/malta/security/magistrateoffice
@@ -3758,7 +3758,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "brig"
 
 /area/coldcolony/malta/security/prison
-	name = "Prison Wing"
+	name = "Служба безопасности – "
 	icon_state = "sec_prison"
 	can_get_auto_cryod = FALSE
 
@@ -3771,7 +3771,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	..()
 
 /area/coldcolony/malta/security/prison/cell_block/A
-	name = "Prison Cell Block A"
+	name = "Служба безопасности – камера заключения A"
 	icon_state = "brigcella"
 
 /area/coldcolony/malta/security/customs
@@ -3793,7 +3793,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "brig"
 
 /area/coldcolony/malta/security/medbay
-	name = "Security Medbay"
+	name = "Служба безопасности – Medbay"
 	icon_state = "security_medbay"
 
 /area/coldcolony/malta/security/evidence
@@ -3805,7 +3805,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "sec_hos"
 
 /area/coldcolony/malta/security/main
-	name = "Security Office"
+	name = "Служба безопасности – Office"
 	icon_state = "securityoffice"
 
 /area/coldcolony/malta/security/securehallway
@@ -3831,13 +3831,13 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "sec_prison_perma"
 
 /area/coldcolony/malta/security/permabrig
-	name = "Prison Wing"
+	name = "Служба безопасности – "
 	icon_state = "sec_prison_perma"
 	fast_despawn = TRUE
 	can_get_auto_cryod = FALSE
 
 /area/coldcolony/malta/security/checkpoint
-	name = "Security Checkpoint"
+	name = "Служба безопасности – Checkpoint"
 	icon_state = "checkpoint1"
 
 /**
