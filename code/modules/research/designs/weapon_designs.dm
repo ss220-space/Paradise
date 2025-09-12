@@ -138,30 +138,9 @@
 	id = "mag_oldsmg"
 	req_tech = list("combat" = 1, "materials" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 12000)
-	build_path = /obj/item/ammo_box/magazine/wt550m9
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/wt550m9/empty
 	category = list("Weapons", "hacked", "Security")
-
-/datum/design/mag_oldsmg/ap_mag
-	name = "WT-550 Auto Gun Armour Piercing Magazine (4.6x30mm AP)"
-	desc = "A 20 round armour piercing magazine for the out of date security WT-550 Auto Rifle"
-	id = "mag_oldsmg_ap"
-	materials = list(MAT_METAL = 16000, MAT_SILVER = 1500)
-	build_path = /obj/item/ammo_box/magazine/wt550m9/wtap
-
-/datum/design/mag_oldsmg/ic_mag
-	name = "WT-550 Auto Gun Incendiary Magazine (4.6x30mm IC)"
-	desc = "A 20 round incendiary magazine for the out of date security WT-550 Auto Rifle"
-	id = "mag_oldsmg_ic"
-	materials = list(MAT_METAL = 16000, MAT_SILVER = 1500, MAT_PLASMA = 2000)
-	build_path = /obj/item/ammo_box/magazine/wt550m9/wtic
-
-/datum/design/mag_oldsmg/tx_mag
-	name = "WT-550 Auto Gun Uranium Magazine (4.6x30mm TX)"
-	desc = "A 20 round uranium tipped magazine for the out of date security WT-550 Auto Rifle"
-	id = "mag_oldsmg_tx"
-	materials = list(MAT_METAL = 16000, MAT_SILVER = 1500, MAT_URANIUM = 2000)
-	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
 
 /datum/design/box_oldsmg
 	name = "WT-550 Auto Gun Ammo box (4.6x30mm)"
@@ -169,7 +148,7 @@
 	id = "box_oldsmg"
 	req_tech = list("combat" = 2, "materials" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 20000)
+	materials = list(MAT_METAL = 30000)
 	build_path = /obj/item/ammo_box/c46x30mm
 	category = list("Weapons", "hacked", "Security")
 

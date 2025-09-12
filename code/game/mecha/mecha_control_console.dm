@@ -8,7 +8,6 @@
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
 	var/screen = 0
-	var/stored_data = list()
 
 /obj/machinery/computer/mecha/attack_ai(mob/user)
 	return attack_hand(user)
@@ -39,8 +38,6 @@
 		if(tr_data)
 			data["beacons"] += list(tr_data)
 
-	data["stored_data"] = stored_data
-
 	return data
 
 
@@ -63,14 +60,6 @@
 			if(istype(MT))
 				MT.shock()
 				return TRUE
-		if("get_log")
-			var/obj/item/mecha_parts/mecha_tracking/MT = locateUID(params["mt"])
-			if(istype(MT))
-				stored_data = MT.get_mecha_log()
-				return TRUE
-		if("clear_log")
-			stored_data = list()
-			return TRUE
 
 /obj/item/mecha_parts/mecha_tracking
 	name = "Exosuit tracking beacon"
@@ -164,12 +153,6 @@
 	if(M)
 		M.emp_act(2)
 	qdel(src)
-
-/obj/item/mecha_parts/mecha_tracking/proc/get_mecha_log()
-	if(!in_mecha())
-		return list()
-	var/obj/mecha/M = loc
-	return M.get_log_tgui()
 
 /obj/item/mecha_parts/mecha_tracking/ai_control
 	name = "exosuit AI control beacon"
