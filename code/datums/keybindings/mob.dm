@@ -453,6 +453,4 @@
 		gun = human.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
 	if (!gun || !istype(gun))
 		return .
-	if(!gun.azoom)
-		return
-	SEND_SIGNAL(gun, COMSIG_KEYBINDING_GUN_LASER_SIGHT, user, gun)
+	SEND_SIGNAL(gun, COMSIG_KEYBINDING_GUN_LASER_SIGHT, human, gun)

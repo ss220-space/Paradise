@@ -57,9 +57,9 @@
 /obj/item/gun_module/proc/detach_without_check(obj/item/gun/target_gun, mob/user)
 	if(!do_after(user, 1 SECONDS, target_gun))
 		return FALSE
+	src.on_detach(target_gun, user)
 	target_gun.attachments_by_slot[slot] = null
 	target_gun.remove_attachment_overlay(src)
-	src.on_detach(target_gun, user)
 	SEND_SIGNAL(target_gun, COMSIG_GUN_MODULE_DETACH, user, target_gun, src)
 	user.put_in_hands(src)
 	gun = null
