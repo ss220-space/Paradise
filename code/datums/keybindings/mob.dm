@@ -424,14 +424,35 @@
 	var/mob/living/carbon/human/human = user.mob
 	if (!istype(human))
 		return .
-	for(var/datum/action/action in human.actions)
-		if(istype(action, /datum/action/toggle_scope_zoom))
-			action.Trigger()
-			return
-	// not found scope, now we can try trigger laser sight
-	for(var/datum/action/action in human.actions)
-		if(istype(action, /datum/action/toggle_laser_sight))
-			action.Trigger()
-			break
+	var/obj/item/gun/gun = human.get_item_by_slot(ITEM_SLOT_HAND_LEFT)
+	if(!gun || !istype(gun))
+		gun = human.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
+	if (!gun || !istype(gun))
+		return .
+	if(!gun.azoom)
+		return
+	gun.azoom.Trigger()
 
 
+/datum/keybinding/mob/toggle_laser_sight
+	name = "Переключить лазерный целеуказатель"
+	keys = list("CtrlF")
+
+/datum/keybinding/mob/toggle_laser_sight/can_use(client/user)
+	return ishuman(user.mob) //only humans can use laser sights
+
+/datum/keybinding/mob/toggle_laser_sight/down(client/user)
+	. = ..()
+	if(.)
+		return .
+	var/mob/living/carbon/human/human = user.mob
+	if (!istype(human))
+		return .
+	var/obj/item/gun/gun = human.get_item_by_slot(ITEM_SLOT_HAND_LEFT)
+	if(!gun || !istype(gun))
+		gun = human.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
+	if (!gun || !istype(gun))
+		return .
+	if(!gun.azoom)
+		return
+	SEND_SIGNAL(gun, COMSIG_KEYBINDING_GUN_LASER_SIGHT, user, gun)

@@ -159,6 +159,14 @@
 	else if(dx < 0)
 		. += 360
 
+/// Get normalized angle (for fix rotation animation bug near 90 and -90 degrees)
+/proc/normalize_angle(angle)
+	while(angle > 90)
+		angle -= 360
+	while(angle < -90)
+		angle += 360
+	return angle
+
 /**
  * Get a list of turfs in a line from `starting_atom` to `ending_atom`.
  *

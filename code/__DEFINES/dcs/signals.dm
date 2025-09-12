@@ -1028,8 +1028,16 @@
 /// Sent from obj/item/gun/zoom(): (user, zoomed)
 #define COMSIG_GUN_ZOOM_TOGGLE "gun_zoom_toggle"
 
-/// Sent from obj/item/gun/zoom(): (user, zoomed)
-#define COMSIG_GUN_LASER_SIGHT_TOGGLE "gun_laser_sight_toggle"
+/// Sent from datum/component/laser_sight/datum/keybinding/toggle_laser_sight/down(): (user, gun)
+#define COMSIG_KEYBINDING_GUN_LASER_SIGHT "keybbinding_laser_sight_toggle"
+
+/// Sent from datum/component/laser_sight/process_aim(): (user, enable)
+#define COMSIG_GUN_AFTER_LASER_SIGHT_TOGGLE "gun_after_laser_sight_toggle"
+
+/// Sent from obj/item/gun_module/on_attach(): (user, obj/item/gun, obj/item/gun_module)
+#define COMSIG_GUN_MODULE_ATTACH "gun_module_attach"
+/// Sent from obj/item/gun_module/on_detach(): (user, obj/item/gun, obj/item/gun_module)
+#define COMSIG_GUN_MODULE_DETACH "gun_module_detach"
 
 // /obj/item/grenade signals
 

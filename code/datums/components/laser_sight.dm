@@ -20,10 +20,13 @@
 	. = ..()
 	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
+	RegisterSignal(parent, COMSIG_GUN_MODULE_ATTACH, PROC_REF(on_attach_module))
+	RegisterSignal(parent, COMSIG_GUN_MODULE_DETACH, PROC_REF(on_detach_module))
+	RegisterSignal(parent, COMSIG_KEYBINDING_GUN_LASER_SIGHT, PROC_REF(on_laser_sight_keybinding))
 
 /datum/component/laser_sight/UnregisterFromParent()
 	. = ..()
-	UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)
+	UnregisterSignal(parent, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED, COMSIG_GUN_MODULE_ATTACH, COMSIG_GUN_MODULE_DETACH)
 
 /datum/component/laser_sight/Destroy()
 	QDEL_NULL(action)
@@ -39,7 +42,8 @@
 
 	if(!(slot & ITEM_SLOT_HANDS))
 		// If its not in their hands, disable laser, and remove the action button.
-		process_aim(user, FALSE)
+		toggle_enable(user, FALSE)
+		process_aim(user)
 		action.Remove(user)
 		sight_target = null
 		return FALSE
@@ -47,16 +51,40 @@
 	// The gun is equipped in their hands, give them the zoom ability.
 	action.Grant(user)
 
+
+/datum/component/laser_sight/proc/on_attach_module(datum/source, mob/user, obj/item/gun, obj/item/gun_module/gun_mod)
+	SIGNAL_HANDLER
+
+	if(!user.is_in_hands(gun))
+		return
+	on_equip(src, user, ITEM_SLOT_HANDS)
+
+
+/datum/component/laser_sight/proc/on_detach_module(datum/source, mob/user, obj/item/gun, obj/item/gun_module/gun_mod)
+	SIGNAL_HANDLER
+
+	on_drop(source, user)
+
+
 /datum/component/laser_sight/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-	process_aim(user, FALSE)
+	toggle_enable(user, FALSE)
+	process_aim(user)
 	action.Remove(user)
 	sight_target = null
 	return FALSE
 
+
+/datum/component/laser_sight/proc/on_laser_sight_keybinding(datum/sourc, mob/user, obj/item/gun/target_gun)
+	SIGNAL_HANDLER
+
+	toggle_enable(user)
+	process_aim(user)
+
+
 // There is a gun and there is a user wielding it. The component now waits for the mouse click.
-/datum/component/laser_sight/proc/process_aim(mob/user, forced_enable = null)
+/datum/component/laser_sight/proc/toggle_enable(mob/user, forced_enable = null)
 	var/old_enable = enable
 	switch(forced_enable)
 		if(FALSE)
@@ -68,18 +96,22 @@
 
 	if(old_enable == enable)
 		return // no changes
-	else if(parent)
-		SEND_SIGNAL(parent, COMSIG_GUN_LASER_SIGHT_TOGGLE, user, enable)
+	if(!parent)
+		return
+	SEND_SIGNAL(parent, COMSIG_GUN_AFTER_LASER_SIGHT_TOGGLE, user, enable)
 
+
+/datum/component/laser_sight/proc/process_aim(mob/user)
 	if(enable)
 		on_enable_sight(user)
 		update_sight_laser(user)
 		sight_timer = addtimer(CALLBACK(src, PROC_REF(update_sight_laser), user), 0.1, TIMER_STOPPABLE | TIMER_LOOP)
-	else
-		on_disable_sight(user)
-		if(sight_timer)
-			deltimer(sight_timer)
-			sight_timer = null
+		return
+	on_disable_sight(user)
+	if(!sight_timer)
+		return
+	deltimer(sight_timer)
+	sight_timer = null
 
 /datum/component/laser_sight/proc/on_enable_sight(mob/user)
 	return
@@ -104,7 +136,8 @@
 
 /datum/component/laser_sight/ClearFromParent()
 	if(enable)
-		process_aim(usr, FALSE)
+		toggle_enable(usr, FALSE)
+		process_aim(usr)
 	. = ..()
 
 // MARK: Point
@@ -142,13 +175,15 @@
 
 /datum/component/laser_sight/point/on_disable_sight(mob/user)
 	QDEL_NULL(point)
-	if(rand_move_timer)
-		deltimer(rand_move_timer)
-		rand_move_timer = null
+	if(!rand_move_timer)
+		return
+	deltimer(rand_move_timer)
+	rand_move_timer = null
 
 /datum/component/laser_sight/point/on_update_sight(mob/user)
-	if(point.loc != sight_target)
-		point.forceMove(sight_target)
+	if(point.loc == sight_target)
+		return
+	point.forceMove(sight_target)
 
 // MARK: Ray
 
@@ -179,9 +214,10 @@
 /datum/component/laser_sight/ray/proc/update_point(mob/user)
 	if(point.loc != sight_target)
 		point.forceMove(sight_target)
-	if(prob(50))
-		point.pixel_x = clamp(point.pixel_x + rand(-1, 1), -move_range, move_range)
-		point.pixel_y = clamp(point.pixel_y + rand(-1, 1), -move_range, move_range)
+	if(!prob(50))
+		return
+	point.pixel_x = clamp(point.pixel_x + rand(-1, 1), -move_range, move_range)
+	point.pixel_y = clamp(point.pixel_y + rand(-1, 1), -move_range, move_range)
 
 /datum/component/laser_sight/ray/proc/update_beam(atom/start, atom/end)
 	if(QDELETED(start) || QDELETED(end))
@@ -194,7 +230,9 @@
 	var/dx = (start_turf.x - end_turf.x) * ICON_SIZE_ALL + (start.pixel_x - end.pixel_x)
 	var/dy = (start_turf.y - end_turf.y) * ICON_SIZE_ALL + (start.pixel_y - end.pixel_y)
 	var/distance = sqrt(dx*dx + dy*dy)
-	var/angle = get_stable_angle(dx, dy)
+	var/angle = arctan(dy, dx)
+	angle = normalize_angle(angle)
+	get_angle()
 	var/matrix/trans = matrix()
 	trans.Translate(0, -ICON_SIZE_ALL/2)
 	//scale to distance
@@ -207,14 +245,6 @@
 	var/angle = arctan(dy, dx)
 	return normalize_angle(angle)
 
-/datum/component/laser_sight/ray/proc/normalize_angle(angle)
-	while(angle > 90)
-		angle -= 360
-	while(angle < -90)
-		angle += 360
-	return angle
-
-
 // MARK: Action
 
 /datum/action/toggle_laser_sight
@@ -224,15 +254,19 @@
 	var/datum/component/laser_sight/sight = null
 
 /datum/action/toggle_laser_sight/Trigger(left_click = TRUE)
+	sight.toggle_enable(owner)
 	sight.process_aim(owner)
 
 /datum/action/toggle_laser_sight/IsAvailable()
 	. = ..()
-	if(!. && sight)
-		sight.process_aim(owner, FALSE)
+	if(. || !sight)
+		return
+	sight.toggle_enable(owner, FALSE)
+	sight.process_aim(owner)
 
 /datum/action/toggle_laser_sight/Remove(mob/living/living)
-	sight.process_aim(living, FALSE)
+	sight.toggle_enable(owner, FALSE)
+	sight.process_aim(living)
 	return ..()
 
 

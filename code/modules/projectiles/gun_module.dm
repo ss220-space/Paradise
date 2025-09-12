@@ -49,6 +49,7 @@
 	user.drop_transfer_item_to_loc(src, target_gun)
 	gun = target_gun
 	src.on_attach(target_gun, user)
+	SEND_SIGNAL(target_gun, COMSIG_GUN_MODULE_ATTACH, user, target_gun, src)
 	user.balloon_alert(user, "модуль установлен")
 	return TRUE
 
@@ -59,6 +60,7 @@
 	target_gun.attachments_by_slot[slot] = null
 	target_gun.remove_attachment_overlay(src)
 	src.on_detach(target_gun, user)
+	SEND_SIGNAL(target_gun, COMSIG_GUN_MODULE_DETACH, user, target_gun, src)
 	user.put_in_hands(src)
 	gun = null
 	user.balloon_alert(user, "модуль снят")
@@ -596,15 +598,13 @@
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/gun_module/under/laser/on_attach(obj/item/gun/target_gun, mob/user)
-	RegisterSignal(target_gun, COMSIG_GUN_LASER_SIGHT_TOGGLE, PROC_REF(laser_sight_toggle))
-	var/datum/component/laser_sight/comp = gun.AddComponent(component_type)
-	if(user.is_in_hands(target_gun))
-		comp.on_equip(src, user, ITEM_SLOT_HANDS)
+	RegisterSignal(target_gun, COMSIG_GUN_AFTER_LASER_SIGHT_TOGGLE, PROC_REF(laser_sight_toggle))
+	gun.AddComponent(component_type)
 
 /obj/item/gun_module/under/laser/on_detach(obj/item/gun/target_gun, mob/user)
 	var/datum/component/comp = target_gun.GetComponent(component_type)
 	QDEL_NULL(comp)
-	UnregisterSignal(target_gun, COMSIG_GUN_LASER_SIGHT_TOGGLE)
+	UnregisterSignal(target_gun, COMSIG_GUN_AFTER_LASER_SIGHT_TOGGLE)
 
 /obj/item/gun_module/under/laser/proc/laser_sight_toggle(datum/source, mob/user, enable)
 	SIGNAL_HANDLER
