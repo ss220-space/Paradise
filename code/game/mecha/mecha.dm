@@ -780,7 +780,7 @@
 
 	for(var/X in cargo)
 		var/atom/movable/cargo_thing = X
-		if(prob(10 * severity))
+		if(prob(30 / (4 - severity)))
 			cargo -= cargo_thing
 			cargo_thing.forceMove(drop_location())
 
