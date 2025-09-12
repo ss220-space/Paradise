@@ -125,7 +125,7 @@
 		ui_interact(user)
 		return
 	. += span_notice("Нужно подойти ближе, чтобы посмотреть содержмое.")
-	balloon_alert("слишком далеко")
+	balloon_alert(user, "слишком далеко!")
 
 /obj/item/dna_notepad/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
