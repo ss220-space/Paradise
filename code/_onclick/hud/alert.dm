@@ -761,7 +761,7 @@
 
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there
 /datum/hud/proc/reorganize_alerts()
-	var/list/alerts = mymob.alerts
+	var/list/alerts = mymob?.alerts
 	if(!alerts)
 		return FALSE
 	var/icon_pref
