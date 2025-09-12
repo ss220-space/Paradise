@@ -301,8 +301,10 @@
 /obj/structure/hivebot_spawner/process()
 	if(!is_active && COOLDOWN_FINISHED(src, cycle_cooldown))
 		start_production()
+		return
 	else if(is_active && COOLDOWN_FINISHED(src, spawn_cooldown))
 		spawn_bots()
+		return
 
 /obj/structure/hivebot_spawner/proc/start_production()
 	is_active = TRUE
