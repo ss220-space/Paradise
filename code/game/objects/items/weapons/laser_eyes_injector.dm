@@ -32,7 +32,7 @@
 		return .
 
 	if(HAS_TRAIT(target, TRAIT_NO_DNA))
-		balloon_alert(user, "ДНК не обнаружена!")
+		balloon_alert(user, UNLINT("ДНК не обнаружена!"))
 		return .
 
 	if(locate(/obj/effect/proc_holder/spell/lasereyes, target.mob_spell_list))

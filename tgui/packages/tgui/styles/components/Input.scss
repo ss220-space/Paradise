@@ -34,10 +34,10 @@ $border-color-disabled: color.adjust(
   overflow: visible;
 
   &--disabled {
-    color: #777;
+    color: hsl(0, 0%, 46.7%);
     border-color: $border-color-disabled;
     border-color: rgba($border-color-disabled, 0.75);
-    background-color: #333;
+    background-color: hsl(0, 0%, 20%);
     background-color: rgba(0, 0, 0, 0.25);
   }
 }
@@ -74,7 +74,7 @@ $border-color-disabled: color.adjust(
 
   &::placeholder {
     font-style: italic;
-    color: #777;
+    color: hsl(0, 0%, 46.7%);
     color: rgba(255, 255, 255, 0.45);
   }
   // TODO: Remove with 516
@@ -98,7 +98,7 @@ $border-color-disabled: color.adjust(
 
   &::placeholder {
     font-style: italic;
-    color: #777;
+    color: hsl(0, 0%, 46.7%);
     color: rgba(255, 255, 255, 0.45);
   }
 

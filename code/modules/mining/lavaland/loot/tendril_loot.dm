@@ -386,7 +386,7 @@
 		return
 
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
-		balloon_alert(user, "куб искрится и шипит.")
+		balloon_alert(user, "куб искрится и шипит")
 		return
 	if(do_after(user, 1.5 SECONDS, user))
 		var/datum/effect_system/fluid_spread/smoke/smoke = new
