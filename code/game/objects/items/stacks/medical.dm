@@ -723,6 +723,25 @@
 	var/remove_duration = 2.5 SECONDS
 	var/obj/item/organ/external/applyed_bodypart = null
 	var/obj/item/organ/external/applyed_addition_bodypart = null
+	var/necrotize_warning_duration = 4 MINUTES
+	var/necrotize_warning_timer_id = null
+	var/necrotize_duration = 5 MINUTES
+	var/necrotize_timer_id = null
+
+/obj/item/tourniquet/Destroy()
+	. = ..()
+	applyed_bodypart = null
+	applyed_addition_bodypart = null
+	stop_apply_timers()
+
+/obj/item/tourniquet/proc/stop_apply_timers()
+	if(necrotize_warning_timer_id)
+		deltimer(necrotize_warning_timer_id)
+		necrotize_warning_timer_id = null
+	if(!necrotize_timer_id)
+		return
+	deltimer(necrotize_timer_id)
+	necrotize_timer_id = null
 
 /obj/item/tourniquet/get_ru_names()
 	return list(
@@ -801,6 +820,21 @@
 	balloon_alert(user, "жгут наложен.")
 	target.UpdateDamageIcon()
 	update_icon()
+	necrotize_warning_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs_warning), target), necrotize_warning_duration, TIMER_STOPPABLE)
+	necrotize_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs), target), necrotize_duration, TIMER_STOPPABLE)
+
+/obj/item/tourniquet/proc/necrotize_limbs_warning(mob/living/user)
+	if(!applyed_bodypart)
+		return
+	balloon_alert(user, "[applyed_bodypart.declent_ru(NOMINATIVE)] онемела!")
+	to_chat(user, span_danger("Вы ощущаете, как ваша [applyed_bodypart.declent_ru(NOMINATIVE)] теряет чувствительность!"))
+
+/obj/item/tourniquet/proc/necrotize_limbs(mob/living/target)
+	if(applyed_bodypart)
+		applyed_bodypart.necrotize()
+	if(!applyed_addition_bodypart)
+		return
+	applyed_addition_bodypart.necrotize()
 
 /obj/item/tourniquet/proc/remove_from_bodypart(mob/living/user)
 	if(!applyed_bodypart)
@@ -815,6 +849,7 @@
 	if(applyed_addition_bodypart)
 		applyed_addition_bodypart.tourniquet = null
 		applyed_addition_bodypart = null
+	stop_apply_timers()
 	user.put_in_any_hand_if_possible(src)
 	balloon_alert(user, "жгут снят.")
 	return TRUE

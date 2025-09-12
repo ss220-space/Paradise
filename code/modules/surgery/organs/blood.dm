@@ -41,8 +41,6 @@
 #define BRUISE_PACK_SUPPRESS_BLEEDING_MOD 0.80
 /// Oxy damage if use tourniquet on head
 #define OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD 10
-/// Tourniquet duration for necrotize limb
-#define TOURNIQUET_LIMB_NECROTIZE_DURATION (1 MINUTES)
 
 /// Minimal brute damage for add bleeding
 #define MIN_BRUTE_DAMAGE_FOR_BLEEDING 15
@@ -596,4 +594,3 @@
 #undef HEAVY_BLEEDING_RATE
 #undef BODYPART_INTERNAL_BLEEDING
 #undef OXY_DAMAGE_FOR_TOURNIQUET_ON_HEAD
-#undef TOURNIQUET_LIMB_NECROTIZE_DURATION
