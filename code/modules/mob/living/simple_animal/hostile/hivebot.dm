@@ -28,7 +28,7 @@
 	health = 15
 	maxHealth = 30
 	melee_damage_lower = 10
-	melee_damage_upper = 20
+	melee_damage_upper = 12
 	ranged = 1
 	rapid = 1
 	rapid_fire_delay = 3
@@ -245,22 +245,26 @@
 	if(world.time < last_heal_time + heal_cooldown)
 		return
 
-	var/list/targets = list()
-	for(var/mob/living/simple_animal/hostile/hivebot/H in view(heal_range, src))
-		if(H != src && H.health < H.maxHealth && H.stat != DEAD)
-			targets += H
+	var/list/repair_targets = list()
+	for(var/mob/living/simple_animal/hostile/hivebot/candidate in view(heal_range, src))
+		if(candidate != src && candidate.health < candidate.maxHealth && candidate.stat != DEAD)
+			repair_targets += candidate
 
-	if(targets.len > 0)
-		var/mob/living/simple_animal/hostile/hivebot/target = pick(targets)
+	if(!length(repair_targets))
+		return
 
-		target.adjustHealth(-heal_amount)
-		visible_message(span_redtext("[capitalize(declent_ru(NOMINATIVE))] чинит [target.declent_ru(ACCUSATIVE)] с помощью ремонтных нанитов."))
+	var/mob/living/simple_animal/hostile/hivebot/target = pick(repair_targets)
 
-		var/datum/effect_system/spark_spread/sparks = new
-		sparks.set_up(3, 0, get_turf(target))
-		sparks.start()
+	target.health = min(target.health + heal_amount, target.maxHealth)
+	target.updatehealth()
 
-		last_heal_time = world.time
+	visible_message(span_redtext("[capitalize(declent_ru(NOMINATIVE))] чинит [target.declent_ru(ACCUSATIVE)] с помощью ремонтных нанитов."))
+
+	var/datum/effect_system/spark_spread/sparks = new
+	sparks.set_up(3, 0, get_turf(target))
+	sparks.start()
+
+	last_heal_time = world.time
 
 //Fabricator
 
@@ -276,23 +280,16 @@
 	var/spawn_interval = 1500 	 //Production time
 	var/cooldown_duration = 3000 //Cooldown after Production time
 	// Internal tracking variables
-	var/next_spawn_time = 0		// When next spawn/action should occur
-	var/cooldown_until = 0		// When cooldown period ends
 	var/is_active = FALSE		// Whether currently producing bots
+	var/current_spawn_count = 0 // Current spawn count in cycle
 
-/obj/structure/hivebot_spawner/get_ru_names()
-	ru_names = list(
-		NOMINATIVE = "фабрикатор",
-		GENITIVE = "фабрикатора",
-		DATIVE = "фабрикатору",
-		ACCUSATIVE = "фабрикатор",
-		INSTRUMENTAL = "фабрикатором",
-		PREPOSITIONAL = "фабрикаторе"
-	)
+	// Cooldowns
+	COOLDOWN_DECLARE(cycle_cooldown)
+	COOLDOWN_DECLARE(spawn_cooldown)
 
 /obj/structure/hivebot_spawner/Initialize(mapload)
 	. = ..()
-	next_spawn_time = world.time + spawn_interval
+	COOLDOWN_START(src, cycle_cooldown, spawn_interval)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/hivebot_spawner/Destroy()
@@ -300,17 +297,17 @@
 	return ..()
 
 /obj/structure/hivebot_spawner/process()
-	if(world.time >= cooldown_until && !is_active)
-		if(world.time >= next_spawn_time)
-			start_production()
-	else if(is_active && world.time >= next_spawn_time)
+	if(!is_active && COOLDOWN_FINISHED(src, cycle_cooldown))
+		start_production()
+	else if(is_active && COOLDOWN_FINISHED(src, spawn_cooldown))
 		spawn_bots()
 
 /obj/structure/hivebot_spawner/proc/start_production()
 	is_active = TRUE
-	icon_state = "fab_robot"
+	current_spawn_count = spawn_count
+	icon_state = "fab_robot_active"
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает гудеть!"))
-	next_spawn_time = world.time + (spawn_interval / spawn_count)
+	COOLDOWN_START(src, spawn_cooldown, spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/spawn_bots()
 	var/list/hivebot_types = list(
@@ -324,18 +321,16 @@
 	var/spawn_type = pick(hivebot_types)
 	new spawn_type(get_turf(src))
 
-	if(--spawn_count <= 0)
+	if(--current_spawn_count <= 0)
 		finish_production()
 	else
-		next_spawn_time = world.time + (spawn_interval / spawn_count)
+		COOLDOWN_START(src, spawn_cooldown, spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/finish_production()
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] останавливается."))
 	is_active = FALSE
-	spawn_count = initial(spawn_count)
-	cooldown_until = world.time + cooldown_duration
 	icon_state = "fab_robot"
-	next_spawn_time = cooldown_until + spawn_interval
+	COOLDOWN_START(src, cycle_cooldown, cooldown_duration)
 
 //////////////
 //MARK: LOOT
