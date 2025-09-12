@@ -148,21 +148,15 @@
 	accuracy = GUN_ACCURACY_DEFAULT
 
 
-/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
+/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload, new_parent_spell)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
-
+	parent_spell = new_parent_spell
+	verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 /obj/item/gun/projectile/revolver/fingergun/fake
 	desc = "Pew pew pew!"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
-
-
-/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload, loc, new_parent_spell)
-	. = ..()
-	parent_spell = new_parent_spell
-	verbs -= /obj/item/gun/projectile/revolver/verb/spin
-
 
 /obj/item/gun/projectile/revolver/fingergun/Destroy()
 	if(parent_spell)
