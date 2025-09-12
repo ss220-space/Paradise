@@ -277,7 +277,7 @@
 	if(!isliving(hit_atom))
 		return ..()
 	var/mob/living/victim = hit_atom
-	if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
+	if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE) || HAS_TRAIT(victim, TRAIT_SUPERMATTERIMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
 	if(throwingdatum?.thrower)
 		var/mob/user = throwingdatum.thrower
@@ -302,6 +302,10 @@
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
 	if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
+	if(HAS_TRAIT(user, TRAIT_SUPERMATTERIMMUNE))
+		user.drop_item_ground(src, force = TRUE)
+		user.balloon_alert(user, "слишком тяжело!")
+		return FALSE
 	user.visible_message(
 		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [src.declent_ru(DATIVE)]. [genderize_ru(user.gender,"его","её","его","их")] тело начинает светиться и мгновенно вспыхивает!"),
 		span_userdanger("Вы попытались взять [src.declent_ru(NOMINATIVE)] голыми руками. Это было глупо."),
@@ -408,7 +412,7 @@
 
 /obj/item/nuke_core_container/supermatter/attack_hand(mob/user)
 	if(cracked && sliver) //What did we say about touching the shard...
-		if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE))
+		if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE) || HAS_TRAIT(user, TRAIT_SUPERMATTERIMMUNE))
 			return FALSE
 		user.visible_message(
 			span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [sliver.declent_ru(DATIVE)]. [genderize_ru(user.gender,"Его","Её","Его","Их")] тело начинает светиться и вспыхивает!"),
@@ -512,7 +516,7 @@
 		if(!isliving(AM))
 			return
 		var/mob/living/victim = AM
-		if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
+		if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE) || HAS_TRAIT(victim, TRAIT_SUPERMATTERIMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 			return
 		victim.gib()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")
