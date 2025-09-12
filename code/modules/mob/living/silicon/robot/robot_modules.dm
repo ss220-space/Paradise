@@ -524,6 +524,9 @@
 /obj/item/robot_module/butler
 	name = "Service"
 	module_type = "Service"
+	module_actions = list(
+		/datum/action/innate/robot_sight_hydro
+	)
 	channels = list(SRV_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/default
 	borg_skins = list(

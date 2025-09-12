@@ -183,15 +183,15 @@ fi;
 
 echo -e "${BLUE}Checking for whitespace issues...${NC}"
 
- if grep -P '(^ {2})|(^ [^ * ])|(^    +)' code/**/*.dm; then
-	echo -e "${RED}ERROR: Space indentation detected, please use tab indentation.${NC}"
+if grep -P '(^ {2})|(^ [^ * ])|(^    +)' code/**/*.dm; then
+    echo -e "${RED}ERROR: Space indentation detected, please use tab indentation.${NC}"
 	echo
-	st=1
+    st=1
 fi;
 if grep -P '^\t+ [^ *]' code/**/*.dm; then
-	echo -e "${RED}ERROR: Mixed <tab><space> indentation detected, please stick to tab indentation.${NC}"
+    echo -e "${RED}ERROR: Mixed <tab><space> indentation detected, please stick to tab indentation.${NC}"
 	echo
-	st=1
+    st=1
 fi;
 nl='
 '
@@ -228,9 +228,9 @@ if grep '#define FAST_LOAD' _maps/common.dm | grep -v '\/\/#define FAST_LOAD'; t
     st=1
 fi;
 if grep -P '^/[\w/]\S+\((var/)?.*(, ?var/.*).*\)' code/**/*.dm; then
-	echo -e "${RED}ERROR: Changed files contains a proc argument starting with 'var'.${NC}"
+    echo -e "${RED}ERROR: Changed files contains a proc argument starting with 'var'.${NC}"
 	echo
-	st=1
+    st=1
 fi;
 if grep -ni 'nanotransen' code/**/*.dm; then
     echo -e "${RED}ERROR: Misspelling(s) of Nanotrasen detected in code, please remove the extra N(s).${NC}"
@@ -239,6 +239,26 @@ if grep -ni 'nanotransen' code/**/*.dm; then
 fi;
 if grep -i '/obj/effect/mapping_helpers/custom_icon' _maps/**/*.dmm; then
     echo -e "${RED}ERROR: Custom icon helper found. Please include DMI files as standard assets instead for repository maps.${NC}"
+	echo
+    st=1
+fi;
+if grep -i 'var/list/static/.*' code/**/*.dm; then
+    echo -e "${RED}ERROR: Found incorrect static list definition 'var/list/static/', it should be 'var/static/list/' instead.${NC}"
+	echo
+    st=1
+fi;
+if grep -P 'balloon_alert\(".*"\)' code/**/*.dm; then
+    echo -e "${RED}ERROR: Found a balloon alert with improper arguments.${NC}"
+	echo
+    st=1
+fi;
+if grep -P 'balloon_alert\(.*span_\)' code/**/*.dm; then
+    echo -e "${RED}ERROR: Balloon alerts should never contain spans.${NC}"
+	echo
+    st=1
+fi;
+if grep -P 'balloon_alert\(.*?, ?"[А-Я]' code/**/*.dm; then
+    echo -e "${RED}ERROR: Balloon alerts should not start with capital letters. This includes text like 'AI'. If this is a false positive, wrap the text in UNLINT().${NC}"
 	echo
     st=1
 fi;
