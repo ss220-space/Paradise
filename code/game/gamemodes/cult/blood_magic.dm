@@ -195,8 +195,10 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/emp/Activate()
-	owner.visible_message(span_warning("[owner]'s body flashes a bright blue!"), \
-						 span_cultitalic("You speak the cursed words, channeling an electromagnetic pulse from your body."))
+	owner.visible_message(
+		span_warning("[owner]'s body flashes a bright blue!"), \
+		span_cultitalic("You speak the cursed words, channeling an electromagnetic pulse from your body.")
+	)
 	owner.emp_act(2)
 	add_attack_logs(owner, owner, "activated EMP spell")
 	empulse(owner, 2, 5, cause = "cult")
@@ -368,8 +370,6 @@
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
 	icon = 'icons/obj/items.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	item_flags = ABSTRACT|DROPDEL
@@ -504,11 +504,13 @@
 		else
 			teleportnames.Add(resultkey)
 			duplicaterunecount[resultkey] = 1
-		potential_runes[resultkey] = T
+		if(is_station_level(T.z))
+			potential_runes[resultkey] = T
 
 	if(!length(potential_runes))
 		to_chat(user, span_warning("There are no valid runes to teleport to!"))
 		return
+
 	if(!is_level_reachable(user.z))
 		to_chat(user, span_cultitalic("You are not in the right dimension!"))
 		return
@@ -647,10 +649,11 @@
 			else
 				channeling = FALSE
 				return
+
 		else
 			to_chat(user, span_warning("The spell will not work on [target]!"))
 			return
-		..()
+		return ..()
 
 //Armor: Gives the target a basic cultist combat loadout
 /obj/item/melee/blood_magic/armor

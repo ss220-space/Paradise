@@ -1,7 +1,7 @@
 /obj/structure/closet/secure_closet/freezer
 	desc = "It's a card-locked refrigerative storage unit. This one is lead-lined."
 
-/obj/structure/closet/secure_closet/freezer/ex_act(var/severity)
+/obj/structure/closet/secure_closet/freezer/ex_act(severity)
 	// IF INDIANA JONES CAN DO IT SO CAN YOU
 
 	// Bomb in here? (using same search as space transits searching for nuke disk)

@@ -7,7 +7,7 @@
 /datum/game_mode/antag_paradise
 	name = "Antag Paradise"
 	config_tag = "antag-paradise"
-	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER)
+	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_SYNDICATE, JOB_TITLE_PRISONER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_QUARTERMASTER, JOB_TITLE_HOP, JOB_TITLE_CHIEF)
 	restricted_jobs = list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
 	required_players = 10
 	required_enemies = 1
@@ -58,7 +58,7 @@
 	antag_possibilities[ROLE_THIEF] = get_alive_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 	antag_possibilities[ROLE_MALF_AI] = get_alive_AIs_for_role(ROLE_MALF_AI)
 	antag_possibilities[ROLE_DEVIL] = get_alive_players_for_role(ROLE_DEVIL)
-	antag_possibilities[ROLE_ESCAPING_PRISONER] = get_alive_players_for_role(ROLE_ESCAPING_PRISONER)
+	antag_possibilities[ROLE_ESCAPING_PRISONER] = get_alive_players_for_role(ROLE_ESCAPING_PRISONER, req_job_rank = JOB_TITLE_PRISONER)
 	roll_antagonists(antag_possibilities)
 	initiate_antags()
 
@@ -248,7 +248,7 @@
 	antag_possibilities[ROLE_TRAITOR] =	get_players_for_role(ROLE_TRAITOR)
 	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 	antag_possibilities[ROLE_MALF_AI] = get_players_for_role(ROLE_MALF_AI)
-	antag_possibilities[ROLE_ESCAPING_PRISONER] = get_players_for_role(ROLE_ESCAPING_PRISONER)
+	antag_possibilities[ROLE_ESCAPING_PRISONER] = get_players_for_role(ROLE_ESCAPING_PRISONER, req_job_rank = JOB_TITLE_PRISONER)
 	antag_possibilities[ROLE_DEVIL] =	get_players_for_role(ROLE_DEVIL)
 
 	calculate_antags()

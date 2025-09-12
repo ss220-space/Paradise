@@ -434,8 +434,8 @@
 		return
 	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
-/obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console, var/penalty)
-	do_sparks(5, 1, get_turf(src))
+/obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
+	do_sparks(5, TRUE, get_turf(src))
 	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
 	if(istype(M))
 		var/obj/structure/closet/critter/mecha/box = new(get_turf(src), quest, console, penalty)
@@ -444,8 +444,8 @@
 			do_teleport(box, destination)
 		console.canSend = FALSE
 
-/obj/machinery/roboquest_pad/proc/clear(datum/roboquest/quest, obj/machinery/computer/roboquest/console, var/penalty)
-	do_sparks(5, 1, get_turf(src))
+/obj/machinery/roboquest_pad/proc/clear(datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
+	do_sparks(5, TRUE, get_turf(src))
 	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
 	if(istype(M))
 		qdel(M)

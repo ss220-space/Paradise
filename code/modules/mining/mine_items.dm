@@ -3,7 +3,12 @@
 //this item is intended to give the effect of entering the mine, so that light gradually fades
 /obj/effect/light_emitter
 	name = "Light emitter"
-	ru_names = list(
+	icon_state = "at_shield1"
+	anchored = TRUE
+	invisibility = INVISIBILITY_ABSTRACT
+
+/obj/effect/light_emitter/get_ru_names()
+	return list(
 		NOMINATIVE = "световой излучатель",
 		GENITIVE = "светового излучателя",
 		DATIVE = "световому излучателю",
@@ -11,9 +16,6 @@
 		INSTRUMENTAL = "световым излучателем",
 		PREPOSITIONAL = "световом излучателе"
 	)
-	icon_state = "at_shield1"
-	anchored = TRUE
-	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/effect/light_emitter/Initialize(mapload)
 	. = ..()
@@ -30,7 +32,10 @@
 /obj/structure/closet/wardrobe/miner
 	name = "mining wardrobe"
 	desc = "Стандартный шкаф, в котором хранится сменная шахтёрская одежда."
-	ru_names = list(
+	icon_state = "mine_ward"
+
+/obj/structure/closet/wardrobe/miner/get_ru_names()
+	return list(
 		NOMINATIVE = "шахтёрский гардероб",
 		GENITIVE = "шахтёрского гардероба",
 		DATIVE = "шахтёрскому гардеробу",
@@ -38,7 +43,6 @@
 		INSTRUMENTAL = "шахтёрским гардеробом",
 		PREPOSITIONAL = "шахтёрском гардеробе"
 	)
-	icon_state = "mine_ward"
 
 /obj/structure/closet/wardrobe/miner/populate_contents()
 	new /obj/item/storage/backpack/duffel(src)
@@ -60,7 +64,11 @@
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
 	desc = "Шкаф с электронным замком, в котором хранится всё необходимое для работы шахтёра."
-	ru_names = list(
+	icon_state = "mining"
+	req_access = list(ACCESS_MINING)
+
+/obj/structure/closet/secure_closet/miner/get_ru_names()
+	return list(
 		NOMINATIVE = "снаряжение шахтёра",
 		GENITIVE = "снаряжения шахтёра",
 		DATIVE = "снаряжению шахтёра",
@@ -68,9 +76,7 @@
 		INSTRUMENTAL = "снаряжением шахтёра",
 		PREPOSITIONAL = "снаряжении шахтёра"
 	)
-	icon_state = "mining"
-	req_access = list(ACCESS_MINING)
-
+	
 /obj/structure/closet/secure_closet/miner/populate_contents()
 	new /obj/item/stack/sheet/mineral/sandbags(src, 5)
 	new /obj/item/shovel(src)
@@ -87,7 +93,11 @@
 /obj/structure/closet/secure_closet/mining_medic
 	name = "mining medic's equipment"
 	desc = "Шкаф с электронным замком, в котором хранятся личные вещи шахтёрского врача."
-	ru_names = list(
+	icon_state = "mining_medic"
+	req_access = list(ACCESS_MEDICAL)
+
+/obj/structure/closet/secure_closet/mining_medic/get_ru_names()
+	return list(
 		NOMINATIVE = "снаряжение шахтёрского медика",
 		GENITIVE = "снаряжения шахтёрского медика",
 		DATIVE = "снаряжению шахтёрского медика",
@@ -95,8 +105,6 @@
 		INSTRUMENTAL = "снаряжением шахтёрского медика",
 		PREPOSITIONAL = "снаряжении шахтёрского медика"
 	)
-	icon_state = "mining_medic"
-	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/mining_medic/populate_contents()
 	new /obj/item/storage/backpack/medic(src)
@@ -119,7 +127,13 @@
 /obj/machinery/computer/shuttle/mining
 	name = "Mining Shuttle Console"
 	desc = "Используется для вызова и отправки шахтёрского шаттла."
-	ru_names = list(
+	circuit = /obj/item/circuitboard/mining_shuttle
+	shuttleId = "mining"
+	possible_destinations = "mining_home;mining_away"
+	lockdown_affected = TRUE
+
+/obj/machinery/computer/shuttle/mining/get_ru_names()
+	return list(
 		NOMINATIVE = "консоль управления шахтёрским шаттлом",
 		GENITIVE = "консоли управления шахтёрским шаттлом",
 		DATIVE = "консоли управления шахтёрским шаттлом",
@@ -127,24 +141,12 @@
 		INSTRUMENTAL = "консолью управления шахтёрским шаттлом",
 		PREPOSITIONAL = "консоли управления шахтёрским шаттлом"
 	)
-	circuit = /obj/item/circuitboard/mining_shuttle
-	shuttleId = "mining"
-	possible_destinations = "mining_home;mining_away"
-	lockdown_affected = TRUE
 
 /******************************Lantern*******************************/
 
 /obj/item/flashlight/lantern
 	name = "lantern"
 	desc = "Шахтёрская лампа."
-	ru_names = list(
-		NOMINATIVE = "лампа",
-		GENITIVE = "лампы",
-		DATIVE = "лампе",
-		ACCUSATIVE = "лампу",
-		INSTRUMENTAL = "лампой",
-		PREPOSITIONAL = "лампе"
-	)
 	gender = FEMALE
 	icon_state = "lantern"
 	item_state = "lantern"
@@ -154,6 +156,16 @@
 	light_system = MOVABLE_LIGHT
 	var/obj/item/gem/inserted_gem = null
 	var/mutable_appearance/lantern_light_overlay
+
+/obj/item/flashlight/lantern/get_ru_names()
+	return list(
+		NOMINATIVE = "лампа",
+		GENITIVE = "лампы",
+		DATIVE = "лампе",
+		ACCUSATIVE = "лампу",
+		INSTRUMENTAL = "лампой",
+		PREPOSITIONAL = "лампе"
+	)
 
 /obj/item/flashlight/lantern/Initialize(mapload)
 	. = ..()
@@ -224,7 +236,11 @@
 /obj/structure/closet/crate/miningcar
 	name = "mining car"
 	desc = "Шахтёрская вагонетка. К сожалению, рельсов на Лазисе нет. Зато её можно тащить."
-	ru_names = list(
+	gender = FEMALE
+	icon_state = "miningcar"
+
+/obj/structure/closet/crate/miningcar/get_ru_names()
+	return list(
 		NOMINATIVE = "вагонетка",
 		GENITIVE = "вагонетки",
 		DATIVE = "вагонетке",
@@ -232,5 +248,3 @@
 		INSTRUMENTAL = "вагонеткой",
 		PREPOSITIONAL = "вагонетке"
 	)
-	gender = FEMALE
-	icon_state = "miningcar"

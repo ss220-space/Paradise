@@ -259,7 +259,7 @@
 	SSshuttle.centcom_message += "[msg]<hr>"
 
 /********************
-    SUPPLY ORDER
+	SUPPLY ORDER
  ********************/
 /datum/supply_order
 	var/ordernum
@@ -374,7 +374,7 @@
 	return Crate
 
 /***************************
-    ORDER/REQUESTS CONSOLE
+	ORDER/REQUESTS CONSOLE
  **************************/
 /obj/machinery/computer/supplycomp
 	name = "Supply Shuttle Console"
@@ -409,10 +409,10 @@
 	can_order_contraband = my_circuit.contraband_enabled
 
 
-/obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_hand(mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)

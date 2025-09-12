@@ -210,7 +210,6 @@
 		if(REGION_TAIPAN) //Taipan
 			return "RAMSS Taipan"
 
-
 /proc/get_access_desc(A)
 	switch(A)
 		if(ACCESS_CARGO)
@@ -470,7 +469,7 @@
 	return GLOB.joblist + list("Prisoner")
 
 /obj/item/proc/GetJobName() //Used in secHUD icon generation
-	var/rankName = "Unknown"
+	var/rankName = UNKNOWN_STATUS_RUS
 	if(is_pda(src))
 		var/obj/item/pda/P = src
 		rankName = P.ownrank
@@ -514,7 +513,7 @@
 
 	return "Unknown" //Return unknown if none of the above apply
 
-/proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
+/proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_TAIPAN, list_to_form)
 	var/list/retval
 	for(var/region in num_min_region to num_max_region)
 		var/list/accesses = list()
@@ -523,6 +522,8 @@
 			available_accesses = get_all_centcom_access()
 		else
 			available_accesses = get_region_accesses(region)
+		if(list_to_form)
+			available_accesses &= list_to_form
 		for(var/access in available_accesses)
 			var/access_desc = get_region_access_desc(region, access)
 			if (access_desc)

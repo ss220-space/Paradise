@@ -150,7 +150,12 @@ fn mapmanip_submap_extract_insert(
     );
 
     // get the submaps map
+    #[cfg(not(test))]
     let submaps_dmm: std::path::PathBuf = submaps_dmm.into();
+
+    #[cfg(test)]
+    let submaps_dmm = std::path::Path::new("../").join(submaps_dmm);
+
     let submaps_map = GridMap::from_file(&submaps_dmm)
         .wrap_err(format!("can't read and parse submap dmm: {submaps_dmm:?}"))?;
 

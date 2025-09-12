@@ -136,7 +136,7 @@
 		return
 
 	flick("[base_state]-spark", src)
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 	last_spark = world.time
 	use_power(1000)
 

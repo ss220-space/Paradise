@@ -78,7 +78,7 @@
 	addtimer(CALLBACK(src, PROC_REF(wet_timer_finish), HS_C), 82 SECONDS, TIMER_UNIQUE)
 
 /obj/structure/holosign/wetsign/proc/wet_timer_finish(obj/item/holosign_creator/HS_C)
-	playsound(HS_C.loc, 'sound/machines/chime.ogg', 20, 1)
+	playsound(HS_C.loc, 'sound/machines/chime.ogg', 20, TRUE)
 	qdel(src)
 
 

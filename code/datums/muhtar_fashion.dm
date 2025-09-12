@@ -31,7 +31,7 @@
 	if(speak_emote)
 		D.speak_emote = speak_emote
 
-/datum/muhtar_fashion/proc/get_overlay(var/dir)
+/datum/muhtar_fashion/proc/get_overlay(dir)
 	if(icon_file && obj_icon_state)
 		var/image/muhtar = image(icon_file, obj_icon_state, dir = dir)
 		muhtar.alpha = obj_alpha

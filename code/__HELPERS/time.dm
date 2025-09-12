@@ -80,9 +80,9 @@
 				. += splits[i] SECONDS
 
 /* This is used for displaying the "station time" equivelent of a world.time value
- Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument
- - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date
-   which is much more useful for a player)*/
+* Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument
+* - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date
+*   which is much more useful for a player)*/
 /proc/station_time(time=world.time, display_only=FALSE)
 	return ((((time - SSticker.round_start_time)) + GLOB.gametime_offset) % 864000) - (display_only ? GLOB.timezoneOffset : 0)
 
@@ -90,7 +90,7 @@
 	return time2text(station_time(time, TRUE), format)
 
 /* Returns 1 if it is the selected month and day */
-/proc/isDay(var/month, var/day)
+/proc/isDay(month, day)
 	if(isnum(month) && isnum(day))
 		var/MM = text2num(time2text(world.timeofday, "MM")) // get the current month
 		var/DD = text2num(time2text(world.timeofday, "DD")) // get the current day
@@ -122,13 +122,13 @@
 	return GLOB.month_names.Find(number)
 
 //Take a value in seconds and returns a string of minutes and seconds in the format X minute(s) and X seconds.
-/proc/seconds_to_time(var/seconds as num)
+/proc/seconds_to_time(seconds as num)
 	var/numSeconds = seconds % 60
 	var/numMinutes = (seconds - numSeconds) / 60
 	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds"
 
 //Take a value in seconds and makes it display like a clock
-/proc/seconds_to_clock(var/seconds as num)
+/proc/seconds_to_clock(seconds as num)
 	return "[add_zero(num2text((seconds / 60) % 60), 2)]:[add_zero(num2text(seconds % 60), 2)]"
 
 //Takes a value of time in deciseconds.

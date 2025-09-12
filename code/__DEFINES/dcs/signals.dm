@@ -220,7 +220,7 @@
 	#define COMPONENT_BLOCK_CONTAMINATION (1<<0)
 ///from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)
 #define COMSIG_ATOM_RAD_WAVE_PASSING "atom_rad_wave_pass"
-  #define COMPONENT_RAD_WAVE_HANDLED (1<<0)
+	#define COMPONENT_RAD_WAVE_HANDLED (1<<0)
 ///from internal loop in atom/movable/proc/CanReach(): (list/next)
 #define COMSIG_ATOM_CANREACH "atom_can_reach"
 	#define COMPONENT_BLOCK_REACH (1<<0)
@@ -830,10 +830,6 @@
 ///Called after successfully performing the Devil Sacrifice Ritual
 #define COMSIG_DEVIL_SACRIFICE "devil_sacrifice"
 
-// /mob/living/simple_animal/hostile signals
-#define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
-	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
-
 ///after attackingtarget has happened, source is the attacker and target is the attacked, extra argument for if the attackingtarget was successful
 #define COMSIG_HOSTILE_POST_ATTACKINGTARGET "hostile_post_attackingtarget"
 
@@ -944,6 +940,9 @@
 ///from [/obj/item/organ/internal/cyberimp/mouth/translator/check_lang]
 #define COMSIG_LANG_PRE_ACT "check_language"
 	#define COMSIG_LANG_SECURED (1<<0)
+
+///from base of obj/gun/projectile/automatic/toggle_firemode(): (/mob/user, firemode)
+#define COMSIG_GUN_TOGGLE_FIREMODE "gun_firemode_toggle"
 
 /// Defib-specific signals
 
@@ -1489,6 +1488,8 @@
 #define COMSIG_GET_BOLA_MODIFIERS "get_bola_modifiers"
 /// Called when proc need to get hunder modifiers.
 #define COMSIG_GET_HUNGER_MODS "get_hunger_mods"
+/// Called when proc need to upgrade mob's strength level.
+#define COMSIG_STRENGTH_LEVEL_UP "strength_level_up"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
 
 /// Called when attempting to insert a stack into the material container. (obj/item/stack/stack, amount)

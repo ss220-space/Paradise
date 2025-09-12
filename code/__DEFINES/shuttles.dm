@@ -50,3 +50,14 @@
 #define TRANSIT_READY 2
 
 #define SHUTTLE_TRANSIT_BORDER 16
+
+/// Addition goals system shuttle identifier
+#define AGS_SHUTTLE_ID "addition_goal"
+/// Funeral shuttle identifier (for recall if dock is busy)
+#define AGS_FUNERAL_SHUTTLE_ID "funeral"
+/// Centom stationary dock id
+#define AGS_SHUTTLE_CENTCOM_DOCK "addition_goal_dock"
+/// Station stationary dock id
+#define AGS_SHUTTLE_STATION_DOCK "graveyard_church"
+/// Funeral shuttle away stationary dock id
+#define AGS_FUNERAL_SHUTTLE_AWAY_DOCK "graveyard_dock"

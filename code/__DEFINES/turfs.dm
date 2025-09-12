@@ -36,30 +36,30 @@
 	RECT_TURFS_MULTIZ(RADIUS, RADIUS, Z_MIN, Z_MAX, CENTER)
 
 #define RECT_TURFS_MULTIZ(H_RADIUS, V_RADIUS, Z_MIN, Z_MAX, CENTER) \
-    block( \
-        (CENTER).x - (H_RADIUS), (CENTER).y - (V_RADIUS), (Z_MIN), \
-        (CENTER).x + (H_RADIUS), (CENTER).y + (V_RADIUS), (Z_MAX) \
-    )
+	block( \
+		(CENTER).x - (H_RADIUS), (CENTER).y - (V_RADIUS), (Z_MIN), \
+		(CENTER).x + (H_RADIUS), (CENTER).y + (V_RADIUS), (Z_MAX) \
+	)
 
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
 // order of the additions: top edge + bottom edge + left edge + right edge
 #define RANGE_EDGE_TURFS(RADIUS, CENTER) \
-    (CENTER.y + RADIUS < world.maxy ? block( \
-        (CENTER).x - (RADIUS), (CENTER).y + (RADIUS), (CENTER).z, \
-        (CENTER).x + (RADIUS), (CENTER).y + (RADIUS), (CENTER).z \
-    ) : list()) + \
-    (CENTER.y - RADIUS > 1 ? block( \
-        (CENTER).x - (RADIUS), (CENTER).y - (RADIUS), (CENTER).z, \
-        (CENTER).x + (RADIUS), (CENTER).y - (RADIUS), (CENTER).z \
-    ) : list()) + \
-    (CENTER.x - RADIUS > 1 ? block( \
-        (CENTER).x - (RADIUS), (CENTER).y + (RADIUS) - 1, (CENTER).z, \
-        (CENTER).x - (RADIUS), (CENTER).y - (RADIUS) + 1, (CENTER).z \
-    ) : list()) + \
-    (CENTER.x + RADIUS < world.maxx ? block( \
-        (CENTER).x + (RADIUS), (CENTER).y + (RADIUS) - 1, (CENTER).z, \
-        (CENTER).x + (RADIUS), (CENTER).y - (RADIUS) + 1, (CENTER).z \
-    ) : list())
+	(CENTER.y + RADIUS < world.maxy ? block( \
+		(CENTER).x - (RADIUS), (CENTER).y + (RADIUS), (CENTER).z, \
+		(CENTER).x + (RADIUS), (CENTER).y + (RADIUS), (CENTER).z \
+	) : list()) + \
+	(CENTER.y - RADIUS > 1 ? block( \
+		(CENTER).x - (RADIUS), (CENTER).y - (RADIUS), (CENTER).z, \
+		(CENTER).x + (RADIUS), (CENTER).y - (RADIUS), (CENTER).z \
+	) : list()) + \
+	(CENTER.x - RADIUS > 1 ? block( \
+		(CENTER).x - (RADIUS), (CENTER).y + (RADIUS) - 1, (CENTER).z, \
+		(CENTER).x - (RADIUS), (CENTER).y - (RADIUS) + 1, (CENTER).z \
+	) : list()) + \
+	(CENTER.x + RADIUS < world.maxx ? block( \
+		(CENTER).x + (RADIUS), (CENTER).y + (RADIUS) - 1, (CENTER).z, \
+		(CENTER).x + (RADIUS), (CENTER).y - (RADIUS) + 1, (CENTER).z \
+	) : list())
 
 
 /// Returns a list of turfs in the rectangle specified by BOTTOM LEFT corner and height/width, checks for being outside the world border for you
@@ -67,10 +67,10 @@
 
 /// Returns a list of turfs similar to CORNER_BLOCK but with offsets
 #define CORNER_BLOCK_OFFSET(corner, width, height, offset_x, offset_y) \
-    (block( \
-        corner.x + offset_x, corner.y + offset_y, corner.z, \
-        corner.x + (width - 1) + offset_x, corner.y + (height - 1) + offset_y, corner.z \
-    ))
+	(block( \
+		corner.x + offset_x, corner.y + offset_y, corner.z, \
+		corner.x + (width - 1) + offset_x, corner.y + (height - 1) + offset_y, corner.z \
+	))
 
 
 /// Returns an outline (neighboring turfs) of the given block

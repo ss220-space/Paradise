@@ -1401,7 +1401,7 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	can_adjust = TRUE
 
-/obj/item/clothing/under/tchaikowsky/get_ru_names()
+/obj/item/clothing/under/tchaikowsky/sechighwaist/get_ru_names()
 	return list(
 		NOMINATIVE = "униформа с завышенной талией",
 		GENITIVE = "униформы с завышенной талией",
@@ -1451,7 +1451,7 @@
 	icon_state = "high_waist_pants"
 	item_state = "high_waist_pants"
 
-/obj/item/clothing/under/tchaikowsky/high_waist_pants/get_ru_names()
+/obj/item/clothing/under/tchaikowsky/highwaistpants/get_ru_names()
 	return list(
 		NOMINATIVE = "штаны с завышенной талией",
 		GENITIVE = "штанов с завышенной талией",

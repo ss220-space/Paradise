@@ -2,7 +2,14 @@
 /obj/item/hivelordstabilizer
 	name = "hivelord stabilizer"
 	desc = "Введите стабилизатор в ядро легиона, чтобы предотвратить его гниение, сохраняя исцеляющие свойства."
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "bottle19"
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "biotech=3"
+
+/obj/item/hivelordstabilizer/get_ru_names()
+	return list(
 		NOMINATIVE = "стабилизатор ядра",
 		GENITIVE = "стабилизатора ядра",
 		DATIVE = "стабилизатору ядра",
@@ -10,23 +17,11 @@
 		INSTRUMENTAL = "стабилизатором ядра",
 		PREPOSITIONAL = "стабилизаторе ядра"
 	)
-	gender = MALE
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle19"
-	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "biotech=3"
+	
 
 /obj/item/hivelordstabilizer/molten_mass
 	name = "gooey molten mass"
 	desc = "Странноватые сгустки, снятые с головы магмового рыбы-молота. Являются природным аналогом стабилизатора регенеративных ядер."
-	ru_names = list(
-		NOMINATIVE = "сплавленный сгусток",
-		GENITIVE = "сплавленного сгустка",
-		DATIVE = "сплавленному сгустку",
-		ACCUSATIVE = "сплавленный сгусток",
-		INSTRUMENTAL = "сплавленным сгустком",
-		PREPOSITIONAL = "сплавленном сгустке"
-	)
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "gooey_molten_mass"
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
@@ -38,6 +33,16 @@
 	light_power = 3
 	light_color = "#FFBF00"
 	light_system = MOVABLE_LIGHT
+
+/obj/item/hivelordstabilizer/molten_mass/get_ru_names()
+	return list(
+		NOMINATIVE = "сплавленный сгусток",
+		GENITIVE = "сплавленного сгустка",
+		DATIVE = "сплавленному сгустку",
+		ACCUSATIVE = "сплавленный сгусток",
+		INSTRUMENTAL = "сплавленным сгустком",
+		PREPOSITIONAL = "сплавленном сгустке"
+	)
 
 /obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user, proximity, params)
 	. = ..()
@@ -56,14 +61,6 @@
 /obj/item/organ/internal/regenerative_core
 	name = "regenerative core"
 	desc = "Всё, что осталось от легиона. Может поддерживать ваше тело, но быстро сгниёт."
-	ru_names = list(
-		NOMINATIVE = "регенеративное ядро",
-		GENITIVE = "регенеративного ядра",
-		DATIVE = "регенеративному ядру",
-		ACCUSATIVE = "регенеративное ядро",
-		INSTRUMENTAL = "регенеративным ядром",
-		PREPOSITIONAL = "регенеративном ядре"
-	)
 	icon_state = "roro core 2"
 	item_flags = NOBLUDGEON
 	slot = INTERNAL_ORGAN_HIVECORE
@@ -72,6 +69,16 @@
 	actions_types = list(/datum/action/item_action/organ_action/use)
 	var/inert = 0
 	var/preserved = 0
+
+/obj/item/organ/internal/regenerative_core/get_ru_names()
+	return list(
+		NOMINATIVE = "регенеративное ядро",
+		GENITIVE = "регенеративного ядра",
+		DATIVE = "регенеративному ядру",
+		ACCUSATIVE = "регенеративное ядро",
+		INSTRUMENTAL = "регенеративным ядром",
+		PREPOSITIONAL = "регенеративном ядре"
+	)
 
 /obj/item/organ/internal/regenerative_core/Initialize(mapload)
 	. = ..()
@@ -233,14 +240,6 @@
 /obj/item/organ/internal/legion_tumour
 	name = "legion tumour"
 	desc = "Пульсирующая масса плоти и чёрных щупалец, способная регенерировать ткани за страшную цену."
-	ru_names = list(
-		NOMINATIVE = "опухоль легиона",
-		GENITIVE = "опухоли легиона",
-		DATIVE = "опухоли легиона",
-		ACCUSATIVE = "опухоль легиона",
-		INSTRUMENTAL = "опухолью легиона",
-		PREPOSITIONAL = "опухоли легиона"
-	)
 	icon_state = "legion_remains"
 	slot = INTERNAL_ORGAN_PARASITE_EGG
 	parent_organ_zone = BODY_ZONE_CHEST
@@ -260,6 +259,16 @@
 		'sound/voice/lowHiss2.ogg',
 		'sound/voice/lowHiss3.ogg',
 		'sound/voice/lowHiss4.ogg',
+	)
+
+/obj/item/organ/internal/legion_tumour/get_ru_names()
+	return list(
+		NOMINATIVE = "опухоль легиона",
+		GENITIVE = "опухоли легиона",
+		DATIVE = "опухоли легиона",
+		ACCUSATIVE = "опухоль легиона",
+		INSTRUMENTAL = "опухолью легиона",
+		PREPOSITIONAL = "опухоли легиона"
 	)
 
 /obj/item/organ/internal/legion_tumour/insert(mob/living/carbon/egg_owner, special)

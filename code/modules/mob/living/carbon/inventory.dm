@@ -97,39 +97,67 @@
 /mob/living/carbon/proc/cuff_resist(obj/item/cuffs, cuff_break = FALSE)
 	. = FALSE
 	var/breakout_time = cuff_break ? 5 SECONDS : cuffs.breakout_time
+	var/breakout_mod = 1
 	var/list/breakouttime_modifiers = list()
 	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
 	for(var/mod in breakouttime_modifiers)
-		breakout_time *= mod
+		breakout_mod *= mod
+
+	breakout_time *= breakout_mod
+	var/breakout_iter = (5 SECONDS) * breakout_mod
+
+	var/is_processed = LAZYACCESS(do_afters, src)
 
 	if(cuff_break)
-		visible_message(
-			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
-			span_notice("Вы пытаетесь сломать [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
-		)
-		if(do_after(src, breakout_time, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+		if(is_processed)
+			visible_message(
+				span_warning("[name] перестал[genderize_ru(gender, "", "а", "о", "и")] пытаться сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы перестали пытаться сломать [cuffs.declent_ru(ACCUSATIVE)]."),
+			)
+		else
+			visible_message(
+				span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы пытаетесь сломать [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
+			)
+		if(do_after(src, breakout_time, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
+			cancel_on_max = TRUE, cancel_message = ""))
 			. = clear_cuffs(cuffs, cuff_break)
 		else
 			balloon_alert(src, "не вышло снять [cuffs.declent_ru(ACCUSATIVE)]!!")
 
 	else if(istype(cuffs, /obj/item/restraints/handcuffs))
-		balloon_alert(src, "попытка снять [cuffs.declent_ru(ACCUSATIVE)]...")
-		while(do_after(src, 5 SECONDS, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1))
+		if(is_processed)
+			visible_message(
+				span_warning("[name] перестал[genderize_ru(gender, "", "а", "о", "и")] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы перестали пытаться снять [cuffs.declent_ru(ACCUSATIVE)]."),
+			)
+		else
+			balloon_alert(src, "попытка снять [cuffs.declent_ru(ACCUSATIVE)]...")
+
+		while(do_after(src, breakout_iter, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
+			cancel_on_max = TRUE, cancel_message = ""))
 			cuff_breakout_attempts++
 			if(!handcuffed) //if someone uncuffs us
 				break
-			if((cuff_breakout_attempts * 5 SECONDS >= breakout_time) || (prob(cuff_breakout_attempts / 4)))
+			if(cuff_breakout_attempts * breakout_iter >= breakout_time)
 				. = clear_cuffs(cuffs, cuff_break)
 				break
 			else if(prob(4))
 				visible_message(span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся снять [cuffs.declent_ru(ACCUSATIVE)]!"))
 
 	else
-		visible_message(
-			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся снять [cuffs.declent_ru(ACCUSATIVE)]!"),
-			span_notice("Вы пытаетесь снять [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakout_time / 10] секунд[declension_ru(breakout_time / 10, "у", "ы", "")]."),
-		)
-		if(do_after(src, breakout_time, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+		if(is_processed)
+			visible_message(
+				span_warning("[name] перестал[genderize_ru(gender, "", "а", "о", "и")] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы перестали пытаться снять [cuffs.declent_ru(ACCUSATIVE)]."),
+			)
+		else
+			visible_message(
+				span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы пытаетесь снять [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakout_time / 10] секунд[declension_ru(breakout_time / 10, "у", "ы", "")]."),
+			)
+		if(do_after(src, breakout_time, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
+			cancel_on_max = TRUE, cancel_message = ""))
 			. = clear_cuffs(cuffs, cuff_break)
 		else
 			balloon_alert(src, "не вышло снять [cuffs.declent_ru(ACCUSATIVE)]!!")

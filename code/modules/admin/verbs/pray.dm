@@ -13,18 +13,18 @@
 		if(client.handle_spam_prevention(msg, MUTE_PRAY, OOC_COOLDOWN))
 			return
 
-	var/image/cross = image('icons/obj/storage.dmi',"bible")
+	var/image/cross = image('icons/obj/library.dmi',"bible")
 	var/font_color = "purple"
 	var/prayer_type = "PRAYER"
 	var/deity
 	if(job == JOB_TITLE_CHAPLAIN)
 		if(SSticker && SSticker.Bible_deity_name)
 			deity = SSticker.Bible_deity_name
-		cross = image('icons/obj/storage.dmi',"kingyellow")
+		cross = image('icons/obj/library.dmi',"bible_kingyellow")
 		font_color = "blue"
 		prayer_type = "CHAPLAIN PRAYER"
 	else if(iscultist(usr))
-		cross = image('icons/obj/storage.dmi',"tome")
+		cross = image('icons/obj/cult.dmi',"tome")
 		font_color = "red"
 		prayer_type = "CULTIST PRAYER"
 		deity = SSticker.cultdat.entity_name
@@ -42,7 +42,7 @@
 
 	BLACKBOX_LOG_ADMIN_VERB("Pray")
 
-/proc/Centcomm_announce(var/text , var/mob/Sender)
+/proc/Centcomm_announce(text, mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.message_centcom(Sender.client, msg)
 	msg = "<span class='boldnotice'><span style='color: orange;'>CENTCOMM: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")])):</span> [msg]"
@@ -52,7 +52,7 @@
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
-/proc/Syndicate_announce(var/text , var/mob/Sender)
+/proc/Syndicate_announce(text, mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.message_syndicate(Sender.client, msg)
 	msg = "<span class='boldnotice'><span style='color: #DC143C;'>SYNDICATE: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_SYNDICATE_REPLY(Sender,"RPLY")]):</span> [msg]"
@@ -62,7 +62,7 @@
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
-/proc/HONK_announce(var/text , var/mob/Sender)
+/proc/HONK_announce(text, mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.message_honk(Sender.client, msg)
 	msg = "<span class='boldnotice'><span style='color: pink;'>HONK: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;HONKReply=[Sender.UID()]'>RPLY</a>):</span> [msg]"

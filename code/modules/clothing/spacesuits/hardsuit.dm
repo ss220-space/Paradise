@@ -2,7 +2,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-    //alt_desc =
 	icon_state = "hardsuit0-engineering"
 	base_icon_state = "hardsuit"
 	item_state = "eng_helm"
@@ -242,6 +241,7 @@
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	to_chat(wearer, span_notice("You engage the helmet on [src]."))
 	wearer.update_inv_wear_suit()
+	wearer.wear_glasses_update(wearer.get_item_by_slot(ITEM_SLOT_EYES))
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
 
