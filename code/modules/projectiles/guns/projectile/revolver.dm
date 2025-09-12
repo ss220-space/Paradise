@@ -158,7 +158,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 
 
-/obj/item/gun/projectile/revolver/fingergun/Initialize(loc, new_parent_spell)
+/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload, loc, new_parent_spell)
 	. = ..()
 	parent_spell = new_parent_spell
 	verbs -= /obj/item/gun/projectile/revolver/verb/spin
