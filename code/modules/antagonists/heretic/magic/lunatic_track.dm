@@ -22,7 +22,7 @@
 		var/datum/antagonist/lunatic/lunatic_datum = IS_LUNATIC(action.owner)
 		var/mob/living/carbon/human/ascended_heretic = lunatic_datum.ascended_body
 		if(!(ascended_heretic))
-			action.owner.balloon_alert(action.owner, "Вашего хозяина больше нет...")
+			action.owner.balloon_alert(action.owner, "вашего хозяина больше нет...")
 			cooldown_handler.start_recharge(1 SECONDS)
 			return FALSE
 

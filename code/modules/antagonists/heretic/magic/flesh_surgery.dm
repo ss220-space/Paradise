@@ -161,7 +161,7 @@
 
 	var/obj/item/organ/picked_organ = organs_we_can_remove[chosen_organ]
 	if(picked_organ.owner != victim)
-		caster.balloon_alert(caster, "Орган уже извлечён!")
+		caster.balloon_alert(caster, "орган уже извлечён!")
 		return FALSE
 
 	if(!istype(picked_organ) || !extraction_checks(picked_organ, hand, victim, caster))
@@ -212,7 +212,7 @@
 
 	var/cant = FALSE
 	if(picked_organ.owner != victim)
-		caster.balloon_alert(caster, "Орган уже извлечён!")
+		caster.balloon_alert(caster, "орган уже извлечён!")
 		cant = TRUE
 	else
 		picked_organ.remove(victim)
