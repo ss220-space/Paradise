@@ -59,7 +59,7 @@
 		balloon_alert(user, "очистка...")
 		user.visible_message(
 			"[user.declent_ru(NOMINATIVE)] начина[pluralize_ru(user.gender, "ет", "ют")] стирать рисунки с [declent_ru(GENITIVE)].",
-			 ignored_mobs = list(user)
+			 ignored_mobs = user
 		)
 		if(!do_after(user, 3 SECONDS, src))
 			return ATTACK_CHAIN_BLOCKED_ALL
@@ -72,7 +72,10 @@
 
 	var/obj/item/toy/crayon/crayon = item
 	balloon_alert(user, "покраска")
-	user.visible_message(span_notice("[user.declent_ru(NOMINATIVE)] начина[pluralize_ru(user.gender, "ет", "ют")] красить [declent_ru(ACCUSATIVE)]."), ignored_mobs = list(user))
+	user.visible_message(
+		span_notice("[user.declent_ru(NOMINATIVE)] начина[pluralize_ru(user.gender, "ет", "ют")] красить [declent_ru(ACCUSATIVE)]."),
+		ignored_mobs = user
+	)
 	if(!do_after(user, 3 SECONDS, src))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
