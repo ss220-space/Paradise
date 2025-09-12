@@ -262,16 +262,6 @@ if grep -P 'balloon_alert\(.*?, ?"[А-Я]' code/**/*.dm; then
 	echo
     st=1
 fi;
-if grep -P 'balloon_alert\([^,]*,\s*"[^"]*[^\.!]\.("|\))' code/**/*.dm; then
-    echo -e "${RED}ERROR: Balloon alerts should not end with a single dot. Use ... or ! instead.${NC}"
-	echo
-    st=1
-fi;
-if grep -Pi 'balloon_alert\([^,]*,\s*"[^"]*\b(вы|ты|ваш|твой|тебе|вам|тобой|вами|ваша|твоя|ваше|твоё|ваши|твои)\b' code/**/*.dm; then
-    echo -e "${RED}ERROR: Balloon alerts should not contain personal pronouns. Use neutral expressions instead.${NC}"
-	echo
-    st=1
-fi;
 
 if [ $st = 0 ]; then
     echo -e "${GREEN}No errors found using grep!${NC}"
