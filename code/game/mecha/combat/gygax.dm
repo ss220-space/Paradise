@@ -88,6 +88,7 @@
 	strafe_allowed = TRUE
 
 	mech_type = MECH_TYPE_DARK_GYGAX
+	ui_theme = "syndicate"
 
 /obj/mecha/combat/gygax/dark/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()

@@ -740,14 +740,15 @@
 				return
 
 		if(health <= HEALTH_THRESHOLD_CRIT)
-			if(prob(5))
-				emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
-			SetStuttering(10 SECONDS)
-			EyeBlurry(10 SECONDS)
-			if(prob(7))
-				AdjustConfused(4 SECONDS)
-			if(prob(5))
-				Paralyse(4 SECONDS)
+			if(get_perceived_trauma(shock_reduction()) <= 0)
+				if(prob(5))
+					emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
+				SetStuttering(10 SECONDS)
+				EyeBlurry(10 SECONDS)
+				if(prob(7))
+					AdjustConfused(4 SECONDS)
+				if(prob(5))
+					Paralyse(4 SECONDS)
 			switch(health)
 				if(-INFINITY to -100)
 					adjustOxyLoss(1)
@@ -786,7 +787,7 @@
 						D.Contract(src)
 					if(prob(5))
 						to_chat(src, span_userdanger("Вы чувствуете [pick("себя ужасно", "себя отвратительно", "себя, как дерьмо", "боль", "онемение", "холод", "покалывание", "себя кошмарно")]!"))
-						Weaken(6 SECONDS)
+						Knockdown(6 SECONDS)
 
 
 #define BODYPART_PAIN_REDUCTION 5
@@ -853,7 +854,7 @@
 				healthdoll.cut_overlay(cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
-		if(health <= HEALTH_THRESHOLD_CRIT)
+		if(health <= HEALTH_THRESHOLD_CRIT && get_perceived_trauma(shock_reduction) < 0)
 			throw_alert("succumb", /atom/movable/screen/alert/succumb)
 		else
 			clear_alert("succumb")

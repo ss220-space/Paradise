@@ -2,13 +2,13 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #00ff00,
+  $primary: hsl(120, 100%, 50%),
   $fg-map-keys: (),
   $bg-map-keys: ()
 );
 @use '../base.scss' with (
-  $color-fg: #1efa72,
-  $color-bg: #002800,
+  $color-fg: hsl(142.9, 95.7%, 54.9%),
+  $color-bg: hsl(120, 100%, 7.8%),
   $color-bg-grad-spread: 5%,
   $border-radius: 2px
 );
@@ -21,25 +21,25 @@
   @include meta.load-css(
     '../components/Button.scss',
     $with: (
-      'color-default': #15e264,
-      'color-disabled': #3a3a3a,
-      'color-selected': #3cfd1e,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00
+      'color-default': hsl(143.1, 83%, 48.4%),
+      'color-disabled': hsl(0, 0%, 22.7%),
+      'color-selected': hsl(111.9, 98.2%, 55.5%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%)
     )
   );
 
   @include meta.load-css(
     '../components/Input.scss',
-    $with: ('border-color': #87ce87)
+    $with: ('border-color': hsl(120, 42%, 66.9%))
   );
   @include meta.load-css(
     '../components/NoticeBox.scss',
-    $with: ('background-color': #044a1b)
+    $with: ('background-color': hsl(139.7, 89.7%, 15.3%))
   );
   @include meta.load-css(
     '../components/NumberInput.scss',
-    $with: ('border-color': #87ce87)
+    $with: ('border-color': hsl(120, 42%, 66.9%))
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
@@ -47,11 +47,11 @@
   );
   @include meta.load-css(
     '../components/Section.scss',
-    $with: ('background-color': #003000)
+    $with: ('background-color': hsl(120, 100%, 9.4%))
   );
   @include meta.load-css(
     '../components/Tooltip.scss',
-    $with: ('background-color': #002800)
+    $with: ('background-color': hsl(120, 100%, 7.8%))
   );
 
   @include meta.load-css('../components/Dropdown.scss');
@@ -61,19 +61,19 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('background-color': #044a1b)
+    $with: ('background-color': hsl(139.7, 89.7%, 15.3%))
   );
 
   .Tooltip {
     font-family: 'Times New Roman', Times, serif;
-    color: #15e264;
+    color: hsl(143.1, 83%, 48.4%);
   }
 
   .Button {
     font-family: 'Times New Roman', Times, serif;
     font-size: 15px;
     border-radius: 20px;
-    color: #003920 !important;
+    color: hsl(153.7, 100%, 11.2%) !important;
   }
 
   .Button_red {
@@ -105,7 +105,7 @@
 
   .Button_disabled {
     background-color: rgba(50, 50, 50, 0.5) !important;
-    color: #15e264 !important;
+    color: hsl(143.1, 83%, 48.4%) !important;
   }
 
   .NoticeBox {
