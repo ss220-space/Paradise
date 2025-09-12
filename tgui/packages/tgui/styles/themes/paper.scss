@@ -7,7 +7,7 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #ffffff,
+  $primary: hsl(0, 0%, 100%),
   $bg-lightness: -25%,
   $fg-lightness: -10%,
   // Commenting out color maps will adjust all colors based on the lightness
@@ -16,8 +16,8 @@
   $bg-map-keys: ()
 );
 @use '../base.scss' with (
-  $color-fg: #000000,
-  $color-bg: #ffffff,
+  $color-fg: hsl(0, 0%, 0%),
+  $color-bg: hsl(0, 0%, 100%),
   $color-bg-grad-spread: 0%
 );
 
@@ -38,25 +38,25 @@ $font-size: 24px;
   @include meta.load-css(
     '../components/Button.scss',
     $with: (
-      'color-default': #e8e4c9,
-      'color-disabled': #363636,
-      'color-selected': #9d0808,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00,
+      'color-default': hsl(52.3, 40.3%, 84.9%),
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(0, 90.3%, 32.4%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%),
       'color-transparent-text': rgba(0, 0, 0, 0.5)
     )
   );
   @include meta.load-css(
     '../components/ImageButton.scss',
     $with: (
-      'color-default': color.adjust(#e8e4c9, $lightness: -40%),
-      'color-disabled': #363636,
-      'color-selected': #9d0808
+      'color-default': color.adjust(hsl(52.3, 40.3%, 84.9%), $lightness: -40%),
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(0, 90.3%, 32.4%)
     )
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('color-disabled': #363636)
+    $with: ('color-disabled': hsl(0, 0%, 21.2%))
   );
 
   // Layouts
@@ -77,7 +77,7 @@ $font-size: 24px;
     width: 120px;
     border: none;
     background: transparent;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid hsl(0, 0%, 0%);
     outline: none;
     background-color: rgba(255, 255, 62, 0.8);
     padding: 0 4px;
@@ -108,19 +108,19 @@ $font-size: 24px;
     padding: 0 6px;
     font-family: Verdana, sans-serif;
     background-color: transparent;
-    color: #fff;
+    color: hsl(0, 0%, 100%);
     color: inherit;
 
     &::placeholder {
       font-style: italic;
-      color: #777;
+      color: hsl(0, 0%, 46.7%);
       color: rgba(255, 255, 255, 0.45);
     }
 
     // TODO: Remove with 516
     &:-ms-input-placeholder {
       font-style: italic;
-      color: #777;
+      color: hsl(0, 0%, 46.7%);
       color: rgba(255, 255, 255, 0.45);
     }
   }
@@ -140,7 +140,7 @@ $font-size: 24px;
       display: inline-block;
       border: none;
       background: transparent;
-      border-bottom: 1px solid #000;
+      border-bottom: 1px solid hsl(0, 0%, 0%);
       outline: none;
       background-color: rgba(255, 255, 62, 0.8);
       padding: 0 4px;
@@ -154,7 +154,7 @@ $font-size: 24px;
       display: inline-block;
       border: none;
       background: transparent;
-      border-bottom: 1px solid #000;
+      border-bottom: 1px solid hsl(0, 0%, 0%);
       outline: none;
       background-color: rgba(255, 255, 62, 0.8);
       padding: 0 4px;
@@ -170,7 +170,7 @@ $font-size: 24px;
 
     border: none;
     background: transparent;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid hsl(0, 0%, 0%);
     outline: none;
     background-color: rgba(255, 255, 62, 0.8);
     padding: 0 4px;
@@ -184,7 +184,7 @@ $font-size: 24px;
 
       border: none;
       background: transparent;
-      border-bottom: 1px solid #000;
+      border-bottom: 1px solid hsl(0, 0%, 0%);
       outline: none;
       background-color: rgba(255, 255, 62, 0.8);
       padding: 0 4px;

@@ -106,6 +106,7 @@
 		balloon_alert(user, "уже заполнено")
 		return ATTACK_CHAIN_PROCEED
 	var/boolets = 0
+	var/turf/load_loc = loc
 	for(var/obj/item/ammo_casing/bullet in loc)
 		if(length(box.stored_ammo) >= box.max_ammo)
 			break
@@ -114,6 +115,8 @@
 		if(!box.can_fast_load)
 			playsound(box, box.insert_sound, 50, TRUE)
 			if(!do_after(user, box.bullet_load_duration, box, max_interact_count = 1))
+				break
+			if(bullet.loc != load_loc)
 				break
 			box.update_appearance(UPDATE_ICON|UPDATE_DESC)
 		if(box.give_round(bullet, FALSE))
@@ -307,7 +310,7 @@
 		for(var/obj/item/ammo_casing/casing in box.stored_ammo)
 			if(!can_fast_load)
 				playsound(src, insert_sound, 50, TRUE)
-				if(!do_after(user, bullet_load_duration, src, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
+				if(!do_after(user, bullet_load_duration, box, DA_IGNORE_USER_LOC_CHANGE, max_interact_count = 1))
 					break
 				box.update_appearance()
 				box.update_equipped_item()
