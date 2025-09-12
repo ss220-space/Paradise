@@ -914,7 +914,7 @@
 			else
 				to_chat(user, span_notice("Вы слишком медлили. В следующий раз будьте быстрее."))
 		else
-			balloon_alert(user, "посадка отменена.")
+			balloon_alert(user, "посадка отменена")
 	else
 		balloon_alert(user, "нет места!")
 

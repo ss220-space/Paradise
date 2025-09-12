@@ -107,7 +107,7 @@
 	var/used = FALSE
 	var/list/selected = list()
 	var/list/unselected = list()
-	var/list/static/bundles = list(
+	var/static/list/bundles = list(
 			"Bloody Spy" = list(	"Name" = "'Bloody Spy' Bundle",	// 220-222 TK
 								"Desc" = "Complete your objectives quietly with this compilation of stealthy items.",
 								/obj/item/storage/box/syndie_kit/chameleon = 1,								// 20 TK

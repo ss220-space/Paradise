@@ -2,12 +2,12 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #563d6b,
+  $primary: hsl(272.6, 27.4%, 32.9%),
   $fg-map-keys: (),
   $bg-map-keys: ()
 );
 @use '../base.scss' with (
-  $color-bg: #2e2633,
+  $color-bg: hsl(276.9, 14.6%, 17.5%),
   $color-bg-grad-spread: 6%,
   $border-radius: 2px
 );
@@ -19,13 +19,16 @@
   // Components
   @include meta.load-css(
     '../components/Button.scss',
-    $with: ('color-default': colors.$primary, 'color-selected': #188552)
+    $with: (
+      'color-default': colors.$primary,
+      'color-selected': hsl(151.9, 69.4%, 30.8%)
+    )
   );
   @include meta.load-css(
     '../components/ImageButton.scss',
     $with: (
       'color-default': color.adjust(colors.$primary, $lightness: -20%),
-      'color-selected': #188552
+      'color-selected': hsl(151.9, 69.4%, 30.8%)
     )
   );
   @include meta.load-css('../components/Section.scss');
@@ -39,7 +42,7 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('background-color': #352d3b)
+    $with: ('background-color': hsl(274.3, 13.5%, 20.4%))
   );
 
   .Layout__content {
