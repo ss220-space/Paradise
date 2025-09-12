@@ -718,6 +718,7 @@
 	icon_state = "tourniquet"
 	item_state = "tourniquet"
 	origin_tech = "biotech=3"
+	w_class = WEIGHT_CLASS_TINY
 	var/self_duration = 3 SECONDS
 	var/other_duration = 2 SECONDS
 	var/remove_duration = 2.5 SECONDS
