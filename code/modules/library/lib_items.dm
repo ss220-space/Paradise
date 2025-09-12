@@ -429,7 +429,7 @@
 	balloon_alert(user, "режем страницы...")
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || carved)
 		return FALSE
-	balloon_alert(user, "страницы вырезаны.")
+	balloon_alert(user, "страницы вырезаны")
 	carved = TRUE
 	return TRUE
 
