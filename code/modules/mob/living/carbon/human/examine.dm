@@ -377,6 +377,13 @@
 		msg += span_warning("<b>[genderize_ru(gender, "Он", "Она", "Оно", "Они")] впил[genderize_ru(gender, "ся", "ась", "ось", "ись")] своими клыками в шею [vampire_datum.draining].\n</b>")
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(!bodypart.tourniquet)
+			continue
+		if(bodypart.tourniquet.applyed_bodypart != bodypart)
+			continue
+		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>У [genderize_ru(gender, "него", "неё", "него", "них")] [bodypart.declent_ru(NOMINATIVE)] перевязан[genderize_ru(gender, "", "а", "о", "ы")] [bicon(bodypart.tourniquet)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
+
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.bleeding_amount)
 			if(bodypart.bleedsuppress)
 				msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] [bodypart.declent_ru(NOMINATIVE)] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то.\n")
