@@ -332,7 +332,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		return
 
 	if(HAS_TRAIT(H, TRAIT_NO_DNA))
-		balloon_alert(H, "ДНК не обнаружена")
+		balloon_alert(H, UNLINT("ДНК не обнаружена"))
 		return
 
 	switch(upgrade_type)

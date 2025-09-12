@@ -7,8 +7,8 @@
 @use 'sass:color';
 
 @use '~tgui/styles/base.scss' with (
-  $color-bg: #1b2633,
-  $color-bg-section: #121922,
+  $color-bg: hsl(212.5, 30.8%, 15.3%),
+  $color-bg-section: hsl(213.8, 30.8%, 10.2%),
   $color-bg-grad-spread: 0%
 );
 
@@ -22,7 +22,7 @@
   @include meta.load-css('~tgui/styles/components/Section.scss');
   @include meta.load-css(
     '~tgui/styles/components/Button.scss',
-    $with: ('color-default': #384e68)
+    $with: ('color-default': hsl(212.5, 30%, 31.4%))
   );
   @include meta.load-css('~tgui/styles/components/NumberInput.scss');
   @include meta.load-css('~tgui/styles/components/TextArea.scss');

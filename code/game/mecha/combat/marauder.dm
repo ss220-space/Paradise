@@ -12,7 +12,7 @@
 	infra_luminosity = 3
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
 	wreckage = /obj/structure/mecha_wreckage/marauder
-	add_req_access = FALSE
+	id_lock_on = FALSE
 	internal_damage_threshold = 25
 	force = 45
 	max_equip = 5
@@ -92,6 +92,7 @@
 	operation_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
+	ui_theme = "syndicate"
 
 /obj/mecha/combat/marauder/mauler/loaded/New()
 	..()

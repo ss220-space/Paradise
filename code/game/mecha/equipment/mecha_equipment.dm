@@ -10,7 +10,12 @@
 	max_integrity = 300
 	/// Only used in start_cooldown() and do_after_cooldown(), so be sure to add one of these procs to your successful action().
 	var/equip_cooldown = 0
+	/// Can we use equip?
 	var/equip_ready = TRUE
+	/// Is equip active?
+	var/active = FALSE
+	/// Label used in the ui next to the Activate/Enable/Disable buttons
+	var/active_label = "Статус"
 	var/energy_drain = 0
 	var/obj/mecha/chassis = null
 	var/range = MECHA_MELEE //bitflags
@@ -25,24 +30,9 @@
 	var/integrated = FALSE // Preventing modules from getting detached.
 	var/alert_category = "mecha_module" //change if you want custom alerts
 
-
-/obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
-	if(chassis)
-		send_byjax(chassis.occupant,"exosuit.browser","eq_list",chassis.get_equipment_list())
-		send_byjax(chassis.occupant,"exosuit.browser","equipment_menu",chassis.get_equipment_menu(),"dropdowns")
-		return TRUE
-	return
-
-/obj/item/mecha_parts/mecha_equipment/proc/update_equip_info()
-	if(chassis)
-		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-		return TRUE
-	return
-
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
 		chassis.occupant_message(span_danger("The [src] is destroyed!"))
-		chassis.log_append_to_last("[src] is destroyed.",1)
 		SEND_SOUND(chassis.occupant, sound(get_destroy_sound(), volume = 50))
 		detach(chassis)
 	return ..()
@@ -51,26 +41,34 @@
 	return chassis.critdestrsound
 
 /obj/item/mecha_parts/mecha_equipment/proc/critfail()
-	if(chassis)
-		log_message("Critical failure", 1)
 	return
 
-/obj/item/mecha_parts/mecha_equipment/proc/get_equip_info()
-	if(!chassis)
+/obj/item/mecha_parts/mecha_equipment/proc/get_snowflake_data()
+	return
+
+/obj/item/mecha_parts/mecha_equipment/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
-	var/txt = "<span style=\"color:[equip_ready?"#0f0":"#f00"];\">*</span>&nbsp;"
-	if(chassis.selected == src)
-		txt += "<b>[name]</b>"
-	else if(selectable == MODULE_SELECTABLE_FULL)
-		txt += "<a href='byond://?src=[chassis.UID()];select_equip=\ref[src]'>[name]</a>"
-	else
-		txt += "[name]"
+	switch(action)
+		if("detach")
+			detach(get_turf(src))
+			return TRUE
+		if("toggle")
+			if(selectable != MODULE_SELECTABLE_TOGGLE)
+				return FALSE
+			toggle_module()
+			return TRUE
+		if("select")
+			if(selectable != MODULE_SELECTABLE_FULL)
+				return FALSE
+			select_module()
+			return TRUE
 
-	txt += "[get_module_equip_info()]"
-	return txt
+	return handle_ui_act(action,params,ui,state)
 
-/obj/item/mecha_parts/mecha_equipment/proc/get_module_equip_info()
-	return
+/obj/item/mecha_parts/mecha_equipment/proc/handle_ui_act(action, list/params)
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/is_ranged()//add a distance restricted equipment. Why not?
 	return range & MECHA_RANGED
@@ -153,10 +151,8 @@
 	chassis = M
 	if(loc != M)
 		forceMove(M)
-	M.log_message("[src] initialized.")
 	if(!M.selected)
-		M.selected = src
-	update_chassis_page()
+		select_module()
 	attach_act(M)
 	ADD_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
 	if(M.occupant)
@@ -191,8 +187,6 @@
 		chassis.equipment -= src
 		if(chassis.selected == src)
 			chassis.selected = null
-		update_chassis_page()
-		chassis.log_message("[src] removed from equipment.")
 		chassis = null
 		REMOVE_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
 		set_ready_state(TRUE)
@@ -211,32 +205,26 @@
 /obj/item/mecha_parts/mecha_equipment/proc/handle_occupant_exit()
 	return
 
-/obj/item/mecha_parts/mecha_equipment/Topic(href,href_list)
-	if(href_list["detach"])
-		detach()
-
 /obj/item/mecha_parts/mecha_equipment/proc/set_ready_state(state)
 	equip_ready = state
-	if(chassis)
-		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+
+/obj/item/mecha_parts/mecha_equipment/proc/set_active(state)
+	active = state
 
 /obj/item/mecha_parts/mecha_equipment/proc/occupant_message(message)
 	if(chassis)
 		chassis.occupant_message("[bicon(src)] [message]")
-
-/obj/item/mecha_parts/mecha_equipment/proc/log_message(message)
-	if(chassis)
-		chassis.log_message("<i>[src]:</i> [message]")
 
 /obj/item/mecha_parts/mecha_equipment/proc/self_occupant_attack()
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/select_module()
 	select_set_alert()
+	chassis.selected?.set_active(FALSE)
 	chassis.selected = src
+	chassis.selected.set_active(TRUE)
 	chassis.occupant_message(span_notice("You switch to [src]."))
 	chassis.visible_message("[chassis] raises [src]")
-	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())
 
 /obj/item/mecha_parts/mecha_equipment/proc/select_set_alert()
 	if(selectable == MODULE_SELECTABLE_FULL)
@@ -247,12 +235,17 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/throw_default_alert(mob/living/carbon/occupant)
-	if(alert_category == "mecha_module")
-		var/atom/movable/screen/alert/empty_alert/default_alert = occupant.throw_alert(alert_category, /atom/movable/screen/alert/empty_alert, new_master = src)
-		default_alert.name = name
-		default_alert.desc = "Выбран модуль [src.name]"
-		return TRUE
-	return FALSE
+	if(!occupant || !occupant.client)
+		return FALSE
+
+	if(alert_category != "mecha_module")
+		return FALSE
+
+	var/atom/movable/screen/alert/empty_alert/default_alert = occupant.throw_alert(alert_category, /atom/movable/screen/alert/empty_alert, new_master = src)
+	default_alert.name = name
+	default_alert.desc = "Выбран модуль [declent_ru(NOMINATIVE)]"
+
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/toggle_module()
 	return

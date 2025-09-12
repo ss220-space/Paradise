@@ -28,6 +28,7 @@
 #define DIAG_PATH_HUD		"23"//Bot path indicators
 #define GLAND_HUD			"24"//Gland indicators for abductors
 #define THOUGHT_HUD			"25"//Telepathy bubbles
+#define PACIFISM_HUD			"pacifism_hud" // Hud for pacifists(only for dantalion for now)
 #define KIDAN_PHEROMONES_HUD	"pheromone_hud" // Kidan pheromones hud
 
 //by default everything in the hud_list of an atom is an image
