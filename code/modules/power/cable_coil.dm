@@ -105,9 +105,11 @@
 ///////////////////////////////////
 /obj/item/stack/cable_coil/attack_self(mob/user)
 	var/image/restraints_icon = image(icon = 'icons/obj/items.dmi', icon_state = "cuff_white")
+	var/image/tourniquet_icon = image(icon = 'icons/obj/medicine/packs.dmi', icon_state = "makeshift_tourniquet")
 	var/image/multiz_icon = image(icon = 'icons/obj/engines_and_power/power.dmi', icon_state = "cable_bridge")
 	var/choices = list(
 		"cable restraints (15)" = restraints_icon,
+		"самодельный жгут (20)" = tourniquet_icon,
 		"multi z cable hub (10)" = multiz_icon,
 	)
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
@@ -140,6 +142,12 @@
 						text_color = "white"
 
 				cablecuff.icon_state = "cuff_[text_color]"
+		if("самодельный жгут (20)")
+			if(get_amount() < 20)
+				to_chat(user, span_warning("Вам не хватает [declent_ru(GENITIVE)] чтобы сделать самодельный жгут!"))
+			if(use(20))
+				var/obj/item/tourniquet/makeshift/tourniquet = new(T)
+				user.put_in_any_hand_if_possible(tourniquet)
 		if("multi z cable hub (10)")
 			if(T.intact || (T.transparent_floor == TURF_TRANSPARENT))
 				to_chat(user, span_warning("You need to remove floor plating."))

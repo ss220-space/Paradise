@@ -868,7 +868,7 @@
 	desc = "Самодельный жгут для остановки всех видов кровотечений на конечностях. При долгом ношении конечность может отмереть. Можно наложить только на конечности."
 	icon_state = "makeshift_tourniquet"
 	item_state = "makeshift_tourniquet"
-	self_duration = 4 SECONDS
+	self_duration = 5 SECONDS
 	other_duration = 3 SECONDS
 	remove_duration = 5 SECONDS
 
@@ -891,9 +891,9 @@
 	desc = "Турникет для остановки всех видов кровотечений на конечностях. При долгом ношении конечность может отмереть. Можно наложить только на конечности."
 	icon_state = "advanced_tourniquet"
 	item_state = "advanced_tourniquet"
-	self_duration = 1.5 SECONDS
-	other_duration = 1 SECONDS
-	remove_duration = 1 SECONDS
+	self_duration = 1 SECONDS
+	other_duration = 0.5 SECONDS
+	remove_duration = 0.5 SECONDS
 
 /obj/item/tourniquet/advanced/get_ru_names()
 	return list(
