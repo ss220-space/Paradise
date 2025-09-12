@@ -780,7 +780,7 @@
 			return .
 		var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
 		if(!affecting_rechecked)
-			balloon_alert(user, "Часть тела отсутствует!")
+			balloon_alert(user, "часть тела отсутствует!")
 			return .
 		if(affecting_rechecked.tourniquet)
 			balloon_alert(user, "уже наложен жгут!")
@@ -797,7 +797,7 @@
 			return .
 		var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
 		if(!affecting_rechecked)
-			balloon_alert(user, "Часть тела отсутствует!")
+			balloon_alert(user, "часть тела отсутствует!")
 			return .
 		if(affecting_rechecked.tourniquet)
 			balloon_alert(user, "уже наложен жгут!")
