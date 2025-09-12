@@ -2376,30 +2376,30 @@ This applies to all STANDARD station areas
 	icon_state = "checkpoint1"
 
 /area/quartermaster
-	name = "Quartermasters"
+	name = "Отдел снабжения"
 	icon_state = "quart"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_CARGO
 
 /area/quartermaster/sorting
-	name = "Delivery Office"
+	name = "Отдел снабжения – распределительный центр"
 	icon_state = "quartstorage"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/quartermaster/office
-	name = "Cargo Office"
+	name = "Отдел снабжения – офис"
 	icon_state = "quartoffice"
 
 /area/quartermaster/lobby
-	name = "Cargo Lobby"
+	name = "Отдел снабжения – вестибюль"
 	icon_state = "quartoffice"
 
 /area/quartermaster/delivery
-	name = "Cargo Delivery"
+	name = "Отдел снабжения – пункт отправки"
 	icon_state = "quartoffice"
 
 /area/quartermaster/storage
-	name = "Cargo Bay"
+	name = "Отдел снабжения – ангар для грузов"
 	icon_state = "quartstorage"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
@@ -2408,45 +2408,45 @@ This applies to all STANDARD station areas
 	icon_state = "quart"
 
 /area/quartermaster/miningdock
-	name = "Mining Dock"
+	name = "Отдел снабжения – шахтёрский пункт"
 	icon_state = "mining"
 
 /area/quartermaster/miningstorage
-	name = "Mining Storage"
+	name = "Отдел снабжения – шахтёрский склад"
 	icon_state = "green"
 
 /area/quartermaster/mechbay
-	name = "Mech Bay"
+	name = "Отдел снабжения – ангар для экзоскелетов"
 	icon_state = "yellow"
 
 /area/janitor
-	name = "Custodial Closet"
+	name = "Каморка Уборщика"
 	icon_state = "janitor"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
 /area/hydroponics
-	name = "Hydroponics"
+	name = "Гидропоника"
 	icon_state = "hydro"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
 /area/maintenance/garden
-	name = "Old Garden"
+	name = "Старый сад"
 	icon_state = "hydro"
 	power_equip = FALSE
 	power_light = FALSE
 	power_environ = FALSE
 
 /area/maintenance/garden/north
-	name = "North Old Garden"
+	name = "Старый сад – северный"
 	icon_state = "hydro"
 	power_equip = FALSE
 	power_light = FALSE
 	power_environ = FALSE
 
 /area/maintenance/kitchen
-	name = "Old Restaurant"
+	name = "Старый ресторан"
 	icon_state = "kitchen"
 	power_equip = FALSE
 	power_light = FALSE
