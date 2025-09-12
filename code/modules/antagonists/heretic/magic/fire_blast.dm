@@ -17,9 +17,9 @@
 	invocation = "V'LC'N!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
-	channel_time = 5 SECONDS
-	target_radius = 5
-	max_beam_bounces = 4
+	channel_time = 3 SECONDS
+	target_radius = 6
+	max_beam_bounces = 5
 
 	/// How long the beam visual lasts, also used to determine time between jumps
 	var/beam_duration = 2 SECONDS
