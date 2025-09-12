@@ -626,6 +626,7 @@
 	)
 
 	heretic_datum.increase_rust_strength()
+	SSshuttle.emergency.request(coefficient = 0.5)
 	return TRUE
 
 
