@@ -194,13 +194,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 	do_invoke_glow()
 
 /**
-  * Spawns the phase in/out effects for a cult teleport.
-  *
-  * Arguments:
-  * * user - Mob to teleport
-  * * location - Location to teleport from
-  * * target - Location to teleport to
-  */
+ * Spawns the phase in/out effects for a cult teleport.
+ *
+ * Arguments:
+ * * user - Mob to teleport
+ * * location - Location to teleport from
+ * * target - Location to teleport to
+ */
 /obj/effect/rune/proc/teleport_effect(mob/living/user, turf/location, target)
 	new /obj/effect/temp_visual/dir_setting/cult/phase/out(location, user.dir)
 	new /obj/effect/temp_visual/dir_setting/cult/phase(target, user.dir)
@@ -731,14 +731,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 	qdel(src)
 
 /**
-  * # Blood Boil Rune
-  *
-  * When invoked deals up to 30 burn damage to nearby non-cultists and sets them on fire.
-  *
-  * On activation the rune charges for six seconds, changing colour, glowing, and giving out a warning to all nearby mobs.
-  * After the charging period the rune burns any non-cultists in view and sets them on fire. After another short wait it does the same again with slightly higher damage.
-  * If the cultists channeling the rune move away or are stunned at any point, the rune is deleted. So it can be countered pretty easily with flashbangs.
-  */
+ * # Blood Boil Rune
+ *
+ * When invoked deals up to 30 burn damage to nearby non-cultists and sets them on fire.
+ *
+ * On activation the rune charges for six seconds, changing colour, glowing, and giving out a warning to all nearby mobs.
+ * After the charging period the rune burns any non-cultists in view and sets them on fire. After another short wait it does the same again with slightly higher damage.
+ * If the cultists channeling the rune move away or are stunned at any point, the rune is deleted. So it can be countered pretty easily with flashbangs.
+ */
 /obj/effect/rune/blood_boil
 	cultist_name = "Boil Blood"
 	cultist_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage. Requires 2 invokers channeling the rune."

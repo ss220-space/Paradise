@@ -3,7 +3,7 @@
 #define TELECOMMS_RECEPTION_RECEIVER 2
 #define TELECOMMS_RECEPTION_BOTH 3
 
-/proc/get_frequency_name(var/display_freq)
+/proc/get_frequency_name(display_freq)
 	var/freq_text
 
 	// the name of the channel
@@ -25,3 +25,8 @@
 		freq_text = format_frequency(display_freq)
 
 	return freq_text
+
+#undef TELECOMMS_RECEPTION_NONE
+#undef TELECOMMS_RECEPTION_SENDER
+#undef TELECOMMS_RECEPTION_RECEIVER
+#undef TELECOMMS_RECEPTION_BOTH

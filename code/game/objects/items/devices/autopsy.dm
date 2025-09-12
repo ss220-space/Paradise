@@ -34,7 +34,7 @@
 /datum/autopsy_data_scanner
 	var/weapon = null // this is the DEFINITE weapon type that was used
 	var/list/organs_scanned = list() // this maps a number of scanned organs to
-									 // the wounds to those organs with this data's weapon type
+									// the wounds to those organs with this data's weapon type
 	var/organ_names = ""
 
 /datum/autopsy_data_scanner/Destroy()
@@ -62,12 +62,12 @@
 	for(var/index in check_organ.autopsy_data)
 		var/datum/autopsy_data/weapon_data = check_organ.autopsy_data[index]
 
-		if(!LAZYACCESS(wdata, index))
-			var/datum/autopsy_data_scanner/scanner_data = new
+		var/datum/autopsy_data_scanner/scanner_data = wdata[index]
+		if(!scanner_data)
+			scanner_data = new()
 			scanner_data.weapon = weapon_data.weapon
 			wdata[index] = scanner_data
 
-		var/datum/autopsy_data_scanner/scanner_data = wdata[index]
 		var/organ_name = check_organ.declent_ru(NOMINATIVE)
 
 		if(!scanner_data.organs_scanned[organ_name])

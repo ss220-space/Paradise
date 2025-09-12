@@ -109,7 +109,7 @@
 	to_chat(src, span_shadowling("<b>Ваш дух вселился в [src.declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя – почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
 
 
-/mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
+/mob/living/simple_animal/possessed_object/New(atom/loc as obj)
 	..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
@@ -147,7 +147,7 @@
 		. = possessed_id.access
 
 
-/mob/living/simple_animal/possessed_object/ClickOn(var/atom/A, var/params)
+/mob/living/simple_animal/possessed_object/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return

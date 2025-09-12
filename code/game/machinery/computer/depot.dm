@@ -1,9 +1,3 @@
-
-#define DEPOT_VISITOR_START	1
-#define DEPOT_VISITOR_END	2
-#define DEPOT_VISITOR_ADD	3
-
-
 // Generic parent depot computer type
 
 /obj/machinery/computer/syndicate_depot

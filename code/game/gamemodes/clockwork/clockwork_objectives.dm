@@ -27,12 +27,12 @@
 	clocker_goal = round(reveal_percent * (players - clockers),1)
 
 /**
-  * Called by cultists/cult constructs checking their objectives
-  *
-  * to_chats mob/living/M the currents status.
-  *
-  * * display_members set FALSE - additionally how many cult members.
-  */
+ * Called by cultists/cult constructs checking their objectives
+ *
+ * to_chats mob/living/M the currents status.
+ *
+ * * display_members set FALSE - additionally how many cult members.
+ */
 /datum/clockwork_objectives/proc/study(mob/living/M, display_members = FALSE)
 	if(!M)
 		return FALSE

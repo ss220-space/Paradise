@@ -1,18 +1,18 @@
 /datum/element/pref_viewer
-    element_flags = ELEMENT_DETACH_ON_HOST_DESTROY
-    var/list/preferences_to_show
+	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY
+	var/list/preferences_to_show
 
 /datum/element/pref_viewer/Destroy(force)
-    LAZYNULL(preferences_to_show)
+	LAZYNULL(preferences_to_show)
 
-    return ..()
+	return ..()
 
 /datum/element/pref_viewer/Attach(
 	mob/target,
 	list/preferences_to_show
 	)
 	. = ..()
-	
+
 	if(!istype(target))
 		return ELEMENT_INCOMPATIBLE
 
@@ -25,12 +25,12 @@
 	UnregisterSignal(target, COMSIG_MOB_RUN_EXAMINATE)
 
 /datum/element/pref_viewer/proc/on_examine(mob/source, mob/target, list/result)
-    SIGNAL_HANDLER
+	SIGNAL_HANDLER
 
-    if(!istype(target) || !target.client || !target.GetComponent(/datum/component/pref_holder))
-        return
+	if(!istype(target) || !target.client || !target.GetComponent(/datum/component/pref_holder))
+		return
 
-    INVOKE_ASYNC(src, PROC_REF(modify_examine), target, result)
+	INVOKE_ASYNC(src, PROC_REF(modify_examine), target, result)
 
 /datum/element/pref_viewer/proc/modify_examine(mob/target, list/result)
 	var/datum/component/pref_holder/holder = target.GetComponent(/datum/component/pref_holder)
