@@ -252,12 +252,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/handmade_steel/get_ru_names()
 	return list(
-        NOMINATIVE = "самодельная стальная бронеплита",
-        GENITIVE = "самодельной стальной бронеплиты",
-        DATIVE = "самодельной стальной бронеплите",
-        ACCUSATIVE = "самодельную стальную бронеплиту",
-        INSTRUMENTAL = "самодельной стальной бронеплитой",
-        PREPOSITIONAL = "самодельной стальной бронеплите"
+		NOMINATIVE = "самодельная стальная бронеплита",
+		GENITIVE = "самодельной стальной бронеплиты",
+		DATIVE = "самодельной стальной бронеплите",
+		ACCUSATIVE = "самодельную стальную бронеплиту",
+		INSTRUMENTAL = "самодельной стальной бронеплитой",
+		PREPOSITIONAL = "самодельной стальной бронеплите"
 	)
 
 /obj/item/armor_plate/handmade_steel/helmet
@@ -278,12 +278,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/handmade_ablative/get_ru_names()
 	return list(
-        NOMINATIVE = "самодельная противолазерная бронеплита",
-        GENITIVE = "самодельной противолазерной бронеплиты",
-        DATIVE = "самодельной противолазерной бронеплите",
-        ACCUSATIVE = "самодельную противолазерную бронеплиту",
-        INSTRUMENTAL = "самодельной противолазерной бронеплитой",
-        PREPOSITIONAL = "самодельной противолазерной бронеплите"
+		NOMINATIVE = "самодельная противолазерная бронеплита",
+		GENITIVE = "самодельной противолазерной бронеплиты",
+		DATIVE = "самодельной противолазерной бронеплите",
+		ACCUSATIVE = "самодельную противолазерную бронеплиту",
+		INSTRUMENTAL = "самодельной противолазерной бронеплитой",
+		PREPOSITIONAL = "самодельной противолазерной бронеплите"
 	)
 
 /obj/item/armor_plate/handmade_ablative/helmet
@@ -304,12 +304,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/kevlar/get_ru_names()
 	return list(
-        NOMINATIVE = "кевларовая бронеплита",
-        GENITIVE = "кевларовой бронеплиты",
-        DATIVE = "кевларовой бронеплите",
-        ACCUSATIVE = "кевларовую бронеплиту",
-        INSTRUMENTAL = "кевларовой бронеплитой",
-        PREPOSITIONAL = "кевларовой бронеплите"
+		NOMINATIVE = "кевларовая бронеплита",
+		GENITIVE = "кевларовой бронеплиты",
+		DATIVE = "кевларовой бронеплите",
+		ACCUSATIVE = "кевларовую бронеплиту",
+		INSTRUMENTAL = "кевларовой бронеплитой",
+		PREPOSITIONAL = "кевларовой бронеплите"
 	)
 
 /obj/item/armor_plate/kevlar/helmet
@@ -332,12 +332,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/light_steel/get_ru_names()
 	return list(
-        NOMINATIVE = "лёгкая стальная бронеплита",
-        GENITIVE = "лёгкой стальной бронеплиты",
-        DATIVE = "лёгкой стальной бронеплите",
-        ACCUSATIVE = "лёгкую стальную бронеплиту",
-        INSTRUMENTAL = "лёгкой стальной бронеплитой",
-        PREPOSITIONAL = "лёгкой стальной бронеплите"
+		NOMINATIVE = "лёгкая стальная бронеплита",
+		GENITIVE = "лёгкой стальной бронеплиты",
+		DATIVE = "лёгкой стальной бронеплите",
+		ACCUSATIVE = "лёгкую стальную бронеплиту",
+		INSTRUMENTAL = "лёгкой стальной бронеплитой",
+		PREPOSITIONAL = "лёгкой стальной бронеплите"
 	)
 
 /obj/item/armor_plate/light_steel/helmet
@@ -359,12 +359,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/light_ablative/get_ru_names()
 	return list(
-        NOMINATIVE = "лёгкая противолазерная бронеплита",
-        GENITIVE = "лёгкой противолазерной бронеплиты",
-        DATIVE = "лёгкой противолазерной бронеплите",
-        ACCUSATIVE = "лёгкую противолазерную бронеплиту",
-        INSTRUMENTAL = "лёгкой противолазерной бронеплитой",
-        PREPOSITIONAL = "лёгкой противолазерной бронеплите"
+		NOMINATIVE = "лёгкая противолазерная бронеплита",
+		GENITIVE = "лёгкой противолазерной бронеплиты",
+		DATIVE = "лёгкой противолазерной бронеплите",
+		ACCUSATIVE = "лёгкую противолазерную бронеплиту",
+		INSTRUMENTAL = "лёгкой противолазерной бронеплитой",
+		PREPOSITIONAL = "лёгкой противолазерной бронеплите"
 	)
 
 /obj/item/armor_plate/light_ablative/helmet
@@ -386,12 +386,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/light_ceramic/get_ru_names()
 	return list(
-        NOMINATIVE = "лёгкая керамическая бронеплита",
-        GENITIVE = "лёгкой керамической бронеплиты",
-        DATIVE = "лёгкой керамической бронеплите",
-        ACCUSATIVE = "лёгкую керамическую бронеплиту",
-        INSTRUMENTAL = "лёгкой керамической бронеплитой",
-        PREPOSITIONAL = "лёгкой керамической бронеплите"
+		NOMINATIVE = "лёгкая керамическая бронеплита",
+		GENITIVE = "лёгкой керамической бронеплиты",
+		DATIVE = "лёгкой керамической бронеплите",
+		ACCUSATIVE = "лёгкую керамическую бронеплиту",
+		INSTRUMENTAL = "лёгкой керамической бронеплитой",
+		PREPOSITIONAL = "лёгкой керамической бронеплите"
 	)
 
 /obj/item/armor_plate/light_ceramic/helmet
@@ -416,12 +416,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/medium_steel/get_ru_names()
 	return list(
-        NOMINATIVE = "средняя стальная бронеплита",
-        GENITIVE = "средней стальной бронеплиты",
-        DATIVE = "средней стальной бронеплите",
-        ACCUSATIVE = "среднюю стальную бронеплиту",
-        INSTRUMENTAL = "средней стальной бронеплитой",
-        PREPOSITIONAL = "средней стальной бронеплите"
+		NOMINATIVE = "средняя стальная бронеплита",
+		GENITIVE = "средней стальной бронеплиты",
+		DATIVE = "средней стальной бронеплите",
+		ACCUSATIVE = "среднюю стальную бронеплиту",
+		INSTRUMENTAL = "средней стальной бронеплитой",
+		PREPOSITIONAL = "средней стальной бронеплите"
 	)
 
 /obj/item/armor_plate/medium_steel/helmet
@@ -444,12 +444,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/medium_ablative/get_ru_names()
 	return list(
-        NOMINATIVE = "средняя противолазерная бронеплита",
-        GENITIVE = "средней противолазерной бронеплиты",
-        DATIVE = "средней противолазерной бронеплите",
-        ACCUSATIVE = "среднюю противолазерную бронеплиту",
-        INSTRUMENTAL = "средней противолазерной бронеплитой",
-        PREPOSITIONAL = "средней противолазерной бронеплите"
+		NOMINATIVE = "средняя противолазерная бронеплита",
+		GENITIVE = "средней противолазерной бронеплиты",
+		DATIVE = "средней противолазерной бронеплите",
+		ACCUSATIVE = "среднюю противолазерную бронеплиту",
+		INSTRUMENTAL = "средней противолазерной бронеплитой",
+		PREPOSITIONAL = "средней противолазерной бронеплите"
 	)
 
 /obj/item/armor_plate/medium_ablative/helmet
@@ -472,12 +472,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/medium_ceramic/get_ru_names()
 	return list(
-        NOMINATIVE = "средняя керамическая бронеплита",
-        GENITIVE = "средней керамической бронеплиты",
-        DATIVE = "средней керамической бронеплите",
-        ACCUSATIVE = "среднюю керамическую бронеплиту",
-        INSTRUMENTAL = "средней керамической бронеплитой",
-        PREPOSITIONAL = "средней керамической бронеплите"
+		NOMINATIVE = "средняя керамическая бронеплита",
+		GENITIVE = "средней керамической бронеплиты",
+		DATIVE = "средней керамической бронеплите",
+		ACCUSATIVE = "среднюю керамическую бронеплиту",
+		INSTRUMENTAL = "средней керамической бронеплитой",
+		PREPOSITIONAL = "средней керамической бронеплите"
 	)
 
 /obj/item/armor_plate/medium_ceramic/helmet
@@ -502,12 +502,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/heavy_steel/get_ru_names()
 	return list(
-        NOMINATIVE = "тяжёлая стальная бронеплита",
-        GENITIVE = "тяжёлой стальной бронеплиты",
-        DATIVE = "тяжёлой стальной бронеплите",
-        ACCUSATIVE = "тяжёлую стальную бронеплиту",
-        INSTRUMENTAL = "тяжёлой стальной бронеплитой",
-        PREPOSITIONAL = "тяжёлой стальной бронеплите"
+		NOMINATIVE = "тяжёлая стальная бронеплита",
+		GENITIVE = "тяжёлой стальной бронеплиты",
+		DATIVE = "тяжёлой стальной бронеплите",
+		ACCUSATIVE = "тяжёлую стальную бронеплиту",
+		INSTRUMENTAL = "тяжёлой стальной бронеплитой",
+		PREPOSITIONAL = "тяжёлой стальной бронеплите"
 	)
 
 /obj/item/armor_plate/heavy_steel/helmet
@@ -530,12 +530,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/heavy_ablative/get_ru_names()
 	return list(
-        NOMINATIVE = "тяжёлая противолазерная бронеплита",
-        GENITIVE = "тяжёлой противолазерной бронеплиты",
-        DATIVE = "тяжёлой противолазерной бронеплите",
-        ACCUSATIVE = "тяжёлую противолазерную бронеплиту",
-        INSTRUMENTAL = "тяжёлой противолазерной бронеплитой",
-        PREPOSITIONAL = "тяжёлой противолазерной бронеплите"
+		NOMINATIVE = "тяжёлая противолазерная бронеплита",
+		GENITIVE = "тяжёлой противолазерной бронеплиты",
+		DATIVE = "тяжёлой противолазерной бронеплите",
+		ACCUSATIVE = "тяжёлую противолазерную бронеплиту",
+		INSTRUMENTAL = "тяжёлой противолазерной бронеплитой",
+		PREPOSITIONAL = "тяжёлой противолазерной бронеплите"
 	)
 
 /obj/item/armor_plate/heavy_ablative/helmet
@@ -558,12 +558,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/heavy_ceramic/get_ru_names()
 	return list(
-        NOMINATIVE = "тяжёлая керамическая бронеплита",
-        GENITIVE = "тяжёлой керамической бронеплиты",
-        DATIVE = "тяжёлой керамической бронеплите",
-        ACCUSATIVE = "тяжёлую керамическую бронеплиту",
-        INSTRUMENTAL = "тяжёлой керамической бронеплитой",
-        PREPOSITIONAL = "тяжёлой керамической бронеплите"
+		NOMINATIVE = "тяжёлая керамическая бронеплита",
+		GENITIVE = "тяжёлой керамической бронеплиты",
+		DATIVE = "тяжёлой керамической бронеплите",
+		ACCUSATIVE = "тяжёлую керамическую бронеплиту",
+		INSTRUMENTAL = "тяжёлой керамической бронеплитой",
+		PREPOSITIONAL = "тяжёлой керамической бронеплите"
 	)
 
 /obj/item/armor_plate/heavy_ceramic/helmet
@@ -584,12 +584,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 
 /obj/item/armor_plate/elite/get_ru_names()
 	return list(
-        NOMINATIVE = "элитная бронеплита",
-        GENITIVE = "элитной бронеплиты",
-        DATIVE = "элитной бронеплите",
-        ACCUSATIVE = "элитную бронеплиту",
-        INSTRUMENTAL = "элитной бронеплитой",
-        PREPOSITIONAL = "элитной бронеплите"
+		NOMINATIVE = "элитная бронеплита",
+		GENITIVE = "элитной бронеплиты",
+		DATIVE = "элитной бронеплите",
+		ACCUSATIVE = "элитную бронеплиту",
+		INSTRUMENTAL = "элитной бронеплитой",
+		PREPOSITIONAL = "элитной бронеплите"
 	)
 
 /obj/item/armor_plate/elite/helmet
