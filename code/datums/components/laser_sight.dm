@@ -229,12 +229,12 @@
 	//calculate transform
 	var/dx = (start_turf.x - end_turf.x) * ICON_SIZE_ALL + (start.pixel_x - end.pixel_x)
 	var/dy = (start_turf.y - end_turf.y) * ICON_SIZE_ALL + (start.pixel_y - end.pixel_y)
-	var/distance = sqrt(dx*dx + dy*dy)
+	var/distance = sqrt(dx * dx + dy * dy)
 	var/angle = arctan(dy, dx)
 	angle = normalize_angle(angle)
 	get_angle()
 	var/matrix/trans = matrix()
-	trans.Translate(0, -ICON_SIZE_ALL/2)
+	trans.Translate(0, -ICON_SIZE_ALL / 2)
 	//scale to distance
 	var/scale = max(distance / ICON_SIZE_ALL, 0)
 	trans.Scale(1, scale)
