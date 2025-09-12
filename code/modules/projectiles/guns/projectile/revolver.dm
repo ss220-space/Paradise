@@ -8,7 +8,10 @@
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3)
+	)
 
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)

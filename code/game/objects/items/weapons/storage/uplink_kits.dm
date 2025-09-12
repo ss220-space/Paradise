@@ -865,6 +865,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/gun_module/muzzle/compensator(src)
 
 /obj/item/storage/box/syndie_kit/desert_eagle
 	name = "desert eagle kit"
@@ -887,6 +888,8 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/ammo_box/m50(src)
 	new /obj/item/ammo_box/m50(src)
+	new /obj/item/gun_module/muzzle/compensator(src)
+	new /obj/item/gun_module/rail/scope/collimator/pistol(src)
 
 /obj/item/storage/box/syndie_kit/desert_eagle_gold
 	name = "golden desert eagle kit"
@@ -909,6 +912,8 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/m50(src)
 	new /obj/item/ammo_box/m50(src)
 	new /obj/item/ammo_box/m50(src)
+	new /obj/item/gun_module/muzzle/compensator(src)
+	new /obj/item/gun_module/rail/scope/collimator/pistol(src)
 
 /obj/item/storage/box/syndie_kit/stechkin_pistol
 	name = "stechkin pistol kit"
@@ -929,3 +934,5 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/gun_module/rail/scope/collimator/pistol(src)
+	new /obj/item/gun_module/muzzle/compensator(src)
