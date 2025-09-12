@@ -11,7 +11,7 @@ $color-default-fill: colors.bg(colors.$primary) !default;
 $background-color: rgba(0, 0, 0, 0) !default;
 $border-radius: base.$border-radius !default;
 $bg-map: colors.$bg-map !default;
-$color-disabled: #999999 !default;
+$color-disabled: hsl(0, 0%, 60%) !default;
 
 .ProgressBar {
   display: inline-block;

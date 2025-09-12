@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$clockwork: #825b17;
+$clockwork: hsl(38.1, 69.9%, 30%);
 
 @use '../colors.scss' with (
   $fg-map-keys: (),
