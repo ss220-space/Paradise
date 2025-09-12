@@ -212,7 +212,7 @@
 
 /obj/item/multitool/field_debug/click_alt(mob/user, modifiers)
 	current.edge_is_a_field = !current.edge_is_a_field
-	user.balloon_alert("edge_is_a_field = [current.edge_is_a_field]")
+	user.balloon_alert(user, "edge_is_a_field = [current.edge_is_a_field]")
 
 
 ///DEBUG FIELDS
