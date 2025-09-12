@@ -1,27 +1,27 @@
 //Admins ranks
-#define BH_ADMIN "Админ"
-#define BH_ADMIN_SA "Старший Админ" //senior admin
-#define BH_HSA "Главный Администратор Проекта" //head senior admin
-#define BH_TRIAL "Триал Админ"
-#define BH_MENTOR "Ментор"
+#define ADMIN "Админ"
+#define ADMIN_SA "Старший Админ" //senior admin
+#define HSA "Главный Администратор Проекта" //head senior admin
+#define TRIAL "Триал Админ"
+#define MENTOR "Ментор"
 
-#define BH_ALL_ADMINS_RANK list(BH_ADMIN, BH_ADMIN_SA, BH_HSA, BH_TRIAL, BH_MENTOR)
+#define ALL_ADMINS_RANK list(ADMIN, ADMIN_SA, HSA, TRIAL, MENTOR)
 
 //Other ranks
-#define BH_DEVELOPER "Разработчик"
-#define BH_LEAD_DEVELOPER "Ведущий Разработчик" 
-#define BH_CONTRIBUTOR "Контрибьютор"
+#define DEVELOPER "Разработчик"
+#define LEAD_DEVELOPER "Ведущий Разработчик" 
+#define CONTRIBUTOR "Контрибьютор"
 
-#define BH_DEVELOPENT_STAFF list(BH_DEVELOPER, BH_CONTRIBUTOR, BH_LEAD_DEVELOPER)
+#define DEVELOPENT_STAFF list(DEVELOPER, CONTRIBUTOR, LEAD_DEVELOPER)
 
 //Helpers type
-#define BH_MENTOR_HELP "Помощь Ментора"
-#define BH_ADMIN_PM "PM"
+#define MENTOR_HELP "Помощь Ментора"
+#define ADMIN_PM "PM"
 
 /datum/fake_administrator
 	var/admin_name = ""
-	var/admin_rank = BH_ADMIN
-	var/type_admin_help = BH_ADMIN_PM
+	var/admin_rank = ADMIN
+	var/type_admin_help = ADMIN_PM
 	var/list/fake_msgs = list()
 	var/list/special_msgs_for_rank = list() //format: list(list(ADMIN_SA, HADMIN_SA) = list("Снят нахуй"))
 
@@ -59,7 +59,7 @@
 
 /datum/fake_administrator/cerano
 	admin_name = "Archangel Cerano"
-	admin_rank = BH_ADMIN_SA
+	admin_rank = ADMIN_SA
 	type_admin_help = "Помощь Админа"
 	fake_msgs = list("Ноулак, поплач")
 
@@ -86,18 +86,18 @@
 
 /datum/fake_administrator/yarida
 	admin_name = "Yarida"
-	admin_rank = BH_ADMIN_SA
+	admin_rank = ADMIN_SA
 	fake_msgs = list("Дарова, уебище.")
 
 /datum/fake_administrator/denchigo
 	admin_name = "Denchigo"
-	admin_rank = BH_HSA
+	admin_rank = HSA
 	fake_msgs = list("Ты же понимаешь что это р0?", "Погнали на БМ")
 	special_msgs_for_rank = list(ALL_ADMINS_RANK = list("Заебал, снят", "Снят нахуй", "Лови аварн"))
 
 /datum/fake_administrator/alexsandoor
 	admin_name = "AlexsanDOOR"
-	admin_rank = BH_TRIAL
+	admin_rank = TRIAL
 	fake_msgs = list("Привет, объяснишь что было?")
 
 /datum/fake_administrator/hrober
@@ -128,12 +128,12 @@
 
 /datum/fake_administrator/blanedancer
 	admin_name = "BlaneDancer"
-	admin_rank = BH_TRIAL
+	admin_rank = TRIAL
 	fake_msgs = list("Пермой в глаз? Или \"под-расстрелом\" раз?", "сразу по шапке дать или объяснишься?")
 
 /datum/fake_administrator/amikpanary
 	admin_name = "AmikoAnary"
-	admin_rank = BH_ADMIN_SA
+	admin_rank = ADMIN_SA
 	fake_msgs = list("Ты чего творишь то?")
 
 /datum/fake_administrator/twojadezero
@@ -143,5 +143,5 @@
 /datum/fake_administrator/dageavtobusik
 	admin_name = "Dageavtobusnik"
 	fake_msgs = list("Тогда я нихуя не понимаю")
-	special_msgs_for_rank = list(BH_DEVELOPENT_STAFF = list("Do not merge", "Такое говно в билд не пойдет", "Хуйня переделывай"))
+	special_msgs_for_rank = list(DEVELOPENT_STAFF = list("Do not merge", "Такое говно в билд не пойдет", "Хуйня переделывай"))
 
