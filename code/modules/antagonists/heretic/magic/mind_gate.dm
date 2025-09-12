@@ -37,12 +37,12 @@
 		to_chat(action.owner, span_warning("Разум жертвы не смог раскрыться, ровно как и ваш."))
 		return FALSE
 
-	cast_on.Confused(10 SECONDS)
+	cast_on.Confused(20 SECONDS)
 	cast_on.EyeBlurry(10 SECONDS)
 	cast_on.Druggy(10 SECONDS)
 	cast_on.Slur(10 SECONDS)
 	cast_on.Jitter(10 SECONDS)
-	cast_on.adjustOxyLoss(30)
+	cast_on.adjustOxyLoss(60)
 	cast_on.Hallucinate(120 SECONDS)
 	cast_on.cause_hallucination(/datum/hallucination/delusion/preset/heretic/gate, "Эффект Врат Разума")
 	cast_on.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 30)
