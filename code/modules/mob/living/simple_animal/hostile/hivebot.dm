@@ -245,12 +245,14 @@
 	if(world.time < last_heal_time + heal_cooldown)
 		return
 
-	var/list/repair_targets = list()
+	var/list/repair_targets
 	for(var/mob/living/simple_animal/hostile/hivebot/candidate in view(heal_range, src))
 		if(candidate != src && candidate.health < candidate.maxHealth && candidate.stat != DEAD)
+			if(!repair_targets)
+				repair_targets = list()
 			repair_targets += candidate
 
-	if(!length(repair_targets))
+	if(!repair_targets)
 		return
 
 	var/mob/living/simple_animal/hostile/hivebot/target = pick(repair_targets)
@@ -276,13 +278,14 @@
 	anchored = TRUE
 	density = TRUE
 	//Setting
-	var/spawn_count = 2			 //The number of hivebots that will be produced per cycle before going into recharge
-	var/spawn_interval = 1500 	 //Production time
-	var/cooldown_duration = 3000 //Cooldown after Production time
+	var/spawn_count = 2			 /// The number of hivebots that will be produced per cycle before going into recharge
+	var/spawn_interval = 1500 	 /// Production time
+	var/cooldown_duration = 3000 /// Cooldown after Production time
 	// Internal tracking variables
-	var/is_active = FALSE		// Whether currently producing bots
-	var/current_spawn_count = 0 // Current spawn count in cycle
+	var/is_active = FALSE		/// Whether currently producing bots
+	var/current_spawn_count = 0 /// Current spawn count in cycle
 
+	// Cooldowns
 	COOLDOWN_DECLARE(cycle_cooldown)
 	COOLDOWN_DECLARE(spawn_cooldown)
 
@@ -304,21 +307,12 @@
 /obj/structure/hivebot_spawner/proc/start_production()
 	is_active = TRUE
 	current_spawn_count = spawn_count
-	icon_state = "fab_robot_active"
+	icon_state = "fab_robot"
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает гудеть!"))
 	COOLDOWN_START(src, spawn_cooldown, spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/spawn_bots()
-	var/list/hivebot_types = list(
-		/mob/living/simple_animal/hostile/hivebot,
-		/mob/living/simple_animal/hostile/hivebot/melee,
-		/mob/living/simple_animal/hostile/hivebot/range,
-		/mob/living/simple_animal/hostile/hivebot/range_heavy,
-		/mob/living/simple_animal/hostile/hivebot/support
-	)
-
-	var/spawn_type = pick(hivebot_types)
-	new spawn_type(get_turf(src))
+	new /obj/effect/spawner/hivebot(get_turf(src))
 
 	if(--current_spawn_count <= 0)
 		finish_production()
