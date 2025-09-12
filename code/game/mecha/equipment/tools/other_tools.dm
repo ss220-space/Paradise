@@ -95,7 +95,7 @@
 	energy_drain = 100
 	range = MECHA_MELEE | MECHA_RANGED
 	var/atom/movable/locked
-	var/mode = 1 //1 - gravsling 2 - gravpush
+	var/mode = CATAPULT_GRAVSLING
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/action(atom/movable/target)
 	if(!action_checks(target))
@@ -104,25 +104,22 @@
 		return FALSE
 	equip_cooldown = (initial(equip_cooldown) * mode)
 	switch(mode)
-		if(1)
+		if(CATAPULT_GRAVSLING)
 			if(!locked)
 				if(!istype(target) || target.anchored || istype(target, /obj/mecha))
 					occupant_message("Unable to lock on [target]")
 					return FALSE
 				locked = target
 				occupant_message("Locked on [target]")
-				send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 			else if(target != locked)
 				if(locked in view(chassis))
 					locked.throw_at(target, 14, 1.5)
 					locked = null
-					send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 					start_cooldown()
 				else
 					occupant_message("Lock on [locked] disengaged.")
 					locked = null
-					send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-		if(2)
+		if(CATAPULT_GRAVPUSH)
 			var/list/atoms = list()
 			if(isturf(target))
 				atoms = range(3, target)
@@ -141,15 +138,21 @@
 			start_cooldown()
 
 
-/obj/item/mecha_parts/mecha_equipment/gravcatapult/get_module_equip_info()
-	return " [mode==1?"([locked||"Nothing"])":null] \[<a href='byond://?src=[UID()];mode=1'>S</a>|<a href='byond://?src=[UID()];mode=2'>P</a>\]"
+/obj/item/mecha_parts/mecha_equipment/gravcatapult/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_MODE,
+		"mode" = mode == CATAPULT_GRAVSLING ? "Притянуть" : "Толкать",
+		"mode_label" = "Грав. Катапульта"
+	)
 
-/obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
-	..()
-	if(href_list["mode"])
-		mode = text2num(href_list["mode"])
-		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-	return
+	return data
+
+/obj/item/mecha_parts/mecha_equipment/gravcatapult/handle_ui_act(action, list/params)
+	if(action == "change_mode")
+		mode++
+		if(mode > CATAPULT_GRAVPUSH)
+			mode = CATAPULT_GRAVSLING
+		return TRUE
 
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
@@ -199,7 +202,6 @@
 	equip_cooldown = 2 SECONDS
 	energy_drain = 50
 	range = 0
-	var/active_mode = FALSE
 	var/health_boost = 1
 	var/icon/droid_overlay
 	var/list/repairable_damage = list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH)
@@ -218,35 +220,24 @@
 	chassis.cut_overlay(droid_overlay)
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
-	return " <a href='byond://?src=[UID()];toggle_repairs=1'>[!active_mode?"A":"Dea"]ctivate</a>"
-
-/obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
-	..()
-	if(href_list["toggle_repairs"])
-		toggle_module()
-
 /obj/item/mecha_parts/mecha_equipment/repair_droid/toggle_module()
 	if(!action_checks(src))
 		return
 	chassis.cut_overlay(droid_overlay)
-	if(!active_mode)
+	if(!active)
 		START_PROCESSING(SSobj, src)
 		droid_overlay = new(icon, icon_state = "repair_droid_a")
-		log_message("Droid activated.")
 	else
 		STOP_PROCESSING(SSobj, src)
 		droid_overlay = new(icon, icon_state = "repair_droid")
-		log_message("Droid deactivated.")
-	active_mode = !active_mode
+	active = !active
 	chassis.add_overlay(droid_overlay)
-	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/process()
 	if(!chassis)
 		STOP_PROCESSING(SSobj, src)
-		active_mode = FALSE
+		active = FALSE
 		return
 	var/h_boost = health_boost
 	var/repaired = FALSE
@@ -264,12 +255,10 @@
 	if(repaired)
 		if(!chassis.use_power(energy_drain))
 			STOP_PROCESSING(SSobj, src)
-			active_mode = FALSE
-			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+			active = FALSE
 	else //no repair needed, we turn off
 		STOP_PROCESSING(SSobj, src)
-		active_mode = FALSE
-		send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+		active = FALSE
 		chassis.cut_overlay(droid_overlay)
 		droid_overlay = new(icon, icon_state = "repair_droid")
 		chassis.add_overlay(droid_overlay)
@@ -295,7 +284,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_charge()
-	if(equip_ready) //disabled
+	if(!active) //disabled
 		return
 	var/area/A = get_area(chassis)
 	var/pow_chan = get_power_channel(A)
@@ -312,34 +301,24 @@
 				break
 	return pow_chan
 
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Topic(href, href_list)
-	..()
-	if(href_list["toggle_relay"])
-		toggle_module()
-
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/toggle_module()
-	if(equip_ready) //inactive
+	set_active(!active)
+	if(active) //inactive
 		START_PROCESSING(SSobj, src)
 		set_ready_state(FALSE)
-		log_message("Activated.")
 	else
 		STOP_PROCESSING(SSobj, src)
 		set_ready_state(TRUE)
-		log_message("Deactivated.")
-
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_module_equip_info()
-	return " <a href='byond://?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
-
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
 	if(!chassis || chassis.internal_damage & MECHA_INT_SHORT_CIRCUIT)
 		STOP_PROCESSING(SSobj, src)
-		set_ready_state(TRUE)
+		active = FALSE
 		return
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge) || !chassis.cell)
 		STOP_PROCESSING(SSobj, src)
-		set_ready_state(TRUE)
+		active = FALSE
 		occupant_message("No powercell detected.")
 		return
 	if(cur_charge < chassis.cell.maxcharge)
@@ -371,6 +350,8 @@
 	var/fuel_per_cycle_idle = 10
 	var/fuel_per_cycle_active = 100
 	var/power_per_cycle = 30
+	/// Generator is generating
+	var/generation = FALSE
 
 
 /obj/item/mecha_parts/mecha_equipment/generator/Destroy()
@@ -380,26 +361,36 @@
 /obj/item/mecha_parts/mecha_equipment/generator/detach_act()
 	STOP_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/generator/Topic(href, href_list)
-	..()
-	if(href_list["toggle"])
-		if(equip_ready) //inactive
-			set_ready_state(FALSE)
-			START_PROCESSING(SSobj, src)
-			log_message("Activated.")
-		else
-			set_ready_state(TRUE)
-			STOP_PROCESSING(SSobj, src)
-			log_message("Deactivated.")
+/obj/item/mecha_parts/mecha_equipment/generator/toggle_module()
+	generation = !generation
 
-/obj/item/mecha_parts/mecha_equipment/generator/get_module_equip_info()
-	return " \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='byond://?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	if(generation)
+		to_chat(chassis.occupant, "[icon2html(src, chassis.occupant)][span_warning("Power generation enabled.")]")
+		START_PROCESSING(SSobj, src)
+		return
+
+	to_chat(chassis.occupant, "[icon2html(src, chassis.occupant)][span_warning("Power generation disabled.")]")
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/mecha_parts/mecha_equipment/generator/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_GENERATOR,
+		"fuel_name" = fuel_name,
+		"fuel_amount" = fuel_amount,
+		"active" = generation
+	)
+
+	return data
+
+/obj/item/mecha_parts/mecha_equipment/generator/handle_ui_act(action, list/params)
+	if(action == "toggle_generator")
+		toggle_module()
+		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/generator/action(target)
-	if(chassis)
-		var/result = load_fuel(target)
-		if(result)
-			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
+	if(!chassis)
+		return
+	load_fuel(target)
 
 /obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))
@@ -468,14 +459,12 @@
 		return
 	if(fuel_amount<=0)
 		STOP_PROCESSING(SSobj, src)
-		log_message("Deactivated - no fuel.")
 		set_ready_state(TRUE)
 		return
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge))
 		set_ready_state(TRUE)
 		occupant_message("No powercell detected.")
-		log_message("Deactivated.")
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/use_fuel = fuel_per_cycle_idle
@@ -483,7 +472,6 @@
 		use_fuel = fuel_per_cycle_active
 		chassis.give_power(power_per_cycle)
 	fuel_amount -= min(use_fuel, fuel_amount)
-	update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/generator/nuclear
 	name = "exonuclear reactor"
@@ -617,12 +605,12 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/get_ru_names()
 	return list(
-	    NOMINATIVE = "модуль \"Клетка SCS-3\"",
-	    GENITIVE = "модуля \"Клетка SCS-3\"",
-	    DATIVE = "модулю \"Клетка SCS-3\"",
-	    ACCUSATIVE = "модуль \"Клетка SCS-3\"",
-	    INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
-	    PREPOSITIONAL = "модулю \"Клетка SCS-3\""
+		NOMINATIVE = "модуль \"Клетка SCS-3\"",
+		GENITIVE = "модуля \"Клетка SCS-3\"",
+		DATIVE = "модулю \"Клетка SCS-3\"",
+		ACCUSATIVE = "модуль \"Клетка SCS-3\"",
+		INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
+		PREPOSITIONAL = "модуле \"Клетка SCS-3\""
 	)
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
@@ -737,10 +725,8 @@
 	stop_supressing(target)
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_escape))
-	update_equip_info()
 	occupant_message(span_notice("[target] успешно помещ[genderize_ru(target.gender, "ён", "ена", "ено", "ены")] в клетку."))
 	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] поместил [target] в клетку."))
-	log_message("[target] loaded in SCS-3 Cage.")
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress(mob/living/carbon/target)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
@@ -769,7 +755,6 @@
 /obj/item/mecha_parts/mecha_equipment/cage/proc/on_escape(mob/living/carbon/target)
 	SIGNAL_HANDLER
 	occupant_message(span_warning("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки."))
-	log_message("[prisoner] escaped from mech cage.")
 	prisoner = null
 	if(holding)
 		if(holding.handcuffed)
@@ -779,7 +764,6 @@
 	else
 		change_alert(CAGE_STAGE_ZERO)
 	change_state("mecha_cage")
-	update_equip_info()
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/change_state(icon)
@@ -830,13 +814,10 @@
 	prisoner.forceMove(get_turf(src))
 	if(!force)
 		occupant_message("[prisoner] извлеч[genderize_ru(prisoner.gender, "ён", "ена", "ено", "ены")].")
-		log_message("[prisoner] ejected from SCS 3 Cage.")
 	else
 		occupant_message("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки.")
-		log_message("[prisoner] escaped from SCS 3 Cage.")
 	prisoner = null
 	change_state("mecha_cage")
-	update_equip_info()
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_detach()
 	if(prisoner || holding)
@@ -847,16 +828,20 @@
 /obj/item/mecha_parts/mecha_equipment/cage/detach_act()
 	button = null
 
-/obj/item/mecha_parts/mecha_equipment/cage/get_module_equip_info()
-	if(prisoner)
-		return " <br />\[Задержанный: [prisoner] \]<br /><a href='byond://?src=[UID()];eject=1'>Eject</a>"
+/obj/item/mecha_parts/mecha_equipment/cage/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_CAGE,
+		"prisoner" = prisoner
+	)
 
-/obj/item/mecha_parts/mecha_equipment/cage/Topic(href,href_list)
-	..()
-	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
-	if(afilter.get("eject"))
+	return data
+
+/obj/item/mecha_parts/mecha_equipment/cage/handle_ui_act(action, list/params)
+	if(action == "eject")
 		eject(FALSE)
-	return
+		return TRUE
+
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cage/container_resist()
 	if(prisoner.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER))
@@ -880,10 +865,10 @@
 
 /obj/effect/supress/get_ru_names()
 	return list(
-	    NOMINATIVE = "механические клешни",
-	    GENITIVE = "механических клешней",
-	    DATIVE = "механическим клешням",
-	    ACCUSATIVE = "механические клешни",
-	    INSTRUMENTAL = "механическими клешнями",
-	    PREPOSITIONAL = "механических клешней"
+		NOMINATIVE = "механические клешни",
+		GENITIVE = "механических клешней",
+		DATIVE = "механическим клешням",
+		ACCUSATIVE = "механические клешни",
+		INSTRUMENTAL = "механическими клешнями",
+		PREPOSITIONAL = "механических клешнях"
 	)

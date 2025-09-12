@@ -11,11 +11,12 @@
 	maxHealth = 35
 	melee_damage_type = STAMINA
 	melee_damage_lower = 8
-	melee_damage_upper = 10
+	melee_damage_upper = 15
 	attacktext = "кусает"
 	footstep_type = FOOTSTEP_MOB_CLAW
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/security = 3)
 	tts_seed = "Furion"
+	speed = -1
 
 /mob/living/simple_animal/pet/dog/security/ranger
 	name = "Ranger"
