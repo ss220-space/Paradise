@@ -59,7 +59,7 @@
 		balloon_alert(user, "очистка...")
 		user.visible_message(
 			"[user.declent_ru(NOMINATIVE)] начина[pluralize_ru(user.gender, "ет", "ют")] стирать рисунки с [declent_ru(GENITIVE)].",
-			 ignored_mobs = user
+			ignored_mobs = user
 		)
 		if(!do_after(user, 3 SECONDS, src))
 			return ATTACK_CHAIN_BLOCKED_ALL
