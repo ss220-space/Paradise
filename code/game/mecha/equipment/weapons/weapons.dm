@@ -70,7 +70,6 @@
 				var/atom/throw_target = get_edge_target_turf(living_target, chassis.dir)
 				living_target.throw_at(throw_target, pb_knockback, 2)
 
-	log_message("Fired from [name], targeting [target].")
 	add_attack_logs(chassis.occupant, target, "fired a [src]")
 	start_cooldown()
 
@@ -246,7 +245,6 @@
 		R.use_power(R.get_charge() / 4)
 
 	chassis.use_power(energy_drain)
-	log_message("Honked from [name]. HONK!")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "used a Mecha Honker", ATKLOG_MOST)
 	add_game_logs("used a Mecha Honker in [COORD(T)]", chassis.occupant)
@@ -262,8 +260,14 @@
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_module_equip_info()
-	return "\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='byond://?src=[UID()];rearm=1'>Rearm</a>":null]"
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_WEAPON_BALLISTIC,
+		"max_ammo" = initial(projectiles),
+		"total_ammo" = projectiles
+	)
+
+	return data
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/proc/rearm()
 	if(projectiles < initial(projectiles))
@@ -272,16 +276,15 @@
 			projectiles++
 			projectiles_to_add--
 			chassis.use_power(projectile_energy_cost)
-	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-	log_message("Rearmed [name].")
 	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, TRUE)
 	return
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
-	..()
-	if(href_list["rearm"])
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/handle_ui_act(action, list/params)
+	if(action == "rearm")
 		rearm()
-	return
+		return TRUE
+
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	name = "FNX-99 \"Hades\" Carbine"
@@ -420,7 +423,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed, spin = FALSE)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
 	add_game_logs("Fired a [src] in [COORD(T)]", chassis.occupant)
@@ -505,7 +507,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	F.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	spawn(det_time)
 		F.prime()
 	start_cooldown()
@@ -520,11 +521,19 @@
 	equip_cooldown = 9 SECONDS
 	size = 1
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_module_equip_info()//Limited version of the clusterbang launcher that can't reload
-	return " \[[projectiles]\]"
+// Limited version of the clusterbang launcher that can't reload
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/projectiles/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_WEAPON_BALLISTIC,
+		"max_ammo" = 0,
+		"total_ammo" = projectiles
+	)
 
+	return data
+
+//Extra bit of security
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/rearm()
-	return//Extra bit of security
+	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
 	name = "Banana Mortar"
@@ -552,7 +561,6 @@
 	playsound(chassis, fire_sound, 60, TRUE)
 	B.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Bananed from [name], targeting [target]. HONK!")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
@@ -582,7 +590,6 @@
 	playsound(chassis, fire_sound, 60, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
@@ -613,7 +620,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
