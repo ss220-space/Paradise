@@ -68,7 +68,7 @@
 					to_chat(affected_mob, span_danger("Вы чувствуете себя ужасно!"))
 
 				if(prob(5))
-					affected_mob.emote("faint", "collapse", "groan")
+					affected_mob.emote("groan")
 
 			if(3)
 				if(prob(1) && prob(10))
