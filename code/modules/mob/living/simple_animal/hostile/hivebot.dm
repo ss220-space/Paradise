@@ -283,7 +283,6 @@
 	var/is_active = FALSE		// Whether currently producing bots
 	var/current_spawn_count = 0 // Current spawn count in cycle
 
-	// Cooldowns
 	COOLDOWN_DECLARE(cycle_cooldown)
 	COOLDOWN_DECLARE(spawn_cooldown)
 
