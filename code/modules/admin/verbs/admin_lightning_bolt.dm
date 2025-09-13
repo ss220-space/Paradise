@@ -30,6 +30,7 @@
 	var/delay = DEFAULT_DELAY
 	var/list/players = list()
 	var/pointing = FALSE
+	var/reason
 
 /datum/drop_lightning_bolt_ui/ui_state(mob/user)
 	return GLOB.admin_state
@@ -144,6 +145,8 @@
 		_mob.apply_damage(damage, BURN)
 		_mob.updatehealth("admin lightning bolt")
 
+	if(reason)
+		to_chat(victim, span_userdanger("Молния бьёт вас из пустоты! Боги наказали вас за [reason]!"))
 
 	log_admin("[key_name(usr)] dropped lightning bolt at [victim] with damage=[damage], radius=[radius], delay=[delay]")
 	message_admins("[key_name_admin(usr)] dropped lightning bolt at [ADMIN_COORDJMP(victim)] with damage=[damage], radius=[radius], delay=[delay]")
@@ -189,6 +192,12 @@
 
 	dropper.mode = MODE_POINTER
 	return TRUE
+
+
+/datum/drop_lightning_bolt_ui/preloaded_target/New(mob/user, reason)
+	victim_mob = user
+	src.reason = reason
+
 
 #undef MODE_CKEY
 #undef MODE_POINTER
