@@ -69,6 +69,16 @@
 		1000, \
 		0
 	)
+	var/permanent = tgui_alert(
+		usr, \
+		"Сделать ли повреждения не лечащимися?", \
+		"Лечатся ли", \
+		list("Да", "Нет")
+	) == "Да"
+	if(permanent)
+		var/obj/item/organ/brain = target.get_int_organ(/obj/item/organ/internal/brain)
+		brain.max_damage -= damage
+
 	target.adjustBrainLoss(damage)
 	to_chat(target, span_userdanger("Вы чувствуете как ваши мозги плавятся! Боги наказали вас за [reason]!"))
 	logmsg = "[damage] brain damage."
@@ -89,6 +99,7 @@
 	organ.insert(target)
 	to_chat(target, span_userdanger("Вы чувствуете как в вашем мозгу развивается нечто инородное. \
 									Нечто со вкусом банана. Боги наказали вас за [reason]!"))
+
 
 /// MARK: Hallucinate (off)
 /datum/smite/hallucinate
@@ -228,17 +239,40 @@
 
 
 /// MARK: Transform
-/datum/smite/cluwne
-	name = SMITE_CLUWNE
+/datum/smite/transform
+	name = SMITE_TRANSFORM
 	desc = "Превратите грешника в выбранное существо."
 
 
-/datum/smite/cluwne/apply_effect(mob/living/carbon/human/target, reason)
-	var/turf/turf = get_turf(target)
-	var/mob/living/mob = tgui_input_list(usr)
-	FC.smiting = TRUE
-	FC.Acquire_Victim(target)
-	logmsg = "transformed into []."
+/datum/smite/transform/apply_effect(mob/living/target, reason)
+	var/turf/turf = get_turf(mob)
+	var/mob/living/mob = tgui_input_list(usr, "Выберите в кого превратить жертву.", "Выбор новой формы", subtypesof(/mob/living))
+	if(!mob)
+		return
+
+	var/mob/living/mob = new(turf)
+	target.mind.transfer_to(mob)
+	qdel(target)
+	to_chat(target, span_userdanger("Вы чувствуете как ваша сущность координально меняется. Боги наказали вас за [reason]!"))
+	logmsg = "transformed into [mob]."
+
+
+/// MARK: Honk tumor
+/datum/smite/antidrop_equip
+	name = SMITE_ANTIDROP_EQUIP
+	desc = "Наденьте на грешника проклятый предмет одежды!"
+
+
+/datum/smite/antidrop_equip/apply_effect(mob/living/target, reason)
+	var/type = tgui_input_list(usr, "Выберите какую одежду надеть на цель.", "Выбор одежды", subtypesof(/obj/item/clothing))
+	var/obj/item/clothing/clothing = new(target.loc)
+	target.equip_to_slot_or_del(clothing, ITEM_SLOT_HEAD)
+
+	if(target.head)
+		target.drop_item_ground(target.head, force = TRUE)
+
+	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возникш[genderize_ru(clothing.gender, "ий", "ая", "ее", "ие")] из пустоты прилипа[pluralize_ru(clothing.gender, "ет", "ют")] к вам. Боги наказали вас за [reason]!"))
+	logmsg = "antidrop [clothing]."
 
 
 /client/proc/smite(mob/living/mob as mob)
@@ -263,16 +297,6 @@
 
 	var/logmsg = null
 	switch(punishment)
-		if("Shamebrero")
-			if(target.head)
-				target.drop_item_ground(target.head, force = TRUE)
-			var/obj/item/clothing/head/sombrero/shamebrero/S = new(target.loc)
-			target.equip_to_slot_or_del(S, ITEM_SLOT_HEAD)
-			logmsg = "shamebrero"
-
-		if("Fat")
-			target.set_nutrition(NUTRITION_LEVEL_FAT * 2)
-
 		if("Fakebwoink")
 			SEND_SOUND(target, sound('sound/effects/adminhelp.ogg'))
 
