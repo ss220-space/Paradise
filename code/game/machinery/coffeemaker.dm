@@ -786,10 +786,10 @@
 
 	update_appearance(UPDATE_OVERLAYS)
 
-#undef RADIAL_MENU_BREW "Варка кофе"
-#undef RADIAL_MENU_EJECT_POT "Извлечь кофейник"
-#undef RADIAL_MENU_EJECT_CARTRIDGE "Извлечь картридж"
-#undef RADIAL_MENU_TAKE_CUP "Взять стакан"
-#undef RADIAL_MENU_TAKE_SUGAR "Взять сахар"
-#undef RADIAL_MENU_TAKE_ASPARTAME "Взять аспартам"
-#undef RADIAL_MENU_TAKE_CREAMER "Взять сливки"
+#undef RADIAL_MENU_BREW
+#undef RADIAL_MENU_EJECT_POT
+#undef RADIAL_MENU_EJECT_CARTRIDGE
+#undef RADIAL_MENU_TAKE_CUP
+#undef RADIAL_MENU_TAKE_SUGAR
+#undef RADIAL_MENU_TAKE_ASPARTAME
+#undef RADIAL_MENU_TAKE_CREAMER
