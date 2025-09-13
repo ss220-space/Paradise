@@ -52,6 +52,9 @@
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/InterceptClickOn(mob/living/clicker, params, atom/target)
+	if(!blade_effect)
+		clicker.ranged_ability.remove_ranged_ability(clicker)
+
 	// Let the caster prioritize using items like guns over blade casts
 	if(clicker.get_active_hand())
 		return FALSE
