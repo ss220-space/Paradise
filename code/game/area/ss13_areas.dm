@@ -1748,7 +1748,7 @@ This applies to all STANDARD station areas
 	icon_state = "Holodeck"
 
 /area/holodeck/source_burntest
-	name = "Голопалуба – тест атмосферного горения"
+	name = "Голопалуба – отсек атмосферного тестирования"
 
 /area/holodeck/source_wildlife
 	name = "Голопалуба – симуляция пожара"
@@ -2540,54 +2540,54 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
 /area/storage/tools
-	name = "Auxiliary Tool Storage"
+	name = "Дополнительное хранилище инструментов"
 	icon_state = "storage"
 
 /area/storage/primary
-	name = "Primary Tool Storage"
+	name = "Хранилище инструментов"
 	icon_state = "primarystorage"
 
 /area/storage/autolathe
-	name = "Autolathe Storage"
+	name = "Склад автолата"
 	icon_state = "storage"
 
 /area/storage/art
-	name = "Art Supply Storage"
+	name = "Артистическое хранилище"
 	icon_state = "storage"
 
 /area/storage/auxillary
-	name = "Auxillary Storage"
+	name = "Дополнительный склад"
 	icon_state = "auxstorage"
 
 /area/storage/eva
-	name = "EVA Storage"
+	name = "Склад снаряжения для ВКД"
 	icon_state = "eva"
 	ambientsounds = HIGHSEC_SOUNDS
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/storage/secure
-	name = "Secure Storage"
+	name = "Защищённое хранилище"
 	icon_state = "storage"
 	ambientsounds = HIGHSEC_SOUNDS
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/storage/emergency
-	name = "East Emergency Storage"
+	name = "Аварийное хранилище – восточное"
 	icon_state = "emergencystorage"
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
 /area/storage/emergency2
-	name = "West Emergency Storage"
+	name = "Аварийное хранилище – западное"
 	icon_state = "emergencystorage"
 	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
 /area/storage/tech
-	name = "Technical Storage"
+	name = "Техническое хранилище"
 	icon_state = "auxstorage"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/storage/office
-	name = "Office Supplies"
+	name = "Склад офисного оборудования"
 	icon_state = "office_supplies"
 	holomap_color = HOLOMAP_AREACOLOR_DORMS
 
@@ -2596,13 +2596,13 @@ This applies to all STANDARD station areas
  */
 
 /area/djstation
-	name = "Ruskie DJ Station"
+	name = "Диджей-станция СССП"
 	icon_state = "DJ"
 	area_flags = UNIQUE_AREA
 	has_gravity = STANDARD_GRAVITY
 
 /area/djstation/solars
-	name = "Ruskie DJ Station Solars"
+	name = "Диджей-станция СССП – солнечная батарея"
 	icon_state = "DJ"
 
 /**
@@ -2610,177 +2610,177 @@ This applies to all STANDARD station areas
  */
 
 /area/derelict
-	name = "Derelict Station"
+	name = "Заброшенная станция"
 	icon_state = "storage"
 	has_gravity = STANDARD_GRAVITY
 
 /area/derelict/hallway/primary
-	name = "Derelict Primary проход"
+	name = "Заброшенная станция – основной коридор"
 	icon_state = "hallP"
 
 /area/derelict/hallway/secondary
-	name = "Derelict Secondary проход"
+	name = "Заброшенная станция – дополнительный коридор"
 	icon_state = "hallS"
 
 /area/derelict/arrival
-	name = "Derelict Arrival Centre"
+	name = "Заброшенная станция – пункт прибытия"
 	icon_state = "yellow"
 
 /area/derelict/church
-	name = "Derelict Church"
+	name = "Заброшенная станция – церковь"
 	icon_state = "chapel"
 
 /area/derelict/common
-	name = "Derelict Common Area"
+	name = "Заброшенная станция – стандартная зона"
 	icon_state = "crew_quarters"
 
 /area/derelict/asteroidbelt
-	name = "Derelict Asteroids"
+	name = "Заброшенная станция – астероиды"
 	icon_state = "mining"
 	requires_power = FALSE
 	has_gravity = FALSE
 
 /area/derelict/med
-	name = "Derelict Medbay"
+	name = "Заброшенная станция – медотсек"
 	icon_state = "medbay"
 
 /area/derelict/garden
-	name = "Derelict Hydroponics"
+	name = "Заброшенная станция – гидропоника"
 	icon_state = "hydro"
 
 /area/derelict/dining
-	name = "Derelict Dining room"
+	name = "Заброшенная станция – обеденная комната"
 	icon_state = "kitchen"
 
 /area/derelict/dock
-	name = "Derelict Docking Area"
+	name = "Заброшенная станция – пункт стыковки"
 	icon_state = "ntrep"
 
 /area/derelict/security
-	name = "Derelict Security Area"
+	name = "Заброшенная станция – служба безопасности"
 	icon_state = "blue"
 
 /area/derelict/rnd
-	name = "Derelict Research Area"
+	name = "Заброшенная станция – НИО"
 	icon_state = "purple"
 
 /area/derelict/engineer_area
-	name = "Derelict Engineering Area"
+	name = "Заброшенная станция – инженерия"
 	icon_state = "engine_control"
 
 /area/derelict/storage/equipment
-	name = "Derelict Equipment Storage"
+	name = "Заброшенная станция – склад снаряжения"
 
 /area/derelict/storage/storage_access
-	name = "Derelict Storage Access"
+	name = "Заброшенная станция – пункт доступа к складу"
 
 /area/derelict/storage/engine_storage
-	name = "Derelict Engine Storage"
+	name = "Заброшенная станция – хранилище для двигателя"
 	icon_state = "green"
 
 /area/derelict/bridge
-	name = "Derelict Control Room"
+	name = "Заброшенная станция – комната управления"
 	icon_state = "bridge"
 
 /area/derelict/secret
-	name = "Derelict Secret Room"
+	name = "Заброшенная станция – секретная комната"
 	icon_state = "library"
 
 /area/derelict/bridge/access
-	name = "Derelict Control Room Access"
+	name = "Заброшенная станция – пункт доступа к комнате управления"
 	icon_state = "auxstorage"
 
 /area/derelict/bridge/ai_upload
-	name = "Derelict Computer Core"
+	name = "Заброшенная станция – ядро ИИ"
 	icon_state = "ai"
 
 /area/derelict/solar_control
-	name = "Derelict Solar Control"
+	name = "Заброшенная станция – пункт управления солнечной батареей"
 	icon_state = "engine"
 
 /area/derelict/se_solar
-	name = "South East Solars"
+	name = "Заброшенная станция – юго-восточная солнечная батарея"
 	icon_state = "engine"
 
 /area/derelict/crew_quarters
-	name = "Derelict Crew Quarters"
+	name = "Заброшенная станция – жилой модуль"
 	icon_state = "fitness"
 
 /area/derelict/medical
-	name = "Derelict Medbay"
+	name = "Заброшенная станция – медотсек"
 	icon_state = "medbay"
 
 /area/derelict/medical/morgue
-	name = "Derelict Morgue"
+	name = "Заброшенная станция – морг"
 	icon_state = "morgue"
 	is_haunted = TRUE
 
 /area/derelict/medical/chapel
-	name = "Derelict Chapel"
+	name = "Заброшенная станция – церковь"
 	icon_state = "chapel"
 	is_haunted = TRUE
 
 /area/derelict/teleporter
-	name = "Derelict Teleporter"
+	name = "Заброшенная станция – телепортационная"
 	icon_state = "teleporter"
 	area_flags = UNIQUE_AREA
 
 /area/derelict/annex
-	name = "Derelict Annex"
+	name = "Заброшенная станция – пристройка"
 	icon_state = "eva"
 
 /area/shuttle/derelict/ship/start
-	name = "Заброшенный Ship"
+	name = "Заброшенное судно"
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/transit
-	name = "Заброшенный Ship"
+	name = "Заброшенное судно"
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/engipost
-	name = "Инженерный отдел – Outpost"
+	name = "Инженерный аванпост"
 	icon_state = "yellow"
 
 /area/shuttle/derelict/ship/station
-	name = "North of SS13"
+	name = "Север Космической Станции №13"
 	icon_state = "yellow"
 
 /area/solar/derelict_starboard
-	name = "Derelict East Солнечная батарея – "
+	name = "Заброшенная станция – восточная солнечная батарея"
 	icon_state = "panelsS"
 
 /area/solar/derelict_aft
-	name = "Derelict South Солнечная батарея – "
+	name = "Заброшенная станция – южная солнечная батарея"
 	icon_state = "aft"
 
 /area/derelict/singularity_engine
-	name = "Derelict Singularity Engine"
+	name = "Заброшенная станция – сингулярный двигатель"
 	icon_state = "engine"
 
 /area/derelict/gravity_generator
-	name = "Derelict Gravity Generator Room"
+	name = "Заброшенная станция – отсек генератора гравитации"
 	icon_state = "red"
 
 /area/derelict/atmospherics
-	name = "Derelict Atmospherics"
+	name = "Заброшенная станция – атмосферный отсек"
 	icon_state = "red"
 /**
  * MARK: Construction
  */
 /area/construction
-	name = "Construction Area"
+	name = "Строительная площадка"
 	icon_state = "yellow"
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/construction/hallway
-	name = "Hallway"
+	name = "Проход к строительной площадке"
 	icon_state = "yellow"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/construction/solars
-	name = "Solar Panels"
+	name = "Строительная площадка – солнечная батарея"
 	icon_state = "yellow"
 
 /**
@@ -2788,7 +2788,7 @@ This applies to all STANDARD station areas
  */
 
 /area/secret/gaybar
-	name = "Dance Bar"
+	name = "Танцевальный бар"
 	icon_state = "dancebar"
 
 /**
@@ -2800,17 +2800,17 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/turret_protected/ai_upload
-	name = "AI Upload Chamber"
+	name = "Отсек конфигурации ИИ"
 	icon_state = "ai_upload"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/turret_protected/ai_upload_foyer
-	name = "AI Upload Access"
+	name = "Пункт доступа к отсеку конфигурации ИИ"
 	icon_state = "ai_foyer"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/turret_protected/ai
-	name = "AI Chamber"
+	name = "Ядро ИИ"
 	icon_state = "ai_chamber"
 
 /area/turret_protected/aisat
@@ -2819,35 +2819,35 @@ This applies to all STANDARD station areas
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/aisat
-	name = "AI Satellite проход"
+	name = "Проход к спутнику ИИ"
 	icon_state = "yellow"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/aisat/aihallway
-	name = "AI Satellite Exterior проход"
+	name = "Внешний проход к спутнику ИИ"
 	icon_state = "yellow"
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/aisat/entrance
-	name = "AI Satellite Entrance"
+	name = "Спутник ИИ – вход"
 	icon_state = "ai_foyer"
 
 /area/aisat/maintenance
-	name = "AI Satellite Service"
+	name = "Спутник ИИ – пункт технического обслуживания"
 	icon_state = "storage"
 
 /area/aisat/atmospherics
-	name = "AI Satellite Atmospherics"
+	name = "Спутник ИИ – атмосферный отсек"
 	icon_state = "storage"
 
 /area/turret_protected/aisat_interior
-	name = "AI Satellite Antechamber"
+	name = "Спутник ИИ – вестибюль"
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/turret_protected/aisat_interior/secondary
-	name = "AI Satellite Secondary Antechamber"
+	name = "Спутник ИИ – вторичный вестибюль"
 
 /**
  * MARK: Telecommunications Satellite
@@ -2859,45 +2859,45 @@ This applies to all STANDARD station areas
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/tcommsat/chamber
-	name = "Telecoms Central Compartment"
+	name = "Телекоммуникационный спутник – основной отсек"
 	icon_state = "tcomms"
 
 // These areas are needed for MetaStation's AI sat
 /area/turret_protected/tcomsat
-	name = "Telecoms Satellite"
+	name = "Телекоммуникационный спутник"
 	icon_state = "tcomms"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomfoyer
-	name = "Telecoms Foyer"
+	name = "Телекоммуникационный спутник – фойе"
 	icon_state = "tcomms"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomwest
-	name = "Telecoms West Wing"
+	name = "Телекоммуникационный спутник – западное крыло"
 	icon_state = "tcomms"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomeast
-	name = "Telecoms East Wing"
+	name = "Телекоммуникационный спутник – восточное крыло"
 	icon_state = "tcomms"
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/tcommsat/computer
-	name = "Telecoms Control Room"
+	name = "Телекоммуникационный спутник – комната управления"
 	icon_state = "tcomms"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 
 /area/tcommsat/server
-	name = "Telecoms Server Room"
+	name = "Телекоммуникационный спутник – серверная"
 	icon_state = "tcomms"
 
 /area/tcommsat/lounge
-	name = "Telecoms Lounge"
+	name = "Телекоммуникационный спутник – зона отдыха"
 	icon_state = "tcomms"
 
 /area/tcommsat/powercontrol
-	name = "Telecoms Power Control"
+	name = "Телекоммуникационный спутник – пункт энергоуправления"
 	icon_state = "tcomms"
 
 /**
