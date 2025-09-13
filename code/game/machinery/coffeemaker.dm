@@ -4,7 +4,7 @@
 #define RADIAL_MENU_EJECT_CARTRIDGE "Извлечь картридж"
 #define RADIAL_MENU_TAKE_CUP "Взять стакан"
 #define RADIAL_MENU_TAKE_SUGAR "Взять сахар"
-#define RADIAL_MENU_TAKE_SWEETENER "Взять аспартам"
+#define RADIAL_MENU_TAKE_ASPARTAME "Взять аспартам"
 #define RADIAL_MENU_TAKE_CREAMER "Взять сливки"
 
 /obj/machinery/coffeemaker
@@ -30,9 +30,9 @@
 	/// The amount of sugar packets left
 	var/sugar_packs = 10
 	var/max_sugar_packs = 10
-	/// The amount of sweetener packets left
-	var/sweetener_packs = 10
-	var/max_sweetener_packs = 10
+	/// The amount of aspartame packets left
+	var/aspartame_packs = 10
+	var/max_aspartame_packs = 10
 	/// The amount of creamer packets left
 	var/creamer_packs = 10
 	var/max_creamer_packs = 10
@@ -83,9 +83,8 @@
 	if(!(stat & (NOPOWER|BROKEN)))
 		. += "[span_boldnotice("Дисплей сообщает:")]\n"+\
 		span_notice("- Скорость варки – <b>[speed*100]</b>%.")
-		if(coffeepot)
-			for(var/datum/reagent/consumable/cawfee as anything in coffeepot.reagents.reagent_list)
-				. += span_notice("- [coffeepot.declent_ru(NOMINATIVE)] содержит <b>[cawfee.volume]</b> единиц[declension_ru(cawfee.volume, "у", "ы", "")] вещества.")
+		if(coffeepot.total_volume)
+			. += span_notice("- [coffeepot.declent_ru(NOMINATIVE)] содержит <b>[cawfee.volume]</b> единиц[declension_ru(cawfee.volume, "у", "ы", "")] вещества.")
 		if(cartridge)
 			if(cartridge.charges < 1)
 				. += span_notice("- Картридж <b>пуст</b>.")
@@ -94,30 +93,19 @@
 	else
 		. += span_boldwarning("Дислей не работает!")
 
-	if(coffee_cups >= 1)
-		. += span_notice("Отсек для стаканов содержит <b>[coffee_cups]</b> стакан[declension_ru(coffee_cups, "", "а", "ов")].")
-	else
-		. += span_notice("Отсек для стаканов <b>пуст</b>.")
+	. += handle_examine(coffee_cups, "Отсек для стаканов содержит <b>[coffee_cups]</b> стакан[declension_ru(coffee_cups, "", "а", "ов")].", "Отсек для стаканов <b>пуст</b>.")
+	. += handle_examine(sugar_packs, "Отсек для сахара содержит <b>[sugar_packs]</b> пакетик[declension_ru(sugar_packs, "", "а", "ов")].", "Отсек для сахара <b>пуст</b>.")
+	. += handle_examine(aspartame_packs, "Отсек для аспартама содержит <b>[aspartame_packs]</b> пакетик[declension_ru(aspartame_packs, "", "а", "ов")].", "Отсек для аспартама <b>пуст</b>.")
+	. += handle_examine(creamer_packs, "Отсек для сливок содержит <b>[creamer_packs]</b> пакетик[declension_ru(creamer_packs, "", "а", "ов")].", "Отсек для сливок <b>пуст</b>.")
 
-	if(sugar_packs >= 1)
-		. += span_notice("Отсек для сахара содержит <b>[sugar_packs]</b> пакетик[declension_ru(sugar_packs, "", "а", "ов")].")
-	else
-		. += span_notice("Отсек для сахара <b>пуст</b>.")
-
-	if(sweetener_packs >= 1)
-		. += span_notice("Отсек для подсластителей содержит <b>[sweetener_packs]</b> пакетик[declension_ru(sweetener_packs, "", "а", "ов")].")
-	else
-		. += span_notice("Отсек для подсластителей <b>пуст</b>.")
-
-	if(creamer_packs > 1)
-		. += span_notice("Отсек для сливок содержит <b>[creamer_packs]</b> пакетик[declension_ru(creamer_packs, "", "а", "ов")].")
-	else
-		. += span_notice("Отсек для сливок <b>пуст</b>.")
 	if(!uses_cartridges)
-		if(coffee)
+		if(coffee) // it's a list var, so we use a different check
 			. += span_notice("Отсек для зёрен содержит <b>[length(coffee)]</b> порци[declension_ru(length(coffee), "ю", "и", "й")] кофе.")
 		else
 			. += span_notice("Отсек для зёрен <b>пуст</b>.")
+
+/obj/machinery/coffeemaker/proc/handle_examine(var_to_check, remain_message, empty_message)
+	return var_to_check >= 1 ? span_notice(remain_message) : span_notice(empty_message)
 
 
 /obj/machinery/coffeemaker/update_overlays()
@@ -127,41 +115,30 @@
 /obj/machinery/coffeemaker/proc/overlay_checks()
 	return
 
-/obj/machinery/coffeemaker/proc/replace_pot(mob/living/user, obj/item/reagent_containers/glass/coffeepot/new_coffeepot)
+/obj/machinery/coffeemaker/proc/handle_item_replacement(mob/living/user, obj/inserting_item, item_slot, replacing_message, inserting_message, ejecting_message)
 	if(!user)
 		return FALSE
-	if(coffeepot && new_coffeepot)
-		user.put_in_hands(coffeepot)
-		coffeepot = new_coffeepot
-		balloon_alert(user, "кофейник заменён")
-	else if(!coffeepot && new_coffeepot)
-		coffeepot = new_coffeepot
-		balloon_alert(user, "кофейник вставлен")
-	else if(coffeepot && !new_coffeepot)
-		user.put_in_hands(coffeepot)
-		balloon_alert(user, "кофейник извлечён")
+	if(item_slot && inserting_item)
+		user.put_in_hands(item_slot)
+		item_slot = inserting_item
+		balloon_alert(user, replacing_message)
+	else if(!item_slot && inserting_item)
+		item_slot = inserting_item
+		balloon_alert(user, inserting_message)
+	else if(item_slot && !inserting_item)
+		user.put_in_hands(item_slot)
+		item_slot = null
+		balloon_alert(user, ejecting_message)
 	update_appearance(UPDATE_OVERLAYS)
-	return TRUE
+	return item_slot
+
+/obj/machinery/coffeemaker/proc/replace_pot(mob/living/user, obj/item/reagent_containers/glass/coffeepot/new_coffeepot)
+	coffeepot = handle_item_replacement(user, new_coffeepot, coffeepot, "кофейник заменён", "кофейник вставлен", "кофейник извлечён")
 
 
 /obj/machinery/coffeemaker/proc/replace_cartridge(mob/living/user, obj/item/coffee_cartridge/new_cartridge)
-	if(!user)
-		return FALSE
-	if(cartridge && new_cartridge)
-		user.put_in_hands(cartridge)
-		cartridge = new_cartridge
-		balloon_alert(user, "картридж заменён")
-	else if(!cartridge && new_cartridge)
-		cartridge = new_cartridge
-		balloon_alert(user, "картридж вставлен")
-	else if(cartridge && !new_cartridge)
-		user.put_in_hands(cartridge)
-		balloon_alert(user, "картридж извлечён")
-	update_appearance(UPDATE_OVERLAYS)
-	return TRUE
+	cartridge = handle_item_replacement(user, new_cartridge, cartridge, "картридж заменён", "картридж вставлен", "картридж извлечён")
 
-/obj/machinery/coffeemaker/attackby(obj/item/attack_item, mob/living/user, list/modifiers, list/attack_modifiers)
-	. = ..()
 
 /obj/machinery/coffeemaker/proc/try_brew(mob/living/user)
 	if(!coffeepot)
@@ -189,7 +166,7 @@
 		return
 	return TRUE
 
-/obj/machinery/coffeemaker/proc/radial_menu(mob/user)
+/obj/machinery/coffeemaker/proc/prepare_choices()
 	var/list/choices = list()
 
  	//brew is always available as an option, when the machine is unable to brew the player is told by balloon alerts whats exactly wrong
@@ -203,13 +180,14 @@
 		choices[RADIAL_MENU_TAKE_CUP] = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_take_cup")
 	if(sugar_packs > 0)
 		choices[RADIAL_MENU_TAKE_SUGAR] = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_take_sugar")
-	if(sweetener_packs > 0)
-		choices[RADIAL_MENU_TAKE_SWEETENER] = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_take_sweetener")
+	if(aspartame_packs > 0)
+		choices[RADIAL_MENU_TAKE_ASPARTAME] = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_take_aspartame")
 	if(creamer_packs > 0)
 		choices[RADIAL_MENU_TAKE_CREAMER] = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_take_creamer")
 
-	var/selected_choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	return choices
 
+/obj/machinery/coffeemaker/proc/choice_processing(mob/user, selected_choice)
 	switch(selected_choice)
 		if(RADIAL_MENU_BREW)
 			brew(user)
@@ -221,12 +199,21 @@
 			take_cup(user)
 		if(RADIAL_MENU_TAKE_SUGAR)
 			take_sugar(user)
-		if(RADIAL_MENU_TAKE_SWEETENER)
-			take_sweetener(user)
+		if(RADIAL_MENU_TAKE_ASPARTAME)
+			take_aspartame(user)
 		if(RADIAL_MENU_TAKE_CREAMER)
 			take_creamer(user)
 		else
 			return //Either nothing was selected, or an invalid mode was selected
+
+/obj/machinery/coffeemaker/proc/radial_menu(mob/user)
+
+	var/radial_menu_choices = prepare_choices()
+
+	var/selected_choice = show_radial_menu(user, src, radial_menu_choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+
+	choice_processing(user, selected_choice)
+
 
 /obj/machinery/coffeemaker/proc/eject_pot(mob/user)
 	if(coffeepot)
@@ -236,37 +223,77 @@
 	if(cartridge)
 		replace_cartridge(user)
 
-/obj/machinery/coffeemaker/proc/take_cup(mob/user)
+/obj/machinery/coffeemaker/proc/take_cup(mob/user) // this proc is overwrited for each coffemachine
 	return
 
-/obj/machinery/coffeemaker/proc/take_sugar(mob/user)
-	if(!sugar_packs)
-		balloon_alert(user, "сахар отсутствует!")
+/obj/machinery/coffeemaker/proc/handle_coffeecup_taking(mob/user, item_path, var_to_check = coffee_cups, success_message = "стакан взят", empty_message = "стаканы отсутствуют!")
+	if(!var_to_check)
+		balloon_alert(user, empty_message)
 		return
-	balloon_alert(user, "сахар взят")
-	var/obj/item/reagent_containers/food/condiment/pack/sugar/new_pack = new(get_turf(src))
-	user.put_in_hands(new_pack)
-	sugar_packs--
+	var/obj/coffee_cup = new item_path(get_turf(src))
+	user.put_in_hands(coffee_cup)
+	balloon_alert(user, success_message)
 	update_appearance(UPDATE_OVERLAYS)
+	var_to_check--
+	return var_to_check
 
-/obj/machinery/coffeemaker/proc/take_sweetener(mob/user)
-	if(!sweetener_packs)
-		balloon_alert(user, "подсластитель отсутствует!")
+/obj/machinery/coffeemaker/proc/handle_condiment_taking(mob/user, item_path, var_to_check, success_message, empty_message)
+	if(!var_to_check)
+		balloon_alert(user, empty_message)
 		return
-	balloon_alert(user, "подсластитель взят")
-	var/obj/item/reagent_containers/food/condiment/pack/aspartame/new_pack = new(get_turf(src))
-	user.put_in_hands(new_pack)
-	sweetener_packs--
+	var/obj/condiment_pack = new item_path(get_turf(src))
+	user.put_in_hands(condiment_pack)
+	balloon_alert(user, success_message)
 	update_appearance(UPDATE_OVERLAYS)
+	var_to_check--
+	return var_to_check
+
+/obj/machinery/coffeemaker/proc/take_sugar(mob/user)
+	sugar_packs = handle_condiment_taking(user, /obj/item/reagent_containers/food/condiment/pack/sugar, sugar_packs, "сахар взят", "сахар отсутствует!")
+
+/obj/machinery/coffeemaker/proc/take_aspartame(mob/user)
+	aspartame_packs = handle_condiment_taking(user, /obj/item/reagent_containers/food/condiment/pack/aspartame, aspartame_packs, "аспартам взят", "аспартам отсутствует!")
 
 /obj/machinery/coffeemaker/proc/take_creamer(mob/user)
-	if(!creamer_packs)
-		balloon_alert(user, "сливки отсутствуют!")
-		return
-	balloon_alert(user, "сливки взяты")
-	var/obj/item/reagent_containers/food/condiment/pack/creamer/new_pack = new(get_turf(src))
-	user.put_in_hands(new_pack)
-	creamer_packs--
+	creamer_packs = handle_condiment_taking(user, /obj/item/reagent_containers/food/condiment/pack/creamer, creamer_packs, "сливки взяты", "сливки отсутствуют!")
+
+
+/obj/machinery/coffeemaker/proc/handle_condiment_insertion(mob/user, inserting_item, item_slot_var, max_item_slot_var, not_full_message, full_slot_message, inserting_message)
+	var/obj/new_pack = inserting_item
+	if(new_pack.reagents.total_volume < new_pack.reagents.maximum_volume)
+		balloon_alert(user, not_full_message)
+		return ATTACK_CHAIN_PROCEED
+	if(item_slot_var >= max_item_slot_var)
+		balloon_alert(user, full_slot_message)
+		return ATTACK_CHAIN_PROCEED
+	if(!user.transfer_item_to_loc(new_pack, src))
+		return ATTACK_CHAIN_PROCEED
+	balloon_alert(user, inserting_message)
+	update_appearance(UPDATE_OVERLAYS)
+	item_slot_var++
+	return item_slot_var
+
+/obj/machinery/coffeemaker/proc/handle_coffeecup_insertion(mob/user, inserting_item, item_slot_var, max_item_slot_var, not_empty_message, full_slot_message, inserting_message)
+	var/obj/new_cup = inserting_item
+	if(new_cup.reagents.total_volume > 0)
+		balloon_alert(user, not_empty_message)
+		return ATTACK_CHAIN_PROCEED
+	if(item_slot_var >= max_item_slot_var)
+		balloon_alert(user, full_slot_message)
+		return ATTACK_CHAIN_PROCEED
+	if(!user.transfer_item_to_loc(new_cup, src))
+		return ATTACK_CHAIN_PROCEED
+	balloon_alert(user, inserting_message)
+	update_appearance(UPDATE_OVERLAYS)
+	item_slot_var++
+	return item_slot_var
+
+/obj/machinery/coffeemaker/proc/handle_coffeepot_insertion(mob/user, inserting_item)
+	var/obj/item/reagent_containers/glass/coffeepot/new_pot = inserting_item
+	. = ATTACK_CHAIN_PROCEED
+	if(!user.transfer_item_to_loc(new_pot, src))
+		return ATTACK_CHAIN_PROCEED
+	replace_pot(user, new_pot)
 	update_appearance(UPDATE_OVERLAYS)
 
 ///Updates the smoke state to something else, setting particles if relevant
@@ -309,7 +336,7 @@
 /obj/machinery/coffeemaker/standard
 	name = "coffeemaker \"Modello 3\""
 	desc = "Кофемашина модели \"Моделло 3\" — устройство для приготовления кофе при температуре в 80°C. \
-			Кофейные зёрна загружаются в виде специальных картриджей. Машина оборудована слотами для сахара, подсластителей и сливок, \
+			Кофейные зёрна загружаются в виде специальных картриджей. Машина оборудована слотами для сахара, аспартама и сливок, \
 			а также стойкой для бумажных стаканов. Произведено компанией \"Бытовая Техника Пиччонайя\"."
 	icon_state = "coffeemaker_nopot_nocart"
 	base_icon_state = "coffeemaker"
@@ -349,17 +376,7 @@
 		. += "coffeemaker_cartidge"
 	return .
 
-/obj/machinery/coffeemaker/standard/Exited(atom/movable/departed, atom/newLoc)
-	. = ..()
-	if(departed == coffeepot)
-		coffeepot = null
-		update_appearance(UPDATE_OVERLAYS)
-	if(departed == cartridge)
-		cartridge = null
-		update_appearance(UPDATE_OVERLAYS)
-
 /obj/machinery/coffeemaker/standard/attackby(obj/item/attack_item, mob/living/user, list/modifiers, list/attack_modifiers)
-
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -368,73 +385,23 @@
 		return ATTACK_CHAIN_PROCEED
 
 	if(istype(attack_item, /obj/item/reagent_containers/glass/coffeepot) && !(attack_item.item_flags & ABSTRACT) && attack_item.is_open_container())
-		var/obj/item/reagent_containers/glass/coffeepot/new_pot = attack_item
-		. = ATTACK_CHAIN_PROCEED
-		if(!user.transfer_item_to_loc(new_pot, src))
-			return ATTACK_CHAIN_PROCEED
-		replace_pot(user, new_pot)
-		update_appearance(UPDATE_OVERLAYS)
+		handle_coffeepot_insertion(user, attack_item)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(attack_item, /obj/item/reagent_containers/food/condiment/pack/sugar))
-		var/obj/item/reagent_containers/food/condiment/pack/sugar/new_pack = attack_item
-		if(new_pack.reagents.total_volume < new_pack.reagents.maximum_volume)
-			balloon_alert(user, "пакетик не полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(sugar_packs >= max_sugar_packs)
-			balloon_alert(user, "отсек для сахара полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.transfer_item_to_loc(attack_item, src))
-			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "пакетик вставлен")
-		sugar_packs++
-		update_appearance(UPDATE_OVERLAYS)
+		sugar_packs = handle_condiment_insertion(user, attack_item, sugar_packs, max_sugar_packs, "пакетик не полон!", "отсек для сахара полон!", "пакетик вставлен")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(attack_item, /obj/item/reagent_containers/food/condiment/pack/creamer))
-		var/obj/item/reagent_containers/food/condiment/pack/creamer/new_pack = attack_item
-		if(new_pack.reagents.total_volume < new_pack.reagents.maximum_volume)
-			balloon_alert(user, "пакетик не полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(creamer_packs >= max_creamer_packs)
-			balloon_alert(user, "отсек для сливок полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.transfer_item_to_loc(attack_item, src))
-			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "пакетик вставлен")
-		creamer_packs++
-		update_appearance(UPDATE_OVERLAYS)
+		creamer_packs = handle_condiment_insertion(user, attack_item, creamer_packs, max_creamer_packs, "пакетик не полон!", "отсек для сливок полон!", "пакетик вставлен")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(attack_item, /obj/item/reagent_containers/food/condiment/pack/aspartame))
-		var/obj/item/reagent_containers/food/condiment/pack/aspartame/new_pack = attack_item
-		if(new_pack.reagents.total_volume < new_pack.reagents.maximum_volume)
-			balloon_alert(user, "пакетик не полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(sweetener_packs >= max_sweetener_packs)
-			balloon_alert(user, "отсек для подсластителей полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.transfer_item_to_loc(attack_item, src))
-			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "пакетик вставлен")
-		sweetener_packs++
-		update_appearance(UPDATE_OVERLAYS)
+		aspartame_packs = handle_condiment_insertion(user, attack_item, aspartame_packs, max_aspartame_packs, "пакетик не полон!", "отсек для аспартама полон!", "пакетик вставлен")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(attack_item, /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small) && !(attack_item.item_flags & ABSTRACT) && attack_item.is_open_container())
-		var/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/new_cup = attack_item
-		. = ATTACK_CHAIN_PROCEED
-		if(new_cup.reagents.total_volume > 0)
-			balloon_alert(user, "стакан не пуст!")
-			return ATTACK_CHAIN_PROCEED
-		if(coffee_cups >= max_coffee_cups)
-			balloon_alert(user, "отсек для стаканов полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.transfer_item_to_loc(attack_item, src))
-			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "стакан вставлен")
-		coffee_cups++
-		update_appearance(UPDATE_OVERLAYS)
+		coffee_cups = handle_coffeecup_insertion(user, attack_item, coffee_cups, max_coffee_cups, "стакан не пуст!", "отсек для стаканов полон!", "стакан вставлен")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(attack_item, /obj/item/coffee_cartridge) && !(attack_item.item_flags & ABSTRACT))
@@ -457,14 +424,7 @@
 	return ..()
 
 /obj/machinery/coffeemaker/standard/take_cup(mob/user)
-	if(!coffee_cups) //shouldn't happen, but we all know how stuff manages to break
-		balloon_alert(user, "стаканы отсутствуют!")
-		return
-	balloon_alert(user, "стакан взят")
-	var/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/new_cup = new(get_turf(src))
-	user.put_in_hands(new_cup)
-	coffee_cups--
-	update_appearance(UPDATE_OVERLAYS)
+	coffee_cups = handle_coffeecup_taking(user, /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small)
 
 /obj/machinery/coffeemaker/standard/toggle_steam()
 	QDEL_NULL(particles)
@@ -688,7 +648,7 @@
 		. += "extras_1"
 	if(creamer_packs)
 		. += "extras_2"
-	if(sweetener_packs)
+	if(aspartame_packs)
 		. += "extras_3"
 	if(coffee_amount)
 		if(coffee_amount < 0.7 * max_coffee_amount)
@@ -699,12 +659,12 @@
 
 /obj/machinery/coffeemaker/impressa/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(gone in coffee)
-		coffee -= gone
-		update_appearance(UPDATE_OVERLAYS)
+	if(!(gone in coffee))
+		return
+	coffee -= gone
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/coffeemaker/impressa/attackby(obj/item/attack_item, mob/living/user, list/modifiers, list/attack_modifiers)
-
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -713,73 +673,23 @@
 		return ATTACK_CHAIN_PROCEED
 
 	if(istype(attack_item, /obj/item/reagent_containers/glass/coffeepot) && !(attack_item.item_flags & ABSTRACT) && attack_item.is_open_container())
-		var/obj/item/reagent_containers/glass/coffeepot/new_pot = attack_item
-		. = ATTACK_CHAIN_PROCEED
-		if(!user.transfer_item_to_loc(new_pot, src))
-			return ATTACK_CHAIN_PROCEED
-		replace_pot(user, new_pot)
-		update_appearance(UPDATE_OVERLAYS)
+		handle_coffeepot_insertion(user, attack_item)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(attack_item, /obj/item/reagent_containers/food/condiment/pack/sugar))
-		var/obj/item/reagent_containers/food/condiment/pack/sugar/new_pack = attack_item
-		if(new_pack.reagents.total_volume < new_pack.reagents.maximum_volume)
-			balloon_alert(user, "пакетик не полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(sugar_packs >= max_sugar_packs)
-			balloon_alert(user, "отсек для сахара полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.transfer_item_to_loc(attack_item, src))
-			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "пакетик вставлен")
-		sugar_packs++
-		update_appearance(UPDATE_OVERLAYS)
+		sugar_packs = handle_condiment_insertion(user, attack_item, sugar_packs, max_sugar_packs, "пакетик не полон!", "отсек для сахара полон!", "пакетик вставлен")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(attack_item, /obj/item/reagent_containers/food/condiment/pack/creamer))
-		var/obj/item/reagent_containers/food/condiment/pack/creamer/new_pack = attack_item
-		if(new_pack.reagents.total_volume < new_pack.reagents.maximum_volume)
-			balloon_alert(user, "пакетик не полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(creamer_packs >= max_creamer_packs)
-			balloon_alert(user, "отсек для сливок полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.transfer_item_to_loc(attack_item, src))
-			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "пакетик вставлен")
-		creamer_packs++
-		update_appearance(UPDATE_OVERLAYS)
+		creamer_packs = handle_condiment_insertion(user, attack_item, creamer_packs, max_creamer_packs, "пакетик не полон!", "отсек для сливок полон!", "пакетик вставлен")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(attack_item, /obj/item/reagent_containers/food/condiment/pack/aspartame))
-		var/obj/item/reagent_containers/food/condiment/pack/aspartame/new_pack = attack_item
-		if(new_pack.reagents.total_volume < new_pack.reagents.maximum_volume)
-			balloon_alert(user, "пакетик не полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(sweetener_packs >= max_sweetener_packs)
-			balloon_alert(user, "отсек для подсластителей полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.transfer_item_to_loc(attack_item, src))
-			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "пакетик вставлен")
-		sweetener_packs++
-		update_appearance(UPDATE_OVERLAYS)
+		aspartame_packs = handle_condiment_insertion(user, attack_item, aspartame_packs, max_aspartame_packs, "пакетик не полон!", "отсек для аспартама полон!", "пакетик вставлен")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(attack_item, /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal) && !(attack_item.item_flags & ABSTRACT) && attack_item.is_open_container())
-		var/obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/new_cup = attack_item
-		. = ATTACK_CHAIN_PROCEED
-		if(new_cup.reagents.total_volume > 0)
-			balloon_alert(user, "стакан не пуст!")
-			return ATTACK_CHAIN_PROCEED
-		if(coffee_cups >= max_coffee_cups)
-			balloon_alert(user, "отсек для стаканов полон!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.transfer_item_to_loc(attack_item, src))
-			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "стакан вставлен")
-		coffee_cups++
-		update_appearance(UPDATE_OVERLAYS)
+		coffee_cups = handle_coffeecup_insertion(user, attack_item, coffee_cups, max_coffee_cups, "стакан не пуст!", "отсек для стаканов полон!", "стакан вставлен")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(attack_item, /obj/item/reagent_containers/food/snacks/grown/coffee) && !(attack_item.item_flags & ABSTRACT))
@@ -801,7 +711,6 @@
 
 	if(istype(attack_item, /obj/item/storage/box/coffeepack))
 		var/obj/item/storage/box/coffeepack/new_coffee_pack = attack_item
-
 		if(coffee_amount >= max_coffee_amount)
 			balloon_alert(user, "отсек для зёрен полон!")
 			return ATTACK_CHAIN_PROCEED
@@ -810,7 +719,6 @@
 			return ATTACK_CHAIN_PROCEED
 
 		var/coffee_added = FALSE // so we won't get 10 balloon_alerts at once
-
 		for(var/obj/item/reagent_containers/food/snacks/grown/coffee/new_coffee in new_coffee_pack.contents)
 			if(!new_coffee.dry) //the coffee beans inside must be dry
 				balloon_alert(user, "невысушенные зёрна внутри!")
@@ -821,7 +729,6 @@
 			coffee_added = TRUE
 			coffee_amount++
 			new_coffee.forceMove(src)
-
 		if(coffee_added)
 			balloon_alert(user, "зёрна добавлены")
 		update_appearance(UPDATE_OVERLAYS)
@@ -836,20 +743,14 @@
 	return ..()
 
 /obj/machinery/coffeemaker/impressa/take_cup(mob/user)
-	if(!coffee_cups) //shouldn't happen, but we all know how stuff manages to break
-		balloon_alert(user, "стаканы отсутствуют!")
-		return
-	balloon_alert(user, "стакан взят")
-	var/obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/new_cup = new(get_turf(src))
-	user.put_in_hands(new_cup)
-	coffee_cups--
-	update_appearance(UPDATE_OVERLAYS)
+	coffee_cups = handle_coffeecup_taking(user, /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal)
 
 /obj/machinery/coffeemaker/impressa/toggle_steam()
 	QDEL_NULL(particles)
-	if(brewing)
-		particles = new /particles/smoke/steam/mild()
-		particles.position = list(-2, 1, 0)
+	if(!brewing)
+		return
+	particles = new /particles/smoke/steam/mild()
+	particles.position = list(-2, 1, 0)
 
 /obj/machinery/coffeemaker/impressa/brew(mob/user)
 	power_change()
