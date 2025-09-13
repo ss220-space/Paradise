@@ -491,6 +491,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	if(movedsomething)
 		..()
+		playsound(T, 'sound/misc/enter_blood.ogg', 50, TRUE, -1)
+		playsound(target, 'sound/misc/exit_blood.ogg', 50, TRUE, -1)
 		if(is_mining_level(z) && !is_mining_level(target.z)) //No effect if you stay on lavaland
 			actual_selected_rune.handle_portal("lava")
 		else if(!is_station_level(z) || istype(get_area(src), /area/space))
