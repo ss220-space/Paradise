@@ -105,6 +105,7 @@
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
+		after_transfer(target)
 		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества из [declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.

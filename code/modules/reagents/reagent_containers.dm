@@ -1,3 +1,8 @@
+#define TRANSFER_0_10 "0_10"
+#define TRANSFER_10_25 "10_25"
+#define TRANSFER_25_50 "25_50"
+#define TRANSFER_50_INF "50_inf"
+
 /obj/item/reagent_containers
 	name = "Container"
 	desc = "..."
@@ -16,6 +21,35 @@
 	var/temperature_max = 10000
 	var/pass_open_check = FALSE // Pass open check in empty verb
 	var/chem_master_made = FALSE
+	var/static/list/sounds_for_amount_reagents = list(
+		TRANSFER_0_10 = list(
+			'sound/items/reagent_containers/beakerpour_0-10-1.ogg',
+			'sound/items/reagent_containers/beakerpour_0-10-2.ogg',
+			'sound/items/reagent_containers/beakerpour_0-10-3.ogg',
+			'sound/items/reagent_containers/beakerpour_0-10-4.ogg',
+			'sound/items/reagent_containers/beakerpour_0-10-5.ogg',
+			'sound/items/reagent_containers/beakerpour_0-10-6.ogg',
+		),
+		TRANSFER_10_25 = list(
+			'sound/items/reagent_containers/beakerpour_10-25-1.ogg',
+			'sound/items/reagent_containers/beakerpour_10-25-2.ogg',
+			'sound/items/reagent_containers/beakerpour_10-25-3.ogg',
+			'sound/items/reagent_containers/beakerpour_10-25-5.ogg',
+			'sound/items/reagent_containers/beakerpour_10-25-6.ogg',
+		),
+		TRANSFER_25_50 = list(
+			'sound/items/reagent_containers/beakerpour_25-50-1.ogg',
+			'sound/items/reagent_containers/beakerpour_25-50-2.ogg',
+			'sound/items/reagent_containers/beakerpour_25-50-3.ogg',
+		),
+		TRANSFER_50_INF = list(
+			'sound/items/reagent_containers/beakerpour_50-inf-1.ogg',
+			'sound/items/reagent_containers/beakerpour_50-inf-2.ogg',
+			'sound/items/reagent_containers/beakerpour_50-inf-3.ogg',
+			'sound/items/reagent_containers/beakerpour_50-inf-4.ogg',
+			'sound/items/reagent_containers/beakerpour_50-inf-5.ogg',
+		),
+	)
 
 /obj/item/reagent_containers/get_ru_names_cached()
 	if(chem_master_made)
@@ -140,6 +174,21 @@
 			return
 	..()
 
+/obj/item/reagent_containers/proc/get_sound_for_reagent_containers()
+	var/amount_reagents = TRANSFER_0_10
+
+	if(amount_per_transfer_from_this >= 50)
+		amount_reagents = TRANSFER_50_INF
+	else if(amount_per_transfer_from_this >= 25)
+		amount_reagents = TRANSFER_25_50
+	else if(amount_per_transfer_from_this >= 10)
+		amount_reagents = TRANSFER_10_25
+
+	return pick(sounds_for_amount_reagents[amount_reagents])
+
+/obj/item/reagent_containers/proc/after_transfer(obj/target)
+	playsound(target.loc, get_sound_for_reagent_containers(), rand(5,25), TRUE)
+
 /obj/item/reagent_containers/examine(mob/user)
 	. = ..()
 	if(visible_transfer_rate)
@@ -147,4 +196,9 @@
 
 	if(possible_transfer_amounts)
 		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы изменить объём перемещения содержимого.")
+
+#undef TRANSFER_0_10
+#undef TRANSFER_10_25
+#undef TRANSFER_25_50
+#undef TRANSFER_50_INF
 
