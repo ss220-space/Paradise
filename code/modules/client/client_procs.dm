@@ -470,7 +470,7 @@
 		var/list/data = list()
 		data["author"] = "warden"
 		data["source"] = CONFIG_GET(string/instance_id)
-		data["message"] = html_decode(msg)
+		data["message"] = msg
 		SSredis.publish("byond.asay", json_encode(data))
 
 	else if(check_rights(R_MENTOR, FALSE))
@@ -479,7 +479,7 @@
 		var/list/data = list()
 		data["author"] = "warden"
 		data["source"] = CONFIG_GET(string/instance_id)
-		data["message"] = html_decode(msg)
+		data["message"] = msg
 		SSredis.publish("byond.msay", json_encode(data))
 
 /client/proc/announce_leave()
@@ -498,7 +498,7 @@
 		var/list/data = list()
 		data["author"] = "warden"
 		data["source"] = CONFIG_GET(string/instance_id)
-		data["message"] = html_decode(msg)
+		data["message"] = msg
 		SSredis.publish("byond.asay", json_encode(data))
 
 	else if(check_rights(R_MENTOR, FALSE))
@@ -510,7 +510,7 @@
 		var/list/data = list()
 		data["author"] = "warden"
 		data["source"] = CONFIG_GET(string/instance_id)
-		data["message"] = html_decode(msg)
+		data["message"] = msg
 		SSredis.publish("byond.msay", json_encode(data))
 
 
