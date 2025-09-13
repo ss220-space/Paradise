@@ -50,6 +50,9 @@
 
 /obj/item/gun/projectile/revolver/attack_self(mob/living/user)
 	add_fingerprint(user)
+	if(user.a_intent == INTENT_GRAB)
+		fire_into_air(user)
+		return
 	var/num_unloaded = 0
 	chambered = null
 	var/atom/drop_loc = drop_location()
@@ -106,6 +109,31 @@
 	if(show_live_rounds)
 		. += span_notice("[get_ammo(FALSE, FALSE)] of those are live rounds")
 
+/obj/item/gun/projectile/revolver/proc/fire_into_air(mob/user)
+	if(!user || !isturf(user.loc))
+		return
+
+	if(!can_shoot(user))
+		shoot_with_empty_chamber()
+		return
+
+	if(user.a_intent < INTENT_GRAB)
+		return TRUE
+
+	if(!do_after(user, 1.5 SECONDS, src, max_interact_count = 1, interaction_key = src, cancel_on_max = TRUE))
+		return
+
+	if(chambered)
+		QDEL_NULL(chambered.BB)
+		shoot_live_shot()
+	process_chamber()
+
+	user.visible_message(span_cultlarge("[user] поднимает дуло вверх и стреляет, используя [declent_ru(ACCUSATIVE)]!"))
+	user.balloon_alert(user, "вы стреляете в воздух")
+
+	playsound(user, fire_sound, 120, FALSE)
+
+	update_icon()
 
 /obj/item/gun/projectile/revolver/detective
 	name = ".38 Mars Special"
