@@ -23,7 +23,7 @@
 	return TRUE
 
 
-/datum/martial_art/wrestling/proc/Suplex(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/wrestling/proc/Suplex(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
 	D.visible_message("<span class='danger'>[A] suplexes [D]!</span>", \
 								"<span class='userdanger'>[A] suplexes [D]!</span>")
@@ -42,14 +42,14 @@
 		A.apply_effect(8 SECONDS, KNOCKDOWN, armor_block)
 	return
 
-/datum/martial_art/wrestling/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/wrestling/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(A.pulling && A.pulling == D && A.grab_state > GRAB_PASSIVE && A.pull_hand != A.hand)
 		Suplex(A, D)
 		return TRUE
 	harm_act(A, D)
 	return TRUE
 
-/datum/martial_art/wrestling/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/wrestling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	D.grabbedby(A, supress_message = TRUE)
 	D.visible_message("<span class='danger'>[A] holds [D] down!</span>", \
 								"<span class='userdanger'>[A] holds [D] down!</span>")

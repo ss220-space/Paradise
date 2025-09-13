@@ -568,7 +568,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return FALSE
 
 
-/obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
+/obj/item/proc/talk_into(mob/M, text, channel=null)
 	return
 
 /// Generic get_heat proc. Returns 0 or number amount of heat an item gives.
@@ -633,13 +633,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 
 /**
-  * Called to check if this item can be put into a storage item.
-  *
-  * Return `FALSE` if `src` can't be inserted, and `TRUE` if it can.
-  * Arguments:
-  * * S - The [/obj/item/storage] that `src` is being inserted into.
-  * * user - The mob trying to insert the item.
-  */
+ * Called to check if this item can be put into a storage item.
+ *
+ * Return `FALSE` if `src` can't be inserted, and `TRUE` if it can.
+ * Arguments:
+ * * S - The [/obj/item/storage] that `src` is being inserted into.
+ * * user - The mob trying to insert the item.
+ */
 /obj/item/proc/can_enter_storage(obj/item/storage/S, mob/user)
 	return TRUE
 

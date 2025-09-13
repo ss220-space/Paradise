@@ -191,7 +191,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			GLOB.master_mode = Lines[1]
 			add_game_logs("Saved mode is '[GLOB.master_mode]'")
 
-/world/proc/save_mode(var/the_mode)
+/world/proc/save_mode(the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode

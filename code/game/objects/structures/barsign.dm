@@ -25,7 +25,7 @@
 	//randomly assigning a sign
 	set_sign(pick(barsigns))
 
-/obj/structure/sign/barsign/proc/set_sign(var/datum/barsign/sign)
+/obj/structure/sign/barsign/proc/set_sign(datum/barsign/sign)
 	if(!istype(sign))
 		return
 	icon_state = sign.icon
@@ -112,8 +112,8 @@
 
 
 /obj/structure/sign/barsign/emp_act(severity)
-    set_sign(new /datum/barsign/hiddensigns/empbarsign)
-    broken = TRUE
+	set_sign(new /datum/barsign/hiddensigns/empbarsign)
+	broken = TRUE
 
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)

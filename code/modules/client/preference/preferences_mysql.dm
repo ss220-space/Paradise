@@ -240,10 +240,10 @@
 					hair_gradient_colour,
 					hair_gradient_alpha,
 					can_be_antagonist
-				 	FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
-						 "ckey" = C.ckey,
-						 "slot" = slot
-					 ))
+					FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
+						"ckey" = C.ckey,
+						"slot" = slot
+					))
 	if(!query.warn_execute(async = FALSE)) // Dont make this async. It makes roundstart slow.
 		qdel(query)
 		return
@@ -813,8 +813,8 @@
 	return TRUE
 
 /**
-  * Saves [/datum/preferences/proc/volume_mixer] for the current client.
-  */
+ * Saves [/datum/preferences/proc/volume_mixer] for the current client.
+ */
 /datum/preferences/proc/save_volume_mixer()
 	volume_mixer_saving = null
 	//save_volume_mixer is called with a timer, the client may no longer be there.

@@ -621,7 +621,7 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 		death()
 		splat(user = arrived)
 
-
+#undef MAX_WOOLY_MOUSE
 
 #undef SNIFF
 #undef SHAKE

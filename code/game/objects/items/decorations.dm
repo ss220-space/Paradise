@@ -364,7 +364,7 @@
 
 ///// jumping meat for body explotion effect
 
-/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping/Initialize(var/turf/T)
+/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping/Initialize(turf/T)
 	T = get_offset_target_turf(src.loc, rand(2)-rand(2), rand(2)-rand(2))
 	src.throw_at(T, 2, 1)
 	..()

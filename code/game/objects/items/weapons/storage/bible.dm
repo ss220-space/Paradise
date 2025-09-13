@@ -88,7 +88,7 @@
 
 
 //BS12 EDIT
- // All cult functionality moved to Null Rod
+// All cult functionality moved to Null Rod
 /obj/item/storage/bible/proc/bless(mob/living/carbon/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M

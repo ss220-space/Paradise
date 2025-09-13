@@ -55,19 +55,19 @@
 	icon_state = "brokenr_horns"
 
 /datum/sprite_accessory/hair/unathi/una_cobra_ears
-    name = "Unathi Cobra Ears"
-    icon_state = "cobraears"
-    secondary_theme = "webbing"
+	name = "Unathi Cobra Ears"
+	icon_state = "cobraears"
+	secondary_theme = "webbing"
 
 /datum/sprite_accessory/hair/unathi/una_cobra_hood
-    name = "Unathi Cobra Hood"
-    icon_state = "cobrahood"
-    secondary_theme = "webbing"
+	name = "Unathi Cobra Hood"
+	icon_state = "cobrahood"
+	secondary_theme = "webbing"
 
 /datum/sprite_accessory/hair/unathi/una_cobra_hood_alt
-    name = "Unathi Cobra Hood Smooth"
-    icon_state = "cobrahood_alt"
-    secondary_theme = "webbing"
+	name = "Unathi Cobra Hood Smooth"
+	icon_state = "cobrahood_alt"
+	secondary_theme = "webbing"
 
 /datum/sprite_accessory/hair/unathi/simple
 	name = "Simple Horns"
