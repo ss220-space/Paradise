@@ -195,8 +195,9 @@
 
 /datum/reagent/consumable/astrotame/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
-	if(affected_mob.AmountDisgust() < 80)
-		affected_mob.AdjustDisgust(10 * REM * seconds_per_tick)
+	if(affected_mob.AmountDisgust() >= 80)
+		return
+	affected_mob.AdjustDisgust(10 * REM * seconds_per_tick)
 
 /datum/reagent/consumable/soysauce
 	name = "Соевый соус"

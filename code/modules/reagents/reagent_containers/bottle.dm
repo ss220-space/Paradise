@@ -1263,12 +1263,12 @@
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка для сиропа",
-        GENITIVE = "бутылки для сиропа",
-        DATIVE = "бутылке для сиропа",
-        ACCUSATIVE = "бутылку для сиропа",
-        INSTRUMENTAL = "бутылкой для сиропа",
-        PREPOSITIONAL = "бутылке для сиропа"
+		NOMINATIVE = "бутылка для сиропа",
+		GENITIVE = "бутылки для сиропа",
+		DATIVE = "бутылке для сиропа",
+		ACCUSATIVE = "бутылку для сиропа",
+		INSTRUMENTAL = "бутылкой для сиропа",
+		PREPOSITIONAL = "бутылке для сиропа"
 	)
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/update_overlays()
@@ -1347,12 +1347,12 @@
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка для сиропа (Карамель)",
-        GENITIVE = "бутылки для сиропа (Карамель)",
-        DATIVE = "бутылке для сиропа (Карамель)",
-        ACCUSATIVE = "бутылку для сиропа (Карамель)",
-        INSTRUMENTAL = "бутылкой для сиропа (Карамель)",
-        PREPOSITIONAL = "бутылке для сиропа (Карамель)"
+		NOMINATIVE = "бутылка для сиропа (Карамель)",
+		GENITIVE = "бутылки для сиропа (Карамель)",
+		DATIVE = "бутылке для сиропа (Карамель)",
+		ACCUSATIVE = "бутылку для сиропа (Карамель)",
+		INSTRUMENTAL = "бутылкой для сиропа (Карамель)",
+		PREPOSITIONAL = "бутылке для сиропа (Карамель)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur
@@ -1363,10 +1363,10 @@
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur/get_ru_names()
 	return list(
-        NOMINATIVE = "бутылка для сиропа (Калуа)",
-        GENITIVE = "бутылки для сиропа (Калуа)",
-        DATIVE = "бутылке для сиропа (Калуа)",
-        ACCUSATIVE = "бутылку для сиропа (Калуа)",
-        INSTRUMENTAL = "бутылкой для сиропа (Калуа)",
-        PREPOSITIONAL = "бутылке для сиропа (Калуа)"
+		NOMINATIVE = "бутылка для сиропа (Калуа)",
+		GENITIVE = "бутылки для сиропа (Калуа)",
+		DATIVE = "бутылке для сиропа (Калуа)",
+		ACCUSATIVE = "бутылку для сиропа (Калуа)",
+		INSTRUMENTAL = "бутылкой для сиропа (Калуа)",
+		PREPOSITIONAL = "бутылке для сиропа (Калуа)"
 	)

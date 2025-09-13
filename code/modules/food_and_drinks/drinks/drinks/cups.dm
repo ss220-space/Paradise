@@ -28,12 +28,12 @@
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/get_ru_names()
 	return list(
-        NOMINATIVE = "стакан кофе",
-        GENITIVE = "стакана кофе",
-        DATIVE = "стакану кофе",
-        ACCUSATIVE = "стакан кофе",
-        INSTRUMENTAL = "стаканом кофе",
-        PREPOSITIONAL = "стакане кофе"
+		NOMINATIVE = "стакан кофе",
+		GENITIVE = "стакана кофе",
+		DATIVE = "стакану кофе",
+		ACCUSATIVE = "стакан кофе",
+		INSTRUMENTAL = "стаканом кофе",
+		PREPOSITIONAL = "стакане кофе"
 	)
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/examine(mob/user)
@@ -91,12 +91,12 @@
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/get_ru_names()
 	return list(
-        NOMINATIVE = "стаканчик кофе",
-        GENITIVE = "стаканчика кофе",
-        DATIVE = "стаканчику кофе",
-        ACCUSATIVE = "стаканчик кофе",
-        INSTRUMENTAL = "стаканчиком кофе",
-        PREPOSITIONAL = "стаканчике кофе"
+		NOMINATIVE = "стаканчик кофе",
+		GENITIVE = "стаканчика кофе",
+		DATIVE = "стаканчику кофе",
+		ACCUSATIVE = "стаканчик кофе",
+		INSTRUMENTAL = "стаканчиком кофе",
+		PREPOSITIONAL = "стаканчике кофе"
 	)
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/update_overlays()

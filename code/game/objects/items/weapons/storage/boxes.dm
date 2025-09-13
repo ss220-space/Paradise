@@ -457,10 +457,11 @@
 
 /obj/item/storage/box/coffeepack/examine(mob/user)
 	. = ..()
-	if(in_range(user, src))
-		var/len = LAZYLEN(contents)
-		if(len <= 0)
-			. += span_notice("Пусто.")
+	if(!in_range(user, src))
+		return
+	if(LAZYLEN(contents) > 0)
+		return
+	. += span_notice("Пусто.")
 
 /obj/item/storage/box/coffeepack/robusta
 	name = "robusta beans"

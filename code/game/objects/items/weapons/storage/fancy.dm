@@ -686,30 +686,17 @@
 	return
 
 /obj/item/storage/fancy/coffee_condi_display/update_overlays()
-	. = ..()
-	var/has_sugar = FALSE
-	var/has_sweetener = FALSE
-	var/has_creamer = FALSE
-	var/has_chocolate = FALSE
+	. = list()
 
 	for(var/thing in contents)
 		if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/sugar))
-			has_sugar = TRUE
+			. += mutable_appearance(icon, "condi_display_sugar")
 		else if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/aspartame))
-			has_sweetener = TRUE
+			. += mutable_appearance(icon, "condi_display_sweetener")
 		else if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/creamer))
-			has_creamer = TRUE
+			. += mutable_appearance(icon, "condi_display_creamer")
 		else if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/chocolate))
-			has_chocolate = TRUE
-
-	if(has_sugar)
-		. += mutable_appearance(icon, "condi_display_sugar")
-	if(has_sweetener)
-		. += mutable_appearance(icon, "condi_display_sweetener")
-	if(has_creamer)
-		. += mutable_appearance(icon, "condi_display_creamer")
-	if(has_chocolate)
-		. += mutable_appearance(icon, "condi_display_chocolate")
+			. += mutable_appearance(icon, "condi_display_chocolate")
 
 /obj/item/storage/fancy/coffee_condi_display/populate_contents()
 	for(var/i in 1 to 4)
