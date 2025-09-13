@@ -2398,18 +2398,18 @@
 	)
 	contraband = list(
 		/obj/item/gun_module/muzzle/suppressor = 3,
-		/obj/item/gun_module/rail/scope/x4 = 3,
+		/obj/item/gun_module/rail/scope/x4 = 2,
 	)
 	prices = list(
-		/obj/item/gun_module/muzzle/compensator = 349,
-		/obj/item/gun_module/rail/scope/collimator/pistol = 399,
-		/obj/item/gun_module/rail/scope/collimator = 499,
-		/obj/item/gun_module/under/flashlight/pistol = 199,
-		/obj/item/gun_module/under/flashlight/rifle = 249,
-		/obj/item/gun_module/under/hand/angle = 499,
+		/obj/item/gun_module/muzzle/compensator = 199,
+		/obj/item/gun_module/rail/scope/collimator/pistol = 299,
+		/obj/item/gun_module/rail/scope/collimator = 349,
+		/obj/item/gun_module/under/flashlight/pistol = 99,
+		/obj/item/gun_module/under/flashlight/rifle = 99,
+		/obj/item/gun_module/under/hand/angle = 299,
 		/obj/item/ammo_box/magazine/enforcer/extended = 149,
-		/obj/item/gun_module/muzzle/suppressor = 499,
-		/obj/item/gun_module/rail/scope/x4 = 4999,
+		/obj/item/gun_module/muzzle/suppressor = 399,
+		/obj/item/gun_module/rail/scope/x4 = 2499,
 	)
 	refill_canister = /obj/item/vending_refill/gun_mods
 

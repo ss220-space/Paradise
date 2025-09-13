@@ -204,7 +204,7 @@
 				var/attempt_account_num = tgui_input_number(user, "Enter account number to pay EFTPOS charges into:", "New account number", max_value = 999999, min_value = 100000)
 				if(!attempt_account_num)
 					return
-				var/attempt_pin = tgui_input_number(user, "Enter pin code", "Account pin", max_value = 99999, min_value = 10000)
+				var/attempt_pin = tgui_input_number(user, "Enter pin code", "Account pin", max_value = 999999, min_value = 100000)
 				if(!Adjacent(user) || !attempt_pin)
 					return
 				linked_account = attempt_account_access(attempt_account_num, attempt_pin, 2)
@@ -307,9 +307,9 @@
 		if(isrobot(user))
 			card_account = attempt_account_access(id_card.associated_account_number, pin_needed = FALSE)
 		else
-			var/attempt_pin = tgui_input_number(user, "Enter pin code", "EFTPOS transaction", max_value = 9999, min_value = 1000)
+			var/attempt_pin = tgui_input_number(user, "Enter pin code", "EFTPOS transaction", max_value = 999999, min_value = 100000)
 			if(!attempt_pin || !Adjacent(user))
-				return
+				return during_paid = FALSE
 			card_account = attempt_account_access(id_card.associated_account_number, attempt_pin, 2)
 		if(!card_account || card_account.suspended)
 			to_chat(user, "[bicon(src)]<span class='warning'> Server Error #403 Unable To Access Account. Check security settings and try again.</span>")
