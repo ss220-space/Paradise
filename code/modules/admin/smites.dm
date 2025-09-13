@@ -169,15 +169,76 @@
 
 
 /// MARK: Hunter
-/datum/smite/cluwne
+/datum/smite/hunter
 	name = SMITE_HUNTER
 	desc = "Отправьте за грешником охотника."
 	logmsg = "hunter."
 
 
-/datum/smite/cluwne/apply_effect(mob/living/carbon/human/target, reason) // silent
+/datum/smite/hunter/apply_effect(mob/living/carbon/human/target, reason) // silent
 	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
 	usr.client.create_eventmob_for(target, 1)
+
+
+/// MARK: Hunter-traitor
+/datum/smite/traitor_hunter
+	name = SMITE_TRAITORHUNTER
+	desc = "Отправьте за грешником агента синдиката, созданного среди экипажа."
+	logmsg = "crew traitor."
+
+
+/datum/smite/traitor_hunter/apply_effect(mob/living/carbon/human/target, reason) // silent
+	var/list/possible_traitors = list()
+	for(var/mob/living/player in GLOB.alive_mob_list)
+		if(!player.client || !player.mind || player.stat == DEAD || player == target)
+			continue
+
+		if(!ishuman(player) || player.mind.special_role)
+			continue
+
+		if(!(ROLE_TRAITOR in player.client.prefs.be_special) || jobban_isbanned(player, ROLE_TRAITOR) || jobban_isbanned(player, "Syndicate"))
+			continue
+
+		possible_traitors += player.mind
+
+	for(var/datum/mind/player in possible_traitors)
+		if(!player.current)
+			continue
+
+		if(!ismindshielded(player.current))
+			continue
+
+		possible_traitors -= player
+
+	if(!possible_traitors.len)
+		to_chat(usr, span_warning("Не удалось найти кандидатов на предателя - охотника."), confidential = TRUE)
+		return
+
+	var/datum/mind/newtraitormind = pick(possible_traitors)
+	var/datum/objective/assassinate/kill_objective = new()
+	kill_objective.target = target.mind
+	kill_objective.owner = newtraitormind
+	kill_objective.explanation_text = "Убейте [target.mind.name], [target.mind.assigned_role]."
+	newtraitormind.objectives += kill_objective
+	var/datum/antagonist/traitor/turf = new()
+	turf.give_objectives = FALSE
+	to_chat(newtraitormind.current, "[span_danger("ВНИМАНИЕ:")] [span_warning("Время отдать свой долг Синдикату!")]")
+	to_chat(newtraitormind.current, span_boldwarning("Цель: УБЕЙТЕ [target.real_name]. Сейчас находится в [get_area(target.loc)].</b>"))
+	newtraitormind.add_antag_datum(turf)
+
+
+/// MARK: Transform
+/datum/smite/cluwne
+	name = SMITE_CLUWNE
+	desc = "Превратите грешника в выбранное существо."
+
+
+/datum/smite/cluwne/apply_effect(mob/living/carbon/human/target, reason)
+	var/turf/turf = get_turf(target)
+	var/mob/living/mob = tgui_input_list(usr)
+	FC.smiting = TRUE
+	FC.Acquire_Victim(target)
+	logmsg = "transformed into []."
 
 
 /client/proc/smite(mob/living/mob as mob)
@@ -202,42 +263,6 @@
 
 	var/logmsg = null
 	switch(punishment)
-		if("Crew Traitor")
-			if(!target.mind)
-				to_chat(usr, "<span class='warning'>ERROR: This mob ([target]) has no mind!</span>", confidential=TRUE)
-				return
-			var/list/possible_traitors = list()
-			for(var/mob/living/player in GLOB.alive_mob_list)
-				if(player.client && player.mind && player.stat != DEAD && player != target)
-					if(ishuman(player) && !player.mind.special_role)
-						if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
-							possible_traitors += player.mind
-			for(var/datum/mind/player in possible_traitors)
-				if(player.current)
-					if(ismindshielded(player.current))
-						possible_traitors -= player
-			if(possible_traitors.len)
-				var/datum/mind/newtraitormind = pick(possible_traitors)
-				var/datum/objective/assassinate/kill_objective = new()
-				kill_objective.target = target.mind
-				kill_objective.owner = newtraitormind
-				kill_objective.explanation_text = "Assassinate [target.mind.name], the [target.mind.assigned_role]"
-				newtraitormind.objectives += kill_objective
-				var/datum/antagonist/traitor/turf = new()
-				turf.give_objectives = FALSE
-				to_chat(newtraitormind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-				to_chat(newtraitormind.current, "<b>Goal: <span class='danger'>KILL [target.real_name]</span>, currently in [get_area(target.loc)]</b>")
-				newtraitormind.add_antag_datum(turf)
-			else
-				to_chat(usr, "<span class='warning'>ERROR: Unable to find any valid candidate to send after [target].</span>", confidential=TRUE)
-				return
-			logmsg = "crew traitor."
-		if("Floor Cluwne")
-			var/turf/turf = get_turf(mob)
-			var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(turf)
-			FC.smiting = TRUE
-			FC.Acquire_Victim(mob)
-			logmsg = "floor cluwne"
 		if("Shamebrero")
 			if(target.head)
 				target.drop_item_ground(target.head, force = TRUE)
