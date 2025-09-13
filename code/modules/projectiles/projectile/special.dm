@@ -220,16 +220,16 @@
 			// based on what you're wearing and what you're exposed to
 			var/thermal_protection = target.get_cold_protection(temperature)
 			if(thermal_protection < 1)
-				target.adjust_bodytemperature(temp_diff * (1 - thermal_protection))
+				target.SmoothBodyTemperature(target.bodytemperature + temp_diff * (1 - thermal_protection))
 		else
 			var/thermal_protection = target.get_heat_protection(temperature)
 			if(thermal_protection < 1)
-				target.adjust_bodytemperature(temp_diff * (1 - thermal_protection))
+				target.SmoothBodyTemperature(target.bodytemperature + temp_diff * (1 - thermal_protection))
 			else
 				should_ignite = FALSE
 
 	else if(target_is_living)
-		target.adjust_bodytemperature(temperature - target.bodytemperature)
+		target.SmoothBodyTemperature(temperature)
 
 	if(should_ignite)
 		target.adjust_fire_stacks(0.5)
