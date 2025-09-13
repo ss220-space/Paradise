@@ -62,11 +62,11 @@
 	for(var/index in check_organ.autopsy_data)
 		var/datum/autopsy_data/weapon_data = check_organ.autopsy_data[index]
 
-		var/datum/autopsy_data_scanner/scanner_data = wdata[index]
+		var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, index)
 		if(!scanner_data)
 			scanner_data = new()
 			scanner_data.weapon = weapon_data.weapon
-			wdata[index] = scanner_data
+			LAZYADDASSOC(wdata, index, scanner_data)
 
 		var/organ_name = check_organ.declent_ru(NOMINATIVE)
 
