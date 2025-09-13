@@ -83,8 +83,8 @@
 	if(!(stat & (NOPOWER|BROKEN)))
 		. += "[span_boldnotice("Дисплей сообщает:")]\n"+\
 		span_notice("- Скорость варки – <b>[speed*100]</b>%.")
-		if(coffeepot.total_volume)
-			. += span_notice("- [coffeepot.declent_ru(NOMINATIVE)] содержит <b>[cawfee.volume]</b> единиц[declension_ru(cawfee.volume, "у", "ы", "")] вещества.")
+		if(coffeepot.reagents.total_volume)
+			. += span_notice("- [coffeepot.declent_ru(NOMINATIVE)] содержит <b>[coffeepot.reagents.total_volume]</b> единиц[declension_ru(coffeepot.reagents.total_volume, "у", "ы", "")] вещества.")
 		if(cartridge)
 			if(cartridge.charges < 1)
 				. += span_notice("- Картридж <b>пуст</b>.")
@@ -169,7 +169,7 @@
 /obj/machinery/coffeemaker/proc/prepare_choices()
 	var/list/choices = list()
 
- 	//brew is always available as an option, when the machine is unable to brew the player is told by balloon alerts whats exactly wrong
+	//brew is always available as an option, when the machine is unable to brew the player is told by balloon alerts whats exactly wrong
 	choices[RADIAL_MENU_BREW] = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_brew")
 
 	if(coffeepot)
