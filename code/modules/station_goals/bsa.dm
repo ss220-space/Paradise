@@ -679,7 +679,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	cannon.calibrate()
 	update_active_camera_screen()
 
-/obj/machinery/computer/bsa_control/proc/switch_mode(mob/user, var/params)
+/obj/machinery/computer/bsa_control/proc/switch_mode(mob/user, params)
 	var/mode_name = params["mode"]
 	var/new_mode = GLOB.BSA_modes_list[mode_name]
 	if(!new_mode)

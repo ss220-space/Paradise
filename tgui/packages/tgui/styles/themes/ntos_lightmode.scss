@@ -6,11 +6,11 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$nanotrasen: #ffffff;
+$nanotrasen: hsl(0, 0%, 100%);
 
 @use '../colors.scss' with (
-  $primary: #000000,
-  $label: #000000
+  $primary: hsl(0, 0%, 0%),
+  $label: hsl(0, 0%, 0%)
 );
 @use '../base.scss' with (
   $color-bg: white
@@ -47,10 +47,10 @@ $nanotrasen: #ffffff;
     $with: ('background-color': gray)
   );
   .Button {
-    color: #161613;
+    color: hsl(60, 7.3%, 8%);
   }
   .Button:hover {
-    background-color: #777777;
+    background-color: hsl(0, 0%, 46.7%);
     transition: 0.1s;
   }
 

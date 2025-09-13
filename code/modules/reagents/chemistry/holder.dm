@@ -1,8 +1,6 @@
 #define ADDICTION_TIME 8 MINUTES
 #define MINOR_ADDICTION_TIME 45 MINUTES
 
-///////////////////////////////////////////////////////////////////////////////////
-
 /datum/reagents
 	var/list/datum/reagent/reagent_list = new/list()
 	var/total_volume = 0
@@ -368,14 +366,14 @@
 		R.on_update(A)
 	update_total()
 
-/datum/reagents/proc/find_blood_group(var/datum/chemical_reaction/reaction)
+/datum/reagents/proc/find_blood_group(datum/chemical_reaction/reaction)
 	for(var/K in reaction.required_blood_group)
 		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
 		if(I.data["blood_group"] == K)
 			return TRUE
 	return FALSE
 
-/datum/reagents/proc/find_blood_species(var/datum/chemical_reaction/reaction)
+/datum/reagents/proc/find_blood_species(datum/chemical_reaction/reaction)
 	for(var/K in reaction.required_blood_species)
 		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
 		if(I.data["blood_species"] == K)
@@ -939,3 +937,6 @@
 	addiction_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
+
+#undef ADDICTION_TIME
+#undef MINOR_ADDICTION_TIME

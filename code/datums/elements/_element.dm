@@ -1,19 +1,19 @@
 /**
-  * A holder for simple behaviour that can be attached to many different types
-  *
-  * Only one element of each type is instanced during game init.
-  * Otherwise acts basically like a lightweight component.
-  */
+ * A holder for simple behaviour that can be attached to many different types
+ *
+ * Only one element of each type is instanced during game init.
+ * Otherwise acts basically like a lightweight component.
+ */
 /datum/element
 	/// Option flags for element behaviour
 	var/element_flags = NONE
 	/**
-	  * The index of the first attach argument to consider for duplicate elements
-	  *
-	  * Is only used when flags contains [ELEMENT_BESPOKE]
-	  *
-	  * This is infinity so you must explicitly set this
-	  */
+	 * The index of the first attach argument to consider for duplicate elements
+	 *
+	 * Is only used when flags contains [ELEMENT_BESPOKE]
+	 *
+	 * This is infinity so you must explicitly set this
+	 */
 	var/argument_hash_start_idx = INFINITY
 
 /// Activates the functionality defined by the element on the given target datum

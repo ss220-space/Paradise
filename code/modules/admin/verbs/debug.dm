@@ -347,7 +347,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, gorillize), gorilla_type), 1 SECONDS)
 
 
-/client/proc/cmd_admin_super(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_super(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Make Superhero"
 
@@ -397,7 +397,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_and_message_admins("has remade the powernets. makepowernets() called.")
 	BLACKBOX_LOG_ADMIN_VERB("Make Powernets")
 
-/client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_grantfullaccess(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_DEBUG
 	set name = "\[Admin\] Grant Full Access"
 
@@ -429,7 +429,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	BLACKBOX_LOG_ADMIN_VERB("Grant Full Access")
 	log_and_message_admins(span_notice("has granted [M.key] full access."))
 
-/client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_assume_direct_control(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_DEBUG
 	set name = "\[Admind\] Assume direct control"
 	set desc = "Direct intervention"

@@ -1,6 +1,3 @@
-#define WORKING_MECH	1
-#define MEDICAL_MECH	2
-#define COMBAT_MECH	3
 /datum/quest_mech
 	/// Original name of Mecha
 	var/name

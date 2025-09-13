@@ -28,6 +28,7 @@
 #define DIAG_PATH_HUD		"23"//Bot path indicators
 #define GLAND_HUD			"24"//Gland indicators for abductors
 #define THOUGHT_HUD			"25"//Telepathy bubbles
+#define PACIFISM_HUD			"pacifism_hud" // Hud for pacifists(only for dantalion for now)
 #define KIDAN_PHEROMONES_HUD	"pheromone_hud" // Kidan pheromones hud
 
 //by default everything in the hud_list of an atom is an image
@@ -75,6 +76,19 @@
 #define NOTIFY_JUMP "jump"
 #define NOTIFY_ATTACK "attack"
 #define NOTIFY_FOLLOW "orbit"
+
+// Icon_state for MEDICAL_HUD
+#define STATUS_HUD_DEAD	"huddead"
+#define STATUS_HUD_DNR "huddeaddnr"
+#define STATUS_HUD_FLATLINE "hudflatline"
+#define STATUS_HUD_XENO "hudxeno"
+#define STATUS_HUD_TUMOUR "hudtumour"
+#define STATUS_HUD_BRAINWORM "hudbrainworm"
+#define STATUS_HUD_DEFIB "huddefib"
+#define STATUS_HUD_RAPID_BLEEDING "hudbleeding2"
+#define STATUS_HUD_BLEEDING "hudbleeding1"
+#define STATUS_HUD_ILL "hudill"
+#define STATUS_HUD_HEALTHY "hudhealthy"
 
 
 // The kind of things granted by HUD items in game, that do not manifest as
