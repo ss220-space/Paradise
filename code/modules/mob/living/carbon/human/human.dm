@@ -1824,7 +1824,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
 
-/mob/living/carbon/human/proc/special_post_clone_handling()
+/mob/living/carbon/human/proc/special_post_clone_handling(transplantated = FALSE)
+	if(transplantated)
+		var/datum/disease/brain_transplant_syndrome/disease = new
+		disease.Contract(src)
 	if(!mind)
 		return
 	if(mind.assigned_role == "Cluwne") //HUNKE your suffering never stops

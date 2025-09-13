@@ -129,7 +129,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.special_post_clone_handling()
+		H.special_post_clone_handling(special == ORGAN_MANIPULATION_TRANSPLANTATE)
 
 	..(target, special)
 
