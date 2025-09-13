@@ -1408,7 +1408,6 @@
 // MARK: Temperature
 /datum/status_effect/transient/temperature
 	id = "temperature"
-	var/target_temp = T0C
 	var/temp_step = 50 // K per seconds
 
 /datum/status_effect/transient/temperature/tick(seconds_between_ticks)
@@ -1421,9 +1420,10 @@
 
 	var/temp_delta = clamp(strength - owner.bodytemperature, -temp_step * seconds_between_ticks, temp_step * seconds_between_ticks)
 	owner.adjust_bodytemperature(temp_delta)
-	if(owner.bodytemperature == strength)
-		qdel(src)
-		return FALSE
+	if(owner.bodytemperature != strength)
+		return
+	qdel(src)
+	return FALSE
 
 /datum/status_effect/transient/temperature/calc_decay()
 	return 0
