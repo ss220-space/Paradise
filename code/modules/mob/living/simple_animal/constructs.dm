@@ -27,6 +27,7 @@
 	var/cult_icon_changing = TRUE //Changing the sprite from the type of cult
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/holy = FALSE
+	healable = FALSE
 	light_system = MOVABLE_LIGHT
 
 
