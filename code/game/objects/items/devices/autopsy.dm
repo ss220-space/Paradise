@@ -142,7 +142,7 @@
 	if(LAZYLEN(wdata))
 		var/n = 1
 		for(var/wdata_idx in wdata)
-			var/datum/autopsy_data_scanner/scanner_data = wdata[wdata_idx]
+			var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, wdata_idx)
 			var/total_hits = 0
 			var/total_score = 0
 			var/age = 0
