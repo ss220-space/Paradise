@@ -194,7 +194,7 @@
 		if(hit_atom == user || hit_atom == target)
 			continue // why are you hitting yourself
 
-		// Adjacent doesn't count correctly for non-precise clicks, so this is here mostly to prevent hitting through non-fulltile windows
+		// Adjacent doesn't count correctly for non-precise clicks, so additional check before the attack chain needed here
 		if(!hit_turf.Adjacent(user, user, hit_atom))
 			continue
 
