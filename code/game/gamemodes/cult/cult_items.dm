@@ -761,12 +761,14 @@
 	name = "blood bolt barrage"
 	desc = "Blood for blood."
 	item_state = "disintegrate"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 	color = "#ff0000"
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
+	pickup_sound = 'sound/effects/splat.ogg'
+	drop_sound = 'sound/effects/splat.ogg'
 	item_flags = NOBLUDGEON|DROPDEL
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
@@ -780,7 +782,8 @@
 	name = "blood bolt"
 	icon_state = "blood_bolt"
 	damage_type = BRUTE
-	impact_effect_type = /obj/effect/temp_visual/dir_setting/bloodsplatter
+	damage = 20
+	impact_effect_type = /obj/effect/temp_visual/cult/sparks
 	hitsound = 'sound/effects/splat.ogg'
 
 /obj/projectile/magic/arcane_barrage/blood/prehit(atom/target)
