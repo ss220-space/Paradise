@@ -141,16 +141,13 @@
 	..()
 
 /obj/item/reagent_containers/proc/get_sound_for_reagent_containers()
-	var/sound_for_amount_reagents = SFX_BEAKERPOUR_0_10
-
 	if(amount_per_transfer_from_this >= 50)
-		sound_for_amount_reagents = SFX_BEAKERPOUR_50_INF
-	else if(amount_per_transfer_from_this >= 25)
-		sound_for_amount_reagents = SFX_BEAKERPOUR_25_50
-	else if(amount_per_transfer_from_this >= 10)
-		sound_for_amount_reagents = SFX_BEAKERPOUR_10_25
-
-	return sound_for_amount_reagents
+		return SFX_BEAKERPOUR_50_INF
+	if(amount_per_transfer_from_this >= 25)
+		return SFX_BEAKERPOUR_25_50
+	if(amount_per_transfer_from_this >= 10)
+		return SFX_BEAKERPOUR_10_25
+	return SFX_BEAKERPOUR_0_10
 
 /obj/item/reagent_containers/proc/after_transfer(obj/target)
 	playsound(target.loc, get_sound_for_reagent_containers(), rand(5,25), TRUE)
