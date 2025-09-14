@@ -403,7 +403,7 @@ export const Healthanalyzer = (props: unknown) => {
                       <Box>
                         {scan_data.bleedingList.map((local, index) => (
                           <Box key={index} color="#c51e1e" mt={1}>
-                            Кровотечение в {local}.
+                            {local}.
                           </Box>
                         ))}
                       </Box>
@@ -449,7 +449,7 @@ export const Healthanalyzer = (props: unknown) => {
                         <Box>
                           {scan_data.bleedingList.map((local, index) => (
                             <Box key={index} color="#c51e1e" mt={1}>
-                              Кровотечение в {local}.
+                              {local}.
                             </Box>
                           ))}
                         </Box>

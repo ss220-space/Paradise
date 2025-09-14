@@ -381,7 +381,7 @@
 			continue
 		if(bodypart.tourniquet.applyed_bodypart != bodypart)
 			continue
-		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>У [genderize_ru(gender, "него", "неё", "него", "них")] [bodypart.declent_ru(NOMINATIVE)] перевязан[genderize_ru(gender, "", "а", "о", "ы")] [bicon(bodypart.tourniquet)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
+		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[genderize_ru(gender, "Его", "Её", "Его", "Их")] [bodypart.declent_ru(NOMINATIVE)] перевязан[genderize_ru(gender, "", "а", "о", "ы")] [bicon(bodypart.tourniquet)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.bleeding_amount)
@@ -392,7 +392,7 @@
 		if(suppressed)
 			msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] [bodypart.declent_ru(NOMINATIVE)] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то окровавленным.\n")
 		else if(bodypart.has_arterial_bleeding())
-			msg += span_warning(span_bold("У [genderize_ru(gender, "него", "неё", "него", "них")] кровь течет фонтаном из [bodypart.declent_ru(ACCUSATIVE)]!\n"))
+			msg += span_warning(span_bold("Из [genderize_ru(gender, "его", "её", "его", "их")] [bodypart.declent_ru(GENITIVE)]  хлещет кровь!\n"))
 		if (bodypart.has_heavy_bleeding())
 			msg += span_warning(span_bold("У [genderize_ru(gender, "него", "неё", "него", "них")] обильно кровоточ[pluralize_ru(gender, "ит", "ат")] [bodypart.declent_ru(NOMINATIVE)]!\n"))
 		else

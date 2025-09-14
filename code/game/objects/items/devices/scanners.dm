@@ -766,15 +766,16 @@ BODY SCANNERS
 		if(e.has_infected_wound())
 			infectedList += "[limb]"
 		if(e.bleeding_amount > 0)
-			var/bleeding = "[limb] -"
-			if(e.bleeding_amount <= e.bleedsuppress)
-				bleeding += " перевязаное "
+			var/bleeding = ""
 			if(e.has_arterial_bleeding())
-				bleeding += " артериальное"
+				bleeding += "Артериальное кровотечение"
 			else if(e.has_heavy_bleeding())
-				bleeding += " обильное"
+				bleeding += "Обильное кровотечение"
 			else
-				bleeding += " обычное"
+				bleeding += "Кровотечение"
+			bleeding += "  в [limb]"
+			if(e.bleeding_amount <= e.bleedsuppress)
+				bleeding += " - остановлено"
 			bleedingList += bleeding
 
 	data["fractureList"] = fractureList

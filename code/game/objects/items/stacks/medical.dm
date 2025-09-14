@@ -56,7 +56,7 @@
 		if(human_target == user && !unique_handling)
 			user.visible_message(
 				span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять [declension_ru(NOMINATIVE)] на себе."),
-				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на себе..."),
+				span_notice("Вы начинаете применять на себе [declent_ru(NOMINATIVE)]..."),
 			)
 			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
 				return .
@@ -774,7 +774,7 @@
 	if(human_target == user)
 		user.visible_message(
 			span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять [declension_ru(NOMINATIVE)] на себе."),
-			span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на себе..."),
+			span_notice("Вы начинаете применять на себе [declent_ru(NOMINATIVE)]..."),
 		)
 		if(!do_after(human_target, self_duration, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applyed_bodypart)
 			return .
@@ -818,7 +818,7 @@
 	user.drop_item_ground(src)
 	src.forceMove(affecting)
 
-	balloon_alert(user, "жгут наложен.")
+	balloon_alert(user, "жгут наложен")
 	target.UpdateDamageIcon()
 	update_icon()
 	necrotize_warning_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs_warning), target), necrotize_warning_duration, TIMER_STOPPABLE)
@@ -852,7 +852,7 @@
 		applyed_addition_bodypart = null
 	stop_apply_timers()
 	user.put_in_any_hand_if_possible(src)
-	balloon_alert(user, "жгут снят.")
+	balloon_alert(user, "жгут снят")
 	return TRUE
 
 /obj/item/tourniquet/proc/acceptable_zone(zone_selected)

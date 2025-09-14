@@ -534,7 +534,7 @@
 			if(e.bleeding_amount > 0)
 				bleeding = "<br>"
 				if(e.bleeding_amount <= e.bleedsuppress)
-					bleeding += "перевязанное "
+					bleeding += "остановленное "
 				if(e.has_arterial_bleeding())
 					bleeding += "артериальное "
 				else if (e.has_heavy_bleeding())
