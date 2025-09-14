@@ -15,12 +15,12 @@
 
 /obj/item/reagent_containers/dropper/get_ru_names()
 	return list(
-        NOMINATIVE = "пипетка",
-        GENITIVE = "пипетки",
-        DATIVE = "пипетке",
-        ACCUSATIVE = "пипетку",
-        INSTRUMENTAL = "пипеткой",
-        PREPOSITIONAL = "пипетке"
+		NOMINATIVE = "пипетка",
+		GENITIVE = "пипетки",
+		DATIVE = "пипетке",
+		ACCUSATIVE = "пипетку",
+		INSTRUMENTAL = "пипеткой",
+		PREPOSITIONAL = "пипетке"
 	)
 
 /obj/item/reagent_containers/dropper/update_overlays()
@@ -138,12 +138,12 @@
 
 /obj/item/reagent_containers/dropper/cyborg/get_ru_names()
 	return list(
-        NOMINATIVE = "промышленная пипетка",
-        GENITIVE = "промышленной пипетки",
-        DATIVE = "промышленной пипетке",
-        ACCUSATIVE = "промышленную пипетку",
-        INSTRUMENTAL = "промышленной пипеткой",
-        PREPOSITIONAL = "промышленной пипетке"
+		NOMINATIVE = "промышленная пипетка",
+		GENITIVE = "промышленной пипетки",
+		DATIVE = "промышленной пипетке",
+		ACCUSATIVE = "промышленную пипетку",
+		INSTRUMENTAL = "промышленной пипеткой",
+		PREPOSITIONAL = "промышленной пипетке"
 	)
 
 /obj/item/reagent_containers/dropper/precision
@@ -162,12 +162,12 @@
 
 /obj/item/reagent_containers/dropper/precision/get_ru_names()
 	return list(
-        NOMINATIVE = "микропипетка",
-        GENITIVE = "микропипетки",
-        DATIVE = "микропипетке",
-        ACCUSATIVE = "микропипетку",
-        INSTRUMENTAL = "микропипеткой",
-        PREPOSITIONAL = "микропипетке"
+		NOMINATIVE = "микропипетка",
+		GENITIVE = "микропипетки",
+		DATIVE = "микропипетке",
+		ACCUSATIVE = "микропипетку",
+		INSTRUMENTAL = "микропипеткой",
+		PREPOSITIONAL = "микропипетке"
 	)
 
 //Syndicate item. Virus transmitting mini hypospray

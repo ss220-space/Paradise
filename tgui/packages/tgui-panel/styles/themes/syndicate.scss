@@ -7,12 +7,12 @@
 @use 'sass:meta';
 
 @use '~tgui/styles/colors.scss' with (
-  $primary: #397439,
-  $label: #b08b8b
+  $primary: hsl(120, 34.1%, 33.9%),
+  $label: hsl(0, 19%, 61.8%)
 );
 @use '~tgui/styles/base.scss' with (
-  $color-bg: #4d0202,
-  $color-bg-section: #2b0101,
+  $color-bg: hsl(0, 94.9%, 15.5%),
+  $color-bg-section: hsl(0, 95.5%, 8.6%),
   $color-bg-grad-spread: 0%
 );
 
@@ -28,23 +28,23 @@
     '~tgui/styles/components/Button.scss',
     $with: (
       'color-default': colors.$primary,
-      'color-disabled': #363636,
-      'color-selected': #9d0808,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(0, 90.3%, 32.4%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%)
     )
   );
   @include meta.load-css(
     '~tgui/styles/components/Input.scss',
-    $with: ('border-color': #87ce87)
+    $with: ('border-color': hsl(120, 42%, 66.9%))
   );
   @include meta.load-css(
     '~tgui/styles/components/NoticeBox.scss',
-    $with: ('background-color': #910101)
+    $with: ('background-color': hsl(0, 98.6%, 28.6%))
   );
   @include meta.load-css(
     '~tgui/styles/components/NumberInput.scss',
-    $with: ('border-color': #87ce87)
+    $with: ('border-color': hsl(120, 42%, 66.9%))
   );
   @include meta.load-css('~tgui/styles/components/TextArea.scss');
   @include meta.load-css('~tgui/styles/components/Knob.scss');
@@ -65,7 +65,7 @@
   @include meta.load-css('~tgui/styles/layouts/Window.scss');
   @include meta.load-css(
     '~tgui/styles/layouts/TitleBar.scss',
-    $with: ('background-color': #910101)
+    $with: ('background-color': hsl(0, 98.6%, 28.6%))
   );
 
   // Goonchat styles

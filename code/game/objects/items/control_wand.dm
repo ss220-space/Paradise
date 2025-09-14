@@ -246,3 +246,4 @@
 #undef WAND_BOLT
 #undef WAND_EMERGENCY
 #undef WAND_SPEED
+#undef WAND_ELECTRIFY

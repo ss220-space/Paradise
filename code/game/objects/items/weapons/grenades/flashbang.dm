@@ -29,15 +29,15 @@
 	qdel(src)
 
 /**
-  * Creates a flashing effect that blinds and deafens mobs within range
-  *
-  * Arguments:
-  * * T - The turf to flash
-  * * A - The flashing atom
-  * * range - The range in tiles of the flash
-  * * flash - Whether to flash (blind)
-  * * bang - Whether to bang (deafen)
-  */
+ * Creates a flashing effect that blinds and deafens mobs within range
+ *
+ * Arguments:
+ * * T - The turf to flash
+ * * A - The flashing atom
+ * * range - The range in tiles of the flash
+ * * flash - Whether to flash (blind)
+ * * bang - Whether to bang (deafen)
+ */
 /proc/bang(turf/T, atom/A, range = 7, flash = TRUE, bang = TRUE, direct_bang = TRUE)
 	// Flashing mechanic
 	var/source_turf = get_turf(A)

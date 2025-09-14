@@ -328,7 +328,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!(affected.is_dead()))
-		user.balloon_alert("обработка не требуется!")
+		user.balloon_alert(user, "обработка не требуется!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(

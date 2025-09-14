@@ -36,8 +36,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				subject.attack_ai(M)
 	return is_in_use
 
-#define TEXT_ANNOUNCEMENT_COOLDOWN 1 MINUTES
-
 /mob/living/silicon/ai
 	name = "AI"
 	icon = 'icons/mob/ai.dmi'//
@@ -129,7 +127,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	remove_verb(src, GLOB.ai_verbs_default)
 	remove_verb(src, silicon_subsystems)
 
-/mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
+/mob/living/silicon/ai/New(loc, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
 	announcer = new(config_type = /datum/announcement_configuration/ai)
 	announcer.author = name
 
@@ -573,6 +571,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	show_station_manifest()
 
 /mob/living/silicon/ai/var/message_cooldown = 0
+
+#define TEXT_ANNOUNCEMENT_COOLDOWN 1 MINUTES
+
 /mob/living/silicon/ai/proc/ai_announcement_text()
 	set category = STATPANEL_AICOMMANDS
 	set name = "Станционное объявление"
@@ -593,6 +594,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	announcer.announce(input)
 	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
+
+#undef TEXT_ANNOUNCEMENT_COOLDOWN
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	set name = "Вызвать эвакуационный шаттл"
@@ -819,7 +822,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(target)
 			open_nearest_door(target)
 
-/mob/living/silicon/ai/bullet_act(var/obj/projectile/Proj)
+/mob/living/silicon/ai/bullet_act(obj/projectile/Proj)
 	..(Proj)
 	return 2
 
@@ -1467,7 +1470,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/var/current_camera = 0
 
-/mob/living/silicon/ai/proc/set_camera_by_index(client/user, var/camnum)
+/mob/living/silicon/ai/proc/set_camera_by_index(client/user, camnum)
 	var/camnum_length = length(stored_locations)
 	if(camnum > camnum_length || (camnum == 0 && camnum_length < 10))
 		to_chat(user, span_warning("You have no stored camera on [camnum] position"))

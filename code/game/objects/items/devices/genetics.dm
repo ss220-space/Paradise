@@ -72,7 +72,7 @@
 	for(var/i = 1; i <= DNA_COUNT; i++)
 		write_dna_data(i, DNA_NO_DATA, DNA_COLOR_UNKNOWN)
 
-/obj/item/dna_notepad/proc/print_report(var/mob/living/user)
+/obj/item/dna_notepad/proc/print_report(mob/living/user)
 	if(printing)
 		return
 	printing = TRUE
@@ -125,7 +125,7 @@
 		ui_interact(user)
 		return
 	. += span_notice("Нужно подойти ближе, чтобы посмотреть содержмое.")
-	balloon_alert("слишком далеко")
+	balloon_alert(user, "слишком далеко!")
 
 /obj/item/dna_notepad/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

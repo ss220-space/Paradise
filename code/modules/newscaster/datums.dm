@@ -1,8 +1,8 @@
 /**
-  * # Feed Network
-  *
-  * Singleton that contains all informations related to newscasters (channels, stories).
-  */
+ * # Feed Network
+ *
+ * Singleton that contains all informations related to newscasters (channels, stories).
+ */
 /datum/feed_network
 	/// Contains all of the feed channels created during the round.
 	var/list/datum/feed_channel/channels = list()
@@ -12,11 +12,11 @@
 	var/datum/feed_message/wanted_issue
 
 /**
-  * Returns the [/datum/feed_channel] with the given name, or null if not found.
-  *
-  * Arguments:
-  * * name - The name
-  */
+ * Returns the [/datum/feed_channel] with the given name, or null if not found.
+ *
+ * Arguments:
+ * * name - The name
+ */
 /datum/feed_network/proc/get_channel_by_name(name)
 	RETURN_TYPE(/datum/feed_channel)
 	for(var/fc in channels)
@@ -25,11 +25,11 @@
 			return FC
 
 /**
-  * Returns the [/datum/feed_channel] with the given author, or null if not found.
-  *
-  * Arguments:
-  * * author - The author
-  */
+ * Returns the [/datum/feed_channel] with the given author, or null if not found.
+ *
+ * Arguments:
+ * * author - The author
+ */
 /datum/feed_network/proc/get_channel_by_author(author)
 	RETURN_TYPE(/datum/feed_channel)
 	for(var/fc in channels)
@@ -38,11 +38,11 @@
 			return FC
 
 /**
-  * Returns the [/datum/feed_channel] at the given index, or null if not found.
-  *
-  * Arguments:
-  * * idx - The index
-  */
+ * Returns the [/datum/feed_channel] at the given index, or null if not found.
+ *
+ * Arguments:
+ * * idx - The index
+ */
 /datum/feed_network/proc/get_channel_by_idx(idx)
 	RETURN_TYPE(/datum/feed_channel)
 	if(!ISINDEXSAFE(channels, idx))
@@ -51,10 +51,10 @@
 
 
 /**
-  * # Feed Message
-  *
-  * Describes a single feed story. Always owned by a [/datum/feed_channel].
-  */
+ * # Feed Message
+ *
+ * Describes a single feed story. Always owned by a [/datum/feed_channel].
+ */
 /datum/feed_message
 	/// The author of the story.
 	var/author = ""
@@ -77,10 +77,10 @@
 	publish_time = world.time
 
 /**
-  * Clears the story's information.
-  *
-  * Does not delete it from the owning channel.
-  */
+ * Clears the story's information.
+ *
+ * Does not delete it from the owning channel.
+ */
 /datum/feed_message/proc/clear()
 	author = ""
 	title = ""
@@ -92,10 +92,10 @@
 	publish_time = 0
 
 /**
-  * # Feed Channel
-  *
-  * Describes a single feed channel. Owns a list of [/datum/feed_message].
-  */
+ * # Feed Channel
+ *
+ * Describes a single feed channel. Owns a list of [/datum/feed_message].
+ */
 /datum/feed_channel
 	/// The name of the channel.
 	var/channel_name = ""
@@ -124,30 +124,30 @@
 	return ..()
 
 /**
-  * Returns whether the given user can publish new stories to this channel.
-  *
-  * Arguments:
-  * * user - The user
-  * * scanned_user - The user's identifying information on the newscaster
-  */
+ * Returns whether the given user can publish new stories to this channel.
+ *
+ * Arguments:
+ * * user - The user
+ * * scanned_user - The user's identifying information on the newscaster
+ */
 /datum/feed_channel/proc/can_publish(mob/user, scanned_user = UNKNOWN_NAME_RUS)
 	return (!frozen && (is_public || (author == scanned_user))) || user?.can_admin_interact()
 
 /**
-  * Returns whether the given user can edit or delete this channel.
-  *
-  * Arguments:
-  * * user - The user
-  * * scanned_user - The user's identifying information on the newscaster
-  */
+ * Returns whether the given user can edit or delete this channel.
+ *
+ * Arguments:
+ * * user - The user
+ * * scanned_user - The user's identifying information on the newscaster
+ */
 /datum/feed_channel/proc/can_modify(mob/user, scanned_user = UNKNOWN_NAME_RUS)
 	return (!frozen && author == scanned_user) || user?.can_admin_interact()
 
 /**
-  * Clears the channel's information.
-  *
-  * Discards all owned stories.
-  */
+ * Clears the channel's information.
+ *
+ * Discards all owned stories.
+ */
 /datum/feed_channel/proc/clear()
 	channel_name = ""
 	author = ""
@@ -159,11 +159,11 @@
 	admin_locked = FALSE
 
 /**
-  * Adds a new [story][/datum/feed_message] to the channel and network singleton.
-  *
-  * Arguments:
-  * * M - The story to add.
-  */
+ * Adds a new [story][/datum/feed_message] to the channel and network singleton.
+ *
+ * Arguments:
+ * * M - The story to add.
+ */
 /datum/feed_channel/proc/add_message(datum/feed_message/M)
 	ASSERT(istype(M))
 
@@ -176,11 +176,11 @@
 		SStgui.update_uis(nc)
 
 /**
-  * Returns the text to be said by newscasters when announcing new news from a channel.
-  *
-  * Arguments:
-  * * title - Optional. The headline to announce along with the channel's name. Typically the newest story's title.
-  */
+ * Returns the text to be said by newscasters when announcing new news from a channel.
+ *
+ * Arguments:
+ * * title - Optional. The headline to announce along with the channel's name. Typically the newest story's title.
+ */
 /datum/feed_channel/proc/get_announce_text(title)
 	if(length(title))
 		return "Свежие новости от канала \"[channel_name]\": [title]"

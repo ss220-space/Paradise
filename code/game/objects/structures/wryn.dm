@@ -231,3 +231,6 @@
 
 	switch_state()
 	return TRUE
+
+#undef WAX_DOOR_CLOSED
+#undef WAX_DOOR_OPENED

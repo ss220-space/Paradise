@@ -1,7 +1,3 @@
-#define TTS_TRAIT_PITCH_WHISPER (1<<1)
-#define TTS_TRAIT_RATE_FASTER (1<<2)
-#define TTS_TRAIT_RATE_MEDIUM (1<<3)
-
 SUBSYSTEM_DEF(tts)
 	name = "Text-to-Speech"
 	init_order = INIT_ORDER_DEFAULT

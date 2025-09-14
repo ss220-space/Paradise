@@ -2,11 +2,11 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 GLOBAL_LIST_EMPTY(thinking_indicator)
 
 /**
-  * Toggles the floating chat bubble above a players head.
-  *
-  * Arguments:
-  * * state - Should a chat bubble be shown or hidden
-  */
+ * Toggles the floating chat bubble above a players head.
+ *
+ * Arguments:
+ * * state - Should a chat bubble be shown or hidden
+ */
 /mob/proc/set_typing_indicator(state)
 	if(!GLOB.typing_indicator[bubble_icon])
 		GLOB.typing_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]_typing", ABOVE_HUD_LAYER)
@@ -37,11 +37,11 @@ GLOBAL_LIST_EMPTY(thinking_indicator)
 	return state
 
 /**
-  * Toggles the floating thought bubble above a players head.
-  *
-  * Arguments:
-  * * state - Should a thought bubble be shown or hidden
-  */
+ * Toggles the floating thought bubble above a players head.
+ *
+ * Arguments:
+ * * state - Should a thought bubble be shown or hidden
+ */
 /mob/proc/set_thinking_indicator(state)
 	if(!GLOB.thinking_indicator[bubble_icon])
 		GLOB.thinking_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]_thinking", ABOVE_HUD_LAYER)

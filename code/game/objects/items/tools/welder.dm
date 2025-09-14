@@ -289,3 +289,5 @@
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	force_enabled = 10
+
+#undef GET_FUEL
