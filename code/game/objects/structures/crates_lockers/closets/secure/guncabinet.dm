@@ -25,10 +25,11 @@
 	var/count = 0
 	for(var/thing in contents)
 		for(var/type in gun_overlays)
+			if(!istype(thing, type))
+				continue
 			if(count >= 2)
 				break
-			if(istype(thing, type))
-				count++
-				var/mutable_appearance/gun_olay = mutable_appearance(icon, gun_overlays[type], CLOSET_OLAY_LAYER_CONTENTS)
-				gun_olay.pixel_w = count * 2
-				. += gun_olay
+			count++
+			var/mutable_appearance/gun_olay = mutable_appearance(icon, gun_overlays[type], CLOSET_OLAY_LAYER_CONTENTS)
+			gun_olay.pixel_w = count * 2
+			. += gun_olay
