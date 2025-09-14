@@ -38,7 +38,7 @@
 		var/obj/item/organ/external/affecting = human_target.get_organ(selected_zone)
 
 		if(isgolem(human_target))
-			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя оприменить на големах!"))
+			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на големах!"))
 			return .
 
 		if(human_target.covered_with_thick_material(selected_zone))
@@ -58,7 +58,8 @@
 				span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять [declension_ru(NOMINATIVE)] на себе."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на себе..."),
 			)
-			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
+			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING, max_interact_count = 1,
+				cancel_on_max = TRUE, cancel_message = "невозможно применять более одной единицы [declension_ru(NOMINATIVE)]"))
 				return .
 
 			var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
@@ -78,7 +79,8 @@
 				span_notice("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [human_target]."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
 			)
-			if(use_duration && !do_after(user, use_duration, human_target))
+			if(use_duration && !do_after(user, use_duration, human_target, max_interact_count = 1,
+				cancel_on_max = TRUE, cancel_message = "невозможно применять более одной единицы [declension_ru(NOMINATIVE)]"))
 				return .
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -192,6 +194,16 @@
 	cost = 1
 	merge_type = /obj/item/stack/medical/bruise_pack
 
+/obj/item/stack/medical/bruise_pack/get_ru_names()
+	return list(
+		NOMINATIVE = "рулон марли",
+		GENITIVE = "рулона марли",
+		DATIVE = "рулону марли",
+		ACCUSATIVE = "рулон марли",
+		INSTRUMENTAL = "рулоном марли",
+		PREPOSITIONAL = "рулоне марли"
+	)
+
 /obj/item/stack/medical/bruise_pack/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
 
@@ -250,6 +262,16 @@
 
 /obj/item/stack/medical/bruise_pack/improvised/update_icon_state()
 	icon_state = "gauze_imp_[amount >= 5 ? 3 : (amount >= 3 ? 2 : 1)]"
+
+/obj/item/stack/medical/bruise_pack/improvised/get_ru_names()
+	return list(
+		NOMINATIVE = "импровизированный рулон марли",
+		GENITIVE = "импровизированного рулона марли",
+		DATIVE = "импровизированному рулону марли",
+		ACCUSATIVE = "импровизированный рулон марли",
+		INSTRUMENTAL = "импровизированным рулоном марли",
+		PREPOSITIONAL = "импровизированном рулоне марли"
+	)
 
 /obj/item/stack/medical/bruise_pack/military
 	name = "military emergency bandage"
@@ -326,6 +348,15 @@
 /obj/item/stack/medical/bruise_pack/advanced/update_icon_state()
 	icon_state = "traumakit_[amount]"
 
+/obj/item/stack/medical/bruise_pack/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый набор для обработки травм",
+		GENITIVE = "продвинутого набора для обработки травм",
+		DATIVE = "продвинутому набору для обработки травм",
+		ACCUSATIVE = "продвинутый набор для обработки травм",
+		INSTRUMENTAL = "продвинутым набором для обработки травм",
+		PREPOSITIONAL = "продвинутом наборе для обработки травм"
+	)
 
 /obj/item/stack/medical/bruise_pack/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
@@ -349,6 +380,15 @@
 /obj/item/stack/medical/bruise_pack/extended/update_icon_state()
 	icon_state = "extended_trauma_kit_[round_down((amount+1) / 2, 1)]"
 
+/obj/item/stack/medical/bruise_pack/extended/get_ru_names()
+	return list(
+		NOMINATIVE = "расширенный набор для обработки травм",
+		GENITIVE = "расширенного набора для обработки травм",
+		DATIVE = "расширенному набору для обработки травм",
+		ACCUSATIVE = "расширенный набор для обработки травм",
+		INSTRUMENTAL = "расширенным набором для обработки травм",
+		PREPOSITIONAL = "расширенном наборе для обработки травм"
+	)
 
 // MARK: Ointment
 
@@ -372,6 +412,15 @@
 /obj/item/stack/medical/ointment/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
 
+/obj/item/stack/medical/ointment/get_ru_names()
+	return list(
+		NOMINATIVE = "тюбик мази от ожогов",
+		GENITIVE = "тюбика мази от ожогов",
+		DATIVE = "тюбику мази от ожогов",
+		ACCUSATIVE = "тюбик мази от ожогов",
+		INSTRUMENTAL = "тюбиком мази от ожогов",
+		PREPOSITIONAL = "тюбике мази от ожогов"
+	)
 
 /obj/item/stack/medical/ointment/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -417,6 +466,16 @@
 /obj/item/stack/medical/ointment/advanced/update_icon_state()
 	icon_state = "burnkit_[amount]"
 
+/obj/item/stack/medical/ointment/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый набор для обработки ожогов",
+		GENITIVE = "продвинутого набора для обработки ожогов",
+		DATIVE = "продвинутому набору для обработки ожогов",
+		ACCUSATIVE = "продвинутый набор для обработки ожогов",
+		INSTRUMENTAL = "продвинутым набором для обработки ожогов",
+		PREPOSITIONAL = "продвинутом наборе для обработки ожогов"
+	)
+
 /obj/item/stack/medical/ointment/advanced/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
 
@@ -437,6 +496,15 @@
 /obj/item/stack/medical/ointment/extended/update_icon_state()
 	icon_state = "extended_burn_kit_[round_down((amount+1) / 2, 1)]"
 
+/obj/item/stack/medical/ointment/extended/get_ru_names()
+	return list(
+		NOMINATIVE = "расширенный набор для обработки ожогов",
+		GENITIVE = "расширенного набора для обработки ожогов",
+		DATIVE = "расширенному набору для обработки ожогов",
+		ACCUSATIVE = "расширенный набор для обработки ожогов",
+		INSTRUMENTAL = "расширенным набором для обработки ожогов",
+		PREPOSITIONAL = "расширенном наборе для обработки ожогов"
+	)
 
 // MARK: Medical Herbs
 
@@ -460,6 +528,15 @@
 /obj/item/stack/medical/bruise_pack/comfrey/update_icon_state()
 	return
 
+/obj/item/stack/medical/bruise_pack/comfrey/get_ru_names()
+	return list(
+		NOMINATIVE = "листья живокоста",
+		GENITIVE = "листьев живокоста",
+		DATIVE = "листьям живокоста",
+		ACCUSATIVE = "листья живокоста",
+		INSTRUMENTAL = "листьями живокоста",
+		PREPOSITIONAL = "листьях живокоста"
+	)
 
 /obj/item/stack/medical/ointment/aloe
 	name = "Aloe Vera leaf"
@@ -477,6 +554,15 @@
 /obj/item/stack/medical/ointment/aloe/update_icon_state()
 	return
 
+/obj/item/stack/medical/ointment/aloe/get_ru_names()
+	return list(
+		NOMINATIVE = "листья алоэ",
+		GENITIVE = "листьев алоэ",
+		DATIVE = "листьям алоэ",
+		ACCUSATIVE = "листья алоэ",
+		INSTRUMENTAL = "листьями алоэ",
+		PREPOSITIONAL = "листьях алоэ"
+	)
 
 // MARK: Splints
 
@@ -552,6 +638,15 @@
 
 	bodypart.apply_splint()
 
+/obj/item/stack/medical/splint/get_ru_names()
+	return list(
+		NOMINATIVE = "проволочная шина",
+		GENITIVE = "проволочной шины",
+		DATIVE = "проволочной шине",
+		ACCUSATIVE = "проволочную шину",
+		INSTRUMENTAL = "проволочной шиной",
+		PREPOSITIONAL = "проволочной шине"
+	)
 
 /obj/item/stack/medical/splint/tribal
 	name = "tribal splints"
@@ -684,8 +779,8 @@
 // MARK: Synthflesh kit
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit
-	name = "synthflesh trauma kit"
-	singular_name = "synthflesh trauma kit"
+	name = "advanced synthflesh  kit"
+	singular_name = "advanced synthflesh trauma kit"
 	desc = "Продвинутый набор для мех. и терм. повреждений."
 	icon_state = "synthkit_4"
 	item_state = "traumakit"
@@ -701,3 +796,13 @@
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit/update_icon_state()
 	icon_state = "synthkit_[amount]"
+
+/obj/item/stack/medical/bruise_pack/synthflesh_kit/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый лечебный набор с синтплотью",
+		GENITIVE = "продвинутого лечебного набора с синтплотью",
+		DATIVE = "продвинутому лечебному набору с синтплотью",
+		ACCUSATIVE = "продвинутый лечебный набор с синтплотью",
+		INSTRUMENTAL = "продвинутым лечебным набором с синтплотью",
+		PREPOSITIONAL = "продвинутом лечебном наборе с синтплотью"
+	)
