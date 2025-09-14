@@ -38,7 +38,7 @@
 
 
 /datum/smite/lighting/apply_effect(mob/living/target, reason)
-	var/datum/drop_lightning_bolt_ui/editor = new(target)
+	var/datum/drop_lightning_bolt_ui/preloaded_target/editor = new(target)
 	editor.ui_interact(target)
 
 
@@ -52,6 +52,18 @@
 /datum/smite/gib/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Невероятная сила разрывает вас изнутри! Боги наказали вас за [reason]!"))
 	target.gib(FALSE)
+
+
+/// MARK: Dust
+/datum/smite/dust
+	name = SMITE_DUST
+	desc = "Испепелите грешника!"
+	logmsg = "dusted."
+
+
+/datum/smite/dust/apply_effect(mob/living/target, reason)
+	to_chat(target, span_userdanger("Вы чувствуете... нет, вы ничего не чувствуете! Боги наказали вас за [reason]!"))
+	target.dust()
 
 
 /// MARK: Brainloss
@@ -167,10 +179,11 @@
 
 	var/obj/item/reagent_containers/food/snacks/cookie/empty/evilcookie = new()
 	var/datum/reagent/reagent = tgui_input_list(usr, "Выберите реагент который будет находиться в печенье.", "Выбор вещества", subtypesof(/datum/reagent))
-	var/amount = tgui_input_number(usr, "Выберите количество вещества в печенье.", "Выбор количества", 10, 100, 0)
+	var/amount = tgui_input_number(usr, "Выберите количество вещества в печенье.", "Выбор количества", 10, 10000, 0)
 	var/id = reagent::id ? reagent::id : "mutagen"
-	evilcookie.reagents.add_reagent(id, 10)
-	evilcookie.bitesize = 100
+	evilcookie.volume = max(100, amount)
+	evilcookie.reagents.add_reagent(id, amount)
+	evilcookie.bitesize = evilcookie.volume
 	evilcookie.item_flags |= DROPDEL
 	ADD_TRAIT(evilcookie, TRAIT_NODROP, ADMIN_TRAIT)
 	target.drop_l_hand()
@@ -245,10 +258,10 @@
 
 
 /datum/smite/transform/apply_effect(mob/living/target, reason)
-	var/turf/turf = get_turf(mob)
-	var/mob/living/mob = tgui_input_list(usr, "Выберите в кого превратить жертву.", "Выбор новой формы", subtypesof(/mob/living))
-	if(!mob)
-		return
+	var/turf/turf = get_turf(target)
+	var/mob/living/type = tgui_input_list(usr, "Выберите в кого превратить жертву.", "Выбор новой формы", subtypesof(/mob/living))
+	if(!type)
+		type = /mob/living/simple_animal/pig
 
 	var/mob/living/mob = new(turf)
 	target.mind.transfer_to(mob)
@@ -263,18 +276,101 @@
 	desc = "Наденьте на грешника проклятый предмет одежды!"
 
 
-/datum/smite/antidrop_equip/apply_effect(mob/living/target, reason)
+/datum/smite/antidrop_equip/apply_effect(mob/living/carbon/human/target, reason)
 	var/type = tgui_input_list(usr, "Выберите какую одежду надеть на цель.", "Выбор одежды", subtypesof(/obj/item/clothing))
-	var/obj/item/clothing/clothing = new(target.loc)
-	target.equip_to_slot_or_del(clothing, ITEM_SLOT_HEAD)
+	var/obj/item/clothing/clothing = new type(target.loc)
+	var/slot = clothing.slot_flags
+	var/obj/item/item = target.get_item_by_slot(slot)
+	if(item)
+		target.drop_item_ground(item, force = TRUE)
 
-	if(target.head)
-		target.drop_item_ground(target.head, force = TRUE)
-
+	ADD_TRAIT(item, TRAIT_NODROP, ADMIN_TRAIT)
+	target.equip_to_slot_or_del(clothing, slot)
 	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возникш[genderize_ru(clothing.gender, "ий", "ая", "ее", "ие")] из пустоты прилипа[pluralize_ru(clothing.gender, "ет", "ют")] к вам. Боги наказали вас за [reason]!"))
 	logmsg = "antidrop [clothing]."
 
 
+/// MARK: Nugget
+/datum/smite/nugget
+	name = SMITE_NUGGET
+	desc = "Оторвите руки и ноги грешника."
+	logmsg = "nugget"
+
+
+/datum/smite/nugget/apply_effect(mob/living/target, reason)
+	target.Weaken(12 SECONDS, TRUE)
+	target.AdjustJitter(40 SECONDS)
+	to_chat(target, span_userdanger("Вы чувствуете резкую боль в руках и ногах! Что-то отрывает их от вашего тела! Боги наказали вас за [reason]!"))
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
+
+
+/// MARK: Rod
+/datum/smite/rod
+	name = SMITE_ROD
+	desc = "Отправьте несдвигаемый стержень убить грешника."
+	logmsg = "a rod"
+
+
+/datum/smite/rod/apply_effect(mob/living/target, reason)
+	var/starting_turf_x = target.x + rand(10, 15) * pick(1, -1)
+	var/starting_turf_y = target.y + rand(10, 15) * pick(1, -1)
+	var/turf/start = locate(starting_turf_x, starting_turf_y, target.z)
+	var/obj/effect/immovablerod/smite/rod = new (start, target)
+	rod.go_for_a_walk(target)
+
+
+/// MARK: Summon
+/datum/smite/summon
+	name = SMITE_SUMMON
+	desc = "Призовите злобное существо около грешника!"
+
+
+/datum/smite/summon/apply_effect(mob/living/target, reason)
+	var/turf/turf = get_turf(target)
+	var/mob/living/type = tgui_input_list(usr, "Выберите кого натравить на жертву.", "Выбор призываемого существа", subtypesof(/mob/living/simple_animal/hostile))
+	if(!type)
+		type = /mob/living/simple_animal/hostile/shitcur_goblin
+
+	var/mob/living/simple_animal/hostile/mob = new type(turf)
+	mob.GiveTarget(mob)
+	to_chat(target, span_userdanger("[capitalize(mob.declent_ru(NOMINATIVE))] появляется из воздуха! Боги наказали вас за [reason]!"))
+	logmsg = "summon angry [mob]."
+
+
+/// MARK: HRP (off)
+/datum/smite/hrp
+	name = SMITE_HRP
+	desc = "Подсадите в грешника опухоль ХРП."
+
+
+/datum/smite/hrp/apply_effect(mob/living/carbon/human/target, reason) // silent
+	var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = target.get_int_organ(/obj/item/organ/internal/high_rp_tumor)
+	if(hrp_tumor)
+		hrp_tumor.remove(target)
+		qdel(hrp_tumor)
+		LAZYREMOVE(target.mind.curses, "high_rp")
+		logmsg = "high rp(cure)"
+		return
+
+	var/list/effect_variants = list("15 - 50", "30 - 45", "30 - 75",
+	"30 - 100", "60 - 100", "60 - 150", "60 - 200", "custom")
+	var/effect_strength = tgui_input_list(src, "Какую силу эффекта вы хотите? (задержка в секундах - урон гипоксией)", effect_variants)
+	var/pdelay
+	var/oxy_dmg
+	if(effect_strength == "custom")
+		pdelay = tgui_input_number(src, "Выберите задержку между качанием крови.")
+		oxy_dmg = tgui_input_number(src, "Выберите урон гипоксией.")
+	else
+		var/list/strength = text2numlist(effect_strength, " - ")
+		pdelay = strength[1]
+		oxy_dmg = strength[2]
+
+	target.curse_high_rp(pdelay * 10, oxy_dmg)
+	LAZYADD(target.mind.curses, "high_rp")
+	logmsg = "high rp([pdelay] - [oxy_dmg])"
+
+
+/// MARK: Admin proc
 /client/proc/smite(mob/living/mob as mob)
 	set category = STATPANEL_ADMIN_FUN
 	set name = "Smite"
@@ -285,66 +381,85 @@
 		to_chat(usr, span_warning("Покарать можно только существ с типом начинающимся на /mob/living"), confidential = TRUE)
 		return
 
-	var/list/possible = GLOB.smites_not_human
-	if(ishuman(mob))
-		possible += GLOB.smites_human
+	var/datum/smite_ui/ui = new(mob)
+	ui.ui_interact(mob)
 
-	// Здесь сделать вызов менюшки.
-	var/punishment = tgui_input_list(usr, "How would you like to smite [mob]?", "Its good to be baaaad...", possible)
-	if(!(punishment in possible))
+
+// _________________________________________TGUI_________________________________________
+/// MARK: TGUI
+/datum/smite_ui
+	/// Name of choosen smite
+	var/choosen = null
+	/// Reason of smiting.
+	var/reason = "грехи"
+	/// Mob that we want to smite.
+	var/mob/victim_mob
+
+
+/datum/smite_ui/ui_state(mob/user)
+	return GLOB.admin_state
+
+
+/datum/smite_ui/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(ui)
 		return
 
+	ui = new(user, src, "SmiteMenu", "Кара [victim_mob.declent_ru(GENITIVE)]")
+	ui.open()
+	ui.set_autoupdate(TRUE)
 
-	var/logmsg = null
-	switch(punishment)
-		if("Fakebwoink")
-			SEND_SOUND(target, sound('sound/effects/adminhelp.ogg'))
 
-		if("Nugget")
-			target.Weaken(12 SECONDS, TRUE)
-			target.AdjustJitter(40 SECONDS)
-			to_chat(target, span_danger("Вы чувствуете, как будто ваши конечности отрывают от вашего тела!"))
-			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/target, make_nugget)), 6 SECONDS)
-			logmsg = "nugget"
+/datum/smite_ui/ui_static_data(mob/user)
+	. = ..()
+	.["all_smites"] = GLOB.smites_not_human
+	if(!ishuman(user))
+		.["all_smites"] |= GLOB.smites_human
 
-		if("Rod")
+	.["all_descs"] = list()
+	for(var/name in .["all_smites"])
+		var/datum/smite/type = .["all_smites"][name]
+		.["all_descs"] += type::desc
 
-			var/starting_turf_x = mob.x + rand(10, 15) * pick(1, -1)
-			var/starting_turf_y = mob.y + rand(10, 15) * pick(1, -1)
-			var/turf/start = locate(starting_turf_x, starting_turf_y, mob.z)
 
-			var/obj/effect/immovablerod/smite/rod = new (start, mob)
-			rod.go_for_a_walk(mob)
-			logmsg = "a rod"
+/datum/smite_ui/ui_data(mob/user)
+	. = ..()
+	.["choosen"] = choosen
+	.["reason"] = reason
 
-		if("Dust")
-			target.dust()
-			logmsg = "dust"
-		if("Shitcurity Goblin")
-			var/turf/turf = get_turf(mob)
-			var/mob/living/simple_animal/hostile/shitcur_goblin/goblin = new (turf)
-			goblin.GiveTarget(mob)
-			logmsg = "shitcurity goblin"
-		if("High RP")
-			var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = target.get_int_organ(/obj/item/organ/internal/high_rp_tumor)
-			if(!hrp_tumor)
-				var/list/effect_variants = list("15 - 50", "30 - 45", "30 - 75",
-				"30 - 100", "60 - 100", "60 - 150", "60 - 200", "custom")
-				var/effect_strength = tgui_input_list(src, "What effect strength do you want?(delay in seconds -  oxy damage)", effect_variants)
-				var/pdelay
-				var/oxy_dmg
-				if(effect_strength == "custom")
-					pdelay = tgui_input_number(src, "Input pump delay.")
-					oxy_dmg = tgui_input_number(src, "Input oxy damage.")
-				else
-					var/list/strength = text2numlist(effect_strength, " - ")
-					pdelay = strength[1]
-					oxy_dmg = strength[2]
-				target.curse_high_rp(pdelay*10, oxy_dmg)
-				LAZYADD(target.mind.curses, "high_rp")
-				logmsg = "high rp([pdelay] - [oxy_dmg])"
-			else
-				hrp_tumor.remove(target)
-				qdel(hrp_tumor)
-				LAZYREMOVE(target.mind.curses, "high_rp")
-				logmsg = "high rp(cure)"
+
+/datum/smite_ui/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	. = TRUE
+
+	switch(action)
+		if("change_reason")
+			reason = params["selected_reason"]
+
+		if("change_choosen")
+			choosen = params["selected_choosen"]
+
+		if("activate")
+			var/list/all_smites = GLOB.smites_not_human + GLOB.smites_human
+			var/type = all_smites[choosen]
+			var/datum/smite/smite = new type()
+			smite.activate(victim_mob, reason)
+			ui.close()
+
+		else
+			. = FALSE
+
+
+/datum/smite_ui/ui_close(mob/user)
+	qdel(src)
+
+
+/datum/smite_ui/New(target)
+	src.victim_mob = target
+
+
+/datum/smite_ui/Destroy(force)
+	victim_mob = null
+	. = ..()
