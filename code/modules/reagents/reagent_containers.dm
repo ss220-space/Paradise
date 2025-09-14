@@ -142,11 +142,11 @@
 
 /obj/item/reagent_containers/proc/get_sound_for_reagent_containers()
 	switch(amount_per_transfer_from_this)
-		if(0 to 10)
+		if(0 to 9)
 			return SFX_BEAKERPOUR_0_10
-		if(11 to 25)
+		if(10 to 24)
 			return SFX_BEAKERPOUR_10_25
-		if(26 to 50)
+		if(25 to 50)
 			return SFX_BEAKERPOUR_25_50
 
 	return SFX_BEAKERPOUR_50_INF
