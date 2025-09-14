@@ -22,22 +22,13 @@
 
 /obj/structure/closet/secure_closet/guncabinet/apply_contents_overlays()
 	. = ..()
-	var/list/counter = list()
 	var/count = 0
 	for(var/thing in contents)
-		if(count >= 2)
-			break
 		for(var/type in gun_overlays)
+			if(count >= 2)
+				break
 			if(istype(thing, type))
 				count++
-				counter[type] = thing
-	var/index = 1
-	for(var/type in counter)
-		if(!counter[type])
-			continue
-		var/mutable_appearance/gun_olay = mutable_appearance(icon, gun_overlays[type], CLOSET_OLAY_LAYER_CONTENTS)
-		gun_olay.pixel_w = index * 2
-		. += gun_olay
-		index++
-		if(index > 2)
-			break
+				var/mutable_appearance/gun_olay = mutable_appearance(icon, gun_overlays[type], CLOSET_OLAY_LAYER_CONTENTS)
+				gun_olay.pixel_w = count * 2
+				. += gun_olay
