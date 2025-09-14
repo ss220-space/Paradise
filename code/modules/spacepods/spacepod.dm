@@ -48,6 +48,7 @@
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	move_force = MOVE_FORCE_VERY_STRONG
 	resistance_flags = ACID_PROOF
+	movement_type = FLYING
 
 	layer = BEHIND_MOB_LAYER
 	infra_luminosity = 15
@@ -1246,10 +1247,6 @@
 
 	if(direction & (UP|DOWN))
 		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
-		var/turf/T = get_turf(loc)
-		var/turf/above = GET_TURF_ABOVE(T)
-		if((direction & UP) && can_z_move(DOWN, above, z_move_flags = ZMOVE_FALL_FLAGS)) // going up and can fall down is bad.
-			return FALSE
 		. = zMove(direction)
 		if(.)
 			pilot.update_z(z) // after we moved
