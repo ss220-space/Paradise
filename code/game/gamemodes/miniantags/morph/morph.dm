@@ -332,6 +332,9 @@
 /mob/living/simple_animal/hostile/morph/attack_slime(mob/living/simple_animal/slime/M)
 	restore_form()
 
+/mob/living/simple_animal/hostile/morph/water_act(volume, temperature, source, method)
+	restore_form()
+	. = ..()
 
 /mob/living/simple_animal/hostile/morph/proc/ambush_attack(mob/living/dumbass, touched)
 	ambush_prepared = FALSE
