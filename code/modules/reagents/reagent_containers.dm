@@ -150,7 +150,7 @@
 	return SFX_BEAKERPOUR_0_10
 
 /obj/item/reagent_containers/proc/after_transfer(obj/target)
-	playsound(target.loc, get_sound_for_reagent_containers(), rand(5,25), TRUE)
+	playsound(target.loc, get_sound_for_reagent_containers(), rand(5, 25), TRUE)
 
 /obj/item/reagent_containers/examine(mob/user)
 	. = ..()
