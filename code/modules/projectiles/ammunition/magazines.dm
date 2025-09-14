@@ -519,11 +519,11 @@
 	)
 
 /obj/item/ammo_box/magazine/sp91rc
-	name = "SP-91-RC magazine (9mm TE)"
-	desc = "Магазин пистолет-пулемета \"SP-91-RC\", заряженный нелетальными патронами калибра 9 мм TE."
-	icon_state = "9mm-te"
-	ammo_type = /obj/item/ammo_casing/c9mmte
-	caliber = CALIBER_9MM_TE
+	name = "SP-91-RC magazine (45 N&R)"
+	desc = "Магазин пистолет-пулемета \"SP-91-RC\", заряженный патронами калибра 45 N&R."
+	icon_state = "45NRmag"
+	ammo_type = /obj/item/ammo_casing/c45nr
+	caliber = CALIBER_45NR
 	max_ammo = 20
 
 /obj/item/ammo_box/magazine/sp91rc/empty
@@ -531,12 +531,12 @@
 
 /obj/item/ammo_box/magazine/sp91rc/get_ru_names()
 	return list(
-		NOMINATIVE = "магазин пистолет-пулемета \"SP-91-RC\" (9 мм TE)",
-		GENITIVE = "магазина пистолет-пулемета \"SP-91-RC\" (9 мм TE)",
-		DATIVE = "магазину пистолет-пулемета \"SP-91-RC\" (9 мм TE)",
-		ACCUSATIVE = "магазин пистолет-пулемета \"SP-91-RC\" (9 мм TE)",
-		INSTRUMENTAL = "магазином пистолет-пулемета \"SP-91-RC\" (9 мм TE)",
-		PREPOSITIONAL = "магазине пистолет-пулемета \"SP-91-RC\" (9 мм TE)"
+		NOMINATIVE = "магазин пистолет-пулемета \"SP-91-RC\" (45 N&R)",
+		GENITIVE = "магазина пистолет-пулемета \"SP-91-RC\" (45 N&R)",
+		DATIVE = "магазину пистолет-пулемета \"SP-91-RC\" (45 N&R)",
+		ACCUSATIVE = "магазин пистолет-пулемета \"SP-91-RC\" (45 N&R)",
+		INSTRUMENTAL = "магазином пистолет-пулемета \"SP-91-RC\" (45 N&R)",
+		PREPOSITIONAL = "магазине пистолет-пулемета \"SP-91-RC\" (45 N&R)"
 	)
 
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
@@ -1217,8 +1217,6 @@
 	ammo_type = /obj/item/ammo_casing/laser
 	caliber = CALIBER_LASER
 	max_ammo = 12
-
-	max_ammo = 20
 
 /obj/item/ammo_box/magazine/lr30mag/get_ru_names()
 	return list(

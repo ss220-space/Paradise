@@ -143,8 +143,8 @@
 	stamina = 30
 	icon_state = "bullet-r"
 
-/obj/projectile/bullet/weakbullet4/c9mmte
-	name = "9mm TE"
+/obj/projectile/bullet/weakbullet4/c45nr
+	name = "45 N&R"
 	damage = 10
 	stamina = 15
 

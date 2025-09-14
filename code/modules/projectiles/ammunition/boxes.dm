@@ -694,10 +694,10 @@
 	)
 
 /obj/item/ammo_box/c9mmte
-	name = "ammo box (9mm TE)"
-	desc = "Коробка, содержащая нелетальные патроны калибра 9 мм TE."
-	icon_state = "9mmTEbox"
-	ammo_type = /obj/item/ammo_casing/c9mmte
+	name = "ammo box (45 N&R)"
+	desc = "Коробка, содержащая патроны калибра 45 N&R."
+	icon_state = "45NRbox"
+	ammo_type = /obj/item/ammo_casing/c45nr
 	max_ammo = 60
 
 /obj/item/ammo_box/c9mmte/get_ru_names()
