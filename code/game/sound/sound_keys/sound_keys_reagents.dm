@@ -1,6 +1,3 @@
-/// subtype that accepts weighted lists
-/datum/sound_effect/reagents
-
 /datum/sound_effect/reagents/beakerpour_0_10
 	key = SFX_BEAKERPOUR_0_10
 	file_paths = list(
@@ -39,3 +36,17 @@
 		'sound/items/reagent_containers/beakerpour_50-inf-4.ogg',
 		'sound/items/reagent_containers/beakerpour_50-inf-5.ogg',
 	)
+
+/datum/sound_effect/reagents/dropperpour
+	key = SFX_DROPPERPOUR
+	file_paths = list(
+		'sound/items/reagent_containers/dropper1.ogg',
+		'sound/items/reagent_containers/dropper2.ogg',
+	)
+
+/datum/sound_effect/reagents/syringepour
+	key = SFX_SYRINGEPOUR
+	file_paths = list(
+		'sound/items/reagent_containers/syringepour.ogg',
+	)
+
