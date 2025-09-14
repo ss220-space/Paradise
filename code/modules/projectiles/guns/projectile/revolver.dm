@@ -122,7 +122,9 @@
 
 	if(!do_after(user, 1.5 SECONDS, src, max_interact_count = 1, interaction_key = src, cancel_on_max = TRUE))
 		return
-
+	if(!can_shoot(user))
+		shoot_with_empty_chamber()
+		return
 	if(chambered)
 		QDEL_NULL(chambered.BB)
 		shoot_live_shot()
