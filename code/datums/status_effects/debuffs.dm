@@ -268,9 +268,7 @@
 	owner.next_move_modifier *= 0.5
 
 
-/**
- * MARK: Vampire mark.
- */
+// MARK: Vampire mark_prey
 /datum/status_effect/mark_prey
 	id = "mark_prey"
 	duration = 5 SECONDS
@@ -1416,12 +1414,11 @@
 	if(owner.stat == DEAD || HAS_TRAIT(owner, TRAIT_GODMODE))
 		qdel(src)
 		return FALSE
-	. = TRUE
 
 	var/temp_delta = clamp(strength - owner.bodytemperature, -temp_step * seconds_between_ticks, temp_step * seconds_between_ticks)
 	owner.adjust_bodytemperature(temp_delta)
 	if(owner.bodytemperature != strength)
-		return
+		return TRUE
 	qdel(src)
 	return FALSE
 
