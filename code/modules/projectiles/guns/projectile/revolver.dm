@@ -128,7 +128,7 @@
 		shoot_live_shot()
 	process_chamber()
 
-	user.visible_message(span_cultlarge("[user] поднимает дуло вверх и стреляет, используя [declent_ru(ACCUSATIVE)]!"))
+user.visible_message(span_cultlarge("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] дуло вверх и стреля[pluralize_ru(user.gender, "ет", "ют")], используя [declent_ru(ACCUSATIVE)]!"))
 	user.balloon_alert(user, "вы стреляете в воздух")
 
 	playsound(user, fire_sound, 120, FALSE)
