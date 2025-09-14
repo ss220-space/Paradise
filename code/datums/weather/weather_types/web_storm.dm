@@ -38,7 +38,7 @@
 	if(!.)
 		return
 	for(var/area/area as anything in impacted_areas)
-		for(var/turf/turf in area.get_contained_turfs())
+		for(var/turf/turf in area.get_turfs_from_all_zlevels())
 			if(is_space_or_openspace(turf) || turf.density)
 				continue
 			affected_turfs_list += turf
