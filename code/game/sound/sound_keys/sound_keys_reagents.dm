@@ -47,6 +47,13 @@
 /datum/sound_effect/reagents/syringepour
 	key = SFX_SYRINGEPOUR
 	file_paths = list(
-		'sound/items/reagent_containers/syringepour.ogg',
+		'sound/items/reagent_containers/syringepour1.ogg',
+		'sound/items/reagent_containers/syringepour2.ogg',
+	)
+
+/datum/sound_effect/reagents/liquid_splash
+	key = SFX_LIQUID_SPLASH
+	file_paths = list(
+		'sound/items/reagent_containers/watersplash.ogg',
 	)
 

@@ -51,8 +51,7 @@
 			span_userdanger("[user] вылива[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)] на вас!")
 		)
 		add_attack_logs(user, target, "Splashed with [name] containing [contained]")
-		reagents.reaction(target, REAGENT_TOUCH)
-		reagents.clear_reagents()
+		make_splashes(target)
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(!iscarbon(target)) // Non-carbons can't process reagents
@@ -124,8 +123,7 @@
 		if(user.a_intent == INTENT_HARM)
 			user.visible_message(span_danger("[user] облива[pluralize_ru(user, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
 								("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"))
-			reagents.reaction(target, REAGENT_TOUCH)
-			reagents.clear_reagents()
+			make_splashes(target)
 
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)

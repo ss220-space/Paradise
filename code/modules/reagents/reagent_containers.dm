@@ -71,8 +71,7 @@
 			return
 		if(reagents.total_volume)
 			balloon_alert(usr, "содержимое вылито")
-			reagents.reaction(usr.loc)
-			reagents.clear_reagents()
+			make_splashes(usr.loc)
 		else
 			balloon_alert(usr, "пусто, нечего выливать!")
 
@@ -151,8 +150,19 @@
 
 	return SFX_BEAKERPOUR_50_INF
 
-/obj/item/reagent_containers/proc/after_transfer(obj/target)
-	playsound(target.loc, get_sound_for_reagent_containers(), rand(5, 25), TRUE)
+/obj/item/reagent_containers/proc/after_transfer(atom/target)
+	if(!target)
+		return FALSE
+
+	playsound(target, get_sound_for_reagent_containers(), rand(5, 25), TRUE)
+
+/obj/item/reagent_containers/proc/make_splashes(atom/target)
+	if(!target)
+		return FALSE
+
+	reagents.reaction(target)
+	reagents.clear_reagents()
+	playsound(target, SFX_LIQUID_SPLASH, 50, TRUE)
 
 /obj/item/reagent_containers/examine(mob/user)
 	. = ..()
