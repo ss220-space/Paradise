@@ -175,6 +175,7 @@
 	needs_permit = FALSE //go away beepsky
 	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
 	accuracy = GUN_ACCURACY_DEFAULT
+	description_info = ""
 
 
 /obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
@@ -550,6 +551,7 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	description_info = ""
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/update_gun_skins()
