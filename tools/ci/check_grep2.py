@@ -206,7 +206,7 @@ CODE_CHECKS = [
 #    check_for_nanotrasen_camel_case,
     check_to_chats_have_a_user_arguement,
     check_conditional_spacing,
-#    check_global_list_empty,
+    check_global_list_empty,
 #    check_tgui_ui_new_argument,
     check_datum_loops,
     check_href_styles,
