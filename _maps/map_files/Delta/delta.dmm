@@ -26333,6 +26333,7 @@
 "cSI" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/biogenerator,
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
