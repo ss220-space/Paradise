@@ -110,13 +110,15 @@
 		. += span_notice("[get_ammo(FALSE, FALSE)] of those are live rounds")
 
 /obj/item/gun/projectile/revolver/fire_into_air(mob/user)
-	if(!user || user.a_intent != INTENT_GRAB || !isturf(user.loc))
+	SIGNAL_HANDLER
+	if(!user || (user.a_intent != INTENT_GRAB) || !isturf(user.loc))
 		return
+
+	. = COMPONENT_CANCEL_ATTACK_CHAIN
 
 	if(!can_shoot(user))
 		shoot_with_empty_chamber()
 		return
-
 
 	if(!do_after(user, 1.5 SECONDS, src, max_interact_count = 1, interaction_key = src, cancel_on_max = TRUE))
 		return
