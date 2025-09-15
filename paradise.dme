@@ -17,7 +17,7 @@
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
-#include "code\__DEFINES\__byond_version_compat.dm"
+#include "code\__DEFINES\__proc_refs.dm"
 #include "code\__DEFINES\_atoms.dm"
 #include "code\__DEFINES\_bitfields.dm"
 #include "code\__DEFINES\_click.dm"
