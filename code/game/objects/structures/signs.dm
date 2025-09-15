@@ -57,7 +57,13 @@
 /obj/item/sign
 	name = "sign"
 	desc = ""
-	ru_names = list(
+	icon = 'icons/obj/decals.dmi'
+	w_class = WEIGHT_CLASS_NORMAL
+	resistance_flags = FLAMMABLE
+	var/sign_state = ""
+
+/obj/item/sign/get_ru_names()
+	return list(
 		NOMINATIVE = "табличка",
 		GENITIVE = "таблички",
 		DATIVE = "табличке",
@@ -65,10 +71,6 @@
 		INSTRUMENTAL = "табличкой",
 		PREPOSITIONAL = "табличке"
 	)
-	icon = 'icons/obj/decals.dmi'
-	w_class = WEIGHT_CLASS_NORMAL
-	resistance_flags = FLAMMABLE
-	var/sign_state = ""
 
 
 /obj/item/sign/screwdriver_act(mob/living/user, obj/item/I)
@@ -104,7 +106,10 @@
 /obj/structure/sign/double/map
 	name = "station map"
 	desc = "Фотография станции в рамке."
-	ru_names = list(
+	max_integrity = 500
+
+/obj/structure/sign/double/map/get_ru_names()
+	return list(
 		NOMINATIVE = "карта станции",
 		GENITIVE = "карты станции",
 		DATIVE = "карте станции",
@@ -112,7 +117,6 @@
 		INSTRUMENTAL = "картой станции",
 		PREPOSITIONAL = "карте станции"
 	)
-	max_integrity = 500
 
 /obj/structure/sign/double/map/left
 	icon_state = "map-left"

@@ -165,5 +165,6 @@
 
 
 /datum/emote/living/simple_animal/frog_warcry/get_sound(mob/living/simple_animal/frog/user)
-	return user.scream_sound
+	var/sound_frog = pick(user.scream_sound)
+	return sound_frog
 

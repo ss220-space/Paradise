@@ -656,7 +656,6 @@
 
 		// nutrition decrease
 		if(nutrition >= 0 && stat != DEAD)
-			handle_nutrition_alerts()
 			// THEY HUNGER
 			var/hunger_rate = is_vamp ? HUNGER_FACTOR_VAMPIRE : HUNGER_FACTOR * dna.species.hunger_drain_mod * physiology.hunger_mod
 			if(satiety > 0)
@@ -741,14 +740,15 @@
 				return
 
 		if(health <= HEALTH_THRESHOLD_CRIT)
-			if(prob(5))
-				emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
-			SetStuttering(10 SECONDS)
-			EyeBlurry(10 SECONDS)
-			if(prob(7))
-				AdjustConfused(4 SECONDS)
-			if(prob(5))
-				Paralyse(4 SECONDS)
+			if(get_perceived_trauma(shock_reduction()) <= 0)
+				if(prob(5))
+					emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
+				SetStuttering(10 SECONDS)
+				EyeBlurry(10 SECONDS)
+				if(prob(7))
+					AdjustConfused(4 SECONDS)
+				if(prob(5))
+					Paralyse(4 SECONDS)
 			switch(health)
 				if(-INFINITY to -100)
 					adjustOxyLoss(1)
@@ -787,7 +787,7 @@
 						D.Contract(src)
 					if(prob(5))
 						to_chat(src, span_userdanger("Вы чувствуете [pick("себя ужасно", "себя отвратительно", "себя, как дерьмо", "боль", "онемение", "холод", "покалывание", "себя кошмарно")]!"))
-						Weaken(6 SECONDS)
+						Knockdown(6 SECONDS)
 
 
 #define BODYPART_PAIN_REDUCTION 5
@@ -854,40 +854,13 @@
 				healthdoll.cut_overlay(cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays
 
-		if(health <= HEALTH_THRESHOLD_CRIT)
+		if(health <= HEALTH_THRESHOLD_CRIT && get_perceived_trauma(shock_reduction) < 0)
 			throw_alert("succumb", /atom/movable/screen/alert/succumb)
 		else
 			clear_alert("succumb")
 
 #undef BODYPART_PAIN_REDUCTION
 
-
-/mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	var/new_hunger
-	switch(nutrition)
-		if(NUTRITION_LEVEL_FULL to INFINITY)
-			new_hunger = "fat"
-		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-			new_hunger = "full"
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			new_hunger = "well_fed"
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			new_hunger = "fed"
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			new_hunger = "hungry"
-		else
-			new_hunger = "starving"
-
-	if(HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
-		new_hunger = "full"
-
-	if(dna.species.hunger_type)
-		new_hunger += "/[dna.species.hunger_type]"
-
-	if(dna.species.hunger_level != new_hunger)
-		dna.species.hunger_level = new_hunger
-		throw_alert(ALERT_NUTRITION, text2path("/atom/movable/screen/alert/hunger/[new_hunger]"), icon_override = dna.species.hunger_icon)
-		med_hud_set_status()
 
 /mob/living/carbon/human/proc/handle_embedded_objects()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)

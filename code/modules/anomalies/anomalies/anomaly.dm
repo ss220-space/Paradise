@@ -5,14 +5,6 @@
 /obj/effect/anomaly
 	name = "аномалия"
 	desc = "Загадочная аномалия. Обычно такую можно наблюдать только в станционном секторе."
-	ru_names = list(
-		NOMINATIVE = "аномалия", \
-		GENITIVE = "аномалии", \
-		DATIVE = "аномалии", \
-		ACCUSATIVE = "аномалию", \
-		INSTRUMENTAL = "аномалией", \
-		PREPOSITIONAL = "аномалии"
-	)
 	icon_state = "bhole3"
 	gender = FEMALE
 	anchored = TRUE
@@ -54,6 +46,16 @@
 	/// If FALSE, there won't be warp effect.
 	var/has_warp = FALSE
 
+/obj/effect/anomaly/get_ru_names()
+	return list(
+		NOMINATIVE = "аномалия", \
+		GENITIVE = "аномалии", \
+		DATIVE = "аномалии", \
+		ACCUSATIVE = "аномалию", \
+		INSTRUMENTAL = "аномалией", \
+		PREPOSITIONAL = "аномалии"
+	)
+
 /obj/effect/anomaly/proc/size_by_strength(cur_strength)
 	if(!cur_strength)
 		cur_strength = strength
@@ -68,7 +70,7 @@
 	animate(src, transform = matr, time = 1 SECONDS, alpha = 255, flags = ANIMATION_PARALLEL)
 
 
-/obj/effect/anomaly/Initialize(spawnloc, spawn_strength = rand(20, 40), spawn_stability = rand(10, 29))
+/obj/effect/anomaly/Initialize(mapload, spawn_strength = rand(20, 40), spawn_stability = rand(10, 29))
 	GLOB.created_anomalies[anomaly_type]++
 	. = ..()
 	if(!get_area(src))
@@ -374,7 +376,7 @@
 /obj/effect/anomaly/narsie_act()
 	collapse()
 
-/obj/effect/anomaly/ex_act(severity)
+/obj/effect/anomaly/ex_act(severity, target)
 	return
 
 #undef ANOMALY_DOUBLE_MOVE_CHANCE

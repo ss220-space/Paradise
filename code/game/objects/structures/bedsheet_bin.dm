@@ -87,7 +87,14 @@ LINEN BINS
 
 /obj/item/bedsheet/patriot
 	name = "Zaza ambassador"
-	ru_names = list(
+	desc = "Вы явно владеете Зазой."
+	icon_state = "sheetzaza"
+	item_color = "sheetzaza"
+	dream_messages = list("Зазе", "качалке", "свободе")
+	nightmare_messages = list("тюрьме", "наручниках")
+
+/obj/item/bedsheet/patriot/get_ru_names()
+	return list(
 		NOMINATIVE = "амбассадор Заза",
 		GENITIVE = "амбассадора Заза",
 		DATIVE = "амбассадору Зазе",
@@ -95,11 +102,6 @@ LINEN BINS
 		INSTRUMENTAL = "амбассадором Зазой",
 		PREPOSITIONAL = "амбассадоре Зазе"
 	)
-	desc = "Вы явно владеете Зазой."
-	icon_state = "sheetzaza"
-	item_color = "sheetzaza"
-	dream_messages = list("Зазе", "качалке", "свободе")
-	nightmare_messages = list("тюрьме", "наручниках")
 
 /obj/item/bedsheet/rainbow
 	name = "rainbow bedsheet"

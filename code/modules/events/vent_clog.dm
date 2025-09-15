@@ -2,7 +2,7 @@
 	announceWhen	= 0
 	startWhen		= 5
 	endWhen			= 35
-	var/interval 	= 2
+	var/interval	= 2
 	var/list/vents  = list()
 
 /datum/event/vent_clog/announce()

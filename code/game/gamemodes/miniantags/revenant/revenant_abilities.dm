@@ -6,19 +6,20 @@
 		return
 
 	var/list/modifiers = params2list(params)
-	if(modifiers["middle"])
+
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
 		MiddleClickOn(A)
 		return
 
-	if(modifiers["shift"])
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		ShiftClickOn(A)
 		return
 
-	if(modifiers["alt"])
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		AltClickOn(A)
 		return
 
-	if(modifiers["ctrl"])
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
 
@@ -42,7 +43,7 @@
 		return
 
 	var/mob_UID = target.UID()
-	if(mob_UID in drained_mobs)
+	if(LAZYIN(drained_mobs, mob_UID))
 		to_chat(src, span_revenwarning("Душа [target] мертва и пуста."))
 		return
 
@@ -101,7 +102,7 @@
 						to_chat(src, span_revenboldnotice("Совершенство души [target] увеличило ваш максимальный уровень эссенции. Ваш новый максимум эссенции: [essence_regen_cap]."))
 					to_chat(src, span_revennotice("Душа [target] значительно ослабла и больше не даст эссенции в ближайшее время."))
 					target.visible_message(span_warning("[target] пада[pluralize_ru(target.gender,"ет","ют")] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, приближаясь..."))
-					drained_mobs.Add(mob_UID)
+					LAZYADD(drained_mobs, mob_UID)
 					add_attack_logs(src, target, "revenant harvested soul")
 					target.death()
 				else
@@ -270,7 +271,7 @@
 		return
 
 	L.visible_message(span_boldwarning("[capitalize(L.declent_ru(NOMINATIVE))] внезапно вспыхивает и начинает искрить!"))
-	do_sparks(4, 0, L)
+	do_sparks(4, FALSE, L)
 	new /obj/effect/temp_visual/revenant(L.loc)
 	sleep(2 SECONDS)
 	if(!L.on) //wait, wait, don't shock me
@@ -284,7 +285,7 @@
 		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 		M.electrocute_act(shock_damage, "настенной лампы", flags = SHOCK_NOGLOVES)
 
-		do_sparks(4, 0, M)
+		do_sparks(4, FALSE, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
 

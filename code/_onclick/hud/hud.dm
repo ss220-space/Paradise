@@ -176,6 +176,7 @@
 	mymob.healthdoll = null
 	mymob.pullin = null
 	mymob.stamina_bar = null
+	mymob.nutrition_bar = null
 
 	//clear the rest of our reload_fullscreen
 	lingchemdisplay = null
@@ -188,6 +189,7 @@
 	wind_up_timer = null
 	nightvisionicon = null
 	devilsouldisplay = null
+	combo_display = null
 
 	QDEL_LIST_ASSOC_VAL(master_groups)
 	QDEL_LIST_ASSOC_VAL(plane_master_controllers)

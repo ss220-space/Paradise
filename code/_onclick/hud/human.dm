@@ -386,6 +386,9 @@
 	mymob.stamina_bar = new /atom/movable/screen/stamina_bar(null, src)
 	infodisplay += mymob.stamina_bar
 
+	mymob.nutrition_bar = new /atom/movable/screen/nutrition_bar(null, src)
+	infodisplay += mymob.nutrition_bar
+
 	lingchemdisplay = new /atom/movable/screen/ling/chems(null, src)
 	infodisplay += lingchemdisplay
 

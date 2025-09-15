@@ -142,14 +142,12 @@
 
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
 	var/image/holder = hud_list[DIAG_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
+	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
 	holder.icon_state = "huddiag[RoundDiagBar(health / maxHealth)]"
 
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_status()
 	var/image/holder = hud_list[DIAG_STAT_HUD]
-	var/icon/I = icon(icon, icon_state, dir)
-	holder.pixel_y = I.Height() - world.icon_size
+	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
 	holder.icon_state = "hudstat"
 
 /mob/living/simple_animal/hostile/swarmer/get_status_tab_items()
@@ -567,7 +565,7 @@
 	if(istype(c_target) && !c_target.handcuffed)
 		c_target.apply_restraints(new /obj/item/restraints/handcuffs/energy/used(null), TRUE)
 
-	do_sparks(4, 0, target)
+	do_sparks(4, FALSE, target)
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
 	do_teleport(target, F, 0)
 	investigate_log("[key_name_log(src)] teleported [key_name_log(target)] to [COORD(F)]", INVESTIGATE_TELEPORTATION)
@@ -613,7 +611,7 @@
 
 /obj/effect/temp_visual/swarmer/disintegration/Initialize(mapload)
 	. = ..()
-	playsound(loc, "sparks", 100, TRUE)
+	playsound(loc, SFX_SPARKS, 100, TRUE)
 
 /obj/effect/temp_visual/swarmer/dismantle
 	icon_state = "dismantle"

@@ -61,6 +61,37 @@
 			else
 				H.remove_hud_from(user)
 
+// Allows you to toggle HUDType on glasses.
+/obj/item/clothing/glasses/hud/proc/multiHUD_toggling(mob/living/carbon/human/user)
+	if(!HUDType || !user)
+		return
+
+	var/datum/atom_hud/oldHUD = GLOB.huds[HUDType]
+	var/hudMode = null
+
+	// DATA_HUD_MEDICAL_ADVANCED ->  DATA_HUD_SECURITY_BASIC -> DATA_HUD_SECURITY_ADVANCED
+	switch(HUDType) 
+		if(DATA_HUD_MEDICAL_ADVANCED)
+			HUDType = DATA_HUD_SECURITY_BASIC
+			examine_extensions = EXAMINE_HUD_SKILLS
+			hudMode = "навыков"
+		if(DATA_HUD_SECURITY_BASIC)
+			HUDType = DATA_HUD_SECURITY_ADVANCED
+			examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
+			hudMode = "охраны"
+		if(DATA_HUD_SECURITY_ADVANCED)
+			HUDType = DATA_HUD_MEDICAL_ADVANCED
+			examine_extensions = EXAMINE_HUD_MEDICAL
+			hudMode = "здоровья"
+
+	if(user.glasses == src)
+		oldHUD.remove_hud_from(user)
+		var/datum/atom_hud/newHUD = GLOB.huds[HUDType]
+		newHUD.add_hud_to(user)
+
+	balloon_alert(user, "режим ИЛС [hudMode]")
+	playsound(user, 'sound/items/buttonclick.ogg', 50, TRUE)
+
 /*
 MEDICAL
 */
@@ -146,7 +177,11 @@ MEDICAL
 /obj/item/clothing/glasses/hud/health/visor
 	name = "Medical optical visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
-	ru_names = list(
+	icon_state = "medicalvisor"
+	item_state = "medicalvisor"
+
+/obj/item/clothing/glasses/hud/health/visor/get_ru_names()
+	return list(
 		NOMINATIVE = "медицинский оптический визор",
 		GENITIVE = "медицинского оптического визора",
 		DATIVE = "медицинскому оптическому визору",
@@ -154,8 +189,6 @@ MEDICAL
 		INSTRUMENTAL = "медицинским оптическим визором",
 		PREPOSITIONAL = "медицинском оптическом визоре"
 	)
-	icon_state = "medicalvisor"
-	item_state = "medicalvisor"
 
 /obj/item/clothing/glasses/hud/health/meson
 	name = "Medical-Meson HUD"
@@ -248,7 +281,11 @@ DIAGNOSTIC
 /obj/item/clothing/glasses/hud/diagnostic/visor
 	name = "Optical Diagnostic Visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
-	ru_names = list(
+	icon_state = "diagvisor"
+	item_state = "diagvisor"
+
+/obj/item/clothing/glasses/hud/diagnostic/visor/get_ru_names()
+	return list(
 		NOMINATIVE = "диагностический оптический визор",
 		GENITIVE = "диагностического оптического визора",
 		DATIVE = "диагностическому оптическому визору",
@@ -256,8 +293,6 @@ DIAGNOSTIC
 		INSTRUMENTAL = "диагностическим оптическим визором",
 		PREPOSITIONAL = "диагностическом оптическом визоре"
 	)
-	icon_state = "diagvisor"
-	item_state = "diagvisor"
 
 /obj/item/clothing/glasses/hud/diagnostic/monocle
 	name = "Diagnostic HUD Monocle"
@@ -416,7 +451,11 @@ SECURITY
 /obj/item/clothing/glasses/hud/security/sunglasses/visor
 	name = "Security visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве. Также он защищает глаза от вспышек."
-	ru_names = list(
+	icon_state = "securityvisor"
+	item_state = "securityvisor"
+
+/obj/item/clothing/glasses/hud/security/sunglasses/visor/get_ru_names()
+	return list(
 		NOMINATIVE = "охранный оптический визор",
 		GENITIVE = "охранного оптического визора",
 		DATIVE = "охранному оптическому визору",
@@ -424,8 +463,6 @@ SECURITY
 		INSTRUMENTAL = "охранным оптическим визором",
 		PREPOSITIONAL = "охранном оптическом визоре"
 	)
-	icon_state = "securityvisor"
-	item_state = "securityvisor"
 
 /obj/item/clothing/glasses/hud/security/monocle
 	name = "Security HUD Monocle"
@@ -509,7 +546,11 @@ HYDROPONIC
 /obj/item/clothing/glasses/hud/hydroponic/visor
 	name = "Hydroponic Optical Visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
-	ru_names = list(
+	icon_state = "hydroponicvisor"
+	item_state = "hydroponicvisor"
+
+/obj/item/clothing/glasses/hud/hydroponic/visor/get_ru_names()
+	return list(
 		NOMINATIVE = "ботанический оптический визор",
 		GENITIVE = "ботанического оптического визора",
 		DATIVE = "ботаническому оптическому визору",
@@ -517,8 +558,6 @@ HYDROPONIC
 		INSTRUMENTAL = "ботаническим оптическим визором",
 		PREPOSITIONAL = "ботаническом оптическом визоре"
 	)
-	icon_state = "hydroponicvisor"
-	item_state = "hydroponicvisor"
 
 /obj/item/clothing/glasses/hud/hydroponic/monocle
 	name = "Hydroponic HUD Monocle"
@@ -605,14 +644,6 @@ SKILLS
 /obj/item/clothing/glasses/hud/blueshield
 	name = "multi-mode HUD glasses"
 	desc = "Солнечные очки с многорежимным проекционным дисплеем."
-	ru_names = list(
-		NOMINATIVE = "много-режимные HUD-очки",
-		GENITIVE = "много-режимных HUD-очков",
-		DATIVE = "много-режимным HUD-очкам",
-		ACCUSATIVE = "много-режимные HUD-очки",
-		INSTRUMENTAL = "много-режимными HUD-очками",
-		PREPOSITIONAL = "много-режимных HUD-очках"
-	)
 	actions_types = list(/datum/action/item_action/switch_hud)
 	icon_state = "sunhudmed"
 	origin_tech = "magnets=4;combat=4;engineering=4;biotech=4"
@@ -621,17 +652,19 @@ SKILLS
 	tint = 1
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 
+/obj/item/clothing/glasses/hud/blueshield/get_ru_names()
+	return list(
+		NOMINATIVE = "много-режимные HUD-очки",
+		GENITIVE = "много-режимных HUD-очков",
+		DATIVE = "много-режимным HUD-очкам",
+		ACCUSATIVE = "много-режимные HUD-очки",
+		INSTRUMENTAL = "много-режимными HUD-очками",
+		PREPOSITIONAL = "много-режимных HUD-очках"
+	)
+
 /obj/item/clothing/glasses/hud/blueshield/cap
 	name = "Gold multi-mod HUD glasses"
 	desc = "Солнечные очки с многорежимным ИЛС, выполненные в золотом цвете."
-	ru_names = list(
-		NOMINATIVE = "золотые много-режимные ИЛС-очки",
-		GENITIVE = "золотых много-режимных ИЛС-очков",
-		DATIVE = "золотым много-режимным ИЛС-очкам",
-		ACCUSATIVE = "золотые много-режимные ИЛС-очки",
-		INSTRUMENTAL = "золотыми много-режимными ИЛС-очками",
-		PREPOSITIONAL = "золотых много-режимных ИЛС-очках"
-	)
 	icon_state = "sunhudcap"
 	item_state = "sunhudcap"
 	sprite_sheets = list(
@@ -645,29 +678,27 @@ SKILLS
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
 	)
 
+/obj/item/clothing/glasses/hud/blueshield/cap/get_ru_names()
+	return list(
+		NOMINATIVE = "золотые много-режимные ИЛС-очки",
+		GENITIVE = "золотых много-режимных ИЛС-очков",
+		DATIVE = "золотым много-режимным ИЛС-очкам",
+		ACCUSATIVE = "золотые много-режимные ИЛС-очки",
+		INSTRUMENTAL = "золотыми много-режимными ИЛС-очками",
+		PREPOSITIONAL = "золотых много-режимных ИЛС-очках"
+	)
+
 /obj/item/clothing/glasses/hud/blueshield/attack_self(mob/user)
-	if(HUDType)
-		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.remove_hud_from(user)
-	switch(HUDType)
-		if(DATA_HUD_MEDICAL_ADVANCED)
-			HUDType = DATA_HUD_SECURITY_BASIC
-			examine_extensions = EXAMINE_HUD_SKILLS
-		if(DATA_HUD_SECURITY_ADVANCED)
-			HUDType = DATA_HUD_MEDICAL_ADVANCED
-			examine_extensions = EXAMINE_HUD_MEDICAL
-		else
-			HUDType = DATA_HUD_SECURITY_ADVANCED
-			examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
-	var/datum/atom_hud/newH = GLOB.huds[HUDType]
-	newH.add_hud_to(user)
-	balloon_alert(user, "режим переключён")
-	return
+	multiHUD_toggling(user)
 
 /obj/item/clothing/glasses/hud/skills/visor
 	name = "Skill Optical Visor"
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
-	ru_names = list(
+	icon_state = "skillvisor"
+	item_state = "skillvisor"
+
+/obj/item/clothing/glasses/hud/skills/visor/get_ru_names()
+	return list(
 		NOMINATIVE = "оптический визор навыков",
 		GENITIVE = "оптического визора навыков",
 		DATIVE = "оптическому визору навыков",
@@ -675,8 +706,6 @@ SKILLS
 		INSTRUMENTAL = "оптическим визором навыков",
 		PREPOSITIONAL = "оптическом визоре навыков"
 	)
-	icon_state = "skillvisor"
-	item_state = "skillvisor"
 
 /obj/item/clothing/glasses/hud/skills/monocle
 	name = "Skills HUD Monocle"

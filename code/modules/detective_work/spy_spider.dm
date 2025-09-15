@@ -8,7 +8,16 @@
 	broadcasting = FALSE
 	canhear_range = 3
 	gender = MALE
-	ru_names = list(NOMINATIVE = "жучок", GENITIVE = "жучка", DATIVE = "жучку", ACCUSATIVE = "жучок", INSTRUMENTAL = "жучком", PREPOSITIONAL = "жучке")
+
+/obj/item/radio/spy_spider/get_ru_names()
+	return list(
+			NOMINATIVE = "жучок", 
+			GENITIVE = "жучка", 
+			DATIVE = "жучку", 
+			ACCUSATIVE = "жучок", 
+			INSTRUMENTAL = "жучком", 
+			PREPOSITIONAL = "жучке"
+		)
 
 /obj/item/radio/spy_spider/examine(mob/user)
 	. = ..()

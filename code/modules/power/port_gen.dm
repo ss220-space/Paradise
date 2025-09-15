@@ -1,5 +1,8 @@
 #define SHEET_VOLUME 1000 //cm3
 
+#define TEMPERATURE_DIVISOR 40
+#define TEMPERATURE_CHANGE_MAX 20
+
 //Baseline portable generator. Has all the default handling. Not intended to be used on it's own (since it generates unlimited power).
 /obj/machinery/power/port_gen
 	name = "Placeholder Generator"	//seriously, don't use this. It can't be anchored without VV magic.
@@ -91,11 +94,8 @@
 			stat &= ~EMPED
 
 /obj/machinery/power/port_gen/proc/explode()
-	explosion(src.loc, -1, 3, 5, -1, cause = src)
+	explosion(loc, devastation_range = -1, heavy_impact_range = 3, light_impact_range = 5, flash_range = -1, cause = src)
 	qdel(src)
-
-#define TEMPERATURE_DIVISOR 40
-#define TEMPERATURE_CHANGE_MAX 20
 
 //A power generator that runs on solid plasma sheets.
 /obj/machinery/power/port_gen/pacman
@@ -116,7 +116,7 @@
 	var/max_power_output = 5	//The maximum power setting without emagging.
 	var/max_safe_output = 4		// For UI use, maximal output that won't cause overheat.
 	var/time_per_sheet = 96		//fuel efficiency - how long 1 sheet lasts at power level 1
-	var/max_sheets = 100 		//max capacity of the hopper
+	var/max_sheets = 100		//max capacity of the hopper
 	var/max_temperature = 300	//max temperature before overheating increases
 	var/temperature_gain = 50	//how much the temperature increases per power output level, in degrees per level
 
@@ -125,13 +125,11 @@
 	var/temperature = 0		//The current temperature
 	var/overheating = 0		//if this gets high enough the generator explodes
 
-/obj/machinery/power/port_gen/pacman/Initialize()
+/obj/machinery/power/port_gen/pacman/Initialize(mapload)
 	. = ..()
 	if(anchored)
 		connect_to_network()
 
-/obj/machinery/power/port_gen/pacman/New()
-	..()
 	component_parts = list()
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
@@ -141,8 +139,8 @@
 	component_parts += new board_path(null)
 	RefreshParts()
 
-/obj/machinery/power/port_gen/pacman/upgraded/New()
-	..()
+/obj/machinery/power/port_gen/pacman/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
@@ -424,8 +422,8 @@
 	time_per_sheet = 576 //same power output, but a 50 sheet stack will last 2 hours at max safe power
 	board_path = /obj/item/circuitboard/pacman/super
 
-/obj/machinery/power/port_gen/pacman/super/upgraded/New()
-	..()
+/obj/machinery/power/port_gen/pacman/super/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
@@ -450,7 +448,7 @@
 		//I dunno, maybe physics works different when you live in 2D -- SM radiation also works like this, apparently
 		L.apply_effect(max(20, round(rads/get_dist(L,src))), IRRADIATE)
 
-	explosion(src.loc, 3, 3, 5, 3, cause = src)
+	explosion(loc, devastation_range = 3, heavy_impact_range = 3, light_impact_range = 5, flash_range = 3, cause = src)
 	qdel(src)
 
 /obj/machinery/power/port_gen/pacman/mrs
@@ -471,8 +469,8 @@
 	temperature_gain = 90
 	board_path = /obj/item/circuitboard/pacman/mrs
 
-/obj/machinery/power/port_gen/pacman/mrs/upgraded/New()
-	..()
+/obj/machinery/power/port_gen/pacman/mrs/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
@@ -484,5 +482,9 @@
 
 /obj/machinery/power/port_gen/pacman/mrs/explode()
 	//no special effects, but the explosion is pretty big (same as a supermatter shard).
-	explosion(src.loc, 3, 6, 12, 16, 1, cause = src)
+	explosion(loc, devastation_range = 3, heavy_impact_range = 6, light_impact_range = 12, flash_range = 16, adminlog = TRUE, cause = src)
 	qdel(src)
+
+#undef SHEET_VOLUME
+#undef TEMPERATURE_DIVISOR
+#undef TEMPERATURE_CHANGE_MAX

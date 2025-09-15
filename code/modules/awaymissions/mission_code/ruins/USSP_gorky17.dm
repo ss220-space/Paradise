@@ -241,25 +241,25 @@
 
 /obj/item/paper/researchnotes/mat_bio_prog
 
-/obj/item/paper/researchnotes/mat_bio_prog/Initialize()
-	..()
+/obj/item/paper/researchnotes/mat_bio_prog/Initialize(mapload)
+	. = ..()
 	var/list/possible_techs = list("materials", "biotech", "programming")
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(6, 8)
 	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"
 
-/obj/structure/safe/random_researchnotes_MatBioProg/Initialize()
+/obj/structure/safe/random_researchnotes_MatBioProg/Initialize(mapload)
 	var/tech_spawn = pick(list(/obj/item/paper/researchnotes/mat_bio_prog))
 	new tech_spawn(loc)
 	return ..()
 
-/obj/structure/safe/floor/random_researchnotes_MatBioProg/Initialize()
+/obj/structure/safe/floor/random_researchnotes_MatBioProg/Initialize(mapload)
 	var/tech_spawn = pick(list(/obj/item/paper/researchnotes/mat_bio_prog))
 	new tech_spawn(loc)
 	return ..()
 
-/obj/structure/safe/random_documents/Initialize()
+/obj/structure/safe/random_documents/Initialize(mapload)
 	var/doc_spawn = pick(list(/obj/item/documents, /obj/item/documents/nanotrasen, /obj/item/documents/syndicate, /obj/item/documents/syndicate/yellow/trapped))
 	new doc_spawn(loc)
 	return ..()
@@ -351,15 +351,16 @@
 
 /obj/item/paper/gorky17
 	language = LANGUAGE_NEO_RUSSIAN
+
 /obj/item/paper/gorky17/talisman
 	name = "Проклятый талисман"
 	info = "<p><strong>НЕ ТРОГАЙ ЭТУ ХРЕНЬ ИЗ ЯЩИКА!</strong><br /> \
 	\n<strong>Я СЕРЬЁЗНО! НЕ-ТРО-ГАЙ! ИЛИ СДОХНЕШЬ, КАК ТЕ ТРОЕ БЕДОЛАГ!</strong><br />\
 	\nВ общем, рассказываю: была очередная вылазка в эти сраные врата (как же я заманался с ними, одного раза хватило, чтобы все любопытство отбить),\
 	сержант грезил, что вот после этой вылазки к нам отправят подкрепление и провиант.\
-	 Ага, хер там плавал - из команды в 10 человек вернулось трое, все перебитые и еле живые. На себе тащили по трупу.\
-	 Как оклемались в сан. части - парни рассказали, что по ту сторону сраные нацисты сидят и проводят какие то ритуалы крови (либо их накрыло после стимуляторов так, \
-	 либо эта нездоровая хрень реальна - надеюсь первое). \
+	Ага, хер там плавал - из команды в 10 человек вернулось трое, все перебитые и еле живые. На себе тащили по трупу.\
+	Как оклемались в сан. части - парни рассказали, что по ту сторону сраные нацисты сидят и проводят какие то ритуалы крови (либо их накрыло после стимуляторов так, \
+	либо эта нездоровая хрень реальна - надеюсь первое). \
 	Покромсали наших эти культисты, будь они прокляты своими же богами, нехило, как ты понял. \
 	Единственное, что они прихватили оттуда - какой то проклятый меч, да талисман. От 'талисмана', бумажки пропитанной кровью, как я понял, и померли те 3 срочника, \
 	тела которых притащили с вылазки... \
@@ -403,7 +404,7 @@
 	<br> Время отведенное на выполнение задачи <b>72 часа</b> с момента получения директивы. <br><br><i>	Оперативный штаб специальных операций</i>"
 
 
-/obj/item/paper/gorky17/orders/Initialize()
+/obj/item/paper/gorky17/orders/Initialize(mapload)
 	. = ..()
 	stamp(/obj/item/stamp/ussp)
 
@@ -500,13 +501,13 @@
 	name = "USSP conscript corpse"
 	icon = 'icons/mob/clothing/uniform.dmi'
 	icon_state = "soviet_s"
-	mob_name = "Unknown"
+	mob_name = UNKNOWN_NAME_RUS
 	random = TRUE
 	death = TRUE
 	disable_sensors = TRUE
 	outfit = /datum/outfit/usspconscript_corpse
 
-/obj/effect/mob_spawn/human/corpse/usspconscript/Initialize()
+/obj/effect/mob_spawn/human/corpse/usspconscript/Initialize(mapload)
 	brute_damage = rand(0, 400)
 	burn_damage = rand(0, 400)
 	return ..()
@@ -572,7 +573,7 @@
 		message_admins(adminlog)
 		add_game_logs(adminlog)
 	var/center = get_turf(src)
-	explosion(center, range_heavy, range_medium, range_light, flame_range = range_flame, adminlog = admin_log, ignorecap = 1, cause = fingerprintslast)
+	explosion(center, devastation_range = 20, heavy_impact_range = 35, light_impact_range = 45, adminlog = TRUE, ignorecap = TRUE, flame_range = 50, cause = fingerprintslast)
 	delete_unnecessary(center)
 	if(loc && istype(loc, /obj/machinery/syndicatebomb))
 		qdel(loc)

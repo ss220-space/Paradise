@@ -15,8 +15,8 @@
 
 		var/time_taken = I.embedded_unsafe_removal_time
 		user.visible_message(
-			span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся извлечь [I.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[limb][GENITIVE]] [H]."),
-			span_notice("Вы пытаетесь извлечь [I.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[limb][GENITIVE]] [H]... (Это займёт [time_taken/10] секунд.)")
+			span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся извлечь [I.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[limb.limb_zone][GENITIVE]] [H]."),
+			span_notice("Вы пытаетесь извлечь [I.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[limb.limb_zone][GENITIVE]] [H]... (Это займёт [time_taken/10] секунд.)")
 		)
 
 		if(do_after(user, time_taken, H))
@@ -28,8 +28,8 @@
 			if(H.has_pain())
 				H.emote("scream")
 			user.visible_message(
-				span_notice("[user] успешно извлек[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[limb][GENITIVE]] [H]!"),
-				span_notice("Вы успешно извлекли [I.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[limb][GENITIVE]] [H].")
+				span_notice("[user] успешно извлек[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[limb.limb_zone][GENITIVE]] [H]!"),
+				span_notice("Вы успешно извлекли [I.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[limb.limb_zone][GENITIVE]] [H].")
 			)
 			add_attack_logs(user, target, "Melee attacked with martial-art [MA] :  Remove embended", ATKLOG_ALL)
 			return MARTIAL_COMBO_DONE

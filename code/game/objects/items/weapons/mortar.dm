@@ -281,9 +281,9 @@
 	mortar.name = src.name
 	qdel(src)
 
-/obj/structure/mortar/ex_act(severity)
+/obj/structure/mortar/ex_act(severity, target)
 	switch(severity)
-		if(2 to INFINITY)
+		if(EXPLODE_HEAVY to INFINITY)
 			qdel(src)
 
 /obj/effect/mortar_effect
@@ -391,7 +391,6 @@
 	icon = 'icons/obj/structures/mortar.dmi'
 	icon_state = "mortar_m402_carry"
 	item_state = "mortar_m402_carry"
-	ru_names = list()
 	lefthand_file = 'icons/mob/inhands/items_by_map/jungle_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_by_map/jungle_righthand.dmi'
 	resistance_flags = ACID_PROOF
@@ -404,10 +403,11 @@
 	. = ..()
 	select_skin(skin)
 
-/obj/item/mortar_kit/ex_act(severity)
+/obj/item/mortar_kit/ex_act(severity, target)
 	switch(severity)
-		if(2 to INFINITY)
+		if(EXPLODE_HEAVY to INFINITY)
 			deconstruct(FALSE)
+
 /obj/item/mortar_kit/select_skin(new_skin)
 	. = ..()
 	var/new_icon_state

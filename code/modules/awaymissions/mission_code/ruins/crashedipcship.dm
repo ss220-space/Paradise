@@ -46,7 +46,7 @@
 	l_ear = /obj/item/radio/headset
 	gloves = /obj/item/clothing/gloves/color/black
 
-/obj/effect/mob_spawn/human/corpse/ipc/Initialize()
+/obj/effect/mob_spawn/human/corpse/ipc/Initialize(mapload)
 	brute_damage = rand(50, 99)
 	burn_damage = rand(50, 99)
 	return ..()

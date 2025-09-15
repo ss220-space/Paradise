@@ -152,6 +152,7 @@
 	can_toggle = TRUE
 	toggle_cooldown = 20
 	active_sound = 'sound/items/weeoo1.ogg'
+	active_sound_volume = 50
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/justice/escape
@@ -286,21 +287,24 @@
 	icon_state = "knight_blue"
 	item_state = "knight_blue"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot/knight/yellow
 	icon_state = "knight_yellow"
 	item_state = "knight_yellow"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot/knight/red
 	icon_state = "knight_red"
 	item_state = "knight_red"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/riot/knight/templar
@@ -310,20 +314,13 @@
 	item_state = "knight_templar"
 	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, rad = 0, fire = 80, acid = 80)
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/skull
 	name = "skull helmet"
 	desc = "Этот шлем, который выглядит устрашающе и походит на племенной, кажется не очень удобным."
-	ru_names = list(
-		NOMINATIVE = "костяной шлем",
-		GENITIVE = "костяного шлема",
-		DATIVE = "костяному шлему",
-		ACCUSATIVE = "костяной шлем",
-		INSTRUMENTAL = "костяным шлемом",
-		PREPOSITIONAL = "костяном шлеме"
-	)
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDENAME
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 45, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
@@ -331,17 +328,27 @@
 	item_state = "skull"
 	strip_delay = 100
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-    	SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
-    	)
+			SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+			SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
+		)
+
+/obj/item/clothing/head/helmet/skull/get_ru_names()
+	return list(
+		NOMINATIVE = "костяной шлем",
+		GENITIVE = "костяного шлема",
+		DATIVE = "костяному шлему",
+		ACCUSATIVE = "костяной шлем",
+		INSTRUMENTAL = "костяным шлемом",
+		PREPOSITIONAL = "костяном шлеме"
+	)
 
 /obj/item/clothing/head/helmet/skull/Yorick
 	name = "Йорик"
 	desc = "Бедный Йорик..."
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-    	SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
-    	)
+			SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+			SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
+		)
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
@@ -484,9 +491,10 @@
 /obj/item/clothing/head/helmet/biker
 	name = "Motorcycle helmet"
 	desc = "Самый обычный мотоциклетный шлем."
-	armor = list(MELEE = 25, BULLET = 10, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 0)
+	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 30, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 0)
 	icon_state = "biker"
 	item_state = "biker"
+	flash_protect = FLASH_PROTECTION_FLASH
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	color = "#161515"
@@ -507,3 +515,13 @@
 	. = ..()
 	var/mutable_appearance/biker_overlay = mutable_appearance(icon='icons/obj/clothing/hats.dmi', icon_state = "biker_overlay")
 	. += biker_overlay
+
+/obj/item/clothing/head/helmet/biker/get_ru_names()
+	return list(
+		NOMINATIVE = "мотоциклетный шлем",
+		GENITIVE = "мотоциклетного шлема",
+		DATIVE = "мотоциклетному шлему",
+		ACCUSATIVE = "мотоциклетный шлем",
+		INSTRUMENTAL = "мотоциклетным шлемом",
+		PREPOSITIONAL = "мотоциклетном шлеме"
+	)

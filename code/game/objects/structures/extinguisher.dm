@@ -46,10 +46,10 @@
 	QDEL_NULL(has_extinguisher)
 	return ..()
 
-/obj/structure/extinguisher_cabinet/ex_act(severity)
+/obj/structure/extinguisher_cabinet/ex_act(severity, target)
 	if(has_extinguisher)
-		has_extinguisher.ex_act(severity)
-	..()
+		has_extinguisher.ex_act(severity, target)
+	return ..()
 
 /obj/structure/extinguisher_cabinet/handle_atom_del(atom/A)
 	if(A == has_extinguisher)

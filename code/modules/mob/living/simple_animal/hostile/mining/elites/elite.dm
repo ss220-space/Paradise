@@ -11,14 +11,6 @@
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
 	name = "elite"
-	ru_names = list(
-		NOMINATIVE = "элита",
-		GENITIVE = "элиты",
-		DATIVE = "элите",
-		ACCUSATIVE = "элиту",
-		INSTRUMENTAL = "элитой",
-		PREPOSITIONAL = "элите"
-	)
 	desc = "Элитный монстр, найденный в одном из странных опухолей на Лазисе."
 	icon = 'icons/mob/lavaland/lavaland_elites.dmi'
 	faction = list("boss")
@@ -48,6 +40,16 @@
 	var/revive_cooldown = FALSE // Actually is a flag to check if is revived by a non antag
 	var/antag_revived_heal_mod = 0.33 // How much max hp loses if is revived by antag and then healed
 	var/enemies_count_scale = 1.3 // 30% stronger per enemy
+
+/mob/living/simple_animal/hostile/asteroid/elite/get_ru_names()
+	return list(
+		NOMINATIVE = "элита",
+		GENITIVE = "элиты",
+		DATIVE = "элите",
+		ACCUSATIVE = "элиту",
+		INSTRUMENTAL = "элитой",
+		PREPOSITIONAL = "элите"
+	)
 
 //Gives player-controlled variants the ability to swap attacks
 /mob/living/simple_animal/hostile/asteroid/elite/Initialize(mapload)
@@ -122,14 +124,12 @@
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			adjustBruteLoss(75)
-
 		if(EXPLODE_HEAVY)
 			adjustBruteLoss(50)
-
 		if(EXPLODE_LIGHT)
 			adjustBruteLoss(25)
 
-/mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
+/mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(list/activators)
 	dif_mult = enemies_count_scale ** (length(activators)-1)
 	dif_mult_dmg = (dif_mult + 1) * 0.5
 	if(scale_with_time && world.time > STRENGTH_INCREASE_TIME)
@@ -213,14 +213,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor
 	name = "pulsing tumor"
-	ru_names = list(
-		NOMINATIVE = "пульсирующая опухоль",
-		GENITIVE = "пульсирующей опухоли",
-		DATIVE = "пульсирующей опухоли",
-		ACCUSATIVE = "пульсирующую опухоль",
-		INSTRUMENTAL = "пульсирующей опухолью",
-		PREPOSITIONAL = "пульсирующей опухоли"
-	)
 	desc = "Странная, пульсирующая опухоль, торчащая из земли. Вы чувствуете побуждение протянуть руку и коснуться её..."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	icon = 'icons/obj/lavaland/tumor.dmi'
@@ -235,7 +227,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/times_won = 0
 	var/list/mob/living/carbon/human/activators
 	var/mob/living/simple_animal/hostile/asteroid/elite/mychild = null
-	var/gps
 	///List of all potentially spawned elites
 	var/potentialspawns = list(
 		/mob/living/simple_animal/hostile/asteroid/elite/broodmother,
@@ -246,6 +237,16 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 	///List of invaders that have teleportes into the arena *multiple times*. They will be suffering.
 	var/list/invaders = list()
+
+/obj/structure/elite_tumor/get_ru_names()
+	return list(
+		NOMINATIVE = "пульсирующая опухоль",
+		GENITIVE = "пульсирующей опухоли",
+		DATIVE = "пульсирующей опухоли",
+		ACCUSATIVE = "пульсирующую опухоль",
+		INSTRUMENTAL = "пульсирующей опухолью",
+		PREPOSITIONAL = "пульсирующей опухоли"
+	)
 
 /obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
 	. = ..()
@@ -330,12 +331,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
-	gps = new /obj/item/gps/internal/tumor(src)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/elite_tumor/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	QDEL_NULL(gps)
 	invaders.Cut()
 	for(var/mob/living/carbon/human/activator in activators)
 		clear_activator(activator)
@@ -495,14 +494,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/item/tumor_shard
 	name = "tumor shard"
-	ru_names = list(
-		NOMINATIVE = "осколок опухоли",
-		GENITIVE = "осколка опухоли",
-		DATIVE = "осколку опухоли",
-		ACCUSATIVE = "осколок опухоли",
-		INSTRUMENTAL = "осколком опухоли",
-		PREPOSITIONAL = "осколке опухоли"
-	)
 	desc = "Странный острый кристаллический осколок из необычной опухоли Лазиса. Если пронзить им труп элиты Лазиса, это воскресит существо - при условии, что его душа ещё не ушла. Воскрешённые элиты имеют только половину здоровья, и абсолютно лояльны к своему воскресителю."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "crevice_shard"
@@ -510,6 +501,16 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
+
+/obj/item/tumor_shard/get_ru_names()
+	return list(
+		NOMINATIVE = "осколок опухоли",
+		GENITIVE = "осколка опухоли",
+		DATIVE = "осколку опухоли",
+		ACCUSATIVE = "осколок опухоли",
+		INSTRUMENTAL = "осколком опухоли",
+		PREPOSITIONAL = "осколке опухоли"
+	)
 
 /obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag, params)
 	. = ..()
@@ -543,14 +544,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/effect/temp_visual/elite_tumor_wall
 	name = "magic wall"
-	ru_names = list(
-		NOMINATIVE = "магическая стена",
-		GENITIVE = "магической стены",
-		DATIVE = "магической стене",
-		ACCUSATIVE = "магическую стену",
-		INSTRUMENTAL = "магической стеной",
-		PREPOSITIONAL = "магической стене"
-	)
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
 	icon_state = "wall"
 	base_icon_state = "hierophant_wall_temp"
@@ -559,10 +552,20 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
-	light_color = LIGHT_COLOR_PURE_RED
+	light_color = LIGHT_COLOR_INTENSE_RED
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_HIERO_VORTEX
 	smoothing_groups = SMOOTH_GROUP_HIERO_VORTEX
+
+/obj/effect/temp_visual/elite_tumor_wall/get_ru_names()
+	return list(
+		NOMINATIVE = "магическая стена",
+		GENITIVE = "магической стены",
+		DATIVE = "магической стене",
+		ACCUSATIVE = "магическую стену",
+		INSTRUMENTAL = "магической стеной",
+		PREPOSITIONAL = "магической стене"
+	)
 
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()
@@ -580,13 +583,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		return TRUE
 	if(isliving(mover) || isprojectile(mover))
 		return FALSE
-
-
-/obj/item/gps/internal/tumor
-	icon_state = null
-	gpstag = "Cancerous Signal"
-	desc = "Ghosts in a fauna? That's cancerous!"
-	invisibility = 100
 
 #undef TUMOR_INACTIVE
 #undef TUMOR_ACTIVE

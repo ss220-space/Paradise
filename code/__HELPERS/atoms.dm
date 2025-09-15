@@ -94,7 +94,7 @@
 			atoms |= check.collect_all_atoms_of_type(path, blacklist)
 	return atoms
 /**
- * 	Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
+ *	Proc that returns if selected loc, or atom is within boundaries of playable area. (non-transitional space)
  */
 /proc/is_location_within_transition_boundaries(atom/loc)
 	return (loc.x > TRANSITION_BORDER_WEST) \
@@ -111,8 +111,8 @@
 	var/icon_width = icon_dimensions["width"]
 	var/icon_height = icon_dimensions["height"]
 	return list(
-		"x" = icon_width > world.icon_size && pixel_x != 0 ? (icon_width - world.icon_size) * 0.5 : 0,
-		"y" = icon_height > world.icon_size && pixel_y != 0 ? (icon_height - world.icon_size) * 0.5 : 0,
+		"x" = icon_width > ICON_SIZE_X && pixel_x != 0 ? (icon_width - ICON_SIZE_X) * 0.5 : 0,
+		"y" = icon_height > ICON_SIZE_Y && pixel_y != 0 ? (icon_height - ICON_SIZE_Y) * 0.5 : 0,
 	)
 
 
@@ -146,4 +146,3 @@
 
 /// Adds the debris element for projectile impacts.
 /atom/proc/add_debris_element()
-	AddElement(/datum/element/debris, null, -40, 8, 0.7)

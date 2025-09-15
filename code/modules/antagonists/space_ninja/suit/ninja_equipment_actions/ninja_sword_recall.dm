@@ -49,7 +49,7 @@
 				energyKatana.returnToOwner(ninja, 1)
 				return
 			energyKatana.spark_system.start()
-			playsound(ninja, "sparks", 50, TRUE, -9)
+			playsound(ninja, SFX_SPARKS, 50, TRUE, -9)
 			ninja.visible_message(span_danger("\the [energyKatana] flies towards [ninja]!"),span_warning("You hold out your hand and \the [energyKatana] flies towards you!"))
 			energyKatana.throw_at(ninja, distance+1, energyKatana.throw_speed)
 

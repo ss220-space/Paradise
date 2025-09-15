@@ -9,9 +9,9 @@ SUBSYSTEM_DEF(holiday)
 	if(!CONFIG_GET(flag/allow_holidays))
 		return //Holiday stuff was not enabled in the config!
 
-	var/YY = text2num(time2text(world.timeofday, "YY")) 	// get the current year
-	var/MM = text2num(time2text(world.timeofday, "MM")) 	// get the current month
-	var/DD = text2num(time2text(world.timeofday, "DD")) 	// get the current day
+	var/YY = text2num(time2text(world.timeofday, "YY"))	// get the current year
+	var/MM = text2num(time2text(world.timeofday, "MM"))	// get the current month
+	var/DD = text2num(time2text(world.timeofday, "DD"))	// get the current day
 
 	for(var/H in subtypesof(/datum/holiday))
 		var/datum/holiday/holiday = new H()

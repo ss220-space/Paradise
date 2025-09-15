@@ -4,7 +4,7 @@
 
 /datum/element/after_attack
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY|ELEMENT_BESPOKE
-	id_arg_index = 2
+	argument_hash_start_idx = 2
 	/// Does the effect differ between a block and a successful attack
 	var/has_block_different_effect = TRUE
 

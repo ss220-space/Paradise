@@ -3,20 +3,12 @@
 /obj/machinery/computer/operating
 	name = "operating computer"
 	desc = "Высокотехнологичный медицинский компьютер, используемый для контролирования процесса хиругических операций."
-	ru_names = list(
-		NOMINATIVE = "операционный компьютер",
-		GENITIVE = "операционного компьютера",
-		DATIVE = "операционному компьютеру",
-		ACCUSATIVE = "операционный компьютер",
-		INSTRUMENTAL = "операционным компьютером",
-		PREPOSITIONAL = "операционном компьютере"
-	)
 	density = TRUE
 	anchored = TRUE
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	circuit = /obj/item/circuitboard/operating
-	light_color = LIGHT_COLOR_PURE_BLUE
+	light_color = LIGHT_COLOR_BLUE
 	var/obj/machinery/optable/table
 	var/verbose = TRUE //general speaker toggle
 	var/oxyAlarm = 30 //oxy damage at which the computer will beep
@@ -32,8 +24,18 @@
 	var/mob/living/carbon/currentPatient
 	var/patientStatusHolder //Hold the last instance of table.patient.status. When table.patient.status no longer matches this variable, the computer should tell the doctor
 
-/obj/machinery/computer/operating/New()
-	..()
+/obj/machinery/computer/operating/get_ru_names()
+	return list(
+		NOMINATIVE = "операционный компьютер",
+		GENITIVE = "операционного компьютера",
+		DATIVE = "операционному компьютеру",
+		ACCUSATIVE = "операционный компьютер",
+		INSTRUMENTAL = "операционным компьютером",
+		PREPOSITIONAL = "операционном компьютере"
+	)
+
+/obj/machinery/computer/operating/Initialize(mapload)
+	. = ..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		table = locate(/obj/machinery/optable, get_step(src, dir))
 		if(table)
@@ -245,3 +247,5 @@
 	icon_screen = "med_oldframe"
 	icon_state = "frame-med"
 	icon_keyboard = "kb5"
+
+#undef OP_COMPUTER_COOLDOWN

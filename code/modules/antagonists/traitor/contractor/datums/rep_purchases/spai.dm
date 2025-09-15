@@ -1,6 +1,6 @@
 /**
-  * # Rep Purchase - SPAI Kit
-  */
+ * # Rep Purchase - SPAI Kit
+ */
 /datum/rep_purchase/item/spai_kit
 	name = "Набор СПИИ"
 	description = "Усовершенствованная версия обычного ПИИ. Он отличается большим объёмом памяти и наличием специальных программ, \
@@ -13,7 +13,11 @@
 
 /obj/item/storage/box/contractor/spai_kit
 	name = "Boxed Contractor SPAI"
-	ru_names = list(
+	gender = MALE
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/box/contractor/spai_kit/get_ru_names()
+	return list(
 		NOMINATIVE = "набор СПИИ Контрактника",
 		GENITIVE = "набора СПИИ Контрактника",
 		DATIVE = "набору СПИИ Контрактника",
@@ -21,8 +25,6 @@
 		INSTRUMENTAL = "набором СПИИ Контрактника",
 		PREPOSITIONAL = "наборе СПИИ Контрактника"
 	)
-	gender = MALE
-	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/contractor/spai_kit/populate_contents()
 	new /obj/item/paicard(src)

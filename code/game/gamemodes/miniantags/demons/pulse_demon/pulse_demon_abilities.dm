@@ -2,12 +2,12 @@
 #define PULSEDEMON_REMOTE_DRAIN_MULTIPLIER 5
 
 #define PD_UPGRADE_HIJACK_SPEED "Speed"
-#define PD_UPGRADE_DRAIN_SPEED  "Absorption"
-#define PD_UPGRADE_HEALTH_LOSS  "Endurance"
+#define PD_UPGRADE_DRAIN_SPEED "Absorption"
+#define PD_UPGRADE_HEALTH_LOSS "Endurance"
 #define PD_UPGRADE_HEALTH_REGEN "Recovery"
-#define PD_UPGRADE_MAX_HEALTH   "Strength"
-#define PD_UPGRADE_HEALTH_COST  "Efficiency"
-#define PD_UPGRADE_MAX_CHARGE   "Capacity"
+#define PD_UPGRADE_MAX_HEALTH "Strength"
+#define PD_UPGRADE_HEALTH_COST "Efficiency"
+#define PD_UPGRADE_MAX_CHARGE "Capacity"
 
 /obj/effect/proc_holder/spell/pulse_demon
 	school = "pulse demon"
@@ -198,7 +198,7 @@
 
 /obj/effect/proc_holder/spell/pulse_demon/overload/proc/detonate(obj/machinery/target)
 	if(!QDELETED(target))
-		explosion(get_turf(target), 0, 1, 1, 0)
+		explosion(get_turf(target), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 1, flash_range = 0)
 		if(!QDELETED(target))
 			qdel(target)
 
@@ -489,3 +489,12 @@
 	return TRUE
 
 #undef KW
+#undef PULSEDEMON_REMOTE_DRAIN_MULTIPLIER
+
+#undef PD_UPGRADE_HIJACK_SPEED
+#undef PD_UPGRADE_DRAIN_SPEED
+#undef PD_UPGRADE_HEALTH_LOSS
+#undef PD_UPGRADE_HEALTH_REGEN
+#undef PD_UPGRADE_MAX_HEALTH
+#undef PD_UPGRADE_HEALTH_COST
+#undef PD_UPGRADE_MAX_CHARGE

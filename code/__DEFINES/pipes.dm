@@ -15,9 +15,9 @@
 #define PIPE_INSULATED_BENT			12
 #define PIPE_GAS_FILTER				13
 #define PIPE_GAS_MIXER				14
-#define PIPE_PASSIVE_GATE      		15
-#define PIPE_VOLUME_PUMP        	16
-#define PIPE_HEAT_EXCHANGE     		17
+#define PIPE_PASSIVE_GATE     		15
+#define PIPE_VOLUME_PUMP       	16
+#define PIPE_HEAT_EXCHANGE    		17
 #define PIPE_TVALVE					18
 #define PIPE_MANIFOLD4W				19
 #define PIPE_CAP					20
@@ -32,9 +32,9 @@
 #define PIPE_SCRUBBERS_MANIFOLD4W	31
 #define PIPE_SUPPLY_CAP				32
 #define PIPE_SCRUBBERS_CAP			33
-#define PIPE_INJECTOR    			34
-#define PIPE_DVALVE           	 	35
-#define PIPE_DP_VENT    			36
+#define PIPE_INJECTOR   			34
+#define PIPE_DVALVE          		35
+#define PIPE_DP_VENT   			36
 #define PIPE_PASV_VENT				37
 #define PIPE_DTVALVE				38
 #define PIPE_CIRCULATOR				39

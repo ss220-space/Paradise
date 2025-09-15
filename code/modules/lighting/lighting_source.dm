@@ -132,12 +132,12 @@
 #define LUM_FALLOFF_MULTIZ(C) (1 - CLAMP01(sqrt((C.x - _turf_x) ** 2 + (C.y - _turf_y) ** 2 + abs(C.z - _turf_z) ** 2 + LIGHTING_HEIGHT) / _range_divisor))
 
 #define APPLY_CORNER(C)                      \
-	if(C.z == _turf_z) { 					 \
-		. = LUM_FALLOFF(C); 				 \
-	} 										 \
-	else { 									 \
+	if(C.z == _turf_z) {					 \
+		. = LUM_FALLOFF(C);				 \
+	}										 \
+	else {									 \
 		. = LUM_FALLOFF_MULTIZ(C)			 \
-	} 										 \
+	}										 \
 	. *= _light_power;                        \
 	var/OLD = effect_str[C];                 \
 	                                         \
@@ -340,10 +340,12 @@
 
 	UNSETEMPTY(src.effect_str)
 
-#undef EFFECT_UPDATE
-#undef LUM_FALLOFF
-#undef REMOVE_CORNER
 #undef APPLY_CORNER
-#undef SETUP_CORNERS_REMOVAL_CACHE
-#undef SETUP_CORNERS_CACHE
+#undef EFFECT_UPDATE
 #undef GENERATE_MISSING_CORNERS
+#undef INSERT_CORNERS
+#undef LUM_FALLOFF
+#undef LUM_FALLOFF_MULTIZ
+#undef REMOVE_CORNER
+#undef SETUP_CORNERS_CACHE
+#undef SETUP_CORNERS_REMOVAL_CACHE

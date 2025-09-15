@@ -1,6 +1,6 @@
 /obj/item/assembly/signaler
 	name = "remote signaling device"
-	desc = "Used to remotely activate devices."
+	desc = "Используется для удалённой активации устройств."
 	icon_state = "signaller"
 	item_state = "signaler"
 	materials = list(MAT_METAL=400, MAT_GLASS=120)
@@ -19,7 +19,18 @@
 	var/airlock_wire = null
 
 
-/obj/item/assembly/signaler/Initialize()
+/obj/item/assembly/signaler/get_ru_names()
+	return list(
+		NOMINATIVE = "сигнальное устройство",
+		GENITIVE = "сигнального устройства",
+		DATIVE = "сигнальному устройству",
+		ACCUSATIVE = "сигнальное устройство",
+		INSTRUMENTAL = "сигнальным устройством",
+		PREPOSITIONAL = "сигнальном устройстве",
+	)
+
+
+/obj/item/assembly/signaler/Initialize(mapload)
 	. = ..()
 	if(SSradio)
 		set_frequency(frequency)

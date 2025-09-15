@@ -53,8 +53,8 @@
 	register_alarms = 0
 
 /mob/living/silicon/proc/init_subsystems()
-	atmos_control 	= new(src)
-	crew_monitor 	= new(src)
+	atmos_control	= new(src)
+	crew_monitor	= new(src)
 	law_manager		= new(src)
 	power_monitor	= new(src)
 	gps				= new(src)

@@ -2,14 +2,6 @@
 /obj/item/bee_briefcase
 	name = "briefcase"
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
-	ru_names = list(
-		NOMINATIVE = "портфель",
-		GENITIVE = "портфеля",
-		DATIVE = "портфелю",
-		ACCUSATIVE = "портфель",
-		INSTRUMENTAL = "портфелем",
-		PREPOSITIONAL = "портфеле"
-	)
 	gender = MALE
 	description_antag = "A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it."
 	icon = 'icons/obj/storage.dmi'
@@ -23,12 +15,22 @@
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("ударил", "огрел")
 	var/bees_left = 10
-	var/list/blood_list = list()
+	var/list/blood_list
 	var/sound_file = 'sound/misc/briefcase_bees.ogg'
 	var/next_sound = 0
 
+/obj/item/bee_briefcase/get_ru_names()
+	return list(
+		NOMINATIVE = "портфель",
+		GENITIVE = "портфеля",
+		DATIVE = "портфелю",
+		ACCUSATIVE = "портфель",
+		INSTRUMENTAL = "портфелем",
+		PREPOSITIONAL = "портфеле"
+	)
+
 /obj/item/bee_briefcase/Destroy()
-	blood_list.Cut()
+	LAZYCLEARLIST(blood_list)
 	return ..()
 
 /obj/item/bee_briefcase/examine(mob/user)
@@ -53,8 +55,8 @@
 		to_chat(user, span_notice("You inject [src] with [syringe]."))
 		for(var/datum/reagent/reagent as anything in syringe.reagents.reagent_list)
 			if(reagent.id == "blood")
-				if(!(reagent.data["donor"] in blood_list))
-					blood_list += reagent.data["donor"]
+				if(!(LAZYIN(blood_list, reagent.data["donor"])))
+					LAZYADD(blood_list, reagent.data["donor"])
 				continue
 			if(reagent.id == "strange_reagent")		//RELOAD THE BEES (1 bee per 1 unit, max 15 bees)
 				if(bees_left < 15)
@@ -91,5 +93,5 @@
 		//Release up to 5 bees per use. Without using strange reagent, that means two uses. WITH strange reagent, you can get more if you don't release the last bee
 		for(var/bee = min(5, bees_left), bee > 0, bee--)
 			var/mob/living/simple_animal/hostile/poison/bees/syndi/B = new (get_turf(user))
-			B.master_and_friends = blood_list.Copy()	//Doesn't automatically add the person who opens the case, so the bees will attack the user unless they gave their blood
+			B.master_and_friends = LAZYCOPY(blood_list)	//Doesn't automatically add the person who opens the case, so the bees will attack the user unless they gave their blood
 			bees_left--

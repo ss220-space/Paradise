@@ -49,12 +49,13 @@ Notes:
 
 
 /datum/tooltip/proc/show(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
-	if(!thing || !params || (!title && !content) || !owner || !isnum(world.icon_size))
-		return 0
+	if(!thing || !params || (!title && !content) || !owner || !isnum(ICON_SIZE_ALL))
+		return FALSE
+
 	if(!init)
 		//Initialize some vars
 		init = 1
-		owner << output(list2params(list(world.icon_size, control)), "[control]:tooltip.init")
+		owner << output(list2params(list(ICON_SIZE_ALL, control)), "[control]:tooltip.init")
 
 	showing = 1
 
@@ -78,7 +79,7 @@ Notes:
 	if(queueHide)
 		hide()
 
-	return 1
+	return TRUE
 
 
 /datum/tooltip/proc/hide()
@@ -88,9 +89,9 @@ Notes:
 	else
 		winshow(owner, control, 0)
 
-	queueHide = showing ? 1 : 0
+	queueHide = showing ? TRUE : FALSE
 
-	return 1
+	return TRUE
 
 
 /* TG SPECIFIC CODE */

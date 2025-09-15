@@ -198,7 +198,14 @@
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
 	desc = "Набор деталей для инвалидной коляски."
-	ru_names = list(
+	icon_state = "modkit"
+	var/new_icon_state = "vox_wheelchair"
+	var/new_overlay = "vox_wheelchair_overlay"
+	var/new_name = "vox wheelchair"
+	var/new_desc = "Роскошная инвалидная коляска, когда-то принадлежавшая воксу."
+
+/obj/item/fluff/rapid_wheelchair_kit/get_ru_names()
+	return list(
 		NOMINATIVE = "комплект модификаций для инвалидной коляски",
 		GENITIVE = "комплекта модификаций для инвалидной коляски",
 		DATIVE = "комплекту модификаций для инвалидной коляски",
@@ -206,11 +213,6 @@
 		INSTRUMENTAL = "комплектом модификаций для инвалидной коляски",
 		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски"
 	)
-	icon_state = "modkit"
-	var/new_icon_state = "vox_wheelchair"
-	var/new_overlay = "vox_wheelchair_overlay"
-	var/new_name = "vox wheelchair"
-	var/new_desc = "Роскошная инвалидная коляска, когда-то принадлежавшая воксу."
 
 /obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
@@ -234,7 +236,7 @@
 
 /obj/item/lighter/zippo/fluff/michael_guess_1 // mrbits: Callista Gold
 	name = "engraved lighter"
-	desc = "A golden lighter, engraved with some ornaments and a G."
+	desc = "A golden lighter, engraved with some ornaments."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "guessip"
 	item_state = "rubysfluffzippo"
@@ -1082,7 +1084,7 @@
 	adjust_flavour = "unzip"
 
 //////////// Uniforms ////////////
-/obj/item/clothing/under/fluff/counterfeitguise_uniform 	// thatdanguy23 : Rissa Williams
+/obj/item/clothing/under/fluff/counterfeitguise_uniform	// thatdanguy23 : Rissa Williams
 	icon = 'icons/obj/custom_items.dmi'
 	name = "Rissa's hand-me-downs"
 	desc = "An old, hand-me-down baggy sweater and sweatpants combo. A label on the neck reads 'RISSA' in scruffy handwriting."
@@ -1102,12 +1104,12 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
-    icon = 'icons/obj/custom_items.dmi'
-    name = "Soviet Casual Uniform"
-    desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
-    icon_state = "soviet_casual_uniform"
-    item_state = "soviet_casual_uniform"
-    item_color = "soviet_casual_uniform"
+	icon = 'icons/obj/custom_items.dmi'
+	name = "Soviet Casual Uniform"
+	desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
+	icon_state = "soviet_casual_uniform"
+	item_state = "soviet_casual_uniform"
+	item_color = "soviet_casual_uniform"
 
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
@@ -1271,8 +1273,10 @@
 	attack_verb = list("тыкнул")
 	actions_types = list(/datum/action/item_action/adjust)
 	var/prompting_change = FALSE
-	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
-								 "coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
+	var/list/plush_colors = list(
+		"red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
+		"coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox"
+	)
 
 /obj/item/toy/plushie/fluff/fox/proc/change_color(mob/user)
 	if(prompting_change)
@@ -1605,12 +1609,12 @@
 	item_color = "Xann_necklace"
 
 /obj/item/clothing/accessory/rbscarf //Rb303: Isthel Eisenwald
-    name = "Old purple scarf"
-    desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
-    icon = 'icons/obj/custom_items.dmi'
-    icon_state = "rbscarf"
-    item_state = "rbscarf"
-    item_color = "rbscarf"
+	name = "Old purple scarf"
+	desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "rbscarf"
+	item_state = "rbscarf"
+	item_color = "rbscarf"
 
 /obj/item/instrument/accordion/fluff/asmer_accordion //Asmerath: Coloratura
 	name = "Rara's Somber Accordion"

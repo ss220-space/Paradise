@@ -6,14 +6,14 @@
 #define DEFAULT_SCAN_RANGE		7	//default view range for finding targets.
 
 //Mode defines
-#define BOT_IDLE 			0	// idle
-#define BOT_HUNT 			1	// found target, hunting
-#define BOT_PREP_ARREST 	2	// at target, preparing to arrest
+#define BOT_IDLE			0	// idle
+#define BOT_HUNT			1	// found target, hunting
+#define BOT_PREP_ARREST	2	// at target, preparing to arrest
 #define BOT_ARREST			3	// arresting target
 #define BOT_START_PATROL	4	// start patrol
 #define BOT_PATROL			5	// patrolling
 #define BOT_SUMMON			6	// summoned by PDA
-#define BOT_CLEANING 		7	// cleaning (cleanbots)
+#define BOT_CLEANING		7	// cleaning (cleanbots)
 #define BOT_REPAIRING		8	// repairing hull breaches (floorbots)
 #define BOT_MOVING			9	// for clean/floor/med bots, when moving.
 #define BOT_HEALING			10	// healing people (medbots)

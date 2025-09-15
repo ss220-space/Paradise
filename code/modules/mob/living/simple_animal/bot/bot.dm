@@ -264,7 +264,7 @@
 		QDEL_NULL(path_hud)
 		path_hud = null
 
- 	GLOB.bots_list -= src
+	GLOB.bots_list -= src
 
 	QDEL_NULL(path)
 	QDEL_NULL(Radio)
@@ -441,13 +441,13 @@
 			balloon_alert(user, "слот для ПИИ занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!card.pai || !card.pai.mind)
-			balloon_alert(user, "ПИИ не активен!")
+			balloon_alert(user, UNLINT("ПИИ не активен!"))
 			return ATTACK_CHAIN_PROCEED
 		if(key || (!allow_pai && !card.pai.syndipai))
 			balloon_alert(user, "робот не совместим с ПИИ!")
 			return ATTACK_CHAIN_PROCEED
 		if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
-			balloon_alert(user, "ПИИ не совместим с роботом!")
+			balloon_alert(user, UNLINT("ПИИ не совместим с роботом!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(card, src))
 			return ..()
@@ -475,7 +475,7 @@
 		balloon_alert(user, "извлечение ПИИ")
 		if(!do_after(user, 3 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || open || !paicard)
 			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "ПИИ извлечён")
+		balloon_alert(user, UNLINT("ПИИ извлечён"))
 		visible_message(
 			span_notice("[user] вытащи[genderize_ru(user.gender, "л", "ла", "ло", "ли")] [paicard] из [declent_ru(GENITIVE)]!"),
 			span_notice("Вы вытащили [paicard] из [declent_ru(GENITIVE)]."),
@@ -524,7 +524,7 @@
 /mob/living/simple_animal/bot/bullet_act(obj/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		if(prob(75) && Proj.damage > 0)
-			do_sparks(5, 1, src)
+			do_sparks(5, TRUE, src)
 	return ..()
 
 
@@ -917,7 +917,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return
 
 	if(client)
-		bot_control_message(r_command, user, signal.data["target"] ? signal.data["target"] : "Unknown")
+		bot_control_message(r_command, user, signal.data["target"] ? signal.data["target"] : UNKNOWN_STATUS_RUS)
 
 	// process control input
 	switch(r_command)

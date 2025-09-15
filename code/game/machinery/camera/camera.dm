@@ -102,10 +102,10 @@
 
 	cancelCameraAlarm()
 
-/obj/machinery/camera/ex_act(severity)
+/obj/machinery/camera/ex_act(severity, target)
 	if(invuln)
 		return
-	..()
+	return ..()
 
 /obj/machinery/camera/proc/setViewRange(num = 7)
 	view_range = num
@@ -166,7 +166,7 @@
 		for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
 			if(AI.control_disabled || (AI.stat == DEAD))
 				continue
-			if(user.name == "Unknown")
+			if(user.name == UNKNOWN_NAME_RUS)
 				to_chat(AI, "<b>[user]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
 			else
 				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> holds <a href='byond://?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
@@ -485,7 +485,7 @@
 	use_power = NO_POWER_USE
 	interact_offline = TRUE
 
-/obj/machinery/camera/mortar/Initialize()
+/obj/machinery/camera/mortar/Initialize(mapload)
 	c_tag = "Para-Cam ([x]):([y])"
 	. = ..()
 	QDEL_IN(src, 3 MINUTES)

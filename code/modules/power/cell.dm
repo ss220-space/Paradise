@@ -173,7 +173,6 @@
 	if(light_impact_range == 0)
 		corrupt()
 		return
-	//explosion(T, 0, 1, 2, 2)
 	log_admin("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 	message_admins("LOG: Rigged power cell explosion, last touched by [fingerprintslast]")
 	rigged = FALSE
@@ -191,18 +190,20 @@
 	charge -= 1000 / severity
 	if(charge < 0)
 		charge = 0
-	..()
+	return ..()
 
-/obj/item/stock_parts/cell/ex_act(severity)
-	..()
-	if(!QDELETED(src))
-		switch(severity)
-			if(2)
-				if(prob(50))
-					corrupt()
-			if(3)
-				if(prob(25))
-					corrupt()
+/obj/item/stock_parts/cell/ex_act(severity, target)
+	. = ..()
+	if(QDELETED(src))
+		return
+
+	switch(severity)
+		if(EXPLODE_HEAVY)
+			if(prob(50))
+				corrupt()
+		if(EXPLODE_LIGHT)
+			if(prob(25))
+				corrupt()
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
 	ex_act(EXPLODE_DEVASTATE)

@@ -275,14 +275,6 @@
 /obj/structure/closet/sechammercabinet
 	name = "tactical sledgehammer cabinet"
 	desc = "Стойка, предназначенная для хранения тактической кувалды. Надпись гласит: \"Для особых случаев\"."
-	ru_names = list(
-		NOMINATIVE = "стойка для тактической кувалды",
-		GENITIVE = "стойки для тактической кувалды",
-		DATIVE = "стойке для тактической кувалды",
-		ACCUSATIVE = "стойку для тактической кувалды",
-		INSTRUMENTAL = "стойкой для тактической кувалды",
-		PREPOSITIONAL = "стойке для тактической кувалды"
-	)
 	gender = MALE
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "sechammer_full"
@@ -292,6 +284,16 @@
 	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 90, ACID = 50)
 	var/obj/item/twohanded/sechammer/sledgehammer
 	opened = TRUE
+
+/obj/structure/closet/sechammercabinet/get_ru_names()
+	return list(
+		NOMINATIVE = "стойка для тактической кувалды",
+		GENITIVE = "стойки для тактической кувалды",
+		DATIVE = "стойке для тактической кувалды",
+		ACCUSATIVE = "стойку для тактической кувалды",
+		INSTRUMENTAL = "стойкой для тактической кувалды",
+		PREPOSITIONAL = "стойке для тактической кувалды"
+	)
 
 
 /obj/structure/closet/sechammercabinet/Destroy()

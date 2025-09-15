@@ -281,14 +281,15 @@
 		return ..()
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
-	var/list/click_params = params2list(params)
+	var/list/modifiers = params2list(params)
 	//Center the icon where the user clicked.
-	if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+	if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 		return .
 	//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-	I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-	I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+	I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, - (ICON_SIZE_X / 2), ICON_SIZE_X / 2)
+	I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 	item_placed(I)
+	SEND_SIGNAL(I, COMSIG_ITEM_PLACED_ON_TABLE, user, src)
 
 
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
@@ -538,7 +539,7 @@
 /obj/structure/table/glass/proc/table_shatter(mob/living/L)
 	visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] разбивается!"), span_danger("Вы слышите, как бьется стекло"))
 	var/turf/T = get_turf(src)
-	playsound(T, "shatter", 50, TRUE)
+	playsound(T, SFX_SHATTER, 50, TRUE)
 	for(var/I in debris)
 		var/atom/movable/AM = I
 		AM.forceMove(T)
@@ -565,7 +566,7 @@
 			return
 		else
 			var/turf/T = get_turf(src)
-			playsound(T, "shatter", 50, TRUE)
+			playsound(T, SFX_SHATTER, 50, TRUE)
 			for(var/X in debris)
 				var/atom/movable/AM = X
 				AM.forceMove(T)
@@ -785,7 +786,7 @@
 	var/list/typecache_can_hold = list(/mob, /obj/item)
 	var/list/held_items = list()
 
-/obj/structure/table/tray/Initialize()
+/obj/structure/table/tray/Initialize(mapload)
 	. = ..()
 	typecache_can_hold = typecacheof(typecache_can_hold)
 	for(var/atom/movable/held in get_turf(src))
@@ -854,14 +855,6 @@
 /obj/structure/rack
 	name = "rack"
 	desc = "Белый крупный стелаж, удобен для хранения различных вещей."
-	ru_names = list(
-		NOMINATIVE = "стеллаж",
-		GENITIVE = "стеллажа",
-		DATIVE = "стеллажу",
-		ACCUSATIVE = "стеллаж",
-		INSTRUMENTAL = "стеллажом",
-		PREPOSITIONAL = "стеллаже"
-	)
 	gender = MALE
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "rack"
@@ -871,6 +864,16 @@
 	pass_flags_self = LETPASSTHROW //You can throw objects over this, despite it's density.
 	max_integrity = 20
 	var/wooden_version = FALSE
+
+/obj/structure/rack/get_ru_names()
+	return list(
+		NOMINATIVE = "стеллаж",
+		GENITIVE = "стеллажа",
+		DATIVE = "стеллажу",
+		ACCUSATIVE = "стеллаж",
+		INSTRUMENTAL = "стеллажом",
+		PREPOSITIONAL = "стеллаже"
+	)
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
@@ -980,12 +983,12 @@
 		our_gun.place_on_rack()
 		our_gun.do_drop_animation(src)
 		our_gun.Move(loc)
-		var/list/click_params = params2list(params)
+		var/list/modifiers = params2list(params)
 		//Center the icon where the user clicked.
-		if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+		if(!LAZYACCESS(modifiers, ICON_X) || !LAZYACCESS(modifiers, ICON_Y))
 			return TRUE
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-		our_gun.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
+		our_gun.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(ICON_SIZE_X/2), ICON_SIZE_X/2)
 		our_gun.pixel_y = 0
 		return TRUE
 
@@ -1077,14 +1080,6 @@
 /obj/item/rack_parts
 	name = "rack parts"
 	desc = "Детали разобранного стелажа."
-	ru_names = list(
-		NOMINATIVE = "детали стеллажа",
-		GENITIVE = "деталей стеллажа",
-		DATIVE = "деталям стеллажа",
-		ACCUSATIVE = "детали стеллажа",
-		INSTRUMENTAL = "деталями стеллажа",
-		PREPOSITIONAL = "деталях стеллажа"
-	)
 	gender = MALE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
@@ -1092,6 +1087,16 @@
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)
 	var/building = FALSE
+
+/obj/item/rack_parts/get_ru_names()
+	return list(
+		NOMINATIVE = "детали стеллажа",
+		GENITIVE = "деталей стеллажа",
+		DATIVE = "деталям стеллажа",
+		ACCUSATIVE = "детали стеллажа",
+		INSTRUMENTAL = "деталями стеллажа",
+		PREPOSITIONAL = "деталях стеллажа"
+	)
 
 /obj/item/rack_parts/wrench_act(mob/user, obj/item/I)
 	. = TRUE

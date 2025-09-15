@@ -7,7 +7,8 @@
 
 /obj/effect/decal/chempuff
 	name = "chemicals"
-	icon = 'icons/obj/chempuff.dmi'
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "chempuff"
 	pass_flags = PASSTABLE | PASSGRILLE
 
 /obj/effect/decal/chempuff/blob_act(obj/structure/blob/B)

@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(events)
 	// Report events at the end of the rouund
 	var/report_at_round_end = 0
 
-    // UI vars
+	// UI vars
 	var/window_x = 700
 	var/window_y = 600
 	var/table_options = " align='center'"
@@ -18,15 +18,15 @@ SUBSYSTEM_DEF(events)
 	var/row_options2 = " width='260px'"
 	var/row_options3 = " width='150px'"
 
-    // Event vars
+	// Event vars
 	var/datum/event_container/selected_event_container = null
 	var/list/active_events = list()
 	var/list/finished_events = list()
 	var/list/allEvents
 	var/list/event_containers = list(
-			EVENT_LEVEL_MUNDANE 	= new/datum/event_container/mundane,
+			EVENT_LEVEL_MUNDANE	= new/datum/event_container/mundane,
 			EVENT_LEVEL_MODERATE	= new/datum/event_container/moderate,
-			EVENT_LEVEL_MAJOR 		= new/datum/event_container/major
+			EVENT_LEVEL_MAJOR		= new/datum/event_container/major
 		)
 
 	var/datum/event_meta/new_event = new
@@ -55,9 +55,11 @@ SUBSYSTEM_DEF(events)
 	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
 
 	// Add the event back to the list of available events
-	if(E.severity != EVENT_LEVEL_NONE)
-		var/datum/event_container/EC = event_containers[E.severity]
-		EC.available_events += EM
+	if(E.severity == EVENT_LEVEL_NONE || !EM.readd_to_rotation)
+		return
+
+	var/datum/event_container/EC = event_containers[E.severity]
+	EC.available_events += EM
 
 /datum/controller/subsystem/events/proc/delay_events(severity, delay)
 	var/datum/event_container/EC = event_containers[severity]

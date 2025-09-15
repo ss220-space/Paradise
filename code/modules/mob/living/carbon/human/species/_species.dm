@@ -1,6 +1,6 @@
 /datum/species
 	var/name                     // Species name.
-	var/name_plural 			 // Pluralized name (since "[name]s" is not always valid)
+	var/name_plural			 // Pluralized name (since "[name]s" is not always valid)
 	var/a = "a"					 // the "a" or "an" in "a Vulpkanin" or "an Abductor", use with singular version
 
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
@@ -48,9 +48,7 @@
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
 
-	var/hunger_icon = 'icons/mob/screen_hunger.dmi'
-	var/hunger_type
-	var/hunger_level
+	var/hunger_type = "default" // Used to pick nutrition bar icon for HUD
 
 	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE   // Dangerously high pressure.
 	var/warning_high_pressure = WARNING_HIGH_PRESSURE // High pressure warning.
@@ -103,6 +101,8 @@
 
 	/// Maximum health of this species
 	var/total_health = 100
+	/// Maximum stamina of this species, MUST be lower than MAX_STAMINA_LOSS
+	var/total_stamina = BASE_MAX_STAMINA
 	/// What type of damage does this species take if it's low on blood?
 	var/blood_damage_type = OXY
 	/// Species default genes
@@ -135,7 +135,7 @@
 
 	var/bodyflags = 0
 
-	var/blood_color = COLOR_BLOOD_BASE //Red.
+	var/blood_color = BLOOD_COLOR_RED //Red.
 	var/flesh_color = "#d1aa2e" //Gold.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
@@ -155,6 +155,7 @@
 	var/has_gender = TRUE
 	var/blacklisted = FALSE
 	var/dangerous_existence = FALSE
+	var/ignore_critical_condition = FALSE // If true, this species will not be affected by complex critical condition
 
 	/// Death vars. See [/proc/genderize_decode] for more info.
 	var/death_message = "цепене%(ет,ют)% и расслабля%(ет,ют)%ся, %(его,её,его,их)% взгляд становится пустым и безжизненным..."
@@ -648,7 +649,7 @@
 			if(istype(user.gloves, /obj/item/clothing/gloves))
 				var/obj/item/clothing/gloves/gloves = user.gloves
 				extra_knock_chance = gloves.extra_knock_chance
-		if(randn <= 10 + extra_knock_chance)
+		if(randn <= 5 + extra_knock_chance)
 			target.apply_effect(4 SECONDS, KNOCKDOWN, target.run_armor_check(affecting, MELEE))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			target.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] толка[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!"))
@@ -662,7 +663,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.move_resist > user.pull_force)
 			return FALSE
-		if(!(target.status_flags & CANPUSH))
+		if(!(target.status_flags & CANPUSH) || HAS_TRAIT(target, TRAIT_PUSHIMMUNE))
 			return FALSE
 		if(target.anchored)
 			return FALSE
@@ -704,26 +705,30 @@
 			if(AM.shove_impact(target, user)) // check for special interactions EG. tabling someone
 				return TRUE
 
-	var/moved = target.Move(shove_to, shove_dir)
+	var/moved = TRUE
+	if(target.a_intent == INTENT_HELP || prob(25)) // Chance to move with shove
+		moved = target.Move(shove_to, shove_dir)
+
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
 	if(!moved) //they got pushed into a dense object
-		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-		target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] толкает [target.declent_ru(ACCUSATIVE)]"), \
-								span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
-								"Раздаётся глухой удар.")
-		if(!HAS_TRAIT(target, TRAIT_FLOORED))
-			target.Knockdown(3 SECONDS)
-			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, SetKnockdown), 0), 3 SECONDS) // so you cannot chain stun someone
-		else if(!user.IsStunned())
-			target.Stun(0.5 SECONDS)
+		if(prob(75)) // Chance to knockdown on wall hit
+			add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
+			target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] толка[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)]"), \
+									span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
+									"Раздаётся глухой удар.")
+			if(!HAS_TRAIT(target, TRAIT_FLOORED))
+				target.Knockdown(3 SECONDS)
+				addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, SetKnockdown), 0), 3 SECONDS) // so you cannot chain stun someone
+			else if(!user.IsStunned())
+				target.Stun(0.5 SECONDS)
 	else
 		var/obj/item/I = target.get_active_hand()
-		if(I && prob(60))
+		if(I && prob(40)) // Chance to disarm target item
 			target.drop_from_active_hand()
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		else
 			if(I)
-				to_chat(target, span_warning("Ваша хватка дна [I.declent_ru(NOMINATIVE)] ослабевает!"))
+				to_chat(target, span_warning("Ваша хватка на [I.declent_ru(NOMINATIVE)] ослабевает!"))
 			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
 	target.stop_pulling()
 
@@ -781,7 +786,7 @@
 /datum/unarmed_attack
 	var/attack_verb = list("ударил", "вмазал", "стукнул", "вдарил", "влепил")	// Empty hand hurt intent verb.
 	var/damage = 0						// How much flat bonus damage an attack will do. This is a *bonus* guaranteed damage amount on top of the random damage attacks do.
-	var/attack_sound = "punch"
+	var/attack_sound = SFX_PUNCH
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = FALSE
 	var/animation_type = ATTACK_EFFECT_PUNCH
@@ -1222,13 +1227,13 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 
 /**
-  * Species-specific runechat colour handler
-  *
-  * Checks the species datum flags and returns the appropriate colour
-  * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
-  * Arguments:
-  * * H - The human who this DNA belongs to
-  */
+ * Species-specific runechat colour handler
+ *
+ * Checks the species datum flags and returns the appropriate colour
+ * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
+ * Arguments:
+ * * H - The human who this DNA belongs to
+ */
 /datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
 	if(bodyflags & HAS_SKIN_COLOR)
 		return H.skin_colour

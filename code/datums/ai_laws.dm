@@ -1,5 +1,3 @@
-#define BASE_LAW_TYPE /datum/ai_laws/nanotrasen
-
 /datum/ai_law
 	var/law = ""
 	var/index = 0
@@ -18,7 +16,7 @@
 	return 0
 
 /datum/ai_law/sixsixsix/get_index()
-	return 	666
+	return	666
 
 
 /datum/ai_laws
@@ -260,7 +258,7 @@
 	supplied_laws.Cut()
 	sorted_laws.Cut()
 
-/datum/ai_laws/proc/show_laws(var/who)
+/datum/ai_laws/proc/show_laws(who)
 	sort_laws()
 	for(var/datum/ai_law/law in sorted_laws)
 		if(law == zeroth_law_borg)

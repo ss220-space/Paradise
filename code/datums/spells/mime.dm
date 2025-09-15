@@ -160,7 +160,11 @@
 	spellname = "Невидимая стена"
 	name = "Miming Manual"
 	desc = "В книге представлены разнообразные фотографии, на которых запечатлены мимы в процессе выступления, а также несколько иллюстрированных руководств."
-	ru_names = list(
+	icon_state = "bookmime"
+	item_state = "bookmime"
+
+/obj/item/spellbook/oneuse/mime/get_ru_names()
+	return list(
 		NOMINATIVE = "руководство по пантомимам",
 		GENITIVE = "руководства по пантомимам",
 		DATIVE = "руководству по пантомимам",
@@ -168,9 +172,6 @@
 		INSTRUMENTAL = "руководством по пантомимам",
 		PREPOSITIONAL = "руководстве по пантомимам"
 	)
-	icon_state = "bookmime"
-	item_state = "bookmime"
-
 
 /obj/item/spellbook/oneuse/mime/attack_self(mob/user)
 	if(!user.mind)

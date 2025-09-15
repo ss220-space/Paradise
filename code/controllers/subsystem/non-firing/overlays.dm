@@ -154,10 +154,10 @@ SUBSYSTEM_DEF(overlays)
 	/// List of underlay "keys" (info about the appearance) -> mutable versions of static appearances
 	/// Drawn from the underlays list
 	var/list/realized_underlays
-	/// Sources that changes gravity of object.
-	var/list/gravity_sources = list()
-	/// Sources that 100% won't changes gravity of object.
-	var/list/ignored_gravity_sources = list()
+	/// Sources that changes gravity of object. Treated as lazy list.
+	var/list/gravity_sources
+	/// Sources that 100% won't changes gravity of object. Treated as lazy list.
+	var/list/ignored_gravity_sources
 
 
 /image

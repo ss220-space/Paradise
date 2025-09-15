@@ -7,14 +7,6 @@
 /obj/item/nuke_core
 	name = "plutonium core"
 	desc = "Чрезвычайно радиоактивно. Надевайте защитные очки."
-	ru_names = list(
-		NOMINATIVE = "плутониевое ядро",
-		GENITIVE = "плутониевого ядра",
-		DATIVE = "плутониевому ядру",
-		ACCUSATIVE = "плутониевое ядро",
-		INSTRUMENTAL = "плутониевым ядром",
-		PREPOSITIONAL = "плутониевом ядре"
-	)
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "plutonium_core"
 	item_state = "plutoniumcore"
@@ -22,7 +14,17 @@
 	var/cooldown = 0
 	var/pulseicon = "plutonium_core_pulse"
 
-/obj/item/nuke_core/Initialize()
+/obj/item/nuke_core/get_ru_names()
+	return list(
+		NOMINATIVE = "плутониевое ядро",
+		GENITIVE = "плутониевого ядра",
+		DATIVE = "плутониевому ядру",
+		ACCUSATIVE = "плутониевое ядро",
+		INSTRUMENTAL = "плутониевым ядром",
+		PREPOSITIONAL = "плутониевом ядре"
+	)
+
+/obj/item/nuke_core/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/radioactivity, \
 				rad_per_cycle = 40, \
@@ -50,7 +52,7 @@
 	return TOXLOSS
 
 //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
-/obj/item/nuke_core/plutonium/Initialize()
+/obj/item/nuke_core/plutonium/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 
@@ -58,14 +60,6 @@
 /obj/item/nuke_core_container
 	name = "nuke core container"
 	desc = "Прочный контейнер для радиоактивных объектов."
-	ru_names = list(
-		NOMINATIVE = "контейнер для ядерного ядра",
-		GENITIVE = "контейнера для ядерного ядра",
-		DATIVE = "контейнеру для ядерного ядра",
-		ACCUSATIVE = "контейнер для ядерного ядра",
-		INSTRUMENTAL = "контейнером для ядерного ядра",
-		PREPOSITIONAL = "контейнере для ядерного ядра"
-	)
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "core_container_empty"
 	item_state = "metal"
@@ -75,11 +69,21 @@
 	var/cracked = FALSE
 	var/sealed = FALSE
 
+/obj/item/nuke_core_container/get_ru_names()
+	return list(
+		NOMINATIVE = "контейнер для ядерного ядра",
+		GENITIVE = "контейнера для ядерного ядра",
+		DATIVE = "контейнеру для ядерного ядра",
+		ACCUSATIVE = "контейнер для ядерного ядра",
+		INSTRUMENTAL = "контейнером для ядерного ядра",
+		PREPOSITIONAL = "контейнере для ядерного ядра"
+	)
+
 /obj/item/nuke_core_container/Destroy()
 	QDEL_NULL(core)
 	return ..()
 
-/obj/item/nuke_core_container/ex_act(severity)
+/obj/item/nuke_core_container/ex_act(severity, target)
 	if(!sealed) //core now immune to blast if not used yet
 		return
 	if(!isturf(loc)) //if in hands/backpack, can't be cracked open
@@ -215,7 +219,11 @@
 /obj/item/nuke_core/supermatter_sliver
 	name = "supermatter sliver"
 	desc = "Крошечный, крайне нестабильный осколок кристалла суперматерии. Не трогать без защиты!"
-	ru_names = list(
+	icon_state = "supermatter_sliver"
+	pulseicon = "supermatter_sliver_pulse"
+
+/obj/item/nuke_core/supermatter_sliver/get_ru_names()
+	return list(
 		NOMINATIVE = "осколок суперматерии",
 		GENITIVE = "осколка суперматерии",
 		DATIVE = "осколку суперматерии",
@@ -223,10 +231,8 @@
 		INSTRUMENTAL = "осколком суперматерии",
 		PREPOSITIONAL = "осколке суперматерии"
 	)
-	icon_state = "supermatter_sliver"
-	pulseicon = "supermatter_sliver_pulse"
 
-/obj/item/nuke_core/supermatter_sliver/Initialize()
+/obj/item/nuke_core/supermatter_sliver/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 
@@ -271,7 +277,7 @@
 	if(!isliving(hit_atom))
 		return ..()
 	var/mob/living/victim = hit_atom
-	if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
+	if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE) || HAS_TRAIT(victim, TRAIT_SUPERMATTERIMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
 	if(throwingdatum?.thrower)
 		var/mob/user = throwingdatum.thrower
@@ -296,6 +302,10 @@
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
 	if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
+	if(HAS_TRAIT(user, TRAIT_SUPERMATTERIMMUNE))
+		user.drop_item_ground(src, force = TRUE)
+		user.balloon_alert(user, "слишком тяжело!")
+		return FALSE
 	user.visible_message(
 		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [src.declent_ru(DATIVE)]. [genderize_ru(user.gender,"его","её","его","их")] тело начинает светиться и мгновенно вспыхивает!"),
 		span_userdanger("Вы попытались взять [src.declent_ru(NOMINATIVE)] голыми руками. Это было глупо."),
@@ -311,7 +321,10 @@
 /obj/item/nuke_core_container/supermatter
 	name = "supermatter bin"
 	desc = "Небольшая ёмкость, выделяющая инертную смесь гипер-ноблия при герметизации, позволяя безопасно хранить осколки суперматерии."
-	ru_names = list(
+	var/obj/item/nuke_core/supermatter_sliver/sliver
+
+/obj/item/nuke_core_container/supermatter/get_ru_names()
+	return list(
 		NOMINATIVE = "контейнер для суперматерии",
 		GENITIVE = "контейнера для суперматерии",
 		DATIVE = "контейнеру для суперматерии",
@@ -319,7 +332,6 @@
 		INSTRUMENTAL = "контейнером для суперматерии",
 		PREPOSITIONAL = "контейнере для суперматерии"
 	)
-	var/obj/item/nuke_core/supermatter_sliver/sliver
 
 /obj/item/nuke_core_container/supermatter/Destroy()
 	QDEL_NULL(sliver)
@@ -400,7 +412,7 @@
 
 /obj/item/nuke_core_container/supermatter/attack_hand(mob/user)
 	if(cracked && sliver) //What did we say about touching the shard...
-		if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE))
+		if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE) || HAS_TRAIT(user, TRAIT_SUPERMATTERIMMUNE))
 			return FALSE
 		user.visible_message(
 			span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [sliver.declent_ru(DATIVE)]. [genderize_ru(user.gender,"Его","Её","Его","Их")] тело начинает светиться и вспыхивает!"),
@@ -430,14 +442,6 @@
 /obj/item/scalpel/supermatter
 	name = "supermatter scalpel"
 	desc = "Скальпель с хрупким наконечником из конденсированного газа гипер-ноблия, леденяще холодным на ощупь, способный безопасно откалывать осколки от кристалла суперматерии."
-	ru_names = list(
-		NOMINATIVE = "скальпель для суперматерии",
-		GENITIVE = "скальпеля для суперматерии",
-		DATIVE = "скальпелю для суперматерии",
-		ACCUSATIVE = "скальпель для суперматерии",
-		INSTRUMENTAL = "скальпелем для суперматерии",
-		PREPOSITIONAL = "скальпеле для суперматерии"
-	)
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_scalpel"
 	toolspeed = 0.5
@@ -445,21 +449,23 @@
 	usesound = 'sound/weapons/bladeslice.ogg'
 	var/uses_left
 
-/obj/item/scalpel/supermatter/Initialize()
+/obj/item/scalpel/supermatter/get_ru_names()
+	return list(
+		NOMINATIVE = "скальпель для суперматерии",
+		GENITIVE = "скальпеля для суперматерии",
+		DATIVE = "скальпелю для суперматерии",
+		ACCUSATIVE = "скальпель для суперматерии",
+		INSTRUMENTAL = "скальпелем для суперматерии",
+		PREPOSITIONAL = "скальпеле для суперматерии"
+	)
+
+/obj/item/scalpel/supermatter/Initialize(mapload)
 	. = ..()
 	uses_left = rand(2, 4)
 
 /obj/item/retractor/supermatter
 	name = "supermatter extraction tongs"
 	desc = "Щипцы из конденсированного газа гипер-ноблия, леденяще холодные на ощупь, способные безопасно удерживать осколки суперматерии."
-	ru_names = list(
-		NOMINATIVE = "щипцы для суперматерии",
-		GENITIVE = "щипцов для суперматерии",
-		DATIVE = "щипцам для суперматерии",
-		ACCUSATIVE = "щипцы для суперматерии",
-		INSTRUMENTAL = "щипцами для суперматерии",
-		PREPOSITIONAL = "щипцах для суперматерии"
-	)
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_tongs"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -468,6 +474,16 @@
 	toolspeed = 0.75
 	damtype = BURN
 	var/obj/item/nuke_core/supermatter_sliver/sliver
+
+/obj/item/retractor/supermatter/get_ru_names()
+	return list(
+		NOMINATIVE = "щипцы для суперматерии",
+		GENITIVE = "щипцов для суперматерии",
+		DATIVE = "щипцам для суперматерии",
+		ACCUSATIVE = "щипцы для суперматерии",
+		INSTRUMENTAL = "щипцами для суперматерии",
+		PREPOSITIONAL = "щипцах для суперматерии"
+	)
 
 /obj/item/retractor/supermatter/Destroy()
 	QDEL_NULL(sliver)
@@ -500,7 +516,7 @@
 		if(!isliving(AM))
 			return
 		var/mob/living/victim = AM
-		if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
+		if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE) || HAS_TRAIT(victim, TRAIT_SUPERMATTERIMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 			return
 		victim.gib()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")

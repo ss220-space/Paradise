@@ -183,7 +183,8 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Skipping lavaland ruins...")
 
 	// Create transit/reserve area for shuttle to fly in and out
-	initialize_reserved_level()
+	var/base_transit_z = add_reservation_zlevel()
+	initialize_reserved_level(base_transit_z)
 	// End creating z-levels
 	// Re-sort again all areas
 	require_area_resort()
@@ -225,7 +226,9 @@ SUBSYSTEM_DEF(mapping)
 
 	// World name
 	GLOB.station_name = station_name()
+	GLOB.english_station_name = english_station_name()
 	update_world_name()
+
 
 	return SS_INIT_SUCCESS
 
@@ -233,24 +236,27 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/fire(resumed)
 	// Cache for sonic speed
 	var/list/unused_turfs = src.unused_turfs
-	var/list/world_turf_contents = GLOB.areas_by_type[world.area].contained_turfs
+	var/list/world_turf_contents_by_z = GLOB.areas_by_type[world.area].turfs_by_zlevel
 	var/list/lists_to_reserve = src.lists_to_reserve
 	var/index = 0
-	while(length(lists_to_reserve))
+	while(index < length(lists_to_reserve))
 		var/list/packet = lists_to_reserve[index + 1]
 		var/packetlen = length(packet)
 		while(packetlen)
 			if(MC_TICK_CHECK)
-				lists_to_reserve.Cut(1, index)
+				if(index)
+					lists_to_reserve.Cut(1, index)
 				return
-			var/turf/T = packet[packetlen]
-			T.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
-			LAZYINITLIST(unused_turfs["[T.z]"])
-			unused_turfs["[T.z]"] |= T
-			var/area/old_area = T.loc
-			old_area.turfs_to_uncontain += T
-			T.turf_flags |= UNUSED_RESERVATION_TURF
-			world_turf_contents += T
+			var/turf/reserving_turf = packet[packetlen]
+			reserving_turf.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
+			LAZYINITLIST(unused_turfs["[reserving_turf.z]"])
+			unused_turfs["[reserving_turf.z]"] |= reserving_turf
+			var/area/old_area = reserving_turf.loc
+			LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, reserving_turf.z, list())
+			old_area.turfs_to_uncontain_by_zlevel[reserving_turf.z] += reserving_turf
+			reserving_turf.turf_flags |= UNUSED_RESERVATION_TURF
+			LISTASSERTLEN(world_turf_contents_by_z, reserving_turf.z, list())
+			world_turf_contents_by_z[reserving_turf.z] += reserving_turf
 			packet.len--
 			packetlen = length(packet)
 
@@ -345,6 +351,7 @@ SUBSYSTEM_DEF(mapping)
 		create_landmarks(centre)
 		return
 
+#ifndef FAST_LOAD
 	if(CONFIG_GET(string/default_map) && !CONFIG_GET(string/override_map) && map_datum == fallback_map)
 		var/map_datum_path = text2path(CONFIG_GET(string/default_map))
 		if(map_datum_path)
@@ -357,6 +364,9 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = new map_datum_path
 		else
 			to_chat(world, span_danger("ERROR: The map datum specified to load is invalid. Falling back to... delta probably?"))
+#else
+	map_datum = new /datum/map/fast_load
+#endif
 
 	ASSERT(map_datum.map_path)
 	if(!fexists(map_datum.map_path))
@@ -365,7 +375,7 @@ SUBSYSTEM_DEF(mapping)
 		return
 
 	var/watch = start_watch()
-	log_startup_progress("Loading [map_datum.station_name]...")
+	log_startup_progress("Loading [map_datum.english_station_name]...")
 	var/map_z_level
 	if(map_datum.traits && map_datum.traits?.len && islist(map_datum.traits[1])) // we work with list of lists
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])
@@ -378,7 +388,11 @@ SUBSYSTEM_DEF(mapping)
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
-	log_startup_progress("Loaded [map_datum.station_name] in [stop_watch(watch)]s")
+
+	if(map_datum?.forced_mode)
+		GLOB.master_mode = map_datum.forced_mode.name
+
+	log_startup_progress("Loaded [map_datum.english_station_name] in [stop_watch(watch)]s")
 
 	// Save station name in the DB
 	if(!SSdbcore.IsConnected())
@@ -558,9 +572,9 @@ SUBSYSTEM_DEF(mapping)
 			if(reserve.reserve(width, height, z_size, i))
 				return reserve
 		//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
-		var/datum/space_level/newReserved = add_reservation_zlevel()
-		initialize_reserved_level(newReserved.zpos)
-		if(reserve.reserve(width, height, z_size, newReserved.zpos))
+		var/new_reserved_z = add_reservation_zlevel()
+		initialize_reserved_level(new_reserved_z)
+		if(reserve.reserve(width, height, z_size, new_reserved_z))
 			return reserve
 	else
 		if(!check_level_trait(z_reservation, RESERVED_LEVEL))
@@ -571,21 +585,28 @@ SUBSYSTEM_DEF(mapping)
 	QDEL_NULL(reserve)
 
 //This is not for wiping reserved levels, use wipe_reservations() for that.
-/datum/controller/subsystem/mapping/proc/initialize_reserved_level()
-	num_of_res_levels++
-	var/my_z = GLOB.space_manager.add_new_zlevel(RESERVED_ZONE+" #[num_of_res_levels]", linkage = UNAFFECTED, traits = list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC, RESERVED_LEVEL))
+/datum/controller/subsystem/mapping/proc/initialize_reserved_level(z)
 	UNTIL(!clearing_reserved_turfs) //regardless, lets add a check just in case.
 	clearing_reserved_turfs = TRUE //This operation will likely clear any existing reservations, so lets make sure nothing tries to make one while we're doing it.
-	var/turf/A = get_turf(locate(SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, my_z))
-	var/turf/B = get_turf(locate(world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, my_z))
-	var/block = block(A, B)
-	for(var/turf/T in block)
-		// No need to empty() these, because it's world init and they're already /turf/space.
-		T.turf_flags |= UNUSED_RESERVATION_TURF
+	if(!check_level_trait(z, RESERVED_LEVEL))
+		clearing_reserved_turfs = FALSE
+		CRASH("Invalid z level prepared for reservations.")
+	var/list/reserved_block = block(
+		SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, z,
+		world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, z
+	)
+	for(var/turf/T as anything in reserved_block)
+		// No need to empty() these, because they just got created and are already /turf/open/space/basic.
+		T.turf_flags = UNUSED_RESERVATION_TURF
+		T.blocks_air = TRUE
 		CHECK_TICK
 
-	unused_turfs["[my_z]"] = block
-	reservation_ready["[my_z]"] = TRUE
+	// Gotta create these suckers if we've not done so already
+	if(SSatoms.initialized)
+		SSatoms.InitializeAtoms(Z_TURFS(z))
+
+	unused_turfs["[z]"] = reserved_block
+	reservation_ready["[z]"] = TRUE
 	clearing_reserved_turfs = FALSE
 
 /// Schedules a group of turfs to be handed back to the reservation system's control
@@ -682,12 +703,14 @@ SUBSYSTEM_DEF(mapping)
 	// Faster
 	if(space_guaranteed)
 		var/area/global_area = GLOB.areas_by_type[world.area]
-		global_area.contained_turfs += Z_TURFS(z_level)
+		LISTASSERTLEN(global_area.turfs_by_zlevel, z_level, list())
+		global_area.turfs_by_zlevel[z_level] = Z_TURFS(z_level)
 		return
 
 	for(var/turf/to_contain as anything in Z_TURFS(z_level))
 		var/area/our_area = to_contain.loc
-		our_area.contained_turfs += to_contain
+		LISTASSERTLEN(our_area.turfs_by_zlevel, z_level, list())
+		our_area.turfs_by_zlevel[z_level] += to_contain
 
 /datum/controller/subsystem/mapping/proc/update_plane_tracking(datum/space_level/update_with)
 	// We're essentially going to walk down the stack of connected z levels, and set their plane offset as we go

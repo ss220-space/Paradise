@@ -34,11 +34,11 @@
 		disposal_holder.destinationTag = sortTag
 
 
-/obj/structure/bigDelivery/ex_act(severity)
+/obj/structure/bigDelivery/ex_act(severity, target)
 	for(var/atom/movable/thing as anything in contents)
 		thing.ex_act()
 		CHECK_TICK
-	..()
+	return ..()
 
 
 /obj/structure/bigDelivery/examine(mob/user)
@@ -167,11 +167,11 @@
 		disposal_holder.destinationTag = sortTag
 
 
-/obj/item/smallDelivery/ex_act(severity)
+/obj/item/smallDelivery/ex_act(severity, target)
 	for(var/atom/movable/thing as anything in contents)
 		thing.ex_act()
 		CHECK_TICK
-	..()
+	return ..()
 
 
 /obj/item/smallDelivery/emp_act(severity)
@@ -427,13 +427,13 @@
 			var/destination_id = clamp(text2num(params["destination"]), 1, length(GLOB.TAGGERLOCATIONS))
 			if(currTag != destination_id)
 				currTag = destination_id
-				playsound(src, "terminal_type", 25, TRUE)
+				playsound(src, SFX_TERMINAL_TYPE, 25, TRUE)
 			currcc_tag = null
 
 		if("select_cc_destination")
 			if(currcc_tag != params["destination"])
 				currcc_tag = params["destination"]
-				playsound(src, "terminal_type", 25, TRUE)
+				playsound(src, SFX_TERMINAL_TYPE, 25, TRUE)
 
 	add_fingerprint(usr)
 

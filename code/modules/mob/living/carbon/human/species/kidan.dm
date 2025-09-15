@@ -9,8 +9,6 @@
 	language = LANGUAGE_KIDAN
 	unarmed_type = /datum/unarmed_attack/claws
 
-	brute_mod = 0.8
-	tox_mod = 1.7
 
 	inherent_traits = list(
 		TRAIT_HAS_REGENERATION,
@@ -110,8 +108,8 @@
 	. = ..()
 	add_verb(H, list(/mob/living/carbon/human/proc/emote_click,
 					/mob/living/carbon/human/proc/emote_clack,
-			   		/mob/living/carbon/human/proc/emote_wiggle,
-			   		/mob/living/carbon/human/proc/emote_wave_k))
+			  		/mob/living/carbon/human/proc/emote_wiggle,
+			  		/mob/living/carbon/human/proc/emote_wave_k))
 	remove_verb(H, list(
 		/mob/living/carbon/human/verb/emote_pale,
 		/mob/living/carbon/human/verb/emote_blink,
@@ -262,7 +260,7 @@
 			// Encode the message
 			var/message_to_encode = tgui_input_text(H, "Какое сообщение вы хотите закодировать? (макс. [maximum_message_length] символов). Оставьте пустым, чтобы отменить.", "Создать феромоны")
 			if(!message_to_encode)
-				H.balloon_alert(H, "отменено.")
+				H.balloon_alert(H, "отменено")
 				return
 			if(length(message_to_encode) > maximum_message_length)
 				H.balloon_alert(H, "превышен предел символов")

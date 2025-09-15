@@ -217,7 +217,7 @@
 /// Takes a list of mutable appearances
 /// Returns a list in the form:
 /// 1 - a list of all mutable appearances that would need to be updated to change planes in the event of a z layer change, alnongside the commands required
-/// 	to properly track parents to update
+///	to properly track parents to update
 /// 2 - a list of all parents that will require updating
 /proc/build_planeed_apperance_queue(list/mutable_appearance/appearances)
 	var/list/queue

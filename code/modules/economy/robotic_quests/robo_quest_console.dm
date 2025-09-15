@@ -24,7 +24,7 @@
 	desc = "Консоль, используемая для приема запросов на изготовление экзоскелетов."
 	icon_screen = "robo_ntos_roboquest"
 	icon_keyboard = "rd_key"
-	light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_LAVENDER
 	/// Print order for quests
 	var/print_delayed = FALSE
 	/// Current interface theme
@@ -123,7 +123,7 @@
 	if(!emagged)
 		emagged = TRUE
 		atom_say("System override detected. Instant mech teleportation is available.")
-		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 
 /obj/machinery/computer/roboquest/proc/check_pad()
@@ -434,8 +434,8 @@
 		return
 	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
-/obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console, var/penalty)
-	do_sparks(5, 1, get_turf(src))
+/obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
+	do_sparks(5, TRUE, get_turf(src))
 	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
 	if(istype(M))
 		var/obj/structure/closet/critter/mecha/box = new(get_turf(src), quest, console, penalty)
@@ -444,8 +444,8 @@
 			do_teleport(box, destination)
 		console.canSend = FALSE
 
-/obj/machinery/roboquest_pad/proc/clear(datum/roboquest/quest, obj/machinery/computer/roboquest/console, var/penalty)
-	do_sparks(5, 1, get_turf(src))
+/obj/machinery/roboquest_pad/proc/clear(datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
+	do_sparks(5, TRUE, get_turf(src))
 	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
 	if(istype(M))
 		qdel(M)

@@ -137,7 +137,7 @@
 		borer.host_brain.resist()
 		return
 
-	host.adjustStaminaLoss(100)
+	host.adjustStaminaLoss(host.get_max_stamina())
 
 /datum/action/innate/borer/sneak_mode
 	name = "Sneak mode"

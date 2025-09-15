@@ -47,7 +47,7 @@
 		icon_state = "dartgun-[cartridge.darts]"
 
 
-/obj/item/gun/dartgun/Initialize()
+/obj/item/gun/dartgun/Initialize(mapload)
 	. = ..()
 
 	if(starting_chems)
@@ -239,7 +239,7 @@
 	popup.open(TRUE)
 	onclose(user, "dartgun", src)
 
-/obj/item/gun/dartgun/proc/check_beaker_mixing(var/obj/item/B)
+/obj/item/gun/dartgun/proc/check_beaker_mixing(obj/item/B)
 	if(!mixing || !beakers)
 		return 0
 	for(var/obj/item/M in mixing)

@@ -251,7 +251,17 @@
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит подозрительным."
-	ru_names = list(
+	gender = MALE
+	icon_state = "syndicate"
+	item_state = "toolbox_syndi"
+	origin_tech = "combat=2;syndicate=1;engineering=2"
+	silent = 1
+	force = 15
+	throwforce = 18
+	blurry_chance = 8
+
+/obj/item/storage/toolbox/syndicate/get_ru_names()
+	return list(
 		NOMINATIVE = "подозрительный ящик для инструментов",
 		GENITIVE = "подозрительного ящика для инструментов",
 		DATIVE = "подозрительному ящику для инструментов",
@@ -259,14 +269,6 @@
 		INSTRUMENTAL = "подозрительным ящиком для инструментов",
 		PREPOSITIONAL = "подозрительном ящике для инструментов"
 	)
-	gender = MALE
-	icon_state = "syndicate"
-	item_state = "toolbox_syndi"
-	origin_tech = "combat=2;syndicate=1;engineering=2"
-	silent = 1
-	force = 15.0
-	throwforce = 18.0
-	blurry_chance = 8
 
 /obj/item/storage/toolbox/syndicate/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -279,8 +281,18 @@
 
 /obj/item/storage/toolbox/syndisuper
 	name = "exteremely suspicious looking toolbox"
-	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит чрезвычайно подозрительным"
-	ru_names = list(
+	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит чрезвычайно подозрительным."
+	gender = MALE
+	icon_state = "syndicate"
+	item_state = "toolbox_syndi"
+	origin_tech = "combat=5;syndicate=1;engineering=5"
+	silent = 1
+	force = 18 //robuster because of rarity
+	throwforce = 20
+	blurry_chance = 12
+
+/obj/item/storage/toolbox/syndisuper/get_ru_names()
+	return list(
 		NOMINATIVE = "очень подозрительный ящик для инструментов",
 		GENITIVE = "очень подозрительного ящика для инструментов",
 		DATIVE = "очень подозрительному ящику для инструментов",
@@ -288,15 +300,6 @@
 		INSTRUMENTAL = "очень подозрительным ящиком для инструментов",
 		PREPOSITIONAL = "очень подозрительном ящике для инструментов"
 	)
-	gender = MALE
-	icon_state = "syndicate"
-	item_state = "toolbox_syndi"
-	origin_tech = "combat=5;syndicate=1;engineering=5"
-	silent = 1
-	// robuster because of rarity
-	force = 18.0
-	throwforce = 20.0
-	blurry_chance = 12
 
 /obj/item/storage/toolbox/syndisuper/populate_contents()
 	new /obj/item/screwdriver/power(src)
@@ -473,7 +476,15 @@
 /obj/item/storage/toolbox/surgery/ashwalker
 	name = "surgery bag"
 	desc = "Небольшой кожанный футляр, предназначенный для хранения и транспортировки хирургических инструментов. От него исходит едва заметный запах пепла."
-	ru_names = list(
+	icon_state = "surgery_bag"
+	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
+	flags = NONE
+	force = 2
+	throwforce = 4
+
+/obj/item/storage/toolbox/surgery/ashwalker/get_ru_names()
+	return list(
 		NOMINATIVE = "хирургический саквояж",
 		GENITIVE = "хирургического саквояжа",
 		DATIVE = "хирургическому саквояжу",
@@ -481,10 +492,6 @@
 		INSTRUMENTAL = "хирургическим саквояжем",
 		PREPOSITIONAL = "хирургическом саквояже"
 	)
-	icon_state = "surgery_bag"
-	flags = NONE
-	force = 2
-	throwforce = 4
 
 /obj/item/storage/toolbox/surgery/ashwalker/populate_contents()
 	new /obj/item/scalpel/primitive_scalpel(src)
@@ -502,7 +509,14 @@
 /obj/item/storage/toolbox/green
 	name = "artistic toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения различных инструментов, в том числе художественных принадлежностей."
-	ru_names = list(
+	icon_state = "green"
+	item_state = "toolbox_green"
+	icon = 'icons/goonstation/objects/objects.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
+
+/obj/item/storage/toolbox/green/get_ru_names()
+	return list(
 		NOMINATIVE = "артистический ящик для инструментов",
 		GENITIVE = "артистического ящика для инструментов",
 		DATIVE = "артистическому ящику для инструментов",
@@ -510,8 +524,3 @@
 		INSTRUMENTAL = "артистическим ящиком для инструментов",
 		PREPOSITIONAL = "артистическом ящике для инструментов"
 	)
-	icon_state = "green"
-	item_state = "toolbox_green"
-	icon = 'icons/goonstation/objects/objects.dmi'
-	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'

@@ -14,14 +14,6 @@
 /obj/structure/bookcase
 	name = "bookcase"
 	desc = "Большой книжный шкаф."
-	ru_names = list(
-		NOMINATIVE = "книжный шкаф",
-		GENITIVE = "книжного шкафа",
-		DATIVE = "книжному шкафу",
-		ACCUSATIVE = "книжный шкаф",
-		INSTRUMENTAL = "книжным шкафом",
-		PREPOSITIONAL = "книжном шкафе"
-	)
 	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book-0"
@@ -34,6 +26,15 @@
 	/// Typecache of the things allowed in the bookcase. Populated in [/proc/generate_allowed_books()] on Initialize.
 	var/list/allowed_books
 
+/obj/structure/bookcase/get_ru_names()
+	return list(
+		NOMINATIVE = "книжный шкаф",
+		GENITIVE = "книжного шкафа",
+		DATIVE = "книжному шкафу",
+		ACCUSATIVE = "книжный шкаф",
+		INSTRUMENTAL = "книжным шкафом",
+		PREPOSITIONAL = "книжном шкафе"
+	)
 
 /obj/structure/bookcase/Initialize(mapload)
 	. = ..()
@@ -189,7 +190,7 @@
 	manual_name = "Medical Manuals "
 	manual_name_ru = " с учебниками по медицине"
 
-/obj/structure/bookcase/manuals/medical/Initialize()
+/obj/structure/bookcase/manuals/medical/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/medical_cloning(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -201,7 +202,7 @@
 
 
 
-/obj/structure/bookcase/manuals/engineering/Initialize()
+/obj/structure/bookcase/manuals/engineering/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/engineering_construction(src)
 	new /obj/item/book/manual/engineering_particle_accelerator(src)
@@ -218,7 +219,7 @@
 
 
 
-/obj/structure/bookcase/manuals/research_and_development/Initialize()
+/obj/structure/bookcase/manuals/research_and_development/Initialize(mapload)
 	. = ..()
 	new /obj/item/book/manual/research_and_development(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -230,14 +231,6 @@
 /obj/item/book
 	name = "book"
 	desc = "Напечатанная книга в твёрдом переплёте."
-	ru_names = list(
-		NOMINATIVE = "книга",
-		GENITIVE = "книги",
-		DATIVE = "книге",
-		ACCUSATIVE = "книгу",
-		INSTRUMENTAL = "книгой",
-		PREPOSITIONAL = "книге"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/library.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
@@ -271,6 +264,16 @@
 	var/obj/item/store
 	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
 	var/has_drm = FALSE
+
+/obj/item/book/get_ru_names()
+	return list(
+		NOMINATIVE = "книга",
+		GENITIVE = "книги",
+		DATIVE = "книге",
+		ACCUSATIVE = "книгу",
+		INSTRUMENTAL = "книгой",
+		PREPOSITIONAL = "книге"
+	)
 
 /obj/item/book/Initialize(mapload)
 	. = ..()
@@ -336,20 +339,20 @@
 			return ATTACK_CHAIN_PROCEED
 		var/choice = tgui_input_list(user, "Что вы хотели бы изменить?", "Редактура", list("Заголовок", "Содержание", "Автор", "Отмена"))
 		switch(choice)
-			if("Title")
+			if("Заголовок")
 				var/newtitle = reject_bad_text(tgui_input_text(user, "Напишите новый заголовок:", "Название", title))
 				if(isnull(newtitle))
 					balloon_alert(user, "недопустимый формат!")
 					return ATTACK_CHAIN_PROCEED
 				name = newtitle
 				title = newtitle
-			if("Contents")
+			if("Содержание")
 				var/content = tgui_input_text(user, "Напишите содержание книги (HTML ЗАПРЕЩЁН):", "Содержание", max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE)
 				if(isnull(content))
 					balloon_alert(user, "недопустимое содержание!")
 					return ATTACK_CHAIN_PROCEED
 				dat += content
-			if("Author")
+			if("Автор")
 				var/newauthor = tgui_input_text(user, "Напишите имя автора:", "Автор", author, MAX_NAME_LEN)
 				if(isnull(newauthor))
 					balloon_alert(user, "недопустимое имя!")
@@ -426,7 +429,7 @@
 	balloon_alert(user, "режем страницы...")
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || carved)
 		return FALSE
-	balloon_alert(user, "страницы вырезаны.")
+	balloon_alert(user, "страницы вырезаны")
 	carved = TRUE
 	return TRUE
 
@@ -437,14 +440,6 @@
 /obj/item/barcodescanner
 	name = "barcode scanner"
 	desc = "Небольшое устройство для считывания штрих-кода с книг."
-	ru_names = list(
-		NOMINATIVE = "сканнер штрих-кодов",
-		GENITIVE = "сканнера штрих-кодов",
-		DATIVE = "сканнеру штрих-кодов",
-		ACCUSATIVE = "сканнер штрих-кодов",
-		INSTRUMENTAL = "сканнером штрих-кодов",
-		PREPOSITIONAL = "сканнере штрих-кодов"
-	)
 	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
@@ -456,7 +451,17 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/obj/machinery/computer/library/checkout/computer // Associated computer - Modes 1 to 3 use this
 	var/obj/item/book/book	 //  Currently scanned book
-	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
+	var/mode = 0					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
+
+/obj/item/barcodescanner/get_ru_names()
+	return list(
+		NOMINATIVE = "сканнер штрих-кодов",
+		GENITIVE = "сканнера штрих-кодов",
+		DATIVE = "сканнеру штрих-кодов",
+		ACCUSATIVE = "сканнер штрих-кодов",
+		INSTRUMENTAL = "сканнером штрих-кодов",
+		PREPOSITIONAL = "сканнере штрих-кодов"
+	)
 
 /obj/item/barcodescanner/attack_self(mob/user)
 	mode += 1

@@ -201,7 +201,7 @@
 	if(!L)
 		return
 	to_chat(L, span_danger("You feel a sharp shock!"))
-	do_sparks(3, 1, L)
+	do_sparks(3, TRUE, L)
 
 	L.Weaken(10 SECONDS)
 	L.Stuttering(2 SECONDS)
@@ -227,14 +227,6 @@
 	desc = "Одноразовая маска, изготовленная из стерильного материала. \
 			Обеспечивает защиту от биологического загрязнения и воздушно-капельных инфекций. \
 			Обладает высокой степенью проницаемости газов и практически не пропускает вредные вещества."
-	ru_names = list(
-		NOMINATIVE = "стерильная маска",
-		GENITIVE = "стерильной маски",
-		DATIVE = "стерильной маске",
-		ACCUSATIVE = "стерильную маску",
-		INSTRUMENTAL = "стерильной маской",
-		PREPOSITIONAL = "стерильной маске"
-	)
 	icon_state = "sterile"
 	item_state = "sterile"
 	w_class = WEIGHT_CLASS_TINY
@@ -263,6 +255,15 @@
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
 		)
 
+/obj/item/clothing/mask/surgical/get_ru_names()
+	return list(
+		NOMINATIVE = "стерильная маска",
+		GENITIVE = "стерильной маски",
+		DATIVE = "стерильной маске",
+		ACCUSATIVE = "стерильную маску",
+		INSTRUMENTAL = "стерильной маской",
+		PREPOSITIONAL = "стерильной маске"
+	)
 
 /obj/item/clothing/mask/surgical/attack_self(mob/user)
 	adjustmask(user)
@@ -368,7 +369,7 @@
 
 	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(type)))	//cursed masks only
 		originalname = user.real_name
-		if(!user.real_name || user.real_name == "Unknown")
+		if(!user.real_name || user.real_name == UNKNOWN_NAME_RUS)
 			user.real_name = "A Horse With No Name" //it felt good to be out of the rain
 		else
 			user.real_name = "[user.name][temporaryname]"
@@ -494,14 +495,6 @@
 	desc = "Брутальная маска клоуна. Она до сих пор пахнет цирком. И керосином."
 	icon_state = "sweettooth_mask"
 	item_state = "sweettooth_mask"
-	ru_names = list(
-		NOMINATIVE = "Маска Сладкоежки",
-		GENITIVE = "Маски Сладкоежки",
-		DATIVE = "Маске Сладкоежки",
-		ACCUSATIVE = "Маску Сладкоежки",
-		INSTRUMENTAL = "Маской Сладкоежки",
-		PREPOSITIONAL = "Маске Сладкоежки"
-	)
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/mask.dmi',
@@ -512,6 +505,16 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/mask.dmi',
 		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/mask.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+	)
+
+/obj/item/clothing/mask/gas/clown_hat/sweettooth/get_ru_names()
+	return list(
+		NOMINATIVE = "Маска Сладкоежки",
+		GENITIVE = "Маски Сладкоежки",
+		DATIVE = "Маске Сладкоежки",
+		ACCUSATIVE = "Маску Сладкоежки",
+		INSTRUMENTAL = "Маской Сладкоежки",
+		PREPOSITIONAL = "Маске Сладкоежки"
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/rockso

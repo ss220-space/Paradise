@@ -50,7 +50,7 @@
 /obj/effect/decal/warning_stripes/northwestsouth
 	icon_state = "U-E"
 
-/obj/effect/decal/warning_stripes/Initialize()
+/obj/effect/decal/warning_stripes/Initialize(mapload)
 	. = ..()
 	var/image/I = image(icon, icon_state = icon_state, dir = dir)
 	loc?.add_overlay(I)

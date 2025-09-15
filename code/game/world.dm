@@ -34,6 +34,10 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	SSdbcore.SetRoundID() // Set the round ID here
 	load_poll_data()
 
+	#ifdef MULTIINSTANCE
+	SSinstancing.seed_data() // Set us up in the DB
+	#endif
+
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
 
@@ -187,7 +191,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			GLOB.master_mode = Lines[1]
 			add_game_logs("Saved mode is '[GLOB.master_mode]'")
 
-/world/proc/save_mode(var/the_mode)
+/world/proc/save_mode(the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode
@@ -226,7 +230,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	if(config && CONFIG_GET(string/servername))
 		s += "<b>[CONFIG_GET(string/servername)]</b> &#8212; "
-	s += "<b>[station_name()]</b> "
+	s += "<b>[english_station_name()]</b> "
 	if(config && CONFIG_GET(string/githuburl))
 		s+= "([GLOB.game_version])"
 
@@ -266,6 +270,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]/round-[GLOB.round_id]"
 	else
 		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]" // Dont stick a round ID if we dont have one
+
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
@@ -275,6 +280,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.demo_log = "[GLOB.log_directory]/demo.txt"
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
+	GLOB.mapmanip_log = "[GLOB.log_directory]/mapmanip.log"
+
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
@@ -282,6 +289,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.tgui_log)
 	start_log(GLOB.http_log)
 	start_log(GLOB.sql_log)
+	start_log(GLOB.mapmanip_log)
 
 	#ifdef REFERENCE_TRACKING
 	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"
@@ -313,8 +321,47 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
 		CALL_EXT(debug_server, "auxtools_shutdown")()
+	if(SSredis.connected)
+		rustg_redis_disconnect() // Disconnects the redis connection. See above.
 	prof_stop()
 	..()
+
+
+/**
+ * Handles incresing the world's maxx var and intializing the new turfs and assigning them to the global area.
+ * If map_load_z_cutoff is passed in, it will only load turfs up to that z level, inclusive.
+ * This is because maploading will handle the turfs it loads itself.
+ */
+/world/proc/increase_max_x(new_maxx, map_load_z_cutoff = maxz)
+	if(new_maxx <= maxx)
+		return
+	var/old_max = world.maxx
+	maxx = new_maxx
+	if(!map_load_z_cutoff)
+		return
+	var/area/global_area = GLOB.areas_by_type[world.area] // We're guaranteed to be touching the global area, so we'll just do this
+	LISTASSERTLEN(global_area.turfs_by_zlevel, map_load_z_cutoff, list())
+	for (var/zlevel in 1 to map_load_z_cutoff)
+		var/list/to_add = block(
+			locate(old_max + 1, 1, zlevel),
+			locate(maxx, maxy, zlevel))
+
+		global_area.turfs_by_zlevel[zlevel] += to_add
+
+/world/proc/increase_max_y(new_maxy, map_load_z_cutoff = maxz)
+	if(new_maxy <= maxy)
+		return
+	var/old_maxy = maxy
+	maxy = new_maxy
+	if(!map_load_z_cutoff)
+		return
+	var/area/global_area = GLOB.areas_by_type[world.area] // We're guarenteed to be touching the global area, so we'll just do this
+	LISTASSERTLEN(global_area.turfs_by_zlevel, map_load_z_cutoff, list())
+	for (var/zlevel in 1 to map_load_z_cutoff)
+		var/list/to_add = block(
+			locate(1, old_maxy + 1, 1),
+			locate(maxx, maxy, map_load_z_cutoff))
+		global_area.turfs_by_zlevel[zlevel] += to_add
 
 /world/proc/incrementMaxZ()
 	maxz++

@@ -73,8 +73,8 @@
 		for(var/atom/A in sorted)
 			if(istype(A, /atom/movable/lighting_object))
 				continue //Lighting objects render last, need to be above all atoms and turfs displayed
-			var/xo = (A.x - center.x) * world.icon_size + A.pixel_x + xcomp
-			var/yo = (A.y - center.y) * world.icon_size + A.pixel_y + ycomp
+			var/xo = (A.x - center.x) * ICON_SIZE_X + A.pixel_x + xcomp
+			var/yo = (A.y - center.y) * ICON_SIZE_Y + A.pixel_y + ycomp
 			if(ismovable(A))
 				var/atom/movable/AM = A
 				xo += AM.step_x
@@ -88,9 +88,9 @@
 			var/icon/img = getFlatIcon(clone, no_anim = TRUE)
 			if(img)
 				// Center of the image in X
-				var/xo = (clone.x - center.x) * world.icon_size + clone.pixel_x + xcomp + clone.step_x
+				var/xo = (clone.x - center.x) * ICON_SIZE_X + clone.pixel_x + xcomp + clone.step_x
 				// Center of the image in Y
-				var/yo = (clone.y - center.y) * world.icon_size + clone.pixel_y + ycomp + clone.step_y
+				var/yo = (clone.y - center.y) * ICON_SIZE_Y + clone.pixel_y + ycomp + clone.step_y
 
 				if(clone.transform) // getFlatIcon doesn't give a snot about transforms.
 					var/datum/decompose_matrix/decompose = clone.transform.decompose()

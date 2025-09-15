@@ -15,7 +15,7 @@
 	melee_damage_upper = 2
 	melee_damage_type = BURN
 	attacktext = "бьёт током"
-	attack_sound = "sparks"
+	attack_sound = SFX_SPARKS
 
 	response_help  = "pets"
 	response_disarm = "shoos"
@@ -46,7 +46,7 @@
 /mob/living/simple_animal/spiderbot/Destroy()
 	if(emagged)
 		QDEL_NULL(mmi)
-		explosion(get_turf(src), -1, -1, 3, 5, cause = src)
+		explosion(get_turf(src), devastation_range = -1, heavy_impact_range = -1, light_impact_range = 3, flash_range = 5, cause = src)
 	else
 		eject_brain()
 	return ..()
@@ -91,7 +91,7 @@
 			to_chat(user, span_warning("This [new_mmi.name] does not seem to fit."))
 			return ATTACK_CHAIN_PROCEED
 
-		if(!user.drop_transfer_item_to_loc(mmi, src))
+		if(!user.drop_transfer_item_to_loc(new_mmi, src))
 			return ..()
 
 		to_chat(user, span_notice("You have inserted [new_mmi] into [src]."))

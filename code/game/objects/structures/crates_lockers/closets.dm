@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(closets)
 		// therefore solving the issue on mapload. During rounds, everything will happen as normal
 		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	update_icon() // Set it to the right icon if needed
-	populate_contents() // Spawn all its stuff
+	populate_contents()
 
 // Override this to spawn your things in. This lets you use probabilities, and also doesnt cause init overrides
 /obj/structure/closet/proc/populate_contents()
@@ -439,7 +439,7 @@ GLOBAL_LIST_EMPTY(closets)
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/container_resist(var/mob/living/L)
+/obj/structure/closet/container_resist(mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
 	if(opened)
 		if(L.loc == src)
@@ -488,13 +488,13 @@ GLOBAL_LIST_EMPTY(closets)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
-/obj/structure/closet/ex_act(severity)
+/obj/structure/closet/ex_act(severity, target)
 	contents_explosion()
-	..()
+	return ..()
 
-/obj/structure/closet/proc/contents_explosion(severity)
+/obj/structure/closet/proc/contents_explosion(severity, target)
 	for(var/atom/A in contents)
-		A.ex_act(severity)
+		A.ex_act(severity, target)
 		CHECK_TICK
 
 /obj/structure/closet/singularity_act()

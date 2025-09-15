@@ -43,7 +43,7 @@
 	var/antispam_cd = 2 SECONDS
 	var/last_say = null
 
-/obj/machinery/ninja_bloodscan_machine/Initialize()
+/obj/machinery/ninja_bloodscan_machine/Initialize(mapload)
 	. = ..()
 	last_say = world.time
 

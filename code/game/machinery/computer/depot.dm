@@ -1,9 +1,3 @@
-
-#define DEPOT_VISITOR_START	1
-#define DEPOT_VISITOR_END	2
-#define DEPOT_VISITOR_ADD	3
-
-
 // Generic parent depot computer type
 
 /obj/machinery/computer/syndicate_depot
@@ -11,7 +5,7 @@
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "tcboss"
-	light_color = LIGHT_COLOR_PURE_CYAN
+	light_color = LIGHT_COLOR_ELECTRIC_CYAN
 	req_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
 	var/window_height = 400 // should be roughly 100 per section. Allow extra space for the lockout alert.
@@ -215,7 +209,7 @@
 		return
 	if(depotarea)
 		depotarea.activate_self_destruct("Fusion reactor containment field disengaged. All hands, evacuate. All hands, evacuate!", TRUE, user)
-		playsound(user, sound_click, 20, 1)
+		playsound(user, sound_click, 20, TRUE)
 
 
 // Shield computer, used to manipulate base shield, and armory shield
@@ -399,12 +393,12 @@
 	var/obj/effect/portal/redspace/myportal2
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
-	var/blocked = FALSE 		//Блокирует кнопки телепортера если TRUE
+	var/blocked = FALSE		//Блокирует кнопки телепортера если TRUE
 	var/last_opened_time = null	//Время когда в последний раз было открыто меню выбора телепорта
 	var/last_opener = null		//Последний открывший меню выбора телепорта
 	var/timeout = 300			//Время в течении которого никто не может использовать консоль пока кто то выбирает телепорт
 	var/is_cooldown = FALSE		//На кулдауне ли мы?
-	var/wait_time = 0 			//Сколько осталось до конца кулдауна.
+	var/wait_time = 0			//Сколько осталось до конца кулдауна.
 	var/lifespan = 300			//Сколько будут жить созданные порталы прежде чем удалиться
 
 /obj/machinery/computer/syndicate_depot/teleporter/taipan

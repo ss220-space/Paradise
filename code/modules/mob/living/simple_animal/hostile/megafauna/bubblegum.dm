@@ -20,8 +20,8 @@ It can charge at its target, and also heavily damaging anything directly hit in 
 If at half health it will start to charge from all sides with clones.
 
 When Bubblegum dies, it leaves behind a chest that contains:
- 1. A H.E.C.K. mining suit
- 2. A spellblade that can slice off limbs at range
+	1. A H.E.C.K. mining suit
+	2. A spellblade that can slice off limbs at range
 
 Difficulty: Hard
 
@@ -30,14 +30,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum
 	name = "bubblegum"
 	desc = "В иерархии демонов резни, он – король."
-	ru_names = list(
-		NOMINATIVE = "Бубльгум",
-		GENITIVE = "Бубльгума",
-		DATIVE = "Бубльгуму",
-		ACCUSATIVE = "Бубльгума",
-		INSTRUMENTAL = "Бубльгумом",
-		PREPOSITIONAL = "Бубльгуме"
-	)
 	health = 2500
 	maxHealth = 2500
 	attacktext = "кромсает"
@@ -77,7 +69,6 @@ Difficulty: Hard
 	var/maximum_enraged_healing = 500
 	/// Enraged healing recived
 	var/enraged_healing = 0
-	internal_type = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
 	deathmessage = "погружается в лужу крови, покидая битву. Вы победили... на сей раз."
@@ -87,11 +78,15 @@ Difficulty: Hard
 							   /datum/action/innate/megafauna_attack/hallucination_surround,
 							   /datum/action/innate/megafauna_attack/blood_warp)
 
-/obj/item/gps/internal/bubblegum
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "You're not quite sure how a signal can be bloody."
-	invisibility = INVISIBILITY_ABSTRACT
+/mob/living/simple_animal/hostile/megafauna/bubblegum/get_ru_names()
+	return list(
+		NOMINATIVE = "Бубльгум",
+		GENITIVE = "Бубльгума",
+		DATIVE = "Бубльгуму",
+		ACCUSATIVE = "Бубльгума",
+		INSTRUMENTAL = "Бубльгумом",
+		PREPOSITIONAL = "Бубльгуме"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()
@@ -551,7 +546,11 @@ Difficulty: Hard
 /obj/effect/decal/cleanable/blood/gibs/bubblegum
 	name = "thick blood"
 	desc = "Густая, разбрызганная кровь."
-	ru_names = list(
+	random_icon_states = list("gib3", "gib5", "gib6")
+	bloodiness = 20
+
+/obj/effect/decal/cleanable/blood/gibs/bubblegum/get_ru_names()
+	return list(
 		NOMINATIVE = "густая кровь",
 		GENITIVE = "густой крови",
 		DATIVE = "густой крови",
@@ -559,8 +558,6 @@ Difficulty: Hard
 		INSTRUMENTAL = "густой кровью",
 		PREPOSITIONAL = "густой крови"
 	)
-	random_icon_states = list("gib3", "gib5", "gib6")
-	bloodiness = 20
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/can_bloodcrawl_in()
 	return TRUE
@@ -583,8 +580,9 @@ Difficulty: Hard
 	..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/ex_act(severity, target)
-	if(severity >= EXPLODE_LIGHT)
+	if(severity <= EXPLODE_LIGHT)
 		return
+
 	severity = EXPLODE_LIGHT // puny mortals
 	return ..()
 
@@ -667,14 +665,6 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination
 	name = "bubblegum's hallucination"
-	ru_names = list(
-		NOMINATIVE = "галлюцинация Бубльгума",
-		GENITIVE = "галлюцинации Бубльгума",
-		DATIVE = "галлюцинации Бубльгума",
-		ACCUSATIVE = "галлюцинацию Бубльгума",
-		INSTRUMENTAL = "галлюцинацией Бубльгума",
-		PREPOSITIONAL = "галлюцинации Бубльгума"
-	)
 	desc = "Погодите, это реально просто галлюцинация?"
 	health = 1
 	maxHealth = 1
@@ -687,6 +677,15 @@ Difficulty: Hard
 	true_spawn = FALSE
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/get_ru_names()
+	return list(
+		NOMINATIVE = "галлюцинация Бубльгума",
+		GENITIVE = "галлюцинации Бубльгума",
+		DATIVE = "галлюцинации Бубльгума",
+		ACCUSATIVE = "галлюцинацию Бубльгума",
+		INSTRUMENTAL = "галлюцинацией Бубльгума",
+		PREPOSITIONAL = "галлюцинации Бубльгума"
+	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize(mapload)
 	. = ..()
@@ -756,3 +755,7 @@ Difficulty: Hard
 	for(var/mob/living/carbon/human/H in range(20))
 		to_chat(H, span_colossus("<b>МОИ РУКИ НАСЛАДЯТСЯ, РАЗРЫВАЯ ТЕБЯ... ПРЯМО ЗДЕСЬ И СЕЙЧАС!</b>"))
 		FindTarget(list(H))
+
+#undef BUBBLEGUM_SMASH
+#undef BUBBLEGUM_CAN_ENRAGE
+#undef BUBBLEGUM_IS_ENRAGED

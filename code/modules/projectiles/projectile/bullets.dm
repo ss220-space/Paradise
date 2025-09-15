@@ -11,14 +11,17 @@
 	icon_state = "bullet"
 	damage = 50
 	damage_type = BRUTE
-	flag = "bullet"
-	hitsound = "bullet"
-	hitsound_wall = "ricochet"
+	flag = BULLET
+	hitsound = SFX_BULLET
+	hitsound_wall = SFX_RICOCHET
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
 /obj/projectile/bullet/slug
 	armour_penetration = 40
 	damage = 30
+
+/obj/projectile/bullet/desert_eagle
+	stamina = 30
 
 /obj/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
@@ -140,9 +143,9 @@
 	stamina = 30
 	icon_state = "bullet-r"
 
-/obj/projectile/bullet/weakbullet4/c9mmte
-	name = "9mm TE"
-	damage = 7
+/obj/projectile/bullet/weakbullet4/c45nr
+	name = "45 N&R"
+	damage = 10
 	stamina = 15
 
 /obj/projectile/bullet/toxinbullet
@@ -184,9 +187,9 @@
 	tile_dropoff_s = 1.25
 	armour_penetration = -20
 
-/obj/projectile/bullet/pellet/nuclear
+/obj/projectile/bullet/pellet/magnum
 	damage = 15.5
-	tile_dropoff = 0
+	tile_dropoff = 0.4
 
 /obj/projectile/bullet/pellet/bioterror
 	damage = 9
@@ -236,8 +239,8 @@
 	..()
 
 /obj/projectile/bullet/pellet/weak/on_range()
- 	do_sparks(1, TRUE, src)
- 	..()
+	do_sparks(1, TRUE, src)
+	..()
 
 /obj/projectile/bullet/pellet/overload
 	damage = 3
@@ -256,13 +259,13 @@
 		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
 
 /obj/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
- 	..()
- 	explosion(target, 0, 0, 2, cause = src)
+	..()
+	explosion(target, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 
 /obj/projectile/bullet/pellet/overload/on_range()
- 	explosion(src, 0, 0, 2, cause = src)
- 	do_sparks(3, 3, src)
- 	..()
+	explosion(src, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
+	do_sparks(3, TRUE, src)
+	..()
 
 /obj/projectile/bullet/midbullet
 	damage = 20
@@ -341,6 +344,8 @@
 	if(location)
 		new /obj/effect/hotspot(location)
 		location.hotspot_expose(700, 50, 1)
+	if(prob(10))
+		do_sparks(1, TRUE, src)
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath
 	name = "dragonsbreath round"
@@ -352,10 +357,13 @@
 		INSTRUMENTAL = "пулей \"Дыхание дракона\"",
 		PREPOSITIONAL = "пуле \"Дыхание дракона\""
 	)
-	damage = 5
+	damage = 15
+	damage_type = BURN
+	range = 10
+	icon_state = "dragonbreath"
 
-/obj/projectile/bullet/incendiary/shell/dragonsbreath/nuclear
-	damage = 13.5
+/obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
+	damage = 14
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/mecha
 	name = "liquidlava round"
@@ -368,6 +376,8 @@
 		PREPOSITIONAL = "пуле \"жидкая лава\""
 	)
 	damage = 20
+	damage_type = BRUTE
+	range = 50
 
 /obj/projectile/bullet/meteorshot
 	name = "meteor"

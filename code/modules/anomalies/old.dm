@@ -88,8 +88,8 @@
 /obj/effect/old_anomaly/proc/detonate()
 	return
 
-/obj/effect/old_anomaly/ex_act(severity)
-	if(severity == EXPLODE_DEVASTATE)
+/obj/effect/old_anomaly/ex_act(severity, target)
+	if(severity >= EXPLODE_DEVASTATE)
 		qdel(src)
 
 /obj/effect/old_anomaly/proc/anomalyNeutralize()
@@ -212,7 +212,7 @@
 
 /obj/effect/old_anomaly/energetic/detonate()
 	if(explosive)
-		explosion(src, 1, 4, 16, 18, cause = src) //Low devastation, but hits a lot of stuff.
+		explosion(src, devastation_range = 1, heavy_impact_range = 4, light_impact_range = 16, flash_range = 18, cause = src) //Low devastation, but hits a lot of stuff.
 	else
 		new /obj/effect/particle_effect/sparks(loc)
 

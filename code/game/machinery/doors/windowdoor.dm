@@ -52,7 +52,7 @@
 	set_density(FALSE)
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
-		playsound(src, "shatter", 70, 1)
+		playsound(src, SFX_SHATTER, 70, TRUE)
 	QDEL_NULL(electronics)
 	return ..()
 
@@ -284,7 +284,7 @@
 		emagged = TRUE
 		operating = TRUE
 		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		sleep(6)
 		operating = FALSE
 		open(2)
@@ -296,7 +296,7 @@
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 	operating = TRUE
 	flick("[base_state]spark", src)
-	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	sleep(6)
 	operating = FALSE
 	return TRUE
@@ -332,8 +332,10 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(panel_open && !density && !operating)
-		user.visible_message(span_warning("[user] removes the electronics from the [name]."), \
-							 "You start to remove electronics from the [name]...")
+		user.visible_message(
+			span_warning("[user] removes the electronics from the [name]."), \
+			"You start to remove electronics from the [name]..."
+		)
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(panel_open && !density && !operating && loc)
 				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)

@@ -31,7 +31,7 @@
 	var/obj/machinery/buffer // simple machine buffer for device linkage
 	var/datum/multitool_menu_host/menu
 
-/obj/item/multitool/Initialize()
+/obj/item/multitool/Initialize(mapload)
 	. = ..()
 	menu = new(src)
 
@@ -148,3 +148,7 @@
 	icon_state = "multitool_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+#undef PROXIMITY_NONE
+#undef PROXIMITY_ON_SCREEN
+#undef PROXIMITY_NEAR

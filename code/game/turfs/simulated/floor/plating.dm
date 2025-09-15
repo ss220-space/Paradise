@@ -177,10 +177,6 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/simulated/floor/engine/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/blob_turf_consuming, 3)
-
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
 
@@ -235,11 +231,11 @@
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 
-/turf/simulated/floor/engine/ex_act(severity)
+/turf/simulated/floor/engine/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			ChangeTurf(baseturf)
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(50))
 				ChangeTurf(baseturf)
 
@@ -364,7 +360,7 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/simulated/floor/plating/snow/ex_act(severity)
+/turf/simulated/floor/plating/snow/ex_act(severity, target)
 	return
 
 /turf/simulated/floor/plating/snow/remove_plating()
@@ -379,7 +375,7 @@
 	clawfootstep = FOOTSTEP_SAND
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/simulated/floor/snow/ex_act(severity)
+/turf/simulated/floor/snow/ex_act(severity, target)
 	return
 
 /turf/simulated/floor/snow/pry_tile(obj/item/C, mob/user, silent = FALSE)

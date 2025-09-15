@@ -33,14 +33,12 @@
 	icon_state = "frame-eng"
 	icon_keyboard = "kb11"
 
-/obj/machinery/computer/monitor/New()
-	..()
+/obj/machinery/computer/monitor/Initialize(mapload)
+	. = ..()
 	GLOB.power_monitors += src
 	GLOB.power_monitors = sortAtom(GLOB.power_monitors)
 	power_monitor = new(src)
 
-/obj/machinery/computer/monitor/Initialize()
-	. = ..()
 	if(!is_secret_monitor && !(stat & (NOPOWER|BROKEN)))
 		GLOB.powermonitor_repository.add_to_cache(src)
 	powernet = find_powernet()
@@ -93,11 +91,11 @@
 	record()
 
 /**
-  * Power snapshot recording proc
-  *
-  * This proc handles recording powernet history for the graph on the TGUI
-  * It is called every process(), but only logs every 5 seconds
-  */
+ * Power snapshot recording proc
+ *
+ * This proc handles recording powernet history for the graph on the TGUI
+ * It is called every process(), but only logs every 5 seconds
+ */
 /obj/machinery/computer/monitor/proc/record()
 	if(world.time >= next_record)
 		next_record = world.time + record_interval

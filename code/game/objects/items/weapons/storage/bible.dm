@@ -1,14 +1,6 @@
 /obj/item/storage/bible
 	name = "bible"
 	desc = "Многократно прислоняйте к голове."
-	ru_names = list(
-		NOMINATIVE = "Библия",
-		GENITIVE = "Библии",
-		DATIVE = "Библии",
-		ACCUSATIVE = "Библию",
-		INSTRUMENTAL = "Библией",
-		PREPOSITIONAL = "Библии"
-	)
 	gender = FEMALE
 	lefthand_file = 'icons/mob/inhands/chaplain_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/chaplain_righthand.dmi'
@@ -29,20 +21,30 @@
 
 	/// Associative list of accociative lists of bible variants, used for the radial menu
 	var/static/list/bible_variants = list(
-		"Библия" =				list("state" = "bible",		 	"inhand" = "bible"),
-		"Коран" =				list("state" = "koran",		 	"inhand" = "koran"),
-		"Скрапбук" =			list("state" = "scrapbook",	 	"inhand" = "scrapbook"),
-		"Крипер" =				list("state" = "creeper",	 	"inhand" = "creeper"),
-		"Белая Библия" =		list("state" = "white",		 	"inhand" = "white"),
-		"Благодатный огонь" =	list("state" = "holylight",	 	"inhand" = "somebiblebook"),
-		"Красная обложка" =		list("state" = "athiest",	  	"inhand" = "atheist"),
-		"Том" =					list("state" = "tome",		  	"inhand" = "somebiblebook"),
-		"Король в Жёлтом" = 	list("state" = "kingyellow",  	"inhand" = "kingyellow"),
-		"Итакуа" =				list("state" = "ithaqua",	  	"inhand" = "ithaqua"),
-		"Саентология" =			list("state" = "scientology", 	"inhand" = "scientology"),
-		"Плавленная Библия" =	list("state" = "melted",	  	"inhand" = "melted"),
-		"Некрономикон" =	 	list("state" = "necronomicon",	"inhand" = "necronomicon"),
-		"Грин текст" =			list("state" = "greentext",	  	"inhand" = "greentext"),
+		"Библия" =				list("state" = "bible",		 			"inhand" = "bible"),
+		"Коран" =				list("state" = "bible_koran",		 	"inhand" = "koran"),
+		"Скрапбук" =			list("state" = "bible_scrapbook",	 	"inhand" = "scrapbook"),
+		"Крипер" =				list("state" = "bible_creeper",	 		"inhand" = "creeper"),
+		"Белая Библия" =		list("state" = "bible_white",		 	"inhand" = "white"),
+		"Благодатный огонь" =	list("state" = "bible_holylight",	 	"inhand" = "somebiblebook"),
+		"Красная обложка" =		list("state" = "bible_atheist",	  		"inhand" = "atheist"),
+		"Том" =					list("state" = "bible_tome",		  	"inhand" = "somebiblebook"),
+		"Король в Жёлтом" = 	list("state" = "bible_kingyellow",  	"inhand" = "kingyellow"),
+		"Итакуа" =				list("state" = "bible_ithaqua",	  		"inhand" = "ithaqua"),
+		"Саентология" =			list("state" = "bible_scientology", 	"inhand" = "scientology"),
+		"Плавленная Библия" =	list("state" = "bible_melted",	  		"inhand" = "melted"),
+		"Некрономикон" =	 	list("state" = "bible_necronomicon",	"inhand" = "necronomicon"),
+		"Грин текст" =			list("state" = "bible_greentext",	  	"inhand" = "greentext"),
+)
+
+/obj/item/storage/bible/get_ru_names()
+	return list(
+		NOMINATIVE = "Библия",
+		GENITIVE = "Библии",
+		DATIVE = "Библии",
+		ACCUSATIVE = "Библию",
+		INSTRUMENTAL = "Библией",
+		PREPOSITIONAL = "Библии"
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
@@ -57,7 +59,7 @@
 	user.visible_message(span_danger("[user] перд[pluralize_ru(user.gender, "ит", "ят")] на [declent_ru(ACCUSATIVE)]!"))
 	user.visible_message(span_userdanger("Загадочная сила поражает [user]!"))
 	user.suiciding = TRUE
-	do_sparks(3, 1, user)
+	do_sparks(3, TRUE, user)
 	user.gib()
 	return TRUE // Don't run the fart emote
 
@@ -65,7 +67,10 @@
 /obj/item/storage/bible/booze
 	name = "bible"
 	desc = "Многократно прислоняйте к голове."
-	ru_names = list(
+	icon_state ="bible"
+
+/obj/item/storage/bible/booze/get_ru_names()
+	return list(
 		NOMINATIVE = "Библия",
 		GENITIVE = "Библии",
 		DATIVE = "Библии",
@@ -73,7 +78,6 @@
 		INSTRUMENTAL = "Библией",
 		PREPOSITIONAL = "Библии"
 	)
-	icon_state ="bible"
 
 /obj/item/storage/bible/booze/populate_contents()
 	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
@@ -84,7 +88,7 @@
 
 
 //BS12 EDIT
- // All cult functionality moved to Null Rod
+// All cult functionality moved to Null Rod
 /obj/item/storage/bible/proc/bless(mob/living/carbon/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -142,7 +146,7 @@
 			span_danger("[user] ударя[pluralize_ru(user.gender, "ет", "ют")]  безжизненное тело [target] [declent_ru(INSTRUMENTAL)]."),
 			span_warning("Вы ударяете безжизненное тело [target].")
 		)
-		playsound(loc, "punch", 25, TRUE, -1)
+		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(!ishuman(target))
@@ -162,7 +166,7 @@
 				span_danger("[user] излечива[pluralize_ru(user.gender, "ет", "ют")] [target] с силой Бога \"[deity_name]\"!"),
 				span_danger("Да поможет вам Бог \"[deity_name]\", да побудит он вас к исцелению!"),
 			)
-		playsound(loc, "punch", 25, TRUE, -1)
+		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 	else
 		if(!istype(target.head, /obj/item/clothing/head/helmet))
 			target.apply_damage(10, BRAIN)
@@ -177,7 +181,7 @@
 				span_danger("[user] огрева[pluralize_ru(user.gender, "ет", "ют")] [target] [declent_ru(INSTRUMENTAL)] по голове!"),
 				span_danger("Вы огреваете [target] [declent_ru(INSTRUMENTAL)] по голове!"),
 			)
-		playsound(src.loc, "punch", 25, TRUE, -1)
+		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 
 	if(target == user)
 		god_punishment++

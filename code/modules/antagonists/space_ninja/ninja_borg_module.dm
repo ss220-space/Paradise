@@ -45,7 +45,7 @@
 	freqlock = FALSE
 	freerange = TRUE
 
-/obj/item/radio/borg/ninja/Initialize()
+/obj/item/radio/borg/ninja/Initialize(mapload)
 	. = ..()
 	set_frequency(NINJA_FREQ)
 

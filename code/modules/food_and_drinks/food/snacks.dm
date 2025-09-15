@@ -174,14 +174,14 @@
 				to_chat(D, "<span class='notice'>You are too full to try eating [src] right now.</span>")
 			else if(bitecount >= 4)
 				D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
-				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
+				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), TRUE)
 				D.adjustHealth(-10)
 				D.last_eaten = world.time
 				D.taste(reagents)
 				qdel(src)
 			else
 				D.visible_message("[D] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
-				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
+				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), TRUE)
 				bitecount++
 				D.last_eaten = world.time
 				D.taste(reagents)

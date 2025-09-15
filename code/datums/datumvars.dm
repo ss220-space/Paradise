@@ -1,15 +1,11 @@
-#define VV_MSG_MARKED "<br><font size='1' color='red'><b>Marked Object</b></font>"
-#define VV_MSG_EDITED "<br><font size='1' color='red'><b>Var Edited</b></font>"
-#define VV_MSG_ADMIN_SPAWNED "<br><font size='1' color='red'><b>Admin Spawned</b></font>"
-#define VV_MSG_DELETED "<br><font size='1' color='red'><b>Deleted</b></font>"
-// reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
+// reference: /client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
 
 /**
-  * Proc to check if a datum allows proc calls on it
-  *
-  * Returns TRUE if you can call a proc on the datum, FALSE if you cant
-  *
-  */
+ * Proc to check if a datum allows proc calls on it
+ *
+ * Returns TRUE if you can call a proc on the datum, FALSE if you cant
+ *
+ */
 /datum/proc/CanProcCall(procname)
 	return TRUE
 
@@ -20,7 +16,7 @@
 	var/static/list/protected_vars = list(
 		"lastKnownIP", "computer_id", "attack_log_old"
 	)
-	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
 
@@ -28,7 +24,7 @@
 	var/static/list/protected_vars = list(
 		"address", "chatOutput", "computer_id", "connection", "jbh", "pm_tracker", "related_accounts_cid", "related_accounts_ip", "watchlisted"
 	)
-	if(!check_rights(R_ADMIN, FALSE, mob) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
 
@@ -475,7 +471,7 @@
 	src << output("[span]:[content]", "variables[D.UID()].browser:replace_span")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
-/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE, display_flags)
+/proc/debug_variable(name, value, level, datum/DA = null, sanitize = TRUE, display_flags)
 	var/header
 	if(DA)
 		if(islist(DA))
@@ -1319,7 +1315,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living", confidential=TRUE)
 			return
 		var/list/possibleverbs = list()
-		possibleverbs += "Cancel" 								// One for the top...
+		possibleverbs += "Cancel"								// One for the top...
 		possibleverbs += typesof(/mob/proc,/mob/verb,/mob/living/proc,/mob/living/verb)
 		switch(H.type)
 			if(/mob/living/carbon/human)
@@ -1329,7 +1325,7 @@
 			if(/mob/living/silicon/ai)
 				possibleverbs += typesof(/mob/living/silicon/proc,/mob/living/silicon/ai/proc,/mob/living/silicon/ai/verb)
 		possibleverbs -= H.verbs
-		possibleverbs += "Cancel" 								// ...And one for the bottom
+		possibleverbs += "Cancel"								// ...And one for the bottom
 
 		var/verb = tgui_input_list(usr, "Select a verb!", "Verbs", possibleverbs, null)
 		if(!H)
@@ -1374,7 +1370,7 @@
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
 			return
 
-		if(locateUID(new_organ) in M.internal_organs)
+		if(locate(new_organ) in M.internal_organs)
 			to_chat(usr, "Mob already has that organ.", confidential=TRUE)
 			return
 		new new_organ(M)

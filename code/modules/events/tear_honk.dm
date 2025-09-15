@@ -21,17 +21,19 @@
 
 /obj/effect/tear/honk
 	name = "honkmensional tear"
-	ru_names = list(
+	desc = "Пространственно-здравомысленный разрыв."
+	leader = /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne
+	possible_mobs = list(
+		/mob/living/simple_animal/hostile/retaliate/clown,
+		/mob/living/simple_animal/hostile/retaliate/clown/goblin
+	)
+
+/obj/effect/tear/honk/get_ru_names()
+	return list(
 		NOMINATIVE = "хонкомысленный разрыв",
 		GENITIVE = "хонкомысленного разрыва",
 		DATIVE = "хонкомысленному разрыву",
 		ACCUSATIVE = "хонкомысленный разрыв",
 		INSTRUMENTAL = "хонкомысленным разрывом",
 		PREPOSITIONAL = "хонкомысленном разрыве"
-	)
-	desc = "Пространственно-здравомысленный разрыв."
-	leader = /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne
-	possible_mobs = list(
-		/mob/living/simple_animal/hostile/retaliate/clown,
-		/mob/living/simple_animal/hostile/retaliate/clown/goblin
 	)

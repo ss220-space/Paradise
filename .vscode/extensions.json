@@ -2,9 +2,12 @@
     "recommendations": [
         "gbasood.byond-dm-language-support",
 		"platymuus.dm-langclient",
-		"EditorConfig.EditorConfig",
+		"editorconfig.editorconfig",
 		"dbaeumer.vscode-eslint",
 		"anturk.dmi-editor",
-		"eamodio.gitlens"
+		"eamodio.gitlens",
+		"oderwat.indent-rainbow",
+		"esbenp.prettier-vscode",
+		"stylemistake.auto-comment-blocks"
     ]
 }

@@ -3,11 +3,11 @@
  * * gasmix: [/datum/gas_mixture]
  * * name: String used to name the list, optional.
  * Returns: A list parsed_gasmixes with the following structure:
- * - parsed_gasmixes    	Value: Assoc List     Desc: The thing we return
- * -- Key: name         	Value: String         Desc: Gasmix Name
- * -- Key: temperature  	Value: Number         Desc: Temperature in kelvins
- * -- Key: volume       	Value: Number         Desc: Volume in liters
- * -- Key: pressure     	Value: Number         Desc: Pressure in kPa
+ * - parsed_gasmixes   	Value: Assoc List     Desc: The thing we return
+ * -- Key: name        	Value: String         Desc: Gasmix Name
+ * -- Key: temperature 	Value: Number         Desc: Temperature in kelvins
+ * -- Key: volume      	Value: Number         Desc: Volume in liters
+ * -- Key: pressure    	Value: Number         Desc: Pressure in kPa
  * -- Key: oxygen			Value: Number		  Desc: Amount of mols of O2
  * -- Key: carbon_dioxide	Value: Number		  Desc: Amount of mols of CO2
  * -- Key: nitrogen			Value: Number		  Desc: Amount of mols of N2

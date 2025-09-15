@@ -6,14 +6,17 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	origin_tech = "combat=4;magnets=3"
 	modifystate = TRUE
-	can_flashlight = TRUE
 	ammo_x_offset = 3
-	flight_x_offset = 15
-	flight_y_offset = 10
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7)
+	)
 
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/cyborg/newshot()
 	..()
@@ -27,13 +30,10 @@
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
-	gun_light_overlay = "mini-light"
-	flight_x_offset = 0
-	flight_y_offset = 0
 	ammo_x_offset = 2
 	charge_sections = 3
-	can_flashlight = FALSE
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
@@ -53,6 +53,11 @@
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 10),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -10)
+	)
 
 /obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
 	. = ..()
@@ -67,7 +72,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
 	. = ..()
@@ -84,6 +90,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
+	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/energy/gun/pdw9/ert
 
@@ -102,10 +110,10 @@
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	weapon_weight = WEAPON_HEAVY
-	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 	accuracy = GUN_ACCURACY_SNIPER
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/nuclear
 	name = "advanced energy gun"
@@ -118,19 +126,16 @@
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
-	accuracy = GUN_ACCURACY_RIFLE
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8)
+	)
 
 /obj/item/gun/energy/gun/minigun
 	name = "Laser gatling gun"
 	desc = "Огромное лазерное орудие, обладающее выдающейся скорострельностью и поражающей силой. Говорят, что 12 секунд стрельбы из этой малышки обойдутся вам в 400 тысяч кредитов."
-	ru_names = list(
-		NOMINATIVE = "Гатлинг-лазер",
-		GENITIVE = "Гатлинг-лазера",
-		DATIVE = "Гатлинг-лазеру",
-		ACCUSATIVE = "Гатлинг-лазер",
-		INSTRUMENTAL = "Гатлинг-лазером",
-		PREPOSITIONAL = "Гатлинг-лазере"
-	)
 	icon_state = "gatling"
 	item_state = "gatling"
 	fire_sound = "lasergatling"
@@ -141,7 +146,6 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	throw_range = 0
 	burst_size = 6
-	spread = 45
 	can_charge = FALSE
 	cell_type = /obj/item/stock_parts/cell/laser/gatling
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/light)
@@ -151,7 +155,19 @@
 	slowdown = 0.2
 	var/force_unwielded = 10
 	var/force_wielded = 20
-	accuracy = GUN_ACCURACY_MINIMAL
+	accuracy = new /datum/gun_accuracy/minimal/gatling()
+	recoil = GUN_RECOIL_LOW
+	attachable_allowed = GUN_MODULE_CLASS_NONE
+
+/obj/item/gun/energy/gun/minigun/get_ru_names()
+	return list(
+		NOMINATIVE = "Гатлинг-лазер",
+		GENITIVE = "Гатлинг-лазера",
+		DATIVE = "Гатлинг-лазеру",
+		ACCUSATIVE = "Гатлинг-лазер",
+		INSTRUMENTAL = "Гатлинг-лазером",
+		PREPOSITIONAL = "Гатлинг-лазере"
+	)
 
 /obj/item/gun/energy/gun/minigun/Initialize(mapload)
 	. = ..()
@@ -186,7 +202,11 @@
 	item_state = "gatling_pulse"
 	desc = "Огромное пульсовое орудие, обладающее выдающейся скорострельностью и разрушительной силой. \
 	Является модификацией Гатлинг-лазера. Имеет самую совершенную батарею в мире, самозаряд которой полностью компенсирует энергозатраты при стрельбе."
-	ru_names = list(
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
+	cell_type = /obj/item/stock_parts/cell/infinite
+
+/obj/item/gun/energy/gun/minigun/pulse/get_ru_names()
+	return list(
 		NOMINATIVE = "Гатлинг-пульсер",
 		GENITIVE = "Гатлинг-пульсера",
 		DATIVE = "Гатлинг-пульсеру",
@@ -194,5 +214,3 @@
 		INSTRUMENTAL = "Гатлинг-пульсером",
 		PREPOSITIONAL = "Гатлинг-пульсере"
 	)
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
-	cell_type = /obj/item/stock_parts/cell/infinite

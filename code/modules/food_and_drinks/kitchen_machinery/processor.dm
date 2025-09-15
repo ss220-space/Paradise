@@ -15,13 +15,13 @@
 	var/rating_speed = 0
 	var/rating_amount = 0
 
-/obj/machinery/processor/New()
-		..()
-		component_parts = list()
-		component_parts += new /obj/item/circuitboard/processor(null)
-		component_parts += new /obj/item/stock_parts/matter_bin(null)
-		component_parts += new /obj/item/stock_parts/manipulator(null)
-		RefreshParts()
+/obj/machinery/processor/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/processor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	RefreshParts()
 
 /obj/machinery/processor/RefreshParts()
 	rating_speed = 0

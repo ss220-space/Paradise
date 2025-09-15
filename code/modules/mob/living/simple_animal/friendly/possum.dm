@@ -1,14 +1,6 @@
 /mob/living/simple_animal/possum
 	name = "possum"
 	desc = "Мелкая зверушка с планеты Земля. Каким-то образом они стали очень распространены в обитаемой части космоса."
-	ru_names = list(
-		NOMINATIVE = "опоссум",
-		GENITIVE = "опоссума",
-		DATIVE = "опоссуму",
-		ACCUSATIVE = "опоссума",
-		INSTRUMENTAL = "опоссумом",
-		PREPOSITIONAL = "опоссуме"
-	)
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "possum"
 	icon_living = "possum"
@@ -46,6 +38,15 @@
 	/// Used to change default standing icon to aggressive one
 	var/was_harmed = FALSE
 
+/mob/living/simple_animal/possum/get_ru_names()
+	return list(
+		NOMINATIVE = "опоссум",
+		GENITIVE = "опоссума",
+		DATIVE = "опоссуму",
+		ACCUSATIVE = "опоссума",
+		INSTRUMENTAL = "опоссумом",
+		PREPOSITIONAL = "опоссуме"
+	)
 
 /mob/living/simple_animal/possum/attack_hand(mob/user)
 	if(user.a_intent == INTENT_HELP)
@@ -77,14 +78,6 @@
 /mob/living/simple_animal/possum/Poppy
 	name = "Poppy"
 	desc = "Маленький работяга. Его жилетка подчеркивает его рабочие... лапы. Тот ещё трудяга. Очень не любит ассистентов в инженерном отделе. И Полли. Интересно, почему?"
-	ru_names = list(
-		NOMINATIVE = "Ключик",
-		GENITIVE = "Ключика",
-		DATIVE = "Ключику",
-		ACCUSATIVE = "Ключика",
-		INSTRUMENTAL = "Ключиком",
-		PREPOSITIONAL = "Ключике"
-	)
 	icon_state = "possum_poppy"
 	icon_living = "possum_poppy"
 	icon_dead = "possum_poppy_dead"
@@ -93,3 +86,13 @@
 	holder_type = /obj/item/holder/possum/poppy
 	maxHealth = 50
 	health = 50
+
+/mob/living/simple_animal/possum/Poppy/get_ru_names()
+	return list(
+		NOMINATIVE = "Ключик",
+		GENITIVE = "Ключика",
+		DATIVE = "Ключику",
+		ACCUSATIVE = "Ключика",
+		INSTRUMENTAL = "Ключиком",
+		PREPOSITIONAL = "Ключике"
+	)

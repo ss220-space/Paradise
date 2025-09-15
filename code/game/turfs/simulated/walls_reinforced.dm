@@ -22,7 +22,8 @@
 	var/can_be_reinforced = 1
 
 /turf/simulated/wall/r_wall/ComponentInitialize()
-	. = ..()
+	if(!is_station_level(z))
+		return
 	AddComponent(/datum/component/blob_turf_consuming, 3)
 
 

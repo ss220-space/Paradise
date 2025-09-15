@@ -83,4 +83,4 @@
 
 
 /mob/proc/pain_blurb(message)
-	show_blurb(src, 3 SECONDS, message, FALSE, "LEFT+0:16,CENTER+5:27", "left", text_color = COLOR_BLOOD_BASE)
+	show_blurb(src, 3 SECONDS, message, FALSE, "LEFT+0:16,CENTER+5:27", "left", text_color = BLOOD_COLOR_RED)

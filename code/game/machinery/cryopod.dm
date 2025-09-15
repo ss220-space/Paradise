@@ -41,8 +41,8 @@
 	var/storage_name = "Cryogenic Oversight Control"
 	var/allow_items = 1
 
-/obj/machinery/computer/cryopod/New()
-	..()
+/obj/machinery/computer/cryopod/Initialize(mapload)
+	. = ..()
 	for(var/T in GLOB.potential_theft_objectives + GLOB.potential_theft_objectives_hard + GLOB.potential_theft_objectives_medium /*+ GLOB.potential_theft_objectives_collect*/)
 		theft_cache += new T
 
@@ -154,10 +154,10 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(!objective_items.len)
 		visible_message(span_warning("The console buzzes in an annoyed manner."))
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, 1)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return
 	visible_message(span_warning("The console sparks, and some items fall out!"))
-	do_sparks(5, 1, src)
+	do_sparks(5, TRUE, src)
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
 
@@ -199,14 +199,6 @@
 /obj/machinery/cryopod
 	name = "cryogenic freezer"
 	desc = "A man-sized pod for entering suspended animation."
-	ru_names = list(
-		NOMINATIVE = "криогенный морозильник",
-		GENITIVE = "криогенного морозильника",
-		DATIVE = "криогенному морозильнику",
-		ACCUSATIVE = "криогенный морозильник",
-		INSTRUMENTAL = "криогенным морозильником",
-		PREPOSITIONAL = "криогенном морозильнике"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
@@ -219,7 +211,6 @@
 	var/on_store_name = "Система криохранения"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
 	var/allow_occupant_types = list(/mob/living/carbon/human)
-	var/disallow_occupant_types = list()
 
 	var/mob/living/occupant = null       // Person waiting to be despawned.
 	// 15 minutes-ish safe period before being despawned.
@@ -233,7 +224,7 @@
 	var/last_no_computer_message = 0
 
 	// These items are preserved when the process() despawn proc occurs.
-	var/list/preserve_items = list(
+	var/static/list/preserve_items = list(
 		/obj/item/hand_tele,
 		/obj/item/card/id/captains_spare,
 		/obj/item/aicard,
@@ -261,9 +252,20 @@
 		/obj/item/qm_quest_tablet
 	)
 	// These items will NOT be preserved
-	var/list/do_not_preserve_items = list (
+	var/static/list/do_not_preserve_items = list (
 		/obj/item/mmi/robotic_brain
 	)
+
+/obj/machinery/cryopod/get_ru_names()
+	return list(
+		NOMINATIVE = "криогенный морозильник",
+		GENITIVE = "криогенного морозильника",
+		DATIVE = "криогенному морозильнику",
+		ACCUSATIVE = "криогенный морозильник",
+		INSTRUMENTAL = "криогенным морозильником",
+		PREPOSITIONAL = "криогенном морозильнике"
+	)
+
 
 //////
 //Syndie cryopod.
@@ -281,7 +283,7 @@
 	announce = new /obj/item/radio/intercom(src)
 	announce.follow_target = src
 	icon_state = base_icon_state
-	set_light(1, 1, COLOR_LIGHT_GREEN)
+	set_light(1, 1, COLOR_GREEN)
 	find_control_computer()
 
 
@@ -316,10 +318,6 @@
 			break
 
 	if(!correct_type) return 0
-
-	for(var/type in disallow_occupant_types)
-		if(istype(M, type))
-			return 0
 
 	return 1
 
@@ -610,7 +608,7 @@
 			to_chat(user, span_notice("You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]"))
 
 
-/obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E, var/willing_factor = 1)
+/obj/machinery/cryopod/proc/take_occupant(mob/living/carbon/E, willing_factor = 1)
 	if(occupant)
 		return
 	if(!E)
@@ -739,7 +737,6 @@
 	on_store_name = "Robotic Storage Oversight"
 	on_enter_occupant_message = "The storage unit broadcasts a sleep signal to you. Your systems start to shut down, and you enter low-power mode."
 	allow_occupant_types = list(/mob/living/silicon/robot)
-	disallow_occupant_types = list()
 
 
 /obj/machinery/cryopod/robot/despawn_occupant()
@@ -760,7 +757,7 @@
 	return ..()
 
 
-/proc/cryo_ssd(var/mob/living/carbon/person_to_cryo)
+/proc/cryo_ssd(mob/living/carbon/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return 0
 	if(isobj(person_to_cryo.loc))
@@ -787,7 +784,7 @@
 			return 1
 	return 0
 
-/proc/force_cryo_human(var/mob/living/carbon/person_to_cryo)
+/proc/force_cryo_human(mob/living/carbon/person_to_cryo)
 	if(!istype(person_to_cryo))
 		return
 	if(!istype(person_to_cryo.loc, /obj/machinery/cryopod))

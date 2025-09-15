@@ -7,6 +7,8 @@
 	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_name = "hudsyndicate"
+	var/syndicate_antag_hud_name = "hudsyndicate"
+	var/hijack_antag_hud_name = "hudhijack"
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	wiki_page_name = "Traitor"
 	russian_wiki_name = "Предатель"
@@ -22,6 +24,7 @@
 	var/datum/contractor_pending/contractor_pending
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
+	var/antag_sound = "sound/ambience/antag/tatoralert.ogg"
 
 
 /datum/antagonist/traitor/on_gain()
@@ -98,9 +101,9 @@
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
 	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
-		antag_hud_name = "hudhijack"
+		antag_hud_name = hijack_antag_hud_name
 	else
-		antag_hud_name = "hudsyndicate"
+		antag_hud_name = syndicate_antag_hud_name
 	return ..()
 
 
@@ -113,8 +116,8 @@
 	// delete these end
 
 
-	var/objective_count = hijacker_antag 			//Hijacking counts towards number of objectives
-	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED) 	//Set up an exchange if there are enough traitors
+	var/objective_count = hijacker_antag			//Hijacking counts towards number of objectives
+	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED)	//Set up an exchange if there are enough traitors
 		if(!SSticker.mode.exchange_red)
 			SSticker.mode.exchange_red = owner
 		else
@@ -209,8 +212,7 @@
 		give_uplink()
 
 	announce_uplink_info()
-
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), antag_sound, 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 	return messages
 

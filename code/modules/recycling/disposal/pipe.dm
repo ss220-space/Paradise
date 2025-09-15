@@ -167,7 +167,7 @@
 
 
 // pipe affected by explosion
-/obj/structure/disposalpipe/ex_act(severity)
+/obj/structure/disposalpipe/ex_act(severity, target)
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
 			deconstruct(disassembled = FALSE)
@@ -287,7 +287,7 @@
 	name = "disposal trunk"
 	icon_state = "pipe-t"
 	base_icon_state = "pipe-t"
-	var/obj/linked 	// the linked obj/machinery/disposal or obj/disposaloutlet
+	var/obj/linked	// the linked obj/machinery/disposal or obj/disposaloutlet
 
 
 /obj/structure/disposalpipe/trunk/Initialize(mapload)

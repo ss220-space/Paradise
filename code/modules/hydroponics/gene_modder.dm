@@ -58,9 +58,9 @@
 		else if(M.rating > 3)
 			max_potency = 95
 		else
-			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95,100 	 Clamps at 100
+			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95,100	 Clamps at 100
 
-		max_yield = min(initial(max_yield) + (M.rating*2), 10) // 4,6,8,10 	Clamps at 10
+		max_yield = min(initial(max_yield) + (M.rating*2), 10) // 4,6,8,10	Clamps at 10
 
 	for(var/obj/item/stock_parts/scanning_module/SM in component_parts)
 		if(SM.rating > 3) //If you create t5 parts I'm a step ahead mwahahaha!
@@ -73,7 +73,7 @@
 	for(var/obj/item/stock_parts/micro_laser/ML in component_parts)
 		var/weed_rate_mod = ML.rating * 2.5
 		min_weed_rate = max(FLOOR(10-weed_rate_mod, 1), 0) // 7,5,2,0	Clamps at 0 and 10	You want this low
-		min_weed_chance = max(67-(ML.rating*16), 0)  // 48,35,19,3,0 	Clamps at 0 and 67	You want this low
+		min_weed_chance = max(67-(ML.rating*16), 0)  // 48,35,19,3,0	Clamps at 0 and 67	You want this low
 	for(var/obj/item/circuitboard/plantgenes/vaultcheck in component_parts)
 		if(istype(vaultcheck, /obj/item/circuitboard/plantgenes/vault)) // TRAIT_DUMB BOTANY TUTS
 			max_potency = 100
@@ -505,7 +505,7 @@
 		to_chat(user, "<span class='warning'>The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!</span>")
 		ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
-		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/item/disk/plantgene/examine(mob/user)
 	. = ..()

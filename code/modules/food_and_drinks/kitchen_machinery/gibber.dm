@@ -1,4 +1,5 @@
 #define GIBBER_ANIMATION_DELAY 16
+
 /obj/machinery/gibber
 	name = "Gibber"
 	desc = "The name isn't descriptive enough?"
@@ -330,12 +331,13 @@
 	var/consumption_delay = 3 SECONDS
 	var/list/victim_targets = list()
 
-/obj/machinery/gibber/autogibber/New()
-	..()
-	spawn(5)
-		var/turf/T = get_step(src, acceptdir)
-		if(istype(T))
-			lturf = T
+/obj/machinery/gibber/autogibber/Initialize(mapload)
+	. = ..()
+
+	var/turf/turf = get_step(src, acceptdir)
+	if(istype(turf))
+		lturf = turf
+
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/gibber(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -425,3 +427,5 @@
 			sleep(1)
 	if(spats)
 		visible_message("<span class='warning'>\The [src] spits out more possessions!</span>")
+
+#undef GIBBER_ANIMATION_DELAY

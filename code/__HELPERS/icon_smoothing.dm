@@ -35,8 +35,8 @@
 
 #define NULLTURF_BORDER 123456789
 
-#define DEFAULT_UNDERLAY_ICON 			'icons/turf/floors.dmi'
-#define DEFAULT_UNDERLAY_ICON_STATE 	"plating"
+#define DEFAULT_UNDERLAY_ICON			'icons/turf/floors.dmi'
+#define DEFAULT_UNDERLAY_ICON_STATE	"plating"
 #define DEFAULT_UNDERLAY_IMAGE			image(DEFAULT_UNDERLAY_ICON, DEFAULT_UNDERLAY_ICON_STATE)
 
 GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
@@ -506,7 +506,7 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 
 //Icon smoothing helpers
 
-/proc/smooth_zlevel(var/zlevel, now = FALSE)
+/proc/smooth_zlevel(zlevel, now = FALSE)
 	var/list/away_turfs = block(1, 1, zlevel, world.maxx, world.maxy, zlevel)
 	for(var/V in away_turfs)
 		var/turf/T = V

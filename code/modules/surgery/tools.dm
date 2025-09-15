@@ -417,6 +417,13 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
+/obj/item/circular_saw/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		no_multi_hit = TRUE, \
+	)
+
 /obj/item/circular_saw/laser
 	name = "Advanced Laser Circular Saw"
 	desc = "Пила с круглым лазерным диском. Последнее слово техники в сфере хирургических операций!"

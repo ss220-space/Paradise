@@ -146,7 +146,7 @@
  * - Runechats the emote
  *
  * You most likely want to use try_run_emote() anywhere you would otherwise call this directly,
- * 	as that will incorporate can_run_emote() checking as well.
+ *	as that will incorporate can_run_emote() checking as well.
  *
  * Arguments:
  * * user - Person that is trying to send the emote.
@@ -247,7 +247,7 @@
 		if(COMPONENT_BLOCK_EMOTE_SILENT)
 			return TRUE
 
-	var/initial_message = message 	// we need this since initial list value is empty list
+	var/initial_message = message	// we need this since initial list value is empty list
 
 	. = run_emote(user, params, type_override, intentional)
 

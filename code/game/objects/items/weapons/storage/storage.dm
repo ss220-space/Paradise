@@ -39,7 +39,7 @@
 	/// FALSE = pick one at a time, TRUE = pick all on tile
 	var/pickup_all_on_tile = TRUE
 	/// Sound played when used. `null` for no sound.
-	var/use_sound = "rustle"
+	var/use_sound = SFX_RUSTLE
 	/// What kind of [/obj/item/stack] can this be folded into. (e.g. Boxes and cardboard)
 	var/foldable = null
 	/// How much of the stack item do you get.
@@ -106,7 +106,7 @@
 			continue
 		if(!do_after(user, 0.3 SECONDS, target = user))
 			break
-		playsound(loc, "rustle", 50, TRUE, -5)
+		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 		target.handle_item_insertion(thing, user)
 
 /obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
@@ -354,8 +354,9 @@
 	if(usr)
 		var/turf/item_turf = get_turf(W)
 		var/turf/storage_turf = get_turf(src)
+		var/turf/user_turf = get_turf(usr)
 		// Its ok to move items to/from nullspace, since its not a player action
-		if(item_turf && storage_turf && !in_range(item_turf, storage_turf))
+		if(item_turf && storage_turf && (!in_range(storage_turf, user_turf) || !in_range(item_turf, user_turf)))
 			if(!stop_messages)
 				usr.balloon_alert(usr, "слишком далеко!")
 			return FALSE
@@ -625,10 +626,10 @@
 		remove_from_storage(I, T)
 
 /**
-  * Populates the container with items
-  *
-  * Override with whatever you want to put in the container
-  */
+ * Populates the container with items
+ *
+ * Override with whatever you want to put in the container
+ */
 /obj/item/storage/proc/populate_contents()
 	return // Override
 
@@ -749,11 +750,11 @@
 /obj/item/storage/AllowDrop()
 	return TRUE
 
-/obj/item/storage/ex_act(severity)
+/obj/item/storage/ex_act(severity, target)
 	for(var/atom/A in contents)
-		A.ex_act(severity)
+		A.ex_act(severity, target)
 		CHECK_TICK
-	..()
+	return ..()
 
 /obj/item/storage/proc/can_items_stack(obj/item/item_1, obj/item/item_2)
 	if(!item_1 || !item_2)

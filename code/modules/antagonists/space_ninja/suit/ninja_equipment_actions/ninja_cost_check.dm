@@ -22,7 +22,7 @@
 			if(disguise_active)
 				restore_form()			//This count's too
 			if(spirited)
-				cancel_spirit_form() 	//And another one!
+				cancel_spirit_form()	//And another one!
 		if(N_ADRENALINE)
 			if(!a_boost.charge_counter)
 				to_chat(ninja, span_warning("You do not have any more adrenaline boosters!"))

@@ -1,5 +1,3 @@
-#define LIBRARY_BOOKS_PER_PAGE 25
-
 GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
 GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion"))
 
@@ -28,7 +26,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/flagged = 0
 	var/flaggedby
 
-/datum/cachedbook/proc/LoadFromRow(var/list/row)
+/datum/cachedbook/proc/LoadFromRow(list/row)
 	id = row["id"]
 	author = row["author"]
 	title = row["title"]
@@ -141,14 +139,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /obj/machinery/libraryscanner
 	name = "scanner"
 	desc = "Крупная машина для сканирования печатной литературы."
-	ru_names = list(
-		NOMINATIVE = "сканер",
-		GENITIVE = "сканера",
-		DATIVE = "сканеру",
-		ACCUSATIVE = "сканер",
-		INSTRUMENTAL = "сканером",
-		PREPOSITIONAL = "сканере"
-	)
 	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
@@ -157,6 +147,15 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	/// Last scanned book
 	var/obj/item/book/cache
 
+/obj/machinery/libraryscanner/get_ru_names()
+	return list(
+		NOMINATIVE = "сканер",
+		GENITIVE = "сканера",
+		DATIVE = "сканеру",
+		ACCUSATIVE = "сканер",
+		INSTRUMENTAL = "сканером",
+		PREPOSITIONAL = "сканере"
+	)
 
 /obj/machinery/libraryscanner/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -226,7 +225,14 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /obj/machinery/bookbinder
 	name = "Book Binder"
 	desc = "Крупное устройство для скрепления листов бумаги в книжный переплёт."
-	ru_names = list(
+	gender = MALE
+	icon = 'icons/obj/library.dmi'
+	icon_state = "binder"
+	anchored = TRUE
+	density = TRUE
+
+/obj/machinery/bookbinder/get_ru_names()
+	return list(
 		NOMINATIVE = "брошюратор",
 		GENITIVE = "брошюратора",
 		DATIVE = "брошюратору",
@@ -234,12 +240,6 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		INSTRUMENTAL = "брошюратором",
 		PREPOSITIONAL = "брошюраторе"
 	)
-	gender = MALE
-	icon = 'icons/obj/library.dmi'
-	icon_state = "binder"
-	anchored = TRUE
-	density = TRUE
-
 
 /obj/machinery/bookbinder/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

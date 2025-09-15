@@ -5,7 +5,7 @@
 /// How long the chat message's end of life fading animation will occur for
 #define CHAT_MESSAGE_EOL_FADE		(0.7 SECONDS)
 /// Grace period for fade before we actually delete the chat message
-#define CHAT_MESSAGE_GRACE_PERIOD 	(0.2 SECONDS)
+#define CHAT_MESSAGE_GRACE_PERIOD	(0.2 SECONDS)
 /// Factor of how much the message index (number of messages) will account to exponential decay
 #define CHAT_MESSAGE_EXP_DECAY		0.7
 /// Factor of how much height will account to exponential decay
@@ -21,14 +21,14 @@
 /// The number of z-layer 'slices' usable by the chat message layering
 #define CHAT_LAYER_MAX_Z			(CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
 /// The dimensions of the chat message icons
-#define CHAT_MESSAGE_ICON_SIZE 		9
+#define CHAT_MESSAGE_ICON_SIZE		9
 
 
 /**
-  * # Chat Message Overlay
-  *
-  * Datum for generating a message overlay on the map
-  */
+ * # Chat Message Overlay
+ *
+ * Datum for generating a message overlay on the map
+ */
 /datum/chatmessage
 	/// The visual element of the chat messsage
 	var/image/message
@@ -95,8 +95,8 @@
 
 
 /**
-  * Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal
-  */
+ * Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal
+ */
 /datum/chatmessage/proc/on_parent_qdel()
 	SIGNAL_HANDLER
 	if(!QDELETED(src))
@@ -386,21 +386,14 @@
 
 
 /**
-  * Proc to allow atoms to set their own runechat colour
-  *
-  * This is a proc designed to be overridden in places if you want a specific atom to use a specific runechat colour
-  * Exampls include consoles using a colour based on their screen colour, and mobs using a colour based off of a customisation property
-  *
-  */
+ * Proc to allow atoms to set their own runechat colour
+ *
+ * This is a proc designed to be overridden in places if you want a specific atom to use a specific runechat colour
+ * Exampls include consoles using a colour based on their screen colour, and mobs using a colour based off of a customisation property
+ *
+ */
 /atom/proc/get_runechat_color()
 	return chat_color
-
-
-// Tweak these defines to change the available color ranges
-#define CM_COLOR_SAT_MIN 0.6
-#define CM_COLOR_SAT_MAX 0.7
-#define CM_COLOR_LUM_MIN 0.65
-#define CM_COLOR_LUM_MAX 0.75
 
 
 /**
@@ -462,6 +455,7 @@
 #undef CHAT_LAYER_Z_STEP
 #undef CHAT_LAYER_MAX_Z
 #undef CHAT_MESSAGE_ICON_SIZE
+
 #undef CM_COLOR_LUM_MAX
 #undef CM_COLOR_LUM_MIN
 #undef CM_COLOR_SAT_MAX

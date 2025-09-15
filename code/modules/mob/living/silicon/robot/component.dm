@@ -199,7 +199,7 @@
 		D.enable()
 
 // Returns component by it's string name
-/mob/living/silicon/robot/proc/get_component(var/component_name)
+/mob/living/silicon/robot/proc/get_component(component_name)
 	var/datum/robot_component/C = components[component_name]
 	return C
 
@@ -296,8 +296,8 @@
 
 	switch(scan_type)
 		if("robot")
-			var/BU = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
-			var/BR = M.getBruteLoss() > 50 	? 	"<b>[M.getBruteLoss()]</b>" 	: M.getBruteLoss()
+			var/BU = M.getFireLoss() > 50	?	"<b>[M.getFireLoss()]</b>"		: M.getFireLoss()
+			var/BR = M.getBruteLoss() > 50	?	"<b>[M.getBruteLoss()]</b>"	: M.getBruteLoss()
 			msgs += ("<span class='notice'>Analyzing Results for [M]:\n\t Overall Status: [M.stat > 1 ? "fully disabled" : "[M.health]% functional"]</span>")
 			msgs += ("\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>")
 			msgs += ("\t Damage Specifics: <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>")

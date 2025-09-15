@@ -1,15 +1,3 @@
-GLOBAL_LIST_EMPTY(gas_sensors)
-
-#define SENSOR_SCAN_PRESSURE		(1<<0)
-#define SENSOR_SCAN_TEMPERATURE		(1<<1)
-
-#define SENSOR_COMPOSITION_OXYGEN	(1<<2)
-#define SENSOR_COMPOSITION_TOXINS	(1<<3)
-#define SENSOR_COMPOSITION_NITROGEN	(1<<4)
-#define SENSOR_COMPOSITION_CO2		(1<<5)
-#define SENSOR_COMPOSITION_N2O		(1<<6)
-
-
 /obj/machinery/atmospherics/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
@@ -120,7 +108,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	if(frequency)
 		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
-/obj/machinery/atmospherics/air_sensor/Initialize()
+/obj/machinery/atmospherics/air_sensor/Initialize(mapload)
 	. = ..()
 	GLOB.gas_sensors += src
 	SSair.atmos_machinery += src
@@ -150,7 +138,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	multitool_menu_type = /datum/multitool_menu/idtag/freq/general_air_control
 
-/obj/machinery/computer/general_air_control/Initialize()
+/obj/machinery/computer/general_air_control/Initialize(mapload)
 	. = ..()
 	if(!sensors)
 		sensors = list()
@@ -292,7 +280,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 	multitool_menu_type = /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control
 
-/obj/machinery/computer/general_air_control/large_tank_control/Initialize()
+/obj/machinery/computer/general_air_control/large_tank_control/Initialize(mapload)
 	. = ..()
 	input_linkable = list(
 		/obj/machinery/atmospherics/unary/outlet_injector,

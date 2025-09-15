@@ -142,7 +142,7 @@
 
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
-    insert(target)
+	insert(target)
 
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user, datum/action/action)
@@ -159,7 +159,7 @@
 
 //abstract proc called by carbon/death()
 /obj/item/organ/internal/proc/on_owner_death()
- 	return
+	return
 
 
 /obj/item/organ/internal/proc/prepare_eat()

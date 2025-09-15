@@ -1,8 +1,4 @@
 #define SPACEVINE_SPAWN_THRESHOLD 5
-//Types of usual mutations
-#define	POSITIVE 			1
-#define	NEGATIVE			2
-#define	MINOR_NEGATIVE		3
 
 /datum/event/spacevine
 	announceWhen = 120
@@ -158,8 +154,8 @@
 /turf/simulated/floor/vines/break_tile_to_plating()
 	return
 
-/turf/simulated/floor/vines/ex_act(severity)
-	if(severity < 3)
+/turf/simulated/floor/vines/ex_act(severity, target)
+	if(severity > EXPLODE_LIGHT)
 		ChangeTurf(baseturf)
 
 /turf/simulated/floor/vines/narsie_act()
@@ -271,7 +267,7 @@
 	qdel(holder)
 
 /datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/item)
-	explosion(holder.loc, 0, 0, severity, 0, 0)
+	explosion(holder.loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = severity, flash_range = 0, adminlog = FALSE)
 
 /datum/spacevine_mutation/fire_proof
 	name = "fire proof"
@@ -462,6 +458,11 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	RegisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK, PROC_REF(on_cleave_attack))
+
+
+/obj/structure/spacevine/proc/on_cleave_attack()
+	return ATOM_ALLOW_CLEAVE_ATTACK // vines don't have density but should still be cleavable
 
 
 /obj/structure/spacevine/Destroy()
@@ -481,6 +482,7 @@
 	set_opacity(FALSE)
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force = TRUE)
+	UnregisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK)
 	return ..()
 
 
@@ -773,7 +775,7 @@
 		if(remaining_spreads == 0 || !spread_search)
 			break
 
-/obj/structure/spacevine/ex_act(severity)
+/obj/structure/spacevine/ex_act(severity, target)
 	var/i
 	for(var/datum/spacevine_mutation/SM in mutations)
 		i += SM.on_explosion(severity, src)

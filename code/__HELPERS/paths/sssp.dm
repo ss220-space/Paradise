@@ -99,7 +99,7 @@
 	for(var/index in 1 to length(distances))
 		var/turf/next_turf = next_closest[index]
 		next_turf.maptext = "[distances[index]]"
-		next_turf.color = COLOR_NAVY_BLUE
+		next_turf.color = COLOR_NAVY
 		animate(next_turf, color = null, delay)
 		animate(maptext = "", world.tick_lag)
 

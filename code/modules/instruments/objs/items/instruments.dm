@@ -80,7 +80,7 @@
 	force = 0
 	attack_verb = list("заджазил", "затрубил")
 
-/obj/item/instrument/trumpet/spectral/Initialize()
+/obj/item/instrument/trumpet/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
@@ -106,7 +106,7 @@
 	force = 0
 	attack_verb = list("заджазил", "засаксил")
 
-/obj/item/instrument/saxophone/spectral/Initialize()
+/obj/item/instrument/saxophone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
@@ -132,7 +132,7 @@
 	force = 0
 
 
-/obj/item/instrument/trombone/spectral/Initialize()
+/obj/item/instrument/trombone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 

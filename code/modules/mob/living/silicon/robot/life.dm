@@ -131,7 +131,7 @@
 
 
 /mob/living/silicon/robot/update_fire()
-	var/static/robot_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "Generic_mob_burning")
+	var/static/robot_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "human_generic_burn")
 	cut_overlay(robot_fire_olay)
 	if(on_fire)
 		add_overlay(robot_fire_olay)

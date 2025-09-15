@@ -19,26 +19,38 @@
 	var/source
 
 /datum/component/codeword_hearing/Initialize(regex/codeword_regex, highlight_span_class, component_source)
-	if(!ismovable(parent))
+	if(!ismob(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	replace_regex = codeword_regex
 	span_class = highlight_span_class
 	source = component_source
+
 	return ..()
 
-/datum/component/codeword_hearing/proc/handle_hearing(message)
-	var/mob/living/owner = parent
-	if(!istype(owner))
+/datum/component/codeword_hearing/RegisterWithParent()
+	. = ..()
+
+	RegisterSignal(parent, COMSIG_COMBINE_MESSAGE_FOR_HEARER, PROC_REF(handle_hearing))
+
+/datum/component/codeword_hearing/UnregisterFromParent()
+	. = ..()
+
+	UnregisterSignal(parent, COMSIG_COMBINE_MESSAGE_FOR_HEARER)
+
+/datum/component/codeword_hearing/Destroy(force)
+	replace_regex = null
+
+	return ..()
+
+/datum/component/codeword_hearing/proc/handle_hearing(mob/source, message)
+	SIGNAL_HANDLER
+
+	// don't skip codewords when source speaks
+	if(!source.can_hear())
 		return
 
-	// don't skip codewords when owner speaks
-	if(!owner.can_hear())
-		return
-
-	var/message_check = replace_regex.Replace(message, "<span class='[span_class]'>$1</span>")
-
-	return message_check
+	*message = replace_regex.Replace(*message, "<span class='[span_class]'>$1</span>")
 
 /// Since a parent can have multiple of these components on them simultaneously, this allows a datum to delete components from a specific source.
 /datum/component/codeword_hearing/proc/delete_if_from_source(component_source)

@@ -1,7 +1,7 @@
 /turf/simulated/floor/indestructible
 	explosion_vertical_block = 50
 
-/turf/simulated/floor/indestructible/ex_act(severity)
+/turf/simulated/floor/indestructible/ex_act(severity, target)
 	return
 
 /turf/simulated/floor/indestructible/blob_act(obj/structure/blob/B)

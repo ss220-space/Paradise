@@ -1,13 +1,5 @@
 /mob/living/simple_animal/hostile/guardian
 	name = "Guardian Spirit"
-	ru_names = list(
-		NOMINATIVE = "Дух-Хранитель",
-		GENITIVE = "Духа-Хранителя",
-		DATIVE = "Духу-Хранителю",
-		ACCUSATIVE = "Духа-Хранителя",
-		INSTRUMENTAL = "Духом-Хранителем",
-		PREPOSITIONAL = "Духе-Хранителе"
-	)
 	real_name = "Guardian Spirit"
 	desc = "Таинственное существо, которое всегда настороже, охраняет своего подопечного."
 	speak_emote = list("распевает", "поёт", "произносит нараспев", "интонирует")
@@ -53,6 +45,16 @@
 	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
 	var/name_color = "white"//only used with protector shields for the time being
 
+/mob/living/simple_animal/hostile/guardian/get_ru_names()
+	return list(
+		NOMINATIVE = "Дух-Хранитель",
+		GENITIVE = "Духа-Хранителя",
+		DATIVE = "Духу-Хранителю",
+		ACCUSATIVE = "Духа-Хранителя",
+		INSTRUMENTAL = "Духом-Хранителем",
+		PREPOSITIONAL = "Духе-Хранителе"
+	)
+
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
 	. = ..()
 	AddElement(/datum/element/simple_flying)
@@ -76,12 +78,11 @@
 /mob/living/simple_animal/hostile/guardian/med_hud_set_status()
 	if(summoner)
 		var/image/holder = hud_list[STATUS_HUD]
-		var/icon/I = icon(icon, icon_state, dir)
-		holder.pixel_y = I.Height() - world.icon_size
+		holder.pixel_y = get_cached_height() - ICON_SIZE_Y
 		if(summoner.stat == DEAD)
-			holder.icon_state = "huddead"
+			holder.icon_state = STATUS_HUD_DEAD
 		else
-			holder.icon_state = "hudhealthy"
+			holder.icon_state = STATUS_HUD_HEALTHY
 
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()
@@ -185,13 +186,13 @@
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			gib()
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(60)
 
-		if(3)
+		if(EXPLODE_LIGHT)
 			adjustBruteLoss(30)
 
 /mob/living/simple_animal/hostile/guardian/gib()
@@ -214,12 +215,12 @@
 		cooldown = world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
-    if(!summoner || loc == summoner || (cooldown > world.time && !forced))
-        return
-    buckled?.unbuckle_mob(src, force = TRUE)
-    new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
-    forceMove(summoner)
-    cooldown = world.time + 10
+	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
+		return
+	buckled?.unbuckle_mob(src, force = TRUE)
+	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
+	forceMove(summoner)
+	cooldown = world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input
@@ -257,14 +258,6 @@
 
 /obj/item/guardiancreator
 	name = "колода карт Таро"
-	ru_names = list(
-		NOMINATIVE = "колода карт Таро",
-		GENITIVE = "колоды карт Таро",
-		DATIVE = "колоде карт Таро",
-		ACCUSATIVE = "колоду карт Таро",
-		INSTRUMENTAL = "колодой карт Таро",
-		PREPOSITIONAL = "колоде карт Таро"
-	)
 	desc = "Зачарованная колода карт, по слухам - источник невероятной силы. "
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
@@ -286,6 +279,16 @@
 		"Green" = "#008000",
 		"Blue" = "#0000FF")
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
+
+/obj/item/guardiancreator/get_ru_names()
+	return list(
+		NOMINATIVE = "колода карт Таро",
+		GENITIVE = "колоды карт Таро",
+		DATIVE = "колоде карт Таро",
+		ACCUSATIVE = "колоду карт Таро",
+		INSTRUMENTAL = "колодой карт Таро",
+		PREPOSITIONAL = "колоде карт Таро"
+	)
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
@@ -395,14 +398,6 @@
 
 /obj/item/guardiancreator/tech
 	name = "инъектор голопаразитов"
-	ru_names = list(
-		NOMINATIVE = "инъектор голопаразитов",
-		GENITIVE = "инъектора голопаразитов",
-		DATIVE = "инъектору голопаразитов",
-		ACCUSATIVE = "инъектор голопаразитов",
-		INSTRUMENTAL = "инъектором голопаразитов",
-		PREPOSITIONAL = "инъекторе голопаразитов"
-	)
 	desc = "Содержит нанороботов неизвестного производства. Хотя он способен на почти колдовские подвиги с помощью голограмм жесткого света и наномашин, ему требуется органический носитель в качестве домашней базы и источника топлива."
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"
@@ -426,6 +421,16 @@
 		"Orchid" = "#F62CF5")
 	name_list = list("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
 
+/obj/item/guardiancreator/tech/get_ru_names()
+	return list(
+		NOMINATIVE = "инъектор голопаразитов",
+		GENITIVE = "инъектора голопаразитов",
+		DATIVE = "инъектору голопаразитов",
+		ACCUSATIVE = "инъектор голопаразитов",
+		INSTRUMENTAL = "инъектором голопаразитов",
+		PREPOSITIONAL = "инъекторе голопаразитов"
+	)
+
 /obj/item/guardiancreator/tech/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[picked_name] [color]"
 	G.real_name = "[picked_name] [color]"
@@ -443,14 +448,6 @@
 
 /obj/item/guardiancreator/biological
 	name = "скопление яиц скарабеев"
-	ru_names = list(
-		NOMINATIVE = "скопление яиц скарабеев",
-		GENITIVE = "скопления яиц скарабеев",
-		DATIVE = "скоплению яиц скарабеев",
-		ACCUSATIVE = "скопление яиц скарабеев",
-		INSTRUMENTAL = "скоплением яиц скарабеев",
-		PREPOSITIONAL = "скоплении яиц скарабеев"
-	)
 	desc = "Паразитический вид, который при рождении будет гнездиться в ближайшем живом существе. Хотя это и не очень полезно для вашего здоровья, они будут защищать свой новый улей насмерть."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "eggs"
@@ -473,6 +470,16 @@
 		"Orchid" = "#F62CF5")
 	name_list = list("brood", "hive", "nest")
 
+/obj/item/guardiancreator/biological/get_ru_names()
+	return list(
+		NOMINATIVE = "скопление яиц скарабеев",
+		GENITIVE = "скопления яиц скарабеев",
+		DATIVE = "скоплению яиц скарабеев",
+		ACCUSATIVE = "скопление яиц скарабеев",
+		INSTRUMENTAL = "скоплением яиц скарабеев",
+		PREPOSITIONAL = "скоплении яиц скарабеев"
+	)
+
 /obj/item/guardiancreator/biological/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[color] [picked_name]"
 	G.real_name = "[color] [picked_name]"
@@ -492,24 +499,24 @@
 	icon_state = "paper_words"
 	info = {"<b>Cписок видов голопаразитов</b><br>
 
- <br>
- <b>Хаос</b>: Телепортирует врагов при ударе(не всегда), телепортация приводит к вашим легким галлюцинациям. Поджигает врагов при прикосновении. Автоматически тушит носителя. Имеет в арсенале заклинание, накладывающее на всех в огромном радиусе оглушающие галлюцинации с быстрой перезарядкой.<br>
- <br>
- <b>Стандарт</b>: Сокрушительные атаки ближнего боя способные пробивать стены, экстремально высокая прочность, имеет ауру замедления на врагов. Может кричать на врагов при ударе.<br>
- <br>
- <b>Стрелок</b>: Имеет два режима. Дальнобойный: очень хрупкий, очень часто выпускает опасные дальнобойные снаряды, игнорирующие броню, но тратящие энергию. Скаут: не может атаковать, но слабо видим и может перемещаться сквозь стены на огромные расстояния. Может ставить силки для наблюдения в любом режиме.<br>
- <br>
- <b>Поддержка</b>: Имеет два режима: Боевой: урон токсинами пробивающий броню и средняя защита. Лекарь: Атаки лечат все виды урона, но становится медленным. Может поставить блюспейс маяк на пол и телепортировать всё и всех не прибитых к полу на него на Alt+Click. Имеет в арсенале навык, исцеляющий сломанные кости, органы и внутренние кровотечения.<br>
- <br>
- <b>Подрывник</b>: Слабая броня и атака. Может превратить любой объект в скрытую бомбу, подрывающую любого кто коснулся неё. Может минировать вещи даже будучи внутри хозяина.<br>
- <br>
- <b>Ассасин</b>: Катастрофически высокий урон грубым уроном и ядом, может входить в невидимость для нанесения удара ещё большей силы, игнорирующего броню. Совершенно нет никакой защиты, а в невидимости получает даже больше урона чем это возможно.<br>
- <br>
- <b>Налетчик</b>: Слабая атака с двойной скоростью атаки, средняя броня, невероятно быстр, имеет особый рывок, который при столкновении пробивает броню и опрокидывает жертву.<br>
- <br>
- <b>Молния</b>: Слабая атака и средняя броня, имеет цепь молнии между собой и хозяином, что дезинтегрирует любую цель при нахождении в ней. Может метать молнии во врагов.<br>
- <br>
- <b>Защитник</b>: При нарушении дальности связи хозяин призывается к нему, а не наоборот. Имеет два режима: низкая атака с высокой защитой, и режим ультра-защиты, практически полностью нивелирующий входящий и исходящий урон. В режиме ультра-защиты способен пережить даже взрыв бомбы, лишь слегка ранив хозяина. Может ставить силовые барьеры, через которые могут пройти только вы и ваш подопечный.<br>
+<br>
+<b>Хаос</b>: Телепортирует врагов при ударе(не всегда), телепортация приводит к вашим легким галлюцинациям. Поджигает врагов при прикосновении. Автоматически тушит носителя. Имеет в арсенале заклинание, накладывающее на всех в огромном радиусе оглушающие галлюцинации с быстрой перезарядкой.<br>
+<br>
+<b>Стандарт</b>: Сокрушительные атаки ближнего боя способные пробивать стены, экстремально высокая прочность, имеет ауру замедления на врагов. Может кричать на врагов при ударе.<br>
+<br>
+<b>Стрелок</b>: Имеет два режима. Дальнобойный: очень хрупкий, очень часто выпускает опасные дальнобойные снаряды, игнорирующие броню, но тратящие энергию. Скаут: не может атаковать, но слабо видим и может перемещаться сквозь стены на огромные расстояния. Может ставить силки для наблюдения в любом режиме.<br>
+<br>
+<b>Поддержка</b>: Имеет два режима: Боевой: урон токсинами пробивающий броню и средняя защита. Лекарь: Атаки лечат все виды урона, но становится медленным. Может поставить блюспейс маяк на пол и телепортировать всё и всех не прибитых к полу на него на Alt+Click. Имеет в арсенале навык, исцеляющий сломанные кости, органы и внутренние кровотечения.<br>
+<br>
+<b>Подрывник</b>: Слабая броня и атака. Может превратить любой объект в скрытую бомбу, подрывающую любого кто коснулся неё. Может минировать вещи даже будучи внутри хозяина.<br>
+<br>
+<b>Ассасин</b>: Катастрофически высокий урон грубым уроном и ядом, может входить в невидимость для нанесения удара ещё большей силы, игнорирующего броню. Совершенно нет никакой защиты, а в невидимости получает даже больше урона чем это возможно.<br>
+<br>
+<b>Налетчик</b>: Слабая атака с двойной скоростью атаки, средняя броня, невероятно быстр, имеет особый рывок, который при столкновении пробивает броню и опрокидывает жертву.<br>
+<br>
+<b>Молния</b>: Слабая атака и средняя броня, имеет цепь молнии между собой и хозяином, что дезинтегрирует любую цель при нахождении в ней. Может метать молнии во врагов.<br>
+<br>
+<b>Защитник</b>: При нарушении дальности связи хозяин призывается к нему, а не наоборот. Имеет два режима: низкая атака с высокой защитой, и режим ультра-защиты, практически полностью нивелирующий входящий и исходящий урон. В режиме ультра-защиты способен пережить даже взрыв бомбы, лишь слегка ранив хозяина. Может ставить силовые барьеры, через которые могут пройти только вы и ваш подопечный.<br>
 "}
 
 /obj/item/paper/guardian/update_icon_state()

@@ -107,7 +107,7 @@
 	var/used = FALSE
 	var/list/selected = list()
 	var/list/unselected = list()
-	var/list/static/bundles = list(
+	var/static/list/bundles = list(
 			"Bloody Spy" = list(	"Name" = "'Bloody Spy' Bundle",	// 220-222 TK
 								"Desc" = "Complete your objectives quietly with this compilation of stealthy items.",
 								/obj/item/storage/box/syndie_kit/chameleon = 1,								// 20 TK
@@ -141,7 +141,7 @@
 								/obj/item/clothing/glasses/hud/security/chameleon = 1,						// 10 TK
 								/obj/item/pen/fancy/bomb = 1,												// 30 TK
 								/obj/item/gun/projectile/automatic/pistol = 1,								// 20 TK
-								/obj/item/suppressor = 1,													// 5 TK
+								/obj/item/gun_module/muzzle/suppressor = 1,													// 5 TK
 								/obj/item/ammo_box/magazine/m10mm = 1,										// 2.5 TK
 								/obj/item/ammo_box/magazine/m10mm/hp = 1,									// 5 TK
 								/obj/item/ammo_box/magazine/m10mm/ap = 2,									// 10 TK
@@ -165,11 +165,11 @@
 								/obj/item/grenade/clusterbuster/n2o = 1,									// 10 TK
 								/obj/item/storage/box/syndie_kit/space = 1,									// 20 TK
 								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK
-			"PayDay" = list(	"Name" = "'PayDay' bundle",	// 136.6-138.6 TK
+			"PayDay" = list(	"Name" = "'PayDay' bundle",	// 161.6-163.6 TK
 								"Desc" = "Alright guys, today we're performing a heist on a space station owned by a greedy corporation.",
 								/obj/item/implanter/freedom/prototype = 1,									// 6.6 TK
-								/obj/item/gun/projectile/revolver = 1,										// 50 TK
-								/obj/item/ammo_box/speedloader/a357 = 2,									// 5 TK
+								/obj/item/gun/projectile/automatic/mini_uzi = 1,							// 60 TK
+								/obj/item/ammo_box/magazine/uzim9mm = 2,									// 20 TK
 								/obj/item/card/emag = 1,													// 50 TK
 								/obj/item/jammer = 1,														// 10 TK
 								/obj/item/card/id/syndicate = 1,											// 10 TK
@@ -282,17 +282,26 @@
 								/obj/item/clothing/shoes/combat = 1,                                        // 0 TK
 								/obj/item/clothing/accessory/holster = 1,                                   // 5 TK
 								/obj/item/clothing/head/beret = 1,                                          // 0 TK
-								/obj/item/clothing/accessory/scarf/red = 1,                                	// 0 TK
+								/obj/item/clothing/accessory/scarf/red = 1,                               	// 0 TK
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
-								/obj/item/clothing/mask/holo_cigar = 1,)                                    // 10 TK
+								/obj/item/clothing/mask/holo_cigar = 1),                                    // 10 TK
+			"Griefsky" = list(	"Name" = "Набор \"Грифски\"", // 130-220 ТК
+								"Desc" = "Набор, содержащий детали для сборки Грифски.",
+								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
+								/obj/item/melee/energy/sword = 4,											// 160 ТК
+								/obj/item/card/id/syndicate = 1,											// 10 ТК
+								/obj/item/paicard/syndicate = 1,										    // 37 TK
+								/obj/item/storage/belt/military/traitor = 1,                                // 2 TK
+								/obj/item/storage/toolbox/syndisuper = 1,)                                  // 8 TK
 	)
+
 
 /obj/item/radio/beacon/syndicate/bundle/magical //for d20 dice of fate
 	used = TRUE
 	name = "suspicious 'magical' beacon"
 	desc = "It looks battered and old, as if someone tried to crack it with brute force."
 
-/obj/item/radio/beacon/syndicate/bundle/Initialize()
+/obj/item/radio/beacon/syndicate/bundle/Initialize(mapload)
 	. = ..()
 	unselected = bundles.Copy()
 	while(length(selected) < 3)

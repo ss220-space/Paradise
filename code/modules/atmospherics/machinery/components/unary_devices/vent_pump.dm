@@ -435,3 +435,7 @@
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
+
+#undef EXTERNAL_PRESSURE_BOUND
+#undef INTERNAL_PRESSURE_BOUND
+#undef PRESSURE_CHECKS

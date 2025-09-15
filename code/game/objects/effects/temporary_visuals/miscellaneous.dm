@@ -78,8 +78,11 @@
 	animate(src, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter
-	color = "#dffc00"
+	color = BLOOD_COLOR_XENO
 	splatter_type = "xsplatter"
+
+/obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter/Initialize(mapload, angle, blood_color = color)
+	. = ..()
 
 /obj/effect/temp_visual/dir_setting/speedbike_trail
 	name = "speedbike trails"
@@ -348,8 +351,7 @@
 	var/size_matrix = matrix()
 	if(size_calc_target)
 		layer = size_calc_target.layer + 0.01
-		var/icon/I = icon(size_calc_target.icon, size_calc_target.icon_state, size_calc_target.dir)
-		size_matrix = matrix() * (I.Height()/world.icon_size)
+		size_matrix = matrix() * (size_calc_target.get_cached_height()/ICON_SIZE_Y)
 		transform = size_matrix //scale the bleed overlay's size based on the target's icon size
 	var/matrix/M = transform
 	if(shrink)
@@ -387,15 +389,29 @@
 	switch(newdir)
 		if(NORTH)
 			layer = BELOW_MOB_LAYER
-			pixel_x = rand(-3,3)
-			pixel_y = rand(4,6)
+			pixel_x += rand(-3,3)
+			pixel_y += rand(4,6)
 		if(SOUTH)
-			pixel_x = rand(-3,3)
-			pixel_y = rand(-1,1)
+			pixel_x += rand(-3,3)
+			pixel_y += rand(-1,1)
 		else
-			pixel_x = rand(-1,1)
-			pixel_y = rand(-1,1)
+			pixel_x += rand(-1,1)
+			pixel_y += rand(-1,1)
 	return ..()
+
+/obj/effect/temp_visual/dir_setting/firing_effect/sweep_attack
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "big_slash"
+	pixel_x = -32
+	pixel_y = -32
+	duration = 0.3 SECONDS
+
+/obj/effect/temp_visual/dir_setting/firing_effect/sweep_attack/semicircle
+	icon_state = "big_slash_180"
+
+/obj/effect/temp_visual/dir_setting/firing_effect/sweep_attack/full_circle
+	icon_state = "big_slash_360"
+	duration = 0.4 SECONDS
 
 /obj/effect/temp_visual/dir_setting/firing_effect/energy
 	icon_state = "firing_effect_energy"
@@ -510,7 +526,7 @@
 	pixel_y = -16
 	pixel_x = -16
 
-/obj/effect/warp_effect/ex_act(severity)
+/obj/effect/warp_effect/ex_act(severity, target)
 	return
 
 /obj/effect/warp_effect/singularity_act()

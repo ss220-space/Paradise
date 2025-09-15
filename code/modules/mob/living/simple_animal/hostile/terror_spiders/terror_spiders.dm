@@ -385,7 +385,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		to_chat(src, span_warning("Вы недостаточно сильны, чтобы взломать шлюз."))
 	else
 		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] открывает дверь силой!"))
-		playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src.loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(D.density)
 			D.open(TRUE)
 		else

@@ -25,7 +25,7 @@
 
 /turf/simulated/floor/plasteel/airless/indestructible // For bomb testing range
 
-/turf/simulated/floor/plasteel/airless/indestructible/ex_act(severity)
+/turf/simulated/floor/plasteel/airless/indestructible/ex_act(severity, target)
 	return
 
 /turf/simulated/floor/plasteel/goonplaque

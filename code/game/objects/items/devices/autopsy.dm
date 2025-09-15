@@ -3,7 +3,22 @@
 /obj/item/autopsy_scanner
 	name = "autopsy scanner"
 	desc = "Небольшое устройство, используемое для проведения аутопсии."
-	ru_names = list(
+	icon = 'icons/obj/autopsy_scanner.dmi'
+	icon_state = "autopsy_scanner"
+	flags = CONDUCT
+	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
+	origin_tech = "magnets=1;biotech=1"
+	var/list/datum/autopsy_data_scanner/wdata
+	var/list/chemtraces
+	var/target_UID = null
+	var/target_name = null	// target.name can change after scanning, so better save it here.
+	var/timeofdeath = null
+	var/target_rank = null
+	STATIC_COOLDOWN_DECLARE(print_cooldown)
+
+/obj/item/autopsy_scanner/get_ru_names()
+	return list(
 		NOMINATIVE = "сканер аутопсии",
 		GENITIVE = "сканера аутопсии",
 		DATIVE = "сканеру аутопсии",
@@ -11,19 +26,6 @@
 		INSTRUMENTAL = "сканером аутопсии",
 		PREPOSITIONAL = "сканере аутопсии"
 	)
-	icon = 'icons/obj/autopsy_scanner.dmi'
-	icon_state = "autopsy_scanner"
-	flags = CONDUCT
-	slot_flags = ITEM_SLOT_BELT
-	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "magnets=1;biotech=1"
-	var/list/datum/autopsy_data_scanner/wdata = list()
-	var/list/chemtraces = list()
-	var/target_UID = null
-	var/target_name = null	// target.name can change after scanning, so better save it here.
-	var/timeofdeath = null
-	var/target_rank = null
-	STATIC_COOLDOWN_DECLARE(print_cooldown)
 
 /obj/item/autopsy_scanner/Destroy()
 	QDEL_LIST_ASSOC_VAL(wdata)
@@ -32,7 +34,7 @@
 /datum/autopsy_data_scanner
 	var/weapon = null // this is the DEFINITE weapon type that was used
 	var/list/organs_scanned = list() // this maps a number of scanned organs to
-									 // the wounds to those organs with this data's weapon type
+									// the wounds to those organs with this data's weapon type
 	var/organ_names = ""
 
 /datum/autopsy_data_scanner/Destroy()
@@ -60,12 +62,12 @@
 	for(var/index in check_organ.autopsy_data)
 		var/datum/autopsy_data/weapon_data = check_organ.autopsy_data[index]
 
-		if(!wdata[index])
-			var/datum/autopsy_data_scanner/scanner_data = new
+		var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, index)
+		if(!scanner_data)
+			scanner_data = new()
 			scanner_data.weapon = weapon_data.weapon
-			wdata[index] = scanner_data
+			LAZYADDASSOC(wdata, index, scanner_data)
 
-		var/datum/autopsy_data_scanner/scanner_data = wdata[index]
 		var/organ_name = check_organ.declent_ru(NOMINATIVE)
 
 		if(!scanner_data.organs_scanned[organ_name])
@@ -84,9 +86,9 @@
 	for(var/chemID in check_organ.trace_chemicals)
 		if(check_organ.trace_chemicals[chemID] <= 0)
 			continue
-		if(chemID in chemtraces)
+		if(LAZYIN(chemtraces, chemID))
 			continue
-		chemtraces += chemID
+		LAZYADD(chemtraces, chemID)
 
 /obj/item/autopsy_scanner/examine(mob/user)
 	. = ..()
@@ -137,10 +139,10 @@
 	else
 		scan_data += "<b>Время смерти:</b> Н/Д<br><br>"
 
-	if(length(wdata))
+	if(LAZYLEN(wdata))
 		var/n = 1
 		for(var/wdata_idx in wdata)
-			var/datum/autopsy_data_scanner/scanner_data = wdata[wdata_idx]
+			var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, wdata_idx)
 			var/total_hits = 0
 			var/total_score = 0
 			var/age = 0
@@ -175,7 +177,7 @@
 			scan_data += "<br>"
 			n++
 
-	if(length(chemtraces))
+	if(LAZYLEN(chemtraces))
 		scan_data += "<b>Химические следы: </b><br>"
 		for(var/chemID in chemtraces)
 			scan_data += chemID
@@ -201,9 +203,9 @@
 	if(target_UID != target.UID())
 		target_UID = target.UID()
 		target_name = target.name
-		target_rank = target.get_assignment(if_no_id = "Неизвестный", if_no_job = null)
-		wdata.Cut()
-		chemtraces.Cut()
+		target_rank = target.get_assignment(if_no_id = UNKNOWN_STATUS_RUS, if_no_job = null)
+		LAZYCLEARLIST(wdata)
+		LAZYCLEARLIST(chemtraces)
 		timeofdeath = null
 		to_chat(user, span_notice("Обнаружен новый пациент. Данные о предыдущем пациенте удалены."))
 

@@ -5,19 +5,19 @@
 #define TOX			"tox"
 #define OXY			"oxy"
 #define CLONE		"clone"
-#define STAMINA 	"stamina"
+#define STAMINA	"stamina"
 #define BRAIN		"brain"
 
 //damage flags
-#define MELEE 		"melee"
-#define BULLET 		"bullet"
-#define LASER 		"laser"
-#define ENERGY 		"energy"
-#define BOMB 		"bomb"
-#define BIO 		"bio"
-#define RAD 		"rad"
-#define FIRE 		"fire"
-#define ACID 		"acid"
+#define MELEE		"melee"
+#define BULLET		"bullet"
+#define LASER		"laser"
+#define ENERGY		"energy"
+#define BOMB		"bomb"
+#define BIO		"bio"
+#define RAD		"rad"
+#define FIRE		"fire"
+#define ACID		"acid"
 #define MAGIC		"magic"
 
 /// All armors
@@ -36,6 +36,7 @@
 #define EYE_BLUR	"eye_blur"
 #define DROWSY		"drowsy"
 #define JITTER		"jitter"
+#define CONFUSED	"confused"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS (1<<0)
@@ -55,6 +56,11 @@
 #define PASSEMOTES (1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define IGNORESLOWDOWN (1<<7)
 #define IGNORE_SPEED_CHANGES (1<<8)
+/// If set, this mob can be knocked unconscious via status effect.
+/// NOTE, does not mean immune to sleep. Unconscious and sleep are two different things.
+/// NOTE, does not relate to the unconscious stat either. Only the status effect.
+#define CANUNCONSCIOUS (1<<9)
+
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -62,6 +68,8 @@
 
 /// Maximum amount of staminaloss, living mob can have.
 #define MAX_STAMINA_LOSS 120
+/// Base amount of max stamina living mob can have
+#define BASE_MAX_STAMINA 100
 
 //Grab levels
 #define GRAB_PASSIVE 0
@@ -94,7 +102,7 @@
 #define ATTACK_EFFECT_KICK		"kick"
 #define ATTACK_EFFECT_SMASH		"smash"
 #define ATTACK_EFFECT_CLAW		"claw"
-#define ATTACK_EFFECT_SLASH 	"slash"
+#define ATTACK_EFFECT_SLASH	"slash"
 #define ATTACK_EFFECT_DISARM	"disarm"
 #define ATTACK_EFFECT_BITE		"bite"
 #define ATTACK_EFFECT_MECHFIRE	"mech_fire"
@@ -126,8 +134,8 @@
 #define HIS_GRACE_ASCENDED   /datum/grace_tier/ascended
 
 //Embedded objects
-#define EMBEDDED_PAIN_CHANCE 					15	//Chance for embedded objects to cause pain (damage user)
-#define EMBEDDED_ITEM_FALLOUT 					5	//Chance for embedded object to fall out (causing pain but removing the object)
+#define EMBEDDED_PAIN_CHANCE					15	//Chance for embedded objects to cause pain (damage user)
+#define EMBEDDED_ITEM_FALLOUT					5	//Chance for embedded object to fall out (causing pain but removing the object)
 #define EMBED_CHANCE							45	//Chance for an object to embed into somebody when thrown (if it's sharp)
 #define EMBEDDED_PAIN_MULTIPLIER				2	//Coefficient of multiplication for the damage the item does while embedded (this*item.w_class)
 #define EMBEDDED_FALL_PAIN_MULTIPLIER			5	//Coefficient of multiplication for the damage the item does when it falls out (this*item.w_class)
@@ -157,6 +165,8 @@
 
 //We will round to this value in damage calculations.
 #define DAMAGE_PRECISION 0.1
+//We will round to this value in bleeding calculations.
+#define BLEEDING_PRECISION 0.005
 
 //Gun Stuff
 #define SAWN_INTACT  0
@@ -167,10 +177,8 @@
 #define WEAPON_MEDIUM 2
 #define WEAPON_HEAVY 3
 
-#define EXPLODE_NONE 0				//Don't even ask me why we need this.
-#define EXPLODE_DEVASTATE 1
-#define EXPLODE_HEAVY 2
-#define EXPLODE_LIGHT 3
+/// ex_act() with EXPLODE_DEVASTATE severity will gib mobs with less than this much bomb armor
+#define EXPLODE_GIB_THRESHOLD 50
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
@@ -238,3 +246,16 @@
 /// Helper to check whether attack chain result wasn't blocked and was successful
 #define ATTACK_CHAIN_SUCCESS_CHECK(bitflags) ((!ATTACK_CHAIN_CANCEL_CHECK(bitflags) && ((bitflags) & ATTACK_CHAIN_SUCCESS)))
 
+//Click cooldowns
+#define CLICK_CD_MELEE (0.8 SECONDS)
+#define CLICK_CD_RANGE (0.4 SECONDS)
+#define CLICK_CD_HANDCUFFED (1 SECONDS)
+#define CLICK_CD_TKSTRANGLE (1 SECONDS)
+#define CLICK_CD_POINT (1 SECONDS)
+#define CLICK_CD_RESIST (2 SECONDS)
+#define CLICK_CD_PULLING (0.2 SECONDS)
+#define CLICK_CD_GRABBING (1 SECONDS)
+#define CLICK_CD_CLICK_ABILITY (0.6 SECONDS)
+#define CLICK_CD_RAPID (0.2 SECONDS)
+#define CLICK_CD_LOOK_UP_DOWN (0.5 SECONDS)
+#define CLICK_CD_THROW (0.8 SECONDS)

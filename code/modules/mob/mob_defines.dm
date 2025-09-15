@@ -56,6 +56,7 @@
 	var/atom/movable/screen/healths = null
 	var/atom/movable/screen/throw_icon = null
 	var/atom/movable/screen/stamina_bar = null
+	var/atom/movable/screen/nutrition_bar = null
 
 	/*A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
 	A variable should only be globally attached to turfs/objects/whatever, when it is in fact needed as such.
@@ -106,7 +107,10 @@
 	var/timeofdeath = 0 //Living
 
 	var/bodytemperature = BODYTEMP_NORMAL	//98.7 F
-	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
+	var/nutrition = NUTRITION_LEVEL_FED //Carbon
+	/// Current nutrition level of mob (look at /datum/nutrition_level for more info),
+	// default level would get overriden as soon as the nutrition of mob updated, just to be safe
+	var/datum/nutrition_level/current_nutrition_level = /datum/nutrition_level/fed // Carbon
 	var/satiety = 0 //Carbon
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon

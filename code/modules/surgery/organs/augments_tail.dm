@@ -18,14 +18,14 @@
 	var/datum/action/innate/tail_cut/implant_ability = new
 	var/biological = FALSE								// Used in examine
 	var/activated = FALSE
-	var/slash_strength = 35 							// Implant damage
+	var/slash_strength = 35							// Implant damage
 	var/stamina_damage = 0								// Stamina damage to others
 	var/self_stamina_damage = 5							// Stamina damage to self
 	var/damage_type = BRUTE								// BRUTE or BURN
 	var/slash_sound = 'sound/weapons/bladeslice.ogg'	// A sound plays when you hit someone with tail_cut
 	sound_on = 'sound/weapons/blade_dark_unsheath.ogg'	// Activation sound
 	sound_off = 'sound/weapons/blade_dark_sheath.ogg'	// Deactivation sound
-	icon_state = "tailimplant_blade" 					// All tailblades sprites by @baldek
+	icon_state = "tailimplant_blade"					// All tailblades sprites by @baldek
 	origin_tech = "materials=6;combat=5;biotech=5;programming=3;syndicate=3;"
 
 // NT tail laserblade
@@ -69,7 +69,7 @@
 
 	if(owner)
 		to_chat(owner, span_warning("Имплант лезвия отключился от воздействия ЭМИ!"))
-		do_sparks(3, 0, owner)
+		do_sparks(3, FALSE, owner)
 		owner.update_action_buttons()
 
 	implant_emp_downtime = TRUE
@@ -186,8 +186,10 @@
 				var/target_armor = C.run_armor_check(E, MELEE)
 				C.apply_damage(damage_deal, type_of_damage, E, target_armor, TRUE)
 				C.apply_damage(active_implant ? implant.stamina_damage : 0, STAMINA)
-				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] бьёт хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), \
-					 span_danger("Вы хлещете хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
+				user.visible_message(
+					span_danger("[user.declent_ru(NOMINATIVE)] бьёт хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), \
+					span_danger("Вы хлещете хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!")
+				)
 
 				var/all_objectives = user?.mind?.get_all_objectives()
 				if(C.mind && all_objectives)
@@ -204,8 +206,10 @@
 
 		if(HAS_TRAIT(user, TRAIT_RESTRAINED) && prob(50))
 			user.Weaken(4 SECONDS)
-			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"), \
-								 span_danger("Вы теряете равновесие!"))
+			user.visible_message(
+				span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"),
+				span_danger("Вы теряете равновесие!")
+			)
 			return
 
 		if(user.getStaminaLoss() >= 60)

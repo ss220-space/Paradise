@@ -1,6 +1,6 @@
 /datum/event/wormholes
-	announceWhen 			= 10
-	endWhen 				= 60
+	announceWhen			= 10
+	endWhen				= 60
 
 	var/list/pick_turfs = list()
 	var/list/wormholes = list()

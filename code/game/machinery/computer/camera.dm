@@ -6,7 +6,7 @@
 
 	icon_keyboard = "security_key"
 	icon_screen = "cameras"
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 	circuit = /obj/item/circuitboard/camera
 
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page
@@ -29,7 +29,7 @@
 /obj/machinery/computer/security/ui_host()
 	return parent ? parent : src
 
-/obj/machinery/computer/security/Initialize()
+/obj/machinery/computer/security/Initialize(mapload)
 	. = ..()
 	// Map name has to start and end with an A-Z character,
 	// and definitely NOT with a square bracket or even a number.
@@ -90,7 +90,7 @@
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
-	
+
 	var/list/cameras = get_available_cameras()
 	data["cameras"] = list()
 	for(var/i in cameras)
@@ -134,7 +134,7 @@
 
 	if(action == "switch_camera")
 		var/obj/machinery/camera/selected_camera = locateUID(params["camera"])
-		
+
 		if(isnull(selected_camera))
 			to_chat(usr, span_warning("ОШИБКА. Камера не найдена."))
 			return
@@ -142,7 +142,7 @@
 		active_camera?.computers_watched_by -= src
 		active_camera = selected_camera
 		active_camera.computers_watched_by += src
-		playsound(src, get_sfx("terminal_type"), 25, FALSE)
+		playsound(src, SFX_TERMINAL_TYPE, 25, FALSE)
 
 		if(isnull(active_camera))
 			return TRUE
@@ -308,7 +308,7 @@
 	/// Icon utilised when `GLOB.active_video_cameras` list have anything inside.
 	var/icon_screen_on = "entertainment"
 
-/obj/machinery/computer/security/telescreen/entertainment/Initialize()
+/obj/machinery/computer/security/telescreen/entertainment/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOB_ATTACKED_RANGED, PROC_REF(on_ranged_attack))
 

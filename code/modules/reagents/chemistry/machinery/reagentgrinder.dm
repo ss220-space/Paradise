@@ -137,8 +137,8 @@
 	icon_state = "juicer0"
 	beaker = null
 
-/obj/machinery/reagentgrinder/New()
-	..()
+/obj/machinery/reagentgrinder/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
@@ -160,10 +160,10 @@
 	QDEL_NULL(beaker)
 	return ..()
 
-/obj/machinery/reagentgrinder/ex_act(severity)
+/obj/machinery/reagentgrinder/ex_act(severity, target)
 	if(beaker)
-		beaker.ex_act(severity)
-	..()
+		beaker.ex_act(severity, target)
+	return ..()
 
 /obj/machinery/reagentgrinder/handle_atom_del(atom/A)
 	if(A == beaker)
@@ -422,7 +422,7 @@
 				return
 		if (!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
 				return
-		playsound(src.loc, 'sound/machines/juicer.ogg', 20, 1)
+		playsound(src.loc, 'sound/machines/juicer.ogg', 20, TRUE)
 		var/offset = prob(50) ? -2 : 2
 		animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
 		operating = 1

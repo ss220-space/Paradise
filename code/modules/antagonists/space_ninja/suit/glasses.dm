@@ -1,4 +1,4 @@
-#define NINJA_NIGHTVISION 		"nightvision"
+#define NINJA_NIGHTVISION		"nightvision"
 #define NINJA_THERMALS			"thermals"
 #define NINJA_FLASHPROTECTION	"flashprotection"
 

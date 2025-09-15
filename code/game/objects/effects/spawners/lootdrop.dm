@@ -48,9 +48,9 @@
 
 	//table data:
 	//-----------
-	//aft maintenance: 		24 items, 18 spots 2 extra (28/08/2014)
-	//asmaint: 				16 items, 11 spots 0 extra (08/08/2014)
-	//asmaint2:			 	36 items, 26 spots 2 extra (28/08/2014)
+	//aft maintenance:		24 items, 18 spots 2 extra (28/08/2014)
+	//asmaint:				16 items, 11 spots 0 extra (08/08/2014)
+	//asmaint2:				36 items, 26 spots 2 extra (28/08/2014)
 	//fpmaint:				5  items,  4 spots 0 extra (08/08/2014)
 	//fpmaint2:				12 items, 11 spots 2 extra (28/08/2014)
 	//fsmaint:				0  items,  0 spots 0 extra (08/08/2014)
@@ -144,7 +144,7 @@
 				/obj/item/soap/syndie = 7,
 				/obj/item/stack/tape_roll/thick = 7,
 				/obj/item/gun/syringe/syndicate = 2,
-				/obj/item/suppressor = 4,
+				/obj/item/gun_module/muzzle/suppressor = 4,
 				/obj/item/clothing/under/chameleon = 2,
 				/obj/item/stamp/chameleon = 2,
 				/obj/item/clothing/shoes/chameleon/noslip = 5,

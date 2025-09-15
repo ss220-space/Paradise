@@ -30,5 +30,5 @@
 	if(total_consumes >= consumes_needed)
 		var/turf/total_turf = parent
 		total_turf.blob_consume()
-		return
+		return COMPONENT_CAN_CONSUME
 	return COMPONENT_CANT_CONSUME

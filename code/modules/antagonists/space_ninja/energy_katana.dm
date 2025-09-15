@@ -44,6 +44,15 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
+/obj/item/melee/energy_katana/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 1.75, \
+		afterswing_slowdown = 0, \
+		swing_sound = SFX_BLADE_SCIFI_SWING \
+	)
+
 /obj/item/melee/energy_katana/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 	if(user && user.a_intent == INTENT_DISARM && !target.density)
@@ -57,7 +66,7 @@
 			var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			if(affecting.droplimb())
 				H.UpdateDamageIcon()
-				playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, 1)
+				playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, TRUE)
 				to_chat(user, span_userdanger("That was a bad idea."))
 				H.emote("scream")
 
@@ -130,7 +139,7 @@
 
 	if(doSpark)
 		spark_system.start()
-		playsound(get_turf(src), "sparks", 50, TRUE, 5)
+		playsound(get_turf(src), SFX_SPARKS, 50, TRUE, 5)
 
 	var/msg = ""
 

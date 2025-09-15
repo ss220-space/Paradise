@@ -160,22 +160,22 @@
 	onetankbomb.update_icon()
 
 
-/obj/item/tank/proc/detonate()	//This happens when a bomb is told to explode
-	var/fuel_moles = air_contents.toxins + air_contents.oxygen/6
+/obj/item/tank/proc/detonate() //This happens when a bomb is told to explode
+	var/fuel_moles = air_contents.toxins + air_contents.oxygen / 6
 	var/strength = 1
 
 	var/turf/ground_zero = get_turf(loc)
 	loc = null
 
 	if(air_contents.temperature > (T0C + 400))
-		strength = (fuel_moles/15)
+		strength = (fuel_moles / 15)
 
-		if(strength >=1)
-			explosion(ground_zero, round(strength,1), round(strength*2,1), round(strength*3,1), round(strength*4,1), cause = src)
-		else if(strength >=0.5)
-			explosion(ground_zero, 0, 1, 2, 4, cause = src)
-		else if(strength >=0.2)
-			explosion(ground_zero, -1, 0, 1, 2, cause = src)
+		if(strength >= 1)
+			explosion(ground_zero, devastation_range = round(strength, 1), heavy_impact_range = round(strength * 2, 1), light_impact_range = round(strength * 3, 1), flash_range = round(strength * 4, 1), cause = src)
+		else if(strength >= 0.5)
+			explosion(ground_zero, devastation_range = 0, heavy_impact_range = 1, light_impact_range = 2, flash_range = 4, cause = src)
+		else if(strength >= 0.2)
+			explosion(ground_zero, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 1, flash_range = 2, cause = src)
 		else
 			ground_zero.assume_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
@@ -183,19 +183,19 @@
 	else if(air_contents.temperature > (T0C + 250))
 		strength = (fuel_moles/20)
 
-		if(strength >=1)
-			explosion(ground_zero, 0, round(strength,1), round(strength*2,1), round(strength*3,1), cause = src)
-		else if(strength >=0.5)
-			explosion(ground_zero, -1, 0, 1, 2, cause = src)
+		if(strength >= 1)
+			explosion(ground_zero, devastation_range = 0, heavy_impact_range = round(strength, 1), light_impact_range = round(strength * 2, 1), flash_range = round(strength * 3, 1), cause = src)
+		else if(strength >= 0.5)
+			explosion(ground_zero, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 1, flash_range = 2, cause = src)
 		else
 			ground_zero.assume_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
 
 	else if(air_contents.temperature > (T0C + 100))
-		strength = (fuel_moles/25)
+		strength = (fuel_moles / 25)
 
-		if(strength >=1)
-			explosion(ground_zero, -1, 0, round(strength,1), round(strength*3,1))
+		if(strength >= 1)
+			explosion(ground_zero, devastation_range = -1, heavy_impact_range = 0, light_impact_range = round(strength, 1), flash_range = round(strength * 3, 1))
 		else
 			ground_zero.assume_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)

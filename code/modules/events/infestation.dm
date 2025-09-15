@@ -1,8 +1,8 @@
-#define VERM_MICE 		0
-#define VERM_LIZARDS 	1
-#define VERM_SPIDERS 	2
-#define VERM_RATS 	 	3
-#define VERM_FROG 	 	4
+#define VERM_MICE		0
+#define VERM_LIZARDS	1
+#define VERM_SPIDERS	2
+#define VERM_RATS		3
+#define VERM_FROG		4
 
 /datum/event/infestation
 	announceWhen = 10

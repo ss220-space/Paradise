@@ -69,7 +69,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/wearing_human = loc
 		if(wearing_human.wear_id == src)
-			wearing_human.sec_hud_set_ID()
+			wearing_human.update_hud_set()
 
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
@@ -103,17 +103,9 @@
 
 
 /obj/item/storage/wallet/random/populate_contents()
-	var/cash = pick(/obj/item/stack/spacecash,
-		/obj/item/stack/spacecash/c10,
-		/obj/item/stack/spacecash/c100,
-		/obj/item/stack/spacecash/c500,
-		/obj/item/stack/spacecash/c1000)
 	var/coin = pickweight(list(/obj/item/coin/iron = 3,
 							   /obj/item/coin/silver = 2,
 							   /obj/item/coin/gold = 1))
-	new cash(src)
-	if(prob(50))
-		new cash(src)
 	new coin(src)
 
 //////////////////////////////////////

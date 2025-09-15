@@ -19,7 +19,7 @@
 	materials = list(MAT_METAL=750)
 	origin_tech = "powerstorage=5;syndicate=7"
 	var/drain_rate = 2000000	// amount of power to drain per tick
-	var/power_drained = 0 		// has drained this much power
+	var/power_drained = 0		// has drained this much power
 	var/max_power = 6e8		// maximum power that can be drained before exploding
 	var/mode = 0		// 0 = off, 1=clamped (off), 2=operating
 	var/admins_warned = FALSE // stop spam, only warn the admins once that we are about to boom
@@ -90,7 +90,7 @@
 /obj/item/powersink/attack_ai()
 	return
 
-/obj/item/powersink/attack_hand(var/mob/user)
+/obj/item/powersink/attack_hand(mob/user)
 	switch(mode)
 		if(DISCONNECTED)
 			..()
@@ -149,7 +149,7 @@
 
 	if(power_drained >= max_power)
 		STOP_PROCESSING(SSobj, src)
-		explosion(src.loc, 4,8,16,32, cause = "Power sink overload")
+		explosion(loc, devastation_range = 4, heavy_impact_range = 8, light_impact_range = 16, flash_range = 32, adminlog = TRUE, cause = "Power sink overload")
 		qdel(src)
 
 /obj/item/powersink/compact

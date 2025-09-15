@@ -599,14 +599,6 @@
 /obj/item/clothing/head/scorched_skull
 	name = "scorched skull"
 	desc = "Голова мёртвого всадника, очищенная от чешуи, крови и внутренних органов во время разделки. Вселяет страх в ваших врагов."
-	ru_names = list(
-		NOMINATIVE = "обожжённый череп",
-		GENITIVE = "обожжённого черепа",
-		DATIVE = "обожжённому черепу",
-		ACCUSATIVE = "обожжённый череп",
-		INSTRUMENTAL = "обожжённым черепом",
-		PREPOSITIONAL = "обожжённом черепе"
-	)
 	icon_state = "scorched_skull"
 	item_state = "scorched_skull"
 	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 60, ACID = 60)
@@ -624,17 +616,20 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
 
+/obj/item/clothing/head/scorched_skull/get_ru_names()
+	return list(
+		NOMINATIVE = "обожжённый череп",
+		GENITIVE = "обожжённого черепа",
+		DATIVE = "обожжённому черепу",
+		ACCUSATIVE = "обожжённый череп",
+		INSTRUMENTAL = "обожжённым черепом",
+		PREPOSITIONAL = "обожжённом черепе"
+	)
+	
+
 /obj/item/clothing/head/roach
 	name = "roach"
 	desc = "Символ шамана племени, визуально отличающий его от соплеменников. Ценится как трофей среди шахтёров."
-	ru_names = list(
-		NOMINATIVE = "роуч",
-		GENITIVE = "роуча",
-		DATIVE = "роучу",
-		ACCUSATIVE = "роуч",
-		INSTRUMENTAL = "роучем",
-		PREPOSITIONAL = "роуче"
-	)
 	icon_state = "roach"
 	item_state = "roach"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -649,6 +644,16 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+	)
+
+/obj/item/clothing/head/roach/get_ru_names()
+	return list(
+		NOMINATIVE = "роуч",
+		GENITIVE = "роуча",
+		DATIVE = "роучу",
+		ACCUSATIVE = "роуч",
+		INSTRUMENTAL = "роучем",
+		PREPOSITIONAL = "роуче"
 	)
 
 /obj/item/clothing/head/mr_chang_band

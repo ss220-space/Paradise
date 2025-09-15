@@ -35,7 +35,7 @@
 	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
-/obj/effect/rend/New(loc, var/spawn_type, var/spawn_amt, var/desc)
+/obj/effect/rend/New(loc, spawn_type, spawn_amt, desc)
 	..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		to_chat(user, span_warning("<b>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies."))
 
 
-/obj/item/multisword/proc/spawn_copy(var/client/C, var/turf/T, mob/user)
+/obj/item/multisword/proc/spawn_copy(client/C, turf/T, mob/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 	if(duplicate_self)
 		user.client.prefs.copy_to(M)
@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", M)
 
-/obj/item/multisword/proc/equip_copy(var/mob/living/carbon/human/M)
+/obj/item/multisword/proc/equip_copy(mob/living/carbon/human/M)
 
 	var/obj/item/multisword/sword = new sword_type
 	sword.assigned = assigned
@@ -650,7 +650,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	H.equip_to_slot_or_del(new /obj/item/melee/katana(H), ITEM_SLOT_HAND_RIGHT)
 	H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), ITEM_SLOT_HAND_LEFT)
 	H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), ITEM_SLOT_BACK)
-	if(!H.real_name || H.real_name == "unknown")
+	if(!H.real_name || H.real_name == UNKNOWN_NAME_RUS)
 		H.real_name = "Neko-chan"
 	else
 		H.real_name = "[H.name]-chan"
@@ -673,7 +673,20 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/voodoo
 	name = "wicker doll"
 	desc = "Выглядит зловеще."
-	ru_names = list(
+	gender = FEMALE
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "voodoo"
+	item_state = "electronic"
+	var/mob/living/carbon/human/target = null
+	var/list/mob/living/carbon/human/possible
+	var/obj/item/link = null
+	var/cooldown_time = 3 SECONDS
+	COOLDOWN_DECLARE(cooldown)
+	max_integrity = 10
+	resistance_flags = FLAMMABLE
+
+/obj/item/voodoo/get_ru_names()
+	return list(
 		NOMINATIVE = "плетёная кукла",
 		GENITIVE = "плетёной куклы",
 		DATIVE = "плетёной кукле",
@@ -681,18 +694,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 		INSTRUMENTAL = "плетёной куклой",
 		PREPOSITIONAL = "плетёной кукле"
 	)
-	gender = FEMALE
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "voodoo"
-	item_state = "electronic"
-	var/mob/living/carbon/human/target = null
-	var/list/mob/living/carbon/human/possible = list()
-	var/obj/item/link = null
-	var/cooldown_time = 3 SECONDS
-	COOLDOWN_DECLARE(cooldown)
-	max_integrity = 10
-	resistance_flags = FLAMMABLE
-
 
 /obj/item/voodoo/attackby(obj/item/I, mob/user, params)
 	if(target && COOLDOWN_FINISHED(src, cooldown))
@@ -729,7 +730,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		user.unset_machine()
 
 /obj/item/voodoo/attack_self(mob/user as mob)
-	if(!target && possible.len)
+	if(!target && LAZYLEN(possible))
 		target = tgui_input_list(user, "Select your victim!", "Voodoo", possible)
 		return
 
@@ -778,13 +779,15 @@ GLOBAL_LIST_EMPTY(multiverse)
 		cooldown = world.time + cooldown_time
 
 /obj/item/voodoo/proc/update_targets()
-	possible = list()
+	LAZYCLEARLIST(possible)
+
 	if(!link)
 		return
+
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
 		if(H.stat != DEAD && (H.real_name in link.interactors))
-			possible |= H
+			LAZYOR(possible, H)
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
 	if(prob(50) || force)

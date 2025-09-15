@@ -150,10 +150,11 @@ multiple modular subtrees with behaviors
 		// Action cooldowns cannot happen faster than delta_time, so delta_time should be the value used in this scenario.
 		var/action_delta_time = max(current_behavior.action_cooldown * 0.1, delta_time)
 
-		if(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT) //Might need to move closer
+		if(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT) // Might need to move closer
 			if(!current_movement_target)
-				stack_trace("[pawn] wants to perform action type [current_behavior.type] which requires movement, but has no current movement target!")
-				return //This can cause issues, so don't let these slide.
+				// stack_trace("[pawn] wants to perform action type [current_behavior.type] which requires movement, but has no current movement target!")
+				return // This can cause issues, so don't let these slide.
+
 			if(current_behavior.required_distance >= get_dist(pawn, current_movement_target)) ///Are we close enough to engage?
 				if(ai_movement.moving_controllers[src] == current_movement_target) //We are close enough, if we're moving stop.
 					ai_movement.stop_moving_towards(src)

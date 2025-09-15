@@ -10,11 +10,11 @@
 	var/shuttlePortId = ""
 	var/shuttlePortName = "custom location"
 	var/list/jumpto_ports = list() //list of ports to jump to
-	var/access_station = TRUE 		//can we park near station?
+	var/access_station = TRUE		//can we park near station?
 	var/access_admin_zone = FALSE	//can we park on Admin z_lvls?
 	var/access_mining = FALSE		//can we park on Lavaland z_lvl?
-	var/access_taipan = FALSE 		//can we park on Taipan z_lvl?
-	var/access_away = FALSE 		//can we park on Away_Mission z_lvl?
+	var/access_taipan = FALSE		//can we park on Taipan z_lvl?
+	var/access_away = FALSE		//can we park on Away_Mission z_lvl?
 	var/access_derelict = FALSE		//can we park in Unexplored Space?
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
@@ -26,7 +26,7 @@
 	var/designate_time = 0
 	var/turf/designating_target_loc
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/Initialize()
+/obj/machinery/computer/camera_advanced/shuttle_docker/Initialize(mapload)
 	. = ..()
 	GLOB.navigation_computers += src
 	CalculateAvailable_z_lvls()
@@ -64,7 +64,7 @@
 	if(jumpto_ports.len)
 		jump_action = new /datum/action/innate/camera_jump/shuttle_docker
 	..()
-	/* 	//technically working but some icons are buggy as shit and either don't rotate or rotate wrong :
+	/*	//technically working but some icons are buggy as shit and either don't rotate or rotate wrong :
 		//namely shuttle walls, shuttle windows, shuttle engines and buckled mobs
 	if(rotate_action)
 		rotate_action.target = user
@@ -374,7 +374,7 @@
 	var/selected = tgui_input_list(target, "Choose location to jump to", "Locations", L)
 	if(QDELETED(src) || QDELETED(target) || !isliving(target))
 		return
-	playsound(src, "terminal_type", 25, FALSE)
+	playsound(src, SFX_TERMINAL_TYPE, 25, FALSE)
 	if(selected)
 		var/turf/T = get_turf(L[selected])
 		if(T)

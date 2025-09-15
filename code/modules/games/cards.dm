@@ -350,14 +350,6 @@
 /obj/item/cardhand
 	name = "hand of cards"
 	desc = "Несколько игральных карт."
-	ru_names = list(
-		NOMINATIVE = "игральные карты",
-		GENITIVE = "игральных карт",
-		DATIVE = "игральным картам",
-		ACCUSATIVE = "игральные карты",
-		INSTRUMENTAL = "игральными картами",
-		PREPOSITIONAL = "игральных картах"
-	)
 	gender = PLURAL
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "empty"
@@ -378,6 +370,15 @@
 	/// The player's picked card they want to take out. Stored in the hand so it can be passed onto the verb
 	var/pickedcard
 
+/obj/item/cardhand/get_ru_names()
+	return list(
+		NOMINATIVE = "игральные карты",
+		GENITIVE = "игральных карт",
+		DATIVE = "игральным картам",
+		ACCUSATIVE = "игральные карты",
+		INSTRUMENTAL = "игральными картами",
+		PREPOSITIONAL = "игральных картах"
+	)
 
 /obj/item/cardhand/proc/update_values()
 	if(!parentdeck)

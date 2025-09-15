@@ -158,7 +158,7 @@
 		emagged = TRUE
 		if(user)
 			to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		desc += span_danger("</br>The mech's equipment slots spark dangerously!")
 	else if(user)
 		to_chat(user, span_warning("[src]'s ID slot rejects the card."))

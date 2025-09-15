@@ -1,6 +1,5 @@
 #define EMPOWERED_THRALL_LIMIT 5
 
-
 /obj/effect/proc_holder/spell/proc/shadowling_check(mob/living/carbon/human/user)
 	if(!istype(user))
 		return FALSE
@@ -36,7 +35,7 @@
 	action_icon_state = "glare"
 
 	selection_activated_message		= span_notice("Вы приготовились к тому, что ваши глаза станут ослепительно яркими! <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message 	= span_notice("Ваши глаза расслабляются... пока что.")
+	selection_deactivated_message	= span_notice("Ваши глаза расслабляются... пока что.")
 	need_active_overlay = TRUE
 
 
@@ -86,7 +85,7 @@
 	desc = "Гасит большинство близлежащих источников света."
 	base_cooldown = 15 SECONDS //Short cooldown because people can just turn the lights back on
 	clothes_req = FALSE
-	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime)
+	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime, /obj/structure/glowshroom/shadowshroom)
 	action_icon_state = "veil"
 	aoe_range = 5
 
@@ -109,10 +108,12 @@
 		return
 
 	to_chat(user, span_shadowling("Вы бесшумно отключаете все ближайшие источники света."))
-	for(var/turf/T in targets)
-		T.extinguish_light()
-		for(var/atom/A in T.contents)
-			A.extinguish_light()
+	for(var/turf/turf in targets)
+		turf.extinguish_light()
+		for(var/atom/atom in turf.contents)
+			if(atom in blacklisted_lights)
+				continue
+			atom.extinguish_light()
 
 
 /obj/effect/proc_holder/spell/shadowling_shadow_walk
@@ -378,8 +379,10 @@
 	if(!istype(user))
 		return
 
-	user.visible_message(span_warning("Кожа [user] начинает пузыриться и перемещаться по телу!"), \
-					 span_shadowling("Вы восстанавливаете свою броню и очищаете свою форму от дефектов."))
+	user.visible_message(
+		span_warning("Кожа [user] начинает пузыриться и перемещаться по телу!"), \
+		span_shadowling("Вы восстанавливаете свою броню и очищаете свою форму от дефектов.")
+	)
 	user.set_species(/datum/species/shadow/ling)
 	user.adjustCloneLoss(-(user.getCloneLoss()))
 	user.set_vision_override(/datum/vision_override/nightvision) // nighvision withot button
@@ -614,7 +617,7 @@
 				to_chat(robot, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! ПЕРЕГРУЗКА СЕНСЕРОВ \[$(!@#</b>"))
 				SEND_SOUND(robot, sound('sound/misc/interference.ogg'))
 				playsound(robot, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-				do_sparks(5, 1, robot)
+				do_sparks(5, TRUE, robot)
 				robot.Weaken(12 SECONDS)
 
 		for(var/obj/structure/window/window in turf.contents)
@@ -799,7 +802,7 @@
 		thrall.emote("gasp")
 		thrall.visible_message(span_boldannounceic("[thrall] тяжело дышит, в [genderize_ru(thrall.gender,"его","её","его","их")] глазах сияет тусклый красный свет."), \
 								span_shadowling("<b><i>Вы вернулись. Один из ваших хозяев привел вас из потусторонней тьмы.</b></i>"))
-		playsound(thrall, "bodyfall", 50, TRUE)
+		playsound(thrall, SFX_BODYFALL, 50, TRUE)
 
 	else
 		to_chat(user, span_warning("Цель должна быть активна, чтобы наделить ее силой, или мертва, чтобы ее оживить."))
@@ -1071,3 +1074,4 @@
 
 	user.announce(text)
 
+#undef EMPOWERED_THRALL_LIMIT

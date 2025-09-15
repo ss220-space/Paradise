@@ -260,7 +260,7 @@
 		update_icon()
 		addtimer(CALLBACK(src, PROC_REF(update)), 5)
 
-/obj/machinery/power/apc/Destroy()
+/obj/machinery/power/apc/Destroy(force)
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
 	if(malfai && operating)
@@ -270,7 +270,7 @@
 	area.power_environ = 0
 	area.power_change()
 	if(occupier)
-		malfvacate(1)
+		malfvacate(TRUE)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
 	QDEL_NULL(cog)
@@ -307,7 +307,7 @@
 	if(cell_type)
 		cell = new/obj/item/stock_parts/cell/upgraded(src)
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
-		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
+		cell.charge = start_charge * cell.maxcharge / 100		// (convert percentage to actual value)
 
 	cog = null // Or you can't put it in
 
@@ -385,7 +385,7 @@
 		status_overlays_environ[3] = image(icon, "apco2-2")
 		status_overlays_environ[4] = image(icon, "apco2-3")
 
-	var/update = check_updates() 		//returns 0 if no need to update icons.
+	var/update = check_updates()		//returns 0 if no need to update icons.
 						// 1 if we need to update the icon_state
 						// 2 if we need to update the overlays
 	if(!update && !force_update)
@@ -395,16 +395,16 @@
 		if(update_state & (UPSTATE_OPENED1|UPSTATE_OPENED2|UPSTATE_BROKE))
 			set_light_on(FALSE)
 		else if(update_state & UPSTATE_BLUESCREEN)
-			set_light(2, 1, COLOR_CYAN_BLUE, l_on = TRUE)
+			set_light(2, 1, LIGHT_COLOR_DARK_BLUE, l_on = TRUE)
 		else if(!(stat & (UPSTATE_MAINT|UPSTATE_BROKE)) && (update_state & UPSTATE_ALLGOOD))
 			var/color
 			switch(charging)
 				if(APC_NOT_CHARGING)
-					color = COLOR_APC_RED
+					color = COLOR_SOFT_RED
 				if(APC_IS_CHARGING)
-					color = COLOR_APC_BLUE
+					color = LIGHT_COLOR_BLUE
 				if(APC_FULLY_CHARGED)
-					color = COLOR_APC_GREEN
+					color = LIGHT_COLOR_GREEN
 			set_light(2, 0.5, color, l_on = TRUE)
 		else
 			set_light_on(FALSE)
@@ -1352,7 +1352,8 @@
 		to_chat(occupier, "<span class='danger'>Primary core damaged, unable to return core processes.</span>")
 		if(forced)
 			occupier.loc = loc
-			occupier.death()
+			ASYNC
+				occupier.death()
 			occupier.gib()
 			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				point.the_disk = null //Pinpointers go back to tracking the nuke disk
@@ -1371,7 +1372,7 @@
 				smoke.set_up(amount = 3, location = loc)
 				smoke.attach(src)
 				smoke.start()
-				do_sparks(3, 1, src)
+				do_sparks(3, TRUE, src)
 				for(var/mob/M in viewers(src))
 					M.show_message("<span class='danger'>The [name] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
 

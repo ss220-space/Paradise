@@ -1,24 +1,17 @@
 // The Lighting System
-//
 // Consists of light fixtures (/obj/machinery/light) and light tube/bulb items (/obj/item/light)
-
-// status values shared between lighting fixtures and items
-#define LIGHT_OK 0
-#define LIGHT_EMPTY 1
-#define LIGHT_BROKEN 2
-#define LIGHT_BURNED 3
 
 #define STAGE_EMPTY 1
 #define STAGE_WIRED 2
 #define STAGE_COMPLETED 3
 
 /**
-  * # Light fixture frame
-  *
-  * Incomplete light tube fixture
-  *
-  * Becomes a [Light fixture] when completed
-  */
+ * # Light fixture frame
+ *
+ * Incomplete light tube fixture
+ *
+ * Becomes a [Light fixture] when completed
+ */
 /obj/machinery/light_construct
 	name = "light fixture frame"
 	desc = "A light fixture under construction."
@@ -148,12 +141,12 @@
 
 
 /**
-  * # Small light fixture frame
-  *
-  * Incomplete light bulb fixture
-  *
-  * Becomes a [Small light fixture] when completed
-  */
+ * # Small light fixture frame
+ *
+ * Incomplete light bulb fixture
+ *
+ * Becomes a [Small light fixture] when completed
+ */
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
 	desc = "A small light fixture under construction."
@@ -167,10 +160,10 @@
 
 
 /**
-  * # Light fixture
-  *
-  * The standard light tube fixture
-  */
+ * # Light fixture
+ *
+ * The standard light tube fixture
+ */
 /obj/machinery/light
 	name = "light fixture"
 	icon = 'icons/obj/lighting.dmi'
@@ -237,10 +230,10 @@
 
 
 /**
-  * # Small light fixture
-  *
-  * The smaller light bulb fixture
-  */
+ * # Small light fixture
+ *
+ * The smaller light bulb fixture
+ */
 /obj/machinery/light/small
 	icon_state = "bulb1"
 	base_icon_state = "bulb"
@@ -332,6 +325,7 @@
 	if(A)
 		on = FALSE
 		LAZYREMOVE(A.lights_cache, src)
+	UnregisterSignal(SSsecurity_level, list(COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, COMSIG_SECURITY_LEVEL_CHANGED))
 	return ..()
 
 
@@ -366,14 +360,14 @@
 
 
 /**
-  * Updates the light's properties
-  *
-  * Updates the icon_state, luminosity, colour, and power usage of the light.
-  * Also handles rigged light bulbs exploding.
-  * Arguments:
-  * * trigger - Should this update make the light explode/burn out? (Defaults to TRUE)
-  * * play_sound - Will the lightbulb play a sound when it's turned on.
-  */
+ * Updates the light's properties
+ *
+ * Updates the icon_state, luminosity, colour, and power usage of the light.
+ * Also handles rigged light bulbs exploding.
+ * Arguments:
+ * * trigger - Should this update make the light explode/burn out? (Defaults to TRUE)
+ * * play_sound - Will the lightbulb play a sound when it's turned on.
+ */
 /obj/machinery/light/proc/update(trigger = TRUE, play_sound = TRUE)
 	var/area/current_area = get_area(src)
 	UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
@@ -447,7 +441,7 @@
 	status = LIGHT_BURNED
 
 	visible_message("<span class='boldwarning'>[src] burns out!</span>")
-	do_sparks(2, 1, src)
+	do_sparks(2, TRUE, src)
 
 	on = FALSE
 	set_light(0)
@@ -682,9 +676,9 @@
 	return TRUE
 
 /**
-  * Flicker routine for the light.
-  * Called by invoke_async so the parent proc can return immediately.
-  */
+ * Flicker routine for the light.
+ * Called by invoke_async so the parent proc can return immediately.
+ */
 /obj/machinery/light/proc/flicker_event(amount)
 	if(on && status == LIGHT_OK)
 		for(var/i = 0; i < amount; i++)
@@ -842,17 +836,17 @@
 	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
 	sleep(2)
-	explosion(T, 0, 0, 2, 2, cause = src)
+	explosion(T, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flash_range = 2, cause = src)
 	qdel(src)
 
 
 /**
-  * # Light item
-  *
-  * Parent type of light fittings (Light bulbs, light tubes)
-  *
-  * Will fit into empty [/obj/machinery/light] of the corresponding type
-  */
+ * # Light item
+ *
+ * Parent type of light fittings (Light bulbs, light tubes)
+ *
+ * Will fit into empty [/obj/machinery/light] of the corresponding type
+ */
 /obj/item/light
 	icon = 'icons/obj/lighting.dmi'
 	force = 2
@@ -902,10 +896,10 @@
 	return TRUE
 
 /**
-  * # Light Tube
-  *
-  * For use in an empty [/obj/machinery/light]
-  */
+ * # Light Tube
+ *
+ * For use in an empty [/obj/machinery/light]
+ */
 /obj/item/light/tube
 	name = "light tube"
 	desc = "A replacement light tube."
@@ -921,10 +915,10 @@
 	brightness_power = 2
 
 /**
-  * # Light Bulb
-  *
-  * For use in an empty [/obj/machinery/light/small]
-  */
+ * # Light Bulb
+ *
+ * For use in an empty [/obj/machinery/light/small]
+ */
 /obj/item/light/bulb
 	name = "light bulb"
 	desc = "A replacement light bulb."
@@ -1019,7 +1013,7 @@
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = TRUE
-		playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
+		playsound(loc, 'sound/effects/glasshit.ogg', 75, TRUE)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 		return TRUE
 
@@ -1052,11 +1046,6 @@
 	no_emergency = FALSE
 	update(FALSE)
 
-
-#undef LIGHT_OK
-#undef LIGHT_EMPTY
-#undef LIGHT_BROKEN
 #undef STAGE_EMPTY
 #undef STAGE_WIRED
 #undef STAGE_COMPLETED
-

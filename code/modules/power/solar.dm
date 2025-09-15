@@ -1,16 +1,6 @@
-#define SOLAR_MAX_DIST 40
-
 /obj/machinery/power/solar
 	name = "solar panel"
 	desc = "Преобразует солнечный свет в электрическую энергию."
-	ru_names = list(
-		NOMINATIVE = "солнечная панель",
-		GENITIVE = "солнечной панели",
-		DATIVE = "солнечной панели",
-		ACCUSATIVE = "солнечную панель",
-		INSTRUMENTAL = "солнечной панелью",
-		PREPOSITIONAL = "солнечной панели"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/engines_and_power/solar_panels.dmi'
 	icon_state = "solar_panel_base"
@@ -29,6 +19,16 @@
 	var/turn_angle = 0
 	var/obj/machinery/power/solar_control/control = null
 
+/obj/machinery/power/solar/get_ru_names()
+	return list(
+		NOMINATIVE = "солнечная панель",
+		GENITIVE = "солнечной панели",
+		DATIVE = "солнечной панели",
+		ACCUSATIVE = "солнечную панель",
+		INSTRUMENTAL = "солнечной панелью",
+		PREPOSITIONAL = "солнечной панели"
+	)
+
 /obj/machinery/power/solar/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
 	Make(S)
@@ -39,7 +39,7 @@
 	return ..()
 
 //set the control of the panel to a given computer if closer than SOLAR_MAX_DIST
-/obj/machinery/power/solar/proc/set_control(var/obj/machinery/power/solar_control/SC)
+/obj/machinery/power/solar/proc/set_control(obj/machinery/power/solar_control/SC)
 	if(!SC || (get_dist(src, SC) > SOLAR_MAX_DIST))
 		return 0
 	control = SC
@@ -52,14 +52,14 @@
 		control.connected_panels.Remove(src)
 	control = null
 
-/obj/machinery/power/solar/proc/Make(var/obj/item/solar_assembly/S)
+/obj/machinery/power/solar/proc/Make(obj/item/solar_assembly/S)
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
 		S.set_anchored(TRUE)
 	S.loc = src
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
-		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
+		max_integrity *= 2								 //this need to be placed here, because panels already on the map don't have an assembly linked to
 		update_integrity(max_integrity)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -108,7 +108,7 @@
 				assembly.give_glass(stat & BROKEN)
 
 		else
-			playsound(src, "shatter", 70, TRUE)
+			playsound(src, SFX_SHATTER, 70, TRUE)
 			new /obj/item/shard(src.loc)
 			new /obj/item/shard(src.loc)
 
@@ -161,7 +161,7 @@
 	unset_control()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/power/solar/fake/New(var/turf/loc, var/obj/item/solar_assembly/S)
+/obj/machinery/power/solar/fake/New(turf/loc, obj/item/solar_assembly/S)
 	..(loc, S, 0)
 
 /obj/machinery/power/solar/fake/process()
@@ -201,14 +201,6 @@
 /obj/item/solar_assembly
 	name = "solar panel assembly"
 	desc = "Основание для сборки солнечной панели и солнечного датчика."
-	ru_names = list(
-		NOMINATIVE = "заготовка солнечной панели",
-		GENITIVE = "заготовки солнечной панели",
-		DATIVE = "заготовке солнечной панели",
-		ACCUSATIVE = "заготовку солнечной панели",
-		INSTRUMENTAL = "заготовкой солнечной панели",
-		PREPOSITIONAL = "заготовке солнечной панели"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/engines_and_power/solar_panels.dmi'
 	icon_state = "solar_panel_base"
@@ -217,6 +209,16 @@
 	anchored = FALSE
 	var/tracker = FALSE
 	var/glass_type = null
+
+/obj/item/solar_assembly/get_ru_names()
+	return list(
+		NOMINATIVE = "заготовка солнечной панели",
+		GENITIVE = "заготовки солнечной панели",
+		DATIVE = "заготовке солнечной панели",
+		ACCUSATIVE = "заготовку солнечной панели",
+		INSTRUMENTAL = "заготовкой солнечной панели",
+		PREPOSITIONAL = "заготовке солнечной панели"
+	)
 
 /obj/item/solar_assembly/attack_hand(mob/user)
 	if(!anchored && !isturf(loc)) // You can't pick it up
@@ -330,10 +332,6 @@
 //
 // Solar Control Computer
 //
-
-#define TRACKER_OFF 0
-#define TRACKER_TIMED 1
-#define TRACKER_AUTO 2
 
 /obj/machinery/power/solar_control
 	name = "solar panel control"
@@ -573,13 +571,13 @@
 
 	//manual tracking and set a rotation speed
 	if(track == TRACKER_TIMED && trackrate && nexttime <= world.time) //every time we need to increase/decrease the angle by 1?...
-		targetdir = (targetdir + trackrate / abs(trackrate) + 360) % 360 	//... do it
+		targetdir = (targetdir + trackrate / abs(trackrate) + 360) % 360	//... do it
 		nexttime += 36000 / abs(trackrate) //reset the counter for the next 1?
 		cdir = targetdir
 		set_panels(cdir)
 
 //rotates the panel to the passed angle
-/obj/machinery/power/solar_control/proc/set_panels(var/cdir)
+/obj/machinery/power/solar_control/proc/set_panels(cdir)
 
 	for(var/obj/machinery/power/solar/S in connected_panels)
 		S.adir = cdir //instantly rotates the panel

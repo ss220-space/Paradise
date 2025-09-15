@@ -340,7 +340,7 @@
 	var/duds = 0
 	while(egg_count > 0)							//Loop until you've harvested all the eggs
 		var/obj/item/fish_eggs/egg = pick(egg_list)	//Select an egg at random
-		if(egg != /obj/item/fish_eggs) 				// Don't harvest duds
+		if(egg != /obj/item/fish_eggs)				// Don't harvest duds
 			egg = new egg(get_turf(user))			//Spawn the egg at the user's feet
 			if(fish_bag?.can_be_inserted(egg))
 				fish_bag.handle_item_insertion(egg)
@@ -604,7 +604,7 @@
 							span_notice("You slipped and got soaked!"),
 						)
 						if(istype(M, /mob/living/simple_animal/pet/cat/Syndi))
-							do_sparks(3, 1, src)
+							do_sparks(3, TRUE, src)
 					else								//No water or didn't slip, get that fish!
 						M.visible_message(
 							span_warning("[M.name] catches and devours a live fish!"),
@@ -684,7 +684,7 @@
 	if(QDELETED(src))
 		return
 	if(!disassembled)
-		playsound(src, "shatter", 70, TRUE)
+		playsound(src, SFX_SHATTER, 70, TRUE)
 		for(var/i in 1 to shard_count)	//Produce the appropriate number of glass shards
 			var/obj/item/shard/S = new /obj/item/shard(get_turf(src))
 			transfer_fingerprints_to(S)

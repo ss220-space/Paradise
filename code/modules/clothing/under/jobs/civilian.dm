@@ -53,9 +53,8 @@
 /obj/item/clothing/under/rank/cargotech
 	name = "cargo technician's jumpsuit"
 	desc = "Shooooorts! They're comfy and easy to wear!"
-	icon_state = "cargotech"
+	icon_state = "cargo"
 	item_state = "lb_suit"
-	item_color = "cargo"
 
 /obj/item/clothing/under/rank/cargotech/skirt
 	name = "cargo technician's jumpskirt"
@@ -75,14 +74,12 @@
 	name = "chaplain's jumpsuit"
 	icon_state = "chaplain"
 	item_state = "bl_suit"
-	item_color = "chapblack"
 
 /obj/item/clothing/under/rank/chaplain/skirt
 	desc = "It's a black jumpskirt, often worn by religious folk."
 	name = "chaplain's jumpskirt"
-	icon_state = "chapblackf"
+	icon_state = "chaplain_skirt"
 	item_state = "bl_suit"
-	item_color = "chapblackf"
 	over_shoes = TRUE
 
 /obj/item/clothing/under/rank/chaplain/sensor
@@ -102,7 +99,7 @@
 	item_state = "clown"
 	item_color = "clown"
 
-/obj/item/clothing/under/rank/clown/Initialize()
+/obj/item/clothing/under/rank/clown/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'), 50, falloff_exponent = 20) //die off quick please
 

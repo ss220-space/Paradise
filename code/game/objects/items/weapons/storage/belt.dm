@@ -181,14 +181,6 @@
 	name = "medical belt"
 	desc = "Универсальный медицинский пояс, предназначенный для размещения и переноски медицинских приспособлений и лекарственных средств. \
 			Оборудован рядом карманов и креплений для мелких предметов. Используется медицинским персоналом."
-	ru_names = list(
-		NOMINATIVE = "медицинский пояс",
-		GENITIVE = "медицинского пояса",
-		DATIVE = "медицинскому поясу",
-		ACCUSATIVE = "медицинский пояс",
-		INSTRUMENTAL = "медицинским поясом",
-		PREPOSITIONAL = "медицинском поясе"
-	)
 	icon_state = "medicalbelt"
 	item_state = "medical"
 	use_item_overlays = TRUE
@@ -219,18 +211,20 @@
 		/obj/item/radio)
 	use_to_pickup = 1 //Allow medical belt to pick up medicine
 
+/obj/item/storage/belt/medical/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинский пояс",
+		GENITIVE = "медицинского пояса",
+		DATIVE = "медицинскому поясу",
+		ACCUSATIVE = "медицинский пояс",
+		INSTRUMENTAL = "медицинским поясом",
+		PREPOSITIONAL = "медицинском поясе"
+	)
+
 /obj/item/storage/belt/medical/surgery
 	name = "surgical belt"
 	desc = "Универсальный хирургический пояс, предназначенный для размещения и переноски хирургических инструментов. \
 			Оборудован нескользящими вставками для удержания инструментов. Используется хирургическим персоналом."
-	ru_names = list(
-		NOMINATIVE = "хирургический пояс",
-		GENITIVE = "хирургического пояса",
-		DATIVE = "хирургическому поясу",
-		ACCUSATIVE = "хирургический пояс",
-		INSTRUMENTAL = "хирургическим поясом",
-		PREPOSITIONAL = "хирургическом поясе"
-	)
 	icon_state = "surgicalbelt"
 	item_state = "surgical"
 	max_combined_w_class = 17
@@ -249,6 +243,16 @@
 		/obj/item/radio,
 		/obj/item/clothing/gloves/color/latex,
 		/obj/item/reagent_containers/spray/cleaner)
+
+/obj/item/storage/belt/medical/surgery/get_ru_names()
+	return list(
+		NOMINATIVE = "хирургический пояс",
+		GENITIVE = "хирургического пояса",
+		DATIVE = "хирургическому поясу",
+		ACCUSATIVE = "хирургический пояс",
+		INSTRUMENTAL = "хирургическим поясом",
+		PREPOSITIONAL = "хирургическом поясе"
+	)
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
 	new /obj/item/scalpel(src)
@@ -499,14 +503,6 @@
 /obj/item/storage/belt/rocketman
 	name = "rocket belt"
 	desc = "A belt for holding rockets."
-	ru_names = list(
-		NOMINATIVE = "пояс с ракетами",
-		GENITIVE = "пояса с ракетами",
-		DATIVE = "поясу с ракетами",
-		ACCUSATIVE = "пояс с ракетами",
-		INSTRUMENTAL = "поясом с ракетами",
-		PREPOSITIONAL = "поясе с ракетами"
-	)
 	gender = MALE
 	icon_state = "assaultbelt"
 	item_state = "assault"
@@ -514,6 +510,16 @@
 	max_combined_w_class = 30 //just to be sure..
 	max_w_class = WEIGHT_CLASS_NORMAL //Rockets are normal
 	can_hold = /obj/item/ammo_casing/caseless/rocket
+
+/obj/item/storage/belt/rocketman/get_ru_names()
+	return list(
+		NOMINATIVE = "пояс с ракетами",
+		GENITIVE = "пояса с ракетами",
+		DATIVE = "поясу с ракетами",
+		ACCUSATIVE = "пояс с ракетами",
+		INSTRUMENTAL = "поясом с ракетами",
+		PREPOSITIONAL = "поясе с ракетами"
+	)
 
 /obj/item/storage/belt/rocketman/populate_contents()
 	for(var/I in 1 to 3)
@@ -623,14 +629,6 @@
 /obj/item/storage/belt/lazarus
 	name = "trainer's belt"
 	desc = "Для шахтёров-мастеров – хранит капсулы Лазаря."
-	ru_names = list(
-		NOMINATIVE = "пояс тренера",
-		GENITIVE = "пояса тренера",
-		DATIVE = "поясу тренера",
-		ACCUSATIVE = "пояс тренера",
-		INSTRUMENTAL = "поясом тренера",
-		PREPOSITIONAL = "поясе тренера"
-	)
 	icon_state = "lazarusbelt_0"
 	item_state = "lazbelt"
 	w_class = WEIGHT_CLASS_BULKY
@@ -640,6 +638,16 @@
 	can_hold = list(
 		/obj/item/mobcapsule,
 		/obj/item/radio)
+
+/obj/item/storage/belt/lazarus/get_ru_names()
+	return list(
+		NOMINATIVE = "пояс тренера",
+		GENITIVE = "пояса тренера",
+		DATIVE = "поясу тренера",
+		ACCUSATIVE = "пояс тренера",
+		INSTRUMENTAL = "поясом тренера",
+		PREPOSITIONAL = "поясе тренера"
+	)
 
 /obj/item/storage/belt/lazarus/Initialize(mapload)
 	. = ..()
@@ -659,14 +667,6 @@
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
 	desc = "Патронташ для хранения патронов к дробовику."
-	ru_names = list(
-		NOMINATIVE = "патронташ",
-		GENITIVE = "патронташа",
-		DATIVE = "патронташу",
-		ACCUSATIVE = "патронташ",
-		INSTRUMENTAL = "патронташем",
-		PREPOSITIONAL = "патронташе"
-	)
 	gender = MALE
 	icon_state = "bandolier"
 	item_state = "bandolier"
@@ -674,6 +674,16 @@
 	max_combined_w_class = 16
 	display_contents_with_number = TRUE
 	can_hold = list(/obj/item/ammo_casing/shotgun)
+
+/obj/item/storage/belt/bandolier/get_ru_names()
+	return list(
+		NOMINATIVE = "патронташ",
+		GENITIVE = "патронташа",
+		DATIVE = "патронташу",
+		ACCUSATIVE = "патронташ",
+		INSTRUMENTAL = "патронташем",
+		PREPOSITIONAL = "патронташе"
+	)
 
 /obj/item/storage/belt/bandolier/Initialize(mapload)
 	. = ..()
@@ -1008,14 +1018,6 @@
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
 	desc = "Универсальная нагрудная система, высоко ценимая шахтёрами и охотниками."
-	ru_names = list(
-		NOMINATIVE = "разгрузка исследователя",
-		GENITIVE = "разгрузки исследователя",
-		DATIVE = "разгрузке исследователя",
-		ACCUSATIVE = "разгрузку исследователя",
-		INSTRUMENTAL = "разгрузкой исследователя",
-		PREPOSITIONAL = "разгрузке исследователя"
-	)
 	icon_state = "explorer1"
 	item_state = "explorer1"
 	storage_slots = 6
@@ -1062,6 +1064,16 @@
 		/obj/item/stack/marker_beacon,
 		/obj/item/gem)
 
+/obj/item/storage/belt/mining/get_ru_names()
+	return list(
+		NOMINATIVE = "разгрузка исследователя",
+		GENITIVE = "разгрузки исследователя",
+		DATIVE = "разгрузке исследователя",
+		ACCUSATIVE = "разгрузку исследователя",
+		INSTRUMENTAL = "разгрузкой исследователя",
+		PREPOSITIONAL = "разгрузке исследователя"
+	)
+
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()
 	new /obj/item/survivalcapsule(src)
@@ -1076,14 +1088,6 @@
 /obj/item/storage/belt/mining/primitive
 	name = "hunter's belt"
 	desc = "Универсальный пояс, сплетённый из сухожилий."
-	ru_names = list(
-		NOMINATIVE = "охотничий пояс",
-		GENITIVE = "охотничьего пояса",
-		DATIVE = "охотничьему поясу",
-		ACCUSATIVE = "охотничий пояс",
-		INSTRUMENTAL = "охотничьим поясом",
-		PREPOSITIONAL = "охотничьем поясе"
-	)
 	icon_state = "hunter_belt"
 	item_state = "ebelt"
 	use_item_overlays = TRUE
@@ -1117,6 +1121,16 @@
 		/obj/item/hatchet/wooden,
 		/obj/item/cultivator/wooden,
 		)
+
+/obj/item/storage/belt/mining/primitive/get_ru_names()
+	return list(
+		NOMINATIVE = "охотничий пояс",
+		GENITIVE = "охотничьего пояса",
+		DATIVE = "охотничьему поясу",
+		ACCUSATIVE = "охотничий пояс",
+		INSTRUMENTAL = "охотничьим поясом",
+		PREPOSITIONAL = "охотничьем поясе"
+	)
 
 /obj/item/storage/belt/chef
 	name = "culinary tool apron"

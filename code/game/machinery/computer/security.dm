@@ -28,7 +28,7 @@
 	/// For records in pai
 	var/atom/movable/parent
 
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 
 /obj/machinery/computer/secure_data/Initialize(mapload)
 	. = ..()
@@ -121,15 +121,15 @@
 				if(record_general && GLOB.data_core.general.Find(record_general))
 					var/list/gen_fields = record_general.fields
 					general["fields"] = list(
-						SEC_FIELD("Name", 				gen_fields["name"], 		"name",			FALSE),
-						SEC_FIELD("ID", 				gen_fields["id"], 			"id",			TRUE),
-						SEC_FIELD("Sex", 				gen_fields["sex"], 			"sex",			FALSE),
-						SEC_FIELD("Age", 				gen_fields["age"], 			"age",			TRUE),
-						SEC_FIELD("Assignment", 		gen_fields["rank"], 		null,			FALSE),
-						SEC_FIELD("Fingerprint", 		gen_fields["fingerprint"], 	"fingerprint",	TRUE),
-						SEC_FIELD("Physical Status", 	gen_fields["p_stat"], 		null,			FALSE),
-						SEC_FIELD("Mental Status", 		gen_fields["m_stat"], 		null,			TRUE),
-						SEC_FIELD("Important Notes", 	gen_fields["notes"], 		null,			FALSE),
+						SEC_FIELD("Name",				gen_fields["name"],		"name",			FALSE),
+						SEC_FIELD("ID",				gen_fields["id"],			"id",			TRUE),
+						SEC_FIELD("Sex",				gen_fields["sex"],			"sex",			FALSE),
+						SEC_FIELD("Age",				gen_fields["age"],			"age",			TRUE),
+						SEC_FIELD("Assignment",		gen_fields["rank"],		null,			FALSE),
+						SEC_FIELD("Fingerprint",		gen_fields["fingerprint"],	"fingerprint",	TRUE),
+						SEC_FIELD("Physical Status",	gen_fields["p_stat"],		null,			FALSE),
+						SEC_FIELD("Mental Status",		gen_fields["m_stat"],		null,			TRUE),
+						SEC_FIELD("Important Notes",	gen_fields["notes"],		null,			FALSE),
 					)
 					general["photos"] = list(
 						gen_fields["photo-south"],
@@ -145,12 +145,12 @@
 				if(record_security && GLOB.data_core.security.Find(record_security))
 					var/list/sec_fields = record_security.fields
 					security["fields"] = list(
-						SEC_FIELD("Criminal Status", 	sec_fields["criminal"], 	"criminal", 	TRUE),
-						SEC_FIELD("Minor Crimes", 		sec_fields["mi_crim"], 		"mi_crim", 		FALSE),
-						SEC_FIELD("Details", 			sec_fields["mi_crim_d"], 	"mi_crim_d", 	TRUE),
-						SEC_FIELD("Major Crimes", 		sec_fields["ma_crim"], 		"ma_crim", 		FALSE),
-						SEC_FIELD("Details", 			sec_fields["ma_crim_d"], 	"ma_crim_d", 	TRUE),
-						SEC_FIELD("Important Notes", 	sec_fields["notes"], 		null, 			FALSE),
+						SEC_FIELD("Criminal Status",	sec_fields["criminal"],	"criminal",	TRUE),
+						SEC_FIELD("Minor Crimes",		sec_fields["mi_crim"],		"mi_crim",		FALSE),
+						SEC_FIELD("Details",			sec_fields["mi_crim_d"],	"mi_crim_d",	TRUE),
+						SEC_FIELD("Major Crimes",		sec_fields["ma_crim"],		"ma_crim",		FALSE),
+						SEC_FIELD("Details",			sec_fields["ma_crim_d"],	"ma_crim_d",	TRUE),
+						SEC_FIELD("Important Notes",	sec_fields["notes"],		null,			FALSE),
 					)
 					if(!islist(sec_fields["comments"]))
 						sec_fields["comments"] = list()
@@ -209,8 +209,8 @@
 			G.fields["rank"] = "Unassigned"
 			G.fields["real_rank"] = "Unassigned"
 			G.fields["sex"] = "Male"
-			G.fields["age"] = "Unknown"
-			G.fields["fingerprint"] = "Unknown"
+			G.fields["age"] = UNKNOWN_STATUS_RUS
+			G.fields["fingerprint"] = UNKNOWN_STATUS_RUS
 			G.fields["p_stat"] = "Active"
 			G.fields["m_stat"] = "Stable"
 			G.fields["species"] = SPECIES_HUMAN
@@ -318,12 +318,12 @@
 	add_fingerprint(usr)
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/machinery/computer/secure_data/proc/ui_act_modal(action, list/params)
 	if(!ui_login_get().logged_in)
 		return
@@ -443,8 +443,8 @@
 			return FALSE
 
 /**
-  * Called when the print record timer finishes
-  */
+ * Called when the print record timer finishes
+ */
 /obj/machinery/computer/secure_data/proc/print_record_finish()
 	var/obj/item/paper/P = new(loc)
 	P.info = "<center><b>Security Record</b></center><br>"
@@ -483,8 +483,8 @@
 	SStgui.update_uis(src)
 
 /**
-  * Called when the print cell log timer finishes
-  */
+ * Called when the print cell log timer finishes
+ */
 /obj/machinery/computer/secure_data/proc/print_cell_log_finish(name, info)
 	var/obj/item/paper/P = new(loc)
 	P.name = name
@@ -522,12 +522,12 @@
 	..(severity)
 
 /**
-  * Sets a temporary message to display to the user
-  *
-  * Arguments:
-  * * text - Text to display, null/empty to clear the message from the UI
-  * * style - The style of the message: (color name), info, success, warning, danger
-  */
+ * Sets a temporary message to display to the user
+ *
+ * Arguments:
+ * * text - Text to display, null/empty to clear the message from the UI
+ * * style - The style of the message: (color name), info, success, warning, danger
+ */
 /obj/machinery/computer/secure_data/proc/set_temp(text = "", style = "info", update_now = FALSE)
 	temp_notice = list(text = text, style = style)
 	if(update_now)

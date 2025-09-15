@@ -292,3 +292,13 @@
 /datum/gear/suit/suspenders/New()
 	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/suit/bomber
+	index_name = "bomber"
+	path = /obj/item/clothing/suit/storage/bomber
+	cost = 1
+
+/datum/gear/suit/bomber/New()
+	..()
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+	

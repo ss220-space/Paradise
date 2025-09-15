@@ -3,14 +3,6 @@
 	desc = "Многофункциональный операционный стол, предназначенный для выполнения хирургических операций. \
 			Оснащён системой датчиков, подключаемых к хирургическому компьютеру для отслеживания жизненных показателей пациента в реальном времени. \
 			Встроенные анатомические фиксаторы исключают непроизвольные движения пациента и обеспечивают удобство для оперирующего хирурга."
-	ru_names = list(
-		NOMINATIVE = "операционный стол",
-		GENITIVE = "операционного стола",
-		DATIVE = "операционному столу",
-		ACCUSATIVE = "операционный стол",
-		INSTRUMENTAL = "операционным столом",
-		PREPOSITIONAL = "операционном столе"
-	)
 	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "table2-idle"
@@ -22,12 +14,22 @@
 	var/mob/living/carbon/patient
 	var/obj/machinery/computer/operating/computer
 	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
-	var/list/injected_reagents = list()
+	var/list/injected_reagents
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
 
-/obj/machinery/optable/New()
-	..()
+/obj/machinery/optable/get_ru_names()
+	return list(
+		NOMINATIVE = "операционный стол",
+		GENITIVE = "операционного стола",
+		DATIVE = "операционному столу",
+		ACCUSATIVE = "операционный стол",
+		INSTRUMENTAL = "операционным столом",
+		PREPOSITIONAL = "операционном столе"
+	)
+
+/obj/machinery/optable/Initialize(mapload)
+	. = ..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		computer = locate(/obj/machinery/computer/operating, get_step(src, dir))
 		if(computer)
@@ -56,8 +58,8 @@
 	return TRUE
 
 /**
-  * Updates the `patient` var to be the mob occupying the table
-  */
+ * Updates the `patient` var to be the mob occupying the table
+ */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/patient_carbon = locate(/mob/living/carbon, loc)
 	if(patient_carbon && patient_carbon.body_position == LYING_DOWN)

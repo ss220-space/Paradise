@@ -61,7 +61,7 @@ Pipelines + Other Objects -> Pipe network
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
 
-/obj/machinery/atmospherics/Initialize()
+/obj/machinery/atmospherics/Initialize(mapload)
 	. = ..()
 	SSair.atmos_machinery += src
 
@@ -113,7 +113,7 @@ Pipelines + Other Objects -> Pipe network
 		return FALSE
 	return TRUE
 
-/obj/machinery/atmospherics/proc/color_cache_name(var/obj/machinery/atmospherics/node)
+/obj/machinery/atmospherics/proc/color_cache_name(obj/machinery/atmospherics/node)
 	//Don't use this for standard pipes
 	if(!istype(node))
 		return null
@@ -381,8 +381,8 @@ Pipelines + Other Objects -> Pipe network
 	our_client.set_eye(target_move)
 	// Let's smooth out that movement with an animate yeah?
 	// If the new x is greater (move is left to right) we get a negative offset. vis versa
-	our_client.pixel_x = (x - target_move.x) * world.icon_size
-	our_client.pixel_y = (y - target_move.y) * world.icon_size
+	our_client.pixel_x = (x - target_move.x) * ICON_SIZE_X
+	our_client.pixel_y = (y - target_move.y) * ICON_SIZE_Y
 	animate(our_client, pixel_x = 0, pixel_y = 0, time = 0.03 SECONDS)
 	our_client.move_delay = world.time + 0.03 SECONDS
 

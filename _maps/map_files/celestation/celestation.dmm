@@ -34309,8 +34309,7 @@
 /area/medical/patients_rooms)
 "fmk" = (
 /obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/structure/table/wood/fancy/black,
 /obj/item/deck/cards/black,
@@ -83832,13 +83831,11 @@
 	},
 /area/crew_quarters/fitness)
 "oQa" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-22"
-	},
 /obj/structure/cable/orange,
 /obj/machinery/power/apc{
 	pixel_y = -28
 	},
+/obj/machinery/vending/gun_mods,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -85389,6 +85386,11 @@
 /obj/structure/sign/poster/contraband/fun_police{
 	pixel_x = 32
 	},
+/obj/structure/safe{
+	known_by = list("hos")
+	},
+/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/item/gun/projectile/bombarda/secgl/x4,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -109632,8 +109634,7 @@
 "tLo" = (
 /obj/machinery/disposal,
 /obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1

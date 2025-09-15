@@ -139,7 +139,7 @@
 
 //Reagent-based explosion effect
 /datum/effect_system/reagents_explosion
-	var/amount 						// TNT equivalent
+	var/amount						// TNT equivalent
 	var/flashing = 0			// does explosion creates flash effect?
 	var/flashing_factor = 0		// factor of how powerful the flash effect relatively to the explosion
 
@@ -156,7 +156,7 @@
 
 /datum/effect_system/reagents_explosion/start()
 	if(amount <= 2)
-		do_sparks(2, 1, location)
+		do_sparks(2, TRUE, location)
 
 		for(var/mob/M in viewers(5, location))
 			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
@@ -187,7 +187,7 @@
 		for(var/mob/M in viewers(8, location))
 			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
 
-		explosion(location, devastation, heavy, light, flash, cause = "Reagent Explosion")
+		explosion(location, devastation_range = devastation, heavy_impact_range = heavy, light_impact_range = light, flash_range = flash, cause = "Reagent Explosion")
 
 /datum/effect_system/reagents_explosion/proc/holder_damage(atom/holder)
 	if(holder)

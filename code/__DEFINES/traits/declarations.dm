@@ -185,6 +185,8 @@
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands"
 /// Properly wielded two handed item
 #define TRAIT_WIELDED "wielded"
+/// This item is currently performing a cleaving attack
+#define TRAIT_CLEAVING "cleaving"
 /// A transforming item that is actively extended / transformed
 #define TRAIT_TRANSFORM_ACTIVE "active_transform"
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
@@ -230,6 +232,7 @@
 #define TRAIT_NEARSIGHTED "nearsighted"
 #define TRAIT_BLIND "blind"
 #define TRAIT_COLORBLIND "colorblind"
+#define TRAIT_WEAK_EARS "weak_ears"
 
 // old species traits
 /// This human mob doesn't bleed
@@ -277,6 +280,9 @@
 #define TRAIT_EMBEDIMMUNE "embed_immunity"
 /// This human mob will never suffer from the malnutrition
 #define TRAIT_NO_HUNGER "no_hunger"
+/// This human mob will not obtain additional bonuses/penalties from nutrition level (look at /datum/element/nutrition_effects)
+/// Used by these who still has hunger unlike TRAIT_NO_HUNGER
+#define TRAIT_NO_NUTRITION_EFFECTS "no_nutrition_effects"
 /// This human mob can repats surgeris attempts indefinitely
 #define TRAIT_MASTER_SURGEON "master_surgeon"
 /// Prohibits the installation of robotic limbs, cybernetic organs, augments
@@ -334,4 +340,21 @@
 
 #define TRAIT_NOT_TURRET_GUN "not_turret_gun"
 
+#define TRAIT_PROTEIN "protein"
+
+#define	TRAIT_STRENGTH_LEVELUP	"strength_levelup"
+
+#define TRAIT_STRENGTH_LEVELDOWN "strength_leveldown"
+
 #define TRAIT_BALD "bald"
+
+/// Anti stun reagent in blood
+#define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"
+
+/// User will deflect every bola thrown at him
+#define TRAIT_DEFLECT_BOLAS "deflect_bolas"
+
+/// Temporally  trait when target tasered
+#define TRAIT_TASERED "tasered"
+
+#define TRAIT_SUPERMATTERIMMUNE "supermatter_immune"

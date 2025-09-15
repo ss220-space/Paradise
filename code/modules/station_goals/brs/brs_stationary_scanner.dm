@@ -154,13 +154,7 @@
 		playsound(loc, alarm_sound, 100)
 	else
 		obj_break()
-		explosion(
-			loc,
-			light_impact_range = failure_force,
-			flash_range = 2 * failure_force,
-			flame_range =  2 * failure_force,
-			cause = "[src] was working too long within critical range of a rift."
-		)
+		explosion(loc, light_impact_range = failure_force, flash_range = 2 * failure_force, flame_range =  (2 * failure_force), cause = "[src] was working too long within critical range of a rift.")
 
 /obj/machinery/power/brs_stationary_scanner/update_icon_state()
 	var/prefix = initial(icon_state)

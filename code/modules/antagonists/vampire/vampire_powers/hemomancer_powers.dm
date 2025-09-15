@@ -3,7 +3,7 @@
 	desc = "Вы используете магию крови, чтобы выковать смертоносные вампирские когти, которые высасывают кровь и наносят стремительные удары. Их нельзя использовать, если вы держите что-то, что нельзя уронить."
 	gain_desc = "Вы получили способность превращать свои руки в вампирские когти."
 	base_cooldown = 15 SECONDS
-	required_blood = 20
+	required_blood = 15
 	action_icon_state = "vampire_claws"
 
 
@@ -48,14 +48,6 @@
 /obj/item/twohanded/required/vamp_claws
 	name = "vampiric claws"
 	desc = "Пара древних когтей из живой крови, они кажутся текучими и в то же время твердыми."
-	ru_names = list(
-    NOMINATIVE = "вампирические когти",
-    GENITIVE = "вампирических когтей",
-    DATIVE = "вампирическим когтям",
-    ACCUSATIVE = "вампирические когти",
-    INSTRUMENTAL = "вампирическими когтями",
-    PREPOSITIONAL = "вампирических когтях"
-	)
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "vamp_claws"
 	w_class = WEIGHT_CLASS_BULKY
@@ -74,6 +66,15 @@
 	var/blood_absorbed_amount = 5
 	var/obj/effect/proc_holder/spell/vampire/self/vamp_claws/parent_spell
 
+/obj/item/twohanded/required/vamp_claws/get_ru_names()
+	return list(
+		NOMINATIVE = "вампирические когти",
+		GENITIVE = "вампирических когтей",
+		DATIVE = "вампирическим когтям",
+		ACCUSATIVE = "вампирические когти",
+		INSTRUMENTAL = "вампирическими когтями",
+		PREPOSITIONAL = "вампирических когтях"
+	)
 
 /obj/item/twohanded/required/vamp_claws/Initialize(mapload, new_parent_spell)
 	. = ..()
@@ -182,7 +183,7 @@
 	name = "Кровавый барьер"
 	desc = "Выберите две точки в пределах трёх тайлов друг от друга и создайте между ними барьер. Вы можете наложить заклинание на себя, чтобы мгновенно создать барьер на вашей текущей позиции."
 	gain_desc = "Вы получили способность вызывать кристаллическую стену крови между двумя точками, барьер легко разрушается, однако вы можете свободно проходить сквозь него. Вы можете наложить на себя заклинание, чтобы мгновенно создать барьер на вашем текущем местоположении."
-	required_blood = 20
+	required_blood = 15
 	base_cooldown = 30 SECONDS
 	should_recharge_after_cast = FALSE
 	deduct_blood_on_cast = FALSE
@@ -273,20 +274,22 @@
 /obj/structure/blood_barrier
 	name = "blood barrier"
 	desc = "Гротескная структура из кристаллизованной крови. Она медленно тает..."
-	ru_names = list(
-    NOMINATIVE = "кровавый барьер",
-    GENITIVE = "кровавого барьера",
-    DATIVE = "кровавому барьеру",
-    ACCUSATIVE = "кровавый барьер",
-    INSTRUMENTAL = "кровавым барьером",
-    PREPOSITIONAL = "о кровавом барьере"
-	)
 	max_integrity = 100
 	icon_state = "blood_barrier"
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
 	opacity = FALSE
+
+/obj/structure/blood_barrier/get_ru_names()
+	return list(
+		NOMINATIVE = "кровавый барьер",
+		GENITIVE = "кровавого барьера",
+		DATIVE = "кровавому барьеру",
+		ACCUSATIVE = "кровавый барьер",
+		INSTRUMENTAL = "кровавым барьером",
+		PREPOSITIONAL = "о кровавом барьере"
+	)
 
 
 /obj/structure/blood_barrier/Initialize(mapload)
@@ -353,7 +356,7 @@
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool/create_new_handler()
 	var/datum/spell_handler/vampire/H = new
-	H.required_blood = 30
+	H.required_blood = 20
 	return H
 
 
@@ -403,7 +406,7 @@
 	name = "Извержение крови"
 	desc = "Каждая лужа крови в 4 тайлах от вас извергается шипом живой крови, нанося урон всем, кто стоит на ней."
 	gain_desc = "Вы получили способность использовать лужи крови для нанесения урона тем, кто на них стоит."
-	required_blood = 50
+	required_blood = 25
 	base_cooldown = 1 MINUTES
 	action_icon_state = "blood_spikes"
 
@@ -501,7 +504,7 @@
 		if(beam_number >= max_beams)
 			break
 
-	V.bloodusable = max(V.bloodusable - 10, 0)
+	V.bloodusable = max(V.bloodusable - 5, 0)
 
 	if(!V.bloodusable || owner.stat == DEAD)
 		V.remove_ability(src)

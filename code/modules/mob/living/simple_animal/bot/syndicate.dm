@@ -2,14 +2,6 @@
 /mob/living/simple_animal/bot/ed209/syndicate
 	name = "Syndicate Sentry Bot"
 	desc = "Охранный робот Синдиката."
-	ru_names = list(
-		NOMINATIVE = "робот-часовой Синдиката",
-		GENITIVE = "робота-часового Синдиката",
-		DATIVE = "роботу-часовому Синдиката",
-		ACCUSATIVE = "робота-часового Синдиката",
-		INSTRUMENTAL = "роботом-часовым Синдиката",
-		PREPOSITIONAL = "роботе-часовом Синдиката",
-	)
 	model = "Guardian"
 	icon = 'icons/obj/mecha/mecha.dmi'
 	icon_state = "darkgygax"
@@ -33,6 +25,16 @@
 	var/pathing_failed = FALSE
 	var/turf/spawn_turf
 
+
+/mob/living/simple_animal/bot/ed209/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "робот-часовой Синдиката",
+		GENITIVE = "робота-часового Синдиката",
+		DATIVE = "роботу-часовому Синдиката",
+		ACCUSATIVE = "робота-часового Синдиката",
+		INSTRUMENTAL = "роботом-часовым Синдиката",
+		PREPOSITIONAL = "роботе-часовом Синдиката",
+	)
 
 /mob/living/simple_animal/bot/ed209/syndicate/Initialize(mapload)
 	. = ..()
@@ -192,7 +194,7 @@
 			depotarea.list_remove(src, depotarea.guard_list)
 		SSmove_manager.stop_looping(src)
 		visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 		var/obj/structure/mecha_wreckage/gygax/dark/wreck = new /obj/structure/mecha_wreckage/gygax/dark(loc)
 		wreck.name = "sentry bot wreckage"

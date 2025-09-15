@@ -5,14 +5,6 @@
 /obj/machinery/photocopier
 	name = "photocopier"
 	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ!\"."
-	ru_names = list(
-		NOMINATIVE = "ксерокс",
-		GENITIVE = "ксерокса",
-		DATIVE = "ксероксу",
-		ACCUSATIVE = "ксерокс",
-		INSTRUMENTAL = "ксероксом",
-		PREPOSITIONAL = "ксероксе"
-	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 	anchored = TRUE
@@ -72,18 +64,19 @@
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
 
+/obj/machinery/photocopier/get_ru_names()
+	return list(
+		NOMINATIVE = "ксерокс",
+		GENITIVE = "ксерокса",
+		DATIVE = "ксероксу",
+		ACCUSATIVE = "ксерокс",
+		INSTRUMENTAL = "ксероксом",
+		PREPOSITIONAL = "ксероксе"
+	)
 
 /obj/machinery/photocopier/syndie
 	name = "Syndicate photocopier"
 	desc = "Устройство для сканирования и печати важных документов. Они даже не пытаются скрыть, что это их собственность..."
-	ru_names = list(
-		NOMINATIVE = "ксерокс Синдиката",
-		GENITIVE = "ксерокса Синдиката",
-		DATIVE = "ксероксу Синдиката",
-		ACCUSATIVE = "ксерокс Синдиката",
-		INSTRUMENTAL = "ксероксом Синдиката",
-		PREPOSITIONAL = "ксероксе Синдиката"
-	)
 	syndicate = TRUE
 	icon_state = "syndiebigscanner"
 	insert_anim = "syndiebigscanner_work"
@@ -92,6 +85,16 @@
 				Синдикат напоминает, что в ваших же интересах \
 				соблюдать данные указания."
 	ui_theme = "syndicate"
+
+/obj/machinery/photocopier/syndie/get_ru_names()
+	return list(
+		NOMINATIVE = "ксерокс Синдиката",
+		GENITIVE = "ксерокса Синдиката",
+		DATIVE = "ксероксу Синдиката",
+		ACCUSATIVE = "ксерокс Синдиката",
+		INSTRUMENTAL = "ксероксом Синдиката",
+		PREPOSITIONAL = "ксероксе Синдиката"
+	)
 
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
@@ -112,15 +115,15 @@
 	ui_interact(user)
 
 /**
-  * Public proc for copying paper objs
-  *
-  * Takes a paper object and makes a copy of it. This proc specifically does not change toner which allows more versatile use for child objects
-  * returns null if paper failed to be copied and returns the new copied paper obj if succesful
-  * Arguments:
-  * * obj/item/paper/copy - The paper obj to be copied
-  * * scanning -  If true, the photo is stored inside the photocopier and we do not check for toner
-  * * bundled - If true the photo is stored inside the photocopier, used by bundlecopy() to construct paper bundles
-  */
+ * Public proc for copying paper objs
+ *
+ * Takes a paper object and makes a copy of it. This proc specifically does not change toner which allows more versatile use for child objects
+ * returns null if paper failed to be copied and returns the new copied paper obj if succesful
+ * Arguments:
+ * * obj/item/paper/copy - The paper obj to be copied
+ * * scanning -  If true, the photo is stored inside the photocopier and we do not check for toner
+ * * bundled - If true the photo is stored inside the photocopier, used by bundlecopy() to construct paper bundles
+ */
 /obj/machinery/photocopier/proc/papercopy(obj/item/paper/copy, scanning = FALSE, bundled = FALSE)
 	if(!scanning)
 		if(toner < 1)
@@ -161,15 +164,15 @@
 
 
 /**
-  * Public proc for copying photo objs
-  *
-  * Takes a photo object and makes a copy of it. This proc specifically does not change toner which allows more versatile use for child objects
-  * returns null if photo failed to be copied and returns the new copied photo object if succesful
-  * Arguments:
-  * * obj/item/photo/photocopy - The photo obj to be copied
-  * * scanning -  If true, the photo is stored inside the photocopier and we do not check for toner
-  * * bundled - If true the photo is stored inside the photocopier, used by bundlecopy() to construct paper bundles
-  */
+ * Public proc for copying photo objs
+ *
+ * Takes a photo object and makes a copy of it. This proc specifically does not change toner which allows more versatile use for child objects
+ * returns null if photo failed to be copied and returns the new copied photo object if succesful
+ * Arguments:
+ * * obj/item/photo/photocopy - The photo obj to be copied
+ * * scanning -  If true, the photo is stored inside the photocopier and we do not check for toner
+ * * bundled - If true the photo is stored inside the photocopier, used by bundlecopy() to construct paper bundles
+ */
 /obj/machinery/photocopier/proc/photocopy(obj/item/photo/photocopy, scanning = FALSE, bundled = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
 		if(toner < 5)
@@ -194,6 +197,30 @@
 		p.scribble = photocopy.scribble
 	return p
 
+/obj/machinery/photocopier/proc/blueprintcopy(obj/item/craft_blueprints/original)
+	if(!original.copy_type)
+		balloon_alert(usr, "невозможно копировать!")
+		return
+
+	if(toner < original.required_toner)
+		balloon_alert(usr, "недостаточно чернил!")
+		visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
+		return
+
+	total_copies++
+
+	var/obj/item/craft_blueprints/copy = new original.copy_type(loc)
+	copy.name = original.name
+	copy.crafting_name = original.crafting_name
+	copy.crafting_item = original.crafting_item
+	copy.tools = original.tools
+	copy.components = original.components
+	copy.craft_duration = original.craft_duration
+	copy.crafting_name = original.crafting_name
+	copy.copy_type = null
+	copy.pixel_x = rand(-10, 10)
+	copy.pixel_y = rand(-10, 10)
+	return copy
 
 /obj/machinery/photocopier/proc/copyass(scanning = FALSE)
 	if(!scanning) //If we're just storing this as a file inside the copier then we don't expend toner
@@ -241,14 +268,14 @@
 	return p
 
 /**
-  * A public proc for copying bundles of paper
-  *
-  * It iterates through each object in the bundle and calls papercopy() and photocopy() and stores the produce photo/paper in the bundle
-  * Arguments:
-  * * bundle - The paper bundle object being copied
-  * * scanning - If true, the paper bundle is stored inside the photocopier
-  * * use_toner - If true, this operation uses toner, this is not done in copy() because partial bundles would be impossible otherwise
-  */
+ * A public proc for copying bundles of paper
+ *
+ * It iterates through each object in the bundle and calls papercopy() and photocopy() and stores the produce photo/paper in the bundle
+ * Arguments:
+ * * bundle - The paper bundle object being copied
+ * * scanning - If true, the paper bundle is stored inside the photocopier
+ * * use_toner - If true, this operation uses toner, this is not done in copy() because partial bundles would be impossible otherwise
+ */
 /obj/machinery/photocopier/proc/bundlecopy(obj/item/paper_bundle/bundle, scanning = FALSE, use_toner = FALSE)
 	var/obj/item/paper_bundle/P = new(src, FALSE)	//Bundle is initially inside copier to give copier time to build the bundle before the player can pick it up
 	for(var/obj/item/thing as anything in bundle.papers)
@@ -309,14 +336,14 @@
 		folder = null
 
 /**
-  * An internal proc for checking if a photocopier is able to copy an object
-  *
-  * It performs early checks/returns to see if the copier has any toner, if the copier is powered/working,
-  * if the copier is currently perfoming an action, or if we've hit the global copy limit. Used to inform
-  * the player in-game if they're using the photocopier incorrectly (no toner, no item inside, etc)
-  * Arguments:
-  * * scancopy - If TRUE, cancopy does not check for an item on/inside the copier to copy, used for copying stored files
-  */
+ * An internal proc for checking if a photocopier is able to copy an object
+ *
+ * It performs early checks/returns to see if the copier has any toner, if the copier is powered/working,
+ * if the copier is currently perfoming an action, or if we've hit the global copy limit. Used to inform
+ * the player in-game if they're using the photocopier incorrectly (no toner, no item inside, etc)
+ * Arguments:
+ * * scancopy - If TRUE, cancopy does not check for an item on/inside the copier to copy, used for copying stored files
+ */
 /obj/machinery/photocopier/proc/cancopy(scancopy = FALSE) //are we able to make a copy of a doc?
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
@@ -341,14 +368,14 @@
 	return TRUE
 
 /**
-  * Public proc for copying items
-  *
-  * Determines what item needs to be copied whether it's a mob's ass, paper, bundle, or photo and then calls the respective
-  * proc for it. Most toner var changing happens here so that the faxmachine child obj does not need to worry about toner
-  * Arguments:
-  * * obj/item/C - The item stored inside the photocopier to be copied (obj/paper, obj/photo, obj/paper_bundle)
-  * * scancopy - Indicates that obj/item/C is a stored file, we need to pass this on to cancopy() so it passes the check
-  */
+ * Public proc for copying items
+ *
+ * Determines what item needs to be copied whether it's a mob's ass, paper, bundle, or photo and then calls the respective
+ * proc for it. Most toner var changing happens here so that the faxmachine child obj does not need to worry about toner
+ * Arguments:
+ * * obj/item/C - The item stored inside the photocopier to be copied (obj/paper, obj/photo, obj/paper_bundle)
+ * * scancopy - Indicates that obj/item/C is a stored file, we need to pass this on to cancopy() so it passes the check
+ */
 /obj/machinery/photocopier/proc/copy(obj/item/C, scancopy = FALSE)
 	if(!cancopy(scancopy))
 		return
@@ -360,31 +387,42 @@
 				break
 			toner -= 1
 			use_power(active_power_usage)
-			sleep(PHOTOCOPIER_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/photo))
 		for(var/i in copies to 1 step -1)
 			if(!photocopy(C))
 				break
 			toner -= 5
 			use_power(active_power_usage)
-			sleep(PHOTOCOPIER_DELAY)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/paper_bundle))
 		var/obj/item/paper_bundle/B = C
 		for(var/i in copies to 1 step -1)
 			if(!bundlecopy(C, use_toner = TRUE))
 				break
 			use_power(active_power_usage)
-			sleep(PHOTOCOPIER_DELAY * (B.amount + 1))
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY * (B.amount + 1))
 	else if(check_mob()) //Once we've scanned the copy_mob's ass we do not need to again
 		for(var/i in copies to 1 step -1)
 			if(!copyass())
 				break
 			toner -= 5
+			finish_copying()
+	else if(istype(C, /obj/item/craft_blueprints))
+		var/obj/item/craft_blueprints/original = C
+		for(var/i in copies to 1 step -1)
+			if(!blueprintcopy(original))
+				break
+			toner -= original.required_toner
+			use_power(active_power_usage)
+			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else
 		balloon_alert(usr, "нельзя отсканировать!")
 		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлеч[genderize_ru(copyitem.gender, "ён", "ена", "ено", "ены")]."))
 		copyitem.forceMove(loc) // fuckery detected! get off my photocopier... shitbird!
+		finish_copying()
 
+/obj/machinery/photocopier/proc/finish_copying()
 	copying = FALSE
 
 /obj/machinery/photocopier/proc/scan_document() //scan a document into a file
@@ -576,7 +614,7 @@
 		form["category"] = initial(ff.category)
 		forms[++forms.len] = form
 
-/obj/machinery/photocopier/proc/print_form(var/obj/item/paper/form/form)
+/obj/machinery/photocopier/proc/print_form(obj/item/paper/form/form)
 	if(copying)
 		balloon_alert(usr, "сканер ещё работает!")
 		return FALSE
@@ -585,18 +623,21 @@
 	copying = TRUE
 	playsound(loc, pick(print_sounds), 50)
 	use_power(active_power_usage)
-	sleep(PHOTOCOPIER_DELAY)
+	addtimer(CALLBACK(src, PROC_REF(do_print_form_paper), form), PHOTOCOPIER_DELAY)
+
+
+/obj/machinery/photocopier/proc/do_print_form_paper(obj/item/paper/form/form)
 	var/obj/item/paper/paper = new form(loc)
 	paper.pixel_x = rand(-10, 10)
 	paper.pixel_y = rand(-10, 10)
-	copying = FALSE
+	finish_copying()
 
 
 /obj/machinery/photocopier/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
+	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle) || istype(I, /obj/item/craft_blueprints))
 		add_fingerprint(user)
 		if(copyitem)
 			balloon_alert(user, "ксерокс занят!")
@@ -675,9 +716,9 @@
 	return ..()
 
 /**
-  * Internal proc for checking the Mob on top of the copier
-  * Reports FALSE if there is no copymob or if the copymob is in a diff location than the copy machine, otherwise reports TRUE
-  */
+ * Internal proc for checking the Mob on top of the copier
+ * Reports FALSE if there is no copymob or if the copymob is in a diff location than the copy machine, otherwise reports TRUE
+ */
 /obj/machinery/photocopier/proc/check_mob()
 	if(!copymob)
 		return FALSE

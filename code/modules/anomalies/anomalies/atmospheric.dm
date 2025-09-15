@@ -74,14 +74,6 @@
 
 /obj/effect/anomaly/atmospheric/tier1
 	name = "малая атмосферная аномалия"
-	ru_names = list(
-		NOMINATIVE = "малая атмосферная аномалия", \
-		GENITIVE = "малой атмосферной аномалии", \
-		DATIVE = "малой атмосферной аномалии", \
-		ACCUSATIVE = "малую ​​атмосферную аномалию", \
-		INSTRUMENTAL = "малой ​атмосферной аномалией", \
-		PREPOSITIONAL = "малой ​​атмосферной аномалии"
-	)
 	core_type = /obj/item/assembly/signaler/core/atmospheric/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	tier = 1
@@ -94,16 +86,18 @@
 	collapse_range = 2
 	collapse_gas_amount = 150
 
+/obj/effect/anomaly/atmospheric/tier1/get_ru_names()
+	return list(
+		NOMINATIVE = "малая атмосферная аномалия", \
+		GENITIVE = "малой атмосферной аномалии", \
+		DATIVE = "малой атмосферной аномалии", \
+		ACCUSATIVE = "малую ​​атмосферную аномалию", \
+		INSTRUMENTAL = "малой ​атмосферной аномалией", \
+		PREPOSITIONAL = "малой ​​атмосферной аномалии"
+	)
+
 /obj/effect/anomaly/atmospheric/tier2
 	name = "атмосферная аномалия"
-	ru_names = list(
-		NOMINATIVE = "атмосферная аномалия", \
-		GENITIVE = "атмосферной аномалии", \
-		DATIVE = "атмосферной аномалии", \
-		ACCUSATIVE = "​​атмосферную аномалию", \
-		INSTRUMENTAL = "​атмосферной аномалией", \
-		PREPOSITIONAL = "​​атмосферной аномалии"
-	)
 	core_type = /obj/item/assembly/signaler/core/atmospheric/tier2
 	weaker_anomaly_type = /obj/effect/anomaly/atmospheric/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/atmospheric/tier3
@@ -119,16 +113,18 @@
 	collapse_slimes_low = 0
 	collapse_slimes_high = 2
 
+/obj/effect/anomaly/atmospheric/tier2/get_ru_names()
+	return list(
+		NOMINATIVE = "атмосферная аномалия", \
+		GENITIVE = "атмосферной аномалии", \
+		DATIVE = "атмосферной аномалии", \
+		ACCUSATIVE = "​​атмосферную аномалию", \
+		INSTRUMENTAL = "​атмосферной аномалией", \
+		PREPOSITIONAL = "​​атмосферной аномалии"
+	)
+
 /obj/effect/anomaly/atmospheric/tier3
 	name = "большая атмосферная аномалия"
-	ru_names = list(
-		NOMINATIVE = "большая атмосферная аномалия", \
-		GENITIVE = "большой атмосферной аномалии", \
-		DATIVE = "большой атмосферной аномалии", \
-		ACCUSATIVE = "большую ​​атмосферную аномалию", \
-		INSTRUMENTAL = "большой ​атмосферной аномалией", \
-		PREPOSITIONAL = "большой ​​атмосферной аномалии"
-	)
 	core_type = /obj/item/assembly/signaler/core/atmospheric/tier3
 	weaker_anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	tier = 3
@@ -142,6 +138,16 @@
 	collapse_gas_amount = 700
 	collapse_slimes_low = 0
 	collapse_slimes_high = 3
+
+/obj/effect/anomaly/atmospheric/tier3/get_ru_names()
+	return list(
+		NOMINATIVE = "большая атмосферная аномалия", \
+		GENITIVE = "большой атмосферной аномалии", \
+		DATIVE = "большой атмосферной аномалии", \
+		ACCUSATIVE = "большую ​​атмосферную аномалию", \
+		INSTRUMENTAL = "большой ​атмосферной аномалией", \
+		PREPOSITIONAL = "большой ​​атмосферной аномалии"
+	)
 
 /obj/effect/anomaly/atmospheric/tier3/New()
 	. = ..()
@@ -167,14 +173,6 @@
 
 /obj/effect/anomaly/atmospheric/tier4
 	name = "колосальная атмосферная аномалия"
-	ru_names = list(
-		NOMINATIVE = "колосальная атмосферная аномалия", \
-		GENITIVE = "колоссальной атмосферной аномалии", \
-		DATIVE = "колоссальной атмосферной аномалии", \
-		ACCUSATIVE = "колосальную ​​атмосферную аномалию", \
-		INSTRUMENTAL = "колоссальной ​атмосферной аномалией", \
-		PREPOSITIONAL = "колоссальной ​атмосферной аномалии"
-	)
 	core_type = /obj/item/assembly/signaler/core/atmospheric/tier3/tier4
 	weaker_anomaly_type = /obj/effect/anomaly/atmospheric/tier4
 	tier = 4
@@ -190,6 +188,16 @@
 	collapse_gas_amount = 5000
 	collapse_slimes_low = 3
 	collapse_slimes_high = 6
+
+/obj/effect/anomaly/atmospheric/tier4/get_ru_names()
+	return list(
+		NOMINATIVE = "колосальная атмосферная аномалия", \
+		GENITIVE = "колоссальной атмосферной аномалии", \
+		DATIVE = "колоссальной атмосферной аномалии", \
+		ACCUSATIVE = "колосальную ​​атмосферную аномалию", \
+		INSTRUMENTAL = "колоссальной ​атмосферной аномалией", \
+		PREPOSITIONAL = "колоссальной ​атмосферной аномалии"
+	)
 
 /obj/effect/anomaly/atmospheric/tier4/do_move(dir)
 	. = ..()

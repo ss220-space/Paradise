@@ -250,7 +250,7 @@
 	)
 	target.forceMove(src)
 	add_attack_logs(attacker, target, "Shoved into disposals")
-	playsound(src, "sound/effects/bang.ogg")
+	playsound(src, "sound/effects/bang.ogg", 30)
 	update()
 	return TRUE
 
@@ -486,7 +486,7 @@
 	if((stat & (NOPOWER|BROKEN)) || mode == UNSCREWED)
 		return
 
-	// 	check for items in disposal - occupied light
+	//	check for items in disposal - occupied light
 	if(length(contents))
 		. += "dispover-full"
 		underlays += emissive_appearance(icon, "dispover-full", src)

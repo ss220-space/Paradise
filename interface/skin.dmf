@@ -140,13 +140,6 @@ menu "menu"
 		command = "Микшер-громкости"
 		category = "&Опции"
 		saved-params = "is-checked"
-	elem "statusbar"
-		name = "&Показывать строку состояния"
-		command = ".winset \"menu.statusbar.is-checked=true?mapwindow.status_bar.is-visible=true:mapwindow.status_bar.is-visible=false\""
-		category = "&Опции"
-		is-checked = true
-		can-check = true
-		saved-params = "is-checked"
 	elem
 		name = "&Игровые настройки"
 		command = "Игровые-настройки"
@@ -228,7 +221,6 @@ window "mapwindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-		on-status = ".winset \"status_bar.text=[[*]]\" "
 	elem "map"
 		type = MAP
 		pos = 0,0
@@ -240,7 +232,6 @@ window "mapwindow"
 		text-color = none
 		is-default = true
 		saved-params = "icon-size;zoom-mode"
-		on-show = ".winset \"menu.statusbar.is-checked=true?mapwindow.status_bar.is-visible=true:mapwindow.status_bar.is-visible=false\""
 		style = ".center { text-align: center; } .maptext { font-family: 'Grand9K Pixel'; font-size: 6pt; -dm-text-outline: 1px black; color: white; line-height: 1.0; } .context { font-family: 'Pixellari'; font-size: 12pt; -dm-text-outline: 1px black; } .subcontext { font-family: 'TinyUnicode'; font-size: 12pt; line-height: 0.75; } .small { font-size: 6pt; } .big { font-family: 'Pixellari'; font-size: 12pt; } .reallybig { font-size: 12pt; } .extremelybig { font-size: 12pt; } .clown { color: #FF69Bf; font-weight: bold; } .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie\t{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .moth {color: #869b29;} .vulpkanin {color: #B97A57;} .abductor {color: #800080; font-style: italic;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-family: 'MS Serif'; font-size: 8px; font-weight: bold; } .italics { font-family: 'MS Serif'; font-size: 6px; } .command_headset { font-weight: bold;}"
 	elem "title_browser"
 		type = BROWSER
@@ -251,18 +242,6 @@ window "mapwindow"
 		is-visible = false
 		is-disabled = true
 		saved-params = ""
-	elem "status_bar"
-		type = LABEL
-		pos = 0,464
-		size = 280x16
-		anchor1 = 0,100
-		anchor2 = -1,-1
-		text-color = #ffffff
-		background-color = #222222
-		border = line
-		saved-params = ""
-		text = ""
-		align = left
 
 window "info_and_buttons"
 	elem "info_and_buttons"

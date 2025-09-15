@@ -27,11 +27,11 @@
 	. = ..()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
-			bound_width = width * world.icon_size
-			bound_height = world.icon_size
+			bound_width = width * ICON_SIZE_X
+			bound_height = ICON_SIZE_Y
 		else
-			bound_width = world.icon_size
-			bound_height = width * world.icon_size
+			bound_width = ICON_SIZE_X
+			bound_height = width * ICON_SIZE_Y
 
 /obj/structure/grille/fence/east_west
 	//width=80
@@ -154,6 +154,10 @@
 
 
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
+	var/obj/structure/window/window = locate() in loc
+	if(window && window.fulltile && window.anchored)
+		return ATTACK_CHAIN_BLOCKED_ALL// don't attack grilles through windows, that's weird and causes too many problems
+
 	if(user.a_intent == INTENT_HARM)
 		// shards help prisoners to escape safely
 		// some day this will move on CONDUCT flag
@@ -304,7 +308,7 @@
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(C)
 		if(electrocute_mob(user, C, src, 1, TRUE))
-			do_sparks(3, 1, src)
+			do_sparks(3, TRUE, src)
 			return TRUE
 		else
 			return FALSE

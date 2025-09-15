@@ -17,7 +17,7 @@
 /datum/dna/gene/monkey/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 
-	for(var/obj/item/item as anything in mutant.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+	for(var/obj/item/item as anything in mutant.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		mutant.drop_item_ground(item, force = TRUE)
 
 	ADD_TRAIT(mutant, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
@@ -45,7 +45,7 @@
 /datum/dna/gene/monkey/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 
-	for(var/obj/item/item as anything in mutant.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+	for(var/obj/item/item as anything in mutant.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		if(item == mutant.w_uniform) // will be torn
 			continue
 		mutant.drop_item_ground(item, force = TRUE)

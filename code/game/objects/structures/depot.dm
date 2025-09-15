@@ -28,8 +28,8 @@
 		depotarea.reactor = null
 	return ..()
 
-/obj/structure/fusionreactor/ex_act(severity)
-	if(severity < 3)
+/obj/structure/fusionreactor/ex_act(severity, target)
+	if(severity >= EXPLODE_HEAVY)
 		update_integrity(0)
 		healthcheck()
 
@@ -115,9 +115,9 @@
 		M.gib()
 	for(var/obj/mecha/E in range(30, T))
 		E.take_damage(E.max_integrity)
-	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0)
+	explosion(get_turf(src), devastation_range = 25, heavy_impact_range = 35, light_impact_range = 45, flash_range = 55, adminlog = TRUE, ignorecap = TRUE, flame_range = 50, silent = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
-/obj/effect/overload/ex_act(severity)
+/obj/effect/overload/ex_act(severity, target)
 	return

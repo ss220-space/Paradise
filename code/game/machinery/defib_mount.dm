@@ -4,14 +4,6 @@
 /obj/machinery/defibrillator_mount
 	name = "defibrillator mount"
 	desc = "Станция для хранения и зарядки дефибрилляторов. Вы можете использовать использовать дефибриллятор прямо отсюда, если оный имеется."
-	ru_names = list(
-		NOMINATIVE = "крепление для дефибриллятора",
-		GENITIVE = "крепления для дефибриллятора",
-		DATIVE = "креплению для дефибриллятора",
-		ACCUSATIVE = "крепление для дефибриллятора",
-		INSTRUMENTAL = "креплением для дефибриллятора",
-		PREPOSITIONAL = "креплении для дефибриллятора"
-	)
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
 	density = FALSE
@@ -22,6 +14,16 @@
 	req_access = list(ACCESS_MEDICAL, ACCESS_HEADS) //used to control clamps
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
+
+/obj/machinery/defibrillator_mount/get_ru_names()
+	return list(
+		NOMINATIVE = "крепление для дефибриллятора",
+		GENITIVE = "крепления для дефибриллятора",
+		DATIVE = "креплению для дефибриллятора",
+		ACCUSATIVE = "крепление для дефибриллятора",
+		INSTRUMENTAL = "креплением для дефибриллятора",
+		PREPOSITIONAL = "креплении для дефибриллятора"
+	)
 
 /obj/machinery/defibrillator_mount/attack_ai()
 	return
@@ -172,7 +174,14 @@
 /obj/item/mounted/frame/defib_mount
 	name = "unhooked defibrillator mount"
 	desc = "Крепление для дефибриллятора, которое предварительно нужно будет закрепить."
-	ru_names = list(
+	icon = 'icons/obj/machines/defib_mount.dmi'
+	icon_state = "defibrillator_mount"
+	sheets_refunded = 0
+	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/mounted/frame/defib_mount/get_ru_names()
+	return list(
 		NOMINATIVE = "разобранное крепление для дефибриллятора",
 		GENITIVE = "разобранного крепления для дефибриллятора",
 		DATIVE = "разобранному креплению для дефибриллятора",
@@ -180,11 +189,6 @@
 		INSTRUMENTAL = "разобранным креплением для дефибриллятора",
 		PREPOSITIONAL = "разобранном креплении для дефибриллятора"
 	)
-	icon = 'icons/obj/machines/defib_mount.dmi'
-	icon_state = "defibrillator_mount"
-	sheets_refunded = 0
-	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
-	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/mounted/frame/defib_mount/do_build(turf/on_wall, mob/user)
 	new /obj/machinery/defibrillator_mount(get_turf(src), get_dir(user, on_wall), 1)

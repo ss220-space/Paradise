@@ -7,7 +7,7 @@
 	actions_types = list(/datum/action/item_action/voice_changer/toggle, /datum/action/item_action/voice_changer/voice)
 
 	var/obj/item/parent
-	//Флаг для Ниндзя и других подобных случаев, когда мы применяем войс ченджер, но не даём кнопок его контролировать на прямую
+	/// Флаг для Ниндзя и других подобных случаев, когда мы применяем войс ченджер, но не даём кнопок его контролировать на прямую
 	var/inform_about_toggle = TRUE
 
 	var/voice
@@ -94,7 +94,7 @@
 /obj/item/voice_changer/voice_modulator
 	name = "voice modulator"
 	desc = "A voice scrambling module."
-	voice = "Unknown"
+	voice = UNKNOWN_NAME_RUS
 	actions_types = list(/datum/action/item_action/voice_changer/toggle)
 
 /obj/item/voice_changer/ghostface

@@ -7,7 +7,7 @@
 /datum/controller/subsystem/shuttle/proc/remove_hostile_environment(environment, spec_sound)
 	hostile_environment -= environment
 	if(!hostile_environment.len)
-		reload_shuttle(spec_sound = spec_sound, from_hostile = TRUE)
+		INVOKE_ASYNC(src, PROC_REF(reload_shuttle), spec_sound = spec_sound, from_hostile = TRUE)
 
 /datum/controller/subsystem/shuttle/proc/clear_hostile_environment()
 	LAZYCLEARLIST(hostile_environment)

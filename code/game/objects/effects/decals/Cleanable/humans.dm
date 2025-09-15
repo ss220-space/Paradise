@@ -5,14 +5,6 @@
 	var/dryname = "dried blood"
 	desc = "Оно густое и липкое. Возможно, это шедевр местного повара?"
 	var/drydesc = "Оно сухое и засохшее. Кто-то явно халтурит."
-	ru_names = list(
-		NOMINATIVE = "кровь",
-		GENITIVE = "крови",
-		DATIVE = "крови",
-		ACCUSATIVE = "кровь",
-		INSTRUMENTAL = "кровью",
-		PREPOSITIONAL = "крови"
-	)
 	gender = PLURAL
 	density = FALSE
 	anchored = TRUE
@@ -25,11 +17,31 @@
 	var/base_icon = 'icons/effects/blood.dmi'
 	var/blood_state = BLOOD_STATE_HUMAN
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
-	var/basecolor = "#A10808" // Color when wet.
+	var/basecolor = BLOOD_COLOR_RED
 	var/amount = 5
 	var/dry_timer = 0
 	var/off_floor = FALSE
+	var/is_dry = FALSE
+	var/max_shone_bloodiness = MAX_SHOE_BLOODINESS
+	var/drying_time = DRYING_TIME
 
+
+/obj/effect/decal/cleanable/blood/get_ru_names_cached() //we can't cache this now
+	return is_dry? list(
+		NOMINATIVE = "засохшая кровь",
+		GENITIVE = "засохшей крови",
+		DATIVE = "засохшей крови",
+		ACCUSATIVE = "засохшую кровь",
+		INSTRUMENTAL = "засохшей кровью",
+		PREPOSITIONAL = "засохшей крови"
+	): list(
+		NOMINATIVE = "кровь",
+		GENITIVE = "крови",
+		DATIVE = "крови",
+		ACCUSATIVE = "кровь",
+		INSTRUMENTAL = "кровью",
+		PREPOSITIONAL = "крови"
+	)
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	if(C.blood_DNA)
@@ -46,7 +58,7 @@
 	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
 	if(!.)
-		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
+		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), drying_time * (amount+1), TIMER_STOPPABLE)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -72,14 +84,7 @@
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
 	desc = drydesc
-	ru_names = list(
-		NOMINATIVE = "засохшая кровь",
-		GENITIVE = "засохшей крови",
-		DATIVE = "засохшей крови",
-		ACCUSATIVE = "засохшую кровь",
-		INSTRUMENTAL = "засохшей кровью",
-		PREPOSITIONAL = "засохшей крови"
-	)
+	is_dry = TRUE
 	color = adjust_brightness(color, -50)
 	amount = 0
 
@@ -132,7 +137,7 @@
 		else
 			add_blood = bloodiness
 		bloodiness -= add_blood
-		shoes.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, shoes.bloody_shoes[blood_state] + add_blood)
+		shoes.bloody_shoes[blood_state] = min(max_shone_bloodiness, shoes.bloody_shoes[blood_state] + add_blood)
 		if(length(blood_DNA))
 			shoes.add_blood(blood_DNA, basecolor)
 		shoes.blood_state = blood_state
@@ -148,7 +153,7 @@
 		else
 			add_blood = bloodiness
 		bloodiness -= add_blood
-		arrived.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS, arrived.bloody_feet[blood_state] + add_blood)
+		arrived.bloody_feet[blood_state] = min(max_shone_bloodiness, arrived.bloody_feet[blood_state] + add_blood)
 		if(!arrived.feet_blood_DNA)
 			arrived.feet_blood_DNA = list()
 		arrived.blood_state = blood_state
@@ -169,14 +174,6 @@
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"
 	desc = "Оно красное."
-	ru_names = list(
-		NOMINATIVE = "капли крови",
-		GENITIVE = "капель крови",
-		DATIVE = "каплям крови",
-		ACCUSATIVE = "капли крови",
-		INSTRUMENTAL = "каплями крови",
-		PREPOSITIONAL = "каплях крови"
-	)
 	gender = PLURAL
 	icon = 'icons/effects/drip.dmi'
 	icon_state = "1"
@@ -184,6 +181,16 @@
 	amount = 0
 	bloodiness = 0
 	var/drips = 1
+
+/obj/effect/decal/cleanable/blood/drip/get_ru_names()
+	return list(
+		NOMINATIVE = "капли крови",
+		GENITIVE = "капель крови",
+		DATIVE = "каплям крови",
+		ACCUSATIVE = "капли крови",
+		INSTRUMENTAL = "каплями крови",
+		PREPOSITIONAL = "каплях крови"
+	)
 
 /obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
 	return TRUE
@@ -193,7 +200,15 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	desc = "Ваши инстинкты подсказывают, что не стоит идти этим путём."
-	ru_names = list(
+	gender = PLURAL
+	density = FALSE
+	layer = TURF_LAYER
+	random_icon_states = null
+	blood_DNA = list()
+	var/list/existing_dirs = list()
+
+/obj/effect/decal/cleanable/trail_holder/get_ru_names()
+	return list(
 		NOMINATIVE = "кровь",
 		GENITIVE = "крови",
 		DATIVE = "крови",
@@ -201,12 +216,6 @@
 		INSTRUMENTAL = "кровью",
 		PREPOSITIONAL = "крови"
 	)
-	gender = PLURAL
-	density = FALSE
-	layer = TURF_LAYER
-	random_icon_states = null
-	blood_DNA = list()
-	var/list/existing_dirs = list()
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
 	return TRUE
@@ -235,14 +244,6 @@
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
 	desc = "Кто-то или что-то явно было разорвано на части."
-	ru_names = list(
-		NOMINATIVE = "кровавое месиво",
-		GENITIVE = "кровавого месива",
-		DATIVE = "кровавому месиву",
-		ACCUSATIVE = "кровавое месиво",
-		INSTRUMENTAL = "кровавым месивом",
-		PREPOSITIONAL = "кровавом месиве"
-	)
 	gender = PLURAL
 	density = FALSE
 	anchored = TRUE
@@ -255,11 +256,30 @@
 	mergeable_decal = FALSE
 	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
+	/// Do these gibs produce squishy sounds?
+	var/squishy = TRUE
+
+/obj/effect/decal/cleanable/blood/gibs/get_ru_names()
+	return list(
+		NOMINATIVE = "кровавое месиво",
+		GENITIVE = "кровавого месива",
+		DATIVE = "кровавому месиву",
+		ACCUSATIVE = "кровавое месиво",
+		INSTRUMENTAL = "кровавым месивом",
+		PREPOSITIONAL = "кровавом месиве"
+	)
 
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
+	if(squishy)
+		AddElement(/datum/element/squish_sound)
+
+/obj/effect/decal/cleanable/blood/gibs/Destroy()
+	if(giblets)
+		QDEL_NULL(giblets)
+	. = ..()
 
 
 /obj/effect/decal/cleanable/blood/gibs/proc/on_pipe_eject(datum/source, direction)
@@ -291,7 +311,7 @@
 	. += giblets
 
 
-/obj/effect/decal/cleanable/blood/gibs/ex_act(severity)
+/obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
 	return
 
 /obj/effect/decal/cleanable/blood/gibs/up

@@ -94,12 +94,14 @@
 /**
  * MARK: Admin/Mentor
  */
-#define span_mentorhelp(str) ("<span class='mentorhelp'>" + str + "</span>")
+#define span_mentorhelp(str) ("<span class='mentorhelp'> " + str + "</span>")
 #define span_admin(str) ("<span class='admin'>" + str + "</span>")
 #define span_adminhelp(str) ("<span class='adminhelp'>" + str + "</span>")
 #define span_adminticket(str) ("<span class='adminticket'>" + str + "</span>")
 #define span_adminticketalt(str) ("<span class='adminticketalt'>" + str + "</span>")
 #define span_admin_channel(str) ("<span class='admin_channel'>" + str + "</span>")
+#define span_dev_channel(str) ("<span class='dev_channel'>" + str + "</span>")
+#define span_mentor_channel(str) ("<span class='mentor_channel'>" + str + "</span>")
 #define span_all_admin_ping(str) ("<span class='all_admin_ping'>" + str + "</span>")
 
 // MARK: Radio

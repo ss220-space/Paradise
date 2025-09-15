@@ -29,29 +29,48 @@
 	color = "#FFFF00"
 	shockbull = TRUE
 	nodamage = TRUE
-	weaken = 0.2 SECONDS
-	stamina = 15
+	confused = 2.5 SECONDS
+	stamina = 20
 	stutter = 8 SECONDS
 	jitter = 30 SECONDS
 	hitsound = 'sound/weapons/tase.ogg'
-	range = 7
+	range = 6
 	//Damage will be handled on the MOB side, to prevent window shattering.
+	var/tasered_duration = 8 SECONDS
 
-/obj/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/energy/electrode/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
-		do_sparks(1, 1, src)
-	else if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(HAS_TRAIT(C, TRAIT_HULK))
-			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		else if(C.status_flags & CANWEAKEN)
-			spawn(5)
-				C.Jitter(jitter)
+		do_sparks(1, TRUE, src)
+		return
+	if(!iscarbon(target))
+		return
+	var/mob/living/carbon/carbon = target
+	if(HAS_TRAIT(carbon, TRAIT_HULK))
+		return
+	if(carbon.status_flags & CANWEAKEN)
+		addtimer(CALLBACK(carbon, TYPE_PROC_REF(/mob/living/carbon, Jitter), jitter), 0.5 SECONDS)
+
+/obj/projectile/energy/electrode/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
+	process_tasered_effect(target)
+	. = ..()
+
+/obj/projectile/energy/electrode/proc/process_tasered_effect(mob/living/target)
+	if(HAS_TRAIT(target, TRAIT_TASERED))
+		if(target.getStaminaLoss() >= 40)
+			target.drop_all_held_items()
+			REMOVE_TRAIT(target, TRAIT_TASERED, TASER_TRAIT)
+			return
+	// add temprolly trait
+	ADD_TRAIT(target, TRAIT_TASERED, TASER_TRAIT)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, remove_tasered_trait)), tasered_duration, flags = TIMER_UNIQUE|TIMER_OVERRIDE)
+
+/mob/living/proc/remove_tasered_trait()
+	REMOVE_TRAIT(src, TRAIT_TASERED, TASER_TRAIT)
 
 /obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
-	do_sparks(1, 1, src)
-	..()
+	do_sparks(1, TRUE, src)
+	return ..()
 
 /obj/projectile/energy/electrode/dominator
 	color = LIGHT_COLOR_LIGHT_CYAN

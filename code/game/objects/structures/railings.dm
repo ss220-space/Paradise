@@ -27,7 +27,7 @@
 		AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/railing/get_climb_text()
-	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(GENITIVE)], чтобы после небольшой задержки взобраться на [genderize_ru(gender, "него", "неё", "него", "них")].")
+	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(ACCUSATIVE)], чтобы после небольшой задержки взобраться на [genderize_ru(gender, "него", "неё", "него", "них")].")
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"

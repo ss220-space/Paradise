@@ -1,14 +1,6 @@
 /obj/machinery/kitchen_machine/tribal_oven
 	name = "stone oven"
 	desc = "Огромная примитивная каменная печь, используемая для приготовления пищи."
-	ru_names = list(
-		NOMINATIVE = "каменная печь",
-		GENITIVE = "каменной печи",
-		DATIVE = "каменной печи",
-		ACCUSATIVE = "каменную печь",
-		INSTRUMENTAL = "каменной печью",
-		PREPOSITIONAL = "каменной печи"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "oven_off"
@@ -22,6 +14,16 @@
 	can_broke = FALSE
 	efficiency = 1 //we don't have parts, soo
 	transfer_reagents_from_ingredients = FALSE
+
+/obj/machinery/kitchen_machine/tribal_oven/get_ru_names()
+	return list(
+		NOMINATIVE = "каменная печь",
+		GENITIVE = "каменной печи",
+		DATIVE = "каменной печи",
+		ACCUSATIVE = "каменную печь",
+		INSTRUMENTAL = "каменной печью",
+		PREPOSITIONAL = "каменной печи"
+	)
 
 /obj/machinery/kitchen_machine/tribal_oven/screwdriver_act()
 	return FALSE

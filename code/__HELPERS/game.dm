@@ -67,7 +67,7 @@
 
 // Like view but bypasses luminosity check
 
-/proc/hear(var/range, var/atom/source)
+/proc/hear(range, atom/source)
 	var/lum = source.luminosity
 	source.luminosity = 6
 
@@ -208,7 +208,7 @@
 			. |= recursive_mob_check(thing, ., 3, include_clientless, include_radio, FALSE)
 
 
-/proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
+/proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()
@@ -241,35 +241,49 @@
 					. |= M		// Since we're already looping through mobs, why bother using |= ? This only slows things down.
 	return .
 
-/proc/inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)
-	var/turf/T
-	if(X1==X2)
-		if(Y1==Y2)
-			return 1 //Light cannot be blocked on same tile
+//Used when converting pixels to tiles to make them accurate
+#define OFFSET_X (0.5 / ICON_SIZE_X)
+#define OFFSET_Y (0.5 / ICON_SIZE_Y)
+
+///Calculate if two atoms are in sight, returns TRUE or FALSE
+/proc/inLineOfSight(X1, Y1, X2, Y2, Z = 1, PX1 = 16.5, PY1 = 16.5, PX2 = 16.5, PY2 = 16.5)
+	var/turf/current_turf
+	if(X1 == X2)
+		if(Y1 == Y2)
+			return TRUE //Light cannot be blocked on same tile
 		else
-			var/s = SIMPLE_SIGN(Y2-Y1)
-			Y1+=s
-			while(Y1!=Y2)
-				T=locate(X1,Y1,Z)
-				if(IS_OPAQUE_TURF(T))
+			var/sign = SIGN(Y2-Y1)
+			Y1 += sign
+			while(Y1 != Y2)
+				current_turf = locate(X1, Y1, Z)
+				if(IS_OPAQUE_TURF(current_turf))
 					return FALSE
-				Y1+=s
+				Y1 += sign
 	else
-		var/m=(32*(Y2-Y1)+(PY2-PY1))/(32*(X2-X1)+(PX2-PX1))
-		var/b=(Y1+PY1/32-0.015625)-m*(X1+PX1/32-0.015625) //In tiles
-		var/signX = SIMPLE_SIGN(X2-X1)
-		var/signY = SIMPLE_SIGN(Y2-Y1)
-		if(X1<X2)
-			b+=m
-		while(X1!=X2 || Y1!=Y2)
-			if(round(m*X1+b-Y1))
-				Y1+=signY //Line exits tile vertically
+		//This looks scary but we're just calculating a linear function (y = mx + b)
+
+		//m = y/x
+		var/m = (ICON_SIZE_Y*(Y2-Y1) + (PY2-PY1)) / (ICON_SIZE_X*(X2-X1) + (PX2-PX1))//In pixels
+
+		//b = y - mx
+		var/b = (Y1 + PY1/ICON_SIZE_Y - OFFSET_Y) - m*(X1 + PX1/ICON_SIZE_X - OFFSET_X)//In tiles
+
+		var/signX = SIGN(X2-X1)
+		var/signY = SIGN(Y2-Y1)
+		if(X1 < X2)
+			b += m
+		while(X1 != X2 || Y1 != Y2)
+			if(round(m*X1 + b - Y1)) // Basically, if y >= mx+b
+				Y1 += signY //Line exits tile vertically
 			else
-				X1+=signX //Line exits tile horizontally
-			T=locate(X1,Y1,Z)
-			if(IS_OPAQUE_TURF(T))
+				X1 += signX //Line exits tile horizontally
+			current_turf = locate(X1, Y1, Z)
+			if(IS_OPAQUE_TURF(current_turf))
 				return FALSE
 	return TRUE
+
+#undef OFFSET_X
+#undef OFFSET_Y
 
 /proc/isInSight(atom/A, atom/B)
 	var/turf/Aturf = get_turf(A)
@@ -301,7 +315,7 @@
 		if(AM.Move(get_step(T, direction)))
 			break
 
-/proc/get_mob_by_key(var/key)
+/proc/get_mob_by_key(key)
 	for(var/mob/M in GLOB.mob_list)
 		if(M.ckey == lowertext(key))
 			return M
@@ -453,8 +467,7 @@
 	var/dest_x
 	var/dest_y
 
-/datum/projectile_data/New(var/src_x, var/src_y, var/time, var/distance, \
-						   var/power_x, var/power_y, var/dest_x, var/dest_y)
+/datum/projectile_data/New(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
 	src.src_x = src_x
 	src.src_y = src_y
 	src.time = time
@@ -464,7 +477,7 @@
 	src.dest_x = dest_x
 	src.dest_y = dest_y
 
-/proc/projectile_trajectory(var/src_x, var/src_y, var/rotation, var/angle, var/power)
+/proc/projectile_trajectory(src_x, src_y, rotation, angle, power)
 
 	// returns the destination (Vx,y) that a projectile shot at [src_x], [src_y], with an angle of [angle],
 	// rotated at [rotation] and with the power of [power]
@@ -482,7 +495,7 @@
 	return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
 
 
-/proc/mobs_in_area(var/area/the_area, var/client_needed=0, var/moblist=GLOB.mob_list)
+/proc/mobs_in_area(area/the_area, client_needed=0, moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
 	var/area/our_area = get_area(the_area)
 	for(var/mob/M in moblist)
@@ -493,7 +506,7 @@
 		mobs_found += M
 	return mobs_found
 
-/proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
+/proc/alone_in_area(area/the_area, mob/must_be_alone, check_type = /mob/living/carbon)
 	var/area/our_area = get_area(the_area)
 	for(var/C in GLOB.alive_mob_list)
 		if(!istype(C, check_type))
@@ -587,18 +600,18 @@
 	winset(C, "mainwindow", "flash=5")
 
 /**
-  * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments
-  *
-  * Will not include parent-less vents to the returned list.
-  * Arguments:
-  * * unwelded_only - Whether the list should only include vents that are unwelded
-  * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility
-  * * nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument
-  * * exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob
-  * * min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list
-  * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
-  * * z_level - The Z-level number to look for vents in. Defaults to all
-  */
+ * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments
+ *
+ * Will not include parent-less vents to the returned list.
+ * Arguments:
+ * * unwelded_only - Whether the list should only include vents that are unwelded
+ * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility
+ * * nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument
+ * * exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob
+ * * min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list
+ * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
+ * * z_level - The Z-level number to look for vents in. Defaults to all
+ */
 /proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, nearby_mobs_range = world.view, exclude_visible_by_mobs = FALSE, min_network_size = 50, station_levels_only = TRUE, z_level = 0)
 	ASSERT(min_network_size >= 0)
 	ASSERT(z_level >= 0)

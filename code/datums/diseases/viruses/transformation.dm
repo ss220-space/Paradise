@@ -59,7 +59,7 @@
 		affected_mob.cut_overlays()
 		affected_mob.invisibility = INVISIBILITY_ABSTRACT
 
-		for(var/obj/item/item as anything in affected_mob.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		for(var/obj/item/item as anything in affected_mob.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			affected_mob.drop_item_ground(item)
 
 		if(isobj(affected_mob.loc))

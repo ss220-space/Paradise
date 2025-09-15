@@ -42,6 +42,7 @@
 	return L
 
 /datum/sprite_accessory
+	var/visible_over_uniform = FALSE
 	var/icon				//the icon file the accessory is located in
 	var/icon_state			//the icon_state of the accessory
 	var/name				//the preview name of the accessory
@@ -101,7 +102,7 @@
 
 /datum/sprite_accessory/body_markings
 	icon = 'icons/mob/sprite_accessories/human/human_body_markings.dmi'
-	species_allowed = list(SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_VULPKANIN, SPECIES_MACNINEPERSON, SPECIES_VOX, SPECIES_KIDAN, SPECIES_MOTH)
+	species_allowed = list(SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_VULPKANIN, SPECIES_MACNINEPERSON, SPECIES_VOX, SPECIES_KIDAN, SPECIES_MOTH, SPECIES_NUCLEATION)
 	icon_state = "accessory_none"
 	marking_location = "body"
 
@@ -313,6 +314,9 @@
 	name = "Ladies Thong"
 	icon_state = "thong_female"
 
+/datum/sprite_accessory/underwear/female/colorized/female_lingerie
+	name = "Ladies Lingerie"
+	icon_state = "female_lingerie"
 ////////////////////////////
 // Undershirt Definitions //
 ////////////////////////////
@@ -385,6 +389,10 @@
 	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	SPECIES_DRASK = 'icons/mob/clothing/species/drask/underwear.dmi'
 	)
+
+/datum/sprite_accessory/undershirt/shirt_colorized/female/female_hoodie
+	name = "Female Colorized Crop Hoodie"
+	icon_state = "fem_hoody"
 
 //end plain color shirts
 

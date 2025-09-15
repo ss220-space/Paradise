@@ -228,7 +228,7 @@
 	var/hint_name = "items"
 	var/design_type
 
-/obj/item/disk/design_disk/roboquest/Initialize()
+/obj/item/disk/design_disk/roboquest/Initialize(mapload)
 	. = ..()
 	if(isnull(design_type))
 		return INITIALIZE_HINT_QDEL

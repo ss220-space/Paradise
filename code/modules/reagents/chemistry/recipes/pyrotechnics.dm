@@ -171,7 +171,7 @@
 
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	do_sparks(2, 1, location)
+	do_sparks(2, TRUE, location)
 	addtimer(CALLBACK(src, PROC_REF(blackpowder_detonate), holder, created_volume), rand(5, 15))
 
 /datum/chemical_reaction/blackpowder_explosion/proc/blackpowder_detonate(datum/reagents/holder, created_volume)
@@ -180,7 +180,7 @@
 	var/ex_heavy = round(created_volume / 42)
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
-	explosion(T, ex_severe, ex_heavy,ex_light, ex_flash, 1, cause = src)
+	explosion(T, devastation_range = ex_severe, heavy_impact_range = ex_heavy, light_impact_range = ex_light, flash_range = ex_flash, adminlog = TRUE, cause = src)
 	// If this black powder is in a decal, remove the decal, because it just exploded
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
 		qdel(holder.my_atom)
@@ -205,7 +205,7 @@
 	var/location = get_turf(holder.my_atom)
 	if(!location)
 		return
-	do_sparks(2, 1, location)
+	do_sparks(2, TRUE, location)
 	bang(location, holder.my_atom, 5, flash = TRUE, bang = FALSE)
 
 /datum/chemical_reaction/flash/flash_powder
@@ -364,7 +364,7 @@
 
 /datum/chemical_reaction/azide/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location, 0, 1, 4, cause = src)
+	explosion(location, devastation_range = 0, heavy_impact_range = 1, light_impact_range = 4, cause = src)
 
 /datum/chemical_reaction/firefighting_foam
 	name = "firefighting_foam"
@@ -386,7 +386,7 @@
 
 /datum/chemical_reaction/clf3_firefighting/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location, -1, 0, 2, cause = src)
+	explosion(location, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 
 /datum/chemical_reaction/shock_explosion
 	name = "shock_explosion"

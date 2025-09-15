@@ -49,9 +49,9 @@
 	var/check_weapons = FALSE	//checks if it can shoot people that have a weapon they aren't authorized to have
 	var/check_access = TRUE	//if this is active, the turret shoots everything that does not meet the access requirements
 	var/check_anomalies = TRUE	//checks if it can shoot at unidentified lifeforms (ie xenos)
-	var/check_synth	 = FALSE 	//if active, will shoot at anything not an AI or cyborg
+	var/check_synth	 = FALSE	//if active, will shoot at anything not an AI or cyborg
 	var/check_borgs = FALSE //if TRUE, target all cyborgs.
-	var/ailock = FALSE 			// if TRUE, AI cannot use this
+	var/ailock = FALSE			// if TRUE, AI cannot use this
 
 	var/attacked = FALSE		//if set to 1, the turret gets pissed off and shoots at people nearby (unless they have sec access!)
 
@@ -60,7 +60,7 @@
 	var/lethal_is_configurable = TRUE // if false, its lethal setting cannot be changed
 	var/disabled = FALSE
 
-	var/shot_sound 			//what sound should play when the turret fires
+	var/shot_sound			//what sound should play when the turret fires
 	var/eshot_sound			//what sound should play when the emagged turret fires
 
 	var/datum/effect_system/spark_spread/spark_system	//the spark system, used for generating... sparks?
@@ -130,7 +130,7 @@
 
 	weapon_setup(installation)
 
-/obj/machinery/porta_turret/proc/weapon_setup(var/guntype)
+/obj/machinery/porta_turret/proc/weapon_setup(guntype)
 	switch(guntype)
 		if(/obj/item/gun/energy/laser/practice)
 			iconholder = 1
@@ -486,18 +486,18 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(!enabled)
 				enabled = TRUE
 
-	..()
+	return ..()
 
-/obj/machinery/porta_turret/ex_act(severity)
+/obj/machinery/porta_turret/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			qdel(src)
-		if(2)
+		if(EXPLODE_HEAVY)
 			if(prob(25))
 				qdel(src)
 			else
 				take_damage(initial(health) * 8) //should instakill most turrets
-		if(3)
+		if(EXPLODE_LIGHT)
 			take_damage(initial(health) * 8 / 3)
 
 /obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0
@@ -654,7 +654,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(stat & BROKEN)
 		return
 	set_raised_raising(raised, TRUE)
-	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
+	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
@@ -675,7 +675,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(stat & BROKEN)
 		return
 	set_raised_raising(raised, TRUE)
-	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, 1)
+	playsound(get_turf(src), 'sound/effects/turret/open.wav', 60, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 	var/atom/flick_holder = new /atom/movable/porta_turret_cover(loc)
@@ -694,7 +694,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return ..()
 
-/obj/machinery/porta_turret/proc/set_raised_raising(var/is_raised, var/is_raising)
+/obj/machinery/porta_turret/proc/set_raised_raising(is_raised, is_raising)
 	raised = is_raised
 	raising = is_raising
 	density = is_raised || is_raising
@@ -732,11 +732,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(emagged || lethal)
 		if(eprojectile)
 			A = new eprojectile(loc)
-			playsound(loc, eshot_sound, 75, 1)
+			playsound(loc, eshot_sound, 75, TRUE)
 	else
 		if(projectile)
 			A = new projectile(loc)
-			playsound(loc, shot_sound, 75, 1)
+			playsound(loc, shot_sound, 75, TRUE)
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
@@ -786,7 +786,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/check_borgs
 	var/ailock
 
-/obj/machinery/porta_turret/proc/setState(var/datum/turret_checks/TC)
+/obj/machinery/porta_turret/proc/setState(datum/turret_checks/TC)
 	if(controllock)
 		return
 	enabled = TC.enabled

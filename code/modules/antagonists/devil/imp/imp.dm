@@ -3,14 +3,6 @@
 /mob/living/simple_animal/imp
 	name = "imp"
 	real_name = "imp"
-	ru_names = list(
-		NOMINATIVE = "бес",
-		GENITIVE = "беса",
-		DATIVE = "бесу",
-		ACCUSATIVE = "беса",
-		INSTRUMENTAL = "бесом",
-		PREPOSITIONAL = "бесе"
-	)
 	desc = "Большое, грозное существо, покрытое бронированной черной чешуей."
 	unique_name = TRUE
 	speak_emote = list("гогочет")
@@ -43,6 +35,16 @@
 	deathmessage = "кричит в агонии, превращаясь в сернистый дым."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	tts_seed = "demon"
+
+/mob/living/simple_animal/imp/get_ru_names()
+	return list(
+		NOMINATIVE = "бес",
+		GENITIVE = "беса",
+		DATIVE = "бесу",
+		ACCUSATIVE = "беса",
+		INSTRUMENTAL = "бесом",
+		PREPOSITIONAL = "бесе"
+	)
 
 /mob/living/simple_animal/imp/ritual
 	melee_damage_lower = 15

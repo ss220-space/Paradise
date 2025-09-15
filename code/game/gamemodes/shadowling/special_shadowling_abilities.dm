@@ -21,17 +21,17 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 	if(!isturf(user.loc))
 		revert_cast(user)
-		to_chat(user, span_warning("Ты должен стоять на полу, чтобы раскрыться!"))
+		to_chat(user, span_warning("Вы должны стоять на полу, чтобы раскрыться!"))
 		return
 
-	if(tgui_alert(user,"Ты уверен, что хочешь раскрыться? Ты не сможешь прервать это!", "Hatch", list("Yes", "No")) != "Yes")
-		to_chat(user, span_warning("Ты решил не раскрываться сейчас."))
+	if(tgui_alert(user, "Вы уверены, что хотите раскрыться? Вы не сможете прервать это!", "Hatch", list("Yes", "No")) != "Yes")
+		to_chat(user, span_warning("Вы решили не раскрываться сейчас."))
 		revert_cast(user)
 		return
 
 	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	user.visible_message(span_warning("Вещи [user] неожиданно начали сползать. С них стикает обильное количество фиолетовой жижи, которая формируется вокруг них"), \
-						span_shadowling("Ты сбрасываешь свою одежду, которая может помешать твоему вылуплению и начинаешь выделять смолу, которая защитит тебя."))
+	user.visible_message(span_warning("Вещи [user] неожиданно начали сползать. С них стекает обильное количество фиолетовой жижи, которая формируется вокруг них."), \
+						span_shadowling("Вы сбрасываете одежду, которая может помешать вашему вылуплению и начинаете выделять смолу, которая защитит вас."))
 	user.Stun(35 SECONDS, TRUE)
 	for(var/obj/item/item as anything in user.get_equipped_items(TRUE, TRUE))
 		user.drop_item_ground(item, force = TRUE)
@@ -53,28 +53,28 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
 	user.visible_message(span_warning("Хризалида окутывает [user] и [user.p_them()] скрывается внутри."), \
-						span_shadowling("Ты обвиваешься в хризалиду и начинаете извиваться внутри."))
+						span_shadowling("Вы обвиваетесь в хризалиду и начинаете извиваться внутри."))
 
 	sleep(10 SECONDS)
 	if(QDELETED(user))
 		return
 
 	user.visible_message(span_boldwarning("Кожа на спине [user] начинает расслаиваться. Из дыр медленно показываются чёрные шипы."), \
-						span_shadowling("Шипы пронзают твою спину. Когти разрывают твои пальцы. Ты чувствуешь мучительную боль, когда твоя истинная форма начинают проявляться."))
+						span_shadowling("Шипы пронзают вашу спину. Когти разрывают ваши пальцы. Вы чувствуете мучительную боль, когда ваша истинная форма начинает проявляться."))
 
 	sleep(9 SECONDS)
 	if(QDELETED(user))
 		return
 
 	user.visible_message(span_boldwarning("[user], кожа рвётся, налипая на стены вокруг [user.p_them()]."), \
-						span_shadowling("Твоя фальшивая кожа отваливается. Ты начинаете рвать хрупкую мембрану, защищающую тебя.."))
+						span_shadowling("Ваша фальшивая кожа отваливается. Вы начинаете рвать защищающую вас хрупкую мембрану."))
 
 	sleep(8 SECONDS)
 	if(QDELETED(user))
 		return
 
 	playsound(user.loc, 'sound/weapons/slash.ogg', 15, TRUE, SILENCED_SOUND_EXTRARANGE)
-	to_chat(user, span_boldnotice("Ты рвешь и режешь."))
+	to_chat(user, span_boldnotice("Вы рвёте и режете."))
 
 
 	sleep(1 SECONDS)
@@ -82,14 +82,14 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 		return
 
 	playsound(user.loc, 'sound/weapons/slashmiss.ogg', 15, TRUE, SILENCED_SOUND_EXTRARANGE)
-	to_chat(user, span_boldnotice("Хризалида осыпается перед тобой, как капли воды."))
+	to_chat(user, span_boldnotice("Хризалида осыпается перед вами, как капли воды."))
 
 	sleep(1 SECONDS)
 	if(QDELETED(user))
 		return
 
 	playsound(user.loc, 'sound/weapons/slice.ogg', 15, TRUE, SILENCED_SOUND_EXTRARANGE)
-	to_chat(user, span_boldnotice("Ты освободился!"))
+	to_chat(user, span_boldnotice("Вы освободились!"))
 
 	sleep(1 SECONDS)
 	if(QDELETED(user))
@@ -100,7 +100,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	GLOB.possibleShadowlingNames.Remove(newNameId)
 	user.real_name = newNameId
 	user.name = user.real_name
-	to_chat(user, span_mind_control("ТЫ ЖИВОЙ!!!"))
+	to_chat(user, span_mind_control("ВЫ ЖИВЫ!!!"))
 	user.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 
 	for(var/obj/structure/alien/resin/wall/shadowling/resin in orange(user, 1))
@@ -109,7 +109,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	for(var/obj/structure/alien/weeds/node/node in shadowturf)
 		qdel(node)
 
-	user.visible_message(span_warning("Хризалиду разрывает и из неё бъётся поток фиолетовой плоти и жидкости!"))
+	user.visible_message(span_warning("Хризалиду разрывает и из неё бьёт поток фиолетовой плоти и жидкости!"))
 	user.underwear = "None"
 	user.undershirt = "None"
 	user.socks = "None"
@@ -126,9 +126,9 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	if(QDELETED(user))
 		return
 
-	to_chat(user, span_shadowling("<b><i>Твои силы пробудились. Теперь ты заживешь в полную меру. Помни свои цели. Сотрудничай со своими союзниками и рабами.</b></i>"))
+	to_chat(user, span_shadowling("<b><i>Ваши силы пробудились. Теперь вы заживёте в полную меру. Помните свои цели. Сотрудничайте со своими союзниками и рабами.</b></i>"))
 	user.ExtinguishMob()
-	user.set_nutrition(NUTRITION_LEVEL_FED + 50)
+	user.set_nutrition(NUTRITION_LEVEL_FED)
 	//user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_enthrall(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_glare(null))
@@ -158,33 +158,33 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	if(!shadowling_check(user))
 		return
 
-	if(tgui_alert(user, "Время завершить свою форму. Ты уверен?", "Ascend", list("Yes", "No")) != "Yes")
-		to_chat(user, span_warning("Ты передумал завершать свою форму сейчас."))
+	if(tgui_alert(user, "Время завершить свою форму. Вы уверены?", "Ascend", list("Yes", "No")) != "Yes")
+		to_chat(user, span_warning("Вы передумали завершать свою форму сейчас."))
 		revert_cast(user)
 		return
 
 	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	user.visible_message(span_warning("[user] взмывает в воздух, красный свет бъёт из его глаз."), \
-						span_shadowling("Ты взмываешь в воздух и ты готов к своей трансформации."))
+						span_shadowling("Вы взмываете в воздух и готовы к своей трансформации."))
 
 	sleep(5 SECONDS)
 	if(QDELETED(user))
 		return
 
 	user.visible_message(span_warning("Кожа [user] начинает трескаться и становится твержё."), \
-						span_shadowling("Твоя кожа становится твойм щитом."))
+						span_shadowling("Ваша кожа становится вашим щитом."))
 
 	sleep(10 SECONDS)
 	if(QDELETED(user))
 		return
 	user.visible_message(span_warning("Рожки на голове [user] начинают расти."), \
-						span_shadowling("Твоё тело начинает мутировать. Твои телепатические силы растут."))
+						span_shadowling("Ваше тело начинает мутировать. Ваши телепатические силы растут."))
 
 	sleep(9 SECONDS)
 	if(QDELETED(user))
 		return
 	user.visible_message(span_warning("Тело [user] начинает сильно растягиваться."), \
-						span_shadowling("Ты разрушаешь последние врата к божественности."))
+						span_shadowling("Вы разрушаете последние врата к божественности."))
 
 	sleep(4 SECONDS)
 	if(QDELETED(user))
@@ -266,10 +266,10 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	faction |= "faithless"
 	add_language(LANGUAGE_HIVE_SHADOWLING)
 	set_species(/datum/species/shadow/ling)
-	to_chat(src, span_shadowling("<b><i>Твои силы пробудились. Теперь ты заживешь в полную меру. Помни свои цели. Сотрудничай со своими союзниками и рабами.</b></i>"))
+	to_chat(src, span_shadowling("<b><i>Ваши силы пробудились. Теперь вы заживёте в полную меру. Помните свои цели. Сотрудничайте со своими союзниками и рабами.</b></i>"))
 
 	ExtinguishMob()
-	set_nutrition(NUTRITION_LEVEL_FED + 50)
+	set_nutrition(NUTRITION_LEVEL_FED)
 	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_enthrall(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_glare(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_veil(null))

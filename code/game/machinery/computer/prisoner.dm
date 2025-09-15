@@ -7,7 +7,7 @@
 	icon_screen = "explosive"
 	req_access = list(ACCESS_ARMORY)
 	circuit = /obj/item/circuitboard/prisoner
-	light_color = LIGHT_COLOR_DARKRED
+	light_color = COLOR_SOFT_RED
 	/// FALSE - No Access Denied, TRUE - Access allowed
 	var/authenticated = FALSE
 	var/inserted_id_uid
@@ -96,7 +96,7 @@
 		if(!check_implant(track_imp))
 			continue
 		var/mob/living/carbon/carrier = track_imp.imp_in
-		var/loc_display = "Unknown"
+		var/loc_display = UNKNOWN_STATUS_RUS
 		var/health_display = "OK"
 		var/total_loss = (carrier.maxHealth - carrier.health)
 		if(carrier.stat == DEAD)

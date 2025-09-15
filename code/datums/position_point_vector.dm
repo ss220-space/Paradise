@@ -1,15 +1,3 @@
-//Designed for things that need precision trajectories like projectiles.
-//Don't use this for anything that you don't absolutely have to use this with (like projectiles!) because it isn't worth using a datum unless you need accuracy down to decimal places in pixels.
-
-//You might see places where it does - 16 - 1. This is intentionally 17 instead of 16, because of how byond's tiles work and how not doing it will result in rounding errors like things getting put on the wrong turf.
-
-#define RETURN_PRECISE_POSITION(A) new /datum/position(A)
-#define RETURN_PRECISE_POINT(A) new /datum/point_precise(A)
-
-#define RETURN_POINT_VECTOR(ATOM, ANGLE, SPEED) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED))
-#define RETURN_POINT_VECTOR_INCREMENT(ATOM, ANGLE, SPEED, AMT) (new /datum/point_precise/vector(ATOM, null, null, null, null, ANGLE, SPEED, AMT))
-
-
 /proc/point_midpoint_points(datum/point_precise/a, datum/point_precise/b) //Obviously will not support multiZ calculations! Same for the two below.
 	var/datum/point_precise/P = new
 	P.x = a.x + (b.x - a.x) * 0.5
@@ -117,9 +105,9 @@
 
 /datum/point_precise/proc/initialize_location(tile_x, tile_y, tile_z, p_x = 0, p_y = 0)
 	if(!isnull(tile_x))
-		x = ((tile_x - 1) * world.icon_size) + world.icon_size * 0.5 + p_x + 1
+		x = ((tile_x - 1) * ICON_SIZE_X) + ICON_SIZE_X * 0.5 + p_x + 1
 	if(!isnull(tile_y))
-		y = ((tile_y - 1) * world.icon_size) + world.icon_size * 0.5 + p_y + 1
+		y = ((tile_y - 1) * ICON_SIZE_Y) + ICON_SIZE_Y * 0.5 + p_y + 1
 	if(!isnull(tile_z))
 		z = tile_z
 
@@ -136,11 +124,11 @@
 
 
 /datum/point_precise/proc/return_turf()
-	return locate(CEILING(x / world.icon_size, 1), CEILING(y / world.icon_size, 1), z)
+	return locate(CEILING(x / ICON_SIZE_X, 1), CEILING(y / ICON_SIZE_Y, 1), z)
 
 
 /datum/point_precise/proc/return_coordinates() //[turf_x, turf_y, z]
-	return list(CEILING(x / world.icon_size, 1), CEILING(y / world.icon_size, 1), z)
+	return list(CEILING(x / ICON_SIZE_X, 1), CEILING(y / ICON_SIZE_Y, 1), z)
 
 
 /datum/point_precise/proc/return_position()
@@ -148,11 +136,11 @@
 
 
 /datum/point_precise/proc/return_px()
-	return MODULUS(x, world.icon_size) - 16 - 1
+	return MODULUS(x, ICON_SIZE_X) - 16 - 1
 
 
 /datum/point_precise/proc/return_py()
-	return MODULUS(y, world.icon_size) - 16 - 1
+	return MODULUS(y, ICON_SIZE_Y) - 16 - 1
 
 
 /datum/point_precise/vector
@@ -186,9 +174,9 @@
 /// Same effect as initiliaze_location, but without setting the starting_x/y/z
 /datum/point_precise/vector/proc/set_location(tile_x, tile_y, tile_z, p_x = 0, p_y = 0)
 	if(!isnull(tile_x))
-		x = ((tile_x - 1) * world.icon_size) + world.icon_size * 0.5 + p_x + 1
+		x = ((tile_x - 1) * ICON_SIZE_X) + ICON_SIZE_X * 0.5 + p_x + 1
 	if(!isnull(tile_y))
-		y = ((tile_y - 1) * world.icon_size) + world.icon_size * 0.5 + p_y + 1
+		y = ((tile_y - 1) * ICON_SIZE_Y) + ICON_SIZE_Y * 0.5 + p_y + 1
 	if(!isnull(tile_z))
 		z = tile_z
 

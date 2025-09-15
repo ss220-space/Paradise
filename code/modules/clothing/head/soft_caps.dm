@@ -169,3 +169,39 @@
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "solgovcelitesoft"
 	item_color = "solgovcelite"
+
+/obj/item/clothing/head/tchaikowsky
+	species_restricted = list(SPECIES_HUMAN)
+	dog_fashion = null
+	var/flipped = TRUE
+
+/obj/item/clothing/head/tchaikowsky/baseballcap
+	name = "baseball cap (blue)"
+	desc = "Бейсболка синего цвета. Мерч команды \"НаноТрейзен Лейкерс\"."
+	icon_state = "baseball_blue"
+	item_state = "baseball_blue"
+
+/obj/item/clothing/head/tchaikowsky/baseballcap/get_ru_names()
+	return list(
+		NOMINATIVE = "синяя бейсболка",
+		GENITIVE = "синей бейсболки",
+		DATIVE = "синей бейсболке",
+		ACCUSATIVE = "синюю бейсболку",
+		INSTRUMENTAL = "синей бейсболкой",
+		PREPOSITIONAL = "синей бейсболке"
+	)
+/obj/item/clothing/head/tchaikowsky/baseballcap/brown
+	name = "baseball cap (brown)"
+	desc = "Бейсболка коричневого цвета. Мерч команды \"Киберсан Инд\"."
+	icon_state = "baseball_brown"
+	item_state = "baseball_brown"
+
+/obj/item/clothing/head/tchaikowsky/baseballcap/brown/get_ru_names()
+	return list(
+		NOMINATIVE = "коричневая бейсболка",
+		GENITIVE = "коричневой бейсболки",
+		DATIVE = "коричневой бейсболке",
+		ACCUSATIVE = "коричневую бейсболку",
+		INSTRUMENTAL = "коричневой бейсболкой",
+		PREPOSITIONAL = "коричневой бейсболке"
+	)

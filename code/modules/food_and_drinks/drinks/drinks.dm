@@ -235,16 +235,18 @@
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
 	desc = "Стаканчик льда. Не жуйте, а то горло болеть будет."
-	ru_names = list(
-        NOMINATIVE = "стаканчик льда",
-        GENITIVE = "стаканчика льда",
-        DATIVE = "стаканчику льда",
-        ACCUSATIVE = "стаканчик льда",
-        INSTRUMENTAL = "стаканчиком льда",
-        PREPOSITIONAL = "стаканчике льда"
-	)
 	icon_state = "icecup"
 	list_reagents = list("ice" = 30)
+
+/obj/item/reagent_containers/food/drinks/ice/get_ru_names()
+	return list(
+		NOMINATIVE = "стаканчик льда",
+		GENITIVE = "стаканчика льда",
+		DATIVE = "стаканчику льда",
+		ACCUSATIVE = "стаканчик льда",
+		INSTRUMENTAL = "стаканчиком льда",
+		PREPOSITIONAL = "стаканчике льда"
+	)
 
 /obj/item/reagent_containers/food/drinks/tea
 	name = "Duke Purple tea"

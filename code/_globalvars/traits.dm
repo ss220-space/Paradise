@@ -1,11 +1,10 @@
 /*
- FUN ZONE OF ADMIN LISTINGS
- Try to keep this in sync with __DEFINES/traits.dm
- quirks have it's own panel so we don't need them here.
-
- USE ALPABETIC ORDER HERE! (please)
-*/
-
+ * FUN ZONE OF ADMIN LISTINGS
+ * Try to keep this in sync with __DEFINES/traits.dm
+ * quirks have it's own panel so we don't need them here.
+ *
+ * USE ALPABETIC ORDER HERE! (please)
+ */
 
 GLOBAL_LIST_INIT(traits_by_type, list(
 	/datum/mind = list(
@@ -59,6 +58,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_CLUMSY" = TRAIT_CLUMSY,
 		"TRAIT_DEAF" = TRAIT_DEAF,
 		"TRAIT_DECOY_BRAIN" = TRAIT_DECOY_BRAIN,
+		"TRAIT_DEFLECT_BOLAS" = TRAIT_DEFLECT_BOLAS,
 		"TRAIT_DWARF" = TRAIT_DWARF,
 		"TRAIT_ELITE_CHALLENGER" = TRAIT_ELITE_CHALLENGER,
 		"TRAIT_EMBEDIMMUNE" = TRAIT_EMBEDIMMUNE,
@@ -116,6 +116,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_NO_GLIDE" = TRAIT_NO_GLIDE,
 		"TRAIT_NO_GUNS" = TRAIT_NO_GUNS,
 		"TRAIT_NO_HUNGER" = TRAIT_NO_HUNGER,
+		"TRAIT_NO_NUTRITION_EFFECTS" = TRAIT_NO_NUTRITION_EFFECTS,
 		"TRAIT_NO_INTORGANS" = TRAIT_NO_INTORGANS,
 		"TRAIT_NO_PAIN" = TRAIT_NO_PAIN,
 		"TRAIT_NO_PAIN_HUD" = TRAIT_NO_PAIN_HUD,
@@ -170,6 +171,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_XRAY" = TRAIT_XRAY,
 		"TRAIT_STRONG_PULLING" = TRAIT_STRONG_PULLING,
 		"TRAIT_TEMPERATURE_MOVEMENT" = TRAIT_TEMPERATURE_MOVEMENT,
+		"TRAIT_WEAK_EARS" = TRAIT_WEAK_EARS,
 	),
 
 	/obj/item = list(

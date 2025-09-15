@@ -13,21 +13,13 @@ SAFE CODES
 GLOBAL_LIST_EMPTY(safes)
 
 /**
-  * # Safe
-  *
-  * A locked container that can only be opened by entering a combination through a dial.
-  */
+ * # Safe
+ *
+ * A locked container that can only be opened by entering a combination through a dial.
+ */
 /obj/structure/safe
 	name = "safe"
 	desc = "Огромный кусок металла со встроенным в него циферблатом. Мелким шрифтом на циферблате написано: \"Сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
-	ru_names = list(
-		NOMINATIVE = "сейф",
-		GENITIVE = "сейфа",
-		DATIVE = "сейфу",
-		ACCUSATIVE = "сейф",
-		INSTRUMENTAL = "сейфом",
-		PREPOSITIONAL = "сейфе"
-	)
 	gender = MALE
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
@@ -73,6 +65,16 @@ GLOBAL_LIST_EMPTY(safes)
 	var/known_by = list()
 	/// UID of that who placed the drill on the safe. Used to trigger the status effect.
 	var/driller_UID
+
+/obj/structure/safe/get_ru_names()
+	return list(
+		NOMINATIVE = "сейф",
+		GENITIVE = "сейфа",
+		DATIVE = "сейфу",
+		ACCUSATIVE = "сейф",
+		INSTRUMENTAL = "сейфом",
+		PREPOSITIONAL = "сейфе"
+	)
 
 /obj/structure/safe/Initialize(mapload)
 	. = ..()
@@ -120,7 +122,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/blob_act(obj/structure/blob/B)
 	return
 
-/obj/structure/safe/ex_act(severity)
+/obj/structure/safe/ex_act(severity, target)
 	return
 
 /obj/structure/safe/examine_status(mob/user)
@@ -394,8 +396,8 @@ GLOBAL_LIST_EMPTY(safes)
 		O.clear_fullscreen("payback")
 
 /**
-  * Called every dial turn to determine whether the safe should unlock or not.
-  */
+ * Called every dial turn to determine whether the safe should unlock or not.
+ */
 /obj/structure/safe/proc/check_unlocked()
 	if(current_tumbler_index > number_of_tumblers)
 		locked = FALSE
@@ -405,8 +407,8 @@ GLOBAL_LIST_EMPTY(safes)
 	return FALSE
 
 /**
-  * Called every dial turn to provide feedback if possible.
-  */
+ * Called every dial turn to provide feedback if possible.
+ */
 /obj/structure/safe/proc/notify_user(user, canhear, sounds, total_ticks, current_tick)
 	if(!canhear)
 		return
@@ -417,14 +419,14 @@ GLOBAL_LIST_EMPTY(safes)
 		to_chat(user, span_italics("Вы слышите [pick(sounds)] от [declent_ru(GENITIVE)]."))
 
 /**
-  * Returns the combination to unlock the safe as text.
-  */
+ * Returns the combination to unlock the safe as text.
+ */
 /obj/structure/safe/proc/get_combination()
 	return jointext(tumblers, ", ")
 
 /**
-  * Called when the current thermal drill has finished drilling.
-  */
+ * Called when the current thermal drill has finished drilling.
+ */
 /obj/structure/safe/proc/drill_open()
 	broken = TRUE
 	drill_timer = null
@@ -444,21 +446,13 @@ GLOBAL_LIST_EMPTY(safes)
 	STOP_PROCESSING(SSobj, src)
 
 /**
-  * # Floor Safe
-  *
-  * Like a safe, but without density. Can be hidden with flooring.
-  */
+ * # Floor Safe
+ *
+ * Like a safe, but without density. Can be hidden with flooring.
+ */
 /obj/structure/safe/floor
 	name = "floor safe"
 	desc = "Огромный металлический люк со встроенным в него цифербалтом. Мелким шрифтом на циферблате написано: \"Напольный сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
-	ru_names = list(
-		NOMINATIVE = "напольный сейф",
-		GENITIVE = "напольного сейфа",
-		DATIVE = "напольному сейфу",
-		ACCUSATIVE = "напольный сейф",
-		INSTRUMENTAL = "напольным сейфом",
-		PREPOSITIONAL = "напольном сейфе"
-	)
 	icon_state = "floorsafe"
 	density = FALSE
 	level = 1 //Under the floor
@@ -467,7 +461,17 @@ GLOBAL_LIST_EMPTY(safes)
 	drill_x_offset = -1
 	drill_y_offset = 20
 
-/obj/structure/safe/floor/Initialize()
+/obj/structure/safe/floor/get_ru_names()
+	return list(
+		NOMINATIVE = "напольный сейф",
+		GENITIVE = "напольного сейфа",
+		DATIVE = "напольному сейфу",
+		ACCUSATIVE = "напольный сейф",
+		INSTRUMENTAL = "напольным сейфом",
+		PREPOSITIONAL = "напольном сейфе"
+	)
+
+/obj/structure/safe/floor/Initialize(mapload)
 	. = ..()
 	var/turf/T = loc
 	if(!T.transparent_floor)
@@ -477,14 +481,17 @@ GLOBAL_LIST_EMPTY(safes)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
 
 /**
-  * # Safe Internals
-  *
-  * Can be used to replace a safe's broken mechanism.
-  */
+ * # Safe Internals
+ *
+ * Can be used to replace a safe's broken mechanism.
+ */
 /obj/item/safe_internals
 	name = "safe internals"
 	desc = "Механизм и запирающие ригели для тумблерного сейфа \"Скарборо Армс - 2\"."
-	ru_names = list(
+	icon_state = "safe_internals"
+
+/obj/item/safe_internals/get_ru_names()
+	return list(
 		NOMINATIVE = "внутренности сейфа",
 		GENITIVE = "внтренностей сейфа",
 		DATIVE = "внутренностям сейфа",
@@ -492,17 +499,20 @@ GLOBAL_LIST_EMPTY(safes)
 		INSTRUMENTAL = "внутренностями сейфа",
 		PREPOSITIONAL = "внутренностях сейфа"
 	)
-	icon_state = "safe_internals"
 
 /**
-  * # Safe Codes
-  *
-  * Contains the (generated on map load) codes for all publicly known safes.
-  */
+ * # Safe Codes
+ *
+ * Contains the (generated on map load) codes for all publicly known safes.
+ */
 /obj/item/paper/safe_code
 	name = "safe codes"
 	desc = "Надежный способ сохранить секретность важных цифр."
-	ru_names = list(
+	var/owner
+	info = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Коды от сейфа</h3></center>"
+
+/obj/item/paper/safe_code/get_ru_names()
+	return list(
 		NOMINATIVE = "коды от сейфа",
 		GENITIVE = "кодов от сейфа",
 		DATIVE = "кодам от сейфа",
@@ -510,8 +520,6 @@ GLOBAL_LIST_EMPTY(safes)
 		INSTRUMENTAL = "кодами от сейфа",
 		PREPOSITIONAL = "кодах от сейфа"
 	)
-	var/owner
-	info = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Коды от сейфа</h3></center>"
 
 /obj/item/paper/safe_code/Initialize(mapload)
 	..()

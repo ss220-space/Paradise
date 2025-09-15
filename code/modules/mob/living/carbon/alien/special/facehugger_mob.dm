@@ -2,14 +2,6 @@
 /mob/living/simple_animal/hostile/facehugger
 	name = "facehugger"
 	desc = "На конце хвоста у него есть что-то вроде трубки."
-	ru_names = list(
-		NOMINATIVE = "лицехват",
-		GENITIVE = "лицехвата",
-		DATIVE = "лицехвату",
-		ACCUSATIVE = "лицехвата",
-		INSTRUMENTAL = "лицехватом",
-		PREPOSITIONAL = "лицехвате"
-	)
 	unique_name = TRUE
 	icon = 'icons/mob/facehugger.dmi'
 	icon_state = "facehugger"
@@ -45,7 +37,7 @@
 	a_intent = INTENT_HARM
 	intent = INTENT_HARM
 	blood_volume = 20
-	blood_color = "#dffc00"
+	blood_color = BLOOD_COLOR_XENO
 	attacktext = "прыгает на лицо"
 	attack_sound = 'sound/creatures/facehugger_attack.ogg'
 	attacked_sound = 'sound/creatures/facehugger_attacked.ogg'
@@ -56,7 +48,6 @@
 	stat_attack = UNCONSCIOUS // Necessary for them to attack (zombify) dead humans
 	speed = -0.5
 	holder_type = /obj/item/clothing/mask/facehugger
-	blood_color = COLOR_LIGHT_GREEN
 	gold_core_spawnable = FALSE
 	faction = list("alien")
 	use_pathfinding = TRUE
@@ -69,6 +60,16 @@
 	var/impregnated = FALSE
 	var/impregnated_death = FALSE
 	var/obj/item/clothing/mask/facehugger/hugger_holder
+
+/mob/living/simple_animal/hostile/facehugger/get_ru_names()
+	return  list(
+		NOMINATIVE = "лицехват",
+		GENITIVE = "лицехвата",
+		DATIVE = "лицехвату",
+		ACCUSATIVE = "лицехвата",
+		INSTRUMENTAL = "лицехватом",
+		PREPOSITIONAL = "лицехвате"
+	)
 
 /mob/living/simple_animal/hostile/facehugger/ComponentInitialize()
 	AddComponent( \
@@ -365,7 +366,12 @@
 
 /mob/living/simple_animal/hostile/facehugger/lamarr
 	name = "Lamarr"
-	ru_names = list(
+	desc = "В худшем случае она попытается... спариться с вашей головой."
+	gender = FEMALE
+	holder_type = /obj/item/clothing/mask/facehugger/lamarr
+
+/mob/living/simple_animal/hostile/facehugger/lamarr/get_ru_names()
+	return list(
 		NOMINATIVE = "ламарр",
 		GENITIVE = "ламарр",
 		DATIVE = "ламарр",
@@ -373,6 +379,3 @@
 		INSTRUMENTAL = "ламарр",
 		PREPOSITIONAL = "ламарр"
 	)
-	desc = "В худшем случае она попытается... спариться с вашей головой."
-	gender = FEMALE
-	holder_type = /obj/item/clothing/mask/facehugger/lamarr

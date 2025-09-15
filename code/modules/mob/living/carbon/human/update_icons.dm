@@ -312,6 +312,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	overlays_standing[MARKINGS_LAYER] = mutable_appearance(markings_standing, layer = -MARKINGS_LAYER)
 	apply_overlay(MARKINGS_LAYER)
+	var/body_marking = m_styles["body"]
+	var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
+	if(body_marking_style.visible_over_uniform && istype(w_uniform, /obj/item/clothing/under))
+		update_inv_w_uniform()
 
 
 //HEAD ACCESSORY OVERLAY
@@ -404,6 +408,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			img_secondary.color = COLOR_MATRIX_ADD(head_organ.sec_hair_colour)
 		MA.overlays += img_secondary
 
+	update_mutant_ears()
 	overlays_standing[HAIR_LAYER] = MA
 	apply_overlay(HAIR_LAYER)
 
@@ -458,7 +463,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_mutations()
 	remove_overlay(MUTATIONS_LAYER)
-	var/mutable_appearance/standing = mutable_appearance(is_monkeybasic(src) ? 'icons/mob/clothing/species/monkey/genetics.dmi' : 'icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
+	var/mutable_appearance/standing = mutable_appearance(is_monkeybasic(src) ? 'icons/mob/monkey.dmi' : 'icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
 	var/add_image = FALSE
 	var/g = "m"
 	if(gender == FEMALE)
@@ -484,14 +489,25 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[MUTATIONS_LAYER] = standing
 	apply_overlay(MUTATIONS_LAYER)
 
+/mob/living/carbon/human/proc/update_mutant_ears()
+	remove_overlay(MUTANT_EARS_LAYER)
+	var/datum/dna/gene/disability/catears/ears_gene = locate(/datum/dna/gene/disability/catears) in GLOB.dna_genes
+	if(!ears_gene.is_active(src))
+		return
+
+	var/mutable_appearance/felinide_ears = mutable_appearance('icons/effects/genetics.dmi', layer = -MUTANT_EARS_LAYER)
+	var/painted_ears = ears_gene.paint_felinide_ears(src)
+	felinide_ears.underlays += painted_ears
+	overlays_standing[MUTANT_EARS_LAYER] = felinide_ears
+	apply_overlay(MUTANT_EARS_LAYER)
 
 /mob/living/carbon/human/update_fire()
 	remove_overlay(FIRE_LAYER)
 	if(on_fire || HAS_TRAIT(src, TRAIT_FAKE_FIRE))
+		var/fire_icon_state = "[is_monkeybasic(src) ? "monkey" : "human"]_fire"
 		if(!overlays_standing[FIRE_LAYER])
-			overlays_standing[FIRE_LAYER] = mutable_appearance(FIRE_DMI(src), icon_state = "Standing", layer = -FIRE_LAYER)
+			overlays_standing[FIRE_LAYER] = mutable_appearance('icons/mob/OnFire.dmi', icon_state = fire_icon_state, layer = -FIRE_LAYER)
 	apply_overlay(FIRE_LAYER)
-
 
 /* --------------------------------------- */
 //For legacy support.
@@ -550,7 +566,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(istype(w_uniform, /obj/item/clothing/under))
 		update_item_on_hud(w_uniform, ui_iclothing, togleable_inventory = TRUE)
 
-		var/state_type = w_uniform.item_color ? w_uniform.item_color : w_uniform.icon_state
+		var/state_type = w_uniform.rolled_down ? "[w_uniform.icon_state]_d" : w_uniform.icon_state
 
 		var/mutable_appearance/standing = mutable_appearance(w_uniform.onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING], "[state_type]_s", layer = -UNIFORM_LAYER, alpha = w_uniform.alpha, appearance_flags = KEEP_TOGETHER, color = w_uniform.color)
 
@@ -566,6 +582,18 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(accessory.sprite_sheets?[dna.species.name])
 				acc_olay.icon = accessory.sprite_sheets[dna.species.name]
 			standing.overlays += acc_olay
+
+		// over_uniform body marks
+		var/body_marking = m_styles["body"]
+		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
+		if(body_marking_style.visible_over_uniform || body_marking_style.name != /datum/sprite_accessory/body_markings/none::name)
+			var/obj/item/organ/external/chest/chest_organ = get_organ(BODY_ZONE_CHEST)
+			if(chest_organ && m_styles["body"])
+				if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
+					var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]-withclothes")
+					if(body_marking_style.do_colouration)
+						b_marking_s.Blend(m_colours["body"], ICON_ADD)
+					standing.overlays += b_marking_s
 
 		// Select which layer to use based on the properties of the hair style.
 		// Hair styles with hair that don't overhang the arms of the glasses should have glasses_over set to a positive value.
@@ -650,7 +678,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(blood_DNA || clock_hands)
 			var/mutable_appearance/standing = mutable_appearance(layer = -GLOVES_LAYER, appearance_flags = KEEP_TOGETHER)
 			if(clock_hands)
-				standing.overlays += mutable_appearance(dna.species.blood_mask, "clockedhands")
+				standing.overlays += mutable_appearance(dna.species.blood_mask, "clockedhands", color = COLOR_LIGHT_ORANGE)
 			else if(blood_DNA)
 				standing.overlays += mutable_appearance(dna.species.blood_mask, "bloodyhands", color = blood_color)
 

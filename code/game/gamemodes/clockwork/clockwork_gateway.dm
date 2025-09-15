@@ -57,7 +57,7 @@
 	qdel(src)
 
 /obj/structure/clockwork/functional/celestial_gateway/proc/end_deconstruct()
-	explosion(src, 1, 3, 8, 8)
+	explosion(src, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 8, flash_range = 8)
 	sound_to_playing_players('sound/effects/explosionfar.ogg', volume = 50)
 
 
@@ -74,7 +74,7 @@
 			icon_state = "clockwork_gateway_closing"
 
 
-/obj/structure/clockwork/functional/celestial_gateway/ex_act(severity)
+/obj/structure/clockwork/functional/celestial_gateway/ex_act(severity, target)
 	var/damage = max((obj_integrity * 0.7) / severity, 100)
 	take_damage(damage, BRUTE, BOMB, 0)
 

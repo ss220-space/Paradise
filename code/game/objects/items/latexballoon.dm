@@ -54,7 +54,7 @@
 	loc.assume_air(air_contents)
 
 
-/obj/item/latexballon/ex_act(severity)
+/obj/item/latexballon/ex_act(severity, target)
 	burst()
 	switch(severity)
 		if(EXPLODE_DEVASTATE)

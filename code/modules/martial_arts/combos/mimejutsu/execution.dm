@@ -16,6 +16,6 @@
 			objective_damage(user, target, 40, BRUTE)
 			user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Silent Execution", ATKLOG_ALL)
-		playsound(get_turf(user), 'sound/weapons/blunthit_mimejutsu.ogg', 10, 1, -1)
+		playsound(get_turf(user), 'sound/weapons/blunthit_mimejutsu.ogg', 10, TRUE, -1)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL

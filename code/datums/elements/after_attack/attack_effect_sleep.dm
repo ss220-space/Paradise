@@ -18,7 +18,7 @@
 	if(!target || !user || !istype(target))
 		return
 
-	if(target.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+	if(target.staminaloss >= 100)
 		target.visible_message(
 			span_danger("[user] puts [target] to sleep with [source]!"),
 			span_userdanger("You suddenly feel very drowsy!"),

@@ -87,22 +87,22 @@ proc/admin_proc()
 NOTE: it checks usr! not src! So if you're checking somebody's rank in a proc which they did not call
 you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 */
-/proc/check_rights(rights_required, show_msg=1, var/mob/user = usr)
+/proc/check_rights(rights_required, show_msg = TRUE, mob/user = usr)
 	if(user && user.client)
 		if(rights_required)
 			if(user.client.holder)
 				if(rights_required & user.client.holder.rights)
-					return 1
+					return TRUE
 				else
 					if(show_msg)
-						to_chat(user, "<font color='red'>Error: You do not have sufficient rights to do that. You require one of the following flags:[rights2text(rights_required," ")].</font>")
+						to_chat(user, span_red("Error: You do not have sufficient rights to do that. You require one of the following flags:[rights2text(rights_required," ")]."), confidential = TRUE)
 		else
 			if(user.client.holder)
-				return 1
+				return TRUE
 			else
 				if(show_msg)
-					to_chat(user, "<font color='red'>Error: You are not an admin.</font>")
-	return 0
+					to_chat(user, span_red("Error: You are not an admin."), confidential = TRUE)
+	return FALSE
 
 //probably a bit iffy - will hopefully figure out a better solution
 /proc/check_if_greater_rights_than(client/other)

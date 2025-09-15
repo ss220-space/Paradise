@@ -3,14 +3,6 @@
 /obj/item/gun/energy/telegun
 	name = "Teleporter Gun"
 	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to far off locations."
-	ru_names = list(
-		NOMINATIVE = "телепушка",
-		GENITIVE = "телепушки",
-		DATIVE = "телепушке",
-		ACCUSATIVE = "телепушку",
-		INSTRUMENTAL = "телепушкой",
-		PREPOSITIONAL = "телепушке"
-	)
 	gender = FEMALE
 	icon_state = "telegun"
 	item_state = "telegun"
@@ -18,7 +10,17 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/teleport)
 	shaded_charge = TRUE
 	var/teleport_target = null
-	accuracy = GUN_ACCURACY_DEFAULT
+	accuracy = GUN_ACCURACY_PISTOL
+
+/obj/item/gun/energy/telegun/get_ru_names()
+	return list(
+		NOMINATIVE = "телепушка",
+		GENITIVE = "телепушки",
+		DATIVE = "телепушке",
+		ACCUSATIVE = "телепушку",
+		INSTRUMENTAL = "телепушкой",
+		PREPOSITIONAL = "телепушке"
+	)
 
 /obj/item/gun/energy/telegun/Destroy()
 	teleport_target = null

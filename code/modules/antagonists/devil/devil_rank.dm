@@ -117,7 +117,7 @@
 	human.underwear = "Nude"
 	human.undershirt = "Nude"
 	human.socks = "Nude"
-	human.change_skin_color(COLOR_BLOOD) //A deep red
+	human.change_skin_color(BLOOD_COLOR_RED) //A deep red
 	human.regenerate_icons()
 
 	return FALSE

@@ -2,7 +2,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-    //alt_desc =
 	icon_state = "hardsuit0-engineering"
 	base_icon_state = "hardsuit"
 	item_state = "eng_helm"
@@ -60,12 +59,12 @@
 /obj/item/clothing/head/helmet/space/hardsuit/proc/display_visor_message(msg)
 	var/mob/wearer = loc
 	if(msg && ishuman(wearer))
-		wearer.show_message(span_robot("<b>[msg]</b>"), 1)
+		wearer.show_message("[span_robot(span_bold(msg))]", EMOTE_AUDIBLE)
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	..()
-	display_visor_message("[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!")
+	display_visor_message("Зафиксирован [severity > 1 ? "слабый" : "сильный"] электромагнитный импульс!")
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/extinguish_light(force = FALSE)
@@ -242,6 +241,7 @@
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	to_chat(wearer, span_notice("You engage the helmet on [src]."))
 	wearer.update_inv_wear_suit()
+	wearer.wear_glasses_update(wearer.get_item_by_slot(ITEM_SLOT_EYES))
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
 
@@ -768,7 +768,7 @@
 		distance = dy
 	if(distance > explosion_detection_dist)
 		return
-	display_visor_message("Explosion detected! Epicenter radius: [devastation_range], Outer radius: [heavy_impact_range], Shockwave radius: [light_impact_range]")
+	display_visor_message("Зафиксирован взрыв! Радиус эпицентра: [devastation_range], Внешний радиус: [heavy_impact_range], Радиус ударной волны: [light_impact_range].")
 
 /obj/item/clothing/suit/space/hardsuit/rd
 	name = "Research Director Hardsuit"

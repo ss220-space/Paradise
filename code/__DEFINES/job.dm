@@ -68,6 +68,11 @@
 #define JOB_FLAG_JUDGE				(1<<6)
 #define JOB_FLAG_PILOT				(1<<7)
 
+#define JOBCAT_COMBAT_TEAM			(1<<4)
+#define JOB_FLAG_TEAM1				(1<<0)
+#define JOB_FLAG_TEAM2				(1<<1)
+#define JOB_FLAG_TEAM3				(1<<2)
+
 /// MARK: Job titles
 /// Defines below used as jobs' titles (from /tg/), credit to JohnFulpWillard
 
@@ -154,6 +159,10 @@
 #define VOX_RAIDER						"Vox Raider"
 #define VOX_TRADER						"Vox Trader"
 
+#define JOB_TITLE_TEAM1					"Team 1"
+#define JOB_TITLE_TEAM2					"Team 2"
+#define JOB_TITLE_TEAM3					"Team 3"
+
 // Taipan
 #define TAIPAN_SCIENTIST				"Space Base Syndicate Scientist"
 #define TAIPAN_MEDIC					"Space Base Syndicate Medic"
@@ -166,11 +175,20 @@
 #define CYBORG							"Cyborg"
 
 #define TAIPAN_HUD_SCIENTIST	1
-#define TAIPAN_HUD_MEDIC 		2
+#define TAIPAN_HUD_MEDIC		2
 #define TAIPAN_HUD_BOTANIST		3
 #define TAIPAN_HUD_CARGO		4
 #define TAIPAN_HUD_CHEF			5
 #define TAIPAN_HUD_ENGINEER		6
-#define TAIPAN_HUD_COMMS 		7
+#define TAIPAN_HUD_COMMS		7
 #define TAIPAN_HUD_RD			8
 #define TAIPAN_HUD_CYBORG		9
+
+
+/// MARK: Job lists
+
+GLOBAL_LIST_INIT(ai_death_alarm_jobs, list(
+	JOB_TITLE_CAPTAIN,
+	JOB_TITLE_CHIEF,
+	JOB_TITLE_RD,
+))

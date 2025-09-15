@@ -70,7 +70,6 @@
 				var/atom/throw_target = get_edge_target_turf(living_target, chassis.dir)
 				living_target.throw_at(throw_target, pb_knockback, 2)
 
-	log_message("Fired from [name], targeting [target].")
 	add_attack_logs(chassis.occupant, target, "fired a [src]")
 	start_cooldown()
 
@@ -246,7 +245,6 @@
 		R.use_power(R.get_charge() / 4)
 
 	chassis.use_power(energy_drain)
-	log_message("Honked from [name]. HONK!")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "used a Mecha Honker", ATKLOG_MOST)
 	add_game_logs("used a Mecha Honker in [COORD(T)]", chassis.occupant)
@@ -262,8 +260,14 @@
 			return TRUE
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_module_equip_info()
-	return "\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='byond://?src=[UID()];rearm=1'>Rearm</a>":null]"
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_WEAPON_BALLISTIC,
+		"max_ammo" = initial(projectiles),
+		"total_ammo" = projectiles
+	)
+
+	return data
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/proc/rearm()
 	if(projectiles < initial(projectiles))
@@ -272,16 +276,15 @@
 			projectiles++
 			projectiles_to_add--
 			chassis.use_power(projectile_energy_cost)
-	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
-	log_message("Rearmed [name].")
 	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, TRUE)
 	return
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
-	..()
-	if(href_list["rearm"])
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/handle_ui_act(action, list/params)
+	if(action == "rearm")
 		rearm()
-	return
+		return TRUE
+
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	name = "FNX-99 \"Hades\" Carbine"
@@ -420,7 +423,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed, spin = FALSE)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
 	add_game_logs("Fired a [src] in [COORD(T)]", chassis.occupant)
@@ -428,7 +430,12 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "SRX-13 Heavy Missile Launcher"
-	ru_names = list(
+	gender = FEMALE
+	icon_state = "mecha_missilerack"
+	projectile = /obj/item/missile/heavy
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy/get_ru_names()
+	return list(
 		NOMINATIVE = "тяжёлая пусковая ракетная установка SRX-13",
 		GENITIVE = "тяжёлой пусковой ракетной установки SRX-13",
 		DATIVE = "тяжёлой пусковой ракетной установке SRX-13",
@@ -436,13 +443,16 @@
 		INSTRUMENTAL = "тяжёлой пусковой ракетной установкой SRX-13",
 		PREPOSITIONAL = "тяжёлой пусковой ракетной установке SRX-13"
 	)
-	gender = FEMALE
-	icon_state = "mecha_missilerack"
-	projectile = /obj/item/missile/heavy
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
 	name = "SRM-8 Missile Rack"
-	ru_names = list(
+	gender = FEMALE
+	icon_state = "mecha_missilerack"
+	projectile = /obj/item/missile
+
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium/get_ru_names()
+	return list(
 		NOMINATIVE = "пусковая ракетная установка SRM-8",
 		GENITIVE = "пусковой ракетной установки SRM-8",
 		DATIVE = "пусковой ракетной установке SRM-8",
@@ -450,9 +460,6 @@
 		INSTRUMENTAL = "пусковой ракетной установкой SRM-8",
 		PREPOSITIONAL = "пусковой ракетной установке SRM-8"
 	)
-	gender = FEMALE
-	icon_state = "mecha_missilerack"
-	projectile = /obj/item/missile
 
 /obj/item/missile
 	icon = 'icons/obj/weapons/grenade.dmi'
@@ -461,13 +468,13 @@
 	throwforce = 15
 
 /obj/item/missile/proc/primed_explosion(atom/hit_atom)
-	explosion(hit_atom, 0, 2, 3, 4, 0)
+	explosion(hit_atom, devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, adminlog = FALSE)
 
 /obj/item/missile/heavy/primed_explosion(atom/hit_atom)
-	explosion(hit_atom, 2, 3, 4, 6, 0)
+	explosion(hit_atom, devastation_range = 2, heavy_impact_range = 3, light_impact_range = 4, flash_range = 6, adminlog = FALSE)
 
 /obj/item/missile/light/primed_explosion(atom/hit_atom)
-	explosion(hit_atom, 0, 0, 2, 4, 0)
+	explosion(hit_atom, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flash_range = 4, adminlog = FALSE)
 
 /obj/item/missile/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(primed)
@@ -500,7 +507,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	F.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	spawn(det_time)
 		F.prime()
 	start_cooldown()
@@ -515,11 +521,19 @@
 	equip_cooldown = 9 SECONDS
 	size = 1
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/get_module_equip_info()//Limited version of the clusterbang launcher that can't reload
-	return " \[[projectiles]\]"
+// Limited version of the clusterbang launcher that can't reload
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/projectiles/get_snowflake_data()
+	var/list/data = list(
+		"snowflake_id" = MECHA_SNOWFLAKE_ID_WEAPON_BALLISTIC,
+		"max_ammo" = 0,
+		"total_ammo" = projectiles
+	)
 
+	return data
+
+//Extra bit of security
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/rearm()
-	return//Extra bit of security
+	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
 	name = "Banana Mortar"
@@ -544,10 +558,9 @@
 	if(!is_faced_target(target))
 		return FALSE
 	var/obj/item/grown/bananapeel/B = new projectile(chassis.loc)
-	playsound(chassis, fire_sound, 60, 1)
+	playsound(chassis, fire_sound, 60, TRUE)
 	B.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Bananed from [name], targeting [target]. HONK!")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
@@ -574,10 +587,9 @@
 		return FALSE
 	var/obj/item/assembly/mousetrap/M = new projectile(chassis.loc)
 	M.secured = 1
-	playsound(chassis, fire_sound, 60, 1)
+	playsound(chassis, fire_sound, 60, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
@@ -608,7 +620,6 @@
 	playsound(chassis, fire_sound, 50, TRUE)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
-	log_message("Fired from [name], targeting [target].")
 	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma

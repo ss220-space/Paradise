@@ -44,6 +44,13 @@
 	if(pooled)
 		src.pool_index = TGUI_WINDOW_INDEX(id)
 
+/datum/tgui_window/Destroy(force)
+	locked_by = null
+	subscriber_object = null
+	client.tgui_windows[id] = null
+	client = null
+	. = ..()
+
 /**
  * public
  *
@@ -116,8 +123,8 @@
 	client << browse(html, "window=[id];[options]")
 	// Detect whether the control is a browser
 	is_browser = winexists(client, id) == "BROWSER"
-	// Instruct the client to signal UI when the window is closed.
-	if(!is_browser)
+	// Instruct the client to signal UI when the window is closed. Winexists sleeps, so we need one more client check.
+	if(!is_browser && client)
 		winset(client, id, "on-close=\"uiclose [id]\"")
 
 /**

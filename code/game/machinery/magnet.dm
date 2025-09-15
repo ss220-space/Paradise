@@ -44,7 +44,7 @@
 
 
 /obj/machinery/magnetic_module/Initialize(mapload)
-	..()
+	. = ..()
 	var/turf/T = loc
 	if(!T.transparent_floor)
 		hide(T.intact)
@@ -54,14 +54,15 @@
 
 	INVOKE_ASYNC(src, PROC_REF(magnetic_process))
 
+/obj/machinery/magnetic_module/Destroy()
+	SSradio.remove_object(src, freq)  // i have zero idea what the hell is going on
+	return ..()
 
-	// update the invisibility and icon
+// update the invisibility and icon
 /obj/machinery/magnetic_module/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
 	update_icon(UPDATE_ICON_STATE)
 
-
-	// update the icon_state
 /obj/machinery/magnetic_module/update_icon_state()
 	// if invisible, set icon to faded version
 	// in case of being revealed by T-scanner
@@ -237,8 +238,7 @@
 
 
 /obj/machinery/magnetic_controller/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 
@@ -257,10 +257,8 @@
 
 
 /obj/machinery/magnetic_controller/process()
-	if(!length(magnets) && autolink)
-		for(var/obj/machinery/magnetic_module/module in SSmachines.get_by_type(/obj/machinery/magnetic_module))
-			if(module.freq == frequency && module.code == code)
-				magnets += module
+	if(length(magnets) == 0 && autolink)
+		link_magnets()
 
 
 /obj/machinery/magnetic_controller/attack_ai(mob/user as mob)

@@ -17,6 +17,10 @@
 			GLOB.newplayer_start += loc
 			qdel(src)
 
+		if("start_override")
+			GLOB.start_override += loc
+			qdel(src)
+
 		if("wizard")
 			GLOB.wizardstart += loc
 			qdel(src)
@@ -104,6 +108,22 @@
 
 		if("Syndicate-Spawn")
 			GLOB.nukespawn += loc
+			
+		if(/obj/effect/landmark/captain::name)
+			GLOB.captain_body_spawns += loc
+			qdel(src)
+		
+		if(/obj/effect/landmark/armory::name)
+			GLOB.armory_body_spawns += loc
+			qdel(src)
+
+		if(/obj/effect/landmark/airdrop::name)
+			GLOB.airdrops_points += loc
+			qdel(src)
+
+		if((/obj/effect/landmark/team1::name), (/obj/effect/landmark/team2::name), (/obj/effect/landmark/team3::name))
+			LAZYADD(GLOB.battle_teams_spawns[type], loc)
+			qdel(src)
 
 	if(!QDELETED(src))
 		GLOB.landmarks_list += src
@@ -713,3 +733,65 @@
 /obj/effect/landmark/spawner/bubblegum_exit
 	name = "bubblegum_arena_exit"
 	icon_state = "bubblegumjumpscare"
+
+
+/obj/effect/landmark/start_override
+	name = "start_override"
+	icon_state = "start_override"
+	var/datum/outfit/connected_outfit = null
+
+
+/obj/effect/landmark/start_override/New()
+	if(connected_outfit) // It should be before, because of qdel.
+		GLOB.start_override_outfit = connected_outfit
+
+	. = ..()
+
+/obj/effect/landmark/start_override/Destroy()
+	connected_outfit = null
+	. = ..()
+
+/obj/effect/landmark/start_override/Click(location, control, params)
+	. = ..()
+	var/list/paths = subtypesof(/datum/outfit)
+	for(var/datum/outfit/outfit as anything in paths)
+		if(!outfit.can_be_admin_equipped)
+			return
+
+		paths[initial(outfit.name)] = outfit
+
+	paths["Одежда выбранной игроком профессии"] = null
+	var/selected_outfit = tgui_input_list(usr, "Выберите набор вещей, с которым будут появляться все новые игроки.", "Выбор одежды", paths)
+	if(isnull(selected_outfit))
+		return
+
+	to_chat(usr, span_boldmessage("Набор вещей, с которым будут появляться все новые игроки обновлен."))
+	GLOB.start_override_outfit = new paths[selected_outfit]
+
+
+/obj/effect/landmark/start_override/prisoner
+	connected_outfit = /datum/outfit/job/assistant/prisoner
+
+/obj/effect/landmark/team1
+	name = "team1"
+	icon_state = "GREEN"
+
+/obj/effect/landmark/team2
+	name = "team2"
+	icon_state = "BLUE"
+
+/obj/effect/landmark/team3
+	name = "team3"
+	icon_state = "RED"
+
+/obj/effect/landmark/airdrop
+	name = "airdrop"
+	icon_state = "airdrop"
+
+/obj/effect/landmark/captain
+	name = "captain body"
+	icon_state = "captain"
+
+/obj/effect/landmark/armory
+	name = "armory body"
+	icon_state = "armory"

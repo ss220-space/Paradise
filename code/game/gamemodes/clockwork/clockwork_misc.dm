@@ -88,6 +88,7 @@
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7")
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	mergeable_decal = FALSE
+	squishy = FALSE
 
 /obj/effect/decal/cleanable/blood/gibs/clock/can_bloodcrawl_in()
 	return FALSE
@@ -101,7 +102,7 @@
 /obj/effect/decal/cleanable/blood/gibs/clock/dry()
 	return
 
-/obj/effect/decal/cleanable/blood/gibs/clock/streak(var/list/directions)
+/obj/effect/decal/cleanable/blood/gibs/clock/streak(list/directions)
 	set waitfor = FALSE
 	var/direction = pick(directions)
 	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
@@ -111,7 +112,7 @@
 				var/obj/effect/decal/cleanable/blood/clock/streak = new(src.loc)
 				streak.update_icon()
 			else if(prob(10))
-				do_sparks(3, 1, src)
+				do_sparks(3, TRUE, src)
 		if(step_to(src, get_step(src, direction), 0))
 			break
 
@@ -152,7 +153,7 @@
 /obj/structure/clockwork/wall_gear/fake/displaced
 	anchored = FALSE
 
-/obj/structure/clockwork/wall_gear/Initialize()
+/obj/structure/clockwork/wall_gear/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/gear(get_turf(src))
 

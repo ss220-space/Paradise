@@ -1,14 +1,6 @@
 /turf/simulated/floor/lava
 	name = "lava"
 	desc = "Раскалённая жидкая порода, бурлящая адским жаром. Контакт с ней приведёт к мгновенным ожогам."
-	ru_names = list(
-		NOMINATIVE = "лава",
-		GENITIVE = "лавы",
-		DATIVE = "лаве",
-		ACCUSATIVE = "лаву",
-		INSTRUMENTAL = "лавой",
-		PREPOSITIONAL = "лаве"
-	)
 	icon = 'icons/turf/floors/lava.dmi'
 	icon_state = "unsmooth"
 	base_icon_state = "lava"
@@ -38,6 +30,16 @@
 	var/immunity_resistance_flags = LAVA_PROOF
 	/// Is the lava close to the shore
 	var/deep_water = TRUE
+
+/turf/simulated/floor/lava/get_ru_names()
+	return list(
+		NOMINATIVE = "лава",
+		GENITIVE = "лавы",
+		DATIVE = "лаве",
+		ACCUSATIVE = "лаву",
+		INSTRUMENTAL = "лавой",
+		PREPOSITIONAL = "лаве"
+	)
 
 /turf/simulated/floor/lava/ex_act()
 	return
@@ -315,14 +317,6 @@
 	name = "liquid plasma"
 	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma
 	desc = "Текучая масса охлаждённой жидкой плазмы. Вам определённо не стоит в этом купаться."
-	ru_names = list(
-		NOMINATIVE = "жидкая плазма",
-		GENITIVE = "жидкой плазмы",
-		DATIVE = "жидкой плазме",
-		ACCUSATIVE = "жидкую плазму",
-		INSTRUMENTAL = "жидкой плазмой",
-		PREPOSITIONAL = "жидкой плазме"
-	)
 	icon = 'icons/turf/floors/liquidplasma.dmi'
 	base_icon_state = "liquidplasma"
 	icon_state = "unsmooth"
@@ -334,6 +328,16 @@
 	lava_damage = 2
 	/// How much fire and toxic damage we deal to human mobs stepping on us
 	var/human_tox_fire_damage = 15
+
+/turf/simulated/floor/lava/lava_land_surface/plasma/get_ru_names()
+	return list(
+		NOMINATIVE = "жидкая плазма",
+		GENITIVE = "жидкой плазмы",
+		DATIVE = "жидкой плазме",
+		ACCUSATIVE = "жидкую плазму",
+		INSTRUMENTAL = "жидкой плазмой",
+		PREPOSITIONAL = "жидкой плазме"
+	)
 
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)

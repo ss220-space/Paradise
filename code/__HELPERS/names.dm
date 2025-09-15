@@ -42,17 +42,26 @@ GLOBAL_VAR(religion_name)
 
 GLOBAL_VAR(station_name)
 /proc/station_name()
-	return GLOB.station_name? GLOB.station_name : SSmapping.map_datum.station_name
+	return GLOB.station_name ? GLOB.station_name : SSmapping.map_datum.station_name
 
 /proc/change_station_name(designation)
 	GLOB.station_name = designation
+
+GLOBAL_VAR(english_station_name)
+/proc/english_station_name()
+	return GLOB.english_station_name ? GLOB.english_station_name : (SSmapping.map_datum.english_station_name ? SSmapping.map_datum.english_station_name : SSmapping.map_datum.station_name)
+
+/proc/change_english_station_name(designation)
+	GLOB.english_station_name = designation
 	update_world_name()
 
 /proc/update_world_name()
+	// We use english_station_name() to display correctly in the Byond hub.
+	var/current_station_name = english_station_name()
 	if(config && CONFIG_GET(string/servername))
-		world.name = "[CONFIG_GET(string/servername)] — [station_name()]"
+		world.name = "[CONFIG_GET(string/servername)] — [current_station_name]"
 	else
-		world.name = station_name()
+		world.name = current_station_name
 
 /proc/new_station_name()
 	var/random = rand(1,5)

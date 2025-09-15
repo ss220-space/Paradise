@@ -71,7 +71,24 @@
 	id = "pacifism_debuff"
 	alert_type = null
 	duration = 40 SECONDS
+	var/datum/atom_hud/pacifism/hud
 
+/datum/status_effect/pacifism/on_creation(mob/living/new_owner, mob/mob_to_inform)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(!mob_to_inform)
+		return TRUE
+
+	hud = new
+	hud.add_to_hud(new_owner)
+	hud.add_hud_to(mob_to_inform)
+	var/image/holder = new_owner.hud_list[PACIFISM_HUD]
+	if(holder)
+		holder.icon_state = "hudpacifism"
+
+	return TRUE
 
 /datum/status_effect/pacifism/on_apply()
 	ADD_TRAIT(owner, TRAIT_PACIFISM, id)
@@ -80,6 +97,9 @@
 
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
+
+	if(hud)
+		QDEL_NULL(hud)
 
 /datum/status_effect/fang_exhaust
 	id = "fang_exhaust"
@@ -133,9 +153,12 @@
 /datum/status_effect/shadow_boxing/tick(seconds_between_ticks)
 	var/mob/living/attacker = locateUID(source_UID)
 	if(attacker in view(owner, 2))
+		var/turf/attacker_turf = get_turf(attacker)
+		var/turf/owner_turf = get_turf(owner)
 		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
 		owner.apply_damage(damage, BRUTE)
-		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
+		playsound(owner_turf, SFX_PUNCH, 30, TRUE, -1)
+		shadow_to_animation(attacker_turf, owner_turf, attacker)
 
 
 /datum/status_effect/saw_bleed
@@ -164,13 +187,12 @@
 		return FALSE
 	bleed_overlay = mutable_appearance('icons/effects/bleed.dmi', "bleed[bleed_amount]")
 	bleed_underlay = mutable_appearance('icons/effects/bleed.dmi', "bleed[bleed_amount]")
-	var/icon/I = icon(owner.icon, owner.icon_state, owner.dir)
-	var/icon_height = I.Height()
+	var/icon_height = owner.get_cached_height()
 	bleed_overlay.pixel_x = -owner.pixel_x
 	bleed_overlay.pixel_y = FLOOR(icon_height * 0.25, 1)
-	bleed_overlay.transform = matrix() * (icon_height/world.icon_size) //scale the bleed overlay's size based on the target's icon size
+	bleed_overlay.transform = matrix() * (icon_height / ICON_SIZE_Y) //scale the bleed overlay's size based on the target's icon size
 	bleed_underlay.pixel_x = -owner.pixel_x
-	bleed_underlay.transform = matrix() * (icon_height/world.icon_size) * 3
+	bleed_underlay.transform = matrix() * (icon_height / ICON_SIZE_Y) * 3
 	bleed_underlay.alpha = 40
 	owner.add_overlay(bleed_overlay)
 	owner.underlays += bleed_underlay
@@ -206,7 +228,7 @@
 		new /obj/effect/temp_visual/bleed/explode(T)
 		for(var/d in GLOB.alldirs)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
-		playsound(T, "desceration", 200, TRUE, -1)
+		playsound(T, SFX_DESECRATION, 200, TRUE, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
 		new /obj/effect/temp_visual/bleed(get_turf(owner))
@@ -622,7 +644,7 @@
 		owner.AdjustConfused(6 SECONDS, bound_lower = 2 SECONDS, bound_upper = 1 MINUTES)
 	// THRESHOLD_SPARK (100 SECONDS)
 	if(is_ipc && actual_strength >= THRESHOLD_SPARK && prob(0.5))
-		do_sparks(3, 1, owner)
+		do_sparks(3, TRUE, owner)
 	// THRESHOLD_VOMIT (120 SECONDS)
 	if(!is_ipc && actual_strength >= THRESHOLD_VOMIT && prob(0.2))
 		owner.fakevomit()
@@ -632,7 +654,7 @@
 	// THRESHOLD_COLLAPSE (150 SECONDS)
 	if(actual_strength >= THRESHOLD_COLLAPSE && prob(0.2))
 		owner.emote("collapse")
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 	// THRESHOLD_FAINT (180 SECONDS)
 	if(actual_strength >= THRESHOLD_FAINT && prob(0.2))
 		owner.Paralyse(10 SECONDS)
@@ -748,6 +770,18 @@
 	if(issilicon(owner))
 		traits_to_apply |= TRAIT_KNOCKEDOUT
 	return ..()
+
+
+//UNCONSCIOUS
+/datum/status_effect/incapacitating/unconscious
+	id = "unconscious"
+	needs_update_stat = TRUE
+	traits_to_apply = list(TRAIT_KNOCKEDOUT)
+
+
+/datum/status_effect/incapacitating/unconscious/tick(seconds_between_ticks)
+	if(owner.getStaminaLoss())
+		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
 
 
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
@@ -1336,3 +1370,5 @@
 	duration = 5 SECONDS
 	alert_type = null
 	status_type = STATUS_EFFECT_REPLACE
+
+

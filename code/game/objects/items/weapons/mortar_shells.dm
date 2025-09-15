@@ -20,10 +20,10 @@
 /obj/item/mortar_shell/proc/detonate(turf/detonate_turf)
 	var/old_loc = loc
 	forceMove(detonate_turf)
-	var/angle = 90 - get_angle(loc, old_loc)
-	pixel_x = cos(angle) * 32 * 6
-	pixel_z = sin(angle) * 32 * 6
-	var/rotation = delta_to_angle(pixel_z, pixel_x) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
+	var/angle = get_angle(loc, old_loc)
+	pixel_x = cos(angle) * ICON_SIZE_X * 6
+	pixel_z = sin(angle) * ICON_SIZE_Y * 6
+	var/rotation = delta_to_angle(pixel_x, pixel_z) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
 	transform = matrix().Turn(rotation + 180)
 	layer = FLY_LAYER
 	SET_PLANE_EXPLICIT(src, ABOVE_GAME_PLANE, src)
@@ -64,7 +64,7 @@
 
 /obj/item/mortar_shell/he/detonate(turf/detonate_turf)
 	. = ..()
-	explosion(detonate_turf, 0, 4, 7, 7)
+	explosion(detonate_turf, devastation_range = 0, heavy_impact_range = 4, light_impact_range = 7, flash_range = 7)
 
 /obj/item/mortar_shell/frag
 	name = "80mm fragmentation mortar shell"
@@ -76,7 +76,7 @@
 	AddComponent(/datum/component/pellet_cloud, magnitude = 4)
 	. = ..()
 	sleep(2)
-	explosion(detonate_turf, 0, 0, 5)
+	explosion(detonate_turf, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 5)
 
 /obj/item/mortar_shell/incendiary
 	name = "80mm incendiary mortar shell"
@@ -92,7 +92,7 @@
 /obj/item/mortar_shell/incendiary/detonate(turf/detonate_turf)
 	. = ..()
 	flame_radius( radius, detonate_turf, flame_level, burn_level, flameshape, null, fire_type)
-	playsound(detonate_turf, 'sound/weapons/gun_flamethrower2.ogg', 35, 1, 4)
+	playsound(detonate_turf, 'sound/weapons/gun_flamethrower2.ogg', 35, TRUE, 4)
 
 /obj/item/mortar_shell/flare
 	name = "80mm flare/camera mortar shell"
@@ -256,7 +256,7 @@
 
 
 /obj/item/mortar_shell/proc/explode()
-	explosion(get_turf(src), 0, 3, 5)
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 3, light_impact_range = 5)
 
 
 /obj/effect/warning

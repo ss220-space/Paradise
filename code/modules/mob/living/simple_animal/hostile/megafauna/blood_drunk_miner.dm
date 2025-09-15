@@ -23,14 +23,6 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner
 	name = "blood-drunk miner"
 	desc = "Шахтёр, обречённый вечно скитаться в бесконечной охоте."
-	ru_names = list(
-		NOMINATIVE = "кровожадный шахтёр",
-		GENITIVE = "кровожадного шахтёра",
-		DATIVE = "кровожадному шахтёру",
-		ACCUSATIVE = "кровожадного шахтёра",
-		INSTRUMENTAL = "кровожадным шахтёром",
-		PREPOSITIONAL = "кровожадном шахтёре"
-	)
 	health = 900
 	maxHealth = 900
 	icon_state = "miner"
@@ -52,7 +44,6 @@ Difficulty: Medium
 	wander = FALSE
 	del_on_death = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
-	internal_type = /obj/item/gps/internal/miner
 	medal_type = BOSS_MEDAL_MINER
 	var/obj/item/melee/energy/cleaving_saw/miner_saw
 	var/time_until_next_transform = 0
@@ -62,26 +53,35 @@ Difficulty: Medium
 	var/guidance = FALSE
 	var/transform_stop_attack = FALSE // stops the blood drunk miner from attacking after transforming his weapon until the next attack chain
 	deathmessage = "падает на землю, обращаясь в пыль."
-	death_sound = "bodyfall"
+	death_sound = SFX_BODYFALL
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	enraged_loot = /obj/item/disk/fauna_research/blood_drunk_miner
 	enraged_unique_loot = /obj/item/clothing/suit/hooded/explorer/blood
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
-							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
-							   /datum/action/innate/megafauna_attack/transform_weapon)
+							/datum/action/innate/megafauna_attack/kinetic_accelerator,
+							/datum/action/innate/megafauna_attack/transform_weapon)
 
-/obj/item/gps/internal/miner
-	icon_state = null
-	gpstag = "Mysterious Signal"
-	desc = "The sweet blood, oh, it sings to me."
-	invisibility = INVISIBILITY_ABSTRACT
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/get_ru_names()
+	return list(
+		NOMINATIVE = "кровожадный шахтёр",
+		GENITIVE = "кровожадного шахтёра",
+		DATIVE = "кровожадному шахтёру",
+		ACCUSATIVE = "кровожадного шахтёра",
+		INSTRUMENTAL = "кровожадным шахтёром",
+		PREPOSITIONAL = "кровожадном шахтёре"
+	)
 
 /* New costume */
 
 /obj/item/clothing/suit/hooded/explorer/blood
 	name = "empowered explorer suit"
 	desc = "Бронированный костюм, созданный для исследования и работы в суровых условиях. Сладкая кровь, ох-х, как она поёт для тебя."
-	ru_names = list(
+	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
+	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
+
+/obj/item/clothing/suit/hooded/explorer/blood/get_ru_names()
+	return list(
 		NOMINATIVE = "усиленный костюм исследователя",
 		GENITIVE = "усиленного костюма исследователя",
 		DATIVE = "усиленному костюму исследователя",
@@ -89,14 +89,14 @@ Difficulty: Medium
 		INSTRUMENTAL = "усиленным костюмом исследователя",
 		PREPOSITIONAL = "усиленном костюме исследователя"
 	)
-	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
-	hoodtype = /obj/item/clothing/head/hooded/explorer/blood
-	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
 
 /obj/item/clothing/head/hooded/explorer/blood
 	name = "empowered explorer hood"
 	desc = "Бронированный капюшон, созданный для исследования и работы в суровых условиях. Сладкая кровь, ох-х, как она поёт для тебя."
-	ru_names = list(
+	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+
+/obj/item/clothing/head/hooded/explorer/blood/get_ru_names()
+	return list(
 		NOMINATIVE = "усиленный капюшон исследователя",
 		GENITIVE = "усиленного капюшона исследователя",
 		DATIVE = "усиленному капюшону исследователя",
@@ -104,7 +104,6 @@ Difficulty: Medium
 		INSTRUMENTAL = "усиленным капюшоном исследователя",
 		PREPOSITIONAL = "усиленном капюшоне исследователя"
 	)
-	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/suit/hooded/explorer/blood/Initialize(mapload)
 	.=..()
@@ -143,7 +142,7 @@ Difficulty: Medium
 		user.SetConfused(0)
 		user.SetImmobilized(0)
 		user.SetKnockdown(0)
-		user.adjustStaminaLoss(-100)
+		user.setStaminaLoss(0)
 		user.set_resting(FALSE, instant = TRUE)
 		user.get_up(instant = TRUE)
 	else
@@ -264,7 +263,7 @@ Difficulty: Medium
 		return FALSE
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/ex_act(severity, target)
 	if(dash())
 		return
 	return ..()
@@ -387,14 +386,14 @@ Difficulty: Medium
 	new /obj/effect/temp_visual/small_smoke/halfsecond(step_forward_turf)
 	var/obj/effect/temp_visual/decoy/fading/halfsecond/D = new (own_turf, src)
 	forceMove(step_back_turf)
-	playsound(own_turf, 'sound/weapons/punchmiss.ogg', 40, 1, -1)
+	playsound(own_turf, 'sound/weapons/punchmiss.ogg', 40, TRUE, -1)
 	dashing = TRUE
 	alpha = 0
 	animate(src, alpha = 255, time = 5)
 	SLEEP_CHECK_DEATH(src, 2)
 	D.forceMove(step_forward_turf)
 	forceMove(target_turf)
-	playsound(target_turf, 'sound/weapons/punchmiss.ogg', 40, 1, -1)
+	playsound(target_turf, 'sound/weapons/punchmiss.ogg', 40, TRUE, -1)
 	SLEEP_CHECK_DEATH(src, 1)
 	dashing = FALSE
 	return TRUE

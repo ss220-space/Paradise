@@ -1,6 +1,3 @@
-// 5 seconds
-#define TRACKS_CRUSTIFY_TIME   50
-
 // color-dir-dry
 GLOBAL_LIST_EMPTY(fluidtrack_cache)
 
@@ -23,7 +20,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	desc = "You REALLY shouldn't follow these.."
 	gender = PLURAL
 	random_icon_states = null
-	basecolor = "#A10808"
+	basecolor = BLOOD_COLOR_RED
 	var/entered_dirs = 0
 	var/exited_dirs = 0
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
@@ -128,6 +125,6 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	..()
 
 /obj/effect/decal/cleanable/blood/footprints/can_bloodcrawl_in()
-	if(basecolor == COLOR_BLOOD_MACHINE)
+	if(basecolor == BLOOD_COLOR_MACHINE)
 		return FALSE
 	return TRUE

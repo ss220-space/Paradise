@@ -1,5 +1,5 @@
-#define CREW_TRANSFER_CHOICE 	"Инициировать трансфер экипажа"
-#define CONTINUE_SHIFT_CHOICE 	"Продолжить смену"
+#define CREW_TRANSFER_CHOICE	"Инициировать трансфер экипажа"
+#define CONTINUE_SHIFT_CHOICE	"Продолжить смену"
 
 // Crew transfer vote
 /datum/vote/crew_transfer

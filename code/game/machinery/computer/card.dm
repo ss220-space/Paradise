@@ -15,7 +15,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	icon_screen = "id"
 	req_access = list(ACCESS_CHANGE_IDS)
 	circuit = /obj/item/circuitboard/card
-	light_color = LIGHT_COLOR_LIGHTBLUE
+	light_color = LIGHT_COLOR_BLUE
 	var/obj/item/card/id/scan = null
 	var/obj/item/card/id/modify = null
 	var/mode = IDCOMPUTER_SCREEN_TRANSFER
@@ -36,6 +36,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/civilian,
 		/datum/job/civilian/prisoner,
 		/datum/job/syndicateofficer,
+		/datum/job/civilian/team3,
+		/datum/job/civilian/team2,
+		/datum/job/civilian/team1,
 		/datum/job/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work
 	)
 	// Jobs that appear in the list, and you can prioritize, but not open/close slots for
@@ -78,7 +81,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/opened_positions = list()
 
 
-/obj/machinery/computer/card/Initialize()
+/obj/machinery/computer/card/Initialize(mapload)
 	. = ..()
 	Radio = new /obj/item/radio(src)
 	Radio.listening = 0
@@ -92,7 +95,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/proc/is_centcom()
 	return FALSE
 
-/obj/machinery/computer/card/proc/is_authenticated(var/mob/user)
+/obj/machinery/computer/card/proc/is_authenticated(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
 	if(scan)
@@ -310,7 +313,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 	return FALSE
 
-/obj/machinery/computer/card/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/card/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
 /obj/machinery/computer/card/attack_hand(mob/user as mob)
@@ -331,6 +334,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/data = list()
 	data["law_levels"] = law_levels
 	data["possible_law_levels"] = list()
+	data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
 	var/possible_laws = data["possible_law_levels"]
 
 	for(var/level in law_levels)
@@ -402,7 +406,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if(IDCOMPUTER_SCREEN_ACCESS) // ACCESS CHANGES
 			if(modify)
 				data["selectedAccess"] = modify.access
-				data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
 		if(IDCOMPUTER_SCREEN_RECORDS) // RECORDS
 			if(is_authenticated(user))
 				data["records"] = SSjobs.format_job_change_records(data["iscentcom"])
@@ -748,9 +751,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("grant_all")
 			modify.access |= get_all_accesses()
 			return
-		if("grant_all")
-			modify.access |= get_all_accesses()
-			return
 		if("set_law_level")
 			var/level = params["level"]
 			modify.law_level = level
@@ -819,7 +819,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	name = "security management console"
 	target_dept = TARGET_DEPT_SEC
 	icon_screen = "idhos"
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 	req_access = list(ACCESS_HOS)
 	circuit = /obj/item/circuitboard/card/minor/hos
 
@@ -827,7 +827,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	name = "supply management console"
 	target_dept = TARGET_DEPT_SUP
 	icon_screen = "idqm"
-	light_color = COLOR_BROWN_ORANGE
+	light_color = COLOR_DARK_MODERATE_ORANGE
 	req_access = list(ACCESS_QM)
 	circuit = /obj/item/circuitboard/card/minor/qm
 

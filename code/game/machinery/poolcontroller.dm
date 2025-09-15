@@ -30,21 +30,30 @@
 	deep_water = TRUE
 
 /obj/machinery/poolcontroller/Initialize(mapload)
+	. = ..()
 	var/contents_loop = linked_area
 	if(!linked_area)
 		contents_loop = range(srange, src)
 
-	for(var/turf/T in contents_loop)
-		if(istype(T, /turf/simulated/floor/beach/water))
-			var/turf/simulated/floor/beach/water/W = T
-			W.linkedcontroller = src
-			linkedturfs += T
-		else if(istype(T, /turf/simulated/floor/indestructible/beach/water))
-			var/turf/simulated/floor/indestructible/beach/water/W = T
-			W.linkedcontroller = src
-			linkedturfs += T
+	for(var/turf/turf in contents_loop)
+		if(isbeachwater(turf))
+			var/turf/simulated/floor/beach/water/water = turf
+			water.linkedcontroller = src
+			linkedturfs += turf
+			continue
 
-	. = ..()
+		if(isbeachwater_i(turf))
+			var/turf/simulated/floor/indestructible/beach/water/water = turf
+			water.linkedcontroller = src
+			linkedturfs += turf
+
+/obj/machinery/poolcontroller/Destroy()
+	for(var/turf in linkedturfs)
+		if((isbeachwater(turf) || isbeachwater_i(turf)) && turf:linkedcontroller == src)
+			turf:linkedcontroller = null
+
+	linkedturfs.Cut()
+	return ..()
 
 /obj/machinery/poolcontroller/invisible/Initialize(mapload)
 	linked_area = get_area(src)
@@ -94,7 +103,7 @@
 			animate(decal, alpha = 10, time = 20)
 			QDEL_IN(decal, 25)
 
-/obj/machinery/poolcontroller/proc/handleTemp(var/mob/M)
+/obj/machinery/poolcontroller/proc/handleTemp(mob/M)
 	if(!M || isAIEye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
 		return
 	M.water_act(100, temperature, src)//leave temp at 0, we handle it in the switch. oh wait
@@ -113,7 +122,7 @@
 		if(FRIGID) //YOU'RE AS COLD AS ICE
 			to_chat(M, span_danger("The water is freezing!"))
 
-/obj/machinery/poolcontroller/proc/handleDrowning(var/mob/living/carbon/human/drownee)
+/obj/machinery/poolcontroller/proc/handleDrowning(mob/living/carbon/human/drownee)
 	if(!drownee)
 		return
 

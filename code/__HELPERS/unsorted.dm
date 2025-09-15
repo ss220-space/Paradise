@@ -2,10 +2,10 @@
  * A large number of misc global procs.
  */
 
- /* Get the direction of startObj relative to endObj.
-  * Return values: To the right, 1. Below, 2. To the left, 3. Above, 4. Not found adjacent in cardinal directions, 0.
-  */
-/proc/getRelativeDirection(var/atom/movable/startObj, var/atom/movable/endObj)
+/* Get the direction of startObj relative to endObj.
+ * Return values: To the right, 1. Below, 2. To the left, 3. Above, 4. Not found adjacent in cardinal directions, 0.
+ */
+/proc/getRelativeDirection(atom/movable/startObj, atom/movable/endObj)
 	if(endObj.x == startObj.x + 1 && endObj.y == startObj.y)
 		return EAST
 
@@ -141,7 +141,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 // Returns true if direction is blocked from loc
 // Checks if doors are open
-/proc/DirBlocked(turf/loc,var/dir)
+/proc/DirBlocked(turf/loc, dir)
 	for(var/obj/structure/window/D in loc)
 		if(!D.density)
 			continue
@@ -190,7 +190,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	return TRUE
 
 //Ensure the frequency is within bounds of what it should be sending/recieving at
-/proc/sanitize_frequency(var/f, var/low = PUBLIC_LOW_FREQ, var/high = PUBLIC_HIGH_FREQ)
+/proc/sanitize_frequency(f, low = PUBLIC_LOW_FREQ, high = PUBLIC_HIGH_FREQ)
 	f = round(f)
 	f = max(low, f)
 	f = min(high, f)
@@ -199,7 +199,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	return f
 
 //Turns 1479 into 147.9
-/proc/format_frequency(var/f)
+/proc/format_frequency(f)
 	return "[round(f / 10)].[f % 10]"
 
 //Picks a string of symbols to display as the law number for hacked or ion laws
@@ -244,7 +244,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	return selected
 
-/proc/select_active_ai(var/mob/user)
+/proc/select_active_ai(mob/user)
 	var/list/ais = active_ais()
 	if(ais.len)
 		if(user)	. = tgui_input_list(usr, "AI signals detected:", "AI selection", ais)
@@ -348,7 +348,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	return "[round((powerused * 0.000000001), 0.0001)] GW"
 
 //Forces a variable to be posative
-/proc/modulus(var/M)
+/proc/modulus(M)
 	if(M >= 0)
 		return M
 	if(M < 0)
@@ -410,7 +410,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 Returns 1 if the chain up to the area contains the given typepath
 0 otherwise
 */
-/atom/proc/is_found_within(var/typepath)
+/atom/proc/is_found_within(typepath)
 	var/atom/A = src
 	while(A.loc)
 		if(istype(A.loc, typepath))
@@ -464,28 +464,14 @@ Returns 1 if the chain up to the area contains the given typepath
 
 // returns turf relative to A offset in dx and dy tiles
 // bound to map limits
-/proc/get_offset_target_turf(var/atom/A, var/dx, var/dy)
+/proc/get_offset_target_turf(atom/A, dx, dy)
 	var/x = min(world.maxx, max(1, A.x + dx))
 	var/y = min(world.maxy, max(1, A.y + dy))
 	return locate(x,y,A.z)
 
 //Makes sure MIDDLE is between LOW and HIGH. If not, it adjusts it. Returns the adjusted value.
-/proc/between(var/low, var/middle, var/high)
+/proc/between(low, middle, high)
 	return max(min(middle, high), low)
-
-//returns random gauss number
-/proc/GaussRand(var/sigma)
-  var/x,y,rsq
-  do
-    x=2*rand()-1
-    y=2*rand()-1
-    rsq=x*x+y*y
-  while(rsq>1 || !rsq)
-  return sigma*y*sqrt(-2*log(rsq)/rsq)
-
-//returns random gauss number, rounded to 'roundto'
-/proc/GaussRandRound(var/sigma,var/roundto)
-	return round(GaussRand(sigma),roundto)
 
 //Will return the contents of an atom recursivly to a depth of 'searchDepth'
 /atom/proc/GetAllContents(searchDepth = 5)
@@ -554,15 +540,14 @@ Returns 1 if the chain up to the area contains the given typepath
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all turfs in areas of that type of that type in the world.
-/proc/get_area_turfs(areatype, subtypes=TRUE)
-	if(!areatype)
-		return null
+/proc/get_area_turfs(areatype, target_z = 0, subtypes=FALSE)
 	if(istext(areatype))
 		areatype = text2path(areatype)
-	if(isarea(areatype))
+	else if(isarea(areatype))
 		var/area/areatemp = areatype
 		areatype = areatemp.type
-
+	else if(!ispath(areatype))
+		return null
 	// Pull out the areas
 	var/list/areas_to_pull = list()
 	if(subtypes)
@@ -580,12 +565,21 @@ Returns 1 if the chain up to the area contains the given typepath
 	// Now their turfs
 	var/list/turfs = list()
 	for(var/area/pull_from as anything in areas_to_pull)
-		turfs += pull_from.get_contained_turfs()
+
+		if (target_z != 0)
+			turfs += pull_from.get_turfs_by_zlevel(target_z)
+			continue
+
+		for (var/list/zlevel_turfs as anything in pull_from.get_zlevel_turf_lists())
+			turfs += zlevel_turfs
+
 	return turfs
+
+
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all atoms	(objs, turfs, mobs) in areas of that type of that type in the world.
-/proc/get_area_all_atoms(var/areatype)
+/proc/get_area_all_atoms(areatype)
 	if(!areatype) return null
 	if(istext(areatype)) areatype = text2path(areatype)
 	if(isarea(areatype))
@@ -636,7 +630,7 @@ Returns 1 if the chain up to the area contains the given typepath
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
-	//       Movement based on lower left corner. Tiles that do not fit
+	//	   Movement based on lower left corner. Tiles that do not fit
 	//		 into the new area will not be moved.
 
 	if(!A || !src)
@@ -760,20 +754,20 @@ Returns 1 if the chain up to the area contains the given typepath
 
 GLOBAL_LIST_INIT(body_zone, list(
 	BODY_ZONE_HEAD = list(NOMINATIVE = "голова", GENITIVE = "головы", DATIVE = "голове", ACCUSATIVE = "голову", INSTRUMENTAL = "головой", PREPOSITIONAL = "голове"),
-    BODY_ZONE_CHEST = list(NOMINATIVE = "грудь", GENITIVE = "груди", DATIVE = "груди", ACCUSATIVE = "грудь", INSTRUMENTAL = "грудью", PREPOSITIONAL = "груди"),
-    BODY_ZONE_L_ARM = list(NOMINATIVE = "левая рука", GENITIVE = "левой руки", DATIVE = "левой руке", ACCUSATIVE = "левую руку", INSTRUMENTAL = "левой рукой", PREPOSITIONAL = "левой руке"),
-    BODY_ZONE_R_ARM = list(NOMINATIVE = "правая рука", GENITIVE = "правой руки", DATIVE = "правой руке", ACCUSATIVE = "правую руку", INSTRUMENTAL = "правой рукой", PREPOSITIONAL = "правой руке"),
-    BODY_ZONE_L_LEG = list(NOMINATIVE = "левая нога", GENITIVE = "левой ноги", DATIVE = "левой ноге", ACCUSATIVE = "левую ногу", INSTRUMENTAL = "левой ногой", PREPOSITIONAL = "левой ноге"),
-    BODY_ZONE_R_LEG = list(NOMINATIVE = "правая нога", GENITIVE = "правой ноги", DATIVE = "правой ноге", ACCUSATIVE = "правую ногу", INSTRUMENTAL = "правой ногой", PREPOSITIONAL = "правой ноге"),
-    BODY_ZONE_TAIL = list(NOMINATIVE = "хвост", GENITIVE = "хвоста", DATIVE = "хвосту", ACCUSATIVE = "хвост", INSTRUMENTAL = "хвостом", PREPOSITIONAL = "хвосте"),
-    BODY_ZONE_WING = list(NOMINATIVE = "крылья", GENITIVE = "крыльев", DATIVE = "крыльям", ACCUSATIVE = "крылья", INSTRUMENTAL = "крыльями", PREPOSITIONAL = "крыльях"),
-    BODY_ZONE_PRECISE_EYES = list(NOMINATIVE = "глаза", GENITIVE = "глаз", DATIVE = "глазам", ACCUSATIVE = "глаза", INSTRUMENTAL = "глазами", PREPOSITIONAL = "глазах"),
-    BODY_ZONE_PRECISE_MOUTH = list(NOMINATIVE = "рот", GENITIVE = "рта", DATIVE = "рту", ACCUSATIVE = "рот", INSTRUMENTAL = "ртом", PREPOSITIONAL = "рте"),
-    BODY_ZONE_PRECISE_GROIN = list(NOMINATIVE = "живот", GENITIVE = "живота", DATIVE = "животу", ACCUSATIVE = "живот", INSTRUMENTAL = "животом", PREPOSITIONAL = "животе"),
-    BODY_ZONE_PRECISE_L_HAND = list(NOMINATIVE = "левая кисть", GENITIVE = "левой кисти", DATIVE = "левой кисти", ACCUSATIVE = "левую кисть", INSTRUMENTAL = "левой кистью", PREPOSITIONAL = "левой кисти"),
-    BODY_ZONE_PRECISE_R_HAND = list(NOMINATIVE = "правая кисть", GENITIVE = "правой кисти", DATIVE = "правой кисти", ACCUSATIVE = "правую кисть", INSTRUMENTAL = "правой кистью", PREPOSITIONAL = "правой кисти"),
-    BODY_ZONE_PRECISE_L_FOOT = list(NOMINATIVE = "левая ступня", GENITIVE = "левой ступни", DATIVE = "левой ступне", ACCUSATIVE = "левую ступню", INSTRUMENTAL = "левой ступнёй", PREPOSITIONAL = "левой ступне"),
-    BODY_ZONE_PRECISE_R_FOOT = list(NOMINATIVE = "правая ступня", GENITIVE = "правой ступни", DATIVE = "правой ступне", ACCUSATIVE = "правую ступню", INSTRUMENTAL = "правой ступнёй", PREPOSITIONAL = "правой ступне")
+	BODY_ZONE_CHEST = list(NOMINATIVE = "грудь", GENITIVE = "груди", DATIVE = "груди", ACCUSATIVE = "грудь", INSTRUMENTAL = "грудью", PREPOSITIONAL = "груди"),
+	BODY_ZONE_L_ARM = list(NOMINATIVE = "левая рука", GENITIVE = "левой руки", DATIVE = "левой руке", ACCUSATIVE = "левую руку", INSTRUMENTAL = "левой рукой", PREPOSITIONAL = "левой руке"),
+	BODY_ZONE_R_ARM = list(NOMINATIVE = "правая рука", GENITIVE = "правой руки", DATIVE = "правой руке", ACCUSATIVE = "правую руку", INSTRUMENTAL = "правой рукой", PREPOSITIONAL = "правой руке"),
+	BODY_ZONE_L_LEG = list(NOMINATIVE = "левая нога", GENITIVE = "левой ноги", DATIVE = "левой ноге", ACCUSATIVE = "левую ногу", INSTRUMENTAL = "левой ногой", PREPOSITIONAL = "левой ноге"),
+	BODY_ZONE_R_LEG = list(NOMINATIVE = "правая нога", GENITIVE = "правой ноги", DATIVE = "правой ноге", ACCUSATIVE = "правую ногу", INSTRUMENTAL = "правой ногой", PREPOSITIONAL = "правой ноге"),
+	BODY_ZONE_TAIL = list(NOMINATIVE = "хвост", GENITIVE = "хвоста", DATIVE = "хвосту", ACCUSATIVE = "хвост", INSTRUMENTAL = "хвостом", PREPOSITIONAL = "хвосте"),
+	BODY_ZONE_WING = list(NOMINATIVE = "крылья", GENITIVE = "крыльев", DATIVE = "крыльям", ACCUSATIVE = "крылья", INSTRUMENTAL = "крыльями", PREPOSITIONAL = "крыльях"),
+	BODY_ZONE_PRECISE_EYES = list(NOMINATIVE = "глаза", GENITIVE = "глаз", DATIVE = "глазам", ACCUSATIVE = "глаза", INSTRUMENTAL = "глазами", PREPOSITIONAL = "глазах"),
+	BODY_ZONE_PRECISE_MOUTH = list(NOMINATIVE = "рот", GENITIVE = "рта", DATIVE = "рту", ACCUSATIVE = "рот", INSTRUMENTAL = "ртом", PREPOSITIONAL = "рте"),
+	BODY_ZONE_PRECISE_GROIN = list(NOMINATIVE = "живот", GENITIVE = "живота", DATIVE = "животу", ACCUSATIVE = "живот", INSTRUMENTAL = "животом", PREPOSITIONAL = "животе"),
+	BODY_ZONE_PRECISE_L_HAND = list(NOMINATIVE = "левая кисть", GENITIVE = "левой кисти", DATIVE = "левой кисти", ACCUSATIVE = "левую кисть", INSTRUMENTAL = "левой кистью", PREPOSITIONAL = "левой кисти"),
+	BODY_ZONE_PRECISE_R_HAND = list(NOMINATIVE = "правая кисть", GENITIVE = "правой кисти", DATIVE = "правой кисти", ACCUSATIVE = "правую кисть", INSTRUMENTAL = "правой кистью", PREPOSITIONAL = "правой кисти"),
+	BODY_ZONE_PRECISE_L_FOOT = list(NOMINATIVE = "левая ступня", GENITIVE = "левой ступни", DATIVE = "левой ступне", ACCUSATIVE = "левую ступню", INSTRUMENTAL = "левой ступнёй", PREPOSITIONAL = "левой ступне"),
+	BODY_ZONE_PRECISE_R_FOOT = list(NOMINATIVE = "правая ступня", GENITIVE = "правой ступни", DATIVE = "правой ступне", ACCUSATIVE = "правую ступню", INSTRUMENTAL = "правой ступнёй", PREPOSITIONAL = "правой ступне")
 ))
 
 /proc/parse_zone(zone)
@@ -811,74 +805,12 @@ GLOBAL_LIST_INIT(body_zone, list(
 		else
 			stack_trace("Wrong zone input.")
 
-/*
-
- Gets the turf this atom's *ICON* appears to inhabit
- It takes into account:
- * Pixel_x/y
- * Matrix x/y
-
- NOTE: if your atom has non-standard bounds then this proc
- will handle it, but:
- * if the bounds are even, then there are an even amount of "middle" turfs, the one to the EAST, NORTH, or BOTH is picked
- (this may seem bad, but you're atleast as close to the center of the atom as possible, better than byond's default loc being all the way off)
- * if the bounds are odd, the true middle turf of the atom is returned
-
-*/
-
-/proc/get_turf_pixel(atom/movable/checked_atom)
-	if(!istype(checked_atom))
-		return
-
-	//Find checked_atom's matrix so we can use it's X/Y pixel shifts
-	var/matrix/matrix = matrix(checked_atom.transform)
-
-	var/pixel_x_offset = checked_atom.pixel_x + matrix.get_x_shift()
-	var/pixel_y_offset = checked_atom.pixel_y + matrix.get_y_shift()
-
-	//Irregular objects
-	var/icon/checked_atom_icon = icon(checked_atom.icon, checked_atom.icon_state)
-	var/checked_atom_icon_height = checked_atom_icon.Height()
-	var/checked_atom_icon_width = checked_atom_icon.Width()
-	if(checked_atom_icon_height != world.icon_size || checked_atom_icon_width != world.icon_size)
-		pixel_x_offset += ((checked_atom_icon_height / world.icon_size) - 1) * (world.icon_size * 0.5)
-		pixel_y_offset += ((checked_atom_icon_width / world.icon_size) - 1) * (world.icon_size * 0.5)
-
-	//DY and DX
-	var/rough_x = round(round(pixel_x_offset, world.icon_size) / world.icon_size)
-	var/rough_y = round(round(pixel_y_offset, world.icon_size) / world.icon_size)
-
-	//Find coordinates
-	var/turf/turf = get_turf(checked_atom) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
-	if(!turf)
-		return null
-	var/final_x = clamp(turf.x + rough_x, 1, world.maxx)
-	var/final_y = clamp(turf.y + rough_y, 1, world.maxy)
-
-	if(final_x || final_y)
-		return locate(final_x, final_y, turf.z)
-
-//Finds the distance between two atoms, in pixels
-//centered = 0 counts from turf edge to edge
-//centered = 1 counts from turf center to turf center
-//of course mathematically this is just adding world.icon_size on again
-/proc/getPixelDistance(var/atom/A, var/atom/B, var/centered = 1)
-	if(!istype(A)||!istype(B))
-		return 0
-	. = bounds_dist(A, B) + sqrt((((A.pixel_x+B.pixel_x)**2) + ((A.pixel_y+B.pixel_y)**2)))
-	if(centered)
-		. += world.icon_size
-
 /proc/get(atom/loc, type)
 	while(loc)
 		if(istype(loc, type))
 			return loc
 		loc = loc.loc
 	return null
-
-/proc/get_turf_or_move(turf/location)
-	return get_turf(location)
-
 
 //For objects that should embed, but make no sense being is_sharp or is_pointed()
 //e.g: rods
@@ -903,7 +835,7 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 		return TRUE
 	return FALSE
 
-/proc/reverse_direction(var/dir)
+/proc/reverse_direction(dir)
 	switch(dir)
 		if(NORTH)
 			return SOUTH
@@ -974,7 +906,7 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 Standard way to write links -Sayu
 */
 
-/proc/topic_link(var/datum/D, var/arglist, var/content)
+/proc/topic_link(datum/D, arglist, content)
 	if(istype(arglist,/list))
 		arglist = list2params(arglist)
 	return "<a href='byond://?src=[D.UID()];[arglist]'>[content]</a>"
@@ -1088,7 +1020,7 @@ Standard way to write links -Sayu
 		chance = max(chance - (initial_chance / steps), 0)
 		steps--
 
-/proc/get_random_colour(var/simple, var/lower, var/upper)
+/proc/get_random_colour(simple, lower, upper)
 	var/colour
 	if(simple)
 		colour = pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))
@@ -1100,7 +1032,7 @@ Standard way to write links -Sayu
 			colour += temp_col
 	return colour
 
-/proc/get_distant_turf(var/turf/T,var/direction,var/distance)
+/proc/get_distant_turf(turf/T, direction, distance)
 	if(!T || !direction || !distance)	return
 
 	var/dest_x = T.x
@@ -1121,7 +1053,7 @@ Standard way to write links -Sayu
 GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 //Version of view() which ignores darkness, because BYOND doesn't have it.
-/proc/dview(var/range = world.view, var/center, var/invis_flags = 0)
+/proc/dview(range = world.view, center, invis_flags = 0)
 	if(!center)
 		return
 
@@ -1304,42 +1236,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	// После, потому что сначало надо занулить orbiting дабы худ показался ЧИСТЫЙ
 	SEND_SIGNAL(src, COMSIG_ORBITER_ORBIT_STOP)
 
-
-//Centers an image.
-//Requires:
-//The Image
-//The x dimension of the icon file used in the image
-//The y dimension of the icon file used in the image
-// eg: center_image(I, 32,32)
-// eg2: center_image(I, 96,96)
-/proc/center_image(image/I, x_dimension = 0, y_dimension = 0)
-	if(!I)
-		return
-
-	if(!x_dimension || !y_dimension)
-		return
-
-	//Get out of here, punk ass kids calling procs needlessly
-	if((x_dimension == world.icon_size) && (y_dimension == world.icon_size))
-		return I
-
-	//Offset the image so that it's bottom left corner is shifted this many pixels
-	//This makes it infinitely easier to draw larger inhands/images larger than world.iconsize
-	//but still use them in game
-	var/x_offset = -((x_dimension/world.icon_size)-1)*(world.icon_size*0.5)
-	var/y_offset = -((y_dimension/world.icon_size)-1)*(world.icon_size*0.5)
-
-	//Correct values under world.icon_size
-	if(x_dimension < world.icon_size)
-		x_offset *= -1
-	if(y_dimension < world.icon_size)
-		y_offset *= -1
-
-	I.pixel_x = x_offset
-	I.pixel_y = y_offset
-
-	return I
-
 //similar function to RANGE_TURFS(), but will search spiralling outwards from the center (like the above, but only turfs)
 /proc/spiral_range_turfs(dist=0, center=usr, orange=0)
 	if(!dist)
@@ -1489,7 +1385,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	chosen = matches[chosen]
 	return chosen
 
-/proc/make_types_fancy(var/list/types)
+/proc/make_types_fancy(list/types)
 	if(ispath(types))
 		types = list(types)
 	. = list()
@@ -1729,7 +1625,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		result += (1 << num)
 	return result
 
-/proc/pixel_shift_dir(var/dir, var/amount_x = 32, var/amount_y = 32) //Returns a list with pixel_shift values that will shift an object's icon one tile in the direction passed.
+/proc/pixel_shift_dir(dir, amount_x = 32, amount_y = 32) //Returns a list with pixel_shift values that will shift an object's icon one tile in the direction passed.
 	amount_x = min(max(0, amount_x), 32) //No less than 0, no greater than 32.
 	amount_y = min(max(0, amount_x), 32)
 	var/list/shift = list("x" = 0, "y" = 0)
@@ -1754,15 +1650,15 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return shift
 
 /**
-  * Returns a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
-  *
-  * Arguments:
-  * * loc - The atom to look in.
-  * * type - The type to look for.
-  * * check_shift - If true, will exclude atoms whose pixel_x/pixel_y do not match shift_x/shift_y.
-  * * shift_x - If check_shift is true, atoms whose pixel_x is different to this will be excluded.
-  * * shift_y - If check_shift is true, atoms whose pixel_y is different to this will be excluded.
-  */
+ * Returns a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
+ *
+ * Arguments:
+ * * loc - The atom to look in.
+ * * type - The type to look for.
+ * * check_shift - If true, will exclude atoms whose pixel_x/pixel_y do not match shift_x/shift_y.
+ * * shift_x - If check_shift is true, atoms whose pixel_x is different to this will be excluded.
+ * * shift_y - If check_shift is true, atoms whose pixel_y is different to this will be excluded.
+ */
 /proc/get_atoms_of_type(atom/loc, type, check_shift = FALSE, shift_x = 0, shift_y = 0)
 	. = list()
 	if(!loc)
@@ -1785,43 +1681,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	animate(src, pixel_x = pixel_x + shiftx, pixel_y = pixel_y + shifty, time = 0.2, loop = duration)
 	pixel_x = initialpixelx
 	pixel_y = initialpixely
-
-
-///Returns a turf based on text inputs, original turf and viewing client
-/proc/parse_caught_click_modifiers(list/modifiers, turf/origin, client/viewing_client)
-	if(!modifiers)
-		return null
-
-	var/screen_loc = splittext(modifiers["screen-loc"], ",")
-	var/list/actual_view = getviewsize(viewing_client ? viewing_client.view : world.view)
-	var/click_turf_x = splittext(screen_loc[1], ":")
-	var/click_turf_y = splittext(screen_loc[2], ":")
-	var/click_turf_z = origin.z
-
-	var/click_turf_px = text2num(click_turf_x[2])
-	var/click_turf_py = text2num(click_turf_y[2])
-	click_turf_x = origin.x + text2num(click_turf_x[1]) - round(actual_view[1] / 2) - 1
-	click_turf_y = origin.y + text2num(click_turf_y[1]) - round(actual_view[2] / 2) - 1
-
-	var/turf/click_turf = locate(clamp(click_turf_x, 1, world.maxx), clamp(click_turf_y, 1, world.maxy), click_turf_z)
-	LAZYSET(modifiers, "icon-x", "[(click_turf_px - click_turf.pixel_x) + ((click_turf_x - click_turf.x) * world.icon_size)]")
-	LAZYSET(modifiers, "icon-y", "[(click_turf_py - click_turf.pixel_y) + ((click_turf_y - click_turf.y) * world.icon_size)]")
-	return click_turf
-
-
-/proc/params2turf(scr_loc, turf/origin, client/C)
-	if(!scr_loc)
-		return null
-	var/tX = splittext(scr_loc, ",")
-	var/tY = splittext(tX[2], ":")
-	var/tZ = origin.z
-	tY = tY[1]
-	tX = splittext(tX[1], ":")
-	tX = tX[1]
-	var/list/actual_view = getviewsize(C ? C.view : world.view)
-	tX = clamp(origin.x + text2num(tX) - round(actual_view[1] / 2) - 1, 1, world.maxx)
-	tY = clamp(origin.y + text2num(tY) - round(actual_view[2] / 2) - 1, 1, world.maxy)
-	return locate(tX, tY, tZ)
 
 /proc/CallAsync(datum/source, proctype, list/arguments)
 	set waitfor = FALSE
@@ -1855,11 +1714,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 
 /**
-  * Returns the clean name of an audio channel.
-  *
-  * Arguments:
-  * * channel - The channel number.
-  */
+ * Returns the clean name of an audio channel.
+ *
+ * Arguments:
+ * * channel - The channel number.
+ */
 /proc/get_channel_name(channel)
 	switch(channel)
 		if(CHANNEL_GENERAL)

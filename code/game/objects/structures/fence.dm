@@ -28,7 +28,7 @@
 	var/invulnerable = FALSE
 	COOLDOWN_DECLARE(shock_cooldown)
 
-/obj/structure/fence/Initialize()
+/obj/structure/fence/Initialize(mapload)
 	. = ..()
 	update_cut_status()
 
@@ -82,7 +82,7 @@
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(C)
 		if(electrocute_mob(user, C, src, 1, TRUE))
-			do_sparks(3, 1, src)
+			do_sparks(3, TRUE, src)
 			return TRUE
 	return FALSE
 
@@ -192,7 +192,7 @@
 	cuttable = FALSE
 	var/open = FALSE
 
-/obj/structure/fence/door/Initialize()
+/obj/structure/fence/door/Initialize(mapload)
 	. = ..()
 	update_door_status()
 

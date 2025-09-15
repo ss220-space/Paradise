@@ -1,10 +1,5 @@
 #define DNA_BLOCK_SIZE 3
 
-// Buffer datatype flags.
-#define DNA2_BUF_UI 1
-#define DNA2_BUF_UE 2
-#define DNA2_BUF_SE 4
-
 #define NEGATE_MUTATION_THRESHOLD 30 // Occupants with over ## percent radiation threshold will not gain mutations
 
 #define PAGE_UI "ui"
@@ -57,14 +52,6 @@
 /obj/machinery/dna_scannernew
 	name = "DNA modifier"
 	desc = "Высокотехнологичное устройство, предназначенное для сканирования и изменения структуры ДНК гуманоидов. Здесь и происходит всё волшебство."
-	ru_names = list(
-		NOMINATIVE = "ДНК-модификатор",
-		GENITIVE = "ДНК-модификатора",
-		DATIVE = "ДНК-модификатору",
-		ACCUSATIVE = "ДНК-модификатор",
-		INSTRUMENTAL = "ДНК-модификатором",
-		PREPOSITIONAL = "ДНК-модификаторе"
-	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "scanner_open"
 	density = TRUE
@@ -81,9 +68,18 @@
 	var/scan_level
 	var/precision_coeff
 
+/obj/machinery/dna_scannernew/get_ru_names()
+	return list(
+		NOMINATIVE = "ДНК-модификатор",
+		GENITIVE = "ДНК-модификатора",
+		DATIVE = "ДНК-модификатору",
+		ACCUSATIVE = "ДНК-модификатор",
+		INSTRUMENTAL = "ДНК-модификатором",
+		PREPOSITIONAL = "ДНК-модификаторе"
+	)
 
-/obj/machinery/dna_scannernew/New()
-	..()
+/obj/machinery/dna_scannernew/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -94,8 +90,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/dna_scannernew/upgraded/New()
-	..()
+/obj/machinery/dna_scannernew/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonescanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -302,13 +298,13 @@
 /obj/machinery/dna_scannernew/force_eject_occupant(mob/target)
 	go_out(null, TRUE)
 
-/obj/machinery/dna_scannernew/ex_act(severity)
+/obj/machinery/dna_scannernew/ex_act(severity, target)
 	if(occupant)
 		occupant.ex_act(severity)
-	..()
+	return ..()
 
 /obj/machinery/dna_scannernew/handle_atom_del(atom/A)
-	..()
+	. = ..()
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
@@ -331,14 +327,6 @@
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier access console"
 	desc = "Консоль для работы с ДНК-модификатором."
-	ru_names = list(
-		NOMINATIVE = "консоль управления ДНК-модификатором",
-		GENITIVE = "консоли управления ДНК-модификатором",
-		DATIVE = "консоли управления ДНК-модификатором",
-		ACCUSATIVE = "консоль управления ДНК-модификатором",
-		INSTRUMENTAL = "консолью управления ДНК-модификатором",
-		PREPOSITIONAL = "консоли управления ДНК-модификатором"
-	)
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
@@ -363,6 +351,15 @@
 	idle_power_usage = 10
 	active_power_usage = 400
 
+/obj/machinery/computer/scan_consolenew/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления ДНК-модификатором",
+		GENITIVE = "консоли управления ДНК-модификатором",
+		DATIVE = "консоли управления ДНК-модификатором",
+		ACCUSATIVE = "консоль управления ДНК-модификатором",
+		INSTRUMENTAL = "консолью управления ДНК-модификатором",
+		PREPOSITIONAL = "консоли управления ДНК-модификатором"
+	)
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
@@ -380,17 +377,20 @@
 	return ..()
 
 
-/obj/machinery/computer/scan_consolenew/New()
-	..()
+/obj/machinery/computer/scan_consolenew/Initialize(mapload)
+	. = ..()
 	for(var/i=0;i<3;i++)
 		buffers[i+1]=new /datum/dna2/record
-	spawn(5)
-		for(dir in list(NORTH,EAST,SOUTH,WEST))
-			connected = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
-			if(!isnull(connected))
-				break
-		spawn(250)
-			injector_ready = TRUE
+	addtimer(CALLBACK(src, PROC_REF(find_machine)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(ready)), 25 SECONDS)
+
+/obj/machinery/computer/scan_consolenew/proc/find_machine()
+	for(var/obj/machinery/dna_scannernew/scanner in orange(1, src))
+		connected = scanner
+		return
+
+/obj/machinery/computer/scan_consolenew/proc/ready()
+	injector_ready = TRUE
 
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(list/buffer)
 	var/list/arr = list()
@@ -806,12 +806,12 @@
 			disk = null
 
 /**
-  * Creates a blank injector with the name of the buffer at the given buffer_id
-  *
-  * Arguments:
-  * * buffer_id - The ID of the buffer
-  * * copy_buffer - Whether the injector should copy the buffer contents
-  */
+ * Creates a blank injector with the name of the buffer at the given buffer_id
+ *
+ * Arguments:
+ * * buffer_id - The ID of the buffer
+ * * copy_buffer - Whether the injector should copy the buffer contents
+ */
 /obj/machinery/computer/scan_consolenew/proc/create_injector(buffer_id, copy_buffer = FALSE)
 	if(buffer_id < 1 || buffer_id > length(buffers))
 		return
@@ -832,18 +832,18 @@
 	return I
 
 /**
-  * Called when the injector creation cooldown finishes
-  */
+ * Called when the injector creation cooldown finishes
+ */
 /obj/machinery/computer/scan_consolenew/proc/injector_cooldown_finish()
 	injector_ready = TRUE
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/machinery/computer/scan_consolenew/proc/ui_act_modal(action, params)
 	. = TRUE
 	var/id = params["id"] // The modal's ID
@@ -871,10 +871,9 @@
 		else
 			return FALSE
 
-
+#undef DNA_BLOCK_SIZE
+#undef NEGATE_MUTATION_THRESHOLD
 #undef PAGE_UI
 #undef PAGE_SE
 #undef PAGE_BUFFER
 #undef PAGE_REJUVENATORS
-
-/////////////////////////// DNA MACHINES

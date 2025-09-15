@@ -1,13 +1,5 @@
 /obj/item/chameleon
 	name = "chameleon projector"
-	ru_names = list(
-		NOMINATIVE = "\"Хамелеон\"-проектор",
-		GENITIVE = "\"Хамелеон\"-проектора",
-		DATIVE = "\"Хамелеон\"-проектору",
-		ACCUSATIVE = "\"Хамелеон\"-проектор",
-		INSTRUMENTAL = "\"Хамелеон\"-проектором",
-		PREPOSITIONAL = "\"Хамелеон\"-проекторе"
-	)
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
@@ -22,6 +14,16 @@
 	var/can_use = TRUE
 	var/obj/effect/dummy/chameleon/active_dummy = null
 	var/saved_appearance = null
+
+/obj/item/chameleon/get_ru_names()
+	return list(
+		NOMINATIVE = "\"Хамелеон\"-проектор",
+		GENITIVE = "\"Хамелеон\"-проектора",
+		DATIVE = "\"Хамелеон\"-проектору",
+		ACCUSATIVE = "\"Хамелеон\"-проектор",
+		INSTRUMENTAL = "\"Хамелеон\"-проектором",
+		PREPOSITIONAL = "\"Хамелеон\"-проекторе"
+	)
 
 /obj/item/chameleon/Initialize(mapload)
 	. = ..()
@@ -81,7 +83,7 @@
 
 /obj/item/chameleon/proc/disrupt(delete_dummy = 1)
 	if(active_dummy)
-		do_sparks(5, 0, src)
+		do_sparks(5, FALSE, src)
 		eject_all()
 		if(delete_dummy)
 			qdel(active_dummy)
@@ -132,11 +134,11 @@
 /obj/effect/dummy/chameleon/attack_alien()
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/ex_act(severity) //no longer bomb-proof
+/obj/effect/dummy/chameleon/ex_act(severity, target) //no longer bomb-proof
 	for(var/mob/M in src)
 		to_chat(M, span_danger("Your chameleon projector deactivates."))
 		spawn()
-			M.ex_act(severity)
+			M.ex_act(severity, target)
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/bullet_act()

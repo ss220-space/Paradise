@@ -11,7 +11,7 @@
 	var/activated = FALSE //for wishgranters to not give an option if someone already has it.
 
 
-/datum/superheroes/proc/create(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/create(mob/living/carbon/human/H)
 	assign_genes(H)
 	assign_spells(H)
 	equip(H)
@@ -19,13 +19,13 @@
 	assign_id(H)
 	H.mind.special_role = SPECIAL_ROLE_SUPER
 
-/datum/superheroes/proc/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/equip(mob/living/carbon/human/H)
 	H.rename_character(H.real_name, name)
 	for(var/obj/item/W in H.get_all_slots())
 		H.drop_item_ground(W)
 	H.equip_to_slot_or_del(new /obj/item/radio/headset(H), ITEM_SLOT_EAR_LEFT)
 
-/datum/superheroes/proc/fixflags(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/fixflags(mob/living/carbon/human/H)
 	for(var/obj/item/W in H.get_all_slots())
 		ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
 
@@ -37,7 +37,7 @@
 	H.gene_stability = 100
 
 
-/datum/superheroes/proc/assign_spells(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
 	if(default_spells.len)
 		for(var/spell in default_spells)
 			var/obj/effect/proc_holder/spell/S = spell
@@ -45,7 +45,7 @@
 				return
 			H.mind.AddSpell(new S(null))
 
-/datum/superheroes/proc/assign_id(var/mob/living/carbon/human/H)
+/datum/superheroes/proc/assign_id(mob/living/carbon/human/H)
 	var/obj/item/card/id/syndicate/W = new(H)
 	W.registered_name = H.real_name
 	W.access = list(ACCESS_MAINT_TUNNELS)
@@ -73,7 +73,7 @@
 	foes, and protected the station for years. Your tech gadgets make you a force to be reckoned with. You are the hero this \
 	station deserves."
 
-/datum/superheroes/owlman/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/owlman/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), ITEM_SLOT_FEET)
@@ -92,7 +92,7 @@
 	of the command staff of this station. Along with your gang of dim-witted yet trusty henchmen, you will be able to execute \
 	the most dastardly plans."
 
-/datum/superheroes/griffin/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/griffin/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), ITEM_SLOT_FEET)
@@ -112,7 +112,7 @@
 	station's hero roster, you intend to leave your mark."
 	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/lightning/lightnian)
 
-/datum/superheroes/lightnian/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/lightnian/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), ITEM_SLOT_FEET)
@@ -131,7 +131,7 @@
 	intend to take your revenge and make them all pay thanks to your magnetic powers."
 	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/magnet)
 
-/datum/superheroes/electro/equip(var/mob/living/carbon/human/H)
+/datum/superheroes/electro/equip(mob/living/carbon/human/H)
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), ITEM_SLOT_FEET)

@@ -4,14 +4,14 @@
 */
 
 /**
-  * # Discord Webhook Payload
-  *
-  * Holder datum for discord webhook POST send data
-  *
-  * Holds all information that a webhook would need,
-  * as well as a method to serialize the entire thing into JSON.
-  * See https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params
-  */
+ * # Discord Webhook Payload
+ *
+ * Holder datum for discord webhook POST send data
+ *
+ * Holds all information that a webhook would need,
+ * as well as a method to serialize the entire thing into JSON.
+ * See https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params
+ */
 /datum/discord_webhook_payload
 	/// Name the webhook user should post as
 	var/webhook_name
@@ -24,11 +24,11 @@
 	embeds = list()
 
 /**
-  * Webhook Serializer
-  *
-  * Converts the DM webhook object into JSON for a POST request.
-  * Not called serialize() because thats a proc at the /datum level already
-  */
+ * Webhook Serializer
+ *
+ * Converts the DM webhook object into JSON for a POST request.
+ * Not called serialize() because thats a proc at the /datum level already
+ */
 /datum/discord_webhook_payload/proc/serialize2json()
 	var/list/json = list()
 	if(webhook_name)
@@ -55,13 +55,13 @@
 	return json_encode(json)
 
 /**
-  * # Discord Embed
-  *
-  * Holder datum for discord embeds
-  *
-  * Used in [/datum/discord_webhook_payload] and serves as a code-first means to add an embed.
-  * See https://discord.com/developers/docs/resources/channel#embed-object
-  */
+ * # Discord Embed
+ *
+ * Holder datum for discord embeds
+ *
+ * Used in [/datum/discord_webhook_payload] and serves as a code-first means to add an embed.
+ * See https://discord.com/developers/docs/resources/channel#embed-object
+ */
 /datum/discord_embed
 	/// Title of the embed
 	var/embed_title
@@ -79,11 +79,11 @@
 	fields = list() // Initialize the list
 
 /**
-  * Embed Serializer
-  *
-  * Converts the DM embed object into JSON for a POST request.
-  * Not called serialize() because thats a proc at the /datum level already
-  */
+ * Embed Serializer
+ *
+ * Converts the DM embed object into JSON for a POST request.
+ * Not called serialize() because thats a proc at the /datum level already
+ */
 /datum/discord_embed/proc/serialize2list()
 	var/list/json = list()
 	// All these fields can be nulled so presence check them all
@@ -105,13 +105,13 @@
 	return json
 
 /**
-  * # Discord Embed Field
-  *
-  * Holder datum for discord embed fields
-  *
-  * Used in [/datum/discord_embed] and serves as a code-first means to add fields to an embed
-  * See https://discord.com/developers/docs/resources/channel#embed-object-embed-field-structure
-  */
+ * # Discord Embed Field
+ *
+ * Holder datum for discord embed fields
+ *
+ * Used in [/datum/discord_embed] and serves as a code-first means to add fields to an embed
+ * See https://discord.com/developers/docs/resources/channel#embed-object-embed-field-structure
+ */
 /datum/discord_embed_field
 	/// Name of the field
 	var/field_name

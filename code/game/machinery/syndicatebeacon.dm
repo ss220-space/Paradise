@@ -14,10 +14,10 @@
 	density = TRUE
 
 	var/temptext = ""
-	var/selfdestructing = 0
+	var/selfdestructing = FALSE
 	var/charges = 1
 
-/obj/machinery/syndicate_beacon/attack_hand(var/mob/user as mob)
+/obj/machinery/syndicate_beacon/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 	usr.set_machine(src)
 	var/dat = {"<span style='color: #005500;'><i>Scanning [pick("retina pattern", "voice print", "fingerprints", "dna sequence")]...<br>Identity confirmed,<br></i></span>"}
@@ -55,7 +55,7 @@
 		if(prob(50))
 			temptext = "<span style='color: red;'><i><b>Двойной агент. Ты планировал предать нас с самого начала. Позвольте нам отплатить за услугу тем же.</b></i></span>"
 			src.updateUsrDialog()
-			spawn(rand(50,200)) selfdestruct()
+			addtimer(CALLBACK(src, PROC_REF(selfdestruct)), rand(5 SECONDS, 20 SECONDS))
 			return
 		if(ishuman(M))
 			var/mob/living/carbon/human/N = M
@@ -104,8 +104,8 @@
 
 
 /obj/machinery/syndicate_beacon/proc/selfdestruct()
-	selfdestructing = 1
-	spawn() explosion(src.loc, rand(3,8), rand(1,3), 1, 10)
+	selfdestructing = TRUE
+	explosion(loc, devastation_range = rand(3, 8), heavy_impact_range = rand(1, 3), light_impact_range = 1, flash_range = 10)
 
 
 
@@ -158,7 +158,7 @@
 	return
 
 
-/obj/machinery/power/singularity_beacon/attack_hand(var/mob/user as mob)
+/obj/machinery/power/singularity_beacon/attack_hand(mob/user as mob)
 	if(anchored)
 		add_fingerprint(user)
 		return active ? Deactivate(user) : Activate(user)

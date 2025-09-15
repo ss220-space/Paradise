@@ -69,7 +69,7 @@
 		set_density(FALSE)
 		broken = 1
 		new /obj/item/shard( src.loc )
-		playsound(src, "shatter", 70, TRUE)
+		playsound(src, SFX_SHATTER, 70, TRUE)
 		update_icon(UPDATE_OVERLAYS)
 		trigger_alarm()
 

@@ -27,7 +27,7 @@
 	light_on = FALSE
 	light_range = 2
 	light_power = 1
-	light_color = LIGHT_COLOR_WHITE
+	light_color = COLOR_WHITE
 
 
 /obj/item/flash/update_icon_state()

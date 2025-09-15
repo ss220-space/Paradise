@@ -152,7 +152,7 @@
 
 /datum/plant_gene/reagent/proc/set_reagent(reag_id)
 	reagent_id = reag_id
-	name = "UNKNOWN"
+	name = UNKNOWN_STATUS_RUS
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
 	if(R && R.id == reagent_id)
@@ -356,14 +356,14 @@
 	//makes plant emit slightly purple shadows
 	//adds -potency*rate light power to products
 	name = "Shadow Emission"
-	glow_color = "#AAD84B"
+	glow_color = LIGHT_COLOR_PURPLE
 
 /datum/plant_gene/trait/glow/shadow/glow_power(obj/item/seeds/S)
 	return -max(S.potency*rate, 0.1)
 
 /datum/plant_gene/trait/glow/red
 	name = "Red Electrical Glow"
-	glow_color = LIGHT_COLOR_RED
+	glow_color = COLOR_RED_LIGHT
 
 /datum/plant_gene/trait/glow/berry
 	name = "Strong Bioluminescence"

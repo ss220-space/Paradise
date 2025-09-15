@@ -191,14 +191,9 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/airlock_sensor/Initialize()
+/obj/machinery/airlock_sensor/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
-
-/obj/machinery/airlock_sensor/New()
-	..()
-	if(SSradio)
-		set_frequency(frequency)
 
 /obj/machinery/airlock_sensor/Destroy()
 	if(SSradio)
@@ -280,15 +275,9 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/access_button/Initialize()
+/obj/machinery/access_button/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
-
-/obj/machinery/access_button/New()
-	..()
-
-	if(SSradio)
-		set_frequency(frequency)
 
 /obj/machinery/access_button/Destroy()
 	if(SSradio)
@@ -303,3 +292,5 @@
 /obj/machinery/access_button/airlock_exterior
 	frequency = 1379
 	command = "cycle_exterior"
+
+#undef AIRLOCK_CONTROL_RANGE

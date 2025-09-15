@@ -236,6 +236,9 @@
 		throw EXCEPTION(m)
 
 	var/result = preview_shuttle.canDock(D)
+	if(result == SHUTTLE_LOCKED)
+		// currenct shuttle is locked, do nothing
+		return
 	// truthy value means that it cannot dock for some reason
 	// but we can ignore the someone else docked error because we'll
 	// be moving into their place shortly

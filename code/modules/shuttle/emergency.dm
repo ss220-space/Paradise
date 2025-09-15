@@ -329,8 +329,8 @@
 	width = 5
 	height = 6
 
-/obj/docking_port/mobile/pod/New()
-	..()
+/obj/docking_port/mobile/pod/Initialize(mapload)
+	. = ..()
 	if(id == "pod")
 		log_runtime(EXCEPTION("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc."))
 
@@ -369,8 +369,8 @@
 	height = 4
 	var/target_area = /area/mine/unexplored
 
-/obj/docking_port/stationary/random/Initialize()
-	..()
+/obj/docking_port/stationary/random/Initialize(mapload)
+	. = ..()
 	var/list/turfs = get_area_turfs(target_area)
 	var/turf/T = pick(turfs)
 	src.loc = T

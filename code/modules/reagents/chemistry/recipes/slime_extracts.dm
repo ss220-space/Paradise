@@ -556,7 +556,7 @@
 	T.visible_message(span_danger("The slime extract begins to vibrate violently !"))
 	spawn(50)
 		if(holder && holder.my_atom)
-			explosion(get_turf(holder.my_atom), 1 ,3, 6, cause = src)
+			explosion(get_turf(holder.my_atom), devastation_range = 1, heavy_impact_range = 3, light_impact_range = 6, cause = src)
 
 /datum/chemical_reaction/slimepotionexplosion
 	name = "Slime Explosion Resistence Potion"
