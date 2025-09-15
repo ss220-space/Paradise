@@ -56,6 +56,7 @@
 	materials = list()
 	max_water = 30
 	dog_fashion = null
+	toolbox_radial_menu_compatibility = TRUE
 
 /obj/item/extinguisher/mini/get_ru_names()
 	return list(

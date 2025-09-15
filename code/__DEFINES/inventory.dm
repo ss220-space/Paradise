@@ -18,23 +18,3 @@
 #define INCLUDE_POCKETS (1<<0)
 #define INCLUDE_ACCESSORIES (1<<1)
 #define INCLUDE_HELD (1<<2)
-
-/// List of all "tools" that can work from toolboxes
-GLOBAL_LIST_INIT(tool_items, list(
-	/obj/item/assembly/signaler,
-	/obj/item/crowbar,
-	/obj/item/extinguisher/mini,
-	/obj/item/flashlight,
-	/obj/item/holosign_creator,
-	/obj/item/lightreplacer,
-	/obj/item/multitool,
-	/obj/item/pipe_painter,
-	/obj/item/rcd,
-	/obj/item/rpd,
-	/obj/item/screwdriver,
-	/obj/item/stack/cable_coil,
-	/obj/item/t_scanner,
-	/obj/item/weldingtool,
-	/obj/item/wirecutters,
-	/obj/item/wrench,
-))

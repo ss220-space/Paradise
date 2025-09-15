@@ -15,7 +15,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
-	attack_verb = list("заробастил")
+	attack_verb = list("огрел", "ударил")
 	use_sound = 'sound/items/handling/toolbox_open.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbox_drop.ogg'
@@ -63,23 +63,37 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	for(var/obj/item in contents)
-		if(is_type_in_list(item, GLOB.tool_items))
+	for(var/obj/item/item in contents)
+		if(item.toolbox_radial_menu_compatibility)
 			return ATTACK_CHAIN_PROCEED
 
 	if(is_type_in_typecache(object, lmb_exception_typecache))
 		return ATTACK_CHAIN_PROCEED
 
+/// Check if we can use tools inside toolbox via radial menu
+/obj/item/storage/toolbox/proc/check_for_radial_menu_availability(atom/object, mob/living/user, proximity)
+	if(!proximity)
+		return FALSE
+
+	if(ismob(object))
+		return FALSE
+
+	if(user.get_inactive_hand())
+		balloon_alert(user, "руки заняты!")
+		return FALSE
+
+	return TRUE
+
 /obj/item/storage/toolbox/afterattack(atom/object, mob/living/user, proximity, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(!proximity)
+	if(!check_for_radial_menu_availability(object, user, proximity))
 		return
 
-	if(ismob(object))
-		return
+	handle_radial_menu_interaction(object, user)
 
+/obj/item/storage/toolbox/proc/handle_radial_menu_interaction(atom/object, mob/living/user)
 	if(current_interactions)
 		var/obj/item/other_tool = user.get_inactive_hand()
 		if(!istype(other_tool))
@@ -87,40 +101,34 @@
 		INVOKE_ASYNC(src, PROC_REF(use_tool_on), object, user, other_tool)
 		return
 
-	if(user.get_inactive_hand())
-		balloon_alert(user, "руки заняты!")
-		return
-
 	var/list/choices = list()
-	for(var/obj/tool in contents)
-		if(is_type_in_list(tool, GLOB.tool_items))
+	for(var/obj/item/tool in contents)
+		if(tool.toolbox_radial_menu_compatibility)
 			choices[tool.declent_ru(NOMINATIVE)] = image(icon = tool.icon, icon_state = tool.icon_state)
 
 	if(!length(choices))
 		return
 
 	playsound(user, 'sound/items/handling/toolbox_open.ogg', 50)
+
 	var/obj/item/picked_item = show_radial_menu(user, src, choices, require_near = TRUE, anim_speed = 0.1)
 	if(!picked_item)
 		return
 
 	var/obj/item/selected
-	for(var/obj/item in contents)
-		if(!(item.declent_ru(NOMINATIVE) == picked_item))
-			continue
-	selected = item
+	for(var/obj/item/item in contents)
+		if(item.declent_ru(NOMINATIVE) == picked_item)
+			selected = item
+			break
 	playsound(user, 'sound/items/handling/toolbox_rustle.ogg', 50)
+
 	if(!user.put_in_inactive_hand(selected))
 		return
 
-	if(istype(selected, /obj/item/weldingtool))
-		var/obj/item/weldingtool/welder = selected
-		if(!welder.tool_enabled)
-			welder.attack_self(user)
+	SEND_SIGNAL(selected, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE, user)
 
 	INVOKE_ASYNC(src, PROC_REF(use_tool_on), object, user, selected)
 	return
-
 
 /obj/item/storage/toolbox/proc/use_tool_on(atom/object, mob/living/user, obj/item/picked_tool)
 	current_interactions += 1
@@ -134,13 +142,11 @@
 	if(current_interactions)
 		return
 
-	if(istype(picked_tool, /obj/item/weldingtool))
-		var/obj/item/weldingtool/welder = picked_tool
-		if(welder.tool_enabled)
-			welder.attack_self(user) // Need to turn it off after use
+	SEND_SIGNAL(picked_tool, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE, user)
 
-	if(can_be_inserted(picked_tool))
-		handle_item_insertion(picked_tool)
+	if(!can_be_inserted(picked_tool))
+		return
+	handle_item_insertion(picked_tool)
 
 /**
  * MARK: Toolbox types
@@ -261,7 +267,6 @@
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит подозрительно."
-	gender = MALE
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=2;syndicate=1;engineering=2"
@@ -292,7 +297,6 @@
 /obj/item/storage/toolbox/syndisuper
 	name = "exteremely suspicious looking toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит чрезвычайно подозрительно."
-	gender = MALE
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=5;syndicate=1;engineering=5"

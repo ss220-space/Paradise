@@ -181,6 +181,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/toolspeed = 1
 	/// For tools that have an extra mode.
 	var/tool_mode = NONE
+	/// For tools that can be used from toolbox via radial menu
+	var/toolbox_radial_menu_compatibility = FALSE
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:

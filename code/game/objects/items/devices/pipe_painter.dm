@@ -6,6 +6,7 @@
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "pipe_painter"
 	usesound = 'sound/effects/spray2.ogg'
+	toolbox_radial_menu_compatibility = TRUE
 	var/list/modes
 	var/mode
 
