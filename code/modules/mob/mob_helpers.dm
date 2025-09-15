@@ -188,7 +188,7 @@
 
 /proc/stars_all(list/message_pieces, probability = 25)
 	for(var/datum/multilingual_say_piece/piece in message_pieces)
-		piece.message = stars(piece.message, probability)
+		piece.message = stars(trim_strip_html_properly(piece.message), probability)
 
 /proc/slur(phrase, list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)

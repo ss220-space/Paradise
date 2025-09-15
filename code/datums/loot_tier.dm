@@ -611,7 +611,7 @@
 			/obj/item/ammo_box/c9mm,
 			/obj/item/ammo_box/rubber9mm,
 		),
-		CALIBER_9MM_TE = list(
+		CALIBER_45NR = list(
 			/obj/item/ammo_box/c9mmte,
 		),
 		CALIBER_DOT_357 = list(

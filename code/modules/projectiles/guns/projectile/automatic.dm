@@ -199,7 +199,7 @@
 //"SP-91-RC//
 /obj/item/gun/projectile/automatic/sp91rc
 	name = "SP-91-RC"
-	desc = "Compact submachine gun designed for riot control."
+	desc = "Компактный пистолет-пулемёт, предназначенный для \"нелетального\" подавления беспорядков."
 	icon_state = "SP-91-RC"
 	item_state = "SP-91-RC"
 	mag_type = /obj/item/ammo_box/magazine/sp91rc
@@ -584,7 +584,7 @@ TODO Use this name and desc for localisation*/
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
-	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
+	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/3, 1)*3]" : ""]"
 
 //Semi-Machine Gun SFG
 
