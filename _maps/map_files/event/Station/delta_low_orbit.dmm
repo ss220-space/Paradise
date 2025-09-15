@@ -1233,12 +1233,6 @@
 	icon_state = "whiteblue"
 	},
 /area/maintenance/starboard)
-"aiN" = (
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "aiT" = (
 /obj/structure/table/reinforced,
 /obj/structure/cable{
@@ -1254,16 +1248,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
-"aja" = (
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "aje" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/machinery/light_switch{
@@ -2844,6 +2828,13 @@
 /obj/structure/stone_tile/center,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"azj" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/bait/bloody_leach,
+/obj/item/reagent_containers/food/snacks/bait/goldgrub_larva,
+/obj/item/reagent_containers/food/snacks/bait/ash_eater,
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "azn" = (
 /obj/structure/closet/cardboard,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -3287,10 +3278,6 @@
 	icon_state = "cmo"
 	},
 /area/medical/cmo)
-"aDc" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "aDi" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4
@@ -3731,6 +3718,16 @@
 	icon_state = "neutralcorner"
 	},
 /area/toxins/mixing)
+"aGX" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "aHi" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 8
@@ -4038,16 +4035,6 @@
 /obj/machinery/papershredder,
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain)
-"aJk" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile/slab/cracked{
-	dir = 10
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
 "aJr" = (
 /obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
@@ -5621,13 +5608,6 @@
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
-"aWg" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "aWq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -6319,6 +6299,19 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"bcP" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "bda" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -7748,11 +7741,10 @@
 	icon_state = "darkblue"
 	},
 /area/maintenance/detectives_office)
-"bqq" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/bait/bloody_leach,
-/obj/item/reagent_containers/food/snacks/bait/goldgrub_larva,
-/obj/item/reagent_containers/food/snacks/bait/ash_eater,
+"bqN" = (
+/obj/structure/railing/wooden{
+	dir = 1
+	},
 /turf/simulated/floor/wood/dark,
 /area/lavaland/surface/outdoors)
 "bqO" = (
@@ -7893,6 +7885,12 @@
 "brP" = (
 /obj/structure/railing{
 	dir = 9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8586,13 +8584,6 @@
 	icon_state = "dark"
 	},
 /area/bridge)
-"byo" = (
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "byD" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -8926,10 +8917,6 @@
 	icon_state = "browncorner"
 	},
 /area/hallway/primary/central/north)
-"bCc" = (
-/obj/structure/railing/wooden,
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "bCi" = (
 /obj/structure/closet/secure_closet/security,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -8992,6 +8979,13 @@
 	icon_state = "white"
 	},
 /area/medical/medbay)
+"bCz" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/twohanded/fishing_rod/tribal,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "bCP" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -9515,6 +9509,7 @@
 "bHw" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -9688,6 +9683,17 @@
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/kitchen)
+"bIv" = (
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "bIx" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -10950,10 +10956,6 @@
 	icon_state = "dark"
 	},
 /area/engineering/mechanic_workshop/hangar)
-"bTc" = (
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
-/turf/simulated/openspace/lavaland,
-/area/lavaland/surface/outdoors)
 "bTg" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile{
@@ -12035,6 +12037,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
+"cdQ" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "cdR" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
@@ -12439,6 +12452,17 @@
 	icon_state = "dark"
 	},
 /area/security/prisonershuttle)
+"chK" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "chM" = (
 /obj/machinery/door/airlock/security{
 	name = "Restroom";
@@ -12588,13 +12612,6 @@
 /obj/item/cane,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/cabin4)
-"ciT" = (
-/obj/structure/stone_tile/slab/cracked,
-/obj/structure/table/wood,
-/obj/effect/mapping_helpers/no_lava,
-/obj/item/twohanded/fishing_rod/tribal,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "ciY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -13110,10 +13127,6 @@
 	icon_state = "whitered"
 	},
 /area/security/medbay)
-"cnW" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/mineral/random/volcanic/hard,
-/area/lavaland/surface/outdoors)
 "cof" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/sunflower,
@@ -13665,6 +13678,14 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
+"csH" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "csM" = (
 /obj/effect/decal/cleanable/blood/xeno,
 /turf/simulated/floor/plasteel{
@@ -14356,19 +14377,6 @@
 "czQ" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/explab)
-"czU" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile/slab/cracked{
-	dir = 10
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "cAc" = (
 /obj/machinery/door_control{
 	desiredstate = 1;
@@ -14858,12 +14866,6 @@
 	icon_state = "vault"
 	},
 /area/maintenance/turbine)
-"cDH" = (
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "cEd" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
@@ -14874,6 +14876,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/whetstone,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -16592,6 +16597,13 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"cTH" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/fluff/ash_statue{
+	special_name = "лавовое озеро"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "cTM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -17465,10 +17477,6 @@
 /mob/living/simple_animal/cow/Betsy,
 /turf/simulated/floor/grass,
 /area/hydroponics)
-"dat" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/mineral/wood,
-/area/lavaland/surface/outdoors)
 "daB" = (
 /turf/simulated/wall/r_wall,
 /area/medical/paramedic)
@@ -18161,12 +18169,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
-"dgI" = (
-/obj/structure/stone_tile/slab/cracked,
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stairs/wood,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "dgK" = (
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = -32
@@ -18660,10 +18662,6 @@
 	icon_state = "cautioncorner"
 	},
 /area/maintenance/bar)
-"dkA" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
 "dkD" = (
 /obj/machinery/firealarm{
 	pixel_y = 26
@@ -19419,6 +19417,20 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai)
+"dsc" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "dsf" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -19884,6 +19896,9 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/maintenance/fpmaint)
+"dwJ" = (
+/turf/simulated/wall/mineral/wood,
+/area/lavaland/surface/outdoors)
 "dwR" = (
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -21377,11 +21392,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
-"dJy" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/flora/ausbushes/grassybush/hell,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "dJG" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -21795,12 +21805,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
-"dMU" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/flora/ausbushes/fullgrass/hell,
-/obj/structure/flora/ausbushes/fullgrass/hell,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "dNa" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/flora/ash/rock,
@@ -22308,13 +22312,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore)
-"dSf" = (
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "dSn" = (
 /obj/structure/ladder,
 /obj/machinery/light/small{
@@ -24218,6 +24215,11 @@
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
+"eko" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/flora/ausbushes/genericbush/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "eku" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -25333,13 +25335,6 @@
 "etg" = (
 /turf/simulated/wall/r_wall,
 /area/security/checkpoint/south)
-"eth" = (
-/obj/structure/railing/wooden,
-/obj/structure/railing/wooden{
-	dir = 4
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "etq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -27019,11 +27014,8 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "eJB" = (
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/wall/indestructible/boss,
 /area/ruin/unpowered/safe_cave)
 "eJO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -31234,6 +31226,9 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
@@ -32148,6 +32143,10 @@
 /obj/structure/railing{
 	dir = 10
 	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -32661,16 +32660,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"fJq" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 5
-	},
-/obj/structure/stone_tile/slab/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "fJs" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -33781,6 +33770,12 @@
 	icon_state = "darkblue"
 	},
 /area/bridge)
+"fSN" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "fSV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -34585,6 +34580,16 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
+"fZc" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "fZd" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/mech_bay_recharge_port{
@@ -34672,26 +34677,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
-"gaa" = (
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/table/wood,
-/obj/effect/mapping_helpers/no_lava,
-/obj/item/shovel/spade/wooden{
-	pixel_x = -2;
-	pixel_y = -8
-	},
-/obj/item/shovel/spade/wooden{
-	pixel_x = 6;
-	pixel_y = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "gam" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -37463,18 +37448,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
-"gzN" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stone_tile/center,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "gzO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -39275,13 +39248,6 @@
 	icon_state = "browncorner"
 	},
 /area/mine/living_quarters)
-"gRF" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 10
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "gRH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -41349,6 +41315,12 @@
 	icon_state = "whiteblue"
 	},
 /area/maintenance/starboard)
+"hiG" = (
+/obj/structure/railing/wooden{
+	dir = 8
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "hiP" = (
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
@@ -41638,16 +41610,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
-"hlm" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 5
-	},
-/obj/structure/stone_tile/slab/cracked{
-	dir = 10
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
 "hln" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -42018,17 +41980,6 @@
 	},
 /turf/simulated/floor/glass,
 /area/security/processing)
-"hnP" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "hnR" = (
 /obj/item/clothing/under/pirate,
 /obj/effect/mapping_helpers/no_lava,
@@ -44308,17 +44259,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/security/customs)
-"hGx" = (
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile/burnt{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "hGz" = (
 /obj/structure/table/glass,
 /obj/item/scalpel{
@@ -44352,6 +44292,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/production)
+"hGE" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "hGI" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/warning_stripes/yellow,
@@ -45148,13 +45095,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
-"hNG" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stone_tile/slab/cracked{
-	dir = 5
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "hNK" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -45193,6 +45133,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"hOb" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "hOd" = (
 /obj/structure/bed,
 /obj/machinery/status_display{
@@ -45653,6 +45600,13 @@
 /obj/structure/grille,
 /obj/structure/grille,
 /turf/simulated/openspace/lavaland,
+/area/lavaland/surface/outdoors)
+"hSl" = (
+/obj/structure/railing/wooden,
+/obj/structure/railing/wooden{
+	dir = 8
+	},
+/turf/simulated/floor/wood/dark,
 /area/lavaland/surface/outdoors)
 "hSr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -46660,6 +46614,15 @@
 	icon_state = "showroomfloor"
 	},
 /area/maintenance/banya)
+"iaz" = (
+/obj/structure/railing/wooden{
+	dir = 1
+	},
+/obj/structure/railing/wooden{
+	dir = 8
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "iaE" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/green/hollow,
@@ -46675,6 +46638,12 @@
 	icon_state = "browncorner"
 	},
 /area/mine/living_quarters)
+"iaJ" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/bonfire,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "iaL" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -46779,6 +46748,12 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
+"ibS" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "ibU" = (
 /obj/item/trash/tapetrash,
 /obj/structure/closet/walllocker/emerglocker/east,
@@ -47188,6 +47163,11 @@
 "igq" = (
 /obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"igB" = (
+/obj/structure/stone_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "igC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -49056,21 +49036,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
-"iyo" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/center,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
 "iyq" = (
 /obj/structure/sign/poster/random{
 	pixel_x = 32
@@ -49249,14 +49214,6 @@
 "iAi" = (
 /turf/simulated/wall/r_wall,
 /area/security/visiting_room)
-"iAn" = (
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "iAB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -49555,6 +49512,16 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/medbay2)
+"iEQ" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "iEV" = (
 /obj/machinery/camera{
 	c_tag = "Atmospherics Nitrogen Tank";
@@ -51461,10 +51428,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore)
-"iYr" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/mineral/wood,
-/area/ruin/unpowered/safe_cave)
 "iYz" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -52604,13 +52567,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/se)
-"jla" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 5
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
 "jld" = (
 /obj/structure/table,
 /obj/item/stamp/granted{
@@ -52884,10 +52840,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/bridge/checkpoint/south)
-"jnT" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/glass,
-/area/crew_quarters/fitness)
 "jod" = (
 /turf/simulated/floor/wood,
 /area/crew_quarters/serviceyard)
@@ -54206,6 +54158,11 @@
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
+"jzl" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/flora/ausbushes/grassybush/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "jzm" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/shuttle,
@@ -54224,6 +54181,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/south)
+"jzr" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "jzu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -56568,7 +56531,9 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "jUR" = (
-/turf/simulated/wall/mineral/wood,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "jUT" = (
 /obj/structure/table,
@@ -59085,10 +59050,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
-"kqt" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/indestructible/boss,
-/area/ruin/unpowered/safe_cave)
 "kqu" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -60435,15 +60396,6 @@
 	icon_state = "dark"
 	},
 /area/storage/tech)
-"kDh" = (
-/obj/structure/railing/wooden{
-	dir = 4
-	},
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "kDj" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -60465,8 +60417,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-"kDn" = (
-/turf/simulated/floor/wood/dark,
+"kDl" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
 /area/lavaland/surface/outdoors)
 "kDs" = (
 /obj/effect/decal/warning_stripes/yellow,
@@ -61079,20 +61038,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/starboard)
-"kKh" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stone_tile/center,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "kKm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -64076,16 +64021,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
-"ljH" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 5
-	},
-/obj/structure/stone_tile/slab/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
 "ljL" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "blueshieldofficewindows"
@@ -64628,6 +64563,10 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/storage/eva)
+"lok" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/glass,
+/area/crew_quarters/fitness)
 "lon" = (
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/plasteel{
@@ -64738,15 +64677,6 @@
 	icon_state = "browncorner"
 	},
 /area/quartermaster/storage)
-"lpm" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "BrigRight";
-	name = "Brig";
-	req_access = list(63)
-	},
-/turf/simulated/floor/glass,
-/area/security/securearmory)
 "lpt" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "library_gameroom"
@@ -65111,6 +65041,15 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/evidence)
+"lsB" = (
+/obj/structure/railing/wooden{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "lsE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -68359,14 +68298,6 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
-"lVa" = (
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "lVq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -68878,6 +68809,15 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/teleporter/abandoned)
+"lZG" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/obj/structure/railing/wooden{
+	dir = 1
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "lZH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -70715,6 +70655,9 @@
 	icon_state = "heater3x3";
 	tag = "icon-heater (NORTH)"
 	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
@@ -70735,12 +70678,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/serviceyard)
-"moL" = (
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "moO" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/portable_atmospherics/pump,
@@ -71764,6 +71701,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
+"mxD" = (
+/obj/structure/stone_tile/slab,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "mxF" = (
 /obj/structure/bed/sandstone,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -72499,6 +72441,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"mFz" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "mFD" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular,
@@ -74339,6 +74291,9 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
@@ -74849,6 +74804,18 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/commercial)
+"naX" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "naZ" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light{
@@ -75462,12 +75429,6 @@
 	icon_state = "darkblue"
 	},
 /area/turret_protected/ai)
-"nho" = (
-/obj/structure/railing/wooden{
-	dir = 1
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "nhu" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -76551,13 +76512,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"nqd" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 10
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
 "nqf" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -76685,6 +76639,10 @@
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
+"nrb" = (
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/turf/simulated/openspace/lavaland,
+/area/lavaland/surface/outdoors)
 "nrc" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/blood/oil,
@@ -77233,13 +77191,6 @@
 	icon_state = "vault"
 	},
 /area/maintenance/asmaint4)
-"nvQ" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 5
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "nvS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -78232,11 +78183,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-"nDD" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/flora/ausbushes/fullgrass/hell,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "nDH" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
@@ -79452,12 +79398,6 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
-"nOE" = (
-/obj/structure/stone_tile/slab/cracked,
-/obj/structure/bonfire,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "nOG" = (
 /obj/machinery/recharge_station,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -79747,6 +79687,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/main)
+"nQC" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/gun_module/rail/scope/x4,
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors)
 "nQV" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -80960,15 +80908,6 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
-"ocx" = (
-/obj/structure/railing/wooden{
-	dir = 1
-	},
-/obj/structure/railing/wooden{
-	dir = 8
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "ocG" = (
 /obj/machinery/power/solar{
 	name = "South-East Solar Panel"
@@ -81192,6 +81131,7 @@
 /obj/structure/railing,
 /obj/structure/table,
 /obj/item/mining_scanner,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -81718,6 +81658,9 @@
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
@@ -82458,6 +82401,12 @@
 "orL" = (
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/heads/hop)
+"orN" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "orP" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -83064,6 +83013,10 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
+"oyi" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/mineral/wood,
+/area/lavaland/surface/outdoors)
 "oyo" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -83071,10 +83024,6 @@
 /obj/effect/landmark/join_late,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
-"oyz" = (
-/obj/structure/railing,
-/turf/simulated/floor/plating,
-/area/lavaland/surface/outdoors)
 "oyA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -86179,13 +86128,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
-"pcD" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "pcF" = (
 /obj/item/trash/syndi_cakes{
 	pixel_x = -6;
@@ -86429,11 +86371,6 @@
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"peX" = (
-/obj/structure/stone_tile/slab,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "pfa" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -87402,6 +87339,13 @@
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
+"pmB" = (
+/obj/structure/railing/wooden,
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "pmD" = (
 /obj/machinery/disposal,
 /obj/machinery/light{
@@ -87610,6 +87554,16 @@
 /obj/effect/decal/cleanable/blood/xeno,
 /turf/simulated/floor/greengrid,
 /area/toxins/xenobiology)
+"ppa" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "ppc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -87726,6 +87680,11 @@
 	pixel_y = 20
 	},
 /obj/effect/baseturf_helper/lava_land/surface/basalt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
+"pqB" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
 "pqG" = (
@@ -88025,10 +87984,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/security/securehallway)
-"psM" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "ptc" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -88282,8 +88237,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "pvn" = (
-/turf/space,
-/area/lavaland/surface/outdoors/necropolis)
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "pvs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -88342,21 +88298,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
-"pwk" = (
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/center,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
 "pwl" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/item/clothing/glasses/meson/night,
@@ -88895,17 +88836,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
-"pBm" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
 "pBo" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -89974,18 +89904,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
-"pLE" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stone_tile/center,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "pLJ" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Turbine Generator Access";
@@ -90424,6 +90342,13 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/surgery/north)
+"pPI" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "pPL" = (
 /obj/structure/table/wood/fancy,
 /obj/item/trash/candle,
@@ -90720,17 +90645,16 @@
 	},
 /turf/simulated/floor/engine/co2,
 /area/atmos)
-"pSl" = (
-/obj/structure/railing/wooden,
-/obj/structure/stone_tile/block,
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "pSo" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
+"pSt" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic/hard,
+/area/lavaland/surface/outdoors)
 "pSC" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/lavaland/cactus,
@@ -92156,6 +92080,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"qhj" = (
+/obj/structure/railing,
+/turf/simulated/floor/plating,
+/area/lavaland/surface/outdoors)
 "qhn" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -93146,6 +93074,15 @@
 	},
 /turf/simulated/openspace/lavaland,
 /area/solar/starboard)
+"qrF" = (
+/obj/structure/railing/wooden{
+	dir = 1
+	},
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "qrO" = (
 /turf/simulated/floor/indestructible/hierophant/two,
 /area/ruin/unpowered/hierophant)
@@ -94373,6 +94310,14 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
+"qBV" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/charred_krill{
+	name = "ТАНДЕРДРОМНЫЙ КРИИЛ";
+	pixel_y = 5
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "qBW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -94533,11 +94478,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
-"qCY" = (
-/obj/structure/stone_tile/slab/cracked,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
 "qDa" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -95650,6 +95590,10 @@
 	icon_state = "purplefull"
 	},
 /area/medical/research/nhallway)
+"qKL" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/mineral/wood,
+/area/ruin/unpowered/safe_cave)
 "qKN" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -99974,6 +99918,7 @@
 /area/hallway/secondary/entry/westarrival)
 "ruE" = (
 /obj/structure/railing,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -101298,19 +101243,6 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
-"rHp" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/slab/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/railing/wooden{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "rHv" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -101777,13 +101709,6 @@
 /obj/item/assembly/signaler,
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
-"rLY" = (
-/obj/structure/railing/wooden,
-/obj/structure/railing/wooden{
-	dir = 8
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "rMj" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
@@ -102309,6 +102234,11 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/test_chamber)
+"rSG" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "rSH" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -108691,6 +108621,12 @@
 "sWL" = (
 /turf/simulated/wall,
 /area/security/permabrig)
+"sWP" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "sWR" = (
 /obj/docking_port/stationary{
 	dwidth = 2;
@@ -108885,6 +108821,10 @@
 	icon_state = "neutralfull"
 	},
 /area/maintenance/consarea_virology)
+"sYr" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "sYx" = (
 /obj/structure/table,
 /obj/machinery/cell_charger{
@@ -109393,6 +109333,10 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/security/visiting_room)
+"tbX" = (
+/obj/structure/railing/wooden,
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "tcb" = (
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 4;
@@ -110459,6 +110403,13 @@
 	icon_state = "dark"
 	},
 /area/maintenance/asmaint4)
+"tlX" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "tlY" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/launch)
@@ -110628,6 +110579,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permahallway)
+"tnK" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/center,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "tnL" = (
 /obj/machinery/kitchen_machine/oven,
 /obj/effect/decal/cleanable/dirt,
@@ -110904,6 +110870,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
+"tpX" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "tqa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -111426,6 +111399,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
+"tuz" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "tuA" = (
 /obj/machinery/light{
 	dir = 4
@@ -112701,16 +112684,6 @@
 	icon_state = "caution"
 	},
 /area/maintenance/bar)
-"tEy" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 5
-	},
-/obj/structure/stone_tile/slab/cracked{
-	dir = 10
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "tED" = (
 /obj/machinery/power/rad_collector,
 /obj/machinery/camera{
@@ -112846,6 +112819,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/exit)
+"tFz" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stairs/wood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "tFK" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -113365,12 +113344,6 @@
 	icon_state = "dark"
 	},
 /area/bridge)
-"tJs" = (
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "tJw" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
@@ -113397,6 +113370,13 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/aisat_interior)
+"tJJ" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "tJL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -113484,15 +113464,6 @@
 	icon_state = "dark"
 	},
 /area/storage/tech)
-"tKQ" = (
-/obj/structure/railing/wooden{
-	dir = 1
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "tKY" = (
 /obj/structure/stone_tile/cracked,
 /obj/structure/stone_tile/cracked{
@@ -114904,19 +114875,6 @@
 	icon_state = "dark"
 	},
 /area/library)
-"tZi" = (
-/obj/structure/stone_tile/surrounding_tile{
-	dir = 4
-	},
-/obj/structure/stone_tile/slab/cracked{
-	dir = 10
-	},
-/obj/structure/stone_tile/slab/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "tZj" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -114973,6 +114931,26 @@
 	icon_state = "red"
 	},
 /area/security/checkpoint)
+"tZy" = (
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/shovel/spade/wooden{
+	pixel_x = -2;
+	pixel_y = -8
+	},
+/obj/item/shovel/spade/wooden{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "tZE" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/cable{
@@ -115538,16 +115516,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
-"uek" = (
-/obj/structure/stone_tile/slab/cracked{
-	dir = 10
-	},
-/obj/structure/stone_tile/slab/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "uel" = (
 /obj/structure/table,
 /obj/random/toolbox,
@@ -115762,12 +115730,6 @@
 	tag = "icon-wood-broken7"
 	},
 /area/mine/laborcamp)
-"ufm" = (
-/obj/structure/railing/wooden{
-	dir = 8
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "ufo" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -117636,16 +117598,6 @@
 	icon_state = "grimy"
 	},
 /area/hallway/secondary/entry/lounge)
-"uvB" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stone_tile/slab/cracked{
-	dir = 10
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "uvD" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -119601,13 +119553,6 @@
 	icon_state = "dark"
 	},
 /area/aisat/aihallway)
-"uOu" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/fluff/ash_statue{
-	special_name = "лавовое озеро"
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "uOw" = (
 /obj/machinery/light{
 	dir = 4
@@ -119732,14 +119677,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/magistrateoffice)
-"uPu" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/charred_krill{
-	name = "ТАНДЕРДРОМНЫЙ КРИИЛ";
-	pixel_y = 5
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "uPw" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -120923,6 +120860,15 @@
 	icon_state = "white"
 	},
 /area/medical/cryo)
+"vam" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "BrigRight";
+	name = "Brig";
+	req_access = list(63)
+	},
+/turf/simulated/floor/glass,
+/area/security/securearmory)
 "var" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed,
@@ -122734,6 +122680,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"vsk" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "vsm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -123371,6 +123324,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
+"vxk" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "vxp" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -125354,6 +125320,11 @@
 	icon_state = "neutralfull"
 	},
 /area/engineering/engine)
+"vOB" = (
+/obj/structure/railing/wooden,
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "vOF" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -125854,15 +125825,6 @@
 /obj/effect/landmark/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"vTl" = (
-/obj/structure/railing/wooden{
-	dir = 4
-	},
-/obj/structure/railing/wooden{
-	dir = 1
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "vTo" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -126705,15 +126667,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
-"waK" = (
-/obj/structure/railing/wooden{
-	dir = 1
-	},
-/obj/structure/railing/wooden{
-	dir = 4
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "waQ" = (
 /obj/structure/chair{
 	dir = 8
@@ -126735,10 +126688,20 @@
 	icon_state = "red"
 	},
 /area/security/processing)
-"wbt" = (
+"wbf" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/center,
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/flora/ausbushes/genericbush/hell,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
 /area/lavaland/surface/outdoors)
 "wbw" = (
 /obj/structure/disposalpipe/segment,
@@ -126772,6 +126735,9 @@
 /obj/item/flashlight/seclite,
 /turf/simulated/floor/plasteel,
 /area/security/main)
+"wbU" = (
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "wca" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/bottle/ethanol,
@@ -126853,6 +126819,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
+"wcH" = (
+/obj/structure/railing/wooden{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/simulated/floor/wood/dark,
+/area/lavaland/surface/outdoors)
 "wcN" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable{
@@ -127212,6 +127187,12 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/storage)
+"wfq" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/obj/structure/flora/ausbushes/fullgrass/hell,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "wfw" = (
 /obj/machinery/door/airlock/external{
 	name = "Toxins Test Chamber"
@@ -127550,6 +127531,9 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
 	pixel_y = 30
+	},
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -127924,14 +127908,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
-"wlZ" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/gun_module/rail/scope/x4,
-/turf/simulated/floor/plating,
-/area/lavaland/surface/outdoors)
 "wme" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -128420,6 +128396,18 @@
 /obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
+"wqM" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "wqN" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger{
@@ -130138,6 +130126,13 @@
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
+"wEf" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "wEh" = (
 /obj/structure/stairs{
 	layer = 2
@@ -131889,6 +131884,14 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"wTf" = (
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "wTi" = (
 /obj/machinery/door_control{
 	desc = "A remote control-switch for the pod doors.";
@@ -132130,11 +132133,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
-"wVv" = (
-/obj/structure/stone_tile/slab/cracked,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "wVE" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -133132,6 +133130,10 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
+"xdJ" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
 "xdO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -134823,6 +134825,19 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
+"xqM" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "xqV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -135412,6 +135427,13 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
+"xxw" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "xxy" = (
 /obj/machinery/vending/coffee,
 /obj/structure/sign/poster/official/random{
@@ -136483,11 +136505,6 @@
 	icon_state = "dark"
 	},
 /area/maintenance/detectives_office)
-"xGC" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stone_tile/slab/cracked,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "xGD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -136515,6 +136532,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"xGU" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "xGV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -136796,6 +136823,16 @@
 	icon_state = "darkblue"
 	},
 /area/bridge)
+"xJg" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "xJh" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -137106,6 +137143,11 @@
 	icon_state = "dark"
 	},
 /area/hydroponics)
+"xNg" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
 "xNm" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -137539,12 +137581,6 @@
 	icon_state = "white"
 	},
 /area/medical/genetics)
-"xRL" = (
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/turf/simulated/floor/wood/dark,
-/area/lavaland/surface/outdoors)
 "xRM" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -138262,16 +138298,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood/fancy/light,
 /area/medical/psych)
-"xXK" = (
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "xXN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -138705,6 +138731,13 @@
 "ybk" = (
 /turf/simulated/wall/rust,
 /area/teleporter/abandoned)
+"ybp" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "ybt" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -139839,11 +139872,6 @@
 	icon_state = "dark"
 	},
 /area/atmos)
-"ymh" = (
-/obj/structure/stone_tile/cracked,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 cBz
@@ -148390,9 +148418,9 @@ gCd
 gCd
 gCd
 gCd
-xGC
-pLE
-hNG
+jUR
+wqM
+ybp
 gCd
 gCd
 gCd
@@ -148644,11 +148672,11 @@ fIG
 fIG
 fIG
 fIG
-dat
-dat
-aDc
+oyi
+oyi
+xdJ
 fIG
-nDD
+rSG
 fIG
 gCd
 gCd
@@ -148896,21 +148924,21 @@ fIG
 fIG
 fIG
 fIG
-dkA
-dkA
+pvn
+pvn
 fIG
 msy
 fIG
 fIG
-uOu
+cTH
 fIG
 fIG
 fIG
 fIG
 fIG
-jUR
+dwJ
 bzi
-nDD
+rSG
 gCd
 vGT
 vGT
@@ -149151,18 +149179,18 @@ vGT
 vGT
 fIG
 fIG
-dkA
-dkA
-dkA
-dkA
-dkA
+pvn
+pvn
+pvn
+pvn
+pvn
 fIG
-aJk
+aGX
 fIG
 fIG
 fIG
-dJy
-aja
+jzl
+xJg
 fIG
 fIG
 fIG
@@ -149409,22 +149437,22 @@ vGT
 fIG
 fIG
 fIG
-dkA
-dkA
-dkA
-dkA
-dkA
-ljH
-wbt
+pvn
+pvn
+pvn
+pvn
+pvn
+ppa
+eko
 fIG
-lVa
+csH
 fIG
-dkA
-dkA
+pvn
+pvn
 fIG
-wbt
+eko
 fIG
-iAn
+wTf
 gCd
 vGT
 vGT
@@ -149663,22 +149691,22 @@ vGT
 vGT
 vGT
 vGT
-gzN
+naX
 msy
 fIG
 fIG
-dkA
-pwk
-dkA
-dkA
-dkA
-dkA
+pvn
+tnK
+pvn
+pvn
+pvn
+pvn
 fIG
-dMU
-jla
-dkA
-dkA
-dkA
+wfq
+tpX
+pvn
+pvn
+pvn
 fIG
 fIG
 fIG
@@ -149920,26 +149948,26 @@ vGT
 vGT
 vGT
 vGT
-hNG
+ybp
 fIG
-uek
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-qCY
+xGU
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+xNg
 fIG
 fIG
-hGx
+bIv
 vGT
 vGT
 vGT
@@ -150177,26 +150205,26 @@ vGT
 vGT
 vGT
 vGT
-xGC
+jUR
 fIG
 fIG
-aWg
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
+tlX
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
 fIG
 fIG
 fIG
-uek
+xGU
 vGT
 vGT
 vGT
@@ -150436,24 +150464,24 @@ vGT
 vGT
 gCd
 gCd
-nDD
+rSG
 fIG
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
 fIG
 fIG
 fIG
-nvQ
+wEf
 vGT
 vGT
 vGT
@@ -150696,18 +150724,18 @@ gCd
 bzi
 fIG
 fIG
-nqd
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-tEy
+xxw
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+fZc
 fIG
 msy
 gCd
@@ -150953,17 +150981,17 @@ gCd
 bzi
 bzi
 fIG
-dkA
-dkA
-dkA
-dkA
-pBm
-dkA
-dkA
-dkA
-iyo
-dkA
-dkA
+pvn
+pvn
+pvn
+pvn
+chK
+pvn
+pvn
+pvn
+wbf
+pvn
+pvn
 fIG
 fIG
 fIG
@@ -151210,20 +151238,20 @@ gCd
 gCd
 fIG
 fIG
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
 fIG
 fIG
 fIG
-nDD
+rSG
 gCd
 vGT
 vGT
@@ -151466,22 +151494,22 @@ gCd
 gCd
 gCd
 fIG
-dSf
-dJy
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
+vsk
+jzl
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
 fIG
 fIG
-nDD
-kqt
-iYr
-iYr
+rSG
+eJB
+qKL
+qKL
 vGT
 vGT
 vGT
@@ -151725,20 +151753,20 @@ bzi
 fIG
 fIG
 fIG
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-dkA
-czU
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+pvn
+bcP
 fIG
 fIG
-kqt
-iYr
-gaa
-kqt
+eJB
+qKL
+tZy
+eJB
 vGT
 vGT
 vGT
@@ -151983,19 +152011,19 @@ fIG
 fIG
 fIG
 fIG
-dkA
-dkA
-hlm
-dkA
-dkA
-dkA
+pvn
+pvn
+kDl
+pvn
+pvn
+pvn
 vxf
 fIG
-psM
-wVv
-pcD
-byo
-iYr
+sYr
+pqB
+pPI
+tJJ
+qKL
 vGT
 vGT
 vGT
@@ -152239,20 +152267,20 @@ fIG
 fIG
 fIG
 fIG
-iAn
-dJy
-dkA
-dkA
-dkA
+wTf
+jzl
+pvn
+pvn
+pvn
 fIG
 fIG
 fIG
-kqt
-kqt
 eJB
-fJq
-hnP
-kqt
+eJB
+hOb
+tuz
+cdQ
+eJB
 vGT
 vGT
 vGT
@@ -152493,23 +152521,23 @@ vGT
 gCd
 fIG
 fIG
-ymh
-wbt
+igB
+eko
 fIG
 fIG
 fIG
-nvQ
+wEf
 fIG
-ymh
+igB
 fIG
 fIG
 fIG
-kqt
-wVv
-tZi
-nOE
-peX
-kqt
+eJB
+pqB
+xqM
+iaJ
+mxD
+eJB
 vGT
 vGT
 vGT
@@ -152749,7 +152777,7 @@ vGT
 vGT
 gCd
 gCd
-jUR
+dwJ
 fIG
 fIG
 fIG
@@ -152759,14 +152787,14 @@ fIG
 msy
 fIG
 fIG
-dSf
+vsk
 fIG
-iYr
-iYr
-ciT
-gRF
-rHp
-iYr
+qKL
+qKL
+bCz
+hGE
+vxk
+qKL
 vGT
 vGT
 vGT
@@ -153006,24 +153034,24 @@ vGT
 vGT
 gCd
 gCd
-jUR
-jUR
+dwJ
+dwJ
 fIG
-nDD
+rSG
 gCd
 bzi
 fIG
 fIG
 fIG
-jUR
+dwJ
 fIG
-nDD
-cnW
-iYr
-kqt
-xXK
-dgI
-iYr
+rSG
+pSt
+qKL
+eJB
+mFz
+tFz
+qKL
 vGT
 vGT
 vGT
@@ -153269,18 +153297,18 @@ gCd
 gCd
 gCd
 gCd
-uvB
-kKh
-xGC
+iEQ
+dsc
+jUR
 gCd
 gCd
 gCd
 gCd
 gCd
-kqt
-kqt
-iYr
-iYr
+eJB
+eJB
+qKL
+qKL
 vGT
 vGT
 vGT
@@ -196397,7 +196425,7 @@ cBz
 cBz
 cBz
 cBz
-pvn
+tTj
 tTj
 tTj
 tTj
@@ -210376,7 +210404,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -211697,7 +211725,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -212016,7 +212044,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -212568,7 +212596,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -216256,7 +216284,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -216997,7 +217025,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -217015,9 +217043,9 @@ rww
 rww
 rww
 rww
-ocx
-ufm
-rLY
+iaz
+hiG
+hSl
 rww
 rww
 rww
@@ -217271,10 +217299,10 @@ rww
 rww
 rww
 rww
-ocx
-moL
-moL
-bCc
+iaz
+sWP
+sWP
+tbX
 rww
 rww
 rww
@@ -217528,10 +217556,10 @@ rww
 rww
 rww
 rww
-tKQ
-uPu
-bqq
-pSl
+lsB
+qBV
+azj
+vOB
 rww
 rww
 rww
@@ -217783,12 +217811,12 @@ rww
 rww
 rww
 rww
-ocx
-ufm
-kDn
-cDH
-xRL
-bCc
+iaz
+hiG
+wbU
+jzr
+fSN
+tbX
 rww
 rww
 rww
@@ -218040,12 +218068,12 @@ rww
 rww
 rww
 rww
-nho
-kDn
-kDn
-kDn
-kDn
-bCc
+bqN
+wbU
+wbU
+wbU
+wbU
+tbX
 rww
 rww
 rww
@@ -218297,12 +218325,12 @@ rww
 rww
 rww
 rww
-nho
-kDn
-kDn
-moL
-tJs
-bCc
+bqN
+wbU
+wbU
+sWP
+ibS
+tbX
 rww
 rww
 rww
@@ -218555,11 +218583,11 @@ rww
 rww
 rww
 rww
-waK
-aiN
+qrF
+orN
 rww
 rww
-bCc
+tbX
 rww
 rww
 rww
@@ -218813,10 +218841,10 @@ rww
 rww
 rww
 rww
-vTl
-kDh
-kDh
-eth
+lZG
+wcH
+wcH
+pmB
 rww
 rww
 rww
@@ -219744,7 +219772,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -222215,7 +222243,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -224469,7 +224497,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -226556,7 +226584,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -226897,7 +226925,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -230717,7 +230745,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -232357,7 +232385,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -233710,7 +233738,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -239661,7 +239689,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -240554,7 +240582,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -242435,7 +242463,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -247468,7 +247496,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -249376,7 +249404,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -249715,7 +249743,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -252826,7 +252854,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -254457,7 +254485,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -257412,10 +257440,10 @@ rww
 rww
 rww
 rww
-wlZ
+nQC
 nFw
 nFw
-oyz
+qhj
 rww
 rww
 rww
@@ -257447,9 +257475,9 @@ rww
 rww
 rww
 vjt
-jnT
+lok
 iob
-jnT
+lok
 vjt
 rww
 rww
@@ -257671,7 +257699,7 @@ rww
 rww
 wgu
 wgu
-lpm
+vam
 wgu
 rww
 rww
@@ -258363,7 +258391,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -259048,7 +259076,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -264810,7 +264838,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -267746,7 +267774,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -269011,7 +269039,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -269336,7 +269364,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -269579,7 +269607,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
@@ -270876,7 +270904,7 @@ rww
 rww
 rww
 rww
-bTc
+nrb
 rww
 rww
 rww
