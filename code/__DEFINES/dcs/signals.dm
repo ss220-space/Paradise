@@ -35,6 +35,11 @@
 #define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
 #define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
 
+#define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
+#define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"
+#define COMSIG_WEATHER_WINDDOWN(event_type) "!weather_winddown [event_type]"
+#define COMSIG_WEATHER_END(event_type) "!weather_end [event_type]"
+
 /// signals from globally accessible objects
 
 ///from SSsun when the sun changes position : (azimuth)
@@ -329,6 +334,10 @@
 #define COMSIG_ATOM_ENTERED_AREA "atom_entered_area"
 ///from base of area/Exited(): (area/current_area, area/new_area)
 #define COMSIG_ATOM_EXITED_AREA "atom_exited_area"
+/// Called when some weather starts in this area
+#define COMSIG_WEATHER_BEGAN_IN_AREA(event_type) "weather_began_in_area_[event_type]"
+/// Called when some weather ends in this area
+#define COMSIG_WEATHER_ENDED_IN_AREA(event_type) "weather_ended_in_area_[event_type]"
 
 // /turf signals
 
@@ -1352,7 +1361,10 @@
 // HUD:
 /// Sent from /datum/hud/proc/eye_z_changed() : (old_offset, new_offset)
 #define COMSIG_HUD_OFFSET_CHANGED "hud_offset_changed"
-
+/// Sent from /datum/hud/proc/eye_z_changed() : (new_z)
+#define COMSIG_HUD_Z_CHANGED "hud_z_changed"
+/// from /datum/plane_master_group/proc/set_hud(): (datum/hud/new_hud)
+#define COMSIG_GROUP_HUD_CHANGED "group_hud_changed"
 
 ///from [/datum/move_loop/start_loop] ():
 #define COMSIG_MOVELOOP_START "moveloop_start"

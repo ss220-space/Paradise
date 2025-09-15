@@ -586,6 +586,7 @@
 #include "code\datums\components\fullauto.dm"
 #include "code\datums\components\ghost_direct_control.dm"
 #include "code\datums\components\hide_highest_offset.dm"
+#include "code\datums\components\hide_weather_planes.dm"
 #include "code\datums\components\holderloving.dm"
 #include "code\datums\components\jackboots.dm"
 #include "code\datums\components\jetpack.dm"
