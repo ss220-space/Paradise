@@ -125,6 +125,7 @@
 		shoot_with_empty_chamber(user)
 		return
 
+	ballon_alert(user, "вы целитесь вверх...")
 	if(!do_after(user, 1.5 SECONDS, src, max_interact_count = 1, interaction_key = src, cancel_on_max = TRUE))
 		return
 
@@ -141,6 +142,7 @@
 	user.visible_message(
 		span_cultlarge("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] дуло вверх и стреля[pluralize_ru(user.gender, "ет", "ют")], используя [declent_ru(ACCUSATIVE)]!"),
 		 ignored_mobs = user
+
 	)
 
 	playsound(user, fire_sound, 120, FALSE)
