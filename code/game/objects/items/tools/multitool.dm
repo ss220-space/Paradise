@@ -34,7 +34,7 @@
 	var/broken_type = /obj/item/multitool_broken
 
 /obj/item/multitool/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "мультиметр",
 		GENITIVE = "мультиметра",
 		DATIVE = "мультиметру",
@@ -93,7 +93,7 @@
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 
 /obj/item/multitool_broken/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "сломанный мультиметр",
 		GENITIVE = "сломанного мультиметра",
 		DATIVE = "сломанному мультиметру",
@@ -207,7 +207,7 @@
 	emp_shielded = TRUE
 
 /obj/item/multitool/old/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "старый мультиметр",
 		GENITIVE = "старого мультиметра",
 		DATIVE = "старому мультиметру",
