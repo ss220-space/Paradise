@@ -333,11 +333,6 @@
 
 /obj/structure/hivebot_spawner/proc/spawn_bots()
 	new /obj/effect/spawner/hivebot(get_turf(src))
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(5, location = get_turf(src))
-	smoke.start()
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] открывается!"))
-	playsound(src.loc, 'sound/machines/boltsdown.ogg', 25, TRUE)
 
 /obj/structure/hivebot_spawner/proc/finish_production()
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] останавливается."))
