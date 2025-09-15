@@ -261,7 +261,7 @@
 	target.health = min(target.health + heal_amount, target.maxHealth)
 	target.updatehealth()
 
-	visible_message(span_redtext("[capitalize(declent_ru(NOMINATIVE))] чинит [target.declent_ru(ACCUSATIVE)] с помощью ремонтных нанитов."))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] чинит [target.declent_ru(ACCUSATIVE)] с помощью ремонтных нанитов."))
 
 	var/datum/effect_system/spark_spread/sparks = new
 	sparks.set_up(3, 0, get_turf(target))
@@ -287,11 +287,11 @@
 	var/cooldown_duration = 3000
 	/// Whether currently producing bots
 	var/is_active = FALSE
-	/// Current spawn count in cycle
+	/// Number of bots produced in current cycle
 	var/current_spawn_count = 0
 
-	COOLDOWN_DECLARE(cycle_cooldown)
-	COOLDOWN_DECLARE(spawn_cooldown)
+	var/production_timer
+	var/cycle_timer
 
 /obj/structure/hivebot_spawner/get_ru_names()
 	return list(
@@ -305,41 +305,45 @@
 
 /obj/structure/hivebot_spawner/Initialize(mapload)
 	. = ..()
-	COOLDOWN_START(src, cycle_cooldown, spawn_interval)
-	START_PROCESSING(SSobj, src)
+	start_cycle()
 
 /obj/structure/hivebot_spawner/Destroy()
-	STOP_PROCESSING(SSobj, src)
+	deltimer(production_timer)
+	deltimer(cycle_timer)
 	return ..()
 
-/obj/structure/hivebot_spawner/process()
-	if(!is_active && COOLDOWN_FINISHED(src, cycle_cooldown))
-		start_production()
-		return
-	else if(is_active && COOLDOWN_FINISHED(src, spawn_cooldown))
-		spawn_bots()
-		return
+/obj/structure/hivebot_spawner/proc/start_cycle()
+	production_timer = addtimer(CALLBACK(src, .proc/start_production), spawn_interval, TIMER_STOPPABLE)
 
 /obj/structure/hivebot_spawner/proc/start_production()
 	is_active = TRUE
-	current_spawn_count = spawn_count
+	current_spawn_count = 0
 	icon_state = "fab_robot"
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает гудеть!"))
-	COOLDOWN_START(src, spawn_cooldown, spawn_interval / spawn_count)
+	production_timer = addtimer(CALLBACK(src, .proc/produce_bot), spawn_interval, TIMER_STOPPABLE)
+
+/obj/structure/hivebot_spawner/proc/produce_bot()
+	spawn_bots()
+	current_spawn_count++
+
+	if(current_spawn_count < spawn_count)
+		production_timer = addtimer(CALLBACK(src, .proc/produce_bot), spawn_interval, TIMER_STOPPABLE)
+	else
+		production_timer = addtimer(CALLBACK(src, .proc/finish_production), spawn_interval, TIMER_STOPPABLE)
 
 /obj/structure/hivebot_spawner/proc/spawn_bots()
 	new /obj/effect/spawner/hivebot(get_turf(src))
-
-	if(--current_spawn_count <= 0)
-		finish_production()
-	else
-		COOLDOWN_START(src, spawn_cooldown, spawn_interval / spawn_count)
+	var/datum/effect_system/smoke_spread/smoke = new
+	smoke.set_up(5, location = get_turf(src))
+	smoke.start()
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] открывается!"))
+	playsound(src.loc, 'sound/machines/boltsdown.ogg', 25, TRUE)
 
 /obj/structure/hivebot_spawner/proc/finish_production()
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] останавливается."))
 	is_active = FALSE
 	icon_state = "fab_robot"
-	COOLDOWN_START(src, cycle_cooldown, cooldown_duration)
+	cycle_timer = addtimer(CALLBACK(src, .proc/start_cycle), cooldown_duration, TIMER_STOPPABLE)
 
 //////////////
 //MARK: LOOT
