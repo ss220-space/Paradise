@@ -9,6 +9,7 @@
 	var/show_live_rounds = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	description_info = "Находясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание."
 
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
