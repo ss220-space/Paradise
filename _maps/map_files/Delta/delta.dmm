@@ -60589,7 +60589,9 @@
 	},
 /area/security/securearmory)
 "iTz" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seed_extractor{
+	pixel_y = -1
+	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel{
