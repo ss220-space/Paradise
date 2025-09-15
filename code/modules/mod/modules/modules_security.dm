@@ -30,7 +30,6 @@
 	. = ..()
 	if(!.)
 		return
-	var/msg = "[holstered.declent_ru(ACCUSATIVE)]"
 	if(!holstered)
 		var/obj/item/gun/holding = mod.wearer.get_active_hand()
 		if(!holding)
@@ -40,12 +39,12 @@
 			balloon_alert(mod.wearer, "не лезет в кобуру!")
 			return
 		holstered = holding
-		mod.wearer.visible_message(span_notice("[mod.wearer] убира[pluralize_ru(mod.wearer.gender,"ет","ют")] [holstered.declent_ru(ACCUSATIVE)] в кобуру."), span_notice("вы убираете [holstered.declent_ru(ACCUSATIVE)] в кобуру."))
+		mod.wearer.visible_message(span_notice("[mod.wearer] убира[pluralize_ru(mod.wearer.gender,"ет","ют")] [holding.declent_ru(ACCUSATIVE)] в кобуру."), span_notice("вы убираете [holding.declent_ru(ACCUSATIVE)] в кобуру."))
 		mod.wearer.temporarily_remove_item_from_inventory(holding)
 		holding.forceMove(src)
 	else if(mod.wearer.put_in_active_hand(holstered))
-		mod.wearer.visible_message(span_warning("[mod.wearer] вытаскива[pluralize_ru(mod.wearer.gender,"ет","ют")] [msg] из кобуры!"), \
-			span_warning("Вы вытаскиваете [msg] из кобуры!"))
+		mod.wearer.visible_message(span_warning("[mod.wearer] вытаскива[pluralize_ru(mod.wearer.gender,"ет","ют")] [holstered.declent_ru(ACCUSATIVE)] из кобуры!"), \
+			span_warning("Вы вытаскиваете [holstered.declent_ru(ACCUSATIVE)] из кобуры!"))
 	else
 		balloon_alert(mod.wearer, "освободите руку!")
 
