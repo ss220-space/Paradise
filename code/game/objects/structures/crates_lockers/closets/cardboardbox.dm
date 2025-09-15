@@ -71,7 +71,7 @@
 		return ..()
 
 	var/obj/item/toy/crayon/crayon = item
-	balloon_alert(user, "покраска")
+	balloon_alert(user, "покраска...")
 	user.visible_message(
 		span_notice("[user.declent_ru(NOMINATIVE)] начина[pluralize_ru(user.gender, "ет", "ют")] красить [declent_ru(ACCUSATIVE)]."),
 		ignored_mobs = user
