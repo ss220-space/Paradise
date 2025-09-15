@@ -16,7 +16,7 @@
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()
 	if(can_air_shoot)
-		RegisterSignal(src, COMSIG_ITEM_ATTACK_SELF, PROC_REF(fire_into_air))
+		RegisterSignal(src, COMSIG_ITEM_ATTACK_SELF, PROC_REF(try_air_fire))
 		description_info += "\nНаходясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание."
 	if(!magazine && mag_type)
 		magazine = new mag_type(src)
@@ -24,6 +24,9 @@
 	update_weight()
 	update_icon()
 
+/obj/item/gun/projectile/Destroy()
+	. = ..()
+	UnregisterSignal(src, COMSIG_ITEM_ATTACK_SELF)
 
 /obj/item/gun/projectile/update_name(updates = ALL)
 	. = ..()
@@ -82,7 +85,8 @@
 		chambered = magazine.get_round()
 		chambered.forceMove(src)
 
-/obj/item/gun/projectile/proc/fire_into_air(mob/user)
+/obj/item/gun/projectile/proc/try_air_fire(datum/source, mob/user)
+	SIGNAL_HANDLER
 	return
 
 /obj/item/gun/projectile/can_shoot(mob/user)
@@ -137,6 +141,14 @@
 
 
 /obj/item/gun/projectile/attack_self(mob/living/user)
+	add_fingerprint(user)
+	. = ..()
+	if(.)
+		return TRUE // Attack chain is canceled
+
+	unload_act(user)
+
+/obj/item/gun/projectile/proc/unload_act(mob/user)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(magazine)
 		magazine.forceMove(drop_location())
@@ -161,10 +173,10 @@
 		balloon_alert(user, "уже разряжено!")
 	update_icon()
 
-
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
-	. += span_notice("Has [get_ammo()] round\s remaining.")
+	var/ammo_num = get_ammo()
+	. += span_notice("Остал[declension_ru(ammo_num, "ся", "ось", "ось")] [ammo_num] патрон[declension_ru(ammo_num, "", "а", "ов")].")
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = TRUE, countempties = TRUE)
 	var/boolets = 0 //mature var names for mature people

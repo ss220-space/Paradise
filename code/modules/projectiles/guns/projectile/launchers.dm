@@ -165,8 +165,7 @@
 	. = ..()
 
 
-/obj/item/gun/projectile/revolver/rocketlauncher/attack_self(mob/living/user)
-	add_fingerprint(user)
+/obj/item/gun/projectile/revolver/rocketlauncher/unload_act(mob/user)
 	var/num_unloaded = 0
 	var/atom/drop_loc = drop_location()
 	while(get_ammo(FALSE) > 0)

@@ -51,8 +51,7 @@
 	return ..()
 
 
-/obj/item/gun/projectile/revolver/attack_self(mob/living/user)
-	add_fingerprint(user)
+/obj/item/gun/projectile/revolver/unload_act(mob/user)
 	var/num_unloaded = 0
 	chambered = null
 	var/atom/drop_loc = drop_location()
@@ -106,30 +105,36 @@
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	if(show_live_rounds)
-		. += span_notice("[get_ammo(FALSE, FALSE)] of those are live rounds")
-
-/obj/item/gun/projectile/revolver/fire_into_air(mob/user)
-	SIGNAL_HANDLER
-	if(!user || (user.a_intent != INTENT_GRAB) || !isturf(user.loc))
+	if(!show_live_rounds)
 		return
 
-	. = COMPONENT_CANCEL_ATTACK_CHAIN
+	var/ammo_num = get_ammo(FALSE, FALSE)
+	. += span_notice("[ammo_num] из них боев[declension_ru(ammo_num, "ой", "ые", "ые")]")
 
+/obj/item/gun/projectile/revolver/try_air_fire(datum/source, mob/user)
+	. = ..()
+	if(!user || (user.a_intent != INTENT_GRAB) || !isturf(user.loc))
+		return NONE
+
+	INVOKE_ASYNC(src, PROC_REF(perform_air_fire), user)
+
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/obj/item/gun/projectile/revolver/proc/perform_air_fire(mob/user)
 	if(!can_shoot(user))
-		shoot_with_empty_chamber()
+		shoot_with_empty_chamber(user)
 		return
 
 	if(!do_after(user, 1.5 SECONDS, src, max_interact_count = 1, interaction_key = src, cancel_on_max = TRUE))
 		return
 
 	if(!can_shoot(user))
-		shoot_with_empty_chamber()
+		shoot_with_empty_chamber(user)
 		return
 
 	if(chambered)
 		QDEL_NULL(chambered.BB)
-		shoot_live_shot()
+		shoot_live_shot(user)
 
 	process_chamber()
 
@@ -139,6 +144,7 @@
 	playsound(user, fire_sound, 120, FALSE)
 
 	update_icon()
+
 
 /obj/item/gun/projectile/revolver/detective
 	name = ".38 Mars Special"
@@ -216,9 +222,13 @@
 
 
 /obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
+	. = ..()
 	if(istype(user))
 		to_chat(user, span_notice("You holster your fingers. Another time."))
 	qdel(src)
+
+/obj/item/gun/projectile/revolver/fingergun/unload_act(mob/user)
+	return
 
 
 /obj/item/gun/projectile/revolver/mateba
@@ -586,8 +596,7 @@
 		accuracy = GUN_ACCURACY_MINIMAL
 
 
-/obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
-	add_fingerprint(user)
+/obj/item/gun/projectile/revolver/doublebarrel/unload_act(mob/user)
 	var/num_unloaded = 0
 	var/atom/drop_loc = drop_location()
 	while(get_ammo() > 0)
