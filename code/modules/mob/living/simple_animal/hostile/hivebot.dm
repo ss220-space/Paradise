@@ -348,12 +348,12 @@
 /obj/effect/loot_spawner/hivebot
 	var/spawned = FALSE
 
-/obj/effect/loot_spawner/hivebot/Initialize()
+/obj/effect/loot_spawner/hivebot/Initialize(mapload)
 	. = ..()
 	spawn_loot()
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/loot_spawner/hivebot/proc/spawn_loot()
+/obj/effect/loot_spawner/hivebot/proc/spawn_loot(mapload)
 	if(spawned)
 		return
 	spawned = TRUE
@@ -407,7 +407,7 @@
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "basic"
 
-/obj/effect/spawner/hivebot/Initialize()
+/obj/effect/spawner/hivebot/Initialize(mapload)
 	. = ..()
 	var/mob_type = pickweight(list(
 		/mob/living/simple_animal/hostile/hivebot = 30,
@@ -424,7 +424,7 @@
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "basic"
 
-/obj/effect/spawner/hivebot_heavy/Initialize()
+/obj/effect/spawner/hivebot_heavy/Initialize(mapload)
 	. = ..()
 	var/mob_type = pickweight(list(
 		/mob/living/simple_animal/hostile/hivebot = 50,
