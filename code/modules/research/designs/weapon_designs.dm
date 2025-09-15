@@ -148,7 +148,7 @@
 	id = "box_oldsmg"
 	req_tech = list("combat" = 2, "materials" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 36000)
 	build_path = /obj/item/ammo_box/c46x30mm
 	category = list("Weapons", "hacked", "Security")
 
@@ -156,32 +156,42 @@
 	name = "WT-550 Auto Gun Armour Piercing Ammo box (4.6x30mm AP)"
 	desc = "A 40 round armour piercing ammo box for the out of date security WT-550 Auto Rifle"
 	id = "box_oldsmg_ap"
-	materials = list(MAT_METAL = 30000, MAT_SILVER = 3000)
+	materials = list(MAT_METAL = 48000, MAT_SILVER = 3000)
 	build_path = /obj/item/ammo_box/ap46x30mm
 
 /datum/design/box_oldsmg/ic_box
 	name = "WT-550 Auto Gun Incendiary Ammo box (4.6x30mm IC)"
 	desc = "A 40 round armour piercing ammo box for the out of date security WT-550 Auto Rifle"
 	id = "box_oldsmg_ic"
-	materials = list(MAT_METAL = 30000, MAT_SILVER = 3000, MAT_PLASMA = 4000)
+	materials = list(MAT_METAL = 48000, MAT_SILVER = 3000, MAT_PLASMA = 4000)
 	build_path = /obj/item/ammo_box/inc46x30mm
 
 /datum/design/box_oldsmg/tx_box
 	name = "WT-550 Auto Gun Uranium Ammo box (4.6x30mm TX)"
 	desc = "A 20 round uranium tipped ammo box for the out of date security WT-550 Auto Rifle"
 	id = "box_oldsmg_tx"
-	materials = list(MAT_METAL = 30000, MAT_SILVER = 3000, MAT_URANIUM = 4000)
+	materials = list(MAT_METAL = 48000, MAT_SILVER = 3000, MAT_URANIUM = 4000)
 	build_path = /obj/item/ammo_box/tox46x30mm
 
 /datum/design/lmag
 	name = "LR-30 Laser rifle magazine"
 	desc = "A 12 round magazine for the LR-30 Laser Rifle"
 	id = "lmag"
-	build_type = PROTOLATHE
+	build_type = PROTOLATHE | AUTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
-	materials = list(MAT_METAL = 8000, MAT_GLASS = 2500)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000)
 	build_path = /obj/item/ammo_box/magazine/lr30mag
-	category = list("Weapons")
+	category = list("Weapons", "hacked", "Security")
+
+/datum/design/lmag_box
+	name = "Laser casing ammo box"
+	desc = "A 36 round box for laser rifles magazines"
+	id = "lmag_box"
+	build_type = PROTOLATHE | AUTOLATHE
+	req_tech = list("combat" = 4, "powerstorage" = 4)
+	materials = list(MAT_METAL = 30000, MAT_GLASS = 6000)
+	build_path = /obj/item/ammo_box/laserammobox
+	category = list("Weapons", "hacked", "Security")
 
 /datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"

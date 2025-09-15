@@ -58,6 +58,11 @@
 /turf/proc/change_area(area/old_area, area/new_area)
 
 	old_area.contents -= src
+
+	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, z, list())
+	LISTASSERTLEN(new_area.turfs_by_zlevel, z, list())
+	old_area.turfs_to_uncontain_by_zlevel[z] += src
+	new_area.turfs_by_zlevel[z] += src
 	new_area.contents += src
 
 	var/old_force_no_grav = force_no_gravity

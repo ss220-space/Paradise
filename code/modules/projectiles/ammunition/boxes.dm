@@ -647,7 +647,7 @@
 	desc = "Коробка, содержащая бронебойные патроны калибра 4,6x30 мм."
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
-	max_ammo = 40
+	max_ammo = 60
 
 /obj/item/ammo_box/ap46x30mm/get_ru_names()
 	return list(
@@ -664,7 +664,7 @@
 	desc = "Коробка, содержащая отравляющие патроны калибра 4,6x30 мм."
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/tox
-	max_ammo = 40
+	max_ammo = 60
 
 /obj/item/ammo_box/tox46x30mm/get_ru_names()
 	return list(
@@ -681,7 +681,7 @@
 	desc = "Коробка, содержащая зажигательные патроны калибра 4,6x30 мм."
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
-	max_ammo = 40
+	max_ammo = 60
 
 /obj/item/ammo_box/inc46x30mm/get_ru_names()
 	return list(
@@ -694,10 +694,10 @@
 	)
 
 /obj/item/ammo_box/c9mmte
-	name = "ammo box (9mm TE)"
-	desc = "Коробка, содержащая нелетальные патроны калибра 9 мм TE."
-	icon_state = "9mmTEbox"
-	ammo_type = /obj/item/ammo_casing/c9mmte
+	name = "ammo box (45 N&R)"
+	desc = "Коробка, содержащая патроны калибра 45 N&R."
+	icon_state = "45NRbox"
+	ammo_type = /obj/item/ammo_casing/c45nr
 	max_ammo = 60
 
 /obj/item/ammo_box/c9mmte/get_ru_names()
@@ -751,7 +751,7 @@
 	desc = "Коробка, содержащая лазерные патроны."
 	icon_state = "laserbox"
 	ammo_type = /obj/item/ammo_casing/laser
-	max_ammo = 40
+	max_ammo = 36
 
 /obj/item/ammo_box/laserammobox/get_ru_names()
 	return list(
