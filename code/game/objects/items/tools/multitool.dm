@@ -8,6 +8,7 @@
 /obj/item/multitool
 	name = "multimeter"
 	desc = "Электрический прибор для измерения параметров тока, прозвонки электрических цепей. Результаты ЭКГ, снятого данным аппаратом, не признаются ни одной клиникой."
+	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -67,10 +68,10 @@
 
 /obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)	//Loads a machine into memory, returns TRUE if it does
 	if(!ismachinery(M))
-		to_chat(user, (span_warning("это не техника!")))
+		balloon_alert(user, "это не электрический прибор!")
 		return
 	buffer = M
-	to_chat(user, (span_notice("Вы загружаете [M] в хранилище [capitalize(declent_ru(GENITIVE))].")))
+	ballon_alert(user, "Вы загрузили [m.declent_ru(ACCUSATIVE)] во внутренний буфер [declent_ru(GENITIVE)]."
 	return TRUE
 
 /obj/item/multitool/attack_self(mob/user)
