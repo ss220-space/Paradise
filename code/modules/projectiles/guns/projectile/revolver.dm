@@ -5,18 +5,21 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
-	/// If TRUE will show empty casing on examine
-	var/show_live_rounds = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 4)
 	)
-	description_info = "Находясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание."
-
+	/// If TRUE will show empty casing on examine
+	var/show_live_rounds = TRUE
+	/// Register fireshoot component
+	var/can_air_shoot = TRUE
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()
+	if(can_air_shoot)
+		RegisterSignal(src, COMSIG_ITEM_ATTACK_SELF, PROC_REF(fire_into_air))
+		description_info += "\nНаходясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание."
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
@@ -54,9 +57,6 @@
 
 /obj/item/gun/projectile/revolver/attack_self(mob/living/user)
 	add_fingerprint(user)
-	if(user.a_intent == INTENT_GRAB)
-		fire_into_air(user)
-		return
 	var/num_unloaded = 0
 	chambered = null
 	var/atom/drop_loc = drop_location()
@@ -114,7 +114,7 @@
 		. += span_notice("[get_ammo(FALSE, FALSE)] of those are live rounds")
 
 /obj/item/gun/projectile/revolver/proc/fire_into_air(mob/user)
-	if(!user || !isturf(user.loc))
+	if(!user || user.a_intent != INTENT_GRAB || !isturf(user.loc))
 		return
 
 	if(!can_shoot(user))
@@ -181,7 +181,6 @@
 	needs_permit = FALSE //go away beepsky
 	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
 	accuracy = GUN_ACCURACY_DEFAULT
-	description_info = ""
 
 
 /obj/item/gun/projectile/revolver/fingergun/Initialize(mapload, new_parent_spell)
@@ -280,6 +279,7 @@
 	var/spun = FALSE
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
+	can_air_shoot = FALSE
 
 
 /obj/item/gun/projectile/revolver/russian/Initialize(mapload)
