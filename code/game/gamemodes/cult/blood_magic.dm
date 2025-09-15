@@ -523,10 +523,10 @@
 		return
 
 	var/turf/origin = get_turf(teleporting_mob)
-
+	var/mob_color = teleporting_mob.color
 	animate(teleporting_mob, color = LIGHT_COLOR_BLOOD_MAGIC, time = 1.5 SECONDS)
 	if(!do_after(user, 2 SECONDS, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = "") || !destination)
-		teleporting_mob.color = null
+		teleporting_mob.color = mob_color
 		balloon_alert(user, "телепорт прерван!")
 		return
 
@@ -534,7 +534,7 @@
 	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), teleporting_mob, origin, destination)
 	add_attack_logs(teleporting_mob, destination, "Teleported to by [user]", ATKLOG_ALL)
 	uses--
-	teleporting_mob.color = null
+	teleporting_mob.color = mob_color
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
 		actual_selected_rune.handle_portal("lava")
