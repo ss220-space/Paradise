@@ -411,7 +411,7 @@
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
 			continue
-		if(H.gender == S.unsuitable_gender)
+		if(gender == S.unsuitable_gender)
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]

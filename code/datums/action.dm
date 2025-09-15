@@ -342,9 +342,6 @@
 /datum/action/item_action/toggle_backpack_light
 	name = "Переключить мигалку на рюкзаке"
 
-/datum/action/item_action/belt_fast_equip
-	name = "Достать с пояса"
-
 /datum/action/item_action/toggle_unfriendly_fire/Trigger(left_click = TRUE)
 	if(..())
 		UpdateButtonIcon()
