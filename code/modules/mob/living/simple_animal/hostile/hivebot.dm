@@ -16,10 +16,10 @@
 	knockdown = 4
 	stamina = 10
 
-// BASIC
+//Basic
 
 /mob/living/simple_animal/hostile/hivebot
-	name = "Hivebot"
+	name = "jerry-built robot"
 	desc = "Многофункциональный робот с шестью манипуляторами. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "basic"
@@ -94,7 +94,7 @@
 //Melee
 
 /mob/living/simple_animal/hostile/hivebot/melee
-	name = "Hivebot"
+	name = "armored jerry-built robot"
 	desc = "Многофункциональный робот с шестью манипуляторами. Его клешни похожи на молотки. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "basic"
 	icon_living = "basic"
@@ -119,7 +119,7 @@
 	)
 
 /mob/living/simple_animal/hostile/hivebot/heavy_melee
-	name = "Hivebot"
+	name = "armored jerry-built robot"
 	desc = "Многофункциональный робот, грубо обшитый металлическими пластинами. На корпусе видны заклёпки, а щели между пластинами залиты бетоном. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны вмятины, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "basic"
 	icon_living = "basic"
@@ -149,7 +149,7 @@
 //Range
 
 /mob/living/simple_animal/hostile/hivebot/range
-	name = "Hivebot"
+	name = "jerry-built robot with a nail gun"
 	desc = "Многофункциональный робот с шестью манипуляторами. К его клешням приварены гвоздомёты. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "basic"
 	icon_living = "basic"
@@ -176,7 +176,7 @@
 	)
 
 /mob/living/simple_animal/hostile/hivebot/range_heavy
-	name = "Hivebot"
+	name = "jerry-built robot with a rivet gun"
 	desc = "Многофункциональный робот с шестью манипуляторами. В его клешнях модифицированный заклёпочный аппарат. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "basic"
 	icon_living = "basic"
@@ -202,7 +202,7 @@
 		PREPOSITIONAL = "кустарном роботе с заклёпкомётом"
 	)
 
-// Инженер
+//Engi
 
 /mob/living/simple_animal/hostile/hivebot/support
 	name = "Hivebot"
@@ -277,15 +277,17 @@
 	icon_state = "fab_robot"
 	anchored = TRUE
 	density = TRUE
-	//Setting
-	var/spawn_count = 2			 /// The number of hivebots that will be produced per cycle before going into recharge
-	var/spawn_interval = 1500 	 /// Production time
-	var/cooldown_duration = 3000 /// Cooldown after Production time
-	// Internal tracking variables
-	var/is_active = FALSE		/// Whether currently producing bots
-	var/current_spawn_count = 0 /// Current spawn count in cycle
+	/// The number of hivebots that will be produced per cycle before going into recharge
+	var/spawn_count = 2
+	/// Production time for 1 bot
+	var/spawn_interval = 1500
+	/// Cooldown after Production time
+	var/cooldown_duration = 3000
+	/// Whether currently producing bots
+	var/is_active = FALSE
+	/// Current spawn count in cycle
+	var/current_spawn_count = 0
 
-	// Cooldowns
 	COOLDOWN_DECLARE(cycle_cooldown)
 	COOLDOWN_DECLARE(spawn_cooldown)
 
