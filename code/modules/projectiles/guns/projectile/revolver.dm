@@ -124,12 +124,15 @@
 
 	if(!do_after(user, 1.5 SECONDS, src, max_interact_count = 1, interaction_key = src, cancel_on_max = TRUE))
 		return
+
 	if(!can_shoot(user))
 		shoot_with_empty_chamber()
 		return
+
 	if(chambered)
 		QDEL_NULL(chambered.BB)
 		shoot_live_shot()
+
 	process_chamber()
 
 	user.visible_message(span_cultlarge("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] дуло вверх и стреля[pluralize_ru(user.gender, "ет", "ют")], используя [declent_ru(ACCUSATIVE)]!"))
