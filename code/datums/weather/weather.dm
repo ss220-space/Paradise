@@ -170,13 +170,17 @@
 				// revert the blend mode to the old state
 				impacted.blend_mode = impacted_areas_blend_modes[impacted]
 				impacted_areas_blend_modes[impacted] = null
-		if(length(new_overlay_cache))
-			impacted.overlays += new_overlay_cache
-			// only change the blend mode if it's not default or overlay
-			if(impacted.blend_mode > BLEND_OVERLAY)
-				// save the old blend mode state
-				impacted_areas_blend_modes[impacted] = impacted.blend_mode
-				impacted.blend_mode = BLEND_OVERLAY
+		if(!length(new_overlay_cache))
+			continue
+
+		impacted.overlays += new_overlay_cache
+		// only change the blend mode if it's not default or overlay
+		if(impacted.blend_mode <= BLEND_OVERLAY)
+			continue
+
+		// save the old blend mode state
+		impacted_areas_blend_modes[impacted] = impacted.blend_mode
+		impacted.blend_mode = BLEND_OVERLAY
 
 
 	overlay_cache = new_overlay_cache
