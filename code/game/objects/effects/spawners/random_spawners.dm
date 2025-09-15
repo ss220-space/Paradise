@@ -407,3 +407,20 @@
 		/datum/nothing = 60,
 		/obj/item/clothing/head/scorched_skull = 40
 	)
+
+// Security armory random guns
+/obj/effect/spawner/random_spawners/security_lasers
+	name = "lasers closet spawner"
+	icon_state = "guncabinet_laser"
+	result = list(
+				/obj/structure/closet/secure_closet/guncabinet/lasergun = 50,
+				/obj/structure/closet/secure_closet/guncabinet/lr30 = 50,
+				)
+
+/obj/effect/spawner/random_spawners/security_ballistics
+	name = "ballistics closet spawner"
+	icon_state = "guncabinet_ballistic"
+	result = list(
+				/obj/structure/closet/secure_closet/guncabinet/sp91 = 50,
+				/obj/structure/closet/secure_closet/guncabinet/wt550 = 50,
+				)
