@@ -271,6 +271,8 @@
 
 //Fabricator
 
+//Fabricator
+
 /obj/structure/hivebot_spawner
 	name = "Hivebot Fabricator"
 	desc = "Крупная машина, печатающая роботов улья из металлолома с определённой периодичностью. На боку грубо нацарапанная надпись \"ВМС\"."
@@ -287,11 +289,11 @@
 	var/cooldown_duration = 3000
 	/// Whether currently producing bots
 	var/is_active = FALSE
-	/// Number of bots produced in current cycle
+	/// Current spawn count in cycle
 	var/current_spawn_count = 0
 
-	var/production_timer
-	var/cycle_timer
+	COOLDOWN_DECLARE(cycle_cooldown)
+	COOLDOWN_DECLARE(spawn_cooldown)
 
 /obj/structure/hivebot_spawner/get_ru_names()
 	return list(
@@ -305,42 +307,41 @@
 
 /obj/structure/hivebot_spawner/Initialize(mapload)
 	. = ..()
-	start_cycle()
+	COOLDOWN_START(src, cycle_cooldown, spawn_interval)
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/hivebot_spawner/Destroy()
-	if(production_timer)
-		deltimer(production_timer)
-	if(cycle_timer)
-		deltimer(cycle_timer)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/structure/hivebot_spawner/proc/start_cycle()
-	production_timer = addtimer(CALLBACK(src, .proc/start_production), spawn_interval, TIMER_STOPPABLE)
+/obj/structure/hivebot_spawner/process()
+	if(!is_active && COOLDOWN_FINISHED(src, cycle_cooldown))
+		start_production()
+		return
+	else if(is_active && COOLDOWN_FINISHED(src, spawn_cooldown))
+		spawn_bots()
+		return
 
 /obj/structure/hivebot_spawner/proc/start_production()
 	is_active = TRUE
-	current_spawn_count = 0
+	current_spawn_count = spawn_count
 	icon_state = "fab_robot"
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает гудеть!"))
-	production_timer = addtimer(CALLBACK(src, .proc/produce_bot), spawn_interval, TIMER_STOPPABLE)
-
-/obj/structure/hivebot_spawner/proc/produce_bot()
-	spawn_bots()
-	current_spawn_count++
-
-	if(current_spawn_count < spawn_count)
-		production_timer = addtimer(CALLBACK(src, .proc/produce_bot), spawn_interval, TIMER_STOPPABLE)
-	else
-		production_timer = addtimer(CALLBACK(src, .proc/finish_production), spawn_interval, TIMER_STOPPABLE)
+	COOLDOWN_START(src, spawn_cooldown, spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/spawn_bots()
 	new /obj/effect/spawner/hivebot(get_turf(src))
+
+	if(--current_spawn_count <= 0)
+		finish_production()
+	else
+		COOLDOWN_START(src, spawn_cooldown, spawn_interval / spawn_count)
 
 /obj/structure/hivebot_spawner/proc/finish_production()
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] останавливается."))
 	is_active = FALSE
 	icon_state = "fab_robot"
-	cycle_timer = addtimer(CALLBACK(src, .proc/start_cycle), cooldown_duration, TIMER_STOPPABLE)
+	COOLDOWN_START(src, cycle_cooldown, cooldown_duration)
 
 //////////////
 //MARK: LOOT
