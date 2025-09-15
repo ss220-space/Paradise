@@ -1423,7 +1423,6 @@
 "aou" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3265,7 +3264,6 @@
 "aBK" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/structure/reagent_dispensers/peppertank{
@@ -6375,6 +6373,7 @@
 	},
 /obj/machinery/plantgenes,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7480,6 +7479,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8590,6 +8590,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15979,7 +15980,6 @@
 "bVq" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -15993,7 +15993,6 @@
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -16309,6 +16308,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light,
 /obj/machinery/hydroponics/constructable,
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18774,6 +18774,7 @@
 	},
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -18962,7 +18963,6 @@
 	},
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/machinery/light{
@@ -21244,6 +21244,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23359,6 +23360,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23524,6 +23526,7 @@
 	dir = 4;
 	pixel_x = -22
 	},
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24940,7 +24943,6 @@
 "cNe" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -26331,6 +26333,7 @@
 "cSI" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/biogenerator,
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29456,7 +29459,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -34038,7 +34040,6 @@
 	dir = 4
 	},
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -38918,6 +38919,7 @@
 	},
 /obj/structure/table,
 /obj/machinery/smartfridge/disks,
+/obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42606,7 +42608,6 @@
 "eFi" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/machinery/recharger/wallcharger{
@@ -43151,7 +43152,6 @@
 "eLr" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/item/melee/chainofcommand{
@@ -43526,7 +43526,6 @@
 /obj/effect/decal/warning_stripes/southwest,
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -47794,7 +47793,6 @@
 "fSq" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -50452,7 +50450,6 @@
 "gzr" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -57027,7 +57024,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/light,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/machinery/recharger/wallcharger{
@@ -58568,7 +58564,6 @@
 "itv" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -60580,8 +60575,11 @@
 	},
 /area/security/securearmory)
 "iTz" = (
-/obj/machinery/seed_extractor,
+/obj/machinery/seed_extractor{
+	pixel_y = -1
+	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -61364,7 +61362,6 @@
 "jdn" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plating,
@@ -65058,6 +65055,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67025,6 +67023,7 @@
 	c_tag = "Hydroponics South";
 	dir = 4
 	},
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67339,6 +67338,7 @@
 /obj/machinery/light_switch{
 	pixel_y = -24
 	},
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67571,6 +67571,7 @@
 "kEM" = (
 /obj/machinery/floodlight,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69512,7 +69513,6 @@
 "lhe" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -71246,7 +71246,6 @@
 "lCN" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -75435,7 +75434,6 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/wood,
@@ -78161,7 +78159,6 @@
 "nfN" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -78629,6 +78626,7 @@
 	},
 /obj/machinery/chem_dispenser/botanical,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80648,6 +80646,7 @@
 "nIw" = (
 /obj/machinery/vending/hydroseeds,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81634,7 +81633,6 @@
 "nTz" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/machinery/status_display{
@@ -87160,7 +87158,6 @@
 "phI" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -87934,7 +87931,6 @@
 "prh" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/machinery/recharger/wallcharger{
@@ -103122,6 +103118,7 @@
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light,
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -107233,7 +107230,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/item/reagent_containers/food/drinks/coffee{
@@ -110153,6 +110149,7 @@
 "unx" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/hydroponics/constructable,
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -111784,7 +111781,6 @@
 "uHW" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/machinery/recharger/wallcharger{
@@ -113383,7 +113379,6 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /obj/machinery/keycard_auth{
@@ -122658,7 +122653,6 @@
 "xiB" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -123394,6 +123388,7 @@
 "xsK" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

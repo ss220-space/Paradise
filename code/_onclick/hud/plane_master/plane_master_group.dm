@@ -26,7 +26,7 @@
 	build_plane_masters(0, SSmapping.max_plane_offset)
 
 /datum/plane_master_group/Destroy()
-	orphan_hud()
+	set_hud(null)
 	QDEL_LIST_ASSOC_VAL(plane_masters)
 	return ..()
 
@@ -41,6 +41,7 @@
 		our_hud.master_groups[key] = src
 		show_hud()
 		build_planes_offset(our_hud, active_offset)
+	SEND_SIGNAL(src, COMSIG_GROUP_HUD_CHANGED, our_hud)
 
 /// Display a plane master group to some viewer, so show all our planes to it
 /datum/plane_master_group/proc/attach_to(datum/hud/viewing_hud)
@@ -60,13 +61,6 @@
 	if(viewing_hud.mymob?.client?.byond_version > 515)
 		relay_loc = "1,1"
 		rebuild_plane_masters()
-
-/// Hide the plane master from its current hud, fully clear it out
-/datum/plane_master_group/proc/orphan_hud()
-	if(our_hud)
-		our_hud.master_groups -= key
-		hide_hud()
-		our_hud = null
 
 /// Well, refresh our group, mostly useful for plane specific updates
 /datum/plane_master_group/proc/refresh_hud()

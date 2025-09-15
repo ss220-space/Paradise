@@ -191,7 +191,6 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/mob/living/simple_animal/bot/secbot/armsky,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -523,6 +522,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
+"aeV" = (
+/mob/living/simple_animal/bot/medbot/syndicate/emagged,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay)
 "aeY" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
@@ -623,7 +629,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6325,6 +6331,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
+"aUM" = (
+/obj/effect/decal/warning_stripes/south,
+/mob/living/simple_animal/bot/secbot/beepsky{
+	emagged = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/engineering/hardsuitstorage)
 "aUN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -6966,6 +6981,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/fore)
+"aZc" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/bot/secbot/beepsky{
+	emagged = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/storage)
 "aZd" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/autolathe,
@@ -9335,7 +9359,7 @@
 	pixel_y = -26
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -10107,9 +10131,11 @@
 	dir = 4;
 	pixel_x = 26
 	},
-/obj/machinery/flasher/portable,
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/effect/mine/explosive{
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -14155,7 +14181,7 @@
 /area/solar/auxport)
 "bLX" = (
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -15260,7 +15286,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -16927,7 +16953,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/carpet/orange,
 /area/crew_quarters/heads/hop)
@@ -17195,7 +17221,7 @@
 	dir = 4
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -33270,7 +33296,7 @@
 	pixel_y = -24
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain)
@@ -36843,6 +36869,18 @@
 	icon_state = "red"
 	},
 /area/security/range)
+"dLn" = (
+/obj/structure/sign/poster/random{
+	pixel_x = -32
+	},
+/mob/living/simple_animal/hostile/malf_drone/spacebattle{
+	faction = list("dk2")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/west)
 "dLu" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -36876,6 +36914,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"dLC" = (
+/mob/living/simple_animal/bot/secbot/beepsky{
+	emagged = 1
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "dLD" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -37271,6 +37315,13 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/north)
+"dMZ" = (
+/obj/effect/decal/warning_stripes/east,
+/mob/living/simple_animal/bot/secbot/beepsky{
+	emagged = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "dNd" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/floodlight,
@@ -37871,7 +37922,7 @@
 	pixel_x = 58
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge/vip)
@@ -40173,6 +40224,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/effect/mine/explosive{
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -43707,6 +43761,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/west)
+"eKw" = (
+/obj/effect/mine/explosive{
+	faction = "dk2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/warden)
 "eLf" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -45992,7 +46054,7 @@
 "flO" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -46988,7 +47050,7 @@
 	},
 /obj/machinery/light,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -55914,6 +55976,9 @@
 "hzX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/north,
+/mob/living/simple_animal/hostile/malf_drone/spacebattle{
+	faction = list("dk2")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -56843,7 +56908,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -58223,6 +58288,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "ics" = (
@@ -58303,6 +58369,15 @@
 	icon_state = "grimy"
 	},
 /area/library/game_zone)
+"idH" = (
+/obj/effect/mine/explosive{
+	faction = "dk2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/security/main)
 "idK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -58798,7 +58873,7 @@
 /area/maintenance/engineering)
 "ikD" = (
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -58944,7 +59019,7 @@
 	dir = 4
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -59294,6 +59369,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
+"ipW" = (
+/obj/effect/mine/explosive{
+	faction = "dk2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/security/securearmory)
 "iqb" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -59873,7 +59956,7 @@
 /area/security/hos)
 "iwq" = (
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -60726,6 +60809,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -62850,6 +62934,23 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"jhy" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/mob/living/simple_animal/hostile/malf_drone/spacebattle{
+	faction = list("dk2")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/bridge/vip)
 "jhN" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating/airless,
@@ -64679,6 +64780,7 @@
 	},
 /mob/living/simple_animal/bot/secbot/beepsky{
 	desc = "It's Officer Vipsky! Powered by a potato and a shot of whiskey.";
+	emagged = 1;
 	name = "Officer Vipsky"
 	},
 /turf/simulated/floor/plasteel,
@@ -67045,6 +67147,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
+/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -67285,7 +67388,7 @@
 	pixel_x = -24
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -67416,6 +67519,14 @@
 /obj/structure/lattice,
 /turf/simulated/wall,
 /area/maintenance/asmaint3)
+"kmv" = (
+/obj/effect/mine/explosive{
+	faction = "dk2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "kmA" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -67830,7 +67941,7 @@
 /area/assembly/chargebay)
 "krO" = (
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -71973,7 +72084,7 @@
 /area/medical/medbay2)
 "lul" = (
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -75931,7 +76042,7 @@
 	dir = 4
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain/bedroom)
@@ -76178,6 +76289,17 @@
 	icon_state = "wood-broken3"
 	},
 /area/maintenance/kitchen)
+"msz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate{
+	faction = list("dk2")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "msG" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/carpet/arcade,
@@ -76521,7 +76643,7 @@
 "mwE" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -80154,7 +80276,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain)
@@ -80725,7 +80847,7 @@
 	dir = 4
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -80801,7 +80923,7 @@
 	pixel_x = 26
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -81947,7 +82069,7 @@
 /area/aisat/maintenance)
 "nEQ" = (
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/space,
 /area/bridge/meeting_room)
@@ -83321,7 +83443,9 @@
 	codes_txt = "patrol;next_patrol=A19";
 	location = "A18"
 	},
-/mob/living/simple_animal/bot/secbot/beepsky,
+/mob/living/simple_animal/bot/secbot/beepsky{
+	emagged = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -83657,7 +83781,7 @@
 /area/hydroponics)
 "nYl" = (
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -83729,7 +83853,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -84974,6 +85098,18 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/hor)
+"onw" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/mob/living/simple_animal/bot/medbot/syndicate/emagged,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/medbay)
 "ony" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -86720,6 +86856,7 @@
 /area/hallway/secondary/entry/lounge)
 "oHJ" = (
 /obj/machinery/station_map/directional/north,
+/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -87798,6 +87935,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/mob/living/simple_animal/bot/secbot/beepsky{
+	emagged = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -88113,6 +88253,15 @@
 /obj/structure/sign/fire,
 /turf/simulated/wall/r_wall,
 /area/toxins/launch)
+"oXk" = (
+/mob/living/simple_animal/hostile/malf_drone/spacebattle{
+	faction = list("dk2")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/north)
 "oXm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -88244,7 +88393,7 @@
 	dir = 1
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -89483,6 +89632,22 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
+"pny" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "pnF" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -90259,6 +90424,14 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
+"pvT" = (
+/obj/effect/mine/explosive{
+	faction = "dk2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/security/main)
 "pwa" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -95403,7 +95576,7 @@
 /area/space)
 "qwW" = (
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
@@ -95615,7 +95788,7 @@
 	dir = 4
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -98232,6 +98405,7 @@
 	},
 /mob/living/simple_animal/bot/secbot/beepsky{
 	desc = "It's Officer Boopsky! Powered by a potato and a shot of whiskey.";
+	emagged = 1;
 	name = "Officer Boopsky"
 	},
 /turf/simulated/floor/plasteel{
@@ -98466,7 +98640,7 @@
 /area/toxins/xenobiology)
 "rfv" = (
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -99387,6 +99561,9 @@
 /area/bridge)
 "rpS" = (
 /obj/effect/decal/warning_stripes/northeast,
+/obj/effect/mine/explosive{
+	faction = "dk2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -100039,6 +100216,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/casino)
 "ryd" = (
+/obj/effect/mine/explosive{
+	faction = "dk2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -101045,7 +101225,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -103948,7 +104128,7 @@
 	dir = 4
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -106063,6 +106243,14 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
+"sRg" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/security/brig)
 "sRk" = (
 /obj/structure/window/reinforced/polarized{
 	color = "#222222";
@@ -106650,6 +106838,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"sYf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/mob/living/simple_animal/bot/secbot/beepsky{
+	emagged = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/bridge/vip)
 "sYp" = (
 /obj/structure/flora/grass/jungle/b,
 /turf/simulated/floor/grass,
@@ -107473,7 +107671,7 @@
 "thy" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -110003,6 +110201,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/mob/living/simple_animal/bot/secbot/beepsky{
+	emagged = 1
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
 "tJM" = (
@@ -110440,6 +110641,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "tNh" = (
@@ -110644,7 +110846,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/blueshield)
@@ -111019,7 +111221,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -112017,6 +112219,14 @@
 	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
+"ueK" = (
+/mob/living/simple_animal/hostile/malf_drone/spacebattle{
+	faction = list("dk2")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/east)
 "ueZ" = (
 /obj/effect/decal/ants,
 /obj/structure/closet/loot_crate/ammo,
@@ -112381,6 +112591,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -112451,6 +112662,24 @@
 /obj/effect/decal/straw/medium,
 /turf/simulated/floor/grass,
 /area/medical/biostorage)
+"ujR" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/mob/living/simple_animal/bot/medbot/syndicate/emagged,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/medbay2)
 "ujV" = (
 /obj/structure/toilet/secret{
 	dir = 1
@@ -112556,7 +112785,7 @@
 	dir = 8
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge/vip)
@@ -112806,6 +113035,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -112953,6 +113183,15 @@
 	icon_state = "bar"
 	},
 /area/security/permabrig)
+"upu" = (
+/mob/living/simple_animal/hostile/malf_drone/spacebattle{
+	faction = list("dk2")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central/south)
 "upx" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -112988,6 +113227,9 @@
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -22
+	},
+/obj/effect/mine/explosive{
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -113060,6 +113302,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/effect/mine/explosive{
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -115441,6 +115686,26 @@
 /obj/effect/landmark/event/xeno_spawn,
 /turf/simulated/floor/plating,
 /area/maintenance/library)
+"uTn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/mob/living/simple_animal/hostile/malf_drone/spacebattle{
+	faction = list("dk2")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/bridge/vip)
 "uTp" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -115772,7 +116037,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -117201,7 +117466,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/obj/structure/closet/loot_crate/ammo,
+/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel,
 /area/security/brig)
 "vpz" = (
@@ -117267,6 +117532,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -119487,7 +119753,7 @@
 	pixel_y = 24
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
@@ -120252,6 +120518,14 @@
 	icon_state = "freezerfloor"
 	},
 /area/security/permabrig)
+"vXG" = (
+/mob/living/simple_animal/bot/secbot/griefsky/syndicate{
+	faction = list("dk2")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "vXH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -121809,7 +122083,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -122364,7 +122638,7 @@
 "wwp" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel,
 /area/gateway)
@@ -122614,6 +122888,14 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
+"wzp" = (
+/mob/living/simple_animal/bot/secbot/beepsky{
+	emagged = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/storage)
 "wzI" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -123167,7 +123449,7 @@
 	pixel_x = -26
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -124117,7 +124399,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mine/explosive{
-	faction = null
+	faction = "dk2"
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
@@ -157503,7 +157785,7 @@ kpR
 mDe
 yfQ
 mAZ
-ejf
+aUM
 sCB
 mAl
 ocE
@@ -161873,7 +162155,7 @@ mmU
 gMw
 dZi
 frN
-rgA
+dLC
 frN
 fWc
 gMw
@@ -163402,7 +163684,7 @@ fpN
 mDY
 wFd
 dPt
-fpN
+dLn
 dPt
 tUR
 fiO
@@ -166237,7 +166519,7 @@ cIi
 sZn
 mfs
 ciD
-lRu
+jhy
 qop
 csK
 uDd
@@ -169065,7 +169347,7 @@ pNf
 rKA
 lMI
 ebK
-bFy
+sYf
 bly
 jMm
 lTJ
@@ -169289,7 +169571,7 @@ lAA
 fgk
 bnc
 jya
-kow
+oXk
 luQ
 aaq
 pFp
@@ -170349,7 +170631,7 @@ bST
 bST
 bST
 tHf
-cqd
+uTn
 cBu
 csV
 eyU
@@ -171386,7 +171668,7 @@ ezi
 fEr
 xnT
 csV
-rSJ
+upu
 xMi
 liV
 lKU
@@ -172093,7 +172375,7 @@ eZs
 eNU
 qoC
 djV
-djV
+aZc
 eZs
 eIR
 djV
@@ -172957,7 +173239,7 @@ mKb
 smD
 dph
 bpq
-smD
+onw
 pWy
 smD
 pAT
@@ -173128,7 +173410,7 @@ tlL
 hXt
 cSh
 daa
-eZs
+wzp
 eZs
 eZs
 aUT
@@ -173171,7 +173453,7 @@ slz
 xHe
 oGV
 xHe
-xHe
+ueK
 xHe
 xHe
 geP
@@ -174229,7 +174511,7 @@ njq
 cHr
 pEi
 pfs
-wVd
+ujR
 uLv
 pRj
 rDQ
@@ -174661,7 +174943,7 @@ cdQ
 cLd
 mHQ
 mHQ
-dHr
+dMZ
 dHr
 dHr
 vfD
@@ -176291,7 +176573,7 @@ oRe
 xYg
 vQX
 xYg
-xYg
+aeV
 dsT
 xYg
 jfK
@@ -181120,7 +181402,7 @@ qFz
 vsb
 vsb
 vsb
-vsb
+vPL
 uiX
 vpu
 ocu
@@ -181377,7 +181659,7 @@ ozk
 pby
 puP
 lUL
-lUL
+sRg
 ryr
 vpW
 pMx
@@ -182148,7 +182430,7 @@ hgM
 lhe
 syf
 hIB
-hIB
+eKw
 riJ
 pgO
 xpx
@@ -182665,7 +182947,7 @@ hIB
 hIB
 uoW
 hIB
-hIB
+eKw
 vxU
 cjk
 uIx
@@ -183432,7 +183714,7 @@ qhn
 lhS
 uPg
 lZP
-toP
+kmv
 jZB
 lYj
 jZB
@@ -184211,9 +184493,9 @@ aau
 nhY
 kBw
 fVF
-vcX
+idH
 nHu
-uEq
+pvT
 pJg
 uQq
 qWw
@@ -184460,11 +184742,11 @@ iUI
 fVF
 sIJ
 aNk
-toP
+vXG
 kWx
 vNX
 gxx
-ePU
+msz
 kwx
 nta
 fVF
@@ -184983,7 +185265,7 @@ wCH
 ppg
 xXC
 vcX
-nHu
+pny
 mVd
 xFL
 xFL
@@ -185236,7 +185518,7 @@ cxk
 chB
 qEB
 vYt
-wCH
+ipW
 myZ
 xXZ
 oNP
@@ -185497,7 +185779,7 @@ mbY
 rpS
 eEb
 vcX
-nHu
+pny
 mVd
 xFL
 xFL

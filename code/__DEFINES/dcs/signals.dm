@@ -35,6 +35,11 @@
 #define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
 #define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
 
+#define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
+#define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"
+#define COMSIG_WEATHER_WINDDOWN(event_type) "!weather_winddown [event_type]"
+#define COMSIG_WEATHER_END(event_type) "!weather_end [event_type]"
+
 /// signals from globally accessible objects
 
 ///from SSsun when the sun changes position : (azimuth)
@@ -269,6 +274,8 @@
 	#define COMPONENT_NO_AFTERATTACK (1<<1)
 	///Skips the specific attack step, continuing for the next one to happen.
 	#define COMPONENT_SKIP_ATTACK (1<<2)
+	///I dont know where and why it was used, but it was used in the same place with cancel chain and had the same value
+	#define COMPONENT_NO_INTERACT (1<<3)
 
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
@@ -329,6 +336,10 @@
 #define COMSIG_ATOM_ENTERED_AREA "atom_entered_area"
 ///from base of area/Exited(): (area/current_area, area/new_area)
 #define COMSIG_ATOM_EXITED_AREA "atom_exited_area"
+/// Called when some weather starts in this area
+#define COMSIG_WEATHER_BEGAN_IN_AREA(event_type) "weather_began_in_area_[event_type]"
+/// Called when some weather ends in this area
+#define COMSIG_WEATHER_ENDED_IN_AREA(event_type) "weather_ended_in_area_[event_type]"
 
 // /turf signals
 
@@ -888,7 +899,6 @@
 #define COMSIG_ITEM_ATTACK "item_attack"
 ///from base of obj/item/attack_self(): (/mob)
 #define COMSIG_ITEM_ATTACK_SELF "item_attack_self"
-	#define COMPONENT_NO_INTERACT (1<<0)
 ///from base of obj/item/attack_obj(): (/obj, /mob)
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
 ///from base of obj/item/pre_attackby(): (atom/target, mob/user, params)
@@ -1027,6 +1037,17 @@
 
 /// Sent from obj/item/gun/zoom(): (user, zoomed)
 #define COMSIG_GUN_ZOOM_TOGGLE "gun_zoom_toggle"
+
+/// Sent from datum/component/laser_sight/datum/keybinding/toggle_laser_sight/down(): (user, gun)
+#define COMSIG_KEYBINDING_GUN_LASER_SIGHT "keybbinding_laser_sight_toggle"
+
+/// Sent from datum/component/laser_sight/process_aim(): (user, enable)
+#define COMSIG_GUN_AFTER_LASER_SIGHT_TOGGLE "gun_after_laser_sight_toggle"
+
+/// Sent from obj/item/gun_module/on_attach(): (user, obj/item/gun, obj/item/gun_module)
+#define COMSIG_GUN_MODULE_ATTACH "gun_module_attach"
+/// Sent from obj/item/gun_module/on_detach(): (user, obj/item/gun, obj/item/gun_module)
+#define COMSIG_GUN_MODULE_DETACH "gun_module_detach"
 
 // /obj/item/grenade signals
 
@@ -1352,7 +1373,10 @@
 // HUD:
 /// Sent from /datum/hud/proc/eye_z_changed() : (old_offset, new_offset)
 #define COMSIG_HUD_OFFSET_CHANGED "hud_offset_changed"
-
+/// Sent from /datum/hud/proc/eye_z_changed() : (new_z)
+#define COMSIG_HUD_Z_CHANGED "hud_z_changed"
+/// from /datum/plane_master_group/proc/set_hud(): (datum/hud/new_hud)
+#define COMSIG_GROUP_HUD_CHANGED "group_hud_changed"
 
 ///from [/datum/move_loop/start_loop] ():
 #define COMSIG_MOVELOOP_START "moveloop_start"

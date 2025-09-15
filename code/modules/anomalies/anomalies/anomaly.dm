@@ -1,5 +1,4 @@
 #define ANOMALY_DOUBLE_MOVE_CHANCE 5
-#define ANOMALY_ITEM_TO_RELIC_CHANCE 1
 #define ANOMALY_strength_MOVE_MULTIPLIER 2
 
 /obj/effect/anomaly
@@ -242,34 +241,15 @@
 		qdel(src)
 		return FALSE
 
-	if(iscore(item))
-		var/obj/item/assembly/signaler/core/core = item
-		if(core.born_moment + 1 SECONDS >= world.time)
-			return TRUE
-
-		core_touch_effect(core)
-		return FALSE
-
-	if(!item.origin_tech)
+	if(!iscore(item))
 		return
 
-	if(prob(ANOMALY_ITEM_TO_RELIC_CHANCE))
-		do_sparks(5, TRUE, src)
-		new /obj/item/relic(get_turf(item))
-		qdel(item)
-		return
+	var/obj/item/assembly/signaler/core/core = item
+	if(core.born_moment + 1 SECONDS >= world.time)
+		return TRUE
 
-	if(!istype(item, /obj/item/relict_production/rapid_dupe))
-		return
-
-	var/amount = rand(1, 3)
-	for (var/i; i <= amount; i++)
-		new /obj/item/relic(get_turf(item))
-		//var/datum/effect_system/fluid_spread/smoke/smoke = new
-		//smoke.set_up(5, get_turf(item))
-		//smoke.start()
-
-	qdel(item)
+	core_touch_effect(core)
+	return FALSE
 
 /obj/effect/anomaly/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
@@ -380,5 +360,4 @@
 	return
 
 #undef ANOMALY_DOUBLE_MOVE_CHANCE
-#undef ANOMALY_ITEM_TO_RELIC_CHANCE
 #undef ANOMALY_strength_MOVE_MULTIPLIER
