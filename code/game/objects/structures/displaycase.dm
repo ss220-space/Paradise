@@ -190,7 +190,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return
 	else
-	    //prevents remote "kicks" with TK
+		//prevents remote "kicks" with TK
 		if(!Adjacent(user))
 			return
 		add_fingerprint(user)

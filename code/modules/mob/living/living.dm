@@ -2374,9 +2374,10 @@
 /mob/living/proc/knockOver(mob/living/carbon/target)
 	if(target.key) //save us from monkey hordes
 		target.visible_message(span_warning("[pick( \
-						  "[target] спотыка[pluralize_ru(target.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
-						  "[target] опрокидыва[pluralize_ru(target.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
-						  "[target] отлета[pluralize_ru(target.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] сбивает [target]!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [genderize_ru(target.gender, "его", "её", "его", "их")] упасть!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]"))
+			"[target] спотыка[pluralize_ru(target.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
+			"[target] опрокидыва[pluralize_ru(target.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
+			"[target] отлета[pluralize_ru(target.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
+			"[capitalize(declent_ru(NOMINATIVE))] сбивает [target]!", \
+			"[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [genderize_ru(target.gender, "его", "её", "его", "их")] упасть!", \
+			"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]")
+		)

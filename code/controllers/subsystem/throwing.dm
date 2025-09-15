@@ -181,13 +181,13 @@ SUBSYSTEM_DEF(throwing)
 				finalize()
 			return
 
-		/*
-		  A - Acceleration of gravity.
-		  H - The height of the object's fall.
-		  T - Past tense of falling.
-		  H(T) = A * T * T / 2
-		  If A will become X times bigger, T will become sqrt(X) times lower.
-		*/
+		/**
+		 * A - Acceleration of gravity.
+		 * H - The height of the object's fall.
+		 * T - Past tense of falling.
+		 * H(T) = A * T * T / 2
+		 * If A will become X times bigger, T will become sqrt(X) times lower.
+		 */
 		if(!AM.no_gravity()) // If no gravity, it causes some problems. I think, it will work normally this way.
 			dist_travelled += 1 * sqrt(abs(AM.get_gravity()))
 

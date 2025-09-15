@@ -198,8 +198,8 @@ def check_uid_parameters(idx, line):
         return [(idx + 1, "UID() does not take arguments. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
 
 CODE_CHECKS = [
-#    check_space_indentation,
-#    check_mixed_indentation,
+    check_space_indentation,
+    check_mixed_indentation,
 #    check_global_vars,
 #    check_toplevel_vardecls,
 #    check_proc_args_with_var_prefix,

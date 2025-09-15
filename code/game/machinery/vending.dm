@@ -2297,8 +2297,10 @@
 	deny_overlay = "sec_deny"
 
 	req_access = list(ACCESS_SECURITY)
-	products = list(/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
-				    /obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2)
+	products = list(
+		/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
+		/obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2
+	)
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -2494,7 +2496,8 @@
 	broken_overlay = "seeds_broken"
 	broken_lightmask_overlay = "seeds_broken_lightmask"
 
-	products = list(/obj/item/seeds/aloe =3,
+	products = list(
+					/obj/item/seeds/aloe =3,
 					/obj/item/seeds/ambrosia = 3,
 					/obj/item/seeds/apple = 3,
 					/obj/item/seeds/banana = 3,
@@ -2547,19 +2550,21 @@
 					/obj/item/seeds/tulp = 3,
 					/obj/item/seeds/chamomile = 3,
 					/obj/item/seeds/rose = 3
-					)
-	contraband = list(/obj/item/seeds/cannabis = 3,
-					  /obj/item/seeds/amanita = 2,
-					  /obj/item/seeds/fungus = 3,
-					  /obj/item/seeds/glowshroom = 2,
-					  /obj/item/seeds/liberty = 2,
-					  /obj/item/seeds/nettle = 2,
-					  /obj/item/seeds/plump = 2,
-					  /obj/item/seeds/reishi = 2,
-					  /obj/item/seeds/starthistle = 2,
-					  /obj/item/seeds/random = 2,
-					  /obj/item/seeds/moonlight = 2,
-					  /obj/item/seeds/coca = 2)
+	)
+	contraband = list(
+					/obj/item/seeds/cannabis = 3,
+					/obj/item/seeds/amanita = 2,
+					/obj/item/seeds/fungus = 3,
+					/obj/item/seeds/glowshroom = 2,
+					/obj/item/seeds/liberty = 2,
+					/obj/item/seeds/nettle = 2,
+					/obj/item/seeds/plump = 2,
+					/obj/item/seeds/reishi = 2,
+					/obj/item/seeds/starthistle = 2,
+					/obj/item/seeds/random = 2,
+					/obj/item/seeds/moonlight = 2,
+					/obj/item/seeds/coca = 2
+	)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
@@ -3243,13 +3248,17 @@
 	broken_lightmask_overlay = "snack_broken_lightmask"
 
 	broken_lightmask_overlay = "snack_broken_lightmask"
-	products = list(/obj/item/reagent_containers/food/snacks/tofu = 24,
-					/obj/item/reagent_containers/food/drinks/ice = 12,
-					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
-	contraband = list(/obj/item/kitchen/knife = 6,
-					  /obj/item/reagent_containers/food/drinks/coffee = 12,
-					  /obj/item/tank/internals/emergency_oxygen = 6,
-					  /obj/item/clothing/mask/breath = 6)
+	products = list(
+		/obj/item/reagent_containers/food/snacks/tofu = 24,
+		/obj/item/reagent_containers/food/drinks/ice = 12,
+		/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6
+	)
+	contraband = list(
+		/obj/item/kitchen/knife = 6,
+		/obj/item/reagent_containers/food/drinks/coffee = 12,
+		/obj/item/tank/internals/emergency_oxygen = 6,
+		/obj/item/clothing/mask/breath = 6
+	)
 	refill_canister = /obj/item/vending_refill/sustenance
 
 /obj/machinery/vending/sustenance/get_ru_names()
@@ -3551,7 +3560,8 @@
 	)
 
 	vend_reply = "Спас+ибо за исп+ользование ClothesMate!"
-	products = list(/obj/item/clothing/head/that = 2,
+	products = list(
+					/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/fedora = 1,
 					/obj/item/clothing/glasses/monocle = 1,
 					/obj/item/clothing/under/suit_jacket/navy = 2,
@@ -3628,22 +3638,27 @@
 					/obj/item/clothing/neck/mantle/old = 1,
 					/obj/item/clothing/neck/mantle/regal = 2,
 					/obj/item/clothing/neck/cloak/grey = 1,
-					/obj/item/clothing/suit/storage/bomber = 4)
+					/obj/item/clothing/suit/storage/bomber = 4
+	)
 
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
+	contraband = list(
+					/obj/item/clothing/under/syndicate/tacticool = 1,
 					/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/under/syndicate/blackops_civ = 1,
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/under/soviet = 1,
-					/obj/item/storage/belt/fannypack/black = 1)
+					/obj/item/storage/belt/fannypack/black = 1
+	)
 
-	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,
-				   /obj/item/clothing/head/mailman = 1,
-				   /obj/item/clothing/under/rank/mailman = 1,
-				   /obj/item/clothing/suit/jacket/leather = 1,
-				   /obj/item/clothing/under/pants/mustangjeans = 1,
-				   /obj/item/clothing/suit/storage/zazalord = 1)
+	premium = list(
+					/obj/item/clothing/under/suit_jacket/checkered = 1,
+					/obj/item/clothing/head/mailman = 1,
+					/obj/item/clothing/under/rank/mailman = 1,
+					/obj/item/clothing/suit/jacket/leather = 1,
+					/obj/item/clothing/under/pants/mustangjeans = 1,
+					/obj/item/clothing/suit/storage/zazalord = 1
+	)
 
 	refill_canister = /obj/item/vending_refill/clothing
 
