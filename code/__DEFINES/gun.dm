@@ -45,10 +45,10 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 
 //Calibers
 #define CALIBER_9MM "9mm"
-#define CALIBER_9MM_TE "9mm TE"
 #define CALIBER_DOT_357 ".357"
 #define CALIBER_DOT_257 ".257"
 #define CALIBER_40NR "40nr"
+#define CALIBER_45NR "45nr"
 #define CALIBER_7_DOT_62X54MM "7.62x54mm"
 #define CALIBER_7_DOT_62X51MM "7.62x51mm"
 #define CALIBER_7_DOT_62X25MM "7.62x25mm"
