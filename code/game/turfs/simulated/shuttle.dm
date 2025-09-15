@@ -72,7 +72,7 @@
 /turf/simulated/wall/shuttle/nodiagonal
 	icon_state = "shuttle-15"
 
-/turf/simulated/wall/shuttle/nodiagonal/Initialize()
+/turf/simulated/wall/shuttle/nodiagonal/Initialize(mapload)
 	. = ..()
 	icon_state = "shuttle"
 
@@ -80,14 +80,14 @@
 	icon_state = "shuttle_ns"
 	smooth = NONE
 
-/turf/simulated/wall/shuttle/nosmooth/Initialize()
+/turf/simulated/wall/shuttle/nosmooth/Initialize(mapload)
 	. = ..()
 	icon_state = "shuttle"
 
 /turf/simulated/wall/shuttle/onlyselfsmooth
 	canSmoothWith = SMOOTH_GROUP_SHUTTLE_PARTS
 
-/turf/simulated/wall/shuttle/onlyselfsmooth/Initialize()
+/turf/simulated/wall/shuttle/onlyselfsmooth/Initialize(mapload)
 	. = ..()
 	icon_state = "shuttle"
 
@@ -98,7 +98,7 @@
 	icon_state = "overspace"
 	fixed_underlay = list("space"=1)
 
-/turf/simulated/wall/shuttle/overspace/Initialize()
+/turf/simulated/wall/shuttle/overspace/Initialize(mapload)
 	. = ..()
 	icon_state = "shuttle"
 
@@ -123,7 +123,7 @@
 	var/underlay_floor_icon_state = null
 	var/underlay_floor_dir = 2
 
-/turf/simulated/wall/shuttle/nosmooth/interior/Initialize()
+/turf/simulated/wall/shuttle/nosmooth/interior/Initialize(mapload)
 	. = ..()
 	if(underlay_floor_icon && underlay_floor_icon_state)
 		var/image/floor_underlay = image(underlay_floor_icon,,underlay_floor_icon_state,,underlay_floor_dir)
@@ -193,7 +193,7 @@
 	transparent_floor = TURF_TRANSPARENT
 	smoothing_groups = SMOOTH_GROUP_TRANSPARENT_FLOOR
 
-/turf/simulated/floor/shuttle/transparent_floor/Initialize()
+/turf/simulated/floor/shuttle/transparent_floor/Initialize(mapload)
 	. = ..()
 	var/obj/O
 	O = new()
