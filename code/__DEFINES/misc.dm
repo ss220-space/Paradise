@@ -510,4 +510,6 @@
 		var/datum/mind/B = I
 		return B.current.client
 
+// redis defines
 #define SERVER_MESSAGES_REDIS_CHANNEL "byond.servermessages"
+#define REDIS_ANNOUNCER_NAME "Смотритель"

@@ -262,6 +262,11 @@ if grep -P 'balloon_alert\(.*?, ?"[А-Я]' code/**/*.dm; then
 	echo
     st=1
 fi;
+if grep -P '^/(obj|mob|turf|area|atom)/.+/Initialize\((?!mapload).*\)' code/**/*.dm; then
+    echo -e "${RED}ERROR: Initialize override without 'mapload' argument.${NC}"
+	echo
+    st=1
+fi;
 
 if [ $st = 0 ]; then
     echo -e "${GREEN}No errors found using grep!${NC}"

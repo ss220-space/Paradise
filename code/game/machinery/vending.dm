@@ -5532,14 +5532,15 @@
 	screen_overlay = "ammovend_overlay"
 
 	products = list(
-		/obj/item/ammo_box/magazine/wt550m9  = 8,
+		/obj/item/ammo_box/magazine/wt550m9  = 10,
+		/obj/item/ammo_box/magazine/sp91rc = 10,
 		/obj/item/ammo_box/magazine/enforcer/lethal = 10,
 		/obj/item/ammo_box/magazine/specter/laser = 10,
+		/obj/item/ammo_box/magazine/lr30mag = 10,
 		/obj/item/ammo_box/shotgun = 1,
 		/obj/item/ammo_box/shotgun/buck = 2,
 		/obj/item/ammo_box/shotgun/beanbag = 2,
 		/obj/item/ammo_box/shotgun/tranquilizer = 1,
-		/obj/item/ammo_box/magazine/sp91rc = 8,
 		/obj/item/grenade/flashbang = 10,
 		/obj/item/grenade/barrier = 10,
 		/obj/item/grenade/chem_grenade/teargas = 10,
