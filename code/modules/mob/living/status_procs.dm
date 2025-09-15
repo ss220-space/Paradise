@@ -314,7 +314,7 @@
 	SetEyeBlurry(directional_bounded_sum(AmountEyeBlurry(), amount, bound_lower, bound_upper))
 
 // MARK: Temperature
-/mob/living/proc/SmoothBodyTemperature(target_temperature)
+/mob/living/proc/smooth_body_temperature(target_temperature)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_TEMPERATURE, target_temperature)
