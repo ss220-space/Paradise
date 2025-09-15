@@ -626,9 +626,9 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /obj/machinery/computer/bsa_control/proc/get_available_modes()
 	var/list/modes = list()
-	for (var/mode_id in GLOB.BSA_modes_list)
+	for(var/mode_id in GLOB.BSA_modes_list)
 		var/datum/bluespace_cannon_fire_mode/mode = GLOB.BSA_modes_list[mode_id]
-		if (mode.need_emag && !emagged)
+		if(mode.need_emag && !emagged)
 			continue
 		modes += mode.name
 	return modes

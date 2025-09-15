@@ -77,6 +77,6 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 		return "Объекты не найдены <br>"
 
 	var/result = ""
-	for (var/obj/effect/abstract/bluespace_rift/rift_obj as anything in rift.rift_objects)
+	for(var/obj/effect/abstract/bluespace_rift/rift_obj as anything in rift.rift_objects)
 		result += "[rift_obj.name] <br>"
 	return result

@@ -341,7 +341,7 @@
 /obj/item/nuke_core_container/supermatter/update_name(updates = ALL)
 	. = ..()
 	name = cracked ? "broken supermatter bin" : initial(name)
-	if (cracked)
+	if(cracked)
 		ru_names = list(
 			NOMINATIVE = "разбитый контейнер для суперматерии",
 			GENITIVE = "разбитого контейнера для суперматерии",

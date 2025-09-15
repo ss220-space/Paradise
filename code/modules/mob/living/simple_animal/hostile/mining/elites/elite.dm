@@ -262,7 +262,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			user.visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда рука [user] входит в её радиус! О-ох..."), span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда ваша рука входит в её радиус! Ваши инстинкты говорят вам отступить!"))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
-				if (fighter.stat != DEAD)
+				if(fighter.stat != DEAD)
 					make_activator(fighter)
 			if(boosted)
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
@@ -278,7 +278,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] начинает пульсировать! Ваши инстинкты говорят вам отступить!"))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
-				if (fighter.stat != DEAD)
+				if(fighter.stat != DEAD)
 					make_activator(fighter)
 			if(!boosted)
 				addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 3 SECONDS)
@@ -300,7 +300,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				visible_message(span_warning("Опухоль замирает, и ничего не происходит. Возможно, стоит попробовать позже."))
 				activity = TUMOR_INACTIVE
 				for(var/mob/living/carbon/human/activator in activators)
-					if (activator.stat != DEAD)
+					if(activator.stat != DEAD)
 						clear_activator(activator)
 
 /obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)

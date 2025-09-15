@@ -314,9 +314,9 @@
 			return
 		if(/turf/baseturf_bottom)
 			path = check_level_trait(z, ZTRAIT_BASETURF) || /turf/space
-			if (!ispath(path))
+			if(!ispath(path))
 				path = text2path(path)
-				if (!ispath(path))
+				if(!ispath(path))
 					warning("Z-level [z] has invalid baseturf '[check_level_trait(z, ZTRAIT_BASETURF)]'")
 					path = /turf/space
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
@@ -381,7 +381,7 @@
 		// We are guarenteed to have these overlays because of how generation works
 		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 		W.add_overlay(overlay)
-	else if (old_always_lit)
+	else if(old_always_lit)
 		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 		W.cut_overlay(overlay)
 
@@ -826,7 +826,7 @@
 
 	for(var/atom/movable/movable_content as anything in contents)
 		// We don't want to block ourselves
-		if((movable_content == source_atom))
+		if(movable_content == source_atom)
 			continue
 		// dont consider ignored atoms or their types
 		if(length(ignore_atoms))

@@ -136,7 +136,7 @@
 		var/is_in_use = FALSE
 		var/list/nearby = viewers(1, src)
 		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
+			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.attack_hand(M)
 		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
@@ -161,7 +161,7 @@
 		var/list/nearby = viewers(1, src)
 		var/is_in_use = FALSE
 		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
+			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.interact(M)
 		var/ai_in_use = AutoUpdateAI(src)

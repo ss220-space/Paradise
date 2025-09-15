@@ -122,7 +122,7 @@
 			else if(GLOB.devil_title.Find(action))
 				currentSection = SYLLABLE
 			else if(GLOB.devil_syllable.Find(action))
-				if (currentSection >= SYLLABLE)
+				if(currentSection >= SYLLABLE)
 					currentSection = MULTIPLE_SYLLABLE
 				else
 					currentSection = SYLLABLE

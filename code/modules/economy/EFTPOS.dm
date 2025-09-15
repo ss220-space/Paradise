@@ -51,7 +51,7 @@
 
 /obj/item/eftpos/Initialize(mapload)
 	machine_name = "[station_name()]"
-	if (duty_mode)
+	if(duty_mode)
 		machine_name += " Security"
 	machine_name += " EFTPOS #[GLOB.num_financial_terminals++]"
 	reconnect_database()
@@ -213,7 +213,7 @@
 				to_chat(user, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support.</span>")
 				playsound(src, 'sound/machines/terminal_alert.ogg', 30, FALSE)
 		if("trans_purpose")
-			if (duty_mode)
+			if(duty_mode)
 				to_chat(user, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 				return

@@ -1550,7 +1550,7 @@
 					log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
 				else if(src in SSticker.mode.apprentices)
-					if (SSticker.mode.wizards.len)
+					if(SSticker.mode.wizards.len)
 						var/datum/mind/wizard = pick(SSticker.mode.wizards)
 						SSticker.mode.forge_wizard_apprentice_objectives(wizard, src)
 					else

@@ -109,9 +109,9 @@
 	charge_tick = 0
 
 	var/target_loc
-	if (isrobot(loc))
+	if(isrobot(loc))
 		target_loc = loc
-	else if (isrobot(loc.loc))
+	else if(isrobot(loc.loc))
 		target_loc = loc.loc
 	else
 		return TRUE

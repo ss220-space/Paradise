@@ -51,7 +51,7 @@
 	var/datum/quest_mech/selected = new mech
 	if(selected.type in working_mechas)
 		reward["working"] += 3
-	else if (selected.type in combat_mechas)
+	else if(selected.type in combat_mechas)
 		reward["security"] += 3
 	else
 		reward["medical"] += 3

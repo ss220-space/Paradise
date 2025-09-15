@@ -156,7 +156,7 @@
 			var/temp = ""
 			var/list/L = list( 0.25, 0.5, 1, 2, 4, 8, 16 )
 			for(var/t in L)
-				if( powers[ident_tag] == t)
+				if(powers[ident_tag] == t)
 					temp += "<b><a href = '?src=[UID()];power=[t];driver=[ident_tag]'>[t]</a></b> "
 				else
 					temp += "<a href = '?src=[UID()];power=[t];driver=[ident_tag]'>[t]</a> "

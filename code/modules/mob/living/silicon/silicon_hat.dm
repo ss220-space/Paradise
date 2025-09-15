@@ -144,10 +144,10 @@
 			hat_offset_y = -6
 
 	if(inventory_head)
-		if (!canBeHatted)
+		if(!canBeHatted)
 			remove_from_head(usr)
 			return
-		if (!canWearBlacklistedHats && is_type_in_list(inventory_head, blacklisted_hats))
+		if(!canWearBlacklistedHats && is_type_in_list(inventory_head, blacklisted_hats))
 			remove_from_head(usr)
 			return
 
@@ -167,7 +167,7 @@
 		borgI.alpha = hat_alpha
 		borgI.color = hat_color
 		borgI.pixel_y = hat_offset_y
-		if (!isCentered)
+		if(!isCentered)
 			borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 		return borgI
 

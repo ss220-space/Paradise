@@ -135,9 +135,9 @@
 
 	for(var/mob/living/carbon/human/lesser/monke in GLOB.alive_mob_list)
 		var/turf/T = get_turf(monke)
-		if (T.z != src.z)
+		if(T.z != src.z)
 			continue
-		if (monke.health <= monke.maxHealth - 50)
+		if(monke.health <= monke.maxHealth - 50)
 			continue
 		if(!(monke in GLOB.player_list) && !monke.mind)
 			if(prob(SIMPLE_ANIMAL_MINDGIVING_CHANCE))

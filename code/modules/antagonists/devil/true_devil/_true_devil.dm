@@ -218,12 +218,12 @@
 /mob/living/carbon/true_devil/ex_act(severity, ex_target)
 	if(!ascended)
 		var/b_loss
-		switch (severity)
-			if (EXPLODE_DEVASTATE)
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
 				b_loss = 500
-			if (EXPLODE_HEAVY)
+			if(EXPLODE_HEAVY)
 				b_loss = 150
-			if (EXPLODE_LIGHT)
+			if(EXPLODE_LIGHT)
 				b_loss = 30
 		adjustBruteLoss(b_loss)
 	return ..()

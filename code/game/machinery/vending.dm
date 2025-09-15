@@ -430,7 +430,7 @@
 	for(var/R in recordlist)
 		var/datum/data/vending_product/record = R
 		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
-		if (diff)
+		if(diff)
 			productlist[record.product_path] -= diff
 			record.amount += diff
 			. += diff
@@ -781,7 +781,7 @@
 			else
 				data["guestNotice"] = "Обнаруженная ID-карта не привязана к счёту.";
 	data["stock"] = list()
-	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
+	for(var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		data["stock"][R.name] = R.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
@@ -798,7 +798,7 @@
 	data["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
 	data["product_records"] = list()
 	var/i = 1
-	for (var/datum/data/vending_product/R in product_records)
+	for(var/datum/data/vending_product/R in product_records)
 		var/obj/item/item = new R.product_path(src)
 		var/list/names = item.ru_names || item.get_ru_names()
 		var/list/data_pr = list(
@@ -815,7 +815,7 @@
 		data["product_records"] += list(data_pr)
 		i++
 	data["coin_records"] = list()
-	for (var/datum/data/vending_product/R in coin_records)
+	for(var/datum/data/vending_product/R in coin_records)
 		var/obj/item/item = new R.product_path(src)
 		var/list/names = item?.ru_names || item.get_ru_names()
 		var/list/data_cr = list(
@@ -833,7 +833,7 @@
 		data["coin_records"] += list(data_cr)
 		i++
 	data["hidden_records"] = list()
-	for (var/datum/data/vending_product/R in hidden_records)
+	for(var/datum/data/vending_product/R in hidden_records)
 		var/obj/item/item = new R.product_path(src)
 		var/list/names = item?.ru_names || item.get_ru_names()
 		var/list/data_hr = list(
@@ -909,11 +909,11 @@
 					// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
 					to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] не может расширить ассортимент в текущем состоянии. Сообщите о баге."))
 					return
-			else if (!(R in record_to_check))
+			else if(!(R in record_to_check))
 				// Exploit prevention, stop the user
 				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 				return
-			if (R.amount <= 0)
+			if(R.amount <= 0)
 				to_chat(usr, "Товар \"[R.name]\" закончился!")
 				flick_vendor_overlay(FLICK_VEND)
 				return
@@ -1086,7 +1086,7 @@
 
 	var/dump_amount = 0
 	var/found_anything = TRUE
-	while (found_anything)
+	while(found_anything)
 		found_anything = FALSE
 		for(var/record in shuffle(product_records))
 			var/datum/data/vending_product/R = record

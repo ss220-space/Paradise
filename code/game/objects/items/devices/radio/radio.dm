@@ -551,19 +551,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	broadcast_message(tcm)
 	qdel(tcm) // Delete the message datum
 
-/*
-/obj/item/radio/proc/accept_rad(obj/item/radio/R as obj, message)
-
-	if((R.frequency == frequency && message))
-		return 1
-	else if
-
-	else
-		return null
-	return
-*/
-
-
 /obj/item/radio/proc/receive_range(freq, level)
 	// check if this radio can receive on the given frequency, and if so,
 	// what the range is in which mobs will hear the radio

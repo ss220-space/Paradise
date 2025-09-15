@@ -1576,7 +1576,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else if(!in_range(src, user))
 		balloon_alert(user, "слишком далеко!")
 		return null
-	else if (user.incapacitated())
+	else if(user.incapacitated())
 		balloon_alert(user, "невозможно в данный момент!")
 		return null
 

@@ -260,7 +260,7 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
 	visible_message(span_warning("Черепа на [declent_ru(PREPOSITIONAL)] вопят в ярости, спасаясь от умирающего носителя!"))
 	var/turf/T = get_turf(src)
-	if (!T) // When legion dusts T = null. Maybe not onli this way.
+	if(!T) // When legion dusts T = null. Maybe not onli this way.
 		return
 	for(var/i in 1 to 2)
 		new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken(T)

@@ -28,7 +28,7 @@
 			if(ELECTION)
 				newMsg.body = "Сегодня было объявлено о предварительном отборе дополнительных кандидатов на предстоящие выборы в [pick("совет надзирателей","консультативный совет","парламент","коллегию инквизиторов")] на [affected_dest.name]. Среди них — [pick("медиамагнат","веб-знаменитость","титан индустрии","суперзвезда","знаменитый шеф-повар","популярный садовод","бывший армейский офицер","мультимиллиардер")] "
 				var/locvar = pick("MALE", "FEMALE")
-				if (locvar == "MALE")
+				if(locvar == "MALE")
 					newMsg.body += "[random_name(MALE)]. В заявлении для прессы он сказал: "
 				else
 					newMsg.body += "[random_name(FEMALE)]. В заявлении для прессы она сказала: "
@@ -69,7 +69,7 @@
 
 			if(SONG_DEBUT)
 				var/locvar = pick("MALE", "FEMALE")
-				if (locvar == "MALE")
+				if(locvar == "MALE")
 					newMsg.body = "[pick("Певец","Певец/автор песен","Саксофонист","Пианист","Гитарист","Телеведущий","Звезда")] [random_name(MALE)] объявил"
 				else
 					newMsg.body = "[pick("Певица","Певица/автор песен","Саксофонистка","Пианистка","Гитаристка","Телеведущая","Звезда")] [random_name(FEMALE)] объявила"
@@ -89,7 +89,7 @@
 
 			if(GOSSIP)
 				var/locvar = pick("MALE", "FEMALE")
-				if (locvar == "MALE")
+				if(locvar == "MALE")
 					newMsg.body += "[pick("Телеведущий","Веб-знаменитость","Суперзвезда","Модель","Актёр","Певец")] [random_name(MALE)] и его супруга"
 				else
 					newMsg.body += "[pick("Телеведущая","Веб-знаменитость","Суперзвезда","Модель","Актриса","Певица")] [random_name(FEMALE)] и её супруг"
@@ -101,7 +101,7 @@
 						newMsg.body += capitalize(pick(GLOB.first_names_male))
 					newMsg.body += "."
 				else if(prob(50))
-					if (locvar == "MALE")
+					if(locvar == "MALE")
 						newMsg.body += " объявил о своём [pick("расставании","разрыве","браке")] с [pick("телеведущей","веб-знаменитостью","суперзвездой","моделью","актрисой","певицей")] [random_name(FEMALE)] "
 					else
 						newMsg.body += " объявила о своём [pick("расставании","разрыве","браке")] с [pick("телеведущим","веб-знаменитостью","суперзвездой","моделью","актёром","певцом")] [random_name(MALE)] "
@@ -113,7 +113,7 @@
 			if(TOURISM)
 				var/locvar = pick("MALE", "FEMALE")
 				var/locstring = ""
-				if (locvar == "MALE")
+				if(locvar == "MALE")
 					locstring = "туре популярного артиста"
 				else
 					locstring = "туре популярной артистки"

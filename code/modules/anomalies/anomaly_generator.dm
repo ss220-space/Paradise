@@ -201,7 +201,7 @@
 				options["[T.loc.name]"] = possible_beacon
 
 			var/obj/item/radio/beacon/choice = options[tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)]
-			if (choice == null)
+			if(choice == null)
 				choice = beacon;
 
 			selected_beacon = choice

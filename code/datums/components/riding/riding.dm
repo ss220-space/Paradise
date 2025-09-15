@@ -324,7 +324,7 @@
 /datum/component/riding/proc/force_unbuckle(atom/movable/source, mob/living/living_hitter)
 	SIGNAL_HANDLER
 
-	if((living_hitter in source.buckled_mobs))
+	if(living_hitter in source.buckled_mobs)
 		return
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -332,6 +332,6 @@
 /*
 /datum/component/riding/proc/on_entered_supermatter(atom/movable/ridden, atom/movable/supermatter)
 	SIGNAL_HANDLER
-	for (var/mob/passenger as anything in ridden.buckled_mobs)
+	for(var/mob/passenger as anything in ridden.buckled_mobs)
 		passenger.Bump(supermatter)
 */

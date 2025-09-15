@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(subject!=null)
 		for(var/A in GLOB.ai_list)
 			var/mob/living/silicon/ai/M = A
-			if((M.client && M.machine == subject))
+			if(M.client && M.machine == subject)
 				is_in_use = 1
 				subject.attack_ai(M)
 	return is_in_use
@@ -1066,7 +1066,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(Entry.len < 2 || Entry[1] != "hologram")
 				continue
 
-			if (Entry[2] == ckey) //Custom holograms
+			if(Entry[2] == ckey) //Custom holograms
 				custom_hologram = 1  // option is given in hologram menu
 
 	var/input
@@ -1260,10 +1260,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/obj/machinery/camera/add = list()
 	var/list/obj/machinery/camera/remove = list()
 	var/list/obj/machinery/camera/visible = list()
-	for (var/datum/camerachunk/chunk as anything in eyeobj.visibleCameraChunks)
-		for (var/z_key in chunk.cameras)
+	for(var/datum/camerachunk/chunk as anything in eyeobj.visibleCameraChunks)
+		for(var/z_key in chunk.cameras)
 			for(var/obj/machinery/camera/camera as anything in chunk.cameras[z_key])
-				if (!camera.can_use() || get_dist(camera, eyeobj) > 7)
+				if(!camera.can_use() || get_dist(camera, eyeobj) > 7)
 					continue
 				visible |= camera
 

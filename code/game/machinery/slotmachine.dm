@@ -231,12 +231,12 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 		atom_say("Ошибка!")
 		return
 	var/credits = prizedatum.get_credits(emagged)
-	if (prizedatum.custom_result)
+	if(prizedatum.custom_result)
 		result = prizedatum.custom_result
 	else
 		result = "[prizedatum.custom_result_prefix] Вы выиграли [credits] кредитов!"
 	resultlvl = prizedatum.resultlvl
-	if (prizedatum.say_phrase)
+	if(prizedatum.say_phrase)
 		atom_say("[prizedatum.say_phrase] Игрок [user.name] выиграл [credits] кредитов!")
 	if(credits > 0)
 		win_money(credits, prizedatum.sound)
@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	for(var/prize_id in GLOB.slotmachine_prizes)
 		var/datum/slotmachine_prize/prize = GLOB.slotmachine_prizes[prize_id]
 		current += prize.chance
-		if (roll <= current)
+		if(roll <= current)
 			return prize
 	// if any other cases
 	return GLOB.slotmachine_prizes["lose"]

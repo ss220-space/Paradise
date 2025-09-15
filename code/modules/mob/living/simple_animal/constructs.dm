@@ -141,7 +141,7 @@
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/reflectchance = 80 - round(P.damage/3)
 		if(prob(reflectchance))
-			if((P.damage_type == BRUTE || P.damage_type == BURN))
+			if(P.damage_type == BRUTE || P.damage_type == BURN)
 				adjustBruteLoss(P.damage * 0.5)
 			visible_message(span_danger("The [P.name] gets reflected by [src]'s shell!"), \
 							span_userdanger("The [P.name] gets reflected by [src]'s shell!"),

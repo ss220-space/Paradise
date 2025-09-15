@@ -231,7 +231,7 @@ log transactions
 			if(authenticated_account)
 				var/new_insurance_type = params["new_insurance_type"]
 				var/req_money = 0
-				switch (new_insurance_type)
+				switch(new_insurance_type)
 					if(INSURANCE_TYPE_STANDART)
 						req_money = INSURANCE_STANDART_COST
 					if(INSURANCE_TYPE_DELUXE)

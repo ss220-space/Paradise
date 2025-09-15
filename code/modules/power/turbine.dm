@@ -338,7 +338,7 @@
 
 /obj/machinery/power/turbine/interact(mob/user)
 
-	if( !Adjacent(user)  || (stat & (NOPOWER|BROKEN)) && (!istype(user, /mob/living/silicon)) )
+	if(!Adjacent(user)  || (stat & (NOPOWER|BROKEN)) && (!istype(user, /mob/living/silicon)))
 		user.unset_machine(src)
 		close_window(user, "turbine")
 		return
@@ -364,12 +364,12 @@
 	if(..())
 		return
 
-	if( href_list["close"] )
+	if(href_list["close"])
 		close_window(usr, "turbine")
 		usr.unset_machine(src)
 		return
 
-	else if( href_list["str"] )
+	else if(href_list["str"])
 		if(compressor)
 			compressor.starter = !compressor.starter
 
@@ -430,10 +430,10 @@
 	if(..())
 		return
 
-	else if( href_list["str"] )
+	else if(href_list["str"])
 		if(compressor && compressor.turbine)
 			compressor.starter = !compressor.starter
-	else if( href_list["close"] )
+	else if(href_list["close"])
 		close_window(usr, "turbinecomputer")
 		usr.unset_machine(src)
 		return

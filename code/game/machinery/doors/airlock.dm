@@ -1614,7 +1614,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return FALSE
 
 	if(!wirecutters_used)
-		if (ishuman(user) && (user.a_intent == INTENT_GRAB)) //grab that note
+		if(ishuman(user) && (user.a_intent == INTENT_GRAB)) //grab that note
 			user.visible_message(span_notice("[user] removes [note] from [src]."), span_notice("You remove [note] from [src]."))
 			playsound(src, 'sound/items/poster_ripped.ogg', 50, TRUE)
 		else

@@ -806,11 +806,11 @@
  */
 
 ///Initialize the lazylist
-#define LAZYINITLIST(L) if (!L) L = list()
+#define LAZYINITLIST(L) if(!L) L = list()
 ///If the provided list is empty, set it to null
-#define UNSETEMPTY(L) if (L && !length(L)) L = null
+#define UNSETEMPTY(L) if(L && !length(L)) L = null
 ///If the provided key -> list is empty, remove it from the list
-#define ASSOC_UNSETEMPTY(L, K) if (!length(L[K])) L -= K;
+#define ASSOC_UNSETEMPTY(L, K) if(!length(L[K])) L -= K;
 ///Like LAZYCOPY - copies an input list if the list has entries, If it doesn't the assigned list is nulled
 #define LAZYLISTDUPLICATE(L) (L ? L.Copy() : null )
 ///Remove an item from the list, set the list to null if empty
@@ -826,7 +826,7 @@
 ///Sets the item K to the value V, if the list is null it will initialize it
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
 ///Sets the length of a lazylist
-#define LAZYSETLEN(L, V) if (!L) { L = list(); } L.len = V;
+#define LAZYSETLEN(L, V) if(!L) { L = list(); } L.len = V;
 ///Returns the length of the list. Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list
 #define LAZYLEN(L) length(L)
 ///Sets a list to null
@@ -863,12 +863,12 @@
 
 ///Ensures the length of a list is at least I, prefilling it with V if needed. if V is a proc call, it is repeated for each new index so that list() can just make a new list for each item.
 #define LISTASSERTLEN(L, I, V...) \
-	if (length(L) < I) { \
+	if(length(L) < I) { \
 		var/_OLD_LENGTH = length(L); \
 		L.len = I; \
 		/* Convert the optional argument to a if check */ \
-		for (var/_USELESS_VAR in list(V)) { \
-			for (var/_INDEX_TO_ASSIGN_TO in _OLD_LENGTH+1 to I) { \
+		for(var/_USELESS_VAR in list(V)) { \
+			for(var/_INDEX_TO_ASSIGN_TO in _OLD_LENGTH+1 to I) { \
 				L[_INDEX_TO_ASSIGN_TO] = V; \
 			} \
 		} \
@@ -1090,10 +1090,10 @@
 /proc/assert_sorted(list/list, name, cmp = GLOBAL_PROC_REF(cmp_numeric_asc))
 	var/last_value = list[1]
 
-	for (var/index in 2 to list.len)
+	for(var/index in 2 to list.len)
 		var/value = list[index]
 
-		if (call(cmp)(value, last_value) < 0)
+		if(call(cmp)(value, last_value) < 0)
 			stack_trace("[name] is not sorted. value at [index] ([value]) is in the wrong place compared to the previous value of [last_value] (when compared to by [cmp])")
 
 		last_value = value

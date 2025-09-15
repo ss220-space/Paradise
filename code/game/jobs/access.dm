@@ -523,7 +523,7 @@
 			available_accesses &= list_to_form
 		for(var/access in available_accesses)
 			var/access_desc = get_region_access_desc(region, access)
-			if (access_desc)
+			if(access_desc)
 				accesses += list(list(
 					"desc" = replacetext(access_desc, "&nbsp", " "),
 					"ref" = access,

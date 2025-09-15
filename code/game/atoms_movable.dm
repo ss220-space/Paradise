@@ -736,7 +736,7 @@
 		var/same_z_layer = (GET_TURF_PLANE_OFFSET(old_turf) == GET_TURF_PLANE_OFFSET(new_turf))
 		on_changed_z_level(old_turf, new_turf, same_z_layer)
 
-	for (var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
+	for(var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
 		light.source_atom.update_light()
 
 	SSdemo.mark_dirty(src)
@@ -1064,7 +1064,7 @@
 	if(!notify_contents)
 		return
 
-	for (var/atom/movable/content as anything in src) // Notify contents of Z-transition.
+	for(var/atom/movable/content as anything in src) // Notify contents of Z-transition.
 		content.on_changed_z_level(old_turf, new_turf, same_z_layer)
 
 

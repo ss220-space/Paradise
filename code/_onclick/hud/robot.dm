@@ -256,7 +256,7 @@
 				R.module.modules.Remove(R.module.emag)
 
 		for(var/atom/movable/A in R.module.modules)
-			if( (A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3) )
+			if((A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3))
 				//Module is not currently active
 				screenmob.client?.screen += A
 				if(x < 0)
@@ -275,7 +275,7 @@
 		screenmob.client?.screen -= module_store_icon
 
 		for(var/atom/A in R.module.modules)
-			if( (A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3) )
+			if((A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3))
 				//Module is not currently active
 				screenmob.client?.screen -= A
 		R.shown_robot_modules = 0

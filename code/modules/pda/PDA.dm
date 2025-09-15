@@ -276,7 +276,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(issilicon(usr))
 		return
 
-	if( can_use(usr) )
+	if(can_use(usr))
 		if(id)
 			remove_id(usr)
 		else

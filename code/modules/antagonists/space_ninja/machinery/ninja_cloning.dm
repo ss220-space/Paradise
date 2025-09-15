@@ -54,7 +54,7 @@
 	if(!clonemind.is_revivable()) //Other reasons for being unrevivable
 		return FALSE
 	if(clonemind.active)	//somebody is using that mind
-		if(ckey(clonemind.key) != ninja_dna_record.ckey )
+		if(ckey(clonemind.key) != ninja_dna_record.ckey)
 			return FALSE
 	var/mob/dead/observer/ninja_ghost = clonemind.get_ghost()
 	var/datum/ninja_suit_cloning_data/ninja_suit_data = find_suit_data(ckey(clonemind.key))
