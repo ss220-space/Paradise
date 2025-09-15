@@ -154,7 +154,7 @@
 
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
-	.["is_user_irradiated"] = mod.wearer.radiation || 0
+	.["is_user_irradiated"] = mod.wearer?.radiation || 0
 	.["health_max"] = mod.wearer?.getMaxHealth() || 0
 	.["loss_tox"] = mod.wearer?.getToxLoss() || 0
 
