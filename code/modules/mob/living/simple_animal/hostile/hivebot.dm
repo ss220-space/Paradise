@@ -21,6 +21,7 @@
 /mob/living/simple_animal/hostile/hivebot
 	name = "jerry-built robot"
 	desc = "Многофункциональный робот с шестью манипуляторами. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
+	gender = MALE
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "basic"
 	icon_living = "basic"
@@ -273,6 +274,7 @@
 /obj/structure/hivebot_spawner
 	name = "Hivebot Fabricator"
 	desc = "Крупная машина, печатающая роботов улья из металлолома с определённой периодичностью. На боку грубо нацарапанная надпись \"ВМС\"."
+	gender = MALE
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "fab_robot"
 	anchored = TRUE
