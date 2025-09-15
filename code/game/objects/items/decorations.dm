@@ -6,12 +6,9 @@
 /obj/item/decorations/sticky_decorations
 	w_class = WEIGHT_CLASS_TINY
 
-
-/obj/item/decorations/sticky_decorations/New()
+/obj/item/decorations/sticky_decorations/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/ducttape, 0, 0, TRUE)//add this to something to make it sticky but without the tape overlay
-
-
 
 /obj/item/decorations/sticky_decorations/flammable
 	resistance_flags = FLAMMABLE
@@ -363,11 +360,10 @@
 			H.fakevomit()
 
 ///// jumping meat for body explotion effect
-
-/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping/Initialize(turf/T)
-	T = get_offset_target_turf(src.loc, rand(2)-rand(2), rand(2)-rand(2))
-	src.throw_at(T, 2, 1)
-	..()
+/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping/Initialize(mapload, turf/T)
+	. = ..()
+	T = get_offset_target_turf(loc, rand(2)-rand(2), rand(2)-rand(2))
+	throw_at(T, 2, 1)
 
 ////// Bouquets
 

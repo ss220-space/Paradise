@@ -540,15 +540,14 @@ Returns 1 if the chain up to the area contains the given typepath
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all turfs in areas of that type of that type in the world.
-/proc/get_area_turfs(areatype, subtypes=TRUE)
-	if(!areatype)
-		return null
+/proc/get_area_turfs(areatype, target_z = 0, subtypes=FALSE)
 	if(istext(areatype))
 		areatype = text2path(areatype)
-	if(isarea(areatype))
+	else if(isarea(areatype))
 		var/area/areatemp = areatype
 		areatype = areatemp.type
-
+	else if(!ispath(areatype))
+		return null
 	// Pull out the areas
 	var/list/areas_to_pull = list()
 	if(subtypes)
@@ -566,8 +565,17 @@ Returns 1 if the chain up to the area contains the given typepath
 	// Now their turfs
 	var/list/turfs = list()
 	for(var/area/pull_from as anything in areas_to_pull)
-		turfs += pull_from.get_contained_turfs()
+
+		if (target_z != 0)
+			turfs += pull_from.get_turfs_by_zlevel(target_z)
+			continue
+
+		for (var/list/zlevel_turfs as anything in pull_from.get_zlevel_turf_lists())
+			turfs += zlevel_turfs
+
 	return turfs
+
+
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all atoms	(objs, turfs, mobs) in areas of that type of that type in the world.

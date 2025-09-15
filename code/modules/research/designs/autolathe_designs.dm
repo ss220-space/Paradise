@@ -681,21 +681,12 @@
 	category = list("initial", "Security")
 
 /datum/design/enforcermag
-	name = "handgun magazine (9mm rubber)"
+	name = "handgun magazine (9mm)"
 	id = "rubber9mmmag"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 7200) //5200 за пули + 2000 за корпус
-	build_path = /obj/item/ammo_box/magazine/enforcer
+	materials = list(MAT_METAL = 2500)
+	build_path = /obj/item/ammo_box/magazine/enforcer/empty
 	category = list("initial", "Security")
-
-//hacked autolathe recipes
-/datum/design/enforcermaglethal
-	name = "handgun magazine (9mm)"
-	id = "c9mmmag"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 10000) //8000 за пули + 2000 за корпус
-	build_path = /obj/item/ammo_box/magazine/enforcer/lethal
-	category = list("hacked", "Security")
 
 /datum/design/flamethrower
 	name = "Flamethrower"
@@ -781,8 +772,8 @@
 	name = "handgun magazine (.40 S&W)"
 	id = "fortynrmag"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 13000)
-	build_path = /obj/item/ammo_box/magazine/sp8
+	materials = list(MAT_METAL = 2500)
+	build_path = /obj/item/ammo_box/magazine/sp8/empty
 	category = list("hacked", "Security")
 
 /datum/design/sp91rc_box
@@ -810,28 +801,19 @@
 	category = list("hacked", "Security")
 
 /datum/design/spectermag_disabler
-	name = "magazine Specter (disabler)"
+	name = "magazine Specter (empty)"
 	id = "spectermag_disabler"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 8000)
-	build_path = /obj/item/ammo_box/magazine/specter
+	materials = list(MAT_METAL = 2500)
+	build_path = /obj/item/ammo_box/magazine/specter/empty
 	category = list("initial", "Security")
-
-//hacked autolathe recipes
-/datum/design/spectermag_laser
-	name = "magazine Specter (laser)"
-	id = "spectermag_laser"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 10000)
-	build_path = /obj/item/ammo_box/magazine/specter/laser
-	category = list("hacked", "Security")
 
 /datum/design/sp91rc_mag
 	name = "handgun magazine (9mm TE)"
 	id = "9mm-te"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 12000)
-	build_path = /obj/item/ammo_box/magazine/sp91rc
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/sp91rc/empty
 	category = list("hacked", "Security")
 
 /datum/design/buckshot_shell

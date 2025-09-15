@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(title)
 	wait = 300
 	init_order = INIT_ORDER_TITLE
 	init_stage = INITSTAGE_EARLY
+	runlevels = RUNLEVELS_DEFAULT|RUNLEVEL_LOBBY
 	ss_id = "title_screen"
 	/// Basic html that includes styles. Can be customised by host
 	var/base_html
@@ -282,15 +283,20 @@ SUBSYSTEM_DEF(title)
 	if(!viewer)
 		return
 
+	var/current_theme = color2tguitheme[winget(viewer, "mainwindow", "background-color")]// we sleep here and can loose client
+	if(!viewer)
+		return
+
 	var/list/html = list(title_html)
 	var/mob/new_player/player = user
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
+	var/icon_url = SSassets.transport.get_asset_url(asset_name = current_icon)
 
 	//hope that client won`t use custom theme
-	html += {"<body class="[color2tguitheme[winget(viewer, "mainwindow", "background-color")]][viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
+	html += {"<body class="[current_theme][viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
 
 	html += {"<input type="checkbox" id="hide_menu">"}
-	html += {"<input type="checkbox" id="hide_lobby">"}
+	html += {"<input type="checkbox" checked="checked" id="hide_lobby">"}
 
 	if(notice)
 		html += {"
@@ -306,7 +312,7 @@ SUBSYSTEM_DEF(title)
 		<div class="container_logo">
 			<div class="random_title_message">[random_phrase]</div>
 			<div class="logo_and_preview">
-				<img class="logo" src="[SSassets.transport.get_asset_url(asset_name = current_icon)]">
+				<img class="logo" src="[icon_url]">
 				<div class="preview">
 					<img src="" alt="" id="preview" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAgAB/IsDkAAAAABJRU5ErkJggg=='">
 				</div>

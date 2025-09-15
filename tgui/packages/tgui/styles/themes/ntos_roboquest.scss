@@ -8,28 +8,27 @@
 //@use 'sass:map';
 
 //palette
-$dark-purple: #9528cc;
-$purple: #9c3dcc;
-$light-purple: #aa66cc;
+$dark-purple: hsl(279.9, 67.2%, 47.8%);
+$purple: hsl(279.9, 58.4%, 52%);
+$light-purple: hsl(280, 50%, 60%);
 
-$light-gray: #f0ebf2;
-$dark-gray: #cac6cc;
+$light-gray: hsl(282.9, 21.2%, 93.5%);
+$dark-gray: hsl(280, 5.6%, 78.8%);
 $scrollbar-color-multiplier: 0.5;
 
-$nanotrasen: #2c2c2c;
+$nanotrasen: hsl(0, 0%, 17.3%);
 
 @use '../colors.scss' with (
-  $primary: #651e88,
-  $label: #cac6cc,
-  $good: #cac6cc,
-
+  $primary: hsl(280.2, 63.9%, 32.5%),
+  $label: hsl(280, 5.6%, 78.8%),
+  $good: hsl(280, 5.6%, 78.8%),
   $bad: red,
   // $fg-map-keys: (),
   // $bg-map-keys: (),
 );
 
 @use '../base.scss' with (
-    $color-bg: #3f055c,
+    $color-bg: hsl(280, 89.7%, 19%),
     $color-bg-grad-spread: 12%,
     //$border-radius: 0,
   );
@@ -42,11 +41,11 @@ $nanotrasen: #2c2c2c;
   @include meta.load-css(
     '../components/Button.scss',
     $with: (
-      'color-default': #9524ff,
+      'color-default': hsl(271, 100%, 57.1%),
       'color-transparent-text': rgba(227, 240, 255, 0.75),
-      'color-disabled': #363636,
-      'color-selected': #465899,
-      'color-caution': #be6209
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(227, 37.2%, 43.7%),
+      'color-caution': hsl(29.5, 91%, 39%)
     )
   );
   @include meta.load-css(
@@ -60,7 +59,7 @@ $nanotrasen: #2c2c2c;
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css(
     '../components/Tooltip.scss',
-    $with: ('background-color': #cac6cc)
+    $with: ('background-color': hsl(280, 5.6%, 78.8%))
   );
 
   // Layouts
@@ -68,11 +67,11 @@ $nanotrasen: #2c2c2c;
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('background-color': #3e1c50)
+    $with: ('background-color': hsl(279.2, 48.1%, 21.2%))
   );
 
   .Section {
-    outline: 2px inset #651e88;
+    outline: 2px inset hsl(280.2, 63.9%, 32.5%);
   }
 
   .Section__buttons {
@@ -83,23 +82,23 @@ $nanotrasen: #2c2c2c;
   }
 
   .Button {
-    color: #f0ebf2;
-    background-color: #651e88;
+    color: hsl(282.9, 21.2%, 93.5%);
+    background-color: hsl(280.2, 63.9%, 32.5%);
   }
 
   .ProgressBar {
-    color: #651e88;
+    color: hsl(280.2, 63.9%, 32.5%);
   }
 
   .Divider--vertical {
     &:not(.Divider--hidden) {
-      border-left: 2px solid #651e88;
+      border-left: 2px solid hsl(280.2, 63.9%, 32.5%);
     }
   }
 
   .Divider--horizontal {
     &:not(.Divider--hidden) {
-      border-top: 2px solid #651e88;
+      border-top: 2px solid hsl(280.2, 63.9%, 32.5%);
     }
   }
 
@@ -112,11 +111,11 @@ $nanotrasen: #2c2c2c;
   .Layout * {
     // Fancy scrollbar
     scrollbar-base-color: color.scale(
-      #454255,
+      hsl(249.5, 12.6%, 29.6%),
       $lightness: -25% * $scrollbar-color-multiplier
     );
     scrollbar-face-color: color.scale(
-      #454255,
+      hsl(249.5, 12.6%, 29.6%),
       $lightness: 10% * $scrollbar-color-multiplier
     );
 
@@ -129,7 +128,7 @@ $nanotrasen: #2c2c2c;
       $lightness: 0% * $scrollbar-color-multiplier
     );
     scrollbar-track-color: color.scale(
-      #7c3aba,
+      hsl(270.9, 52.5%, 47.8%),
       $lightness: -25% * $scrollbar-color-multiplier
     );
     scrollbar-arrow-color: color.scale(
@@ -137,7 +136,7 @@ $nanotrasen: #2c2c2c;
       $lightness: 50% * $scrollbar-color-multiplier
     );
     scrollbar-shadow-color: color.scale(
-      #454255,
+      hsl(249.5, 12.6%, 29.6%),
       $lightness: 10% * $scrollbar-color-multiplier
     );
   }
@@ -150,7 +149,7 @@ $nanotrasen: #2c2c2c;
     background-color: rgb(255, 132, 153);
   }
   .Box {
-    outline: 3px outset #c0c0c0;
+    outline: 3px outset hsl(0, 0%, 75.3%);
   }
   .Tooltip {
     color: black;
@@ -160,7 +159,7 @@ $nanotrasen: #2c2c2c;
     outline: 2px inset rgb(255, 132, 153);
   }
   .NtosWindow__header {
-    background-color: #454255;
+    background-color: hsl(249.5, 12.6%, 29.6%);
   }
   .Flex {
     color: white;

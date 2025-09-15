@@ -361,6 +361,9 @@
 	multiple_sprites = 1
 	caliber = CALIBER_9MM
 
+/obj/item/ammo_box/magazine/enforcer/empty
+	start_empty = TRUE
+
 /obj/item/ammo_box/magazine/enforcer/get_ru_names()
 	return list(
 		NOMINATIVE = "магазин пистолета \"Блюститель\" (нелетальные 9 мм)",
@@ -430,6 +433,9 @@
 	max_ammo = 10
 	caliber = CALIBER_40NR
 
+/obj/item/ammo_box/magazine/sp8/empty
+	start_empty = TRUE
+
 /obj/item/ammo_box/magazine/sp8/get_ru_names()
 	return list(
 		NOMINATIVE = "магазин пистолета \"SP-8\" (.40 S&W)",
@@ -450,6 +456,9 @@
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = CALIBER_4_DOT_6X30MM
 	max_ammo = 30
+
+/obj/item/ammo_box/magazine/wt550m9/empty
+	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/wt550m9/get_ru_names()
 	return list(
@@ -510,21 +519,24 @@
 	)
 
 /obj/item/ammo_box/magazine/sp91rc
-	name = "SP-91-RC magazine (9mm TE)"
-	desc = "Магазин пистолет-пулемета \"SP-91-RC\", заряженный нелетальными патронами калибра 9 мм TE."
-	icon_state = "9mm-te"
-	ammo_type = /obj/item/ammo_casing/c9mmte
-	caliber = CALIBER_9MM_TE
+	name = "SP-91-RC magazine (45 N&R)"
+	desc = "Магазин пистолет-пулемета \"SP-91-RC\", заряженный патронами калибра 45 N&R."
+	icon_state = "45NRmag"
+	ammo_type = /obj/item/ammo_casing/c45nr
+	caliber = CALIBER_45NR
 	max_ammo = 20
+
+/obj/item/ammo_box/magazine/sp91rc/empty
+	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/sp91rc/get_ru_names()
 	return list(
-		NOMINATIVE = "магазин пистолет-пулемета \"SP-91-RC\" (9 мм TE)",
-		GENITIVE = "магазина пистолет-пулемета \"SP-91-RC\" (9 мм TE)",
-		DATIVE = "магазину пистолет-пулемета \"SP-91-RC\" (9 мм TE)",
-		ACCUSATIVE = "магазин пистолет-пулемета \"SP-91-RC\" (9 мм TE)",
-		INSTRUMENTAL = "магазином пистолет-пулемета \"SP-91-RC\" (9 мм TE)",
-		PREPOSITIONAL = "магазине пистолет-пулемета \"SP-91-RC\" (9 мм TE)"
+		NOMINATIVE = "магазин пистолет-пулемета \"SP-91-RC\" (45 N&R)",
+		GENITIVE = "магазина пистолет-пулемета \"SP-91-RC\" (45 N&R)",
+		DATIVE = "магазину пистолет-пулемета \"SP-91-RC\" (45 N&R)",
+		ACCUSATIVE = "магазин пистолет-пулемета \"SP-91-RC\" (45 N&R)",
+		INSTRUMENTAL = "магазином пистолет-пулемета \"SP-91-RC\" (45 N&R)",
+		PREPOSITIONAL = "магазине пистолет-пулемета \"SP-91-RC\" (45 N&R)"
 	)
 
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
@@ -1204,7 +1216,7 @@
 	icon_state = "lmag"
 	ammo_type = /obj/item/ammo_casing/laser
 	caliber = CALIBER_LASER
-	max_ammo = 20
+	max_ammo = 12
 
 /obj/item/ammo_box/magazine/lr30mag/get_ru_names()
 	return list(
@@ -1217,7 +1229,7 @@
 	)
 
 /obj/item/ammo_box/magazine/lr30mag/update_icon_state()
-	icon_state = "lmag-[CEILING(ammo_count(), 5)]"
+	icon_state = "lmag-[CEILING(ammo_count(), 3)]"
 
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
@@ -1350,6 +1362,9 @@
 	multiple_sprites = 1
 	caliber = CALIBER_SPECTER
 	materials = list(MAT_METAL = 3000)
+
+/obj/item/ammo_box/magazine/specter/empty
+	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/specter/get_ru_names()
 	return list(

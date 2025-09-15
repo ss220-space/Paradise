@@ -401,7 +401,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency, FALSE)
+		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency, is_whisper = FALSE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
@@ -567,7 +567,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			speech_bubble_recipients.Add(M.client)
 
 	if(eavesdropping.len)
-		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
+		stars_all(message_pieces) //hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
 			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
 			if(M.client)
