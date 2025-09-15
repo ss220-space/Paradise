@@ -214,7 +214,7 @@ CODE_CHECKS = [
     check_empty_list_whitespace,
 #    check_istype_src,
 #    check_camel_case_type_names,
-#    check_uid_parameters,
+    check_uid_parameters,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
