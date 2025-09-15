@@ -126,7 +126,7 @@
 		return
 	user.balloon_alert(user, "прикреплено")
 	exists_bell = TRUE
-	update_desc()
+	update_appearance(UPDATE_DESC)
 	qdel(item)
 
 /obj/vehicle/ridden/wheelchair/proc/grenade_act(obj/item/item, mob/user, params)
@@ -143,7 +143,7 @@
 	item.item_flags |= IN_STORAGE
 	if (clown_check(user))
 		user.balloon_alert(user, "прикреплено")
-	update_desc()
+	update_appearance(UPDATE_DESC)
 
 /obj/vehicle/ridden/wheelchair/proc/clown_check(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
