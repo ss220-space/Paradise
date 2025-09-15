@@ -71,7 +71,7 @@
 		balloon_alert(user, "это не электрический прибор!")
 		return
 	buffer = M
-	ballon_alert(user, "Вы загрузили [m.declent_ru(ACCUSATIVE)] во внутренний буфер [declent_ru(GENITIVE)].")
+	ballon_alert(user, "Вы загружаете [M] в хранилище [capitalize(declent_ru(GENITIVE))].")
 	return TRUE
 
 /obj/item/multitool/attack_self(mob/user)
