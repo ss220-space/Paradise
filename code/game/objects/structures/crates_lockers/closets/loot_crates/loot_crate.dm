@@ -2,6 +2,8 @@
 	icon = 'icons/obj/supplypods.dmi'
 	locked = TRUE
 	pixel_x = -16
+	ignore_shoves = TRUE
+	no_throw_opens = TRUE
 	var/datum/loot_tier/tier
 
 /obj/structure/closet/loot_crate/get_ru_names()

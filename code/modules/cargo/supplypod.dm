@@ -11,6 +11,8 @@
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	anchored = TRUE //So it cant slide around after landing
 	density = FALSE
+	ignore_shoves = TRUE
+	no_throw_opens = TRUE
 	///List of bitflags for supply pods, see: code\__DEFINES\obj_flags.dm
 	var/pod_flags = NONE
 
