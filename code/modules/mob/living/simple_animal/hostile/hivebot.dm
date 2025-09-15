@@ -50,7 +50,7 @@
 	var/can_retreat = TRUE
 
 /mob/living/simple_animal/hostile/hivebot/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "кустарный робот",
 		GENITIVE = "кустарного робота",
 		DATIVE = "кустарному роботу",
@@ -109,7 +109,7 @@
 	can_retreat = FALSE
 
 /mob/living/simple_animal/hostile/hivebot/melee/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "бронированный кустарный робот",
 		GENITIVE = "бронированного кустарного робота",
 		DATIVE = "бронированному кустарному роботу",
@@ -137,7 +137,7 @@
 	can_retreat = FALSE
 
 /mob/living/simple_animal/hostile/hivebot/heavy_melee/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "бронированный кустарный робот",
 		GENITIVE = "бронированного кустарного робота",
 		DATIVE = "бронированному кустарному роботу",
@@ -166,7 +166,7 @@
 	projectilesound = 'sound/weapons/gunshots/1autorifle.ogg'
 
 /mob/living/simple_animal/hostile/hivebot/range/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "кустарный робот с гвоздомётами",
 		GENITIVE = "кустарного робота с гвоздомётами",
 		DATIVE = "кустарному роботу с гвоздомётами",
@@ -193,7 +193,7 @@
 	projectilesound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 
 /mob/living/simple_animal/hostile/hivebot/range_heavy/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "кустарный робот с заклёпкомётом",
 		GENITIVE = "кустарного робота с заклёпкомётом",
 		DATIVE = "кустарному роботу с заклёпкомётом",
@@ -224,7 +224,7 @@
 	var/last_heal_time = 0
 
 /mob/living/simple_animal/hostile/hivebot/support/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "кустарный робот-механик",
 		GENITIVE = "кустарного робота-механика",
 		DATIVE = "кустарному роботу-механику",
@@ -290,6 +290,16 @@
 
 	COOLDOWN_DECLARE(cycle_cooldown)
 	COOLDOWN_DECLARE(spawn_cooldown)
+
+/obj/structure/hivebot_spawner/get_ru_names()
+	return list(
+		NOMINATIVE = "фабрикатор",
+		GENITIVE = "фабрикатора",
+		DATIVE = "фабрикатору",
+		ACCUSATIVE = "фабрикатор",
+		INSTRUMENTAL = "фабрикатором",
+		PREPOSITIONAL = "фабрикаторе"
+	)
 
 /obj/structure/hivebot_spawner/Initialize(mapload)
 	. = ..()
