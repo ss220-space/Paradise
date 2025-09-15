@@ -1406,7 +1406,9 @@
 // MARK: Temperature
 /datum/status_effect/transient/temperature
 	id = "temperature"
+	duration = 10 SECONDS  // max delta 500 K
 	var/temp_step = 50 // K per seconds
+	status_type = STATUS_EFFECT_REPLACE
 
 /datum/status_effect/transient/temperature/tick(seconds_between_ticks)
 	if(QDELETED(src) || QDELETED(owner))
