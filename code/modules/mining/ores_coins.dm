@@ -392,6 +392,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/quality = GIBTONITE_QUALITY_LOW //How pure this gibtonite is, determines the explosion produced by it and is derived from the det_time of the rock wall it was taken from, higher value = better
 	var/attacher = UNKNOWN_STATUS_RUS
 	var/datum/wires/explosive/gibtonite/wires
+	var/explosion_z_scale = 0.25
 
 /obj/item/twohanded/required/gibtonite/get_ru_names()
 	return list(
@@ -557,7 +558,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 				if(GIBTONITE_QUALITY_MEDIUM)
 					explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 5, adminlog = notify_admins, cause = src)
 				if(GIBTONITE_QUALITY_LOW)
-					explosion(loc, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, adminlog = notify_admins, cause = src)
+					explosion(loc, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, adminlog = notify_admins, cause = src, z_scale = explosion_z_scale)
 			if(!QDELETED(src))
 				qdel(src)
 

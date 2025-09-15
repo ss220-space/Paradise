@@ -125,11 +125,11 @@ SUBSYSTEM_DEF(explosions)
 	data.enqueue_affected_turfs(reactionary_explosions)
 	explosion_queue.enqueue(data, data.affected_turfs_queue.count)
 
-/datum/controller/subsystem/explosions/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, smoke = TRUE, cause = null, breach = TRUE, protect_epicenter, explosion_direction, explosion_arc)
+/datum/controller/subsystem/explosions/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = TRUE, ignorecap = FALSE, flame_range = 0, silent = FALSE, smoke = TRUE, cause = null, breach = TRUE, protect_epicenter, explosion_direction, explosion_arc, z_scale = 1)
 	if(!epicenter)
 		return FALSE
 
-	var/datum/explosion_data/data = new(get_turf(epicenter), devastation_range, heavy_impact_range, light_impact_range, flash_range, ignorecap, flame_range, breach, multiz_explosions, protect_epicenter, explosion_direction, explosion_arc)
+	var/datum/explosion_data/data = new(get_turf(epicenter), devastation_range, heavy_impact_range, light_impact_range, flash_range, ignorecap, flame_range, breach, multiz_explosions, protect_epicenter, explosion_direction, explosion_arc, z_scale)
 	INVOKE_ASYNC(src, PROC_REF(start_explosion), data, adminlog, cause, smoke, silent)
 
 	return TRUE
@@ -154,8 +154,8 @@ SUBSYSTEM_DEF(explosions)
  * - explosion_direction: The angle in which the explosion is pointed (for directional explosions.)
  * - explosion_arc: The angle of the arc covered by a directional explosion (if 360 the explosion is non-directional.)
  */
-/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, cause, breach, protect_epicenter = FALSE, explosion_direction = 0, explosion_arc = 360)
-	SSexplosions.explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, cause, breach, protect_epicenter, explosion_direction, explosion_arc)
+/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, cause, breach, protect_epicenter = FALSE, explosion_direction = 0, explosion_arc = 360, z_scale = 1)
+	SSexplosions.explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, cause, breach, protect_epicenter, explosion_direction, explosion_arc, z_scale)
 
 /*
 * DONT USE THIS!!! It is not processed by the system and has no radius restrictions.
@@ -189,13 +189,14 @@ SUBSYSTEM_DEF(explosions)
 	var/protect_epicenter = FALSE
 	var/breach
 	var/multiz_explosion = FALSE
+	var/z_scale = 1
 	var/queue/affected_turfs_queue = new()
 	var/list/cached_turf_exp_block = list()
 	var/list/cached_turf_vert_exp_block = list()
 	var/list/cached_exp_block = list()
 	var/watch
 
-/datum/explosion_data/New(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, ignorecap = FALSE, flame_range = 0, breach = TRUE, multiz = FALSE, protect_epicenter = FALSE, explosion_direction = 0, explosion_arc = 360)
+/datum/explosion_data/New(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, ignorecap = FALSE, flame_range = 0, breach = TRUE, multiz = FALSE, protect_epicenter = FALSE, explosion_direction = 0, explosion_arc = 360, z_scale = 1)
 	. = ..()
 	src.epicenter = epicenter
 	src.flame_range = flame_range
@@ -208,6 +209,7 @@ SUBSYSTEM_DEF(explosions)
 	src.explosion_arc = explosion_arc
 	src.explosion_direction = explosion_direction
 	src.protect_epicenter = protect_epicenter
+	src.z_scale = z_scale
 
 	orig_dev_range = devastation_range
 	orig_heavy_range = heavy_impact_range
@@ -218,8 +220,8 @@ SUBSYSTEM_DEF(explosions)
 	if(multiz)
 		var/turf/top_turf = get_highest_turf(epicenter)
 		var/turf/low_turf = get_lowest_turf(epicenter)
-		max_z = min(top_turf.z, epicenter.z + orig_max_distance)
-		min_z = max(low_turf.z, epicenter.z - orig_max_distance)
+		max_z = min(top_turf.z, epicenter.z + round(orig_max_distance * z_scale, 1))
+		min_z = max(low_turf.z, epicenter.z - round(orig_max_distance * z_scale, 1))
 		multiz_explosion = multiz && max_z != min_z
 
 	x0 = epicenter.x
@@ -263,7 +265,7 @@ SUBSYSTEM_DEF(explosions)
 		new /obj/effect/temp_visual/shockwave(epicenter, max_range)
 
 /datum/explosion_data/proc/enqueue_affected_turfs(reactionary_explosions)
-	var/list/affected_turfs = prepare_explosion_turfs(max_range, epicenter, protect_epicenter, explosion_direction, explosion_arc, multiz_explosion, min_z, max_z)
+	var/list/affected_turfs = prepare_explosion_turfs(max_range, epicenter, protect_epicenter, explosion_direction, explosion_arc, multiz_explosion, min_z, max_z, z_scale)
 	if(reactionary_explosions)
 		count_reactionary_explosions(affected_turfs)
 
@@ -430,7 +432,7 @@ SUBSYSTEM_DEF(explosions)
 /// Returns in a unique order, spiraling outwards
 /// This is done to ensure our progressive cache of blast resistance is always valid
 /// This is quite fast
-/proc/prepare_explosion_turfs(range, turf/epicenter, protect_epicenter, explosion_direction = 0, explosion_arc = 360, multiz = FALSE, min_z, max_z)
+/proc/prepare_explosion_turfs(range, turf/epicenter, protect_epicenter, explosion_direction = 0, explosion_arc = 360, multiz = FALSE, min_z, max_z, z_scale = 1)
 	var/list/outlist = list()
 	var/list/candidates = list()
 
