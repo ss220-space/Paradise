@@ -308,8 +308,10 @@
 	start_cycle()
 
 /obj/structure/hivebot_spawner/Destroy()
-	deltimer(production_timer)
-	deltimer(cycle_timer)
+	if(production_timer)
+		deltimer(production_timer)
+	if(cycle_timer)
+		deltimer(cycle_timer)
 	return ..()
 
 /obj/structure/hivebot_spawner/proc/start_cycle()
