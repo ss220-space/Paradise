@@ -503,3 +503,4 @@
 	armour_penetration = 0
 	flag = "magic"
 	hitsound = 'sound/weapons/barragespellhit.ogg'
+	forced_accuracy = TRUE

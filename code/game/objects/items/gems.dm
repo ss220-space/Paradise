@@ -481,7 +481,7 @@
 	icon_state = "ruby"
 	var/gem_list = list(/obj/item/gem/ruby, /obj/item/gem/sapphire, /obj/item/gem/emerald, /obj/item/gem/topaz)
 
-/obj/item/gem/random/Initialize(quantity)
+/obj/item/gem/random/Initialize(mapload, quantity)
 	. = ..()
 	var/q = quantity ? quantity : 1
 	for(var/i = 0, i < q, i++)

@@ -156,9 +156,9 @@
 	icon_state = "bullet-r"
 	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 
-/obj/projectile/bullet/weakbullet4/c9mmte
-	name = "9mm TE"
-	damage = 7
+/obj/projectile/bullet/weakbullet4/c45nr
+	name = "45 N&R"
+	damage = 10
 	stamina = 15
 	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_PISTOL
 

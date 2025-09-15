@@ -8,7 +8,10 @@
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 4)
+	)
 
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
@@ -148,21 +151,15 @@
 	accuracy = GUN_ACCURACY_DEFAULT
 
 
-/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
+/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload, new_parent_spell)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
-
+	parent_spell = new_parent_spell
+	verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 /obj/item/gun/projectile/revolver/fingergun/fake
 	desc = "Pew pew pew!"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
-
-
-/obj/item/gun/projectile/revolver/fingergun/Initialize(loc, new_parent_spell)
-	. = ..()
-	parent_spell = new_parent_spell
-	verbs -= /obj/item/gun/projectile/revolver/verb/spin
-
 
 /obj/item/gun/projectile/revolver/fingergun/Destroy()
 	if(parent_spell)
