@@ -70,7 +70,7 @@
 	animate(src, transform = matr, time = 1 SECONDS, alpha = 255, flags = ANIMATION_PARALLEL)
 
 
-/obj/effect/anomaly/Initialize(spawnloc, spawn_strength = rand(20, 40), spawn_stability = rand(10, 29))
+/obj/effect/anomaly/Initialize(mapload, spawn_strength = rand(20, 40), spawn_stability = rand(10, 29))
 	GLOB.created_anomalies[anomaly_type]++
 	. = ..()
 	if(!get_area(src))
