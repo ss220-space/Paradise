@@ -72,6 +72,11 @@
 	isCentered = TRUE
 	canBeHatted = TRUE
 
+	var/max_locations = 10
+	var/stored_locations[0]
+	var/message_cooldown = 0
+	var/current_camera = 0
+
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
 		//хуманоидные броботы с шляпами

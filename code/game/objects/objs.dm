@@ -35,6 +35,9 @@
 	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
 	var/pull_push_slowdown = 0
 
+	var/list/req_access
+	var/check_one_access = TRUE
+
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)

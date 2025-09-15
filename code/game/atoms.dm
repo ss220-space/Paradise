@@ -112,6 +112,23 @@
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
+	/// List of fibers that this atom has
+	var/list/suit_fibers
+	var/list/time_of_touch
+
+	var/smooth = NONE
+	var/top_left_corner
+	var/top_right_corner
+	var/bottom_left_corner
+	var/bottom_right_corner
+
+	///What directions this is currently smoothing with. IMPORTANT: This uses the smoothing direction flags as defined in icon_smoothing.dm, instead of the BYOND flags.
+	var/smoothing_junction = null
+	///What smoothing groups does this atom belongs to, to match canSmoothWith. If null, nobody can smooth with it. Must be sorted.
+	var/list/smoothing_groups = null
+	///List of smoothing groups this atom can smooth with. If this is null and atom is smooth, it smooths only with itself. Must be sorted.
+	var/list/canSmoothWith = null
+
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()

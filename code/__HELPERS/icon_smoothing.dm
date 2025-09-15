@@ -41,16 +41,6 @@
 
 GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 
-/atom/var/smooth = NONE
-/atom/var/top_left_corner
-/atom/var/top_right_corner
-/atom/var/bottom_left_corner
-/atom/var/bottom_right_corner
-/atom/var/list/canSmoothWith = null
-/atom/var/list/smoothing_groups = null
-/atom/var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
-/turf/var/list/fixed_underlay = null
-
 /proc/generate_adjacent_directions()
 	// Have to hold all conventional dir pairs, so we size to the largest
 	// We don't HAVE diagonal border objects, so I'm gonna pretend they'll never exist

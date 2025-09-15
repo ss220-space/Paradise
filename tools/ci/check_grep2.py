@@ -200,8 +200,8 @@ def check_uid_parameters(idx, line):
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
-#    check_global_vars,
-#    check_toplevel_vardecls,
+    check_global_vars,
+    check_toplevel_vardecls,
 #    check_proc_args_with_var_prefix,
 #    check_for_nanotrasen_camel_case,
 #    check_to_chats_have_a_user_arguement,

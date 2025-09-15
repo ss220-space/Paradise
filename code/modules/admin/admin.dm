@@ -321,12 +321,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	onclose(usr, "adminplayeropts")
 	BLACKBOX_LOG_ADMIN_VERB("Show Player Panel")
 
-
-/datum/player_info/var/author // admin who authored the information
-/datum/player_info/var/rank //rank of admin who made the notes
-/datum/player_info/var/content // text content of the information
-/datum/player_info/var/timestamp // Because this is bloody annoying
-
 /datum/admins/proc/PlayerNotes()
 	set category = STATPANEL_ADMIN_BAN
 	set name = "Player Notes"

@@ -570,8 +570,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set category = STATPANEL_AICOMMANDS
 	show_station_manifest()
 
-/mob/living/silicon/ai/var/message_cooldown = 0
-
 #define TEXT_ANNOUNCEMENT_COOLDOWN 1 MINUTES
 
 /mob/living/silicon/ai/proc/ai_announcement_text()
@@ -1467,8 +1465,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
 	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
-
-/mob/living/silicon/ai/var/current_camera = 0
 
 /mob/living/silicon/ai/proc/set_camera_by_index(client/user, camnum)
 	var/camnum_length = length(stored_locations)

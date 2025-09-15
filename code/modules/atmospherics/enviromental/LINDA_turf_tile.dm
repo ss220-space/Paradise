@@ -375,12 +375,6 @@
 		if(!M.anchored && !M.pulledby && M.last_high_pressure_movement_air_cycle < SSair.times_fired)
 			M.experience_pressure_difference(pressure_difference, pressure_direction)
 
-
-
-
-/atom/movable/var/pressure_resistance = 10
-/atom/movable/var/last_high_pressure_movement_air_cycle = 0
-
 /atom/movable/proc/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
 	set waitfor = FALSE
 	if(SEND_SIGNAL(src, COMSIG_ATOM_PRE_PRESSURE_PUSH) & COMSIG_ATOM_BLOCKS_PRESSURE)

@@ -78,6 +78,9 @@
 	///whether or not this turf forces movables on it to have no gravity (unless they themselves have forced gravity)
 	var/force_no_gravity = FALSE
 
+	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
+	var/list/fixed_underlay = null
+
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)

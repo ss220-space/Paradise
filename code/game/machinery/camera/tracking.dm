@@ -5,10 +5,6 @@
 		return 1
 	return 0
 
-
-/mob/living/silicon/ai/var/max_locations = 10
-/mob/living/silicon/ai/var/stored_locations[0]
-
 /mob/living/silicon/ai/proc/get_camera_list()
 
 	track.cameras.Cut()

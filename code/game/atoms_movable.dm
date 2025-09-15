@@ -100,6 +100,12 @@
 	/// Whether a user will face atoms on entering them with a mouse. Despite being a mob variable, it is here for performance
 	var/face_mouse = FALSE
 
+	var/pressure_resistance = 10
+	var/last_high_pressure_movement_air_cycle = 0
+
+	var/atom/orbiting = null
+	var/cached_transform = null
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))

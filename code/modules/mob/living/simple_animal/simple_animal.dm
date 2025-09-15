@@ -175,6 +175,9 @@
 	var/atom/leash
 	var/leash_radius = 10
 
+	/// Health of the mob before being admin-frozen, restored afterwards
+	var/admin_prev_health = null
+
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src

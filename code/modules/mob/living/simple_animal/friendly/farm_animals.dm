@@ -442,7 +442,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 #undef MAX_CHICKENS
 
-/obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0
 /obj/item/reagent_containers/food/snacks/egg/process()
 	if(isturf(loc))
 		amount_grown += rand(1,2)

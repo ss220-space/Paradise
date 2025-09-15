@@ -1159,8 +1159,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //This is just so you can stop an orbit.
 //orbit() can run without it (swap orbiting for A)
 //but then you can never stop it and that's just silly.
-/atom/movable/var/atom/orbiting = null
-/atom/movable/var/cached_transform = null
 //A: atom to orbit
 //radius: range to orbit at, radius of the circle formed by orbiting
 //clockwise: whether you orbit clockwise or anti clockwise
