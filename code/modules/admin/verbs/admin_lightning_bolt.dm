@@ -196,6 +196,7 @@
 
 /datum/drop_lightning_bolt_ui/preloaded_target/New(mob/user, reason)
 	victim_mob = user
+	mode = MODE_CKEY
 	src.reason = reason
 
 

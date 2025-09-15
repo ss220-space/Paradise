@@ -38,7 +38,7 @@
 
 
 /datum/smite/lighting/apply_effect(mob/living/target, reason)
-	var/datum/drop_lightning_bolt_ui/preloaded_target/editor = new(target)
+	var/datum/drop_lightning_bolt_ui/preloaded_target/editor = new(target, reason)
 	editor.ui_interact(target)
 
 
@@ -266,7 +266,7 @@
 	var/mob/living/mob = new(turf)
 	target.mind.transfer_to(mob)
 	qdel(target)
-	to_chat(target, span_userdanger("Вы чувствуете как ваша сущность координально меняется. Боги наказали вас за [reason]!"))
+	to_chat(mob, span_userdanger("Вы чувствуете как ваша сущность координально меняется. Боги наказали вас за [reason]!"))
 	logmsg = "transformed into [mob]."
 
 
@@ -405,21 +405,21 @@
 	if(ui)
 		return
 
-	ui = new(user, src, "SmiteMenu", "Кара [victim_mob.declent_ru(GENITIVE)]")
+	ui = new(user, src, "SmiteMenu", "Наказание [victim_mob.declent_ru(GENITIVE)]")
 	ui.open()
 	ui.set_autoupdate(TRUE)
 
 
 /datum/smite_ui/ui_static_data(mob/user)
 	. = ..()
-	.["all_smites"] = GLOB.smites_not_human
+	var/list/smites_paths = GLOB.smites_not_human
 	if(!ishuman(user))
-		.["all_smites"] |= GLOB.smites_human
+		smites_paths += GLOB.smites_human
 
-	.["all_descs"] = list()
-	for(var/name in .["all_smites"])
-		var/datum/smite/type = .["all_smites"][name]
-		.["all_descs"] += type::desc
+	.["all_smites"] = list()
+	for(var/name in smites_paths)
+		var/datum/smite/type = smites_paths[name]
+		.["all_smites"][name] = type::desc
 
 
 /datum/smite_ui/ui_data(mob/user)
@@ -436,14 +436,17 @@
 
 	switch(action)
 		if("change_reason")
-			reason = params["selected_reason"]
+			reason = params["new_reason"]
 
 		if("change_choosen")
-			choosen = params["selected_choosen"]
+			choosen = params["new_choosen"]
 
 		if("activate")
 			var/list/all_smites = GLOB.smites_not_human + GLOB.smites_human
 			var/type = all_smites[choosen]
+			if(!type)
+				return FALSE
+
 			var/datum/smite/smite = new type()
 			smite.activate(victim_mob, reason)
 			ui.close()
