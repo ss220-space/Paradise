@@ -141,7 +141,7 @@
 	user.balloon_alert(user, "выстрел в воздух")
 	user.visible_message(
 		span_cultlarge("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] дуло вверх и стреля[pluralize_ru(user.gender, "ет", "ют")], используя [declent_ru(ACCUSATIVE)]!"),
-		 ignored_mobs = user
+		ignored_mobs = user
 
 	)
 
