@@ -29116,6 +29116,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -24
 	},
+/obj/structure/closet/burial,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -76560,8 +76561,8 @@
 /area/security/warden)
 "mMp" = (
 /obj/machinery/r_n_d/circuit_imprinter{
-	pixel_y = 3;
-	pixel_x = -1
+	pixel_x = -1;
+	pixel_y = 3
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/northeast,
@@ -89385,8 +89386,8 @@
 /area/maintenance/fpmaint)
 "pGu" = (
 /obj/machinery/door/airlock{
-	name = "Unisex Showers";
-	id_tag = "showers"
+	id_tag = "showers";
+	name = "Unisex Showers"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -110182,8 +110183,8 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
-	req_access = list(3);
-	name = "Warden's Office"
+	name = "Warden's Office";
+	req_access = list(3)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
