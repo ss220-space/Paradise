@@ -559,7 +559,6 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
 	attachable_allowed = GUN_MODULE_CLASS_NONE
-	description_info = ""
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/update_gun_skins()
