@@ -1,4 +1,4 @@
-#define MELEE_BONUS_EMBED 2
+#define MELEE_BONUS_EMBED 1.5
 #define MARTIAL_ARM_EMBED_CHANCE_BONUS 2
 
 /datum/component/stick_it_in
@@ -26,13 +26,13 @@
 	var/obj/item/parent_item = parent
 
 	var/armor_level = target.run_armor_check(def_zone, MELEE)
-	var/embed_chance = (parent_item.embed_chance * MELEE_BONUS_EMBED) - armor_level
+	var/embed_chance = round((parent_item.embed_chance * MELEE_BONUS_EMBED) - armor_level)
 
 	if(isthrowingmatart(target_human?.mind?.martial_art))
 		embed_chance = embed_chance * MARTIAL_ARM_EMBED_CHANCE_BONUS
 
 	if(armor_level > 50)
-		embed_chance = 0
+		return NONE
 
 	if(prob(embed_chance))
 		target_human.embed_item_inside(parent, user.zone_selected)
