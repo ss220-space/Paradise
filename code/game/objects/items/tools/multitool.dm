@@ -52,9 +52,9 @@
 		return
 	var/obj/item/broken_item = new broken_type(drop_location())
 	if(ismob(loc))
-		var/mob/M = loc
-		M.temporarily_remove_item_from_inventory(src)
-		M.put_in_hands(broken_item)
+		var/mob/holder = loc
+		holder.temporarily_remove_item_from_inventory(src)
+		holder.put_in_hands(broken_item)
 	qdel(src)
 
 /obj/item/multitool/proc/IsBufferA(typepath)
