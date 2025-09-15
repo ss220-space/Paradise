@@ -11,6 +11,8 @@
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	anchored = TRUE //So it cant slide around after landing
 	density = FALSE
+	ignore_shoves = TRUE
+	no_throw_opens = TRUE
 	///List of bitflags for supply pods, see: code\__DEFINES\obj_flags.dm
 	var/pod_flags = NONE
 
@@ -39,6 +41,7 @@
 	var/leavingSound //Admin sound to play when the pod leaves
 	var/soundVolume = 80 //Volume to play sounds at. Ignores the cap
 	var/list/explosionSize = list(0,0,2,3)
+	var/ignore_explosion_cap = FALSE
 	var/stay_after_drop = FALSE
 	var/specialised = FALSE // It's not a general use pod for cargo/admin use
 	var/rubble_type //Rubble effect associated with this supplypod
@@ -121,6 +124,7 @@
 /obj/structure/closet/supplypod/centcompod
 	style = /datum/pod_style/centcom
 	bluespace = TRUE
+	ignore_explosion_cap = TRUE
 	explosionSize = list(0,0,0,0)
 	delays = list(POD_TRANSIT = 5 SECONDS, POD_FALLING = 1 SECONDS, POD_OPENING = 30, POD_LEAVING = 30)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -230,7 +234,8 @@
 	)
 
 /obj/structure/closet/supplypod/deadmatch_missile/endgame
-	explosionSize = list(255, 255, 255, 0)
+	explosionSize = list(80, 100, 120, 0)
+	ignore_explosion_cap = TRUE
 	delays = list(POD_TRANSIT = 30 SECONDS, POD_FALLING = 10 SECONDS)
 
 /obj/structure/closet/supplypod/deadmatch_missile/endgame/preOpen()
@@ -467,7 +472,7 @@
 			target_living.adjustBruteLoss(damage)
 	var/explosion_sum = B[1] + B[2] + B[3] + B[4]
 	if (explosion_sum != 0) //If the explosion list isn't all zeroes, call an explosion
-		explosion(turf_underneath, devastation_range = B[1], heavy_impact_range = B[2], light_impact_range = B[3], flame_range = B[4], silent = effectQuiet, ignorecap = istype(src, /obj/structure/closet/supplypod/centcompod), cause = src) //less advanced equipment than bluespace pod, so larger explosion when landing
+		explosion(turf_underneath, devastation_range = B[1], heavy_impact_range = B[2], light_impact_range = B[3], flame_range = B[4], silent = effectQuiet, ignorecap = ignore_explosion_cap, cause = src) //less advanced equipment than bluespace pod, so larger explosion when landing
 	else if (!effectQuiet && !(pod_flags & FIRST_SOUNDS)) //If our explosion list IS all zeroes, we still make a nice explosion sound (unless the effectQuiet var is true)
 		playsound(src, SFX_EXPLOSION, landingSound ? soundVolume * 0.25 : soundVolume, TRUE)
 	if (landingSound)

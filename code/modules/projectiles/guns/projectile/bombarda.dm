@@ -59,11 +59,10 @@
 	return (chambered.BB ? TRUE : FALSE)
 
 
-/obj/item/gun/projectile/bombarda/attack_self(mob/living/user)
+/obj/item/gun/projectile/bombarda/unload_act(mob/user)
 	if(!COOLDOWN_FINISHED(src, last_pump))
 		return
 	COOLDOWN_START(src, last_pump, pump_cooldown)
-	add_fingerprint(user)
 	if(opened)
 		close_pump(user)
 		return

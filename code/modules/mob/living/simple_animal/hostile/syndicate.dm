@@ -254,24 +254,27 @@
 		minbodytemp = 0, \
 	)
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload, post_spawn = FALSE)
 	. = ..()
-	if(prob(50))
-		// 50% chance of switching to extremely dangerous ranged variant
-		melee_damage_lower = 10
-		melee_damage_upper = 10
-		attacktext = "бьёт"
-		attack_sound = 'sound/weapons/punch1.ogg'
-		ranged = 1
-		retreat_distance = 3
-		minimum_distance = 3
-		melee_block_chance = 0
-		ranged_block_chance = 0
-		icon_state = "syndicate_stormtrooper_shotgun"
-		icon_living = "syndicate_stormtrooper_shotgun"
-		projectiletype = /obj/projectile/bullet/sniper/penetrator // Ignores cover.
-		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
+	if(prob(50) && !post_spawn)
+		new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/sniper(loc, TRUE)
+		return INITIALIZE_HINT_QDEL
 	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/sniper
+	melee_damage_lower = 10
+	melee_damage_upper = 10
+	attacktext = "бьёт"
+	attack_sound = 'sound/weapons/punch1.ogg'
+	ranged = TRUE
+	retreat_distance = 3
+	minimum_distance = 3
+	melee_block_chance = 0
+	ranged_block_chance = 0
+	icon_state = "syndicate_stormtrooper_shotgun"
+	icon_living = "syndicate_stormtrooper_shotgun"
+	projectiletype = /obj/projectile/bullet/sniper/penetrator
+	projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
 	if(istype(depotarea))

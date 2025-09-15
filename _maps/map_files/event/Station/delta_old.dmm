@@ -64671,6 +64671,7 @@
 	c_tag = "Cosmination Room";
 	dir = 5
 	},
+/obj/structure/closet/burial,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
