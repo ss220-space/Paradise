@@ -93991,7 +93991,7 @@
 	},
 /area/crew_quarters/kitchen)
 "xVF" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
