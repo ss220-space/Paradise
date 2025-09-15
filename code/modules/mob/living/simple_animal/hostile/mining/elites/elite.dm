@@ -312,7 +312,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(boosted)
 		mychild.key = elitemind.key
 		mychild.sentience_act()
-		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] пробуждается в [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] пробуждается в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 		log_game("[mychild.key] has become [mychild] from lavaland elite tumor.")
 	update_icon(UPDATE_ICON_STATE)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
@@ -326,7 +326,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.setMaxHealth(mychild.maxHealth * 2.5)
 		mychild.setHealth(mychild.maxHealth)
 		mychild.grab_ghost()
-		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] вызван в [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] вызван в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
 /obj/structure/elite_tumor/Initialize(mapload)

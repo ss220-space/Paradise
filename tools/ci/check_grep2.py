@@ -209,7 +209,7 @@ CODE_CHECKS = [
 #    check_global_list_empty,
 #    check_tgui_ui_new_argument,
     check_datum_loops,
-#    check_href_styles,
+    check_href_styles,
 #    check_initialize_missing_mapload,
 #    check_empty_list_whitespace,
 #    check_istype_src,
