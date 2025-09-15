@@ -125,7 +125,7 @@
 		shoot_with_empty_chamber(user)
 		return
 
-	ballon_alert(user, "вы целитесь вверх...")
+	balloon_alert(user, "вы целитесь вверх...")
 	if(!do_after(user, 1.5 SECONDS, src, max_interact_count = 1, interaction_key = src, cancel_on_max = TRUE))
 		return
 
