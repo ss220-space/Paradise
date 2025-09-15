@@ -1,14 +1,6 @@
 /obj/item/storage/toolbox
 	name = "toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит мощно."
-	ru_names = list(
-		NOMINATIVE = "ящик для инструментов",
-		GENITIVE = "ящика для инструментов",
-		DATIVE = "ящику для инструментов",
-		ACCUSATIVE = "ящик для инструментов",
-		INSTRUMENTAL = "ящиком для инструментов",
-		PREPOSITIONAL = "ящике для инструментов"
-	)
 	gender = MALE
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "red"
@@ -39,6 +31,16 @@
 		/obj/structure/closet,
 		/obj/machinery/disposal,
 	))
+
+/obj/item/storage/toolbox/get_ru_names()
+	return list(
+		NOMINATIVE = "ящик для инструментов",
+		GENITIVE = "ящика для инструментов",
+		DATIVE = "ящику для инструментов",
+		ACCUSATIVE = "ящик для инструментов",
+		INSTRUMENTAL = "ящиком для инструментов",
+		PREPOSITIONAL = "ящике для инструментов"
+	)
 
 /obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()
@@ -104,10 +106,9 @@
 
 	var/obj/item/selected
 	for(var/obj/item in contents)
-		if(item.declent_ru(NOMINATIVE) == picked_item)
-			selected = item
-			break
-
+		if(!(item.declent_ru(NOMINATIVE) == picked_item))
+			continue
+	selected = item
 	playsound(user, 'sound/items/handling/toolbox_rustle.ogg', 50)
 	if(!user.put_in_inactive_hand(selected))
 		return
@@ -147,7 +148,11 @@
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
-	ru_names = list(
+	icon_state = "red"
+	item_state = "toolbox_red"
+
+/obj/item/storage/toolbox/emergency/get_ru_names()
+	return list(
 		NOMINATIVE = "экстренный ящик для инструментов",
 		GENITIVE = "экстренного ящика для инструментов",
 		DATIVE = "экстренному ящику для инструментов",
@@ -155,9 +160,6 @@
 		INSTRUMENTAL = "экстренным ящиком для инструментов",
 		PREPOSITIONAL = "экстренном ящике для инструментов"
 	)
-	gen
-	icon_state = "red"
-	item_state = "toolbox_red"
 
 /obj/item/storage/toolbox/emergency/populate_contents()
 	new /obj/item/crowbar/red(src)
@@ -171,7 +173,10 @@
 
 /obj/item/storage/toolbox/emergency/old
 	name = "rusty toolbox"
-	ru_names = list(
+	icon_state = "toolbox_red_old"
+
+/obj/item/storage/toolbox/emergency/old/get_ru_names()
+	return list(
 		NOMINATIVE = "ржавый ящик для инструментов",
 		GENITIVE = "ржавого ящика для инструментов",
 		DATIVE = "ржавому ящику для инструментов",
@@ -179,11 +184,14 @@
 		INSTRUMENTAL = "ржавым ящиком для инструментов",
 		PREPOSITIONAL = "ржавом ящике для инструментов"
 	)
-	icon_state = "toolbox_red_old"
 
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
-	ru_names = list(
+	icon_state = "blue"
+	item_state = "toolbox_blue"
+
+/obj/item/storage/toolbox/mechanical/get_ru_names()
+	return list(
 		NOMINATIVE = "ящик для механических инструментов",
 		GENITIVE = "ящика для механических инструментов",
 		DATIVE = "ящику для механических инструментов",
@@ -191,8 +199,6 @@
 		INSTRUMENTAL = "ящиком для механических инструментов",
 		PREPOSITIONAL = "ящике для механических инструментов"
 	)
-	icon_state = "blue"
-	item_state = "toolbox_blue"
 
 /obj/item/storage/toolbox/mechanical/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -212,7 +218,10 @@
 
 /obj/item/storage/toolbox/mechanical/old
 	name = "rusty toolbox"
-	ru_names = list(
+	icon_state = "toolbox_blue_old"
+
+/obj/item/storage/toolbox/mechanical/old/get_ru_names()
+	return list(
 		NOMINATIVE = "ржавый ящик для инструментов",
 		GENITIVE = "ржавого ящика для инструментов",
 		DATIVE = "ржавому ящику для инструментов",
@@ -220,11 +229,14 @@
 		INSTRUMENTAL = "ржавым ящиком для инструментов",
 		PREPOSITIONAL = "ржавом ящике для инструментов"
 	)
-	icon_state = "toolbox_blue_old"
 
 /obj/item/storage/toolbox/electrical
 	name = "electrical toolbox"
-	ru_names = list(
+	icon_state = "yellow"
+	item_state = "toolbox_yellow"
+
+/obj/item/storage/toolbox/electrical/get_ru_names()
+	return list(
 		NOMINATIVE = "ящик для электромонтажных инструментов",
 		GENITIVE = "ящика для электромонтажных инструментов",
 		DATIVE = "ящику для электромонтажных инструментов",
@@ -232,8 +244,6 @@
 		INSTRUMENTAL = "ящиком для электромонтажных инструментов",
 		PREPOSITIONAL = "ящике для электромонтажных инструментов"
 	)
-	icon_state = "yellow"
-	item_state = "toolbox_yellow"
 
 /obj/item/storage/toolbox/electrical/populate_contents()
 	var/pickedcolor = pick(COLOR_RED, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_PINK, COLOR_ORANGE, COLOR_CYAN, COLOR_WHITE)
@@ -250,7 +260,7 @@
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
-	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит подозрительным."
+	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит подозрительно."
 	gender = MALE
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
@@ -281,7 +291,7 @@
 
 /obj/item/storage/toolbox/syndisuper
 	name = "exteremely suspicious looking toolbox"
-	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит чрезвычайно подозрительным."
+	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит чрезвычайно подозрительно."
 	gender = MALE
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
@@ -312,8 +322,12 @@
 
 /obj/item/storage/toolbox/fakesyndi
 	name = "suspicous looking toolbox"
-	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит подозрительным. Краска ещё не засохла."
-	ru_names = list(
+	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит подозрительно. Краска ещё не засохла."
+	icon_state = "syndicate"
+	item_state = "toolbox_syndi"
+
+/obj/item/storage/toolbox/fakesyndi/get_ru_names()
+	return list(
 		NOMINATIVE = "подозрительный ящик для инструментов",
 		GENITIVE = "подозрительного ящика для инструментов",
 		DATIVE = "подозрительному ящику для инструментов",
@@ -321,8 +335,6 @@
 		INSTRUMENTAL = "подозрительным ящиком для инструментов",
 		PREPOSITIONAL = "подозрительном ящике для инструментов"
 	)
-	icon_state = "syndicate"
-	item_state = "toolbox_syndi"
 
 /obj/item/storage/toolbox/drone
 	name = "mechanical toolbox"
@@ -342,14 +354,6 @@
 /obj/item/storage/toolbox/brass
 	name = "brass box"
 	desc = "Большой латунный контейнер, имеющий несколько углублений на поверхности. От него исходит странная энергия."
-	ru_names = list(
-		NOMINATIVE = "латунный ящик",
-		GENITIVE = "латунного ящика",
-		DATIVE = "латунному ящику",
-		ACCUSATIVE = "латунный ящик",
-		INSTRUMENTAL = "латунным ящиком",
-		PREPOSITIONAL = "латунном ящике"
-	)
 	icon_state = "brassbox"
 	item_state = null
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -362,6 +366,16 @@
 	/// Way more than standart version
 	storage_slots = 28
 
+/obj/item/storage/toolbox/brass/get_ru_names()
+	return list(
+		NOMINATIVE = "латунный ящик",
+		GENITIVE = "латунного ящика",
+		DATIVE = "латунному ящику",
+		ACCUSATIVE = "латунный ящик",
+		INSTRUMENTAL = "латунным ящиком",
+		PREPOSITIONAL = "латунном ящике"
+	)
+
 /obj/item/storage/toolbox/brass/prefilled/populate_contents()
 	new /obj/item/screwdriver/brass(src)
 	new /obj/item/wirecutters/brass(src)
@@ -372,14 +386,6 @@
 /obj/item/storage/toolbox/surgery
 	name = "surgery kit"
 	desc = "Контейнер, предназначенный для хранения и транспортировки хирургических инструментов."
-	ru_names = list(
-		NOMINATIVE = "хирургический набор",
-		GENITIVE = "хирургического набора",
-		DATIVE = "хирургическому набору",
-		ACCUSATIVE = "хирургический набор",
-		INSTRUMENTAL = "хирургическим набором",
-		PREPOSITIONAL = "хирургическом наборе"
-	)
 	icon_state = "surgerykit"
 	item_state = "firstaid-surgery"
 	origin_tech = "combat=1;biotech=1"
@@ -402,6 +408,16 @@
 		/obj/item/healthanalyzer,
 		/obj/item/robotanalyzer)
 
+/obj/item/storage/toolbox/surgery/get_ru_names()
+	return list(
+		NOMINATIVE = "хирургический набор",
+		GENITIVE = "хирургического набора",
+		DATIVE = "хирургическому набору",
+		ACCUSATIVE = "хирургический набор",
+		INSTRUMENTAL = "хирургическим набором",
+		PREPOSITIONAL = "хирургическом наборе"
+	)
+
 /obj/item/storage/toolbox/surgery/populate_contents()
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/bonesetter(src)
@@ -420,14 +436,6 @@
 /obj/item/storage/toolbox/surgery/advanced
 	name = "Advanced Laser Surgery Kit"
 	desc = "Контейнер, предназначенный для хранения и транспортировки хирургических инструментов. Имеет зелёные неоновые накладки."
-	ru_names = list(
-		NOMINATIVE = "продвинутый хирургический набор",
-		GENITIVE = "продвинутого хирургического набора",
-		DATIVE = "продвинутому хирургическому набору",
-		ACCUSATIVE = "продвинутый хирургический набор",
-		INSTRUMENTAL = "продвинутым хирургическим набором",
-		PREPOSITIONAL = "продвинутом хирургическом наборе"
-	)
 	icon_state = "surgerykit_advanced"
 	item_state = "surgerykit_advanced"
 
@@ -441,6 +449,15 @@
 	new /obj/item/bonegel(src)
 	new /obj/item/FixOVein(src)
 
+/obj/item/storage/toolbox/surgery/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый хирургический набор",
+		GENITIVE = "продвинутого хирургического набора",
+		DATIVE = "продвинутому хирургическому набору",
+		ACCUSATIVE = "продвинутый хирургический набор",
+		INSTRUMENTAL = "продвинутым хирургическим набором",
+		PREPOSITIONAL = "продвинутом хирургическом наборе"
+	)
 
 /obj/item/storage/toolbox/surgery/advanced/empty/populate_contents()
 	return
@@ -448,7 +465,11 @@
 /obj/item/storage/toolbox/surgery/alien
 	name = "Alien Surgery Kit"
 	desc = "Контейнер, предназначенный для хранения и транспортировки хирургических инструментов. Выглядит очень необычно."
-	ru_names = list(
+	icon_state = "surgerykit_alien"
+	item_state = "surgerykit_alien"
+
+/obj/item/storage/toolbox/surgery/alien/get_ru_names()
+	return list(
 		NOMINATIVE = "инородный хирургический набор",
 		GENITIVE = "инородного хирургического набора",
 		DATIVE = "инородному хирургическому набору",
@@ -456,8 +477,6 @@
 		INSTRUMENTAL = "инородным хирургическим набором",
 		PREPOSITIONAL = "инородном хирургическом наборе"
 	)
-	icon_state = "surgerykit_alien"
-	item_state = "surgerykit_alien"
 
 /obj/item/storage/toolbox/surgery/alien/populate_contents()
 	new /obj/item/scalpel/alien(src)
