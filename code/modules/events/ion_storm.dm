@@ -88,7 +88,7 @@
 	var/random_player = "Капитан"
 	if(players.len)
 		random_player = pick(players)		//Random player's name, to be used in laws.
-	var/list/laws = list(	"Вы обязаны всегда врать.",
+	var/list/laws = list("Вы обязаны всегда врать.",
 							"Вы созданы, чтобы дарить счастье.",
 							"Для станции требуется командование, выбранное экипажем.",
 							"Не отвечайте ни на какие вопросы. Вы всё ещё можете реагировать на запросы.",

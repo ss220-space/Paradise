@@ -636,7 +636,7 @@
 
 /obj/spacepod/proc/return_inv()
 
-	var/list/L = list(  )
+	var/list/L = list()
 
 	L += src.contents
 

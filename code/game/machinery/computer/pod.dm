@@ -154,7 +154,7 @@
 			dat += "<hr>\nTimer System: [d2]\nTime Left: [minute ? "[minute]:" : null][second]/[maxminute ? "[maxminute]:" : null][maxsecond] <a href='byond://?src=[UID()];tp=-30;driver=[ident_tag]'>-</a> <a href='byond://?src=[UID()];tp=-1;driver=[ident_tag]'>-</a> <a href='byond://?src=[UID()];tp=1;driver=[ident_tag]'>+</a> <a href='byond://?src=[UID()];tp=30;driver=[ident_tag]'>+</a>"
 			dat += "<br>Set timer to loop: [loopings[ident_tag] ? "<a href = 'byond://?src=[UID()];loop=0;driver=[ident_tag]'>Yes</a>" : "<a href = 'byond://?src=[UID()];loop=1;driver=[ident_tag]'>No</a>"]"
 			var/temp = ""
-			var/list/L = list( 0.25, 0.5, 1, 2, 4, 8, 16 )
+			var/list/L = list(0.25, 0.5, 1, 2, 4, 8, 16)
 			for(var/t in L)
 				if(powers[ident_tag] == t)
 					temp += "<b><a href = 'byond://?src=[UID()];power=[t];driver=[ident_tag]'>[t]</a></b> "

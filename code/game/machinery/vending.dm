@@ -1312,9 +1312,11 @@
 	broken_overlay = "generic_broken"
 	broken_lightmask_overlay = "generic_broken_lightmask"
 
-	products = list(	/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
-						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
-	contraband = list(/obj/item/flashlight = 5,/obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
+	products = list(
+		/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
+		/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4
+	)
+	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
 
 	slogan_list = list(
 		"Т+олько с+амое л+учшее!",
@@ -1894,9 +1896,10 @@
 					/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1
 					)
-	contraband = list( /obj/item/clothing/mask/cigarette/pipe/oldpipe = 3,
-					/obj/item/storage/fancy/cigarettes/cigpack_med = 1
-					)
+	contraband = list(
+		/obj/item/clothing/mask/cigarette/pipe/oldpipe = 3,
+		/obj/item/storage/fancy/cigarettes/cigpack_med = 1
+	)
 	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 179,
 					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 239,
 					/obj/item/storage/fancy/cigarettes/cigpack_random = 359,

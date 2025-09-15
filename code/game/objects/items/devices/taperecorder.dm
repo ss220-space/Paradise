@@ -138,11 +138,12 @@
 	if(!mytape)
 		return NONE
 
-	var/list/options = list( PLAYBACK_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
-					PRINT_TRANSCRIPT = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
-					EJECT_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]"),
-					SILENT_MODE = image(icon = silent_mode ? 'icons/obj/items.dmi' : 'icons/obj/device.dmi' , icon_state = silent_mode ? "earmuffs" : "megaphone")
-					)
+	var/list/options = list(
+		PLAYBACK_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
+		PRINT_TRANSCRIPT = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
+		EJECT_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]"),
+		SILENT_MODE = image(icon = silent_mode ? 'icons/obj/items.dmi' : 'icons/obj/device.dmi' , icon_state = silent_mode ? "earmuffs" : "megaphone")
+	)
 	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 	if(!choice || user.incapacitated())
 		return CLICK_ACTION_BLOCKING

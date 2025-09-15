@@ -254,10 +254,12 @@
 		spawn(rand(20,50))
 			if(!stat && M)
 				icon_state = icon_living
-				var/list/responses = list(	" смотрит на вас умоляюще.",
-											" смотрит на вас удручённо.",
-											" смотрит на вас с покорностью в глазах.",
-											", кажется, смирилась со своей участью.")
+				var/list/responses = list(
+					" смотрит на вас умоляюще.",
+					" смотрит на вас удручённо.",
+					" смотрит на вас с покорностью в глазах.",
+					", кажется, смирилась со своей участью."
+				)
 				to_chat(M, span_notice("[capitalize(declent_ru(NOMINATIVE))][pick(responses)]"))
 	else
 		..()

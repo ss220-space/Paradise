@@ -11,21 +11,21 @@
 				CAT_DECORATIONS,
 				CAT_CLOTHING)
 	var/list/subcategories = list(
-						list(	//Weapon subcategories
+						list(//Weapon subcategories
 							CAT_WEAPON,
 							CAT_AMMO),
 						CAT_NONE, //Robot subcategories
 						CAT_NONE, //Misc subcategories
-						list(	//Tribal subcategories
+						list(//Tribal subcategories
 							CAT_ARMOR,
 							CAT_WEAPONS,
 							CAT_MISC2),
-						list(	//Food subcategories
+						list(//Food subcategories
 							CAT_CAKE,
 							CAT_SUSHI,
 							CAT_SANDWICH,
 							CAT_MISCFOOD),
-						list(	//Decoration subcategories
+						list(//Decoration subcategories
 							CAT_DECORATION,
 							CAT_HOLIDAY,
 							CAT_LARGE_DECORATIONS),

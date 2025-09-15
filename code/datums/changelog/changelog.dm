@@ -25,7 +25,7 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 		return ui.send_asset(changelog_item)
 
 /datum/changelog/ui_static_data(mob/user)
-	var/list/data = list( "dates" = list() )
+	var/list/data = list("dates" = list())
 	var/regex/ymlRegex = regex(@"\.yml", "g")
 
 	for(var/archive_file in sortTim(flist("html/changelogs/archive/"), cmp = /proc/cmp_text_asc))

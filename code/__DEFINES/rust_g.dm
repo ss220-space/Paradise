@@ -224,7 +224,7 @@
 /// Spritesheet will contain all sprites listed within "sprites".
 /// "sprites" format:
 /// list(
-///     "sprite_name" = list( // <--- this list is a [SPRITE_OBJECT]
+///     "sprite_name" = list(// <--- this list is a [SPRITE_OBJECT]
 ///         icon_file = 'icons/path_to/an_icon.dmi',
 ///         icon_state = "some_icon_state",
 ///         dir = SOUTH,

@@ -23,7 +23,7 @@
 	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/id_righthand.dmi'
 
-	var/list/files = list(  )
+	var/list/files = list()
 
 /obj/item/card/data
 	name = "data card"
@@ -459,7 +459,7 @@
 
 // Added all syndicate 'Taipan' access to the admin officer
 /obj/item/card/id/syndicate/command
-	initial_access = list(	ACCESS_MAINT_TUNNELS,
+	initial_access = list(ACCESS_MAINT_TUNNELS,
 							ACCESS_SYNDICATE,
 							ACCESS_SYNDICATE_LEADER,
 							ACCESS_SYNDICATE_COMMAND,
@@ -514,7 +514,7 @@
 	rank = "Syndicate Botanist"
 
 /obj/item/card/id/syndicate/comms_officer
-	initial_access = list(	ACCESS_MAINT_TUNNELS,
+	initial_access = list(ACCESS_MAINT_TUNNELS,
 							ACCESS_SYNDICATE,
 							ACCESS_SYNDICATE_COMMS_OFFICER,
 							ACCESS_EXTERNAL_AIRLOCKS,
@@ -530,7 +530,7 @@
 	rank = "Syndicate Comms Officer"
 
 /obj/item/card/id/syndicate/research_director
-	initial_access = list(	ACCESS_MAINT_TUNNELS,
+	initial_access = list(ACCESS_MAINT_TUNNELS,
 							ACCESS_SYNDICATE,
 							ACCESS_EXTERNAL_AIRLOCKS,
 							ACCESS_SYNDICATE_SCIENTIST,
