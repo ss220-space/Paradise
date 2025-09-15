@@ -137,9 +137,11 @@
 		shoot_live_shot(user)
 
 	process_chamber()
-
-	user.visible_message(span_cultlarge("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] дуло вверх и стреля[pluralize_ru(user.gender, "ет", "ют")], используя [declent_ru(ACCUSATIVE)]!"), ignored_mobs = user)
-	user.balloon_alert(user, "выстрел в воздух успешен")
+	user.balloon_alert(user, "выстрел в воздух")
+	user.visible_message(
+		span_cultlarge("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] дуло вверх и стреля[pluralize_ru(user.gender, "ет", "ют")], используя [declent_ru(ACCUSATIVE)]!"),
+		 ignored_mobs = user
+	)
 
 	playsound(user, fire_sound, 120, FALSE)
 
@@ -559,6 +561,7 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	can_air_shoot = FALSE
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/update_gun_skins()
