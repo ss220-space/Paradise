@@ -135,8 +135,8 @@
 
 	process_chamber()
 
-	user.visible_message(span_cultlarge("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] дуло вверх и стреля[pluralize_ru(user.gender, "ет", "ют")], используя [declent_ru(ACCUSATIVE)]!"))
-	user.balloon_alert(user, "вы стреляете в воздух")
+	user.visible_message(span_cultlarge("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] дуло вверх и стреля[pluralize_ru(user.gender, "ет", "ют")], используя [declent_ru(ACCUSATIVE)]!"), ignored_mobs = user)
+	user.balloon_alert(user, "выстрел в воздух успешен")
 
 	playsound(user, fire_sound, 120, FALSE)
 
