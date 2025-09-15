@@ -5,16 +5,19 @@
 	origin_tech = "combat=2;materials=2"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1000)
-
+	recoil = GUN_RECOIL_LOW
 	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
-
-	recoil = GUN_RECOIL_LOW
+	/// Register fireshoot component
+	var/can_air_shoot = FALSE
 
 
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()
+	if(can_air_shoot)
+		RegisterSignal(src, COMSIG_ITEM_ATTACK_SELF, PROC_REF(fire_into_air))
+		description_info += "\nНаходясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание."
 	if(!magazine && mag_type)
 		magazine = new mag_type(src)
 	chamber_round()
@@ -79,6 +82,8 @@
 		chambered = magazine.get_round()
 		chambered.forceMove(src)
 
+/obj/item/gun/projectile/proc/fire_into_air(mob/user)
+	return
 
 /obj/item/gun/projectile/can_shoot(mob/user)
 	if(!magazine || !magazine.ammo_count(FALSE))

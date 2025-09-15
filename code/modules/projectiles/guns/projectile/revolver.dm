@@ -10,16 +10,12 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 4)
 	)
+	can_air_shoot = TRUE
 	/// If TRUE will show empty casing on examine
 	var/show_live_rounds = TRUE
-	/// Register fireshoot component
-	var/can_air_shoot = TRUE
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()
-	if(can_air_shoot)
-		RegisterSignal(src, COMSIG_ITEM_ATTACK_SELF, PROC_REF(fire_into_air))
-		description_info += "\nНаходясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание."
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
@@ -113,7 +109,7 @@
 	if(show_live_rounds)
 		. += span_notice("[get_ammo(FALSE, FALSE)] of those are live rounds")
 
-/obj/item/gun/projectile/revolver/proc/fire_into_air(mob/user)
+/obj/item/gun/projectile/revolver/fire_into_air(mob/user)
 	if(!user || user.a_intent != INTENT_GRAB || !isturf(user.loc))
 		return
 
