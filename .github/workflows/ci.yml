@@ -55,9 +55,10 @@ jobs:
           tools/ci/check_json.sh
           tgui/bin/tgui --ci
           tools/ci/check_grep.sh
-          tools/bootstrap/python -m define_sanity.check
-          python3 tools/ci/check_line_endings.py
-          python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
+          python tools/ci/check_grep2.py
+          python tools/ci/check_line_endings.py
+          python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
+          python tools/ci/define_sanity.py
 
       - name: Run DreamChecker
         shell: bash
