@@ -85,7 +85,7 @@ def check_toplevel_vardecls(idx, line):
         return [(idx + 1, f"Top-level var {match.group(0)} found, please move to type declaration.")]
 
 
-PROC_ARGS_WITH_VAR_PREFIX_RE = re.compile(r"^/[\w/]\S+\(.*(var/|, ?var/.*).*\)")
+PROC_ARGS_WITH_VAR_PREFIX_RE = re.compile(r"^/[\w/]\S+\((var/)?.*(, ?var/.*).*\)")
 def check_proc_args_with_var_prefix(idx, line):
     if PROC_ARGS_WITH_VAR_PREFIX_RE.match(line):
         return [(idx + 1, "Changed files contains a proc argument starting with 'var'.")]
@@ -202,7 +202,7 @@ CODE_CHECKS = [
     check_mixed_indentation,
     check_global_vars,
     check_toplevel_vardecls,
-#    check_proc_args_with_var_prefix,
+    check_proc_args_with_var_prefix,
 #    check_for_nanotrasen_camel_case,
 #    check_to_chats_have_a_user_arguement,
 #    check_conditional_spacing,
