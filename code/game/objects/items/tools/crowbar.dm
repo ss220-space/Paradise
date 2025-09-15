@@ -10,7 +10,7 @@
 	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	force = 7.5
+	force = 10
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
@@ -42,6 +42,10 @@
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"
 
+/obj/item/crowbar/red/sec
+	icon_state = "crowbar_sec"
+	item_state = "crowbar_sec"
+
 /obj/item/crowbar/brass
 	name = "brass crowbar"
 	desc = "A brass crowbar. It feels faintly warm to the touch."
@@ -65,7 +69,7 @@
 /obj/item/crowbar/large
 	name = "large crowbar"
 	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
-	force = 12
+	force = 15
 	throwforce = 18
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 3
