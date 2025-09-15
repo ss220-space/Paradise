@@ -14,7 +14,6 @@
 		/obj/item/clothing/mask/cigarette,
 		/obj/item/flashlight/pen,
 		/obj/item/seeds,
-		/obj/item/stack/medical,
 		/obj/item/toy/crayon,
 		/obj/item/coin,
 		/obj/item/dice,
@@ -29,7 +28,7 @@
 		/obj/item/stamp,
 		/obj/item/encryptionkey,
 		/obj/item/clothing/gloves/ring,
-		/obj/item/reagent_containers/food/pill/patch,
+		/obj/item/reagent_containers/food/pill,
 		/obj/item/spacepod_equipment/key,
 		/obj/item/key,
 	)

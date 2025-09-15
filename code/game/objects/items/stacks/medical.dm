@@ -5,19 +5,20 @@
 	amount = 6
 	max_amount = 6
 	w_class = WEIGHT_CLASS_TINY
-	full_w_class = WEIGHT_CLASS_TINY
+	full_w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
+	var/is_advanced_medicine = FALSE  //used to prevent use of certain healing items by monkeys and ashwalkers
 	var/heal_brute = 0
 	var/heal_burn = 0
+	var/use_duration = 3 SECONDS
 	var/self_delay = 2 SECONDS
 	var/unique_handling = FALSE //some things give a special prompt, do we want to bypass some checks in parent?
 	var/stop_bleeding = 0
 	var/bleedsuppress = 0
-	var/healverb = "bandage"
-	var/use_duration = 3 SECONDS
+
 	merge_type = null // do not merge if not defined in subtype
 
 
@@ -28,8 +29,8 @@
 		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] не может быть применен к [target]!"))
 		return .
 
-	if(!user.IsAdvancedToolUser())
-		to_chat(user, span_danger("Вам не хватает навыков чтобы использовать [declent_ru(NOMINATIVE)]!"))
+	if(is_advanced_medicine && !user.IsAdvancedToolUser())
+		to_chat(user, span_danger("Я не понимаю как использовать [declent_ru(ACCUSATIVE)]!"))
 		return .
 
 	if(ishuman(target))
@@ -58,8 +59,7 @@
 				span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять [declension_ru(NOMINATIVE)] на себе."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на себе..."),
 			)
-			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING, max_interact_count = 1,
-				cancel_on_max = TRUE, cancel_message = "невозможно применять более одной единицы [declension_ru(NOMINATIVE)]"))
+			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING, max_interact_count = 1))
 				return .
 
 			var/obj/item/organ/external/affecting_rechecked = human_target.get_organ(selected_zone)
@@ -79,8 +79,7 @@
 				span_notice("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [human_target]."),
 				span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
 			)
-			if(use_duration && !do_after(user, use_duration, human_target, max_interact_count = 1,
-				cancel_on_max = TRUE, cancel_message = "невозможно применять более одной единицы [declension_ru(NOMINATIVE)]"))
+			if(use_duration && !do_after(user, use_duration, human_target, max_interact_count = 1))
 				return .
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -179,16 +178,16 @@
 /obj/item/stack/medical/bruise_pack
 	name = "roll of gauze"
 	singular_name = "gauze length"
-	desc = "Some sterile gauze to wrap around bloody stumps."
+	desc = "Стериальная медицинская марля, подойдёт для остановки лёгкого кровотечения"
 	icon_state = "gauze_3"
 	item_state = "gauze"
 	origin_tech = "biotech=2"
 	amount = 6
 	max_amount = 6
-	heal_brute = 5
-	bleedsuppress = 5
+	heal_brute = 10
+	bleedsuppress = 3
 	stop_bleeding = 180 SECONDS
-	self_delay = 2 SECONDS
+	self_delay = 5 SECONDS
 	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
@@ -255,8 +254,12 @@
 /obj/item/stack/medical/bruise_pack/improvised
 	name = "improvised gauze"
 	singular_name = "improvised gauze"
-	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
+	desc = "Наспех нарезанные куски ткани, которыми можно попытаться остановить кровотечение. Лучше, чем ничего!"
 	stop_bleeding = 90 SECONDS
+	heal_brute = 5
+	bleedsuppress = 2
+	self_delay = 6 SECONDS
+	use_duration = 3 SECONDS
 	icon_state = "gauze_imp_3"
 	merge_type = /obj/item/stack/medical/bruise_pack/improvised
 
@@ -276,19 +279,20 @@
 /obj/item/stack/medical/bruise_pack/military
 	name = "military emergency bandage"
 	singular_name = "emergency bandage"
-	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
+	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяются в основном военными или теми, кто работает в опасных условиях."
 	icon_state = "bandage"
 	item_state = "gauze"
 	origin_tech = "biotech=2;combat=1"
 	amount = 1
 	max_amount = 1
+	is_advanced_medicine = TRUE
 	heal_brute = 0
 	bleedsuppress = 5
 	stop_bleeding = 300 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	cost = 1
-	self_delay = 2 SECONDS
-	use_duration = 2 SECONDS
+	self_delay = 12 SECONDS
+	use_duration = 4 SECONDS
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
 	return list(
@@ -333,15 +337,18 @@
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
 	singular_name = "advanced trauma kit"
-	desc = "An advanced trauma kit for severe injuries."
+	desc = "Продвинутый набор с бинтами и медикаментами, разработанный для лечения травм и порезов."
 	icon_state = "traumakit_4"
 	item_state = "traumakit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 40
+	is_advanced_medicine = TRUE
+	heal_brute = 35
 	amount = 4
 	max_amount = 4
+	w_class = WEIGHT_CLASS_SMALL
+	full_w_class = WEIGHT_CLASS_SMALL
 	stop_bleeding = 0
-	self_delay = 2 SECONDS
+	self_delay = 3 SECONDS
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 
@@ -364,21 +371,25 @@
 /obj/item/stack/medical/bruise_pack/extended
 	name = "extended trauma kit"
 	singular_name = "extended trauma kit"
-	desc = "An extended trauma kit for severe injuries."
+	desc = "Расширенный набор с бинтами, медикаментами, и мазями, разработанный специально для использования медицинскими персоналом и лечения глубоких травм и порезов. \
+			Более громоздкий и эффективный, чем продвинутые наборы."
 	icon_state = "extended_trauma_kit_5"
 	item_state = "extended_trauma_kit"
 	belt_icon = "advanced_trauma_kit"
+	is_advanced_medicine = TRUE
 	heal_brute = 40
-	amount = 10
-	max_amount = 10
+	amount = 15
+	max_amount = 15
+	w_class = WEIGHT_CLASS_NORMAL
+	full_w_class = WEIGHT_CLASS_NORMAL
 	stop_bleeding = 0
 	use_duration = 0
-	self_delay = 1.5 SECONDS
-	use_duration = 0.7 SECONDS
+	self_delay = 8 SECONDS
+	use_duration = 2 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/extended
 
 /obj/item/stack/medical/bruise_pack/extended/update_icon_state()
-	icon_state = "extended_trauma_kit_[round_down((amount+1) / 2, 1)]"
+	icon_state = "extended_trauma_kit_[round_down((amount+1) / 3, 1)]"
 
 /obj/item/stack/medical/bruise_pack/extended/get_ru_names()
 	return list(
@@ -394,16 +405,15 @@
 
 /obj/item/stack/medical/ointment
 	name = "ointment"
-	desc = "Used to treat those nasty burns."
+	desc = "Простая мазь от небольших ожогов. Размазывайте тщательно!"
 	gender = PLURAL
 	singular_name = "ointment"
 	icon_state = "ointment_3"
 	origin_tech = "biotech=2"
-	healverb = "salve"
 	heal_burn = 10
 	amount = 6
 	max_amount = 6
-	self_delay = 2 SECONDS
+	self_delay = 5 SECONDS
 	use_duration = 2 SECONDS
 	cost = 1
 	energy_type = /datum/robot_energy_storage/medical
@@ -453,13 +463,16 @@
 /obj/item/stack/medical/ointment/advanced
 	name = "advanced burn kit"
 	singular_name = "advanced burn kit"
-	desc = "An advanced treatment kit for severe burns."
+	desc = "Продвинутый набор с мазью и медикаментами, разработанный для лечения обширных ожогов."
 	icon_state = "burnkit_4"
 	item_state = "burnkit"
 	belt_icon = "advanced_burn_kit"
-	heal_burn = 40
+	heal_burn = 35
 	amount = 4
 	max_amount = 4
+	w_class = WEIGHT_CLASS_SMALL
+	full_w_class = WEIGHT_CLASS_SMALL
+	self_delay = 3 SECONDS
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/advanced
 
@@ -482,19 +495,23 @@
 /obj/item/stack/medical/ointment/extended
 	name = "extended burn kit"
 	singular_name = "extended burn kit"
-	desc = "An extended treatment kit for severe burns."
+	desc = "Расширенный набор с мазью, медикаментами, и регенеративной мембраной, разработанный специально для использования медицинским персоналом и лечения глубоких ожогов \
+			Более громоздкий и эффективный, чем продвинутые наборы."
 	icon_state = "extended_burn_kit_5"
 	item_state = "extended_burn_kit"
 	belt_icon = "advanced_burn_kit"
+	is_advanced_medicine = TRUE
 	heal_burn = 40
-	amount = 10
-	max_amount = 10
-	self_delay = 1.5 SECONDS
-	use_duration = 0.7 SECONDS
+	amount = 12
+	max_amount = 12
+	self_delay = 6 SECONDS
+	use_duration = 1 SECONDS
+	w_class = WEIGHT_CLASS_NORMAL
+	full_w_class = WEIGHT_CLASS_NORMAL
 	merge_type = /obj/item/stack/medical/ointment/extended
 
 /obj/item/stack/medical/ointment/extended/update_icon_state()
-	icon_state = "extended_burn_kit_[round_down((amount+1) / 2, 1)]"
+	icon_state = "extended_burn_kit_[round_down((amount+1) / 3, 1)]"
 
 /obj/item/stack/medical/ointment/extended/get_ru_names()
 	return list(
@@ -511,19 +528,19 @@
 /obj/item/stack/medical/bruise_pack/comfrey
 	name = "Comfrey leaf"
 	singular_name = "Comfrey leaf"
-	desc = "A soft leaf that is rubbed on bruises."
+	desc = "Мягкие листья \"Живокоста\". Издавна применяются людьми для создания целебных мазей."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "tea_aspera_leaves"
 	color = "#378C61"
 	stop_bleeding = 0
 	heal_brute = 12
-	self_delay = 2 SECONDS
+	self_delay = 4 SECONDS
 	use_duration = 2 SECONDS
 	drop_sound = 'sound/misc/moist_impact.ogg'
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
 	hitsound = 'sound/misc/moist_impact.ogg'
 	merge_type = /obj/item/stack/medical/bruise_pack/comfrey
-	var/max_heal = 40
+	var/max_heal = 30
 
 /obj/item/stack/medical/bruise_pack/comfrey/update_icon_state()
 	return
@@ -541,15 +558,15 @@
 /obj/item/stack/medical/ointment/aloe
 	name = "Aloe Vera leaf"
 	singular_name = "Aloe Vera leaf"
-	desc = "A cold leaf that is rubbed on burns."
+	desc = "Мясистые листья \"Алоэ\". Гель, находящийся внутри, можно использовать для заживления ожогов."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "aloe"
 	color = "#4CC5C7"
 	heal_burn = 12
-	self_delay = 2 SECONDS
+	self_delay = 4 SECONDS
 	use_duration = 2 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/aloe
-	var/max_heal = 40
+	var/max_heal = 30
 
 /obj/item/stack/medical/ointment/aloe/update_icon_state()
 	return
@@ -569,8 +586,12 @@
 /obj/item/stack/medical/splint
 	name = "medical splints"
 	singular_name = "medical splint"
+	desc = "Проволочная шина крамера, изобретённая в далёком 20 веке. По сей день остаётся эффективным и дешёвым способом временно обезопасить сломанную конечность."
 	icon_state = "splint"
 	item_state = "splint"
+	amount = 1
+	max_amount = 1
+	is_advanced_medicine = TRUE
 	unique_handling = TRUE
 	self_delay = 10 SECONDS
 	use_duration = 3 SECONDS
@@ -651,7 +672,10 @@
 /obj/item/stack/medical/splint/tribal
 	name = "tribal splints"
 	icon_state = "tribal_splint"
+	desc = "Шина из костей и связок, используемая пеплоходцами для закрепления переломов. Менее эффективна, чем индустриальный аналог"
+	is_advanced_medicine = FALSE
 	use_duration = 5 SECONDS
+	self_delay = 15 SECONDS
 	merge_type = /obj/item/stack/medical/splint/tribal
 
 /obj/item/stack/medical/splint/tribal/get_ru_names()
@@ -667,10 +691,11 @@
 
 /obj/item/stack/medical/splint/makeshift
 	name = "makeshift splints"
-	desc = "Makeshift splint for fixing bones. Better than nothing and more based than others."
+	desc = "Самодельная шина из хлама, которой можно закрепить перелом. Неудобная, и вряд ли будет долго поддерживать форму"
 	icon_state = "makeshift_splint"
-	use_duration = 5 SECONDS
-	self_delay = 15 SECONDS
+	is_advanced_medicine = FALSE
+	use_duration = 10 SECONDS
+	self_delay = 20 SECONDS
 	merge_type = /obj/item/stack/medical/splint/makeshift
 
 
@@ -679,7 +704,7 @@
 /obj/item/stack/medical/suture
 	name = "suture kit"
 	singular_name = "suture thread"
-	desc = "Набор с хирургической иглой и специальной нитью для сшивания ран. Останавливает кровотечение, но лучше использовать под обезбаливающими."
+	desc = "Набор с хирургической иглой и специальной нитью для сшивания ран. Останавливает кровотечение, но легко повреждает ткани."
 	icon_state = "suture_3"
 	item_state = "suture"
 	origin_tech = "biotech=3"
@@ -689,7 +714,7 @@
 	stop_bleeding = 0
 	var/bleeding_heal = 5
 	var/damage = 10
-	self_delay = 3 SECONDS
+	self_delay = 6 SECONDS
 	use_duration = 2 SECONDS
 	cost = 1
 	energy_type = /datum/robot_energy_storage/medical
@@ -754,12 +779,13 @@
 	origin_tech = "biotech=5"
 	amount = 10
 	max_amount = 10
+	is_advanced_medicine = TRUE
 	heal_brute = 10
 	stop_bleeding = 0
 	bleeding_heal = 10
 	damage = 0
-	self_delay = 2 SECONDS
-	use_duration = 0.7 SECONDS
+	self_delay = 4 SECONDS
+	use_duration = 1 SECONDS
 	merge_type = /obj/item/stack/medical/suture/advanced
 
 /obj/item/stack/medical/suture/advanced/get_ru_names()
@@ -779,18 +805,19 @@
 // MARK: Synthflesh kit
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit
-	name = "advanced synthflesh  kit"
+	name = "advanced synthflesh kit"
 	singular_name = "advanced synthflesh trauma kit"
-	desc = "Продвинутый набор для мех. и терм. повреждений."
+	desc = "Продвинутый набор для лечения ожогов и травм при помощи бинтов наполненных синтплотью."
 	icon_state = "synthkit_4"
 	item_state = "traumakit"
 	belt_icon = "advanced_trauma_kit"
+	is_advanced_medicine = TRUE
 	heal_brute = 20
 	heal_burn = 20
 	amount = 4
 	max_amount = 4
 	stop_bleeding = 0
-	self_delay = 2 SECONDS
+	self_delay = 3 SECONDS
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
 
