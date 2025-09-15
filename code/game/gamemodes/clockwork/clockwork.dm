@@ -11,6 +11,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 	/// How many power need to be in supply to reveal
 	var/power_reveal_number
+	/// How many crew need to be converted to reveal
+	var/crew_reveal_number
 	/// Used for CentCom announcement when reached crew limit conversion
 	var/reveal_percent
 
@@ -118,16 +120,19 @@ GLOBAL_LIST_EMPTY(all_clockers)
  */
 /datum/game_mode/proc/clockwork_threshold_check()
 	var/players = length(GLOB.player_list)
+	var/clockers = get_clockers()
 	if(players >= CLOCK_POPULATION_THRESHOLD)
 		// Highpop
 		reveal_percent = CLOCK_CREW_REVEAL_HIGH
 		clocker_objs.power_goal = CLOCK_BASIC_POWER_GOAL + length(GLOB.player_list) * CLOCK_POWER_PER_CREW_HIGH
 		power_reveal_number = round(clocker_objs.power_goal * 0.67) // 2/3 of power goal
+		crew_reveal_number = round(CLOCK_CREW_REVEAL_HIGH * (players - clockers), 1)
 	else
 		// Lowpop
 		reveal_percent = CLOCK_CREW_REVEAL_LOW
 		clocker_objs.power_goal = CLOCK_BASIC_POWER_GOAL + length(GLOB.player_list) * CLOCK_POWER_PER_CREW_LOW
 		power_reveal_number = round(clocker_objs.power_goal * 0.67) // 2/3 of power goal
+		crew_reveal_number = round(CLOCK_CREW_REVEAL_LOW * (players - clockers), 1)
 	add_game_logs("Clockwork Cult power/crew reveal numbers: [power_reveal_number]/[clocker_objs.clocker_goal].")
 
 /**
@@ -219,6 +224,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		if(crew_reveal)
 			clocked(clock_mind.current)
 		check_clock_reveal()
+		if(!clocker_objs.obj_demand.clockers_get)
+			clocker_objs.clockers_check()
 		clocker_objs.study(clock_mind.current)
 		return TRUE
 
@@ -241,20 +248,11 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(crew_reveal)
 		return
 	var/clocker_players = get_clockers()
-	if((clocker_players < clocker_objs.clocker_goal) || clocker_objs.obj_demand.clockers_get)
+	if(clocker_players < crew_reveal_number)
 		return
-	clocker_objs.obj_demand.clockers_get = TRUE
-	crew_reveal = TRUE
-	var/check = clocker_objs.obj_demand.check_completion()
-	var/message = span_clocklarge("The army of my servants have grown. Now it will be easier...\n")
-	if(check)
-		clocker_objs.need_heart()
-	else
-		message += span_clock("But there's still more tasks to do.")
 	for(var/datum/mind/M in clockwork_cult)
 		if(!M.current)
 			continue
-		to_chat(M.current, message)
 		SEND_SOUND(M.current, sound('sound/hallucinations/im_here1.ogg'))
 		if(!ishuman(M.current))
 			continue

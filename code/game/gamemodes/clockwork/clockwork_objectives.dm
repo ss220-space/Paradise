@@ -22,9 +22,9 @@
 /datum/clockwork_objectives/proc/set_clocker_goal()
 	var/players = length(GLOB.player_list)
 	var/clockers = SSticker.mode.get_clockers()
-	var/reveal_percent = CLOCK_CREW_REVEAL_LOW
+	var/reveal_percent = CLOCK_CREW_REVEAL_LOW / 2
 	if(players >= CLOCK_POPULATION_THRESHOLD)
-		reveal_percent = CLOCK_CREW_REVEAL_HIGH
+		reveal_percent = CLOCK_CREW_REVEAL_HIGH / 2
 	clocker_goal = round(reveal_percent * (players - clockers),1)
 
 /**
@@ -79,9 +79,7 @@
 			to_chat(M, span_clockitalic("<b>Constructs:</b> [clock_cult[2]]"))
 
 /*
- * Makes a check if power or beacon has been completed.
- *
- * The clockers check is in check_clock_reveal()
+ * Makes a check if power, clockers or beacon has been completed.
  */
 /datum/clockwork_objectives/proc/power_check()
 	if(GLOB.clockwork_power < power_goal || obj_demand.power_get)
@@ -105,6 +103,22 @@
 	obj_demand.beacon_get = TRUE
 	var/check = obj_demand.check_completion()
 	var/message = span_clocklarge("Now i see the weak points of the Veil. You have done well...\n")
+	if(!check)
+		message += span_clock("But there's still more tasks to do.")
+	else
+		need_heart()
+	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+		if(!clock_mind || !clock_mind.current)
+			continue
+		to_chat(clock_mind.current, message)
+
+/datum/clockwork_objectives/proc/clockers_check()
+	var/clockers =SSticker.mode.get_clockers()
+	if(clockers < clocker_goal)
+		return
+	obj_demand.clockers_get = TRUE
+	var/check = obj_demand.check_completion()
+	var/message = span_clocklarge("The army of my servants have grown. Now it will be easier...\n")
 	if(!check)
 		message += span_clock("But there's still more tasks to do.")
 	else
