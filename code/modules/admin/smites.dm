@@ -370,6 +370,111 @@
 	logmsg = "high rp([pdelay] - [oxy_dmg])"
 
 
+/// MARK: Demote
+/datum/smite/demote
+	name = SMITE_DEMOTE
+	desc = "Увольте грешника!"
+
+
+/datum/smite/demote/apply_effect(mob/living/target, reason)
+	GLOB.major_announcement.announce(
+		"[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
+		ANNOUNCE_CCDEMOTE_RU,
+		'sound/AI/commandreport.ogg'
+	)
+
+	for(var/datum/data/record/record in sortRecord(GLOB.data_core.security))
+		if(record.fields["name"] != target.real_name)
+			continue
+
+		record.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
+		record.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
+		record.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<br> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
+
+	update_all_mob_security_hud()
+
+
+/// MARK: Virus
+/datum/smite/virus
+	name = SMITE_VIRUS
+	desc = "Заразите грешника выбранным вирусом! Если хотите, сделайте вирус не заразным."
+
+
+/datum/smite/virus/activate(mob/living/target, reason)
+	var/type = tgui_input_list(usr, "Выберите вирус.", "Выбор вируса", subtypesof(/datum/disease/virus), /datum/disease/virus/nuclefication)
+	var/cant_spread = tgui_alert(
+		usr, \
+		"Сделать ли вирус не заразным?", \
+		"Сделать не заразным", \
+		list("Да", "Нет")
+	) == "Да"
+
+	var/datum/disease/virus/virus = new type()
+	if(cant_spread != "Да")
+		spread_flags = NON_CONTAGIOUS
+
+	virus.Contract(target)
+
+
+/// MARK: Pod
+/datum/smite/pod
+	name = SMITE_POD
+	desc = "Зпустите по грешнику ракетой."
+
+
+/datum/smite/pod/activate(mob/living/target, reason)
+	var/datum/centcom_podlauncher/launcher = new(usr, reason)
+	launcher.specificTarget = target
+	launcher.ui_interact(usr)
+
+
+/// MARK: Global hunting
+/datum/smite/global_hunting
+	name = SMITE_GLOBAL_HUNTING
+	desc = "Заставьте экипаж охотиться за грешником."
+
+
+/datum/smite/global_hunting/activate(mob/living/target, reason)
+	var/bounty = tgui_input_number(usr, "Выберите денежное вознаграждение поделённое между исполнителями приговора.", "Выбор вознаграждения", 5000, INFINITY, 0)
+	GLOB.major_announcement.announce(
+		"[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. \
+		Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни \
+		будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[(bounty % 10 >= 5 || bounty % 100 >= 10 && bounty <= 20) ? "ов" : (bounty % 10 == 1 ? "" : "а")].",
+		ANNOUNCE_CCKILL_RU,
+		'sound/AI/commandreport.ogg'
+	)
+	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
+	target.AddComponent(/datum/component/killing_reward, bounty)
+
+
+/// MARK: Brainrot braindamag
+/datum/smite/brainrot_braingamag
+	name = SMITE_BRAINROTBRAINDAMAG
+	desc = "Мозг грешника будет повреждаться от глупых фраз."
+
+
+/datum/smite/brainrot_braingamag/activate(mob/living/target, reason)
+	var/damage = tgui_input_number(usr, "Настройте повреждения мозга за каждое запретное слово.", "Выбор повреждений", 5, 120, 0)
+
+	var/list/bad_words = GLOB.default_brainrot.Copy()
+	var/bad_words_string = tgui_input_list(usr, "Настройте список запретных слов, введя все слова списка через запятую без пробелов. Список по умолчанию: [list_to_string(bad_words)]", "Выбор запретных слов")
+	if(bad_words_string)
+		bad_words = string_to_list(bad_words_string)
+
+
+
+
+/datum/smite/brainrot_braingamag/proc/list_to_string(list/bad_words)
+	var/result = ""
+	for(var/word as anything in bad_words)
+		result += (result ? "," : "") + word
+
+	return result
+
+
+/datum/smite/brainrot_braingamag/proc/string_to_list(bad_words)
+	return splittext(bad_words, ",")
+
 /// MARK: Admin proc
 /client/proc/smite(mob/living/mob as mob)
 	set category = STATPANEL_ADMIN_FUN
