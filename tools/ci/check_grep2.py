@@ -207,7 +207,7 @@ def check_uid_parameters(idx, line):
 
 BALLOON_ALERT_WITHOUT_USER = re.compile(r'balloon_alert\(["\']')
 BALLOON_ALERT_WITH_SPAN = re.compile(r'balloon_alert\(.*span_')
-BALLOON_ALERT_CAPITALIZED = re.compile(r'balloon_alert\(.*?,\s*["\'][A-Z]')
+BALLOON_ALERT_CAPITALIZED = re.compile(r'balloon_alert\(.*?,\s*["\'][A-Z|А-Я]')
 def check_balloon_alert(idx, line):
     failures = []
     if BALLOON_ALERT_WITHOUT_USER.search(line):
