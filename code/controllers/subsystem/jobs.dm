@@ -750,7 +750,7 @@ SUBSYSTEM_DEF(jobs)
 	human.mind.initial_account = M
 
 	human.mind.initial_account.insurance_type = job.insurance_type
-	switch (job.insurance_type)
+	switch(job.insurance_type)
 		if(INSURANCE_TYPE_NONE)
 			human.mind.initial_account.insurance = INSURANCE_NONE
 		if(INSURANCE_TYPE_BUDGETARY)

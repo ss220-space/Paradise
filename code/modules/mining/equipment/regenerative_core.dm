@@ -17,7 +17,7 @@
 		INSTRUMENTAL = "стабилизатором ядра",
 		PREPOSITIONAL = "стабилизаторе ядра"
 	)
-	
+
 
 /obj/item/hivelordstabilizer/molten_mass
 	name = "gooey molten mass"
@@ -314,7 +314,7 @@
 
 /obj/item/organ/internal/legion_tumour/on_life()
 	. = ..()
-	if (QDELETED(src) || QDELETED(owner))
+	if(QDELETED(src) || QDELETED(owner))
 		return
 
 	if(stage >= 2)

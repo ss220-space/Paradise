@@ -22,7 +22,7 @@
 //Captain
 /obj/item/clothing/head/caphat
 	name = "captain's hat"
-	desc = "Достаточно удобная синяя шляпа, которую носят капитаны космических станции и судов НаноТрейзен. Хорошо быть королём."
+	desc = "Достаточно удобная синяя шляпа, которую носят капитаны космических станции и судов Нанотрейзен. Хорошо быть королём."
 	gender = FEMALE
 	icon_state = "captain"
 	item_state = "caphat"
@@ -94,7 +94,7 @@
 
 /obj/item/clothing/head/caphat/beret
 	name = "captain's beret"
-	desc = "Синий берет, который носят капитаны космических кораблей и станций НаноТрейзен. Хорошо быть королём."
+	desc = "Синий берет, который носят капитаны космических кораблей и станций Нанотрейзен. Хорошо быть королём."
 	gender = MALE
 	icon_state = "cap_beret"
 	item_state = "cap_beret"
@@ -131,18 +131,18 @@
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
 	name = "Nanotrasen Representative's hat"
-	desc = "Чёрная фуражкая, которую выдают представителю НаноТрейзен. Корпорация всегда начеку."
+	desc = "Чёрная фуражкая, которую выдают представителю Нанотрейзен. Корпорация всегда начеку."
 	gender = FEMALE
 	icon_state = "ntrep"
 
 /obj/item/clothing/head/ntrep/get_ru_names()
 	return list(
-		NOMINATIVE = "фуражка представителя НаноТрейзен",
-		GENITIVE = "фуражки представителя НаноТрейзен",
-		DATIVE = "фуражке представителя НаноТрейзен",
-		ACCUSATIVE = "фуражку представителя НаноТрейзен",
-		INSTRUMENTAL = "фуражкой представителя НаноТрейзен",
-		PREPOSITIONAL = "фуражке представителя НаноТрейзен"
+		NOMINATIVE = "фуражка представителя Нанотрейзен",
+		GENITIVE = "фуражки представителя Нанотрейзен",
+		DATIVE = "фуражке представителя Нанотрейзен",
+		ACCUSATIVE = "фуражку представителя Нанотрейзен",
+		INSTRUMENTAL = "фуражкой представителя Нанотрейзен",
+		PREPOSITIONAL = "фуражке представителя Нанотрейзен"
 	)
 
 //Research Director
@@ -646,7 +646,7 @@
 	desc = "Голубая шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
 	icon_state = "surgcap_blue"
 
-/obj/item/clothing/head/surgery/blue/get_ru_names()	
+/obj/item/clothing/head/surgery/blue/get_ru_names()
 	return list(
 		NOMINATIVE = "голубая хирургическая шапочка",
 		GENITIVE = "голубой хирургической шапочки",

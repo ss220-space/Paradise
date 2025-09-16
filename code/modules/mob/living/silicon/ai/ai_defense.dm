@@ -8,7 +8,7 @@
 	return //immune to slimes
 
 /mob/living/silicon/ai/adjust_slot_machine_lose_effect()
-	if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
+	if(prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
 		to_chat(src, span_warningbig("Критическая неудача!<br>Неизвестная сила заставляет вас отключиться."))
 		src.death() // AI gib cause no body ghost error
 		return TRUE

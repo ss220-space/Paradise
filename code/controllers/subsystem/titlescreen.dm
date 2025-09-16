@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(title)
 	wait = 300
 	init_order = INIT_ORDER_TITLE
 	init_stage = INITSTAGE_EARLY
+	runlevels = RUNLEVELS_DEFAULT|RUNLEVEL_LOBBY
 	ss_id = "title_screen"
 	/// Basic html that includes styles. Can be customised by host
 	var/base_html
@@ -295,7 +296,7 @@ SUBSYSTEM_DEF(title)
 	html += {"<body class="[current_theme][viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
 
 	html += {"<input type="checkbox" id="hide_menu">"}
-	html += {"<input type="checkbox" id="hide_lobby">"}
+	html += {"<input type="checkbox" checked="checked" id="hide_lobby">"}
 
 	if(notice)
 		html += {"
@@ -441,7 +442,7 @@ SUBSYSTEM_DEF(title)
 				const args = Array.from(arguments);
 				const servers = \[];
 
-				for (const queryString of args) {
+				for(const queryString of args) {
 					const server = Object.fromEntries(
 							queryString.split('&').map(item => item.split('='))
 						);
@@ -510,23 +511,23 @@ SUBSYSTEM_DEF(title)
 			let pixel_check;
 			function set_theme(which) {
 				pixel_check = document.body.className.indexOf("pixelated") != -1
-				if (which == 'light') {
+				if(which == 'light') {
 					document.body.className = '';
 					document.documentElement.className = 'light';
-				} else if (which == 'dark') {
+				} else if(which == 'dark') {
 					document.body.className = 'dark';
 					document.documentElement.className = 'dark';
-				} else if (which == 'ntos') {
+				} else if(which == 'ntos') {
 					document.body.className = 'ntos';
 					document.documentElement.className = 'ntos';
-				} else if (which == 'paradise') {
+				} else if(which == 'paradise') {
 					document.body.className = 'paradise';
 					document.documentElement.className = 'paradise';
-				} else if (which == 'syndicate') {
+				} else if(which == 'syndicate') {
 					document.body.className = 'syndicate';
 					document.documentElement.className = 'syndicate';
 				}
-				if (pixel_check) set_pixelated();
+				if(pixel_check) set_pixelated();
 			}
 
 			/* Return focus to Byond after click */

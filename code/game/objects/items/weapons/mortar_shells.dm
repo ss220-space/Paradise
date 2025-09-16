@@ -311,7 +311,7 @@
 	var/shell_type = /obj/item/mortar_shell
 
 /obj/structure/closet/crate/secure/mortar/mortar_shells/populate_contents()
-	for (var/i = 1; i <= count; i++)
+	for(var/i = 1; i <= count; i++)
 		new shell_type(src)
 
 /obj/structure/closet/crate/secure/mortar/mortar_shells/he
@@ -336,11 +336,11 @@
 	name = "mortar shells custom kit"
 
 /obj/structure/closet/crate/secure/mortar/custom_kit/populate_contents()
-	for (var/i = 1; i <= 6; i++)
+	for(var/i = 1; i <= 6; i++)
 		new /obj/item/mortar_shell/custom(src)
-	for (var/i = 1; i <= 3; i++)
+	for(var/i = 1; i <= 3; i++)
 		new /obj/item/warhead/mortar(src)
-	for (var/i = 1; i <= 3; i++)
+	for(var/i = 1; i <= 3; i++)
 		new/obj/item/warhead/mortar/camera(src)
 
 	var/obj/item/paper/paper = new(src)

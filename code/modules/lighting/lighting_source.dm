@@ -131,30 +131,30 @@
 // Because z diffs are so functionally small, cubes and cube roots are too aggressive
 #define LUM_FALLOFF_MULTIZ(C) (1 - CLAMP01(sqrt((C.x - _turf_x) ** 2 + (C.y - _turf_y) ** 2 + abs(C.z - _turf_z) ** 2 + LIGHTING_HEIGHT) / _range_divisor))
 
-#define APPLY_CORNER(C)                      \
-	if(C.z == _turf_z) {					 \
-		. = LUM_FALLOFF(C);				 \
-	}										 \
-	else {									 \
-		. = LUM_FALLOFF_MULTIZ(C)			 \
-	}										 \
-	. *= _light_power;                        \
-	var/OLD = effect_str[C];                 \
-	                                         \
-	C.update_lumcount                        \
-	(                                        \
-		(. * _lum_r) - (OLD * _applied_lum_r), \
-		(. * _lum_g) - (OLD * _applied_lum_g), \
-		(. * _lum_b) - (OLD * _applied_lum_b)  \
+#define APPLY_CORNER(C)							\
+	if(C.z == _turf_z) {						\
+		. = LUM_FALLOFF(C);						\
+	}											\
+	else {										\
+		. = LUM_FALLOFF_MULTIZ(C)				\
+	}											\
+	. *= _light_power;							\
+	var/OLD = effect_str[C];					\
+												\
+	C.update_lumcount							\
+	(											\
+		(. * _lum_r) - (OLD * _applied_lum_r),	\
+		(. * _lum_g) - (OLD * _applied_lum_g),	\
+		(. * _lum_b) - (OLD * _applied_lum_b)	\
 	);
 
-#define REMOVE_CORNER(C)                     \
-	. = -effect_str[C];                      \
-	C.update_lumcount                        \
-	(                                        \
-		. * _applied_lum_r,                   \
-		. * _applied_lum_g,                   \
-		. * _applied_lum_b                    \
+#define REMOVE_CORNER(C)						\
+	. = -effect_str[C];							\
+	C.update_lumcount							\
+	(											\
+		. * _applied_lum_r,						\
+		. * _applied_lum_g,						\
+		. * _applied_lum_b						\
 	);
 
 // This is the define used to calculate falloff.
@@ -162,7 +162,7 @@
 /datum/light_source/proc/remove_lum()
 	SETUP_CORNERS_REMOVAL_CACHE(src)
 	applied = FALSE
-	for (var/datum/lighting_corner/corner as anything in effect_str)
+	for(var/datum/lighting_corner/corner as anything in effect_str)
 		REMOVE_CORNER(corner)
 		LAZYREMOVE(corner.affecting, src)
 		SSdemo.mark_turf(corner.master_NE)
@@ -184,22 +184,22 @@
 
 // Keep in mind. Lighting corners accept the bottom left (northwest) set of cords to them as input
 #define GENERATE_MISSING_CORNERS(gen_for) \
-	if (!gen_for.lighting_corner_NE) { \
+	if(!gen_for.lighting_corner_NE) { \
 		gen_for.lighting_corner_NE = new /datum/lighting_corner(gen_for.x, gen_for.y, gen_for.z); \
 	} \
-	if (!gen_for.lighting_corner_SE) { \
+	if(!gen_for.lighting_corner_SE) { \
 		gen_for.lighting_corner_SE = new /datum/lighting_corner(gen_for.x, gen_for.y - 1, gen_for.z); \
 	} \
-	if (!gen_for.lighting_corner_SW) { \
+	if(!gen_for.lighting_corner_SW) { \
 		gen_for.lighting_corner_SW = new /datum/lighting_corner(gen_for.x - 1, gen_for.y - 1, gen_for.z); \
 	} \
-	if (!gen_for.lighting_corner_NW) { \
+	if(!gen_for.lighting_corner_NW) { \
 		gen_for.lighting_corner_NW = new /datum/lighting_corner(gen_for.x - 1, gen_for.y, gen_for.z); \
 	} \
 	gen_for.lighting_corners_initialised = TRUE;
 
 #define INSERT_CORNERS(insert_into, draw_from)             \
-	if (!draw_from.lighting_corners_initialised) {         \
+	if(!draw_from.lighting_corners_initialised) {         \
 		GENERATE_MISSING_CORNERS(draw_from);               \
 	}                                                      \
 	insert_into[draw_from.lighting_corner_NE] = 0;         \
@@ -313,23 +313,23 @@
 
 	var/list/datum/lighting_corner/new_corners = (corners - src.effect_str)
 	LAZYINITLIST(src.effect_str)
-	for (var/datum/lighting_corner/corner as anything in new_corners)
+	for(var/datum/lighting_corner/corner as anything in new_corners)
 		APPLY_CORNER(corner)
-		if (. != 0)
+		if(. != 0)
 			LAZYADD(corner.affecting, src)
 			effect_str[corner] = .
 	// New corners are a subset of corners. so if they're both the same length, there are NO old corners!
 	if(needs_update != LIGHTING_VIS_UPDATE && length(corners) != length(new_corners))
-		for (var/datum/lighting_corner/corner as anything in corners - new_corners) // Existing corners
+		for(var/datum/lighting_corner/corner as anything in corners - new_corners) // Existing corners
 			APPLY_CORNER(corner)
-			if (. != 0)
+			if(. != 0)
 				effect_str[corner] = .
 			else
 				LAZYREMOVE(corner.affecting, src)
 				effect_str -= corner
 
 	var/list/datum/lighting_corner/gone_corners = effect_str - corners
-	for (var/datum/lighting_corner/corner as anything in gone_corners)
+	for(var/datum/lighting_corner/corner as anything in gone_corners)
 		REMOVE_CORNER(corner)
 		LAZYREMOVE(corner.affecting, src)
 	effect_str -= gone_corners
