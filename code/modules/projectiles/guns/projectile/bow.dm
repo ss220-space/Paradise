@@ -83,7 +83,7 @@
 	. = ..()
 
 
-/obj/item/gun/projectile/bow/attack_self(mob/living/user)
+/obj/item/gun/projectile/bow/unload_act(mob/user)
 	if(chambered && !ready_to_fire)
 		ready_to_fire = TRUE
 		playsound(user, draw_sound, 100, TRUE)

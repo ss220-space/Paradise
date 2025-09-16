@@ -5,14 +5,14 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
-	/// If TRUE will show empty casing on examine
-	var/show_live_rounds = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 4)
 	)
-
+	can_air_shoot = TRUE
+	/// If TRUE will show empty casing on examine
+	var/show_live_rounds = TRUE
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()
@@ -51,8 +51,7 @@
 	return ..()
 
 
-/obj/item/gun/projectile/revolver/attack_self(mob/living/user)
-	add_fingerprint(user)
+/obj/item/gun/projectile/revolver/unload_act(mob/user)
 	var/num_unloaded = 0
 	chambered = null
 	var/atom/drop_loc = drop_location()
@@ -106,8 +105,49 @@
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	if(show_live_rounds)
-		. += span_notice("[get_ammo(FALSE, FALSE)] of those are live rounds")
+	if(!show_live_rounds)
+		return
+
+	var/ammo_num = get_ammo(FALSE, FALSE)
+	. += span_notice("[ammo_num] из них боев[declension_ru(ammo_num, "ой", "ые", "ые")]")
+
+/obj/item/gun/projectile/revolver/try_air_fire(datum/source, mob/user)
+	. = ..()
+	if(!user || (user.a_intent != INTENT_GRAB) || !isturf(user.loc))
+		return NONE
+
+	INVOKE_ASYNC(src, PROC_REF(perform_air_fire), user)
+
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/obj/item/gun/projectile/revolver/proc/perform_air_fire(mob/user)
+	if(!can_shoot(user))
+		shoot_with_empty_chamber(user)
+		return
+
+	balloon_alert(user, "вы целитесь вверх...")
+	if(!do_after(user, 1.5 SECONDS, src, max_interact_count = 1, interaction_key = src, cancel_on_max = TRUE))
+		return
+
+	if(!can_shoot(user))
+		shoot_with_empty_chamber(user)
+		return
+
+	if(chambered)
+		QDEL_NULL(chambered.BB)
+		shoot_live_shot(user)
+
+	process_chamber()
+	user.balloon_alert(user, "выстрел в воздух")
+	user.visible_message(
+		span_cultlarge("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] дуло вверх и стреля[pluralize_ru(user.gender, "ет", "ют")], используя [declent_ru(ACCUSATIVE)]!"),
+		ignored_mobs = user
+
+	)
+
+	playsound(user, fire_sound, 120, FALSE)
+
+	update_icon()
 
 
 /obj/item/gun/projectile/revolver/detective
@@ -186,9 +226,13 @@
 
 
 /obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
+	. = ..()
 	if(istype(user))
 		to_chat(user, span_notice("You holster your fingers. Another time."))
 	qdel(src)
+
+/obj/item/gun/projectile/revolver/fingergun/unload_act(mob/user)
+	return
 
 
 /obj/item/gun/projectile/revolver/mateba
@@ -247,6 +291,7 @@
 	var/spun = FALSE
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
+	can_air_shoot = FALSE
 
 
 /obj/item/gun/projectile/revolver/russian/Initialize(mapload)
@@ -518,6 +563,7 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 	recoil = GUN_RECOIL_HIGH
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	can_air_shoot = FALSE
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/update_gun_skins()
@@ -554,8 +600,7 @@
 		accuracy = GUN_ACCURACY_MINIMAL
 
 
-/obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
-	add_fingerprint(user)
+/obj/item/gun/projectile/revolver/doublebarrel/unload_act(mob/user)
 	var/num_unloaded = 0
 	var/atom/drop_loc = drop_location()
 	while(get_ammo() > 0)
