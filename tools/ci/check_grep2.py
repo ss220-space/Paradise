@@ -218,6 +218,16 @@ def check_balloon_alert(idx, line):
         failures.append((idx + 1, "Balloon alerts should not start with capital letters. This includes text like 'AI'. If this is a false positive, wrap the text in UNLINT()."))
     return failures
 
+TRAIT_SINGLE_SRC = re.compile(r'(add_trait|remove_trait)\(.+,\s*.+,\s*src\)', re.IGNORECASE)
+TRAIT_PLURAL_SRC = re.compile(r'(add_traits|remove_traits)\(.+,\s*src\)', re.IGNORECASE)
+def check_trait_sources(idx, line):
+    failures = []
+    if TRAIT_SINGLE_SRC.search(line):
+        failures.append((idx + 1, "Using 'src' as a trait source. Source must be a string key - don't use references to datums as a source, perhaps use 'REF(src)'."))
+    if TRAIT_PLURAL_SRC.search(line):
+        failures.append((idx + 1, "Using 'src' as trait sources. Source must be a string key - don't use references to datums as sources, perhaps use 'REF(src)'."))
+    return failures
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -237,6 +247,7 @@ CODE_CHECKS = [
 #    check_camel_case_type_names,
     check_uid_parameters,
     check_balloon_alert,
+    check_trait_sources,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:

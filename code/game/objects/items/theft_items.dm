@@ -148,7 +148,7 @@
 /obj/item/nuke_core_container/proc/seal()
 	if(!QDELETED(core))
 		STOP_PROCESSING(SSobj, core)
-		ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+		ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src))
 		sealed = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
@@ -163,7 +163,7 @@
 
 /obj/item/nuke_core_container/proc/unseal(mob/user)
 	START_PROCESSING(SSobj, core)
-	REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+	REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src))
 	sealed = FALSE
 	playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] распечатан, радиация от [core.declent_ru(GENITIVE)] больше не изолирована."))
@@ -184,7 +184,7 @@
 	visible_message(span_boldnotice("[capitalize(src.declent_ru(NOMINATIVE))] распахивается!"))
 	if(core)
 		START_PROCESSING(SSobj, core)
-		REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+		REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src))
 	cracked = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
@@ -378,7 +378,7 @@
 /obj/item/nuke_core_container/supermatter/seal()
 	if(!QDELETED(sliver))
 		STOP_PROCESSING(SSobj, sliver)
-		ADD_TRAIT(sliver, TRAIT_BLOCK_RADIATION, src)
+		ADD_TRAIT(sliver, TRAIT_BLOCK_RADIATION, ref(src))
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		sealed = TRUE
 		update_icon(UPDATE_ICON_STATE)
@@ -435,7 +435,7 @@
 	visible_message(span_boldnotice("[src] распахивается!"))
 	if(sliver)
 		START_PROCESSING(SSobj, sliver)
-		REMOVE_TRAIT(sliver, TRAIT_BLOCK_RADIATION, src)
+		REMOVE_TRAIT(sliver, TRAIT_BLOCK_RADIATION, ref(src))
 	cracked = TRUE
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
