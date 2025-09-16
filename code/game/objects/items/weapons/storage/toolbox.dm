@@ -24,13 +24,6 @@
 	var/blurry_chance = 5
 	/// How many interactions are we currently performing
 	var/current_interactions = 0
-	/// Items we should not interact with when clicking
-	var/static/list/lmb_exception_typecache = typecacheof(list(
-		/obj/structure/table,
-		/obj/structure/rack,
-		/obj/structure/closet,
-		/obj/machinery/disposal,
-	))
 
 /obj/item/storage/toolbox/get_ru_names()
 	return list(
@@ -66,9 +59,6 @@
 	for(var/obj/item/item in contents)
 		if(item.toolbox_radial_menu_compatibility)
 			return ATTACK_CHAIN_PROCEED
-
-	if(is_type_in_typecache(object, lmb_exception_typecache))
-		return ATTACK_CHAIN_PROCEED
 
 /// Check if we can use tools inside toolbox via radial menu
 /obj/item/storage/toolbox/proc/check_for_radial_menu_availability(atom/object, mob/living/user, proximity)

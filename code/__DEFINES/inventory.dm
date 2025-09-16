@@ -3,7 +3,7 @@
 // ITEM INVENTORY WEIGHT, FOR w_class
 /// Usually items smaller then a human hand, ex: Playing Cards, Lighter, Scalpel, Coins/Money
 #define WEIGHT_CLASS_TINY     1
-/// Pockets can hold small and tiny items, ex: Flashlight, Multitool, Grenades, GPS Device
+/// Pockets can hold small and tiny items, ex: Flashlight, Grenades, GPS Device
 #define WEIGHT_CLASS_SMALL    2
 /// Standard backpacks can carry tiny, small & normal items, ex: Fire extinguisher, Stunbaton, Gas Mask, Metal Sheets
 #define WEIGHT_CLASS_NORMAL   3
