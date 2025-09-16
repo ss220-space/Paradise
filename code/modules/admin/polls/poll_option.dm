@@ -64,7 +64,7 @@
 		values["descmax"] = desc_max
 
 	var/update_data = list()
-	for (var/k in values)
+	for(var/k in values)
 		update_data += "[k] = VALUES([k])"
 
 	var/datum/db_query/query_update_poll_option = SSdbcore.NewQuery(
@@ -74,7 +74,7 @@
 	if(!query_update_poll_option.warn_execute())
 		qdel(query_update_poll_option)
 		return
-	if (!option_id)
+	if(!option_id)
 		option_id = query_update_poll_option.last_insert_id
 	qdel(query_update_poll_option)
 

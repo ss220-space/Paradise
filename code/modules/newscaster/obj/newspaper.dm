@@ -9,7 +9,7 @@
  */
 /obj/item/newspaper
 	name = "newspaper"
-	desc = "Выпуск газеты \"Грифон\", распространяемой на объектах НаноТрейзен."
+	desc = "Выпуск газеты \"Грифон\", распространяемой на объектах Нанотрейзен."
 	gender = FEMALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "newspaper"

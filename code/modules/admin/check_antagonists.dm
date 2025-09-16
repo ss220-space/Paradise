@@ -55,7 +55,7 @@
 						living_players_antagonist++
 					if(M.client)
 						living_players_connected++
-				else if((M.stat == DEAD )||(isobserver(M)))
+				else if((M.stat == DEAD)||(isobserver(M)))
 					observers++
 					if(M.client)
 						observers_connected++

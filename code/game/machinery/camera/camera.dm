@@ -112,7 +112,7 @@
 	GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
 /obj/machinery/camera/singularity_pull(S, current_size)
-	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
+	if(status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
 		toggle_cam(null, 0)
 	..()
 
@@ -329,7 +329,7 @@
 	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	if (!alarm_on) // you don't have to turn off alarm twice
+	if(!alarm_on) // you don't have to turn off alarm twice
 		return
 	alarm_on = FALSE
 	SSalarm.cancelAlarm("Camera", get_area(src), src)

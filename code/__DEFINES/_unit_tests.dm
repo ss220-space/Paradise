@@ -8,7 +8,7 @@
 // Bit of a trick here, if focus isn't passed in then it'll check for /datum/unit_test/, which is never the case.
 #define PERFORM_ALL_TESTS(focus...) (isnull(GLOB.focused_tests) || (/datum/unit_test/##focus in GLOB.focused_tests))
 #else
-// UNLINT necessary here so that if (PERFORM_ALL_TESTS()) works
+// UNLINT necessary here so that if(PERFORM_ALL_TESTS()) works
 #define PERFORM_ALL_TESTS(...) UNLINT(FALSE)
 #endif
 
@@ -44,7 +44,7 @@
 				}; \
 			}; \
 		}; \
-	} while (FALSE)
+	} while(FALSE)
 #else
 #define REGISTER_REQUIRED_MAP_ITEM(min, max)
 #endif
