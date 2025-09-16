@@ -548,7 +548,6 @@
 	for(var/datum/data/vending_product/record as anything in recordlist)
 		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
 		if(diff)
-		if(diff)
 			productlist[record.product_path] -= diff
 			record.amount += diff
 			. += diff
