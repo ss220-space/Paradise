@@ -339,7 +339,7 @@
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
 
-/obj/projectile/bullet/midbullet3/5_45x39
+/obj/projectile/bullet/midbullet3/cal5_45x39
 	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
 
 /obj/projectile/bullet/heavybullet

@@ -470,7 +470,7 @@
 /obj/item/ammo_casing/a545
 	desc = "A 5.45x39mm bullet casing."
 	caliber = CALIBER_5_DOT_45X39MM
-	projectile_type = /obj/projectile/bullet/midbullet3/5_45x39
+	projectile_type = /obj/projectile/bullet/midbullet3/cal5_45x39
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
