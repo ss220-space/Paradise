@@ -779,7 +779,7 @@
 
 	var/selected_zone = user.zone_selected
 	if(human_target == user)
-		baloon_alert("применение [declent_ru(ACCUSATIVE)]...")
+		balloon_alert(user, "применение [declent_ru(GENITIVE)]...")
 		user.visible_message(
 			span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять на себе [declension_ru(ACCUSATIVE)]."),
 			ignored_mobs = user
@@ -797,7 +797,7 @@
 			to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
 			return .
 	else
-		baloon_alert("применение [declent_ru(ACCUSATIVE)]...")
+		balloon_alert(user, "применение [declent_ru(GENITIVE)]...")
 		user.visible_message(
 			span_notice("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] на [human_target]."),
 			ignored_mobs = user
