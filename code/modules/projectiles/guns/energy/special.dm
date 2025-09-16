@@ -828,9 +828,6 @@
 		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 /obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
-	if(user.intent == INTENT_HARM)
-		return ..()
-
 	add_fingerprint(user)
 	if(istype(item, /obj/item/stock_parts/cell/specter))
 		if(!user.drop_transfer_item_to_loc(item, src))
@@ -842,6 +839,7 @@
 		cell_type = item.type
 		balloon_alert(user, "батарейка заменена")
 		return ATTACK_CHAIN_PROCEED
+	return ..()
 
 
 /obj/item/gun/energy/emittergun
