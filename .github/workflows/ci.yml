@@ -52,7 +52,7 @@ jobs:
 
       - name: Run Linters
         run: |
-          tools/ci/check_json.sh
+          bash tools/ci/check_json.sh
           tgui/bin/tgui --ci
           tools/ci/check_grep.sh
           python tools/ci/check_grep2.py
