@@ -28,16 +28,18 @@ type PAIData = {
   app_template: string;
   app_icon: string;
   app_title: string;
-  app_data?: {
-    has_back?: boolean;
-    [key: string]: unknown;
-  };
+  app_data?: PAIAppData;
+};
+
+type PAIAppData = {
+  has_back?: boolean;
+  [key: string]: unknown;
 };
 
 export const PAI = (_props: unknown) => {
   const { act, data } = useBackend<PAIData>();
   const { app_template, app_icon, app_title } = data;
-  const has_back = Boolean(data.app_data && (data.app_data as any).has_back);
+  const has_back = !!data.app_data?.has_back;
 
   const App = GetApp(app_template);
 
@@ -50,12 +52,9 @@ export const PAI = (_props: unknown) => {
               <Icon name={app_icon} mr={1} />
               {app_title}
               {app_template !== 'pai_main_menu' && has_back && (
-                <>
-                  <Button />
-                  <Button ml={2} icon="arrow-left" onClick={() => act('Back')}>
-                    Back
-                  </Button>
-                </>
+                <Button ml={2} icon="arrow-left" onClick={() => act('Back')}>
+                  Back
+                </Button>
               )}
               {app_template !== 'pai_main_menu' && (
                 <Button
