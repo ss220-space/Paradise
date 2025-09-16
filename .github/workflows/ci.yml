@@ -48,7 +48,7 @@ jobs:
           cache-dependency-path: ./tgui/yarn.lock
 
       - name: Install python packages
-        run: pip3 install -r tools/requirements.txt
+        run: pip install -r tools/requirements.txt
 
       - name: Run Linters
         run: |
