@@ -23,7 +23,7 @@
 	attacktext = "неистово терзает"
 	maxHealth = 200
 	health = 200
-	healable = 0
+	healable = FALSE
 	environment_smash = 1
 	obj_damage = 40
 	melee_damage_lower = 10

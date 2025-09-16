@@ -288,7 +288,7 @@
 
 /obj/item/lighter/zippo/cap
 	name = "Captain's zippo"
-	desc = "Ограниченная серия золотых Зиппо специально для капитанов станций НаноТрейзен. Выглядит очень роскошно."
+	desc = "Ограниченная серия золотых Зиппо специально для капитанов станций Нанотрейзен. Выглядит очень роскошно."
 	icon_state = "zippo_cap"
 	item_state = "capzippo"
 	icon_on = "zippo_cap_on"
@@ -306,7 +306,7 @@
 
 /obj/item/lighter/zippo/hop
 	name = "Head of Personnel zippo"
-	desc = "Ограниченная серия Зиппо для Глав станций НаноТрейзен. Старается изо всех сил выглядеть как капитанская."
+	desc = "Ограниченная серия Зиппо для Глав станций Нанотрейзен. Старается изо всех сил выглядеть как капитанская."
 	icon_state = "zippo_hop"
 	item_state = "hopzippo"
 	icon_on = "zippo_hop_on"
@@ -325,7 +325,7 @@
 
 /obj/item/lighter/zippo/hos
 	name = "Head of Security zippo"
-	desc = "Ограниченная серия Зиппо для Глав станций НаноТрейзен. Она просто не может не работать на крови и слезах клоунов."
+	desc = "Ограниченная серия Зиппо для Глав станций Нанотрейзен. Она просто не может не работать на крови и слезах клоунов."
 	icon_state = "zippo_hos"
 	item_state = "hoszippo"
 	icon_on = "zippo_hos_on"
@@ -343,7 +343,7 @@
 
 /obj/item/lighter/zippo/cmo
 	name = "Chief Medical Officer zippo"
-	desc = "Ограниченная серия Зиппо для Глав станций НаноТрейзен. Сделано из гипоаллергенной стали."
+	desc = "Ограниченная серия Зиппо для Глав станций Нанотрейзен. Сделано из гипоаллергенной стали."
 	icon_state = "zippo_cmo"
 	item_state = "bluezippo"
 	icon_on = "zippo_cmo_on"
@@ -361,7 +361,7 @@
 
 /obj/item/lighter/zippo/ce
 	name = "Chief Engineer zippo"
-	desc = "Ограниченная серия Зиппо для глав станций НаноТрейзен. Выглядит совсем потрескавшейся."
+	desc = "Ограниченная серия Зиппо для глав станций Нанотрейзен. Выглядит совсем потрескавшейся."
 	icon_state = "zippo_ce"
 	item_state = "cezippo"
 	icon_on = "zippo_ce_on"
@@ -379,7 +379,7 @@
 
 /obj/item/lighter/zippo/rd
 	name = "Research Director zippo"
-	desc = "Ограниченная серия Зиппо для глав станций НаноТрейзен. Работает на жидкой плазме."
+	desc = "Ограниченная серия Зиппо для глав станций Нанотрейзен. Работает на жидкой плазме."
 	icon_state = "zippo_rd"
 	item_state = "rdzippo"
 	icon_on = "zippo_rd_on"
@@ -397,7 +397,7 @@
 
 /obj/item/lighter/zippo/qm
 	name = "Quartermaster Lighter"
-	desc = "Ограниченная серия Зиппо для глав станций НаноТрейзен. Нужно 400.000 кредитов, чтобы держать эту зажигалку включеной 12 секунд."
+	desc = "Ограниченная серия Зиппо для глав станций Нанотрейзен. Нужно 400.000 кредитов, чтобы держать эту зажигалку включеной 12 секунд."
 	icon_state = "zippo_qm"
 	item_state = "qmzippo"
 	icon_on = "zippo_qm_on"

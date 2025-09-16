@@ -126,7 +126,7 @@
 /obj/machinery/optable/proc/check_table()
 	update_patient()
 	if(patient != null)
-		balloon_alert(usr, span_notice("уже занято!"))
+		balloon_alert(usr, "уже занято!")
 		return FALSE
 	else
 		return TRUE

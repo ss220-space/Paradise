@@ -97,7 +97,7 @@
 /obj/machinery/door/Bumped(atom/movable/moving_atom, skip_effects = FALSE)
 	. = ..()
 
-	if(skip_effects || operating || emagged || (!can_open_with_hands && density) )
+	if(skip_effects || operating || emagged || (!can_open_with_hands && density))
 		return .
 	if(ismob(moving_atom))
 		var/mob/B = moving_atom

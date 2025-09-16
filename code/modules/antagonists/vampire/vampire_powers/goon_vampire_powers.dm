@@ -365,7 +365,7 @@
 		return
 
 	vamp.is_goon_cloak = !vamp.is_goon_cloak
-	update_name(user = user)
+	update_appearance(UPDATE_NAME)
 	to_chat(user, span_notice("Теперь вас будет <b>[vamp.is_goon_cloak ? "не видно" : "видно"]</b> в темноте."))
 
 

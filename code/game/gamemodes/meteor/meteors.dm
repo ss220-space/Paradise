@@ -1,5 +1,5 @@
 //Meteors probability of spawning during a given wave
-GLOBAL_LIST_INIT(meteors_normal, list(	//for normal meteor event
+GLOBAL_LIST_INIT(meteors_normal, list(//for normal meteor event
 	/obj/effect/meteor/dust = 3,
 	/obj/effect/meteor/medium = 8,
 	/obj/effect/meteor/big = 3,
@@ -7,14 +7,14 @@ GLOBAL_LIST_INIT(meteors_normal, list(	//for normal meteor event
 	/obj/effect/meteor/irradiated = 3,
 ))
 
-GLOBAL_LIST_INIT(meteors_threatening, list(	//for threatening meteor event
+GLOBAL_LIST_INIT(meteors_threatening, list(//for threatening meteor event
 	/obj/effect/meteor/medium = 4,
 	/obj/effect/meteor/big = 8,
 	/obj/effect/meteor/flaming = 3,
 	/obj/effect/meteor/irradiated = 3,
 ))
 
-GLOBAL_LIST_INIT(meteors_catastrophic, list(	//for catastrophic meteor event
+GLOBAL_LIST_INIT(meteors_catastrophic, list(//for catastrophic meteor event
 	/obj/effect/meteor/medium = 5,
 	/obj/effect/meteor/big = 75,
 	/obj/effect/meteor/flaming = 10,

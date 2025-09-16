@@ -212,7 +212,7 @@
 	. = ..()
 	add_dragon_overlay()
 
-	if (was_dead)
+	if(was_dead)
 		RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(add_dragon_overlay))
 
 

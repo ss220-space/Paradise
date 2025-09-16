@@ -20,7 +20,7 @@
 
 /obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
 
-	if (is_ventcrawling(user) || !src || user.stat || infesting)
+	if(is_ventcrawling(user) || !src || user.stat || infesting)
 		return FALSE
 
 	. = ..()
@@ -82,7 +82,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/borer_dominate/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
-	if (is_ventcrawling(user) || !src || user.stat)
+	if(is_ventcrawling(user) || !src || user.stat)
 		return FALSE
 
 	. = ..()
@@ -119,7 +119,7 @@
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/borer_force_say/can_cast(mob/living/simple_animal/borer/user, charge_check = TRUE, show_message = FALSE)
-	if (user.stat || user.host?.stat)
+	if(user.stat || user.host?.stat)
 		return FALSE
 
 	. = ..()

@@ -305,7 +305,7 @@
 
 /obj/structure/rack/wooden/Initialize(mapload)
 	. = ..()
-	update_overlays()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/rack/wooden/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
