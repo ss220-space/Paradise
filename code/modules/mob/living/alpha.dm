@@ -45,4 +45,7 @@
 
 
 /mob/living/proc/alpha_get(source = ALPHA_SOURCE_DEFAULT)
-	return alphas[source]
+	alpha_prepare(source)
+	var/result = alphas[source]
+	alpha_finalise(source)
+	return result
