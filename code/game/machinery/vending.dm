@@ -592,28 +592,27 @@
 	var/others_have_category = null
 	var/list/categories_to_index = list()
 
-	for (var/datum/data/vending_product/record as anything in product_records)
+	for(var/datum/data/vending_product/record as anything in product_records)
 		var/list/category = record.category
 		var/has_category = !isnull(category)
 
-		// Проверка согласованности категорий
-		if (!check_category_consistency(record, others_have_category, has_category))
+		if(!check_category_consistency(record, others_have_category, has_category))
 			continue
 
-		if (has_category)
+		if(has_category)
 			handle_categorized_product(record, product_categories, categories_to_index)
 		else
 			products[record.product_path] = record.amount
 
 /obj/machinery/vending/proc/check_category_consistency(product_record, others_have_category, has_category)
 	var/datum/data/vending_product/record = product_record
-	if (isnull(others_have_category))
+	if(isnull(others_have_category))
 		return TRUE
 
-	if (others_have_category == has_category)
+	if(others_have_category == has_category)
 		return TRUE
 
-	if (has_category)
+	if(has_category)
 		WARNING("[record.product_path] in [type] has a category, but other products don't")
 	else
 		WARNING("[record.product_path] in [type] does not have a category, but other products do")
@@ -625,7 +624,7 @@
 	var/list/category = record.category
 	var/index = categories_to_index.Find(category)
 
-	if (!index)
+	if(!index)
 		categories_to_index += list(category)
 		index = categories_to_index.len
 
