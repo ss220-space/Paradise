@@ -27,6 +27,7 @@
 	var/cult_icon_changing = TRUE //Changing the sprite from the type of cult
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/holy = FALSE
+	healable = FALSE
 	light_system = MOVABLE_LIGHT
 
 
@@ -51,7 +52,11 @@
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
-	add_traits(list(TRAIT_HEALS_FROM_CULT_PYLONS, TRAIT_HEALS_FROM_HOLY_PYLONS, TRAIT_NO_FLOATING_ANIM), INNATE_TRAIT)
+	if(holy)
+		ADD_TRAIT(src, TRAIT_HEALS_FROM_HOLY_PYLONS, INNATE_TRAIT)
+	else
+		ADD_TRAIT(src, TRAIT_HEALS_FROM_CULT_PYLONS, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/construct/ComponentInitialize()
@@ -123,6 +128,9 @@
 	status_flags = 0
 	construct_type = "juggernaut"
 	mob_size = MOB_SIZE_LARGE
+	move_resist = MOVE_FORCE_STRONG
+	move_force = MOVE_FORCE_STRONG
+	pull_force = MOVE_FORCE_STRONG
 	construct_spells = list(/obj/effect/proc_holder/spell/night_vision, /obj/effect/proc_holder/spell/aoe/conjure/build/lesserforcewall)
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
