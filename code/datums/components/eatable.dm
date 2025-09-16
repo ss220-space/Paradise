@@ -73,7 +73,7 @@
 	else if((current_bites >= bites_split * 2) && current_bites <= (bites_split * 3))
 		text = "Видна внутренняя часть..."
 
-	else if((current_bites >= bites_split * 3))
+	else if(current_bites >= bites_split * 3)
 		text = "Осталась одна труха..."
 
 	return text
@@ -118,11 +118,11 @@
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
 				chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет [item.declent_ru(NOMINATIVE)]. [target == user ? "Вы" : target] наел[target == user ? "ись" : genderize_ru(target.gender,"ся","ась","ось","ись")]!"
 				return FALSE
-			else if (target == user)
+			else if(target == user)
 				chat_message_to_user = "Вы откусили от [item.declent_ru(ACCUSATIVE)]. Вкуснятина!"
 		if(INTENT_HARM)
 			chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет. Но [target == user ? "вы" : user] насильно запихива[target == user ? "ете" : pluralize_ru(user.gender,"ет","ют")] [item.declent_ru(ACCUSATIVE)] в рот!"
-			if (target != user)
+			if(target != user)
 				chat_message_to_target = "В ваш рот насильно запихивают [item.declent_ru(ACCUSATIVE)]!"
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
 				target.vomit(nutritional_value + 20)
@@ -186,7 +186,7 @@
 	else if((current_bites >= bites_split * 2) && current_bites <= (bites_split * 3))
 		colour = "#929eabff"
 
-	else if((current_bites >= bites_split * 3))
+	else if(current_bites >= bites_split * 3)
 		colour = "#697581ff"
 
 	return colour

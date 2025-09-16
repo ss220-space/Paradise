@@ -235,20 +235,20 @@
 		return FALSE
 
 	var/obj/structure/particle_accelerator/accelerator = locate(/obj/structure/particle_accelerator) in checked_turf
-	if (!istype(accelerator, type))
+	if(!istype(accelerator, type))
 		layout[column][row]["status"] = "Not In Position"
 		layout[column][row]["dir"] = dir
 		return
 
-	if (!accelerator.connect_master(src))
-		if (accelerator)
+	if(!accelerator.connect_master(src))
+		if(accelerator)
 			layout[column][row]["status"] = "Wrong Orientation"
 			layout[column][row]["dir"] = accelerator.dir
 			layout[column][row]["icon_state"] = accelerator.icon_state
 		return
 
-	if (!accelerator.report_ready(src))
-		if (accelerator)
+	if(!accelerator.report_ready(src))
+		if(accelerator)
 			layout[column][row]["status"] = "Incomplete"
 			layout[column][row]["dir"] = accelerator.dir
 			layout[column][row]["icon_state"] = accelerator.icon_state

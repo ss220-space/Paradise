@@ -12,9 +12,9 @@
 	if(prob(25))
 		for(var/mob/living/carbon/human/lesser/L in GLOB.alive_mob_list)
 			var/turf/T = get_turf(L)
-			if (!is_station_level(T.z))
+			if(!is_station_level(T.z))
 				continue
-			if (L.health <= L.maxHealth - 50)
+			if(L.health <= L.maxHealth - 50)
 				continue
 			if(!(L in GLOB.player_list) && !L.mind)
 				potential += L
@@ -23,7 +23,7 @@
 	if(!isLesserForm)
 		for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
 			var/turf/T = get_turf(L)
-			if (!is_station_level(T.z))
+			if(!is_station_level(T.z))
 				continue
 			if(!(L in GLOB.player_list) && !L.mind && (L.sentience_type == sentience_type))
 				potential += L
@@ -43,7 +43,7 @@
 	sentience_report += "<br><br>Based on [data], we believe that one of the station's [pets] has developed [strength] level intelligence, and the ability to communicate."
 
 	var/mob/SG = pick(candidates)
-	if (isLesserForm)
+	if(isLesserForm)
 		var/mob/living/carbon/human/lesser/LF = pick(potential)
 		LF.key = SG.key
 		LF.health = LF.maxHealth

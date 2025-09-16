@@ -3,4 +3,4 @@ set -euo pipefail
 
 source _build_dependencies.sh
 
-# nothing to do here right now
+python3 -m pip install json5

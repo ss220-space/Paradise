@@ -445,7 +445,7 @@
 //Signs
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"
-	desc = "Знак облегчения для уставших шахтеров и предупреждение для потенциальных конкурентов НаноТрейзен."
+	desc = "Знак облегчения для уставших шахтеров и предупреждение для потенциальных конкурентов Нанотрейзен."
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "ntpod"
 

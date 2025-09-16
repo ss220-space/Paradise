@@ -2,7 +2,7 @@
 
 /proc/getArmor(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, magic = 0)
 	. = locate(ARMORID)
-	if (!.)
+	if(!.)
 		. = new /datum/armor(melee, bullet, laser, energy, bomb, bio, rad, fire, acid, magic)
 
 /datum/armor

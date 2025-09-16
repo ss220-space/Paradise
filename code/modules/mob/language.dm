@@ -263,12 +263,12 @@
 	// Now I love making list in list in list in list in list
 	// Two sublists were made by authors so that the names would turn out most consonant for reading (in a way that's possible for skrells)
 	var/list/ru_name_syllables = list(
-		list(	// list 1
+		list(// list 1
 			list("заоо", "зао", "зикс", "зо", "йуо", "кью", "кьюм", "кси", "ксу", "квум", "кву",	// sublist1
 				"кви", "квей", "квиш", "куу", "кюан", "киэн", "ку", "кил", "лиа", "люик", "луи",
 				"рио", "сейу", "тсой", "уль", "улур", "урр", "ур", "цу", "эль", "эо", "эу"),
 
-			list(
+			list(\
 			"аг", "вум", "вул", "вол", "гли", "зи", "заоо", "зао", "зикс", "зуо", "зук", "зуво",	// sublist2
 			"икс", "ил", "ис", "йук", "кву", "квум", "куум", "куо", "куа", "куак", "кул", "квол",
 			"кью", "кьюа", "кэ", "кин", "кии", "кс", "ки", "киу", "кос", "лоа", "лак", "лум", "лик",
@@ -278,7 +278,7 @@
 			)
 		),
 
-		list(	// list 2
+		list(// list 2
 			list("заоо", "зао", "зо", "йуо", "лиа", "луи", "рио", "сейу", "эо"),	// sublist1
 
 			list(
