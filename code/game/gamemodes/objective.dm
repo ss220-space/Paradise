@@ -876,7 +876,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 		var/has_invalid_owner = FALSE
 		for(var/datum/mind/player in get_owners())
-			if((player.assigned_role in new_theft_objective.protected_jobs))
+			if(player.assigned_role in new_theft_objective.protected_jobs)
 				has_invalid_owner = TRUE
 				break
 

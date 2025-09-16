@@ -49,22 +49,22 @@
 		"scrambledcodes" = borg.scrambledcodes
 	)
 	.["upgrades"] = list()
-	for (var/upgradetype in subtypesof(/obj/item/borg/upgrade)-list(/obj/item/borg/upgrade/rename, /obj/item/borg/upgrade/restart, /obj/item/borg/upgrade/reset))
+	for(var/upgradetype in subtypesof(/obj/item/borg/upgrade)-list(/obj/item/borg/upgrade/rename, /obj/item/borg/upgrade/restart, /obj/item/borg/upgrade/reset))
 		var/obj/item/borg/upgrade/upgrade = upgradetype
 		if(!borg.module && initial(upgrade.require_module)) //Borg needs to select a module first
 			continue
-		if (initial(upgrade.module_type) && (borg.module != initial(upgrade.module_type))) // Upgrade requires a different module
+		if(initial(upgrade.module_type) && (borg.module != initial(upgrade.module_type))) // Upgrade requires a different module
 			continue
 		var/installed = FALSE
-		if (locate(upgradetype) in borg)
+		if(locate(upgradetype) in borg)
 			installed = TRUE
 		.["upgrades"] += list(list("name" = initial(upgrade.name), "installed" = installed, "type" = upgradetype))
 	.["laws"] = list()
 	for(var/datum/ai_law/law in borg.laws?.all_laws())
 		.["laws"] += "[law.index]. [law.law]"
 	.["channels"] = list()
-	for (var/k in SSradio.radiochannels)
-		if (k == PUB_FREQ)
+	for(var/k in SSradio.radiochannels)
+		if(k == PUB_FREQ)
 			continue
 		.["channels"] += list(list("name" = k, "installed" = (k in borg.radio.channels)))
 	.["cell"] = borg.cell ? list("missing" = FALSE, "maxcharge" = borg.cell.maxcharge, "charge" = borg.cell.charge) : list("missing" = TRUE, "maxcharge" = 1, "charge" = 0)
@@ -82,7 +82,7 @@
 	. = ..()
 	if(.)
 		return
-	switch (action)
+	switch(action)
 		if("set_charge")
 			var/newcharge = tgui_input_number(usr, "Set new charge", borg.name, borg.cell.charge, max_value = INFINITY)
 			newcharge = between(0,newcharge, borg.cell.maxcharge)
@@ -121,7 +121,7 @@
 				log_and_message_admins("changed the cell of [key_name(borg)] to [new_cell].")
 		if("toggle_emagged")
 			borg.SetEmagged(!borg.emagged)
-			if (borg.emagged)
+			if(borg.emagged)
 				log_and_message_admins("emagged [key_name(borg)].")
 			else
 				log_and_message_admins("un-emagged [key_name(borg)].")
@@ -131,19 +131,19 @@
 			log_and_message_admins("has opened [borg]'s law manager.")
 		if("toggle_lawupdate")
 			borg.lawupdate = !borg.lawupdate
-			if (borg.lawupdate)
+			if(borg.lawupdate)
 				log_and_message_admins("enabled lawsync on [key_name(borg)].")
 			else
 				log_and_message_admins("disabled lawsync on [key_name(borg)].")
 		if("toggle_lockdown")
 			borg.SetLockdown(!borg.lockcharge)
-			if (borg.lockcharge)
+			if(borg.lockcharge)
 				log_and_message_admins("locked down [key_name(borg)].")
 			else
 				log_and_message_admins("released [key_name(borg)] from lockdown.")
 		if("toggle_scrambledcodes")
 			borg.scrambledcodes = !borg.scrambledcodes
-			if (borg.scrambledcodes)
+			if(borg.scrambledcodes)
 				log_and_message_admins("enabled scrambled codes on [key_name(borg)].")
 			else
 				log_and_message_admins("disabled scrambled codes on [key_name(borg)].")
@@ -203,11 +203,11 @@
 				borg.connect_to_ai(newai)
 				borg.notify_ai(TRUE)
 				log_and_message_admins("slaved [key_name(borg)] to the AI [key_name(newai)].")
-			else if (params["slavetoai"] == "")
+			else if(params["slavetoai"] == "")
 				borg.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 				borg.disconnect_from_ai()
 				log_and_message_admins("freed [key_name(borg)] from being slaved to an AI.")
-			if (borg.lawupdate)
+			if(borg.lawupdate)
 				borg.lawsync()
 				if(borg.connected_ai?.laws)
 					SSticker?.score?.save_silicon_laws(borg, usr, "laws sync with AI", log_all_laws = TRUE)

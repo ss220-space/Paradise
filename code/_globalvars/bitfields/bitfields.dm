@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 /// Turns /datum/bitfield subtypes into a list for use in debugging
 /proc/generate_bitfields()
 	var/list/bitfields = list()
-	for (var/_bitfield in subtypesof(/datum/bitfield))
+	for(var/_bitfield in subtypesof(/datum/bitfield))
 		var/datum/bitfield/bitfield = new _bitfield
 		bitfields[bitfield.variable] = bitfield.flags
 	return bitfields

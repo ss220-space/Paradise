@@ -85,7 +85,7 @@
 	if(!ninja || !ninja.mind)
 		s_busy = FALSE
 		return
-	if (phase > NINJA_INIT_LOCK_PHASE && (ninja.stat == DEAD || ninja.health <= 0))
+	if(phase > NINJA_INIT_LOCK_PHASE && (ninja.stat == DEAD || ninja.health <= 0))
 		to_chat(ninja, span_danger("<b>FÄAL ï¿½Rrï¿½R</b>: 344--93#ï¿½&&21 BRï¿½ï¿½N |/|/aVï¿½ PATT$RN <b>RED</b>\nA-A-aBï¿½rTï¿½NG..."))
 		unlock_suit()
 		s_busy = FALSE
@@ -93,13 +93,13 @@
 	var/message = ninja_initialize_messages[phase + 1]
 	current_initialisation_phase = phase + 1
 	switch(phase)
-		if (NINJA_INIT_LOCK_PHASE)
+		if(NINJA_INIT_LOCK_PHASE)
 			if(!lock_suit(ninja))//To lock the suit onto wearer.
 				s_busy = FALSE
 				suit_tgui_state = NINJA_TGUI_MAIN_SCREEN_STATE
 				return
 			affecting = ninja
-		if (NINJA_INIT_ICON_GENERATE_PHASE)
+		if(NINJA_INIT_ICON_GENERATE_PHASE)
 			lockIcons(ninja)//Check for icons.
 			if(preferred_scarf_over_hood)
 				if(!toggle_scarf())
@@ -108,7 +108,7 @@
 					suit_tgui_state = NINJA_TGUI_MAIN_SCREEN_STATE
 					return
 			ninja.regenerate_icons()
-		if (NINJA_INIT_MODULES_PHASE)
+		if(NINJA_INIT_MODULES_PHASE)
 			var/datum/action/item_action/action
 			for(action in ninja.actions)
 				if(action.action_initialisation_text)
@@ -118,9 +118,9 @@
 			if(ninja_clonable)
 				cloning_ref.scan_mob(ninja)
 				message = "User has successfully been added to the Revive Machine Database."
-		if (NINJA_INIT_COMPLETE_PHASE - 1)
+		if(NINJA_INIT_COMPLETE_PHASE - 1)
 			message += "[cell.charge]"
-		if (NINJA_INIT_COMPLETE_PHASE)
+		if(NINJA_INIT_COMPLETE_PHASE)
 			message += "[ninja.real_name]."
 			toggle_emp_proof(ninja.bodyparts, TRUE)
 			toggle_emp_proof(ninja.internal_organs, TRUE)
@@ -136,7 +136,7 @@
 		sleep(10)
 		s_TGUI_initialized = TRUE
 	playsound(ninja, 'sound/effects/sparks1.ogg', 10, TRUE)
-	if (phase < NINJA_INIT_COMPLETE_PHASE)
+	if(phase < NINJA_INIT_COMPLETE_PHASE)
 		addtimer(CALLBACK(src, PROC_REF(ninitialize), delay, ninja, phase + 1), delay)
 
 /**
@@ -149,10 +149,10 @@
  * * phase - The phase of deinitialization
  */
 /obj/item/clothing/suit/space/space_ninja/proc/deinitialize(delay = s_delay, mob/living/carbon/human/ninja = affecting == loc ? affecting : null, phase = 0)
-	if (!ninja || !ninja.mind)
+	if(!ninja || !ninja.mind)
 		s_busy = FALSE
 		return
-	if (phase == 0)
+	if(phase == 0)
 		if(alert(usr, "Are you certain you wish to remove the suit? This will take time and remove all abilities.",,"Yes","No") == "No")
 			s_busy = FALSE
 			return
@@ -183,14 +183,14 @@
 				cloning_ref.records.Remove(ninja_record)
 				cloning_ref.suits_data.Remove(ninja_suit_data)
 				message = "User has been successfully deleted from Revive Machine Database. Activate suit to re-add your entry."
-		if (NINJA_DEINIT_ICON_REGENERATE_PHASE)
+		if(NINJA_DEINIT_ICON_REGENERATE_PHASE)
 			if(preferred_scarf_over_hood)
 				toggle_scarf()
 			unlockIcons()
 			ninja.regenerate_icons()
-		if (NINJA_DEINIT_UNLOCK_PHASE)
+		if(NINJA_DEINIT_UNLOCK_PHASE)
 			unlock_suit()
-		if	(NINJA_DEINIT_COMPLETE_PHASE)
+		if(NINJA_DEINIT_COMPLETE_PHASE)
 			toggle_emp_proof(ninja.bodyparts, FALSE)
 			toggle_emp_proof(ninja.internal_organs, FALSE)
 			for(var/datum/action/item_action/advanced/ninja/SpiderOS/ninja_action in actions)
@@ -204,9 +204,9 @@
 	current_initialisation_text = message
 
 	playsound(ninja, 'sound/items/deconstruct.ogg', 10, TRUE)
-	if (phase == NINJA_DEINIT_COMPLETE_PHASE)
+	if(phase == NINJA_DEINIT_COMPLETE_PHASE)
 		sleep(10)
 		s_TGUI_initialized = TRUE
-	if (phase < NINJA_DEINIT_COMPLETE_PHASE)
+	if(phase < NINJA_DEINIT_COMPLETE_PHASE)
 		addtimer(CALLBACK(src, PROC_REF(deinitialize), delay, ninja, phase + 1), delay)
 

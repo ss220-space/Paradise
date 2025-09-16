@@ -331,7 +331,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/replaced_css = file2text(css_cache_filename())
 
 	var/regex/find_background_urls = regex(@"background:url\('%(.+?)%'\)", "g")
-	while (find_background_urls.Find(replaced_css))
+	while(find_background_urls.Find(replaced_css))
 		var/asset_id = find_background_urls.group[1]
 		var/asset_cache_item = SSassets.transport.register_asset(asset_id, "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[asset_id]")
 		var/asset_url = SSassets.transport.get_asset_url(asset_cache_item = asset_cache_item)
@@ -353,13 +353,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/spritesheet/proc/read_data_from_cache()
 	var/json = json_decode(file2text(data_cache_filename()))
 
-	if (islist(json["sprites"]))
+	if(islist(json["sprites"]))
 		sprites = json["sprites"]
 
 	return TRUE
 
 /datum/asset/spritesheet/proc/send_from_cache(client/client)
-	if (isnull(cached_spritesheets_needed))
+	if(isnull(cached_spritesheets_needed))
 		stack_trace("cached_spritesheets_needed was null when sending assets from [type] from cache")
 		cached_spritesheets_needed = list()
 
@@ -367,7 +367,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /// Returns the URL to put in the background:url of the CSS asset
 /datum/asset/spritesheet/proc/get_background_url(asset)
-	if (generating_cache)
+	if(generating_cache)
 		return "%[asset]%"
 	else
 		return SSassets.transport.get_asset_url(asset)
@@ -377,7 +377,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	write_data_to_cache()
 
 /datum/asset/spritesheet/proc/write_css_to_cache()
-	for (var/size_id in sizes)
+	for(var/size_id in sizes)
 		fcopy(SSassets.cache["[name]_[size_id].png"].resource, "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name]_[size_id].png")
 
 	generating_cache = TRUE
@@ -395,7 +395,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/list/mappings = list()
 	mappings["spritesheet_[name].css"] = SSassets.transport.get_asset_url("spritesheet_[name].css")
 
-	for (var/asset_name in cached_spritesheets_needed)
+	for(var/asset_name in cached_spritesheets_needed)
 		mappings[asset_name] = SSassets.transport.get_asset_url(asset_name)
 
 	return mappings
@@ -519,12 +519,12 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	SSassets.transport.register_asset(item_filename, file("html/changelogs/archive/" + item_filename))
 
 /datum/asset/changelog_item/send(client)
-	if (!item_filename)
+	if(!item_filename)
 		return
 	. = SSassets.transport.send_assets(client, item_filename)
 
 /datum/asset/changelog_item/get_url_mappings()
-	if (!item_filename)
+	if(!item_filename)
 		return
 	. = list("[item_filename]" = SSassets.transport.get_asset_url(item_filename))
 
@@ -647,25 +647,25 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	_abstract = /datum/asset/json
 	/// The filename, will be suffixed with ".json"
 	var/name
-	
-	
+
+
 /datum/asset/json/send(client)
 	return SSassets.transport.send_assets(client, "[name].json")
-	
-	
+
+
 /datum/asset/json/get_url_mappings()
 	return list(
 		"[name].json" = SSassets.transport.get_asset_url("[name].json"),
 	)
-	
-	
+
+
 /datum/asset/json/register()
 	var/filename = "data/[name].json"
 	fdel(filename)
 	text2file(json_encode(generate()), filename)
 	SSassets.transport.register_asset("[name].json", fcopy_rsc(filename))
 	fdel(filename)
-	
+
 /// Returns the data that will be JSON encoded
 /datum/asset/json/proc/generate()
 	SHOULD_CALL_PARENT(FALSE)

@@ -41,16 +41,6 @@
 
 GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 
-/atom/var/smooth = NONE
-/atom/var/top_left_corner
-/atom/var/top_right_corner
-/atom/var/bottom_left_corner
-/atom/var/bottom_right_corner
-/atom/var/list/canSmoothWith = null
-/atom/var/list/smoothing_groups = null
-/atom/var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
-/turf/var/list/fixed_underlay = null
-
 /proc/generate_adjacent_directions()
 	// Have to hold all conventional dir pairs, so we size to the largest
 	// We don't HAVE diagonal border objects, so I'm gonna pretend they'll never exist
@@ -81,9 +71,9 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 				smoothable_dirs[right] = dir_to_junction(opposite | right)
 			// If it's to our right or left we'll include just the dir matching ours
 			// Left edge touches only our left side, and so on
-			else if (connectable_dir == left)
+			else if(connectable_dir == left)
 				smoothable_dirs[dir] = left
-			else if (connectable_dir == right)
+			else if(connectable_dir == right)
 				smoothable_dirs[dir] = right
 			// If it's straight on we'll include our direction as a link
 			// Then include the two edges on the other side as diagonals
@@ -134,41 +124,41 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 	for(var/direction in GLOB.cardinal)
 		AM = find_type_in_direction(A, direction)
 		if(AM == NULLTURF_BORDER)
-			if((A.smooth & SMOOTH_BORDER))
+			if(A.smooth & SMOOTH_BORDER)
 				adjacencies |= 1 << direction
-		else if( (AM && !istype(AM)) || (istype(AM) && AM.anchored) )
+		else if((AM && !istype(AM)) || (istype(AM) && AM.anchored))
 			adjacencies |= 1 << direction
 
 	if(adjacencies & N_NORTH)
 		if(adjacencies & N_WEST)
 			AM = find_type_in_direction(A, NORTHWEST)
 			if(AM == NULLTURF_BORDER)
-				if((A.smooth & SMOOTH_BORDER))
+				if(A.smooth & SMOOTH_BORDER)
 					adjacencies |= N_NORTHWEST
-			else if( (AM && !istype(AM)) || (istype(AM) && AM.anchored) )
+			else if((AM && !istype(AM)) || (istype(AM) && AM.anchored))
 				adjacencies |= N_NORTHWEST
 		if(adjacencies & N_EAST)
 			AM = find_type_in_direction(A, NORTHEAST)
 			if(AM == NULLTURF_BORDER)
-				if((A.smooth & SMOOTH_BORDER))
+				if(A.smooth & SMOOTH_BORDER)
 					adjacencies |= N_NORTHEAST
-			else if( (AM && !istype(AM)) || (istype(AM) && AM.anchored) )
+			else if((AM && !istype(AM)) || (istype(AM) && AM.anchored))
 				adjacencies |= N_NORTHEAST
 
 	if(adjacencies & N_SOUTH)
 		if(adjacencies & N_WEST)
 			AM = find_type_in_direction(A, SOUTHWEST)
 			if(AM == NULLTURF_BORDER)
-				if((A.smooth & SMOOTH_BORDER))
+				if(A.smooth & SMOOTH_BORDER)
 					adjacencies |= N_SOUTHWEST
-			else if( (AM && !istype(AM)) || (istype(AM) && AM.anchored) )
+			else if((AM && !istype(AM)) || (istype(AM) && AM.anchored))
 				adjacencies |= N_SOUTHWEST
 		if(adjacencies & N_EAST)
 			AM = find_type_in_direction(A, SOUTHEAST)
 			if(AM == NULLTURF_BORDER)
-				if((A.smooth & SMOOTH_BORDER))
+				if(A.smooth & SMOOTH_BORDER)
 					adjacencies |= N_SOUTHEAST
-			else if( (AM && !istype(AM)) || (istype(AM) && AM.anchored) )
+			else if((AM && !istype(AM)) || (istype(AM) && AM.anchored))
 				adjacencies |= N_SOUTHEAST
 
 	return adjacencies
@@ -236,7 +226,7 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 						} \
 					} \
 				} \
-			} else if (smooth_border) { \
+			} else if(smooth_border) { \
 				##WORLD_BORDER(null, direction, direction_flag); \
 			} \
 		} while(FALSE) \
@@ -323,7 +313,7 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 	var/old_junction = smoothing_junction
 	smoothing_junction = new_junction
 
-	if (!(smooth & SMOOTH_DIAGONAL_CORNERS))
+	if(!(smooth & SMOOTH_DIAGONAL_CORNERS))
 		icon_state = "[base_icon_state]-[smoothing_junction]"
 		return
 
@@ -484,7 +474,7 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 		var/atom/A
 		if(source.smooth & SMOOTH_MORE)
 			for(var/a_type in source.canSmoothWith)
-				if( istype(target_turf, a_type) )
+				if(istype(target_turf, a_type))
 					return target_turf
 				A = locate(a_type) in target_turf
 				if(A)

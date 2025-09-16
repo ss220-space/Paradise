@@ -84,11 +84,15 @@
 			adjustBruteLoss(-5)
 			if(src != M)
 				Beam(M,icon_state="sendbeam",time=4)
-				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
-						   "<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
+				M.visible_message(
+					"<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
+					"<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>"
+				)
 			else
-				M.visible_message("<span class='danger'>[M] repairs some of its own dents.</span>", \
-						   "<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
+				M.visible_message(
+					"<span class='danger'>[M] repairs some of its own dents.</span>", \
+					"<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>"
+				)
 		else
 			if(src != M)
 				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
@@ -145,7 +149,7 @@
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/reflectchance = 80 - round(P.damage/3)
 		if(prob(reflectchance))
-			if((P.damage_type == BRUTE || P.damage_type == BURN))
+			if(P.damage_type == BRUTE || P.damage_type == BURN)
 				adjustBruteLoss(P.damage * 0.5)
 			visible_message(span_danger("The [P.name] gets reflected by [src]'s shell!"), \
 							span_userdanger("The [P.name] gets reflected by [src]'s shell!"),
