@@ -564,7 +564,7 @@
 	)
 
 /obj/projectile/soulscythe/on_hit(atom/target, blocked = 0, pierce_hit)
-	if (isliving(target))
+	if(isliving(target))
 		var/mob/living/as_living = target
 		if(firer.faction_check_mob(as_living))
 			damage *= 0

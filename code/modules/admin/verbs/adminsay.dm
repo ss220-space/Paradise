@@ -13,7 +13,7 @@
 		var/list/data = list()
 		data["author"] = usr.ckey
 		data["source"] = CONFIG_GET(string/instance_id)
-		data["message"] = html_decode(msg)
+		data["message"] = msg
 		SSredis.publish("byond.asay", json_encode(data))
 
 	msg = handleDiscordEmojis(msg)
@@ -63,7 +63,7 @@
 		var/list/data = list()
 		data["author"] = usr.ckey
 		data["source"] = CONFIG_GET(string/instance_id)
-		data["message"] = html_decode(msg)
+		data["message"] = msg
 		SSredis.publish("byond.msay", json_encode(data))
 
 	msg = handleDiscordEmojis(msg)
@@ -136,7 +136,7 @@
 		var/list/data = list()
 		data["author"] = usr.ckey
 		data["source"] = CONFIG_GET(string/instance_id)
-		data["message"] = html_decode(msg)
+		data["message"] = msg
 		SSredis.publish("byond.devsay", json_encode(data))
 
 	msg = handleDiscordEmojis(copytext_char(sanitize(msg), 1, MAX_MESSAGE_LEN))

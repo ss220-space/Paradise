@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return
 
 	// Do not let click buttons if you're ghost unless you're an admin.
-	if (isobserver(usr) && !is_admin(usr))
+	if(isobserver(usr) && !is_admin(usr))
 		return FALSE
 
 	var/is_authenticated = is_authenticated(usr)
@@ -234,7 +234,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				var/n_name = tgui_input_text(usr, "Как вы хотите подписать факс?", "Подпись факса:", copyitem.name)
 				if(!n_name)
 					return
-				if((copyitem && copyitem.loc == src && usr.stat == 0))
+				if(copyitem && copyitem.loc == src && usr.stat == 0)
 					if(istype(copyitem, /obj/item/paper))
 						copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
 						copyitem.desc = "Бумага, подписанная как \"" + copyitem.name + "\"."

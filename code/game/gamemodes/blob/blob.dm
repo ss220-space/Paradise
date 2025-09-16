@@ -138,12 +138,12 @@
 
 /datum/game_mode/proc/report_blob_death(report_number)
 	switch(report_number)
-		if (BLOB_DEATH_REPORT_FIRST)
+		if(BLOB_DEATH_REPORT_FIRST)
 			send_intercept(BLOB_THIRD_REPORT)
-		if (BLOB_DEATH_REPORT_THIRD)
+		if(BLOB_DEATH_REPORT_THIRD)
 			if(!off_auto_gamma && SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_GAMMA)
 				SSsecurity_level.set_level(SEC_LEVEL_RED)
-		if (BLOB_DEATH_REPORT_FOURTH)
+		if(BLOB_DEATH_REPORT_FOURTH)
 			blob_stage = BLOB_STAGE_ZERO
 			SSvote.start_vote(new /datum/vote/crew_transfer)
 			return
@@ -177,7 +177,7 @@
 		return FALSE
 
 	for(var/i in 1 to count)
-		if (length(candidates))
+		if(length(candidates))
 			var/obj/vent = pick(vents)
 			var/mob/living/simple_animal/mouse/blob = new(vent.loc)
 			blob.move_into_vent(vent, FALSE)
