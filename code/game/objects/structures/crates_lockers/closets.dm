@@ -50,6 +50,8 @@ GLOBAL_LIST_EMPTY(closets)
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
+	var/ignore_shoves = FALSE
+	var/no_throw_opens = FALSE
 
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
@@ -133,6 +135,10 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
+
+	if(no_throw_opens)
+		return
+
 	if(iswallturf(hit_atom) && prob(20))
 		open()
 
@@ -518,6 +524,9 @@ GLOBAL_LIST_EMPTY(closets)
 	return ..()
 
 /obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)
+	if(ignore_shoves)
+		return ..()
+
 	if(opened && can_close())
 		target.forceMove(src)
 		visible_message(

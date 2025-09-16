@@ -14,7 +14,7 @@
 	usesound = 'sound/items/ratchet.ogg'
 	drop_sound = 'sound/items/handling/drop/wrench_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/wrench_pickup.ogg'
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=150)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("ударил", "огрел")
@@ -53,6 +53,7 @@
 	usesound = 'sound/effects/empulse.ogg'
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=5;abductor=3"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/wrench/power
 	name = "hand drill"
@@ -89,8 +90,6 @@
 
 /obj/item/wrench/medical/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is praying to the medical wrench to take [user.p_their()] soul. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	// TODO Make them glow with the power of the M E D I C A L W R E N C H
-	// during their ascension
 
 	// Stun stops them from wandering off
 	user.Stun(10 SECONDS)

@@ -96958,6 +96958,7 @@
 /area/hallway/primary/central)
 "rpQ" = (
 /obj/machinery/light,
+/obj/structure/closet/burial,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -132531,8 +132532,8 @@
 "ydI" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/library/public{
-	pixel_y = 5;
-	dir = 1
+	dir = 1;
+	pixel_y = 5
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/library)

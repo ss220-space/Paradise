@@ -12,7 +12,7 @@
 	density = TRUE
 	anchored = TRUE
 	pass_flags_self = PASSMACHINE|PASSTABLE|LETPASSTHROW
-	pixel_y = 8
+	pixel_y = 4
 	var/waterlevel = 100	//The amount of water in the tray (max 100)
 	var/maxwater = 100		//The maximum amount of water in the tray
 	var/nutrilevel = 10		//The amount of nutrient in the tray (max 10)

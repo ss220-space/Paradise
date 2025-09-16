@@ -32,7 +32,7 @@
 	health = 150
 	maxHealth = 150
 
-	healable = 0
+	healable = FALSE
 	gender = NEUTER
 
 	nightvision = 8

@@ -7,7 +7,7 @@
 	pass_flags = PASSTABLE	// Floating past tables is pretty damn spooky.
 	status_flags = null	// No canpush to prevent grabs ...
 	density = FALSE			//  ... But a density of 0 means we won't be blocking anyone's way.
-	healable = 0			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
+	healable = FALSE			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
 	wander = 0				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
 
 	universal_speak = 1		// Tell the humans spooky things about the afterlife
