@@ -535,9 +535,11 @@
 		smites_paths += GLOB.smites_human
 
 	.["all_smites"] = list()
+	.["all_descs"] = list()
 	for(var/name in smites_paths)
 		var/datum/smite/type = smites_paths[name]
-		.["all_smites"][name] = type::desc
+		.["all_smites"] += name
+		.["all_descs"] += type::desc
 
 
 /datum/smite_ui/ui_data(mob/user)

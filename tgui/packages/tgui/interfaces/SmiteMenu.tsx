@@ -4,13 +4,14 @@ import { Window } from '../layouts';
 
 type SmiteMenuData = {
   all_smites: string[];
+  all_descs: string[];
   choosen: string;
   reason: string;
 };
 
 export const SmiteMenu = (_props: unknown) => {
   const { act, data } = useBackend<SmiteMenuData>();
-  const { all_smites, choosen, reason } = data;
+  const { all_smites, all_descs, choosen, reason } = data;
   return (
     <Window width={460} height={320}>
       <Window.Content>
@@ -24,11 +25,11 @@ export const SmiteMenu = (_props: unknown) => {
             <Table>
               {all_smites &&
                 all_smites.map &&
-                all_smites.map((smite, desc) => (
+                all_smites.map((smite, i) => (
                   <Button
                     key={smite}
                     selected={smite === choosen}
-                    tooltip={desc}
+                    tooltip={all_descs[i]}
                     onClick={() =>
                       act('change_choosen', {
                         'new_choosen': smite,
