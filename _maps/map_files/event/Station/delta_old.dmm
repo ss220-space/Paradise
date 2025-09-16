@@ -43443,6 +43443,11 @@
 	icon_state = "darkblue"
 	},
 /area/turret_protected/ai)
+"eIB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/clothesmate,
+/turf/simulated/floor/plasteel,
+/area/maintenance/fsmaint)
 "eIQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -44781,6 +44786,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
+"fas" = (
+/obj/machinery/vending/clothesmate,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/crew_quarters/locker)
 "fau" = (
 /obj/structure/disposalpipe/segment,
 /obj/item/radio/intercom{
@@ -53315,6 +53326,20 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
+"hnh" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/machinery/camera{
+	c_tag = "Cosmination Room";
+	dir = 5
+	},
+/obj/structure/closet/burial,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/chapel/main)
 "hnB" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -64663,19 +64688,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
-"kul" = (
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/obj/machinery/camera{
-	c_tag = "Cosmination Room";
-	dir = 5
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
-	},
-/area/chapel/main)
 "kuz" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -82948,11 +82960,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/east)
-"puM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/clothesmate,
-/turf/simulated/floor/plasteel,
-/area/maintenance/fsmaint)
 "puN" = (
 /turf/simulated/wall/rust,
 /area/maintenance/disposal)
@@ -105529,12 +105536,6 @@
 	icon_state = "dark"
 	},
 /area/hallway/primary/central/west)
-"vwy" = (
-/obj/machinery/vending/clothesmate,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/crew_quarters/locker)
 "vwD" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -146948,7 +146949,7 @@ nte
 xQE
 llF
 hKt
-kul
+hnh
 prI
 juR
 fvy
@@ -163078,7 +163079,7 @@ trA
 qfW
 nAl
 hHL
-vwy
+fas
 cnP
 hid
 wqD
@@ -165938,7 +165939,7 @@ knS
 mAE
 xci
 mFN
-puM
+eIB
 fBW
 mFN
 cHt
