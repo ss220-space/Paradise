@@ -10,7 +10,7 @@
 	1 - halfblock
 	2 - fullblock
 */
-/mob/living/proc/run_armor_check(def_zone, attack_flag = MELEE, absorb_text, soften_text, armour_penetration, penetrated_text, armour_penetration_level = 1, damage = 0)
+/mob/living/proc/run_armor_check(def_zone, attack_flag = MELEE, absorb_text, soften_text, armour_penetration, penetrated_text, armour_penetration_level = BASIC_PENETRATION, damage = 0)
 	var/armor = getarmor(def_zone, attack_flag, penetration_level = armour_penetration_level, damage = damage)
 
 	//the if "armor" check is because this is used for everything on /living, including humans
@@ -180,7 +180,7 @@
 				M.mech_toxin_damage(src)
 			else
 				return
-		M.occupant_message(span_danger("Вы ударяеете [declent_ru(ACCUSATIVE)]."))
+		M.occupant_message(span_danger("Вы ударяете [declent_ru(ACCUSATIVE)]."))
 		visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] ударя[pluralize_ru(M.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"), span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] ударя[pluralize_ru(M.gender,"ет","ют")] вас!"))
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else

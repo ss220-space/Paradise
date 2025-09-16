@@ -497,7 +497,6 @@
 	result = /obj/item/clothing/glasses/monocle
 	reqs = list(/obj/item/clothing/glasses/thermal/monothermal = 1)
 
-
 /datum/crafting_recipe/armor_plate_steel
 	name = "Самодельная стальная бронеплита"
 	result = /obj/item/armor_plate/handmade_steel

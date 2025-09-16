@@ -313,9 +313,10 @@
 	damage = 25
 	armour_penetration_level = BALLISTIC_PENETRATION_PISTOL
 
+
 /obj/projectile/bullet/midbullet3
 	damage = 30
-	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_PISTOL
 
 /obj/projectile/bullet/midbullet3/hp
 	damage = 50
@@ -337,6 +338,9 @@
 		var/mob/living/M = target
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
+
+/obj/projectile/bullet/midbullet3/5_45x39
+	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE
 
 /obj/projectile/bullet/heavybullet
 	damage = 35

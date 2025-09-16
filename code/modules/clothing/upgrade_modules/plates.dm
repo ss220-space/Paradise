@@ -1,9 +1,7 @@
 // Armor plates.
 // Can be attached to armor. Give bonus armor for laser and bullet
 
-
 //MARK: Basic armor plate
-
 /obj/item/armor_plate
 	name = "armor plate"
 	desc = "Базовая бронеплита, которую вы не должны были увидеть. Сообщите о баге."
@@ -22,12 +20,6 @@
 	var/ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	/// Laser protection class
 	var/laser_class = LASER_ARMOR_CLASS_NONE
-	/// Current integrity, default set armor_max_integrity value
-	var/armor_integrity
-	/// Armor integrity when armor begin decreasing protection
-	var/armor_protection_integrity = 100
-	/// Armor maximal integrity
-	var/armor_max_integrity = 150
 	/// Repair resource type
 	var/repair_type = null
 	/// Repair coefficient
@@ -38,18 +30,19 @@
 	var/equipped_slowdown = 0
 
 
-/obj/item/armor_plate/Initialize(mapload)
-	. = ..()
-	armor_integrity = armor_max_integrity
-
-
 /// Calculate armor efficient percent in range 0-1
 /obj/item/armor_plate/proc/get_armor_efficient()
-	return clamp(armor_integrity / armor_protection_integrity, 0, 1)
+	return clamp(obj_integrity / integrity_failure, 0, 1)
 
 /// Take armor damage proc
 /obj/item/armor_plate/proc/take_armor_damage(damage_amount)
-	armor_integrity = max(armor_integrity - damage_amount, 0)
+	take_damage(damage_amount)
+
+/obj/item/armor_plate/default_welder_repair(mob/user, obj/item/I)
+	return FALSE
+
+/obj/item/armor_plate/obj_destruction(damage_flag)
+	return FALSE
 
 /// Try attach armor plate to suit
 /obj/item/armor_plate/proc/try_attach_to_clothing(mob/user, obj/item/clothing/suit)
@@ -99,8 +92,8 @@
 
 /obj/item/armor_plate/proc/get_examine_text()
 	. = span_notice("Установлен[genderize_ru(gender, "", "а", "о", "ы")] <b>[declent_ru(NOMINATIVE)]</b>. ")
-	. += span_notice("\n- [get_armor_text()]")
-	. += span_notice("\n- [get_integrity_text()]")
+	. += span_notice("\n– [get_armor_text()]")
+	. += span_notice("\n– [get_integrity_text()]")
 
 /obj/item/armor_plate/proc/get_armor_text()
 	. = ""
@@ -115,16 +108,18 @@
 	. += ". "
 
 /obj/item/armor_plate/proc/get_integrity_text()
-	var/integrity_text = "В идеальном состоянии."
-	if(armor_integrity > armor_protection_integrity)
+	var/integrity_text
+	if(obj_integrity == max_integrity)
+		integrity_text = "В идеальном состоянии."
+	else if(obj_integrity > integrity_failure)
 		integrity_text = "Имеется пара царапин."
-	else if(armor_integrity > 0.75 * armor_protection_integrity)
+	else if(obj_integrity > 0.75 * integrity_failure)
 		integrity_text = "Имеются незначительные повреждения."
-	else if(armor_integrity > 0.50 * armor_protection_integrity)
+	else if(obj_integrity > 0.50 * integrity_failure)
 		integrity_text = "Имеются изрядные повреждения."
-	else if(armor_integrity > 0.25 * armor_protection_integrity)
+	else if(obj_integrity > 0.25 * integrity_failure)
 		integrity_text = "Имеются сильные повреждения."
-	else if(armor_integrity > 0)
+	else if(obj_integrity > 0)
 		integrity_text = "Имеются критические повреждения."
 	else
 		integrity_text = "Уничтожен[genderize_ru(gender, "", "а", "о", "ы")] и не предоставля[pluralize_ru(gender, "ет", "ют")] защиту."
@@ -142,7 +137,7 @@
 	if(!istype(item, repair_type))
 		return ..()
 	var/obj/item/stack/resource = item
-	var/can_repair_integrity = max(0, armor_protection_integrity - armor_integrity)
+	var/can_repair_integrity = max(0, integrity_failure - obj_integrity)
 	if(!can_repair_integrity)
 		balloon_alert(user, "невозможно отремонтировать!")
 		return ..()
@@ -159,7 +154,7 @@
 	else
 		qdel(item)
 	repair_integrity = consumed_resource * repair_coefficient
-	armor_integrity += repair_integrity
+	obj_integrity += repair_integrity
 	balloon_alert(user, "отремонтировано")
 	return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -246,8 +241,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 75
-	armor_max_integrity = 75
+	integrity_failure = 75
+	max_integrity = 75
 	body_parts_covered = UPPER_TORSO
 
 /obj/item/armor_plate/handmade_steel/get_ru_names()
@@ -272,8 +267,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 75
-	armor_max_integrity = 75
+	integrity_failure = 75
+	max_integrity = 75
 	body_parts_covered = UPPER_TORSO
 
 /obj/item/armor_plate/handmade_ablative/get_ru_names()
@@ -297,8 +292,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 75
-	armor_max_integrity = 100
+	integrity_failure = 75
+	max_integrity = 100
 	repair_type = /obj/item/stack/sheet/plastic
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -325,8 +320,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_III
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 150
-	armor_max_integrity = 200
+	integrity_failure = 150
+	max_integrity = 200
 	repair_type = /obj/item/stack/sheet/metal
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -352,8 +347,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 150
-	armor_max_integrity = 200
+	integrity_failure = 150
+	max_integrity = 200
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -379,8 +374,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 125
-	armor_max_integrity = 150
+	integrity_failure = 125
+	max_integrity = 150
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -408,8 +403,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_NONE
-	armor_protection_integrity = 250
-	armor_max_integrity = 300
+	integrity_failure = 250
+	max_integrity = 300
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	equipped_slowdown = 0.25
@@ -436,8 +431,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
-	armor_protection_integrity = 250
-	armor_max_integrity = 300
+	integrity_failure = 250
+	max_integrity = 300
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	equipped_slowdown = 0.25
@@ -464,8 +459,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 175
-	armor_max_integrity = 200
+	integrity_failure = 175
+	max_integrity = 200
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	equipped_slowdown = 0.2
@@ -494,8 +489,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	armor_protection_integrity = 350
-	armor_max_integrity = 400
+	integrity_failure = 350
+	max_integrity = 400
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	equipped_slowdown = 0.5
@@ -522,8 +517,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_HEAVY
-	armor_protection_integrity = 350
-	armor_max_integrity = 4000
+	integrity_failure = 350
+	max_integrity = 4000
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	equipped_slowdown = 0.5
@@ -550,8 +545,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
-	armor_protection_integrity = 250
-	armor_max_integrity = 300
+	integrity_failure = 250
+	max_integrity = 300
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	equipped_slowdown = 0.4
@@ -578,8 +573,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_MAX
 	ballistic_class = BALLISTIC_ARMOR_CLASS_MAX
 	laser_class = LASER_ARMOR_CLASS_MAX
-	armor_protection_integrity = 300
-	armor_max_integrity = 600
+	integrity_failure = 300
+	max_integrity = 600
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 /obj/item/armor_plate/elite/get_ru_names()

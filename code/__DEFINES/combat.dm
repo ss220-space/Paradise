@@ -1,60 +1,60 @@
 //Damage things	//TODO: merge these down to reduce on defines
 //Way to waste perfectly good damagetype names (BRUTE) on this... If you were really worried about case sensitivity, you could have just used lowertext(damagetype) in the proc...
-#define BRUTE		"brute"
-#define BURN		"fire"
-#define TOX			"tox"
-#define OXY			"oxy"
-#define CLONE		"clone"
-#define STAMINA		"stamina"
-#define BRAIN		"brain"
+#define BRUTE "brute"
+#define BURN "fire"
+#define TOX "tox"
+#define OXY "oxy"
+#define CLONE "clone"
+#define STAMINA "stamina"
+#define BRAIN "brain"
 
 //damage flags
-#define MELEE		"melee"
-#define BULLET		"bullet"
-#define LASER		"laser"
-#define ENERGY		"energy"
-#define BOMB		"bomb"
-#define BIO			"bio"
-#define RAD			"rad"
-#define FIRE		"fire"
-#define ACID		"acid"
-#define MAGIC		"magic"
+#define MELEE "melee"
+#define BULLET "bullet"
+#define LASER "laser"
+#define ENERGY "energy"
+#define BOMB "bomb"
+#define BIO	"bio"
+#define RAD	"rad"
+#define FIRE "fire"
+#define ACID "acid"
+#define MAGIC "magic"
 
 /// All armors
 #define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE, RAD)
 
-#define STUN		"stun"
-#define WEAKEN		"weaken"
-#define STAMCRIT	"stamcrit"
-#define KNOCKDOWN	"knockdown"
-#define PARALYZE	"paralize"
-#define SLEEP		"sleep"
-#define IMMOBILIZE	"immobilize"
-#define IRRADIATE	"irradiate"
-#define STUTTER		"stutter"
-#define SLUR		"slur"
-#define EYE_BLUR	"eye_blur"
-#define DROWSY		"drowsy"
-#define JITTER		"jitter"
-#define CONFUSED	"confused"
+#define STUN "stun"
+#define WEAKEN "weaken"
+#define STAMCRIT "stamcrit"
+#define KNOCKDOWN "knockdown"
+#define PARALYZE "paralize"
+#define SLEEP "sleep"
+#define IMMOBILIZE "immobilize"
+#define IRRADIATE "irradiate"
+#define STUTTER	"stutter"
+#define SLUR "slur"
+#define EYE_BLUR "eye_blur"
+#define DROWSY "drowsy"
+#define JITTER "jitter"
+#define CONFUSED "confused"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
-#define BRUTELOSS	 (1<<0)
-#define FIRELOSS	 (1<<1)
-#define TOXLOSS		 (1<<2)
-#define OXYLOSS		 (1<<3)
-#define SHAME		 (1<<4)
+#define BRUTELOSS (1<<0)
+#define FIRELOSS (1<<1)
+#define TOXLOSS (1<<2)
+#define OXYLOSS (1<<3)
+#define SHAME (1<<4)
 #define OBLITERATION (1<<5)
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN 		(1<<0)
-#define CANWEAKEN 		(1<<1)
-#define CANSTAMCRIT 	(1<<2)
-#define CANKNOCKDOWN 	(1<<3)
-#define CANPARALYSE 	(1<<4)
-#define CANPUSH	 		(1<<5)
-#define PASSEMOTES 		(1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define IGNORESLOWDOWN 	(1<<7)
+#define CANSTUN (1<<0)
+#define CANWEAKEN (1<<1)
+#define CANSTAMCRIT (1<<2)
+#define CANKNOCKDOWN (1<<3)
+#define CANPARALYSE (1<<4)
+#define CANPUSH	(1<<5)
+#define PASSEMOTES (1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define IGNORESLOWDOWN (1<<7)
 #define IGNORE_SPEED_CHANGES (1<<8)
 /// If set, this mob can be knocked unconscious via status effect.
 /// NOTE, does not mean immune to sleep. Unconscious and sleep are two different things.
