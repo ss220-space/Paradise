@@ -1548,7 +1548,7 @@
 					/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass = 30,
 					/obj/item/reagent_containers/food/drinks/ice = 9)
 	contraband = list(/obj/item/reagent_containers/food/drinks/tea = 10,
-					  /obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
+						/obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
 
 	slogan_list = list(
 		"Над+еюсь, никт+о не попр+осит мен+я о ч+ёртовой кр+ужке ч+ая…",
@@ -2141,8 +2141,8 @@
 					/obj/item/lighter/random = 4,
 					/obj/item/storage/fancy/rollingpapers = 5)
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
-				   /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
-				   /obj/item/lighter/zippo = 3)
+					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+					/obj/item/lighter/zippo = 3)
 	prices = list()
 
 /obj/machinery/vending/cigarette/beach/get_ru_names()

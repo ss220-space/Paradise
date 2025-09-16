@@ -49,15 +49,15 @@
 /obj/item/vending_refill/examine(mob/user)
 	. = ..()
 	var/num = get_part_rating()
-	if (num == INFINITY)
+	if(num == INFINITY)
 		. += span_notice("Полностью заполнен товарами.")
-	else if (num == 0)
+	else if(num == 0)
 		. += span_notice("Пустой.")
 	else
 		. += span_notice("Может пополнить <b>[num]</b> товар[declension_ru(num, "", "а", "ов")].")
 
 /obj/item/vending_refill/get_part_rating()
-	if (!products || !product_categories || !contraband || !premium)
+	if(!products || !product_categories || !contraband || !premium)
 		return INFINITY
 	. = 0
 	for(var/key in products)
