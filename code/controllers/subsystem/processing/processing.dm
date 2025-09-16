@@ -34,8 +34,6 @@ SUBSYSTEM_DEF(processing)
 		if(MC_TICK_CHECK)
 			return
 
-/datum/var/isprocessing = FALSE
-
 /datum/proc/process(seconds_per_tick)
 	set waitfor = 0
 	return PROCESS_KILL

@@ -3,20 +3,22 @@
 	name = "SyndiChem"
 	desc = "A vending machine full of grenades and grenade accessories. Sponsored by DonkCo(tm)."
 	req_access = list(ACCESS_SYNDICATE)
-	products = list(/obj/item/stack/cable_coil/random = 5,
-					/obj/item/assembly/igniter = 20,
-					/obj/item/assembly/prox_sensor = 5,
-					/obj/item/assembly/signaler = 5,
-					/obj/item/assembly/timer = 5,
-					/obj/item/assembly/voice = 5,
-					/obj/item/assembly/health = 5,
-					/obj/item/assembly/infra = 5,
-					/obj/item/grenade/chem_grenade = 5,
-	                /obj/item/grenade/chem_grenade/large = 5,
-	                /obj/item/grenade/chem_grenade/pyro = 5,
-	                /obj/item/grenade/chem_grenade/cryo = 5,
-	                /obj/item/grenade/chem_grenade/adv_release = 5,
-					/obj/item/reagent_containers/food/drinks/bottle/holywater = 1)
+	products = list(
+		/obj/item/stack/cable_coil/random = 5,
+		/obj/item/assembly/igniter = 20,
+		/obj/item/assembly/prox_sensor = 5,
+		/obj/item/assembly/signaler = 5,
+		/obj/item/assembly/timer = 5,
+		/obj/item/assembly/voice = 5,
+		/obj/item/assembly/health = 5,
+		/obj/item/assembly/infra = 5,
+		/obj/item/grenade/chem_grenade = 5,
+		/obj/item/grenade/chem_grenade/large = 5,
+		/obj/item/grenade/chem_grenade/pyro = 5,
+		/obj/item/grenade/chem_grenade/cryo = 5,
+		/obj/item/grenade/chem_grenade/adv_release = 5,
+		/obj/item/reagent_containers/food/drinks/bottle/holywater = 1
+	)
 	slogan_list = list("It's not pyromania if you're getting paid!","You smell that? Plasma, son. Nothing else in the world smells like that.","I love the smell of Plasma in the morning.")
 	resistance_flags = FIRE_PROOF
 
@@ -30,7 +32,7 @@
 	icon_state = "sleeper_s"
 	important_info = "Не мешайте другим оперативникам Синдиката (таким, как предатели или ядерные оперативники). Вы можете работать вместе или против не связанных с Синдикатом антагонистов в индивидуальном порядке. Не покидайте свою базу без разрешения администрации! Ваша база, её секретность и сохранность является для вас высшим приоритетом!"
 	description = "Экспериментируйте с опасными химикатами и вирусами в спокойной обстановке или помогайте любым посещающим агентам Синдиката."
-	flavour_text = "Вы - агент Синдиката, работающий в сверхсекретном исследовательском центре, разрабатывающем биологическое оружие. К сожалению, ваш заклятый враг, НаноТрейзен, начал добычу полезных ископаемых в этом секторе. Продолжайте свои исследования, как можете, и старайтесь не привлекать к себе внимания. База заминирована, не покидайте её и не позволяйте ей попасть в руки врага! \
+	flavour_text = "Вы - агент Синдиката, работающий в сверхсекретном исследовательском центре, разрабатывающем биологическое оружие. К сожалению, ваш заклятый враг, Нанотрейзен, начал добычу полезных ископаемых в этом секторе. Продолжайте свои исследования, как можете, и старайтесь не привлекать к себе внимания. База заминирована, не покидайте её и не позволяйте ей попасть в руки врага! \
 	Вам ясно дали понять, что Синдикат заставит вас пожалеть, если вы их разочаруете."
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
@@ -63,7 +65,7 @@
 	mob_name = "Syndicate Comms Agent"
 	important_info = "Не мешайте другим оперативникам Синдиката (таким, как предатели или ядерные оперативники). Вы можете работать вместе или против не связанных с Синдикатом антагонистов в индивидуальном порядке. Не покидайте свою базу без разрешения администрации! Ваша база, её секретность и сохранность является для вас высшим приоритетом!"
 	description = "Следите за переговорами и камерами, старайтесь помогать агентам на станции, сохраняя своё существование в тайне."
-	flavour_text = "Вы - агент Синдиката, работающий в сверхсекретном исследовательском центре, разрабатывающем биологическое оружие. К сожалению, ваш заклятый враг, НаноТрейзен, начал добычу полезных ископаемых в этом секторе. Следите за активностью врага, как можете, и старайтесь не привлекать к себе внимания."
+	flavour_text = "Вы - агент Синдиката, работающий в сверхсекретном исследовательском центре, разрабатывающем биологическое оружие. К сожалению, ваш заклятый враг, Нанотрейзен, начал добычу полезных ископаемых в этом секторе. Следите за активностью врага, как можете, и старайтесь не привлекать к себе внимания."
 	outfit = /datum/outfit/lavaland_syndicate/comms
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms/space

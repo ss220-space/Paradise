@@ -677,7 +677,7 @@
 	for(var/obj/item/item_contents in contents)
 		if(item_contents.item_flags & IN_INVENTORY)
 			items += item_contents
-	if (!(include_flags & INCLUDE_HELD))
+	if(!(include_flags & INCLUDE_HELD))
 		items -= list(r_hand, l_hand)
 	return items
 
@@ -790,6 +790,6 @@
 /// Returns a list of things that the provided mob has, including any storage-capable implants.
 /mob/living/proc/gather_belongings(accessories = TRUE, recursive = TRUE)
 	var/list/belongings = get_all_gear(accessories, recursive)
-	for (var/obj/item/implant/storage/internal_bag in contents)
+	for(var/obj/item/implant/storage/internal_bag in contents)
 		belongings += internal_bag.contents
 	return belongings
