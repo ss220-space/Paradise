@@ -230,7 +230,7 @@
 		radio.talk_into(M, message_pieces)
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
-	if(!occupant || occupant != user )
+	if(!occupant || occupant != user)
 		return
 	if(user.incapacitated())
 		return
@@ -767,10 +767,11 @@
 	..()
 
 /obj/mecha/ex_act(severity, target)
-	if(prob(deflect_chance))
-		severity++
+	if(prob(deflect_chance) && severity)
+		severity--
 	. = ..()
-	severity++
+	if(severity)
+		severity--
 	for(var/X in equipment)
 		var/obj/item/mecha_parts/mecha_equipment/ME = X
 		ME.ex_act(severity)
@@ -782,7 +783,7 @@
 
 	for(var/X in cargo)
 		var/atom/movable/cargo_thing = X
-		if(prob(30 / severity))
+		if(prob(30 / (4 - severity)))
 			cargo -= cargo_thing
 			cargo_thing.forceMove(drop_location())
 

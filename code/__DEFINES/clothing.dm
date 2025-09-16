@@ -196,7 +196,7 @@
 #define DEFAULT_ICON_COLLAR 'icons/mob/clothing/collar.dmi'
 
 /// Wrapper for adding clothing based traits
-#define ADD_CLOTHING_TRAIT(mob, cloth, trait) ADD_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID(cloth)]")
+#define ADD_CLOTHING_TRAIT(mob, cloth, trait) ADD_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[cloth.UID()]")
 /// Wrapper for removing clothing based traits
-#define REMOVE_CLOTHING_TRAIT(mob, cloth, trait) REMOVE_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[UID(cloth)]")
+#define REMOVE_CLOTHING_TRAIT(mob, cloth, trait) REMOVE_TRAIT(mob, trait, "[CLOTHING_TRAIT]_[cloth.UID()]")
 

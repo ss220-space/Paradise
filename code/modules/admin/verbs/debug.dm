@@ -73,12 +73,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		//strip away everything but the proc name
 		var/list/proclist = splittext(procname, "/")
-		if (!length(proclist))
+		if(!length(proclist))
 			return
 		procname = proclist[proclist.len]
 
 		var/proctype = "proc"
-		if ("verb" in proclist)
+		if("verb" in proclist)
 			proctype = "verb"
 
 		if(targetselected && !hascall(target,procname))
@@ -259,7 +259,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 	var/turf/T = mob.loc
 
-	if(!( istype(T, /turf) ))
+	if(!(istype(T, /turf)))
 		return
 
 	var/datum/gas_mixture/env = T.return_air()
@@ -446,7 +446,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_and_message_admins(span_notice("assumed direct control of [M]."))
 	var/mob/adminmob = src.mob
 	M.ckey = src.ckey
-	if( isobserver(adminmob) )
+	if(isobserver(adminmob))
 		qdel(adminmob)
 	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")
 
@@ -595,7 +595,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(tgui_alert(usr, "Нужно ли выбрасывать вещи из карманов? Выбор \"Нет\" удалит их.", "Выбор экипировки существа", "Да", "Нет") == "Нет")
 				delete_pocket = TRUE
 
-	for (var/obj/item/I in H.get_equipped_items(delete_pocket))
+	for(var/obj/item/I in H.get_equipped_items(delete_pocket))
 		qdel(I)
 	if(dresscode != "Naked")
 		H.equipOutfit(dresscode)

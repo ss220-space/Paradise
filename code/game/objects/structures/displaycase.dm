@@ -22,9 +22,9 @@
 	. = ..()
 	if(length(start_showpieces) && !start_showpiece_type)
 		var/list/showpiece_entry = pick(start_showpieces)
-		if (showpiece_entry && showpiece_entry["type"])
+		if(showpiece_entry && showpiece_entry["type"])
 			start_showpiece_type = showpiece_entry["type"]
-			if (showpiece_entry["trophy_message"])
+			if(showpiece_entry["trophy_message"])
 				trophy_message = showpiece_entry["trophy_message"]
 	if(start_showpiece_type)
 		showpiece = new start_showpiece_type (src)
@@ -190,7 +190,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return
 	else
-	    //prevents remote "kicks" with TK
+		//prevents remote "kicks" with TK
 		if(!Adjacent(user))
 			return
 		add_fingerprint(user)

@@ -16,7 +16,7 @@
 	set name = "Взаимодействовать"
 	set category = STATPANEL_IC
 
-	if (ishuman(M) && usr != M && src != M)
+	if(ishuman(M) && usr != M && src != M)
 		partner = M
 		make_interaction(machine)
 
@@ -31,12 +31,12 @@
 	var/mob/living/carbon/human/P = H.partner
 	var/obj/item/organ/external/temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 	var/hashands = (temp?.is_usable())
-	if (!hashands)
+	if(!hashands)
 		temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		hashands = (temp?.is_usable())
 	temp = P.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 	var/hashands_p = (temp?.is_usable())
-	if (!hashands_p)
+	if(!hashands_p)
 		temp = P.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		hashands = (temp?.is_usable())
 	var/mouthfree = !((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH)))
@@ -46,21 +46,21 @@
 	var/dat = span_fontsize3("<b><hr>[H.partner]</b><br><hr>")
 
 	dat +=  {"• <a href='byond://?src=[UID()];interaction=bow'>Отвесить поклон.</a><br>"}
-	if (hashands)
+	if(hashands)
 		dat +=  span_fontsize3("<b>Руки:</b><br>")
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=wave'>Приветливо помахать.</a><br>"}
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=bow_affably'>Приветливо кивнуть.</a><br>"}
-		if (Adjacent(P))
+		if(Adjacent(P))
 			dat +=  {"• <a href='byond://?src=[UID()];interaction=handshake'>Пожать руку.</a><br>"}
 			dat +=  {"• <a href='byond://?src=[UID()];interaction=hug'>Обнимашки!</a><br>"}
 			dat +=  {"• <a href='byond://?src=[UID()];interaction=cheer'>Похлопать по плечу</a><br>"}
 			dat +=  {"• <a href='byond://?src=[UID()];interaction=five'>Дать пять.</a><br>"}
-			if (hashands_p)
+			if(hashands_p)
 				dat +=  {"• <a href='byond://?src=[UID()];interaction=give'>Передать предмет.</a><br>"}
 			dat +=  {"• <a href='byond://?src=[UID()];interaction=slap'><span style='color: darkred;'>Дать пощечину!</span></a><br>"}
-			if (P.dna.species.name == SPECIES_MOTH)
+			if(P.dna.species.name == SPECIES_MOTH)
 				dat +=  {"• <a href='byond://?src=[UID()];interaction=pullwing'><span style='color: darkred;'>Дёрнуть за крылья!</span></a><br>"}
-			if ((P.dna.species.name == SPECIES_TAJARAN)  || (P.dna.species.name == SPECIES_VOX)|| (P.dna.species.name == SPECIES_VULPKANIN) || (P.dna.species.name == SPECIES_UNATHI))
+			if((P.dna.species.name == SPECIES_TAJARAN)  || (P.dna.species.name == SPECIES_VOX)|| (P.dna.species.name == SPECIES_VULPKANIN) || (P.dna.species.name == SPECIES_UNATHI))
 				dat +=  {"• <a href='byond://?src=[UID()];interaction=pull'><span style='color: darkred;'>Дёрнуть за хвост!</span></a><br>"}
 				if(P.can_inject(H))
 					dat +=  {"• <a href='byond://?src=[UID()];interaction=pet'>Погладить.</a><br>"}
@@ -69,11 +69,11 @@
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=fuckyou'><span style='color: darkred;'>Показать средний палец.</span></a><br>"}
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=threaten'><span style='color: darkred;'>Погрозить кулаком.</span></a><br>"}
 
-	if (mouthfree && H.dna.species.name != SPECIES_DIONA)
+	if(mouthfree && H.dna.species.name != SPECIES_DIONA)
 		dat += span_fontsize3("<b>Лицо:</b><br>")
 		dat += {"• <a href='byond://?src=[UID()];interaction=kiss'>Поцеловать.</a><br>"}
-		if (Adjacent(P))
-			if (mouthfree_p)
+		if(Adjacent(P))
+			if(mouthfree_p)
 				dat += {"• <a href='byond://?src=[UID()];interaction=lick'>Лизнуть в щеку.</a><br>"}
 			dat +=  {"• <a href='byond://?src=[UID()];interaction=spit'><span style='color: darkred;'>Плюнуть.</span></a><br>"}
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=tongue'><span style='color: darkred;'>Показать язык.</span></a><br>"}

@@ -41,7 +41,7 @@
 
 /mob/living/simple_animal/pet/gondola/gondolapod/examine(mob/user)
 	. = ..()
-	if (contents.len)
+	if(contents.len)
 		. += span_notice("Похоже, посылка ещё не доставлена.")
 	else
 		. += span_notice("Судя по всему, доставку уже осуществили.")
@@ -88,7 +88,7 @@
 
 	var/mob/living/simple_animal/pet/gondola/gondolapod/gondola_owner = owner
 	var/total = gondola_owner.contents.len
-	if (total)
+	if(total)
 		to_chat(gondola_owner, span_notice("You detect [total] object\s within your incredibly vast belly."))
 	else
 		to_chat(gondola_owner, span_notice("A closer look inside yourself reveals... nothing."))

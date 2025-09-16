@@ -9,7 +9,7 @@
 	icon_state = "0"
 	belt_icon = "syringe"
 	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = null
+	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
 	sharp = TRUE
 	pass_open_check = TRUE
@@ -33,9 +33,6 @@
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
 	. = ..()
-
-/obj/item/reagent_containers/syringe/set_APTFT()
-	set hidden = TRUE
 
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
@@ -149,6 +146,7 @@
 			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
 			reagents.reaction(L, REAGENT_INGEST, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this)
+			after_transfer(target)
 			to_chat(user, span_notice("Вы вкололи <b>[amount_per_transfer_from_this]</b> единиц[declension_ru(amount_per_transfer_from_this, "у", "ы", "")] вещества с помощью [declent_ru(GENITIVE)]. В нём остаётся <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества."))
 			if(istype(target, /obj/item/reagent_containers/food))
 				var/obj/item/reagent_containers/food/F = target
@@ -168,6 +166,8 @@
 	icon_state = "[rounded_vol]"
 	item_state = "syringe_[rounded_vol]"
 
+/obj/item/reagent_containers/syringe/get_sound_for_reagent_containers()
+	return SFX_SYRINGEPOUR
 
 /obj/item/reagent_containers/syringe/update_overlays()
 	. = ..()

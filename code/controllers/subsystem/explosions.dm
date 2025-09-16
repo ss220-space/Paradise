@@ -463,7 +463,7 @@ SUBSYSTEM_DEF(explosions)
 		upper_angle_limit = second_angle_limit
 		do_directional = TRUE
 		reverse_angle = FALSE
-	else if (first_angle_limit > second_angle_limit) // CASE C: When the arc crosses 0 degrees
+	else if(first_angle_limit > second_angle_limit) // CASE C: When the arc crosses 0 degrees
 		lower_angle_limit = second_angle_limit
 		upper_angle_limit = first_angle_limit
 		do_directional = TRUE

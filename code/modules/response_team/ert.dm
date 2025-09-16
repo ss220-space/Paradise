@@ -240,7 +240,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		if(ERT_ROLE_ENGINEER)
 			M.equipOutfit(engineering_outfit)
 
-		if(ERT_ROLE_SECURITY )
+		if(ERT_ROLE_SECURITY)
 			M.equipOutfit(security_outfit)
 
 		if(ERT_ROLE_MEDIC)

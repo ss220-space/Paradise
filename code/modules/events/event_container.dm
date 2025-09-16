@@ -14,20 +14,20 @@ GLOBAL_LIST_INIT(severity_to_string, list(
 	EVENT_LEVEL_NONE = "None",
 ))
 
-GLOBAL_LIST_INIT(string_to_severity, list(	//Config compatibility thing
+GLOBAL_LIST_INIT(string_to_severity, list(//Config compatibility thing
 	"ev_level_mundane" = EVENT_LEVEL_MUNDANE,
 	"ev_level_moderate" = EVENT_LEVEL_MODERATE,
 	"ev_level_major" = EVENT_LEVEL_MAJOR,
 	"ev_level_none" = EVENT_LEVEL_NONE
 ))
 
-GLOBAL_LIST_INIT(event_delay_lower, list(  //redacted by /datum/config_entry/keyed_list/event_delay_lower
+GLOBAL_LIST_INIT(event_delay_lower, list(//redacted by /datum/config_entry/keyed_list/event_delay_lower
 	EVENT_LEVEL_MUNDANE = 10 MINUTES,
 	EVENT_LEVEL_MODERATE = 30 MINUTES,
 	EVENT_LEVEL_MAJOR = 50 MINUTES
 ))
 
-GLOBAL_LIST_INIT(event_delay_upper, list( //redacted by /datum/config_entry/keyed_list/event_delay_upper
+GLOBAL_LIST_INIT(event_delay_upper, list(//redacted by /datum/config_entry/keyed_list/event_delay_upper
 	EVENT_LEVEL_MUNDANE = 10 MINUTES,
 	EVENT_LEVEL_MODERATE = 45 MINUTES,
 	EVENT_LEVEL_MAJOR = 70 MINUTES

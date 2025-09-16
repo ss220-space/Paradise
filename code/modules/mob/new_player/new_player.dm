@@ -183,7 +183,7 @@
 			observer.name = observer.real_name
 			observer.key = key
 			QDEL_NULL(mind)
-			if (CONFIG_GET(flag/respawn_observer)) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
+			if(CONFIG_GET(flag/respawn_observer)) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
 			qdel(src)
 			return 1
 
@@ -654,8 +654,7 @@
 
 // If current character can't be antagonist, try to pick random character, who can.
 /mob/new_player/proc/handle_can_be_antagonist()
-	var/has_antags = (length(client.prefs.be_special) > 0)
-	if(!has_antags || client.prefs.can_be_antagonist)
+	if(!mind.special_role || client.prefs.can_be_antagonist)
 		return
 
 	client.prefs.get_possible_antagonist()
