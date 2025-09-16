@@ -446,11 +446,11 @@
 	if(.)
 		return .
 	var/mob/living/carbon/human/human = user.mob
-	if (!istype(human))
+	if(!istype(human))
 		return .
 	var/obj/item/gun/gun = human.get_item_by_slot(ITEM_SLOT_HAND_LEFT)
 	if(!gun || !istype(gun))
 		gun = human.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
-	if (!gun || !istype(gun))
+	if(!gun || !istype(gun))
 		return .
 	SEND_SIGNAL(gun, COMSIG_KEYBINDING_GUN_LASER_SIGHT, human, gun)
