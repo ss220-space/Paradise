@@ -13,7 +13,7 @@
 	w_class = WEIGHT_CLASS_GIGANTIC	//so you cant put this bag in other bag
 	max_combined_w_class = 63	//3*21
 	storage_slots = 21	//based on captains stuff
-	can_hold = list(					//no gloves, glasses, accessory, masks and suits
+	can_hold = list(//no gloves, glasses, accessory, masks and suits
 		/obj/item/clothing/head,		//thats made to restrict players with abusing this bag(HighRisk stuff)
 		/obj/item/clothing/neck,		//reactive armor, krav maga
 		/obj/item/clothing/under,

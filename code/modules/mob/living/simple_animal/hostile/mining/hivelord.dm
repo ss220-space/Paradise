@@ -260,7 +260,7 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
 	visible_message(span_warning("Черепа на [declent_ru(PREPOSITIONAL)] вопят в ярости, спасаясь от умирающего носителя!"))
 	var/turf/T = get_turf(src)
-	if (!T) // When legion dusts T = null. Maybe not onli this way.
+	if(!T) // When legion dusts T = null. Maybe not onli this way.
 		return
 	for(var/i in 1 to 2)
 		new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken(T)
@@ -501,7 +501,7 @@
 			if(prob(70))
 				backpack_contents += list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/reagent_containers/food/snacks/grown/banana = 1, /obj/item/megaphone = 1)
 			if(prob(30))
-				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list( 1 = 3, 2 = 2, 3 = 1)))
+				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list(1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
 				l_pocket = pickweight(list(/obj/item/bikehorn/golden = 3, /obj/item/bikehorn/airhorn= 1 ))
 			if(prob(10))

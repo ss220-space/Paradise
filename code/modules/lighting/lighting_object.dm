@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	appearance = light_appearance
 
 	affected_turf = source
-	if (affected_turf.lighting_object)
+	if(affected_turf.lighting_object)
 		qdel(affected_turf.lighting_object, force = TRUE)
 		stack_trace("a lighting object was assigned to a turf that already had a lighting object!")
 
@@ -53,10 +53,10 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	SSlighting.objects_queue += src
 
 /atom/movable/lighting_object/Destroy(force)
-	if (!force)
+	if(!force)
 		return QDEL_HINT_LETMELIVE
 	SSlighting.objects_queue -= src
-	if (isturf(affected_turf))
+	if(isturf(affected_turf))
 		affected_turf.lighting_object = null
 	affected_turf = null
 	return ..()

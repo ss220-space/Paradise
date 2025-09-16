@@ -413,9 +413,9 @@
 	<br>
 	<b>Активированные модули</b>
 	<br>
-	Модуль 1: [module_state_1 ? "<a href=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<a>" : "Нет модуля"]<br>
-	Модуль 2: [module_state_2 ? "<a href=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<a>" : "Нет модуля"]<br>
-	Модуль 3: [module_state_3 ? "<a href=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<a>" : "Нет модуля"]<br>
+	Модуль 1: [module_state_1 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<a>" : "Нет модуля"]<br>
+	Модуль 2: [module_state_2 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<a>" : "Нет модуля"]<br>
+	Модуль 3: [module_state_3 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<a>" : "Нет модуля"]<br>
 	<br>
 	<b>Установленные модули</b><br><br>"}
 
@@ -432,7 +432,7 @@
 		else if(activated(O))
 			module_string += text("[O]: <b>Активирован</b><br>")
 		else
-			module_string += text("[O]: <a href=?src=[UID()];act=\ref[O]>Активировать</a><br>")
+			module_string += text("[O]: <a href=byond://?src=[UID()];act=\ref[O]>Активировать</a><br>")
 
 		if(isitem(O) && !(istype(O,/obj/item/stack/cable_coil)))
 			tools += module_string
@@ -447,7 +447,7 @@
 		else if(activated(module.emag))
 			dat += text("[module.emag]: <b>Активирован</b><br>")
 		else
-			dat += text("[module.emag]: <a href=?src=[UID()];act=\ref[module.emag]>Активировать</a><br>")
+			dat += text("[module.emag]: <a href=byond://?src=[UID()];act=\ref[module.emag]>Активировать</a><br>")
 
 	dat += resources
 

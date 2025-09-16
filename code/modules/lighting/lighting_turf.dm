@@ -24,16 +24,16 @@
 	var/totallums = 0
 	var/datum/lighting_corner/L
 	L = lighting_corner_NE
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 	L = lighting_corner_SE
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 	L = lighting_corner_SW
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 	L = lighting_corner_NW
-	if (L)
+	if(L)
 		totallums += L.lum_r + L.lum_b + L.lum_g
 
 	totallums /= 12 // 4 corners, each with 3 channels, get the average.
