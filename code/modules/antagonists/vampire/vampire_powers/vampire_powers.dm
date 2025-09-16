@@ -94,6 +94,15 @@
 	action_icon_state = "vampire_rejuvinate"
 	base_cooldown = 20 SECONDS
 	stat_allowed = UNCONSCIOUS
+	var/diablerie_bonus = FALSE
+
+
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate/create_new_cooldown()
+	var/datum/spell_cooldown/charges/cooldown = new
+	cooldown.max_charges = 1
+	cooldown.recharge_duration = base_cooldown
+	cooldown.charge_duration = 3 SECONDS
+	return cooldown
 
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/living/user = usr)
@@ -110,8 +119,8 @@
 	user.set_resting(FALSE, instant = TRUE)
 	user.get_up(instant = TRUE)
 	to_chat(user, span_notice("Вы наполняете свое тело чистой кровью и снимаете все обездвиживающие эффекты."))
-	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	var/rejuv_bonus = V.get_rejuv_bonus()
+	var/datum/antagonist/vampire/vampire_datum = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/rejuv_bonus = vampire_datum.get_rejuv_bonus()
 	if(rejuv_bonus)
 		INVOKE_ASYNC(src, PROC_REF(heal), user, rejuv_bonus)
 
