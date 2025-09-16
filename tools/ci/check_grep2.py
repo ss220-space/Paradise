@@ -92,11 +92,19 @@ def check_proc_args_with_var_prefix(idx, line):
 
 NANOTRASEN_CAMEL_CASE_EN = re.compile(r"NanoTrasen")
 NANOTRASEN_CAMEL_CASE_RU = re.compile(r"НаноТрейзен")
-def check_for_nanotrasen_camel_case(idx, line):
+NANOTRASEN_MISSPELLING_N_RU = re.compile(r"nanotrasen")
+NANOTRASEN_MISSPELLING_N_EN = re.compile(r"нанотрейзен")
+def check_nanotrasen_style(idx, line):
+    failures = []
     if NANOTRASEN_CAMEL_CASE_EN.search(line):
-        return [(idx + 1, "Nanotrasen should not be spelled in the camel case form.")]
+        failures.append((idx + 1, "'Nanotrasen' should not be spelled in the camel case form."))
     if NANOTRASEN_CAMEL_CASE_RU.search(line):
-        return [(idx + 1, "'Нанотрейзен' should not be spelled in the camel case form.")]
+        failures.append((idx + 1, "'Нанотрейзен' should not be spelled in the camel case form."))
+    if NANOTRASEN_MISSPELLING_N_RU.search(line):
+        failures.append((idx + 1, "'Nanotrasen' should not be written with a lowercase letter."))
+    if NANOTRASEN_MISSPELLING_N_EN.search(line):
+        failures.append((idx + 1, "'Нанотрейзен' should not be written with a lowercase letter."))
+    return failures
 
 TO_CHAT_WITH_NO_USER_ARG_RE = re.compile(r"to_chat\(\"")
 def check_to_chats_have_a_user_arguement(idx, line):
@@ -197,13 +205,26 @@ def check_uid_parameters(idx, line):
     if result := UID_WITH_PARAMETER.search(line):
         return [(idx + 1, "UID() does not take arguments. Use UID() instead of UID(src) and datum.UID() instead of UID(datum).")]
 
+BALLOON_ALERT_WITHOUT_USER = re.compile(r'balloon_alert\(["\']')
+BALLOON_ALERT_WITH_SPAN = re.compile(r'balloon_alert\(.*span_')
+BALLOON_ALERT_CAPITALIZED = re.compile(r'balloon_alert\(.*?,\s*["\'][A-Z]')
+def check_balloon_alert(idx, line):
+    failures = []
+    if BALLOON_ALERT_WITHOUT_USER.search(line):
+        failures.append((idx + 1, "balloon_alert called with a string literal without a user argument."))
+    if BALLOON_ALERT_WITH_SPAN.search(line):
+        failures.append((idx + 1, "Balloon alerts should never contain spans."))
+    if BALLOON_ALERT_CAPITALIZED.search(line) and 'UNLINT' not in line:
+        failures.append((idx + 1, "Balloon alerts should not start with capital letters. This includes text like 'AI'. If this is a false positive, wrap the text in UNLINT()."))
+    return failures
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
     check_global_vars,
     check_toplevel_vardecls,
     check_proc_args_with_var_prefix,
-#    check_for_nanotrasen_camel_case,
+#    check_nanotrasen_style,
     check_to_chats_have_a_user_arguement,
     check_conditional_spacing,
     check_global_list_empty,
@@ -215,6 +236,7 @@ CODE_CHECKS = [
 #    check_istype_src,
 #    check_camel_case_type_names,
     check_uid_parameters,
+    check_balloon_alert,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:

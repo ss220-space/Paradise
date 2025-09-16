@@ -1641,17 +1641,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
-		balloon_alert(src, span_warning("слишком толстые пальцы!"))
+		balloon_alert(src, "слишком толстые пальцы!")
 		return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-		to_chat(src, span_warning("[mind.martial_art.no_guns_message]"))
+		to_chat(src, "[mind.martial_art.no_guns_message]")
 		return FALSE
 
 	// ninjas will not use default ranged weapons
 	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
 	if(ninja && !ninja.allow_guns && !check_gun.ninja_weapon)
-		to_chat(src, span_warning("[ninja.no_guns_message]"))
+		to_chat(src, "[ninja.no_guns_message]")
 		return FALSE
 
 
