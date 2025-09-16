@@ -176,7 +176,7 @@
 		PREPOSITIONAL = "кустарном роботе с гвоздомётами"
 	)
 
-/mob/living/simple_animal/hostile/hivebot/range_heavy
+/mob/living/simple_animal/hostile/hivebot/heavy_range
 	name = "jerry-built robot with a rivet gun"
 	desc = "Многофункциональный робот с шестью манипуляторами. В его клешнях модифицированный заклёпочный аппарат. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "basic"
@@ -193,7 +193,7 @@
 	projectiletype = /obj/projectile/hivebot/heavy_bullet
 	projectilesound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 
-/mob/living/simple_animal/hostile/hivebot/range_heavy/get_ru_names()
+/mob/living/simple_animal/hostile/hivebot/heavy_range/get_ru_names()
 	return list(
 		NOMINATIVE = "кустарный робот с заклёпкомётом",
 		GENITIVE = "кустарного робота с заклёпкомётом",
@@ -220,7 +220,7 @@
 	minimum_distance = 3
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot, /obj/effect/loot_spawner/hivebot, /obj/effect/loot_spawner/hivebot)
 	var/heal_cooldown = 5 SECONDS
-	var/heal_amount = 15
+	var/heal_amount = 25
 	var/heal_range = 5
 	var/last_heal_time = 0
 
@@ -261,15 +261,13 @@
 	target.health = min(target.health + heal_amount, target.maxHealth)
 	target.updatehealth()
 
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] чинит [target.declent_ru(ACCUSATIVE)] с помощью ремонтных нанитов."))
+	visible_message(span_boldnotice("[capitalize(declent_ru(NOMINATIVE))] чинит [target.declent_ru(ACCUSATIVE)] с помощью ремонтных нанитов."))
 
 	var/datum/effect_system/spark_spread/sparks = new
 	sparks.set_up(3, 0, get_turf(target))
 	sparks.start()
 
 	last_heal_time = world.time
-
-//Fabricator
 
 //Fabricator
 
@@ -284,7 +282,7 @@
 	/// The number of hivebots that will be produced per cycle before going into recharge
 	var/spawn_count = 2
 	/// Production time for 1 bot
-	var/spawn_interval = 1500
+	var/spawn_interval = 1200
 	/// Cooldown after Production time
 	var/cooldown_duration = 3000
 	/// Whether currently producing bots
@@ -327,15 +325,16 @@
 	current_spawn_count = spawn_count
 	icon_state = "fab_robot"
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает гудеть!"))
-	COOLDOWN_START(src, spawn_cooldown, spawn_interval / spawn_count)
+	COOLDOWN_START(src, spawn_cooldown, spawn_interval)
 
 /obj/structure/hivebot_spawner/proc/spawn_bots()
 	new /obj/effect/spawner/hivebot(get_turf(src))
+	current_spawn_count--
 
-	if(--current_spawn_count <= 0)
-		finish_production()
+	if(current_spawn_count > 0)
+		COOLDOWN_START(src, spawn_cooldown, spawn_interval)
 	else
-		COOLDOWN_START(src, spawn_cooldown, spawn_interval / spawn_count)
+		finish_production()
 
 /obj/structure/hivebot_spawner/proc/finish_production()
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] останавливается."))
@@ -344,7 +343,7 @@
 	COOLDOWN_START(src, cycle_cooldown, cooldown_duration)
 
 //////////////
-//MARK: LOOT
+//MARK:Loot
 //////////////
 
 /obj/effect/loot_spawner/hivebot
@@ -402,29 +401,32 @@
 	if(path)
 		new path(get_turf(src))
 
-//MARK: Спавнер
+//MARK:Spawner
 
 /obj/effect/spawner/hivebot
 	name = "hivebot spawner"
 	icon = 'icons/mob/hivebot.dmi'
-	icon_state = "basic"
+	icon_state = "def_radar-off"
 
 /obj/effect/spawner/hivebot/Initialize(mapload)
 	. = ..()
+	if(prob(50))
+		return qdel(src)
 	var/mob_type = pickweight(list(
-		/mob/living/simple_animal/hostile/hivebot = 30,
+		/mob/living/simple_animal/hostile/hivebot = 60,
 		/mob/living/simple_animal/hostile/hivebot/melee = 15,
 		/mob/living/simple_animal/hostile/hivebot/range = 15,
 		/mob/living/simple_animal/hostile/hivebot/heavy_melee = 5,
-		/mob/living/simple_animal/hostile/hivebot/support = 5
+		/mob/living/simple_animal/hostile/hivebot/heavy_range = 3,
+		/mob/living/simple_animal/hostile/hivebot/support = 2
 	))
 	new mob_type(loc)
 	return qdel(src)
 
 /obj/effect/spawner/hivebot_heavy
-	name = "hivebot spawner"
+	name = "hivebot heavy spawner"
 	icon = 'icons/mob/hivebot.dmi'
-	icon_state = "basic"
+	icon_state = "def_radar"
 
 /obj/effect/spawner/hivebot_heavy/Initialize(mapload)
 	. = ..()
