@@ -194,7 +194,7 @@
 					code = null
 				else
 					code += text("[]", params["buttonValue"])
-					if(length(code) > 5 )
+					if(length(code) > 5)
 						code = "ERROR"
 
 /obj/item/storage/secure/can_be_inserted(obj/item/W, stop_messages = 0)

@@ -21,7 +21,7 @@
 	can_collar = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	nightvision = 6
-	speak = list("Слава Синдикату!", "Смерть НаноТрейзен!", "У вас есть сыр?")
+	speak = list("Слава Синдикату!", "Смерть Нанотрейзен!", "У вас есть сыр?")
 	speak_emote = list("пищит", "попискивает")
 	emote_hear = list("пищит", "попискивает")
 	emote_see = list("бегает кругами", "дрожит", "быстро осматривается")

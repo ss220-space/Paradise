@@ -86,7 +86,7 @@
 
 /obj/item/storage/box/syndie_kit/counterfeiter_bundle
 	name = "Counterfeiter Bundle"
-	desc = "A box containing all the neccessary equipment to forge stamps and insignias, making the user capable of faking any NanoTrasen documents."
+	desc = "A box containing all the neccessary equipment to forge stamps and insignias, making the user capable of faking any Nanotrasen documents."
 
 /obj/item/storage/box/syndie_kit/counterfeiter_bundle/populate_contents()
 	new /obj/item/stamp/chameleon(src)

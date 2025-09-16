@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	current_user = M.client
 
 	var/atom/menu_holder_location = anchor
-	if (M == anchor)
+	if(M == anchor)
 		screen_center = new
 		screen_center.screen_loc = "CENTER,CENTER"
 		current_user.screen += screen_center
@@ -270,7 +270,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/proc/hide()
 	if(current_user)
 		current_user.images -= menu_holder
-		if (screen_center)
+		if(screen_center)
 			menu_holder.loc = null
 			current_user.screen -= screen_center
 

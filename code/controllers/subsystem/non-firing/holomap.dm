@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(holomaps)
 	flags |= SS_NO_INIT // Make extra sure we don't initialize twice.
 
 /datum/controller/subsystem/holomaps/Initialize(timeofday)
-	if (generate_holomaps())
+	if(generate_holomaps())
 		return SS_INIT_SUCCESS
 	return SS_INIT_FAILURE
 

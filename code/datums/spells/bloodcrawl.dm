@@ -152,7 +152,7 @@
 	victim.emote("scream")
 	victim.forceMove(holder)
 	enter_point.visible_message(span_warning("<b>[user] затягива[pluralize_ru(user.gender, "ет", "ют")] [victim] в [enter_point.declent_ru(ACCUSATIVE)]!</b>"))
-	if (user.type == /mob/living/simple_animal/demon/slaughter/laughter)
+	if(user.type == /mob/living/simple_animal/demon/slaughter/laughter)
 		to_chat(user, "<b>Вы хватаете [victim.declent_ru(ACCUSATIVE)] и начинаете безжалостную щекотку! Вы не можете двигаться, пока делаете это.</b>")
 		enter_point.visible_message(span_clown("<b>Из крови доносятся крики и дикий хохот...</b>"))
 	else

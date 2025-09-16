@@ -48,16 +48,19 @@ jobs:
           cache-dependency-path: ./tgui/yarn.lock
 
       - name: Install python packages
-        run: pip3 install -r tools/requirements.txt
+        run: pip install -r tools/requirements.txt
 
       - name: Run Linters
         run: |
-          find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/ci/json_verifier.py
+          bash tools/ci/check_json.sh
           tgui/bin/tgui --ci
           tools/ci/check_grep.sh
-          tools/bootstrap/python -m define_sanity.check
-          python3 tools/ci/check_line_endings.py
-          python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
+          python tools/ci/check_grep2.py
+          python tools/ci/check_line_endings.py
+          python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
+          python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
+          python tools/ci/define_sanity.py
+          python tools/ci/check_icons.py
 
       - name: Run DreamChecker
         shell: bash

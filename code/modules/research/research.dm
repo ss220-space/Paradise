@@ -104,7 +104,7 @@ research holder datum.
 	known_tech[T.id] = copy
 
 /datum/research/proc/CanAddDesign2Known(datum/design/D)
-	if (D.id in known_designs)
+	if(D.id in known_designs)
 		return FALSE
 	return TRUE
 

@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(capitalism)
 			complited_goals += goal
 
 	if(total_station_goal_bounty)
-		base_account.credit(total_station_goal_bounty, "Начисление награды за выполнение цели.", "Отдел развития НаноТрейзен", base_account.owner_name)
+		base_account.credit(total_station_goal_bounty, "Начисление награды за выполнение цели.", "Отдел развития Нанотрейзен", base_account.owner_name)
 		smart_job_payment(s_ex_personal_bounry)
 
 //status - TRUE/FALSE
