@@ -222,8 +222,8 @@ def check_balloon_alert(idx, line):
             failures.append((idx + 1, f"Balloon alerts should not start with capital letters: '{error_part}'. Includes text like 'AI'. Wrap the text in UNLINT() if needed."))
     return failures
 
-TRAIT_SINGLE_SRC = re.compile(r'(add_trait|remove_trait)\(.+,\s*.+,\s*src\)')
-TRAIT_PLURAL_SRC = re.compile(r'(add_traits|remove_traits)\(.+,\s*src\)')
+TRAIT_SINGLE_SRC = re.compile(r'(add_trait|remove_trait)\(.+,\s*.+,\s*src\)', re.IGNORECASE)
+TRAIT_PLURAL_SRC = re.compile(r'(add_traits|remove_traits)\(.+,\s*src\)', re.IGNORECASE)
 def check_trait_sources(idx, line):
     failures = []
     if TRAIT_SINGLE_SRC.search(line):
