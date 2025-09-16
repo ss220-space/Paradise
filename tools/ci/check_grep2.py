@@ -92,8 +92,7 @@ def check_proc_args_with_var_prefix(idx, line):
 
 NANOTRASEN_CAMEL_CASE_EN = re.compile(r"NanoTrasen")
 NANOTRASEN_CAMEL_CASE_RU = re.compile(r"НаноТрейзен")
-NANOTRASEN_MISSPELLING_N_RU = re.compile(r"nanotrasen")
-NANOTRASEN_MISSPELLING_N_EN = re.compile(r"нанотрейзен")
+NANOTRASEN_MISSPELLING_N_RU = re.compile(r"нанотрейзен")
 def check_nanotrasen_style(idx, line):
     failures = []
     if NANOTRASEN_CAMEL_CASE_EN.search(line):
@@ -101,8 +100,6 @@ def check_nanotrasen_style(idx, line):
     if NANOTRASEN_CAMEL_CASE_RU.search(line):
         failures.append((idx + 1, "'Нанотрейзен' should not be spelled in the camel case form."))
     if NANOTRASEN_MISSPELLING_N_RU.search(line):
-        failures.append((idx + 1, "'Nanotrasen' should not be written with a lowercase letter."))
-    if NANOTRASEN_MISSPELLING_N_EN.search(line):
         failures.append((idx + 1, "'Нанотрейзен' should not be written with a lowercase letter."))
     return failures
 
@@ -250,7 +247,7 @@ CODE_CHECKS = [
     check_global_vars,
     check_toplevel_vardecls,
     check_proc_args_with_var_prefix,
-#    check_nanotrasen_style,
+    check_nanotrasen_style,
     check_to_chats_have_a_user_arguement,
     check_conditional_spacing,
     check_global_list_empty,

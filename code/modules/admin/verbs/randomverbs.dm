@@ -629,7 +629,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 //the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Сообщение Центрального командования." = "Обновление НаноТрейзен.",
+	var/list/MsgType = list("Сообщение Центрального командования." = "Обновление Нанотрейзен.",
 		"Официальное сообщение Синдиката." = "Сообщение Синдиката.",
 		"Сообщение Федерации Космических Волшебников." = "Заколдованное сообщение.",
 		"Официальное сообщение Клана Паука." = "Сообщение Клана Паука.",

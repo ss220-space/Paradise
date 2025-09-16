@@ -32,7 +32,7 @@
 /obj/item/eftpos/cyborg
 	name = "Service EFTPOS"
 	desc = "Swipe a crew ID card to pay taxes."
-	transaction_purpose = "Payment for the glory of NanoTrasen!"
+	transaction_purpose = "Payment for the glory of Nanotrasen!"
 
 /obj/item/paper/check
 	desc = "Printed by the financial terminal."
@@ -282,7 +282,7 @@
 	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
 
 	if(emagged)
-		to_chat(user, "[bicon(src)]<span class='warning'>  Client Error #423 Device Locked. Contact NanoTrasen IT support.</span>")
+		to_chat(user, "[bicon(src)]<span class='warning'>  Client Error #423 Device Locked. Contact Nanotrasen IT support.</span>")
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, TRUE)
 		return
 

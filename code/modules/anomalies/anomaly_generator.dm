@@ -376,7 +376,7 @@
 
 /obj/machinery/power/anomaly_generator/upgraded/admin
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
-			генерации аномалий. В данной модели были использованы секретные разработки NanoTrasen."
+			генерации аномалий. В данной модели были использованы секретные разработки Nanotrasen."
 
 /obj/machinery/power/anomaly_generator/wrench_act(mob/living/user, obj/item/item)
 	default_unfasten_wrench(user, item)
