@@ -14,6 +14,10 @@
 /// Don't actually throw at the target, just tip it in place.
 #define VENDOR_TIP_IN_PLACE 2
 
+// Names for default vending categories
+#define CATEGORY_NAME_GENERIC "Товары"
+#define CATEGORY_NAME_PREMIUM "Премиум"
+#define CATEGORY_NAME_CONTRABAND "Контрабанда"
 
 /**
  *  Datum used to hold information about a product in a vending machine
@@ -465,8 +469,8 @@
 */
 /obj/machinery/vending/proc/build_inventories(start_empty)
 	build_inventory(products, product_records, product_categories, start_empty)
-	build_inventory(contraband, hidden_records, create_categories_from("Контрабанда", "mask", contraband), start_empty)
-	build_inventory(premium, coin_records, create_categories_from("Премиум", "star", premium), start_empty)
+	build_inventory(contraband, hidden_records, create_categories_from(CATEGORY_NAME_CONTRABAND, "mask", contraband), start_empty)
+	build_inventory(premium, coin_records, create_categories_from(CATEGORY_NAME_PREMIUM, "star", premium), start_empty)
 
 /**
  * Returns a list of data about the category
@@ -572,49 +576,66 @@
 	for(var/datum/data/vending_product/record as anything in recordlist)
 		.[record.product_path] += record.amount
 
-/// Put stuff in product_categories if the products have a category, otherwise put them in products
+/**
+ * Unbuild product_records into categorized product lists to the machine's refill canister.
+ * Does not handle contraband/premium products, only standard stock and any other categories used by the vendor(see: ClothesMate).
+ * If a product has no category, puts it into standard stock category.
+ * Arguments:
+ * product_records - list of products of the vendor
+ * products - list of products of the refill canister
+ * product_categories - list of product categories of the refill canister
+*/
 /obj/machinery/vending/proc/unbuild_inventory_into(list/product_records, list/products, list/product_categories)
 	products?.Cut()
 	product_categories?.Cut()
 
 	var/others_have_category = null
-
 	var/list/categories_to_index = list()
 
-	for(var/datum/data/vending_product/record as anything in product_records)
+	for (var/datum/data/vending_product/record as anything in product_records)
 		var/list/category = record.category
 		var/has_category = !isnull(category)
 
-		if(isnull(others_have_category))
-			others_have_category = has_category
-		else if(others_have_category != has_category)
-			if(has_category)
-				WARNING("[record.product_path] in [type] has a category, but other products don't")
-			else
-				WARNING("[record.product_path] in [type] does not have a category, but other products do")
-
+		// Проверка согласованности категорий
+		if (!check_category_consistency(record, others_have_category, has_category))
 			continue
 
-		if(has_category)
-			var/index = categories_to_index.Find(category)
-
-			if(index)
-				var/list/category_in_list = product_categories[index]
-				var/list/products_in_category = category_in_list["products"]
-				products_in_category[record.product_path] += record.amount
-			else
-				categories_to_index += list(category)
-				index = categories_to_index.len
-
-				var/list/category_clone = category.Copy()
-
-				var/list/initial_product_list = list()
-				initial_product_list[record.product_path] = record.amount
-				category_clone["products"] = initial_product_list
-
-				product_categories += list(category_clone)
+		if (has_category)
+			handle_categorized_product(record, product_categories, categories_to_index)
 		else
 			products[record.product_path] = record.amount
+
+/obj/machinery/vending/proc/check_category_consistency(product_record, others_have_category, has_category)
+	var/datum/data/vending_product/record = product_record
+	if (isnull(others_have_category))
+		return TRUE
+
+	if (others_have_category == has_category)
+		return TRUE
+
+	if (has_category)
+		WARNING("[record.product_path] in [type] has a category, but other products don't")
+	else
+		WARNING("[record.product_path] in [type] does not have a category, but other products do")
+
+	return FALSE
+
+/obj/machinery/vending/proc/handle_categorized_product(product_record, list/product_categories, list/categories_to_index)
+	var/datum/data/vending_product/record = product_record
+	var/list/category = record.category
+	var/index = categories_to_index.Find(category)
+
+	if (!index)
+		categories_to_index += list(category)
+		index = categories_to_index.len
+
+		var/list/category_clone = category.Copy()
+		category_clone["products"] = list("[record.product_path]" = record.amount)
+		product_categories += list(category_clone)
+	else
+		var/list/category_in_list = product_categories[index]
+		var/list/products_in_category = category_in_list["products"]
+		products_in_category[record.product_path] += record.amount
 
 /obj/machinery/vending/deconstruct(disassembled = TRUE)
 	eject_item()
@@ -958,13 +979,13 @@
 
 /obj/machinery/vending/proc/collect_records_for_static_data(list/records, list/categories, premium, hidden, index)
 	var/static/list/default_category = list(
-		"name" = "Товары",
+		"name" = CATEGORY_NAME_GENERIC,
 		"icon" = "cart-shopping",
 	)
 
 	var/list/out_records = list()
 
-	for (var/datum/data/vending_product/product_record as anything in records)
+	for(var/datum/data/vending_product/product_record as anything in records)
 		var/obj/item/item = new product_record.product_path(src)
 		var/list/names = item.ru_names || item.get_ru_names()
 		var/list/static_record = list(
@@ -978,18 +999,18 @@
 		)
 
 		var/list/category = product_record.category || default_category
-		if (!isnull(category))
-			if (!(category["name"] in categories))
+		if(!isnull(category))
+			if(!(category["name"] in categories))
 				categories[category["name"]] = list(
 					"icon" = category["icon"],
 				)
 
 			static_record["category"] = category["name"]
 
-		if (premium)
+		if(premium)
 			static_record["req_coin"] = TRUE
 
-		if (hidden)
+		if(hidden)
 			static_record["is_hidden"] = TRUE
 
 		out_records += list(static_record)
@@ -1065,11 +1086,11 @@
 					// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
 					to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] не может расширить ассортимент в текущем состоянии. Сообщите о баге."))
 					return
-			else if (!(product_record in records_to_check))
+			else if(!(product_record in records_to_check))
 				// Exploit prevention, stop the user
 				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 				return
-			if (product_record.amount <= 0)
+			if(product_record.amount <= 0)
 				to_chat(usr, "Товар \"[product_record.name]\" закончился!")
 				flick_vendor_overlay(FLICK_VEND)
 				return
@@ -5842,3 +5863,7 @@
 #undef VENDOR_CRUSH_HANDLED
 #undef VENDOR_THROW_AT_TARGET
 #undef VENDOR_TIP_IN_PLACE
+
+#undef CATEGORY_NAME_GENERIC
+#undef CATEGORY_NAME_PREMIUM
+#undef CATEGORY_NAME_CONTRABAND
