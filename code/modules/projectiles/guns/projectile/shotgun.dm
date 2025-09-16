@@ -45,7 +45,7 @@
 	return (chambered.BB ? TRUE : FALSE)
 
 
-/obj/item/gun/projectile/shotgun/attack_self(mob/living/user)
+/obj/item/gun/projectile/shotgun/unload_act(mob/user)
 	if(!COOLDOWN_FINISHED(src, last_pump))
 		return
 	COOLDOWN_START(src, last_pump, 1 SECONDS)
@@ -396,7 +396,7 @@
 	if(!alternate_magazine)
 		alternate_magazine = new mag_type(src)
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/attack_self(mob/living/user)
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/unload_act(mob/user)
 	if(!chambered && magazine.contents.len)
 		pump()
 	else

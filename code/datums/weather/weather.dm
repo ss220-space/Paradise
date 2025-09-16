@@ -24,11 +24,15 @@
 
 	var/area_type = /area/space //Types of area to affect
 	var/list/impacted_areas = list() //Areas to be affected by the weather, calculated when the weather begins
+	/// Areas affected by weather have their blend modes changed
+	var/list/impacted_areas_blend_modes = list()
 	var/list/protected_areas = list()//Areas that are protected and excluded from the affected areas.
 	var/impacted_z_levels // The list of z-levels that this weather is actively affecting
 
-	var/overlay_layer = AREA_LAYER //Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that.
-	var/overlay_plane = AREA_PLANE
+	/// Since it's above everything else, this is the layer used by default.
+	var/overlay_layer = AREA_LAYER
+	/// Plane for the overlay
+	var/overlay_plane = WEATHER_PLANE
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	/// Used by mobs (or movables containing mobs, such as enviro bags) to prevent them from being affected by the weather.
 	var/immunity_type
@@ -65,6 +69,7 @@
 /datum/weather/proc/telegraph()
 	if(stage == STARTUP_STAGE)
 		return TRUE	// If weather already active, don't need to mark it as invalid. More at `/datum/controller/subsystem/weather/fire()`
+	SEND_GLOBAL_SIGNAL(COMSIG_WEATHER_TELEGRAPH(type), src)
 	generate_area_list()
 	if(!impacted_areas.len)
 		return FALSE
@@ -85,20 +90,25 @@
 /datum/weather/proc/start()
 	if(stage >= MAIN_STAGE)
 		return
+	SEND_GLOBAL_SIGNAL(COMSIG_WEATHER_START(type), src)
 	stage = MAIN_STAGE
 	update_areas()
 	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
-		if(mob_turf && (mob_turf.z in impacted_z_levels))
-			if(weather_message)
-				to_chat(M, weather_message)
-			if(weather_sound)
-				SEND_SOUND(M, sound(weather_sound))
+		if(!mob_turf || !(mob_turf.z in impacted_z_levels))
+			continue
+		if(weather_message)
+			to_chat(M, weather_message)
+		if(weather_sound)
+			SEND_SOUND(M, sound(weather_sound))
 	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
+	for(var/area/impacted_area as anything in impacted_areas)
+		SEND_SIGNAL(impacted_area, COMSIG_WEATHER_BEGAN_IN_AREA(type), src)
 
 /datum/weather/proc/wind_down()
 	if(stage >= WIND_DOWN_STAGE)
 		return
+	SEND_GLOBAL_SIGNAL(COMSIG_WEATHER_WINDDOWN(type), src)
 	stage = WIND_DOWN_STAGE
 	update_areas()
 	for(var/M in GLOB.player_list)
@@ -113,9 +123,12 @@
 /datum/weather/proc/end()
 	if(stage == END_STAGE)
 		return TRUE
+	SEND_GLOBAL_SIGNAL(COMSIG_WEATHER_END(type), src)
 	stage = END_STAGE
 	STOP_PROCESSING(SSweather, src)
 	update_areas()
+	for(var/area/impacted_area as anything in impacted_areas)
+		SEND_SIGNAL(impacted_area, COMSIG_WEATHER_ENDED_IN_AREA(type), src)
 
 
 /// Can this weather impact a mob?
@@ -153,8 +166,22 @@
 	for(var/area/impacted as anything in impacted_areas)
 		if(length(overlay_cache))
 			impacted.overlays -= overlay_cache
-		if(length(new_overlay_cache))
-			impacted.overlays += new_overlay_cache
+			if(impacted_areas_blend_modes[impacted])
+				// revert the blend mode to the old state
+				impacted.blend_mode = impacted_areas_blend_modes[impacted]
+				impacted_areas_blend_modes[impacted] = null
+		if(!length(new_overlay_cache))
+			continue
+
+		impacted.overlays += new_overlay_cache
+		// only change the blend mode if it's not default or overlay
+		if(impacted.blend_mode <= BLEND_OVERLAY)
+			continue
+
+		// save the old blend mode state
+		impacted_areas_blend_modes[impacted] = impacted.blend_mode
+		impacted.blend_mode = BLEND_OVERLAY
+
 
 	overlay_cache = new_overlay_cache
 
@@ -177,8 +204,8 @@
 	// Yes this is a bit annoying, but it's too slow to calculate and store these from turfs, and it shouldn't (I hope) look weird
 	var/list/gen_overlay_cache = list()
 	for(var/offset in 0 to SSmapping.max_plane_offset)
-		var/mutable_appearance/weather_overlay = mutable_appearance('icons/effects/weather_effects.dmi', weather_state, overlay_layer, plane = overlay_plane, offset_const = offset)
-		weather_overlay.color = weather_color
-		gen_overlay_cache += weather_overlay
+		var/mutable_appearance/new_weather_overlay = mutable_appearance('icons/effects/weather_effects.dmi', weather_state, overlay_layer, plane = overlay_plane, offset_const = offset)
+		new_weather_overlay.color = weather_color
+		gen_overlay_cache += new_weather_overlay
 
 	return gen_overlay_cache

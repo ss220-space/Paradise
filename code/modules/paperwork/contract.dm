@@ -48,7 +48,7 @@
 	var/static/soulless_text = "Бездушные существа не могут видеть условия данного договора.<br>\
 	Данный контракт гарантирует, что обещанное в нём благо будет получено подписавшим его существом."
 
-/obj/item/paper/contract/infernal/Initialize(atom/mapload, mob/living/nTarget, datum/mind/nOwner, datum/devil_contract/contract)
+/obj/item/paper/contract/infernal/Initialize(mapload, mob/living/nTarget, datum/mind/nOwner, datum/devil_contract/contract)
 	. = ..()
 	devilinfo = nOwner.has_antag_datum(/datum/antagonist/devil)
 	owner = nOwner
