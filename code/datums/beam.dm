@@ -346,6 +346,10 @@
 /obj/effect/ebeam/medical
 	name = "medical beam"
 
+/obj/effect/ebeam/laser_sight
+	name = "laser sight"
+	layer = OBJ_LAYER
+
 /obj/effect/ebeam/reacting/deadly
 
 /obj/effect/ebeam/reacting/deadly/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)

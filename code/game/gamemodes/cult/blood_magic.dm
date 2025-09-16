@@ -515,30 +515,41 @@
 		to_chat(user, span_cultitalic("You are not in the right dimension!"))
 		return
 
-	var/mob/living/L = target
+	var/mob/living/teleporting_mob = target
 	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	var/turf/destination = get_turf(actual_selected_rune)
 	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune || !destination)
 		return
-	uses--
 
-	var/turf/origin = get_turf(user)
-	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), user, origin, destination)
+	var/turf/origin = get_turf(teleporting_mob)
+	var/mob_color = teleporting_mob.color
+	animate(teleporting_mob, color = LIGHT_COLOR_BLOOD_MAGIC, time = 1.5 SECONDS)
+	if(!do_after(user, 2 SECONDS, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = "") || !destination)
+		teleporting_mob.color = mob_color
+		balloon_alert(user, "телепорт прерван!")
+		return
+
+	playsound(origin, 'sound/misc/enter_blood.ogg', 50, TRUE, -1)
+	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), teleporting_mob, origin, destination)
+	add_attack_logs(teleporting_mob, destination, "Teleported to by [user]", ATKLOG_ALL)
+	uses--
+	teleporting_mob.color = mob_color
 
 	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
 		actual_selected_rune.handle_portal("lava")
 	else if(!is_station_level(user.z) || istype(get_area(user), /area/space))
 		actual_selected_rune.handle_portal("space", origin)
 
-	if(user == target)
-		target.visible_message(span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!"), \
+	if(user == teleporting_mob)
+		teleporting_mob.visible_message(span_warning("Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!"), \
 		span_cultitalic("You speak the words and find yourself somewhere else!"))
 	else
-		target.visible_message(span_warning("Dust flows from [user]'s hand, and [target] disappears in a flash of red light!"), \
+		teleporting_mob.visible_message(span_warning("Dust flows from [user]'s hand, and [teleporting_mob] disappears in a flash of red light!"), \
 		span_cultitalic("You suddenly find yourself somewhere else!"))
 	destination.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
-	L.forceMove(destination)
+	teleporting_mob.forceMove(destination)
+	playsound(destination, 'sound/misc/exit_blood.ogg', 50, TRUE, -1)
 	return ..()
 
 //Shackles

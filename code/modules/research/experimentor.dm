@@ -14,6 +14,10 @@
 #define EFFECT_PROB_HIGH 75
 #define EFFECT_PROB_VERYHIGH 95
 
+#define MAX_DUPE_TECH 4
+#define MAX_DUPE_COUNT 3
+#define MAX_BAD_THING_COEF 20
+
 #define FAIL 8
 /obj/machinery/r_n_d/experimentor
 	name = "E.X.P.E.R.I-MENTOR"
@@ -120,6 +124,7 @@
 		badThingCoeff += M.rating*2
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		badThingCoeff += M.rating
+	badThingCoeff = min(badThingCoeff, MAX_BAD_THING_COEF)
 
 /obj/machinery/r_n_d/experimentor/proc/checkCircumstances(obj/item/O)
 	//snowflake check to only take "made" bombs
@@ -172,7 +177,7 @@
 		for(var/T in temp_tech)
 			techs_sum += temp_tech[T]
 
-		if(istype(I, /obj/item/relic) || (techs_sum > 4 || isstorage(I)) && !istype(I, /obj/item/storage/backpack/holding))
+		if(istype(I, /obj/item/relic) || (techs_sum > MAX_DUPE_TECH || isstorage(I)) && !istype(I, /obj/item/storage/backpack/holding))
 			to_chat(user, span_warning("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
 			return ATTACK_CHAIN_PROCEED
 
@@ -184,10 +189,15 @@
 
 		investigate_log("Experimentor has made a clone of [I]", INVESTIGATE_EXPERIMENTOR)
 		throwSmoke(get_turf(pick(oview(1,src))))
+
 		for (var/i = 1; i <= badThingCoeff; i++)
 			visible_message(span_notice("A duplicate [I] pops out!"))
 			var/type_to_make = I.type
-			new type_to_make(get_turf(pick(oview(1,src))))
+			var/obj/item/clone = new type_to_make(get_turf(pick(oview(1,src))))
+			if(!isstack(clone))
+				continue
+			var/obj/item/stack/stack_clone = clone
+			stack_clone.amount = 1
 
 		clone_next = FALSE
 		return ATTACK_CHAIN_PROCEED
@@ -311,7 +321,7 @@
 	if(!isRelict)
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message("[exp_on] is gripped in just the right way, enhancing its focus.")
-			badThingCoeff++
+			badThingCoeff = min(badThingCoeff + 1, MAX_BAD_THING_COEF)
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message(span_danger("[src] malfunctions and destroys [exp_on], lashing its arms out at nearby people!"))
 			for(var/mob/living/m in oview(1, src))
@@ -352,21 +362,21 @@
 			investigate_log("Experimentor has made a clone of [exp_on]", INVESTIGATE_EXPERIMENTOR)
 			ejectItem()
 
-		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
+		if(prob(EFFECT_PROB_VERYLOW - badThingCoeff))
 			visible_message(span_danger("[src] malfunctions, melting [exp_on] and leaking radiation!"))
 			for(var/mob/living/m in oview(1, src))
 				m.apply_effect(25,IRRADIATE)
 				investigate_log("Experimentor has irradiated [key_name_log(m)]", INVESTIGATE_EXPERIMENTOR) //One entry per person so we know what was irradiated.
 			ejectItem(TRUE)
 
-		if(prob(EFFECT_PROB_LOW-badThingCoeff))
+		if(prob(EFFECT_PROB_LOW - badThingCoeff))
 			visible_message(span_warning("[src] malfunctions, spewing toxic waste!"))
 			for(var/turf/T in oview(1, src))
 				if(!T.density)
 					if(prob(EFFECT_PROB_VERYHIGH))
 						new /obj/effect/decal/cleanable/greenglow(T)
 
-		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
+		if(prob(EFFECT_PROB_MEDIUM - badThingCoeff))
 			var/savedName = "[exp_on]"
 			ejectItem(TRUE)
 			var/newPath = pickWeighted(valid_items)
@@ -379,7 +389,7 @@
 
 			ejectItem()
 
-	else if(prob(EFFECT_PROB_VERYLOW))
+	else if(prob(EFFECT_PROB_VERYLOW - badThingCoeff))
 		visible_message(span_warning("The [exp_on] has activated an unknown subroutine!"))
 		clone_next = TRUE
 		ejectItem()
@@ -394,7 +404,7 @@
 		if(prob(EFFECT_PROB_LOW) && criticalReaction)
 			visible_message("[exp_on] achieves the perfect mix!")
 			new /obj/item/stack/sheet/mineral/plasma(get_turf(pick(oview(1,src))))
-		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
+		if(prob(EFFECT_PROB_VERYLOW - badThingCoeff))
 			visible_message(span_danger("[src] destroys [exp_on], leaking dangerous gas!"))
 			chosenchem = pick("carbon","radium","toxin","condensedcapsaicin","psilocybin","space_drugs","ethanol","beepskysmash")
 			var/datum/reagents/inner_reagent = new/datum/reagents(400)
@@ -407,7 +417,7 @@
 			smoke.start()
 			qdel(inner_reagent)
 			ejectItem(TRUE)
-		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
+		if(prob(EFFECT_PROB_VERYLOW - badThingCoeff))
 			visible_message(span_danger("[src]'s chemical chamber has sprung a leak!"))
 			chosenchem = pick("mutationtoxin","nanomachines","sacid")
 			var/datum/reagents/inner_reagent = new/datum/reagents(400)
@@ -421,10 +431,10 @@
 			ejectItem(TRUE)
 			warn_admins(usr, "[chosenchem] smoke")
 			investigate_log("Experimentor has released <span style='color: red;''>[chosenchem]</span> smoke!", INVESTIGATE_EXPERIMENTOR)
-		if(prob(EFFECT_PROB_LOW-badThingCoeff))
+		if(prob(EFFECT_PROB_LOW - badThingCoeff))
 			visible_message("[src] malfunctions, spewing harmless gas.>")
 			throwSmoke(src.loc)
-		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
+		if(prob(EFFECT_PROB_MEDIUM - badThingCoeff))
 			visible_message(span_warning("[src] melts [exp_on], ionizing the air around it!"))
 			empulse(src.loc, 4, 0) //change this to 4,6 once the EXPERI-Mentor is moved.
 			investigate_log("Experimentor has generated an Electromagnetic Pulse.", INVESTIGATE_EXPERIMENTOR)
@@ -754,6 +764,11 @@
 #undef EFFECT_PROB_MEDIUM
 #undef EFFECT_PROB_HIGH
 #undef EFFECT_PROB_VERYHIGH
+
+
+#undef MAX_DUPE_TECH
+#undef MAX_DUPE_COUNT
+#undef MAX_BAD_THING_COEF
 
 #undef FAIL
 

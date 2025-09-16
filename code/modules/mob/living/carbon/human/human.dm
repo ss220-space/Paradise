@@ -302,8 +302,8 @@
 
 	limbs_affected = max(limbs_affected - limb_loss_reduction, 0)
 	if(epicenter)
-		var/throw_distance = round(4 - severity + ex_armor_reduction(4 - severity, armor))
-		var/throw_speed = 14 - severity * 4 + ex_armor_reduction(4 - severity, armor)
+		var/throw_distance = round(severity + ex_armor_reduction(severity, armor), 1)
+		var/throw_speed = severity * 4 - 2 + ex_armor_reduction(severity, armor)
 		var/dir_if_centered = epicenter == get_turf(src) ? rand(0, 10) : null
 		var/turf/turf_to_land
 		if(!dir_if_centered)

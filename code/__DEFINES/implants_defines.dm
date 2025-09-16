@@ -33,3 +33,5 @@
 /// Return this if there's no room for the implant
 #define BIOCHIP_IMPLANT_NOROOM 0
 
+/// Stealth box alpha
+#define STEALTHBOX_ALPHA 20

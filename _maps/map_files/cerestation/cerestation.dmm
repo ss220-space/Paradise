@@ -43585,6 +43585,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
+/obj/structure/closet/burial,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

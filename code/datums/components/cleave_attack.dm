@@ -194,6 +194,10 @@
 		if(hit_atom == user || hit_atom == target)
 			continue // why are you hitting yourself
 
+		// Adjacent doesn't count correctly for non-precise clicks, so additional check before the attack chain needed here
+		if(!hit_turf.Adjacent(user, user, hit_atom))
+			continue
+
 		if(!(SEND_SIGNAL(hit_atom, COMSIG_ATOM_CLEAVE_ATTACK, item, user) & ATOM_ALLOW_CLEAVE_ATTACK))
 			if(hit_atom.pass_flags & LETPASSTHROW)
 				continue // if you can throw something over it, you can swing over it too
