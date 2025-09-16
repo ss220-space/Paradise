@@ -8,11 +8,11 @@
 	if(CONFIG_GET(flag/log_access))
 		for(var/mob/M in GLOB.player_list)
 			if(M == src)	continue
-			if( M.key && (M.key != key) )
+			if(M.key && (M.key != key))
 				var/matches
-				if( (M.lastKnownIP == client.address) )
+				if(M.lastKnownIP == client.address)
 					matches += "IP ([client.address])"
-				if( (M.computer_id == client.computer_id) )
+				if(M.computer_id == client.computer_id)
 					if(matches)	matches += " and "
 					matches += "ID ([client.computer_id])"
 					if(!CONFIG_GET(flag/disable_cid_warn_popup))

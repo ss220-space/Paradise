@@ -22,7 +22,7 @@
 	desc = "Консоль управления шаттлом в одну сторону, используемый для вызова шаттла на каторгу."
 	possible_destinations = "laborcamp_away"
 	circuit = /obj/item/circuitboard/labor_shuttle/one_way
-	req_access = list( )
+	req_access = list()
 
 /obj/machinery/computer/shuttle/labor/one_way/get_ru_names()
 	return list(

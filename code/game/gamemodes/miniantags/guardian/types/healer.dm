@@ -123,7 +123,7 @@
 	if(!Adjacent(A))
 		to_chat(src, span_danger("Вам нужно быть рядом с целью!"))
 		return
-	if((A.anchored))
+	if(A.anchored)
 		to_chat(src, span_danger("Цель прикреплена к полу. Телепортация невозможна."))
 		return
 	to_chat(src, span_danger("Вы начинаете телепортировать [A]"))

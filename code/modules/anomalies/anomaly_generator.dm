@@ -201,7 +201,7 @@
 				options["[T.loc.name]"] = possible_beacon
 
 			var/obj/item/radio/beacon/choice = options[tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)]
-			if (choice == null)
+			if(choice == null)
 				choice = beacon;
 
 			selected_beacon = choice
@@ -376,7 +376,7 @@
 
 /obj/machinery/power/anomaly_generator/upgraded/admin
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
-			генерации аномалий. В данной модели были использованы секретные разработки NanoTrasen."
+			генерации аномалий. В данной модели были использованы секретные разработки Nanotrasen."
 
 /obj/machinery/power/anomaly_generator/wrench_act(mob/living/user, obj/item/item)
 	default_unfasten_wrench(user, item)

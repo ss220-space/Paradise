@@ -87,7 +87,7 @@
 		if(!(critter.healable))
 			to_chat(user, span_danger("Вы не можете использовать [declent_ru(NOMINATIVE)] на [critter.declent_ru(NOMINATIVE)]!"))
 			return .
-		if (critter.health == critter.maxHealth)
+		if(critter.health == critter.maxHealth)
 			to_chat(user, span_danger("[capitalize(critter.declent_ru(NOMINATIVE))] полностью здоров."))
 			return .
 		if(heal_brute < 1)

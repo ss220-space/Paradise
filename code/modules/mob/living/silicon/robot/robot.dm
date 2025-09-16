@@ -1714,7 +1714,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	for(var/skin in skins)
 		var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
-		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit] ) \
+		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit]) \
 			&& !GLOB.all_robot_skins_permited)
 			continue
 		if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \

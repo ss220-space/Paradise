@@ -189,7 +189,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 /proc/attempt_account_access(attempt_account_number, attempt_pin_number, security_level_passed = 0, pin_needed=1)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number)
-			if( D.security_level <= security_level_passed && (!D.security_level || D.remote_access_pin == attempt_pin_number || !pin_needed) )
+			if(D.security_level <= security_level_passed && (!D.security_level || D.remote_access_pin == attempt_pin_number || !pin_needed))
 				return D
 
 /obj/machinery/computer/account_database/proc/get_account(account_number)

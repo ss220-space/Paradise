@@ -154,7 +154,7 @@
 		organ.unnecrotize()
 		organ.heal_internal_damage(regen_amount, robo_repair = organ.is_robotic())
 
-	for(var/datum/reagent/reagent as anything in human.reagents.reagent_list)
+	for(var/datum/reagent/reagent as anything in human.reagents?.reagent_list)
 		if(reagent.devil_regen_ignored)
 			continue
 		human.reagents.remove_reagent(reagent, min(reagent.volume, regen_amount))
