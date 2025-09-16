@@ -2057,7 +2057,7 @@
 	if(HAS_TRAIT(src, TRAIT_FLOORED) && !(dir & (NORTH|SOUTH)))
 		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
 	if(rotate_on_lying)
-		body_position_pixel_y_offset = PIXEL_Y_OFFSET_LYING
+		body_position_pixel_y_offset = pixel_y_lying_offset
 	if(!buckled || buckled.buckle_lying == NO_BUCKLE_LYING)
 		lying_angle_on_lying_down(new_lying_angle)
 

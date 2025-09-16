@@ -137,6 +137,8 @@
 	/// The height offset of a mob's maptext due to their current size.
 	var/body_maptext_height_offset = 0
 
+	var/pixel_y_lying_offset = PIXEL_Y_OFFSET_LYING
+
 	/// Tracks the current size of the mob in relation to its original size. Use update_transform(resize) to change it.
 	var/current_size = RESIZE_DEFAULT_SIZE
 
