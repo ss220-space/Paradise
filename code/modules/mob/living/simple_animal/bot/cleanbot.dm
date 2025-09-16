@@ -269,7 +269,7 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, span_danger("Интерфейс [declent_ru(GENITIVE)] не отвечает!"))

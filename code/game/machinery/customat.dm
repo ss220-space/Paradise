@@ -199,9 +199,9 @@
 		return ..()
 
 /obj/machinery/customat/proc/eject_all()
-	for (var/key in products)
+	for(var/key in products)
 		var/datum/data/customat_product/product = products[key]
-		for (var/obj/item/I in product.containment)
+		for(var/obj/item/I in product.containment)
 			I.forceMove(get_turf(src))
 		product.amount = 0
 		inserted_items_count -= product.containment.len
@@ -498,7 +498,7 @@
 
 /obj/machinery/customat/emag_act(mob/user)
 	emagged = TRUE
-	for (var/key in products)
+	for(var/key in products)
 		var/datum/data/customat_product/product = products[key]
 		product.price = 0
 		products[key] = product
@@ -559,7 +559,7 @@
 				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
 
 	data["products"] = list()
-	for (var/key in products)
+	for(var/key in products)
 		var/datum/data/customat_product/product = products[key]
 		var/list/data_pr = list(
 			name = product.name,
@@ -634,7 +634,7 @@
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
 				paid = FALSE
 				var/left = currently_vending.price
-				for (var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
+				for(var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
 					var/pay_now = round(currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths)
 					pay_now = min(pay_now, left)
 					left -= pay_now
@@ -643,7 +643,7 @@
 				var/datum/money_account/customer_account = get_card_account(usr)
 				paid = FALSE
 				var/left = currently_vending.price
-				for (var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
+				for(var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
 					var/pay_now = round(currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths)
 					pay_now = min(pay_now, left)
 					left -= pay_now
@@ -772,7 +772,7 @@
 /obj/machinery/customat/proc/expel(obj/structure/disposalholder/holder)
 	var/turf/origin_turf = get_turf(src)
 	var/list/contents = holder.contents
-	for (var/atom/movable/content in contents)
+	for(var/atom/movable/content in contents)
 		if(istype(content, /obj/item))
 			try_insert(null, content, TRUE)
 		else

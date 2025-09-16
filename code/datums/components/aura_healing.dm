@@ -85,7 +85,7 @@
 	healing_color = COLOR_GREEN,
 	robot_heal = FALSE
 )
-	if (!isatom(parent))
+	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	START_PROCESSING(SSaura_healing, src)

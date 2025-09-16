@@ -34,7 +34,7 @@
 	if(isanimal(parent))
 		var/mob/living/simple_animal/simple_parent = parent
 		simple_parent.stop_automated_movement = FALSE
-	REMOVE_TRAIT(parent, TRAIT_AI_PAUSED, src)
+	REMOVE_TRAIT(parent, TRAIT_AI_PAUSED, ref(src))
 	return ..()
 
 /datum/component/riding/creature/RegisterWithParent()
@@ -84,7 +84,7 @@
 	rider.layer = initial(rider.layer)
 	if(can_be_driven)
 		//let the player take over if they should be controlling movement
-		ADD_TRAIT(ridden, TRAIT_AI_PAUSED, src)
+		ADD_TRAIT(ridden, TRAIT_AI_PAUSED, ref(src))
 	return ..()
 
 /datum/component/riding/creature/vehicle_mob_unbuckle(mob/living/formerly_ridden, mob/living/former_rider, force = FALSE)
@@ -95,7 +95,7 @@
 		*/
 	//remove_abilities(former_rider)
 	if(!formerly_ridden.buckled_mobs.len)
-		REMOVE_TRAIT(formerly_ridden, TRAIT_AI_PAUSED, src)
+		REMOVE_TRAIT(formerly_ridden, TRAIT_AI_PAUSED, ref(src))
 	// We gotta reset those layers at some point, don't we?
 	former_rider.layer = MOB_LAYER
 	formerly_ridden.layer = MOB_LAYER
@@ -271,7 +271,7 @@
 	if(H.buckle_lying)
 		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(0, 6), TEXT_WEST = list(0, 6))
 	else
-		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(-6, 4), TEXT_WEST = list( 6, 4))
+		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(-6, 4), TEXT_WEST = list(6, 4))
 
 /datum/component/riding/creature/human/force_dismount(mob/living/dismounted_rider)
 	var/atom/movable/AM = parent

@@ -80,7 +80,7 @@
 		return
 
 	var/client/ui_client = ui.user.client
-	switch (action)
+	switch(action)
 		if("clear_poll_votes")
 			poll.clear_poll_votes()
 		if("initialize_poll")

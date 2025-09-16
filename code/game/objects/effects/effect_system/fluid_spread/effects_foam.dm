@@ -46,7 +46,7 @@
 
 /obj/effect/particle_effect/fluid/foam/Destroy()
 	SSfoam.stop_processing(src)
-	if (spread_bucket)
+	if(spread_bucket)
 		SSfoam.cancel_spread(src)
 	return ..()
 
@@ -55,7 +55,7 @@
  */
 /obj/effect/particle_effect/fluid/foam/proc/kill_foam()
 	SSfoam.stop_processing(src)
-	if (spread_bucket)
+	if(spread_bucket)
 		SSfoam.cancel_spread(src)
 	make_result()
 	flick("[icon_state]-disolve", src)
@@ -206,7 +206,7 @@
 	foam.add_atom_colour(foamcolor, FIXED_COLOUR_PRIORITY)
 	if(!isnull(result_type))
 		foam.result_type = result_type
-	if (log)
+	if(log)
 		help_out_the_admins(foam, holder, location)
 	SSfoam.queue_spread(foam)
 
@@ -257,11 +257,11 @@
 		return
 
 	var/datum/gas_mixture/air = location.air
-	if (air.toxins)
+	if(air.toxins)
 		var/scrub_amt = min(30, air.toxins) //Absorb some plasma
 		air.toxins -= scrub_amt
 		absorbed_plasma += scrub_amt
-	if (air.temperature > T20C)
+	if(air.temperature > T20C)
 		air.temperature = max(air.temperature / 2, T20C)
 	location.air_update_turf(FALSE, FALSE)
 

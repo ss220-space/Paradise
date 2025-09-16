@@ -126,7 +126,7 @@
 	if(!A)
 		return
 	var/msg = tgui_input_text(usr, "Message:", "Enter the text you wish to appear to everyone within view:")
-	if (!msg)
+	if(!msg)
 		return
 	msg = admin_pencode_to_html(msg)
 	for(var/mob/living/M in view(7,A))
@@ -629,7 +629,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 //the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Сообщение Центрального командования." = "Обновление НаноТрейзен.",
+	var/list/MsgType = list("Сообщение Центрального командования." = "Обновление Нанотрейзен.",
 		"Официальное сообщение Синдиката." = "Сообщение Синдиката.",
 		"Сообщение Федерации Космических Волшебников." = "Заколдованное сообщение.",
 		"Официальное сообщение Клана Паука." = "Сообщение Клана Паука.",
@@ -698,7 +698,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			jmp_coords = coords = "in nullspace"
 
-	if (tgui_alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", list("Yes", "No")) == "Yes")
+	if(tgui_alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", list("Yes", "No")) == "Yes")
 		log_admin("[key_name(usr)] deleted [D] [coords]")
 		message_admins("[key_name_admin(usr)] deleted [D] [jmp_coords]")
 		BLACKBOX_LOG_ADMIN_VERB("Delete")

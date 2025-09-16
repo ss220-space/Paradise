@@ -180,7 +180,7 @@
 				hit_dense_atom_mid = TRUE
 
 		if(T == F.loc)
-			if (hit_dense_atom_mid)
+			if(hit_dense_atom_mid)
 				break
 
 			prev_T = T
@@ -196,7 +196,7 @@
 		var/turf/left_turf = T
 		var/right_dir = turn(unleash_dir, 90)
 		var/left_dir = turn(unleash_dir, -90)
-		for (var/i = 0, i < 1, i++)
+		for(var/i = 0, i < 1, i++)
 			right_turf = get_step(right_turf, right_dir)
 			right += right_turf
 			left_turf = get_step(left_turf, left_dir)
@@ -205,7 +205,7 @@
 		var/hit_dense_atom_side = FALSE
 
 		var/turf/prev_R = T
-		for (var/turf/R in right)
+		for(var/turf/R in right)
 			if(prev_R)
 				var/atom/movable/temp = new/obj/flamer_fire()
 				var/atom/movable/AM = LinkBlocked(temp, prev_R, R)
@@ -213,16 +213,16 @@
 				if(AM)
 					AM.flamer_fire_act(burn_dam)
 					hit_dense_atom_side = TRUE
-				else if (hit_dense_atom_mid)
+				else if(hit_dense_atom_mid)
 					break
 			generate_fire(R, F, 0, FLAMESHAPE_TRIANGLE, FALSE, FALSE, fuel_pressure)
-			if (!hit_dense_atom_mid && hit_dense_atom_side)
+			if(!hit_dense_atom_mid && hit_dense_atom_side)
 				break
 			prev_R = R
 			sleep(1)
 
 		var/turf/prev_L = T
-		for (var/turf/L in left)
+		for(var/turf/L in left)
 			if(prev_L)
 				var/atom/movable/temp = new/obj/flamer_fire()
 				var/atom/movable/AM = LinkBlocked(temp, prev_L, L)
@@ -230,15 +230,15 @@
 				if(AM)
 					AM.flamer_fire_act(burn_dam)
 					hit_dense_atom_side = TRUE
-				else if (hit_dense_atom_mid)
+				else if(hit_dense_atom_mid)
 					break
 			generate_fire(L, F, 0, FLAMESHAPE_TRIANGLE, FALSE, FALSE, fuel_pressure)
-			if (!hit_dense_atom_mid && hit_dense_atom_side)
+			if(!hit_dense_atom_mid && hit_dense_atom_side)
 				break
 			prev_L = L
 			sleep(1)
 
-		if (hit_dense_atom_mid)
+		if(hit_dense_atom_mid)
 			break
 
 		distance++

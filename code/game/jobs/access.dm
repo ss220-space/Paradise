@@ -1,6 +1,3 @@
-/obj/var/list/req_access
-/obj/var/check_one_access = TRUE
-
 //returns 1 if this mob has sufficient access to use this object
 /obj/proc/allowed(mob/M)
 	//check if we don't require any access at all
@@ -105,28 +102,28 @@
 		if(VOX_TRADER)
 			return list(ACCESS_VOX)
 		if(SYNDICATE_COMMANDO)
-			return list(	ACCESS_SYNDICATE,
-							ACCESS_SYNDICATE_LEADER,
-							ACCESS_SYNDICATE_COMMS_OFFICER,
-							ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
-							ACCESS_SYNDICATE_SCIENTIST,
-							ACCESS_SYNDICATE_CARGO,
-							ACCESS_SYNDICATE_KITCHEN,
-							ACCESS_SYNDICATE_MEDICAL,
-							ACCESS_SYNDICATE_BOTANY,
-							ACCESS_SYNDICATE_ENGINE)
+			return list(ACCESS_SYNDICATE,
+						ACCESS_SYNDICATE_LEADER,
+						ACCESS_SYNDICATE_COMMS_OFFICER,
+						ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
+						ACCESS_SYNDICATE_SCIENTIST,
+						ACCESS_SYNDICATE_CARGO,
+						ACCESS_SYNDICATE_KITCHEN,
+						ACCESS_SYNDICATE_MEDICAL,
+						ACCESS_SYNDICATE_BOTANY,
+						ACCESS_SYNDICATE_ENGINE)
 		if(JOB_TITLE_SYNDICATE)
-			return list(	ACCESS_SYNDICATE,
-							ACCESS_SYNDICATE_LEADER,
-							ACCESS_SYNDICATE_COMMAND,
-							ACCESS_SYNDICATE_COMMS_OFFICER,
-							ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
-							ACCESS_SYNDICATE_SCIENTIST,
-							ACCESS_SYNDICATE_CARGO,
-							ACCESS_SYNDICATE_KITCHEN,
-							ACCESS_SYNDICATE_MEDICAL,
-							ACCESS_SYNDICATE_BOTANY,
-							ACCESS_SYNDICATE_ENGINE)
+			return list(ACCESS_SYNDICATE,
+						ACCESS_SYNDICATE_LEADER,
+						ACCESS_SYNDICATE_COMMAND,
+						ACCESS_SYNDICATE_COMMS_OFFICER,
+						ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
+						ACCESS_SYNDICATE_SCIENTIST,
+						ACCESS_SYNDICATE_CARGO,
+						ACCESS_SYNDICATE_KITCHEN,
+						ACCESS_SYNDICATE_MEDICAL,
+						ACCESS_SYNDICATE_BOTANY,
+						ACCESS_SYNDICATE_ENGINE)
 
 /proc/get_all_accesses()
 	return list(ACCESS_MINISAT, ACCESS_AI_UPLOAD,  ACCESS_ARMORY, ACCESS_ATMOSPHERICS, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_BLUESHIELD,
@@ -526,7 +523,7 @@
 			available_accesses &= list_to_form
 		for(var/access in available_accesses)
 			var/access_desc = get_region_access_desc(region, access)
-			if (access_desc)
+			if(access_desc)
 				accesses += list(list(
 					"desc" = replacetext(access_desc, "&nbsp", " "),
 					"ref" = access,

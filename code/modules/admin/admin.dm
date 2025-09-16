@@ -321,12 +321,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	onclose(usr, "adminplayeropts")
 	BLACKBOX_LOG_ADMIN_VERB("Show Player Panel")
 
-
-/datum/player_info/var/author // admin who authored the information
-/datum/player_info/var/rank //rank of admin who made the notes
-/datum/player_info/var/content // text content of the information
-/datum/player_info/var/timestamp // Because this is bloody annoying
-
 /datum/admins/proc/PlayerNotes()
 	set category = STATPANEL_ADMIN_BAN
 	set name = "Player Notes"
@@ -361,7 +355,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/dat = {"<b>Job Bans!</b><hr><table>"}
 	for(var/t in GLOB.jobban_keylist)
 		var/r = t
-		if( findtext(r,"##") )
+		if(findtext(r,"##"))
 			r = copytext( r, 1, findtext(r,"##") )//removes the description
 		dat += text("<tr><td>[t] (<a href='byond://?src=[UID()];removejobban=[r]'>unban</a>)</td></tr>")
 	dat += "</table>"
@@ -608,7 +602,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	GLOB.enter_allowed = !( GLOB.enter_allowed )
-	if(!( GLOB.enter_allowed ))
+	if(!( GLOB.enter_allowed))
 		to_chat(world, "<b>New players may no longer enter the game.</b>")
 	else
 		to_chat(world, "<b>New players may now enter the game.</b>")
@@ -894,7 +888,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	GLOB.guests_allowed = !( GLOB.guests_allowed )
-	if(!( GLOB.guests_allowed ))
+	if(!( GLOB.guests_allowed))
 		to_chat(world, "<b>Guests may no longer enter the game.</b>")
 	else
 		to_chat(world, "<b>Guests may now enter the game.</b>")

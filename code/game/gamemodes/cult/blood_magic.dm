@@ -233,14 +233,18 @@
 
 /datum/action/innate/cult/blood_spell/dagger/Activate()
 	var/turf/T = get_turf(owner)
-	owner.visible_message(span_warning("[owner]'s hand glows red for a moment."), \
-						  span_cultitalic("Red light begins to shimmer and take form within your hand!"))
+	owner.visible_message(
+		span_warning("[owner]'s hand glows red for a moment."), \
+		span_cultitalic("Red light begins to shimmer and take form within your hand!")
+	)
 	var/obj/item/melee/cultblade/dagger/O = new(T)
 	if(owner.put_in_hands(O))
 		to_chat(owner, span_warning("A [O.name] appears in your hand!"))
 	else
-		owner.visible_message(span_warning("A [O.name] appears at [owner]'s feet!"), \
-							  span_cultitalic("A [O.name] materializes at your feet."))
+		owner.visible_message(
+			span_warning("A [O.name] appears at [owner]'s feet!"), \
+			span_cultitalic("A [O.name] materializes at your feet.")
+		)
 	playsound(owner, 'sound/magic/cult_spell.ogg', 25, TRUE)
 	charges--
 	desc = base_desc

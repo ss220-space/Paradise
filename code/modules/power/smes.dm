@@ -304,7 +304,7 @@
 		if(outputting)
 			output_used = min( charge/SMESRATE, output_level)		//limit output to that stored
 
-			if (add_avail(output_used))				// add output to powernet if it exists (smes side)
+			if(add_avail(output_used))				// add output to powernet if it exists (smes side)
 				charge -= output_used*SMESRATE		// reduce the storage (may be recovered in /restore() if excessive)
 			else
 				outputting = FALSE
@@ -350,7 +350,7 @@
 
 	output_used -= excess
 
-	if(clev != chargedisplay() ) //if needed updates the icons overlay
+	if(clev != chargedisplay()) //if needed updates the icons overlay
 		update_icon(UPDATE_OVERLAYS)
 	return
 

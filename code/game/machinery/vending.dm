@@ -430,7 +430,7 @@
 	for(var/R in recordlist)
 		var/datum/data/vending_product/record = R
 		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
-		if (diff)
+		if(diff)
 			productlist[record.product_path] -= diff
 			record.amount += diff
 			. += diff
@@ -781,7 +781,7 @@
 			else
 				data["guestNotice"] = "Обнаруженная ID-карта не привязана к счёту.";
 	data["stock"] = list()
-	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
+	for(var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		data["stock"][R.name] = R.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
@@ -798,7 +798,7 @@
 	data["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
 	data["product_records"] = list()
 	var/i = 1
-	for (var/datum/data/vending_product/R in product_records)
+	for(var/datum/data/vending_product/R in product_records)
 		var/obj/item/item = new R.product_path(src)
 		var/list/names = item.ru_names || item.get_ru_names()
 		var/list/data_pr = list(
@@ -815,7 +815,7 @@
 		data["product_records"] += list(data_pr)
 		i++
 	data["coin_records"] = list()
-	for (var/datum/data/vending_product/R in coin_records)
+	for(var/datum/data/vending_product/R in coin_records)
 		var/obj/item/item = new R.product_path(src)
 		var/list/names = item?.ru_names || item.get_ru_names()
 		var/list/data_cr = list(
@@ -833,7 +833,7 @@
 		data["coin_records"] += list(data_cr)
 		i++
 	data["hidden_records"] = list()
-	for (var/datum/data/vending_product/R in hidden_records)
+	for(var/datum/data/vending_product/R in hidden_records)
 		var/obj/item/item = new R.product_path(src)
 		var/list/names = item?.ru_names || item.get_ru_names()
 		var/list/data_hr = list(
@@ -909,11 +909,11 @@
 					// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
 					to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] не может расширить ассортимент в текущем состоянии. Сообщите о баге."))
 					return
-			else if (!(R in record_to_check))
+			else if(!(R in record_to_check))
 				// Exploit prevention, stop the user
 				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 				return
-			if (R.amount <= 0)
+			if(R.amount <= 0)
 				to_chat(usr, "Товар \"[R.name]\" закончился!")
 				flick_vendor_overlay(FLICK_VEND)
 				return
@@ -1086,7 +1086,7 @@
 
 	var/dump_amount = 0
 	var/found_anything = TRUE
-	while (found_anything)
+	while(found_anything)
 		found_anything = FALSE
 		for(var/record in shuffle(product_records))
 			var/datum/data/vending_product/R = record
@@ -1312,9 +1312,11 @@
 	broken_overlay = "generic_broken"
 	broken_lightmask_overlay = "generic_broken_lightmask"
 
-	products = list(	/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
-						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
-	contraband = list(/obj/item/flashlight = 5,/obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
+	products = list(
+		/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
+		/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4
+	)
+	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
 
 	slogan_list = list(
 		"Т+олько с+амое л+учшее!",
@@ -1894,9 +1896,10 @@
 					/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1
 					)
-	contraband = list( /obj/item/clothing/mask/cigarette/pipe/oldpipe = 3,
-					/obj/item/storage/fancy/cigarettes/cigpack_med = 1
-					)
+	contraband = list(
+		/obj/item/clothing/mask/cigarette/pipe/oldpipe = 3,
+		/obj/item/storage/fancy/cigarettes/cigpack_med = 1
+	)
 	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 179,
 					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 239,
 					/obj/item/storage/fancy/cigarettes/cigpack_random = 359,
@@ -2297,8 +2300,10 @@
 	deny_overlay = "sec_deny"
 
 	req_access = list(ACCESS_SECURITY)
-	products = list(/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
-				    /obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2)
+	products = list(
+		/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
+		/obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2
+	)
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -2503,7 +2508,8 @@
 	broken_overlay = "seeds_broken"
 	broken_lightmask_overlay = "seeds_broken_lightmask"
 
-	products = list(/obj/item/seeds/aloe =3,
+	products = list(
+					/obj/item/seeds/aloe =3,
 					/obj/item/seeds/ambrosia = 3,
 					/obj/item/seeds/apple = 3,
 					/obj/item/seeds/banana = 3,
@@ -2556,19 +2562,21 @@
 					/obj/item/seeds/tulp = 3,
 					/obj/item/seeds/chamomile = 3,
 					/obj/item/seeds/rose = 3
-					)
-	contraband = list(/obj/item/seeds/cannabis = 3,
-					  /obj/item/seeds/amanita = 2,
-					  /obj/item/seeds/fungus = 3,
-					  /obj/item/seeds/glowshroom = 2,
-					  /obj/item/seeds/liberty = 2,
-					  /obj/item/seeds/nettle = 2,
-					  /obj/item/seeds/plump = 2,
-					  /obj/item/seeds/reishi = 2,
-					  /obj/item/seeds/starthistle = 2,
-					  /obj/item/seeds/random = 2,
-					  /obj/item/seeds/moonlight = 2,
-					  /obj/item/seeds/coca = 2)
+	)
+	contraband = list(
+					/obj/item/seeds/cannabis = 3,
+					/obj/item/seeds/amanita = 2,
+					/obj/item/seeds/fungus = 3,
+					/obj/item/seeds/glowshroom = 2,
+					/obj/item/seeds/liberty = 2,
+					/obj/item/seeds/nettle = 2,
+					/obj/item/seeds/plump = 2,
+					/obj/item/seeds/reishi = 2,
+					/obj/item/seeds/starthistle = 2,
+					/obj/item/seeds/random = 2,
+					/obj/item/seeds/moonlight = 2,
+					/obj/item/seeds/coca = 2
+	)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
@@ -3252,13 +3260,17 @@
 	broken_lightmask_overlay = "snack_broken_lightmask"
 
 	broken_lightmask_overlay = "snack_broken_lightmask"
-	products = list(/obj/item/reagent_containers/food/snacks/tofu = 24,
-					/obj/item/reagent_containers/food/drinks/ice = 12,
-					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
-	contraband = list(/obj/item/kitchen/knife = 6,
-					  /obj/item/reagent_containers/food/drinks/coffee = 12,
-					  /obj/item/tank/internals/emergency_oxygen = 6,
-					  /obj/item/clothing/mask/breath = 6)
+	products = list(
+		/obj/item/reagent_containers/food/snacks/tofu = 24,
+		/obj/item/reagent_containers/food/drinks/ice = 12,
+		/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6
+	)
+	contraband = list(
+		/obj/item/kitchen/knife = 6,
+		/obj/item/reagent_containers/food/drinks/coffee = 12,
+		/obj/item/tank/internals/emergency_oxygen = 6,
+		/obj/item/clothing/mask/breath = 6
+	)
 	refill_canister = /obj/item/vending_refill/sustenance
 
 /obj/machinery/vending/sustenance/get_ru_names()
@@ -3560,7 +3572,8 @@
 	)
 
 	vend_reply = "Спас+ибо за исп+ользование ClothesMate!"
-	products = list(/obj/item/clothing/head/that = 2,
+	products = list(
+					/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/fedora = 1,
 					/obj/item/clothing/glasses/monocle = 1,
 					/obj/item/clothing/under/suit_jacket/navy = 2,
@@ -3637,22 +3650,27 @@
 					/obj/item/clothing/neck/mantle/old = 1,
 					/obj/item/clothing/neck/mantle/regal = 2,
 					/obj/item/clothing/neck/cloak/grey = 1,
-					/obj/item/clothing/suit/storage/bomber = 4)
+					/obj/item/clothing/suit/storage/bomber = 4
+	)
 
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
+	contraband = list(
+					/obj/item/clothing/under/syndicate/tacticool = 1,
 					/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/under/syndicate/blackops_civ = 1,
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/under/soviet = 1,
-					/obj/item/storage/belt/fannypack/black = 1)
+					/obj/item/storage/belt/fannypack/black = 1
+	)
 
-	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,
-				   /obj/item/clothing/head/mailman = 1,
-				   /obj/item/clothing/under/rank/mailman = 1,
-				   /obj/item/clothing/suit/jacket/leather = 1,
-				   /obj/item/clothing/under/pants/mustangjeans = 1,
-				   /obj/item/clothing/suit/storage/zazalord = 1)
+	premium = list(
+					/obj/item/clothing/under/suit_jacket/checkered = 1,
+					/obj/item/clothing/head/mailman = 1,
+					/obj/item/clothing/under/rank/mailman = 1,
+					/obj/item/clothing/suit/jacket/leather = 1,
+					/obj/item/clothing/under/pants/mustangjeans = 1,
+					/obj/item/clothing/suit/storage/zazalord = 1
+	)
 
 	refill_canister = /obj/item/vending_refill/clothing
 
