@@ -99,7 +99,8 @@ def check_nanotrasen_style(idx, line):
         failures.append((idx + 1, "'Nanotrasen' should not be spelled in the camel case form."))
     if NANOTRASEN_CAMEL_CASE_RU.search(line):
         failures.append((idx + 1, "'Нанотрейзен' should not be spelled in the camel case form."))
-    if NANOTRASEN_MISSPELLING_N_RU.search(line):
+    # We use UNLINT here to avoid breaking TTS.
+    if NANOTRASEN_MISSPELLING_N_RU.search(line) and 'UNLINT' not in line:
         failures.append((idx + 1, "'Нанотрейзен' should not be written with a lowercase letter."))
     return failures
 
