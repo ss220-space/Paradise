@@ -61,7 +61,7 @@
 		INSTRUMENTAL = "охранным роботом",
 		PREPOSITIONAL = "охранном роботе",
 	)
-	
+
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
@@ -253,7 +253,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, span_warning("Интерфейс [declent_ru(GENITIVE)] не отвечает!"))
@@ -468,7 +468,7 @@
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= target.get_max_stamina())
+			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= target.get_max_stamina())
 				back_to_hunt()
 				return
 

@@ -490,7 +490,7 @@
 /obj/item/nullrod/carp/attack_self(mob/living/user)
 	if(user.mind && !(user.mind.isholy || user.mind.isblessed))
 		return
-	if ("carp" in user.faction)
+	if("carp" in user.faction)
 		to_chat(user, "You are already blessed by Carp-Sie.")
 		return
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")

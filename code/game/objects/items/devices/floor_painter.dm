@@ -97,7 +97,7 @@
 
 	if(action == "select_style")
 		var/new_style = params["style"]
-		if (allowed_states.Find(new_style) != 0)
+		if(allowed_states.Find(new_style) != 0)
 			floor_state = new_style
 
 	if(action == "cycle_style")
@@ -111,7 +111,7 @@
 
 	if(action == "select_direction")
 		var/dir = params["direction"]
-		if (dir != 0)
+		if(dir != 0)
 			floor_dir = dir
 
 	SStgui.update_uis(src)

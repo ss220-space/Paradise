@@ -236,7 +236,7 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/fire(resumed)
 	// Cache for sonic speed
 	var/list/unused_turfs = src.unused_turfs
-	var/list/world_turf_contents = GLOB.areas_by_type[world.area].contained_turfs
+	var/list/world_turf_contents_by_z = GLOB.areas_by_type[world.area].turfs_by_zlevel
 	var/list/lists_to_reserve = src.lists_to_reserve
 	var/index = 0
 	while(index < length(lists_to_reserve))
@@ -252,9 +252,11 @@ SUBSYSTEM_DEF(mapping)
 			LAZYINITLIST(unused_turfs["[reserving_turf.z]"])
 			unused_turfs["[reserving_turf.z]"] |= reserving_turf
 			var/area/old_area = reserving_turf.loc
-			old_area.turfs_to_uncontain += reserving_turf
+			LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, reserving_turf.z, list())
+			old_area.turfs_to_uncontain_by_zlevel[reserving_turf.z] += reserving_turf
 			reserving_turf.turf_flags |= UNUSED_RESERVATION_TURF
-			world_turf_contents += reserving_turf
+			LISTASSERTLEN(world_turf_contents_by_z, reserving_turf.z, list())
+			world_turf_contents_by_z[reserving_turf.z] += reserving_turf
 			packet.len--
 			packetlen = length(packet)
 
@@ -386,7 +388,7 @@ SUBSYSTEM_DEF(mapping)
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
-	
+
 	if(map_datum?.forced_mode)
 		GLOB.master_mode = map_datum.forced_mode.name
 
@@ -701,12 +703,14 @@ SUBSYSTEM_DEF(mapping)
 	// Faster
 	if(space_guaranteed)
 		var/area/global_area = GLOB.areas_by_type[world.area]
-		global_area.contained_turfs += Z_TURFS(z_level)
+		LISTASSERTLEN(global_area.turfs_by_zlevel, z_level, list())
+		global_area.turfs_by_zlevel[z_level] = Z_TURFS(z_level)
 		return
 
 	for(var/turf/to_contain as anything in Z_TURFS(z_level))
 		var/area/our_area = to_contain.loc
-		our_area.contained_turfs += to_contain
+		LISTASSERTLEN(our_area.turfs_by_zlevel, z_level, list())
+		our_area.turfs_by_zlevel[z_level] += to_contain
 
 /datum/controller/subsystem/mapping/proc/update_plane_tracking(datum/space_level/update_with)
 	// We're essentially going to walk down the stack of connected z levels, and set their plane offset as we go

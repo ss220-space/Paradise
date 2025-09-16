@@ -29,7 +29,7 @@
 /datum/station_goal/proc/send_report()
 	on_report()
 	var/directive = "Nanotrasen Directive [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]"
-	GLOB.minor_announcement.announce("Поступила приоритетная директива НаноТрейзен. Отправлены подробности проекта \"[html_decode(name)]\".",
+	GLOB.minor_announcement.announce("Поступила приоритетная директива Нанотрейзен. Отправлены подробности проекта \"[html_decode(name)]\".",
 									ANNOUNCE_PRIORITY_RU,
 									'sound/AI/commandreport.ogg'
 	)

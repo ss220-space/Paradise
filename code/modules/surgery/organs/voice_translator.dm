@@ -10,7 +10,7 @@
 
 /obj/item/organ/internal/cyberimp/mouth/translator // Lets make it some easier to make a new one. Write this if you want to make non-species translator.
 	name = "Just An Empty Translator"  // You cant get it in-game. At least now
-	desc = "Может быть, учёные NanoTrasen заставят работать его позже..."
+	desc = "Может быть, учёные Nanotrasen заставят работать его позже..."
 	//icon =
 	//icon_state =
 	//origin_tech =
@@ -412,7 +412,7 @@
 
 /obj/item/translator_upgrade // just adminspawn now
 	name = "translator upgrade"
-	desc = "Учёные NanoTrasen ещё не поняли, как он работает. Может быть, позже..."
+	desc = "Учёные Nanotrasen ещё не поняли, как он работает. Может быть, позже..."
 	w_class = WEIGHT_CLASS_TINY
 	var/extra_slots = 1
 

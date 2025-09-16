@@ -6,49 +6,61 @@
 /datum/instrument/guitar/steel_crisis
 	name = "Crisis Steel String Guitar"
 	id = "csteelgt"
-	real_samples = list("36"='sound/instruments/synthesis_samples/guitar/crisis_steel/c2.ogg',
-				   "48"='sound/instruments/synthesis_samples/guitar/crisis_steel/c3.ogg',
-				   "60"='sound/instruments/synthesis_samples/guitar/crisis_steel/c4.ogg',
-				   "72"='sound/instruments/synthesis_samples/guitar/crisis_steel/c5.ogg')
+	real_samples = list(
+		"36"='sound/instruments/synthesis_samples/guitar/crisis_steel/c2.ogg',
+		"48"='sound/instruments/synthesis_samples/guitar/crisis_steel/c3.ogg',
+		"60"='sound/instruments/synthesis_samples/guitar/crisis_steel/c4.ogg',
+		"72"='sound/instruments/synthesis_samples/guitar/crisis_steel/c5.ogg'
+	)
 
 /datum/instrument/guitar/nylon_crisis
 	name = "Crisis Nylon String Guitar"
 	id = "cnylongt"
-	real_samples = list("36"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c2.ogg',
-				   "48"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c3.ogg',
-				   "60"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c4.ogg',
-				   "72"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c5.ogg')
+	real_samples = list(
+		"36"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c2.ogg',
+		"48"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c3.ogg',
+		"60"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c4.ogg',
+		"72"='sound/instruments/synthesis_samples/guitar/crisis_nylon/c5.ogg'
+	)
 
 /datum/instrument/guitar/clean_crisis
 	name = "Crisis Clean Guitar"
 	id = "ccleangt"
-	real_samples = list("36"='sound/instruments/synthesis_samples/guitar/crisis_clean/c2.ogg',
-				   "48"='sound/instruments/synthesis_samples/guitar/crisis_clean/c3.ogg',
-				   "60"='sound/instruments/synthesis_samples/guitar/crisis_clean/c4.ogg',
-				   "72"='sound/instruments/synthesis_samples/guitar/crisis_clean/c5.ogg')
+	real_samples = list(
+		"36"='sound/instruments/synthesis_samples/guitar/crisis_clean/c2.ogg',
+		"48"='sound/instruments/synthesis_samples/guitar/crisis_clean/c3.ogg',
+		"60"='sound/instruments/synthesis_samples/guitar/crisis_clean/c4.ogg',
+		"72"='sound/instruments/synthesis_samples/guitar/crisis_clean/c5.ogg'
+	)
 
 /datum/instrument/guitar/muted_crisis
 	name = "Crisis Muted Guitar"
 	id = "cmutedgt"
-	real_samples = list("36"='sound/instruments/synthesis_samples/guitar/crisis_muted/c2.ogg',
-				   "48"='sound/instruments/synthesis_samples/guitar/crisis_muted/c3.ogg',
-				   "60"='sound/instruments/synthesis_samples/guitar/crisis_muted/c4.ogg',
-				   "72"='sound/instruments/synthesis_samples/guitar/crisis_muted/c5.ogg')
+	real_samples = list(
+		"36"='sound/instruments/synthesis_samples/guitar/crisis_muted/c2.ogg',
+		"48"='sound/instruments/synthesis_samples/guitar/crisis_muted/c3.ogg',
+		"60"='sound/instruments/synthesis_samples/guitar/crisis_muted/c4.ogg',
+		"72"='sound/instruments/synthesis_samples/guitar/crisis_muted/c5.ogg'
+	)
 
 // A synth version of legacy for efficiency. Better for crowded scores.
 /datum/instrument/guitar/synth_legacy
 	name = "Synth Legacy Guitar"
 	id = "sleggt"
-	real_samples = list("36"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn3.ogg',
-				"48"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn4.ogg',
-				"60"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn5.ogg',
-				"72"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn6.ogg')
+	real_samples = list(
+		"36"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn3.ogg',
+		"48"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn4.ogg',
+		"60"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn5.ogg',
+		"72"='sound/instruments/synthesis_samples/guitar/synth_legacy/cn6.ogg'
+	)
 
 /datum/instrument/guitar/pgm_clean
 	name = "Pigments Clean Guitar"
 	id = "piclgt"
-	real_samples = list("36"='sound/instruments/synthesis_samples/guitar/pgm_clean/c3.ogg',
-				"48"='sound/instruments/synthesis_samples/guitar/pgm_clean/c4.ogg',
-				"60"='sound/instruments/synthesis_samples/guitar/pgm_clean/c5.ogg',
-				"72"='sound/instruments/synthesis_samples/guitar/pgm_clean/c6.ogg',
-				"84"='sound/instruments/synthesis_samples/guitar/pgm_clean/c7.ogg')
+	real_samples = list(
+		"36"='sound/instruments/synthesis_samples/guitar/pgm_clean/c3.ogg',
+		"48"='sound/instruments/synthesis_samples/guitar/pgm_clean/c4.ogg',
+		"60"='sound/instruments/synthesis_samples/guitar/pgm_clean/c5.ogg',
+		"72"='sound/instruments/synthesis_samples/guitar/pgm_clean/c6.ogg',
+		"84"='sound/instruments/synthesis_samples/guitar/pgm_clean/c7.ogg'
+	)
