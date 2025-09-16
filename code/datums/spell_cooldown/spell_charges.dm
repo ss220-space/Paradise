@@ -40,6 +40,23 @@
 	return TRUE
 
 
+/**
+ * Use this to change cooldown stats of the spell
+ *
+ * Arguments:
+ * * recharge_reduction - Amount of cooldown duration reduction in seconds
+ * * delay_reduction - Amount of delay duration reduction between spell uses in seconds
+ * * new_max_charges - New amount of spell max charges
+ */
+/datum/spell_cooldown/charges/change_cooldowns(recharge_reduction, delay_reduction, new_max_charges)
+	if(recharge_reduction)
+		recharge_duration = clamp(recharge_duration - recharge_reduction, 0, initial(recharge_duration))
+	if(delay_reduction)
+		charge_duration = clamp(charge_duration - delay_reduction, 0, initial(charge_duration))
+	if(new_max_charges)
+		max_charges = max(new_max_charges, 1)
+
+
 /datum/spell_cooldown/charges/start_recharge(recharge_override = 0)
 	current_charges--
 	if(current_charges)

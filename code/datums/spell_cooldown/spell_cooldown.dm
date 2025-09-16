@@ -41,6 +41,17 @@
 	return
 
 
+/**
+ * Use this to change cooldown stats of the spell
+ *
+ * Arguments:
+ * * recharge_reduction - Amount of cooldown duration reduction in seconds
+ */
+/datum/spell_cooldown/proc/change_cooldowns(recharge_reduction)
+	if(recharge_reduction)
+		recharge_duration = clamp(recharge_duration - recharge_reduction, 0, initial(recharge_duration))
+
+
 /datum/spell_cooldown/process()
 	if(!spell_parent.action)
 		stack_trace("[spell_parent.type] ended up with a null action")
