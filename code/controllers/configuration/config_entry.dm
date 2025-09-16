@@ -37,10 +37,10 @@
  * Returns the value of the configuration datum to its default, used for resetting a config value. Note this also sets the protection back to default.
  */
 /datum/config_entry/proc/set_default()
-	if ((protection & CONFIG_ENTRY_LOCKED) && IsAdminAdvancedProcCall())
+	if((protection & CONFIG_ENTRY_LOCKED) && IsAdminAdvancedProcCall())
 		log_admin_private("[key_name(usr)] attempted to reset locked config entry [type] to its default")
 		return
-	if (islist(default))
+	if(islist(default))
 		var/list/L = default
 		config_entry_value = L.Copy()
 	else
@@ -144,10 +144,10 @@
 	var/lowercase = FALSE
 
 /datum/config_entry/str_list/ValidateAndSet(str_val)
-	if (!VASProcCallGuard(str_val))
+	if(!VASProcCallGuard(str_val))
 		return FALSE
 	str_val = trim(str_val)
-	if (str_val != "")
+	if(str_val != "")
 		config_entry_value += lowercase ? lowertext(str_val) : str_val
 	return TRUE
 

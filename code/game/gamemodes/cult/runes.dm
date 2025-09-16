@@ -621,8 +621,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, span_cultlarge("\"PASNAR SAVRAE YAM'TOTH. Arise.\""))
-	mob_to_revive.visible_message(span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
-								  span_cultlarge("You awaken suddenly from the void. You're alive!"))
+	mob_to_revive.visible_message(
+		span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
+		span_cultlarge("You awaken suddenly from the void. You're alive!")
+	)
 	rune_in_use = FALSE
 
 /obj/effect/rune/raise_dead/proc/validness_checks(mob/living/target_mob, mob/living/user)
@@ -724,8 +726,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 
-	cultist_to_summon.visible_message(span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
-									  span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>"))
+	cultist_to_summon.visible_message(
+		span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
+		span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>")
+	)
 	..()
 	INVOKE_ASYNC(src, PROC_REF(teleport_effect), cultist_to_summon, get_turf(cultist_to_summon), src)
 	visible_message(span_warning("[src] begins to bubble and rises into the form of [cultist_to_summon]!"))

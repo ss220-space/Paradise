@@ -250,7 +250,7 @@
 				filter_text.focus();
 				filter_text.select();
 				var lastsearch = getCookie("[refid][cookieoffset]search");
-				if (lastsearch) {
+				if(lastsearch) {
 					filter_text.value = lastsearch;
 					updateSearch();
 				}
@@ -260,8 +260,8 @@
 				var ca = document.cookie.split(';');
 				for(var i=0; i<ca.length; i++) {
 					var c = ca\[i];
-					while (c.charAt(0)==' ') c = c.substring(1,c.length);
-					if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+					while(c.charAt(0)==' ') c = c.substring(1,c.length);
+					if(c.indexOf(name)==0) return c.substring(name.length,c.length);
 				}
 				return "";
 			}
@@ -272,30 +272,30 @@
 				var filter = document.getElementById('filter').value.toLowerCase();
 				var vars_ol = document.getElementById("vars");
 
-				if (filter === last_filter) {
+				if(filter === last_filter) {
 					// An event triggered an update but nothing has changed.
 					return;
-				} else if (filter.indexOf(last_filter) === 0) {
+				} else if(filter.indexOf(last_filter) === 0) {
 					// The new filter starts with the old filter, fast path by removing only.
 					var children = vars_ol.childNodes;
-					for (var i = children.length - 1; i >= 0; --i) {
+					for(var i = children.length - 1; i >= 0; --i) {
 						try {
 							var li = children\[i];
-							if (li.innerText.toLowerCase().indexOf(filter) == -1) {
+							if(li.innerText.toLowerCase().indexOf(filter) == -1) {
 								vars_ol.removeChild(li);
 							}
 						} catch(err) {}
 					}
 				} else {
 					// Remove everything and put back what matches.
-					while (vars_ol.hasChildNodes()) {
+					while(vars_ol.hasChildNodes()) {
 						vars_ol.removeChild(vars_ol.lastChild);
 					}
 
-					for (var i = 0; i < complete_list.length; ++i) {
+					for(var i = 0; i < complete_list.length; ++i) {
 						try {
 							var li = complete_list\[i];
-							if (!filter || li.innerText.toLowerCase().indexOf(filter) != -1) {
+							if(!filter || li.innerText.toLowerCase().indexOf(filter) != -1) {
 								vars_ol.appendChild(li);
 							}
 						} catch(err) {}
@@ -306,7 +306,7 @@
 				document.cookie="[refid][cookieoffset]search="+encodeURIComponent(filter);
 
 				var lis_new = vars_ol.getElementsByTagName("li");
-				for (var j = 0; j < lis_new.length; ++j) {
+				for(var j = 0; j < lis_new.length; ++j) {
 					lis_new\[j].style.backgroundColor = (j == 0) ? "#ffee88" : "white";
 				}
 			}
@@ -323,13 +323,13 @@
 
 			// onkeyup
 			function handle_keyup() {
-				if (event.keyCode == 13) {  //Enter / return
+				if(event.keyCode == 13) {  //Enter / return
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for (var i = 0; i < lis.length; ++i) {
+					for(var i = 0; i < lis.length; ++i) {
 						try {
 							var li = lis\[i];
-							if (li.style.backgroundColor == "#ffee88") {
+							if(li.style.backgroundColor == "#ffee88") {
 								alist = lis\[i].getElementsByTagName("a");
 								if(alist.length > 0) {
 									location.href=alist\[0].href;
@@ -340,11 +340,11 @@
 				} else if(event.keyCode == 38){  //Up arrow
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for (var i = 0; i < lis.length; ++i) {
+					for(var i = 0; i < lis.length; ++i) {
 						try {
 							var li = lis\[i];
-							if (li.style.backgroundColor == "#ffee88") {
-								if (i > 0) {
+							if(li.style.backgroundColor == "#ffee88") {
+								if(i > 0) {
 									var li_new = lis\[i-1];
 									li.style.backgroundColor = "white";
 									li_new.style.backgroundColor = "#ffee88";
@@ -356,11 +356,11 @@
 				} else if(event.keyCode == 40) {  //Down arrow
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for (var i = 0; i < lis.length; ++i) {
+					for(var i = 0; i < lis.length; ++i) {
 						try {
 							var li = lis\[i];
-							if (li.style.backgroundColor == "#ffee88") {
-								if ((i+1) < lis.length) {
+							if(li.style.backgroundColor == "#ffee88") {
+								if((i+1) < lis.length) {
 									var li_new = lis\[i+1];
 									li.style.backgroundColor = "white";
 									li_new.style.backgroundColor = "#ffee88";
@@ -377,7 +377,7 @@
 			// onchange
 			function handle_dropdown(list) {
 				var value = list.options\[list.selectedIndex].value;
-				if (value !== "") {
+				if(value !== "") {
 					location.href = value;
 				}
 				list.selectedIndex = 0;
@@ -588,7 +588,7 @@
 			return
 
 		var/new_name = reject_bad_name(sanitize(tgui_input_text(usr, "What would you like to name this mob?", "Input a name", M.real_name, encode = FALSE, max_length = MAX_NAME_LEN)), allow_numbers = TRUE)
-		if( !new_name || !M )
+		if(!new_name || !M)
 			return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
@@ -605,7 +605,7 @@
 			to_chat(usr, "This can only be used on instances of types /client or /datum", confidential=TRUE)
 			return
 
-		if (!modify_variables(D, href_list["varnameedit"], 1))
+		if(!modify_variables(D, href_list["varnameedit"], 1))
 			return
 
 		switch(href_list["varnameedit"])
@@ -824,7 +824,7 @@
 		if(!D)
 			to_chat(usr, "Unable to locate item!", confidential=TRUE)
 		admin_delete(D)
-		if (isturf(D))  // show the turf that took its place
+		if(isturf(D))  // show the turf that took its place
 			debug_variables(D)
 
 	else if(href_list["delall"])

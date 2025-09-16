@@ -375,7 +375,7 @@
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	var/sprd = 0
 
-	if (is_tk_grab)
+	if(is_tk_grab)
 		rotate_to_target(target)
 
 	if(burst_size > 1)
@@ -388,7 +388,7 @@
 			if(!user)
 				break
 			if(!issilicon(user))
-				if( i>1 && !(src in get_both_hands(user))) //for burst firing
+				if(i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
 			if(chambered)
 				if(randomspread)
@@ -448,8 +448,8 @@
 	if(rusted_weapon)
 		malf_counter -= burst_size
 		// if the gun grabbed by telekinesis, it's can exploise but without damage for user
-		if (user.tkgrabbed_objects[src])
-			if (malf_counter <= 0 && prob(50))
+		if(user.tkgrabbed_objects[src])
+			if(malf_counter <= 0 && prob(50))
 				user.drop_item_ground(user.tkgrabbed_objects[src])
 				new /obj/effect/decal/cleanable/ash(loc)
 				to_chat(user, span_userdanger("БА-БАХ! [capitalize(declent_ru(NOMINATIVE))] взрывается!"))
@@ -874,10 +874,10 @@
 /obj/item/gun/proc/rotate_to_target(atom/target)
 	setDir(barrel_dir)
 	var/upd_dir = get_dir(src, target)
-	if (barrel_dir == upd_dir)
+	if(barrel_dir == upd_dir)
 		return
 	var/angle = dir2angle(upd_dir) - dir2angle(barrel_dir)
-	if (angle > 180)
+	if(angle > 180)
 		angle -= 360
 	var/matrix/M = matrix(transform)
 	M.Turn(angle)
@@ -886,7 +886,7 @@
 
 // if the gun have rotate transformation - reset it
 /obj/item/gun/proc/reset_direction()
-	if (barrel_dir == EAST)
+	if(barrel_dir == EAST)
 		return
 	var/matrix/M = matrix()
 	transform = M
@@ -894,7 +894,7 @@
 
 /obj/item/gun/pickup(mob/user)
 	. = ..()
-	if (on_rack)
+	if(on_rack)
 		remove_from_rack()
 	else
 		reset_direction()

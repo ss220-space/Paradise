@@ -300,7 +300,7 @@
 		if(!possible_target.current || possible_target.current.stat == DEAD)
 			continue
 
-		if(!ishuman(possible_target.current ))
+		if(!ishuman(possible_target.current))
 			continue
 
 		possible_clowns |= possible_target

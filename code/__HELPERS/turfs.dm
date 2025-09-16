@@ -9,7 +9,7 @@
 	for(var/i in 1 to 5)
 		var/list/turf_list = get_area_turfs(pick(areas_to_pick_from))
 		var/turf/target
-		while (turf_list.len && !target)
+		while(turf_list.len && !target)
 			var/I = rand(1, turf_list.len)
 			var/turf/checked_turf = turf_list[I]
 			var/area/turf_area = get_area(checked_turf)

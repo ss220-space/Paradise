@@ -55,7 +55,7 @@
 		return
 
 	var/client/ui_client = ui.user.client
-	switch (action)
+	switch(action)
 		if("newpoll")
 			ui_client.open_poll_management()
 		if("editpoll")
@@ -103,9 +103,9 @@
 		return
 	var/output = {"<div align='center'><b>Player Poll Results</b><hr>[poll.question]<hr>"}
 	//Each poll type is different
-	switch (poll.poll_type)
+	switch(poll.poll_type)
 		//Show the options that were clicked
-		if (POLLTYPE_MULTI, POLLTYPE_OPTION)
+		if(POLLTYPE_MULTI, POLLTYPE_OPTION)
 			output += "<table><tr><th>Options</th><th>Votes</th></tr>"
 			//Get the results
 			var/datum/db_query/query_get_poll_results = SSdbcore.NewQuery({"
@@ -125,7 +125,7 @@
 				output += "<tr><td>[query_get_poll_results.item[1]]</td><td>[query_get_poll_results.item[2]]</td></tr>"
 			qdel(query_get_poll_results)
 		//Provide lists of ckeys and their answers
-		if (POLLTYPE_TEXT)
+		if(POLLTYPE_TEXT)
 			//Change the table name
 			output += "<a href='byond://?_src_=holder;resultspoll=[poll.UID()];startat=[start_index-10]'>Previous Page</a><a href='byond://?_src_=holder;resultspoll=[poll.UID()];startat=[start_index+10]'>Next Page</a><br/>"
 			output += "<table><tr><th>Ckey</th><th>Response</th></tr>"
@@ -147,7 +147,7 @@
 				output += "<tr><td>[query_get_poll_results.item[1]]</td><td>[query_get_poll_results.item[2]]</td></tr>"
 			qdel(query_get_poll_results)
 		//Show each option, how many times it was rated for each and then the average
-		if (POLLTYPE_RATING)
+		if(POLLTYPE_RATING)
 			output += "<table><tr><th>Option</th><th>Rating</th><th>Count</th></tr>"
 			//Get the results
 			var/datum/db_query/query_get_poll_results = SSdbcore.NewQuery({"

@@ -90,7 +90,7 @@
 		if(created_name == initial(name) || !created_name)
 			if(lasercolor == "b")
 				name = pick("СИНИЙ УБИВАТОР","САНИК","СИНИЙ КИБОРГ УБИЙЦА")
-			else if (lasercolor == "r")
+			else if(lasercolor == "r")
 				name = pick("КРАСНОЕ БЕЗУМИЕ","КРАСНЫЙ УНИЧТОЖИТЕЛЬ","КРАСНЫЙ КИБОРГ УБИЙЦА")
 
 	//SECHUD
@@ -165,7 +165,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, span_warning("Интерфейс [declent_ru(GENITIVE)] не отвечает!"))
@@ -495,7 +495,7 @@
 	lastfired = world.time
 	var/turf/T = loc
 	var/atom/U = (istype(target, /atom/movable) ? target.loc : target)
-	if((!U || !T))
+	if(!U || !T)
 		return
 	while(!isturf(U))
 		U = U.loc
@@ -560,11 +560,11 @@
 /mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
 	if(!disabled)
 		var/lasertag_check = 0
-		if((lasercolor == "b"))
+		if(lasercolor == "b")
 			if(istype(Proj, /obj/projectile/beam/lasertag/redtag))
 				lasertag_check++
 
-		else if((lasercolor == "r"))
+		else if(lasercolor == "r")
 			if(istype(Proj, /obj/projectile/beam/lasertag/bluetag))
 				lasertag_check++
 
