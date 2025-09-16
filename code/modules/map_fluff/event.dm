@@ -68,7 +68,7 @@
 	english_station_name = "NSS Kerberos (low orbit)"
 	station_short = "Керберос"
 	dock_name = "АКН Трурль"
-	company_name = "НаноТрейзен"
+	company_name = "Нанотрейзен"
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
 	admin_only = TRUE
