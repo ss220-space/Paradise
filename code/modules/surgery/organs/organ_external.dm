@@ -12,8 +12,8 @@
 #define LIMB_ARTERIAL_BLEEDING_MIN_DMG 15
 /// Chance for arterial bleeding based on inflicting damage
 #define LIMB_ARTERIAL_BLEEDING_CHANCE_MOD 0.75
-/// Arterial bleeding size multiply by bodypart max bleeding
-#define LIMB_ARTERIAL_BLEEDING_SIZE 5
+/// Arterial bleeding size
+#define LIMB_ARTERIAL_BLEEDING_SIZE 18
 
 
 /****************************************************
@@ -1022,7 +1022,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(has_arterial_bleeding() || cannot_arterial_bleed)
 		return FALSE
 
-	bleeding_amount = max_bleeding_amount * LIMB_ARTERIAL_BLEEDING_SIZE
+	bleeding_amount = LIMB_ARTERIAL_BLEEDING_SIZE
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	if(owner && !silent)
