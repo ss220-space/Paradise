@@ -94,7 +94,7 @@
 		))
 		return TRUE
 
-	if (type == "theme")
+	if(type == "theme")
 		client.tgui_panel_theme = payload["theme"]
 		return TRUE
 

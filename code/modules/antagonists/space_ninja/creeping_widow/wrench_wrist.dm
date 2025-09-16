@@ -11,8 +11,10 @@
 			user.face_atom(target)
 			user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 			playsound(get_turf(user), 'sound/effects/bone_break_2.ogg', 50, TRUE, -1)
-			target.visible_message("<span class='warning'>[user] grabs [target]'s wrist and wrenches it sideways!</span>", \
-							  "<span class='userdanger'>[user] grabs your wrist and violently wrenches it to the side!</span>")
+			target.visible_message(
+				"<span class='warning'>[user] grabs [target]'s wrist and wrenches it sideways!</span>", \
+				"<span class='userdanger'>[user] grabs your wrist and violently wrenches it to the side!</span>"
+			)
 			playsound(get_turf(user), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			target.emote("scream")
 			target.drop_from_active_hand()

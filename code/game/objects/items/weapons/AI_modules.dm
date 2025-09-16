@@ -262,7 +262,7 @@ AI MODULES
 	..()
 	SSticker?.score?.save_silicon_laws(target, sender, "'Quarantine' module used, all inherent laws were changed", log_all_laws = TRUE)
 
-/******************** NanoTrasen ********************/
+/******************** Nanotrasen ********************/
 /obj/item/ai_module/nanotrasen // -- TLE
 	name = "'NT Default' Core AI Module"
 	desc = "An 'NT Default' Core AI Module: 'Reconfigures the AI's core laws.'"

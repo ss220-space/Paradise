@@ -147,14 +147,14 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/juicer/proc/get_juice_id(obj/item/reagent_containers/food/snacks/grown/O)
-	for (var/i in allowed_items)
-		if (istype(O, i))
+	for(var/i in allowed_items)
+		if(istype(O, i))
 			return allowed_items[i]
 
 /obj/machinery/juicer/proc/get_juice_amount(obj/item/reagent_containers/food/snacks/grown/O)
 	if(!istype(O) || !O.seed)
 		return 5
-	else if (O.seed.potency == -1)
+	else if(O.seed.potency == -1)
 		return 5
 	else
 		return round(5*sqrt(O.seed.potency))

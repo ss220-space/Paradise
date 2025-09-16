@@ -264,13 +264,17 @@ Made by Xhuis
 		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>")
 		to_chat(M, "<span class='userdanger'>Тебя превратили в робота! Ты больше не теньлинг! Как бы ты ни старался, ты не можешь вспомнить ничего о том времени, когда ты был им...</span>")
 	else
-		M.visible_message("<span class='big'>[M] кричит и корчится!</span>", \
-						  "<span class='userdanger'>СВЕТ-- ТВОЙ РАЗУМ-- <i>ГОРИТ--</i></span>")
+		M.visible_message(
+			"<span class='big'>[M] кричит и корчится!</span>", \
+			"<span class='userdanger'>СВЕТ-- ТВОЙ РАЗУМ-- <i>ГОРИТ--</i></span>"
+		)
 		spawn(30)
 			if(!M || QDELETED(M))
 				return
-			M.visible_message(span_warning("[M] внезапно раздувается и взрывается!"), \
-							  span_warning(span_bold("AAAAAAAAA[span_fontsize3("AAAAAAAAAAAAA")][span_fontsize4("AAAAAAAAAAAA.....")]")))
+			M.visible_message(
+				span_warning("[M] внезапно раздувается и взрывается!"), \
+				span_warning(span_bold("AAAAAAAAA[span_fontsize3("AAAAAAAAAAAAA")][span_fontsize4("AAAAAAAAAAAA.....")]"))
+			)
 			playsound(M, 'sound/magic/disintegrate.ogg', 100, TRUE)
 			M.gib()
 

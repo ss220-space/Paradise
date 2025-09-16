@@ -16,7 +16,7 @@
  */
 /obj/machinery/newscaster
 	name = "newscaster"
-	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано НаноТрейзен для использования на коммерческих объектах."
+	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано Нанотрейзен для использования на коммерческих объектах."
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster"
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
@@ -63,7 +63,7 @@
 
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
-	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано НаноТрейзен для использования на коммерческих объектах. \
+	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано Нанотрейзен для использования на коммерческих объектах. \
 			Эта модель оснащена расширенным функционалом, специально для службы безопасности."
 	is_security = TRUE
 
@@ -528,7 +528,7 @@
 						// Redirect
 						screen = NEWSCASTER_CHANNEL
 						viewing_channel = FC
-					else if (id == "manage_channel") // Channel management
+					else if(id == "manage_channel") // Channel management
 						FC = locateUID(arguments["uid"])
 						if(!FC || !FC.can_modify(usr, get_scanned_user(usr)["name"]))
 							return

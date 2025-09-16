@@ -122,18 +122,22 @@
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
 
-	verbs.Add(/mob/living/simple_animal/parrot/proc/steal_from_ground, \
-			  /mob/living/simple_animal/parrot/proc/steal_from_mob, \
-			  /mob/living/simple_animal/parrot/verb/drop_held_item_player, \
-			  /mob/living/simple_animal/parrot/proc/perch_player)
+	verbs.Add(
+		/mob/living/simple_animal/parrot/proc/steal_from_ground, \
+		/mob/living/simple_animal/parrot/proc/steal_from_mob, \
+		/mob/living/simple_animal/parrot/verb/drop_held_item_player, \
+		/mob/living/simple_animal/parrot/proc/perch_player
+	)
 
-	desired_perches = typecacheof(list(/obj/structure/computerframe,	/obj/structure/displaycase, \
-									/obj/structure/filingcabinet,	/obj/machinery/teleport, \
-									/obj/machinery/suit_storage_unit,/obj/machinery/clonepod, \
-									/obj/machinery/dna_scannernew,	/obj/machinery/tcomms, \
-									/obj/machinery/nuclearbomb,		/obj/machinery/particle_accelerator, \
-									/obj/machinery/recharge_station,	/obj/machinery/smartfridge, \
-									/obj/machinery/computer))
+	desired_perches = typecacheof(list( \
+		/obj/structure/computerframe, /obj/structure/displaycase, \
+		/obj/structure/filingcabinet, /obj/machinery/teleport, \
+		/obj/machinery/suit_storage_unit, /obj/machinery/clonepod, \
+		/obj/machinery/dna_scannernew, /obj/machinery/tcomms, \
+		/obj/machinery/nuclearbomb, /obj/machinery/particle_accelerator, \
+		/obj/machinery/recharge_station, /obj/machinery/smartfridge, \
+		/obj/machinery/computer)
+	)
 
 /mob/living/simple_animal/parrot/add_strippable_element()
 	AddElement(/datum/element/strippable, GLOB.strippable_parrot_items)
@@ -300,9 +304,9 @@
 
 //-----SPEECH
 	/* Parrot speech mimickry!
-	   Phrases that the parrot hears in mob/living/say() get added to speach_buffer.
-	   Every once in a while, the parrot picks one of the lines from the buffer and replaces an element of the 'speech' list.
-	   Then it clears the buffer to make sure they dont magically remember something from hours ago. */
+	Phrases that the parrot hears in mob/living/say() get added to speach_buffer.
+	Every once in a while, the parrot picks one of the lines from the buffer and replaces an element of the 'speech' list.
+	Then it clears the buffer to make sure they dont magically remember something from hours ago. */
 	if(length(speech_buffer) && prob(10))
 		if(length(clean_speak))
 			clean_speak -= pick(clean_speak)

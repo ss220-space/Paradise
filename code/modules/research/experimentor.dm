@@ -181,16 +181,15 @@
 			to_chat(user, span_warning("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
 			return ATTACK_CHAIN_PROCEED
 
-		if (I.type in subtypesof(/obj/item/stack))
+		if(I.type in subtypesof(/obj/item/stack))
 			var/obj/item/stack/stack = I
-			if (stack.amount > 1)
+			if(stack.amount > 1)
 				to_chat(user, span_warning("Предмет должен быть цельным."))
 				return ATTACK_CHAIN_PROCEED
 
 		investigate_log("Experimentor has made a clone of [I]", INVESTIGATE_EXPERIMENTOR)
 		throwSmoke(get_turf(pick(oview(1,src))))
-
-		for (var/i = 1; i <= badThingCoeff; i++)
+		for(var/i = 1; i <= badThingCoeff; i++)
 			visible_message(span_notice("A duplicate [I] pops out!"))
 			var/type_to_make = I.type
 			var/obj/item/clone = new type_to_make(get_turf(pick(oview(1,src))))
@@ -608,7 +607,7 @@
 		badThingCoeff++
 		var/list/obj/item/stack/sheet/mineral/minreals = list(/obj/item/stack/sheet/mineral/diamond, /obj/item/stack/sheet/mineral/gold, /obj/item/stack/sheet/glass,/obj/item/stack/sheet/metal,/obj/item/stack/sheet/mineral/plasma,/obj/item/stack/sheet/mineral/silver,/obj/item/stack/sheet/mineral/titanium,/obj/item/stack/sheet/mineral/uranium,/obj/item/stack/sheet/mineral/tranquillite,/obj/item/stack/sheet/mineral/bananium)
 		// Plastinium and abductor alloy are alloys, not processed ores.
-		for (var/i = 1; i <= 3; ++i)
+		for(var/i = 1; i <= 3; ++i)
 			var/obj/item/stack/sheet/mineral/m0 = pick(minreals)
 			var/obj/item/stack/sheet/mineral/M = new m0(get_turf(exp_on))
 			M.amount = 10
