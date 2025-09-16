@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		else
 			var/url = web_sound_url
 			switch(CONFIG_GET(string/asset_transport))
-				if ("webroot")
+				if("webroot")
 					var/datum/asset/music/my_asset
 					if(GLOB.cached_songs[web_sound_path])
 						my_asset = GLOB.cached_songs[web_sound_path]

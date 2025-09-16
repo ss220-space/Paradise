@@ -16074,9 +16074,9 @@
 "bfH" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
+	id = "hydropon";
 	name = "Hydroponics";
-	req_access = list(35);
-	id = "hydropon"
+	req_access = list(35)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -22346,8 +22346,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/mining{
-	req_access = list(41);
-	name = "Quartermaster"
+	name = "Quartermaster";
+	req_access = list(41)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -32868,8 +32868,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Engine Room North";
-	network = list("Engineering","SS13");
-	dir = 9
+	dir = 9;
+	network = list("Engineering","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -35429,6 +35429,7 @@
 /obj/machinery/camera{
 	c_tag = "Chapel North"
 	},
+/obj/structure/closet/burial,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -35681,8 +35682,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/sortjunction/reversed{
-	sortType = 5;
-	name = "CE's Junction"
+	name = "CE's Junction";
+	sortType = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
@@ -37735,8 +37736,8 @@
 /area/chapel/office)
 "cHU" = (
 /obj/machinery/door/airlock/engineering{
-	req_access = list(32);
-	name = "Smoking Room"
+	name = "Smoking Room";
+	req_access = list(32)
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/break_room)
@@ -40566,13 +40567,13 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen/multi,
 /obj/item/toy/figure/ce{
-	pixel_y = 7;
-	pixel_x = -11
+	pixel_x = -11;
+	pixel_y = 7
 	},
 /obj/machinery/camera{
 	c_tag = "Chief Engineer's Quarters";
-	network = list("Engineering","SS13");
-	dir = 8
+	dir = 8;
+	network = list("Engineering","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -41253,9 +41254,9 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/airlock/command/glass{
-	name = "Chief Engineer";
 	id = "ceoffice";
 	id_tag = "ceofficedoor";
+	name = "Chief Engineer";
 	req_access = list(56)
 	},
 /turf/simulated/floor/wood/dark,
@@ -41945,11 +41946,11 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
+	cell_type = 25000;
 	dir = 1;
 	name = "north bump Engineering";
 	pixel_y = 24;
-	shock_proof = 1;
-	cell_type = 25000
+	shock_proof = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -42009,9 +42010,9 @@
 "cWQ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
+	id = "hydropon";
 	name = "Hydroponics";
-	req_access = list(35);
-	id = "hydropon"
+	req_access = list(35)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -43396,8 +43397,8 @@
 	},
 /obj/structure/table,
 /obj/item/reagent_containers/spray/weedspray{
-	pixel_y = 6;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 6
 	},
 /obj/item/reagent_containers/spray/plantbgone{
 	pixel_x = 5;
@@ -46882,8 +46883,8 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	dir = 9;
-	c_tag = "Laundry"
+	c_tag = "Laundry";
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -48667,8 +48668,8 @@
 "dJf" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/machinery/door/window{
-	dir = 2;
-	color = "yellow"
+	color = "yellow";
+	dir = 2
 	},
 /obj/item/grenade/confetti,
 /obj/item/grenade/confetti,
@@ -50327,8 +50328,8 @@
 	pixel_y = -26
 	},
 /obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 5
+	dir = 5;
+	icon_state = "r-casing"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
@@ -50912,11 +50913,11 @@
 "eKm" = (
 /obj/machinery/door/window{
 	base_state = "right";
+	color = "purple";
 	dir = 8;
 	icon_state = "right";
 	name = "Atmospherics Deliveries";
-	req_access = list(24);
-	color = "purple"
+	req_access = list(24)
 	},
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -51196,8 +51197,8 @@
 	color = "red";
 	icon = 'icons/effects/crayondecal.dmi';
 	icon_state = "t";
-	pixel_y = 5;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -51481,8 +51482,8 @@
 /area/gateway)
 "eWc" = (
 /obj/machinery/door/window/southright{
-	name = "EVA Equipment";
-	dir = 8
+	dir = 8;
+	name = "EVA Equipment"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -53181,8 +53182,8 @@
 "fNg" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen{
-	pixel_y = 6;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 6
 	},
 /obj/machinery/door/window{
 	dir = 1;
@@ -53811,8 +53812,8 @@
 	pixel_y = 4
 	},
 /obj/item/storage/firstaid/regular{
-	pixel_y = 4;
-	pixel_x = 15
+	pixel_x = 15;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -54774,14 +54775,14 @@
 	},
 /obj/structure/table/wood,
 /obj/item/book/manual/sop_engineering{
-	pixel_y = 9;
-	pixel_x = 10
+	pixel_x = 10;
+	pixel_y = 9
 	},
 /obj/structure/cable,
 /obj/item/enginepicker{
 	layer = 3.1;
-	pixel_y = 10;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = 10
 	},
 /obj/item/stamp/ce,
 /obj/machinery/power/apc{
@@ -55166,8 +55167,8 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/camera{
 	c_tag = "Engine Room West";
-	network = list("Engineering","SS13");
-	dir = 1
+	dir = 1;
+	network = list("Engineering","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -55763,11 +55764,11 @@
 /obj/effect/decal/warning_stripes/green/hollow,
 /obj/machinery/door/window{
 	base_state = "right";
+	color = "green";
 	dir = 8;
 	icon_state = "right";
 	name = "Atmospherics Deliveries";
-	req_access = list(24);
-	color = "green"
+	req_access = list(24)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -57142,9 +57143,9 @@
 /area/maintenance/electrical)
 "hDs" = (
 /obj/machinery/door/poddoor/shutters{
+	dir = 2;
 	id_tag = "CargoBay Shutters South";
-	name = "CargoBay Shutters South";
-	dir = 2
+	name = "CargoBay Shutters South"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -57615,8 +57616,8 @@
 /obj/machinery/door_control{
 	id = "HydroHallway";
 	name = "Hydroponics Privacy Shutters Control";
-	req_access = list(35);
-	pixel_y = -24
+	pixel_y = -24;
+	req_access = list(35)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -58360,8 +58361,8 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/gas/clown_hat/pennywise{
-	pixel_y = 4;
-	pixel_x = -11
+	pixel_x = -11;
+	pixel_y = 4
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/apmaint)
@@ -64552,8 +64553,8 @@
 	color = "red";
 	icon = 'icons/effects/crayondecal.dmi';
 	icon_state = "s";
-	pixel_y = 10;
-	pixel_x = -12
+	pixel_x = -12;
+	pixel_y = 10
 	},
 /obj/item/reagent_containers/food/snacks/grown/tomato{
 	pixel_x = -10;
@@ -64770,8 +64771,8 @@
 	pixel_y = -1
 	},
 /obj/item/toy/figure/assistant{
-	pixel_y = 14;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 14
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
@@ -65129,8 +65130,8 @@
 	},
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp{
-	pixel_y = 12;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 12
 	},
 /obj/item/paper_bin{
 	pixel_x = -3;
@@ -65597,11 +65598,11 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
+	dir = 8;
 	icon_state = "open";
 	id_tag = "HydroHallway";
 	name = "Hydroponics Shutters";
-	opacity = 0;
-	dir = 8
+	opacity = 0
 	},
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -66499,8 +66500,8 @@
 "lTy" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
-	name = "Custodial Shutters";
-	id_tag = "Custodial_t"
+	id_tag = "Custodial_t";
+	name = "Custodial Shutters"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -66762,8 +66763,8 @@
 /obj/structure/table,
 /obj/item/lightreplacer,
 /obj/item/t_scanner{
-	pixel_y = 8;
-	pixel_x = 17
+	pixel_x = 17;
+	pixel_y = 8
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -68289,12 +68290,12 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z,
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z,
 /obj/structure/window/reinforced{
-	dir = 4;
-	color = "green"
+	color = "green";
+	dir = 4
 	},
 /obj/machinery/door/window/northleft{
-	dir = 2;
-	color = "green"
+	color = "green";
+	dir = 2
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -68489,12 +68490,12 @@
 /obj/effect/decal/cleanable/blood/drip,
 /obj/item/trash/spentcasing{
 	icon_state = "r-casing";
-	pixel_y = -4;
-	pixel_x = -10
+	pixel_x = -10;
+	pixel_y = -4
 	},
 /obj/item/trash/spentcasing{
-	icon_state = "r-casing";
-	dir = 5
+	dir = 5;
+	icon_state = "r-casing"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
@@ -70942,14 +70943,14 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
 /obj/item/trash/spentcasing{
-	icon_state = "r-casing";
 	dir = 5;
+	icon_state = "r-casing";
 	pixel_y = 13
 	},
 /obj/item/trash/spentcasing{
 	icon_state = "r-casing";
-	pixel_y = -4;
-	pixel_x = -10
+	pixel_x = -10;
+	pixel_y = -4
 	},
 /obj/item/trash/spentcasing{
 	icon_state = "r-casing"
@@ -73457,8 +73458,8 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/camera{
 	c_tag = "Engine Room East";
-	network = list("Engineering","SS13");
-	dir = 10
+	dir = 10;
+	network = list("Engineering","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -74059,12 +74060,12 @@
 /area/engineering/hardsuitstorage)
 "ptU" = (
 /obj/docking_port/stationary{
+	dir = 8;
 	dwidth = 2;
 	height = 6;
 	id = "pod2_home";
 	name = "pod2 home dock";
-	width = 5;
-	dir = 8
+	width = 5
 	},
 /turf/space{
 	icon_state = "black"
@@ -74562,9 +74563,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/westright{
+	dir = 1;
 	name = "Mechanic's Desk";
-	req_access = list(70);
-	dir = 1
+	req_access = list(70)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -77344,9 +77345,9 @@
 /area/quartermaster/qm)
 "qPn" = (
 /obj/structure/disposalpipe/sortjunction{
-	sortType = 1;
+	dir = 4;
 	name = "Disposals Maint";
-	dir = 4
+	sortType = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -77734,8 +77735,8 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/camera{
 	c_tag = "Engineering Particle Accelerator";
-	network = list("Singularity","SS13");
-	dir = 8
+	dir = 8;
+	network = list("Singularity","SS13")
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
@@ -77998,8 +77999,8 @@
 "rcL" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/condiment/rice{
-	pixel_y = 16;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 16
 	},
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel{
@@ -78034,9 +78035,9 @@
 "rdE" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/button/windowtint{
-	pixel_y = 27;
+	id = "old_wr";
 	pixel_x = -24;
-	id = "old_wr"
+	pixel_y = 27
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/fpmaint)
@@ -78587,11 +78588,11 @@
 /area/medical/surgery/south)
 "rqi" = (
 /obj/machinery/door_control{
+	id = "suitbay";
 	name = "Engineering Secure Storage Control";
 	pixel_x = -23;
 	pixel_y = 8;
-	req_access = list(11);
-	id = "suitbay"
+	req_access = list(11)
 	},
 /obj/machinery/light{
 	dir = 8
@@ -79446,8 +79447,8 @@
 	req_access = list(24)
 	},
 /obj/machinery/door/window{
-	name = "Atmospherics Desk";
-	dir = 1
+	dir = 1;
+	name = "Atmospherics Desk"
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -80653,9 +80654,9 @@
 "snk" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/door_control{
-	pixel_y = -24;
 	id = "assist";
-	name = "Assistant Room Door Control"
+	name = "Assistant Room Door Control";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
@@ -81638,8 +81639,8 @@
 "sKy" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/machinery/door/window{
-	dir = 2;
-	color = "yellow"
+	color = "yellow";
+	dir = 2
 	},
 /obj/structure/safe/floor,
 /obj/item/whetstone/anti,
@@ -83178,9 +83179,9 @@
 /obj/machinery/door_control{
 	id = "stationawaygate";
 	name = "Gateway Shutters Access Control";
+	pixel_x = -24;
 	pixel_y = 7;
-	req_access = list(62);
-	pixel_x = -24
+	req_access = list(62)
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -83258,13 +83259,13 @@
 /obj/item/vending_refill/robotics,
 /obj/item/circuitboard/vendor,
 /obj/structure/window/reinforced/polarized{
-	id = "Old_Delivery_Shutt";
-	color = "yellow"
+	color = "yellow";
+	id = "Old_Delivery_Shutt"
 	},
 /obj/structure/window/reinforced/polarized{
-	id = "Old_Delivery_Shutt";
 	color = "yellow";
-	dir = 1
+	dir = 1;
+	id = "Old_Delivery_Shutt"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
@@ -84328,11 +84329,11 @@
 "tRc" = (
 /obj/machinery/door/window{
 	base_state = "right";
+	color = "grey";
 	dir = 8;
 	icon_state = "right";
 	name = "Atmospherics Deliveries";
-	req_access = list(24);
-	color = "grey"
+	req_access = list(24)
 	},
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -84839,9 +84840,9 @@
 /obj/machinery/door_control{
 	id = "stationawaygate";
 	name = "Gateway Shutters Access Control";
+	pixel_x = 24;
 	pixel_y = 7;
-	req_access = list(62);
-	pixel_x = 24
+	req_access = list(62)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -85753,8 +85754,8 @@
 /obj/structure/table,
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-dead";
-	tag = "plant-dead";
-	pixel_y = 15
+	pixel_y = 15;
+	tag = "plant-dead"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -86043,12 +86044,12 @@
 /area/maintenance/atmospherics)
 "uHQ" = (
 /obj/docking_port/stationary{
+	dir = 8;
 	dwidth = 2;
 	height = 6;
 	id = "pod1_home";
 	name = "pod1 home dock";
-	width = 5;
-	dir = 8
+	width = 5
 	},
 /turf/space{
 	icon_state = "black"
@@ -92267,8 +92268,8 @@
 "xlj" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/westright{
-	dir = 4;
-	color = "yellow"
+	color = "yellow";
+	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /obj/item/pen/red,
@@ -92312,8 +92313,8 @@
 "xly" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/trash/spentcasing{
-	icon_state = "r-casing";
 	dir = 1;
+	icon_state = "r-casing";
 	pixel_y = 13
 	},
 /obj/item/trash/spentcasing{
@@ -92322,8 +92323,8 @@
 	},
 /obj/item/trash/spentcasing{
 	icon_state = "r-casing";
-	pixel_y = -4;
-	pixel_x = -10
+	pixel_x = -10;
+	pixel_y = -4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
@@ -93107,8 +93108,8 @@
 	pixel_y = 2
 	},
 /obj/item/trash/spentcasing{
-	icon_state = "r-casing";
 	dir = 1;
+	icon_state = "r-casing";
 	pixel_y = 13
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,

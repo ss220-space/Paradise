@@ -313,15 +313,16 @@
 	var/eventdat = null
 	var/event = null
 	var/list/settlers = list("Harry", "Larry", "Bob")
-	var/static/list/events = list(ORION_TRAIL_RAIDERS		= 3,
-						   ORION_TRAIL_FLUX			= 1,
-						   ORION_TRAIL_ILLNESS		= 3,
-						   ORION_TRAIL_BREAKDOWN	= 2,
-						   ORION_TRAIL_LING			= 3,
-						   ORION_TRAIL_MALFUNCTION	= 2,
-						   ORION_TRAIL_COLLISION	= 1,
-						   ORION_TRAIL_SPACEPORT	= 2
-						   )
+	var/static/list/events = list(
+		ORION_TRAIL_RAIDERS = 3,
+		ORION_TRAIL_FLUX = 1,
+		ORION_TRAIL_ILLNESS = 3,
+		ORION_TRAIL_BREAKDOWN = 2,
+		ORION_TRAIL_LING = 3,
+		ORION_TRAIL_MALFUNCTION = 2,
+		ORION_TRAIL_COLLISION = 1,
+		ORION_TRAIL_SPACEPORT = 2
+	)
 	var/list/stops
 	var/list/stopblurbs
 	var/lings_aboard = 0

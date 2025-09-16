@@ -31,7 +31,7 @@
 	to_chat(user, span_sinister("Вы начинаете изрыгать кислотную рвоту!"))
 	user.balloon_alert(user, "подготовка...")
 	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-		user.balloon_alert(user, span_warning("отменено"))
+		user.balloon_alert(user, "отменено")
 		revert_cast(user)
 		return
 	for(var/thing in targets)

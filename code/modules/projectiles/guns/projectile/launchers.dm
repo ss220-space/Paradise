@@ -125,6 +125,7 @@
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_MEDIUM
+	can_air_shoot = FALSE
 
 
 /obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)
@@ -164,8 +165,7 @@
 	. = ..()
 
 
-/obj/item/gun/projectile/revolver/rocketlauncher/attack_self(mob/living/user)
-	add_fingerprint(user)
+/obj/item/gun/projectile/revolver/rocketlauncher/unload_act(mob/user)
 	var/num_unloaded = 0
 	var/atom/drop_loc = drop_location()
 	while(get_ammo(FALSE) > 0)

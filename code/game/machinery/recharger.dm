@@ -20,6 +20,7 @@
 	var/obj/item/charging = null
 	// Whether the recharger is actually transferring power or not, used for icon
 	var/using_power = FALSE
+	pixel_y = 3
 
 
 /obj/machinery/recharger/Initialize(mapload)

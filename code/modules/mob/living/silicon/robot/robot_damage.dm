@@ -70,11 +70,11 @@
 	return STATUS_UPDATE_HEALTH
 
 /mob/living/silicon/robot/adjust_slot_machine_lose_effect()
-	if (prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
+	if(prob(EMAGGED_SLOT_MACHINE_GIB_CHANCE))
 		to_chat(src, span_warningbig("Критическая неудача!<br>Неизвестная сила разрушает ваш корпус."))
 		src.gib()
 		return TRUE
-	if (prob(EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE))
+	if(prob(EMAGGED_SLOT_MACHINE_ROBOT_BREAK_COMPONENT_CHANCE))
 		to_chat(src, span_warning("Неудача! Из корпуса [src.name] вылетают искры."))
 		do_sparks(3, TRUE, src)
 		src.destroy_random_component()
@@ -195,7 +195,7 @@
 	if(!LAZYLEN(parts))
 		return .
 
-	while(parts.len && (brute > 0 || burn > 0) )
+	while(parts.len && (brute > 0 || burn > 0))
 		var/datum/robot_component/picked = pick(parts)
 		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
 		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
@@ -247,7 +247,7 @@
 	if(armour)
 		return armour.take_damage(brute, burn, sharp, updating_health)
 
-	while(parts.len && (brute > 0 || burn > 0) )
+	while(parts.len && (brute > 0 || burn > 0))
 		var/datum/robot_component/picked = pick(parts)
 		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
 		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)

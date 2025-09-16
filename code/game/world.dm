@@ -319,7 +319,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
-	if (debug_server)
+	if(debug_server)
 		CALL_EXT(debug_server, "auxtools_shutdown")()
 	if(SSredis.connected)
 		rustg_redis_disconnect() // Disconnects the redis connection. See above.
@@ -341,7 +341,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		return
 	var/area/global_area = GLOB.areas_by_type[world.area] // We're guaranteed to be touching the global area, so we'll just do this
 	LISTASSERTLEN(global_area.turfs_by_zlevel, map_load_z_cutoff, list())
-	for (var/zlevel in 1 to map_load_z_cutoff)
+	for(var/zlevel in 1 to map_load_z_cutoff)
 		var/list/to_add = block(
 			locate(old_max + 1, 1, zlevel),
 			locate(maxx, maxy, zlevel))
@@ -357,7 +357,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		return
 	var/area/global_area = GLOB.areas_by_type[world.area] // We're guarenteed to be touching the global area, so we'll just do this
 	LISTASSERTLEN(global_area.turfs_by_zlevel, map_load_z_cutoff, list())
-	for (var/zlevel in 1 to map_load_z_cutoff)
+	for(var/zlevel in 1 to map_load_z_cutoff)
 		var/list/to_add = block(
 			locate(1, old_maxy + 1, 1),
 			locate(maxx, maxy, map_load_z_cutoff))

@@ -50,7 +50,7 @@ Pipelines + Other Objects -> Pipe network
 
 
 /obj/machinery/atmospherics/New()
-	if (!armor)
+	if(!armor)
 		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 	..()
 

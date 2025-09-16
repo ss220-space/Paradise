@@ -77,7 +77,7 @@
 		to_chat(user, "<span class='warning'>You can't dash right now!</span>")
 		return
 
-	if (istype(user.loc,/turf) && !(isspaceturf(user.loc)))
+	if(istype(user.loc,/turf) && !(isspaceturf(user.loc)))
 		for(var/mob/M in range(user, 1))
 			if(M.pulling == user)
 				M.stop_pulling()
@@ -194,7 +194,7 @@
 		to_chat(user, "<span class='warning'>You need a ground to do this!</span>")
 		return
 
-	if (isobj(user.loc))
+	if(isobj(user.loc))
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You dash and slam your head against the inside of [container]! Ouch!</span>")
 		user.Paralyse(6 SECONDS)
@@ -240,7 +240,7 @@
 		to_chat(user, span_warning("You need a ground to jump from!"))
 		return
 
-	if (istype(user.loc,/turf) && !(isspaceturf(user.loc)))
+	if(istype(user.loc,/turf) && !(isspaceturf(user.loc)))
 
 		for(var/mob/M in range(user, 1))
 			if(M.pulling == user)
@@ -294,7 +294,7 @@
 		for(var/direction in GLOB.alldirs)
 			var/turf/turf_neighbor = get_step(user,direction)
 			for(var/mob/living/M in turf_neighbor.contents)
-				if( (M != user) && !(M.stat))
+				if((M != user) && !(M.stat))
 					if(snd)
 						snd = 0
 						playsound(M, 'sound/misc/slip.ogg', CHANNEL_BUZZ)
@@ -309,7 +309,7 @@
 		to_chat(user, "<span class='warning'>You need a ground to do this!</span>")
 		return
 
-	if (isobj(user.loc))
+	if(isobj(user.loc))
 		var/obj/container = user.loc
 		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
 		user.Paralyse(6 SECONDS)
@@ -347,7 +347,7 @@
 
 
 /obj/effect/proc_holder/spell/hulk_honk/cast(list/targets, mob/user)
-	if (user.incapacitated())
+	if(user.incapacitated())
 		to_chat(user, "<span class='red'>You can't right now!</span>")
 		return
 	playsound(user, 'sound/items/airhorn.ogg', CHANNEL_BUZZ)

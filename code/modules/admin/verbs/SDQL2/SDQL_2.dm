@@ -230,7 +230,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/statclick)
 		return FALSE
 
 	var/prompt = tgui_alert(usr, "Run SDQL2 Query?", "SDQL2", list("Yes", "Cancel"))
-	if (prompt != "Yes")
+	if(prompt != "Yes")
 		return
 
 	var/query_text = tgui_input_text(usr, "SDQL2 query", multiline = TRUE, encode = FALSE)
@@ -599,18 +599,18 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 
 	// 1 and 2 are type and FROM.
 	var/i = 3
-	while (i <= tree.len)
+	while(i <= tree.len)
 		var/key = tree[i++]
 		var/list/expression = tree[i++]
-		switch (key)
-			if ("map")
+		switch(key)
+			if("map")
 				for(var/j = 1 to objs.len)
 					var/x = objs[j]
 					objs[j] = SDQL_expression(x, expression)
 					SDQL2_TICK_CHECK
 					SDQL2_HALT_CHECK
 
-			if ("where")
+			if("where")
 				where_switched = TRUE
 				var/list/out = list()
 				obj_count_eligible = out
@@ -788,12 +788,12 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 		var/list/L = object
 		var/first = TRUE
 		text_list += "\["
-		for (var/x in L)
-			if (!first)
+		for(var/x in L)
+			if(!first)
 				text_list += ", "
 			first = FALSE
 			SDQL_print(x, text_list)
-			if (!isnull(x) && !isnum(x) && L[x] != null)
+			if(!isnull(x) && !isnum(x) && L[x] != null)
 				text_list += " -> "
 				SDQL_print(L[L[x]])
 		text_list += "]<br>"
@@ -1055,7 +1055,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 	if(isdatum(object))
 		D = object
 
-	if (object == world && (!long || expression[start + 1] == ".") && !(expression[start] in exclude) && copytext(expression[start], 1, 3) != "SS") //3 == length("SS") + 1
+	if(object == world && (!long || expression[start + 1] == ".") && !(expression[start] in exclude) && copytext(expression[start], 1, 3) != "SS") //3 == length("SS") + 1
 		to_chat(usr, span_danger("World variables are not allowed to be accessed. Use global."), confidential=TRUE)
 		return null
 

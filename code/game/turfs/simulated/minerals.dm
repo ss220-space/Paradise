@@ -209,12 +209,12 @@
 	. = ..()
 	switch(severity)
 		if(EXPLODE_LIGHT)
-			if (prob(75))
+			if(prob(75))
 				attempt_drill(null,TRUE,2)
 			else if(prob(90))
 				attempt_drill(null,TRUE,1)
 		if(EXPLODE_HEAVY)
-			if (prob(90))
+			if(prob(90))
 				attempt_drill(null,TRUE,2)
 			else
 				attempt_drill(null,TRUE,1)
@@ -325,7 +325,7 @@
 	if(display_icon_state)
 		icon_state = display_icon_state
 	. = ..()
-	if (prob(mineralChance))
+	if(prob(mineralChance))
 		var/path = pickweight(mineralSpawnChanceList)
 		var/turf/T = ChangeTurf(path, FALSE, TRUE)
 
