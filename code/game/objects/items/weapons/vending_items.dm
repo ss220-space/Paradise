@@ -66,9 +66,9 @@
 		. += contraband[key]
 	for(var/key in premium)
 		. += premium[key]
-	for (var/list/category as anything in product_categories)
+	for(var/list/category as anything in product_categories)
 		var/list/products = category["products"]
-		for (var/product_key in products)
+		for(var/product_key in products)
 			. += products[product_key]
 
 	return .
