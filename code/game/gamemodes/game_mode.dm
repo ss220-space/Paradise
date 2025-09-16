@@ -330,7 +330,7 @@
 		if(length(prefered_species))
 			var/prefered_species_mod = prefered_species[player.client.prefs.species]
 			if(isnum(prefered_species_mod))
-				for (var/i in 1 to prefered_species_mod)	//prefered mod
+				for(var/i in 1 to prefered_species_mod)	//prefered mod
 					candidates += player.mind
 
 	return candidates
@@ -372,7 +372,7 @@
 		if(length(preferred_species))
 			var/prefered_species_mod = preferred_species[player.client.prefs.species]
 			if(isnum(prefered_species_mod))
-				for (var/i in 1 to prefered_species_mod)	//prefered mod
+				for(var/i in 1 to prefered_species_mod)	//prefered mod
 					candidates += player.mind
 
 	return candidates

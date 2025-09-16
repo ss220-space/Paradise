@@ -61,11 +61,11 @@
 	required_reagents[our_reagent] += possible_reagents_list[our_reagent]
 	cargo_quest_reward = possible_reagents_list[our_reagent]["reward"]
 	q_storage.reward += cargo_quest_reward
-	update_desc(our_reagent, possible_reagents_list[our_reagent]["volume"])
+	update_reagent_desc(our_reagent, possible_reagents_list[our_reagent]["volume"])
 	if(our_reagent in unique_reagents)
 		unique_reagents.Remove(our_reagent)
 
-/datum/cargo_quest/reagents/proc/update_desc(reagent_id, volume)
+/datum/cargo_quest/reagents/proc/update_reagent_desc(reagent_id, volume)
 	var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]
 	desc += "[capitalize(format_text(initial(reagent.name)))], [volume]u<br>"
 

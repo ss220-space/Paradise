@@ -103,12 +103,12 @@
 
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/machine/Initialize(mapload)
@@ -1457,7 +1457,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_act()
 	. = 20
 	if(mind)
-		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF) )
+		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF))
 			. = 100
 		if(mind.assigned_role == JOB_TITLE_ENGINEER_TRAINEE)	//Чем глупее, тем вкуснее
 			. = 300
@@ -1641,17 +1641,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
-		balloon_alert(src, span_warning("слишком толстые пальцы!"))
+		balloon_alert(src, "слишком толстые пальцы!")
 		return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-		to_chat(src, span_warning("[mind.martial_art.no_guns_message]"))
+		to_chat(src, "[mind.martial_art.no_guns_message]")
 		return FALSE
 
 	// ninjas will not use default ranged weapons
 	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
 	if(ninja && !ninja.allow_guns && !check_gun.ninja_weapon)
-		to_chat(src, span_warning("[ninja.no_guns_message]"))
+		to_chat(src, "[ninja.no_guns_message]")
 		return FALSE
 
 

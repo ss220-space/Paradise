@@ -140,7 +140,7 @@
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] опутывает щупальцами [target.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
 	ranged_cooldown = world.time + ranged_cooldown_time
-	if((stat == DEAD))
+	if(stat == DEAD)
 		return
 	icon_state = icon_aggro
 	pre_attack = FALSE

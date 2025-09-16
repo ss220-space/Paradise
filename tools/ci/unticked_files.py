@@ -43,7 +43,7 @@ def get_unticked_files(root:Path):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("root", help="paracode root directory")
+    parser.add_argument("root", help="project root directory")
     args = parser.parse_args()
 
     # Windows quoting behavior for directories adds trailing double-quote

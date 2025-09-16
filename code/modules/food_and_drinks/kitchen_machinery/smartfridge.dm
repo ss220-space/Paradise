@@ -528,7 +528,7 @@
 	if(panel_open)
 		. += "[base_icon_state]_panel"
 
-	if((stat & NOPOWER))
+	if(stat & NOPOWER)
 		if(stat & BROKEN)
 			. += "[base_icon_state]_broken"
 		return

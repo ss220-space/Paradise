@@ -10,7 +10,7 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -80,6 +80,7 @@
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
 	random_color = FALSE
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/screwdriver/power
 	name = "hand drill"
@@ -98,6 +99,7 @@
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.25
 	random_color = FALSE
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/screwdriver/power/Initialize(mapload)
 	. = ..()
