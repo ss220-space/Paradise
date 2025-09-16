@@ -695,11 +695,11 @@
 /obj/item/book/manual/security_space_law
 	manual_title = "Space Law"
 	manual_title_ru = "Космический закон"
-	desc = "Свод корпоративных правил НаноТрейзен для поддержания закона и порядка на своих объектах."
+	desc = "Свод корпоративных правил Нанотрейзен для поддержания закона и порядка на своих объектах."
 	icon_state = "bookSpaceLaw"
 	item_state = "bookSpaceLaw"
 	force = 4 //advanced magistrate tactics
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Космический_Закон"
 
 /obj/item/book/manual/security_space_law/black
@@ -724,7 +724,7 @@
 	desc = "Одна из частей сборника рецептов шеф-повара."
 	icon_state = "cooked_book"
 	item_state = "cooked_book"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Руководство_по_еде"
 
 /obj/item/book/manual/chef_recipes/part_one
@@ -782,7 +782,7 @@
 	manual_title_ru = "Сам себе бармен: Введение"
 	desc = "Одна из частей сборника рецептов бармена."
 	icon_state = "barbook"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Руководство_по_напиткам"
 
 /obj/item/book/manual/barman_recipes/part_one
@@ -831,7 +831,7 @@
 	desc = "Нуарная книга о том, как необходимо проводить расследования"
 	icon_state ="bookDetective"
 	item_state = "bookDetective"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	dat = {"<html>
 			<meta charset="UTF-8">
 			<head>
@@ -1079,10 +1079,10 @@
 /obj/item/book/manual/faxes
 	manual_title = "Faxes for dummies"
 	manual_title_ru = "Факсы для чайников"
-	desc = "Руководство по написанию факсов, одобренное руководством НаноТрейзен"
+	desc = "Руководство по написанию факсов, одобренное руководством Нанотрейзен"
 	icon_state = "book6"
 	item_state = "book6"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	dat = {"
 
 		<html>
@@ -1144,7 +1144,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой научной деятельности."
 	icon_state = "sop_science"
 	item_state = "sop_science"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Исследование)"
 
 /obj/item/book/manual/sop_medical
@@ -1153,7 +1153,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой медицинской деятельности."
 	icon_state = "sop_medical"
 	item_state = "sop_medical"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Медицина)"
 
 /obj/item/book/manual/sop_engineering
@@ -1162,7 +1162,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой инженерной деятельности."
 	icon_state = "sop_engineering"
 	item_state = "sop_engineering"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Инженерия)"
 
 /obj/item/book/manual/sop_service
@@ -1171,7 +1171,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой обслуживающей деятельности."
 	icon_state = "sop_service"
 	item_state = "sop_service"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Сервис)"
 
 /obj/item/book/manual/sop_supply
@@ -1180,7 +1180,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой снабженческой деятельности."
 	icon_state = "sop_cargo"
 	item_state = "sop_cargo"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Снабжение)"
 
 /obj/item/book/manual/sop_security
@@ -1189,7 +1189,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой охранной деятельности."
 	icon_state = "sop_security"
 	item_state = "sop_security"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Охрана)"
 
 /obj/item/book/manual/sop_legal
@@ -1198,7 +1198,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой юридической деятельности."
 	icon_state = "sop_legal"
 	item_state = "sop_legal"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Закон)"
 
 /obj/item/book/manual/sop_general
@@ -1207,7 +1207,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой деятельности на объектах НТ."
 	icon_state = "sop"
 	item_state = "sop"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_Рабочие_Процедуры"
 
 /obj/item/book/manual/sop_command
@@ -1216,5 +1216,5 @@
 	desc = "Свод правил, направленных на безопасное ведение любой управленческой деятельности."
 	icon_state = "sop_command"
 	item_state = "sop_command"
-	author = "НаноТрейзен"
+	author = "Нанотрейзен"
 	wiki_title = "Стандартные_рабочие_процедуры_(Командование)"

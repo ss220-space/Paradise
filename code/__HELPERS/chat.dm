@@ -1,4 +1,4 @@
-#define FOLLOW_LINK(alice, bob) "<a href=?src=[alice.UID()];follow=[bob.UID()]>(F)</a>"
+#define FOLLOW_LINK(alice, bob) "<a href=byond://?src=[alice.UID()];follow=[bob.UID()]>(F)</a>"
 
 /// Sends a message to all dead and observing players, if a source is provided a follow link will be attached.
 /proc/send_to_observers(message, atom/source)

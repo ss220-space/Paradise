@@ -66,8 +66,8 @@
 	icon_state = "hopcloak"
 
 /obj/item/clothing/neck/cloak/nanotrasen_representative
-	name = "NanoTrasen Representative's cloak"
-	desc = "Worn by a NanoTrasen representative. A faint whisper of denunciation can be heard from under the cloak."
+	name = "Nanotrasen Representative's cloak"
+	desc = "Worn by a Nanotrasen representative. A faint whisper of denunciation can be heard from under the cloak."
 	icon_state = "ntrcloak"
 
 /obj/item/clothing/neck/cloak/blueshield

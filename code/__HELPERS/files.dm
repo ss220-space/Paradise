@@ -69,7 +69,7 @@
 			break
 
 	var/extension = copytext(path,-4,0)
-	if( !fexists(path) || !(extension in valid_extensions) )
+	if(!fexists(path) || !(extension in valid_extensions))
 		to_chat(src, span_red("Error: browse_files(): File not found/Invalid file([path])."))
 		return
 

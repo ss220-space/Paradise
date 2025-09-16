@@ -552,7 +552,7 @@
 	if(isvehicle(O)) //simple solution
 		return
 
-	else if (!drop && istype(O, /obj/machinery/smartfridge))
+	else if(!drop && istype(O, /obj/machinery/smartfridge))
 		// apply speed potion to smart fridge only if the potions drag'n'drop onto it
 		return ..()
 
@@ -587,7 +587,7 @@
 
 /obj/item/slimepotion/clothing/examine(mob/user)
 	. = ..()
-	if (uses > 1)
+	if(uses > 1)
 		. += "Uses left: [uses]."
 
 /obj/item/slimepotion/clothing/proc/can_apply()
@@ -624,7 +624,7 @@
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)
 	apply_effect(C)
 	uses -= 1
-	if (!uses)
+	if(!uses)
 		qdel(src)
 
 

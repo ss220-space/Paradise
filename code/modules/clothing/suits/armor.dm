@@ -333,7 +333,7 @@
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
-	desc = "Экспериментальный высокотехнологичный бронежилет, изготовленный из светоотражающего материала, предназначен для отражения энергетических лучей. Устаревшая амуниция, была снята с вооружения НаноТрейзен."
+	desc = "Экспериментальный высокотехнологичный бронежилет, изготовленный из светоотражающего материала, предназначен для отражения энергетических лучей. Устаревшая амуниция, была снята с вооружения Нанотрейзен."
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
@@ -394,7 +394,7 @@
 	if(!(def_zone in reflect_zones))
 		return FALSE
 
-	if (prob(hit_reflect_chance))
+	if(prob(hit_reflect_chance))
 		return TRUE
 
 	return FALSE

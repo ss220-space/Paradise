@@ -96,7 +96,7 @@
 
 
 /obj/item/clothing/accessory/armguard/syndicate/proc/start_create_new_blade(mob/user)
-	if (istype(user))
+	if(istype(user))
 		user.balloon_alert(user, "клинок отрелян")
 	addtimer(CALLBACK(src, PROC_REF(create_new_blade), user), create_new_blade_duration SECONDS)
 
@@ -206,7 +206,7 @@
 
 /obj/item/kitchen/knife/hidden_blade/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	if (QDELETED(src))
+	if(QDELETED(src))
 		return
 	silence = TRUE
 	qdel(src)

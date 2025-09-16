@@ -272,8 +272,10 @@
 	else if(!contract.can_start_extraction_process(contractor, target))
 		return "Чтобы начать процесс похищения, вы и цель должны находиться в нужной локации."
 
-	contractor.visible_message(span_notice("[contractor] начина[pluralize_ru(contractor.gender, "ет", "ют")] вводить загадочную серию символов в [uplink.declent_ru(ACCUSATIVE)]..."),\
-					  span_notice("Вы начинаете подавать сигнал для эвакуации своим кураторам через [uplink.declent_ru(ACCUSATIVE)]..."))
+	contractor.visible_message(
+		span_notice("[contractor] начина[pluralize_ru(contractor.gender, "ет", "ют")] вводить загадочную серию символов в [uplink.declent_ru(ACCUSATIVE)]..."),\
+		span_notice("Вы начинаете подавать сигнал для эвакуации своим кураторам через [uplink.declent_ru(ACCUSATIVE)]...")
+	)
 	if(!do_after(contractor, EXTRACTION_PHASE_PREPARE, contractor))
 		return
 	if(!uplink.Adjacent(contractor) || extraction_deadline > world.time)
@@ -300,13 +302,19 @@
 		invalidate()
 		return
 	else if(!flare)
-		uplink.message_holder("Агент, нам не удалось обнаружить [flare.declent_ru(ACCUSATIVE)]. Убедитесь, что зона эвакуации свободна, прежде чем посылать нам сигнал.", 'sound/machines/terminal_prompt_deny.ogg')
+		uplink.message_holder(
+			"Агент, нам не удалось обнаружить [flare.declent_ru(ACCUSATIVE)]. Убедитесь, что зона эвакуации свободна, прежде чем посылать нам сигнал.",
+			'sound/machines/terminal_prompt_deny.ogg'
+		)
 		return
 	else if(!ismob(contract.target.current))
 		invalidate()
 		return
-	uplink.message_holder("Агент, мы получили сигнал эвакуации. Системы помех, мешающих навигации в секторе станции НСС [SSmapping.map_datum.station_name], были саботированы. "\
-				   + "Мы направляем эвакуационную капсулу на место вашей сигнальной ракеты. Поместите цель в капсулу, чтобы завершить процесс эвакуации.", 'sound/effects/confirmdropoff.ogg')
+	uplink.message_holder(
+		"Агент, мы получили сигнал эвакуации. Системы помех, мешающих навигации в секторе станции НСС [SSmapping.map_datum.station_name], были саботированы. " \
+		+ "Мы направляем эвакуационную капсулу на место вашей сигнальной ракеты. Поместите цель в капсулу, чтобы завершить процесс эвакуации.",
+		'sound/effects/confirmdropoff.ogg'
+	)
 	// Open a portal
 	launch_extraction_pod(get_turf(flare))
 
@@ -675,7 +683,7 @@
 		var/datum/feed_message/second_news_message = new
 		second_news_message.author = NEWS_CHANNEL_NYX
 		second_news_message.admin_locked = TRUE
-		second_news_message.body = "Совет по управлению активами НаноТрейзен сегодня ушёл в отставку после серии похищений на борту [SSmapping.map_datum.station_name]." +\
+		second_news_message.body = "Совет по управлению активами Нанотрейзен сегодня ушёл в отставку после серии похищений на борту [SSmapping.map_datum.station_name]." +\
 					"Один из бывших членов совета заявил: – Я больше не могу этого выносить. Как одна смена на этой проклятой станции может обойтись нам более чем в десять миллионов кредитов в виде выкупов? Неужели на борту совсем нет службы безопасности?!\""
 		GLOB.news_network.get_channel_by_name("Никс Дейли")?.add_message(second_news_message)
 

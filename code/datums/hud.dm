@@ -59,13 +59,13 @@ GLOBAL_LIST_INIT(huds, list( \
 	if(!M)
 		return
 
-	for (var/i in hud_icons)
-		if ((i in M.huds_counter["icons"]) && --M.huds_counter["icons"][i] < 1)
+	for(var/i in hud_icons)
+		if((i in M.huds_counter["icons"]) && --M.huds_counter["icons"][i] < 1)
 			M.huds_counter["icons"] -= i
 
-	if (src in M.huds_counter["huds"])
+	if(src in M.huds_counter["huds"])
 		M.huds_counter["huds"][src] -= 1
-		if (M.huds_counter["huds"][src] > 0) // check duplicated huds
+		if(M.huds_counter["huds"][src] > 0) // check duplicated huds
 			return
 		else
 			M.huds_counter["huds"] -= src
@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(huds, list( \
 	if(!length(A.hud_list))
 		return
 	for(var/i in hud_icons)
-		if (remove_from_mob && (i in M.huds_counter["icons"]))
+		if(remove_from_mob && (i in M.huds_counter["icons"]))
 			continue
 		M.client.images -= A.hud_list[i]
 
@@ -96,14 +96,14 @@ GLOBAL_LIST_INIT(huds, list( \
 		return
 	hudusers |= M
 
-	if (!only_once || !(src in M.huds_counter["huds"]))
-		if (src in M.huds_counter["huds"])
+	if(!only_once || !(src in M.huds_counter["huds"]))
+		if(src in M.huds_counter["huds"])
 			M.huds_counter["huds"][src]++
 		else
 			M.huds_counter["huds"][src] = 1
 
-		for (var/i in hud_icons)
-			if (i in M.huds_counter["icons"])
+		for(var/i in hud_icons)
+			if(i in M.huds_counter["icons"])
 				M.huds_counter["icons"][i]++
 			else
 				M.huds_counter["icons"][i] = 1

@@ -1149,7 +1149,7 @@
 	strip_bubble_icon = "BS"
 
 /obj/item/clothing/accessory/head_strip/ntr
-	name = "NanoTrasen Representative's strip"
+	name = "Nanotrasen Representative's strip"
 	desc = "Плотно сшитая круглая нашивка из чёрного бархата с золотистой окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся заслуги при службе на корпорацию."
 	icon_state = "ntrstrip"
 	item_state = "ntrstrip"

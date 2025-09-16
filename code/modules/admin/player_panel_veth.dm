@@ -18,7 +18,7 @@
 /datum/player_panel_veth/ui_data(mob/user)
 	var/list/players = list()
 	for(var/mob/M in GLOB.mob_list)
-		if (M.ckey)
+		if(M.ckey)
 			players += list(list(
 				"name" = M.name || "No Character",
 				"job" = M.job || "No Job",

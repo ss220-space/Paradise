@@ -32,7 +32,7 @@
 			if(used)
 				to_chat(teacher, "<span class='notice'>You already used this contract!</span>")
 				return
-			if (!infinity_uses)
+			if(!infinity_uses)
 				used = 1
 			to_chat(teacher, "<span class='notice'>Apprentice waiting...</span>")
 			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
@@ -112,7 +112,7 @@
 			if(used)
 				to_chat(apprentice, "<span class='notice'>Учебник уже был изучен!</span>")
 				return
-			if (!infinity_uses)
+			if(!infinity_uses)
 				used = 1
 
 			school_href_choose(href_list, null, apprentice)
@@ -123,12 +123,12 @@
 /obj/item/contract/proc/school_href_choose(href_list, mob/living/carbon/human/teacher, mob/living/carbon/human/apprentice)
 	var/school_id = href_list["school"]
 	var/datum/possible_schools/schools = new
-	for (var/datum/magick_school/school in schools.schools_list)
-		if (school_id != school.id)
+	for(var/datum/magick_school/school in schools.schools_list)
+		if(school_id != school.id)
 			continue
 		school.owner = apprentice
 		school.kit()
-		if (teacher)
+		if(teacher)
 			to_chat(teacher, "<b>Ваш подопечный прибыл по первому вашему зову. Прилежно и усердно обучаясь у вас, он смог выучить одну из школ магии. [school.desc]</b>")
 			to_chat(apprentice, "<b>Ваше служение не осталось незамеченный. Обучаясь у [teacher.real_name], вы смогли научиться одной из школ магии. [school.desc]</b>")
 		else
@@ -144,7 +144,7 @@
 		dat += tittle()
 
 		var/datum/possible_schools/schools = new
-		for (var/datum/magick_school/school in schools.schools_list)
+		for(var/datum/magick_school/school in schools.schools_list)
 			dat += "<a href='byond://?src=[UID()];school=[school.id]'>[school.name]</a><br>"
 			dat += "<i>[school.desc]</i><br>"
 

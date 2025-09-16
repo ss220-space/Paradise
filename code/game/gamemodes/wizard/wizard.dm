@@ -146,9 +146,9 @@
 	if(wizard_mob.mind)
 		wizard_mob.mind.name = newname
 
-	if (!(wizard_mob in wizards))
-		for (var/datum/mind/apprentice in apprentices)
-			for (var/datum/objective/protect/objective in apprentice.objectives)
+	if(!(wizard_mob in wizards))
+		for(var/datum/mind/apprentice in apprentices)
+			for(var/datum/objective/protect/objective in apprentice.objectives)
 				objective.explanation_text = "Protect [wizard_mob.real_name], the wizard teacher."
 
 

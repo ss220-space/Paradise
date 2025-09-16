@@ -18,10 +18,10 @@ SUBSYSTEM_DEF(area_contents)
 	var/total_clearing_from = 0
 	var/total_to_clear = 0
 	for(var/area/to_clear as anything in marked_for_clearing)
-		for (var/area_zlevel in 1 to length(to_clear.turfs_to_uncontain_by_zlevel))
-			if (length(to_clear.turfs_to_uncontain_by_zlevel[area_zlevel]))
+		for(var/area_zlevel in 1 to length(to_clear.turfs_to_uncontain_by_zlevel))
+			if(length(to_clear.turfs_to_uncontain_by_zlevel[area_zlevel]))
 				total_to_clear += length(to_clear.turfs_to_uncontain_by_zlevel[area_zlevel])
-				if (length(to_clear.turfs_by_zlevel) >= area_zlevel) //this should always be true, but stat_entry is no place for runtimes. fire() can handle that
+				if(length(to_clear.turfs_by_zlevel) >= area_zlevel) //this should always be true, but stat_entry is no place for runtimes. fire() can handle that
 					total_clearing_from += length(to_clear.turfs_by_zlevel[area_zlevel])
 	return "A:[length(currentrun)] MR:[length(marked_for_clearing)] TC:[total_to_clear] CF:[total_clearing_from]"
 
@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(area_contents)
 
 	while(length(currentrun))
 		var/area/test = currentrun[length(currentrun)]
-		for (var/area_zlevel in 1 to length(test.turfs_to_uncontain_by_zlevel))
+		for(var/area_zlevel in 1 to length(test.turfs_to_uncontain_by_zlevel))
 			if(length(test.turfs_to_uncontain_by_zlevel[area_zlevel]) > ALLOWED_LOOSE_TURFS)
 				marked_for_clearing |= test
 				break
@@ -44,10 +44,10 @@ SUBSYSTEM_DEF(area_contents)
 	while(length(marked_for_clearing))
 		var/area/clear = marked_for_clearing[length(marked_for_clearing)]
 
-		for (var/area_zlevel in 1 to length(clear.turfs_to_uncontain_by_zlevel))
-			if (!length(clear.turfs_to_uncontain_by_zlevel[area_zlevel]))
+		for(var/area_zlevel in 1 to length(clear.turfs_to_uncontain_by_zlevel))
+			if(!length(clear.turfs_to_uncontain_by_zlevel[area_zlevel]))
 				continue
-			if (length(clear.turfs_by_zlevel) < area_zlevel)
+			if(length(clear.turfs_by_zlevel) < area_zlevel)
 				stack_trace("[clear]([clear.type])'s turfs_by_zlevel is length [length(clear.turfs_by_zlevel)] but we are being asked to remove turfs from zlevel [area_zlevel] from it.")
 				clear.turfs_to_uncontain_by_zlevel[area_zlevel] = list()
 				continue

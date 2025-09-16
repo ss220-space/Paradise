@@ -431,7 +431,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/hierophant_talisman_heal/valid_target(mob/living/carbon/human/target, mob/living/simple_animal/shade/talisman/user)
-	if (target.ckey == user.master)
+	if(target.ckey == user.master)
 		return TRUE
 	return FALSE
 

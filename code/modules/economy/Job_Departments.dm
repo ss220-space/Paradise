@@ -1,11 +1,5 @@
 GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Support", "Civilian"))
 
-// The department the job belongs to.
-/datum/job/var/department = null
-
-// Whether this is a head position
-/datum/job/var/head_position = 0
-
 /datum/job/captain/department = "Command"
 /datum/job/captain/head_position = 1
 
