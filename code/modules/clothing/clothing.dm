@@ -92,7 +92,7 @@
 	. += span_notice("Совместимо с <b>[GLOB.armor_slot_name["[allowed_armor_plate]"]]</b>.")
 
 /obj/item/clothing/get_description_info()
-	if (!armor_plate)
+	if(!armor_plate)
 		return ..()
 	return armor_plate.description_info
 
