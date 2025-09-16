@@ -51,11 +51,6 @@ export const PAI = (_props: unknown) => {
             <Box>
               <Icon name={app_icon} mr={1} />
               {app_title}
-              {app_template !== 'pai_main_menu' && has_back && (
-                <Button ml={2} icon="arrow-left" onClick={() => act('Back')}>
-                  Back
-                </Button>
-              )}
               {app_template !== 'pai_main_menu' && (
                 <Button
                   ml={2}
@@ -63,6 +58,11 @@ export const PAI = (_props: unknown) => {
                   onClick={() => act('MASTER_back')}
                 >
                   Home
+                </Button>
+              )}
+              {app_template !== 'pai_main_menu' && has_back && (
+                <Button ml={2} icon="arrow-left" onClick={() => act('Back')}>
+                  Back
                 </Button>
               )}
             </Box>
