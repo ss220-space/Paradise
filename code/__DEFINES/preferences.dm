@@ -180,7 +180,7 @@
 #define PREF_UPLINK_PDA			"КПК"
 #define PREF_UPLINK_HEADSET		"Гарнитура"
 
-// NanoTrasen relationship
+// Nanotrasen relationship
 #define PREF_NTRELATION_LOYAL		"Преданное"
 #define PREF_NTRELATION_SUPPORTIVE	"Поддерживающее"
 #define PREF_NTRELATION_NEUTRAL	"Нейтральное"

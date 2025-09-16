@@ -1,6 +1,6 @@
 /datum/canister_icons
 	var
-		possiblemaincolor = list( //these lists contain the possible colors of a canister
+		possiblemaincolor = list(//these lists contain the possible colors of a canister
 			list("name" = "\[N2O\]", "icon" = "redws"),
 			list("name" = "\[N2\]", "icon" = "red"),
 			list("name" = "\[O2\]", "icon" = "blue"),
@@ -10,7 +10,7 @@
 			list("name" = "\[CAUTION\]", "icon" = "yellow"),
 			list("name" = "\[SPECIAL\]", "icon" = "whiters")
 			)
-		possibleseccolor = list( // no point in having the N2O and "whiters" ones in these lists
+		possibleseccolor = list(// no point in having the N2O and "whiters" ones in these lists
 			list("name" = "\[None\]", "icon" = "none"),
 			list("name" = "\[N2\]", "icon" = "red-c"),
 			list("name" = "\[O2\]", "icon" = "blue-c"),
@@ -37,6 +37,7 @@
 			list("name" = "\[Air\]", "icon" = "grey-c-2"),
 			list("name" = "\[CAUTION\]", "icon" = "yellow-c-2")
 			)
+
 GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/portable_atmospherics/canister

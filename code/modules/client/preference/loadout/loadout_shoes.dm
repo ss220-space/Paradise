@@ -34,10 +34,12 @@
 
 /datum/gear/shoes/cowboyboots/New()
 	..()
-	var/list/boots = list("brown" = /obj/item/clothing/shoes/cowboy,
-						  "black" = /obj/item/clothing/shoes/cowboy/black,
-						  "white" = /obj/item/clothing/shoes/cowboy/white,
-						  "pink" = /obj/item/clothing/shoes/cowboy/pink,)
+	var/list/boots = list(
+		"brown" = /obj/item/clothing/shoes/cowboy,
+		"black" = /obj/item/clothing/shoes/cowboy/black,
+		"white" = /obj/item/clothing/shoes/cowboy/white,
+		"pink" = /obj/item/clothing/shoes/cowboy/pink
+	)
 	gear_tweaks += new /datum/gear_tweak/path(boots, src)
 
 /datum/gear/shoes/jackboots
@@ -59,11 +61,13 @@
 
 /datum/gear/shoes/shoes/New()
 	..()
-	var/list/boots = list(/obj/item/clothing/shoes/black,
-						  /obj/item/clothing/shoes/brown,
-						  /obj/item/clothing/shoes/white,
-						  /obj/item/clothing/shoes/convers,
-						  /obj/item/clothing/shoes/convers/red)
+	var/list/boots = list(
+		/obj/item/clothing/shoes/black,
+		/obj/item/clothing/shoes/brown,
+		/obj/item/clothing/shoes/white,
+		/obj/item/clothing/shoes/convers,
+		/obj/item/clothing/shoes/convers/red
+	)
 	gear_tweaks += new /datum/gear_tweak/path(boots, src, TRUE)
 
 /datum/gear/shoes/jackcross

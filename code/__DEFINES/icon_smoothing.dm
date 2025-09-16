@@ -209,13 +209,13 @@
 /// An inlined function used in both turf/Initialize and atom/Initialize.
 /// TODO: RETURN TESTS WHEN THEY ARE READY
 #define SETUP_SMOOTHING(...) \
-	if (smoothing_groups) { \
+	if(smoothing_groups) { \
 		SET_SMOOTHING_GROUPS(smoothing_groups); \
 	} \
 \
-	if (canSmoothWith) { \
+	if(canSmoothWith) { \
 		/* S_OBJ is always negative, and we are guaranteed to be sorted. */ \
-		if (canSmoothWith[1] == "-") { \
+		if(canSmoothWith[1] == "-") { \
 			smooth |= SMOOTH_OBJ; \
 		} \
 		SET_SMOOTHING_GROUPS(canSmoothWith); \

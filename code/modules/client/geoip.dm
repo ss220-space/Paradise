@@ -121,7 +121,7 @@
 		return "limit reached"
 
 	var/list/vl = world.Export("http://ip-api.com/json/[addr]?fields=205599")
-	if (!("CONTENT" in vl) || vl["STATUS"] != "200 OK")
+	if(!("CONTENT" in vl) || vl["STATUS"] != "200 OK")
 		return "export fail"
 
 	var/msg = file2text(vl["CONTENT"])
@@ -172,9 +172,12 @@
 			announce_in_discord = TRUE
 			kickbannedckey = 1
 
-	if( !bantype_pass ) return
-	if( !istext(reason) ) return
-	if( !isnum(duration) ) return
+	if(!bantype_pass)
+		return
+	if(!istext(reason))
+		return
+	if(!isnum(duration))
+		return
 
 	var/ckey
 	var/computerid
@@ -236,8 +239,8 @@
 			adminwho += ", [C]"
 
 	var/datum/db_query/query_insert = SSdbcore.NewQuery({"
-		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`)
-		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null)
+		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("ban")] (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`, `server_id`)
+		VALUES (null, Now(), :serverip, :bantype_str, :reason, :job, :duration, :rounds, Now() + INTERVAL :duration MINUTE, :ckey, :computerid, :ip, :a_ckey, :a_computerid, :a_ip, :who, :adminwho, '', null, null, null, null, null, :server_id)
 	"}, list(
 		// Get ready for parameters
 		"serverip" = serverip,
@@ -253,7 +256,8 @@
 		"a_computerid" = a_computerid,
 		"a_ip" = a_ip,
 		"who" = who,
-		"adminwho" = adminwho
+		"adminwho" = adminwho,
+		"server_id" = CONFIG_GET(string/instance_id)
 	))
 	if(!query_insert.warn_execute())
 		qdel(query_insert)

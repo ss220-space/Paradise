@@ -343,12 +343,13 @@
 		return
 
 	arrived.visible_message(span_warning("[pick( \
-						  "[arrived] спотыка[pluralize_ru(arrived.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
-						  "[arrived] опрокидыва[pluralize_ru(arrived.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
-						  "[arrived] отлета[pluralize_ru(arrived.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] сбивает [arrived]!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [genderize_ru(arrived.gender, "его", "её", "его", "их")] упасть!", \
-						  "[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]"))
+		"[arrived] спотыка[pluralize_ru(arrived.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
+		"[arrived] опрокидыва[pluralize_ru(arrived.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
+		"[arrived] отлета[pluralize_ru(arrived.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
+		"[capitalize(declent_ru(NOMINATIVE))] сбивает [arrived]!", \
+		"[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [genderize_ru(arrived.gender, "его", "её", "его", "их")] упасть!", \
+		"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]")
+	)
 	arrived.Weaken(10 SECONDS)
 	if(!client)
 		INVOKE_ASYNC(src, PROC_REF(speak), "хонк!")

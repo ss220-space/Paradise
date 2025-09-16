@@ -75,7 +75,7 @@
 	if(flipped)
 		var/type = 0
 		var/subtype = null
-		for(var/direction in list(turn(dir, 90), turn(dir, -90)) )
+		for(var/direction in list(turn(dir, 90), turn(dir, -90)))
 			var/obj/structure/table/other_table = locate(/obj/structure/table,get_step(src, direction))
 			if(other_table?.flipped)
 				type++

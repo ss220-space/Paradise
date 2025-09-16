@@ -122,7 +122,7 @@
 /obj/structure/spider/spiderling/attack_hand(mob/living/user)
 	. = ..()
 	if(ishuman(user))
-		if (user.a_intent == INTENT_HELP)
+		if(user.a_intent == INTENT_HELP)
 			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[genderize_ru(user.gender,"","а","о","и")] брюшко [src.name]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		else

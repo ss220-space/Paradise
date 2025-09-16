@@ -1,6 +1,6 @@
 /obj/item/crowbar
-	name = "pocket crowbar"
-	desc = "A small crowbar. This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
+	name = "crowbar"
+	desc = "This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -10,9 +10,9 @@
 	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	force = 7.5
+	force = 10
 	throwforce = 10
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
 	drop_sound = 'sound/items/handling/drop/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/crowbar_pickup.ogg'
@@ -27,15 +27,24 @@
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
+/obj/item/crowbar/small
+	name = "miniature titanium crowbar"
+	desc = "Уменьшенная версия монтировки из титана. Хорошо лежит в руке."
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 7.5
+	materials = list(MAT_TITANIUM = 250)
+	icon_state = "crowbar_titanium"
+	item_state = "crowbar_titanium"
+	origin_tech = "materials=2"
+	toolspeed = 3
+
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"
-	force = 10
 
 /obj/item/crowbar/red/sec
 	icon_state = "crowbar_sec"
 	item_state = "crowbar_sec"
-	force = 11
 
 /obj/item/crowbar/brass
 	name = "brass crowbar"
@@ -54,14 +63,15 @@
 	item_state = "crowbar_alien"
 	belt_icon = "alien_crowbar"
 	toolspeed = 0.1
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=4;engineering=4;abductor=3"
 
 /obj/item/crowbar/large
-	name = "crowbar"
+	name = "large crowbar"
 	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
-	force = 12
+	force = 15
 	throwforce = 18
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 3
 	throw_range = 3
 	materials = list(MAT_METAL=70)
