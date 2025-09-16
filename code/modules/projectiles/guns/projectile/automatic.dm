@@ -172,6 +172,7 @@
 	recoil = GUN_RECOIL_LOW
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 	autofire_delay = 0.15 SECONDS
+	fire_delay = 0.15 SECONDS
 
 /obj/item/gun/projectile/automatic/c20r/auto/get_ru_names()
 	return list(
