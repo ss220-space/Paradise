@@ -137,7 +137,7 @@
 
 		if(sample_type)
 			user.visible_message("\The [user] swabs \the [A] for a sample.", "You swab \the [A] for a sample.")
-			if (!dispenser)
+			if(!dispenser)
 				dna = target_dna
 				gsr = target_gsr
 				set_used(sample_type, A)

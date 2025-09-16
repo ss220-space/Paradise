@@ -323,7 +323,7 @@
 		if("purge_reagent")
 			reagents.del_reagent(params["reagent"])
 			return TRUE
-		if("toggle_reagent" )
+		if("toggle_reagent")
 			var/switch_reagent = params["reagent"]
 			if(switch_reagent in processed_reagents)
 				processed_reagents -= switch_reagent

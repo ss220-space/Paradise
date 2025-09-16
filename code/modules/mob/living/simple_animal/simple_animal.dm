@@ -175,6 +175,9 @@
 	var/atom/leash
 	var/leash_radius = 10
 
+	/// Health of the mob before being admin-frozen, restored afterwards
+	var/admin_prev_health = null
+
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
@@ -348,9 +351,9 @@
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
-	if (leash)
+	if(leash)
 		var/dist = get_dist(src, leash)
-		if (dist > leash_radius)
+		if(dist > leash_radius)
 			src.dust()
 			return
 
@@ -531,7 +534,7 @@
 
 /mob/living/simple_animal/proc/check_if_child(mob/possible_child)
 	for(var/childpath in childtype)
-		if (istype(possible_child, childpath))
+		if(istype(possible_child, childpath))
 			return TRUE
 	return FALSE
 
@@ -539,7 +542,7 @@
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
 		return FALSE
 
-	if (check_if_child(src)) // Children aren't fertile enough
+	if(check_if_child(src)) // Children aren't fertile enough
 		return FALSE
 	next_scan_time = world.time + 400
 

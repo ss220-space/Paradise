@@ -1002,9 +1002,11 @@
 	name = "Guillotine"
 	result = /obj/structure/guillotine
 	time = 150 // Building a functioning guillotine takes time
-	reqs = list(/obj/item/stack/sheet/plasteel = 3,
-		        /obj/item/stack/sheet/wood = 20,
-		        /obj/item/stack/cable_coil = 10)
+	reqs = list(
+		/obj/item/stack/sheet/plasteel = 3,
+		/obj/item/stack/sheet/wood = 20,
+		/obj/item/stack/cable_coil = 10
+	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
 
@@ -1020,20 +1022,24 @@
 	name = "Selfmade Autoinjector"
 	result = /obj/item/reagent_containers/hypospray/autoinjector/selfmade
 	time = 5
-	reqs = list(/obj/item/reagent_containers/syringe = 1,
-				/obj/item/stack/sheet/plastic = 1,
-				/obj/item/stack/sheet/metal = 1)
+	reqs = list(
+		/obj/item/reagent_containers/syringe = 1,
+		/obj/item/stack/sheet/plastic = 1,
+		/obj/item/stack/sheet/metal = 1
+	)
 	category = CAT_MISC
 
 /datum/crafting_recipe/drill
 	name = "Thermal Drill"
 	result = /obj/item/thermal_drill
 	time = 60
-	reqs = list(/obj/item/stack/cable_coil = 5,
-		        /obj/item/mecha_parts/mecha_equipment/drill = 1,
-		        /obj/item/stock_parts/cell = 1,
-		        /obj/item/stack/rods = 2,
-		        /obj/item/assembly/timer = 1)
+	reqs = list(
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/mecha_parts/mecha_equipment/drill = 1,
+		/obj/item/stock_parts/cell = 1,
+		/obj/item/stack/rods = 2,
+		/obj/item/assembly/timer = 1
+	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
 
@@ -1041,11 +1047,13 @@
 	name = "Thermal Drill(Alternative)"
 	result = /obj/item/thermal_drill
 	time = 60
-	reqs = list(/obj/item/stack/cable_coil = 5,
-		        /obj/item/surgicaldrill = 1,
-		        /obj/item/stock_parts/cell = 1,
-		        /obj/item/stack/rods = 2,
-		        /obj/item/assembly/timer = 1)
+	reqs = list(
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/surgicaldrill = 1,
+		/obj/item/stock_parts/cell = 1,
+		/obj/item/stack/rods = 2,
+		/obj/item/assembly/timer = 1
+	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
 
@@ -1053,11 +1061,13 @@
 	name = "Diamond Tipped Thermal Drill"
 	result = /obj/item/thermal_drill/diamond_drill
 	time = 60
-	reqs = list(/obj/item/stack/cable_coil = 5,
-		        /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
-		        /obj/item/stock_parts/cell = 1,
-		        /obj/item/stack/rods = 2,
-		        /obj/item/assembly/prox_sensor = 1) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
+	reqs = list(
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
+		/obj/item/stock_parts/cell = 1,
+		/obj/item/stack/rods = 2,
+		/obj/item/assembly/prox_sensor = 1
+	) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
 

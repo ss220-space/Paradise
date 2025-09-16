@@ -295,13 +295,13 @@
 		var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 
 		if(!operating)
-				for (var/obj/item/O in holdingitems)
+				for(var/obj/item/O in holdingitems)
 						processing_chamber += "\A [O.declent_ru(NOMINATIVE)]<br>"
 
-				if (!processing_chamber)
+				if(!processing_chamber)
 						is_chamber_empty = 1
 						processing_chamber = "Ничего."
-				if (!beaker)
+				if(!beaker)
 						beaker_contents = "<b>Ёмкость не установлена.</b><br>"
 				else
 						is_beaker_ready = 1
@@ -319,12 +319,12 @@
 		[processing_chamber]<br>
 		[beaker_contents]<hr>
 		"}
-				if (is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
+				if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
 						dat += "<a href='byond://?src=[src.UID()];action=grind'>Измельчить</a><br>"
 						dat += "<a href='byond://?src=[src.UID()];action=juice'>Выжать</a><br><br>"
 				if(holdingitems && holdingitems.len > 0)
 						dat += "<a href='byond://?src=[src.UID()];action=eject'>Вынуть содержимое камеры</a><br>"
-				if (beaker)
+				if(beaker)
 						dat += "<a href='byond://?src=[src.UID()];action=detach'>Извлечь ёмкость</a><br>"
 		else
 				dat += "Пожалуйста, подождите..."
@@ -342,13 +342,13 @@
 		updateUsrDialog()
 		return
 	switch(href_list["action"])
-		if ("grind")
+		if("grind")
 			grind()
 		if("juice")
 			juice()
 		if("eject")
 			eject()
-		if ("detach")
+		if("detach")
 			detach(usr)
 
 /obj/machinery/reagentgrinder/proc/detach(mob/user)
@@ -364,9 +364,9 @@
 	updateUsrDialog()
 
 /obj/machinery/reagentgrinder/proc/eject()
-		if (usr.stat != 0)
+		if(usr.stat != 0)
 				return
-		if (holdingitems && holdingitems.len == 0)
+		if(holdingitems && holdingitems.len == 0)
 				return
 
 		for(var/obj/item/O in holdingitems)
@@ -376,14 +376,14 @@
 		updateUsrDialog()
 
 /obj/machinery/reagentgrinder/proc/is_allowed(obj/item/reagent_containers/O)
-		for (var/i in blend_items)
+		for(var/i in blend_items)
 				if(istype(O, i))
 						return TRUE
 		return FALSE
 
 /obj/machinery/reagentgrinder/proc/get_allowed_by_id(obj/item/O)
-		for (var/i in blend_items)
-				if (istype(O, i))
+		for(var/i in blend_items)
+				if(istype(O, i))
 						return blend_items[i]
 
 /obj/machinery/reagentgrinder/proc/get_allowed_snack_by_id(obj/item/reagent_containers/food/snacks/O)
@@ -397,17 +397,17 @@
 						return juice_items[i]
 
 /obj/machinery/reagentgrinder/proc/get_grownweapon_amount(obj/item/grown/O)
-		if (!istype(O) || !O.seed)
+		if(!istype(O) || !O.seed)
 				return 5
-		else if (O.seed.potency == -1)
+		else if(O.seed.potency == -1)
 				return 5
 		else
 				return round(O.seed.potency)
 
 /obj/machinery/reagentgrinder/proc/get_juice_amount(obj/item/reagent_containers/food/snacks/grown/O)
-		if (!istype(O) || !O.seed)
+		if(!istype(O) || !O.seed)
 				return 5
-		else if (O.seed.potency == -1)
+		else if(O.seed.potency == -1)
 				return 5
 		else
 				return round(5*sqrt(O.seed.potency))
@@ -420,7 +420,7 @@
 		power_change()
 		if(stat & (NOPOWER|BROKEN))
 				return
-		if (!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
+		if(!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
 				return
 		playsound(src.loc, 'sound/machines/juicer.ogg', 20, TRUE)
 		var/offset = prob(50) ? -2 : 2
@@ -433,22 +433,22 @@
 				updateUsrDialog()
 
 		//Snacks
-		for (var/obj/item/reagent_containers/food/snacks/O in holdingitems)
-				if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+		for(var/obj/item/reagent_containers/food/snacks/O in holdingitems)
+				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
 
 				var/allowed = get_allowed_juice_by_id(O)
 				if(isnull(allowed))
 						break
 
-				for (var/r_id in allowed)
+				for(var/r_id in allowed)
 
 						var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 						var/amount = get_juice_amount(O)
 
 						beaker.reagents.add_reagent(r_id, min(amount*efficiency, space))
 
-						if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+						if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 								break
 
 				remove_object(O)
@@ -458,7 +458,7 @@
 		power_change()
 		if(stat & (NOPOWER|BROKEN))
 				return
-		if (!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
+		if(!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
 				return
 		playsound(src.loc, 'sound/machines/blender.ogg', 50, TRUE)
 		var/offset = prob(50) ? -2 : 2
@@ -471,31 +471,31 @@
 				updateUsrDialog()
 
 		//Snacks and Plants
-		for (var/obj/item/reagent_containers/food/snacks/O in holdingitems)
-				if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+		for(var/obj/item/reagent_containers/food/snacks/O in holdingitems)
+				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
 
 				var/allowed = get_allowed_snack_by_id(O)
 				if(isnull(allowed))
 						break
 
-				for (var/r_id in allowed)
+				for(var/r_id in allowed)
 
 						var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 						var/amount = allowed[r_id]
 						if(amount <= 0)
 								if(amount == 0)
-										if (O.reagents != null && O.reagents.has_reagent("nutriment"))
+										if(O.reagents != null && O.reagents.has_reagent("nutriment"))
 												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment")*efficiency, space))
 												O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-										if (O.reagents != null && O.reagents.has_reagent("plantmatter"))
+										if(O.reagents != null && O.reagents.has_reagent("plantmatter"))
 												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter")*efficiency, space))
 												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 								else
-										if (O.reagents != null && O.reagents.has_reagent("nutriment"))
+										if(O.reagents != null && O.reagents.has_reagent("nutriment"))
 												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment")*abs(amount)*efficiency), space))
 												O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
-										if (O.reagents != null && O.reagents.has_reagent("plantmatter"))
+										if(O.reagents != null && O.reagents.has_reagent("plantmatter"))
 												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter")*abs(amount)*efficiency), space))
 												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 
@@ -503,60 +503,60 @@
 						else
 								O.reagents.trans_id_to(beaker, r_id, min(amount, space))
 
-						if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+						if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 								break
 
 				if(O.reagents.reagent_list.len == 0)
 						remove_object(O)
 
 		//Sheets
-		for (var/obj/item/stack/sheet/O in holdingitems)
+		for(var/obj/item/stack/sheet/O in holdingitems)
 				var/allowed = get_allowed_by_id(O)
-				if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
 				for(var/i = 1; i <= round(O.amount, 1); i++)
-						for (var/r_id in allowed)
+						for(var/r_id in allowed)
 								var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 								var/amount = allowed[r_id]
 								beaker.reagents.add_reagent(r_id,min(amount*efficiency, space))
-								if (space < amount)
+								if(space < amount)
 										break
-						if (i == round(O.amount, 1))
+						if(i == round(O.amount, 1))
 								remove_object(O)
 								break
 		//Plants
-		for (var/obj/item/grown/O in holdingitems)
-				if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+		for(var/obj/item/grown/O in holdingitems)
+				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
 				var/allowed = get_allowed_by_id(O)
-				for (var/r_id in allowed)
+				for(var/r_id in allowed)
 						var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 						var/amount = allowed[r_id]
-						if (amount == 0)
-								if (O.reagents != null && O.reagents.has_reagent(r_id))
+						if(amount == 0)
+								if(O.reagents != null && O.reagents.has_reagent(r_id))
 										beaker.reagents.add_reagent(r_id,min(O.reagents.get_reagent_amount(r_id)*efficiency, space))
 						else
 								beaker.reagents.add_reagent(r_id,min(amount*efficiency, space))
 
-						if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+						if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 								break
 				remove_object(O)
 
 		//Slime Extractis
-		for (var/obj/item/slime_extract/O in holdingitems)
-				if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+		for(var/obj/item/slime_extract/O in holdingitems)
+				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
 				var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
-				if (O.reagents != null)
+				if(O.reagents != null)
 						var/amount = O.reagents.total_volume
 						O.reagents.trans_to(beaker, min(amount, space))
-				if (O.Uses > 0)
+				if(O.Uses > 0)
 						beaker.reagents.add_reagent("slimejelly",min(20*efficiency, space))
 				remove_object(O)
 
 		//Everything else - Transfers reagents from it into beaker
-		for (var/obj/item/reagent_containers/O in holdingitems)
-				if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+		for(var/obj/item/reagent_containers/O in holdingitems)
+				if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 						break
 				var/amount = O.reagents.total_volume
 				O.reagents.trans_to(beaker, amount)

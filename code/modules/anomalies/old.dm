@@ -62,16 +62,16 @@
 	for(var/obj/item/item in get_turf(src))
 		if(!item.origin_tech)
 			continue
-		if (istype(item, /obj/item/relict_production/rapid_dupe))
+		if(istype(item, /obj/item/relict_production/rapid_dupe))
 			var/amount = rand(1, 3)
-			for (var/i; i <= amount; i++)
+			for(var/i; i <= amount; i++)
 				new /obj/item/relic(get_turf(item))
 				var/datum/effect_system/fluid_spread/smoke/smoke = new
 				smoke.set_up(5, get_turf(item))
 				smoke.start()
 			qdel(item)
 			continue
-		if (prob(2))
+		if(prob(2))
 			new /obj/item/relic(get_turf(item))
 			qdel(item)
 
