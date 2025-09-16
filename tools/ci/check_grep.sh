@@ -178,10 +178,6 @@ fi;
 
 echo -e "${BLUE}Checking for common mistakes...${NC}"
 
-if grep '#define FAST_LOAD' _maps/common.dm | grep -v '\/\/#define FAST_LOAD'; then
-    echo -e "${RED}ERROR: commiting uncommented FAST_LOAD define.${NC}"
-	echo
-    st=1
 if grep -i '/obj/effect/mapping_helpers/custom_icon' _maps/**/*.dmm; then
     echo -e "${RED}ERROR: Custom icon helper found. Please include DMI files as standard assets instead for repository maps.${NC}"
 	echo

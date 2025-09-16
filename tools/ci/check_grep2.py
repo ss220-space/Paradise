@@ -238,6 +238,12 @@ def check_timer_flags(idx, line):
     if TIMER_OVERRIDE_WITHOUT_UNIQUE.search(line):
         return [(idx + 1, "TIMER_OVERRIDE used without TIMER_UNIQUE.")]
 
+FAST_LOAD_FILENAME = "common.dm"
+FAST_LOAD_DEFINE = re.compile(r'#define FAST_LOAD')
+def check_fast_load_define(idx, line):
+    if FAST_LOAD_DEFINE.match(line):
+        return [(idx + 1, "Commiting uncommented FAST_LOAD define!")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -272,6 +278,8 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_515_proc_syntax)
         if filename != IGNORE_ATOM_ICON_FILE:
             extra_checks.append(check_manual_icon_updates)
+        if filename == FAST_LOAD_FILENAME:
+            extra_checks.append(check_fast_load_define)
 
         last_line = None
         for idx, line in enumerate(code):
