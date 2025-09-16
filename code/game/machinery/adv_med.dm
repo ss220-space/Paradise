@@ -338,7 +338,7 @@
 			organData["bruised"] = E.min_bruised_damage
 			organData["broken"] = E.min_broken_damage
 			organData["bleed"] = round(E.bleeding_amount, 0.01)
-			organData["bleed_supp"] = "[(E.bleeding_amount <= E.bleedsuppress) ? "перевязано" : ""]"
+			organData["bleed_supp"] = "[(E.bleeding_amount <= E.bleedsuppress) ? "остановлено" : ""]"
 			organData["bleed_type"] = "[E.has_arterial_bleeding() ? "артериальное" : (E.has_heavy_bleeding() ? "обильное" : "")]"
 
 			var/shrapnelData[0]

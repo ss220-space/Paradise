@@ -1026,7 +1026,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	if(owner && !silent)
-		owner.custom_pain("Из ваш[genderize_ru(gender, "ем", "ей", "ем", "ем")] [declent_ru(GENITIVE)] хлещет кров!")
+		owner.custom_pain("Из ваш[genderize_ru(gender, "его", "ей", "его", "их")] [declent_ru(GENITIVE)] хлещет кровь!")
 		owner.visible_message(span_warning("Из [declent_ru(GENITIVE)] [owner] хлещет кровь!"))
 
 	return TRUE

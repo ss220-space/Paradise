@@ -55,8 +55,8 @@
 
 		if(human_target == user && !unique_handling)
 			user.visible_message(
-				span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять [declension_ru(NOMINATIVE)] на себе."),
-				span_notice("Вы начинаете применять на себе [declent_ru(NOMINATIVE)]..."),
+				span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять на себе [declension_ru(ACCUSATIVE)]."),
+				span_notice("Вы начинаете применять на себе [declent_ru(ACCUSATIVE)]..."),
 			)
 			if(!do_after(human_target, self_delay, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING))
 				return .
@@ -708,9 +708,7 @@
 /obj/item/stack/medical/bruise_pack/synthflesh_kit/update_icon_state()
 	icon_state = "synthkit_[amount]"
 
-
 // MARK: Tourniquet
-
 /obj/item/tourniquet
 	name = "tourniquet"
 	desc = "Обычный жгут для остановки всех видов кровотечений на конечностях. При долгом ношении конечность может отмереть. Можно наложить только на конечности."
@@ -719,14 +717,23 @@
 	item_state = "tourniquet"
 	origin_tech = "biotech=3"
 	w_class = WEIGHT_CLASS_TINY
+	/// Duration to apply self
 	var/self_duration = 3 SECONDS
+	/// Duration to apply other mobs
 	var/other_duration = 2 SECONDS
+	/// Removing duration
 	var/remove_duration = 2.5 SECONDS
+	/// Bodypart where applyed tourniquet
 	var/obj/item/organ/external/applyed_bodypart = null
+	/// Addition bodypart where applyed tourniquet (hand for arm, foot for leg)
 	var/obj/item/organ/external/applyed_addition_bodypart = null
+	/// Duration of limb necrotize warning in chat
 	var/necrotize_warning_duration = 4 MINUTES
+	/// Limb necrotize warning timer identifier
 	var/necrotize_warning_timer_id = null
+	/// Duration of limb necrotize if apply tourniquet
 	var/necrotize_duration = 5 MINUTES
+	/// Limb necrotize timer identifier if apply tourniquet
 	var/necrotize_timer_id = null
 
 /obj/item/tourniquet/Destroy()
@@ -772,9 +779,10 @@
 
 	var/selected_zone = user.zone_selected
 	if(human_target == user)
+		baloon_alert("применение [declent_ru(ACCUSATIVE)]...")
 		user.visible_message(
-			span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять [declension_ru(NOMINATIVE)] на себе."),
-			span_notice("Вы начинаете применять на себе [declent_ru(NOMINATIVE)]..."),
+			span_notice("[human_target] начина[pluralize_ru(human_target.gender,"ет","ют")] применять на себе [declension_ru(ACCUSATIVE)]."),
+			ignored_mobs = user
 		)
 		if(!do_after(human_target, self_duration, human_target, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING) || applyed_bodypart)
 			return .
@@ -789,9 +797,10 @@
 			to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
 			return .
 	else
+		baloon_alert("применение [declent_ru(ACCUSATIVE)]...")
 		user.visible_message(
-			span_notice("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [human_target]."),
-			span_notice("Вы начинаете применять [declent_ru(NOMINATIVE)] на [human_target]..."),
+			span_notice("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] на [human_target]."),
+			ignored_mobs = user
 		)
 		if(!do_after(user, other_duration, human_target) || applyed_bodypart)
 			return .
@@ -806,8 +815,8 @@
 			to_chat(human_target, span_danger("[capitalize(declent_ru(NOMINATIVE))] нельзя применить на протезе!"))
 			return .
 		user.visible_message(
-			span_green("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] на [human_target.declent_ru(NOMINATIVE)]."),
-			span_green("Вы применяете [declent_ru(NOMINATIVE)] на [human_target.declent_ru(NOMINATIVE)]."),
+			span_green("[user] применя[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] на [human_target.declent_ru(ACCUSATIVE)]."),
+			span_green("Вы применяете [declent_ru(ACCUSATIVE)] на [human_target.declent_ru(ACCUSATIVE)]."),
 		)
 
 	affecting.tourniquet = src

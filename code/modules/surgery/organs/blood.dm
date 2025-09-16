@@ -1,7 +1,8 @@
 // Blood system
 // MARK: Definitions
 
-#define EXOTIC_BLEED_MULTIPLIER 8 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
+///Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
+#define EXOTIC_BLEED_MULTIPLIER 8
 
 /// Natural bleed regeneration size (units per 2 sec)
 #define BLOOD_REGENERATION 0.1
