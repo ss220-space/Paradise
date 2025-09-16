@@ -506,6 +506,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	desc = "A gun that changes the body temperature of its targets."
+	fire_delay = 1.5 SECONDS
 	var/temperature = 300
 	var/target_temperature = 300
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"

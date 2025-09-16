@@ -6,8 +6,10 @@
 /datum/martial_combo/sleeping_carp/back_kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(user.dir == target.dir && !target.stat && !target.IsWeakened())
 		user.do_attack_animation(target, ATTACK_EFFECT_KICK)
-		target.visible_message("<span class='warning'>[user] kicks [target] in the back!</span>", \
-						  "<span class='userdanger'>[user] kicks you in the back, making you stumble and fall!</span>")
+		target.visible_message(
+			"<span class='warning'>[user] kicks [target] in the back!</span>", \
+			"<span class='userdanger'>[user] kicks you in the back, making you stumble and fall!</span>"
+		)
 		step_to(target,get_step(target,target.dir),1)
 		target.Weaken(6 SECONDS)
 		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, TRUE, -1)

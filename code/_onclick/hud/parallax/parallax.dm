@@ -73,7 +73,7 @@
 	var/client/C = screenmob.client
 	var/pref = C.prefs?.parallax || PARALLAX_HIGH
 	switch(pref)
-		if (PARALLAX_INSANE)
+		if(PARALLAX_INSANE)
 			C.parallax_layers_max = 5
 			C.do_parallax_animations = TRUE
 			return TRUE
@@ -83,17 +83,17 @@
 			C.do_parallax_animations = TRUE
 			return TRUE
 
-		if (PARALLAX_MED)
+		if(PARALLAX_MED)
 			C.parallax_layers_max = 3
 			C.do_parallax_animations = TRUE
 			return TRUE
 
-		if (PARALLAX_LOW)
+		if(PARALLAX_LOW)
 			C.parallax_layers_max = 1
 			C.do_parallax_animations = FALSE
 			return TRUE
 
-		if (PARALLAX_DISABLE)
+		if(PARALLAX_DISABLE)
 			return FALSE
 
 
@@ -141,7 +141,7 @@
 
 		layer.transform = new_transform
 		animate(layer, transform = matrix(), time = scaled_time, easing = QUAD_EASING | (new_parallax_movedir ? EASE_IN : EASE_OUT))
-		if (new_parallax_movedir == NONE)
+		if(new_parallax_movedir == NONE)
 			continue
 		//queue up another animate so lag doesn't create a shutter
 		animate(transform = new_transform, time = 0)

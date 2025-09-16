@@ -943,6 +943,8 @@
 	tastes = list("egg" = 1)
 	foodtype = EGG
 
+	var/amount_grown = 0
+
 
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()

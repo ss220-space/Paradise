@@ -236,11 +236,11 @@
 /obj/machinery/power/generator/Topic(href, href_list)
 	if(..())
 		return 0
-	if( href_list["close"] )
+	if(href_list["close"])
 		close_window(usr, "teg")
 		usr.unset_machine()
 		return 0
-	if( href_list["check"] )
+	if(href_list["check"])
 		if(!powernet || !cold_circ || !hot_circ)
 			connect()
 	return 1
