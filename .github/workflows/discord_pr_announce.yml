@@ -20,7 +20,7 @@ jobs:
       - name: Process PR body
         id: process_body
         env:
-          PR_BODY: ${{ toJSON(github.event.pull_request.body) }}
+          PR_BODY: ${{ github.event.pull_request.body }}
         run: |
           CLEAN_BODY=$(echo "$PR_BODY" | sed 's/^"//; s/"$//' | sed '/<!--/,/-->/d')
           CLEAN_BODY=$(echo "$CLEAN_BODY" | sed '/^[[:space:]]*$/d')
