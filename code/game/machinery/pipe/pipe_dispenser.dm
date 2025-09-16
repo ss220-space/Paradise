@@ -143,7 +143,7 @@
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(!istype(pipe) || get_dist(user, src) > 1 || get_dist(src, pipe) > 1 )
+	if(!istype(pipe) || get_dist(user, src) > 1 || get_dist(src, pipe) > 1)
 		return
 
 	if(pipe.anchored)

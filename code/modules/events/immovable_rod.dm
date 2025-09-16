@@ -76,7 +76,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		update_appearance(UPDATE_NAME)
 
 	if(notify)
-		notify_ghosts("Приближается [name]!", enter_link="<a href=?src=[UID()];follow=1>(Следовать)</a>", source = src, action = NOTIFY_FOLLOW)
+		notify_ghosts("Приближается [name]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Следовать)</a>", source = src, action = NOTIFY_FOLLOW)
 
 	if(SSaugury)
 		SSaugury.register_doom(src, 2000)

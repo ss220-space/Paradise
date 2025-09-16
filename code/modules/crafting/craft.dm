@@ -11,21 +11,21 @@
 				CAT_DECORATIONS,
 				CAT_CLOTHING)
 	var/list/subcategories = list(
-						list(	//Weapon subcategories
+						list(//Weapon subcategories
 							CAT_WEAPON,
 							CAT_AMMO),
 						CAT_NONE, //Robot subcategories
 						CAT_NONE, //Misc subcategories
-						list(	//Tribal subcategories
+						list(//Tribal subcategories
 							CAT_ARMOR,
 							CAT_WEAPONS,
 							CAT_MISC2),
-						list(	//Food subcategories
+						list(//Food subcategories
 							CAT_CAKE,
 							CAT_SUSHI,
 							CAT_SANDWICH,
 							CAT_MISCFOOD),
-						list(	//Decoration subcategories
+						list(//Decoration subcategories
 							CAT_DECORATION,
 							CAT_HOLIDAY,
 							CAT_LARGE_DECORATIONS),
@@ -49,7 +49,7 @@
 			var/needed_amount = reqs[A]
 			for(var/B in contents)
 				if(ispath(B, A))
-					if (blacklist.Find(B))
+					if(blacklist.Find(B))
 						continue
 					if(contents[B] >= reqs[A])
 						continue main_loop
@@ -383,7 +383,7 @@
 
 //Next works nicely with modular arithmetic
 /datum/personal_crafting/proc/next_cat(readonly = TRUE)
-	if (!readonly)
+	if(!readonly)
 		viewing_subcategory = 1
 	. = viewing_category % categories.len + 1
 
@@ -395,7 +395,7 @@
 
 //Previous can go fuck itself
 /datum/personal_crafting/proc/prev_cat(readonly = TRUE)
-	if (!readonly)
+	if(!readonly)
 		viewing_subcategory = 1
 	if(viewing_category == categories.len)
 		. = viewing_category-1

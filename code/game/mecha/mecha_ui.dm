@@ -132,7 +132,7 @@
 			one_access = !one_access
 		if("set")
 			var/access = text2num(params["access"])
-			if (!(access in operation_req_access))
+			if(!(access in operation_req_access))
 				operation_req_access += access
 			else
 				operation_req_access -= access

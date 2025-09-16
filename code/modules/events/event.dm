@@ -213,7 +213,7 @@
 
 	triggering = TRUE
 
-	if (alertadmins)
+	if(alertadmins)
 		message_admins(span_warning("[forced? "Зафоршенное" : "Случайное"] событие сработает через 10 секунд: [EM.name] ([type]) (<a href='byond://?src=[UID()];cancel=1'>ОТМЕНИТЬ</a>)"))
 
 	addtimer(CALLBACK(src, PROC_REF(run_event), skeleton), 10 SECONDS)

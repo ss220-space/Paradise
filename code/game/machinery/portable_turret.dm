@@ -271,7 +271,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return data
 
 /obj/machinery/porta_turret/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(isLocked(usr))
 		return
@@ -466,7 +466,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	..()
 
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+	if(Proj.damage_type == BRUTE || Proj.damage_type == BURN)
 		take_damage(Proj.damage)
 
 /obj/machinery/porta_turret/emp_act(severity)

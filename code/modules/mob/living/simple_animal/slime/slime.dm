@@ -89,13 +89,13 @@
 
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour = "grey", age_state_new = new /datum/slime_age/baby, new_set_nutrition = 700)
-	if (!(locate(/datum/action/innate/slime/feed) in actions))
+	if(!(locate(/datum/action/innate/slime/feed) in actions))
 		var/datum/action/innate/slime/feed/F = new
 		F.Grant(src)
 	if(age_state.age != SLIME_BABY && !(locate(/datum/action/innate/slime/reproduce) in actions))
 		var/datum/action/innate/slime/reproduce/R = new
 		R.Grant(src)
-	if (!(locate(/datum/action/innate/slime/evolve) in actions))
+	if(!(locate(/datum/action/innate/slime/evolve) in actions))
 		var/datum/action/innate/slime/evolve/E = new
 		E.Grant(src)
 
@@ -131,7 +131,7 @@
 	harm_intent_damage = age_state.damage
 	maxHealth = age_state.health
 	transform = age_state.matrix_size
-	if ((cores - age_state.cores) > 0)
+	if((cores - age_state.cores) > 0)
 		cores += age_state.cores
 	else
 		cores = age_state.cores
@@ -291,7 +291,7 @@
 	if(!Proj)
 		return
 	attacked += 10 - age_state.attacked
-	if((Proj.damage_type == BURN))
+	if(Proj.damage_type == BURN)
 		adjustBruteLoss(-abs(Proj.damage)) //fire projectiles heals slimes.
 		Proj.on_hit(src)
 	else
@@ -474,7 +474,7 @@
 			. += "<span class='deadsay'>It appears to be alive but unresponsive.</span>"
 		if(getBruteLoss())
 			. += "<span class='warning'>"
-			if (getBruteLoss() < 40)
+			if(getBruteLoss() < 40)
 				. += "It has some punctures in its flesh!"
 			else
 				. += "<b>It has severe punctures and tears in its flesh!</b>"
@@ -532,16 +532,16 @@
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, age_state_new, new_set_nutrition)
 	age_state_new = new /datum/slime_age/baby
 	new_set_nutrition = 700
-	if (prob(10))
+	if(prob(10))
 		age_state_new = new /datum/slime_age/elder
 		new_set_nutrition = 2000
-	else if (prob(30))
+	else if(prob(30))
 		age_state_new = new /datum/slime_age/old
 		new_set_nutrition = 1200
-	else if (prob(50))
+	else if(prob(50))
 		age_state_new = new /datum/slime_age/adult
 		new_set_nutrition = 900
-	if (!new_colour)
+	if(!new_colour)
 		new_colour = pick(slime_colours)
 	. = ..(mapload, new_colour, age_state_new, new_set_nutrition)
 

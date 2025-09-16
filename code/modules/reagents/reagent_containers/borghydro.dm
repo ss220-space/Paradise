@@ -109,9 +109,9 @@
 	charge_tick = 0
 
 	var/target_loc
-	if (isrobot(loc))
+	if(isrobot(loc))
 		target_loc = loc
-	else if (isrobot(loc.loc))
+	else if(isrobot(loc.loc))
 		target_loc = loc.loc
 	else
 		return TRUE
@@ -249,7 +249,7 @@
 
 /obj/item/reagent_containers/borghypo/emagged
 	name = "ERR3NU1l_INJ3C70R"
-	desc = "Этот инъектор будет впрыскивать смертоносные химикаты в каждого, кому не посчастливилось оказаться врагом Синдиката. Кто бы мог подумать, что роботы НаноТрейзен способы синтезировать такое?"
+	desc = "Этот инъектор будет впрыскивать смертоносные химикаты в каждого, кому не посчастливилось оказаться врагом Синдиката. Кто бы мог подумать, что роботы Нанотрейзен способы синтезировать такое?"
 	ru_names = list(
 		NOMINATIVE = "0ШNBK4_IИБ3KT0Я",
 		GENITIVE = "0ШNBK4_IИБ3KT0Я",

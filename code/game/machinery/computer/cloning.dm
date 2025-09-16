@@ -155,7 +155,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/cloning/deconstruct(disassembled = TRUE, mob/user)
-	if (emagged)
+	if(emagged)
 		circuit = /obj/item/circuitboard/broken
 	..()
 

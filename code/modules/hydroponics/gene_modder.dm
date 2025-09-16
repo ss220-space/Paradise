@@ -355,7 +355,7 @@
 		else
 			core_gene.value = min(core_gene.value, genemod_var)
 
-	disk.update_name()
+	disk.update_appearance(UPDATE_NAME)
 	QDEL_NULL(seed)
 	update_icon(UPDATE_OVERLAYS)
 	update_genes()

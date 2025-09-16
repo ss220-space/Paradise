@@ -381,7 +381,7 @@
 		strain_choices = list()
 
 		var/list/new_strains = GLOB.valid_blobstrains.Copy() - blobstrain.type
-		for (var/unused in 1 to BLOB_POWER_REROLL_CHOICES)
+		for(var/unused in 1 to BLOB_POWER_REROLL_CHOICES)
 			var/datum/blobstrain/strain = pick_n_take(new_strains)
 
 			var/image/strain_icon = image('icons/mob/blob.dmi', "blob_core")
@@ -401,7 +401,7 @@
 	if(!free_strain_rerolls && !can_buy(BLOB_POWER_REROLL_COST))
 		return
 
-	for (var/_other_strain in GLOB.valid_blobstrains)
+	for(var/_other_strain in GLOB.valid_blobstrains)
 		var/datum/blobstrain/other_strain = _other_strain
 		if(initial(other_strain.name) == strain_result)
 			set_strain(other_strain)

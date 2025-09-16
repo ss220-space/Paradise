@@ -76,9 +76,9 @@
 
 	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
 		if(target == user)
-			balloon_alert(user, span_warning("лицо скрыто"))
+			balloon_alert(user, "лицо скрыто")
 		else
-			balloon_alert(user, span_warning("мешает скрытое лицо"))
+			balloon_alert(user, "мешает скрытое лицо")
 		return .
 
 	if(target.eat(toEat, user))
