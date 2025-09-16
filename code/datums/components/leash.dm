@@ -150,7 +150,7 @@
 
 	var/atom/movable/movable_parent = parent
 
-	for (var/turf/to_move as anything in path)
+	for(var/turf/to_move as anything in path)
 		// Could be an older path, don't make us teleport back
 		if(!to_move.Adjacent(parent))
 			continue

@@ -255,7 +255,7 @@
 	var/list/turfs_to_transform = list()
 	var/list/stations_z = levels_by_trait(STATION_LEVEL)
 	var/list/station_turfs = block(1, 1, stations_z[1], world.maxx, world.maxy, stations_z[length(stations_z)])
-	for (var/turf/transform_turf as anything in station_turfs)
+	for(var/turf/transform_turf as anything in station_turfs)
 		//if(transform_turf.turf_flags & NO_RUST)
 		//	continue
 
@@ -268,7 +268,7 @@
 
 		turfs_to_transform["[dist]"] += transform_turf
 
-	for (var/iterator in 1 to greatest_dist)
+	for(var/iterator in 1 to greatest_dist)
 		if(!turfs_to_transform["[iterator]"])
 			continue
 

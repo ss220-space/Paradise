@@ -92,7 +92,7 @@
 
 	if(!valid_callout_target(speaker, callout, target))
 		var/found_new_target = FALSE
-		for (var/atom/new_target in range(2, target))
+		for(var/atom/new_target in range(2, target))
 			if(!valid_callout_target(speaker, callout, new_target))
 				continue
 
@@ -115,7 +115,7 @@
  * if check_verbosity is true, skip the match if there spoken_text is way longer than the match
  */
 /datum/pet_command/proc/find_command_in_text(spoken_text, check_verbosity = FALSE)
-	for (var/command as anything in speech_commands)
+	for(var/command as anything in speech_commands)
 		if(!findtext(spoken_text, command))
 			continue
 

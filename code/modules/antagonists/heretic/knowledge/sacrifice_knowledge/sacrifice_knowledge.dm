@@ -1,6 +1,6 @@
 // The knowledge and process of heretic sacrificing.
 
-/// How long we put the target so sleep for (during sacrifice).
+/// How long we put the target so sleep for(during sacrifice).
 #define SACRIFICE_SLEEP_DURATION (12 SECONDS)
 /// How long sacrifices must stay in the shadow realm to survive.
 #define SACRIFICE_REALM_DURATION (2.5 MINUTES)
@@ -446,7 +446,7 @@
 
 	var/total_implant = rand(2, 4)
 
-	for (var/i in 1 to total_implant)
+	for(var/i in 1 to total_implant)
 		if(!length(usable_organs))
 			return
 

@@ -537,5 +537,5 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	))
 
 	// Add HUDs that they couldn't see before
-	for (var/datum/atom_hud/alternate_appearance/basic/has_antagonist/antag_hud as anything in GLOB.has_antagonist_huds)
+	for(var/datum/atom_hud/alternate_appearance/basic/has_antagonist/antag_hud as anything in GLOB.has_antagonist_huds)
 		antag_hud.apply_to_new_mob(owner.current)

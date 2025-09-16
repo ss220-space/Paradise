@@ -120,7 +120,7 @@
 		for(var/mob/living/candidate in range(range, parent))
 			to_damage += candidate
 
-	for (var/mob/living/candidate as anything in to_damage)
+	for(var/mob/living/candidate as anything in to_damage)
 		var/mob/living/owner = current_owner?.resolve()
 		if(owner && owner == candidate)
 			owner_effect(owner, seconds_per_tick)
@@ -142,7 +142,7 @@
 			candidate.adjustOxyLoss(suffocation_damage * seconds_per_tick, updating_health = FALSE)
 			candidate.adjustStaminaLoss(stamina_damage * seconds_per_tick, updating_health = FALSE)
 
-			for (var/organ in organ_damage)
+			for(var/organ in organ_damage)
 				candidate.adjustOrganLoss(organ, organ_damage[organ] * seconds_per_tick)
 
 		else if(isanimal(candidate))

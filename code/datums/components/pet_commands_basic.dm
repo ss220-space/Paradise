@@ -121,7 +121,7 @@
 
 /datum/pet_command/good_boy/New(mob/living/parent)
 	. = ..()
-	switch (parent.gender)
+	switch(parent.gender)
 		if(MALE)
 			speech_commands += "хороший мальчик"
 			return

@@ -301,7 +301,7 @@
 	var/burn_was = burn_dam
 
 	if(!forced)
-		if (SEND_SIGNAL(owner, COMSIG_CARBON_LIMB_DAMAGED, src, brute, burn) & COMPONENT_PREVENT_LIMB_DAMAGE)
+		if(SEND_SIGNAL(owner, COMSIG_CARBON_LIMB_DAMAGED, src, brute, burn) & COMPONENT_PREVENT_LIMB_DAMAGE)
 			return FALSE
 
 		if(tough)

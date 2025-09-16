@@ -37,7 +37,7 @@
 
 	var/list/human_mobs = GLOB.human_list.Copy()
 	human_mobs -= organ_owner
-	for (var/mob/living/carbon/human/check_human as anything in human_mobs)
+	for(var/mob/living/carbon/human/check_human as anything in human_mobs)
 		if(!isheretic(check_human) && !prob(5)) // Throw in some false positives
 			continue
 

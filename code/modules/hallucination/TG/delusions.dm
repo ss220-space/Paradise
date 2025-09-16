@@ -121,7 +121,7 @@
 /datum/hallucination/delusion/proc/on_mob_delete(mob/living/carbon/human/source)
 	SIGNAL_HANDLER
 
-	if (source == hallucinator)
+	if(source == hallucinator)
 		qdel(src)
 		return
 

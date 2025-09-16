@@ -554,7 +554,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 /datum/reagent/eldritch/reaction_turf(turf/exposed_turf, reac_volume, color)
 	. = ..()
-	if (!(reac_volume >= 1.5 || isplatingturf(exposed_turf)) || HAS_TRAIT(exposed_turf, TRAIT_RUSTY))
+	if(!(reac_volume >= 1.5 || isplatingturf(exposed_turf)) || HAS_TRAIT(exposed_turf, TRAIT_RUSTY))
 		return
 
 	exposed_turf.rust_turf()
