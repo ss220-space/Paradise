@@ -133,7 +133,7 @@
 /obj/item/book/codex_gigas/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "CodexGigas", name, 500, 400)
+		ui = new(user, src, "CodexGigas", name)
 		ui.open()
 
 /obj/item/book/codex_gigas/ui_data(mob/user)

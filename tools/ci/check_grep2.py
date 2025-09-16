@@ -141,7 +141,7 @@ def check_global_list_empty(idx, line):
 TGUI_UI_NEW = re.compile(r"ui = new\(((?:(?!,\s*).)+,\s*){1,3}(?:(?!,\s*).)+\)")
 def check_tgui_ui_new_argument(idx, line):
     if "\tui = new" in line and not TGUI_UI_NEW.search(line):
-        return [(idx + 1, "Invalid argument within constructor, please make sure window sizing is in corresponding JavaScript file.")]
+        return [(idx + 1, "Invalid argument within constructor, please make sure window sizing is in corresponding TypeScript file.")]
 
 # checks for any (for var/type/x) loops that are not looping over bare datums: enforcing that the only case we will see this is if you genuinely want to loop over all datums in memory
 FOR_ALL_DATUMS = re.compile(r"for\s*\(\s*var\/((\w+)(?:(?:\/\w+){2,})?)\)")
@@ -251,7 +251,7 @@ CODE_CHECKS = [
     check_to_chats_have_a_user_arguement,
     check_conditional_spacing,
     check_global_list_empty,
-#    check_tgui_ui_new_argument,
+    check_tgui_ui_new_argument,
     check_datum_loops,
     check_href_styles,
     check_initialize_missing_mapload,
