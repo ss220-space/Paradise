@@ -27,7 +27,7 @@
 
 /datum/ai_behavior/travel_towards/finish_action(datum/ai_controller/controller, succeeded, target_key)
 	. = ..()
-	if (clear_target)
+	if(clear_target)
 		controller.clear_blackboard_key(target_key)
 
 	if(!new_movement_type)

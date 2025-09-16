@@ -5,7 +5,7 @@
 /datum/ai_behavior/pet_use_ability/setup(datum/ai_controller/controller, ability_key, target_key)
 	. = ..()
 	var/mob/living/target = controller.blackboard[target_key]
-	if (QDELETED(target))
+	if(QDELETED(target))
 		return FALSE
 
 	set_movement_target(controller, target)
@@ -13,7 +13,7 @@
 /datum/ai_behavior/pet_use_ability/perform(seconds_per_tick, datum/ai_controller/controller, ability_key, target_key)
 	var/obj/effect/proc_holder/spell/mob_cooldown/ability = controller.blackboard[ability_key]
 	var/mob/living/target = controller.blackboard[target_key]
-	if (QDELETED(ability) || QDELETED(target))
+	if(QDELETED(ability) || QDELETED(target))
 		return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_FAILED
 
 	var/mob/pawn = controller.pawn

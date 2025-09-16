@@ -67,7 +67,7 @@
 
 /obj/structure/lock_tear/examine(mob/user)
 	. = ..()
-	if (!isobserver(user) || gathering_candidates)
+	if(!isobserver(user) || gathering_candidates)
 		return
 
 	. += span_notice("Вы можете использовать это, чтобы войти в этот мир став отвратительным монстром.")

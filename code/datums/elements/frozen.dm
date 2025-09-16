@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	/*if(isorgan(target))
 		var/obj/item/organ/organ = target
 		organ.//organ_flags |= ORGAN_FROZEN
-	else if (isbodypart(target))
+	else if(isbodypart(target))
 		for(var/obj/item/organ/organ in target_obj.contents)
 			organ.//organ_flags |= ORGAN_FROZEN
 	*/
@@ -42,10 +42,10 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 	obj_source.alpha += 25
 
 	/*
-	if (isorgan(source))
+	if(isorgan(source))
 		var/obj/item/organ/organ = source
 		organ.organ_flags &= ~ORGAN_FROZEN
-	else if (isbodypart(source))
+	else if(isbodypart(source))
 		for(var/obj/item/organ/organ in obj_source.contents)
 			organ.organ_flags &= ~ORGAN_FROZEN
 	*/

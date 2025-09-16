@@ -20,7 +20,7 @@
 
 
 /datum/status_effect/heretic_curse/on_apply()
-	if (isnull(the_curser) || !iscarbon(owner))
+	if(isnull(the_curser) || !iscarbon(owner))
 		return FALSE
 
 	the_curser.AddElement(/datum/element/relay_attackers)
@@ -48,7 +48,7 @@
 /// If we attack the guy who cursed us, that's no good
 /datum/status_effect/heretic_curse/proc/on_curser_attacked(datum/source, mob/attacker)
 	SIGNAL_HANDLER
-	if (attacker != owner || !HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))
+	if(attacker != owner || !HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))
 		return
 
 	//log_combat(owner, the_curser, "attacked", addition = "and lost some organs because they had previously been sacrificed by them.")
@@ -58,7 +58,7 @@
 /// If we are attacked by the guy who cursed us, that's also no good
 /datum/status_effect/heretic_curse/proc/on_owner_attacked(datum/source, mob/attacker)
 	SIGNAL_HANDLER
-	if (attacker != the_curser || !HAS_TRAIT(attacker, TRAIT_ALLOW_HERETIC_CASTING))
+	if(attacker != the_curser || !HAS_TRAIT(attacker, TRAIT_ALLOW_HERETIC_CASTING))
 		return
 
 	//log_combat(the_curser, owner, "attacked", addition = "and as they had previously sacrificed them, removed some of their organs.")
@@ -67,12 +67,12 @@
 
 /// Experience something you may not enjoy which may also significantly shorten your lifespan
 /datum/status_effect/heretic_curse/proc/experience_the_consequences()
-	if (!COOLDOWN_FINISHED(src, consequence_cooldown) || owner.stat != CONSCIOUS)
+	if(!COOLDOWN_FINISHED(src, consequence_cooldown) || owner.stat != CONSCIOUS)
 		return
 
 	var/mob/living/carbon/carbon_owner = owner
 	var/obj/item/organ/external/chest/organ_storage = owner.get_bodypart(BODY_ZONE_CHEST)
-	if (isnull(organ_storage))
+	if(isnull(organ_storage))
 		carbon_owner.gib() // IDK how you don't have a chest but you're not getting away that easily
 		return
 
@@ -84,19 +84,19 @@
 		removable_organs += bodypart_organ
 	*/
 
-	if (!length(removable_organs))
+	if(!length(removable_organs))
 		return // This one is a little more possible but they're probably already in pretty bad shape by this point
 
 	var/obj/item/organ/removing_organ = pick(removable_organs)
 
-	if (carbon_owner.vomit(mode = VOMIT_BLOOD))
+	if(carbon_owner.vomit(mode = VOMIT_BLOOD))
 		carbon_owner.visible_message(span_boldwarning("[carbon_owner] vomits out [carbon_owner.p_their()] [removing_organ]"))
 	else
 		carbon_owner.visible_message(span_boldwarning("[carbon_owner]'s [removing_organ] rips itself out of `[carbon_owner.p_their()] chest!"))
 
 	removing_organ.remove()
 	var/turf/land_turf = get_step(carbon_owner, carbon_owner.dir)
-	if (land_turf.is_blocked_turf(exclude_mobs = TRUE))
+	if(land_turf.is_blocked_turf(exclude_mobs = TRUE))
 		land_turf = carbon_owner.drop_location()
 
 	removing_organ.forceMove(land_turf)

@@ -10,21 +10,21 @@
 	var/finish_planning = TRUE
 
 /datum/ai_planning_subtree/targeted_mob_ability/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
-	if (!ability_key)
+	if(!ability_key)
 		CRASH("You forgot to tell this mob where to find its ability")
 
-	if (!controller.blackboard_key_exists(target_key))
+	if(!controller.blackboard_key_exists(target_key))
 		return
 
 	var/obj/effect/proc_holder/spell/using_action = controller.blackboard[ability_key]
-	if (!using_action?.can_cast(controller.pawn))
+	if(!using_action?.can_cast(controller.pawn))
 		return
 
-	if (!additional_ability_checks(controller, using_action))
+	if(!additional_ability_checks(controller, using_action))
 		return
 
 	controller.queue_behavior(use_ability_behaviour, ability_key, target_key)
-	if (finish_planning)
+	if(finish_planning)
 		return SUBTREE_RETURN_FINISH_PLANNING
 
 /// Any additional checks before we queue the behaviour

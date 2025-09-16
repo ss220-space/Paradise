@@ -8,7 +8,7 @@
 
 /datum/element/relay_attackers/Attach(datum/target)
 	. = ..()
-	if (HAS_TRAIT(target, TRAIT_RELAYING_ATTACKER)) // Little bit gross but we want to just apply this shit from a bunch of places
+	if(HAS_TRAIT(target, TRAIT_RELAYING_ATTACKER)) // Little bit gross but we want to just apply this shit from a bunch of places
 		ADD_TRAIT(target, TRAIT_RELAYING_ATTACKER, UID())
 		return
 

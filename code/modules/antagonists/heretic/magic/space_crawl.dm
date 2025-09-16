@@ -50,7 +50,7 @@
 		return TRUE
 
 	var/area/my_area = get_area(action.owner)
-	if (is_space_or_openspace(my_turf) || my_area.outdoors && lavaland_equipment_pressure_check(my_turf))
+	if(is_space_or_openspace(my_turf) || my_area.outdoors && lavaland_equipment_pressure_check(my_turf))
 		return TRUE
 
 	return FALSE
@@ -292,7 +292,7 @@
 
 /obj/effect/proc_holder/spell/jaunt/on_spell_loss(mob/living/remove_from)
 	exit_jaunt(remove_from)
-	if (!is_jaunting(remove_from)) // In case you have made exit_jaunt conditional, as in mirror walk
+	if(!is_jaunting(remove_from)) // In case you have made exit_jaunt conditional, as in mirror walk
 		return ..()
 
 	var/obj/effect/dummy/spell_jaunt/jaunt = remove_from.loc

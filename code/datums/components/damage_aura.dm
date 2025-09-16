@@ -64,7 +64,7 @@
 	message_probability = 0,
 	mob/living/current_owner = null,
 )
-	if (!isatom(parent))
+	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	START_PROCESSING(SSaura_healing, src)
@@ -102,14 +102,14 @@
 	need_mob_update += owner_mob.adjustFireLoss(-1 * seconds_per_tick, updating_health = FALSE)
 	need_mob_update += owner_mob.adjustToxLoss(-1 * seconds_per_tick, updating_health = FALSE, forced = TRUE)
 	need_mob_update += owner_mob.adjustOxyLoss(-1 * seconds_per_tick, updating_health = FALSE)
-	if (owner_mob.blood_volume < BLOOD_VOLUME_NORMAL)
+	if(owner_mob.blood_volume < BLOOD_VOLUME_NORMAL)
 		owner_mob.blood_volume += 2 * seconds_per_tick
 	if(need_mob_update)
 		owner_mob.updatehealth()
 
 /datum/component/damage_aura/process(seconds_per_tick)
 	var/should_show_effect = COOLDOWN_FINISHED(src, last_damage_effect_time)
-	if (should_show_effect)
+	if(should_show_effect)
 		COOLDOWN_START(src, last_damage_effect_time, DAMAGE_EFFECT_COOLDOWN)
 
 	var/list/to_damage = list()
@@ -122,22 +122,22 @@
 
 	for (var/mob/living/candidate as anything in to_damage)
 		var/mob/living/owner = current_owner?.resolve()
-		if (owner && owner == candidate)
+		if(owner && owner == candidate)
 			owner_effect(owner, seconds_per_tick)
 			continue
-		if (check_requirements(candidate))
+		if(check_requirements(candidate))
 			continue
-		if (candidate.health < candidate.maxHealth)
+		if(candidate.health < candidate.maxHealth)
 			new /obj/effect/temp_visual/cosmic_gem(get_turf(candidate))
 
 		if(damage_message && prob(message_probability))
 			to_chat(candidate, damage_message)
 
-		if (iscarbon(candidate) || issilicon(candidate) || isbasicmob(candidate) || isanimal(candidate))
+		if(iscarbon(candidate) || issilicon(candidate) || isbasicmob(candidate) || isanimal(candidate))
 			candidate.adjustBruteLoss(brute_damage * seconds_per_tick, updating_health = FALSE)
 			candidate.adjustFireLoss(burn_damage * seconds_per_tick, updating_health = FALSE)
 
-		if (iscarbon(candidate))
+		if(iscarbon(candidate))
 			candidate.adjustToxLoss(toxin_damage * seconds_per_tick, updating_health = FALSE)
 			candidate.adjustOxyLoss(suffocation_damage * seconds_per_tick, updating_health = FALSE)
 			candidate.adjustStaminaLoss(stamina_damage * seconds_per_tick, updating_health = FALSE)
@@ -145,15 +145,15 @@
 			for (var/organ in organ_damage)
 				candidate.adjustOrganLoss(organ, organ_damage[organ] * seconds_per_tick)
 
-		else if (isanimal(candidate))
+		else if(isanimal(candidate))
 			var/mob/living/simple_animal/animal_candidate = candidate
 			animal_candidate.adjustHealth(simple_damage * seconds_per_tick, updating_health = FALSE)
 
-		else if (isbasicmob(candidate))
+		else if(isbasicmob(candidate))
 			var/mob/living/basic/basic_candidate = candidate
 			basic_candidate.adjust_health(simple_damage * seconds_per_tick, updating_health = FALSE)
 
-		if (candidate.blood_volume > BLOOD_VOLUME_SURVIVE)
+		if(candidate.blood_volume > BLOOD_VOLUME_SURVIVE)
 			candidate.blood_volume -= blood_damage * seconds_per_tick
 
 		candidate.updatehealth()

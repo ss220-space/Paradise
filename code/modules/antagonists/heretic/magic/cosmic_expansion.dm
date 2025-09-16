@@ -36,7 +36,7 @@
 
 		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, action.owner)
 
-	if (!ascended)
+	if(!ascended)
 		return ..()
 
 	for(var/turf/cast_turf as anything in get_turfs(get_turf(action.owner)))

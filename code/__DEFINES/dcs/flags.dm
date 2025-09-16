@@ -46,6 +46,6 @@
 
 //setter for KEEP_TOGETHER to allow for multiple sources to set and unset it
 #define ADD_KEEP_TOGETHER(x, source)\
-	if ((x.appearance_flags & KEEP_TOGETHER) && !HAS_TRAIT(x, TRAIT_KEEP_TOGETHER)) ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL); \
+	if((x.appearance_flags & KEEP_TOGETHER) && !HAS_TRAIT(x, TRAIT_KEEP_TOGETHER)) ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL); \
 	ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, source);\
 	x.appearance_flags |= KEEP_TOGETHER

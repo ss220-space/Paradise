@@ -36,7 +36,7 @@
 	ignore_damage_types = list(STAMINA),
 	outline_colour = COLOR_PALE_GREEN,
 )
-	if (!isliving(parent))
+	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.regeneration_delay = regeneration_delay
@@ -72,7 +72,7 @@
 /datum/component/regenerator/proc/on_take_damage(datum/source, damage, damagetype, ...)
 	SIGNAL_HANDLER
 
-	if (damagetype in ignore_damage_types)
+	if(damagetype in ignore_damage_types)
 		return
 
 	stop_regenerating()
@@ -80,14 +80,14 @@
 
 /// Start processing health regeneration, and show animation if provided
 /datum/component/regenerator/proc/start_regenerating()
-	if (!should_be_regenning(parent))
+	if(!should_be_regenning(parent))
 		return
 
 	var/mob/living/living_parent = parent
 	living_parent.visible_message(span_notice("Раны [living_parent.declent_ru(GENITIVE)] начали затягиваться!"))
 	START_PROCESSING(SSobj, src)
 	regeneration_start_timer = null
-	if (!outline_colour)
+	if(!outline_colour)
 		return
 
 	living_parent.add_filter(REGENERATION_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 0, "size" = 1))
@@ -103,7 +103,7 @@
 	living_parent.remove_filter(REGENERATION_FILTER)
 
 /datum/component/regenerator/process(seconds_per_tick)
-	if (!should_be_regenning(parent))
+	if(!should_be_regenning(parent))
 		stop_regenerating()
 		return
 

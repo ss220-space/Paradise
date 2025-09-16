@@ -2410,7 +2410,7 @@
 			"[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [genderize_ru(target.gender, "его", "её", "его", "их")] упасть!", \
 			"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]")
 		)
-    
+
 /mob/living/proc/check_block(atom/hit_by, damage, attack_text = "the attack", attack_type = ITEM_ATTACK, armour_penetration = 0, damage_type = BRUTE)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_CHECK_BLOCK, hit_by, damage, attack_text, attack_type, armour_penetration, damage_type) & SUCCESSFUL_BLOCK)
 		return SUCCESSFUL_BLOCK
@@ -2425,7 +2425,7 @@
 		return
 
 	var/friend_ref = new_friend.UID()
-	if (faction.Find(friend_ref))
+	if(faction.Find(friend_ref))
 		return FALSE
 
 	faction |= friend_ref
@@ -2439,7 +2439,7 @@
 /mob/living/proc/unfriend(mob/living/old_friend)
 	SHOULD_CALL_PARENT(TRUE)
 	var/friend_ref = old_friend.UID()
-	if (!faction.Find(friend_ref))
+	if(!faction.Find(friend_ref))
 		return FALSE
 
 	faction -= friend_ref

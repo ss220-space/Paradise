@@ -9,7 +9,7 @@
 
 /datum/ai_planning_subtree/pet_planning/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/datum/pet_command/command = controller.blackboard[BB_ACTIVE_PET_COMMAND]
-	if (!command)
+	if(!command)
 		return // Do something else
 
 	return command.execute_action(controller)

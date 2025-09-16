@@ -14,19 +14,19 @@
 	var/has_target = controller.blackboard_key_exists(target_key)
 	var/obj/effect/proc_holder/spell/using_action = controller.blackboard[ability_key]
 
-	if (!is_shifted)
-		if (has_target)
+	if(!is_shifted)
+		if(has_target)
 			return // We're busy
 
-		if (using_action?.can_cast(controller.pawn))
+		if(using_action?.can_cast(controller.pawn))
 			controller.queue_behavior(/datum/ai_behavior/use_mob_ability/shapeshift, BB_SHAPESHIFT_ACTION) // Shift
 		return SUBTREE_RETURN_FINISH_PLANNING
 
-	if (!has_target || !using_action?.can_cast(controller.pawn))
+	if(!has_target || !using_action?.can_cast(controller.pawn))
 		return SUBTREE_RETURN_FINISH_PLANNING // Lie in wait
 
 	var/time_on_target = controller.blackboard[BB_BASIC_MOB_HAS_TARGET_TIME] || 0
-	if (time_on_target < minimum_target_time)
+	if(time_on_target < minimum_target_time)
 		return // Wait a bit longer
 
 	controller.queue_behavior(/datum/ai_behavior/use_mob_ability/shapeshift, BB_SHAPESHIFT_ACTION) // Surprise!
@@ -36,10 +36,10 @@
 
 /datum/ai_behavior/use_mob_ability/shapeshift/setup(datum/ai_controller/controller, ability_key)
 	var/obj/effect/proc_holder/spell/shapeshift/using_action = controller.blackboard[ability_key]
-	if (!using_action?.can_cast(controller.pawn))
+	if(!using_action?.can_cast(controller.pawn))
 		return FALSE
 
-	if (isnull(using_action.shapeshift_type)) // If we don't have a shape then pick one, AI can't use context wheels
+	if(isnull(using_action.shapeshift_type)) // If we don't have a shape then pick one, AI can't use context wheels
 		using_action.shapeshift_type = pick(using_action.possible_shapes)
 
 	return ..()

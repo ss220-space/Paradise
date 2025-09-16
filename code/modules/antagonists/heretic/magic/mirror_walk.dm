@@ -87,7 +87,7 @@
 	// Pass the turf of the nearby reflection to the parent call
 	// as that's the location we're actually jaunting into
 	var/obj/effect/dummy/spell_jaunt/jaunt = ..(jaunter, get_turf(nearby_reflection))
-	if (!jaunt)
+	if(!jaunt)
 		return FALSE
 
 	RegisterSignal(jaunt, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
@@ -119,11 +119,11 @@
 	var/turf/simulated/phase_turf = get_turf(unjaunter)
 
 	// Chilly!
-	if (is_space_or_openspace(phase_turf))
+	if(is_space_or_openspace(phase_turf))
 		phase_turf.air.temperature = max(0, phase_turf.air.temperature - 20)
 
 	var/atom/nearby_reflection = is_reflection_nearby(phase_turf)
-	if (!nearby_reflection) // Should only be true if you're forced out somehow, like by having the spell removed
+	if(!nearby_reflection) // Should only be true if you're forced out somehow, like by having the spell removed
 		return
 
 	unjaunter.visible_message(

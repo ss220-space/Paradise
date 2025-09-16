@@ -260,7 +260,7 @@
 
 	damage_sustained += damage
 
-	if (damage_sustained < 75)
+	if(damage_sustained < 75)
 		return
 
 	qdel(src)

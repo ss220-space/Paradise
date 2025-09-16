@@ -12,7 +12,7 @@
 	or_trait,
 )
 	. = ..()
-	if (!isliving(target))
+	if(!isliving(target))
 		return ELEMENT_INCOMPATIBLE
 
 	src.wall_type = wall_type

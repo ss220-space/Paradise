@@ -20,7 +20,7 @@
 /datum/element/ai_target_damagesource/proc/on_attacked(mob/victim, atom/attacker)
 	SIGNAL_HANDLER
 
-	if (!victim.ai_controller)
+	if(!victim.ai_controller)
 		return
 
 	victim.ai_controller.CancelActions()

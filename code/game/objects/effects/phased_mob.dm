@@ -91,7 +91,7 @@
 	if(!newloc)
 		return
 
-	if (direction in GLOB.alldirs)
+	if(direction in GLOB.alldirs)
 		setDir(direction)
 
 	forceMove(newloc)
@@ -100,7 +100,7 @@
 /// Checks if the conditions are valid to be able to phase. Returns a turf destination if positive.
 /obj/effect/dummy/spell_jaunt/proc/phased_check(mob/living/user, direction)
 	RETURN_TYPE(/turf)
-	if (movedelay > world.time || !direction)
+	if(movedelay > world.time || !direction)
 		return
 
 	var/turf/newloc = get_step_multiz(src,direction)
@@ -119,7 +119,7 @@
 		to_chat(user, span_danger("Some dull, universal force is blocking the way. Its overwhelmingly oppressive force feels dangerous."))
 		return
 
-	if (direction == UP || direction == DOWN)
+	if(direction == UP || direction == DOWN)
 		newloc = can_z_move(direction, get_turf(src), newloc, ZMOVE_INCAPACITATED_CHECKS | ZMOVE_FEEDBACK | ZMOVE_ALLOW_ANCHORED, user)
 
 	return newloc

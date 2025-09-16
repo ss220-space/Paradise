@@ -40,7 +40,7 @@
 
 	var/atom/movable/movable_parent = parent
 
-	if (!isturf(movable_parent.loc))
+	if(!isturf(movable_parent.loc))
 		return null
 
 	return adjust_for_pixel_shift ? get_turf_pixel(movable_parent) : movable_parent.loc
@@ -61,10 +61,10 @@
 
 	var/turf/next_turf = find_turf()
 
-	if (isnull(next_turf))
+	if(isnull(next_turf))
 		return
 
-	if (check_blacklisted_turf(next_turf))
+	if(check_blacklisted_turf(next_turf))
 		return
 
 	current_turf = next_turf
@@ -74,7 +74,7 @@
 /datum/component/redirect_attack_hand_from_turf/proc/disconnect_from_old_turf()
 	PRIVATE_PROC(TRUE)
 
-	if (isnull(current_turf))
+	if(isnull(current_turf))
 		return
 
 	UnregisterSignal(current_turf, COMSIG_ATOM_ATTACK_HAND)
@@ -83,7 +83,7 @@
 	SIGNAL_HANDLER
 	PRIVATE_PROC(TRUE)
 
-	if (!isnull(interact_check) && !interact_check.Invoke(user))
+	if(!isnull(interact_check) && !interact_check.Invoke(user))
 		return NONE
 
 	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, UnarmedAttack), parent, proximity_flag = TRUE/*, modifiers = modifiers*/)

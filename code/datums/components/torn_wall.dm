@@ -15,7 +15,7 @@
 
 /datum/component/torn_wall/Initialize()
 	. = ..()
-	if (isfloorturf(parent))
+	if(isfloorturf(parent))
 		return COMPONENT_INCOMPATIBLE
 
 
@@ -50,7 +50,7 @@
 /// Make the effect more dramatic
 /datum/component/torn_wall/proc/increase_stage()
 	current_stage++
-	if (current_stage != TORN_WALL_RUINED)
+	if(current_stage != TORN_WALL_RUINED)
 		apply_visuals()
 		return
 
@@ -78,7 +78,7 @@
 		return
 
 	current_stage--
-	if (current_stage < TORN_WALL_INITIAL)
+	if(current_stage < TORN_WALL_INITIAL)
 		qdel(src)
 		return
 
@@ -97,7 +97,7 @@
 /datum/component/torn_wall/proc/on_update_overlays(turf/source, list/overlays)
 	SIGNAL_HANDLER
 	var/mutable_appearance/crack = mutable_appearance('icons/turf/overlays.dmi', "explodable", source.layer + 0.1)
-	if (current_stage == TORN_WALL_INITIAL)
+	if(current_stage == TORN_WALL_INITIAL)
 		crack.alpha *= 0.5
 
 	overlays += crack

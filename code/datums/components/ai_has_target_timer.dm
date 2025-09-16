@@ -13,11 +13,11 @@
 
 /datum/component/ai_target_timer/Initialize(increment_key = BB_BASIC_MOB_HAS_TARGET_TIME, target_key = BB_BASIC_MOB_CURRENT_TARGET)
 	. = ..()
-	if (!isliving(parent))
+	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	var/mob/living/mob_parent = parent
-	if (isnull(mob_parent.ai_controller))
+	if(isnull(mob_parent.ai_controller))
 		return COMPONENT_INCOMPATIBLE
 
 	src.increment_key = increment_key
@@ -45,13 +45,13 @@
 	var/mob/living/living_parent = parent
 	var/atom/new_target = living_parent.ai_controller.blackboard[target_key]
 	deltimer(reset_clock_timer)
-	if (new_target == last_target)
+	if(new_target == last_target)
 		return
 
 	time_on_target = 0
 	store_current_time()
 	START_PROCESSING(SSdcs, src)
-	if (!isnull(last_target))
+	if(!isnull(last_target))
 		UnregisterSignal(last_target, COMSIG_QDELETING)
 
 	RegisterSignal(new_target, COMSIG_QDELETING, PROC_REF(finalise_losing_target))
@@ -66,12 +66,12 @@
 /datum/component/ai_target_timer/proc/finalise_losing_target()
 	deltimer(reset_clock_timer)
 	STOP_PROCESSING(SSdcs, src)
-	if (!isnull(last_target))
+	if(!isnull(last_target))
 		UnregisterSignal(last_target, COMSIG_QDELETING)
 
 	last_target = null
 	time_on_target = 0
-	if (QDELETED(parent))
+	if(QDELETED(parent))
 		return
 
 	store_current_time()

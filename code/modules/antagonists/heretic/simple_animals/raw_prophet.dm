@@ -81,7 +81,7 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/AttackingTarget()
 	SpinAnimation(speed = 5, loops = 1)
-	if (target == src)
+	if(target == src)
 		return
 
 	return ..()

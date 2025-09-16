@@ -96,7 +96,7 @@
 /datum/idle_behavior/idle_random_walk/rust/perform_idle_behavior(seconds_per_tick, datum/ai_controller/controller)
 	var/mob/living/our_mob = controller.pawn
 	var/turf/our_turf = get_turf(our_mob)
-	if (HAS_TRAIT(our_turf, TRAIT_RUSTY))
+	if(HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		walk_chance = (our_mob.health < our_mob.maxHealth) ? 10 : 50
 	else
 		walk_chance = (our_mob.health < our_mob.maxHealth) ? 50 : 10
@@ -110,7 +110,7 @@
 
 /datum/ai_planning_subtree/use_mob_ability/rust_walker/SelectBehaviors(datum/ai_controller/controller, seconds_per_tick)
 	var/turf/our_turf = get_turf(controller.pawn)
-	if (HAS_TRAIT(our_turf, TRAIT_RUSTY))
+	if(HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
 
 	return ..()

@@ -70,7 +70,7 @@
 // Star gazer attacks everything around itself applies a spooky mark
 /mob/living/simple_animal/hostile/heretic_summon/star_gazer/AttackingTarget()
 	. = ..()
-	if (!. || !isliving(target))
+	if(!. || !isliving(target))
 		return
 
 	var/mob/living/liv_target = target

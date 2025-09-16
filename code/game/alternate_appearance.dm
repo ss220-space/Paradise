@@ -277,7 +277,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	if(mob.mind?.isholy)
 		return TRUE
 
-	if (iswraith(mob))
+	if(iswraith(mob))
 		return TRUE
 
 	if(isrevenant(mob) || iswizard(mob) || isheretic(mob))

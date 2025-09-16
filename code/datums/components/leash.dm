@@ -29,23 +29,23 @@
 )
 	. = ..()
 
-	if (!ismovable(parent))
+	if(!ismovable(parent))
 		stack_trace("Parent must be a movable")
 		return COMPONENT_INCOMPATIBLE
 
-	if (!ismovable(owner))
+	if(!ismovable(owner))
 		stack_trace("[owner] (owner) is not a movable")
 		return COMPONENT_INCOMPATIBLE
 
-	if (!isnum(distance))
+	if(!isnum(distance))
 		stack_trace("[distance] (distance) must be a number")
 		return COMPONENT_INCOMPATIBLE
 
-	if (!isnull(force_teleport_out_effect) && !ispath(force_teleport_out_effect))
+	if(!isnull(force_teleport_out_effect) && !ispath(force_teleport_out_effect))
 		stack_trace("force_teleport_out_effect must be null or a path, not [force_teleport_out_effect]")
 		return COMPONENT_INCOMPATIBLE
 
-	if (!isnull(force_teleport_in_effect) && !ispath(force_teleport_in_effect))
+	if(!isnull(force_teleport_in_effect) && !ispath(force_teleport_in_effect))
 		stack_trace("force_teleport_in_effect must be null or a path, not [force_teleport_in_effect]")
 		return COMPONENT_INCOMPATIBLE
 
@@ -98,14 +98,14 @@
 	SIGNAL_HANDLER
 	PRIVATE_PROC(TRUE)
 
-	if (performing_path_move)
+	if(performing_path_move)
 		return NONE
 
 	var/turf/new_location_turf = get_turf(new_location)
-	if (get_dist(new_location_turf, owner) <= distance)
+	if(get_dist(new_location_turf, owner) <= distance)
 		return NONE
 
-	if (ismob(source))
+	if(ismob(source))
 		source.balloon_alert(source, "далеко от ведущего!")
 
 	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
@@ -115,15 +115,15 @@
 	set waitfor = FALSE
 	PRIVATE_PROC(TRUE)
 
-	if (get_dist(parent, owner) <= distance)
+	if(get_dist(parent, owner) <= distance)
 		return
 
 	var/atom/movable/atom_parent = parent
-	if (isnull(owner.loc))
+	if(isnull(owner.loc))
 		atom_parent.moveToNullspace() // If our parent is in nullspace I guess we gotta go there too
 		return
 
-	if (isnull(atom_parent.loc))
+	if(isnull(atom_parent.loc))
 		force_teleport_back("in nullspace") // If we're in nullspace, get outta there
 		return
 
@@ -134,7 +134,7 @@
 
 	var/list/path = get_path_to(parent, owner, mintargetdist = distance)
 
-	if (last_completed_path_tick > our_path_tick)
+	if(last_completed_path_tick > our_path_tick)
 		return
 
 	last_completed_path_tick = our_path_tick
@@ -152,15 +152,15 @@
 
 	for (var/turf/to_move as anything in path)
 		// Could be an older path, don't make us teleport back
-		if (!to_move.Adjacent(parent))
+		if(!to_move.Adjacent(parent))
 			continue
 
-		if (!movable_parent.Move(to_move))
+		if(!movable_parent.Move(to_move))
 			force_teleport_back("bad path step")
 			performing_path_move = FALSE
 			return
 
-	if (get_dist(parent, owner) > distance)
+	if(get_dist(parent, owner) > distance)
 		force_teleport_back("incomplete path")
 
 	performing_path_move = FALSE
@@ -174,15 +174,15 @@
 
 	SSblackbox.record_feedback("tally", "leash_force_teleport_back", 1, reason)
 
-	if (force_teleport_out_effect)
+	if(force_teleport_out_effect)
 		new force_teleport_out_effect(movable_parent.loc)
 
 	movable_parent.forceMove(get_turf(owner))
 
-	if (force_teleport_in_effect)
+	if(force_teleport_in_effect)
 		new force_teleport_in_effect(movable_parent.loc)
 
-	if (ismob(movable_parent))
+	if(ismob(movable_parent))
 		movable_parent.balloon_alert(movable_parent, "вышел за радиус!")
 
 	SEND_SIGNAL(parent, COMSIG_LEASH_FORCE_TELEPORT)

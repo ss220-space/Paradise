@@ -394,7 +394,7 @@
 
 /obj/item/melee/cultblade/haunted/proc/start_glow_loop()
 	var/filter = get_filter("bind_glow")
-	if (!filter)
+	if(!filter)
 		return
 
 	animate(filter, alpha = 110, time = 1.5 SECONDS, loop = -1)

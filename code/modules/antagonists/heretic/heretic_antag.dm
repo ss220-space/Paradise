@@ -302,7 +302,7 @@
 	var/mob/living/our_mob = mob_override || owner.current
 	our_mob.faction |= FACTION_HERETIC
 
-	if (!issilicon(our_mob))
+	if(!issilicon(our_mob))
 		GLOB.reality_smash_track.add_tracked_mind(owner)
 
 	ADD_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, UID())
@@ -315,7 +315,7 @@
 	var/mob/living/our_mob = mob_override || owner.current
 	our_mob.faction -= FACTION_HERETIC
 
-	if (owner in GLOB.reality_smash_track.tracked_heretics)
+	if(owner in GLOB.reality_smash_track.tracked_heretics)
 		GLOB.reality_smash_track.remove_tracked_mind(owner)
 
 	REMOVE_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, UID())
@@ -430,7 +430,7 @@
 	var/rune_colour = GLOB.heretic_path_to_color[heretic_path]
 	target_turf.balloon_alert(user, "черчение руны...")
 	var/obj/effect/temp_visual/drawing_heretic_rune/drawing_effect
-	if (drawing_time < (10 SECONDS))
+	if(drawing_time < (10 SECONDS))
 		drawing_effect = new /obj/effect/temp_visual/drawing_heretic_rune/fast(target_turf, rune_colour)
 	else
 		drawing_effect = new(target_turf, rune_colour)
@@ -980,7 +980,7 @@
 		if(!filtered_objects.len)
 			continue
 
-		if (!something_found)
+		if(!something_found)
 			dreams += "Вы видите отражение на поверхности воды"
 			something_found = TRUE
 

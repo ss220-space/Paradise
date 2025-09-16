@@ -1737,7 +1737,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(!turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"]) && !(GRAVITY_SOURCE_GRAVGEN in ignored_gravity_sources))
 		gravity_deltas.Add(1)
-	else if (turf_area.has_gravity)
+	else if(turf_area.has_gravity)
 		gravity_deltas.Add(turf_area.has_gravity)
 
 	for(var/source in gravity_sources)
