@@ -9,7 +9,7 @@
 // On:
 #define SMITE_LIGHTING				"Удар молнией"
 #define SMITE_GIB					"Разорвать на органы"
-#define	SMITE_BRAINLOSS 			"Повредить разум"
+#define	SMITE_BRAINLOSS 			"Повредить мозг"
 #define SMITE_HONKTUMOR 			"Банановая опухоль"
 #define SMITE_CLUWNE 				"Клунефикация"
 #define SMITE_HUNGER				"Голод"

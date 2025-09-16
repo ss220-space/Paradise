@@ -149,7 +149,7 @@
 
 /datum/smite/hunger/apply_effect(mob/living/target, reason)
 	var/nutrition = tgui_input_number(usr, "Выберите значение насыщения, которое будет установленно у цели. ([NUTRITION_LEVEL_FULL] - сыт)", "Выбор насыщения", 0)
-	var/old_nutrition = nutrition
+	var/old_nutrition = target.nutrition
 	target.set_nutrition(nutrition)
 	to_chat(target, span_userdanger("Вы чувствуете [nutrition < old_nutrition ? "голод" : "что съели слишком много"]. Боги наказали вас за [reason]!"))
 
@@ -263,7 +263,7 @@
 	if(!type)
 		type = /mob/living/simple_animal/pig
 
-	var/mob/living/mob = new(turf)
+	var/mob/living/mob = new type(turf)
 	target.mind.transfer_to(mob)
 	qdel(target)
 	to_chat(mob, span_userdanger("Вы чувствуете как ваша сущность координально меняется. Боги наказали вас за [reason]!"))
@@ -284,7 +284,7 @@
 	if(item)
 		target.drop_item_ground(item, force = TRUE)
 
-	ADD_TRAIT(item, TRAIT_NODROP, ADMIN_TRAIT)
+	ADD_TRAIT(clothing, TRAIT_NODROP, ADMIN_TRAIT)
 	target.equip_to_slot_or_del(clothing, slot)
 	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возникш[genderize_ru(clothing.gender, "ий", "ая", "ее", "ие")] из пустоты прилипа[pluralize_ru(clothing.gender, "ет", "ют")] к вам. Боги наказали вас за [reason]!"))
 	logmsg = "antidrop [clothing]."
@@ -333,6 +333,7 @@
 
 	var/mob/living/simple_animal/hostile/mob = new type(turf)
 	mob.GiveTarget(mob)
+	mob.toggle_ai(AI_ON)
 	to_chat(target, span_userdanger("[capitalize(mob.declent_ru(NOMINATIVE))] появляется из воздуха! Боги наказали вас за [reason]!"))
 	logmsg = "summon angry [mob]."
 
@@ -450,6 +451,16 @@
 	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
 	target.AddComponent(/datum/component/killing_reward, bounty)
 
+	for(var/datum/data/record/record in sortRecord(GLOB.data_core.security))
+		if(record.fields["name"] != target.real_name)
+			continue
+
+		record.fields["criminal"] = SEC_RECORD_STATUS_EXECUTE
+		record.fields["last_modifier_level"] = LAW_LEVEL_CENTCOMM
+		record.fields["comments"] += "Постановление Центрального Командования о казни, принятое [GLOB.current_date_string] [station_time_timestamp()]<br> Привести приговор в исполнение немедленн. Невыполнение этого распоряженя является основанием для увольнения."
+
+	update_all_mob_security_hud()
+
 
 /// MARK: Brainrot braindamag
 /datum/smite/brainrot_braingamage
@@ -469,7 +480,7 @@
 
 	var/damage = tgui_input_number(usr, "Настройте повреждения мозга за каждое запретное слово.", "Выбор повреждений", 5, 120, 0)
 	var/list/bad_words = GLOB.default_brainrot.Copy()
-	var/bad_words_string = tgui_input_list(usr, "Настройте список запретных слов, введя все слова списка через запятую без пробелов. Список по умолчанию: [list_to_string(bad_words)]", "Выбор запретных слов")
+	var/bad_words_string = tgui_input_text(usr, "Настройте список запретных слов, введя все слова списка через запятую без пробелов. Список по умолчанию: [list_to_string(bad_words)]", "Выбор запретных слов")
 	if(bad_words_string)
 		bad_words = string_to_list(bad_words_string)
 
@@ -530,9 +541,9 @@
 
 /datum/smite_ui/ui_static_data(mob/user)
 	. = ..()
-	var/list/smites_paths = GLOB.smites_not_human
-	if(!ishuman(user))
-		smites_paths += GLOB.smites_human
+	var/list/smites_paths = GLOB.smites_not_human.Copy()
+	if(ishuman(user))
+		smites_paths += GLOB.smites_human.Copy()
 
 	.["all_smites"] = list()
 	.["all_descs"] = list()

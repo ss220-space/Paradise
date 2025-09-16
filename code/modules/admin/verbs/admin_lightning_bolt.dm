@@ -145,8 +145,8 @@
 		_mob.apply_damage(damage, BURN)
 		_mob.updatehealth("admin lightning bolt")
 
-	if(reason)
-		to_chat(victim, span_userdanger("Молния бьёт вас из пустоты! Боги наказали вас за [reason]!"))
+	if(reason && victim_mob)
+		to_chat(victim_mob, span_userdanger("Молния бьёт вас из пустоты! Боги наказали вас за [reason]!"))
 
 	log_admin("[key_name(usr)] dropped lightning bolt at [victim] with damage=[damage], radius=[radius], delay=[delay]")
 	message_admins("[key_name_admin(usr)] dropped lightning bolt at [ADMIN_COORDJMP(victim)] with damage=[damage], radius=[radius], delay=[delay]")
