@@ -95,7 +95,7 @@
 	for(var/datum/weather/check_weather as anything in SSweather.processing)
 		if(!check_weather.barometer_predictable || check_weather.stage == WIND_DOWN_STAGE || check_weather.stage == END_STAGE)
 			continue
-		for (var/mining_level in mining_z_levels)
+		for(var/mining_level in mining_z_levels)
 			if(mining_level in check_weather.impacted_z_levels)
 				warning_level = WEATHER_ALERT_IMMINENT_OR_ACTIVE
 				return 0

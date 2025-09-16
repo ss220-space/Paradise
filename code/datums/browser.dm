@@ -26,13 +26,13 @@
 	user = nuser
 	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(user_deleted))
 	window_id = nwindow_id
-	if (ntitle)
+	if(ntitle)
 		title = format_text(ntitle)
-	if (nwidth)
+	if(nwidth)
 		width = nwidth
-	if (nheight)
+	if(nheight)
 		height = nheight
-	if (nref)
+	if(nref)
 		ref = WEAKREF(nref)
 
 /datum/browser/proc/set_title(ntitle)
@@ -49,7 +49,7 @@
 	window_options = islist(nwindow_options) ? jointext(nwindow_options, "") : nwindow_options
 
 /datum/browser/proc/add_stylesheet(name, file)
-	if (istype(name, /datum/asset/spritesheet))
+	if(istype(name, /datum/asset/spritesheet))
 		var/datum/asset/spritesheet/sheet = name
 		stylesheets["spritesheet_[sheet.name].css"] = "data/spritesheets/[sheet.name]"
 	else
@@ -57,7 +57,7 @@
 
 		stylesheets[asset_name] = file
 
-		if (!SSassets.cache[asset_name])
+		if(!SSassets.cache[asset_name])
 			SSassets.transport.register_asset(asset_name, file)
 
 /datum/browser/proc/add_scss_stylesheet(name, file)
@@ -82,11 +82,11 @@
 	if(include_default_stylesheet)
 		var/datum/asset/simple/namespaced/common/common_asset = get_asset_datum(/datum/asset/simple/namespaced/common)
 		head_content += "<link rel='stylesheet' type='text/css' href='[common_asset.get_url_mappings()["common.css"]]'>"
-	for (file in stylesheets)
+	for(file in stylesheets)
 		head_content += "<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url(file)]'>"
 
 
-	for (file in scripts)
+	for(file in scripts)
 		head_content += "<script type='text/javascript' src='[SSassets.transport.get_asset_url(file)]'></script>"
 	var/client/client = isclient(user)? user : user.client
 	if(client?.window_scaling && client?.window_scaling != 1 && !(client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE) && width && height)
@@ -132,7 +132,7 @@
 		return
 	var/window_size = ""
 	var/client/client = isclient(user)? user : user.client
-	if (width && height)
+	if(width && height)
 		window_size = ""
 		if(width && height && client?.window_scaling &&(client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE))
 			var/scaling = client.window_scaling
@@ -142,20 +142,20 @@
 	if(include_default_stylesheet)
 		var/datum/asset/simple/namespaced/common/common_asset = get_asset_datum(/datum/asset/simple/namespaced/common)
 		common_asset.send(user)
-	if (length(stylesheets))
+	if(length(stylesheets))
 		SSassets.transport.send_assets(user, stylesheets)
-	if (length(scripts))
+	if(length(scripts))
 		SSassets.transport.send_assets(user, scripts)
 	user << browse(get_content(), "window=[window_id];[window_size][window_options]")
 	if(no_focus)
 		winset(user, "mapwindow.map", "focus=true")
-	if (use_onclose)
+	if(use_onclose)
 		setup_onclose()
 
 /datum/browser/proc/setup_onclose()
 	set waitfor = 0 //winexists sleeps, so we don't need to.
-	for (var/i in 1 to 10)
-		if ((isclient(user) || user?.client) && winexists(user, window_id))
+	for(var/i in 1 to 10)
+		if((isclient(user) || user?.client) && winexists(user, window_id))
 			var/atom/send_ref
 			if(ref)
 				send_ref = ref.resolve()
@@ -172,17 +172,17 @@
 
 
 /datum/browser/modal/alert/New(User,Message,Title,Button1="Ok",Button2,Button3,StealFocus = 1,Timeout=6000)
-	if (!User)
+	if(!User)
 		return
 
 	var/output = {"<center><b>[Message]</b></center><br />
 		<div style="text-align:center">
 		<a style="font-size:large;float:[( Button2 ? "left" : "right" )]" href='byond://?src=[src.UID()];button=1'>[Button1]</a>"}
 
-	if (Button2)
+	if(Button2)
 		output += {"<a style="font-size:large;[( Button3 ? "" : "float:right" )]" href='byond://?src=[src.UID()];button=2'>[Button2]</a>"}
 
-	if (Button3)
+	if(Button3)
 		output += {"<a style="font-size:large;float:right" href='byond://?src=[src.UID()];button=3'>[Button3]</a>"}
 
 	output += {"</div>"}
@@ -191,12 +191,12 @@
 	set_content(output)
 
 /datum/browser/modal/alert/Topic(href,href_list)
-	if (href_list["close"] || !user || !user.client)
+	if(href_list["close"] || !user || !user.client)
 		opentime = 0
 		return
-	if (href_list["button"])
+	if(href_list["button"])
 		var/button = text2num(href_list["button"])
-		if (button <= 3 && button >= 1)
+		if(button <= 3 && button >= 1)
 			selectedbutton = button
 	opentime = 0
 	close()
@@ -216,10 +216,10 @@
  * * Timeout - The timeout of the window, after which no responses will be valid.
  */
 /proc/tgalert(mob/User, Message, Title, Button1="Ok", Button2, Button3, StealFocus = TRUE, Timeout = 6000)
-	if (!User)
+	if(!User)
 		User = usr
-	if (!istype(User))
-		if (istype(User, /client))
+	if(!istype(User))
+		if(istype(User, /client))
 			var/client/client = User
 			User = client.mob
 		else
@@ -230,11 +230,11 @@
 	A.open()
 	A.wait()
 	switch(A.selectedbutton)
-		if (1)
+		if(1)
 			return Button1
-		if (2)
+		if(2)
 			return Button2
-		if (3)
+		if(3)
 			return Button3
 
 /datum/browser/modal
@@ -246,7 +246,7 @@
 /datum/browser/modal/New(nuser, nwindow_id, ntitle = 0, nwidth = 0, nheight = 0, atom/nref = null, StealFocus = 1, Timeout = 6000)
 	..()
 	stealfocus = StealFocus
-	if (!StealFocus)
+	if(!StealFocus)
 		window_options += "focus=false;"
 	timeout = Timeout
 
@@ -259,7 +259,7 @@
 	set waitfor = FALSE
 	opentime = world.time
 
-	if (stealfocus)
+	if(stealfocus)
 		. = ..(use_onclose = TRUE, no_focus = FALSE)
 	else
 		var/focusedwindow = winget(user, null, "focus")
@@ -267,30 +267,30 @@
 
 		//waits for the window to show up client side before attempting to un-focus it
 		//winexists sleeps until it gets a reply from the client, so we don't need to bother sleeping
-		for (var/i in 1 to 10)
-			if (user && winexists(user, window_id))
-				if (focusedwindow)
+		for(var/i in 1 to 10)
+			if(user && winexists(user, window_id))
+				if(focusedwindow)
 					winset(user, focusedwindow, "focus=true")
 				else
 					winset(user, "mapwindow", "focus=true")
 				break
-	if (timeout)
+	if(timeout)
 		addtimer(CALLBACK(src, PROC_REF(close)), timeout)
 
 /datum/browser/modal/proc/wait()
-	while (opentime && selectedbutton <= 0 && (!timeout || opentime+timeout > world.time))
+	while(opentime && selectedbutton <= 0 && (!timeout || opentime+timeout > world.time))
 		stoplag(1)
 
 /datum/browser/modal/listpicker
 	var/valueslist = list()
 
 /datum/browser/modal/listpicker/New(User,Message,Title,Button1="Ok",Button2,Button3,StealFocus = 1, Timeout = FALSE,list/values,inputtype="checkbox", width, height, slidecolor)
-	if (!User)
+	if(!User)
 		return
 
 	var/output = {"<form><input type="hidden" name="src" value="[src.UID()]"><ul class="sparse">"}
-	if (inputtype == "checkbox" || inputtype == "radio")
-		for (var/i in values)
+	if(inputtype == "checkbox" || inputtype == "radio")
+		for(var/i in values)
 			var/div_slider = slidecolor
 			if(!i["allowed_edit"])
 				div_slider = "locked"
@@ -302,16 +302,16 @@
 						</label>
 						</li>"}
 	else
-		for (var/i in values)
+		for(var/i in values)
 			output += {"<li><input id="name="[i["name"]]"" style="width: 50px" type="[type]" name="[i["name"]]" value="[i["value"]]">
 			<label for="[i["name"]]">[i["name"]]</label></li>"}
 	output += {"</ul><div style="text-align:center">
 		<button type="submit" name="button" value="1" style="font-size:large;float:[( Button2 ? "left" : "right" )]">[Button1]</button>"}
 
-	if (Button2)
+	if(Button2)
 		output += {"<button type="submit" name="button" value="2" style="font-size:large;[( Button3 ? "" : "float:right" )]">[Button2]</button>"}
 
-	if (Button3)
+	if(Button3)
 		output += {"<button type="submit" name="button" value="3" style="font-size:large;float:right">[Button3]</button>"}
 
 	output += {"</form></div>"}
@@ -319,16 +319,16 @@
 	set_content(output)
 
 /datum/browser/modal/listpicker/Topic(href,href_list)
-	if (href_list["close"] || !user || !user.client)
+	if(href_list["close"] || !user || !user.client)
 		opentime = 0
 		return
-	if (href_list["button"])
+	if(href_list["button"])
 		var/button = text2num(href_list["button"])
-		if (button <= 3 && button >= 1)
+		if(button <= 3 && button >= 1)
 			selectedbutton = button
-	for (var/item in href_list)
+	for(var/item in href_list)
 		switch(item)
-			if ("close", "button", "src")
+			if("close", "button", "src")
 				continue
 			else
 				valueslist[item] = href_list[item]
@@ -336,8 +336,8 @@
 	close()
 
 /proc/presentpicker(mob/User,Message, Title, Button1="Ok", Button2, Button3, StealFocus = 1,Timeout = 6000,list/values, inputtype = "checkbox", width, height, slidecolor)
-	if (!istype(User))
-		if (istype(User, /client/))
+	if(!istype(User))
+		if(istype(User, /client/))
 			var/client/C = User
 			User = C.mob
 		else
@@ -345,7 +345,7 @@
 	var/datum/browser/modal/listpicker/A = new(User, Message, Title, Button1, Button2, Button3, StealFocus,Timeout, values, inputtype, width, height, slidecolor)
 	A.open()
 	A.wait()
-	if (A.selectedbutton)
+	if(A.selectedbutton)
 		return list("button" = A.selectedbutton, "values" = A.valueslist)
 
 /datum/browser/modal/preflikepicker
@@ -354,7 +354,7 @@
 	var/datum/callback/preview_update
 
 /datum/browser/modal/preflikepicker/New(User,Message,Title,Button1="Ok",Button2,Button3,StealFocus = 1, Timeout = FALSE,list/settings,inputtype="checkbox", width = 600, height, slidecolor)
-	if (!User)
+	if(!User)
 		return
 	src.settings = settings
 
@@ -362,24 +362,24 @@
 	set_content(ShowChoices(User))
 
 /datum/browser/modal/preflikepicker/proc/ShowChoices(mob/user)
-	if (settings["preview_callback"])
+	if(settings["preview_callback"])
 		var/datum/callback/callback = settings["preview_callback"]
 		preview_icon = callback.Invoke(settings)
-		if (preview_icon)
+		if(preview_icon)
 			user << browse_rsc(preview_icon, "previewicon.png")
 	var/dat = ""
 
-	for (var/name in settings["mainsettings"])
+	for(var/name in settings["mainsettings"])
 		var/setting = settings["mainsettings"][name]
-		if (setting["type"] == "datum")
-			if (setting["subtypesonly"])
+		if(setting["type"] == "datum")
+			if(setting["subtypesonly"])
 				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;subtypesonly=1;type=datum;path=[setting["path"]]'>[setting["value"]]</a><br>"
 			else
 				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=datum;path=[setting["path"]]'>[setting["value"]]</a><br>"
 		else
 			dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=[setting["type"]]'>[setting["value"]]</a><br>"
 
-	if (preview_icon)
+	if(preview_icon)
 		dat += "<td valign='center'>"
 
 		dat += "<div class='statusDisplay'><center><img src=previewicon.png width=[preview_icon.Width()] height=[preview_icon.Height()]></center></div>"
@@ -395,51 +395,51 @@
 	return dat
 
 /datum/browser/modal/preflikepicker/Topic(href,href_list)
-	if (href_list["close"] || !user || !user.client)
+	if(href_list["close"] || !user || !user.client)
 		opentime = 0
 		return
-	if (href_list["task"] == "input")
+	if(href_list["task"] == "input")
 		var/setting = href_list["setting"]
-		switch (href_list["type"])
-			if ("datum")
+		switch(href_list["type"])
+			if("datum")
 				var/oldval = settings["mainsettings"][setting]["value"]
-				if (href_list["subtypesonly"])
+				if(href_list["subtypesonly"])
 					settings["mainsettings"][setting]["value"] = pick_closest_path(null, make_types_fancy(subtypesof(text2path(href_list["path"]))))
 				else
 					settings["mainsettings"][setting]["value"] = pick_closest_path(null, make_types_fancy(typesof(text2path(href_list["path"]))))
-				if (isnull(settings["mainsettings"][setting]["value"]))
+				if(isnull(settings["mainsettings"][setting]["value"]))
 					settings["mainsettings"][setting]["value"] = oldval
-			if ("string")
+			if("string")
 				settings["mainsettings"][setting]["value"] = tgui_input_text(user, "Введите новое значение для [settings["mainsettings"][setting]["desc"]]", "Введите новое значение для [settings["mainsettings"][setting]["desc"]]", settings["mainsettings"][setting]["value"], encode = FALSE)
-			if ("number")
+			if("number")
 				settings["mainsettings"][setting]["value"] = tgui_input_number(user, "Введите новое значение для [settings["mainsettings"][setting]["desc"]]", "Введите новое значение для [settings["mainsettings"][setting]["desc"]]")
-			if ("color")
+			if("color")
 				settings["mainsettings"][setting]["value"] = tgui_input_color(user, "Выберите новое значение для [settings["mainsettings"][setting]["desc"]]", "Выберите новое значение для [settings["mainsettings"][setting]["desc"]]", settings["mainsettings"][setting]["value"])
-			if ("boolean")
+			if("boolean")
 				settings["mainsettings"][setting]["value"] = (settings["mainsettings"][setting]["value"] == "Да") ? "Нет" : "Да"
-			if ("ckey")
+			if("ckey")
 				settings["mainsettings"][setting]["value"] = tgui_input_list(user, "[settings["mainsettings"][setting]["desc"]]?", "", list("none") + GLOB.directory)
-		if (settings["mainsettings"][setting]["callback"])
+		if(settings["mainsettings"][setting]["callback"])
 			var/datum/callback/callback = settings["mainsettings"][setting]["callback"]
 			settings = callback.Invoke(settings)
-	if (href_list["button"])
+	if(href_list["button"])
 		var/button = text2num(href_list["button"])
-		if (button <= 3 && button >= 1)
+		if(button <= 3 && button >= 1)
 			selectedbutton = button
-	if (selectedbutton != 1)
+	if(selectedbutton != 1)
 		set_content(ShowChoices(user))
 		open()
 		return
-	for (var/item in href_list)
+	for(var/item in href_list)
 		switch(item)
-			if ("close", "button", "src")
+			if("close", "button", "src")
 				continue
 	opentime = 0
 	close()
 
 /proc/presentpreflikepicker(mob/User,Message, Title, Button1="Ok", Button2, Button3, StealFocus = 1,Timeout = 6000,list/settings, width, height, slidecolor)
-	if (!istype(User))
-		if (istype(User, /client/))
+	if(!istype(User))
+		if(istype(User, /client/))
 			var/client/C = User
 			User = C.mob
 		else
@@ -447,7 +447,7 @@
 	var/datum/browser/modal/preflikepicker/A = new(User, Message, Title, Button1, Button2, Button3, StealFocus,Timeout, settings, width, height, slidecolor)
 	A.open()
 	A.wait()
-	if (A.selectedbutton)
+	if(A.selectedbutton)
 		return list("button" = A.selectedbutton, "settings" = A.settings)
 
 

@@ -27354,16 +27354,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/west)
-"dNS" = (
-/obj/structure/sign/atmosplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полную адаптацию станции под стандарты НаноТрейзен. Благодарим вас за труд, SQUEEK!. Слава НаноТрейзен!";
-	name = "Благодарственное Письмо Для Старшего Рабочего Команды Архитекторов Фаррагуса";
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners"
-	},
-/area/bridge)
 "dNU" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -30318,6 +30308,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
+"eMY" = (
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/obj/machinery/vending/department_clothesmate/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/medbreak)
 "eNa" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -34368,6 +34367,13 @@
 	icon_state = "white"
 	},
 /area/medical/chemistry)
+"gaW" = (
+/obj/machinery/vending/department_clothesmate/security,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "red"
+	},
+/area/security/seceqstorage)
 "gbk" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -37906,17 +37912,6 @@
 	icon_state = "dark"
 	},
 /area/maintenance/port2)
-"hes" = (
-/obj/structure/sign/goldenplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полную адаптацию станции под нужды НаноТрейзен. Благодарим вас за труд, BeebBeebBoob. Слава НаноТрейзен!";
-	name = "Благодарственное Письмо Для Бригадира Команды Архитекторов Фаррагуса";
-	pixel_x = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkredcorners"
-	},
-/area/bridge)
 "heA" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
@@ -38437,6 +38432,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"hmX" = (
+/obj/machinery/vending/department_clothesmate/engineering,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/engineering/engine)
 "hna" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -43563,6 +43564,20 @@
 	icon_state = "fancy-wood-oak-broken7"
 	},
 /area/maintenance/starboard)
+"iNg" = (
+/obj/machinery/crema_switch{
+	id = "creamed";
+	pixel_x = -24
+	},
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -24
+	},
+/obj/structure/closet/burial,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/chapel/office)
 "iNi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -44181,13 +44196,6 @@
 	},
 /turf/simulated/wall,
 /area/hallway/spacebridge/serveng)
-"iVG" = (
-/obj/machinery/vending/department_clothesmate/security,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
-	},
-/area/security/seceqstorage)
 "iVN" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -46358,6 +46366,13 @@
 "jAd" = (
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den2)
+"jAk" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/vending/clothesmate,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "jAn" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -47213,13 +47228,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
-"jKG" = (
-/obj/machinery/vending/department_clothesmate/law,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/lawoffice)
 "jKQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -55945,12 +55953,6 @@
 	icon_state = "red"
 	},
 /area/security/prison/cell_block/A)
-"mjG" = (
-/obj/machinery/vending/department_clothesmate/cargo,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbrown"
-	},
-/area/quartermaster/office)
 "mjQ" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
@@ -59421,20 +59423,6 @@
 	icon_state = "whitegreenfull"
 	},
 /area/medical/virology/lab)
-"njY" = (
-/obj/machinery/crema_switch{
-	id = "creamed";
-	pixel_x = -24
-	},
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/structure/closet/burial,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/chapel/office)
 "nkc" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/machinery/light,
@@ -63907,6 +63895,12 @@
 /obj/structure/falsewall,
 /turf/simulated/floor/plating,
 /area/civilian/vacantoffice)
+"ovK" = (
+/obj/machinery/vending/department_clothesmate/cargo,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbrown"
+	},
+/area/quartermaster/office)
 "ovL" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -69132,12 +69126,6 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai)
-"pTi" = (
-/obj/machinery/vending/department_clothesmate/engineering,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellow"
-	},
-/area/engineering/engine)
 "pTj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -71803,6 +71791,13 @@
 	},
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/assembly/chargebay)
+"qCU" = (
+/obj/machinery/vending/department_clothesmate/law,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/lawoffice)
 "qDo" = (
 /obj/machinery/status_display{
 	layer = 4
@@ -72476,6 +72471,16 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai_upload)
+"qNQ" = (
+/obj/structure/sign/atmosplaque{
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полную адаптацию станции под стандарты Нанотрейзен. Благодарим вас за труд, SQUEEK!. Слава Нанотрейзен!";
+	name = "Благодарственное Письмо Для Старшего Рабочего Команды Архитекторов Фаррагуса";
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellowcorners"
+	},
+/area/bridge)
 "qOp" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -75734,10 +75739,6 @@
 	icon_state = "darkbrown"
 	},
 /area/quartermaster/office)
-"rLy" = (
-/obj/machinery/vending/department_clothesmate/science,
-/turf/simulated/floor/plasteel/white,
-/area/medical/research/restroom)
 "rLB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -81632,13 +81633,6 @@
 	icon_state = "darkredfull"
 	},
 /area/security/checkpoint2)
-"tvI" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/vending/clothesmate,
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/locker)
 "tvP" = (
 /obj/machinery/smartfridge/secure/extract,
 /turf/simulated/floor/plasteel{
@@ -83545,6 +83539,10 @@
 /obj/item/reagent_containers/food/snacks/grown/chili,
 /turf/simulated/floor/plating,
 /area/hydroponics)
+"tWM" = (
+/obj/machinery/vending/department_clothesmate/science,
+/turf/simulated/floor/plasteel/white,
+/area/medical/research/restroom)
 "tXh" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -86238,15 +86236,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/starboard)
-"uOr" = (
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
-/obj/machinery/vending/department_clothesmate/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/medbreak)
 "uOy" = (
 /obj/structure/closet/wardrobe/mixed,
 /turf/simulated/floor/shuttle,
@@ -93655,6 +93644,17 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/gambling_den2)
+"wZg" = (
+/obj/structure/sign/goldenplaque{
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полную адаптацию станции под нужды Нанотрейзен. Благодарим вас за труд, BeebBeebBoob. Слава Нанотрейзен!";
+	name = "Благодарственное Письмо Для Бригадира Команды Архитекторов Фаррагуса";
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkredcorners"
+	},
+/area/bridge)
 "wZv" = (
 /turf/simulated/wall,
 /area/medical/paramedic)
@@ -109261,7 +109261,7 @@ pXy
 cGw
 jeR
 xCz
-njY
+iNg
 bXj
 vtY
 vtY
@@ -112008,7 +112008,7 @@ cBI
 aUo
 aUo
 aUo
-jKG
+qCU
 dkq
 dlg
 tZq
@@ -114948,7 +114948,7 @@ vIO
 xEd
 iJC
 uRf
-rLy
+tWM
 fTe
 hnu
 wxR
@@ -118935,7 +118935,7 @@ tNT
 bAm
 pXD
 qsf
-iVG
+gaW
 rJj
 cTP
 cji
@@ -125619,7 +125619,7 @@ uHm
 bRn
 aKl
 gGB
-tvI
+jAk
 eRV
 qSK
 qSK
@@ -129984,7 +129984,7 @@ dxS
 gEV
 aGk
 aMc
-hes
+wZg
 bRo
 usf
 aLe
@@ -133068,7 +133068,7 @@ rNK
 rNK
 aVS
 xVF
-dNS
+qNQ
 kus
 bZb
 aLj
@@ -133914,7 +133914,7 @@ bHe
 wNm
 mWR
 dDj
-pTi
+hmX
 bNC
 oSv
 bPK
@@ -147276,7 +147276,7 @@ ryN
 roM
 lfB
 uhF
-uOr
+eMY
 tms
 pND
 tKE
@@ -151065,7 +151065,7 @@ oRC
 xjM
 hZJ
 xxa
-mjG
+ovK
 qIF
 wal
 kls

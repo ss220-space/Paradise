@@ -60,7 +60,7 @@
 			thing.plane = new_value;\
 		}\
 	}\
-	while (FALSE)
+	while(FALSE)
 
 // Now for macros that exist to get info from SSmapping
 // Mostly about details of planes, or z levels

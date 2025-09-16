@@ -115,7 +115,7 @@
 		return FALSE
 	var/turf/current_location = get_turf(owner)
 	var/turf/destination = get_teleport_loc(current_location, owner, range)
-	if (!make_rift(destination))
+	if(!make_rift(destination))
 		return FALSE
 	COOLDOWN_START(src, rift_cooldown, cooldown_time)
 	return TRUE
@@ -124,11 +124,11 @@
 /datum/action/innate/lesser_carp_rift/proc/make_rift(atom/target_atom)
 	var/turf/owner_turf = get_turf(owner)
 	var/turf/target_turf = get_turf(target_atom)
-	if (!target_turf)
+	if(!target_turf)
 		return FALSE
 
 	var/list/open_exit_turfs = list()
-	for (var/turf/potential_exit as anything in (RANGE_TURFS(1, target_turf) - target_turf))
+	for(var/turf/potential_exit as anything in (RANGE_TURFS(1, target_turf) - target_turf))
 		if(potential_exit.is_blocked_turf(exclude_mobs = TRUE))
 			continue
 		open_exit_turfs += potential_exit
@@ -190,18 +190,18 @@
 /obj/effect/temp_visual/lesser_carp_rift/entrance/proc/on_entered(datum/source, atom/movable/entered_atom)
 	SIGNAL_HANDLER
 
-	if (!length(exit_locs))
+	if(!length(exit_locs))
 		return
-	if (!ismob(entered_atom) && !isobj(entered_atom))
+	if(!ismob(entered_atom) && !isobj(entered_atom))
 		return
-	if (entered_atom.anchored)
+	if(entered_atom.anchored)
 		return
 	if(!entered_atom.loc)
 		return
-	if (isobserver(entered_atom))
+	if(isobserver(entered_atom))
 		return
 
-	if (isliving(entered_atom))
+	if(isliving(entered_atom))
 		var/mob/living/teleported_mob = entered_atom
 		teleported_mob.changeNext_move(disorient_time)
 

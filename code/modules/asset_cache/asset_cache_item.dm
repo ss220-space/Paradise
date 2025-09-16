@@ -28,7 +28,7 @@
 ///pass in a valid file_hash if you have one to save it from needing to do it again.
 ///pass in a valid dmi file path string e.g. "icons/path/to/dmi_file.dmi" to make generating the hash less expensive
 /datum/asset_cache_item/New(name, file, file_hash, dmi_file_path)
-	if (!isfile(file))
+	if(!isfile(file))
 		file = fcopy_rsc(file)
 
 	hash = file_hash
@@ -39,11 +39,11 @@
 			hash = md5(file)
 		else
 			hash = md5asfile(file) //icons sent to the rsc md5 incorrectly when theyre given incorrect data
-	if (!hash)
+	if(!hash)
 		CRASH("invalid asset sent to asset cache")
 	src.name = name
 	var/extstart = findlasttext(name, ".")
-	if (extstart)
+	if(extstart)
 		ext = ".[copytext(name, extstart+1)]"
 	resource = file
 

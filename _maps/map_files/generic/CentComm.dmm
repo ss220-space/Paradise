@@ -2716,12 +2716,6 @@
 	icon_state = "darkyellowalt"
 	},
 /area/syndicate_mothership/cargo)
-"biy" = (
-/obj/machinery/vending/clothesmate,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "biD" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/snacks/soup/beetsoup{
@@ -7583,23 +7577,6 @@
 	name = "floor"
 	},
 /area/vox_station)
-"dCm" = (
-/obj/item/stack/wrapping_paper,
-/obj/item/stack/wrapping_paper,
-/obj/item/stack/wrapping_paper,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/structure/table,
-/obj/item/paper{
-	info = "<h1>Особенности отправки оборудования с помощью шаттла отдела снабжения</h1><br>С целью минимизации рисков провоза опасных грузов и/или контрабанды сотрудники департамента защиты активов NanoTrasen регулярно осуществляют проверки шаттла снабжения. Эти проверки включают в себя снятие внешней упаковки с контейнеров для проверки манифестов, а также уничтожение любых объектов, не находящихся в контейнерах. Контроль груза осуществляется: <ol><li>Непосредственно после отлета шаттла с АКН Трурль на объект NanoTrasen;</li><li>После отлета шаттла с объекта NanoTrasen до прибытия на АКН Трурль;</li><li>Непосредственно после стыковки шаттла с АКН Трурль.</li></ol><br> Для отправки оборудования на объект NanoTrasen с помощью шаттла снабжения необходимо обернуть контейнер упаковочной бумагой или поместить его еще в один контейнер.";
-	name = "Особенности отправки оборудования с помощью шаттла отдела снабжения"
-	},
-/obj/item/hand_labeler,
-/obj/item/hand_labeler,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "dCs" = (
 /obj/item/trash/chips,
 /obj/effect/turf_decal/bot_red,
@@ -9525,6 +9502,23 @@
 	layer = 9
 	},
 /turf/simulated/floor/plating,
+/area/centcom/supply)
+"eyp" = (
+/obj/item/stack/wrapping_paper,
+/obj/item/stack/wrapping_paper,
+/obj/item/stack/wrapping_paper,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/structure/table,
+/obj/item/paper{
+	info = "<h1>Особенности отправки оборудования с помощью шаттла отдела снабжения</h1><br>С целью минимизации рисков провоза опасных грузов и/или контрабанды сотрудники департамента защиты активов Nanotrasen регулярно осуществляют проверки шаттла снабжения. Эти проверки включают в себя снятие внешней упаковки с контейнеров для проверки манифестов, а также уничтожение любых объектов, не находящихся в контейнерах. Контроль груза осуществляется: <ol><li>Непосредственно после отлета шаттла с АКН Трурль на объект Nanotrasen;</li><li>После отлета шаттла с объекта Nanotrasen до прибытия на АКН Трурль;</li><li>Непосредственно после стыковки шаттла с АКН Трурль.</li></ol><br> Для отправки оборудования на объект Nanotrasen с помощью шаттла снабжения необходимо обернуть контейнер упаковочной бумагой или поместить его еще в один контейнер.";
+	name = "Особенности отправки оборудования с помощью шаттла отдела снабжения"
+	},
+/obj/item/hand_labeler,
+/obj/item/hand_labeler,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/centcom/supply)
 "eyD" = (
 /obj/effect/turf_decal/siding/wood{
@@ -17113,6 +17107,13 @@
 	},
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
+"ipv" = (
+/obj/structure/window/reinforced{
+	layer = 2.9
+	},
+/obj/machinery/vending/department_clothesmate/security,
+/turf/simulated/floor/wood,
+/area/centcom/jail)
 "ipB" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
@@ -17659,6 +17660,12 @@
 	icon_state = "darkredalt"
 	},
 /area/syndicate_mothership/control)
+"iBA" = (
+/obj/machinery/vending/clothesmate,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/supply)
 "iBH" = (
 /obj/effect/turf_decal{
 	dir = 6;
@@ -19469,10 +19476,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone3)
-"jtQ" = (
-/obj/machinery/vending/clothesmate,
-/turf/simulated/floor/wood,
-/area/centcom/zone1)
 "jue" = (
 /obj/effect/landmark/abductor/scientist,
 /turf/simulated/floor/indestructible/abductor,
@@ -23519,12 +23522,6 @@
 /obj/item/beach_ball,
 /turf/simulated/floor/beach/sand,
 /area/centcom/evac)
-"ljo" = (
-/obj/machinery/vending/department_clothesmate/law,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "ljs" = (
 /obj/structure/chair/stool/bar,
 /obj/machinery/light{
@@ -26165,6 +26162,12 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership/infteam)
+"mrH" = (
+/obj/machinery/vending/department_clothesmate/law,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/supply)
 "mrX" = (
 /obj/machinery/computer/cryopod{
 	pixel_x = 32;
@@ -29344,13 +29347,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/syndicate_mothership)
-"nEJ" = (
-/obj/structure/window/reinforced{
-	layer = 2.9
-	},
-/obj/machinery/vending/department_clothesmate/security,
-/turf/simulated/floor/wood,
-/area/centcom/jail)
 "nEN" = (
 /obj/effect/baseturf_helper/asteroid/snow{
 	baseturf = /turf/simulated/floor/indestructible/snow;
@@ -37089,15 +37085,6 @@
 	icon_state = "darkyellowcornersalt"
 	},
 /area/syndicate_mothership/cargo)
-"red" = (
-/obj/effect/turf_decal/stripes/gold{
-	dir = 4
-	},
-/obj/machinery/vending/clothesmate,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/syndicate_mothership/infteam)
 "reu" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /obj/structure/disposalpipe/segment,
@@ -46418,6 +46405,10 @@
 	icon_state = "fancy-wood-cherry"
 	},
 /area/shuttle/trade/sol)
+"vgs" = (
+/obj/machinery/vending/clothesmate,
+/turf/simulated/floor/wood,
+/area/centcom/zone1)
 "vgt" = (
 /turf/simulated/floor/engine,
 /area/centcom/specops)
@@ -48206,6 +48197,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"vYM" = (
+/obj/effect/turf_decal/stripes/gold{
+	dir = 4
+	},
+/obj/machinery/vending/clothesmate,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/syndicate_mothership/infteam)
 "vYT" = (
 /obj/machinery/door_control/secure{
 	id = "SIT_outside";
@@ -56428,7 +56428,7 @@ pFA
 pFA
 qLl
 qNv
-red
+vYM
 rsy
 lOM
 lOM
@@ -89338,7 +89338,7 @@ onc
 kQh
 tZe
 tZe
-jtQ
+vgs
 onc
 iKU
 rAR
@@ -97600,7 +97600,7 @@ pqb
 ssL
 ssL
 ssL
-nEJ
+ipv
 cFY
 eNf
 myp
@@ -105023,12 +105023,12 @@ fyy
 gbo
 fon
 jHX
-dCm
+eyp
 bbv
 wtL
 rNB
 mWR
-biy
+iBA
 gbo
 srE
 tgA
@@ -105285,7 +105285,7 @@ unl
 gNS
 gce
 jYq
-ljo
+mrH
 gbo
 jHX
 hIg

@@ -122,7 +122,7 @@
 			else if(GLOB.devil_title.Find(action))
 				currentSection = SYLLABLE
 			else if(GLOB.devil_syllable.Find(action))
-				if (currentSection >= SYLLABLE)
+				if(currentSection >= SYLLABLE)
 					currentSection = MULTIPLE_SYLLABLE
 				else
 					currentSection = SYLLABLE
@@ -133,7 +133,7 @@
 /obj/item/book/codex_gigas/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "CodexGigas", name, 500, 400)
+		ui = new(user, src, "CodexGigas", name)
 		ui.open()
 
 /obj/item/book/codex_gigas/ui_data(mob/user)

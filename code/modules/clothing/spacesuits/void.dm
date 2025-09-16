@@ -333,7 +333,7 @@
 /obj/item/clothing/head/helmet/space/nasavoid/captain
 	name = "Captain's Hardsuit Helmet"
 	icon_state = "void_captian"
-	desc = "Эксклюзивный гермошлем НаноТрейзен для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Оборудован активной защитой визора и хвойным ароматизатором. Произведено NASA по заказу НТ."
+	desc = "Эксклюзивный гермошлем Нанотрейзен для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Оборудован активной защитой визора и хвойным ароматизатором. Произведено NASA по заказу НТ."
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	flash_protect = FLASH_PROTECTION_FLASH
 	item_state = "void_captian_helmet"
@@ -352,7 +352,7 @@
 
 /obj/item/clothing/suit/space/nasavoid/captain
 	name = "Captain's Hardsuit"
-	desc = "Эксклюзивный скафандр НаноТрейзен для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Улучшенная система вентиляции, позолоченные вставки. Не сковывает движений. Произведено NASA по заказу НТ."
+	desc = "Эксклюзивный скафандр Нанотрейзен для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Улучшенная система вентиляции, позолоченные вставки. Не сковывает движений. Произведено NASA по заказу НТ."
 	icon_state = "void_captian"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
