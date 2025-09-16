@@ -34,6 +34,22 @@
 /obj/item/stock_parts/cell/laser/gatling
 	maxcharge = 9000
 
+/obj/item/stock_parts/cell/specter
+	name = "аккумулятор Спектра"
+	desc = "Аккумулятор, используемый в качестве магазина для пистолета Спектр."
+	gender = MALE
+	maxcharge = 8000
+
+/obj/item/stock_parts/cell/specter/get_ru_names()
+	ru_names = list(
+		NOMINATIVE = "аккумулятор Спектра",
+		GENITIVE = "аккумулятора Спектра",
+		DATIVE = "аккумулятору Спектра",
+		ACCUSATIVE = "аккумулятор Спектра",
+		INSTRUMENTAL = "аккумулятором Спектра",
+		PREPOSITIONAL = "аккумуляторе Спектра"
+	)
+
 /obj/item/stock_parts/cell/get_cell()
 	return src
 

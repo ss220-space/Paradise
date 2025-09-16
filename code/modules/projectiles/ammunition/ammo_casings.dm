@@ -378,24 +378,6 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
 
-/obj/item/ammo_casing/specter/laser
-	desc = "Лазерный патрон для пистолета \"Спектр\"."
-	icon_state = "laser-casing"
-	caliber = CALIBER_SPECTER
-	materials = list(MAT_METAL = 1000)
-	projectile_type = /obj/projectile/beam/specter/laser
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = COLOR_SOFT_RED
-
-/obj/item/ammo_casing/specter/disable
-	desc = "Парализующий патрон для пистолета \"Спектр\"."
-	icon_state = "stam-casing"
-	caliber = CALIBER_SPECTER
-	materials = list(MAT_METAL = 800)
-	projectile_type = /obj/projectile/beam/specter/disabler
-	muzzle_flash_color = LIGHT_COLOR_BLUE
-
 /obj/item/ammo_casing/shotgun/lasershot
 	name = "laser shot"
 	desc = "An advanced shotgun shell that uses a micro lasers to replicate the effects of a buckshot in laser appearance."
