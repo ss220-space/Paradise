@@ -90,7 +90,7 @@
 /obj/item/powersink/attack_ai()
 	return
 
-/obj/item/powersink/attack_hand(var/mob/user)
+/obj/item/powersink/attack_hand(mob/user)
 	switch(mode)
 		if(DISCONNECTED)
 			..()
@@ -142,7 +142,7 @@
 					break
 
 	if(power_drained > max_power * 0.98)
-		if (!admins_warned)
+		if(!admins_warned)
 			admins_warned = TRUE
 			message_admins("Power sink at [ADMIN_VERBOSEJMP(src)] is 95% full. Explosion imminent.")
 		playsound(src, 'sound/effects/screech.ogg', 100, TRUE, 1)

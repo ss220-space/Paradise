@@ -117,14 +117,14 @@
 	insurance += broken_bones * REQ_INSURANCE_BONE
 
 	var/missed_organs = 0
-	for (var/organ in user.dna.species.has_organ)
+	for(var/organ in user.dna.species.has_organ)
 		if(!(organ in user.internal_organs_slot))
 			missed_organs++
 
 	insurance += missed_organs * REQ_INSURANCE_LOST_ORGAN
 
 	var/missed_limbs = 0
-	for (var/limb in user.dna.species.has_limbs)
+	for(var/limb in user.dna.species.has_limbs)
 		if(!(user.bodyparts_by_name[limb] in user.bodyparts))
 			missed_limbs++
 

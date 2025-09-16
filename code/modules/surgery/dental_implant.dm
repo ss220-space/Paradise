@@ -23,7 +23,7 @@
 	)
 	return ..()
 
-/datum/surgery_step/insert_pill/end_step(mob/living/user, mob/living/carbon/target, target_zone, var/obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
+/datum/surgery_step/insert_pill/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
 	if(!istype(tool))
 		return SURGERY_STEP_INCOMPLETE
 

@@ -26,7 +26,6 @@
 #define FAST 2
 #define SLOW 1
 
-
 /obj/machinery/power/compressor
 	name = "compressor"
 	desc = "The compressor stage of a gas turbine generator."
@@ -94,11 +93,6 @@
 	if(!turbine)
 		stat |= BROKEN
 
-
-#define COMPFRICTION 5e5
-#define COMPSTARTERLOAD 2800
-
-
 // Crucial to make things work!!!!
 // OLD FIX - explanation given down below.
 // /obj/machinery/power/compressor/CanPass(atom/movable/mover, turf/target, height=0)
@@ -154,6 +148,8 @@
 /obj/machinery/power/compressor/CanAtmosPass(turf/T, vertical)
 	return !density
 
+#define COMPFRICTION 5e5
+
 /obj/machinery/power/compressor/process()
 	if(!turbine)
 		stat = BROKEN
@@ -203,6 +199,7 @@
 		rpm_threshold = new_rpm_threshold
 		update_icon(UPDATE_OVERLAYS)
 
+#undef COMPFRICTION
 
 /obj/machinery/power/compressor/update_overlays()
 	. = ..()
@@ -213,10 +210,6 @@
 
 // These are crucial to working of a turbine - the stats modify the power output. TurbGenQ modifies how much raw energy can you get from
 // rpms, TurbGenG modifies the shape of the curve - the lower the value the less straight the curve is.
-
-#define TURBPRES 9000000
-#define TURBGENQ 100000
-#define TURBGENG 0.5
 
 /obj/machinery/power/turbine/Initialize(mapload)
 	. = ..()
@@ -253,8 +246,10 @@
 /obj/machinery/power/turbine/CanAtmosPass(turf/T, vertical)
 	return !density
 
-/obj/machinery/power/turbine/process()
+#define TURBGENQ 100000
+#define TURBGENG 0.5
 
+/obj/machinery/power/turbine/process()
 	if(!compressor)
 		stat = BROKEN
 
@@ -290,6 +285,8 @@
 
 	updateDialog()
 
+#undef TURBGENQ
+#undef TURBGENG
 
 /obj/machinery/power/turbine/update_overlays()
 	. = ..()
@@ -341,7 +338,7 @@
 
 /obj/machinery/power/turbine/interact(mob/user)
 
-	if( !Adjacent(user)  || (stat & (NOPOWER|BROKEN)) && (!istype(user, /mob/living/silicon)) )
+	if(!Adjacent(user)  || (stat & (NOPOWER|BROKEN)) && (!istype(user, /mob/living/silicon)))
 		user.unset_machine(src)
 		close_window(user, "turbine")
 		return
@@ -367,12 +364,12 @@
 	if(..())
 		return
 
-	if( href_list["close"] )
+	if(href_list["close"])
 		close_window(usr, "turbine")
 		usr.unset_machine(src)
 		return
 
-	else if( href_list["str"] )
+	else if(href_list["str"])
 		if(compressor)
 			compressor.starter = !compressor.starter
 
@@ -397,7 +394,7 @@
 /obj/machinery/computer/turbine_computer/locate_machinery()
 	compressor = locate(/obj/machinery/power/compressor) in range(5, src)
 
-/obj/machinery/computer/turbine_computer/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/turbine_computer/attack_hand(mob/user as mob)
 	if(..())
 		return
 
@@ -433,10 +430,10 @@
 	if(..())
 		return
 
-	else if( href_list["str"] )
+	else if(href_list["str"])
 		if(compressor && compressor.turbine)
 			compressor.starter = !compressor.starter
-	else if( href_list["close"] )
+	else if(href_list["close"])
 		close_window(usr, "turbinecomputer")
 		usr.unset_machine(src)
 		return
@@ -454,4 +451,3 @@
 #undef VERY_FAST
 #undef FAST
 #undef SLOW
-

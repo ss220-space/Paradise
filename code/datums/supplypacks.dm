@@ -15,11 +15,10 @@
 #define SUPPLY_MATERIALS 7
 #define SUPPLY_MISC 8
 #define SUPPLY_VEND 9
-#define SUPPLY_CONTRABAND 10
 
 GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINEER,SUPPLY_MEDICAL,SUPPLY_SCIENCE,SUPPLY_ORGANIC,SUPPLY_MATERIALS,SUPPLY_MISC,SUPPLY_VEND, SUPPLY_CONTRABAND))
 
-/proc/get_supply_group_name(var/cat)
+/proc/get_supply_group_name(cat)
 	switch(cat)
 		if(SUPPLY_EMERGENCY)
 			return "Emergency"
@@ -1442,12 +1441,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list("biotech" = 6, "combat" = 2)
 
 /datum/supply_packs/medical/cloning
-	name = "NanoTrasen Experimental Cloning Machine Crate"
+	name = "Nanotrasen Experimental Cloning Machine Crate"
 	contains = list(/obj/item/circuitboard/clonepod,
 					/obj/item/circuitboard/cloning)
 	cost = 350
 	containertype = /obj/structure/closet/crate/secure
-	containername = "NanoTrasen experimental cloning machine crate"
+	containername = "Nanotrasen experimental cloning machine crate"
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Chief Medical Officer's Desk"))
 
@@ -3232,3 +3231,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/ammo_box/magazine/toy/pistol)
 	cost = 40
 	containername = "foam force pistols crate"
+
+#undef SUPPLY_EMERGENCY
+#undef SUPPLY_SECURITY
+#undef SUPPLY_ENGINEER
+#undef SUPPLY_MEDICAL
+#undef SUPPLY_SCIENCE
+#undef SUPPLY_ORGANIC
+#undef SUPPLY_MATERIALS
+#undef SUPPLY_MISC
+#undef SUPPLY_VEND

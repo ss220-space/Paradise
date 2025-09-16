@@ -124,7 +124,7 @@
 		if(alarm_types_show["Camera"])
 			msg += "CAMERA: [alarm_types_show["Camera"]] alarms detected. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<a href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
 
@@ -150,7 +150,7 @@
 		if(alarm_types_show["Camera"])
 			msg += "CAMERA: [alarm_types_clear["Camera"]] alarms cleared. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<a href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
@@ -195,7 +195,7 @@
 	to_chat(src, span_warning("Warning: Electromagnetic pulse detected."))
 
 
-/mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
+/mob/living/silicon/proc/damage_mob(brute = 0, fire = 0, tox = 0)
 	return
 
 /mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
@@ -215,7 +215,7 @@
 			ventcrawl_target.visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>")
 
 
-/mob/living/silicon/bullet_act(var/obj/projectile/Proj)
+/mob/living/silicon/bullet_act(obj/projectile/Proj)
 
 	Proj.on_hit(src,2)
 

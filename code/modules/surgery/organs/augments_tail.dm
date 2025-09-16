@@ -186,8 +186,10 @@
 				var/target_armor = C.run_armor_check(E, MELEE)
 				C.apply_damage(damage_deal, type_of_damage, E, target_armor, TRUE)
 				C.apply_damage(active_implant ? implant.stamina_damage : 0, STAMINA)
-				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] бьёт хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), \
-					 span_danger("Вы хлещете хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
+				user.visible_message(
+					span_danger("[user.declent_ru(NOMINATIVE)] бьёт хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), \
+					span_danger("Вы хлещете хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!")
+				)
 
 				var/all_objectives = user?.mind?.get_all_objectives()
 				if(C.mind && all_objectives)
@@ -204,8 +206,10 @@
 
 		if(HAS_TRAIT(user, TRAIT_RESTRAINED) && prob(50))
 			user.Weaken(4 SECONDS)
-			user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"), \
-								 span_danger("Вы теряете равновесие!"))
+			user.visible_message(
+				span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"),
+				span_danger("Вы теряете равновесие!")
+			)
 			return
 
 		if(user.getStaminaLoss() >= 60)

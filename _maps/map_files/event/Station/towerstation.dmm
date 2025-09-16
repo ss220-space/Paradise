@@ -36610,6 +36610,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/auxsolarstarboard)
+"xou" = (
+/obj/structure/closet/burial,
+/turf/simulated/floor/carpet/black,
+/area/chapel/main)
 "xoE" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -259476,7 +259480,7 @@ wqg
 jyq
 weJ
 vAU
-weJ
+xou
 kSu
 wqg
 lXm

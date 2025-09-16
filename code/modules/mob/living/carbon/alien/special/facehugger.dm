@@ -408,3 +408,11 @@
 	. = ..()
 	if(!holdered_mob)
 		holdered_mob = new /mob/living/simple_animal/hostile/facehugger/lamarr(loc)
+
+#undef MIN_IMPREGNATION_TIME
+#undef MAX_IMPREGNATION_TIME
+#undef MIN_ACTIVE_TIME
+#undef MAX_ACTIVE_TIME
+#undef HELMET_HUGGER_DAMAGE
+#undef HELMET_BASE_DAMAGE
+#undef MASK_MIN_PROTECTION

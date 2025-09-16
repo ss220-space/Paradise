@@ -449,10 +449,10 @@
 		turns_since_scan++
 		if(turns_since_scan > 5)
 			turns_since_scan = 0
-			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
+			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+			if(!movement_target || !(movement_target.loc in oview(src, 3)))
 				movement_target = null
 				stop_automated_movement = 0
 				for(var/obj/item/reagent_containers/food/snacks/S in oview(src,3))
@@ -483,9 +483,9 @@
 						if(!Adjacent(movement_target)) //can't reach food through windows.
 							return
 
-						if(isturf(movement_target.loc) )
+						if(isturf(movement_target.loc))
 							movement_target.attack_animal(src)
-						else if(ishuman(movement_target.loc) )
+						else if(ishuman(movement_target.loc))
 							if(prob(20))
 								custom_emote(EMOTE_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
@@ -719,7 +719,7 @@
 	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 4, flash_range = 7, cause = src)
 	death()
 
-/mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(var/atom/movable/target)
+/mob/living/simple_animal/pet/dog/corgi/borgi/proc/shootAt(atom/movable/target)
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(target)
 	if(!T || !U)

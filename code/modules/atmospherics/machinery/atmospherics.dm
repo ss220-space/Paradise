@@ -50,7 +50,7 @@ Pipelines + Other Objects -> Pipe network
 
 
 /obj/machinery/atmospherics/New()
-	if (!armor)
+	if(!armor)
 		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 	..()
 
@@ -113,7 +113,7 @@ Pipelines + Other Objects -> Pipe network
 		return FALSE
 	return TRUE
 
-/obj/machinery/atmospherics/proc/color_cache_name(var/obj/machinery/atmospherics/node)
+/obj/machinery/atmospherics/proc/color_cache_name(obj/machinery/atmospherics/node)
 	//Don't use this for standard pipes
 	if(!istype(node))
 		return null

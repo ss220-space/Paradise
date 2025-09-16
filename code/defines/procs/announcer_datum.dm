@@ -149,7 +149,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	add_game_logs("has made \a [config.log_name]: [message_title] – [message] – [author]", usr)
 	message_admins("[key_name_admin(usr)] has made \a [config.log_name].")
 
-/proc/get_name_and_assignment_from_id(var/obj/item/card/id/id)
+/proc/get_name_and_assignment_from_id(obj/item/card/id/id)
 	// Format currently matches that of newscaster feeds: Registered Name (Assigned Rank)
 	return id.assignment ? "[id.registered_name] ([id.assignment])" : id.registered_name
 

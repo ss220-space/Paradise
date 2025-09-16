@@ -11,7 +11,7 @@
 /// Splits the text of a file at seperator and returns them in a list.
 /// returns an empty list if the file doesn't exist
 /world/proc/file2list(filename, seperator="\n", trim = TRUE)
-	if (trim)
+	if(trim)
 		return splittext(trim(file2text(filename)),seperator)
 	return splittext(file2text(filename),seperator)
 
@@ -44,7 +44,7 @@
 
 /// Splits the text of a file at seperator and returns them in a list.
 /proc/file2list(filename, seperator="\n", trim = TRUE)
-	if (trim)
+	if(trim)
 		return splittext(trim(return_file_text(filename)),seperator)
 	return splittext(return_file_text(filename),seperator)
 
@@ -205,7 +205,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			return null
 
 /// Returns the angle in english
-/proc/angle2text(var/degree)
+/proc/angle2text(degree)
 	return dir2text(angle2dir(degree))
 
 /// Converts a blend_mode constant to one acceptable to icon.Blend()
@@ -306,7 +306,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 	if(3*hue < 2)	return (a+(b-a)*((2/3)-hue)*6)
 	return a
 
-/proc/num2septext(var/theNum, var/sigFig = 7,var/sep=",") // default sigFig (1,000,000)
+/proc/num2septext(theNum, sigFig = 7, sep=",") // default sigFig (1,000,000)
 	var/finalNum = num2text(theNum, sigFig)
 
 	/// Start from the end, or from the decimal point
@@ -348,7 +348,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
 
 /// Argument: Give this a space-separated string consisting of 6 numbers. Returns null if you don't
-/proc/text2matrix(var/matrixtext)
+/proc/text2matrix(matrixtext)
 	var/list/matrixtext_list = splittext(matrixtext, " ")
 	var/list/matrix_list = list()
 	for(var/item in matrixtext_list)
@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 * The datum is used as a source for var names, to check validity
 * Otherwise every single word could technically be a variable!
 **/
-/proc/string2listofvars(var/t_string, var/datum/var_source)
+/proc/string2listofvars(t_string, datum/var_source)
 	if(!t_string || !var_source)
 		return list()
 

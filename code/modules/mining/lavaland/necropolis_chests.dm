@@ -297,8 +297,6 @@
 
 
 // enchanced flowers
-#define COOLDOWN_SUMMON (1 MINUTES)
-
 /obj/item/eflowers
 	name ="enchanted flowers"
 	desc = "Очаровательный букет, делающий носителя дружелюбным в глазах фауны. Сожмите букет, чтобы призвать приручённых существ. Не призывает мегафауну. <b>Для приручения мегафауны требуется 35 контактов.</b>"
@@ -318,6 +316,8 @@
 		PREPOSITIONAL = "зачарованных цветах"
 	)
 
+#define COOLDOWN_SUMMON 1 MINUTES
+
 /obj/item/eflowers/attack_self(mob/user)
 	var/turf/T = get_turf(user)
 	var/area/A = get_area(user)
@@ -332,6 +332,8 @@
 		m.forceMove(T)
 	playsound(T, 'sound/effects/splat.ogg', 80, 5, -1)
 	next_summon = world.time + COOLDOWN_SUMMON
+
+#undef COOLDOWN_SUMMON
 
 /obj/item/eflowers/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)

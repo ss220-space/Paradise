@@ -21494,9 +21494,9 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/ammo_box/magazine/mm556x45,
-/obj/item/ammo_box/magazine/mm556x45,
-/obj/item/ammo_box/magazine/mm556x45,
+/obj/item/ammo_box/magazine/a762x51,
+/obj/item/ammo_box/magazine/a762x51,
+/obj/item/ammo_box/magazine/a762x51,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "sAt" = (

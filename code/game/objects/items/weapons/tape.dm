@@ -61,7 +61,7 @@
 		icon_state = "[initial(icon_state)]2"
 	if((amount <= 6) && (amount > 4))
 		icon_state = "[initial(icon_state)]3"
-	if((amount > 6))
+	if(amount > 6)
 		icon_state = "[initial(icon_state)]4"
 	else
 		icon_state = "[initial(icon_state)]4"
