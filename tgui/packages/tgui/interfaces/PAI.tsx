@@ -33,7 +33,6 @@ type PAIData = {
 
 type PAIAppData = {
   has_back?: boolean;
-  [key: string]: unknown;
 };
 
 export const PAI = (_props: unknown) => {
