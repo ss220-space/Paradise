@@ -393,7 +393,19 @@
 	item_state = "gold-id"
 
 /obj/item/card/id/gold/battle
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	access = list(ACCESS_CAPTAIN_REAL)
+
+/obj/item/card/id/gold/battle/ComponentInitialize()
+	AddElement(/datum/element/high_value_item)
+
+/obj/item/card/id/gold/battle/Initialize(mapload)
+	GLOB.poi_list += src
+	. = ..()
+
+/obj/item/card/id/gold/battle/Destroy()
+	GLOB.poi_list -= src
+	. = ..()
 
 /obj/item/card/id/syndicate
 	name = "agent card"
@@ -1092,7 +1104,20 @@
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 
 /obj/item/card/id/warden/battle
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_ARMORY_REAL)
+
+/obj/item/card/id/warden/battle/ComponentInitialize()
+	AddElement(/datum/element/high_value_item)
+
+/obj/item/card/id/warden/battle/Initialize(mapload)
+	GLOB.poi_list += src
+	. = ..()
+
+/obj/item/card/id/warden/battle/Destroy()
+	GLOB.poi_list -= src
+	. = ..()
+
 
 /obj/item/card/id/iaa
 	name = "IAA ID"

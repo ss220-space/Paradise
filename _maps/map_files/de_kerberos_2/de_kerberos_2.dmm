@@ -29546,6 +29546,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -24
 	},
+/obj/structure/closet/burial,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"

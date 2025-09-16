@@ -227,3 +227,6 @@
 				b_loss = 30
 		adjustBruteLoss(b_loss)
 	return ..()
+
+/mob/living/carbon/true_devil/handle_critical_condition()
+	adjustOxyLoss(10)
