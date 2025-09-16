@@ -16,6 +16,8 @@
 	var/bloodusable = 0
 	/// What vampire subclass the vampire is.
 	var/datum/vampire_subclass/subclass
+	/// Reference to diablerie datum.
+	var/datum/diablerie/diablerie
 	/// Handles the vampire cloak toggle.
 	var/iscloaking = FALSE
 	/// Handles the goon vampire cloak toggle.
@@ -28,6 +30,8 @@
 	var/nullified = 0
 	/// Time between each suck iteration.
 	var/suck_rate = 5 SECONDS
+	/// Amount of blood in units sucked from victim on every suck iteration
+	var/sucking_amount = 30
 	/// Indicates the type of nullification (old or new)
 	var/nullification = NEW_NULLIFICATION
 	/// Does garlic affect vampire?
@@ -56,6 +60,7 @@
 /datum/antagonist/vampire/Destroy(force)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
+	QDEL_NULL(diablerie)
 	QDEL_NULL(subclass)
 	return ..()
 
@@ -246,7 +251,7 @@
 		suck_rate_final = suck_rate
 
 	if(cur.is_muzzled())
-		to_chat(cur, span_warning("[cur.wear_mask] мешает вам укусить [target]!"))
+		to_chat(cur, span_warning("[capitalize(cur.wear_mask.declent_ru(NOMINATIVE))] мешает вам укусить [target]!"))
 		draining = null
 		return
 
@@ -297,15 +302,19 @@
 				time_per_action = suck_rate_final
 				continue
 
-		if(unique_suck_id && (unique_suck_id in drained_humans))
+		if(isvampire(target))
+			to_chat(cur, span_warning("Питьё крови сородича утоляет ваш голод, но вы не получите доступной крови, пока не поглотите всю его жизненную силу без остатка!"))
+			// vampire's blood is way more better then normal human blood, according to WOD lore
+			cur.set_nutrition(min(NUTRITION_LEVEL_FULL, cur.nutrition + 10))
+
+		if(!isvampire(target) && unique_suck_id && (unique_suck_id in drained_humans))
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
 				to_chat(cur, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
-				target.AdjustBlood(-30)
+				target.AdjustBlood(-sucking_amount)
 				cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 				continue
 
-
-		if(target.stat < DEAD || target.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
+		if(!isvampire(target) && (target.stat < DEAD || target.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)))
 			if(mind && !mind.madeby_sentience_potion && (target.get_real_ckey() || target.player_ghosted)) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, target.blood_volume)
 				adjust_blood(target, blood * BLOOD_GAINED_MODIFIER)
@@ -328,7 +337,7 @@
 
 				to_chat(cur, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
 
-		target.AdjustBlood(-30)
+		target.AdjustBlood(-sucking_amount)
 
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(target.blood_volume)
@@ -342,13 +351,14 @@
 
 		else
 			to_chat(cur, span_warning("Вы выпили свою жертву досуха!"))
+			try_perform_diablerie(cur, target)
 			break
 
 		if(!target.get_real_ckey() && !target.player_ghosted || !mind || mind.madeby_sentience_potion)//Only runs if there is no ckey and the body has not being ghosted while alive
 			to_chat(cur, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
 			cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 
-		else
+		else if(!isvampire(target))
 			cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + (blood / 2)))
 
 	stop_sucking()
@@ -663,6 +673,57 @@
 		if(NEW_NULLIFICATION)
 			adjust_nullification(20, 4)
 
+/**
+ * Checks if our `victim` is suitable for diablerie, and if so, perform diablerie
+ * (more info about it in /datum/diablerie)
+ *
+ * Arguments:
+ * * vampire - The vampire, who is trying to perform a diablerie on 'victim'
+ * * victim - The potential victim of diablerie
+ */
+/datum/antagonist/vampire/proc/try_perform_diablerie(mob/living/carbon/human/vampire, mob/living/carbon/human/victim)
+	if(!can_perform_diablerie(vampire, victim))
+		return
+
+	var/datum/antagonist/vampire/victim_datum = isvampire(victim)
+	// We transfer all of our victim's usable blood to the vampire
+	adjust_blood(blood_amount = victim_datum.bloodusable)
+
+	victim.visible_message((span_warning("[victim] рассыпается в прах, оставляя после себя лишь груду костей!")),
+		span_notice("Вы ощущаете сладкое чувство избавления, когда ваше тело рассыпается в прах, оставляя после себя лишь груду костей..."))
+	to_chat(vampire, span_warning("Вы поглощаете последнюю каплю жизненной силы сородича и ощущаете, как по телу теплом разливается сила. Вы жаждете [span_bold("ещё")]!"))
+	victim.dust()
+
+	if(!diablerie)
+		diablerie = new(src)
+
+	diablerie.increase_diablerie_level()
+
+/**
+ * Performs all kind of checks to ensure that `vampire` can perform diablerie on the `victim`
+ *
+ * Arguments:
+ * * vampire - The vampire, who is trying to perform a diablerie on 'victim'
+ * * victim - The potential victim of diablerie
+ *
+ * Returns `TRUE` if we can successfully perform diablerie, `FALSE` otherwise
+ */
+/datum/antagonist/vampire/proc/can_perform_diablerie(mob/living/carbon/human/vampire, mob/living/carbon/human/victim)
+	var/datum/antagonist/vampire/vampire_datum = isvampire(vampire)
+	var/datum/antagonist/vampire/victim_datum = isvampire(victim)
+	// Diablerie is for vampires only
+	if(!vampire_datum || !victim_datum)
+		return FALSE
+
+	// No diablerie if one of vampires has less then 150 total blood
+	if(vampire_datum.bloodtotal < DIABLERIE_REQUIRED_BLOOD_TOTAL || \
+		victim_datum.bloodtotal < DIABLERIE_REQUIRED_BLOOD_TOTAL)
+		return FALSE
+
+	if(vampire_datum.diablerie.diablerie_count >= DIABLERIE_COUNT_MAX)
+		return FALSE
+
+	return TRUE
 
 /**
  * Takes any datum `source` and checks it for vampire datum.
