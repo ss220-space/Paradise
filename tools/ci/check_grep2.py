@@ -233,6 +233,11 @@ def check_static_list_path(idx, line):
     if STATIC_LIST_IMPROPER_PATH.search(line):
         return [(idx + 1, "Found incorrect static list definition 'var/list/static/', it should be 'var/static/list/' instead.")]
 
+TIMER_OVERRIDE_WITHOUT_UNIQUE = re.compile(r'addtimer\((?=.*TIMER_OVERRIDE)(?!.*TIMER_UNIQUE).*\)')
+def check_timer_flags(idx, line):
+    if TIMER_OVERRIDE_WITHOUT_UNIQUE.search(line):
+        return [(idx + 1, "TIMER_OVERRIDE used without TIMER_UNIQUE.")]
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -254,6 +259,7 @@ CODE_CHECKS = [
     check_balloon_alert,
     check_trait_sources,
     check_static_list_path,
+    check_timer_flags,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
@@ -275,7 +281,7 @@ def lint_file(code_filepath: str) -> list[Failure]:
             last_line = line
 
         if last_line and last_line[-1] != '\n':
-            all_failures.append(Failure(code_filepath, idx + 1, "Missing a trailing newline"))
+            all_failures.append(Failure(code_filepath, idx + 1, "Missing a trailing newline."))
     return all_failures
 
 if __name__ == "__main__":
