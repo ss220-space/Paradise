@@ -10,7 +10,6 @@
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
 	refined_type = /obj/item/stack/sheet/bluespace_crystal
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/stack/ore/bluespace_crystal/attack_self_tk(mob/user)
@@ -74,8 +73,6 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	merge_type = /obj/item/stack/sheet/bluespace_crystal
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("блюспейс полиударил", "блюспейс полиогрел", "блюспейс полистукнул", "блюспейс полисокрушил")
-	toolspeed = 1
-	usesound = 'sound/items/deconstruct.ogg'
 	point_value = 30
 
 /obj/item/stack/sheet/bluespace_crystal/Initialize(mapload, new_amount, merge = TRUE)

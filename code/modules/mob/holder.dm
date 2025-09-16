@@ -154,7 +154,6 @@
 	origin_tech = "materials=3;programming=4;powerstorage=3;engineering=4"
 
 /obj/item/holder/drone/emagged
-	name = "maintenance drone"
 	icon_state = "drone-emagged"
 	origin_tech = "materials=3;programming=4;powerstorage=3;engineering=4;syndicate=3"
 
@@ -423,7 +422,6 @@
 /obj/item/holder/possum/poppy
 	name = "poppy"
 	desc = "It's a possum Poppy. Ewwww..."
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "possum_poppy"
 
 /obj/item/holder/frog

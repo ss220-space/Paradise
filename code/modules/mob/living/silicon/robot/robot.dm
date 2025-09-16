@@ -9,8 +9,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
 	bubble_icon = "robot"
 	universal_understand = 1
 	deathgasp_on_death = TRUE

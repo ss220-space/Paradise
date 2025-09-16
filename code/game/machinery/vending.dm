@@ -33,7 +33,6 @@
 	desc = "Обычный торговый автомат."
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "generic_off"
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 300
@@ -69,7 +68,6 @@
 	var/skip_non_primary_icon_updates = FALSE
 
 	// Power
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/vend_power_usage = 150
 
@@ -112,7 +110,6 @@
 
 	// Things that can go wrong
 	/// Allows people to access a vendor that's normally access restricted.
-	emagged = 0
 	/// Shocks people like an airlock
 	var/seconds_electrified = 0
 	/// Fire items at customers! We're broken!
@@ -1305,7 +1302,6 @@
 
 /obj/machinery/vending/assist
 
-	icon_state = "generic_off"
 	panel_overlay = "generic_panel"
 	screen_overlay = "generic"
 	lightmask_overlay = "generic_lightmask"
@@ -2060,9 +2056,6 @@
 	icon_state = "syndi-big-med_off"
 	panel_overlay = "syndi-big-med_panel"
 	screen_overlay = "syndi-big-med"
-	lightmask_overlay = "med_lightmask"
-	broken_overlay = "med_broken"
-	broken_lightmask_overlay = "med_broken_lightmask"
 	deny_overlay = "syndi-big-med_deny"
 
 	req_access = list(ACCESS_SYNDICATE)
@@ -2084,7 +2077,6 @@
 	name = "Toximate 3000"
 	desc = "Всё, что вам нужно, в одном удобном месте!"
 
-	icon_state = "generic_off"
 	panel_overlay = "generic_panel"
 	screen_overlay = "generic"
 	lightmask_overlay = "generic_lightmask"
@@ -2160,15 +2152,9 @@
 	name = "SyndiWallMed"
 	desc = "<b>Злое</b> воплощение настенного раздатчика медицинских изделий."
 
-	icon_state = "wallmed_off"
-	panel_overlay = "wallmed_panel"
 	screen_overlay = "syndimed"
-	lightmask_overlay = "wallmed_lightmask"
-	broken_overlay = "wallmed_broken"
-	broken_lightmask_overlay = "wallmed_broken_lightmask"
 	deny_overlay = "syndimed_deny"
 
-	broken_lightmask_overlay = "wallmed_broken_lightmask"
 
 	slogan_list = list(
 		"Ид+и и оборв+и н+есколько ж+изней!",
@@ -2292,12 +2278,7 @@
 	)
 
 	icon_state = "sectraining_off"
-	panel_overlay = "sec_panel"
-	screen_overlay = "sec"
-	lightmask_overlay = "sec_lightmask"
-	broken_overlay = "sec_broken"
 	broken_lightmask_overlay = "sectraining_broken_lightmask"
-	deny_overlay = "sec_deny"
 
 	req_access = list(ACCESS_SECURITY)
 	products = list(
@@ -2305,7 +2286,6 @@
 		/obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2
 	)
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
-	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/training/get_ru_names()
 	return list(
@@ -3903,11 +3883,8 @@
 	desc = "Автомат-помощник по выдаче одежды Службы безопасности."
 
 	icon_state = "clothes-dep-sec_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-sec"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-sec_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_SEC_DOORS)
 	products = list(
@@ -3993,11 +3970,8 @@
 	desc = "Автомат-помощник по выдаче одежды Медицинского отдела."
 
 	icon_state = "clothes-dep-med_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-med"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-med_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_MEDICAL)
 	products = list(
@@ -4103,11 +4077,8 @@
 	desc = "Автомат-помощник по выдаче одежды Инженерного отдела."
 
 	icon_state = "clothes-dep-eng_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-eng"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-eng_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	products = list(
@@ -4172,11 +4143,8 @@
 	desc = "Автомат-помощник по выдаче одежды Научного отдела."
 
 	icon_state = "clothes-dep-sci_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-sci"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-sci_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_RESEARCH)
 	products = list(
@@ -4237,11 +4205,8 @@
 	desc = "Автомат-помощник по выдаче одежды Отд+ела снабжения."
 
 	icon_state = "clothes-dep-car_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-car"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-car_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_MINING)
 	products = list(
@@ -4304,11 +4269,8 @@
 	desc = "Автомат-помощник по выдаче одежды Юридического отдела."
 
 	icon_state = "clothes-dep-sec_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-sec"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-sec_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_LAWYER)
 	products = list(
@@ -4389,11 +4351,8 @@
 	desc = "Автомат-помощник по выдаче одежды для священнослужителей."
 
 	icon_state = "clothes-dep-car_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-car"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-car_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_CHAPEL_OFFICE)
 	products = list(
@@ -4576,9 +4535,7 @@
 		"Сто+ять, сняряд+ись на зад+ание!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-blue"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-blue_deny"
 
 	req_access = list(ACCESS_CENT_SECURITY)
@@ -4597,7 +4554,6 @@
 		/obj/item/ammo_box/shotgun/dragonsbreath = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/blue/get_ru_names()
 	return list(
@@ -4621,9 +4577,7 @@
 		"Сто+ять, сняряд+ись на зад+ание!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-red"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-red_deny"
 
 	req_access = list(ACCESS_CENT_SECURITY)
@@ -4643,7 +4597,6 @@
 		/obj/item/grenade/frag = 4
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/red/get_ru_names()
 	return list(
@@ -4667,9 +4620,7 @@
 		"Сто+ять, сняряд+ись на зад+ание!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-green"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-green_deny"
 
 	req_access = list(ACCESS_CENT_SECURITY)
@@ -4692,7 +4643,6 @@
 		/obj/item/melee/baton/telescopic = 4
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/green/get_ru_names()
 	return list(
@@ -4750,9 +4700,7 @@
 		"НИ ОДН+А МРАЗЬ НЕ ДОЖИВ+ЁТ ДО З+АВТРА!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-yellow"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-yellow_deny"
 
 	req_access = list(ACCESS_CENT_SECURITY)
@@ -4770,7 +4718,6 @@
 		/obj/item/grenade/clusterbuster/emp = 3
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
-	refill_canister = /obj/item/vending_refill/nta
 /obj/machinery/vending/nta/ertarmory/yellow/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат NT ERT Death Wish Gear & Ammunition",
@@ -4793,9 +4740,7 @@
 		"Сто+ять, сняряд+ись медикам+ентами на зад+ание!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-medical"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-medical_deny"
 
 	req_access = list(ACCESS_CENT_MEDICAL)
@@ -4823,7 +4768,6 @@
 		/obj/item/roller/holo = 2
 	)
 	contraband = list()
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/medical/get_ru_names()
 	return list(
@@ -4847,9 +4791,7 @@
 		"Сто+ять, сняряд+ись на поч+инку объ+екта!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-engi"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-engi_deny"
 
 	req_access = list(ACCESS_CENT_GENERAL)
@@ -4870,7 +4812,6 @@
 		/obj/item/clothing/head/welding/flamedecal/white  = 1,
 		/obj/item/clothing/head/welding/flamedecal/blue = 1
 		)
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/engineer/get_ru_names()
 	return list(
@@ -4894,9 +4835,7 @@
 		"Сто+ять, сняряд+ись на уб+орку!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-janitor"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-janitor_deny"
 
 	req_access = list(ACCESS_CENT_GENERAL)
@@ -4915,7 +4854,6 @@
 		/obj/item/lightreplacer = 2
 	)
 	contraband = list(/obj/item/grenade/clusterbuster/cleaner = 1, /obj/item/storage/fancy/donut_box = 2, )
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/janitor/get_ru_names()
 	return list(
@@ -4988,14 +4926,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
 
-	icon = 'icons/obj/machines/vending.dmi'
-	icon_state = "sec_off"
-	panel_overlay = "sec_panel"
-	screen_overlay = "sec"
-	lightmask_overlay = "sec_lightmask"
-	broken_overlay = "sec_broken"
-	broken_lightmask_overlay = "sec_broken_lightmask"
-	deny_overlay = "sec_deny"
 
 	density = FALSE
 	products = list(
@@ -5099,9 +5029,7 @@
 	name = "NT Cargo Medical Gear"
 	desc = "Различное медицинское оборудование для доставки."
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-medical"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-medical_deny"
 
 	products = list(
@@ -5114,7 +5042,6 @@
 		/obj/item/defibrillator/compact/loaded = 10,
 		/obj/item/handheld_defibrillator = 10,
 		/obj/item/vending_refill/medical = 10)
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/ntc/medical/get_ru_names()
 	return list(
@@ -5130,9 +5057,7 @@
 	name = "NT Cargo Engineering Gear"
 	desc = "Различное инженерное оборудование для доставки."
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-engi"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-engi_deny"
 
 	products = list(
@@ -5160,9 +5085,7 @@
 	name = "NT Cargo Janitor Gear"
 	desc = "Различное уборочное оборудование для доставки."
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-janitor"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-janitor_deny"
 
 	products = list(
@@ -5197,7 +5120,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
 
-	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "magivend_off"
 	panel_overlay = "magivend_panel"
 	screen_overlay = "magivend"
@@ -5232,9 +5154,7 @@
 	name = "NT Response Team Base Gear"
 	desc = "Автомат с базовым снаряжением ОБР."
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-blue"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-blue_deny"
 
 	products = list(
@@ -5299,7 +5219,6 @@
 	)
 
 /obj/machinery/vending/mech/ntc
-	icon = 'icons/obj/machines/vending.dmi'
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
 
@@ -5361,7 +5280,6 @@
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Фабрикатор с передовой технологией блюспейс-транспортировки ресурсов."
 
-	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "liberationstation_off"
 	panel_overlay = "liberationstation_panel"
 	screen_overlay = "liberationstation"

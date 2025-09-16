@@ -1,6 +1,5 @@
 /// These effects can be added to anything to hold particles, which is useful because Byond only allows a single particle per atom.
 /obj/effect/abstract/particle_holder_tgmc
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_ALL_MOB_LAYER
 	vis_flags = VIS_INHERIT_PLANE

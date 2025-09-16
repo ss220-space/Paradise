@@ -26,7 +26,6 @@
 	lawupdate = FALSE
 	scrambledcodes = TRUE
 	has_camera = FALSE
-	viewalerts = FALSE
 	modules_break = FALSE
 
 	req_access = list(ACCESS_CENT_COMMANDER) //I dare you to try

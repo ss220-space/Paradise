@@ -3,11 +3,9 @@
 	desc = "An endcap for pipes"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/pipes.dmi'
 	icon_state = "cap"
-	level = 2
 
 	volume = 35
 
-	dir = SOUTH
 	initialize_directions = SOUTH
 
 	var/obj/machinery/atmospherics/node
@@ -81,9 +79,6 @@
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/cap/visible
-	level = 2
-	icon_state = "cap"
-	plane = GAME_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/cap/visible/scrubbers
@@ -108,10 +103,7 @@
 
 /obj/machinery/atmospherics/pipe/cap/hidden
 	level = 1
-	icon_state = "cap"
 	alpha = 128
-	plane = GAME_PLANE
-	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/cap/hidden/scrubbers
 	name = "scrubbers pipe endcap"

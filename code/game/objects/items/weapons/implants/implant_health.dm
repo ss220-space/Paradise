@@ -2,7 +2,6 @@
 	name = "health bio-chip"
 	activated = FALSE
 	implant_data = /datum/implant_fluff/health
-	implant_state = "implant-default"
 
 	var/healthstring = ""
 

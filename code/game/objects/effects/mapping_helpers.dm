@@ -110,7 +110,6 @@
 /obj/effect/mapping_helpers/light
 	icon_state = "sunlight_helper"
 	light_color = null
-	light_power = 1
 	light_range = 10
 
 /obj/effect/mapping_helpers/light/New()

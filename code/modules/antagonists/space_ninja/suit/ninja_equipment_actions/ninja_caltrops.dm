@@ -3,7 +3,6 @@
 	name = "Energy Caltrops"
 	desc = "Scatters deadly caltrops behind the user. Great to slow enemies down. Don't step on them. Even metal legs will be damaged. Energy cost: 1500"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	charge_type = ADV_ACTION_TYPE_RECHARGE
 	charge_max = 1 SECONDS
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -64,7 +63,6 @@
 	icon_state = "caltrops"
 	resistance_flags = INDESTRUCTIBLE
 	max_integrity = 30
-	density = FALSE
 	anchored = TRUE
 	var/destroy_after = 10 SECONDS
 	var/self_destroy = TRUE

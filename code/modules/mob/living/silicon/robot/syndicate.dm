@@ -62,7 +62,6 @@
 /mob/living/silicon/robot/syndicate/medical
 	base_icon = "syndi-medi"
 	icon_state = "syndi-medi"
-	has_transform_animation = TRUE
 	modtype = /obj/item/robot_module/syndicate_medical
 	designation = "Syndicate Medical"
 	brute_mod = 0.8 //20% less damage
@@ -84,7 +83,6 @@
 /mob/living/silicon/robot/syndicate/saboteur
 	base_icon = "syndi-engi"
 	icon_state = "syndi-engi"
-	has_transform_animation = TRUE
 	modtype = /obj/item/robot_module/syndicate_saboteur
 	designation = "Syndicate Saboteur"
 	brute_mod = 0.8

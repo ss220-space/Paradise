@@ -64,7 +64,6 @@
 	icon_state = "plasma"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=5;plasmatech=4"
-	parent_organ_zone = BODY_ZONE_CHEST
 	slot = INTERNAL_ORGAN_PLASMAVESSEL
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds, /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma)
 	/// Used as a marker for hud updates on Life(). Ridiculous initial value required to update hud on organ insertion.
@@ -164,7 +163,6 @@
 	icon_state = "plasma_tiny"
 	max_plasma = 150
 	stored_plasma = 100
-	plasma_rate = 10
 
 
 /obj/item/organ/internal/xenos/plasmavessel/larva

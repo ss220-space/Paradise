@@ -2,7 +2,6 @@
 	name = "Emergency Blink"
 	desc = "Teleports user to a random nearby location. Consumes a big amount of energy. Use wisely. Energy cost: 1500"
 	check_flags = NONE
-	charge_type = ADV_ACTION_TYPE_RECHARGE
 	charge_max = 3 SECONDS
 	use_itemicon = FALSE
 	button_icon_state = "emergency_blink"

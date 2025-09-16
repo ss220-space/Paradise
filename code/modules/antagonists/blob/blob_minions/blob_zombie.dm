@@ -14,11 +14,9 @@
 	melee_damage_lower = BLOBMOB_ZOMBIE_DMG_LOWER
 	melee_damage_upper = BLOBMOB_ZOMBIE_DMG_UPPER
 	obj_damage = BLOBMOB_ZOMBIE_OBJ_DMG
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "ударяет"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	deathmessage =	"падает на землю!"
-	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
 	speed = BLOBMOB_ZOMBIE_SPEED_MOD
 	/// The dead body we have inside

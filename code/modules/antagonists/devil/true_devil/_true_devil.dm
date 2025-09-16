@@ -12,8 +12,6 @@
 	maxHealth = 350
 	mobility_flags = MOBILITY_FLAGS_DEFAULT
 	ventcrawler_trait = NONE
-	density = TRUE
-	pass_flags = NONE
 	sight = SEE_TURFS|SEE_OBJS
 	status_flags = CANPUSH
 	mob_size = MOB_SIZE_LARGE

@@ -19,8 +19,6 @@
 	var/timer_id = null
 	var/reg_name = null
 
-	light_color = COLOR_WHITE
-	light_range_on = 2
 
 
 /obj/machinery/computer/aiupload/attackby(obj/item/I, mob/user, params)
@@ -204,8 +202,6 @@
 /obj/machinery/computer/aiupload/cyborg
 	name = "cyborg upload console"
 	desc = "Используется для манипуляций с законами киборгов."
-	icon_screen = "command"
-	icon_keyboard = "med_key"
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/borgupload
 

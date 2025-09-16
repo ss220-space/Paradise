@@ -1,7 +1,6 @@
 /datum/action/innate/dash
 	name = "Рывок"
 	desc = "Мгновенный телепорт в указанную точку."
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 	var/current_charges = 1
 	var/max_charges = 1

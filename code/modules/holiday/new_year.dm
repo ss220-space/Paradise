@@ -7,7 +7,6 @@
 	icon = 'icons/obj/new_year/decorations.dmi'
 	icon_state = "garland_on"
 	max_integrity = 24 //can be removed easily (also, symbolism)
-	density = FALSE
 	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 
@@ -34,11 +33,8 @@
 	icon_state = "red_furhat"
 	item_state = "red_furhat"
 	resistance_flags = INDESTRUCTIBLE
-	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
-	body_parts_covered = HEAD
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
-	flags_inv = NONE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -65,9 +61,6 @@
 	slowdown = FALSE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
 	flags_inv = NONE
-	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | TAIL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -112,8 +105,6 @@
 	icon_state = "ice_2"
 	hitsound = 'sound/effects/hit_on_shattered_glass.ogg'
 	hitsound_wall = 'sound/effects/hit_on_shattered_glass.ogg'
-	armour_penetration = 100
-	flag = "magic"
 
 /obj/projectile/magic/frost/on_hit(atom/target, blocked, hit_zone)
 	. = ..()

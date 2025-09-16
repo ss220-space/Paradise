@@ -3,13 +3,10 @@
 	icon = 'icons/obj/shards.dmi'
 	throw_speed =  EMBED_THROWSPEED_THRESHOLD
 	sharp = TRUE
-	damage = 10
 	range = 20
 	armour_penetration = 30
 	dismemberment = 5
-	ricochets_max = 2
 	ricochet_chance = 70
-	hitsound = 'sound/weapons/pierce.ogg'
 	ru_names = list(
 		NOMINATIVE = "шрапнель",
 		GENITIVE = "шрапнели",

@@ -10,7 +10,6 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
 	item_state = "paper"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 1
 	throw_speed = 1
@@ -630,7 +629,6 @@
 
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
-	item_state = "paper"
 	anchored = TRUE
 
 /obj/item/paper/jobs
@@ -640,7 +638,6 @@
 /obj/item/paper/photograph
 	name = "photo"
 	icon_state = "photo"
-	item_state = "paper"
 
 /obj/item/paper/sop
 	name = "paper- 'Standard Operating Procedure'"
@@ -706,7 +703,6 @@
 
 /obj/item/paper/flag
 	icon_state = "flag_neutral"
-	item_state = "paper"
 	anchored = TRUE
 
 /obj/item/paper/jobs
@@ -716,7 +712,6 @@
 /obj/item/paper/photograph
 	name = "photo"
 	icon_state = "photo"
-	item_state = "paper"
 
 /obj/item/paper/sop
 	name = "paper- 'Standard Operating Procedure'"
@@ -763,28 +758,23 @@
 	info = "The call has gone out! Our ancestral home has been rediscovered! Not a small patch of land, but a true clown nation, a true Clown Planet! We're on our way home at last!"
 
 /obj/item/paper/syndicate
-	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
 	info = ""
 
 /obj/item/paper/nanotrasen
-	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
 
 /obj/item/paper/ussp
-	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ussplogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
 	language = LANGUAGE_NEO_RUSSIAN
 
 /obj/item/paper/solgov
-	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='solgovlogo.png' width='220' height='135' /></p><hr />"
 	info = ""
 
 /obj/item/paper/human
-	name = "paper"
 	info =  ""
 	language = LANGUAGE_SOL_COMMON
 
@@ -1585,8 +1575,6 @@
 	id = "SYND-COM-TC"
 	altername = "Официальное письмо"
 	category = "Синдикат"
-	access = ACCESS_SYNDICATE_COMMAND
-	footer = footer_to_taipan
 	info = "<font face=\"Verdana\" color=black>\
 			<center><h2><u>Официальное письмо объекту</u><br>&#34;ННКСС Тайпан&#34;</h2></center><hr>\
 			<span class=\"paper_field\"></span><br>\

@@ -13,7 +13,6 @@
 	allows_unconscious = TRUE
 	AI_delay_max = 0.5 SECONDS
 
-	harm_intent_damage = 3
 	icon_living = "grey baby slime"
 	icon_dead = "grey baby slime dead-nocore"
 	response_help  = "pets"

@@ -2,13 +2,10 @@
 	name = "drone"
 	real_name = "drone"
 	desc = "Крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта Нанотрейзен: Решаем проблемы завтрашнего дня уже сегодня!\"."
-	icon = 'icons/mob/robots.dmi'
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
 	bubble_icon = "machine"
-	universal_speak = 0
-	universal_understand = 1
 	gender = MALE
 	pass_flags = PASSTABLE
 	braintype = "Robot"

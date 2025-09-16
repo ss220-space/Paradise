@@ -209,7 +209,6 @@
 	unarmed_type = /datum/unarmed_attack/claws/armalis
 	blacklisted = TRUE
 
-	warning_low_pressure = 50
 	hazard_low_pressure = 0
 
 	cold_level_1 = 80
@@ -236,8 +235,6 @@
 	bodyflags = HAS_TAIL
 	dies_at_threshold = TRUE
 
-	blood_color = "#2299FC"
-	flesh_color = "#808D11"
 
 	reagent_tag = PROCESS_ORG
 

@@ -14,7 +14,6 @@
 	name = "revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/a357
 	caliber = CALIBER_DOT_357
-	max_ammo = 7
 
 
 /obj/item/ammo_box/magazine/internal/cylinder/Initialize(mapload)
@@ -93,7 +92,6 @@
 	name = "nagant revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/n762
 	caliber = CALIBER_7_DOT_62X38MM
-	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev36
 	name = ".36 revolver cylinder"
@@ -121,17 +119,14 @@
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/steel
 	name = "steel bullet cylinder"
 	desc = "High quality steel revolver cylinder with increased amount of bullets."
-	icon = 'icons/obj/improvised.dmi'
 	icon_state = "s_rev_cylinder"
 	caliber = list(CALIBER_DOT_257, CALIBER_DOT_38)
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
-	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/cap
 	caliber = CALIBER_CAP
-	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	name = ".12 revolver cylinder"
@@ -158,7 +153,6 @@
 /obj/item/ammo_box/magazine/internal/shot/tube
 	name = "dual feed shotgun internal tube"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
-	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/lethal
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
@@ -237,11 +231,9 @@
 
 /obj/item/ammo_box/magazine/internal/boltaction
 	name = "bolt action rifle internal magazine"
-	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/a762
 	caliber = CALIBER_7_DOT_62X54MM
 	max_ammo = 5
-	multiload = TRUE
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 	max_ammo =1
@@ -250,7 +242,6 @@
 /obj/item/ammo_box/magazine/internal/shot/toy
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	caliber = CALIBER_FOAM_FORCE
-	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	max_ammo = 5
@@ -731,7 +722,6 @@
 	icon_state = "50ae"
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = CALIBER_DOT_50AE
-	max_ammo = 7
 	multiple_sprites = 1
 
 /obj/item/ammo_box/magazine/m50/get_ru_names()
@@ -987,7 +977,6 @@
 	desc = "Увеличенный барабанный магазин, предназначенный для картечных магнум патронов калибра 12х70."
 	icon_state = "m12gXlBs"
 	w_class = WEIGHT_CLASS_NORMAL
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/magnum
 	max_ammo = 24
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/get_ru_names()
@@ -1187,7 +1176,6 @@
 	icon_state = "a762-[round(ammo_count(), 20)]"
 
 /obj/item/ammo_box/magazine/toy/m762/riot
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/laser
 	name = "encased laser projector magazine"
@@ -1233,7 +1221,6 @@
 
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/m52mag
 	name = "M-52 magazine"

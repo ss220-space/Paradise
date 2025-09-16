@@ -3,13 +3,11 @@
 	desc = "Has a valve and pump attached to it"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/injector.dmi'
 	icon_state = "map_injector"
-	use_power = IDLE_POWER_USE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
 	can_unwrench = TRUE
 	frequency = ATMOS_TANKS_FREQ
-	on = FALSE
 	multitool_menu_type = /datum/multitool_menu/idtag/freq/outlet_injector
 
 	var/injecting = 0

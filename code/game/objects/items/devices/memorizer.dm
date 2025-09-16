@@ -3,10 +3,8 @@
 	desc = "If you see this, you're not likely to remember it any time soon."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "memorizer"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	flags = CONDUCT
 
 	var/times_used = 0 //Number of times it's been used.

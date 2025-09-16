@@ -13,7 +13,6 @@
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
-	requires_organic_bodypart = TRUE
 	restricted_speciestypes = list(/datum/species/kidan, /datum/species/wryn, /datum/species/plasmaman)
 
 /datum/surgery/implant_removal/plasmamans
