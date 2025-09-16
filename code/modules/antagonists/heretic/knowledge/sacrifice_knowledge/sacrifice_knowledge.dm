@@ -859,7 +859,7 @@
 	if(arm)
 		QDEL_NULL(arm)
 
-	if((movement_type & PHASING))
+	if(HASBIT(movement_type, PHASING))
 		playsound(src, 'sound/effects/curse/curse3.ogg', 25, TRUE, -1)
 
 	var/turf/T = get_step(src, dir)
