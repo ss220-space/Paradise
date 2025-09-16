@@ -530,6 +530,7 @@
 	muzzle_flash_color = COLOR_SOFT_RED
 
 /obj/item/ammo_casing/energy/specter/laser
+	caliber = CALIBER_SPECTER
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/beam/specter/laser
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
