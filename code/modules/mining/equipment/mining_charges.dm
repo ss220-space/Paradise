@@ -99,9 +99,9 @@
 		var/distance = get_dist_euclidean(location, rock)
 		if(distance <= boom_sizes[1])
 			rock.attempt_drill(null,TRUE,3)
-		else if (distance <= boom_sizes[2])
+		else if(distance <= boom_sizes[2])
 			rock.attempt_drill(null,TRUE,2)
-		else if (distance <= boom_sizes[3])
+		else if(distance <= boom_sizes[3])
 			rock.attempt_drill(null,TRUE,1)
 
 	for(var/mob/living/carbon/C in circlerange(location,boom_sizes[3]))

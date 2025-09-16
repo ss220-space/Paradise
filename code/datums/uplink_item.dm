@@ -1963,7 +1963,7 @@
 /datum/uplink_item/device_tools/ion_caller
 	name = "Пульт управления ионной пушкой на низкой орбите"
 	desc = "Портативное устройство, позволяющее активировать ионную пушку, которая перезаряжается каждые 15 минут. \
-			Оно может изменять законы станционного ИИ, что приведет к обнаружению вас системой безопасности НаноТрейзен, или же вызывать перебои в телекоммуникациях."
+			Оно может изменять законы станционного ИИ, что приведет к обнаружению вас системой безопасности Нанотрейзен, или же вызывать перебои в телекоммуникациях."
 	item = /obj/item/ion_caller
 	limited_stock = 1	// Might be too annoying if someone had multiple.
 	cost = 30
@@ -2173,7 +2173,7 @@
 	desc = "Имплант, который можно вживить в организм и активировать по желанию. Может быть активирован многократно.\
 			Позволяет развернуть коробку, которая полностью скрывает вас от посторонних глаз."
 	item = /obj/item/implanter/stealth
-	cost = 40
+	cost = 25
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/implants/macrobomb
@@ -2367,7 +2367,7 @@
 	name = "Набор модулей для оружия"
 	desc = "Коробка, содержащая различные модули для улучшения вашего оружия."
 	item = /obj/item/storage/box/syndie_kit/gun_mods
-	cost = 10 // silencer 4 TK + 4 other modules
+	cost = 3 // silencer 4 TK + 4 other modules
 
 /datum/uplink_item/bundles_TC/cyborg_maint
 	name = "Набор для починки роботов"

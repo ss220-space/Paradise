@@ -25,7 +25,7 @@
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
 
-/obj/structure/inflatable/Initialize(location)
+/obj/structure/inflatable/Initialize(mapload, location)
 	. = ..()
 	air_update_turf(TRUE)
 

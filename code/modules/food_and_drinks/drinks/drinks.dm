@@ -132,6 +132,7 @@
 		if(isrobot(user))
 			SynthesizeDrinkFromTransfer(user, transfer_data)
 
+		after_transfer(target)
 		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.

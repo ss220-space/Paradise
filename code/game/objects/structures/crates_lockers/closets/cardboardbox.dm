@@ -54,6 +54,35 @@
 	COOLDOWN_START(src, recently_moved_cd, delay)
 
 
+/obj/structure/closet/cardboard/attackby(obj/item/item, mob/user, params)
+	if(issoap(item))
+		balloon_alert(user, "очистка...")
+		user.visible_message(
+			"[user.declent_ru(NOMINATIVE)] начина[pluralize_ru(user.gender, "ет", "ют")] стирать рисунки с [declent_ru(GENITIVE)].",
+			ignored_mobs = user
+		)
+		if(!do_after(user, 3 SECONDS, src))
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		color = null
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(!iscrayon(item))
+		return ..()
+
+	var/obj/item/toy/crayon/crayon = item
+	balloon_alert(user, "покраска...")
+	user.visible_message(
+		span_notice("[user.declent_ru(NOMINATIVE)] начина[pluralize_ru(user.gender, "ет", "ют")] красить [declent_ru(ACCUSATIVE)]."),
+		ignored_mobs = user
+	)
+	if(!do_after(user, 3 SECONDS, src))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	color = crayon.colour
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
 /obj/structure/closet/cardboard/proc/relaymove_multiz_check(direction)
 	return direction != UP && direction != DOWN
 
@@ -199,13 +228,13 @@
 
 /obj/structure/closet/cardboard/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
-	if (damage_flag == MELEE)
+	if(damage_flag == MELEE)
 		return
 	var/list/humans = list()
 	for(var/mob/living/carbon/human/human in contents)
-		if (istype(human))
+		if(istype(human))
 			humans += human
-	if (length(humans) <= 0)
+	if(length(humans) <= 0)
 		return
 	var/mob/living/carbon/human/target = pick(humans)
 	var/armor = target.run_armor_check(BODY_ZONE_CHEST, damage_flag, armour_penetration)

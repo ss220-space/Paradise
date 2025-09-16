@@ -28,7 +28,7 @@
 
 #define NEW_SS_GLOBAL(varname) if(varname != src){if(istype(varname)){Recover();qdel(varname);}varname = src;}
 
-#define START_PROCESSING(Processor, Datum) if (!Datum.isprocessing) {Datum.isprocessing = TRUE;Processor.processing += Datum}
+#define START_PROCESSING(Processor, Datum) if(!Datum.isprocessing) {Datum.isprocessing = TRUE;Processor.processing += Datum}
 #define STOP_PROCESSING(Processor, Datum) Datum.isprocessing = FALSE;Processor.processing -= Datum
 
 /// Returns true if the MC is initialized and running.
