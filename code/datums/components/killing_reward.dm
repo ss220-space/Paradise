@@ -24,6 +24,9 @@
 	SIGNAL_HANDLER
 	var/list/datum/money_account/killers_accs = list()
 	for(var/mob/living/carbon/human/killer in view(7, src))
+		if(killer.stat == DEAD || !killer.ckey)
+			continue
+
 		for(var/datum/money_account/account as anything in GLOB.all_money_accounts)
 			if(account.owner_name != killer.real_name)
 				continue
@@ -37,7 +40,7 @@
 
 	var/bounty = round(reward / killers_accs.len)
 	for(var/datum/money_account/account as anything in killers_accs)
-		if(!payment_account.charge(bounty, account, "Выплата вознаграждения персоналу.", "Nanotrasen personal departament" , "Поступление зарплаты.", "Поступление зарплаты" ,"Biesel TCD Terminal #[rand(111,333)]"))
+		if(!account.charge(bounty, account, "Выплата вознаграждения персоналу.", "Nanotrasen personal departament" , "Поступление зарплаты.", "Поступление зарплаты" ,"Biesel TCD Terminal #[rand(111,333)]"))
 			continue
 
 		account.notify_pda_owner("<b>Поступление вознаграждения </b>\"На ваш привязанный аккаунт поступило [bounty] кредит[(bounty % 10 >= 5 || bounty % 100 >= 10 && bounty <= 20) ? "ов" : (bounty % 10 == 1 ? "" : "а")]\" (Невозможно Ответить)", FALSE)

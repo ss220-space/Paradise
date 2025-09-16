@@ -374,6 +374,7 @@
 /datum/smite/demote
 	name = SMITE_DEMOTE
 	desc = "Увольте грешника!"
+	logmsg = "demote."
 
 
 /datum/smite/demote/apply_effect(mob/living/target, reason)
@@ -398,6 +399,7 @@
 /datum/smite/virus
 	name = SMITE_VIRUS
 	desc = "Заразите грешника выбранным вирусом! Если хотите, сделайте вирус не заразным."
+	logmsg = "virus."
 
 
 /datum/smite/virus/activate(mob/living/target, reason)
@@ -411,7 +413,7 @@
 
 	var/datum/disease/virus/virus = new type()
 	if(cant_spread != "Да")
-		spread_flags = NON_CONTAGIOUS
+		virus.spread_flags = NON_CONTAGIOUS
 
 	virus.Contract(target)
 
@@ -420,6 +422,7 @@
 /datum/smite/pod
 	name = SMITE_POD
 	desc = "Зпустите по грешнику ракетой."
+	logmsg = "supply pod."
 
 
 /datum/smite/pod/activate(mob/living/target, reason)
@@ -430,8 +433,9 @@
 
 /// MARK: Global hunting
 /datum/smite/global_hunting
-	name = SMITE_GLOBAL_HUNTING
+	name = SMITE_GLOBALHUNTING
 	desc = "Заставьте экипаж охотиться за грешником."
+	logmsg = "global hunting."
 
 
 /datum/smite/global_hunting/activate(mob/living/target, reason)
@@ -448,23 +452,32 @@
 
 
 /// MARK: Brainrot braindamag
-/datum/smite/brainrot_braingamag
-	name = SMITE_BRAINROTBRAINDAMAG
+/datum/smite/brainrot_braingamage
+	name = SMITE_BRAINROTBRAINDAMAGE
 	desc = "Мозг грешника будет повреждаться от глупых фраз."
+	logmsg = "brainrot braindamage."
 
 
-/datum/smite/brainrot_braingamag/activate(mob/living/target, reason)
+/datum/smite/brainrot_braingamage/activate(mob/living/target, reason)
+	var/datum/component = target.GetComponent(/datum/component/brainrot_braingamage)
+	if(component)
+		to_chat(usr, span_warning("Старые ограничения сняты с грешника."))
+		to_chat(target, span_notice("Ваш мозг расслабляется. Вы снова можете нести бред без вреда для себя."))
+		qdel(component)
+		logmsg = "brainrot braindamage cure."
+		return
+
 	var/damage = tgui_input_number(usr, "Настройте повреждения мозга за каждое запретное слово.", "Выбор повреждений", 5, 120, 0)
-
 	var/list/bad_words = GLOB.default_brainrot.Copy()
 	var/bad_words_string = tgui_input_list(usr, "Настройте список запретных слов, введя все слова списка через запятую без пробелов. Список по умолчанию: [list_to_string(bad_words)]", "Выбор запретных слов")
 	if(bad_words_string)
 		bad_words = string_to_list(bad_words_string)
 
+	target.AddComponent(/datum/component/brainrot_braingamage, damage, bad_words)
+	to_chat(target, span_userdanger("Ваш мозг напрягается. Вы чувствуете, что лучше больше не нести бред. Это кара за [reason]!"))
 
 
-
-/datum/smite/brainrot_braingamag/proc/list_to_string(list/bad_words)
+/datum/smite/brainrot_braingamage/proc/list_to_string(list/bad_words)
 	var/result = ""
 	for(var/word as anything in bad_words)
 		result += (result ? "," : "") + word
@@ -472,7 +485,7 @@
 	return result
 
 
-/datum/smite/brainrot_braingamag/proc/string_to_list(bad_words)
+/datum/smite/brainrot_braingamage/proc/string_to_list(bad_words)
 	return splittext(bad_words, ",")
 
 /// MARK: Admin proc

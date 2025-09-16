@@ -24,7 +24,8 @@
 #define SMITE_DEMOTE				"Увольнение"
 #define SMITE_VIRUS					"Вирус"
 #define	SMITE_POD					"Ракета"
-#define SMITE_BRAINROTBRAINDAMAG	"Автобрейндамаг за брейнрот"
+#define SMITE_GLOBALHUNTING			"Охота"
+#define SMITE_BRAINROTBRAINDAMAGE	"Автобрейндамаг за брейнрот"
 
 
 GLOBAL_LIST_INIT(smites_not_human, list(
@@ -37,6 +38,7 @@ GLOBAL_LIST_INIT(smites_not_human, list(
 	SMITE_DUST = 				/datum/smite/dust,
 	SMITE_SUMMON = 				/datum/smite/summon,
 	SMITE_POD = 				/datum/smite/pod,
+	SMITE_GLOBALHUNTING = 		/datum/smite/global_hunting,
 ))
 
 GLOBAL_LIST_INIT(smites_human, list(
@@ -48,7 +50,7 @@ GLOBAL_LIST_INIT(smites_human, list(
 	SMITE_NUGGET = 				/datum/smite/nugget,
 	SMITE_DEMOTE = 				/datum/smite/demote,
 	SMITE_VIRUS = 				/datum/smite/virus,
-	SMITE_BRAINROTBRAINDAMAG =	/datum/smite/brainrot_braingamag,
+	SMITE_BRAINROTBRAINDAMAGE =	/datum/smite/brainrot_braingamage,
 ))
 
 
