@@ -243,11 +243,7 @@
 			else
 				gear_leftovers += G
 		
-	if(H.dna.species.name == SPECIES_MACNINEPERSON)
-		if(H.client.prefs.exoframe_type)
-			var/obj/item/organ/internal/cyberimp/chest/exoframe/E = new H.client.prefs.exoframe_type
-			to_chat(H, span_notice("Имплантируем [E.name]!"))
-			E.insert(H)
+	H.dna.species.job_pre_equip(H)
 
 /datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
