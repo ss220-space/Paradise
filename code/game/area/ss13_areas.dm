@@ -2905,7 +2905,7 @@ This applies to all STANDARD station areas
  */
 
 /area/awaymission
-	name = "Strange Location"
+	name = "Загадочное место"
 	icon_state = "away"
 	report_alerts = FALSE
 	has_gravity = STANDARD_GRAVITY
@@ -2914,15 +2914,15 @@ This applies to all STANDARD station areas
 	area_flags = NONE
 
 /area/awaymission/example
-	name = "Strange Station"
+	name = "Загадочная станция"
 	icon_state = "away"
 
 /area/awaymission/desert
-	name = "Sudden Drop"
+	name = "Вынужденная посадка"
 	icon_state = "away"
 
 /area/awaymission/beach
-	name = "Beach"
+	name = "Пляж"
 	icon_state = "beach"
 	static_lighting = FALSE
 	base_lighting_alpha = 255
@@ -2931,28 +2931,28 @@ This applies to all STANDARD station areas
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/ambiodd.ogg', 'sound/ambience/ambinice.ogg')
 
 /area/awaymission/undersea
-	name = "Undersea"
+	name = "Под водой"
 	icon_state = "undersea"
 
 
 // area for AWAY "moonoutpost19"
 /area/moonoutpost19
-	name = "moonoutpost"
+	name = "Лунный аванпост №19"
 	has_gravity = STANDARD_GRAVITY
 	report_alerts = FALSE
 	area_flags = NONE
 	holomap_should_draw = FALSE
 
 /area/moonoutpost19/mo19arrivals
-	name = "MO19 Arrivals"
+	name = "Лунный аванпост №19 – пункт прибытия"
 	icon_state = "awaycontent1"
 
 /area/moonoutpost19/mo19research
-	name = "MO19 Research"
+	name = "Лунный аванпост №19 – НИО"
 	icon_state = "awaycontent2"
 
 /area/moonoutpost19/khonsu19
-	name = "Khonsu 19"
+	name = "Хонсу 19"
 	icon_state = "awaycontent3"
 	always_unpowered = TRUE
 	ambientsounds = list('sound/ambience/ambimine.ogg')
@@ -2964,11 +2964,11 @@ This applies to all STANDARD station areas
 	area_flags = NONE
 
 /area/moonoutpost19/syndicateoutpost
-	name = "Syndicate Outpost"
+	name = "Лунный аванпост Синдиката"
 	icon_state = "awaycontent4"
 
 /area/moonoutpost19/hive
-	name = "The Hive"
+	name = "Лунный аванпост №19 – улей"
 	icon_state = "awaycontent5"
 	always_unpowered = TRUE
 	power_environ = FALSE
@@ -2977,7 +2977,7 @@ This applies to all STANDARD station areas
 	poweralm = FALSE
 
 /area/moonoutpost19/mo19utilityroom
-	name = "MO19 Utility Room"
+	name = "Лунный аванпост №19 – подсобное помещение"
 	icon_state = "awaycontent6"
 
 //area for AWAY "aeterna13"
@@ -3022,11 +3022,11 @@ This applies to all STANDARD station areas
 	icon_state = "ae13_asteroid"
 
 /**
- * MARK: AWAY AREAS/
+ * MARK: AWAY AREAS
  */
 
 /area/awaycontent
-	name = "space"
+	name = "Космос"
 	report_alerts = FALSE
 	has_gravity = STANDARD_GRAVITY
 	area_flags = NONE
@@ -3127,11 +3127,6 @@ This applies to all STANDARD station areas
 	Lists of areas to be used with is_type_in_list.
 	Used in gamemodes code at the moment. --rastaf0
 */
-
-/**
- * MARK: Centcom
- */
-
 GLOBAL_LIST_INIT(centcom_areas, list(
 	/area/centcom,
 	/area/shuttle/escape_pod1/centcom,
@@ -3149,7 +3144,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
  */
 
 /area/special_event
-	name = "Special event area"
+	name = "Специальная ивент-зона"
 	icon_state = "unknown"
 	requires_power = TRUE
 	static_lighting = TRUE
@@ -3159,23 +3154,23 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	holomap_should_draw = FALSE
 
 /area/special_event/alpha
-	name = "Special event area Alpha"
+	name = "Специальная ивент-зона – Альфа"
 	icon_state = "away1"
 
 /area/special_event/beta
-	name = "Special event area Beta"
+	name = "Специальная ивент-зона – Бета"
 	icon_state = "away2"
 
 /area/special_event/gamma
-	name = "Special event area Gamma"
+	name = "Специальная ивент-зона – Гамма"
 	icon_state = "away3"
 
 /area/special_event/delta
-	name = "Special event area Delta"
+	name = "Специальная ивент-зона – Дельта"
 	icon_state = "away4"
 
 /area/special_event/epsilon
-	name = "Special event area Epsilon"
+	name = "Специальная ивент-зона – Эпсилон"
 	icon_state = "away5"
 
 /**
@@ -3183,11 +3178,11 @@ GLOBAL_LIST_INIT(centcom_areas, list(
  */
 
 /area/ruin/space/bubblegum_arena
-	name = "Bubblegum Arena"
+	name = "Арена Бубльгума"
 
 
 /area/ruin/USSP_SpaceBanya
-	name = "Space_abandoned_banya"
+	name = "Заброшенная космическая баня"
 	icon_state = "barstation"
 
 /**
@@ -3195,31 +3190,31 @@ GLOBAL_LIST_INIT(centcom_areas, list(
  */
 
 /area/ruin/space/pirate_base
-	name = "pirates base "
+	name = "Пиратская база"
 	icon_state = "unknown"
 
 /area/ruin/space/pirate_base/arrivals
-	name = "Unknown Arrivals"
+	name = "Пиратская база – пунк прибытия"
 	icon_state = "awaycontent1"
 
 /area/ruin/space/pirate_base/atrium
-	name = "Prison Atrium"
+	name = "Пиратская база – тюремный атриум"
 	icon_state = "awaycontent2"
 
 /area/ruin/space/pirate_base/kitchen
-	name = "Prison Kitchen"
+	name = "Пиратская база – тюремная кухня"
 	icon_state = "awaycontent3"
 
 /area/ruin/space/pirate_base/mining
-	name = "Prison Mining"
+	name = "Пиратская база – тюремный шахтёрский пункт"
 	icon_state = "awaycontent4"
 
 /area/ruin/space/pirate_base/prison_maint
-	name = "Prison Технические тоннели – "
+	name = "Пиратская база – технические тоннели тюрьмы"
 	icon_state = "awaycontent5"
 
 /area/ruin/space/pirate_base/entertainment
-	name = "Prison Entertainment"
+	name = "Пиратская база – тюремный развлекательный центр"
 	icon_state = "awaycontent6"
 
 /area/ruin/space/pirate_base/security_atrium
