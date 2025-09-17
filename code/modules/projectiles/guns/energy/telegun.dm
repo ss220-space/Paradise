@@ -36,6 +36,8 @@
 			continue
 		if(!is_teleport_allowed(T.z))
 			continue
+		if(!is_station_level(T.z))
+			continue
 		if(R.syndicate == 1)
 			continue
 		var/tmpname = T.loc.name
