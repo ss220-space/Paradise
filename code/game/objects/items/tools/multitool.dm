@@ -5,10 +5,10 @@
 /**
  * Multitool -- A multitool is used for hacking electronic devices.
  */
-
 /obj/item/multitool
-	name = "multitool"
-	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors."
+	name = "multimeter"
+	desc = "Электрический прибор для измерения параметров тока, прозвонки электрических цепей. Результаты ЭКГ, снятого данным аппаратом, не признаются ни одной клиникой."
+	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -16,6 +16,7 @@
 	belt_icon = "multitool"
 	flags = CONDUCT
 	force = 5.0
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
 	throw_range = 7
@@ -30,10 +31,32 @@
 	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
 	var/obj/machinery/buffer // simple machine buffer for device linkage
 	var/datum/multitool_menu_host/menu
+	var/emp_shielded = FALSE
+	var/broken_type = /obj/item/multitool_broken
+
+/obj/item/multitool/get_ru_names()
+	return list(
+		NOMINATIVE = "мультиметр",
+		GENITIVE = "мультиметра",
+		DATIVE = "мультиметру",
+		ACCUSATIVE = "мультиметр",
+		INSTRUMENTAL = "мультиметром",
+		PREPOSITIONAL = "мультиметре"
+	)
 
 /obj/item/multitool/Initialize(mapload)
 	. = ..()
 	menu = new(src)
+
+/obj/item/multitool/emp_act(severity)
+	if(emp_shielded)
+		return
+	var/obj/item/broken_item = new broken_type(drop_location())
+	if(ismob(loc))
+		var/mob/holder = loc
+		holder.temporarily_remove_item_from_inventory(src)
+		holder.put_in_hands(broken_item)
+	qdel(src)
 
 /obj/item/multitool/proc/IsBufferA(typepath)
 	if(!buffer)
@@ -45,10 +68,10 @@
 
 /obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)	//Loads a machine into memory, returns TRUE if it does
 	if(!ismachinery(M))
-		to_chat(user, "<span class='warning'>That's not a machine!</span>")
+		balloon_alert(user, "это не электрический прибор!")
 		return
 	buffer = M
-	to_chat(user, "<span class='notice'>You load [M] into [src]'s internal buffer.</span>")
+	balloon_alert(user, "вы загружаете [M] в хранилище [capitalize(declent_ru(GENITIVE))].")
 	return TRUE
 
 /obj/item/multitool/attack_self(mob/user)
@@ -59,6 +82,27 @@
 	QDEL_NULL(menu)
 	return ..()
 
+/obj/item/multitool_broken
+	name = "broken multimeter"
+	desc = "Электрический прибор для измерения параметров тока, прозвонки электрических цепей. Похоже, он полностью сгорел."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "multitool_broken"
+	belt_icon = "multitool_broken"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
+	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL=50, MAT_GLASS=20)
+
+/obj/item/multitool_broken/get_ru_names()
+	return list(
+		NOMINATIVE = "сломанный мультиметр",
+		GENITIVE = "сломанного мультиметра",
+		DATIVE = "сломанному мультиметру",
+		ACCUSATIVE = "сломанный мультиметр",
+		INSTRUMENTAL = "сломанным мультиметром",
+		PREPOSITIONAL = "сломанном мультиметре"
+	)
+
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect
 	var/track_cooldown = 0
@@ -67,6 +111,7 @@
 	var/rangealert = 8	//Glows red when inside
 	var/rangewarning = 20 //Glows yellow when inside
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
+	emp_shielded = TRUE
 
 /obj/item/multitool/ai_detect/New()
 	..()
@@ -116,6 +161,7 @@
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?
 	track_delay = 5
 	shows_wire_information = TRUE
+	emp_shielded = TRUE
 
 /obj/item/multitool/ai_detect/admin/multitool_detect()
 	var/turf/our_turf = get_turf(src)
@@ -128,26 +174,48 @@
 				break
 
 /obj/item/multitool/cyborg
-	name = "multitool"
-	desc = "Optimised and stripped-down version of a regular multitool."
+	name = "multimeter"
+	desc = "Оптимизированная компактная версия стандартного мультиметра."
 	toolspeed = 0.5
+	emp_shielded = TRUE
 
 /obj/item/multitool/abductor
-	name = "alien multitool"
-	desc = "An omni-technological interface."
+	name = "alien multimeter"
+	desc = "Прибор из неизвестного сплава с голографическим интерфейсом измеряющий показания тока с помощью безпроводных технологий."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "multitool"
+	icon_state = "multimeter"
 	belt_icon = "alien_multitool"
 	toolspeed = 0.1
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 	shows_wire_information = TRUE
+	emp_shielded = TRUE
 
 /obj/item/multitool/brass
-	name = "brass multitool"
-	desc = "A multitool made of brass. You feel some signals coming out."
+	name = "brass multimeter"
+	desc = "Механический прибор из латуни измеряющий показания тока, из за отсутствия электроники должен быть устойчив к ЭМИ."
 	icon_state = "multitool_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	emp_shielded = TRUE
+
+/obj/item/multitool/old
+	name = "old multimeter"
+	desc = "Электрический прибор для измерения параметров тока, прозвонки электрических цепей. Этот кажется весьма устаревшим."
+	icon_state = "multitool_old_wire"
+	belt_icon = "multitool_old_wire"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
+	emp_shielded = TRUE
+
+/obj/item/multitool/old/get_ru_names()
+	return list(
+		NOMINATIVE = "старый мультиметр",
+		GENITIVE = "старого мультиметра",
+		DATIVE = "старому мультиметру",
+		ACCUSATIVE = "старый мультиметр",
+		INSTRUMENTAL = "старым мультиметром",
+		PREPOSITIONAL = "старом мультиметре"
+	)
 
 #undef PROXIMITY_NONE
 #undef PROXIMITY_ON_SCREEN
