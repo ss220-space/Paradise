@@ -537,7 +537,7 @@
 					bleeding += "остановленное "
 				if(e.has_arterial_bleeding())
 					bleeding += "артериальное "
-				else if (e.has_heavy_bleeding())
+				else if(e.has_heavy_bleeding())
 					bleeding += "обильное "
 				bleeding += "кровотечение"
 			if(e.has_internal_bleeding())
