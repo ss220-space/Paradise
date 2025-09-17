@@ -15,7 +15,7 @@
 /datum/disease/brain_transplant_syndrome
 	name = "Синдром пересадки мозга"
 	agent = "Иммунитет"
-	desc = "Дизориентация, удушье, паралич и отказ органов."
+	desc = "Дезориентация, удушье, паралич и отказ органов."
 	stage_prob = 10
 	cure_text = "Нейроматин (нейроадаптик)"
 	var/required_reagent = "neuromatin"
