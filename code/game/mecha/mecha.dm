@@ -510,7 +510,7 @@
 			if(A)
 				A.target = possible_port
 		else
-			occupant.clear_alert("mechaport")
+			occupant.clear_alert("mechaport", TRUE)
 	if(leg_overload_mode)
 		if(strafe) //No strafe while overload is active
 			toggle_strafe(silent = TRUE)
@@ -984,19 +984,25 @@
 #undef TOGGLE_MAINTENANCE
 
 /obj/mecha/proc/toggle_maintenance(mob/user)
+	if(!maint_access)
+		to_chat(user, "Режим техобслуживания заблокирован.")
+		return
+
 	switch(maintenance_progress)
 		if(MECHA_LOCKED)
 			maintenance_progress = MECHA_SECURE_BOLTS
 			to_chat(user, "Крепежные болты зафиксированы.")
 			if(occupant)
 				occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
+			return
 		if(MECHA_SECURE_BOLTS)
 			maintenance_progress = MECHA_LOCKED
 			to_chat(user, "Крепежные болты убраны.")
 			if(occupant)
 				occupant.clear_alert("locked")
-		else
-			to_chat(user, "[declent_ru(NOMINATIVE)] не готов к взаимодействию.")
+			return
+
+	to_chat(user, "[declent_ru(NOMINATIVE)] не готов к взаимодействию.")
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
