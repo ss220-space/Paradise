@@ -888,8 +888,8 @@
 /obj/item/gun/energy/gun/minigun/clockwork/ComponentInitialize()
 	AddComponent( \
 		/datum/component/automatic_fire, \
-		 0.1 SECONDS \
-		 )
+		0.1 SECONDS \
+		)
 	autofire = src.GetComponent(/datum/component/automatic_fire)
 
 /obj/item/gun/energy/gun/minigun/clockwork/update_overlays()

@@ -1844,10 +1844,14 @@
 	if(ratvarized)
 		repair_damage(max_integrity / 2)
 		return
+	ratvar_convert()
+
+/obj/mecha/proc/ratvar_convert()
 	for(var/rat_mecha as anything in GLOB.ratvar_mechas)
 		var/datum/ratvar_mecha/converter = new rat_mecha
 		if(mech_type in converter.mech_types)
 			converter.convert(src)
+			visible_message(span_clocklarge("[capitalize(declent_ru(NOMINATIVE))] начинает громко грохотать, его механизмы заменяются шестернями!"))
 		QDEL_NULL(converter)
 
 #undef OCCUPANT_LOGGING
