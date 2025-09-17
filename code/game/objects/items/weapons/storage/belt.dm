@@ -20,11 +20,20 @@
 	var/use_item_overlays = FALSE
 	/// Won't change it's size even with items inside
 	var/storable = FALSE
-	/// Ignores update_weight() if TRUE (so initially BULKY belts won't become NORMAL when they get empty)
-	var/large = FALSE
+
+/obj/item/storage/belt/examine(mob/user)
+	. = ..()
+	if(initial(w_class) == WEIGHT_CLASS_BULKY)
+		return
+	if(storable)
+		. += span_notice("Размер останется <b>неизменным</b> даже при наличии предметов.")
+	else if(length(contents))
+		. += span_notice("<b>Уменьшится</b> в размере после извлечения содержимого.")
+	else
+		. += span_notice("<b>Увеличится</b> в размере при наличии предметов.")
 
 /obj/item/storage/belt/proc/update_weight()
-	if(large)
+	if(initial(w_class) == WEIGHT_CLASS_BULKY) // so initially BULKY belts won't become NORMAL when they get empty
 		return
 	if(!length(contents) || storable)
 		w_class = WEIGHT_CLASS_NORMAL
@@ -669,7 +678,6 @@
 	icon_state = "lazarusbelt_0"
 	item_state = "lazbelt"
 	w_class = WEIGHT_CLASS_BULKY
-	large = TRUE
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 6
 	storage_slots = 6
@@ -855,7 +863,6 @@
 	item_state = "sheath"
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
-	large = TRUE
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/melee/rapier/captain)
 
@@ -932,7 +939,6 @@
 	item_state = "holdingbelt"
 	storage_slots = 14
 	w_class = WEIGHT_CLASS_BULKY
-	large = TRUE
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 21
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
@@ -1222,7 +1228,6 @@
 	item_state = "sheath_holy"
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
-	large = TRUE
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/nullrod/claymore)
 	var/claymore_path = /obj/item/nullrod/claymore

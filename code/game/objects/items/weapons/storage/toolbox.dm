@@ -16,7 +16,7 @@
 	max_combined_w_class = 18
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
-	attack_verb = list("заробастил")
+	attack_verb = list("огрел", "ударил", "вмазал")
 	use_sound = 'sound/effects/toolbox.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbox_drop.ogg'
