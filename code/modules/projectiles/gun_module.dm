@@ -127,18 +127,23 @@
 
 /obj/item/gun_module/muzzle/suppressor/handmade
 	name = "handmade suppressor"
-	desc = "Самодельный глушитель."
+	desc = "Самодельный глушитель сделанный из банки, скотча и куска металла. Может в любой момент развалиться на части."
 	icon_state = "handmade_supp_1"
 	item_state = "supp"
 	overlay_state = "handmade_supp_1_o"
 	overlay_offset = list("x" = 0, "y" = 0)
+	var/variant = 1
 	var/break_chance = 0
-	var/break_increase_chance = 2
+	var/break_increase_chance = 1
 
 /obj/item/gun_module/muzzle/suppressor/handmade/Initialize(mapload)
 	. = ..()
-	icon_state = "handmade_supp_[rand(1, 3)]"
-	overlay_state = "[icon_state]_o"
+	variant = rand(1, 3)
+	update_icon()
+
+/obj/item/gun_module/muzzle/suppressor/handmade/update_icon_state()
+	icon_state = "handmade_supp_[variant]"
+	overlay_state = "handmade_supp_[variant]_o"
 
 /obj/item/gun_module/muzzle/suppressor/handmade/get_ru_names()
 	return list(
@@ -164,10 +169,11 @@
 	break_chance += break_increase_chance
 	if(!prob(break_chance))
 		return
+	INVOKE_ASYNC(src, PROC_REF(destroy_module), user)
 
-	detach_without_check(gun, user, force = TRUE, put_in_hands = FALSE, silence = TRUE)
+/obj/item/gun_module/muzzle/suppressor/handmade/proc/destroy_module(mob/user)
+	detach_without_check(gun, user, TRUE, FALSE, TRUE) //force detach module, no put in hands and do it silence
 	qdel(src)
-
 
 /obj/item/gun_module/muzzle/compensator
 	name = "compensator"
