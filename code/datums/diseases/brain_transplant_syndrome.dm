@@ -17,7 +17,7 @@
 	agent = "Иммунитет"
 	desc = "Дизориентация, удушье, паралич и отказ органов."
 	stage_prob = 10
-	cure_text = "Нейроматин (нейроадатик)"
+	cure_text = "Нейроматин (нейроадаптик)"
 	var/required_reagent = "neuromatin"
 	severity = NONTHREAT
 	can_immunity = FALSE
@@ -76,7 +76,7 @@
 	necrotize_organ_effect()
 
 /datum/disease/brain_transplant_syndrome/proc/necrotize_organ_effect()
-	to_chat(affected_mob, span_danger("Вы чувствуете, острую боль внутри!"))
+	to_chat(affected_mob, span_danger("Вы чувствуете острую боль внутри!"))
 	affected_mob.emote("scream")
 	affected_mob.Knockdown(10 SECONDS)
 	affected_mob.Jitter(15 SECONDS)
