@@ -8,13 +8,10 @@
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	var/protected_species_vampire = list(SPECIES_MACNINEPERSON, SPECIES_GOLEM_BASIC)
-	var/list/datum/mind/pre_vampires = list()
-
 
 /datum/game_mode/traitor/vampire/announce()
 	to_chat(world, "<b>The current game mode is - Traitor+Vampire!</b>")
 	to_chat(world, "<b>There is a Vampire from Space Transylvania on the station along with some syndicate operatives out for their own gain! Do not let the vampire and the traitors succeed!</b>")
-
 
 /datum/game_mode/traitor/vampire/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))

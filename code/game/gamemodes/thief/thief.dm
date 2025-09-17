@@ -1,7 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/thieves = list()
-
-
 /datum/game_mode/thief
 	name = "thief"
 	config_tag = "thief"
@@ -13,11 +9,9 @@
 	/// List of minds of soon to be thieves
 	var/list/datum/mind/pre_thieves = list()
 
-
 /datum/game_mode/thief/announce()
 	to_chat(world, "<b>The current game mode is - thief!</b>")
 	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров. Не допустите кражу дорогостоящего оборудования!</b>")
-
 
 /datum/game_mode/thief/pre_setup()
 

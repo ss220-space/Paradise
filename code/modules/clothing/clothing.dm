@@ -57,6 +57,8 @@
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
 	var/list/clothing_traits
 
+	var/obj/item/radio/spy_spider/spy_spider_attached = null
+
 /obj/item/clothing/examine(mob/user)
 	. = ..()
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -381,6 +383,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi'
 		)
 
+	var/transfer_blood = 0
 
 /obj/item/clothing/gloves/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()

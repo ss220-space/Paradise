@@ -60,6 +60,7 @@ jobs:
           python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python tools/ci/define_sanity.py
+          python tools/ci/no_duplicate_definitions.py
           python tools/ci/check_icons.py
 
       - name: Run DreamChecker

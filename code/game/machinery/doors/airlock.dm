@@ -104,6 +104,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/boltDown = 'sound/machines/boltsdown.ogg'
 	var/is_special = FALSE
 
+	// This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
+	var/id_tag
+	var/shockedby = list()
+	///the command the door is currently attempting to complete
+	var/cur_command = null
+
 /obj/machinery/door/airlock/welded
 	welded = TRUE
 

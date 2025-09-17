@@ -810,10 +810,6 @@ This applies to all STANDARD station areas
 	name = "Labor Camp"
 	icon_state = "brig"
 
-/area/mine/laborcamp/security
-	name = "Labor Camp Security"
-	icon_state = "security"
-
 //STATION13
 
 /area/atmos
@@ -1366,9 +1362,6 @@ This applies to all STANDARD station areas
 	icon_state = "meeting"
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
-/area/crew_quarters
-	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
-
 /area/crew_quarters/captain
 	name = "Captain's Office"
 	icon_state = "captain"
@@ -1478,8 +1471,8 @@ This applies to all STANDARD station areas
 /area/crew_quarters
 	name = "Dormitories"
 	icon_state = "Sleep"
-	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_DORMS
+	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
 /area/crew_quarters/serviceyard
 	name = "Service Yard"
@@ -2475,10 +2468,6 @@ This applies to all STANDARD station areas
 /area/toxins/server_coldroom
 	name = "Server Coldroom"
 	icon_state = "servercold"
-
-/area/toxins/explab
-	name = "Experimentation Lab"
-	icon_state = "toxmisc"
 
 /area/toxins/sm_test_chamber
 	name = "Supermatter Testing Lab"

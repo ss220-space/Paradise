@@ -153,12 +153,19 @@
 	desc = "An almost organic looking nonhuman pressure suit."
 
 /obj/item/clothing/under/vox
+	name = "ripped jumpsuit"
+	desc = "A jumpsuit that looks like it's been shredded by some talons. Who could wear this now?"
 	has_sensor = 0
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list(SPECIES_VOX)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi'
 		)
+
+	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
+	icon_state = "vgrey"
+	item_state = "vgrey"
+	item_color = "vgrey"
 
 /obj/item/clothing/under/vox/vox_casual
 	name = "alien clothing"

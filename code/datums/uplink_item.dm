@@ -1317,7 +1317,7 @@
 	item = /obj/item/pen/edagger
 	cost = 7
 
-/datum/uplink_item/stealthy_weapons/edagger
+/datum/uplink_item/stealthy_weapons/armguard
 	name = "Скрытый клинок убийцы"
 	desc = "Наручный механизм со скрытым клинком для тайных убийств. Замаскирован под обычные наручи."
 	item = /obj/item/clothing/accessory/armguard/syndicate

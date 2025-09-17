@@ -118,12 +118,6 @@
 /datum/spacevine_mutation/proc/on_search(severity, obj/structure/spacevine/holder)
 	return
 
-
-/datum/spacevine_mutation/space_covering
-	name = "space protective"
-	hue = "#aa77aa"
-	quality = POSITIVE
-
 /turf/simulated/floor/vines
 	color = "#aa77aa"
 	icon_state = "vinefloor"
@@ -174,6 +168,9 @@
 		SV.wither()
 
 /datum/spacevine_mutation/space_covering
+	name = "space protective"
+	hue = "#aa77aa"
+	quality = POSITIVE
 	var/static/list/coverable_turfs
 
 /datum/spacevine_mutation/space_covering/New()

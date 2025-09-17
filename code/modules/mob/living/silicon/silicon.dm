@@ -29,12 +29,59 @@
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
 
-
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED //There is only one kind of diag hud
 
 	var/obj/item/radio/common_radio
+
+	var/register_alarms = TRUE
+	var/datum/ui_module/atmos_control/atmos_control
+	var/datum/ui_module/crew_monitor/crew_monitor
+	var/datum/ui_module/law_manager/law_manager
+	var/datum/ui_module/power_monitor/digital/power_monitor
+	var/obj/item/areaeditor/blueprints/cyborg/blueprints
+
+	var/list/silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
+
+	var/obj/item/inventory_head
+	var/list/strippable_inventory_slots = list()
+
+	var/hat_offset_y = -3
+	var/isCentered = FALSE //центрирован ли синтетик. Если нет, то шляпа будет растянута
+
+	var/list/blacklisted_hats = list(//Запрещённые шляпы на ношение для боргов с большими головами
+		/obj/item/clothing/head/helmet,
+		/obj/item/clothing/head/welding,
+		/obj/item/clothing/head/snowman,
+		/obj/item/clothing/head/bio_hood,
+		/obj/item/clothing/head/bomb_hood,
+		/obj/item/clothing/head/blob,
+		/obj/item/clothing/head/chicken,
+		/obj/item/clothing/head/corgi,
+		/obj/item/clothing/head/cueball,
+		/obj/item/clothing/head/hardhat/pumpkinhead,
+		/obj/item/clothing/head/radiation,
+		/obj/item/clothing/head/papersack,
+		/obj/item/clothing/head/human_head,
+		/obj/item/clothing/head/kitty,
+		/obj/item/clothing/head/hardhat/reindeer,
+		/obj/item/clothing/head/cardborg
+	)
+
+	var/hat_icon_file
+	var/hat_icon_state
+	var/hat_alpha
+	var/hat_color
+
+	var/canBeHatted = FALSE
+	var/canWearBlacklistedHats = FALSE
+
+	var/datum/ai_laws/laws = null
+	var/list/additional_law_channels = list("State" = "")
 
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
