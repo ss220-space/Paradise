@@ -342,6 +342,18 @@
 	icon_state = "fab_robot"
 	COOLDOWN_START(src, cycle_cooldown, cooldown_duration)
 
+/obj/structure/hivebot_spawner/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	is_active = FALSE
+	current_spawn_count = 0
+	new /obj/machinery/constructable_frame/machine_frame(drop_location())
+	new /obj/item/rcd/preloaded(drop_location())
+	new /obj/item/mecha_parts/mecha_equipment/cable_layer(drop_location())
+	for(var/i in 1 to 5)
+		new /obj/item/broken_device(drop_location())
+	new /obj/item/circuitboard/broken(drop_location())
+	return ..()
+
 //////////////
 //MARK:Loot
 //////////////
