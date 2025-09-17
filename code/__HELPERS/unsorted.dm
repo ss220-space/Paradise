@@ -108,7 +108,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			var/turf/center = locate((destination.x+xoffset),(destination.y+yoffset),location.z)//So now, find the new center.
 
 			//Now to find a box from center location and make that our destination.
-			for(var/turf/T in block(center.x+b1xerror,center.y+b1yerror,location.z, center.x+b2xerror,center.y+b2yerror,location.z) )
+			for(var/turf/T in block(center.x+b1xerror,center.y+b1yerror,location.z, center.x+b2xerror,center.y+b2yerror,location.z))
 				if(density&&T.density)	continue//If density was specified.
 				if(T.x>world.maxx || T.x<1)	continue//Don't want them to teleport off the map.
 				if(T.y>world.maxy || T.y<1)	continue
@@ -185,7 +185,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	for(i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
 		ch = text2ascii(key, i)
-		if (ch < 48 || ch > 57) //0-9
+		if(ch < 48 || ch > 57) //0-9
 			return FALSE
 	return TRUE
 
@@ -566,11 +566,11 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/list/turfs = list()
 	for(var/area/pull_from as anything in areas_to_pull)
 
-		if (target_z != 0)
+		if(target_z != 0)
 			turfs += pull_from.get_turfs_by_zlevel(target_z)
 			continue
 
-		for (var/list/zlevel_turfs as anything in pull_from.get_zlevel_turf_lists())
+		for(var/list/zlevel_turfs as anything in pull_from.get_zlevel_turf_lists())
 			turfs += zlevel_turfs
 
 	return turfs
@@ -1027,7 +1027,7 @@ Standard way to write links -Sayu
 	else
 		for(var/i=1;i<=3;i++)
 			var/temp_col = "[num2hex(rand(lower, upper), 2)]"
-			if(length(temp_col )<2)
+			if(length(temp_col)<2)
 				temp_col  = "0[temp_col]"
 			colour += temp_col
 	return colour
@@ -1113,10 +1113,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 				return FALSE
 	return TRUE
 
-
-//datum may be null, but it does need to be a typed var
-#define NAMEOF(datum, X) (#X || ##datum.##X)
-
 #define VARSET_LIST_CALLBACK(target, var_name, var_value) CALLBACK(GLOBAL_PROC, /proc/___callbackvarset, ##target, ##var_name, ##var_value)
 //dupe code because dm can't handle 3 level deep macros
 #define VARSET_CALLBACK(datum, var, var_value) CALLBACK(GLOBAL_PROC, /proc/___callbackvarset, ##datum, NAMEOF(##datum, ##var), ##var_value)
@@ -1163,8 +1159,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //This is just so you can stop an orbit.
 //orbit() can run without it (swap orbiting for A)
 //but then you can never stop it and that's just silly.
-/atom/movable/var/atom/orbiting = null
-/atom/movable/var/cached_transform = null
 //A: atom to orbit
 //radius: range to orbit at, radius of the circle formed by orbiting
 //clockwise: whether you orbit clockwise or anti clockwise
@@ -1257,7 +1251,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(!orange)
 		L += t_center
 
-	while( c_dist <= dist )
+	while(c_dist <= dist)
 		y = t_center.y + c_dist
 		x = t_center.x - c_dist + 1
 		for(x in x to t_center.x+c_dist)
@@ -1523,7 +1517,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 //returns the number of ticks slept
 /proc/stoplag(initial_delay)
-	if (!Master || Master.init_stage_completed < INITSTAGE_MAX)
+	if(!Master || Master.init_stage_completed < INITSTAGE_MAX)
 		sleep(world.tick_lag)
 		return 1
 	if(!initial_delay)
@@ -1766,21 +1760,21 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		angle += 360
 
 	switch(angle) //diagonal directions get priority over straight directions in edge cases
-		if (22.5 to 67.5)
+		if(22.5 to 67.5)
 			return NORTHEAST
-		if (112.5 to 157.5)
+		if(112.5 to 157.5)
 			return SOUTHEAST
-		if (202.5 to 247.5)
+		if(202.5 to 247.5)
 			return SOUTHWEST
-		if (292.5 to 337.5)
+		if(292.5 to 337.5)
 			return NORTHWEST
-		if (0 to 22.5)
+		if(0 to 22.5)
 			return NORTH
-		if (67.5 to 112.5)
+		if(67.5 to 112.5)
 			return EAST
-		if (157.5 to 202.5)
+		if(157.5 to 202.5)
 			return SOUTH
-		if (247.5 to 292.5)
+		if(247.5 to 292.5)
 			return WEST
 		else
 			return NORTH
@@ -1869,12 +1863,12 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 // This is a copy-and-paste of the Enter() proc for turfs with tweaks related to the applications
 // of LinkBlocked
 /proc/LinkBlocked(atom/movable/mover, turf/start_turf, turf/target_turf, list/atom/forget)
-	if (!mover)
+	if(!mover)
 		return null
 
 	/// the actual dir between the start and target turf
 	var/fdir = get_dir(start_turf, target_turf)
-	if (!fdir)
+	if(!fdir)
 		return null
 
 	var/fd1 = fdir & (fdir-1)
@@ -1890,62 +1884,62 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/datum/can_pass_info/pass = new(mover, no_id = FALSE)
 
 	blocking_dir |= start_turf.CanAStarPass(fdir, pass)
-	for (obstacle in start_turf) //First, check objects to block exit
-		if (mover == obstacle || (obstacle in forget))
+	for(obstacle in start_turf) //First, check objects to block exit
+		if(mover == obstacle || (obstacle in forget))
 			continue
-		if (!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
+		if(!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
 			continue
 		A = obstacle
 		blocking_dir |= A.CanAStarPass(fdir, pass)
-		if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+		if((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
 			return A
 
 	// Check for atoms in adjacent turf EAST/WEST
-	if (fd1 && fd1 != fdir)
+	if(fd1 && fd1 != fdir)
 		T = get_step(start_turf, fd1)
-		if (T.CanAStarPass(fd2, pass) || T.CanAStarPass(fd1, pass))
+		if(T.CanAStarPass(fd2, pass) || T.CanAStarPass(fd1, pass))
 			blocking_dir |= fd1
-			if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+			if((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
 				return T
-		for (obstacle in T)
+		for(obstacle in T)
 			if(obstacle in forget)
 				continue
-			if (!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
+			if(!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
 				continue
 			A = obstacle
-			if (A.CanAStarPass(fd2, pass) || A.CanAStarPass(fd1, pass))
+			if(A.CanAStarPass(fd2, pass) || A.CanAStarPass(fd1, pass))
 				blocking_dir |= fd1
-				if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+				if((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
 					return A
 				break
 
 	// Check for atoms in adjacent turf NORTH/SOUTH
-	if (fd2 && fd2 != fdir)
+	if(fd2 && fd2 != fdir)
 		T = get_step(start_turf, fd2)
-		if (T.CanAStarPass(fd1, pass) || T.CanAStarPass(fd2, pass))
+		if(T.CanAStarPass(fd1, pass) || T.CanAStarPass(fd2, pass))
 			blocking_dir |= fd2
-			if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+			if((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
 				return T
-		for (obstacle in T)
+		for(obstacle in T)
 			if(obstacle in forget)
 				continue
-			if (!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
+			if(!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
 				continue
 			A = obstacle
-			if (A.CanAStarPass(fd1, pass) || A.CanAStarPass(fd2, pass))
+			if(A.CanAStarPass(fd1, pass) || A.CanAStarPass(fd2, pass))
 				blocking_dir |= fd2
-				if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+				if((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
 					return A
 				break
 
 	// Check the turf itself
 	blocking_dir |= target_turf.CanAStarPass(fdir, pass)
-	if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+	if((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
 		return target_turf
-	for (obstacle in target_turf) // Finally, check atoms in the target turf
+	for(obstacle in target_turf) // Finally, check atoms in the target turf
 		if(obstacle in forget)
 			continue
-		if (!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
+		if(!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
 			continue
 		A = obstacle
 		blocking_dir |= A.CanAStarPass(fdir, pass)

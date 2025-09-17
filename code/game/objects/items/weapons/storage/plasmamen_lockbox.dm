@@ -36,17 +36,17 @@
 	new /obj/item/clothing/mask/breath(src)
 
 /obj/item/storage/lockbox/plasma/nt_rep
-	name = "Plasmamen equipment (NanoTrasen Representative)"
+	name = "Plasmamen equipment (Nanotrasen Representative)"
 	req_access = list(ACCESS_NTREP)
 
 /obj/item/storage/lockbox/plasma/nt_rep/get_ru_names()
 	return list(
-		NOMINATIVE = "ящик снаряжения для плазмаменов (NanoTrasen Representative)",
-		GENITIVE = "ящика снаряжения для плазмаменов (NanoTrasen Representative)",
-		DATIVE = "ящику снаряжения для плазмаменов (NanoTrasen Representative)",
-		ACCUSATIVE = "ящик снаряжения для плазмаменов (NanoTrasen Representative)",
-		INSTRUMENTAL = "ящиком снаряжения для плазмаменов (NanoTrasen Representative)",
-		PREPOSITIONAL = "ящике снаряжения для плазмаменов (NanoTrasen Representative)"
+		NOMINATIVE = "ящик снаряжения для плазмаменов (Nanotrasen Representative)",
+		GENITIVE = "ящика снаряжения для плазмаменов (Nanotrasen Representative)",
+		DATIVE = "ящику снаряжения для плазмаменов (Nanotrasen Representative)",
+		ACCUSATIVE = "ящик снаряжения для плазмаменов (Nanotrasen Representative)",
+		INSTRUMENTAL = "ящиком снаряжения для плазмаменов (Nanotrasen Representative)",
+		PREPOSITIONAL = "ящике снаряжения для плазмаменов (Nanotrasen Representative)"
 	)
 
 /obj/item/storage/lockbox/plasma/nt_rep/populate_contents()
@@ -129,7 +129,7 @@
 		INSTRUMENTAL = "ящиком снаряжения для плазмаменов (Janitor)",
 		PREPOSITIONAL = "ящике снаряжения для плазмаменов (Janitor)"
 	)
-	
+
 
 /obj/item/storage/lockbox/plasma/janitor/populate_contents()
 	new /obj/item/clothing/head/helmet/space/plasmaman/janitor(src)

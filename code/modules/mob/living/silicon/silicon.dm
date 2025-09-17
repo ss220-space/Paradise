@@ -124,7 +124,7 @@
 		if(alarm_types_show["Camera"])
 			msg += "CAMERA: [alarm_types_show["Camera"]] alarms detected. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<a href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
 
@@ -150,7 +150,7 @@
 		if(alarm_types_show["Camera"])
 			msg += "CAMERA: [alarm_types_clear["Camera"]] alarms cleared. - "
 
-		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
+		msg += "<a href=byond://?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
 
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)

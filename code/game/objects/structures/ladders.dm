@@ -13,11 +13,11 @@
 
 /obj/structure/ladder/Initialize(mapload, obj/structure/ladder/up, obj/structure/ladder/down)
 	..()
-	if (up)
+	if(up)
 		src.up = up
 		up.down = src
 		up.update_icon(UPDATE_ICON_STATE)
-	if (down)
+	if(down)
 		src.down = down
 		down.up = src
 		down.update_icon(UPDATE_ICON_STATE)
@@ -92,15 +92,15 @@
 		return
 
 	var/list/tool_list = list()
-	if (up)
+	if(up)
 		tool_list["Up"] = image(icon = 'icons/misc/Testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
-	if (down)
+	if(down)
 		tool_list["Down"] = image(icon = 'icons/misc/Testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
-	if (!length(tool_list))
+	if(!length(tool_list))
 		to_chat(user, span_warning("[src] doesn't seem to lead anywhere!"))
 		return
 	var/result = show_radial_menu(user, src, tool_list, custom_check = CALLBACK(src, PROC_REF(check_menu), user, is_ghost), require_near = !is_ghost)
-	if (!is_ghost && !in_range(src, user))
+	if(!is_ghost && !in_range(src, user))
 		return  // nice try
 	switch(result)
 		if("Up")
@@ -206,7 +206,7 @@
 			up = unbreakable_ladder
 			unbreakable_ladder.down = src
 			unbreakable_ladder.update_icon(UPDATE_ICON_STATE)
-			if (down)
+			if(down)
 				break  // break if both our connections are filled
 
 	update_icon(UPDATE_ICON_STATE)

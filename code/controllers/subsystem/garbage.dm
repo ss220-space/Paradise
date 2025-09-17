@@ -46,7 +46,7 @@ SUBSYSTEM_DEF(garbage)
 
 #ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/PreInit()
-	if (isnull(queues)) // Only init the queues if they don't already exist, prevents overriding of recovered lists
+	if(isnull(queues)) // Only init the queues if they don't already exist, prevents overriding of recovered lists
 		queues = new(GC_QUEUE_COUNT)
 		pass_counts = new(GC_QUEUE_COUNT)
 		fail_counts = new(GC_QUEUE_COUNT)
@@ -112,17 +112,17 @@ SUBSYSTEM_DEF(garbage)
 	//the fact that this resets its processing each fire (rather then resume where it left off) is intentional.
 	var/queue = GC_QUEUE_FILTER
 
-	while (state == SS_RUNNING)
-		switch (queue)
-			if (GC_QUEUE_FILTER)
+	while(state == SS_RUNNING)
+		switch(queue)
+			if(GC_QUEUE_FILTER)
 				HandleQueue(GC_QUEUE_FILTER)
 				queue = GC_QUEUE_FILTER+1
-			if (GC_QUEUE_CHECK)
+			if(GC_QUEUE_CHECK)
 				HandleQueue(GC_QUEUE_CHECK)
 				queue = GC_QUEUE_CHECK+1
-			if (GC_QUEUE_HARDDELETE)
+			if(GC_QUEUE_HARDDELETE)
 				HandleQueue(GC_QUEUE_HARDDELETE)
-				if (state == SS_PAUSED) //make us wait again before the next run.
+				if(state == SS_PAUSED) //make us wait again before the next run.
 					state = SS_RUNNING
 				break
 
@@ -147,11 +147,11 @@ SUBSYSTEM_DEF(garbage)
 
 	//We do this rather then for(var/list/ref_info in queue) because that sort of for loop copies the whole list.
 	//Normally this isn't expensive, but the gc queue can grow to 40k items, and that gets costly/causes overrun.
-	for (var/i in 1 to length(queue))
+	for(var/i in 1 to length(queue))
 		var/list/L = queue[i]
-		if (length(L) < GC_QUEUE_ITEM_INDEX_COUNT)
+		if(length(L) < GC_QUEUE_ITEM_INDEX_COUNT)
 			count++
-			if (MC_TICK_CHECK)
+			if(MC_TICK_CHECK)
 				return
 			continue
 
@@ -163,14 +163,14 @@ SUBSYSTEM_DEF(garbage)
 		var/datum/D = L[GC_QUEUE_ITEM_REF]
 
 		// If that's all we've got, send er off
-		if (refcount(D) == REFS_WE_EXPECT)
+		if(refcount(D) == REFS_WE_EXPECT)
 			++gcedlasttick
 			++totalgcs
 			pass_counts[level]++
 			#ifdef REFERENCE_TRACKING
 			reference_find_on_fail -= text_ref(D) //It's deleted we don't care anymore.
 			#endif
-			if (MC_TICK_CHECK)
+			if(MC_TICK_CHECK)
 				return
 			continue
 
@@ -181,10 +181,10 @@ SUBSYSTEM_DEF(garbage)
 		var/ref_searching = FALSE
 		#endif
 
-		switch (level)
-			if (GC_QUEUE_CHECK)
+		switch(level)
+			if(GC_QUEUE_CHECK)
 				#ifdef REFERENCE_TRACKING
-				// Decides how many refs to look for (potentially)
+				// Decides how many refs to look for(potentially)
 				// Based off the remaining and the ones we can account for
 				var/remaining_refs = refcount(D) - REFS_WE_EXPECT
 				if(reference_find_on_fail[text_ref(D)])
@@ -217,15 +217,15 @@ SUBSYSTEM_DEF(garbage)
 				#endif
 				I.failures++
 
-				if (I.qdel_flags & QDEL_ITEM_SUSPENDED_FOR_LAG)
+				if(I.qdel_flags & QDEL_ITEM_SUSPENDED_FOR_LAG)
 					#ifdef REFERENCE_TRACKING
 					if(ref_searching)
 						return //ref searching intentionally cancels all further fires while running so things that hold references don't end up getting deleted, so we want to return here instead of continue
 					#endif
 					continue
-			if (GC_QUEUE_HARDDELETE)
+			if(GC_QUEUE_HARDDELETE)
 				HardDelete(D)
-				if (MC_TICK_CHECK)
+				if(MC_TICK_CHECK)
 					return
 				continue
 
@@ -236,9 +236,9 @@ SUBSYSTEM_DEF(garbage)
 			return
 		#endif
 
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
-	if (count)
+	if(count)
 		queue.Cut(1,count+1)
 		count = 0
 
@@ -258,7 +258,7 @@ SUBSYSTEM_DEF(garbage)
 	D.gc_destroyed = queue_time
 
 #ifndef PASSIVE_GC
-	if (D.gc_destroyed <= 0)
+	if(D.gc_destroyed <= 0)
 		D.gc_destroyed = queue_time
 
 	var/list/queue = queues[level]
@@ -282,16 +282,16 @@ SUBSYSTEM_DEF(garbage)
 
 	type_info.hard_deletes++
 	type_info.hard_delete_time += tick_usage
-	if (tick_usage > type_info.hard_delete_max)
+	if(tick_usage > type_info.hard_delete_max)
 		type_info.hard_delete_max = tick_usage
 
-	if (tick_usage > highest_del_ms)
+	if(tick_usage > highest_del_ms)
 		highest_del_ms = tick_usage
 		highest_del_type_string = "[type]"
 
 	var/time = MS2DS(tick_usage)
 
-	if (time > 0.1 SECONDS)
+	if(time > 0.1 SECONDS)
 		postpone(time)
 
 	var/threshold = 0
@@ -300,14 +300,14 @@ SUBSYSTEM_DEF(garbage)
 		threshold = CONFIG_GET(number/hard_deletes_overrun_threshold)
 	if(log_harddel)
 		log_qdel("WARNING: [type]([refID]) was harddeleted")
-	if (threshold && (time > threshold SECONDS))
-		if (!(type_info.qdel_flags & QDEL_ITEM_ADMINS_WARNED))
+	if(threshold && (time > threshold SECONDS))
+		if(!(type_info.qdel_flags & QDEL_ITEM_ADMINS_WARNED))
 			log_qdel("Error: [type]([refID]) took longer than [threshold] seconds to delete (took [round(time/10, 0.1)] seconds to delete)")
 			message_admins("Error: [type]([refID]) took longer than [threshold] seconds to delete (took [round(time/10, 0.1)] seconds to delete).")
 			type_info.qdel_flags |= QDEL_ITEM_ADMINS_WARNED
 		type_info.hard_deletes_over_threshold++
 		var/overrun_limit = CONFIG_GET(number/hard_deletes_overrun_limit)
-		if (overrun_limit && type_info.hard_deletes_over_threshold >= overrun_limit)
+		if(overrun_limit && type_info.hard_deletes_over_threshold >= overrun_limit)
 			type_info.qdel_flags |= QDEL_ITEM_SUSPENDED_FOR_LAG
 
 #ifndef PASSIVE_GC
@@ -354,7 +354,7 @@ SUBSYSTEM_DEF(garbage)
 		return
 
 	var/datum/qdel_item/trash = SSgarbage.items[to_delete.type]
-	if (isnull(trash))
+	if(isnull(trash))
 		trash = SSgarbage.items[to_delete.type] = new /datum/qdel_item(to_delete.type)
 	trash.qdels++
 
@@ -363,7 +363,7 @@ SUBSYSTEM_DEF(garbage)
 			CRASH("[to_delete.type] destroy proc was called multiple times, likely due to a qdel loop in the Destroy logic")
 		return
 
-	if (SEND_SIGNAL(to_delete, COMSIG_PREQDELETED, force)) // Give the components a chance to prevent their parent from being deleted
+	if(SEND_SIGNAL(to_delete, COMSIG_PREQDELETED, force)) // Give the components a chance to prevent their parent from being deleted
 		return
 
 	to_delete.gc_destroyed = GC_CURRENTLY_BEING_QDELETED
@@ -382,13 +382,13 @@ SUBSYSTEM_DEF(garbage)
 		return
 
 	switch(hint)
-		if (QDEL_HINT_QUEUE) //qdel should queue the object for deletion.
+		if(QDEL_HINT_QUEUE) //qdel should queue the object for deletion.
 			SSgarbage.Queue(to_delete)
-		if (QDEL_HINT_IWILLGC)
+		if(QDEL_HINT_IWILLGC)
 			to_delete.gc_destroyed = world.time
 			SSdemo.mark_destroyed(to_delete)
 			return
-		if (QDEL_HINT_LETMELIVE) //qdel should let the object live after calling destory.
+		if(QDEL_HINT_LETMELIVE) //qdel should let the object live after calling destory.
 			if(!force)
 				to_delete.gc_destroyed = null //clear the gc variable (important!)
 				return
@@ -405,17 +405,17 @@ SUBSYSTEM_DEF(garbage)
 			trash.no_respect_force++
 
 			SSgarbage.Queue(to_delete)
-		if (QDEL_HINT_HARDDEL) //qdel should assume this object won't gc, and queue a hard delete
+		if(QDEL_HINT_HARDDEL) //qdel should assume this object won't gc, and queue a hard delete
 			SSgarbage.Queue(to_delete, GC_QUEUE_HARDDELETE)
 			SSdemo.mark_destroyed(to_delete)
-		if (QDEL_HINT_HARDDEL_NOW) //qdel should assume this object won't gc, and hard del it post haste.
+		if(QDEL_HINT_HARDDEL_NOW) //qdel should assume this object won't gc, and hard del it post haste.
 			SSgarbage.HardDelete(to_delete, FALSE)
 			SSdemo.mark_destroyed(to_delete)
 		#ifdef REFERENCE_TRACKING
-		if (QDEL_HINT_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled, display all references to this object, then queue the object for deletion.
+		if(QDEL_HINT_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled, display all references to this object, then queue the object for deletion.
 			SSgarbage.Queue(to_delete)
 			INVOKE_ASYNC(to_delete, TYPE_PROC_REF(/datum, find_references))
-		if (QDEL_HINT_IFFAIL_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled and the object fails to collect, display all references to this object.
+		if(QDEL_HINT_IFFAIL_FINDREFERENCE) //qdel will, if REFERENCE_TRACKING is enabled and the object fails to collect, display all references to this object.
 			SSgarbage.Queue(to_delete)
 			SSgarbage.reference_find_on_fail[text_ref(to_delete)] = TRUE
 		#endif

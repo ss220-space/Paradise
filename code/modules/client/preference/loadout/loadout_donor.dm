@@ -245,7 +245,7 @@
 	allowed_roles = list(JOB_TITLE_BLUESHIELD)
 
 /datum/gear/donor/strip/ntr
-	index_name = "strip, NanoTrasen Representative"
+	index_name = "strip, Nanotrasen Representative"
 	path = /obj/item/clothing/accessory/head_strip/ntr
 	donator_tier = 3
 	cost = 1

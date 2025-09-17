@@ -114,7 +114,7 @@
 		var/obj/effect/temp_visual/holo_scan/my_scan_effect = new(get_turf(src), color_choice, "alpha", TRUE)
 		if(!s_busy)
 			s_busy = TRUE
-			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM) )
+			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 				to_chat(ninja, span_warning("Вы прервали маскировку!"))
 				s_busy = FALSE
 				do_sparks(3, FALSE, ninja)

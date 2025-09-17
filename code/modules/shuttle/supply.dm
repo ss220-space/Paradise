@@ -380,7 +380,7 @@
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[crittername.declent_ru(NOMINATIVE)]</li>"
 
-	if((errors & MANIFEST_ERROR_ITEM))
+	if(errors & MANIFEST_ERROR_ITEM)
 		//secure and large crates cannot lose items
 		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
 			errors &= ~MANIFEST_ERROR_ITEM
