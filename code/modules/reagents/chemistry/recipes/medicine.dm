@@ -120,7 +120,6 @@
 	required_reagents = list("sterilizine" = 3, "mannitol" = 5, "mitocholide" = 1, "atropine" = 1)
 	result_amount = 10
 	min_temp = 350 //K
-	mix_message = "The mixture gives off a faint scent of almonds."
 
 /datum/chemical_reaction/calomel
 	name = "Calomel"

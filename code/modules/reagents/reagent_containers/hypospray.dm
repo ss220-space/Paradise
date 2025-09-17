@@ -576,7 +576,8 @@
 	name = "neuromatin autoinjector"
 	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу нейроматина. Мощный нейроадаптик."
 	icon_state = "violetinjector"
-	list_reagents = list("neuromatin" = 10)
+	amount_per_transfer_from_this = 15
+	list_reagents = list("neuromatin" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/neuromatin/get_ru_names()
 	return list(

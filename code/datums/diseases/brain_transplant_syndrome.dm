@@ -3,9 +3,9 @@
 /// Brain transplant syndrome light effect chance
 #define BTS_LIGHT_EFFECT_PROBE 15
 /// Brain transplant syndrome medium effect chance
-#define BTS_MEDIUM_EFFECT_PROBE 4
+#define BTS_MEDIUM_EFFECT_PROBE 5
 /// Brain transplant syndrome heavy effect chance
-#define BTS_HEAVY_EFFECT_PROBE 2
+#define BTS_HEAVY_EFFECT_PROBE 2.5
 
 /** Brain transplantation syndrome
   * - organs failure chance
@@ -43,7 +43,7 @@
 		heavy_effect()
 
 /datum/disease/brain_transplant_syndrome/proc/initial_effect()
-	affected_mob.Immobilize(60 SECONDS)
+	affected_mob.Knockdown(60 SECONDS)
 	affected_mob.EyeBlind(60 SECONDS)
 	affected_mob.Deaf(60 SECONDS)
 	affected_mob.Stuttering(60 SECONDS)
@@ -54,12 +54,13 @@
 	affected_mob.emote("gasp")
 	to_chat(affected_mob, span_danger("Вы чувствуете, что вам не хватает воздуха!"))
 	affected_mob.apply_damage(10, OXY, spread_damage = TRUE, forced = TRUE)
-	affected_mob.adjustBrainLoss(1, FALSE)
+	affected_mob.adjustBrainLoss(2.5, FALSE)
 
 /datum/disease/brain_transplant_syndrome/proc/medium_effect()
 	if(!prob(BTS_MEDIUM_EFFECT_PROBE))
 		return
 	to_chat(affected_mob, span_danger("Вы чувствуете сильное головокружение!"))
+	affected_mob.Knockdown(3 SECONDS)
 	affected_mob.Confused(15 SECONDS)
 
 /datum/disease/brain_transplant_syndrome/proc/heavy_effect()
@@ -99,3 +100,6 @@
 	return time_delta > BRAIN_TRANSPLANT_SYNDROME_DURATION
 
 #undef BRAIN_TRANSPLANT_SYNDROME_DURATION
+#undef BTS_LIGHT_EFFECT_PROBE
+#undef BTS_MEDIUM_EFFECT_PROBE
+#undef BTS_HEAVY_EFFECT_PROBE
