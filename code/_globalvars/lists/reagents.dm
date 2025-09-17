@@ -38,23 +38,29 @@ GLOBAL_LIST_INIT(drinks, subtypesof(/datum/reagent/consumable/drink/)\
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))
 
 //Random chem blacklist
-GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_initro",
-							"sodium_thiopental", "ketamine", "coniine",
-							"adminordrazine", "nanites", "hellwater",
-							"mutationtoxin", "amutationtoxin", "venom",
-							"spore", "stimulants", "stimulative_agent",
-							"syndicate_nanites", "ripping_tendrils", "boiling_oil",
-							"envenomed_filaments", "lexorin_jelly", "kinetic",
-							"cryogenic_liquid", "dark_matter", "b_sorium",
-							"reagent", "life","dragonsbreath", "nanocalcium", "bungotoxin", "fruit_wine"))
+GLOBAL_LIST_INIT(blocked_chems, list( \
+	"polonium", "initropidril", "concentrated_initro",
+	"sodium_thiopental", "ketamine", "coniine",
+	"adminordrazine", "nanites", "hellwater",
+	"mutationtoxin", "amutationtoxin", "venom",
+	"spore", "stimulants", "stimulative_agent",
+	"syndicate_nanites", "ripping_tendrils", "boiling_oil",
+	"envenomed_filaments", "lexorin_jelly", "kinetic",
+	"cryogenic_liquid", "dark_matter", "b_sorium",
+	"reagent", "life","dragonsbreath", "nanocalcium", "bungotoxin", "fruit_wine"
+))
 
-GLOBAL_LIST_INIT(safe_chem_list, list("antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
-									  "omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
-									  "spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "synthflesh", "hydrocodone",
-									  "mitocholide", "rezadone"))
+GLOBAL_LIST_INIT(safe_chem_list, list( \
+	"antihol", "charcoal", "epinephrine", "insulin", "teporone","silver_sulfadiazine", "salbutamol",
+	"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
+	"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "synthflesh", "hydrocodone",
+	"mitocholide", "rezadone"
+))
 
 GLOBAL_LIST_INIT(safe_chem_applicator_list, list("silver_sulfadiazine", "styptic_powder", "synthflesh"))
 
-GLOBAL_LIST_INIT(borer_reagents, list("charcoal", "epinephrine", "salbutamol", "mannitol", "capulettium_plus",
-									  "spaceacillin", "salglu_solution", "hydrocodone",
-									  "methamphetamine", "mitocholide", "fliptonium", "insulin"))
+GLOBAL_LIST_INIT(borer_reagents, list( \
+	"charcoal", "epinephrine", "salbutamol", "mannitol", "capulettium_plus",
+	"spaceacillin", "salglu_solution", "hydrocodone",
+	"methamphetamine", "mitocholide", "fliptonium", "insulin"
+))

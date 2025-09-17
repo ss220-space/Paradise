@@ -32,20 +32,20 @@
 	return choices
 
 /obj/item/storage/belt/proc/try_fast_equip_item_from_belt(obj/item/item)
-	if (item == null)
+	if(item == null)
 		return
-	if (!usr.put_in_any_hand_if_possible(item))
+	if(!usr.put_in_any_hand_if_possible(item))
 		return
 	to_chat(usr, span_notice("Вы достаете [item.declent_ru(ACCUSATIVE)] с пояса."))
 	balloon_alert(usr, "снято с пояса")
 
 /obj/item/storage/belt/proc/try_fast_unequip_item_to_belt(obj/item/item)
-	if (item == null)
+	if(item == null)
 		return
-	if (!can_be_inserted(item)) // Detail stop message in check proc
+	if(!can_be_inserted(item)) // Detail stop message in check proc
 		balloon_alert(usr, "не помещается в пояс")
 		return
-	if (handle_item_insertion(item))
+	if(handle_item_insertion(item))
 		balloon_alert(usr, "повесил на пояс")
 
 /obj/item/storage/belt/proc/find_content_by_name(choice)
@@ -64,11 +64,11 @@
 	if(!check_menu(user))
 		return
 	var/list/choices = collect_radial_menu_choices()
-	if (length(choices) == 0)
+	if(length(choices) == 0)
 		to_chat(user, span_notice("Ваш пояс пуст."))
 		balloon_alert(user, "пояс пуст!")
 		return
-	if (length(choices) == 1) // Auto extract for single item without radial menu
+	if(length(choices) == 1) // Auto extract for single item without radial menu
 		var/obj/item/selected = contents[1]
 		try_fast_equip_item_from_belt(selected)
 		return
@@ -77,7 +77,7 @@
 
 /obj/item/storage/belt/attack_self(mob/user = usr)
 	var/obj/item/hand_item = user.get_active_hand()
-	if (hand_item)
+	if(hand_item)
 		try_fast_unequip_item_to_belt(hand_item)
 		return
 	radial_menu(user)
@@ -113,7 +113,7 @@
 	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
 	use_item_overlays = TRUE
-	max_combined_w_class = 15	// 6 `WEIGHT_CLASS_SMALL` items + RCD.
+	max_combined_w_class = 18
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/crowbar,
@@ -419,6 +419,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
+	max_combined_w_class = 18
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst
@@ -431,12 +432,20 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool
+	)
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/multitool/ai_detect(src)
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
@@ -897,6 +906,14 @@
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool
+	)
 
 /obj/item/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"

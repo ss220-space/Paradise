@@ -81,7 +81,7 @@
 	if(!outfit)
 		return
 
-	for (var/obj/item/item in human.get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/item in human.get_equipped_items(TRUE, TRUE))
 		qdel(item)
 
 	human.equipOutfit(outfit)

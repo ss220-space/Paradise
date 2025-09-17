@@ -36,7 +36,7 @@
 
 /obj/effect/anomaly/gravitational/item_touch_effect(obj/item/item)
 	. = ..()
-	if (QDELETED(item))
+	if(QDELETED(item))
 		return
 
 	var/grav_delta = -item.get_gravity()
@@ -213,7 +213,7 @@
 /obj/effect/anomaly/gravitational/process()
 	. = ..()
 	for(var/obj/O in oview(max(2, tier * 2 - 1), src))
-		if (!can_move_sth(O))
+		if(!can_move_sth(O))
 			continue
 
 		step_towards(O, src)

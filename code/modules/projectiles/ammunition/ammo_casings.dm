@@ -126,11 +126,11 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
-/obj/item/ammo_casing/c9mmte
-	desc = "A 9mm TE bullet casing."
+/obj/item/ammo_casing/c45nr
+	desc = "A 45 N&R bullet casing."
 	materials = list(MAT_METAL = 500)
-	caliber = CALIBER_9MM_TE
-	projectile_type = /obj/projectile/bullet/weakbullet4/c9mmte
+	caliber = CALIBER_45NR
+	projectile_type = /obj/projectile/bullet/weakbullet4/c45nr
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
 

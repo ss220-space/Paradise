@@ -127,7 +127,7 @@
 	if(!pn_output)
 		return
 
-	if( !(pn_input.avail >= LOGIC_HIGH))
+	if(!(pn_input.avail >= LOGIC_HIGH))
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
@@ -199,7 +199,7 @@
 	if(!pn_output)
 		return
 
-	if( (pn_input1.avail >= LOGIC_HIGH) && (pn_input2.avail >= LOGIC_HIGH) )
+	if((pn_input1.avail >= LOGIC_HIGH) && (pn_input2.avail >= LOGIC_HIGH))
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
@@ -219,7 +219,7 @@
 	if(!pn_output)
 		return
 
-	if( (pn_input1.avail >= LOGIC_HIGH) || (pn_input2.avail >= LOGIC_HIGH) )
+	if((pn_input1.avail >= LOGIC_HIGH) || (pn_input2.avail >= LOGIC_HIGH))
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
@@ -239,7 +239,7 @@
 	if(!pn_output)
 		return
 
-	if( (pn_input1.avail >= LOGIC_HIGH) != (pn_input2.avail >= LOGIC_HIGH) )
+	if((pn_input1.avail >= LOGIC_HIGH) != (pn_input2.avail >= LOGIC_HIGH))
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
@@ -259,7 +259,7 @@
 	if(!pn_output)
 		return
 
-	if( (pn_input1.avail >= LOGIC_HIGH) == (pn_input2.avail >= LOGIC_HIGH) )
+	if((pn_input1.avail >= LOGIC_HIGH) == (pn_input2.avail >= LOGIC_HIGH))
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
@@ -276,7 +276,7 @@
 	if(!pn_input1)
 		return
 
-	if( pn_input1.avail >= LOGIC_HIGH )
+	if(pn_input1.avail >= LOGIC_HIGH)
 		var/datum/powernet/pn_input2 = input2.powernet
 		var/datum/powernet/pn_output = output.powernet
 
