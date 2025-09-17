@@ -579,25 +579,23 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(!target_type)
 		return FALSE
 
-	var/obj/item/target_obj = new target_type(null)
-	icon = initial(target_obj.icon)
-	icon_state = initial(target_obj.icon_state)
-	item_state = initial(target_obj.item_state)
-	item_color = initial(target_obj.item_color)
-	lefthand_file = initial(target_obj.lefthand_file)
-	righthand_file = initial(target_obj.righthand_file)
+	var/obj/item/target_obj = new target_type
+	icon = target_obj.icon
+	icon_state = target_obj.icon_state
+	item_state = target_obj.item_state
+	item_color = target_obj.item_color
+	lefthand_file = target_obj.lefthand_file
+	righthand_file = target_obj.righthand_file
 
-	if(initial(target_obj.sprite_sheets) || initial(target_obj.onmob_sheets))
-		// Sprites-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the target_type.
+	if(target_obj.sprite_sheets || target_obj.onmob_sheets)
 		sprite_sheets = target_obj.sprite_sheets
 		onmob_sheets = target_obj.onmob_sheets
 
-	name = initial(target_obj.name)
+	name = target_obj.name
 	ru_names = target_obj.get_ru_names_cached()
-	desc = "[initial(target_type.desc)] Цвет выглядит блеклым."
+	desc = "[target_type.desc] Цвет выглядит блеклым."
 	qdel(target_obj)
-	//update_appearance(updates = ALL)
-	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
+	return target_type
 
 #undef STATE_FULL
 #undef STATE_OPENED
