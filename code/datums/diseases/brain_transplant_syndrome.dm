@@ -1,7 +1,7 @@
 /// Duration of brain transplant desease
 #define BRAIN_TRANSPLANT_SYNDROME_DURATION (10 MINUTES)
 /// Brain transplant syndrome light effect chance
-#define BTS_LIGHT_EFFECT_PROBE 8
+#define BTS_LIGHT_EFFECT_PROBE 15
 /// Brain transplant syndrome medium effect chance
 #define BTS_MEDIUM_EFFECT_PROBE 4
 /// Brain transplant syndrome heavy effect chance
@@ -17,8 +17,8 @@
 	agent = "Иммунитет"
 	desc = "Дизориентация, удушье, паралич и отказ органов."
 	stage_prob = 10
-	cure_text = "Транексамовая кислота" //TODO special reagent
-	var/required_reagent = "traneksam_acid" //TODO special reagent
+	cure_text = "Нейроматин (нейроадатик)"
+	var/required_reagent = "neuromatin"
 	severity = NONTHREAT
 	can_immunity = FALSE
 	ignore_immunity = TRUE
@@ -51,9 +51,10 @@
 /datum/disease/brain_transplant_syndrome/proc/light_effect()
 	if(!prob(BTS_LIGHT_EFFECT_PROBE))
 		return
-	affected_mob.emote("choke")
+	affected_mob.emote("gasp")
 	to_chat(affected_mob, span_danger("Вы чувствуете, что вам не хватает воздуха!"))
-	affected_mob.apply_damage(15, OXY, spread_damage = TRUE, forced = TRUE)
+	affected_mob.apply_damage(10, OXY, spread_damage = TRUE, forced = TRUE)
+	affected_mob.adjustBrainLoss(1, FALSE)
 
 /datum/disease/brain_transplant_syndrome/proc/medium_effect()
 	if(!prob(BTS_MEDIUM_EFFECT_PROBE))
@@ -77,7 +78,7 @@
 	to_chat(affected_mob, span_danger("Вы чувствуете, острую боль внутри!"))
 	affected_mob.emote("scream")
 	affected_mob.Knockdown(10 SECONDS)
-	affected_mob.Jitter(10 SECONDS)
+	affected_mob.Jitter(15 SECONDS)
 	if(!ishuman(affected_mob))
 		return
 	var/mob/living/carbon/human/human = affected_mob

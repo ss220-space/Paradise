@@ -335,6 +335,34 @@
 		to_chat(user, span_notice("Ваши кровотечения останавливаются из-за транексамовой кислоты."))
 	..()
 
+/datum/reagent/medicine/neuromatin
+	name = "Нейроматин"
+	id = "neuromatin"
+	description = "лекарственное средство, рекомендуемое после трансплантации могза пациента."
+	reagent_state = LIQUID
+	overdose_threshold = 30
+	color = "#5010a3"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	taste_description = "антибиотиков"
+
+
+/datum/reagent/medicine/neuromatin/on_mob_life(mob/living/user)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(user.getBrainLoss() > 0)
+		update_flags |= user.adjustBrainLoss(-0.5, FALSE)
+	user.germ_level = max(user.germ_level - 1, 0)
+	return ..() | update_flags
+
+/datum/reagent/medicine/neuromatin/overdose_process(mob/living/living, severity)
+	. = list(0, STATUS_UPDATE_NONE)
+	if(!prob(10))
+		return
+	living.Confused(15 SECONDS)
+	if(!iscarbon(living))
+		return
+	var/mob/living/carbon/affected_carbon = living
+	affected_carbon.vomit()
+
 /datum/reagent/medicine/salglu_solution
 	name = "Физиологический раствор"
 	id = "salglu_solution"
