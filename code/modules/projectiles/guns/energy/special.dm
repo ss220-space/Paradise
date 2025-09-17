@@ -788,7 +788,6 @@
 		INSTRUMENTAL = "Спектром",
 		PREPOSITIONAL = "Спектре"
 	)
-	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "specter"
 	item_state = "specter"
 	force = 10
