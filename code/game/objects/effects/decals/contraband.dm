@@ -1,7 +1,7 @@
 // This is synced up to the poster placing animation.
 #define PLACE_SPEED 30
 
-// The poster item
+// MARK: The poster item
 
 /obj/item/poster
 	name = "rolled-up poster"
@@ -63,7 +63,7 @@
 	poster_type = /obj/structure/sign/poster/official/mr_cheng
 	icon_state = "rolled_poster"
 
-//############################## THE ACTUAL DECALS ###########################
+// MARK: Actual decals
 
 /obj/structure/sign/poster
 	name = "poster"
@@ -209,7 +209,7 @@
 	D.roll_and_drop(temp_loc, user)
 
 
-////////////////////////////////POSTER VARIATIONS////////////////////////////////
+// MARK: Poster variations
 
 /obj/structure/sign/poster/ripped
 	ruined = TRUE
@@ -233,7 +233,7 @@
 	never_random = TRUE
 	random_basetype = /obj/structure/sign/poster
 
-//contraband posters
+// MARK: Contraband posters
 /obj/structure/sign/poster/contraband
 	poster_item_name = "contraband poster"
 	poster_item_desc = "Этот постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах Нанотрейзен."
@@ -465,7 +465,7 @@
 	desc = "Вступайте в ряды Горлексских Мародёров сегодня! Увидьте галактику, убейте корпоратов, получите оплату!"
 	icon_state = "poster42"
 
-//official posters
+//MARK: Official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
 	poster_item_desc = "Официальный постер от Нанотрейзен, призванный воспитывать покорную и послушную рабочую силу. Оснащён передовой клеевой основой для удобного крепления на любую вертикальную поверхность."
@@ -751,6 +751,8 @@
 	name = "Мистер Чанг!"
 	desc = "Ошеломляющие скидки! Лучшее качество продукции! Хорошие цены на множество товаров! Только у мистера Чанга."
 	icon_state = "poster53_legit"
+
+// MARK: Secret posters
 
 /obj/structure/sign/poster/secret
 	poster_item_name = "Secret poster"
