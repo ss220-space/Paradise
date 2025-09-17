@@ -2,19 +2,41 @@
 //MARK: ROBOT
 //////////////
 
-/obj/projectile/hivebot_bullet
+/obj/projectile/hivebot
+	name = "nail"
 	damage = 10
 	damage_type = BRUTE
+
+/obj/projectile/hivebot/get_ru_names()
+	return list(
+		NOMINATIVE = "гвоздь",
+		GENITIVE = "гвоздя",
+		DATIVE = "гвоздю",
+		ACCUSATIVE = "гвоздь",
+		INSTRUMENTAL = "гвоздём",
+		PREPOSITIONAL = "гвозде"
+	)
 
 /obj/projectile/hivebot/light_bullet
 	damage = 5
 	damage_type = BRUTE
 
 /obj/projectile/hivebot/heavy_bullet
+	name = "rivet"
 	damage = 40
 	damage_type = BRUTE
 	knockdown = 4
 	stamina = 10
+
+/obj/projectile/hivebot/heavy_bullet/get_ru_names()
+	return list(
+		NOMINATIVE = "заклёпка",
+		GENITIVE = "заклёпки",
+		DATIVE = "заклёпке",
+		ACCUSATIVE = "заклёпку",
+		INSTRUMENTAL = "заклёпкой",
+		PREPOSITIONAL = "заклёпке"
+	)
 
 //Basic
 
