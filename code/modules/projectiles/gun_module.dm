@@ -143,7 +143,7 @@
 
 /obj/item/gun_module/muzzle/suppressor/handmade/update_icon_state()
 	icon_state = "[initial(icon_state)][variant]"
-	overlay_state = "[icon_state]_o"
+	overlay_state = "[initial(icon_state)]_[variant]_o"
 
 /obj/item/gun_module/muzzle/suppressor/handmade/get_ru_names()
 	return list(
