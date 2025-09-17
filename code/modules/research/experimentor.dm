@@ -888,6 +888,8 @@
 	icon_state = "shock_kit"
 	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
+	righthand_file = 'icons/mob/inhands/obj/assemblies_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/obj/assemblies_lefthand.dmi'
 	var/realName = "defined object"
 	var/revealed = FALSE
 	var/realProc
