@@ -68,17 +68,16 @@
 		return
 	if(!usr.put_in_any_hand_if_possible(item))
 		return
-	to_chat(usr, span_notice("Вы достаете [item.declent_ru(ACCUSATIVE)] с пояса."))
 	balloon_alert(usr, "снято с пояса")
 
 /obj/item/storage/belt/proc/try_fast_unequip_item_to_belt(obj/item/item)
 	if(item == null)
 		return
 	if(!can_be_inserted(item)) // Detail stop message in check proc
-		balloon_alert(usr, "не помещается в пояс")
+		balloon_alert(usr, "не помещается!")
 		return
 	if(handle_item_insertion(item))
-		balloon_alert(usr, "повесил на пояс")
+		balloon_alert(usr, "повешено на пояс")
 
 /obj/item/storage/belt/proc/find_content_by_name(choice)
 	for(var/obj/item in contents)
@@ -97,7 +96,6 @@
 		return
 	var/list/choices = collect_radial_menu_choices()
 	if(length(choices) == 0)
-		to_chat(user, span_notice("Ваш пояс пуст."))
 		balloon_alert(user, "пояс пуст!")
 		return
 	if(length(choices) == 1) // Auto extract for single item without radial menu
