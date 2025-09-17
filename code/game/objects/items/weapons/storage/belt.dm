@@ -23,14 +23,12 @@
 
 /obj/item/storage/belt/examine(mob/user)
 	. = ..()
-	if(initial(w_class) == WEIGHT_CLASS_BULKY)
-		return
-	if(storable)
-		. += span_notice("Размер останется <b>неизменным</b> даже при наличии предметов.")
+	if(storable || initial(w_class) == WEIGHT_CLASS_BULKY)
+		. += span_notice("Размер останется <b>неизменным</b> вне зависимости от содержимого.")
 	else if(length(contents))
 		. += span_notice("<b>Уменьшится</b> в размере после извлечения содержимого.")
 	else
-		. += span_notice("<b>Увеличится</b> в размере при наличии предметов.")
+		. += span_notice("<b>Увеличится</b> в размере при наличии содержимого.")
 
 /obj/item/storage/belt/proc/update_weight()
 	if(initial(w_class) == WEIGHT_CLASS_BULKY) // so initially BULKY belts won't become NORMAL when they get empty
