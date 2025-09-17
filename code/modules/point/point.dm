@@ -63,7 +63,7 @@
 	thought_bubble.overlays += pointed_atom_appearance
 
 	var/hover_outline_index = pointed_atom.get_filter("hover_outline")
-	if (!isnull(hover_outline_index))
+	if(!isnull(hover_outline_index))
 		pointed_atom_appearance.filters.Cut(hover_outline_index, hover_outline_index + 1)
 
 	thought_bubble.pixel_x = 16

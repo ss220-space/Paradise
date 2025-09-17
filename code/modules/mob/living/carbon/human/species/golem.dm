@@ -98,25 +98,25 @@
 
 /datum/species/golem/get_random_name()
 	//определяем случайный пол для ИМЕНИ голема. Если же все шансы провалились, то берется дефолтное значение пола
-	if (prob(chance_name_male))
+	if(prob(chance_name_male))
 		gender_name = MALE
-	else if (prob(chance_name_female))
+	else if(prob(chance_name_female))
 		gender_name = FEMALE
-	else if (prob(chance_name_neuter))
+	else if(prob(chance_name_neuter))
 		gender_name = NEUTER
 
 	var/golem_surname //Имя голема
 
 	//выбираем изначально случайное големское имя аля "Андезит"
-	switch (gender_name)
-		if (MALE)
-			if (length(GLOB.golem_male)) //Бйонд имеет привычку с отваливанием файлов. Чтобы такого не допустить, мы проверяем длину файла
+	switch(gender_name)
+		if(MALE)
+			if(length(GLOB.golem_male)) //Бйонд имеет привычку с отваливанием файлов. Чтобы такого не допустить, мы проверяем длину файла
 				golem_surname = "[pick(GLOB.golem_male)]"
-		if (FEMALE)
-			if (length(GLOB.golem_female))
+		if(FEMALE)
+			if(length(GLOB.golem_female))
 				golem_surname = "[pick(GLOB.golem_female)]"
-		if (NEUTER)
-			if (length(GLOB.golem_neuter))
+		if(NEUTER)
+			if(length(GLOB.golem_neuter))
 				golem_surname = "[pick(GLOB.golem_neuter)]"
 
 
@@ -126,28 +126,28 @@
 
 	// 5% шанс выбрать человеческое имя или фамилию, ну или если голем до сих пор не имеет имени
 	if(prob(human_surname_chance) || (golem_surname == null) || golem_surname == "" || golem_surname == " ") //игра по прежнему не считает строчные пустые элементы != null элементами. Из-за чего нужна такая проверка
-		switch (gender_name)
-			if (MALE)
-				if (prob(50)) //выбираем мужское имя или фамилию
+		switch(gender_name)
+			if(MALE)
+				if(prob(50)) //выбираем мужское имя или фамилию
 					golem_surname = pick(GLOB.first_names_male)
 				else
 					golem_surname = pick(GLOB.last_names)
-			if (FEMALE)
-				if (prob(50)) //выбираем женское имя или фамилию
+			if(FEMALE)
+				if(prob(50)) //выбираем женское имя или фамилию
 					golem_surname = pick(GLOB.first_names_female)
 				else
 					golem_surname = pick(GLOB.last_names_female)
-			if (NEUTER)
+			if(NEUTER)
 				golem_surname = pick("Нечто", "Чудо") //Средний пол голема
 
 	//устанавливаем окончание прилагательных префиксов (золотой мужик теперь золотОЙ, а не золотЫЙ)
 	var/end_pr
-	switch (prefix_type)
-		if (1)
+	switch(prefix_type)
+		if(1)
 			end_pr = genderize_ru(gender_name,"ый","ая","ое","ые")
-		if (2)
+		if(2)
 			end_pr = genderize_ru(gender_name,"ой","ая","ое","ые")
-		if (3)
+		if(3)
 			end_pr = ""
 
 	//гендеризируем прилагательное-префикс и приписываем наше половое имя
