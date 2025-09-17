@@ -2154,7 +2154,7 @@
 	name = "Укрепленный каркас экзоскелета"
 	id = "exo_reinforced"
 	build_type = MECHFAB
-	req_tech = list( "materials" = 4, "engineering" = 5)
+	req_tech = list("materials" = 4, "engineering" = 5)
 	build_path = /obj/item/organ/internal/cyberimp/chest/exoframe/reinforced
 	materials = list(MAT_METAL=20000, MAT_PLASMA = 4000)
 	construction_time = 50 SECONDS
