@@ -189,8 +189,7 @@
 		DA.glass = TRUE
 	if(heat_proof)
 		DA.heat_proof_finished = TRUE
-	DA.update_icon()
-	DA.update_name()
+	DA.update_appearance(UPDATE_NAME|UPDATE_ICON)
 	qdel(src)
 
 
@@ -228,11 +227,11 @@
 /obj/machinery/door/airlock/tranquillite
 	name = "tranquillite airlock"
 	icon = 'icons/obj/doors/airlocks/station/freezer.dmi'
-	doorOpen = null // it's silent!
+/*	doorOpen = null // it's silent!
 	doorClose = null
 	doorDeni = null
 	boltUp = null
-	boltDown = null
+	boltDown = null*/
 	paintable = FALSE
 
 /obj/machinery/door/airlock/sandstone

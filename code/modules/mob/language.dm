@@ -263,12 +263,12 @@
 	// Now I love making list in list in list in list in list
 	// Two sublists were made by authors so that the names would turn out most consonant for reading (in a way that's possible for skrells)
 	var/list/ru_name_syllables = list(
-		list(	// list 1
+		list(// list 1
 			list("заоо", "зао", "зикс", "зо", "йуо", "кью", "кьюм", "кси", "ксу", "квум", "кву",	// sublist1
 				"кви", "квей", "квиш", "куу", "кюан", "киэн", "ку", "кил", "лиа", "люик", "луи",
 				"рио", "сейу", "тсой", "уль", "улур", "урр", "ур", "цу", "эль", "эо", "эу"),
 
-			list(
+			list(\
 			"аг", "вум", "вул", "вол", "гли", "зи", "заоо", "зао", "зикс", "зуо", "зук", "зуво",	// sublist2
 			"икс", "ил", "ис", "йук", "кву", "квум", "куум", "куо", "куа", "куак", "кул", "квол",
 			"кью", "кьюа", "кэ", "кин", "кии", "кс", "ки", "киу", "кос", "лоа", "лак", "лум", "лик",
@@ -278,7 +278,7 @@
 			)
 		),
 
-		list(	// list 2
+		list(// list 2
 			list("заоо", "зао", "зо", "йуо", "лиа", "луи", "рио", "сейу", "эо"),	// sublist1
 
 			list(
@@ -472,11 +472,13 @@
 	key = "#"
 	flags = RESTRICTED | WHITELISTED
 	join_override = "-"
-	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
-					 "lit", "ygg", "van", "dår", "nø", "møt", "idd", "hvo", "ja", "på", "han",
-					 "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
-					 "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
-					 "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
+	syllables = list(
+		"år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
+		"lit", "ygg", "van", "dår", "nø", "møt", "idd", "hvo", "ja", "på", "han",
+		"så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
+		"må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
+		"huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön"
+	)
 
 /datum/language/moth/get_random_name()
 	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
@@ -516,14 +518,16 @@
 	colour = "say_quote"
 	key = "2"
 	space_chance = 100
-	syllables = list("lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
-					 "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
-					 "magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
-					 "exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
-					 "consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
-					 "voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
-					 "pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
-					 "in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
+	syllables = list(
+		"lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
+		"sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
+		"magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
+		"exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
+		"consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
+		"voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
+		"pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
+		"in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum"
+	)
 
 /datum/language/gutter
 	name = LANGUAGE_GUTTER
@@ -557,15 +561,17 @@
 	key = "?"
 	space_chance = 65
 	english_names = TRUE
-	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
-					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
-					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
-					 "ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
-					 "key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
-					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
-					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
-					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
-					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+	syllables = list(
+		"dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
+		"nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
+		"comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
+		"ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
+		"key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
+		"tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
+		"odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
+		"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
+		"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod"
+	)
 
 /datum/language/wryn
 	name = LANGUAGE_WRYN

@@ -105,13 +105,13 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 /proc/jobban_unban_client(ckey, rank)
 	jobban_remove("[ckey] - [rank]")
 
-/proc/ban_unban_log_save(var/formatted_log)
+/proc/ban_unban_log_save(formatted_log)
 	text2file(formatted_log,"data/ban_unban_log.txt")
 
 
 /proc/jobban_remove(X)
 	for(var/i = 1; i <= length(GLOB.jobban_keylist); i++)
-		if( findtext(GLOB.jobban_keylist[i], "[X]") )
+		if(findtext(GLOB.jobban_keylist[i], "[X]"))
 			// This need to be here, instead of jobban_unban, due to direct calls to jobban_remove
 			if(GLOB.jobban_regex.Find(X))
 				var/ckey = GLOB.jobban_regex.group[1]

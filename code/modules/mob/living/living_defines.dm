@@ -9,7 +9,7 @@
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
-  /// Maximum stamina, currently could be changed only with nutrition bonuses, MUST be lower than MAX_STAMINA_LOSS
+	/// Maximum stamina, currently could be changed only with nutrition bonuses, MUST be lower than MAX_STAMINA_LOSS
 	var/max_stamina = BASE_MAX_STAMINA
 	var/health = 100 	//A mob's health
 
@@ -136,6 +136,8 @@
 	var/body_position_pixel_y_offset = 0
 	/// The height offset of a mob's maptext due to their current size.
 	var/body_maptext_height_offset = 0
+
+	var/pixel_y_lying_offset = PIXEL_Y_OFFSET_LYING
 
 	/// Tracks the current size of the mob in relation to its original size. Use update_transform(resize) to change it.
 	var/current_size = RESIZE_DEFAULT_SIZE

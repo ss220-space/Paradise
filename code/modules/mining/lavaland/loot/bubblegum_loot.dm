@@ -529,7 +529,7 @@
 		INSTRUMENTAL = "таинственным духом",
 		PREPOSITIONAL = "таинственном духе"
 	)
-	
+
 
 /mob/living/simple_animal/soulscythe/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -564,7 +564,7 @@
 	)
 
 /obj/projectile/soulscythe/on_hit(atom/target, blocked = 0, pierce_hit)
-	if (isliving(target))
+	if(isliving(target))
 		var/mob/living/as_living = target
 		if(firer.faction_check_mob(as_living))
 			damage *= 0
@@ -573,3 +573,4 @@
 	return ..()
 
 #undef MAX_BLOOD_LEVEL
+#undef BLOOD_LEVEL_PER_SECOND

@@ -116,7 +116,7 @@
 		part.strength = strength
 		part.update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/particle_accelerator/control_box/proc/add_strength(var/s)
+/obj/machinery/particle_accelerator/control_box/proc/add_strength(s)
 	if(!assembled)
 		return
 	strength++
@@ -131,7 +131,7 @@
 		investigate_log("increased to <span style='color: red;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 	strength_change()
 
-/obj/machinery/particle_accelerator/control_box/proc/remove_strength(var/s)
+/obj/machinery/particle_accelerator/control_box/proc/remove_strength(s)
 	if(!assembled)
 		return
 
@@ -235,20 +235,20 @@
 		return FALSE
 
 	var/obj/structure/particle_accelerator/accelerator = locate(/obj/structure/particle_accelerator) in checked_turf
-	if (!istype(accelerator, type))
+	if(!istype(accelerator, type))
 		layout[column][row]["status"] = "Not In Position"
 		layout[column][row]["dir"] = dir
 		return
 
-	if (!accelerator.connect_master(src))
-		if (accelerator)
+	if(!accelerator.connect_master(src))
+		if(accelerator)
 			layout[column][row]["status"] = "Wrong Orientation"
 			layout[column][row]["dir"] = accelerator.dir
 			layout[column][row]["icon_state"] = accelerator.icon_state
 		return
 
-	if (!accelerator.report_ready(src))
-		if (accelerator)
+	if(!accelerator.report_ready(src))
+		if(accelerator)
 			layout[column][row]["status"] = "Incomplete"
 			layout[column][row]["dir"] = accelerator.dir
 			layout[column][row]["icon_state"] = accelerator.icon_state

@@ -611,14 +611,14 @@
 		msg += "[print_flavor_text()]\n"
 
 	if(pose)
-		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
+		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "It is [pose]"
 	msg += "</span>"
 
 	. += msg
 
-/mob/living/silicon/pai/bullet_act(var/obj/projectile/Proj)
+/mob/living/silicon/pai/bullet_act(obj/projectile/Proj)
 	..(Proj)
 	if(stat != 2)
 		spawn(1)

@@ -75,7 +75,7 @@
 	icon_state = "box_machine"
 
 /obj/item/storage/box/survival_machine/populate_contents()
-	new /obj/item/weldingtool(src)
+	new /obj/item/weldingtool/mini(src)
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
@@ -111,9 +111,10 @@
 /obj/item/storage/box/survival_mining/populate_contents()
 	new /obj/item/clothing/mask/gas/explorer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
+	new /obj/item/stack/medical/bruise_pack/military(src)
 
 /obj/item/storage/box/survival_security
 	icon_state = "box_sec"
@@ -122,9 +123,10 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi/sec(src)
 	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
-	new /obj/item/crowbar/red/sec(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/radio/sec(src)
+	new /obj/item/stack/medical/bruise_pack/military(src)
 
 /obj/item/storage/box/survival_security/hos
 	icon_state = "box_hos"
@@ -163,8 +165,10 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
+	new /obj/item/stack/medical/bruise_pack/military(src)
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
@@ -921,6 +925,7 @@
 	new /obj/item/reagent_containers/hypospray/combat/nanites(src)
 	new /obj/item/pinpointer(src)
 	new /obj/item/pinpointer/crew/centcom(src)
+	new /obj/item/stack/medical/bruise_pack/military(src)
 
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
@@ -930,10 +935,11 @@
 	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
 	new /obj/item/storage/firstaid/crew(src)
+	new /obj/item/stack/medical/bruise_pack/military(src)
 
 // ERT set for trial admins
 /obj/item/storage/box/responseteam/amber/commander
@@ -1290,9 +1296,10 @@
 /obj/item/storage/box/soviet/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
 	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)

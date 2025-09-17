@@ -3,6 +3,7 @@
 #define SYLLABLE 3
 #define MULTIPLE_SYLLABLE 4
 #define SUFFIX 5
+
 /obj/item/book/codex_gigas
 	name = "Codex Gigas"
 	icon_state = "demonomicon"
@@ -121,7 +122,7 @@
 			else if(GLOB.devil_title.Find(action))
 				currentSection = SYLLABLE
 			else if(GLOB.devil_syllable.Find(action))
-				if (currentSection >= SYLLABLE)
+				if(currentSection >= SYLLABLE)
 					currentSection = MULTIPLE_SYLLABLE
 				else
 					currentSection = SYLLABLE
@@ -132,7 +133,7 @@
 /obj/item/book/codex_gigas/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "CodexGigas", name, 500, 400)
+		ui = new(user, src, "CodexGigas", name)
 		ui.open()
 
 /obj/item/book/codex_gigas/ui_data(mob/user)
@@ -155,3 +156,9 @@
 	data["names"] = GLOB.devil_syllable
 	data["suffixes"] = GLOB.devil_suffix
 	return data
+
+#undef PRE_TITLE
+#undef TITLE
+#undef SYLLABLE
+#undef MULTIPLE_SYLLABLE
+#undef SUFFIX

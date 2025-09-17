@@ -152,7 +152,7 @@
 			return json_encode(response)
 		if(DMAPI5_TOPIC_COMMAND_CHANGE_PORT)
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
-			if (!isnum(new_port) || !(new_port > 0))
+			if(!isnum(new_port) || !(new_port > 0))
 				return TopicResponse("Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]")
 
 			if(event_handler != null)
@@ -193,7 +193,7 @@
 			return TopicResponse()
 		if(DMAPI5_TOPIC_COMMAND_SERVER_PORT_UPDATE)
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
-			if (!isnum(new_port) || !(new_port > 0))
+			if(!isnum(new_port) || !(new_port > 0))
 				return TopicResponse("Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]")
 
 			server_port = new_port
@@ -203,20 +203,20 @@
 		if(DMAPI5_TOPIC_COMMAND_WATCHDOG_REATTACH)
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
 			var/error_message = null
-			if (new_port != null)
-				if (!isnum(new_port) || !(new_port > 0))
+			if(new_port != null)
+				if(!isnum(new_port) || !(new_port > 0))
 					error_message = "Invalid [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]"
 				else
 					server_port = new_port
 
 			var/new_version_string = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_SERVER_VERSION]
-			if (!istext(new_version_string))
+			if(!istext(new_version_string))
 				if(error_message != null)
 					error_message += ", "
 				error_message += "Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_SERVER_VERSION]]"
 			else
 				var/datum/tgs_version/new_version = new(new_version_string)
-				if (event_handler)
+				if(event_handler)
 					event_handler.HandleEvent(TGS_EVENT_WATCHDOG_REATTACH, new_version)
 
 				version = new_version
@@ -310,7 +310,7 @@
 	var/list/channels = list()
 	for(var/I in ChatChannelInfo())
 		var/datum/tgs_chat_channel/channel = I
-		if (!channel.is_private_channel && ((channel.is_admin_channel && admin_only) || (!channel.is_admin_channel && !admin_only)))
+		if(!channel.is_private_channel && ((channel.is_admin_channel && admin_only) || (!channel.is_admin_channel && !admin_only)))
 			channels += channel.id
 	message = list(DMAPI5_CHAT_MESSAGE_TEXT = message, DMAPI5_CHAT_MESSAGE_CHANNEL_IDS = channels)
 	if(intercepted_message_queue)

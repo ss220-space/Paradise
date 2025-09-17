@@ -1,7 +1,9 @@
 //STRIKE TEAMS
 
 #define SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
+
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
+
 /client/proc/syndicate_strike_team()
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Заспавнить Ударный Отряд Синдиката"
@@ -119,3 +121,5 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		new_syndicate_commando.equipOutfit(/datum/outfit/admin/syndicate_strike_team)
 	qdel(spawn_location)
 	return new_syndicate_commando
+
+#undef SYNDICATE_COMMANDOS_POSSIBLE

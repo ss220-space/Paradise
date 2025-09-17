@@ -142,7 +142,7 @@
 
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
-    insert(target)
+	insert(target)
 
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user, datum/action/action)

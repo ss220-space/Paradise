@@ -184,7 +184,7 @@
 	name = "illicit intercom"
 	desc = "Модернизированный вариант стандартного интеркома. Представляет собой устройство из прочного полимерно-металлического корпуса \
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Помимо стандартного телекоммуникацонного оборудования, \
-			внутри установлен специальный ключ шифрования, позволяющий прослушивать закрытые каналы НаноТрейзен, \
+			внутри установлен специальный ключ шифрования, позволяющий прослушивать закрытые каналы Нанотрейзен, \
 			а также подключаться к зашифрованной частоте сотрудников Синдиката."
 	frequency = SYND_FREQ
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
@@ -364,14 +364,14 @@
 		UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
 
 /**
-  * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
-  *
-  * Normally called after the intercom's area recieves the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
-  *
-  * Arguments:
-  *
-  * source - the area that just had a power change.
-  */
+ * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
+ *
+ * Normally called after the intercom's area recieves the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
+ *
+ * Arguments:
+ *
+ * source - the area that just had a power change.
+ */
 /obj/item/radio/intercom/proc/AreaPowerCheck(datum/source)
 	var/area/current_area = get_area(src)
 	if(!current_area)

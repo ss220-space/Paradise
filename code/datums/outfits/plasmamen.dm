@@ -25,13 +25,13 @@
 	uniform = /obj/item/clothing/under/plasmaman/centcomm
 
 /datum/outfit/plasmaman/nt_rep
-	name = "NanoTrasen Representative Plasmaman"
+	name = "Nanotrasen Representative Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/nt_rep
 	uniform = /obj/item/clothing/under/plasmaman/nt
 
 /datum/outfit/plasmaman/nt
-	name = "NanoTrasen Plasmaman"
+	name = "Nanotrasen Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/nt
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks

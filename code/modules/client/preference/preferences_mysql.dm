@@ -240,10 +240,12 @@
 					hair_gradient_colour,
 					hair_gradient_alpha,
 					exoframe_type
+					can_be_antagonist,
+          exoframe_type
 					FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
-						 "ckey" = C.ckey,
-						 "slot" = slot
-					 ))
+						"ckey" = C.ckey,
+						"slot" = slot
+					))
 	if(!query.warn_execute(async = FALSE)) // Dont make this async. It makes roundstart slow.
 		qdel(query)
 		return
@@ -343,6 +345,11 @@
 		h_grad_alpha = query.item[62]
 
 		exoframe_type = query.item[63]
+		// Can be antagonist
+		can_be_antagonist = query.item[63]
+  
+    // Exoframes for IPC
+    exoframe_type = query.item[64]
 
 		saved = TRUE
 
@@ -387,7 +394,8 @@
 	tts_seed		= sanitize_inlist(tts_seed, SStts.tts_seeds, initial(tts_seed))
 	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
 	custom_emotes = init_custom_emotes(custom_emotes_tmp)
-	exoframe_type	= sanitize_text(exoframe_type, initial(exoframe_type))
+	can_be_antagonist = sanitize_integer(can_be_antagonist, 0, 1, 1)
+  exoframe_type	= sanitize_text(exoframe_type, initial(exoframe_type))
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
@@ -543,6 +551,8 @@
 												tts_seed=:tts_seed,
 												custom_emotes=:custom_emotes,
 												exoframe_type=:exoframe_type
+												can_be_antagonist=:can_be_antagonist,
+                        exoframe_type=:exoframe_type
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -608,7 +618,8 @@
 													"uplink_pref" = uplink_pref,
 													"tts_seed" = tts_seed,
 													"custom_emotes" = json_encode(custom_emotes),
-													"exoframe_type" = exoframe_type,
+													"can_be_antagonist" = can_be_antagonist,
+                          "exoframe_type" = exoframe_type,
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
@@ -651,7 +662,7 @@
 											exploit_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed, custom_emotes, exoframe_type)
+											socks, body_accessory, gear, autohiss, hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, uplink_pref, tts_seed, custom_emotes, can_be_antagonist, exoframe_type)
 
 					VALUES
 											(:ckey, :slot, :metadata, :name, :be_random_name, :gender,
@@ -680,7 +691,7 @@
 											:exploit_record,
 											:playertitlelist,
 											:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
-											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed, :custom_emotes, :exoframe_type)
+											:socks, :body_accessory, :gearlist, :autohiss_mode, :h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :uplink_pref, :tts_seed, :custom_emotes, :can_be_antagonist, :exoframe_type)
 
 	"}, list(
 		// This has too many params for anyone to look at this without going insae
@@ -747,8 +758,9 @@
 		"h_grad_alpha" = h_grad_alpha,
 		"uplink_pref" = uplink_pref,
 		"tts_seed" = tts_seed,
+		"can_be_antagonist" = can_be_antagonist,
 		"custom_emotes" = json_encode(custom_emotes),
-		"exoframe_type" = exoframe_type,
+    "exoframe_type" = exoframe_type
 	))
 
 	if(!query.warn_execute())
@@ -812,8 +824,8 @@
 	return TRUE
 
 /**
-  * Saves [/datum/preferences/proc/volume_mixer] for the current client.
-  */
+ * Saves [/datum/preferences/proc/volume_mixer] for the current client.
+ */
 /datum/preferences/proc/save_volume_mixer()
 	volume_mixer_saving = null
 	//save_volume_mixer is called with a timer, the client may no longer be there.

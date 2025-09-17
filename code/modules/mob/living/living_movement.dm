@@ -271,7 +271,7 @@
 	var/turf/ceiling = get_step_multiz(src, UP)
 	if(!ceiling) //We are at the highest z-level.
 		end_look_up() // Why would you look from highest? cancel trying.
-		if (prob(0.1))
+		if(prob(0.1))
 			to_chat(src, span_warning("Вы смотрите в бескрайнюю пустоту глубокого космоса. На мгновение вас охватывает импульс продолжить путь - туда, в бесконечную даль, прежде чем сознание берёт верх, и вы решаете остаться в пределах досягаемости станции."))
 			return
 		to_chat(src, span_warning("Там нет ничего интересного."))

@@ -71,7 +71,7 @@
 	if(isliving(the_target))
 		var/mob/living/L = the_target
 
-		if (!faction_check_mob(L) && attack_same == 2)
+		if(!faction_check_mob(L) && attack_same == 2)
 			return FALSE
 		if(L.stat > stat_attack)
 			return FALSE
@@ -146,7 +146,7 @@
 	addtimer(VARSET_CALLBACK(src, recovery_cooldown, FALSE), 30 SECONDS)
 
 
-/mob/living/simple_animal/hostile/mushroom/proc/LevelUp(var/level_gain)
+/mob/living/simple_animal/hostile/mushroom/proc/LevelUp(level_gain)
 	if(powerlevel <= 9)
 		powerlevel += level_gain
 		if(prob(25))

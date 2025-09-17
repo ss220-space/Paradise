@@ -38,7 +38,7 @@
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
-	if (!no_splash)
+	if(!no_splash)
 		QDEL_LIST(beakers)
 	return ..()
 
@@ -379,7 +379,7 @@
 
 	qdel(src)
 
-/obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(var/typekey)
+/obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(typekey)
 	if(ispath(typekey,/obj/item/assembly))
 		nadeassembly = new(src)
 		if(nadeassembly.has_prox_sensors())

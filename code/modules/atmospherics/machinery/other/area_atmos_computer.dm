@@ -79,7 +79,7 @@
 		dat += {"
 				<tr>
 					<td>[scrubber.name]</td>
-					<td width="150"><a class="green" href="byond://?src=[UID()];scrub=\ref[scrubber];toggle=1">Turn On</a> <a class="red" href="?src=[UID()];scrub=\ref[scrubber];toggle=0">Turn Off</a></td>
+					<td width="150"><a class="green" href="byond://?src=[UID()];scrub=\ref[scrubber];toggle=1">Turn On</a> <a class="red" href="byond://?src=[UID()];scrub=\ref[scrubber];toggle=0">Turn Off</a></td>
 				</tr>"}
 
 	dat += {"
@@ -114,7 +114,7 @@
 		scrubber.on = text2num(href_list["toggle"])
 		scrubber.update_icon()
 
-/obj/machinery/computer/area_atmos/proc/validscrubber( var/obj/machinery/portable_atmospherics/scrubber/huge/scrubber as obj )
+/obj/machinery/computer/area_atmos/proc/validscrubber(obj/machinery/portable_atmospherics/scrubber/huge/scrubber as obj)
 	if(!isobj(scrubber) || get_dist(scrubber.loc, src.loc) > src.range || scrubber.loc.z != src.loc.z)
 		return 0
 
@@ -170,7 +170,7 @@
 		var/turf/T2 = get_turf(scrubber)
 		if(T2 && T2.loc)
 			var/area/A2 = T2.loc
-			if(istype(A2) && A2 == A )
+			if(istype(A2) && A2 == A)
 				connectedscrubbers += scrubber
 				found = 1
 

@@ -23,7 +23,7 @@
 	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/id_righthand.dmi'
 
-	var/list/files = list(  )
+	var/list/files = list()
 
 /obj/item/card/data
 	name = "data card"
@@ -209,7 +209,7 @@
 /obj/item/card/id/proc/UpdateName()
 	name = "[src.registered_name]'s ID Card ([src.assignment])"
 
-/obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
+/obj/item/card/id/proc/SetOwnerInfo(mob/living/carbon/human/H)
 	if(!H || !H.dna)
 		return
 
@@ -392,6 +392,21 @@
 	icon_state = "gold"
 	item_state = "gold-id"
 
+/obj/item/card/id/gold/battle
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	access = list(ACCESS_CAPTAIN_REAL)
+
+/obj/item/card/id/gold/battle/ComponentInitialize()
+	AddElement(/datum/element/high_value_item)
+
+/obj/item/card/id/gold/battle/Initialize(mapload)
+	GLOB.poi_list += src
+	. = ..()
+
+/obj/item/card/id/gold/battle/Destroy()
+	GLOB.poi_list -= src
+	. = ..()
+
 /obj/item/card/id/syndicate
 	name = "agent card"
 	var/list/initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS)
@@ -456,7 +471,7 @@
 
 // Added all syndicate 'Taipan' access to the admin officer
 /obj/item/card/id/syndicate/command
-	initial_access = list(	ACCESS_MAINT_TUNNELS,
+	initial_access = list(ACCESS_MAINT_TUNNELS,
 							ACCESS_SYNDICATE,
 							ACCESS_SYNDICATE_LEADER,
 							ACCESS_SYNDICATE_COMMAND,
@@ -511,7 +526,7 @@
 	rank = "Syndicate Botanist"
 
 /obj/item/card/id/syndicate/comms_officer
-	initial_access = list(	ACCESS_MAINT_TUNNELS,
+	initial_access = list(ACCESS_MAINT_TUNNELS,
 							ACCESS_SYNDICATE,
 							ACCESS_SYNDICATE_COMMS_OFFICER,
 							ACCESS_EXTERNAL_AIRLOCKS,
@@ -527,7 +542,7 @@
 	rank = "Syndicate Comms Officer"
 
 /obj/item/card/id/syndicate/research_director
-	initial_access = list(	ACCESS_MAINT_TUNNELS,
+	initial_access = list(ACCESS_MAINT_TUNNELS,
 							ACCESS_SYNDICATE,
 							ACCESS_EXTERNAL_AIRLOCKS,
 							ACCESS_SYNDICATE_SCIENTIST,
@@ -1016,10 +1031,12 @@
 	registered_name = "HoS"
 	icon_state = "HoS"
 	item_state = "hos-id"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
-			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
-			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
-			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
+	access = list(
+		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
+		ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
+		ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
+		ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS
+	)
 
 /obj/item/card/id/cmo
 	name = "Chief Medical Officer ID"
@@ -1035,20 +1052,24 @@
 	registered_name = "RD"
 	icon_state = "RD"
 	item_state = "rd-id"
-	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
-			            ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
-			            ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
-			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
+	access = list(
+		ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
+		ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
+		ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
+		ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM
+	)
 
 /obj/item/card/id/ce
 	name = "Chief Engineer ID"
 	registered_name = "CE"
 	icon_state = "CE"
 	item_state = "ce-id"
-	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
-			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
-			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
-			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM)
+	access = list(
+		ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
+		ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
+		ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
+		ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM
+	)
 
 /obj/item/card/id/clown
 	name = "Pink ID"
@@ -1087,6 +1108,22 @@
 	icon_state = "warden"
 	item_state = "warden-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+
+/obj/item/card/id/warden/battle
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_ARMORY_REAL)
+
+/obj/item/card/id/warden/battle/ComponentInitialize()
+	AddElement(/datum/element/high_value_item)
+
+/obj/item/card/id/warden/battle/Initialize(mapload)
+	GLOB.poi_list += src
+	. = ..()
+
+/obj/item/card/id/warden/battle/Destroy()
+	GLOB.poi_list -= src
+	. = ..()
+
 
 /obj/item/card/id/iaa
 	name = "IAA ID"

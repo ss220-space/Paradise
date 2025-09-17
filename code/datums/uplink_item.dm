@@ -546,7 +546,7 @@
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF, \
 			JOB_TITLE_MECHANIC, JOB_TITLE_ROBOTICIST, JOB_TITLE_PARAMEDIC)
 
-//RD
+//SCI
 
 /datum/uplink_item/jobspecific/telegun
 	name = "Телепушка"
@@ -554,7 +554,7 @@
 			Вам необходимо выбрать целевой маяк на телепушке, и тогда её снаряды будут отправлять цели к этому маяку."
 	item = /obj/item/gun/energy/telegun
 	cost = 66
-	job = list(JOB_TITLE_RD)
+	job = list(JOB_TITLE_SCIENTIST)
 
 //Roboticist
 
@@ -905,6 +905,7 @@
 	item = /obj/item/twohanded/chainsaw
 	cost = 60
 	hijack_only = TRUE
+	surplus = FALSE
 
 /datum/uplink_item/dangerous/rapier
 	name = "Рапира Синдиката"
@@ -1155,7 +1156,7 @@
 /datum/uplink_item/ammo/machinegun
 	name = "Ручной пулемёт L6 SAW — магазин 5.56x45 мм"
 	desc = "Магазин на 50 патронов калибра 5.56x45 мм."
-	item = /obj/item/ammo_box/magazine/mm556x45
+	item = /obj/item/ammo_box/magazine/a762x51
 	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -1971,7 +1972,7 @@
 /datum/uplink_item/device_tools/ion_caller
 	name = "Пульт управления ионной пушкой на низкой орбите"
 	desc = "Портативное устройство, позволяющее активировать ионную пушку, которая перезаряжается каждые 15 минут. \
-			Оно может изменять законы станционного ИИ, что приведет к обнаружению вас системой безопасности НаноТрейзен, или же вызывать перебои в телекоммуникациях."
+			Оно может изменять законы станционного ИИ, что приведет к обнаружению вас системой безопасности Нанотрейзен, или же вызывать перебои в телекоммуникациях."
 	item = /obj/item/ion_caller
 	limited_stock = 1	// Might be too annoying if someone had multiple.
 	cost = 30
@@ -2080,6 +2081,7 @@
 			Скафандр обеспечивает хорошую защиту, но при этом замедляет передвижение. Шлем защищает от вспышек."
 	cost = 46 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Элитный ИКС Синдиката"
@@ -2180,7 +2182,8 @@
 	desc = "Имплант, который можно вживить в организм и активировать по желанию. Может быть активирован многократно.\
 			Позволяет развернуть коробку, которая полностью скрывает вас от посторонних глаз."
 	item = /obj/item/implanter/stealth
-	cost = 40
+	cost = 25
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/implants/macrobomb
 	name = "Имплант макробомбы"
@@ -2312,6 +2315,13 @@
 	item = /obj/item/syndicate_reverse_card
 	cost = 10
 
+
+/datum/uplink_item/badass/bandage
+	name = "Военный перевязочный пакет"
+	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
+	item = /obj/item/stack/medical/bruise_pack/military
+	cost = 1
+
 /**
  * MARK: Bundles & TC
  */
@@ -2361,7 +2371,7 @@
 	name = "Набор модулей для оружия"
 	desc = "Коробка, содержащая различные модули для улучшения вашего оружия."
 	item = /obj/item/storage/box/syndie_kit/gun_mods
-	cost = 10 // silencer 4 TK + 4 other modules
+	cost = 3 // silencer 4 TK + 4 other modules
 
 /datum/uplink_item/bundles_TC/cyborg_maint
 	name = "Набор для починки роботов"

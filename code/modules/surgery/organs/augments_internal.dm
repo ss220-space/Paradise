@@ -10,7 +10,7 @@
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 
-/obj/item/organ/internal/cyberimp/New(var/mob/M = null)
+/obj/item/organ/internal/cyberimp/New(mob/M = null)
 	. = ..()
 	if(implant_overlay)
 		var/image/overlay = new /image(icon, implant_overlay)

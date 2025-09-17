@@ -1016,14 +1016,14 @@
 
 
 /datum/design/improved_exosuit_control_system
-    name = "Exosuit Common Equipment (Control System Upgrade)"
-    id = "mech_improved_exosuit_control_system"
-    build_type = MECHFAB
-    build_path = /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system
-    req_tech = list("engineering" = 7, "materials" = 6, "magnets" = 5, "powerstorage"= 5)
-    materials = list(MAT_METAL=20000,MAT_TITANIUM=10000,MAT_SILVER=2000,MAT_URANIUM=2000)
-    construction_time = 20 SECONDS
-    category = list("Exosuit Equipment")
+	name = "Exosuit Common Equipment (Control System Upgrade)"
+	id = "mech_improved_exosuit_control_system"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system
+	req_tech = list("engineering" = 7, "materials" = 6, "magnets" = 5, "powerstorage"= 5)
+	materials = list(MAT_METAL=20000,MAT_TITANIUM=10000,MAT_SILVER=2000,MAT_URANIUM=2000)
+	construction_time = 20 SECONDS
+	category = list("Exosuit Equipment")
 
 /datum/design/mech_repair_droid
 	name = "Exosuit Defence Module (Repair Droid)"

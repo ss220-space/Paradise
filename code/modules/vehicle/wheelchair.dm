@@ -31,6 +31,7 @@
 	chair_overlay = mutable_appearance(icon, "wheelchair_overlay", ABOVE_MOB_LAYER)
 	update_icon(UPDATE_OVERLAYS)
 	bell_action = new /datum/action/innate/wheelchair/bell(callback = CALLBACK(src, PROC_REF(on_bell_action)))
+	// wheelchair can not give speed bonus
 
 /obj/vehicle/ridden/wheelchair/Destroy()
 	chair_overlay = null
@@ -99,9 +100,9 @@
 /obj/vehicle/ridden/wheelchair/update_desc(updates = ALL)
 	. = ..()
 	desc = applied_skin ? initial(applied_skin.new_desc) : initial(desc)
-	if (exists_bell)
+	if(exists_bell)
 		desc += " К подлокотнику зачем-то прикреплён звонок."
-	if (bomb)
+	if(bomb)
 		desc += " Под сиденьем что-то есть."
 
 
@@ -121,28 +122,28 @@
 	if(exists_bell)
 		return
 	to_chat(user, span_notice("Вы начинаете прикреплять [item.declent_ru(ACCUSATIVE)] к [declent_ru(PREPOSITIONAL)]..."))
-	if (!do_after(user, 2 SECONDS, src))
+	if(!do_after(user, 2 SECONDS, src))
 		return
 	user.balloon_alert(user, "прикреплено")
 	exists_bell = TRUE
-	update_desc()
+	update_appearance(UPDATE_DESC)
 	qdel(item)
 
 /obj/vehicle/ridden/wheelchair/proc/grenade_act(obj/item/item, mob/user, params)
 	if(bomb)
 		return
 	to_chat(user, span_notice("Вы начинаете прикреплять [item.declent_ru(ACCUSATIVE)] к [declent_ru(PREPOSITIONAL)]..."))
-	if (!do_after(user, 2 SECONDS, src))
+	if(!do_after(user, 2 SECONDS, src))
 		return
-	if (!user.drop_item_ground(item))
+	if(!user.drop_item_ground(item))
 		return
 	bomb = item
 	item.do_pickup_animation(src)
 	item.forceMove(src)
 	item.item_flags |= IN_STORAGE
-	if (clown_check(user))
+	if(clown_check(user))
 		user.balloon_alert(user, "прикреплено")
-	update_desc()
+	update_appearance(UPDATE_DESC)
 
 /obj/vehicle/ridden/wheelchair/proc/clown_check(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
@@ -159,12 +160,12 @@
 ///Buckle logic
 
 /obj/vehicle/ridden/wheelchair/post_buckle_mob(mob/living/user)
-	if (exists_bell)
+	if(exists_bell)
 		bell_action.Grant(user)
 	return ..()
 
 /obj/vehicle/ridden/wheelchair/post_unbuckle_mob(mob/living/user)
-	if (exists_bell)
+	if(exists_bell)
 		bell_action.Remove(user)
 	return ..()
 

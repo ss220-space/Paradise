@@ -28,7 +28,7 @@
 	return "\[Раса: [russian_list(whitelisted_species)]\] "
 
 
- // TAJARAN //
+// TAJARAN //
 
 /datum/gear/racial/taj
 	index_name = "embroidered veil"
@@ -130,8 +130,10 @@
 
 /datum/gear/racial/eveningdress/New()
 	..()
-	var/list/eveningdresses = list(/obj/item/clothing/under/tchaikowsky/evening_dress,
-						   /obj/item/clothing/under/tchaikowsky/evening_dress/cyan)
+	var/list/eveningdresses = list(
+		/obj/item/clothing/under/tchaikowsky/evening_dress,
+		/obj/item/clothing/under/tchaikowsky/evening_dress/cyan
+	)
 	gear_tweaks += new /datum/gear_tweak/path(eveningdresses, src, TRUE)
 
 /datum/gear/racial/formaldress

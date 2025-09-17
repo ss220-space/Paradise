@@ -72,15 +72,15 @@
 		process_next.lighting_corner_NW = src
 
 /datum/lighting_corner/proc/self_destruct_if_idle()
-	if (!LAZYLEN(affecting))
+	if(!LAZYLEN(affecting))
 		qdel(src, force = TRUE)
 
 /datum/lighting_corner/proc/vis_update()
-	for (var/datum/light_source/light_source as anything in affecting)
+	for(var/datum/light_source/light_source as anything in affecting)
 		light_source.vis_update()
 
 /datum/lighting_corner/proc/full_update()
-	for (var/datum/light_source/light_source as anything in affecting)
+	for(var/datum/light_source/light_source as anything in affecting)
 		light_source.recalc_corner(src)
 
 // God that was a mess, now to do the rest of the corner code! Hooray!
@@ -123,22 +123,22 @@
 	src.largest_color_luminosity = round(largest_color_luminosity, LIGHTING_ROUND_VALUE)
 
 	var/atom/movable/lighting_object/lighting_object = master_NE?.lighting_object
-	if (lighting_object && !lighting_object.needs_update)
+	if(lighting_object && !lighting_object.needs_update)
 		lighting_object.needs_update = TRUE
 		SSlighting.objects_queue += lighting_object
 
 	lighting_object = master_SE?.lighting_object
-	if (lighting_object && !lighting_object.needs_update)
+	if(lighting_object && !lighting_object.needs_update)
 		lighting_object.needs_update = TRUE
 		SSlighting.objects_queue += lighting_object
 
 	lighting_object = master_SW?.lighting_object
-	if (lighting_object && !lighting_object.needs_update)
+	if(lighting_object && !lighting_object.needs_update)
 		lighting_object.needs_update = TRUE
 		SSlighting.objects_queue += lighting_object
 
 	lighting_object = master_NW?.lighting_object
-	if (lighting_object && !lighting_object.needs_update)
+	if(lighting_object && !lighting_object.needs_update)
 		lighting_object.needs_update = TRUE
 		SSlighting.objects_queue += lighting_object
 
@@ -153,23 +153,23 @@
 	if(!force)
 		return QDEL_HINT_LETMELIVE
 
-	for (var/datum/light_source/light_source as anything in affecting)
+	for(var/datum/light_source/light_source as anything in affecting)
 		LAZYREMOVE(light_source.effect_str, src)
 	affecting = null
 
-	if (master_NE)
+	if(master_NE)
 		master_NE.lighting_corner_SW = null
 		master_NE.lighting_corners_initialised = FALSE
-	if (master_SE)
+	if(master_SE)
 		master_SE.lighting_corner_NW = null
 		master_SE.lighting_corners_initialised = FALSE
-	if (master_SW)
+	if(master_SW)
 		master_SW.lighting_corner_NE = null
 		master_SW.lighting_corners_initialised = FALSE
-	if (master_NW)
+	if(master_NW)
 		master_NW.lighting_corner_SE = null
 		master_NW.lighting_corners_initialised = FALSE
-	if (needs_update)
+	if(needs_update)
 		SSlighting.corners_queue -= src
 
 	return ..()

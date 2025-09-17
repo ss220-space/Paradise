@@ -1,5 +1,6 @@
 #define CLUSTERBUSTER_PAYLOAD_POWER 0.8
 #define SEGMENTATION_PAYLOAD_DECREASE 1.8
+
 ////////////////////
 //Clusterbang
 ////////////////////
@@ -291,3 +292,6 @@
 /obj/item/grenade/clusterbuster/admincleaner/object
 	desc = "Для уборки типичной корпоративной вечеринки Nanotrasen."
 	payload = /obj/item/grenade/chem_grenade/cleaner/object
+
+#undef CLUSTERBUSTER_PAYLOAD_POWER
+#undef SEGMENTATION_PAYLOAD_DECREASE

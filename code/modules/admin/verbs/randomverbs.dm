@@ -117,7 +117,7 @@
 	log_and_message_admins("<span class='boldnotice'>Sent Global Narrate: [msg]<br></span>")
 	BLACKBOX_LOG_ADMIN_VERB("Global Narrate")
 
-/client/proc/cmd_admin_local_narrate(var/atom/A)
+/client/proc/cmd_admin_local_narrate(atom/A)
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Local Narrate"
 
@@ -126,7 +126,7 @@
 	if(!A)
 		return
 	var/msg = tgui_input_text(usr, "Message:", "Enter the text you wish to appear to everyone within view:")
-	if (!msg)
+	if(!msg)
 		return
 	msg = admin_pencode_to_html(msg)
 	for(var/mob/living/M in view(7,A))
@@ -134,7 +134,7 @@
 	log_and_message_admins("<span class='boldnotice'>local narrated at [AREACOORD(A)]: [msg]<br></span>")
 	BLACKBOX_LOG_ADMIN_VERB("Local Narrate")
 
-/client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
+/client/proc/cmd_admin_direct_narrate(mob/M)	// Targetted narrate -- TLE
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
@@ -546,7 +546,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	return 1
 
 
-/client/proc/get_ghosts(var/notify = 0,var/what = 2)
+/client/proc/get_ghosts(notify = 0, what = 2)
 	// what = 1, return ghosts ass list.
 	// what = 2, return mob list
 
@@ -629,7 +629,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 //the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Сообщение Центрального командования." = "Обновление НаноТрейзен.",
+	var/list/MsgType = list("Сообщение Центрального командования." = "Обновление Нанотрейзен.",
 		"Официальное сообщение Синдиката." = "Сообщение Синдиката.",
 		"Сообщение Федерации Космических Волшебников." = "Заколдованное сообщение.",
 		"Официальное сообщение Клана Паука." = "Сообщение Клана Паука.",
@@ -698,7 +698,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			jmp_coords = coords = "in nullspace"
 
-	if (tgui_alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", list("Yes", "No")) == "Yes")
+	if(tgui_alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", list("Yes", "No")) == "Yes")
 		log_admin("[key_name(usr)] deleted [D] [coords]")
 		message_admins("[key_name_admin(usr)] deleted [D] [jmp_coords]")
 		BLACKBOX_LOG_ADMIN_VERB("Delete")

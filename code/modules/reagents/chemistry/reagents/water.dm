@@ -469,7 +469,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Нечестивая вода"
 	id = "unholywater"
-	description = "Что-то, не должно существовать в этой реальности."
+	description = "Что-то, что не должно существовать в этой реальности."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	taste_description = "серы"
@@ -481,6 +481,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-4 SECONDS)
 		M.AdjustWeakened(-4 SECONDS)
+		M.AdjustKnockdown(-4 SECONDS)
 		update_flags |= M.adjustToxLoss(-2, FALSE)
 		update_flags |= M.adjustFireLoss(-2, FALSE)
 		update_flags |= M.adjustOxyLoss(-2, FALSE)

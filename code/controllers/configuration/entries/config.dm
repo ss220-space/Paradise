@@ -669,6 +669,10 @@
 /datum/config_entry/number/respawn_delay
 	default = 20
 
+/datum/config_entry/number/respawn_delay/ValidateAndSet(str_val)
+	. = ..()
+	GLOB.respawn_delay = config_entry_value
+
 /datum/config_entry/number/respawn_delay_drone
 	default = 10
 
@@ -847,3 +851,21 @@
  */
 /datum/config_entry/number/tgui_max_chunk_count
 	default = 128
+
+/datum/config_entry/flag/enable_redis
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/redis_connstring
+	default = "redis://127.0.0.1/"
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/flag/enable_multi_instance
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/flag/enable_instance_announce
+
+/datum/config_entry/string/instance_id
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/internal_ip
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN

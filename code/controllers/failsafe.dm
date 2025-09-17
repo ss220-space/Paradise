@@ -1,7 +1,7 @@
- /**
-  * Failsafe
-  *
-  * Pretty much pokes the MC to make sure it's still alive.
+/**
+ * Failsafe
+ *
+ * Pretty much pokes the MC to make sure it's still alive.
  **/
 
 // See initialization order in /code/game/world.dm
@@ -166,7 +166,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 		return
 	del(Master)
 	for(var/global_var in global.vars)
-		if (istype(global.vars[global_var], /datum/controller/subsystem))
+		if(istype(global.vars[global_var], /datum/controller/subsystem))
 			del(global.vars[global_var])
 	. = Recreate_MC()
 	if(. == 1) //We were able to create a new master

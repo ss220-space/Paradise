@@ -313,15 +313,16 @@
 	var/eventdat = null
 	var/event = null
 	var/list/settlers = list("Harry", "Larry", "Bob")
-	var/static/list/events = list(ORION_TRAIL_RAIDERS		= 3,
-						   ORION_TRAIL_FLUX			= 1,
-						   ORION_TRAIL_ILLNESS		= 3,
-						   ORION_TRAIL_BREAKDOWN	= 2,
-						   ORION_TRAIL_LING			= 3,
-						   ORION_TRAIL_MALFUNCTION	= 2,
-						   ORION_TRAIL_COLLISION	= 1,
-						   ORION_TRAIL_SPACEPORT	= 2
-						   )
+	var/static/list/events = list(
+		ORION_TRAIL_RAIDERS = 3,
+		ORION_TRAIL_FLUX = 1,
+		ORION_TRAIL_ILLNESS = 3,
+		ORION_TRAIL_BREAKDOWN = 2,
+		ORION_TRAIL_LING = 3,
+		ORION_TRAIL_MALFUNCTION = 2,
+		ORION_TRAIL_COLLISION = 1,
+		ORION_TRAIL_SPACEPORT = 2
+	)
 	var/list/stops
 	var/list/stopblurbs
 	var/lings_aboard = 0
@@ -945,7 +946,7 @@
 
 
 //Add Random/Specific crewmember
-/obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(var/specific = "")
+/obj/machinery/computer/arcade/orion_trail/proc/add_crewmember(specific = "")
 	var/newcrew = ""
 	if(specific)
 		newcrew = specific
@@ -961,7 +962,7 @@
 
 
 //Remove Random/Specific crewmember
-/obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(var/specific = "", var/dont_remove = "")
+/obj/machinery/computer/arcade/orion_trail/proc/remove_crewmember(specific = "", dont_remove = "")
 	var/list/safe2remove = settlers
 	var/removed = ""
 	if(dont_remove)

@@ -195,14 +195,14 @@
 #define GW MW *1000
 
 /**
-  * # Bluespace Harvester
-  *
-  * A station goal that consumes enormous amounts of power to generate (mostly fluff) rewards
-  *
-  * A machine that takes power each tick, generates points based on it
-  * and lets you spend those points on rewards. A certain amount of points
-  * has to be generated for the station goal to count as completed.
-  */
+ * # Bluespace Harvester
+ *
+ * A station goal that consumes enormous amounts of power to generate (mostly fluff) rewards
+ *
+ * A machine that takes power each tick, generates points based on it
+ * and lets you spend those points on rewards. A certain amount of points
+ * has to be generated for the station goal to count as completed.
+ */
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
 	ru_names = list(
@@ -289,37 +289,37 @@
 	return ..()
 
 /**
-  * Increases the desired mining level
-  *
-  * Increases the desired mining level, that
-  * the machine tries to reach if there
-  * is enough power for it. Note that it does
-  * NOT increase the actual mining level directly.
-  */
+ * Increases the desired mining level
+ *
+ * Increases the desired mining level, that
+ * the machine tries to reach if there
+ * is enough power for it. Note that it does
+ * NOT increase the actual mining level directly.
+ */
 /obj/machinery/power/bluespace_tap/proc/increase_level()
 	if(desired_level < max_level)
 		desired_level++
 /**
-  * Decreases the desired mining level
-  *
-  * Decreases the desired mining level, that
-  * the machine tries to reach if there
-  * is enough power for it. Note that it does
-  * NOT decrease the actual mining level directly.
-  */
+ * Decreases the desired mining level
+ *
+ * Decreases the desired mining level, that
+ * the machine tries to reach if there
+ * is enough power for it. Note that it does
+ * NOT decrease the actual mining level directly.
+ */
 /obj/machinery/power/bluespace_tap/proc/decrease_level()
 	if(desired_level > 0)
 		desired_level--
 
 /**
-  * Sets the desired mining level
-  *
-  * Sets the desired mining level, that
-  * the machine tries to reach if there
-  * is enough power for it. Note that it does
-  * NOT change the actual mining level directly.
-  * Arguments:
-  * * t_level - The level we try to set it at, between 0 and max_level
+ * Sets the desired mining level
+ *
+ * Sets the desired mining level, that
+ * the machine tries to reach if there
+ * is enough power for it. Note that it does
+ * NOT change the actual mining level directly.
+ * Arguments:
+ * * t_level - The level we try to set it at, between 0 and max_level
  */
 /obj/machinery/power/bluespace_tap/proc/set_level(t_level)
 	if(t_level < 0)
@@ -329,12 +329,12 @@
 	desired_level = t_level
 
 /**
-  * Gets the amount of power at a set input level
-  *
-  * Gets the amount of power (in W) a set input level needs.
-  * Note that this is not necessarily the current power use.
-  * * i_level - The hypothetical input level for which we want to know the power use.
-  */
+ * Gets the amount of power at a set input level
+ *
+ * Gets the amount of power (in W) a set input level needs.
+ * Note that this is not necessarily the current power use.
+ * * i_level - The hypothetical input level for which we want to know the power use.
+ */
 /obj/machinery/power/bluespace_tap/proc/get_power_use(i_level)
 	if(!i_level)
 		return 0
@@ -409,8 +409,8 @@
 	ui_interact(user)
 
 /**
-  * Produces the product with the desired key and increases product cost accordingly
-  */
+ * Produces the product with the desired key and increases product cost accordingly
+ */
 /obj/machinery/power/bluespace_tap/proc/produce(key)
 	if(key <= 0 || key > length(product_list))	//invalid key
 		return

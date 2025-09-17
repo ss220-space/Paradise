@@ -400,13 +400,13 @@
 		R.price = (typepath in prices) ? prices[typepath] : 0
 		recordlist += R
 /**
-  * Refill a vending machine from a refill canister
-  *
-  * This takes the products from the refill canister and then fills the products,contraband and premium product categories
-  *
-  * Arguments:
-  * * canister - the vending canister we are refilling from
-  */
+ * Refill a vending machine from a refill canister
+ *
+ * This takes the products from the refill canister and then fills the products,contraband and premium product categories
+ *
+ * Arguments:
+ * * canister - the vending canister we are refilling from
+ */
 /obj/machinery/vending/proc/restock(obj/item/vending_refill/canister)
 	if(!canister.products)
 		canister.products = products.Copy()
@@ -419,26 +419,26 @@
 	. += refill_inventory(canister.contraband, hidden_records)
 	. += refill_inventory(canister.premium, coin_records)
 /**
-  * Refill our inventory from the passed in product list into the record list
-  *
-  * Arguments:
-  * * productlist - list of types -> amount
-  * * recordlist - existing record datums
-  */
+ * Refill our inventory from the passed in product list into the record list
+ *
+ * Arguments:
+ * * productlist - list of types -> amount
+ * * recordlist - existing record datums
+ */
 /obj/machinery/vending/proc/refill_inventory(list/productlist, list/recordlist)
 	. = 0
 	for(var/R in recordlist)
 		var/datum/data/vending_product/record = R
 		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
-		if (diff)
+		if(diff)
 			productlist[record.product_path] -= diff
 			record.amount += diff
 			. += diff
 /**
-  * Set up a refill canister that matches this machines products
-  *
-  * This is used when the machine is deconstructed, so the items aren't "lost"
-  */
+ * Set up a refill canister that matches this machines products
+ *
+ * This is used when the machine is deconstructed, so the items aren't "lost"
+ */
 /obj/machinery/vending/proc/update_canister()
 	if(!component_parts)
 		return
@@ -452,8 +452,8 @@
 	R.premium = unbuild_inventory(coin_records)
 
 /**
-  * Given a record list, go through and and return a list of type -> amount
-  */
+ * Given a record list, go through and and return a list of type -> amount
+ */
 /obj/machinery/vending/proc/unbuild_inventory(list/recordlist)
 	. = list()
 	for(var/R in recordlist)
@@ -781,7 +781,7 @@
 			else
 				data["guestNotice"] = "Обнаруженная ID-карта не привязана к счёту.";
 	data["stock"] = list()
-	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
+	for(var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		data["stock"][R.name] = R.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
@@ -798,7 +798,7 @@
 	data["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
 	data["product_records"] = list()
 	var/i = 1
-	for (var/datum/data/vending_product/R in product_records)
+	for(var/datum/data/vending_product/R in product_records)
 		var/obj/item/item = new R.product_path(src)
 		var/list/names = item.ru_names || item.get_ru_names()
 		var/list/data_pr = list(
@@ -815,7 +815,7 @@
 		data["product_records"] += list(data_pr)
 		i++
 	data["coin_records"] = list()
-	for (var/datum/data/vending_product/R in coin_records)
+	for(var/datum/data/vending_product/R in coin_records)
 		var/obj/item/item = new R.product_path(src)
 		var/list/names = item?.ru_names || item.get_ru_names()
 		var/list/data_cr = list(
@@ -833,7 +833,7 @@
 		data["coin_records"] += list(data_cr)
 		i++
 	data["hidden_records"] = list()
-	for (var/datum/data/vending_product/R in hidden_records)
+	for(var/datum/data/vending_product/R in hidden_records)
 		var/obj/item/item = new R.product_path(src)
 		var/list/names = item?.ru_names || item.get_ru_names()
 		var/list/data_hr = list(
@@ -909,11 +909,11 @@
 					// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
 					to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] не может расширить ассортимент в текущем состоянии. Сообщите о баге."))
 					return
-			else if (!(R in record_to_check))
+			else if(!(R in record_to_check))
 				// Exploit prevention, stop the user
 				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 				return
-			if (R.amount <= 0)
+			if(R.amount <= 0)
 				to_chat(usr, "Товар \"[R.name]\" закончился!")
 				flick_vendor_overlay(FLICK_VEND)
 				return
@@ -1086,7 +1086,7 @@
 
 	var/dump_amount = 0
 	var/found_anything = TRUE
-	while (found_anything)
+	while(found_anything)
 		found_anything = FALSE
 		for(var/record in shuffle(product_records))
 			var/datum/data/vending_product/R = record
@@ -1312,9 +1312,11 @@
 	broken_overlay = "generic_broken"
 	broken_lightmask_overlay = "generic_broken_lightmask"
 
-	products = list(	/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
-						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
-	contraband = list(/obj/item/flashlight = 5,/obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
+	products = list(
+		/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
+		/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4
+	)
+	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
 
 	slogan_list = list(
 		"Т+олько с+амое л+учшее!",
@@ -1840,7 +1842,7 @@
 	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow = 10,   //Congrats, you unlocked the +18 setting!
 					/obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
 					/obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
- 					/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
+					/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
 					/obj/item/ammo_box/foambox/riot = 20,
 					/obj/item/toy/katana = 10,
 					/obj/item/twohanded/dualsaber/toy = 5,
@@ -1894,9 +1896,10 @@
 					/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1
 					)
-	contraband = list( /obj/item/clothing/mask/cigarette/pipe/oldpipe = 3,
-					/obj/item/storage/fancy/cigarettes/cigpack_med = 1
-					)
+	contraband = list(
+		/obj/item/clothing/mask/cigarette/pipe/oldpipe = 3,
+		/obj/item/storage/fancy/cigarettes/cigpack_med = 1
+	)
 	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 179,
 					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 239,
 					/obj/item/storage/fancy/cigarettes/cigpack_random = 359,
@@ -1998,11 +2001,15 @@
 	)
 	req_access = list(ACCESS_MEDICAL)
 	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 10,
+					/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 10,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 10,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 10,
 					/obj/item/stack/medical/bruise_pack = 4, /obj/item/stack/medical/ointment = 4,
-					/obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4,
-					/obj/item/stack/medical/bruise_pack/extended = 2, /obj/item/stack/medical/ointment/extended = 2,
+					/obj/item/stack/medical/bruise_pack/advanced = 6, /obj/item/stack/medical/ointment/advanced = 6,
+					/obj/item/stack/medical/bruise_pack/synthflesh_kit = 3,
+					/obj/item/stack/medical/bruise_pack/extended = 3, /obj/item/stack/medical/ointment/extended = 3,
+					/obj/item/stack/medical/suture = 15, /obj/item/stack/medical/suture/advanced = 5,
+					/obj/item/stack/medical/bruise_pack/military = 10,
 					/obj/item/stack/medical/splint = 4,
 					/obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4,
 					/obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
@@ -2019,10 +2026,14 @@
 					/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/dropper = 4, /obj/item/reagent_containers/glass/beaker = 4,
 					/obj/item/reagent_containers/iv_bag/slime = 1)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	prices = list(/obj/item/stack/medical/bruise_pack/extended = 199,
+	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 49,
+					/obj/item/stack/medical/bruise_pack/extended = 199,
 					/obj/item/stack/medical/ointment/extended = 199,
 					/obj/item/stack/medical/bruise_pack/advanced = 99,
 					/obj/item/stack/medical/ointment/advanced = 99,
+					/obj/item/stack/medical/bruise_pack/synthflesh_kit = 99,
+					/obj/item/stack/medical/suture/advanced = 149,
+					/obj/item/stack/medical/bruise_pack/military = 299,
 					/obj/item/reagent_containers/hypospray/safety = 199,
 					/obj/item/pinpointer/crew = 299,
 					/obj/item/sensor_device = 599,
@@ -2121,10 +2132,14 @@
 					/obj/item/reagent_containers/hypospray/autoinjector = 4,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 2,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 2,
+					/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 2,
+					/obj/item/stack/medical/suture = 4,
 					/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
 	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 69,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 69,
+					/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 99,
+					/obj/item/stack/medical/suture = 99,
 					/obj/item/healthanalyzer = 99)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
@@ -2165,8 +2180,17 @@
 	)
 
 	req_access = list(ACCESS_SYNDICATE)
-	products = list(/obj/item/stack/medical/bruise_pack = 2,/obj/item/stack/medical/ointment = 2,/obj/item/reagent_containers/hypospray/autoinjector = 4,/obj/item/healthanalyzer = 1)
-	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
+	products = list(
+		/obj/item/stack/medical/bruise_pack = 2,
+		/obj/item/stack/medical/ointment = 2,
+		/obj/item/stack/medical/suture = 4,
+		/obj/item/reagent_containers/hypospray/autoinjector = 4,
+		/obj/item/healthanalyzer = 1
+	)
+	contraband = list(
+		/obj/item/reagent_containers/syringe/charcoal = 4,
+		/obj/item/reagent_containers/syringe/antiviral = 4,
+		/obj/item/reagent_containers/food/pill/tox = 1)
 
 /obj/machinery/vending/wallmed/syndicate/get_ru_names()
 	return list(
@@ -2225,6 +2249,7 @@
 		/obj/item/flashlight/sectaclight = 2,
 		/obj/item/grenade/smokebomb = 8,
 		/obj/item/storage/belt/security/judobelt = 3,
+		/obj/item/stack/medical/bruise_pack/military = 5,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,
@@ -2237,7 +2262,8 @@
 		/obj/item/storage/pouch/fast = 999,
 		/obj/item/clothing/mask/gas/sechailer/tactical = 299,
 		/obj/item/flashlight/sectaclight = 299,
-		/obj/item/grenade/smokebomb = 249
+		/obj/item/grenade/smokebomb = 249,
+		/obj/item/stack/medical/bruise_pack/military = 299,
 	)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -2274,8 +2300,10 @@
 	deny_overlay = "sec_deny"
 
 	req_access = list(ACCESS_SECURITY)
-	products = list(/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
-				    /obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2)
+	products = list(
+		/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
+		/obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2
+	)
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -2370,23 +2398,29 @@
 		/obj/item/gun_module/rail/scope/collimator = 5,
 		/obj/item/gun_module/under/flashlight/pistol = 10,
 		/obj/item/gun_module/under/flashlight/rifle = 10,
+		/obj/item/gun_module/under/laser/point = 5,
+		/obj/item/gun_module/under/laser/ray = 5,
+		/obj/item/gun_module/under/hand/simple = 5,
 		/obj/item/gun_module/under/hand/angle = 5,
-		/obj/item/ammo_box/magazine/enforcer/extended = 10
+		/obj/item/ammo_box/magazine/enforcer/extended = 10,
 	)
 	contraband = list(
 		/obj/item/gun_module/muzzle/suppressor = 3,
-		/obj/item/gun_module/rail/scope/x4 = 3,
+		/obj/item/gun_module/rail/scope/x4 = 2,
 	)
 	prices = list(
-		/obj/item/gun_module/muzzle/compensator = 349,
-		/obj/item/gun_module/rail/scope/collimator/pistol = 399,
-		/obj/item/gun_module/rail/scope/collimator = 499,
-		/obj/item/gun_module/under/flashlight/pistol = 199,
-		/obj/item/gun_module/under/flashlight/rifle = 249,
-		/obj/item/gun_module/under/hand/angle = 499,
+		/obj/item/gun_module/muzzle/compensator = 199,
+		/obj/item/gun_module/rail/scope/collimator/pistol = 299,
+		/obj/item/gun_module/rail/scope/collimator = 349,
+		/obj/item/gun_module/under/flashlight/pistol = 99,
+		/obj/item/gun_module/under/flashlight/rifle = 99,
+		/obj/item/gun_module/under/laser/point = 199,
+		/obj/item/gun_module/under/laser/ray = 249,
+		/obj/item/gun_module/under/hand/simple = 249,
+		/obj/item/gun_module/under/hand/angle = 299,
 		/obj/item/ammo_box/magazine/enforcer/extended = 149,
-		/obj/item/gun_module/muzzle/suppressor = 499,
-		/obj/item/gun_module/rail/scope/x4 = 4999,
+		/obj/item/gun_module/muzzle/suppressor = 399,
+		/obj/item/gun_module/rail/scope/x4 = 2499,
 	)
 	refill_canister = /obj/item/vending_refill/gun_mods
 
@@ -2404,6 +2438,9 @@
 		/obj/item/gun_module/rail/hud/security = 5,
 		/obj/item/gun_module/under/flashlight/pistol = 5,
 		/obj/item/gun_module/under/flashlight/rifle = 5,
+		/obj/item/gun_module/under/laser/point = 5,
+		/obj/item/gun_module/under/laser/ray = 5,
+		/obj/item/gun_module/under/hand/simple = 5,
 		/obj/item/gun_module/under/hand/angle = 5,
 		/obj/item/gun_module/muzzle/suppressor = 5,
 		/obj/item/gun_module/rail/scope/x8 = 5,
@@ -2471,7 +2508,8 @@
 	broken_overlay = "seeds_broken"
 	broken_lightmask_overlay = "seeds_broken_lightmask"
 
-	products = list(/obj/item/seeds/aloe =3,
+	products = list(
+					/obj/item/seeds/aloe =3,
 					/obj/item/seeds/ambrosia = 3,
 					/obj/item/seeds/apple = 3,
 					/obj/item/seeds/banana = 3,
@@ -2524,19 +2562,21 @@
 					/obj/item/seeds/tulp = 3,
 					/obj/item/seeds/chamomile = 3,
 					/obj/item/seeds/rose = 3
-					)
-	contraband = list(/obj/item/seeds/cannabis = 3,
-					  /obj/item/seeds/amanita = 2,
-					  /obj/item/seeds/fungus = 3,
-					  /obj/item/seeds/glowshroom = 2,
-					  /obj/item/seeds/liberty = 2,
-					  /obj/item/seeds/nettle = 2,
-					  /obj/item/seeds/plump = 2,
-					  /obj/item/seeds/reishi = 2,
-					  /obj/item/seeds/starthistle = 2,
-					  /obj/item/seeds/random = 2,
-					  /obj/item/seeds/moonlight = 2,
-					  /obj/item/seeds/coca = 2)
+	)
+	contraband = list(
+					/obj/item/seeds/cannabis = 3,
+					/obj/item/seeds/amanita = 2,
+					/obj/item/seeds/fungus = 3,
+					/obj/item/seeds/glowshroom = 2,
+					/obj/item/seeds/liberty = 2,
+					/obj/item/seeds/nettle = 2,
+					/obj/item/seeds/plump = 2,
+					/obj/item/seeds/reishi = 2,
+					/obj/item/seeds/starthistle = 2,
+					/obj/item/seeds/random = 2,
+					/obj/item/seeds/moonlight = 2,
+					/obj/item/seeds/coca = 2
+	)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
@@ -3220,13 +3260,17 @@
 	broken_lightmask_overlay = "snack_broken_lightmask"
 
 	broken_lightmask_overlay = "snack_broken_lightmask"
-	products = list(/obj/item/reagent_containers/food/snacks/tofu = 24,
-					/obj/item/reagent_containers/food/drinks/ice = 12,
-					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
-	contraband = list(/obj/item/kitchen/knife = 6,
-					  /obj/item/reagent_containers/food/drinks/coffee = 12,
-					  /obj/item/tank/internals/emergency_oxygen = 6,
-					  /obj/item/clothing/mask/breath = 6)
+	products = list(
+		/obj/item/reagent_containers/food/snacks/tofu = 24,
+		/obj/item/reagent_containers/food/drinks/ice = 12,
+		/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6
+	)
+	contraband = list(
+		/obj/item/kitchen/knife = 6,
+		/obj/item/reagent_containers/food/drinks/coffee = 12,
+		/obj/item/tank/internals/emergency_oxygen = 6,
+		/obj/item/clothing/mask/breath = 6
+	)
 	refill_canister = /obj/item/vending_refill/sustenance
 
 /obj/machinery/vending/sustenance/get_ru_names()
@@ -3528,7 +3572,8 @@
 	)
 
 	vend_reply = "Спас+ибо за исп+ользование ClothesMate!"
-	products = list(/obj/item/clothing/head/that = 2,
+	products = list(
+					/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/fedora = 1,
 					/obj/item/clothing/glasses/monocle = 1,
 					/obj/item/clothing/under/suit_jacket/navy = 2,
@@ -3605,22 +3650,27 @@
 					/obj/item/clothing/neck/mantle/old = 1,
 					/obj/item/clothing/neck/mantle/regal = 2,
 					/obj/item/clothing/neck/cloak/grey = 1,
-					/obj/item/clothing/suit/storage/bomber = 4)
+					/obj/item/clothing/suit/storage/bomber = 4
+	)
 
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
+	contraband = list(
+					/obj/item/clothing/under/syndicate/tacticool = 1,
 					/obj/item/clothing/under/syndicate/tacticool/skirt = 1,
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/under/syndicate/blackops_civ = 1,
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/under/soviet = 1,
-					/obj/item/storage/belt/fannypack/black = 1)
+					/obj/item/storage/belt/fannypack/black = 1
+	)
 
-	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,
-				   /obj/item/clothing/head/mailman = 1,
-				   /obj/item/clothing/under/rank/mailman = 1,
-				   /obj/item/clothing/suit/jacket/leather = 1,
-				   /obj/item/clothing/under/pants/mustangjeans = 1,
-				   /obj/item/clothing/suit/storage/zazalord = 1)
+	premium = list(
+					/obj/item/clothing/under/suit_jacket/checkered = 1,
+					/obj/item/clothing/head/mailman = 1,
+					/obj/item/clothing/under/rank/mailman = 1,
+					/obj/item/clothing/suit/jacket/leather = 1,
+					/obj/item/clothing/under/pants/mustangjeans = 1,
+					/obj/item/clothing/suit/storage/zazalord = 1
+	)
 
 	refill_canister = /obj/item/vending_refill/clothing
 
@@ -4710,7 +4760,7 @@
 		/obj/item/gun/projectile/automatic/gyropistol = 8,
 		/obj/item/ammo_box/magazine/m75 = 12,
 		/obj/item/gun/projectile/automatic/l6_saw = 6,
-		/obj/item/ammo_box/magazine/mm556x45/ap = 12,
+		/obj/item/ammo_box/magazine/a762x51/ap = 12,
 		/obj/item/gun/projectile/automatic/shotgun/bulldog = 6,
 		/obj/item/gun/energy/immolator = 6,
 		/obj/item/storage/backpack/duffel/syndie/ammo/shotgun = 12,
@@ -5257,7 +5307,7 @@
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Фабрикатор с передовой технологией блюспейс-транспортировки ресурсов."
 	icon = 'icons/obj/machines/robotics.dmi'
-	icon_state = "fab-idle"
+	icon_state = "fabricator"
 	products = list(
 		/obj/mecha/combat/durand = 10,
 		/obj/mecha/combat/gygax = 10,
@@ -5509,14 +5559,15 @@
 	screen_overlay = "ammovend_overlay"
 
 	products = list(
-		/obj/item/ammo_box/magazine/wt550m9  = 8,
+		/obj/item/ammo_box/magazine/wt550m9  = 10,
+		/obj/item/ammo_box/magazine/sp91rc = 10,
 		/obj/item/ammo_box/magazine/enforcer/lethal = 10,
 		/obj/item/ammo_box/magazine/specter/laser = 10,
+		/obj/item/ammo_box/magazine/lr30mag = 10,
 		/obj/item/ammo_box/shotgun = 1,
 		/obj/item/ammo_box/shotgun/buck = 2,
 		/obj/item/ammo_box/shotgun/beanbag = 2,
 		/obj/item/ammo_box/shotgun/tranquilizer = 1,
-		/obj/item/ammo_box/magazine/sp91rc = 8,
 		/obj/item/grenade/flashbang = 10,
 		/obj/item/grenade/barrier = 10,
 		/obj/item/grenade/chem_grenade/teargas = 10,

@@ -1,1 +1,3 @@
-ALTER TABLE `characters` ADD COLUMN `exoframe_type` VARCHAR(128) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '/obj/item/organ/internal/cyberimp/chest/exoframe/reinforced';
+# Updates DB from 36 to 37
+# Adds support for disabling antagonism for some characters.
+ALTER TABLE `characters` ADD COLUMN `can_be_antagonist` tinyint(1) DEFAULT '1' AFTER `hair_gradient_alpha`;
