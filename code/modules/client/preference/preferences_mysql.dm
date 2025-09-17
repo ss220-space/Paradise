@@ -239,9 +239,8 @@
 					hair_gradient_offset,
 					hair_gradient_colour,
 					hair_gradient_alpha,
-					exoframe_type
 					can_be_antagonist,
-          exoframe_type
+					exoframe_type
 					FROM [format_table_name("characters")] WHERE ckey=:ckey AND slot=:slot"}, list(
 						"ckey" = C.ckey,
 						"slot" = slot
@@ -344,12 +343,11 @@
 		h_grad_colour = query.item[61]
 		h_grad_alpha = query.item[62]
 
-		exoframe_type = query.item[63]
 		// Can be antagonist
 		can_be_antagonist = query.item[63]
   
-    // Exoframes for IPC
-    exoframe_type = query.item[64]
+		// Exoframes for IPC
+		exoframe_type = query.item[64]
 
 		saved = TRUE
 
@@ -395,7 +393,7 @@
 	custom_emotes_tmp = sanitize_json(custom_emotes_tmp)
 	custom_emotes = init_custom_emotes(custom_emotes_tmp)
 	can_be_antagonist = sanitize_integer(can_be_antagonist, 0, 1, 1)
-  exoframe_type	= sanitize_text(exoframe_type, initial(exoframe_type))
+	exoframe_type	= sanitize_text(exoframe_type, initial(exoframe_type))
 
 	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_support_high = sanitize_integer(job_support_high, 0, 65535, initial(job_support_high))
@@ -550,9 +548,8 @@
 												uplink_pref=:uplink_pref,
 												tts_seed=:tts_seed,
 												custom_emotes=:custom_emotes,
-												exoframe_type=:exoframe_type
 												can_be_antagonist=:can_be_antagonist,
-                        exoframe_type=:exoframe_type
+												exoframe_type=:exoframe_type
 												WHERE ckey=:ckey
 												AND slot=:slot"}, list(
 													// OH GOD SO MANY PARAMETERS
@@ -619,7 +616,7 @@
 													"tts_seed" = tts_seed,
 													"custom_emotes" = json_encode(custom_emotes),
 													"can_be_antagonist" = can_be_antagonist,
-                          "exoframe_type" = exoframe_type,
+                          							"exoframe_type" = exoframe_type,
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)
@@ -759,8 +756,8 @@
 		"uplink_pref" = uplink_pref,
 		"tts_seed" = tts_seed,
 		"can_be_antagonist" = can_be_antagonist,
+		"exoframe_type" = exoframe_type,
 		"custom_emotes" = json_encode(custom_emotes),
-    "exoframe_type" = exoframe_type
 	))
 
 	if(!query.warn_execute())
