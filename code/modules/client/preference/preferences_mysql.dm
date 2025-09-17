@@ -345,7 +345,7 @@
 
 		// Can be antagonist
 		can_be_antagonist = query.item[63]
-  
+
 		// Exoframes for IPC
 		exoframe_type = query.item[64]
 
@@ -616,7 +616,7 @@
 													"tts_seed" = tts_seed,
 													"custom_emotes" = json_encode(custom_emotes),
 													"can_be_antagonist" = can_be_antagonist,
-                          							"exoframe_type" = exoframe_type,
+													"exoframe_type" = exoframe_type,
 													"ckey" = C.ckey,
 													"slot" = default_slot
 												)

@@ -515,7 +515,7 @@
 /obj/item/organ/internal/cyberimp/chest/exoframe/insert(mob/living/carbon/human/target)
 	if(!crit_fail)
 		for(var/trait in traits_added)
-			ADD_TRAIT(target, trait, src)
+			ADD_TRAIT(target, trait, UNIQUE_TRAIT_SOURCE(src))
 		target.maxHealth += given_health
 		target.health += given_health
 		target.dna.species.hazard_low_pressure = low_pressure_hazard
@@ -530,7 +530,7 @@
 /obj/item/organ/internal/cyberimp/chest/exoframe/remove(mob/living/carbon/human/target)
 	if(!crit_fail)
 		for(var/trait in traits_added)
-			REMOVE_TRAIT(target, trait, src)
+			REMOVE_TRAIT(target, trait, UNIQUE_TRAIT_SOURCE(src))
 		target.health -= given_health
 		target.maxHealth -= given_health
 		target.dna.species.hazard_low_pressure = initial(target.dna.species.hazard_low_pressure)
@@ -556,7 +556,7 @@
 			H.dna.species.warning_low_pressure = initial(H.dna.species.warning_low_pressure)
 			H.dna.species.coldmod = initial(H.dna.species.coldmod)
 			for(var/trait in traits_added)
-				REMOVE_TRAIT(H, trait, src)
+				REMOVE_TRAIT(H, trait, UNIQUE_TRAIT_SOURCE(src))
 		damage = 1
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/surgeryize()
@@ -566,7 +566,7 @@
 	var/mob/living/carbon/human/H = owner
 	if(ishuman(H))
 		for(var/trait in traits_added)
-			ADD_TRAIT(H, trait, src)
+			ADD_TRAIT(H, trait, UNIQUE_TRAIT_SOURCE(src))
 		H.maxHealth += given_health
 		H.health += given_health
 		H.dna.species.hazard_low_pressure = low_pressure_hazard
