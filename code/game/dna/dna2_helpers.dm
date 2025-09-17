@@ -23,19 +23,19 @@
 /proc/GetInjectorTechs(obj/item/dnainjector/I)
 	var/id = I.block
 	var/list/BOUNDS = GetDNABounds(id)
-	if (I.buf.dna.SE[id] < BOUNDS[DNA_ON_LOWERBOUND])
+	if(I.buf.dna.SE[id] < BOUNDS[DNA_ON_LOWERBOUND])
 		return I.origin_tech
-	if (id == GLOB.hulkblock)
+	if(id == GLOB.hulkblock)
 		return "combat=6"
-	if (id == GLOB.xrayblock)
+	if(id == GLOB.xrayblock)
 		return "biotech=6"
-	if (id == GLOB.teleblock)
+	if(id == GLOB.teleblock)
 		return "magnets=5"
-	if (id == GLOB.breathlessblock)
+	if(id == GLOB.breathlessblock)
 		return "biotech=5"
-	if (id == GLOB.shadowblock)
+	if(id == GLOB.shadowblock)
 		return "biotech=6"
-	if (id == GLOB.chameleonblock)
+	if(id == GLOB.chameleonblock)
 		return "biotech=6"
 	return I.origin_tech
 

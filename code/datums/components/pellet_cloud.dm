@@ -123,7 +123,7 @@
 		shell.BB.damage = original_damage
 		pellets += shell.BB
 		var/turf/current_loc = get_turf(fired_from)
-		if (!istype(target_loc) || !istype(current_loc) || !(shell.BB))
+		if(!istype(target_loc) || !istype(current_loc) || !(shell.BB))
 			return
 		INVOKE_ASYNC(shell, TYPE_PROC_REF(/obj/item/ammo_casing, throw_proj), target, target_loc, shooter, params, spread, fired_from)
 

@@ -269,7 +269,7 @@
 		to_chat(attacker, span_warning("[capitalize(declent_ru(NOMINATIVE))] кажется немного другим, чем обычно... он кажется более... ") + span_userdanger("СЛИЗИСТЫМ?!"))
 		ambush_attack(attacker, TRUE)
 		return TRUE
-	else if (!morphed)
+	else if(!morphed)
 		to_chat(attacker, span_warning("Прикосновение к [declent_ru(DATIVE)] руками причиняет вам боль!"))
 		attacker.apply_damage(20, def_zone = attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		add_food(5)
@@ -278,7 +278,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/proc/restore_form()
-	if (morphed)
+	if(morphed)
 		return mimic_spell.restore_form(src);
 
 
@@ -367,7 +367,7 @@
 			if(isobj(item_in_view) && allowed(item_in_view))
 				things += item_in_view
 		var/atom/movable/picked_thing = pick(things)
-		if (picked_thing)
+		if(picked_thing)
 			mimic_spell.take_form(new /datum/mimic_form(picked_thing, src), src)
 			prepare_ambush() // They cheat okay
 

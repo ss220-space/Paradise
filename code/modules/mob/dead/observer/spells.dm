@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 
 	if(target.get_spooked())
 		var/area/spook_zone = get_area(target)
-		if (spook_zone.is_haunted == TRUE)
+		if(spook_zone.is_haunted == TRUE)
 			to_chat(usr, span_shadowling("Завеса слаба в [spook_zone], потребовалось меньше усилий, чтобы воздействовать на [target]."))
 			cooldown_handler.start_recharge(cooldown_handler.recharge_duration / 2)
 		return
