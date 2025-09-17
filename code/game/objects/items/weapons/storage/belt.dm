@@ -14,8 +14,40 @@
 	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
 	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
-	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
 	actions_types = list(/datum/action/item_action/belt_fast_equip)
+
+	/// Do we have overlays for items held inside the belt?
+	var/use_item_overlays = FALSE
+	/// Won't change it's size even with items inside
+	var/storable = FALSE
+	/// Ignores update_weight() if TRUE (so initially BULKY belts won't become NORMAL when they get empty)
+	var/large = FALSE
+
+/obj/item/storage/belt/proc/update_weight()
+	if(large)
+		return
+	if(!length(contents) || storable)
+		w_class = WEIGHT_CLASS_NORMAL
+		return
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/storage/belt/remove_from_storage(obj/item/I, atom/new_location)
+	. = ..()
+	update_weight()
+
+/obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
+	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding) && !storable)
+		balloon_alert(usr, "сначала вытащите пояс!")
+		return FALSE
+	. = ..()
+
+/obj/item/storage/belt/Initialize(mapload)
+	. = ..()
+	update_weight()
+
+/obj/item/storage/belt/handle_item_insertion(obj/item/I, prevent_warning)
+	. = ..()
+	update_weight()
 
 /obj/item/storage/belt/proc/check_menu(mob/living/user)
 	if(!istype(user))
@@ -164,18 +196,17 @@
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
 	storage_slots = 8
-	max_combined_w_class = 17	// 7 `WEIGHT_CLASS_SMALL` items + RCD.
+	storable = TRUE
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
 	new /obj/item/crowbar/power(src)
-	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
+	new /obj/item/weldingtool/experimental(src)
 	new /obj/item/multitool(src)
 	new /obj/item/stack/cable_coil/random(src, 30)
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer(src)
 	update_icon()
-	//much roomier now that we've managed to remove two tools
 
 /obj/item/storage/belt/medical
 	name = "medical belt"
@@ -286,8 +317,6 @@
 		/obj/item/cultivator,
 		/obj/item/hatchet,
 		/obj/item/reagent_containers/glass/bottle,
-//		/obj/item/reagent_containers/syringe,
-//		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/shovel/spade,
@@ -303,7 +332,7 @@
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."
 	icon_state = "securitybelt"
-	item_state = "security"//Could likely use a better one.
+	item_state = "security"
 	storage_slots = 5
 	max_w_class = WEIGHT_CLASS_NORMAL
 	use_item_overlays = TRUE
@@ -432,6 +461,7 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
+	storable = TRUE
 	w_class_override = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
@@ -641,7 +671,8 @@
 	icon_state = "lazarusbelt_0"
 	item_state = "lazbelt"
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_TINY
+	large = TRUE
+	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 6
 	storage_slots = 6
 	can_hold = list(
@@ -756,7 +787,7 @@
 	new /obj/item/gun/magic/wand/door(src)
 	new /obj/item/gun/magic/wand/fireball(src)
 
-	for(var/obj/item/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
+	for(var/obj/item/gun/magic/wand/W in contents)
 		W.max_charges = initial(W.max_charges)
 		W.charges = W.max_charges
 	update_icon()
@@ -826,6 +857,7 @@
 	item_state = "sheath"
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
+	large = TRUE
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/melee/rapier/captain)
 
@@ -891,9 +923,9 @@
 	new /obj/item/melee/rapier/centcomm(src)
 	update_appearance(UPDATE_ICON_STATE)
 
-// -------------------------------------
-//     Bluespace Belt
-// -------------------------------------
+/**
+ * Bluespace belt
+ */
 
 /obj/item/storage/belt/bluespace
 	name = "Belt of Holding"
@@ -902,8 +934,9 @@
 	item_state = "holdingbelt"
 	storage_slots = 14
 	w_class = WEIGHT_CLASS_BULKY
+	large = TRUE
 	max_w_class = WEIGHT_CLASS_SMALL
-	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
+	max_combined_w_class = 21
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
 	w_class_override = list(
@@ -1006,10 +1039,6 @@
 	new /obj/item/dnainjector/firemut(src)
 	new /obj/item/dnainjector/telemut(src)
 	new /obj/item/dnainjector/hulkmut(src)
-//		new /obj/item/spellbook(src) // for smoke effects, door openings, etc
-//		new /obj/item/magic/spellbook(src)
-
-//		new/obj/item/reagent_containers/hypospray/admin(src)
 
 /obj/item/storage/belt/bluespace/sandbox
 	name = "Sandbox Mode Toolbelt"
@@ -1195,6 +1224,7 @@
 	item_state = "sheath_holy"
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
+	large = TRUE
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/nullrod/claymore)
 	var/claymore_path = /obj/item/nullrod/claymore
