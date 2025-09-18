@@ -404,8 +404,10 @@
 	loc = owner.drop_location()
 	START_PROCESSING(SSobj, src)
 
-	if(user && owner?.stat != DEAD && vital && !special)
-		add_attack_logs(user, owner, "Removed vital organ ([src])")
+	if(owner?.stat != DEAD && vital && !special)
+		if(user)
+			add_attack_logs(user, owner, "Removed vital organ ([src])")
+
 		owner.death()
 
 	owner = null
