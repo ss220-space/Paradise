@@ -81189,6 +81189,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
+/obj/item/rcd,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -93524,6 +93525,7 @@
 	},
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
+/obj/item/rcd,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},

@@ -6546,6 +6546,7 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/rcd,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -20773,11 +20774,6 @@
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
-	},
-/obj/structure/closet/crate/rcd,
-/obj/machinery/door/window/southright{
-	dir = 4;
-	name = "EVA Equipment"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -36051,7 +36047,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/storage/toolbox/mechanical,
 /obj/item/flashlight,
 /obj/item/radio/intercom{
 	pixel_x = -28
@@ -108834,12 +108829,8 @@
 /area/quartermaster/miningdock)
 "tXL" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/engineering_guide{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/book/manual/engineering_particle_accelerator,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/rcd,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
