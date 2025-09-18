@@ -5954,10 +5954,6 @@
 	layer = 3.15;
 	pixel_y = 8
 	},
-/obj/machinery/computer/old_frame/macintosh{
-	layer = 3.15;
-	pixel_y = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
 	},
@@ -13498,9 +13494,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"

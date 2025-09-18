@@ -3911,9 +3911,6 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/structure/table/wood{
-	color = "#996633"
-	},
 /turf/simulated/floor/carpet,
 /area/hallway/primary/port/east)
 "aIa" = (
@@ -32031,7 +32028,6 @@
 	req_access = list(64)
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "frt" = (
@@ -38332,9 +38328,6 @@
 	},
 /obj/item/stack/cable_coil,
 /obj/structure/table,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/storage/belt/utility,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
@@ -40686,7 +40679,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Hangar";
@@ -61412,7 +61404,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop/expedition)
 "nKt" = (
@@ -63067,7 +63058,6 @@
 	name = "Mechanic Workshop";
 	req_access = list(70)
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop)

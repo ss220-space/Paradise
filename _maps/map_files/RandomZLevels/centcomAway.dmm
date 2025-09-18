@@ -550,9 +550,6 @@
 	icon_state = "vault";
 	dir = 5
 	},
-/turf/simulated/wall/shuttle{
-	icon_state = "swall_f6"
-	},
 /area/awaymission/centcomAway/hangar)
 "by" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -745,13 +742,11 @@
 	},
 /area/awaymission/centcomAway/maint)
 "cd" = (
-/turf/simulated/floor/shuttle/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f6"
 	},
 /area/awaymission/centcomAway/hangar)
 "ce" = (
-/turf/simulated/floor/shuttle,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f9"
 	},
@@ -809,7 +804,6 @@
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcomAway/cafe)
 "ck" = (
-/turf/simulated/floor/shuttle/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f10";
 	layer = 2
@@ -833,7 +827,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/maint)
 "cn" = (
-/turf/simulated/floor/shuttle,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f5"
 	},
@@ -1163,9 +1156,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
-	},
-/turf/simulated/wall/shuttle{
-	icon_state = "swall_f9"
 	},
 /area/awaymission/centcomAway/hangar)
 "dj" = (
@@ -2116,7 +2106,6 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "fM" = (
-/turf/simulated/floor/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f5"
 	},
@@ -3720,9 +3709,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/turf/simulated/wall/shuttle{
-	icon_state = "swall_f10"
-	},
 /area/awaymission/centcomAway/hangar)
 "ka" = (
 /obj/structure/table,
@@ -3809,9 +3795,6 @@
 "km" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	},
-/turf/simulated/wall/shuttle{
-	icon_state = "swall_f9"
 	},
 /area/awaymission/centcomAway/hangar)
 "kn" = (
@@ -4252,7 +4235,6 @@
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f6"
 	},
@@ -4261,7 +4243,6 @@
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f5"
 	},
@@ -6301,9 +6282,6 @@
 	},
 /area/awaymission/centcomAway/thunderdome)
 "Di" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},

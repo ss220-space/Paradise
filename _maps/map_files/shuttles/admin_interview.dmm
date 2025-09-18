@@ -498,14 +498,6 @@
 	name = "Blast Shutters";
 	opacity = 0
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 1;
-	icon_state = "open";
-	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "yW" = (

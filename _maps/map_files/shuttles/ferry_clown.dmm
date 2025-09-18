@@ -102,9 +102,6 @@
 	preferred_direction = 4
 	},
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/bananium/glass{
-	req_access = list(46)
-	},
 /turf/simulated/wall/mineral/bananium,
 /area/shuttle/transport)
 "Q" = (
