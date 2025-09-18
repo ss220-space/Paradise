@@ -4138,7 +4138,6 @@
 /area/awaymission/UO71/gateway)
 "kH" = (
 /obj/structure/spider/cocoon{
-	contents = newlist(/obj/effect/decal/remains/human);
 	icon_state = "cocoon_large1"
 	},
 /obj/structure/spider/terrorweb,
