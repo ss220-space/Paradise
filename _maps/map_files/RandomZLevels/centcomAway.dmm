@@ -579,10 +579,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/hangar)
 "bD" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f10"
 	},
@@ -1144,10 +1140,6 @@
 /turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "dh" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 5
-	},
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f5"
 	},
@@ -2735,9 +2727,6 @@
 /turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "hE" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},

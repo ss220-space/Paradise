@@ -309,7 +309,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "axv" = (
-/obj/structure/lattice,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "ayY" = (
@@ -1496,7 +1495,6 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "bng" = (
-/obj/structure/lattice,
 /turf/simulated/wall/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/teleporter)
 "bnk" = (
@@ -11980,7 +11978,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "led" = (
-/obj/structure/lattice,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "leR" = (
@@ -18178,7 +18175,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "pPb" = (
-/obj/structure/lattice,
 /turf/simulated/wall/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "pQd" = (

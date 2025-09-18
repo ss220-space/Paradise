@@ -2493,7 +2493,6 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_1)
 "beS" = (
-/obj/structure/lattice,
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
@@ -30344,7 +30343,6 @@
 	},
 /area/centcom/zone1)
 "ocO" = (
-/obj/structure/table/wood,
 /obj/item/pizzabox/vegetable,
 /obj/item/pizzabox/vegetable,
 /obj/item/pizzabox/vegetable,
@@ -36619,7 +36617,6 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "qXZ" = (
-/obj/structure/closet/crate/can,
 /obj/structure/closet/hydrant{
 	pixel_y = 32
 	},

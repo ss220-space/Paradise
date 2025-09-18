@@ -2075,7 +2075,6 @@
 /turf/space,
 /area/template_noop)
 "gr" = (
-/obj/structure/lattice,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "gt" = (
@@ -4603,7 +4602,6 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "ob" = (
-/obj/structure/lattice,
 /turf/simulated/wall/r_wall,
 /area/template_noop)
 "od" = (
@@ -12726,7 +12724,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "LB" = (
-/obj/structure/lattice,
 /turf/simulated/wall/r_wall/rust,
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "LC" = (
@@ -16565,9 +16562,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"

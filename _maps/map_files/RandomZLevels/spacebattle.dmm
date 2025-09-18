@@ -2668,7 +2668,6 @@
 	},
 /area/awaymission/spacebattle/medbay)
 "hH" = (
-/obj/structure/closet/toolcloset,
 /obj/structure/closet/wardrobe/engineering_yellow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3013,12 +3012,6 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "iC" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
-/obj/machinery/sleeper{
-	dir = 4
-	},
 /obj/machinery/sleeper{
 	dir = 4
 	},
@@ -4301,7 +4294,6 @@
 	},
 /area/awaymission/spacebattle/hallway3)
 "mo" = (
-/obj/structure/lattice,
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/awaymission/spacebattle/cruiser)
 "mp" = (
@@ -4864,7 +4856,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway6)
 "nJ" = (
-/obj/structure/lattice,
 /turf/simulated/wall/shuttle,
 /area/awaymission/spacebattle/cruiser)
 "nK" = (
@@ -8412,12 +8403,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/hallway6)
 "xB" = (
@@ -8917,7 +8902,6 @@
 	},
 /area/awaymission/spacebattle/living)
 "yR" = (
-/obj/structure/lattice/catwalk,
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 6;
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
@@ -9069,7 +9053,6 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "zo" = (
-/obj/structure/lattice/catwalk,
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 10;
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
@@ -9295,9 +9278,6 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "zS" = (
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
@@ -11068,12 +11048,6 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -14312,10 +14286,6 @@
 /area/awaymission/spacebattle/syndicate3)
 "NP" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
-/obj/structure/window/plasmareinforced{
-	dir = 4;
-	simulated = 0
-	},
 /obj/structure/window/plasmareinforced{
 	dir = 4;
 	simulated = 0

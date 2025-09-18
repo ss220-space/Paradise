@@ -1517,9 +1517,6 @@
 /obj/structure/window/full/shuttle{
 	color = "#A9E0FF"
 	},
-/obj/structure/window/full/shuttle{
-	color = "#A9E0FF"
-	},
 /obj/structure/grille,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/middle)

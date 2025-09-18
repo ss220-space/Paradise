@@ -1490,9 +1490,6 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "dO" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
-	},
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "dQ" = (
@@ -6397,9 +6394,6 @@
 	},
 /area/derelict/arrival)
 "qk" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/arrival)
 "ql" = (
@@ -8736,10 +8730,6 @@
 "Iv" = (
 /obj/machinery/power/solar{
 	id = "russolar"
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
 	},
 /obj/structure/cable{
 	d2 = 4;

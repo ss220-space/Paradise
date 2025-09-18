@@ -188,9 +188,6 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aD" = (
-/obj/effect/spawner/window/reinforced{
-	color = "red"
-	},
 /turf/simulated/wall/cult,
 /area/shuttle/escape)
 "aE" = (

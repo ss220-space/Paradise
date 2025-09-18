@@ -23924,10 +23924,6 @@
 	dir = 4;
 	id = "garbage"
 	},
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "garbage"
-	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "iRv" = (
@@ -24850,9 +24846,6 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/bridge/hop)
 "jgu" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/chair{
 	dir = 4
 	},

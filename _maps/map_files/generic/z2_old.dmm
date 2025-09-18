@@ -7233,9 +7233,6 @@
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
-/obj/structure/chair/sofa/right{
-	dir = 1
-	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},
@@ -19910,7 +19907,6 @@
 	},
 /area/syndicate_mothership)
 "oOe" = (
-/obj/structure/lattice,
 /turf/simulated/wall/indestructible,
 /area/centcom)
 "oOr" = (
@@ -20190,7 +20186,6 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
 "paY" = (
-/obj/structure/lattice,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/evac)
 "pbl" = (
@@ -22061,11 +22056,9 @@
 	},
 /area/centcom/bridge)
 "qcr" = (
-/obj/structure/lattice,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom)
 "qcy" = (
-/obj/structure/lattice,
 /turf/simulated/wall/indestructible,
 /area/centcom/evac)
 "qds" = (
