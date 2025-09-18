@@ -214,7 +214,6 @@
 	icon_state = "swall_f5";
 	tag = "icon-swall_f5"
 	},
-/turf/simulated/mineral/random/labormineral,
 /area/space/nearstation)
 "N" = (
 /turf/simulated/wall/shuttle{
