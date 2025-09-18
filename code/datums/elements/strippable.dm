@@ -71,7 +71,7 @@
 /// This should be used for checking if an item CAN be equipped.
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
-	if(HAS_TRAIT(equipping, TRAIT_NODROP) )
+	if(HAS_TRAIT(equipping, TRAIT_NODROP))
 		to_chat(user, span_warning("Вы не можете надеть [equipping.declent_ru(ACCUSATIVE)] на [source.declent_ru(ACCUSATIVE)] – предмет прилип к вашей руке!"))
 		return FALSE
 
@@ -95,7 +95,7 @@
 	if(!do_after(user, equipping.put_on_delay, source))
 		return FALSE
 
-	if(QDELETED(equipping) || !user.Adjacent(source) || HAS_TRAIT(equipping, TRAIT_NODROP) )
+	if(QDELETED(equipping) || !user.Adjacent(source) || HAS_TRAIT(equipping, TRAIT_NODROP))
 		return FALSE
 
 	return TRUE

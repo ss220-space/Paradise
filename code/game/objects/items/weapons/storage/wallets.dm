@@ -103,9 +103,11 @@
 
 
 /obj/item/storage/wallet/random/populate_contents()
-	var/coin = pickweight(list(/obj/item/coin/iron = 3,
-							   /obj/item/coin/silver = 2,
-							   /obj/item/coin/gold = 1))
+	var/coin = pickweight(list(
+		/obj/item/coin/iron = 3,
+		/obj/item/coin/silver = 2,
+		/obj/item/coin/gold = 1)
+	)
 	new coin(src)
 
 //////////////////////////////////////

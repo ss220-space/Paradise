@@ -29,6 +29,6 @@ GLOBAL_LIST_INIT(nightmare_strings, file2list("config/sleep/nightmares.txt"))
 GLOBAL_LIST_INIT(isp_whitelist, file2list("config/names/isp_whitelist.txt"))
 GLOBAL_LIST_INIT(isp_blacklist, file2list("config/names/isp_blacklist.txt"))
 
-GLOBAL_LIST_INIT(cached_ru_names, list())
+GLOBAL_LIST_EMPTY(cached_ru_names)
 //loaded on startup because of "
 //would include in rsc if ' was used

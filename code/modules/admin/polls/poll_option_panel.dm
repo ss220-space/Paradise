@@ -58,7 +58,7 @@
 		return
 
 	var/client/ui_client = ui.user.client
-	switch (action)
+	switch(action)
 		if("submit_option")
 			option_list["text"] = params["text"]
 			option_list["default_percentage_calc"] = params["default_percentage_calc"]

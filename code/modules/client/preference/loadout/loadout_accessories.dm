@@ -32,9 +32,11 @@
 
 /datum/gear/accessory/scarfstriped/New()
 	..()
-	var/list/scarfs = list(/obj/item/clothing/accessory/stripedredscarf,
-						   /obj/item/clothing/accessory/stripedgreenscarf,
-						   /obj/item/clothing/accessory/stripedbluescarf,)
+	var/list/scarfs = list(
+		/obj/item/clothing/accessory/stripedredscarf,
+		/obj/item/clothing/accessory/stripedgreenscarf,
+		/obj/item/clothing/accessory/stripedbluescarf
+	)
 	gear_tweaks += new /datum/gear_tweak/path(scarfs, src, TRUE)
 
 /datum/gear/accessory/holobadge
@@ -93,16 +95,18 @@
 
 /datum/gear/accessory/cowboyshirt/New()
 	..()
-	var/list/shirts = list(/obj/item/clothing/accessory/cowboyshirt,
-						   /obj/item/clothing/accessory/cowboyshirt/short_sleeved,
-						   /obj/item/clothing/accessory/cowboyshirt/white,
-						   /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved,
-						   /obj/item/clothing/accessory/cowboyshirt/pink,
-						   /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved,
-						   /obj/item/clothing/accessory/cowboyshirt/red,
-						   /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved,
-						   /obj/item/clothing/accessory/cowboyshirt/navy,
-						   /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved,)
+	var/list/shirts = list(
+		/obj/item/clothing/accessory/cowboyshirt,
+		/obj/item/clothing/accessory/cowboyshirt/short_sleeved,
+		/obj/item/clothing/accessory/cowboyshirt/white,
+		/obj/item/clothing/accessory/cowboyshirt/white/short_sleeved,
+		/obj/item/clothing/accessory/cowboyshirt/pink,
+		/obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved,
+		/obj/item/clothing/accessory/cowboyshirt/red,
+		/obj/item/clothing/accessory/cowboyshirt/red/short_sleeved,
+		/obj/item/clothing/accessory/cowboyshirt/navy,
+		/obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
+	)
 	gear_tweaks += new /datum/gear_tweak/path(shirts, src, TRUE)
 
 /datum/gear/accessory/locket

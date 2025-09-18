@@ -210,3 +210,5 @@
 
 /// Makes you lean on something
 #define STATUS_EFFECT_LEANING /datum/status_effect/leaning
+
+#define STATUS_EFFECT_TEMPERATURE /datum/status_effect/transient/temperature

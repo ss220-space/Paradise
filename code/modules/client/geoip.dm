@@ -121,7 +121,7 @@
 		return "limit reached"
 
 	var/list/vl = world.Export("http://ip-api.com/json/[addr]?fields=205599")
-	if (!("CONTENT" in vl) || vl["STATUS"] != "200 OK")
+	if(!("CONTENT" in vl) || vl["STATUS"] != "200 OK")
 		return "export fail"
 
 	var/msg = file2text(vl["CONTENT"])
@@ -172,9 +172,12 @@
 			announce_in_discord = TRUE
 			kickbannedckey = 1
 
-	if( !bantype_pass ) return
-	if( !istext(reason) ) return
-	if( !isnum(duration) ) return
+	if(!bantype_pass)
+		return
+	if(!istext(reason))
+		return
+	if(!isnum(duration))
+		return
 
 	var/ckey
 	var/computerid

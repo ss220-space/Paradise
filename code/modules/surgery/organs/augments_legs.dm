@@ -31,7 +31,7 @@
 			COOLDOWN_START(src, emp_notice, 30 SECONDS)
 		return
 
-	if(severity & EMP_HEAVY && prob(25) )	//put probabilities into a calculator before you try fucking with this
+	if(severity & EMP_HEAVY && prob(25))	//put probabilities into a calculator before you try fucking with this
 		to_chat(owner, span_warning("ЭМИ заставляет ваш [src.declent_ru(ACCUSATIVE)] дико дёргать [GLOB.body_zone[parent_organ_zone][ACCUSATIVE]], ломая его!"))
 		owner.apply_damage(40, def_zone = E)
 	else if(COOLDOWN_FINISHED(src, emp_notice))

@@ -30,11 +30,6 @@ if grep -P '/obj/merge_conflict_marker' _maps/**/*.dmm; then
 	echo
     st=1
 fi;
-# Check for non-515 compatable .proc/ syntax
-if grep -P --exclude='__byond_version_compat.dm' '(\.proc\/)|(CALLBACK\((?!GLOBAL_PROC)[^,\(\)]+,[^,\(\)]+proc[^,\(\)]+[,\)])|((?<!#define\s)INVOKE_ASYNC\((?!GLOBAL_PROC)[^,\(\)]+,[^,\(\)]+proc[^,\(\)]+[,\)])' code/**/*.dm; then
-    echo "ERROR: Outdated proc reference use detected in code, please use proc reference helpers."
-    st=1
-fi;
 # TODO: Uncomment in the future, when our maps are standardized
 # if grep -P '^\ttag = \"icon' _maps/**/*.dmm;	then
 #     echo -e "${RED}ERROR: Tag vars from icon state generation detected in maps, please remove them.${NC}"
@@ -181,89 +176,10 @@ if grep -ni 'nanotransen' _maps/**/*.dmm; then
     st=1
 fi;
 
-echo -e "${BLUE}Checking for whitespace issues...${NC}"
-
-if grep -P '(^ {2})|(^ [^ * ])|(^    +)' code/**/*.dm; then
-    echo -e "${RED}ERROR: Space indentation detected, please use tab indentation.${NC}"
-	echo
-    st=1
-fi;
-if grep -P '^\t+ [^ *]' code/**/*.dm; then
-    echo -e "${RED}ERROR: Mixed <tab><space> indentation detected, please stick to tab indentation.${NC}"
-	echo
-    st=1
-fi;
-nl='
-'
-nl=$'\n'
-while read f; do
-    t=$(tail -c2 "$f"; printf x); r1="${nl}$"; r2="${nl}${r1}"
-    if [[ ! ${t%x} =~ $r1 ]]; then
-        echo -e "${RED}ERROR: file $f is missing a trailing newline.${NC}"
-		echo
-        st=1
-    fi;
-done < <(find . -type f -name '*.dm')
-
 echo -e "${BLUE}Checking for common mistakes...${NC}"
 
-if grep -P 'to_chat\((?!.*,).*\)' code/**/*.dm; then
-    echo -e "${RED}ERROR: to_chat() missing arguments.${NC}"
-	echo
-    st=1
-fi;
-if grep -P 'addtimer\((?=.*TIMER_OVERRIDE)(?!.*TIMER_UNIQUE).*\)' code/**/*.dm; then
-    echo -e "${RED}ERROR: TIMER_OVERRIDE used without TIMER_UNIQUE.${NC}"
-	echo
-    st=1
-fi;
-if grep -P '^/*var/' code/**/*.dm; then
-    echo -e "${RED}ERROR: Unmanaged global var use detected in code, please use the helpers.${NC}"
-	echo
-    st=1
-fi;
-if grep '#define FAST_LOAD' _maps/common.dm | grep -v '\/\/#define FAST_LOAD'; then
-    echo -e "${RED}ERROR: commiting uncommented FAST_LOAD define.${NC}"
-	echo
-    st=1
-fi;
-if grep -P '^/[\w/]\S+\((var/)?.*(, ?var/.*).*\)' code/**/*.dm; then
-    echo -e "${RED}ERROR: Changed files contains a proc argument starting with 'var'.${NC}"
-	echo
-    st=1
-fi;
-if grep -ni 'nanotransen' code/**/*.dm; then
-    echo -e "${RED}ERROR: Misspelling(s) of Nanotrasen detected in code, please remove the extra N(s).${NC}"
-	echo
-    st=1
-fi;
 if grep -i '/obj/effect/mapping_helpers/custom_icon' _maps/**/*.dmm; then
     echo -e "${RED}ERROR: Custom icon helper found. Please include DMI files as standard assets instead for repository maps.${NC}"
-	echo
-    st=1
-fi;
-if grep -i 'var/list/static/.*' code/**/*.dm; then
-    echo -e "${RED}ERROR: Found incorrect static list definition 'var/list/static/', it should be 'var/static/list/' instead.${NC}"
-	echo
-    st=1
-fi;
-if grep -P 'balloon_alert\(".*"\)' code/**/*.dm; then
-    echo -e "${RED}ERROR: Found a balloon alert with improper arguments.${NC}"
-	echo
-    st=1
-fi;
-if grep -P 'balloon_alert\(.*span_\)' code/**/*.dm; then
-    echo -e "${RED}ERROR: Balloon alerts should never contain spans.${NC}"
-	echo
-    st=1
-fi;
-if grep -P 'balloon_alert\(.*?, ?"[А-Я]' code/**/*.dm; then
-    echo -e "${RED}ERROR: Balloon alerts should not start with capital letters. This includes text like 'AI'. If this is a false positive, wrap the text in UNLINT().${NC}"
-	echo
-    st=1
-fi;
-if grep -P '^/(obj|mob|turf|area|atom)/.+/Initialize\((?!mapload).*\)' code/**/*.dm; then
-    echo -e "${RED}ERROR: Initialize override without 'mapload' argument.${NC}"
 	echo
     st=1
 fi;

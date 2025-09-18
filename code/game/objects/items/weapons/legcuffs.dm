@@ -96,7 +96,7 @@
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 		add_game_logs("has rigged a beartrap with an IED.", user)
 		to_chat(user, span_notice("Вы просовываете [IED.declent_ru(ACCUSATIVE)] под нажимную пластину и подсоединяете запал."))
-		update_desc()
+		update_appearance(UPDATE_DESC)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(issignaler(I))
@@ -113,7 +113,7 @@
 			return ..()
 		sig = signaler
 		to_chat(user, span_notice("Вы просовываете [sig.declent_ru(ACCUSATIVE)] под нажимную пластину и подсоединяете запал."))
-		update_desc()
+		update_appearance(UPDATE_DESC)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -129,14 +129,14 @@
 		IED.forceMove(get_turf(src))
 		balloon_alert(user, "[IED.declent_ru(NOMINATIVE)] снят[genderize_ru(IED.gender, "", "а", "о", "ы")]")
 		IED = null
-		update_desc()
+		update_appearance(UPDATE_DESC)
 		return
 
 	if(sig)
 		sig.forceMove(get_turf(src))
 		balloon_alert(user, "[sig.declent_ru(NOMINATIVE)] снят[genderize_ru(sig.gender, "", "а", "о", "ы")]")
 		sig = null
-		update_desc()
+		update_appearance(UPDATE_DESC)
 		return
 
 

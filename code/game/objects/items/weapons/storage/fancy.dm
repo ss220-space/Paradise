@@ -513,7 +513,7 @@
 
 /obj/item/storage/fancy/rollingpapers
 	name = "rolling paper pack"
-	desc = "Упаковка рулонной бумаги НаноТрейзен."
+	desc = "Упаковка рулонной бумаги Нанотрейзен."
 	gender = FEMALE
 	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/cigarettes.dmi'

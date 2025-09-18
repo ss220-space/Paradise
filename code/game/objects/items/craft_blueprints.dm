@@ -45,7 +45,7 @@
 
 /obj/item/craft_blueprints/Initialize(mapload)
 	. = ..()
-	update_desc()
+	update_appearance(UPDATE_DESC)
 	RegisterSignal(src, COMSIG_ITEM_PLACED_ON_TABLE, PROC_REF(on_table_place))
 
 
@@ -60,7 +60,7 @@
 
 
 /obj/item/craft_blueprints/examine(mob/user)
-	update_desc()
+	update_appearance(UPDATE_DESC)
 	. = ..()
 	if(length(tools))
 		var/required_tools_text = "Требуемые инструменты: "

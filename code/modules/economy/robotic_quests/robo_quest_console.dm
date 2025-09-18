@@ -9,10 +9,12 @@
 #define COMBAT_CLASS	3
 #define RANDOM_CLASS	4
 /// TGUI helper define for shop items good placing
-#define CATS_BY_STAGE list("number" = list("first", "second", "third"), \
-						   "first" = list("working", "medical", "security"), \
-						   "second" = list("working_medical", "medical_security"), \
-						   "third" = list("working_medical_security"))
+#define CATS_BY_STAGE list( \
+	"number" = list("first", "second", "third"), \
+	"first" = list("working", "medical", "security"), \
+	"second" = list("working_medical", "medical_security"), \
+	"third" = list("working_medical_security") \
+)
 
 
 ///////////////////////
