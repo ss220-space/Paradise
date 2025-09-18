@@ -191,7 +191,7 @@
 
 /obj/item/multitool/brass
 	name = "brass multimeter"
-	desc = "Механический прибор из латуни измеряющий показания тока, из за отсутствия электроники должен быть устойчив к ЭМИ."
+	desc = "Механический прибор из латуни, измеряющий показания тока. Отсутствие электронных компонентов делает его невосприимчивым к ЭМИ."
 	icon_state = "multitool_brass"
 	toolspeed = 0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
