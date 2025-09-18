@@ -1496,15 +1496,10 @@
 	return ..()
 
 
-// C2 medications
-// Helbital
-//Inverse:
 /datum/reagent/inverse/helgrasp
 	name = "Helgrasp"
 	description = "Считается, что этот редкий и запрещенный напиток поможет вам приблизиться к скандинавской богине Хель."
 	metabolization_rate = 1*REM //This is fast
-	//tox_damage = 0.25
-	//ph = 14
 	//Compensates for seconds_per_tick lag by spawning multiple hands at the end
 	var/lag_remainder = 0
 	//Keeps track of the hand timer so we can cleanup on removal
@@ -1574,4 +1569,3 @@ Basically, we fill the time between now and 2s from now with hands based off the
 	name = "Прикосновение Мансуса"
 	description = "Чья-та рука у вашего горла..."
 	metabolization_rate = 1 * REM
-	//tox_damage = 0
