@@ -316,6 +316,7 @@
 	var/starting_turf_y = target.y + rand(10, 15) * pick(1, -1)
 	var/turf/start = locate(starting_turf_x, starting_turf_y, target.z)
 	var/obj/effect/immovablerod/smite/rod = new (start, target)
+	rod.reason = reason
 	rod.go_for_a_walk(target)
 
 
@@ -499,7 +500,77 @@
 /datum/smite/brainrot_braingamage/proc/string_to_list(bad_words)
 	return splittext(bad_words, ",")
 
-/// MARK: Admin proc
+
+/// MARK: Piano
+/datum/smite/piano
+	name = SMITE_PIANO
+	desc = "Сбросьте на грешника пианино или вендомат."
+	logmsg = "piano"
+
+
+/datum/smite/piano/apply_effect(mob/living/target, reason)
+	var/type = tgui_input_list(usr, "Выберите что именно упадёт на грешника.", "Выбор падающей стуктуры", subtypesof(/obj/machinery/vending) + list(/obj/structure/pianoclassic) + list(/obj/structure/piano))
+	var/obj/fallen = new type()
+	var/turf/target_turf = get_turf(target)
+	target_turf.zFall(fallen, 3, TRUE)
+	to_chat(target, span_userdanger(
+		"Откуда-то сверху на вас пада[pluralize_ru(fallen.gender, "ет", "ют")] [fallen.declent_ru(NOMINATIVE)]! \
+		Вам почему-то кажется, что это наказание за [reason]." \
+	))
+
+
+/// MARK: Jackboots
+/datum/smite/jackbots
+	name = SMITE_JACKBOOTS
+	desc = "Заставьте грешника до конца смены изредка слышать топот ботинков СБ."
+	logmsg = "jackboots sounds"
+	var/mob/target
+	var/sound_chanse = 1
+
+
+/datum/smite/jackbots/apply_effect(mob/living/target, reason)
+	src.target = target
+	RegisterSignal(target, COMSIG_LIVING_LIFE, PROC_REF(try_hear_sound))
+
+
+/datum/smite/jackbots/proc/try_hear_sound()
+	SIGNAL_HANDLER
+	if(!prob(2))
+		return
+
+	var/starting_turf_x = target.x + rand(5, 10) * pick(1, -1)
+	var/starting_turf_y = target.y + rand(5, 10) * pick(1, -1)
+	var/turf/start = locate(starting_turf_x, starting_turf_y, target.z)
+	var/turf/end = locate(starting_turf_x + rand(5, 10) * pick(1, -1), starting_turf_y + rand(5, 10) * pick(1, -1), target.z)
+	if(!start || !end)
+		return
+
+	var/steps_limit = 10
+	while(steps_limit > 0)
+		target.playsound_local(start, pick(list('sound/effects/jackboot1.ogg', 'sound/effects/jackboot2.ogg')), 20, TRUE, 0, falloff_exponent = 10)
+		start = get_step(start, get_dir(start, end))
+		steps_limit--
+
+
+/// MARK: Machinery transformation
+/datum/smite/machinery
+	name = SMITE_MACHINERY
+	desc = "Сбросьте на грешника пианино или вендомат."
+	logmsg = "machinery transformation"
+
+
+/datum/smite/machinery/apply_effect(mob/living/target, reason)
+	var/type = tgui_input_list(usr, "Выберите в какую машинерию превратится грешник.", "Выбор новой формы", subtypesof(/obj/machinery))
+	var/obj/machinery/new_form = new type()
+	to_chat(target, span_userdanger( \
+		"Ваши конечности немеют... По телу распространяется металлический холод... Это смерть? \
+		Нет. Хуже. Это [new_form.declent_ru(NOMINATIVE)]. Похоже что ваша новая форма - наказание за [reason]." \
+	))
+	new_form.AddComponent(/datum/component/minded_machine, target)
+	qdel(target)
+
+
+/// MARK: Admin smite proc
 /client/proc/smite(mob/living/mob as mob)
 	set category = STATPANEL_ADMIN_FUN
 	set name = "Smite"

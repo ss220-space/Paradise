@@ -26,6 +26,9 @@
 #define	SMITE_POD					"Ракета"
 #define SMITE_GLOBALHUNTING			"Охота"
 #define SMITE_BRAINROTBRAINDAMAGE	"Автобрейндамаг за брейнрот"
+#define SMITE_PIANO					"Уронить пианино/автомат"
+#define SMITE_JACKBOOTS				"Фантомный топот"
+#define SMITE_MACHINERY				"Разумная машинерия"
 
 
 GLOBAL_LIST_INIT(smites_not_human, list(
@@ -39,6 +42,9 @@ GLOBAL_LIST_INIT(smites_not_human, list(
 	SMITE_SUMMON = 				/datum/smite/summon,
 	SMITE_POD = 				/datum/smite/pod,
 	SMITE_GLOBALHUNTING = 		/datum/smite/global_hunting,
+	SMITE_PIANO = 				/datum/smite/piano,
+	SMITE_JACKBOOTS = 			/datum/smite/jackbots,
+	SMITE_MACHINERY = 			/datum/smite/machinery,
 ))
 
 GLOBAL_LIST_INIT(smites_human, list(
@@ -48,7 +54,7 @@ GLOBAL_LIST_INIT(smites_human, list(
 	SMITE_HUNGER =  			/datum/smite/hunger,
 	SMITE_ANTIDROP_EQUIP =  	/datum/smite/antidrop_equip,
 	SMITE_NUGGET = 				/datum/smite/nugget,
-	SMITE_DEMOTE = 				/datum/smite/demote,
+	SMITE_DEMOTE = 				/datum/smite/demote, // Nothing that need being human, but you can't demote corgi.
 	SMITE_VIRUS = 				/datum/smite/virus,
 	SMITE_BRAINROTBRAINDAMAGE =	/datum/smite/brainrot_braingamage,
 ))
