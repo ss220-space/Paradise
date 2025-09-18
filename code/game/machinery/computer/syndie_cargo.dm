@@ -92,7 +92,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
 
-	if((errors & MANIFEST_ERROR_ITEM))
+	if(errors & MANIFEST_ERROR_ITEM)
 		//secure and large crates cannot lose items
 		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
 			errors &= ~MANIFEST_ERROR_ITEM
@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			linked_pads += P
 			continue
 	pads_cooldown = round(pads_cooldown)
-	if (length(receiving_pads) && length(linked_pads))
+	if(length(receiving_pads) && length(linked_pads))
 		telepads_status = "Pads ready"
 	else
 		if(usr) //Во избежание рантаймов по to_chat при автоматической раундстарт синхронизации синдипадов

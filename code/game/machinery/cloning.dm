@@ -270,7 +270,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(!clonemind.is_revivable()) //Other reasons for being unrevivable
 		return 0
 	if(clonemind.active)	//somebody is using that mind
-		if(ckey(clonemind.key) != R.ckey )
+		if(ckey(clonemind.key) != R.ckey)
 			return 0
 		if(clonemind.suicided) // and stay out!
 			malfunction(go_easy = 0)

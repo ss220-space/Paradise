@@ -9,7 +9,6 @@
 // END_FILE_DIR
 // BEGIN_PREFERENCES
 #define DEBUG
-#define MULTIINSTANCE
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
@@ -17,7 +16,7 @@
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
-#include "code\__DEFINES\__byond_version_compat.dm"
+#include "code\__DEFINES\__proc_refs.dm"
 #include "code\__DEFINES\_atoms.dm"
 #include "code\__DEFINES\_bitfields.dm"
 #include "code\__DEFINES\_click.dm"
@@ -586,10 +585,12 @@
 #include "code\datums\components\fullauto.dm"
 #include "code\datums\components\ghost_direct_control.dm"
 #include "code\datums\components\hide_highest_offset.dm"
+#include "code\datums\components\hide_weather_planes.dm"
 #include "code\datums\components\holderloving.dm"
 #include "code\datums\components\jackboots.dm"
 #include "code\datums\components\jetpack.dm"
 #include "code\datums\components\label.dm"
+#include "code\datums\components\laser_sight.dm"
 #include "code\datums\components\leaning.dm"
 #include "code\datums\components\material_container.dm"
 #include "code\datums\components\muscles.dm"
@@ -1632,6 +1633,7 @@
 #include "code\game\sound\sound.dm"
 #include "code\game\sound\sound_keys\sound_keys.dm"
 #include "code\game\sound\sound_keys\sound_keys_assoc.dm"
+#include "code\game\sound\sound_keys\sound_keys_reagents.dm"
 #include "code\game\turfs\baseturf.dm"
 #include "code\game\turfs\simulated.dm"
 #include "code\game\turfs\turf.dm"
@@ -2368,7 +2370,6 @@
 #include "code\modules\events\tear_honk.dm"
 #include "code\modules\events\tear_random.dm"
 #include "code\modules\events\traders.dm"
-#include "code\modules\events\undead.dm"
 #include "code\modules\events\vent_clog.dm"
 #include "code\modules\events\wallrot.dm"
 #include "code\modules\events\wormholes.dm"

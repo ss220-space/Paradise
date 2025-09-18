@@ -15,7 +15,7 @@
 	bubble_up(heap.len)
 
 /priority_queue/proc/dequeue()
-	if (heap.len == 0)
+	if(heap.len == 0)
 		return null
 
 	var/priority_node/top = heap[1]
@@ -29,7 +29,7 @@
 	return item
 
 /priority_queue/proc/peek()
-	if (heap.len == 0)
+	if(heap.len == 0)
 		return null
 	return heap[1].item
 
@@ -40,7 +40,7 @@
 	while(index > 1)
 		var/parent = round(index / 2)
 
-		if (heap[parent].priority < heap[index].priority)
+		if(heap[parent].priority < heap[index].priority)
 			break
 
 		swap(index, parent)
@@ -51,10 +51,10 @@
 	while(index * 2 <= heap.len)
 		var/child = index * 2
 
-		if (child + 1 <= heap.len && heap[child + 1].priority < heap[child].priority)
+		if(child + 1 <= heap.len && heap[child + 1].priority < heap[child].priority)
 			child++
 
-		if (heap[index].priority < heap[child].priority)
+		if(heap[index].priority < heap[child].priority)
 			break
 
 		swap(index, child)

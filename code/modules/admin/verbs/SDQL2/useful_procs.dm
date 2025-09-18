@@ -91,7 +91,7 @@ CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':
 	thing << link(url)
 
 /proc/_locate(X, Y, Z)
-	if (isnull(Y)) // Assuming that it's only a single-argument call.
+	if(isnull(Y)) // Assuming that it's only a single-argument call.
 		return locate(X)
 
 	return locate(X, Y, Z)
@@ -181,7 +181,7 @@ CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':
 	return sin(X)
 
 /proc/_list_add(list/L, ...)
-	if (args.len < 2)
+	if(args.len < 2)
 		return
 	L += args.Copy(2)
 
@@ -201,7 +201,7 @@ CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':
 	return L.Join(Glue, Start, End)
 
 /proc/_list_remove(list/L, ...)
-	if (args.len < 2)
+	if(args.len < 2)
 		return
 	L -= args.Copy(2)
 

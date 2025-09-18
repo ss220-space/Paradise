@@ -13,7 +13,7 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 	if(config && CONFIG_GET(string/banappeals))
 		appeal = "\nFor more information on your ban, or to appeal, head to <a href='[CONFIG_GET(string/banappeals)]'>[CONFIG_GET(string/banappeals)]</a>"
 	GLOB.banlist_savefile.cd = "/base"
-	if( "[ckey][id]" in GLOB.banlist_savefile.dir )
+	if("[ckey][id]" in GLOB.banlist_savefile.dir)
 		GLOB.banlist_savefile.cd = "[ckey][id]"
 		if(GLOB.banlist_savefile["temp"])
 			if(!GetExp(GLOB.banlist_savefile["minutes"]))
@@ -30,13 +30,13 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 		for(var/A in GLOB.banlist_savefile.dir)
 			GLOB.banlist_savefile.cd = "/base/[A]"
 			var/matches
-			if( ckey == GLOB.banlist_savefile["key"] )
+			if(ckey == GLOB.banlist_savefile["key"])
 				matches += "ckey"
-			if( id == GLOB.banlist_savefile["id"] )
+			if(id == GLOB.banlist_savefile["id"])
 				if(matches)
 					matches += "/"
 				matches += "id"
-			if( address == GLOB.banlist_savefile["ip"] )
+			if(address == GLOB.banlist_savefile["ip"])
 				if(matches)
 					matches += "/"
 				matches += "ip"
@@ -102,7 +102,7 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 		bantimestamp = GLOB.CMinutes + minutes
 
 	GLOB.banlist_savefile.cd = "/base"
-	if( GLOB.banlist_savefile.dir.Find("[ckey][computerid]") )
+	if(GLOB.banlist_savefile.dir.Find("[ckey][computerid]"))
 		if(usr)
 			to_chat(usr, "<span class='danger'>Ban already exists.</span>")
 		return 0

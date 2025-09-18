@@ -28,13 +28,13 @@
 
 	message_admins("[key_name_admin(src)] accessed file: [path]")
 	switch(tgui_alert(usr, "View (in game), Open (in your system's text editor), or Download?", path, list("View", "Open", "Download")))
-		if ("View")
+		if("View")
 			var/datum/browser/popup = new(src, "viewfile.[path]", "Server Logs")
 			popup.set_content("<pre style='word-wrap: break-word;'>[html_encode(wrap_file2text(wrap_file(path)))]</pre>")
 			popup.open(FALSE)
-		if ("Open")
+		if("Open")
 			src << run(wrap_file(path))
-		if ("Download")
+		if("Download")
 			src << ftp(wrap_file(path))
 		else
 			return

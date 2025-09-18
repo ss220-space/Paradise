@@ -148,7 +148,7 @@
 		amount_grown = 0
 		update_state()
 		regenerate_icons()
-		update_name()
+		update_appearance(UPDATE_NAME)
 	else
 		to_chat(src, "<i>I am not ready to evolve yet...</i>")
 
@@ -225,10 +225,10 @@
 	var/baby_counts = round(rand(3 + add_counts, age_state.baby_counts) * baby_mod)
 	baby_counts = baby_counts <= 0 ? 1 : baby_counts	//даже если нутриентов по нулям, то поделится на 1-го BABY
 	var/baby_counts_adult = 0
-	if (age_state.age == SLIME_OLD || age_state.age == SLIME_ELDER)
+	if(age_state.age == SLIME_OLD || age_state.age == SLIME_ELDER)
 		baby_counts_adult = rand(0, round(baby_counts / 2))
 	var/baby_counts_old = 0
-	if (age_state.age == SLIME_ELDER && baby_counts)
+	if(age_state.age == SLIME_ELDER && baby_counts)
 		baby_counts_old	= rand(0, round((baby_counts - baby_counts_adult * 2) / 3) + 1)
 
 	baby_counts -= baby_counts_adult * 2 + baby_counts_old * 3
@@ -237,20 +237,20 @@
 
 	//Определяем количество детей и будущее набольшее тело
 	var/mob/living/simple_animal/slime/new_slime
-	if (baby_counts_old)
+	if(baby_counts_old)
 		for(var/i in 1 to baby_counts_old)
 			reproduce_baby_stats(babies, /datum/slime_age/old, new_nutrition, new_powerlevel, can_mutate)
 		new_slime = pick(babies)
-	if (baby_counts_adult)
+	if(baby_counts_adult)
 		for(var/i in 1 to baby_counts_adult)
 			reproduce_baby_stats(babies, /datum/slime_age/adult, new_nutrition, new_powerlevel, can_mutate)
-		if (!new_slime)
+		if(!new_slime)
 			new_slime = pick(babies)
-	if (baby_counts)
+	if(baby_counts)
 		for(var/i in 1 to baby_counts)
 			reproduce_baby_stats(babies, /datum/slime_age/baby, new_nutrition, new_powerlevel, can_mutate)
 
-	if (!new_slime)
+	if(!new_slime)
 		new_slime = pick(babies)
 
 	new_slime.a_intent = INTENT_HARM

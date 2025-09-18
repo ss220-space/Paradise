@@ -89,9 +89,9 @@
 	item_state = "o_suit"
 	item_color = "orange"
 
-/obj/item/clothing/under/color/orange/prison 
+/obj/item/clothing/under/color/orange/prison
 	name = "old prison jumpsuit"
-	desc = "Старая одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания." 
+	desc = "Старая одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
 	icon_state = "orange"
 	item_state = "o_suit"
 	item_color = "orange"

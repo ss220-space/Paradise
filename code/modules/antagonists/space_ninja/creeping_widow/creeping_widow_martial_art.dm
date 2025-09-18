@@ -42,10 +42,12 @@
 /datum/martial_art/ninja_martial_art
 	name = "Creeping Widow"
 	weight = 10
-	combos = list(	/datum/martial_combo/ninja_martial_art/energy_tornado,
-					/datum/martial_combo/ninja_martial_art/palm_strike,
-					/datum/martial_combo/ninja_martial_art/wrench_wrist,
-					/datum/martial_combo/ninja_martial_art/neck_slice)
+	combos = list(
+		/datum/martial_combo/ninja_martial_art/energy_tornado,
+		/datum/martial_combo/ninja_martial_art/palm_strike,
+		/datum/martial_combo/ninja_martial_art/wrench_wrist,
+		/datum/martial_combo/ninja_martial_art/neck_slice
+	)
 	has_explaination_verb = TRUE
 	reflection_chance = 50
 	grab_speed = 2 SECONDS
