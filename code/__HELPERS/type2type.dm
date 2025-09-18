@@ -102,25 +102,7 @@
 	return
 
 /proc/dir2textRU_where(direction)
-	switch(direction)
-		if(1.0)
-			return "на севере"
-		if(2.0)
-			return "на юге"
-		if(4.0)
-			return "на западе"
-		if(8.0)
-			return "на востоке"
-		if(5.0)
-			return "на северо-востоке"
-		if(6.0)
-			return "на юго-востоке"
-		if(9.0)
-			return "на северо-западе"
-		if(10.0)
-			return "на юго-западе"
-		else
-	return
+	return "на [dir2textRU(direction)]е"
 
 /// Returns a string the last bit of a type, without the preceeding '/'
 /proc/type2top(the_type)
