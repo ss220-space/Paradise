@@ -157,7 +157,7 @@
 				break
 
 /obj/item/multitool/ai_detect/admin
-	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?
+	desc = "Используется для подачи импульсов на провода, чтобы определить, какой из них перерезать. Не одобряется врачами. Имеет странную бирку с надписью: \"Гриферить С Безопасностью\"." //What else should I say for a meme item?
 	track_delay = 5
 	shows_wire_information = TRUE
 	emp_shielded = TRUE
@@ -199,7 +199,7 @@
 
 /obj/item/multitool/old
 	name = "old multimeter"
-	desc = "Электрический прибор для измерения параметров тока, прозвонки электрических цепей. Этот кажется весьма устаревшим."
+	desc = "Электрический прибор для измерения параметров тока и прозвонки электрических цепей. Этот кажется весьма устаревшим."
 	icon_state = "multitool_old_wire"
 	belt_icon = "multitool_old_wire"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
