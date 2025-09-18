@@ -1,0 +1,4 @@
+help: "Please replace with the proper structure spawner."
+/obj/structure/grille:
+  banned_neighbors:
+  - /obj/structure/window/full
