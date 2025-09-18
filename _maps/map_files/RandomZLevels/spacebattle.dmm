@@ -4804,7 +4804,6 @@
 	dir = 4;
 	simulated = 0
 	},
-/turf/space,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -5718,7 +5717,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/space,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -9522,7 +9520,6 @@
 /obj/machinery/door/airlock/hatch,
 /obj/machinery/door/firedoor/heavy,
 /obj/structure/fans/tiny,
-/turf/space,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -10959,7 +10956,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret1)
 "Ex" = (
-/turf/space,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},

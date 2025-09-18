@@ -745,13 +745,11 @@
 	},
 /area/awaymission/centcomAway/maint)
 "cd" = (
-/turf/simulated/floor/shuttle/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f6"
 	},
 /area/awaymission/centcomAway/hangar)
 "ce" = (
-/turf/simulated/floor/shuttle,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f9"
 	},
@@ -809,7 +807,6 @@
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcomAway/cafe)
 "ck" = (
-/turf/simulated/floor/shuttle/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f10";
 	layer = 2
