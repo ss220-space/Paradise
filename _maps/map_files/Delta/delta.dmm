@@ -89671,7 +89671,6 @@
 	},
 /obj/item/kitchen/utensil/fork,
 /obj/structure/table/wood/fancy,
-/turf/space,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},

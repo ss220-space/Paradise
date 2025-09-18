@@ -830,7 +830,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/maint)
 "cn" = (
-/turf/simulated/floor/shuttle,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f5"
 	},
@@ -2113,7 +2112,6 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "fM" = (
-/turf/simulated/floor/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f5"
 	},
@@ -4249,7 +4247,6 @@
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f6"
 	},
@@ -4258,7 +4255,6 @@
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
 /turf/simulated/wall/shuttle{
 	icon_state = "swall_f5"
 	},

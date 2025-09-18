@@ -371,7 +371,6 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -587,7 +586,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -632,7 +630,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/space,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -2170,7 +2167,6 @@
 	},
 /area/hallway/secondary/entry/additional)
 "ayw" = (
-/turf/space,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -2594,7 +2590,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -3426,7 +3421,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
 "aGM" = (
-/turf/space,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "arrival"
@@ -7982,7 +7976,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -13008,7 +13001,6 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_x = 30
 	},
-/turf/space,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitered"
@@ -13250,7 +13242,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/engrooms)
 "bLu" = (
-/turf/space,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -13625,7 +13616,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17539,7 +17529,6 @@
 /area/maintenance/fpmaint)
 "cfb" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/space,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -24690,7 +24679,6 @@
 	},
 /area/medical/chemistry)
 "cKQ" = (
-/turf/space,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -28763,7 +28751,6 @@
 	req_access = list(63)
 	},
 /obj/machinery/door/firedoor,
-/turf/space,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -37723,7 +37710,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

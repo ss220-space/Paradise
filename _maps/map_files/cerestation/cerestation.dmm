@@ -38340,9 +38340,6 @@
 	},
 /obj/item/stack/cable_coil,
 /obj/structure/table,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/storage/belt/utility,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
@@ -40694,7 +40691,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Hangar";
@@ -61421,7 +61417,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop/expedition)
 "nKt" = (
@@ -63076,7 +63071,6 @@
 	name = "Mechanic Workshop";
 	req_access = list(70)
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop)
