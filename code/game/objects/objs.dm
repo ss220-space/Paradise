@@ -353,6 +353,10 @@
 	return TRUE
 
 
+/obj/proc/is_cleanable() //Called when you want to clean something, and usualy delete it after
+	return HAS_TRAIT(src, TRAIT_MOPABLE)
+
+
 /// Unfreezes this obj if its frozen
 /obj/proc/unfreeze()
 	SEND_SIGNAL(src, COMSIG_OBJ_UNFREEZE)

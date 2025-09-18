@@ -26,9 +26,6 @@
 /obj/effect/acid_act()
 	return
 
-/obj/effect/proc/is_cleanable() //Called when you want to clean something, and usualy delete it after
-	return HAS_TRAIT(src, TRAIT_MOPABLE)
-
 /obj/effect/mech_melee_attack(obj/mecha/mecha)
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha, mecha.occupant)
 	return FALSE

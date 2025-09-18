@@ -14,11 +14,6 @@
 	QDEL_NULL(image)
 
 
-#undef NEXT_PAGE_ID
-#undef DEFAULT_CHECK_DELAY
-#undef ANIM_SPEED
-
-
 /*
 	A derivative of radial menu which persists onscreen until closed and invokes a callback each time an element is clicked
 */

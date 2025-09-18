@@ -32,7 +32,7 @@
 
 	loc.clean_blood()
 	for(var/obj/check in loc)
-		if(!HAS_TRAIT(check, TRAIT_MOPABLE))
+		if(!check.is_cleanable())
 			continue
 
 		qdel(check)
