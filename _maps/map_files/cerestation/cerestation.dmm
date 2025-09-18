@@ -3913,9 +3913,6 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/structure/table/wood{
-	color = "#996633"
-	},
 /turf/simulated/floor/carpet,
 /area/hallway/primary/port/east)
 "aIa" = (
@@ -32038,7 +32035,6 @@
 	name = "Psych Office";
 	req_access = list(64)
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/medical/psych)
