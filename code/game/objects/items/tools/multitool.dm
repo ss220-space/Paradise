@@ -67,7 +67,7 @@
 
 /obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)	//Loads a machine into memory, returns TRUE if it does
 	if(!ismachinery(M))
-		balloon_alert(user, "это не электрический прибор!")
+		balloon_alert(user, "неподходящий объект!")
 		return
 	buffer = M
 	balloon_alert(user, "вы загружаете [M] в хранилище [capitalize(declent_ru(GENITIVE))].")
