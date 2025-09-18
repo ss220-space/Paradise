@@ -90,7 +90,6 @@
 
 	//Reload alternate appearances
 	update_seeable_alt_appearances(src)
-	update_seeable_alt_appearances()
 	update_client_colour(0)
 	update_morgue()
 	client.init_verbs()
