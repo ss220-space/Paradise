@@ -3,17 +3,6 @@
  * Please do not breed colors from Paradise when porting!
  */
 
-#define COLOR_INPUT_DISABLED   "#F0F0F0"
-#define COLOR_INPUT_ENABLED    "#D3B5B5"
-#define COLOR_DARK_INPUT_DISABLED   "#202020"
-#define COLOR_DARK_INPUT_ENABLED    "#494949"
-#define COLOR_BLOOD				"#501010"
-
-//blood colors
-
-#define COLOR_BLOOD_BASE "#A10808"
-#define COLOR_BLOOD_MACHINE "#1F181F"
-
 // Pipe colours
 #define	PIPE_COLOR_GREY		"#dddddd"	//yes white is grey
 #define	PIPE_COLOR_RED		"#dd1010"

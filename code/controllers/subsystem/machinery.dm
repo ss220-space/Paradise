@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(machines)
 	VAR_PRIVATE/list/machines_by_type = list()
 
 	/// All machines, not just those that are processing.
-	var/list/all_machines = list()
+	VAR_PRIVATE/list/all_machines = list()
 
 	var/list/processing = list()
 	var/list/currentrun = list()

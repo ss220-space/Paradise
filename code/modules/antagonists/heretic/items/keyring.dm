@@ -95,7 +95,7 @@
 ///Returns a random airlock on the same Z level as our portal, that isnt our airlock
 /obj/effect/lock_portal/proc/find_random_airlock()
 	var/list/turf/possible_destinations = list()
-	for(var/obj/machinery/door/airlock/airlock in SSmachines.all_machines)
+	for(var/obj/machinery/door/airlock/airlock as anything in GLOB.airlocks)
 		if(airlock.z != z)
 			continue
 
