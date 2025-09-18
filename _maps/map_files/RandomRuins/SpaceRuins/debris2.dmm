@@ -26,6 +26,7 @@
 /area/space)
 "o" = (
 /obj/machinery/door/airlock/command{
+	
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)

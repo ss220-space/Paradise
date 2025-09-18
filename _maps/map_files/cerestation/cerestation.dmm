@@ -1399,8 +1399,7 @@
 /area/mine/unexplored/cere/cargo)
 "ale" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table,
 /obj/item/clothing/shoes/orange,
@@ -3572,8 +3571,7 @@
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/start/civilian,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar)
@@ -19211,8 +19209,7 @@
 /area/toxins/misc_lab)
 "czc" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
@@ -19223,8 +19220,7 @@
 	},
 /obj/machinery/chem_heater,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Research Test Lab East";
@@ -23695,8 +23691,7 @@
 	name = "N2 to Pure"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/door/window/eastright{
@@ -23825,8 +23820,7 @@
 	name = "O2 to Pure"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/door/window/eastright{
@@ -25866,8 +25860,7 @@
 /area/hallway/spacebridge/serveng)
 "dyK" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door_control{
 	id = "telescienceblast";
@@ -31804,8 +31797,7 @@
 	req_access = list(1)
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/rack{
 	dir = 8;
@@ -58361,8 +58353,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/personal/patient,
 /obj/item/storage/box/monkeycubes/wolpincubes,
@@ -58886,8 +58877,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = -2;
@@ -74033,8 +74023,7 @@
 /obj/item/storage/box/monkeycubes/wolpincubes,
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/reagent_containers/spray/cleaner/medical{
 	pixel_x = -12
@@ -75876,8 +75865,7 @@
 "rNo" = (
 /obj/machinery/cooker/deepfryer,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/wood/fancy/oak,
@@ -77279,8 +77267,7 @@
 /obj/effect/turf_decal/stripes/full,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -78961,8 +78948,7 @@
 /obj/item/clothing/suit/straight_jacket,
 /obj/item/storage/box/bodybags/biohazard,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/radio/intercom{
 	pixel_x = -28
@@ -84875,8 +84861,7 @@
 /area/maintenance/port)
 "usG" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,

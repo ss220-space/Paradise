@@ -6527,8 +6527,7 @@
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/suit_storage_unit/atmos,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -9077,8 +9076,7 @@
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/suit_storage_unit/atmos,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -14221,8 +14219,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
@@ -15524,8 +15521,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
@@ -16936,8 +16932,7 @@
 /area/maintenance/bar)
 "cac" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -20771,8 +20766,7 @@
 "cvo" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/crate/rcd,
 /obj/machinery/door/window/southright{
@@ -27331,8 +27325,7 @@
 	name = "Quarantine Lockdown"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/clothing/accessory/stethoscope,
 /obj/item/clothing/accessory/stethoscope{
@@ -27370,8 +27363,7 @@
 	name = "Quarantine Lockdown"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/reagent_containers/spray/cleaner/medical,
 /obj/item/hand_labeler,
@@ -34030,8 +34022,7 @@
 "dAF" = (
 /obj/machinery/computer/communications,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain)
@@ -47293,8 +47284,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
@@ -55013,8 +55003,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
@@ -60287,8 +60276,7 @@
 /area/security/checkpoint/south)
 "iOJ" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/rack,
 /obj/item/clothing/shoes/magboots{
@@ -71995,8 +71983,7 @@
 "lMd" = (
 /obj/structure/closet/secure_closet/brig/evidence,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/decal/cleanable/cobweb{
 	layer = 4
@@ -73828,8 +73815,7 @@
 "miq" = (
 /obj/structure/closet/secure_closet/brig/evidence,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -81002,8 +80988,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -93560,8 +93545,7 @@
 /area/maintenance/disposal)
 "qyF" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/displaycase/captain,
 /turf/simulated/floor/carpet/royalblue,
@@ -102177,8 +102161,7 @@
 /area/security/hos)
 "sxX" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain/bedroom)
@@ -103088,8 +103071,7 @@
 /area/maintenance/fpmaint)
 "sKg" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/flag/nt,
 /turf/simulated/floor/carpet/royalblue,
@@ -115622,8 +115604,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
@@ -123031,8 +123012,7 @@
 /area/crew_quarters/hor)
 "xou" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -123957,8 +123937,7 @@
 	},
 /obj/effect/spawner/lootdrop/officetoys,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/radio/intercom{
 	pixel_x = -28

@@ -1867,8 +1867,7 @@
 /area/assembly/chargebay)
 "bgN" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -24352,8 +24351,7 @@
 	name = "Fitness Ring"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -28101,8 +28099,7 @@
 /area/turret_protected/aisat_interior)
 "sdf" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -31888,8 +31885,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -34816,8 +34812,7 @@
 /area/chapel/main)
 "wqk" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -34925,8 +34920,7 @@
 /area/hallway/secondary/exit)
 "wsC" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"

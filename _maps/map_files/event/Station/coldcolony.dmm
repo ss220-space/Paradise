@@ -46077,8 +46077,7 @@
 /area/coldcolony/malta/maintenance/garden)
 "qPL" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -47045,8 +47044,7 @@
 /area/coldcolony/malta/research/hor)
 "rgi" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -50892,8 +50890,7 @@
 /area/coldcolony/malta/resid_serv/library/game_zone)
 "sEX" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood/fancy/light,

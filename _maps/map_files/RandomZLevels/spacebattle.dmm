@@ -4170,8 +4170,7 @@
 	},
 /obj/structure/window/full/shuttle/gray,
 /obj/structure/window/reinforced/tinted{
-	dir = 8;
-	layer = 3.1
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
@@ -10259,7 +10258,6 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle,
 /obj/structure/window/reinforced/tinted{
 	dir = 1;
-	layer = 3.1;
 	pixel_y = 6
 	},
 /turf/simulated/floor/shuttle{
@@ -10624,7 +10622,6 @@
 /obj/structure/rack/gunrack,
 /obj/structure/window/reinforced/tinted{
 	dir = 1;
-	layer = 3.1;
 	pixel_y = 6
 	},
 /turf/simulated/floor/shuttle{
@@ -12279,7 +12276,6 @@
 	state_open = 1
 	},
 /obj/structure/window/reinforced/tinted{
-	layer = 3.1;
 	pixel_y = -7
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -12754,8 +12750,7 @@
 	},
 /obj/structure/window/full/shuttle/gray,
 /obj/structure/window/reinforced/tinted{
-	dir = 1;
-	layer = 3.1
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
@@ -17108,7 +17103,6 @@
 /obj/item/gun/energy/laser,
 /obj/structure/window/reinforced/tinted{
 	dir = 1;
-	layer = 3.1;
 	pixel_y = 6
 	},
 /turf/simulated/floor/shuttle{

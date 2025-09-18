@@ -100,8 +100,7 @@
 "o" = (
 /obj/machinery/recharge_station/upgraded,
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -201,8 +200,7 @@
 "N" = (
 /obj/machinery/recharge_station/upgraded,
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;

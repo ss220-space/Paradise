@@ -3346,8 +3346,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
@@ -6686,8 +6685,7 @@
 	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/stack/rods{
 	amount = 4

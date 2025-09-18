@@ -5920,8 +5920,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/plating,
@@ -12455,16 +12454,14 @@
 "aSk" = (
 /obj/structure/chair/sofa/left,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/dorms)
 "aSl" = (
 /obj/structure/chair/sofa,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/wood,
@@ -12554,8 +12551,7 @@
 /area/security/permabrig)
 "aSx" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -21875,8 +21871,7 @@
 "bDd" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -22579,8 +22574,7 @@
 	req_access = list(33)
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
@@ -29021,8 +29015,7 @@
 "cbl" = (
 /obj/structure/chair/sofa/corner,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -37940,8 +37933,7 @@
 /area/medical/patients_rooms)
 "cIA" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
@@ -80391,8 +80383,7 @@
 "shL" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/chapel/main)
