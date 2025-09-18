@@ -70,7 +70,7 @@
 		balloon_alert(user, "неподходящий объект!")
 		return
 	buffer = M
-	balloon_alert(user, "вы загружаете [M] в хранилище [capitalize(declent_ru(GENITIVE))].")
+	balloon_alert(user, "данные загружены в буфер.")
 	return TRUE
 
 /obj/item/multitool/attack_self(mob/user)
