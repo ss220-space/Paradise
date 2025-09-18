@@ -6,7 +6,7 @@
 	layer = CLEANABLES_LAYER
 	/// If TRUE, gains TRAIT_MOPABLE on init - thus this cleanable will cleaned if its turf is cleaned
 	/// Set to FALSE for things that hang high on the walls or things which generally shouldn't be mopped up
-	var/is_mopped = TRUE
+	var/is_moppable = TRUE
 
 
 /obj/effect/decal/cleanable/Initialize(mapload)
@@ -29,7 +29,7 @@
 		queue_smooth(src)
 		queue_smooth_neighbors(src)
 
-	if(is_mopped)
+	if(is_moppable)
 		ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
 
 
