@@ -31,6 +31,7 @@
 		/obj/item/reagent_containers/food/pill,
 		/obj/item/spacepod_equipment/key,
 		/obj/item/key,
+		/obj/item/reagent_containers/hypospray/autoinjector,
 	)
 	slot_flags = ITEM_SLOT_ID
 
