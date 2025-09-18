@@ -2038,7 +2038,7 @@
 					/obj/item/sensor_device = 599,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 19,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 19,
-					/obj/item/reagent_containers/hypospray/autoinjector/neuromatin = 199,
+					/obj/item/reagent_containers/hypospray/autoinjector/neuromatin = 499,
 					/obj/item/reagent_containers/applicator/brute = 149,
 					/obj/item/reagent_containers/applicator/burn = 149)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)

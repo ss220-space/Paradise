@@ -1,5 +1,7 @@
 /// Duration of brain transplant desease
 #define BRAIN_TRANSPLANT_SYNDROME_DURATION (10 MINUTES)
+/// Duration of initial effects
+#define BTS_INITIAL_EFFECTS_DURATION (1 MINUTES)
 /// Brain transplant syndrome light effect chance
 #define BTS_LIGHT_EFFECT_PROBE 15
 /// Brain transplant syndrome medium effect chance
@@ -13,8 +15,8 @@
   * - periodically oxy damage
   */
 /datum/disease/brain_transplant_syndrome
-	name = "Синдром пересадки мозга"
-	agent = "Иммунитет"
+	name = "Синдром трансплантации мозга"
+	agent = "Иммунная система организма"
 	desc = "Дезориентация, удушье, паралич и отказ органов."
 	stage_prob = 10
 	cure_text = "Нейроматин (нейроадаптик)"
@@ -43,23 +45,23 @@
 		heavy_effect()
 
 /datum/disease/brain_transplant_syndrome/proc/initial_effect()
-	affected_mob.Knockdown(60 SECONDS)
-	affected_mob.EyeBlind(60 SECONDS)
-	affected_mob.Deaf(60 SECONDS)
-	affected_mob.Stuttering(60 SECONDS)
+	affected_mob.Knockdown(BTS_INITIAL_EFFECTS_DURATION)
+	affected_mob.EyeBlind(BTS_INITIAL_EFFECTS_DURATION)
+	affected_mob.Deaf(BTS_INITIAL_EFFECTS_DURATION)
+	affected_mob.Stuttering(BTS_INITIAL_EFFECTS_DURATION)
 
 /datum/disease/brain_transplant_syndrome/proc/light_effect()
 	if(!prob(BTS_LIGHT_EFFECT_PROBE))
 		return
 	affected_mob.emote("gasp")
-	to_chat(affected_mob, span_danger("Вы чувствуете, что вам не хватает воздуха!"))
+	to_chat(affected_mob, span_userdanger("Вы чувствуете, что вам не хватает воздуха!"))
 	affected_mob.apply_damage(10, OXY, spread_damage = TRUE, forced = TRUE)
 	affected_mob.adjustBrainLoss(2.5, FALSE)
 
 /datum/disease/brain_transplant_syndrome/proc/medium_effect()
 	if(!prob(BTS_MEDIUM_EFFECT_PROBE))
 		return
-	to_chat(affected_mob, span_danger("Вы чувствуете сильное головокружение!"))
+	to_chat(affected_mob, span_userdanger("Вы чувствуете сильное головокружение!"))
 	affected_mob.Knockdown(3 SECONDS)
 	affected_mob.Confused(15 SECONDS)
 
@@ -67,7 +69,7 @@
 	if(!prob(BTS_HEAVY_EFFECT_PROBE))
 		return
 	if(affected_mob.reagents?.has_reagent(required_reagent))
-		to_chat(affected_mob, span_danger("Вы чувствуете недомогание!"))
+		to_chat(affected_mob, span_userdanger("Вы чувствуете недомогание!"))
 		if(iscarbon(affected_mob))
 			var/mob/living/carbon/affected_carbon = affected_mob
 			affected_carbon.vomit()
@@ -76,7 +78,7 @@
 	necrotize_organ_effect()
 
 /datum/disease/brain_transplant_syndrome/proc/necrotize_organ_effect()
-	to_chat(affected_mob, span_danger("Вы чувствуете острую боль внутри!"))
+	to_chat(affected_mob, span_userdanger("Вы чувствуете острую боль внутри!"))
 	affected_mob.emote("scream")
 	affected_mob.Knockdown(10 SECONDS)
 	affected_mob.Jitter(15 SECONDS)
@@ -100,6 +102,7 @@
 	return time_delta > BRAIN_TRANSPLANT_SYNDROME_DURATION
 
 #undef BRAIN_TRANSPLANT_SYNDROME_DURATION
+#undef BTS_INITIAL_EFFECTS_DURATION
 #undef BTS_LIGHT_EFFECT_PROBE
 #undef BTS_MEDIUM_EFFECT_PROBE
 #undef BTS_HEAVY_EFFECT_PROBE

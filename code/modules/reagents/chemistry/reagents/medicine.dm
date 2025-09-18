@@ -338,7 +338,7 @@
 /datum/reagent/medicine/neuromatin
 	name = "Нейроматин"
 	id = "neuromatin"
-	description = "лекарственное средство, рекомендуемое после трансплантации мозга пациента."
+	description = "Лекарственное средство, предназначенное для противодействия последствиям трансплантации мозга. Имеет ряд побочных эффектов."
 	reagent_state = LIQUID
 	overdose_threshold = 30
 	color = "#5010a3"
