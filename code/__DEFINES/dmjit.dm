@@ -23,7 +23,7 @@
 	DMJIT_NATIVE
 
 // DEBUG
-/proc/dmjit_hook_call(src)
+/proc/dmjit_hook_call()
 	DMJIT_NATIVE
 
 // DEBUG Re-enter
