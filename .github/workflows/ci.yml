@@ -80,7 +80,7 @@ jobs:
           dotnet-version: 9.x
       - name: Run OD
         run: |
-          bash tools/ci/run_od.sh
+          bash tools/ci/run_od.sh | bash tools/ci/annotate_od.sh
 
   compile_all_maps:
     name: Compile All Maps
