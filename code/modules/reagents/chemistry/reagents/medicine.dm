@@ -350,7 +350,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(user.getBrainLoss() > 0)
 		update_flags |= user.adjustBrainLoss(-0.5, FALSE)
-	user.germ_level = max(user.germ_level - 1, 0)
 	return ..() | update_flags
 
 /datum/reagent/medicine/neuromatin/overdose_process(mob/living/living, severity)
