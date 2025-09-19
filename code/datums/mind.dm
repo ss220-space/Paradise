@@ -1962,7 +1962,7 @@
 					if(knowledge == /datum/heretic_knowledge/spell)
 						continue
 
-					if(knowledge == /datum/heretic_knowledge/summon)
+					if(knowledge == /datum/heretic_knowledge/limited_amount/summon)
 						continue
 
 					if(knowledge == /datum/heretic_knowledge/mark)

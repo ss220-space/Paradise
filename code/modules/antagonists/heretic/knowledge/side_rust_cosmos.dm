@@ -6,7 +6,7 @@
 
 	tier1 = /datum/heretic_knowledge/essence
 	tier2 = list(/datum/heretic_knowledge/entropy_pulse, /datum/heretic_knowledge/rust_sower)
-	tier3 = /datum/heretic_knowledge/summon/rusty
+	tier3 = /datum/heretic_knowledge/limited_amount/summon/rusty
 
 
 // Sidepaths for knowledge between Rust and Cosmos.
@@ -80,7 +80,7 @@
 	return TRUE
 
 
-/datum/heretic_knowledge/summon/rusty
+/datum/heretic_knowledge/limited_amount/summon/rusty
 	name = "Ржавый ритуал"
 	desc = "Позволяет превратить лужу рвоты, 15 кусочков кабеля и 10 листов железа в Ржавого Странника. \
 			Ржавые Странники отлично разносят ржавчину и довольно сильны в бою."

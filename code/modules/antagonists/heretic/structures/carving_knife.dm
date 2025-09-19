@@ -125,7 +125,7 @@
 		CRASH("[type] attempted to create a rune of incorrect type! (got: [to_make])")
 
 	var/obj/to_make_temp = new to_make()
-	target_turf.balloon_alert(user, "черчение [to_make_temp.ru_names[ACCUSATIVE]]...")
+	target_turf.balloon_alert(user, "черчение [to_make_temp.declent_ru(ACCUSATIVE)]...")
 	qdel(to_make_temp)
 	user.playsound_local(target_turf, 'sound/items/sheath.ogg', 50, TRUE)
 	if(!do_after(user, 5 SECONDS, target = target_turf))

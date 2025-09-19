@@ -125,8 +125,8 @@
 		icon_state = result_action.button_icon_state
 
 	//if the knowledge is a summon, use the mob sprite
-	else if(ispath(knowledge,/datum/heretic_knowledge/summon))
-		var/datum/heretic_knowledge/summon/summon_knowledge = knowledge
+	else if(ispath(knowledge,/datum/heretic_knowledge/limited_amount/summon))
+		var/datum/heretic_knowledge/limited_amount/summon/summon_knowledge = knowledge
 		var/mob/living/result_mob = summon_knowledge.mob_to_summon
 		icon_path = result_mob.icon
 		icon_state = result_mob.icon_state

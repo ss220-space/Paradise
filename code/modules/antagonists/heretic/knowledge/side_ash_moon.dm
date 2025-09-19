@@ -6,7 +6,7 @@
 
 	tier1 = /datum/heretic_knowledge/medallion
 	tier2 = /datum/heretic_knowledge/ether
-	tier3 = /datum/heretic_knowledge/summon/ashy
+	tier3 = /datum/heretic_knowledge/limited_amount/summon/ashy
 
 
 // Sidepaths for knowledge between Ash and Flesh.
@@ -47,7 +47,7 @@
 	research_tree_icon_state = "poison_flask"
 
 
-/datum/heretic_knowledge/summon/ashy
+/datum/heretic_knowledge/limited_amount/summon/ashy
 	name = "Ритуал Пепла"
 	desc = "Позволяет преобразовать голову, кучку пепла и книгу в Духа Пепла. \
 			Духи пепла способны на короткий промежуток время становиться не материальными \

@@ -4,14 +4,14 @@
 
 	route = PATH_SIDE
 
-	tier1 = /datum/heretic_knowledge/summon/fire_shark
+	tier1 = /datum/heretic_knowledge/limited_amount/summon/fire_shark
 	tier2 = /datum/heretic_knowledge/spell/space_phase
 	tier3 = /datum/heretic_knowledge/eldritch_coin
 
 
 // Sidepaths for knowledge between Cosmos and Ash.
 
-/datum/heretic_knowledge/summon/fire_shark
+/datum/heretic_knowledge/limited_amount/summon/fire_shark
 	name = "Огненная Акула"
 	desc = "Позволяет преобразовать горстку пепла, печень и лист плазмы в Огненную Акулу. \
 			Огненные Акулы быстры и сильны в группах, но быстро погибают. Они также очень устойчивы к огню. \
@@ -24,6 +24,7 @@
 		/obj/item/stack/sheet/mineral/plasma = 1,
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/fire_shark
+	limit = 5
 	cost = 1
 	research_tree_icon_dir = EAST
 

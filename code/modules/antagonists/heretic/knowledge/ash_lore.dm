@@ -217,7 +217,7 @@
 	. = ..()
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_sworn())
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_cascade/big())
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish/acsend())
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish())
 	var/obj/effect/proc_holder/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.mind.spell_list
 	if(existing_beam_spell)
 		existing_beam_spell.max_beam_bounces *= 2 // Double beams

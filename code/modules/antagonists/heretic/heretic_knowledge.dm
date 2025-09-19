@@ -389,12 +389,13 @@
 /**
  * A knowledge subtype lets the heretic summon a monster with the ritual.
  */
-/datum/heretic_knowledge/summon
-	abstract_parent_type = /datum/heretic_knowledge/summon
+/datum/heretic_knowledge/limited_amount/summon
+	abstract_parent_type = /datum/heretic_knowledge/limited_amount/summon
+	limit = 3
 	/// Typepath of a mob to summon when we finish the recipe.
 	var/mob/living/mob_to_summon
 
-/datum/heretic_knowledge/summon/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+/datum/heretic_knowledge/limited_amount/summon/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	return summon_ritual_mob(user, loc, mob_to_summon)
 
 /**
@@ -410,6 +411,10 @@
 		summoned = mob_to_summon
 	else
 		summoned = new mob_to_summon(loc)
+
+	if(istype(src, /datum/heretic_knowledge/limited_amount/summon))
+		var/datum/heretic_knowledge/limited_amount/summon = src
+		LAZYADD(summon.created_items, WEAKREF(summoned))
 
 	summoned.ai_controller?.set_ai_status(AI_STATUS_OFF)
 	// Fade in the summon while the ghost poll is ongoing.

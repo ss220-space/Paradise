@@ -8,7 +8,7 @@
 
 	tier1 = /datum/heretic_knowledge/limited_amount/risen_corpse
 	tier2 = /datum/heretic_knowledge/rune_carver
-	tier3 = /datum/heretic_knowledge/summon/maid_in_mirror
+	tier3 = /datum/heretic_knowledge/limited_amount/summon/maid_in_mirror
 
 
 /// The max health given to Shattered Risen
@@ -160,7 +160,7 @@
 	research_tree_icon_state = "rune_carver"
 
 
-/datum/heretic_knowledge/summon/maid_in_mirror
+/datum/heretic_knowledge/limited_amount/summon/maid_in_mirror
 	name = "Горничная в Зеркале"
 	desc = "Позволяет трансмутировать лист бумаги, мыло и пару лёгких, \
 			чтобы создать Горничную в Зеркеле. Горничные в Зеркеле — достойные бойцы, способные \

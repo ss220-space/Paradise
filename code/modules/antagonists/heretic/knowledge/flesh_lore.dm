@@ -16,9 +16,9 @@
 	mark = 	/datum/heretic_knowledge/mark/flesh_mark
 	ritual_of_knowledge = /datum/heretic_knowledge/knowledge_ritual/flesh
 	unique_ability = /datum/heretic_knowledge/spell/flesh_surgery
-	tier2 = /datum/heretic_knowledge/summon/raw_prophet
+	tier2 = /datum/heretic_knowledge/limited_amount/summon/raw_prophet
 	blade = /datum/heretic_knowledge/blade_upgrade/flesh
-	tier3 = /datum/heretic_knowledge/summon/stalker
+	tier3 = /datum/heretic_knowledge/limited_amount/summon/stalker
 	ascension = /datum/heretic_knowledge/ultimate/flesh_final
 
 
@@ -240,7 +240,7 @@
 	cost = 1
 
 
-/datum/heretic_knowledge/summon/raw_prophet
+/datum/heretic_knowledge/limited_amount/summon/raw_prophet
 	name = "Ритуал Сырости"
 	desc = "Позволяет трансмутировать пару глаз, левую руку и лужу крови, чтобы создать Пророка Сырости. \
 			Пророки Сырости обладают большой дальностью обзора, могут видеть сквозь стены, \
@@ -276,7 +276,7 @@
 	human_target.AdjustBlood(-25)
 
 
-/datum/heretic_knowledge/summon/stalker
+/datum/heretic_knowledge/limited_amount/summon/stalker
 	name = "Ритуал Одиночества"
 	desc = "Позволяет трансмутировать любой хвост, печень, лёгкие, ручку и лист бумаги, чтобы создать Ловца Плоти. \
 			Ловцы Плоти умеют становиться нематериальными, выпускать ЭМИ, превращаться в животных или роботов, \
