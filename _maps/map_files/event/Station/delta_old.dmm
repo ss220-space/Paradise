@@ -8844,14 +8844,10 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bpR" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Break Room Maintenance";
 	req_access = list(47)
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -9327,9 +9323,6 @@
 /turf/simulated/floor/plasteel,
 /area/storage/eva)
 "bsW" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -35168,30 +35161,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"dCV" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cult";
-	tag = "icon-cult"
-	},
-/area/lawoffice)
 "dCW" = (
 /obj/item/paper_bin,
 /obj/structure/table,
@@ -44752,19 +44721,6 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
-"eZJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/medbay3)
 "eZR" = (
 /obj/structure/plasticflaps,
 /obj/machinery/navbeacon{
@@ -66872,9 +66828,14 @@
 	},
 /area/security/warden)
 "lho" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/chapel/main)
+/obj/structure/closet/fireaxecabinet{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/security/nuke_storage)
 "lhr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -66962,10 +66923,6 @@
 	icon_state = "darkred"
 	},
 /area/security/warden)
-"lia" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/security/podbay)
 "lin" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -77758,9 +77715,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/fireaxecabinet{
-	pixel_y = 32
-	},
 /obj/structure/closet/secure_closet/freezer/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -85824,10 +85778,6 @@
 	icon_state = "red"
 	},
 /area/security/brig)
-"qgX" = (
-/obj/structure/lattice,
-/turf/simulated/wall/rust,
-/area/space/nearstation)
 "qgZ" = (
 /obj/machinery/light/small,
 /obj/structure/sign/poster/contraband/communist_state{
@@ -99048,10 +98998,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/teleporter)
-"tLj" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/maintenance/bar)
 "tLr" = (
 /obj/structure/table,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -102328,10 +102274,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/main)
-"uFL" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/space/nearstation)
 "uFM" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -115658,7 +115600,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/security{
 	name = "Detective";
@@ -146697,7 +146638,7 @@ dJx
 yiZ
 yiZ
 dJx
-lho
+dJx
 aaa
 bCI
 iGw
@@ -161242,7 +161183,7 @@ cqB
 iGw
 btL
 btL
-hPQ
+lho
 bOL
 hPQ
 btL
@@ -161455,7 +161396,7 @@ dGw
 dXw
 hab
 bwF
-tLj
+aww
 aww
 pHw
 xlP
@@ -162077,7 +162018,7 @@ tMG
 vxs
 cZN
 ebI
-eZJ
+dGa
 dxT
 dxT
 uTP
@@ -162540,7 +162481,7 @@ jun
 gRO
 vjQ
 jun
-dCV
+sTG
 xux
 xPg
 vVv
@@ -169941,7 +169882,7 @@ iGw
 iGw
 cCE
 iGw
-qgX
+cCE
 aaa
 aaa
 aaa
@@ -176399,7 +176340,7 @@ aaa
 aaa
 bCI
 iGw
-lia
+wyD
 lYu
 kCD
 hHy
@@ -179500,11 +179441,11 @@ aaa
 iGw
 iGw
 acF
-uFL
+cIV
 acF
 iGw
 acF
-uFL
+cIV
 acF
 iGw
 iGw
