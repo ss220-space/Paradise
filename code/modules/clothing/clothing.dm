@@ -63,6 +63,8 @@
 	/// Allow remove armor plate with screwdriver
 	var/can_remove_armor_plate = FALSE
 
+	var/mutable_appearance/status_overlay = null
+
 /obj/item/clothing/Initialize(mapload)
 	. = ..()
 	if(!ispath(armor_plate))
@@ -70,6 +72,7 @@
 	armor_plate = new armor_plate(src)
 	armor_plate.forceMove(src)
 	slowdown += armor_plate.equipped_slowdown
+	armor_plate.subscribe_equip_signal(src)
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
@@ -103,6 +106,10 @@
 	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
 	return TRUE
 
+/obj/item/clothing/update_overlays()
+	. = ..()
+	if(status_overlay)
+		. += status_overlay
 
 /obj/item/clothing/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/radio/spy_spider))
@@ -204,15 +211,16 @@
 
 /obj/item/clothing/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
+	SEND_SIGNAL(src, COMSIG_CLOTHING_UNEQUIP, src, user)
 	if(!istype(user) || !LAZYLEN(clothing_traits))
 		return .
 	remove_clothing_traits(user)
 
 /obj/item/clothing/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
+	SEND_SIGNAL(src, COMSIG_CLOTHING_EQUIP, src, user)
 	if(!istype(user) || !LAZYLEN(clothing_traits) || !(slot_flags & slot))
 		return .
-
 	add_clothing_traits(user)
 
 /obj/item/clothing/proc/remove_clothing_traits(mob/living/user)

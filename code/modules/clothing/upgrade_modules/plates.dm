@@ -14,6 +14,7 @@
 	lefthand_file = 'icons/mob/inhands/plates_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/plates_righthand.dmi'
 	icon_state = "ceramicplate_light"
+	var/break_icon = "armorbreak"
 	/// Plate class
 	var/plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	/// Ballistic protection class
@@ -35,8 +36,9 @@
 	return clamp(obj_integrity / integrity_failure, 0, 1)
 
 /// Take armor damage proc
-/obj/item/armor_plate/proc/take_armor_damage(damage_amount)
+/obj/item/armor_plate/proc/take_armor_damage(damage_amount, mob/living/user, obj/item/clothing/suit)
 	take_damage(damage_amount)
+	update_break_icon(src, suit, user)
 
 /obj/item/armor_plate/default_welder_repair(mob/user, obj/item/I)
 	return FALSE
@@ -66,7 +68,12 @@
 	suit.armor_plate = src
 	suit.slowdown += equipped_slowdown
 	balloon_alert(user, "бронеплита установлена")
+	subscribe_equip_signal(suit)
 	return TRUE
+
+/obj/item/armor_plate/proc/subscribe_equip_signal(obj/item/clothing/suit)
+	RegisterSignal(suit, COMSIG_CLOTHING_EQUIP, PROC_REF(update_break_icon))
+	RegisterSignal(suit, COMSIG_CLOTHING_UNEQUIP, PROC_REF(update_break_icon))
 
 
 /// Try remove armor plate from suit
@@ -87,6 +94,7 @@
 	user.put_in_hands(src)
 	suit.armor_plate = null
 	suit.slowdown -= equipped_slowdown
+	UnregisterSignal(suit, list(COMSIG_CLOTHING_EQUIP, COMSIG_CLOTHING_UNEQUIP))
 	return TRUE
 
 
@@ -158,6 +166,16 @@
 	balloon_alert(user, "отремонтировано")
 	return ATTACK_CHAIN_BLOCKED_ALL
 
+/obj/item/armor_plate/proc/update_break_icon(datum/source, obj/item/clothing/suit, mob/user)
+	SIGNAL_HANDLER
+
+	if((user.get_slot_by_item(suit) & suit.slot_flags) && obj_integrity < 0.25 * integrity_failure)
+		// low integrity overlay icon
+		suit.status_overlay = mutable_appearance(icon, break_icon, layer = FLOAT_LAYER - 1)
+	else
+		suit.status_overlay = null
+	suit.update_icon(UPDATE_OVERLAYS)
+
 
 // MARK: Balance
 /// Datum for armor penetration table
@@ -204,12 +222,12 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 		return 0
 	return (1 - balance.mob_damage) * plate.get_armor_efficient() * 100
 
-/proc/damage_armor_plate(obj/item/armor_plate/plate, penetration_level, damagetype = BULLET, damage)
+/proc/damage_armor_plate(obj/item/armor_plate/plate, penetration_level, damagetype = BULLET, damage, mob/living/user, obj/item/clothing/suit)
 	var/datum/armor_penetration_balance/balance = find_armor_plate_penetration_balance(plate, penetration_level, damagetype)
 	if(!balance)
 		return
 	var/calculated_damage = round(balance.armor_damage * damage, 0.1)
-	plate.take_armor_damage(calculated_damage)
+	plate.take_armor_damage(calculated_damage, user, suit)
 
 /proc/find_armor_plate_penetration_balance(obj/item/armor_plate/plate, penetration_level, damagetype = BULLET)
 	var/list/table

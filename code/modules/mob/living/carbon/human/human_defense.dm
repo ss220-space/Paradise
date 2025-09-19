@@ -188,7 +188,7 @@ emp_act
 		if(!((cloth.armor_plate.body_parts_covered & cloth.body_parts_covered) & def_zone.limb_body_flag))
 			continue
 		var/armorval = calculate_armor_plate_penetration(cloth.armor_plate, penetration_level, attack_flag)
-		damage_armor_plate(cloth.armor_plate, penetration_level, attack_flag, damage)
+		damage_armor_plate(cloth.armor_plate, penetration_level, attack_flag, damage, src, cloth)
 		return armorval
 	return 0
 

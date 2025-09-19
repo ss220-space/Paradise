@@ -986,6 +986,10 @@
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"
 ///from base of /obj/item/clothing/suit/space/proc/toggle_spacesuit(): (obj/item/clothing/suit/space/suit)
 #define COMSIG_SUIT_SPACE_TOGGLE "suit_space_toggle"
+///from base of /obj/item/clothing/equipped(): (obj/item/clothing, mob/living/user)
+#define COMSIG_CLOTHING_EQUIP "clothing_equip"
+///from base of /obj/item/clothing/dropped(): (obj/item/clothing, mob/living/user)
+#define COMSIG_CLOTHING_UNEQUIP "clothing_unequip"
 
 ///from /datum/action/armguard_hidden_blade/Trigger(): ()
 #define COMSIG_ARMGUARD_ACTION_TOGGLE "armguard_action_toggle"
