@@ -15,11 +15,11 @@
   * - periodically oxy damage
   */
 /datum/disease/brain_transplant_syndrome
-	name = "Синдром трансплантации мозга"
+	name = "Синдром отторжения головного мозга"
 	agent = "Иммунная система организма"
 	desc = "Дезориентация, удушье, паралич и отказ органов."
 	stage_prob = 10
-	cure_text = "Нейроматин (нейроадаптик)"
+	cure_text = "Нейроматин (иммунодепрессант)"
 	var/required_reagent = "neuromatin"
 	severity = NONTHREAT
 	can_immunity = FALSE
