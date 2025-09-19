@@ -24,8 +24,23 @@ def check_non_tgm_map_format(idx, line):
     if NON_TGM_MAP_FORMAT.search(line):
         return [(idx + 1, "Non-TGM formatted map detected. Please convert it using Map Merger!")]
 
+NANOTRASEN_CAMEL_CASE_EN = re.compile(r"NanoTrasen")
+NANOTRASEN_CAMEL_CASE_RU = re.compile(r"НаноТрейзен")
+NANOTRASEN_MISSPELLING_N_RU = re.compile(r"нанотрейзен")
+def check_nanotrasen_style(idx, line):
+    failures = []
+    if NANOTRASEN_CAMEL_CASE_EN.search(line):
+        failures.append((idx + 1, "'Nanotrasen' should not be spelled in the camel case form."))
+    if NANOTRASEN_CAMEL_CASE_RU.search(line):
+        failures.append((idx + 1, "'Нанотрейзен' should not be spelled in the camel case form."))
+    # We use UNLINT here to avoid breaking TTS.
+    if NANOTRASEN_MISSPELLING_N_RU.search(line) and 'UNLINT' not in line:
+        failures.append((idx + 1, "'Нанотрейзен' should not be written with a lowercase letter."))
+    return failures
+
 CODE_CHECKS = [
     check_non_tgm_map_format,
+    check_nanotrasen_style,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
@@ -43,7 +58,7 @@ def lint_file(code_filepath: str) -> list[Failure]:
     return all_failures
 
 if __name__ == "__main__":
-    print("check_grep_dmm started")
+    print("check_grep started")
 
     exit_code = 0
     start = time.time()
@@ -64,6 +79,6 @@ if __name__ == "__main__":
             print_error(failure.message, failure.filename, failure.lineno)
 
     end = time.time()
-    print(f"\ncheck_grep_dmm tests completed in {end - start:.2f}s\n")
+    print(f"\ncheck_grep tests completed in {end - start:.2f}s\n")
 
     sys.exit(exit_code)
