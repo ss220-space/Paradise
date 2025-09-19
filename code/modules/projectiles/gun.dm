@@ -392,9 +392,9 @@
 					break
 			if(chambered)
 				if(randomspread)
-					sprd = accuracy.randomize_spread(bonus_spread)
+					sprd = accuracy.randomize_spread(user, bonus_spread)
 				else
-					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(bonus_spread))
+					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
 				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 					shoot_with_empty_chamber(user)
 					break
@@ -418,7 +418,7 @@
 				if(chambered.harmful) // Is the bullet chambered harmful?
 					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 					return
-			sprd = accuracy.randomize_spread(bonus_spread)
+			sprd = accuracy.randomize_spread(user, bonus_spread)
 			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
 				shoot_with_empty_chamber(user)
 				return

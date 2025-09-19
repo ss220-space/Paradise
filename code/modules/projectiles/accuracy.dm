@@ -202,7 +202,9 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 
 // MARK: Procs
 
-/datum/gun_accuracy/proc/randomize_spread(bonus_spread)
+/datum/gun_accuracy/proc/randomize_spread(mob/living/user, bonus_spread)
+	if(HAS_TRAIT(user, TRAIT_BADASS))
+		return 0
 	// no spread guns
 	if(!max_spread)
 		return round((rand() - 0.5) * bonus_spread)
