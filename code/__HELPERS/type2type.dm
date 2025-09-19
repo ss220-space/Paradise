@@ -77,32 +77,10 @@
 			return "northwest"
 		if(10.0)
 			return "southwest"
-		else
-	return
 
-/proc/dir2textRU(direction)
-	switch(direction)
-		if(1.0)
-			return "север"
-		if(2.0)
-			return "юг"
-		if(4.0)
-			return "запад"
-		if(8.0)
-			return "восток"
-		if(5.0)
-			return "северо-восток"
-		if(6.0)
-			return "юго-восток"
-		if(9.0)
-			return "северо-запад"
-		if(10.0)
-			return "юго-запад"
-		else
-	return
 
-/proc/dir2textRU_where(direction)
-	return "на [dir2textRU(direction)]е"
+/proc/dir2rustext_where(direction)
+	return "на [dir2rustext(direction)]е"
 
 /// Returns a string the last bit of a type, without the preceeding '/'
 /proc/type2top(the_type)
@@ -143,8 +121,7 @@
 			return "северо-запад"
 		if(10.0)
 			return "юго-запад"
-		else
-	return
+
 
 /// Turns text into proper directions
 /proc/text2dir(direction)

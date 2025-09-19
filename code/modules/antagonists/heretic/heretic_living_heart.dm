@@ -248,13 +248,13 @@
 
 		switch(dist)
 			if(0 to 15)
-				balloon_message = "очень близко, [dir2textRU_where(dir)]!"
+				balloon_message = "очень близко, [dir2rustext_where(dir)]!"
 				arrow_color = COLOR_GREEN
 			if(16 to 31)
-				balloon_message = "близко, [dir2textRU_where(dir)]!"
+				balloon_message = "близко, [dir2rustext_where(dir)]!"
 				arrow_color = COLOR_YELLOW
 			if(32 to 127)
-				balloon_message = "далеко, [dir2textRU_where(dir)]!"
+				balloon_message = "далеко, [dir2rustext_where(dir)]!"
 				arrow_color = COLOR_ORANGE
 			else
 				balloon_message = "слишком далеко!"

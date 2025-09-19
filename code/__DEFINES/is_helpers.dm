@@ -291,8 +291,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
 
-#define isAutoAnnouncer(A)	(istype((A), /mob/living/automatedannouncer))
-
 #define iswraith(A)		(istype(A, /mob/living/simple_animal/hostile/construct/wraith))
 
 #define isrevenant(A)		(istype(A, /mob/living/simple_animal/revenant))
