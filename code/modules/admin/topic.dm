@@ -3853,7 +3853,6 @@
 			if("lavatype")
 				change_lava_type()
 
-			else
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")
 			if(ok)

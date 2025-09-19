@@ -41,8 +41,6 @@
 	// Optimization, not for setting outside of initialize
 	var/init_air = TRUE
 
-	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
-
 	flags = 0
 
 	var/changing_turf = FALSE

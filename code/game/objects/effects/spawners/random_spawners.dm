@@ -25,6 +25,7 @@
 /obj/effect/spawner/random_spawners/proc/randspawn(turf/T)
 	var/thing_to_place = pickweight(result)
 	if(ispath(thing_to_place, /datum/nothing))
+		qdel(src)
 		return
 	else if(ispath(thing_to_place, /turf))
 		T.ChangeTurf(thing_to_place)
