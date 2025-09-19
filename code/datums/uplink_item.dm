@@ -729,7 +729,7 @@
 	name = "Голографическая сигара"
 	desc = "Привезена из Солнечной системы. Помимо брутального внешнего вида, пользователи отмечают, что она повышает точность при стрельбе обеими руками одновременно."
 	item = /obj/item/clothing/mask/holo_cigar
-	cost = 35
+	cost = 20
 	race = list(SPECIES_HUMAN)
 
 /datum/uplink_item/racial/ghostface_kit
