@@ -1,7 +1,7 @@
 #define BASE_POINT_MULT 0.65
 #define BASE_SHEET_MULT 0.5
 #define POINT_MULT_ADD_PER_RATING 0.35
-#define SHEET_MULT_ADD_PER_RATING 0.2
+#define SHEET_MULT_ADD_PER_RATING 0.125
 #define MESSAGES_WAIT_TIME 1 MINUTES
 
 /**
@@ -46,7 +46,7 @@
 	/// The number of unclaimed points.
 	var/points = 0
 	/// Sheet multiplier applied when smelting ore. Updated by [/obj/machinery/proc/RefreshParts].
-	var/sheet_per_ore = 0.7
+	var/sheet_per_ore = 0.625
 	/// Point multiplier applied when smelting ore. Updated by [/obj/machinery/proc/RefreshParts].
 	var/point_upgrade = 1
 	/// Whether the message to relevant supply consoles was sent already or not for an ore dump. If FALSE, another will be sent.
