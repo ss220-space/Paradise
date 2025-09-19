@@ -316,7 +316,7 @@
 		user.drop_from_active_hand()
 		return
 
-	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE )] нужны две свободные руки!"))
 		return
 
@@ -326,7 +326,7 @@
 	if(ishuman(user) && user.a_intent == INTENT_HARM)
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/gun/G in get_both_hands(H))
-			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
+			if(G == src || (!HAS_TRAIT(user, TRAIT_BADASS) && G.weapon_weight >= WEAPON_MEDIUM))
 				continue
 			else if(G.can_trigger_gun(user))
 				if(!HAS_TRAIT(user, TRAIT_BADASS))
