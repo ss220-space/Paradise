@@ -5,7 +5,6 @@
 	icon_state = "implant"
 	implant_state = "implant-alien"
 	origin_tech = "materials=2;biotech=7;magnets=4;bluespace=4;abductor=5"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	implant_data = /datum/implant_fluff/abductor
 	COOLDOWN_DECLARE(abductor_recall_cooldown)
 	var/obj/machinery/abductor/pad/home

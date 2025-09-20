@@ -295,9 +295,7 @@
 	name = "Queue Shutters";
 	opacity = 0
 	},
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/grass,
 /area/hallway/primary/command/west)
 "acK" = (
@@ -366,8 +364,7 @@
 /obj/structure/flora/ausbushes/hell,
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1812,8 +1809,7 @@
 /obj/item/reagent_containers/food/drinks/mug/sci,
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5330,7 +5326,7 @@
 /obj/structure/window/reinforced,
 /obj/item/flag/nt,
 /obj/structure/sign/beautyplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции НаноТрейзен. С благодарностью, Saad603. Слава НаноТрейзен!";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Saad603. Слава Нанотрейзен!";
 	name = "Благодарственное Письмо от Главного Инженера станции Нова";
 	pixel_y = 32
 	},
@@ -6429,8 +6425,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
@@ -8254,9 +8249,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -8930,8 +8922,7 @@
 	pixel_y = 9
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -12316,8 +12307,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/grass,
 /area/crew_quarters/serviceyard)
@@ -14126,14 +14116,6 @@
 "bYW" = (
 /turf/simulated/wall,
 /area/maintenance/tourist)
-"bZb" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
-	},
-/obj/structure/lattice,
-/turf/space/openspace,
-/area/space)
 "bZi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -19417,8 +19399,7 @@
 "cOd" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/space/openspace,
 /area/space)
@@ -23625,9 +23606,7 @@
 	name = "Queue Shutters";
 	opacity = 0
 	},
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/grass,
 /area/hallway/primary/command/west)
 "duS" = (
@@ -23793,8 +23772,7 @@
 /obj/structure/flora/ausbushes/ywflowers/hell,
 /obj/structure/flora/firebush,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -23951,9 +23929,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -25073,8 +25048,7 @@
 /obj/structure/table/wood,
 /obj/machinery/computer/library/checkout,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -26025,8 +25999,7 @@
 /area/maintenance/cafeteria)
 "dNO" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -26333,9 +26306,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/hell,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/grass,
 /area/crew_quarters/captain)
 "dPO" = (
@@ -27804,8 +27775,7 @@
 /area/quartermaster/lobby)
 "ebr" = (
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/machinery/computer/communications{
 	pixel_x = 6
@@ -30057,8 +30027,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -35155,8 +35124,7 @@
 "fez" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/crate/rcd,
 /obj/machinery/door/window/southright{
@@ -36050,8 +36018,7 @@
 	req_access = list(55)
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
@@ -36638,7 +36605,7 @@
 /obj/structure/window/reinforced,
 /obj/item/flag/nt,
 /obj/structure/sign/atmosplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции НаноТрейзен. С благодарностью, Aeterna0. Слава НаноТрейзен!";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Aeterna0. Слава Нанотрейзен!";
 	name = "Благодарственное Письмо от Главного Инженера станции Нова";
 	pixel_y = 32
 	},
@@ -40431,9 +40398,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	layer = 4.2
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/carpet/royalblack,
 /area/hallway/secondary/exit)
 "fRz" = (
@@ -42146,8 +42111,7 @@
 /area/medical/medbay)
 "gem" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/rack,
 /obj/item/clothing/shoes/magboots{
@@ -42244,7 +42208,6 @@
 	req_access = list(63);
 	security_level = 1
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -42807,8 +42770,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	pixel_y = -6
@@ -43452,8 +43414,7 @@
 /area/medical/psych)
 "gmM" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -43850,8 +43811,7 @@
 "gqc" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/space,
 /area/space)
@@ -44879,7 +44839,7 @@
 "gxY" = (
 /obj/structure/window/reinforced,
 /obj/structure/statue/gold/tajaran{
-	desc = "Перед собою вы наблюдаете статую таяры, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке - Один из двух главных инженеров союза Таяр и Унати, по прозвищу Daeberdir, принимавших участие в разработке передовой научно-исследовательской станции НаноТрейзен - Nova.";
+	desc = "Перед собою вы наблюдаете статую таяры, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке - Один из двух главных инженеров союза Таяр и Унати, по прозвищу Daeberdir, принимавших участие в разработке передовой научно-исследовательской станции Нанотрейзен - Nova.";
 	name = "Л.А.Р"
 	},
 /turf/simulated/floor/plasteel{
@@ -48309,8 +48269,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/genericbush/hell,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -49811,9 +49770,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -49993,8 +49949,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -52617,9 +52572,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
-/obj/structure/window/reinforced{
-	layer = 4.2
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/carpet/royalblack,
 /area/hallway/secondary/exit)
 "hJq" = (
@@ -52726,8 +52679,7 @@
 /obj/structure/flora/ausbushes/genericbush,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -55434,8 +55386,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -58918,9 +58869,7 @@
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/cabin4)
 "iEH" = (
-/obj/structure/window/reinforced{
-	layer = 4.2
-	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "iEO" = (
@@ -59887,8 +59836,7 @@
 	},
 /obj/structure/closet/secure_closet/security,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/item/clothing/mask/balaclava,
 /obj/effect/turf_decal/stripes/line{
@@ -60832,8 +60780,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -65551,8 +65498,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/machinery/photocopier,
 /turf/simulated/floor/carpet/royalblue,
@@ -65816,8 +65762,7 @@
 /obj/machinery/suit_storage_unit/security,
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
@@ -68941,8 +68886,7 @@
 	pixel_y = 6
 	},
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -72786,8 +72730,7 @@
 /obj/structure/flora/ausbushes/genericbush,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -74978,8 +74921,7 @@
 /area/medical/virology/lab)
 "lbB" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/flag/nt,
 /obj/effect/turf_decal/siding/wood{
@@ -76534,7 +76476,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "loQ" = (
-/obj/machinery/disposal,
 /turf/simulated/floor/carpet/black,
 /area/ntrep)
 "loR" = (
@@ -79380,8 +79321,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/lasertag/blue,
 /turf/simulated/floor/plasteel{
@@ -82779,8 +82719,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/grass,
 /area/crew_quarters/sleep)
@@ -87808,7 +87747,7 @@
 /obj/structure/window/reinforced,
 /obj/item/flag/nt,
 /obj/structure/sign/goldenplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции НаноТрейзен. С благодарностью, Zhojaba. Слава НаноТрейзен!";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Zhojaba. Слава Нанотрейзен!";
 	name = "Благодарственное Письмо от Главного Инженера станции Нова";
 	pixel_y = 32
 	},
@@ -88208,8 +88147,7 @@
 /area/maintenance/starboardaux)
 "nau" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/turf_decal/siding/wideplating/dark{
 	dir = 8
@@ -91247,8 +91185,7 @@
 /obj/structure/flora/ausbushes/ywflowers/hell,
 /obj/structure/flora/firebush,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -92569,8 +92506,7 @@
 /obj/item/clipboard,
 /obj/item/folder,
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -93422,9 +93358,7 @@
 	},
 /area/gateway)
 "nNm" = (
-/obj/structure/window/reinforced{
-	layer = 4.2
-	},
+/obj/structure/window/reinforced,
 /obj/structure/table/wood,
 /obj/item/storage/box/evidence,
 /obj/item/storage/box/evidence,
@@ -96278,8 +96212,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/engineering/aienter)
@@ -98719,9 +98652,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/secondary/exit)
 "oEi" = (
@@ -101597,18 +101527,15 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	color = "orange";
-	layer = 2.9
+	color = "orange"
 	},
 /obj/structure/window/reinforced{
 	color = "orange";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "orange";
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/grass,
 /area/quartermaster/miningstorage)
@@ -102954,8 +102881,7 @@
 /area/maintenance/apmaint)
 "piX" = (
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/table/wood/fancy/royalblue,
 /obj/machinery/photocopier/faxmachine/longrange{
@@ -103816,18 +103742,15 @@
 /obj/machinery/light,
 /obj/structure/window/reinforced{
 	color = "orange";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "orange";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "orange";
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/grass,
 /area/quartermaster/miningstorage)
@@ -107332,12 +107255,10 @@
 "pQj" = (
 /obj/structure/showcase,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -107771,8 +107692,7 @@
 	color = "red"
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/item/restraints/handcuffs,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -108711,7 +108631,7 @@
 /obj/structure/window/reinforced,
 /obj/item/flag/nt,
 /obj/structure/sign/tajarplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции НаноТрейзен. С благодарностью, Den10g. Слава НаноТрейзен!";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции Нанотрейзен. С благодарностью, Den10g. Слава Нанотрейзен!";
 	name = "Благодарственное Письмо от Главного Инженера станции Нова";
 	pixel_y = 32
 	},
@@ -109053,8 +108973,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/genericbush/hell,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -109325,9 +109244,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/genericbush/hell,
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/grass,
 /area/crew_quarters/captain)
 "qdC" = (
@@ -110838,8 +110755,7 @@
 /area/hallway/primary/starboard)
 "qrh" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table/reinforced,
 /obj/item/storage/box/bodybags,
@@ -110987,14 +110903,6 @@
 	icon_state = "dark"
 	},
 /area/hallway/primary/command/east)
-"qsi" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "qsj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -111252,12 +111160,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -114623,8 +114525,7 @@
 /obj/machinery/suit_storage_unit/security,
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -115035,8 +114936,7 @@
 /obj/structure/flora/ausbushes/hell,
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -117238,18 +117138,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"rna" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/prison/cell_block/A)
 "rnb" = (
 /obj/machinery/computer/card/minor/rd,
 /obj/effect/turf_decal/stripes{
@@ -117960,8 +117848,7 @@
 	pixel_x = -3
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/machinery/light,
 /turf/simulated/floor/carpet/royalblue,
@@ -119182,8 +119069,7 @@
 /area/security/detectives_office)
 "rBH" = (
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/machinery/papershredder,
 /obj/effect/turf_decal/siding/wood{
@@ -119298,8 +119184,7 @@
 /area/maintenance/medroom)
 "rCK" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/papershredder,
 /obj/structure/extinguisher_cabinet{
@@ -121258,8 +121143,7 @@
 	pixel_y = -3
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
@@ -121477,7 +121361,6 @@
 	},
 /area/medical/surgery/north)
 "rRR" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance{
 	name = "Bar Maintenance";
 	req_access = list(25)
@@ -123982,8 +123865,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/reedbush,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -127498,9 +127380,7 @@
 	name = "Queue Shutters";
 	opacity = 0
 	},
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/grass,
 /area/hallway/primary/command/west)
 "sLd" = (
@@ -127806,8 +127686,7 @@
 	dir = 5
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -129687,10 +129566,6 @@
 	icon_state = "neutralfull"
 	},
 /area/janitor)
-"taW" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/quartermaster/miningdock)
 "taZ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -130695,8 +130570,7 @@
 "tho" = (
 /obj/machinery/libraryscanner,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
@@ -131321,8 +131195,7 @@
 /area/maintenance/library)
 "tlD" = (
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -132596,9 +132469,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
@@ -137146,8 +137016,7 @@
 /area/hallway/primary/central/second/north)
 "ubJ" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/siding/wood{
@@ -138445,8 +138314,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/plating,
@@ -138735,8 +138603,7 @@
 "uoR" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/space/openspace,
 /area/space)
@@ -139373,14 +139240,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"uuc" = (
-/obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/structure/lattice,
-/turf/space/openspace,
-/area/space)
 "uud" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -141500,8 +141359,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -141951,8 +141809,7 @@
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/multitool,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
@@ -146616,8 +146473,7 @@
 "vze" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/space,
 /area/space)
@@ -146666,8 +146522,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/grass,
 /area/crew_quarters/serviceyard)
@@ -150393,13 +150248,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
-"wcB" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
-	},
-/turf/space/openspace,
-/area/space)
 "wcF" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -150641,9 +150489,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/genericbush,
 /obj/structure/flora/ausbushes/brflowers,
-/obj/structure/window/full/reinforced{
-	layer = 2
-	},
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/grass,
 /area/crew_quarters/captain)
 "weL" = (
@@ -153139,8 +152985,7 @@
 "wwd" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -157753,9 +157598,6 @@
 /obj/machinery/door/airlock/public/glass{
 	id_tag = "KPPS"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/bridge/checkpoint/south)
 "xhP" = (
@@ -157964,13 +157806,6 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/carpet,
 /area/maintenance/casino)
-"xjp" = (
-/obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
-	},
-/turf/space/openspace,
-/area/space)
 "xjq" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -158772,13 +158607,6 @@
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
-"xpC" = (
-/obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
-	},
-/turf/simulated/floor/engine,
-/area/engineering/aienter)
 "xpD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -159283,9 +159111,6 @@
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "xtx" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -160457,7 +160282,7 @@
 "xBF" = (
 /obj/structure/window/reinforced,
 /obj/structure/statue/gold/unathi{
-	desc = "Перед собою вы наблюдаете статую унати, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке - Один из двух главных инженеров союза Таяр и Унати, по прозвищу PiroMage, принимавших участие в разработке передовой научно-исследовательской станции НаноТрейзен - Nova.";
+	desc = "Перед собою вы наблюдаете статую унати, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке - Один из двух главных инженеров союза Таяр и Унати, по прозвищу PiroMage, принимавших участие в разработке передовой научно-исследовательской станции Нанотрейзен - Nova.";
 	name = "К.А.З"
 	},
 /turf/simulated/floor/plasteel{
@@ -162178,8 +162003,7 @@
 /area/mimeoffice)
 "xPn" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/item/radio/intercom{
 	name = "north station intercom (General)";
@@ -162611,8 +162435,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -222681,8 +222504,8 @@ wRr
 vze
 vze
 vze
-qsi
-qsi
+jCS
+jCS
 ylG
 ylG
 eHV
@@ -223434,8 +223257,8 @@ tkq
 tkq
 nrs
 okF
-xpC
-xpC
+cPP
+cPP
 mfF
 gNK
 cPP
@@ -251454,7 +251277,7 @@ nBa
 qbB
 jyC
 jUp
-rna
+bSJ
 kgY
 dlD
 bPu
@@ -274619,7 +274442,7 @@ emV
 fxK
 cwe
 bkc
-taW
+wQZ
 fYq
 jEB
 jEB
@@ -288233,9 +288056,9 @@ dRT
 ylG
 cOd
 cOd
-wcB
+vet
 cOd
-bZb
+kVS
 cuZ
 jQf
 jQf
@@ -289261,9 +289084,9 @@ tbv
 ylG
 uoR
 uoR
-xjp
-uuc
-uuc
+eTm
+vKV
+vKV
 cuZ
 jQf
 jQf

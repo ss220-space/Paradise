@@ -6,7 +6,6 @@
 	item_state = "hardhat0_yellow"
 	var/on = FALSE
 	light_on = FALSE
-	light_power = 1
 	light_range = 4
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	item_color = "yellow" //Determines used sprites: hardhat[on]_[color] and hardhat[on]_[color]2 (lying down sprite)
@@ -86,7 +85,6 @@
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	dog_fashion = /datum/dog_fashion/head/hardhat
 
 /obj/item/clothing/head/hardhat/dblue
 	icon_state = "hardhat0_dblue"

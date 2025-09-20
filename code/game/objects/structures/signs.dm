@@ -1,8 +1,6 @@
 /obj/structure/sign
 	icon = 'icons/obj/decals.dmi'
 	anchored = TRUE
-	opacity = FALSE
-	density = FALSE
 	layer = NOT_HIGH_OBJ_LAYER
 	max_integrity = 100
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
@@ -58,7 +56,6 @@
 	name = "sign"
 	desc = ""
 	icon = 'icons/obj/decals.dmi'
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
@@ -413,8 +410,6 @@
 	icon_state = "explosives"
 
 /obj/structure/sign/explosives/alt
-	name = "ВЗРЫВЧАТЫЕ ВЕЩЕСТВА"
-	desc = "Предупреждающий знак с надписью \"ВЗРЫВЧАТЫЕ ВЕЩЕСТВА\""
 	icon_state = "explosives2"
 
 /obj/structure/sign/cave

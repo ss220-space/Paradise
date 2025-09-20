@@ -29,13 +29,11 @@
 
 /datum/gear/donor/ussptracksuit_black
 	donator_tier = 1
-	cost = 1
 	index_name = "track suit (black)"
 	path = /obj/item/clothing/under/ussptracksuit_black
 
 /datum/gear/donor/ussptracksuit_white
 	donator_tier = 1
-	cost = 1
 	index_name = "track suit (white)"
 	path = /obj/item/clothing/under/ussptracksuit_white
 
@@ -46,8 +44,6 @@
 /datum/gear/donor/leather_trenchcoat
 	index_name = "Leather Trenchcoat"
 	path = /obj/item/clothing/suit/storage/leather_trenchcoat/runner
-	donator_tier = 2
-	cost = 1
 
 /datum/gear/donor/furgloves
 	index_name = "Fur Gloves"
@@ -129,46 +125,38 @@
 	index_name = "Silver ID Decal"
 	path = /obj/item/id_decal/silver
 	donator_tier = 3
-	cost = 1
 
 /datum/gear/donor/id_decal_prisoner
 	index_name = "Prisoner ID Decal"
 	path = /obj/item/id_decal/prisoner
 	donator_tier = 3
-	cost = 1
 
 /datum/gear/donor/id_decal_emag
 	index_name = "Emag ID Decal"
 	path = /obj/item/id_decal/emag
 	donator_tier = 3
-	cost = 1
 
 /datum/gear/donor/id_decal_gold
 	index_name = "Gold ID Decal"
 	path = /obj/item/id_decal/gold
 	donator_tier = 4
-	cost = 1
 
 /datum/gear/donor/zippoengraved
 	index_name = "engraved zippo lighter"
 	display_name = "Гравированная зажигалка Зиппо"
 	path = /obj/item/lighter/zippo/engraved
 	donator_tier = 1
-	cost = 1
 
 /datum/gear/donor/zippogold
 	index_name = "gold engraved zippo lighter"
 	display_name = "Золотая зажигалка Зиппо"
 	path =  /obj/item/lighter/zippo/fluff/michael_guess_1
-	donator_tier = 2
-	cost = 1
 
 /datum/gear/donor/zippopurple
 	index_name = "purple engraved zippo lighter"
 	display_name = "Фиолетовая зажигалка Зиппо"
 	path = /obj/item/lighter/zippo/fluff/purple
 	donator_tier = 3
-	cost = 1
 
 /datum/gear/donor/strip
 	subtype_path = /datum/gear/donor/strip
@@ -177,109 +165,85 @@
 /datum/gear/donor/strip/cap
 	index_name = "strip, Captain"
 	path = /obj/item/clothing/accessory/head_strip
-	donator_tier = 2
-	cost = 1
 	allowed_roles = list(JOB_TITLE_CAPTAIN)
 
 /datum/gear/donor/strip/rd
 	index_name = "strip, Research Director"
 	path = /obj/item/clothing/accessory/head_strip/rd
-	donator_tier = 2
-	cost = 1
 	allowed_roles = list(JOB_TITLE_RD)
 
 /datum/gear/donor/strip/ce
 	index_name = "strip, Chief Engineer"
 	path = /obj/item/clothing/accessory/head_strip/ce
-	donator_tier = 2
-	cost = 1
 	allowed_roles = list(JOB_TITLE_CHIEF)
 
 /datum/gear/donor/strip/t4ce
 	index_name = "strip, Grand Chief Engineer"
 	path = /obj/item/clothing/accessory/head_strip/t4ce
 	donator_tier = 4
-	cost = 1
 	allowed_roles = list(JOB_TITLE_CHIEF)
 
 /datum/gear/donor/strip/cmo
 	index_name = "strip, Chief Medical Officer"
 	path = /obj/item/clothing/accessory/head_strip/cmo
-	donator_tier = 2
-	cost = 1
 	allowed_roles = list(JOB_TITLE_CMO)
 
 /datum/gear/donor/strip/hop
 	index_name = "strip, Head of Personnel"
 	path = /obj/item/clothing/accessory/head_strip/hop
-	donator_tier = 2
-	cost = 1
 	allowed_roles = list(JOB_TITLE_HOP)
 
 /datum/gear/donor/strip/hos
 	index_name = "strip, Head of Security"
 	path = /obj/item/clothing/accessory/head_strip/hos
-	donator_tier = 2
-	cost = 1
 	allowed_roles = list(JOB_TITLE_HOS)
 
 /datum/gear/donor/strip/qm
 	index_name = "strip, Quartermaster"
 	path = /obj/item/clothing/accessory/head_strip/qm
-	donator_tier = 2
-	cost = 1
 	allowed_roles = list(JOB_TITLE_QUARTERMASTER)
 
 /datum/gear/donor/strip/clown
 	index_name = "strip, Clown"
 	path = /obj/item/clothing/accessory/head_strip/clown
-	donator_tier = 2
-	cost = 1
 	allowed_roles = list(JOB_TITLE_CLOWN)
 
 /datum/gear/donor/strip/bs
 	index_name = "strip, Blueshield"
 	path = /obj/item/clothing/accessory/head_strip/bs
 	donator_tier = 3
-	cost = 1
 	allowed_roles = list(JOB_TITLE_BLUESHIELD)
 
 /datum/gear/donor/strip/ntr
 	index_name = "strip, Nanotrasen Representative"
 	path = /obj/item/clothing/accessory/head_strip/ntr
 	donator_tier = 3
-	cost = 1
 	allowed_roles = list(JOB_TITLE_REPRESENTATIVE)
 
 /datum/gear/donor/strip/syndi
 	index_name = "strip, Syndicate"
 	path = /obj/item/clothing/accessory/head_strip/syndicate
 	donator_tier = 3
-	cost = 1
 
 /datum/gear/donor/strip/comrad
 	index_name = "strip, SSSP"
 	path = /obj/item/clothing/accessory/head_strip/comrad
 	donator_tier = 3
-	cost = 1
 
 /datum/gear/donor/strip/federal
 	index_name = "strip, TSF"
 	path = /obj/item/clothing/accessory/head_strip/federal
 	donator_tier = 3
-	cost = 1
 
 /datum/gear/donor/strip/greytide
 	index_name = "strip, GreyTide"
 	path = /obj/item/clothing/accessory/head_strip/greytide
 	donator_tier = 3
-	cost = 1
 
 /datum/gear/donor/heartglasses
 	index_name = "heart-shaped glasses, color"
 	path = /obj/item/clothing/glasses/heart
 	donator_tier = 3
-	cost = 1
 	slot = ITEM_SLOT_EYES
 
 /datum/gear/donor/heartglasses/New()
@@ -354,7 +318,6 @@
 	index_name = "Optical Security Visor"
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/visor
 	donator_tier = 3
-	cost = 1
 	slot = ITEM_SLOT_EYES
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE)
 
@@ -362,7 +325,6 @@
 	index_name = "Optical Medical Visor"
 	path = /obj/item/clothing/glasses/hud/health/visor
 	donator_tier = 3
-	cost = 1
 	slot = ITEM_SLOT_EYES
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
@@ -370,7 +332,6 @@
 	index_name = "Optical Science Visor"
 	path = /obj/item/clothing/glasses/science/visor
 	donator_tier = 3
-	cost = 1
 	slot = ITEM_SLOT_EYES
 	allowed_roles = list(JOB_TITLE_SCIENTIST, JOB_TITLE_RD, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST, JOB_TITLE_CHEMIST)
 
@@ -378,7 +339,6 @@
 	index_name = "Optical Diagnostic Visor"
 	path = /obj/item/clothing/glasses/hud/diagnostic/visor
 	donator_tier = 3
-	cost = 1
 	slot = ITEM_SLOT_EYES
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_ROBOTICIST)
 
@@ -386,7 +346,6 @@
 	index_name = "Optical Meson Visor"
 	path = /obj/item/clothing/glasses/meson/visor
 	donator_tier = 3
-	cost = 1
 	slot = ITEM_SLOT_EYES
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
 
@@ -394,7 +353,6 @@
 	index_name = "Optical Skill Visor"
 	path = /obj/item/clothing/glasses/hud/skills/visor
 	donator_tier = 3
-	cost = 1
 	slot = ITEM_SLOT_EYES
 	allowed_roles = list(JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_HOP, JOB_TITLE_CAPTAIN)
 
@@ -402,7 +360,6 @@
 	index_name = "Optical Hydroponic Visor"
 	path = /obj/item/clothing/glasses/hud/hydroponic/visor
 	donator_tier = 3
-	cost = 1
 	slot = ITEM_SLOT_EYES
 	allowed_roles = list(JOB_TITLE_BOTANIST)
 
@@ -410,7 +367,6 @@
 	index_name = "night dress, select"
 	display_name = "Ночное платье"
 	description = "A classic night dress."
-	cost = 1
 	donator_tier = 3
 	path = /obj/item/clothing/under/night_dress
 
@@ -427,54 +383,45 @@
 	index_name = "strip, Great fellow"
 	path = /obj/item/clothing/accessory/head_strip/cheese_badge
 	donator_tier = 4
-	cost = 1
 	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE)
 
 /datum/gear/donor/smile_pin
 	index_name = "smiling pin"
 	path = /obj/item/clothing/accessory/medal/smile
 	donator_tier = 4
-	cost = 1
 
 /datum/gear/donor/backpack_hiking
 	donator_tier = 3
-	cost = 1
 	index_name = "backpack, Fancy Hiking Pack"
 	path = /obj/item/storage/backpack/fluff/hiking
 
 /datum/gear/donor/backpack_brew
 	donator_tier = 3
-	cost = 1
 	index_name = "backpack, The brew"
 	path = /obj/item/storage/backpack/fluff/thebrew
 
 /datum/gear/donor/backpack_cat
 	donator_tier = 3
-	cost = 1
 	index_name = "backpack, CatPack"
 	path = /obj/item/storage/backpack/fluff/ssscratches_back
 
 /datum/gear/donor/backpack_voxcaster
 	donator_tier = 3
-	cost = 1
 	index_name = "backpack, Voxcaster"
 	path = /obj/item/storage/backpack/fluff/krich_back
 
 /datum/gear/donor/backpack_syndi
 	donator_tier = 3
-	cost = 1
 	index_name = "backpack, Military Satchel"
 	path = /obj/item/storage/backpack/fluff/syndiesatchel
 
 /datum/gear/donor/spacecloak
 	donator_tier = 3
-	cost = 1
 	index_name = "Space cloak"
 	path = /obj/item/clothing/neck/cloak/spacecloak
 
 /datum/gear/donor/golden_wheelchair
 	donator_tier = 4
-	cost = 1
 	index_name = "Golden wheelchair paintkit"
 	path = /obj/item/fluff/rapid_wheelchair_kit
 
@@ -482,66 +429,55 @@
 	index_name = "hazard vest alt"
 	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor
 	donator_tier = 3
-	cost = 1
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER)
 
 /datum/gear/donor/atmosbelt
 	index_name = "hazard vest alt (atmos)"
 	path = /obj/item/clothing/suit/storage/hazardvest/beltdonor/atmos
 	donator_tier = 3
-	cost = 1
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/donor/beaver
 	index_name = "Beaver Plushie"
 	path = /obj/item/toy/plushie/beaver
 	donator_tier = 3
-	cost = 1
 
 /datum/gear/donor/earring_NT
 	index_name = "Earrings NT"
 	path = /obj/item/clothing/ears/earrings/Nt
 	donator_tier = 3
-	cost = 1
 
 /datum/gear/donor/hijab
 	donator_tier = 1
-	cost = 1
 	index_name = "hijab"
 	path = /obj/item/clothing/suit/hooded/hijab
 
 /datum/gear/donor/steampunkdress
 	donator_tier = 1
-	cost = 1
 	index_name = "victorian blue-white dress"
 	path = /obj/item/clothing/under/steampunkdress
 
 /datum/gear/donor/plaidhoodie_green
 	donator_tier = 1
-	cost = 1
 	index_name = "Plaid hoodie, green"
 	path = /obj/item/clothing/suit/hoodie/plaidhoodie_green
 
 /datum/gear/donor/plaidhoodie_white
 	donator_tier = 1
-	cost = 1
 	index_name = "Plaid hoodie, white"
 	path = /obj/item/clothing/suit/hoodie/plaidhoodie_white
 
 /datum/gear/donor/plaidhoodie_red
 	donator_tier = 1
-	cost = 1
 	index_name = "Plaid hoodie, red"
 	path = /obj/item/clothing/suit/hoodie/plaidhoodie_red
 
 /datum/gear/donor/plaidhoodie_yellow
 	donator_tier = 1
-	cost = 1
 	index_name = "Plaid hoodie, yellow"
 	path = /obj/item/clothing/suit/hoodie/plaidhoodie_yellow
 
 /datum/gear/donor/blackcoat
-	donator_tier = 2
 	cost = 2
 	index_name = "Black Coat"
 	path = /obj/item/clothing/suit/blackcoat
@@ -550,60 +486,49 @@
 	index_name = "PDA case \"BEER\""
 	path = /obj/item/pda_case/beer
 	donator_tier = 1
-	cost = 1
 
 /datum/gear/donor/maid
-	donator_tier = 2
-	cost = 1
 	index_name = "Short maid costume"
 	path = /obj/item/clothing/under/maid/short
 
 /datum/gear/donor/rdplushie
 	donator_tier = 3
-	cost = 1
 	index_name = "RD doll"
 	path = /obj/item/toy/plushie/rdplushie
 
 /datum/gear/donor/gsbplushie
 	donator_tier = 3
-	cost = 1
 	index_name = "GSBussy doll"
 	path = /obj/item/toy/plushie/gsbplushie
 
 /datum/gear/donor/backpack_shitsec
 	donator_tier = 3
-	cost = 1
 	index_name = "backpack of justice"
 	path = /obj/item/storage/backpack/justice
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/donor/masterli
 	donator_tier = 1
-	cost = 1
 	index_name = "master li clothes"
 	path = /obj/item/clothing/under/martialsuit/masterli
 
 /datum/gear/donor/masterdragon
 	donator_tier = 1
-	cost = 1
 	index_name = "gold dragon master clothes"
 	path = /obj/item/clothing/under/martialsuit/masterdragon
 
 /datum/gear/donor/redkunoichi
 	donator_tier = 1
-	cost = 1
 	index_name = "red kunoichi clothes"
 	path = /obj/item/clothing/under/martialsuit/redkunoichi
 
 /datum/gear/donor/bluekunoichi
 	donator_tier = 1
-	cost = 1
 	index_name = "blue kunoichi clothes"
 	path = /obj/item/clothing/under/martialsuit/bluekunoichi
 
 /datum/gear/donor/zazalord
 	donator_tier = 1
-	cost = 1
 	index_name = "zaza-lord swag bomber"
 	path = /obj/item/clothing/suit/storage/zazalord
 

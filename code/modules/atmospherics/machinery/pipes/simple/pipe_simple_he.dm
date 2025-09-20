@@ -3,7 +3,6 @@
 	icon_state = "intact"
 	pipe_icon = "hepipe"
 	level = 2
-	plane = GAME_PLANE
 	layer = GAS_PIPE_VISIBLE_LAYER
 	var/initialize_directions_he
 	var/surface = 2
@@ -86,7 +85,6 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/hidden
 	level=1
 	icon_state="intact-f"
-	plane = GAME_PLANE
 	layer = GAS_PIPE_HIDDEN_LAYER
 
 /////////////////////////////////
@@ -94,9 +92,7 @@
 /////////////////////////////////
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/junction.dmi'
-	icon_state = "intact"
 	pipe_icon = "hejunction"
-	level = 2
 	minimum_temperature_difference = 300
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 
@@ -133,5 +129,4 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/hidden
 	level=1
 	icon_state="intact-f"
-	plane = GAME_PLANE
 	layer = GAS_PIPE_HIDDEN_LAYER

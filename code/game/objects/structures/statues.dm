@@ -4,7 +4,6 @@
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 100
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
@@ -550,7 +549,6 @@
 
 ///////// Cheese
 /obj/structure/statue/cheese
-	max_integrity = 100
 	material_drop_type = /obj/item/stack/sheet/cheese
 
 

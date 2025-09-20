@@ -86,7 +86,6 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "dq" = (
-/obj/structure/table/wood,
 /obj/structure/table/wood/fancy/purple,
 /obj/machinery/vending/boozeomat/syndicate_access,
 /turf/simulated/floor/carpet/purple,

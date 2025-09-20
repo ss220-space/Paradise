@@ -9,7 +9,6 @@
 
 	can_unwrench = TRUE
 
-	on = FALSE
 	var/target_pressure = ONE_ATMOSPHERE
 
 	var/id = null

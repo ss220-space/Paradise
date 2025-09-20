@@ -22,6 +22,7 @@
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 	taste_description = "онемения во рту"
+	chemdesc = "Очень сильное болеутоляющее средство."
 
 /datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M) //Needed so the hud updates when injested / removed from system
 	var/update_flags = STATUS_UPDATE_HEALTH
@@ -98,7 +99,7 @@
 	description = "Специализированный препарат, стимулирующий митохондрии клеток для заживления внутренних органов."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
-	taste_description = "горечи"
+	chemdesc = "Исцеляет повреждения внутренних органов."
 
 /datum/reagent/medicine/mitocholide/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -171,7 +172,6 @@
 	name = "Резадон"
 	id = "rezadone"
 	description = "Порошок, полученный из рыбьего токсина. Резадон может эффективно лечить генетические повреждения, а также восстанавливать мелкие раны. Передозировка вызывает сильную тошноту и отравление."
-	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
 	overdose_threshold = 30
 	harmless = FALSE
@@ -203,6 +203,7 @@
 	color = "#0AB478"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "антибиотиков"
+	chemdesc = "Замедляет развитие заболеваний и помогает бороться с инфекциями."
 
 /datum/reagent/medicine/spaceacillin/on_mob_life(mob/living/M)
 	var/list/organs_list = list()
@@ -344,6 +345,7 @@
 	penetrates_skin = TRUE
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	taste_description = "солёной воды"
+	chemdesc = "Медленно исцеляет физичекие и термические повреждения, а также медленно восстанавливает кровь."
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -388,7 +390,6 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 3
 	color = "#fab9b9"
-	taste_description = "горечи"
 
 /datum/reagent/medicine/ab_stimulant/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -418,8 +419,8 @@
 	id = "charcoal"
 	description = "Активированный уголь поглощает токсины."
 	reagent_state = LIQUID
-	color = "#000000"
 	taste_description = "пыли"
+	chemdesc = "Медленно лечит от отравления, а также медленно выводит другие химические вещества."
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -436,7 +437,6 @@
 	description = "Экстракт, полученный из угледрева. Выводит из организма вредные токсины, но имеет ряд побочных эффектов."
 	reagent_state = LIQUID
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
-	color = "#000000"
 	taste_description = "пепла"
 
 /datum/reagent/medicine/coaltree_extract/on_mob_life(mob/living/M)
@@ -616,6 +616,7 @@
 	reagent_state = LIQUID
 	color = "#00FFFF"
 	taste_description = "свежего воздуха"
+	chemdesc = "Лечит повреждения от удушья."
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -797,7 +798,6 @@
 	id = "atropine"
 	description = "Атропин - мощный сердечный реаниматор, но он может вызвать спутанность сознания, головокружение и гипертермию."
 	reagent_state = LIQUID
-	color = "#000000"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 	harmless = FALSE
@@ -832,6 +832,7 @@
 	harmless = FALSE
 	taste_description = "выигранного времени"
 	tags = REAGENT_TAG_ANTI_STUN
+	chemdesc = "Стабилизирует критическое состояние и медленно исцеляет повреждения от удушья."
 
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -960,6 +961,7 @@
 	description = "Маннитол - это сахарный спирт, который может восстановить повреждённые ткани мозга."
 	color = "#D1D1F1"
 	taste_description = "сладкого спирта"
+	chemdesc = "Исцеляет повреждения мозга."
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1239,7 +1241,6 @@
 	name = "Восстановительные наниты"
 	id = "syndicate_nanites"
 	description = "Миниатюрные медицинские роботы, которые быстро восстанавливают повреждения тела. Могут начать атаковать клетки своего хозяина в больших количествах."
-	reagent_state = SOLID
 	color = "#555555"
 	overdose_threshold = 100
 	can_synth = FALSE
@@ -1571,7 +1572,6 @@
 	description = "Природное химическое вещество, вырабатываемое в кровотоке унатхов."
 	reagent_state = LIQUID
 	color = "#00ff15"
-	metabolization_rate = REAGENTS_METABOLISM
 	shock_reduction = 20
 	taste_description = "благословления"
 	can_synth = FALSE
@@ -1588,7 +1588,6 @@
 	description = "Продукт метаболизма плазмаменов, отвечающий за восстановление тканей и противодействие болевому шоку. Чрезвычайно токсичен."
 	reagent_state = LIQUID
 	color = "#b521c2"
-	metabolization_rate = REAGENTS_METABOLISM
 	shock_reduction = 20
 	taste_description = "превосходства"
 	can_synth = FALSE
@@ -1635,7 +1634,6 @@
 	metabolization_rate = 0.8 * REAGENTS_METABOLISM
 	overdose_threshold = 3.1
 	shock_reduction = 100
-	harmless = TRUE
 	can_synth = FALSE
 	tags = REAGENT_TAG_ANTI_STUN
 
@@ -1653,7 +1651,6 @@
 	metabolization_rate = 0.8 * REAGENTS_METABOLISM
 	overdose_threshold = 2.1
 	shock_reduction = 80
-	harmless = TRUE
 	can_synth = FALSE
 	tags = REAGENT_TAG_ANTI_STUN
 

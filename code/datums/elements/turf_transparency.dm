@@ -45,8 +45,6 @@ GLOBAL_LIST_EMPTY(pillars_by_z)
 	invisibility = 0
 	layer = OBJ_LAYER
 	plane = HUD_PLANE
-	anchored = TRUE
-	move_resist = INFINITY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = PIXEL_SCALE
 

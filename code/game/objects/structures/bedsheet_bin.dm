@@ -7,7 +7,6 @@ LINEN BINS
 /obj/item/bedsheet
 	name = "bedsheet"
 	desc = "A surprisingly soft linen bedsheet."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet"
 	item_state = "sheet"
 	item_flags = NO_PIXEL_RANDOM_DROP
@@ -259,7 +258,6 @@ LINEN BINS
 /obj/structure/bedsheetbin
 	name = "linen bin"
 	desc = "A linen bin. It looks rather cosy."
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "linenbin-full"
 	anchored = TRUE
 	resistance_flags = FLAMMABLE

@@ -4,7 +4,6 @@
 	name = "gravitational boots"
 	desc = "Эти экспериментальные магбутсы обходят замедление обычных, за счёт миниатюрных гравитационных в подошвах. \
 			К сожалению, для работы им необходимо ядро гравитационной аномалии."
-	gender = PLURAL
 	icon_state = "gravboots0"
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //combination of magboots and jumpboots
 	strip_delay = 10 SECONDS

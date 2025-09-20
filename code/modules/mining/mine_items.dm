@@ -4,7 +4,6 @@
 /obj/effect/light_emitter
 	name = "Light emitter"
 	icon_state = "at_shield1"
-	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/effect/light_emitter/get_ru_names()

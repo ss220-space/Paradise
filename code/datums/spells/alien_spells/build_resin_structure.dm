@@ -8,7 +8,6 @@
 /obj/effect/proc_holder/spell/alien_spell/build_resin
 	name = "Secrete Resin"
 	desc = "Secrete tough malleable resin (Use Ctrl+Click on self)."
-	plasma_cost = 0
 	action_icon_state = "alien_resin"
 	var/in_process = FALSE
 
