@@ -52,11 +52,8 @@
 	name = "Departament Security ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Службы безопасности."
 	icon_state = "clothes-dep-sec_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-sec"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-sec_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_SEC_DOORS)
 	products = list(
@@ -141,11 +138,8 @@
 	name = "Departament Medical ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Медицинского отдела."
 	icon_state = "clothes-dep-med_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-med"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-med_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_MEDICAL)
 	products = list(
@@ -250,11 +244,8 @@
 	name = "Departament Engineering ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Инженерного отдела."
 	icon_state = "clothes-dep-eng_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-eng"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-eng_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	products = list(
@@ -318,11 +309,8 @@
 	name = "Departament Science ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Научного отдела."
 	icon_state = "clothes-dep-sci_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-sci"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-sci_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_RESEARCH)
 	products = list(
@@ -382,11 +370,8 @@
 	name = "Departament Cargo ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Отд+ела снабжения."
 	icon_state = "clothes-dep-car_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-car"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-car_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_MINING)
 	products = list(
@@ -448,11 +433,8 @@
 	name = "Departament Law ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Юридического отдела."
 	icon_state = "clothes-dep-sec_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-sec"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-sec_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_LAWYER)
 	products = list(
@@ -532,11 +514,8 @@
 	name = "Departament Service ClothesMate Chaplain"
 	desc = "Автомат-помощник по выдаче одежды для священнослужителей."
 	icon_state = "clothes-dep-car_off"
-	panel_overlay = "clothes_panel"
 	screen_overlay = "clothes-dep-car"
-	lightmask_overlay = "clothes_lightmask"
 	broken_overlay = "clothes-dep-car_broken"
-	broken_lightmask_overlay = "clothes_broken_lightmask"
 
 	req_access = list(ACCESS_CHAPEL_OFFICE)
 	products = list(
