@@ -15,7 +15,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/clockwork
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 // An "overlay" used by clockwork walls and floors to appear normal to mesons.
 /obj/effect/clockwork/overlay
@@ -76,7 +75,6 @@
 	name = "fallen armor"
 	desc = "Lifeless chunks of armor. They're designed in a strange way and won't fit on you."
 	icon_state = "fallen_armor"
-	w_class = WEIGHT_CLASS_NORMAL
 
 // Gibs
 /obj/effect/decal/cleanable/blood/gibs/clock
@@ -86,8 +84,6 @@
 	icon_state = "gib1"
 	basecolor = "#B18B25"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7")
-	bloodiness = BLOOD_AMOUNT_PER_DECAL
-	mergeable_decal = FALSE
 	squishy = FALSE
 
 /obj/effect/decal/cleanable/blood/gibs/clock/can_bloodcrawl_in()
@@ -141,8 +137,6 @@
 	icon_state = "gear"
 	climbable = TRUE
 	max_integrity = 100
-	anchored = TRUE
-	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
 	var/metal_type = /obj/item/stack/sheet/brass

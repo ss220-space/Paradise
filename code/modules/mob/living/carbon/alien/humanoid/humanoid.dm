@@ -1,5 +1,4 @@
 /mob/living/carbon/alien/humanoid
-	name = "alien"
 	icon_state = "alien_s"
 	pass_flags = PASSTABLE
 	max_grab = GRAB_KILL

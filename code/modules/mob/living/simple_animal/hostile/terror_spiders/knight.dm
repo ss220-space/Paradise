@@ -14,13 +14,9 @@
 	desc = "Зловещий на вид красный паук c восемью красными глазами-бусинками и ужасными, большими, заострёнными клыками! Похоже, у него порочная полоса шириной в милю."
 	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
-	icon_state = "terror_red"
-	icon_living = "terror_red"
-	icon_dead = "terror_red_dead"
 	maxHealth = 220
 	health = 220
 	damage_coeff = list(BRUTE = 0.6, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
-	melee_damage_lower = 15
 	melee_damage_upper = 15
 	obj_damage = 60
 	environment_smash = ENVIRONMENT_SMASH_WALLS

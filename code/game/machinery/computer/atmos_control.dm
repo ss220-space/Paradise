@@ -1,6 +1,5 @@
 /obj/machinery/computer/atmoscontrol
 	name = "central atmospherics computer"
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "atmos_key"
 	icon_screen = "tank"
 	light_color = LIGHT_COLOR_CYAN

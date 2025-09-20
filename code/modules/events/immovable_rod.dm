@@ -30,10 +30,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	icon_state = "immrod"
 	throwforce = 100
 	move_force = INFINITY
-	move_resist = INFINITY
 	pull_force = INFINITY
 	density = TRUE
-	anchored = TRUE
 	movement_type = PHASING|FLYING
 	/// The turf we're looking to coast to.
 	var/turf/destination_turf

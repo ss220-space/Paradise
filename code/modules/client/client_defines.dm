@@ -222,6 +222,27 @@
 
 	var/tgui_panel_theme = "dark"
 
+	var/list/parallax_layers
+	var/list/parallax_layers_cached
+	var/atom/movable/screen/parallax_home/parallax_rock
+	var/atom/movable/movingmob
+	var/turf/previous_turf
+	/// world.time of when we can state animate()ing parallax again
+	var/dont_animate_parallax
+	/// Direction our current area wants to move parallax
+	var/parallax_movedir = 0
+	/// How many parallax layers to show our client
+	var/parallax_layers_max = 4
+	/// Timers for the area directional animation, one for each layer
+	var/list/parallax_animate_timers
+	/// Do we want to do parallax animations at all?
+	/// Exists to prevent laptop fires
+	var/do_parallax_animations = TRUE
+
+	var/list/ViewMods = list()
+	var/ViewModsActive = FALSE
+	var/ViewPreferedIconSize = 0
+
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS

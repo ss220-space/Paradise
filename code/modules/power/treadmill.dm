@@ -7,7 +7,6 @@
 	name = "treadmill"
 	desc = "A power-generating treadmill."
 	layer = 2.2
-	use_power = NO_POWER_USE
 
 	var/speed = 0
 	var/friction = 0.15		// lose this much speed every ptick
@@ -136,9 +135,7 @@
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
 	anchored = TRUE
-	density = FALSE
 	maptext_height = 26
-	maptext_width = 32
 	maptext_y = -1
 
 	var/on = 0					// if we should be metering or not

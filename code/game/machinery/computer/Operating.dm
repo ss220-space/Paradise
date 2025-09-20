@@ -3,8 +3,6 @@
 /obj/machinery/computer/operating
 	name = "operating computer"
 	desc = "Высокотехнологичный медицинский компьютер, используемый для контролирования процесса хиругических операций."
-	density = TRUE
-	anchored = TRUE
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	circuit = /obj/item/circuitboard/operating

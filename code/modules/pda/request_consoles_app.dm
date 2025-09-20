@@ -4,7 +4,6 @@
 	icon = "archive"
 	template = "pda_request_console"
 	category = "Request Console"
-	update = PDA_APP_UPDATE
 	var/list/department_list
 	var/list/possible_consoles = list()
 	var/list/consoles_mute = list()

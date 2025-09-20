@@ -16,6 +16,9 @@
 	amputation_point = "ствол"
 	encased = null
 	gendered_icon = FALSE
+	cannot_break = TRUE
+	encased = null
+	convertable_children = list(/obj/item/organ/external/groin/diona)
 
 /obj/item/organ/external/groin/diona
 	species_type = /datum/species/diona
@@ -166,6 +169,8 @@
 	encased = null
 	amputation_point = "верхний ствол"
 	gendered_icon = FALSE
+	cannot_break = TRUE
+	encased = null
 
 /obj/item/organ/diona/process()
 	return

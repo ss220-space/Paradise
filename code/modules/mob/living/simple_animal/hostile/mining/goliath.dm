@@ -8,7 +8,6 @@
 	icon_aggro = "Goliath_alert"
 	icon_dead = "Goliath_dead"
 	icon_gib = "syndicate_gib"
-	mouse_opacity = MOUSE_OPACITY_ICON
 	move_to_delay = 40
 	ranged = TRUE
 	ranged_cooldown_time = 120
@@ -27,7 +26,6 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "не наносит вреда его прочной шкуре"
 	vision_range = 5
-	aggro_vision_range = 9
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
@@ -219,14 +217,11 @@
 
 //Lavaland Goliath
 /mob/living/simple_animal/hostile/asteroid/goliath/beast
-	name = "goliath"
 	desc = "Громадный зверь в бронированном панцире, со щупальцами, изгибающимися у него за спиной."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath"
 	icon_living = "goliath"
 	icon_aggro = "goliath"
 	icon_dead = "goliath_dead"
-	throw_message = "не наносит вреда его прочной шкуре"
 	pre_attack_icon = "goliath2"
 	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath= 2, /obj/item/stack/sheet/animalhide/goliath_hide = 1, /obj/item/stack/sheet/bone = 2)
@@ -261,7 +256,6 @@
 	health = 400
 	speed = 4
 	pre_attack_icon = "Goliath_preattack"
-	throw_message = "не наносит вреда его прочной шкуре"
 	crusher_loot = /obj/item/crusher_trophy/eyed_tentacle
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath = 2, /obj/item/stack/sheet/animalhide/goliath_hide = 2, /obj/item/stack/sheet/bone = 2)
 	crusher_drop_mod = 30

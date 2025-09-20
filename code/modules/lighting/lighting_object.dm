@@ -10,7 +10,6 @@
 	invisibility = INVISIBILITY_LIGHTING
 	simulated = FALSE
 	light_system = NO_LIGHT_SUPPORT
-	light_range = 0
 
 	var/turf/myturf
 

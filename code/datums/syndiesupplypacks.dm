@@ -97,7 +97,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/grenade/gas/oxygen,
 					/obj/item/grenade/gas/oxygen)
 	cost = 350
-	containertype = /obj/structure/closet/crate/internals
 	containername = "emergency crate"
 
 /datum/syndie_supply_packs/emergency/internals
@@ -327,9 +326,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 ///// Armory stuff
 
 /datum/syndie_supply_packs/security/armory
-	name = "HEADER"
-	containertype = /obj/structure/closet/crate/secure/syndicate
-	access = ACCESS_SYNDICATE_COMMS_OFFICER
 
 /datum/syndie_supply_packs/security/armory/red_hardsuit
 	name = "Syndicate Hardsuit Crate"
@@ -668,14 +664,12 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(/obj/machinery/power/tesla_coil,
 					/obj/machinery/power/tesla_coil,
 					/obj/machinery/power/tesla_coil)
-	cost = 100
 	containername = "tesla coil crate"
 
 /datum/syndie_supply_packs/engineering/engine/grounding
 	name = "Grounding Rod Crate"
 	contains = list(/obj/machinery/power/grounding_rod,
 					/obj/machinery/power/grounding_rod)
-	cost = 100
 	containername = "grounding rod crate"
 
 /datum/syndie_supply_packs/engineering/engine/collector
@@ -683,7 +677,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector,
 					/obj/machinery/power/rad_collector)
-	cost = 100
 	containername = "collector crate"
 
 /datum/syndie_supply_packs/engineering/engine/PA
@@ -733,9 +726,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/pipe/circulator,
 		/obj/item/pipe/circulator)
 	cost = 2500
-	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "thermo-electric generator crate"
-	access = ACCESS_CE
 
 /datum/syndie_supply_packs/engineering/conveyor
 	name = "Conveyor Assembly Crate"
@@ -780,7 +771,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/storage/box/iv_bags,
 					/obj/item/vending_refill/medical)
 	cost = 200
-	containertype = /obj/structure/closet/crate/medical
 	containername = "medical supplies crate"
 
 /datum/syndie_supply_packs/medical/firstaid
@@ -985,7 +975,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "plasma assembly crate"
 	access = ACCESS_TOX_STORAGE
-	group = SYNDIE_SUPPLY_SCIENCE
 
 /datum/syndie_supply_packs/science/shieldwalls
 	name = "Shield Generators Crate"
@@ -1387,7 +1376,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/seeds/eggplant/eggy,
 					/obj/item/seeds/random,
 					/obj/item/seeds/random)
-	cost = 150
 	containername = "exotic seeds crate"
 
 /datum/syndie_supply_packs/organic/hydroponics/beekeeping_fullkit
@@ -1400,7 +1388,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/clothing/head/beekeeper_head,
 					/obj/item/clothing/suit/beekeeper_suit,
 					/obj/item/melee/flyswatter)
-	cost = 150
 	containername = "beekeeping starter kit"
 
 /datum/syndie_supply_packs/organic/hydroponics/beekeeping_suits
@@ -1554,7 +1541,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/misc
 	name = "HEADER"
-	group = SYNDIE_SUPPLY_MISC
 
 /datum/syndie_supply_packs/misc/watertank
 	name = "Water Tank Crate"
@@ -2035,7 +2021,6 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(/obj/item/vending_refill/cigarette)
 	cost = 150
 	containername = "cigarette supply crate"
-	containertype = /obj/structure/closet/crate
 
 /datum/syndie_supply_packs/vending/dinnerware
 	name = "Dinnerware Supply Crate"

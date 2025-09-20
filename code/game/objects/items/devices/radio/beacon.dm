@@ -80,7 +80,6 @@
 	qdel(src)
 
 /obj/item/radio/beacon/syndicate/bomb
-	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
 	origin_tech = "bluespace=5;syndicate=5"
 	var/bomb = /obj/machinery/syndicatebomb
@@ -102,7 +101,6 @@
 	bomb = /obj/machinery/syndicatebomb/emp
 
 /obj/item/radio/beacon/syndicate/bundle
-	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to select a bundle</i>."
 	var/used = FALSE
 	var/list/selected = list()

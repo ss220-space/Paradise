@@ -150,7 +150,6 @@
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
-	canhear_range = 0
 
 
 /obj/item/radio/headset/bot/recalculateChannels()
@@ -1406,7 +1405,3 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return
 	set_varspeed(initial(speed))
 	balloon_alert(src, "вы замедляетесь")
-
-/obj/machinery/bot_core/syndicate
-	req_access = list(ACCESS_SYNDICATE)
-

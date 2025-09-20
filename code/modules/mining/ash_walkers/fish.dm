@@ -83,7 +83,6 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	)
 
 /obj/item/lavaland_fish/shoreline // all this subtypes used in actual fishing
-	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/lavaland_fish/deep_water
 	w_class = WEIGHT_CLASS_BULKY
@@ -164,8 +163,6 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 /obj/item/lavaland_fish/shoreline/ash_crab
 	name = "ash crab"
 	desc = "Небольшое всеядное ракообразное, обладающее на удивление крепким панцирем. Данный вид имеет интересную привычку поедать мелкие предметы, которые они находят. Лавовые крабы наиболее часто являются объектом охоты как для другой \"морской\" фауны, так и для местных племён в связи с крепким панцирем, используемым в качестве заточки, съедобным мясом и интересными находками в его желудке."
-	icon_state = "ash_crab"
-	item_state = "ash_crab"
 	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/ash_eater
 	butcher_loot = list(
 		/obj/item/whetstone/crab_shell = 1,
@@ -302,7 +299,6 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	icon_state = "blind_reaper"
 	item_state = "blind_reaper"
 	throwforce = 20
-	force = 10
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/ash_eater
 	butcher_loot = list(

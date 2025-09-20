@@ -4,7 +4,6 @@
 /obj/effect/proc_holder/spell/rod_form
 	name = "Rod Form"
 	desc = "Take on the form of an immovable rod, destroying all in your path."
-	clothes_req = TRUE
 	human_req = FALSE
 	base_cooldown = 1 MINUTES
 	cooldown_min = 20 SECONDS
