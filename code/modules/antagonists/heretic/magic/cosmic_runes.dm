@@ -176,7 +176,6 @@
 	icon_state = "cosmic_rune_fade"
 	plane = FLOOR_PLANE
 	layer = CLEANABLES_LAYER
-	anchored = TRUE
 	duration = 5
 
 

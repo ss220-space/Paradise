@@ -12,8 +12,6 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-
-	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
 	// In room temperature, the ice won't last very long

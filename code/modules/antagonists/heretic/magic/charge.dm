@@ -1,7 +1,5 @@
 /obj/effect/proc_holder/spell/mob_cooldown/charge
 	name = "Заряд"
-	action_icon = 'icons/mob/actions/actions_items.dmi'
-	action_icon_state = "sniper_zoom"
 	desc = "Если вы это видите, кто-то набагал."
 	base_cooldown = 1.5 SECONDS
 	/// Delay before the charge actually occurs

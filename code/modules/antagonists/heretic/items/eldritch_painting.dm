@@ -2,7 +2,6 @@
 /obj/item/wallframe/painting/eldritch
 	name = "Чистый холст"
 	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
-	resistance_flags = FLAMMABLE
 	icon_state = "eldritch_painting_debug"
 	result_path = /obj/structure/sign/painting/eldritch
 
