@@ -235,6 +235,8 @@
 	var/heal_range = 5
 	var/last_heal_time = 0
 
+	COOLDOWN_DECLARE(heal_cooldown)
+
 /mob/living/simple_animal/hostile/hivebot/support/get_ru_names()
 	return list(
 		NOMINATIVE = "кустарный робот-механик",
@@ -254,9 +256,8 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/hivebot/support/process(delta_time)
-	if(world.time < last_heal_time + heal_cooldown)
+	if(!COOLDOWN_FINISHED(src, heal_cooldown))
 		return
-
 	var/list/repair_targets
 	for(var/mob/living/simple_animal/hostile/hivebot/candidate in view(heal_range, src))
 		if(candidate != src && candidate.health < candidate.maxHealth && candidate.stat != DEAD)
@@ -278,7 +279,7 @@
 	sparks.set_up(3, 0, get_turf(target))
 	sparks.start()
 
-	last_heal_time = world.time
+	COOLDOWN_START(src, heal_cooldown, heal_cooldown_time)
 
 //Fabricator
 
