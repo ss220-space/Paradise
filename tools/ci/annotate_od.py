@@ -8,59 +8,33 @@ def red(text):
     return "\033[31m" + str(text) + "\033[0m"
 
 def annotate(raw_output):
+    # Remove ANSI escape codes
+    raw_output = re.sub(r'(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]', '', raw_output)
+
     print("::group::OpenDream Output")
     print(raw_output)
     print("::endgroup::")
 
-    ansi_escape = re.compile(r'(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]')
-    clean_output = ansi_escape.sub('', raw_output)
-
+    annotation_regex = r'((?P<type>Error|Warning) (?P<errorcode>OD(?P<errornumber>\d{4})) at (?P<location>(?P<filename>.+):(?P<line>\d+):(?P<column>\d+)|<internal>): (?P<message>.+))'
     failures_detected = False
-    expected_failure_case_detected = False
-
-    pattern = r'^\s*(?P<type>Error|Warning) (?P<errorcode>OD\d+) at (?P<filename>.+?):(?P<line>\d+):(?P<column>\d+):\s*(?P<message>.*)$'
-    internal_pattern = r'^\s*(?P<type>Error|Warning) (?P<errorcode>OD\d+) at <internal>:\s*(?P<message>.*)$'
+    expected_failure_case_detected = False # this is just here so this script breaks if we forget to set it to True when we expect a failure. remove this when we have handled the expected failure
 
     print("OpenDream Code Annotations:")
-    for line in clean_output.splitlines():
-        if not line.strip() or "Compilation failed with" in line:
-            continue
-
-        match = re.match(pattern, line)
-        if match:
-            groups = match.groupdict()
-            filename = groups['filename']
-            line_num = groups['line']
-            column = groups['column']
-            message = groups['message']
-            error_type = groups['type']
-            error_code = groups['errorcode']
-        else:
-            match = re.match(internal_pattern, line)
-            if match:
-                groups = match.groupdict()
-                message = groups['message']
-                error_type = groups['type']
-                error_code = groups['errorcode']
-                filename = None
-                line_num = None
-                column = None
-            else:
-                continue
-
-        if message == "Unimplemented proc & var warnings are currently suppressed":
-            message += " (This is expected and can be ignored)"
+    for annotation in re.finditer(annotation_regex, raw_output):
+        message = annotation['message']
+        if message == "Unimplemented proc & var warnings are currently suppressed": # this happens every single run, it's important to know about it but we don't need to throw an error
+            message += " (This is expected and can be ignored)" # also there's no location for it to annotate to since it's an <internal> failure.
             expected_failure_case_detected = True
 
-        if error_type == "Error":
+        if annotation['type'] == "Error":
             failures_detected = True
 
-        error_string = f"{error_code}: {message}"
+        error_string = f"{annotation['errorcode']}: {message}"
 
-        if filename is not None:
-            print(f"::{error_type} file={filename},line={line_num},col={column}::{error_string}")
+        if annotation['location'] == "<internal>":
+            print(f"::{annotation['type']} file=,line=,col=::{error_string}")
         else:
-            print(f"::{error_type} file=,line=,col=::{error_string}")
+            print(f"::{annotation['type']} file={annotation['filename']},line={annotation['line']},col={annotation['column']}::{error_string}")
 
     if failures_detected:
         sys.exit(1)
