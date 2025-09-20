@@ -67,7 +67,7 @@
 	name = "Mothra Antennae"
 	icon_state = "mothra"
 
-/datum/sprite_accessory/head_accessory/moth/mothra
+/datum/sprite_accessory/head_accessory/moth/snow
 	name = "Snow Antennae"
 	icon_state = "snow"
 

@@ -25,11 +25,6 @@
 /area/ruin/unpowered/no_grav/way_home
 	name = "Salvation"
 
-/area/ruin/powered/snow_biodome
-
-/area/ruin/powered/golem_ship
-	name = "Free Golem Ship"
-
 /area/ruin/powered/space_bar
 	name = "Space Bar"
 	area_flags = NONE

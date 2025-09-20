@@ -195,17 +195,6 @@
 /obj/effect/proc_holder/spell/inflict_handler/magic_missile/lesser
 	amt_weakened = 4 SECONDS
 
-
-/obj/effect/proc_holder/spell/smoke/disable
-	name = "Paralysing Smoke"
-	desc = "This spell spawns a cloud of paralysing smoke."
-	action_icon_state = "parasmoke"
-	action_background_icon_state = "bg_cult"
-	base_cooldown = 20 SECONDS
-	//holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
-	smoke_type = SMOKE_SLEEPING
-
-
 /obj/effect/proc_holder/spell/smoke/disable
 	name = "Paralysing Smoke"
 	desc = "This spell spawns a cloud of paralysing smoke."
@@ -214,4 +203,3 @@
 	base_cooldown = 20 SECONDS
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	smoke_type = SMOKE_SLEEPING
-

@@ -27,8 +27,7 @@
 /area/shuttle/transport)
 "e" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/transport)
@@ -146,8 +145,7 @@
 /obj/item/clothing/shoes/orange,
 /obj/item/clothing/shoes/orange,
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/transport)

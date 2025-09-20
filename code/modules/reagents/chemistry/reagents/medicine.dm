@@ -22,6 +22,7 @@
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM // Lasts 1.5 minutes for 15 units
 	shock_reduction = 200
 	taste_description = "онемения во рту"
+	chemdesc = "Очень сильное болеутоляющее средство."
 
 /datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M) //Needed so the hud updates when injested / removed from system
 	var/update_flags = STATUS_UPDATE_HEALTH
@@ -98,6 +99,7 @@
 	description = "Специализированный препарат, стимулирующий митохондрии клеток для заживления внутренних органов."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
+	chemdesc = "Исцеляет повреждения внутренних органов."
 
 /datum/reagent/medicine/mitocholide/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -201,6 +203,7 @@
 	color = "#0AB478"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "антибиотиков"
+	chemdesc = "Замедляет развитие заболеваний и помогает бороться с инфекциями."
 
 /datum/reagent/medicine/spaceacillin/on_mob_life(mob/living/M)
 	var/list/organs_list = list()
@@ -342,6 +345,7 @@
 	penetrates_skin = TRUE
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 	taste_description = "солёной воды"
+	chemdesc = "Медленно исцеляет физичекие и термические повреждения, а также медленно восстанавливает кровь."
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -416,6 +420,7 @@
 	description = "Активированный уголь поглощает токсины."
 	reagent_state = LIQUID
 	taste_description = "пыли"
+	chemdesc = "Медленно лечит от отравления, а также медленно выводит другие химические вещества."
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -611,6 +616,7 @@
 	reagent_state = LIQUID
 	color = "#00FFFF"
 	taste_description = "свежего воздуха"
+	chemdesc = "Лечит повреждения от удушья."
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -826,6 +832,7 @@
 	harmless = FALSE
 	taste_description = "выигранного времени"
 	tags = REAGENT_TAG_ANTI_STUN
+	chemdesc = "Стабилизирует критическое состояние и медленно исцеляет повреждения от удушья."
 
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -954,6 +961,7 @@
 	description = "Маннитол - это сахарный спирт, который может восстановить повреждённые ткани мозга."
 	color = "#D1D1F1"
 	taste_description = "сладкого спирта"
+	chemdesc = "Исцеляет повреждения мозга."
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

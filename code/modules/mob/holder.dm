@@ -75,11 +75,6 @@
 				return
 		M.status_flags &= ~PASSEMOTES
 
-
-//Mob procs and vars for scooping up
-/mob/living
-	var/holder_type = null
-
 /mob/living/simple_animal/MouseDrop(atom/over_object)
 	var/mob/living/carbon/human_to_ask = over_object
 

@@ -100,6 +100,16 @@
 		JOB_MIN_AGE_COMMAND = 22,
 	)
 
+	autohiss_basic_map = list(
+			"s" = list("ss", "sss", "ssss"),
+			"с" = list("сс", "ссс", "сссс")
+		)
+	autohiss_extra_map = list(
+			"x" = list("ks", "kss", "ksss"),
+			"ш" = list("шш", "шшш", "шшшш"),
+			"ч" = list("щ", "щщ", "щщщ")
+		)
+	autohiss_exempt = list("Синт'Унати")
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

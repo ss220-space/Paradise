@@ -13,8 +13,7 @@
 	req_access = list(104,106,63,19)
 	},
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor{
 	dir = 1;
@@ -218,8 +217,7 @@
 	dir = 4
 	},
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)

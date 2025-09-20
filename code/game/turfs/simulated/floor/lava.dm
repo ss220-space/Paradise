@@ -310,9 +310,6 @@
 			qdel(I)
 			return .|ATTACK_CHAIN_SUCCESS
 
-/turf/simulated/floor/lava/airless
-	temperature = TCMB
-
 /turf/simulated/floor/lava/lava_land_surface/plasma
 	name = "liquid plasma"
 	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma

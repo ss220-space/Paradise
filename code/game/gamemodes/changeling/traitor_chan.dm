@@ -6,7 +6,6 @@
 	required_players = 10
 	recommended_enemies = 3
 	var/protected_species_changeling = list(SPECIES_MACNINEPERSON)
-	var/list/datum/mind/pre_changelings = list()
 
 /datum/game_mode/traitor/changeling/announce()
 	to_chat(world, "<b>The current game mode is - Traitor+Changeling!</b>")

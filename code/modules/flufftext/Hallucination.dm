@@ -15,12 +15,6 @@ GLOBAL_LIST_INIT(minor_hallutinations, list("sounds"=25,"bolts_minor"=5,"whisper
 GLOBAL_LIST_INIT(medium_hallutinations, list("fake_alert"=15,"items"=10,"items_other"=10,"dangerflash"=10,"bolts"=5,"flood"=5,"husks"=10,"battle"=15,"self_delusion"=10))
 GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"singulo"=10,"borer"=10,"delusion"=20,"koolaid"=10))
 
-/mob/living
-	var/image/halimage
-	var/image/halbody
-	var/obj/halitem
-	var/hal_screwyhud = SCREWYHUD_NONE
-
 /obj/effect/hallucination
 	invisibility = INVISIBILITY_OBSERVER
 	var/mob/living/carbon/target = null

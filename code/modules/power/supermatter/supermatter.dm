@@ -301,8 +301,6 @@
 
 	return 1
 
-/obj/machinery/power/supermatter_shard
-
 /obj/machinery/power/supermatter_shard/bullet_act(obj/projectile/Proj)
 	var/turf/L = loc
 	if(!istype(L))		// We don't run process() when we are in space

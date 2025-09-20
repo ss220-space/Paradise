@@ -1,7 +1,3 @@
-/datum/game_mode
-	/// A list of all demon minds spawned via event or wizard artefact.
-	var/list/datum/mind/demons = list()
-
 /mob/living/simple_animal/demon
 	name = "a generic demon"
 	desc = "Если вы это видите, составьте баг-репорт в Discord."

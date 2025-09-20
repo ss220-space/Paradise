@@ -337,6 +337,12 @@
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
+	name = "boxing gloves"
+	desc = "Because you really needed another excuse to punch your crewmates."
+	icon_state = "boxing"
+	item_state = "boxing"
+	put_on_delay = 60
+
 	var/datum/martial_art/boxing/style
 
 /obj/item/clothing/gloves/boxing/Initialize(mapload)

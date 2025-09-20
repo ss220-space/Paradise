@@ -127,11 +127,6 @@
 
 //Комплекс неполноferrности калеки
 
-/datum/map_template/shuttle/ferry/base
-	suffix = "base"
-	name = "transport ferry"
-	description = "Standard issue Box/Metastation Centcom ferry."
-
 /datum/map_template/shuttle/ferry/cargo
 	suffix = "cargo"
 	name = "Cargo ferry"
@@ -163,18 +158,6 @@
 	description = "Особенный груз для зачистки.\
 	После подготовки, НЕМЕДЛЕННО ОТПРАВИТЬ во избежания несчастных случаев. \
 	Пассажиры крайне агрессивны"
-
-/datum/map_template/shuttle/ferry/meat
-	suffix = "meat"
-	name = "\"meat\" ferry"
-	description = "Ahoy! We got all kinds o' meat aft here. Meat from plant \
-		people, people who be dark, not in a racist way, just they're dark \
-		black. Oh and lizard meat too,mighty popular that is. Definitely \
-		100% fresh, just ask this guy here. *person on meatspike moans* See? \
-		Definitely high quality meat, nothin' wrong with it, nothin' added, \
-		definitely no zombifyin' reagents!"
-	admin_notes = "Meat currently contains no zombifying reagents, people on \
-		meatspike must be spawned in."
 
 /datum/map_template/shuttle/ferry/medical
 	suffix = "medical"

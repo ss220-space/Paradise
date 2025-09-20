@@ -35,19 +35,26 @@
 		M.Paralyse(10 SECONDS)
 	return ..() | update_flags
 
-//egg toxin for defiler
+#define REAGENT_UNITS_5 5
 
+//egg toxin for defiler
 /datum/reagent/terror_eggs
-	name = "Яйца Паука Ужаса"
+	name = "Яйца паука ужаса"
 	id = "terror_eggs"
 	description = "Стремительно растущие паучьи яйца."
 	can_synth = FALSE
-	color = "#ffffff"
+	color = "#6b336b"
 	metabolization_rate = 1 * REAGENTS_METABOLISM
+	taste_mult = 0
 
-/datum/reagent/terror_eggs/on_mob_life(mob/living/M)
-	if(volume > 5)
-		if(iscarbon(M))
-			if(!M.get_int_organ(/obj/item/organ/internal/body_egg))
-				new/obj/item/organ/internal/body_egg/terror_eggs(M)
+/datum/reagent/terror_eggs/on_mob_life(mob/living/target)
+	if(volume > REAGENT_UNITS_5 && iscarbon(target))
+		if(!target.get_int_organ(/obj/item/organ/internal/body_egg))
+			new/obj/item/organ/internal/body_egg/terror_eggs(target)
+
+		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
+			new /obj/item/organ/internal/body_egg/terror_eggs/phantom(target)
+
 	return ..()
+
+#undef REAGENT_UNITS_5
