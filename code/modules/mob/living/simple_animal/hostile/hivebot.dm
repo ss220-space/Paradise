@@ -4,8 +4,6 @@
 
 /obj/projectile/hivebot
 	name = "nail"
-	damage = 10
-	damage_type = BRUTE
 
 /obj/projectile/hivebot/get_ru_names()
 	return list(
@@ -19,12 +17,10 @@
 
 /obj/projectile/hivebot/light_bullet
 	damage = 5
-	damage_type = BRUTE
 
 /obj/projectile/hivebot/heavy_bullet
 	name = "rivet"
 	damage = 40
-	damage_type = BRUTE
 	knockdown = 4
 	stamina = 10
 
@@ -43,7 +39,6 @@
 /mob/living/simple_animal/hostile/hivebot
 	name = "jerry-built robot"
 	desc = "Многофункциональный робот с шестью манипуляторами. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
-	gender = MALE
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "basic"
 	icon_living = "basic"
@@ -125,7 +120,6 @@
 	health = 40
 	maxHealth = 40
 	melee_damage_lower = 12
-	melee_damage_upper = 12
 	attacktext = "вбивает"
 	speed = 3
 	attack_sound = 'sound/weapons/bladeslice.ogg'
@@ -179,10 +173,8 @@
 	icon_dead = "basic"
 	health = 25
 	maxHealth = 25
-	ranged = 1
 	rapid = 5
 	speed = 2
-	rapid_fire_delay = 3
 	retreat_distance = 4
 	minimum_distance = 2
 	projectiletype = /obj/projectile/hivebot/light_bullet
@@ -205,7 +197,6 @@
 	icon_living = "basic"
 	icon_dead = "basic"
 	ranged = 1
-	rapid = 1
 	rapid_fire_delay = 12
 	retreat_distance = 8
 	minimum_distance = 4
@@ -235,7 +226,6 @@
 	icon_dead = "EngBot"
 	health = 50
 	maxHealth = 50
-	melee_damage_lower = 10
 	melee_damage_upper = 10
 	ranged = FALSE
 	retreat_distance = 5
