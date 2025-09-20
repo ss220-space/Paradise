@@ -1157,7 +1157,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(ITEM_SLOT_EYES)
 			owner.wear_glasses_update(src)
 		if(ITEM_SLOT_HEAD)
-			owner.update_worn_head()
+			owner.update_head(src)
 		if(ITEM_SLOT_EAR_LEFT, ITEM_SLOT_EAR_RIGHT)
 			owner.update_worn_ears()
 		if(ITEM_SLOT_FEET)

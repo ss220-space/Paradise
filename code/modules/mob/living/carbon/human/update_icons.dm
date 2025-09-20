@@ -529,7 +529,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_worn_back()
 	update_worn_oversuit()
 	update_pockets()
+	update_worn_handcuffs()
+	update_worn_legcuffs()
 	update_worn_neck()
+	update_worn_pda()
 	update_transform()
 	UpdateDamageIcon()
 	if(blocks_emissive)
@@ -571,27 +574,27 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		override_state = "[state_type]_s"
 	)
 
-	// if(w_uniform.blood_DNA)
-	// 	standing.overlays += mutable_appearance(dna.species.blood_mask, "uniformblood", color = w_uniform.blood_color)
+	if(w_uniform.blood_DNA)
+		uniform_overlay.overlays += mutable_appearance(dna.species.blood_mask, "uniformblood", color = w_uniform.blood_color)
 
-	// for(var/obj/item/clothing/accessory/accessory as anything in w_uniform.accessories)
-	// 	var/acc_state_type = accessory.item_state ? accessory.item_state : accessory.icon_state
-	// 	var/mutable_appearance/acc_olay = mutable_appearance(accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], acc_state_type, alpha = accessory.alpha, color = accessory.color)
-	// 	if(accessory.sprite_sheets?[dna.species.name])
-	// 		acc_olay.icon = accessory.sprite_sheets[dna.species.name]
-	// 	standing.overlays += acc_olay
+	for(var/obj/item/clothing/accessory/accessory as anything in w_uniform.accessories)
+		var/acc_state_type = accessory.item_state ? accessory.item_state : accessory.icon_state
+		var/mutable_appearance/acc_olay = mutable_appearance(accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], acc_state_type, alpha = accessory.alpha, color = accessory.color)
+		if(accessory.sprite_sheets?[dna.species.name])
+			acc_olay.icon = accessory.sprite_sheets[dna.species.name]
+		uniform_overlay.overlays += acc_olay
 
-	// // over_uniform body marks
-	// var/body_marking = m_styles["body"]
-	// var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
-	// if(body_marking_style.visible_over_uniform || body_marking_style.name != /datum/sprite_accessory/body_markings/none::name)
-	// 	var/obj/item/organ/external/chest/chest_organ = get_organ(BODY_ZONE_CHEST)
-	// 	if(chest_organ && m_styles["body"])
-	// 		if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
-	// 			var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]-withclothes")
-	// 			if(body_marking_style.do_colouration)
-	// 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
-	// 			standing.overlays += b_marking_s
+	// over_uniform body marks
+	var/body_marking = m_styles["body"]
+	var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
+	if(body_marking_style.visible_over_uniform || body_marking_style.name != /datum/sprite_accessory/body_markings/none::name)
+		var/obj/item/organ/external/chest/chest_organ = get_organ(BODY_ZONE_CHEST)
+		if(chest_organ && m_styles["body"])
+			if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
+				var/icon/b_marking_s = icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]-withclothes")
+				if(body_marking_style.do_colouration)
+					b_marking_s.Blend(m_colours["body"], ICON_ADD)
+				uniform_overlay.overlays += b_marking_s
 
 	overlays_standing[uniform_layer] = uniform_overlay
 	apply_overlay(uniform_layer)
@@ -638,7 +641,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	update_item_on_hud(gloves, ui_gloves, togleable_inventory = TRUE)
-	var/mutable_appearance/gloves_overlay = gloves.build_worn_icon(default_layer = GLOVES_LAYER, default_icon_file = gloves.onmob_sheets[ITEM_SLOT_GLOVES_STRING],)
+	var/mutable_appearance/gloves_overlay = gloves.build_worn_icon(default_layer = GLOVES_LAYER, default_icon_file = gloves.onmob_sheets[ITEM_SLOT_GLOVES_STRING], use_item_state = TRUE)
 	if(gloves.blood_DNA)
 		gloves_overlay.overlays += mutable_appearance(dna.species.blood_mask, "bloodyhands", color = gloves.blood_color)
 
@@ -704,12 +707,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/mutable_appearance/standing = mutable_appearance(layer = -EARS_LAYER, appearance_flags = KEEP_TOGETHER)
 	if(l_ear)
 		update_item_on_hud(l_ear, ui_l_ear, togleable_inventory = TRUE)
-		var/mutable_appearance/l_ear_olay = l_ear.build_worn_icon(default_layer = EARS_LAYER, default_icon_file = l_ear.onmob_sheets[ITEM_SLOT_EAR_LEFT_STRING])
+		var/mutable_appearance/l_ear_olay = l_ear.build_worn_icon(default_layer = EARS_LAYER, default_icon_file = l_ear.onmob_sheets[ITEM_SLOT_EAR_LEFT_STRING], use_item_state = TRUE)
 		standing.overlays += l_ear_olay
 
 	if(r_ear)
 		update_item_on_hud(r_ear, ui_r_ear, togleable_inventory = TRUE)
-		var/mutable_appearance/r_ear_olay = r_ear.build_worn_icon(default_layer = EARS_LAYER, default_icon_file = r_ear.onmob_sheets[ITEM_SLOT_EAR_LEFT_STRING])
+		var/mutable_appearance/r_ear_olay = r_ear.build_worn_icon(default_layer = EARS_LAYER, default_icon_file = r_ear.onmob_sheets[ITEM_SLOT_EAR_LEFT_STRING], use_item_state = TRUE)
 		standing.overlays += r_ear_olay
 
 	overlays_standing[EARS_LAYER] = standing
@@ -718,7 +721,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_worn_shoes()
 	remove_overlay(SHOES_LAYER)
 
-	if(num_legs < 2)
+	if(num_legs < 2 || check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_FEET)
 		return
 
 	if(client && hud_used)
@@ -746,7 +749,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(wear_suit?.flags_inv & HIDESUITSTORAGE)
 		return
 
-	overlays_standing[SUIT_STORE_LAYER] = s_store.build_worn_icon(default_layer = SUIT_STORE_LAYER, default_icon_file = s_store.onmob_sheets[ITEM_SLOT_SUITSTORE_STRING])
+	overlays_standing[SUIT_STORE_LAYER] = s_store.build_worn_icon(default_layer = SUIT_STORE_LAYER, default_icon_file = s_store.onmob_sheets[ITEM_SLOT_SUITSTORE_STRING], use_item_state = TRUE)
 	apply_overlay(SUIT_STORE_LAYER)
 
 /mob/living/carbon/human/update_worn_head()
@@ -777,7 +780,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	update_item_on_hud(belt, ui_belt)
-	overlays_standing[BELT_LAYER] = belt.build_worn_icon(default_layer = BELT_LAYER, default_icon_file = belt.onmob_sheets[ITEM_SLOT_BELT_STRING])
+	overlays_standing[BELT_LAYER] = belt.build_worn_icon(default_layer = BELT_LAYER, default_icon_file = belt.onmob_sheets[ITEM_SLOT_BELT_STRING], use_item_state = TRUE)
 	apply_overlay(BELT_LAYER)
 
 /mob/living/carbon/human/update_worn_oversuit()
@@ -1269,8 +1272,7 @@ default_icon_file: The icon file to draw states from if no other icon file is sp
 isinhands: If true then alternate_worn_icon is skipped so that default_icon_file is used,
 in this situation default_icon_file is expected to match either the lefthand_ or righthand_ file var
 
-female_uniform: A value matching a uniform item's female_sprite_flags var, if this is anything but NO_FEMALE_UNIFORM, we
-generate/load female uniform sprites matching all previously decided variables
+use_item_state: SS1984 legacy var, used to fix fact, that item_state randomly used in different parts. If you sorted out all onmob files you can delete it.
 
 */
 /obj/item/proc/build_worn_icon(
@@ -1279,13 +1281,14 @@ generate/load female uniform sprites matching all previously decided variables
 	isinhands = FALSE,
 	override_state = null,
 	override_file = null,
+	use_item_state = FALSE
 )
 
 	var/mob/living/carbon/wearer = loc
 	var/species = wearer?.dna?.species.name
 
 	//Find a valid icon_state from variables+arguments
-	var/t_state = override_state || (isinhands ? item_state : null) || icon_state
+	var/t_state = override_state || (isinhands || use_item_state) && item_state || icon_state
 	//Find a valid icon file from variables+arguments
 	var/file2use = override_file || (species ? (isinhands ? sprite_sheets_inhand?[species] : sprite_sheets?[species]) : null)  || default_icon_file
 	//Find a valid layer from variables+arguments
