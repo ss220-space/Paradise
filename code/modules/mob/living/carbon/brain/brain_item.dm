@@ -21,6 +21,8 @@
 	var/decoy_brain = FALSE
 	/// TRUE giving to a user sci hud and active research scanner
 	var/smart_mind = FALSE
+	/// The original body for this brain, if this valriable is null - brain can apply any body without desease.
+	var/original_body = null
 
 /obj/item/organ/internal/brain/get_ru_names()
 	return list(
