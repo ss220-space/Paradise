@@ -131,10 +131,6 @@
 /area/shuttle/transport)
 "G" = (
 /obj/machinery/satellite/meteor_shield,
-/obj/machinery/satellite/meteor_shield,
-/obj/machinery/satellite/meteor_shield,
-/obj/machinery/satellite/meteor_shield,
-/obj/machinery/satellite/meteor_shield,
 /obj/machinery/door/window/survival_pod{
 	dir = 2
 	},
