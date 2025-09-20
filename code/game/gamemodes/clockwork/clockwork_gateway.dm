@@ -2,14 +2,12 @@
 	name = "Ark of the Clockwork Justicar"
 	desc = "A massive, hulking amalgamation of parts. It seems to be maintaining a very unstable bluespace anomaly."
 	max_integrity = 500
-	mouse_opacity = MOUSE_OPACITY_ICON
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_default"
 	light_range = 2
 	light_power = 4
 	pixel_x = -32
 	pixel_y = -32
-	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
 

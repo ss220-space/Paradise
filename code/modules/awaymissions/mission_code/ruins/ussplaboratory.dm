@@ -1,8 +1,6 @@
 // Xeno USSP ruin
 
 /area/ruin/ussp_xeno
-	atmosalm = ATMOS_ALARM_NONE
-	has_gravity = STANDARD_GRAVITY
 	area_flags = NONE
 
 /area/ruin/ussp_xeno/engi

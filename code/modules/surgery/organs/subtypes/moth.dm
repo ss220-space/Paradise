@@ -64,10 +64,8 @@
 		PREPOSITIONAL = "мозге луам"
 	)
 	icon = 'icons/obj/species_organs/nian.dmi'
-	icon_state = "brain2"
 	item_state = "nian_brain"
 	mmi_icon = 'icons/obj/species_organs/nian.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/nian
 	name = "luam lungs"
@@ -109,4 +107,3 @@
 		PREPOSITIONAL = "крыльях луам"
 	)
 	max_damage = 25
-	min_broken_damage = 15

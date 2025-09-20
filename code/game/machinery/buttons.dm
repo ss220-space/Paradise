@@ -12,7 +12,6 @@
 	var/active = FALSE
 	anchored = TRUE
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 90, acid = 70)
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -157,7 +156,6 @@
 	var/id = null
 	var/active = FALSE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 

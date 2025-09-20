@@ -10,7 +10,6 @@
 	force_threshold = 8
 	melee_damage_lower = 18
 	melee_damage_upper = 18
-	obj_damage = 40
 	speed = 0
 	friendly = "pokes"
 	attacktext = "порезал"
@@ -18,7 +17,6 @@
 	tts_seed = "Earth"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	pressure_resistance = 100
-	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
 	nightvision = 8
 	pass_flags = PASSTABLE

@@ -1,6 +1,5 @@
 /obj/structure/blob/storage
 	name = "storage blob"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_resource"
 	desc = "Тонкий шпиль из плотно сплетенных щупалец."
 	max_integrity = BLOB_STORAGE_MAX_HP

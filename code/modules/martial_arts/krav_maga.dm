@@ -150,7 +150,6 @@
 /obj/item/clothing/gloves/color/black/krav_maga
 	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
-	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/black/krav_maga/Initialize(mapload)
 	. = ..()

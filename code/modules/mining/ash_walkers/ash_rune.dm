@@ -70,7 +70,6 @@
 	icon = 'icons/effects/ash_runes.dmi'
 	icon_state = "runaash_2"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = TRUE
 	plane = FLOOR_PLANE
 	layer = TURF_DECAL_LAYER
 
@@ -100,7 +99,6 @@
 	icon = 'icons/effects/ashwalker_rune.dmi'
 	icon_state = "AshRun"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = TRUE
 	plane = FLOOR_PLANE
 	layer = TURF_DECAL_LAYER
 

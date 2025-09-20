@@ -2,10 +2,8 @@
 	name = "Magic Missile"
 	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 
-	school = "evocation"
 	base_cooldown = 20 SECONDS
 	cooldown_min = 6 SECONDS //35 deciseconds reduction per rank
-	clothes_req = TRUE
 	invocation = "FORTI GY AMA"
 	invocation_type = "shout"
 
@@ -44,8 +42,6 @@
 	name = "Honk Missile"
 	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
 
-	school = "evocation"
-	base_cooldown = 10 SECONDS
 	cooldown_min = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "HONK GY AMA"
@@ -99,7 +95,6 @@
 	school = "transmutation"
 	base_cooldown = 40 SECONDS
 	cooldown_min = 30 SECONDS //25 deciseconds reduction per rank
-	clothes_req = TRUE
 	invocation = "BIRUZ BENNAR"
 	invocation_type = "shout"
 	message = "<span class='notice'>You feel strong! You feel a pressure building behind your eyes!</span>"
@@ -161,7 +156,6 @@
 
 	school = "abjuration"
 	base_cooldown = 2 SECONDS
-	clothes_req = TRUE
 	cooldown_min = 5 //4 deciseconds reduction per rank
 
 	smoke_type = SMOKE_HARMLESS
@@ -180,12 +174,10 @@
 
 /obj/effect/proc_holder/spell/area_teleport/teleport
 	name = "Teleport"
-	desc = "This spell teleports you to a type of area of your selection."
 
 	school = "abjuration"
 	base_cooldown = 60 SECONDS
 	cooldown_min = 20 SECONDS //100 deciseconds reduction per rank
-	clothes_req = TRUE
 	invocation = "SCYAR NILA"
 	invocation_type = "shout"
 
@@ -205,7 +197,6 @@
 	desc = "This spell creates a small unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
 
 	school = "transmutation"
-	base_cooldown = 10 SECONDS
 	cooldown_min = 5 SECONDS //12 deciseconds reduction per rank
 	clothes_req = FALSE
 	human_req = FALSE
@@ -247,11 +238,9 @@
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
 	base_cooldown = 50 SECONDS
 	cooldown_min = 10 SECONDS
-	clothes_req = TRUE
 	invocation = "TOKI WO TOMARE"
 	invocation_type = "shout"
 
-	summon_amt = 1
 
 	action_icon_state = "time"
 
@@ -265,7 +254,6 @@
 
 	school = "conjuration"
 	base_cooldown = 2 MINUTES
-	clothes_req = TRUE
 	invocation = "NOUK FHUNMM SACP RISSKA"
 	invocation_type = "shout"
 
@@ -354,7 +342,6 @@
 	name = "Fireball"
 	desc = "This spell fires a fireball at a target and does not require wizard garb."
 
-	school = "evocation"
 	base_cooldown = 6 SECONDS
 	cooldown_min = 2 SECONDS //10 deciseconds reduction per rank
 	clothes_req = FALSE
@@ -407,7 +394,6 @@
 	desc = "This spell throws everything around the user away."
 	base_cooldown = 40 SECONDS
 	cooldown_min = 15 SECONDS
-	clothes_req = TRUE
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
 
@@ -494,7 +480,6 @@
 			Если у станции один этаж, коробка бесполезна. Нельзя перейти на другой этаж, если в целевом месте кто-то или что-то находится."
 	base_cooldown = 25 SECONDS
 	clothes_req = FALSE // You should be able to dress up in a clown suit. Don't ask why.
-	invocation_type = "none"
 	action_icon_state = "move_up_down"
 	sound = 'sound/magic/magic_missile.ogg'
 

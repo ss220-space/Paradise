@@ -129,7 +129,6 @@
 /mob/living/simple_animal/hostile/headcrab/fast
 	name = "fast headcrab"
 	desc = "A fast parasitic creature that would like to connect with your brain stem."
-	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "fast_headcrab"
 	icon_living = "fast_headcrab"
 	icon_dead = "fast_headcrab_dead"
@@ -149,7 +148,6 @@
 /mob/living/simple_animal/hostile/headcrab/poison
 	name = "poison headcrab"
 	desc = "A poison parasitic creature that would like to connect with your brain stem."
-	icon = 'icons/mob/headcrab.dmi'
 	icon_state = "poison_headcrab"
 	icon_living = "poison_headcrab"
 	icon_dead = "poison_headcrab_dead"
@@ -157,7 +155,6 @@
 	maxHealth = 80
 	ranged_cooldown_time = 50
 	jumpdistance = 3
-	jumpspeed = 1
 	melee_damage_lower = 8
 	melee_damage_upper = 20
 	attack_sound = 'sound/creatures/ph_scream1.ogg'

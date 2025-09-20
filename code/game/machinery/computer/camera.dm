@@ -410,7 +410,6 @@
 	icon_keyboard = "kb15"
 
 /obj/machinery/computer/security/old_frame/macintosh
-	icon = 'icons/obj/machines/computer3.dmi'
 	icon_screen = "sec_oldcomp"
 	icon_state = "oldcomp"
 	icon_keyboard = null

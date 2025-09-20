@@ -7,13 +7,11 @@
 	health = 3000 //so griefers had a rough time with it
 	loot = list(/obj/item/banhammer)
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSGLASS | PASSBLOB
-	a_intent = INTENT_HARM
 	environment_smash = 2
 	lose_patience_timeout = 300 MINUTES //i mean, it will be impressive, if he can survive him and admin for 5 hours
 	attacktext = "bans"
 	ranged = TRUE
 	ranged_message = "thorws a warn"
-	ranged_cooldown_time = 3 SECONDS
 	projectiletype = /obj/projectile/energy/electrode
 	projectilesound = 'sound/weapons/taser.ogg'
 	AI_delay_max = 0 SECONDS
