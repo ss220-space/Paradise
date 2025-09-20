@@ -2028,7 +2028,7 @@
 	desc = "Инъектор с запрещённым стимулятором. После его применения гуманоид становится невосприимчивым к оглушению и значительно повышает свои способности к восстановлению."
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 28
-	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+	uplinktypes = list(UPLINK_TYPE_SST)
 
 /**
  * MARK: Space Suits & Hardsuits
