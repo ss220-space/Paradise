@@ -1,8 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/sintouched = list()
-	var/list/datum/mind/devils = list()
-
-
 /datum/game_mode/proc/auto_declare_completion_devil()
 	if(!length(devils))
 		return

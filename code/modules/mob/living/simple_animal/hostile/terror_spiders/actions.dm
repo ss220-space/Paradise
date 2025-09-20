@@ -44,7 +44,6 @@
 
 /datum/action/innate/terrorspider/knight/attackm
 	name = "Ярость"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "attack"
 
 /datum/action/innate/terrorspider/knight/attackm/Activate()
@@ -53,7 +52,6 @@
 
 /datum/action/innate/terrorspider/knight/defencem
 	name = "Кератоз"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "defence"
 
 /datum/action/innate/terrorspider/knight/defencem/Activate()
@@ -93,7 +91,6 @@
 
 /datum/action/innate/terrorspider/queen/queensense
 	name = "Чувство улья"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "mindswap"
 
 /datum/action/innate/terrorspider/queen/queensense/Activate()
@@ -158,9 +155,6 @@
 /obj/structure/spider/terrorweb
 	name = "terror web"
 	desc = "Вязкая и липкая паутина."
-	icon = 'icons/effects/effects.dmi'
-	anchored = TRUE // prevents people dragging it
-	density = FALSE // prevents it blocking all movement
 	max_integrity = 20 // two welders, or one laser shot (15 for the normal spider webs)
 	creates_cover = TRUE
 	icon_state = "stickyweb1"

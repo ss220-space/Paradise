@@ -100,7 +100,6 @@
 
 /datum/robot_skin/robot
 	name = "Robot"
-	icon_base_prefix = "robot"
 
 /datum/robot_skin/basic
 	name = "Basic"

@@ -6,15 +6,12 @@
 	icon_living = "bat"
 	icon_dead = "bat_dead"
 	icon_gib = "bat_dead"
-	speak_chance = 0
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
 	speed = 4
-	maxHealth = 20
-	health = 20
 	mob_size = MOB_SIZE_TINY
 	harm_intent_damage = 8
 	melee_damage_lower = 10
@@ -74,10 +71,7 @@
 	speed = 1
 	harm_intent_damage = 25
 	maxHealth = 300
-	melee_damage_lower = 10
 	melee_damage_upper = 30
-	a_intent = INTENT_HARM
 	pass_flags = PASSTABLE
 	universal_speak = 1
-	universal_understand = 1
 	gold_core_spawnable = NO_SPAWN //badmin only

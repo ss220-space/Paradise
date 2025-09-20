@@ -4,9 +4,6 @@
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "darts-5"
 	item_state = "rcdammo"
-	opacity = FALSE
-	density = FALSE
-	anchored = FALSE
 	origin_tech = "materials=2"
 	var/darts = 5
 
@@ -285,7 +282,6 @@
 /obj/item/gun/dartgun/vox
 	name = "alien dart gun"
 	desc = "A small gas-powered dartgun, fitted for nonhuman hands."
-	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "dartgun-e"
 
 /obj/item/gun/dartgun/vox/medical
@@ -299,8 +295,6 @@
 	desc = ""
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "null"
-	anchored = TRUE
-	density = FALSE
 
 /obj/effect/syringe_gun_dummy/Initialize(mapload)
 	. = ..()

@@ -34,8 +34,6 @@
 	icon_state = "dynamic_2"
 	layer = ABOVE_OBJ_LAYER
 
-	light_system = STATIC_LIGHT
-	light_on = TRUE
 	light_range = 3
 	light_power = 3
 	light_color = "#f88818"

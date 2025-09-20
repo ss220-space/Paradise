@@ -28,7 +28,6 @@
 	var/category = null
 	var/book_count = 2
 	icon_state = "random_bookcase"
-	anchored = TRUE
 
 /obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()

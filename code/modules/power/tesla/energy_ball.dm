@@ -21,10 +21,7 @@
 	desc = "Энергетический шар."
 	icon = 'icons/obj/engines_and_power/tesla/energy_ball.dmi'
 	icon_state = "energy_ball"
-	density = TRUE
 	plane = ABOVE_LIGHTING_PLANE
-	light_range = 6
-	move_resist = INFINITY
 	pixel_x = -32
 	pixel_y = -32
 	warps_projectiles = FALSE
@@ -32,11 +29,9 @@
 
 	// Garbage due to inheritance from the singularity.
 	current_size = STAGE_TWO
-	move_self = TRUE
 	grav_pull = 0
 	dissipate = FALSE
 	dissipate_delay = 5
-	dissipate_strength = 1
 
 	var/list/orbiting_balls = list()
 	var/miniball = FALSE

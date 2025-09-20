@@ -60,7 +60,6 @@
 	name = "AVD-CNED Encryption Key"
 	channels = list(ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PRS_FREQ_NAME = 1, PROC_FREQ_NAME = 1) // just in case
 	syndie = TRUE
-	change_voice = FALSE
 
 /obj/item/encryptionkey/all/get_ru_names()
 	return list(
@@ -82,7 +81,6 @@
 	name = "AVD-CNED welding mask"
 	desc = "Повреждение сетчатки – это не шутка."
 	tint = FLASH_PROTECTION_NONE
-	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH // vomit prevention when being surrounded by tons of dead bodies
 
 /obj/item/clothing/mask/gas/welding/advanced/get_ru_names()
 	return list(
@@ -112,7 +110,6 @@
 	name = "AVD-CNED glasses"
 	desc = "Медицинский, охранно-диагностический худ."
 	icon_state = "nvgmeson"
-	flags_cover = GLASSESCOVERSEYES
 	flash_protect = FLASH_PROTECTION_WELDER
 
 	prescription_upgradable = FALSE
@@ -180,8 +177,6 @@
 	desc = "Создайте гуманоида, нацелившись на турф и нажав ЛКМ. Используйте в руке, чтобы изменить расу."
 	icon = 'icons/obj/weapons/magic.dmi'
 	icon_state = "nothingwand"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/species/selected_species
 	var/valid_species = list()
@@ -383,7 +378,6 @@
 //
 
 /obj/item/storage/box/debug
-	w_class = WEIGHT_CLASS_NORMAL
 	max_w_class = WEIGHT_CLASS_GIGANTIC
 	max_combined_w_class = 1000
 	storage_slots = 99
