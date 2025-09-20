@@ -43,8 +43,6 @@
 
 	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
 
-	flags = 0
-
 	var/changing_turf = FALSE
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
@@ -81,6 +79,10 @@
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
+	var/pressure_difference = 0
+	var/pressure_direction = 0
+	var/list/atmos_adjacent_turfs = list()
+	var/atmos_supeconductivity = 0
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)

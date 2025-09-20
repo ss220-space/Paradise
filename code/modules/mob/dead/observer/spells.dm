@@ -29,7 +29,6 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	human_req = FALSE
 	stat_allowed = UNCONSCIOUS
 	invocation = ""
-	invocation_type = "none"
 	need_active_overlay = TRUE
 	// no need to spam admins regarding boo casts
 	create_attack_logs = FALSE

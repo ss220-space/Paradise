@@ -4,10 +4,7 @@
 /mob/living/simple_animal/bot/ed209
 	name = "ED-209 Security Robot"
 	desc = "Охранный робот. Он выглядит абсолютно спокойным."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed2090"
-	density = TRUE
-	anchored = FALSE
 	health = 100
 	maxHealth = 100
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)

@@ -36,7 +36,6 @@ GLOBAL_LIST_EMPTY(holopads)
 	desc = "It's a floor-mounted device for projecting holographic images."
 	icon_state = "holopad0"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	layer = HOLOPAD_LAYER //Preventing mice and drones from sneaking under them.
@@ -523,9 +522,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "holoray"
 	layer = FLY_LAYER
-	density = FALSE
-	anchored = TRUE
-	mouse_opacity = MOUSE_OPACITY_ICON
 	pixel_x = -32
 	pixel_y = -32
 	alpha = 100
@@ -536,7 +532,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/hologram/projector
 	name = "hologram projector"
 	desc = "It makes a hologram appear...with magnets or something..."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "hologram0"
 
 #undef HOLOPAD_PASSIVE_POWER_USAGE

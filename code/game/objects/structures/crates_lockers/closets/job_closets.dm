@@ -14,7 +14,6 @@
 /obj/structure/closet/gmcloset
 	name = "formal closet"
 	desc = "It's a storage unit for formal clothing."
-	icon_state = "closed"
 	custom_door_overlay = "black"
 
 /obj/structure/closet/gmcloset/populate_contents()
@@ -110,7 +109,6 @@
 /obj/structure/closet/lawcloset
 	name = "legal closet"
 	desc = "It's a storage unit for courtroom apparel and items."
-	icon_state = "closed"
 	custom_door_overlay = "blue"
 
 /obj/structure/closet/lawcloset/populate_contents()
@@ -161,7 +159,6 @@
 /obj/structure/closet/librarian
 	name = "librarian wardrobe"
 	desc = "It's a storage unit for librarian clothes and gear."
-	icon_state = "closed"
 	custom_door_overlay = "black"
 
 /obj/structure/closet/librarian/populate_contents()

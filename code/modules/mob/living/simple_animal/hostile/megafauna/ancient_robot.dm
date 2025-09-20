@@ -58,7 +58,6 @@ Difficulty: Very Hard
 	friendly = "пристально смотрит"
 	speak_emote = list("жужжит")
 	universal_speak = TRUE
-	universal_understand = TRUE
 	armour_penetration = 40
 	melee_damage_lower = 20
 	melee_damage_upper = 20
@@ -789,12 +788,10 @@ Difficulty: Very Hard
 
 /obj/projectile/bullet/ancient_robot_bullet
 	damage = 8
-	damage_type = BRUTE
 
 /obj/projectile/bullet/rock
 	name = "thrown rock"
 	damage = 25
-	damage_type = BRUTE
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small1"
 

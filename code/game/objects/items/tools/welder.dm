@@ -17,13 +17,11 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
-	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
 	origin_tech = "engineering=1;plasmatech=1"
 	tool_behaviour = TOOL_WELDER
-	toolspeed = 1
 	tool_enabled = FALSE
 	usesound = 'sound/items/welder.ogg'
 	drop_sound = 'sound/items/handling/drop/weldingtool_drop.ogg'
@@ -242,7 +240,6 @@
 	name = "alien welding tool"
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "welder"
 	item_state = "alienwelder"
 	belt_icon = "alien_welding_tool"
 	toolspeed = 0.1

@@ -7,7 +7,6 @@
 	name = "S3 bio-chip"
 	desc = "Allows you to be hidden in plain sight."
 	implant_state = "implant-syndicate"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	implant_data = /datum/implant_fluff/stealth
 	actions_types = list(/datum/action/item_action/agent_box)
 

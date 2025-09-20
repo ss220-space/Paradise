@@ -102,10 +102,6 @@ If you have any questions/constructive-comments/bugs-to-report/or have a massivl
 Please contact me on #coderbus IRC. ~Carn x
 */
 
-/mob/living/carbon/human
-	var/previous_damage_appearance // store what the body last looked like, so we only have to update it if something changed
-
-
 GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //DAMAGE OVERLAYS

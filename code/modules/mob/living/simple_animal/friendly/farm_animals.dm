@@ -458,7 +458,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /mob/living/simple_animal/cock
 	name = "Петух"
 	desc = "Гордый и важный вид."
-	gender = MALE
 	icon_state = "cock"
 	icon_resting = "cock_rest"
 	icon_living = "cock"
@@ -762,7 +761,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_state = "goat_hump"
 	icon_living = "goat_hump"
 	icon_resting = "goat_hump_rest"
-	icon_dead = "goat_dead"
 
 /mob/living/simple_animal/hostile/retaliate/goat/hump/get_ru_names()
 	return list(

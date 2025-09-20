@@ -151,7 +151,6 @@
 	icon_state = "holo_firelock"
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
-	anchored = TRUE
 	layer = ABOVE_MOB_LAYER
 	alpha = 150
 
@@ -180,7 +179,6 @@
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
 	desc = "Хрупкое энергетическое поле, которое блокирует движение. Отлично защищает от смертоносных снарядов."
-	density = TRUE
 	max_integrity = 10
 	allow_walk = FALSE
 

@@ -215,7 +215,6 @@
 /area/survivalpod)
 "S" = (
 /obj/structure/window/shuttle/survival_pod,
-/obj/structure/window/shuttle/survival_pod,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "T" = (

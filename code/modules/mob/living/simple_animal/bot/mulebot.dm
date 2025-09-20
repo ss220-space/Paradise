@@ -10,7 +10,6 @@
 	name = "MULEbot"
 	desc = "Многофункциональный Узкоспециализированный Легкомоторный робот. Нет, это не просто случайные слова, подобранные для красивого написания. Честно."
 	icon_state = "mulebot0"
-	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	animate_movement = FORWARD_STEPS
 	health = 50

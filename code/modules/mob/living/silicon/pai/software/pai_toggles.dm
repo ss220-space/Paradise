@@ -123,10 +123,8 @@
 // Meson Vision //
 /datum/pai_software/vision/meson_vision
 	name = "Meson Vision"
-	ram_cost = 5
 	id = "meson_vis"
 	ui_icon = "adjust"
-	toggle_software = TRUE
 	sight_mode = SILICONMESON
 
 // Advanced Security Hud //
@@ -170,6 +168,5 @@
 	ram_cost = 35
 	id = "therm_vis"
 	ui_icon = "binoculars"
-	toggle_software = TRUE
 	only_syndi = TRUE
 	sight_mode = SILICONTHERM

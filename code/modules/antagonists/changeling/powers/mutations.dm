@@ -12,7 +12,6 @@
 	name = "Organic Weapon"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
-	power_type = CHANGELING_UNOBTAINABLE_POWER
 	chemical_cost = 1000
 	genetic_damage = 1000
 	req_human = TRUE
@@ -77,7 +76,6 @@
 	name = "Organic Suit"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
-	power_type = CHANGELING_UNOBTAINABLE_POWER
 	chemical_cost = 1000
 	req_human = TRUE
 	var/helmet_type = /obj/item
@@ -155,7 +153,6 @@
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	item_flags = ABSTRACT|DROPDEL
-	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 	force = 45
@@ -163,7 +160,6 @@
 	block_chance = 50
 	block_type = MELEE_ATTACKS
 	hitsound = 'sound/weapons/armblade.ogg'
-	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
 	gender = FEMALE
@@ -267,14 +263,10 @@
 	icon_state = "flesh_maul"
 	item_state = "flesh_maul"
 	item_flags = ABSTRACT|DROPDEL
-	slot_flags = NONE
 	w_class = WEIGHT_CLASS_HUGE
-	sharp = FALSE
 	force = 25
-	block_chance = 0
 	armour_penetration = 35
 	hitsound = "swing_hit"
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	gender = MALE
@@ -389,7 +381,6 @@
 	item_state = "tentacle"
 	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
 	slot_flags = NONE
-	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = /obj/item/ammo_casing/magic/tentacle
 	fire_sound = 'sound/effects/splat.ogg'
 	force = 0
@@ -455,12 +446,9 @@
 /obj/projectile/tentacle
 	name = "tentacle"
 	icon_state = "tentacle_end"
-	pass_flags = PASSTABLE
 	damage = 0
-	damage_type = BRUTE
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
-	armour_penetration = 0
 	reflectability = REFLECTABILITY_NEVER //Let us not reflect this ever. It's not quite a bullet, and a cling should never wrap its tentacle around itself, it controls its body well
 	var/intent = INTENT_HELP
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
@@ -659,7 +647,6 @@
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
 	item_flags = DROPDEL
 	icon_state = "ling_shield"
-	block_chance = 50
 	var/remaining_uses //Set by the changeling ability.
 
 

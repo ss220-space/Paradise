@@ -9,7 +9,6 @@
 	response_harm   = "punches"
 	icon_dead = "shade_dead"
 	speed = 0
-	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
 	nightvision = 8
 	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES

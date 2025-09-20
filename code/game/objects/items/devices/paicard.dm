@@ -20,6 +20,8 @@
 	var/obj/item/paicard_upgrade/upgrade
 	var/list/upgrades = list()
 
+	var/current_emotion = 1
+
 /obj/item/paicard/get_ru_names()
 	return list(
 		NOMINATIVE = "интелкарта пИИ",
@@ -260,8 +262,6 @@
 		add_overlay(get_emissive_block())
 	QDEL_LIST(upgrades)
 
-/obj/item/paicard
-	var/current_emotion = 1
 /obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
 		cut_overlays()

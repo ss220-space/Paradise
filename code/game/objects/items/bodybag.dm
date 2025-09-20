@@ -58,7 +58,6 @@
 	open_sound_volume = 15
 	close_sound_volume = 15
 	density = FALSE
-	integrity_failure = 50
 	pull_push_slowdown = 0
 	ignore_density_closed = TRUE
 	var/foldedbag_path = /obj/item/bodybag
@@ -169,7 +168,6 @@
 /obj/structure/closet/body_bag/biohazard
 	name = "biohazard body bag"
 	desc = "A plastic bag designed for the storage and transportation of infected cadavers."
-	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_biohazard_closed"
 	icon_closed = "bodybag_biohazard_closed"
 	icon_opened = "bodybag_biohazard_open"
@@ -181,7 +179,6 @@
 	desc = "A folded bluespace body bag designed for the storage and transportation of cadavers."
 	icon_state = "bluebag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/bluespace
-	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NO_MAT_REDEMPTION
 
 /obj/item/bodybag/bluespace/examine(mob/user)

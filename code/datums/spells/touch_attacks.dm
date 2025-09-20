@@ -1,5 +1,4 @@
 /obj/effect/proc_holder/spell/touch
-	invocation_type = "none" // You scream on connecting, not summoning
 	/// What type of item this spell summons
 	var/hand_path = /obj/item/melee/touch_attack
 	/// Link to the spawned item
@@ -77,9 +76,7 @@
 	desc = "This spell charges your hand with vile energy that can be used to violently explode victims."
 	hand_path = /obj/item/melee/touch_attack/disintegrate
 
-	school = "evocation"
 	base_cooldown = 60 SECONDS
-	clothes_req = TRUE
 	cooldown_min = 20 SECONDS //100 deciseconds reduction per rank
 
 	action_icon_state = "gib"
@@ -92,7 +89,6 @@
 
 	school = "transmutation"
 	base_cooldown = 60 SECONDS
-	clothes_req = TRUE
 	cooldown_min = 20 SECONDS //100 deciseconds reduction per rank
 
 	action_icon_state = "statue"

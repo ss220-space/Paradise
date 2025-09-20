@@ -204,7 +204,6 @@
 	name = "Rathen's Secret"
 	spell_type = /obj/effect/proc_holder/spell/rathens
 	category = "Defensive"
-	cost = 2
 
 /datum/spellbook_entry/repulse
 	name = "Repulse"
@@ -302,7 +301,6 @@
 	name = "Shapechange"
 	spell_type = /obj/effect/proc_holder/spell/shapeshift
 	category = "Assistance"
-	cost = 2
 
 /datum/spellbook_entry/charge
 	name = "Charge"
@@ -468,7 +466,6 @@
 	desc = "Teaches the fireball spell."
 	item_path = /obj/item/spellbook/oneuse/fireball
 	category = "Spell books"
-	cost = 2
 
 /datum/spellbook_entry/item/smoke_spell_book
 	name = "Smoke spell book"
@@ -489,7 +486,6 @@
 	desc = "Teaches the mindswap spell."
 	item_path = /obj/item/spellbook/oneuse/mindswap
 	category = "Spell books"
-	cost = 2
 
 /datum/spellbook_entry/item/forcewall_spell_book
 	name = "Forcewall spell book"
@@ -510,7 +506,6 @@
 	desc = "Teaches the horsemask spell."
 	item_path = /obj/item/spellbook/oneuse/horsemask
 	category = "Spell books"
-	cost = 2
 
 /datum/spellbook_entry/item/charge_spell_book
 	name = "Charge spell book"
@@ -673,7 +668,6 @@
 	item_path = /obj/item/mayhem
 	category = "Artefacts"
 	limit = 1
-	cost = 2
 
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
@@ -740,7 +734,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "spellbook"
 	item_state = "spellbook"
-	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	/// If TRUE spellbook will not accept any refunds (demon's vial, morph's bottle etc.)

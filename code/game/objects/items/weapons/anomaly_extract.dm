@@ -3,7 +3,6 @@
 /obj/item/anomaly_extract
 	name = "Strange syringe"
 	desc = "Syringe with a blunt needle."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "slime_extract1"
 	item_state = "syringe_0"
 	w_class = WEIGHT_CLASS_TINY
@@ -50,7 +49,6 @@
 	sound = 'sound/effects/mob_effects/slime_squish.ogg'
 	human_req = FALSE
 	clothes_req = FALSE
-	base_cooldown = COOLDOWN_TO_SLIMEPERSON
 	var/is_transformed = FALSE
 	var/mob/living/carbon/human/original_body
 

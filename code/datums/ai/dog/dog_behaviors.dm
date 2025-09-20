@@ -126,7 +126,6 @@
 
 /// This behavior involves either eating a snack we can reach, or begging someone holding a snack
 /datum/ai_behavior/play_dead
-	behavior_flags = NONE
 
 /datum/ai_behavior/play_dead/perform(delta_time, datum/ai_controller/controller)
 	. = ..()

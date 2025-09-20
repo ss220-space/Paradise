@@ -53,14 +53,10 @@
 	icon_state = "plating"
 	icon = 'icons/turf/floors/plating.dmi'
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/indestructible/necropolis
 	name = "necropolis floor"
 	desc = "It's regarding you suspiciously."
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "necro1"
 	baseturf = /turf/simulated/floor/indestructible/necropolis
 	oxygen = 14
@@ -104,7 +100,6 @@
 	temperature = T20C
 
 /turf/simulated/floor/indestructible/hierophant
-	name = "floor"
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	icon_state = "floor"
 	base_icon_state = "hierophant_floor"
@@ -136,7 +131,6 @@
 	footstep = FOOTSTEP_CARPET
 	barefootstep = FOOTSTEP_CARPET_BAREFOOT
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/indestructible/grass
 	name = "grass patch"
@@ -144,7 +138,6 @@
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/indestructible/grass/Initialize(mapload)
 	. = ..()
@@ -155,9 +148,6 @@
 	icon = 'icons/turf/floors/plating.dmi'
 	icon_state = "asteroid"
 	footstep = FOOTSTEP_SAND
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/indestructible/asteroid/Initialize(mapload)
 	. = ..()
@@ -180,7 +170,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/indestructible/beach
 	name = "Beach"
@@ -205,11 +194,9 @@
 /turf/simulated/floor/indestructible/beach/sand
 	name = "Sand"
 	icon_state = "desert"
-	mouse_opacity = MOUSE_OPACITY_ICON
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 
 /turf/simulated/floor/indestructible/beach/sand/Initialize(mapload)
@@ -310,17 +297,14 @@
 	density = TRUE
 	opacity = TRUE
 	explosion_block = 2
-	mouse_opacity = MOUSE_OPACITY_ICON
 
 
 /obj/effect/beach_water_overlay
 	name = "Water overlay that you shouldn't see"
 	icon = 'icons/misc/beach.dmi'
 	icon_state = null
-	smooth = NONE
 	layer = ABOVE_MOB_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = TRUE
 
 /obj/effect/beach_water_overlay/Initialize(mapload, new_icon, new_icon_state, new_smooth, new_base_icon_state)
 	icon = new_icon

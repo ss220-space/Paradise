@@ -275,8 +275,6 @@
 /obj/structure/closet/sechammercabinet
 	name = "tactical sledgehammer cabinet"
 	desc = "Стойка, предназначенная для хранения тактической кувалды. Надпись гласит: \"Для особых случаев\"."
-	gender = MALE
-	icon = 'icons/obj/closet.dmi'
 	icon_state = "sechammer_full"
 	anchored = TRUE
 	density = FALSE

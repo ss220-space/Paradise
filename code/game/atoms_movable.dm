@@ -106,6 +106,9 @@
 	var/atom/orbiting = null
 	var/cached_transform = null
 
+	/// Last location of the atom for demo recording purposes
+	var/atom/demo_last_loc
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))

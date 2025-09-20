@@ -522,7 +522,6 @@
 	icon_state = "paramedic"
 	item_state = "paramedic"
 	item_color = "paramedic"
-	permeability_coefficient = 0.50
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/paramedic/get_ru_names()
@@ -573,7 +572,6 @@
 	name = "psychiatrist's jumpskirt"
 	desc = "Эта юбка обладает специальными знаками, которые обозначают то, что её владелец - психиатр."
 	icon_state = "psychf"
-	item_state = "w_suit"
 	item_color = "psychf"
 
 /obj/item/clothing/under/rank/psych/skirt/get_ru_names()

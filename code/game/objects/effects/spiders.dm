@@ -5,7 +5,6 @@
 	gender = FEMALE
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
-	density = FALSE
 	max_integrity = 15
 	var/mob/living/carbon/human/master_commander = null
 	var/new_mind_memory = "Я свободный паук."
@@ -239,9 +238,7 @@
 /obj/effect/decal/cleanable/spiderling_remains
 	name = "spiderling remains"
 	desc = "Green squishy mess."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter"
-	anchored = TRUE
 
 /obj/structure/spider/cocoon
 	name = "cocoon"

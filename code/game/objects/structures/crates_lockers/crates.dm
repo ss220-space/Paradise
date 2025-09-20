@@ -12,8 +12,6 @@
 	climbable = TRUE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
-	open_sound_volume = 35
-	close_sound_volume = 50
 	pass_flags_self = PASSSTRUCTURE|LETPASSTHROW
 	var/rigged = FALSE
 	var/obj/item/paper/manifest/manifest
@@ -183,7 +181,6 @@
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
 	var/tamperproof = FALSE
-	broken = SECURE_CRATE_STAGE_NO_BROKEN
 	locked = TRUE
 	can_be_emaged = TRUE
 
@@ -405,7 +402,6 @@
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of the RCD."
 	name = "RCD crate"
-	icon_state = "crate"
 
 /obj/structure/closet/crate/rcd/populate_contents()
 	new /obj/item/rcd_ammo(src)
@@ -679,7 +675,6 @@
 	icon_state = "bloodcrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 	req_access = list(ACCESS_MEDICAL)
-	locked = TRUE
 
 /obj/structure/closet/crate/secure/blood/get_ru_names()
 	return list(

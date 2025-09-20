@@ -4,7 +4,6 @@
 	desc = "A shooting target."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "target_h"
-	density = FALSE
 	/// Lazylist of all bullet holes overlays
 	var/list/bullet_holes
 	/// The stake we acre currently placed on

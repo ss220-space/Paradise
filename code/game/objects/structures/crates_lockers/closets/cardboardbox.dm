@@ -11,11 +11,9 @@
 	integrity_failure = 0
 	open_sound = 'sound/machines/cardboard_box.ogg'
 	close_sound = 'sound/machines/cardboard_box.ogg'
-	open_sound_volume = 35
 	close_sound_volume = 35
 	material_drop = /obj/item/stack/sheet/cardboard
 	no_overlays = TRUE
-	can_be_emaged = FALSE
 	/// Current cardboard look provided by spray can painting.
 	var/current_decal = ""
 	/// How fast a mob can move inside this box.

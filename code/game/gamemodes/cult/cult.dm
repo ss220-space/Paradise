@@ -1,22 +1,5 @@
 GLOBAL_LIST_EMPTY(all_cults)
 
-/datum/game_mode
-	/// A list of all minds currently in the cult
-	var/list/datum/mind/cult = list()
-	var/datum/cult_objectives/cult_objs = new
-	/// Does the cult have glowing eyes
-	var/cult_risen = FALSE
-	/// Does the cult have halos
-	var/cult_ascendant = FALSE
-	/// How many crew need to be converted to rise
-	var/rise_number
-	/// How many crew need to be converted to ascend
-	var/ascend_number
-	/// Used for the CentComm announcement at ascension
-	var/ascend_percent
-	/// The number of ghost summons available to the cult.
-	var/ghost_summons = null
-
 /proc/is_convertable_to_cult(datum/mind/mind)
 	if(!mind)
 		return FALSE

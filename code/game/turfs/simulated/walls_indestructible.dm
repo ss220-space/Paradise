@@ -1,5 +1,4 @@
 /turf/simulated/wall/indestructible
-	name = "wall"
 	desc = "Effectively impervious to conventional methods of destruction."
 	explosion_block = 50
 	explosion_vertical_block = 50
@@ -85,7 +84,6 @@
 	icon_state = "r_wall-0"
 	base_icon_state = "r_wall"
 	smooth = SMOOTH_BITMASK
-	canSmoothWith = SMOOTH_GROUP_WALLS
 
 
 /turf/simulated/wall/indestructible/reinforced/rusted
@@ -109,9 +107,7 @@
 /turf/simulated/wall/indestructible/necropolis
 	name = "necropolis wall"
 	desc = "A seemingly impenetrable wall."
-	icon = 'icons/turf/walls.dmi'
 	icon_state = "necro"
-	explosion_block = 50
 	baseturf = /turf/simulated/wall/indestructible/necropolis
 
 /turf/simulated/wall/indestructible/boss
@@ -120,7 +116,6 @@
 	icon = 'icons/turf/walls/boss_wall.dmi'
 	icon_state = "wall"
 	canSmoothWith = SMOOTH_GROUP_BOSS_WALLS
-	explosion_block = 50
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
 	smooth = SMOOTH_BITMASK
 	base_icon_state = "boss_wall"
@@ -130,7 +125,6 @@
 	opacity = FALSE
 
 /turf/simulated/wall/indestructible/hierophant
-	name = "wall"
 	desc = "A wall made out of a strange metal. The squares on it pulse in a predictable pattern."
 	icon = 'icons/turf/walls/hierophant_wall.dmi'
 	icon_state = "wall"
@@ -150,14 +144,10 @@
 	smoothing_groups = SMOOTH_GROUP_URANIUM_WALLS
 
 /turf/simulated/wall/indestructible/metal
-	name = "wall"
 	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall"
-	base_icon_state = "wall"
 	smooth = SMOOTH_BITMASK
-	canSmoothWith = SMOOTH_GROUP_WALLS
-	smoothing_groups = SMOOTH_GROUP_WALLS
 
 
 /turf/simulated/wall/indestructible/abductor
@@ -165,7 +155,6 @@
 	desc = "A wall with alien alloy plating."
 	icon_state = "alien1"
 	always_lit = TRUE
-	smooth = NONE //Already smoothed by dear mappers
 
 
 /turf/simulated/wall/indestructible/splashscreen
@@ -203,7 +192,6 @@
 /turf/simulated/wall/indestructible/rock
 	name = "rock"
 	icon_state = "rock"
-	smooth = NONE
 
 
 /turf/simulated/wall/indestructible/rock/dark
@@ -228,8 +216,6 @@
 	icon_state = "iron"
 	base_icon_state = "iron_wall"
 	smooth = SMOOTH_BITMASK
-	canSmoothWith = SMOOTH_GROUP_WALLS
-	smoothing_groups = SMOOTH_GROUP_WALLS
 
 
 /turf/simulated/wall/indestructible/bananium
@@ -248,7 +234,6 @@
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
 	icon = 'icons/turf/walls/cult_wall.dmi'
 	icon_state = "cult"
-	smooth = NONE
 	canSmoothWith = null
 	smoothing_groups = null
 

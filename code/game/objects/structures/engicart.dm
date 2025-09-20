@@ -3,7 +3,6 @@
 	desc = "A cart for storing engineering items."
 	icon = 'icons/obj/engicart.dmi'
 	icon_state = "cart"
-	anchored = FALSE
 	density = TRUE
 	pull_push_slowdown = 1
 	var/obj/item/stack/sheet/glass/myglass = null

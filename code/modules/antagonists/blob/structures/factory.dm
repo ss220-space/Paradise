@@ -1,10 +1,8 @@
 /obj/structure/blob/special/factory
 	name = "factory blob"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_factory"
 	desc = "Толстый шпиль щупалец."
 	max_integrity = BLOB_FACTORY_MAX_HP
-	health_regen = BLOB_FACTORY_HP_REGEN
 	point_return = BLOB_REFUND_FACTORY_COST
 	resistance_flags = LAVA_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 25, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)

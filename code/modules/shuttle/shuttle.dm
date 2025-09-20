@@ -1027,13 +1027,9 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin
 	name = "Admin shuttle navigation computer"
 	desc = "Используется, чтобы указать точное местоположение для отправки админского шаттла."
-	icon_screen = "navigation"
-	icon_keyboard = "med_key"
 	shuttleId = "admin"
 	shuttlePortId = "admin_custom"
 	view_range = 14
-	x_offset = 0
-	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
 	space_turfs_only = FALSE
 	access_admin_zone = TRUE	//can we park on Admin z_lvls?

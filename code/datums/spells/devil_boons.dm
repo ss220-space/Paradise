@@ -10,7 +10,6 @@
 
 	school = "conjuration"
 	clothes_req = FALSE
-	base_cooldown = 10 SECONDS
 	cooldown_min = 1 SECONDS
 	action_icon_state = "moneybag"
 

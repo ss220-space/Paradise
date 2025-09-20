@@ -89,7 +89,6 @@
 /obj/structure/spawner/skeleton
 	name = "bone pit"
 	desc = "A pit full of bones, and some still seem to be moving..."
-	icon_state = "hole"
 	icon = 'icons/mob/nest.dmi'
 	max_integrity = 150
 	max_mobs = 15
@@ -111,13 +110,11 @@
 	mob_types = list(/mob/living/simple_animal/hostile/retaliate/clown)
 	spawn_text = "climbs out of"
 	faction = list("clown")
-	mob_gps_id = "???" // clowns
 	spawner_gps_id = "Clown Planet Distortion"
 
 /obj/structure/spawner/mining
 	name = "monster den"
 	desc = "A hole dug into the ground, harboring all kinds of monsters found within most caves or mining asteroids."
-	icon_state = "hole"
 	max_integrity = 200
 	max_mobs = 3
 	icon = 'icons/mob/nest.dmi'
