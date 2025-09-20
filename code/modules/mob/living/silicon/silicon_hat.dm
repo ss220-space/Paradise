@@ -29,7 +29,7 @@
 	var/hat_offset_y = -3
 	var/isCentered = FALSE //центрирован ли синтетик. Если нет, то шляпа будет растянута
 
-	var/list/blacklisted_hats = list( //Запрещённые шляпы на ношение для боргов с большими головами
+	var/list/blacklisted_hats = list(//Запрещённые шляпы на ношение для боргов с большими головами
 		/obj/item/clothing/head/helmet,
 		/obj/item/clothing/head/welding,
 		/obj/item/clothing/head/snowman,
@@ -71,6 +71,11 @@
 	hat_offset_y = 3
 	isCentered = TRUE
 	canBeHatted = TRUE
+
+	var/max_locations = 10
+	var/stored_locations[0]
+	var/message_cooldown = 0
+	var/current_camera = 0
 
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
@@ -139,10 +144,10 @@
 			hat_offset_y = -6
 
 	if(inventory_head)
-		if (!canBeHatted)
+		if(!canBeHatted)
 			remove_from_head(usr)
 			return
-		if (!canWearBlacklistedHats && is_type_in_list(inventory_head, blacklisted_hats))
+		if(!canWearBlacklistedHats && is_type_in_list(inventory_head, blacklisted_hats))
 			remove_from_head(usr)
 			return
 
@@ -162,7 +167,7 @@
 		borgI.alpha = hat_alpha
 		borgI.color = hat_color
 		borgI.pixel_y = hat_offset_y
-		if (!isCentered)
+		if(!isCentered)
 			borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 		return borgI
 

@@ -82,12 +82,16 @@
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 50, TRUE, -1)
 	else
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
-	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+	D.visible_message(
+		"<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
+		"<span class='userdanger'>[A] [picked_hit_type] you!</span>"
+	)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(A.resting && !D.stat && D.body_position != LYING_DOWN)
-		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
-							"<span class='userdanger'>[A] leg sweeps you!</span>")
+		D.visible_message(
+			"<span class='warning'>[A] leg sweeps [D]!", \
+			"<span class='userdanger'>[A] leg sweeps you!</span>"
+		)
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 		D.apply_damage(10, BRUTE)
 		objective_damage(A, D, 10, BRUTE)

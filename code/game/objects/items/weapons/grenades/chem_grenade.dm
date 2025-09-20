@@ -38,7 +38,7 @@
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
-	if (!no_splash)
+	if(!no_splash)
 		QDEL_LIST(beakers)
 	return ..()
 

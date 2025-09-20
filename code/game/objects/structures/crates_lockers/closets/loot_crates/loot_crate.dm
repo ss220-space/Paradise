@@ -2,13 +2,19 @@
 	icon = 'icons/obj/supplypods.dmi'
 	locked = TRUE
 	pixel_x = -16
+	ignore_shoves = TRUE
+	no_throw_opens = TRUE
 	var/datum/loot_tier/tier
+
+/obj/structure/closet/loot_crate/get_ru_names()
+	return tier.ru_names
 
 /obj/structure/closet/loot_crate/Initialize(mapload)
 	. = ..()
 	if(!GLOB.loot_tiers[tier])
 		GLOB.loot_tiers[tier] = new tier()
 	tier = GLOB.loot_tiers[tier]
+	name = tier.name
 
 /obj/structure/closet/loot_crate/obj_destruction(damage_flag)
 	if(locked)

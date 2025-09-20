@@ -858,7 +858,7 @@
 
 			var/device_id = params["id_tag"]
 			switch(params["cmd"])
-				if ("power",
+				if("power",
 					"adjust_external_pressure",
 					"set_external_pressure",
 					"checks",

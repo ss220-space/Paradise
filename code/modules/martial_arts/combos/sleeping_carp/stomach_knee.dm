@@ -7,8 +7,10 @@
 /datum/martial_combo/sleeping_carp/stomach_knee/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat && !target.IsWeakened())
 		user.do_attack_animation(target, ATTACK_EFFECT_KICK)
-		target.visible_message("<span class='warning'>[user] knees [target] in the stomach!</span>", \
-						  "<span class='userdanger'>[user] winds you with a knee in the stomach!</span>")
+		target.visible_message(
+			"<span class='warning'>[user] knees [target] in the stomach!</span>", \
+			"<span class='userdanger'>[user] winds you with a knee in the stomach!</span>"
+		)
 		target.audible_message("<b>[target]</b> gags!")
 		target.AdjustLoseBreath(20 SECONDS)
 		target.Weaken(6 SECONDS)

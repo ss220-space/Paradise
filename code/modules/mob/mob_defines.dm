@@ -276,3 +276,10 @@
 	/// The calculated mob action speed slowdown based on the modifiers list, sorted by category in associvative list
 	var/list/cached_multiplicative_actions_slowdown
 
+	/// Unused, used to adjust our next move on a linar skill world.time + (how_many_deciseconds + Next move adjust) = Next move
+	var/next_move_adjust = 0
+	/// Value to multiply action delays by, actually used world.time + (how_many_deciseconds * Next move Adjust) = Next move
+	var/next_move_modifier = 1
+	// 1 decisecond click delay (above and beyond mob/next_move)
+	/// This is mainly modified by click code, to modify click delays elsewhere, use next_move and changeNext_move(), Controls the click delay. Changed with
+	var/next_click	= 0

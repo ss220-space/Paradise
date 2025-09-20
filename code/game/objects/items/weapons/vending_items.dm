@@ -28,15 +28,15 @@
 /obj/item/vending_refill/examine(mob/user)
 	. = ..()
 	var/num = get_part_rating()
-	if (num == INFINITY)
+	if(num == INFINITY)
 		. += "<span class='notice'>It's sealed tight, completely full of supplies.</span>"
-	else if (num == 0)
+	else if(num == 0)
 		. += "<span class='notice'>It's empty!</span>"
 	else
 		. += "<span class='notice'>It can restock [num] item\s.</span>"
 
 /obj/item/vending_refill/get_part_rating()
-	if (!products || !contraband || !premium)
+	if(!products || !contraband || !premium)
 		return INFINITY
 	. = 0
 	for(var/key in products)
@@ -235,28 +235,28 @@
 
 /obj/item/vending_refill/custom/proc/try_add_account(mob/user)
 	. = FALSE
-	if (linked_accounts.len >= 150) // better to do it
+	if(linked_accounts.len >= 150) // better to do it
 		balloon_alert(user, "лимит привязки достигнут")
 		return
 
 	var/new_acc_number = tgui_input_number(user, "Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", (user.mind && user.mind.initial_account) ? user.mind.initial_account.account_number : 999999, 999999, 0, ui_state = GLOB.hands_state, ui_source = src)
 
-	if (isnull(new_acc_number))
+	if(isnull(new_acc_number))
 		balloon_alert(user, "номер не введен")
 		return
 
 	var/new_account = attempt_account_access(new_acc_number, pin_needed = FALSE, security_level_passed = 3, pin_needed = FALSE)
-	if (!new_account)
+	if(!new_account)
 		balloon_alert(user, "аккаунт не существует")
 		return
 
-	if (new_account in linked_accounts)
+	if(new_account in linked_accounts)
 		balloon_alert(user, "аккаунт уже привязан")
 		return
 
 	var/weight = tgui_input_number(user, "Пожалуйста, введите вес счета от 1 до 1000000.", "Выбор веса", 100, 1000000, 1, ui_state = GLOB.hands_state, ui_source = src)
 
-	if (isnull(weight))
+	if(isnull(weight))
 		balloon_alert(user, "вес не введен")
 		return
 
@@ -269,11 +269,11 @@
 	. = FALSE
 	var/weight = tgui_input_number(user, "Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор веса", 100, 1000000, 1, ui_state = GLOB.hands_state, ui_source = src)
 
-	if (isnull(weight))
+	if(isnull(weight))
 		balloon_alert(user, "вес не введен")
 		return
 
-	if (GLOB.station_account in linked_accounts)
+	if(GLOB.station_account in linked_accounts)
 		balloon_alert(user, "аккаунт станции уже привязан")
 		return
 
@@ -285,28 +285,28 @@
 /obj/item/vending_refill/custom/attack_self(mob/user) // It works this way not because I'm lazy, but for better immersion.
 	var/operation = tgui_input_number(user, "Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка счетов", 0, 2, 0, ui_state = GLOB.hands_state, ui_source = src)
 
-	if (isnull(operation))
+	if(isnull(operation))
 		balloon_alert(user, "значение не введено")
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 		return
 
 
 	var/correct = TRUE
-	switch (operation)
-		if (0)
+	switch(operation)
+		if(0)
 			correct = clear_accounts(user)
-		if (1)
+		if(1)
 			correct = try_add_account(user)
-		if (2)
+		if(2)
 			correct = try_add_station_account(user)
-		if (-INFINITY to -1)
+		if(-INFINITY to -1)
 			correct = FALSE
 			balloon_alert(user, "значение должно быть больше 0")
-		if (3 to INFINITY)
+		if(3 to INFINITY)
 			correct = FALSE
 			balloon_alert(user, "значение должно быть меньше 3")
 
-	if (correct)
+	if(correct)
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, FALSE)
 	else
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
@@ -315,10 +315,10 @@
 /obj/item/vending_refill/custom/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		if (!linked_accounts.len)
+		if(!linked_accounts.len)
 			. += span_notice("К этой канистре не привязанно ни одного счета.")
 		else
 			. += span_notice("К этой канистре привязанны следующее счета:")
-			for (var/i = 1; i <= linked_accounts.len; ++i)
+			for(var/i = 1; i <= linked_accounts.len; ++i)
 				. += span_notice("Владелец: " + linked_accounts[i].owner_name + ", вес: [accounts_weights[i]], доля: [round(accounts_weights[i]/sum_of_weigths, 0.01)].")
 
