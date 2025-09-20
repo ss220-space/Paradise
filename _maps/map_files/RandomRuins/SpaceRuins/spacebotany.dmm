@@ -484,11 +484,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/GardenMaint)
-"gB" = (
-/obj/structure/window/full/reinforced,
-/obj/structure/grille,
-/turf/simulated/wall,
-/area/ruin/space/spacebotany/GardenMaint)
 "gD" = (
 /obj/structure/sign/poster/official/safety_internals,
 /obj/effect/decal/cleanable/dust,
@@ -5811,7 +5806,7 @@ VK
 VK
 VK
 VK
-gB
+VK
 VK
 Iu
 bc
