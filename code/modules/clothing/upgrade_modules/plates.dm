@@ -14,7 +14,8 @@
 	lefthand_file = 'icons/mob/inhands/plates_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/plates_righthand.dmi'
 	icon_state = "ceramicplate_light"
-	var/break_icon = "armorbreak"
+	/// Plate type for status icon overlay
+	var/status_icon_type = "ceramic"
 	/// Plate class
 	var/plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	/// Ballistic protection class
@@ -169,11 +170,25 @@
 /obj/item/armor_plate/proc/update_break_icon(datum/source, obj/item/clothing/suit, mob/user)
 	SIGNAL_HANDLER
 
-	if((user.get_slot_by_item(suit) & suit.slot_flags) && obj_integrity < 0.25 * integrity_failure)
-		// low integrity overlay icon
-		suit.status_overlay = mutable_appearance(icon, break_icon, layer = FLOAT_LAYER - 1)
+	if(suit.status_overlays)
+		suit.status_overlays.Cut()
+	if(!(user.get_slot_by_item(suit) & suit.slot_flags))
+		suit.update_icon(UPDATE_OVERLAYS)
+		return
+
+	LAZYINITLIST(suit.status_overlays)
+
+	// armor plate type icon
+	var/plate_break = obj_integrity <= 0
+	if(plate_break)
+		suit.status_overlays += mutable_appearance(icon, "status_[status_icon_type]_break")
 	else
-		suit.status_overlay = null
+		suit.status_overlays += mutable_appearance(icon, "status_[status_icon_type]_ok")
+
+	// armor plate status overlay
+	var/plate_state = obj_integrity >= integrity_failure ? "good" : (obj_integrity > 0.25 * integrity_failure ? "normal" : "bad")
+	suit.status_overlays += mutable_appearance(icon, "status_overlay_[plate_state]")
+
 	suit.update_icon(UPDATE_OVERLAYS)
 
 
@@ -256,6 +271,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			Предназначена для защиты от пистолетных калибров и осколков. \
 			Тяжёлая и недолговечная, но лучше, чем ничего."
 	icon_state = "steelplate_handmade"
+	status_icon_type = "steel"
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
 	laser_class = LASER_ARMOR_CLASS_NONE
@@ -282,6 +298,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			Предназначена для защиты от маломощных энергетических снарядов. \
 			Тяжёлая и недолговечная, но лучше, чем ничего."
 	icon_state = "reflectorplate_handmade"
+	status_icon_type = "ablative"
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	laser_class = LASER_ARMOR_CLASS_LIGHT
@@ -307,6 +324,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	desc = "Бронеплита из кевлара, предназначенная для защиты от пистолетных калибров и осколков. \
 			Лёгкая и достаточно дешёвая."
 	icon_state = "kevlar"
+	status_icon_type = "ceramic"
 	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_NONE
@@ -335,6 +353,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	desc = "Бронеплита из баллистической стали, предназначенная для защиты от пистолетных калибров и осколков. \
 			Легковесная и не сковывает движения носящего, что компенсируется относительно слабым классом защиты."
 	icon_state = "steelplate_light"
+	status_icon_type = "steel"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_III
 	laser_class = LASER_ARMOR_CLASS_NONE
@@ -362,6 +381,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			предназначенная для защиты от маломощных энергетических снарядов. \
 			Легковесная и не сковывает движения носящего, что компенсируется относительно слабым классом защиты."
 	icon_state = "reflectorplate_light"
+	status_icon_type = "ablative"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	laser_class = LASER_ARMOR_CLASS_LIGHT
@@ -389,6 +409,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			Легковесная и не сковывает движения носящего, \
 			однако хорошо защищает относительно других плит той же весовой категории."
 	icon_state = "ceramicplate_light"
+	status_icon_type = "ceramic"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
 	laser_class = LASER_ARMOR_CLASS_NONE
@@ -418,6 +439,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	desc = "Бронеплита из баллистической стали, предназначенная для защиты от винтовочных калибров. \
 			Обеспечивает баланс между защитой пользователя и удобством ношения."
 	icon_state = "steelplate_medium"
+	status_icon_type = "steel"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_NONE
@@ -446,6 +468,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			предназначенная для защиты от энергетических снарядов средней мощности. \
 			Обеспечивает баланс между защитой пользователя и удобством ношения."
 	icon_state = "reflectorplate_medium"
+	status_icon_type = "ablative"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
@@ -474,6 +497,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			Несколько сковывает движения пользователя, при этом превосходя плиты той же весовой категории \
 			по защитным характеристикам."
 	icon_state = "ceramicplate_medium"
+	status_icon_type = "ceramic"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_LIGHT
@@ -504,6 +528,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	desc = "Бронеплита из баллистической стали, предназначенная для защиты от мощных винтовочных калибров. \
 			Тяжёлая и неудобная, что компенсируется высоким классом защиты."
 	icon_state = "steelplate_heavy"
+	status_icon_type = "steel"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_LIGHT
@@ -532,6 +557,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			предназначенная для защиты от энергетических снарядов высокой мощности. \
 			Тяжёлая и неудобная, что компенсируется высоким классом защиты."
 	icon_state = "reflectorplate_heavy"
+	status_icon_type = "ablative"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_HEAVY
@@ -560,6 +586,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			Тяжёлая и неудобная, что компенсируется высоким классом защиты. \
 			Несколько превосходит плиты той же весовой категории по защитным характеристикам."
 	icon_state = "ceramicplate_heavy"
+	status_icon_type = "ceramic"
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
@@ -588,6 +615,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			Обеспечивает выдающуюся защиту как от баллистических, так и от энергетических снарядов, \
 			при этом не сказываясь на мобильности пользователя. Такие выдают самым элитным бойцам."
 	icon_state = "eliteplate"
+	status_icon_type = "ceramic"
 	plate_slot = ARMOR_PLATE_SLOT_MAX
 	ballistic_class = BALLISTIC_ARMOR_CLASS_MAX
 	laser_class = LASER_ARMOR_CLASS_MAX

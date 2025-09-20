@@ -63,7 +63,7 @@
 	/// Allow remove armor plate with screwdriver
 	var/can_remove_armor_plate = FALSE
 
-	var/mutable_appearance/status_overlay = null
+	var/list/status_overlays = null
 
 /obj/item/clothing/Initialize(mapload)
 	. = ..()
@@ -108,7 +108,9 @@
 
 /obj/item/clothing/update_overlays()
 	. = ..()
-	if(status_overlay)
+	if(!status_overlays)
+		return
+	for(var/mutable_appearance/status_overlay as anything in status_overlays)
 		. += status_overlay
 
 /obj/item/clothing/attackby(obj/item/I, mob/user, params)
