@@ -832,7 +832,7 @@
 //Reinforced gingerbread
 //////////////////////////////////////////
 
-/datum/recipe/oven/reinforcedcheese
+/datum/recipe/oven/reinforcedgingerbread
 	reagents = list("sodiumchloride" = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/gingercookie,

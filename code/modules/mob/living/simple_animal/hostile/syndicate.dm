@@ -30,6 +30,11 @@
 	footstep_type = FOOTSTEP_MOB_SHOE
 	AI_delay_max = 0 SECONDS
 
+	var/synmobdrop //Обычный лут, дропается со всех
+	var/SynSpace //Выпадение бладрига
+	var/SynMelee //Лут с милишников
+	var/SynRange //Лут с дальников
+
 ///////////////Sword and shield////////////
 
 /mob/living/simple_animal/hostile/syndicate/melee

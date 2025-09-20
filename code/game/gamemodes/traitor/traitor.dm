@@ -1,17 +1,3 @@
-/datum/game_mode
-	/// A list of all minds which have the traitor antag datum.
-	var/list/datum/mind/traitors = list()
-	/// An associative list with mindslave minds as keys and their master's minds as values.
-	var/list/datum/mind/implanted = list()
-	/// The Contractor Support Units
-	var/list/datum/mind/support = list()
-
-	var/datum/mind/exchange_red
-	var/datum/mind/exchange_blue
-	/// The number of contractors who accepted the offer.
-	var/contractor_accepted = 0
-
-
 /datum/game_mode/traitor
 	name = "traitor"
 	config_tag = "traitor"
@@ -22,18 +8,14 @@
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
-	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
-	var/list/datum/mind/pre_traitors = list()
 	/// Same as above for malf AI.
 	var/datum/mind/pre_malf_AI
 	/// Hard limit on traitors if scaling is turned off.
 	var/traitors_possible = 4
 
-
 /datum/game_mode/traitor/announce()
 	to_chat(world, "<b>The current game mode is - Traitor!</b>")
 	to_chat(world, "<b>There is a syndicate traitor on the station. Do not let the traitor succeed!</b>")
-
 
 /datum/game_mode/traitor/pre_setup()
 	. = FALSE

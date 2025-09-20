@@ -1,7 +1,3 @@
-/mob
-	var/suiciding = FALSE
-
-
 /mob/living/verb/suicide()
 	set hidden = TRUE
 	be_suicidal()

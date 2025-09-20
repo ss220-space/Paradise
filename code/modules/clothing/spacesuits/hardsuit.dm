@@ -101,6 +101,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
 		)
 
+	var/obj/item/hardsuit_taser_proof/taser_proof = null
 
 /obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
 	. = ..()

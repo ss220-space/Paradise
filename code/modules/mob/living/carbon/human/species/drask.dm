@@ -89,6 +89,17 @@
 		JOB_MIN_AGE_COMMAND = 50,
 	)
 
+	autohiss_basic_map = list(
+			"o" = list ("oo", "ooo"),
+			"u" = list ("uu", "uuu"),
+			"о" = list ("оо", "ооо"),
+			"у" = list ("уу", "ууу")
+		)
+	autohiss_extra_map = list(
+			"m" = list ("mm", "mmm"),
+			"м" = list ("мм", "ммм")
+		)
+	autohiss_exempt = list("Орлуум")
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)

@@ -54,6 +54,9 @@
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 
+	/// Guns can be placed on racks
+	var/on_rack = FALSE
+
 /*
  * Gun modules
  */
@@ -852,10 +855,6 @@
 
 	// The gun is equipped in their hands, give them the zoom ability.
 	azoom.Grant(user)
-
-//Guns can be placed on racks
-/obj/item/gun
-	var/on_rack = FALSE
 
 /obj/item/gun/proc/place_on_rack()
 	on_rack = TRUE

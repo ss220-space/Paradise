@@ -540,7 +540,7 @@
 	)
 
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
-	icon_state = "9mm-te-[round(ammo_count(),5)]"
+	icon_state = "[initial(icon_state)]-[round(ammo_count(), 5)]"
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"

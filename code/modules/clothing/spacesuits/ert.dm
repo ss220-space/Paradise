@@ -341,6 +341,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 
+	taser_proof = /obj/item/hardsuit_taser_proof/ert_locked
 
 /obj/item/clothing/suit/space/hardsuit/deathsquad/update_icon_state()
 	return

@@ -129,10 +129,6 @@
 	duration = 20 SECONDS
 	can_melt = FALSE
 
-/obj/item/clothing/gloves/color/white/redcoat
-	siemens_coefficient = 0
-	permeability_coefficient = 0.01
-
 /obj/item/storage/backpack/santabag/ded_moroz
 	name = "Presents bag"
 	desc = "Bag filled with presents. Artifact of a widely-known old man loved across entire USSP."

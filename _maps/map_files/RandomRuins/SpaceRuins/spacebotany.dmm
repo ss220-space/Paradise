@@ -33,7 +33,6 @@
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/Med)
 "aG" = (
-/obj/machinery/disposal,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "whitegreen";
 	dir = 10
@@ -484,11 +483,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/ruin/space/spacebotany/GardenMaint)
-"gB" = (
-/obj/structure/window/full/reinforced,
-/obj/structure/grille,
-/turf/simulated/wall,
 /area/ruin/space/spacebotany/GardenMaint)
 "gD" = (
 /obj/structure/sign/poster/official/safety_internals,
@@ -2666,7 +2660,6 @@
 "Jr" = (
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/machinery/hydroponics/constructable,
-/obj/machinery/hydroponics/constructable,
 /obj/structure/spacevine,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -2702,12 +2695,6 @@
 /obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/GardenMaint)
-"JW" = (
-/obj/structure/window/full/reinforced,
-/obj/structure/grille,
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/ruin/space/spacebotany/Med)
 "JY" = (
 /obj/item/reagent_containers/applicator{
 	pixel_x = 6;
@@ -3588,9 +3575,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
 "TU" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/glass,
 /obj/structure/disposalpipe/segment,
@@ -3794,9 +3778,6 @@
 /area/ruin/space/spacebotany/Hydro)
 "WU" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -5822,10 +5803,10 @@ Qn
 XL
 hT
 VK
-gB
 VK
 VK
-gB
+VK
+VK
 VK
 Iu
 bc
@@ -6253,7 +6234,7 @@ ji
 kL
 oH
 hZ
-JW
+ji
 Os
 Os
 Os
