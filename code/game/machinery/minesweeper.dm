@@ -12,9 +12,6 @@
 	name = "Cапёр"
 	icon_state = "minesweeper"
 	desc = "Классическая аркадная игра про флашки, цифры и БОМБЫ."
-	density = TRUE
-	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	light_color = LIGHT_COLOR_BLUE
 	tts_seed = "Livsy"
 	token_price = 10

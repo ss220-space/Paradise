@@ -22,7 +22,6 @@
 	var/obj/item/stock_parts/cell/cell = null    // Used for firing superheated rods.
 	var/list/possible_tensions = list(XBOW_TENSION_20, XBOW_TENSION_40, XBOW_TENSION_60, XBOW_TENSION_80, XBOW_TENSION_FULL)
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/throw/crossbow/get_cell()
@@ -195,8 +194,6 @@
 	desc = "It's got a tip for you - get the point?"
 	icon_state = "bolt"
 	item_state = "bolt"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	throwforce = 20
 	w_class = WEIGHT_CLASS_SMALL
 	sharp = TRUE
@@ -211,8 +208,6 @@
 	desc = "A sharpened metal rod that can be fired out of a crossbow."
 	icon_state = "metal-rod"
 	item_state = "metal-rod"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	throwforce = 10
 
 /obj/item/arrow/proc/modify_arrow()
@@ -241,7 +236,6 @@
 /obj/item/arrow/rod/fire
 	name = "Oiled bolt"
 	desc = "A sharpened metal rod that can be fired out of a crossbow. You can see cloth with oil substance on it."
-	throwforce = 10
 	icon = 'icons/obj/weapons/crossbow_rod.dmi'
 	icon_state = "oiled_rod"
 	resistance_flags = FIRE_PROOF

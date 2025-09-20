@@ -23,12 +23,6 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
 ///mob freeze procs
 
-/mob/living
-	/// Used for preventing attacks on admin-frozen mobs.
-	var/frozen = null
-	/// Used for keeping track of previous sleeping value with admin freeze.
-	var/admin_prev_sleeping = 0
-
 /mob/living/admin_Freeze(client/admin, skip_overlays = FALSE, mech = null)
 	if(!istype(admin))
 		return

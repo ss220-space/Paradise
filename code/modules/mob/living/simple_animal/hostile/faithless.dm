@@ -1,14 +1,11 @@
 /mob/living/simple_animal/hostile/faithless
 	name = "faithless"
 	desc = "Воплощённая в жизнь вера в человечество Исполнителя желаний."
-	gender = MALE
 	icon_state = "faithless"
 	icon_living = "faithless"
 	icon_dead = "faithless_dead"
-	speak_chance = 0
 	turns_per_move = 5
 	response_help = "проходит мимо"
-	response_disarm = "толкает"
 	response_harm = "бьёт"
 	speed = 0
 	maxHealth = 80

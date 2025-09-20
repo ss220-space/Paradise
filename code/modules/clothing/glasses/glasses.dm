@@ -190,7 +190,6 @@
 	icon_state = "purple"
 	item_state = "purple"
 	origin_tech = "magnets=2;engineering=1"
-	prescription_upgradable = FALSE
 	examine_extensions = EXAMINE_HUD_SCIENCE
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
@@ -214,7 +213,6 @@
 	name = "Night Vision Science Goggle"
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
-	item_state = "purple"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
@@ -385,7 +383,6 @@
 		)
 
 /obj/item/clothing/glasses/regular/hipster
-	name = "prescription glasses"
 	desc = "Made by Uncool. Co."
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
@@ -772,7 +769,6 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes."
 	icon_state = "tajblind"
 	item_state = "tajblind"
-	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	tint = 3
 

@@ -190,7 +190,6 @@
 	amount = rand(1, 3)
 
 /obj/structure/closet/critter/frog/toxic
-	name = "frog crate"
 	content_mob = /mob/living/simple_animal/frog/toxic
 
 /obj/structure/closet/critter/snail

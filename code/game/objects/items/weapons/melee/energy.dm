@@ -11,11 +11,9 @@
 	var/list/attack_verb_on = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	item_flags = NOSHARPENING
-	toolspeed = 1
 	light_power = 2
 	light_range = 2
 	light_system = MOVABLE_LIGHT
@@ -108,7 +106,6 @@
 	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	attack_verb_on = list()
 	sharp = 1
-	light_color = COLOR_WHITE
 
 /obj/item/melee/energy/axe/ComponentInitialize()
 	. = ..()
@@ -173,9 +170,7 @@
 /obj/item/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
 	name = "energy saw"
 	desc = "For heavy duty cutting. It has a carbon-fiber blade in addition to a toggleable hard-light edge to dramatically increase sharpness."
-	force_on = 30
 	force = 18 //About as much as a spear
-	sharp = 1
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "esaw_0"
@@ -183,7 +178,6 @@
 	hitcost = 75 //Costs more than a standard cyborg esword
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
-	light_color = COLOR_WHITE
 	tool_behaviour = TOOL_SAW
 
 /obj/item/melee/energy/sword/cyborg/saw/New()
@@ -288,7 +282,6 @@
 	desc = "A concentrated beam of energy in the shape of a blade. Very stylish... and lethal."
 	icon_state = "blade"
 	force = 30	//Normal attacks deal esword damage
-	hitsound = 'sound/weapons/blade1.ogg'
 	active = 1
 	throwforce = 1//Throwing or dropping the item deletes it.
 	throw_speed = 3
@@ -322,7 +315,6 @@
 	force = 12
 	force_on = 20 //force when active
 	throwforce = 20
-	throwforce_on = 20
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'

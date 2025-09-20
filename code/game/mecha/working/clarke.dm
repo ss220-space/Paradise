@@ -8,7 +8,6 @@
 	max_integrity = 250
 	deflect_chance = 15
 	armor = list(MELEE = 40, BULLET = 30, LASER = 20, ENERGY = 30, BOMB = 40, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
-	max_temperature = 25000
 	lights_power = 8
 	wreckage = /obj/structure/mecha_wreckage/clarke
 	internal_damage_threshold = 35

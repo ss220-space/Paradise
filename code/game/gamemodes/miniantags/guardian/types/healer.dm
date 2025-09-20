@@ -1,6 +1,5 @@
 /mob/living/simple_animal/hostile/guardian/healer
 	friendly = "heals"
-	speed = 0
 	damage_transfer = 0.7
 	melee_damage_lower = 5
 	melee_damage_upper = 5
@@ -23,8 +22,6 @@
 	icon_state = "seal"
 	attacktext = "шлёпает"
 	speak_emote = list("лает", "рявкает")
-	friendly = "heals"
-	speed = 0
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA
@@ -149,7 +146,6 @@
 	name = "Быстрое исцеление"
 	desc = "Проверяет хозяина на наличие травм. Если таковые есть, лечит случайную из них. Шанс срабатывания 50%."
 	action_icon_state = "heal"
-	action_background_icon_state = "bg_spell"
 	base_cooldown = 35 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE

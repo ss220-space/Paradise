@@ -324,7 +324,6 @@
 	item_state = "defibnt"
 	paddle_type = /obj/item/twohanded/shockpaddles/advanced
 	ignore_hardsuits = TRUE
-	safety = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
@@ -362,11 +361,9 @@
 	desc = "Пара электродов с тонкими металлическими пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током."
 	icon_state = "defibpaddles"
 	item_state = "defibpaddles"
-	force = 0
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
-	toolspeed = 1
 	item_flags = ABSTRACT
 	/// Amount of power used on a shock.
 	var/revivecost = 1000

@@ -129,7 +129,6 @@
 	gain_desc = "Вы получили способность вызывать кровавые щупальца, чтобы замедлять людей в выбранной вами области."
 	required_blood = 10
 
-	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_tendrils"
 	sound = 'sound/misc/enter_blood.ogg'
 	var/area_of_affect = 1
@@ -172,7 +171,6 @@
 /obj/effect/temp_visual/blood_tendril
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "blood_tendril"
-	duration = 1 SECONDS
 
 
 /obj/effect/temp_visual/blood_tendril/long
@@ -279,7 +277,6 @@
 	icon = 'icons/effects/vampire_effects.dmi'
 	density = TRUE
 	anchored = TRUE
-	opacity = FALSE
 
 /obj/structure/blood_barrier/get_ru_names()
 	return list(
@@ -365,7 +362,6 @@
 	desc = "Выслеживайте свою добычу, здесь ей негде спрятаться... На короткое время оглушает её, если она окажется в вашем поле зрения."
 	gain_desc = "Ваши чувства обострились, теперь никто не сможет от вас спрятаться."
 	action_icon_state = "predator_sense"
-	base_cooldown = 10 SECONDS
 	create_attack_logs = FALSE
 
 
@@ -448,7 +444,6 @@
 	name = "Кровавый обряд"
 	desc = "При переключении все вокруг начнут обильно кровоточить. Вы будете поглощать их кровь и напитываться силой."
 	gain_desc = "Вы обрели способность извлекать жизненную силу из гуманоидов и поглощать её, исцеляя себя."
-	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
 

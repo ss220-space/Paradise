@@ -64,9 +64,7 @@
 	icon_state = "banana_peel"
 	item_state = "banana_peel"
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 
 /obj/item/grown/bananapeel/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is deliberately slipping on the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")

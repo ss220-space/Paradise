@@ -1,7 +1,6 @@
 /datum/status_effect/freon
 	id = "frozen"
 	duration = 10 SECONDS
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/freon
 	var/icon/cube
 	var/ice_state = "ice_cube"

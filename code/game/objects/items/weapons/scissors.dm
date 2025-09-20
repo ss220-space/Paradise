@@ -10,13 +10,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("полоснул", "порезал", "уколол", "ткнул")
-	toolspeed = 1
 
 /obj/item/scissors/barber
 	name = "Barber's Scissors"
 	desc = "A pair of scissors used by the barber."
 	icon_state = "bscissor"
-	item_state = "scissor"
 	attack_verb = list("изящно полоснул", "превосходно порезал", "прекрасно уколол", "восхитительно ткнул")
 	toolspeed = 0.75
 

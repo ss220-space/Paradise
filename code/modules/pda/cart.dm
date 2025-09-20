@@ -293,7 +293,6 @@
 
 /obj/item/cartridge/syndicate
 	name = "Detomatix Cartridge"
-	icon_state = "cart"
 	var/initial_remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.
 	charges = 4
 	programs = list(new/datum/data/pda/utility/toggle_door)
@@ -307,7 +306,6 @@
 
 /obj/item/cartridge/frame
 	name = "F.R.A.M.E. cartridge"
-	icon_state = "cart"
 	charges = 5
 	var/telecrystals = 0
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/frame)

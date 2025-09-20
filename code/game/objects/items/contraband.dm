@@ -30,7 +30,6 @@
 
 
 /obj/item/reagent_containers/food/pill/random_drugs
-	name = "pill"
 	icon_state = "pillrandom"
 	desc = "A cocktail of illicit designer drugs, who knows what might be in here."
 

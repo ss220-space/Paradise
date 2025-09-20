@@ -15,7 +15,6 @@
 	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(1, 5)
 	visible_transfer_rate = TRUE
-	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
 		"ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),

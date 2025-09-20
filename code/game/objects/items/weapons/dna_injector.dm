@@ -609,28 +609,6 @@
 	block = GLOB.blindblock
 	return ..()
 
-/obj/item/dnainjector/telemut
-	name = "DNA-Injector (Tele.)"
-	desc = "Super brain man!"
-	datatype = DNA2_BUF_SE
-	value = 0xFFF
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/telemut/Initialize(mapload)
-	block = GLOB.teleblock
-	return ..()
-
-/obj/item/dnainjector/antitele
-	name = "DNA-Injector (Anti-Tele.)"
-	desc = "Will make you not able to control your mind."
-	datatype = DNA2_BUF_SE
-	value = 0x001
-	forcedmutation = TRUE
-
-/obj/item/dnainjector/antitele/Initialize(mapload)
-	block = GLOB.teleblock
-	return ..()
-
 /obj/item/dnainjector/deafmut
 	name = "DNA-Injector (Deaf)"
 	desc = "Sorry, what did you say?"

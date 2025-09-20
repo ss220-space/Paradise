@@ -1399,8 +1399,7 @@
 /area/mine/unexplored/cere/cargo)
 "ale" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/table,
 /obj/item/clothing/shoes/orange,
@@ -3572,8 +3571,7 @@
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/start/civilian,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar)
@@ -3854,10 +3852,6 @@
 	dir = 4;
 	id = "QMLoad"
 	},
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3910,9 +3904,6 @@
 	},
 /area/assembly/chargebay)
 "aHZ" = (
-/obj/structure/table/wood{
-	color = "#996633"
-	},
 /obj/structure/table/wood{
 	color = "#996633"
 	},
@@ -19211,8 +19202,7 @@
 /area/toxins/misc_lab)
 "czc" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/engine,
@@ -19223,8 +19213,7 @@
 	},
 /obj/machinery/chem_heater,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/camera{
 	c_tag = "Research Test Lab East";
@@ -23695,8 +23684,7 @@
 	name = "N2 to Pure"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/door/window/eastright{
@@ -23825,8 +23813,7 @@
 	name = "O2 to Pure"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/door/window/eastright{
@@ -25866,8 +25853,7 @@
 /area/hallway/spacebridge/serveng)
 "dyK" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door_control{
 	id = "telescienceblast";
@@ -26852,15 +26838,6 @@
 	icon_state = "white"
 	},
 /area/medical/medbreak)
-"dGX" = (
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "dHa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/wall,
@@ -31804,8 +31781,7 @@
 	req_access = list(1)
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/rack{
 	dir = 8;
@@ -32038,7 +32014,6 @@
 	name = "Psych Office";
 	req_access = list(64)
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/medical/psych)
@@ -38340,9 +38315,6 @@
 	},
 /obj/item/stack/cable_coil,
 /obj/structure/table,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/item/storage/belt/utility,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
@@ -40694,7 +40666,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Hangar";
@@ -43052,15 +43023,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/bridge)
-"iEg" = (
-/obj/machinery/flasher/portable,
-/obj/machinery/flasher/portable,
-/obj/machinery/flasher/portable,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/security/armory)
 "iEs" = (
 /obj/structure/cable/orange{
 	icon_state = "2-4"
@@ -43954,7 +43916,6 @@
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
 "iRg" = (
-/obj/machinery/disposal,
 /obj/item/radio/intercom{
 	pixel_y = 21
 	},
@@ -48633,7 +48594,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
-/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "blue"
@@ -53470,12 +53430,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/starboard)
-"lzB" = (
-/obj/machinery/disposal,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/hallway/primary/port/south)
 "lzH" = (
 /obj/structure/lattice,
 /turf/space,
@@ -54148,9 +54102,6 @@
 	},
 /area/medical/chemistry)
 "lKN" = (
-/obj/structure/cable/orange{
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 4
 	},
@@ -58361,8 +58312,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/secure_closet/personal/patient,
 /obj/item/storage/box/monkeycubes/wolpincubes,
@@ -58886,8 +58836,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = -2;
@@ -61422,7 +61371,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop/expedition)
 "nKt" = (
@@ -63077,7 +63025,6 @@
 	name = "Mechanic Workshop";
 	req_access = list(70)
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop)
@@ -66329,22 +66276,6 @@
 	icon_state = "darkpurple"
 	},
 /area/teleporter/quantum/science)
-"pcI" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/space,
-/area/solar/port)
 "pcR" = (
 /obj/machinery/computer/operating,
 /turf/simulated/floor/plasteel{
@@ -66357,9 +66288,6 @@
 "pdj" = (
 /obj/structure/cable{
 	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -74033,8 +73961,7 @@
 /obj/item/storage/box/monkeycubes/wolpincubes,
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/reagent_containers/spray/cleaner/medical{
 	pixel_x = -12
@@ -75876,8 +75803,7 @@
 "rNo" = (
 /obj/machinery/cooker/deepfryer,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/wood/fancy/oak,
@@ -77279,8 +77205,7 @@
 /obj/effect/turf_decal/stripes/full,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -78961,8 +78886,7 @@
 /obj/item/clothing/suit/straight_jacket,
 /obj/item/storage/box/bodybags/biohazard,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/radio/intercom{
 	pixel_x = -28
@@ -80833,10 +80757,10 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/port)
 "tjU" = (
@@ -83444,8 +83368,6 @@
 	dir = 4
 	},
 /obj/machinery/flasher/portable,
-/obj/machinery/flasher/portable,
-/obj/machinery/flasher/portable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -83599,22 +83521,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/south)
-"tYn" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/space,
-/area/solar/port)
 "tYu" = (
 /obj/structure/grille/broken,
 /obj/structure/disposalpipe/segment{
@@ -84875,8 +84781,7 @@
 /area/maintenance/port)
 "usG" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -111241,7 +111146,7 @@ uav
 ubY
 dlf
 vBB
-dGX
+bTL
 etX
 fGA
 ykM
@@ -111579,7 +111484,7 @@ uNh
 uNh
 rNT
 wnZ
-lzB
+sZl
 vtw
 veO
 fuU
@@ -121246,7 +121151,7 @@ myx
 wOD
 tSH
 bBH
-iEg
+iTN
 tVe
 dlB
 fnb
@@ -127810,18 +127715,18 @@ rNK
 rNK
 rNK
 lAv
-tYn
-tYn
-tYn
-tYn
-tYn
-tYn
-tYn
-tYn
-pcI
-tYn
-tYn
-tYn
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
 pdj
 rNK
 rNK
@@ -128842,14 +128747,14 @@ tjT
 tjT
 tjT
 tjT
-tYn
-tYn
-tYn
-tYn
-pcI
-tYn
-tYn
-tYn
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
 pdj
 rNK
 rNK
@@ -129870,14 +129775,14 @@ tjT
 tjT
 tjT
 tjT
-tYn
-tYn
-tYn
-tYn
-pcI
-tYn
-tYn
-tYn
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
+tjT
 pdj
 rNK
 rNK

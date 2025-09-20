@@ -2,8 +2,6 @@
 	name = "Синдром дисплазии суперматерии"
 	agent = "Мутировавшие клетки мозга"
 	desc = "О нет..."
-	max_stages = 5
-	spread_flags = NON_CONTAGIOUS
 	cures = list()              // YOU
 	virus_heal_resistant = TRUE // CAN'T
 	can_immunity = FALSE		// ESCAPE

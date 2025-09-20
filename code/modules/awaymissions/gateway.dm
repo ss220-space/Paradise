@@ -28,7 +28,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 //this is da important part wot makes things go
 /obj/machinery/gateway/centerstation
 	icon_state = "offcenter"
-	use_power = IDLE_POWER_USE
 
 	//warping vars
 	var/list/linked = list()

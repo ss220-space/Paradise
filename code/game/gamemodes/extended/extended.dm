@@ -1,7 +1,6 @@
 /datum/game_mode/extended
 	name = "extended"
 	config_tag = "extended"
-	required_players = 0
 
 
 /datum/game_mode/announce()

@@ -3,8 +3,6 @@
 	desc = "Summons a goliath tentacle attack on clicked tile"
 	school = "lavaland"
 	base_cooldown = 15 SECONDS
-	clothes_req = TRUE
-	human_req = TRUE
 	invocation = "SOGESE DE RAGET'RE!"
 	invocation_type = "shout"
 	action_icon_state = "goliath_tentacles"
