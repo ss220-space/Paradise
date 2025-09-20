@@ -8,7 +8,7 @@
 	playsound(get_turf(target), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	if(!IS_HORIZONTAL(target))
 		target.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
-		target.KnockDown(6 SECONDS)
+		target.Knockdown(6 SECONDS)
 		target.visible_message(span_warning("Ударом в голову, [user] прибива[pluralize_ru(user.gender, "ет", "ют")] [target] к полу!"),
 						span_userdanger("Вас сбили с ног!"))
 	else

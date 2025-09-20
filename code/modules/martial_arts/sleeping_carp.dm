@@ -19,7 +19,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("бьёт", "пинает", "рубит", "забивает")
-	D.visible_message(span_danger("[A] [atk_verb] [D]!",)
+	D.visible_message(span_danger("[A] [atk_verb] [D]!"),
 					span_userdanger("[A] [atk_verb] тебя!"))
 	D.apply_damage(rand(10, 15), BRUTE, A.zone_selected)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
