@@ -2,11 +2,6 @@
  * This is the gamemode file for the ported goon gamemode vampires.
  * They get a traitor objective and a blood sucking objective.
  */
-/datum/game_mode
-	var/list/datum/mind/goon_vampires = list()
-	var/list/datum/mind/goon_vampire_enthralled = list() //those controlled by a vampire
-
-
 /datum/game_mode/goon_vampire
 	name = "goonvampire"
 	config_tag = "goonvampire"
@@ -16,14 +11,10 @@
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
-	///list of minds of soon to be vampires
-	var/list/datum/mind/pre_vampires = list()
-
 
 /datum/game_mode/goon_vampire/announce()
 	to_chat(world, "<b>The current game mode is - Vampires!</b>")
 	to_chat(world, "<b>There are Bluespace Vampires infesting your fellow crewmates, keep your blood close and neck safe!</b>")
-
 
 /datum/game_mode/goon_vampire/pre_setup()
 

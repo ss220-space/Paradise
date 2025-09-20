@@ -23,9 +23,7 @@
 	sentience_type = SENTIENCE_OTHER
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1
-	status_flags = CANPUSH
 	universal_speak = 1
-	universal_understand = 1
 	attack_sound = list('sound/weapons/punch1.ogg')
 	var/hulk_powers = list()
 	var/mob/living/original_body
@@ -40,14 +38,12 @@
 /mob/living/simple_animal/hulk/human
 	hulk_powers = list(/obj/effect/proc_holder/spell/hulk_jump,
 	/obj/effect/proc_holder/spell/hulk_dash)
-	tts_seed = "Grunt"
 
 //Clown Hulk
 
 /mob/living/simple_animal/hulk/clown_hulk
 	name = "Champion of Honk"
 	real_name = "Champion of Honk"
-	icon = 'icons/mob/hulk.dmi'
 	icon_state = "Champion of Honk"
 	icon_living = "Champion of Honk"
 	maxHealth = 175

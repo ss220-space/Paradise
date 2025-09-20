@@ -118,7 +118,6 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	density = TRUE
-	anchored = TRUE
 	pass_flags = PASSTABLE
 
 	///The resilience of our meteor
@@ -510,7 +509,6 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	desc = "Dust in space."
 	icon_state = "space_dust"
 	heavy = TRUE
-	hitpwr = EXPLODE_HEAVY
 	hits = 2
 	meteordrop = null
 	threat = 5

@@ -245,7 +245,6 @@ GLOBAL_LIST_INIT(addition_goal_spawn_human_types, list(
 
 /obj/effect/mob_spawn/human/addition_goal
 	roundstart = FALSE
-	instant = FALSE
 	random = TRUE
 	uses = -1
 

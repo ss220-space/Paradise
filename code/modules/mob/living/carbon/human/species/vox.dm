@@ -111,6 +111,13 @@
 		JOB_MIN_AGE_COMMAND = 10,
 	)
 
+	autohiss_basic_map = list(
+			"ch" = list("ch", "chch", "chich"),
+			"k" = list("k", "kk", "kik"),
+			"ч" = list("ч", "чч", "чич"),
+			"к" = list("к", "кк", "кик")
+		)
+	autohiss_exempt = list("Вокс-пиджин")
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -209,7 +216,6 @@
 	unarmed_type = /datum/unarmed_attack/claws/armalis
 	blacklisted = TRUE
 
-	warning_low_pressure = 50
 	hazard_low_pressure = 0
 
 	cold_level_1 = 80
@@ -236,8 +242,6 @@
 	bodyflags = HAS_TAIL
 	dies_at_threshold = TRUE
 
-	blood_color = "#2299FC"
-	flesh_color = "#808D11"
 
 	reagent_tag = PROCESS_ORG
 

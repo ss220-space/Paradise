@@ -3,7 +3,6 @@
 	desc = "This spell opens nearby doors and does not require wizard garb."
 
 	school = "transmutation"
-	base_cooldown = 10 SECONDS
 	cooldown_min = 2 SECONDS //20 deciseconds reduction per rank
 	clothes_req = FALSE
 	human_req = FALSE

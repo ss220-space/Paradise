@@ -1,5 +1,4 @@
 /datum/action/innate/blob
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	background_icon_state = "bg_default_on"
 
 /datum/action/innate/blob/comm

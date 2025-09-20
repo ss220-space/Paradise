@@ -5,10 +5,6 @@
  */
 
 /* Viewmods */
-/client
-	var/list/ViewMods = list()
-	var/ViewModsActive = FALSE
-	var/ViewPreferedIconSize = 0
 
 /client/proc/AddViewMod(id, size)
 	var/datum/viewmod/V = new /datum/viewmod(id, size)

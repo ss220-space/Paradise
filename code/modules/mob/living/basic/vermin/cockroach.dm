@@ -65,7 +65,6 @@
 
 /obj/projectile/glockroachbullet
 	damage = 8
-	damage_type = BRUTE
 
 /obj/item/ammo_casing/caseless/glockroach
 	name = "0.9mm bullet casing"

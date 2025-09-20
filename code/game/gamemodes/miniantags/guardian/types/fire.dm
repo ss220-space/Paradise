@@ -1,11 +1,8 @@
 /mob/living/simple_animal/hostile/guardian/fire
-	melee_damage_lower = 15
-	melee_damage_upper = 15
 	melee_damage_type = BURN
 	attack_sound = 'sound/items/welder.ogg'
 	attacktext = "жжёт"
 	damage_transfer = 0.8
-	range = 10
 	playstyle_string = "Как <b>Хаос</b>, вы обладаете лишь легким сопротивлением урону, но поджигаете любого врага, с которым столкнетесь. Кроме того, ваши атаки ближнего боя случайным образом телепортируют врагов. У вас есть мощное заклинание, призывающее сильнейшие галлюцинации."
 	environment_smash = 1
 	magic_fluff_string = "....и вытаскиваете Колдуна, создателя бесконечного хаоса!"
@@ -69,7 +66,6 @@
 	name = "Волна галлюцинаций"
 	desc = "Призовите самый темный страх на ваших жертв. Хозяин невосприимчив к эффекту."
 	action_icon_state = "blight"
-	action_background_icon_state = "bg_spell"
 	base_cooldown = 12 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE

@@ -13,7 +13,6 @@
 	name = "Райский Удар"
 	id = "paradise_punch"
 	description = "На вкус именно таков, каким вы себе представляете вкус рая, если бы его можно было разлить по бутылкам."
-	reagent_state = LIQUID
 	color = "#cc0044"
 	taste_description = "рая"
 
@@ -22,7 +21,6 @@
 	name = "Яблокопокалипсис"
 	id = "apple-pocalypse"
 	description = "Если бы судный день имел форму фрукта, скорее всего это было бы яблоко."
-	reagent_state = LIQUID
 	color = "#44FF44"
 	taste_description = "судного дня"
 
@@ -38,7 +36,6 @@
 	name = "Забаненный Плод"
 	id = "berry_banned"
 	description = "Причина бана: исключительный вкус."
-	reagent_state = LIQUID
 	color = "#FF44FF"
 	taste_description = "пермабана"
 
@@ -67,7 +64,6 @@
 	name = "Забаненный Плод"
 	id = "berry_banned2"
 	description = "Причина бана: исключительный вкус."
-	reagent_state = LIQUID
 	color = "#FF44FF"
 	taste_description = "пермабана"
 
@@ -89,7 +85,6 @@
 	name = "Черноглазое Варево"
 	id = "blackeye_brew"
 	description = "Сливочный, мягкий вкус, прямо как у лысины ассистента. Предположительно, выдерживался около 30 лет. При употреблении вызывает помутнение в сознании употребившего, заставляя его выкрикивать странные фразы."
-	reagent_state = LIQUID
 	color = "#4d2600"
 	taste_description = "набегаторства"
 
@@ -112,7 +107,6 @@
 	name = "Гранатовый Взрыв"
 	id = "grape_granade"
 	description = "Взрывной гранатовый вкус, любимый сотрудниками ОБР по всей системе."
-	reagent_state = LIQUID
 	color = "#9933ff"
 	taste_description = "атомного взрыва"
 
@@ -131,7 +125,6 @@
 	name = "Метеорный Солод"
 	id = "meteor_malt"
 	description = "Зафиксировано движение безалкогольных напитков на встречном с вашими вкусовыми рецепторами курсе."
-	reagent_state = LIQUID
 	color = "#cc9900"
 	taste_description = "летающих космических камней"
 
@@ -149,7 +142,6 @@
 	name = "Мун'дрин"
 	id = "moonlight_skuma"
 	description = "Мун'лин двойной дистилляции. Мягкий мятный вкус, который любят все таяры. Используется в коктейлях."
-	reagent_state = LIQUID
 	color = "#6734df"
 	taste_description = "алкоголя и мяты"
 	drink_icon = "moonlight_skuma"

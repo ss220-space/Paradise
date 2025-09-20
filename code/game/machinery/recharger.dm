@@ -3,12 +3,10 @@
 
 /obj/machinery/recharger
 	name = "recharger"
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "recharger0"
 	base_icon_state = "recharger"
 	desc = "A charging dock for energy based weaponry."
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 200
 	pass_flags = PASSTABLE

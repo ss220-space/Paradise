@@ -129,10 +129,8 @@
 		PREPOSITIONAL = "мозге врина"
 	)
 	icon = 'icons/obj/species_organs/wryn.dmi'
-	icon_state = "brain2"
 	item_state = "wryn_brain"
 	mmi_icon = 'icons/obj/species_organs/wryn.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/heart/wryn
 	species_type = /datum/species/wryn

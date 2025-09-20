@@ -5,14 +5,12 @@
 /obj/item/clothing/glasses/ninja
 	name = "ninja visor"
 	desc = "A specialized visor capable of working in 3 separated modes. Thermals/Flash protection/Night vision. Specifically for Spider Clan assassins!"
-	icon = 'icons/obj/clothing/glasses.dmi'
 	icon_state = "night"
 	item_state = "night"
 	//Абилка
 	actions_types = list(/datum/action/item_action/ninja_glasses_toggle)
 	//Флаги
 	flash_protect = FLASH_PROTECTION_SENSITIVE
-	vision_flags = 0
 	see_in_dark = 8 //Base human is 2
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF

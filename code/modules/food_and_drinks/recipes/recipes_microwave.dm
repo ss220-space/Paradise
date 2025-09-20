@@ -338,14 +338,6 @@
 	/obj/item/reagent_containers/food/snacks/grown/shavel)
 	result = /obj/item/reagent_containers/food/snacks/soup/shavelsoup
 
-//Burger
-/datum/recipe/microwave/spellburger
-	items = list(
-		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/clothing/head/wizard/fake,
-	)
-	result = /obj/item/reagent_containers/food/snacks/spellburger
-
 /datum/recipe/microwave/spellburger
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
