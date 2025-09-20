@@ -472,7 +472,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	paintable = FALSE
 
-/obj/item/clothing/shoes/footwraps/dragon/get_ru_names()	
+/obj/item/clothing/shoes/footwraps/dragon/get_ru_names()
 	return list(
 		NOMINATIVE = "обмотки из шкуры пепельного дракона",
 		GENITIVE = "обмоток из шкуры пепельного дракона",
@@ -647,3 +647,20 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
 		)
+
+/obj/item/clothing/shoes/chad
+	name = "Chad shoes"
+	desc = "Сапоги с сильной аурой."
+	icon_state = "chadboots"
+	item_state = "chadboots"
+	species_restricted = list(SPECIES_HUMAN)
+
+/obj/item/clothing/shoes/chad/get_ru_names()
+	return list(
+		NOMINATIVE = "сапоги Гигачада",
+		GENITIVE = "сапога Гигачада",
+		DATIVE = "сапогу Гигачада",
+		ACCUSATIVE = "сапоги Гигачада",
+		INSTRUMENTAL = "сапогами Гигачада",
+		PREPOSITIONAL = "сапогах Гигачада"
+	)

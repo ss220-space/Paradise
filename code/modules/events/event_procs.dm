@@ -5,10 +5,13 @@
 
 	if(!check_rights(R_EVENT))
 		return
-	var/type = tgui_input_list(src, "Выберите событие для запуска", "Выбор события", SSevents.allEvents)
-	if(ispath(type))
-		new type(new /datum/event_meta(EVENT_LEVEL_MAJOR), forced = TRUE)
-		message_admins("[key_name_admin(usr)] has triggered an event. ([type])")
+
+	var/datum/event/type = tgui_input_list(src, "Выберите событие для запуска", "Выбор события", SSevents.allEvents)
+	if(!ispath(type))
+		return
+
+	new type(new /datum/event_meta/force(EVENT_LEVEL_MAJOR, "Зафоршенное событие [type.name || type]"), forced = TRUE)
+	message_admins("[key_name_admin(usr)] has triggered an event. ([type])")
 
 /client/proc/event_manager_panel()
 	set name = "Event Manager Panel"

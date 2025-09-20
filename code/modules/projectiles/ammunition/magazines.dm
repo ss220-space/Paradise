@@ -331,6 +331,23 @@
 	name = "handgun magazine (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm
 
+/obj/item/ammo_box/magazine/enforcer/extended
+	name = "extended handgun magazine (9mm)"
+	desc = "Расширенный магазин пистолета \"Блюститель\", заряжается патронами калибра 9 мм. Эти патроны обладают хорошим останавливающим действием, способным сбить с ног большинство целей, не нанося значительных повреждений."
+	max_ammo = 12
+	start_empty = TRUE
+	icon_state = "enforcer-ext"
+
+/obj/item/ammo_box/magazine/enforcer/extended/get_ru_names()
+	return list(
+		NOMINATIVE = "расширенный магазин пистолета \"Блюститель\" (9 мм)",
+		GENITIVE = "расширенного магазина пистолета \"Блюститель\" (9 мм)",
+		DATIVE = "расширенному магазину пистолета \"Блюститель\" (9 мм)",
+		ACCUSATIVE = "расширенный магазин пистолета \"Блюститель\" (9 мм)",
+		INSTRUMENTAL = "расширенным магазином пистолета \"Блюститель\" (9 мм)",
+		PREPOSITIONAL = "расширенном магазине пистолета \"Блюститель\" (9 мм)"
+	)
+
 /obj/item/ammo_box/magazine/sp8
 	name = "handgun magazine 40N&R"
 	icon_state = "sp8mag"

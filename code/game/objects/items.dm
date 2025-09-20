@@ -528,9 +528,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(bag.can_be_inserted(I))
 				return ..()
 		var/obj/item/stack/tape_roll/tape = I
-		var/list/clickparams = params2list(params)
-		var/x_offset = text2num(clickparams["icon-x"])
-		var/y_offset = text2num(clickparams["icon-y"])
+		var/list/modifiers = params2list(params)
+		var/x_offset = text2num(LAZYACCESS(modifiers, ICON_X))
+		var/y_offset = text2num(LAZYACCESS(modifiers, ICON_Y))
 		add_fingerprint(user)
 		if(GetComponent(/datum/component/ducttape))
 			to_chat(user, span_notice("На [src.declent_ru(PREPOSITIONAL)] уже есть изолента!"))

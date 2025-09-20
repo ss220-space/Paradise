@@ -50,6 +50,9 @@
 /// log game events
 /datum/config_entry/flag/log_game
 
+/// log map manipulations
+/datum/config_entry/flag/log_mapmanip
+
 /// log voting
 /datum/config_entry/flag/log_vote
 

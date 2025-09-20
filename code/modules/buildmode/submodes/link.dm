@@ -27,16 +27,18 @@
 	..()
 
 /datum/buildmode_mode/link/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on obj  = Select button to link</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on obj = Link/unlink to selected button")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, span_purple(chat_box_examine(
+		"[span_bold("Select button to link")] -> Left Mouse Button on obj\n\
+		[span_bold("Link/unlink to selected button")] -> Right Mouse Button on obj"))
+	)
 
 // FIXME: this probably would work better with something component-based
 /datum/buildmode_mode/link/handle_click(mob/user, params, obj/object)
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
-	var/right_click = pa.Find("right")
+	var/list/modifiers = params2list(params)
+
+	var/left_click = LAZYACCESS(modifiers, LEFT_CLICK)
+	var/right_click = LAZYACCESS(modifiers, RIGHT_CLICK)
+
 	if(left_click && ismachinery(object))
 		link_obj = object
 	if(right_click && ismachinery(object))

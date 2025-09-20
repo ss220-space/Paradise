@@ -62386,7 +62386,6 @@
 	},
 /area/hallway/primary/command/west)
 "jhf" = (
-/obj/structure/closet/secure_closet/security_grenade_launcher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -92982,6 +92981,16 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/engineering/mechanic_workshop/hangar)
+"nJS" = (
+/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/structure/safe{
+	known_by = list("hos")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "nKm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
@@ -245091,7 +245100,7 @@ bkc
 xoL
 ajW
 xoL
-jhf
+nJS
 oWw
 iPd
 sXx

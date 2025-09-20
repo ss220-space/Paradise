@@ -2520,6 +2520,7 @@
 #include "code\modules\map_fluff\maps.dm"
 #include "code\modules\map_fluff\multiz.dm"
 #include "code\modules\map_fluff\nova.dm"
+#include "code\modules\mapmanip\delta.dm"
 #include "code\modules\mapmanip\effects.dm"
 #include "code\modules\mapmanip\mod.dm"
 #include "code\modules\maptext_alerts\text_blurbs.dm"

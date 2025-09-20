@@ -272,8 +272,6 @@
 	var/mob/living/carbon/human/human = find_prisoner()
 	if(human)
 		SEND_SIGNAL(human, COMSIG_DOOR_TIMER_FINISH, crimes, prisoner_time)
-	else
-		message_admins("door_timer.timer_end(): not found prisoner [occupant] in cell for send signal")
 
 	// Reset vars
 	occupant = CELL_NONE

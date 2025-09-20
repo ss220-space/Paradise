@@ -344,3 +344,6 @@
 
 /// Anti stun reagent in blood
 #define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"
+
+/// User will deflect every bola thrown at him
+#define TRAIT_DEFLECT_BOLAS "deflect_bolas"

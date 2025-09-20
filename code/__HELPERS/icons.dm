@@ -1383,3 +1383,29 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	image_to_center.pixel_z = y_offset
 
 	return image_to_center
+
+/// Fikou's fix for making toast alerts look nice - resets offsets, transforms to fit
+/proc/get_small_overlay(atom/source)
+	var/mutable_appearance/alert_overlay = new(source)
+	alert_overlay.pixel_x = 0
+	alert_overlay.pixel_y = 0
+	alert_overlay.pixel_z = 0
+	alert_overlay.pixel_w = 0
+
+	var/scale = 1
+	var/list/icon_dimensions = get_icon_dimensions(source.icon)
+	var/width = icon_dimensions["width"]
+	var/height = icon_dimensions["height"]
+
+	if(width > ICON_SIZE_X)
+		alert_overlay.pixel_w = -(ICON_SIZE_X / 2) * ((width - ICON_SIZE_X) / ICON_SIZE_X)
+	if(height > ICON_SIZE_Y)
+		alert_overlay.pixel_z = -(ICON_SIZE_Y / 2) * ((height - ICON_SIZE_Y) / ICON_SIZE_Y)
+	if(width > ICON_SIZE_X || height > ICON_SIZE_Y)
+		if(width >= height)
+			scale = ICON_SIZE_X / width
+		else
+			scale = ICON_SIZE_Y / height
+	alert_overlay.transform = alert_overlay.transform.Scale(scale)
+
+	return alert_overlay

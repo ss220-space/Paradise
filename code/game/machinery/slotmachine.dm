@@ -193,6 +193,9 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 /obj/machinery/computer/slot_machine/ui_act(action, params)
 	if(..())
 		return
+	if(issilicon(usr))
+		to_chat(usr, span_warning("Обнаружен искусственный интеллект. Согласно регуляции НаноТрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
+		return
 	add_fingerprint(usr)
 
 	if(action == "spin")

@@ -62,6 +62,9 @@ LOG_ACCESS
 ## log game actions (start of round, results, etc.)
 LOG_GAME
 
+## log mapmanip json + loaded submaps
+LOG_MAPMANIP
+
 ## log player votes
 LOG_VOTE
 

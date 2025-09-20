@@ -88,8 +88,6 @@
 	contract_subject = "магии"
 	contract_subject_text = ", в обмен на запретные магические способности, выходящие за пределы человеческих возможностей"
 	var/static/list/possible_magic = list(
-		/obj/effect/proc_holder/spell/fireball/hellish,
-		/obj/effect/proc_holder/spell/fireball,
 		/obj/effect/proc_holder/spell/smoke,
 		/obj/effect/proc_holder/spell/emplosion,
 		/obj/effect/proc_holder/spell/turf_teleport/blink,
@@ -108,6 +106,12 @@
 		/obj/effect/proc_holder/spell/charge_up/bounce/lightning,
 		/obj/effect/proc_holder/spell/summonitem,
 		/obj/effect/proc_holder/spell/aoe/knock,
+		/obj/effect/proc_holder/spell/aoe/conjure/legion_skulls,
+		/obj/effect/proc_holder/spell/goliath_dash,
+		/obj/effect/proc_holder/spell/goliath_tentacles,
+		/obj/effect/proc_holder/spell/touch/healtouch/advanced,
+		/obj/effect/proc_holder/spell/watchers_look,
+
 	)
 
 /datum/devil_contract/magic/check_contract(mob/living/carbon/human/user)
@@ -121,6 +125,11 @@
 		var/spell_type = pick_n_take(spell_list)
 		var/obj/effect/proc_holder/spell/spell = new spell_type(null)
 		spell.clothes_req = FALSE
+		spell.cooldown_min *= 2
+		spell.base_cooldown *= 2
+		QDEL_NULL(spell.cooldown_handler)
+		spell.cooldown_handler = spell.create_new_cooldown()
+		spell.cooldown_handler.cooldown_init(spell)
 		user.mind.AddSpell(spell)
 
 /datum/devil_contract/revive

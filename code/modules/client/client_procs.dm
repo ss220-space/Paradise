@@ -981,9 +981,9 @@
 
 	var/list/modifiers = params2list(params)
 
-	var/button_clicked = LAZYACCESS(modifiers, "button")
+	var/button_clicked = LAZYACCESS(modifiers, BUTTON)
 
-	var/dragged = LAZYACCESS(modifiers, "drag")
+	var/dragged = LAZYACCESS(modifiers, DRAG)
 	if(dragged && button_clicked != dragged)
 		return
 

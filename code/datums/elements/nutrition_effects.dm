@@ -32,11 +32,14 @@
 	if(isnull(human) || QDELETED(human))
 		return
 
-	if(human.current_nutrition_level != /datum/nutrition_level/full)
+	if(!istype(human.current_nutrition_level, /datum/nutrition_level/full))
 		return
 
-	human.adjustStaminaLoss(human.current_nutrition_level.stamina_regen)
-	human.AdjustBlood(human.current_nutrition_level.blood_regen)
+	if(human.getStaminaLoss() > 0)
+		human.adjustStaminaLoss(human.current_nutrition_level.stamina_regen)
+
+	if(human.blood_volume < BLOOD_VOLUME_NORMAL)
+		human.AdjustBlood(human.current_nutrition_level.blood_regen)
 
 
 /// Applies nutrition level effects (including speed mods) to the human

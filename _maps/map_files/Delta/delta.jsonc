@@ -1,0 +1,12 @@
+[
+    {
+        "type": "SubmapExtractInsert",
+        "submap_size_x": 9,
+        "submap_size_y": 9,
+        "submap_size_z": 1,
+        "submaps_dmm": "_maps/map_files/Delta/submaps/maints_med_viro_passage.dmm",
+        "marker_extract": "/obj/effect/map_effect/marker/mapmanip/submap/extract/delta/maints_med_viro_passage",
+        "marker_insert": "/obj/effect/map_effect/marker/mapmanip/submap/insert/delta/maints_med_viro_passage",
+        "submaps_can_repeat": true
+    }
+]
