@@ -50,17 +50,17 @@
 /proc/collect_vv(obj/item/item)
 	//Temporary/Internal stuff, do not copy these.
 	var/static/list/ignored_vars = list(
-		NAMEOF(item, animate_movement) = TRUE,
-		NAMEOF(item, datum_flags) = TRUE,
-		NAMEOF(item, fingerprintslast) = TRUE,
-		NAMEOF(item, layer) = TRUE,
-		NAMEOF(item, plane) = TRUE,
-		NAMEOF(item, screen_loc) = TRUE,
-		NAMEOF(item, tip_timer) = TRUE,
-		NAMEOF(item, vars) = TRUE,
-		NAMEOF(item, x) = TRUE,
-		NAMEOF(item, y) = TRUE,
-		NAMEOF(item, z) = TRUE,
+		NAMEOF(item, animate_movement),
+		NAMEOF(item, datum_flags),
+		NAMEOF(item, fingerprintslast),
+		NAMEOF(item, layer),
+		NAMEOF(item, plane),
+		NAMEOF(item, screen_loc),
+		NAMEOF(item, tip_timer),
+		NAMEOF(item, vars),
+		NAMEOF(item, x),
+		NAMEOF(item, y),
+		NAMEOF(item, z),
 	)
 
 	if(istype(item) && (item.datum_flags & DF_VAR_EDITED))
