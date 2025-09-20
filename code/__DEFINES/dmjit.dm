@@ -22,8 +22,9 @@
 /proc/dmjit_hook_log_init()
 	DMJIT_NATIVE
 
+EMPTY_BLOCK_GUARD
 // DEBUG
-/proc/dmjit_hook_call()
+/proc/dmjit_hook_call(src)
 	DMJIT_NATIVE
 
 // DEBUG Re-enter
