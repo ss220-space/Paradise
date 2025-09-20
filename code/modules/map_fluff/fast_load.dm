@@ -1,7 +1,6 @@
 /datum/map/fast_load
 	name = "fast load"
 	map_path = "_maps/map_files/debug/fast_load.dmm"
-	lavaland_path = "_maps/map_files/generic/Lavaland.dmm"
 	linkage = SELFLOOPING
 
 	station_name = "ИСН Быстрогруз"

@@ -27,7 +27,6 @@
 		PREPOSITIONAL = "наборе для покраски челнока"
 	)
 	desc = "Pimp your ride"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "paint_red"
 
 /obj/spacepod
@@ -43,7 +42,6 @@
 	)
 	icon = 'icons/goonstation/48x48/pods.dmi'
 	density = TRUE //Dense. To raise the heat.
-	opacity = FALSE
 
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	move_force = MOVE_FORCE_VERY_STRONG

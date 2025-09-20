@@ -85,7 +85,6 @@
 /obj/item/clothing/accessory/storage/webbing
 	name = "webbing"
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
-	icon_state = "webbing"
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',

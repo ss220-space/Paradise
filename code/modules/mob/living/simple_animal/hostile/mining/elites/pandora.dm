@@ -36,7 +36,6 @@
 	ranged_cooldown_time = 20
 	speed = 2
 	move_to_delay = 10
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/magic/repulse.ogg'
 	deathmessage = "мерцает, после чего его верхняя часть с грохотом обрушивается."
 	loot_drop = /obj/item/clothing/accessory/necklace/pandora_hope

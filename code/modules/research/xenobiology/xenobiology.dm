@@ -9,7 +9,6 @@
 	force = 1
 	w_class = WEIGHT_CLASS_TINY
 	container_type = INJECTABLE | DRAWABLE
-	throwforce = 0
 	throw_speed = 3
 	throw_range = 6
 	origin_tech = "biotech=3"
@@ -38,7 +37,6 @@
 
 /obj/item/slime_extract/grey
 	name = "grey slime extract"
-	icon_state = "grey slime extract"
 
 /obj/item/slime_extract/gold
 	name = "gold slime extract"
@@ -788,7 +786,6 @@
 	C.teleportation = initial(C.teleportation)
 
 /obj/effect/timestop
-	anchored = TRUE
 	name = "chronofield"
 	desc = "ZA WARUDO"
 	icon = 'icons/effects/160x160.dmi'
@@ -877,14 +874,11 @@
 	singular_name = "floor tile"
 	desc = "Through a series of micro-teleports, these tiles let people move at incredible speeds."
 	icon_state = "tile-bluespace"
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
 	materials = list(MAT_METAL=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
-	max_amount = 60
 	turf_type = /turf/simulated/floor/bluespace
 
 
@@ -899,14 +893,11 @@
 	singular_name = "floor tile"
 	desc = "Time seems to flow very slowly around these tiles."
 	icon_state = "tile-sepia"
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 6
 	materials = list(MAT_METAL=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
-	max_amount = 60
 	turf_type = /turf/simulated/floor/sepia
 
 /turf/simulated/floor/sepia

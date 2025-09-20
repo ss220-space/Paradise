@@ -281,7 +281,6 @@
 	return TRUE
 
 /obj/effect/proc_holder/horror
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	var/datum/action/innate/cult/blood_spell/attached_action
 
@@ -373,13 +372,11 @@
 /obj/item/melee/blood_magic
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	item_flags = ABSTRACT|DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	/// Does it have a source, AKA bloody empowerment.
@@ -599,7 +596,6 @@
 /obj/item/restraints/handcuffs/energy/cult //For the shackling spell
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
-	trashtype = /obj/item/restraints/handcuffs/energy/used
 	item_flags = DROPDEL
 
 /obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user, slot, silent = FALSE)

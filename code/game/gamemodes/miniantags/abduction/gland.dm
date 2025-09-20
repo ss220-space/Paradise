@@ -6,7 +6,6 @@
 	dead_icon = null
 	status = ORGAN_ROBOT
 	origin_tech = "materials=4;biotech=7;abductor=3"
-	beating = TRUE
 	var/cooldown_low = 300
 	var/cooldown_high = 300
 	var/next_activation = 0
@@ -133,7 +132,6 @@
 	cooldown_high = 1200
 	uses = -1
 	icon_state = "slime"
-	mind_control_uses = 1
 	mind_control_duration = 2400
 
 /obj/item/organ/internal/heart/gland/slime/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -155,7 +153,6 @@
 	cooldown_high = 700
 	uses = -1
 	icon_state = "mindshock"
-	mind_control_uses = 1
 	mind_control_duration = 6000
 
 /obj/item/organ/internal/heart/gland/mindshock/activate()
@@ -212,7 +209,6 @@
 	uses = 1
 	icon_state = "vent"
 	mind_control_uses = 4
-	mind_control_duration = 1800
 
 
 /obj/item/organ/internal/heart/gland/ventcrawling/activate()
@@ -225,8 +221,6 @@
 	cooldown_high = 2400
 	uses = 1
 	icon_state = "viral"
-	mind_control_uses = 1
-	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/viral/activate()
 	to_chat(owner, span_warning("Вам нехорошо."))
@@ -245,7 +239,6 @@
 	uses = 10
 	icon_state = "emp"
 	mind_control_uses = 3
-	mind_control_duration = 1800
 	emp_proof = TRUE	// EMP should not stop our own heart instantly
 
 /obj/item/organ/internal/heart/gland/emp/activate()
@@ -267,12 +260,10 @@
 	S.master_commander = owner
 
 /obj/item/organ/internal/heart/gland/egg
-	cooldown_low = 300
 	cooldown_high = 400
 	uses = -1
 	icon_state = "egg"
 	mind_control_uses = 2
-	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/egg/activate()
 	owner.visible_message(span_alertalien("[owner] [pick(EGG_LAYING_MESSAGES)]"))
@@ -343,7 +334,6 @@
 	cooldown_high = 1800
 	origin_tech = "materials=4;biotech=4;plasmatech=6;abductor=3"
 	uses = -1
-	mind_control_uses = 1
 	mind_control_duration = 800
 
 /obj/item/organ/internal/heart/gland/plasma/activate()

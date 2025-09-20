@@ -1,7 +1,5 @@
 /obj/machinery/atmospherics/binary
-	dir = SOUTH
 	initialize_directions = SOUTH|NORTH
-	use_power = IDLE_POWER_USE
 
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
 	layer_offset = GAS_PUMP_OFFSET

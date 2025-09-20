@@ -1,7 +1,3 @@
-/mob/living/silicon
-	var/datum/ai_laws/laws = null
-	var/list/additional_law_channels = list("State" = "")
-
 #define BASE_LAW_TYPE /datum/ai_laws/nanotrasen
 
 /mob/living/silicon/proc/laws_sanity_check()

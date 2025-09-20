@@ -50,7 +50,6 @@
 		INSTRUMENTAL = "животом",
 		PREPOSITIONAL = "животе"
 	)
-	gender = MALE
 	limb_zone = BODY_ZONE_PRECISE_GROIN
 	icon_name = "groin"
 	max_damage = 100
@@ -59,7 +58,6 @@
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	limb_body_flag = LOWER_TORSO
 	vital = TRUE
-	parent_organ_zone = BODY_ZONE_CHEST
 	amputation_point = "поясницу"
 	gendered_icon = TRUE
 
@@ -78,12 +76,9 @@
 	icon_name = "l_arm"
 	limb_zone = BODY_ZONE_L_ARM
 	max_damage = 50
-	min_broken_damage = 30
 	max_bleeding_amount = 5
 	bleeding_mod = 0.8
-	w_class = WEIGHT_CLASS_NORMAL
 	limb_body_flag = ARM_LEFT
-	parent_organ_zone = BODY_ZONE_CHEST
 	amputation_point = "левое плечо"
 	can_grasp = TRUE
 	convertable_children = list(/obj/item/organ/external/hand)
@@ -130,10 +125,8 @@
 	icon_name = "l_leg"
 	limb_zone = BODY_ZONE_L_LEG
 	max_damage = 50
-	min_broken_damage = 30
 	max_bleeding_amount = 5
 	bleeding_mod = 0.8
-	w_class = WEIGHT_CLASS_NORMAL
 	limb_body_flag = LEG_LEFT
 	icon_position = LEFT
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
@@ -479,9 +472,7 @@
 	min_broken_damage = 35
 	max_bleeding_amount = 7.5
 	bleeding_mod = 1.1
-	w_class = WEIGHT_CLASS_NORMAL
 	limb_body_flag = HEAD
-	parent_organ_zone = BODY_ZONE_CHEST
 	gendered_icon = TRUE
 	amputation_point = "шею"
 	encased = "череп"
@@ -716,10 +707,8 @@
 	limb_zone = BODY_ZONE_WING
 	max_damage = 30
 	min_broken_damage = 15
-	max_bleeding_amount = 0
 	w_class = WEIGHT_CLASS_SMALL
 	limb_body_flag = WING
-	parent_organ_zone = BODY_ZONE_CHEST
 	amputation_point = "спину"
 	var/datum/body_accessory/body_accessory
 	var/list/m_styles = list("wing" = "None")

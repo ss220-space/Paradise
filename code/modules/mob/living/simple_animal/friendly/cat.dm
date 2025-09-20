@@ -7,7 +7,6 @@
 	icon_dead = "cat2_dead"
 	icon_resting = "cat2_rest"
 	var/icon_sit = "sit"
-	gender = MALE
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("мурлычет", "мяукает")
 	emote_hear = list("мурлычет", "мяукает")
@@ -16,7 +15,6 @@
 	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
-	mob_size = MOB_SIZE_SMALL
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
@@ -211,7 +209,6 @@
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
-	gender = MALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
@@ -319,7 +316,6 @@
 	icon_dead = "penny_dead"
 	icon_resting = "penny_rest"
 	icon_sit = "rest"
-	gender = MALE
 	holder_type = /obj/item/holder/cak
 
 /mob/living/simple_animal/pet/cat/birman
@@ -330,7 +326,6 @@
 	icon_dead = "crusher_dead"
 	icon_resting = "crusher_rest"
 	icon_sit = "rest"
-	gender = MALE
 	holder_type = /obj/item/holder/crusher
 
 /mob/living/simple_animal/pet/cat/spacecat
@@ -366,7 +361,6 @@
 	health = 40
 	speed = 10		// TOO FAT
 	wander = 0		// LAZY
-	can_hide = 0
 	resting = TRUE
 	holder_type = /obj/item/holder/fatcat
 

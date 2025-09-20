@@ -116,7 +116,6 @@
 	name = "Plague doctor suit"
 	desc = "It protected doctors from the Black Death, back then. You bet your arse it's gonna help you against viruses."
 	icon_state = "plaguedoctor"
-	item_state = "bio_suit"
 	strip_delay = 40
 	put_on_delay = 20
 

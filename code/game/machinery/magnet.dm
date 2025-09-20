@@ -21,7 +21,6 @@
 	level = 1		// underfloor
 	layer = WIRE_LAYER+0.001
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	/// Radio frequency
 	var/freq = AIRLOCK_FREQ
@@ -192,7 +191,6 @@
 	icon_state = "airlock_control_standby"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 45
 	frequency = AIRLOCK_FREQ
 	var/code = 0

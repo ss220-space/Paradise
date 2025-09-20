@@ -16,7 +16,6 @@
 	harm_intent_damage = 5
 	melee_damage_lower = 8
 	melee_damage_upper = 12
-	attacktext = "атакует"
 	attack_sound = 'sound/weapons/bite.ogg'
 	emote_taunt = list("рычит")
 	speak_emote = list("скрипит")

@@ -7,8 +7,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
 	throw_range = 10
-	force = 5.0
-	flags = CONDUCT
 	origin_tech = "combat=6"
 	var/missile_speed = 2
 	var/missile_range = 30

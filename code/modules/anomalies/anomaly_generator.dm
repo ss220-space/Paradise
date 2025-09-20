@@ -2,15 +2,12 @@
 	name = "генератор аномалий"
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
 			генерации аномалий."
-	gender = MALE
 	density = TRUE
-	anchored = TRUE
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
 	icon_state = "generator_on"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
 	active_power_usage = 300
-	max_integrity = 200
 	integrity_failure = 100
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	processing_flags = START_PROCESSING_MANUALLY

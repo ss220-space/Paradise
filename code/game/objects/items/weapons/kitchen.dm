@@ -25,14 +25,12 @@
 /obj/item/kitchen/utensil
 	force = 5.0
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0.0
 	throw_speed = 3
 	throw_range = 5
 	flags = CONDUCT
 	attack_verb = list("атаковал", "уколол", "ткнул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
-	sharp = 0
 	var/max_contents = 1
 
 
@@ -141,7 +139,6 @@
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 	sharp = TRUE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
-	embed_chance = 45
 	embedded_ignore_throwspeed_threshold = TRUE
 	embed_disarm = TRUE
 	/// Can this item be attached as a bayonet to the gun?
@@ -230,7 +227,6 @@
 	name = "butcher's cleaver"
 	desc = "Огромный мясницкий тесак, предназначенный для измельчения мяса. В том числе и клоунов и их субпродуктов."
 	icon_state = "butch"
-	flags = CONDUCT
 	force = 15
 	throwforce = 8
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
@@ -454,15 +450,8 @@
 	force = 34
 	armour_penetration = 70
 	block_chance = 30
-	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 34
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
-	throw_speed = 3
-	throw_range = 6
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
-	sharp = TRUE
 
 /obj/item/kitchen/knife/ghostface_knife/get_ru_names()
 	return list(
@@ -511,10 +500,7 @@
 	force = 8.0
 	throwforce = 10.0
 	throw_speed = 3
-	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("ударил", "огрел")
-	embed_disarm = FALSE
 
 /* Trays moved to /obj/item/storage/bag */
 
@@ -532,7 +518,6 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("ударил")
-	embed_disarm = FALSE
 
 /obj/item/kitchen/mould/bear
 	name = "bear-shaped candy mould"
@@ -587,7 +572,6 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("закатил", "треснул")
-	embed_disarm = FALSE
 
 
 
@@ -596,7 +580,6 @@
 /obj/item/kitchen/cutter
 	name = "generic circular cutter"
 	desc = "A generic circular cutter for cookies and other things."
-	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "circular_cutter"
 	force = 5
 	throwforce = 5
@@ -604,4 +587,3 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("ударил", "полоснул", "уколол")
-	embed_disarm = FALSE

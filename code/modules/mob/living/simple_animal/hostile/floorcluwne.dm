@@ -14,13 +14,11 @@
 	maxHealth = 200
 	health = 200
 	speed = -1
-	attacktext = "атакует"
 	anchored = TRUE
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSGLASS | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
 	loot = list(/obj/item/clothing/mask/cursedclown)
-	a_intent = INTENT_HARM
 	wander = FALSE
 	minimum_distance = 2
 	move_to_delay = 1

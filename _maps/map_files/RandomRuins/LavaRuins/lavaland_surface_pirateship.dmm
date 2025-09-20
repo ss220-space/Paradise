@@ -171,9 +171,7 @@
 /area/ruin/powered/pirateship)
 "eO" = (
 /obj/machinery/processor,
-/obj/structure/window/reinforced{
-	layer = 4.3
-	},
+/obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;

@@ -5,8 +5,6 @@
 	item_state = null
 	item_flags = ABSTRACT|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
-	force = 0
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	/// If defined caster will say this on afterattack
