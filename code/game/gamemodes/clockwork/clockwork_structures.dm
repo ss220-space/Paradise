@@ -22,8 +22,8 @@
 	var/death_sound = 'sound/effects/forge_destroy.ogg'
 	var/canbehidden = FALSE
 	var/hidden = FALSE
-	var/hidden_type = "" // idk
-	var/list/atom/choosable_items = list(
+	var/hidden_type
+	var/list/choosable_items = list(
 		"rack" = /obj/structure/rack,
 		"table" = /obj/structure/table,
 		"wooden table" = /obj/structure/table/wood,
