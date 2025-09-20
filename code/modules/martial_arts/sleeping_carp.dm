@@ -2,7 +2,6 @@
 /datum/martial_art/the_sleeping_carp
 	weight = 9
 	name = "Спящий Карп"
-	deflection_chance = 0
 	reroute_deflection = TRUE
 	no_guns = TRUE
 	no_guns_message = "Использование подобного оружия обесчестит клан."
