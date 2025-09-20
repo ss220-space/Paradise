@@ -1,11 +1,5 @@
 #define AIRLOCK_CONTROL_RANGE 22
 
-// This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
-/obj/machinery/door/airlock
-	var/id_tag
-	var/shockedby = list()
-	var/cur_command = null	//the command the door is currently attempting to complete
-
 /obj/machinery/door/airlock/process()
 	if(arePowerSystemsOn() && cur_command)
 		execute_current_command()

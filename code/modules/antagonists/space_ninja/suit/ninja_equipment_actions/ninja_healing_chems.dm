@@ -35,7 +35,6 @@
 	desc = "Incredible... yet absurd thing. Who's gonna come out of it?"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "green_rift"
-	anchored = TRUE
 	var/mob/living/carbon/human/occupant	//mob holder
 	duration = 1 MINUTES
 	var/duration_min = 5 SECONDS

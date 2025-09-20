@@ -5,7 +5,6 @@
 	desc = "Превращение в халка."
 	action_icon_state = "transformarion_hulk"
 	action_background_icon_state = "bg_hulk"
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
 
@@ -452,7 +451,6 @@
 //Harchok
 /obj/projectile/energy/hulkspit
 	name = "spit"
-	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "neurotoxin"
 	damage = 15
 	damage_type = TOX
@@ -475,7 +473,6 @@
 	selection_deactivated_message = "<span class='notice'>You swallow your spit...for now.</span>"
 	fireball_type = /obj/projectile/energy/hulkspit
 	base_cooldown = 25 SECONDS
-	human_req = FALSE
 	need_active_overlay = TRUE
 
 

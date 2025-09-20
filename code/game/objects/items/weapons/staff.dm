@@ -15,7 +15,6 @@
 /obj/item/twohanded/staff/broom
 	name = "broom"
 	desc = "Used for sweeping, and flying into the night while cackling. Black cat not included."
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "broom"
 	item_state = "broom0"
 
@@ -66,7 +65,6 @@
 /obj/item/twohanded/staff/broom/horsebroom
 	name = "broomstick horse"
 	desc = "Saddle up!"
-	icon = 'icons/obj/wizard.dmi'
 	icon_state = "horsebroom"
 	item_state = "horsebroom0"
 
@@ -76,8 +74,3 @@
 	desc = "A great tool to drag someone else's drinks across the bar."
 	icon_state = "stick"
 	item_state = "stick"
-	force = 3.0
-	throwforce = 5.0
-	throw_speed = 1
-	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL

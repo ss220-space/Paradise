@@ -20,7 +20,6 @@
 
 	area_type = /area
 	protected_areas = list(/area/space, /area/crew_quarters/sleep)
-	target_trait = STATION_LEVEL
 
 	immunity_type = TRAIT_BLOBSTORM_IMMUNE
 

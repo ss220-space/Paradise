@@ -3,7 +3,6 @@
 	desc = "Ящик с замком, что содержит набор снаряжения для плазмаменов. Сомнительно, что любое разумное существо будет способно уложить содержимое столь же плотно."
 	w_class = WEIGHT_CLASS_NORMAL
 	max_w_class = WEIGHT_CLASS_SMALL
-	storage_slots = 4
 
 /obj/item/storage/lockbox/plasma/get_ru_names()
 	return list(

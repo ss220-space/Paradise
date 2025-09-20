@@ -25,7 +25,6 @@
 	tts_seed = "Priest"
 
 	response_help  = "гладит"
-	response_disarm = "толкает"
 	response_harm   = "бьёт"
 
 	melee_damage_lower = 1
@@ -34,14 +33,12 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 
 	speed = 0
-	stop_automated_movement = 0
 	turns_per_move = 4
 
 	var/list/donors = list()
 	holder_type = /obj/item/holder/diona
 	can_collar = TRUE
 
-	a_intent = INTENT_HELP
 
 	var/random_name = TRUE
 	var/gestalt_alert = "слился с гештальтом" //used in adding and clearing alert

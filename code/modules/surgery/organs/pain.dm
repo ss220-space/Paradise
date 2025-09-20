@@ -1,10 +1,5 @@
 #define MIN_SHOCK_REDUCTION 50 //The minimum amount of shock reduction in reagents for absence of pain
 
-/mob/living/carbon
-	var/last_pain_message = ""
-	COOLDOWN_DECLARE(pain_cd)
-
-
 /**
  * Whether or not a mob can feel pain.
  *

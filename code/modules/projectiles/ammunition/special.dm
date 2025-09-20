@@ -31,7 +31,6 @@
 	projectile_type = /obj/projectile/magic/fireball
 
 /obj/item/ammo_casing/magic/chaos
-	projectile_type = /obj/projectile/magic
 
 /obj/item/ammo_casing/magic/spellblade
 	projectile_type = /obj/projectile/magic/spellblade

@@ -1,7 +1,6 @@
 /atom/movable/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
 	var/datum/click_intercept/buildmode/bd
-	plane = HUD_PLANE_BUILDMODE
 
 /atom/movable/screen/buildmode/New(bld)
 	bd = bld

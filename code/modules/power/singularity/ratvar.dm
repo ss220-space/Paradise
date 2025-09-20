@@ -6,12 +6,9 @@
 	pixel_x = -235
 	pixel_y = -248
 	current_size = 12
-	move_self = TRUE
 	dissipate = FALSE
-	move_self = TRUE
 	grav_pull = 10
 	consume_range = 12
-	gender = NEUTER
 
 /obj/singularity/god/ratvar/admin_investigate_setup()
 	return

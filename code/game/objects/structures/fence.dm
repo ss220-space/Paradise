@@ -199,7 +199,6 @@
 /obj/structure/fence/door/opened
 	icon_state = "door_opened"
 	open = TRUE
-	density = TRUE
 
 /obj/structure/fence/door/attack_hand(mob/user, list/modifiers)
 	add_fingerprint(user)

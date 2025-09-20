@@ -20,7 +20,6 @@
 	health = 100
 	death_sound = 'sound/creatures/terrorspiders/death5.ogg'
 	speed = -0.3
-	melee_damage_lower = 15
 	melee_damage_upper = 15
 	armour_penetration = 2
 	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!

@@ -1,6 +1,5 @@
 // items
 /obj/item/storage/firstaid/ancient
-	icon_state = "firstaid"
 	desc = "A first aid kit with the ability to heal common types of injuries."
 
 /obj/item/storage/firstaid/ancient/populate_contents()
@@ -13,7 +12,6 @@
 /obj/item/card/id/away/old
 	name = "A perfectly retrograde identification card"
 	desc = "A perfectly retrograde identification card. Looks like it could use some flavor."
-	icon = 'icons/obj/card.dmi'
 	icon_state = "retro"
 	access = list(ACCESS_AWAY01, ACCESS_MINERAL_STOREROOM, ACCESS_CHEMISTRY, ACCESS_RESEARCH)
 
@@ -46,7 +44,6 @@
 /obj/item/card/id/away/old/mechatron
 	name = "Mechatronic Access ID"
 	desc = "An old special ID card in retro style that allows access to Cyborg and Mech panels."
-	icon_state = "retro"
 	access = list(ACCESS_ROBOTICS)
 
 /obj/item/storage/backpack/old
@@ -62,27 +59,20 @@
 /obj/item/clothing/suit/armor/vest/old
 	name = "degrading armor vest"
 	desc = "Older generation Type 1 armored vest. Due to degradation over time the vest is far less maneuverable to move in."
-	icon_state = "armor"
-	item_state = "armor"
 	slowdown = 1
 
 /obj/item/gun/energy/laser/retro/old
 	name ="laser gun"
-	icon_state = "retro"
 	desc = "First generation lasergun, developed by Nanotrasen. Suffers from ammo issues but its unique ability to recharge its ammo without the need of a magazine helps compensate. You really hope someone has developed a better lasergun while you were in cryo."
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/old)
-	ammo_x_offset = 3
 
 /obj/item/ammo_casing/energy/lasergun/old
-	projectile_type = /obj/projectile/beam/laser
 	e_cost = 200
-	select_name = "kill"
 
 /obj/item/gun/energy/e_gun/old
 	name = "prototype energy gun"
 	desc = "NT-P:01 Prototype Energy Gun. Early stage development of a unique laser rifle that has multifaceted energy lens allowing the gun to alter the form of projectile it fires on command."
 	icon_state = "protolaser"
-	ammo_x_offset = 2
 	ammo_type = list(/obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/electrode/old)
 
 /obj/item/ammo_casing/energy/electrode/old
