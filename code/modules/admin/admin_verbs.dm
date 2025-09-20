@@ -623,10 +623,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 					log_and_message_admins("tried to spawn for [key_name(H)] a cookie, but their hands were full, so they did not receive their cookie.")
 					return
-				else
-					H.update_inv_r_hand()//To ensure the icon appears in the HUD
-			else
-				H.update_inv_l_hand()
+			H.update_held_items()
 			logmsg = "spawn cookie."
 		if("To Arrivals")
 			M.forceMove(pick(GLOB.latejoin))

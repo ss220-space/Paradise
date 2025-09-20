@@ -448,7 +448,7 @@
 				righthand_file = 'icons/mob/inhands/items_by_map/urban_righthand.dmi'
 	if(isliving(loc))
 		var/mob/mob = loc
-		mob.update_inv_hands()
+		mob.update_held_items()
 	return TRUE
 
 /obj/item/mortar_kit/AltShiftClick(mob/user)

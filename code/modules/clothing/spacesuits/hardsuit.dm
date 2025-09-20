@@ -240,7 +240,7 @@
 	playsound(wearer, 'sound/items/rig_deploy.ogg', 110, TRUE)
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	to_chat(wearer, span_notice("You engage the helmet on [src]."))
-	wearer.update_inv_wear_suit()
+	wearer.update_worn_oversuit()
 	wearer.wear_glasses_update(wearer.get_item_by_slot(ITEM_SLOT_EYES))
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
@@ -266,7 +266,7 @@
 		helmet.forceMove(src)
 		return
 	wearer.transfer_item_to_loc(helmet, src, force = TRUE, silent = TRUE)
-	wearer.update_inv_wear_suit()
+	wearer.update_worn_oversuit()
 
 
 //Engineering hardsuit

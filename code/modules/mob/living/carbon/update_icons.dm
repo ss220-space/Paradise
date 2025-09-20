@@ -90,72 +90,92 @@
 		overlays_standing[cache_index] = null
 	SEND_SIGNAL(src, COMSIG_CARBON_REMOVE_OVERLAY, cache_index, .)
 
-
-/mob/living/carbon/update_inv_handcuffed()
+/mob/living/carbon/update_worn_handcuffs()
 	remove_overlay(HANDCUFF_LAYER)
-	if(handcuffed)
-		overlays_standing[HANDCUFF_LAYER] = mutable_appearance(handcuffed.onmob_sheets[ITEM_SLOT_HANDCUFFED_STRING], "[handcuffed.item_state]_hands", layer = -HANDCUFF_LAYER)
+	if(!handcuffed)
+		return
+	var/mutable_appearance/handcuff_overlay = mutable_appearance(handcuffed.onmob_sheets[ITEM_SLOT_HANDCUFFED_STRING], "[handcuffed.item_state]_hands", layer = -HANDCUFF_LAYER)
+	if(handcuffed.blocks_emissive != EMISSIVE_BLOCK_NONE)
+		handcuff_overlay.overlays += emissive_blocker(handcuff_overlay.icon, handcuff_overlay.icon_state, src, alpha = handcuff_overlay.alpha)
+
+	overlays_standing[HANDCUFF_LAYER] = handcuff_overlay
 	apply_overlay(HANDCUFF_LAYER)
 
-
-/mob/living/carbon/update_inv_legcuffed()
+/mob/living/carbon/update_worn_legcuffs()
 	remove_overlay(LEGCUFF_LAYER)
-	if(legcuffed)
-		overlays_standing[LEGCUFF_LAYER] = mutable_appearance(legcuffed.onmob_sheets[ITEM_SLOT_LEGCUFFED_STRING], "[legcuffed.item_state]_legs", layer = -LEGCUFF_LAYER)
+	//clear_alert("legcuffed")
+	if(!legcuffed)
+		return
+
+	overlays_standing[LEGCUFF_LAYER] = mutable_appearance(legcuffed.onmob_sheets[ITEM_SLOT_LEGCUFFED_STRING], "[legcuffed.item_state]_legs", layer = -LEGCUFF_LAYER)
 	apply_overlay(LEGCUFF_LAYER)
+	//throw_alert("legcuffed", /atom/movable/screen/alert/restrained/legcuffed, new_master = src.legcuffed)
 
+/mob/living/carbon/update_held_items()
+	. = ..()
+	remove_overlay(HANDS_LAYER)
+	if(handcuffed)
+		drop_all_held_items()
+		return
 
-/mob/living/carbon/update_inv_r_hand()
-	remove_overlay(R_HAND_LAYER)
-	if(r_hand)
-		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			r_hand.screen_loc = ui_rhand
-			client.screen += r_hand
-			for(var/mob/dead/observer/observe as anything in inventory_observers)
-				if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
-					observe.client.screen += r_hand
-				else
-					LAZYREMOVE(inventory_observers, observe)
+	overlays_standing[HANDS_LAYER] = get_held_overlays()
+	apply_overlay(HANDS_LAYER)
 
-		var/t_state = r_hand.item_state ? r_hand.item_state : r_hand.icon_state
-
-		var/mutable_appearance/standing
-		if(dna && r_hand.sprite_sheets_inhand?[dna.species.name])
-			standing = mutable_appearance(r_hand.sprite_sheets_inhand[dna.species.name], "[t_state]_r", layer = -R_HAND_LAYER)
+/// Generate held item overlays
+/mob/living/carbon/proc/get_held_overlays()
+	var/list/hands = list()
+	for(var/obj/item/item in list(l_hand, r_hand))
+		update_item_on_hud(item, item == r_hand ? ui_rhand : ui_lhand, togleable_inventory = TRUE)
+		var/icon_file
+		var/override_icon_state
+		var/species_name = dna && item.sprite_sheets_inhand?[dna.species.name] ? dna.species.name : null
+		if(species_name)
+			override_icon_state = item.item_state || item.icon_state
+			if(r_hand == item)
+				override_icon_state += "_r"
+			else
+				override_icon_state += "_l"
 		else
-			standing = mutable_appearance(r_hand.righthand_file, "[t_state]", layer = -R_HAND_LAYER)
-			standing = center_image(standing, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
-		standing.color = r_hand.color
-		standing.alpha = r_hand.alpha
-		overlays_standing[R_HAND_LAYER] = standing
-	apply_overlay(R_HAND_LAYER)
+			if(r_hand == item)
+				icon_file = item.righthand_file
+			else
+				icon_file = item.lefthand_file
 
+		hands += item.build_worn_icon(default_layer = HANDS_LAYER, default_icon_file = icon_file, override_state = override_icon_state, isinhands = TRUE)
+	return hands
 
-/mob/living/carbon/update_inv_l_hand()
-	remove_overlay(L_HAND_LAYER)
-	if(l_hand)
-		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			l_hand.screen_loc = ui_lhand
-			client.screen += l_hand
-			for(var/mob/dead/observer/observe as anything in inventory_observers)
-				if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
-					observe.client.screen += l_hand
-				else
-					LAZYREMOVE(inventory_observers, observe)
+/mob/living/carbon/update_worn_mask()
+	remove_overlay(FACEMASK_LAYER)
 
-		var/t_state = l_hand.item_state ? l_hand.item_state : l_hand.icon_state
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(!head_organ)
+		return
 
-		var/mutable_appearance/standing
-		if(dna && l_hand.sprite_sheets_inhand?[dna.species.name])
-			standing = mutable_appearance(l_hand.sprite_sheets_inhand[dna.species.name], "[t_state]_l", layer = -L_HAND_LAYER)
-		else
-			standing = mutable_appearance(l_hand.lefthand_file, "[t_state]", layer = -L_HAND_LAYER)
-			standing = center_image(standing, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
-		standing.color = l_hand.color
-		standing.alpha = l_hand.alpha
-		overlays_standing[L_HAND_LAYER] = standing
-	apply_overlay(L_HAND_LAYER)
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_MASK)
+		return
 
+	if(client && hud_used?.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1])
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1]
+		inv.update_appearance()
+
+	if(!wear_mask)
+		return
+
+	update_item_on_hud(wear_mask, ui_mask, togleable_inventory = TRUE)
+
+	var/datum/sprite_accessory/alt_heads/alternate_head
+	if(head_organ.alt_head && head_organ.alt_head != "None")
+		alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
+
+	var/override_icon_state
+	if(alternate_head)
+		var/icon/icon_file = wear_mask.sprite_sheets?[dna.species.name] || wear_mask.onmob_sheets[ITEM_SLOT_MASK_STRING]
+		var/alt_icon_state = "[wear_mask.icon_state]_[alternate_head.suffix]"
+		override_icon_state = icon_exists(icon_file, alt_icon_state) ? alt_icon_state : null
+
+	overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = DEFAULT_ICON_WEAR_MASK, override_state = override_icon_state)
+
+	apply_overlay(FACEMASK_LAYER)
 
 /// Changes item's screen_loc position and adds it on client screen.
 /// If togleable_inventory is set to `TRUE`, additionally `/datum/hud/var/inventory_shown` will be checked.

@@ -464,7 +464,7 @@
 		target.transfer_fingerprints_to(sallet)
 		playsound(src.loc, 'sound/items/screwdriver.ogg', 50, TRUE)
 		to_chat(user, "<span class='notice'>You modify [target] with [src].</span>")
-		H.update_inv_head()
+		H.update_worn_head()
 		qdel(target)
 		qdel(src)
 	else
@@ -488,7 +488,7 @@
 		var/obj/item/clothing/suit/storage/fluff/k3_webbing/webbing = new(get_turf(target))
 		webbing.allowed = S.allowed
 		to_chat(user, "<span class='notice'>You modify the [S] with [src].</span>")
-		H.update_inv_wear_suit()
+		H.update_worn_oversuit()
 		qdel(S)
 		qdel(src)
 	else
@@ -524,7 +524,7 @@
 		user.update_icons()
 
 		if(P == H.head)
-			H.update_inv_head()
+			H.update_worn_head()
 		return
 	if(istype(target, /obj/item/clothing/suit/space/hardsuit/security))
 		if(used & USED_MOD_SUIT)
@@ -543,7 +543,7 @@
 		user.update_icons()
 
 		if(P == H.wear_suit)
-			H.update_inv_wear_suit()
+			H.update_worn_oversuit()
 		return
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
@@ -577,7 +577,7 @@
 		user.update_icons()
 
 		if(P == H.head)
-			H.update_inv_head()
+			H.update_worn_head()
 		if(used & USED_MOD_HELM && used & USED_MOD_SUIT)
 			qdel(src)
 		return
@@ -599,7 +599,7 @@
 		user.update_icons()
 
 		if(P == H.wear_suit)
-			H.update_inv_wear_suit()
+			H.update_worn_oversuit()
 		if(used & USED_MOD_HELM && used & USED_MOD_SUIT)
 			qdel(src)
 		return
@@ -740,7 +740,7 @@
 			state = choice
 			to_chat(user, "You adjust the helmet.")
 			playsound(src.loc, "[toggle_sound]", 100, FALSE, 4)
-			user.update_inv_head()
+			user.update_worn_head()
 			return 1
 
 /*/obj/item/clothing/head/beret/fluff/elo	//V-Force_Bomber: E.L.O.
@@ -806,7 +806,7 @@
 			icon_state = options[choice]
 		to_chat(user, "You turn your coat inside out and now it's [choice]!")
 		name = "custom [choice] military jacket"
-		user.update_inv_wear_suit()
+		user.update_worn_oversuit()
 		return 1
 
 	. = ..()
@@ -894,7 +894,7 @@
 		else
 			to_chat(usr, "You attempt to hit the button but can't.")
 			return
-	usr.update_inv_wear_suit()
+	usr.update_worn_oversuit()
 
 /obj/item/clothing/suit/storage/labcoat/fluff/red // Sweetjealousy: Sophie Faust-Noms
 	name = "red labcoat"
