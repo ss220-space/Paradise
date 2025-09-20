@@ -421,7 +421,7 @@ AI MODULES
 	//..()
 	to_chat(target, span_warning("KRZZZT"))
 	target.add_ion_law(ion_law)
-	SSticker?.score?.save_silicon_laws(target, sender, "'toy AI' module used, new ion law was added '[laws[1]]'")
+	SSticker?.score?.save_silicon_laws(target, sender, "'toy AI' module used, new ion law was added '[ion_law]'")
 	return ion_law
 
 /obj/item/ai_module/toy_ai/attack_self(mob/user)

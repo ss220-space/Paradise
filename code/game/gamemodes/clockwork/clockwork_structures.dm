@@ -68,8 +68,6 @@
 			desc = "[span_notice("The bolts are <b>lodged</b> in place.")]"
 		if("broken grille")
 			desc = "A flimsy framework of metal rods. <br>[span_notice("It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.")]"
-		else
-			desc = choosable_items[hidden_type]::desc
 
 
 /obj/structure/clockwork/functional/update_icon_state()

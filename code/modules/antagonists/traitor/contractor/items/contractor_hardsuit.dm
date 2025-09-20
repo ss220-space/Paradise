@@ -264,7 +264,7 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/disable_chameleon()
-	src = initial(src)
+	src.name = initial(name)
 	src.icon_state = initial(src.icon_state)
 	src.desc = initial(src.desc)
 	helmet.name = initial(helmet.name)
