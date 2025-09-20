@@ -11,7 +11,6 @@
 		INSTRUMENTAL = "органом драска",
 		PREPOSITIONAL = "органе драска"
 	)
-	gender = MALE
 	icon = 'icons/obj/species_organs/drask.dmi'
 	icon_state = "innards"
 	item_state = "drask_innards"
@@ -63,10 +62,8 @@
 		PREPOSITIONAL = "мозге драска"
 	)
 	icon = 'icons/obj/species_organs/drask.dmi'
-	icon_state = "brain2"
 	item_state = "drask_brain"
 	mmi_icon = 'icons/obj/species_organs/drask.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/eyes/drask
 	species_type = /datum/species/drask

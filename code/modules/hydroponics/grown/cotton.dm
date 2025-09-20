@@ -13,7 +13,6 @@
 	yield = 2
 	potency = 50
 	growthstages = 3
-	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	icon_dead = "cotton-dead"
 	mutatelist = list(/obj/item/seeds/cotton/durathread)
 
@@ -22,10 +21,7 @@
 	name = "cotton bundle"
 	desc = "A fluffy bundle of cotton."
 	icon_state = "cotton"
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
-	throw_speed = 2
 	throw_range = 3
 	attack_verb = list("тыкнул")
 	var/cotton_type = /obj/item/stack/sheet/cotton
@@ -59,14 +55,7 @@
 	product = /obj/item/grown/cotton/durathread
 	lifespan = 80
 	endurance = 50
-	maturation = 15
-	production = 1
-	yield = 2
-	potency = 50
-	growthstages = 3
 	mutatelist = list()
-	growing_icon = 'icons/obj/hydroponics/growing.dmi'
-	icon_dead = "cotton-dead"
 
 /obj/item/grown/cotton/durathread
 	seed = /obj/item/seeds/cotton/durathread
@@ -76,8 +65,6 @@
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 2
-	throw_range = 3
 	attack_verb = list("ударил", "огрел")
 	cotton_type = /obj/item/stack/sheet/cotton/durathread
 	cotton_name = "raw durathread"

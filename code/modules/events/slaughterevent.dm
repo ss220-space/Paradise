@@ -62,7 +62,6 @@
 
 /datum/event/spawn_slaughter/laughter
 	demon = /mob/living/simple_animal/demon/slaughter/laughter
-	minplayers = LAUGHTER_MINPLAYERS
 
 /datum/event/spawn_slaughter/shadow
 	demon = /mob/living/simple_animal/demon/shadow

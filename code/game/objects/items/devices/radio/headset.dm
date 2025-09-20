@@ -2,7 +2,6 @@
 	name = "radio headset"
 	desc = "Радиочастотная гарнитура общего назначения, использующая телекоммуникационные системы \
 			для поддержания двусторонней связи по основной частоте объекта."
-	gender = FEMALE
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
@@ -126,7 +125,6 @@
 			Использует особые протоколы связи для доступа к зашифрованным каналам Синдиката и прослушивания закрытых каналов Нанотрейзен. \
 			Работает автономно без необходимости прямого подключения к местным телекоммуникационным системам."
 	item_flags = BANGPROTECT_MINOR
-	origin_tech = "syndicate=3"
 	icon_state = "syndie_headset"
 	item_state = "syndie_headset"
 
@@ -256,7 +254,6 @@
 			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
 			Используется сотрудниками местной службы безопасности."
 	icon_state = "sec_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_sec
 
 /obj/item/radio/headset/headset_sec/get_ru_names()
@@ -413,7 +410,6 @@
 			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
 			Используется местным юридическим персоналом."
 	icon_state = "sec_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_iaa
 
 /obj/item/radio/headset/headset_iaa/get_ru_names()
@@ -454,7 +450,6 @@
 			подключена к системе оповещений инженерного оборудования. \
 			Используется местным инженерным персоналом."
 	icon_state = "eng_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_eng
 
 /obj/item/radio/headset/headset_eng/get_ru_names()
@@ -473,7 +468,6 @@
 			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
 			Используется местными робототехниками."
 	icon_state = "rob_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_rob
 
 /obj/item/radio/headset/headset_rob/get_ru_names()
@@ -492,7 +486,6 @@
 			Поддерживает двустороннюю связь по зашифрованным частотам объекта. \
 			Используется местным медицинским персоналом."
 	icon_state = "med_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_med/get_ru_names()
@@ -513,7 +506,6 @@
 			подключена к исследовательским системам объекта. \
 			Используется местным научным персоналом."
 	icon_state = "sci_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_sci
 
 /obj/item/radio/headset/headset_sci/get_ru_names()
@@ -533,7 +525,6 @@
 			подключена к частотам медицинского и научного отделов. \
 			Используется местными сотрудниками, работающими на периферии медицинской и научной деятельности."
 	icon_state = "medsci_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_medsci
 
 /obj/item/radio/headset/headset_medsci/get_ru_names()
@@ -553,7 +544,6 @@
 			обеспечивающим выдающееся качество связи для контроля ситуации в реальном времени. \
 			Используется местным командным составом."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_com
 
 /obj/item/radio/headset/headset_com/get_ru_names()
@@ -572,7 +562,6 @@
 			Встроенные телекоммуникационные протоколы поддерживают двустороннюю связь по всем частотам объекта, \
 			обеспечиваяя контроль над ситуацией в реальном времени. Используется местным Капитаном."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/heads/captain/get_ru_names()
@@ -616,7 +605,6 @@
 			а также обеспечивают доступ к командным и научным частотам. \
 			Используется местным Научным Руководителем."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/rd
 
 /obj/item/radio/headset/heads/rd/get_ru_names()
@@ -637,7 +625,6 @@
 			обеспечивая отличное качество коммуникации с составом службы безопасности и командования в реальном времени. \
 			Используется местным Главой Службы Безопасности."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/hos
 
 /obj/item/radio/headset/heads/hos/get_ru_names()
@@ -681,7 +668,6 @@
 			двустороннюю связь с системой оповещений инженерного оборудования, \
 			а также инженерной и командной частотами. Используется местным Главным Инженером."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ce
 
 /obj/item/radio/headset/heads/ce/get_ru_names()
@@ -702,7 +688,6 @@
 			двустороннюю связь с медицинской и командной частотами. \
 			Используется местным Главным Врачом."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/cmo
 
 /obj/item/radio/headset/heads/cmo/get_ru_names()
@@ -722,7 +707,6 @@
 			обеспечивающим доступ к частотам обслуживающего персонала и командования. \
 			Используется местным Главой Персонала."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/hop
 
 /obj/item/radio/headset/heads/hop/get_ru_names()
@@ -743,7 +727,6 @@
 			обеспечивающим доступ к частотам снабжения и командования. \
 			Используется местным Квартирмейстеромом."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/qm
 
 /obj/item/radio/headset/heads/qm/get_ru_names()
@@ -801,7 +784,6 @@
 			по зашифрованным частотам отдела обслуживания. \
 			Используется местным обслуживающим персоналом."
 	icon_state = "srv_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_service
 
 /obj/item/radio/headset/headset_service/get_ru_names()
@@ -821,7 +803,6 @@
 			обеспечивающим доступ к большей части зашифрованных частот объекта. \
 			Используется местным Представителем Нанотрейзен."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ntrep
 
 /obj/item/radio/headset/heads/ntrep/get_ru_names()
@@ -841,7 +822,6 @@
 			обеспечивающим доступ к зашифрованным частотам объекта \
 			для коммуникации по вопросам права. Используется местным Магистратом."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/magistrate
 
 
@@ -884,7 +864,6 @@
 			обеспечивая отличное качество коммуникации с командным составом. \
 			Используется местным Офицером \"Синий Щит\"."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/blueshield
 
 /obj/item/radio/headset/heads/blueshield/get_ru_names()
@@ -929,7 +908,6 @@
 			Работает автономно без необходимости прямого подключения к местным телекоммуникационным системам. \
 			Используется Оперативниками ОБР."
 	icon_state = "com_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/ert
 	freqlock = TRUE
 
@@ -1082,7 +1060,6 @@
 			дополнительными зашифрованными частотами роботизированных систем объекта через защищённый интерфейс."
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "radio"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ai_integrated
 	var/myAi = null	// Atlantis: Reference back to the AI which has this radio.
 	var/disabledAi = FALSE // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
@@ -1094,7 +1071,6 @@
 			Оснащена системой защиты от пылевого засорения. \
 			Используется местным медицинском персоналом, работающим на поверхности Лазиса."
 	icon_state = "minmed_headset"
-	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_mining_medic
 
 /obj/item/radio/headset/headset_mining_medic/get_ru_names()

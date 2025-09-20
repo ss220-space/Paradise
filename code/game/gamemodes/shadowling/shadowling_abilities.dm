@@ -552,7 +552,6 @@
 	name = "Странная чёрная жидкость"
 	id = "blindness_smoke"
 	description = "ЗАПИСЬ В БАЗЕ ДАННЫХ ОТСУТСТВУЕТ"
-	color = "#000000" //Complete black (RGB: 0, 0, 0)
 	metabolization_rate = 250 * REAGENTS_METABOLISM //still lel
 
 
@@ -578,7 +577,6 @@
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "screech"
-	aoe_range = 7
 
 
 /obj/effect/proc_holder/spell/aoe/shadowling_screech/create_new_targeting()
@@ -1015,7 +1013,6 @@
 /obj/effect/proc_holder/spell/aoe/ascendant_storm
 	name = "Lightning Storm"
 	desc = "Оглушает окружающих."
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "lightning_storm"

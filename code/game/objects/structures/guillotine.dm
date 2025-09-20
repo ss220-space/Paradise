@@ -22,7 +22,6 @@
 	icon_state = "guillotine_raised"
 	can_buckle = TRUE
 	anchored = TRUE
-	density = FALSE
 	buckle_lying = 0
 	buckle_prevents_pull = TRUE
 	layer = ABOVE_MOB_LAYER

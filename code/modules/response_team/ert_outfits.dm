@@ -404,7 +404,6 @@
 
 /datum/outfit/job/centcom/response_team/medic/red
 	name = "RT Medic (Red)"
-	rt_mob_job = "ERT Medical"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat/swat
@@ -496,7 +495,6 @@
 	uniform = /obj/item/clothing/under/rank/chaplain
 	back = /obj/item/storage/backpack/ert/security
 	gloves = /obj/item/clothing/gloves/combat/swat
-	l_ear = /obj/item/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/storage/belt/security/sec
@@ -601,7 +599,6 @@
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/ert
 	gloves = /obj/item/clothing/gloves/combat/swat
-	l_ear = /obj/item/radio/headset/ert/alt
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
 	r_pocket = /obj/item/melee/baton/telescopic
@@ -656,7 +653,6 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	gloves = /obj/item/clothing/gloves/combat/swat
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	l_pocket = /obj/item/grenade/clusterbuster/cleaner

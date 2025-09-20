@@ -121,7 +121,6 @@
 	anchored = FALSE
 	density = TRUE
 	layer = MOB_LAYER - 0.2 //so people can't hide it and it's REALLY OBVIOUS
-	stat = 0
 
 	var/active = 0
 	var/icontype = "beacon"
