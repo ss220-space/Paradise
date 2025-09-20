@@ -117,17 +117,6 @@
 	if(method == REAGENT_TOUCH)
 		M.dust()
 
-
-/datum/reagent/napalm
-	name = "Napalm"
-	id = "napalm"
-	description = "This will probably ignite before you get to read this."
-	reagent_state = LIQUID
-	color = "#ffb300"
-	chemfiresupp = TRUE
-	burncolor = "#D05006"
-	burn_sprite = "red"
-
 /datum/reagent/napalm/sticky
 	name = "Sticky-Napalm"
 	id = "stickynapalm"

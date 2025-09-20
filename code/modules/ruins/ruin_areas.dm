@@ -28,11 +28,6 @@
 	name = "Salvation"
 	icon_state = "away"
 
-/area/ruin/powered/snow_biodome
-
-/area/ruin/powered/golem_ship
-	name = "Free Golem Ship"
-
 /area/ruin/powered/space_bar
 	name = "Space Bar"
 	area_flags = NONE

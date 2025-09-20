@@ -53,6 +53,16 @@
 	var/warn_wind_up = WINDUP_STATE_NONE
 	var/obj/structure/clockwork/functional/cogscarab_fabricator/fabr
 
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
+
+	hat_offset_y = -15
+	isCentered = TRUE
+	canBeHatted = TRUE
+
 /mob/living/silicon/robot/cogscarab/Initialize(mapload)
 	. = ..()
 	remove_language(LANGUAGE_BINARY)

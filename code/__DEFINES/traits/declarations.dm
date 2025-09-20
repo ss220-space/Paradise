@@ -1,7 +1,5 @@
-/*
- * This file contains all of the "static" define strings that tie to a trait.
- * Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
- */
+// This file contains all of the "static" define strings that tie to a trait.
+// Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 
 // atom traits
 /// Trait used to prevent an atom from component radiation emission (see radioactivity.dm)
@@ -43,8 +41,6 @@
 #define TRAIT_CHASM_STOPPED "chasm_stopped"
 ///Lava will be safe to cross while it has this trait.
 #define TRAIT_LAVA_STOPPED "lava_stopped"
-/// If a trait is considered as having "coverage" by a meteor shield.
-#define TRAIT_COVERED_BY_METEOR_SHIELD "covered_by_meteor_shield"
 
 // mob traits
 #define TRAIT_GODMODE "godmode"
@@ -159,7 +155,8 @@
 /// Holocigar trait to make a mob BADASS
 #define TRAIT_BADASS "trait_badass"
 
-/* Traits for ventcrawling.
+/**
+ * Traits for ventcrawling.
  * Both give access to ventcrawling, but *_NUDE requires the user to be
  * wearing no clothes and holding no items. If both present, *_ALWAYS
  * takes precedence.
@@ -341,12 +338,6 @@
 #define TRAIT_BAD_SOUL "bad_soul"
 
 #define TRAIT_NOT_TURRET_GUN "not_turret_gun"
-
-#define TRAIT_PROTEIN "protein"
-
-#define	TRAIT_STRENGTH_LEVELUP	"strength_levelup"
-
-#define TRAIT_STRENGTH_LEVELDOWN "strength_leveldown"
 
 #define TRAIT_BALD "bald"
 

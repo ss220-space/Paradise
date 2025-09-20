@@ -390,7 +390,8 @@
 	heart_rate_increase = 1
 	taste_description = "бодрости"
 	tags = REAGENT_TAG_ANTI_STUN
-
+	chemdesc = "Ускоряет передвижение, бодрит и помогает легче справляться с оглушениями разного рода. Повреждает мозг."
+	chemuse = 50
 
 /datum/reagent/methamphetamine/on_mob_add(mob/living/user)
 	. = ..()
@@ -639,6 +640,8 @@
 	addiction_chance_additional = 20
 	addiction_threshold = 10
 	taste_description = "кувырков"
+	chemdesc = "Вызывает неконтролируемое вращение."
+	chemuse = 50
 
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

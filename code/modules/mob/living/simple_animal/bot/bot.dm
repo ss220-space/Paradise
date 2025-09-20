@@ -1406,7 +1406,3 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return
 	set_varspeed(initial(speed))
 	balloon_alert(src, "вы замедляетесь")
-
-/obj/machinery/bot_core/syndicate
-	req_access = list(ACCESS_SYNDICATE)
-

@@ -19,14 +19,6 @@
 // Candy Ingredients / Flavorings / Byproduct
 // ***********************************************************
 
-/obj/item/reagent_containers/food/snacks/chocolatebar
-	name = "chocolate bar"
-	desc = "Such sweet, fattening food."
-	icon_state = "chocolatebar"
-	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 2, "chocolate" = 4)
-	tastes = list("chocolate" = 1)
-
 /obj/item/reagent_containers/food/snacks/candy/caramel
 	name = "caramel"
 	desc = "Chewy and dense, yet it practically melts in your mouth!"

@@ -166,9 +166,6 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	spread_increase_step = 1
 	spread_restore_duration = 1 SECONDS
 
-/datum/gun_accuracy/rifle/laser
-	max_spread = 6
-
 // min accuracy on range 12 is 50%, summary accuracy = 50% * 200% = 100%
 /datum/gun_accuracy/sniper
 	head = 200

@@ -373,8 +373,10 @@
 	item_color = "mime"
 
 /obj/item/clothing/gloves/color/white/redcoat
-	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
-
+	///Exists for washing machines. Is not different from white gloves in any way.
+	item_color = "redcoat"
+	siemens_coefficient = 0
+	permeability_coefficient = 0.01
 
 /obj/item/clothing/gloves/color/captain
 	desc = "Regal blue gloves, with a nice gold trim. Swanky."

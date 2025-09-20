@@ -474,8 +474,6 @@
 		PREPOSITIONAL = "паучьей лапке"
 	)
 
-/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg
-
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg/burn()
 	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] приготовилась!"))
 	new /obj/item/reagent_containers/food/snacks/roasted_spiderleg(loc)
@@ -1139,13 +1137,31 @@
 	icon_state = "appendix"
 	filling_color = "#E00D34"
 	bitesize = 3
-	list_reagents = list("protein" = 4, "vitamin" = 4)
+	list_reagents = list("protein" = 4, "vitamin" = 4, "nutriment" = 5)
 	foodtype = MEAT | GROSS
+
+/obj/item/reagent_containers/food/snacks/organ/update_icon_state()
+	return
+
+/obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target != user || !ishuman(target) || !user.can_unEquip(src))
+		return ..()
+
+	var/obj/item/reagent_containers/food/snacks/snack = prepare_eat()
+
+	if(!snack)
+		return ATTACK_CHAIN_PROCEED
+
+	user.temporarily_remove_item_from_inventory(src)
+	target.put_in_active_hand(snack, silent = TRUE)
+	snack.attack(target, target, params)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/reagent_containers/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future
 	name = "appendix"
-	desc = "An appendix which looks perfectly healthy."
+	desc = "Придаток слепой кишки. Является рудиментарным органом, поэтому не несёт полезной функции для организма."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "appendix"
 	filling_color = "#E00D34"
