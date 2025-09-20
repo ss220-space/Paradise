@@ -44,11 +44,8 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	icon_state = "frame"
 	name = "дисплей статуса"
 	anchored = TRUE
-	density = FALSE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	maptext_height = 26
-	maptext_width = 32
 	maptext_y = -1
 	/// Status display mode
 	VAR_PRIVATE/mode = STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME
@@ -276,7 +273,6 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	icon_state = "frame"
 	name = "AI display"
 	anchored = TRUE
-	density = FALSE
 	/// Current mode
 	var/mode = AI_DISPLAY_MODE_BLANK
 	/// Target icon state

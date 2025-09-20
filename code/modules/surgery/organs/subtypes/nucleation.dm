@@ -2,7 +2,6 @@
 /obj/item/organ/internal/nucleation
 	species_type = /datum/species/nucleation
 	name = "nucleation organ"
-	icon = 'icons/obj/surgery.dmi'
 
 
 /obj/item/organ/internal/nucleation/resonant_crystal
@@ -33,7 +32,6 @@
 		PREPOSITIONAL = "странном кристалле"
 	)
 	icon_state = "strange-crystal"
-	parent_organ_zone = BODY_ZONE_CHEST
 	slot = INTERNAL_ORGAN_STRANGE_CRYSTAL
 
 
@@ -51,8 +49,6 @@
 	)
 	icon_state = "crystal-eyes"
 	light_color = "#f7f792"
-	light_system = MOVABLE_LIGHT
-	light_power = 1
 	light_range = 2
 
 /obj/item/organ/internal/brain/crystal

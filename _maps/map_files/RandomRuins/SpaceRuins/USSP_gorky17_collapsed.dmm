@@ -2075,7 +2075,6 @@
 /turf/space,
 /area/template_noop)
 "gr" = (
-/obj/structure/lattice,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "gt" = (
@@ -3346,8 +3345,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
@@ -4604,7 +4602,6 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/USSP_gorky17/collapsed/rnd)
 "ob" = (
-/obj/structure/lattice,
 /turf/simulated/wall/r_wall,
 /area/template_noop)
 "od" = (
@@ -6686,8 +6683,7 @@
 	name = "Gorky17 exterior blast door"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/stack/rods{
 	amount = 4
@@ -12728,7 +12724,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "LB" = (
-/obj/structure/lattice,
 /turf/simulated/wall/r_wall/rust,
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "LC" = (
@@ -16567,9 +16562,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"

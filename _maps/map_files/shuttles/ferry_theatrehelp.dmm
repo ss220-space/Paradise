@@ -20,8 +20,7 @@
 /obj/machinery/vending/autodrobe,
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
@@ -32,8 +31,7 @@
 /obj/machinery/vending/artvend,
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';

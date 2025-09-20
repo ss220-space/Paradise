@@ -1,6 +1,3 @@
-/mob/living
-	var/datum/language/default_language
-
 /mob/living/verb/set_default_language(language as null|anything in languages)
 	set name = "Выбрать язык по умолчанию"
 	set category = STATPANEL_IC

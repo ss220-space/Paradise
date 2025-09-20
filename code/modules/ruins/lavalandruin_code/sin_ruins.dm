@@ -51,7 +51,6 @@
 	desc = "RICH! YES! YOU KNEW IT WAS WORTH IT! YOU'RE RICH! RICH! RICH!"
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "moneybag"
-	anchored = FALSE
 	density = TRUE
 
 /obj/structure/cursed_money/Initialize(mapload)
@@ -82,7 +81,6 @@
 /obj/effect/gluttony //Gluttony's wall: Used in the Gluttony ruin. Only lets the overweight through.
 	name = "gluttony's wall"
 	desc = "Only those who truly indulge may pass."
-	anchored = TRUE
 	density = TRUE
 	icon_state = "blob"
 	icon = 'icons/mob/blob.dmi'
@@ -110,7 +108,6 @@
 /obj/structure/mirror/magic/pride //Pride's mirror: Used in the Pride ruin.
 	name = "pride's mirror"
 	desc = "Pride cometh before the..."
-	icon_state = "magic_mirror"
 
 
 /obj/structure/mirror/magic/pride/curse(mob/user)
@@ -142,9 +139,7 @@
 	icon_state = "render"
 	item_state = "knife"
 	force = 18
-	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
-	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/kitchen/knife/envy/afterattack(atom/movable/AM, mob/living/carbon/human/user, proximity, params)
 	. = ..()

@@ -10,7 +10,6 @@
 	flags = CONDUCT
 	hitsound = "swing_hit"
 	force = 10
-	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("ударил", "огрел")

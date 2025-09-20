@@ -155,7 +155,6 @@
 /datum/action/innate/slime_people_action
 	name = "Манипуляция над собой"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "slime_change"
 
 /datum/action/innate/slime_people_action/Activate()

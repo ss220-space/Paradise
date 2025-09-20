@@ -327,14 +327,10 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/riot
 	name = "LBX AC 9 \"Riot Scattershot\""
-	icon_state = "mecha_scatter"
 	origin_tech = "combat=2, materials=2"
-	equip_cooldown = 2 SECONDS
 	projectile = /obj/projectile/bullet/pellet/rubber
-	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
 	projectiles = 32
 	projectile_energy_cost = 75
-	projectiles_per_shot = 4
 	variance = 15
 	pb_knockback = 3
 	harmful = FALSE
@@ -342,16 +338,12 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndi
 	name = "LBX AC 11 \"Ram\""
 	desc = "Minotaur go brr right into your face!"
-	icon_state = "mecha_scatter"
-	origin_tech = "combat=4"
 	equip_cooldown = 0.8 SECONDS
 	projectile = /obj/projectile/bullet/pellet/flechette
-	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
 	projectiles = 50
 	projectile_energy_cost = 10 // сохраняется то же энергопотребление при увеличенном дпс
 	projectiles_per_shot = 5
 	variance = 15
-	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	name = "Ultra AC 2"
@@ -370,17 +362,9 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi
 	name = "AC 2 \"Special\""
 	desc = "Cr20c inside!"
-	icon_state = "mecha_uac2"
-	origin_tech = "combat=4"
 	equip_cooldown = 0.8 SECONDS
 	projectile = /obj/projectile/bullet/midbullet_AC2S
-	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
-	projectiles = 300
 	projectile_energy_cost = 14
-	projectiles_per_shot = 3
-	variance = 6
-	projectile_delay = 2
-	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual
 	name = "XMG-9 Autocannon"
@@ -493,9 +477,7 @@
 	projectiles = 6
 	missile_speed = 1.5
 	projectile_energy_cost = 800
-	equip_cooldown = 6 SECONDS
 	var/det_time = 20
-	harmful = TRUE
 	size = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/action(target, params)
@@ -519,7 +501,6 @@
 	projectile = /obj/item/grenade/clusterbuster
 	projectile_energy_cost = 1600 //getting off cheap seeing as this is 3 times the flashbangs held in the grenade launcher.
 	equip_cooldown = 9 SECONDS
-	size = 1
 
 // Limited version of the clusterbang launcher that can't reload
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang/limited/projectiles/get_snowflake_data()
@@ -600,7 +581,6 @@
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	projectiles = 10
 	missile_speed = 1
-	missile_range = 30
 	projectile_energy_cost = 50
 	equip_cooldown = 1 SECONDS
 	harmful = FALSE
@@ -651,7 +631,6 @@
 	size = 1
 	projectile = /obj/projectile/kinetic/mech
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
-	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/can_attach(obj/mecha/M)
 	if(istype(M))

@@ -2,7 +2,6 @@
 	icon = 'icons/mob/sprite_accessories/kidan/kidan_head_accessories.dmi'
 	species_allowed = list(SPECIES_KIDAN)
 	over_hair = 1
-	do_colouration = 1
 
 /datum/sprite_accessory/head_accessory/kidan/perked_antennae
 	name = "Perked-up Antennae"
@@ -15,10 +14,6 @@
 /datum/sprite_accessory/head_accessory/kidan/curious_antennae
 	name = "Curious Antennae"
 	icon_state = "curious"
-
-/datum/sprite_accessory/head_accessory/kidan/mopey_antennae
-	name = "Mopey Antennae"
-	icon_state = "mopey"
 
 /datum/sprite_accessory/head_accessory/kidan/crescent_antennae
 	name = "Crescent Antennae"

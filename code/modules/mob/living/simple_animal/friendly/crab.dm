@@ -108,9 +108,6 @@
 	icon_state = "evilcrab"
 	icon_living = "evilcrab"
 	icon_dead = "evilcrab_dead"
-	response_help = "гладит"
-	response_disarm = "отталкивает"
-	response_harm = "топчет"
 	gold_core_spawnable = HOSTILE_SPAWN
 	holder_type = /obj/item/holder/evilcrab
 

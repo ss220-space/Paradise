@@ -144,7 +144,6 @@
 
 
 /obj/item/whetstone/anti
-	name = "whetstone"
 	desc = "Каменный брусок для затупки инструментов."
 	increment = -20
 	prefix = "Крайне тупое"

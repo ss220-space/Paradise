@@ -147,19 +147,6 @@ SUBSYSTEM_DEF(overlays)
 
 // Debug procs
 
-/atom
-	/// List of overlay "keys" (info about the appearance) -> mutable versions of static appearances
-	/// Drawn from the overlays list
-	var/list/realized_overlays
-	/// List of underlay "keys" (info about the appearance) -> mutable versions of static appearances
-	/// Drawn from the underlays list
-	var/list/realized_underlays
-	/// Sources that changes gravity of object. Treated as lazy list.
-	var/list/gravity_sources
-	/// Sources that 100% won't changes gravity of object. Treated as lazy list.
-	var/list/ignored_gravity_sources
-
-
 /image
 	/// List of overlay "keys" (info about the appearance) -> mutable versions of static appearances
 	/// Drawn from the overlays list
