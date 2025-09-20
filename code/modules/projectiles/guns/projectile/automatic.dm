@@ -210,6 +210,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5)
 	)
 	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
 /obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
