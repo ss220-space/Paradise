@@ -16,11 +16,7 @@
 	icon_state = "ball"
 	name = "beach ball"
 	item_state = "beachball"
-	density = FALSE
-	anchored = FALSE
 	w_class = WEIGHT_CLASS_TINY
-	force = 0.0
-	throwforce = 0.0
 	throw_speed = 1
 	throw_range = 20
 	flags = CONDUCT

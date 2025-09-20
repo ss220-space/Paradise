@@ -12,7 +12,6 @@ GLOBAL_LIST_EMPTY(closets)
 	integrity_failure = 50
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 70, ACID = 60)
 	pass_flags_self = PASSSTRUCTURE|LETPASSCLICKS
-	pull_push_slowdown = 1.3 // Same as a prone mob
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 
 	/// Special marker for the closet to use default icon_closed/icon_opened states, skipping everything else.

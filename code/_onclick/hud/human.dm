@@ -58,7 +58,6 @@
 	invisibility = INVISIBILITY_ABSTRACT
 
 /atom/movable/screen/devil/soul_counter
-	icon = 'icons/mob/screen_gen.dmi'
 	name = "souls owned"
 	icon_state = "Devil-6"
 	screen_loc = ui_devilsouldisplay

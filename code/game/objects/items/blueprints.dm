@@ -6,7 +6,6 @@
 
 /obj/item/areaeditor
 	name = "area modification item"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprints"
 	attack_verb = list("атаковал", "стукнул", "ударил")
 	/// Whether someone is currently using us
@@ -133,11 +132,8 @@
 /obj/item/areaeditor/blueprints
 	name = "station blueprints"
 	desc = "Blueprints of the station. There is a \"Classified\" stamp and several coffee stains on it."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "blueprints"
 	fluffnotice = "Property of Nanotrasen. For heads of staff only. Store in high-secure storage."
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|ACID_PROOF
-	w_class = WEIGHT_CLASS_NORMAL
 	allow_non_space_use = TRUE
 	var/list/showing = list()
 	var/client/viewing
@@ -345,7 +341,6 @@
 /obj/item/areaeditor/create_area_only
 	name = "construction blueprints"
 	desc = "Used to define new areas in space."
-	allow_non_space_use = FALSE
 
 
 /obj/item/areaeditor/create_area_only/interact_prints(mob/user)

@@ -200,7 +200,6 @@
 	harvest_message_low = "Вы собираете один кактусовый плод."
 	harvest_message_med = "Вы собираете несколько плодов кактуса." //shouldn't show up, because you can't get more than two
 	harvest_message_high = "Вы собираете пару кактусовых плодов."
-	regrowth_time_low = 4800
 	regrowth_time_high = 7200
 
 /obj/structure/flora/ash/cacti/get_ru_names()
@@ -230,7 +229,6 @@
 	light_range = 1.5
 	light_power = 2.1
 	light_color = "#FFFF66"
-	harvest_amount_high = 3
 	harvest_time = 10
 	harvest_message_low = "Вы срываете один подходящий цветок."
 	harvest_message_med = "Вы срываете несколько цветков, оставляя непригодные."
@@ -280,8 +278,6 @@
 	desc = "Стружка с высокого гриба. В достаточном количестве может служить ёмкостью."
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_shavings"
-	w_class = WEIGHT_CLASS_TINY
-	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	seed = /obj/item/seeds/lavaland/polypore
 	wine_power = 0.2
@@ -392,7 +388,6 @@
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
 	name = "coaltree log"
 	desc = "Бревно угледрева, на ощупь мягкое."
-	gender = NEUTER
 	icon_state = "coaltree_log"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -520,8 +515,6 @@
 	icon_state = "seed-coaltree"
 	species = "coaltree"
 	plantname = "Coaltree"
-	growthstages = 3
-	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
 	genes = list(/datum/plant_gene/trait/fire_resistance)
 	reagents_add = list("nutriment" = 0.04, "coaltree_extract" = 0.1)
@@ -543,7 +536,6 @@
 	name = "Mushroom Bowl"
 	result = /obj/item/reagent_containers/food/drinks/mushroom_bowl
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings = 5)
-	time = 30
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
 
@@ -597,7 +589,6 @@
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	harvest = /obj/item/stack/ore/glass/basalt
-	harvest_time = 6 SECONDS
 	harvest_amount_low = 10
 	harvest_amount_high = 20
 	harvest_message_low = "You finish mining the rock."

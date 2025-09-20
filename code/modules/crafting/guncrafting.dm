@@ -26,7 +26,6 @@
 /obj/item/weaponcrafting/revolverbarrel/steel
 	name = "steel revolver barrel"
 	desc = "High quality heavy steel gun barrel to increase stability."
-	icon = 'icons/obj/improvised.dmi'
 	icon_state = "s_rev_barrel"
 	new_fire_sound = 'sound/weapons/gunshots/1rev257S.ogg'
 

@@ -827,7 +827,6 @@ Difficulty: Hard
 	icon_state = "hierophant_tele_off"
 	light_range = 2
 	layer = LOW_OBJ_LAYER
-	anchored = TRUE
 	var/teleporting = FALSE
 
 /obj/effect/hierophant/get_ru_names()

@@ -5,7 +5,6 @@ GLOBAL_LIST_EMPTY(active_video_cameras)
  */
 /obj/item/videocam
 	name = "video camera"
-	icon = 'icons/obj/items.dmi'
 	desc = "video camera that can send live feed to the entertainment network."
 	icon_state = "videocam"
 	item_state = "videocam"
@@ -79,4 +78,3 @@ GLOBAL_LIST_EMPTY(active_video_cameras)
 /obj/item/videocam/advanced
 	name = "advanced video camera"
 	desc = "This video camera allows you to send live feeds even when attached to a belt."
-	slot_flags = ITEM_SLOT_BELT

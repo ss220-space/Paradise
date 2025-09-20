@@ -135,7 +135,6 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	human_req = FALSE
-	cooldown_min = 0
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_cult"

@@ -58,7 +58,6 @@
 	message = "свист%(ит,ят)%."
 	self_message = "You whistle."
 	emote_type = EMOTE_AUDIBLE
-	audio_cooldown = 5 SECONDS
 	sound = 'sound/voice/whistle.ogg'
 
 

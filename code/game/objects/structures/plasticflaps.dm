@@ -3,7 +3,6 @@
 	desc = "Completely impassable - or are they?"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "plasticflaps"
-	density = FALSE
 	anchored = TRUE
 	pass_flags_self = PASSFLAPS
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC

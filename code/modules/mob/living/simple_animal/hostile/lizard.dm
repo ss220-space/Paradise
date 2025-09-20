@@ -16,12 +16,10 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
-	stop_automated_movement_when_pulled = 0
 	speed = 2
 	maxHealth = 40
 	health = 40
 	blood_volume = BLOOD_VOLUME_NORMAL
-	obj_damage = 40
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 	attacktext = "терзает"

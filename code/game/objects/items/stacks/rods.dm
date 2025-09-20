@@ -21,16 +21,12 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	icon_state = "rods"
 	item_state = "rods"
 	flags = CONDUCT
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 9.0
 	throwforce = 10.0
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=1000)
-	max_amount = 50
 	attack_verb = list("ударил", "огрел")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/stack/rods/ten
@@ -94,21 +90,16 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	name = "fireproof rods"
 	desc = "Жаропрочные стержни, способные выдержать жар в несколько тысяч градусов. Могут использоваться для строительства мостов над лавой."
 	singular_name = "fireproof rod"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "f_rods"
 	item_state = "f_rods"
 	flags = CONDUCT
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	force = 9.0
 	throwforce = 10.0
 	throw_speed = 3
-	throw_range = 7
-	max_amount = 50
 	attack_verb = list("ударил", "огрел")
 	materials = list(MAT_METAL=800, MAT_PLASMA=200, MAT_TITANIUM=400)
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 

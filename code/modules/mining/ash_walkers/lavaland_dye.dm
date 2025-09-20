@@ -18,10 +18,7 @@
 /obj/item/lavaland_dye/cinnabar
 	name = "cinnabar-colored spleen"
 	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы киновари и обладает характерным коричневато-красным цветом."
-	icon_state = "cinnabar_spleen"
-	picked_dye = "Cinnabar Dyes"
 	totem_dye = "cinnabar"
-	fluff_name = "киноварная"
 
 /obj/item/lavaland_dye/cinnabar/get_ru_names()
 	return list(
@@ -142,9 +139,7 @@
 
 /obj/item/lavaland_mortar/cinnabar_dyes
 	icon_state = "cinnabar_dyes"
-	picked_dye = "Cinnabar Dyes"
 	totem_dye = "cinnabar"
-	fluff_name = "киноварная"
 
 /obj/item/lavaland_mortar/crimson_dyes
 	icon_state = "crimson_dyes"
@@ -165,7 +160,6 @@
 	fluff_name = "мятная"
 
 /obj/item/lavaland_mortar/amber_dyes
-	icon_state = "amber_dyes"
 	picked_dye = "Amber Dyes"
 	totem_dye = "amber"
 	fluff_name = "янтарная"

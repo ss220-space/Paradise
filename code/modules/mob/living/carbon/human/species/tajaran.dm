@@ -87,6 +87,12 @@
 		JOB_MIN_AGE_COMMAND = 19,
 	)
 
+	autohiss_basic_map = list(
+			"r" = list("rr", "rrr", "rrrr"),
+			"р" = list("рр", "ррр", "рррр")
+		)
+	autohiss_exempt = list("Сик'таир")
+
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 

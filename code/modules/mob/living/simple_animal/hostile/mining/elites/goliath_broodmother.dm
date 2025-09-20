@@ -35,7 +35,6 @@
 	throw_message = "отскакивает от крепкой шкуры"
 	speed = 2
 	move_to_delay = 5
-	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "взрывается, разлетаясь на куски!"
 	loot_drop = /obj/item/crusher_trophy/broodmother_tongue
 	tts_seed = "Azalina"
@@ -219,13 +218,11 @@
 	melee_damage_lower = 12.5
 	melee_damage_upper = 12.5
 	armour_penetration = 50
-	response_help = "гладит"
 	attacktext = "бьётся о"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	throw_message = "отскакивает от крепкой шкуры"
 	speed = 1.6
 	move_to_delay = 5
-	mouse_opacity = MOUSE_OPACITY_ICON
 	deathmessage = "падает на землю."
 	status_flags = CANPUSH
 	var/mob/living/simple_animal/hostile/asteroid/elite/broodmother/mother = null

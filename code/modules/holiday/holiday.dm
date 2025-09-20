@@ -121,7 +121,6 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 /datum/holiday/april_fools
 	name = APRIL_FOOLS
-	begin_day = 1
 	begin_month = APRIL
 	end_day = 8 //7 days extra so everyone can enjoy the festivities
 
@@ -137,7 +136,6 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 /datum/holiday/labor
 	name = "Labor Day"
-	begin_day = 1
 	begin_month = MAY
 
 /datum/holiday/firefighter
@@ -149,7 +147,6 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 /datum/holiday/doctor
 	name = "Doctor's Day"
-	begin_day = 1
 	begin_month = JULY
 
 /datum/holiday/UFO
@@ -218,7 +215,6 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 /datum/holiday/vegan
 	name = "Vegan Day"
-	begin_day = 1
 	begin_month = NOVEMBER
 
 /datum/holiday/kindness

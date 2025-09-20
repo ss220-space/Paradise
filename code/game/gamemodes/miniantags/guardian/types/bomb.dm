@@ -1,6 +1,4 @@
 /mob/living/simple_animal/hostile/guardian/bomb
-	melee_damage_lower = 15
-	melee_damage_upper = 15
 	damage_transfer = 0.6
 	range = 13
 	playstyle_string = "Будучи <b>Подрывником</b> у вас весьма посредственные боевые способности, но вы можете конвертировать любой предмет вокруг себя в скрытую бомбу на Alt+Click. Даже будучи в хозяине. Помните: бомбы живут минуту!"

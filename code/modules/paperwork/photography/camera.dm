@@ -3,7 +3,6 @@
  */
 /obj/item/camera
 	name = "camera"
-	icon = 'icons/obj/items.dmi'
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
 	item_state = "camera"

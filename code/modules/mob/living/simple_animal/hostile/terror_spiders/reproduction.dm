@@ -4,12 +4,7 @@
 // --------------------------------------------------------------------------------
 
 /obj/structure/spider/spiderling/terror_spiderling
-	name = "spiderling"
 	desc = "Быстро движущийся крошечный паук, склонный издавать агрессивные шипящие звуки. Надеюсь, оно не вырастет."
-	icon_state = "spiderling"
-	anchored = FALSE
-	layer = 2.75
-	max_integrity = 3
 	var/stillborn = FALSE
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_myqueen = null
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null

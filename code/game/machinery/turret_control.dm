@@ -2,17 +2,12 @@
 //Turret Control Panel//
 ////////////////////////
 
-/area
-	// Turrets use this list to see if individual power/lethal settings are allowed
-	var/list/obj/machinery/turretid/turret_controls = list()
-
 /obj/machinery/turretid
 	name = "turret control panel"
 	desc = "Used to control a room's automated defenses."
 	icon = 'icons/obj/machines/turret_control.dmi'
 	icon_state = "control_standby"
 	anchored = TRUE
-	density = FALSE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	interaction_flags_click = ALLOW_SILICON_REACH
 	var/enabled = FALSE
@@ -54,11 +49,8 @@
 
 	check_arrest = FALSE
 	check_records = FALSE
-	check_weapons = FALSE
 	check_access = FALSE
-	check_anomalies = TRUE
 	check_synth	= TRUE
-	check_borgs = FALSE
 	ailock = TRUE
 
 	syndicate = TRUE

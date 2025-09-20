@@ -4,8 +4,6 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "eftpos"
 	w_class = WEIGHT_CLASS_SMALL
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	var/machine_name = ""
 	var/transaction_locked = 0
 	var/transaction_paid = 0
@@ -36,7 +34,6 @@
 
 /obj/item/paper/check
 	desc = "Printed by the financial terminal."
-	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_eftpos"
 
 /obj/item/paper/check/update_icon_state()
