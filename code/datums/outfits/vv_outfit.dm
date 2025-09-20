@@ -47,37 +47,37 @@
 			r_pocket = item_path
 
 
-/proc/collect_vv(obj/item/I)
+/proc/collect_vv(obj/item/item)
 	//Temporary/Internal stuff, do not copy these.
 	var/static/list/ignored_vars = list(
-		NAMEOF(I, animate_movement) = TRUE,
-		NAMEOF(I, datum_flags) = TRUE,
-		NAMEOF(I, fingerprintslast) = TRUE,
-		NAMEOF(I, layer) = TRUE,
-		NAMEOF(I, plane) = TRUE,
-		NAMEOF(I, screen_loc) = TRUE,
-		NAMEOF(I, tip_timer) = TRUE,
-		NAMEOF(I, vars) = TRUE,
-		NAMEOF(I, x) = TRUE,
-		NAMEOF(I, y) = TRUE,
-		NAMEOF(I, z) = TRUE,
+		NAMEOF(item, animate_movement) = TRUE,
+		NAMEOF(item, datum_flags) = TRUE,
+		NAMEOF(item, fingerprintslast) = TRUE,
+		NAMEOF(item, layer) = TRUE,
+		NAMEOF(item, plane) = TRUE,
+		NAMEOF(item, screen_loc) = TRUE,
+		NAMEOF(item, tip_timer) = TRUE,
+		NAMEOF(item, vars) = TRUE,
+		NAMEOF(item, x) = TRUE,
+		NAMEOF(item, y) = TRUE,
+		NAMEOF(item, z) = TRUE,
 	)
 
-	if(istype(I) && (I.datum_flags & DF_VAR_EDITED))
+	if(istype(item) && (item.datum_flags & DF_VAR_EDITED))
 		var/list/vedits = list()
-		for(var/varname in I.vars)
-			if(!I.can_vv_get(varname))
+		for(var/varname in item.vars)
+			if(!item.can_vv_get(varname))
 				continue
 			if(ignored_vars[varname])
 				continue
-			var/vval = I.vars[varname]
+			var/vval = item.vars[varname]
 			//Does it even work ?
-			if(vval == initial(I.vars[varname]))
+			if(vval == initial(item.vars[varname]))
 				continue
 			//Only text/numbers and icons variables to make it less weirdness prone.
 			if(!istext(vval) && !isnum(vval) && !isicon(vval))
 				continue
-			vedits[varname] = I.vars[varname]
+			vedits[varname] = item.vars[varname]
 		return vedits
 
 

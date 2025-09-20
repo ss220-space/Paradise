@@ -31,6 +31,7 @@
 
 /obj/item/reagent_containers/iv_bag/empty()
 	set hidden = TRUE
+	return
 
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()

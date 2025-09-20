@@ -364,7 +364,7 @@
 	var/datum/component/component_or_list = datum_components?[c_type]
 	if(component_or_list)
 		if(length(component_or_list))
-			component_or_list = component_or_list[1]
+			component_or_list = component_or_list[c_type]
 		if(component_or_list.type == c_type)
 			return component_or_list
 	return null

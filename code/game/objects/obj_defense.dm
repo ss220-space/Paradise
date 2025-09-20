@@ -332,7 +332,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 			var/mob/living/buckled_mob = mob
 			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
-/obj/handle_flamer_fire(src, damage, delta_time)
+/obj/handle_flamer_fire(source, damage, delta_time)
 	flamer_fire_act(damage)
 
 /obj/flamer_fire_act(damage)

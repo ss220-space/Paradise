@@ -63,8 +63,8 @@ jobs:
           python tools/ci/no_duplicate_definitions.py
           python tools/ci/identical_variables.py
           python tools/ci/check_icons.py
-          python -m tools.maplint.source --github
           python tools/ci/trait_validity.py
+          python -m tools.maplint.source --github
 
       - name: Run DreamChecker
         shell: bash

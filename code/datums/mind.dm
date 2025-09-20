@@ -1222,8 +1222,8 @@
 					input_sum = tgui_input_number(usr, "Введите необходимую денежную сумму:", "Денежная Сумма", max_value = INFINITY)
 				else
 					accounts_procent = tgui_input_number(usr, "Введите необходимый процентаж суммы со всех аккаунтов (1-100), иначе будет 60%:", "Процентаж", min_value = 1, max_value = 100)
-					if(!accounts_procent)
-						accounts_procent = initial(accounts_procent)
+					if(isnull(accounts_procent) || accounts_procent < 0)
+						return
 				money_objective.owner = src
 				money_objective.new_cash(input_sum, accounts_procent)
 

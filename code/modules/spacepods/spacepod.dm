@@ -118,7 +118,6 @@
 			part_type = PAINT
 		if("Стекла")
 			part_type = WINDOW
-		else
 	var/coloradd = tgui_input_color(user, "Выберите цвет", "Цвет")
 	if(isnull(coloradd))
 		return

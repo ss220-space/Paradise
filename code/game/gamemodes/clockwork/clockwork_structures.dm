@@ -22,7 +22,7 @@
 	var/death_sound = 'sound/effects/forge_destroy.ogg'
 	var/canbehidden = FALSE
 	var/hidden = FALSE
-	var/hidden_type
+	var/hidden_type = "" // idk
 	var/list/atom/choosable_items = list(
 		"rack" = /obj/structure/rack,
 		"table" = /obj/structure/table,
