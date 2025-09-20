@@ -8254,9 +8254,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -23951,9 +23948,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -42244,7 +42238,6 @@
 	req_access = list(63);
 	security_level = 1
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -49808,9 +49801,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -76534,7 +76524,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "loQ" = (
-/obj/machinery/disposal,
 /turf/simulated/floor/carpet/black,
 /area/ntrep)
 "loR" = (
@@ -98719,9 +98708,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/secondary/exit)
 "oEi" = (
@@ -111252,12 +111238,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -117238,18 +117218,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"rna" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/prison/cell_block/A)
 "rnb" = (
 /obj/machinery/computer/card/minor/rd,
 /obj/effect/turf_decal/stripes{
@@ -121477,7 +121445,6 @@
 	},
 /area/medical/surgery/north)
 "rRR" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance{
 	name = "Bar Maintenance";
 	req_access = list(25)
@@ -129687,10 +129654,6 @@
 	icon_state = "neutralfull"
 	},
 /area/janitor)
-"taW" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/quartermaster/miningdock)
 "taZ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -132596,9 +132559,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
@@ -157753,9 +157713,6 @@
 /obj/machinery/door/airlock/public/glass{
 	id_tag = "KPPS"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/bridge/checkpoint/south)
 "xhP" = (
@@ -159283,9 +159240,6 @@
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "xtx" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -251454,7 +251408,7 @@ nBa
 qbB
 jyC
 jUp
-rna
+bSJ
 kgY
 dlD
 bPu
@@ -274619,7 +274573,7 @@ emV
 fxK
 cwe
 bkc
-taW
+wQZ
 fYq
 jEB
 jEB
