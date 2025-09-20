@@ -1,36 +1,23 @@
 /obj/effect/decal/cleanable
-	anchored = TRUE
 	var/list/random_icon_states = list()
 	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
 	var/mergeable_decal = TRUE //when two of these are on a same tile or do we need to merge them into just one?
 	layer = CLEANABLES_LAYER
-	/// If TRUE, gains TRAIT_MOPABLE on init - thus this cleanable will cleaned if its turf is cleaned
-	/// Set to FALSE for things that hang high on the walls or things which generally shouldn't be mopped up
-	var/is_moppable = TRUE
 
 
 /obj/effect/decal/cleanable/Initialize(mapload)
 	. = ..()
 	if(loc && isturf(loc))
 		for(var/obj/effect/decal/cleanable/C in loc)
-			if(C == src || C.type != type || QDELETED(C))
-				continue
-
-			if(!replace_decal(C))
-				continue
-
-			qdel(src)
-			return TRUE
-
+			if(C != src && C.type == type && !QDELETED(C))
+				if(replace_decal(C))
+					qdel(src)
+					return TRUE
 	if(random_icon_states && length(src.random_icon_states) > 0)
 		src.icon_state = pick(src.random_icon_states)
-
 	if(smooth)
 		queue_smooth(src)
 		queue_smooth_neighbors(src)
-
-	if(is_moppable)
-		ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
 
 
 /obj/effect/decal/cleanable/Destroy()
@@ -50,4 +37,3 @@
 
 /obj/effect/decal/cleanable/is_cleanable()
 	return TRUE
-
