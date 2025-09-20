@@ -2,9 +2,7 @@
 	name = "normal blob"
 	icon_state = "blob"
 	light_range = 0
-	max_integrity = BLOB_REGULAR_MAX_HP
 	var/initial_integrity = BLOB_REGULAR_HP_INIT
-	health_regen = BLOB_REGULAR_HP_REGEN
 	brute_resist = BLOB_BRUTE_RESIST * 0.5
 
 

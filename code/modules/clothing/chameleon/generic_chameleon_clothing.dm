@@ -12,7 +12,6 @@ do { \
 	icon_state = "black"
 	item_state = "bl_suit"
 	item_color = "black"
-	sensor_mode = SENSOR_OFF //Hey who's this guy on the Syndicate Shuttle??
 	random_sensor = FALSE
 	resistance_flags = NONE
 	can_adjust = FALSE
@@ -29,9 +28,7 @@ do { \
 
 
 /obj/item/clothing/under/plasmaman/chameleon
-	name = "plasma envirosuit"
 	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy."
-	sensor_mode = SENSOR_OFF
 	resistance_flags = NONE
 	random_sensor = FALSE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 95, ACID = 95)
@@ -80,7 +77,6 @@ do { \
 	desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
 	icon_state = "meson"
 	item_state = "meson"
-	resistance_flags = NONE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
 	sprite_sheets = list(
@@ -177,7 +173,6 @@ do { \
 
 /obj/item/clothing/head/helmet/space/plasmaman/chameleon
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
 	actions_types = list(/datum/action/item_action/chameleon/change/hat)

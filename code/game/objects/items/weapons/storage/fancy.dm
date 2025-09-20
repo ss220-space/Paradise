@@ -352,7 +352,6 @@
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	name = "cigarette packet"
 	desc = "Малоизвестная марка сигарет."
 	icon_state = "syndiepacket"
 	item_state = "syndiepacket"
@@ -557,7 +556,6 @@
 	icon_state = "cigarcase"
 	icon_type = "cigar"
 	item_state = "cigarcase"
-	storage_slots = 7
 	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
 
 /obj/item/storage/fancy/cigcase/get_ru_names()
@@ -599,10 +597,7 @@
 	desc = "A locked box for keeping things away from children."
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox0"
-	item_state = "syringe_kit"
-	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
-	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)
 
@@ -631,8 +626,6 @@
 	name = "aquatic starter kit"
 	desc = "Коробка со всем необходимым для ухода за аквариумом и его жителями."
 	icon_state = "AquaticKit"
-	throw_speed = 2
-	throw_range = 8
 	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/get_ru_names()

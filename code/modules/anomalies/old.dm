@@ -7,8 +7,6 @@
 	name = "anomaly"
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
 	icon_state = "bhole3"
-	density = FALSE
-	anchored = TRUE
 	light_range = 3
 	var/movechance = ANOMALY_MOVECHANCE
 	var/obj/item/assembly/signaler/core/aSignal = /obj/item/assembly/signaler/core
@@ -113,7 +111,6 @@
 /obj/effect/old_anomaly/gravitational
 	name = "gravitational anomaly"
 	icon_state = "shield2"
-	density = FALSE
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/core/gravitational/tier2
@@ -351,7 +348,6 @@
 
 /obj/effect/old_anomaly/bhole
 	name = "vortex anomaly"
-	icon_state = "bhole3"
 	desc = "That's a nice station you have there. It'd be a shame if something happened to it."
 	aSignal = /obj/item/assembly/signaler/core/vortex/tier2
 

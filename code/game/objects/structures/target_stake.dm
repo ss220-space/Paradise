@@ -6,7 +6,6 @@
 	icon_state = "target_stake"
 	density = TRUE
 	flags = CONDUCT
-	pull_push_slowdown = 1.3
 	/// The current pinned target
 	var/obj/item/target/pinned_target
 	/// Recursion avoidance

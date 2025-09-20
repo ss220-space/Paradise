@@ -14,7 +14,6 @@
 	force = 1
 	throwforce = 1
 	throw_speed = 1
-	throw_range = 7
 	w_class = WEIGHT_CLASS_TINY
 	full_w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE

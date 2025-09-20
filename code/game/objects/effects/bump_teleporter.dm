@@ -7,9 +7,7 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
 	var/id = null	// id of this bump_teleporter.
 	var/id_target = null	// id of bump_teleporter which this moves you to.
 	invisibility = INVISIBILITY_ABSTRACT	// nope, can't see this
-	anchored = TRUE
 	density = TRUE
-	opacity = FALSE
 
 /obj/effect/bump_teleporter/New()
 	..()

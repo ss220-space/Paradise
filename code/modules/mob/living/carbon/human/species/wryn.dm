@@ -7,7 +7,6 @@
 	blacklisted = TRUE
 	tail = "wryntail"
 	eyes = "wryn_eyes_s"
-	punchdamagelow = 0
 	punchdamagehigh = 1
 	warning_low_pressure = -300
 	hazard_low_pressure = 1

@@ -129,7 +129,6 @@
 	period_high = 45 SECONDS
 	range_low = 1
 	range_high = 2
-	gases_low = 0
 	gases_high = 5
 
 /datum/anomaly_impulse/fire/tier2
@@ -137,7 +136,6 @@
 	period_high = 35 SECONDS
 	range_low = 1
 	range_high = 2
-	gases_low = 0
 	gases_high = 7
 
 /datum/anomaly_impulse/fire/tier3
@@ -145,7 +143,6 @@
 	period_high = 20 SECONDS
 	range_low = 1
 	range_high = 3
-	gases_low = 0
 	gases_high = 7
 
 /datum/anomaly_impulse/fire/tier4

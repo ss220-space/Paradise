@@ -3,8 +3,6 @@
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал человеку."
 	icon_state = "brain2"
 	max_damage = 120
-	force = 1.0
-	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	throw_speed = 3
 	throw_range = 5

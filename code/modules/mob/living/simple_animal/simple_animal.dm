@@ -6,7 +6,6 @@
 	gender = MALE // Placeholder.
 
 	universal_understand = 1
-	universal_speak = 0
 	status_flags = CANPUSH
 
 	hud_type = /datum/hud/simple_animal

@@ -19,7 +19,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=5"
 	attack_verb = list("выпорол", "хлестнул", "стегнул", "проучил")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
@@ -134,7 +133,6 @@
 	item_state = "syndie_mantis"
 	force = 25
 	throwforce = 20
-	w_class = WEIGHT_CLASS_NORMAL
 	block_chance = 35
 	armour_penetration = 40
 	sharp = TRUE
@@ -259,7 +257,6 @@
 	item_state = "candy_sword"
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("полоснул", "уколол", "ударил")
 
 /obj/item/melee/flyswatter
@@ -308,7 +305,6 @@
 /obj/item/melee/bigiron
 	name = "Big Iron"
 	desc = "It is a very old rusty and racist iron. Used to beat the living shit out of these filthy xenos."
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 8
 	throwforce = 8
 	var/bonus_damage = 10

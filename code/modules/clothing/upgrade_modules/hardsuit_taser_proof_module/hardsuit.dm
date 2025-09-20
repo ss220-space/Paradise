@@ -1,6 +1,3 @@
-/obj/item/clothing/suit/space/hardsuit
-	var/obj/item/hardsuit_taser_proof/taser_proof = null
-
 /obj/item/clothing/suit/space/hardsuit/Initialize(mapload)
 	. = ..()
 	if(taser_proof && ispath(taser_proof))
@@ -15,7 +12,3 @@
 			return TRUE
 	. = ..()
 
-//////Taser-proof Hardsuits
-
-/obj/item/clothing/suit/space/hardsuit/deathsquad
-	taser_proof = /obj/item/hardsuit_taser_proof/ert_locked

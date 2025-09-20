@@ -33,9 +33,7 @@
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
-	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	universal_speak = 0
 	can_hide = 1
 	holder_type = /obj/item/holder/frog
 	can_collar = 1
@@ -166,7 +164,6 @@
 	speak = list("МРГЛЬК!","ТРУБА В ТРУБЕ! РАНТАЙМ! ПИЗДЕЦ!","ЧЕРЕЗ ЧАС!","ЗЕРО НА ВАЙТЛИСТЕ!","1.5.7. В РЕЛИЗЕЕЕ!","ВОТ БИ СМ НА КОРОБКУ!","ДА КТО ЭТОТ ВАШ ПР?!","МУЛЬТИЗЕТА ХОЧЕТСЯ!")
 	squeak_sound = list('sound/creatures/mapper_disappointed.ogg','sound/creatures/mapper_angry.ogg','sound/creatures/mapper_annoyed.ogg')
 	talk_sound = list('sound/creatures/mapper_scream.ogg')
-	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/frog/scream/mapper/Initialize(mapload)
 	. = ..()

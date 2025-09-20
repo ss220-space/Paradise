@@ -2,7 +2,6 @@
 	name = "boom"
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "explosion2"
-	light_system = STATIC_LIGHT
 	duration = 6 SECONDS
 	/// Smoke wave particle holder.
 	var/obj/effect/abstract/particle_holder_tgmc/smoke_wave
