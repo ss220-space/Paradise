@@ -179,10 +179,6 @@
 
 	return ..()
 
-/datum/hallucination/delusion/preset
-	abstract_hallucination_parent = /datum/hallucination/delusion/preset
-	random_hallucination_weight = 2
-
 /datum/hallucination/delusion/preset/nothing
 	delusion_icon_file = 'icons/effects/effects.dmi'
 	delusion_icon_state = "nothing"

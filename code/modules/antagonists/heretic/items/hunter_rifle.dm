@@ -37,24 +37,6 @@
 	. = ..()
 	AddComponent(/datum/component/scope, range_modifier = 3.2)
 */
-/*
-/obj/item/ammo_box/magazine/strilka310/lionhunter
-	name = "внутренний магазин винтовки охотника на львов"
-	ru_names = list(
-		NOMINATIVE = "внутренний магазин винтовки охотника на львов",
-		GENITIVE = "внутреннего магазина винтовки охотника на львов",
-		DATIVE = "внутреннему магазину винтовки охотника на львов",
-		ACCUSATIVE = "внутренний магазин винтовки охотника на львов",
-		INSTRUMENTAL = "внутренним магазином винтовки охотника на львов",
-		PREPOSITIONAL = "внутреннем магазине винтовки охотника на львов",
-	)
-	gender = MALE
-	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter
-	//caliber = CALIBER_STRILKA310
-	armour_penetration = 100
-	max_ammo = 3
-	multiload = TRUE
-*/
 
 /obj/item/ammo_casing/strilka310/lionhunter
 	projectile_type = /obj/projectile/bullet/strilka310/lionhunter

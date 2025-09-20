@@ -66,15 +66,3 @@
 /datum/hallucination/delusion/preset
 	abstract_hallucination_parent = /datum/hallucination/delusion/preset
 	random_hallucination_weight = 2
-
-
-/// Hallucination used by the path of moon heretic to turn everyone into a lunar mass
-/datum/hallucination/delusion/preset/moon
-	delusion_icon_file = 'icons/mob/eldritch_mobs.dmi'
-	delusion_icon_state = "moon_mass"
-	delusion_name = "moon"
-	duration = 15 SECONDS
-	affects_others = TRUE
-	random_hallucination_weight = 0
-
-

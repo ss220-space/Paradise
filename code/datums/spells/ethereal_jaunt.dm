@@ -96,16 +96,6 @@
 	steam.set_up(10, 0, mobloc)
 	steam.start()
 
-/*
-/obj/effect/dummy/spell_jaunt
-	name = "water"
-	icon_state = "nothing"
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	invisibility = 60
-	var/reappearing = FALSE
-	var/movedelay = 0
-	var/movespeed = 2
-*/
 
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow

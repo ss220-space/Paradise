@@ -211,7 +211,7 @@
 	var/effect_icon_state = "moon_insanity_overlay"
 
 /atom/movable/screen/alert/status_effect/moon_converted
-	name = "Подчиненный Луне"
+	name = "Подчинённый Луне"
 	desc = "ОНИ ЛГУТ, ОНИ ВСЕ ЛГУТ!!! УБЕЙТЕ ИХ!!! СОЖГИТЕ ИХ!!! ЗАСТАВЬТЕ ИХ УВИДЕТЬ ПРАВДУ!!!"
 	icon_state = "lastresort"
 
@@ -279,9 +279,3 @@
 	UnregisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	owner.update_appearance(UPDATE_OVERLAYS)
 	return ..()
-
-
-/atom/movable/screen/alert/status_effect/moon_converted
-	name = "Подчиненный луне"
-	desc = "Они ЛГУТ, УБЕЙТЕ ИХ ВСЕХ!!! ЛЖЕЦЫ СОЛНЦА ДОЛЖНЫ СТРАДАТЬ!!!"
-	icon_state = "moon_insanity"
