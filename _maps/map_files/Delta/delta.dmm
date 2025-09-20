@@ -5500,9 +5500,6 @@
 /obj/structure/chair/stool{
 	dir = 1
 	},
-/obj/structure/chair/stool{
-	dir = 1
-	},
 /obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9970,9 +9967,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/mining/glass{
 	name = "Delivery Office";
 	req_access = list(50)
@@ -12352,10 +12346,14 @@
 	},
 /area/hallway/primary/fore)
 "bCV" = (
-/obj/structure/lattice,
-/obj/effect/spawner/random_spawners/fungus_70,
-/turf/simulated/wall,
-/area/maintenance/kitchen)
+/obj/structure/closet/fireaxecabinet{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/security/nuke_storage)
 "bDb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/worn_out{
@@ -44521,19 +44519,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/maintenance/asmaint4)
-"eZJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/medbay)
 "eZR" = (
 /obj/machinery/alarm{
 	pixel_y = 22
@@ -59121,12 +59106,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/sleep)
-"iBE" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/obj/structure/grille,
-/turf/space,
-/area/space)
 "iBT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -60395,9 +60374,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60961,9 +60937,6 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12,47)
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -66167,10 +66140,6 @@
 	icon_state = "darkred"
 	},
 /area/security/podbay)
-"kms" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/maintenance/asmaint3)
 "kmA" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -67691,10 +67660,6 @@
 	icon_state = "redfull"
 	},
 /area/crew_quarters/kitchen)
-"kGY" = (
-/obj/structure/lattice,
-/turf/simulated/wall/rust,
-/area/space)
 "kGZ" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -69529,10 +69494,6 @@
 /obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"lho" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/chapel/main)
 "lhr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -69614,10 +69575,6 @@
 "lhS" = (
 /turf/simulated/wall/r_wall,
 /area/security/securearmory)
-"lia" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/security/podbay)
 "lif" = (
 /obj/effect/turf_decal/siding/green/corner{
 	color = "";
@@ -71961,10 +71918,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
@@ -79977,10 +79930,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-"nBn" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/maintenance/kitchen)
 "nBu" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -82353,9 +82302,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/fireaxecabinet{
-	pixel_y = 32
-	},
 /obj/structure/closet/secure_closet/freezer/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -83129,10 +83075,6 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "0-8"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
@@ -84640,9 +84582,6 @@
 /area/security/visiting_room)
 "oDO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 28
-	},
 /obj/machinery/newscaster/security_unit{
 	pixel_y = 28
 	},
@@ -89292,7 +89231,6 @@
 /area/bridge/meeting_room)
 "pFI" = (
 /obj/structure/closet/firecloset,
-/obj/structure/closet/walllocker/emerglocker/east,
 /turf/simulated/floor/engine,
 /area/toxins/sm_test_chamber)
 "pFM" = (
@@ -103752,10 +103690,6 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown"
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "Virology";
@@ -111573,10 +111507,6 @@
 /obj/effect/decal/cleanable/blood/oil/streak,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"uFL" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/space)
 "uFM" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -114090,10 +114020,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
-"vlf" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall/coated,
-/area/toxins/sm_test_chamber)
 "vlh" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -143886,7 +143812,7 @@ quC
 rRM
 rRM
 cUS
-vlf
+uFo
 uFo
 dGb
 uFo
@@ -148791,7 +148717,7 @@ deL
 dfT
 deL
 wLd
-kms
+kBv
 kBv
 kBv
 aaq
@@ -157565,7 +157491,7 @@ dJx
 vGa
 vGa
 dJx
-lho
+dJx
 aaq
 bCI
 coE
@@ -172109,7 +172035,7 @@ cqB
 coE
 btL
 btL
-hPQ
+bCV
 bOL
 hPQ
 btL
@@ -172944,7 +172870,7 @@ tMG
 vxs
 dxT
 ebI
-eZJ
+dGa
 dxT
 dxT
 uTP
@@ -180551,7 +180477,7 @@ coE
 coE
 cCE
 coE
-kGY
+cCE
 aaq
 aaq
 aaq
@@ -180832,7 +180758,7 @@ aaq
 aaq
 aaq
 aaq
-iBE
+dZq
 dZq
 aaq
 aaq
@@ -180918,7 +180844,7 @@ vzF
 vzF
 vzF
 hwq
-bCV
+hwq
 hwq
 hwq
 vzF
@@ -184264,7 +184190,7 @@ vzF
 hwq
 vzF
 hwq
-nBn
+vzF
 coE
 coE
 dZq
@@ -187266,7 +187192,7 @@ aaq
 aaq
 bCI
 coE
-lia
+wyD
 lYu
 kCD
 hHy
@@ -190367,11 +190293,11 @@ aaq
 coE
 coE
 acF
-uFL
+cIV
 acF
 acF
 cIV
-uFL
+cIV
 acF
 coE
 coE

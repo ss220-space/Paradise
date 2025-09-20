@@ -6174,9 +6174,6 @@
 /obj/structure/disposalpipe/junction{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "ehK" = (
@@ -6655,9 +6652,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -12299,11 +12293,6 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/primary/aft)
@@ -13404,7 +13393,6 @@
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/dorms)
 "iFN" = (
@@ -13614,9 +13602,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/disposalpipe/junction/yjunction{
-	dir = 1
 	},
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 1
@@ -24898,7 +24883,6 @@
 /area/engineering/engine)
 "pYk" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/primary/starboard)
 "pYy" = (
@@ -26273,7 +26257,6 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/engineering/break_room)
@@ -28220,6 +28203,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "shD" = (
@@ -29341,7 +29325,6 @@
 /obj/structure/bed/roller,
 /obj/machinery/light,
 /obj/machinery/iv_drip,
-/obj/machinery/iv_drip,
 /obj/machinery/button/windowtint{
 	dir = 8;
 	id = "surg1";
@@ -30095,9 +30078,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"

@@ -10515,7 +10515,6 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret9)
 "Dt" = (
-/obj/structure/closet/crate/secure/bin,
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = 32
 	},
