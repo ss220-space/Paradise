@@ -5,7 +5,6 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "pad"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/efficiency
@@ -73,7 +72,6 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "pad"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 500
 	var/stage = 0

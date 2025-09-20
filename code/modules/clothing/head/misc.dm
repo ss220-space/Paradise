@@ -123,13 +123,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
-/obj/item/clothing/head/that
-	name = "sturdy top-hat"
-	desc = "It's an amish looking armored top hat."
-	icon_state = "tophat"
-	item_state = "that"
-
-
 /obj/item/clothing/head/greenbandana
 	name = "green bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
@@ -249,6 +242,15 @@
 	desc = "A great hat ruined by being within fifty yards of you."
 	actions_types = list(/datum/action/item_action/tip_fedora)
 
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+	)
+
 /obj/item/clothing/head/fedora/attack_self(mob/user)
 	tip_fedora(user)
 
@@ -336,20 +338,6 @@
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
-/obj/item/clothing/head/fedora
-	name = "fedora"
-	desc = "Someone wearing this definitely makes them cool"
-	icon_state = "fedora"
-
-	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-	)
-
 /obj/item/clothing/head/fedora/whitefedora
 	name = "white fedora"
 	icon_state = "wfedora"
@@ -409,7 +397,6 @@
 	desc = "A navy blue beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer_navy"
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
-	strip_delay = 60
 
 /obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret
 	name = "royal marines commando beret"
@@ -463,9 +450,7 @@
 	item_state = "cone"
 	force = 1.0
 	throwforce = 3.0
-	throw_speed = 2
 	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("предупредил", "насторожил")
 	resistance_flags = NONE
 	dog_fashion = /datum/dog_fashion/head/cone
@@ -552,7 +537,6 @@
 	)
 
 /obj/item/clothing/head/papersack/smiley
-	name = "paper sack hat"
 	desc = "A paper sack with crude holes cut out for eyes and a sketchy smile drawn on the front. Not creepy at all."
 	icon_state = "papersack_smile"
 
@@ -625,7 +609,7 @@
 		INSTRUMENTAL = "обожжённым черепом",
 		PREPOSITIONAL = "обожжённом черепе"
 	)
-	
+
 
 /obj/item/clothing/head/roach
 	name = "roach"

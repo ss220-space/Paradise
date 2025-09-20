@@ -274,11 +274,9 @@
 
 /obj/effect/overlay/laser_sight_dot
 	name = "laser sight dot"
-	anchored = TRUE
 	light_range = 1
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_ALL_MOB_LAYER
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "laser_dot"
 
 /obj/effect/overlay/laser_sight_dot/invisible
@@ -286,7 +284,6 @@
 
 /obj/effect/overlay/laser_sight_line
 	name = "laser sight ray"
-	layer = OBJ_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "laser_sight"

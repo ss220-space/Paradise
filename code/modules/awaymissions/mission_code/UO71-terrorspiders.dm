@@ -1,7 +1,5 @@
 /area/awaymission/UO71
 	name = "UO71"
-	icon_state = "away"
-	report_alerts = FALSE
 	tele_proof = TRUE
 
 
@@ -49,39 +47,31 @@
 	icon_state = "awaycontent21"
 	fire = TRUE
 	requires_power = FALSE
-	tele_proof = TRUE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/UO71/queen
 	name = "UO71 Queen Lair"
 	icon_state = "awaycontent9"
 	fire = TRUE
 	requires_power = FALSE
-	tele_proof = TRUE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/UO71/prince
 	name = "UO71 Prince Containment"
 	icon_state = "awaycontent10"
 	fire = TRUE
 	requires_power = FALSE
-	tele_proof = TRUE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/UO71/loot
 	name = "UO71 Loot Vault"
 	icon_state = "awaycontent11"
 	requires_power = FALSE
-	tele_proof = TRUE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /obj/item/paper/terrorspiders1
 	name = "paper - 'Sealed Facility'"

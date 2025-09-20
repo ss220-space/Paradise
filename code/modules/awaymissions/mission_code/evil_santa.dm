@@ -84,7 +84,6 @@
 	requires_power = FALSE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/vision_change_area/awaymission/evil_santa/end/hall
 	name = "Evil santa hall"
@@ -199,7 +198,6 @@
 
 /obj/effect/mob_spawn/human/corpse/monkey_shaftminer
 	mob_type = /mob/living/carbon/human/lesser/monkey
-	death = TRUE
 	name = "Dead monkey shaftminer"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet-monkey"

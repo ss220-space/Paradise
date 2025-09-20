@@ -7,11 +7,8 @@
 	desc = "You wanted a fiery fist o' pain, but all you got was this dumb balloon."
 	icon_state = "latexballon"
 	item_state = "lgloves"
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
-	throw_range = 7
 	/// Current balloon air state
 	var/state = BALLOON_NORMAL
 	var/datum/gas_mixture/air_contents = null

@@ -29,7 +29,6 @@
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	gold_core_spawnable = HOSTILE_SPAWN
 	stat_attack = UNCONSCIOUS // Sleeping won't save you
-	a_intent = INTENT_HARM // Angrilla
 	tts_seed = "Mannoroth"
 	AI_delay_max = 0.5 SECONDS
 	/// Is the gorilla stood up or not?
@@ -49,6 +48,32 @@
 	/// Gorilla bipedal toggle.
 	var/datum/action/innate/gorilla/gorilla_toggle/gorilla_toggle
 
+	// Actions
+	description_info = "<b>Руководство по работе с гориллами для самых маленьких:</b>\nВсе гориллы любят бананы и наверняка захотят поработать, если Вы предоставите им несколько этих замечательных фруктов.\nЕсли горилла уже работает на Вас, используйте указатель (средняя кнопка мышки), чтобы отдать животному команду на перемещение или подбор/сброс ящиков в указанную точку.\nДо тех пор пока горилла не нашла себе друга она будет отзываться по имени.\nТакже животное способно понимать дополнительные голосовые приказы, если их использовать в одном предложении с именем животного.\n<b>Команды:</b>\n- \"сидеть\", \"опустись\", \"сядь\", \"садись\", \"сесть\"\n- \"встать\", \"встань\", \"поднимись\", \"стоять\", \"стой\", \"выпрямись\"\n- \"пошли\", \"идём\", \"за мной\" \n- \"жди\", \"ожидай\", \"ждать\" \n- \"брось\", \"выброси\", \"урони\"\n- \"носи ящики\", \"хватай ящики\"\n- \"толкай ящики\", \"двигай ящики\""
+	/// Сan gorilla have a master?
+	var/can_befriend = TRUE
+	/// What speech pieces make gorilla excited (turn off AI and make it follow the speaker). Works only without master and client.
+	var/list/attention_phrases = list("goril", "banana", "monkey", "горил", "банан", "обезьян")
+	/// Current gorilla master.
+	var/mob/living/carbon/human/master
+	/// Amount of bananas eaten.
+	var/bananas_eaten = 0
+	/// Timer used in befriend and excitement manipulations.
+	var/befriend_timer
+	/// Whether gorilla is currently waiting and will not follow its master.
+	var/is_waiting = FALSE
+	/// List of initial factions, gorilla has before befriend. We need this since initial value of a list is an empty list.
+	var/list/initial_faction
+	/// Associative list with key = user.UID(), value = bananas fed to gorilla. Used in befriending.
+	var/list/friend2bananas
+	/// Notify player about new powers.
+	var/enlighten_message_done = FALSE
+	/// Original target atom gorrilla's master pointed at.
+	var/atom/point_target
+	/// Turf adjacent to point_target, used in point movement manipulations.
+	var/turf/target_turf
+	/// Cooldown stamp used for various gorilla actions.
+	COOLDOWN_DECLARE(gorilla_actions_cooldown)
 
 /mob/living/simple_animal/hostile/gorilla/Initialize(mapload)
 	. = ..()
@@ -434,7 +459,6 @@
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars
 	name = "Марс"
 	real_name = "Марс"
-	gender = MALE
 	unique_pet = TRUE
 	attention_phrases = list("mars", "марс", "goril", "banan", "monkey", "горил", "банан", "обезьян", "карго")
 

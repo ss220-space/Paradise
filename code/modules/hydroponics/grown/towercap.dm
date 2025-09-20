@@ -38,8 +38,6 @@
 	icon_state = "logs"
 	force = 5
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 2
 	throw_range = 3
 	origin_tech = "materials=1"
 	attack_verb = list("ударил", "огрел")
@@ -126,7 +124,6 @@
 	yield = 5
 	potency = 50
 	growthstages = 2
-	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	icon_dead = "bamboo-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 
@@ -148,7 +145,6 @@
 	icon_state = "punji"
 	resistance_flags = FLAMMABLE
 	max_integrity = 30
-	density = FALSE
 	anchored = TRUE
 
 /obj/structure/punji_sticks/Initialize(mapload)
@@ -162,7 +158,6 @@
 	desc = "Для приготовления пищи, включая жарку, копчение, обугливание, запекание, поджаривание, тушение, обжиг, плавление, а иногда и для сжигания вещей."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "bonfire"
-	density = FALSE
 	anchored = TRUE
 	buckle_lying = 0
 	pass_flags_self = PASSTABLE|LETPASSTHROW

@@ -5,7 +5,6 @@
 	stage_prob = 5
 	//TODO: Something with chaplain & cure
 	cures = list("garlic")
-	cure_prob = 8
 	severity = DANGEROUS
 	can_immunity = FALSE
 	visibility_flags = HIDDEN_PANDEMIC

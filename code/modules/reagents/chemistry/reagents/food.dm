@@ -20,7 +20,6 @@
 	name = "Питательные вещества"
 	id = "nutriment"
 	description = "Сомнительная смесь чистых питательных веществ, обычно встречающихся в переработанных продуктах питания."
-	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
 	var/brute_heal = 1
@@ -76,9 +75,6 @@
 	name = "Витамины"
 	id = "vitamin"
 	description = "Все лучшие витамины, минералы и углеводы, необходимые организму, в чистом виде."
-	reagent_state = SOLID
-	color = "#664330" // rgb: 102, 67, 48
-	brute_heal = 1
 	burn_heal = 1
 
 
@@ -94,7 +90,6 @@
 	id = "protein"
 	description = "Вещество, которое обычно содержится в мясе и крови животных."
 	diet_flags = DIET_CARN | DIET_OMNI
-	reagent_state = SOLID
 	/// Type of status effect that applys on reagent add, and deleats on reagent deleat.
 	var/status_effect_type = /datum/status_effect/sport_reagents/protein
 
@@ -128,7 +123,6 @@
 	name = "Сахар"
 	id = "sugar"
 	description = "Органическое соединение, широко известное как столовый сахар и иногда называемое сахарозой. Это белый кристаллический порошок без запаха, обладающий приятным сладким вкусом."
-	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 255, 255, 255
 	nutriment_factor = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
@@ -437,7 +431,6 @@
 	name = "Соль"
 	id = "sodiumchloride"
 	description = "Хлорид натрия, обычная поваренная соль."
-	reagent_state = SOLID
 	color = "#B1B0B0"
 	harmless = FALSE
 	overdose_threshold = 15
@@ -454,14 +447,12 @@
 	name = "Чёрный перец"
 	id = "blackpepper"
 	description = "Порошок, измельченный из перца. Только не вдыхайте его полной грудью."
-	reagent_state = SOLID
 	taste_description = "перца"
 
 /datum/reagent/consumable/cocoa
 	name = "Какао-порошок"
 	id = "cocoa"
 	description = "Жирная, горькая паста из какао-бобов."
-	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "горького какао"
@@ -470,7 +461,6 @@
 	name = "Ванильный порошок"
 	id = "vanilla"
 	description = "Жирная, горькая паста из стручков ванили."
-	reagent_state = SOLID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#FFFACD"
 	taste_description = "горькой ванили"
@@ -479,7 +469,6 @@
 	name = "Микс трав"
 	id = "herbsmix"
 	description = "Смесь различных трав."
-	reagent_state = SOLID
 	color = "#2c5c04"
 	taste_description = "сухих трав"
 
@@ -563,7 +552,6 @@
 	name = "Оливковое масло"
 	id = "oliveoil"
 	description = "Масло, получаемое из молодых оливок. Очень жирное."
-	reagent_state = LIQUID
 	nutriment_factor = 10 * REAGENTS_METABOLISM
 	color = "#d3f558"
 	taste_description = "горько-сладкого оливкового масла"
@@ -580,7 +568,6 @@
 	name = "Сухой рамен"
 	id = "dry_ramen"
 	description = "Космическая еда начиная с 25 августа 1958 года. Содержит сушёную лапшу, овощи и химикаты, которые закипают при контакте с водой."
-	reagent_state = SOLID
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "дешёвой лапши со специями"
 
@@ -615,7 +602,6 @@
 	name = "Мука"
 	id = "flour"
 	description = "Это то, чем вы натираете себя, чтобы притвориться призраком."
-	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	taste_description = "муки"
 
@@ -627,7 +613,6 @@
 	name = "Рис"
 	id = "rice"
 	description = "Наслаждайтесь великолепным вкусом ничего."
-	reagent_state = SOLID
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	taste_description = "риса"
@@ -636,7 +621,6 @@
 	name = "Гречка"
 	id = "buckwheat"
 	description = "По слухам, советские люди питаются только водкой и... этим?"
-	reagent_state = SOLID
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	color = "#8E633C" // rgb: 142, 99, 60
 	taste_description = "сухой гречки"
@@ -809,7 +793,6 @@
 	name = "Сыр"
 	id = "cheese"
 	description = "Немного сыра. Вылейте его, чтобы он стал твердым."
-	reagent_state = SOLID
 	color = "#FFFF00"
 	taste_description = "сыра"
 
@@ -843,7 +826,6 @@
 	name = "Странный сыр"
 	id = "weird_cheese"
 	description = "Чёрт, я даже не знаю, сыр ли это. Что бы это ни было, это ненормально. Если хотите, вылейте его, чтобы он стал твердым."
-	reagent_state = SOLID
 	color = "#50FF00"
 	taste_description = "сыра..?"
 
@@ -868,7 +850,6 @@
 	name = "Хлеб"
 	id = "bread"
 	description = "Хлеб! Кто его не любит?"
-	reagent_state = SOLID
 	color = "#9C5013"
 	taste_description = "хлеба"
 
@@ -945,7 +926,6 @@
 	name = "Картофельное пюре"
 	id = "mashedpotatoes"
 	description = "Паста из вареного картофеля."
-	reagent_state = SOLID
 	color = "#D6D9C1"
 	taste_description = "картофеля"
 

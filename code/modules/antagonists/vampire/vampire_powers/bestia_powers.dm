@@ -547,7 +547,6 @@
 	desc = "Призывает деформированный череп, заражающий жертву могильной лихорадкой. Чем больше трофеев вы собрали, тем сильнее будут эффекты."
 	gain_desc = "Теперь вы можете заражать жертв могильной лихорадкой. Чем больше вы собрали трофеев, тем сильнее будут эффекты."
 	action_icon_state = "infected_trophy"
-	base_cooldown = 10 SECONDS
 	required_blood = 30
 	deduct_blood_on_cast = FALSE
 
@@ -585,7 +584,6 @@
 	icon_state = "ashen_skull"
 	item_state = "ashen_skull"
 	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
-	w_class = WEIGHT_CLASS_HUGE
 	fire_sound = 'sound/effects/pierce.ogg'
 	ammo_type = /obj/item/ammo_casing/magic/skull_gun_casing
 	force = 0
@@ -654,7 +652,6 @@
 	range = 5
 	damage = 5
 	armour_penetration = 100
-	damage_type = BRUTE
 	hitsound = null
 
 /obj/projectile/skull_projectile/get_ru_names()
@@ -1447,7 +1444,6 @@
 	name = "Flying vampire..."
 	invisibility = 0
 	layer = LOW_LANDMARK_LAYER
-	light_system = STATIC_LIGHT
 
 
 /**
@@ -1463,7 +1459,6 @@
 	obj_flags = NODECONSTRUCT
 	material_drop = null
 	open_sound = 'sound/objects/coffin_toggle.ogg'
-	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	var/datum/gas_mixture/interior_air
 	var/obj/machinery/portable_atmospherics/canister/air/interior_tank
 	var/no_manipulation = FALSE
@@ -1921,12 +1916,8 @@
 	AIStatus = AI_OFF
 	status_flags = NONE
 	sentience_type = SENTIENCE_OTHER
-	gold_core_spawnable = NO_SPAWN
 	speed = 0
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	harm_intent_damage = 5	// punching transformed vampire is pretty useless
-	a_intent = INTENT_HARM
-	universal_understand = TRUE	// yeah, we can understand anything now
 	universal_speak = TRUE	// and speak to anyone too
 	mob_size = MOB_SIZE_LARGE
 	nightvision = 8	// full night vision

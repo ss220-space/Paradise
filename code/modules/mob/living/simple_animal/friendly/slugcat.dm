@@ -6,21 +6,15 @@
 	icon_dead = "slugcat_dead"
 	icon_resting = "slugcat_rest"
 	speak = list("Furrr.","Uhh.", "Hurrr.")
-	gender = MALE
 	turns_per_move = 5
 	nightvision = 8
 	health = 100
 	maxHealth = 100
-	blood_volume = BLOOD_VOLUME_NORMAL
 	melee_damage_type = STAMINA
-	melee_damage_lower = 0
-	melee_damage_upper = 0
 	attacktext = "бьёт"
-	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
-	can_collar = TRUE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 5)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -57,7 +51,6 @@
 	icon_dead = "slugcat_monk_dead"
 	icon_resting = "slugcat_monk_rest"
 	is_pacifist = TRUE
-	gold_core_spawnable = FRIENDLY_SPAWN
 	health = 80
 	maxHealth = 80
 
@@ -68,7 +61,6 @@
 	icon_living = "slugcat_hunter"
 	icon_dead = "slugcat_hunter_dead"
 	icon_resting = "slugcat_hunter_rest"
-	is_pacifist = FALSE
 	is_reduce_damage = FALSE
 	faction = list("slime","neutral","hostile")
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -82,7 +74,6 @@
 	icon_living = "slugcat_gold"
 	icon_dead = "slugcat_gold_dead"
 	icon_resting = "slugcat_gold_rest"
-	is_pacifist = FALSE
 	is_reduce_damage = FALSE
 	gold_core_spawnable = NO_SPAWN
 	health = 300

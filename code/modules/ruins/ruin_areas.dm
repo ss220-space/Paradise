@@ -5,7 +5,6 @@
 	icon_state = "away"
 	has_gravity = STANDARD_GRAVITY
 	area_flags = UNIQUE_AREA
-	static_lighting = TRUE
 	ambientsounds = RUINS_SOUNDS
 	sound_environment = SOUND_ENVIRONMENT_STONEROOM
 	holomap_should_draw = FALSE
@@ -14,7 +13,6 @@
 	area_flags = NONE
 
 /area/ruin/unpowered
-	always_unpowered = FALSE
 
 /area/ruin/unpowered/no_grav
 	has_gravity = FALSE
@@ -26,12 +24,6 @@
 
 /area/ruin/unpowered/no_grav/way_home
 	name = "Salvation"
-	icon_state = "away"
-
-/area/ruin/powered/snow_biodome
-
-/area/ruin/powered/golem_ship
-	name = "Free Golem Ship"
 
 /area/ruin/powered/space_bar
 	name = "Space Bar"

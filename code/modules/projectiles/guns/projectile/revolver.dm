@@ -156,7 +156,6 @@
 	icon_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
-	unique_rename = TRUE
 	unique_reskin = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_MEDIUM
@@ -551,13 +550,11 @@
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 	force = 10
-	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
 	sawn_desc = "Omar's coming!"
 	can_holster = FALSE
-	unique_rename = TRUE
 	unique_reskin = TRUE
 	pb_knockback = 3
 	accuracy = GUN_ACCURACY_SHOTGUN
@@ -627,9 +624,6 @@
 	name = "improvised shotgun"
 	desc = "Essentially a tube that aims shotgun shells."
 	icon_state = "ishotgun"
-	item_state = "shotgun"
-	w_class = WEIGHT_CLASS_BULKY
-	force = 10
 	slot_flags = null
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
 	fire_sound = 'sound/weapons/gunshots/1shotgunpipe.ogg'
@@ -693,7 +687,6 @@
 	item_state = "stick"
 	sawn_state = SAWN_OFF
 	w_class = WEIGHT_CLASS_SMALL
-	force = 10
 	can_unsuppress = FALSE
 	slot_flags = null
 	origin_tech = "" // NO GIVAWAYS

@@ -35,8 +35,7 @@
 /area/shuttle/transport)
 "h" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/machinery/power/rad_collector,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -134,8 +133,7 @@
 /area/shuttle/transport)
 "s" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/machinery/power/rad_collector,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -317,8 +315,7 @@
 /area/shuttle/transport)
 "R" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/machinery/power/grounding_rod{
 	pixel_x = -44;

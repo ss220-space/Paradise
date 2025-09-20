@@ -1,7 +1,6 @@
 /obj/vehicle/ridden
 	name = "ridden vehicle"
 	can_buckle = TRUE
-	max_buckled_mobs = 1
 	buckle_lying = 0
 	pass_flags_self = PASSTABLE
 	COOLDOWN_DECLARE(message_cooldown)
