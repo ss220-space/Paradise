@@ -39,7 +39,6 @@
 	potency = 10
 	yield = 7
 	production = 5
-	growthstages = 3
 	weed_chance = 15
 	icon_grow = "laughpeas-grow"
 	icon_dead = "laughpeas-dead"
@@ -70,7 +69,6 @@
 	yield = 1
 	production = 10
 	weed_chance = 25
-	growthstages = 3
 	icon_grow = "worldpeas-grow"
 	icon_dead = "worldpeas-dead"
 	genes = list (/datum/plant_gene/trait/glow/blue)

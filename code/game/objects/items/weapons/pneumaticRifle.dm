@@ -7,8 +7,6 @@
 	icon = 'icons/obj/weapons/pneumaticRifle.dmi'
 	icon_state = "pneumaticRifle"
 	item_state = "pneumaticRifle"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	fire_sound = 'sound/weapons/pneumatic_rifle.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
 	var/obj/item/tank/internals/tank = null

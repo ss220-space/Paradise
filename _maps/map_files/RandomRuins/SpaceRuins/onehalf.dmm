@@ -227,7 +227,6 @@
 /area/ruin/onehalf/hallway)
 "aM" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/poddoor{
 	id_tag = "bayint1";
 	name = "mining drone bay blast door"
@@ -599,9 +598,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
 "bB" = (
@@ -614,9 +610,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/drone_bay)
 "bC" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -1116,9 +1109,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/space,
 /area/space/nearstation)
 "dg" = (
@@ -1161,9 +1151,6 @@
 "dm" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},

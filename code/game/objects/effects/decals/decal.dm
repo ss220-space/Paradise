@@ -66,7 +66,6 @@
 	icon_state = "warningline"
 	plane = FLOOR_PLANE
 	layer = TURF_DECAL_LAYER
-	anchored = TRUE
 
 // This is with the intent of optimizing mapload
 // See spawners for more details since we use the same pattern

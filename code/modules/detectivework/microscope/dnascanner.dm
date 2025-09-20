@@ -4,7 +4,6 @@
 	desc = "Высокотехнологичная машина, которая предназначена для правильного считывания образцов ДНК."
 	icon = 'icons/obj/forensics.dmi'
 	icon_state = "dnaopen"
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 	density = TRUE
 

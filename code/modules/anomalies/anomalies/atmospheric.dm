@@ -110,7 +110,6 @@
 
 	collapse_range = 5
 	collapse_gas_amount = 350
-	collapse_slimes_low = 0
 	collapse_slimes_high = 2
 
 /obj/effect/anomaly/atmospheric/tier2/get_ru_names()
@@ -136,7 +135,6 @@
 
 	collapse_range = 7
 	collapse_gas_amount = 700
-	collapse_slimes_low = 0
 	collapse_slimes_high = 3
 
 /obj/effect/anomaly/atmospheric/tier3/get_ru_names()

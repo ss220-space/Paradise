@@ -262,7 +262,6 @@
 	icon_state = null
 	damage = 40
 	hitsound = SFX_BULLET
-	damage_type = BRUTE
 	flag = BOMB
 	range = 3
 	/// How many `hardness` it takes from mineral turfs.
@@ -439,7 +438,6 @@
 /obj/item/borg/upgrade/modkit/range
 	name = "range increase"
 	desc = "Increases the range of a kinetic accelerator when installed."
-	modifier = 1
 	cost = 24 // So you can fit four plus a tracer cosmetic.
 
 
@@ -615,7 +613,6 @@
 	name = "hardness increase"
 	desc = "Increases the maximum piercing power of a kinetic accelerator when installed."
 	denied_type = /obj/item/borg/upgrade/modkit/hardness
-	cost = 30
 
 
 /obj/item/borg/upgrade/modkit/hardness/modify_projectile(obj/projectile/kinetic/K)
@@ -631,7 +628,6 @@
 	name = "resonator blast"
 	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
-	cost = 30
 	modifier = 0.25 // A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
 
 /obj/item/borg/upgrade/modkit/resonator_blasts/borg
@@ -673,7 +669,6 @@
 	desc = "Killing or assisting in killing a creature permanently increases your damage against that type of creature."
 	denied_type = /obj/item/borg/upgrade/modkit/bounty
 	modifier = 1.25
-	cost = 30
 	/// Max number of "bonus damage" stacks for one type of mob.
 	var/maximum_bounty = 25
 	/// Associative lazylist of "bonus damage" stacks.

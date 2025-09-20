@@ -2,7 +2,6 @@
 	name = "death squid"
 	desc = "A large, floating eldritch horror. Its body glows with an evil red light, and its tentacles look to have been dipped in alien blood."
 
-	speed = 1
 	speak_emote = list("телепатически произносит", "телепатически грохочет")
 	tts_seed = "Earth"
 	maxHealth = 2500 // same as megafauna
@@ -28,7 +27,6 @@
 
 	nightvision = 8
 	mob_size = MOB_SIZE_LARGE
-	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/deathsquid/ComponentInitialize()
 	AddComponent( \
@@ -49,6 +47,5 @@
 	health = 200
 	speed = 3
 	armour_penetration = 5
-	melee_damage_lower = 10
 	melee_damage_upper = 20
 	environment_smash = 2

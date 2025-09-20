@@ -50,7 +50,6 @@ GLOBAL_LIST_EMPTY(message_servers)
 	name = "Messaging Server"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
 
@@ -141,12 +140,10 @@ GLOBAL_LIST_EMPTY(message_servers)
 				return check
 
 /obj/machinery/blackbox_recorder
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "blackbox"
 	name = "Blackbox Recorder"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
 

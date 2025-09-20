@@ -351,7 +351,6 @@
 
 /obj/structure/table/holotable
 	obj_flags = NODECONSTRUCT
-	canSmoothWith = SMOOTH_GROUP_TABLES
 
 /obj/structure/table/holotable/wood
 	name = "wooden table"
@@ -369,17 +368,12 @@
 	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
-	name = "boxing gloves"
-	desc = "Because you really needed another excuse to punch your crewmates."
-	icon_state = "boxing"
-	item_state = "boxing"
 
 /obj/structure/holowindow/has_prints()
 	return FALSE
 
 /obj/structure/holowindow
 	name = "reinforced window"
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "rwindow"
 	desc = "A window."
 	density = TRUE
@@ -425,7 +419,6 @@
 	force = 3.0
 	throw_speed = 1
 	throw_range = 5
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration = 50
 	block_chance = 50
@@ -583,7 +576,6 @@
 	var/eventstarted = 0
 
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
 	power_channel = ENVIRON

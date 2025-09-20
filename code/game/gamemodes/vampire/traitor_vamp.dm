@@ -5,16 +5,12 @@
 	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_CHAPLAIN, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_PRISONER)
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 10
-	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	var/protected_species_vampire = list(SPECIES_MACNINEPERSON, SPECIES_GOLEM_BASIC)
-	var/list/datum/mind/pre_vampires = list()
-
 
 /datum/game_mode/traitor/vampire/announce()
 	to_chat(world, "<b>The current game mode is - Traitor+Vampire!</b>")
 	to_chat(world, "<b>There is a Vampire from Space Transylvania on the station along with some syndicate operatives out for their own gain! Do not let the vampire and the traitors succeed!</b>")
-
 
 /datum/game_mode/traitor/vampire/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))

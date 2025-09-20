@@ -4,14 +4,10 @@
 	icon = 'icons/turf/floors/plating.dmi'
 	intact = FALSE
 	floor_tile = null
-	baseturf = /turf/baseturf_bottom
 
 	var/unfastened = FALSE
 
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	real_layer = PLATING_LAYER
 
 /turf/simulated/floor/plating/Initialize(mapload)
@@ -154,7 +150,6 @@
 		ChangeTurf(baseturf)
 
 /turf/simulated/floor/plating/airless
-	icon_state = "plating"
 	name = "airless plating"
 	oxygen = 0
 	nitrogen = 0
@@ -173,9 +168,6 @@
 	explosion_vertical_block = 2
 	floor_tile = /obj/item/stack/rods
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -321,21 +313,18 @@
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"
-	icon_state = "engine"
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
 
 /turf/simulated/floor/engine/insulated
 	name = "insulated reinforced floor"
-	icon_state = "engine"
 	insulated = TRUE
 	explosion_vertical_block = 3
 	thermal_conductivity = 0
 
 /turf/simulated/floor/engine/insulated/vacuum
 	name = "insulated vacuum floor"
-	icon_state = "engine"
 	oxygen = 0
 	nitrogen = 0
 
@@ -358,7 +347,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/plating/snow/ex_act(severity, target)
 	return
@@ -373,7 +361,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/snow/ex_act(severity, target)
 	return

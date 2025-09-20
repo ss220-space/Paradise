@@ -1,6 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/changelings = list()
-
 /datum/game_mode/changeling
 	name = "changeling"
 	config_tag = "changeling"
@@ -12,9 +9,6 @@
 	recommended_enemies = 4
 	/// The total number of changelings allowed to be picked.
 	var/changeling_amount = 4
-	/// A list containing references to the minds of soon-to-be changelings. This is seperate to avoid duplicate entries in the `changelings` list.
-	var/list/datum/mind/pre_changelings = list()
-
 
 /datum/game_mode/changeling/Destroy(force)
 	pre_changelings.Cut()

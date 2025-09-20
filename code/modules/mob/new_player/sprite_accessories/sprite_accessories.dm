@@ -96,7 +96,6 @@
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
 	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_GREY, SPECIES_KIDAN, SPECIES_MACNINEPERSON, SPECIES_TAJARAN, SPECIES_VULPKANIN, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_VOX)
-	icon_state = "accessory_none"
 
 /* BODY MARKINGS */
 
@@ -113,7 +112,6 @@
 
 /datum/sprite_accessory/body_markings/tail
 	species_allowed = list()
-	icon_state = "accessory_none"
 	marking_location = "tail"
 	tails_allowed = null
 

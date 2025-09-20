@@ -138,8 +138,6 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	desc = "Gambling for the antisocial."
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots-off"
-	anchored = TRUE
-	density = TRUE
 	circuit = /obj/item/circuitboard/arcade/slotmachine
 	var/plays = 0
 	var/working = 0
