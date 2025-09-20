@@ -22,61 +22,6 @@
 
 	borg_source.remove_from_head(user)
 
-/mob/living/silicon
-	var/obj/item/inventory_head
-	var/list/strippable_inventory_slots = list()
-
-	var/hat_offset_y = -3
-	var/isCentered = FALSE //центрирован ли синтетик. Если нет, то шляпа будет растянута
-
-	var/list/blacklisted_hats = list(//Запрещённые шляпы на ношение для боргов с большими головами
-		/obj/item/clothing/head/helmet,
-		/obj/item/clothing/head/welding,
-		/obj/item/clothing/head/snowman,
-		/obj/item/clothing/head/bio_hood,
-		/obj/item/clothing/head/bomb_hood,
-		/obj/item/clothing/head/blob,
-		/obj/item/clothing/head/chicken,
-		/obj/item/clothing/head/corgi,
-		/obj/item/clothing/head/cueball,
-		/obj/item/clothing/head/hardhat/pumpkinhead,
-		/obj/item/clothing/head/radiation,
-		/obj/item/clothing/head/papersack,
-		/obj/item/clothing/head/human_head,
-		/obj/item/clothing/head/kitty,
-		/obj/item/clothing/head/hardhat/reindeer,
-		/obj/item/clothing/head/cardborg
-	)
-
-	var/hat_icon_file
-	var/hat_icon_state
-	var/hat_alpha
-	var/hat_color
-
-	var/canBeHatted = FALSE
-	var/canWearBlacklistedHats = FALSE
-
-/mob/living/silicon/robot/drone
-	hat_offset_y = -15
-	isCentered = TRUE
-	canBeHatted = TRUE
-	canWearBlacklistedHats = TRUE
-
-/mob/living/silicon/robot/cogscarab
-	hat_offset_y = -15
-	isCentered = TRUE
-	canBeHatted = TRUE
-
-/mob/living/silicon/ai
-	hat_offset_y = 3
-	isCentered = TRUE
-	canBeHatted = TRUE
-
-	var/max_locations = 10
-	var/stored_locations[0]
-	var/message_cooldown = 0
-	var/current_camera = 0
-
 /mob/living/silicon/robot/proc/robot_module_hat_offset(module)
 	switch(module)
 		//хуманоидные броботы с шляпами

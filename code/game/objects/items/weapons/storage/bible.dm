@@ -8,7 +8,6 @@
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF
 	drop_sound = 'sound/items/handling/drop/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/book_pickup.ogg'
@@ -65,9 +64,6 @@
 
 
 /obj/item/storage/bible/booze
-	name = "bible"
-	desc = "Многократно прислоняйте к голове."
-	icon_state ="bible"
 
 /obj/item/storage/bible/booze/get_ru_names()
 	return list(

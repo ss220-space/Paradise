@@ -10,7 +10,6 @@
 	consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	visible_transfer_rate = TRUE
-	volume = 50
 	resistance_flags = NONE
 	antable = FALSE
 	var/chugging = FALSE
@@ -175,15 +174,12 @@
 	name = "pewter cup"
 	desc = "Everyone gets a trophy."
 	icon_state = "pewter_cup"
-	w_class = WEIGHT_CLASS_TINY
 	force = 1
 	throwforce = 1
-	amount_per_transfer_from_this = 5
 	materials = list(MAT_METAL=100)
 	possible_transfer_amounts = null
 	volume = 5
 	flags = CONDUCT
-	container_type = OPENCONTAINER
 	resistance_flags = FIRE_PROOF
 
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup
@@ -351,7 +347,6 @@
 	volume = 60
 
 /obj/item/reagent_containers/food/drinks/flask/barflask
-	name = "flask"
 	desc = "For those who can't be bothered to hang out at the bar to drink."
 	icon_state = "barflask"
 

@@ -92,7 +92,6 @@
 	id = "gin"
 	description = "Это джин. Крепкий алкогольный напиток, приготовленный с использованием самых разных пряностей."
 	color = "#664300" // rgb: 102, 67, 0
-	dizzy_adj = 6 SECONDS
 	alcohol_perc = 0.5
 	drink_icon = "ginvodkaglass"
 	drink_name = "стакан джина"
@@ -129,7 +128,6 @@
 	description = "Либо чья-то неудачная попытка приготовить коктейль, либо попытка приготовить алкоголь. В любом случае, вы действительно хотите это выпить?"
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 14 SECONDS
-	alcohol_perc = 1
 	drink_icon = "glass_brown2"
 	drink_name = "стакан самогона"
 	drink_desc = "Теперь вы действительно на дне... Ваша печень собрала свои вещи и уехала прошлой ночью."
@@ -250,7 +248,6 @@
 	description = "Невероятно крепкий и мощный сорт сидра."
 	color = "#CF3811"
 	dizzy_adj = 40 SECONDS
-	alcohol_perc = 1 //because that's a thing it's supposed to do, I guess
 	drink_icon = "suicider"
 	drink_name = "стакан суисидра"
 	drink_desc = "Вы действительно достигли дна... Ваша печень собрала вещи и ушла вчера вечером."
@@ -271,7 +268,6 @@
 	name = "Тринадцатый Локо"
 	id = "thirteenloko"
 	description = "Крепкая смесь кофеина и алкоголя."
-	reagent_state = LIQUID
 	color = "#102000" // rgb: 16, 32, 0
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	alcohol_perc = 0.3
@@ -296,7 +292,6 @@
 	name = "Миво"
 	id = "bilk"
 	description = "Это пиво, смешанное с молоком. Ух..."
-	reagent_state = LIQUID
 	color = "#895C4C" // rgb: 137, 92, 76
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	alcohol_perc = 0.2
@@ -309,7 +304,6 @@
 	name = "Атомная Бомба"
 	id = "atomicbomb"
 	description = "Ядерное оружие никогда не было таким вкусным."
-	reagent_state = LIQUID
 	color = "#666300" // rgb: 102, 99, 0
 	alcohol_perc = 0.2
 	drink_icon = "atomicbombglass"
@@ -321,7 +315,6 @@
 	name = "Чай со льдом Три-Майл-Айленд"
 	id = "threemileisland"
 	description = "Создан для женщин, достаточно крепок для мужчин."
-	reagent_state = LIQUID
 	color = "#666340" // rgb: 102, 99, 64
 	alcohol_perc = 0.2
 	drink_icon = "threemileislandglass"
@@ -333,7 +326,6 @@
 	name = "Гольдшлягер"
 	id = "goldschlager"
 	description = "Шнапс с корицей 100%-ой пробы пробы, созданный для алкоголиков-подростков на весенних каникулах."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "ginvodkaglass"
@@ -345,7 +337,6 @@
 	name = "Патрон"
 	id = "patron"
 	description = "Текила с серебром в составе, которую пьют женщины-алкоголики в клубах."
-	reagent_state = LIQUID
 	color = "#585840" // rgb: 88, 88, 64
 	alcohol_perc = 0.4
 	drink_icon = "patronglass"
@@ -357,7 +348,6 @@
 	name = "Джин и тоник"
 	id = "gintonic"
 	description = "Классический мягкий коктейль, нестареющая классика."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "gintonicglass"
@@ -369,7 +359,6 @@
 	name = "Куба Либре"
 	id = "cubalibre"
 	description = "Ром, смешанный с колой. Viva la Revolution!"
-	reagent_state = LIQUID
 	color = "#3E1B00" // rgb: 62, 27, 0
 	alcohol_perc = 0.2
 	drink_icon = "cubalibreglass"
@@ -381,7 +370,6 @@
 	name = "Виски-кола"
 	id = "whiskeycola"
 	description = "Виски, смешанный с колой. Удивительно освежающий."
-	reagent_state = LIQUID
 	color = "#3E1B00" // rgb: 62, 27, 0
 	alcohol_perc = 0.3
 	drink_icon = "whiskeycolaglass"
@@ -393,7 +381,6 @@
 	name = "Классический мартини"
 	id = "martini"
 	description = "Вермут с джином. Не совсем то, что пил 007, но всё равно вкусно."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "martiniglass"
@@ -405,7 +392,6 @@
 	name = "Водка мартини"
 	id = "vodkamartini"
 	description = "Водка с джином. Не совсем то, что пил 007, но всё равно вкусно."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "martiniglass"
@@ -417,7 +403,6 @@
 	name = "Белый Русский"
 	id = "whiterussian"
 	description = "Но это только твоё мнение, чувак..."
-	reagent_state = LIQUID
 	color = "#A68340" // rgb: 166, 131, 64
 	alcohol_perc = 0.3
 	drink_icon = "whiterussianglass"
@@ -429,7 +414,6 @@
 	name = "Отвёртка"
 	id = "screwdrivercocktail"
 	description = "Водка, смешанная с апельсиновым соком. Достаточно вкусно."
-	reagent_state = LIQUID
 	color = "#A68310" // rgb: 166, 131, 16
 	alcohol_perc = 0.3
 	drink_icon = "screwdriverglass"
@@ -441,7 +425,6 @@
 	name = "Козявка"
 	id = "booger"
 	description = "Ууу..."
-	reagent_state = LIQUID
 	color = "#A68310" // rgb: 166, 131, 16
 	alcohol_perc = 0.2
 	drink_icon = "booger"
@@ -453,7 +436,6 @@
 	name = "Кровавая Мэри"
 	id = "bloodymary"
 	description = "Странная, но приятная смесь из водки, томатов и сока лайма. А томатов ли?"
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "bloodymaryglass"
@@ -471,7 +453,6 @@
 	name = "Пан-Галактический Грызлодёр"
 	id = "gargleblaster"
 	description = "Вау, эта штука выглядит нестабильно!"
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.7 //ouch
 	drink_icon = "gargleblasterglass"
@@ -483,7 +464,6 @@
 	name = "Горящий Мо"
 	id = "flamingmoe"
 	description = "Это, по-видимому, смесь различных алкогольных напитков, смешанных с рецептурным лекарством."
-	reagent_state = LIQUID
 	color = "#58447f" //rgb: 88, 66, 127
 	alcohol_perc = 0.5
 	drink_icon = "flamingmoeglass"
@@ -495,7 +475,6 @@
 	name = "Храбрый Бык"
 	id = "bravebull"
 	description = "Текила с кофейным ликёром. Хех."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "bravebullglass"
@@ -507,7 +486,6 @@
 	name = "Текила Санрайз"
 	id = "tequilasunrise"
 	description = "Текила и апельсиновый сок. Как \"Отвёртка\", только по-мексикански."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "tequilasunriseglass"
@@ -519,7 +497,6 @@
 	name = "Особый из Токсикологии"
 	id = "toxinsspecial"
 	description = "Эта штука горит! ВЫЗОВИТЕ ЧЁРТОВ ШАТТЛ!"
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "toxinsspecialglass"
@@ -536,7 +513,6 @@
 	name = "Удар Бипски"
 	id = "beepskysmash"
 	description = "Перестаньте пить это и приготовьтесь к ПРАВОСУДИЮ."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "beepskysmashglass"
@@ -552,7 +528,6 @@
 	name = "Ирландские Сливки"
 	description = "Крем с добавлением виски - чего ещё ожидать от ирландцев?"
 	id = "irishcream"
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "irishcreamglass"
@@ -564,7 +539,6 @@
 	name = "Мужественный Дворф"
 	id = "manlydorf"
 	description = "Крепкая смесь из эля и пива для настоящих трудяг. За Карла!"
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "manlydorfglass"
@@ -576,7 +550,6 @@
 	name = "Чай со льдом Лонг Айленд"
 	id = "longislandicedtea"
 	description = "Содержимое ликёрного шкафа, смешанное в восхитительный микс. Предназначен только для женщин-алкоголичек среднего возраста."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "longislandicedteaglass"
@@ -588,7 +561,6 @@
 	name = "Самогон"
 	id = "moonshine"
 	description = "Вы действительно достигли дна... ваша печень собрала вещи и ушла вчера вечером."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.8 //yeeehaw
 	drink_icon = "glass_clear"
@@ -600,7 +572,6 @@
 	name = "B-52"
 	id = "b52"
 	description = "Кофе, ирландские сливки и коньяк. Взрывная смесь."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "b52glass"
@@ -612,7 +583,6 @@
 	name = "Кофе по Ирландски"
 	id = "irishcoffee"
 	description = "Кофе и алкоголь. Веселее, чем пить \"Мимозу\" по утрам."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "irishcoffeeglass"
@@ -624,7 +594,6 @@
 	name = "Маргарита"
 	id = "margarita"
 	description = "Текила с ликёром и лаймом. Так по-мексикански."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "margaritaglass"
@@ -636,7 +605,6 @@
 	name = "Чёрный Русский"
 	id = "blackrussian"
 	description = "Для тех, кто не переносит лактозу. По-прежнему стильный, как и Белый Русский."
-	reagent_state = LIQUID
 	color = "#360000" // rgb: 54, 0, 0
 	alcohol_perc = 0.4
 	drink_icon = "blackrussianglass"
@@ -648,7 +616,6 @@
 	name = "Манхэттен"
 	id = "manhattan"
 	description = "Любимый напиток детектива под прикрытием. Он никогда не переносил джин..."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "manhattanglass"
@@ -660,7 +627,6 @@
 	name = "Манхэттенский проект"
 	id = "manhattan_proj"
 	description = "Напиток для учёных, размышляющих о том, как взорвать станцию."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "proj_manhattanglass"
@@ -672,7 +638,6 @@
 	name = "Виски-сода"
 	id = "whiskeysoda"
 	description = "Ультимативный способ освежиться."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "whiskeysodaglass2"
@@ -684,7 +649,6 @@
 	name = "Анти-фриз"
 	id = "antifreeze"
 	description = "Ультимативный способ освежиться."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "antifreeze"
@@ -701,7 +665,6 @@
 	name = "Босяк"
 	id = "barefoot"
 	description = "Босоногость и беременность."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "b&p"
@@ -713,7 +676,6 @@
 	name = "Белоснежка"
 	id = "snowwhite"
 	description = "Холодный напиток. Реально холодный."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "snowwhite"
@@ -725,7 +687,6 @@
 	name = "Кровь Демона"
 	id = "demonsblood"
 	description = "ААААА!!!"
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 20 SECONDS
 	alcohol_perc = 0.4
@@ -738,7 +699,6 @@
 	name = "Водка и тоник"
 	id = "vodkatonic"
 	description = "Когда \"Джин и тоник\" не достаточно славянский."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 8 SECONDS
 	alcohol_perc = 0.3
@@ -751,7 +711,6 @@
 	name = "Джин-физ"
 	id = "ginfizz"
 	description = "Освежающе лимонный, восхитительно сухой."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 8 SECONDS
 	alcohol_perc = 0.4
@@ -764,7 +723,6 @@
 	name = "Бахама Мама"
 	id = "bahama_mama"
 	description = "Тропический коктейль."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "bahama_mama"
@@ -776,7 +734,6 @@
 	name = "Сингуло"
 	id = "singulo"
 	description = "Блю-спейс коктейль, вау!"
-	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	dizzy_adj = 30 SECONDS
 	alcohol_perc = 0.7
@@ -789,7 +746,6 @@
 	name = "Сбитень"
 	id = "sbiten"
 	description = "Пряная водка! Горячо!"
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "sbitenglass"
@@ -806,7 +762,6 @@
 	name = "Поцелуй Дьявола"
 	id = "devilskiss"
 	description = "Время страшилок!"
-	reagent_state = LIQUID
 	color = "#A68310" // rgb: 166, 131, 16
 	alcohol_perc = 0.3
 	drink_icon = "devilskiss"
@@ -818,7 +773,6 @@
 	name = "Красная медовуха"
 	id = "red_mead"
 	description = "Напиток Настоящих Викингов! Даже несмотря на странный красный цвет."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "red_meadglass"
@@ -830,7 +784,6 @@
 	name = "Медовуха"
 	id = "mead"
 	description = "Напиток Настоящих Викингов!"
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	alcohol_perc = 0.2
@@ -843,7 +796,6 @@
 	name = "Пиво со льдом"
 	id = "iced_beer"
 	description = "Пиво, настолько ледяное, что воздух вокруг него замерзает."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "iced_beerglass"
@@ -860,7 +812,6 @@
 	name = "Грог"
 	id = "grog"
 	description = "Разведённый водом ром. Просто, но со вкусом."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "grogglass"
@@ -872,7 +823,6 @@
 	name = "Алоэ"
 	id = "aloe"
 	description = "Хорошо, очень хорошо."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "aloe"
@@ -884,7 +834,6 @@
 	name = "Андалузия"
 	id = "andalusia"
 	description = "Хороший напиток со странным названием."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "andalusia"
@@ -896,7 +845,6 @@
 	name = "Коктейль союзников"
 	id = "alliescocktail"
 	description = "Напиток, приготовленный из ваших союзников."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "alliescocktail"
@@ -908,7 +856,6 @@
 	name = "Кислотный Плевок"
 	id = "acidspit"
 	description = "Сделан из живых пришельцев."
-	reagent_state = LIQUID
 	color = "#365000" // rgb: 54, 80, 0
 	alcohol_perc = 0.3
 	drink_icon = "acidspitglass"
@@ -925,7 +872,6 @@
 	name = "Амасек"
 	id = "amasec"
 	description = "Император одобряет."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "amasecglass"
@@ -937,7 +883,6 @@
 	name = "Нейротоксин"
 	id = "neurotoxin"
 	description = "Сильный нейротоксин, который вводит выпившего в состояние, подобное смерти."
-	reagent_state = LIQUID
 	color = "#2E2E61" // rgb: 46, 46, 97
 	dizzy_adj = 12 SECONDS
 	alcohol_perc = 0.7
@@ -961,7 +906,6 @@
 	name = "Радость Хиппи"
 	id = "hippiesdelight"
 	description = "Ты просто не понимаешь, чуваааак."
-	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 	drink_icon = "hippiesdelightglass"
@@ -998,7 +942,6 @@
 	name = "Жало Генокрада"
 	id = "changelingsting"
 	description = "Генокрадов не существует, это ведь даже дети знают."
-	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.7
 	dizzy_adj = 10 SECONDS
@@ -1011,7 +954,6 @@
 	name = "Ирландская Автомобильная Бомба"
 	id = "irishcarbomb"
 	description = "Ммм, на вкус как шоколадный торт..."
-	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.3
 	dizzy_adj = 10 SECONDS
@@ -1024,7 +966,6 @@
 	name = "Бомба Синдиката"
 	id = "syndicatebomb"
 	description = "Пить аккуратно."
-	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.2
 	drink_icon = "syndicatebomb"
@@ -1036,7 +977,6 @@
 	name = "Сюрприз Эрики"
 	id = "erikasurprise"
 	description = "Сюрприз в том, что он зелёный!"
-	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.2
 	drink_icon = "erikasurprise"
@@ -1156,9 +1096,7 @@
 	name = "Дыхание Дракона"
 	id = "dragonsbreath"
 	description = "Производство этого напитка вероятно, нарушает Женевскую конвенцию."
-	reagent_state = LIQUID
 	color = "#DC0000"
-	alcohol_perc = 1
 	can_synth = FALSE
 	taste_description = span_userdanger("ЖИДКОЙ БЛЯДЬ СМЕРТИ СУКА ПИЗДЕЦ НАХУЙ КАКОГО ХУЯ")
 
@@ -1202,7 +1140,6 @@
 	name = "Синтанол"
 	id = "synthanol"
 	description = "Текучая жидкость с токопроводящими свойствами. Её воздействие на синтетику аналогично воздействию спирта на органику."
-	reagent_state = LIQUID
 	color = "#1BB1FF"
 	process_flags = ORGANIC | SYNTHETIC
 	alcohol_perc = 0.5
@@ -1230,7 +1167,6 @@
 	name = "Слёзы Робота"
 	id = "robottears"
 	description = "Маслянистая субстанция, которую КПБ технически могут считать \"напитком\"."
-	reagent_state = LIQUID
 	color = "#363636"
 	alcohol_perc = 0.25
 	drink_icon = "robottearsglass"
@@ -1242,7 +1178,6 @@
 	name = "Тринарный"
 	id = "trinary"
 	description = "Фруктовый напиток, предназначенный только для синтетиков, как бы это ни звучало."
-	reagent_state = LIQUID
 	color = "#adb21f"
 	alcohol_perc = 0.2
 	drink_icon = "trinaryglass"
@@ -1254,7 +1189,6 @@
 	name = "Серво"
 	id = "servo"
 	description = "Напиток, содержащий некоторые органические ингредиенты, но предназначенный только для синтетиков."
-	reagent_state = LIQUID
 	color = "#5b3210"
 	alcohol_perc = 0.25
 	drink_icon = "servoglass"
@@ -1266,7 +1200,6 @@
 	name = "Аплинк"
 	id = "uplink"
 	description = "Сильнодействующая смесь алкоголя и синтанола. Действует только на синтетиков."
-	reagent_state = LIQUID
 	color = "#e7ae04"
 	alcohol_perc = 0.15
 	drink_icon = "uplinkglass"
@@ -1278,7 +1211,6 @@
 	name = "Синт и Сода"
 	id = "synthnsoda"
 	description = "Классический напиток, адаптированный под вкусы синтетиков."
-	reagent_state = LIQUID
 	color = "#7204e7"
 	alcohol_perc = 0.25
 	drink_icon = "synthnsodaglass"
@@ -1290,7 +1222,6 @@
 	name = "Синтигон"
 	id = "synthignon"
 	description = "Кто-то смешал вино и алкоголь для роботов. Надеюсь, он горд собой."
-	reagent_state = LIQUID
 	color = "#d004e7"
 	alcohol_perc = 0.25
 	drink_icon = "synthignonglass"
@@ -1504,7 +1435,6 @@
 	description = "Пьяница-охотник прибыл из далёкого космоса, и, похоже, он нашёл свою жертву."
 	color = "#200b0b"
 	alcohol_perc = 0.4
-	dizzy_adj = 6 SECONDS
 	drink_icon = "jagermeisterglass"
 	drink_name = "стакан ягермейстера"
 	drink_desc = "Пьяница-охотник прибыл из далёкого космоса, и, похоже, он нашёл свою жертву."
@@ -2410,7 +2340,6 @@
 	id = "restart"
 	description = "Иногда нужно начать всё сначала."
 	color = "#0026fc"
-	reagent_state = LIQUID
 	process_flags = SYNTHETIC
 	alcohol_perc = 1.5
 	drink_icon = "restart"

@@ -18,7 +18,6 @@
 	item_state = "facehugger"
 	w_class = WEIGHT_CLASS_TINY //note: can be picked up by aliens unlike most other items of w_class below 4
 	throw_range = 5
-	throwforce = 0
 	tint = 3
 	clothing_flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
@@ -391,7 +390,6 @@
 	name = "Lamarr"
 	desc = "В худшем случае она попытается... спариться с вашей головой." //hope we don't get sued over a harmless reference, rite?
 	sterile = 1
-	gender = FEMALE
 	holder_flags = ALIEN_HOLDER | HUMAN_HOLDER
 
 /obj/item/clothing/mask/facehugger/lamarr/get_ru_names()

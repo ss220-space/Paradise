@@ -1,5 +1,4 @@
 /turf/simulated/wall/shuttle
-	name = "wall"
 	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 	icon_state = "shuttle-0"
@@ -148,13 +147,8 @@
 //ПОЛЫ//
 
 /turf/simulated/floor/shuttle
-	name = "floor"
 	icon = 'icons/turf/shuttle/floors.dmi'
 	icon_state = "floor"
-	footstep = FOOTSTEP_FLOOR
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 
 /turf/simulated/floor/shuttle/attackby(obj/item/I, mob/user, params)
@@ -179,9 +173,6 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "plating"
 	footstep = FOOTSTEP_PLATING
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/shuttle/plating/vox	//Vox skipjack plating
 	oxygen = 0
@@ -208,10 +199,6 @@
 /turf/simulated/floor/shuttle/objective_check		// Added this floor tile so that I have a seperate turf to check in the shuttle -- Polymorph
 	name = "brig floor"       						// Also added it into the 2x3 brig area of the shuttle.
 	icon_state = "floor4"
-	footstep = FOOTSTEP_FLOOR
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/shuttle/objective_check/vox	//Vox skipjack floors
 	name = "skipjack floor"

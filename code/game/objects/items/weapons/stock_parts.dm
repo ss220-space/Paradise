@@ -11,14 +11,12 @@
 	use_to_pickup = 1
 	allow_quick_gather = 1
 	allow_quick_empty = 1
-	pickup_all_on_tile = TRUE
 	display_contents_with_number = 1
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
 	var/works_from_distance = 0
 	var/primary_sound = 'sound/items/rped.ogg'
 	var/alt_sound = null
-	toolspeed = 1
 	usesound = 'sound/items/rped.ogg'
 
 
@@ -42,7 +40,6 @@
 	item_state = "BS_RPED"
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 400
-	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 800
 	works_from_distance = 1
 	primary_sound = 'sound/items/pshoom.ogg'
@@ -101,7 +98,6 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/rating = 1
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
@@ -160,7 +156,6 @@
 
 /obj/item/stock_parts/scanning_module/adv
 	name = "advanced scanning module"
-	desc = "A compact, high resolution scanning module used in the construction of certain devices."
 	icon_state = "adv_scan_module"
 	origin_tech = "magnets=3"
 	rating = 2
@@ -168,7 +163,6 @@
 
 /obj/item/stock_parts/manipulator/nano
 	name = "nano-manipulator"
-	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "nano_mani"
 	origin_tech = "materials=3;programming=2"
 	rating = 2
@@ -176,7 +170,6 @@
 
 /obj/item/stock_parts/micro_laser/high
 	name = "high-power micro-laser"
-	desc = "A tiny laser used in certain devices."
 	icon_state = "high_micro_laser"
 	origin_tech = "magnets=3"
 	rating = 2
@@ -184,7 +177,6 @@
 
 /obj/item/stock_parts/matter_bin/adv
 	name = "advanced matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "advanced_matter_bin"
 	origin_tech = "materials=3"
 	rating = 2
@@ -210,7 +202,6 @@
 
 /obj/item/stock_parts/manipulator/pico
 	name = "pico-manipulator"
-	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "pico_mani"
 	origin_tech = "materials=4;programming=4;engineering=4"
 	rating = 3
@@ -219,14 +210,12 @@
 /obj/item/stock_parts/micro_laser/ultra
 	name = "ultra-high-power micro-laser"
 	icon_state = "ultra_high_micro_laser"
-	desc = "A tiny laser used in certain devices."
 	origin_tech = "magnets=4;engineering=4"
 	rating = 3
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
 /obj/item/stock_parts/matter_bin/super
 	name = "super matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "super_matter_bin"
 	origin_tech = "materials=4;engineering=4"
 	rating = 3
@@ -252,7 +241,6 @@
 
 /obj/item/stock_parts/manipulator/femto
 	name = "femto-manipulator"
-	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "femto_mani"
 	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 4
@@ -261,14 +249,12 @@
 /obj/item/stock_parts/micro_laser/quadultra
 	name = "quad-ultra micro-laser"
 	icon_state = "quadultra_micro_laser"
-	desc = "A tiny laser used in certain devices."
 	origin_tech = "magnets=5;materials=4;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
 /obj/item/stock_parts/matter_bin/bluespace
 	name = "bluespace matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "bluespace_matter_bin"
 	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 4
@@ -294,7 +280,6 @@
 
 /obj/item/stock_parts/manipulator/purple
 	name = "experimental manipulator"
-	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "ps_mani"
 	origin_tech = "materials=6;programming=5;engineering=5"
 	rating = 5
@@ -303,14 +288,12 @@
 /obj/item/stock_parts/micro_laser/purple
 	name = "experimental micro-laser"
 	icon_state = "ps_micro_laser"
-	desc = "A tiny laser used in certain devices."
 	origin_tech = "magnets=6;materials=5;engineering=5"
 	rating = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
 /obj/item/stock_parts/matter_bin/purple
 	name = "experimental matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "ps_matter_bin"
 	origin_tech = "materials=6;programming=5;engineering=5"
 	rating = 5

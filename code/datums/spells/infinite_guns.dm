@@ -4,7 +4,6 @@
 	school = "conjuration"
 	base_cooldown = 60 SECONDS
 	cooldown_min = 1 SECONDS //Gun wizard
-	clothes_req = TRUE
 
 	action_icon_state = "bolt_action"
 

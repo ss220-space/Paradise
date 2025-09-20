@@ -8,10 +8,8 @@
 /obj/machinery/kitchen_machine
 	name = "Base Kitchen Machine"
 	desc = "If you are seeing this, a coder/mapper messed up. Please report it."
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	container_type = OPENCONTAINER

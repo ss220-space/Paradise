@@ -31,6 +31,6 @@
 	name = "Long antennae"
 	icon_state = "long"
 
-/datum/sprite_accessory/hair/wryn/long
+/datum/sprite_accessory/hair/wryn/low_long
 	name = "Low Long antennae"
 	icon_state = "low_long"

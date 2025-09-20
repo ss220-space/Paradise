@@ -6,7 +6,6 @@
 	item_state = "classic_baton"
 	slot_flags = ITEM_SLOT_BELT
 	force = 12 //9 hit crit
-	w_class = WEIGHT_CLASS_NORMAL
 	/// Whether this baton is active or not.
 	var/active = TRUE
 	/// Default wait time until can stun again.
@@ -284,7 +283,6 @@
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
 	icon_state = "telebaton"
 	item_state = null
-	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	needs_permit = FALSE
 	active = FALSE

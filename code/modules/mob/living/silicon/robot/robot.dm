@@ -9,8 +9,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
 	bubble_icon = "robot"
 	universal_understand = 1
 	deathgasp_on_death = TRUE
@@ -122,6 +120,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
 
 	var/datum/robot_skin/selected_skin
+
+	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
 
 /mob/living/silicon/robot/get_cell()
 	return cell

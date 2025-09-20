@@ -6,10 +6,8 @@
 	name = "proto-kinetic crusher"
 	desc = "Ранняя версия Кинетического Акселератора, по сути являющаяся кучей шахтёрских инструментов прибитых друг к другу в форму топора. Эффективен, но опасен в использовании, особенно для неопытных шахтеров."
 	gender = MALE
-	force = 0 //You can't hit stuff unless wielded
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
-	force_unwielded = 0
 	force_wielded = 20
 	throwforce = 5
 	throw_speed = 4
@@ -206,7 +204,6 @@
 	icon_state = "pulse1"
 	nodamage = TRUE
 	damage = 0 //We're just here to mark people. This is still a melee weapon.
-	damage_type = BRUTE
 	flag = "bomb"
 	range = 6
 	log_override = TRUE
@@ -312,7 +309,6 @@
 /obj/item/crusher_trophy/goliath_tentacle
 	name = "goliath tentacle"
 	desc = "Отрубленное щупальце голиафа. Может быть установлено на крушитель в качестве трофея."
-	gender = NEUTER
 	icon_state = "goliath_tentacle"
 	denied_type = /obj/item/crusher_trophy/goliath_tentacle
 	bonus_value = 2
@@ -343,7 +339,6 @@
 /obj/item/crusher_trophy/watcher_wing
 	name = "watcher wing"
 	desc = "Оторванное крыло наблюдателя. Может быть установлено на крушитель в качестве трофея."
-	gender = NEUTER
 	icon_state = "watcher_wing"
 	denied_type = /obj/item/crusher_trophy/watcher_wing
 	bonus_value = 5
@@ -403,7 +398,6 @@
 /obj/item/crusher_trophy/watcher_wing/ice_wing
 	name = "icewing watcher wing"
 	desc = "Хрупкое, замороженное крыло ледяного наблюдателя. Может быть установлено на крушитель в качестве трофея."
-	gender = NEUTER
 	icon_state = "ice_wing"
 	bonus_value = 8
 
@@ -453,7 +447,6 @@
 /obj/item/crusher_trophy/eyed_tentacle
 	name = "Massive eyed tentacle"
 	desc = "Большое и глазастое щупальце древнего голиафа. Может быть установлено на крушитель в качестве трофея."
-	gender = NEUTER
 	icon_state = "ancient_goliath_tentacle"
 	denied_type = /obj/item/crusher_trophy/eyed_tentacle
 	bonus_value = 1
@@ -610,7 +603,6 @@
 	icon_state = "demon_claws"
 	gender = PLURAL
 	denied_type = /obj/item/crusher_trophy/demon_claws
-	bonus_value = 10
 	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
 /obj/item/crusher_trophy/demon_claws/get_ru_names()
@@ -720,7 +712,6 @@
 /obj/item/crusher_trophy/adaptive_intelligence_core
 	name = "adaptive intelligence core"
 	desc = "Кажется, это одно из ядер огромного робота. Может быть установлено на крушитель в качестве трофея."
-	gender = NEUTER
 	icon_state = "adaptive_core"
 	denied_type = /obj/item/crusher_trophy/adaptive_intelligence_core
 	bonus_value = 2
@@ -780,7 +771,6 @@
 	item_state = "magmite_crusher0"
 	name = "magmite proto-kinetic crusher"
 	desc = "Ранняя версия Кинетического Акселератора, по сути высокотехнологичный топор улучшенный магмитом. Улучшенный дестабилизатор пробивает породу, как плазменный резак."
-	gender = MALE
 	destab = /obj/projectile/destabilizer/mega
 	upgraded = TRUE
 

@@ -22,12 +22,8 @@
 	desc = "Позволяет вам использовать Корпоративное Дзюдо. \
 			По статистике собранной независимым исследователем, \
 			владеющие этим поясом на 40% чаще покупают продукцию Мистера Чанга."
-	icon = 'icons/obj/clothing/belts.dmi'
-	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	icon_state = "judobelt"
 	item_state = "judo"
-	gender = MALE
 	w_class = WEIGHT_CLASS_BULKY
 	storage_slots = 3
 	max_combined_w_class = 7

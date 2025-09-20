@@ -6,7 +6,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
 	force = 10
-	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/advanced, /obj/item/ammo_casing/energy/laser/pulse , /obj/item/ammo_casing/energy/laser)
 	cell_type = /obj/item/stock_parts/cell/pulse
@@ -36,7 +35,6 @@
 	item_state = "pulse"
 	cell_type = /obj/item/stock_parts/cell/pulse/carbine
 	accuracy = GUN_ACCURACY_RIFLE_LASER
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4)
@@ -74,11 +72,8 @@
 	name = "M1911-P"
 	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun, it's the size of the hole it puts through people."
 	icon_state = "m1911"
-	item_state = "gun"
-	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/infinite
 	accuracy = GUN_ACCURACY_PISTOL
-	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/pulse/turret
 	name = "pulse turret gun"
@@ -90,6 +85,5 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse)
 	weapon_weight = WEAPON_MEDIUM
 	trigger_guard = TRIGGER_GUARD_NONE
-	ammo_x_offset = 2
 	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_NONE

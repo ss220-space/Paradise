@@ -57,7 +57,6 @@
 	round_time = 60 * 50
 
 /datum/news_announcement/random_junk/found_ssd
-	channel_name = NEWS_CHANNEL_NYX
 	author = "Доктор Эрик Ханфилд"
 
 	message = {"Несколько человек были обнаружены без сознания за своими терминалами. Предполагается,
@@ -66,7 +65,6 @@
 	round_time = 60 * 90
 
 /datum/news_announcement/lotus_tree/explosions
-	channel_name = NEWS_CHANNEL_NYX
 	author = "Репортер Леланд Г. Ховардс"
 
 	message = {"Недавно запущенный гражданский транспорт \"Лотосовое Дерево\" сегодня пережил два мощных взрыва
@@ -77,7 +75,6 @@
 	round_time = 60 * 30
 
 /datum/news_announcement/food_riots/breaking_news
-	channel_name = NEWS_CHANNEL_NYX
 	author = "Репортер Ро'Кии Ар-Ракис"
 
 	message = {"Экстренные новости: В колонии на астероиде \"Убежище\" в системе \"Тенебру Люпус\" вспыхнули продовольственные бунты.
@@ -87,7 +84,6 @@
 	round_time = 60 * 10
 
 /datum/news_announcement/food_riots/more
-	channel_name = NEWS_CHANNEL_NYX
 	author = "Репортер Ро'Кии Ар-Ракис"
 
 	message = {"Подробнее о продовольственных бунтах в колонии \"Убежище\": Совет Убежища осудил уход Нанотрейзен

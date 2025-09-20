@@ -3,7 +3,6 @@
 	desc = "Why it no open!!!"
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "n_beam"
-	density = FALSE
 	anchored = TRUE
 	var/id = 1.0
 

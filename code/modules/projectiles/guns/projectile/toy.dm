@@ -3,18 +3,15 @@
 	desc = "A prototype three-round burst toy submachine gun. Ages 8 and up."
 	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "saber"
-	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/toy/smg
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	force = 0
 	throwforce = 0
-	burst_size = 3
 	clumsy_check = FALSE
 	needs_permit = FALSE
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 
 /obj/item/gun/projectile/automatic/toy/pistol
@@ -75,7 +72,6 @@
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	pb_knockback = 0
 	accuracy = GUN_ACCURACY_SHOTGUN
-	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/shotgun/toy/process_chamber()
 	..()
@@ -107,7 +103,6 @@
 
 /obj/item/gun/projectile/automatic/c20r/toy/riot
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45/riot
-	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/automatic/l6_saw/toy
 	name = "donksoft LMG"
@@ -127,14 +122,10 @@
 /obj/item/gun/projectile/shotgun/toy/tommygun
 	name = "tommy gun"
 	desc = "Looks almost like the real thing! Great for practicing Drive-bys. Ages 8 and up."
-	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "tommygun"
-	item_state = "shotgun"
-	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
 	w_class = WEIGHT_CLASS_SMALL
 	accuracy = GUN_ACCURACY_RIFLE
-	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/projectile/automatic/sniper_rifle/toy
 	name = "donksoft sniper rifle"
@@ -147,5 +138,4 @@
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_SNIPER
-	attachable_allowed = GUN_MODULE_CLASS_NONE
 

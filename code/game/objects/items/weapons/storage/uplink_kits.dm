@@ -14,7 +14,6 @@
 
 /obj/item/storage/box/syndie_kit
 	name = "Box"
-	desc = "Это обычная коробка."
 	gender = MALE
 	icon_state = "box_of_doom"
 
@@ -426,7 +425,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/nuke
 	name = "box"  // Stealth, because you will spawn with a box.
-	desc = "Это обычная коробка."
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/nuke/get_ru_names()
@@ -446,7 +444,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/supermatter
 	name = "box"  // Stealth, because you will spawn with a box.
-	desc = "Это обычная коробка."
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/supermatter/get_ru_names()

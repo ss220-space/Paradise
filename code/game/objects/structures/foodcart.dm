@@ -3,7 +3,6 @@
 	desc = "A cart for transporting food and drinks."
 	icon = 'icons/obj/foodcart.dmi'
 	icon_state = "cart"
-	anchored = FALSE
 	density = TRUE
 	pull_push_slowdown = 1
 	//Food slots
