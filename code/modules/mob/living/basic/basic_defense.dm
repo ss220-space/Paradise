@@ -104,13 +104,13 @@
 /mob/living/basic/attack_basic_mob(mob/living/basic/user)
 	. = ..()
 	if(.)
-		// var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
-		return attack_threshold_check(user.melee_damage_lower, user.melee_damage_type)
+		// var/damage = rand(user.melee_damage, user.melee_damage_upper)
+		return attack_threshold_check(user.melee_damage, user.melee_damage_type)
 
 /mob/living/basic/attack_animal(mob/living/simple_animal/user)
 	. = ..()
 	if(.)
-		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
+		var/damage = rand(user.melee_damage, user.melee_damage_upper)
 		return attack_threshold_check(damage, user.melee_damage_type)
 
 /mob/living/basic/attack_slime(mob/living/simple_animal/slime/M)
@@ -170,8 +170,8 @@
 	return
 
 /mob/living/basic/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
-	if(!no_effect && !visual_effect_icon && melee_damage_lower)
-		if(melee_damage_lower < 10)
+	if(!no_effect && !visual_effect_icon && melee_damage)
+		if(melee_damage < 10)
 			visual_effect_icon = ATTACK_EFFECT_PUNCH
 		else
 			visual_effect_icon = ATTACK_EFFECT_SMASH

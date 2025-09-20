@@ -37,7 +37,7 @@
 	UnregisterSignal(parent, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_ITEM_PRE_ATTACKBY))
 
 /// Before a mob attacks, try increasing its attack power
-/datum/component/focused_attacker/proc/pre_mob_attack(mob/living/attacker, atom/target)
+/datum/component/focused_attacker/proc/pre_mob_attack(mob/living/simple_animal/attacker, atom/target)
 	SIGNAL_HANDLER
 	if(isnull(target) || isturf(target))
 		return

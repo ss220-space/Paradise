@@ -599,7 +599,7 @@
 	return TRUE
 
 /mob/living/attack_basic_mob(mob/living/basic/user)
-	if(user.melee_damage_lower == 0)
+	if(user.melee_damage == 0)
 		if(user != src)
 			visible_message(span_notice("[user] [user.friendly_verb_continuous] [declent_ru(ACCUSATIVE)]!"), \
 				span_notice("[user] [user.friendly_verb_continuous] вас!"))

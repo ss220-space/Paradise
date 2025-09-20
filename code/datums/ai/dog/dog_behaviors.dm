@@ -203,9 +203,9 @@
 	if(!istype(living_pawn))
 		return
 	// make sure the pawn gets some temporary strength boost to actually attack the target instead of pathetically nuzzling them.
-	var/old_melee_damage = living_pawn.melee_damage_lower
-	living_pawn.melee_damage_lower = max(7, old_melee_damage)
+	var/old_melee_damage = living_pawn.melee_damage
+	living_pawn.melee_damage = max(7, old_melee_damage)
 
 	living_pawn.UnarmedAttack(living_target, FALSE)
 
-	living_pawn.melee_damage_lower = old_melee_damage
+	living_pawn.melee_damage = old_melee_damage

@@ -124,7 +124,7 @@
 	icon_state = "hauberoach"
 	attack_verb_continuous = "тыкает своим шлемом"
 	attack_verb_simple = "тыкаете своим шлемом"
-	melee_damage_lower = 5
+	melee_damage = 5
 	obj_damage = 8
 	gold_core_spawnable = HOSTILE_SPAWN
 	attack_sound = 'sound/weapons/bladeslice.ogg'
