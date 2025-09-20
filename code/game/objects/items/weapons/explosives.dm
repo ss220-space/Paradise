@@ -200,7 +200,7 @@
 		location = get_atom_on_turf(src)
 	if(location)
 		explosion(location, devastation_range = devastation_range, heavy_impact_range = heavy_impact_range, light_impact_range = light_impact_range, flash_range = flash_range, cause = src)
-		location.ex_act(2, target)
+		location.ex_act(EXPLODE_HEAVY, target)
 	if(istype(target, /mob))
 		var/mob/M = target
 		M.gib()
@@ -232,10 +232,10 @@
 			var/turf/T = get_step(location, aim_dir)
 			explosion(get_step(T, aim_dir), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, cause = "Dir. X4")
 			explosion(T,0,2,0, cause = src)
-			location.ex_act(2, target)
+			location.ex_act(EXPLODE_HEAVY, target)
 		else
 			explosion(location, devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, cause = src)
-			location.ex_act(2, target)
+			location.ex_act(EXPLODE_HEAVY, target)
 	if(istype(target, /mob))
 		var/mob/M = target
 		M.gib()
@@ -264,10 +264,10 @@
 		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
 			explosion(get_step(T, aim_dir), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, cause = src)
-			location.ex_act(2, target)
+			location.ex_act(EXPLODE_HEAVY, target)
 		else
 			explosion(location, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 3, cause = src)
-			location.ex_act(2, target)
+			location.ex_act(EXPLODE_HEAVY, target)
 	if(istype(target, /mob))
 		var/mob/M = target
 		M.gib()

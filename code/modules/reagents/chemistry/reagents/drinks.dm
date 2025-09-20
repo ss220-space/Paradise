@@ -183,6 +183,17 @@
 		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
+
+/datum/reagent/consumable/drink/strawwberry
+	name = "Клубничный сок"
+	id = "strawwberry"
+	description = "Сырая сущность клубники."
+	color = "#fc2525"
+	drink_name = "стакан клубничного сока"
+	drink_desc = "Сырая сущность клубники."
+	taste_description = "клубники"
+
+
 /datum/reagent/consumable/drink/nothing
 	name = "Ничего"
 	id = "nothing"

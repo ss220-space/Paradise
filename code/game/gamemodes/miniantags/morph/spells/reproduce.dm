@@ -53,7 +53,7 @@
 	handler.hunger_cost += 30
 	update_appearance(UPDATE_NAME)
 
-	playsound(user, "bonebreak", 75, TRUE)
+	playsound(user, SFX_BONEBREAK, 75, TRUE)
 	var/mob/living/simple_animal/hostile/morph/new_morph = new /mob/living/simple_animal/hostile/morph(get_turf(user))
 	var/datum/mind/player_mind = new /datum/mind(C.key)
 	player_mind.active = TRUE

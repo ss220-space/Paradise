@@ -33794,7 +33794,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "cfC" = (
-/obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/blood/diona,
@@ -33806,6 +33805,7 @@
 /obj/item/reagent_containers/iv_bag/blood/unathi,
 /obj/item/reagent_containers/iv_bag/blood/vulpkanin,
 /obj/item/reagent_containers/iv_bag/blood/wryn,
+/obj/structure/closet/crate/secure/blood/xeno,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -35201,7 +35201,6 @@
 	},
 /area/crew_quarters/sleep)
 "cjs" = (
-/obj/structure/closet/crate/freezer,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/machinery/iv_drip,
@@ -35218,6 +35217,7 @@
 /obj/item/reagent_containers/iv_bag/blood/APlus,
 /obj/item/reagent_containers/iv_bag/blood/BMinus,
 /obj/item/reagent_containers/iv_bag/blood/BPlus,
+/obj/structure/closet/crate/secure/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -76616,13 +76616,13 @@
 	},
 /area/medical/cryo)
 "qYs" = (
-/obj/structure/closet/crate/freezer,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/structure/closet/crate/secure/blood/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -84930,7 +84930,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "whG" = (
-/obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/blood/diona,
@@ -84942,6 +84941,7 @@
 /obj/item/reagent_containers/iv_bag/blood/unathi,
 /obj/item/reagent_containers/iv_bag/blood/vulpkanin,
 /obj/item/reagent_containers/iv_bag/blood/wryn,
+/obj/structure/closet/crate/secure/blood/xeno,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -86343,7 +86343,6 @@
 	},
 /area/quartermaster/miningdock)
 "wVO" = (
-/obj/structure/closet/crate/freezer,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
@@ -86358,6 +86357,7 @@
 	name = "west fire alarm";
 	pixel_x = -24
 	},
+/obj/structure/closet/crate/secure/blood/mixed,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitegreen"

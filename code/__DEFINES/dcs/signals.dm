@@ -139,6 +139,8 @@
 #define COMSIG_ATOM_UPDATE_OVERLAYS "atom_update_overlays"
 ///from base of [/atom/update_icon]: (signalOut, did_anything)
 #define COMSIG_ATOM_UPDATED_ICON "atom_updated_icon"
+///from [/datum/controller/subsystem/processing/dcs/proc/rotate_decals]: (list/datum/element/decal/rotating)
+#define COMSIG_ATOM_DECALS_ROTATING "atom_decals_rotating"
 ///from base of atom/Entered(): (atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 #define COMSIG_ATOM_ENTERED "atom_entered"
 /// Sent from the atom that just Entered src. From base of atom/Entered(): (/atom/destination, atom/old_loc, list/atom/old_locs)
@@ -338,6 +340,9 @@
 #define COMSIG_TURF_MULTIZ_DEL "turf_multiz_del"
 ///from base of turf/multiz_turf_new: (turf/source, direction)
 #define COMSIG_TURF_MULTIZ_NEW "turf_multiz_new"
+///from base of turf/proc/onShuttleMove(): (turf/new_turf)
+#define COMSIG_TURF_ON_SHUTTLE_MOVE "turf_on_shuttle_move"
+
 // /atom/movable signals
 
 ///from base of atom/movable/Move(): (/atom/new_loc)
@@ -940,6 +945,9 @@
 #define COMSIG_LANG_PRE_ACT "check_language"
 	#define COMSIG_LANG_SECURED (1<<0)
 
+///from base of obj/gun/projectile/automatic/toggle_firemode(): (/mob/user, firemode)
+#define COMSIG_GUN_TOGGLE_FIREMODE "gun_firemode_toggle"
+
 /// Defib-specific signals
 
 /// Called when a defibrillator is first applied to someone. (mob/living/user, mob/living/target, harmful)
@@ -1452,22 +1460,40 @@
 /// /obj/item/card/id/proc/freeze_linked_account(datum/source)
 #define COMSIG_FREEZE_LINKED_ACCOUNT "nigga_freeze"
 
+/// Called when proc need to get pull slowdown modifiers.
 #define COMSIG_GET_PULL_SLOWDOWN_MODIFIERS "get_pull_slowdown_modifiers"
+/// Called when proc need to get grab speed modifiers.
 #define COMSIG_GET_GRAB_SPEED_MODIFIERS "get_grab_speed_modifiers"
+/// Called when proc need to get melee damage deltas.
 #define COMSIG_GET_MELEE_DAMAGE_DELTAS "get_melee_damage_deltas"
+/// Called when proc need to get bonus icon render key info.
 #define COMSIG_GET_ICON_RENDER_KEY_INFO "get_icon_render_key_info"
+/// Called when proc need to know if mob has exercised.
 #define COMSIG_MOB_EXERCISED "mob_exercised"
+/// Called when proc need to get organ icon state.
 #define COMSIG_GET_ORGAN_ICON_STATE "get_organ_icon_state"
+/// Called when proc need update human's strength border.
 #define COMSIG_STRENGTH_BORDER_UPDATE "strength_border_update"
+/// Called when proc need to know if human can change strength.
 #define COMSIG_CAN_CHANGE_STRENGTH	"can_change_strength"
+	/// Yes, they can.
 	#define COMPONENT_CAN_CHANGE_STRENGTH (1<<0)
+/// Called when proc need to get strength.
 #define COMSIG_GET_STRENGTH	"get_strength"
+/// Called when proc need to update strength.
 #define COMSIG_UPDATE_STRENGTH	"update_strength"
+/// Called when proc need to get breakout time modifiers (handkuffs, bolas e.t.c.).
 #define COMSIG_GET_BREAKOUTTIME_MODIFIERS "get_breakouttime_modifiers"
+/// Called when proc need to get throw speed modifiers.
 #define COMSIG_GET_THROW_SPEED_MODIFIERS "get_throw_speed_modifiers"
+/// Called when proc need to get throw range deltas.
 #define COMSIG_GET_THROW_RANGE_DELTAS "get_throw_range_deltas"
+/// Called when proc need to get bola modifiers.
 #define COMSIG_GET_BOLA_MODIFIERS "get_bola_modifiers"
+/// Called when proc need to get hunder modifiers.
 #define COMSIG_GET_HUNGER_MODS "get_hunger_mods"
+/// Called when proc need to upgrade mob's strength level.
+#define COMSIG_STRENGTH_LEVEL_UP "strength_level_up"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"
 
 /// Called when attempting to insert a stack into the material container. (obj/item/stack/stack, amount)
@@ -1491,3 +1517,7 @@
 /// From /obj/structure/closet/supplypod/extractionpod/MouseDrop_T()
 #define COMSIG_SUPPLYPOD_CLIMB_CHECK "climb_check"
 	#define COMPONENT_CLIMB (1<<0)
+
+
+/// Called after placing item on table. (mob/user, obj/structure/table)
+#define COMSIG_ITEM_PLACED_ON_TABLE "item_placed_on_table"

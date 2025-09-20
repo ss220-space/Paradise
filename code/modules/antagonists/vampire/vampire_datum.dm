@@ -175,10 +175,11 @@
 /datum/antagonist/vampire/proc/clear_subclass(give_specialize_power = TRUE)
 	if(give_specialize_power)
 		// Choosing a subclass in the first place removes this from `upgrade_tiers`, so add it back if needed.
-		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 150
+		upgrade_tiers[/obj/effect/proc_holder/spell/vampire/self/specialize] = 100
 
 	suck_rate = initial(suck_rate)
 	remove_all_powers()
+	subclass?.on_remove(src)
 	QDEL_NULL(subclass)
 	check_vampire_upgrade()
 
@@ -283,7 +284,7 @@
 
 			if(STATE_GRABBING)
 				cur.visible_message(span_danger("[cur] грубо хватает шею [target]"), \
-					span_danger("Вы грубо хватает шею [target]"))
+					span_danger("Вы грубо хватаете шею [target]"))
 				getting_closer_animation(target, STATE_GRABBING, vampire_dir)
 				time_per_action = suck_rate_final*BITE_TIME_MOD
 				continue
@@ -299,7 +300,7 @@
 		if(unique_suck_id && (unique_suck_id in drained_humans))
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
 				to_chat(cur, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
-				target.AdjustBlood(-25)
+				target.AdjustBlood(-30)
 				cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 				continue
 
@@ -327,7 +328,7 @@
 
 				to_chat(cur, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
 
-		target.AdjustBlood(-25)
+		target.AdjustBlood(-30)
 
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(target.blood_volume)
@@ -463,7 +464,6 @@
 /datum/antagonist/vampire/proc/remove_all_powers()
 	for(var/power in powers)
 		remove_ability(power)
-
 
 /datum/antagonist/vampire/proc/check_vampire_upgrade(announce = TRUE)
 	var/list/old_powers = powers.Copy()

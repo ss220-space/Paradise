@@ -427,13 +427,13 @@
 			var/destination_id = clamp(text2num(params["destination"]), 1, length(GLOB.TAGGERLOCATIONS))
 			if(currTag != destination_id)
 				currTag = destination_id
-				playsound(src, "terminal_type", 25, TRUE)
+				playsound(src, SFX_TERMINAL_TYPE, 25, TRUE)
 			currcc_tag = null
 
 		if("select_cc_destination")
 			if(currcc_tag != params["destination"])
 				currcc_tag = params["destination"]
-				playsound(src, "terminal_type", 25, TRUE)
+				playsound(src, SFX_TERMINAL_TYPE, 25, TRUE)
 
 	add_fingerprint(usr)
 

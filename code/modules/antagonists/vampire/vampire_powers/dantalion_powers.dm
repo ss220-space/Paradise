@@ -15,7 +15,7 @@
 	gain_desc = "Вы обрели способность подчинять людей своей воле."
 	action_icon_state = "vampire_enthrall"
 	need_active_overlay = TRUE
-	required_blood = 150
+	required_blood = 100
 	deduct_blood_on_cast = FALSE
 
 
@@ -237,7 +237,7 @@
 	desc = "Снимает все обездвиживающие эффекты с находящихся рядом с вами рабов."
 	gain_desc = "Вы получили способность снимать все обездвиживающие эффекты с ближайших рабов."
 	action_icon_state = "thralls_up"
-	required_blood = 40
+	required_blood = 25
 	base_cooldown = 30 SECONDS
 
 
@@ -284,7 +284,7 @@
 	desc = "Накладывает мощную иллюзию, заставляющую всех, кто находится поблизости, воспринимать окружающих как случайных животных после кратковременного ослепления. Также замедляет пострадавших."
 	gain_desc = "Вы получили способность заставлять всех, кто находится рядом, воспринимать окружающих как случайных животных после кратковременного ослепления."
 	action_icon_state = "hysteria"
-	required_blood = 40
+	required_blood = 25
 	base_cooldown = 60 SECONDS
 
 

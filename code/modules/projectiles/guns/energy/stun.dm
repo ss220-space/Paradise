@@ -6,7 +6,7 @@
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	ammo_x_offset = 3
-	accuracy = GUN_ACCURACY_MINIMAL
+	accuracy = GUN_ACCURACY_SNIPER
 
 /obj/item/gun/energy/shock_revolver
 	name = "tesla revolver"
@@ -22,10 +22,10 @@
 	name = "hybrid taser"
 	desc = "A dual-mode taser designed to fire both short-range high-power electrodes and long-range disabler beams."
 	icon_state = "advtaser"
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	origin_tech = "combat=4"
 	ammo_x_offset = 2
-	accuracy = GUN_ACCURACY_MINIMAL
+	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6)
@@ -49,7 +49,7 @@
 	origin_tech = "combat=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 3
-	accuracy = GUN_ACCURACY_MINIMAL
+	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"

@@ -220,7 +220,7 @@
 		var/emag_prize = pick(emag_prizes)
 		new emag_prize(get_turf(src))
 	speak(pick(win_phrases))
-	playsound(loc, 'sound/machines/ping.ogg', 20, 1)
+	playsound(loc, 'sound/machines/ping.ogg', 20, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)
 
 /obj/machinery/arcade/minesweeper/proc/on_loose(mob/user)

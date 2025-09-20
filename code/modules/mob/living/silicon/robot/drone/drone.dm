@@ -1,14 +1,6 @@
 #define EMAG_TIMER 3000
 /mob/living/silicon/robot/drone
 	name = "drone"
-	ru_names = list(
-		NOMINATIVE = "дрон",
-		GENITIVE = "дрона",
-		DATIVE = "дрону",
-		ACCUSATIVE = "дрона",
-		INSTRUMENTAL = "дроном",
-		PREPOSITIONAL = "дроне"
-	)
 	real_name = "drone"
 	desc = "Крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта НаноТрейзен: Решаем проблемы завтрашнего дня уже сегодня!\"."
 	icon = 'icons/mob/robots.dmi'
@@ -60,6 +52,15 @@
 	holder_type = /obj/item/holder/drone
 //	var/sprite[0]
 
+/mob/living/silicon/robot/drone/get_ru_names()
+	return list(
+		NOMINATIVE = "дрон",
+		GENITIVE = "дрона",
+		DATIVE = "дрону",
+		ACCUSATIVE = "дрона",
+		INSTRUMENTAL = "дроном",
+		PREPOSITIONAL = "дроне"
+	)
 
 /mob/living/silicon/robot/drone/New()
 	..()

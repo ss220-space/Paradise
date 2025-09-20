@@ -41,7 +41,7 @@
 
 /mob/living/carbon/human/prepare_data_huds()
 	//...sec hud images...
-	sec_hud_set_ID()
+	update_hud_set()
 	sec_hud_set_implants()
 	sec_hud_set_security_status()
 	//...and display them.
@@ -1017,7 +1017,7 @@
 	dna.UpdateUI()
 	sync_organ_dna()
 	UpdateAppearance()
-	sec_hud_set_ID()
+	update_hud_set()
 
 
 /**

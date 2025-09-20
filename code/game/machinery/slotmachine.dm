@@ -298,7 +298,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 
 /obj/machinery/computer/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
 	if(sound)
-		playsound(loc, sound, 55, 1)
+		playsound(loc, sound, 55, TRUE)
 	if(!account)
 		return
 	account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)

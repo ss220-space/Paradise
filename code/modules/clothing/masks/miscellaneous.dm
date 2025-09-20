@@ -201,7 +201,7 @@
 	if(!L)
 		return
 	to_chat(L, span_danger("You feel a sharp shock!"))
-	do_sparks(3, 1, L)
+	do_sparks(3, TRUE, L)
 
 	L.Weaken(10 SECONDS)
 	L.Stuttering(2 SECONDS)

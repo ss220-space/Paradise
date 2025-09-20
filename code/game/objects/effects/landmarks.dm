@@ -17,6 +17,10 @@
 			GLOB.newplayer_start += loc
 			qdel(src)
 
+		if("start_override")
+			GLOB.start_override += loc
+			qdel(src)
+
 		if("wizard")
 			GLOB.wizardstart += loc
 			qdel(src)
@@ -713,3 +717,41 @@
 /obj/effect/landmark/spawner/bubblegum_exit
 	name = "bubblegum_arena_exit"
 	icon_state = "bubblegumjumpscare"
+
+
+/obj/effect/landmark/start_override
+	name = "start_override"
+	icon_state = "start_override"
+	var/datum/outfit/connected_outfit = null
+
+
+/obj/effect/landmark/start_override/New()
+	if(connected_outfit) // It should be before, because of qdel.
+		GLOB.start_override_outfit = connected_outfit
+
+	. = ..()
+
+/obj/effect/landmark/start_override/Destroy()
+	connected_outfit = null
+	. = ..()
+
+/obj/effect/landmark/start_override/Click(location, control, params)
+	. = ..()
+	var/list/paths = subtypesof(/datum/outfit)
+	for(var/datum/outfit/outfit as anything in paths)
+		if(!outfit.can_be_admin_equipped)
+			return
+
+		paths[initial(outfit.name)] = outfit
+
+	paths["Одежда выбранной игроком профессии"] = null
+	var/selected_outfit = tgui_input_list(usr, "Выберите набор вещей, с которым будут появляться все новые игроки.", "Выбор одежды", paths)
+	if(isnull(selected_outfit))
+		return
+
+	to_chat(usr, span_boldmessage("Набор вещей, с которым будут появляться все новые игроки обновлен."))
+	GLOB.start_override_outfit = new paths[selected_outfit]
+
+
+/obj/effect/landmark/start_override/prisoner
+	connected_outfit = /datum/outfit/job/assistant/prisoner

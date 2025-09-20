@@ -23,7 +23,7 @@
 #define iscoreflux(A)		(istype((A), /obj/item/assembly/signaler/core/energetic))
 
 GLOBAL_LIST_INIT(anomaly_types, list(
-		TIER1 = list(
+	TIER1 = list(
 		ANOMALY_TYPE_ATMOS = /datum/anomaly_gen_datum/tier1/pyroclastic,
 		ANOMALY_TYPE_BLUESPACE = /datum/anomaly_gen_datum/tier1/bluespace,
 		ANOMALY_TYPE_GRAV = /datum/anomaly_gen_datum/tier1/gravitational,
@@ -52,6 +52,38 @@ GLOBAL_LIST_INIT(created_anomalies, list(
 	ANOMALY_TYPE_GRAV = 0,
 	ANOMALY_TYPE_VORTEX = 0,
 	ANOMALY_TYPE_FLUX = 0,
+))
+
+
+GLOBAL_LIST_INIT(anomalies_preffs_one, list(
+	ANOMALY_TYPE_ATMOS = "атомсферная",
+	ANOMALY_TYPE_BLUESPACE = "блюспейс",
+	ANOMALY_TYPE_GRAV = "гравитационная",
+	ANOMALY_TYPE_VORTEX = "вихревая",
+	ANOMALY_TYPE_FLUX = "гиперэнергетическая потоковая",
+))
+
+
+GLOBAL_LIST_INIT(anomalies_preffs_many, list(
+	ANOMALY_TYPE_ATMOS = "атомсферных",
+	ANOMALY_TYPE_BLUESPACE = "блюспейс",
+	ANOMALY_TYPE_GRAV = "гравитационных",
+	ANOMALY_TYPE_VORTEX = "вихревых",
+	ANOMALY_TYPE_FLUX = "гиперэнергетических потоковых",
+))
+
+
+GLOBAL_LIST_INIT(anomalies_sizes_one, list(
+	TIER1 = "малая",
+	TIER2 = "",
+	TIER3 = "крупная",
+))
+
+
+GLOBAL_LIST_INIT(anomalies_sizes_many, list(
+	TIER1 = "малых",
+	TIER2 = "",
+	TIER3 = "крупных",
 ))
 
 #define ANOMALY_GROW_STABILITY			30

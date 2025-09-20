@@ -264,7 +264,13 @@
 /obj/item/mmi/syndie
 	name = "Syndicate Man-Machine Interface"
 	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
-	ru_names = list(
+	gender = MALE
+	origin_tech = "biotech=4;programming=4;syndicate=2"
+	syndiemmi = 1
+	var/datum/action/innate/overdrive/overdrive = new
+
+/obj/item/mmi/syndie/get_ru_names()
+	return list(
 		NOMINATIVE = "НКИ Синдиката",
 		GENITIVE = "НКИ Синдиката",
 		DATIVE = "НКИ Синдиката",
@@ -272,10 +278,6 @@
 		INSTRUMENTAL = "НКИ Синдиката",
 		PREPOSITIONAL = "НКИ Синдиката"
 	)
-	gender = MALE
-	origin_tech = "biotech=4;programming=4;syndicate=2"
-	syndiemmi = 1
-	var/datum/action/innate/overdrive/overdrive = new
 
 /obj/item/mmi/syndie/apply_effects(mob/living/silicon/robot/borg)
 	if(!overdrive.used)

@@ -528,7 +528,7 @@
 
 /obj/machinery/bfl_lens/Destroy()
 	visible_message(span_danger("Линза разлетается на миллионы осколков!"))
-	playsound(src, "shatter", 70, TRUE)
+	playsound(src, SFX_SHATTER, 70, TRUE)
 	return ..()
 
 

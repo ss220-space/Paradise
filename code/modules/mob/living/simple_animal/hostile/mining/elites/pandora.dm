@@ -20,14 +20,6 @@
 /mob/living/simple_animal/hostile/asteroid/elite/pandora
 	name = "pandora"
 	desc = "Огромный магический ларец, чьи сила и дизайн схожи с Иерофантом. Если он откроется, закрыть его будет нелегко."
-	ru_names = list(
-		NOMINATIVE = "пандора",
-		GENITIVE = "пандоры",
-		DATIVE = "пандоре",
-		ACCUSATIVE = "пандору",
-		INSTRUMENTAL = "пандорой",
-		PREPOSITIONAL = "пандоре"
-	)
 	icon_state = "pandora"
 	icon_living = "pandora"
 	icon_aggro = "pandora"
@@ -59,6 +51,16 @@
 	var/cooldown_time = 2 SECONDS
 	var/chaser_speed = 3
 	var/recalculation_speed = 4 //How many times chasers moves before recalculating
+
+/mob/living/simple_animal/hostile/asteroid/elite/pandora/get_ru_names()
+	return list(
+		NOMINATIVE = "пандора",
+		GENITIVE = "пандоры",
+		DATIVE = "пандоре",
+		ACCUSATIVE = "пандору",
+		INSTRUMENTAL = "пандорой",
+		PREPOSITIONAL = "пандоре"
+	)
 
 /datum/action/innate/elite_attack/chaser_burst
 	name = "Преследователь"
@@ -215,7 +217,15 @@
 /obj/item/clothing/accessory/necklace/pandora_hope
 	name = "Hope"
 	desc = "Находится на дне Пандоры. Когда всё зло было выпущено, это единственное, что осталось внутри."
-	ru_names = list(
+	icon = 'icons/obj/lavaland/elite_trophies.dmi'
+	icon_state = "hope"
+	item_state = "hope"
+	item_color = "hope"
+	allow_duplicates = FALSE
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/accessory/necklace/pandora_hope/get_ru_names()
+	return list(
 		NOMINATIVE = "надежда",
 		GENITIVE = "надежды",
 		DATIVE = "надежде",
@@ -223,12 +233,6 @@
 		INSTRUMENTAL = "надеждой",
 		PREPOSITIONAL = "надежде"
 	)
-	icon = 'icons/obj/lavaland/elite_trophies.dmi'
-	icon_state = "hope"
-	item_state = "hope"
-	item_color = "hope"
-	allow_duplicates = FALSE
-	resistance_flags = FIRE_PROOF
 
 
 /obj/item/clothing/accessory/necklace/pandora_hope/on_attached(obj/item/clothing/under/new_suit, mob/attacher)

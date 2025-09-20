@@ -2,14 +2,6 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub
 	name = "goldgrub"
 	desc = "Червеобразный обжора, толстеющий от всего съеденного. Особенно любит драгоценные металлы и блестяшки — отсюда и имя."
-	ru_names = list(
-		NOMINATIVE = "златожор",
-		GENITIVE = "златожора",
-		DATIVE = "златожору",
-		ACCUSATIVE = "златожора",
-		INSTRUMENTAL = "златожором",
-		PREPOSITIONAL = "златожоре"
-	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goldgrub"
 	icon_living = "Goldgrub"
@@ -40,6 +32,16 @@
 	var/chase_time = 100
 	var/will_burrow = TRUE
 	var/max_loot = 15 // The maximum amount of ore that can be stored in this thing's gut
+
+/mob/living/simple_animal/hostile/asteroid/goldgrub/get_ru_names()
+	return list(
+		NOMINATIVE = "златожор",
+		GENITIVE = "златожора",
+		DATIVE = "златожору",
+		ACCUSATIVE = "златожора",
+		INSTRUMENTAL = "златожором",
+		PREPOSITIONAL = "златожоре"
+	)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
 	. = ..()

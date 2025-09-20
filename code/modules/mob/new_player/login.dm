@@ -20,6 +20,7 @@
 		loc = pick(GLOB.newplayer_start)
 	else
 		loc = locate(1,1,1)
+
 	lastarea = loc
 
 	client.screen = list() // Remove HUD items just in case.

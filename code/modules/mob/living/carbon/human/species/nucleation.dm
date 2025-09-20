@@ -27,6 +27,7 @@
 		TRAIT_NO_GERMS,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
 	)
+	bodyflags = HAS_BODY_MARKINGS
 	dies_at_threshold = TRUE
 	var/touched_supermatter = FALSE
 

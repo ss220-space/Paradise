@@ -29,6 +29,7 @@ GLOBAL_LIST_INIT(huds, list( \
 	ANTAG_HUD_BLOB = new/datum/atom_hud/antag(),\
 	TAIPAN_HUD = new/datum/atom_hud/antag(),\
 	ANTAG_HUD_THIEF = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_PRISONER_TRAITOR = new/datum/atom_hud/antag(), \
 	THOUGHTS_HUD = new/datum/atom_hud/thoughts(),\
 	DATA_HUD_KIDAN_PHEROMONES = new/datum/atom_hud/kidan_pheromones()\
 ))

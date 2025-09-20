@@ -753,8 +753,8 @@
 	SStgui.update_uis(src)
 	if(user)
 		to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
-	do_sparks(5, 0, loc)
-	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	do_sparks(5, FALSE, loc)
+	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/machinery/suit_storage_unit/shove_impact(mob/living/target, mob/living/attacker)
 	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || target.buckled)

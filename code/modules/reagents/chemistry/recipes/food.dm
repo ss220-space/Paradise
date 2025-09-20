@@ -212,3 +212,27 @@
 	min_temp = T0C + 480
 	mix_message = "The mixture emits a horrible smell as you heat up the contents. Luckily, enzymes don't stink."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
+
+
+/datum/chemical_reaction/protein_water
+	name = "Разбавление протеина водой"
+	id = "protein_water"
+	result = "protein_liquid"
+	required_reagents = list("protein" = 1, "water" = 4)
+	result_amount = 5
+
+
+/datum/chemical_reaction/protein_milk
+	name = "Разбавление протеина молоком"
+	id = "protein_milk"
+	result = "protein_liquid_milk"
+	required_reagents = list("protein" = 1, "milk" = 4)
+	result_amount = 5
+
+
+/datum/chemical_reaction/creatine_water
+	name = "Разбавление креатина"
+	id = "creatine_water"
+	result = "creatine_liquid"
+	required_reagents = list("creatine" = 3, "water" = 2)
+	result_amount = 5

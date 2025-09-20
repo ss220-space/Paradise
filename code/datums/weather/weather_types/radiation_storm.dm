@@ -18,7 +18,9 @@
 	var/pre_maint_all_access
 	area_type = /area
 	protected_areas = list(/area/maintenance, /area/turret_protected/ai_upload, /area/turret_protected/ai_upload_foyer,
-	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig, /area/shuttle)
+	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig, /area/shuttle,
+	/area/coldcolony/malta/maintenance, /area/coldcolony/malta/turret_protected, /area/coldcolony/malta/outer/roadblock, /area/coldcolony/malta/resid_serv/crew_quarters/sleep,
+	/area/coldcolony/malta/security/brig, /area/coldcolony/malta/security/securehallway, /area/coldcolony/malta/hallway/cargo_escape/exit)
 	target_trait = STATION_LEVEL
 
 	immunity_type = TRAIT_RADSTORM_IMMUNE

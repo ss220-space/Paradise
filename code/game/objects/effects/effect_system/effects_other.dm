@@ -156,7 +156,7 @@
 
 /datum/effect_system/reagents_explosion/start()
 	if(amount <= 2)
-		do_sparks(2, 1, location)
+		do_sparks(2, TRUE, location)
 
 		for(var/mob/M in viewers(5, location))
 			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")

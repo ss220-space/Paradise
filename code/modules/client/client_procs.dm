@@ -919,7 +919,7 @@
 /client/proc/is_afk(duration = 5 MINUTES)
 	if(inactivity > duration)
 		return inactivity
-	return 0
+	return FALSE
 
 /// Send resources to the client.
 /// Sends both game resources and browser assets.

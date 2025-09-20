@@ -256,3 +256,44 @@
 			head_icon = SF.get_overlay()
 
 		add_overlay(head_icon)
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha
+	name = "Доктор Рираха"
+	desc = "Оранжевая змея в шапочке медсестры, от которой исходит аромат медицинской марихуаны."
+	icon_state = "riraha"
+	icon_living = "riraha"
+	icon_dead = "riraha_dead"
+	speak_emote = list("шипит")
+	tts_seed = "Xenia"
+	health = 20
+	maxHealth = 20
+	attacktext = "кусает"
+	attack_sound = 'sound/weapons/bite.ogg'
+	death_sound = 'sound/creatures/snake_death.ogg'
+	melee_damage_lower = 1
+	melee_damage_upper = 3
+	response_help  = "pets"
+	response_disarm = "shoos"
+	response_harm   = "steps on"
+	faction = list("neutral")
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	density = FALSE
+	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	gold_core_spawnable = FRIENDLY_SPAWN
+	obj_damage = 0
+	environment_smash = ENVIRONMENT_SMASH_NONE
+	holder_type = /obj/item/holder/snake
+	can_collar = TRUE
+	unique_pet = TRUE
+	
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/riraha/get_ru_names()
+	return list(
+		NOMINATIVE = "доктор Рираха",
+		GENITIVE = "доктора Рираха",
+		DATIVE = "доктору Рираху",
+		ACCUSATIVE = "доктора Рираха",
+		INSTRUMENTAL = "доктором Рирахой",
+		PREPOSITIONAL = "докторе Рирахе"
+		)

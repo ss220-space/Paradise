@@ -40,7 +40,7 @@
 	del_on_death = TRUE
 	light_system = MOVABLE_LIGHT
 	attacktext = "electrocutes"
-	attack_sound = "sparks"
+	attack_sound = SFX_SPARKS
 	a_intent = INTENT_HARM
 	harm_intent_damage = 0
 	melee_damage_lower = 0

@@ -4,7 +4,7 @@
 			if(INTENT_HARM)
 				var/damage = rand(1, 9)
 				if(prob(90))
-					playsound(loc, "punch", 25, TRUE, -1)
+					playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 					visible_message(
 						span_danger("[M] ударил[genderize_ru(M.gender,"","а","о","и")] [src.name]!"),
 						span_userdanger("[M] ударил[genderize_ru(M.gender,"","а","о","и")] [src.name]!")

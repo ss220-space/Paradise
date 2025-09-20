@@ -144,7 +144,7 @@
 	if(..())
 		return FALSE
 	add_fingerprint(usr)
-	playsound(loc, "terminal_type", 25, TRUE)
+	playsound(loc, SFX_TERMINAL_TYPE, 25, TRUE)
 	if(ui_act_modal(action, params))
 		return TRUE
 	. = TRUE
@@ -222,7 +222,7 @@
 		if(block_value < 2050) // HEX=802 DEC=2050
 			continue
 		write_dna_data(i, DNA_UNKNOWN_DISABILITY_DATA, DNA_COLOR_DISABILITY)
-	playsound(loc, "terminal_type", 25, TRUE)
+	playsound(loc, SFX_TERMINAL_TYPE, 25, TRUE)
 	to_chat(user, "Данные из [dna_console.declent_ru(GENITIVE)] успешно загружены в [declent_ru(NOMINATIVE)].")
 	balloon_alert(user, "данные загружены")
 
@@ -250,7 +250,7 @@
 			continue
 		self_block["name"] = other_block["name"]
 		self_block["color"] = other_block["color"]
-	playsound(loc, "terminal_type", 25, TRUE)
+	playsound(loc, SFX_TERMINAL_TYPE, 25, TRUE)
 	to_chat(user, "Данные из другого [dna_notepad.declent_ru(GENITIVE)] успешно загружены в ваш [declent_ru(NOMINATIVE)].")
 	balloon_alert(user, "данные загружены")
 

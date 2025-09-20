@@ -83,7 +83,7 @@
 
 /obj/item/chameleon/proc/disrupt(delete_dummy = 1)
 	if(active_dummy)
-		do_sparks(5, 0, src)
+		do_sparks(5, FALSE, src)
 		eject_all()
 		if(delete_dummy)
 			qdel(active_dummy)

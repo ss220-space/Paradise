@@ -35,8 +35,9 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 	var/datum/element/eletype = arguments[1]
 	var/list/fullid = list(eletype)
 	var/list/named_arguments
-	for(var/i in initial(eletype.id_arg_index) to length(arguments))
+	for(var/i in initial(eletype.argument_hash_start_idx) to length(arguments))
 		var/key = arguments[i]
+
 		if(istext(key))
 			var/value = arguments[key]
 			if (isnull(value))
@@ -47,8 +48,10 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 
 				if (!named_arguments)
 					named_arguments = list()
+
 				named_arguments[key] = value
 			continue
+
 		if (isnum(key))
 			fullid += key
 		else if(isdatum(key))

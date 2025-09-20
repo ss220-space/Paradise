@@ -6,14 +6,6 @@
 /obj/item/paper
 	name = "paper"
 	desc = "Пустой листок бумаги."
-	ru_names = list(
-		NOMINATIVE = "бумага",
-		GENITIVE = "бумаги",
-		DATIVE = "бумаге",
-		ACCUSATIVE = "бумагу",
-		INSTRUMENTAL = "бумагой",
-		PREPOSITIONAL = "бумаге"
-	)
 	gender = FEMALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
@@ -60,6 +52,16 @@
 	var/const/signfont = "Times New Roman"
 	var/const/crayonfont = "Comic Sans MS"
 	var/time = "00:00"
+
+/obj/item/paper/get_ru_names()
+	return list(
+		NOMINATIVE = "бумага",
+		GENITIVE = "бумаги",
+		DATIVE = "бумаге",
+		ACCUSATIVE = "бумагу",
+		INSTRUMENTAL = "бумагой",
+		PREPOSITIONAL = "бумаге"
+	)
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 

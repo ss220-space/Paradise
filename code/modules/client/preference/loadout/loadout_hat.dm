@@ -203,3 +203,7 @@
 /datum/gear/hat/shapka_pepega
 	index_name = "frog_hat"
 	path = /obj/item/clothing/head/shapka_pepega
+
+/datum/gear/hat/carp_hat
+	index_name = "carp_hat"
+	path = /obj/item/clothing/head/carp_hat

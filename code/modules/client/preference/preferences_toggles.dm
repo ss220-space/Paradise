@@ -316,6 +316,7 @@
 	disable_message = "Теперь вы не будете видеть уведомления в призрак-чате, если игрок в мире погибнет."
 	blackbox_message = "Toggle Death Notifications"
 
+/*
 /datum/preference_toggle/toggle_reverb
 	name = "Ревербация звуков"
 	description = "Включает ревербацию определённых звуков."
@@ -325,6 +326,7 @@
 	enable_message = "Теперь некоторые звуки игры будут ревербироваться."
 	disable_message = "Теперь никакие звуки игры не будут ревербироваться."
 	blackbox_message = "Toggle reverb"
+*/
 
 /datum/preference_toggle/toggle_simple_stat_panel
 	name = "Обводка предметов"

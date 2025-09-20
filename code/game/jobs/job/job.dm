@@ -249,7 +249,7 @@
 
 	imprint_idcard(H)
 
-	H.sec_hud_set_ID()
+	H.update_hud_set()
 
 	imprint_pda(H)
 

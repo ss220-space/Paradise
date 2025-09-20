@@ -236,7 +236,7 @@
 
 /obj/item/lighter/zippo/fluff/michael_guess_1 // mrbits: Callista Gold
 	name = "engraved lighter"
-	desc = "A golden lighter, engraved with some ornaments and a G."
+	desc = "A golden lighter, engraved with some ornaments."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "guessip"
 	item_state = "rubysfluffzippo"

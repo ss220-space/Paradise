@@ -116,7 +116,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		to_chat(user, span_notice("You have clipped [I] onto [src]."))
-		playsound(loc, "pageturn", 50, TRUE)
+		playsound(loc, SFX_PAGE_TURN, 50, TRUE)
 		if(paperwork == PAPERWORK)
 			toppaper = I
 		update_icon(UPDATE_OVERLAYS)
@@ -190,7 +190,7 @@
 		if(P == toppaper)
 			return
 		to_chat(usr, "<span class='notice'>You flick the pages so that [P] is on top.</span>")
-		playsound(loc, "pageturn", 50, TRUE)
+		playsound(loc, SFX_PAGE_TURN, 50, TRUE)
 		toppaper = P
 	update_icon(UPDATE_OVERLAYS)
 	showClipboard(usr)

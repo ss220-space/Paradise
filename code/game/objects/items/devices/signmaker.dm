@@ -161,7 +161,7 @@
 	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 		return
 	clear_holosign()
-	playsound(src, 'sound/machines/click.ogg', 20, 1)
+	playsound(src, 'sound/machines/click.ogg', 20, TRUE)
 	sign = new holosign_type(get_turf(target), src)
 	update_icon()
 	to_chat(user, "<span class='notice'>You create [sign.name] with [src].</span>")

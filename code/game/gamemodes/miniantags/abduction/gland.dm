@@ -302,7 +302,7 @@
 		span_danger("Кожа [owner.declent_ru(GENITIVE)] начинает испускать электрические разряды!"),
 		span_warning("Вы чувствуете, как внутри вас накапливается электрическая энергия!")
 	)
-	playsound(get_turf(owner), "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	playsound(get_turf(owner), SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	addtimer(CALLBACK(src, PROC_REF(zap)), rand(30, 100))
 
 /obj/item/organ/internal/heart/gland/electric/proc/zap()

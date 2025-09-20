@@ -313,6 +313,9 @@
  * This proc not modify input list
  */
 /proc/pick_weight_classic(list/list_to_pick)
+	if(length(list_to_pick) == 0)
+		return null
+
 	var/total = 0
 	for(var/item in list_to_pick)
 		var/weight = list_to_pick[item]

@@ -160,7 +160,7 @@
 	if(!emagged)
 		emagged = TRUE
 		req_access = list()
-		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/machinery/door_control/attack_ghost(mob/user)
 	if(open)

@@ -212,6 +212,9 @@
 				if(borg.connected_ai?.laws)
 					SSticker?.score?.save_silicon_laws(borg, usr, "laws sync with AI", log_all_laws = TRUE)
 		if("set_skin_permission")
+			if(!check_rights(R_SKINS, FALSE))
+				return
+
 			if(!borg?.mmi)
 				return
 

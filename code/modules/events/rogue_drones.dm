@@ -30,7 +30,7 @@
 /datum/event/rogue_drone/end()
 	var/num_recovered = 0
 	for(var/mob/living/simple_animal/hostile/malf_drone/D in drones_list)
-		do_sparks(3, 0, D.loc)
+		do_sparks(3, FALSE, D.loc)
 		qdel(D)
 		num_recovered++
 

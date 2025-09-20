@@ -426,7 +426,7 @@
 	if (explosion_sum != 0) //If the explosion list isn't all zeroes, call an explosion
 		explosion(turf_underneath, devastation_range = B[1], heavy_impact_range = B[2], light_impact_range = B[3], flame_range = B[4], silent = effectQuiet, ignorecap = istype(src, /obj/structure/closet/supplypod/centcompod), cause = src) //less advanced equipment than bluespace pod, so larger explosion when landing
 	else if (!effectQuiet && !(pod_flags & FIRST_SOUNDS)) //If our explosion list IS all zeroes, we still make a nice explosion sound (unless the effectQuiet var is true)
-		playsound(src, "explosion", landingSound ? soundVolume * 0.25 : soundVolume, TRUE)
+		playsound(src, SFX_EXPLOSION, landingSound ? soundVolume * 0.25 : soundVolume, TRUE)
 	if (landingSound)
 		playsound(turf_underneath, landingSound, soundVolume, FALSE, FALSE)
 	if (effectMissile) //If we are acting like a missile, then right after we land and finish fucking shit up w explosions, we should delete

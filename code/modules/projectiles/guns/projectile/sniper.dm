@@ -20,6 +20,7 @@
 	accuracy = GUN_ACCURACY_SNIPER
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_MEGA
+	fire_modes = GUN_MODE_SINGLE_ONLY
 
 /obj/item/gun/projectile/automatic/sniper_rifle/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/gun_module/muzzle/suppressor))
@@ -111,7 +112,7 @@
 
 /obj/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target) && breakthings))
-		target.ex_act(rand(1,2))
+		target.ex_act(rand(EXPLODE_DEVASTATE, EXPLODE_HEAVY))
 
 	return ..()
 

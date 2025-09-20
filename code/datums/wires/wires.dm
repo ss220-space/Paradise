@@ -185,7 +185,7 @@
 				return
 
 			if(istype(I))
-				playsound(holder, I.usesound, 20, 1)
+				playsound(holder, I.usesound, 20, TRUE)
 				cut_color(color)
 				return TRUE
 
@@ -197,7 +197,7 @@
 				to_chat(user, "<span class='error'>You need a multitool!</span>")
 				return
 
-			playsound(holder, 'sound/weapons/empty.ogg', 20, 1)
+			playsound(holder, 'sound/weapons/empty.ogg', 20, TRUE)
 			pulse_color(color)
 
 			// If they pulse the electrify wire, call interactable() and try to shock them.

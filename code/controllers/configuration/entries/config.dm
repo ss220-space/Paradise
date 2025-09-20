@@ -485,6 +485,7 @@
 	default = list(
 		"hijacker" = 10,
 		"malfai" = 10,
+		"prisoner" = 10,
 		"ninja" = 10,
 		"thief" = 10,
 		"nothing" = 20,

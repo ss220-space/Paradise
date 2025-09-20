@@ -34,6 +34,7 @@ GLOBAL_LIST_EMPTY_TYPED(areas_by_type, /area)
 
 GLOBAL_LIST_EMPTY(wizardstart)
 GLOBAL_LIST_EMPTY(newplayer_start)
+GLOBAL_LIST_EMPTY(start_override)
 GLOBAL_LIST_EMPTY(latejoin)
 GLOBAL_LIST_EMPTY(latejoin_prisoner)
 GLOBAL_LIST_EMPTY(latejoin_gateway)
@@ -75,3 +76,5 @@ GLOBAL_LIST_EMPTY(bridge_vertical_templates)
 
 /// Global list of megafauna spawns on cave gen
 GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = 6, /mob/living/simple_animal/hostile/megafauna/ancient_robot = 6))
+
+GLOBAL_VAR(start_override_outfit)

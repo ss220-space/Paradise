@@ -32,6 +32,12 @@
 	index_name = "a cheap lighter"
 	path = /obj/item/lighter
 
+/datum/gear/zippolighter
+	index_name = "zippo lighter"
+	display_name = "Зажигалка Зиппо"
+	path = /obj/item/lighter/zippo
+	cost = 2
+
 /datum/gear/earrings
 	index_name = "earrings, select"
 	display_name = "Серьги"
