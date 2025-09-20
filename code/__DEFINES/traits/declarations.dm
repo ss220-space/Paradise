@@ -253,7 +253,6 @@
 #define TRAIT_NOCRITDAMAGE "no_crit"
 /// Trait determines if this mob has examined an eldritch painting
 #define TRAIT_ELDRITCH_PAINTING_EXAMINE "eldritch_painting_examine"
-#define TRAIT_VORACIOUS "voracious"
 /// Trait used by the /datum/brain_trauma/severe/flesh_desire trauma to change their preferences of what they eat
 #define TRAIT_FLESH_DESIRE "flesh_desire"
 /// Gives us mob vision through walls and slight night vision

@@ -15,7 +15,6 @@
 
 /datum/brain_trauma/severe/flesh_desire/on_gain()
 	// Allows them to eat faster, mainly for flavor
-	ADD_TRAIT(owner, TRAIT_VORACIOUS, UID())
 	ADD_TRAIT(owner, TRAIT_FLESH_DESIRE, UID())
 	return ..()
 
@@ -28,6 +27,5 @@
 	owner.overeatduration = max(owner.overeatduration - 200 SECONDS, 0)
 
 /datum/brain_trauma/severe/flesh_desire/on_lose()
-	REMOVE_TRAIT(owner, TRAIT_VORACIOUS, UID())
 	REMOVE_TRAIT(owner, TRAIT_FLESH_DESIRE, UID())
 	return ..()
