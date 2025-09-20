@@ -10,10 +10,10 @@
 	name = "DISABILITY"
 
 	/// Activation message
-	var/list/activation_message = list()
+	var/list/activation_message
 
 	/// Yay, you're no longer growing 3 arms
-	var/list/deactivation_message = list()
+	var/list/deactivation_message
 
 
 /datum/dna/gene/disability/can_activate(mob/living/mutant, flags)

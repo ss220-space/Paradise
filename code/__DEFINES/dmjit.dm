@@ -1,3 +1,5 @@
+#ifndef OPENDREAM
+
 #define DMJIT_LIB "./libdmjit.so"
 #define DMJIT_NATIVE CRASH("dm-jit not loaded")
 
@@ -17,16 +19,13 @@
 	//dmjit_compile_proc("/turf/simulated/archive") uses global
 	world.log << dmjit_install_compiled()
 
-
 // INIT
 /proc/dmjit_hook_log_init()
 	DMJIT_NATIVE
 
-#ifndef OPENDREAM
 // DEBUG
 /proc/dmjit_hook_call(src)
 	DMJIT_NATIVE
-#endif
 
 // DEBUG Re-enter
 /proc/dmjit_on_test_call()
@@ -75,3 +74,5 @@
 
 /proc/dmjit_dump_deopts()
 	DMJIT_NATIVE
+
+#endif
