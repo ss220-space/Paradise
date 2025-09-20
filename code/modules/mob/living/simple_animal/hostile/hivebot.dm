@@ -196,7 +196,6 @@
 	icon_state = "basic"
 	icon_living = "basic"
 	icon_dead = "basic"
-	ranged = 1
 	rapid_fire_delay = 12
 	retreat_distance = 8
 	minimum_distance = 4
