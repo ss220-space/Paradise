@@ -119,17 +119,6 @@
 		BODY_ZONE_PRECISE_GROIN,
 	)
 
-/datum/surgery/cavity_implant/synth
-	name = "Полостная хирургия (Синтетик)"
-	steps = list(
-		/datum/surgery_step/robotics/external/unscrew_hatch,
-		/datum/surgery_step/robotics/external/open_hatch,
-		/datum/surgery_step/proxy/cavity_manipulation/robotic,
-		/datum/surgery_step/robotics/external/close_hatch
-	)
-	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN)
-	requires_organic_bodypart = FALSE
-
 /datum/surgery_step/proxy/cavity_manipulation
 	name = "Полостная манипуляция – прокси"
 	branches = list(

@@ -197,9 +197,6 @@
 	machine_name = "PlasmaMate"
 	icon_state = "refill_plasma"
 
-/obj/item/vending_refill/snack
-	machine_name = "Getmore Chocolate Corp"
-
 /obj/item/vending_refill/protein
 	machine_name = "Автомат спортивного питания"
 

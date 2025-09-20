@@ -54,13 +54,16 @@ jobs:
         run: |
           bash tools/ci/check_json.sh
           tgui/bin/tgui --ci
-          tools/ci/check_grep.sh
+          python tools/ci/check_grep.py
           python tools/ci/check_grep2.py
           python tools/ci/check_line_endings.py
           python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
           python tools/ci/define_sanity.py
+          python tools/ci/no_duplicate_definitions.py
           python tools/ci/check_icons.py
+          python -m tools.maplint.source --github
+          python tools/ci/trait_validity.py
 
       - name: Run DreamChecker
         shell: bash

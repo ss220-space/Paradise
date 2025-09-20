@@ -50,8 +50,11 @@
 	description = "Легковоспламеняющееся желеобразное топливо."
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
-	color = "#C86432"
 	taste_description = "горения"
+	color = "#ffb300"
+	chemfiresupp = TRUE
+	burncolor = "#d05006"
+	burn_sprite = "red"
 
 /datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 100)

@@ -11,11 +11,11 @@
 
 /obj/item/radio/spy_spider/get_ru_names()
 	return list(
-			NOMINATIVE = "жучок", 
-			GENITIVE = "жучка", 
-			DATIVE = "жучку", 
-			ACCUSATIVE = "жучок", 
-			INSTRUMENTAL = "жучком", 
+			NOMINATIVE = "жучок",
+			GENITIVE = "жучка",
+			DATIVE = "жучку",
+			ACCUSATIVE = "жучок",
+			INSTRUMENTAL = "жучком",
 			PREPOSITIONAL = "жучке"
 		)
 
@@ -55,9 +55,6 @@
  * CLOTHING PART
  */
 
-/obj/item/clothing
-	var/obj/item/radio/spy_spider/spy_spider_attached = null
-
 /obj/item/clothing/Destroy()
 	QDEL_NULL(spy_spider_attached)
 	return ..()
@@ -69,7 +66,6 @@
 /obj/item/clothing/hear_talk(mob/M, list/message_pieces)
 	. = ..()
 	spy_spider_attached?.hear_talk(M, message_pieces)
-
 
 /obj/item/clothing/proc/remove_spy_spider()
 	set name = "Снять жучок"

@@ -1,5 +1,4 @@
 #define REAGENT_UNITS_1 1
-#define REAGENT_UNITS_5 5
 
 /datum/reagent/spider_eggs
 	name = "Паучьи яйца"
@@ -62,20 +61,6 @@
 		return
 	var/datum/disease/virus/transformation/xeno/phantom/D = new
 	D.Contract(M)
-
-/datum/reagent/terror_eggs
-	name = "Яйца ужаса"
-	id = "terror_eggs"
-	description = "Да поможет вам Бог."
-	color = "#6b336b"
-	can_synth = FALSE
-	taste_mult = 0
-	metabolization_rate = 1
-
-/datum/reagent/terror_eggs/on_mob_life(mob/living/carbon/M)
-	if(volume >= REAGENT_UNITS_5 && !M.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
-		new /obj/item/organ/internal/body_egg/terror_eggs/phantom(M)
-	return ..()
 
 /datum/reagent/fungalspores
 	name = "Микробы Космического Туберкулёза"
@@ -256,4 +241,3 @@
 	color = "#CEC3C6" // rgb: 206,195,198
 
 #undef REAGENT_UNITS_1
-#undef REAGENT_UNITS_5

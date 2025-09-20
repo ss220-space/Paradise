@@ -388,11 +388,6 @@
 	for(var/i in GLOB.cardinal)
 		set_vehicle_dir_layer(i, BELOW_MOB_LAYER)
 
-
-/datum/component/riding/vehicle/wheelchair
-	vehicle_move_delay = 0
-	ride_check_flags = RIDER_NEEDS_ARMS
-
 /datum/component/riding/vehicle/wheelchair/handle_specials()
 	. = ..()
 	set_vehicle_dir_layer(SOUTH, OBJ_LAYER)

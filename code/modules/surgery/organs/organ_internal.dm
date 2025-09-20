@@ -189,41 +189,6 @@
 /obj/item/organ/internal/proc/render()
 	return
 
-
-/obj/item/reagent_containers/food/snacks/organ
-	name = "appendix"
-	desc = "Придаток слепой кишки. Является рудиментарным органом, поэтому не несёт полезной функции для организма."
-	ru_names = list(
-		NOMINATIVE = "аппендикс",
-		GENITIVE = "аппендикса",
-		DATIVE = "аппендиксу",
-		ACCUSATIVE = "аппендикс",
-		INSTRUMENTAL = "аппендиксом",
-		PREPOSITIONAL = "аппендиксе"
-	)
-	icon_state = "appendix"
-	icon = 'icons/obj/surgery.dmi'
-	list_reagents = list("nutriment" = 5)
-
-/obj/item/reagent_containers/food/snacks/organ/update_icon_state()
-	return
-
-/obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(target != user || !ishuman(target) || !user.can_unEquip(src))
-		return ..()
-
-	var/obj/item/reagent_containers/food/snacks/snack = prepare_eat()
-
-	if(!snack)
-		return ATTACK_CHAIN_PROCEED
-
-	user.temporarily_remove_item_from_inventory(src)
-	target.put_in_active_hand(snack, silent = TRUE)
-	snack.attack(target, target, params)
-	qdel(src)
-	return ATTACK_CHAIN_BLOCKED_ALL
-
-
 /****************************************************
 				INTERNAL ORGANS DEFINES
 ****************************************************/

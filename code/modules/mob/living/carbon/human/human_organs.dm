@@ -1,10 +1,3 @@
-/mob/living/carbon/human
-	/// All external organs in src.
-	var/list/bodyparts = list()
-	/// Map organ zones to external organs.
-	var/list/bodyparts_by_name = list()
-
-
 /mob/living/carbon/human/proc/update_eyes(update_body = TRUE)
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)

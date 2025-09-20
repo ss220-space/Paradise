@@ -49,7 +49,17 @@
 	)
 
 	holder_type = /obj/item/holder/drone
-//	var/sprite[0]
+
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor
+	)
+	hat_offset_y = -15
+	isCentered = TRUE
+	canBeHatted = TRUE
+	canWearBlacklistedHats = TRUE
 
 /mob/living/silicon/robot/drone/get_ru_names()
 	return list(

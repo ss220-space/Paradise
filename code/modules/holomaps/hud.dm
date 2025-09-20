@@ -1,6 +1,3 @@
-/datum/hud
-	var/atom/movable/screen/holomap/holomap
-
 /datum/hud/New(mob/owner)
 	. = ..()
 

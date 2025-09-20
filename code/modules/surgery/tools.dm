@@ -371,18 +371,6 @@
 	// this one can automatically retry its steps, too!
 	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/scalpel/laser/manager/debug
-	name = "debug IMS"
-	desc = "Чудо современной медицины. Этот инструмент действует как любой другой хирургический инструмент и заканчивается в кратчайшие сроки. А как ты вообще это заполучил?"
-	toolspeed = 0.01
-
-/obj/item/scalpel/laser/manager/debug/attack_self(mob/user)
-	. = ..()
-	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
-	to_chat(user, "Установленная скорость инструмента у [declent_ru(GENITIVE)] - [toolspeed].")
-	balloon_alert(user, "скорость изменена")
-	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)		//Change the mode
-
 /obj/item/circular_saw
 	name = "circular saw"
 	desc = "Инструмент, чтобы резать кости."

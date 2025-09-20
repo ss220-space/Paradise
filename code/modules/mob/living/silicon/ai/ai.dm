@@ -116,6 +116,23 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/list/all_eyes = list()
 
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/proc/subsystem_atmos_control,
+		/mob/living/silicon/proc/subsystem_crew_monitor,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor
+	)
+
+	hat_offset_y = 3
+	isCentered = TRUE
+	canBeHatted = TRUE
+
+	var/max_locations = 10
+	var/stored_locations[0]
+	var/message_cooldown = 0
+	var/current_camera = 0
+
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	add_verb(src, GLOB.ai_verbs_default)
 	add_verb(src, silicon_subsystems)

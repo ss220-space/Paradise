@@ -143,6 +143,23 @@
 	/// Honkify interface
 	var/ui_honked = FALSE
 
+	//Action datums
+	var/datum/action/innate/mecha/mech_eject/eject_action = new
+	var/datum/action/innate/mecha/mech_toggle_internals/internals_action = new
+	var/datum/action/innate/mecha/mech_toggle_lights/lights_action = new
+	var/datum/action/innate/mecha/mech_view_stats/stats_action = new
+	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
+	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
+	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
+	var/datum/effect_system/fluid_spread/smoke/smoke_system = new //not an action, but trigged by one
+	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
+	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
+	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
+	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
+	var/datum/action/innate/mecha/mech_energywall/energywall_action = new
+	var/datum/action/innate/mecha/mech_strafe/strafe_action = new
+	var/list/module_actions = list()
+
 /obj/mecha/Initialize(mapload)
 	. = ..()
 	ui_view = new()
@@ -510,7 +527,7 @@
 			if(A)
 				A.target = possible_port
 		else
-			occupant.clear_alert("mechaport")
+			occupant.clear_alert("mechaport", TRUE)
 	if(leg_overload_mode)
 		if(strafe) //No strafe while overload is active
 			toggle_strafe(silent = TRUE)
@@ -984,19 +1001,25 @@
 #undef TOGGLE_MAINTENANCE
 
 /obj/mecha/proc/toggle_maintenance(mob/user)
+	if(!maint_access)
+		to_chat(user, "Режим техобслуживания заблокирован.")
+		return
+
 	switch(maintenance_progress)
 		if(MECHA_LOCKED)
 			maintenance_progress = MECHA_SECURE_BOLTS
 			to_chat(user, "Крепежные болты зафиксированы.")
 			if(occupant)
 				occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
+			return
 		if(MECHA_SECURE_BOLTS)
 			maintenance_progress = MECHA_LOCKED
 			to_chat(user, "Крепежные болты убраны.")
 			if(occupant)
 				occupant.clear_alert("locked")
-		else
-			to_chat(user, "[declent_ru(NOMINATIVE)] не готов к взаимодействию.")
+			return
+
+	to_chat(user, "[declent_ru(NOMINATIVE)] не готов к взаимодействию.")
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
