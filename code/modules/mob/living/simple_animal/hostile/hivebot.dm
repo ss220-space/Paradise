@@ -236,6 +236,7 @@
 	var/last_heal_time = 0
 
 	COOLDOWN_DECLARE(heal_cooldown)
+	var/heal_cooldown_time = 5 SECONDS
 
 /mob/living/simple_animal/hostile/hivebot/support/get_ru_names()
 	return list(
