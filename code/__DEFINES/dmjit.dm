@@ -22,10 +22,11 @@
 /proc/dmjit_hook_log_init()
 	DMJIT_NATIVE
 
-EMPTY_BLOCK_GUARD
+#ifndef OPENDREAM
 // DEBUG
 /proc/dmjit_hook_call(src)
 	DMJIT_NATIVE
+#endif
 
 // DEBUG Re-enter
 /proc/dmjit_on_test_call()
