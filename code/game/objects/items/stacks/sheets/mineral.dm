@@ -119,8 +119,6 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	))
 
 /obj/item/stack/sheet/mineral
-	force = 5
-	throwforce = 5
 	throw_speed = 3
 
 /obj/item/stack/sheet/mineral/New(loc, new_amount, merge = TRUE)
@@ -134,7 +132,6 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	singular_name = "sandstone brick"
 	icon_state = "sheet-sandstone"
 	throw_range = 5
-	origin_tech = "materials=1"
 	sheettype = "sandstone"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
@@ -167,7 +164,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/emptysandbag
 	name = "empty sandbag"
 	desc = "A bag to be filled with sand."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "sandbag"
 	w_class = WEIGHT_CLASS_TINY
 
@@ -354,11 +350,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	icon_state = "sheet-titanium"
 	item_state = "sheet-titanium"
 	singular_name = "titanium sheet"
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
-	throw_range = 3
 	sheettype = "titanium"
 	merge_type = /obj/item/stack/sheet/mineral/titanium
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
@@ -385,11 +377,7 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	icon_state = "sheet-plastitanium"
 	item_state = "sheet-plastitanium"
 	singular_name = "plastitanium sheet"
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
-	throw_range = 3
 	sheettype = "plastitanium"
 	merge_type = /obj/item/stack/sheet/mineral/plastitanium
 	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
@@ -449,9 +437,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	icon_state = "sheet-abductor"
 	item_state = "sheet-abductor"
 	singular_name = "alien alloy sheet"
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
 	origin_tech = "materials=6;abductor=1"
 	sheettype = "abductor"

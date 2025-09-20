@@ -14,8 +14,7 @@
 	name = "4maintenance loot spawner"
 	},
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -34,8 +33,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/trade_sol/civ,
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;

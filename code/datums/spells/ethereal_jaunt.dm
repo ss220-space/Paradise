@@ -4,7 +4,6 @@
 	school = "transmutation"
 	action_icon_state = "jaunt"
 	base_cooldown = 30 SECONDS
-	clothes_req = TRUE
 	cooldown_min = 10 SECONDS //50 deciseconds reduction per rank
 	nonabstract_req = TRUE
 	centcom_cancast = FALSE //Prevent people from getting to centcom
@@ -99,12 +98,9 @@
 
 /obj/effect/dummy/spell_jaunt
 	name = "water"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = 60
-	density = FALSE
-	anchored = TRUE
 	var/reappearing = FALSE
 	var/movedelay = 0
 	var/movespeed = 2

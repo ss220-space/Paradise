@@ -1,7 +1,6 @@
 /obj/vehicle/ridden/snowmobile
 	name = "red snowmobile"
 	desc = "Wheeeeeeeeeeee."
-	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "snowmobile"
 	key_type = /obj/item/key/snowmobile
 

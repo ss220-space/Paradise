@@ -2,8 +2,6 @@
 	name = "staff of storms"
 	desc = "Древний посох, извлечённый из останков Легиона. Ветер колышется, когда вы двигаете им."
 	icon_state = "staffofstorms"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "staffofstorms"
 	icon = 'icons/obj/weapons/magic.dmi'
 	slot_flags = ITEM_SLOT_BACK

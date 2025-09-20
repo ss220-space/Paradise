@@ -349,7 +349,6 @@
 		NEUTER = list("Украшение", "Кольцо")
 		)
 	chance_name_male = 70
-	chance_name_female = 60
 	chance_name_neuter = 10
 	special_name_chance = 40
 
@@ -444,7 +443,6 @@
 		NEUTER = null
 		)
 	special_name_chance = 40
-	chance_name_male = 80
 	chance_name_female = 30
 
 
@@ -504,7 +502,6 @@
 		NEUTER = list("Красное Дерево", "Редкое Дерево", "Древо")
 		)
 	human_surname_chance = 0
-	chance_name_male = 80
 	chance_name_female = 70
 	special_name_chance = 100
 
@@ -551,7 +548,6 @@
 		FEMALE = list("Яркость", "Светлость", "Яркость"),
 		NEUTER = list("Сияние", "Светило")
 		)
-	chance_name_male = 80
 	chance_name_female = 40
 	chance_name_neuter = 10
 	special_name_chance = 60
@@ -767,7 +763,6 @@
 	name = "Нестабильный телепорт"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "blink"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	var/activated = FALSE // To prevent spamming
 	var/cooldown = 150
 	var/last_teleport = 0
@@ -963,7 +958,6 @@
 	)
 	speed_mod = 0
 	chance_name_male = 70
-	chance_name_female = 60
 	chance_name_neuter = 10
 	special_name_chance = 40
 

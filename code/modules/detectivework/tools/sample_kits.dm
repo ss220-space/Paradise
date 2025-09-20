@@ -132,8 +132,6 @@
 		supplied.fingerprints.Cut()
 		supplied.fingerprints_time.Cut()
 
-/obj/item/forensics
-
 /obj/item/forensics/sample_kit
 	name = "fiber collection kit"
 	desc = "A magnifying glass and tweezers. Used to lift suit fibers."

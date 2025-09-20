@@ -334,7 +334,6 @@
 	name = "carp hood"
 	desc = "A hood attached to a carp costume."
 	icon_state = "carp_casual"
-	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHEADSETS|HIDEHAIR
@@ -351,7 +350,6 @@
 	name = "salmon hood"
 	desc = "A hood attached to a salmon suit."
 	icon_state = "salmon"
-	body_parts_covered = HEAD
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 
 /obj/item/clothing/suit/hooded/bee_costume // It's Hip!
@@ -367,7 +365,6 @@
 	name = "bee hood"
 	desc = "A hood attached to a bee costume."
 	icon_state = "bee"
-	body_parts_covered = HEAD
 	clothing_flags = THICKMATERIAL
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 
@@ -420,7 +417,6 @@
 	name = "winter hood"
 	desc = "A hood attached to a heavy winter jacket."
 	icon_state = "winterhood"
-	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHEADSETS|HIDEHAIR
@@ -492,7 +488,6 @@
 /obj/item/clothing/suit/hooded/wintercoat/medical/science
 	name = "science winter coat"
 	icon_state = "wintercoat_sci"
-	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "coatscience"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0, fire = 0, acid = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/science
@@ -619,7 +614,6 @@
 	name = "black hood"
 	desc = "A hood attached to a hoodie."
 	icon_state = "blackhood"
-	body_parts_covered = HEAD
 	cold_protection = HEAD
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 
@@ -648,7 +642,6 @@
 	name = "Martian Institute of Technology hoodie"
 	desc = "A hoodie proudly worn by students and graduates alike, has the letters 'MIT' on the back."
 	icon_state = "mit_hoodie"
-	hoodtype = /obj/item/clothing/head/hooded/hood
 
 /obj/item/clothing/suit/hooded/hoodie/cut
 	name = "Canaan University of Technology hoodie"
@@ -672,7 +665,6 @@
 	name = "Tharsis Polytech hoodie"
 	desc = "A dark hoodie with the Tharsis Polytech logo on the back."
 	icon_state = "tp_hoodie"
-	hoodtype = /obj/item/clothing/head/hooded/hood
 
 /obj/item/clothing/suit/straight_jacket
 	name = "straight jacket"
@@ -717,14 +709,12 @@
 	desc = "Slightly old-fashioned sleepwear."
 	icon_state = "blue_pyjamas"
 	item_state = "blue_pyjamas"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 /obj/item/clothing/under/redpyjamas
 	name = "red pyjamas"
 	desc = "Slightly old-fashioned sleepwear."
 	icon_state = "red_pyjamas"
 	item_state = "red_pyjamas"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 //coats
 
@@ -972,8 +962,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bombersec"
 	item_state = "bombersec"
-	ignore_suitadjust = FALSE
-	suit_adjusted = TRUE
 	//Inherited from Security armour.
 	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	heat_protection = UPPER_TORSO|LOWER_TORSO
@@ -999,9 +987,7 @@
 	desc = "A vintage classic, loved by rockers, rebels, and punks alike."
 	icon_state = "motojacket_open"
 	item_state = "motojacket_open"
-	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/zipper)
-	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
@@ -1228,7 +1214,6 @@
 	desc = "The hands float by themselves, so it's extra spooky."
 	icon_state = "ghost_sheet"
 	item_state = "ghost_sheet"
-	throwforce = 0
 	throw_speed = 1
 	throw_range = 2
 	w_class = WEIGHT_CLASS_TINY
@@ -1305,16 +1290,13 @@
 	name = "Suragi Jacket"
 	desc = "Smoke one cigarette"
 	icon_state = "suragi_jacket_civ"
-	ignore_suitadjust = TRUE
 	blood_overlay_type = ""
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/gun/projectile/automatic/pistol,/obj/item/gun/projectile/revolver,/obj/item/gun/projectile/revolver/detective)
 
 // Suragi Children
 /obj/item/clothing/suit/storage/suragi_jacket/civ
-	name = "Suragi Jacket"
 	desc = "Standard issue orange jacket manufactured by Suragi Kit. Extremely durable. This particular one unobtrusively makes you want to dance. How strange."
-	icon_state = "suragi_jacket_civ"
 	item_state = "suragi_jacket_civ"
 	armor = list(MELEE = 5, BULLET = 2, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
@@ -1512,8 +1494,6 @@
 	desc = "A soft cotton towel."
 	icon_state = "towel_long"
 	item_state = "towel"
-	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = ITEM_SLOT_CLOTH_OUTER
 	body_parts_covered = LOWER_TORSO | UPPER_TORSO
 	var/drop_amount = 3
 	sprite_sheets = list(
@@ -1747,7 +1727,6 @@
 	name = "penguin hood"
 	desc = "Капюшон от костюма пингвина."
 	icon_state = "penguin"
-	body_parts_covered = HEAD
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',

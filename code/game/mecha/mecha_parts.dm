@@ -15,7 +15,6 @@
 	name="Mecha Chassis"
 	icon_state = "backbone"
 	var/datum/construction/construct
-	flags = CONDUCT
 
 /obj/item/mecha_parts/chassis/Destroy()
 	QDEL_NULL(construct)
@@ -498,7 +497,6 @@
 
 
 /obj/item/circuitboard/mecha/ripley
-	origin_tech = "programming=2"
 
 /obj/item/circuitboard/mecha/ripley/main
 	board_name = "Ripley Central Control Module"

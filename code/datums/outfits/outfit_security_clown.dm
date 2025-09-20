@@ -135,11 +135,9 @@
 
 //=========== security clown equipment ===========
 /obj/item/pda/clown/security
-	default_cartridge = /obj/item/cartridge/clown
 	default_request_console_cartridge = /obj/item/cartridge/request_console/clown_security
 	icon_state = "pda-security-clown"
 	desc = "Переносной микрокомпьютер от Синктроник Системс, LTD. Этот КПК разработан по заказу тайного покупателя, пожелавшего хонкнуться нераскрытым. Поверхность покрыта политетрафторэтиленом и банановым налётом."
-	ttone = "honk"
 
 /obj/item/card/id/security/clown
 	name = "Security-Clown ID"
@@ -160,7 +158,6 @@
 	desc = "Костюм из прочного материала со следами бананового сока, обеспечивает надежную защиту своему владельцу. Когда-то вселенская федерация клоунов и Центрального Коммандование вело ожесточенные споры о введении этой униформы для надзирателя службы безопасности. По итогу споров было выдвинуто решение о запрете этой униформы в рядах НТ, а федерация клоунов забрала все экземпляры себе и пустило их в ход на личные нужды. HONK!"
 	name = "warden clown jumpsuit"
 	icon_state = "security_clown"
-	item_state = "r_suit"
 	item_color = "security_clown"
 
 /obj/item/gun/energy/clown/security

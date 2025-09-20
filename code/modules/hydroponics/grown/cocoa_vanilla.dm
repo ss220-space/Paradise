@@ -64,7 +64,6 @@
 	mutatelist = list()
 	reagents_add = list("enzyme" = 0.1, "nutriment" = 0.1)
 	growthstages = 4
-	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "bungotree-grow"
 	icon_dead = "bungotree-dead"
 	rarity = 15
@@ -86,10 +85,8 @@
 	icon_state = "bungopit"
 	desc = "A large seed, it is said to be potent enough to be able to stop a mans heart."
 	bitesize_mod = 1
-	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5
 	throw_speed = 3
-	throw_range = 7
 	tastes = list("acrid bitterness" = 1)
 
 /obj/item/reagent_containers/food/snacks/grown/bungopit/Initialize(mapload, obj/item/seeds/new_seed)

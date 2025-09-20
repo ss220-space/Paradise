@@ -20,7 +20,6 @@
 	name = "APLU MK-II \"Ripley\""
 	mech_type = /obj/mecha/working/ripley
 	mech_class = WORKING_MECH
-	mech_icon = "ripley-open"
 	max_modules = 6
 	cash_reward = 500
 	wanted_modules = list(

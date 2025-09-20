@@ -1,7 +1,6 @@
 /mob/living/simple_animal/hostile/retaliate/araneus
 	name = "Сержант Аранеус"
 	real_name = "Сержант Аранеус"
-	voice_name = "неизвестный голос"
 	desc = "Свирепый компаньон любого влиятельного лица, эта паучиха была тщательно обучена специалистами Nanotrasen. От пристального взгляда её глаз-бусинок у вас по спине бегают мурашки."
 	faction = list("spiders")
 	icon_state = "guard(old)"
@@ -14,7 +13,6 @@
 	emote_hear = list("щебечет")
 	maxHealth = 250
 	health = 250
-	harm_intent_damage = 3
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 	unique_pet = TRUE

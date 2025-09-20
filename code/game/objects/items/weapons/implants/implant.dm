@@ -178,7 +178,7 @@
 	if(!force && !can_implant(source, user))
 		return
 	var/obj/item/implant/imp_e = locate(type) in source
-	if(!allow_multiple && imp_e && imp_e != src)
+	if(!allow_multiple && imp_e && imp_e != src && imp_e.type == src.type)
 		if(imp_e.uses < initial(imp_e.uses) * 2)
 			if(uses == -1)
 				imp_e.uses = -1

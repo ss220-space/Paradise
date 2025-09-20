@@ -282,4 +282,10 @@
 	var/next_move_modifier = 1
 	// 1 decisecond click delay (above and beyond mob/next_move)
 	/// This is mainly modified by click code, to modify click delays elsewhere, use next_move and changeNext_move(), Controls the click delay. Changed with
-	var/next_click	= 0
+	var/next_click = 0
+
+	var/list/screens = list()
+
+	var/newPlayerType = /mob/new_player
+
+	var/suiciding = FALSE

@@ -34,8 +34,7 @@
 /area/shuttle/transport)
 "q" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/machinery/chem_heater,
 /turf/simulated/floor/shuttle,
@@ -157,8 +156,7 @@
 /area/shuttle/transport)
 "N" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
@@ -183,8 +181,7 @@
 	},
 /obj/structure/table,
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)

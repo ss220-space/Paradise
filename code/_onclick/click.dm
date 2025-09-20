@@ -430,7 +430,6 @@
 
 
 /atom/movable/screen/click_catcher
-	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "catcher"
 	plane = CLICKCATCHER_PLANE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE

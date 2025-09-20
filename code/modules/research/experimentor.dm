@@ -23,9 +23,6 @@
 	name = "E.X.P.E.R.I-MENTOR"
 	icon = 'icons/obj/machines/heavy_lathe.dmi'
 	icon_state = "h_lathe"
-	density = TRUE
-	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	var/recentlyExperimented = FALSE
 	var/mob/trackedIan
 	var/mob/trackedRuntime
@@ -788,7 +785,6 @@
 	return TRUE
 
 /obj/item/relict_production/perfect_mix
-	name = "perfect mix"
 	desc = "Странный объект из которого можно бесконечно заполнять емкости какой-то жидкостью."
 	icon_state = "beaker"
 	item_state = "beaker"
@@ -815,7 +811,6 @@
 	name = "strange teleporter"
 	desc = "Странный объект телепортирующий вас при активации."
 	icon_state = "prox-multitool2"
-	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "materials=4;bluespace=4"
 	cooldown = 10 SECONDS
 
@@ -839,7 +834,6 @@
 	name = "pet spray"
 	desc = "Странный объект создающий враждебных существ."
 	icon_state = "armor-igniter-analyzer"
-	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "biotech=5"
 	cooldown = 60 SECONDS
 
@@ -877,7 +871,6 @@
 	name = "rapid dupe"
 	desc = "Странный объект создающий другие странные объекты при контакте с аномалиями."
 	icon_state = "shock_kit"
-	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "materials=5"
 
 //////////////////////////////////SPECIAL ITEMS////////////////////////////////////////
