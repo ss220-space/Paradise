@@ -230,13 +230,11 @@
 	retreat_distance = 5
 	minimum_distance = 3
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot, /obj/effect/loot_spawner/hivebot, /obj/effect/loot_spawner/hivebot)
-	var/heal_cooldown = 5 SECONDS
+	var/heal_cooldown_time = 5 SECONDS
 	var/heal_amount = 25
 	var/heal_range = 5
-	var/last_heal_time = 0
 
 	COOLDOWN_DECLARE(heal_cooldown)
-	var/heal_cooldown_time = 5 SECONDS
 
 /mob/living/simple_animal/hostile/hivebot/support/get_ru_names()
 	return list(
