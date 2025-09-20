@@ -1,0 +1,22 @@
+/datum/martial_combo/sleeping_carp/keelhaul
+	name = "Килхаул"
+	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_GRAB)
+	explaination_text = "Ты прибиваешь оппонента к полу, дополнительно нанося урон по стамине!"
+
+/datum/martial_combo/sleeping_carp/keelhaul/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
+	user.do_attack_animation(target, ATTACK_EFFECT_KICK)
+	playsound(get_turf(target), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
+	if(!IS_HORIZONTAL(target))
+		target.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
+		target.KnockDown(6 SECONDS)
+		target.visible_message(span_warning("Ударом в голову, [user] прибива[pluralize_ru(user.gender, "ет", "ют")] [target] к полу!"),
+						span_userdanger("Вас сбили с ног!"))
+	else
+		target.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
+		target.drop_l_hand()
+		target.drop_r_hand()
+		target.visible_message(span_warning("[user] бь[pluralize_ru(user.gender, "ёт", "ют")] [target] в голову, оставляя корчиться от боли!</span>"),
+							span_userdanger("Вы корчитесь от боли из-за пинка в голову!"))
+	target.apply_damage(60, STAMINA)
+	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Keelhaul", ATKLOG_ALL)
+	return MARTIAL_COMBO_DONE

@@ -1,0 +1,18 @@
+/datum/martial_combo/sleeping_carp/gnashing_teeth
+	name = "Скрежет Зубов"
+	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
+	explaination_text = "Каждый твой второй последовательный удар наносит дополнительный урон."
+
+/datum/martial_combo/sleeping_carp/gnashing_teeth/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
+	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
+	var/atk_verb = pick("с силой пинает", "жестоко рубит", "сильно бьёт")
+	target.visible_message(span_danger("[user] [atk_verb] [target]!"),
+					span_userdanger("[user] [atk_verb] тебя!"))
+	playsound(get_turf(target), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
+	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Gnashing Teeth", ATKLOG_ALL)
+	target.apply_damage(20, BRUTE, user.zone_selected, sharp = TRUE)
+	if(target.health >= 0)
+		user.say(pick("HUAH!", "HYA!", "CHOO!", "WUO!", "KYA!", "HUH!", "HIYOH!", "CARP STRIKE!", "CARP BITE!"))
+	else
+		user.say(pick("BANZAIII!", "KIYAAAA!", "OMAE WA MOU SHINDEIRU!", "YOU CAN'T SEE ME!", "MY TIME IS NOW!", "COWABUNGA!")) // COWABUNGA
+	return MARTIAL_COMBO_DONE
