@@ -2,7 +2,6 @@
 	name = "Integrated smoke bomb"
 	desc = "Generates a big cloud of smoke to hide yourself from enemies. Use with your mask's thermal mode for the killer combination. Energy cost: 1000"
 	check_flags = AB_CHECK_CONSCIOUS
-	charge_type = ADV_ACTION_TYPE_RECHARGE
 	charge_max = 3 SECONDS
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'

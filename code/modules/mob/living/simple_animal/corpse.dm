@@ -45,11 +45,9 @@
 
 
 /obj/effect/mob_spawn/human/clown/corpse
-	roundstart = TRUE
 	instant = TRUE
 
 /obj/effect/mob_spawn/human/mime/corpse
-	roundstart = TRUE
 	instant = TRUE
 
 /obj/effect/mob_spawn/human/corpse/pirate

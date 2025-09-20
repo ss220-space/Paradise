@@ -1,7 +1,6 @@
 //Xenobio control console
 /mob/camera/aiEye/remote/xenobio
 	visible_icon = 1
-	ai_detector_visible = FALSE // The Xenobio Console does not trigger the AI Detector
 	/// Area that the xenobio camera eye is allowed to travel
 	var/allowed_area = null
 

@@ -1,5 +1,4 @@
 /obj/machinery/computer/library/public
-	name = "visitor computer"
 
 /obj/machinery/computer/library/public/attack_hand(mob/user)
 	if(..())

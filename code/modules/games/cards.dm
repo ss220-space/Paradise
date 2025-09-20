@@ -18,8 +18,6 @@
 	icon = 'icons/obj/playing_cards.dmi'
 	throw_speed = 3
 	throw_range = 10
-	throwforce = 0
-	force = 0
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
 	var/list/cards = list()
 	/// Decks default to a single pack, setting it higher will multiply them by that number
@@ -356,8 +354,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 20
-	throwforce = 0
-	force = 0
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
 	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'

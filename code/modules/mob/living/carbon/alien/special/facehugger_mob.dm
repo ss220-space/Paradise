@@ -16,25 +16,21 @@
 	health = 30
 	maxHealth = 30
 	throwforce = 0
-	melee_damage_lower = 0
 	melee_damage_upper = 1
 	obj_damage = FALSE
 	ranged = 1
 	ranged_message = "прыгает"
-	ranged_cooldown_time = 3 SECONDS
 	can_hide = TRUE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	AI_delay_max = 0.5 SECONDS
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE | PASSMOB | PASSFENCE | PASSVEHICLE
-	pass_flags_self =  PASSMOB
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	pull_force = MOVE_FORCE_EXTREMELY_WEAK
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	a_intent = INTENT_HARM
 	intent = INTENT_HARM
 	blood_volume = 20
 	blood_color = BLOOD_COLOR_XENO
@@ -48,7 +44,6 @@
 	stat_attack = UNCONSCIOUS // Necessary for them to attack (zombify) dead humans
 	speed = -0.5
 	holder_type = /obj/item/clothing/mask/facehugger
-	gold_core_spawnable = FALSE
 	faction = list("alien")
 	use_pathfinding = TRUE
 	can_strip = FALSE

@@ -5,7 +5,6 @@
 	implant_state = "implant-syndicate"
 	item_color = "r"
 	origin_tech = "combat=5;magnets=3;biotech=4;syndicate=2"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	implant_data = /datum/implant_fluff/freedom
 	uses = 4
 

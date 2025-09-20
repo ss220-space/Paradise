@@ -1,7 +1,6 @@
 /obj/item/lipstick
 	name = "red lipstick"
 	desc = "A generic brand of lipstick."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "lipstick"
 	w_class = WEIGHT_CLASS_TINY
 	var/colour = "red"
@@ -120,12 +119,10 @@
 /obj/item/razor
 	name = "electric razor"
 	desc = "The latest and greatest power razor born from the science of shaving."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "razor"
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
 	usesound = 'sound/items/welder2.ogg'
-	toolspeed = 1
 
 
 /obj/item/razor/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

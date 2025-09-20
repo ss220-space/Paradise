@@ -32,7 +32,6 @@ Difficulty: Medium
 	speak_emote = list("ревёт")
 	tts_seed = "Chen"
 	speed = 3
-	move_to_delay = 3
 	projectiletype = /obj/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	ranged = TRUE
@@ -120,7 +119,6 @@ Difficulty: Medium
 	clothes_req = FALSE
 	human_req = FALSE
 	phase_allowed = TRUE
-	should_recharge_after_cast = TRUE
 	stat_allowed = UNCONSCIOUS
 	sound = 'sound/misc/enter_blood.ogg'
 	action_icon_state = "bloodcrawl"

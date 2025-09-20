@@ -8,7 +8,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 60, MAT_GLASS = 30)
 	force = 2
-	throwforce = 0
 	drop_sound = 'sound/items/handling/drop/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/taperecorder_pickup.ogg'
 	tts_seed = "Xenia"
@@ -379,7 +378,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 20, MAT_GLASS = 5)
 	force = 1
-	throwforce = 0
 	drop_sound = 'sound/items/handling/drop/tape_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/tape_pickup.ogg'
 	var/max_capacity = 600
