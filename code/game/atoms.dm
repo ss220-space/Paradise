@@ -113,8 +113,6 @@
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
-	var/list/alternate_appearances
-	var/drag_start
 	/// List of fibers that this atom has
 	var/list/suit_fibers
 	var/list/time_of_touch
