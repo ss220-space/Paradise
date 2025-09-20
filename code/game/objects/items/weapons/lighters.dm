@@ -15,7 +15,6 @@
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 2
 	light_on = FALSE
-	light_power = 1
 	var/lit = FALSE
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
@@ -662,7 +661,6 @@
 	desc = "Ваше собственное маленькое пламя, которое в данный момент находится прямо у вас во рту."
 	icon_state = "match_unathi"
 	attack_verb = null
-	force = 0
 	item_flags = DROPDEL|ABSTRACT
 	origin_tech = null
 	lit = TRUE

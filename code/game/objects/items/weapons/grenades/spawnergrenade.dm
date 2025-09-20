@@ -1,9 +1,7 @@
 /obj/item/grenade/spawnergrenade
 	name = "delivery grenade"
 	desc = "Она взорвётся через 5 секунд, что вызовет выброс всех содержащихся в ней существ."
-	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "delivery"
-	item_state = "flashbang"
 	origin_tech = "materials=3;magnets=4"
 	var/spawner_type = null // must be an object path
 	var/deliveryamt = 1 // amount of type to deliver
@@ -34,7 +32,6 @@
 
 /obj/item/grenade/spawnergrenade/manhacks
 	name = "manhack delivery grenade"
-	spawner_type = /mob/living/simple_animal/hostile/viscerator
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 

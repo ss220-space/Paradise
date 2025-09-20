@@ -1,6 +1,5 @@
 /obj/effect/temp_visual/bubbles
 	name = "bubbles"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "bubbles"
 	layer = CLEANABLES_LAYER
 	duration = 30

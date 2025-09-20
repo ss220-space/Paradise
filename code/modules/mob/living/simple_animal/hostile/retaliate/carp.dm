@@ -1,7 +1,6 @@
 /mob/living/simple_animal/hostile/retaliate/luu
 	name = "Майор Луу"
 	real_name = "Майор Луу"
-	voice_name = "неизвестный голос"
 	desc = "Неудачный эксперимент Nanotrasen по созданию технологии, позволяющей использовать карпа в качестве оружия. Этот совсем не пугающий карп теперь служит домашним животным начальника службы безопасности."
 	faction = list("carp")
 	icon_state = "magicarp"
@@ -16,7 +15,6 @@
 	taunt_chance = 30
 	maxHealth = 125
 	health = 125
-	harm_intent_damage = 3
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 20
@@ -27,9 +25,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list("carp")
 	pressure_resistance = 200
-	gold_core_spawnable = NO_SPAWN
 	AI_delay_max = 0.5 SECONDS
-	gender = MALE
 
 	var/carp_stamina_damage = 8
 

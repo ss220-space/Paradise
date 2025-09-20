@@ -7,12 +7,10 @@
 	desc = "A large stone brick fireplace."
 	icon = 'icons/obj/fireplace.dmi'
 	icon_state = "fireplace"
-	density = FALSE
 	anchored = TRUE
 	pixel_x = -16
 	resistance_flags = FIRE_PROOF
 	layer = BELOW_MOB_LAYER
-	max_integrity = 300
 	var/lit = FALSE
 
 	var/fuel_added = 0

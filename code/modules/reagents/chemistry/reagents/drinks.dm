@@ -2,7 +2,6 @@
 	name = "Апельсиновый сок"
 	id = "orangejuice"
 	description = "И вкусно, и богато витамином С - что ещё нужно?"
-	color = "#E78108" // rgb: 231, 129, 8
 	drink_icon = "glass_orange"
 	drink_name = "стакан апельсинового сока"
 	drink_desc = "Витамины! Круто!"
@@ -82,7 +81,6 @@
 	name = "Радость Доктора"
 	id = "doctorsdelight"
 	description = "Полезная смесь соков, которая поможет вам восстановиться перед следующей зарубой на тулбоксах."
-	reagent_state = LIQUID
 	color = "#FF8CFF" // rgb: 255, 140, 255
 	drink_icon = "doctorsdelightglass"
 	drink_name = "стакан Радости Доктора"
@@ -99,7 +97,6 @@
 	name = "Тройной Цитрус"
 	id = "triple_citrus"
 	description = "Освежающий микс из сока различных цитрусовых. Замечательно."
-	reagent_state = LIQUID
 	color = "#23A046"
 	drink_icon = "triplecitrus"
 	drink_name = "стакан Тройного Цитруса"
@@ -541,7 +538,6 @@
 	id = "icecoco"
 	description = "Горячее какао со льдом, освежающий и прохладный."
 	color = "#102838" // rgb: 16, 40, 56
-	adj_temp_hot = 0
 	adj_temp_cool = 5
 	drink_icon = "icedcoffeeglass"
 	drink_name = "стакан холодного какао"

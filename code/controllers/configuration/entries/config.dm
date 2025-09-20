@@ -412,7 +412,6 @@
 /datum/config_entry/string/comms_password
 
 /datum/config_entry/number/default_laws //Controls what laws the AI spawns with.
-	default = 0
 	min_val = 0
 	max_val = 4
 
@@ -788,7 +787,6 @@
 	default = 0.5
 
 /datum/config_entry/number/hard_deletes_overrun_limit
-	default = 0
 	min_val = 0
 
 /datum/config_entry/number/error_cooldown // The "cooldown" time for each occurrence of a unique error
@@ -834,7 +832,6 @@
 	default = TRUE
 
 /datum/config_entry/flag/save_spritesheets
-	default = FALSE
 
 
 /datum/config_entry/string/invoke_youtubedl

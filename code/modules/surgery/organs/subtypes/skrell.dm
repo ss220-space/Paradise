@@ -124,10 +124,8 @@
 		PREPOSITIONAL = "мозге скрелла"
 	)
 	icon = 'icons/obj/species_organs/skrell.dmi'
-	icon_state = "brain2"
 	item_state = "skrell_brain"
 	mmi_icon = 'icons/obj/species_organs/skrell.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/skrell
 	species_type = /datum/species/skrell

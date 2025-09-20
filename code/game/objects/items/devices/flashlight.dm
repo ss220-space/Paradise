@@ -12,7 +12,6 @@
 	actions_types = list(/datum/action/item_action/toggle_light)
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
-	light_power = 1
 	light_on = FALSE
 	var/on = FALSE
 	var/togglesound = 'sound/weapons/empty.ogg'
@@ -20,9 +19,6 @@
 /obj/item/flashlight/dummy
 	name = "Testing flashlight"
 	light_system = MOVABLE_LIGHT
-	light_range = 4
-	light_power = 1
-	light_on = FALSE
 
 /obj/item/flashlight/Initialize(mapload)
 	. = ..()
@@ -119,7 +115,6 @@
 	belt_icon = "penlight"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
-	flags = CONDUCT
 	light_system = MOVABLE_LIGHT
 	light_range = 2
 
@@ -155,7 +150,6 @@
 	desc = "A miniature lamp, that might be used by small robots."
 	icon_state = "penlight"
 	item_state = ""
-	flags = CONDUCT
 	light_range = 2
 	w_class = WEIGHT_CLASS_TINY
 
@@ -167,7 +161,6 @@
 	item_state = "lamp"
 	light_range = 5
 	w_class = WEIGHT_CLASS_BULKY
-	flags = CONDUCT
 	materials = list()
 	on = TRUE
 
@@ -341,7 +334,6 @@
 	chemglow_sprite_type = "red"
 
 /obj/item/flashlight/flare/glowstick/green
-	name = "green glowstick"
 
 /obj/item/flashlight/flare/glowstick/blue
 	name = "blue glowstick"
@@ -397,8 +389,6 @@
 	light_range = 6
 	icon_state = "torch"
 	item_state = "torch"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
 
@@ -416,7 +406,6 @@
 	gender = PLURAL
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "floor1" //not a slime extract sprite but... something close enough!
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_TINY

@@ -35,7 +35,6 @@
 /mob/living/simple_animal/parrot
 	name = "parrot"
 	desc = "Попугай пронзительно кричит: \"Это попугай! БВАХ-бах!\""
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
 	icon_living = "parrot_fly"
 	icon_dead = "parrot_dead"

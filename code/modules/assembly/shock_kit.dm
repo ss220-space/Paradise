@@ -7,7 +7,6 @@
 	var/obj/item/radio/electropack/part2 = null
 	var/status = 0
 	w_class = WEIGHT_CLASS_HUGE
-	flags = CONDUCT
 
 
 /obj/item/assembly/shock_kit/Destroy()

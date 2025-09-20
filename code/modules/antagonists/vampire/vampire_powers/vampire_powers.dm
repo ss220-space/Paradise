@@ -52,7 +52,6 @@
 	desc = "You shouldn't see this!"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
-	human_req = TRUE
 	clothes_req = FALSE
 	/// How much blood this ability costs to use
 	var/required_blood
@@ -332,11 +331,7 @@
 	name = "Возвышение вампиров"
 	desc = "Призывает смертоносных вампиров из блюспейса."
 	school = "transmutation"
-	clothes_req = FALSE
-	human_req = TRUE
 	invocation = "none"
-	invocation_type = "none"
-	base_cooldown = 10 SECONDS
 	cooldown_min = 2 SECONDS
 	action_icon_state = "revive_thrall"
 	sound = 'sound/magic/wandodeath.ogg'

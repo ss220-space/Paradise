@@ -10,7 +10,6 @@
 	desc = "Метеорологическое радио, предназначенное для использования в неблагоприятных условиях. Подает звуковые предупреждения о приближении шторма. Имеет доступ к каналу карго."
 	freqlock = TRUE
 	luminosity = 1
-	light_power = 1
 	light_range = 1.6
 	/// Currently displayed warning level
 	var/warning_level = WEATHER_ALERT_CLEAR

@@ -4,7 +4,6 @@
 	icon_state = "explosive_old"
 	origin_tech = "materials=1;combat=2;biotech=4;syndicate=3;bluespace=1"
 	implant_state = "implant-syndicate"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	actions_types = list(/datum/action/item_action/hands_free/activate/always)
 	implant_data = /datum/implant_fluff/second_chance
 

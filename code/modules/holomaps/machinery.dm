@@ -11,7 +11,6 @@
 	icon = 'icons/obj/stationmap.dmi'
 	icon_state = "station_map"
 	layer = ABOVE_WINDOW_LAYER
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 16
 	active_power_usage = 128
 	light_color = HOLOMAP_HOLOFIER

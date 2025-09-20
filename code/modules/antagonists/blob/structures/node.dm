@@ -1,6 +1,5 @@
 /obj/structure/blob/special/node
 	name = "blob node"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	desc = "Большая пульсирующая желтая масса."
 	max_integrity = BLOB_NODE_MAX_HP

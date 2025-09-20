@@ -34,8 +34,7 @@
 /area/shuttle/transport)
 "j" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/chair/comfy/red{
 	dir = 4
@@ -172,8 +171,7 @@
 /area/shuttle/transport)
 "L" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/item/flashlight/lamp,
 /obj/structure/table/wood/fancy,
@@ -185,8 +183,7 @@
 /area/shuttle/transport)
 "N" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/table/wood/fancy,
 /obj/item/melee/chainofcommand{

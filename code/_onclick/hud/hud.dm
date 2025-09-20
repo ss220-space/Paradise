@@ -62,6 +62,8 @@
 	/// Currently used to rebuild all plane master groups when going between 515<->516.
 	var/last_byond_version
 
+	var/atom/movable/screen/holomap/holomap
+
 /datum/hud/New(mob/owner)
 	mymob = owner
 	hide_actions_toggle = new

@@ -165,10 +165,8 @@
 /obj/structure/railing/wooden
 	name = "Wooden railing"
 	desc = "Wooden railing meant to protect idiots like you from falling."
-	icon = 'icons/obj/fence.dmi'
 	icon_state = "railing_wood"
 	resistance_flags = FLAMMABLE
-	climbable = TRUE
 	can_be_unanchored = TRUE
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5

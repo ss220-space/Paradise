@@ -90,7 +90,6 @@
 
 /obj/machinery/porta_turret/syndicate/vehicle_turret
 	name = "mounted turret"
-	animate_movement = SLIDE_STEPS
 	scan_range = 7
 	emp_vulnerable = TRUE
 	density = FALSE
