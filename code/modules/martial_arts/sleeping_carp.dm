@@ -3,6 +3,7 @@
 	weight = 9
 	name = "Спящий Карп"
 	reroute_deflection = TRUE
+	deflection_chance = 100
 	no_guns = TRUE
 	no_guns_message = "Использование подобного оружия обесчестит клан."
 	has_explaination_verb = TRUE
@@ -45,7 +46,7 @@
 
 /datum/martial_art/the_sleeping_carp/try_deflect(mob/user)
 	if(user.is_hands_free())
-		deflection_chance = 100
+		deflection_chance = initial(deflection_chance)
 	else if(!user.l_hand || !user.r_hand)
 		deflection_chance = 50
 	else
