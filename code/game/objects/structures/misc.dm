@@ -21,7 +21,6 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost2"
 	anchored = TRUE
-	density = FALSE
 
 /obj/structure/respawner
 	name = "Long-Distance Cloning Machine"

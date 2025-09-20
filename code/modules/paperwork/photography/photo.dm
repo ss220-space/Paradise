@@ -1,6 +1,5 @@
 /obj/item/photo
 	name = "photo"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "photo"
 	item_state = "paper"
 	w_class = WEIGHT_CLASS_SMALL

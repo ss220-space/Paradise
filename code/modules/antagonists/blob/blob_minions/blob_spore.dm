@@ -4,7 +4,6 @@
 /mob/living/simple_animal/hostile/blob_minion/spore
 	name = "blob spore"
 	desc = "Плавающая хрупкая спора."
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blobpod"
 	icon_living = "blobpod"
 	health_doll_icon = "blobpod"
@@ -17,7 +16,6 @@
 	melee_damage_lower = BLOBMOB_SPORE_DMG_LOWER
 	melee_damage_upper = BLOBMOB_SPORE_DMG_UPPER
 	obj_damage = BLOBMOB_SPORE_OBJ_DMG
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "ударяет"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	deathmessage = "взрывается облаком газа!"

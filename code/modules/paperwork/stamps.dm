@@ -4,10 +4,8 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "stamp-ok"
 	item_state = "stamp"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=60)
 	item_color = "cargo" //Если у кого-то как у меня возникнет непонимание зачем вообще нужен этот параметр, то он нужен для окрашивания вещей в стиральной машине...
 	pressure_resistance = 2
@@ -35,7 +33,6 @@
 /obj/item/stamp/law
 	name = "Law office's rubber stamp"
 	icon_state = "stamp-law"
-	item_color = "cargo"
 	dye_color = DYE_LAW
 
 /obj/item/stamp/captain
@@ -81,7 +78,6 @@
 
 /obj/item/stamp/granted
 	name = "GRANTED rubber stamp"
-	icon_state = "stamp-ok"
 	item_color = "qm"
 
 /obj/item/stamp/denied
@@ -139,8 +135,6 @@
 /obj/item/stamp/syndicate/taipan
 	name = "taipan rubber stamp"
 	icon_state = "stamp-taipan"
-	item_color = "syndicate"
-	dye_color = DYE_SYNDICATE
 
 /obj/item/stamp/mime
 	name = "mime's rubber stamp"

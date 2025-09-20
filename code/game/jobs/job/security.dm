@@ -246,7 +246,6 @@
 	head = /obj/item/clothing/head/soft/sec
 	id = /obj/item/card/id/security/cadet
 	l_pocket = /obj/item/reagent_containers/spray/pepper
-	suit_store = /obj/item/gun/energy/gun/advtaser
 	box = /obj/item/storage/box/survival_security/cadet
 
 /datum/outfit/job/officer/cadet/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

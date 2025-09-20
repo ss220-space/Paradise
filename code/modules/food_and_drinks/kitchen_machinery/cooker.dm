@@ -1,10 +1,8 @@
 /obj/machinery/cooker
 	name = "cooker"
 	desc = "You shouldn't be seeing this!"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	var/on = 0
 	var/onicon = null

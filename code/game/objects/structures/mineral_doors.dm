@@ -242,9 +242,7 @@
 	openSound = 'sound/effects/doorcreaky.ogg'
 	closeSound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/wood
-	hardness = 1
 	resistance_flags = FLAMMABLE
-	max_integrity = 200
 
 /obj/structure/mineral_door/wood/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
@@ -255,10 +253,6 @@
 	icon_state = "paperframe"
 	openSound = 'sound/effects/glider_door.ogg'
 	closeSound = 'sound/effects/glider_door.ogg'
-	sheetType = /obj/item/stack/sheet/wood
-	hardness = 1
-	resistance_flags = FLAMMABLE
-	max_integrity = 200
 
 /obj/structure/mineral_door/resin
 	name = "resin door"
@@ -282,4 +276,3 @@
 	sheetType = /obj/item/stack/sheet/gingerbread
 	hardness = 0.5
 	resistance_flags = FLAMMABLE
-	max_integrity = 200

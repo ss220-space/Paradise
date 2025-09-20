@@ -13,7 +13,6 @@
 	attacktext = "толкает"
 	death_sound = 'sound/creatures/crack_death1.ogg'
 	response_help  = "гладит"
-	response_disarm = "толкает"
 	response_harm   = "топчет"
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	density = FALSE
@@ -77,7 +76,6 @@
 	name = "turtle"
 	desc = "Большая космочерепаха. Прочная, тихая и медленная."
 	gender = FEMALE
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "yeeslow"
 	icon_living = "yeeslow"
 	icon_dead = "yeeslow_dead"
@@ -90,9 +88,7 @@
 	attacktext = "толкает"
 	death_sound = 'sound/creatures/crack_death1.ogg'
 	response_help  = "гладит"
-	response_disarm = "толкает"
 	response_harm   = "топчет"
-	density = TRUE
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	pass_flags = PASSTABLE | PASSGRILLE
 	status_flags = CANPARALYSE | CANPUSH

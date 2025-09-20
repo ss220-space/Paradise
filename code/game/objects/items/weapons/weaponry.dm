@@ -4,16 +4,12 @@
 /obj/item/banhammer
 	desc = "banhammer"
 	name = "banhammer"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "toyhammer"
 	slot_flags = ITEM_SLOT_BELT
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
 	throw_range = 15
 	attack_verb = list("banned")
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 
@@ -52,7 +48,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 2
 	throwforce = 1
-	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 
@@ -75,10 +70,8 @@
 	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	embedded_ignore_throwspeed_threshold = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -114,13 +107,11 @@
 	sharp = 1
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	pickup_sound = 'sound/items/handling/pickup/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/knife_drop.ogg'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
-	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -181,7 +172,6 @@
 	item_state = "harpoon"
 	force = 20
 	throwforce = 15
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("уколол", "тыкнул")
 
 /obj/item/wirerod
@@ -192,7 +182,6 @@
 	flags = CONDUCT
 	force = 9
 	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("ударил", "огрел")
 
@@ -252,7 +241,6 @@
 /obj/item/melee/baseball_bat
 	name = "baseball bat"
 	desc = "There ain't a skull in the league that can withstand a swatter."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "baseball_bat"
 	item_state = "baseball_bat"
 	var/deflectmode = FALSE // deflect small/medium thrown objects
@@ -486,7 +474,6 @@
 	item_state = "bone_sword"
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	force = 18
-	throwforce = 10
 	armour_penetration = 15
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
@@ -522,7 +509,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 3
 	throwforce = 3
-	w_class = WEIGHT_CLASS_NORMAL
 	var/stamina_damage = 22
 
 /obj/item/melee/nutcracker/get_ru_names()

@@ -4,7 +4,6 @@
 	icon = 'icons/obj/smooth_structures/lattice.dmi'
 	icon_state = "lattice-31"
 	base_icon_state = "lattice"
-	density = FALSE
 	anchored = TRUE
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
 	max_integrity = 50
@@ -118,10 +117,8 @@
 	icon_state = "catwalk-0"
 	base_icon_state = "catwalk"
 	number_of_rods = 2
-	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_CATWALK
 	smoothing_groups = SMOOTH_GROUP_CATWALK
-	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 	give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
@@ -142,7 +139,6 @@
 	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
 	base_icon_state = "catwalk_clockwork"
 	icon_state = "catwalk_clockwork-0"
-	smooth = SMOOTH_BITMASK
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
 	. = ..()
@@ -166,7 +162,6 @@
 	name = "fireproof lattice"
 	desc = "A lightweight support lattice made of heat-resistance alloy."
 	icon = 'icons/obj/smooth_structures/lattice_f.dmi'
-	icon_state = "lattice-31"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	max_integrity = 100
@@ -186,7 +181,6 @@
 	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
 	max_integrity = 150
 	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
-	icon_state = "catwalk-0"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	number_of_rods = 3
 	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
@@ -207,8 +201,6 @@
 	desc = "A heavily reinforced catwalk used to build bridges in hostile environments. It doesn't look like anything could make this budge."
 	resistance_flags = INDESTRUCTIBLE
 	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
-	base_icon_state = "catwalk"
-	icon_state = "catwalk-0"
 	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
 /obj/structure/lattice/catwalk/mapping/deconstruction_hints(mob/user)

@@ -1,8 +1,6 @@
 /datum/species/human
 	name = SPECIES_HUMAN
 	name_plural = "Humans"
-	icobase = 'icons/mob/human_races/r_human.dmi'
-	deform = 'icons/mob/human_races/r_def_human.dmi'
 	primitive_form = /datum/species/monkey
 	language = LANGUAGE_SOL_COMMON
 	inherent_traits = list(

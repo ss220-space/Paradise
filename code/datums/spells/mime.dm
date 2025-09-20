@@ -9,7 +9,6 @@
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	cast_sound = null
-	human_req = TRUE
 
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"
@@ -36,7 +35,6 @@
 	school = "mime"
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
-	human_req = TRUE
 
 	action_icon_state = "mime_silence"
 	action_background_icon_state = "bg_mime"
@@ -89,7 +87,6 @@
 	invocation_emote_self = span_notice("Вы создаёте стену перед cобой.")
 	base_cooldown = 60 SECONDS
 	sound =  null
-	clothes_req = FALSE
 
 	action_icon_state = "mime_bigwall"
 	action_background_icon_state = "bg_mime"
@@ -113,7 +110,6 @@
 	school = "mime"
 	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
-	human_req = TRUE
 
 	action_icon_state = "fingergun"
 	action_background_icon_state = "bg_mime"

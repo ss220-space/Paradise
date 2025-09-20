@@ -78,7 +78,6 @@
 	icon_state = "leather_bed"
 	comfort = 1.2
 	buildstacktype = /obj/item/stack/sheet/leather
-	buildstackamount = 2
 
 /obj/structure/bed/leather/get_ru_names()
 	return list(

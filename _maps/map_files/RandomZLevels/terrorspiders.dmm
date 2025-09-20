@@ -4138,7 +4138,6 @@
 /area/awaymission/UO71/gateway)
 "kH" = (
 /obj/structure/spider/cocoon{
-	contents = newlist(/obj/effect/decal/remains/human);
 	icon_state = "cocoon_large1"
 	},
 /obj/structure/spider/terrorweb,
@@ -6290,8 +6289,7 @@
 /area/awaymission/UO71/science)
 "oL" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/UO71/science)
@@ -7323,8 +7321,7 @@
 /area/awaymission/UO71/eng)
 "qX" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/closet/secure_closet/engineering_personal{
 	req_access = list(271)
@@ -8774,8 +8771,7 @@
 "tS" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/plasteel{

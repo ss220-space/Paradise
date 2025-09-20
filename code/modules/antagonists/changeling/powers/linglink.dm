@@ -4,7 +4,6 @@
 	helptext = "If we find a human mad enough to support our cause, this can be a helpful tool to stay in touch."
 	button_icon_state = "hivemind_link"
 	power_type = CHANGELING_INNATE_POWER
-	chemical_cost = 0
 	req_human = TRUE
 
 

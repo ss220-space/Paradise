@@ -166,7 +166,6 @@
 	icon_state = "arrow"
 	opacity = TRUE
 	density = TRUE
-	anchored = TRUE
 	appearance_flags = TILE_BOUND|KEEP_TOGETHER|LONG_GLIDE
 	plane = ABOVE_GAME_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

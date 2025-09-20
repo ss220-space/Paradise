@@ -198,8 +198,6 @@
 
 /obj/item/clothing/head/hooded/chaplain_hood/no_name
 	name = "dark robe's hood"
-	desc = "Капюшон, покрывающий голову. Позволяет сохранить тепло во время космической зимы."
-	icon_state = "chaplain_hood"
 	flags_inv = parent_type::flags_inv|HIDENAME
 
 /obj/item/clothing/head/hooded/chaplain_hood/no_name/get_ru_names()
@@ -644,7 +642,6 @@
 /obj/item/clothing/head/surgery/blue
 	name = "blue surgical cap"
 	desc = "Голубая шапочка, которую носят хирурги во время операций. Защищает внутренние органы пациента от попадания на них волос."
-	icon_state = "surgcap_blue"
 
 /obj/item/clothing/head/surgery/blue/get_ru_names()
 	return list(
