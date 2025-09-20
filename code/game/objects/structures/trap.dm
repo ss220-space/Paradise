@@ -4,7 +4,6 @@
 	desc = "Давай, наступи на меня!"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "trap"
-	density = FALSE
 	anchored = TRUE
 	alpha = 30 //initially quite hidden when not "recharging"
 	var/flare_message = span_warning("ловушка ярко светится!")

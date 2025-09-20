@@ -47,7 +47,6 @@
 	item_state = "book"
 	throw_speed = 1
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	//attack_verb_continuous = list("bashes", "curses")
 	attack_verb = list("бьёт", "проклинает")
 	resistance_flags = FLAMMABLE
@@ -114,9 +113,6 @@
 	name = "клочки бумаги"
 	desc = "Кусочки бумаги, разлетающиеся по ветру."
 	layer = ABOVE_NORMAL_TURF_LAYER
-	plane = GAME_PLANE
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "paper_scatter"
-	anchored = TRUE
 	duration = 0.5 SECONDS
 	randomdir = FALSE

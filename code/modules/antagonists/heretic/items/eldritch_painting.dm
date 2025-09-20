@@ -2,19 +2,15 @@
 /obj/item/wallframe/painting/eldritch
 	name = "Чистый холст"
 	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
-	icon = 'icons/obj/signs.dmi'
 	resistance_flags = FLAMMABLE
 	icon_state = "eldritch_painting_debug"
 	result_path = /obj/structure/sign/painting/eldritch
-	pixel_shift = 30
 
 
 /obj/structure/sign/painting/eldritch
 	name = "Чистый холст"
 	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
-	icon = 'icons/obj/signs.dmi'
 	icon_state = "eldritch_painting_debug"
-	resistance_flags = FLAMMABLE
 	//buildable_sign = FALSE
 	// The list of canvas types accepted by this frame, set to zero here
 	accepted_canvas_types = list()

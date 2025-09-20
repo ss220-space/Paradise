@@ -188,7 +188,6 @@
 	name = "древние письмена"
 	desc = "Множество неизвестных символов, они напоминают вам о давно минувших днях..."
 	gender = PLURAL
-	icon = 'icons/obj/hand_of_god_structures.dmi'
 	max_integrity = 60
 	/// A tip displayed to heretics who examine the rune carver. Explains what the rune does.
 	var/carver_tip

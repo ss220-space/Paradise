@@ -46,5 +46,4 @@
 
 
 /obj/effect/proc_holder/spell/watchers_look/heretic
-	clothes_req = FALSE
 	human_req = FALSE

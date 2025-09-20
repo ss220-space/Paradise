@@ -4,7 +4,6 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	duration = 10 SECONDS
-	tick_interval = 1 SECONDS
 
 /datum/status_effect/amok/on_apply(mob/living/afflicted)
 	to_chat(owner, span_boldwarning("Вы чувствуете, как вас переполняет неконтролируемая ярость!"))
@@ -62,7 +61,6 @@
 	id = "corrosion_curse"
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
-	tick_interval = 1 SECONDS
 
 /datum/status_effect/corrosion_curse/on_apply()
 	to_chat(owner, span_userdanger("Ваше тело начинает разрушаться!"))
@@ -199,7 +197,6 @@
 /datum/status_effect/moon_converted
 	id = "moon converted"
 	alert_type = /atom/movable/screen/alert/status_effect/moon_converted
-	duration = -1
 	status_type = STATUS_EFFECT_REPLACE
 	///used to track damage
 	var/damage_sustained = 0

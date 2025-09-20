@@ -312,7 +312,6 @@
 /datum/status_effect/caretaker_refuge
 	id = "Caretaker’s Last Refuge"
 	status_type = STATUS_EFFECT_REFRESH
-	duration = -1
 	alert_type = null
 	var/static/list/caretaking_traits = list(TRAIT_GODMODE, TRAIT_HANDS_BLOCKED, TRAIT_IGNORESLOWDOWN, TRAIT_SECLUDED_LOCATION)
 

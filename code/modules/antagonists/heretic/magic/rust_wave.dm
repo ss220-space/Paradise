@@ -94,8 +94,6 @@
 	action_icon_state = "rust_wave"
 
 	school = SCHOOL_FORBIDDEN
-	human_req = FALSE
-	clothes_req = FALSE
 	base_cooldown = 35 SECONDS
 
 	invocation = "К'ВР'В Д'Р'ЖК"

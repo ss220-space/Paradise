@@ -30,7 +30,6 @@
 		/obj/item/crowbar = 1,
 	)
 	result_atoms = list(/obj/item/melee/sickly_blade/lock)
-	limit = 2
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "key_blade"
 
@@ -176,7 +175,6 @@
 	name = "Клинок Открытия"
 	desc = "Ваш клинок имеет шанс наложить запутанность при атаке."
 	gain_text = "«Пилигрим-хирург» не был стюардом. Тем не менее, его лезвия и нити оказались не хуже ключей."
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_lock"
 	var/chance = 35
 

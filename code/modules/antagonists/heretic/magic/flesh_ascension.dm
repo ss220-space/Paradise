@@ -8,11 +8,7 @@
 	action_icon_state = "worm_ascend"
 
 	school = SCHOOL_FORBIDDEN
-	human_req = FALSE
-	clothes_req = FALSE
-
 	invocation = "ДА РАСКРОЕТСЯ РЕАЛЬНОСТЬ!"
-	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
 	//convert_damage = FALSE // Functionally meaningless on Armsy, we track how many segments it had instead

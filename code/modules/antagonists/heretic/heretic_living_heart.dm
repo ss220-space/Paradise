@@ -68,7 +68,6 @@
 /obj/effect/proc_holder/spell/track_target
 	name = "Биение живого сердца"
 	desc = "ЛКМ: Выберите одну из целей жертвоприношения для отслеживания.\nАльтклик: Переключает автовыбор последней выбранной цели."
-	stat_allowed = CONSCIOUS
 	action_background_icon_state = "bg_heretic"
 	action_icon = 'icons/obj/eldritch.dmi'
 	action_icon_state = "living_heart"

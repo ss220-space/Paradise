@@ -19,7 +19,6 @@
 	faction = list(FACTION_HERETIC)
 	mob_size = MOB_SIZE_TINY
 	speak_emote = list("кричит")
-	del_on_death = TRUE
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 	//initial_language_holder = /datum/language_holder/carp/hear_common
 

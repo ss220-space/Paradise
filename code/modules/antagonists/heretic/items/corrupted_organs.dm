@@ -2,7 +2,6 @@
 /obj/item/organ/internal/eyes/corrupt
 	name = "искаженные сферы"
 	desc = "Эти глаза увидели то, чего им видеть не следовало."
-	gender = PLURAL
 	icon_state = "eyes_voidwalker"
 	color = COLOR_VOID_PURPLE
 	//iris_overlay = null
@@ -109,7 +108,6 @@
 /obj/item/organ/internal/liver/corrupt
 	name = "искаженная печень"
 	desc = "После увиденного вам действительно захочется выпить."
-	gender = FEMALE
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// How much extra ingredients to add?
 	var/amount_added = 5
@@ -201,7 +199,6 @@
 /obj/item/organ/internal/lungs/corrupt
 	name = "искаженные лёгкие"
 	desc = "Некоторые вещи ДОЛЖНЫ утонуть в смоле."
-	gender = PLURAL
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// How likely are we not to cough every time we take a breath?
 	var/cough_chance = 15
@@ -253,7 +250,6 @@
 /obj/item/organ/internal/appendix/corrupt
 	name = "искажённый аппендикс"
 	desc = "Какая темная космическая сила вообще может захотеть испортить аппендикс?"
-	gender = MALE
 	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// How likely are we to spawn worms?
 	var/worm_chance = 2

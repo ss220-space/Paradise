@@ -17,7 +17,6 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
-	aoe_range = 7
 	/// The radius of the actual damage circle done before cast
 	var/damage_radius = 1
 	/// The radius of the stun applied to nearby people on cast

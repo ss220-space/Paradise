@@ -75,7 +75,6 @@
 	id = "heretic_rust"
 	color = COLOR_CARGO_BROWN // Rust color
 	taste_description = "гнилая медь"
-	penetrates_skin = NONE
 	//ph = 7.4
 	//default_container = /obj/item/reagent_containers/glass/bottle/capsaicin
 

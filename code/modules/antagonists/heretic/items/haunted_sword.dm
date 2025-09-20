@@ -10,7 +10,6 @@
 	icon_state = "hauntedblade"
 	item_state = "hauntedblade"
 	item_state = "hauntedblade"
-	force = 30
 	throwforce = 25
 	block_chance = 55
 	//wound_bonus = -25

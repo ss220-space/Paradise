@@ -4,7 +4,6 @@
 	desc = "Заклинание, позволяющее вам принять облик другого сверхъестественного \
 			существа, приобретая его способности. Вы можете изменить свой выбор в \
 			любой момент, и если ваша форма умрёт, вы не умрёте."
-	base_cooldown = 20 SECONDS
 	//convert_damage = FALSE
 	//die_with_shapeshifted_form = FALSE
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

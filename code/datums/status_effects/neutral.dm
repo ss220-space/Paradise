@@ -392,7 +392,6 @@
 /datum/status_effect/gutted
 	id = "gutted"
 	alert_type = null
-	duration = -1
 	tick_interval = -1
 
 /datum/status_effect/gutted/on_apply()

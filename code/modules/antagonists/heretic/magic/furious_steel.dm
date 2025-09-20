@@ -14,9 +14,6 @@
 	clothes_req = FALSE
 	base_cooldown = 25 SECONDS
 	invocation = "Р'СТН СТ'ЛЬ!"
-	invocation_type = INVOCATION_SHOUT
-
-	spell_requirements = NONE
 
 	active_msg = "Вы призываете три серебрянных клинка."
 	deactive_msg = "Вы отзываете три серебрянных клинка."
@@ -144,7 +141,6 @@
 	name = "клинок"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "dio_knife"
-	speed = 0.5
 	damage = 25
 	armour_penetration = 100
 	sharp = TRUE
@@ -223,11 +219,6 @@
 	desc = "Призывает два проклятых клинка, вращающихся вокруг вас. \
 			Эти клинки защитят вас от атак, уничтожаясь в процессе. \
 			Кроме того, вы можете кликнуть, чтобы выстрелить клинками в цель, нанося урон и вызывая кровотечение."
-	action_background_icon_state = "bg_heretic" // kept intentionally
-	overlay_icon_state = "bg_cult_border"
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
-	action_icon_state = "cursed_steel"
-	sound = 'sound/weapons/guillotine.ogg'
 
 	base_cooldown = 40 SECONDS
 	invocation = "IA!"

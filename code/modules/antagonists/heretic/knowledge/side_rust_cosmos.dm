@@ -57,7 +57,6 @@
 		/obj/item/stack/sheet/metal = 10,
 		/obj/item/trash = 1,
 	)
-	cost = 0
 
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "corrode"

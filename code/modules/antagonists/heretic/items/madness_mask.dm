@@ -2,12 +2,9 @@
 /obj/item/clothing/mask/madness_mask
 	name = "маска безумия"
 	desc = "Маска, созданная из страданий. Когда вы смотрите в щели для глаз, Нечто смотрит оттуда на вас."
-	gender = FEMALE
 	icon_state = "mad_mask"
 	item_state = null
-	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = MASKCOVERSEYES
-	resistance_flags = FLAMMABLE
 	flags_inv = HIDENAME
 	//flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	///Who is wearing this

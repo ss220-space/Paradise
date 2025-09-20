@@ -4,14 +4,9 @@
 	gender = FEMALE
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "realitycrack"
-	light_system = STATIC_LIGHT
-	light_power = 1
-	light_on = TRUE
 	light_color = COLOR_GREEN
 	light_range = 3
 	opacity = TRUE
-	density = FALSE //so we dont block doors closing
-	layer = OBJ_LAYER //under doors
 	///The knock portal we teleport to
 	var/obj/effect/lock_portal/destination
 	///The airlock we are linked to, we delete if it is destroyed

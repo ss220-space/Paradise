@@ -5,9 +5,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	icon = null
 	icon_state = null
 	alpha = 0
-	invisibility = INVISIBILITY_ABSTRACT
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 	/// Proximity monitor that handles the effects we are looking for
 	var/datum/component/proximity_monitor/advanced/heretic_arena/arena
@@ -151,10 +149,8 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	name = "жуткая стена"
 	desc = "Стена, не дающая овцам сбежать от волка. \
 			Она излучает злобную энергию — трогать её, вероятно, неразумно."
-	icon = 'icons/turf/walls.dmi'
 	icon_state = "eldritch_forcewall"
 	opacity = FALSE
-	pass_flags_self = NONE // No PASSCLOSEDTURF because only arena victors are allowed to go in or out
 
 
 /turf/simulated/wall/indestructible/heretic_wall/get_ru_names()
@@ -227,9 +223,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 
 /datum/status_effect/arena_tracker
 	id = "arena_tracker"
-	duration = -1
 	tick_interval = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	/// Tracks the last person who dealt damage to this mob
 	var/datum/weakref/last_attacker

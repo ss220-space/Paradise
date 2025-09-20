@@ -158,9 +158,7 @@
 	gender = MALE
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "cosmic_carpet"
-	anchored = TRUE
 	density = FALSE
-	lifetime = 30 SECONDS
 	/// Flags for what antimagic can just ignore our forcefields
 	var/antimagic_flags = MAGIC_RESISTANCE
 

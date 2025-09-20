@@ -65,7 +65,6 @@
 	name = "звёздная руна"
 	gender = FEMALE
 	desc = "Странная руна, способная мгновенно переносить людей в другое место."
-	anchored = TRUE
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "cosmic_rune"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -205,7 +204,6 @@
 	icon_state = "cosmic_rune_light"
 	plane = FLOOR_PLANE
 	layer = CLEANABLES_LAYER
-	anchored = TRUE
 	duration = 5
 
 

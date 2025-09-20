@@ -3,7 +3,6 @@
 	desc = "Янтарный кристалл, связанный с потусторонним миром. Если не смотреть на амулет, он начинает подрагивать."
 	gender = MALE
 	icon_state = "eldritch_necklace"
-	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF
 
 
@@ -27,7 +26,6 @@
 	name = "кровавый амулет"
 	desc = "Кроваво-красное фокусирующее стекло, обеспечивающее связь с потусторонним миром и даже чем-то похуже. \
 			Рубиновый глаз постоянно дёргается и смотрит во все стороны. Кажется, будто он беззвучно кричит..."
-	gender = MALE
 	icon_state = "crimson_medallion"
 	/// The aura healing component. Used to delete it when taken off.
 	var/datum/component/component
@@ -157,7 +155,6 @@
 	gender = MALE
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eye_medalion"
-	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// A secondary clothing trait only applied to heretics.
 	var/heretic_only_trait = TRAIT_THERMAL_VISION
@@ -203,7 +200,6 @@
 	desc = "Частица разума, души и луны. От простого взгляда на неё кружится голова. Вы слышите шепот полный смеха и радости."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "moon_amulette"
-	w_class = WEIGHT_CLASS_SMALL
 	// How much damage does this item do to the targets sanity?
 	var/sanity_damage = 20
 

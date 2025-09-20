@@ -13,12 +13,10 @@
 	desc = "Позволяет приносить цели в жертву Мансусу, положив их в руну в критическом (или худшем) состоянии. \
 			Если у вас нет целей, встаньте на руну трансмутации и проведите этот ритуал, чтобы получить их."
 	required_atoms = list(/mob/living/carbon/human = 1)
-	cost = 0
 	priority = MAX_KNOWLEDGE_PRIORITY // Should be at the top
 	is_starting_knowledge = TRUE
 	research_tree_icon_path = 'icons/effects/eldritch.dmi'
 	research_tree_icon_state = "eye_close"
-	research_tree_icon_frame = 1
 	/// How many targets do we generate?
 	var/num_targets_to_generate = 5
 	/// Whether we've generated a heretic sacrifice z-level yet, from any heretic.
@@ -800,9 +798,7 @@
 	hitsound = 'sound/effects/curse/curse4.ogg'
 	layer = LARGE_MOB_LAYER
 	damage_type = BURN
-	damage = 10
 	paralyze = 20
-	speed = 0.5
 	range = 16
 	hit_crawling_mobs_chance = 100
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
@@ -888,7 +884,6 @@
 
 
 /obj/projectile/curse_hand/hel //Used in helbital's impure reagent
-	damage = 10
 	paralyze = 0 //Lets not stun people!
 	speed = 1
 	range = 20
@@ -915,12 +910,10 @@
 	plane = ABOVE_GAME_PLANE
 	pixel_y = -16
 	pixel_x = -16
-	duration = 32
 	fades = FALSE
 
 
 /obj/effect/temp_visual/dir_setting/curse/grasp_portal/fading
-	duration = 32
 	fades = TRUE
 
 

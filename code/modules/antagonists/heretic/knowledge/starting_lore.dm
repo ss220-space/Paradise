@@ -27,7 +27,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	research_tree_icon_path = 'icons/effects/effects.dmi'
 	research_tree_icon_state = "static"
 	spell_to_add = /obj/effect/proc_holder/spell/touch/mansus_grasp
-	cost = 0
 	is_starting_knowledge = TRUE
 
 /*
@@ -84,12 +83,10 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		/obj/effect/decal/cleanable/blood = 1,
 		/obj/item/reagent_containers/food/snacks/grown/poppy = 1,
 	)
-	cost = 0
 	priority = MAX_KNOWLEDGE_PRIORITY - 1 // Knowing how to remake your heart is important
 	is_starting_knowledge = TRUE
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "living_heart"
-	research_tree_icon_frame = 1
 
 
 /datum/heretic_knowledge/living_heart/on_research(mob/user, datum/antagonist/heretic/our_heretic)
@@ -207,7 +204,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		/obj/item/stack/sheet/glass = 1,
 	)
 	result_atoms = list(/obj/item/clothing/neck/heretic_focus)
-	cost = 0
 	priority = MAX_KNOWLEDGE_PRIORITY - 2 // Not as important as making a heart or sacrificing, but important enough.
 	is_starting_knowledge = TRUE
 	research_tree_icon_path = 'icons/obj/clothing/neck.dmi'
@@ -220,7 +216,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	research_tree_icon_path = 'icons/mob/actions/actions.dmi'
 	research_tree_icon_state = "spell_default"
 	spell_to_add = /obj/effect/proc_holder/spell/heretic_menu
-	cost = 0
 	is_starting_knowledge = TRUE
 
 
@@ -231,7 +226,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	research_tree_icon_path = 'icons/effects/effects.dmi'
 	research_tree_icon_state = "curse"
 	spell_to_add = /obj/effect/proc_holder/spell/shadow_cloak
-	cost = 0
 	is_starting_knowledge = TRUE
 
 /**

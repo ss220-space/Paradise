@@ -274,7 +274,6 @@
 	icon = 'icons/turf/walls/flesh.dmi'
 	icon_state = "flesh_wall-0"
 	base_icon_state = "flesh"
-	smooth = NONE
 
 
 /turf/simulated/wall/indestructible/flesh/get_ru_names()

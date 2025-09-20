@@ -256,7 +256,6 @@
 	id = "race_swap"
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
-	duration = -1
 	tick_interval = -1
 	/// What species were we before this effect was ever applied on us
 	var/datum/old_species

@@ -18,7 +18,6 @@
 	invocation = "ЗВ'ЗДН К'С'Н!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
-	antimagic_flags = MAGIC_RESISTANCE
 
 	hand_path = /obj/item/melee/touch_attack/star_touch
 	/// Stores the weakref for the Star Gazer after ascending

@@ -8,8 +8,6 @@
 	icon_state = "unfathomable_curio"
 	item_state = "unfathomable_curio"
 	//content_overlays = FALSE
-	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
-	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
 	//storage_type = /datum/storage/unfathomable_curio
 	max_combined_w_class = 21
 	storage_slots = 21

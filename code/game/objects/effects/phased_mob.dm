@@ -1,6 +1,5 @@
 /obj/effect/dummy/spell_jaunt
 	name = "ethereal form"
-	anchored = TRUE
 	//flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | SHUTTLE_CRUSH_PROOF
 	invisibility = INVISIBILITY_OBSERVER

@@ -7,7 +7,6 @@
 	icon_state = "crucible"
 	base_icon_state = "crucible"
 	break_sound = 'sound/effects/wail.ogg'
-	light_power = 1
 	anchored = TRUE
 	density = TRUE
 	gender = MALE
@@ -270,7 +269,6 @@
 	name = "Варево дня и ночи"
 	//No ru_names, because its not for game.
 	desc = "Вы не должны были это увидеть."
-	gender = NEUTER
 	icon = 'icons/obj/eldritch.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	/// When a heretic examines a mawed crucible, shows a list of possible potions by name + includes this tip to explain what it does.

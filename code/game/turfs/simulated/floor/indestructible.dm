@@ -336,9 +336,6 @@
 	icon = 'icons/turf/floors/flesh_floor.dmi'
 	icon_state = "flesh"
 	footstep = FOOTSTEP_SAND
-	barefootstep = FOOTSTEP_HARD_BAREFOOT
-	clawfootstep = FOOTSTEP_HARD_CLAW
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 
 /turf/simulated/floor/indestructible/flesh/get_ru_names()

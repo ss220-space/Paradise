@@ -37,7 +37,7 @@
 
 	if(!iscarbon(action.owner))
 		return SPELL_CANCEL_CAST
-	
+
 	var/mob/living/carbon/human/human = action.owner
 	if(human.handcuffed)
 		human.visible_message(span_danger("[human.handcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(human.handcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(human.gender, "ит", "ят")] [human.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(human.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
@@ -97,8 +97,5 @@
 
 
 /obj/effect/temp_visual/knockblast
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield-flash"
 	alpha = 180
-	duration = 1 SECONDS
-

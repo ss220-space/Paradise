@@ -14,7 +14,6 @@
 	//obj_flags = CONDUCTS_ELECTRICITY
 	slot_flags = ITEM_SLOT_BELT
 	sharp = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 30
 	throwforce = 35
 	armour_penetration = 20
@@ -406,7 +405,6 @@
 	block_chance = 35
 	//wound_bonus = 25
 	//bare_wound_bonus = 15
-	armour_penetration = 35
 	icon_state = "cursed_blade"
 	item_state = "cursed_blade"
 

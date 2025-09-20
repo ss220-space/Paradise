@@ -13,8 +13,6 @@
 	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 6 SECONDS
-
-	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
 	/// How long before we automatically uncloak?

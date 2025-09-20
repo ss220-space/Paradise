@@ -2,7 +2,6 @@
 	name = "поножи пророка"
 	desc = "Грубые, изношенные железные башмаки. Кажется, что они прочнее, чем земля, по которой в них ходят. \
 			Они покрыты тонким слоем ржавчины, и всё же, её вид почему-то успокивает вас."
-	gender = PLURAL
 	icon_state = "hereticgreaves"
 	resistance_flags = ACID_PROOF | FIRE_PROOF | LAVA_PROOF
 

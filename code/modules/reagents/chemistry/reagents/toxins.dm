@@ -1560,4 +1560,3 @@ Basically, we fill the time between now and 2s from now with hands based off the
 /datum/reagent/inverse/helgrasp/heretic
 	name = "Прикосновение Мансуса"
 	description = "Чья-та рука у вашего горла..."
-	metabolization_rate = 1 * REM

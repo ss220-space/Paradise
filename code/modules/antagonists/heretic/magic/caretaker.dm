@@ -16,7 +16,6 @@
 	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
 
-	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
 

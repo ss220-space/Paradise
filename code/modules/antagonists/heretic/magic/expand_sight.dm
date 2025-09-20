@@ -8,7 +8,6 @@
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	human_req = FALSE
-	clothes_req = FALSE
 	view_ranges = list(
 		"default",
 		"17x17",

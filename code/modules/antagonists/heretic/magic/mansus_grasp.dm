@@ -7,11 +7,7 @@
 	action_icon_state = "mansus_grasp"
 	sound = 'sound/items/welder.ogg'
 
-	school = SCHOOL_EVOCATION
 	clothes_req = FALSE
-	base_cooldown = 10 SECONDS
-
-	invocation_type = INVOCATION_NONE
 	// Mimes can cast it. Chaplains can cast it. Anyone can cast it, so long as they have a hand.
 	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION
 

@@ -12,7 +12,6 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-	base_cooldown = 30 SECONDS
 
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
@@ -43,7 +42,6 @@
 	name = "Конус Холода"
 	desc = "Выстреливает перед вами замораживающим конусом."
 
-	school = SCHOOL_EVOCATION
 	base_cooldown = 30 SECONDS
 	//cooldown_reduction_per_rank = 4 SECONDS
 

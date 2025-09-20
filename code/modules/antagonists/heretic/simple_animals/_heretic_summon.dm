@@ -5,9 +5,6 @@
 	icon = 'icons/mob/eldritch_mobs.dmi'
 	faction = list(FACTION_HERETIC)
 	gender = NEUTER
-	//mob_biotypes = NONE
-
-	status_flags = CANPUSH
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, STAMINA = 0, OXY = 0)
 	speed = 0
 	Atkcool = CLICK_CD_MELEE
@@ -22,7 +19,6 @@
 	unsuitable_atmos_damage = 0
 	ai_controller = null
 	speak_emote = list("кричит")
-	gold_core_spawnable = NO_SPAWN
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 

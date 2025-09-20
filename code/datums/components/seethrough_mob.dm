@@ -124,7 +124,6 @@
 /obj/effect/proc_holder/spell/toggle_seethrough
 	name = "Toggle Seethrough"
 	desc = "Allows you to see behind your massive body and click through it."
-	action_icon = 'icons/mob/actions/actions.dmi'
 	action_icon_state = "alien_sneak"
 	action_background_icon_state = "bg_alien"
 	base_cooldown = 1 SECONDS

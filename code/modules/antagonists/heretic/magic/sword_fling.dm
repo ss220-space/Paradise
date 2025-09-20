@@ -2,16 +2,13 @@
 /obj/effect/proc_holder/spell/pointed/sword_fling
 	name = "Метание меча"
 	desc = "Попробуйте метнуть себя куда-нибудь."
-	ranged_mousepointer = 'icons/effects/mouse_pointers/cult_target.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_cult_border"
 
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "sword_fling"
 
-	school = SCHOOL_EVOCATION
 	base_cooldown = 4 SECONDS
-	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
 	cast_range = 6

@@ -12,7 +12,6 @@
 	jaunt_type = /obj/effect/dummy/spell_jaunt/mirror_walk
 	clothes_req = FALSE
 	human_req = FALSE
-	nonabstract_req = FALSE
 	phase_allowed = TRUE
 	/// The time it takes to enter the mirror / phase out / enter jaunt.
 	var/phase_out_time = 1.5 SECONDS

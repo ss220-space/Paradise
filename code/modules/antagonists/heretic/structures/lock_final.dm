@@ -10,7 +10,6 @@
 	light_color = COLOR_VOID_PURPLE
 	light_range = 20
 	anchored = TRUE
-	density = FALSE
 	layer = ABOVE_NORMAL_TURF_LAYER
 	move_resist = INFINITY
 	/// Who is our daddy?
@@ -107,13 +106,11 @@
 
 /obj/effect/temp_visual/destabilising_tear
 	name = "нестабильный разлом"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "bhole3"
 	color = COLOR_VOID_PURPLE
 	light_color = COLOR_VOID_PURPLE
 	light_range = 20
 	layer = ABOVE_NORMAL_TURF_LAYER
-	duration = 1 SECONDS
 
 
 /obj/effect/temp_visual/destabilising_tear/get_ru_names()

@@ -186,9 +186,7 @@
 // Visual effect played when we hit the max bounces
 /obj/effect/temp_visual/fire_blast_bonus
 	name = "fire blast"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "explosion"
-	duration = 1 SECONDS
 
 
 /**

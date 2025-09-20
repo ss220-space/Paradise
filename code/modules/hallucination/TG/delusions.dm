@@ -156,7 +156,7 @@
 
 /// Used for making custom delusions.
 /datum/hallucination/delusion/custom
-	random_hallucination_weight = 0
+
 
 /datum/hallucination/delusion/custom/New(
 	mob/living/hallucinator,

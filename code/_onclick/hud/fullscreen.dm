@@ -215,7 +215,6 @@
 /atom/movable/screen/fullscreen/curse
 	icon_state = "curse"
 	layer = CURSE_LAYER
-	plane = FULLSCREEN_PLANE
 
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER

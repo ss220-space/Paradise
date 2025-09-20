@@ -11,7 +11,6 @@
 	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
-	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 

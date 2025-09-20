@@ -1,7 +1,6 @@
 // Eldritch armor. Looks cool, hood lets you cast heretic spells.
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "зловещий капюшон"
-	gender = MALE
 	desc = "Рваный, покрытый пылью капюшон. Внутри виднеются жуткие глаза."
 	icon = 'icons/obj/clothing/helmet.dmi'
 	//worn_icon = 'icons/mob/clothing/head/helmet.dmi'

@@ -2,16 +2,12 @@
 	name = "Ржавый Жнец"
 	desc = "Длинный, тонкий, ветхий конструкт, изначально созданный, чтобы возвестить о возвышении Нар'Си, \
 			но затем оскверненный и заржавевший под натиском сил Мансуса."
-	icon_state = "harvester"
-	icon_living = "harvester"
 	construct_spells = list(
 		/obj/effect/proc_holder/spell/aoe/rust_conversion,
 		/obj/effect/proc_holder/spell/pointed/rust_construction,
 	)
 	can_repair = FALSE
 	faction = list(FACTION_HERETIC)
-	maxHealth = 60
-	health = 60
 	melee_damage_lower = 20
 	melee_damage_upper = 25
 	sight = SEE_MOBS

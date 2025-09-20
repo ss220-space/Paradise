@@ -42,5 +42,4 @@
 
 /// Red coloured variant
 /obj/effect/dummy/spell_jaunt/red
-	phased_mob_icon = 'icons/obj/weapons/projectiles.dmi'
 	phased_mob_icon_state = "red_1"

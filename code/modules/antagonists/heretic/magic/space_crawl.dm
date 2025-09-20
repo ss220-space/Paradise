@@ -22,7 +22,6 @@
 	human_req = FALSE
 	phase_allowed = TRUE
 	base_cooldown = 5 SECONDS
-	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 
 	jaunt_type = /obj/effect/dummy/spell_jaunt/space
@@ -193,9 +192,6 @@
  */
 /obj/effect/proc_holder/spell/jaunt
 	school = SCHOOL_TRANSMUTATION
-
-	invocation_type = INVOCATION_NONE
-
 	/// What dummy mob type do we put jaunters in on jaunt?
 	var/jaunt_type = /obj/effect/dummy/spell_jaunt
 

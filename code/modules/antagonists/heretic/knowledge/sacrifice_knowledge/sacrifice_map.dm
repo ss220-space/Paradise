@@ -112,7 +112,6 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 /area/centcom/heretic_sacrifice
 	name = "Мансус"
 	icon_state = "heretic"
-	has_gravity = STANDARD_GRAVITY
 	//ambience_index = AMBIENCE_SPOOKY
 	base_lighting_alpha = 0
 	static_lighting = TRUE

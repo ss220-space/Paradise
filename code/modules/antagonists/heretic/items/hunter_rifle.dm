@@ -8,7 +8,6 @@
 	name = "винтовка охотника на львов"
 	desc = "Старинное ружье, выглядящее безупречно, несмотря на то, что оно явно очень старое."
 	gender = FEMALE
-	slot_flags = ITEM_SLOT_BACK
 	icon = 'icons/obj/weapons/wide_guns.dmi'
 	icon_state = "lionhunter"
 	item_state = "lionhunter"
@@ -214,7 +213,6 @@
 	icon_state = "310_strip"
 	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter
 	max_ammo = 3
-	multiload = TRUE
 	//multiple_sprites = AMMO_BOX_PER_BULLET
 
 
@@ -233,7 +231,6 @@
 	icon = 'icons/mob/actions/actions_items.dmi'
 	icon_state = "sniper_zoom"
 	layer = BELOW_MOB_LAYER
-	plane = GAME_PLANE
 	light_range = 2
 
 

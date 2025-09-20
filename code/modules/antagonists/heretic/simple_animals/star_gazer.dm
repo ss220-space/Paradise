@@ -123,4 +123,3 @@
 	command_feedback = "наблюдает!"
 	pointed_reaction = "пристально наблюдает!"
 	refuse_reaction = "..."
-	attack_behaviour = /datum/ai_behavior/basic_melee_attack
