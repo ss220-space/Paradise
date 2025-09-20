@@ -55,6 +55,6 @@
 	sharp = TRUE
 	hitsound = 'sound/weapons/pierce.ogg'
 
-/obj/item/embedded/shrapnel/New()
-	..()
+/obj/item/embedded/shrapnel/Initialize(mapload)
+	. = ..()
 	icon_state = pick("shrapnel1", "shrapnel2", "shrapnel3")

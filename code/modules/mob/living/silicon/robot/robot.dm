@@ -123,6 +123,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/datum/robot_skin/selected_skin
 
+	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
+
 /mob/living/silicon/robot/get_cell()
 	return cell
 

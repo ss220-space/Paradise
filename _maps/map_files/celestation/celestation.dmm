@@ -848,9 +848,6 @@
 /obj/machinery/power/solar{
 	name = "East Solar Panel"
 	},
-/obj/machinery/power/solar{
-	name = "East Solar Panel"
-	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -4007,10 +4004,6 @@
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/serveng)
 "aHp" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad"
-	},
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "QMLoad"
@@ -28789,7 +28782,6 @@
 	dir = 8
 	},
 /obj/structure/cable/orange,
-/obj/structure/cable/orange,
 /obj/structure/cable/multiz{
 	color = "#dd1010"
 	},
@@ -51432,7 +51424,6 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -55613,9 +55604,6 @@
 	},
 /obj/structure/railing{
 	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -83624,9 +83612,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -88839,9 +88824,6 @@
 	locked = 1;
 	req_access = list(53)
 	},
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -93684,9 +93666,6 @@
 /obj/machinery/power/solar{
 	name = "East Solar Panel"
 	},
-/obj/machinery/power/solar{
-	name = "East Solar Panel"
-	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -97780,15 +97759,6 @@
 	},
 /area/atmos/break_room)
 "rxN" = (
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
@@ -107219,9 +107189,6 @@
 /obj/structure/disposalpipe/trunk/multiz/down{
 	dir = 8
 	},
-/obj/structure/disposalpipe/trunk/multiz/down{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -116143,9 +116110,6 @@
 	},
 /obj/structure/cable/orange{
 	icon_state = "0-4"
-	},
-/obj/structure/cable/multiz{
-	color = "#dd1010"
 	},
 /obj/structure/cable/multiz{
 	color = "#dd1010"
@@ -127371,10 +127335,6 @@
 /area/maintenance/asmaint3)
 "xgi" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "XenoPod2";
-	name = "containment door 2"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "XenoPod2";
 	name = "containment door 2"

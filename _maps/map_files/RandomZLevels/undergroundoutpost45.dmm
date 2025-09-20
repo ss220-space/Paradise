@@ -7790,8 +7790,7 @@
 /area/awaymission/UO45/engineering)
 "qF" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/closet/secure_closet/engineering_personal{
 	req_access = list(201)
@@ -9305,8 +9304,7 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/plasteel{

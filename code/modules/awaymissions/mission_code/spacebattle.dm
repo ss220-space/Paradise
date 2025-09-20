@@ -313,13 +313,6 @@
 	syndi_mob = /mob/living/simple_animal/hostile/malf_drone/spacebattle
 
 // Enemys
-
-/mob/living/simple_animal/hostile/syndicate
-	var/synmobdrop //Обычный лут, дропается со всех
-	var/SynSpace //Выпадение бладрига
-	var/SynMelee //Лут с милишников
-	var/SynRange //Лут с дальников
-
 /mob/living/simple_animal/hostile/syndicate/Initialize(mapload)
 	var/rollforloot = rand(1,50) //Лучшего варианта я не нашел
 	switch(rollforloot)

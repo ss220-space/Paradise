@@ -1287,6 +1287,7 @@
 	color = "#60A584"
 	heart_rate_stop = 1
 	taste_description = "сладости"
+	chemdesc = "Заставляет гуманоида замолчать и маскирует его пульс."
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(4 SECONDS)
