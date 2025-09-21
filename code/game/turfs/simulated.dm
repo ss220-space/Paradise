@@ -11,6 +11,22 @@
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 
+	// LINDA
+	var/datum/excited_group/excited_group
+	var/excited = 0
+	var/recently_active = 0
+	var/datum/gas_mixture/air
+	var/archived_cycle = 0
+	var/current_cycle = 0
+	var/icy = 0
+	var/icyoverlay
+	var/obj/effect/hotspot/active_hotspot
+	var/planetary_atmos = FALSE //air will revert to its initial mix over time
+
+	var/temperature_archived //USED ONLY FOR SOLIDS
+
+	var/atmos_overlay_type = null //current active overlay
+
 /turf/simulated/Initialize(mapload)
 	. = ..()
 	add_debris_element()

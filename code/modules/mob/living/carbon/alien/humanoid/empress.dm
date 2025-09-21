@@ -20,8 +20,6 @@
 	antag_datum_type = /datum/antagonist/xenomorph/queen
 
 /mob/living/carbon/alien/humanoid/empress/large
-	name = "alien empress"
-	caste = "q"
 	icon = 'icons/mob/alienhuge.dmi'
 	pixel_x = -32
 

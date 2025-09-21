@@ -11,7 +11,6 @@
 	pickable_species = list(SPECIES_HUMAN)
 	mob_species = /datum/species/human
 	min_hours = 10
-	exp_type = EXP_TYPE_LIVING
 
 /obj/effect/mob_spawn/human/ussp/general
 	name = "Генерал СССП"

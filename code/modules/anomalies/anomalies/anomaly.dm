@@ -6,7 +6,6 @@
 	desc = "Загадочная аномалия. Обычно такую можно наблюдать только в станционном секторе."
 	icon_state = "bhole3"
 	gender = FEMALE
-	anchored = TRUE
 	density = TRUE
 	alpha = 0
 	light_range = 3

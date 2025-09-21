@@ -37,7 +37,6 @@
 	throw_message = "не наносит вреда"
 	speed = 1.4
 	move_to_delay = 10
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/misc/demon_dies.ogg'
 	deathmessage = "начинает дрожать и становится прозрачным..."
 	loot_drop = /obj/item/clothing/accessory/necklace/herald_cloak

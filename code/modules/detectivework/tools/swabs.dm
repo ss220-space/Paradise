@@ -155,6 +155,4 @@
 	used = 1
 
 /obj/item/forensics/swab/cyborg
-	name = "swab kit"
-	desc = "A sterilized cotton swab and vial used to take forensic samples."
 	dispenser = 1

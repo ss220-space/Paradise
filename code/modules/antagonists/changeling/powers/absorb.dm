@@ -3,7 +3,6 @@
 	desc = "Absorb the DNA of our victim. Requires us to strangle them."
 	button_icon_state = "absorb_dna"
 	power_type = CHANGELING_INNATE_POWER
-	chemical_cost = 0
 	req_human = TRUE
 
 

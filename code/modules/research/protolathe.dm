@@ -10,7 +10,6 @@ Note: Must be placed west/left of and R&D console to function.
 /obj/machinery/r_n_d/protolathe
 	name = "Protolathe"
 	desc = "Крупное устройство, предназначенное для печати сложных предметов и устройств из разнообразных ресурсов."
-	gender = MALE
 	icon_state = "protolathe"
 	base_icon_state = "protolathe"
 	container_type = OPENCONTAINER

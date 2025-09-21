@@ -84,7 +84,6 @@
 	projectile_type = /obj/projectile/beam/xray
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	delay = 11
-	e_cost = 100
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 
 /obj/item/ammo_casing/energy/immolator
@@ -117,7 +116,6 @@
 	muzzle_flash_color = "#FFFF00"
 	select_name = "stun"
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
-	e_cost = 100
 	delay = 2 SECONDS
 	harmful = FALSE
 
@@ -126,10 +124,8 @@
 
 /obj/item/ammo_casing/energy/electrode/gun
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	e_cost = 100
 
 /obj/item/ammo_casing/energy/electrode/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-	e_cost = 100
 
 /obj/item/ammo_casing/energy/electrode/blueshield
 	e_cost = 150
@@ -243,7 +239,6 @@
 
 /obj/item/ammo_casing/energy/plasma/shotgun
 	projectile_type = /obj/projectile/plasma/shotgun
-	delay = 15
 	e_cost = 75 //20 shots
 	pellets = 5
 	variance = 35
@@ -256,7 +251,6 @@
 	projectile_type = /obj/projectile/beam/wormhole
 	muzzle_flash_color = "#33CCFF"
 	delay = 10
-	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	select_name = "blue"
 	harmful = FALSE
@@ -287,7 +281,6 @@
 	icon_state = "bluespace"
 	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom
 	damage = 60
-	damage_type = BURN
 	range = 9
 	weaken  = 8 SECONDS //This is going to knock you off your feet
 	eyeblur = 20 SECONDS
@@ -420,7 +413,6 @@
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	fire_sound = 'sound/weapons/LSR-39_disabler.ogg'
 	delay = 3 SECONDS
-	e_cost = 100
 	select_name = "disable"
 
 /obj/item/ammo_casing/energy/podsniper/laser
@@ -476,7 +468,6 @@
 	select_name = "disable"
 	fluff_select_name  = "non-lethal paralyzer"
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
-	e_cost = 100
 	harmful = FALSE
 
 /obj/item/ammo_casing/energy/dominator/eliminator
@@ -484,7 +475,6 @@
 	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	select_name = "lethal"
 	fluff_select_name = "lethal-eliminator"
-	fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
 	e_cost = 200
 
 /obj/item/ammo_casing/energy/dominator/slaughter
@@ -516,7 +506,6 @@
 	fire_sound = 'sound/weapons/emitter.ogg'
 	select_name  = "emitter"
 	delay = 0.4
-	e_cost = 100
 	harmful = FALSE
 	projectile_type = /obj/projectile/beam/anomaly
 	muzzle_flash_color = LIGHT_COLOR_GREEN

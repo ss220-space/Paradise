@@ -106,7 +106,6 @@
 	documentation = "The master rendering plate from the offset below ours will be mirrored onto this plane. That way we achive a \"stack\" effect.\
 		<br>This plane exists to uplayer the master rendering plate to the correct spot in our z layer's rendering order"
 	plane = RENDER_PLANE_TRANSPARENT
-	appearance_flags = PLANE_MASTER
 
 /atom/movable/screen/plane_master/rendering_plate/transparent/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
 	. = ..()
@@ -119,8 +118,6 @@
 	name = "Game world plate"
 	documentation = "Contains most of the objects in the world. Mobs, machines, etc. Note the drop shadow, it gives a very nice depth effect."
 	plane = RENDER_PLANE_GAME_WORLD
-	appearance_flags = PLANE_MASTER //should use client color
-	blend_mode = BLEND_OVERLAY
 
 /atom/movable/screen/plane_master/rendering_plate/game_world/show_to(mob/mymob)
 	. = ..()

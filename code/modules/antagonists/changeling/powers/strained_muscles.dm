@@ -9,7 +9,6 @@
 	button_icon_state = "strained_muscles"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	chemical_cost = 0
 	req_human = TRUE
 
 

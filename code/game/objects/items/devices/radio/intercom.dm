@@ -13,7 +13,6 @@
 	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
-	flags = CONDUCT
 	blocks_emissive = FALSE
 	var/circuitry_installed = TRUE
 	/// Current buildstage of the object
@@ -32,7 +31,6 @@
 
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
-	broadcasting = 0
 	listening = 0
 
 /obj/item/radio/intercom/custom/get_ru_names()
@@ -119,8 +117,6 @@
 
 /obj/item/radio/intercom/department
 	canhear_range = 5
-	broadcasting = 0
-	listening = 1
 
 /obj/item/radio/intercom/department/medbay
 	name = "station intercom (Medbay)"
@@ -391,7 +387,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/intercom_electronics/get_ru_names()

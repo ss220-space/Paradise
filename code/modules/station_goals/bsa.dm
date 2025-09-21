@@ -507,7 +507,6 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /obj/machinery/computer/bsa_control/admin
 	area_aim = TRUE
 	target_all_areas = TRUE
-	camera_xray = TRUE
 	emagged = TRUE // Unlock power burst mode for admin
 
 /obj/machinery/computer/bsa_control/admin/Initialize(mapload)
