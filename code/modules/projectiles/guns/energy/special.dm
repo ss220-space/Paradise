@@ -769,7 +769,6 @@
 	icon_state = "specter"
 	item_state = "specter"
 	force = 10
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
 	cell_type = /obj/item/stock_parts/cell/specter
 	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
@@ -816,7 +815,7 @@
 	cell = item
 	cell_type = item.type
 	balloon_alert(user, "батарейка заменена")
-	
+
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/gun/energy/emittergun
