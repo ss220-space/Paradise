@@ -791,13 +791,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_suit_storage()
 	remove_overlay(SUIT_STORE_LAYER)
 
-	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_SUITSTORE) + 1]
-
 	if(HAS_TRAIT(s_store, TRAIT_NO_WORN_ICON))
 		return
-    
-	inv.update_icon()
+
+	if(client && hud_used)
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_SUITSTORE) + 1]
+		inv.update_icon()
 
 	if(!s_store)
 		return
@@ -837,13 +836,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_worn_belt()
 	remove_overlay(BELT_LAYER)
 
-	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BELT) + 1]
-
 	if(HAS_TRAIT(belt, TRAIT_NO_WORN_ICON))
 		return
 
-	inv.update_icon()
+	if(client && hud_used)
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BELT) + 1]
+		inv.update_icon()
 
 	if(!belt)
 		return
@@ -855,13 +853,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_worn_oversuit()
 	remove_overlay(SUIT_LAYER)
 
-	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_CLOTH_OUTER) + 1]
-  
 	if(HAS_TRAIT(wear_suit, TRAIT_NO_WORN_ICON))
 		return
-    
-	inv.update_icon()
+
+	if(client && hud_used)
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_CLOTH_OUTER) + 1]
+		inv.update_icon()
 
 	if(wear_suit)
 		update_item_on_hud(wear_suit, ui_oclothing, togleable_inventory = TRUE)
@@ -965,7 +962,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/update_worn_back()
 	remove_overlay(BACK_LAYER)
-	
+
 	if(HAS_TRAIT(back, TRAIT_NO_WORN_ICON))
 		return
 

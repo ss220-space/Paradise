@@ -194,7 +194,7 @@
 		return
 
 	var/mob/living/owner = loc
-	owner.update_inv_wear_suit()
+	owner.update_worn_oversuit()
 	REMOVE_TRAIT(loc, TRAIT_RESIST_COLD, UID())
 	loc.balloon_alert(loc, "плащ скрыт")
 	loc.visible_message(span_notice("Свет искажается вокруг [declent_ru(GENITIVE)]!"))
@@ -212,7 +212,7 @@
 		return
 
 	var/mob/living/owner = loc
-	owner.update_inv_wear_suit()
+	owner.update_worn_oversuit()
 	ADD_TRAIT(loc, TRAIT_RESIST_COLD, UID())
 	loc.balloon_alert(loc, "плащ виден")
 	loc.visible_message(span_notice("Калейдоскоп цветов обрушивается на [loc.declent_ru(NOMINATIVE)], вырисовывая ранее скрытый плащ!"))

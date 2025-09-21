@@ -595,10 +595,10 @@
 
 	if(item == r_hand)
 		r_hand = null
-		update_inv_r_hand()
+		update_held_items()
 	else if(item == l_hand)
 		l_hand = null
-		update_inv_l_hand()
+		update_held_items()
 	else if(item in tkgrabbed_objects)
 		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[item]
 		drop_item_ground(tkgrab, force)
