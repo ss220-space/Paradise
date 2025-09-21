@@ -9,12 +9,12 @@
 	if(I == r_store)
 		r_store = null
 		if(!QDELETED(src))
-			update_inv_pockets()
+			update_pockets()
 
 	else if(I == l_store)
 		l_store = null
 		if(!QDELETED(src))
-			update_inv_pockets()
+			update_pockets()
 	else
 		not_handled = TRUE
 
@@ -32,10 +32,10 @@
 
 	if(I == l_hand)
 		l_hand = null
-		update_inv_l_hand()
+		update_held_items()
 	else if(I == r_hand)
 		r_hand = null
-		update_inv_r_hand()
+		update_held_items()
 
 	if(I.pulledby)
 		I.pulledby.stop_pulling()
@@ -50,23 +50,18 @@
 	switch(slot)
 		if(ITEM_SLOT_HAND_LEFT)
 			l_hand = I
-			update_inv_l_hand()
-
+			update_held_items()
 		if(ITEM_SLOT_HAND_RIGHT)
 			r_hand = I
-			update_inv_r_hand()
-
+			update_held_items()
 		if(ITEM_SLOT_POCKET_RIGHT)
 			r_store = I
-			update_inv_pockets()
-
+			update_pockets()
 		if(ITEM_SLOT_POCKET_LEFT)
 			l_store = I
-			update_inv_pockets()
-
+			update_pockets()
 		if(ITEM_SLOT_HANDCUFFED)
 			set_handcuffed(I)
-
 		if(ITEM_SLOT_LEGCUFFED)
 			set_legcuffed(I)
 			update_legcuffed_status()

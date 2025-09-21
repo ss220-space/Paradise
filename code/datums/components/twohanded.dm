@@ -261,7 +261,7 @@
 	parent_item.name = "[original_name] (Wielded)"
 	parent_item.update_appearance()
 	if(user)
-		user.update_inv_hands()
+		user.update_held_items()
 
 	if(isrobot(user))
 		if(world.time > antispam_timer + 0.1 SECONDS)
@@ -335,7 +335,7 @@
 	parent_item.update_appearance()
 
 	if(istype(user)) // tk showed that we might not have a mob here
-		user.update_inv_hands()
+		user.update_held_items()
 
 		// if the item requires two handed drop the item on unwield
 		if(require_twohands && can_drop)
