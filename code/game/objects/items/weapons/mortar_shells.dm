@@ -263,7 +263,6 @@
 	name = "warning"
 	icon = 'icons/effects/alert.dmi'
 	icon_state = "alert_greyscale"
-	anchored = TRUE
 
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_OBJ_LAYER
@@ -329,7 +328,6 @@
 
 /obj/structure/closet/crate/secure/mortar/mortar_shells/incendiary
 	name = "mortar shells incendiary crate"
-	count = 5
 	shell_type = /obj/item/mortar_shell/incendiary
 
 /obj/structure/closet/crate/secure/mortar/custom_kit

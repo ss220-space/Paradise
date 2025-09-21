@@ -5,7 +5,6 @@
 /datum/action/item_action/ninja_glasses_toggle
 	name = "Toggle Visor Mode"
 	desc = "Toggles Visor mode to the next one. Available modes: Thermals, Blind protection, Night vision"
-	use_itemicon = TRUE
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 

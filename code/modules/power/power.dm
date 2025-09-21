@@ -13,8 +13,6 @@
 	on_blueprints = TRUE
 	var/datum/powernet/powernet = null
 	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 
 /obj/machinery/power/Destroy(force)
 	disconnect_from_network()

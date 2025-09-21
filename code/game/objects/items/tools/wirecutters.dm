@@ -11,7 +11,6 @@
 	force = 6
 	throwforce = 5
 	throw_speed = 3
-	throw_range = 7
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=80)
 	origin_tech = "materials=1;engineering=1"
@@ -23,7 +22,6 @@
 	sharp = 1
 	embed_chance = 5
 	embedded_ignore_throwspeed_threshold = TRUE
-	toolspeed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
@@ -68,7 +66,6 @@
 	name = "alien wirecutters"
 	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "cutters"
 	item_state = "cutters_alien"
 	belt_icon = "alien_wirecutters"
 	toolspeed = 0.1
@@ -76,8 +73,6 @@
 	random_color = FALSE
 
 /obj/item/wirecutters/cyborg
-	name = "wirecutters"
-	desc = "This cuts wires."
 	toolspeed = 0.5
 
 /obj/item/wirecutters/power

@@ -15,7 +15,6 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
-	resistance_flags = NONE
 	max_integrity = 300
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
@@ -129,8 +128,6 @@
 	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
-	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 400 // can store a ton of shit!
 
 
@@ -889,7 +886,6 @@ TODO Use this name and desc for localisation*/
 	name = "emergency response team backpack"
 	desc = "A spacious backpack with lots of pockets, used by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ert_commander"
-	item_state = "backpack"
 	max_combined_w_class = 30
 	resistance_flags = FIRE_PROOF
 
@@ -934,7 +930,6 @@ TODO Use this name and desc for localisation*/
 	icon_state = "guitarbag"
 	item_state = "guitarbag"
 	resistance_flags = FLAMMABLE
-	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
 	min_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 4

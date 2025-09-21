@@ -15,8 +15,6 @@
 	icon_living = "terror_brown"
 	icon_dead = "terror_brown_dead"
 	gender = MALE
-	maxHealth = 120
-	health = 120
 	speed = -0.1
 	melee_damage_lower = 10
 	melee_damage_upper = 15

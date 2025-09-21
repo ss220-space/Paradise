@@ -116,11 +116,9 @@
 
 /atom/movable/screen/act_intent/alien
 	icon = 'icons/mob/screen_alien.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/act_intent/robot
 	icon = 'icons/mob/screen_robot.dmi'
-	screen_loc = ui_borg_intents
 
 /atom/movable/screen/act_intent/robot/AI
 	screen_loc = "SOUTH+1:6,EAST-1:32"
@@ -139,11 +137,9 @@
 
 /atom/movable/screen/act_intent/simple_animal
 	icon = 'icons/mob/screen_simplemob.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/act_intent/guardian
 	icon = 'icons/mob/guardian.dmi'
-	screen_loc = ui_acti
 
 /atom/movable/screen/mov_intent/Click()
 	usr.toggle_move_intent()
@@ -787,7 +783,6 @@
 	name = "summoner health"
 	icon = 'icons/mob/guardian.dmi'
 	icon_state = "base"
-	screen_loc = ui_health
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/healthdoll

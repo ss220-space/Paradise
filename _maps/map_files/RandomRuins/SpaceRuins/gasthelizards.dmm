@@ -97,7 +97,6 @@
 /obj/item/retractor,
 /obj/item/cautery,
 /obj/item/circular_saw,
-/obj/machinery/light,
 /obj/machinery/light{
 	dir = 1
 	},

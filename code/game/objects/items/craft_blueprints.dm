@@ -8,7 +8,6 @@
 	icon = 'icons/obj/craft_blueprints.dmi'
 	icon_state = "blueprint"
 	var/place_icon = "put_blueprint"
-	w_class = WEIGHT_CLASS_NORMAL
 
 	/// Placing state
 	var/placed_on_table = FALSE

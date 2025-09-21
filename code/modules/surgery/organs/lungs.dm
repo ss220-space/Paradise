@@ -11,7 +11,6 @@
 	)
 	gender = PLURAL
 	icon_state = "lungs"
-	parent_organ_zone = BODY_ZONE_CHEST
 	slot = INTERNAL_ORGAN_LUNGS
 	w_class = WEIGHT_CLASS_NORMAL
 

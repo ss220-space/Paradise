@@ -6,7 +6,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
 	icon_state = "tome"
 	item_state = "book"
-	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -93,7 +92,6 @@
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "Тяжёлая бола, наполненная тёмной магией. При попадании она опрокинет и замедлит вашу цель, но не повлияет на других культистов."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakout_time = 4 SECONDS
@@ -174,7 +172,6 @@
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals)
-	slowdown = 1
 	armor = list(MELEE = 70, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, RAD = 30, FIRE = 40, ACID = 75)
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	flags_inv_transparent = HIDEJUMPSUIT
@@ -192,7 +189,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 50, ACID = 60)
 	flags_inv_transparent = HIDEGLOVES
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	species_restricted = null
@@ -205,7 +201,6 @@
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
 	armor = list(MELEE = 40, BULLET = 30, LASER = 40,ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
-	body_parts_covered = HEAD
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
@@ -236,7 +231,6 @@
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list(MELEE = -50, BULLET = -50, LASER = -50,ENERGY = -50, BOMB = -50, BIO = -50, RAD = -50, FIRE = 0, ACID = 0)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -294,7 +288,6 @@
 	increment = 5
 	max = 40
 	claws_increment = 4
-	gender = MALE
 	prefix = "Потемневшее"
 
 /obj/item/whetstone/cult/update_icon_state()
@@ -329,7 +322,6 @@
 	desc = "May the master guide you through the darkness and shield you from the light."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
 	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
@@ -486,7 +478,6 @@
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	name = "ghostly cult robes"
 	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
 	item_flags = DROPDEL
@@ -659,7 +650,6 @@
 	force_unwielded = 17
 	force_wielded = 24
 	throwforce = 40
-	throw_speed = 2
 	armour_penetration = 30
 	block_chance = 30
 	attack_verb = list("атаковал", "пронзил", "уколол", "поранил", "пронзил")
@@ -733,7 +723,6 @@
 /datum/action/innate/cult/spear
 	name = "Bloody Bond"
 	desc = "Call the blood spear back to your hand!"
-	background_icon_state = "bg_cult"
 	button_icon_state = "bloodspear"
 	var/obj/item/twohanded/cult_spear/spear
 	var/cooldown = 0
@@ -782,7 +771,6 @@
 	name = "blood bolt"
 	icon_state = "blood_bolt"
 	damage_type = BRUTE
-	damage = 20
 	impact_effect_type = /obj/effect/temp_visual/cult/sparks
 	hitsound = 'sound/effects/splat.ogg'
 

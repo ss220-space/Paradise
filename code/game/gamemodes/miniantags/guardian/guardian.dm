@@ -13,7 +13,6 @@
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
-	a_intent = INTENT_HARM
 	can_change_intents = 0
 	stop_automated_movement = 1
 	universal_speak = TRUE
@@ -23,7 +22,6 @@
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
 	environment_smash = 0
-	obj_damage = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	move_resist = MOVE_FORCE_STRONG
@@ -394,7 +392,6 @@
 	to_chat(user, "[G.magic_fluff_string].")
 
 /obj/item/guardiancreator/choose
-	random = FALSE
 
 /obj/item/guardiancreator/tech
 	name = "инъектор голопаразитов"
@@ -444,7 +441,6 @@
 	return !used
 
 /obj/item/guardiancreator/tech/choose
-	random = FALSE
 
 /obj/item/guardiancreator/biological
 	name = "скопление яиц скарабеев"
@@ -491,7 +487,6 @@
 	G.speak_emote = list("щебечет")
 
 /obj/item/guardiancreator/biological/choose
-	random = FALSE
 
 
 /obj/item/paper/guardian

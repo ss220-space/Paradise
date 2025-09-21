@@ -3,7 +3,6 @@
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало человеку."
 	gender = NEUTER
 	icon_state = "heart-on"
-	parent_organ_zone = BODY_ZONE_CHEST
 	slot = INTERNAL_ORGAN_HEART
 	origin_tech = "biotech=5"
 	var/beating = TRUE

@@ -100,8 +100,7 @@
 "o" = (
 /obj/machinery/recharge_station/upgraded,
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -130,10 +129,6 @@
 	},
 /area/shuttle/transport)
 "G" = (
-/obj/machinery/satellite/meteor_shield,
-/obj/machinery/satellite/meteor_shield,
-/obj/machinery/satellite/meteor_shield,
-/obj/machinery/satellite/meteor_shield,
 /obj/machinery/satellite/meteor_shield,
 /obj/machinery/door/window/survival_pod{
 	dir = 2
@@ -201,8 +196,7 @@
 "N" = (
 /obj/machinery/recharge_station/upgraded,
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;

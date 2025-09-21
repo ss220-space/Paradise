@@ -4,6 +4,9 @@
 /obj/item/borg
 	icon = 'icons/mob/robot_items.dmi'
 
+	/// Percentage of power remaining required to run item
+	var/powerneeded
+
 /obj/item/borg/stun
 	name = "electrically-charged arm"
 	icon_state = "elecarm"

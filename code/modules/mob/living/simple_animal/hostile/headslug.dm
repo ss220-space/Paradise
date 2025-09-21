@@ -25,7 +25,6 @@
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
-	a_intent = INTENT_HARM
 	var/evented
 	var/datum/mind/origin
 	var/egg_layed = FALSE

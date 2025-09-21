@@ -61,8 +61,6 @@
 	channels = list(SYND_TAIPAN_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/syndicate/taipan/borg
-	change_voice = FALSE
-	icon_state = "taipan_cypherkey"
 	channels = list(SYND_TAIPAN_FREQ_NAME = 1, SYND_FREQ_NAME = 1)
 /obj/item/encryptionkey/syndicate/taipan/tcomms_agent
 	icon_state = "ofcom_cypherkey"

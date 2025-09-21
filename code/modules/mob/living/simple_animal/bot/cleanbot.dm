@@ -2,10 +2,8 @@
 /mob/living/simple_animal/bot/cleanbot
 	name = "Cleanbot"
 	desc = "Маленький робот-уборщик. Он выглядит таким увлечённым!"
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "cleanbot"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	radio_channel = SRV_FREQ_NAME //Service
