@@ -162,6 +162,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/proc/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
+	return
 
 
 /obj/effect/proc_holder/spell/vampire/proc/do_blood_discount(datum/antagonist/vampire/vampire)
@@ -1992,6 +1993,7 @@
 
 
 /mob/living/simple_animal/hostile/vampire/proc/add_spells()
+	return
 
 
 /mob/living/simple_animal/hostile/vampire/update_sight()

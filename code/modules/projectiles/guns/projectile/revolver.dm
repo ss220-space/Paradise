@@ -75,6 +75,7 @@
 
 /// Removes all the shells in the cylinder
 /obj/item/gun/projectile/revolver/proc/unload(user)
+	return
 
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Вращать барабан"

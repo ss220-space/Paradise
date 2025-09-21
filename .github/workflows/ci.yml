@@ -63,12 +63,28 @@ jobs:
           python tools/ci/no_duplicate_definitions.py
           python tools/ci/identical_variables.py
           python tools/ci/check_icons.py
-          python -m tools.maplint.source --github
           python tools/ci/trait_validity.py
+          python -m tools.maplint.source --github
 
       - name: Run DreamChecker
         shell: bash
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
+
+  odlint:
+    name: Lint with OpenDream
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup OD
+        run: |
+          bash tools/ci/setup_od.sh
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4.3.1
+        with:
+          dotnet-version: 9.x
+      - name: Run OD
+        run: |
+          bash tools/ci/run_od.sh | bash tools/ci/annotate_od.sh
 
   compile_all_maps:
     name: Compile All Maps
