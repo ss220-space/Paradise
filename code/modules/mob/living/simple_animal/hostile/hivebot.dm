@@ -114,15 +114,11 @@
 /mob/living/simple_animal/hostile/hivebot/melee
 	name = "armored jerry-built robot"
 	desc = "Многофункциональный робот с шестью манипуляторами. Его клешни похожи на молотки. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
-	icon_state = "basic"
-	icon_living = "basic"
-	icon_dead = "basic"
 	health = 40
 	maxHealth = 40
 	melee_damage_lower = 12
 	attacktext = "вбивает"
 	speed = 3
-	attack_sound = 'sound/weapons/bladeslice.ogg'
 	can_retreat = FALSE
 
 /mob/living/simple_animal/hostile/hivebot/melee/get_ru_names()
@@ -138,9 +134,6 @@
 /mob/living/simple_animal/hostile/hivebot/heavy_melee
 	name = "armored jerry-built robot"
 	desc = "Многофункциональный робот, грубо обшитый металлическими пластинами. На корпусе видны заклёпки, а щели между пластинами залиты бетоном. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны вмятины, а также выцарапанная надпись \"ВМС\"."
-	icon_state = "basic"
-	icon_living = "basic"
-	icon_dead = "basic"
 	health = 80
 	maxHealth = 80
 	melee_damage_lower = 20
@@ -148,7 +141,6 @@
 	attacktext = "сокрушает"
 	speed = 5
 	ranged = FALSE
-	attack_sound = 'sound/weapons/bladeslice.ogg'
 	deathmessage = "скидывает щиты!"
 	loot = list(/obj/effect/spawner/hivebot_heavy, /obj/effect/loot_spawner/hivebot, /obj/effect/loot_spawner/hivebot)
 	can_retreat = FALSE
@@ -168,9 +160,6 @@
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "jerry-built robot with a nail gun"
 	desc = "Многофункциональный робот с шестью манипуляторами. К его клешням приварены гвоздомёты. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
-	icon_state = "basic"
-	icon_living = "basic"
-	icon_dead = "basic"
 	health = 25
 	maxHealth = 25
 	rapid = 5
@@ -193,9 +182,6 @@
 /mob/living/simple_animal/hostile/hivebot/heavy_range
 	name = "jerry-built robot with a rivet gun"
 	desc = "Многофункциональный робот с шестью манипуляторами. В его клешнях модифицированный заклёпочный аппарат. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
-	icon_state = "basic"
-	icon_living = "basic"
-	icon_dead = "basic"
 	rapid_fire_delay = 12
 	retreat_distance = 8
 	minimum_distance = 4
