@@ -724,7 +724,6 @@
 	layer = GASFIRE_LAYER
 	plane = ABOVE_GAME_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	alpha = 255
 
 /obj/effect/engineglow/proc/fadeAway(leaveTime)
 	var/duration = min(leaveTime, 25)
@@ -740,7 +739,6 @@
 	icon = 'icons/obj/supplypods.dmi'
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER // We want this to go right below the layer of supplypods and supplypod_rubble's forground.
 	icon_state = "rubble_bg"
-	anchored = TRUE
 	pixel_x = SUPPLYPOD_X_OFFSET
 	var/foreground = "rubble_fg"
 	var/verticle_offset = 0
@@ -801,7 +799,6 @@
 	icon_state = "LZ"
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	light_range = 2
-	anchored = TRUE
 	alpha = 0
 	var/obj/structure/closet/supplypod/pod //The supplyPod that will be landing ontop of this pod_landingzone
 	var/obj/effect/pod_landingzone_effect/helper

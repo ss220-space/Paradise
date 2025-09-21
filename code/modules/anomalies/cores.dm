@@ -2,7 +2,6 @@
 /obj/item/assembly/signaler/core
 	name = "anomaly core"
 	desc = "Нейтрализованное ядро ​​аномалии. Вероятно, оно пригодится для исследований."
-	gender = NEUTER
 	icon_state = "core_bluespace_t2"
 	item_state = "electronic"
 	resistance_flags = FIRE_PROOF
@@ -241,7 +240,6 @@
 /obj/item/assembly/signaler/core/bluespace/tier2
 	name = "bluespace anomaly core"
 	desc = "Стабилизированное ядро ​​блюспейс аномалии. Оно то появляется, то исчезает из виду. Вероятно, оно пригодится для исследований."
-	icon_state = "core_bluespace_t2"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	origin_tech = "bluespace=7"
 	tier = 2
@@ -526,7 +524,6 @@
 	name = "пустое ядро колоссальной аномалии"
 	desc = "Не похоже что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
 			Вероятно, его можно как-то зарядить. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_empty_t3"
 	anomaly_type = null
 	origin_tech = "materials=10" // Sorry, not clonable by experimentor
 	tier = 4
@@ -544,7 +541,6 @@
 /obj/item/assembly/signaler/core/atmospheric/tier3/tier4
 	name = "ядро колоссальной атмосферной аномалии"
 	desc = "Стабилизированное ядро колоссальной атмосферной аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_atmos_t3"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier4
 	origin_tech = "plasmatech=11"
 	tier = 4
@@ -562,7 +558,6 @@
 /obj/item/assembly/signaler/core/gravitational/tier3/tier4
 	name = "ядро колоссальной гравитационной аномалии"
 	desc = "Нейтрализованное ядро колоссальной ​​гравитационной аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_grav_t3"
 	anomaly_type = /obj/effect/anomaly/gravitational/tier4
 	origin_tech = "magnets=11"
 	tier = 4
@@ -580,7 +575,6 @@
 /obj/item/assembly/signaler/core/energetic/tier3/tier4
 	name = "ядро колоссальной ​​энергетической аномалии"
 	desc = "Стабилизированное ядро колоссальной ​​энергетической аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_energ_t3"
 	anomaly_type = /obj/effect/anomaly/energetic/tier4
 	origin_tech = "powerstorage=11"
 	tier = 4
@@ -598,7 +592,6 @@
 /obj/item/assembly/signaler/core/bluespace/tier3/tier4
 	name = "ядро колоссальной ​​блюспейс аномалии"
 	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_bluespace_t3"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier4
 	origin_tech = "bluespace=11"
 	tier = 4
@@ -616,7 +609,6 @@
 /obj/item/assembly/signaler/core/vortex/tier3/tier4
 	name = "ядро колоссальной вихревой аномалии"
 	desc = "Стабилизированное ядро колоссальной ​​вихревой аномалии. У вас стойкое чувство, что его не должно здесь находиться."
-	icon_state = "core_vortex_t3"
 	anomaly_type = /obj/effect/anomaly/vortex/tier4
 	origin_tech = "engineering=11"
 	tier = 4

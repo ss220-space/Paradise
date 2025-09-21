@@ -39,10 +39,8 @@
 
 /obj/item/clothing/suit/armor/vest/combat
 	name = "combat vest"
-	desc = "An armored vest that protects against some damage."
 	icon_state = "armor-combat"
 	item_state = "bulletproof"
-	blood_overlay_type = "armor"
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
@@ -56,8 +54,6 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
-	icon_state = "armor"
-	item_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
 
@@ -167,7 +163,6 @@
 	name = "Warden's armored jacket"
 	desc = "An armored jacket with silver rank pips and livery."
 	icon_state = "warden_jacket"
-	item_state = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|HANDS
@@ -190,8 +185,6 @@
 	name = "captain's carapace"
 	desc = "An armored vest reinforced with ceramic plates and pauldrons to provide additional protection whilst still offering maximum mobility and flexibility. Issued only to the station's finest, although it does chafe your nipples."
 	icon_state = "capcarapace"
-	item_state = "armor"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 20, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
@@ -283,7 +276,6 @@
 	desc = "A vest made of durathread with strips of leather acting as trauma plates."
 	icon_state = "durathread"
 	item_state = "durathread"
-	strip_delay = 60
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 20, BULLET = 10, LASER = 30, ENERGY = 15, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50)
@@ -386,11 +378,8 @@
 		return 1
 
 /obj/item/clothing/suit/armor/vest/det_suit
-	name = "armor"
 	desc = "An armored vest with a detective's badge on it."
 	icon_state = "detective-armor"
-	item_state = "armor"
-	blood_overlay_type = "armor"
 	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
@@ -613,7 +602,6 @@
 	name = "emergency response team armor"
 	desc = "A set of armor worn by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ertarmor_cmd"
-	item_state = "armor"
 	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 20, bio = 0, rad = 0, fire = 50, acid = 50)
 
 //Commander
@@ -712,7 +700,6 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF|ACID_PROOF
-	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/drake/get_ru_names()
@@ -751,7 +738,6 @@
 	item_state = "golhood"
 	desc = "Защитный и скрывающий капюшон."
 	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
-	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/goliath/get_ru_names()

@@ -708,7 +708,6 @@
 /datum/language/abductor/golem
 	name = LANGUAGE_HIVE_GOLEM
 	desc = "Големы могут общаться с себе подобными при помощи псионической связи."
-	follow = TRUE
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	return TRUE
@@ -787,11 +786,8 @@
 	speech_verbs = list("переда%(ёт,ют)%")
 	ask_verbs = list("переда%(ёт,ют)%")
 	exclaim_verbs = list("переда%(ёт,ют)%")
-	colour = "say_quote"
 	key = "d"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
 	drone_only = TRUE
-	follow = TRUE
 
 /datum/language/drone
 	name = LANGUAGE_DRONE

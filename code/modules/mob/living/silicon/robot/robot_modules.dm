@@ -1314,7 +1314,6 @@
 /datum/robot_energy_storage/medical/syndicate
 	max_energy = 50
 	recharge_rate = 4
-	name = "Medical Supplies Storage"
 
 /datum/robot_energy_storage/nanopaste
 	max_energy = 6

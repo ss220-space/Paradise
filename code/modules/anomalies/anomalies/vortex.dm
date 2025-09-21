@@ -1,6 +1,5 @@
 /obj/effect/anomaly/vortex
 	anomaly_type = ANOMALY_TYPE_VORTEX
-	icon_state = "bhole3"
 	/// Minimum radius at which surrounding objects are attracted.
 	var/grav_pull_range_low = 0
 	/// Maximum radius at which surrounding objects are attracted.
@@ -126,7 +125,6 @@
 	grav_pull_range_low = 1
 	grav_pull_range_high = 2
 	grav_pull_strength = STAGE_THREE
-	collapse_range = 0
 
 /obj/effect/anomaly/vortex/tier1/get_ru_names()
 	return list(

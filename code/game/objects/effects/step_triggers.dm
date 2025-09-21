@@ -5,7 +5,6 @@
 	var/stopper = TRUE // stops throwers
 	var/mobs_only = FALSE
 	invisibility = INVISIBILITY_ABSTRACT // nope cant see this shit
-	anchored = TRUE
 
 
 /obj/effect/step_trigger/Initialize(mapload)
@@ -118,8 +117,6 @@
 	var/teleport_x = 0	// teleportation coordinates (if one is null, then no teleport!)
 	var/teleport_y = 0
 	var/teleport_z = 0
-	density = 0
-	opacity = 0
 
 /obj/effect/step_trigger/teleporter/Trigger(atom/movable/A)
 	if(teleport_x && teleport_y && teleport_z)

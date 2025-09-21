@@ -69,11 +69,6 @@
 	T.visible_message(span_notice("\The [src.loc] dispenses a sheet of crisp white paper."))
 	new /obj/item/paper(T)
 
-
-//Personal shielding for the combat module.
-/obj/item/borg
-	var/powerneeded // Percentage of power remaining required to run item
-
 /obj/item/borg/destroyer/mobility
 	name = "mobility module"
 	desc = "By retracting limbs and tucking in its head, a combat android can roll at high speeds."

@@ -16,8 +16,6 @@
 	icon_living = "terror_widow"
 	icon_dead = "terror_widow_dead"
 	speed = -0.1
-	maxHealth = 120
-	health = 120
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
 	ranged = 1
 	rapid = 2

@@ -1,6 +1,5 @@
 /obj/structure/blob/special/resource
 	name = "resource blob"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_resource"
 	desc = "Тонкий шпиль слегка покачивающихся щупалец."
 	max_integrity = BLOB_RESOURCE_MAX_HP

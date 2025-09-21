@@ -20,7 +20,6 @@ To draw a rune, use a ritual dagger.
 	desc = "An odd collection of symbols drawn in what seems to be blood."
 	/// Description that cultists see
 	var/cultist_desc = "a basic rune with no function." //This is shown to cultists who examine the rune in order to determine its true purpose.
-	anchored = TRUE
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -259,9 +258,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "offering"
 	color = RUNE_COLOR_OFFER
-	req_cultists = 1
 	allow_excess_invokers = TRUE
-	rune_in_use = FALSE
 
 /obj/effect/rune/convert/invoke(list/invokers)
 	if(rune_in_use)
@@ -756,7 +753,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invoke_damage = 15
 	construct_invoke = FALSE
 	var/tick_damage = 10 // 30 burn damage total + damage taken by being on fire/overheating
-	rune_in_use = FALSE
 
 /obj/effect/rune/blood_boil/invoke(list/invokers)
 	if(rune_in_use)

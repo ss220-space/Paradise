@@ -1,6 +1,5 @@
 /datum/tts_provider/silero
 	name = "Silero"
-	is_enabled = TRUE
 
 	// Requests in last second and in queue (shared stats)
 	var/tts_shared_rps = "?"

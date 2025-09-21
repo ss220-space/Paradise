@@ -1,7 +1,6 @@
 /datum/action/innate/start_evolve_to_empress
 	name = "ОШИБКА"
 	desc = "Начать процесс эволюции в Императрицу."
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "queen_evolve"
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 	var/datum/weakref/xeno_team

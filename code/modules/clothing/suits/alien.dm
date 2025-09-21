@@ -30,7 +30,6 @@
 /obj/item/clothing/neck/mantle/unathi
 	name = "hide mantle"
 	desc = "Довольно жуткая подборка выделанных шкур, сшитых вместе, чтобы получилась рваная накидка."
-	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "mantle-unathi"
 	body_parts_covered = UPPER_TORSO
 	sprite_sheets = list(

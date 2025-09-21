@@ -114,7 +114,6 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "tV" = (
-/obj/structure/lattice,
 /turf/simulated/wall/rust,
 /area/template_noop)
 "xH" = (

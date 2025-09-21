@@ -1,6 +1,5 @@
 /obj/machinery/r_n_d/server
 	name = "R&D Server"
-	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "server"
 	base_icon_state = "server"
 	var/datum/research/files

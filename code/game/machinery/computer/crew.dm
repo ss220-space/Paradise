@@ -3,7 +3,6 @@
 	desc = "Консоль, используемая для контроля активных датчиков состояния здоровья, встроенных в униформу большинства членов экипажа."
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 250
 	active_power_usage = 500
 	light_color = LIGHT_COLOR_DARK_BLUE
