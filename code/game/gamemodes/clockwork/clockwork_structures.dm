@@ -37,7 +37,9 @@
 	if(!hidden)
 		name = initial(name)
 		return
-	name = choosable_items[hidden_type]::name
+
+	var/atom/selected_type = choosable_items[hidden_type]
+	name = initial(selected_type.name)
 
 
 /obj/structure/clockwork/functional/update_desc(updates = ALL)
@@ -57,16 +59,18 @@
 		if("broken grille")
 			desc = "A flimsy framework of metal rods. <br>[span_notice("It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.")]"
 		else
-			desc = choosable_items[hidden_type]::desc
-
+			var/atom/selected_type = choosable_items[hidden_type]
+			desc = initial(selected_type.desc)
 
 /obj/structure/clockwork/functional/update_icon_state()
 	if(!hidden)
 		icon = initial(icon)
 		icon_state = anchored ? "[initial(icon_state)]-off" : initial(icon_state)
 		return
-	icon = choosable_items[hidden_type]::icon
-	icon_state = choosable_items[hidden_type]::icon_state
+
+	var/atom/selected_type = choosable_items[hidden_type]
+	icon = initial(selected_type.icon)
+	icon_state = initial(selected_type.icon_state)
 
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
@@ -235,7 +239,6 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-
 /obj/structure/clockwork/functional/altar/update_icon_state()
 	if(!hidden)
 		icon = initial(icon)
@@ -244,11 +247,13 @@
 			return
 		icon_state = first_stage ? "[initial(icon_state)]-fast" : initial(icon_state)
 		return
-	icon = choosable_items[hidden_type]::icon
+
+	var/atom/selected_type = choosable_items[hidden_type]
+	icon = initial(selected_type.icon)
 	if(hidden_type == "potted plant")
-		icon_state = "plant-[rand(1,36)]"
+		icon_state = "plant-[rand(1, 36)]"
 	else
-		icon_state = choosable_items[hidden_type]::icon_state
+		icon_state = initial(selected_type.icon_state)
 
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)

@@ -461,10 +461,8 @@
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, TRUE)
 		to_chat(user, span_notice("[src] can now be concealed."))
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+
+	user.update_held_items()
 	add_fingerprint(user)
 	return
 
