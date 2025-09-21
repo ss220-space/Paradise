@@ -5,11 +5,9 @@
 	desc = "An underfloor disposal pipe."
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 	anchored = TRUE
-	density = FALSE
 	dir = NONE // dir will contain dominant direction for junction pipes
 	max_integrity = 200
 	on_blueprints = TRUE
-	plane = GAME_PLANE
 	layer = DISPOSAL_PIPE_LAYER // slightly lower than wires and other pipes
 	level = 1	// underfloor only
 	damage_deflection = 10

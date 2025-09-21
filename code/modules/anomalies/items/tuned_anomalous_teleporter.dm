@@ -8,8 +8,6 @@
 	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
 	item_state = "teleport"
 	throwforce = 0
-	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=10000)
 	origin_tech = "magnets=3;bluespace=4"

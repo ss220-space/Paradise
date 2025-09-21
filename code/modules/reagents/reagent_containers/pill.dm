@@ -5,7 +5,6 @@
 	name = "pill"
 	desc = "Небольшая таблетка, предназначенная для введения веществ в организм субъекта пероральным путём."
 	gender = FEMALE
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "pill"
 	item_state = "pill"
 	possible_transfer_amounts = null

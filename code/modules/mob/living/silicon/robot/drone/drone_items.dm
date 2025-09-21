@@ -126,7 +126,6 @@
 /obj/item/gripper/cogscarab
 	name = "ancient gripper"
 	desc = "Латунный захватывающий инструмент для поддержки коллег."
-	icon = 'icons/obj/device.dmi'
 	icon_state = "clock_gripper"
 
 /obj/item/gripper/cogscarab/get_ru_names()

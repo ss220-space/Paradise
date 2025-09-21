@@ -8,10 +8,7 @@
 		INSTRUMENTAL = "пулей",
 		PREPOSITIONAL = "пуле"
 	)
-	icon_state = "bullet"
 	damage = 50
-	damage_type = BRUTE
-	flag = BULLET
 	hitsound = SFX_BULLET
 	hitsound_wall = SFX_RICOCHET
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
@@ -128,7 +125,6 @@
 	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_PISTOL
 
 /obj/projectile/bullet/weakbullet3/fortynr
-	name = "bullet"
 	ru_names = list(
 		NOMINATIVE = "пуля",
 		GENITIVE = "пули",
@@ -611,7 +607,6 @@
 	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_PISTOL
 
 /obj/projectile/bullet/weakbullet3/c257
-	damage = 20
 	armour_penetration_level = BALLISTIC_PENETRATION_PISTOL
 
 /obj/projectile/bullet/weakbullet3/c257/phosphorus/on_hit(atom/target, blocked, hit_zone)

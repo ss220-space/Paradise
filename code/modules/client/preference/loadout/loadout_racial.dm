@@ -1,7 +1,6 @@
 /datum/gear/racial
 	sort_category = "Расовое"
 	subtype_path = /datum/gear/racial
-	cost = 1
 	var/list/whitelisted_species
 
 /datum/gear/racial/can_select(client/cl, job_name, species_name, silent = FALSE)

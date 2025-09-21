@@ -48,8 +48,6 @@
 	desc = "Бронированный капюшон, созданный для исследования и работы в суровых условиях."
 	icon_state = "explorer"
 	item_state = "explorer"
-	body_parts_covered = HEAD
-	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
@@ -145,7 +143,6 @@
 	desc = "Экспериментальный Кинетический Защитный Обшитый Шлем: шлем, специально созданный для защиты от широкого спектра опасностей Лазиса. Прошлому его владельцу этого, видимо, не хватило."
 	icon_state = "hostile_env"
 	item_state = "hostile_env"
-	w_class = WEIGHT_CLASS_NORMAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 50, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
@@ -188,7 +185,6 @@
 	icon_state = "hardsuit0-berserker"
 	item_color = "berserker"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	heat_protection = HEAD
 	armor = list(melee = 65, bullet = 0, laser = 0, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -383,8 +379,6 @@
 	desc = "Головной убор, созданный из костей и связок, предназначенный для защиты носителя от опасной погоды."
 	icon_state = "pathhead"
 	item_state = "pathhead"
-	body_parts_covered = HEAD
-	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 40, BOMB = 60, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF

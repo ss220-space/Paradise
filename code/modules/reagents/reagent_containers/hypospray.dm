@@ -9,8 +9,6 @@
 	item_state = "hypo"
 	icon_state = "hypo"
 	belt_icon = "hypospray"
-	amount_per_transfer_from_this = 5
-	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
@@ -265,7 +263,6 @@
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/pentic_acid
-	amount_per_transfer_from_this = 5
 	name = "Pentic acid combat stimulant injector"
 	icon_state = "hypocombat-dtpa"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит пентетовую кислоту."
@@ -282,7 +279,6 @@
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/epinephrine
-	amount_per_transfer_from_this = 5
 	name = "Epinephrine combat stimulant injector"
 	icon_state = "hypocombat-epi"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит эпинефрин."
@@ -299,7 +295,6 @@
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/mannitol
-	amount_per_transfer_from_this = 5
 	name = "Mannitol combat stimulant injector"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит маннитол."
 	icon_state = "hypocombat-mani"
@@ -316,7 +311,6 @@
 	)
 
 /obj/item/reagent_containers/hypospray/ertm/oculine
-	amount_per_transfer_from_this = 5
 	name = "Oculine combat stimulant injector"
 	icon_state = "hypocombat-ocu"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит окулин."

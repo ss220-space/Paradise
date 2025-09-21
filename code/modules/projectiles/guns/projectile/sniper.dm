@@ -12,13 +12,11 @@
 	burst_size = 1
 	origin_tech = "combat=7"
 	can_suppress = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	slot_flags = ITEM_SLOT_BACK
 	actions_types = null
 	accuracy = GUN_ACCURACY_SNIPER
-	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_MEGA
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
@@ -123,7 +121,6 @@
 	name = "sniper rounds (Zzzzz)"
 	desc = "Soporific sniper rounds, designed for happy days and dead quiet nights..."
 	icon_state = "soporific"
-	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/soporific
 	max_ammo = 3
 
@@ -156,7 +153,6 @@
 	desc = "What did you mean by saying warcrimes? There wasn't any millitary"
 	icon_state = "explosive"
 	ammo_type = /obj/item/ammo_casing/explosive
-	max_ammo = 5
 
 /obj/item/ammo_casing/explosive
 	desc = "A .50 bullet casing, specialised in destruction"
@@ -165,12 +161,10 @@
 	icon_state = ".50exp"
 
 /obj/projectile/bullet/sniper/explosive
-	armour_penetration = 50
 	damage = 85
 	stun = 6 SECONDS
 	dismemberment = 0
 	weaken = 6 SECONDS
-	breakthings = TRUE
 	armour_penetration_level = BALLISTIC_PENETRATION_HIGH_CAL
 
 /obj/projectile/bullet/sniper/explosive/on_hit(atom/target, blocked = 0, hit_zone)
@@ -185,7 +179,6 @@
 	desc = "Haemorrhage sniper rounds, leaves your target in a pool of crimson pain"
 	icon_state = "haemorrhage"
 	ammo_type = /obj/item/ammo_casing/haemorrhage
-	max_ammo = 5
 
 /obj/item/ammo_casing/haemorrhage
 	desc = "A .50 bullet casing, specialised in causing massive bloodloss"
@@ -215,8 +208,6 @@
 	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
 	icon_state = "penetrator"
 	ammo_type = /obj/item/ammo_casing/penetrator
-	origin_tech = "combat=6"
-	max_ammo = 5
 
 /obj/item/ammo_casing/penetrator
 	desc = "A .50 caliber penetrator round casing."
@@ -251,9 +242,7 @@
 	icon_state = ".50"
 
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
-	damage = 70
 	knockdown = 4 SECONDS
-	armour_penetration = 50
 	breakthings = FALSE
 	dismemberment = 0
 	armour_penetration_level = BALLISTIC_PENETRATION_HIGH_CAL
@@ -263,7 +252,6 @@
 	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
 	icon_state = "penetrator"
 	ammo_type = /obj/item/ammo_casing/compact/penetrator
-	origin_tech = "combat=6"
 	max_ammo = 5
 
 /obj/item/ammo_casing/compact/penetrator
@@ -275,7 +263,6 @@
 	name = "soporofic sniper rounds(compact)"
 	desc = "Soporific sniper rounds, designed for happy days and dead quiet nights..."
 	icon_state = "soporific"
-	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/compact/soporific
 	max_ammo = 3
 
@@ -366,7 +353,6 @@
 	name = "sniper rounds .338 (Zzzzz)"
 	desc = "Усыпляющие снайперские патроны калибра .338, созданные для счастливых дней и тихих ночей..."
 	icon_state = ".338soporific"
-	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/a338_soporific
 	max_ammo = 6
 
@@ -394,7 +380,6 @@
 	desc = "Что вы имели в виду, говоря о военных преступлениях? Не было никаких военных."
 	icon_state = ".338explosive"
 	ammo_type = /obj/item/ammo_casing/a338_explosive
-	max_ammo = 10
 
 /obj/item/ammo_box/magazine/a338/explosive/get_ru_names()
 	return list(
@@ -420,7 +405,6 @@
 	desc = "Кровопускающие снайперские выстрелы, оставляют вашу цель в луже кровавой боли"
 	icon_state = ".338haemorrhage"
 	ammo_type = /obj/item/ammo_casing/a338_haemorrhage
-	max_ammo = 10
 
 /obj/item/ammo_box/magazine/a338/haemorrhage/get_ru_names()
 	return list(
@@ -446,8 +430,6 @@
 	desc = "Чрезвычайно мощный патрон, способный пронзить укрытие и любого, кому не повезло оказаться за ним."
 	icon_state = ".338penetrator"
 	ammo_type = /obj/item/ammo_casing/a338_penetrator
-	origin_tech = "combat=6"
-	max_ammo = 10
 
 /obj/item/ammo_box/magazine/a338/penetrator/get_ru_names()
 	return list(

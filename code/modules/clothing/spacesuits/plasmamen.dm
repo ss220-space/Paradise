@@ -5,13 +5,11 @@
 	icon_state = "plasmaman-helm"
 	item_state = "plasmaman-helm"
 	strip_delay = 200
-	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	HUDType = 0
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75)
 	resistance_flags = FIRE_PROOF
 	light_range = 4
-	light_power = 1
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	can_toggle = TRUE
@@ -23,7 +21,6 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light, /datum/action/item_action/toggle_welding_screen/plasmaman)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
-	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	visor_flags_inv = HIDEGLASSES|HIDENAME
 	icon = 'icons/obj/clothing/species/plasmaman/hats.dmi'
 	species_restricted = list(SPECIES_PLASMAMAN)
@@ -148,7 +145,6 @@
 	icon_state = "white_envirohelm"
 	item_state = "white_envirohelm"
 	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
-	HUDType = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE | EXAMINE_HUD_SCIENCE
 	armor_plate = /obj/item/armor_plate/light_steel/helmet
 
@@ -266,7 +262,6 @@
 	icon_state = "cmo_envirohelm"
 	item_state = "cmo_envirohelm"
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = EXAMINE_HUD_MEDICAL | EXAMINE_HUD_SCIENCE
 
@@ -320,7 +315,6 @@
 	icon_state = "chemist_envirohelm"
 	item_state = "chemist_envirohelm"
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/chemist/get_ru_names()
@@ -339,7 +333,6 @@
 	icon_state = "scientist_envirohelm"
 	item_state = "scientist_envirohelm"
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/science/get_ru_names()
@@ -354,9 +347,6 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/science/xeno
 	name = "xenobiologist plasma envirosuit helmet"
-	desc = "Шлем защитного костюма плазмолюда, созданный специально для учёных."
-	icon_state = "scientist_envirohelm"
-	item_state = "scientist_envirohelm"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	examine_extensions = EXAMINE_HUD_NONE
@@ -378,7 +368,6 @@
 	icon_state = "rd_envirohelm"
 	item_state = "rd_envirohelm"
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	examine_extensions = EXAMINE_HUD_SCIENCE
 	HUDType = DATA_HUD_DIAGNOSTIC
 
@@ -452,9 +441,7 @@
 	icon_state = "ce_envirohelm"
 	item_state = "ce_envirohelm"
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 90)
-	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce/get_ru_names()
@@ -475,7 +462,6 @@
 	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 20, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/atmospherics/get_ru_names()
@@ -784,7 +770,6 @@
 	icon_state = "wizard_envirohelm"
 	item_state = "wizard_envirohelm"
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE

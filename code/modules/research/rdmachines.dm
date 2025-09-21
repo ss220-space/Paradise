@@ -8,7 +8,6 @@
 	var/icon_closed = null
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	var/busy = 0
 	var/hacked = 0
 	var/disabled = 0

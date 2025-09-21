@@ -3,7 +3,6 @@
 	desc = "An adapter which allows pipes to connect to other pipenets on different decks."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "multiz"
-	dir = SOUTH
 	layer = GAS_PIPE_VISIBLE_LAYER+0.1
 
 	volume = 105

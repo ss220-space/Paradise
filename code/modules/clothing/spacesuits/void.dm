@@ -5,8 +5,6 @@
 	desc = "Панорамный гермошлем скафандра ЦАГИ 10. Обеспечивает надёжную герметизацию и широкий обзор. Разработан NASA."
 	icon_state = "void_red"
 	item_state = "void_red_helmet"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 30, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	sprite_sheets = list(
@@ -41,8 +39,6 @@
 	desc = "Классический гермоскафандр ЦАГИ 10. Обеспечивает надёжную герметизацию и базовую защиту в агрессивных средах. Разработан NASA."
 	icon_state = "void_red"
 	item_state = "void_red"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 30, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool, /obj/item/radio)
 	sprite_sheets = list(
@@ -76,17 +72,10 @@
 /obj/item/clothing/head/helmet/space/nasavoid/old
 	name = "NASA engineering helmet"
 	desc = "Панорамный гермошлем промышленного скафандра на базе ЦАГИ 10. Визор оснащен системой активного затемнения для защиты от сварочной дуги. Разработан NASA."
-	icon_state = "void_red"
-	item_state = "void_red_helmet"
 	flash_protect = FLASH_PROTECTION_FLASH
-	flash_protect = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 50, BOMB = 75, BIO = 100, RAD = 90, FIRE = 100, ACID = 75)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	heat_protection = HEAD
 	resistance_flags = FIRE_PROOF
-	item_state = "void_red_helmet"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 
 /obj/item/clothing/head/helmet/space/nasavoid/old/get_ru_names()
 	return list(
@@ -101,17 +90,12 @@
 /obj/item/clothing/suit/space/nasavoid/old
 	name = "NASA engineering spacesuit"
 	desc = "Серийный промышленный гермоскафандр для внекорабельной деятельности и работы в экстремальных условиях внутри реактора. Обладает выдающейся термической и радиационной защитой. Разработан NASA."
-	icon_state = "void_red"
-	item_state = "void_red"
 	slowdown = 4
 	allowed = list(/obj/item/storage/toolbox, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, /obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, /obj/item/analyzer, /obj/item/pipe_painter, /obj/item/rpd, /obj/item/storage/part_replacer, /obj/item/storage/bag/construction, /obj/item/storage/bag/sheetsnatcher, /obj/item/extinguisher, /obj/item/stack/cable_coil)
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 50, BOMB = 75, BIO = 100, RAD = 90, FIRE = 100, ACID = 75)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	resistance_flags = FIRE_PROOF
-	item_state = "void_red"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 
 /obj/item/clothing/suit/space/nasavoid/old/get_ru_names()
 	return list(
@@ -129,8 +113,6 @@
 	icon_state = "void_green"
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 50, BIO = 100, RAD = 15, FIRE = 30, ACID = 15)
 	item_state = "void_green_helmet"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/nasavoid/green/get_ru_names()
@@ -151,8 +133,6 @@
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 50, BIO = 100, RAD = 15, FIRE = 30, ACID = 15)
 	slowdown = 4
 	item_state = "void_green"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/medium_steel
 
@@ -174,8 +154,6 @@
 	icon_state = "void_ntblue"
 	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
 	item_state = "void_ntblue_helmet"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/nasavoid/ntblue/get_ru_names()
@@ -196,8 +174,6 @@
 	allowed = list(/obj/item/storage/briefcase, /obj/item/pda, /obj/item/paicard, /obj/item/aicard, /obj/item/ai_module, /obj/item/reagent_containers/food/drinks/flask, /obj/item/storage/lockbox, /obj/item/megaphone, /obj/item/folder, /obj/item/card, /obj/item/camera, /obj/item/melee/baton)
 	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
 	item_state = "void_ntblue"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 	armor_plate = /obj/item/armor_plate/light_steel
 
@@ -217,11 +193,8 @@
 	name = "NASA RnD helmet"
 	desc = "Специализированный шлем исследовательского скафандра для экстремальных условий. Представляет собой модернизированный сапёрный шлем, оптимизированный для космических операций. Разработан NASA."
 	icon_state = "void_purple"
-	flash_protect = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 95, BIO = 100, RAD = 85, FIRE = 85, ACID = 85)
 	item_state = "void_purple_helmet"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 
 /obj/item/clothing/head/helmet/space/nasavoid/purple/get_ru_names()
 	return list(
@@ -241,8 +214,6 @@
 	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 95, BIO = 100, RAD = 85, FIRE = 85, ACID = 85)
 	slowdown = 2
 	item_state = "void_purple"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 
 /obj/item/clothing/suit/space/nasavoid/purple/get_ru_names()
 	return list(
@@ -262,8 +233,6 @@
 	icon_state = "void_yellow"
 	armor = list(MELEE = 60, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	item_state = "void_yellow_helmet"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 
 /obj/item/clothing/head/helmet/space/nasavoid/yellow/get_ru_names()
 	return list(
@@ -283,8 +252,6 @@
 	armor = list(MELEE = 60, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	slowdown = 4
 	item_state = "void_yellow"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 
 /obj/item/clothing/suit/space/nasavoid/yellow/get_ru_names()
 	return list(
@@ -304,8 +271,6 @@
 	icon_state = "void_light_blue"
 	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 15, BIO = 100, RAD = 50, FIRE = 50, ACID = 100)
 	item_state = "void_light_blue_helmet"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 
 /obj/item/clothing/head/helmet/space/nasavoid/ltblue/get_ru_names()
 	return list(
@@ -324,8 +289,6 @@
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical,/obj/item/rad_laser)
 	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 15, BIO = 100, RAD = 50, FIRE = 50, ACID = 100)
 	item_state = "void_light_blue"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 
 /obj/item/clothing/suit/space/nasavoid/ltblue/get_ru_names()
 	return list(
@@ -346,8 +309,6 @@
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	flash_protect = FLASH_PROTECTION_FLASH
 	item_state = "void_captian_helmet"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/nasavoid/captain/get_ru_names()
@@ -368,8 +329,6 @@
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "void_captian"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 	armor_plate = /obj/item/armor_plate/light_steel
 
@@ -393,8 +352,6 @@
 	item_flags = BANGPROTECT_TOTAL|HEALS_EARS
 	flash_protect = FLASH_PROTECTION_FLASH
 	item_state = "void_syndi_helmet"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	armor_plate = /obj/item/armor_plate/medium_steel/helmet
 
 /obj/item/clothing/head/helmet/space/nasavoid/syndi/get_ru_names()
@@ -415,8 +372,6 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 15, BIO = 100, RAD = 15, FIRE = 50, ACID = 15)
 	item_state = "void_syndi"
-	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/medium_steel
 

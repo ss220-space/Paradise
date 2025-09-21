@@ -9,10 +9,6 @@
 	icon_state = "black"
 	},
 /area/space)
-"aaQ" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/security/securearmory)
 "aaX" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/machinery/light/small{
@@ -1996,10 +1992,6 @@
 	icon_state = "dark"
 	},
 /area/security/main)
-"ajq" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/security/hos)
 "ajr" = (
 /obj/item/gun/energy/gun/advtaser{
 	pixel_x = -3;
@@ -5920,8 +5912,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/plating,
@@ -12455,16 +12446,14 @@
 "aSk" = (
 /obj/structure/chair/sofa/left,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/dorms)
 "aSl" = (
 /obj/structure/chair/sofa,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/wood,
@@ -12554,8 +12543,7 @@
 /area/security/permabrig)
 "aSx" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -21875,8 +21863,7 @@
 "bDd" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -22579,8 +22566,7 @@
 	req_access = list(33)
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/medical/chemistry)
@@ -24108,9 +24094,6 @@
 /area/assembly/robotics)
 "bLQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -26943,10 +26926,6 @@
 	icon_state = "bluered"
 	},
 /area/crew_quarters/dorms)
-"bVc" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/crew_quarters/heads/hop)
 "bVd" = (
 /obj/machinery/vending/snack,
 /obj/machinery/light{
@@ -29021,8 +29000,7 @@
 "cbl" = (
 /obj/structure/chair/sofa/corner,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -30881,14 +30859,6 @@
 /area/toxins/storage)
 "chx" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "cmooffice";
-	name = "Privacy Shutters";
-	opacity = 0
-	},
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
@@ -32780,14 +32750,6 @@
 /area/medical/cmo)
 "cou" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "cmooffice";
-	name = "Privacy Shutters";
-	opacity = 0
-	},
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
 	dir = 2;
@@ -37940,8 +37902,7 @@
 /area/medical/patients_rooms)
 "cIA" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
@@ -38395,9 +38356,6 @@
 "cKz" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/beer,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -40593,9 +40551,6 @@
 "cRW" = (
 /obj/structure/closet/gmcloset{
 	name = "formal wardrobe"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -66858,9 +66813,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -79918,9 +79870,6 @@
 	},
 /area/engineering/mechanic_workshop)
 "rVa" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Secure Tech Storage";
@@ -80391,8 +80340,7 @@
 "shL" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/chapel/main)
@@ -89384,29 +89332,6 @@
 	icon_state = "tranquillite"
 	},
 /area/crew_quarters/bar/atrium)
-"waU" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "cmooffice";
-	name = "Privacy Shutters";
-	opacity = 0
-	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "cmooffice";
-	name = "Privacy Shutters";
-	opacity = 0
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/medical/cmo)
 "waZ" = (
 /obj/machinery/light{
 	dir = 4
@@ -92801,10 +92726,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/engineering/hardsuitstorage)
-"xyo" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/maintenance/fsmaint2)
 "xyv" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -121169,7 +121090,7 @@ bMG
 bMG
 bMG
 bMG
-bVc
+bZd
 bVM
 bVy
 bWZ
@@ -124685,7 +124606,7 @@ uTI
 amW
 uTI
 uTI
-aaQ
+aiv
 aiv
 abO
 abO
@@ -130093,7 +130014,7 @@ aih
 adb
 adv
 agS
-ajq
+aih
 aih
 ajb
 alm
@@ -133260,7 +133181,7 @@ lYf
 ccC
 lXp
 cfO
-waU
+xai
 uVT
 syZ
 drc
@@ -133976,7 +133897,7 @@ uTI
 uTI
 uTI
 uTI
-xyo
+aGX
 bBt
 bGc
 aRv

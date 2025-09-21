@@ -10,7 +10,6 @@
 	school = "transmutation"
 	base_cooldown = 30 SECONDS
 	cooldown_min = 30 SECONDS //No reduction, just more range.
-	clothes_req = TRUE
 	invocation = "none"
 	centcom_cancast = FALSE //Prevent people from getting to centcom
 	level_max = 3
@@ -83,7 +82,6 @@
 /obj/effect/cross_action
 	name = "cross me"
 	desc = "for crossing"
-	anchored = TRUE
 
 
 /obj/effect/cross_action/spacetime_dist

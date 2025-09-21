@@ -7,7 +7,6 @@
 	name = "rolled-up poster"
 	desc = "Постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах Нанотрейзен."
 	icon = 'icons/obj/contraband.dmi'
-	force = 0
 	resistance_flags = FLAMMABLE
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
@@ -69,7 +68,6 @@
 	name = "poster"
 	desc = "Большой лист устойчивой к космическим условиям печатной бумаги."
 	icon = 'icons/obj/contraband.dmi'
-	anchored = TRUE
 	var/original_name
 	var/random_basetype
 	var/ruined = FALSE
@@ -237,7 +235,6 @@
 /obj/structure/sign/poster/contraband
 	poster_item_name = "contraband poster"
 	poster_item_desc = "Этот постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах Нанотрейзен."
-	poster_item_icon_state = "rolled_poster"
 
 /obj/structure/sign/poster/contraband/get_ru_names()
 	return list(
@@ -755,7 +752,6 @@
 /obj/structure/sign/poster/secret
 	poster_item_name = "Secret poster"
 	poster_item_desc = "Крайне Секретный постер."
-	poster_item_icon_state = "rolled_poster"
 
 /obj/structure/sign/poster/secret/get_ru_names()
 	return list(

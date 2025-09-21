@@ -71,7 +71,6 @@
 	desc = "These high-tech gloves don't leave any material traces on objects they touch. Perfect for leaving crime scenes undisturbed...both before and after the crime."
 	icon_state = "forensics"
 	can_leave_fibers = FALSE
-	transfer_prints = FALSE
 
 /obj/item/clothing/gloves/combat
 	name = "combat gloves"
@@ -163,7 +162,6 @@
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
 	desc = "Эти перчатки не защитят ваших врагов от электрического удара."
-	gender = PLURAL
 	var/obj/item/stock_parts/cell/cell = null
 	var/stun_strength = 2 SECONDS
 	var/stun_cost = 1500
@@ -380,7 +378,6 @@
 	desc = "The choice of the professional to beat the shit out of some jerk!"
 	icon_state = "knuckles"
 	item_state = "knuckles"
-	sharp = FALSE
 	extra_knock_chance = 15 //20% overall
 	var/knuckle_damage = 5 //additional fists damage
 	var/knock_damage_low = 5 // stamina damage

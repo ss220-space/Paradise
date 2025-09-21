@@ -61,7 +61,6 @@
 
 /obj/effect/spawner/lootdrop/bluespace_tap
 	name = "bluespace harvester reward spawner"
-	lootcount = 1
 
 /obj/effect/spawner/lootdrop/bluespace_tap/hat
 	name = "exotic hat"
@@ -221,7 +220,6 @@
 	plane = BELOW_GAME_PLANE
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
-	use_power = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1

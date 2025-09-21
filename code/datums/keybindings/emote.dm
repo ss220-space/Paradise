@@ -460,7 +460,7 @@
 /**
  * Species specific
  */
-/datum/keybinding/emote/carbon/human/wag_start
+/datum/keybinding/emote/carbon/human/rattle
 	linked_emote = /datum/emote/living/carbon/human/rattle
 	name = "Греметь костями (плазмамен/скелет)"
 

@@ -167,7 +167,6 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 	light_range = 2
-	light_power = 1
 
 
 /obj/item/clothing/shoes/magboots/wizard/toggle_magpulse(mob/user, silent = FALSE)

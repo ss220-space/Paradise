@@ -151,7 +151,6 @@
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
 	range = 10
 	damage = 25
-	damage_type = BRUTE
 	var/faction_bonus_damage = 13
 	var/nemesis_factions = MINING_FACTIONS
 	var/nemesis_faction = FALSE
@@ -204,8 +203,6 @@
 	gender = FEMALE
 	icon_state = "arrow"
 	item_state = "arrow"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 10
 	projectile_type = /obj/projectile/bullet/reusable/arrow
 	muzzle_flash_effect = null
@@ -224,11 +221,8 @@
 	)
 	icon_state = "bone_arrow"
 	item_state = "bone_arrow"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 12
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
-	caliber = CALIBER_ARROW
 
 /obj/item/ammo_casing/caseless/arrow/jagged
 	name = "jagged-tipped arrow"
@@ -244,7 +238,6 @@
 	icon_state = "jagged_arrow"
 	force = 16
 	projectile_type = /obj/projectile/bullet/reusable/arrow/jagged
-	caliber = CALIBER_ARROW
 
 //quiver
 /obj/item/storage/backpack/quiver
@@ -261,7 +254,6 @@
 	gender =  MALE
 	icon_state = "quiver"
 	item_state = "quiver"
-	storage_slots = 21
 	max_combined_w_class = INFINITY
 	display_contents_with_number = TRUE
 	can_hold = list(
@@ -290,7 +282,6 @@
 		INSTRUMENTAL = "колчаном из хитина ткача",
 		PREPOSITIONAL = "колчане из хитина ткача"
 	)
-	gender = MALE
 	icon_state = "quiver_weaver"
 	item_state = "quiver_weaver"
 	storage_slots = 21 //every craft makes 3 arrows

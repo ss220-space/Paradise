@@ -33,7 +33,6 @@
 /obj/item/mounted/frame/light_fixture/small
 	name = "small light fixture frame"
 	desc = "Used for building small lights."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "bulb-construct-item"
 	fixture_type = "bulb"
 	sheets_refunded = 1

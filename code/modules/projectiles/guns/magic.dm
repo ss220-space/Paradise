@@ -6,7 +6,6 @@
 	item_state = "staff"
 	fire_sound = 'sound/weapons/emitter.ogg'
 	fire_sound_text = "energy blast"
-	flags =  CONDUCT
 	w_class = WEIGHT_CLASS_HUGE
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'

@@ -2,11 +2,8 @@
 
 /area/awaymission/centcomAway
 	name = "XCC-P5831"
-	icon_state = "away"
-	report_alerts = FALSE
 
 /area/awaymission/centcomAway/general
-	name = "XCC-P5831"
 	ambientsounds = list('sound/ambience/ambigen3.ogg')
 
 /area/awaymission/centcomAway/maint

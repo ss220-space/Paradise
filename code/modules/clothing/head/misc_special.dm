@@ -129,7 +129,6 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 	light_range = 1.5
-	light_power = 1
 	light_color = LIGHT_COLOR_DIM_YELLOW
 
 

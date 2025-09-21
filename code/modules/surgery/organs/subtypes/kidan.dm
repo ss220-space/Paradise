@@ -192,10 +192,8 @@
 		PREPOSITIONAL = "мозге кидана"
 	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
-	icon_state = "brain2"
 	item_state = "kidan_brain"
 	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
-	mmi_icon_state = "mmi_full"
 	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/brain/kidan/on_life()

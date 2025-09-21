@@ -17,7 +17,6 @@
 		/datum/surgery_step/proxy/robotics/repair_limb,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	requires_organic_bodypart = FALSE
 	possible_locs = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
@@ -108,7 +107,6 @@
 // Intermediate repair surgeries, for fixing up internal maladies mid-surgery.
 
 /datum/surgery/intermediate/robotics
-	requires_bodypart = TRUE
 	requires_organic_bodypart = FALSE
 
 /datum/surgery/intermediate/robotics/repair
@@ -150,7 +148,6 @@
 	possible_locs = list(BODY_ZONE_CHEST)
 
 /datum/surgery_step/robotics
-	can_infect = 0
 
 /datum/surgery_step/robotics/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	. = ..()

@@ -6,7 +6,6 @@
 	icon_living = "russianmelee"
 	icon_dead = "russianmelee_dead" // Does not actually exist. del_on_death.
 	icon_gib = "russianmelee_gib" // Does not actually exist. del_on_death.
-	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
 	response_disarm = "shoves the"
@@ -19,10 +18,8 @@
 	melee_damage_upper = 15
 	attacktext = "бьёт"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	a_intent = INTENT_HARM
 	unsuitable_atmos_damage = 15
 	faction = list("russian")
-	status_flags = CANPUSH
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian,
 			/obj/item/kitchen/knife)
 	del_on_death = 1

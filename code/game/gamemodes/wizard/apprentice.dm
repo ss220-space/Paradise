@@ -244,7 +244,6 @@
 	icon_state = "psyamp"
 	name = "Роба межпространства"
 	desc = "Магическая роба прислужника школы пространства, оберегающий владельца от перемещений в агрессивных средах."
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	strip_delay = 5 SECONDS
@@ -259,11 +258,8 @@
 	name = "Капюшон Межпространства"
 	desc = "Магический головной убор робы прислужника школы пространства, оберегающий от перемещений в агрессивных средах."
 	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	strip_delay = 5 SECONDS
-	put_on_delay = 5 SECONDS
 	armor_plate = /obj/item/armor_plate/light_steel/helmet
 
 
@@ -408,7 +404,6 @@
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
-	magical = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_steel

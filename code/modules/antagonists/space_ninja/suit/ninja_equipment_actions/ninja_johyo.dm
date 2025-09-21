@@ -87,10 +87,8 @@
 	name = "Jōhyō"
 	icon_state = "kunai"
 	icon = 'icons/obj/ninjaobjects.dmi'
-	pass_flags = PASSTABLE
 	damage = 5
 	armour_penetration = 100
-	damage_type = BRUTE
 	hitsound = 'sound/weapons/whip.ogg'
 	knockdown = 2 SECONDS
 

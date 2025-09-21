@@ -300,7 +300,6 @@
 	class = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 7
 	bonus_accuracy = 30
-	spread_decrease_mod = 0.50
 	movespeed_slowdown = 2
 
 /obj/item/gun_module/rail/scope/x8/get_ru_names()
@@ -571,8 +570,6 @@
 	overlay_state = "hand_a_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
-	bonus_accuracy = 15
-	spread_reduction = 0.30
 
 /obj/item/gun_module/under/hand/angle/get_ru_names()
 	return list(
@@ -587,7 +584,6 @@
 /obj/item/gun_module/under/laser
 	name = "laser sight"
 	desc = "Лазерный целеуказатель, предназначенный для установки на цевьё. Повышает точность стрельбы и понижает разброс при стрельбе."
-	gender = MALE
 	icon_state = "laser"
 	item_state = "laser"
 	overlay_state = "laser_o"
