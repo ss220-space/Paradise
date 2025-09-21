@@ -942,21 +942,25 @@
 		if(!target)
 			set_currently_z_moving(FALSE, TRUE)
 			return FALSE
+	do_zMove(dir, target, z_move_flags)
+	return TRUE
 
+/atom/movable/proc/do_zMove(dir, turf/target, z_move_flags = ZMOVE_FLIGHT_FLAGS)
+	if(!target)
+		return
 	var/list/moving_movs = get_z_move_affected(z_move_flags)
-
 	for(var/atom/movable/movable as anything in moving_movs)
 		movable.currently_z_moving = currently_z_moving || CURRENTLY_Z_MOVING_GENERIC
 		movable.forceMove(target)
 		movable.set_currently_z_moving(FALSE, TRUE)
 	// This is run after ALL movables have been moved, so pulls don't get broken unless they are actually out of range.
-	if(z_move_flags & ZMOVE_CHECK_PULLS)
-		for(var/atom/movable/moved_mov as anything in moving_movs)
-			if(z_move_flags & ZMOVE_CHECK_PULLEDBY && moved_mov.pulledby && (moved_mov.z != moved_mov.pulledby.z || get_dist(moved_mov, moved_mov.pulledby) > 1))
-				moved_mov.pulledby.stop_pulling()
-			if(z_move_flags & ZMOVE_CHECK_PULLING)
-				moved_mov.check_pulling(TRUE)
-	return TRUE
+	if(!(z_move_flags & ZMOVE_CHECK_PULLS))
+		return
+	for(var/atom/movable/moved_mov as anything in moving_movs)
+		if(z_move_flags & ZMOVE_CHECK_PULLEDBY && moved_mov.pulledby && (moved_mov.z != moved_mov.pulledby.z || get_dist(moved_mov, moved_mov.pulledby) > 1))
+			moved_mov.pulledby.stop_pulling()
+		if(z_move_flags & ZMOVE_CHECK_PULLING)
+			moved_mov.check_pulling(TRUE)
 
 /*
  * Attempts to move using zMove if direction is UP or DOWN, step if not

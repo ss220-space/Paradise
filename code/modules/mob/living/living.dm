@@ -120,16 +120,17 @@
 
 	// If you are incapped, you probably can't brace yourself
 	var/can_help_themselves = !incapacitated(INC_IGNORE_RESTRAINED)
-	if(levels <= 1 && can_help_themselves)
+	if(can_help_themselves)
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
 			visible_message(
 				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[pluralize_ru(src.gender,"ётся","ются")] невредим[genderize_ru(src.gender,"","а","о","ы")] после падения."),
 				span_notice("Вы жёство приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётесь невредимы."),
 			)
-			AdjustWeakened((levels * 4 SECONDS))
+			AdjustKnockdown(levels * (4 SECONDS))
 			return . | ZIMPACT_NO_MESSAGE
-	var/incoming_damage = (levels * 5) ** 1.5
+
+	var/incoming_damage = 25 + (levels - 1) * 50
 	var/cat = iscat(src)
 	var/functional_legs = TRUE
 	var/skip_weaken = FALSE
@@ -139,7 +140,8 @@
 			if(leg.has_fracture())
 				functional_legs = FALSE
 				break
-	if(((istajaran(src) && functional_legs) || cat) && body_position != LYING_DOWN && can_help_themselves)
+	// cat check, work only for 1 level fall
+	if(levels <= 1 && ((istajaran(src) && functional_legs) || cat) && body_position != LYING_DOWN && can_help_themselves)
 		. |= ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
 		skip_weaken = TRUE
 		if(cat || HAS_TRAIT(src, TRAIT_DWARF)) // lil' bounce kittens
@@ -160,13 +162,20 @@
 		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_R_LEG)
 		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_PRECISE_L_FOOT)
 		apply_damage(damage_for_each_leg, BRUTE, BODY_ZONE_PRECISE_R_FOOT)
-
 	else
 		apply_damage(incoming_damage, BRUTE)
 
-	if(!skip_weaken)
+	if(skip_weaken)
+		return
+
+	if(levels > 1)
+		if(prob(50))
+			emote("scream") //for fun
 		AdjustWeakened(levels * 5 SECONDS)
-	return .
+		return
+	// fall to 1 level
+	AdjustKnockdown(5 SECONDS)
+	return . |= ZIMPACT_NO_SPIN
 
 
 // Generic Bump(). Override MobBump() and ObjBump() instead of this.
