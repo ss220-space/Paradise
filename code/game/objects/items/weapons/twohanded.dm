@@ -71,6 +71,7 @@
  * Parameters actually useless since you can use `src` and `usr` already.
  */
 /obj/item/twohanded/proc/wield(obj/item/source, mob/living/carbon/user)
+	return
 
 
 /**
@@ -79,6 +80,7 @@
  * Parameters actually useless since you can use `src` and `usr` already.
  */
 /obj/item/twohanded/proc/unwield(obj/item/source, mob/living/carbon/user)
+	return
 
 
 ///////////Two hand required objects///////////////

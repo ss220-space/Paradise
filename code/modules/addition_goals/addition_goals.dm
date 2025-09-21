@@ -61,12 +61,9 @@ SUBSYSTEM_DEF(addition_goals)
 /// Fire
 /datum/controller/subsystem/addition_goals/fire(resumed = FALSE)
 	//TODO need?
-
-
-
+	return
 
 // MARK:	Goals logic
-
 /// Check available refresh
 /datum/controller/subsystem/addition_goals/proc/is_refresh_available()
 	var/current_time = world.time

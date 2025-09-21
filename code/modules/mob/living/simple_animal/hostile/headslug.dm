@@ -41,7 +41,7 @@
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
 	egg.evented = evented
-	egg.insert(victim)
+	egg.insert(victim, ORGAN_MANIPULATION_NOEFFECT)
 	if(origin)
 		egg.origin = origin
 	else if(mind) // Let's make this a feature
