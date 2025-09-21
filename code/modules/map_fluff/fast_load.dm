@@ -15,7 +15,6 @@
 /datum/map/fast_load_multiz
 	name = "fast loa multizd"
 	map_path = "_maps/map_files/debug/fast_load_multiz.dmm"
-	lavaland_path = "_maps/map_files/generic/Lavaland.dmm"
 	linkage = SELFLOOPING
 
 	station_name = "ИСН Быстрогруз (Multi Z)"
