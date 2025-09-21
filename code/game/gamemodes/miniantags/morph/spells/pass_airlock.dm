@@ -2,9 +2,7 @@
 /obj/effect/proc_holder/spell/morph_spell/pass_airlock
 	name = "Пройти через шлюз"
 	desc = "Изменяйте свою форму, чтобы пройти через незаблокированный шлюз. Это занимает некоторое время и может быть использовано только в вашей истинной форме."
-	action_background_icon_state = "bg_morph"
 	action_icon_state = "morph_airlock"
-	base_cooldown = 10 SECONDS
 	selection_activated_message = span_sinister("ЛКМ на шлюз, чтобы попытаться пройти через него.")
 	need_active_overlay = TRUE
 

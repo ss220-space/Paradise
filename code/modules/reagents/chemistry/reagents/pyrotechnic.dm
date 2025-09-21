@@ -203,7 +203,6 @@
 	name = "Термит"
 	id = "thermite"
 	description = "Термит вызывает алюминотермическую реакцию, известную как термитная реакция. Может использоваться для плавления замков. Или стен."
-	reagent_state = SOLID
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "ржавчины"
@@ -326,7 +325,6 @@
 	id = "blackpowder"
 	description = "Взрывается. Сильно взрывается."
 	reagent_state = LIQUID
-	color = "#000000"
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
 	taste_description = "взрывов"

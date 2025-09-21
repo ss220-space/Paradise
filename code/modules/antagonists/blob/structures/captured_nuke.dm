@@ -3,8 +3,6 @@
 	icon_state = "blob"
 	desc = "Ядерная боеголовка спуталась в щупальцах блоба, пульсирующих ужасающим зеленым свечением."
 	max_integrity = BLOB_CAP_NUKE_MAX_HP
-	health_regen = BLOB_CAP_NUKE_HP_REGEN
-	point_return = BLOB_REFUND_CAP_NUKE_COST
 
 /obj/structure/blob/special/captured_nuke/Initialize(mapload, owner_overmind, obj/machinery/nuclearbomb/N)
 	. = ..()

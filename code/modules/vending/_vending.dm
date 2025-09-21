@@ -33,7 +33,6 @@
 	desc = "Обычный торговый автомат."
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "generic_off"
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 300
@@ -69,7 +68,6 @@
 	var/skip_non_primary_icon_updates = FALSE
 
 	// Power
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/vend_power_usage = 150
 
@@ -112,7 +110,6 @@
 
 	// Things that can go wrong
 	/// Allows people to access a vendor that's normally access restricted.
-	emagged = 0
 	/// Shocks people like an airlock
 	var/seconds_electrified = 0
 	/// Fire items at customers! We're broken!

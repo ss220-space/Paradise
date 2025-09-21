@@ -243,10 +243,8 @@
 
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
-	name = "Hardened Neural Jumpstarter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant."
 	slot = INTERNAL_ORGAN_BRAIN_ANTISLEEP
-	emp_proof = TRUE
 
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
@@ -285,13 +283,11 @@
 	desc = "implants for the organs in your torso."
 	icon_state = "chest_implant"
 	implant_overlay = "chest_implant_overlay"
-	parent_organ_zone = BODY_ZONE_CHEST
 
 
 /obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are starving."
-	icon_state = "chest_implant"
 	implant_color = "#00AA00"
 	var/hunger_modificator = 0.7
 	var/poison_amount = 5
@@ -321,7 +317,6 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
-	icon_state = "chest_implant"
 	implant_color = "#006607"
 	hunger_modificator = 0.5
 	poison_amount = 10
@@ -347,7 +342,6 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment_old
 	name = "Nutriment pump implant"
 	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
-	icon_state = "chest_implant"
 	implant_color = "#00AA00"
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = 0
@@ -388,7 +382,6 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment_old/plus
 	name = "Nutriment pump implant PLUS"
 	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
-	icon_state = "chest_implant"
 	implant_color = "#006607"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
@@ -401,7 +394,6 @@
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
 	desc = "This implant will attempt to revive you if you lose consciousness. For the faint of heart!"
-	icon_state = "chest_implant"
 	implant_color = "#AD0000"
 	origin_tech = "materials=5;programming=4;biotech=4"
 	slot = INTERNAL_ORGAN_HEART_DRIVE

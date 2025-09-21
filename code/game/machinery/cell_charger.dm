@@ -4,10 +4,8 @@
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "ccharger0"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 60
-	power_channel = EQUIP
 	pass_flags = PASSTABLE
 	/// The item that is being charged
 	var/obj/item/stock_parts/cell/charging = null

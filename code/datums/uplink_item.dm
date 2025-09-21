@@ -388,7 +388,6 @@
 	cost = 1
 	job = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_LIBRARIAN)
 	surplus = 0
-	can_discount = FALSE
 
 //Janitor
 
@@ -575,7 +574,6 @@
 	cost = 50
 	job = list(JOB_TITLE_ROBOTICIST)
 	surplus = 0
-	can_discount = FALSE
 	hijack_only = TRUE
 
 //Librarian
@@ -595,7 +593,6 @@
 	item = /obj/item/spellbook/oneuse/random
 	cost = 25
 	job = list(JOB_TITLE_LIBRARIAN)
-	can_discount = FALSE
 
 /datum/uplink_item/jobspecific/dice_of_fate
 	name = "Кости судьбы"
@@ -604,7 +601,6 @@
 	cost = 100
 	job = list(JOB_TITLE_LIBRARIAN)
 	surplus = 0
-	can_discount = FALSE
 
 /datum/uplink_item/jobspecific/death_book
 	name = "Летопись вашей погибели"
@@ -943,7 +939,6 @@
 	cost = 69
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
-	can_discount = TRUE
 
 /**
  * MARK: Support & Mechas
@@ -1167,7 +1162,6 @@
 	name = "Снайперская винтовка Bubz FX1000 — магазин .50 \"Стандартный\""
 	desc = "Магазин на 5 стандартных патронов .50 калибра. Эти патроны способны с лёгкостью оторвать голову или конечность."
 	item = /obj/item/ammo_box/magazine/sniper_rounds
-	cost = 20
 
 /datum/uplink_item/ammo/sniper/soporific
 	name = "Снайперская винтовка Bubz FX1000 — магазин .50 \"Снотворный\""
@@ -1474,7 +1468,6 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/syndicate_bomb/nuke
-	item = /obj/item/radio/beacon/syndicate/bomb
 	cost = 55
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1494,7 +1487,6 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/emp_bomb/nuke
-	item = /obj/item/radio/beacon/syndicate/bomb/emp
 	cost = 50
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1704,7 +1696,6 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
-	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 20
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1776,7 +1767,6 @@
 	name = "Кобура для ножей"
 	desc = "Надежно крепится к комбинезону, позволяя носить с собой до 7 ножей."
 	item = /obj/item/clothing/accessory/holster/knives
-	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/webbing
@@ -2239,7 +2229,6 @@
 			С его помощью вы сможете продемонстрировать противнику, насколько опасным может быть ваш хвост."
 	item = /obj/item/autoimplanter/oneuse/razorblade
 	cost = 42
-	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_TRAITOR)
 
 /datum/uplink_item/cyber_implants/laserblade
@@ -2248,7 +2237,6 @@
 			С его помощью вы сможете продемонстрировать противнику, насколько опасным может быть ваш хвост."
 	item = /obj/item/autoimplanter/oneuse/laserblade
 	cost = 38
-	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_TRAITOR)
 
 /**

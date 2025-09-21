@@ -4,7 +4,6 @@
 	name = "Паучьи яйца"
 	id = "spidereggs"
 	description = "Мелкая пыль, содержащая паучьи яйца. О боже."
-	reagent_state = SOLID
 	color = "#FFFFFF"
 	can_synth = FALSE
 	taste_mult = 0
@@ -47,12 +46,8 @@
 
 //I was told that someone will soon change the logic of their work, so I keep the old behavior.
 /datum/reagent/xenomicrobes/phantom
-	name = "Ксеномикробы"
 	id = "xenomicrobes_phantom"
 	description = "Микробы с совершенно чужеродной клеточной структурой. Кажутся более активными чем обычно."
-	color = "#535E66" // rgb: 83, 94, 102
-	can_synth = FALSE
-	taste_mult = 0
 	metabolization_rate = 1
 
 /datum/reagent/xenomicrobes/phantom/on_mob_life(mob/living/carbon/M)
@@ -80,7 +75,6 @@
 	name = "Зазубренные кристаллы"
 	id = "jagged_crystals"
 	description = "В результате быстрого химического разложения эти кристаллы превратились в витые шипы."
-	reagent_state = SOLID
 	color = "#FA0000" // rgb: 250, 0, 0
 	can_synth = FALSE
 	taste_mult = 0
@@ -168,7 +162,6 @@
 	name = "Сердечные черви"
 	id = "heartworms"
 	description = "Какая гадость! Эти черви будут не против полакомиться твоим сердечком!"
-	reagent_state = SOLID
 	color = "#925D6C"
 	can_synth = FALSE
 	taste_mult = 0

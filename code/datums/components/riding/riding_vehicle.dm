@@ -129,7 +129,6 @@
 /datum/component/riding/vehicle/ambulance
 	keytype = /obj/item/key/ambulance
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
-	vehicle_move_delay = 2
 
 /datum/component/riding/vehicle/ambulance/handle_specials()
 	. = ..()
@@ -179,7 +178,6 @@
 	set_vehicle_dir_offsets(WEST, -18, 0)
 
 /datum/component/riding/vehicle/lavaboat
-	ride_check_flags = NONE // not sure
 	vehicle_move_delay = 3
 	keytype = /obj/item/oar
 	var/allowed_turf = /turf/simulated/floor/lava

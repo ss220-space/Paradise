@@ -392,7 +392,7 @@
 	var/obj/item/I = get_active_hand()
 	if(I)
 		I.attack_self(src)
-		update_inv_hands()
+		update_held_items()
 		return
 
 	if(pulling && isliving(src))
@@ -1116,25 +1116,19 @@
 	. = ..()
 	if(bloody_hands && clean_hands)
 		bloody_hands = 0
-		update_inv_gloves()
-	if(l_hand)
-		if(l_hand.clean_blood())
-			update_inv_l_hand()
-	if(r_hand)
-		if(r_hand.clean_blood())
-			update_inv_r_hand()
-	if(back)
-		if(back.clean_blood())
-			update_inv_back()
-	if(wear_mask && clean_mask)
-		if(wear_mask.clean_blood())
-			update_inv_wear_mask()
+		update_worn_gloves()
+	if(l_hand?.clean_blood() || r_hand?.clean_blood())
+		update_held_items()
+	if(back?.clean_blood())
+		update_worn_back()
+	if(clean_mask && wear_mask?.clean_blood())
+		update_worn_mask()
 	if(clean_feet)
 		feet_blood_color = null
 		qdel(feet_blood_DNA)
 		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
 		blood_state = BLOOD_STATE_NOT_BLOODY
-		update_inv_shoes()
+		update_worn_shoes()
 	update_icons()	//apply the now updated overlays to the mob
 
 ///Makes a call in the context of a different usr. Use sparingly

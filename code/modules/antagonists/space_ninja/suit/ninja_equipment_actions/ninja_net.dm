@@ -32,7 +32,6 @@
 	icon_state = "net_emitter"
 	item_state = ""
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = NONE
 	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/ninjanet/my_action = null

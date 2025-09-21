@@ -1,7 +1,6 @@
 /mob/living/simple_animal/hostile/retaliate/clown
 	name = "clown"
 	desc = "Житель планеты клоунов."
-	gender = MALE
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "clown"
 	icon_living = "clown"
@@ -15,14 +14,12 @@
 	speak = list("ХОНК!", "Хонк!", "Добро пожаловать на планету клоунов!")
 	emote_see = list("хонкает")
 	speak_chance = 1
-	a_intent = INTENT_HARM
 	maxHealth = 75
 	health = 75
 	speed = 0
 	harm_intent_damage = 8
 	melee_damage_lower = 10
 	melee_damage_upper = 10
-	attacktext = "атакует"
 	attack_sound = 'sound/items/bikehorn.ogg'
 	obj_damage = 0
 	environment_smash = 0

@@ -39,7 +39,6 @@
 /obj/item/storage/box/dice
 	name = "Коробка игральных костей"
 	desc = "ЕЩЁ ОДНИ!? ДА БЛЯДЬ!"
-	icon_state = "box"
 
 
 /obj/item/storage/box/dice/populate_contents()
@@ -246,7 +245,6 @@
 /obj/item/dice/d20/fate
 	name = "Die of Fate"
 	desc = "A die with twenty sides. You can feel unearthly energies radiating from it. Using this might be VERY risky."
-	icon_state = "d20"
 	var/reusable = TRUE
 	var/used = FALSE
 

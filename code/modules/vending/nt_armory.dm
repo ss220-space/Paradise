@@ -112,9 +112,7 @@
 		"Сто+ять, сняряд+ись на зад+ание!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-blue"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-blue_deny"
 
 	req_access = list(ACCESS_CENT_SECURITY)
@@ -133,7 +131,6 @@
 		/obj/item/ammo_box/shotgun/dragonsbreath = 2
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/blue/get_ru_names()
 	return list(
@@ -156,9 +153,7 @@
 		"Сто+ять, сняряд+ись на зад+ание!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-red"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-red_deny"
 
 	req_access = list(ACCESS_CENT_SECURITY)
@@ -178,7 +173,6 @@
 		/obj/item/grenade/frag = 4
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/red/get_ru_names()
 	return list(
@@ -201,9 +195,7 @@
 		"Сто+ять, сняряд+ись на зад+ание!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-green"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-green_deny"
 
 	req_access = list(ACCESS_CENT_SECURITY)
@@ -226,7 +218,6 @@
 		/obj/item/melee/baton/telescopic = 4
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/green/get_ru_names()
 	return list(
@@ -283,9 +274,7 @@
 		"НИ ОДН+А МРАЗЬ НЕ ДОЖИВ+ЁТ ДО З+АВТРА!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-yellow"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-yellow_deny"
 
 	req_access = list(ACCESS_CENT_SECURITY)
@@ -303,7 +292,6 @@
 		/obj/item/grenade/clusterbuster/emp = 3
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
-	refill_canister = /obj/item/vending_refill/nta
 /obj/machinery/vending/nta/ertarmory/yellow/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат NT ERT Death Wish Gear & Ammunition",
@@ -325,9 +313,7 @@
 		"Сто+ять, сняряд+ись медикам+ентами на зад+ание!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-medical"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-medical_deny"
 
 	req_access = list(ACCESS_CENT_MEDICAL)
@@ -355,7 +341,6 @@
 		/obj/item/roller/holo = 2
 	)
 	contraband = list()
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/medical/get_ru_names()
 	return list(
@@ -378,9 +363,7 @@
 		"Сто+ять, сняряд+ись на поч+инку объ+екта!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-engi"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-engi_deny"
 
 	req_access = list(ACCESS_CENT_GENERAL)
@@ -401,7 +384,6 @@
 		/obj/item/clothing/head/welding/flamedecal/white  = 1,
 		/obj/item/clothing/head/welding/flamedecal/blue = 1
 		)
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/engineer/get_ru_names()
 	return list(
@@ -424,9 +406,7 @@
 		"Сто+ять, сняряд+ись на уб+орку!"
 	)
 
-	icon_state = "nta_base"
 	base_icon_state = "nta-janitor"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-janitor_deny"
 
 	req_access = list(ACCESS_CENT_GENERAL)
@@ -445,7 +425,6 @@
 		/obj/item/lightreplacer = 2
 	)
 	contraband = list(/obj/item/grenade/clusterbuster/cleaner = 1, /obj/item/storage/fancy/donut_box = 2, )
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/nta/ertarmory/janitor/get_ru_names()
 	return list(

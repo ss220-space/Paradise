@@ -78,9 +78,6 @@
 	icon_state = "syndi-big-med_off"
 	panel_overlay = "syndi-big-med_panel"
 	screen_overlay = "syndi-big-med"
-	lightmask_overlay = "med_lightmask"
-	broken_overlay = "med_broken"
-	broken_lightmask_overlay = "med_broken_lightmask"
 	deny_overlay = "syndi-big-med_deny"
 
 	req_access = list(ACCESS_SYNDICATE)
@@ -102,7 +99,6 @@
 	name = "Toximate 3000"
 	desc = "Всё, что вам нужно, в одном удобном месте!"
 
-	icon_state = "generic_off"
 	panel_overlay = "generic_panel"
 	screen_overlay = "generic"
 	lightmask_overlay = "generic_lightmask"
@@ -176,15 +172,9 @@
 /obj/machinery/vending/wallmed/syndicate
 	name = "SyndiWallMed"
 	desc = "<b>Злое</b> воплощение настенного раздатчика медицинских изделий."
-	icon_state = "wallmed_off"
-	panel_overlay = "wallmed_panel"
 	screen_overlay = "syndimed"
-	lightmask_overlay = "wallmed_lightmask"
-	broken_overlay = "wallmed_broken"
-	broken_lightmask_overlay = "wallmed_broken_lightmask"
 	deny_overlay = "syndimed_deny"
 
-	broken_lightmask_overlay = "wallmed_broken_lightmask"
 
 	slogan_list = list(
 		"Ид+и и оборв+и н+есколько ж+изней!",

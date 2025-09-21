@@ -2,12 +2,10 @@
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/cold_sink.dmi'
 	icon_state = "intact_off"
 	density = TRUE
-	use_power = IDLE_POWER_USE
 
 	name = "heat reservoir"
 	desc = "Heats gas when connected to pipe network"
 
-	on = FALSE
 
 	var/current_temperature = T20C
 	var/current_heat_capacity = 50000 //totally random

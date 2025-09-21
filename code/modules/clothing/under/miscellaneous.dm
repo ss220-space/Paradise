@@ -55,9 +55,7 @@
 
 /obj/item/clothing/under/rank/mailman/skirt
 	name = "mailman's jumpskirt"
-	desc = "<i>'Special delivery!'</i>"
 	icon_state = "mail_skirt"
-	item_state = "b_suit"
 	item_color = "mail_skirt"
 
 /obj/item/clothing/under/rank/vice
@@ -329,7 +327,6 @@
 	name = "executive suit"
 	desc = "A formal black suit and red tie, intended for the station's finest."
 	icon_state = "really_black_suit"
-	item_state = "bl_suit"
 	item_color = "really_black_suit"
 
 /obj/item/clothing/under/suit_jacket/female
@@ -350,7 +347,6 @@
 	name = "red jumpskirt"
 	desc = "A red jumpskirt and blue tie. Somewhat formal."
 	icon_state = "red_suitf"
-	item_state = "r_suit"
 	item_color = "red_suitf"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
@@ -979,7 +975,6 @@
 	icon_state = "victorianreddress"
 	item_state = "victorianreddress"
 	item_color = "victorianreddress"
-	over_shoes = TRUE
 
 /obj/item/clothing/under/victsuit
 	name = "victorian suit"
@@ -1007,7 +1002,6 @@
 			Изготовлен из лёгкой ткани с минимальной защитой от биологических загрязнений. \
 			Застёжки на спине слабые и не застёгиваются должным образом, \
 			что делает этот халат не самым популярным выбором среди остальной униформы."
-	gender = MALE
 	icon_state = "medicalgown"
 	item_state = "medicalgown"
 	item_color = "medicalgown"
@@ -1259,7 +1253,6 @@
 	name = "satanic clothes"
 	desc = "Костюм, который обычно носят сатанисты."
 	over_shoes = TRUE
-	can_adjust = TRUE
 	icon_state = "satan"
 	item_state = "satan"
 	item_color = "satan"
@@ -1288,7 +1281,6 @@
 /obj/item/clothing/under/martialsuit/masterli
 	name = "Master Li clothes"
 	desc = "Одеяние великого воина — жаль, что это всего лишь копия. Оригинал хранится в одном из дворцов династии Чанг."
-	over_shoes = FALSE
 	can_adjust = FALSE
 	icon_state = "masterli"
 	item_state = "masterli"
@@ -1391,7 +1383,6 @@
 	icon_state = "high_waist_sec"
 	item_state = "high_waist_sec"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
-	can_adjust = TRUE
 
 /obj/item/clothing/under/tchaikowsky/sechighwaist/get_ru_names()
 	return list(
@@ -1408,7 +1399,6 @@
 	desc = "Синее платье, которое обычно носят секретарши важных представителей корпораций."
 	icon_state = "formal_dress_blue"
 	item_state = "formal_dress_blue"
-	can_adjust = TRUE
 
 /obj/item/clothing/under/tchaikowsky/dress/get_ru_names()
 	return list(
@@ -1425,7 +1415,6 @@
 	desc = "Чёрное платье, которое обычно носят секретарши важных представителей корпораций."
 	icon_state = "formal_dress_black"
 	item_state = "formal_dress_black"
-	can_adjust = TRUE
 
 /obj/item/clothing/under/tchaikowsky/dress/black/get_ru_names()
 	return list(

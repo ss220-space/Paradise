@@ -79,9 +79,7 @@
 /obj/machinery/vending/ntc/medical
 	name = "NT Cargo Medical Gear"
 	desc = "Различное медицинское оборудование для доставки."
-	icon_state = "nta_base"
 	base_icon_state = "nta-medical"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-medical_deny"
 
 	products = list(
@@ -94,7 +92,6 @@
 		/obj/item/defibrillator/compact/loaded = 10,
 		/obj/item/handheld_defibrillator = 10,
 		/obj/item/vending_refill/medical = 10)
-	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/ntc/medical/get_ru_names()
 	return list(
@@ -109,9 +106,7 @@
 /obj/machinery/vending/ntc/engineering
 	name = "NT Cargo Engineering Gear"
 	desc = "Различное инженерное оборудование для доставки."
-	icon_state = "nta_base"
 	base_icon_state = "nta-engi"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-engi_deny"
 
 	products = list(
@@ -138,9 +133,7 @@
 /obj/machinery/vending/ntc/janitor
 	name = "NT Cargo Janitor Gear"
 	desc = "Различное уборочное оборудование для доставки."
-	icon_state = "nta_base"
 	base_icon_state = "nta-janitor"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-janitor_deny"
 
 	products = list(
@@ -174,7 +167,6 @@
 	desc = "Предварительный комплект оборудования для доставки, на все случаи жизни."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
-	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "magivend_off"
 	panel_overlay = "magivend_panel"
 	screen_overlay = "magivend"
@@ -208,9 +200,7 @@
 /obj/machinery/vending/ntc/ert
 	name = "NT Response Team Base Gear"
 	desc = "Автомат с базовым снаряжением ОБР."
-	icon_state = "nta_base"
 	base_icon_state = "nta-blue"
-	vend_overlay = "nta_vend"
 	deny_overlay = "nta-blue_deny"
 
 	products = list(
@@ -274,7 +264,6 @@
 	)
 
 /obj/machinery/vending/mech/ntc
-	icon = 'icons/obj/machines/vending.dmi'
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
 
@@ -334,7 +323,6 @@
 /obj/machinery/vending/mech/ntc/weapon
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Фабрикатор с передовой технологией блюспейс-транспортировки ресурсов."
-	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "liberationstation_off"
 	panel_overlay = "liberationstation_panel"
 	screen_overlay = "liberationstation"
