@@ -21,7 +21,6 @@
 	stage_prob = 10
 	cure_text = "Нейроматин (иммунодепрессант)"
 	var/required_reagent = "neuromatin"
-	severity = NONTHREAT
 	can_immunity = FALSE
 	ignore_immunity = TRUE
 	visibility_flags = HIDDEN_PANDEMIC
