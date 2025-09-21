@@ -1115,7 +1115,6 @@
 #include "code\game\machinery\teleporter.dm"
 #include "code\game\machinery\transformer.dm"
 #include "code\game\machinery\turret_control.dm"
-#include "code\game\machinery\vending.dm"
 #include "code\game\machinery\vending_crit.dm"
 #include "code\game\machinery\washing_machine.dm"
 #include "code\game\machinery\wishgranter.dm"
