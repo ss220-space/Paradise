@@ -1,7 +1,6 @@
 /area/ruin/space/spacebotany
 	poweralm = FALSE
 	report_alerts = FALSE
-	requires_power = TRUE
 
 /area/ruin/space/spacebotany/Med
 /area/ruin/space/spacebotany/Chem
@@ -54,7 +53,6 @@
 	melee_damage_lower = 0
 	melee_damage_upper = 40
 	can_hide = TRUE
-	xenobiology_spawned = FALSE
 	aggro_vision_range = 6
 	damage_coeff = list(BRUTE = 1, FIRE = -0.1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 

@@ -35,7 +35,6 @@
 
 /obj/effect/spawner/random_barrier/floor_probably
 	name = "probably a floor"
-	icon_state = "floor"
 	result = list(
 	/turf/simulated/floor/plasteel = 3,
 	/turf/simulated/wall = 1)

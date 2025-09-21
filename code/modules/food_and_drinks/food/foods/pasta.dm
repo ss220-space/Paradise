@@ -121,5 +121,4 @@
 	trash = /obj/item/trash/snack_bowl
 	list_reagents = list("nutriment" = 3, "protein" = 5, "plantmatter" = 3)
 	tastes = list("pasta" = 1, "cabage" = 1, "meat" = 2)
-	bitesize = 2
 	foodtype = GRAIN | VEGETABLES | MEAT

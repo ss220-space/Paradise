@@ -102,7 +102,6 @@
 	caliber = CALIBER_9MM
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/bullet/weakbullet3
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c9mm/ap
@@ -123,7 +122,6 @@
 	materials = list(MAT_METAL = 500)
 	caliber = CALIBER_4_DOT_6X30MM
 	projectile_type = /obj/projectile/bullet/weakbullet3/foursix
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/c45nr
@@ -131,8 +129,6 @@
 	materials = list(MAT_METAL = 500)
 	caliber = CALIBER_45NR
 	projectile_type = /obj/projectile/bullet/weakbullet4/c45nr
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
 
 /obj/item/ammo_casing/c46x30mm/ap
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150)
@@ -350,7 +346,6 @@
 	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath
 	pellets = 4
 	variance = 25
-	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath/napalm
 	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath/napalm
@@ -384,7 +379,6 @@
 	caliber = CALIBER_SPECTER
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/beam/specter/laser
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
 
@@ -479,7 +473,6 @@
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/bullet/f545
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/rocket
 	name = "rocket shell"
@@ -634,7 +627,6 @@
 	desc = "For the bigger brother of the crowd control toy. Ages 18 and up."
 	icon_state = "foamdartsniper_riot"
 	materials = list(MAT_METAL = 1800)
-	caliber = CALIBER_FOAM_FORCE_SNIPER
 	projectile_type = /obj/projectile/bullet/reusable/foam_dart/sniper/riot
 
 /obj/item/ammo_casing/cap
@@ -652,6 +644,5 @@
 	caliber = CALIBER_LASER
 	projectile_type = /obj/projectile/beam/laser
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED

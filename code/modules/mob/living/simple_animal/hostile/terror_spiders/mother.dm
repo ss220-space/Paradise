@@ -11,7 +11,6 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/mother
 	name = "Mother of Terror"
 	desc = "Огромный паук. По нему ползают крошечные паучки. Их маленькие глазки-бусинки смотрят на вас. Ужас!"
-	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_mother"
 	icon_living = "terror_mother"
 	icon_dead = "terror_mother_dead"

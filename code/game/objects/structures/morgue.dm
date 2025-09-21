@@ -373,7 +373,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/machinery/crematorium
 	name = "crematorium"
 	desc = "Печь, предназначенная для кремации тел. Интересно, шашлык в таком можно приготовить?"
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "crema"
 	max_integrity = 1000
 	anchored = TRUE

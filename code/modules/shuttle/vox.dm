@@ -9,8 +9,6 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/vox
 	name = "skipjack navigation computer"
 	desc = "Используется, чтобы указать точное местоположение для отправки Скипджека."
-	icon_screen = "navigation"
-	icon_keyboard = "med_key"
 	shuttleId = "skipjack"
 	shuttlePortId = "skipjack_custom"
 	view_range = 13
@@ -18,9 +16,3 @@
 	y_offset = -10
 	resistance_flags = INDESTRUCTIBLE
 	obj_flags = NODECONSTRUCT
-	access_station = TRUE		//can we park near station?
-	access_admin_zone = FALSE	//can we park on Admin z_lvls?
-	access_mining = FALSE		//can we park on Lavaland z_lvl?
-	access_taipan = FALSE		//can we park on Taipan z_lvl?
-	access_away = FALSE		//can we park on Away_Mission z_lvl?
-	access_derelict = FALSE		//can we park in Unexplored Space?

@@ -95,17 +95,14 @@
 /obj/item/pda/heads/ntrep
 	default_cartridge = /obj/item/cartridge/supervisor
 	default_request_console_cartridge = /obj/item/cartridge/request_console/ntrep
-	icon_state = "pda-h"
 
 /obj/item/pda/heads/magistrate
 	default_cartridge = /obj/item/cartridge/supervisor
 	default_request_console_cartridge = /obj/item/cartridge/request_console/magistrate
-	icon_state = "pda-h"
 
 /obj/item/pda/heads/blueshield
 	default_cartridge = /obj/item/cartridge/hos
 	default_request_console_cartridge = /obj/item/cartridge/request_console/blueshield
-	icon_state = "pda-h"
 
 /obj/item/pda/heads/ert
 

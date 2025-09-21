@@ -144,7 +144,6 @@
 	range = MECHA_MELEE|MECHA_RANGED
 	item_flags = NO_MAT_REDEMPTION
 	var/obj/item/rcd/mecha_ref/rcd_holder
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/rcd/New()
@@ -522,7 +521,6 @@
 	desc = "Equipment for engineering exosuits. A rapid-firing high capacity fire extinguisher."
 	icon_state = "mecha_exting"
 	equip_cooldown = 1.5 SECONDS
-	energy_drain = 0
 	range = MECHA_MELEE | MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/New()

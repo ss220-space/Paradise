@@ -104,7 +104,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
  */
 /obj/machinery/gravity_generator/main
 	icon_state = "on_8"
-	idle_power_usage = 0
 	active_power_usage = 3000
 	power_channel = ENVIRON
 	sprite_number = 8

@@ -105,7 +105,6 @@
 
 /obj/item/clothing/suit/captunic/parade
 	name = "captain's parade jacket"
-	desc = "Worn by a Captain to show their class."
 	icon_state = "cap_jacket_black_open"
 	item_state = "cap_jacket_black_open"
 	ignore_suitadjust = FALSE
@@ -119,7 +118,6 @@
 
 /obj/item/clothing/suit/captunic/jacket
 	name = "captain's jacket"
-	desc = "Worn by a Captain to show their class."
 	icon_state = "cap_jacket_open"
 	item_state = "cap_jacket_open"
 	ignore_suitadjust = FALSE
@@ -129,7 +127,6 @@
 
 /obj/item/clothing/suit/captunic/bomber
 	name = "captain's bomber jacket"
-	desc = "Worn by a Captain to show their class."
 	icon_state = "bomber_captain_open"
 	item_state = "bomber_captain_open"
 	ignore_suitadjust = FALSE
@@ -272,7 +269,6 @@
 /obj/item/clothing/suit/storage/det_suit/forensics
 	name = "jacket"
 	desc = "A forensics technician jacket."
-	item_state = "det_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS

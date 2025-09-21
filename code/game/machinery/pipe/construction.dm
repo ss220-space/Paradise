@@ -10,8 +10,6 @@
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipe-item.dmi'
 	icon_state = "simple"
 	item_state = "buildpipe"
-	w_class = WEIGHT_CLASS_NORMAL
-	level = 2
 	var/flipped = 0
 
 /obj/item/pipe/New(loc, pipe_type, dir, obj/machinery/atmospherics/make_from)

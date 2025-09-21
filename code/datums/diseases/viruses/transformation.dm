@@ -1,8 +1,6 @@
 /datum/disease/virus/transformation
 	name = "Трансформация"
 	stage_prob = 10
-	max_stages = 5
-	spread_flags = NON_CONTAGIOUS
 	severity = DANGEROUS
 	can_immunity = FALSE
 	infectable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/alien)

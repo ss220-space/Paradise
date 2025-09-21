@@ -7,7 +7,6 @@
 	icon_state = "spikeframe"
 	desc = "The frame of a meat spike."
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 200
 
 
