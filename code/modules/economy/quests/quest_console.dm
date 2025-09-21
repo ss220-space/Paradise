@@ -243,7 +243,6 @@
 /obj/machinery/computer/supplyquest/workers
 	name = "Supply Request Monitor"
 	desc = "Монитор, используемый для просмотра доступных запросов на поставку от различных клиентов. Оснащён функцией печати списка запросов."
-	gender = MALE
 	icon_state = "quest_console"
 	icon_screen = "quest"
 	icon_keyboard = null

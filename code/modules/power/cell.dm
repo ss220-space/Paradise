@@ -362,8 +362,6 @@
 
 /obj/item/stock_parts/cell/high/plus
 	name = "high-capacity power cell+"
-	desc = "Where did these come from?"
-	icon_state = "hcell"
 	maxcharge = 15000
 	chargerate = 2250
 

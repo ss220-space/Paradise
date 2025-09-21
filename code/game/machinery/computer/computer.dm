@@ -1,6 +1,5 @@
 /obj/machinery/computer
 	name = "computer"
-	gender = MALE
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "computer"
 	density = TRUE

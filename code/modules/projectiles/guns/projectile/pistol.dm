@@ -107,7 +107,18 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
 	)
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=4;materials=2"
 
+/obj/item/gun/projectile/automatic/pistol/enforcer/get_ru_names()
+	return list(
+		NOMINATIVE = "Блюститель",
+		GENITIVE = "Блюстителя",
+		DATIVE = "Блюстителю",
+		ACCUSATIVE = "Блюститель",
+		INSTRUMENTAL = "Блюстителем",
+		PREPOSITIONAL = "Блюстителе"
+	)
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_gun_skins()
 	add_skin("Grey slide", "enforcer_grey")
@@ -137,20 +148,8 @@
 
 //СБшный инфорсер//
 /obj/item/gun/projectile/automatic/pistol/enforcer/security
-	name = "Enforcer"
 	desc = "Стандартный дешевый пистолет для сотрудников службы безопасности."
-	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=4;materials=2"
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/security/get_ru_names()
-	return list(
-		NOMINATIVE = "Блюститель",
-		GENITIVE = "Блюстителя",
-		DATIVE = "Блюстителю",
-		ACCUSATIVE = "Блюститель",
-		INSTRUMENTAL = "Блюстителем",
-		PREPOSITIONAL = "Блюстителе"
-	)
 
 //SP8 Pistol OBR and Warden//
 /obj/item/gun/projectile/automatic/pistol/sp8

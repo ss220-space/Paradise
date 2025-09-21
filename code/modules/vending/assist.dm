@@ -1,7 +1,6 @@
 /obj/machinery/vending/assist
 	name = "assistomate"
 	desc = "Торговый автомат, предлагающий ассортимент различных деталей и компонентов."
-	icon_state = "generic_off"
 	panel_overlay = "generic_panel"
 	screen_overlay = "generic"
 	lightmask_overlay = "generic_lightmask"
