@@ -424,14 +424,20 @@
 
 
 /obj/item/borg/upgrade/modkit/proc/modify_projectile(obj/projectile/kinetic/K)
+	return
 
 
 /// Use this one for effects you want to trigger before any damage is done at all and before damage is decreased by pressure.
 /obj/item/borg/upgrade/modkit/proc/projectile_prehit(obj/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	return
+
 /// Use this one for effects you want to trigger before mods that do damage.
 /obj/item/borg/upgrade/modkit/proc/projectile_strike_predamage(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	return
+
 /// Use this one for things that don't need to trigger before other damage-dealing mods.
 /obj/item/borg/upgrade/modkit/proc/projectile_strike(obj/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	return
 
 
 // Range

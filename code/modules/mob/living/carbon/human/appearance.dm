@@ -40,7 +40,7 @@
 	H.h_style = hair_style
 
 	update_hair()
-	update_inv_glasses()
+	update_worn_glasses()
 	return 1
 
 /mob/living/carbon/human/proc/change_facial_hair(facial_hair_style)
@@ -151,7 +151,7 @@
 
 	update_body(TRUE) //Update the body and force limb icon regeneration to update the head with the new icon.
 	if(wear_mask)
-		update_inv_wear_mask()
+		update_worn_mask()
 	return 1
 
 /mob/living/carbon/human/proc/reset_hair()

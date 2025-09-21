@@ -470,7 +470,7 @@
 		PREPOSITIONAL = "ящике снаряжения для плазмаменов (Scientist)"
 	)
 
-/obj/item/storage/lockbox/plasma/scientist/populate_contents(src)
+/obj/item/storage/lockbox/plasma/scientist/populate_contents()
 	new /obj/item/clothing/head/helmet/space/plasmaman/science/xeno(src)
 	new /obj/item/clothing/under/plasmaman/science(src)
 	new /obj/item/tank/internals/plasmaman/belt/full(src)
