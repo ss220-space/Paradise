@@ -130,6 +130,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 
 
 /datum/blobstrain/proc/on_sporedeath(mob/living/spore)
+	return
 
 /datum/blobstrain/proc/send_message(mob/living/M)
 	var/totalmessage = message

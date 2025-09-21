@@ -181,11 +181,13 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
+#ifndef OPENDREAM
 	/client/proc/dmjit_debug_toggle_call_counts,
 	/client/proc/dmjit_debug_dump_call_count,
 	/client/proc/dmjit_debug_dump_opcode_count,
 	/client/proc/dmjit_debug_toggle_hooks,
 	/client/proc/dmjit_debug_dump_deopts,
+#endif
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
@@ -623,10 +625,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 					log_and_message_admins("tried to spawn for [key_name(H)] a cookie, but their hands were full, so they did not receive their cookie.")
 					return
-				else
-					H.update_inv_r_hand()//To ensure the icon appears in the HUD
-			else
-				H.update_inv_l_hand()
+			H.update_held_items()
 			logmsg = "spawn cookie."
 		if("To Arrivals")
 			M.forceMove(pick(GLOB.latejoin))

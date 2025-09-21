@@ -99,7 +99,7 @@
 		user.blood_DNA |= blood_DNA.Copy()
 		user.bloody_hands += taken
 		user.hand_blood_color = basecolor
-		user.update_inv_gloves()
+		user.update_worn_gloves()
 		add_verb(user, /mob/living/carbon/human/proc/bloody_doodle)
 
 
@@ -141,7 +141,7 @@
 		shoes.blood_color = basecolor
 		update_icon()
 		shoes.update_icon()
-		arrived.update_inv_shoes()
+		arrived.update_worn_shoes()
 
 	else if(!arrived.shoes && arrived.num_legs > 0 && blood_state && bloodiness)//Or feet
 		var/add_blood = 0
@@ -157,7 +157,7 @@
 		arrived.feet_blood_DNA |= blood_DNA.Copy()
 		arrived.feet_blood_color = basecolor
 		update_icon()
-		arrived.update_inv_shoes()
+		arrived.update_worn_shoes()
 
 
 /obj/effect/decal/cleanable/blood/proc/blood_decal_uncrossed(mob/living/carbon/human/departed)
