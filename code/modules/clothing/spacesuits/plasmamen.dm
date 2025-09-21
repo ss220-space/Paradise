@@ -146,7 +146,6 @@
 	item_state = "white_envirohelm"
 	armor = list(MELEE = 25, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE | EXAMINE_HUD_SCIENCE
-	armor_plate = /obj/item/armor_plate/light_steel/helmet
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/dec/get_ru_names()
 	return list(

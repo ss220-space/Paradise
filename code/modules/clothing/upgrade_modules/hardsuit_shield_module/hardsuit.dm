@@ -5,8 +5,6 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/shielded
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 35, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
-	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/suit/space/hardsuit/syndi/shielded/setup_shielding()
 	AddComponent(/datum/component/shielded, shield_icon = "shield-red")
@@ -15,7 +13,6 @@
 	desc = "An advanced hardsuit helmet with built in energy shielding."
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 35, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
-	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 //////Wizard Versions
 /obj/item/clothing/suit/space/hardsuit/wizard/shielded/setup_shielding()

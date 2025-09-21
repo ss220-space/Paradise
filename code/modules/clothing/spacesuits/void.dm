@@ -174,7 +174,6 @@
 	allowed = list(/obj/item/storage/briefcase, /obj/item/pda, /obj/item/paicard, /obj/item/aicard, /obj/item/ai_module, /obj/item/reagent_containers/food/drinks/flask, /obj/item/storage/lockbox, /obj/item/megaphone, /obj/item/folder, /obj/item/card, /obj/item/camera, /obj/item/melee/baton)
 	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 50, FIRE = 50, ACID = 50)
 	item_state = "void_ntblue"
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/space/nasavoid/ntblue/get_ru_names()
@@ -329,7 +328,6 @@
 	armor = list(MELEE = 30, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "void_captian"
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/space/nasavoid/captain/get_ru_names()

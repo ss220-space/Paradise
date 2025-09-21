@@ -15,7 +15,6 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
-	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/suit/space/syndicate
 	name = "red space suit"

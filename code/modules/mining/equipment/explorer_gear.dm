@@ -156,7 +156,6 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 	)
-	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/hostile_environment/get_ru_names()
 	return list(
@@ -227,7 +226,6 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/suit/space/hardsuit/champion/get_ru_names()

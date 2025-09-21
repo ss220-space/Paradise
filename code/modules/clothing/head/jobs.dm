@@ -488,7 +488,6 @@
 	desc = "Специализированный берет с вышитым на нём значком смотрителя. Для тех смотрителей, кто больше предпочитает стиль, чем безопасность головы."
 	icon_state = "beret_warden"
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 30, ACID = 50)
-	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/beret/sec/warden/get_ru_names()
 	return list(
@@ -731,7 +730,6 @@
 	desc = "Берет, который носят морпехи ТСФ. Значок на берете означает, что его носитель принадлежит отделу специальных операций флота."
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 25, BIO = 10, RAD = 0, FIRE = 50, ACID = 60)
 	icon_state = "solgov_elite_beret"
-	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/beret/solgov/command/elite/get_ru_names()
 	return list(

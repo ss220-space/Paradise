@@ -29,6 +29,8 @@
 	body_parts_covered = UPPER_TORSO
 	/// Armor plate slowdown
 	var/equipped_slowdown = 0
+	//becase stpd linter
+	max_integrity = 0
 
 
 /// Calculate armor efficient percent in range 0-1

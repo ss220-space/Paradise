@@ -795,7 +795,6 @@ Difficulty: Very Hard
 	damage = 25
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small1"
-	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_RIFLE
 
 /obj/projectile/bullet/rock/get_ru_names()
 	return list(

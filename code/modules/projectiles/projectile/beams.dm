@@ -26,7 +26,6 @@
 	ricochet_chance = 80
 
 /obj/projectile/beam/laser
-	armour_penetration_level = LASER_PENETRATION_MEDIUM
 
 /obj/projectile/beam/laser/light
 	damage = 15
@@ -259,7 +258,6 @@
 		INSTRUMENTAL = "лазертагом",
 		PREPOSITIONAL = "лазертаге"
 	)
-	armour_penetration_level = LASER_PENETRATION_NONE
 
 /obj/projectile/beam/lasertag/redtag
 	icon_state = "laser"
@@ -339,7 +337,6 @@
 		PREPOSITIONAL = "импульсе иммолятора"
 	)
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
-	armour_penetration_level = LASER_PENETRATION_MEDIUM
 
 /obj/projectile/beam/immolator/strong
 	name = "heavy immolation beam"
@@ -380,7 +377,6 @@
 		PREPOSITIONAL = "импульсе иммолятора меха"
 	)
 	damage = 15
-	armour_penetration_level = LASER_PENETRATION_MEDIUM
 
 /obj/projectile/beam/immolator/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -446,7 +442,6 @@
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	hitsound_wall = 'sound/weapons/sear.ogg'
-	armour_penetration_level = LASER_PENETRATION_MEDIUM
 
 /obj/projectile/beam/dominator/paralyzer
 	name = "paralyzer beam"

@@ -56,7 +56,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 	)
-	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/head/helmet/visor
 	name = "visor helmet"
@@ -186,7 +185,6 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
-	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/head/helmet/swat/syndicate
 	name = "blood-red helmet"
@@ -475,7 +473,6 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
-	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/head/helmet/lightweighthelmet
 	name = "lightweight helmet"
@@ -495,7 +492,6 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
-	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/head/helmet/biker
 	name = "Motorcycle helmet"

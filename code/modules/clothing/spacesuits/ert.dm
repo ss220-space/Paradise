@@ -75,7 +75,6 @@
 /obj/item/clothing/suit/space/hardsuit/ert/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	armor = list(melee = 65, bullet = 0, laser = 0, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 //Commander
@@ -373,7 +372,6 @@
 	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form", SPECIES_VOX)
-	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/ert_eva_amber/Initialize(mapload)
 	. = ..()

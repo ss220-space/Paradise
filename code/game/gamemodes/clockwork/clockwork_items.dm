@@ -834,8 +834,6 @@
 	var/reflect_uses = 4
 	var/normal_armor
 	var/harden_armor = list(MELEE = 80, BULLET = 0, LASER = 0, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	armor_plate = /obj/item/armor_plate/light_steel
 
 
 /obj/item/clothing/suit/armor/clockwork_fake

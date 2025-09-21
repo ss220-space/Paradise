@@ -166,7 +166,6 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
-	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
@@ -200,7 +199,6 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/hooded/cult_hoodie

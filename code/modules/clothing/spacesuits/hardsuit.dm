@@ -518,7 +518,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
-	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	armor_plate = /obj/item/armor_plate/heavy_ceramic
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/comms
@@ -592,7 +591,6 @@
 	item_state = "hardsuit0-soviet"
 	item_color = "soviet"
 	armor = list(MELEE = 35, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 100, RAD = 50, FIRE = 75, ACID = 75)
-	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/suit/space/hardsuit/soviet
 	name = "Soviet hardsuit"
@@ -605,7 +603,6 @@
 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/soviet
 	jetpack = /obj/item/tank/jetpack/suit
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/head/helmet/space/hardsuit/soviet/commander
@@ -651,7 +648,6 @@
 	item_state = "sec_helm"
 	armor = list(MELEE = 45, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 50, FIRE = 75, ACID = 75)
 	item_color = "sec"
-	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/hardsuit/security/warden
 	name = "warden's hardsuit helmet"
@@ -665,7 +661,6 @@
 	icon_state = "hardsuit-warden"
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 15, BIO = 100, RAD = 50, FIRE = 80, ACID = 85)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/warden
-	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/space/hardsuit/security
@@ -694,7 +689,6 @@
 	armor = list(MELEE = 55, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 25, BIO = 100, RAD = 50, FIRE = 95, ACID = 95)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	jetpack = /obj/item/tank/jetpack/suit
-	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/head/helmet/space/hardsuit/security/brigmed
@@ -723,7 +717,6 @@
 	item_state = "hardsuit0-blueshield"
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 25, BIO = 100, RAD = 50, FIRE = 80, ACID = 80)
 	item_color = "blueshield"
-	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/suit/space/hardsuit/blueshield
 	name = "blueshield's hardsuit"
@@ -735,7 +728,6 @@
 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/blueshield
 	jetpack = /obj/item/tank/jetpack/suit
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_ceramic
 
 //Research Director hardsuit
@@ -799,7 +791,6 @@
 	armor = list(melee = 45, bullet = 0, laser = 0, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 95, acid = 95)
 	item_color = "singuloth"
 	sprite_sheets = null
-	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/suit/space/hardsuit/singuloth
 	name = "singuloth knight's armor"

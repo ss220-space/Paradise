@@ -1071,7 +1071,6 @@
 	icon_state = "sovietofficercoat"
 	item_state = "sovietofficercoat"
 	armor = list(melee = 25, bullet = 0, laser = 0, energy = 10, bomb = 20, bio = 0, rad = 0, fire = 30, acid = 30)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/russiancoat

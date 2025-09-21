@@ -32,7 +32,6 @@
 	blood_overlay_type = "armor"
 	dog_fashion = /datum/dog_fashion/back
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
-	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/armor/vest/jacket
 	name = "military jacket"
@@ -236,7 +235,6 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
-	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -249,7 +247,6 @@
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = null
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
@@ -369,7 +366,6 @@
 		)
 	var/static/list/reflect_zones = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	var/hit_reflect_chance = 50
-	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/medium_ablative
 
 /obj/item/clothing/suit/armor/reflector/get_ru_names()
@@ -420,7 +416,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	armor_plate = /obj/item/armor_plate/light_steel //TODO kevlar plate
 
 
 /obj/item/clothing/suit/armor/reactive/update_icon_state()
@@ -632,7 +627,6 @@
 	desc = "A set of armor worn by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ertarmor_cmd"
 	armor = list(melee = 30, bullet = 0, laser = 0, energy = 30, bomb = 20, bio = 0, rad = 0, fire = 50, acid = 50)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 	armor_plate = /obj/item/armor_plate/heavy_steel
 
 //Commander

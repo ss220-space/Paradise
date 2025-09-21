@@ -54,7 +54,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 
 /obj/item/clothing/suit/fire/heavy
 	name = "firesuit"

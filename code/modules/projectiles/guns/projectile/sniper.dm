@@ -165,7 +165,6 @@
 	stun = 6 SECONDS
 	dismemberment = 0
 	weaken = 6 SECONDS
-	armour_penetration_level = BALLISTIC_PENETRATION_HIGH_CAL
 
 /obj/projectile/bullet/sniper/explosive/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target, /mob/living) && breakthings))
@@ -223,7 +222,6 @@
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
-	armour_penetration_level = BALLISTIC_PENETRATION_HIGH_CAL
 
 //compact and penetrator ammo to avoid taipan abuse by traitors
 /obj/item/ammo_box/magazine/sniper_rounds/compact
@@ -245,7 +243,6 @@
 	knockdown = 4 SECONDS
 	breakthings = FALSE
 	dismemberment = 0
-	armour_penetration_level = BALLISTIC_PENETRATION_HIGH_CAL
 
 /obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator
 	name = "penetrator sniper rounds(compact)"
