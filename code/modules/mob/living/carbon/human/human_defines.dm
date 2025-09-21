@@ -102,7 +102,7 @@
 
 	/// Store what the body last looked like, so we only have to update it if something changed
 	var/previous_damage_appearance
-  
+
 	var/robotic_limb_repair_time = 1 SECONDS
 	var/limb_repair_in_progress = FALSE
 	var/emp_damage_multiplier_internal = 1
