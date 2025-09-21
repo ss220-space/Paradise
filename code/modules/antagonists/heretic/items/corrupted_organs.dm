@@ -86,23 +86,21 @@
 
 /obj/item/organ/internal/vocal_cords/corrupt/insert(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	RegisterSignal(organ_owner, COMSIG_MOB_SAY, PROC_REF(on_spoken))
+	RegisterSignal(organ_owner, COMSIG_LIVING_EARLY_SAY, PROC_REF(on_spoken))
 
 
 /obj/item/organ/internal/vocal_cords/corrupt/remove(mob/living/carbon/organ_owner, special, movement_flags)
 	. = ..()
-	UnregisterSignal(organ_owner, COMSIG_MOB_SAY)
+	UnregisterSignal(organ_owner, COMSIG_LIVING_EARLY_SAY)
 
 
-/// When the mob speaks, sometimes put it in a different language
-/obj/item/organ/internal/vocal_cords/corrupt/proc/on_spoken(mob/living/organ_owner, list/speech_args)
+/obj/item/organ/internal/vocal_cords/corrupt/proc/on_spoken(mob/living/organ_owner, message)
 	SIGNAL_HANDLER
-	/*
-	if(organ_owner.has_reagent("holywater") || prob(60))
+	if(organ_owner.reagents?.has_reagent("holywater") || prob(60))
 		return
 
-	speech_args[SPEECH_LANGUAGE] = /datum/language/shadowtongue
-*/
+	message = slur(message)
+
 
 /// Randomly secretes alcohol or hallucinogens when you're drinking something
 /obj/item/organ/internal/liver/corrupt
