@@ -224,7 +224,6 @@
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 100
 
 /obj/structure/decorative_structures/fireplace
@@ -245,7 +244,6 @@
 /obj/structure/decorative_structures/garland
 	density = FALSE
 	anchored = TRUE
-	max_integrity = 100
 	icon_state = "xmaslights"
 
 /obj/structure/decorative_structures/garland/Initialize(mapload)

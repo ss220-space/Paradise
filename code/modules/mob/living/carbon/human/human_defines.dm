@@ -92,8 +92,19 @@
 	/// What types of mobs are allowed to ride/buckle to this mob. Only human for now
 	var/static/list/can_ride_typecache = typecacheof(list(/mob/living/carbon/human))
 
+	/// All external organs in src.
+	var/list/bodyparts = list()
+	/// Map organ zones to external organs.
+	var/list/bodyparts_by_name = list()
+
+	var/mob/living/carbon/human/partner
+	var/mob/living/carbon/human/last_interract
+
+	/// Store what the body last looked like, so we only have to update it if something changed
+	var/previous_damage_appearance
+  
 	var/robotic_limb_repair_time = 1 SECONDS
 	var/limb_repair_in_progress = FALSE
 	var/emp_damage_multiplier_internal = 1
 	var/emp_damage_multiplier_external = 1
-
+  

@@ -8,7 +8,6 @@
 	item_color = "ba_suit"
 
 /obj/item/clothing/under/rank/bartender/skirt
-	desc = "It looks like it could use some more flair."
 	name = "bartender's skirt"
 	icon_state = "ba_suitf"
 	item_state = "ba_suitf"
@@ -20,7 +19,6 @@
 	icon_state = "captain"
 	item_state = "caparmor"
 	item_color = "captain"
-	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/rank/cargo
 	name = "quartermaster's jumpsuit"
@@ -79,7 +77,6 @@
 	desc = "It's a black jumpskirt, often worn by religious folk."
 	name = "chaplain's jumpskirt"
 	icon_state = "chaplain_skirt"
-	item_state = "bl_suit"
 	over_shoes = TRUE
 
 /obj/item/clothing/under/rank/chaplain/sensor
@@ -173,7 +170,6 @@
 	desc = "It's a jumpskirt designed to protect against minor plant-related hazards."
 	name = "botanist's jumpskirt"
 	icon_state = "hydroponicsf"
-	item_state = "g_suit"
 	item_color = "hydroponicsf"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
@@ -194,7 +190,6 @@
 	item_color = "internalaffairs"
 
 /obj/item/clothing/under/rank/internalaffairs/skirt
-	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."
 	name = "Internal Affairs uniform with skirt"
 	icon_state = "internalaffairsf"
 	item_state = "internalaffairsf"
@@ -307,7 +302,6 @@
 
 /obj/item/clothing/under/rank/miner/lavaland
 	desc = "A green uniform for operating in hazardous environments."
-	name = "shaft miner's jumpsuit"
 	icon_state = "explorer"
 	item_state = "explorer"
 	item_color = "explorer"

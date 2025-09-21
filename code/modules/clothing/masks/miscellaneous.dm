@@ -4,7 +4,6 @@
 	icon_state = "muzzle"
 	item_state = "muzzle"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 2 SECONDS
 	var/resist_time = 0 //deciseconds of how long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
@@ -109,10 +108,7 @@
 
 /obj/item/clothing/mask/muzzle/tapegag/thick
 	name = "thick tape gag"
-	desc = "MHPMHHH!"
 	icon_state = "thicktapegag"
-	resist_time = 15 SECONDS
-	mute = MUZZLE_MUTE_MUFFLE
 	radio_mute = TRUE
 	trashtype = /obj/item/trash/tapetrash/thick
 
@@ -121,10 +117,8 @@
 	desc = "A muzzle designed to prevent biting."
 	icon_state = "muzzle_secure"
 	item_state = "muzzle_secure"
-	resist_time = 0
 	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
-	locked = FALSE
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 	sprite_sheets = list(
@@ -311,7 +305,6 @@
 	icon_state = "blueneckscarf"
 	item_state = "blueneckscarf"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 
 
@@ -321,7 +314,6 @@
 	icon_state = "redwhite_scarf"
 	item_state = "redwhite_scarf"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/greenscarf
@@ -330,7 +322,6 @@
 	icon_state = "green_scarf"
 	item_state = "green_scarf"
 	flags_cover = MASKCOVERSMOUTH
-	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/pig
@@ -340,7 +331,6 @@
 	item_state = "pig"
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
-	w_class = WEIGHT_CLASS_SMALL
 
 
 /obj/item/clothing/mask/horsehead
@@ -349,7 +339,6 @@
 	icon_state = "horsehead"
 	item_state = "horsehead"
 	flags_inv = HIDENAME|HIDEHAIR
-	w_class = WEIGHT_CLASS_SMALL
 	var/voicechange = FALSE
 	var/temporaryname = " the Horse"
 	var/originalname = ""
@@ -475,7 +464,6 @@
 	desc = "A mask designed to help you remember a specific date."
 	icon_state = "fawkes"
 	item_state = "fawkes"
-	w_class = WEIGHT_CLASS_SMALL
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
@@ -614,7 +602,6 @@
 /obj/item/clothing/mask/bandana/botany
 	name = "botany bandana"
 	desc = "It's a green bandana with some fine nanotech lining."
-	icon_state = "bandbotany"
 
 /obj/item/clothing/mask/bandana/skull
 	name = "skull bandana"
@@ -712,7 +699,6 @@
 	desc = "Bleck security snood. Excellent replacement for a balaclava."
 	icon_state = "secscarf"
 	item_state = "secscarf"
-	icon = 'icons/obj/clothing/masks.dmi'
 	flags_inv = HIDENAME|HIDEFACIALHAIR
 	flags_cover = MASKCOVERSMOUTH
 	can_toggle = TRUE

@@ -5,7 +5,6 @@
 	name = "EM Burst"
 	desc = "Disable any nearby technology with an electro-magnetic pulse. Energy cost: 5000"
 	check_flags = AB_CHECK_CONSCIOUS
-	charge_type = ADV_ACTION_TYPE_RECHARGE
 	charge_max = 4 SECONDS
 	use_itemicon = FALSE
 	button_icon_state = "emp"

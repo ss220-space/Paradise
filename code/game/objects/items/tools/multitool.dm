@@ -17,14 +17,11 @@
 	flags = CONDUCT
 	force = 5.0
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 0
-	throw_range = 7
 	throw_speed = 3
 	drop_sound = 'sound/items/handling/drop/multitool_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/multitool_pickup.ogg'
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	origin_tech = "magnets=1;engineering=2"
-	toolspeed = 1
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
 	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
@@ -128,7 +125,6 @@
 				break
 
 /obj/item/multitool/cyborg
-	name = "multitool"
 	desc = "Optimised and stripped-down version of a regular multitool."
 	toolspeed = 0.5
 
@@ -136,7 +132,6 @@
 	name = "alien multitool"
 	desc = "An omni-technological interface."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "multitool"
 	belt_icon = "alien_multitool"
 	toolspeed = 0.1
 	origin_tech = "magnets=5;engineering=5;abductor=3"

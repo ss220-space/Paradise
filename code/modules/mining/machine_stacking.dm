@@ -5,7 +5,6 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	desc = "Управляет упаковочной машиной... по крайней мере в теории."
-	density = FALSE
 	anchored = TRUE
 	var/obj/machinery/mineral/stacking_machine/machine = null
 	var/machinedir = SOUTHEAST

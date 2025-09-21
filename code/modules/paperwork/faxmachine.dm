@@ -9,7 +9,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
 	desc = "Небольшая машинка для работы с факсами. Не смотря на свой размер, обладает большой силой."
-	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
 	pass_flags = PASSTABLE
@@ -22,9 +21,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/long_range_enabled = FALSE
 	req_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
 
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 30
-	active_power_usage = 200
 
 	/// ID card inserted into the machine, used to log in with
 	var/obj/item/card/id/scan = null

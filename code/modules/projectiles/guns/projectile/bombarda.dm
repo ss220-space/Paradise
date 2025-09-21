@@ -132,8 +132,6 @@
 	icon_state = "secgl"
 	item_state = "secgl"
 	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/secgl
-	w_class = WEIGHT_CLASS_BULKY
-	weapon_weight = WEAPON_HEAVY
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
 
@@ -233,8 +231,6 @@
 	name = "Improvised explosive shell"
 	desc = "Explodes upon impact or after some time."
 	projectile_type = /obj/projectile/grenade/improvised/exp_shot
-	icon_state = "exp_shell"
-	item_state = "exp_shell"
 
 /obj/item/ammo_casing/a40mm/improvised/flame_shell
 	name = "Improvised flame shell"
@@ -373,12 +369,6 @@
 /obj/item/ammo_box/magazine/internal/bombarda/secgl
 	name = "security grenade launcher internal magazine"
 	ammo_type = /obj/item/ammo_casing/a40mm
-	caliber = CALIBER_40MM
-	max_ammo = 1
-	insert_sound = 'sound/weapons/bombarda/load.ogg'
-	remove_sound = 'sound/weapons/bombarda/open.ogg'
-	load_sound = 'sound/weapons/bombarda/load.ogg'
-	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/internal/bombarda/secgl/x4
 	max_ammo = 4
@@ -397,7 +387,6 @@
 	icon = 'icons/obj/weapons/bombarda.dmi'
 	icon_state = "secgl_solid"
 	item_state = "secgl_solid"
-	caliber = CALIBER_40MM
 	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 
@@ -429,18 +418,14 @@
 	)
 	desc = "Граната калибра 40 мм с цельной резиновой пулей. Отлично подходит для нейтрализации активных митингующих из толпы нелетальным способом."
 	projectile_type = /obj/projectile/grenade/a40mm/secgl/solid
-	icon_state = "secgl_solid"
-	item_state = "secgl_solid"
 
 /obj/projectile/grenade/a40mm/secgl/solid
 	icon_state = "secgl_projectile_solid"
-	damage_type = BRUTE
 	damage = 20
 	tile_dropoff = 1
 	stamina = 120
 	tile_dropoff_s = 5
 	min_stamina = 90
-	armour_penetration = -30
 
 /obj/item/ammo_box/secgl/solid
 	name = "ammo box (40mm solid)"
@@ -538,7 +523,6 @@
 		PREPOSITIONAL = "коробке гранат (40 мм слезоточивый газ)"
 	)
 	ammo_type = /obj/item/ammo_casing/a40mm/secgl/gas
-	icon_state = "secgl_box_gas"
 
 
 /obj/item/ammo_casing/a40mm/secgl/barricade
@@ -605,7 +589,6 @@
 /obj/item/grenade/frag/less
 	range = 2
 	max_shrapnel = 3
-	embed_prob = 100
 
 /obj/item/ammo_box/secgl/exp
 	name = "ammo box (40mm frag)"
@@ -702,7 +685,6 @@
 	name = "paint"
 	dryname = "dried paint"
 	desc = "Оно густое и липкое. Возможно, кто то разлил тут краску?"
-	drydesc = "Оно сухое и засохшее. Кто-то явно халтурит."
 	ru_names = list(
 		NOMINATIVE = "капли краска",
 		GENITIVE = "капель краски",

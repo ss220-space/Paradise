@@ -31,7 +31,6 @@
 	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	throwforce = 5
-	throw_speed = 2
 	throw_range = 3
 	obj_integrity = 400
 	max_integrity = 400

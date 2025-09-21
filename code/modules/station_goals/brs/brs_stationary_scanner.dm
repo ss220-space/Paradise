@@ -28,14 +28,12 @@
 	icon_state = "scanner"
 	pixel_x = -32
 	pixel_y = -32
-	anchored = TRUE
 	density = TRUE
 	luminosity = 1
 	max_integrity = 500
 	integrity_failure = 100
 
 	// Power consumption from cables is handled in `process()`
-	use_power = NO_POWER_USE
 	// That's per second
 	idle_power_usage = 6000
 	active_power_usage = 10000

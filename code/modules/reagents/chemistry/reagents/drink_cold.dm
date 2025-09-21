@@ -47,7 +47,6 @@
 	name = "Кола"
 	id = "cola"
 	description = "Освежающий напиток."
-	reagent_state = LIQUID
 	color = "#100800" // rgb: 16, 8, 0
 	adj_drowsy = -10 SECONDS
 	drink_icon = "glass_brown"
@@ -59,7 +58,6 @@
 	name = "Энергетический напиток"
 	id = "energetik"
 	description = "Освежающий напиток."
-	reagent_state = LIQUID
 	color = "#a9c725"
 	adj_drowsy = -6 SECONDS
 	adj_sleepy = -4 SECONDS

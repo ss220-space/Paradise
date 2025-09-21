@@ -134,8 +134,6 @@
 	desc = "Everything you need to call something a staircase, aside from the stuff you actually step on."
 	icon = 'icons/obj/stairs.dmi'
 	icon_state = "stairs_frame"
-	density = FALSE
-	anchored = FALSE
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	/// What type of stack will this drop on deconstruction?
 	var/frame_stack = /obj/item/stack/rods
