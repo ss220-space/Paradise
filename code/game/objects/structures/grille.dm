@@ -96,7 +96,7 @@
 	. = ..()
 	for(var/atom/movable/hit_object as anything in falling_movables)
 		Bumped(hit_object)
-	take_damage(25) //second time turn into broken
+	take_damage(25 * levels) //second time turn into broken
 	. &= ~(FALL_INTERCEPTED | FALL_NO_MESSAGE | FALL_RETAIN_PULL)
 
 

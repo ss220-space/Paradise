@@ -47,7 +47,7 @@
 		to_chat(user, span_warning("Ваш вид не подходит для установки этого киберимпланта!"))
 		return FALSE
 
-	storedorgan.insert(user)//insert stored organ into the user
+	storedorgan.insert(user, ORGAN_MANIPULATION_TRANSPLANTATE)//insert stored organ into the user
 	user.visible_message(
 		span_notice("[user] активиру[pluralize_ru(user.gender,"ет","ют")] автоимплантер и вы слышите недолгий механический шум."),
 		span_notice("Вы чувствуете острое жжение, когда автоимплантер приступает к работе."),

@@ -91,5 +91,6 @@ __pycache__/
 # Rust output.
 /rust/target/*
 
-# From /tools/define_sanity/check.py - potential output file that we load onto the user's machine that we don't want to have committed.
-define_sanity_output.txt
+# Tools some of us like to keep in the repo
+OpenDream
+paradise.json
