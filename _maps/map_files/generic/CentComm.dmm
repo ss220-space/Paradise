@@ -4784,10 +4784,8 @@
 /turf/simulated/wall/indestructible/sandstone,
 /area/wizard_station)
 "cjV" = (
-/obj/structure/window/reinforced{
-	layer = 2.9
-	},
 /obj/machinery/vending/department_clothesmate/security,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/wood,
 /area/centcom/jail)
 "cjY" = (
