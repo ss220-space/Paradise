@@ -46,6 +46,7 @@
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	move_force = MOVE_FORCE_VERY_STRONG
 	resistance_flags = ACID_PROOF
+	movement_type = FLYING
 
 	layer = BEHIND_MOB_LAYER
 	infra_luminosity = 15
@@ -118,7 +119,6 @@
 			part_type = PAINT
 		if("Стекла")
 			part_type = WINDOW
-		else
 	var/coloradd = tgui_input_color(user, "Выберите цвет", "Цвет")
 	if(isnull(coloradd))
 		return
@@ -957,7 +957,7 @@
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(user in passengers && user != pilot)
+	if((user in passengers) && user != pilot)
 		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
 		return
 
@@ -1244,10 +1244,6 @@
 
 	if(direction & (UP|DOWN))
 		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
-		var/turf/T = get_turf(loc)
-		var/turf/above = GET_TURF_ABOVE(T)
-		if((direction & UP) && can_z_move(DOWN, above, z_move_flags = ZMOVE_FALL_FLAGS)) // going up and can fall down is bad.
-			return FALSE
 		. = zMove(direction)
 		if(.)
 			pilot.update_z(z) // after we moved

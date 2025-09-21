@@ -277,8 +277,8 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 
 				if(ishuman(C.loc))
 					var/mob/living/carbon/human/H = C.loc
-					H.update_inv_head()
-					H.update_inv_wear_suit()
+					H.update_worn_head()
+					H.update_worn_oversuit()
 
 			to_chat(user, span_notice("Вы укрепляете [target.declent_ru(ACCUSATIVE)], повышая его устойчивость к ближним атакам."))
 			use(1)

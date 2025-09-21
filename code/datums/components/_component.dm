@@ -344,7 +344,10 @@
 	RETURN_TYPE(c_type)
 	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
 		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
-	. = datum_components?[c_type]
+	var/list/datum_component = datum_components
+	if(!datum_component)
+		return null
+	. = datum_component[c_type]
 	if(length(.))
 		return .[1]
 
@@ -359,14 +362,17 @@
  */
 /datum/proc/GetExactComponent(datum/component/c_type)
 	RETURN_TYPE(c_type)
-	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
+	var/initial_type_mode = initial(c_type.dupe_mode)
+	if(initial_type_mode == COMPONENT_DUPE_ALLOWED || initial_type_mode == COMPONENT_DUPE_SELECTIVE)
 		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
-	var/datum/component/component_or_list = datum_components?[c_type]
-	if(component_or_list)
-		if(length(component_or_list))
-			component_or_list = component_or_list[1]
-		if(component_or_list.type == c_type)
-			return component_or_list
+	var/list/all_components = datum_components
+	if(!all_components)
+		return null
+	var/datum/component/potential_component
+	if(length(all_components))
+		potential_component = all_components[c_type]
+	if(potential_component?.type == c_type)
+		return potential_component
 	return null
 
 /**

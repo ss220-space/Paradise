@@ -379,10 +379,7 @@
 			r_hand = null
 		return FALSE
 
-	if(hand_id == ITEM_SLOT_HAND_LEFT)
-		update_inv_l_hand()
-	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
-		update_inv_r_hand()
+	update_held_items()
 
 	I.layer = ABOVE_HUD_LAYER
 	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)

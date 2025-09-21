@@ -133,7 +133,7 @@
 		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
 
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-	target.update_inv_wear_mask()
+	target.update_worn_mask()
 
 
 /obj/item/lighter/process()

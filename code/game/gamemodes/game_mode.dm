@@ -561,6 +561,7 @@
 
 
 /datum/game_mode/proc/latespawn(mob/player)
+	return
 
 
 /datum/game_mode/proc/num_players()

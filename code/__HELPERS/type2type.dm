@@ -78,7 +78,6 @@
 		if(10.0)
 			return "southwest"
 
-
 /proc/dir2rustext_where(direction)
 	return "на [dir2rustext(direction)]е"
 
@@ -122,7 +121,6 @@
 		if(10.0)
 			return "юго-запад"
 
-
 /// Turns text into proper directions
 /proc/text2dir(direction)
 	switch(uppertext(direction))
@@ -142,8 +140,8 @@
 			return 6
 		if(DIR_NAME_ENG_SOUTHWEST)
 			return 10
-		else
-	return
+
+	return NONE
 
 /// Turns text into proper directions
 /proc/text2dir_rus(direction)
@@ -164,9 +162,8 @@
 			return 6
 		if(DIR_NAME_RUS_SOUTHWEST)
 			return 10
-		else
-	return
 
+	return NONE
 
 /// Converts an angle (degrees) into an ss13 direction
 GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,SOUTHWEST,WEST,NORTHWEST))

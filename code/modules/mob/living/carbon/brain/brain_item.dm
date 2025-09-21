@@ -20,6 +20,8 @@
 	/// TRUE giving to a user sci hud and active research scanner
 	var/smart_mind = FALSE
 	var/list/datum/brain_trauma/traumas = list()
+	/// The original body for this brain, if this valriable is null - brain can apply any body without desease.
+	var/original_body = null
 
 /obj/item/organ/internal/brain/get_ru_names()
 	return list(
@@ -128,7 +130,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.special_post_clone_handling()
+		H.special_post_clone_handling(special == ORGAN_MANIPULATION_TRANSPLANTATE)
 
 	..(target, special)
 
