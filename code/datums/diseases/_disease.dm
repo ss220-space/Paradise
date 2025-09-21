@@ -1,6 +1,50 @@
 
 GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
+#define NO_STEP_INIT (0 << 1)
+#define POST_STEP_SYMPTOM (0 << 2) //add symptoms to process post step
+
+#define NULL_GENE 0
+#define GENE_IF_OPERATOR 1
+#define TRIGGER_DNA_OPERATOR 170
+
+
+#define BLOCK_BLOCKED (0 << 1)
+
+/datum/disease_step
+	var/step_name = "Какой-то этап болезни"
+	var/step_desc = "Описание этапа"
+	var/step_flags = NO_STEP_INIT
+	var/list/datum/symptom/step_symptoms = list()
+
+/datum/disease_step/proc/Start()
+
+/datum/disease_step/proc/Finish()
+
+/datum/disease_step/proc/on_step(datum/disease/curret_parent)
+
+/datum/disease_component_gene
+	var/name = "Имя гена"
+	var/desc = "Описание гена"
+	
+	var/flags = NONE
+
+	var/list/trigger_reagent_to_dna = list()
+	var/list/gene_hex = list() //Числовые последывательности генов
+
+
+/datum/module_disease
+	var/disease_name = "Болезнь"
+	var/list/datum/disease_step/virus_steps = list()
+
+	var/list/datum/symptom/processed_symptom = list()
+	var/datum/disease_step/curret_step
+
+	var/list/local_variables = list()
+
+/datum/module_disease/proc/change_step()
+
+
 /datum/disease
 	//Fluff
 	var/form = "Болезнь"
