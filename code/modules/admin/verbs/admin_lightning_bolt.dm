@@ -19,7 +19,7 @@
 	var/datum/drop_lightning_bolt_ui/editor = new()
 	editor.ui_interact(mob)
 
-// _________________________________________TGUI_________________________________________
+
 /datum/drop_lightning_bolt_ui
 	var/client/client = null
 	var/mob/living/victim_mob = null

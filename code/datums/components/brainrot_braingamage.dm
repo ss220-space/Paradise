@@ -1,4 +1,4 @@
-// Applys braindamag when owner says word from list. Not so fust, so don't use it for many mobs!
+// Applys braindamage when owner says word from list. Not so fust, so don't use it for many mobs!
 /datum/component/brainrot_braingamage
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	var/list/bad_words

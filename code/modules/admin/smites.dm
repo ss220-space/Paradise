@@ -74,17 +74,17 @@
 
 /datum/smite/brainloss/apply_effect(mob/living/target, reason)
 	var/damage = tgui_input_number(
-		usr, \
-		"Сколько урона мозгу нанести?", \
-		"Выбор урона мозгу", \
-		75, \
-		1000, \
+		usr,
+		"Сколько урона мозгу нанести?",
+		"Выбор урона мозгу",
+		75,
+		1000,
 		0
 	)
 	var/permanent = tgui_alert(
-		usr, \
-		"Сделать ли повреждения не лечащимися?", \
-		"Лечатся ли", \
+		usr,
+		"Сделать ли повреждения не лечащимися?",
+		"Лечатся ли",
 		list("Да", "Нет")
 	) == "Да"
 	if(permanent)
@@ -400,16 +400,16 @@
 /// MARK: Virus
 /datum/smite/virus
 	name = SMITE_VIRUS
-	desc = "Заразите грешника выбранным вирусом! Если хотите, сделайте вирус не заразным."
+	desc = "Заразите грешника выбранным вирусом! Если хотите, сделайте вирус незаразным."
 	logmsg = "virus."
 
 
 /datum/smite/virus/activate(mob/living/target, reason)
 	var/type = tgui_input_list(usr, "Выберите вирус.", "Выбор вируса", subtypesof(/datum/disease/virus), /datum/disease/virus/nuclefication)
 	var/cant_spread = tgui_alert(
-		usr, \
-		"Сделать ли вирус не заразным?", \
-		"Сделать не заразным", \
+		usr,
+		"Сделать ли вирус незаразным?",
+		"Сделать незаразным",
 		list("Да", "Нет")
 	) == "Да"
 
@@ -423,7 +423,7 @@
 /// MARK: Pod
 /datum/smite/pod
 	name = SMITE_POD
-	desc = "Зпустите по грешнику ракетой."
+	desc = "Запустите по грешнику ракетой."
 	logmsg = "supply pod."
 
 
@@ -445,7 +445,7 @@
 	GLOB.major_announcement.announce(
 		"[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. \
 		Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни \
-		будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[(bounty % 10 >= 5 || bounty % 100 >= 10 && bounty <= 20) ? "ов" : (bounty % 10 == 1 ? "" : "а")].",
+		будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[declension_ru(bounty, "", "а", "ов")].",
 		ANNOUNCE_CCKILL_RU,
 		'sound/AI/commandreport.ogg'
 	)
@@ -463,7 +463,7 @@
 	update_all_mob_security_hud()
 
 
-/// MARK: Brainrot braindamag
+/// MARK: Brainrot braindamage
 /datum/smite/brainrot_braingamage
 	name = SMITE_BRAINROTBRAINDAMAGE
 	desc = "Мозг грешника будет повреждаться от глупых фраз."
@@ -621,7 +621,6 @@
 	ui.ui_interact(mob)
 
 
-// _________________________________________TGUI_________________________________________
 /// MARK: TGUI
 /datum/smite_ui
 	/// Name of choosen smite
@@ -643,7 +642,6 @@
 
 	ui = new(user, src, "SmiteMenu", "Наказание [victim_mob.declent_ru(GENITIVE)]")
 	ui.open()
-	ui.set_autoupdate(TRUE)
 
 
 /datum/smite_ui/ui_static_data(mob/user)
@@ -675,9 +673,11 @@
 	switch(action)
 		if("change_reason")
 			reason = params["new_reason"]
+			return
 
 		if("change_choosen")
 			choosen = params["new_choosen"]
+			return
 
 		if("activate")
 			var/list/all_smites = GLOB.smites_not_human + GLOB.smites_human
@@ -688,9 +688,9 @@
 			var/datum/smite/smite = new type()
 			smite.activate(victim_mob, reason)
 			ui.close()
+			return
 
-		else
-			. = FALSE
+	return FALSE
 
 
 /datum/smite_ui/ui_close(mob/user)
