@@ -729,7 +729,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		inv.update_icon()
 
 	if(!shoes && feet_blood_DNA)
-		overlays_standing[SHOES_LAYER] = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER, color = feet_blood_color))
+		overlays_standing[SHOES_LAYER] = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER, color = feet_blood_color)
 		apply_overlay(SHOES_LAYER)
 		return
 
