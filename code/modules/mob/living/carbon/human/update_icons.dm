@@ -728,7 +728,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_FEET) + 1]
 		inv.update_icon()
 
-	if(!shoes && feet_blood_DNA)
+	if(!shoes)
+		if(!feet_blood_DNA)
+			return
 		overlays_standing[SHOES_LAYER] = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER, color = feet_blood_color)
 		apply_overlay(SHOES_LAYER)
 		return
@@ -865,7 +867,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/alt_icon_state = "[wear_mask.icon_state]_[alternate_head.suffix]"
 		override_icon_state = icon_exists(icon_file, alt_icon_state) ? alt_icon_state : null
 
-	var/mutable_appearance/standing = wear_mask.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = DEFAULT_ICON_WEAR_MASK, override_state = override_icon_state)
+	var/mutable_appearance/standing = wear_mask.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = wear_mask.onmob_sheets[ITEM_SLOT_MASK_STRING], override_state = override_icon_state)
 
 	if(wear_mask.blood_DNA && !istype(wear_mask, /obj/item/clothing/mask/cigarette))
 		standing.overlays += mutable_appearance(dna.species.blood_mask, "maskblood", color = wear_mask.blood_color)
@@ -888,7 +890,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(neck.flags_inv & HIDENECK)
 		return
 
-	overlays_standing[NECK_LAYER] = neck.build_worn_icon(default_layer = NECK_LAYER, default_icon_file = DEFAULT_ICON_NECK)
+	overlays_standing[NECK_LAYER] = neck.build_worn_icon(default_layer = NECK_LAYER, default_icon_file = neck.onmob_sheets[ITEM_SLOT_NECK_STRING])
 
 	apply_overlay(NECK_LAYER)
 
@@ -902,7 +904,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!back)
 		return
 
-	overlays_standing[BACK_LAYER] = back.build_worn_icon(default_layer = BACK_LAYER, default_icon_file = DEFAULT_ICON_BACK)
+	overlays_standing[BACK_LAYER] = back.build_worn_icon(default_layer = BACK_LAYER, default_icon_file = back.onmob_sheets[ITEM_SLOT_BACK_STRING])
 	update_item_on_hud(back, ui_back)
 
 	apply_overlay(BACK_LAYER)
