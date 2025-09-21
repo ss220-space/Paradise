@@ -144,39 +144,6 @@
 		hands += item.build_worn_icon(default_layer = HANDS_LAYER, default_icon_file = icon_file, override_state = override_icon_state, isinhands = TRUE)
 	return hands
 
-/mob/living/carbon/update_worn_mask()
-	remove_overlay(FACEMASK_LAYER)
-
-	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
-	if(!head_organ)
-		return
-
-	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_MASK)
-		return
-
-	if(client && hud_used?.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1])
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1]
-		inv.update_appearance()
-
-	if(!wear_mask)
-		return
-
-	update_item_on_hud(wear_mask, ui_mask, togleable_inventory = TRUE)
-
-	var/datum/sprite_accessory/alt_heads/alternate_head
-	if(head_organ.alt_head && head_organ.alt_head != "None")
-		alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
-
-	var/override_icon_state
-	if(alternate_head)
-		var/icon/icon_file = wear_mask.sprite_sheets?[dna.species.name] || wear_mask.onmob_sheets[ITEM_SLOT_MASK_STRING]
-		var/alt_icon_state = "[wear_mask.icon_state]_[alternate_head.suffix]"
-		override_icon_state = icon_exists(icon_file, alt_icon_state) ? alt_icon_state : null
-
-	overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = DEFAULT_ICON_WEAR_MASK, override_state = override_icon_state)
-
-	apply_overlay(FACEMASK_LAYER)
-
 /// Changes item's screen_loc position and adds it on client screen.
 /// If togleable_inventory is set to `TRUE`, additionally `/datum/hud/var/inventory_shown` will be checked.
 /mob/living/carbon/proc/update_item_on_hud(obj/item/worn_item, ui_screen_loc, togleable_inventory = FALSE)

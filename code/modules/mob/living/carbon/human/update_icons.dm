@@ -728,11 +728,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_FEET) + 1]
 		inv.update_icon()
 
-	if(!shoes)
+	if(!shoes && feet_blood_DNA)
+		overlays_standing[SHOES_LAYER] = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER, color = feet_blood_color))
+		apply_overlay(SHOES_LAYER)
 		return
 
 	update_item_on_hud(shoes, ui_shoes, togleable_inventory = TRUE)
-	overlays_standing[SHOES_LAYER] = shoes.build_worn_icon(default_layer = SHOES_LAYER, default_icon_file = shoes.onmob_sheets[ITEM_SLOT_FEET_STRING])
+	var/mutable_appearance/standing = shoes.build_worn_icon(default_layer = SHOES_LAYER, default_icon_file = shoes.onmob_sheets[ITEM_SLOT_FEET_STRING])
+	if(shoes.blood_DNA)
+		standing.overlays += mutable_appearance(dna.species.blood_mask, "shoeblood", color = shoes.blood_color)
+
+	overlays_standing[SHOES_LAYER] = standing
 	apply_overlay(SHOES_LAYER)
 
 /mob/living/carbon/human/update_suit_storage()
@@ -766,7 +772,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		return
 
 	update_item_on_hud(head, ui_head, togleable_inventory = TRUE)
-	overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = head.onmob_sheets[ITEM_SLOT_HEAD_STRING])
+
+	var/mutable_appearance/standing = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = head.onmob_sheets[ITEM_SLOT_HEAD_STRING])
+	if(head.blood_DNA)
+		standing.overlays += mutable_appearance(dna.species.blood_mask, "helmetblood", color = head.blood_color)
+
+	overlays_standing[HEAD_LAYER] = standing
 	apply_overlay(HEAD_LAYER)
 
 /mob/living/carbon/human/update_worn_belt()
@@ -792,7 +803,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(wear_suit)
 		update_item_on_hud(wear_suit, ui_oclothing, togleable_inventory = TRUE)
-		overlays_standing[SUIT_LAYER] = wear_suit.build_worn_icon(default_layer = SUIT_LAYER, default_icon_file = wear_suit.onmob_sheets[ITEM_SLOT_CLOTH_OUTER_STRING])
+		var/mutable_appearance/standing = wear_suit.build_worn_icon(default_layer = SUIT_LAYER, default_icon_file = wear_suit.onmob_sheets[ITEM_SLOT_CLOTH_OUTER_STRING])
+		if(wear_suit.blood_DNA)
+			standing.overlays += mutable_appearance(dna.species.blood_mask, "[wear_suit.blood_overlay_type]blood", color = wear_suit.blood_color)
+		overlays_standing[SUIT_LAYER] = standing
 
 	apply_overlay(SUIT_LAYER)
 	update_tail_layer()
@@ -821,6 +835,44 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	if(wear_pda)
 		update_item_on_hud(wear_pda, ui_pda)
+
+/mob/living/carbon/human/update_worn_mask()
+	remove_overlay(FACEMASK_LAYER)
+
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(!head_organ)
+		return
+
+	if(check_obscured_slots(check_transparent = TRUE) & ITEM_SLOT_MASK)
+		return
+
+	if(client && hud_used?.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1])
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1]
+		inv.update_appearance()
+
+	if(!wear_mask)
+		return
+
+	update_item_on_hud(wear_mask, ui_mask, togleable_inventory = TRUE)
+
+	var/datum/sprite_accessory/alt_heads/alternate_head
+	if(head_organ.alt_head && head_organ.alt_head != "None")
+		alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
+
+	var/override_icon_state
+	if(alternate_head)
+		var/icon/icon_file = wear_mask.sprite_sheets?[dna.species.name] || wear_mask.onmob_sheets[ITEM_SLOT_MASK_STRING]
+		var/alt_icon_state = "[wear_mask.icon_state]_[alternate_head.suffix]"
+		override_icon_state = icon_exists(icon_file, alt_icon_state) ? alt_icon_state : null
+
+	var/mutable_appearance/standing = wear_mask.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = DEFAULT_ICON_WEAR_MASK, override_state = override_icon_state)
+
+	if(wear_mask.blood_DNA && !istype(wear_mask, /obj/item/clothing/mask/cigarette))
+		standing.overlays += mutable_appearance(dna.species.blood_mask, "maskblood", color = wear_mask.blood_color)
+
+	overlays_standing[FACEMASK_LAYER] = standing
+
+	apply_overlay(FACEMASK_LAYER)
 
 /mob/living/carbon/human/update_worn_neck()
 	remove_overlay(NECK_LAYER)
