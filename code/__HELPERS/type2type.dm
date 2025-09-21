@@ -77,8 +77,8 @@
 			return "northwest"
 		if(10.0)
 			return "southwest"
-		else
-	return
+
+	return NONE
 
 /// Returns a string the last bit of a type, without the preceeding '/'
 /proc/type2top(the_type)
@@ -119,8 +119,8 @@
 			return "северо-запад"
 		if(10.0)
 			return "юго-запад"
-		else
-	return
+
+	return NONE
 
 /// Turns text into proper directions
 /proc/text2dir(direction)
@@ -141,8 +141,8 @@
 			return 6
 		if(DIR_NAME_ENG_SOUTHWEST)
 			return 10
-		else
-	return
+
+	return NONE
 
 /// Turns text into proper directions
 /proc/text2dir_rus(direction)
@@ -163,9 +163,8 @@
 			return 6
 		if(DIR_NAME_RUS_SOUTHWEST)
 			return 10
-		else
-	return
 
+	return NONE
 
 /// Converts an angle (degrees) into an ss13 direction
 GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,SOUTHWEST,WEST,NORTHWEST))

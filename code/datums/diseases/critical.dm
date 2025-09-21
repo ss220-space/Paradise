@@ -99,7 +99,7 @@
 	additional_info = "У пациента сердечный приступ"
 	max_stages = 3
 	stage_prob = 5
-	cures = list("atropine", "epinephrine", "heparin")
+	cures = list("atropine", "epinephrine", "heparin", "neuromatin")
 	cure_prob = 10
 	needs_all_cures = FALSE
 	required_organs = list(/obj/item/organ/internal/heart)
