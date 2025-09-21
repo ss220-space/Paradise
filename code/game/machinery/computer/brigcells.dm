@@ -3,7 +3,6 @@
 	desc = "Используется для управления тюремными камерами."
 	icon_keyboard = "security_key"
 	icon_screen = "cell_monitor"
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 250
 	active_power_usage = 500
 	circuit = /obj/item/circuitboard/brigcells

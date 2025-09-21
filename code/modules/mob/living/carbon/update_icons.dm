@@ -71,11 +71,6 @@
 /mob/living/proc/handle_transform_change()
 	return
 
-
-/mob/living/carbon
-	var/list/overlays_standing[TOTAL_LAYERS]
-
-
 /mob/living/carbon/proc/apply_overlay(cache_index)
 	. = overlays_standing[cache_index]
 	if(.)

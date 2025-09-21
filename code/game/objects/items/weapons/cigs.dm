@@ -16,7 +16,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette
 	name = "cigarette"
 	desc = "Закрученный в бумагу табак."
-	gender = FEMALE
 	icon_state = "cigoff"
 	throw_speed = 0.5
 	item_state = "cigoff"
@@ -395,7 +394,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "spliffon"
 	icon_off = "spliffoff"
 	type_butt = /obj/item/cigbutt/roach
-	throw_speed = 0.5
 	item_state = "spliffoff"
 
 /obj/item/clothing/mask/cigarette/rollie/get_ru_names()
@@ -436,7 +434,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "cigaron"
 	icon_off = "cigaroff"
 	type_butt = /obj/item/cigbutt/cigarbutt
-	throw_speed = 0.5
 	item_state = "cigaroff"
 	smoketime = 300
 	chem_volume = 120
@@ -728,7 +725,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/holo_cigar
 	name = "Holo-Cigar"
 	desc = "Изящная электронная сигара, изготовленна в Солнечной Системе. При одном взгляде на нее чувствуешь себя крутым..."
-	gender = FEMALE
 	icon_state = "holocigaroff"
 	item_state = "holocigaroff"
 	var/enabled = FALSE

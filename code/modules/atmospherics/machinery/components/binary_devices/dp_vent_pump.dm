@@ -14,7 +14,6 @@
 
 	connect_types = list(1,2,3) //connects to regular, supply and scrubbers pipes
 
-	on = FALSE
 	var/releasing = TRUE // FALSE = siphoning, TRUE = releasing
 
 	var/external_pressure_bound = ONE_ATMOSPHERE

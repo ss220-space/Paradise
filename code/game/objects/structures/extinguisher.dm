@@ -9,7 +9,6 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "extinguisher_closed"
 	anchored = TRUE
-	density = FALSE
 	max_integrity = 200
 	integrity_failure = 50
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING

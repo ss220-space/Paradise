@@ -6,9 +6,6 @@
 	desc = "Оно густое и липкое. Возможно, это шедевр местного повара?"
 	var/drydesc = "Оно сухое и засохшее. Кто-то явно халтурит."
 	gender = PLURAL
-	density = FALSE
-	anchored = TRUE
-	layer = CLEANABLES_LAYER
 	plane = GAME_PLANE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "mfloor1"
@@ -174,7 +171,6 @@
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"
 	desc = "Оно красное."
-	gender = PLURAL
 	icon = 'icons/effects/drip.dmi'
 	icon_state = "1"
 	random_icon_states = list("1", "2", "3", "4", "5")
@@ -197,11 +193,9 @@
 
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	desc = "Ваши инстинкты подсказывают, что не стоит идти этим путём."
 	gender = PLURAL
-	density = FALSE
 	layer = TURF_LAYER
 	random_icon_states = null
 	blood_DNA = list()
@@ -244,11 +238,7 @@
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
 	desc = "Кто-то или что-то явно было разорвано на части."
-	gender = PLURAL
-	density = FALSE
-	anchored = TRUE
 	layer = TURF_LAYER
-	icon = 'icons/effects/blood.dmi'
 	icon_state = "gib2"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE

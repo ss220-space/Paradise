@@ -70,8 +70,7 @@
 "w" = (
 /obj/structure/closet/crate,
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/item/restraints/handcuffs/pinkcuffs,
 /obj/item/restraints/handcuffs,
@@ -91,8 +90,7 @@
 	req_access = list(104,106,63,19)
 	},
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor{
 	dir = 1;

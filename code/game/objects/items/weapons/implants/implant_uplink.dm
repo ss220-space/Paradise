@@ -5,7 +5,6 @@
 	icon_state = "radio"
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=4;magnets=4;programming=4;biotech=4;syndicate=5;bluespace=5"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	implant_data = /datum/implant_fluff/uplink
 
 

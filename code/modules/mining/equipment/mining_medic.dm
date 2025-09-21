@@ -131,7 +131,6 @@ Almost every mining medic related stuff
 	item_state = "sec_camera"
 	slot = ACCESSORY_SLOT_DECOR //No one will remove their holster for a camera
 	feed = "secfeed"
-	multiz = TRUE //maybe change that, for now true
 
 /obj/item/clothing/accessory/camera/security/get_ru_names()
 	return list(

@@ -17,7 +17,6 @@ GLOBAL_LIST_EMPTY(firealarms)
 	max_integrity = 250
 	integrity_failure = 100
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
 	power_channel = ENVIRON
@@ -71,7 +70,6 @@ GLOBAL_LIST_EMPTY(firealarms)
 
 /obj/machinery/firealarm/syndicate/taipan
 	report_fire_alarms = TRUE
-	show_alert_level = FALSE
 
 
 /obj/machinery/firealarm/update_icon_state()
@@ -360,7 +358,6 @@ Just a object used in constructing fire alarms
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 

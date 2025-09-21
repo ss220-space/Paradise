@@ -25,7 +25,6 @@
 	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES
 	universal_speak = TRUE
 	faction = list("cult")
-	status_flags = CANPUSH
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "издаёт довольный вздох, пока его форма распадается."

@@ -7737,7 +7737,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Wb" = (
-/obj/structure/lattice/catwalk,
 /turf/simulated/wall/r_wall,
 /area/mine/storage)
 "Wd" = (

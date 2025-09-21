@@ -35,7 +35,6 @@
 	name = "tacticool turtleneck"
 	desc = "Увидев это, хочется приобрести карабин СКС, уйти в лес и \"оперировать\""
 	icon_state = "tactifool"
-	item_state = "bl_suit"
 	item_color = "tactifool"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 40)
 
@@ -51,9 +50,7 @@
 
 /obj/item/clothing/under/syndicate/tacticool/skirt
 	name = "tacticool skirt"
-	desc = "Увидев это, хочется приобрести карабин СКС, уйти в лес и \"оперировать\""
 	icon_state = "tactifoolf"
-	item_state = "bl_suit"
 	item_color = "tactifoolf"
 
 /obj/item/clothing/under/syndicate/tacticool/skirt/get_ru_names()
@@ -70,7 +67,6 @@
 	name = "Tactical turtleneck suit"
 	desc = "Тактическая водолазка с двойным швом, замаскированная под гражданский шелковый костюм. Предназначена для самых требовательных оперативников. Воротник очень острый."
 	icon_state = "really_black_suit"
-	item_state = "bl_suit"
 	item_color = "black_suit"
 
 /obj/item/clothing/under/syndicate/sniper/get_ru_names()
@@ -87,7 +83,6 @@
 	name = "Executive tacticool suit"
 	desc = "Модель тактической водолазки предназначена для ведения переговоров, а не для участия в боевых действиях."
 	icon_state = "black_suit"
-	item_state = "bl_suit"
 	item_color = "black_suit"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 

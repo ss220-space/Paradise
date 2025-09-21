@@ -22,10 +22,8 @@
 
 
 /obj/item/toy
-	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
-	force = 0
 	var/unique_toy_rename = FALSE
 
 
@@ -135,10 +133,6 @@
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
 	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
-	throwforce = 0
-	throw_speed = 4
-	throw_range = 20
-	force = 0
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
 	w_class = WEIGHT_CLASS_BULKY
@@ -244,7 +238,6 @@
 	force = 0
 	throwforce = 0
 	throw_speed = 3
-	throw_range = 5
 	force_unwielded = 0
 	force_wielded = 0
 	origin_tech = null
@@ -269,7 +262,6 @@
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	force = 5
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("атаковал", "полоснул", "уколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
@@ -294,7 +286,6 @@
 	throwforce = 5.0
 	throw_speed = 10
 	throw_range = 30
-	w_class = WEIGHT_CLASS_TINY
 
 
 /obj/item/toy/snappop/virus/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -533,7 +524,6 @@
 	return pick(subtypesof(/obj/item/toy/therapy)) //exclude the base type.
 
 /obj/item/toy/therapy/red
-	item_state = "egg4" // It's the red egg in items_left/righthand
 	item_color = "red"
 
 /obj/item/toy/therapy/purple
@@ -549,7 +539,6 @@
 	item_color = "yellow"
 
 /obj/item/toy/therapy/orange
-	item_state = "egg4" // It's the red one again, lacking an orange item_state and making a new one is pointless
 	item_color = "orange"
 
 /obj/item/toy/therapy/green
@@ -811,7 +800,6 @@
 /obj/item/toy/plushie/kotrazumist
 	name = "Razumist Cat"
 	desc = "Cat with warning cone on it. Wonder what do itself so smart?"
-	icon = 'icons/obj/toy.dmi'
 	icon_state = "razymist_cat"
 	COOLDOWN_DECLARE(cooldown)
 
@@ -826,7 +814,6 @@
 /obj/item/toy/plushie/kotwithfunnyhat
 	name = "Rice Cat"
 	desc = "White cat plushie with straw hat for hard work on rice field!"
-	icon = 'icons/obj/toy.dmi'
 	icon_state = "ricehat_cat"
 	COOLDOWN_DECLARE(cooldown)
 
@@ -1540,10 +1527,8 @@
 /obj/item/toy/plushie/beaver
 	name = "beaver plushie"
 	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья."
-	icon = 'icons/obj/toy.dmi'
 	icon_state = "beaver_plushie"
 	item_state = "beaver_plushie"
-	w_class = WEIGHT_CLASS_SMALL
 	gender = MALE
 
 /obj/item/toy/plushie/beaver/sounded //only adminspawn
@@ -1846,7 +1831,6 @@
 /obj/item/storage/box/characters
 	name = "Box of Miniatures"
 	desc = "The nerd's best friends."
-	icon_state = "box"
 
 /obj/item/storage/box/characters/populate_contents()
 	new /obj/item/toy/character/alien(src)
@@ -1984,9 +1968,7 @@
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
-	throw_speed = 4
 	throw_range = 5
 	force = 5
 	origin_tech = "combat=1"
@@ -2090,8 +2072,6 @@
 	name = "Toy Chainsaw"
 	desc = "A toy chainsaw with a rubber edge. Ages 8 and up"
 	icon_state = "chainsaw0"
-	force = 0
-	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
 	wieldsound = 'sound/weapons/chainsaw_start.ogg'

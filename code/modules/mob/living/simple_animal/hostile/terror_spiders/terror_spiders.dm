@@ -28,7 +28,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	death_sound = 'sound/creatures/terrorspiders/death.ogg'
 	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
 	var/spider_intro_text = "Если ты это видишь, это баг."
-	speak_chance = 0 // quiet but deadly
 	speak_emote = list("шипит")
 	emote_hear = list("шипит")
 	tts_seed = "Anubarak"
@@ -43,7 +42,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	//HEALTH
 	maxHealth = 120
 	health = 120
-	a_intent = INTENT_HARM
 	var/regeneration = 2 //pure regen on life
 	var/degenerate = FALSE // if TRUE, they slowly degen until they all die off.
 	//also regenerates by using /datum/status_effect/terror/food_regen when wraps a carbon, wich grants full health witin ~25 seconds

@@ -13,7 +13,6 @@
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
 	var/cover_open = 0
 	fire_delay = 1
-	burst_size = 3
 	accuracy = GUN_ACCURACY_RIFLE
 	recoil = GUN_RECOIL_HIGH
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
@@ -23,7 +22,6 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -7)
 	)
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
-	autofire_delay = 0.2 SECONDS
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
@@ -161,7 +159,6 @@
 
 /obj/item/ammo_casing/a762x51/bleeding
 	desc = "A 7.62x51mm bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."
-	icon_state = "762-casing"
 	projectile_type = /obj/projectile/bullet/saw/bleeding
 
 /obj/item/ammo_casing/a762x51/hollow

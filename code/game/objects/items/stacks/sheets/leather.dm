@@ -226,7 +226,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon_state = "goliath_hide"
 	singular_name = "hide plate"
 	item_flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	var/static/list/override_unplatable_armor_typecache = typecacheof(list(
 			/obj/item/clothing/suit/hooded/explorer/mining,
@@ -309,7 +308,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon_state = "armour_plate"
 	singular_name = "armour plate"
 	item_flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
 /obj/item/stack/sheet/armour_plate/afterattack(atom/target, mob/user, proximity_flag, params)
@@ -340,7 +338,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	item_state = "thick_cartilage_plate"
 	singular_name = "cartilage plate"
 	item_flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
 /obj/item/stack/sheet/cartilage_plate/get_ru_names()
@@ -360,7 +357,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon_state = "dragon_hide"
 	singular_name = "drake plate"
 	item_flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
 /obj/item/stack/sheet/animalhide/ashdrake/get_ru_names()

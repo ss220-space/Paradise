@@ -3,7 +3,6 @@
 	name = "pickaxe"
 	desc = "Стандартная кирка, предназначенная для разрушения камней."
 	gender = FEMALE
-	icon = 'icons/obj/items.dmi'
 	icon_state = "pickaxe"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -232,7 +231,6 @@
 	name = "sonic jackhammer"
 	desc = "Уничтожает камни с использованием звука, может использоваться как инструмент для сноса стен."
 	icon_state = "jackhammer"
-	item_state = "jackhammer"
 	origin_tech = "materials=6;powerstorage=4;engineering=5;magnets=4"
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
@@ -256,14 +254,12 @@
 	name = "shovel"
 	desc = "Массивный инструмент для вскапывания и перемещения земли."
 	gender = FEMALE
-	icon = 'icons/obj/items.dmi'
 	icon_state = "shovel"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
 	throwforce = 4
 	item_state = "shovel"
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
 	origin_tech = "materials=2;engineering=2"
 	attack_verb = list("ударил", "огрел")

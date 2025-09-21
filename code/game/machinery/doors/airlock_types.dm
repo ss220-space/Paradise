@@ -504,7 +504,6 @@
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_shuttle
 	paintable = FALSE
-	smoothing_groups = SMOOTH_GROUP_AIRLOCK
 
 /obj/machinery/door/airlock/shuttle/glass
 	opacity = FALSE
@@ -790,7 +789,6 @@
 	name = "evil looking maintenance airlock"
 	icon = 'icons/obj/doors/airlocks/syndicate/maintenance.dmi'
 	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_maint
-	normal_integrity = 300
 
 /obj/machinery/door/airlock/syndicate/maintenance/glass
 	opacity = FALSE

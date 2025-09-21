@@ -432,7 +432,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
-	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
 	force = 7
 	affect_cyborgs = TRUE
@@ -742,7 +741,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "This looks similar to contraptions from earth. Could aliens be stealing our technology?"
 	icon = 'icons/obj/abductor.dmi'
 	buildstacktype = /obj/item/stack/sheet/mineral/abductor
-	icon_state = "bed"
 
 /obj/structure/table_frame/abductor
 	name = "alien table frame"
@@ -789,7 +787,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	can_be_flipped = FALSE
 	buildstack = /obj/item/stack/sheet/mineral/abductor
 	framestack = /obj/item/stack/sheet/mineral/abductor
-	buildstackamount = 1
 	framestackamount = 1
 	base_icon_state = "alien_table"
 	smoothing_groups = SMOOTH_GROUP_ABDUCTOR_TABLES
@@ -856,7 +853,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/reagent_containers/applicator/abductor/brute
 	name = "alien brute mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления механических повреждений. Выполнено из прочного инопланетного материала."
-	base_icon = "alien_mender_brute"
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/abductor/brute/get_ru_names()
@@ -1000,7 +996,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "alien_medkit"
 	item_state = "alien_medkit"
-	throw_speed = 2
 	throw_range = 8
 
 /obj/item/storage/firstaid_abductor/populate_contents()

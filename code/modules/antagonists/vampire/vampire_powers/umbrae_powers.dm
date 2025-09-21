@@ -43,7 +43,6 @@
 	name = "Теневая ловушка"
 	desc = "Вы вызываете ловушку на земле. Когда её пересекут, она ослепит цель, погасит все имеющиеся у неё источники света и захватит её в капкан."
 	gain_desc = "Вы получили способность вызывать ловушку, которая ослепит, захватит в капкан и выключит свет любому, кто пересечет ее."
-	base_cooldown = 10 SECONDS
 	required_blood = 15
 	action_icon_state = "shadow_snare"
 	need_active_overlay = TRUE
@@ -237,7 +236,6 @@
 	alpha = 120
 	color = "#545454"
 	density = TRUE
-	opacity = FALSE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE
 
@@ -284,7 +282,6 @@
 
 
 /obj/effect/temp_visual/vamp_mist_in
-	duration = 1 SECONDS
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "mist_reappear"
 
@@ -339,7 +336,6 @@
 	name = "Вечная тьма"
 	desc = "При включении вы окутываете пространство вокруг себя темнотой и медленно понижаете температуру тела находящихся рядом гуманоидов."
 	gain_desc = "Вы обрели способность окутывать всё вокруг себя тьмой. Только сильнейший свет сможет пронзить вашу нечестивую силу."
-	base_cooldown = 10 SECONDS
 	action_icon_state = "eternal_darkness"
 	required_blood = 5
 	var/shroud_power = -4

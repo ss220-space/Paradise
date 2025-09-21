@@ -41,7 +41,6 @@
 	toggle_helmet = FALSE
 	suit = null
 	belt = /obj/item/gun/projectile/automatic/pistol
-	mask = /obj/item/clothing/mask/gas/syndicate
 	shoes = /obj/item/clothing/shoes/combat
 	l_pocket = null
 	l_hand = null
@@ -67,19 +66,16 @@
 
 /datum/outfit/admin/syndicate/operative/nuclear/vox
 	name = "Syndicate Nuclear Operative (vox)"
-	mask = /obj/item/clothing/mask/gas/syndicate
 	r_hand = /obj/item/tank/internals/emergency_oxygen/double/vox
 	internals_slot = ITEM_SLOT_HAND_RIGHT
 
 /datum/outfit/admin/syndicate/operative/nuclear/leader/vox
 	name = "Syndicate Nuclear Operative Leader (vox)"
-	mask = /obj/item/clothing/mask/gas/syndicate
 	r_hand = /obj/item/tank/internals/emergency_oxygen/double/vox
 	internals_slot = ITEM_SLOT_HAND_RIGHT
 
 /datum/outfit/admin/syndicate/operative/nuclear/plasmaman
 	name = "Syndicate Nuclear Operative (plasmaman)"
-	mask = /obj/item/clothing/mask/gas/syndicate
 	uniform = /obj/item/clothing/under/plasmaman/syndie
 	head = /obj/item/clothing/head/helmet/space/plasmaman/syndie
 	r_hand = /obj/item/tank/internals/plasmaman
@@ -97,7 +93,6 @@
 
 /datum/outfit/admin/syndicate/operative/nuclear/leader/plasmaman
 	name = "Syndicate Nuclear Operative Leader (plasmaman)"
-	mask = /obj/item/clothing/mask/gas/syndicate
 	uniform = /obj/item/clothing/under/plasmaman/syndie
 	head = /obj/item/clothing/head/helmet/space/plasmaman/syndie
 	r_hand = /obj/item/tank/internals/plasmaman

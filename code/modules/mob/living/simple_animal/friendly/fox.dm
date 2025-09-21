@@ -13,7 +13,6 @@
 	emote_see = list("трясёт головой", "дрожит")
 	tts_seed = "Jaina"
 	yelp_sound = 'sound/creatures/fox_yelp.ogg' //Used on death.
-	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
@@ -55,13 +54,11 @@
 /mob/living/simple_animal/pet/dog/fox/forest
 	name = "forest fox"
 	desc = "Лесная дикая лисица. Может укусить."
-	gender = FEMALE
 	icon_state = "fox_forest"
 	icon_living = "fox_forest"
 	icon_dead = "fox_forest_dead"
 	icon_resting = "fox_forest_rest"
 	melee_damage_type = BRUTE
-	melee_damage_lower = 6
 	melee_damage_upper = 12
 
 /mob/living/simple_animal/pet/dog/fox/forest/get_ru_names()
@@ -144,7 +141,6 @@
 /mob/living/simple_animal/pet/dog/fox/alisa
 	name = "Alisa"
 	desc = "Алиса, любимый питомец любого Офицера Специальных Операций."
-	gender = FEMALE
 	icon_state = "alisa"
 	icon_living = "alisa"
 	icon_dead = "alisa_dead"

@@ -82,9 +82,7 @@
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 6 SECONDS
 	use_itemicon = FALSE
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "hook"
-	button_icon = 'icons/mob/actions/actions.dmi'
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/toggle_hook()
 	if(scorpion)
@@ -157,8 +155,6 @@
 /obj/projectile/contractor_hook
 	name = "Hardlight hook"
 	icon_state = "hard_hook"
-	icon = 'icons/obj/weapons/projectiles.dmi'
-	pass_flags = PASSTABLE
 	damage = 0
 	stamina = 25
 	hitsound = 'sound/weapons/whip.ogg'
@@ -200,9 +196,7 @@
 	desc = "An advanced version of chameleon tech, allowing you to disguise your hardsuit, giving you the opportunity to walk in full view of security and personnel without any difficulties."
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	use_itemicon = FALSE
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "chameleon"
-	button_icon = 'icons/mob/actions/actions.dmi'
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/toggle_chameleon()
 	if(disguise)

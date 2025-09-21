@@ -9,5 +9,4 @@
 	item_color = "ninja_under"
 	permeability_coefficient = 1
 	resistance_flags = NONE
-	sensor_mode = SENSOR_OFF //Hey who's this guy on the Spider Clan Shuttle??
 	random_sensor = FALSE

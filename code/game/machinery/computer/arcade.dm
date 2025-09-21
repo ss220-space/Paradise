@@ -1,7 +1,6 @@
 /obj/machinery/computer/arcade
 	name = "random arcade"
 	desc = "Случайный аркадный автомат."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "arcade"
 	icon_keyboard = null
 	icon_screen = "invaders"
@@ -63,8 +62,6 @@
 /obj/machinery/computer/arcade/battle
 	name = "arcade machine"
 	desc = "Не поддерживает пинбол."
-	icon = 'icons/obj/machines/computer.dmi'
-	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/battle
 	var/enemy_name = "Space Villian"
 	var/temp = "Победители не употребляют Космодурь" //Temporary message, for attack messages, etc
@@ -298,7 +295,6 @@
 /obj/machinery/computer/arcade/orion_trail
 	name = "The Orion Trail"
 	desc = "Узнайте, как наши предки добрались до Ориона, и повеселитесь в процессе!"
-	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/orion_trail
 	var/busy = 0 //prevent clickspam that allowed people to ~speedrun~ the game.
 	var/engine = 0
@@ -1017,7 +1013,6 @@
 	desc = "Лучшие корпоративные силы службы безопасности для всех космопортов, расположенных вдоль пути к Ориону."
 	faction = list("orion")
 	loot = list()
-	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/orion/get_ru_names()
 	return list(
@@ -1082,7 +1077,6 @@
 /obj/machinery/computer/arcade/orion_trail/pc_frame
 	name = "special purpose computer"
 	desc = "Выполнять вычисления на этом компьютере будет сложно..."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "aimainframe"
 
 /obj/machinery/computer/arcade/orion_trail/pc_frame/macintosh
@@ -1093,7 +1087,6 @@
 /obj/machinery/computer/arcade/battle/pc_frame
 	name = "special purpose computer"
 	desc = "Выполнять вычисления на этом компьютере будет сложно..."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "aimainframe"
 
 /obj/machinery/computer/arcade/battle/pc_frame/macintosh

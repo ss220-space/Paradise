@@ -97,7 +97,6 @@ Uncontrollable Actions
 	id = "obsession"
 	stealth = -4
 	resistance = 1
-	stage_speed = 0
 	transmittable = -1
 	level = 6
 	severity = 4

@@ -21,15 +21,12 @@
 	desc = "A cheap plastic tattoo application pen."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "tatgun"
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	var/tattoo_name = "tiger stripe tattoo" // Tat name for visible messages
 	var/tattoo_icon = "Tiger-stripe Tattoo" // body_accessory.dmi, new icons defined in sprite_accessories.dm
 	var/tattoo_r = 1 // RGB values for the body markings
 	var/tattoo_g = 1
 	var/tattoo_b = 1
-	toolspeed = 1
 	usesound = 'sound/items/welder2.ogg'
 
 
@@ -156,11 +153,9 @@
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	force = 5
-	sharp = 0
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("атаковал", "полоснул", "уколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -175,7 +170,6 @@
 	desc = "A pink crow bar that has an engraving that reads, 'To Zelda. Love always, Dawn'"
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "zeldacrowbar"
-	item_state = "crowbar"
 
 /obj/item/clothing/glasses/monocle/fluff/trubus //Trubus: Wolf O'Shaw
 	name = "Gold Thermal Eyepatch"
@@ -300,8 +294,6 @@
 	icon_state = "wingler_comb"
 	attack_verb = list("причесал")
 	hitsound = 'sound/weapons/tap.ogg'
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/wingler_comb/attack_self(mob/user)
@@ -410,8 +402,6 @@
 	desc = "Some spraypaint and a stencil, perfect for painting flames onto a welding helmet!"
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-	force = 0
-	throwforce = 0
 
 /obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
@@ -432,8 +422,6 @@
 	desc = "A modkit that can make most helmets look like a Shellguard Helmet."
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
-	force = 0
-	throwforce = 0
 
 /obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
@@ -475,8 +463,6 @@
 	desc = "A modkit that can be used to turn certain vests and labcoats into lightweight webbing"
 	icon_state = "modkit"
 	w_class = 2
-	force = 0
-	throwforce = 0
 
 /obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
@@ -667,8 +653,6 @@
 /obj/item/clothing/head/pirate/fluff/stumpy //MrFroztee: Stumpy
 	name = "The Sobriety Skullcap"
 	desc = "A hat suited for the king of the pirates"
-	icon_state = "pirate"
-	item_state = "pirate"
 
 /obj/item/clothing/head/pirate/fluff/stumpy/New()
 	..()
@@ -820,7 +804,6 @@
 /obj/item/clothing/suit/fluff/cheeky_sov_coat //CheekyCrenando: Srusu Rskuzu
 	name = "Srusu's Greatcoat"
 	desc = "A heavy wool Soviet-style greatcoat. A name is written in fancy handwriting on the inside tag: Srusu Rskuzu"
-	icon = 'icons/obj/custom_items.dmi'
 	item_state = "cheeky_sov_coat"
 	icon_state = "cheeky_sov_coat"
 
@@ -867,7 +850,6 @@
 /obj/item/clothing/suit/fluff/kluys // Kluys: Cripty Pandaen
 	name = "Nano Fibre Jacket"
 	desc = "A Black Suit made out of nanofibre. The newest of cyberpunk fashion using hightech liquid to solid materials."
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "Kluysfluff1"
 	item_state = "Kluysfluff1"
 	blood_overlay_type = "coat"
@@ -913,7 +895,6 @@
 /obj/item/clothing/suit/fluff/stobarico_greatcoat // Stobarico: F.U.R.R.Y
 	name = "F.U.R.R.Y's Nanotrasen Greatcoat"
 	desc = "A greatcoat with Nanotrasen colors."
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "stobarico_jacket"
 
 
@@ -998,7 +979,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xantholne_wintercoat"
 	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xantholne
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
 
@@ -1007,7 +987,6 @@
 	desc = "A black hood attached to a stripped winter coat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xantholne_winterhood"
-	body_parts_covered = HEAD
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xydonus //Xydonus: Rsik Ugsharki Atan | Based off of the bomber jacket, but with a hood slapped on (for allowed suit storage)
 	name = "custom fit bomber jacket"
@@ -1015,7 +994,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_jacket"
 	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xydonus
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 
@@ -1024,7 +1002,6 @@
 	desc = "A hood with some horns <i>glued</i> to them, or something like that. Custom fit for a Unathi's head shape."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_bomberhood"
-	body_parts_covered = HEAD
 
 /obj/item/clothing/suit/fluff/pineapple //Pineapple Salad: Dan Jello
 	name = "red trench coat"
@@ -1038,8 +1015,6 @@
 	icon_state = "ps_hairgel"
 	attack_verb = list("шлёпнул")
 	hitsound = 'sound/weapons/tap.ogg'
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/pinapplehairgel/attack_self(mob/user)
@@ -1067,7 +1042,6 @@
 	desc = "A custom made winter coat hood. Looks comfy."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat_hood2"
-	body_parts_covered = HEAD
 
 /obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX
 	name = "telecommunications bomber jacket"
@@ -1075,13 +1049,8 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "dtxbomber"
 	item_state = "dtxbomber"
-	ignore_suitadjust = FALSE
-	suit_adjusted = TRUE
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/zipper)
-	adjust_flavour = "unzip"
 
 //////////// Uniforms ////////////
 /obj/item/clothing/under/fluff/counterfeitguise_uniform	// thatdanguy23 : Rissa Williams
@@ -1191,7 +1160,6 @@
 /obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
 	name = "Viridi Protegat"
 	desc = "A set of chainmail adorned with a hide mantle. \"Greenwood\" is engraved into the right breast."
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "roman"
 	item_state = "maximus_armor"
 	item_color = "maximus_armor"
@@ -1303,7 +1271,6 @@
 /obj/item/clothing/under/fluff/arachno_suit
 	name = "Arachno-Man costume"
 	desc = "It's what an evil genius would design if he switched brains with the Amazing Arachno-Man. Actually, he'd probably add weird tentacles that come out the back, too."
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "superior_suit"
 	item_state = "superior_suit"
 	item_color = "superior_suit"
@@ -1315,7 +1282,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "superior_mask"
 	item_state = "superior_mask"
-	body_parts_covered = HEAD
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
@@ -1403,7 +1369,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "elliot_windbreaker_open"
 	item_state = "elliot_windbreaker_open"
-	adjust_flavour = "unzip"
 	sprite_sheets = null
 
 /obj/item/storage/backpack/fluff/syndiesatchel //SkeletalElite: Rawkkihiki
@@ -1481,8 +1446,6 @@
 	icon_state = "hand_mirror"
 	attack_verb = list("стукнул")
 	hitsound = 'sound/weapons/tap.ogg'
-	force = 0
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/fluff/zekemirror/attack_self(mob/user)
@@ -1577,7 +1540,6 @@
 /obj/item/clothing/suit/fluff/vetcoat //Furasian: Fillmoore Grayson
 	name = "Veteran Coat"
 	desc = "An old, yet well-kept Nanotrasen uniform. Very few of its kind are still produced."
-	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	icon_state = "alchemistcoatblack"
