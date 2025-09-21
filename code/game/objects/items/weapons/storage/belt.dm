@@ -666,7 +666,6 @@
 	icon_state = "lazarusbelt_0"
 	item_state = "lazbelt"
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 6
 	storage_slots = 6
 	can_hold = list(
