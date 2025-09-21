@@ -13,9 +13,8 @@
 	icon = 'icons/obj/armor/plates.dmi'
 	lefthand_file = 'icons/mob/inhands/plates_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/plates_righthand.dmi'
-	icon_state = "ceramicplate_light"
 	/// Plate type for status icon overlay
-	var/status_icon_type = "ceramic"
+	var/status_icon_type
 	/// Plate class
 	var/plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	/// Ballistic protection class
@@ -272,12 +271,9 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			Тяжёлая и недолговечная, но лучше, чем ничего."
 	icon_state = "steelplate_handmade"
 	status_icon_type = "steel"
-	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
-	laser_class = LASER_ARMOR_CLASS_NONE
 	integrity_failure = 75
 	max_integrity = 75
-	body_parts_covered = UPPER_TORSO
 
 /obj/item/armor_plate/handmade_steel/get_ru_names()
 	return list(
@@ -299,12 +295,9 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			Тяжёлая и недолговечная, но лучше, чем ничего."
 	icon_state = "reflectorplate_handmade"
 	status_icon_type = "ablative"
-	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
-	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	laser_class = LASER_ARMOR_CLASS_LIGHT
 	integrity_failure = 75
 	max_integrity = 75
-	body_parts_covered = UPPER_TORSO
 
 /obj/item/armor_plate/handmade_ablative/get_ru_names()
 	return list(
@@ -325,9 +318,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 			Лёгкая и достаточно дешёвая."
 	icon_state = "kevlar"
 	status_icon_type = "ceramic"
-	plate_slot = ARMOR_PLATE_SLOT_HANDMADE
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
-	laser_class = LASER_ARMOR_CLASS_NONE
 	integrity_failure = 75
 	max_integrity = 100
 	repair_type = /obj/item/stack/sheet/plastic
@@ -357,7 +348,6 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	status_icon_type = "steel"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_III
-	laser_class = LASER_ARMOR_CLASS_NONE
 	integrity_failure = 150
 	max_integrity = 200
 	repair_type = /obj/item/stack/sheet/metal
@@ -384,7 +374,6 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	icon_state = "reflectorplate_light"
 	status_icon_type = "ablative"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
-	ballistic_class = BALLISTIC_ARMOR_CLASS_NONE
 	laser_class = LASER_ARMOR_CLASS_LIGHT
 	integrity_failure = 150
 	max_integrity = 200
@@ -413,7 +402,6 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	status_icon_type = "ceramic"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
-	laser_class = LASER_ARMOR_CLASS_NONE
 	integrity_failure = 125
 	max_integrity = 150
 	repair_type = /obj/item/stack/sheet/mineral/titanium
@@ -443,7 +431,6 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	status_icon_type = "steel"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
-	laser_class = LASER_ARMOR_CLASS_NONE
 	integrity_failure = 250
 	max_integrity = 300
 	repair_type = /obj/item/stack/sheet/plasteel

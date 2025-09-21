@@ -55,14 +55,18 @@
 
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
 	var/list/clothing_traits
+
+	var/obj/item/radio/spy_spider/spy_spider_attached = null
+
 	/// Installed armor plate
 	var/obj/item/armor_plate/armor_plate = null
 	/// Allowed armor plate class
 	var/allowed_armor_plate = ARMOR_PLATE_SLOT_NONE
 	/// Allow remove armor plate with screwdriver
 	var/can_remove_armor_plate = FALSE
-
+	/// Overlays for armor plate state
 	var/list/status_overlays = null
+
 
 /obj/item/clothing/Initialize(mapload)
 	. = ..()
@@ -72,8 +76,6 @@
 	armor_plate.forceMove(src)
 	slowdown += armor_plate.equipped_slowdown
 	armor_plate.subscribe_equip_signal(src)
-
-	var/obj/item/radio/spy_spider/spy_spider_attached = null
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
