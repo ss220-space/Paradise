@@ -346,6 +346,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 /obj/item/armor_plate/kevlar/helmet
 	body_parts_covered = HEAD
 
+
 // MARK: Light armor plates
 
 /obj/item/armor_plate/light_steel
