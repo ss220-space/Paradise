@@ -44,7 +44,6 @@
 	description = "Стремительно растущие паучьи яйца."
 	can_synth = FALSE
 	color = "#6b336b"
-	metabolization_rate = 1 * REAGENTS_METABOLISM
 	taste_mult = 0
 
 /datum/reagent/terror_eggs/on_mob_life(mob/living/target)

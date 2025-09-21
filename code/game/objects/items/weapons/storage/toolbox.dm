@@ -2,7 +2,6 @@
 	name = "toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения инструментов. Выглядит мощно."
 	gender = MALE
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "red"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
@@ -10,8 +9,6 @@
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 15.0
-	throw_speed = 2
-	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
@@ -146,8 +143,6 @@
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
-	icon_state = "red"
-	item_state = "toolbox_red"
 
 /obj/item/storage/toolbox/emergency/get_ru_names()
 	return list(
@@ -355,8 +350,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	/// Bigger than standart version
 	w_class = WEIGHT_CLASS_HUGE
-	/// More than standart version
-	max_w_class = WEIGHT_CLASS_NORMAL
 	/// More than standart version
 	max_combined_w_class = 28
 	/// Way more than standart version

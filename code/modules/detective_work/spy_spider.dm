@@ -5,8 +5,6 @@
 	frequency = SPY_SPIDER_FREQ
 	freqlock = SPY_SPIDER_FREQ
 	listening = FALSE
-	broadcasting = FALSE
-	canhear_range = 3
 	gender = MALE
 
 /obj/item/radio/spy_spider/get_ru_names()

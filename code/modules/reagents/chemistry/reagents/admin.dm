@@ -121,7 +121,6 @@
 	name = "Sticky-Napalm"
 	id = "stickynapalm"
 	description = "A custom napalm mix, stickier and lasts longer but lower damage"
-	reagent_state = LIQUID
 	color = "#f8e3b2"
 	burncolor = "#f8e3b2"
 	burn_sprite = "dynamic"
@@ -136,7 +135,6 @@
 	name = "High-Combustion Napalm Fuel"
 	id = "highdamagenapalm"
 	description = "A custom napalm mix, higher damage but not as sticky"
-	reagent_state = LIQUID
 	color = "#c51c1c"
 	burncolor = "#c51c1c"
 	burn_sprite = "dynamic"
@@ -162,7 +160,6 @@
 	name = "Napalm B-Gel"
 	id = "napalmgel"
 	description = "Unlike its liquid contemporaries, this gelled variant of napalm is easily extinguished, but shoots far and lingers on the ground in a viscous mess, while reacting with inorganic materials to ignite them."
-	flameshape = FLAMESHAPE_LINE
 	color = COLOR_GREEN
 	burncolor = COLOR_GREEN
 	burn_sprite = "green"

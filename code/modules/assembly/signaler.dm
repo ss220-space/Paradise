@@ -8,7 +8,6 @@
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 	toolbox_radial_menu_compatibility = TRUE
 
-	secured = TRUE
 	var/receiving = FALSE
 
 	bomb_name = "remote-control bomb"

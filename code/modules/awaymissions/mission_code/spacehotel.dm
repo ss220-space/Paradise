@@ -16,7 +16,6 @@
 	name = "Amazing Place"
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/spacehotel/snowland
 	name = "Snowland"
@@ -31,7 +30,6 @@
 	icon_state = "arrow"
 
 /obj/item/paper/crumpled/hotel_scrap_1
-	name = "paper scrap"
 	info = "I can't believe this shitty hotel assigned me a purple-themed room. <i>Why does the shower dump grape drink everywhere??</i>"
 
 /obj/item/paper/hotel_scrap_2
@@ -191,9 +189,6 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = TRUE
-	density = FALSE
-	opacity = FALSE
 	var/list/room_doors[0]			// assoc list of [room id]=hotel_door
 	var/list/vacant_rooms[0]		// list of vacant room doors
 	var/list/guests[0]				// assoc list of [guest mob]=room id

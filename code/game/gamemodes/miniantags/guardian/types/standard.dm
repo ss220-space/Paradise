@@ -51,7 +51,6 @@
 	melee_damage_type = STAMINA
 	damage_transfer = 0
 	playstyle_string = "URK URK!"
-	environment_smash = 2
 	battlecry = "URK"
 	flags = ADMIN_SPAWNED
 

@@ -29,7 +29,6 @@
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	gold_core_spawnable = HOSTILE_SPAWN
 	stat_attack = UNCONSCIOUS // Sleeping won't save you
-	a_intent = INTENT_HARM // Angrilla
 	tts_seed = "Mannoroth"
 	AI_delay_max = 0.5 SECONDS
 	/// Is the gorilla stood up or not?
@@ -460,7 +459,6 @@
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/mars
 	name = "Марс"
 	real_name = "Марс"
-	gender = MALE
 	unique_pet = TRUE
 	attention_phrases = list("mars", "марс", "goril", "banan", "monkey", "горил", "банан", "обезьян", "карго")
 

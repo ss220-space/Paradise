@@ -75,8 +75,6 @@
 /datum/outfit/plasmaman/security/pod
 	name = "Security Pod Pilot Plasmaman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/security
-	uniform = /obj/item/clothing/under/plasmaman/security
 	glasses = /obj/item/clothing/glasses/hud/diagnostic/sunglasses
 
 /datum/outfit/plasmaman/detective

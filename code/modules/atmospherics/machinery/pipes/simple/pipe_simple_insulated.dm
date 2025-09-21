@@ -3,7 +3,6 @@
 	icon_state = "intact"
 
 	minimum_temperature_difference = 10000
-	thermal_conductivity = 0
 	maximum_pressure = 1000*ONE_ATMOSPHERE
 	fatigue_pressure = 900*ONE_ATMOSPHERE
 	alert_pressure = 900*ONE_ATMOSPHERE

@@ -18,8 +18,6 @@
 	icon_dead = "snake_dead"
 	speak_emote = list("шипит")
 	tts_seed = "Ladyvashj"
-	health = 20
-	maxHealth = 20
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	death_sound = 'sound/creatures/snake_death.ogg'
@@ -70,9 +68,7 @@
 	name = "Руж"
 	desc = "Уникальная трёхголовая змея Офицера Телекоммуникаций синдиката. Выращена в лаборатории. У каждой головы свой характер!"
 	icon = 'icons/mob/pets.dmi'
-	mob_size = MOB_SIZE_SMALL
 	blood_volume = BLOOD_VOLUME_NORMAL
-	can_collar = TRUE
 	gender = FEMALE
 	icon_state = "rouge"
 	icon_living = "rouge"
@@ -83,16 +79,7 @@
 	speak_emote = list("шипит")
 	emote_hear = list("зевает", "шипит", "дурачится", "толкается")
 	emote_see = list("высовывает язык", "кружится", "трясёт хвостом")
-	tts_seed = "Ladyvashj"
-	health = 20
-	maxHealth = 20
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
-	attacktext = "кусает"
-	melee_damage_lower = 5
-	melee_damage_upper = 6
-	response_help  = "pets"
-	response_disarm = "shoos"
-	response_harm   = "steps on"
 	var/obj/item/inventory_head
 	var/list/strippable_inventory_slots = list()
 	faction = list("neutral", "syndicate")
@@ -265,26 +252,9 @@
 	icon_dead = "riraha_dead"
 	speak_emote = list("шипит")
 	tts_seed = "Xenia"
-	health = 20
-	maxHealth = 20
-	attacktext = "кусает"
-	attack_sound = 'sound/weapons/bite.ogg'
-	death_sound = 'sound/creatures/snake_death.ogg'
 	melee_damage_lower = 1
 	melee_damage_upper = 3
-	response_help  = "pets"
-	response_disarm = "shoos"
-	response_harm   = "steps on"
 	faction = list("neutral")
-	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
-	density = FALSE
-	pass_flags = PASSTABLE | PASSMOB
-	mob_size = MOB_SIZE_SMALL
-	gold_core_spawnable = FRIENDLY_SPAWN
-	obj_damage = 0
-	environment_smash = ENVIRONMENT_SMASH_NONE
-	holder_type = /obj/item/holder/snake
-	can_collar = TRUE
 	unique_pet = TRUE
 	
 

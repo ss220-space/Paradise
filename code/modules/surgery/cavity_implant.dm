@@ -24,7 +24,6 @@
 
 
 /datum/surgery/cavity_implant/soft
-	name = "Полостная хирургия"
 	desc = "Имплантация объекта в полость, не защищённую костями."
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
@@ -127,7 +126,6 @@
 		/datum/surgery/intermediate/bleeding
 	)
 
-	insert_self_after = TRUE
 
 /datum/surgery_step/proxy/cavity_manipulation/robotic
 	name = "Полостная манипуляция (Синтетик) – прокси"

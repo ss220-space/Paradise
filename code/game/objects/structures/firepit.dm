@@ -3,7 +3,6 @@
 	desc = "Warm and toasty."
 	icon = 'icons/obj/fireplace.dmi'
 	icon_state = "firepit"
-	density = FALSE
 	anchored = TRUE
 	max_integrity = 50
 	var/active = FALSE

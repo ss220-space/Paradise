@@ -11,7 +11,6 @@
 	force = 7
 	throwforce = 10
 	throw_speed = 1
-	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
 
@@ -175,7 +174,6 @@
 
 /obj/item/vending_refill/sustenance
 	machine_name = "Sustenance Vendor"
-	icon_state = "refill_snack"
 
 /obj/item/vending_refill/donksoft
 	machine_name = "Donksoft Toy Vendor"

@@ -32,8 +32,6 @@
 
 	speak = list("Your head will be my new ornament!", "I HATE HOLYDAYS!", "I WILL SMASH YOU!")
 	speak_chance = 20
-	turns_per_move = 1
-	turns_since_move = 0
 
 /mob/living/simple_animal/hostile/evil_pine/ComponentInitialize()
 	AddComponent( \

@@ -77,7 +77,6 @@
 	)
 	attack_verb = list("ударил", "огрел", "вмазал", "стукнул", "шлёпнул", "врезал")
 	force = 12
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /datum/crafting_recipe/oar

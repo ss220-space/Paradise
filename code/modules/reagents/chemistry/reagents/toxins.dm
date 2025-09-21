@@ -229,7 +229,6 @@
 	name = "Радий"
 	id = "radium"
 	description = "Радий - щелочноземельный металл. Он чрезвычайно радиоактивен."
-	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
 	penetrates_skin = TRUE
 	taste_description = "голубизны и сожалений"
@@ -317,7 +316,6 @@
 	name ="Уран"
 	id = "uranium"
 	description = "Серебристо-белый металл из ряда актинидов, слабо радиоактивный."
-	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
 	taste_mult = 0
 	taste_description = "атомной энергии"
@@ -435,7 +433,6 @@
 	color = "#5050FF"
 	acidpwr = 42
 	//acid is not using permeability_coefficient to calculate protection, but armour["acid"]
-	clothing_penetration = 1
 
 
 /datum/reagent/acid/facid/on_mob_life(mob/living/M)
@@ -576,7 +573,6 @@
 	id = "spore"
 	toxpwr = 1
 	can_synth = FALSE
-	taste_description = "горечи"
 
 /datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
@@ -1037,7 +1033,6 @@
 	name = "Липолицид"
 	id = "lipolicide"
 	description = "Соединение, которое можно найти во многих магазинах в виде тоника для похудения."
-	reagent_state = SOLID
 	color = "#D1DED1"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	taste_description = "кислоты для аккумуляторов"
@@ -1219,7 +1214,6 @@
 	name = "Атразин"
 	id = "atrazine"
 	description = "Гербицидное соединение, используемое для уничтожения нежелательных растений."
-	reagent_state = LIQUID
 	color = "#773E73" //RGB: 47 24 45
 	lethality = 2 //Atrazine, however, is definitely toxic
 
@@ -1357,7 +1351,6 @@
 	name = "Муравьи"
 	id = "ants"
 	description = "Образец потерянной породы космических муравьёв (Formicidae bastardium tyrannus). Они известны тем, что способны поглотить практически всё."
-	reagent_state = SOLID
 	color = "#993333"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = span_warning("МУРАВЬЁВ")
@@ -1462,7 +1455,6 @@
 	description = "Необработанный экстракт коки. Не стоит пробовать его в таком виде."
 	reagent_state = LIQUID
 	color = "#f4f4f4"
-	metabolization_rate = 1 * REAGENTS_METABOLISM
 	taste_description = "травяной горечи"
 
 /datum/reagent/coca_extract/on_mob_life(mob/living/M)
@@ -1477,7 +1469,6 @@
 	name = "Металлическая пыль"
 	id = "metalicdust"
 	description = "Металлическая пыль с крупными кусками различных металлов и техническими жидкостями."
-	reagent_state = SOLID
 	color = "#353434"
 	process_flags = ORGANIC | SYNTHETIC
 	metabolization_rate = 5

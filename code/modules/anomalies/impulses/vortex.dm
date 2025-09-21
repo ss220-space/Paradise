@@ -16,17 +16,13 @@
 /datum/anomaly_impulse/emp/tier1
 	period_low = 10 SECONDS
 	period_high = 20 SECONDS
-	light_range_low = 0
 	light_range_high = 3
-	heavy_range_low = 0
-	heavy_range_high = 0
 
 /datum/anomaly_impulse/emp/tier2
 	period_low = 10 SECONDS
 	period_high = 15 SECONDS
 	light_range_low = 2
 	light_range_high = 4
-	heavy_range_low = 0
 	heavy_range_high = 2
 
 /datum/anomaly_impulse/emp/tier3
@@ -63,7 +59,6 @@
 /datum/anomaly_impulse/superpull/tier1
 	period_low = 10 SECONDS
 	period_high = 20 SECONDS
-	pulls_low = 0
 	pulls_high = 3
 
 /datum/anomaly_impulse/superpull/tier2

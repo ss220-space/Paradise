@@ -1,5 +1,4 @@
 /obj/machinery/vending/assist
-	icon_state = "generic_off"
 	panel_overlay = "generic_panel"
 	screen_overlay = "generic"
 	lightmask_overlay = "generic_lightmask"

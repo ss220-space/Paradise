@@ -86,12 +86,7 @@
 	)
 
 	icon_state = "sectraining_off"
-	panel_overlay = "sec_panel"
-	screen_overlay = "sec"
-	lightmask_overlay = "sec_lightmask"
-	broken_overlay = "sec_broken"
 	broken_lightmask_overlay = "sectraining_broken_lightmask"
-	deny_overlay = "sec_deny"
 
 	req_access = list(ACCESS_SECURITY)
 	products = list(
@@ -99,7 +94,6 @@
 		/obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2
 	)
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
-	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/training/get_ru_names()
 	return list(
@@ -145,14 +139,6 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
 
-	icon = 'icons/obj/machines/vending.dmi'
-	icon_state = "sec_off"
-	panel_overlay = "sec_panel"
-	screen_overlay = "sec"
-	lightmask_overlay = "sec_lightmask"
-	broken_overlay = "sec_broken"
-	broken_lightmask_overlay = "sec_broken_lightmask"
-	deny_overlay = "sec_deny"
 
 	density = FALSE
 	products = list(

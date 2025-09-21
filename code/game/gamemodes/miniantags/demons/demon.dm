@@ -7,10 +7,8 @@
 	response_help  = "решает не трогать"
 	response_disarm = "машет в сторону"
 	response_harm   = "бьёт"
-	speed = 1
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
-	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	death_sound = 'sound/misc/demon_dies.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -102,7 +100,6 @@
 /obj/item/organ/internal/heart/demon
 	name = "demon heart"
 	desc = "Оно всё ещё яростно бьётся, излучая ауру абсолютной ненависти."
-	icon = 'icons/obj/surgery.dmi'
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=7"
 

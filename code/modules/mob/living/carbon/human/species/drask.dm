@@ -50,9 +50,6 @@
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE
 
-	cold_level_1 = 260 //Default 260 - Lower is better
-	cold_level_2 = 200 //Default 200
-	cold_level_3 = 120 //Default 120
 	coldmod = -1
 
 	heat_level_1 = 310 //Default 370 - Higher is better

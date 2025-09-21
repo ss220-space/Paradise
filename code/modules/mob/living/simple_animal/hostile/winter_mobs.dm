@@ -4,9 +4,7 @@
 
 /mob/living/simple_animal/hostile/winter
 	faction = list("hostile", "syndicate", "winter")
-	speak_chance = 0
 	turns_per_move = 5
-	speed = 1
 	maxHealth = 50
 	health = 50
 	icon = 'icons/mob/winter_mob.dmi'
@@ -115,8 +113,6 @@
 		bossfight_area.ready_or_not()
 
 /mob/living/simple_animal/hostile/winter/santa/stage_1		//stage 1: slow melee
-	maxHealth = 150
-	health = 150
 	desc = "GET THE FAT MAN!"
 	next_stage = /mob/living/simple_animal/hostile/winter/santa/stage_2
 	death_message = "<span class='danger'>HO HO HO! YOU THOUGHT IT WOULD BE THIS EASY?!?</span>"

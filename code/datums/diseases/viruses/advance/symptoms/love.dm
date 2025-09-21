@@ -15,7 +15,6 @@ Pacifist Syndrome
 	stage_speed = 1
 	transmittable = 1
 	level = 3
-	severity = 0
 
 /datum/symptom/love/Activate(datum/disease/virus/advance/A)
 	..()

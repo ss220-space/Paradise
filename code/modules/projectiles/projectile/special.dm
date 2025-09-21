@@ -40,8 +40,6 @@
 		PREPOSITIONAL = "разрывном заряде"
 	)
 	icon_state= "bolter"
-	damage = 50
-	flag = BULLET
 
 /obj/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
@@ -61,7 +59,6 @@
 	desc = "USE A WEEL GUN"
 	icon_state= "bolter"
 	damage = 60
-	flag = BULLET
 
 /obj/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	..()
@@ -250,9 +247,7 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	damage = 0
-	damage_type = BRUTE
 	nodamage = TRUE
-	flag = BULLET
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 
@@ -277,10 +272,6 @@
 	)
 	icon_state = "declone"
 	damage = 2
-	hitsound = 'sound/weapons/tap.ogg'
-	damage_type = BURN
-	nodamage = FALSE
-	flag = "energy"
 	range = 7
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	/// how strong the fire will be
@@ -334,12 +325,9 @@
 		PREPOSITIONAL = "бета-соматорее"
 	)
 	icon_state = "energy"
-	damage = 0
-	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
 	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
-	flag = "energy"
 
 /obj/projectile/energy/floragamma
 	name = "gamma somatoray"
@@ -352,12 +340,9 @@
 		PREPOSITIONAL = "гамма-соматорее"
 	)
 	icon_state = "energy2"
-	damage = 0
-	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
 	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
-	flag = "energy"
 
 /obj/projectile/beam/mindflayer
 	name = "flayer ray"
@@ -476,7 +461,6 @@
 		PREPOSITIONAL = "плазменном луче"
 	)
 	icon_state = "plasmacutter"
-	damage_type = BRUTE
 	damage = 5
 	hitsound = SFX_BULLET
 	range = 3
@@ -537,7 +521,6 @@
 		PREPOSITIONAL = "вспышке телепортации"
 	)
 	icon_state = "bluespace"
-	damage = 0
 	nodamage = TRUE
 	var/teleport_target = null
 
@@ -589,7 +572,6 @@
 	icon_state = "ornament-1"
 	hitsound = 'sound/effects/glasshit.ogg'
 	damage = 7
-	damage_type = BRUTE
 
 /obj/projectile/ornament/New()
 	icon_state = pick("ornament-1", "ornament-2")
@@ -696,7 +678,6 @@
 	range = 3
 	flag = "melee"
 	damage = 20
-	damage_type = BRUTE
 	stun = 0.5
 	eyeblur = 20
 

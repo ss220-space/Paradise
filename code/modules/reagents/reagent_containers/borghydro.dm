@@ -14,8 +14,6 @@
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "borghypo"
-	amount_per_transfer_from_this = 5
-	volume = 30
 	possible_transfer_amounts = null
 	var/mode = 1
 	var/charge_cost = 50
@@ -258,7 +256,6 @@
 		INSTRUMENTAL = "0ШNBK4_IИБ3KT0Я",
 		PREPOSITIONAL = "0ШNBK4_IИБ3KT0Я"
 	)
-	icon = 'icons/obj/hypo.dmi'
 	item_state = "borghypo_emag"
 	icon_state = "borghypo_emag"
 	amount_per_transfer_from_this = 10

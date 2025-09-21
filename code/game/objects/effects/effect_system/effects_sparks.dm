@@ -20,7 +20,6 @@
 /obj/effect/particle_effect/sparks
 	name = "sparks"
 	icon_state = "sparks"
-	anchored = TRUE
 	var/hotspottemp = 1000
 
 /obj/effect/particle_effect/sparks/New()

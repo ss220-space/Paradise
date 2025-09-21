@@ -152,7 +152,6 @@
 	gender = FEMALE
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "scell"
-	parent_organ_zone = BODY_ZONE_CHEST
 	slot = INTERNAL_ORGAN_HEART
 	vital = TRUE
 	status = ORGAN_ROBOT

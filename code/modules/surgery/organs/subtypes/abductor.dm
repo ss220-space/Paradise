@@ -14,7 +14,6 @@
 /obj/item/organ/internal/liver/grey/abductor
 	species_type = /datum/species/abductor
 	name = "abductor liver"
-	desc = "Маленькая печень серого цвета - орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма."
 	ru_names = list(
 		NOMINATIVE = "печень абдуктора",
 		GENITIVE = "печени абдуктора",

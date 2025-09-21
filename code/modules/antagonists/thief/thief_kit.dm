@@ -3,7 +3,6 @@
 	name = "набор гильдии воров"
 	desc = "Ничем не примечательная коробка."
 	icon_state = "box_thief"
-	item_state = "syringe_kit"
 
 /obj/item/storage/box/thief_kit/populate_contents()
 	new /obj/item/clothing/gloves/color/black/thief(src)
