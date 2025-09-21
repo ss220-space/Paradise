@@ -596,7 +596,6 @@
 #include "code\datums\components\laser_sight.dm"
 #include "code\datums\components\leaning.dm"
 #include "code\datums\components\material_container.dm"
-#include "code\datums\components\minded_machine.dm"
 #include "code\datums\components\muscles.dm"
 #include "code\datums\components\object_possession.dm"
 #include "code\datums\components\overlay_lighting.dm"

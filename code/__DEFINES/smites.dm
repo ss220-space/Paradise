@@ -29,6 +29,7 @@
 #define SMITE_PIANO					"Уронить пианино/автомат"
 #define SMITE_JACKBOOTS				"Фантомный топот"
 #define SMITE_MACHINERY				"Разумная машинерия"
+#define SMITE_HEADHIT				"Головой об шлюзы"
 
 
 GLOBAL_LIST_INIT(smites_not_human, list(
@@ -45,6 +46,7 @@ GLOBAL_LIST_INIT(smites_not_human, list(
 	SMITE_PIANO = 				/datum/smite/piano,
 	SMITE_JACKBOOTS = 			/datum/smite/jackbots,
 	SMITE_MACHINERY = 			/datum/smite/machinery,
+	SMITE_HEADHIT = 			/datum/smite/headhit,
 ))
 
 GLOBAL_LIST_INIT(smites_human, list(

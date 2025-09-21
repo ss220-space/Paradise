@@ -510,9 +510,9 @@
 
 /datum/smite/piano/apply_effect(mob/living/target, reason)
 	var/type = tgui_input_list(usr, "Выберите что именно упадёт на грешника.", "Выбор падающей стуктуры", subtypesof(/obj/machinery/vending) + list(/obj/structure/pianoclassic) + list(/obj/structure/piano))
-	var/obj/fallen = new type()
 	var/turf/target_turf = get_turf(target)
-	target_turf.zFall(fallen, 3, TRUE)
+	var/obj/fallen = new type(target_turf)
+	target_turf.zImpact(fallen, 1)
 	to_chat(target, span_userdanger(
 		"Откуда-то сверху на вас пада[pluralize_ru(fallen.gender, "ет", "ют")] [fallen.declent_ru(NOMINATIVE)]! \
 		Вам почему-то кажется, что это наказание за [reason]." \
@@ -535,21 +535,23 @@
 
 /datum/smite/jackbots/proc/try_hear_sound()
 	SIGNAL_HANDLER
-	if(!prob(2))
+	if(!prob(4))
 		return
 
 	var/starting_turf_x = target.x + rand(5, 10) * pick(1, -1)
 	var/starting_turf_y = target.y + rand(5, 10) * pick(1, -1)
 	var/turf/start = locate(starting_turf_x, starting_turf_y, target.z)
 	var/turf/end = locate(starting_turf_x + rand(5, 10) * pick(1, -1), starting_turf_y + rand(5, 10) * pick(1, -1), target.z)
-	if(!start || !end)
+	do_step(start, end)
+
+
+/datum/smite/jackbots/proc/do_step(turf/now, turf/last, limit = 10)
+	if(!now || !last || limit <= 0)
 		return
 
-	var/steps_limit = 10
-	while(steps_limit > 0)
-		target.playsound_local(start, pick(list('sound/effects/jackboot1.ogg', 'sound/effects/jackboot2.ogg')), 20, TRUE, 0, falloff_exponent = 10)
-		start = get_step(start, get_dir(start, end))
-		steps_limit--
+	target.playsound_local(now, pick(list('sound/effects/jackboot1.ogg', 'sound/effects/jackboot2.ogg')), 20, TRUE, 0, falloff_exponent = 10)
+	now = get_step(now, get_dir(now, last))
+	addtimer(CALLBACK(src, PROC_REF(do_step), now, last, limit - 1), 0.3 SECONDS)
 
 
 /// MARK: Machinery transformation
@@ -561,13 +563,47 @@
 
 /datum/smite/machinery/apply_effect(mob/living/target, reason)
 	var/type = tgui_input_list(usr, "Выберите в какую машинерию превратится грешник.", "Выбор новой формы", subtypesof(/obj/machinery))
-	var/obj/machinery/new_form = new type()
+	var/obj/machinery/new_form = new type(get_turf(target))
 	to_chat(target, span_userdanger( \
 		"Ваши конечности немеют... По телу распространяется металлический холод... Это смерть? \
 		Нет. Хуже. Это [new_form.declent_ru(NOMINATIVE)]. Похоже что ваша новая форма - наказание за [reason]." \
 	))
-	new_form.AddComponent(/datum/component/minded_machine, target)
+	target.flash_eyes(2, TRUE)
+	new_form.obj_flags |= NODECONSTRUCT
+	var/mob/living/machinery_mind/machinery_mind = new(new_form)
+	target.mind.transfer_to(machinery_mind)
 	qdel(target)
+
+
+/mob/living/machinery_mind
+
+/mob/living/machinery_mind/Initialize()
+	. = ..()
+	var/obj/machinery/machinery = loc
+	name = machinery.name
+	desc = machinery.desc
+	icon = machinery.icon // For correct ghost image.
+	icon_state = machinery.icon_state
+	maxHealth = machinery.max_integrity
+	health = maxHealth
+	RegisterSignal(machinery, COMSIG_QDELETING, PROC_REF(death))
+
+
+/// MARK: Head hit
+/datum/smite/headhit
+	name = SMITE_HEADHIT
+	desc = "Грешник будет периодически биться головой об шлюзы."
+	logmsg = "airlock headhit."
+
+
+/datum/smite/headhit/apply_effect(mob/living/target, reason)
+	if(HAS_TRAIT_FROM(target, TRAIT_AIRLOCK_HIT, ADMIN_TRAIT))
+		to_chat(usr, span_notice("Старая кара снята."))
+		REMOVE_TRAIT(target, TRAIT_AIRLOCK_HIT, ADMIN_TRAIT)
+		return
+
+	ADD_TRAIT(target, TRAIT_AIRLOCK_HIT, ADMIN_TRAIT)
+	to_chat(target, span_userdanger("Вы чувствуете что стали на пару сантиметров выше. К чему бы это? Может это наказание за [reason]?"))
 
 
 /// MARK: Admin smite proc
