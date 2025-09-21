@@ -309,7 +309,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "axv" = (
-/obj/structure/lattice,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "ayY" = (
@@ -1496,7 +1495,6 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "bng" = (
-/obj/structure/lattice,
 /turf/simulated/wall/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/teleporter)
 "bnk" = (
@@ -6106,8 +6104,7 @@
 /obj/effect/turf_decal/tile/brown,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door/window/eastright{
 	base_state = "left";
@@ -9259,8 +9256,7 @@
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11976,14 +11972,12 @@
 "ldT" = (
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/chair/stool,
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "led" = (
-/obj/structure/lattice,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "leR" = (
@@ -14655,12 +14649,10 @@
 /obj/structure/grille,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -14668,8 +14660,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/prison)
@@ -15577,8 +15568,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "nKV" = (
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -15856,8 +15846,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -16015,8 +16004,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17763,8 +17751,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/machinery/light{
 	dir = 4
@@ -18188,7 +18175,6 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "pPb" = (
-/obj/structure/lattice,
 /turf/simulated/wall/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "pQd" = (
@@ -20321,13 +20307,11 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -21109,8 +21093,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/light{
 	dir = 4
@@ -21158,8 +21141,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -21167,8 +21149,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -21264,13 +21245,11 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -21904,8 +21883,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -21913,8 +21891,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -21923,13 +21900,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -21937,18 +21912,15 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -21965,13 +21937,11 @@
 "sVJ" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -21983,12 +21953,10 @@
 /obj/structure/grille,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
@@ -21996,17 +21964,14 @@
 /obj/structure/grille,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
@@ -22283,8 +22248,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -22471,13 +22435,11 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
@@ -23284,13 +23246,11 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -23325,8 +23285,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
@@ -23334,8 +23293,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -23376,12 +23334,10 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
@@ -23975,12 +23931,10 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -24488,8 +24442,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "uCd" = (
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -25141,8 +25094,7 @@
 /obj/machinery/arcade/claw,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/sign/directions/medical{
 	dir = 8;
@@ -25177,13 +25129,11 @@
 /obj/machinery/prize_counter,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
@@ -25291,13 +25241,11 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/prison)
@@ -25339,18 +25287,15 @@
 	},
 /obj/structure/grille,
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/prison)
@@ -26245,18 +26190,15 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/prison)
@@ -26426,8 +26368,7 @@
 /obj/machinery/computer/arcade/orion_trail,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
@@ -26819,8 +26760,7 @@
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/machinery/door/window/eastright{
 	color = "red";
@@ -27249,18 +27189,15 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/prison)
@@ -27949,8 +27886,7 @@
 	dir = 1
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
@@ -27977,12 +27913,10 @@
 /obj/machinery/arcade/minesweeper,
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
@@ -29240,18 +29174,15 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	color = "red";
-	layer = 2.9
+	color = "red"
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/prison)
@@ -29266,8 +29197,7 @@
 "xHx" = (
 /obj/structure/window/reinforced{
 	color = "red";
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/carpet/arcade,

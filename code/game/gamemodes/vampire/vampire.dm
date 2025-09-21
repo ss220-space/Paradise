@@ -1,7 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/vampires = list()
-	var/list/datum/mind/vampire_enthralled = list() //those controlled by a vampire
-
 /datum/game_mode/vampire
 	name = "vampire"
 	config_tag = "vampire"
@@ -12,14 +8,10 @@
 	required_enemies = 1
 	recommended_enemies = 4
 	var/vampire_amount = 4
-	///list of minds of soon to be vampires
-	var/list/datum/mind/pre_vampires = list()
-
 
 /datum/game_mode/vampire/announce()
 	to_chat(world, "<b>The current game mode is - Vampires!</b>")
 	to_chat(world, "<b>There are Bluespace Vampires infesting your fellow crewmates, keep your blood close and neck safe!</b>")
-
 
 /datum/game_mode/vampire/pre_setup()
 

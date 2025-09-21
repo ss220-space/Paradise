@@ -150,11 +150,7 @@
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
 	desc = "A small light fixture under construction."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "bulb-construct-stage1"
-	anchored = TRUE
-	layer = 5
-	stage = 1
 	fixture_type = "bulb"
 	sheets_refunded = 1
 
@@ -938,7 +934,6 @@
 	icon_state = "flight"
 	base_icon_state = "flight"
 	item_state = "egg4"
-	brightness_range = 5
 
 
 /obj/item/light/New()

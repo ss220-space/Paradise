@@ -1,7 +1,6 @@
 /obj/item/reagent_containers/food/pill/patch
 	name = "chemical patch"
 	desc = "Химический пластырь, предназначенный для медленного ввода веществ в кровоток пациента через контакт с кожей."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bandaid"
 	item_state = "bandaid"
 	possible_transfer_amounts = null

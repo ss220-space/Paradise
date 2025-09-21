@@ -2,14 +2,12 @@
 	name = "Food Processor"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "processor"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
 
 	var/broken = 0
 	var/processing = FALSE
 
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 50
 	var/rating_speed = 0

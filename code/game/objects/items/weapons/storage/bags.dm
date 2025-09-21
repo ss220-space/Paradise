@@ -40,11 +40,8 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
 	item_state = "trashbag"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
 	slot_flags = NONE
 	storage_slots = 30
 	max_combined_w_class = 30
@@ -92,10 +89,7 @@
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_BELT
-	throwforce = 0
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
-	storage_slots = 7
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
@@ -139,9 +133,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags = ITEM_SLOT_BELT
 	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
-	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = WEIGHT_CLASS_BULKY
@@ -214,9 +206,7 @@
 	desc = "Вы ожидали чего-то более стильного, как в мультфильмах про грабителей."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "gem_satchel"
-	slot_flags = ITEM_SLOT_BELT
 	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
-	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 48
 	max_combined_w_class = 48
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -249,9 +239,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "bomb_satchel"
 	origin_tech = "engineering=2"
-	slot_flags = ITEM_SLOT_BELT
 	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
-	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 5
 	max_combined_w_class = 200
 	max_w_class = WEIGHT_CLASS_BULKY
@@ -414,9 +402,7 @@
 	icon_state = "sheetsnatcher"
 
 	var/capacity = 300; //the number of sheets it can carry.
-	w_class = WEIGHT_CLASS_NORMAL
 
-	allow_quick_empty = TRUE// this function is superceded
 
 /obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
@@ -538,7 +524,6 @@
 // MARK:	Cash bag
 ////////////////////////////////////////
 /obj/item/storage/bag/cash
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "cashbag"
 	name = "Cash bag"
 	desc = "A bag for carrying lots of cash. It's got a big dollar sign printed on the front."
@@ -561,7 +546,6 @@
 	icon_state = "bookbag"
 	item_state = "bookbag"
 	display_contents_with_number = 0 //This would look really stupid otherwise
-	storage_slots = 7
 	max_combined_w_class = 21
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
@@ -722,10 +706,8 @@
 	force = 5
 	throwforce = 25
 	throw_speed = 3
-	throw_range = 7
 	armour_penetration = 15
 	sharp = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 
@@ -803,7 +785,6 @@
 /obj/item/storage/bag/medpouch
 	name = "medicinal pouch"
 	desc = "Небольшой мешочек для хранения трав, припарок, наживки и мелких предметов."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "pouch_ash"
 	storage_slots = 40
 	max_combined_w_class = 200
@@ -829,8 +810,6 @@
 	name = "fishing pouch"
 	desc = "Небольшой мешочек для хранения различной наживки и частей рыб."
 	icon_state = "fishpouch_ash"
-	storage_slots = 40
-	max_combined_w_class = 200
 	can_hold = list(/obj/item/reagent_containers/food/snacks/bait,
 					/obj/item/reagent_containers/food/snacks/charred_krill,
 					/obj/item/stack/sheet/cartilage_plate,

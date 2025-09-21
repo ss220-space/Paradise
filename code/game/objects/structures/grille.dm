@@ -1,7 +1,6 @@
 /obj/structure/grille
 	desc = "A flimsy framework of metal rods."
 	name = "grille"
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "grille"
 	pass_flags_self = PASSGRILLE
 	density = TRUE

@@ -138,7 +138,6 @@
 	desc = "Понижает температуру тела выбранного гуманоида."
 	base_cooldown = 120 SECONDS
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	selection_activated_message	= span_notice("Ваш разум становится холодным. Нажмите на цель, чтобы произнести заклинание.")
 	selection_deactivated_message = span_notice("Ваш разум возвращается в нормальное состояние.")
@@ -190,9 +189,6 @@
 
 
 /obj/effect/self_deleting
-	density = FALSE
-	opacity = FALSE
-	anchored = TRUE
 	icon = null
 	desc = ""
 	//layer = 15
@@ -230,7 +226,6 @@
 	base_cooldown = 30 SECONDS
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_eat"
 
@@ -347,7 +342,6 @@
 	base_cooldown = 6 SECONDS
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_jump"
 
@@ -447,7 +441,6 @@
 	base_cooldown = 3 MINUTES
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	selection_activated_message	= span_notice("Ваше тело становится нестабильным.")
 	selection_deactivated_message = span_notice("Ваше тело возвращается в норму.")
@@ -502,8 +495,6 @@
 	desc = "Читайте мысли других людей, чтобы получить информацию."
 	base_cooldown = 18 SECONDS
 	clothes_req = FALSE
-	human_req = TRUE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_empath"
 

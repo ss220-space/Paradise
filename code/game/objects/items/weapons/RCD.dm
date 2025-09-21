@@ -7,13 +7,11 @@
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	flags = CONDUCT
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
-	force = 0
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	req_access = list(ACCESS_ENGINE)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)

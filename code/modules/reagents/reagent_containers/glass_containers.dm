@@ -5,7 +5,6 @@
 	name = " "
 	var/base_name = " "
 	desc = " "
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "null"
 	item_state = "null"
 	amount_per_transfer_from_this = 10
@@ -138,7 +137,6 @@
 /obj/item/reagent_containers/glass/beaker
 	name = "beaker"
 	desc = "Простой стеклянный стакан. На его стенках обозначены деления для измерения объёма содержимого."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
 	belt_icon = "beaker"
@@ -282,9 +280,7 @@
 	belt_icon = "large_beaker"
 	materials = list(MAT_GLASS=2500)
 	volume = 100
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100)
-	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/beaker/large/get_ru_names()
 	return list(
@@ -303,9 +299,7 @@
 	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
 	volume = 25
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25)
-	container_type = OPENCONTAINER
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/vial/get_ru_names()
@@ -325,7 +319,6 @@
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = null
 	volume = 10
-	container_type = OPENCONTAINER
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/drugs/get_ru_names()
@@ -345,7 +338,6 @@
 	amount_per_transfer_from_this = 25
 	possible_transfer_amounts = null
 	volume = 25
-	container_type = OPENCONTAINER
 	can_assembly = 0
 	list_reagents = list("thermite" = 25)
 
@@ -364,10 +356,7 @@
 	desc = "Криостазисная мензурка, позволяющий хранить химические вещества в таком состоянии, при котором они не вступают в реакцию друг с другом."
 	icon_state = "beakernoreact"
 	materials = list(MAT_METAL=3000)
-	volume = 50
-	amount_per_transfer_from_this = 10
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
-	container_type = OPENCONTAINER
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/item/reagent_containers/glass/beaker/noreact/get_ru_names()
@@ -390,9 +379,7 @@
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
-	container_type = OPENCONTAINER
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
@@ -424,7 +411,6 @@
 /obj/item/reagent_containers/glass/bucket
 	name = "bucket"
 	desc = "Металлическое ведро. Можете налить туда что-то или надеть себе на голову, никто не запрещает."
-	gender = NEUTER
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
 	item_state = "bucket"
@@ -437,7 +423,6 @@
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
-	container_type = OPENCONTAINER
 	var/paintable = TRUE
 
 /obj/item/reagent_containers/glass/bucket/get_ru_names()
@@ -552,8 +537,6 @@
 	item_state = "bottle"
 	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
 	materials = list(MAT_GLASS = 0)
-	volume = 50
-	amount_per_transfer_from_this = 10
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/get_ru_names()
 	return list(

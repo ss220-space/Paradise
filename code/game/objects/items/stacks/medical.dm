@@ -7,7 +7,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	full_w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	var/heal_brute = 0
@@ -181,15 +180,11 @@
 	icon_state = "gauze_3"
 	item_state = "gauze"
 	origin_tech = "biotech=2"
-	amount = 6
-	max_amount = 6
 	heal_brute = 5
 	bleedsuppress = 5
 	stop_bleeding = 180 SECONDS
-	self_delay = 2 SECONDS
 	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
-	cost = 1
 	merge_type = /obj/item/stack/medical/bruise_pack
 
 /obj/item/stack/medical/bruise_pack/syndicate
@@ -256,17 +251,11 @@
 	singular_name = "emergency bandage"
 	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
 	icon_state = "bandage"
-	item_state = "gauze"
 	origin_tech = "biotech=2;combat=1"
 	amount = 1
 	max_amount = 1
 	heal_brute = 0
-	bleedsuppress = 5
 	stop_bleeding = 300 SECONDS
-	energy_type = /datum/robot_energy_storage/medical
-	cost = 1
-	self_delay = 2 SECONDS
-	use_duration = 2 SECONDS
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
 	return list(
@@ -319,7 +308,6 @@
 	amount = 4
 	max_amount = 4
 	stop_bleeding = 0
-	self_delay = 2 SECONDS
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 
@@ -361,11 +349,7 @@
 	origin_tech = "biotech=2"
 	healverb = "salve"
 	heal_burn = 10
-	amount = 6
-	max_amount = 6
-	self_delay = 2 SECONDS
 	use_duration = 2 SECONDS
-	cost = 1
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/ointment
 
@@ -449,8 +433,6 @@
 	color = "#378C61"
 	stop_bleeding = 0
 	heal_brute = 12
-	self_delay = 2 SECONDS
-	use_duration = 2 SECONDS
 	drop_sound = 'sound/misc/moist_impact.ogg'
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
 	hitsound = 'sound/misc/moist_impact.ogg'
@@ -469,8 +451,6 @@
 	icon_state = "aloe"
 	color = "#4CC5C7"
 	heal_burn = 12
-	self_delay = 2 SECONDS
-	use_duration = 2 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/aloe
 	var/max_heal = 40
 
@@ -487,9 +467,7 @@
 	item_state = "splint"
 	unique_handling = TRUE
 	self_delay = 10 SECONDS
-	use_duration = 3 SECONDS
 	energy_type = /datum/robot_energy_storage/splint
-	cost = 1
 	var/static/list/available_splint_zones = list(
 		BODY_ZONE_L_ARM,
 		BODY_ZONE_R_ARM,
@@ -588,15 +566,10 @@
 	icon_state = "suture_3"
 	item_state = "suture"
 	origin_tech = "biotech=3"
-	amount = 6
-	max_amount = 6
-	heal_brute = 0
-	stop_bleeding = 0
 	var/bleeding_heal = 5
 	var/damage = 10
 	self_delay = 3 SECONDS
 	use_duration = 2 SECONDS
-	cost = 1
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/suture
 
@@ -660,7 +633,6 @@
 	amount = 10
 	max_amount = 10
 	heal_brute = 10
-	stop_bleeding = 0
 	bleeding_heal = 10
 	damage = 0
 	self_delay = 2 SECONDS
@@ -695,7 +667,6 @@
 	amount = 4
 	max_amount = 4
 	stop_bleeding = 0
-	self_delay = 2 SECONDS
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
 

@@ -11,7 +11,6 @@
 /turf/simulated/floor/shuttle/plating,
 /area/space/nearstation)
 "d" = (
-/turf/space,
 /turf/simulated/wall/shuttle{
 	dir = 1;
 	icon_state = "white_walls_directions"
@@ -97,7 +96,6 @@
 	},
 /area/space/nearstation)
 "w" = (
-/turf/space,
 /turf/simulated/wall/shuttle{
 	dir = 6;
 	icon_state = "white_walls_directions"
@@ -216,10 +214,8 @@
 	icon_state = "swall_f5";
 	tag = "icon-swall_f5"
 	},
-/turf/simulated/mineral/random/labormineral,
 /area/space/nearstation)
 "N" = (
-/turf/space,
 /turf/simulated/wall/shuttle{
 	dir = 5;
 	icon_state = "white_walls_directions"
@@ -255,13 +251,11 @@
 /turf/simulated/floor/shuttle/plating,
 /area/space/nearstation)
 "S" = (
-/turf/space,
 /turf/simulated/wall/shuttle{
 	dir = 4
 	},
 /area/space/nearstation)
 "U" = (
-/turf/space,
 /turf/simulated/wall/shuttle{
 	dir = 9;
 	icon_state = "white_walls_directions"
@@ -274,7 +268,6 @@
 	},
 /area/space/nearstation)
 "W" = (
-/turf/space,
 /turf/simulated/wall/shuttle{
 	dir = 4;
 	icon_state = "white_walls_directions"

@@ -328,7 +328,6 @@
 
 /obj/machinery/teleport
 	name = "teleport"
-	icon = 'icons/obj/stationobjs.dmi'
 	density = TRUE
 	anchored = TRUE
 
@@ -337,7 +336,6 @@
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
 	var/accurate = FALSE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	light_range = 2
 	light_color = "#f1f1bd"
@@ -473,7 +471,6 @@
 	desc = "A teleporter with the target pre-set on the circuit board."
 	icon_state = "tele0"
 	var/recalibrating = FALSE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 
@@ -584,7 +581,6 @@
 	desc = "The power control station for a bluespace teleporter."
 	icon_state = "controller"
 	var/engaged = FALSE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 	var/obj/machinery/computer/teleporter/teleporter_console

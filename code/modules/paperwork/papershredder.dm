@@ -1,7 +1,6 @@
 /obj/machinery/papershredder
 	name = "paper shredder"
 	desc = "Устройство для тех документов, которых вы не хотите видеть."
-	gender = MALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "papershredder0"
 	density = TRUE
@@ -167,13 +166,11 @@
 	gender = MALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "shredded_paper"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	layer = 4
 	max_integrity = 25
 	throw_range = 3
-	throw_speed = 2
 
 /obj/item/shredded_paper/get_ru_names()
 	return list(
