@@ -141,8 +141,6 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	icon = 'icons/mob/human_races/cyberlimbs/morpheus/morpheus_alt1.dmi'
 	parts = list(BODY_ZONE_HEAD)
 	has_subtypes = MODEL
-	is_monitor = TRUE
-	selectable = TRUE	// Both the parent (brand) and the child (model) have monitors with screens, therefore this "head" should be selectable.
 
 //Mantis
 /datum/robolimb/mantis
@@ -164,7 +162,6 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Nanotrasen Modular Mechanics"
 	desc = "This limb is made from a cheap polymer."
 	icon = 'icons/mob/human_races/cyberlimbs/nanotrasen/nanotrasen_main.dmi'
-	has_subtypes = CHILDLESS
 	is_monitor = TRUE
 
 /*Robo Vox */
@@ -173,7 +170,6 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Vox"
 	desc = "This limb is cybernetic and looks like like it would only fit a Vox Primalis."
 	icon = 'icons/mob/human_races/cyberlimbs/robovox/main.dmi'
-	has_subtypes = CHILDLESS
 	selectable = FALSE
 	// The only robolimbs for Vox at Chargen
 	species_allowed = list(SPECIES_VOX)
@@ -209,7 +205,6 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Vey-Med"
 	desc = "This replacement human limb is nearly indistringuishable from an organic one; maybe it was grown in a lab?"
 	icon = 'icons/mob/human_races/cyberlimbs/veymed/veymed_main.dmi'
-	has_subtypes = CHILDLESS
 	selectable = FALSE
 	// Only available for Humans and at Chargen
 	species_allowed = list(SPECIES_HUMAN)
@@ -280,14 +275,12 @@ GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 	company = "Zeng-Hu Pharmaceuticals"
 	desc = "This limb has a rubbery fleshtone covering with visible seams."
 	icon = 'icons/mob/human_races/cyberlimbs/zenghu/zenghu_main.dmi'
-	has_subtypes = CHILDLESS
 
 //Zenghu - Spirit
 /datum/robolimb/spirit
 	company = "Zeng-Hu Spirit"
 	desc = "This limb has a sleek black-and-white polymer finish."
 	icon = 'icons/mob/human_races/cyberlimbs/zenghu/zenghu_spirit.dmi'
-	has_subtypes = CHILDLESS
 	selectable = FALSE
 	// Only available for IPCs and at Chargen
 	species_allowed = list(SPECIES_MACNINEPERSON)

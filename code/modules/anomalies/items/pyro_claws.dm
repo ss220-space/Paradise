@@ -94,7 +94,6 @@
 	name = "fusion gauntlets"
 	desc = "Перчатки разработаенные Cybersun Industries после того, как один из солдат прикрепил ядро атмосферной аномалии ​​к \
 			энергетическому мечу, и нашел результат весьма эффективными."
-	gender = PLURAL
 	item_state = "pyro"
 	item_color = "pyro"
 	icon_state = "pyro"

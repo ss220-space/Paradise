@@ -6,7 +6,6 @@
 	base_icon_state = "stunbaton"
 	item_state = "baton"
 	belt_icon = "stunbaton"
-	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=2"

@@ -7,7 +7,6 @@
 	school = "transmutation"
 
 	base_cooldown = 30 SECONDS
-	clothes_req = TRUE
 	cooldown_min = 10 SECONDS //50 deciseconds reduction per rank
 	action_icon_state = "clown"
 

@@ -27,7 +27,6 @@
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "acid_bladder"
-	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=5"
 	light_range = 2
 	light_power = 3
@@ -64,7 +63,6 @@
 	icon_state = "roro core 2"
 	item_flags = NOBLUDGEON
 	slot = INTERNAL_ORGAN_HIVECORE
-	parent_organ_zone = BODY_ZONE_CHEST
 	force = 0
 	actions_types = list(/datum/action/item_action/organ_action/use)
 	var/inert = 0
@@ -242,7 +240,6 @@
 	desc = "Пульсирующая масса плоти и чёрных щупалец, способная регенерировать ткани за страшную цену."
 	icon_state = "legion_remains"
 	slot = INTERNAL_ORGAN_PARASITE_EGG
-	parent_organ_zone = BODY_ZONE_CHEST
 	/// What stage of growth the corruption has reached.
 	var/stage = 0
 	/// We apply this status effect periodically or when used on someone

@@ -1,15 +1,9 @@
-/datum/game_mode
-	var/syndies_didnt_escape = 0
-	var/nuke_off_station = 0
-
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
 	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
 	required_enemies = NUKERS_COUNT
 	recommended_enemies = NUKERS_COUNT
-
-	var/list/datum/mind/syndicates = list()
 
 	var/const/agents_possible = NUKERS_COUNT //If we ever need more syndicate agents.
 

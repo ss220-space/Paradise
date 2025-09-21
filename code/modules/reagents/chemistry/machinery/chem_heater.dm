@@ -13,7 +13,6 @@
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0b"
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	var/obj/item/reagent_containers/beaker = null

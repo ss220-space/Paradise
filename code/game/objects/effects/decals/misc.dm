@@ -1,7 +1,5 @@
 // Used for spray that you spray at walls, tables, hydrovats etc
 /obj/effect/decal/spraystill
-	density = FALSE
-	anchored = TRUE
 	layer = 50
 	plane = HUD_PLANE
 
@@ -16,8 +14,6 @@
 
 /obj/effect/decal/snow
 	name = "snow"
-	density = FALSE
-	anchored = TRUE
 	layer = TURF_DECAL_LAYER
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
@@ -36,16 +32,12 @@
 
 /obj/effect/decal/leaves
 	name = "fall leaves"
-	density = FALSE
-	anchored = TRUE
 	layer = HIGH_TURF_LAYER
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "fallleaves"
 
 /obj/effect/decal/straw
 	name = "scattered straw"
-	density = FALSE
-	anchored = TRUE
 	layer = HIGH_TURF_LAYER
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "strawscattered"
@@ -81,4 +73,3 @@
 	desc = "A lightweight support lattice."
 	icon = 'icons/obj/smooth_structures/lattice.dmi'
 	icon_state = "lattice"
-	density = FALSE

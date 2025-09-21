@@ -1,7 +1,6 @@
 /obj/item/soap
 	name = "soap"
 	desc = "Дешёвый кусок мыла. Он даже ничем не пахнет."
-	gender = NEUTER
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "soap"
 	belt_icon = "soap"
@@ -9,7 +8,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
 	item_flags = SKIP_ATTACK_MESSAGE

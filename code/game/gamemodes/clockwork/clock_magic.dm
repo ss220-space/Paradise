@@ -226,7 +226,6 @@
 	item_flags = ABSTRACT|DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 

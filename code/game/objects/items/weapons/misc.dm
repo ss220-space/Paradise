@@ -29,7 +29,6 @@
 	flags = CONDUCT
 	force = 5.0
 	throwforce = 7.0
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
 	attack_verb = list("огрел", "проучил")
 
@@ -39,7 +38,6 @@
 /obj/item/c_tube
 	name = "cardboard tube"
 	desc = "A tube... of cardboard."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "c_tube"
 	hitsound = 'sound/items/cardboard_tube.ogg'
 	throwforce = 1
@@ -58,7 +56,6 @@
 /obj/item/gift
 	name = "gift"
 	desc = "A wrapped item."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "gift3"
 	var/size = 3.0
 	var/obj/item/gift = null
@@ -131,7 +128,6 @@
 /obj/item/phone
 	name = "red phone"
 	desc = "Should anything ever go wrong..."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
 	flags = CONDUCT
 	force = 3

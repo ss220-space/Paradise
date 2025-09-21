@@ -4,8 +4,6 @@
 	icon_state = "mushroom_color"
 	icon_living = "mushroom_color"
 	icon_dead = "mushroom_dead"
-	speak_chance = 0
-	turns_per_move = 1
 	maxHealth = 10
 	health = 10
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/hugemushroomslice = 1)
@@ -22,8 +20,6 @@
 	faction = list("mushroom")
 	environment_smash = 0
 	stat_attack = DEAD
-	mouse_opacity = MOUSE_OPACITY_ICON
-	speed = 1
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	robust_searching = 1
 	speak_emote = list("пищит")

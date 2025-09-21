@@ -2,13 +2,10 @@
 	name = "leg cuffs"
 	desc = "Используйте это, чтобы держать заключённых в узде."
 	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
 	item_state = "legcuff"
 	flags = CONDUCT
-	throwforce = 0
 	slot_flags = ITEM_SLOT_LEGCUFFED
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
 	breakout_time = 30 SECONDS

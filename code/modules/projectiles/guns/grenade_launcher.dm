@@ -1,13 +1,11 @@
 /obj/item/gun/grenadelauncher
 	name = "grenade launcher"
 	desc = "a terrible, terrible thing. it's really awful!"
-	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "riotgun"
 	item_state = "riotgun"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
 	throw_range = 10
-	force = 5
 	var/list/grenades = new/list()
 	var/max_grenades = 3
 

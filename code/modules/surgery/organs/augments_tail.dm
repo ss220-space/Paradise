@@ -51,10 +51,6 @@
 	slash_strength = 25
 	stamina_damage = 20
 	self_stamina_damage = 5
-	damage_type = BURN
-	slash_sound = 'sound/weapons/blade1.ogg'
-	sound_on = 'sound/weapons/saberon.ogg'
-	sound_off = 'sound/weapons/saberoff.ogg'
 	icon_state = "tailimplant_laserred"
 	origin_tech = "materials=6;combat=5;biotech=5;powerstorage=3;syndicate=2;"
 
@@ -146,7 +142,6 @@
 
 /datum/action/innate/tail_cut
 	name = "Взмах хвостом"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "tail_cut"
 	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE
 

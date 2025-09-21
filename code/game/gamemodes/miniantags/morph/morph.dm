@@ -8,14 +8,11 @@
 	desc = "Отвратительная пульсирующая масса плоти."
 	speak_emote = list("булькает", "клокочет")
 	emote_hear = list("булькает", "клокочет")
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "morph"
 	icon_living = "morph"
 	icon_dead = "morph_dead"
 	speed = 1.5
-	a_intent = INTENT_HARM
 	stop_automated_movement = 1
-	status_flags = CANPUSH
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // Fat being
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
@@ -25,7 +22,6 @@
 
 	maxHealth = 150
 	health = 150
-	environment_smash = 1
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15

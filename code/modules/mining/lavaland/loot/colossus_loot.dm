@@ -137,7 +137,6 @@
 	activation_method = pick("mob_bump","speech")
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
-	activation_method = "touch"
 	cooldown_add = 200
 	var/terrain_theme = "winter"
 	var/NewTerrainFloors
@@ -211,7 +210,6 @@
 			affected_targets += A
 
 /obj/machinery/anomalous_crystal/emitter //Generates a projectile when interacted with
-	activation_method = "touch"
 	cooldown_add = 50
 	var/generated_projectile = /obj/projectile/beam/emitter
 
@@ -242,7 +240,6 @@
 		P.fire()
 
 /obj/machinery/anomalous_crystal/dark_reprise //Revives anyone nearby, but turns them into shadowpeople and renders them uncloneable, so the crystal is your only hope of getting up again if you go down.
-	activation_method = "touch"
 	activation_sound = 'sound/hallucinations/growl1.ogg'
 
 /obj/machinery/anomalous_crystal/dark_reprise/ActivationReaction(mob/user, method)
@@ -262,7 +259,6 @@
 
 
 /obj/machinery/anomalous_crystal/helpers //Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
-	activation_method = "touch"
 	var/ready_to_deploy = 0
 
 /obj/machinery/anomalous_crystal/helpers/ActivationReaction(mob/user, method)
@@ -291,7 +287,6 @@
 	icon_state = "lightgeist"
 	icon_living = "lightgeist"
 	icon_dead = "butterfly_dead"
-	turns_per_move = 1
 	response_help = "отмахивается"
 	response_disarm = "отталкивает"
 	response_harm = "разрушает"
@@ -309,7 +304,6 @@
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	luminosity = 4
 	faction = list("neutral")
-	universal_understand = 1
 	del_on_death = 1
 	unsuitable_atmos_damage = 0
 	environment_smash = 0
@@ -360,7 +354,6 @@
 		death()
 
 /obj/machinery/anomalous_crystal/refresher //Deletes and recreates a copy of the item, "refreshing" it.
-	activation_method = "touch"
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
 	var/list/banned_items_typecache = list(
@@ -390,7 +383,6 @@
 			qdel(CHOSEN)
 
 /obj/machinery/anomalous_crystal/possessor //Allows you to bodyjack small animals, then exit them at your leisure, but you can only do this once per activation. Because they blow up. Also, if the bodyjacked animal dies, SO DO YOU.
-	activation_method = "touch"
 
 /obj/machinery/anomalous_crystal/possessor/ActivationReaction(mob/user, method)
 	if(..())
@@ -410,7 +402,6 @@
 	name = "quantum entanglement stasis warp field"
 	desc = "Вы едва можете осознать эту вещь... поэтому и не видите её."
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
-	density = TRUE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal

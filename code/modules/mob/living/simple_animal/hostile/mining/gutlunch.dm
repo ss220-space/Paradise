@@ -17,7 +17,6 @@
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	move_to_delay = 15
-	response_help  = "гладит"
 	response_disarm = "аккуратно отодвигает"
 	response_harm   = "шлёпает"
 	friendly = "щиплет"
@@ -26,7 +25,6 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	stat_attack = UNCONSCIOUS
 	gender = NEUTER
-	stop_automated_movement = FALSE
 	stop_automated_movement_when_pulled = TRUE
 	stat_exclusive = TRUE
 	robust_searching = TRUE

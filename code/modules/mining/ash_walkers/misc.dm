@@ -140,7 +140,6 @@
 	desc = "Массивный каменный столб с прикреплённым к нему черепом убитого зверя. Кажется, вы зашли в охотничьи угодья пеплоходцев."
 	icon = 'icons/obj/lavaland/grace_of_lazis.dmi'
 	icon_state = "totem_stone"
-	anchored = TRUE
 	density = TRUE
 	deconstructible = FALSE
 	/// Used in shaman spell. Perfect for finding stuff ic
@@ -204,7 +203,6 @@
 /obj/structure/ash_totem/wooden
 	name = "wooden totem"
 	desc = "Массивная статуя, сделанная из цельного куска древесины. Рисунок на статуе отдалённо напоминает человеческое лицо, искаженное в гримасе ужаса."
-	icon_state = "totem_wooden"
 
 /obj/structure/ash_totem/wooden/get_ru_names()
 	return list(
@@ -267,7 +265,6 @@
 	name = "wooden stool"
 	desc = "Деревянная табуретка. Достаточно удобная, чтобы держать её в руках."
 	gender = FEMALE
-	icon = 'icons/obj/chairs.dmi'
 	icon_state = "wooden_stool_toppled"
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'

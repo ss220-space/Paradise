@@ -99,7 +99,6 @@
 	name = "ruperium crystal"
 	desc = "Крайне радиоактивное кристаллическое соединение, которое можно найти во внутренностях златожора. Хоть вы и можете преобразовать кристалл в урановую руду, его истинная ценность заключается в его резонирующих свойствах."
 	light_color = "#5ECC38"
-	icon_state = "rupee"
 	materials = list(MAT_URANIUM = 60000)
 	sheet_type = /obj/item/stack/sheet/mineral/uranium{amount = 30}
 	point_value = 500
@@ -492,7 +491,6 @@
 /obj/item/gem/ruby
 	name = "ruby"
 	icon_state = "ruby"
-	point_value = 100
 	simple = TRUE
 	light_color = "#C72414"
 	sell_multiplier = 0.5
@@ -510,7 +508,6 @@
 /obj/item/gem/sapphire
 	name = "sapphire"
 	icon_state = "sapphire"
-	point_value = 100
 	simple = TRUE
 	light_color = "#1726BF"
 	sell_multiplier = 0.5
@@ -528,7 +525,6 @@
 /obj/item/gem/emerald
 	name = "emerald"
 	icon_state = "emerald"
-	point_value = 100
 	simple = TRUE
 	light_color = "#14A73C"
 	sell_multiplier = 0.5
@@ -546,7 +542,6 @@
 /obj/item/gem/topaz
 	name = "topaz"
 	icon_state = "topaz"
-	point_value = 100
 	simple = TRUE
 	light_color = "#C73914"
 	sell_multiplier = 0.5

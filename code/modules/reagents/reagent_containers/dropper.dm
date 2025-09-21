@@ -8,7 +8,6 @@
 	gender = FEMALE
 	icon_state = "dropper"
 	item_state = "dropper"
-	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
 	pass_open_check = TRUE

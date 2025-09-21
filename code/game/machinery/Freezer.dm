@@ -2,15 +2,11 @@
 	name = "охладитель"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "freezer"
-	density = TRUE
 	var/min_temperature = 0
-	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	active_power_usage = 5000	//cooling down massive amounts of air's not cheap. This is still very low considering everything
 	power_channel = EQUIP
 	current_heat_capacity = 1000
 	layer = 3
-	plane = GAME_PLANE
 	resistance_flags = null
 	max_integrity = 300
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
@@ -176,9 +172,7 @@
 	name = "нагреватель"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "heater"
-	density = TRUE
 	var/max_temperature = 0
-	anchored = TRUE
 	layer = 3
 	current_heat_capacity = 1000
 	active_power_usage = 5000

@@ -51,7 +51,6 @@
 
 // Engines
 /obj/structure/shuttle/engine/large
-	name = "engine"
 	opacity = TRUE
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
@@ -72,7 +71,6 @@
 		fillers += F
 
 /obj/structure/shuttle/engine/huge
-	name = "engine"
 	opacity = TRUE
 	icon = 'icons/obj/3x3.dmi'
 	icon_state = "huge_engine"

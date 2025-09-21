@@ -1694,7 +1694,6 @@
 /turf/space,
 /area/template_noop)
 "gr" = (
-/obj/structure/lattice,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/USSP_gorky17/angar)
 "gt" = (
@@ -3704,7 +3703,6 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/USSP_gorky17/rnd)
 "ob" = (
-/obj/structure/lattice,
 /turf/simulated/wall/r_wall,
 /area/template_noop)
 "od" = (
@@ -3883,8 +3881,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
@@ -5950,10 +5947,6 @@
 	},
 /obj/structure/marker_beacon{
 	icon_state = "markerburgundy-on"
-	},
-/obj/machinery/computer/old_frame/macintosh{
-	layer = 3.15;
-	pixel_y = 8
 	},
 /obj/machinery/computer/old_frame/macintosh{
 	layer = 3.15;
@@ -10334,7 +10327,6 @@
 	},
 /area/ruin/space/USSP_gorky17/check1)
 "LB" = (
-/obj/structure/lattice,
 /turf/simulated/wall/r_wall/rust,
 /area/ruin/space/USSP_gorky17/utility)
 "LC" = (
@@ -13499,9 +13491,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
