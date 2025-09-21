@@ -107,4 +107,3 @@
 	var/limb_repair_in_progress = FALSE
 	var/emp_damage_multiplier_internal = 1
 	var/emp_damage_multiplier_external = 1
-  
