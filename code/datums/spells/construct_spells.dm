@@ -2,7 +2,6 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/construct/lesser
 	base_cooldown = 3 MINUTES
-	action_icon_state = "artificer"
 	action_background_icon_state = "bg_cult"
 	human_req = FALSE
 
@@ -45,7 +44,6 @@
 	action_icon_state = "cultforcewall"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
-	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
 	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
@@ -64,12 +62,8 @@
 /obj/effect/proc_holder/spell/aoe/conjure/build/wall/reinforced
 	name = "Greater Construction"
 	desc = "This spell constructs a reinforced metal wall"
-	school = "conjuration"
 	base_cooldown = 30 SECONDS
 	delay = 5 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
-	centcom_cancast = FALSE //Stop crashing the server by spawning turfs on transit tiles
 	//holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	summon_type = list(/turf/simulated/wall/r_wall)
 
@@ -188,9 +182,7 @@
 
 /obj/effect/proc_holder/spell/projectile/magic_missile/lesser
 	name = "Lesser Magic Missile"
-	desc = "This spell fires several, slow moving, magic projectiles at nearby targets."
 	action_background_icon_state = "bg_cult"
-	school = "evocation"
 	base_cooldown = 40 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
@@ -208,11 +200,6 @@
 	desc = "This spell spawns a cloud of paralysing smoke."
 	action_icon_state = "parasmoke"
 	action_background_icon_state = "bg_cult"
-	school = "conjuration"
 	base_cooldown = 20 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
-	cooldown_min = 2 SECONDS //25 deciseconds reduction per rank
 	smoke_type = SMOKE_SLEEPING
-	smoke_amt = 10

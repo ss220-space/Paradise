@@ -8,10 +8,7 @@
 	icon_state = "signmaker_clown_off"
 	item_state = "signmaker_clown"
 	slot_flags = ITEM_SLOT_BELT
-	force = 0
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -171,7 +168,6 @@
 	desc = "Настоящее мыло, только не настоящее."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "holo_soap"
-	density = FALSE
 	layer = ABOVE_MOB_LAYER
 	anchored = TRUE
 	pressure_resistance = ONE_ATMOSPHERE

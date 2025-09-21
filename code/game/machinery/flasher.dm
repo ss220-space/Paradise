@@ -3,7 +3,6 @@
 /obj/machinery/flasher
 	name = "Mounted flash"
 	desc = "A wall-mounted flashbulb device."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "mflash1"
 	base_icon_state = "mflash"
 	max_integrity = 250
@@ -144,7 +143,6 @@
 	var/id = null
 	var/active = 0
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 

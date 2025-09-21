@@ -550,7 +550,6 @@
 	flag = MELEE //jokair
 	damage = 15
 	light_range = 1
-	light_power = 1
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 
 /obj/projectile/soulscythe/get_ru_names()

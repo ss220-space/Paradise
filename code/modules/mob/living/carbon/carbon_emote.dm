@@ -2,24 +2,20 @@
 	mob_type_allowed_typecache = list(/mob/living/carbon)
 	mob_type_blacklist_typecache = list(/mob/living/carbon/brain)
 
-
 /datum/emote/living/carbon/blink
 	key = "blink"
 	key_third_person = "blinks"
 	message = "морга%(ет,ют)%."
 
-
 /datum/emote/living/carbon/blink_r
 	key = "blink_r"
 	message = "быстро морга%(ет,ют)%."
-
 
 /datum/emote/living/carbon/cross
 	key = "cross"
 	key_third_person = "crosses"
 	message = "скрещива%(ет,ют)% руки."
 	hands_use_check = TRUE
-
 
 /datum/emote/living/carbon/chuckle
 	key = "chuckle"
@@ -28,7 +24,6 @@
 	message_mime = "будто бы усмеха%(ет,ют)%ся."
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("радостные", "оживлённые")
-
 
 /datum/emote/living/carbon/cough
 	key = "cough"
@@ -63,7 +58,6 @@
 	if(!.)
 		return ..()
 
-
 /datum/emote/living/carbon/moan
 	key = "moan"
 	key_third_person = "moans"
@@ -75,7 +69,6 @@
 	age_based = TRUE
 	volume = 70
 
-
 /datum/emote/living/carbon/moan/get_sound(mob/living/carbon/human/user)
 	if(ishuman(user) && user.dna?.species)
 		if(user.gender == FEMALE)
@@ -84,7 +77,6 @@
 			. = safepick(user.dna.species.male_moan_sound)
 	if(!.)
 		return ..()
-
 
 /datum/emote/living/carbon/giggle
 	key = "giggle"
@@ -96,7 +88,6 @@
 	age_based = TRUE
 	volume = 70
 
-
 /datum/emote/living/carbon/giggle/get_sound(mob/living/carbon/human/user)
 	if(ishuman(user) && user.dna?.species)
 		if(user.gender == FEMALE)
@@ -106,7 +97,6 @@
 	if(!.)
 		return ..()
 
-
 /datum/emote/living/carbon/gurgle
 	key = "gurgle"
 	key_third_person = "gurgles"
@@ -115,7 +105,6 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	unintentional_stat_allowed = UNCONSCIOUS
 
-
 /datum/emote/living/carbon/inhale
 	key = "inhale"
 	key_third_person = "inhales"
@@ -123,18 +112,15 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("хриплые")
 
-
 /datum/emote/living/carbon/inhale/deep
 	key = "inhale_d"
 	message = "дела%(ет,ют)% глубокий вдох."
-
 
 /datum/emote/living/carbon/exhale
 	key = "exhale"
 	key_third_person = "exhales"
 	message = "выдыха%(ет,ют)%."
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
-
 
 /datum/emote/living/carbon/kiss
 	key = "kiss"
@@ -144,7 +130,6 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	muzzled_noises = list("чмокающие")
 
-
 /datum/emote/living/carbon/wave
 	key = "wave"
 	key_third_person = "waves"
@@ -152,7 +137,6 @@
 	message_postfix = " %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	hands_use_check = TRUE
-
 
 /datum/emote/living/carbon/yawn
 	key = "yawn"
@@ -164,14 +148,12 @@
 	age_based = TRUE
 	volume = 70
 
-
 /datum/emote/living/carbon/yawn/get_sound(mob/living/carbon/human/user)
 	if(ishuman(user))
 		if(user.gender == FEMALE)
 			return pick('sound/voice/yawn_female_1.ogg', 'sound/voice/yawn_female_2.ogg', 'sound/voice/yawn_female_3.ogg')
 		return pick('sound/voice/yawn_male_1.ogg', 'sound/voice/yawn_male_2.ogg')
 	return ..()
-
 
 /datum/emote/living/carbon/laugh
 	key = "laugh"
@@ -185,7 +167,6 @@
 	age_based = TRUE
 	volume = 70
 
-
 /datum/emote/living/carbon/laugh/get_sound(mob/living/carbon/human/user)
 	if(ishuman(user) && user.dna?.species)
 		if(user.gender == FEMALE)
@@ -195,14 +176,11 @@
 	if(!.)
 		return ..()
 
-
 /datum/emote/living/carbon/scowl
 	key = "scowl"
 	key_third_person = "scowls"
 	message = "мрачно смотр%(ит,ят)%."
-	message_postfix = " на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
-
 
 /datum/emote/living/carbon/groan
 	key = "groan"
@@ -215,7 +193,6 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	unintentional_stat_allowed = UNCONSCIOUS
 
-
 /datum/emote/living/carbon/sign
 	key = "sign"
 	key_third_person = "signs"
@@ -226,25 +203,21 @@
 	hands_use_check = TRUE
 	target_behavior = EMOTE_TARGET_BHVR_NUM
 
-
 /datum/emote/living/carbon/faint
 	key = "faint"
 	key_third_person = "faints"
 	message = "пада%(ет,ют)% в обморок!"
-
 
 /datum/emote/living/carbon/faint/run_emote(mob/living/user, params, type_override, intentional)
 	. = ..()
 	if(. && isliving(user))
 		user.AdjustSleeping(4 SECONDS)
 
-
 /datum/emote/living/carbon/twirl
 	key = "twirl"
 	key_third_person = "twirls"
 	message = "верт%(ит,ят)% что-то в руках."
 	hands_use_check = TRUE
-
 
 /datum/emote/living/carbon/twirl/run_emote(mob/living/user, params, type_override, intentional)
 	var/mob/living/grabbed_mob
@@ -271,4 +244,3 @@
 
 	. = ..()
 	message = initial(message)
-

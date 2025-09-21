@@ -2,9 +2,6 @@
 
 /area/awaymission/spacebattle
 	name = "Space Battle"
-	icon_state = "away"
-	requires_power = TRUE
-	report_alerts = FALSE
 
 /area/awaymission/spacebattle/cruiser
 	name = "Nanotrasen Cruiser"
@@ -184,7 +181,6 @@
 // Записочки
 
 /obj/item/paper/spacebattle
-	icon = 'icons/obj/bureaucracy.dmi';
 	icon_state = "paper_words"
 
 /obj/item/paper/spacebattle/syndicate1
@@ -703,7 +699,6 @@
 	name = "damaged blood-red hardsuit"
 	desc = "Damaged advanced hardsuit designed for work in special operations. There are a many patches visible on the suit. Its mode switcher system looks damaged and forced in travel mode. Property of Gorlex Marauders."
 	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 50, FIRE = 50, ACID = 90)
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "hardsuit1-syndi"
 	on = TRUE
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
@@ -712,7 +707,6 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/damaged
 	icon_state = "hardsuit1-syndi"
-	item_state = "syndie_helm"
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	on = TRUE
 

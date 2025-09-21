@@ -77,7 +77,6 @@
 /obj/item/clothing/head/helmet/material
 	name = "material visor helmet"
 	desc = "A helmet with a built-in material scanning visor."
-	icon_state = "helmetmaterials"
 	vision_flags = SEE_OBJS
 
 /obj/item/clothing/head/helmet/night
@@ -170,9 +169,7 @@
 	item_state = "swat"
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30,ENERGY = 30, BOMB = 50, BIO = 90, RAD = 20, FIRE = 50, ACID = 50)
 	item_flags = NONE
-	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
 	dog_fashion = null
@@ -199,9 +196,7 @@
 	item_state = "thunderdome"
 	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90)
 	item_flags = NONE
-	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
 	dog_fashion = null
@@ -322,7 +317,6 @@
 	name = "skull helmet"
 	desc = "Этот шлем, который выглядит устрашающе и походит на племенной, кажется не очень удобным."
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDENAME
-	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 45, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	icon_state = "skull"
 	item_state = "skull"
@@ -355,9 +349,7 @@
 	desc = "A helmet made from durathread and leather."
 	icon_state = "durathread"
 	item_state = "durathread"
-	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 20, BULLET = 10, LASER = 30, ENERGY = 5, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50)
-	strip_delay = 60
 
 
 /obj/item/clothing/head/helmet/ert
@@ -469,10 +461,8 @@
 
 /obj/item/clothing/head/helmet/lightweighthelmet
 	name = "lightweight helmet"
-	desc = "Standard Security gear. Protects the head from impacts."
 	icon_state = "lightweighthelmet"
 	item_state = "lightweighthelmet"
-	strip_delay = 60
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 	item_flags = NONE
 	flags_cover = NONE

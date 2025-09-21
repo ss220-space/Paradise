@@ -3,7 +3,6 @@
 /mob/living/simple_animal/hostile/spaceWorm
 	name = "space worm segment"
 	desc = "A part of a space worm."
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "spaceworm"
 	icon_living = "spaceworm"
 	icon_dead = "spacewormdead"
@@ -26,9 +25,7 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-	a_intent = INTENT_HARM //so they don't get pushed around
 
-	environment_smash = 1
 
 	speed = -1
 
@@ -69,7 +66,6 @@
 	name = "space worm head"
 	icon_state = "spacewormhead"
 	icon_living = "spacewormhead"
-	icon_dead = "spacewormdead"
 
 	//Stronger than normal segments
 	maxHealth = 125

@@ -8,7 +8,6 @@
 	icon_resting = "possum_rest"
 	var/icon_harm = "possum_scream"
 	response_help  = "гладит"
-	response_disarm = "толкает"
 	response_harm   = "пинает"
 	speak = list("Шшшшш...", "Ссссс...")
 	speak_emote = list("шипит", "бурчит")

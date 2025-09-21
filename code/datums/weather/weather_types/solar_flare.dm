@@ -2,7 +2,6 @@
 	name = "solar flare"
 	desc = "An intense blast of light and heat from the sun, affecting all space around the station."
 
-	telegraph_duration = 30 SECONDS
 	telegraph_message = null // handled via event announcement
 
 	weather_message = "<span class='userdanger'><i>Началась солнечная вспышка! Найдите укрытие!</i></span>"
@@ -14,9 +13,7 @@
 
 	end_duration = 10 // wind_down() does not do anything for this event, so we just trigger end() semi-immediately
 	end_message = null
-	area_type = /area/space // read generate_area_list() as well below
 	protected_areas = list()
-	target_trait = STATION_LEVEL
 	immunity_type = TRAIT_SOLARFLARE_IMMUNE
 
 /datum/weather/solar_flare/generate_area_list()

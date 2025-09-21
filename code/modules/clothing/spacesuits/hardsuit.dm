@@ -1,7 +1,6 @@
 //Baseline hardsuits
 /obj/item/clothing/head/helmet/space/hardsuit
 	name = "hardsuit helmet"
-	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
 	icon_state = "hardsuit0-engineering"
 	base_icon_state = "hardsuit"
 	item_state = "eng_helm"
@@ -9,7 +8,6 @@
 	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
 	max_integrity = 300
 	allowed = list(/obj/item/flashlight)
-	light_power = 1
 	light_range = 4
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
@@ -274,17 +272,12 @@
 /obj/item/clothing/head/helmet/space/hardsuit/engine
 	name = "engineering hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
-	icon_state = "hardsuit0-engineering"
-	item_state = "eng_helm"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 75, FIRE = 100, ACID = 75)
-	item_color = "engineering"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/suit/space/hardsuit/engine
 	name = "engineering hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
-	icon_state = "hardsuit-engineering"
-	item_state = "eng_hardsuit"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 75, FIRE = 100, ACID = 75)
 	resistance_flags = FIRE_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine
@@ -298,7 +291,6 @@
 	item_state = "atmos_helm"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 25, FIRE = 100, ACID = 75)
 	item_color = "atmos"
-	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/suit/space/hardsuit/engine/atmos
@@ -307,7 +299,6 @@
 	icon_state = "hardsuit-atmos"
 	item_state = "atmos_hardsuit"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 25, FIRE = 100, ACID = 75)
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
 	dog_fashion = null
@@ -320,7 +311,6 @@
 	item_state = "ce_helm"
 	armor = list(MELEE = 40, BULLET = 5, LASER = 10, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 90)
 	item_color = "white"
-	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/suit/space/hardsuit/engine/elite
@@ -329,7 +319,6 @@
 	icon_state = "hardsuit-white"
 	item_state = "ce_hardsuit"
 	armor = list(MELEE = 40, BULLET = 5, LASER = 10, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 90)
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
 	jetpack = /obj/item/tank/jetpack/suit
@@ -343,7 +332,6 @@
 	item_state = "mining_helm"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 75)
 	item_color = "mining"
-	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
 	light_range = 7
@@ -354,7 +342,6 @@
 	icon_state = "hardsuit-mining"
 	item_state = "mining_hardsuit"
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 75)
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
@@ -511,7 +498,6 @@
 	icon_state = "hardsuit0-syndielite"
 	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 40, BOMB = 55, BIO = 100, RAD = 70, FIRE = 100, ACID = 100)
 	item_color = "syndielite"
-	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	combat_rad = 70
@@ -522,7 +508,6 @@
 	icon_state = "hardsuit0-syndielite"
 	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 40, BOMB = 55, BIO = 100, RAD = 70, FIRE = 100, ACID = 100)
 	item_color = "syndielite"
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
@@ -657,14 +642,12 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/security/warden
 	name = "warden's hardsuit helmet"
-	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
 	icon_state = "hardsuit0-warden"
 	armor = list(MELEE = 50, BULLET = 30, LASER = 30,ENERGY = 20, BOMB = 15, BIO = 100, RAD = 50, FIRE = 80, ACID = 85)
 	item_color = "warden"
 
 /obj/item/clothing/suit/space/hardsuit/security/warden
 	name = "warden's hardsuit"
-	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	icon_state = "hardsuit-warden"
 	armor = list(MELEE = 50, BULLET = 30, LASER = 30,ENERGY = 20, BOMB = 15, BIO = 100, RAD = 50, FIRE = 80, ACID = 85)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/warden

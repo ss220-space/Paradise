@@ -92,9 +92,6 @@
 /obj/item/clothing/under/color/orange/prison
 	name = "old prison jumpsuit"
 	desc = "Старая одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
-	icon_state = "orange"
-	item_state = "o_suit"
-	item_color = "orange"
 	has_sensor = 2
 	sensor_mode = 3
 
@@ -239,12 +236,10 @@
 	name = "red team jersey"
 	desc = "The jersey of the Nanotrasen Phi-ghters!"
 	icon_state = "redjersey"
-	item_state = "r_suit"
 	item_color = "redjersey"
 
 /obj/item/clothing/under/color/blue/jersey
 	name = "blue team jersey"
 	desc = "The jersey of the Nanotrasen Pi-rates!"
 	icon_state = "bluejersey"
-	item_state = "b_suit"
 	item_color = "bluejersey"

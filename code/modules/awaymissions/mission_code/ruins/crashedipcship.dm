@@ -2,19 +2,16 @@
 /area/ruin/space/crashedipcship/engine
 	name = "Engine zone"
 	icon_state = "ipc_ship3"
-	requires_power = TRUE
 	report_alerts = FALSE
 
 /area/ruin/space/crashedipcship/shard
 	name = "Shard zone"
 	icon_state = "ipc_ship4"
-	requires_power = TRUE
 	report_alerts = FALSE
 
 /area/ruin/space/crashedipcship/middle
 	name = "Middle zone"
 	icon_state = "ipc_ship2"
-	requires_power = TRUE
 
 /area/ruin/space/crashedipcship/asteroid
 	name = "IPC asteroid zone"
@@ -24,7 +21,6 @@
 /area/ruin/space/crashedipcship/aft
 	name = "IPC aft zone"
 	icon_state = "ipc_ship1"
-	requires_power = TRUE
 
 // IPC corpse
 /obj/effect/mob_spawn/human/corpse/ipc
@@ -34,8 +30,6 @@
 	icon_state = "overlay_husk"
 	mob_name = "Unknown IPC"
 	random = TRUE
-	death = TRUE
-	disable_sensors = TRUE
 	outfit = /datum/outfit/ipc_corpse
 
 /datum/outfit/ipc_corpse
@@ -55,7 +49,6 @@
 
 /obj/effect/mob_spawn/headcrab
 	mob_type = /mob/living/simple_animal/hostile/headcrab
-	death = TRUE
 	name = "Dead headcrab"
 	desc = "A small dead parasitic creature that would like to connect with your brain stem."
 	icon = 'icons/mob/headcrab.dmi'

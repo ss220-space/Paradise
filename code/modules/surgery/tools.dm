@@ -62,11 +62,8 @@
 		INSTRUMENTAL = "примитивным ретрактором",
 		PREPOSITIONAL = "примитивном ретракторе",
 	)
-	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_retractor"
 	item_state = "primitive_retractor"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/hemostat
 	name = "hemostat"
@@ -124,11 +121,8 @@
 		INSTRUMENTAL = "примитивным гемостатом",
 		PREPOSITIONAL = "примитивном гемостате",
 	)
-	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_hemostat"
 	item_state = "primitive_hemostat"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/cautery
 	name = "cautery"
@@ -171,11 +165,8 @@
 		INSTRUMENTAL = "примитивным прижигателем",
 		PREPOSITIONAL = "примитивном прижигателе",
 	)
-	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_cautery"
 	item_state = "primitive_cautery"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/surgicaldrill
 	name = "surgical drill"
@@ -197,7 +188,6 @@
 	flags = CONDUCT
 	force = 15
 	sharp = 1
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("продырявил")
 	tool_behaviour = TOOL_DRILL
@@ -309,11 +299,8 @@
 		INSTRUMENTAL = "примитивным скальпелем",
 		PREPOSITIONAL = "примитивном скальпеле",
 	)
-	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_scalpel"
 	item_state = "primitive_scalpel"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /*
  * Researchable Scalpels
@@ -336,7 +323,6 @@
 /obj/item/scalpel/laser/laser1 //lasers also count as catuarys
 	name = "Basic Laser Scalpel"
 	desc = "Скальпель, дополненный направленным лазером. Может быть усовершенствован."
-	icon_state = "scalpel_laser1_on"
 	toolspeed = 0.8
 
 /obj/item/scalpel/laser/laser2
@@ -390,7 +376,6 @@
 	flags = CONDUCT
 	force = 15
 	sharp = 1
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9
 	throw_speed = 3
 	throw_range = 5
@@ -453,15 +438,12 @@
 	flags = CONDUCT
 	force = 15.0
 	sharp = 1
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 9
 	throw_speed = 3
 	throw_range = 5
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("атаковал", "полоснул", "пропилил", "порезал")
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/primitive_saw/Initialize(mapload)
 	. = ..()
@@ -483,7 +465,6 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone-gel"
 	item_state = "bone-gel"
-	force = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
@@ -507,11 +488,8 @@
 		INSTRUMENTAL = "примитивным костяным гелем",
 		PREPOSITIONAL = "примитивном костяном геле",
 	)
-	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_bonegel"
 	item_state = "primitive_bonegel"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/FixOVein
 	name = "FixOVein"
@@ -528,7 +506,6 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "fixovein"
 	item_state = "fixovein"
-	force = 0
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 	w_class = WEIGHT_CLASS_SMALL
@@ -553,11 +530,8 @@
 		PREPOSITIONAL = "нити для сращивания сосудов",
 	)
 	gender = FEMALE
-	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_fixovein"
 	item_state = "primitive_fixovein"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/bonesetter
 	name = "bone setter"
@@ -616,11 +590,8 @@
 		INSTRUMENTAL = "примитивным костоправом",
 		PREPOSITIONAL = "примитивном костоправе",
 	)
-	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_bonesetter"
 	item_state = "primitive_bonesetter"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"

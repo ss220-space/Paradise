@@ -3,7 +3,6 @@
 	// Sprites by FoS: https://www.paradisestation.org/forum/profile/335-fos
 	name = "lesser hellhound"
 	desc = "Чёрное существо с демоническим обликом, горящими красными глазами и острыми клыками, словно вышедшее из преисподней. С его тела стекает лава."
-	gender = MALE
 	icon_state = "hellhound"
 	icon_living = "hellhound"
 	icon_dead = "hellhound_dead"
@@ -12,9 +11,6 @@
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	melee_damage_lower = 10 // slightly higher than araneus
 	melee_damage_upper = 30
-	a_intent = INTENT_HARM
-	environment_smash = 1
-	speak_chance = 0
 	speed = 0
 	maxHealth = 250 // same as sgt araneus
 	health = 250
@@ -25,7 +21,6 @@
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("рычит")
 	nightvision = 9
-	universal_understand = 1
 	wander = 0
 	AI_delay_max = 0.5 SECONDS
 	var/life_regen_cycles = 0
@@ -132,7 +127,6 @@
 	smoke_freq = 200
 	life_regen_cycle_trigger = 5
 	melee_damage_lower = 20
-	melee_damage_upper = 30
 	environment_smash = 2
 
 /mob/living/simple_animal/hostile/hellhound/greater/Initialize(mapload)

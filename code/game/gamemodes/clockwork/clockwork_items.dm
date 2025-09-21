@@ -2,9 +2,6 @@
 /obj/item/clockwork/clockslab
 	name = "clockwork slab"
 	desc = "A strange metal tablet. A clock in the center turns around and around."
-	icon = 'icons/obj/clockwork.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "clock_slab"
 	w_class = WEIGHT_CLASS_SMALL
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "blue fox plushie" = "bluefox",
@@ -380,7 +377,6 @@
 	force_wielded = 20
 	armour_penetration = 40
 	throwforce = 30
-	throw_range = 7
 	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
 
@@ -1109,7 +1105,6 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clockwork_helmet"
 	item_state = "clockwork_helmet"
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
@@ -1124,7 +1119,6 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clockwork_helmet"
 	item_state = "clockwork_helmet"
-	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
@@ -1160,7 +1154,6 @@
 	var/active = FALSE //If the visor is online
 	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = FLASH_PROTECTION_FLASH
-	see_in_dark = 0
 	lighting_alpha = null
 
 /obj/item/clothing/glasses/clockwork/equipped(mob/living/user, slot, initial)

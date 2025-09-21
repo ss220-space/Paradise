@@ -13,12 +13,9 @@
 	desc = "Если вы видите это, напишите сообщение об ошибке, что-то пошло не так!"
 	gender = FEMALE
 	icon_state = "firstaid"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	drop_sound = 'sound/items/handling/drop/plasticbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/plasticbox_pickup.ogg'
 	use_sound = 'sound/items/handling/plasticbox_open.ogg'
-	throw_speed = 2
 	throw_range = 8
 	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
 	var/treatment_brute = "salglu_solution"
@@ -73,7 +70,6 @@
 
 /obj/item/storage/firstaid/regular
 	desc = "Это аптечка общего назначения для экстренной первой помощи."
-	icon_state = "firstaid"
 
 /obj/item/storage/firstaid/regular/get_ru_names()
 	return list(
@@ -99,7 +95,6 @@
 
 /obj/item/storage/firstaid/doctor
 	desc = "Это аптечка для экстренной первой помощи при повреждениях, улучшенная версия."
-	icon_state = "firstaid"
 
 /obj/item/storage/firstaid/doctor/get_ru_names()
 	return list(
@@ -310,10 +305,8 @@
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
 	req_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
-	syndicate_aligned = FALSE
 
 
 /obj/item/storage/firstaid/tactical/get_ru_names()
@@ -359,7 +352,6 @@
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
 	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/ertm/get_ru_names()
@@ -391,7 +383,6 @@
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
 	req_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE

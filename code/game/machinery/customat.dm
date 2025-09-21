@@ -40,7 +40,6 @@
 	desc = "Торговый автомат с кастомным содержимым."
 	icon = 'icons/obj/machines/customat.dmi'
 	icon_state = "custommate-off"
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 600 // base vending integrity * 2
@@ -74,7 +73,6 @@
 	var/flick_sequence = FLICK_NONE
 
 	// Power
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	/// Power used for one vend
 	var/vend_power_usage = 150
@@ -128,7 +126,6 @@
 
 	// Things that can go wrong
 	/// Makes all prices 0
-	emagged = 0
 
 	/// blocks further flickering while true
 	var/flickering = FALSE

@@ -22,12 +22,10 @@
 	speak_emote = list("шипит")
 	tts_seed = "Ladyvashj"
 	bubble_icon = "alien"
-	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	faction = list("alien")
-	status_flags = CANPUSH
 	nightvision = 8
 	AI_delay_max = 0.5 SECONDS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -135,9 +133,7 @@
 	icon = 'icons/mob/alienlarge.dmi'
 	icon_state = "alienq_s"
 	icon_living = "alienq_s"
-	icon_dead = "alienq_dead"
 	bubble_icon = "alienroyal"
-	move_to_delay = 4
 	maxHealth = 400
 	health = 400
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 10, /obj/item/stack/sheet/animalhide/xeno = 2)
@@ -157,7 +153,6 @@
 	friendly = "caresses"
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	gold_core_spawnable = HOSTILE_SPAWN
 	icon_state = "maid"
 	icon_living = "maid"
 	icon_dead = "maid_dead"

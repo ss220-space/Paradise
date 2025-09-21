@@ -1,21 +1,15 @@
 /obj/item/rcd/syndicate
 	name = "Syndicate rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks. This one is made by syndicate"
-	icon = 'icons/obj/tools.dmi'
 	icon_state = "syndi_rcd"
-	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "syndi_rcd"
 	materials = list(MAT_PLASMA = 10000, MAT_TITANIUM = 10000, MAT_METAL = 20000)
 	origin_tech = "engineering=4;materials=2;syndicate=4"
 	req_access = list(ACCESS_SYNDICATE)
-	usesound = 'sound/items/deconstruct.ogg'
 	/// The max amount of matter that can be stored.
-	max_matter = RCD_MATTER_100
 	/// If the RCD can deconstruct reinforced walls.
 	canRwall = TRUE
 	/// Is the RCD's airlock access selection menu locked?
-	locked = TRUE
 	/// The current airlock type that will be build.
 	door_type = /obj/machinery/door/airlock/syndicate/public
 	/// An associative list of airlock type paths as keys, and their names as values.
@@ -28,9 +22,7 @@
 	region_min = REGION_TAIPAN
 	region_max = REGION_TAIPAN
 
-	fulltile_window = TRUE
 	window_type = /obj/structure/window/plastitanium
-	floor_type = /turf/simulated/floor/plating
 	wall_type = /turf/simulated/wall/mineral/plastitanium
 	matter_type = /obj/item/rcd_ammo/syndicate
 	matter_type_large = /obj/item/rcd_ammo/syndicate/large
@@ -136,8 +128,6 @@
 
 /obj/item/rcd_ammo/syndicate
 	name = "suspicious matter cartridge"
-	desc = "Highly compressed matter for the RCD."
-	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "syndie_rcd"
 	item_state = "syndie_rcdammo"
 	origin_tech = "materials=3,syndicate=2"

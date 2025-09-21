@@ -1,10 +1,7 @@
 /obj/machinery/atmospherics/air_sensor
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
-	resistance_flags = FIRE_PROOF
 	name = "gas sensor"
 
-	anchored = TRUE
 	multitool_menu_type = /datum/multitool_menu/idtag/freq/air_sensor
 	frequency = ATMOS_TANKS_FREQ
 	on = TRUE
@@ -123,7 +120,6 @@
 	return ..()
 
 /obj/machinery/computer/general_air_control
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/air_management
@@ -472,7 +468,6 @@
 	src.updateUsrDialog()
 
 /obj/machinery/computer/general_air_control/fuel_injection
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "atmos"
 	circuit = /obj/item/circuitboard/injector_control
 

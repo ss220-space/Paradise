@@ -102,7 +102,6 @@
 /mob/living/simple_animal/pet/cat/fat/Iriska
 	name = "Iriska"
 	desc = "Упитана. Счастлива. Бюрократы её обожают. И похоже даже черезчур сильно."
-	gender = FEMALE
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
@@ -120,7 +119,6 @@
 	name = "Penny"
 	desc = "Любит таскать монетки и мелкие предметы. Успевайте прятать их!"
 	gender = FEMALE
-	icon_state = "penny"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	resting = TRUE
@@ -140,7 +138,6 @@
 /mob/living/simple_animal/pet/cat/birman/Crusher
 	name = "Crusher"
 	desc = "Любит крушить всё, что не прикручено. Нужно вовремя прибираться."
-	icon_state = "crusher"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	resting = TRUE
@@ -202,10 +199,8 @@
 	icon_dead = "library_owl_dead"
 	icon_resting = "library_owl_rest"
 	response_help  = "гладит"
-	response_disarm = "толкает"
 	response_harm   = "пинает"
 	speak = list("Уух-Ууууф.","Хууу, Хуууу.", "Ху-хууух!")
-	gender = MALE
 	speak_emote = list("угукает", "ухает")
 	emote_hear = list("угукает!", "ухает!", "размахивает своими крыльями!")
 	emote_see = list("встряхивает свои перья.", "машет крылышками.", "дрожит.")
@@ -221,9 +216,7 @@
 	speak_chance = 1
 	turns_per_move = 10
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
-	mob_size = MOB_SIZE_SMALL
 	unique_pet = TRUE
-	gold_core_spawnable = NO_SPAWN
 	death_sound = 'sound/creatures/owl_death.ogg'
 	talk_sound = list('sound/creatures/owl_talk.ogg')
 	footstep_type = FOOTSTEP_MOB_CLAW

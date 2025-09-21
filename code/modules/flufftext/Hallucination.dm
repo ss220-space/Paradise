@@ -154,8 +154,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	return ..()
 
 /obj/effect/hallucination/simple/xeno
-	image_icon = 'icons/mob/alien.dmi'
-	image_state = "alienh_pounce"
 
 /obj/effect/hallucination/simple/xeno/New(loc, mob/living/carbon/T)
 	..()
@@ -611,9 +609,6 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	icon_state = null
 	name = ""
 	desc = ""
-	density = FALSE
-	anchored = TRUE
-	opacity = FALSE
 	var/mob/living/carbon/human/my_target = null
 	var/weapon_name = null
 	var/obj/item/weap = null

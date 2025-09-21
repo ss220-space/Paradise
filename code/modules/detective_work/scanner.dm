@@ -7,7 +7,6 @@
 	desc = "Анализатор, способный выдать отчет по человеку, исходя из имени, ДНК или отпечатков пальцев."
 	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "detscanner"
-	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "electronic"
 	flags = CONDUCT
 	item_flags = NOBLUDGEON

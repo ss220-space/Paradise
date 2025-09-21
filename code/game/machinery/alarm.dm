@@ -65,7 +65,6 @@
 	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = ENVIRON
@@ -1150,7 +1149,6 @@ Just an object used in constructing air alarms
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 //for oldstation
