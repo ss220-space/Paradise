@@ -18,12 +18,17 @@
 
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
-	/// Won't change it's size even with items inside
+	/// Won't change it's size even with items inside if TRUE
 	var/storable = FALSE
+	/// Size after putting smth in
+	var/expanded_size = WEIGHT_CLASS_BULKY
+	/// Size when there's no contents
+	var/folded_size = WEIGHT_CLASS_NORMAL
+
 
 /obj/item/storage/belt/examine(mob/user)
 	. = ..()
-	if(storable || initial(w_class) == WEIGHT_CLASS_BULKY)
+	if(storable || initial(w_class) == expanded_size)
 		. += span_notice("Размер останется <b>неизменным</b> вне зависимости от содержимого.")
 	else if(length(contents))
 		. += span_notice("<b>Уменьшится</b> в размере после извлечения содержимого.")
@@ -31,12 +36,12 @@
 		. += span_notice("<b>Увеличится</b> в размере при наличии содержимого.")
 
 /obj/item/storage/belt/proc/update_weight()
-	if(initial(w_class) == WEIGHT_CLASS_BULKY) // so initially BULKY belts won't become NORMAL when they get empty
+	if(initial(w_class) == expanded_size) // so initially BULKY belts won't become NORMAL when they get empty
 		return
 	if(!length(contents) || storable)
-		w_class = WEIGHT_CLASS_NORMAL
+		w_class = folded_size
 		return
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = expanded_size
 
 /obj/item/storage/belt/remove_from_storage(obj/item/I, atom/new_location)
 	. = ..()
@@ -142,7 +147,7 @@
 	update_icon()
 
 /obj/item/storage/belt/utility
-	name = "tool-belt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
+	name = "tool-belt" // Utility belt is nicer, but it bamboozles the text parsing.
 	desc = "Can hold various tools."
 	icon_state = "utilitybelt"
 	item_state = "utility"
@@ -640,7 +645,7 @@
 	icon_state = "janibelt"
 	item_state = "janibelt"
 	storage_slots = 6
-	max_w_class = WEIGHT_CLASS_BULKY // Set to this so the  light replacer can fit.
+	max_w_class = WEIGHT_CLASS_BULKY // So the light replacer can fit.
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/grenade/chem_grenade/cleaner,
@@ -861,7 +866,7 @@
 	item_state = "sheath"
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_BULKY // So the rapier will fit
 	can_hold = list(/obj/item/melee/rapier/captain)
 
 /obj/item/storage/belt/rapier/populate_contents()
@@ -1059,7 +1064,6 @@
 	new /obj/item/wrench(src)
 	new /obj/item/multitool(src)
 	new /obj/item/stack/cable_coil(src)
-
 	new /obj/item/analyzer(src)
 	new /obj/item/healthanalyzer(src)
 
