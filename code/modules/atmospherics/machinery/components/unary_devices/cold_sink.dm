@@ -2,12 +2,10 @@
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/cold_sink.dmi'
 	icon_state = "on_cool"
 	density = TRUE
-	use_power = IDLE_POWER_USE
 
 	name = "cold sink"
 	desc = "Cools gas when connected to pipe network"
 
-	on = FALSE
 
 	var/current_temperature = T20C
 	var/current_heat_capacity = 50000 //totally random

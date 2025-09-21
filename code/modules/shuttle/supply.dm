@@ -434,7 +434,7 @@
 
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
-	desc = "Компьютер, используемый для оформления заказов на поставку. Предназначен для общего пользования."
+	desc = "Используется для оформления заказов. Предназначено для общего пользования."
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "request"
 	circuit = /obj/item/circuitboard/ordercomp

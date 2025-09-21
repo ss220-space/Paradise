@@ -13,11 +13,7 @@
 /obj/effect/particle_effect/fluid/foam
 	name = "foam"
 	icon_state = "foam"
-	opacity = FALSE
-	anchored = TRUE
-	density = FALSE
 	layer = EDGED_TURF_LAYER
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	animate_movement = NO_STEPS
 	/// The types of turfs that this foam cannot spread to.
 	var/static/list/blacklisted_turfs = typecacheof(list(
@@ -237,7 +233,6 @@
 	lifetime = 20 //doesn't last as long as normal foam
 	result_type = /obj/effect/decal/cleanable/glass/plasma
 	allow_duplicate_results = FALSE
-	slippery_foam = TRUE
 	/// The amount of plasma gas this foam has absorbed. To be deposited when the foam dissipates.
 	var/absorbed_plasma = 0
 

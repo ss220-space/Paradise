@@ -247,7 +247,6 @@
 /datum/cargo_quest/thing/miner
 	quest_type_name = "Добыча с Лазиса"
 	bounty_jobs = list(JOB_TITLE_MINER)
-	linked_departament = "Cargo"
 
 	easy_items = list(
 		/obj/item/crusher_trophy/legion_skull = 60,
@@ -282,7 +281,6 @@
 /datum/cargo_quest/thing/minerals
 	quest_type_name = "Минералы"
 	bounty_jobs = list(JOB_TITLE_MINER)
-	linked_departament = "Cargo"
 
 	var/list/required_minerals = list()
 	unique_things = FALSE
@@ -740,7 +738,6 @@
 	var/list/required_mobs = list()
 	var/list/capsules
 	bounty_jobs = list(JOB_TITLE_MINER)
-	linked_departament = "Cargo"
 
 	normal_items = list(
 		/mob/living/simple_animal/hostile/asteroid/goliath/beast = 180,

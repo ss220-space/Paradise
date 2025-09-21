@@ -4,22 +4,12 @@
 /mob/living/silicon/robot/syndicate/saboteur/ninja
 	base_icon = "ninja"
 	icon_state = "ninja"
-	lawupdate = 0
-	scrambledcodes = 1
-	has_camera = FALSE
-	pdahide = 1
 	faction = list(ROLE_NINJA)
-	bubble_icon = "syndibot"
 	designation = "Spider Clan"
 	modtype = /obj/item/robot_module/ninja
 	req_access = list(ACCESS_SYNDICATE)
-	ionpulse = 1
-	damage_protection = 5
 	brute_mod = 0.7 //30% less damage
 	burn_mod = 0.7
-	can_lock_cover = TRUE
-	lawchannel = "State"
-	drain_act_protected = TRUE
 	playstyle_string = null
 	has_transform_animation = FALSE
 
@@ -64,11 +54,4 @@
 	return TRUE
 
 /obj/item/ammo_casing/energy/shuriken/borg
-	projectile_type = /obj/projectile/beam/shuriken
-	muzzle_flash_color = LIGHT_COLOR_GREEN
-	select_name  = "shuriken"
 	e_cost = 50
-	fire_sound = 'sound/weapons/bulletflyby.ogg'
-	click_cooldown_override = 2
-	harmful = FALSE
-	delay = 3

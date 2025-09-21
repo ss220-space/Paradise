@@ -478,9 +478,6 @@
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
-/mob
-	var/newPlayerType = /mob/new_player
-
 /mob/verb/abandon_mob()
 	set name = "Возродиться"
 	set category = STATPANEL_OOC

@@ -47,7 +47,6 @@
 	desc = "Устройство для быстрой зарядки револьверов патронами 7.62x38 калибра."
 	materials = list(MAT_METAL = 2000)
 	ammo_type = /obj/item/ammo_casing/n762
-	max_ammo = 7
 	caliber = CALIBER_7_DOT_62X38MM
 	icon_state = "762x38-7"
 	icon_prefix = "762x38"
@@ -68,7 +67,6 @@
 	desc = "Коробка, содержащая пулевые патроны калибра 12х70."
 	icon_state = "slugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun
-	max_ammo = 7
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/ammo_box/shotgun/get_ru_names()
@@ -789,10 +787,8 @@
 /obj/item/ammo_box/foambox/sniper
 	name = "ammo box (Foam Sniper Darts)"
 	desc = "Коробка, содержащая снайперские пенные патроны."
-	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foambox_sniper"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper
-	max_ammo = 40
 
 /obj/item/ammo_box/foambox/sniper/get_ru_names()
 	return list(
@@ -970,7 +966,6 @@
 	desc = "Устройство для быстрой зарядки револьверов патронами .357 калибра."
 	materials = list(MAT_METAL = 2000)
 	ammo_type = /obj/item/ammo_casing/a357
-	max_ammo = 7
 	caliber = CALIBER_DOT_357
 	icon_state = "357-7" // DEFAULT icon, composed of prefix + "-" + max_ammo for multiple_sprites == 1 boxes
 	multiple_sprites = 1 // see: /obj/item/ammo_box/update_icon()
@@ -1078,7 +1073,6 @@
 	icon_prefix = "shotgunloader"
 	origin_tech = "combat=2"
 	caliber = CALIBER_12X70
-	max_ammo = 7
 	ammo_type = null
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -1191,10 +1185,8 @@
 /obj/item/ammo_box/speedloader/caps
 	name = "speed loader (caps)"
 	desc = "Устройство для быстрой зарядки револьверов холостыми патронами .357 калибра."
-	icon_state = "357"
 	ammo_type = /obj/item/ammo_casing/cap
 	caliber = CALIBER_CAP
-	max_ammo = 7
 	multiple_sprites = 1
 
 /obj/item/ammo_box/speedloader/caps/get_ru_names()

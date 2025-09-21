@@ -8,9 +8,7 @@
 	origin_tech = "powerstorage=1"
 	force = 5
 	throwforce = 5
-	throw_speed = 2
 	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL
 	/// How much charge the battery currently has
 	var/charge = 0
 	/// How much charge the battery can hold
@@ -363,7 +361,8 @@
 	)
 
 /obj/item/stock_parts/cell/high/plus
-	name = "power cell AA+"
+	name = "high-capacity power cell+"
+	desc = "Where did these come from?"
 	icon_state = "hcell"
 	maxcharge = 15000
 	chargerate = 2250
@@ -510,7 +509,6 @@
 	charge = 100
 	maxcharge = 300
 	materials = list()
-	rating = 1
 	grown_battery = TRUE //it has the overlays for wires
 
 /obj/item/stock_parts/cell/potato/get_ru_names()
@@ -593,7 +591,6 @@
 /obj/item/stock_parts/cell/emittergun // 11 emitter shots
 	name = "emitter gun power cell"
 	maxcharge = 2200
-	chargerate = 100
 
 /obj/item/stock_parts/cell/emittergun/get_ru_names()
 	return list(

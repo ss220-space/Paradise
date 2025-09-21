@@ -77,7 +77,6 @@
 	icon_state = "cortical-stack"
 	item_state = "vox_cortical-stack"
 	mmi_icon = 'icons/obj/species_organs/vox.dmi'
-	mmi_icon_state = "mmi_full"
 	sterile = TRUE
 
 /obj/item/organ/internal/kidneys/vox
@@ -108,7 +107,6 @@
 		PREPOSITIONAL = "лёгких вокса"
 	)
 	icon = 'icons/obj/species_organs/vox.dmi'
-	icon_state = "lungs"
 	item_state = "vox_lungs"
 
 	safe_oxygen_min = 0 //We don't breathe this

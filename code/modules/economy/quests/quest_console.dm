@@ -388,7 +388,6 @@
 	name = "Portable Quest Monitor"
 	desc = "Небольшое устройство для просмотра запросов на поставку. Портативно и удобно."
 	icon_state	= "cargo_tablet"
-	w_class		= WEIGHT_CLASS_SMALL
 	item_state	= "cargo_tablet"
 	origin_tech = "programming=2;engineering=2"
 	integrated_console = /obj/machinery/computer/supplyquest/iternal/cargo

@@ -9,12 +9,9 @@
 		INSTRUMENTAL = "Панд.Е.М.И.К 220",
 		PREPOSITIONAL = "Панд.Е.М.И.К 220"
 	)
-	density = TRUE
-	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
 	circuit = /obj/item/circuitboard/pandemic
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	resistance_flags = ACID_PROOF
 	var/temp_html = ""
