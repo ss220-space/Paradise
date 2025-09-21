@@ -128,7 +128,6 @@
 	return
 
 
-
 /// Called whenever the buff expires or is removed (qdeleted)
 /// Note that at the point this is called, it is out of the owner's status_effects list, but owner is not yet null
 /datum/status_effect/proc/on_remove()
@@ -137,6 +136,7 @@
 
 /// Called specifically whenever the status effect expires.
 /datum/status_effect/proc/on_timeout()
+	return
 
 
 /// Called instead of on_remove when a status effect
@@ -327,12 +327,16 @@
 	var/mutable_appearance/status_underlay
 
 /datum/status_effect/stacking/proc/threshold_cross_effect() //what happens when threshold is crossed
+	return
 
 /datum/status_effect/stacking/proc/stacks_consumed_effect() //runs if status is deleted due to threshold being crossed
+	return
 
 /datum/status_effect/stacking/proc/fadeout_effect() //runs if status is deleted due to being under one stack
+	return
 
 /datum/status_effect/stacking/proc/stack_decay_effect() //runs every time tick() causes stacks to decay
+	return
 
 /datum/status_effect/stacking/proc/on_threshold_cross()
 	threshold_cross_effect()
@@ -341,6 +345,7 @@
 		qdel(src)
 
 /datum/status_effect/stacking/proc/on_threshold_drop()
+	return
 
 /datum/status_effect/stacking/proc/can_have_status()
 	return owner.stat != DEAD

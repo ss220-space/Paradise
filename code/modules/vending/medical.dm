@@ -43,7 +43,9 @@
 					/obj/item/reagent_containers/glass/bottle/diphenhydramine = 4, /obj/item/reagent_containers/glass/bottle/toxin = 4,
 					/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/dropper = 4, /obj/item/reagent_containers/glass/beaker = 4,
 					/obj/item/reagent_containers/iv_bag/slime = 1)
-	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
+	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1,
+					/obj/item/reagent_containers/glass/bottle/pancuronium = 1,
+					/obj/item/reagent_containers/hypospray/autoinjector/neuromatin = 3)
 	prices = list(/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 49,
 					/obj/item/stack/medical/bruise_pack/extended = 199,
 					/obj/item/stack/medical/ointment/extended = 199,
@@ -57,6 +59,7 @@
 					/obj/item/sensor_device = 599,
 					/obj/item/reagent_containers/hypospray/autoinjector/salbutamol = 19,
 					/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 19,
+					/obj/item/reagent_containers/hypospray/autoinjector/neuromatin = 499,
 					/obj/item/reagent_containers/applicator/brute = 149,
 					/obj/item/reagent_containers/applicator/burn = 149)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)

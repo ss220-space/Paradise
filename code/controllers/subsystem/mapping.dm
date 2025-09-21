@@ -365,7 +365,12 @@ SUBSYSTEM_DEF(mapping)
 		else
 			to_chat(world, span_danger("ERROR: The map datum specified to load is invalid. Falling back to... delta probably?"))
 #else
+
+	#ifndef MULTIZ_FAST_LOAD
 	map_datum = new /datum/map/fast_load
+	#else
+	map_datum = new /datum/map/fast_load_multiz
+	#endif
 #endif
 
 	ASSERT(map_datum.map_path)

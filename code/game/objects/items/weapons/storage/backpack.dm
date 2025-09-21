@@ -466,7 +466,7 @@
 	icon_state = strap_side_straight ? "satchel-flipped" : "satchel"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.update_inv_back()
+		H.update_worn_back()
 
 
 /obj/item/storage/backpack/satchel/withwallet/populate_contents()
