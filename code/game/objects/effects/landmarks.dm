@@ -3,7 +3,6 @@
 	icon = 'icons/misc/landmarks.dmi'
 	icon_state = "standart"
 	layer = 5
-	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/landmark/New()
@@ -703,7 +702,6 @@
 // Damage tiles
 /obj/effect/landmark/tiles
 	icon = 'icons/effects/mapping_helpers.dmi'
-	icon_state = "standart"
 
 /obj/effect/landmark/tiles/damageturf
 	icon_state = "damaged"

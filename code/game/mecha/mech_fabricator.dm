@@ -11,14 +11,12 @@
 /obj/machinery/mecha_part_fabricator
 	name = "exosuit fabricator"
 	desc = "Крупное устройство, предназначенное для печати крупных роботизированных деталей. \n Сейчас в нём ничего не печатается."
-	gender = MALE
 	icon = 'icons/obj/machines/robotics.dmi'
 	icon_state = "fabricator"
 	var/icon_open = "fabricator_unscrewed"
 	var/icon_closed = "fabricator"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 5000
 	// Settings

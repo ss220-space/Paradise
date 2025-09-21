@@ -80,6 +80,12 @@
 		JOB_MIN_AGE_COMMAND = 30,
 	)
 
+	autohiss_basic_map = list(
+			"r" = list("r", "rr", "rrr"),
+			"р" = list("р", "рр", "ррр")
+		)
+	autohiss_exempt = list("Канилунц")
+
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 

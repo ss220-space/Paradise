@@ -74,7 +74,6 @@
 
 	tts_seed = "Gman_e2"
 
-	response_help = "тычет"
 	response_disarm = "подталкивает"
 	response_harm = "топчет"
 
@@ -89,7 +88,6 @@
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	status_flags = CANPUSH
 	density = FALSE
 
 	faction = list("creature")

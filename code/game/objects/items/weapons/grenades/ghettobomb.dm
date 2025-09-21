@@ -4,16 +4,9 @@
 	name = "improvised firebomb"
 	desc = "Самопальное взрывное устройство малой мощности."
 	gender = FEMALE
-	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "improvised_grenade"
-	item_state = "flashbang"
 	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
-	slot_flags = ITEM_SLOT_BELT
-	active = 0
-	det_time = 5 SECONDS
 	display_timer = 0
 	var/list/times
 
@@ -84,7 +77,6 @@
 	desc = "Used to put holes in specific areas without too much extra hole."
 	icon_state = "improvised_satchel"
 	item_state = "plastic-explosive"
-	toolspeed = 1
 	det_time = 8 SECONDS
 	var/atom/target = null
 	var/image_overlay = null

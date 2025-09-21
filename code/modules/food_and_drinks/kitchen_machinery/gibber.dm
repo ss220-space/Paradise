@@ -21,7 +21,6 @@
 	var/stealthmode = FALSE
 	var/list/victims = list()
 
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 500
 

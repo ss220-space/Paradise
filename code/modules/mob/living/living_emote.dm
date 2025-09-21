@@ -64,7 +64,6 @@
 	key = "collapse"
 	key_third_person = "collapses"
 	message = "пада%(ет,ют)% без сознания!"
-	emote_type = EMOTE_VISIBLE
 
 
 /datum/emote/living/collapse/run_emote(mob/living/user, params, type_override, intentional)
@@ -197,7 +196,6 @@
 	key_third_person = "gags"
 	message = "выворачивает."
 	message_mime = "кажется выворачивает."
-	message_postfix = " на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	muzzled_noises = list("рвотные", "громкие")
@@ -207,7 +205,6 @@
 	key = "glare"
 	key_third_person = "glares"
 	message = "свирепо смотр%(ит,ят)%."
-	message_postfix = " на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
 
@@ -229,7 +226,6 @@
 	key = "look"
 	key_third_person = "looks"
 	message = "смотр%(ит,ят)%."
-	message_postfix = " на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
 
@@ -251,7 +247,6 @@
 	key = "point"
 	key_third_person = "points"
 	message = "указыва%(ет,ют)%."
-	message_postfix = " на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	hands_use_check = TRUE
 
@@ -423,7 +418,6 @@
 /datum/emote/living/nightmare
 	key = "nightmare"
 	message = "содрога%(ет,ют)%ся во сне."
-	emote_type = EMOTE_VISIBLE
 	stat_allowed = UNCONSCIOUS
 	max_stat_allowed = UNCONSCIOUS
 	unintentional_stat_allowed = UNCONSCIOUS
@@ -441,7 +435,6 @@
 	key = "stare"
 	key_third_person = "stares"
 	message = "пял%(ит,ят)%ся."
-	message_postfix = " на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 
 

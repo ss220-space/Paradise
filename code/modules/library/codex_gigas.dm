@@ -8,7 +8,6 @@
 	name = "Codex Gigas"
 	icon_state = "demonomicon"
 	item_state = "demonomicon"
-	throw_speed = 1
 	throw_range = 10
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	author = "Силы, находящиеся за пределами вашего понимания"
@@ -48,7 +47,7 @@
 		correctness = 100
 		willpower = 100
 
-	if(human.job in list(JOB_TITLE_CHAPLAIN) || human.mind.isholy) // the librarian is both faster, and more accurate than normal crew members at research
+	if((human.job in list(JOB_TITLE_CHAPLAIN)) || human.mind.isholy) // the librarian is both faster, and more accurate than normal crew members at research
 		speed = 30 SECONDS
 		correctness = 100
 

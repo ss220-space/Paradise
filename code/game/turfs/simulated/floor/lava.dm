@@ -310,20 +310,14 @@
 			qdel(I)
 			return .|ATTACK_CHAIN_SUCCESS
 
-/turf/simulated/floor/lava/airless
-	temperature = TCMB
-
 /turf/simulated/floor/lava/lava_land_surface/plasma
 	name = "liquid plasma"
 	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma
 	desc = "Текучая масса охлаждённой жидкой плазмы. Вам определённо не стоит в этом купаться."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
 	base_icon_state = "liquidplasma"
-	icon_state = "unsmooth"
-	smooth = SMOOTH_BITMASK
 	can_be_fished_on = FALSE // ~ Sin City's cold and empty, No one`s around to judge me ~
 	light_range = 3
-	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
 	lava_damage = 2
 	/// How much fire and toxic damage we deal to human mobs stepping on us

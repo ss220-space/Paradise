@@ -1,6 +1,5 @@
 /obj/effect/spawner/lootdrop/seed_vault
 	name = "seed vault seeds"
-	lootcount = 1
 
 	loot = list(/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap = 10,
 				/obj/item/seeds/cherry/bomb = 10,
@@ -22,7 +21,6 @@
 	mob_name = "a lifebringer"
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "terrarium"
-	density = TRUE
 	roundstart = FALSE
 	death = FALSE
 	mob_species = /datum/species/diona/pod

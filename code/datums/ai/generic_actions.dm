@@ -83,7 +83,6 @@
 
 /// Use the currently held item, or unarmed, on an object in the world
 /datum/ai_behavior/use_on_object
-	required_distance = 1
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
 /datum/ai_behavior/use_on_object/setup(datum/ai_controller/controller, target_key)
@@ -109,7 +108,6 @@
 	finish_action(controller, TRUE)
 
 /datum/ai_behavior/give
-	required_distance = 1
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
 
@@ -148,7 +146,6 @@
 	finish_action(controller, TRUE)
 
 /datum/ai_behavior/consume
-	required_distance = 1
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 	action_cooldown = 2 SECONDS
 
@@ -201,7 +198,6 @@
 /// This behavior involves attacking a target.
 /datum/ai_behavior/attack
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
-	required_distance = 1
 
 /datum/ai_behavior/attack/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
@@ -237,7 +233,6 @@
 /// This behavior involves attacking a target.
 /datum/ai_behavior/follow
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
-	required_distance = 1
 
 /datum/ai_behavior/follow/perform(delta_time, datum/ai_controller/controller)
 	. = ..()

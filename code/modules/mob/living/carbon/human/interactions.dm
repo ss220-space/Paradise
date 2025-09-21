@@ -81,8 +81,3 @@
 	var/datum/browser/popup = new(usr, "interactions", "Взаимодействие", 340, 520)
 	popup.set_content(dat)
 	popup.open()
-
-
-/mob/living/carbon/human
-	var/mob/living/carbon/human/partner
-	var/mob/living/carbon/human/last_interract

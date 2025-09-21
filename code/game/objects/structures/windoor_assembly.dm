@@ -14,10 +14,7 @@
 	name = "windoor assembly"
 	icon_state = "l_windoor_assembly01"
 	desc = "A small glass and wire assembly for windoors."
-	anchored = FALSE
-	density = FALSE
 	dir = NORTH
-	max_integrity = 300
 	pass_flags_self = PASSGLASS
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	set_dir_on_move = FALSE

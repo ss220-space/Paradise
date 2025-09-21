@@ -91,7 +91,6 @@
 	icon_state = "seed-forget_me_not"
 	species = "forget_me_not"
 	plantname = "Forget-me-not Plants"
-	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_grow = "forget_me_not-grow"
 	icon_dead = "forget_me_not-dead"
 	icon_harvest = "forget_me_not-harvest"
@@ -117,10 +116,7 @@
 	endurance = 40
 	maturation = 8
 	production = 5
-	yield = 3
-	growthstages = 6
 	genes = list(/datum/plant_gene/trait/glow)
-	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	icon_grow = "moonlight-grow"
 	icon_dead = "moonlight-dead"
 	reagents_add = list("plantmatter" = 0.02, "vitamin" = 0.03, "moonlin" = 0.1)
@@ -190,9 +186,7 @@
 	desc = "It's beautiful! A certain person might beat you to death if you trample these."
 	icon_state = "sunflower"
 	damtype = "fire"
-	force = 0
 	slot_flags = ITEM_SLOT_HEAD
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
@@ -212,7 +206,6 @@
 	species = "moonflower"
 	plantname = "Moonflowers"
 	icon_grow = "moonflower-grow"
-	icon_dead = "sunflower-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/moonflower
 	mutatelist = list()
 	reagents_add = list("moonshine" = 0.2, "vitamin" = 0.02, "plantmatter" = 0.02)
@@ -237,7 +230,6 @@
 	species = "novaflower"
 	plantname = "Novaflowers"
 	icon_grow = "novaflower-grow"
-	icon_dead = "sunflower-dead"
 	product = /obj/item/grown/novaflower
 	mutatelist = list()
 	reagents_add = list("condensedcapsaicin" = 0.25, "capsaicin" = 0.3, "plantmatter" = 0)
@@ -249,9 +241,7 @@
 	desc = "These beautiful flowers have a crisp smokey scent, like a summer bonfire."
 	icon_state = "novaflower"
 	damtype = "fire"
-	force = 0
 	slot_flags = ITEM_SLOT_HEAD
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
@@ -299,12 +289,10 @@
 	lifespan = 60
 	endurance = 65
 	potency = 15
-	maturation = 6
 	production = 2
 	yield = 7
 	growthstages = 3
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	icon_grow = "shavel-grow"
 	icon_dead = "shavel-dead"
 	icon_harvest = "shavel-harvest"
@@ -411,15 +399,9 @@
 	species = "redcarnation"
 	plantname = "red carnation"
 	product = /obj/item/reagent_containers/food/snacks/grown/redcarnation
-	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "redcarnation-dead"
 	icon_harvest = "redcarnation-harvest"
 	reagents_add = list("plantmatter" = 0.05)
-	endurance = 10
-	maturation = 8
-	yield = 6
-	potency = 20
-	growthstages = 3
 	icon_grow = "redcarnation-grow"
 
 /obj/item/reagent_containers/food/snacks/grown/redcarnation
@@ -468,15 +450,9 @@
 	species = "yellowtulp"
 	plantname = "yellow tulp"
 	product = /obj/item/reagent_containers/food/snacks/grown/yellowtulp
-	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "yellowtulp-dead"
 	icon_harvest = "yellowtulp-harvest"
 	reagents_add = list("plantmatter" = 0.05)
-	endurance = 10
-	maturation = 8
-	yield = 6
-	potency = 20
-	growthstages = 3
 	icon_grow = "yellowtulp-grow"
 
 /obj/item/reagent_containers/food/snacks/grown/yellowtulp
@@ -496,15 +472,9 @@
 	species = "pinktulp"
 	plantname = "pink tulp"
 	product = /obj/item/reagent_containers/food/snacks/grown/pinktulp
-	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "pinktulp-dead"
 	icon_harvest = "pinktulp-harvest"
 	reagents_add = list("plantmatter" = 0.05)
-	endurance = 10
-	maturation = 8
-	yield = 6
-	potency = 20
-	growthstages = 3
 	icon_grow = "pinktulp-grow"
 
 /obj/item/reagent_containers/food/snacks/grown/pinktulp
@@ -553,15 +523,9 @@
 	species = "redchamomile"
 	plantname = "red chamomile"
 	product = /obj/item/reagent_containers/food/snacks/grown/redchamomile
-	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "redchamomile-dead"
 	icon_harvest = "redchamomile-harvest"
 	reagents_add = list("plantmatter" = 0.05)
-	endurance = 10
-	maturation = 8
-	yield = 6
-	potency = 20
-	growthstages = 3
 	icon_grow = "redchamomile-grow"
 
 /obj/item/reagent_containers/food/snacks/grown/redchamomile
@@ -611,15 +575,9 @@
 	species = "redrose"
 	plantname = "red rose"
 	product = /obj/item/reagent_containers/food/snacks/grown/redrose
-	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "redrose-dead"
 	icon_harvest = "redrose-harvest"
 	reagents_add = list("plantmatter" = 0.05)
-	endurance = 10
-	maturation = 8
-	yield = 6
-	potency = 20
-	growthstages = 3
 	icon_grow = "redrose-grow"
 	genes = list(/datum/plant_gene/trait/stinging)
 

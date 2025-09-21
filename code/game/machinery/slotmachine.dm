@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	return credits
 
 /datum/slotmachine_prize/proc/apply_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user, prize_credits)
-	//Do nothing by default
+	return
 
 /datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user)
 	if(!length(available_prizes))
@@ -138,8 +138,6 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	desc = "Gambling for the antisocial."
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots-off"
-	anchored = TRUE
-	density = TRUE
 	circuit = /obj/item/circuitboard/arcade/slotmachine
 	var/plays = 0
 	var/working = 0

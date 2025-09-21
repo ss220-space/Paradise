@@ -19,17 +19,11 @@
 
 /obj/item/reagent_containers/food/snacks/icecream/icecreamcone
 	name = "ice cream cone"
-	desc = "Delicious ice cream."
-	icon_state = "icecream_cone"
-	volume = 50
-	bitesize = 3
 	list_reagents = list("nutriment" = 3, "sugar" = 7, "ice" = 2)
 
 /obj/item/reagent_containers/food/snacks/icecream/icecreamcup
 	name = "chocolate ice cream cone"
-	desc = "Delicious ice cream."
 	icon_state = "icecream_cup"
-	volume = 50
 	bitesize = 6
 	list_reagents = list("nutriment" = 5, "chocolate" = 8, "ice" = 2)
 
