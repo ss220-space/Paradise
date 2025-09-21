@@ -79,10 +79,7 @@
 		layer = ABOVE_ALL_MOB_LAYER	// all should see our monstrosity
 
 /obj/item/reagent_containers/food/snacks/customizable/sandwich
-	name = "sandwich"
-	desc = "A sandwich! A timeless classic."
 	icon_state = "breadslice"
-	baseicon = "sandwichcustom"
 	basename = "sandwich"
 	snack_overlays = TRUE
 

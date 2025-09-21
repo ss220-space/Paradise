@@ -4,7 +4,6 @@
 	icon_state = "gorilla_rampage"
 	implant_state = "implant-syndicate"
 	origin_tech = "combat=5;biotech=5;syndicate=2"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	implant_data = /datum/implant_fluff/gorilla_rampage
 	uses = 1
 

@@ -70,8 +70,7 @@
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/soda,
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -106,8 +105,7 @@
 	dir = 4
 	},
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"

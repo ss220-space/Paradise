@@ -2,19 +2,15 @@
 
 /area/awaymission/challenge
 	name = "Challenge"
-	icon_state = "away"
-	report_alerts = FALSE
 
 /area/awaymission/challenge/start
 	name = "Where Am I?"
-	icon_state = "away"
 
 /area/awaymission/challenge/main
 	name = "Danger Room"
 	icon_state = "away1"
 	requires_power = FALSE
 	static_lighting = FALSE
-	base_lighting_color = COLOR_WHITE
 	base_lighting_alpha = 255
 
 /area/awaymission/challenge/end
@@ -22,19 +18,13 @@
 	icon_state = "away2"
 	requires_power = FALSE
 	static_lighting = FALSE
-	base_lighting_color = COLOR_WHITE
 	base_lighting_alpha = 255
 
 
 /obj/machinery/power/emitter/energycannon
 	name = "Energy Cannon"
-	desc = "A heavy duty industrial laser"
-	icon = 'icons/obj/engines_and_power/singularity.dmi'
-	icon_state = "emitter"
 	anchored = TRUE
-	density = TRUE
 
-	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
 

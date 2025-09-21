@@ -34,11 +34,11 @@ if __name__ == "__main__":
 
     all_types = defaultdict(list)
 
+    definition_matcher = re.compile(r'^(\/[\w][\w/]*?)(?: *\/[/*].*)?$')
     for code_filepath in dm_files:
         with open(code_filepath, encoding="UTF-8") as code:
             filename = code_filepath.split(os.path.sep)[-1]
 
-            definition_matcher = re.compile(r'^(\/[\w][\w/]*?)(?: *\/[/*].*)?$')
             for idx, line in enumerate(code):
                 if(rematch_result := re.search(definition_matcher, line)):
                     typepath = rematch_result.group(1)

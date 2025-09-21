@@ -4,7 +4,6 @@
 /obj/machinery/computer/cloning
 	name = "biomass pod console"
 	desc = "Консоль для управления капсулой клонирования."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
 	circuit = /obj/item/circuitboard/cloning

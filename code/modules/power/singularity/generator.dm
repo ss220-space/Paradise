@@ -4,7 +4,6 @@
 	desc = "An odd device which produces a Gravitational Singularity when set up."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "TheSingGen"
-	anchored = FALSE
 	density = TRUE
 	use_power = NO_POWER_USE
 	resistance_flags = FIRE_PROOF

@@ -8,10 +8,8 @@
 	desc = "Это холодильник. Он умный. Просто удивительно, да?"
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "smartfridge"
-	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	/// The maximum number of items the fridge can hold. Multiplicated by the matter bin component's rating.
@@ -498,7 +496,6 @@
 /obj/machinery/smartfridge/seeds
 	name = "Seed Storage"
 	desc = "Это холодильник, предназначенный для растений и их плодов."
-	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "seeds_off"
 	base_icon_state = "seeds"
 
@@ -549,7 +546,6 @@
 /obj/machinery/smartfridge/medbay
 	name = "Refrigerated Medicine Storage"
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 
 /obj/machinery/smartfridge/medbay/get_ru_names()
 	return list(
@@ -614,7 +610,6 @@
  * Secure, Medical variant of the [Smart Fridge][/obj/machinery/smartfridge].
  */
 /obj/machinery/smartfridge/secure/medbay
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 	req_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
 
 /obj/machinery/smartfridge/secure/medbay/Initialize(mapload)
@@ -640,7 +635,6 @@
 /obj/machinery/smartfridge/secure/chemistry
 	name = "Smart Chemical Storage"
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
-	icon_state = "smartfridge" //To fix the icon in the map editor.
 	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/machinery/smartfridge/secure/chemistry/get_ru_names()
@@ -773,7 +767,6 @@
 /obj/machinery/smartfridge/secure/chemistry/virology
 	name = "Smart Virus Storage"
 	desc = "Это холодильник, предназначенный для хранения образцов вирусов."
-	icon_state = "smartfridge"
 	req_access = list(ACCESS_VIROLOGY)
 	icon_addon = "smartfridge-viro-overlay"
 
@@ -895,8 +888,6 @@
 	desc = "Деревянная стойка, предназначенная для просушки растительных продуктов, еды и кожи."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "drying-rack_off"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
 	active_power_usage = 200
 	can_dry = TRUE
 	visible_contents = FALSE

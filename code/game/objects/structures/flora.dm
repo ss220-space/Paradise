@@ -36,7 +36,6 @@
 
 /obj/structure/flora/tree/pine/xmas
 	name = "xmas tree"
-	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_c"
 	randomize_tree = FALSE
 
@@ -58,7 +57,6 @@
 	pixel_x = 0
 
 /obj/structure/flora/tree/jungle
-	name = "tree"
 	icon_state = "tree"
 	desc = "It's seriously hampering your view of the jungle."
 	icon = 'icons/obj/flora/jungletrees.dmi'
@@ -246,13 +244,10 @@
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
 	item_flags = NO_PIXEL_RANDOM_DROP
-	anchored = FALSE
 	layer = ABOVE_MOB_LAYER
-	w_class = WEIGHT_CLASS_HUGE
 	force = 10
 	force_wielded = 10
 	throwforce = 13
-	throw_speed = 2
 	throw_range = 4
 	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished plant has been lit up
 	var/light_process = 0
@@ -389,7 +384,6 @@
 	name = "corn stalk"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "cornstalk1"
-	anchored = FALSE
 	layer = 5
 
 /obj/structure/flora/corn_stalk/alt_1
@@ -503,7 +497,6 @@
 	icon_state = "rock"
 	desc = "A pile of rocks."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	density = FALSE
 
 /obj/structure/flora/rock/jungle/Initialize(mapload)
 	. = ..()
@@ -536,10 +529,8 @@
 	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/structure/flora/rock/pile/largejungle
-	name = "rocks"
 	icon_state = "rocks"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
-	density = FALSE
 	pixel_x = -16
 	pixel_y = -16
 
@@ -554,7 +545,6 @@
 	desc = "A bush being consumed by flames. Maybe it'll rise from its ashes like a phoenix?"
 	icon = 'icons/obj/flora/hellflora.dmi'
 	icon_state = "hell_bush"
-	density = FALSE
 	light_color = "#e08300"
 	light_power = 2
 	light_range = 3
@@ -602,7 +592,6 @@
 	desc = "Some kind of orange plant that appears to be slowly burning."
 	icon = 'icons/obj/flora/hellflora.dmi'
 	light_range = 2
-	light_power = 1
 	resistance_flags = LAVA_PROOF
 
 /obj/structure/flora/ausbushes/hell/Initialize(mapload)
@@ -616,7 +605,6 @@
 	desc = "Some kind of orange fern."
 	icon = 'icons/obj/flora/hellflora.dmi'
 	light_range = 2
-	light_power = 1
 	resistance_flags = LAVA_PROOF
 
 /obj/structure/flora/ausbushes/fernybush/hell/Initialize(mapload)
