@@ -12,7 +12,7 @@
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Gnashing Teeth", ATKLOG_ALL)
 	target.apply_damage(20, BRUTE, user.zone_selected, sharp = TRUE)
 	if(target.health >= 0)
-		user.say(pick("HUAH!", "HYA!", "CHOO!", "WUO!", "KYA!", "HUH!", "HIYOH!", "CARP STRIKE!", "CARP BITE!"))
+		user.say(pick("ХУ+АХ", "ХЬЯ!", "Ч+УУ!", "ВУ+О!", "КЬЯ!", "ХА!", "ХЬЁХ!", "УД+АР К+АРПА!", "УК+УС К+АРПА!"))
 	else
-		user.say(pick("BANZAIII!", "KIYAAAA!", "OMAE WA MOU SHINDEIRU!", "YOU CAN'T SEE ME!", "MY TIME IS NOW!", "COWABUNGA!")) // COWABUNGA
+		user.say(pick("БАНЗ+АААЙ!", "КЬ+ЯЯЯ!", "ТЫ УЖЕ МЁРТВ!", "СЛАДКИХ СНОВ!", "УВИДИМСЯ НА ТОЙ СТОРОНЕ!"))
 	return MARTIAL_COMBO_DONE
