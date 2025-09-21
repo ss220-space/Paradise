@@ -577,7 +577,7 @@
 
 /mob/living/machinery_mind
 
-/mob/living/machinery_mind/Initialize()
+/mob/living/machinery_mind/Initialize(mapload)
 	. = ..()
 	var/obj/machinery/machinery = loc
 	name = machinery.name
