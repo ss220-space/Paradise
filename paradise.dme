@@ -628,6 +628,7 @@
 #include "code\datums\diseases\_MobProcs.dm"
 #include "code\datums\diseases\appendicitis.dm"
 #include "code\datums\diseases\berserker.dm"
+#include "code\datums\diseases\brain_transplant_syndrome.dm"
 #include "code\datums\diseases\critical.dm"
 #include "code\datums\diseases\ectoplasmic.dm"
 #include "code\datums\diseases\food_poisoning.dm"
