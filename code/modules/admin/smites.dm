@@ -653,9 +653,9 @@
 	.["all_smites"] = list()
 	.["all_descs"] = list()
 	for(var/name in smites_paths)
-		var/datum/smite/type = smites_paths[name]
+		var/datum/smite/smite_type = smites_paths[name]
 		.["all_smites"] += name
-		.["all_descs"] += type::desc
+		.["all_descs"] += smite_type::desc
 
 
 /datum/smite_ui/ui_data(mob/user)
