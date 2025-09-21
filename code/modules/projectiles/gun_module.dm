@@ -129,7 +129,6 @@
 	name = "handmade suppressor"
 	desc = "Сделан из банки, скотча и куска металла. Неплохо глушит звук выстрела, но может в любой момент развалиться на части."
 	icon_state = "handmade_supp_"
-	item_state = "supp"
 	overlay_state = "handmade_supp_1_o"
 	overlay_offset = list("x" = 0, "y" = 0)
 	var/variant = 1
