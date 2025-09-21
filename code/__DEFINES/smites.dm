@@ -73,4 +73,5 @@ GLOBAL_LIST_INIT(default_brainrot, list(
 	"скибиди",
 	"ыы",
 	"ахах", // We have *laugh.
+	"горе",
 ))
