@@ -1877,7 +1877,7 @@
 			if(MECHA_INT_CONTROL_LOST)
 				occupant_message(span_boldnotice("Контроллер движений восстановлен."))
 			if(MECHA_INT_SHORT_CIRCUIT)
-				span_boldnotice(span_boldnotice("Короткое замыкание устранено."))
+				occupant_message(span_boldnotice("Короткое замыкание устранено."))
 	internal_damage &= ~int_dam_flag
 	diag_hud_set_mechstat()
 
