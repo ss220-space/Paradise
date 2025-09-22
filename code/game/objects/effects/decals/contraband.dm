@@ -1,7 +1,7 @@
 // This is synced up to the poster placing animation.
 #define PLACE_SPEED 30
 
-// The poster item
+// MARK: The poster item
 
 /obj/item/poster
 	name = "rolled-up poster"
@@ -62,7 +62,7 @@
 	poster_type = /obj/structure/sign/poster/official/mr_cheng
 	icon_state = "rolled_poster"
 
-//############################## THE ACTUAL DECALS ###########################
+// MARK: Actual decals
 
 /obj/structure/sign/poster
 	name = "poster"
@@ -207,7 +207,7 @@
 	D.roll_and_drop(temp_loc, user)
 
 
-////////////////////////////////POSTER VARIATIONS////////////////////////////////
+// MARK: Poster variations
 
 /obj/structure/sign/poster/ripped
 	ruined = TRUE
@@ -231,7 +231,7 @@
 	never_random = TRUE
 	random_basetype = /obj/structure/sign/poster
 
-//contraband posters
+// MARK: Contraband posters
 /obj/structure/sign/poster/contraband
 	poster_item_name = "contraband poster"
 	poster_item_desc = "Этот постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах Нанотрейзен."
@@ -462,7 +462,92 @@
 	desc = "Вступайте в ряды Горлексских Мародёров сегодня! Увидьте галактику, убейте корпоратов, получите оплату!"
 	icon_state = "poster42"
 
-//official posters
+/obj/structure/sign/poster/contraband/armor
+	name = "Броня"
+	desc = "Постер с изображённым на нём ассистентом в какой то самодельной броне. Выглядит массивно."
+	icon_state = "poster_armor"
+
+/obj/structure/sign/poster/contraband/graytech
+	name = "Gray tech"
+	desc = "Контрафактное изделие в виде меча из сварки созданное сомнительным производителем Gray tech."
+	icon_state = "poster_graytech"
+
+/obj/structure/sign/poster/contraband/bomb
+	name = "Взрывной снаряд"
+	desc = "Конструкция самодельного взрывного снаряда созданный на основе ингредиентов , которые можно найти  на любом объекте."
+	icon_state = "poster_bomb"
+
+/obj/structure/sign/poster/contraband/bombarda
+	name = "Бомбарда"
+	desc = "Чертёж и тщательное описанмие создания самодельного гранатомёта \"Бомбарда\" и его эксплуатации. Буквы \"рд\" зачёркнуты и кто то написал над ними \"г\"."
+	icon_state = "poster_bombarda"
+
+/obj/structure/sign/poster/contraband/frag12
+	name = "FRAG12"
+	desc = "Общий план конструкции и наполнения особо опасного снаряда FRAG12.  Красным шрифтом выделена часть о ущербе что наносит этот патрон."
+	icon_state = "poster_frag12"
+
+/obj/structure/sign/poster/contraband/incammo
+	name = "Зажигательный снаряд"
+	desc = "Конструкция самодельного зажигательного снаряда созданный на основе ингредиентов , которые можно найти  на любом объекте"
+	icon_state = "poster_incammo"
+
+/obj/structure/sign/poster/contraband/overload
+	name = "Разрывная картечь"
+	desc = "Нестабильная разрывная картечь фугасный эквивалент русской рулетки Макаровым для всего отсека, в виде патрона для дробовика."
+	icon_state = "poster_overload"
+
+/obj/structure/sign/poster/contraband/handmaderevolver
+	name = "Самодельный револьвер"
+	desc = "Оружие серых ковбоев и отчаянных дуэлистов. Полная технологическая инструкция его создания и использования."
+	icon_state = "poster_revolver"
+
+/obj/structure/sign/poster/contraband/shotgun
+	name = "Самодельный дробовик"
+	desc = "Когда дело доходит до реализации лучше брать \"что-то\" по серьёзнее."
+	icon_state = "poster_shotgun"
+
+/obj/structure/sign/poster/contraband/smokebomb
+	name = "Дымовой снаряд"
+	desc = "Помощь при уходе  из паршивой ситуации."
+	icon_state = "poster_smokebomb"
+
+/obj/structure/sign/poster/contraband/buckshot
+	name = "Самодельная картечь"
+	desc = "Схема общего вида с внутренней компановкой составляющих  картечи. Всегда под рукой и всегда работает!"
+	icon_state = "poster_buckshot"
+
+/obj/structure/sign/poster/contraband/handmadeammo
+	name = "Самодельный патрон"
+	desc = "Схема описывающая метод изготовления пистолетного патрона в условиях ограниченных материалов."
+	icon_state = "poster_handmadeammo"
+
+/obj/structure/sign/poster/contraband/phosphorusammo
+	name = "Фосфорный патрон"
+	desc = "Модифицированная фосфором версия самодельного пистолетного патрона, красным  цветом  написано \"Берегите глаза!\""
+	icon_state = "poster_phosphorusammo"
+
+/obj/structure/sign/poster/contraband/flamethrower
+	name = "Огнемёт"
+	desc = "Теперь ты - поджигатель. Крайне опасное оружие для всех, включая самого поджигателя."
+	icon_state = "poster_flamethrower"
+
+/obj/structure/sign/poster/contraband/bigbrother
+	name = "Большой брат"
+	desc = "\"Свобода — это рабство\". Корпорация считает, что личная свобода ведёт к хаосу и беспорядку, а истинная свобода может быть достигнута только путём полного подчинения  корпорации."
+	icon_state = "poster_bigbrother"
+
+/obj/structure/sign/poster/contraband/slave
+	name = "Рабство"
+	desc = "Символизирует крайнюю форму тоталитаризма, стремление к полному контролю над действиями, мыслями и рабочего персонала."
+	icon_state = "poster_slave"
+
+/obj/structure/sign/poster/contraband/graytide
+	name = "Освоил грейтайд"
+	desc = "Изображение ассистента, который демонстрирует свои достижения в освоении  техники: бомбарды, станпрода, копья."
+	icon_state = "poster_graytide"
+
+//MARK: Official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
 	poster_item_desc = "Официальный постер от Нанотрейзен, призванный воспитывать покорную и послушную рабочую силу. Оснащён передовой клеевой основой для удобного крепления на любую вертикальную поверхность."
@@ -748,6 +833,13 @@
 	name = "Мистер Чанг!"
 	desc = "Ошеломляющие скидки! Лучшее качество продукции! Хорошие цены на множество товаров! Только у мистера Чанга."
 	icon_state = "poster53_legit"
+
+/obj/structure/sign/poster/official/cargotech
+	name = "Освоил"
+	desc = "Изображение каргонца, который  демонстрирует свои достижения в освоении техники: мулботов, консоли заказов, системы доставки."
+	icon_state = "poster_cargo"
+
+// MARK: Secret posters
 
 /obj/structure/sign/poster/secret
 	poster_item_name = "Secret poster"

@@ -17,7 +17,7 @@
 	var/locked = TRUE
 
 
-/obj/item/mortar_shell/proc/detonate(turf/detonate_turf)
+/obj/item/mortar_shell/proc/detonate(turf/detonate_turf, explosion_detonate = FALSE)
 	var/old_loc = loc
 	forceMove(detonate_turf)
 	var/angle = get_angle(loc, old_loc)
@@ -62,7 +62,7 @@
 	icon_state = "mortar_ammo_he"
 	item_state = "mortar_ammo_he"
 
-/obj/item/mortar_shell/he/detonate(turf/detonate_turf)
+/obj/item/mortar_shell/he/detonate(turf/detonate_turf, explosion_detonate = FALSE)
 	. = ..()
 	explosion(detonate_turf, devastation_range = 0, heavy_impact_range = 4, light_impact_range = 7, flash_range = 7)
 
@@ -72,7 +72,7 @@
 	icon_state = "mortar_ammo_frag"
 	item_state = "mortar_ammo_frag"
 
-/obj/item/mortar_shell/frag/detonate(turf/detonate_turf)
+/obj/item/mortar_shell/frag/detonate(turf/detonate_turf, explosion_detonate = FALSE)
 	AddComponent(/datum/component/pellet_cloud, magnitude = 4)
 	. = ..()
 	sleep(2)
@@ -89,7 +89,7 @@
 	var/flameshape = FLAMESHAPE_DEFAULT
 	var/fire_type = FIRE_VARIANT_TYPE_B //Armor Shredding Greenfire
 
-/obj/item/mortar_shell/incendiary/detonate(turf/detonate_turf)
+/obj/item/mortar_shell/incendiary/detonate(turf/detonate_turf, explosion_detonate = FALSE)
 	. = ..()
 	flame_radius( radius, detonate_turf, flame_level, burn_level, flameshape, null, fire_type)
 	playsound(detonate_turf, 'sound/weapons/gun_flamethrower2.ogg', 35, TRUE, 4)
@@ -101,10 +101,12 @@
 	item_state = "mortar_ammo_flr"
 	silent = TRUE
 
-/obj/item/mortar_shell/flare/detonate(turf/detonate_turf)
+/obj/item/mortar_shell/flare/detonate(turf/detonate_turf, explosion_detonate = FALSE)
 	. = ..()
 	new /obj/item/flashlight/flare/on/illumination(detonate_turf)
 	playsound(detonate_turf, 'sound/weapons/gun_flare.ogg', 50, TRUE, 4)
+	if(explosion_detonate)
+		return
 	deploy_camera(detonate_turf)
 
 /obj/item/mortar_shell/custom
@@ -127,12 +129,12 @@
 	if(warhead)
 		. += span_notice("Contains a warhead[warhead.has_camera ? " with integrated camera drone." : ""].")
 
-/obj/item/mortar_shell/custom/detonate(turf/detonate_turf)
+/obj/item/mortar_shell/custom/detonate(turf/detonate_turf, explosion_detonate = FALSE)
 	if(fuel)
 		var/fuel_amount = fuel.reagents.get_reagent_amount(fuel_type)
 		if(fuel_amount >= fuel_requirement)
 			. = ..()
-			if(warhead?.has_camera)
+			if(warhead?.has_camera && !explosion_detonate)
 				deploy_camera(detonate_turf)
 	if(warhead && locked)
 		warhead.prime()
@@ -226,6 +228,9 @@
 	if(!burning)
 		return ..()
 
+/obj/item/mortar_shell/obj_destruction(damage_flag)
+	handle_fire()
+
 /obj/item/mortar_shell/attack_hand(mob/user)
 	if(burning)
 		to_chat(user, span_danger("[src] is on fire and might explode!"))
@@ -242,9 +247,10 @@
 	return FALSE
 
 /obj/item/mortar_shell/proc/handle_fire()
-	if(!can_explode())
+	if(!can_explode() || burning || QDELETED(src))
 		return
 	visible_message(span_warning("[src] catches on fire and starts cooking off! It's gonna blow!"))
+	burning = TRUE
 	anchored = TRUE // don't want other explosions launching it elsewhere
 	var/datum/effect_system/spark_spread/sparks = new()
 	sparks.set_up(number = 10, location = loc)
@@ -252,10 +258,12 @@
 	new /obj/effect/warning/explosive(loc, 5 SECONDS)
 
 	addtimer(CALLBACK(src, PROC_REF(explode)), 5 SECONDS)
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), (src)), 5.5 SECONDS)
+	QDEL_IN(src, 5.5 SECONDS)
 
 
 /obj/item/mortar_shell/proc/explode()
+	if(!prob(50))
+		detonate(get_turf(src), explosion_detonate = FALSE)
 	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 3, light_impact_range = 5)
 
 
@@ -269,7 +277,7 @@
 
 /obj/effect/warning/Initialize(mapload, time)
 	. = ..()
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), time)
+	QDEL_IN(src, time)
 
 /obj/effect/warning/explosive
 	name = "explosive warning"
@@ -334,11 +342,11 @@
 	name = "mortar shells custom kit"
 
 /obj/structure/closet/crate/secure/mortar/custom_kit/populate_contents()
-	for(var/i = 1; i <= 6; i++)
+	for(var/i in 1 to 6)
 		new /obj/item/mortar_shell/custom(src)
-	for(var/i = 1; i <= 3; i++)
+	for(var/i in 1 to 3)
 		new /obj/item/warhead/mortar(src)
-	for(var/i = 1; i <= 3; i++)
+	for(var/i in 1 to 3)
 		new/obj/item/warhead/mortar/camera(src)
 
 	var/obj/item/paper/paper = new(src)

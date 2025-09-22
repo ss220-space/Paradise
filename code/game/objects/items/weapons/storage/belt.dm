@@ -14,7 +14,6 @@
 	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
 	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
-	actions_types = list(/datum/action/item_action/belt_fast_equip)
 
 /obj/item/storage/belt/proc/check_menu(mob/living/user)
 	if(!istype(user))

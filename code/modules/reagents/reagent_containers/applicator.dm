@@ -39,6 +39,7 @@
 
 /obj/item/reagent_containers/applicator/set_APTFT()
 	set hidden = TRUE
+	return
 
 /obj/item/reagent_containers/applicator/on_reagent_change()
 	if(!emagged)
