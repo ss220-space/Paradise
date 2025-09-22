@@ -500,7 +500,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/insert(mob/living/carbon/human/target)
 	if(!crit_fail)
-		H.add_traits(traits_added, TRAIT, UNIQUE_TRAIT_SOURCE(src))
+		target.add_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
 		target.maxHealth += given_health
 		target.health += given_health
 		target.dna.species.hazard_low_pressure = low_pressure_hazard
@@ -514,7 +514,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/remove(mob/living/carbon/human/target)
 	if(!crit_fail)
-		H.remove_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
+		target.remove_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
 		target.health -= given_health
 		target.maxHealth -= given_health
 		target.dna.species.hazard_low_pressure = initial(target.dna.species.hazard_low_pressure)
@@ -549,7 +549,7 @@
 	crit_fail = FALSE
 	var/mob/living/carbon/human/human = owner
 	if(ishuman(human))
-		human.add_traits(traits_added, TRAIT, UNIQUE_TRAIT_SOURCE(src))
+		human.add_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
 		human.maxHealth += given_health
 		human.health += given_health
 		human.dna.species.hazard_low_pressure = low_pressure_hazard
