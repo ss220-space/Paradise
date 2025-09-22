@@ -52,7 +52,7 @@
 
 /obj/item/stock_parts/cell/specter/update_overlays()
 	. = list()
-	var/charge_percent = src.percent()
+	var/charge_percent = percent()
 
 	switch(charge_percent)
 		if(1 to 25)
