@@ -196,7 +196,7 @@
 		playsound(loc, "rustle", 50, TRUE, -5)
 
 		if(istype(over_object, /atom/movable/screen/inventory/hand))
-			for(var/obj/item/part as anything in mod_parts)
+			for(var/obj/item/part as anything in get_parts())
 				if(part.loc != src)
 					balloon_alert(wearer, "сначала втяните части костюма!")
 					playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
@@ -402,13 +402,6 @@
 	if(!wearer)
 		return
 	clean_up()
-	if(active && !toggle_activate(force_deactivate = TRUE))
-		return
-	for(var/obj/item/part as anything in mod_parts)
-		if(part.loc == src)
-			continue
-		retract(null, part)
-	return ..()
 
 /obj/item/mod/control/update_icon_state()
 	if(current_disguise || isnull(chameleon_action) || active)
@@ -686,8 +679,7 @@
 	toggle_activate(wearer, force_deactivate = TRUE)
 
 /obj/item/mod/control/proc/set_mod_color(new_color)
-	var/list/all_parts = mod_parts + src
-	for(var/obj/item/part as anything in all_parts)
+	for(var/obj/item/part as anything in get_parts(TRUE))
 		part.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		part.add_atom_colour(new_color, FIXED_COLOUR_PRIORITY)
 	wearer?.regenerate_icons()

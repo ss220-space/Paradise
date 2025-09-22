@@ -66,8 +66,7 @@
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	balloon_alert(mod.wearer, "броня усилена, космос опасен")
 	actual_speed_added = max(0, min(mod.slowdown_deployed, speed_added / 5))
-	var/list/parts = mod.mod_parts + mod
-	for(var/obj/item/part as anything in parts)
+	for(var/obj/item/part as anything in mod.get_parts(TRUE))
 		part.armor = part.armor.attachArmor(armor_mod_1.armor)
 		part.slowdown -= actual_speed_added
 		part.update_equipped_item()
@@ -85,8 +84,7 @@
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	balloon_alert(mod.wearer, "броня ослаблена, космос безопасен")
-	var/list/parts = mod.mod_parts + mod
-	for(var/obj/item/part as anything in parts)
+	for(var/obj/item/part as anything in mod.get_parts(TRUE))
 		part.armor = part.armor.detachArmor(armor_mod_1.armor)
 		part.slowdown += actual_speed_added
 		part.update_equipped_item()

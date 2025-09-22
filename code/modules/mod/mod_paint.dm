@@ -30,7 +30,7 @@
 	mod.theme.set_skin(mod, skin)
 	if(make_spaceproof)
 		mod.min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-		for(var/obj/item/clothing/C in mod.mod_parts)
+		for(var/obj/item/clothing/C in mod.mod.get_parts())
 			C.min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	balloon_alert(user, "успешно перекрашено!")
 	qdel(src)

@@ -425,11 +425,10 @@
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
 	if(!traveled_tiles)
 		return
-	var/list/parts = mod.mod_parts + mod
 	var/speed_up = FALSE
 	if(traveled_tiles == max_traveled_tiles)
 		speed_up = TRUE
-	for(var/obj/item/part as anything in parts)
+	for(var/obj/item/part as anything in mod.get_parts(TRUE))
 		part.armor = part.set_armor(/datum/armor/mod_theme_mining) //TODO: ANYTHING BUT FUCKING THIS
 		if(speed_up)
 			part.slowdown += speed_added / 5
@@ -449,7 +448,6 @@
 		if(traveled_tiles >= max_traveled_tiles)
 			return
 		traveled_tiles++
-		var/list/parts = mod.mod_parts + mod
 		var/speed_up = FALSE
 		if(traveled_tiles >= max_traveled_tiles)
 			balloon_alert(mod.wearer, "вы полностью покрыты пеплом")
@@ -458,7 +456,7 @@
 			playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
 			actual_speed_added = max(0, min(mod.slowdown_deployed, speed_added / 5))
 			mod.wearer.weather_immunities |= "ash"
-		for(var/obj/item/part as anything in parts)
+		for(var/obj/item/part as anything in mod.get_parts(TRUE))
 			part.armor = part.armor.attachArmor(armor_mod_1.armor)
 			if(speed_up)
 				part.slowdown -= speed_added / 5
@@ -471,8 +469,7 @@
 		if(traveled_tiles == max_traveled_tiles)
 			speed_up = TRUE
 		traveled_tiles--
-		var/list/parts = mod.mod_parts + mod
-		for(var/obj/item/part as anything in parts)
+		for(var/obj/item/part as anything in mod.get_parts(TRUE))
 			part.armor = part.armor.detachArmor(armor_mod_1.armor)
 			if(speed_up)
 				part.slowdown += actual_speed_added

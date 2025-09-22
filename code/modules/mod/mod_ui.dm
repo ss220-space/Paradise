@@ -55,7 +55,7 @@
 	data["control"] = declent_ru(NOMINATIVE)
 	data["module_info"] = module_info
 	var/part_info = list()
-	for(var/obj/item/part as anything in mod_parts)
+	for(var/obj/item/part as anything in get_parts())
 		part_info += list(list(
 			"slot" = english_list(parse_slot_flags(part.slot_flags)),
 			"name" = part.declent_ru(NOMINATIVE),

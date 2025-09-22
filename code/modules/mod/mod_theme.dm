@@ -155,7 +155,7 @@
 			overslot.forceMove(mod.drop_location())
 	for(var/obj/item/part as anything in parts + mod)
 		part.icon = used_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
-		part.onmob_sheets = used_skin[MOD_WORN_ICON_OVERRIDE] || list(slot_bitfield_to_slot_string(part.slot_flags) = 'icons/obj/clothing/modsuit/mod_clothing.dmi')
+		part.onmob_sheets = used_skin[MOD_WORN_ICON_OVERRIDE] || list(slot_bitfield_to_slot_string(part.slot_flags) = 'icons/mob/clothing/modsuit/mod_clothing.dmi')
 		part.icon_state = "[skin]-[part.base_icon_state][mod.get_part_datum(part).sealed ? "-sealed" : ""]"
 		mod.wearer?.update_clothing(part.slot_flags)
 	mod.wearer?.refresh_obscured()

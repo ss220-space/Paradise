@@ -37,10 +37,13 @@
 		return
 
 	var/checked_slot = source.slot_flags
+	var/icon2use = part_item.onmob_sheets[slot_bitfield_to_slot_string(checked_slot)]
 	if(ismob(source.loc))
 		var/mob/as_mob = source.loc
 		checked_slot = as_mob.get_slot_by_item(source)
-	var/mutable_appearance/worn_overlay = overslotting.build_worn_icon(default_layer = -draw_target.layer + 0.1, default_icon_file = part_item.onmob_sheets[slot_bitfield_to_slot_string(checked_slot)])
+		icon2use = part_item.sprite_sheets?[as_mob?.dna?.species.name] || part_item.onmob_sheets[slot_bitfield_to_slot_string(checked_slot)]
+
+	var/mutable_appearance/worn_overlay = overslotting.build_worn_icon(default_layer = -draw_target.layer + 0.1, default_icon_file = icon2use)
 	for(var/mutable_appearance/overlay in worn_overlay.overlays)
 		overlay.layer = draw_target.layer + 0.1
 	overlays += worn_overlay
