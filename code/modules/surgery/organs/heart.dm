@@ -122,7 +122,7 @@
 		return .
 
 	playsound(user, 'sound/effects/singlebeat.ogg', 40, TRUE)
-	insert(user)
+	insert(user, ORGAN_MANIPULATION_TRANSPLANTATE)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 

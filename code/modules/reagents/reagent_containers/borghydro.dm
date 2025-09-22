@@ -85,6 +85,7 @@
 
 /obj/item/reagent_containers/borghypo/empty()
 	set hidden = TRUE
+	return
 
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)

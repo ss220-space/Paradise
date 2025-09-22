@@ -725,7 +725,7 @@
 	name = "Голографическая сигара"
 	desc = "Привезена из Солнечной системы. Помимо брутального внешнего вида, пользователи отмечают, что она повышает точность при стрельбе обеими руками одновременно."
 	item = /obj/item/clothing/mask/holo_cigar
-	cost = 10
+	cost = 20
 	race = list(SPECIES_HUMAN)
 
 /datum/uplink_item/racial/ghostface_kit
@@ -1379,14 +1379,14 @@
 	name = "Универсальный глушитель"
 	desc = "Обеспечивает повышенную скрытность, заглушая звуки выстрелов."
 	item = /obj/item/gun_module/muzzle/suppressor
-	cost = 4
+	cost = 1
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/scope_x8
 	name = "Оптический прицел х8"
 	desc = "Повышает точность при стрельбе на большие дистанции."
 	item = /obj/item/gun_module/rail/scope/x8
-	cost = 4
+	cost = 3
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
