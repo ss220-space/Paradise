@@ -21,7 +21,7 @@
 
 
 /datum/component/brainrot_braingamage/proc/on_mob_say(mob/living/carbon/human/mob, message)
-	for(var/word as anything in bad_words)
+	for(var/word in bad_words)
 		if(!findtext(message, word))
 			continue
 

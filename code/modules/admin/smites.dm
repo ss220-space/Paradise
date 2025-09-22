@@ -25,8 +25,7 @@
 
 /datum/smite/burn/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Вас охватывает пламя! Боги наказали вас за [reason]!"))
-	var/turf/simulated/turf = get_turf(target)
-	new /obj/effect/hotspot(turf)
+	flame_radius(1, get_turf(target))
 	target.adjustFireLoss(150)
 
 
@@ -178,7 +177,7 @@
 	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
 
 	var/obj/item/reagent_containers/food/snacks/cookie/empty/evilcookie = new()
-	var/datum/reagent/reagent = tgui_input_list(usr, "Выберите реагент который будет находиться в печенье.", "Выбор вещества", subtypesof(/datum/reagent))
+	var/datum/reagent/reagent = tgui_input_list(usr, "Выберите реагент который будет находиться в печенье.", "Выбор вещества", GLOB.typecache_reagent)
 	var/amount = tgui_input_number(usr, "Выберите количество вещества в печенье.", "Выбор количества", 10, 10000, 0)
 	var/id = reagent::id ? reagent::id : "mutagen"
 	evilcookie.volume = max(100, amount)
@@ -213,26 +212,17 @@
 
 /datum/smite/traitor_hunter/apply_effect(mob/living/carbon/human/target, reason) // silent
 	var/list/possible_traitors = list()
-	for(var/mob/living/player in GLOB.alive_mob_list)
-		if(!player.client || !player.mind || player.stat == DEAD || player == target)
+	for(var/mob/living/carbon/human/player in GLOB.alive_player_list)
+		if(player.mind.special_role)
 			continue
 
-		if(!ishuman(player) || player.mind.special_role)
+		if(ismindshielded(player))
 			continue
 
-		if(!(ROLE_TRAITOR in player.client.prefs.be_special) || jobban_isbanned(player, ROLE_TRAITOR) || jobban_isbanned(player, "Syndicate"))
+		if(!(ROLE_TRAITOR in player.client.prefs.be_special) || jobban_isbanned(player, ROLE_TRAITOR) || jobban_isbanned(player, ROLE_SYNDICATE))
 			continue
 
 		possible_traitors += player.mind
-
-	for(var/datum/mind/player in possible_traitors)
-		if(!player.current)
-			continue
-
-		if(!ismindshielded(player.current))
-			continue
-
-		possible_traitors -= player
 
 	if(!possible_traitors.len)
 		to_chat(usr, span_warning("Не удалось найти кандидатов на предателя - охотника."), confidential = TRUE)
@@ -259,7 +249,7 @@
 
 /datum/smite/transform/apply_effect(mob/living/target, reason)
 	var/turf/turf = get_turf(target)
-	var/mob/living/type = tgui_input_list(usr, "Выберите в кого превратить жертву.", "Выбор новой формы", subtypesof(/mob/living))
+	var/mob/living/type = tgui_input_list(usr, "Выберите в кого превратить жертву.", "Выбор новой формы", GLOB.typecache_living)
 	if(!type)
 		type = /mob/living/simple_animal/pig
 
@@ -277,7 +267,7 @@
 
 
 /datum/smite/antidrop_equip/apply_effect(mob/living/carbon/human/target, reason)
-	var/type = tgui_input_list(usr, "Выберите какую одежду надеть на цель.", "Выбор одежды", subtypesof(/obj/item/clothing))
+	var/type = tgui_input_list(usr, "Выберите какую одежду надеть на цель.", "Выбор одежды", GLOB.typecache_clothing)
 	var/obj/item/clothing/clothing = new type(target.loc)
 	var/slot = clothing.slot_flags
 	var/obj/item/item = target.get_item_by_slot(slot)
@@ -328,7 +318,7 @@
 
 /datum/smite/summon/apply_effect(mob/living/target, reason)
 	var/turf/turf = get_turf(target)
-	var/mob/living/type = tgui_input_list(usr, "Выберите кого натравить на жертву.", "Выбор призываемого существа", subtypesof(/mob/living/simple_animal/hostile))
+	var/mob/living/type = tgui_input_list(usr, "Выберите кого натравить на жертву.", "Выбор призываемого существа", GLOB.typecache_hostile)
 	if(!type)
 		type = /mob/living/simple_animal/hostile/shitcur_goblin
 
@@ -405,7 +395,7 @@
 
 
 /datum/smite/virus/activate(mob/living/target, reason)
-	var/type = tgui_input_list(usr, "Выберите вирус.", "Выбор вируса", subtypesof(/datum/disease/virus), /datum/disease/virus/nuclefication)
+	var/type = tgui_input_list(usr, "Выберите вирус.", "Выбор вируса", GLOB.typecache_virus, /datum/disease/virus/nuclefication)
 	var/cant_spread = tgui_alert(
 		usr,
 		"Сделать ли вирус незаразным?",
@@ -491,7 +481,7 @@
 
 /datum/smite/brainrot_braingamage/proc/list_to_string(list/bad_words)
 	var/result = ""
-	for(var/word as anything in bad_words)
+	for(var/word in bad_words)
 		result += (result ? "," : "") + word
 
 	return result
@@ -509,7 +499,7 @@
 
 
 /datum/smite/piano/apply_effect(mob/living/target, reason)
-	var/type = tgui_input_list(usr, "Выберите что именно упадёт на грешника.", "Выбор падающей стуктуры", subtypesof(/obj/machinery/vending) + list(/obj/structure/pianoclassic) + list(/obj/structure/piano))
+	var/type = tgui_input_list(usr, "Выберите что именно упадёт на грешника.", "Выбор падающей стуктуры", GLOB.typecache_vending + list(/obj/structure/pianoclassic) + list(/obj/structure/piano))
 	var/turf/target_turf = get_turf(target)
 	var/obj/fallen = new type(target_turf)
 	target_turf.zImpact(fallen, 1)
@@ -562,7 +552,7 @@
 
 
 /datum/smite/machinery/apply_effect(mob/living/target, reason)
-	var/type = tgui_input_list(usr, "Выберите в какую машинерию превратится грешник.", "Выбор новой формы", subtypesof(/obj/machinery))
+	var/type = tgui_input_list(usr, "Выберите в какую машинерию превратится грешник.", "Выбор новой формы", GLOB.typecache_machinery)
 	var/obj/machinery/new_form = new type(get_turf(target))
 	to_chat(target, span_userdanger( \
 		"Ваши конечности немеют... По телу распространяется металлический холод... Это смерть? \
