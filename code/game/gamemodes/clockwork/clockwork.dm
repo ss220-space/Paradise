@@ -52,7 +52,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		restricted_jobs += protected_jobs
 
 	max_clockers_to_start += floor((num_players() - required_players) / RATVAR_PLAYER_PER_CULTIST)
+	log_game("Debug: current max clockers - [max_clockers_to_start]")
 	var/list/clockers_possible = get_players_for_role(ROLE_CLOCKER)
+	log_game("Debug: current possible clockworks - [length(clockers_possible)]")
 	for(var/clockers_number in 1 to max_clockers_to_start)
 		if(!length(clockers_possible))
 			break
