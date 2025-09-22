@@ -120,7 +120,7 @@
 /mob/living/carbon/proc/get_held_overlays()
 	var/list/hands = list()
 	for(var/obj/item/item in list(l_hand, r_hand))
-		update_item_on_hud(item, item == r_hand ? ui_rhand : ui_lhand, togleable_inventory = TRUE)
+		update_item_on_hud(item, item == r_hand ? ui_rhand : ui_lhand)
 		var/icon_file
 		var/override_icon_state
 		var/species_name = dna && item.sprite_sheets_inhand?[dna.species.name] ? dna.species.name : null

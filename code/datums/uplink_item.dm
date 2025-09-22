@@ -799,10 +799,10 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/smg
-	name = "Пистолет-пулемёт \"C-20r\""
+	name = "Пистолет-пулемёт \"C-20rm\""
 	desc = "Полностью заряженный пистолет-пулемёт, оснащённый магазином на 20 патронов .45 калибра. \
-			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 2 патрона. Совместим с глушителем."
-	item = /obj/item/gun/projectile/automatic/c20r
+			Имеет только автоматический режим огня. Совместим с глушителем."
+	item = /obj/item/gun/projectile/automatic/c20r/auto
 	cost = 70
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
@@ -2028,6 +2028,8 @@
 	desc = "Инъектор с запрещённым стимулятором. После его применения гуманоид становится невосприимчивым к оглушению и значительно повышает свои способности к восстановлению."
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 28
+	surplus = 0
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /**

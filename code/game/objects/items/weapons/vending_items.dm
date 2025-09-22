@@ -1,11 +1,10 @@
 /obj/item/vending_refill
 	name = "resupply canister"
-	var/machine_name = "Generic"
-
+	desc = "Контейнер, предназначенный для пополнения ассортимента торгового автомата."
+	gender = MALE
 	icon = 'icons/obj/vending_restock.dmi'
 	icon_state = "refill_snack"
 	item_state = "restock_unit"
-	desc = "A vending machine restock cart."
 	usesound = 'sound/items/deconstruct.ogg'
 	flags = CONDUCT
 	force = 7
@@ -13,29 +12,51 @@
 	throw_speed = 1
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
+	var/machine_name = "Шаблонное название"
 
 	// Built automatically from the corresponding vending machine.
 	// If null, considered to be full. Otherwise, is list(/typepath = amount).
 	var/list/products
+	var/list/product_categories
 	var/list/contraband
 	var/list/premium
+
+/obj/item/vending_refill/get_ru_names()
+	return list(
+		NOMINATIVE = "набор пополнения",
+		GENITIVE = "набора пополнения",
+		DATIVE = "набору пополнения",
+		ACCUSATIVE = "набор пополнения",
+		INSTRUMENTAL = "набором пополнения",
+		PREPOSITIONAL = "наборе пополнения"
+	)
+
 
 /obj/item/vending_refill/Initialize(mapload)
 	. = ..()
 	name = "[machine_name] restocking unit"
+	ru_names = new /list(6)
+	ru_names = list(
+		NOMINATIVE = "набор пополнения \"[machine_name]\"",
+		GENITIVE = "набора пополнения \"[machine_name]\"",
+		DATIVE = "набору пополнения \"[machine_name]\"",
+		ACCUSATIVE = "набор пополнения \"[machine_name]\"",
+		INSTRUMENTAL = "набором пополнения \"[machine_name]\"",
+		PREPOSITIONAL = "наборе пополнения \"[machine_name]\""
+	)
 
 /obj/item/vending_refill/examine(mob/user)
 	. = ..()
 	var/num = get_part_rating()
 	if(num == INFINITY)
-		. += "<span class='notice'>It's sealed tight, completely full of supplies.</span>"
+		. += span_notice("Полностью заполнен товарами.")
 	else if(num == 0)
-		. += "<span class='notice'>It's empty!</span>"
+		. += span_notice("Пустой.")
 	else
-		. += "<span class='notice'>It can restock [num] item\s.</span>"
+		. += span_notice("Может пополнить <b>[num]</b> товар[declension_ru(num, "", "а", "ов")].")
 
 /obj/item/vending_refill/get_part_rating()
-	if(!products || !contraband || !premium)
+	if(!products || !product_categories || !contraband || !premium)
 		return INFINITY
 	. = 0
 	for(var/key in products)
@@ -44,6 +65,12 @@
 		. += contraband[key]
 	for(var/key in premium)
 		. += premium[key]
+	for(var/list/category as anything in product_categories)
+		var/list/products = category["products"]
+		for(var/product_key in products)
+			. += products[product_key]
+
+	return .
 
 //NOTE I decided to go for about 1/3 of a machine's capacity
 
