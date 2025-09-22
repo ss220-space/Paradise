@@ -252,7 +252,7 @@ SUBSYSTEM_DEF(ticker)
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes
 	if(!can_continue)
-		stack_trace("Current gamemode - [mode], error setting up. Can continue set to [can_continue]")
+		log_game("Current gamemode - [mode], error setting up. \"Can continue\" set to [can_continue]")
 		QDEL_NULL(mode)
 		to_chat(world, "<b>Error setting up [GLOB.master_mode].</b> Reverting to pre-game lobby.")
 		change_state(GAME_STATE_PREGAME)

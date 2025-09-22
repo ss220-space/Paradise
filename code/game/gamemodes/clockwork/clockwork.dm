@@ -61,6 +61,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		clockwork_cult += clocker
 		clocker.restricted_roles = restricted_jobs
 		clocker.special_role = SPECIAL_ROLE_CLOCKER
+	log_game("Debug: current clockworks - [length(clockwork_cult)]")
 	return (length(clockwork_cult) > 0)
 
 /datum/game_mode/clockwork/post_setup()
