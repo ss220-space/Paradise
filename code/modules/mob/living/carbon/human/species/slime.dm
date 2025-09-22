@@ -119,9 +119,10 @@ GLOBAL_LIST_EMPTY(slime_actions)
 /datum/species/slime/proc/blend(mob/living/carbon/human/slime)
 	SIGNAL_HANDLER
 	var/new_color = BlendRGB(slime.skin_colour, "#acacac", 0.5) // Blends this to make it work better
-	if(slime.blood_color != new_color) // Put here, so if it's a roundstart, dyed, or CMA'd slime, their blood changes to match skin
-		slime.blood_color = new_color
-		slime.dna.species.blood_color = slime.blood_color
+	if(slime.blood_color == new_color)  // Put here, so if it's a roundstart, dyed, or CMA'd slime, their blood changes to match skin
+		return
+	slime.blood_color = new_color
+	slime.dna.species.blood_color = slime.blood_color
 
 /datum/species/slime/handle_life(mob/living/carbon/human/slime)
 	// Slowly shifting to the color of the reagents
@@ -294,7 +295,7 @@ GLOBAL_LIST_EMPTY(slime_actions)
 	icon_state = "slime_change"
 
 /datum/slime_action/set_color/activate(mob/living/carbon/human/slime)
-	if(slime.dna.species.bodyflags & !HAS_SKIN_COLOR)
+	if(!(slime.dna.species.bodyflags & HAS_SKIN_COLOR))
 		return
 
 	var/new_color = tgui_input_color(slime, "Выберите новый цвет геля.", "Цвет геля.", slime.skin_colour)
@@ -304,10 +305,13 @@ GLOBAL_LIST_EMPTY(slime_actions)
 		return
 
 	slime.change_skin_color(new_color)
-	if(slime.blood_color != new_color)
-		slime.balloon_alert(slime, "цвет изменён")
-		slime.blood_color = new_color
-		slime.dna.species.blood_color = slime.blood_color
+	if(slime.blood_color == new_color)
+		slime.update_body()
+		return
+
+	slime.balloon_alert(slime, "цвет изменён")
+	slime.blood_color = new_color
+	slime.dna.species.blood_color = slime.blood_color
 	slime.update_body()
 
 /datum/slime_action/set_hair
