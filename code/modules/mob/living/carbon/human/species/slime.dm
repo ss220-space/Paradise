@@ -10,11 +10,7 @@
 #define SLIMEPERSON_CHANGEGENDERDELAY (15 SECONDS)
 #define SLIMEPERSON_REGROWTHDELAY (45 SECONDS)
 
-#define SLIMEPERSON_ACTION_CHANGE_COLOR "Изменить цвет геля"
-#define SLIMEPERSON_ACTION_CHANGE_GENDER "Изменить пол"
-#define SLIMEPERSON_ACTION_CHANGE_HAIR "Изменить причёску"
-#define SLIMEPERSON_ACTION_CHANGE_BEARD "Изменить бороду"
-#define SLIMEPERSON_ACTION_REGROW "Восстановить конечность"
+GLOBAL_LIST_EMPTY(slime_actions)
 
 /datum/species/slime
 	name = SPECIES_SLIMEPERSON
@@ -132,7 +128,7 @@
 	if(slime.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
 		var/blood_amount = slime.blood_volume
 		var/r_color = mix_color_from_reagents(slime.reagents.reagent_list)
-		var/new_body_color = BlendRGB(r_color, slime.skin_colour, (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(slime.reagents.total_volume)))
+		var/new_body_color = BlendRGB(r_color, slime.skin_colour, (blood_amount * SLIMEPERSON_BLOOD_SCALING_FACTOR) / ((blood_amount * SLIMEPERSON_BLOOD_SCALING_FACTOR) + slime.reagents.total_volume))
 		slime.skin_colour = new_body_color
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in slime.bodyparts_by_name)
@@ -158,88 +154,38 @@
 	button_icon_state = "slime_change"
 
 /datum/action/innate/slime_people_action/Activate()
-	var/static/list/slime_people_actions = list(
-		SLIMEPERSON_ACTION_CHANGE_COLOR = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "slime_change"),
-		SLIMEPERSON_ACTION_CHANGE_GENDER = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "slime_gender_change"),
-		SLIMEPERSON_ACTION_CHANGE_HAIR = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "slime_hair"),
-		SLIMEPERSON_ACTION_CHANGE_BEARD = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "slime_beard"),
-		SLIMEPERSON_ACTION_REGROW = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "slime_renew"),
-	)
-	var/choice = show_radial_menu(owner, owner, slime_people_actions, src, radius = 40)
+	if(!ishuman(owner))
+		return FALSE
+
+	var/mob/living/carbon/human/slime = owner
+	var/list/action_images = list()
+
+	for(var/action_name in GLOB.slime_actions)
+		var/datum/slime_action/action = GLOB.slime_actions[action_name]
+		action_images[action_name] = image(icon = action.icon, icon_state = action.icon_state)
+
+	var/choice = show_radial_menu(slime, slime, action_images, src, radius = 40)
 	if(!choice)
 		return FALSE
-	switch(choice)
-		if(SLIMEPERSON_ACTION_REGROW)
-			regrow()
-		if(SLIMEPERSON_ACTION_CHANGE_BEARD)
-			change_beard()
-		if(SLIMEPERSON_ACTION_CHANGE_HAIR)
-			change_hair()
-		if(SLIMEPERSON_ACTION_CHANGE_COLOR)
-			set_color()
-		if(SLIMEPERSON_ACTION_CHANGE_GENDER)
-			change_gender()
 
-/datum/action/innate/slime_people_action/proc/set_color()
-	var/mob/living/carbon/human/slime = owner
-	if(slime.dna.species.bodyflags & HAS_SKIN_COLOR)
-		var/new_color = tgui_input_color(slime, "Выберите новый цвет геля.", "Цвет геля.", slime.skin_colour)
-		slime.change_skin_color(new_color)
-		if(slime.blood_color != new_color)
-			slime.balloon_alert(slime, "цвет изменён")
-			slime.blood_color = new_color
-			slime.dna.species.blood_color = slime.blood_color
-		slime.update_body()
+	var/datum/slime_action/select_action = GLOB.slime_actions[choice]
+	select_action.activate(slime)
 
-/datum/action/innate/slime_people_action/proc/change_hair()
-	var/mob/living/carbon/human/slime = owner
-	var/list/valid_hairstyles = slime.generate_valid_hairstyles()
-	var/obj/item/organ/external/head/head_organ = slime.get_organ(BODY_ZONE_HEAD)
+// SLIMEPERSON ACTIONS
 
-	var/new_style = tgui_input_list(slime, "Пожалуйста, выберите стиль прически", "Изменить стиль", valid_hairstyles, head_organ.h_style)
-	if(!new_style)
-		return FALSE
+/datum/slime_action
+	var/name
+	var/icon = 'icons/mob/actions/actions.dmi'
+	var/icon_state
 
-	slime.visible_message(span_notice("Волосы на голове [slime] начинают шевелиться!"), span_notice("Вы концентрируетесь на своей прическе."))
-	if(!do_after(slime, SLIMEPERSON_HAIRGROWTHDELAY, slime))
-		slime.balloon_alert(slime, "концентрация потеряна")
-		to_chat(slime, span_warning("Вы теряете концентрацию."))
-		return FALSE
+/datum/slime_action/proc/activate(mob/living/carbon/human/slime)
+	return
 
-	slime.change_hair(new_style)
-	slime.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
-	slime.balloon_alert(slime, "прическа изменена")
-	slime.visible_message(span_notice("[slime] изменил свою прическу."), span_notice("Вы изменили свою прическу."))
-	playsound(slime, 'sound/effects/mob_effects/slime_bubble.ogg', 50, TRUE)
+/datum/slime_action/regrow
+	name = "Восстановить конечность"
+	icon_state = "slime_renew"
 
-/datum/action/innate/slime_people_action/proc/change_beard()
-	var/mob/living/carbon/human/slime = owner
-	var/list/valid_facial_hairstyles = slime.generate_valid_facial_hairstyles()
-	var/obj/item/organ/external/head/head_organ = slime.get_organ(BODY_ZONE_HEAD)
-
-	if(slime.gender == FEMALE)
-		to_chat(slime, span_warning("Вы не можете изменить бороду."))
-		slime.balloon_alert(slime, "пол не подходит")
-		return
-
-	var/new_style = tgui_input_list(slime, "Выберите стиль бороны", "Изменить стиль", valid_facial_hairstyles, head_organ.f_style)
-	if(!new_style)
-		return FALSE
-
-	slime.visible_message(span_notice("Волосы на лице [slime] начинают шевелиться!"), span_notice("Вы концентрируетесь на своей бороде."))
-	if(!do_after(slime, SLIMEPERSON_HAIRGROWTHDELAY, slime))
-		slime.balloon_alert(slime, "концентрация потеряна")
-		to_chat(slime, span_warning("Вы теряете концентрацию."))
-		return FALSE
-
-	slime.change_facial_hair(new_style)
-	slime.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
-	slime.balloon_alert(slime, "борода изменена")
-	slime.visible_message(span_notice("[slime] изменил свою бороду."), span_notice("Вы изменили свою бороду."))
-	playsound(slime, 'sound/effects/mob_effects/slime_bubble.ogg', 50, TRUE)
-
-/datum/action/innate/slime_people_action/proc/regrow()
-	var/mob/living/carbon/human/slime = owner
+/datum/slime_action/regrow/activate(mob/living/carbon/human/slime)
 	if(slime.nutrition < SLIMEPERSON_MINHUNGER)
 		to_chat(slime, span_warning("Вы слишком голодны для регенерации конечностей!"))
 		slime.balloon_alert(slime, "нужно поесть")
@@ -290,7 +236,7 @@
 		span_notice("[slime] замирает и концентрируется на регенерации своей [chosen_limb_ru]..."),
 		span_notice("Вы концентрируетесь на регенерции [chosen_limb_ru]... (Это займет [round(SLIMEPERSON_REGROWTHDELAY/10)] секунд.)"),
 	)
-	if(!do_after(slime, SLIMEPERSON_REGROWTHDELAY, slime, DA_IGNORE_LYING|DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(regrowth_checks), chosen_limb_zone)))
+	if(!do_after(slime, SLIMEPERSON_REGROWTHDELAY, slime, DA_IGNORE_LYING|DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(regrowth_checks), chosen_limb_zone, slime)))
 		return FALSE
 
 	var/list/limb_list = slime.dna.species.has_limbs[chosen_limb_zone]
@@ -327,8 +273,7 @@
 	slime.balloon_alert(slime, "конечность регенерировала")
 	playsound(slime, 'sound/effects/mob_effects/slime_bubble.ogg', 50, TRUE)
 
-/datum/action/innate/slime_people_action/proc/regrowth_checks(regrowth_zone)
-	var/mob/living/carbon/human/slime = owner
+/datum/slime_action/regrow/proc/regrowth_checks(regrowth_zone, mob/living/carbon/human/slime)
 	if(slime.nutrition < SLIMEPERSON_MINHUNGER)
 		to_chat(slime, span_warning("Вы слишком голодны чтобы продолжить регенерацию!"))
 		slime.balloon_alert(slime, "нужно поесть")
@@ -344,8 +289,85 @@
 		return FALSE
 	return TRUE
 
-/datum/action/innate/slime_people_action/proc/change_gender()
-	var/mob/living/carbon/human/slime = owner
+/datum/slime_action/set_color
+	name = "Изменить цвет геля"
+	icon_state = "slime_change"
+
+/datum/slime_action/set_color/activate(mob/living/carbon/human/slime)
+	if(slime.dna.species.bodyflags & !HAS_SKIN_COLOR)
+		return
+
+	var/new_color = tgui_input_color(slime, "Выберите новый цвет геля.", "Цвет геля.", slime.skin_colour)
+
+	if(!new_color)
+		slime.balloon_alert(slime, "цвет не выбран")
+		return
+
+	slime.change_skin_color(new_color)
+	if(slime.blood_color != new_color)
+		slime.balloon_alert(slime, "цвет изменён")
+		slime.blood_color = new_color
+		slime.dna.species.blood_color = slime.blood_color
+	slime.update_body()
+
+/datum/slime_action/set_hair
+	name = "Изменить причёску"
+	icon_state = "slime_hair"
+
+/datum/slime_action/set_hair/activate(mob/living/carbon/human/slime)
+	var/list/valid_hairstyles = slime.generate_valid_hairstyles()
+	var/obj/item/organ/external/head/head_organ = slime.get_organ(BODY_ZONE_HEAD)
+
+	var/new_style = tgui_input_list(slime, "Пожалуйста, выберите стиль прически", "Изменить стиль", valid_hairstyles, head_organ.h_style)
+	if(!new_style)
+		return FALSE
+
+	slime.visible_message(span_notice("Волосы на голове [slime] начинают шевелиться!"), span_notice("Вы концентрируетесь на своей прическе."))
+	if(!do_after(slime, SLIMEPERSON_HAIRGROWTHDELAY, slime))
+		slime.balloon_alert(slime, "концентрация потеряна")
+		to_chat(slime, span_warning("Вы теряете концентрацию."))
+		return FALSE
+
+	slime.change_hair(new_style)
+	slime.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
+	slime.balloon_alert(slime, "прическа изменена")
+	slime.visible_message(span_notice("[slime] изменил свою прическу."), span_notice("Вы изменили свою прическу."))
+	playsound(slime, 'sound/effects/mob_effects/slime_bubble.ogg', 50, TRUE)
+
+/datum/slime_action/set_beard
+	name = "Изменить бороду"
+	icon_state = "slime_beard"
+
+/datum/slime_action/set_beard/activate(mob/living/carbon/human/slime)
+	var/list/valid_facial_hairstyles = slime.generate_valid_facial_hairstyles()
+	var/obj/item/organ/external/head/head_organ = slime.get_organ(BODY_ZONE_HEAD)
+
+	if(slime.gender == FEMALE)
+		to_chat(slime, span_warning("Вы не можете изменить бороду."))
+		slime.balloon_alert(slime, "пол не подходит")
+		return
+
+	var/new_style = tgui_input_list(slime, "Выберите стиль бороны", "Изменить стиль", valid_facial_hairstyles, head_organ.f_style)
+	if(!new_style)
+		return FALSE
+
+	slime.visible_message(span_notice("Волосы на лице [slime] начинают шевелиться!"), span_notice("Вы концентрируетесь на своей бороде."))
+	if(!do_after(slime, SLIMEPERSON_HAIRGROWTHDELAY, slime))
+		slime.balloon_alert(slime, "концентрация потеряна")
+		to_chat(slime, span_warning("Вы теряете концентрацию."))
+		return FALSE
+
+	slime.change_facial_hair(new_style)
+	slime.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
+	slime.balloon_alert(slime, "борода изменена")
+	slime.visible_message(span_notice("[slime] изменил свою бороду."), span_notice("Вы изменили свою бороду."))
+	playsound(slime, 'sound/effects/mob_effects/slime_bubble.ogg', 50, TRUE)
+
+/datum/slime_action/set_gender
+	name = "Изменить пол"
+	icon_state = "slime_gender_change"
+
+/datum/slime_action/set_gender/activate(mob/living/carbon/human/slime)
 	var/static/list/genders = list(FEMALE, MALE)
 	var/new_gender = tgui_input_list(slime, "Выберите пол", "Изменить пол", genders, slime.gender)
 
@@ -379,10 +401,4 @@
 #undef SLIMEPERSON_HAIRGROWTHCOST
 #undef SLIMEPERSON_CHANGEGENDERCOST
 #undef SLIMEPERSON_CHANGEGENDERDELAY
-
-#undef SLIMEPERSON_ACTION_CHANGE_COLOR
-#undef SLIMEPERSON_ACTION_CHANGE_GENDER
-#undef SLIMEPERSON_ACTION_CHANGE_HAIR
-#undef SLIMEPERSON_ACTION_CHANGE_BEARD
-#undef SLIMEPERSON_ACTION_REGROW
 
