@@ -2377,12 +2377,6 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 250
 
-/datum/uplink_item/bundles_TC/surplus_crate/super
-	name = "Большой ящик снабжения Синдиката"
-	desc = "Ящик с различным снаряжением, стоимость которого составляет 625 телекристаллов. Из-за высокой цены этот набор не доступен для покупки в одиночку."
-	cost = 200
-	crate_value = 625
-
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(mob/buyer, obj/item/uplink/target_uplink)
 	var/obj/structure/closet/crate/crate = new(get_turf(buyer))
 	var/list/buyable_items = get_uplink_items(target_uplink, generate_discounts = FALSE)
