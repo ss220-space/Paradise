@@ -7,8 +7,8 @@
 	if(target == user) // no you cannot kick yourself across rooms
 		return MARTIAL_COMBO_DONE_BASIC_HIT
 	user.do_attack_animation(target, ATTACK_EFFECT_KICK)
-	target.visible_message(span_warning("[user] пина[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] прямо в торс, отправляя [pluralize_ru(target.gender, "его", "её", "их")] в полёт!"),
-				span_userdanger("[user] пинком в грудь отправляет тебя в полёт!"))
+	target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] пина[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] прямо в торс, отправляя [genderize_ru(target.gender, "его", "её", "их")] в полёт!"),
+				span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] пинком в грудь отправляет тебя в полёт!"))
 	playsound(target, 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, 7, 14, user)

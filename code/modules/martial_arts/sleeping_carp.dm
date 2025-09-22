@@ -19,8 +19,8 @@
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("бь[pluralize_ru(A.gender, "ёт", "ют")]", "пина[pluralize_ru(A.gender, "ет", "ют")]", "руб[pluralize_ru(A.gender, "ит", "ят")]", "забива[pluralize_ru(A.gender, "ет", "ют")]")
-	D.visible_message(span_danger("[A] [atk_verb] [D.declent_ru(ACCUSATIVE)]!"),
-					span_userdanger("[A] [atk_verb] тебя!"))
+	D.visible_message(span_danger("[capitalize(A.declent_ru(NOMINATIVE))] [atk_verb] [D.declent_ru(ACCUSATIVE)]!"),
+					span_userdanger("[A.declent_ru(NOMINATIVE)] [atk_verb] тебя!"))
 	D.apply_damage(rand(10, 15), BRUTE, A.zone_selected)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)

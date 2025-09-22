@@ -8,8 +8,8 @@
 		return MARTIAL_COMBO_DONE_BASIC_HIT
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("с силой пина[pluralize_ru(user.gender, "ет", "ют")]", "жестоко руб[pluralize_ru(user.gender, "ит", "ят")]", "сильно бь[pluralize_ru(user.gender, "ёт", "ют")]")
-	target.visible_message(span_danger("[user] [atk_verb] [target.declent_ru(ACCUSATIVE)]!"),
-					span_userdanger("[user] [atk_verb] тебя!"))
+	target.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] [atk_verb] [target.declent_ru(ACCUSATIVE)]!"),
+					span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] [atk_verb] тебя!"))
 	playsound(get_turf(target), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Gnashing Teeth", ATKLOG_ALL)
 	target.apply_damage(20, BRUTE, user.zone_selected, sharp = TRUE)
