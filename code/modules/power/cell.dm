@@ -48,6 +48,11 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/stock_parts/cell/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	if(isturf(old_loc))
+		return
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/magic_charge_act(mob/user)
 	. = NONE
@@ -70,7 +75,7 @@
 
 	var/old_maxcharge = maxcharge
 	maxcharge = max(maxcharge + amount, 1)
-
+	update_icon(UPDATE_OVERLAYS)
 	return maxcharge != old_maxcharge
 
 
@@ -96,7 +101,7 @@
 		. += image('icons/obj/engines_and_power/power.dmi', "grown_wires")
 	if(charge < 0.01)
 		return
-	else if(charge/maxcharge >=0.995)
+	else if(charge / maxcharge >= 0.995)
 		. += overlay_charged
 	else
 		. += "cell-o1"
@@ -109,11 +114,12 @@
 /obj/item/stock_parts/cell/use(amount)
 	if(rigged && amount > 0)
 		explode()
-		return 0
+		return FALSE
 	if(charge < amount)
-		return 0
+		forceMove()
+		return FALSE
 	charge = (charge - amount)
-	return 1
+	return TRUE
 
 // recharge the cell
 /obj/item/stock_parts/cell/proc/give(amount)
@@ -188,6 +194,7 @@
 	charge -= 1000 / severity
 	if(charge < 0)
 		charge = 0
+	update_icon(UPDATE_OVERLAYS)
 	return ..()
 
 /obj/item/stock_parts/cell/ex_act(severity, target)
