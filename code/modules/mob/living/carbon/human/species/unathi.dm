@@ -321,8 +321,8 @@ They're basically just lizards with all-around marginally better stats and fire 
 	head_organ?.ha_style = "Drake"
 	owner.change_eye_color("#A02720")
 	owner.update_dna()
-	owner.update_inv_head()
-	owner.update_inv_wear_suit() //update sprites for digi legs
+	owner.update_worn_head()
+	owner.update_worn_oversuit() //update sprites for digi legs
 	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	if(!fire)
 		fire = new
@@ -331,8 +331,8 @@ They're basically just lizards with all-around marginally better stats and fire 
 
 /datum/species/unathi/draconid/on_species_loss(mob/living/carbon/owner)
 	. = ..()
-	owner.update_inv_head()
-	owner.update_inv_wear_suit()
+	owner.update_worn_head()
+	owner.update_worn_oversuit()
 	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	fire?.Remove(owner)
 

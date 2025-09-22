@@ -17,11 +17,8 @@
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
-	switch(damage_type)
-		if(BRUTE)
-		if(BURN)
-		else
-			return 0
+	if(damage_type != BRUTE && damage_type != BURN)
+		return 0
 	var/armor_protection = 0
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
@@ -335,7 +332,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 			var/mob/living/buckled_mob = mob
 			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
-/obj/handle_flamer_fire(src, damage, delta_time)
+/obj/handle_flamer_fire(source, damage, delta_time)
 	flamer_fire_act(damage)
 
 /obj/flamer_fire_act(damage)

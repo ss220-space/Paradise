@@ -1189,7 +1189,7 @@
 			to_chat(user, span_notice("You toggle [src], its lens darkens once more."))
 
 	user.update_action_buttons_icon()
-	user.update_inv_glasses()
+	user.update_worn_glasses()
 	user.update_sight()
 
 /*
