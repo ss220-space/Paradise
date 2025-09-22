@@ -366,7 +366,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(WEIGHT_CLASS_GIGANTIC)
 			size = "гигантского"
 
-	. = ..(user, "", "Это предмет [size] размера.")
+	. = ..(user, "", "Предмет <b>[size]</b> размера.")
 
 	/// Mob has a research scanner active.
 	if(user.research_scanner || user.check_smart_brain())
@@ -375,9 +375,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(origin_tech)
 			msg += span_notice("Тестирование потенциалов:<br>")
 			var/list/techlvls = params2list(origin_tech)
-	/// This needs to use the better names.
-			for(var/T in techlvls)
-				msg += "Технология: [CallTechName(T)] | Уровень: [techlvls[T]] <br>"
+			/// This needs to use the better names.
+			for(var/tech_level in techlvls)
+				msg += "Технология: [CallTechName(tech_level)] | Уровень: [techlvls[tech_level]] <br>"
 		else
 			msg += span_danger("Технологические источники не обнаружены.<br>")
 
@@ -385,7 +385,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(length(materials))
 			msg += span_notice("Извлекаемые материалы:<br>")
 			for(var/mat in materials)
-	/// Capitize first word, remove the "$"
+				/// Capitize first word, remove the "$"
 				msg += "[CallMaterialName(mat)]<br>"
 		else
 			msg += span_danger("Пригодные материалы отсутствуют.<br>")
