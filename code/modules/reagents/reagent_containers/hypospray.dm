@@ -567,6 +567,23 @@
 		PREPOSITIONAL = "автоинъекторе (Транексамовая кислота)"
 	)
 
+/obj/item/reagent_containers/hypospray/autoinjector/neuromatin
+	name = "neuromatin autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу нейроматина. Мощный иммунодепрессант."
+	icon_state = "violetinjector"
+	amount_per_transfer_from_this = 15
+	list_reagents = list("neuromatin" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/neuromatin/get_ru_names()
+	return list(
+		NOMINATIVE = "автоинъектор (Нейроматин)",
+		GENITIVE = "автоинъектора (Нейроматин)",
+		DATIVE = "автоинъектору (Нейроматин)",
+		ACCUSATIVE = "автоинъектор (Нейроматин)",
+		INSTRUMENTAL = "автоинъектором (Нейроматин)",
+		PREPOSITIONAL = "автоинъекторе (Нейроматин)"
+	)
+
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
 	name = "stimpack autoinjector"

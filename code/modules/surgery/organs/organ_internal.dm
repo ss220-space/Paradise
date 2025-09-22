@@ -20,7 +20,7 @@
 	. = ..()
 
 	if(iscarbon(loc))
-		insert(loc)
+		insert(loc, ORGAN_MANIPULATION_INITIALIZE)
 
 
 // user = who operates on target. Optional for fail_message, can be null(silent check)
