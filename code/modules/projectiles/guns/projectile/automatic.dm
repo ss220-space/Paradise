@@ -148,7 +148,6 @@
 	recoil = GUN_RECOIL_MEDIUM
 	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 	autofire_delay = 0.25 SECONDS
-	fire_delay = 0.2 SECONDS
 
 
 /obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
