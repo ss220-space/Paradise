@@ -22,7 +22,6 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay
 	name = "Syndicate Space Medbay"
 	ambientsounds = MEDICAL_SOUNDS
-	sound_environment = SOUND_AREA_STANDARD_STATION
 	icon_state = "taipan_medbay"
 
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1

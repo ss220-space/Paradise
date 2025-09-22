@@ -339,7 +339,6 @@
 /obj/item/qm_quest_tablet/cargotech
 	name = "Portable Quest Monitor"
 	icon_state	= "cargo_tablet"
-	w_class		= WEIGHT_CLASS_SMALL
 	item_state	= "cargo_tablet"
 	origin_tech = "programming=2;engineering=2"
 	integrated_console = /obj/machinery/computer/supplyquest/iternal/cargo

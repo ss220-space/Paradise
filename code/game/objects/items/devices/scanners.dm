@@ -149,9 +149,6 @@ BODY SCANNERS
 /obj/item/t_scanner/security
 	name = "Противо-маскировочное ТГц устройство"
 	desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство уязвимо для ЭМИ излучения."
-	icon = 'icons/obj/device.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "sb_t-ray"
 	icon_state = "sb_t-ray0"
 	base_icon_state = "sb_t-ray"
@@ -278,7 +275,6 @@ BODY SCANNERS
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=200)
 	origin_tech = "magnets=1;biotech=1"
 	var/mode = 1
@@ -1066,7 +1062,6 @@ BODY SCANNERS
 /obj/item/healthanalyzer/gem_analyzer
 	name = "eye of health"
 	desc = "Необычный самоцвет в форме сердца. Позволяет пользователю ощущать раны и болезни других существ на метафизическом уровне. Магия, не иначе."
-	icon = 'icons/obj/device.dmi'
 	icon_state = "gem_analyzer"
 	item_state = "gem_analyzer"
 	origin_tech = null
@@ -1096,9 +1091,7 @@ BODY SCANNERS
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 	origin_tech = "magnets=1;engineering=1"
 	tool_behaviour = TOOL_ANALYZER
@@ -1438,9 +1431,7 @@ BODY SCANNERS
 	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
 /obj/item/slime_scanner/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

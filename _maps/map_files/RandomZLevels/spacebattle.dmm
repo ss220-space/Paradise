@@ -2668,7 +2668,6 @@
 	},
 /area/awaymission/spacebattle/medbay)
 "hH" = (
-/obj/structure/closet/toolcloset,
 /obj/structure/closet/wardrobe/engineering_yellow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3013,12 +3012,6 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "iC" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
-/obj/machinery/sleeper{
-	dir = 4
-	},
 /obj/machinery/sleeper{
 	dir = 4
 	},
@@ -4170,8 +4163,7 @@
 	},
 /obj/structure/window/full/shuttle/gray,
 /obj/structure/window/reinforced/tinted{
-	dir = 8;
-	layer = 3.1
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
@@ -4302,7 +4294,6 @@
 	},
 /area/awaymission/spacebattle/hallway3)
 "mo" = (
-/obj/structure/lattice,
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/awaymission/spacebattle/cruiser)
 "mp" = (
@@ -4804,7 +4795,6 @@
 	dir = 4;
 	simulated = 0
 	},
-/turf/space,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -4866,7 +4856,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway6)
 "nJ" = (
-/obj/structure/lattice,
 /turf/simulated/wall/shuttle,
 /area/awaymission/spacebattle/cruiser)
 "nK" = (
@@ -5718,7 +5707,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/space,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -8415,12 +8403,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/awaymission/spacebattle/hallway6)
 "xB" = (
@@ -8920,7 +8902,6 @@
 	},
 /area/awaymission/spacebattle/living)
 "yR" = (
-/obj/structure/lattice/catwalk,
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 6;
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
@@ -9072,7 +9053,6 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "zo" = (
-/obj/structure/lattice/catwalk,
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 10;
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
@@ -9301,9 +9281,6 @@
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
 /area/space/nearstation)
 "zT" = (
 /obj/structure/dresser,
@@ -9522,7 +9499,6 @@
 /obj/machinery/door/airlock/hatch,
 /obj/machinery/door/firedoor/heavy,
 /obj/structure/fans/tiny,
-/turf/space,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -10259,7 +10235,6 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/spacebattle,
 /obj/structure/window/reinforced/tinted{
 	dir = 1;
-	layer = 3.1;
 	pixel_y = 6
 	},
 /turf/simulated/floor/shuttle{
@@ -10540,7 +10515,6 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret9)
 "Dt" = (
-/obj/structure/closet/crate/secure/bin,
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = 32
 	},
@@ -10624,7 +10598,6 @@
 /obj/structure/rack/gunrack,
 /obj/structure/window/reinforced/tinted{
 	dir = 1;
-	layer = 3.1;
 	pixel_y = 6
 	},
 /turf/simulated/floor/shuttle{
@@ -10959,7 +10932,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret1)
 "Ex" = (
-/turf/space,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -11075,12 +11047,6 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -12279,7 +12245,6 @@
 	state_open = 1
 	},
 /obj/structure/window/reinforced/tinted{
-	layer = 3.1;
 	pixel_y = -7
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -12754,8 +12719,7 @@
 	},
 /obj/structure/window/full/shuttle/gray,
 /obj/structure/window/reinforced/tinted{
-	dir = 1;
-	layer = 3.1
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
@@ -14321,10 +14285,6 @@
 /area/awaymission/spacebattle/syndicate3)
 "NP" = (
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
-/obj/structure/window/plasmareinforced{
-	dir = 4;
-	simulated = 0
-	},
 /obj/structure/window/plasmareinforced{
 	dir = 4;
 	simulated = 0
@@ -17108,7 +17068,6 @@
 /obj/item/gun/energy/laser,
 /obj/structure/window/reinforced/tinted{
 	dir = 1;
-	layer = 3.1;
 	pixel_y = 6
 	},
 /turf/simulated/floor/shuttle{

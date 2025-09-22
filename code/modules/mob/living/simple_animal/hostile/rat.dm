@@ -1,19 +1,16 @@
 /mob/living/simple_animal/hostile/giant_rat
 	name = "Giant rat"
 	desc = "A big dirty fat rat with sharp teeth and claws."
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "regalrat"
 	icon_living = "regalrat"
 	icon_dead = "regalrat_dead"
 	icon_gib = "regalrat_dead"
 	faction = list("hostile", "rodent")
-	speak_chance = 0
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/rotten = 3)
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
-	stop_automated_movement_when_pulled = 0
 	maxHealth = 60
 	health = 60
 
@@ -28,7 +25,6 @@
 	attacktext = "кромсает"
 	attack_sound = 'sound/weapons/bite.ogg'
 
-	layer = MOB_LAYER
 	var/stalk_tick_delay = 3
 	gold_core_spawnable = HOSTILE_SPAWN
 

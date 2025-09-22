@@ -45,7 +45,6 @@ Difficulty: Medium
 	icon_dead = "dragon_dead"
 	friendly = "пристально смотрит"
 	speak_emote = list("рычит")
-	tts_seed = "Mannoroth"
 	armour_penetration = 40
 	melee_damage_lower = 40
 	melee_damage_upper = 40
@@ -298,7 +297,7 @@ Difficulty: Medium
 		new /obj/effect/hotspot(T)
 		T.hotspot_expose(700,50,1)
 		for(var/mob/living/L in T.contents)
-			if(L in hit_list || L == source)
+			if((L in hit_list) || L == source)
 				continue
 			hit_list += L
 			L.adjustFireLoss(20)
@@ -489,8 +488,6 @@ Difficulty: Medium
 	desc = "Истинное пламя пепельного дрейка."
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "1"
-	anchored = TRUE
-	opacity = FALSE
 	density = TRUE
 	duration = 82
 	color = COLOR_DARK_ORANGE
@@ -524,7 +521,6 @@ Difficulty: Medium
 	pixel_x = -32
 	pixel_y = -32
 	color = "#FF0000"
-	duration = 10
 
 /obj/effect/temp_visual/dragon_swoop/get_ru_names()
 	return list(
@@ -541,7 +537,6 @@ Difficulty: Medium
 	icon_state = "dragon"
 	layer = ABOVE_ALL_MOB_LAYER
 	pixel_x = -16
-	duration = 10
 	randomdir = FALSE
 
 /obj/effect/temp_visual/dragon_flight/Initialize(mapload, negative)
@@ -563,7 +558,6 @@ Difficulty: Medium
 /obj/effect/temp_visual/dragon_flight/end
 	pixel_x = DRAKE_SWOOP_HEIGHT
 	pixel_z = DRAKE_SWOOP_HEIGHT
-	duration = 10
 
 /obj/effect/temp_visual/dragon_flight/end/flight(negative)
 	if(negative)
@@ -731,7 +725,6 @@ Difficulty: Medium
 	desc = "Отбрасывайте нападающих ударом хвоста."
 	sound = 'sound/magic/tail_swing.ogg'
 	base_cooldown = 15 SECONDS
-	cooldown_min = 15 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
 	invocation_type = "none"

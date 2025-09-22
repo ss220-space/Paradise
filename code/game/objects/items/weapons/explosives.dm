@@ -9,7 +9,6 @@
 	det_time = 10 SECONDS
 	display_timer = 0
 	origin_tech = "syndicate=1"
-	toolspeed = 1
 	var/atom/target
 	var/mutable_appearance/image_overlay
 	var/obj/item/assembly_holder/nadeassembly

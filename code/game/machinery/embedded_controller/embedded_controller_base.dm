@@ -4,7 +4,6 @@
 	name = "Embedded Controller"
 	anchored = TRUE
 
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 
 	layer = BUTTONS_LAYER
@@ -48,7 +47,6 @@
 	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
 	power_channel = ENVIRON
-	density = FALSE
 
 	var/id_tag
 	//var/radio_power_use = 50 //power used to xmit signals

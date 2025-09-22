@@ -57,7 +57,6 @@
 	name = "plasma tank"
 	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
 	icon_state = "plasma"
-	flags = CONDUCT
 	slot_flags = NONE	//they have no straps!
 
 /obj/item/tank/internals/plasma/populate_gas()
@@ -136,7 +135,6 @@
 	name = "emergency oxygen tank"
 	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it."
 	icon_state = "emergency"
-	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
@@ -214,7 +212,6 @@
 	desc = "Mixed anyone?"
 	icon_state = "air"
 	item_state = "air"
-	distribute_pressure = ONE_ATMOSPHERE
 
 /obj/item/tank/internals/air/populate_gas()
 	air_contents.oxygen = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD

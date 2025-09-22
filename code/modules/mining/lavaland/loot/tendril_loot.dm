@@ -5,7 +5,6 @@
 	name = "paradox bag"
 	desc = "Каким-то образом, эта сумка существует в двух местах одновременно."
 	max_combined_w_class = 60
-	max_w_class = WEIGHT_CLASS_NORMAL
 	cant_hold = list(/obj/item/storage/backpack/shared)
 
 /obj/item/storage/backpack/shared/get_ru_names()
@@ -470,10 +469,8 @@
 	name = "hook"
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
-	pass_flags = PASSTABLE
 	damage = 25
 	armour_penetration = 100
-	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 2 SECONDS
 
@@ -588,7 +585,6 @@
 
 /obj/effect/immortality_talisman
 	icon_state = "blank"
-	icon = 'icons/effects/effects.dmi'
 	var/can_destroy = FALSE
 
 

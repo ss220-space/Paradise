@@ -316,7 +316,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/debrain //I want braaaainssss
 	name = "Debrain"
 	antag_menu_name = "Украсть мозг"
-	martyr_compatible = FALSE
 
 
 /datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
@@ -542,7 +541,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/hijack
 	name = "Hijack"
 	antag_menu_name = "Угон шаттла"
-	martyr_compatible = FALSE //Technically you won't get both anyway.
 	explanation_text = "Угоните шаттл, эвакуировавшись без лояльного Nanotrasen экипажа на борту, будучи свободным. \
 	Агенты Синдикта, другие враги Nanotrasen, борги, питомцы, и заложники в наручниках/связывающих устройствах могут быть на шаттле живыми."
 	needs_target = FALSE
@@ -563,7 +561,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	name = "Hijack (with clones)"
 	antag_menu_name = "Угон шаттла (с клонами)"
 	explanation_text = "Захватите шаттл, убедившись, что сбежите только вы (или ваши копии)."
-	martyr_compatible = FALSE
 	needs_target = FALSE
 
 
@@ -843,7 +840,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	name = "Steal Item"
 	antag_menu_name = "Украсть предмет"
 	var/datum/theft_objective/steal_target
-	martyr_compatible = FALSE
 	var/type_theft_flag = THEFT_FLAG_HIGHRISK
 
 
@@ -982,7 +978,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/steal/exchange
-	martyr_compatible = FALSE
 	needs_target = FALSE
 	antag_menu_name = "Заполучить"
 
@@ -1271,7 +1266,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return FALSE
 
 /datum/objective/heist/loot
-	needs_target = FALSE
 
 /datum/objective/heist/loot/choose_target()
 	var/loot = "объект"
@@ -1345,7 +1339,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return FALSE
 
 /datum/objective/heist/salvage
-	needs_target = FALSE
 	antag_menu_name = "Добыть материалы"
 
 /datum/objective/heist/salvage/choose_target()
@@ -1416,7 +1409,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/heist/inviolate_crew
 	antag_menu_name = "Не бросать своих"
 	explanation_text = "Не бросайте ни одного вокса, живого или мёртвого.."
-	needs_target = FALSE
 
 /datum/objective/heist/inviolate_crew/check_completion()
 	var/datum/game_mode/heist/H = SSticker.mode
@@ -1427,7 +1419,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/heist/inviolate_death
 	antag_menu_name = "Ненасилие"
 	explanation_text = "Следуйте Ненасилию. Минимизируйте смерть и потерю ресурсов."
-	needs_target = FALSE
 
 /datum/objective/heist/inviolate_death/check_completion()
 	return TRUE
@@ -1568,7 +1559,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/protect/ninja
 	name = "Ninja's Protect"
-	antag_menu_name = "Защитить"
 	var/list/killers_objectives = list()
 	var/list/killers = list()
 

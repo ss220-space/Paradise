@@ -6,11 +6,9 @@
 /obj/machinery/power/tracker
 	name = "solar tracker"
 	desc = "Устройство, управляющее углом наклона солнечных панелей в зависимости от направления солнечного света."
-	gender = MALE
 	icon = 'icons/obj/engines_and_power/solar_panels.dmi'
 	icon_state = "solar_tracker"
 	density = TRUE
-	use_power = NO_POWER_USE
 	max_integrity = 250
 	integrity_failure = 50
 

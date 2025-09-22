@@ -118,7 +118,6 @@
 /datum/action/bhop
 	name = "Activate Jump Boots"
 	desc = "Activates the jump boot's implant internal propulsion system, allowing the user to dash over 4-wide gaps."
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
 	var/jumpspeed = 3

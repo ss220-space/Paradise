@@ -3,7 +3,6 @@
 	desc = "Summons a powerful shockwave around you that tears the appendix out of enemies, and occasionally removes their limbs."
 	base_cooldown = 50 SECONDS
 	cooldown_min = 20 SECONDS
-	clothes_req = TRUE
 	invocation = "APPEN NATH!"
 	invocation_type = "shout"
 	action_icon_state = "lungpunch"

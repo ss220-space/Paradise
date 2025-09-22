@@ -22,12 +22,10 @@
 	throwforce = 20
 	block_chance = 50
 	armour_penetration = 50
-	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "порезал", "уколол", "полоснул", "рубанул", "пронзил")
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	sharp = TRUE
-	max_integrity = 200
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/datum/effect_system/spark_spread/spark_system
 	var/datum/action/innate/dash/ninja/jaunt

@@ -148,7 +148,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/item/disk/data
 	name = "Cloning Data Disk"
 	desc = "Дискета, предназначенная для хранения данных ДНК-кода гуманоида."
-	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
 	var/datum/dna2/record/buf = null
 	var/read_only = FALSE //Well,it's still a floppy disk
 
@@ -595,7 +594,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	occupant.forceMove(T)
 	occupant.update_body()
 	occupant.check_genes() //Waiting until they're out before possible notransform.
-	occupant.special_post_clone_handling()
+	occupant.special_post_clone_handling(TRUE)
 	occupant = null
 	update_icon()
 

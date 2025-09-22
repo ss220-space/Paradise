@@ -341,7 +341,6 @@
 
 /datum/action/item_action/organ_action/translator_select_language
 	name = "Выбрать используемый язык"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "select_language"
 
 
@@ -354,7 +353,6 @@
 
 /datum/action/item_action/organ_action/wingdings_decoder
 	name = "Переключить дешифратор Вингдингс"
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "wingdings_off"
 	use_itemicon = FALSE
 

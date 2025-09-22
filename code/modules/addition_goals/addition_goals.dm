@@ -61,12 +61,9 @@ SUBSYSTEM_DEF(addition_goals)
 /// Fire
 /datum/controller/subsystem/addition_goals/fire(resumed = FALSE)
 	//TODO need?
-
-
-
+	return
 
 // MARK:	Goals logic
-
 /// Check available refresh
 /datum/controller/subsystem/addition_goals/proc/is_refresh_available()
 	var/current_time = world.time
@@ -245,7 +242,6 @@ GLOBAL_LIST_INIT(addition_goal_spawn_human_types, list(
 
 /obj/effect/mob_spawn/human/addition_goal
 	roundstart = FALSE
-	instant = FALSE
 	random = TRUE
 	uses = -1
 

@@ -3,7 +3,6 @@
 	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
 	icon_state = "lasergun"
 	item_state = null
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
@@ -96,7 +95,6 @@
 	desc = "A laser gun equipped with a refraction kit that spreads bolts."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	accuracy = GUN_ACCURACY_SHOTGUN
-	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5)
@@ -112,7 +110,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 	force = 10
-	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	can_holster = FALSE
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
@@ -225,7 +222,6 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/tag/blue
-	icon_state = "bluetag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
 
 /obj/item/gun/energy/laser/tag/red

@@ -58,7 +58,6 @@
 
 /obj/effect/spawner/lootdrop/bluespace_rift
 	name = "brs loot"
-	lootcount = 1
 	// Item type, weight
 	loot = list(
 		// Resources
@@ -229,14 +228,12 @@
 	return ..()
 
 /obj/effect/spawner/lootdrop/bluespace_rift/goal_complete
-	lootcount = 1
 	lootdoubles = FALSE
 	loot = list(
 		/obj/structure/toilet/bluespace/nt,
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_rift_server
-	lootcount = 1
 	lootdoubles = FALSE
 	loot = list(
 		/obj/item/paper/researchnotes_brs,

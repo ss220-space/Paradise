@@ -787,7 +787,6 @@
 	id = "remvirus"
 	required_reagents = list("diphenhydramine" = 1)
 	required_catalysts = list("blood" = 1)
-	count_of_catalysts = 1
 
 /datum/chemical_reaction/mix_virus/rem_virus/on_reaction(datum/reagents/holder, created_volume)
 	for(var/datum/reagent/R in holder.reagent_list)

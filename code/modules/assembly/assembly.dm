@@ -10,7 +10,6 @@
 	throw_speed = 3
 	throw_range = 10
 	origin_tech = "magnets=1;engineering=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'

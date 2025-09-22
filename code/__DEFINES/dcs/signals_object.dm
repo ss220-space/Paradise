@@ -37,5 +37,9 @@
 /// from  /datum/surgery_step/proc/initiate() : (&time)
 #define COMSIG_SURGERY_STEP_INIT "surgery_step_init"
 
-
 #define COMSIG_DISPOSAL_INJECT "disposal_inject"
+
+/// Called by /obj/item/proc/worn_overlays(list/overlays, mutable_appearance/standing, isinhands, icon_file)
+#define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
+/// Called by /obj/item/proc/separate_worn_overlays(list/overlays, mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+#define COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS "item_get_separate_worn_overlays"

@@ -54,7 +54,6 @@
 
 /obj/machinery/computer/shuttle/nt/drop_pod/recall
 	name = "nanotrasen emergency pod recall"
-	shuttleId = "shit_rain"
 	possible_destinations = "pod_recall"
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod/can_call_shuttle(user, action)
@@ -99,20 +98,12 @@
 	y_offset = -1
 	see_hidden = TRUE
 	resistance_flags = INDESTRUCTIBLE
-	access_station = TRUE		//can we park near station?
-	access_admin_zone = FALSE	//can we park on Admin z_lvls?
-	access_mining = FALSE		//can we park on Lavaland z_lvl?
-	access_taipan = FALSE		//can we park on Taipan z_lvl?
-	access_away = FALSE		//can we park on Away_Mission z_lvl?
-	access_derelict = FALSE		//can we park in Unexplored Space?
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst
 	name = "SST shuttle navigation computer"
 	desc = "Используется, чтобы указать точное местоположение для отправки шаттла Ударного Отряда Синдиката."
 	shuttleId = "sst"
 	shuttlePortId = "sst_custom"
-	bubble_icon = "syndibot"
-	view_range = 13
 	x_offset = 0
 	y_offset = 0
 	access_taipan = TRUE
@@ -122,8 +113,6 @@
 	desc = "Используется, чтобы указать точное местоположение для отправки шаттла Диверсионного Отряда Синдиката."
 	shuttleId = "sit"
 	shuttlePortId = "sit_custom"
-	bubble_icon = "syndibot"
-	view_range = 13
 	x_offset = 0
 	y_offset = 0
 	access_taipan = TRUE
