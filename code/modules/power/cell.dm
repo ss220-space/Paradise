@@ -35,6 +35,8 @@
 /obj/item/stock_parts/cell/specter
 	name = "аккумулятор Спектра"
 	desc = "Аккумулятор, используемый в качестве магазина для пистолета Спектр."
+	icon = 'icons/obj/weapons/ammo.dmi'
+	icon_state = "Specter_accumulator"
 	gender = MALE
 	maxcharge = 8000
 
@@ -47,6 +49,21 @@
 		INSTRUMENTAL = "аккумулятором Спектра",
 		PREPOSITIONAL = "аккумуляторе Спектра"
 	)
+
+/obj/item/stock_parts/cell/specter/update_overlays()
+	. = ..()
+
+	switch(charge)
+		if(1 to 2000)
+			. += "Specter_overlay_low"
+		if(2001 to 4000)
+			. += "Specter_overlay_half2"
+		if(4001 to 6000)
+			. += "Specter_overlay_half"
+		if(6001 to 8000)
+			. += "Specter_overlay_full"
+		else
+			. += "Specter_overlay_empty"
 
 /obj/item/stock_parts/cell/get_cell()
 	return src
