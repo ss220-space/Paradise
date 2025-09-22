@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 /datum/game_mode/proc/powered(clocker)
 	if(ishuman(clocker) && isclocker(clocker))
 		var/mob/living/carbon/human/H = clocker
-		H.update_inv_gloves()
+		H.update_worn_gloves()
 		ADD_TRAIT(H, CLOCK_HANDS, CLOCK_TRAIT)
 
 /datum/game_mode/proc/powered_borgs(clocker)

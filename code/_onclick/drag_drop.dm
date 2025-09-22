@@ -79,6 +79,7 @@ to inform the game this action was expected and its fine
 
 
 /mob/proc/CanMobAutoclick(object, location, params)
+	return FALSE
 
 
 /mob/living/carbon/CanMobAutoclick(atom/object, location, params)
@@ -90,6 +91,7 @@ to inform the game this action was expected and its fine
 
 
 /obj/item/proc/CanItemAutoclick(object, location, params)
+	return FALSE
 
 
 /atom/proc/IsAutoclickable()

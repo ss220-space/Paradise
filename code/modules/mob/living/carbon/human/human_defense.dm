@@ -280,9 +280,9 @@ emp_act
 		if(head_clothes)
 			if(!(head_clothes.resistance_flags & UNACIDABLE))
 				head_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_glasses()
-				update_inv_wear_mask()
-				update_inv_head()
+				update_worn_glasses()
+				update_worn_mask()
+				update_worn_head()
 			else
 				to_chat(src, span_notice("[capitalize(head_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(head_clothes.gender, "ет", "ют")] вашу голову и лицо от кислоты!"))
 		else
@@ -304,8 +304,8 @@ emp_act
 		if(chest_clothes)
 			if(!(chest_clothes.resistance_flags & UNACIDABLE))
 				chest_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("[capitalize(chest_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(chest_clothes.gender, "ет", "ют")] ваше туловище от кислоты!"))
 		else
@@ -337,9 +337,9 @@ emp_act
 		if(arm_clothes)
 			if(!(arm_clothes.resistance_flags & UNACIDABLE))
 				arm_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_gloves()
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_gloves()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("[capitalize(arm_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(arm_clothes.gender, "ет", "ют")] ваши руки от кислоты!"))
 		else
@@ -363,9 +363,9 @@ emp_act
 		if(leg_clothes)
 			if(!(leg_clothes.resistance_flags & UNACIDABLE))
 				leg_clothes.acid_act(acidpwr, acid_volume)
-				update_inv_shoes()
-				update_inv_w_uniform()
-				update_inv_wear_suit()
+				update_worn_shoes()
+				update_worn_undersuit()
+				update_worn_oversuit()
 			else
 				to_chat(src, span_notice("[capitalize(leg_clothes.declent_ru(NOMINATIVE))] защища[pluralize_ru(leg_clothes.gender, "ет", "ют")] ваши руки от кислоты!"))
 		else
@@ -543,13 +543,13 @@ emp_act
 			if(bloody)//Apply blood
 				if(wear_mask)
 					wear_mask.add_mob_blood(src)
-					update_inv_wear_mask()
+					update_worn_mask()
 				if(head)
 					head.add_mob_blood(src)
-					update_inv_head()
+					update_worn_head()
 				if(glasses && prob(33))
 					glasses.add_mob_blood(src)
-					update_inv_glasses()
+					update_worn_glasses()
 
 		if(BODY_ZONE_CHEST)//Easier to score a stun but lasts less time
 			if(apply_damage_result && stat == CONSCIOUS && prob(item.force + 10))
@@ -562,10 +562,10 @@ emp_act
 			if(bloody)
 				if(wear_suit)
 					wear_suit.add_mob_blood(src)
-					update_inv_wear_suit()
+					update_worn_oversuit()
 				if(w_uniform)
 					w_uniform.add_mob_blood(src)
-					update_inv_w_uniform()
+					update_worn_undersuit()
 
 	if(apply_damage_result && (item.force > 10 || (item.force >= 5 && prob(33))))
 		forcesay(GLOB.hit_appends)	//forcesay checks stat already
@@ -648,16 +648,16 @@ emp_act
 	else
 		add_mob_blood(source)
 		bloody_hands = amount
-	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
+	update_worn_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(mob/living/source)
 	if(wear_suit)
 		wear_suit.add_mob_blood(source)
-		update_inv_wear_suit()
+		update_worn_oversuit()
 		return
 	if(w_uniform)
 		w_uniform.add_mob_blood(source)
-		update_inv_w_uniform()
+		update_worn_undersuit()
 
 /mob/living/carbon/human/attack_hand(mob/user)
 	if(..())	//to allow surgery to return properly.
