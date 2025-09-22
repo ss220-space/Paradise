@@ -18,8 +18,8 @@
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	var/atk_verb = pick("бьёт", "пинает", "рубит", "забивает")
-	D.visible_message(span_danger("[A] [atk_verb] [D]!"),
+	var/atk_verb = pick("бь[pluralize_ru(A.gender, "ёт", "ют")]", "пина[pluralize_ru(A.gender, "ет", "ют")]", "руб[pluralize_ru(A.gender, "ит", "ят")]", "забива[pluralize_ru(A.gender, "ет", "ют")]")
+	D.visible_message(span_danger("[A] [atk_verb] [D.declent_ru(ACCUSATIVE)]!"),
 					span_userdanger("[A] [atk_verb] тебя!"))
 	D.apply_damage(rand(10, 15), BRUTE, A.zone_selected)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
@@ -32,10 +32,10 @@
 /datum/martial_art/the_sleeping_carp/teach(mob/living/carbon/human/H, make_temporary)
 	. = ..()
 	H.faction |= "carp"// :D
-	to_chat(H, "<span class='sciradio'>Ты выучил древнюю технику Спящего Карпа! \
+	to_chat(H, span_sciradio("Ты выучил древнюю технику Спящего Карпа! \
 					Твои навыки рукопашного боя стали намного эффективнее, также ты теперь способен отражать пули и лазеры до тех пор пока хотя бы одна твоя рука свободна. \
 					Однако, ты теперь не можешь пользоваться стрелковым оружием. \
-					Ты можешь узнать больше о своей новоприобретенной технике, используя кнопку Recall Teachings во вкладке Martial Arts.</span>")
+					Ты можешь узнать больше о своей новоприобретенной технике, используя кнопку 'Информация о БИ' во вкладке 'Боевые Искусства'."))
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
 		to_chat(H, span_warning("Овладев техникой Спящего Карпа, ты отвергаешь её наиболее жестокие учения. \
 					Отражаемые тобой пули и лазеры будут направлены на землю."))
