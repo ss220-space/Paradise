@@ -221,7 +221,6 @@
 	name = "малый разлом карпов"
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
-	duration = 1 SECONDS
 
 
 /obj/effect/temp_visual/lesser_carp_rift_dissipating/proc/setup_animation(new_alpha)

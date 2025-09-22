@@ -24,7 +24,6 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	harm_intent_damage = 5
 	var/gestation = 0
 	var/maxtribbles = 50     //change this to change the max limit
-	wander = 1
 
 
 /mob/living/simple_animal/tribble/New()
@@ -139,12 +138,9 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "sheet-fur"
 	origin_tech = "materials=2"
-	max_amount = 50
 
 
 /obj/item/clothing/ears/earmuffs/tribblemuffs //earmuffs but with tribbles
-	name = "earmuffs"
-	desc = "Protects your hearing from loud noises, and quiet ones as well."
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "tribblemuffs"
 	item_state = "tribblemuffs"
@@ -200,6 +196,5 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "furcape"
 	item_state = "furcape"
-	body_parts_covered = UPPER_TORSO|ARMS
 	cold_protection = UPPER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT

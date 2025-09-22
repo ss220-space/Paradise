@@ -25,7 +25,6 @@
 	icon_dead = "ghost"
 	density = FALSE // ghost
 	invisibility = 60 // no seriously ghost
-	speak_chance = 0 // fyi, ghost
 
 
 	response_help = "passes through" // by the way ghost
@@ -33,8 +32,6 @@
 	response_harm = "hits"
 	turns_per_move = 10
 	speed = 0
-	maxHealth = 20
-	health = 20
 
 	emote_taunt = list("воет")
 	taunt_chance = 20
@@ -47,7 +44,6 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	pressure_resistance = 300
-	gold_core_spawnable = NO_SPAWN //too spooky for science
 	faction = list("undead") // did I mention ghost
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
@@ -76,20 +72,16 @@
 /mob/living/simple_animal/hostile/skeleton
 	name = "reanimated skeleton"
 	desc = "Настоящий костлявый скелет, не похоже, что он хочет общаться."
-	gender = MALE
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "skeleton"
 	icon_living = "skeleton"
 	turns_per_move = 5
 	response_help = "пожимает руку"
-	response_disarm = "толкает"
 	response_harm = "бьёт"
 	speak_emote = list("бряцает", "трещит")
 	emote_see = list("бряцает", "трещит")
-	a_intent = INTENT_HARM
 	maxHealth = 40
 	health = 40
-	speed = 1
 	harm_intent_damage = 5
 	melee_damage_lower = 15
 	melee_damage_upper = 15
@@ -150,14 +142,11 @@
 	icon_state = "zombie_s"
 	icon_living = "zombie_s"
 	icon_dead = "zombie_l"
-	speak_chance = 0
 	turns_per_move = 10
 	response_help = "gently prods"
 	response_disarm = "shoves"
 	response_harm = "hits"
 	speed = -1
-	maxHealth = 20
-	health = 20
 
 	harm_intent_damage = 10
 	melee_damage_lower = 5
@@ -191,7 +180,6 @@
 
 /mob/living/simple_animal/hostile/zombie/whiteship/fast
 	name = "fast zombie"
-	icon = 'icons/mob/human.dmi'
 	icon_living = "zombie_s"
 	icon_state = "zombie_s"
 	maxHealth = 75
@@ -201,7 +189,6 @@
 	speed = -1
 
 /mob/living/simple_animal/hostile/zombie/space_graveyard/noble
-	name = "zombie"
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "husk_suit"
 	speed = 0

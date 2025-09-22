@@ -56,7 +56,7 @@
 
 	return data
 
-/obj/machinery/computer/station_alert/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+/obj/machinery/computer/station_alert/proc/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listend_for))
 		return
 	if(alarmsource.z != z)
@@ -65,7 +65,7 @@
 		return
 	update_icon()
 
-/obj/machinery/computer/station_alert/proc/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+/obj/machinery/computer/station_alert/proc/alarm_cancelled(source, class, area/A, obj/origin, cleared)
 	if(!(class in alarms_listend_for))
 		return
 	if(origin.z != z)

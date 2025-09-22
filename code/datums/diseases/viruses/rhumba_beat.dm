@@ -2,7 +2,6 @@
 /datum/disease/virus/rhumba_beat
 	name = "Румба-бит"
 	agent = UNKNOWN_STATUS_RUS
-	max_stages = 5
 	spread_flags = CONTACT
 	cure_text = "Чики-чики БУМ!"
 	cures = list("plasma")

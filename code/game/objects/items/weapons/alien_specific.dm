@@ -12,7 +12,6 @@
 	throwforce_on = 5
 	throw_speed = 1
 	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL
 	w_class_on = WEIGHT_CLASS_SMALL
 	attack_verb = list("атаковал", "полоснул", "пронзил", "поранил", "порезал")
 	attack_verb_on = list()
@@ -27,7 +26,6 @@
 /obj/item/reagent_containers/spray/alien/smoke
 	name = "smoke synthesizer"
 	desc = "squirts smokey liquids."
-	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-spray-smoke"
 
 /obj/item/reagent_containers/spray/alien/smoke/afterattack(atom/A, mob/user, proximity, params)
@@ -43,14 +41,12 @@
 /obj/item/reagent_containers/spray/alien/acid
 	name = "acid synthesizer"
 	desc = "squirts burny liquids."
-	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-spray-acid"
 	list_reagents = list("facid" = 125, "sacid" = 125)
 
 /obj/item/reagent_containers/spray/alien/stun
 	name = "paralytic toxin synthesizer"
 	desc = "squirts viagra."
-	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-spray-stun"
 
 /obj/item/reagent_containers/spray/alien/stun/afterattack(atom/A, mob/user, proximity, params)

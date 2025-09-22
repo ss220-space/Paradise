@@ -12,12 +12,9 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_bayonet = FALSE
 	slot_flags = ITEM_SLOT_BACK
-	burst_size = 3
 	fire_delay = 1
 	rusted_weapon = TRUE
-	self_shot_divisor = 3
 	malf_low_bound = 60
 	malf_high_bound = 90
 	accuracy = GUN_ACCURACY_RIFLE
@@ -27,12 +24,8 @@
 /obj/item/gun/projectile/automatic/rusted/aksu
 	name = "Rusted AKSU assault rifle"
 	desc = "An old AK assault rifle favored by Soviet soldiers."
-	icon_state = "aksu"
-	item_state = "aksu"
-	mag_type = /obj/item/ammo_box/magazine/aksu
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=3"
-	burst_size = 3
 	fire_delay = 2
 	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
@@ -69,7 +62,6 @@
 /obj/item/gun/projectile/shotgun/lethal/rusted
 	desc = "A traditional shotgun. It looks like it has been lying here for a very long time, rust is pouring."
 	rusted_weapon = TRUE
-	self_shot_divisor = 3
 	malf_low_bound = 12
 	malf_high_bound = 24
 	accuracy = GUN_ACCURACY_SHOTGUN

@@ -9,8 +9,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
 	bubble_icon = "robot"
 	universal_understand = 1
 	deathgasp_on_death = TRUE
@@ -122,6 +120,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
 
 	var/datum/robot_skin/selected_skin
+
+	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -679,7 +684,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
 
-/mob/living/silicon/robot/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/robot/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listend_for))
 		return
 
@@ -691,7 +696,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	queueAlarm("--- [class] alarm detected in [A.name]!", class)
 
-/mob/living/silicon/robot/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+/mob/living/silicon/robot/alarm_cancelled(source, class, area/A, obj/origin, cleared)
 	if(cleared)
 		if(!(class in alarms_listend_for))
 			return
@@ -1589,19 +1594,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						if(cleaned_human.body_position == LYING_DOWN)
 							if(cleaned_human.head)
 								cleaned_human.head.clean_blood()
-								cleaned_human.update_inv_head()
+								cleaned_human.update_worn_head()
 
 							if(cleaned_human.wear_suit)
 								cleaned_human.wear_suit.clean_blood()
-								cleaned_human.update_inv_wear_suit()
+								cleaned_human.update_worn_oversuit()
 
 							else if(cleaned_human.w_uniform)
 								cleaned_human.w_uniform.clean_blood()
-								cleaned_human.update_inv_w_uniform()
+								cleaned_human.update_worn_undersuit()
 
 							if(cleaned_human.shoes)
 								cleaned_human.shoes.clean_blood()
-								cleaned_human.update_inv_shoes()
+								cleaned_human.update_worn_shoes()
 
 							cleaned_human.clean_blood()
 							to_chat(cleaned_human, span_danger("[src] cleans your face!"))

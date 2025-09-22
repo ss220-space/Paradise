@@ -31,7 +31,6 @@
 	restricted_speciestypes = list(/datum/species/plasmaman)
 
 /datum/surgery/bone_repair/non_hitin
-	name = "Восстановление повреждённых костей"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -156,8 +155,6 @@
 	allowed_tools = list(
 	/obj/item/stack/sheet/mineral/plasma = 100
 	)
-	can_infect = TRUE
-	blood_level = SURGERY_BLOODSPREAD_HANDS
 
 	time = 1 SECONDS
 

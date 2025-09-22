@@ -26,11 +26,9 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 /datum/disease/virus/advance
 
-	name = UNKNOWN_STATUS_RUS // We will always let our Virologist name our disease.
 	desc = "Спроектированная болезнь, может содержать сразу несколько симптомов."
 	form = "Продвинутая болезнь" // Will let med-scanners know that this disease was engineered.
 	agent = "Продвинутые микробы"
-	max_stages = 5
 
 	// NEW VARS
 

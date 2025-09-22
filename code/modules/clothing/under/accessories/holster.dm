@@ -163,12 +163,10 @@
 
 
 /obj/item/clothing/accessory/holster/armpit
-	name = "shoulder holster"
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
 	holster_allow = /obj/item/gun/projectile
 
 /obj/item/clothing/accessory/holster/waist
-	name = "shoulder holster"
 	desc = "A handgun holster. Made of expensive leather."
 
 /obj/item/clothing/accessory/holster/leg

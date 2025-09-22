@@ -18,12 +18,10 @@
 	can_buckle_to = FALSE
 	universal_speak = TRUE // So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
-	gold_core_spawnable = NO_SPAWN
 	can_be_on_fire = TRUE
 	fire_damage = 3
 	tts_seed = "Earth"
 	tts_atom_say_effect = SOUND_EFFECT_NONE
-	a_intent = INTENT_HARM
 	/// Is blob mob linked to factory
 	var/factory_linked = FALSE
 

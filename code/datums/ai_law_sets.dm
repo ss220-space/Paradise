@@ -68,7 +68,6 @@
 
 /datum/ai_laws/nanotrasen/malfunction
 	name = "*ОШИБКА*"
-	law_header = "Основные директивы"
 	selectable = FALSE
 	default = FALSE
 	var/datum/ai_laws/base

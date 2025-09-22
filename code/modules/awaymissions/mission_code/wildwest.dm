@@ -12,7 +12,6 @@
 	requires_power = FALSE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwgov
 	name = "Wild West Mansion"
@@ -20,7 +19,6 @@
 	requires_power = FALSE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwrefine
 	name = "Wild West Refinery"
@@ -28,7 +26,6 @@
 	requires_power = FALSE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/wwvault
 	name = "Wild West Vault"
@@ -129,8 +126,6 @@
 	name = "Meat Grinder"
 	desc = "What is that thing?"
 	density = TRUE
-	anchored = TRUE
-	layer = 3
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blobpod"
 	var/triggered = FALSE

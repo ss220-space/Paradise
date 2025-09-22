@@ -10,7 +10,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 50
 
@@ -95,8 +94,6 @@
 	name = "mass driver frame"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver_frame"
-	density = FALSE
-	anchored = FALSE
 	/// Current construction stage
 	var/build = MASS_DRIVER_BUILD_LOOSE
 
