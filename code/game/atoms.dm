@@ -112,6 +112,50 @@
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
+	/// List of fibers that this atom has
+	var/list/suit_fibers
+	var/list/time_of_touch
+
+	var/smooth = NONE
+	var/top_left_corner
+	var/top_right_corner
+	var/bottom_left_corner
+	var/bottom_right_corner
+
+	///What directions this is currently smoothing with. IMPORTANT: This uses the smoothing direction flags as defined in icon_smoothing.dm, instead of the BYOND flags.
+	var/smoothing_junction = null
+	///What smoothing groups does this atom belongs to, to match canSmoothWith. If null, nobody can smooth with it. Must be sorted.
+	var/list/smoothing_groups = null
+	///List of smoothing groups this atom can smooth with. If this is null and atom is smooth, it smooths only with itself. Must be sorted.
+	var/list/canSmoothWith = null
+
+	// These lists are built as necessary, so atoms aren't all lugging around empty lists
+	/// The alternate appearances we own
+	var/list/alternate_appearances
+	/// The alternate appearances we're viewing, stored here to reestablish them after Logout()s
+	var/list/viewing_alternate_appearances
+
+	/// Whenever we start dragging atom, this variable will contain world.time() of the moment we started dragging atom. It is required to check how long dragNdrop was to prevent abusing the feature of laggy dragNdrop click, otherwile will be 0.
+	var/drag_start = 0
+
+	/// List of overlay "keys" (info about the appearance) -> mutable versions of static appearances
+	/// Drawn from the overlays list
+	var/list/realized_overlays
+	/// List of underlay "keys" (info about the appearance) -> mutable versions of static appearances
+	/// Drawn from the underlays list
+	var/list/realized_underlays
+	/// Sources that changes gravity of object. Treated as lazy list.
+	var/list/gravity_sources
+	/// Sources that 100% won't changes gravity of object. Treated as lazy list.
+	var/list/ignored_gravity_sources
+
+	/// Last appearance of the atom for demo saving purposes
+	var/image/demo_last_appearance
+
+	/// This var isn't actually used for anything, but is present so that
+	/// DM's map reader doesn't forfeit on reading a JSON-serialized map
+	var/map_json_data
+
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -494,12 +538,14 @@
 /// Updates the name of the atom
 /atom/proc/update_name(updates = ALL)
 	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME, updates)
 
 
 /// Updates the description of the atom
 /atom/proc/update_desc(updates = ALL)
 	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
 
 
@@ -582,6 +628,7 @@
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
+	PROTECTED_PROC(TRUE)
 	return
 
 
@@ -589,6 +636,7 @@
 /// The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
 /// WARNING: if you provide external list to this proc, IT MUST BE A COPY, since ref to this list is saved in var/managed_overlays.
 /atom/proc/update_overlays()
+	PROTECTED_PROC(TRUE)
 	RETURN_TYPE(/list)
 	. = list()
 
@@ -1057,19 +1105,19 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(wear_suit)
 		wear_suit.add_blood(blood_dna, color)
 		wear_suit.blood_color = color
-		update_inv_wear_suit()
+		update_worn_oversuit()
 	else if(w_uniform)
 		w_uniform.add_blood(blood_dna, color)
 		w_uniform.blood_color = color
-		update_inv_w_uniform()
+		update_worn_undersuit()
 	if(head)
 		head.add_blood(blood_dna, color)
 		head.blood_color = color
-		update_inv_head()
+		update_worn_head()
 	if(glasses)
 		glasses.add_blood(blood_dna, color)
 		glasses.blood_color = color
-		update_inv_glasses()
+		update_worn_glasses()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, color)
@@ -1081,7 +1129,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		transfer_blood_dna(blood_dna)
 		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
-	update_inv_gloves()	//handles bloody hands overlays and updating
+	update_worn_gloves()	//handles bloody hands overlays and updating
 	return TRUE
 
 
@@ -1121,42 +1169,42 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	blood_state = BLOOD_STATE_NOT_BLOODY
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_shoes()
+		M.update_worn_shoes()
 
 /mob/living/carbon/human/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
 		if(w_uniform.clean_blood())
-			update_inv_w_uniform()
+			update_worn_undersuit()
 	if(gloves && !(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
 		if(gloves.clean_blood())
-			update_inv_gloves()
+			update_worn_gloves()
 			gloves.germ_level = 0
 			clean_hands = FALSE
 	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
 		if(shoes.clean_blood())
-			update_inv_shoes()
+			update_worn_shoes()
 			clean_feet = FALSE
 	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
 		if(s_store.clean_blood())
-			update_inv_s_store()
+			update_suit_storage()
 	if(lip_style && !(head && head.flags_inv & HIDEMASK))
 		lip_style = null
 		update_body()
 	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEGLASSES))
 		if(glasses.clean_blood())
-			update_inv_glasses()
+			update_worn_glasses()
 	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
 		if(l_ear.clean_blood())
-			update_inv_ears()
+			update_worn_ears()
 	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
 		if(r_ear.clean_blood())
-			update_inv_ears()
+			update_worn_ears()
 	if(belt)
 		if(belt.clean_blood())
-			update_inv_belt()
+			update_worn_belt()
 	if(neck)
 		if(neck.clean_blood())
-			update_inv_neck()
+			update_worn_neck()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
@@ -1555,7 +1603,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else if(!in_range(src, user))
 		balloon_alert(user, "слишком далеко!")
 		return null
-	else if (user.incapacitated())
+	else if(user.incapacitated())
 		balloon_alert(user, "невозможно в данный момент!")
 		return null
 

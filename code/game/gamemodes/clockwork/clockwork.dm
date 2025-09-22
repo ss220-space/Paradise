@@ -1,21 +1,5 @@
 GLOBAL_LIST_EMPTY(all_clockers)
 
-/datum/game_mode
-	/// A list of all minds currently in the cult
-	var/list/datum/mind/clockwork_cult = list()
-	var/datum/clockwork_objectives/clocker_objs = new
-	/// Does the clockers have significant power stored
-	var/power_reveal = FALSE
-	/// Does the cult have halos
-	var/crew_reveal = FALSE
-
-	/// How many power need to be in supply to reveal
-	var/power_reveal_number
-	/// How many crew need to be converted to reveal
-	var/crew_reveal_number
-	/// Used for CentCom announcement when reached crew limit conversion
-	var/reveal_percent
-
 /proc/is_convertable_to_clocker(datum/mind/mind)
 	if(!mind)
 		return FALSE
@@ -275,7 +259,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 /datum/game_mode/proc/powered(clocker)
 	if(ishuman(clocker) && isclocker(clocker))
 		var/mob/living/carbon/human/H = clocker
-		H.update_inv_gloves()
+		H.update_worn_gloves()
 		ADD_TRAIT(H, CLOCK_HANDS, CLOCK_TRAIT)
 
 /datum/game_mode/proc/powered_borgs(clocker)

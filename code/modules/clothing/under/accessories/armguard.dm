@@ -20,7 +20,6 @@
 	)
 
 /obj/item/clothing/accessory/armguard/syndicate
-	slot = ACCESSORY_SLOT_ARMBAND
 	var/datum/action/armguard_hidden_blade/blade_action = new
 	var/weapon_type = /obj/item/kitchen/knife/hidden_blade
 	var/state_flags = ARMGUARD_BLADE_READY_FLAG
@@ -96,7 +95,7 @@
 
 
 /obj/item/clothing/accessory/armguard/syndicate/proc/start_create_new_blade(mob/user)
-	if (istype(user))
+	if(istype(user))
 		user.balloon_alert(user, "клинок отрелян")
 	addtimer(CALLBACK(src, PROC_REF(create_new_blade), user), create_new_blade_duration SECONDS)
 
@@ -128,7 +127,6 @@
 	icon_state = "armguard_hidden_blade"
 	item_state = "knife"
 	item_flags = DROPDEL|NOSHARPENING|CONDUCT|IGNORE_SLOWDOWN
-	slot_flags = NONE
 	w_class = WEIGHT_CLASS_TINY
 	force = 15
 	throwforce = 50
@@ -206,7 +204,7 @@
 
 /obj/item/kitchen/knife/hidden_blade/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	if (QDELETED(src))
+	if(QDELETED(src))
 		return
 	silence = TRUE
 	qdel(src)

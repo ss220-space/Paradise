@@ -20,7 +20,6 @@ To draw a rune, use a ritual dagger.
 	desc = "An odd collection of symbols drawn in what seems to be blood."
 	/// Description that cultists see
 	var/cultist_desc = "a basic rune with no function." //This is shown to cultists who examine the rune in order to determine its true purpose.
-	anchored = TRUE
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -259,9 +258,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "offering"
 	color = RUNE_COLOR_OFFER
-	req_cultists = 1
 	allow_excess_invokers = TRUE
-	rune_in_use = FALSE
 
 /obj/effect/rune/convert/invoke(list/invokers)
 	if(rune_in_use)
@@ -621,8 +618,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, span_cultlarge("\"PASNAR SAVRAE YAM'TOTH. Arise.\""))
-	mob_to_revive.visible_message(span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
-								  span_cultlarge("You awaken suddenly from the void. You're alive!"))
+	mob_to_revive.visible_message(
+		span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
+		span_cultlarge("You awaken suddenly from the void. You're alive!")
+	)
 	rune_in_use = FALSE
 
 /obj/effect/rune/raise_dead/proc/validness_checks(mob/living/target_mob, mob/living/user)
@@ -724,8 +723,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 
-	cultist_to_summon.visible_message(span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
-									  span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>"))
+	cultist_to_summon.visible_message(
+		span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
+		span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>")
+	)
 	..()
 	INVOKE_ASYNC(src, PROC_REF(teleport_effect), cultist_to_summon, get_turf(cultist_to_summon), src)
 	visible_message(span_warning("[src] begins to bubble and rises into the form of [cultist_to_summon]!"))
@@ -752,7 +753,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invoke_damage = 15
 	construct_invoke = FALSE
 	var/tick_damage = 10 // 30 burn damage total + damage taken by being on fire/overheating
-	rune_in_use = FALSE
 
 /obj/effect/rune/blood_boil/invoke(list/invokers)
 	if(rune_in_use)

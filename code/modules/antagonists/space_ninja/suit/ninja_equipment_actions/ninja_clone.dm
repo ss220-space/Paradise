@@ -2,7 +2,6 @@
 	name = "Energy Clones"
 	desc = "Creates two clones of the user to confuse enemies in the fight. Also changes your and the clones possition after that. Energy cost: 4000"
 	check_flags = AB_CHECK_CONSCIOUS
-	charge_type = ADV_ACTION_TYPE_RECHARGE
 	charge_max = 8 SECONDS
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'

@@ -5,7 +5,6 @@
 	deflection_chance = 100
 	no_guns = TRUE
 	no_guns_message = "Use of ranged weaponry would bring dishonor to the clan."
-	reroute_deflection = FALSE
 	has_explaination_verb = TRUE
 	grab_speed = 2 SECONDS
 	grab_resist_chances = list(
@@ -33,8 +32,10 @@
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("punches", "kicks", "chops", "hits", "slams")
-	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", \
-					  "<span class='userdanger'>[A] [atk_verb] you!</span>")
+	D.visible_message(
+		"<span class='danger'>[A] [atk_verb] [D]!</span>", \
+		"<span class='userdanger'>[A] [atk_verb] you!</span>"
+	)
 
 	var/damage = rand(10,15)
 	D.apply_damage(damage, BRUTE)

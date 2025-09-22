@@ -1272,9 +1272,9 @@
 	return
 
 /datum/robot_energy_storage/proc/use_charge(amount)
-	if (energy >= amount)
+	if(energy >= amount)
 		energy -= amount
-		if (energy == 0)
+		if(energy == 0)
 			return TRUE
 
 		return TRUE
@@ -1314,7 +1314,6 @@
 /datum/robot_energy_storage/medical/syndicate
 	max_energy = 50
 	recharge_rate = 4
-	name = "Medical Supplies Storage"
 
 /datum/robot_energy_storage/nanopaste
 	max_energy = 6

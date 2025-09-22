@@ -9,10 +9,8 @@
 	icon_state = "bigscanner"
 	anchored = TRUE
 	density = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	active_power_usage = 200
-	power_channel = EQUIP
 	max_integrity = 300
 	integrity_failure = 100
 	atom_say_verb = "пищит"
@@ -60,7 +58,7 @@
 	var/info_box = "Если у вас есть пожелания или\
 					идеи для улучшения стандартных\
 					форм, обратитесь в Отдел\
-					стандартизации НаноТрейзен."
+					стандартизации Нанотрейзен."
 	var/info_box_color = "blue"
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
 

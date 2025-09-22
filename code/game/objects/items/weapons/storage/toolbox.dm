@@ -1,7 +1,6 @@
 /obj/item/storage/toolbox
 	name = "toolbox"
 	desc = "Danger. Very robust."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "red"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
@@ -9,9 +8,9 @@
 	flags = CONDUCT
 	force = 10.0
 	throwforce = 15.0
-	throw_speed = 2
-	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 18
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("заробастил")
@@ -42,8 +41,6 @@
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
-	icon_state = "red"
-	item_state = "toolbox_red"
 
 /obj/item/storage/toolbox/emergency/populate_contents()
 	new /obj/item/crowbar/red(src)
@@ -192,7 +189,6 @@
 	item_state = null
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_HUGE
-	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 28
 	storage_slots = 28
 	attack_verb = list("заробастил", "сокрушил")

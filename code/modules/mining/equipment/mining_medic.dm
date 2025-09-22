@@ -125,13 +125,12 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/camera/security
 	name = "security camera"
-	desc = "Небольшая нагрудная камера с логотипом НаноТрейзен. Окрашена в чёрные цвета. Позволяет демонстрировать ваше пренебрежение законом в прямом эфире. \
+	desc = "Небольшая нагрудная камера с логотипом Нанотрейзен. Окрашена в чёрные цвета. Позволяет демонстрировать ваше пренебрежение законом в прямом эфире. \
 			Данный тип камер позволяет вести трансляцию как на планшет службы безопасности, так и в развлекательную сеть станции."
 	icon_state = "sec_camera"
 	item_state = "sec_camera"
 	slot = ACCESSORY_SLOT_DECOR //No one will remove their holster for a camera
 	feed = "secfeed"
-	multiz = TRUE //maybe change that, for now true
 
 /obj/item/clothing/accessory/camera/security/get_ru_names()
 	return list(

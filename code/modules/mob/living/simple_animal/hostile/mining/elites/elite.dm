@@ -17,7 +17,6 @@
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
 	ranged = TRUE
-	obj_damage = 30
 	var/mech_damage = 50
 	vision_range = 6
 	aggro_vision_range = 18
@@ -28,7 +27,6 @@
 	has_laser_resist = FALSE
 	universal_speak = TRUE
 	sentience_type = SENTIENCE_BOSS
-	response_help = "гладит"
 	AI_delay_max = 0 SECONDS
 	var/scale_with_time = TRUE
 	var/reviver = null
@@ -166,7 +164,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	name = "Элитная атака"
 	icon_icon = 'icons/mob/actions/actions_elites.dmi'
 	button_icon_state = ""
-	background_icon_state = "bg_default"
 	///The displayed message into chat when this attack is selected
 	var/chosen_message
 	///The internal attack ID for the elite's OpenFire() proc to use
@@ -221,7 +218,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 	light_range = 3
 	anchored = TRUE
-	density = FALSE
 	var/activity = TUMOR_INACTIVE
 	var/boosted = FALSE
 	var/times_won = 0
@@ -262,7 +258,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			user.visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда рука [user] входит в её радиус! О-ох..."), span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда ваша рука входит в её радиус! Ваши инстинкты говорят вам отступить!"))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
-				if (fighter.stat != DEAD)
+				if(fighter.stat != DEAD)
 					make_activator(fighter)
 			if(boosted)
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
@@ -278,7 +274,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] начинает пульсировать! Ваши инстинкты говорят вам отступить!"))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
-				if (fighter.stat != DEAD)
+				if(fighter.stat != DEAD)
 					make_activator(fighter)
 			if(!boosted)
 				addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 3 SECONDS)
@@ -300,7 +296,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				visible_message(span_warning("Опухоль замирает, и ничего не происходит. Возможно, стоит попробовать позже."))
 				activity = TUMOR_INACTIVE
 				for(var/mob/living/carbon/human/activator in activators)
-					if (activator.stat != DEAD)
+					if(activator.stat != DEAD)
 						clear_activator(activator)
 
 /obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)
@@ -312,7 +308,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(boosted)
 		mychild.key = elitemind.key
 		mychild.sentience_act()
-		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] пробуждается в [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] пробуждается в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 		log_game("[mychild.key] has become [mychild] from lavaland elite tumor.")
 	update_icon(UPDATE_ICON_STATE)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
@@ -326,7 +322,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.setMaxHealth(mychild.maxHealth * 2.5)
 		mychild.setHealth(mychild.maxHealth)
 		mychild.grab_ghost()
-		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] вызван в [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] вызван в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
 /obj/structure/elite_tumor/Initialize(mapload)
@@ -549,7 +545,6 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	base_icon_state = "hierophant_wall_temp"
 	duration = 50
 	layer = BELOW_MOB_LAYER
-	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_INTENSE_RED

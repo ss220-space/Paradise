@@ -31,6 +31,7 @@
 
 /obj/item/reagent_containers/iv_bag/empty()
 	set hidden = TRUE
+	return
 
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()
@@ -299,7 +300,6 @@
 	blood_type = "O+"
 
 /obj/item/reagent_containers/iv_bag/blood/OMinus
-	blood_type = "O-"
 
 /obj/item/reagent_containers/iv_bag/blood/skrell
 	blood_species = "Skrell"

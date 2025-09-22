@@ -15,9 +15,7 @@
 ****************************************************/
 /obj/item/organ/external
 	name = "external"
-	min_broken_damage = 30
 	max_damage = 0
-	dir = SOUTH
 	blocks_emissive = FALSE
 	/// External body part zone
 	var/limb_zone
@@ -576,7 +574,7 @@ This function completely restores a damaged organ to perfect condition.
 
 
 /****************************************************
-			   PROCESSING & UPDATING
+				PROCESSING & UPDATING
 ****************************************************/
 
 //Determines if we even need to process this organ.
@@ -711,7 +709,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /****************************************************
-			   DISMEMBERMENT
+				DISMEMBERMENT
 ****************************************************/
 /obj/item/organ/external/proc/droplimb(clean = FALSE, disintegrate = DROPLIMB_SHARP, ignore_children = FALSE, nodamage = FALSE, silent = FALSE)
 	if(!owner || cannot_amputate)
@@ -920,7 +918,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /****************************************************
-			   HELPERS
+				HELPERS
 ****************************************************/
 /obj/item/organ/external/proc/release_restraints(mob/living/carbon/human/holder, silent = FALSE)
 	if(!holder)

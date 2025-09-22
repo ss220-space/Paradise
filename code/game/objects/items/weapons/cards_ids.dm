@@ -23,7 +23,7 @@
 	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/id_righthand.dmi'
 
-	var/list/files = list(  )
+	var/list/files = list()
 
 /obj/item/card/data
 	name = "data card"
@@ -37,10 +37,6 @@
 
 /obj/item/card/data/clown
 	name = "coordinates to clown planet"
-	icon_state = "data"
-	item_state = "card-id"
-	layer = 3
-	level = 2
 	desc = "This card contains coordinates to the fabled Clown Planet. Handle with care."
 	function = "teleporter"
 	data = "Clown Land"
@@ -112,8 +108,6 @@
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
 	item_state = "card-id"
-	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/id_righthand.dmi'
 	/// For redeeming at mining equipment lockers
 	var/mining_points = 0
 	/// Total mining points for the Shift.
@@ -381,13 +375,11 @@
 	..()
 
 /obj/item/card/id/silver
-	name = "identification card"
 	desc = "A silver card which shows honour and dedication."
 	icon_state = "silver"
 	item_state = "silver-id"
 
 /obj/item/card/id/gold
-	name = "identification card"
 	desc = "A golden card which shows power and might."
 	icon_state = "gold"
 	item_state = "gold-id"
@@ -466,12 +458,11 @@
 
 
 /obj/item/card/id/syndicate/vox
-	name = "agent card"
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_VOX, ACCESS_EXTERNAL_AIRLOCKS)
 
 // Added all syndicate 'Taipan' access to the admin officer
 /obj/item/card/id/syndicate/command
-	initial_access = list(	ACCESS_MAINT_TUNNELS,
+	initial_access = list(ACCESS_MAINT_TUNNELS,
 							ACCESS_SYNDICATE,
 							ACCESS_SYNDICATE_LEADER,
 							ACCESS_SYNDICATE_COMMAND,
@@ -526,7 +517,7 @@
 	rank = "Syndicate Botanist"
 
 /obj/item/card/id/syndicate/comms_officer
-	initial_access = list(	ACCESS_MAINT_TUNNELS,
+	initial_access = list(ACCESS_MAINT_TUNNELS,
 							ACCESS_SYNDICATE,
 							ACCESS_SYNDICATE_COMMS_OFFICER,
 							ACCESS_EXTERNAL_AIRLOCKS,
@@ -542,7 +533,7 @@
 	rank = "Syndicate Comms Officer"
 
 /obj/item/card/id/syndicate/research_director
-	initial_access = list(	ACCESS_MAINT_TUNNELS,
+	initial_access = list(ACCESS_MAINT_TUNNELS,
 							ACCESS_SYNDICATE,
 							ACCESS_EXTERNAL_AIRLOCKS,
 							ACCESS_SYNDICATE_SCIENTIST,
@@ -1031,10 +1022,12 @@
 	registered_name = "HoS"
 	icon_state = "HoS"
 	item_state = "hos-id"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
-			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
-			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
-			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
+	access = list(
+		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
+		ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
+		ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
+		ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS
+	)
 
 /obj/item/card/id/cmo
 	name = "Chief Medical Officer ID"
@@ -1050,20 +1043,24 @@
 	registered_name = "RD"
 	icon_state = "RD"
 	item_state = "rd-id"
-	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
-			            ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
-			            ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
-			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
+	access = list(
+		ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
+		ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
+		ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
+		ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM
+	)
 
 /obj/item/card/id/ce
 	name = "Chief Engineer ID"
 	registered_name = "CE"
 	icon_state = "CE"
 	item_state = "ce-id"
-	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
-			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
-			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
-			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM)
+	access = list(
+		ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
+		ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
+		ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
+		ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM
+	)
 
 /obj/item/card/id/clown
 	name = "Pink ID"
@@ -1129,8 +1126,6 @@
 /obj/item/card/id/punpun
 	name = "Pun Pun ID"
 	registered_name = "Пун Пун"
-	icon_state = "id"
-	item_state = "card-id"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/mining_medic
@@ -1143,8 +1138,6 @@
 /obj/item/card/id/library_owl
 	name = "Slavka ID"
 	registered_name = "Сыч Вячеслав"
-	icon_state = "id"
-	item_state = "card-id"
 	access = list(ACCESS_LIBRARY)
 
 /obj/item/card/id/rainbow
@@ -1190,8 +1183,6 @@
 
 /obj/item/card/id/ert/registration
 	name = "EDDITABLE ERT ID"
-	icon_state = "ERT_empty"
-	item_state = "ert-id"
 	var/membership
 	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS, ACCESS_SALVAGE_CAPTAIN)
 

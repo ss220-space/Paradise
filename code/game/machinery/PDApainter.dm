@@ -6,7 +6,6 @@
 	base_icon_state = "pdapainter"
 	density = TRUE
 	anchored = TRUE
-	max_integrity = 200
 	var/obj/item/pda/storedpda = null
 	var/static/list/colorlist
 	var/statusLabel
@@ -125,7 +124,7 @@
 
 	// Do not let click buttons if you're ghost unless you're an admin.
 	// TODO: To parent class or separate helper method?
-	if (isobserver(usr) && !is_admin(usr))
+	if(isobserver(usr) && !is_admin(usr))
 		return FALSE
 
 	ui_interact(user)
@@ -217,7 +216,7 @@
 /obj/machinery/pdapainter/proc/erase_pda()
 	if(storedpda) // PDA is in machine.
 		if(ishuman(usr))
-			if (storedpda.id || storedpda.cartridge)
+			if(storedpda.id || storedpda.cartridge)
 				to_chat(usr, span_notice("Уберите карту и картридж из PDA."))
 				statusLabel = "Уберите карту и картридж"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd

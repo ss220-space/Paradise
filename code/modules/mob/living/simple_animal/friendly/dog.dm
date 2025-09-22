@@ -20,11 +20,9 @@
 	melee_damage_type = STAMINA
 	melee_damage_lower = 6
 	melee_damage_upper = 10
-	attacktext = "кусает"
 	nightvision = 5
 	speak_chance = 1
 	turns_per_move = 10
-	mob_size = MOB_SIZE_SMALL
 	gold_core_spawnable = FRIENDLY_SPAWN
 	hud_type = /datum/hud/corgi
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
@@ -103,7 +101,6 @@
 	collar_type = "corgi"
 	var/shaved = FALSE
 	var/nofur = FALSE		//Corgis that have risen past the material plane of existence.
-	tts_seed = "Stetmann"
 	holder_type = /obj/item/holder/corgi
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize(mapload)
@@ -351,13 +348,9 @@
 /mob/living/simple_animal/pet/dog/corgi/Ian
 	name = "Ian"
 	real_name = "Ian"	//Intended to hold the name without altering it.
-	gender = MALE
 	desc = "It's the HoP's beloved corgi."
 	var/turns_since_scan = 0
 	var/obj/movement_target
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	var/age = 0
@@ -449,10 +442,10 @@
 		turns_since_scan++
 		if(turns_since_scan > 5)
 			turns_since_scan = 0
-			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
+			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+			if(!movement_target || !(movement_target.loc in oview(src, 3)))
 				movement_target = null
 				stop_automated_movement = 0
 				for(var/obj/item/reagent_containers/food/snacks/S in oview(src,3))
@@ -483,19 +476,15 @@
 						if(!Adjacent(movement_target)) //can't reach food through windows.
 							return
 
-						if(isturf(movement_target.loc) )
+						if(isturf(movement_target.loc))
 							movement_target.attack_animal(src)
-						else if(ishuman(movement_target.loc) )
+						else if(ishuman(movement_target.loc))
 							if(prob(20))
 								custom_emote(EMOTE_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
 		if(prob(1))
 			custom_emote(EMOTE_VISIBLE, pick("танцу%(ет,ют)% на месте.", "гоня%(ет,ют)%ся за своим хвостом."))
 			spin(20, 1)
-
-/obj/item/reagent_containers/food/snacks/meat/corgi
-	name = "Corgi meat"
-	desc = "Tastes like... well you know..."
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/narsie_act()
 	playsound(src, 'sound/misc/demon_dies.ogg', 75, TRUE)
@@ -524,7 +513,6 @@
 	holder_type = /obj/item/holder/narsian
 	maxHealth = 300
 	health = 300
-	melee_damage_type = STAMINA	//Пади ниц!
 	melee_damage_lower = 50
 	melee_damage_upper = 100
 
@@ -579,14 +567,12 @@
 
 /mob/living/simple_animal/pet/dog/corgi/puppy
 	name = "corgi puppy"
-	real_name = "corgi"
 	desc = "It's a corgi puppy!"
 	icon_state = "puppy"
 	icon_living = "puppy"
 	icon_dead = "puppy_dead"
 	density = FALSE
 	pass_flags = PASSMOB
-	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
 	tts_seed = "Jaina"
 	maxHealth = 20
@@ -650,9 +636,6 @@
 	icon_state = "lisa"
 	icon_living = "lisa"
 	icon_dead = "lisa_dead"
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
 	var/turns_since_scan = 0
 	var/puppies = 0
 	tts_seed = "Luna"
@@ -672,7 +655,6 @@
 /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
 	name = "Exotic Corgi"
 	desc = "As cute as it is colorful!"
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "corgigrey"
 	icon_living = "corgigrey"
 	icon_dead = "corgigrey_dead"
@@ -781,8 +763,6 @@
 	name = "pug"
 	real_name = "мопс"
 	desc = "Это мопс, маленькая, смешная, безобидная собака."
-	gender = MALE
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "pug"
 	icon_living = "pug"
 	icon_resting = "pug_rest"
@@ -831,7 +811,6 @@
 	name = "bullterrier"
 	real_name = "bullterrier"
 	desc = "Кого-то его мордочка напоминает..."
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "bullterrier"
 	icon_living = "bullterrier"
 	icon_dead = "bullterrier_dead"
@@ -842,7 +821,6 @@
 	name = "tamaskan"
 	real_name = "tamaskan"
 	desc = "Хорошая семейная собака. Уживается с другими собаками и ассистентами."
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "tamaskan"
 	icon_living = "tamaskan"
 	icon_dead = "tamaskan_dead"
@@ -853,7 +831,6 @@
 	name = "german"
 	real_name = "german"
 	desc = "Немецкая овчарка с помесью двортерьера. Судя по крупу - явно не породистый."
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "german"
 	icon_living = "german"
 	icon_dead = "german_dead"
@@ -863,7 +840,6 @@
 	name = "brittany"
 	real_name = "brittany"
 	desc = "Старая порода, которую любят аристократы."
-	icon = 'icons/mob/pets.dmi'
 	icon_state = "brittany"
 	icon_living = "brittany"
 	icon_dead = "brittany_dead"

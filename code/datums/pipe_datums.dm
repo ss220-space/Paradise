@@ -267,7 +267,6 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_name = "bent h/e pipe"
 	pipe_id = PIPE_HE_BENT
 	pipe_icon = "he"
-	bendy = TRUE
 	pipe_category = RPD_HEAT_PIPING
 
 /datum/pipes/atmospheric/he_junction

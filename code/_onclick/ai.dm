@@ -282,10 +282,10 @@
 	if(!ismalfAI(mind))
 		return
 	var/turf/turf = get_turf(A)
-	if (!turf)
+	if(!turf)
 		return
 	var/area/area = get_area(turf)
-	if (!area)
+	if(!area)
 		return
 	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
 		airlock.AICtrlClick(src)
@@ -294,10 +294,10 @@
 	if(!ismalfAI(mind))
 		return
 	var/turf/turf = get_turf(A)
-	if (!turf)
+	if(!turf)
 		return
 	var/area/area = get_area(turf)
-	if (!area)
+	if(!area)
 		return
 	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
 		airlock.AIShiftClick(src)
@@ -306,10 +306,10 @@
 	if(!ismalfAI(mind))
 		return
 	var/turf/turf = get_turf(A)
-	if (!turf)
+	if(!turf)
 		return
 	var/area/area = get_area(turf)
-	if (!area)
+	if(!area)
 		return
 	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
 		airlock.ai_click_alt(src)
@@ -318,10 +318,10 @@
 	if(!ismalfAI(mind))
 		return
 	var/turf/turf = get_turf(A)
-	if (!turf)
+	if(!turf)
 		return
 	var/area/area = get_area(turf)
-	if (!area)
+	if(!area)
 		return
 	for(var/obj/machinery/door/airlock/airlock in area.machinery_cache)
 		airlock.AIAltShiftClick(src)

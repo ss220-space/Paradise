@@ -8,7 +8,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 60, MAT_GLASS = 30)
 	force = 2
-	throwforce = 0
 	drop_sound = 'sound/items/handling/drop/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/taperecorder_pickup.ogg'
 	tts_seed = "Xenia"
@@ -138,11 +137,12 @@
 	if(!mytape)
 		return NONE
 
-	var/list/options = list( PLAYBACK_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
-					PRINT_TRANSCRIPT = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
-					EJECT_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]"),
-					SILENT_MODE = image(icon = silent_mode ? 'icons/obj/items.dmi' : 'icons/obj/device.dmi' , icon_state = silent_mode ? "earmuffs" : "megaphone")
-					)
+	var/list/options = list(
+		PLAYBACK_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
+		PRINT_TRANSCRIPT = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
+		EJECT_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]"),
+		SILENT_MODE = image(icon = silent_mode ? 'icons/obj/items.dmi' : 'icons/obj/device.dmi' , icon_state = silent_mode ? "earmuffs" : "megaphone")
+	)
 	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 	if(!choice || user.incapacitated())
 		return CLICK_ACTION_BLOCKING
@@ -378,7 +378,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 20, MAT_GLASS = 5)
 	force = 1
-	throwforce = 0
 	drop_sound = 'sound/items/handling/drop/tape_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/tape_pickup.ogg'
 	var/max_capacity = 600

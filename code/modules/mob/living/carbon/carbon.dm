@@ -808,7 +808,7 @@
 	if(ispill(toEat))
 		to_chat(src, span_notice("Вы [toEat.apply_method]ли [toEat.declent_ru(ACCUSATIVE)]."))
 	else
-		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
+		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50)
 			to_chat(src, span_notice("Вы не хотите есть вредную пищу прямо сейчас."))
 			return FALSE
 		if(fullness <= 50)
@@ -970,12 +970,12 @@ so that different stomachs can handle things in different ways VB*/
 /mob/living/carbon/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(head)
 		if(head.clean_blood())
-			update_inv_head()
+			update_worn_head()
 		if(head.flags_inv & HIDEMASK)
 			clean_mask = FALSE
 	if(wear_suit)
 		if(wear_suit.clean_blood())
-			update_inv_wear_suit()
+			update_worn_oversuit()
 		if(wear_suit.flags_inv & HIDESHOES)
 			clean_feet = FALSE
 		if(wear_suit.flags_inv & HIDEGLOVES)

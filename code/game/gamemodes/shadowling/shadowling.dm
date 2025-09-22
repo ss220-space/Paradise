@@ -32,25 +32,6 @@ Made by Xhuis
 
 */
 
-
-
-/*
-	GAMEMODE
-*/
-
-
-/datum/game_mode
-	var/list/datum/mind/shadows = list()
-	var/list/datum/mind/shadowling_thralls = list()
-	var/list/shadow_objectives = list()
-	var/required_thralls = 15 //How many thralls are needed (hardcoded for now)
-	var/shadowling_ascended = 0 //If at least one shadowling has ascended
-	var/shadowling_dead = 0 //is shadowling kill
-	var/objective_explanation
-	var/warning_threshold
-	var/victory_warning_announced = FALSE
-	var/thrall_ratio = 1
-
 /proc/is_thrall(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.shadowling_thralls)
 
@@ -264,13 +245,17 @@ Made by Xhuis
 		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>")
 		to_chat(M, "<span class='userdanger'>Тебя превратили в робота! Ты больше не теньлинг! Как бы ты ни старался, ты не можешь вспомнить ничего о том времени, когда ты был им...</span>")
 	else
-		M.visible_message("<span class='big'>[M] кричит и корчится!</span>", \
-						  "<span class='userdanger'>СВЕТ-- ТВОЙ РАЗУМ-- <i>ГОРИТ--</i></span>")
+		M.visible_message(
+			"<span class='big'>[M] кричит и корчится!</span>", \
+			"<span class='userdanger'>СВЕТ-- ТВОЙ РАЗУМ-- <i>ГОРИТ--</i></span>"
+		)
 		spawn(30)
 			if(!M || QDELETED(M))
 				return
-			M.visible_message(span_warning("[M] внезапно раздувается и взрывается!"), \
-							  span_warning(span_bold("AAAAAAAAA[span_fontsize3("AAAAAAAAAAAAA")][span_fontsize4("AAAAAAAAAAAA.....")]")))
+			M.visible_message(
+				span_warning("[M] внезапно раздувается и взрывается!"), \
+				span_warning(span_bold("AAAAAAAAA[span_fontsize3("AAAAAAAAAAAAA")][span_fontsize4("AAAAAAAAAAAA.....")]"))
+			)
 			playsound(M, 'sound/magic/disintegrate.ogg', 100, TRUE)
 			M.gib()
 

@@ -13330,6 +13330,15 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/research/lab)
+"eOH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/hallway/cargo_escape/north)
 "eOV" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -19561,10 +19570,12 @@
 "hhf" = (
 /obj/machinery/disposal,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "hhk" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
 	name = "Security Reception";
@@ -19572,9 +19583,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Brig_lockdown";
@@ -19584,9 +19592,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/reception)
 "hhs" = (
@@ -20958,6 +20964,19 @@
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/coldcolony/malta/resid_serv/library/game_zone)
+"hJz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dust,
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/hallway/cargo_escape/north)
 "hJA" = (
 /obj/machinery/door/window/brigdoor/southright{
 	dir = 4
@@ -22328,8 +22347,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
+/obj/structure/disposalpipe/junction{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -23924,10 +23943,6 @@
 	dir = 4;
 	id = "garbage"
 	},
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "garbage"
-	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "iRv" = (
@@ -24850,9 +24865,6 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/bridge/hop)
 "jgu" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/structure/chair{
 	dir = 4
 	},
@@ -31722,6 +31734,7 @@
 /obj/machinery/chem_master{
 	pixel_x = -1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
@@ -46077,8 +46090,7 @@
 /area/coldcolony/malta/maintenance/garden)
 "qPL" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -47045,8 +47057,7 @@
 /area/coldcolony/malta/research/hor)
 "rgi" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -47126,6 +47137,9 @@
 	dir = 4
 	},
 /obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
 "rhO" = (
@@ -50359,6 +50373,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -50892,8 +50909,7 @@
 /area/coldcolony/malta/resid_serv/library/game_zone)
 "sEX" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood/fancy/light,
@@ -52194,6 +52210,9 @@
 	dir = 8
 	},
 /obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -53449,6 +53468,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -55704,6 +55726,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -56483,6 +56508,7 @@
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/reagent_containers/glass/beaker,
 /obj/item/reagent_containers/glass/beaker,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
 "uLt" = (
@@ -64892,6 +64918,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -117127,7 +117156,7 @@ aWI
 jVj
 tju
 fvH
-eDi
+eOH
 tju
 iho
 ldR
@@ -117384,7 +117413,7 @@ mAI
 eec
 tZl
 lub
-hOI
+hJz
 hOI
 bIS
 pof

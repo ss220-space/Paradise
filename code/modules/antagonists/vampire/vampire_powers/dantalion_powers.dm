@@ -133,7 +133,7 @@
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune/cast(list/targets, mob/user)
 	var/input = tgui_input_text(user, "Введите сообщение для передачи другим рабам", "Сообщение рабам")
-	if(! input)
+	if(!input)
 		revert_cast(user)
 		return
 
@@ -157,7 +157,6 @@
 	desc = "Временно умиротворяет цель, делая её неспособной причинить вред. Возможно использовать сквозь стены."
 	gain_desc = "Вы обрели способность умиротворять агрессивные порывы гуманоида, не позволяя ему причинить кому-либо физический вред."
 	action_icon_state = "pacify"
-	base_cooldown = 10 SECONDS
 	required_blood = 10
 	need_active_overlay = TRUE
 

@@ -20,6 +20,8 @@
 	var/obj/item/paicard_upgrade/upgrade
 	var/list/upgrades = list()
 
+	var/current_emotion = 1
+
 /obj/item/paicard/get_ru_names()
 	return list(
 		NOMINATIVE = "интелкарта пИИ",
@@ -137,7 +139,7 @@
 		else
 			dat += {"
 				<b><font size='3px'>pAI Request Module</font></b><br><br>
-			    <p>No personality is installed.</p>
+				<p>No personality is installed.</p>
 				<table>
 					<tr>
 						<td class="button"><a href='byond://?src=[UID()];request=1' class="button">Request personality</a>
@@ -260,8 +262,6 @@
 		add_overlay(get_emissive_block())
 	QDEL_LIST(upgrades)
 
-/obj/item/paicard
-	var/current_emotion = 1
 /obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
 		cut_overlays()

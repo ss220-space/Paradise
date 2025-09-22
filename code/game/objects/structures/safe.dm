@@ -21,7 +21,6 @@ GLOBAL_LIST_EMPTY(safes)
 	name = "safe"
 	desc = "Огромный кусок металла со встроенным в него циферблатом. Мелким шрифтом на циферблате написано: \"Сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
 	gender = MALE
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
 	anchored = TRUE
 	density = TRUE
@@ -380,7 +379,7 @@ GLOBAL_LIST_EMPTY(safes)
 	driller_human.apply_status_effect(STATUS_EFFECT_DRILL_PAYBACK, src)
 	drill.song.start_playing(driller_human)
 	drill.atom_say("Security spotted. Nanites deployed. Give them <b>hell.</b>")
-	notify_ghosts("Security assault in progress in [get_area(src)]!", enter_link = "<a href=?src=[UID()];follow=1>(Click to jump to!)</a>", source = src, action = NOTIFY_FOLLOW)
+	notify_ghosts("Security assault in progress in [get_area(src)]!", enter_link = "<a href=byond://?src=[UID()];follow=1>(Click to jump to!)</a>", source = src, action = NOTIFY_FOLLOW)
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		O.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 0)
 	addtimer(CALLBACK(src, PROC_REF(ghost_payback_phase_2)), 2.7 SECONDS)

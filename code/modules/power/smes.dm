@@ -12,7 +12,6 @@
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon_state = "smes"
 	density = TRUE
-	use_power = NO_POWER_USE
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
@@ -304,7 +303,7 @@
 		if(outputting)
 			output_used = min( charge/SMESRATE, output_level)		//limit output to that stored
 
-			if (add_avail(output_used))				// add output to powernet if it exists (smes side)
+			if(add_avail(output_used))				// add output to powernet if it exists (smes side)
 				charge -= output_used*SMESRATE		// reduce the storage (may be recovered in /restore() if excessive)
 			else
 				outputting = FALSE
@@ -350,7 +349,7 @@
 
 	output_used -= excess
 
-	if(clev != chargedisplay() ) //if needed updates the icons overlay
+	if(clev != chargedisplay()) //if needed updates the icons overlay
 		update_icon(UPDATE_OVERLAYS)
 	return
 
@@ -508,7 +507,6 @@
 	..()
 
 /obj/machinery/power/smes/vintage
-	name = "power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit. Old but not useless."
 	icon_state = "oldsmes"
 	capacity = 2500000

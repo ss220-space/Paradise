@@ -100,16 +100,30 @@
 		JOB_MIN_AGE_COMMAND = 20,
 	)
 
+	autohiss_basic_map = list(
+			"z" = list("zz", "zzz", "zzzz"),
+			"v" = list("vv", "vvv", "vvvv"),
+			"з" = list("зз", "ззз", "зззз"),
+			"в" = list("вв", "ввв", "вввв")
+		)
+	autohiss_extra_map = list(
+			"s" = list("z", "zs", "zzz", "zzsz"),
+			"с" = list("з", "зс", "ззз", "ззсз")
+		)
+	autohiss_exempt = list("Хитин")
+
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
 
 /datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	add_verb(H, list(/mob/living/carbon/human/proc/emote_click,
-					/mob/living/carbon/human/proc/emote_clack,
-			  		/mob/living/carbon/human/proc/emote_wiggle,
-			  		/mob/living/carbon/human/proc/emote_wave_k))
+	add_verb(H, list(
+		/mob/living/carbon/human/proc/emote_click,
+		/mob/living/carbon/human/proc/emote_clack,
+		/mob/living/carbon/human/proc/emote_wiggle,
+		/mob/living/carbon/human/proc/emote_wave_k
+	))
 	remove_verb(H, list(
 		/mob/living/carbon/human/verb/emote_pale,
 		/mob/living/carbon/human/verb/emote_blink,
@@ -122,7 +136,8 @@
 		/mob/living/carbon/human/verb/emote_eyebrow,
 		/mob/living/carbon/human/verb/emote_frown,
 		/mob/living/carbon/human/verb/emote_sniff,
-		/mob/living/carbon/human/verb/emote_glare))
+		/mob/living/carbon/human/verb/emote_glare
+	))
 	// HUD for detecting pheromones
 	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
 	kidan_hud.add_hud_to(H)

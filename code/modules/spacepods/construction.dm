@@ -1,10 +1,7 @@
 /obj/structure/spacepod_frame
 	density = TRUE
-	opacity = FALSE
-
 	anchored = TRUE
 	layer = 3.9
-
 	icon = 'icons/goonstation/48x48/pod_construction.dmi'
 	icon_state = "pod_1"
 

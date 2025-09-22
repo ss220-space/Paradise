@@ -3,7 +3,6 @@
 	desc = "Используется для управления тюремными камерами."
 	icon_keyboard = "security_key"
 	icon_screen = "cell_monitor"
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 250
 	active_power_usage = 500
 	circuit = /obj/item/circuitboard/brigcells
@@ -51,7 +50,7 @@
 	return data
 
 /obj/machinery/computer/brigcells/ui_act(action, params)
-	if (..())
+	if(..())
 		return FALSE
 
 	if(!allowed(usr))
@@ -59,10 +58,10 @@
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return FALSE
 
-	if (action == "release")
+	if(action == "release")
 		var/ref = params["ref"]
 		var/obj/machinery/door_timer/T = locate(ref)
-		if (T)
+		if(T)
 			T.timer_end()
 			T.Radio.autosay("Timer stopped manually from a cell management console.", T.name, SEC_FREQ_NAME)
 		return TRUE

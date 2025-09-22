@@ -46,7 +46,6 @@
 	obj_damage = 60
 	melee_damage_lower = 25
 	melee_damage_upper = 25
-	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 0
@@ -94,7 +93,7 @@
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
 	for(var/turf/T as anything in get_line(src,target))
-		if (T.density)
+		if(T.density)
 			return
 		for(var/obj/O in T)
 			if(O.density)

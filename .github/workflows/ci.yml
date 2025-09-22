@@ -48,20 +48,43 @@ jobs:
           cache-dependency-path: ./tgui/yarn.lock
 
       - name: Install python packages
-        run: pip3 install -r tools/requirements.txt
+        run: pip install -r tools/requirements.txt
 
       - name: Run Linters
         run: |
-          find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/ci/json_verifier.py
+          bash tools/ci/check_json.sh
           tgui/bin/tgui --ci
-          tools/ci/check_grep.sh
-          tools/bootstrap/python -m define_sanity.check
-          python3 tools/ci/check_line_endings.py
-          python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
+          python tools/ci/check_grep.py
+          python tools/ci/check_grep2.py
+          python tools/ci/check_line_endings.py
+          python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
+          python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
+          python tools/ci/define_sanity.py
+          python tools/ci/no_duplicate_definitions.py
+          python tools/ci/identical_variables.py
+          python tools/ci/check_icons.py
+          python tools/ci/trait_validity.py
+          python -m tools.maplint.source --github
 
       - name: Run DreamChecker
         shell: bash
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
+
+  odlint:
+    name: Lint with OpenDream
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup OD
+        run: |
+          bash tools/ci/setup_od.sh
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4.3.1
+        with:
+          dotnet-version: 9.x
+      - name: Run OD
+        run: |
+          bash tools/ci/run_od.sh | bash tools/ci/annotate_od.sh
 
   compile_all_maps:
     name: Compile All Maps

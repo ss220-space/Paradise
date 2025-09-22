@@ -1,22 +1,3 @@
-/client
-	var/list/parallax_layers
-	var/list/parallax_layers_cached
-	var/atom/movable/screen/parallax_home/parallax_rock
-	var/atom/movable/movingmob
-	var/turf/previous_turf
-	/// world.time of when we can state animate()ing parallax again
-	var/dont_animate_parallax
-	/// Direction our current area wants to move parallax
-	var/parallax_movedir = 0
-	/// How many parallax layers to show our client
-	var/parallax_layers_max = 4
-	/// Timers for the area directional animation, one for each layer
-	var/list/parallax_animate_timers
-	/// Do we want to do parallax animations at all?
-	/// Exists to prevent laptop fires
-	var/do_parallax_animations = TRUE
-
-
 /datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
@@ -73,7 +54,7 @@
 	var/client/C = screenmob.client
 	var/pref = C.prefs?.parallax || PARALLAX_HIGH
 	switch(pref)
-		if (PARALLAX_INSANE)
+		if(PARALLAX_INSANE)
 			C.parallax_layers_max = 5
 			C.do_parallax_animations = TRUE
 			return TRUE
@@ -83,17 +64,17 @@
 			C.do_parallax_animations = TRUE
 			return TRUE
 
-		if (PARALLAX_MED)
+		if(PARALLAX_MED)
 			C.parallax_layers_max = 3
 			C.do_parallax_animations = TRUE
 			return TRUE
 
-		if (PARALLAX_LOW)
+		if(PARALLAX_LOW)
 			C.parallax_layers_max = 1
 			C.do_parallax_animations = FALSE
 			return TRUE
 
-		if (PARALLAX_DISABLE)
+		if(PARALLAX_DISABLE)
 			return FALSE
 
 
@@ -141,7 +122,7 @@
 
 		layer.transform = new_transform
 		animate(layer, transform = matrix(), time = scaled_time, easing = QUAD_EASING | (new_parallax_movedir ? EASE_IN : EASE_OUT))
-		if (new_parallax_movedir == NONE)
+		if(new_parallax_movedir == NONE)
 			continue
 		//queue up another animate so lag doesn't create a shutter
 		animate(transform = new_transform, time = 0)
@@ -315,29 +296,23 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 	cut_overlays()
 	add_overlay(new_overlays)
 
-
 // I left this so if the player re-enables parallax, it will correctly update parallax, instead "flicks" on the first move
 /atom/movable/screen/parallax_layer/proc/update_status(mob/M)
 	return
-
 
 /atom/movable/screen/parallax_layer/layer_1
 	icon_state = "layer1"
 	speed = 0.6
 	layer = 1
 
-
 /atom/movable/screen/parallax_layer/layer_2
 	icon_state = "layer2"
-	speed = 1
 	layer = 2
-
 
 /atom/movable/screen/parallax_layer/layer_3
 	icon_state = "layer3"
 	speed = 1.4
 	layer = 3
-
 
 /atom/movable/screen/parallax_layer/planet
 	icon_state = "planet"

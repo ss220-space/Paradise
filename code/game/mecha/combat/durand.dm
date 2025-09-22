@@ -36,15 +36,8 @@
 	name = "Durand"
 	icon_state = "old_durand"
 	initial_icon = "old_durand"
-	step_in = 4
-	dir_in = 1 //Facing North.
-	max_integrity = 400
-	deflect_chance = 20
 	armor = list(melee = 50, bullet = 35, laser = 15, energy = 15, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
-	max_temperature = 30000
-	infra_luminosity = 8
 	maint_access = FALSE
-	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand/old
 
 	mech_type = MECH_TYPE_OLD_DURAND
@@ -54,16 +47,9 @@
 	name = "Rover"
 	icon_state = "darkdurand"
 	initial_icon = "darkdurand"
-	step_in = 4
-	dir_in = 1 //Facing North.
-	max_integrity = 400
-	deflect_chance = 20
 	armor = list(melee = 30, bullet = 40, laser = 50, energy = 50, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
-	max_temperature = 30000
-	infra_luminosity = 8
 	max_equip = 4
 	maint_access = FALSE
-	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand/rover
 	internal_damage_threshold = 35
 	wall_type = /obj/effect/forcefield/mecha/syndicate //energywall icon_state

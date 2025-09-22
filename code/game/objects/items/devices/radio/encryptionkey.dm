@@ -26,7 +26,7 @@
 
 /obj/item/encryptionkey/syndicate
 	name = "syndicate encryption key"
-	desc = "Ключ шифрования, устанавливаемый в гарнитуру. Содержит в себе лучшее хакерское ПО, доступное на чёрном рынке и позволяющее получить доступ ко всем частотам НаноТрейзен."
+	desc = "Ключ шифрования, устанавливаемый в гарнитуру. Содержит в себе лучшее хакерское ПО, доступное на чёрном рынке и позволяющее получить доступ ко всем частотам Нанотрейзен."
 	icon_state = "syn_cypherkey"
 	channels = list(SYND_FREQ_NAME = 1)
 	origin_tech = "syndicate=1;engineering=3;bluespace=2"
@@ -61,8 +61,6 @@
 	channels = list(SYND_TAIPAN_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/syndicate/taipan/borg
-	change_voice = FALSE
-	icon_state = "taipan_cypherkey"
 	channels = list(SYND_TAIPAN_FREQ_NAME = 1, SYND_FREQ_NAME = 1)
 /obj/item/encryptionkey/syndicate/taipan/tcomms_agent
 	icon_state = "ofcom_cypherkey"
@@ -70,7 +68,7 @@
 
 /obj/item/encryptionkey/syndteam
 	name = "syndicate encryption key"
-	desc = "Ключ шифрования, устанавливаемый в гарнитуру. Содержит в себе лучшее хакерское ПО, доступное на чёрном рынке и позволяющее получить доступ ко всем частотам НаноТрейзен."
+	desc = "Ключ шифрования, устанавливаемый в гарнитуру. Содержит в себе лучшее хакерское ПО, доступное на чёрном рынке и позволяющее получить доступ ко всем частотам Нанотрейзен."
 	icon_state = "syn_cypherkey"
 	channels = list(SYNDTEAM_FREQ_NAME = 1, SYND_FREQ_NAME = 1)
 	origin_tech = "syndicate=4"
@@ -424,12 +422,12 @@
 
 /obj/item/encryptionkey/heads/ntrep/get_ru_names()
 	return list(
-		NOMINATIVE = "ключ-шифратор представителя НаноТрейзен",
-		GENITIVE = "ключа-шифратора представителя НаноТрейзен",
-		DATIVE = "ключу-шифратору представителя НаноТрейзен",
-		ACCUSATIVE = "ключ-шифратор представителя НаноТрейзен",
-		INSTRUMENTAL = "ключом-шифратором представителя НаноТрейзен",
-		PREPOSITIONAL = "ключе-шифраторе представителя НаноТрейзен"
+		NOMINATIVE = "ключ-шифратор представителя Нанотрейзен",
+		GENITIVE = "ключа-шифратора представителя Нанотрейзен",
+		DATIVE = "ключу-шифратору представителя Нанотрейзен",
+		ACCUSATIVE = "ключ-шифратор представителя Нанотрейзен",
+		INSTRUMENTAL = "ключом-шифратором представителя Нанотрейзен",
+		PREPOSITIONAL = "ключе-шифраторе представителя Нанотрейзен"
 	)
 /obj/item/encryptionkey/heads/magistrate
 	name = "Magistrate's Encryption Key"

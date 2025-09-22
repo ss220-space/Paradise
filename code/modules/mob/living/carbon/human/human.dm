@@ -11,6 +11,8 @@
 	physiology = new(src)
 
 	setup_dna(new_species)
+	special_check_for_transplantation()
+
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
 	diag_hud.add_to_hud(src)
 	med_hud_set_health()	// Updating med huds is necessary after `setup_dna()` due to the fact that while
@@ -103,12 +105,12 @@
 
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/machine/Initialize(mapload)
@@ -1457,7 +1459,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_act()
 	. = 20
 	if(mind)
-		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF) )
+		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF))
 			. = 100
 		if(mind.assigned_role == JOB_TITLE_ENGINEER_TRAINEE)	//Чем глупее, тем вкуснее
 			. = 300
@@ -1641,17 +1643,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
-		balloon_alert(src, span_warning("слишком толстые пальцы!"))
+		balloon_alert(src, "слишком толстые пальцы!")
 		return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-		to_chat(src, span_warning("[mind.martial_art.no_guns_message]"))
+		to_chat(src, "[mind.martial_art.no_guns_message]")
 		return FALSE
 
 	// ninjas will not use default ranged weapons
 	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
 	if(ninja && !ninja.allow_guns && !check_gun.ninja_weapon)
-		to_chat(src, span_warning("[ninja.no_guns_message]"))
+		to_chat(src, "[ninja.no_guns_message]")
 		return FALSE
 
 
@@ -1824,13 +1826,28 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
 
-/mob/living/carbon/human/proc/special_post_clone_handling()
+/mob/living/carbon/human/proc/special_post_clone_handling(transplantated = FALSE)
+	special_check_for_transplantation()
 	if(!mind)
 		return
 	if(mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
 	if(LAZYIN(mind.curses, "high_rp")) // Probably need to make a new proc to handle curses in case if there will be new ones
 		curse_high_rp()
+
+/mob/living/carbon/human/proc/special_check_for_transplantation()
+	var/obj/item/organ/internal/brain/brains = get_int_organ(/obj/item/organ/internal/brain)
+	if(!brains || !istype(brains))
+		return
+	var/obj/item/organ/external/chest/self_chest = get_organ(BODY_ZONE_CHEST)
+	if(!self_chest || !istype(self_chest))
+		return
+	if(brains.original_body && brains.original_body != self_chest)
+		//this is not original body for brain, apply brain transplantation disease
+		var/datum/disease/brain_transplant_syndrome/disease = new
+		disease.Contract(src)
+	//now this body are original for brain
+	brains.original_body = self_chest
 
 /mob/living/carbon/human/is_literate()
 	return getBrainLoss() < 100

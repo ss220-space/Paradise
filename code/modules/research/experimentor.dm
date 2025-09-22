@@ -23,9 +23,6 @@
 	name = "E.X.P.E.R.I-MENTOR"
 	icon = 'icons/obj/machines/heavy_lathe.dmi'
 	icon_state = "h_lathe"
-	density = TRUE
-	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	var/recentlyExperimented = FALSE
 	var/mob/trackedIan
 	var/mob/trackedRuntime
@@ -181,16 +178,15 @@
 			to_chat(user, span_warning("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
 			return ATTACK_CHAIN_PROCEED
 
-		if (I.type in subtypesof(/obj/item/stack))
+		if(I.type in subtypesof(/obj/item/stack))
 			var/obj/item/stack/stack = I
-			if (stack.amount > 1)
+			if(stack.amount > 1)
 				to_chat(user, span_warning("Предмет должен быть цельным."))
 				return ATTACK_CHAIN_PROCEED
 
 		investigate_log("Experimentor has made a clone of [I]", INVESTIGATE_EXPERIMENTOR)
 		throwSmoke(get_turf(pick(oview(1,src))))
-
-		for (var/i = 1; i <= badThingCoeff; i++)
+		for(var/i = 1; i <= badThingCoeff; i++)
 			visible_message(span_notice("A duplicate [I] pops out!"))
 			var/type_to_make = I.type
 			var/obj/item/clone = new type_to_make(get_turf(pick(oview(1,src))))
@@ -608,7 +604,7 @@
 		badThingCoeff++
 		var/list/obj/item/stack/sheet/mineral/minreals = list(/obj/item/stack/sheet/mineral/diamond, /obj/item/stack/sheet/mineral/gold, /obj/item/stack/sheet/glass,/obj/item/stack/sheet/metal,/obj/item/stack/sheet/mineral/plasma,/obj/item/stack/sheet/mineral/silver,/obj/item/stack/sheet/mineral/titanium,/obj/item/stack/sheet/mineral/uranium,/obj/item/stack/sheet/mineral/tranquillite,/obj/item/stack/sheet/mineral/bananium)
 		// Plastinium and abductor alloy are alloys, not processed ores.
-		for (var/i = 1; i <= 3; ++i)
+		for(var/i = 1; i <= 3; ++i)
 			var/obj/item/stack/sheet/mineral/m0 = pick(minreals)
 			var/obj/item/stack/sheet/mineral/M = new m0(get_turf(exp_on))
 			M.amount = 10
@@ -789,7 +785,6 @@
 	return TRUE
 
 /obj/item/relict_production/perfect_mix
-	name = "perfect mix"
 	desc = "Странный объект из которого можно бесконечно заполнять емкости какой-то жидкостью."
 	icon_state = "beaker"
 	item_state = "beaker"
@@ -816,7 +811,6 @@
 	name = "strange teleporter"
 	desc = "Странный объект телепортирующий вас при активации."
 	icon_state = "prox-multitool2"
-	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "materials=4;bluespace=4"
 	cooldown = 10 SECONDS
 
@@ -840,7 +834,6 @@
 	name = "pet spray"
 	desc = "Странный объект создающий враждебных существ."
 	icon_state = "armor-igniter-analyzer"
-	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "biotech=5"
 	cooldown = 60 SECONDS
 
@@ -878,7 +871,6 @@
 	name = "rapid dupe"
 	desc = "Странный объект создающий другие странные объекты при контакте с аномалиями."
 	icon_state = "shock_kit"
-	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "materials=5"
 
 //////////////////////////////////SPECIAL ITEMS////////////////////////////////////////

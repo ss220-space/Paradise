@@ -9,7 +9,6 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	desc = "Whoops..."
 	drydesc = "Whoops..."
 	icon_state = "wheels1"
-	gender = PLURAL
 	random_icon_states = null
 	amount = 0
 
@@ -18,12 +17,9 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	icon = 'icons/effects/fluidtracks.dmi'
 	icon_state = "nothingwhatsoever"
 	desc = "You REALLY shouldn't follow these.."
-	gender = PLURAL
 	random_icon_states = null
-	basecolor = BLOOD_COLOR_RED
 	var/entered_dirs = 0
 	var/exited_dirs = 0
-	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
 
 
 /obj/effect/decal/cleanable/blood/footprints/blood_decal_crossed(mob/living/carbon/human/arrived)

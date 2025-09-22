@@ -233,14 +233,18 @@
 
 /datum/action/innate/cult/blood_spell/dagger/Activate()
 	var/turf/T = get_turf(owner)
-	owner.visible_message(span_warning("[owner]'s hand glows red for a moment."), \
-						  span_cultitalic("Red light begins to shimmer and take form within your hand!"))
+	owner.visible_message(
+		span_warning("[owner]'s hand glows red for a moment."), \
+		span_cultitalic("Red light begins to shimmer and take form within your hand!")
+	)
 	var/obj/item/melee/cultblade/dagger/O = new(T)
 	if(owner.put_in_hands(O))
 		to_chat(owner, span_warning("A [O.name] appears in your hand!"))
 	else
-		owner.visible_message(span_warning("A [O.name] appears at [owner]'s feet!"), \
-							  span_cultitalic("A [O.name] materializes at your feet."))
+		owner.visible_message(
+			span_warning("A [O.name] appears at [owner]'s feet!"), \
+			span_cultitalic("A [O.name] materializes at your feet.")
+		)
 	playsound(owner, 'sound/magic/cult_spell.ogg', 25, TRUE)
 	charges--
 	desc = base_desc
@@ -277,7 +281,6 @@
 	return TRUE
 
 /obj/effect/proc_holder/horror
-	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	var/datum/action/innate/cult/blood_spell/attached_action
 
@@ -369,13 +372,11 @@
 /obj/item/melee/blood_magic
 	name = "magical aura"
 	desc = "A sinister looking aura that distorts the flow of reality around it."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	item_flags = ABSTRACT|DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 	/// Does it have a source, AKA bloody empowerment.
@@ -595,7 +596,6 @@
 /obj/item/restraints/handcuffs/energy/cult //For the shackling spell
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
-	trashtype = /obj/item/restraints/handcuffs/energy/used
 	item_flags = DROPDEL
 
 /obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user, slot, silent = FALSE)

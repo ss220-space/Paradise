@@ -2,7 +2,6 @@
 	name = "airlock assembly"
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "construction"
-	anchored = FALSE
 	density = TRUE
 	max_integrity = 200
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
@@ -214,7 +213,7 @@
 
 
 /obj/structure/door_assembly/crowbar_act(mob/user, obj/item/I)
-	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
+	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -239,7 +238,7 @@
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/screwdriver_act(mob/user, obj/item/I)
-	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
+	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))

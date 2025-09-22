@@ -1,4 +1,5 @@
 /mob/proc/get_screen_colour()
+	return
 
 /mob/proc/update_client_colour(time = 10) //Update the mob's client.color with an animation the specified time in length.
 	if(!client) //No client_colour without client. If the player logs back in they'll be back through here anyway.
@@ -299,13 +300,15 @@
 	while(counter>=1)
 		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(newletter in list(" ", "!", "?", ".", ","))
-			//do nothing
+			// Skip these
+			counter -= 1
+			continue
 		else if(lowertext(newletter) in list("a", "e", "i", "o", "u", "y", "а", "е", "ё", "и", "о", "у", "ы", "э", "ю", "я"))
 			newletter = "пф"
 		else
 			newletter = "м"
-		newphrase+="[newletter]"
-		counter-=1
+		newphrase += "[newletter]"
+		counter -= 1
 	return newphrase
 
 /proc/muffledspeech_all(list/message_pieces)
@@ -341,7 +344,7 @@
 		//We take the smaller of our two distances so things still have the propencity to feel somewhat jerky
 		var/time = round(max(min(abs(last_x - x_pos), abs(last_y - y_pos)) * time_scalar, 1))
 
-		if (time_spent == 0)
+		if(time_spent == 0)
 			animate(client, pixel_x = x_pos, pixel_y=y_pos, time = time)
 		else
 			animate(pixel_x = x_pos, pixel_y = y_pos, time = time)
@@ -568,7 +571,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		var/search_pda = 1
 
 		for(var/A in searching)
-			if( search_id && istype(A,/obj/item/card/id) )
+			if(search_id && istype(A,/obj/item/card/id))
 				var/obj/item/card/id/ID = A
 				if(ID.registered_name == oldname)
 					ID.registered_name = newname
@@ -577,7 +580,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && is_pda(A) )
+			else if(search_pda && is_pda(A))
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.update_owner_name(newname)

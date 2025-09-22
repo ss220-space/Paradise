@@ -23,5 +23,4 @@
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	permeability_coefficient = 1
 	strip_delay = 120
-	slowdown = 0
 	clothing_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_WATER)

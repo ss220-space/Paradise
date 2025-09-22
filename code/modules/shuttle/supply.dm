@@ -347,7 +347,7 @@
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
 
-	if((errors & MANIFEST_ERROR_ITEM))
+	if(errors & MANIFEST_ERROR_ITEM)
 		//secure and large crates cannot lose items
 		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
 			errors &= ~MANIFEST_ERROR_ITEM
@@ -392,7 +392,6 @@
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
 	desc = "Используется для оформления заказов. Предназначено для общего пользования."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "request"
 	circuit = /obj/item/circuitboard/ordercomp
 	req_access = list()

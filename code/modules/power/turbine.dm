@@ -31,7 +31,6 @@
 	desc = "The compressor stage of a gas turbine generator."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "compressor"
-	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/power/turbine/turbine
@@ -51,7 +50,6 @@
 	desc = "A gas turbine used for backup power generation."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "turbine"
-	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF
 	var/opened = 0
@@ -338,7 +336,7 @@
 
 /obj/machinery/power/turbine/interact(mob/user)
 
-	if( !Adjacent(user)  || (stat & (NOPOWER|BROKEN)) && (!istype(user, /mob/living/silicon)) )
+	if(!Adjacent(user)  || (stat & (NOPOWER|BROKEN)) && (!istype(user, /mob/living/silicon)))
 		user.unset_machine(src)
 		close_window(user, "turbine")
 		return
@@ -364,12 +362,12 @@
 	if(..())
 		return
 
-	if( href_list["close"] )
+	if(href_list["close"])
 		close_window(usr, "turbine")
 		usr.unset_machine(src)
 		return
 
-	else if( href_list["str"] )
+	else if(href_list["str"])
 		if(compressor)
 			compressor.starter = !compressor.starter
 
@@ -430,10 +428,10 @@
 	if(..())
 		return
 
-	else if( href_list["str"] )
+	else if(href_list["str"])
 		if(compressor && compressor.turbine)
 			compressor.starter = !compressor.starter
-	else if( href_list["close"] )
+	else if(href_list["close"])
 		close_window(usr, "turbinecomputer")
 		usr.unset_machine(src)
 		return

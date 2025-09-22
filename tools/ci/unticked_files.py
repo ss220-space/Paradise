@@ -26,7 +26,9 @@ INCLUDER_FILES = [
 
 IGNORE_FILES = {
     # Included directly in the function /datum/tgs_api/v5#ApiVersion
-    'code/modules/tgs/v5/v5_interop_version.dm'
+    'code/modules/tgs/v5/v5_interop_version.dm',
+    # Included as part of OD lints
+    'tools/ci/od_lints.dm'
 }
 
 def get_unticked_files(root:Path):
@@ -43,7 +45,7 @@ def get_unticked_files(root:Path):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("root", help="paracode root directory")
+    parser.add_argument("root", help="project root directory")
     args = parser.parse_args()
 
     # Windows quoting behavior for directories adds trailing double-quote

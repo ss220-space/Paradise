@@ -14,7 +14,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	density = FALSE
 	blocks_emissive = FALSE // Ghosts are transparent, duh
 	alpha = 127
-	move_resist = INFINITY	//  don't get pushed around
 	light_system = NO_LIGHT_SUPPORT
 	invisibility = INVISIBILITY_OBSERVER
 	pass_flags = PASSEVERYTHING
@@ -767,7 +766,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 
 /mob/dead/observer/update_sight()
-	if (!ghostvision)
+	if(!ghostvision)
 		set_invis_see(SEE_INVISIBLE_LIVING)
 	else
 		set_invis_see(SEE_INVISIBLE_OBSERVER)

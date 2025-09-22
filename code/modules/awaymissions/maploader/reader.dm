@@ -511,7 +511,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		// If this parsed map doesn't have that area already, we check the global cache
 		area_instance = GLOB.areas_by_type[area_type]
 		// If the global list DOESN'T have this area it's either not a unique area, or it just hasn't been created yet
-		if (!area_instance)
+		if(!area_instance)
 			area_instance = new area_type(null)
 			if(!area_instance)
 				CRASH("[area_type] failed to be new'd, what'd you do?")
@@ -525,5 +525,4 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 /turf/template_noop
 	name = "Turf Passthrough"
 	icon_state = "noop" // now turf passthrought won't mess with other structures like lattice or plates in space on ruin maps in map editor. it was too much annoyng before the change. noop icon added in areas.dmi as well
-	blocks_air = FALSE
 	init_air = FALSE

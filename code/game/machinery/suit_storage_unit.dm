@@ -184,11 +184,8 @@
 	safeties = FALSE	//in a syndicate base, everything can be used as a murder weapon at a moment's notice.
 
 /obj/machinery/suit_storage_unit/syndicate/comms
-	name = "syndicate suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/elite/comms
-	mask_type = /obj/item/clothing/mask/gas/syndicate
 	magboots_type = /obj/item/clothing/shoes/magboots/syndie/advance
-	storage_type = /obj/item/tank/jetpack/oxygen/harness
 	req_access = list(ACCESS_SYNDICATE_COMMS_OFFICER)
 
 /obj/machinery/suit_storage_unit/ert
@@ -481,7 +478,7 @@
 		span_notice("You start kicking against the doors... (this will take about [DisplayTimeText(breakout_time)].)"), \
 		span_italics("You hear a thump from [src]."))
 	if(do_after(user,(breakout_time), src))
-		if(!user || user.stat != CONSCIOUS || user.loc != src )
+		if(!user || user.stat != CONSCIOUS || user.loc != src)
 			return
 		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
 			span_notice("You successfully break out of [src]!"))

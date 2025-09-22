@@ -203,7 +203,7 @@
 // Returns the list of cameras accessible from this computer
 /obj/machinery/computer/security/proc/get_available_cameras()
 	var/list/L = list()
-	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		if((is_away_level(z) || is_away_level(C.z)) && (C.z != z))//if on away mission, can only receive feed from same z_level cameras
 			continue
 		L.Add(C)
@@ -410,7 +410,6 @@
 	icon_keyboard = "kb15"
 
 /obj/machinery/computer/security/old_frame/macintosh
-	icon = 'icons/obj/machines/computer3.dmi'
 	icon_screen = "sec_oldcomp"
 	icon_state = "oldcomp"
 	icon_keyboard = null

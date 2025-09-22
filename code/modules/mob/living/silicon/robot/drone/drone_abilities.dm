@@ -66,7 +66,6 @@
 	else
 		H.item_state = "drone"
 	grabber.put_in_active_hand(H, ignore_anim = FALSE)//for some reason unless i call this it dosen't work
-	grabber.update_inv_l_hand()
-	grabber.update_inv_r_hand()
+	grabber.update_held_items()
 
 	return H

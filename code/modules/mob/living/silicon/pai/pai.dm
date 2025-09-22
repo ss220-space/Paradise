@@ -611,7 +611,7 @@
 		msg += "[print_flavor_text()]\n"
 
 	if(pose)
-		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
+		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "It is [pose]"
 	msg += "</span>"
@@ -649,8 +649,7 @@
 	else
 		H.item_state = "pai-[icon_state]"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
-	grabber.update_inv_l_hand()
-	grabber.update_inv_r_hand()
+	grabber.update_held_items()
 
 	return H
 

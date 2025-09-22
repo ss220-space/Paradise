@@ -5,14 +5,12 @@
 	icon = 'icons/obj/tiles.dmi'
 	icon_state = "tile"
 	item_state = "tile"
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 1
 	throwforce = 1
 	throw_speed = 5
 	throw_range = 20
 	max_amount = 60
 	flags = CONDUCT
-	origin_tech = "materials=1"
 	var/turf_type = null
 	var/mineralType = null
 
@@ -30,7 +28,7 @@
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		to_chat(user, "<span class='warning'>You can not reform this!</span>")
 		return
-	if (mineralType == "metal")
+	if(mineralType == "metal")
 		var/obj/item/stack/sheet/metal/new_item = new(user.loc)
 		user.visible_message(
 			"[user.name] shaped [src] into metal with the welding tool.", \
@@ -72,7 +70,6 @@
 	turf_type = /turf/simulated/floor/wood
 	resistance_flags = FLAMMABLE
 	energy_type = /datum/robot_energy_storage/wood
-	cost = 1
 
 /obj/item/stack/tile/wood/dark
 	name = "dark wood floor tiles"
@@ -228,19 +225,16 @@
 	gender = PLURAL
 	singular_name = "floor tile"
 	desc = "Those could work as a pretty decent throwing weapon."
-	icon_state = "tile"
 	force = 6
 	materials = list(MAT_METAL=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	energy_type = /datum/robot_energy_storage/metal
-	cost = 1
 // LIGHT
 /obj/item/stack/tile/light
 	name = "light tiles"
@@ -292,7 +286,6 @@
 	singular_name = "light pod floor tile"
 	desc = "A lightly colored grooved floor tile."
 	icon_state = "tile_podlight"
-	turf_type = /turf/simulated/floor/pod
 
 /obj/item/stack/tile/pod/dark
 	name = "dark pod floor tile"

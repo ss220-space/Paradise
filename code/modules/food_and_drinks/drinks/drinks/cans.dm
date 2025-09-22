@@ -584,7 +584,6 @@
 /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle
 	name = "glass bottle"
 	desc = "Стеклянная бутылка, подходящая для напитков."
-	icon_state = "glass_bottle"
 	is_glass = 1
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle/get_ru_names()

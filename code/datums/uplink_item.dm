@@ -388,7 +388,6 @@
 	cost = 1
 	job = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_LIBRARIAN)
 	surplus = 0
-	can_discount = FALSE
 
 //Janitor
 
@@ -575,7 +574,6 @@
 	cost = 50
 	job = list(JOB_TITLE_ROBOTICIST)
 	surplus = 0
-	can_discount = FALSE
 	hijack_only = TRUE
 
 //Librarian
@@ -595,7 +593,6 @@
 	item = /obj/item/spellbook/oneuse/random
 	cost = 25
 	job = list(JOB_TITLE_LIBRARIAN)
-	can_discount = FALSE
 
 /datum/uplink_item/jobspecific/dice_of_fate
 	name = "Кости судьбы"
@@ -604,7 +601,6 @@
 	cost = 100
 	job = list(JOB_TITLE_LIBRARIAN)
 	surplus = 0
-	can_discount = FALSE
 
 /datum/uplink_item/jobspecific/death_book
 	name = "Летопись вашей погибели"
@@ -729,7 +725,7 @@
 	name = "Голографическая сигара"
 	desc = "Привезена из Солнечной системы. Помимо брутального внешнего вида, пользователи отмечают, что она повышает точность при стрельбе обеими руками одновременно."
 	item = /obj/item/clothing/mask/holo_cigar
-	cost = 10
+	cost = 20
 	race = list(SPECIES_HUMAN)
 
 /datum/uplink_item/racial/ghostface_kit
@@ -782,7 +778,7 @@
 
 /datum/uplink_item/dangerous/pistol
 	name = "Комплект с пистолетом FK-69 \"Стечкин\""
-	desc = "Полностью заряженный пистолет, оснащённый магазином на 8 патронов калибра 10 мм. Обладает большим разнообразием боеприпасов. \
+	desc = "Полностью заряженный пистолет, оснащённый магазином на 15 патронов калибра 10 мм. Обладает большим разнообразием боеприпасов. \
 			Крайне компактный пистолет, который легко помещается в карман. Поставляется с тремя магазинами. Совместим с глушителем."
 	item = /obj/item/storage/box/syndie_kit/stechkin_pistol
 	cost = 20
@@ -943,7 +939,6 @@
 	cost = 69
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
-	can_discount = TRUE
 
 /**
  * MARK: Support & Mechas
@@ -1021,25 +1016,25 @@
 
 /datum/uplink_item/ammo/pistol
 	name = "\"Стечкин\" — 2 магазина 10 мм"
-	desc = "Два магазина на 8 стандартных патронов калибра 10 мм. Эти патроны примерно в два раза менее эффективны, чем патроны .357 калибра."
+	desc = "Два магазина на 15 стандартных патронов калибра 10 мм. Эти патроны примерно в два раза менее эффективны, чем патроны .357 калибра."
 	item = /obj/item/storage/box/syndie_kit/pistol_ammo
 	cost = 5
 
 /datum/uplink_item/ammo/pistolap
 	name = "\"Стечкин\" — магазин 10 мм (Бронебойные)"
-	desc = "Магазин на 8 бронебойных патронов калибра 10 мм. Эти патроны наносят немного меньше повреждений, чем стандартные, но обладают высокой пробивной силой."
+	desc = "Магазин на 15 бронебойных патронов калибра 10 мм. Эти патроны наносят немного меньше повреждений, чем стандартные, но обладают высокой пробивной силой."
 	item = /obj/item/ammo_box/magazine/m10mm/ap
 	cost = 5
 
 /datum/uplink_item/ammo/pistolfire
 	name = "\"Стечкин\" — магазин 10 мм (Зажигательные)"
-	desc = "Магазин на 8 зажигательных патронов калибра 10 мм. Эти патроны поджигают цель при попадании."
+	desc = "Магазин на 15 зажигательных патронов калибра 10 мм. Эти патроны поджигают цель при попадании."
 	item = /obj/item/ammo_box/magazine/m10mm/fire
 	cost = 5
 
 /datum/uplink_item/ammo/pistolhp
 	name = "\"Стечкин\" — магазин 10 мм (Экспансивные)"
-	desc = "Магазин на 8 экспансивных патронов калибра 10 мм. Эти патроны наносят намного больше повреждений, чем стандартные, но они совершенно бесполезны против брони."
+	desc = "Магазин на 15 экспансивных патронов калибра 10 мм. Эти патроны наносят намного больше повреждений, чем стандартные, но они совершенно бесполезны против брони."
 	item = /obj/item/ammo_box/magazine/m10mm/hp
 	cost = 5
 
@@ -1167,7 +1162,6 @@
 	name = "Снайперская винтовка Bubz FX1000 — магазин .50 \"Стандартный\""
 	desc = "Магазин на 5 стандартных патронов .50 калибра. Эти патроны способны с лёгкостью оторвать голову или конечность."
 	item = /obj/item/ammo_box/magazine/sniper_rounds
-	cost = 20
 
 /datum/uplink_item/ammo/sniper/soporific
 	name = "Снайперская винтовка Bubz FX1000 — магазин .50 \"Снотворный\""
@@ -1305,7 +1299,7 @@
 
 /datum/uplink_item/stealthy_weapons/throwingweapons
 	name = "Набор метательного оружия"
-	desc = "В коробке находятся 5 сюрикенов и 2 усиленные болы, которые были созданы в рамках древних боевых искусств, практикуемых на Земле. \
+	desc = "В коробке находятся 4 сюрикена и 2 усиленные болы, которые были созданы в рамках древних боевых искусств, практикуемых на Земле. \
 			Эти метательные орудия крайне эффективны. Болы способны сбивать с ног, а сюрикены могут с лёгкостью вонзаться в конечности, \
 			нанося серьёзные ранения."
 	item = /obj/item/storage/box/syndie_kit/throwing_weapons
@@ -1317,7 +1311,7 @@
 	item = /obj/item/pen/edagger
 	cost = 7
 
-/datum/uplink_item/stealthy_weapons/edagger
+/datum/uplink_item/stealthy_weapons/armguard
 	name = "Скрытый клинок убийцы"
 	desc = "Наручный механизм со скрытым клинком для тайных убийств. Замаскирован под обычные наручи."
 	item = /obj/item/clothing/accessory/armguard/syndicate
@@ -1385,14 +1379,14 @@
 	name = "Универсальный глушитель"
 	desc = "Обеспечивает повышенную скрытность, заглушая звуки выстрелов."
 	item = /obj/item/gun_module/muzzle/suppressor
-	cost = 4
+	cost = 1
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/scope_x8
 	name = "Оптический прицел х8"
 	desc = "Повышает точность при стрельбе на большие дистанции."
 	item = /obj/item/gun_module/rail/scope/x8
-	cost = 4
+	cost = 3
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
@@ -1474,7 +1468,6 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/syndicate_bomb/nuke
-	item = /obj/item/radio/beacon/syndicate/bomb
 	cost = 55
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1494,7 +1487,6 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/emp_bomb/nuke
-	item = /obj/item/radio/beacon/syndicate/bomb/emp
 	cost = 50
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1704,7 +1696,6 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
-	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 20
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1776,7 +1767,6 @@
 	name = "Кобура для ножей"
 	desc = "Надежно крепится к комбинезону, позволяя носить с собой до 7 ножей."
 	item = /obj/item/clothing/accessory/holster/knives
-	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/webbing
@@ -1963,7 +1953,7 @@
 /datum/uplink_item/device_tools/ion_caller
 	name = "Пульт управления ионной пушкой на низкой орбите"
 	desc = "Портативное устройство, позволяющее активировать ионную пушку, которая перезаряжается каждые 15 минут. \
-			Оно может изменять законы станционного ИИ, что приведет к обнаружению вас системой безопасности НаноТрейзен, или же вызывать перебои в телекоммуникациях."
+			Оно может изменять законы станционного ИИ, что приведет к обнаружению вас системой безопасности Нанотрейзен, или же вызывать перебои в телекоммуникациях."
 	item = /obj/item/ion_caller
 	limited_stock = 1	// Might be too annoying if someone had multiple.
 	cost = 30
@@ -2239,7 +2229,6 @@
 			С его помощью вы сможете продемонстрировать противнику, насколько опасным может быть ваш хвост."
 	item = /obj/item/autoimplanter/oneuse/razorblade
 	cost = 42
-	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_TRAITOR)
 
 /datum/uplink_item/cyber_implants/laserblade
@@ -2248,7 +2237,6 @@
 			С его помощью вы сможете продемонстрировать противнику, насколько опасным может быть ваш хвост."
 	item = /obj/item/autoimplanter/oneuse/laserblade
 	cost = 38
-	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_TRAITOR)
 
 /**

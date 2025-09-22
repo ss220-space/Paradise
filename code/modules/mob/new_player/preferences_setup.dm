@@ -1,5 +1,3 @@
-/datum/preferences
-	//The mob should have a gender you want before running this proc. Will run fine without H
 /datum/preferences/proc/random_character(gender_override)
 	var/datum/species/S = GLOB.all_species[species]
 	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
@@ -385,7 +383,7 @@
 
 		if(hair_style.secondary_theme)
 			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
-			if(!hair_style.no_sec_colour && hair_style.do_colouration )
+			if(!hair_style.no_sec_colour && hair_style.do_colouration)
 				hair_secondary_s.Blend(h_sec_colour, ICON_ADD)
 			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
 

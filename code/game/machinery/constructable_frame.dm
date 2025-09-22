@@ -400,7 +400,6 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/smes/vintage
-	board_name = "SMES"
 	build_path = /obj/machinery/power/smes/vintage
 	origin_tech = "programming=2;powerstorage=2;engineering=2"
 	req_components = list(
@@ -703,7 +702,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
 	req_access = list(ACCESS_TOX, ACCESS_CHEMISTRY, ACCESS_SYNDICATE_SCIENTIST)
-	req_components = list(	/obj/item/stock_parts/matter_bin = 2,
+	req_components = list(/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/sheet/glass = 1,
@@ -1006,7 +1005,6 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/quantumpad/syndiepad
 	board_name = "Syndicate Quantum Pad"
 	build_path = /obj/machinery/syndiepad
-	board_type = "machine"
 	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=4;syndicate=6" //Технология достойная подобного уровня нелегала как по мне
 	req_components = list(
 							/obj/item/stack/telecrystal = 5,

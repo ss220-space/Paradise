@@ -1,14 +1,11 @@
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
-	desc = "Крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта НаноТрейзен: Решаем проблемы завтрашнего дня уже сегодня!\"."
-	icon = 'icons/mob/robots.dmi'
+	desc = "Крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта Нанотрейзен: Решаем проблемы завтрашнего дня уже сегодня!\"."
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
 	bubble_icon = "machine"
-	universal_speak = 0
-	universal_understand = 1
 	gender = MALE
 	pass_flags = PASSTABLE
 	braintype = "Robot"
@@ -49,7 +46,17 @@
 	)
 
 	holder_type = /obj/item/holder/drone
-//	var/sprite[0]
+
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
+		/mob/living/silicon/proc/subsystem_power_monitor
+	)
+	hat_offset_y = -15
+	isCentered = TRUE
+	canBeHatted = TRUE
+	canWearBlacklistedHats = TRUE
 
 /mob/living/silicon/robot/drone/get_ru_names()
 	return list(

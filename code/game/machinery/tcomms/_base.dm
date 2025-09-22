@@ -34,7 +34,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	icon_state = "error"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 500
 	/// Network ID used for names + auto linkage
 	var/network_id = "Нет"
@@ -347,7 +346,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	for(var/M in receive)
 		var/mob/R = M
 
-	  /* --- Loop through the receivers and categorize them --- */
+		/* --- Loop through the receivers and categorize them --- */
 
 		if(is_admin(R) && !R.get_preference(PREFTOGGLE_CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue

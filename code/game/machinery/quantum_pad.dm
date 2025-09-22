@@ -4,7 +4,6 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "qpad"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
@@ -164,7 +163,6 @@
 				to_chat(user, span_warning("Teleport failed due to bluespace interference."))
 
 /obj/machinery/quantumpad/cere
-	name = "quantum pad"
 	var/destination
 	var/address
 

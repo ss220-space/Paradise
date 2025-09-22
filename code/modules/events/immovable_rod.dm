@@ -30,10 +30,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	icon_state = "immrod"
 	throwforce = 100
 	move_force = INFINITY
-	move_resist = INFINITY
 	pull_force = INFINITY
 	density = TRUE
-	anchored = TRUE
 	movement_type = PHASING|FLYING
 	/// The turf we're looking to coast to.
 	var/turf/destination_turf
@@ -76,7 +74,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		update_appearance(UPDATE_NAME)
 
 	if(notify)
-		notify_ghosts("Приближается [name]!", enter_link="<a href=?src=[UID()];follow=1>(Следовать)</a>", source = src, action = NOTIFY_FOLLOW)
+		notify_ghosts("Приближается [name]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Следовать)</a>", source = src, action = NOTIFY_FOLLOW)
 
 	if(SSaugury)
 		SSaugury.register_doom(src, 2000)

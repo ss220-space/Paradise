@@ -35,6 +35,9 @@
 	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
 	var/pull_push_slowdown = 0
 
+	var/list/req_access
+	var/check_one_access = TRUE
+
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)
@@ -74,6 +77,7 @@
 
 /obj/proc/CouldNotUseTopic(mob/user)
 	// Nada
+	return
 
 /obj/Destroy(force)
 	if(!ismachinery(src))
@@ -133,7 +137,7 @@
 		var/is_in_use = FALSE
 		var/list/nearby = viewers(1, src)
 		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
+			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.attack_hand(M)
 		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
@@ -158,7 +162,7 @@
 		var/list/nearby = viewers(1, src)
 		var/is_in_use = FALSE
 		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
+			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.interact(M)
 		var/ai_in_use = AutoUpdateAI(src)
@@ -204,6 +208,7 @@
 	return
 
 /obj/proc/hear_message(mob/M, text)
+	return
 
 /obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
 	add_fingerprint(user)

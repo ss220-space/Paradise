@@ -13,8 +13,6 @@
 	on_blueprints = TRUE
 	var/datum/powernet/powernet = null
 	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 
 /obj/machinery/power/Destroy(force)
 	disconnect_from_network()
@@ -359,7 +357,7 @@
 	else if(istype(power_source, /datum/powernet))
 		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
 		PN.delayedload += (min(drained_power, max(PN.newavail - PN.delayedload, 0)))
-	else if (istype(power_source, /obj/item/stock_parts/cell))
+	else if(istype(power_source, /obj/item/stock_parts/cell))
 		cell.use(drained_energy)
 	return drained_energy
 

@@ -651,24 +651,24 @@ The _flatIcons list is a cache for generated icon files.
 /proc/getFlatIcon(image/appearance, defdir, deficon, defstate, defblend, start = TRUE, no_anim = TRUE)
 	// Loop through the underlays, then overlays, sorting them into the layers list
 	#define PROCESS_OVERLAYS_OR_UNDERLAYS(flat, process, base_layer) \
-		for (var/i in 1 to process.len) { \
+		for(var/i in 1 to process.len) { \
 			var/image/current = process[i]; \
-			if (!current) { \
+			if(!current) { \
 				continue; \
 			} \
-			if (current.plane != FLOAT_PLANE && current.plane != appearance.plane) { \
+			if(current.plane != FLOAT_PLANE && current.plane != appearance.plane) { \
 				continue; \
 			} \
 			var/current_layer = current.layer; \
-			if (current_layer < 0) { \
-				if (current_layer <= -1000) { \
+			if(current_layer < 0) { \
+				if(current_layer <= -1000) { \
 					return flat; \
 				} \
 				current_layer = base_layer + appearance.layer + current_layer / 1000; \
 			} \
-			for (var/index_to_compare_to in 1 to layers.len) { \
+			for(var/index_to_compare_to in 1 to layers.len) { \
 				var/compare_to = layers[index_to_compare_to]; \
-				if (current_layer < layers[compare_to]) { \
+				if(current_layer < layers[compare_to]) { \
 					layers.Insert(index_to_compare_to, current); \
 					break; \
 				} \
@@ -697,10 +697,10 @@ The _flatIcons list is a cache for generated icon files.
 
 	var/render_icon = curicon
 
-	if (render_icon)
+	if(render_icon)
 		var/curstates = icon_states(curicon)
 		if(!(curstate in curstates))
-			if ("" in curstates)
+			if("" in curstates)
 				curstate = ""
 			else
 				render_icon = FALSE
@@ -710,7 +710,7 @@ The _flatIcons list is a cache for generated icon files.
 	//Try to remove/optimize this section ASAP, CPU hog.
 	//Determines if there's directionals.
 	if(render_icon && curdir != SOUTH)
-		if (
+		if(
 			!length(icon_states(icon(curicon, curstate, NORTH))) \
 			&& !length(icon_states(icon(curicon, curstate, EAST))) \
 			&& !length(icon_states(icon(curicon, curstate, WEST))) \
@@ -768,7 +768,7 @@ The _flatIcons list is a cache for generated icon files.
 			addY1 = min(flatY1, layer_image.pixel_y + 1)
 			addY2 = max(flatY2, layer_image.pixel_y + add.Height())
 
-			if (
+			if(
 				addX1 != flatX1 \
 				&& addX2 != flatX2 \
 				&& addY1 != flatY1 \
@@ -806,14 +806,14 @@ The _flatIcons list is a cache for generated icon files.
 			return cleaned
 		else
 			return icon(flat, "", SOUTH)
-	else if (render_icon) // There's no overlays.
+	else if(render_icon) // There's no overlays.
 		var/icon/final_icon = icon(icon(curicon, curstate, base_icon_dir), "", SOUTH, no_anim ? TRUE : null)
 
-		if (appearance.alpha < 255)
+		if(appearance.alpha < 255)
 			final_icon.Blend(rgb(255,255,255, appearance.alpha), ICON_MULTIPLY)
 
-		if (appearance.color)
-			if (islist(appearance.color))
+		if(appearance.color)
+			if(islist(appearance.color))
 				final_icon.MapColors(arglist(appearance.color))
 			else
 				final_icon.Blend(appearance.color, ICON_MULTIPLY)
@@ -1250,19 +1250,19 @@ GLOBAL_LIST_EMPTY(bicon_cache)
  * * keyonly - if TRUE, only returns the asset key to use get_asset_url manually. Overrides sourceonly.
  */
 /proc/icon2html(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE, extra_classes = null, keyonly = FALSE)
-	if (!thing)
+	if(!thing)
 		return
 
 	var/key
 	var/icon/icon2collapse = thing
 
-	if (!target)
+	if(!target)
 		return
-	if (target == world)
+	if(target == world)
 		target = GLOB.clients
 
 	var/list/targets
-	if (!islist(target))
+	if(!islist(target))
 		targets = list(target)
 	else
 		targets = target
@@ -1273,12 +1273,12 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	//for asset generation to get around byond limitations
 	var/icon_path = get_icon_dmi_path(thing)
 
-	if (!isicon(icon2collapse))
-		if (isfile(thing)) //special snowflake
+	if(!isicon(icon2collapse))
+		if(isfile(thing)) //special snowflake
 			var/name = "[generate_asset_name(thing)].png"
-			if (!SSassets.cache[name])
+			if(!SSassets.cache[name])
 				SSassets.transport.register_asset(name, thing)
-			for (var/thing2 in targets)
+			for(var/thing2 in targets)
 				SSassets.transport.send_assets(thing2, name)
 			if(keyonly)
 				return name
@@ -1289,27 +1289,27 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		//its either an atom, image, or mutable_appearance, we want its icon var
 		icon2collapse = thing.icon
 
-		if (isnull(icon_state))
+		if(isnull(icon_state))
 			icon_state = thing.icon_state
 			//Despite casting to atom, this code path supports mutable appearances, so let's be nice to them
 			if(isnull(icon_state))
 				icon_state = initial(thing.icon_state)
-				if (isnull(dir))
+				if(isnull(dir))
 					dir = initial(thing.dir)
 
-		if (isnull(dir))
+		if(isnull(dir))
 			dir = thing.dir
 
 		// Commented out because this is seemingly our source of bad icon operations
-		/* if (ishuman(thing)) // Shitty workaround for a BYOND issue.
+		/* if(ishuman(thing)) // Shitty workaround for a BYOND issue.
 			var/icon/temp = icon2collapse
 			icon2collapse = icon()
 			icon2collapse.Insert(temp, dir = SOUTH)
 			dir = SOUTH*/
 	else
-		if (isnull(dir))
+		if(isnull(dir))
 			dir = SOUTH
-		if (isnull(icon_state))
+		if(isnull(icon_state))
 			icon_state = ""
 
 	icon2collapse = icon(icon2collapse, icon_state, dir, frame, moving)
@@ -1322,7 +1322,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	if(!SSassets.cache[key])
 		SSassets.transport.register_asset(key, rsc_ref, file_hash, icon_path)
-	for (var/client_target in targets)
+	for(var/client_target in targets)
 		SSassets.transport.send_assets(client_target, key)
 	if(keyonly)
 		return key
@@ -1334,13 +1334,13 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 #define CACHED_HEIGHT_INDEX "height"
 
 /atom/proc/get_cached_width()
-	if (isnull(icon))
+	if(isnull(icon))
 		return 0
 	var/list/dimensions = get_icon_dimensions(icon)
 	return dimensions[CACHED_WIDTH_INDEX]
 
 /atom/proc/get_cached_height()
-	if (isnull(icon))
+	if(isnull(icon))
 		return 0
 	var/list/dimensions = get_icon_dimensions(icon)
 	return dimensions[CACHED_HEIGHT_INDEX]

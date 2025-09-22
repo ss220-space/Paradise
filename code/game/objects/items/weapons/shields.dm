@@ -31,7 +31,6 @@
 	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	throwforce = 5
-	throw_speed = 2
 	throw_range = 3
 	obj_integrity = 400
 	max_integrity = 400
@@ -153,8 +152,7 @@
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+		H.update_held_items()
 	if(!forced)
 		add_fingerprint(user)
 	return

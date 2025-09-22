@@ -2,7 +2,6 @@
 	name = "fire"
 	icon_state = "explosion_particle"
 	opacity = TRUE
-	anchored = TRUE
 
 
 /obj/effect/particle_effect/expl_particles/Initialize(mapload)

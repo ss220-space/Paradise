@@ -11,10 +11,6 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF
-	max_integrity = 200
-	plane = GAME_PLANE
-	idle_power_usage = 0
-	active_power_usage = 0
 	power_channel = ENVIRON
 	on_blueprints = TRUE
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
@@ -50,7 +46,7 @@ Pipelines + Other Objects -> Pipe network
 
 
 /obj/machinery/atmospherics/New()
-	if (!armor)
+	if(!armor)
 		armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 	..()
 

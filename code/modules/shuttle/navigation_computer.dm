@@ -200,7 +200,7 @@
 	return
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget()
-	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)) )
+	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)))
 		return FALSE
 	return TRUE
 
@@ -297,10 +297,8 @@
 		jumpto_ports[dock.id] = TRUE
 
 /mob/camera/aiEye/remote/shuttle_docker
-	visible_icon = FALSE
 	use_static = FALSE
 	simulated = FALSE
-	ai_detector_visible = FALSE	// The Shuttle Docker does not trigger the AI Detector
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 
@@ -351,7 +349,6 @@
 
 /datum/action/innate/camera_jump/shuttle_docker
 	name = "Телепорт в локацию"
-	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/shuttle_docker/Activate()
 	if(QDELETED(target) || !isliving(target))

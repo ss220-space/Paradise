@@ -168,7 +168,7 @@ SUBSYSTEM_DEF(throwing)
 			step = get_step(AM, init_dir)
 
 		if(!pure_diagonal && !diagonals_first) // not a purely diagonal trajectory and we don't want all diagonal moves to be done first
-			if (diagonal_error >= 0 && max(dist_x, dist_y) - dist_travelled != 1) //we do a step forward unless we're right before the target
+			if(diagonal_error >= 0 && max(dist_x, dist_y) - dist_travelled != 1) //we do a step forward unless we're right before the target
 				step = get_step(AM, dx)
 			diagonal_error += (diagonal_error < 0) ? dist_x / 2 : -dist_y
 
@@ -181,13 +181,13 @@ SUBSYSTEM_DEF(throwing)
 				finalize()
 			return
 
-		/*
-		  A - Acceleration of gravity.
-		  H - The height of the object's fall.
-		  T - Past tense of falling.
-		  H(T) = A * T * T / 2
-		  If A will become X times bigger, T will become sqrt(X) times lower.
-		*/
+		/**
+		 * A - Acceleration of gravity.
+		 * H - The height of the object's fall.
+		 * T - Past tense of falling.
+		 * H(T) = A * T * T / 2
+		 * If A will become X times bigger, T will become sqrt(X) times lower.
+		 */
 		if(!AM.no_gravity()) // If no gravity, it causes some problems. I think, it will work normally this way.
 			dist_travelled += 1 * sqrt(abs(AM.get_gravity()))
 

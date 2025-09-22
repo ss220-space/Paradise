@@ -81,7 +81,7 @@
 	laser_act(target, user, params)
 
 /obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
-	if(!(user in (viewers(7,target))) )
+	if(!(user in (viewers(7,target))))
 		return FALSE
 	if(!diode)
 		user.balloon_alert(user, "не функционирует!")

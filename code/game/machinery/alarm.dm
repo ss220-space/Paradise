@@ -60,20 +60,11 @@
 	max1 = other.max1
 	max2 = other.max2
 
-//all air alarms in area are connected via magic
-/area
-	var/obj/machinery/alarm/master_air_alarm
-	var/list/air_vent_names = list()
-	var/list/air_scrub_names = list()
-	var/list/air_vent_info = list()
-	var/list/air_scrub_info = list()
-
 /obj/machinery/alarm
 	name = "alarm"
 	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = ENVIRON
@@ -858,7 +849,7 @@
 
 			var/device_id = params["id_tag"]
 			switch(params["cmd"])
-				if ("power",
+				if("power",
 					"adjust_external_pressure",
 					"set_external_pressure",
 					"checks",
@@ -1158,7 +1149,6 @@ Just an object used in constructing air alarms
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 //for oldstation

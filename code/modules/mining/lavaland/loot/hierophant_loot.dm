@@ -431,7 +431,7 @@
 	return T
 
 /obj/effect/proc_holder/spell/hierophant_talisman_heal/valid_target(mob/living/carbon/human/target, mob/living/simple_animal/shade/talisman/user)
-	if (target.ckey == user.master)
+	if(target.ckey == user.master)
 		return TRUE
 	return FALSE
 
@@ -510,7 +510,6 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	phase_allowed = TRUE
-	should_recharge_after_cast = TRUE
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_message"
 	action_background_icon_state = "bg_hierophant_talisman"
