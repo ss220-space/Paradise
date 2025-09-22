@@ -101,7 +101,7 @@
 		. += image('icons/obj/engines_and_power/power.dmi', "grown_wires")
 	if(charge < 0.01)
 		return
-	else if(charge / maxcharge >= 0.995 )
+	else if(charge / maxcharge >= 0.995)
 		. += overlay_charged
 	else
 		. += "cell-o1"
