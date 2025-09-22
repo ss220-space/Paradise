@@ -158,7 +158,6 @@
 	desc = "Используется для подачи импульсов на провода, чтобы определить, какой из них перерезать. Не одобряется врачами. Имеет странную бирку с надписью: \"Гриферить С Безопасностью\"." //What else should I say for a meme item?
 	track_delay = 5
 	shows_wire_information = TRUE
-	emp_shielded = TRUE
 
 /obj/item/multitool/ai_detect/admin/multitool_detect()
 	var/turf/our_turf = get_turf(src)
@@ -171,7 +170,6 @@
 				break
 
 /obj/item/multitool/cyborg
-	name = "multimeter"
 	desc = "Оптимизированная компактная версия стандартного мультиметра."
 	toolspeed = 0.5
 	emp_shielded = TRUE
@@ -200,8 +198,6 @@
 	desc = "Электрический прибор для измерения параметров тока и прозвонки электрических цепей. Этот кажется весьма устаревшим."
 	icon_state = "multitool_old_wire"
 	belt_icon = "multitool_old_wire"
-	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	emp_shielded = TRUE
 
 /obj/item/multitool/old/get_ru_names()
