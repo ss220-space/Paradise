@@ -577,7 +577,7 @@
 		event = null
 	else if(href_list["keepspeed"]) //keep speed
 		if(prob(75))
-			event = "Breakdown"
+			event = ORION_TRAIL_BREAKDOWN
 			event()
 		else
 			event = null

@@ -3430,7 +3430,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "Kg" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/vending/clothesmate,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
