@@ -129,7 +129,7 @@
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
 	name = "C-20r SMG"
-	desc = "A two-round burst .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
+	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
 	item_state = "c20r"
 	origin_tech = "combat=5;materials=2;syndicate=6"
@@ -146,6 +146,9 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 6)
 	)
 	recoil = GUN_RECOIL_MEDIUM
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	autofire_delay = 0.25 SECONDS
+	fire_delay = 0.2 SECONDS
 
 
 /obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
@@ -165,10 +168,9 @@
 //C-20rm Full auto
 /obj/item/gun/projectile/automatic/c20r/auto
 	name = "C-20rm SMG"
-	desc = "Новейшая модификация автоматического пистолет-пулемета \"C-20r\" под .45 калибр."
+	desc = "Новейшая модификация автоматического пистолет-пулемета \"C-20r\" под .45 калибр, отличается выскойим темпом стрельбы в автоматическом режиме."
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
-	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 	autofire_delay = 0.15 SECONDS
 	fire_delay = 0.15 SECONDS
 
