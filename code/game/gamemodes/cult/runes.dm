@@ -20,7 +20,6 @@ To draw a rune, use a ritual dagger.
 	desc = "An odd collection of symbols drawn in what seems to be blood."
 	/// Description that cultists see
 	var/cultist_desc = "a basic rune with no function." //This is shown to cultists who examine the rune in order to determine its true purpose.
-	anchored = TRUE
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -194,13 +193,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 	do_invoke_glow()
 
 /**
-  * Spawns the phase in/out effects for a cult teleport.
-  *
-  * Arguments:
-  * * user - Mob to teleport
-  * * location - Location to teleport from
-  * * target - Location to teleport to
-  */
+ * Spawns the phase in/out effects for a cult teleport.
+ *
+ * Arguments:
+ * * user - Mob to teleport
+ * * location - Location to teleport from
+ * * target - Location to teleport to
+ */
 /obj/effect/rune/proc/teleport_effect(mob/living/user, turf/location, target)
 	new /obj/effect/temp_visual/dir_setting/cult/phase/out(location, user.dir)
 	new /obj/effect/temp_visual/dir_setting/cult/phase(target, user.dir)
@@ -259,9 +258,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "offering"
 	color = RUNE_COLOR_OFFER
-	req_cultists = 1
 	allow_excess_invokers = TRUE
-	rune_in_use = FALSE
 
 /obj/effect/rune/convert/invoke(list/invokers)
 	if(rune_in_use)
@@ -442,16 +439,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/list/duplicaterunecount = list()
 
 	for(var/I in GLOB.teleport_runes)
-		var/obj/effect/rune/teleport/R = I
-		var/resultkey = R.listkey
+		var/obj/effect/rune/teleport/rune = I
+		var/resultkey = rune.listkey
 		if(resultkey in teleportnames)
 			duplicaterunecount[resultkey]++
 			resultkey = "[resultkey] ([duplicaterunecount[resultkey]])"
 		else
 			teleportnames += resultkey
 			duplicaterunecount[resultkey] = 1
-		if(R != src && is_level_reachable(R.z) && is_station_level(R.z))
-			potential_runes[resultkey] = R
+		if(rune != src && is_level_reachable(rune.z) && is_station_level(rune.z))
+			potential_runes[resultkey] = rune
 
 	if(!length(potential_runes))
 		to_chat(user, span_warning("There are no valid runes to teleport to!"))
@@ -469,32 +466,34 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 
-	var/turf/T = get_turf(src)
+	var/turf/rune_turf = get_turf(src)
 	var/turf/target = get_turf(actual_selected_rune)
 	var/movedsomething = FALSE
 	var/moveuser = FALSE
-	for(var/atom/movable/A in T)
-		if(ishuman(A))
-			if(A != user) // Teleporting someone else
-				INVOKE_ASYNC(src, PROC_REF(teleport_effect), A, T, target)
+	for(var/atom/movable/movable in rune_turf)
+		if(ishuman(movable))
+			if(movable != user) // Teleporting someone else
+				INVOKE_ASYNC(src, PROC_REF(teleport_effect), movable, rune_turf, target)
 			else // Teleporting yourself
-				INVOKE_ASYNC(src, PROC_REF(teleport_effect), user, T, target)
-		if(A.move_resist == INFINITY)
+				INVOKE_ASYNC(src, PROC_REF(teleport_effect), user, rune_turf, target)
+		if(movable.move_resist == INFINITY)
 			continue  //object cant move, shouldnt teleport
-		if(A == user)
+		if(movable == user)
 			moveuser = TRUE
 			movedsomething = TRUE
 			continue
-		if(!A.anchored)
+		if(!movable.anchored)
 			movedsomething = TRUE
-			A.forceMove(target)
+			movable.forceMove(target)
 
 	if(movedsomething)
 		..()
+		playsound(rune_turf, 'sound/misc/enter_blood.ogg', 50, TRUE, -1)
+		playsound(target, 'sound/misc/exit_blood.ogg', 50, TRUE, -1)
 		if(is_mining_level(z) && !is_mining_level(target.z)) //No effect if you stay on lavaland
 			actual_selected_rune.handle_portal("lava")
 		else if(!is_station_level(z) || istype(get_area(src), /area/space))
-			actual_selected_rune.handle_portal("space", T)
+			actual_selected_rune.handle_portal("space", rune_turf)
 		user.visible_message(span_warning("There is a sharp crack of inrushing air, and everything above the rune disappears!"),
 							span_cult("You[moveuser ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"]."))
 		if(moveuser)
@@ -619,8 +618,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, span_cultlarge("\"PASNAR SAVRAE YAM'TOTH. Arise.\""))
-	mob_to_revive.visible_message(span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
-								  span_cultlarge("You awaken suddenly from the void. You're alive!"))
+	mob_to_revive.visible_message(
+		span_warning("[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes."), \
+		span_cultlarge("You awaken suddenly from the void. You're alive!")
+	)
 	rune_in_use = FALSE
 
 /obj/effect/rune/raise_dead/proc/validness_checks(mob/living/target_mob, mob/living/user)
@@ -722,8 +723,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 
-	cultist_to_summon.visible_message(span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
-									  span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>"))
+	cultist_to_summon.visible_message(
+		span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
+		span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>")
+	)
 	..()
 	INVOKE_ASYNC(src, PROC_REF(teleport_effect), cultist_to_summon, get_turf(cultist_to_summon), src)
 	visible_message(span_warning("[src] begins to bubble and rises into the form of [cultist_to_summon]!"))
@@ -731,14 +734,14 @@ structure_check() searches for nearby cultist structures required for the invoca
 	qdel(src)
 
 /**
-  * # Blood Boil Rune
-  *
-  * When invoked deals up to 30 burn damage to nearby non-cultists and sets them on fire.
-  *
-  * On activation the rune charges for six seconds, changing colour, glowing, and giving out a warning to all nearby mobs.
-  * After the charging period the rune burns any non-cultists in view and sets them on fire. After another short wait it does the same again with slightly higher damage.
-  * If the cultists channeling the rune move away or are stunned at any point, the rune is deleted. So it can be countered pretty easily with flashbangs.
-  */
+ * # Blood Boil Rune
+ *
+ * When invoked deals up to 30 burn damage to nearby non-cultists and sets them on fire.
+ *
+ * On activation the rune charges for six seconds, changing colour, glowing, and giving out a warning to all nearby mobs.
+ * After the charging period the rune burns any non-cultists in view and sets them on fire. After another short wait it does the same again with slightly higher damage.
+ * If the cultists channeling the rune move away or are stunned at any point, the rune is deleted. So it can be countered pretty easily with flashbangs.
+ */
 /obj/effect/rune/blood_boil
 	cultist_name = "Boil Blood"
 	cultist_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage. Requires 2 invokers channeling the rune."
@@ -750,7 +753,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	invoke_damage = 15
 	construct_invoke = FALSE
 	var/tick_damage = 10 // 30 burn damage total + damage taken by being on fire/overheating
-	rune_in_use = FALSE
 
 /obj/effect/rune/blood_boil/invoke(list/invokers)
 	if(rune_in_use)

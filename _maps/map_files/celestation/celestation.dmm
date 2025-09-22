@@ -848,9 +848,6 @@
 /obj/machinery/power/solar{
 	name = "East Solar Panel"
 	},
-/obj/machinery/power/solar{
-	name = "East Solar Panel"
-	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -4007,10 +4004,6 @@
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/serveng)
 "aHp" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad"
-	},
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "QMLoad"
@@ -28789,7 +28782,6 @@
 	dir = 8
 	},
 /obj/structure/cable/orange,
-/obj/structure/cable/orange,
 /obj/structure/cable/multiz{
 	color = "#dd1010"
 	},
@@ -51432,7 +51424,6 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -55613,9 +55604,6 @@
 	},
 /obj/structure/railing{
 	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -83624,9 +83612,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -88839,9 +88824,6 @@
 	locked = 1;
 	req_access = list(53)
 	},
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -93684,9 +93666,6 @@
 /obj/machinery/power/solar{
 	name = "East Solar Panel"
 	},
-/obj/machinery/power/solar{
-	name = "East Solar Panel"
-	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
@@ -96958,6 +96937,7 @@
 /area/hallway/primary/central)
 "rpQ" = (
 /obj/machinery/light,
+/obj/structure/closet/burial,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -97779,15 +97759,6 @@
 	},
 /area/atmos/break_room)
 "rxN" = (
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
@@ -107218,9 +107189,6 @@
 /obj/structure/disposalpipe/trunk/multiz/down{
 	dir = 8
 	},
-/obj/structure/disposalpipe/trunk/multiz/down{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -116146,9 +116114,6 @@
 /obj/structure/cable/multiz{
 	color = "#dd1010"
 	},
-/obj/structure/cable/multiz{
-	color = "#dd1010"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -117256,7 +117221,7 @@
 /area/toxins/xenobiology)
 "viZ" = (
 /obj/structure/sign/beautyplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в области инженерного менеджмента, а также успешное проектирование Селестии по всем стандартам НаноТрейзен. Благодарим вас за труд, Saad_f603. Слава НаноТрейзен!";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в области инженерного менеджмента, а также успешное проектирование Селестии по всем стандартам Нанотрейзен. Благодарим вас за труд, Saad_f603. Слава Нанотрейзен!";
 	name = "Благодарственное Письмо Для Бригадира Команды Архитекторов Селестии";
 	pixel_y = 32
 	},
@@ -127374,10 +127339,6 @@
 	id_tag = "XenoPod2";
 	name = "containment door 2"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "XenoPod2";
-	name = "containment door 2"
-	},
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "xgn" = (
@@ -132531,8 +132492,8 @@
 "ydI" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/library/public{
-	pixel_y = 5;
-	dir = 1
+	dir = 1;
+	pixel_y = 5
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/library)

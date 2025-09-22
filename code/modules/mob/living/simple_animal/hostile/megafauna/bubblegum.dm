@@ -20,8 +20,8 @@ It can charge at its target, and also heavily damaging anything directly hit in 
 If at half health it will start to charge from all sides with clones.
 
 When Bubblegum dies, it leaves behind a chest that contains:
- 1. A H.E.C.K. mining suit
- 2. A spellblade that can slice off limbs at range
+	1. A H.E.C.K. mining suit
+	2. A spellblade that can slice off limbs at range
 
 Difficulty: Hard
 
@@ -36,11 +36,9 @@ Difficulty: Hard
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	icon_state = "bubblegum"
 	icon_living = "bubblegum"
-	icon_dead = ""
 	friendly = "пристально смотрит"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	speak_emote = list("рычит")
-	tts_seed = "Mannoroth"
 	armour_penetration = 40
 	melee_damage_lower = 40
 	melee_damage_upper = 40
@@ -73,10 +71,12 @@ Difficulty: Hard
 	score_type = BUBBLEGUM_SCORE
 	deathmessage = "погружается в лужу крови, покидая битву. Вы победили... на сей раз."
 	death_sound = 'sound/misc/enter_blood.ogg'
-	attack_action_types = list(/datum/action/innate/megafauna_attack/triple_charge,
-							   /datum/action/innate/megafauna_attack/hallucination_charge,
-							   /datum/action/innate/megafauna_attack/hallucination_surround,
-							   /datum/action/innate/megafauna_attack/blood_warp)
+	attack_action_types = list(
+		/datum/action/innate/megafauna_attack/triple_charge,
+		/datum/action/innate/megafauna_attack/hallucination_charge,
+		/datum/action/innate/megafauna_attack/hallucination_surround,
+		/datum/action/innate/megafauna_attack/blood_warp
+	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/get_ru_names()
 	return list(
@@ -547,7 +547,6 @@ Difficulty: Hard
 	name = "thick blood"
 	desc = "Густая, разбрызганная кровь."
 	random_icon_states = list("gib3", "gib5", "gib6")
-	bloodiness = 20
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/get_ru_names()
 	return list(
@@ -742,7 +741,6 @@ Difficulty: Hard
 	projectilesound = 'sound/effects/splat.ogg'
 	deathmessage = null
 	death_sound = 'sound/hallucinations/veryfar_noise.ogg'
-	ranged = TRUE
 	ranged_cooldown_time = 10
 	enraged_loot = /obj/item/disk/fauna_research/bubblegum
 
@@ -755,3 +753,7 @@ Difficulty: Hard
 	for(var/mob/living/carbon/human/H in range(20))
 		to_chat(H, span_colossus("<b>МОИ РУКИ НАСЛАДЯТСЯ, РАЗРЫВАЯ ТЕБЯ... ПРЯМО ЗДЕСЬ И СЕЙЧАС!</b>"))
 		FindTarget(list(H))
+
+#undef BUBBLEGUM_SMASH
+#undef BUBBLEGUM_CAN_ENRAGE
+#undef BUBBLEGUM_IS_ENRAGED

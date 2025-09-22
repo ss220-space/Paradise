@@ -8,7 +8,6 @@
 	icon_living = "angel"
 	icon_dead = "angel"
 	gender = NEUTER
-	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_OTHER
 
 	response_help = "touches"
@@ -17,7 +16,7 @@
 	speed = -1
 	maxHealth = 50000
 	health = 50000
-	healable = 0
+	healable = FALSE
 
 	harm_intent_damage = 35
 	obj_damage = 100
@@ -56,7 +55,7 @@
 
 // No movement while seen code.
 
-/mob/living/simple_animal/hostile/statue/New(loc, var/mob/living/creator)
+/mob/living/simple_animal/hostile/statue/New(loc, mob/living/creator)
 	..()
 	// Give spells
 	AddSpell(new /obj/effect/proc_holder/spell/aoe/flicker_lights(null))

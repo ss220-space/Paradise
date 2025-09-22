@@ -1,11 +1,9 @@
 /obj/item/grenade/flashbang
 	name = "flashbang"
 	icon_state = "flashbang"
-	item_state = "flashbang"
 	belt_icon = "flashbang"
 	origin_tech = "materials=2;combat=3"
 	light_power = 10
-	light_color = COLOR_WHITE
 
 	var/light_time = 0.2 SECONDS // The duration the area is illuminated
 	var/range = 7 // The range in tiles of the flashbang
@@ -29,15 +27,15 @@
 	qdel(src)
 
 /**
-  * Creates a flashing effect that blinds and deafens mobs within range
-  *
-  * Arguments:
-  * * T - The turf to flash
-  * * A - The flashing atom
-  * * range - The range in tiles of the flash
-  * * flash - Whether to flash (blind)
-  * * bang - Whether to bang (deafen)
-  */
+ * Creates a flashing effect that blinds and deafens mobs within range
+ *
+ * Arguments:
+ * * T - The turf to flash
+ * * A - The flashing atom
+ * * range - The range in tiles of the flash
+ * * flash - Whether to flash (blind)
+ * * bang - Whether to bang (deafen)
+ */
 /proc/bang(turf/T, atom/A, range = 7, flash = TRUE, bang = TRUE, direct_bang = TRUE)
 	// Flashing mechanic
 	var/source_turf = get_turf(A)

@@ -4,7 +4,6 @@
 	icon_state = "borgcharger0"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
 	var/mob/occupant = null

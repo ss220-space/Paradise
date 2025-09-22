@@ -251,19 +251,19 @@
 	return seen_mobs
 
 /**
-  * Called by using Activate Held Object with an empty hand/limb
-  *
-  * Does nothing by default. The intended use is to allow limbs to call their
-  * own attack_self procs. It is up to the individual mob to override this
-  * parent and actually use it.
-  */
+ * Called by using Activate Held Object with an empty hand/limb
+ *
+ * Does nothing by default. The intended use is to allow limbs to call their
+ * own attack_self procs. It is up to the individual mob to override this
+ * parent and actually use it.
+ */
 /mob/proc/limb_attack_self()
 	return
 
 /**
  * Returns an assoc list which contains the mobs in range and their "visible" name.
  * Mobs out of view but in range will be listed as unknown. Else they will have their visible name
-*/
+ */
 /mob/proc/get_telepathic_targets()
 	var/list/validtargets = new /list()
 	var/turf/T = get_turf(src)
@@ -392,7 +392,7 @@
 	var/obj/item/I = get_active_hand()
 	if(I)
 		I.attack_self(src)
-		update_inv_hands()
+		update_held_items()
 		return
 
 	if(pulling && isliving(src))
@@ -470,16 +470,13 @@
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	flavor_text = msg
 
-/mob/proc/print_flavor_text(var/shrink = TRUE)
+/mob/proc/print_flavor_text(shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 60 || !shrink)
 			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
-
-/mob
-	var/newPlayerType = /mob/new_player
 
 /mob/verb/abandon_mob()
 	set name = "Возродиться"
@@ -514,7 +511,7 @@
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if(deathtimeminutes < CONFIG_GET(number/respawn_delay))
+	if(deathtimeminutes < GLOB.respawn_delay)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
 		to_chat(usr, "<span class='warning'>You must wait [CONFIG_GET(number/respawn_delay)] minutes to respawn!</span>")
 		return
@@ -835,12 +832,12 @@
 
 
 /**
-  * Buckle to another mob
-  *
-  * You can buckle on mobs if you're next to them since most are dense
-  *
-  * Turns you to face the other mob too
-  */
+ * Buckle to another mob
+ *
+ * You can buckle on mobs if you're next to them since most are dense
+ *
+ * Turns you to face the other mob too
+ */
 /mob/is_buckle_possible(mob/living/target, force = FALSE, check_loc = TRUE)
 	if(target.buckled)
 		return FALSE
@@ -1119,32 +1116,26 @@
 	. = ..()
 	if(bloody_hands && clean_hands)
 		bloody_hands = 0
-		update_inv_gloves()
-	if(l_hand)
-		if(l_hand.clean_blood())
-			update_inv_l_hand()
-	if(r_hand)
-		if(r_hand.clean_blood())
-			update_inv_r_hand()
-	if(back)
-		if(back.clean_blood())
-			update_inv_back()
-	if(wear_mask && clean_mask)
-		if(wear_mask.clean_blood())
-			update_inv_wear_mask()
+		update_worn_gloves()
+	if(l_hand?.clean_blood() || r_hand?.clean_blood())
+		update_held_items()
+	if(back?.clean_blood())
+		update_worn_back()
+	if(clean_mask && wear_mask?.clean_blood())
+		update_worn_mask()
 	if(clean_feet)
 		feet_blood_color = null
 		qdel(feet_blood_DNA)
 		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
 		blood_state = BLOOD_STATE_NOT_BLOODY
-		update_inv_shoes()
+		update_worn_shoes()
 	update_icons()	//apply the now updated overlays to the mob
 
 ///Makes a call in the context of a different usr. Use sparingly
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
 	var/temp = usr
 	usr = user_mob
-	if (length(args) > 2)
+	if(length(args) > 2)
 		. = invoked_callback.Invoke(arglist(args.Copy(3)))
 	else
 		. = invoked_callback.Invoke()

@@ -1,8 +1,4 @@
 #define SPACEVINE_SPAWN_THRESHOLD 5
-//Types of usual mutations
-#define	POSITIVE			1
-#define	NEGATIVE			2
-#define	MINOR_NEGATIVE		3
 
 /datum/event/spacevine
 	announceWhen = 120
@@ -122,19 +118,12 @@
 /datum/spacevine_mutation/proc/on_search(severity, obj/structure/spacevine/holder)
 	return
 
-
-/datum/spacevine_mutation/space_covering
-	name = "space protective"
-	hue = "#aa77aa"
-	quality = POSITIVE
-
 /turf/simulated/floor/vines
 	color = "#aa77aa"
 	icon_state = "vinefloor"
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/vines/broken_states()
 	return list()
@@ -178,6 +167,9 @@
 		SV.wither()
 
 /datum/spacevine_mutation/space_covering
+	name = "space protective"
+	hue = "#aa77aa"
+	quality = POSITIVE
 	var/static/list/coverable_turfs
 
 /datum/spacevine_mutation/space_covering/New()
@@ -445,7 +437,6 @@
 	icon = 'icons/effects/spacevines.dmi'
 	icon_state = "Light1"
 	anchored = TRUE
-	density = FALSE
 	layer = SPACEVINE_LAYER
 	mouse_opacity = MOUSE_OPACITY_OPAQUE //Clicking anywhere on the turf is good enough
 	pass_flags = PASSTABLE | PASSGRILLE
@@ -453,7 +444,6 @@
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
-
 
 /obj/structure/spacevine/Initialize(mapload)
 	. = ..()

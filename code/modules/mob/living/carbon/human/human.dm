@@ -11,6 +11,8 @@
 	physiology = new(src)
 
 	setup_dna(new_species)
+	special_check_for_transplantation()
+
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
 	diag_hud.add_to_hud(src)
 	med_hud_set_health()	// Updating med huds is necessary after `setup_dna()` due to the fact that while
@@ -103,12 +105,12 @@
 
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/machine/Initialize(mapload)
@@ -302,8 +304,8 @@
 
 	limbs_affected = max(limbs_affected - limb_loss_reduction, 0)
 	if(epicenter)
-		var/throw_distance = round(4 - severity + ex_armor_reduction(4 - severity, armor))
-		var/throw_speed = 14 - severity * 4 + ex_armor_reduction(4 - severity, armor)
+		var/throw_distance = round(severity + ex_armor_reduction(severity, armor), 1)
+		var/throw_speed = severity * 4 - 2 + ex_armor_reduction(severity, armor)
 		var/dir_if_centered = epicenter == get_turf(src) ? rand(0, 10) : null
 		var/turf/turf_to_land
 		if(!dir_if_centered)
@@ -354,7 +356,7 @@
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
 
 /// Get rank from ID from hands, wear_id, pda, and then from uniform
-/mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "Без ID", var/if_no_job = "Без должности")
+/mob/living/carbon/human/proc/get_authentification_rank(if_no_id = "Без ID", if_no_job = "Без должности")
 	var/obj/item/card/id/id = get_id_card()
 	if(id)
 		return id.rank ? id.rank : if_no_job
@@ -375,7 +377,7 @@
 
 /// gets name from ID or ID inside PDA or PDA itself
 /// Useful when player do something with computers
-/mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = UNKNOWN_NAME_RUS)
+/mob/living/carbon/human/proc/get_authentification_name(if_no_id = UNKNOWN_NAME_RUS)
 	var/name = if_no_id
 	if(wear_id)
 		if(wear_id.GetID())
@@ -995,12 +997,12 @@
 
 
 /**
-  * Set up DNA and species.
-  *
-  * Arguments:
-  * * new_species - The new species to assign.
-  * * monkeybasic - If `TRUE` will skip randomization of the last SE block
-  */
+ * Set up DNA and species.
+ *
+ * Arguments:
+ * * new_species - The new species to assign.
+ * * monkeybasic - If `TRUE` will skip randomization of the last SE block
+ */
 /mob/living/carbon/human/proc/setup_dna(datum/species/new_species, monkeybasic = FALSE)
 	set_species(new_species, use_default_color = TRUE, delay_icon_update = TRUE, skip_same_check = TRUE)
 	// Name
@@ -1382,7 +1384,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	return FALSE
 
-/mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
+/mob/living/carbon/human/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
 	if(judgebot.emagged == 2)
 		return 10 //Everyone is a criminal!
 
@@ -1457,7 +1459,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_act()
 	. = 20
 	if(mind)
-		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF) )
+		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF))
 			. = 100
 		if(mind.assigned_role == JOB_TITLE_ENGINEER_TRAINEE)	//Чем глупее, тем вкуснее
 			. = 300
@@ -1641,21 +1643,21 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
-		balloon_alert(src, span_warning("слишком толстые пальцы!"))
+		balloon_alert(src, "слишком толстые пальцы!")
 		return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-		to_chat(src, span_warning("[mind.martial_art.no_guns_message]"))
+		to_chat(src, "[mind.martial_art.no_guns_message]")
 		return FALSE
 
 	// ninjas will not use default ranged weapons
 	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
 	if(ninja && !ninja.allow_guns && !check_gun.ninja_weapon)
-		to_chat(src, span_warning("[ninja.no_guns_message]"))
+		to_chat(src, "[ninja.no_guns_message]")
 		return FALSE
 
 
-/mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
+/mob/living/carbon/human/proc/change_icobase(new_icobase, new_deform, owner_sensitive)
 	for(var/obj/item/organ/external/O as anything in bodyparts)
 		O.change_organ_icobase(new_icobase, new_deform, owner_sensitive) //Change the icobase/deform of all our organs. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 
@@ -1824,13 +1826,28 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
 
-/mob/living/carbon/human/proc/special_post_clone_handling()
+/mob/living/carbon/human/proc/special_post_clone_handling(transplantated = FALSE)
+	special_check_for_transplantation()
 	if(!mind)
 		return
 	if(mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
 	if(LAZYIN(mind.curses, "high_rp")) // Probably need to make a new proc to handle curses in case if there will be new ones
 		curse_high_rp()
+
+/mob/living/carbon/human/proc/special_check_for_transplantation()
+	var/obj/item/organ/internal/brain/brains = get_int_organ(/obj/item/organ/internal/brain)
+	if(!brains || !istype(brains))
+		return
+	var/obj/item/organ/external/chest/self_chest = get_organ(BODY_ZONE_CHEST)
+	if(!self_chest || !istype(self_chest))
+		return
+	if(brains.original_body && brains.original_body != self_chest)
+		//this is not original body for brain, apply brain transplantation disease
+		var/datum/disease/brain_transplant_syndrome/disease = new
+		disease.Contract(src)
+	//now this body are original for brain
+	brains.original_body = self_chest
 
 /mob/living/carbon/human/is_literate()
 	return getBrainLoss() < 100
@@ -1870,12 +1887,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /**
-  * Helper to get the mobs runechat colour span
-  *
-  * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
-  */
+ * Helper to get the mobs runechat colour span
+ *
+ * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
+ */
 /mob/living/carbon/human/get_runechat_color()
-   return dna.species.get_species_runechat_color(src)
+	return dna.species.get_species_runechat_color(src)
 
 /mob/living/carbon/human/limb_attack_self()
 	var/obj/item/organ/external/arm = hand ? get_organ(BODY_ZONE_L_ARM) : get_organ(BODY_ZONE_R_ARM)

@@ -16,14 +16,12 @@
 	desc = "A coil of power cable."
 	w_class = WEIGHT_CLASS_SMALL
 	full_w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 2
 	throw_range = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("хлестнул", "стегнул", "проучил", "выпорол")
 	usesound = 'sound/items/deconstruct.ogg'
-	toolspeed = 1
 
 	var/static/list/wire_colors = list(
 		CABLE_HEX_COLOR_BLUE = "blue",
@@ -380,7 +378,7 @@
 		for(var/obj/structure/cable/LC in T)		// check to make sure there's no matching cable
 			if(LC == C)			// skip the cable we're interacting with
 				continue
-			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1) )	// make sure no cable matches either direction
+			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1))	// make sure no cable matches either direction
 				to_chat(user, "<span class='warning'>There's already a cable at that position!</span>")
 				return
 
@@ -467,7 +465,6 @@
 	name = "cyborg cable coil"
 	is_cyborg = TRUE
 	energy_type = /datum/robot_energy_storage/wire
-	cost = 1
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
 	var/cablecolor = tgui_input_list(user, "Pick a cable color.", "Cable Color", list("red", "yellow", "green", "blue", "pink", "orange", "cyan", "white"))

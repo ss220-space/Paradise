@@ -129,7 +129,6 @@
 /datum/component/riding/vehicle/ambulance
 	keytype = /obj/item/key/ambulance
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
-	vehicle_move_delay = 2
 
 /datum/component/riding/vehicle/ambulance/handle_specials()
 	. = ..()
@@ -157,7 +156,7 @@
 
 /datum/component/riding/vehicle/secway/handle_specials()
 	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list(0, 4)))
 	set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
 
 /datum/component/riding/vehicle/snowmobile
@@ -172,21 +171,20 @@
 
 /datum/component/riding/vehicle/speedbike/handle_specials()
 	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, -8), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-10, 5), TEXT_WEST = list( 10, 5)))
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, -8), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-10, 5), TEXT_WEST = list(10, 5)))
 	set_vehicle_dir_offsets(NORTH, -16, -16)
 	set_vehicle_dir_offsets(SOUTH, -16, -16)
 	set_vehicle_dir_offsets(EAST, -18, 0)
 	set_vehicle_dir_offsets(WEST, -18, 0)
 
 /datum/component/riding/vehicle/lavaboat
-	ride_check_flags = NONE // not sure
 	vehicle_move_delay = 3
 	keytype = /obj/item/oar
 	var/allowed_turf = /turf/simulated/floor/lava
 
 /datum/component/riding/vehicle/lavaboat/handle_specials()
 	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(1, 2), TEXT_SOUTH = list(1, 2), TEXT_EAST = list(1, 2), TEXT_WEST = list( 1, 2)))
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(1, 2), TEXT_SOUTH = list(1, 2), TEXT_EAST = list(1, 2), TEXT_WEST = list(1, 2)))
 	set_vehicle_dir_layer(NORTH, ABOVE_MOB_LAYER)
 	allowed_turf_typecache = typecacheof(allowed_turf)
 
@@ -217,7 +215,7 @@
 
 /datum/component/riding/vehicle/bicycle/handle_specials()
 	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list(0, 4)))
 
 /datum/component/riding/vehicle/scooter/handle_specials(mob/living/riding_mob)
 	. = ..()
@@ -387,11 +385,6 @@
 	set_vehicle_dir_offsets(WEST, -48, -48)
 	for(var/i in GLOB.cardinal)
 		set_vehicle_dir_layer(i, BELOW_MOB_LAYER)
-
-
-/datum/component/riding/vehicle/wheelchair
-	vehicle_move_delay = 0
-	ride_check_flags = RIDER_NEEDS_ARMS
 
 /datum/component/riding/vehicle/wheelchair/handle_specials()
 	. = ..()

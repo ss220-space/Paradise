@@ -4,7 +4,6 @@
 	icon_state = "teg"
 	anchored = FALSE
 	density = TRUE
-	use_power = NO_POWER_USE
 
 	var/obj/machinery/atmospherics/binary/circulator/cold_circ
 	var/obj/machinery/atmospherics/binary/circulator/hot_circ
@@ -236,11 +235,11 @@
 /obj/machinery/power/generator/Topic(href, href_list)
 	if(..())
 		return 0
-	if( href_list["close"] )
+	if(href_list["close"])
 		close_window(usr, "teg")
 		usr.unset_machine()
 		return 0
-	if( href_list["check"] )
+	if(href_list["check"])
 		if(!powernet || !cold_circ || !hot_circ)
 			connect()
 	return 1

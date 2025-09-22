@@ -137,7 +137,7 @@
 
 		if(sample_type)
 			user.visible_message("\The [user] swabs \the [A] for a sample.", "You swab \the [A] for a sample.")
-			if (!dispenser)
+			if(!dispenser)
 				dna = target_dna
 				gsr = target_gsr
 				set_used(sample_type, A)
@@ -155,6 +155,4 @@
 	used = 1
 
 /obj/item/forensics/swab/cyborg
-	name = "swab kit"
-	desc = "A sterilized cotton swab and vial used to take forensic samples."
 	dispenser = 1

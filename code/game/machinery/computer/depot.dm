@@ -1,14 +1,7 @@
-
-#define DEPOT_VISITOR_START	1
-#define DEPOT_VISITOR_END	2
-#define DEPOT_VISITOR_ADD	3
-
-
 // Generic parent depot computer type
 
 /obj/machinery/computer/syndicate_depot
 	name = "depot computer"
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "tcboss"
 	light_color = LIGHT_COLOR_ELECTRIC_CYAN

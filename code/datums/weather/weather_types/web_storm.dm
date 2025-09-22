@@ -18,7 +18,6 @@
 
 	area_type = /area
 	protected_areas = list(/area/space, /area/crew_quarters/sleep)
-	target_trait = STATION_LEVEL
 
 	immunity_type = TRAIT_WEATHER_IMMUNE
 
@@ -38,7 +37,7 @@
 	if(!.)
 		return
 	for(var/area/area as anything in impacted_areas)
-		for(var/turf/turf in area.get_contained_turfs())
+		for(var/turf/turf in area.get_turfs_from_all_zlevels())
 			if(is_space_or_openspace(turf) || turf.density)
 				continue
 			affected_turfs_list += turf

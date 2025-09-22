@@ -185,7 +185,6 @@
 /obj/effect/ebeam
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_ALL_MOB_LAYER
-	anchored = TRUE
 	var/emissive = FALSE
 	var/datum/beam/owner
 
@@ -345,6 +344,10 @@
 
 /obj/effect/ebeam/medical
 	name = "medical beam"
+
+/obj/effect/ebeam/laser_sight
+	name = "laser sight"
+	layer = OBJ_LAYER
 
 /obj/effect/ebeam/reacting/deadly
 

@@ -91,11 +91,11 @@
 	record()
 
 /**
-  * Power snapshot recording proc
-  *
-  * This proc handles recording powernet history for the graph on the TGUI
-  * It is called every process(), but only logs every 5 seconds
-  */
+ * Power snapshot recording proc
+ *
+ * This proc handles recording powernet history for the graph on the TGUI
+ * It is called every process(), but only logs every 5 seconds
+ */
 /obj/machinery/computer/monitor/proc/record()
 	if(world.time >= next_record)
 		next_record = world.time + record_interval

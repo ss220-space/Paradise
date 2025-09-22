@@ -1,6 +1,5 @@
 /obj/item/clothing
 	name = "clothing"
-	max_integrity = 200
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
@@ -57,6 +56,8 @@
 
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
 	var/list/clothing_traits
+
+	var/obj/item/radio/spy_spider/spy_spider_attached = null
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
@@ -191,8 +192,8 @@
 	for(var/trait in clothing_traits)
 		ADD_CLOTHING_TRAIT(user, src, trait)
 /**
-  * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
-  */
+ * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
+ */
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
@@ -274,7 +275,6 @@
 /obj/item/clothing/glasses
 	name = "glasses"
 	icon = 'icons/obj/clothing/glasses.dmi'
-	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
 	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
@@ -306,14 +306,14 @@
 		)
 
 /*
-SEE_SELF  // can see self, no matter what
-SEE_MOBS  // can see all mobs, no matter what
-SEE_OBJS  // can see all objs, no matter what
-SEE_TURFS // can see all turfs (and areas), no matter what
-SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
-          // in a lit area (via pixel_x,y or smooth movement), can see those pixels
-BLIND     // can't see anything
-*/
+ * SEE_SELF  // can see self, no matter what
+ * SEE_MOBS  // can see all mobs, no matter what
+ * SEE_OBJS  // can see all objs, no matter what
+ * SEE_TURFS // can see all turfs (and areas), no matter what
+ * SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
+ *           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
+ * BLIND     // can't see anything
+ */
 
 
 /obj/item/clothing/glasses/update_icon_state()
@@ -348,7 +348,6 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves
 	name = "gloves"
 	gender = PLURAL //Carn: for grammarically correct text-parsing
-	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	item_state = "bgloves" //For gloves withoit their own item_state
 	belt_icon = "bgloves"
@@ -382,6 +381,7 @@ BLIND     // can't see anything
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi'
 		)
 
+	var/transfer_blood = 0
 
 /obj/item/clothing/gloves/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
@@ -605,7 +605,6 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_MASK
-	strip_delay = 40
 	put_on_delay = 40
 	var/adjusted_slot_flags = NONE
 	var/adjusted_flags_inv = NONE
@@ -700,7 +699,7 @@ BLIND     // can't see anything
 
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
-    return
+	return
 
 //Shoes
 /obj/item/clothing/shoes
@@ -721,7 +720,6 @@ BLIND     // can't see anything
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 
 	permeability_coefficient = 0.50
-	slowdown = SHOES_SLOWDOWN
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
@@ -951,16 +949,13 @@ BLIND     // can't see anything
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	w_class = WEIGHT_CLASS_NORMAL
 	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
 	permeability_coefficient = 0.01
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
-	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	flash_protect = FLASH_PROTECTION_WELDER
@@ -1161,11 +1156,11 @@ BLIND     // can't see anything
 
 
 /*
-  * # can_attach_accessory
-  *
-  * Arguments:
-  * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
-*/
+ * # can_attach_accessory
+ *
+ * Arguments:
+ * * checked_acc - The accessory object being checked. MUST BE TYPE /obj/item/clothing/accessory
+ */
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/checked_acc)
 	if(!istype(checked_acc))
 		return FALSE

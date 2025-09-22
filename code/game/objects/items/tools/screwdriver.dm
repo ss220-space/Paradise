@@ -10,7 +10,7 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
@@ -20,7 +20,6 @@
 	attack_verb = list("уколол", "тыкнул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/screwdriver.ogg'
-	toolspeed = 1
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_SCREWDRIVER
 	var/random_color = TRUE //if the screwdriver uses random coloring
@@ -30,7 +29,6 @@
 	AddComponent(/datum/component/surgery_initiator/robo)
 
 /obj/item/screwdriver/nuke
-	name = "screwdriver"
 	desc = "A screwdriver with an ultra thin tip."
 	icon_state = "screwdriver_nuke"
 	toolspeed = 0.5
@@ -80,6 +78,7 @@
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
 	random_color = FALSE
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/screwdriver/power
 	name = "hand drill"
@@ -98,6 +97,7 @@
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.25
 	random_color = FALSE
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/screwdriver/power/Initialize(mapload)
 	. = ..()

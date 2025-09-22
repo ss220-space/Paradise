@@ -5,7 +5,6 @@
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
 	slot_flags = ITEM_SLOT_ACCESSORY
-	w_class = WEIGHT_CLASS_SMALL
 	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	var/slot = ACCESSORY_SLOT_DECOR
@@ -56,7 +55,7 @@
 
 	if(ismob(has_suit.loc))
 		var/mob/wearer = has_suit.loc
-		wearer.update_inv_w_uniform()
+		wearer.update_worn_undersuit()
 		for(var/datum/action/action as anything in actions)
 			action.Grant(wearer)
 
@@ -92,7 +91,7 @@
 
 	if(ismob(has_suit.loc))
 		var/mob/wearer = has_suit.loc
-		wearer.update_inv_w_uniform()
+		wearer.update_worn_undersuit()
 		for(var/datum/action/action as anything in actions)
 			action.Remove(wearer)
 
@@ -167,7 +166,6 @@
 
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
-	icon_state = "bluetie"
 
 /obj/item/clothing/accessory/red
 	name = "red tie"
@@ -1149,7 +1147,7 @@
 	strip_bubble_icon = "BS"
 
 /obj/item/clothing/accessory/head_strip/ntr
-	name = "NanoTrasen Representative's strip"
+	name = "Nanotrasen Representative's strip"
 	desc = "Плотно сшитая круглая нашивка из чёрного бархата с золотистой окантовкой, по центру красуется логотип корпорации Nanotrasen прошитый белыми металлическими нитями. Награда выданная Центральным командованием за выдающиеся заслуги при службе на корпорацию."
 	icon_state = "ntrstrip"
 	item_state = "ntrstrip"

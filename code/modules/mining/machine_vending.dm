@@ -203,12 +203,12 @@
 
 
 /**
-  * Called when someone slaps the machine with a mining voucher
-  *
-  * Arguments:
-  * * voucher - The voucher card item
-  * * redeemer - The person holding it
-  */
+ * Called when someone slaps the machine with a mining voucher
+ *
+ * Arguments:
+ * * voucher - The voucher card item
+ * * redeemer - The person holding it
+ */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list(VENDOR_EXPLORER_WEBBING, VENDOR_RESONATOR_KIT, VENDOR_MINEBOT_KIT, VENDOR_EXTRACTION_KIT, VENDOR_PLASMA_CUTTER_KIT, VENDOR_EXPLOSIVES_KIT, VENDOR_CRUSHER_KIT, VENDOR_CONSCRIPTION_KIT, VENDOR_KA_UPGRADE_KIT)
 
@@ -337,7 +337,6 @@
 /obj/item/mining_voucher
 	name = "mining voucher"
 	desc = "Жетон для получения снаряжения. Используйте на раздатчике шахтёрского снаряжения."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "mining_voucher"
 	w_class = WEIGHT_CLASS_TINY
 

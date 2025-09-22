@@ -1,11 +1,6 @@
-#define AUTOLATHE_MAIN_MENU		1
-#define AUTOLATHE_CATEGORY_MENU	2
-#define AUTOLATHE_SEARCH_MENU	3
-
 /obj/machinery/autolathe
 	name = "autolathe"
 	desc = "Крупное устройство, предназначенное для печати различных вещей из металла и стекла."
-	gender = MALE
 	icon_state = "autolathe"
 	density = TRUE
 
@@ -22,7 +17,6 @@
 	var/hack_wire
 	var/disable_wire
 	var/shock_wire
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
 	var/busy = FALSE

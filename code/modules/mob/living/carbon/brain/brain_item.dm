@@ -3,8 +3,6 @@
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал человеку."
 	icon_state = "brain2"
 	max_damage = 120
-	force = 1.0
-	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	throw_speed = 3
 	throw_range = 5
@@ -21,6 +19,8 @@
 	var/decoy_brain = FALSE
 	/// TRUE giving to a user sci hud and active research scanner
 	var/smart_mind = FALSE
+	/// The original body for this brain, if this valriable is null - brain can apply any body without desease.
+	var/original_body = null
 
 /obj/item/organ/internal/brain/get_ru_names()
 	return list(
@@ -36,7 +36,7 @@
 	QDEL_NULL(brainmob)
 	return ..()
 
-/obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
+/obj/item/organ/internal/brain/proc/transfer_identity(mob/living/carbon/H)
 	brainmob = new(src)
 	if(isnull(dna)) // someone didn't set this right...
 		log_runtime(EXCEPTION("[src] at [loc] did not contain a dna datum at time of removal."), src)
@@ -129,7 +129,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.special_post_clone_handling()
+		H.special_post_clone_handling(special == ORGAN_MANIPULATION_TRANSPLANTATE)
 
 	..(target, special)
 

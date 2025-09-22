@@ -153,3 +153,13 @@
 ///Used to check if a machinery is visible. Called by update_pipe_vision(). On by default for all except cryo.
 #define VENTCRAWL_CAN_SEE (1<<2)
 
+GLOBAL_LIST_EMPTY(gas_sensors)
+
+#define SENSOR_SCAN_PRESSURE		(1<<0)
+#define SENSOR_SCAN_TEMPERATURE		(1<<1)
+
+#define SENSOR_COMPOSITION_OXYGEN	(1<<2)
+#define SENSOR_COMPOSITION_TOXINS	(1<<3)
+#define SENSOR_COMPOSITION_NITROGEN	(1<<4)
+#define SENSOR_COMPOSITION_CO2		(1<<5)
+#define SENSOR_COMPOSITION_N2O		(1<<6)

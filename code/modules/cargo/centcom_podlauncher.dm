@@ -69,18 +69,18 @@
 	var/static/list/pod_style_lookup
 
 /datum/centcom_podlauncher/New(user) //user can either be a client or a mob
-	if (user) //Prevents runtimes on datums being made without clients
+	if(user) //Prevents runtimes on datums being made without clients
 		setup(user)
-	if (!isnull(pod_style_info))
+	if(!isnull(pod_style_info))
 		return
 	pod_style_info = list()
 	pod_style_lookup = list()
-	for (var/datum/pod_style/style as anything in typesof(/datum/pod_style))
+	for(var/datum/pod_style/style as anything in typesof(/datum/pod_style))
 		pod_style_info += list(list("id" = style::id, "title" = style::ui_name))
 		pod_style_lookup[style::id] = style
 
 /datum/centcom_podlauncher/proc/setup(user) //H can either be a client or a mob
-	if (istype(user,/client))
+	if(istype(user,/client))
 		var/client/user_client = user
 		holder = user_client //if its a client, assign it to holder
 	else
@@ -117,7 +117,7 @@
 	refreshView()
 
 /datum/centcom_podlauncher/ui_state(mob/user)
-	if (SSticker.current_state >= GAME_STATE_FINISHED)
+	if(SSticker.current_state >= GAME_STATE_FINISHED)
 		return GLOB.always_state //Allow the UI to be given to players by admins after roundend
 	return GLOB.admin_state
 
@@ -201,7 +201,7 @@
 			. = TRUE
 		if("buildMode")
 			var/mob/holder_mob = holder.mob
-			if (holder_mob && (check_rights(R_BUILDMODE, user = holder_mob)))
+			if(holder_mob && (check_rights(R_BUILDMODE, user = holder_mob)))
 				togglebuildmode(holder_mob)
 				BLACKBOX_LOG_ADMIN_VERB("Toggle Build Mode")
 			. = TRUE
@@ -214,11 +214,11 @@
 			refreshBay()
 			. = TRUE
 		if("pickDropoffTurf") //Enters a mode that lets you pick the dropoff location for reverse pods
-			if (picking_dropoff_turf)
+			if(picking_dropoff_turf)
 				picking_dropoff_turf = FALSE
 				updateCursor() //Update the cursor of the user to a cool looking target icon
 				return
-			if (launcherActivated)
+			if(launcherActivated)
 				launcherActivated = FALSE //We don't want to have launch mode enabled while we're picking a turf
 			picking_dropoff_turf = TRUE
 			updateCursor() //Update the cursor of the user to a cool looking target icon
@@ -234,7 +234,7 @@
 			var/turf/current_location = get_turf(M)
 			var/list/coordinate_list = temp_pod.reverse_dropoff_coords
 			var/turf/dropoff_turf = locate(coordinate_list[1], coordinate_list[2], coordinate_list[3])
-			if (current_location != dropoff_turf)
+			if(current_location != dropoff_turf)
 				oldTurf = current_location
 			M.forceMove(dropoff_turf) //Perform the actual teleport
 			log_admin("[key_name(usr)] jumped to [AREACOORD(dropoff_turf)]")
@@ -244,21 +244,21 @@
 			var/mob/holder_mob = holder.mob //We teleport whatever mob the client is attached to at the point of clicking
 			var/turf/current_location = get_turf(holder_mob)
 			var/area/bay_area = bay
-			if (current_location.loc != bay_area)
+			if(current_location.loc != bay_area)
 				oldTurf = current_location
 			var/turf/teleport_turf = pick(get_area_turfs(bay_area))
 			holder_mob.forceMove(teleport_turf) //Perform the actual teleport
-			if (holder.holder)
+			if(holder.holder)
 				log_admin("[key_name(usr)] jumped to [AREACOORD(teleport_turf)]")
 				message_admins("[key_name_admin(usr)] jumped to [AREACOORD(teleport_turf)]")
 			. = TRUE
 		if("teleportBack") //After teleporting to centcom/dropoff, this button allows the user to teleport to the last spot they were at.
 			var/mob/M = holder.mob
-			if (!oldTurf) //If theres no turf to go back to, error and cancel
+			if(!oldTurf) //If theres no turf to go back to, error and cancel
 				to_chat(M, "Nowhere to jump to!")
 				return
 			M.forceMove(oldTurf) //Perform the actual teleport
-			if (holder.holder)
+			if(holder.holder)
 				log_admin("[key_name(usr)] jumped to [AREACOORD(oldTurf)]")
 				message_admins("[key_name_admin(usr)] jumped to [AREACOORD(oldTurf)]")
 			. = TRUE
@@ -288,24 +288,24 @@
 
 		////////////////////////////POD EFFECTS//////////////////
 		if("explosionCustom") //Creates an explosion when the pod lands
-			if (explosionChoice == 1) //If already a custom explosion, set to default (no explosion)
+			if(explosionChoice == 1) //If already a custom explosion, set to default (no explosion)
 				explosionChoice = 0
 				temp_pod.explosionSize = list(0,0,0,0)
 				return
 			var/list/expNames = list("тотального разрушения", "тяжелого удара", "легкого удара", "пламени") //Explosions have a range of different types of damage
 			var/list/boomInput = list()
-			for (var/i=1 to length(expNames)) //Gather input from the user for the value of each type of damage
+			for(var/i=1 to length(expNames)) //Gather input from the user for the value of each type of damage
 				boomInput.Add(tgui_input_number(usr, "Введите дальность [expNames[i]]. ВНИМАНИЕ: это игнорирует ограниечение радиуса бомб!", "Дальность [expNames[i]]",  0))
-				if (isnull(boomInput[i]))
+				if(isnull(boomInput[i]))
 					return
-				if (!isnum(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
+				if(!isnum(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
 					tgui_alert(usr, "Это было не число! Вместо него установлено значение по умолчанию (ноль).")
 					boomInput = 0
 			explosionChoice = 1
 			temp_pod.explosionSize = boomInput
 			. = TRUE
 		if("explosionBus") //Creates a maxcap when the pod lands
-			if (explosionChoice == 2) //If already a maccap, set to default (no explosion)
+			if(explosionChoice == 2) //If already a maccap, set to default (no explosion)
 				explosionChoice = 0
 				temp_pod.explosionSize = list(0,0,0,0)
 				return
@@ -313,21 +313,21 @@
 			temp_pod.explosionSize = list(GLOB.max_ex_devastation_range, GLOB.max_ex_heavy_range, GLOB.max_ex_light_range, GLOB.max_ex_flame_range) //Set explosion to max cap of server
 			. = TRUE
 		if("damageCustom") //Deals damage to whoevers under the pod when it lands
-			if (damageChoice == 1) //If already doing custom damage, set back to default (no damage)
+			if(damageChoice == 1) //If already doing custom damage, set back to default (no damage)
 				damageChoice = 0
 				temp_pod.damage = 0
 				return
 			var/damageInput = tgui_input_number(usr, "Введите сумму урона травмами, который нанесется при ударе.", "Сколько урона нанести?",  0)
-			if (isnull(damageInput))
+			if(isnull(damageInput))
 				return
-			if (!isnum(damageInput)) //Sanitize the input for damage to deal.s
+			if(!isnum(damageInput)) //Sanitize the input for damage to deal.s
 				tgui_alert(usr, "Это было не число! Вместо него установлено значение по умолчанию (ноль).")
 				damageInput = 0
 			damageChoice = 1
 			temp_pod.damage = damageInput
 			. = TRUE
 		if("damageGib") //Gibs whoever is under the pod when it lands. Also deals 5000 damage, just to be sure.
-			if (damageChoice == 2) //If already gibbing, set back to default (no damage)
+			if(damageChoice == 2) //If already gibbing, set back to default (no damage)
 				damageChoice = 0
 				temp_pod.damage = 0
 				temp_pod.effectGib = FALSE
@@ -337,31 +337,31 @@
 			temp_pod.effectGib = TRUE //Gibs whoever is under the pod when it lands
 			. = TRUE
 		if("effectName") //Give the supplypod a custom name. Supplypods automatically get their name based on their style (see supplypod/setStyle() proc), so doing this overrides that.
-			if (temp_pod.adminNamed) //If we're already adminNamed, set the name of the pod back to default
+			if(temp_pod.adminNamed) //If we're already adminNamed, set the name of the pod back to default
 				temp_pod.adminNamed = FALSE
 				temp_pod.setStyle(temp_pod.style) //This resets the name of the pod based on its current style (see supplypod/setStyle() proc)
 				return
 			var/nameInput= tgui_input_text(usr, "Введите новое имя капсулы", "Новое имя", temp_pod.style::name, MAX_NAME_LEN) //Gather input for name and desc
-			if (isnull(nameInput))
+			if(isnull(nameInput))
 				return
 			var/descInput = tgui_input_text(usr, "Введите новое описание капсулы", "Новое описание", temp_pod.style::desc)
-			if (isnull(descInput))
+			if(isnull(descInput))
 				return
 			temp_pod.name = nameInput
 			temp_pod.desc = descInput
 			temp_pod.adminNamed = TRUE //This variable is checked in the supplypod/setStyle() proc
 			. = TRUE
 		if("effectShrapnel") //Creates a cloud of shrapnel on landing
-			if (temp_pod.effectShrapnel == TRUE) //If already doing custom damage, set back to default (no shrapnel)
+			if(temp_pod.effectShrapnel == TRUE) //If already doing custom damage, set back to default (no shrapnel)
 				temp_pod.effectShrapnel = FALSE
 				return
 			var/shrapnelInput = tgui_input_list(usr, "Пожалуйста, введите тип облака снарядов, которое вы хотите создать при приземлении (может быть любой снаряд!)", "Тип снаряда", sort_list(subtypesof(/obj/projectile), GLOBAL_PROC_REF(cmp_typepaths_asc)), null)
-			if (isnull(shrapnelInput))
+			if(isnull(shrapnelInput))
 				return
 			var/shrapnelMagnitude = tgui_input_number(usr, "Введите размер облака снарядов. Обычно это значение от 1 до 5. Обратите внимание: Если вы выберите слишком большой размер, вы можете вызвать сбой сервера.", "Размер облака", 0)
-			if (isnull(shrapnelMagnitude))
+			if(isnull(shrapnelMagnitude))
 				return
-			if (!isnum(shrapnelMagnitude))
+			if(!isnum(shrapnelMagnitude))
 				tgui_alert(usr, "Это было не число! Вместо него установлено значение 3.")
 				shrapnelMagnitude = 3
 			temp_pod.shrapnel_type = shrapnelInput
@@ -407,14 +407,14 @@
 			temp_pod.reverse_option_list[reverseOption] = !temp_pod.reverse_option_list[reverseOption]
 			. = TRUE
 		if("effectTarget") //Toggle: Launch at a specific mob (instead of at whatever turf you click on). Used for the supplypod smite
-			if (specificTarget)
+			if(specificTarget)
 				specificTarget = null
 				return
 
 			var/list/possible_destinations = GLOB.mob_living_list
 			var/mob/target = tgui_input_list(usr, "Выберите моба!", "Цель", possible_destinations)
 
-			if (isnull(target) || QDELETED(target))
+			if(isnull(target) || QDELETED(target))
 				return
 
 
@@ -426,7 +426,7 @@
 			var/delay = params["timer"]
 			var/value = params["value"]
 			var/reverse = params["reverse"]
-			if (reverse)
+			if(reverse)
 				temp_pod.reverse_delays[delay] = value * 10
 			else
 				temp_pod.delays[delay] = value * 10
@@ -440,66 +440,66 @@
 			. = TRUE
 		////////////////////////////ADMIN SOUNDS//////////////////
 		if("fallingSound") //Admin sound from a local file that plays when the pod lands
-			if ((temp_pod.fallingSound) != initial(temp_pod.fallingSound))
+			if((temp_pod.fallingSound) != initial(temp_pod.fallingSound))
 				temp_pod.fallingSound = initial(temp_pod.fallingSound)
 				temp_pod.fallingSoundLength = initial(temp_pod.fallingSoundLength)
 				return
 			var/soundInput = input(holder, "Пожалуйста, выберите звуковой файл, который будет воспроизводиться, когда капсула будет приземляться! Звук начнет воспроизводиться и попытается прекратится, когда капсула приземлится.", "Выберите звуковой файл") as null|sound
-			if (isnull(soundInput))
+			if(isnull(soundInput))
 				return
 			var/sound/tempSound = sound(soundInput)
 			playsound(holder.mob, tempSound, 1)
 			var/list/sounds_list = holder.SoundQuery()
 			var/soundLen = 0
-			for (var/playing_sound in sounds_list)
-				if (isnull(playing_sound))
+			for(var/playing_sound in sounds_list)
+				if(isnull(playing_sound))
 					stack_trace("client.SoundQuery() Returned a list containing a null sound! Somehow!")
 					continue
 				var/sound/found = playing_sound
-				if (found.file == tempSound.file)
+				if(found.file == tempSound.file)
 					soundLen = length(found)
-			if (!soundLen)
+			if(!soundLen)
 				soundLen = tgui_input_number(holder, "Не удалось автоматически определить длительность звукового файла. Какова его точная длительность в секундах? Это число будет использоваться для выравнивания звука так, чтобы он заканчивался сразу после приземления капсулы!", "Введите длительность файла", 0.3)
-				if (isnull(soundLen))
+				if(isnull(soundLen))
 					return
-				if (!isnum(soundLen))
+				if(!isnum(soundLen))
 					tgui_alert(usr, "Это было не число! Вместо него установлено значение по умолчанию ([initial(temp_pod.fallingSoundLength) * 0.1]).")
 			temp_pod.fallingSound = soundInput
 			temp_pod.fallingSoundLength = 10 * soundLen
 			. = TRUE
 		if("landingSound") //Admin sound from a local file that plays when the pod lands
-			if (!isnull(temp_pod.landingSound))
+			if(!isnull(temp_pod.landingSound))
 				temp_pod.landingSound = null
 				return
 			var/soundInput = input(holder, "Пожалуйста, выберите звуковой файл, который будет воспроизводиться, когда капсула приземлится! Рекомендуется «ох, черт, прости!» в случае, если вы кого-нибудь ударите капсулой.", "Выберите звуковой файл") as null|sound
-			if (isnull(soundInput))
+			if(isnull(soundInput))
 				return
 			temp_pod.landingSound = soundInput
 			. = TRUE
 		if("openingSound") //Admin sound from a local file that plays when the pod opens
-			if (!isnull(temp_pod.openingSound))
+			if(!isnull(temp_pod.openingSound))
 				temp_pod.openingSound = null
 				return
 			var/soundInput = input(holder, "Пожалуйста, выберите звуковой файл, который будет воспроизводиться при открытии капсулы! Рекомендуется стандартный звуковой эффект детей, радующихся вечеринке, в случае, если в вашей капсуле полно веселых и интересных вещей!", "Выберите звуковой файл") as null|sound
-			if (isnull(soundInput))
+			if(isnull(soundInput))
 				return
 			temp_pod.openingSound = soundInput
 			. = TRUE
 		if("leavingSound") //Admin sound from a local file that plays when the pod leaves
-			if (!isnull(temp_pod.leavingSound))
+			if(!isnull(temp_pod.leavingSound))
 				temp_pod.leavingSound = null
 				return
 			var/soundInput = input(holder, "Пожалуйста, выберите звуковой файл, который будет воспроизводиться, когда капсула исчезнет! Рекомендуется хороший звук свистка, особенно если вы используете эффект возвращаемой капсулы.", "Выберите звуковой файл") as null|sound
-			if (isnull(soundInput))
+			if(isnull(soundInput))
 				return
 			temp_pod.leavingSound = soundInput
 			. = TRUE
 		if("soundVolume") //Admin sound from a local file that plays when the pod leaves
-			if (temp_pod.soundVolume != initial(temp_pod.soundVolume))
+			if(temp_pod.soundVolume != initial(temp_pod.soundVolume))
 				temp_pod.soundVolume = initial(temp_pod.soundVolume)
 				return
 			var/soundInput = tgui_input_number(holder, "Пожалуйста, выберите громкость. По умолчанию — от 1 до 100, где 50 — среднее значение, но выбирайте любое. Если вы по-прежнему не слышите звук, попробуйте включить эффект «Тихо». При этом будут отключены все звуки капсулы, за исключением пользовательских, заданных администратором тремя предыдущими кнопками.", "Выберите громкость админских звуков")
-			if (isnull(soundInput))
+			if(isnull(soundInput))
 				return
 			temp_pod.soundVolume = soundInput
 			. = TRUE
@@ -524,7 +524,7 @@
 			. = TRUE
 		if("giveLauncher") //Enters the "Launch Mode". When the launcher is activated, temp_pod is cloned, and the result it filled and launched anywhere the user clicks (unless specificTarget is true)
 			launcherActivated = !launcherActivated
-			if (picking_dropoff_turf)
+			if(picking_dropoff_turf)
 				picking_dropoff_turf = FALSE //We don't want to have launch mode enabled while we're picking a turf
 			updateCursor() //Update the cursor of the user to a cool looking target icon
 			updateSelector()
@@ -562,9 +562,9 @@
 	cam_screen.show_camera(visible_turfs, size_x, size_y)
 
 /datum/centcom_podlauncher/proc/updateCursor(forceClear = FALSE) //Update the mouse of the user
-	if (!holder) //Can't update the mouse icon if the client doesnt exist!
+	if(!holder) //Can't update the mouse icon if the client doesnt exist!
 		return
-	if (!forceClear && (launcherActivated || picking_dropoff_turf)) //If the launching param is true, we give the user new mouse icons.
+	if(!forceClear && (launcherActivated || picking_dropoff_turf)) //If the launching param is true, we give the user new mouse icons.
 		if(launcherActivated)
 			holder.mouse_up_icon = 'icons/effects/mouse_pointers/supplypod_target.dmi' //Icon for when mouse is released
 			holder.mouse_down_icon = 'icons/effects/mouse_pointers/supplypod_down_target.dmi' //Icon for when mouse is pressed
@@ -587,7 +587,7 @@
 
 	var/left_click = LAZYACCESS(modifiers, LEFT_CLICK)
 
-	if (launcherActivated)
+	if(launcherActivated)
 		//Clicking on UI elements shouldn't launch a pod
 		if(istype(target,/atom/movable/screen))
 			return FALSE
@@ -596,13 +596,13 @@
 
 		if(left_click) //When we left click:
 			preLaunch() //Fill the acceptableTurfs list from the orderedArea list. Then, fill up the launchList list with items from the acceptableTurfs list based on the manner of launch (ordered, random, etc)
-			if (!isnull(specificTarget))
+			if(!isnull(specificTarget))
 				target = get_turf(specificTarget) //if we have a specific target, then always launch the pod at the turf of the target
-			else if (target)
+			else if(target)
 				target = get_turf(target) //Make sure we're aiming at a turf rather than an item or effect or something
 			else
 				return //if target is null and we don't have a specific target, cancel
-			if (effectAnnounce)
+			if(effectAnnounce)
 				var/old_layer = temp_pod.layer
 				var/old_plane = temp_pod.plane
 				var/pod_name = (!temp_pod.adminNamed)? temp_pod.declent_ru(NOMINATIVE) : temp_pod.name
@@ -614,24 +614,24 @@
 				temp_pod.layer = old_layer
 				temp_pod.plane = old_plane
 			var/list/bouttaDie = list()
-			for (var/mob/living/target_mob in target)
+			for(var/mob/living/target_mob in target)
 				bouttaDie.Add(target_mob)
-			if (holder.holder)
+			if(holder.holder)
 				supplypod_punish_log(bouttaDie)
-			if (!effectBurst) //If we're not using burst mode, just launch normally.
+			if(!effectBurst) //If we're not using burst mode, just launch normally.
 				launch(target)
 			else
-				for (var/i in 1 to 5) //If we're using burst mode, launch 5 pods
-					if (isnull(target))
+				for(var/i in 1 to 5) //If we're using burst mode, launch 5 pods
+					if(isnull(target))
 						break //if our target gets deleted during this, we stop the show
 					preLaunch() //Same as above
 					var/landingzone = locate(target.x + rand(-1,1), target.y + rand(-1,1), target.z) //Pods are randomly adjacent to (or the same as) the target
-					if (landingzone) //just incase we're on the edge of the map or something that would cause target.x+1 to fail
+					if(landingzone) //just incase we're on the edge of the map or something that would cause target.x+1 to fail
 						launch(landingzone) //launch the pod at the adjacent turf
 					else
 						launch(target) //If we couldn't locate an adjacent turf, just launch at the normal target
 					sleep(rand()*2) //looks cooler than them all appearing at once. Gives the impression of burst fire.
-	else if (picking_dropoff_turf)
+	else if(picking_dropoff_turf)
 		//Clicking on UI elements shouldn't pick a dropoff turf
 		if(istype(target,/atom/movable/screen))
 			return FALSE
@@ -645,9 +645,9 @@
 
 /datum/centcom_podlauncher/proc/refreshView()
 	switch(tabIndex)
-		if (TAB_POD)
+		if(TAB_POD)
 			setupViewPod()
-		if (TAB_BAY)
+		if(TAB_BAY)
 			setupViewBay()
 		else
 			setupViewDropoff()
@@ -659,47 +659,47 @@
 	refreshView()
 
 /datum/centcom_podlauncher/proc/createOrderedArea(area/area_to_order) //This assumes the area passed in is a continuous square
-	if (isnull(area_to_order)) //If theres no supplypod bay mapped into centcom, throw an error
+	if(isnull(area_to_order)) //If theres no supplypod bay mapped into centcom, throw an error
 		to_chat(holder.mob, "В мире нет /area/centcom/supplypod/loading/one (или /two, /three или /four)! На данный момент вы можете сделать их самостоятельно (а затем обновить список), но попросите маппера исправить это сегодня!")
 		CRASH("No /area/centcom/supplypod/loading/one (or /two or /three or /four) has been mapped into the centcom z-level!")
 	orderedArea = list()
-	if (length(area_to_order.contents)) //Go through the area passed into the proc, and figure out the top left and bottom right corners by calculating max and min values
+	if(length(area_to_order.contents)) //Go through the area passed into the proc, and figure out the top left and bottom right corners by calculating max and min values
 		var/startX = area_to_order.contents[1].x //Create the four values (we do it off a.contents[1] so they have some sort of arbitrary initial value. They should be overwritten in a few moments)
 		var/endX = area_to_order.contents[1].x
 		var/startY = area_to_order.contents[1].y
 		var/endY = area_to_order.contents[1].y
-		for (var/turf/turf_in_area in area_to_order) //For each turf in the area, go through and find:
-			if (turf_in_area.x < startX) //The turf with the smallest x value. This is our startX
+		for(var/turf/turf_in_area in area_to_order) //For each turf in the area, go through and find:
+			if(turf_in_area.x < startX) //The turf with the smallest x value. This is our startX
 				startX = turf_in_area.x
-			else if (turf_in_area.x > endX) //The turf with the largest x value. This is our endX
+			else if(turf_in_area.x > endX) //The turf with the largest x value. This is our endX
 				endX = turf_in_area.x
-			else if (turf_in_area.y > startY) //The turf with the largest Y value. This is our startY
+			else if(turf_in_area.y > startY) //The turf with the largest Y value. This is our startY
 				startY = turf_in_area.y
-			else if (turf_in_area.y < endY) //The turf with the smallest Y value. This is our endY
+			else if(turf_in_area.y < endY) //The turf with the smallest Y value. This is our endY
 				endY = turf_in_area.y
-		for (var/vertical in endY to startY)
-			for (var/horizontal in startX to endX)
+		for(var/vertical in endY to startY)
+			for(var/horizontal in startX to endX)
 				orderedArea.Add(locate(horizontal, startY - (vertical - endY), 1)) //After gathering the start/end x and y, go through locating each turf from top left to bottom right, like one would read a book
 	return orderedArea //Return the filled list
 
 /datum/centcom_podlauncher/proc/preLaunch() //Creates a list of acceptable items,
 	numTurfs = 0 //Counts the number of turfs that can be launched (remember, supplypods either launch all at once or one turf-worth of items at a time)
 	acceptableTurfs = list()
-	for (var/t in orderedArea) //Go through the orderedArea list
+	for(var/t in orderedArea) //Go through the orderedArea list
 		var/turf/unchecked_turf = t
-		if (iswallturf(unchecked_turf) || length(typecache_filter_list_reverse(unchecked_turf.contents, ignored_atoms))) //if there is something in this turf that isn't in the blacklist, we consider this turf "acceptable" and add it to the acceptableTurfs list
+		if(iswallturf(unchecked_turf) || length(typecache_filter_list_reverse(unchecked_turf.contents, ignored_atoms))) //if there is something in this turf that isn't in the blacklist, we consider this turf "acceptable" and add it to the acceptableTurfs list
 			acceptableTurfs.Add(unchecked_turf) //Because orderedArea was an ordered linear list, acceptableTurfs will be as well.
 			numTurfs ++
 
 	launchList = list() //Anything in launchList will go into the supplypod when it is launched
-	if (length(acceptableTurfs) && !temp_pod.reversing && !temp_pod.effectMissile) //We dont fill the supplypod if acceptableTurfs is empty, if the pod is going in reverse (effectReverse=true), or if the pod is acitng like a missile (effectMissile=true)
+	if(length(acceptableTurfs) && !temp_pod.reversing && !temp_pod.effectMissile) //We dont fill the supplypod if acceptableTurfs is empty, if the pod is going in reverse (effectReverse=true), or if the pod is acitng like a missile (effectMissile=true)
 		switch(launchChoice)
 			if(LAUNCH_ALL) //If we are launching all the turfs at once
-				for (var/t in acceptableTurfs)
+				for(var/t in acceptableTurfs)
 					var/turf/accepted_turf = t
 					launchList |= typecache_filter_list_reverse(accepted_turf.contents, ignored_atoms) //We filter any blacklisted atoms and add the rest to the launchList
 			if(LAUNCH_ORDERED) //If we are launching one at a time
-				if (launchCounter > length(acceptableTurfs)) //Check if the launchCounter, which acts as an index, is too high. If it is, reset it to 1
+				if(launchCounter > length(acceptableTurfs)) //Check if the launchCounter, which acts as an index, is too high. If it is, reset it to 1
 					launchCounter = 1 //Note that the launchCounter index is incremented in the launch() proc
 				var/turf/next_turf_in_line = acceptableTurfs[launchCounter]
 				launchList |= typecache_filter_list_reverse(next_turf_in_line.contents, ignored_atoms) //Filter the specicic turf chosen from acceptableTurfs, and add it to the launchList
@@ -710,21 +710,21 @@
 	//UpdateSelector() is here (instead if the if(1) switch block) because it also moves the selector to nullspace (to hide it) if needed
 
 /datum/centcom_podlauncher/proc/launch(turf/target_turf) //Game time started
-	if (isnull(target_turf))
+	if(isnull(target_turf))
 		return
 	var/obj/structure/closet/supplypod/centcompod/toLaunch = DuplicateObject(temp_pod, TRUE, TRUE) //Duplicate the temp_pod (which we have been varediting or configuring with the UI) and store the result
 	toLaunch.update_appearance()//we update_appearance() here so that the door doesnt "flicker on" right after it lands
 	var/shippingLane = GLOB.areas_by_type[/area/centcom/supplypod/supplypod_temp_holding]
 	toLaunch.forceMove(shippingLane)
-	if (launchClone) //We arent launching the actual items from the bay, rather we are creating clones and launching those
+	if(launchClone) //We arent launching the actual items from the bay, rather we are creating clones and launching those
 		if(launchRandomItem)
 			var/launch_candidate = pick_n_take(launchList)
 			if(!isnull(launch_candidate))
 				var/atom/movable/movable_to_launch = DuplicateObject(launch_candidate, TRUE, TRUE)
 				movable_to_launch.forceMove(toLaunch) //Duplicate a single atom/movable from launchList and forceMove it into the supplypod
 		else
-			for (var/launch_candidate in launchList)
-				if (isnull(launch_candidate))
+			for(var/launch_candidate in launchList)
+				if(isnull(launch_candidate))
 					continue
 				var/atom/movable/movable_to_launch = DuplicateObject(launch_candidate, TRUE, TRUE)
 				movable_to_launch.forceMove(toLaunch) //Duplicate each atom/movable in launchList and forceMove them into the supplypod
@@ -735,31 +735,31 @@
 				var/atom/movable/random_item_movable = random_item
 				random_item_movable.forceMove(toLaunch) //and forceMove any atom/moveable into the supplypod
 		else
-			for (var/thing_to_launch in launchList) //If we aren't cloning the objects, just go through the launchList
-				if (isnull(thing_to_launch))
+			for(var/thing_to_launch in launchList) //If we aren't cloning the objects, just go through the launchList
+				if(isnull(thing_to_launch))
 					continue
 				var/atom/movable/movable_to_launch = thing_to_launch
 				movable_to_launch.forceMove(toLaunch) //and forceMove any atom/moveable into the supplypod
 	new /obj/effect/pod_landingzone(target_turf, toLaunch) //Then, create the DPTarget effect, which will eventually forceMove the temp_pod to its location
-	if (launchClone)
+	if(launchClone)
 		launchCounter++ //We only need to increment launchCounter if we are cloning objects.
 		//If we aren't cloning objects, taking and removing the first item each time from the acceptableTurfs list will inherently iterate through the list in order
 
 /datum/centcom_podlauncher/proc/updateSelector() //Ensures that the selector effect will showcase the next item if needed
-	if (launchChoice == LAUNCH_ORDERED && length(acceptableTurfs) > 1 && !temp_pod.reversing && !temp_pod.effectMissile) //We only show the selector if we are taking items from the bay
+	if(launchChoice == LAUNCH_ORDERED && length(acceptableTurfs) > 1 && !temp_pod.reversing && !temp_pod.effectMissile) //We only show the selector if we are taking items from the bay
 		var/index = (launchCounter == 1 ? launchCounter : launchCounter + 1) //launchCounter acts as an index to the ordered acceptableTurfs list, so adding one will show the next item in the list. We don't want to do this for the very first item tho
-		if (index > length(acceptableTurfs)) //out of bounds check
+		if(index > length(acceptableTurfs)) //out of bounds check
 			index = 1
 		selector.forceMove(acceptableTurfs[index]) //forceMove the selector to the next turf in the ordered acceptableTurfs list
 	else
 		selector.moveToNullspace() //Otherwise, we move the selector to nullspace until it is needed again
 
 /datum/centcom_podlauncher/proc/clearBay() //Clear all objs and mobs from the selected bay
-	for (var/obj/O in bay.get_all_contents())
+	for(var/obj/O in bay.get_all_contents())
 		qdel(O)
-	for (var/mob/M in bay.get_all_contents())
+	for(var/mob/M in bay.get_all_contents())
 		qdel(M)
-	for (var/bayturf in bay)
+	for(var/bayturf in bay)
 		var/turf/turf_to_clear = bayturf
 		turf_to_clear.ChangeTurf(/turf/simulated/floor)
 
@@ -773,14 +773,14 @@
 /datum/centcom_podlauncher/proc/supplypod_punish_log(list/whoDyin)
 	var/podString = effectBurst ? "5 pods" : "a pod"
 	var/whomString = ""
-	if (LAZYLEN(whoDyin))
-		for (var/mob/living/M in whoDyin)
+	if(LAZYLEN(whoDyin))
+		for(var/mob/living/M in whoDyin)
 			whomString += "[key_name(M)], "
 
 	var/msg = "launched [podString] towards [whomString]"
 	message_admins("[key_name_admin(usr)] [msg] in [ADMIN_VERBOSEJMP(specificTarget)].")
-	if (length(whoDyin))
-		for (var/mob/living/M in whoDyin)
+	if(length(whoDyin))
+		for(var/mob/living/M in whoDyin)
 			log_and_message_admins("[key_name_admin(usr)] [msg]")
 
 /datum/centcom_podlauncher/proc/loadData(list/dataToLoad)
@@ -841,9 +841,9 @@ GLOBAL_DATUM_INIT(podlauncher, /datum/centcom_podlauncher, new)
 //Set the dropoff location and indicator to either a specific turf or somewhere in an area
 /datum/centcom_podlauncher/proc/setDropoff(target)
 	var/turf/target_turf
-	if (isturf(target))
+	if(isturf(target))
 		target_turf = target
-	else if (isarea(target))
+	else if(isarea(target))
 		target_turf = pick(get_area_turfs(target))
 	else
 		CRASH("Improper type passed to setDropoff! Should be /turf or /area")
@@ -851,7 +851,7 @@ GLOBAL_DATUM_INIT(podlauncher, /datum/centcom_podlauncher, new)
 	indicator.forceMove(target_turf)
 
 /datum/centcom_podlauncher/proc/update_dropoff_indicator()
-	if (temp_pod?.reversing)
+	if(temp_pod?.reversing)
 		indicator.alpha = 150
 	else
 		indicator.alpha = 0

@@ -66,7 +66,6 @@
 	filling_color = "#E8C31E"
 	list_reagents = list("nutriment" = 4)
 	tastes = list("corn" = 2)
-	bitesize = 2
 	foodtype = FRIED | GRAIN
 
 /obj/item/reagent_containers/food/snacks/nachos

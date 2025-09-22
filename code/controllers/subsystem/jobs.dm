@@ -470,6 +470,8 @@ SUBSYSTEM_DEF(jobs)
 		alt_title = human.mind.role_alt_title
 
 		CreateMoneyAccount(human, rank, job)
+	if(!job.announce_job)
+		return human
 	var/list/L = list()
 	L.Add("<b>Вы [span_red(alt_title ? alt_title : rank)].</b>")
 	L.Add("<b>На этой должности вы отвечаете непосредственно перед [span_red(replacetext(job.supervisors,"the ",""))]. Особые обстоятельства могут это изменить.</b>")
@@ -748,7 +750,7 @@ SUBSYSTEM_DEF(jobs)
 	human.mind.initial_account = M
 
 	human.mind.initial_account.insurance_type = job.insurance_type
-	switch (job.insurance_type)
+	switch(job.insurance_type)
 		if(INSURANCE_TYPE_NONE)
 			human.mind.initial_account.insurance = INSURANCE_NONE
 		if(INSURANCE_TYPE_BUDGETARY)

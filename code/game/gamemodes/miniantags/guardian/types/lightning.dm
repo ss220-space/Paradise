@@ -1,6 +1,4 @@
 /mob/living/simple_animal/hostile/guardian/beam
-	melee_damage_lower = 15
-	melee_damage_upper = 15
 	attacktext = "бьёт током"
 	melee_damage_type = BURN
 	attack_sound = 'sound/machines/defib_zap.ogg'
@@ -101,6 +99,6 @@
 				. = 1
 
 /mob/living/simple_animal/hostile/guardian/beam/death(gibbed)
-    if(HAS_TRAIT(summoner, TRAIT_SHOCKIMMUNE))
-        REMOVE_TRAIT(summoner, TRAIT_SHOCKIMMUNE, "guardian")
-    return ..()
+	if(HAS_TRAIT(summoner, TRAIT_SHOCKIMMUNE))
+		REMOVE_TRAIT(summoner, TRAIT_SHOCKIMMUNE, "guardian")
+	return ..()

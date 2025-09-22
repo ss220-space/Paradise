@@ -10,7 +10,7 @@
 	combos = list(/datum/martial_combo/adminfu/healing_palm)
 	weight = 99999999
 
-/datum/martial_art/adminfu/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/adminfu/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	if(!D.stat)//do not kill what is dead...
 		A.do_attack_animation(D)
@@ -21,7 +21,7 @@
 		return TRUE
 
 
-/datum/martial_art/adminfu/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/adminfu/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D)
 	D.Weaken(50 SECONDS)

@@ -18,16 +18,14 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "thunderdome-bomb"
 	anchored = TRUE
-	density = FALSE
 	invisibility = INVISIBILITY_MAXIMUM
-	opacity = FALSE
 	layer = BELOW_MOB_LAYER
 	resistance_flags = INDESTRUCTIBLE
 
 /**
  * Changed copy of /proc/notify_ghosts designed to be customizable across user preferences
  */
-/datum/mini_game/proc/notify_players(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, var/action = NOTIFY_JUMP) //Easy notification of ghosts.
+/datum/mini_game/proc/notify_players(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(!O.client?.prefs?.minigames_notifications || !(role in O.client?.prefs?.be_special))
 			return

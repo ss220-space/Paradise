@@ -185,9 +185,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	)
 	var/belt_icon = null
 	var/item_state = null
-	//Dimensions of the lefthand_file and righthand_file vars
-	//eg: 32x32 sprite, 64x64 sprite, etc.
+	///Dimensions of the icon file used when this item is worn, eg: hats.dmi (32x32 sprite, 64x64 sprite, etc.). Allows inhands/worn sprites to be of any size, but still centered on a mob properly
+	var/worn_x_dimension = 32
+	///Dimensions of the icon file used when this item is worn, eg: hats.dmi (32x32 sprite, 64x64 sprite, etc.). Allows inhands/worn sprites to be of any size, but still centered on a mob properly
+	var/worn_y_dimension = 32
+	///Same as for [worn_x_dimension][/obj/item/var/worn_x_dimension] but for inhands, uses the lefthand_ and righthand_ file vars
 	var/inhand_x_dimension = 32
+	///Same as for [worn_y_dimension][/obj/item/var/worn_y_dimension] but for inhands, uses the lefthand_ and righthand_ file vars
 	var/inhand_y_dimension = 32
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -547,7 +551,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	if (!block_type || !(block_type & attack_type))
+	if(!block_type || !(block_type & attack_type))
 		final_block_chance = 0
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
 	if(signal_result != 0)
@@ -568,7 +572,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return FALSE
 
 
-/obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
+/obj/item/proc/talk_into(mob/M, text, channel=null)
 	return
 
 /// Generic get_heat proc. Returns 0 or number amount of heat an item gives.
@@ -633,13 +637,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 
 /**
-  * Called to check if this item can be put into a storage item.
-  *
-  * Return `FALSE` if `src` can't be inserted, and `TRUE` if it can.
-  * Arguments:
-  * * S - The [/obj/item/storage] that `src` is being inserted into.
-  * * user - The mob trying to insert the item.
-  */
+ * Called to check if this item can be put into a storage item.
+ *
+ * Return `FALSE` if `src` can't be inserted, and `TRUE` if it can.
+ * Arguments:
+ * * S - The [/obj/item/storage] that `src` is being inserted into.
+ * * user - The mob trying to insert the item.
+ */
 /obj/item/proc/can_enter_storage(obj/item/storage/S, mob/user)
 	return TRUE
 
@@ -1146,63 +1150,43 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	switch(slot)
 		if(ITEM_SLOT_CLOTH_OUTER)
 			owner.wear_suit_update(src)
-
 		if(ITEM_SLOT_CLOTH_INNER)
-			owner.update_inv_w_uniform()
-
+			owner.update_worn_undersuit()
 		if(ITEM_SLOT_GLOVES)
-			owner.update_inv_gloves()
-
+			owner.update_worn_gloves()
 		if(ITEM_SLOT_NECK)
-			owner.update_inv_neck()
-
+			owner.update_worn_neck()
 		if(ITEM_SLOT_EYES)
 			owner.wear_glasses_update(src)
-
 		if(ITEM_SLOT_HEAD)
 			owner.update_head(src)
-
 		if(ITEM_SLOT_EAR_LEFT, ITEM_SLOT_EAR_RIGHT)
-			owner.update_inv_ears()
-
+			owner.update_worn_ears()
 		if(ITEM_SLOT_FEET)
-			owner.update_inv_shoes()
-
+			owner.update_worn_shoes()
 		if(ITEM_SLOT_BELT)
-			owner.update_inv_belt()
-
+			owner.update_worn_belt()
 		if(ITEM_SLOT_MASK)
 			owner.wear_mask_update(src)
-
 		if(ITEM_SLOT_ID)
 			if(ishuman(owner))
 				var/mob/living/carbon/human/h_owner = owner
 				h_owner.update_hud_set()
-			owner.update_inv_wear_id()
-
+			owner.update_worn_id()
 		if(ITEM_SLOT_PDA)
-			owner.update_inv_wear_pda()
-
+			owner.update_worn_pda()
 		if(ITEM_SLOT_POCKET_LEFT, ITEM_SLOT_POCKET_RIGHT)
-			owner.update_inv_pockets()
-
+			owner.update_pockets()
 		if(ITEM_SLOT_SUITSTORE)
-			owner.update_inv_s_store()
-
+			owner.update_suit_storage()
 		if(ITEM_SLOT_BACK)
-			owner.update_inv_back()
-
-		if(ITEM_SLOT_HAND_LEFT)
-			owner.update_inv_l_hand()
-
-		if(ITEM_SLOT_HAND_RIGHT)
-			owner.update_inv_r_hand()
-
+			owner.update_worn_back()
+		if(ITEM_SLOT_HAND_LEFT, ITEM_SLOT_HAND_RIGHT)
+			owner.update_held_items()
 		if(ITEM_SLOT_HANDCUFFED)
-			owner.update_inv_handcuffed()
-
+			owner.update_worn_handcuffs()
 		if(ITEM_SLOT_LEGCUFFED)
-			owner.update_inv_legcuffed()
+			owner.update_worn_legcuffs()
 
 	if(update_speedmods)
 		owner.update_equipment_speed_mods()

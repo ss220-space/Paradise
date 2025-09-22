@@ -82,11 +82,20 @@
 
 	var/insurance = INSURANCE_STANDART
 	var/insurance_type = INSURANCE_TYPE_STANDART
+	var/announce_job = TRUE
+
+	/// The department the job belongs to.
+	var/department = null
+
+	/// Whether this is a head position
+	var/head_position = 0
 
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
+	return
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
+	return
 
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE)
 	if(!H)

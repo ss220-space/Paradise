@@ -45,7 +45,6 @@
 
 //This is the icon for fire on turfs, also helps for nurturing small fires until they are full tile
 /obj/effect/hotspot
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	icon = 'icons/goonstation/effects/fire.dmi'
 	icon_state = "1"
@@ -316,7 +315,7 @@
 
 		for(var/dir in GLOB.cardinal)
 			var/turf/link = get_step(T, dir)
-			if (!link)
+			if(!link)
 				continue
 			// Check if it wasn't already visited and if you can get to that turf
 			if(!closed[link] && T.CanAtmosPass(link, FALSE))

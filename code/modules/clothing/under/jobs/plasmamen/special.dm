@@ -18,7 +18,7 @@
 
 /obj/item/clothing/under/plasmaman/centcomm
 	name = "Central command officer plasma envirosuit"
-	desc = "Защитный костюм плазмолюда, созданный специально для офицеров НаноТрейзен."
+	desc = "Защитный костюм плазмолюда, созданный специально для офицеров Нанотрейзен."
 	icon_state = "centcomm_envirosuit"
 	item_state = "centcomm_envirosuit"
 	item_color = "centcomm_envirosuit"

@@ -26,6 +26,8 @@ GLOBAL_PROTECT(href_token)
 	var/datum/feed_channel/admincaster_feed_channel = new /datum/feed_channel
 	var/admincaster_signature	//What you'll sign the newsfeeds as
 
+	var/current_tab = 0
+
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, span_boldannounceooc("Admin rank creation blocked: Advanced ProcCall detected."))
@@ -111,7 +113,7 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 			if(!other || !other.holder)
 				return 1
 			if(usr.client.holder.rights != other.holder.rights)
-				if( (usr.client.holder.rights & other.holder.rights) == other.holder.rights )
+				if((usr.client.holder.rights & other.holder.rights) == other.holder.rights)
 					return 1	//we have all the rights they have and more
 		to_chat(usr, "<font color='red'>Error: Cannot proceed. They have more or equal rights to us.</font>")
 	return 0

@@ -167,7 +167,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	GLOB._preloader.reset()
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
-	
+
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
 		CRASH("Bad Map bounds in [fname], Min x: [bounds[MAP_MINX]], Min y: [bounds[MAP_MINY]], Min z: [bounds[MAP_MINZ]], Max x: [bounds[MAP_MAXX]], Max y: [bounds[MAP_MAXY]], Max z: [bounds[MAP_MAXZ]]")
 	else
@@ -282,8 +282,10 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 		if(!new_z)
 			old_area = crds.loc
-			old_area.turfs_to_uncontain += crds
-			area_instance.contained_turfs.Add(crds)
+			LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, crds.z, list())
+			LISTASSERTLEN(area_instance.turfs_by_zlevel, crds.z, list())
+			old_area.turfs_to_uncontain_by_zlevel[crds.z] += crds
+			area_instance.turfs_by_zlevel[crds.z] += crds
 		area_instance.contents.Add(crds)
 
 		if(GLOB.use_preloader && area_instance)
@@ -509,7 +511,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		// If this parsed map doesn't have that area already, we check the global cache
 		area_instance = GLOB.areas_by_type[area_type]
 		// If the global list DOESN'T have this area it's either not a unique area, or it just hasn't been created yet
-		if (!area_instance)
+		if(!area_instance)
 			area_instance = new area_type(null)
 			if(!area_instance)
 				CRASH("[area_type] failed to be new'd, what'd you do?")
@@ -523,5 +525,4 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 /turf/template_noop
 	name = "Turf Passthrough"
 	icon_state = "noop" // now turf passthrought won't mess with other structures like lattice or plates in space on ruin maps in map editor. it was too much annoyng before the change. noop icon added in areas.dmi as well
-	blocks_air = FALSE
 	init_air = FALSE

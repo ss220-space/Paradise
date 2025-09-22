@@ -16,7 +16,7 @@
 
 	mech_type = MECH_TYPE_ODYSSEUS
 
-/obj/mecha/medical/odysseus/moved_inside(var/mob/living/carbon/human/H)
+/obj/mecha/medical/odysseus/moved_inside(mob/living/carbon/human/H)
 	. = ..()
 	if(. && ishuman(H))
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
@@ -26,7 +26,7 @@
 			A.add_hud_to(H)
 			builtin_hud_user = 1
 
-/obj/mecha/medical/odysseus/mmi_moved_inside(var/obj/item/mmi/mmi_as_oc, mob/user)
+/obj/mecha/medical/odysseus/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	. = ..()
 	if(.)
 		if(occupant.client)
@@ -51,7 +51,6 @@
 /obj/mecha/medical/odysseus/full_load
 	name = "Тестовый Одиссей"
 	desc = "Специальная версия \"Одиссея\", созданная с одной целью - проверять все модули разом. Конструкция не позволяет меху быть массовым образцом, выпущенная специально для ведущих инженеров-роботехников."
-	max_equip = 4
 	strafe_allowed = TRUE
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0) // для тестов урона
 	max_integrity = 1000

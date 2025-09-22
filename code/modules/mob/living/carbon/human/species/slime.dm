@@ -164,7 +164,6 @@
 /datum/action/innate/slimecolor
 	name = "Изменить цвет слизи"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "slime_change"
 
 /datum/action/innate/slimecolor/Activate()
@@ -181,7 +180,6 @@
 /datum/action/innate/regrow
 	name = "Отрастить конечность"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "slime_renew"
 
 

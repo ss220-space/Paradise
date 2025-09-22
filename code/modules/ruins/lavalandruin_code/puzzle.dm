@@ -1,9 +1,10 @@
+#define COLLAPSE_DURATION 7
+
 /obj/effect/sliding_puzzle
 	name = "Sliding puzzle generator"
 	icon = 'icons/obj/items.dmi' //mapping
 	icon_state = "syndballoon"
 	invisibility = INVISIBILITY_ABSTRACT
-	anchored = TRUE
 	var/list/elements
 	var/floor_type = /turf/simulated/floor/vault
 	var/finished = FALSE
@@ -77,8 +78,6 @@
 			E.source = null
 		elements.Cut()
 	return ..()
-
-#define COLLAPSE_DURATION 7
 
 /obj/effect/sliding_puzzle/proc/finish()
 	finished = TRUE
@@ -197,7 +196,6 @@
 	desc = "puzzling..."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "puzzle_pillar"
-	anchored = FALSE
 	density = TRUE
 	var/id = 0
 	var/obj/effect/sliding_puzzle/source
@@ -349,3 +347,5 @@
 	var/obj/structure/puzzle_element/E = pick(cube.elements)
 	prisoner.forceMove(E)
 	return TRUE
+
+#undef COLLAPSE_DURATION

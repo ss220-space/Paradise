@@ -28,10 +28,6 @@ Possible to do for anyone motivated enough:
 // 1 = AREA BASED
 #define HOLOPAD_PASSIVE_POWER_USAGE 1
 #define HOLOGRAM_POWER_USAGE 2
-#define RANGE_BASED 0
-#define AREA_BASED 1
-
-#define HOLOPAD_MODE RANGE_BASED
 
 GLOBAL_LIST_EMPTY(holopads)
 
@@ -40,7 +36,6 @@ GLOBAL_LIST_EMPTY(holopads)
 	desc = "It's a floor-mounted device for projecting holographic images."
 	icon_state = "holopad0"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	layer = HOLOPAD_LAYER //Preventing mice and drones from sneaking under them.
@@ -383,7 +378,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			update_holoray(user,new_turf)
 	return TRUE
 
-/obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, var/force = 0)
+/obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, force = 0)
 	var/mob/living/silicon/ai/AI = user
 	if(!istype(AI))
 		AI = null
@@ -451,7 +446,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	update_icon()
 
 
-/obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, var/obj/effect/overlay/holo_pad_hologram/h)
+/obj/machinery/hologram/holopad/proc/set_holo(mob/living/user, obj/effect/overlay/holo_pad_hologram/h)
 	masters[user] = h
 	holorays[user] = new /obj/effect/overlay/holoray(loc)
 	var/mob/living/silicon/ai/AI = user
@@ -527,9 +522,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "holoray"
 	layer = FLY_LAYER
-	density = FALSE
-	anchored = TRUE
-	mouse_opacity = MOUSE_OPACITY_ICON
 	pixel_x = -32
 	pixel_y = -32
 	alpha = 100
@@ -540,7 +532,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/hologram/projector
 	name = "hologram projector"
 	desc = "It makes a hologram appear...with magnets or something..."
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "hologram0"
 
 #undef HOLOPAD_PASSIVE_POWER_USAGE

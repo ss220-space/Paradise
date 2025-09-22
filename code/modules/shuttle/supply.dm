@@ -259,7 +259,7 @@
 	SSshuttle.centcom_message += "[msg]<hr>"
 
 /********************
-    SUPPLY ORDER
+	SUPPLY ORDER
  ********************/
 /datum/supply_order
 	var/ordernum
@@ -347,7 +347,7 @@
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
 
-	if((errors & MANIFEST_ERROR_ITEM))
+	if(errors & MANIFEST_ERROR_ITEM)
 		//secure and large crates cannot lose items
 		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
 			errors &= ~MANIFEST_ERROR_ITEM
@@ -374,7 +374,7 @@
 	return Crate
 
 /***************************
-    ORDER/REQUESTS CONSOLE
+	ORDER/REQUESTS CONSOLE
  **************************/
 /obj/machinery/computer/supplycomp
 	name = "Supply Shuttle Console"
@@ -392,7 +392,6 @@
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
 	desc = "Используется для оформления заказов. Предназначено для общего пользования."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "request"
 	circuit = /obj/item/circuitboard/ordercomp
 	req_access = list()
@@ -409,10 +408,10 @@
 	can_order_contraband = my_circuit.contraband_enabled
 
 
-/obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-/obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/supplycomp/attack_hand(mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)

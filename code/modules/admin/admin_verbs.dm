@@ -181,11 +181,13 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
 	/client/proc/ss_breakdown,
+#ifndef OPENDREAM
 	/client/proc/dmjit_debug_toggle_call_counts,
 	/client/proc/dmjit_debug_dump_call_count,
 	/client/proc/dmjit_debug_dump_opcode_count,
 	/client/proc/dmjit_debug_toggle_hooks,
 	/client/proc/dmjit_debug_dump_deopts,
+#endif
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
@@ -196,6 +198,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_npcpool_suspension,
 	/client/proc/debug_atom_init,
 	/client/proc/debugstatpanel,
+	/client/proc/view_instances,
 	/client/proc/allow_browser_inspect, // XSS prevention
 	/client/proc/change_title_screen_html
 ))
@@ -622,10 +625,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 					log_and_message_admins("tried to spawn for [key_name(H)] a cookie, but their hands were full, so they did not receive their cookie.")
 					return
-				else
-					H.update_inv_r_hand()//To ensure the icon appears in the HUD
-			else
-				H.update_inv_l_hand()
+			H.update_held_items()
 			logmsg = "spawn cookie."
 		if("To Arrivals")
 			M.forceMove(pick(GLOB.latejoin))
@@ -1007,7 +1007,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		togglebuildmode(src.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Build Mode")
 
-/client/proc/object_talk(var/msg as text) // -- TLE
+/client/proc/object_talk(msg as text) // -- TLE
 	set name = "oSay"
 	set desc = "Display a message to everyone who can hear the target"
 
@@ -1045,15 +1045,18 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "De-admin self"
 	set category = STATPANEL_ADMIN_ADMIN
 
-	if(!check_rights(R_ADMIN|R_MENTOR))
+	if(!check_rights(R_ADMIN|R_MENTOR|R_VIEWRUNTIMES))
 		return
 
 	log_admin("[key_name(usr)] deadmined themself.")
 	message_admins("[key_name_admin(usr)] deadmined themself.")
 	if(check_rights(R_ADMIN, FALSE))
 		GLOB.de_admins |= ckey
-	else
+	else if(check_rights(R_MENTOR, FALSE))
 		GLOB.de_mentors |= ckey
+	else
+		GLOB.de_devs |= ckey
+
 	deadmin()
 	add_verb(src, /client/proc/readmin)
 	update_active_keybindings()
@@ -1159,6 +1162,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		remove_verb(src, /client/proc/readmin)
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
+		GLOB.de_devs -= ckey
 		return
 
 /client/proc/select_next_map()

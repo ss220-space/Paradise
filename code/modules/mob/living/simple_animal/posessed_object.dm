@@ -7,7 +7,7 @@
 	pass_flags = PASSTABLE	// Floating past tables is pretty damn spooky.
 	status_flags = null	// No canpush to prevent grabs ...
 	density = FALSE			//  ... But a density of 0 means we won't be blocking anyone's way.
-	healable = 0			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
+	healable = FALSE			// Animated with SPACE NECROMANCY, mere mortal medicines cannot heal such an object.
 	wander = 0				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
 
 	universal_speak = 1		// Tell the humans spooky things about the afterlife
@@ -81,8 +81,8 @@
 		death(gibbed = TRUE)
 		return
 
-	if( possessed_item.loc != src )
-		if ( isturf(possessed_item.loc) ) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
+	if(possessed_item.loc != src)
+		if(isturf(possessed_item.loc)) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
 			forceMove(possessed_item.loc)
 			possessed_item.forceMove(src)
 		else // If we're inside a toolbox or something, we are inside the item rather than the item inside us. This is so people can see the item in the toolbox.
@@ -109,7 +109,7 @@
 	to_chat(src, span_shadowling("<b>Ваш дух вселился в [src.declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя – почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
 
 
-/mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
+/mob/living/simple_animal/possessed_object/New(atom/loc as obj)
 	..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
@@ -147,7 +147,7 @@
 		. = possessed_id.access
 
 
-/mob/living/simple_animal/possessed_object/ClickOn(var/atom/A, var/params)
+/mob/living/simple_animal/possessed_object/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
@@ -162,8 +162,8 @@
 	else
 		..()
 
-	if( possessed_item.loc != src )
-		if ( isturf(possessed_item.loc) ) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
+	if(possessed_item.loc != src)
+		if(isturf(possessed_item.loc)) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
 			forceMove(possessed_item.loc)
 			possessed_item.forceMove(src)
 		else // If we're inside a toolbox or something, we are inside the item rather than the item inside us. This is so people can see the item in the toolbox.

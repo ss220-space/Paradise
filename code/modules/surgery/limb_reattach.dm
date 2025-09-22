@@ -20,7 +20,6 @@
 		BODY_ZONE_TAIL,
 		BODY_ZONE_WING,
 	)
-	requires_organic_bodypart = TRUE
 	cancel_on_organ_change = FALSE
 
 
@@ -153,7 +152,6 @@
 		return FALSE
 
 /datum/surgery_step/limb
-	can_infect = FALSE
 
 /datum/surgery_step/limb/attach
 	name = "присоединить конечность"

@@ -1,6 +1,6 @@
 /datum/canister_icons
 	var
-		possiblemaincolor = list( //these lists contain the possible colors of a canister
+		possiblemaincolor = list(//these lists contain the possible colors of a canister
 			list("name" = "\[N2O\]", "icon" = "redws"),
 			list("name" = "\[N2\]", "icon" = "red"),
 			list("name" = "\[O2\]", "icon" = "blue"),
@@ -10,7 +10,7 @@
 			list("name" = "\[CAUTION\]", "icon" = "yellow"),
 			list("name" = "\[SPECIAL\]", "icon" = "whiters")
 			)
-		possibleseccolor = list( // no point in having the N2O and "whiters" ones in these lists
+		possibleseccolor = list(// no point in having the N2O and "whiters" ones in these lists
 			list("name" = "\[None\]", "icon" = "none"),
 			list("name" = "\[N2\]", "icon" = "red-c"),
 			list("name" = "\[O2\]", "icon" = "blue-c"),
@@ -37,6 +37,7 @@
 			list("name" = "\[Air\]", "icon" = "grey-c-2"),
 			list("name" = "\[CAUTION\]", "icon" = "yellow-c-2")
 			)
+
 GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/portable_atmospherics/canister
@@ -46,7 +47,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	density = TRUE
 	flags = CONDUCT
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 80, ACID = 50)
-	max_integrity = 250
 	integrity_failure = 100
 
 	var/valve_open = FALSE
@@ -68,7 +68,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	pressure_resistance = 7 * ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
 	volume = 1000
-	use_power = NO_POWER_USE
 	interact_offline = TRUE
 	var/update_flag = NONE
 
@@ -309,13 +308,13 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		qdel(src)
 
 
-/obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_ghost(mob/user)
 	return ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user)
+/obj/machinery/portable_atmospherics/canister/attack_hand(mob/user)
 	if(..())
 		return TRUE
 

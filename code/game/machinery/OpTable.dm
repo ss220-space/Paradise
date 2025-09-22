@@ -3,12 +3,10 @@
 	desc = "Многофункциональный операционный стол, предназначенный для выполнения хирургических операций. \
 			Оснащён системой датчиков, подключаемых к хирургическому компьютеру для отслеживания жизненных показателей пациента в реальном времени. \
 			Встроенные анатомические фиксаторы исключают непроизвольные движения пациента и обеспечивают удобство для оперирующего хирурга."
-	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "table2-idle"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 1
 	active_power_usage = 5
 	var/mob/living/carbon/patient
@@ -58,8 +56,8 @@
 	return TRUE
 
 /**
-  * Updates the `patient` var to be the mob occupying the table
-  */
+ * Updates the `patient` var to be the mob occupying the table
+ */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/patient_carbon = locate(/mob/living/carbon, loc)
 	if(patient_carbon && patient_carbon.body_position == LYING_DOWN)
@@ -126,7 +124,7 @@
 /obj/machinery/optable/proc/check_table()
 	update_patient()
 	if(patient != null)
-		balloon_alert(usr, span_notice("уже занято!"))
+		balloon_alert(usr, "уже занято!")
 		return FALSE
 	else
 		return TRUE

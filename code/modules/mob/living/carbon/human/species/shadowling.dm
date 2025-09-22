@@ -1,3 +1,7 @@
+#define LIGHT_DAM_THRESHOLD 4
+#define LIGHT_HEAL_THRESHOLD 2
+#define LIGHT_DAMAGE_TAKEN 6
+
 /datum/species/shadow/ling
 	//Normal shadowpeople but with enhanced effects
 	name = SPECIES_SHADOWLING
@@ -66,7 +70,6 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy),
 	)
 
-	disliked_food = NONE
 
 /datum/species/shadow/ling/proc/handle_light(mob/living/carbon/human/H)
 	var/light_amount = 0
@@ -116,3 +119,7 @@
 	deform = 'icons/mob/human_races/r_lshadowling.dmi'
 	burn_mod = 1.1
 	heatmod = 1.1
+
+#undef LIGHT_DAM_THRESHOLD
+#undef LIGHT_HEAL_THRESHOLD
+#undef LIGHT_DAMAGE_TAKEN

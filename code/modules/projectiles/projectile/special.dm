@@ -17,7 +17,7 @@
 	flag = "energy"
 	hitsound = 'sound/weapons/tap.ogg'
 
-/obj/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/ion/on_hit(atom/target, blocked = 0)
 	. = ..()
 	empulse(target, emp_range, emp_range, 1, cause = "[type] fired by [key_name(firer)]")
 	return 1
@@ -40,8 +40,6 @@
 		PREPOSITIONAL = "разрывном заряде"
 	)
 	icon_state= "bolter"
-	damage = 50
-	flag = BULLET
 
 /obj/projectile/bullet/gyro/on_hit(atom/target, blocked = 0)
 	..()
@@ -61,7 +59,6 @@
 	desc = "USE A WEEL GUN"
 	icon_state= "bolter"
 	damage = 60
-	flag = BULLET
 
 /obj/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	..()
@@ -220,16 +217,16 @@
 			// based on what you're wearing and what you're exposed to
 			var/thermal_protection = target.get_cold_protection(temperature)
 			if(thermal_protection < 1)
-				target.adjust_bodytemperature(temp_diff * (1 - thermal_protection))
+				target.smooth_body_temperature(target.bodytemperature + temp_diff * (1 - thermal_protection))
 		else
 			var/thermal_protection = target.get_heat_protection(temperature)
 			if(thermal_protection < 1)
-				target.adjust_bodytemperature(temp_diff * (1 - thermal_protection))
+				target.smooth_body_temperature(target.bodytemperature + temp_diff * (1 - thermal_protection))
 			else
 				should_ignite = FALSE
 
 	else if(target_is_living)
-		target.adjust_bodytemperature(temperature - target.bodytemperature)
+		target.smooth_body_temperature(temperature)
 
 	if(should_ignite)
 		target.adjust_fire_stacks(0.5)
@@ -250,9 +247,7 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	damage = 0
-	damage_type = BRUTE
 	nodamage = TRUE
-	flag = BULLET
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 
@@ -277,10 +272,6 @@
 	)
 	icon_state = "declone"
 	damage = 2
-	hitsound = 'sound/weapons/tap.ogg'
-	damage_type = BURN
-	nodamage = FALSE
-	flag = "energy"
 	range = 7
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	/// how strong the fire will be
@@ -334,12 +325,9 @@
 		PREPOSITIONAL = "бета-соматорее"
 	)
 	icon_state = "energy"
-	damage = 0
-	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
 	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
-	flag = "energy"
 
 /obj/projectile/energy/floragamma
 	name = "gamma somatoray"
@@ -352,12 +340,9 @@
 		PREPOSITIONAL = "гамма-соматорее"
 	)
 	icon_state = "energy2"
-	damage = 0
-	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
 	nodamage = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
-	flag = "energy"
 
 /obj/projectile/beam/mindflayer
 	name = "flayer ray"
@@ -370,7 +355,7 @@
 		PREPOSITIONAL = "заряде мозгоёба"
 	)
 
-/obj/projectile/beam/mindflayer/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/beam/mindflayer/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
@@ -476,7 +461,6 @@
 		PREPOSITIONAL = "плазменном луче"
 	)
 	icon_state = "plasmacutter"
-	damage_type = BRUTE
 	damage = 5
 	hitsound = SFX_BULLET
 	range = 3
@@ -537,7 +521,6 @@
 		PREPOSITIONAL = "вспышке телепортации"
 	)
 	icon_state = "bluespace"
-	damage = 0
 	nodamage = TRUE
 	var/teleport_target = null
 
@@ -546,7 +529,7 @@
 	if(tele_target)
 		teleport_target = tele_target
 
-/obj/projectile/energy/teleport/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/energy/teleport/on_hit(atom/target, blocked = 0)
 	if(isliving(target))
 		if(teleport_target)
 			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon
@@ -589,7 +572,6 @@
 	icon_state = "ornament-1"
 	hitsound = 'sound/effects/glasshit.ogg'
 	damage = 7
-	damage_type = BRUTE
 
 /obj/projectile/ornament/New()
 	icon_state = pick("ornament-1", "ornament-2")
@@ -696,11 +678,10 @@
 	range = 3
 	flag = "melee"
 	damage = 20
-	damage_type = BRUTE
 	stun = 0.5
 	eyeblur = 20
 
-/obj/projectile/limb/New(loc, var/obj/item/organ/external/limb)
+/obj/projectile/limb/New(loc, obj/item/organ/external/limb)
 	..(loc)
 	if(istype(limb))
 		name = limb.name

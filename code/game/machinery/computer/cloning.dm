@@ -4,7 +4,6 @@
 /obj/machinery/computer/cloning
 	name = "biomass pod console"
 	desc = "Консоль для управления капсулой клонирования."
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
 	circuit = /obj/item/circuitboard/cloning
@@ -72,24 +71,19 @@
 		selected_pod = pods[1]
 
 /obj/machinery/computer/cloning/proc/findscanner()
-	var/obj/machinery/dna_scannernew/scannerf = null
-
 	//Try to find scanner on adjacent tiles first
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
-		scannerf = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
-		if(scannerf)
-			return scannerf
+	for(var/obj/machinery/dna_scannernew/scanner in orange(1, src))
+		return scanner
 
 	//Then look for a free one in the area
-	if(!scannerf)
-		var/area/search_area = get_area(src)
-		if(!search_area)
-			return
+	var/area/search_area = get_area(src)
+	if(!search_area)
+		return
 
-		for(var/obj/machinery/dna_scannernew/S in search_area.machinery_cache)
-			return S
+	for(var/obj/machinery/dna_scannernew/S in search_area.machinery_cache)
+		return S
 
-	return 0
+	return FALSE
 
 /obj/machinery/computer/cloning/proc/releasecloner()
 	for(var/obj/machinery/clonepod/P in pods)
@@ -160,7 +154,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/cloning/deconstruct(disassembled = TRUE, mob/user)
-	if (emagged)
+	if(emagged)
 		circuit = /obj/item/circuitboard/broken
 	..()
 
@@ -439,7 +433,7 @@
 
 	src.add_fingerprint(usr)
 
-/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, var/scan_brain = 0)
+/obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob, scan_brain = 0)
 	if(stat & NOPOWER)
 		return
 	if(scanner.stat & (NOPOWER|BROKEN))
@@ -520,7 +514,7 @@
 	SStgui.update_uis(src)
 
 //Find a specific record by key.
-/obj/machinery/computer/cloning/proc/find_record(var/find_key)
+/obj/machinery/computer/cloning/proc/find_record(find_key)
 	var/selected_record = null
 	for(var/datum/dna2/record/R in src.records)
 		if(R.ckey == find_key)
@@ -535,24 +529,24 @@
 	return (scanner && scanner.scan_level > 3)
 
 /**
-  * Sets a temporary message to display to the user
-  *
-  * Arguments:
-  * * text - Text to display, null/empty to clear the message from the UI
-  * * style - The style of the message: (color name), info, success, warning, danger
-  */
+ * Sets a temporary message to display to the user
+ *
+ * Arguments:
+ * * text - Text to display, null/empty to clear the message from the UI
+ * * style - The style of the message: (color name), info, success, warning, danger
+ */
 /obj/machinery/computer/cloning/proc/set_temp(text = "", style = "info", update_now = FALSE)
 	temp = list(text = text, style = style)
 	if(update_now)
 		SStgui.update_uis(src)
 
 /**
-  * Sets a temporary scan message to display to the user
-  *
-  * Arguments:
-  * * text - Text to display, null/empty to clear the message from the UI
-  * * color - The color of the message: (color name)
-  */
+ * Sets a temporary scan message to display to the user
+ *
+ * Arguments:
+ * * text - Text to display, null/empty to clear the message from the UI
+ * * color - The color of the message: (color name)
+ */
 /obj/machinery/computer/cloning/proc/set_scan_temp(text = "", color = "", update_now = FALSE)
 	scantemp = list(text = text, color = color)
 	if(update_now)

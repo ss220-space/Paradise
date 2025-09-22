@@ -9,16 +9,12 @@
 	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "pod0"
 	density = TRUE
-	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
-	plane = GAME_PLANE
 	resistance_flags = null
 	interact_offline = 1
 	max_integrity = 350
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30)
-	on = FALSE
 	vent_movement = VENTCRAWL_CAN_SEE
-	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	flags = PREVENT_CLICK_UNDER | IGNORE_TURF_PIXEL_OFFSET
 	var/temperature_archived
 	var/mob/living/carbon/occupant
@@ -35,7 +31,6 @@
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
-	light_color = COLOR_WHITE
 
 /obj/machinery/atmospherics/unary/cryo_cell/get_ru_names()
 	return list(

@@ -13,15 +13,14 @@ SAFE CODES
 GLOBAL_LIST_EMPTY(safes)
 
 /**
-  * # Safe
-  *
-  * A locked container that can only be opened by entering a combination through a dial.
-  */
+ * # Safe
+ *
+ * A locked container that can only be opened by entering a combination through a dial.
+ */
 /obj/structure/safe
 	name = "safe"
 	desc = "Огромный кусок металла со встроенным в него циферблатом. Мелким шрифтом на циферблате написано: \"Сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
 	gender = MALE
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
 	anchored = TRUE
 	density = TRUE
@@ -380,7 +379,7 @@ GLOBAL_LIST_EMPTY(safes)
 	driller_human.apply_status_effect(STATUS_EFFECT_DRILL_PAYBACK, src)
 	drill.song.start_playing(driller_human)
 	drill.atom_say("Security spotted. Nanites deployed. Give them <b>hell.</b>")
-	notify_ghosts("Security assault in progress in [get_area(src)]!", enter_link = "<a href=?src=[UID()];follow=1>(Click to jump to!)</a>", source = src, action = NOTIFY_FOLLOW)
+	notify_ghosts("Security assault in progress in [get_area(src)]!", enter_link = "<a href=byond://?src=[UID()];follow=1>(Click to jump to!)</a>", source = src, action = NOTIFY_FOLLOW)
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		O.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 0)
 	addtimer(CALLBACK(src, PROC_REF(ghost_payback_phase_2)), 2.7 SECONDS)
@@ -396,8 +395,8 @@ GLOBAL_LIST_EMPTY(safes)
 		O.clear_fullscreen("payback")
 
 /**
-  * Called every dial turn to determine whether the safe should unlock or not.
-  */
+ * Called every dial turn to determine whether the safe should unlock or not.
+ */
 /obj/structure/safe/proc/check_unlocked()
 	if(current_tumbler_index > number_of_tumblers)
 		locked = FALSE
@@ -407,8 +406,8 @@ GLOBAL_LIST_EMPTY(safes)
 	return FALSE
 
 /**
-  * Called every dial turn to provide feedback if possible.
-  */
+ * Called every dial turn to provide feedback if possible.
+ */
 /obj/structure/safe/proc/notify_user(user, canhear, sounds, total_ticks, current_tick)
 	if(!canhear)
 		return
@@ -419,14 +418,14 @@ GLOBAL_LIST_EMPTY(safes)
 		to_chat(user, span_italics("Вы слышите [pick(sounds)] от [declent_ru(GENITIVE)]."))
 
 /**
-  * Returns the combination to unlock the safe as text.
-  */
+ * Returns the combination to unlock the safe as text.
+ */
 /obj/structure/safe/proc/get_combination()
 	return jointext(tumblers, ", ")
 
 /**
-  * Called when the current thermal drill has finished drilling.
-  */
+ * Called when the current thermal drill has finished drilling.
+ */
 /obj/structure/safe/proc/drill_open()
 	broken = TRUE
 	drill_timer = null
@@ -446,10 +445,10 @@ GLOBAL_LIST_EMPTY(safes)
 	STOP_PROCESSING(SSobj, src)
 
 /**
-  * # Floor Safe
-  *
-  * Like a safe, but without density. Can be hidden with flooring.
-  */
+ * # Floor Safe
+ *
+ * Like a safe, but without density. Can be hidden with flooring.
+ */
 /obj/structure/safe/floor
 	name = "floor safe"
 	desc = "Огромный металлический люк со встроенным в него цифербалтом. Мелким шрифтом на циферблате написано: \"Напольный сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
@@ -481,10 +480,10 @@ GLOBAL_LIST_EMPTY(safes)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
 
 /**
-  * # Safe Internals
-  *
-  * Can be used to replace a safe's broken mechanism.
-  */
+ * # Safe Internals
+ *
+ * Can be used to replace a safe's broken mechanism.
+ */
 /obj/item/safe_internals
 	name = "safe internals"
 	desc = "Механизм и запирающие ригели для тумблерного сейфа \"Скарборо Армс - 2\"."
@@ -501,10 +500,10 @@ GLOBAL_LIST_EMPTY(safes)
 	)
 
 /**
-  * # Safe Codes
-  *
-  * Contains the (generated on map load) codes for all publicly known safes.
-  */
+ * # Safe Codes
+ *
+ * Contains the (generated on map load) codes for all publicly known safes.
+ */
 /obj/item/paper/safe_code
 	name = "safe codes"
 	desc = "Надежный способ сохранить секретность важных цифр."

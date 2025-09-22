@@ -122,7 +122,7 @@
 	var/mob/dead/observer/current_spirits = list()
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		if((O.orbiting in contents))
+		if(O.orbiting in contents)
 			ghost_counter++
 			O.invisibility = 0
 			current_spirits |= O
@@ -228,7 +228,6 @@
 	desc = "Какое отношение драконы имеют к Космической Станции 13?"
 	stage_prob = 20
 	severity = BIOHAZARD
-	visibility_flags = VISIBLE
 	stage1	= list("Ваши кости ноют.")
 	stage2	= list("Ваша кожа кажется чешуйчатой.")
 	stage3	= list(span_danger("Вы чувствуете непреодолимое желание напугать пару крестьян."), span_danger("Ваши зубы кажутся острее."))

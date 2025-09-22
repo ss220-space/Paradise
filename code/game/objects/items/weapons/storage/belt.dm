@@ -8,7 +8,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	flags = BLOCKS_LIGHT
 	attack_verb = list("хлестнул", "стегнул", "проучил")
 	max_integrity = 300
 	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
@@ -32,20 +31,20 @@
 	return choices
 
 /obj/item/storage/belt/proc/try_fast_equip_item_from_belt(obj/item/item)
-	if (item == null)
+	if(item == null)
 		return
-	if (!usr.put_in_any_hand_if_possible(item))
+	if(!usr.put_in_any_hand_if_possible(item))
 		return
 	to_chat(usr, span_notice("Вы достаете [item.declent_ru(ACCUSATIVE)] с пояса."))
 	balloon_alert(usr, "снято с пояса")
 
 /obj/item/storage/belt/proc/try_fast_unequip_item_to_belt(obj/item/item)
-	if (item == null)
+	if(item == null)
 		return
-	if (!can_be_inserted(item)) // Detail stop message in check proc
+	if(!can_be_inserted(item)) // Detail stop message in check proc
 		balloon_alert(usr, "не помещается в пояс")
 		return
-	if (handle_item_insertion(item))
+	if(handle_item_insertion(item))
 		balloon_alert(usr, "повесил на пояс")
 
 /obj/item/storage/belt/proc/find_content_by_name(choice)
@@ -64,11 +63,11 @@
 	if(!check_menu(user))
 		return
 	var/list/choices = collect_radial_menu_choices()
-	if (length(choices) == 0)
+	if(length(choices) == 0)
 		to_chat(user, span_notice("Ваш пояс пуст."))
 		balloon_alert(user, "пояс пуст!")
 		return
-	if (length(choices) == 1) // Auto extract for single item without radial menu
+	if(length(choices) == 1) // Auto extract for single item without radial menu
 		var/obj/item/selected = contents[1]
 		try_fast_equip_item_from_belt(selected)
 		return
@@ -77,7 +76,7 @@
 
 /obj/item/storage/belt/attack_self(mob/user = usr)
 	var/obj/item/hand_item = user.get_active_hand()
-	if (hand_item)
+	if(hand_item)
 		try_fast_unequip_item_to_belt(hand_item)
 		return
 	radial_menu(user)
@@ -107,13 +106,8 @@
 /obj/item/storage/belt/utility
 	name = "tool-belt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
 	desc = "Can hold various tools."
-	icon_state = "utilitybelt"
-	item_state = "utility"
-	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
-	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
-	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
 	use_item_overlays = TRUE
-	max_combined_w_class = 15	// 6 `WEIGHT_CLASS_SMALL` items + RCD.
+	max_combined_w_class = 18
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/crowbar,
@@ -229,7 +223,6 @@
 	item_state = "surgical"
 	max_combined_w_class = 17
 	storage_slots = 11
-	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -418,7 +411,7 @@
 	desc = "A syndicate belt designed to be used by boarding parties.  Its style is modelled after the hardsuits they wear."
 	icon_state = "militarybelt"
 	item_state = "military"
-	max_w_class = WEIGHT_CLASS_SMALL
+	max_combined_w_class = 18
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst
@@ -431,12 +424,20 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool
+	)
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/multitool/ai_detect(src)
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
@@ -503,10 +504,8 @@
 /obj/item/storage/belt/rocketman
 	name = "rocket belt"
 	desc = "A belt for holding rockets."
-	gender = MALE
 	icon_state = "assaultbelt"
 	item_state = "assault"
-	storage_slots = 7
 	max_combined_w_class = 30 //just to be sure..
 	max_w_class = WEIGHT_CLASS_NORMAL //Rockets are normal
 	can_hold = /obj/item/ammo_casing/caseless/rocket
@@ -667,7 +666,6 @@
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
 	desc = "Патронташ для хранения патронов к дробовику."
-	gender = MALE
 	icon_state = "bandolier"
 	item_state = "bandolier"
 	storage_slots = 16
@@ -758,7 +756,6 @@
 	icon_state = "fannypack_leather"
 	item_state = "fannypack_leather"
 	storage_slots = 3
-	max_w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
@@ -893,10 +890,17 @@
 	item_state = "holdingbelt"
 	storage_slots = 14
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool
+	)
 
 /obj/item/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
@@ -906,7 +910,6 @@
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
-	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	allow_quick_empty = 1
 	can_hold = list(
 		/obj/item/grenade/smokebomb,

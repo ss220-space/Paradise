@@ -26,11 +26,9 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 /datum/disease/virus/advance
 
-	name = UNKNOWN_STATUS_RUS // We will always let our Virologist name our disease.
 	desc = "Спроектированная болезнь, может содержать сразу несколько симптомов."
 	form = "Продвинутая болезнь" // Will let med-scanners know that this disease was engineered.
 	agent = "Продвинутые микробы"
-	max_stages = 5
 
 	// NEW VARS
 
@@ -308,7 +306,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 */
 
 // Mix a list of advance diseases and return the mixed result.
-/proc/Advance_Mix(var/list/D_list)
+/proc/Advance_Mix(list/D_list)
 
 	var/list/diseases = list()
 
@@ -332,7 +330,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		var/datum/disease/virus/advance/D2 = pick(diseases)
 		D2.Mix(D1)
 
-	 // Should be only 1 entry left, but if not let's only return a single entry
+	// Should be only 1 entry left, but if not let's only return a single entry
 //	to_chat(world, "END MIXING!!!!!")
 	var/datum/disease/virus/advance/to_return = pick(diseases)
 	to_return.Refresh(reset_name = TRUE)

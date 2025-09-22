@@ -242,7 +242,6 @@
 	var/left = null
 	var/life_cycles = 0
 	var/life_cap = 20
-	anchored = TRUE
 	pass_flags_self = LETPASSTHROW
 	pass_flags = PASSTABLE|PASSGLASS|PASSGRILLE|PASSFENCE
 

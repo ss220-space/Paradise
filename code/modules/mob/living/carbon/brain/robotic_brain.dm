@@ -8,7 +8,6 @@
 	var/blank_icon = "boris_blank"
 	var/searching_icon = "boris_recharging"
 	var/occupied_icon = "boris"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=3;programming=3;plasmatech=2"
 
 	var/searching = FALSE
@@ -291,3 +290,5 @@
 	requires_master = FALSE
 	ejected_flavor_text = "metal cube"
 	dead_icon = "posibrain"
+
+#undef ROBOTIC_BRAIN_COOLDOWN

@@ -71,6 +71,10 @@
 
 #define isgrenade(A) (istype(A, /obj/item/grenade))
 
+#define iscrayon(A) (istype(A, /obj/item/toy/crayon))
+
+#define issoap(A) (istype(A, /obj/item/soap))
+
 #define issupplypod(A) (istype(A, /obj/structure/closet/supplypod))
 
 #define ismortarcasing(A) (istype(A, /obj/item/mortar_shell))

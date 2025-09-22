@@ -7,7 +7,6 @@
 	name = "S3 bio-chip"
 	desc = "Allows you to be hidden in plain sight."
 	implant_state = "implant-syndicate"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	implant_data = /datum/implant_fluff/stealth
 	actions_types = list(/datum/action/item_action/agent_box)
 
@@ -199,7 +198,7 @@
 
 
 /obj/structure/closet/cardboard/agent/proc/go_invisible(invis_time = 2 SECONDS)
-	animate(src, alpha = 0, time = invis_time)
+	animate(src, alpha = STEALTHBOX_ALPHA, time = invis_time)
 	// This is so people can't locate the box by spamming right click everywhere.
 	addtimer(VARSET_CALLBACK(src, mouse_opacity, MOUSE_OPACITY_TRANSPARENT), invis_time)
 

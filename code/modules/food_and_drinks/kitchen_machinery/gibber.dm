@@ -1,4 +1,5 @@
 #define GIBBER_ANIMATION_DELAY 16
+
 /obj/machinery/gibber
 	name = "Gibber"
 	desc = "The name isn't descriptive enough?"
@@ -20,7 +21,6 @@
 	var/stealthmode = FALSE
 	var/list/victims = list()
 
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 500
 
@@ -426,3 +426,5 @@
 			sleep(1)
 	if(spats)
 		visible_message("<span class='warning'>\The [src] spits out more possessions!</span>")
+
+#undef GIBBER_ANIMATION_DELAY

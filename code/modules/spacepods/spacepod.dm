@@ -27,7 +27,6 @@
 		PREPOSITIONAL = "наборе для покраски челнока"
 	)
 	desc = "Pimp your ride"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "paint_red"
 
 /obj/spacepod
@@ -43,11 +42,11 @@
 	)
 	icon = 'icons/goonstation/48x48/pods.dmi'
 	density = TRUE //Dense. To raise the heat.
-	opacity = FALSE
 
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	move_force = MOVE_FORCE_VERY_STRONG
 	resistance_flags = ACID_PROOF
+	movement_type = FLYING
 
 	layer = BEHIND_MOB_LAYER
 	infra_luminosity = 15
@@ -81,12 +80,14 @@
 	var/lights_power = 6
 	var/can_paint = TRUE
 
-	var/list/icon_light_color = list("pod_civ" = COLOR_WHITE, \
-									 "pod_mil" = "#BBF093", \
-									 "pod_synd" = COLOR_SOFT_RED, \
-									 "pod_gold" = COLOR_WHITE, \
-									 "pod_black" = "#3B8FE5", \
-									 "pod_industrial" = "#CCCC00")
+	var/list/icon_light_color = list(
+		"pod_civ" = COLOR_WHITE, \
+		"pod_mil" = "#bbf093", \
+		"pod_synd" = COLOR_SOFT_RED, \
+		"pod_gold" = COLOR_WHITE, \
+		"pod_black" = "#3b8fe5", \
+		"pod_industrial" = "#cccc00"
+	)
 
 	var/unlocked = TRUE
 	var/move_delay = NO_GRAVITY_SPEED
@@ -118,7 +119,6 @@
 			part_type = PAINT
 		if("Стекла")
 			part_type = WINDOW
-		else
 	var/coloradd = tgui_input_color(user, "Выберите цвет", "Цвет")
 	if(isnull(coloradd))
 		return
@@ -230,7 +230,7 @@
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-/obj/spacepod/bullet_act(var/obj/projectile/P)
+/obj/spacepod/bullet_act(obj/projectile/P)
 	. = P.on_hit(src)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)
@@ -628,13 +628,13 @@
 	cargo_hold.hear_talk(M, message_pieces)
 	..()
 
-/obj/spacepod/hear_message(mob/M, var/msg)
+/obj/spacepod/hear_message(mob/M, msg)
 	cargo_hold.hear_message(M, msg)
 	..()
 
 /obj/spacepod/proc/return_inv()
 
-	var/list/L = list(  )
+	var/list/L = list()
 
 	L += src.contents
 
@@ -735,7 +735,7 @@
 		if("pod_black")
 			desc = "Чёрный челнок без опознавательных знаков."
 		if("pod_mil")
-			desc = "Тёмно-серый челнок с эмблемой военного подразделения НаноТрейзен."
+			desc = "Тёмно-серый челнок с эмблемой военного подразделения Нанотрейзен."
 		if("pod_synd")
 			desc = "Грозный военный челнок с надписью \"Нахуй НТ\" на борту."
 		if("pod_gold")
@@ -803,7 +803,7 @@
 		if(t_air)
 			. = t_air.return_temperature()
 
-/obj/spacepod/proc/moved_other_inside(var/mob/living/carbon/human/H as mob)
+/obj/spacepod/proc/moved_other_inside(mob/living/carbon/human/H as mob)
 	occupant_sanity_check()
 	if(passengers.len < max_passengers)
 		H.forceMove(src)
@@ -912,7 +912,7 @@
 			else
 				to_chat(user, span_notice("Вы слишком медлили. В следующий раз будьте быстрее."))
 		else
-			balloon_alert(user, "посадка отменена.")
+			balloon_alert(user, "посадка отменена")
 	else
 		balloon_alert(user, "нет места!")
 
@@ -957,7 +957,7 @@
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(user in passengers && user != pilot)
+	if((user in passengers) && user != pilot)
 		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
 		return
 
@@ -1244,10 +1244,6 @@
 
 	if(direction & (UP|DOWN))
 		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
-		var/turf/T = get_turf(loc)
-		var/turf/above = GET_TURF_ABOVE(T)
-		if((direction & UP) && can_z_move(DOWN, above, z_move_flags = ZMOVE_FALL_FLAGS)) // going up and can fall down is bad.
-			return FALSE
 		. = zMove(direction)
 		if(.)
 			pilot.update_z(z) // after we moved

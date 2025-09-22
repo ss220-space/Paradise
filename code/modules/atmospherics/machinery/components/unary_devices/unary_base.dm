@@ -1,5 +1,4 @@
 /obj/machinery/atmospherics/unary
-	dir = SOUTH
 	initialize_directions = SOUTH
 	layer = TURF_LAYER+0.1
 	var/id_tag
@@ -91,7 +90,7 @@
 	if(Old == parent)
 		parent = New
 
-/obj/machinery/atmospherics/unary/unsafe_pressure_release(var/mob/user,var/pressures)
+/obj/machinery/atmospherics/unary/unsafe_pressure_release(mob/user, pressures)
 	..()
 
 	var/turf/T = get_turf(src)

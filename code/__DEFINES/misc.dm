@@ -123,45 +123,44 @@
 #define MFOAM_IRON		2
 
 //Carbon Overlays Indexes/////////
-#define MUTANTRACE_LAYER		46
-#define WING_UNDERLIMBS_LAYER	45
-#define TAIL_UNDERLIMBS_LAYER	44	//Tail split-rendering.
-#define LIMBS_LAYER				43
-#define INTORGAN_LAYER			42
-#define MARKINGS_LAYER			41
-#define UNDERWEAR_LAYER			40
-#define MUTATIONS_LAYER			39
-#define H_DAMAGE_LAYER			38
-#define UNIFORM_LAYER			37
-#define SHOES_LAYER				36
-#define OVER_SHOES_LAYER		35
-#define ID_LAYER				34
-#define GLOVES_LAYER			33
-#define EARS_LAYER				32
-#define SUIT_LAYER				31
-#define BELT_LAYER				30	//Possible make this an overlay of somethign required to wear a belt?
-#define NECK_LAYER				29
-#define SUIT_STORE_LAYER		28
-#define BACK_LAYER				27
-#define HEAD_ACCESSORY_LAYER	26
-#define FHAIR_LAYER				25
-#define GLASSES_LAYER			24
-#define HAIR_LAYER				23	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		22	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		21	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		20	//Select-layer rendering.
-#define WING_LAYER				19
-#define TAIL_LAYER				18	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			17
-#define OVER_MASK_LAYER			16	//Select-layer rendering.
-#define HEAD_LAYER				15
-#define OVER_HEAD_LAYER			14
-#define MUTANT_EARS_LAYER		13
-#define COLLAR_LAYER			12
-#define HANDCUFF_LAYER			11
-#define LEGCUFF_LAYER			10
-#define L_HAND_LAYER			9
-#define R_HAND_LAYER			8
+#define MUTANTRACE_LAYER		45
+#define WING_UNDERLIMBS_LAYER	44
+#define TAIL_UNDERLIMBS_LAYER	43	//Tail split-rendering.
+#define LIMBS_LAYER				42
+#define INTORGAN_LAYER			41
+#define MARKINGS_LAYER			40
+#define UNDERWEAR_LAYER			39
+#define MUTATIONS_LAYER			38
+#define H_DAMAGE_LAYER			37
+#define UNIFORM_LAYER			36
+#define SHOES_LAYER				35
+#define OVER_SHOES_LAYER		34
+#define ID_LAYER				33
+#define GLOVES_LAYER			32
+#define EARS_LAYER				31
+#define SUIT_LAYER				30
+#define BELT_LAYER				29	//Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER				28
+#define SUIT_STORE_LAYER		27
+#define BACK_LAYER				26
+#define HEAD_ACCESSORY_LAYER	25
+#define FHAIR_LAYER				24
+#define GLASSES_LAYER			23
+#define HAIR_LAYER				22	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		21	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		20	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		19	//Select-layer rendering.
+#define WING_LAYER				18
+#define TAIL_LAYER				17	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			16
+#define OVER_MASK_LAYER			15	//Select-layer rendering.
+#define HEAD_LAYER				14
+#define OVER_HEAD_LAYER			13
+#define MUTANT_EARS_LAYER		12
+#define COLLAR_LAYER			11
+#define HANDCUFF_LAYER			10
+#define LEGCUFF_LAYER			9
+#define HANDS_LAYER 			8
 #define TARGETED_LAYER			7	//BS12: Layer for the target overlay from weapon targeting system
 #define HALO_LAYER				6	//blood cult ascended halo, because there's currently no better solution for adding/removing
 #define FIRE_LAYER				5	//If you're on fire
@@ -184,7 +183,7 @@
 #define REGION_TAIPAN		9
 
 //Just space
-#define SPACE_ICON_STATE	"[((x + y) ^ ~(x * y) + z) % 25]"
+#define SPACE_ICON_STATE "[((x + y) ^ ~(x * y) + z) % 25]"
 
 //used for maploader
 #define MAP_MINX 1
@@ -195,17 +194,20 @@
 #define MAP_MAXZ 6
 
 //Matricies
-#define MATRIX_GREYSCALE list(0.33, 0.33, 0.33,\
-                              0.33, 0.33, 0.33,\
-                              0.33, 0.33, 0.33)
+#define MATRIX_GREYSCALE list(\
+	0.33, 0.33, 0.33,\
+	0.33, 0.33, 0.33,\
+	0.33, 0.33, 0.33)
 
-#define MATRIX_VULP_CBLIND list(0.51, 0.4, 0.12,\
-                               0.49, 0.41, 0.12,\
-			                   0, 0.2, 0.76)
+#define MATRIX_VULP_CBLIND list(\
+	0.51, 0.4, 0.12,\
+	0.49, 0.41, 0.12,\
+	0, 0.2, 0.76)
 
-#define MATRIX_TAJ_CBLIND list(0.95, 0.07, 0,\
-                               0, 0.44, 0.52,\
-			                   0.05, 0.49, 0.48)
+#define MATRIX_TAJ_CBLIND list(\
+	0.95, 0.07, 0,\
+	0, 0.44, 0.52,\
+	0.05, 0.49, 0.48)
 
 /*
 	Used for wire name appearances. Replaces the color name on the left with the one on the right.
@@ -349,7 +351,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 36
+#define SQL_VERSION 38
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -506,3 +508,7 @@
 	if(istype(I, /datum/mind))
 		var/datum/mind/B = I
 		return B.current.client
+
+// redis defines
+#define SERVER_MESSAGES_REDIS_CHANNEL "byond.servermessages"
+#define REDIS_ANNOUNCER_NAME "Смотритель"

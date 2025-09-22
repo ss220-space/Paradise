@@ -1,16 +1,12 @@
 /obj/item/extinguisher
 	name = "fire extinguisher"
 	desc = "Традиционный красный огнетушитель."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "fire_extinguisher0"
 	base_icon_state = "fire_extinguisher"
 	item_state = "fire_extinguisher"
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
 	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
-	throw_speed = 2
-	throw_range = 7
 	force = 10
 	container_type = AMOUNT_VISIBLE
 	materials = list(MAT_METAL=90)

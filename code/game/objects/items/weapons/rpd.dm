@@ -21,7 +21,6 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
@@ -88,7 +87,7 @@
 	if(delay)
 		lastused = world.time
 
-/obj/item/rpd/proc/can_dispense_pipe(var/pipe_id, var/pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
+/obj/item/rpd/proc/can_dispense_pipe(pipe_id, pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
 	for(var/list/L in GLOB.rpd_pipe_list)
 		if(pipe_type != L["pipe_type"]) //Sometimes pipes in different categories have the same pipe_id, so we need to skip anything not in the category we want
 			continue

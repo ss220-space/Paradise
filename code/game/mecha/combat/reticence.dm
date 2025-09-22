@@ -12,9 +12,8 @@
 	wreckage = /obj/structure/mecha_wreckage/reticence
 	operation_req_access = list(ACCESS_MIME)
 	maint_access = TRUE
-	add_req_access = FALSE
+	id_lock_on = FALSE
 	internal_damage_threshold = 60
-	max_equip = 3
 	step_energy_drain = 3
 	normal_step_energy_drain = 3
 	stepsound = null
@@ -22,6 +21,8 @@
 	starting_voice = /obj/item/mecha_modkit/voice/silent
 
 	mech_type = MECH_TYPE_RETICENCE
+
+	ui_theme = "ntos_lightmode"
 
 /obj/mecha/combat/reticence/loaded/New()
 	..()

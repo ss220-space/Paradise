@@ -7,7 +7,6 @@
 	var/ert_mindshield_locked = FALSE
 
 /obj/item/hardsuit_taser_proof/ert_locked
-	name = "Набор улучшения ТПРГ-1"
 	desc = "Данное улучшение позволяет хардсьюту поглащать слабые энергетические снаряды. Для использования хардсьюта необходим ЕРТ МЩ имплант."
 	ert_mindshield_locked = TRUE
 
@@ -18,9 +17,7 @@
 	var/ert_locked = FALSE
 
 /obj/item/storage/box/ert_taser_proof/ert_locked
-	name = "Taser Proof Upgrade Box"
 	desc = "A Exclusive and Expensive upgrade for Hardsuits. Requires ERT MindShield implant."
-	icon_state = "box_ert"
 	ert_locked = TRUE
 
 /obj/item/storage/box/ert_taser_proof/populate_contents()

@@ -1,5 +1,5 @@
 //Meteors probability of spawning during a given wave
-GLOBAL_LIST_INIT(meteors_normal, list(	//for normal meteor event
+GLOBAL_LIST_INIT(meteors_normal, list(//for normal meteor event
 	/obj/effect/meteor/dust = 3,
 	/obj/effect/meteor/medium = 8,
 	/obj/effect/meteor/big = 3,
@@ -7,14 +7,14 @@ GLOBAL_LIST_INIT(meteors_normal, list(	//for normal meteor event
 	/obj/effect/meteor/irradiated = 3,
 ))
 
-GLOBAL_LIST_INIT(meteors_threatening, list(	//for threatening meteor event
+GLOBAL_LIST_INIT(meteors_threatening, list(//for threatening meteor event
 	/obj/effect/meteor/medium = 4,
 	/obj/effect/meteor/big = 8,
 	/obj/effect/meteor/flaming = 3,
 	/obj/effect/meteor/irradiated = 3,
 ))
 
-GLOBAL_LIST_INIT(meteors_catastrophic, list(	//for catastrophic meteor event
+GLOBAL_LIST_INIT(meteors_catastrophic, list(//for catastrophic meteor event
 	/obj/effect/meteor/medium = 5,
 	/obj/effect/meteor/big = 75,
 	/obj/effect/meteor/flaming = 10,
@@ -118,7 +118,6 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "small"
 	density = TRUE
-	anchored = TRUE
 	pass_flags = PASSTABLE
 
 	///The resilience of our meteor
@@ -510,7 +509,6 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	desc = "Dust in space."
 	icon_state = "space_dust"
 	heavy = TRUE
-	hitpwr = EXPLODE_HEAVY
 	hits = 2
 	meteordrop = null
 	threat = 5

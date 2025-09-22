@@ -9,8 +9,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	real_name = "Cyborg"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
-	maxHealth = 100
-	health = 100
 	bubble_icon = "robot"
 	universal_understand = 1
 	deathgasp_on_death = TRUE
@@ -122,6 +120,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
 
 	var/datum/robot_skin/selected_skin
+
+	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -239,7 +244,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return TRUE
 
 
-/mob/living/silicon/robot/proc/get_default_name(var/prefix as text)
+/mob/living/silicon/robot/proc/get_default_name(prefix as text)
 	if(mmi)
 		if(istype(mmi, /obj/item/mmi/robotic_brain))
 			braintype = "Android"
@@ -332,7 +337,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return ..()
 
-/mob/living/silicon/robot/proc/pick_module(var/forced_module = null)
+/mob/living/silicon/robot/proc/pick_module(forced_module = null)
 	if(module)
 		return
 
@@ -419,7 +424,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	robot_module_hat_offset(icon_state)
 
-/mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, var/robot_to_spawn, turf/T)
+/mob/living/silicon/robot/proc/spawn_syndicate_borgs(mob/living/silicon/robot/M, robot_to_spawn, turf/T)
 
 	var/mob/living/silicon/robot/syndicate/R
 	switch(robot_to_spawn)
@@ -679,7 +684,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
 
-/mob/living/silicon/robot/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/robot/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	if(!(class in alarms_listend_for))
 		return
 
@@ -691,7 +696,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	queueAlarm("--- [class] alarm detected in [A.name]!", class)
 
-/mob/living/silicon/robot/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+/mob/living/silicon/robot/alarm_cancelled(source, class, area/A, obj/origin, cleared)
 	if(cleared)
 		if(!(class in alarms_listend_for))
 			return
@@ -714,7 +719,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				apply_damage(30)
 
 
-/mob/living/silicon/robot/bullet_act(var/obj/projectile/Proj)
+/mob/living/silicon/robot/bullet_act(obj/projectile/Proj)
 	..(Proj)
 
 	if(prob(75) && Proj.damage > 0)
@@ -1589,19 +1594,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						if(cleaned_human.body_position == LYING_DOWN)
 							if(cleaned_human.head)
 								cleaned_human.head.clean_blood()
-								cleaned_human.update_inv_head()
+								cleaned_human.update_worn_head()
 
 							if(cleaned_human.wear_suit)
 								cleaned_human.wear_suit.clean_blood()
-								cleaned_human.update_inv_wear_suit()
+								cleaned_human.update_worn_oversuit()
 
 							else if(cleaned_human.w_uniform)
 								cleaned_human.w_uniform.clean_blood()
-								cleaned_human.update_inv_w_uniform()
+								cleaned_human.update_worn_undersuit()
 
 							if(cleaned_human.shoes)
 								cleaned_human.shoes.clean_blood()
-								cleaned_human.update_inv_shoes()
+								cleaned_human.update_worn_shoes()
 
 							cleaned_human.clean_blood()
 							to_chat(cleaned_human, span_danger("[src] cleans your face!"))
@@ -1714,7 +1719,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	for(var/skin in skins)
 		var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
-		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit] ) \
+		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit]) \
 			&& !GLOB.all_robot_skins_permited)
 			continue
 		if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \
@@ -1743,7 +1748,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	update_icons()
 
-/mob/living/silicon/robot/proc/transform_animation(var/animated_icon, var/default = FALSE)
+/mob/living/silicon/robot/proc/transform_animation(animated_icon, default = FALSE)
 	Immobilize(5 SECONDS)
 	say("Загрузка модуля...")
 	setDir(SOUTH)
@@ -1759,7 +1764,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/complete_loading()
 	say("Инициализация успешна")
 
-/mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
+/mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
 		return
 
@@ -1776,7 +1781,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		sync() // One last sync attempt
 		set_connected_ai(null)
 
-/mob/living/silicon/robot/proc/connect_to_ai(var/mob/living/silicon/ai/AI)
+/mob/living/silicon/robot/proc/connect_to_ai(mob/living/silicon/ai/AI)
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
 		set_connected_ai(AI)

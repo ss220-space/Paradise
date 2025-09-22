@@ -21,7 +21,6 @@ log transactions
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "atm"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/obj/machinery/computer/account_database/linked_db
 	var/datum/money_account/authenticated_account
@@ -148,7 +147,7 @@ log transactions
 	if(..())
 		return TRUE
 	if(issilicon(user))
-		to_chat(user, span_warning("Обнаружен искусственный интеллект. Согласно регуляции НаноТрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
+		to_chat(user, span_warning("Обнаружен искусственный интеллект. Согласно регуляции Нанотрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
 		return
 	if(!linked_db)
 		reconnect_database()
@@ -231,7 +230,7 @@ log transactions
 			if(authenticated_account)
 				var/new_insurance_type = params["new_insurance_type"]
 				var/req_money = 0
-				switch (new_insurance_type)
+				switch(new_insurance_type)
 					if(INSURANCE_TYPE_STANDART)
 						req_money = INSURANCE_STANDART_COST
 					if(INSURANCE_TYPE_DELUXE)
@@ -382,3 +381,11 @@ log transactions
 
 /obj/machinery/atm/proc/replenish_insurance(amount)
 	authenticated_account.addInsurancePoints(amount)
+
+#undef DEFAULT_SCREEN
+#undef CHANGE_SECURITY_LEVEL
+#undef TRANSFER_FUNDS
+#undef VIEW_TRANSACTION_LOGS
+#undef CHANGE_INSURANCE_TYPE
+#undef PRINT_DELAY
+#undef LOCKOUT_TIME

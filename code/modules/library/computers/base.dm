@@ -1,4 +1,4 @@
-#define MAX_BOOK_FLAGS	3	// maximum number of times a book can be flagged before being removed from results
+#define MAX_BOOK_FLAGS 3 // maximum number of times a book can be flagged before being removed from results
 
 /obj/machinery/computer/library
 	name = "visitor computer"
@@ -7,8 +7,6 @@
 	icon_state = "oldcomp"
 	icon_screen = "library"
 	icon_keyboard = null
-	anchored = TRUE
-	density = TRUE
 	var/screenstate = 0
 	var/page_num = 1
 	var/num_pages = 0
@@ -123,3 +121,5 @@
 
 /obj/machinery/computer/library/proc/getBookByID(id)
 	return GLOB.library_catalog.getBookByID(id)
+
+#undef MAX_BOOK_FLAGS

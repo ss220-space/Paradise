@@ -399,7 +399,6 @@ SUBSYSTEM_DEF(air)
 /obj/effect/overlay/turf
 	icon = 'icons/effects/tile_effects.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = TRUE  // should only appear in vis_contents, but to be safe
 	layer = FLY_LAYER
 	plane = ABOVE_GAME_PLANE
 	appearance_flags = TILE_BOUND | RESET_TRANSFORM | RESET_COLOR
@@ -438,6 +437,7 @@ SUBSYSTEM_DEF(air)
 		stack_trace("[shouldnt_be_active] was active before init, turf x=[shouldnt_be_active.x], turf y=[shouldnt_be_active.y], turf z=[shouldnt_be_active.z], turf area=[shouldnt_be_active.loc]")
 		message_admins("[shouldnt_be_active] was active before init, [ADMIN_JMP(shouldnt_be_active)])")
 
+#undef SSAIR_DEFERREDPIPENETS
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY
 #undef SSAIR_ACTIVETURFS

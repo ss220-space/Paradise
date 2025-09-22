@@ -551,10 +551,10 @@
 
 		//вносим проверку что это не диона, ведь у дионы свои атаки
 		//вносим проверку на тип атаки, иначе рвущие атаки будут рвать кулаками, а дионы хлестать кулаками.
-		switch (user.dna.species.unarmed_type)
-			if (/datum/unarmed_attack/diona) attack_species += ""
-			if (/datum/unarmed_attack/claws) attack_species += "[genderize_ru(user.gender,"","а","о","и")] когтями"
-			if (/datum/unarmed_attack) attack_species += "[genderize_ru(user.gender,"","а","о","и")] кулаком"
+		switch(user.dna.species.unarmed_type)
+			if(/datum/unarmed_attack/diona) attack_species += ""
+			if(/datum/unarmed_attack/claws) attack_species += "[genderize_ru(user.gender,"","а","о","и")] когтями"
+			if(/datum/unarmed_attack) attack_species += "[genderize_ru(user.gender,"","а","о","и")] кулаком"
 
 		user.do_attack_animation(target, attack.animation_type)
 		if(attack.harmless)
@@ -1246,13 +1246,13 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 
 /**
-  * Species-specific runechat colour handler
-  *
-  * Checks the species datum flags and returns the appropriate colour
-  * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
-  * Arguments:
-  * * H - The human who this DNA belongs to
-  */
+ * Species-specific runechat colour handler
+ *
+ * Checks the species datum flags and returns the appropriate colour
+ * Can be overridden on subtypes to short-circuit these checks (Example: Grey colour is eye colour)
+ * Arguments:
+ * * H - The human who this DNA belongs to
+ */
 /datum/species/proc/get_species_runechat_color(mob/living/carbon/human/H)
 	if(bodyflags & HAS_SKIN_COLOR)
 		return H.skin_colour

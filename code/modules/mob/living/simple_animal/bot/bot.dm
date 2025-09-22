@@ -150,7 +150,6 @@
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
-	canhear_range = 0
 
 
 /obj/item/radio/headset/bot/recalculateChannels()
@@ -441,13 +440,13 @@
 			balloon_alert(user, "слот для ПИИ занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!card.pai || !card.pai.mind)
-			balloon_alert(user, "ПИИ не активен!")
+			balloon_alert(user, UNLINT("ПИИ не активен!"))
 			return ATTACK_CHAIN_PROCEED
 		if(key || (!allow_pai && !card.pai.syndipai))
 			balloon_alert(user, "робот не совместим с ПИИ!")
 			return ATTACK_CHAIN_PROCEED
 		if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
-			balloon_alert(user, "ПИИ не совместим с роботом!")
+			balloon_alert(user, UNLINT("ПИИ не совместим с роботом!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(card, src))
 			return ..()
@@ -475,7 +474,7 @@
 		balloon_alert(user, "извлечение ПИИ")
 		if(!do_after(user, 3 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || open || !paicard)
 			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "ПИИ извлечён")
+		balloon_alert(user, UNLINT("ПИИ извлечён"))
 		visible_message(
 			span_notice("[user] вытащи[genderize_ru(user.gender, "л", "ла", "ло", "ли")] [paicard] из [declent_ru(GENITIVE)]!"),
 			span_notice("Вы вытащили [paicard] из [declent_ru(GENITIVE)]."),
@@ -615,7 +614,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		var/atom/A = scan
 		if(!istype(A, scan_type)) //Check that the thing we found is the type we want!
 			continue //If not, keep searching!
-		if((A.UID() in ignore_list) || (A == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
+		if((A.UID() in ignore_list) || (A == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
 		var/scan_result = process_scan(A) //Some bots may require additional processing when a result is selected.
 		if(scan_result)
@@ -1406,7 +1405,3 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return
 	set_varspeed(initial(speed))
 	balloon_alert(src, "вы замедляетесь")
-
-/obj/machinery/bot_core/syndicate
-	req_access = list(ACCESS_SYNDICATE)
-

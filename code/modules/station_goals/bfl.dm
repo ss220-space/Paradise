@@ -48,6 +48,8 @@
 		return
 	SScargo_quests.remove_bfl_quests(COUNT_PLASMA_QUESTS)
 
+#undef COUNT_PLASMA_QUESTS
+
 ////////////
 //Building//
 ////////////
@@ -80,9 +82,7 @@
 	name = "BFL Emitter"
 	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
 	icon_state = "Emitter_Off"
-	anchored = TRUE
 	density = TRUE
-	use_power = NO_POWER_USE
 	idle_power_usage = 100000
 	active_power_usage = 500000
 
@@ -599,7 +599,7 @@
 /obj/singularity/bfl_red/singularity_act()
 	return 0
 
-/obj/singularity/bfl_red/New(loc, var/starting_energy = 50, var/temp = 0)
+/obj/singularity/bfl_red/New(loc, starting_energy = 50, temp = 0)
 	starting_energy = 250
 	lavaland_z_lvl = level_name_to_num(MINING)
 	. = ..(loc, starting_energy, temp)

@@ -14,7 +14,6 @@
 /obj/structure/closet/gmcloset
 	name = "formal closet"
 	desc = "It's a storage unit for formal clothing."
-	icon_state = "closed"
 	custom_door_overlay = "black"
 
 /obj/structure/closet/gmcloset/populate_contents()
@@ -110,7 +109,6 @@
 /obj/structure/closet/lawcloset
 	name = "legal closet"
 	desc = "It's a storage unit for courtroom apparel and items."
-	icon_state = "closed"
 	custom_door_overlay = "blue"
 
 /obj/structure/closet/lawcloset/populate_contents()
@@ -161,7 +159,6 @@
 /obj/structure/closet/librarian
 	name = "librarian wardrobe"
 	desc = "It's a storage unit for librarian clothes and gear."
-	icon_state = "closed"
 	custom_door_overlay = "black"
 
 /obj/structure/closet/librarian/populate_contents()
@@ -177,3 +174,22 @@
 	new /obj/item/camera_film(src)
 	new /obj/item/camera_film(src)
 	new /obj/item/laser_pointer(src)
+
+/obj/structure/closet/burial
+	icon_state = "chaplain"
+	name = "burial clothes"
+	desc = "В данном ящике хранится траурная одежда."
+
+/obj/structure/closet/burial/get_ru_names()
+	return list(
+		NOMINATIVE = "ящик с траурной одеждой",
+		GENITIVE = "ящика с траурной одеждой",
+		DATIVE = "ящику с траурной одеждой",
+		ACCUSATIVE = "ящик с траурной одеждой",
+		INSTRUMENTAL = "ящиком с траурной одеждой",
+		PREPOSITIONAL = "ящике с траурной одеждой"
+	)
+
+/obj/structure/closet/burial/populate_contents()
+	for(var/i = 1 to 7)
+		new /obj/item/clothing/under/burial(src)

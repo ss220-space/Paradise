@@ -63,7 +63,6 @@
 	name = "Abstract object"
 	invisibility = INVISIBILITY_ABSTRACT
 	layer = TURF_LAYER
-	density = FALSE
 	icon = null
 	icon_state = null
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)

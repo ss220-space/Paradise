@@ -2,8 +2,6 @@
 
 /datum/status_effect/crusher_damage //tracks the damage dealt to this mob by kinetic crushers
 	id = "crusher_damage"
-	duration = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
 	var/total_damage = 0
 
@@ -46,7 +44,6 @@
 /datum/status_effect/staring
 	id = "staring"
 	alert_type = null
-	status_type = STATUS_EFFECT_UNIQUE
 	var/mob/living/target
 	var/target_gender
 	var/target_species
@@ -382,9 +379,7 @@
 
 /datum/status_effect/leaning
 	id = "leaning"
-	duration = -1
 	tick_interval = -1
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/leaning
 
 /datum/status_effect/leaning/on_creation(mob/living/carbon/new_owner, atom/object, leaning_offset = 11)

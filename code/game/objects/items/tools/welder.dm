@@ -17,13 +17,11 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
-	w_class = WEIGHT_CLASS_SMALL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
 	origin_tech = "engineering=1;plasmatech=1"
 	tool_behaviour = TOOL_WELDER
-	toolspeed = 1
 	tool_enabled = FALSE
 	usesound = 'sound/items/welder.ogg'
 	drop_sound = 'sound/items/handling/drop/weldingtool_drop.ogg'
@@ -127,8 +125,7 @@
 	update_icon()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_r_hand()
-		M.update_inv_l_hand()
+		M.update_held_items()
 
 // If welding tool ran out of fuel during a construction task, construction fails.
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount, silent = FALSE)
@@ -234,7 +231,7 @@
 	desc = "A miniature welder used during emergencies."
 	icon_state = "miniwelder"
 	maximum_fuel = 10
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	low_fuel_changes_icon = FALSE
 
@@ -242,7 +239,6 @@
 	name = "alien welding tool"
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "welder"
 	item_state = "alienwelder"
 	belt_icon = "alien_welding_tool"
 	toolspeed = 0.1
@@ -251,6 +247,7 @@
 	requires_fuel = FALSE
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weldingtool/hugetank
 	name = "upgraded welding tool"
@@ -289,3 +286,5 @@
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	force_enabled = 10
+
+#undef GET_FUEL

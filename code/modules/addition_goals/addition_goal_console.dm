@@ -1,8 +1,6 @@
 // Addition goal console
 
-////////////////////////////////////////
 // MARK:	Addition goal console
-////////////////////////////////////////
 
 /obj/item/circuitboard/computer/addition_goals
 	board_name = "addition goals console"

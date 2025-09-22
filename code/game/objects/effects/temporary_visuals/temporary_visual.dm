@@ -1,7 +1,6 @@
 /// Temporary visual effects.
 /obj/effect/temp_visual
 	icon_state = "nothing"
-	anchored = TRUE
 	layer = ABOVE_MOB_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	/// How long before the temp_visual gets deleted.

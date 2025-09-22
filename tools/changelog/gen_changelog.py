@@ -86,20 +86,20 @@ for i in commitsSorted:
         prefix = split[0].lower()
         change = split[1]
         prefixes = prefix.split('/')
-        for i in range(len(prefixes)):
-            temp_prefix = prefixes[i]
+        for j in range(len(prefixes)):
+            temp_prefix = prefixes[j]
             if temp_prefix.startswith("fix") or temp_prefix == "hotfix":
-                prefixes[i] = "bugfix"
+                prefixes[j] = "bugfix"
             elif temp_prefix == "buff":
-                prefixes[i] = "tweak"
+                prefixes[j] = "tweak"
             elif temp_prefix == "feat":
-                prefixes[i] = "add"
+                prefixes[j] = "add"
             elif temp_prefix.startswith("ref"):
-                prefixes[i] = "refactor"
+                prefixes[j] = "refactor"
             elif temp_prefix.startswith("revert"):
-                prefixes[i] = "del"
+                prefixes[j] = "del"
             elif temp_prefix not in validPrefixes:
-                prefixes[i] = "unknown"
+                prefixes[j] = "unknown"
 
         prefix = '/'.join(prefixes)
     else:

@@ -9,13 +9,11 @@
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	health = 35
 	maxHealth = 35
-	melee_damage_type = STAMINA
 	melee_damage_lower = 8
-	melee_damage_upper = 10
-	attacktext = "кусает"
-	footstep_type = FOOTSTEP_MOB_CLAW
+	melee_damage_upper = 15
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/security = 3)
 	tts_seed = "Furion"
+	speed = -1
 
 /mob/living/simple_animal/pet/dog/security/ranger
 	name = "Ranger"
@@ -150,7 +148,7 @@
 			DF.obj_color = inventory_head.color
 
 
-		if (icon_state == icon_resting)
+		if(icon_state == icon_resting)
 			head_icon = DF.get_overlay()
 			head_icon.pixel_y = -2
 		else

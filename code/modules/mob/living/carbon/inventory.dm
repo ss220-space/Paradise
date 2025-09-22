@@ -68,7 +68,7 @@
 		cuff_breakout_attempts = 0
 
 	update_hands_HUD()
-	update_inv_handcuffed()
+	update_worn_handcuffs()
 
 
 /// Modifies the legcuffed value if a different value is passed, returning FALSE otherwise.
@@ -90,7 +90,7 @@
 		clear_alert(ALERT_LEGCUFFED)
 		toggle_move_intent(MOVE_INTENT_RUN)
 
-	update_inv_legcuffed()
+	update_worn_legcuffs()
 
 
 /// General proc to resist passed item.
@@ -220,14 +220,14 @@
 	if(I == back)
 		back = null
 		if(!QDELETED(src))
-			update_inv_back()
+			update_worn_back()
 
 	else if(I == wear_mask)
 		if(ishuman(src)) //If we don't do this hair won't be properly rebuilt.
 			return
 		wear_mask = null
 		if(!QDELETED(src))
-			update_inv_wear_mask()
+			update_worn_mask()
 
 	else if(I == handcuffed)
 		set_handcuffed(null)

@@ -2,7 +2,6 @@
 	name = "projectile"
 	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "bullet"
-	density = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	pass_flags = PASSTABLE
@@ -220,7 +219,7 @@
 
 		else if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
-		if(L.has_limbs)
+		if(L.has_limbs && def_zone)
 			organ_hit_text = "в [GLOB.body_zone[def_zone][ACCUSATIVE]]!"
 
 		if(suppressed)

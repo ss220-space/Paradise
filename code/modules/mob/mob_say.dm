@@ -179,7 +179,7 @@
 //parses the message mode code (e.g. :h, :w) from text, such as that supplied to say.
 //returns the message mode string or null for no message mode.
 //standard mode is the mode returned for the special ';' radio code.
-/mob/proc/parse_message_mode(var/message, var/standard_mode = HEADSET_MODE)
+/mob/proc/parse_message_mode(message, standard_mode = HEADSET_MODE)
 	if(length(message) >= 1 && copytext(message, 1, 2) == ";")
 		return standard_mode
 
@@ -211,7 +211,7 @@
 			prefixes[++prefixes.len] = list(L, i, i + length_char(selection))
 		else if(!L && i == 1)
 			prefixes[++prefixes.len] = list(get_default_language(), i, i)
-		else
+
 	return prefixes
 
 

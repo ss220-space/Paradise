@@ -5,6 +5,7 @@
 
 
 /datum/movespeed_modifier/config_walk_run/proc/sync()
+	return
 
 
 /datum/movespeed_modifier/config_walk_run/walk/sync()

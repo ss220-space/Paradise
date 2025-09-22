@@ -28,7 +28,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	death_sound = 'sound/creatures/terrorspiders/death.ogg'
 	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
 	var/spider_intro_text = "Если ты это видишь, это баг."
-	speak_chance = 0 // quiet but deadly
 	speak_emote = list("шипит")
 	emote_hear = list("шипит")
 	tts_seed = "Anubarak"
@@ -43,7 +42,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	//HEALTH
 	maxHealth = 120
 	health = 120
-	a_intent = INTENT_HARM
 	var/regeneration = 2 //pure regen on life
 	var/degenerate = FALSE // if TRUE, they slowly degen until they all die off.
 	//also regenerates by using /datum/status_effect/terror/food_regen when wraps a carbon, wich grants full health witin ~25 seconds
@@ -298,7 +296,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		notify_ghosts("[capitalize(declent_ru(NOMINATIVE))] (контролируется игроком) появляется в локации \"[get_area(src)]\".")
 	else if(ai_playercontrol_allowtype)
 		var/image/alert_overlay = image(icon, icon_state)
-		notify_ghosts("[capitalize(declent_ru(NOMINATIVE))] появляется в локации \"[get_area(src)]\".", enter_link = "<a href=?src=[UID()];activate=1>(Нажмите для взятия контроля)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
+		notify_ghosts("[capitalize(declent_ru(NOMINATIVE))] появляется в локации \"[get_area(src)]\".", enter_link = "<a href=byond://?src=[UID()];activate=1>(Нажмите для взятия контроля)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	GLOB.ts_spiderlist -= src

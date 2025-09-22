@@ -8,8 +8,6 @@
 	desc = "Remains of some unfortunate mecha. Completely unrepairable, but perhaps something can be salvaged."
 	icon = 'icons/obj/mecha/mecha.dmi'
 	density = TRUE
-	anchored = FALSE
-	opacity = FALSE
 	var/list/welder_salvage = list(/obj/item/stack/sheet/plasteel, /obj/item/stack/sheet/metal, /obj/item/stack/rods)
 	var/salvage_num = 5
 	var/list/crowbar_salvage = list()
@@ -93,7 +91,7 @@
 	if(!..())
 		return
 
- //Proc called on the wreck by the AI card.
+//Proc called on the wreck by the AI card.
 	if(interaction != AI_TRANS_TO_CARD) //AIs can only be transferred in one direction, from the wreck to the card.
 		return
 	if(!AI) //No AI in the wreck

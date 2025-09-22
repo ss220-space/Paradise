@@ -1,3 +1,34 @@
+#define AALARM_MODE_SCRUBBING 1
+#define AALARM_MODE_VENTING 2 //makes draught
+#define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
+#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
+#define AALARM_MODE_SIPHON 5 //Scrubbers suck air
+#define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
+#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
+#define AALARM_MODE_OFF 8
+#define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
+
+#define AALARM_PRESET_HUMAN 1 // Default
+#define AALARM_PRESET_VOX 2 // Support Vox
+#define AALARM_PRESET_COLDROOM 3 // Kitchen coldroom
+#define AALARM_PRESET_SERVER 4 // Server coldroom
+
+#define AALARM_REPORT_TIMEOUT 100
+
+#define RCON_NO 1
+#define RCON_AUTO 2
+#define RCON_YES 3
+
+/// 1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
+#define MAX_ENERGY_CHANGE 1000
+
+#define MAX_TEMPERATURE 363.15 // 90C
+#define MIN_TEMPERATURE 233.15 // -40C
+
+#define AIR_ALARM_FRAME 0
+#define AIR_ALARM_BUILDING 1
+#define AIR_ALARM_READY 2
+
 // A datum for dealing with threshold limit values
 // used in /obj/machinery/alarm
 /datum/tlv
@@ -29,51 +60,11 @@
 	max1 = other.max1
 	max2 = other.max2
 
-#define AALARM_MODE_SCRUBBING 1
-#define AALARM_MODE_VENTING 2 //makes draught
-#define AALARM_MODE_PANIC 3 //like siphon, but stronger (enables widenet)
-#define AALARM_MODE_REPLACEMENT 4 //sucks off all air, then refill and swithes to scrubbing
-#define AALARM_MODE_SIPHON 5 //Scrubbers suck air
-#define AALARM_MODE_CONTAMINATED 6 //Turns on all filtering and widenet scrubbing.
-#define AALARM_MODE_REFILL 7 //just like normal, but with triple the air output
-#define AALARM_MODE_OFF 8
-#define AALARM_MODE_FLOOD 9 //Emagged mode; turns off scrubbers and pressure checks on vents
-
-#define AALARM_PRESET_HUMAN     1 // Default
-#define AALARM_PRESET_VOX       2 // Support Vox
-#define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
-#define AALARM_PRESET_SERVER    4 // Server coldroom
-
-#define AALARM_REPORT_TIMEOUT 100
-
-#define RCON_NO		1
-#define RCON_AUTO	2
-#define RCON_YES	3
-
-//1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
-#define MAX_ENERGY_CHANGE 1000
-
-#define MAX_TEMPERATURE 363.15 // 90C
-#define MIN_TEMPERATURE 233.15 // -40C
-
-#define AIR_ALARM_FRAME		0
-#define AIR_ALARM_BUILDING	1
-#define AIR_ALARM_READY		2
-
-//all air alarms in area are connected via magic
-/area
-	var/obj/machinery/alarm/master_air_alarm
-	var/list/air_vent_names = list()
-	var/list/air_scrub_names = list()
-	var/list/air_vent_info = list()
-	var/list/air_scrub_info = list()
-
 /obj/machinery/alarm
 	name = "alarm"
 	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = ENVIRON
@@ -138,7 +129,7 @@
 /obj/machinery/alarm/kitchen_cold_room
 	preset = AALARM_PRESET_COLDROOM
 
-/obj/machinery/alarm/proc/apply_preset(var/no_cycle_after=0)
+/obj/machinery/alarm/proc/apply_preset(no_cycle_after=0)
 	// Propogate settings.
 	for(var/obj/machinery/alarm/AA in alarm_area.machinery_cache)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.preset != src.preset)
@@ -858,7 +849,7 @@
 
 			var/device_id = params["id_tag"]
 			switch(params["cmd"])
-				if ("power",
+				if("power",
 					"adjust_external_pressure",
 					"set_external_pressure",
 					"checks",
@@ -1158,19 +1149,37 @@ Just an object used in constructing air alarms
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
-
-
-#undef AIR_ALARM_FRAME
-#undef AIR_ALARM_BUILDING
-#undef AIR_ALARM_READY
 
 //for oldstation
 
 /obj/machinery/alarm/old
-    name = "old air alarm"
-    desc = "This atmos control unit is too old, that it no longer requires access."
-    report_danger_level = FALSE
-    remote_control = FALSE
-    req_access = null
+	name = "old air alarm"
+	desc = "This atmos control unit is too old, that it no longer requires access."
+	report_danger_level = FALSE
+	remote_control = FALSE
+	req_access = null
+
+#undef AALARM_MODE_SCRUBBING
+#undef AALARM_MODE_VENTING
+#undef AALARM_MODE_PANIC
+#undef AALARM_MODE_REPLACEMENT
+#undef AALARM_MODE_SIPHON
+#undef AALARM_MODE_CONTAMINATED
+#undef AALARM_MODE_REFILL
+#undef AALARM_MODE_OFF
+#undef AALARM_MODE_FLOOD
+#undef AALARM_PRESET_HUMAN
+#undef AALARM_PRESET_VOX
+#undef AALARM_PRESET_COLDROOM
+#undef AALARM_PRESET_SERVER
+#undef AALARM_REPORT_TIMEOUT
+#undef RCON_NO
+#undef RCON_AUTO
+#undef RCON_YES
+#undef MAX_ENERGY_CHANGE
+#undef MAX_TEMPERATURE
+#undef MIN_TEMPERATURE
+#undef AIR_ALARM_FRAME
+#undef AIR_ALARM_BUILDING
+#undef AIR_ALARM_READY

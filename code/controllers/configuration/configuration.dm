@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 
 	loaded = TRUE
 
-	if (Master)
+	if(Master)
 		Master.OnConfigLoad()
 	process_config_errors()
 
@@ -181,9 +181,9 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 			continue
 
 		// Reset directive, used for setting a config value back to defaults. Useful for string list config types
-		if (entry == "$reset")
+		if(entry == "$reset")
 			var/datum/config_entry/resetee = _entries[lowertext(value)]
-			if (!value || !resetee)
+			if(!value || !resetee)
 				log_config_error("Warning: invalid $reset directive: [value]")
 				continue
 			resetee.set_default()

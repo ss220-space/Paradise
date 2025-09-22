@@ -15,6 +15,7 @@
 	max_integrity = 300 //max_integrity is base health
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
 	bubble_icon = "machine"
+	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
@@ -29,12 +30,16 @@
 	var/overload_step_energy_drain_min = 100
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	var/obj/item/stock_parts/cell/cell
-	var/state = 0
-	var/list/log = new
 	var/last_message = 0
-	var/add_req_access = TRUE
+	/// Need in access to operate mecha.
+	var/id_lock_on = TRUE
+	/// Need all or at least one access to operate
+	var/one_access = FALSE
+	/// Permit to begin maintenance protocols.
 	var/maint_access = TRUE
-	var/dna	//dna-locking the mech
+	/// State of maintenance protocols
+	var/maintenance_progress = MECHA_LOCKED
+	var/dna_lock	//dna-locking the mech
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
@@ -63,8 +68,10 @@
 	var/internal_damage_threshold = 50 //health percentage below which internal damage is possible
 	var/internal_damage = 0 //contains bitflags
 
-	var/list/operation_req_access = list()//required access level for mecha operation
-	var/list/internals_req_access = list(ACCESS_ENGINE,ACCESS_ROBOTICS)//required access level to open cell compartment
+	/// Required access level for mecha operation.
+	var/list/operation_req_access = list()
+	/// Required access level to open cell compartment.
+	var/list/internals_req_access = list(ACCESS_ENGINE,ACCESS_ROBOTICS)
 
 	var/wreckage
 
@@ -127,10 +134,36 @@
 	/// Modifier of some phasing effects.
 	var/phase_modifier = 1
 
-	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
+	/// Ref to screen object that displays in the middle of the UI
+	var/atom/movable/screen/map_view/ui_view
+	/// Theme of mecha ui
+	var/ui_theme = "ntos"
+	/// Index of selected item for ui
+	var/ui_selected_module_index
+	/// Honkify interface
+	var/ui_honked = FALSE
+
+	//Action datums
+	var/datum/action/innate/mecha/mech_eject/eject_action = new
+	var/datum/action/innate/mecha/mech_toggle_internals/internals_action = new
+	var/datum/action/innate/mecha/mech_toggle_lights/lights_action = new
+	var/datum/action/innate/mecha/mech_view_stats/stats_action = new
+	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
+	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
+	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
+	var/datum/effect_system/fluid_spread/smoke/smoke_system = new //not an action, but trigged by one
+	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
+	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
+	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
+	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
+	var/datum/action/innate/mecha/mech_energywall/energywall_action = new
+	var/datum/action/innate/mecha/mech_strafe/strafe_action = new
+	var/list/module_actions = list()
 
 /obj/mecha/Initialize(mapload)
 	. = ..()
+	ui_view = new()
+	ui_view.generate_view("mech_view_[UID()]")
 	ADD_TRAIT(src, TRAIT_WEATHER_IMMUNE, INNATE_TRAIT)
 	icon_state += "-open"
 	add_radio()
@@ -143,7 +176,6 @@
 	add_cell()
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
-	log_message("[src] created.")
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
@@ -170,7 +202,7 @@
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
 
-/obj/mecha/proc/add_cell(var/obj/item/stock_parts/cell/C=null)
+/obj/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)
 	if(C)
 		C.forceMove(src)
 		cell = C
@@ -215,14 +247,14 @@
 		radio.talk_into(M, message_pieces)
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
-	if(!occupant || occupant != user )
+	if(!occupant || occupant != user)
 		return
 	if(user.incapacitated())
 		return
 	if(phasing)
 		occupant_message(span_warning("Нельзя взаимодействовать с объектами, пока [declent_ru(NOMINATIVE)] находится в режиме фазового перехода!"))
 		return
-	if(state)
+	if(maintenance_progress)
 		occupant_message(span_warning("Включены протоколы технического обслуживания."))
 		return
 	if(!get_charge())
@@ -385,7 +417,7 @@
 			occupant_message(span_warning("Нельзя двигаться, пока [declent_ru(NOMINATIVE)] подключён к коннектору!"))
 			last_message = world.time
 		return FALSE
-	if(state)
+	if(maintenance_progress)
 		occupant_message(span_danger("Включены протоколы технического обслуживания."))
 		return FALSE
 	return domove(direction)
@@ -495,11 +527,10 @@
 			if(A)
 				A.target = possible_port
 		else
-			occupant.clear_alert("mechaport")
+			occupant.clear_alert("mechaport", TRUE)
 	if(leg_overload_mode)
 		if(strafe) //No strafe while overload is active
 			toggle_strafe(silent = TRUE)
-		log_message("Leg Overload damage.")
 		take_damage(1, BRUTE, FALSE, FALSE)
 		if(obj_integrity < max_integrity - max_integrity / 3)
 			leg_overload_mode = FALSE
@@ -632,7 +663,6 @@
 
 /obj/mecha/proc/setInternalDamage(int_dam_flag)
 	internal_damage |= int_dam_flag
-	log_append_to_last("Internal damage of type [int_dam_flag].",1)
 	SEND_SOUND(occupant, sound('sound/machines/warning-buzzer.ogg'))
 	diag_hud_set_mechstat()
 
@@ -675,7 +705,6 @@
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
 		if((. >= 5 || prob(33)) && !(. == 1 && leg_overload_mode)) //If it takes 1 damage and leg_overload_mode is true, do not say TAKING DAMAGE! to the user several times a second.
 			occupant_message(span_userdanger("Taking damage!"))
-		log_message("Took [damage_amount] points of damage. Damage type: [damage_type]")
 
 /obj/mecha/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	. = ..()
@@ -703,7 +732,6 @@
 		booster_deflection_modifier *= facing_modifier
 	if(prob(deflect_chance * booster_deflection_modifier))
 		visible_message(span_danger("[src]'s armour deflects the attack!"), projectile_message = projectile_check)
-		log_message("Armor saved.")
 		return FALSE
 	if(.)
 		. *= booster_damage_modifier
@@ -713,17 +741,14 @@
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	playsound(loc, 'sound/weapons/tap.ogg', 40, TRUE, -1)
 	user.visible_message(span_notice("[user] hits [name]. Nothing happens."), span_notice("You hit [name] with no visible effect."))
-	log_message("Attack by hand/paw. Attacker - [user].")
 
 
 /obj/mecha/attack_alien(mob/living/carbon/alien/user)
-	log_message("Attack by alien. Attacker - [user].", TRUE)
 	add_attack_logs(user, OCCUPANT_LOGGING, "Alien attacked mech [src]")
 	playsound(loc, 'sound/weapons/slash.ogg', 100, TRUE)
 	attack_generic(user, user.obj_damage, BRUTE, MELEE, 0, user.armour_penetration)
 
 /obj/mecha/attack_animal(mob/living/simple_animal/user)
-	log_message("Attack by simple animal. Attacker - [user].")
 	if(!user.melee_damage_upper && !user.obj_damage)
 		user.custom_emote(EMOTE_VISIBLE, "[user.friendly] [src].")
 		return FALSE
@@ -742,7 +767,6 @@
 		return TRUE
 
 /obj/mecha/blob_act(obj/structure/blob/B)
-	log_message("Attack by blob. Attacker - [B].")
 	B?.overmind?.blobstrain?.attack_mech(src)
 	take_damage(30, BRUTE, MELEE, 0, get_dir(src, B))
 
@@ -750,24 +774,21 @@
 	return
 
 /obj/mecha/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //wrapper
-	log_message("Hit by [AM].")
 	if(isitem(AM))
 		var/obj/item/I = AM
 		add_attack_logs(locateUID(I.thrownby), OCCUPANT_LOGGING, "threw [AM] at mech [src]")
 	. = ..()
 
 /obj/mecha/bullet_act(obj/projectile/Proj) //wrapper
-	log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).")
 	add_attack_logs(Proj.firer, OCCUPANT_LOGGING, "shot [Proj.name]([Proj.flag]) at mech [src]")
 	..()
 
 /obj/mecha/ex_act(severity, target)
-	log_message("Affected by explosion of severity: [severity].")
-	if(prob(deflect_chance))
-		severity++
-		log_message("Armor saved, changing severity to [severity]")
+	if(prob(deflect_chance) && severity)
+		severity--
 	. = ..()
-	severity++
+	if(severity)
+		severity--
 	for(var/X in equipment)
 		var/obj/item/mecha_parts/mecha_equipment/ME = X
 		ME.ex_act(severity)
@@ -779,7 +800,7 @@
 
 	for(var/X in cargo)
 		var/atom/movable/cargo_thing = X
-		if(prob(30 / severity))
+		if(prob(30 / (4 - severity)))
 			cargo -= cargo_thing
 			cargo_thing.forceMove(drop_location())
 
@@ -827,6 +848,7 @@
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_LIST(trackers)
+	QDEL_NULL(ui_view)
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
@@ -835,19 +857,20 @@
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
-	log_message("EMP detected", 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
 /obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > max_temperature)
-		log_message("Exposed to dangerous temperature.", 1)
 		take_damage(5, BURN, 0, 1)
 		check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL))
 
 //////////////////////
 ////// AttackBy //////
 //////////////////////
+
+#define TOGGLE_ID "Переключить доступ по ID"
+#define TOGGLE_MAINTENANCE "Переключить тех. обслуживание"
 
 /obj/mecha/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -880,17 +903,22 @@
 
 	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
-		if(!add_req_access && !maint_access)
-			to_chat(user, span_warning("Maintenance protocols disabled by operator."))
-			return ATTACK_CHAIN_PROCEED
-		if(!internals_access_allowed(user))
-			to_chat(user, span_warning("Invalid ID: Access denied."))
-			return ATTACK_CHAIN_PROCEED
-		var/obj/item/card/id/id_card = I
-		output_maintenance_dialog(id_card, user)
+		var/choose = tgui_input_list(user, "Выберите взаимодействие.", "Техническое обслуживание", list(TOGGLE_ID, TOGGLE_MAINTENANCE))
+		if(!choose || !Adjacent(user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		switch(choose)
+			if(TOGGLE_ID)
+				if(!operation_allowed(user))
+					return ATTACK_CHAIN_PROCEED
+				id_lock_on = !id_lock_on
+				to_chat(user, "Теперь ID [id_lock_on ? "" : "не"] требуется для управления.")
+			if(TOGGLE_MAINTENANCE)
+				toggle_maintenance(user)
+
 		return ATTACK_CHAIN_PROCEED
 
-	if(iscoil(I) && state == 3 && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
+	if(iscoil(I) && maintenance_progress == MECHA_OPEN_HATCH && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
 		add_fingerprint(user)
 		var/obj/item/stack/cable_coil/coil = I
 		if(!coil.use(2))
@@ -900,7 +928,7 @@
 		to_chat(user, span_notice("You replace the fused wires."))
 		return ATTACK_CHAIN_PROCEED
 
-	if(iscell(I) && state == 4)
+	if(iscell(I) && maintenance_progress == MECHA_UNSECURE_CELL)
 		add_fingerprint(user)
 		if(cell)
 			to_chat(user, span_warning("There's already a powercell installed."))
@@ -909,7 +937,6 @@
 			return ..()
 		to_chat(user, span_notice("You install the powercell."))
 		cell = I
-		log_message("Powercell installed")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/mecha_parts/mecha_tracking))
@@ -970,18 +997,42 @@
 
 	return ..()
 
+#undef TOGGLE_ID
+#undef TOGGLE_MAINTENANCE
+
+/obj/mecha/proc/toggle_maintenance(mob/user)
+	if(!maint_access)
+		to_chat(user, "Режим техобслуживания заблокирован.")
+		return
+
+	switch(maintenance_progress)
+		if(MECHA_LOCKED)
+			maintenance_progress = MECHA_SECURE_BOLTS
+			to_chat(user, "Крепежные болты зафиксированы.")
+			if(occupant)
+				occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
+			return
+		if(MECHA_SECURE_BOLTS)
+			maintenance_progress = MECHA_LOCKED
+			to_chat(user, "Крепежные болты убраны.")
+			if(occupant)
+				occupant.clear_alert("locked")
+			return
+
+	to_chat(user, "[declent_ru(NOMINATIVE)] не готов к взаимодействию.")
+
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(state != 2 && state != 3 && !(state == 4 && occupant))
+	if(maintenance_progress != MECHA_LOOSE_BOLTS && maintenance_progress != MECHA_OPEN_HATCH && !(maintenance_progress == MECHA_UNSECURE_CELL && occupant))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(state == 2)
-		state = 3
+	if(maintenance_progress == MECHA_LOOSE_BOLTS)
+		maintenance_progress = MECHA_OPEN_HATCH
 		to_chat(user, "You open the hatch to the power unit")
-	else if(state == 3)
-		state = 2
+	else if(maintenance_progress == MECHA_OPEN_HATCH)
+		maintenance_progress = MECHA_LOOSE_BOLTS
 		to_chat(user, "You close the hatch to the power unit")
 	else if(ishuman(occupant))
 		user.visible_message("[user] begins levering out the driver from the [src].", "You begin to lever out the driver from the [src].")
@@ -1000,7 +1051,7 @@
 /obj/mecha/screwdriver_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		return
-	if(!(state==3 && cell) && !(state==4 && cell))
+	if(!(maintenance_progress == MECHA_OPEN_HATCH && cell) && !(maintenance_progress == MECHA_UNSECURE_CELL && cell))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -1008,27 +1059,26 @@
 	if(hasInternalDamage(MECHA_INT_TEMP_CONTROL))
 		clearInternalDamage(MECHA_INT_TEMP_CONTROL)
 		to_chat(user, span_notice("You repair the damaged temperature controller."))
-	else if(state==3 && cell)
+	else if(maintenance_progress == MECHA_OPEN_HATCH && cell)
 		cell.forceMove(loc)
 		cell = null
-		state = 4
+		maintenance_progress = MECHA_UNSECURE_CELL
 		to_chat(user, span_notice("You unscrew and pry out the powercell."))
-		log_message("Powercell removed")
-	else if(state==4 && cell)
-		state=3
+	else if(maintenance_progress == MECHA_UNSECURE_CELL && cell)
+		maintenance_progress = MECHA_OPEN_HATCH
 		to_chat(user, span_notice("You screw the cell in place."))
 
 /obj/mecha/wrench_act(mob/user, obj/item/I)
-	if(state != 1 && state != 2)
+	if(maintenance_progress != MECHA_SECURE_BOLTS && maintenance_progress != MECHA_LOOSE_BOLTS)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(state==1)
-		state = 2
+	if(maintenance_progress == MECHA_SECURE_BOLTS)
+		maintenance_progress = MECHA_LOOSE_BOLTS
 		to_chat(user, "You undo the securing bolts.")
 	else
-		state = 1
+		maintenance_progress = MECHA_SECURE_BOLTS
 		to_chat(user, "You tighten the securing bolts.")
 
 /obj/mecha/welder_act(mob/user, obj/item/I)
@@ -1043,7 +1093,7 @@
 	if(repairing)
 		to_chat(user, span_notice("[src] is currently being repaired!"))
 		return
-	if(state == 0) // If maint protocols are not active, the state is zero
+	if(maintenance_progress == MECHA_LOCKED) // If maint protocols are not active, the state is zero
 		to_chat(user, span_warning("[src] can not be repaired without maintenance protocols active!"))
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
@@ -1108,7 +1158,7 @@
 	if(!..())
 		return
 
- //Transfer from core or card to mech. Proc is called by mech.
+	//Transfer from core or card to mech. Proc is called by mech.
 	switch(interaction)
 		if(AI_TRANS_TO_CARD) //Upload AI from mech to AI card.
 			if(!maint_access) //Mech must be in maint mode to allow carding.
@@ -1152,7 +1202,7 @@
 			else if(AI.stat || !AI.client)
 				to_chat(user, span_warning("[AI.name] is currently unresponsive, and cannot be uploaded."))
 				return
-			else if(occupant || dna) //Normal AIs cannot steal mechs!
+			else if(occupant || dna_lock) //Normal AIs cannot steal mechs!
 				to_chat(user, span_warning("Access denied. [name] is [occupant ? "currently occupied" : "secured with a DNA lock"]."))
 				return
 			AI.control_disabled = FALSE
@@ -1242,7 +1292,6 @@
 		occupant.clear_alert("mechaport")
 		occupant.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
 
-	log_message("Connected to gas port.")
 	return TRUE
 
 /obj/mecha/proc/disconnect()
@@ -1251,7 +1300,6 @@
 
 	connected_port.connected_device = null
 	connected_port = null
-	log_message("Disconnected from gas port.")
 	if(occupant)
 		occupant.clear_alert("mechaport_d")
 	return TRUE
@@ -1278,25 +1326,22 @@
 		return
 	if(user != M)
 		return
-	log_message("[user] tries to move in.")
 	if(occupant)
 		to_chat(user, span_warning("The [src] is already occupied!"))
-		log_append_to_last("Permission denied.")
+
 		return TRUE
 	var/passed
-	if(dna)
+	if(dna_lock)
 		if(ishuman(user))
-			if(user.dna.unique_enzymes == dna)
+			if(user.dna.unique_enzymes == dna_lock)
 				passed = TRUE
 	else if(operation_allowed(user))
 		passed = TRUE
 	if(!passed)
 		to_chat(user, span_warning("Access denied."))
-		log_append_to_last("Permission denied.")
 		return TRUE
 	if(user.buckled)
 		to_chat(user, span_warning("You are currently buckled and cannot move."))
-		log_append_to_last("Permission denied.")
 		return TRUE
 	if(user.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("You can't enter the exosuit with other creatures attached to you!"))
@@ -1330,7 +1375,6 @@
 		add_fingerprint(H)
 		GrantActions(H, human_occupant = 1)
 		forceMove(loc)
-		log_append_to_last("[H] moved in as pilot.")
 		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
@@ -1339,7 +1383,7 @@
 			activated = TRUE
 		else if(!hasInternalDamage())
 			SEND_SOUND(occupant, sound(nominalsound, volume = 50))
-		if(state)
+		if(maintenance_progress)
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		if(selected)
 			var/atom/movable/screen/alert/empty_alert/default_alert = H.throw_alert(selected.alert_category, /atom/movable/screen/alert/empty_alert, new_master = selected)
@@ -1349,7 +1393,7 @@
 	else
 		return FALSE
 
-/obj/mecha/proc/mmi_move_inside(var/obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
+/obj/mecha/proc/mmi_move_inside(obj/item/mmi/mmi_as_oc as obj, mob/user as mob)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 		to_chat(user, span_warning("Consciousness matrix not detected!"))
 		return FALSE
@@ -1359,7 +1403,7 @@
 	else if(occupant)
 		to_chat(user, span_warning("Occupant detected!"))
 		return FALSE
-	else if(dna && dna != mmi_as_oc.brainmob.dna.unique_enzymes)
+	else if(dna_lock && dna_lock != mmi_as_oc.brainmob.dna.unique_enzymes)
 		to_chat(user, span_warning("Access denied. [name] is secured with a DNA lock."))
 		return FALSE
 	else if(!operation_allowed(user))
@@ -1399,7 +1443,6 @@
 		Move(loc)
 		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
-		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
 			SEND_SOUND(occupant, sound(nominalsound, volume=50))
 		GrantActions(brainmob)
@@ -1495,7 +1538,6 @@
 	occupant = null //we need it null when forceMove calls Exited().
 
 	if(mob_container.forceMove(newloc))//ejecting mob container
-		log_message("[mob_container] moved out.")
 		close_window(L, "exosuit")
 
 		if(istype(mob_container, /obj/item/mmi))
@@ -1554,11 +1596,11 @@
 		return TRUE
 	if(!I || !I.GetID() || !I.GetAccess()) //not ID or no access
 		return FALSE
-	if(access_list==operation_req_access)
+	if(one_access && (access_list == operation_req_access))
 		for(var/req in access_list)
 			if(!(req in I.GetAccess())) //doesn't have this access
 				return FALSE
-	else if(access_list==internals_req_access)
+	else if(!one_access || (access_list == internals_req_access))
 		for(var/req in access_list)
 			if(req in I.GetAccess())
 				return TRUE
@@ -1743,7 +1785,7 @@
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E
 				E.detach(WR) //detaches from src into WR
-				E.equip_ready = TRUE
+				E.active = TRUE
 			else
 				E.detach(loc)
 				qdel(E)

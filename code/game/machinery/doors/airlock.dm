@@ -50,7 +50,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	name = "airlock"
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "closed"
-	anchored = TRUE
 	max_integrity = 300
 	integrity_failure = 70
 	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
@@ -103,6 +102,12 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/boltUp = 'sound/machines/boltsup.ogg'
 	var/boltDown = 'sound/machines/boltsdown.ogg'
 	var/is_special = FALSE
+
+	// This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
+	var/id_tag
+	var/shockedby = list()
+	///the command the door is currently attempting to complete
+	var/cur_command = null
 
 /obj/machinery/door/airlock/welded
 	welded = TRUE
@@ -1249,8 +1254,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 
 	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0) && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
-		user.visible_message("[user] removes the electronics from the airlock assembly.", \
-							 span_notice("You start to remove electronics from the airlock assembly..."))
+		user.visible_message(
+			"[user] removes the electronics from the airlock assembly.", \
+			span_notice("You start to remove electronics from the airlock assembly...")
+		)
 		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 		return
@@ -1562,8 +1569,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		DA.state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 		DA.created_name = name
 		DA.previous_assembly = previous_airlock
-		DA.update_name()
-		DA.update_icon()
+		DA.update_appearance(UPDATE_NAME|UPDATE_ICON)
 
 		if(!disassembled)
 			if(DA)
@@ -1613,7 +1619,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return FALSE
 
 	if(!wirecutters_used)
-		if (ishuman(user) && (user.a_intent == INTENT_GRAB)) //grab that note
+		if(ishuman(user) && (user.a_intent == INTENT_GRAB)) //grab that note
 			user.visible_message(span_notice("[user] removes [note] from [src]."), span_notice("You remove [note] from [src]."))
 			playsound(src, 'sound/items/poster_ripped.ogg', 50, TRUE)
 		else

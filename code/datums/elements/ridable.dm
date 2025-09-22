@@ -131,7 +131,6 @@
 
 /obj/item/riding_offhand
 	name = "offhand"
-	icon = 'icons/obj/items.dmi'
 	icon_state = "offhand"
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT | DROPDEL | NOBLUDGEON

@@ -1,8 +1,8 @@
 //OTHER DEBUFFS
 
+// MARK: his_wrath
 /datum/status_effect/his_wrath //does minor damage over time unless holding His Grace
 	id = "his_wrath"
-	duration = -1
 	tick_interval = 0.4 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/his_wrath
 
@@ -24,15 +24,16 @@
 		return
 	owner.updatehealth()
 
+// MARK: cultghost
 /datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
 	id = "cult_ghost"
-	duration = -1
 	alert_type = null
 
 /datum/status_effect/cultghost/tick(seconds_between_ticks)
 	if(owner.reagents)
 		owner.reagents.del_reagent("holywater") //can't be deconverted
 
+// MARK: crusher_mark
 /datum/status_effect/crusher_mark
 	id = "crusher_mark"
 	duration = 300 //if you leave for 30 seconds you lose the mark, deal with it
@@ -66,12 +67,29 @@
 	owner.underlays -= marked_underlay //if this is being called, we should have an owner at this point.
 	..()
 
-
+// MARK: pacifism
 /datum/status_effect/pacifism
 	id = "pacifism_debuff"
 	alert_type = null
 	duration = 40 SECONDS
+	var/datum/atom_hud/pacifism/hud
 
+/datum/status_effect/pacifism/on_creation(mob/living/new_owner, mob/mob_to_inform)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(!mob_to_inform)
+		return TRUE
+
+	hud = new
+	hud.add_to_hud(new_owner)
+	hud.add_hud_to(mob_to_inform)
+	var/image/holder = new_owner.hud_list[PACIFISM_HUD]
+	if(holder)
+		holder.icon_state = "hudpacifism"
+
+	return TRUE
 
 /datum/status_effect/pacifism/on_apply()
 	ADD_TRAIT(owner, TRAIT_PACIFISM, id)
@@ -81,6 +99,10 @@
 /datum/status_effect/pacifism/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
 
+	if(hud)
+		QDEL_NULL(hud)
+
+// MARK: fang_exhaust
 /datum/status_effect/fang_exhaust
 	id = "fang_exhaust"
 	alert_type = null
@@ -116,6 +138,7 @@
 
 	return ..()
 
+// MARK: shadow_boxing
 /datum/status_effect/shadow_boxing
 	id = "shadow barrage"
 	alert_type = null
@@ -141,9 +164,9 @@
 		shadow_to_animation(attacker_turf, owner_turf, attacker)
 
 
+// MARK: saw_bleed
 /datum/status_effect/saw_bleed
 	id = "saw_bleed"
-	duration = -1 //removed under specific conditions
 	tick_interval = 6
 	alert_type = null
 	var/mutable_appearance/bleed_overlay
@@ -219,6 +242,7 @@
 	bleed_damage = 25 //Seems weak (it is) but it also works on humans and bypasses armor SOOOO
 	bleed_amount = 6
 
+// MARK: stamina_dot
 /datum/status_effect/stamina_dot
 	id = "stamina_dot"
 	duration = 130
@@ -227,6 +251,7 @@
 /datum/status_effect/stamina_dot/tick(seconds_between_ticks)
 	owner.adjustStaminaLoss(10)
 
+// MARK: bluespace_slowdown
 /datum/status_effect/bluespace_slowdown
 	id = "bluespace_slowdown"
 	duration = 150
@@ -240,13 +265,10 @@
 	owner.next_move_modifier *= 0.5
 
 
-/**
- * Vampire mark.
- */
+// MARK: Vampire mark_prey
 /datum/status_effect/mark_prey
 	id = "mark_prey"
 	duration = 5 SECONDS
-	tick_interval = 1 SECONDS
 	alert_type = null
 	var/mutable_appearance/marked_overlay
 	var/datum/antagonist/vampire/vamp
@@ -374,6 +396,7 @@
 
 // start of `living` level status procs.
 
+// MARK: Confusion
 /**
  * # Confusion
  *
@@ -450,6 +473,7 @@
 	owner.add_overlay(overlay)
 
 
+// MARK: Disoriented
 /**
  * # Disoriented
  *
@@ -471,6 +495,7 @@
 			qdel(src)
 			return FALSE
 
+// MARK: Dizziness
 /**
  * # Dizziness
  *
@@ -502,6 +527,7 @@
 /datum/status_effect/transient/dizziness/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
 
+// MARK: Drowsiness
 /**
  * # Drowsiness
  *
@@ -552,6 +578,7 @@
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
 
 
+// MARK: Drukenness
 /**
  * # Drukenness
  *
@@ -665,12 +692,14 @@
 			return 0
 	return -0.2 SECONDS
 
+// MARK: Cult sluring
 /datum/status_effect/transient/cult_slurring
 	id = "cult_slurring"
 
 /datum/status_effect/transient/clock_cult_slurring
 	id = "clock_cult_slurring"
 
+// MARK: Incapacitating
 /datum/status_effect/incapacitating
 	tick_interval = 0
 	status_type = STATUS_EFFECT_REPLACE
@@ -710,6 +739,7 @@
 	return set_duration
 
 
+// MARK: Stun
 //STUN - prevents movement and actions, victim stays standing
 /datum/status_effect/incapacitating/stun
 	id = "stun"
@@ -722,6 +752,7 @@
 	return ..()
 
 
+// MARK: Knockdown
 //KNOCKDOWN - force victim to lying down position
 /datum/status_effect/incapacitating/knockdown
 	id = "knockdown"
@@ -734,12 +765,14 @@
 		. *= new_owner.physiology.knockdown_mod
 
 
+// MARK: Immobilized
 //IMMOBILIZED - prevents movement, victim can still stand and act
 /datum/status_effect/incapacitating/immobilized
 	id = "immobilized"
 	traits_to_apply = list(TRAIT_IMMOBILIZED)
 
 
+// MARK: Weakened
 //WEAKENED - prevents movement and action, victim falls over
 /datum/status_effect/incapacitating/weakened
 	id = "weakened"
@@ -752,6 +785,7 @@
 	return ..()
 
 
+// MARK: Unconscious
 //UNCONSCIOUS
 /datum/status_effect/incapacitating/unconscious
 	id = "unconscious"
@@ -764,6 +798,7 @@
 		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
 
 
+// MARK: Paralyzed
 //PARALYZED - prevents movement and action, victim falls over, victim cannot hear or see.
 /datum/status_effect/incapacitating/paralyzed
 	id = "paralyzed"
@@ -775,6 +810,7 @@
 	return set_duration
 
 
+// MARK: Sleeping
 //SLEEPING - victim falls over, cannot act, cannot see or hear, heals under certain conditions.
 /datum/status_effect/incapacitating/sleeping
 	id = "sleeping"
@@ -830,6 +866,7 @@
 
 #define DEFAULT_SLOWED_DELAY 10
 
+// MARK: Slowed
 //SLOWED - slows down the victim for a duration and a given slowdown value.
 /datum/status_effect/incapacitating/slowed
 	id = "slowed"
@@ -858,6 +895,7 @@
 #undef DEFAULT_SLOWED_DELAY
 
 
+// MARK: Silence
 /datum/status_effect/transient/silence
 	id = "silenced"
 
@@ -872,6 +910,7 @@
 /datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
 	id = "abssilenced"
 
+// MARK: Jittery
 /datum/status_effect/transient/jittery
 	id = "jittering"
 
@@ -919,6 +958,7 @@
 #define HALLUCINATE_MODERATE_WEIGHT 25
 #define HALLUCINATE_MAJOR_WEIGHT 15
 
+// MARK: Hallucination
 /datum/status_effect/transient/hallucination
 	id = "hallucination"
 	var/next_hallucination = 0
@@ -959,6 +999,7 @@
 #undef HALLUCINATE_MAJOR_WEIGHT
 
 
+// MARK: Eye blurry
 /datum/status_effect/transient/eye_blurry
 	id = "eye_blurry"
 
@@ -1033,6 +1074,7 @@
 	return ..() //default decay rate
 
 
+// MARK: Blindness
 /datum/status_effect/transient/blindness
 	id = "blindness"
 
@@ -1061,6 +1103,7 @@
 
 	return ..() //default decay rate
 
+// MARK: Drugged
 /datum/status_effect/transient/drugged
 	id = "drugged"
 
@@ -1073,6 +1116,7 @@
 /datum/status_effect/transient/drugged/on_remove()
 	owner.update_druggy_effects()
 
+// MARK: Disgust
 /datum/status_effect/transient/disgust
 	id = "disgust"
 	tick_interval = 2 SECONDS
@@ -1118,6 +1162,7 @@
 /datum/status_effect/transient/disgust/calc_decay()
 	return -1 * initial(tick_interval)
 
+// MARK: Deaf
 /datum/status_effect/transient/deaf
 	id = "deafened"
 
@@ -1129,10 +1174,9 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_DEAF, EAR_DAMAGE)
 
-// lavaland flowers stuff
+// MARK: Lavaland flowers stuff
 /datum/status_effect/taming
 	id = "taming"
-	duration = -1
 	tick_interval = 6
 	alert_type = null
 	var/tame_amount = 1
@@ -1180,8 +1224,6 @@
 /datum/status_effect/bubblegum_curse
 	id = "bubblegum curse"
 	alert_type = /atom/movable/screen/alert/status_effect/bubblegum_curse
-	duration = -1 //Kill it. There is no other option.
-	tick_interval = 1 SECONDS
 	/// The damage the status effect does per tick.
 	var/damage = 0.75
 	var/source_UID
@@ -1314,6 +1356,7 @@
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)
 
+// MARK: Tox vomit
 /datum/status_effect/tox_vomit
 	id = "vomitting_from_toxins"
 	alert_type = null
@@ -1345,6 +1388,7 @@
 	carbon.adjustToxLoss(-3)
 
 
+// MARK: Judo armbar
 /datum/status_effect/judo_armbar
 	id = "armbar"
 	duration = 5 SECONDS
@@ -1352,3 +1396,26 @@
 	status_type = STATUS_EFFECT_REPLACE
 
 
+// MARK: Temperature
+/datum/status_effect/transient/temperature
+	id = "temperature"
+	duration = 10 SECONDS  // max delta 500 K
+	var/temp_step = 50 // K per seconds
+	status_type = STATUS_EFFECT_REPLACE
+
+/datum/status_effect/transient/temperature/tick(seconds_between_ticks)
+	if(QDELETED(src) || QDELETED(owner))
+		return FALSE
+	if(owner.stat == DEAD || HAS_TRAIT(owner, TRAIT_GODMODE))
+		qdel(src)
+		return FALSE
+
+	var/temp_delta = clamp(strength - owner.bodytemperature, -temp_step * seconds_between_ticks, temp_step * seconds_between_ticks)
+	owner.adjust_bodytemperature(temp_delta)
+	if(owner.bodytemperature != strength)
+		return TRUE
+	qdel(src)
+	return FALSE
+
+/datum/status_effect/transient/temperature/calc_decay()
+	return 0

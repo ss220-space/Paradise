@@ -6,7 +6,6 @@
 	gender = MALE // Placeholder.
 
 	universal_understand = 1
-	universal_speak = 0
 	status_flags = CANPUSH
 
 	hud_type = /datum/hud/simple_animal
@@ -57,7 +56,7 @@
 	var/fire_damage = 2
 
 	/// Healable by medical stacks? Defaults to yes.
-	var/healable = 1
+	var/healable = TRUE
 
 	/// Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage
 	var/list/atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0) // Leaving something at 0 means it's off - has no maximum.
@@ -174,6 +173,9 @@
 	/// Autodust on a big distance.
 	var/atom/leash
 	var/leash_radius = 10
+
+	/// Health of the mob before being admin-frozen, restored afterwards
+	var/admin_prev_health = null
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
@@ -348,9 +350,9 @@
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
-	if (leash)
+	if(leash)
 		var/dist = get_dist(src, leash)
-		if (dist > leash_radius)
+		if(dist > leash_radius)
 			src.dust()
 			return
 
@@ -531,7 +533,7 @@
 
 /mob/living/simple_animal/proc/check_if_child(mob/possible_child)
 	for(var/childpath in childtype)
-		if (istype(possible_child, childpath))
+		if(istype(possible_child, childpath))
 			return TRUE
 	return FALSE
 
@@ -539,7 +541,7 @@
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
 		return FALSE
 
-	if (check_if_child(src)) // Children aren't fertile enough
+	if(check_if_child(src)) // Children aren't fertile enough
 		return FALSE
 	next_scan_time = world.time + 400
 

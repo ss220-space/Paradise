@@ -1,6 +1,5 @@
 /obj/structure/blob/special/core
 	name = "blob core"
-	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
 	desc = "Огромная пульсирующая желтая масса."
 	max_integrity = BLOB_CORE_MAX_HP
@@ -12,7 +11,6 @@
 	health_regen = BLOB_CORE_HP_REGEN
 	resistance_flags = LAVA_PROOF
 	strong_reinforce_range = BLOB_CORE_STRONG_REINFORCE_RANGE
-	reflector_reinforce_range = BLOB_CORE_REFLECTOR_REINFORCE_RANGE
 	claim_range = BLOB_CORE_CLAIM_RANGE
 	pulse_range = BLOB_CORE_PULSE_RANGE
 	expand_range = BLOB_CORE_EXPAND_RANGE

@@ -148,7 +148,7 @@
 /obj/item/nuke_core_container/proc/seal()
 	if(!QDELETED(core))
 		STOP_PROCESSING(SSobj, core)
-		ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+		ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src))
 		sealed = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
@@ -163,7 +163,7 @@
 
 /obj/item/nuke_core_container/proc/unseal(mob/user)
 	START_PROCESSING(SSobj, core)
-	REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+	REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src))
 	sealed = FALSE
 	playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] распечатан, радиация от [core.declent_ru(GENITIVE)] больше не изолирована."))
@@ -184,12 +184,12 @@
 	visible_message(span_boldnotice("[capitalize(src.declent_ru(NOMINATIVE))] распахивается!"))
 	if(core)
 		START_PROCESSING(SSobj, core)
-		REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+		REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src))
 	cracked = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/paper/guides/antag/nuke_instructions
-	info = "Как вскрыть ядерную боеголовку НаноТрейзен и вытащить из нее плутониевое ядро:<br>\
+	info = "Как вскрыть ядерную боеголовку Нанотрейзен и вытащить из нее плутониевое ядро:<br>\
 	<ul>\
 	<li>Добудьте себе одежду, способную защитить от радиации в связи с высокой радиоактивностью ядра.</li>\
 	<li>Используйте предоставленную вам отвертку с очень тонким наконечником для того, чтобы открутить переднюю панель терминала боеголовки.</li>\
@@ -277,7 +277,7 @@
 	if(!isliving(hit_atom))
 		return ..()
 	var/mob/living/victim = hit_atom
-	if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
+	if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE) || HAS_TRAIT(victim, TRAIT_SUPERMATTERIMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
 	if(throwingdatum?.thrower)
 		var/mob/user = throwingdatum.thrower
@@ -302,6 +302,10 @@
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
 	if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
+	if(HAS_TRAIT(user, TRAIT_SUPERMATTERIMMUNE))
+		user.drop_item_ground(src, force = TRUE)
+		user.balloon_alert(user, "слишком тяжело!")
+		return FALSE
 	user.visible_message(
 		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [src.declent_ru(DATIVE)]. [genderize_ru(user.gender,"его","её","его","их")] тело начинает светиться и мгновенно вспыхивает!"),
 		span_userdanger("Вы попытались взять [src.declent_ru(NOMINATIVE)] голыми руками. Это было глупо."),
@@ -337,7 +341,7 @@
 /obj/item/nuke_core_container/supermatter/update_name(updates = ALL)
 	. = ..()
 	name = cracked ? "broken supermatter bin" : initial(name)
-	if (cracked)
+	if(cracked)
 		ru_names = list(
 			NOMINATIVE = "разбитый контейнер для суперматерии",
 			GENITIVE = "разбитого контейнера для суперматерии",
@@ -374,7 +378,7 @@
 /obj/item/nuke_core_container/supermatter/seal()
 	if(!QDELETED(sliver))
 		STOP_PROCESSING(SSobj, sliver)
-		ADD_TRAIT(sliver, TRAIT_BLOCK_RADIATION, src)
+		ADD_TRAIT(sliver, TRAIT_BLOCK_RADIATION, ref(src))
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		sealed = TRUE
 		update_icon(UPDATE_ICON_STATE)
@@ -408,7 +412,7 @@
 
 /obj/item/nuke_core_container/supermatter/attack_hand(mob/user)
 	if(cracked && sliver) //What did we say about touching the shard...
-		if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE))
+		if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE) || HAS_TRAIT(user, TRAIT_SUPERMATTERIMMUNE))
 			return FALSE
 		user.visible_message(
 			span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [sliver.declent_ru(DATIVE)]. [genderize_ru(user.gender,"Его","Её","Его","Их")] тело начинает светиться и вспыхивает!"),
@@ -431,7 +435,7 @@
 	visible_message(span_boldnotice("[src] распахивается!"))
 	if(sliver)
 		START_PROCESSING(SSobj, sliver)
-		REMOVE_TRAIT(sliver, TRAIT_BLOCK_RADIATION, src)
+		REMOVE_TRAIT(sliver, TRAIT_BLOCK_RADIATION, ref(src))
 	cracked = TRUE
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
@@ -464,8 +468,6 @@
 	desc = "Щипцы из конденсированного газа гипер-ноблия, леденяще холодные на ощупь, способные безопасно удерживать осколки суперматерии."
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_tongs"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "supermatter_tongs"
 	toolspeed = 0.75
 	damtype = BURN
@@ -512,7 +514,7 @@
 		if(!isliving(AM))
 			return
 		var/mob/living/victim = AM
-		if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
+		if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE) || HAS_TRAIT(victim, TRAIT_SUPERMATTERIMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 			return
 		victim.gib()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")

@@ -8,19 +8,18 @@
 	gender = FEMALE
 	icon_state = "dropper"
 	item_state = "dropper"
-	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
 	pass_open_check = TRUE
 
 /obj/item/reagent_containers/dropper/get_ru_names()
 	return list(
-        NOMINATIVE = "пипетка",
-        GENITIVE = "пипетки",
-        DATIVE = "пипетке",
-        ACCUSATIVE = "пипетку",
-        INSTRUMENTAL = "пипеткой",
-        PREPOSITIONAL = "пипетке"
+		NOMINATIVE = "пипетка",
+		GENITIVE = "пипетки",
+		DATIVE = "пипетке",
+		ACCUSATIVE = "пипетку",
+		INSTRUMENTAL = "пипеткой",
+		PREPOSITIONAL = "пипетке"
 	)
 
 /obj/item/reagent_containers/dropper/update_overlays()
@@ -72,7 +71,7 @@
 
 			if(H.glasses)
 				safe_thing = H.glasses
-			if(H.wear_mask )
+			if(H.wear_mask)
 				if(H.wear_mask.flags_cover & MASKCOVERSEYES)
 					safe_thing = H.wear_mask
 			if(H.head)
@@ -114,6 +113,7 @@
 				return
 
 			to_transfer = reagents.trans_to(target, amount_per_transfer_from_this)
+			after_transfer(target)
 			to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[declension_ru(to_transfer, "у", "ы", "")] вещества, используя [declent_ru(ACCUSATIVE)]."))
 
 		else
@@ -129,6 +129,9 @@
 
 			to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[to_transfer]</b> единиц[declension_ru(to_transfer, "ей", "ами", "ами")] вещества."))
 
+/obj/item/reagent_containers/dropper/get_sound_for_reagent_containers()
+	return SFX_DROPPERPOUR
+
 /obj/item/reagent_containers/dropper/cyborg
 	name = "Industrial Dropper"
 	desc = "Пипетка увеличенного объёма, используемая для точного вливания небольших объёмов вещества в виде капель."
@@ -138,12 +141,12 @@
 
 /obj/item/reagent_containers/dropper/cyborg/get_ru_names()
 	return list(
-        NOMINATIVE = "промышленная пипетка",
-        GENITIVE = "промышленной пипетки",
-        DATIVE = "промышленной пипетке",
-        ACCUSATIVE = "промышленную пипетку",
-        INSTRUMENTAL = "промышленной пипеткой",
-        PREPOSITIONAL = "промышленной пипетке"
+		NOMINATIVE = "промышленная пипетка",
+		GENITIVE = "промышленной пипетки",
+		DATIVE = "промышленной пипетке",
+		ACCUSATIVE = "промышленную пипетку",
+		INSTRUMENTAL = "промышленной пипеткой",
+		PREPOSITIONAL = "промышленной пипетке"
 	)
 
 /obj/item/reagent_containers/dropper/precision
@@ -162,12 +165,12 @@
 
 /obj/item/reagent_containers/dropper/precision/get_ru_names()
 	return list(
-        NOMINATIVE = "микропипетка",
-        GENITIVE = "микропипетки",
-        DATIVE = "микропипетке",
-        ACCUSATIVE = "микропипетку",
-        INSTRUMENTAL = "микропипеткой",
-        PREPOSITIONAL = "микропипетке"
+		NOMINATIVE = "микропипетка",
+		GENITIVE = "микропипетки",
+		DATIVE = "микропипетке",
+		ACCUSATIVE = "микропипетку",
+		INSTRUMENTAL = "микропипеткой",
+		PREPOSITIONAL = "микропипетке"
 	)
 
 //Syndicate item. Virus transmitting mini hypospray

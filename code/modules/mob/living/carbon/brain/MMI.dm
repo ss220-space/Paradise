@@ -3,7 +3,6 @@
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=3"
 	origin_tech = "biotech=2;programming=3;engineering=2"
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
@@ -141,14 +140,18 @@
 	if(!radio)
 		to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
 		return
-	user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
-							 "<span class='notice'>You start to uninstall the radio from [src]...</span>")
+	user.visible_message(
+		"<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
+		"<span class='notice'>You start to uninstall the radio from [src]...</span>"
+	)
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
 		return
 	uninstall_radio()
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
-	user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
-						 "<span class='notice'>You uninstall the radio from [src].</span>")
+	user.visible_message(
+		"<span class='warning'>[user] uninstalls the radio from [src].</span>", \
+		"<span class='notice'>You uninstall the radio from [src].</span>"
+	)
 
 
 /obj/item/mmi/attack_self(mob/user)
@@ -181,7 +184,7 @@
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
-/obj/item/mmi/proc/dropbrain(var/turf/dropspot)
+/obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
 		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
 		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
@@ -289,8 +292,8 @@
 	return TRUE
 
 /obj/item/mmi/syndie/Destroy()
-    QDEL_NULL(overdrive)
-    return ..()
+	QDEL_NULL(overdrive)
+	return ..()
 
 /obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!brainmob)
@@ -307,7 +310,7 @@
 	holder.update_from_mmi()
 	if(brainmob && brainmob.mind)
 		brainmob.mind.transfer_to(target)
-	holder.insert(target)
+	holder.insert(target, ORGAN_MANIPULATION_NOEFFECT)
 	return TRUE
 
 

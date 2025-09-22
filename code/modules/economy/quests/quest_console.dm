@@ -68,6 +68,8 @@
 	data["points"] = round(SSshuttle.points)
 	return data
 
+#undef BASE_HIGHTECH_COST
+
 /obj/machinery/computer/supplyquest/ui_data(mob/user)
 	var/list/data = list()
 	var/list/quest_storages = list()
@@ -337,7 +339,6 @@
 /obj/item/qm_quest_tablet/cargotech
 	name = "Portable Quest Monitor"
 	icon_state	= "cargo_tablet"
-	w_class		= WEIGHT_CLASS_SMALL
 	item_state	= "cargo_tablet"
 	origin_tech = "programming=2;engineering=2"
 	integrated_console = /obj/machinery/computer/supplyquest/iternal/cargo

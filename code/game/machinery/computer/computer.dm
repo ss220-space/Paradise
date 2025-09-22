@@ -4,10 +4,8 @@
 	icon_state = "computer"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
 	active_power_usage = 300
-	max_integrity = 200
 	integrity_failure = 100
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
@@ -261,7 +259,6 @@
 	icon_state = "right-closed"
 
 /obj/machinery/computer/old_frame/macintosh
-	icon = 'icons/obj/machines/computer3.dmi'
 	icon_screen = "stock_computer"
 	icon_state = "oldcomp"
 

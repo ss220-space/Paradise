@@ -8,15 +8,13 @@
 	icon = 'icons/mob/32x64.dmi'
 	icon_state = "true_devil"
 	gender = NEUTER
-	health = 350
-	maxHealth = 350
-	mobility_flags = MOBILITY_FLAGS_DEFAULT
+	health = 400
+	maxHealth = 400
 	ventcrawler_trait = NONE
-	density = TRUE
-	pass_flags = NONE
 	sight = SEE_TURFS|SEE_OBJS
 	status_flags = CANPUSH
 	mob_size = MOB_SIZE_LARGE
+	pixel_y_lying_offset = -20
 	var/mob/living/oldform
 	var/datum/antagonist/devil/devilinfo
 	var/ascended = FALSE
@@ -70,7 +68,8 @@
 	new /obj/item/organ/internal/brain(src)
 	new /obj/item/organ/internal/eyes(src)
 	new /obj/item/organ/internal/ears/invincible(src)
-	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
+	create_reagents(300)
+	add_traits(list(TRAIT_HEALS_FROM_HELL_RIFTS, TRAIT_HAS_CARBON_REGENERATION), INNATE_TRAIT)
 	. = ..()
 
 // Determines if mob has and can use his hands like a human
@@ -132,17 +131,6 @@
 
 /mob/living/carbon/true_devil/assess_threat()
 	return 666
-
-/mob/living/carbon/true_devil/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
-	. = ATTACK_CHAIN_PROCEED_SUCCESS
-
-	send_item_attack_message(I, user, def_zone)
-	if(!I.force)
-		return .
-
-	if(QDELETED(src))
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /mob/living/carbon/true_devil/OnUnarmedAttack(atom/atom, proximity)
 	if(!ishuman(atom))
@@ -218,12 +206,17 @@
 /mob/living/carbon/true_devil/ex_act(severity, ex_target)
 	if(!ascended)
 		var/b_loss
-		switch (severity)
-			if (EXPLODE_DEVASTATE)
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
 				b_loss = 500
-			if (EXPLODE_HEAVY)
+			if(EXPLODE_HEAVY)
 				b_loss = 150
-			if (EXPLODE_LIGHT)
+			if(EXPLODE_LIGHT)
 				b_loss = 30
 		adjustBruteLoss(b_loss)
 	return ..()
+
+/mob/living/carbon/true_devil/handle_critical_condition()
+	if(health > 0)
+		return
+	adjustOxyLoss(10)

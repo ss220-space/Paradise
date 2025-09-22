@@ -1,7 +1,6 @@
 /obj/item/clothing/glasses/hud
 	name = "HUD"
 	desc = "A heads-up display that provides important info in (almost) real time."
-	flags = NONE //doesn't protect eyes because it's a monocle, duh
 	origin_tech = "magnets=3;biotech=2"
 	prescription_upgradable = TRUE
 	/// The visual icons granted by wearing these glasses.
@@ -100,7 +99,6 @@ MEDICAL
 	name = "Medical HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
-	origin_tech = "magnets=3;biotech=2"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = EXAMINE_HUD_MEDICAL
 
@@ -151,7 +149,6 @@ MEDICAL
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an installed medical HUD."
 	icon_state = "tajblind_med"
 	item_state = "tajblind_med"
-	flags_cover = GLASSESCOVERSEYES
 	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
@@ -266,7 +263,6 @@ DIAGNOSTIC
 	desc = "A tajaran veil capable of analyzing the integrity and status of robotics and exosuits."
 	icon_state = "tajblind_diagnostic"
 	item_state = "tajblind_diagnostic"
-	flags_cover = GLASSESCOVERSEYES
 	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 
@@ -428,7 +424,6 @@ SECURITY
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This one has an in-built security HUD."
 	icon_state = "tajblind_sec"
 	item_state = "tajblind_sec"
-	flags_cover = GLASSESCOVERSEYES
 	tint_up = 1
 	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
@@ -612,7 +607,6 @@ SKILLS
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
-	prescription_upgradable = TRUE
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_GREY  = 'icons/mob/clothing/species/grey/eyes.dmi',
@@ -629,7 +623,6 @@ SKILLS
 	desc = "A tajaran veil capable of showing the employment history records of NT crew members."
 	icon_state = "tajblind_skill"
 	item_state = "tajblind_skill"
-	flags_cover = GLASSESCOVERSEYES
 	tint = 3
 	actions_types = list(/datum/action/item_action/toggle)
 

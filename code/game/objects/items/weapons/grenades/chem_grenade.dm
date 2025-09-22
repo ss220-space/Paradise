@@ -7,7 +7,6 @@
 	desc = "A do it yourself grenade casing!"
 	var/bomb_state = "chembomb"
 	var/payload_name = null // used for spawned grenades
-	w_class = WEIGHT_CLASS_SMALL
 	force = 2
 	var/prime_sound = 'sound/items/screwdriver2.ogg'
 	var/stage = EMPTY
@@ -38,7 +37,7 @@
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
-	if (!no_splash)
+	if(!no_splash)
 		QDEL_LIST(beakers)
 	return ..()
 
@@ -379,7 +378,7 @@
 
 	qdel(src)
 
-/obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(var/typekey)
+/obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(typekey)
 	if(ispath(typekey,/obj/item/assembly))
 		nadeassembly = new(src)
 		if(nadeassembly.has_prox_sensors())
@@ -450,7 +449,6 @@
 	desc = "A custom made pyrotechnical grenade. It heats up and ignites its contents upon detonation."
 	icon_state = "pyrog"
 	origin_tech = "combat=4;engineering=4"
-	affected_area = 3
 	ignition_temp = 500 // This is enough to expose a hotspot.
 
 /obj/item/grenade/chem_grenade/adv_release // Intended for weaker, but longer lasting effects. Could have some interesting uses.
@@ -524,7 +522,6 @@
 /obj/item/grenade/chem_grenade/firefighting
 	payload_name = "fire fighting grenade"
 	desc = "Can help to put out dangerous fires from a distance."
-	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "firefighting"
 	stage = READY
 
@@ -563,7 +560,6 @@
 /obj/item/grenade/chem_grenade/antiweed
 	payload_name = "weed killer"
 	desc = "Used for purging large areas of invasive plant species. Contents under pressure. Do not directly inhale contents."
-	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "antiweed"
 	stage = READY
 
@@ -586,7 +582,6 @@
 /obj/item/grenade/chem_grenade/cleaner
 	payload_name = "cleaner"
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
-	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "cleaner"
 	stage = READY
 	/// The chemical used to clean things
@@ -623,7 +618,6 @@
 /obj/item/grenade/chem_grenade/teargas
 	payload_name = "teargas"
 	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
-	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "teargas"
 	stage = READY
 
