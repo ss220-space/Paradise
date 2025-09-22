@@ -26,6 +26,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/emergencyDockTime = SHUTTLE_DOCKTIME	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
 	var/emergencyEscapeTime = SHUTTLE_ESCAPETIME	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 	var/emergency_sec_level_time = 0 // time sec level was last raised to red or higher
+	var/emergency_refill_time = 30 MINUTES
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
 	var/list/hostile_environment = list()
