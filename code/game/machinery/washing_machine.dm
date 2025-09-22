@@ -153,9 +153,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	/// Our sweet wires
 	var/datum/wires/washing_machine/wires
 
-/obj/machinery/washing_machine/examine(mob/user)
-	. = ..()
-	. += span_notice("<b>Alt-click</b> to start washing.")
 
 /obj/machinery/washing_machine/Initialize(mapload)
 	. = ..()
@@ -555,8 +552,21 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		set_shackles(null)
 	. = ..()
 
-
+/**
+ * Updates an item's appearance to mimic the appearance of another item in the dye_registry's dictionary
+ * what types of items (beanie, jumpsuit, shoes, etc) src is dyed into depends on the dye_key unless an
+ * overidden dye_key is specified. For example if our dye_key is DYE_REGISTRY_UNDER and we specify to dye to
+ * DYE_RED, our item's appearance would then mimic /obj/item/clothing/under/color/red; see [code/_globalvars/lists/dye_registry.dm] for this dictionary
+ *
+ * once everything is updated, the target type path that we dyed the item into is returned
+ *
+ * Arguments:
+ * - dye_color: the DYE_COLOR specifies which dye color we look up to copy apearances from in the dye_registry; cannot be null
+ * - dye_key_override: this overrides the items `dyeing_key` which allows you to force the proc to use a specific lookup key for the dye_registry; this can be null
+ */
 /obj/item/proc/dye_item(dye_color, dye_key_override)
+	if(!dye_color)
+		return
 	var/dye_key_selector = dye_key_override ? dye_key_override : dying_key
 	if(undyeable)
 		return FALSE
@@ -569,27 +579,23 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(!target_type)
 		return FALSE
 
-	name = initial(target_type.name)
-	desc = "[initial(target_type.desc)] The colors are a bit dodgy."
+	var/obj/item/target_obj = new target_type
+	icon = target_obj.icon
+	icon_state = target_obj.icon_state
+	item_state = target_obj.item_state
+	item_color = target_obj.item_color
+	lefthand_file = target_obj.lefthand_file
+	righthand_file = target_obj.righthand_file
 
-	icon = initial(target_type.icon)
-	icon_state = initial(target_type.icon_state)
-	item_state = initial(target_type.item_state)
-	item_color = initial(target_type.item_color)
+	if(target_obj.sprite_sheets || target_obj.onmob_sheets)
+		sprite_sheets = target_obj.sprite_sheets
+		onmob_sheets = target_obj.onmob_sheets
 
-	lefthand_file = initial(target_type.lefthand_file)
-	righthand_file = initial(target_type.righthand_file)
-
-	if(initial(target_type.sprite_sheets) || initial(target_type.onmob_sheets))
-		// Sprites-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the target_type.
-		var/obj/item/dummy = new target_type(null)
-		sprite_sheets = dummy.sprite_sheets
-		onmob_sheets = dummy.onmob_sheets
-		qdel(dummy)
-
-	update_appearance()
-	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
-
+	name = target_obj.name
+	ru_names = target_obj.get_ru_names_cached()
+	desc = "[target_type.desc] Цвет выглядит блеклым."
+	qdel(target_obj)
+	return target_type
 
 #undef STATE_FULL
 #undef STATE_OPENED

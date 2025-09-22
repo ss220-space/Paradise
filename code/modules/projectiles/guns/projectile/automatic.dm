@@ -129,7 +129,7 @@
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
 	name = "C-20r SMG"
-	desc = "A two-round burst .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
+	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
 	item_state = "c20r"
 	origin_tech = "combat=5;materials=2;syndicate=6"
@@ -146,6 +146,8 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 6)
 	)
 	recoil = GUN_RECOIL_MEDIUM
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	autofire_delay = 0.25 SECONDS
 
 
 /obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
@@ -161,6 +163,25 @@
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
 
+
+//C-20rm Full auto
+/obj/item/gun/projectile/automatic/c20r/auto
+	name = "C-20rm SMG"
+	desc = "Новейшая модификация автоматического пистолет-пулемета \"C-20r\" под .45 калибр, отличается выскойим темпом стрельбы в автоматическом режиме."
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
+	autofire_delay = 0.15 SECONDS
+	fire_delay = 0.15 SECONDS
+
+/obj/item/gun/projectile/automatic/c20r/auto/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет-пулемет C-20rm",
+		GENITIVE = "пистолет-пулемета C-20rm",
+		DATIVE = "пистолет-пулемету C-20rm",
+		ACCUSATIVE = "пистолет-пулемету C-20rm",
+		INSTRUMENTAL = "пистолет-пулеметом C-20rm",
+		PREPOSITIONAL = "пистолет-пулемете C-20rm"
+	)
 
 
 //WT550//
