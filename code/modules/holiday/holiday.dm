@@ -26,6 +26,7 @@
  * Important note: it runs before mapping subsystem init, do not place/alter objects in world using this proc.
  */
 /datum/holiday/proc/celebrate()
+	return
 
 /// When the round starts, this proc is ran to get a text message to display to everyone to wish them a happy holiday
 /datum/holiday/proc/greet()

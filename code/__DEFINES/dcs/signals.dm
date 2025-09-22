@@ -607,7 +607,8 @@
 #define COMSIG_VIEW_SET "view_set"
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_MOB_CHANGED_TYPE "mob_changed_type"
-
+/// From base of /mob/proc/update_held_items
+#define COMSIG_MOB_UPDATE_HELD_ITEMS "mob_update_held_items"
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)

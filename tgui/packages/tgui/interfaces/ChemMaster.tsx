@@ -407,25 +407,24 @@ type ChemMasterNameInputProps = {
   placeholder: string;
   fluid: boolean;
   value: string;
-  onMouseUp?: (MouseEvent) => void;
-  onChange?: (e, value) => void;
+  onMouseUp?: (e: React.MouseEvent<HTMLInputElement>) => void;
+  onChange?: (value: string) => void;
 } & BoxProps;
 
-class ChemMasterNameInput extends Component<
-  ChemMasterNameInputProps & BoxProps
-> {
-  constructor(props: ChemMasterNameInputProps) {
-    super(props);
-  }
+const ChemMasterNameInput = (props: ChemMasterNameInputProps) => {
+  const { data } = useBackend<ChemMasterData>();
+  const { maxnamelength } = data;
+  const { placeholder, fluid, value, onMouseUp, onChange, ...rest } = props;
 
-  handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
-    const { placeholder, onMouseUp } = this.props;
-    const target = e.target as HTMLInputElement;
-
+  const handleMouseUp = (e: React.MouseEvent<HTMLInputElement>) => {
     // Middle-click button
     if (e.button === 1) {
-      target.value = placeholder;
-      target.select();
+      e.currentTarget.value = placeholder;
+      e.currentTarget.select();
+
+      if (onChange) {
+        onChange(placeholder);
+      }
     }
 
     if (onMouseUp) {
@@ -433,19 +432,23 @@ class ChemMasterNameInput extends Component<
     }
   };
 
-  render() {
-    const { data } = useBackend<ChemMasterData>();
-    const { maxnamelength } = data;
+  const handleChange = (value: string) => {
+    if (onChange) {
+      onChange(value);
+    }
+  };
 
-    return (
-      <Input
-        maxLength={maxnamelength}
-        onMouseUp={this.handleMouseUp}
-        {...computeBoxProps(this.props)}
-      />
-    );
-  }
-}
+  return (
+    <Input
+      maxLength={maxnamelength}
+      fluid={fluid}
+      value={value}
+      onMouseUp={handleMouseUp}
+      onChange={handleChange}
+      {...computeBoxProps(rest)}
+    />
+  );
+};
 
 const ChemMasterProductionCommon = (props: {
   children: ReactNode | ReactNode[];
@@ -479,7 +482,7 @@ const ChemMasterProductionCommon = (props: {
             fluid
             value={set_name}
             placeholder={placeholder_name}
-            onChange={(e, value) =>
+            onChange={(value) =>
               act(`set_items_name`, {
                 production_mode: id,
                 name: value,

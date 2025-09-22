@@ -47,7 +47,7 @@
 		correctness = 100
 		willpower = 100
 
-	if(human.job in list(JOB_TITLE_CHAPLAIN) || human.mind.isholy) // the librarian is both faster, and more accurate than normal crew members at research
+	if((human.job in list(JOB_TITLE_CHAPLAIN)) || human.mind.isholy) // the librarian is both faster, and more accurate than normal crew members at research
 		speed = 30 SECONDS
 		correctness = 100
 

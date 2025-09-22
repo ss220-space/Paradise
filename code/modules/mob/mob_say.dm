@@ -211,7 +211,7 @@
 			prefixes[++prefixes.len] = list(L, i, i + length_char(selection))
 		else if(!L && i == 1)
 			prefixes[++prefixes.len] = list(get_default_language(), i, i)
-		else
+
 	return prefixes
 
 

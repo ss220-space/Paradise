@@ -511,7 +511,7 @@
 		return SURGERY_STEP_INCOMPLETE
 
 	user.drop_from_active_hand()
-	I.insert(target)
+	I.insert(target, ORGAN_MANIPULATION_TRANSPLANTATE)
 	user.visible_message(
 		span_notice("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
 		span_notice("Вы устанавливаете [I.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),

@@ -141,44 +141,58 @@ What are the archived variables for?
 /datum/gas_mixture/proc/archive()
 	//Update archived versions of variables
 	//Returns: 1 in all cases
+	return
 
 /datum/gas_mixture/proc/merge(datum/gas_mixture/giver)
 	//Merges all air from giver into self. Deletes giver.
 	//Returns: 1 on success (no failure cases yet)
+	return
 
 /datum/gas_mixture/proc/remove(amount)
 	//Proportionally removes amount of gas from the gas_mixture
 	//Returns: gas_mixture with the gases removed
+	return
 
 /datum/gas_mixture/proc/remove_ratio(ratio)
 	//Proportionally removes amount of gas from the gas_mixture
 	//Returns: gas_mixture with the gases removed
+	return
 
 /datum/gas_mixture/proc/copy_from(datum/gas_mixture/sample)
 	//Copies variables from sample
+	return
 
 /datum/gas_mixture/proc/copy_from_turf(turf/model)
 	//Copies all gas info from the turf into the gas list along with temperature
 	//Returns: 1 if we are mutable, 0 otherwise
+	return
 
 /datum/gas_mixture/proc/share(datum/gas_mixture/sharer)
 	//Performs air sharing calculations between two gas_mixtures assuming only 1 boundary length
 	//Return: amount of gas exchanged (+ if sharer received)
+	return
+
 /datum/gas_mixture/proc/mimic(turf/model) //I want this proc to die a painful death
 	//Similar to share(...), except the model is not modified
 	//Return: amount of gas exchanged
+	return
 
 /datum/gas_mixture/proc/check_turf(turf/model) //I want this proc to die a painful death
 	//Returns: 0 if self-check failed or 1 if check passes
+	return
 
 /datum/gas_mixture/proc/temperature_mimic(turf/model, conduction_coefficient) //I want this proc to die a painful death
+	return
 
 /datum/gas_mixture/proc/temperature_share(datum/gas_mixture/sharer, conduction_coefficient)
+	return
 
 /datum/gas_mixture/proc/temperature_turf_share(turf/simulated/sharer, conduction_coefficient)
+	return
 
 /datum/gas_mixture/proc/compare(datum/gas_mixture/sample)
 	//Compares sample to self to see if within acceptable ranges that group processing may be enabled
+	return
 
 /datum/gas_mixture/archive()
 	oxygen_archived = oxygen
