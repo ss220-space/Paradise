@@ -307,11 +307,14 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	/// The target that we're gonna aim for between start and end
 	var/obj/effect/portal/exit
 	var/turf/end
+	var/reason
+	var/atom/target
 	admin_spawned = TRUE
 
 /obj/effect/immovablerod/smite/Initialize(mapload, atom/target_atom, atom/special_target, move_delay, force_looping)
 	new /obj/effect/portal(mapload, null, null, 2 SECONDS)
 	end = get_turf(target_atom)
+	target = target_atom
 	return ..()
 
 /obj/effect/immovablerod/smite/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
@@ -329,6 +332,15 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/target_turf = get_ranged_target_turf(src, dir, rand(1, 10))
 	exit = new /obj/effect/portal(target_turf, null, null, 2 SECONDS)
 	SSmove_manager.move_towards(src, exit, delay = move_delay)
+
+
+/obj/effect/immovablerod/smite/penetrate(mob/living/smeared_mob)
+	. = ..()
+	if(smeared_mob != target || !reason)
+		return
+
+	to_chat(smeared_mob, span_userdanger("Чувствуя как [declent_ru(NOMINATIVE)] проход[pluralize_ru(gender, "ит", "ят")] через ваши внутренности, вы внезапно осознаёте - боги наказали вас за [reason]!"))
+
 
 /**
  * Allows your rod to release restraint level zero and go for a walk.

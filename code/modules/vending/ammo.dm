@@ -15,7 +15,7 @@
 		/obj/item/ammo_box/magazine/wt550m9  = 10,
 		/obj/item/ammo_box/magazine/sp91rc = 10,
 		/obj/item/ammo_box/magazine/enforcer/lethal = 10,
-		/obj/item/ammo_box/magazine/specter/laser = 10,
+		/obj/item/stock_parts/cell/specter = 10,
 		/obj/item/ammo_box/magazine/lr30mag = 10,
 		/obj/item/ammo_box/shotgun = 1,
 		/obj/item/ammo_box/shotgun/buck = 2,

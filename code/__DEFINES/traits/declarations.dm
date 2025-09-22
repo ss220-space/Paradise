@@ -341,6 +341,9 @@
 
 #define TRAIT_BALD "bald"
 
+/// Owner mob sometimes will headbutts airlocks as if it had 60+ braindamage.
+#define TRAIT_AIRLOCK_HIT "airlock_hit"
+
 /// Anti stun reagent in blood
 #define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"
 

@@ -77,6 +77,7 @@
 
 /obj/proc/CouldNotUseTopic(mob/user)
 	// Nada
+	return
 
 /obj/Destroy(force)
 	if(!ismachinery(src))
@@ -207,6 +208,7 @@
 	return
 
 /obj/proc/hear_message(mob/M, text)
+	return
 
 /obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
 	add_fingerprint(user)

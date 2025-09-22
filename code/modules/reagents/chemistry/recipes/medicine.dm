@@ -113,6 +113,14 @@
 /datum/chemical_reaction/traneksam_acid/on_reaction(datum/reagents/holder, created_volume)
 	make_vaporation(list("cyanide"), holder, created_volume * 0.25, 1)
 
+/datum/chemical_reaction/neuromatin
+	name = "Нейроматин"
+	id = "neuromatin"
+	result = "neuromatin"
+	required_reagents = list("sterilizine" = 3, "mannitol" = 5, "mitocholide" = 1, "atropine" = 1)
+	result_amount = 10
+	min_temp = 350 //K
+
 /datum/chemical_reaction/calomel
 	name = "Calomel"
 	id = "calomel"
