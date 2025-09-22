@@ -56,19 +56,19 @@
 	switch(charge)
 		if(1 to 2000)
 			. += "Specter_overlay_low"
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		if(2001 to 4000)
 			. += "Specter_overlay_half2"
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		if(4001 to 6000)
 			. += "Specter_overlay_half"
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		if(6001 to 8000)
 			. += "Specter_overlay_full"
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			. += "Specter_overlay_empty"
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/get_cell()
 	return src
