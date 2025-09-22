@@ -370,7 +370,6 @@
 	caliber = CALIBER_9MM
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/beam/specter/laser
-	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
 
