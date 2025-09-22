@@ -215,8 +215,7 @@
 	if(module_type == MODULE_ACTIVE)
 		mod.selected_module = null
 		if(display_message)
-			balloon_alert(mod.wearer, device ? "[device.declent_ru(NOMINATIVE)] втянут[genderize_ru(device.gender, "", "а", "о", "ы")]" :
-			"деактивировано")
+			balloon_alert(mod.wearer, device ? "[device.declent_ru(NOMINATIVE)] втянут[genderize_ru(device.gender, "", "а", "о", "ы")]" : "деактивировано")
 		if(device)
 			mod.wearer.drop_transfer_item_to_loc(device, src, TRUE)
 			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)
