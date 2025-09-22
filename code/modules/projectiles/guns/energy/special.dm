@@ -754,6 +754,69 @@
 	is_equipped = FALSE
 	update_icon()
 
+//Specter//
+/obj/item/gun/energy/specter
+	name = "Specter"
+	desc = "Современный пистолет \"Спектр\", модернизирован для возможности стрельбы лазерными патронами. Поставляется только силовым структурам Нанотрейзен."
+	ru_names = list(
+		NOMINATIVE = "Спектр",
+		GENITIVE = "Спектра",
+		DATIVE = "Спектру",
+		ACCUSATIVE = "Спектр",
+		INSTRUMENTAL = "Спектром",
+		PREPOSITIONAL = "Спектре"
+	)
+	icon_state = "specter"
+	item_state = "specter"
+	force = 10
+	origin_tech = "combat=4;materials=2"
+	cell_type = /obj/item/stock_parts/cell/specter
+	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
+	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/spec_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/spec_magout.ogg'
+	unique_reskin = TRUE
+	materials = list(MAT_METAL = 1000)
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_MIN
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
+	)
+	can_add_sibyl_system = FALSE
+	ammo_x_offset = 0
+
+/obj/item/gun/energy/specter/update_gun_skins()
+	add_skin("Grey slide", "specter")
+	add_skin("Red slide", "specter_red")
+	add_skin("Green slide", "specter_green")
+	add_skin("Tan slide", "specter_tan")
+	add_skin("Green Handle", "specter_greengrip")
+	add_skin("Tan Handle", "specter_tangrip")
+	add_skin("Red Handle", "specter_redgrip")
+
+
+/obj/item/gun/energy/specter/update_icon_state()
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+
+/obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
+	if(!istype(item, /obj/item/stock_parts/cell/specter))
+		return ..()
+	add_fingerprint(user)
+	if(!user.drop_transfer_item_to_loc(item, src))
+		balloon_alert(user, "отпустить невозможно!")
+		return ATTACK_CHAIN_PROCEED
+
+	user.put_in_hands(cell)
+	cell = item
+	cell_type = item.type
+	balloon_alert(user, "батарейка заменена")
+
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/gun/energy/emittergun
 	name = "Handicraft Emitter Rifle"
