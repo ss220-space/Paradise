@@ -329,7 +329,7 @@
 	H.forceMove(L)
 	if(prob(75) && !H.get_int_organ(/obj/item/organ/internal/legion_tumour)) // Congratulations you have won a special prize: cancer!
 		var/obj/item/organ/internal/legion_tumour/cancer = new()
-		cancer.insert(H, special = TRUE)
+		cancer.insert(H)
 
 	qdel(src)
 

@@ -38,7 +38,7 @@
 			INSTRUMENTAL = "прото-кинетическим крушителем",
 			PREPOSITIONAL = "прото-кинетическом крушителе"
 	)
-	
+
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
@@ -298,12 +298,16 @@
 	return TRUE
 
 /obj/item/crusher_trophy/proc/on_melee_hit(mob/living/target, mob/living/user) //the target and the user
+	return
 
 /obj/item/crusher_trophy/proc/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
+	return
 
 /obj/item/crusher_trophy/proc/on_mark_application(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark) //the target, the mark applied, and if the target had a mark before
+	return
 
 /obj/item/crusher_trophy/proc/on_mark_detonation(mob/living/target, mob/living/user) //the target and the user
+	return
 
 //goliath
 /obj/item/crusher_trophy/goliath_tentacle
@@ -517,7 +521,7 @@
 		ACCUSATIVE = "морозную железу",
 		INSTRUMENTAL = "морозной железой",
 		PREPOSITIONAL = "морозной железе"
-	)	
+	)
 
 /obj/item/crusher_trophy/gland/effect_desc()
 	return "Отмеченная дестабилизатором фауна наносит на <b>10%</b> меньше урона"
