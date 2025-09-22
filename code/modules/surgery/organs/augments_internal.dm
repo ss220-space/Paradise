@@ -500,8 +500,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/insert(mob/living/carbon/human/target)
 	if(!crit_fail)
-		for(var/trait in traits_added)
-			ADD_TRAIT(target, trait, UNIQUE_TRAIT_SOURCE(src))
+		H.add_traits(traits_added, TRAIT, UNIQUE_TRAIT_SOURCE(src))
 		target.maxHealth += given_health
 		target.health += given_health
 		target.dna.species.hazard_low_pressure = low_pressure_hazard
@@ -515,8 +514,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/remove(mob/living/carbon/human/target)
 	if(!crit_fail)
-		for(var/trait in traits_added)
-			REMOVE_TRAIT(target, trait, UNIQUE_TRAIT_SOURCE(src))
+		H.remove_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
 		target.health -= given_health
 		target.maxHealth -= given_health
 		target.dna.species.hazard_low_pressure = initial(target.dna.species.hazard_low_pressure)
@@ -531,33 +529,32 @@
 /obj/item/organ/internal/cyberimp/chest/exoframe/emp_act(severity)
 	if(emp_proof || crit_fail)
 		return
+	if(!ishuman(owner))
+		return
 	if(prob(30))
 		to_chat(owner, span_warning("Приводы вашего экзоскелета перестали двигаться!"))
 		crit_fail = TRUE
-		var/mob/living/carbon/human/H = owner
-		if(ishuman(H))
-			H.health -= given_health
-			H.maxHealth -= given_health
-			H.dna.species.hazard_low_pressure = initial(H.dna.species.hazard_low_pressure)
-			H.dna.species.warning_low_pressure = initial(H.dna.species.warning_low_pressure)
-			H.dna.species.coldmod = initial(H.dna.species.coldmod)
-			for(var/trait in traits_added)
-				REMOVE_TRAIT(H, trait, UNIQUE_TRAIT_SOURCE(src))
+		var/mob/living/carbon/human/human = owner
+		human.health -= given_health
+		human.maxHealth -= given_health
+		human.dna.species.hazard_low_pressure = initial(human.dna.species.hazard_low_pressure)
+		human.dna.species.warning_low_pressure = initial(human.dna.species.warning_low_pressure)
+		human.dna.species.coldmod = initial(human.dna.species.coldmod)
+		human.remove_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
 		damage = 1
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/surgeryize()
 	if(crit_fail && owner)
 		to_chat(owner, span_notice("Приводы вашего экзоскелета вновь активны."))
 	crit_fail = FALSE
-	var/mob/living/carbon/human/H = owner
-	if(ishuman(H))
-		for(var/trait in traits_added)
-			ADD_TRAIT(H, trait, UNIQUE_TRAIT_SOURCE(src))
-		H.maxHealth += given_health
-		H.health += given_health
-		H.dna.species.hazard_low_pressure = low_pressure_hazard
-		H.dna.species.warning_low_pressure = low_pressure_warning
-		H.dna.species.coldmod = coldmod
+	var/mob/living/carbon/human/human = owner
+	if(ishuman(human))
+		human.add_traits(traits_added, TRAIT, UNIQUE_TRAIT_SOURCE(src))
+		human.maxHealth += given_health
+		human.health += given_health
+		human.dna.species.hazard_low_pressure = low_pressure_hazard
+		human.dna.species.warning_low_pressure = low_pressure_warning
+		human.dna.species.coldmod = coldmod
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/reinforced
 	name = "Укрепленный каркас экзоскелета"
@@ -634,18 +631,19 @@
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(!crit_fail)
-		active = !active
-		if(active)
-			to_chat(owner, span_notice("Ваши движения ускоряются!"))
-			owner.add_movespeed_modifier(/datum/movespeed_modifier/increaserun)
-			owner.dna.species.hunger_drain_mod *= 4
-		else
-			to_chat(owner, span_notice("Ваши движения замедляются!"))
-			owner.remove_movespeed_modifier(/datum/movespeed_modifier/increaserun)
-			owner.dna.species.hunger_drain_mod /= 4
-	else
+	if(crit_fail)
 		to_chat(owner, span_warning("[src] не отвечает!"))
+		return
+	
+	active = !active
+	if(active)
+		to_chat(owner, span_notice("Ваши движения ускоряются!"))
+		owner.add_movespeed_modifier(/datum/movespeed_modifier/increaserun)
+		owner.dna.species.hunger_drain_mod *= 4
+	else
+		to_chat(owner, span_notice("Ваши движения замедляются!"))
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/increaserun)
+		owner.dna.species.hunger_drain_mod /= 4
 
 //BOX O' IMPLANTS
 

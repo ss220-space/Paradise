@@ -214,10 +214,9 @@
 /datum/species/machine/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	return 1 + (0.01*rand(-tolerance,tolerance))
 
-/datum/species/machine/job_pre_equip(mob/living/carbon/human/H)
-	if(H.client.prefs.exoframe_type)
-		var/obj/item/organ/internal/cyberimp/chest/exoframe/E = new H.client.prefs.exoframe_type
-		to_chat(H, span_notice("Имплантируем [E.name]!"))
-		E.insert(H)
+/datum/species/machine/job_pre_equip(mob/living/carbon/human/human)
+	if(human.client.prefs.exoframe_type)
+		var/obj/item/organ/internal/cyberimp/chest/exoframe/E = new human.client.prefs.exoframe_type
+		E.insert(human)
 	
 	. = ..()
