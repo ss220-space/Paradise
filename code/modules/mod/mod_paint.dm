@@ -5,7 +5,7 @@
 	icon_state = "skinapplier"
 	var/skin = "civilian"
 	var/make_spaceproof = FALSE //Used on the miner asteroid skin to make the suit spaceproof when upgrading.
-	var/compatible_theme = /datum/mod_theme/standard
+	var/compatible_theme = /datum/mod_theme
 
 /obj/item/mod/skin_applier/get_ru_names()
 	return list(
@@ -27,7 +27,7 @@
 	if(!istype(mod.theme, compatible_theme))
 		balloon_alert(user, "несовместимый тип костюма!")
 		return TRUE
-	mod.set_mod_skin(skin)
+	mod.theme.set_skin(mod, skin)
 	if(make_spaceproof)
 		mod.min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 		for(var/obj/item/clothing/C in mod.mod_parts)

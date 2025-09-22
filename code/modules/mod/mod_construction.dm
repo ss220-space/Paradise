@@ -95,7 +95,7 @@
 	name = "MOD external plating"
 	desc = "Внешняя обшивка, используемая для строительства блока управления модульного экзо-костюма. "
 	icon_state = "standard-plating"
-	var/datum/mod_theme/theme = /datum/mod_theme/standard
+	var/datum/mod_theme/theme = /datum/mod_theme
 
 /obj/item/mod/construction/plating/get_ru_names()
 	return list(

@@ -12,7 +12,7 @@
 	icon_state = "health"
 	module_type = MODULE_ACTIVE
 	complexity = 1
-	use_power_cost = DEFAULT_CHARGE_DRAIN
+	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/health_analyzer)
 	cooldown_time = 0.5 SECONDS
 	tgui_id = "health_analyzer"
@@ -45,7 +45,7 @@
 			healthscan(mod.wearer, target)
 		if(CHEM_SCAN)
 			chemscan(mod.wearer, target)
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 
 /obj/item/mod/module/health_analyzer/get_configuration()
 	. = ..()
@@ -71,11 +71,11 @@
 	//required_slots = list(ITEM_SLOT_GLOVES)
 	var/quick_carry_trait = TRAIT_QUICK_CARRY
 
-/obj/item/mod/module/quick_carry/on_suit_activation()
+/obj/item/mod/module/quick_carry/on_part_activation()
 	. = ..()
 	ADD_TRAIT(mod.wearer, quick_carry_trait, UNIQUE_TRAIT_SOURCE(src))
 
-/obj/item/mod/module/quick_carry/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/quick_carry/on_part_deactivation(deleting = FALSE)
 	. = ..()
 	REMOVE_TRAIT(mod.wearer, quick_carry_trait, UNIQUE_TRAIT_SOURCE(src))
 
@@ -144,7 +144,7 @@
 	icon_state = "defibrillator"
 	module_type = MODULE_ACTIVE
 	complexity = 2
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 200 // 1000 charge. Shocking, I know.
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 200 // 1000 charge. Shocking, I know.
 	device = /obj/item/mod_defib
 	overlay_state_inactive = "module_defibrillator"
 	overlay_state_active = "module_defibrillator_active"
@@ -167,7 +167,7 @@
 
 /obj/item/mod/module/defibrillator/proc/on_defib_success()
 	SIGNAL_HANDLER  // COMSIG_DEFIB_SHOCK_APPLIED
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 
 /obj/item/mod_defib
 	name = "defibrillator gauntlets"
@@ -228,7 +228,7 @@
 		those in-built safeties. Operatives in the field can benefit from what they dub as 'Stun Gloves', able to apply shocks \
 		straight to a victims heart to disable them, or maybe even outright stop their heart with enough power."
 	complexity = 1
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 400 // 2000 charge. Since you like causing heart attacks, don't you?
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 400 // 2000 charge. Since you like causing heart attacks, don't you?
 	module_type = MODULE_ACTIVE
 	overlay_state_inactive = "module_defibrillator_combat"
 	overlay_state_active = "module_defibrillator_combat_active"
@@ -313,7 +313,7 @@
 	icon_state = "organizer"
 	module_type = MODULE_ACTIVE
 	complexity = 2
-	use_power_cost = DEFAULT_CHARGE_DRAIN
+	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/organizer) //TODO modsuit: add /obj/item/mod/module/microwave_beam
 	cooldown_time = 0.5 SECONDS
 	//required_slots = list(ITEM_SLOT_GLOVES)
@@ -338,7 +338,7 @@
 		organ.forceMove(src)
 		balloon_alert(mod.wearer, "picked up [organ]")
 		playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
-		drain_power(use_power_cost)
+		drain_power(use_energy_cost)
 		return
 	if(!length(organ_list))
 		return
@@ -350,7 +350,7 @@
 	projectile.fire()
 	playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
 	INVOKE_ASYNC(projectile, TYPE_PROC_REF(/obj/projectile, fire))
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 
 /obj/projectile/organ
 	name = "organ"

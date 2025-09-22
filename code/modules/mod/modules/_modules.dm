@@ -16,7 +16,7 @@
 	/// Power use when active
 	var/active_power_cost = DEFAULT_CHARGE_DRAIN * 0
 	/// Power use when used, we call it manually
-	var/use_power_cost = DEFAULT_CHARGE_DRAIN * 0
+	var/use_energy_cost = DEFAULT_CHARGE_DRAIN * 0
 	/// ID used by their TGUI
 	var/tgui_id
 	/// Linked MODsuit
@@ -31,31 +31,36 @@
 	var/overlay_state_use
 	/// Icon file for the overlay.
 	var/overlay_icon_file = 'icons/mob/clothing/modsuit/mod_modules.dmi'
+
 	/// Does the overlay use the control unit's colors?
 	var/use_mod_colors = FALSE
-	///Does the mod overide the colour in some way?
-	var/mod_color_overide
 	/// What modules are we incompatible with?
 	var/list/incompatible_modules = list()
 	/// Cooldown after use
 	var/cooldown_time = 0
 	/// The mouse button needed to use this module
 	var/used_signal
-	/// List of UID()s mobs we are pinned to, linked with their action buttons
+	/// Are all parts needed active- have we ran on_part_activation
+	var/part_activated = FALSE
+	/// Do we need the parts to be extended to run process
+	var/part_process = TRUE
+	/// List of UIDs mobs we are pinned to, linked with their action buttons
 	var/list/pinned_to = list()
 	/// flags that let the module ability be used in odd circumstances
 	var/allow_flags = NONE
+	/// A list of slots required in the suit to work. Formatted like list(x|y, z, ...) where either x or y are required and z is required.
+	var/list/required_slots = list()
+	/// If TRUE worn overlay will be masked with the suit, preventing any bits from poking out of its controur
+	var/mask_worn_overlay = FALSE
 	/// Timer for the cooldown
-	COOLDOWN_DECLARE(cooldown_timer) //sohtgdoiuduhnfipguhndshnfigdnghd
-	///The UID of the module. Don't ask.
-	var/module_UID = null
+	COOLDOWN_DECLARE(cooldown_timer)
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey_mod_modules.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/modules_vulp.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/modules_taj.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/modules_unathi.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/modules_vox.dmi'
-		)
+	)
 
 /obj/item/mod/module/get_ru_names() //i have to look on fucking fnaf wiki to find out how to translate this shit
 	return list(
@@ -69,35 +74,60 @@
 
 /obj/item/mod/module/Initialize(mapload)
 	. = ..()
-	module_UID = UID()
-	if(module_type != MODULE_ACTIVE)
+	if(module_type != MODULE_ACTIVE || !ispath(device))
 		return
-	if(ispath(device))
-		device = new device(src)
-		device.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-		device.slot_flags = NONE
-		device.w_class = WEIGHT_CLASS_HUGE
-		device.materials = null
-		RegisterSignal(device, COMSIG_QDELETING, PROC_REF(on_device_deletion))
-		RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
+
+	//TODO MODSUIT: выглядит как костыль
+	device = new device(src)
+	device.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	device.slot_flags = NONE
+	device.w_class = WEIGHT_CLASS_HUGE
+	device.materials = null
+
+	RegisterSignal(device, COMSIG_QDELETING, PROC_REF(on_device_deletion))
+	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 
 /obj/item/mod/module/Destroy()
 	mod?.uninstall(src)
 	if(device)
 		UnregisterSignal(device, COMSIG_QDELETING)
 		QDEL_NULL(device)
+
 	return ..()
 
 /obj/item/mod/module/examine(mob/user)
 	. = ..()
+	if(length(required_slots))
+		var/list/slot_strings = list()
+		for(var/slot in required_slots)
+			var/list/slot_list = parse_slot_flags(slot)
+			slot_strings += (length(slot_list) == 1 ? "" : "один из ") + russian_list(slot_list, and_text = " или ")
+		. += span_notice("МЭК обязан иметь данные слоты: [russian_list(slot_strings)]")
 	. += "Стоимость модуля: [complexity]"
 
+/// Looks through the MODsuit's parts to see if it has the parts required to support this module
+/obj/item/mod/module/proc/has_required_parts(list/parts, need_active = FALSE)
+	if(!length(required_slots))
+		return TRUE
+	var/total_slot_flags = NONE
+	for(var/part_slot in parts)
+		if(need_active)
+			var/datum/mod_part/part_datum = parts[part_slot]
+			if(!part_datum.sealed)
+				continue
+		total_slot_flags |= text2num(part_slot)
+	var/list/needed_slots = required_slots.Copy()
+	for(var/needed_slot in needed_slots)
+		if(!(needed_slot & total_slot_flags))
+			break
+		needed_slots -= needed_slot
+	return !length(needed_slots)
 
 /// Called when the module is selected from the TGUI, radial or the action button
-/obj/item/mod/module/proc/on_select()
+/obj/item/mod/module/proc/on_select(mob/activator)
 	if(((!mod.active || mod.activating) && !(allow_flags & MODULE_ALLOW_INACTIVE)) || module_type == MODULE_PASSIVE)
 		if(mod.wearer)
-			balloon_alert(mod.wearer, "модуль неактивен!")
+			balloon_alert(mod.wearer, "модуль не активен!")
 		return
 	if(module_type != MODULE_USABLE)
 		if(active)
@@ -108,6 +138,32 @@
 		on_use()
 	SEND_SIGNAL(mod, COMSIG_MOD_MODULE_SELECTED, src)
 
+	if(!mod.wearer && !(allow_flags & MODULE_ALLOW_UNWORN)) //No wearer and cannot be used unworn
+		balloon_alert(activator, "модуль не экипирован!")
+		return
+	if(((!mod.active || mod.activating) && !(allow_flags & (MODULE_ALLOW_INACTIVE | MODULE_ALLOW_UNWORN))) || module_type == MODULE_PASSIVE) // not active
+		balloon_alert(activator, "модуль неактивен!")
+		return
+
+	if(!has_required_parts(mod.mod_parts, need_active = TRUE) && !(allow_flags & MODULE_ALLOW_UNWORN)) // Doesn't have parts
+		balloon_alert(activator, "необходимые части неактивны!")
+		var/list/slot_strings = list()
+		for(var/slot in required_slots)
+			var/list/slot_list = parse_slot_flags(slot)
+			slot_strings += (length(slot_list) == 1 ? "" : "один из ") + russian_list(slot_list, and_text = " или ")
+		to_chat(activator, span_warning("Для модуля необходимо, что данные модули были развернуты: [russian_list(slot_strings)]"))
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return
+
+	if(module_type != MODULE_USABLE)
+		if(active)
+			deactivate(activator)
+		else
+			activate(activator)
+	else
+		used(activator)
+	SEND_SIGNAL(mod, COMSIG_MOD_MODULE_SELECTED, src)
+
 /// Apply a cooldown until this item can be used again
 /obj/item/mod/module/proc/start_cooldown(applied_cooldown)
 	if (isnull(applied_cooldown))
@@ -116,51 +172,51 @@
 	SEND_SIGNAL(src, COMSIG_MODULE_COOLDOWN_STARTED, applied_cooldown)
 
 /// Called when the module is activated
-/obj/item/mod/module/proc/on_activation()
-	SHOULD_CALL_PARENT(TRUE)
+/obj/item/mod/module/proc/activate(mob/activator)
 	if(!COOLDOWN_FINISHED(src, cooldown_timer))
-		balloon_alert(mod.wearer, "модуль на перезарядке!")
+		balloon_alert(activator, "на перезарядке!")
 		return FALSE
 	if(!mod.active || mod.activating || !mod.get_charge())
-		balloon_alert(mod.wearer, "не хватает энергии!")
+		balloon_alert(activator, "не хватает энергии!")
+		return FALSE
+	//Used in time travel module, if we port it
+	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
+		//specifically a to_chat because the user is phased out.
+		to_chat(activator, span_warning("Вы не можете использовать данный модуль сейчас."))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
 	if(module_type == MODULE_ACTIVE)
-		if(mod.selected_module && !mod.selected_module.on_deactivation(display_message = FALSE))
+		if(mod.selected_module && !mod.selected_module.deactivate(display_message = FALSE))
 			return FALSE
 		mod.selected_module = src
 		if(device)
 			if(mod.wearer.put_in_hands(device))
-				balloon_alert(mod.wearer, "[device.declent_ru(NOMINATIVE)] развёрнут[genderize_ru(device.gender, "", "а", "о", "ы")]")
+				balloon_alert(activator, "[device.declent_ru(NOMINATIVE)] развёрнут[genderize_ru(device.gender, "", "а", "о", "ы")]")
 				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 				RegisterSignal(mod.wearer, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dropkey))
 			else
-				balloon_alert(mod.wearer, "нельзя развернуть!")
-				mod.wearer.drop_from_active_hand()
+				balloon_alert(activator, "нельзя развернуть!")
+				mod.wearer.drop_transfer_item_to_loc(device, src, TRUE)
 				return FALSE
 		else
-			var/used_button = "Middle Click"
+			var/used_button = MIDDLE_CLICK
 			update_signal(used_button)
-			balloon_alert(mod.wearer, "активировано. Используйте [used_button]")
-	else
-		COOLDOWN_START(src, cooldown_timer, cooldown_time) //We don't want to put active modules on cooldown when selected
-		balloon_alert(mod.wearer, "активировано!")
+			balloon_alert(mod.wearer, "[src] активировано. Используйте [used_button]") // As of now, only wearers can "use" mods
 	active = TRUE
-	//mod.wearer.update_clothing(mod.slot_flags)
 	SEND_SIGNAL(src, COMSIG_MODULE_ACTIVATED)
+	on_activation(activator)
+	update_clothing_slots()
 	return TRUE
 
 /// Called when the module is deactivated
-/obj/item/mod/module/proc/on_deactivation(display_message = TRUE, deleting = FALSE)
-	SHOULD_CALL_PARENT(TRUE)
+/obj/item/mod/module/proc/deactivate(mob/activator, display_message = TRUE, deleting = FALSE)
 	active = FALSE
 	if(module_type == MODULE_ACTIVE)
 		mod.selected_module = null
-		if(display_message && device)
-			balloon_alert(mod.wearer, "[device.declent_ru(NOMINATIVE)] втянут[genderize_ru(device.gender, "", "а", "о", "ы")]")
-		else if(display_message)
-			balloon_alert(mod.wearer, "деактивировано")
+		if(display_message)
+			balloon_alert(mod.wearer, device ? "[device.declent_ru(NOMINATIVE)] втянут[genderize_ru(device.gender, "", "а", "о", "ы")]" :
+			"деактивировано")
 		if(device)
 			mod.wearer.drop_transfer_item_to_loc(device, src, TRUE)
 			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)
@@ -168,26 +224,45 @@
 		else
 			UnregisterSignal(mod.wearer, used_signal)
 			used_signal = null
-	else if(display_message)
-		balloon_alert(mod.wearer, "модуль деактивирован")
-	//mod.wearer.update_clothing(mod.slot_flags)
 	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED, mod.wearer)
+	on_deactivation(activator, display_message = TRUE, deleting = FALSE)
+	update_clothing_slots()
 	return TRUE
 
+/// Call to update all slots visually affected by this module
+/obj/item/mod/module/proc/update_clothing_slots()
+	if(!mod.wearer)
+		return
+
+	var/updated_slots = mod.slot_flags
+	if (mask_worn_overlay)
+		for (var/obj/item/part as anything in mod.get_parts())
+			updated_slots |= part.slot_flags
+	else if (length(required_slots))
+		for (var/slot in required_slots)
+			updated_slots |= slot
+	mod.wearer.update_clothing(updated_slots)
+
 /// Called when the module is used
-/obj/item/mod/module/proc/on_use()
+/obj/item/mod/module/proc/used(mob/activator)
 	if(!COOLDOWN_FINISHED(src, cooldown_timer))
-		balloon_alert(mod.wearer, "модуль на перезарядке!")
+		balloon_alert(activator, "на перезарядке!")
 		return FALSE
-	if(!check_power(use_power_cost))
-		balloon_alert(mod.wearer, "не хватает энергии!")
+	if(!check_power(use_energy_cost))
+		balloon_alert(activator, "не хватает энергии!")
+		return FALSE
+	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
+		//specifically a to_chat because the user is phased out.
+		to_chat(activator, span_warning("You cannot activate this right now."))
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED, mod.wearer) & MOD_ABORT_USE)
 		return FALSE
-	COOLDOWN_START(src, cooldown_timer, cooldown_time)
-	//addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/mob, update_clothing), mod.slot_flags), cooldown_time+1) //need to run it a bit after the cooldown starts to avoid conflicts
-	//mod.wearer.update_clothing(mod.slot_flags)
+	start_cooldown()
+	if(mod.wearer)
+		addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/mob, update_clothing), mod.slot_flags), cooldown_time+1) //need to run it a bit after the cooldown starts to avoid conflicts
+	update_clothing_slots()
 	SEND_SIGNAL(src, COMSIG_MODULE_USED)
+	on_use(activator)
 	return TRUE
 
 /// Called when an activated module without a device is used
@@ -195,7 +270,7 @@
 	if(!(allow_flags & MODULE_ALLOW_INCAPACITATED) && (mod.wearer.incapacitated() || HAS_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED)))
 		return FALSE
 	mod.wearer.face_atom(target)
-	if(!on_use())
+	if(!used())
 		return FALSE
 	return TRUE
 
@@ -206,56 +281,86 @@
 	return COMSIG_MOB_CANCEL_CLICKON
 
 /// Called on the MODsuit's process
-/obj/item/mod/module/proc/on_process()
+/obj/item/mod/module/proc/on_process(seconds_per_tick)
+	if(part_process && !part_activated)
+		return FALSE
 	if(active)
-		if(!drain_power(active_power_cost))
-			on_deactivation()
+		if(!drain_power(active_power_cost * seconds_per_tick))
+			deactivate()
 			return FALSE
-		on_active_process()
+		on_active_process(seconds_per_tick)
 	else
-		drain_power(idle_power_cost)
+		drain_power(idle_power_cost * seconds_per_tick)
 	return TRUE
+
+/// Called from the module's activate()
+/obj/item/mod/module/proc/on_activation(mob/activator)
+	return
+
+/// Called from the module's deactivate()
+/obj/item/mod/module/proc/on_deactivation(mob/activator, display_message = TRUE, deleting = FALSE)
+	return
+
+/// Called from the module's used()
+/obj/item/mod/module/proc/on_use(mob/activator)
+	return
 
 /// Called on the MODsuit's process if it is an active module
 /obj/item/mod/module/proc/on_active_process()
 	return
 
-/// Called from MODsuit's install() proc, so when the module is installed.
+/// Called from MODsuit's install() proc, so when the module is installed
 /obj/item/mod/module/proc/on_install()
-	return
+	SHOULD_CALL_PARENT(TRUE)
 
-/// Called from MODsuit's uninstall() proc, so when the module is uninstalled.
+	if (mask_worn_overlay)
+		for (var/obj/item/part as anything in mod.get_parts(all = TRUE))
+			RegisterSignal(part, COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS, PROC_REF(add_module_overlay))
+		return
+
+	if (!length(required_slots))
+		RegisterSignal(mod, COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS, PROC_REF(add_module_overlay))
+		return
+
+	var/obj/item/part = mod.get_part_from_slot(required_slots[1])
+	RegisterSignal(part, COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS, PROC_REF(add_module_overlay))
+
+/// Called from MODsuit's uninstall() proc, so when the module is uninstalled
 /obj/item/mod/module/proc/on_uninstall(deleting = FALSE)
-	mod.wearer?.update_inv_back()
-	return
+	SHOULD_CALL_PARENT(TRUE)
+
+	if (mask_worn_overlay)
+		for (var/obj/item/part as anything in mod.get_parts(all = TRUE))
+			UnregisterSignal(part, COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS)
+		return
+
+	if (!length(required_slots))
+		UnregisterSignal(mod, COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS)
+		return
+
+	var/obj/item/part = mod.get_part_from_slot(required_slots[1])
+	UnregisterSignal(part, COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS)
 
 /// Called when the MODsuit is activated
-/obj/item/mod/module/proc/on_suit_activation()
-	mod.wearer.update_inv_back()
+/obj/item/mod/module/proc/on_part_activation()
 	return
 
 /// Called when the MODsuit is deactivated
-/obj/item/mod/module/proc/on_suit_deactivation(deleting = FALSE)
-	mod.wearer.update_inv_back()
+/obj/item/mod/module/proc/on_part_deactivation(deleting = FALSE)
 	return
 
 /// Called when the MODsuit is equipped
 /obj/item/mod/module/proc/on_equip()
-	RegisterSignal(mod.wearer, COMSIG_HUMAN_UPDATE_BACK, TYPE_PROC_REF(/obj/item/mod/module, add_module_overlay))
-	mod.wearer.update_inv_back()
 	return
 
 /// Called when the MODsuit is unequipped
 /obj/item/mod/module/proc/on_unequip()
-	UnregisterSignal(mod.wearer, COMSIG_HUMAN_UPDATE_BACK)
 	return
 
-/// Drains power from the suit charge
 /obj/item/mod/module/proc/drain_power(amount)
 	if(!check_power(amount))
 		return FALSE
 	mod.subtract_charge(amount)
-	mod.update_charge_alert()
 	return TRUE
 
 /// Checks if there is enough power in the suit
@@ -289,55 +394,79 @@
 	if(part.loc == mod.wearer)
 		return
 	if(part == device)
-		on_deactivation(display_message = FALSE)
+		deactivate(display_message = FALSE)
 
 /// Called when the device gets deleted on active modules
 /obj/item/mod/module/proc/on_device_deletion(datum/source)
 	SIGNAL_HANDLER
 
 	if(source == device)
+		device.moveToNullspace()
 		device = null
 		qdel(src)
 
 /// Adds the worn overlays to the suit.
-/obj/item/mod/module/proc/add_module_overlay(datum/source, list/overlays)
+/obj/item/mod/module/proc/add_module_overlay(obj/item/source, list/overlays, mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
 	SIGNAL_HANDLER
-	var/mutable_appearance/mod_overlay = generate_worn_overlay(mod.wearer)
-	if(!mod_overlay)
-		return
-	overlays += mod_overlay
 
+	if(isinhands)
+		return
+
+	var/list/added_overlays = generate_worn_overlay(source, standing)
+	if(!added_overlays)
+		return
+
+	if(!mask_worn_overlay)
+		overlays += added_overlays
+		return
+
+	for(var/mutable_appearance/overlay as anything in added_overlays)
+		overlay.add_filter("mod_mask_overlay", 1, alpha_mask_filter(icon = icon(draw_target.icon, draw_target.icon_state)))
+		overlays += overlay
 
 /// Generates an icon to be used for the suit's worn overlays
-/obj/item/mod/module/proc/generate_worn_overlay(mob/living/carbon/human/user)
-	if(!mod.active)
-		return FALSE
-	var/used_overlay
+/obj/item/mod/module/proc/generate_worn_overlay(obj/item/source, mutable_appearance/standing)
+	if(!mask_worn_overlay)
+		if(!has_required_parts(mod.mod_parts, need_active = TRUE))
+			return
+	else
+		var/datum/mod_part/part_datum = mod.get_part_datum(source)
+		if (!part_datum?.sealed)
+			return
+
+	. = list()
+	var/used_overlay = get_current_overlay_state()
+	if (!used_overlay)
+		return
+
+	var/used_icon_file = overlay_icon_file
+	if(sprite_sheets[mod.wearer?.dna?.species?.name])
+		used_icon_file = sprite_sheets[mod.wearer?.dna?.species?.name]
+
+	var/mutable_appearance/module_icon = mutable_appearance(used_icon_file, used_overlay, layer = standing.layer + 0.1)
+	if(use_mod_colors)
+		module_icon.color = mod.color
+		//if(mod.cached_color_filter)
+		//	module_icon = filter_appearance_recursive(module_icon, mod.cached_color_filter)
+
+	. += module_icon
+	SEND_SIGNAL(src, COMSIG_MODULE_GENERATE_WORN_OVERLAY, ., standing)
+
+/obj/item/mod/module/proc/get_current_overlay_state()
 	if(overlay_state_use && !COOLDOWN_FINISHED(src, cooldown_timer))
-		used_overlay = overlay_state_use
-	else if(overlay_state_active && active)
-		used_overlay = overlay_state_active
-	else if(overlay_state_inactive)
-		used_overlay = overlay_state_inactive
-	else
-		return FALSE
-	var/mutable_appearance/module_icon
-	if(sprite_sheets && sprite_sheets[user.dna.species.name])
-		module_icon = mutable_appearance(icon = sprite_sheets[user.dna.species.name], icon_state = used_overlay, layer = EFFECTS_LAYER)
-	else
-		module_icon = mutable_appearance(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
-	if(mod_color_overide)
-		module_icon.color = mod_color_overide
-	if(!use_mod_colors)
-		module_icon.appearance_flags |= RESET_COLOR
-	return module_icon
+		return overlay_state_use
+	if(overlay_state_active && active)
+		return overlay_state_active
+	if(overlay_state_inactive)
+		return overlay_state_inactive
+	return null
 
 /// Updates the signal used by active modules to be activated
 /obj/item/mod/module/proc/update_signal(value)
 	switch(value)
-		if("Middle Click")
+		if(MIDDLE_CLICK)
 			mod.selected_module.used_signal = COMSIG_MOB_MIDDLECLICKON
-		if("Alt Click")
+		if(ALT_CLICK)
 			mod.selected_module.used_signal = COMSIG_MOB_ALTCLICKON
 	RegisterSignal(mod.wearer, mod.selected_module.used_signal, TYPE_PROC_REF(/obj/item/mod/module, on_special_click))
 
@@ -362,20 +491,22 @@
 
 	if(user.get_active_hand() != device)
 		return
-	on_deactivation()
+	deactivate()
 	return
 
 ///Anomaly Locked - Causes the module to not function without an anomaly.
 /obj/item/mod/module/anomaly_locked
 	name = "MOD anomaly locked module"
 	desc = "Модуль, требующий для функционирования ядро аномалии."
-	incompatible_modules = list(/obj/item/mod/module/anomaly_locked)
+	incompatible_modules = list()
 	/// The core item the module runs off.
 	var/obj/item/assembly/signaler/core/core
 	/// Accepted types of anomaly cores.
 	var/list/accepted_anomalies = list(/obj/item/assembly/signaler/core)
 	/// If this one starts with a core in.
 	var/prebuilt = FALSE
+	/// If the core is removable once socketed.
+	var/core_removable = TRUE
 
 /obj/item/mod/module/anomaly_locked/Initialize(mapload)
 	. = ..()
@@ -394,13 +525,15 @@
 	if(!length(accepted_anomalies))
 		return
 	if(core)
-		. += "К модулю прикреплено [core.declent_ru(NOMINATIVE)]. Используйте <b>отвёртку</b>, чтобы открепить ядро."
+		. += "К модулю прикреплено [core.declent_ru(NOMINATIVE)]. [core_removable ? "Используйте <b>отвёртку</b>, чтобы открепить ядро." : "Из-за дизайна модуля, ядро не возможно достать."]"
 	else
 		var/list/core_list = list()
 		for(var/path in accepted_anomalies)
 			var/atom/core_path = path
 			core_list += capitalize(core_path.declent_ru(NOMINATIVE))
 		. +="Для работы модуля требуется [russian_list(core_list, and_text = " или ")]"
+		if(!core_removable)
+			. += span_notice("Из-за дизайна модуля, ядро не возможно достать.")
 
 /obj/item/mod/module/anomaly_locked/on_select()
 	if(!core)
@@ -418,30 +551,33 @@
 		return FALSE
 	return TRUE
 
-/obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, params)
+/obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, list/modifiers, list/attack_modifiers)
 	if(item.type in accepted_anomalies)
 		if(core)
-			balloon_alert(mod.wearer, "внутри уже есть ядро!")
+			balloon_alert(user, "внутри уже есть ядро!")
 			return
-		if(!user.drop_from_active_hand())
+		if(!user.transfer_item_to_loc(item, src))
 			return
 		core = item
-		balloon_alert(mod.wearer, "ядро установлено")
+		balloon_alert(user, "ядро установлено")
 		playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 		update_icon_state()
-		core.forceMove(src)
 	else
 		return ..()
 
 /obj/item/mod/module/anomaly_locked/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
 	if(!core)
-		balloon_alert(mod.wearer, "внутри нет ядра!")
-		to_chat(user, span_warning("Ядро отсутствует!"))
+		balloon_alert(user, "внутри нет ядра")
 		return
+	if(!core_removable)
+		balloon_alert(user, "нельзя удалить ядро")
+		return
+	balloon_alert(user, "удаление ядра")
 	if(!do_after(user, 3 SECONDS, target = src))
+		balloon_alert(user, "прервано")
 		return
-	balloon_alert(mod.wearer, "ядро удалено")
+	balloon_alert(user, "ядро удалено")
 	core.forceMove(drop_location())
 	if(Adjacent(user) && !issilicon(user))
 		user.put_in_hands(core)

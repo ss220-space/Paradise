@@ -34,19 +34,21 @@
 	)
 
 /obj/item/mod/module/springlock/on_install()
+	. = ..()
 	mod.activation_step_time *= (1 / activation_step_time_booster)
 
 /obj/item/mod/module/springlock/on_uninstall(deleting = FALSE)
+	. = ..()
 	mod.activation_step_time *= activation_step_time_booster
 
-/obj/item/mod/module/springlock/on_suit_activation()
+/obj/item/mod/module/springlock/on_part_activation()
 
 	RegisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_wearer_exposed), override = TRUE)
 	if(dont_let_you_come_back)
 		RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_activate_spring_block))
 		addtimer(CALLBACK(src, PROC_REF(remove_retraction_block)), 10 SECONDS)
 
-/obj/item/mod/module/springlock/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/springlock/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS)
 
 /obj/item/mod/module/springlock/multitool_act(mob/living/user, obj/item/I)
@@ -105,9 +107,10 @@
 	icon_state = "bloon"
 	module_type = MODULE_USABLE
 	complexity = 1
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	incompatible_modules = list(/obj/item/mod/module/balloon)
 	cooldown_time = 15 SECONDS
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
 
 /obj/item/mod/module/balloon/get_ru_names()
 	return list(
@@ -129,7 +132,7 @@
 	playsound(src, 'sound/items/modsuit/inflate_bloon.ogg', 50, TRUE)
 	var/obj/item/toy/balloon/balloon = new(get_turf(src))
 	mod.wearer.put_in_hands(balloon)
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 
 
 ///Stamper - Extends a stamp that can switch between accept/deny modes.
@@ -144,6 +147,7 @@
 	device = /obj/item/stamp/mod
 	incompatible_modules = list(/obj/item/mod/module/stamp)
 	cooldown_time = 0.5 SECONDS
+	required_slots = list(ITEM_SLOT_GLOVES)
 
 /obj/item/mod/module/stamp/get_ru_names()
 	return list(
@@ -191,10 +195,10 @@
 	icon_state = "paper_maker"
 	module_type = MODULE_USABLE
 	complexity = 1
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	incompatible_modules = list(/obj/item/mod/module/paper_dispenser)
 	cooldown_time = 5 SECONDS
-	//required_slots = list(ITEM_SLOT_GLOVES)
+	required_slots = list(ITEM_SLOT_GLOVES)
 	/// The total number of sheets created by this MOD. The more sheets, them more likely they set on fire.
 	var/num_sheets_dispensed = 0
 
@@ -221,5 +225,5 @@
 		crisp_paper.visible_message(span_warning("[crisp_paper] bursts into flames, it's too crisp!"))
 		crisp_paper.fire_act(1000, 100)
 
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 	num_sheets_dispensed++

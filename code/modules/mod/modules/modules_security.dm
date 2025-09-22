@@ -49,6 +49,7 @@
 		balloon_alert(mod.wearer, "освободите руку!")
 
 /obj/item/mod/module/holster/on_uninstall(deleting = FALSE)
+	. = ..()
 	if(holstered)
 		holstered.forceMove(drop_location())
 
@@ -136,10 +137,11 @@
 		Its loud ping is much harder to hide in an indoor station than in the outdoor operations it was designed for."
 	icon_state = "active_sonar"
 	module_type = MODULE_USABLE
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 4
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 4
 	complexity = 2
 	incompatible_modules = list(/obj/item/mod/module/active_sonar)
 	cooldown_time = 7.5 SECONDS //come on man this is discount thermals, it doesnt need a 15 second cooldown
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_EYES|ITEM_SLOT_MASK)
 
 /obj/item/mod/module/active_sonar/get_ru_names()
 	return list(
@@ -214,7 +216,7 @@
 	overlay_state_inactive = "module_mirage_grenade"
 	module_type = MODULE_ACTIVE
 	complexity = 3
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 20 SECONDS
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/atmospheric)
 	/// Path we dispense.
@@ -237,7 +239,7 @@
 	var/obj/item/dispensed = new dispense_type(mod.wearer.loc)
 	mod.wearer.put_in_hands(dispensed)
 	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 	var/obj/item/grenade/grenade = dispensed
 	grenade.attack_self(mod.wearer)
 	return grenade
@@ -253,7 +255,7 @@
 	icon_state = "vortex"
 	module_type = MODULE_ACTIVE
 	complexity = 3
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 750
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 750
 	device = /obj/item/gun/energy/vortex_shotgun
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/vortex)
 
@@ -273,7 +275,7 @@
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/proc/on_gun_fire()
 	SIGNAL_HANDLER
-	if(!drain_power(use_power_cost)) //Drain the rest dry
+	if(!drain_power(use_energy_cost)) //Drain the rest dry
 		drain_power(mod.core.check_charge())
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt
@@ -291,10 +293,10 @@
 	icon_state = "criminal_capture"
 	module_type = MODULE_ACTIVE
 	complexity = 2
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	incompatible_modules = list(/obj/item/mod/module/criminalcapture)
 	cooldown_time = 0.5 SECONDS
-	//required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// Time to capture a prisoner.
 	var/capture_time = 2.5 SECONDS
 	/// Time to dematerialize a bodybag.
@@ -376,9 +378,9 @@
 	desc = "Based off old TerraGov harness kits, this magnetic harness automatically attaches dropped guns back to the wearer."
 	icon_state = "mag_harness"
 	complexity = 2
-	use_power_cost = DEFAULT_CHARGE_DRAIN
+	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/magnetic_harness)
-	//required_slots = list(ITEM_SLOT_OCLOTHING)
+	required_slots = list(ITEM_SLOT_CLOTH_OUTER)
 	/// Time before we activate the magnet.
 	var/magnet_delay = 0.8 SECONDS
 	/// The typecache of all guns we allow.
@@ -393,7 +395,7 @@
 
 /obj/item/mod/module/magnetic_harness/on_install()
 	. = ..()
-	var/obj/item/clothing/suit = mod.chestplate
+	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_CLOTH_OUTER)
 	if(!istype(suit))
 		return
 	already_allowed_guns = guns_typecache & suit.allowed
@@ -403,15 +405,15 @@
 	. = ..()
 	if(deleting)
 		return
-	var/obj/item/clothing/suit = mod.chestplate
+	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_CLOTH_OUTER)
 	if(!istype(suit))
 		return
 	suit.allowed -= (guns_typecache - already_allowed_guns)
 
-/obj/item/mod/module/magnetic_harness/on_suit_activation()
+/obj/item/mod/module/magnetic_harness/on_part_activation()
 	RegisterSignal(mod.wearer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(check_dropped_item))
 
-/obj/item/mod/module/magnetic_harness/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/magnetic_harness/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_MOB_UNEQUIPPED_ITEM)
 
 /obj/item/mod/module/magnetic_harness/proc/check_dropped_item(datum/source, obj/item/dropped_item, force, new_location)
@@ -430,7 +432,7 @@
 		return
 	playsound(src, 'sound/items/modsuit/magnetic_harness.ogg', 50, TRUE)
 	balloon_alert(mod.wearer, "[item] reattached")
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 
 ///Pepper Shoulders - When hit, reacts with a spray of pepper spray around the user.
 /obj/item/mod/module/pepper_shoulders
@@ -439,17 +441,17 @@
 	icon_state = "pepper_shoulder"
 	module_type = MODULE_USABLE
 	complexity = 1
-	use_power_cost = DEFAULT_CHARGE_DRAIN
+	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/pepper_shoulders)
 	cooldown_time = 5 SECONDS
 	overlay_state_inactive = "module_pepper"
 	overlay_state_use = "module_pepper_used"
-	//required_slots = list(ITEM_SLOT_OCLOTHING)
+	required_slots = list(ITEM_SLOT_CLOTH_OUTER)
 
-/obj/item/mod/module/pepper_shoulders/on_suit_activation()
+/obj/item/mod/module/pepper_shoulders/on_part_activation()
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(on_check_block))
 
-/obj/item/mod/module/pepper_shoulders/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/pepper_shoulders/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
 
 /obj/item/mod/module/pepper_shoulders/on_use()
@@ -466,7 +468,7 @@
 
 	if(!COOLDOWN_FINISHED(src, cooldown_timer))
 		return
-	if(!check_power(use_power_cost))
+	if(!check_power(use_energy_cost))
 		return
 	mod.wearer.visible_message(span_warning("[src] reacts to the attack with a smoke of pepper spray!"), span_notice("Your [src] releases a cloud of pepper spray!"))
 	on_use()
@@ -488,12 +490,12 @@
 	desc = "Enhanced gauntlet grip pads that help with placing individuals in restraints more quickly. Doesn't look like they'll come off."
 	removable = FALSE
 	complexity = 0
-	//required_slots = list(ITEM_SLOT_GLOVES)
+	required_slots = list(ITEM_SLOT_GLOVES)
 
-/obj/item/mod/module/quick_cuff/on_suit_activation()
+/obj/item/mod/module/quick_cuff/on_part_activation()
 	. = ..()
 	ADD_TRAIT(mod.wearer, TRAIT_FAST_CUFFING, UNIQUE_TRAIT_SOURCE(src))
 
-/obj/item/mod/module/quick_cuff/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/quick_cuff/on_part_deactivation(deleting = FALSE)
 	. = ..()
 	REMOVE_TRAIT(mod.wearer, TRAIT_FAST_CUFFING, UNIQUE_TRAIT_SOURCE(src))

@@ -22,9 +22,7 @@
 	/// The slot this mod theme fits on
 	var/slot_flags = ITEM_SLOT_BACK
 	/// Armor shared across the MOD parts.
-	var/obj/item/mod/armor/armor_type_1 = /obj/item/mod/armor/mod_theme
-	/// the actual armor object placed in a datum as I am tired and I just want this to work
-	/// var/obj/item/mod/armor/armor_type_2 = null
+	var/datum/armor/armor_type = /datum/armor/mod_theme
 	/// Resistance flags shared across the MOD parts.
 	var/resistance_flags = NONE
 	/// Atom flags shared across the MOD parts.
@@ -39,62 +37,36 @@
 	var/complexity_max = DEFAULT_MAX_COMPLEXITY
 	/// How much battery power the MOD uses by just being on
 	var/charge_drain = DEFAULT_CHARGE_DRAIN
-	/// Slowdown of the MOD when not active.
-	var/slowdown_inactive = 1.25
-	/// Slowdown of the MOD when active.
-	var/slowdown_active = 0.75
+	/// Slowdown of the MOD when all of its pieces are deployed.
+	var/slowdown_deployed = 0.75
+	/// How long this MOD takes each part to seal.
+	var/activation_step_time = MOD_ACTIVATION_STEP_TIME
 	/// Theme used by the MOD TGUI.
 	var/ui_theme = "ntos"
 	/// List of inbuilt modules. These are different from the pre-equipped suits, you should mainly use these for unremovable modules with 0 complexity.
 	var/list/inbuilt_modules = list()
 	/// Allowed items in the chestplate's suit storage.
 	var/list/allowed_suit_storage = list()
-	/// List of skins with their appropriate clothing flags.
-	var/list/skins = list(
+	/// List of variants with their appropriate clothing flags.
+	var/list/variants = list(
 		"standard" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
-
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-		),
-		"civilian" = list(
-			HELMET_FLAGS = list(
-				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				UNSEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES,
-				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
-				SEALED_INVISIBILITY = HIDEHAIR,
-			),
-			CHESTPLATE_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
-			),
-			GAUNTLETS_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -102,16 +74,154 @@
 		),
 	)
 
-/datum/mod_theme/standard //We don't want the civilian skin to apply to all modsuits, that causes issues.
-	name = "гражданской модели"
-
-
+#ifdef UNIT_TESTS
 /datum/mod_theme/New()
-	. = ..()
-	armor_type_1 = new armor_type_1()
+	var/list/skin_parts = list()
+	for(var/variant in variants)
+		skin_parts += list(assoc_to_keys(variants[variant]))
+	for(var/skin in skin_parts)
+		for(var/compared_skin in skin_parts)
+			if(skin ~! compared_skin)
+				stack_trace("[type] variants [skin] and [compared_skin] aren't made of the same parts.")
+		skin_parts -= skin
+#endif
 
-/obj/item/mod/armor/mod_theme
-	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 0, BIO = 80, RAD = 25, FIRE = 33, ACID = 33)
+/// Create parts of the suit and modify them using the theme's variables.
+/datum/mod_theme/proc/set_up_parts(obj/item/mod/control/mod, skin)
+	var/list/parts = list(mod)
+	mod.slot_flags = slot_flags
+	mod.extended_desc = extended_desc
+	mod.slowdown_deployed = slowdown_deployed
+	mod.activation_step_time = activation_step_time
+	mod.complexity_max = complexity_max
+	mod.ui_theme = ui_theme
+	mod.charge_drain = charge_drain
+	var/datum/mod_part/control_part_datum = new()
+	control_part_datum.set_item(mod)
+	mod.mod_parts["[mod.slot_flags]"] = control_part_datum
+	for(var/path in variants[default_skin])
+		if(!ispath(path))
+			continue
+		var/obj/item/mod_part = new path(mod)
+		if(mod_part.slot_flags == ITEM_SLOT_CLOTH_OUTER && isclothing(mod_part))
+			var/obj/item/clothing/chestplate = mod_part
+			chestplate.allowed |= allowed_suit_storage
+		var/datum/mod_part/part_datum = new()
+		part_datum.set_item(mod_part)
+		mod.mod_parts["[mod_part.slot_flags]"] = part_datum
+		parts += mod_part
+
+	for(var/obj/item/part as anything in parts)
+		part.name = "[name] [part.name]"
+		part.desc = "[part.desc] [desc]"
+		part.set_armor(armor_type)
+		part.resistance_flags = resistance_flags
+		part.flags |= atom_flags //flags like initialization or admin spawning are here, so we cant set, have to add
+		part.heat_protection = NONE
+		part.cold_protection = NONE
+		part.max_heat_protection_temperature = max_heat_protection_temperature
+		part.min_cold_protection_temperature = min_cold_protection_temperature
+		part.siemens_coefficient = siemens_coefficient
+
+	set_skin(mod, skin || default_skin)
+
+/datum/mod_theme/proc/set_skin(obj/item/mod/control/mod, skin)
+	mod.skin = skin
+	var/list/used_skin = variants[skin]
+	var/list/parts = mod.get_parts()
+	for(var/obj/item/clothing/part as anything in parts)
+		var/list/category = used_skin[part.type]
+		var/datum/mod_part/part_datum = mod.get_part_datum(part)
+		part_datum.unsealed_layer = category[UNSEALED_LAYER]
+		//part_datum.sealed_layer = category[SEALED_LAYER]
+		//part_datum.unsealed_message = category[UNSEALED_MESSAGE] || "No unseal message set! Tell a coder!"
+		//part_datum.sealed_message = category[SEALED_MESSAGE] || "No seal message set! Tell a coder!"
+		part_datum.can_overslot = category[CAN_OVERSLOT] || FALSE
+		part.clothing_flags = category[UNSEALED_CLOTHING] || NONE
+		part.toggleable_clothing_flags = category[SEALED_CLOTHING] || NONE
+		part.flags_inv = category[UNSEALED_INVISIBILITY] || NONE
+		part.toggleable_flags_inv = category[SEALED_INVISIBILITY] || NONE
+		part.flags_cover = category[UNSEALED_COVER] || NONE
+		part.toggleable_flags_cover = category[SEALED_COVER] || NONE
+		if(mod.get_part_datum(part).sealed)
+			part.clothing_flags |= part.toggleable_clothing_flags
+			part.flags_inv |= part.toggleable_flags_inv
+			part.flags_cover |= part.toggleable_flags_cover
+		// 	part.alternate_worn_layer = part_datum.sealed_layer
+		// else
+		// 	part.alternate_worn_layer = part_datum.unsealed_layer
+		if(!part_datum.can_overslot && part_datum.overslotting)
+			var/obj/item/overslot = part_datum.overslotting
+			overslot.forceMove(mod.drop_location())
+	for(var/obj/item/part as anything in parts + mod)
+		part.icon = used_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+		part.onmob_sheets = used_skin[MOD_WORN_ICON_OVERRIDE] || list(slot_bitfield_to_slot_string(part.slot_flags) = 'icons/obj/clothing/modsuit/mod_clothing.dmi')
+		part.icon_state = "[skin]-[part.base_icon_state][mod.get_part_datum(part).sealed ? "-sealed" : ""]"
+		mod.wearer?.update_clothing(part.slot_flags)
+	mod.wearer?.refresh_obscured()
+
+/datum/armor/mod_theme
+	melee = 25
+	bullet = 15
+	laser = 15
+	energy = 15
+	bomb = 0
+	bio = 80
+	rad = 25
+	fire = 33
+	acid = 33
+
+/datum/mod_theme/civilian
+	name = "гражданской модели"
+	desc = "Лёгкий гражданский МЭК, предостовляющий невероятную свободу движений, но не обеспечивает какой-либо защиты от давления."
+	extended_desc = "Экспериментальная разработка компании Nakamura Engineering, предназначенная для потребителей, путешествующих по планете. \
+					Эта модель жертвует защитой от биологических и химических угроз, а также космического вакуума в обмен на \
+					значительно улучшенную мобильность. Благодаря уменьшенному профилю он также обладает меньшими возможностями для модификации по сравнению с \
+					основными моделями."
+	default_skin = "civilian"
+	armor_type = /datum/armor/mod_theme_civilian
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
+	slowdown_deployed = 0
+	variants = list(
+				"civilian" = list(
+			/obj/item/clothing/head/mod = list(
+				UNSEALED_LAYER = null,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
+				SEALED_INVISIBILITY = HIDEHAIR,
+			),
+			/obj/item/clothing/suit/mod = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
+			),
+			/obj/item/clothing/gloves/mod = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+			/obj/item/clothing/shoes/mod = list(
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				CAN_OVERSLOT = TRUE,
+			),
+		),
+	)
+
+/datum/armor/mod_theme_civilian
+	melee = 25
+	bullet = 15
+	laser = 15
+	energy = 15
+	bomb = 0
+	bio = 80
+	rad = 25
+	fire = 33
+	acid = 33
 
 /datum/mod_theme/engineering
 	name = "инженерной модели"
@@ -122,19 +232,18 @@
 		неблагоприятных условиях, не переживая за своё здоровье. Однако сам костюм недалеко ушел от гражданской версии и его модификация, как и \
 		боевые возможности сильно ограничены."
 	default_skin = "engineering"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_engineering
+	armor_type = /datum/armor/mod_theme_engineering
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	slowdown_inactive = 1.5
-	slowdown_active = 0.75
+	slowdown_deployed = 1
 	allowed_suit_storage = list(
 		/obj/item/rcd,
 		/obj/item/twohanded/fireaxe,
 	)
-	skins = list(
+	variants = list(
 		"engineering" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -142,17 +251,17 @@
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -160,8 +269,16 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_engineering
-	armor = list(MELEE = 30, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 40, BIO = 80, RAD = 80, FIRE = 70, ACID = 100)
+/datum/armor/mod_theme_engineering
+	melee = 30
+	bullet = 15
+	laser = 15
+	energy = 15
+	bomb = 40
+	bio = 80
+	rad = 80
+	fire = 70
+	acid = 10
 
 /datum/mod_theme/atmospheric
 	name = "модели \"Атмосфера\""
@@ -172,14 +289,13 @@
 		с кристаллом суперматерии. Самым главным недостатком данной модели является посредственная защита от радиоактивного загрязнения и \
 		никчемные боевые возможности, сопоставимые с гражданской версией костюма."
 	default_skin = "atmospheric"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_atmospheric
+	armor_type = /datum/armor/mod_theme_atmospheric
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	siemens_coefficient = 0
-	slowdown_inactive = 1.5
-	slowdown_active = 0.75
+	slowdown_deployed = 0.75
 	allowed_suit_storage = list(
 		/obj/item/rcd,
 		/obj/item/twohanded/fireaxe/,
@@ -187,9 +303,9 @@
 		/obj/item/t_scanner,
 		/obj/item/analyzer
 	)
-	skins = list(
+	variants = list(
 		"atmospheric" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -198,17 +314,17 @@
 				UNSEALED_COVER = HEADCOVERSMOUTH,
 				SEALED_COVER = HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -216,8 +332,16 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_atmospheric
-	armor = list(MELEE = 30, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 80, RAD = 15, FIRE = 100, ACID = 100)
+/datum/armor/mod_theme_atmospheric
+	melee = 30
+	bullet = 15
+	laser = 15
+	energy = 15
+	bomb = 15
+	bio = 80
+	rad = 15
+	fire = 100
+	acid = 100
 
 /datum/mod_theme/advanced
 	name = "продвинутой модели"
@@ -228,14 +352,13 @@
 		Краска, помимо того, что обладает одним из лучших антикоррозийных эффектов на рынке, еще и \"выглядит чертовски хорошо.\" В конструкцию костюма встроены \
 		магнитные ботинки, созданные с применением самых передовых технологий. Впрочем, как и всё в этом костюме."
 	default_skin = "advanced"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_advanced
+	armor_type = /datum/armor/mod_theme_advanced
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
 	siemens_coefficient = 0
-	slowdown_inactive = 1
-	slowdown_active = 0.45
+	slowdown_deployed = 0.45
 	inbuilt_modules = list(/obj/item/mod/module/magboot/advanced)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
@@ -248,9 +371,9 @@
 		/obj/item/gun
 
 	)
-	skins = list(
+	variants = list(
 		"advanced" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -258,17 +381,17 @@
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDEHAIR|HIDENAME,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -276,8 +399,16 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_advanced
-	armor = list(MELEE = 45, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+/datum/armor/mod_theme_advanced
+	melee = 45
+	bullet = 20
+	laser = 20
+	energy = 20
+	bomb = 60
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
 
 /datum/mod_theme/mining
 	name = "шахтёрской модели"
@@ -295,14 +426,13 @@
 		инженерам пришлось отказаться от высокой модульности, вместо этого сделав акцент на надёжности и простоте в эксплуатации. \
 		Из-за этого костюм значительно ограничен в возможностях модификации и улучшения."
 	default_skin = "mining"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_mining
+	armor_type = /datum/armor/mod_theme_mining
 	resistance_flags = FIRE_PROOF|LAVA_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
-	slowdown_inactive = 1.5
-	slowdown_active = 0.5
+	slowdown_deployed = 0.5
 	allowed_suit_storage = list(
 		/obj/item/resonator,
 		/obj/item/mining_scanner,
@@ -314,9 +444,9 @@
 		/obj/item/gun/energy/kinetic_accelerator,
 	)
 	inbuilt_modules = list(/obj/item/mod/module/ash_accretion, /obj/item/mod/module/sphere_transform)
-	skins = list(
+	variants = list(
 		"mining" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -324,24 +454,24 @@
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 		"asteroid" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
@@ -349,17 +479,17 @@
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDEHAIR|HIDENAME,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -367,8 +497,17 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_mining
-	armor = list(MELEE = 40, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, BIO = 80, RAD = 50, FIRE = 50, ACID = 50)
+/datum/armor/mod_theme_mining
+	melee = 40
+	bullet = 15
+	laser = 15
+	energy = 15
+	bomb = 50
+	bio = 80
+	rad = 50
+	fire = 50
+	acid = 50
+
 
 /datum/mod_theme/loader
 	name = "грузовой модели"
@@ -384,40 +523,47 @@
 		Многие говорят, что погрузка и разгрузка ящиков — одна из самых тяжёлых и скучных работ в галактике. С данным костюмом \
 		это утверждение становится не более чем завистливой шуткой."
 	default_skin = "loader"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_loader
+	armor_type = /datum/armor/mod_theme_loader
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	siemens_coefficient = 0.25
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 5
-	slowdown_inactive = 0.5
-	slowdown_active = 0
+	slowdown_deployed = 0
 	allowed_suit_storage = list()
 	inbuilt_modules = list(/obj/item/mod/module/hydraulic, /obj/item/mod/module/clamp/loader, /obj/item/mod/module/magnet)
-	skins = list(
+	variants = list(
 		"loader" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				UNSEALED_INVISIBILITY = HIDEHAIR,
 				SEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				SEALED_CLOTHING = THICKMATERIAL,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				SEALED_CLOTHING = THICKMATERIAL,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_loader
-	armor = list(MELEE = 30, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 10, BIO = 80, RAD = 0, FIRE = 25, ACID = 25)
+/datum/armor/mod_theme_loader
+	melee = 30
+	bullet = 15
+	laser = 15
+	energy = 15
+	bomb = 10
+	bio = 80
+	rad = 0
+	fire = 25
+	acid = 25
 
 /datum/mod_theme/medical
 	name = "медицинской модели"
@@ -430,10 +576,9 @@
 		он обладает полной защитой от любых видов коррозийных кислот. Костюм слегка энергозатратнее, чем гражданские модели и \
 		не способен ничего противопоставить в случае, если защитное стекло заляпают пальцами."
 	default_skin = "medical"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_medical
+	armor_type = /datum/armor/mod_theme_medical
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
-	slowdown_inactive = 1
-	slowdown_active = 0.45
+	slowdown_deployed = 0.45
 	allowed_suit_storage = list(
 		/obj/item/healthanalyzer,
 		/obj/item/reagent_containers/dropper,
@@ -447,9 +592,9 @@
 		/obj/item/storage/bag/chemistry,
 		/obj/item/storage/bag/bio,
 	)
-	skins = list(
+	variants = list(
 		"medical" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -457,24 +602,24 @@
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 		"corpsman" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -482,17 +627,17 @@
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -500,8 +645,16 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_medical
-	armor = list(MELEE = 20, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 0, FIRE = 75, ACID = 100)
+/datum/armor/mod_theme_medical
+	melee = 20
+	bullet = 15
+	laser = 15
+	energy = 15
+	bomb = 10
+	bio = 10
+	rad = 0
+	fire = 75
+	acid = 100
 
 /datum/mod_theme/rescue
 	name = "модели \"Спасатель\""
@@ -513,12 +666,11 @@
 		высоких температур. Костюм значительно энергозатратнее, чем гражданские модели и не способен \
 		ничего противопоставить в случае, если защитное стекло заляпают пальцами."
 	default_skin = "rescue"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_rescue
+	armor_type = /datum/armor/mod_theme_rescue
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
-	slowdown_inactive = 0.75
-	slowdown_active = 0.25
+	slowdown_deployed = 0.25
 	inbuilt_modules = list()
 	allowed_suit_storage = list(
 		/obj/item/healthanalyzer,
@@ -534,9 +686,9 @@
 		/obj/item/storage/bag/bio,
 		/obj/item/melee/baton/telescopic,
 	)
-	skins = list(
+	variants = list(
 		"rescue" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -544,17 +696,17 @@
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -562,8 +714,16 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_rescue
-	armor = list(MELEE = 30, BULLET = 30, LASER = 15, ENERGY = 15, BOMB = 10, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+/datum/armor/mod_theme_rescue
+	melee = 30
+	bullet = 30
+	laser = 15
+	energy = 15
+	bomb = 10
+	bio = 10
+	rad = 50
+	fire = 100
+	acid = 100
 
 /datum/mod_theme/research
 	name = "модели \"Учёный\""
@@ -576,12 +736,11 @@
 		очередь для того, чтобы пользователь не разлетелся на ошмётки. Выживание находящегося внутри костюма человека никогда не гарантировалось. \
 		Внутри костюма установлена сканирующая матрица, позволяющая определять содержимое контейнеров на расстоянии."
 	default_skin = "research"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_research
+	armor_type = /datum/armor/mod_theme_research
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
-	slowdown_inactive = 1.75
-	slowdown_active = 1
+	slowdown_deployed = 1
 	ui_theme = "changeling"
 	inbuilt_modules = list(/obj/item/mod/module/reagent_scanner/advanced)
 	allowed_suit_storage = list(
@@ -592,9 +751,9 @@
 		/obj/item/melee/baton/telescopic,
 		/obj/item/gun
 	)
-	skins = list(
+	variants = list(
 		"research" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -602,17 +761,17 @@
 				SEALED_INVISIBILITY = HIDEHAIR,
 				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -620,8 +779,16 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_research
-	armor = list(MELEE = 40, BULLET = 40, LASER = 15, ENERGY = 15, BOMB = 100, BIO = 80, RAD = 75, FIRE = 75, ACID = 100)
+/datum/armor/mod_theme_research
+	melee = 40
+	bullet = 40
+	laser = 15
+	energy = 15
+	bomb = 10
+	bio = 80
+	rad = 75
+	fire = 75
+	acid = 100
 
 /datum/mod_theme/security
 	name = "службы безопасности" //"это шлем МЭК службы безопасности"
@@ -633,10 +800,9 @@
 		Несмотря на все плюсы, системы костюма технологически устарели на несколько лет, \
 		в связи с чем возможности по модификации ограничены."
 	default_skin = "security"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_security
+	armor_type = /datum/armor/mod_theme_security
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
-	slowdown_inactive = 1
-	slowdown_active = 0.45
+	slowdown_deployed = 0.45
 	ui_theme = "security"
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
@@ -647,9 +813,9 @@
 		/obj/item/melee/baton,
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"security" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
@@ -658,17 +824,17 @@
 				UNSEALED_COVER = HEADCOVERSMOUTH,
 				SEALED_COVER = HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -676,8 +842,16 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_security
-	armor = list(MELEE = 35, BULLET = 30, LASER = 35, ENERGY = 15, BOMB = 25, BIO = 60, RAD = 0, FIRE = 60, ACID = 100)
+/datum/armor/mod_theme_security
+	melee = 35
+	bullet = 30
+	laser = 35
+	energy = 15
+	bomb = 25
+	bio = 60
+	rad = 0
+	fire = 60
+	acid = 100
 
 /datum/mod_theme/safeguard_mk_one
 	name = "модели \"Защитник-1\""
@@ -690,11 +864,10 @@
 		Костюм оснащён улучшенной изоляцией от коррозийных сред и укреплённой защитой на стыках. По бокам расположены радиаторы \
 		для отвода тепла из модулей системы. Массовое производство было прекращено в пользу других моделей."
 	default_skin = "safeguard-ward"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_safeguard_one
+	armor_type = /datum/armor/mod_theme_safeguard_one
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
-	slowdown_inactive = 0.9
-	slowdown_active = 0.3
+	slowdown_deployed = 0.3
 	ui_theme = "security"
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
@@ -705,9 +878,9 @@
 		/obj/item/melee/baton,
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"safeguard-ward" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
@@ -715,17 +888,17 @@
 				SEALED_INVISIBILITY = HIDEHAIR,
 				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -733,8 +906,16 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_safeguard_one
-	armor = list(MELEE = 35, BULLET = 35, LASER = 40, ENERGY = 25, BOMB = 30, BIO = 70, RAD = 20, FIRE = 70, ACID = 100)
+/datum/armor/mod_theme_safeguard_one
+	melee = 35
+	bullet = 35
+	laser = 40
+	energy = 25
+	bomb = 30
+	bio = 70
+	rad = 20
+	fire = 70
+	acid = 100
 
 /datum/mod_theme/safeguard_mk_two
 	name = "модели \"Защитник-2\""
@@ -744,11 +925,10 @@
 		сочетает лёгкий вес, обеспечивающий более высокую скорость носителя, с продвинутым бронированием. \
 		Обладает большей грузоподъёмностью и улучшенной версией джетпака, а также расширенными возможностями для модификации."
 	default_skin = "safeguard"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_safeguard_two
+	armor_type = /datum/armor/mod_theme_safeguard_two
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
-	slowdown_inactive = 0.75
-	slowdown_active = 0.25
+	slowdown_deployed = 0.25
 	ui_theme = "security"
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
@@ -759,9 +939,9 @@
 		/obj/item/melee/baton,
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"safeguard" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
@@ -769,17 +949,17 @@
 				SEALED_INVISIBILITY = HIDEHAIR,
 				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -787,8 +967,17 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_safeguard_two
-	armor = list(MELEE = 45, BULLET = 40, LASER = 45, ENERGY = 30, BOMB = 70, BIO = 90, RAD = 30, FIRE = 80, ACID = 100)
+
+/datum/armor/mod_theme_safeguard_two
+	melee = 45
+	bullet = 40
+	laser = 45
+	energy = 30
+	bomb = 70
+	bio = 90
+	rad = 30
+	fire = 80
+	acid = 100
 
 /datum/mod_theme/security_medical
 	name = "модели \"Военный врач\""
@@ -799,10 +988,9 @@
 		поэтому вскоре развернулось массовое производство. Предоставляет баланс между мобильностью, грузоподъёмностью и защитой, \
 		однако вряд ли остановит крупнокалиберную пулю. Нагрудная пластина украшена знакомым любому красным крестом."
 	default_skin = "security-med"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_secmed
+	armor_type = /datum/armor/mod_theme_secmed
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
-	slowdown_inactive = 0.75
-	slowdown_active = 0.4
+	slowdown_deployed = 0.4
 	ui_theme = "security"
 	allowed_suit_storage = list(
 		/obj/item/reagent_containers/spray/pepper,
@@ -819,9 +1007,9 @@
 		/obj/item/storage/bag/chemistry,
 		/obj/item/storage/bag/bio,
 	)
-	skins = list(
+	variants = list(
 		"security-med" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
@@ -829,17 +1017,17 @@
 				SEALED_INVISIBILITY = HIDEHAIR,
 				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -847,9 +1035,17 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_secmed
-	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 50, FIRE = 70, ACID = 100)
 
+/datum/armor/mod_theme_secmed
+	melee = 20
+	bullet = 20
+	laser = 20
+	energy = 20
+	bomb = 30
+	bio = 100
+	rad = 50
+	fire = 70
+	acid = 100
 
 /datum/mod_theme/magnate
 	name = "модели \"Магнат\""
@@ -863,13 +1059,12 @@
 		Бортовые системы задействуют мета-позитронное обучение и блюспейс обработку данных, открывая простор для широкого спектра модификаций, \
 		а для движения задействованы только самые лучшие приводы. Внешнее сходство со шлемом \"Мародёров Горлекса\" является чистейшим <b>\"совпадением\" </b>."
 	default_skin = "magnate"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_magnate
+	armor_type = /datum/armor/mod_theme_magnate
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|ACID_PROOF // Theft targets should be hard to destroy
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
-	slowdown_inactive = 0.75
-	slowdown_active = 0.25
+	slowdown_deployed = 0.25
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
@@ -878,9 +1073,9 @@
 		/obj/item/melee,
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"magnate" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -888,26 +1083,33 @@
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
-
-/obj/item/mod/armor/mod_theme_magnate
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 15, BIO = 100, RAD = 50, FIRE = 100, ACID = 100) //On one hand this is quite strong, on the other hand energy hole / antagonists need to steal, and thus by extention use this.
+/datum/armor/mod_theme_magnate
+	melee = 50
+	bullet = 50
+	laser = 50
+	energy = 15
+	bomb = 15
+	bio = 100
+	rad = 50
+	fire = 100
+	acid = 100
 
 /datum/mod_theme/praetorian
 	name = "модели \"Преторианец\""
@@ -920,13 +1122,12 @@
 		изолированной внутренней обшивки, гарантируя носителю защиту от коррозийных сред, взрывных воздействий, огня, электрического \
 		шока и презрения со стороны остального экипажа."
 	default_skin = "praetorian"
-	armor_type_1 = /obj/item/mod/armor/praetorian
+	armor_type = /datum/armor/praetorian
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
-	slowdown_inactive = 0.6
-	slowdown_active = 0.25
+	slowdown_deployed = 0.25
 	allowed_suit_storage = list(
 		/obj/item/gun,
 		/obj/item/reagent_containers/spray/pepper,
@@ -938,26 +1139,26 @@
 		/obj/item/melee/baton/telescopic,
 		/obj/item/kitchen/knife/combat
 	)
-	skins = list(
+	variants = list(
 		"praetorian" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
 				UNSEALED_INVISIBILITY = HIDENAME,
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -965,8 +1166,16 @@
 		),
 	)
 
-/obj/item/mod/armor/praetorian
-	armor = list(MELEE = 45, BULLET = 45, LASER = 35, ENERGY = 25, BOMB = 45, BIO = 70, RAD = 45, FIRE = 80, ACID = 100)
+/datum/armor/praetorian
+	melee = 45
+	bullet = 45
+	laser = 35
+	energy = 25
+	bomb = 45
+	bio = 70
+	rad = 45
+	fire = 80
+	acid = 100
 
 /datum/mod_theme/cosmohonk
 	name = "клоунской модели"
@@ -978,19 +1187,18 @@
 		не содержит двойные марганцевые очистители конденсаторов, упаси Хонкоматерь. \
 		Вы точно знаете одно — этот костюм мистически энергоэффективен и слишком цветастый, чтобы мим захотел его красть."
 	default_skin = "cosmohonk"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_cosmohonk
+	armor_type = /datum/armor/mod_theme_cosmohonk
 	charge_drain = DEFAULT_CHARGE_DRAIN * 0.25
-	slowdown_inactive = 1.75
-	slowdown_active = 1.25
+	slowdown_deployed = 1.25
 	allowed_suit_storage = list(
 		/obj/item/bikehorn,
 		/obj/item/grown/bananapeel,
 		/obj/item/reagent_containers/spray/waterflower,
 		/obj/item/instrument,
 	)
-	skins = list(
+	variants = list(
 		"cosmohonk" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
@@ -998,17 +1206,17 @@
 				SEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -1016,8 +1224,16 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_cosmohonk
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, BIO = 100, RAD = 0, FIRE = 75, ACID = 50)
+/datum/armor/mod_theme_cosmohonk
+	melee = 5
+	bullet = 5
+	laser = 5
+	energy = 5
+	bomb = 5
+	bio = 100
+	rad = 0
+	fire = 75
+	acid = 50
 
 /datum/mod_theme/syndicate
 	name = "синдиката" //Это шлем МЭК синдиката
@@ -1031,12 +1247,11 @@
 		На нём приклеена маленькая бирка: \"Торговая марка принадлежит \"Мародёрам Горлекса\", создано при сотрудничестве с \"Киберсан\". \
 		Все права защищены, нарушение целостности внутренней системы костюма повлечёт аннулирование вашей гарантии.\""
 	default_skin = "syndicate"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_syndicate
+	armor_type = /datum/armor/mod_theme_syndicate
 
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	slowdown_inactive = 1
-	slowdown_active = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
+	slowdown_deployed = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
 	ui_theme = "syndicate"
 	inbuilt_modules = list(/obj/item/mod/module/armor_booster)
 	allowed_suit_storage = list(
@@ -1049,9 +1264,9 @@
 		/obj/item/shield/energy,
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"syndicate" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -1059,24 +1274,24 @@
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 		"honkerative" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -1084,17 +1299,17 @@
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -1102,14 +1317,17 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_syndicate // TODO: add RAD 100 in space mode
-	armor = list(MELEE = 20, BULLET = 25, LASER = 25, ENERGY = 15, BOMB = 35, BIO = 100, RAD = 50, FIRE = 50, ACID = 100)
-	//melee = 45
-	//bullet = 55
-	//laser = 40
-	//energy = 30
-	//bomb = 50
-	//rad = 100
+
+/datum/armor/mod_theme_syndicate
+	melee = 20
+	bullet = 25
+	laser = 25
+	energy = 15
+	bomb = 35
+	bio = 100
+	rad = 50
+	fire = 50
+	acid = 100
 
 /datum/mod_theme/elite
 	name = "элиты синдиката"
@@ -1123,12 +1341,11 @@
 		На нём приклеена маленькая бирка: \"Торговая марка принадлежит \"Мародёрам Горлекса\", создано при сотрудничестве с \"Киберсан\". \
 		Все права защищены, нарушение целостности внутренней системы костюма повлечёт аннулирование вашей жизни.\""
 	default_skin = "elite"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_elite
+	armor_type = /datum/armor/mod_theme_elite
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	slowdown_inactive = 1
-	slowdown_active = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
+	slowdown_deployed = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
 	ui_theme = "syndicate"
 	inbuilt_modules = list(/obj/item/mod/module/armor_booster)
 	allowed_suit_storage = list(
@@ -1141,9 +1358,9 @@
 		/obj/item/shield/energy,
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"elite" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -1151,17 +1368,17 @@
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -1169,12 +1386,17 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_elite
-	armor = list(MELEE = 50, BULLET = 45, LASER = 40, ENERGY = 20, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
-	//melee = 50 // 75 with booster
-	//bullet = 45 // 75 same as
-	//laser = 40 //55 same as
-	//energy = 20 // 30
+
+/datum/armor/mod_theme_elite
+	melee = 50
+	bullet = 45
+	laser = 40
+	energy = 20
+	bomb = 60
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
 
 /datum/mod_theme/prototype
 	name = "экспериментальной модели"
@@ -1187,13 +1409,12 @@
 		Нескрываемые внутренние индикаторы визора используют практически нечитаемый токсично-бирюзовый цвет, затрудняя видимость носителя \
 		на дальние расстояния. Ну, хотя бы выдвигающийся шлем выглядит действительно круто."
 	default_skin = "prototype"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_prototype
+	armor_type = /datum/armor/mod_theme_prototype
 	resistance_flags = FIRE_PROOF
 	siemens_coefficient = 0
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
-	slowdown_inactive = 2
-	slowdown_active = 0.95
+	slowdown_deployed = 0.95
 	ui_theme = "hackerman"
 	inbuilt_modules = list(/obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype)
 	allowed_suit_storage = list(
@@ -1202,9 +1423,9 @@
 		/obj/item/rpd,
 		/obj/item/rcd,
 	)
-	skins = list(
+	variants = list(
 		"prototype" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
@@ -1212,17 +1433,17 @@
 				SEALED_INVISIBILITY = HIDEHAIR,
 				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -1230,8 +1451,18 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_prototype
-	armor = list(MELEE = 20, BULLET = 5, LASER = 10, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
+
+/datum/armor/mod_theme_prototype
+	melee = 20
+	bullet = 5
+	laser = 10
+	energy = 10
+	bomb = 50
+	bio = 100
+	rad = 50
+	fire = 100
+	acid = 100
+
 /*
 // ОПИСАНИЕ ДЛЯ ГАММА ОБР
 desc = "Усовершенствованный костюм от \"Нанотрейзен\", продвинутый вариант для отрядов быстрого реагирования уровня \"ГАММА\"."
@@ -1253,13 +1484,12 @@ extended_desc = "Многократно улучшенный вариант об
 		губительного воздействия космоса, при этом нисколько не стесняя его скорость и подвижность. \
 		Нося его, вы ощущаете безграничное почтение к темноте."
 	default_skin = "responsory"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_responsory
+	armor_type = /datum/armor/mod_theme_responsory
 
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	slowdown_inactive = 0.5
-	slowdown_active = 0
+	slowdown_deployed = 0
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
@@ -1268,9 +1498,9 @@ extended_desc = "Многократно улучшенный вариант об
 		/obj/item/melee/baton,
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"responsory" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -1278,24 +1508,24 @@ extended_desc = "Многократно улучшенный вариант об
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 		"inquisitory" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -1303,17 +1533,17 @@ extended_desc = "Многократно улучшенный вариант об
 				SEALED_INVISIBILITY = HIDEHAIR,
 				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -1321,8 +1551,17 @@ extended_desc = "Многократно улучшенный вариант об
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_responsory //This has no slowdown active, and no variation between levels.
-	armor = list(MELEE = 40, BULLET = 25, LASER = 30, ENERGY = 20, BOMB = 25, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+
+/datum/armor/mod_theme_responsory
+	melee = 40
+	bullet = 25
+	laser = 30
+	energy = 20
+	bomb = 25
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
 
 /datum/mod_theme/gamma_responsory
 	name = "военного подразделения ОБР"
@@ -1335,12 +1574,11 @@ extended_desc = "Многократно улучшенный вариант об
 		за дизайн элитного боевого костюма Синдиката и этой версии ответственны одни и те же инженеры, но подтверждений этому нет. \
 		На нём приклеена маленькая бирка: \"Торговая марка принадлежит \"Нанотрейзен\". Все права защищены.\""
 	default_skin = "responsory"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_gamma_responsory
+	armor_type = /datum/armor/mod_theme_gamma_responsory
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	slowdown_inactive = 0.5
-	slowdown_active = 0
+	slowdown_deployed = 0
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
@@ -1349,9 +1587,9 @@ extended_desc = "Многократно улучшенный вариант об
 		/obj/item/melee/baton,
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"elite ERT" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -1359,17 +1597,17 @@ extended_desc = "Многократно улучшенный вариант об
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -1378,8 +1616,16 @@ extended_desc = "Многократно улучшенный вариант об
 	)
 
 
-/obj/item/mod/armor/mod_theme_gamma_responsory
-	armor = list(MELEE = 50, BULLET = 45, LASER = 50, ENERGY = 40, BOMB = 55, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+/datum/armor/mod_theme_gamma_responsory
+	melee = 50
+	bullet = 45
+	laser = 50
+	energy = 40
+	bomb = 55
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
 
 /datum/mod_theme/apocryphal
 	name = "класса \"Легенда\""
@@ -1393,7 +1639,7 @@ extended_desc = "Многократно улучшенный вариант об
 		энергоэффективность и мобильность. Носитель этого костюма может не боясь шагнуть в огонь, взрыв, под шквал пуль или раскалённой плазмы. \
 		Бесчисленные датчики и сенсоры отображают на дисплей всю возможную информацию окружения, которая только может понадобиться пользователю."
 	default_skin = "apocryphal"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_apocryphal
+	armor_type = /datum/armor/mod_theme_apocryphal
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	ui_theme = "malfunction"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -1409,9 +1655,9 @@ extended_desc = "Многократно улучшенный вариант об
 		/obj/item/shield/energy,
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"apocryphal" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
@@ -1419,17 +1665,17 @@ extended_desc = "Многократно улучшенный вариант об
 				SEALED_INVISIBILITY = HIDENAME|HIDEMASK|HIDEGLASSES|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -1437,8 +1683,17 @@ extended_desc = "Многократно улучшенный вариант об
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_apocryphal
-	armor = list(MELEE = 90, BULLET = 90, LASER = 90, ENERGY = 90, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+
+/datum/armor/mod_theme_apocryphal
+	melee = 90
+	bullet = 90
+	laser = 90
+	energy = 90
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
 
 /datum/mod_theme/corporate
 	name = "модели \"Корпорат\""
@@ -1449,13 +1704,12 @@ extended_desc = "Многократно улучшенный вариант об
 		военным преступлением и легальным поводом для казни на месте во всем подконтрольном \"Нанотрейзен\" пространстве. \
 		Внешнее сходство со шлемом \"Мародёров Горлекса\" является чистейшим <b>\"совпадением\"</b>.."
 	default_skin = "corporate"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_corporate
+	armor_type = /datum/armor/mod_theme_corporate
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
-	slowdown_inactive = 0.5
-	slowdown_active = 0
+	slowdown_deployed = 0
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
@@ -1464,9 +1718,9 @@ extended_desc = "Многократно улучшенный вариант об
 		/obj/item/melee/baton,
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"corporate" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
@@ -1474,17 +1728,17 @@ extended_desc = "Многократно улучшенный вариант об
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME|HIDEHAIR,
 				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -1492,8 +1746,17 @@ extended_desc = "Многократно улучшенный вариант об
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_corporate
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+
+/datum/armor/mod_theme_corporate
+	melee = 200
+	bullet = 200
+	laser = 50
+	energy = 50
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
 
 /datum/mod_theme/debug
 	name = "для тестирования"
@@ -1502,20 +1765,19 @@ extended_desc = "Многократно улучшенный вариант об
 		Внутри находится продвинутый самозарядный конденсатор, позволя- \
 		Погодите, это же просто скин для дебаг-костюма. Вот блядь."
 	default_skin = "debug"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_debug
+	armor_type = /datum/armor/mod_theme_debug
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	complexity_max = 50
 	siemens_coefficient = 0
-	slowdown_inactive = 0.5
-	slowdown_active = 0
+	slowdown_deployed = 0
 	allowed_suit_storage = list(
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"debug" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -1524,17 +1786,17 @@ extended_desc = "Многократно улучшенный вариант об
 				UNSEALED_COVER = HEADCOVERSMOUTH,
 				SEALED_COVER = HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
 				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
@@ -1542,9 +1804,16 @@ extended_desc = "Многократно улучшенный вариант об
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_debug
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
-
+/datum/armor/mod_theme_debug
+	melee = 200
+	bullet = 200
+	laser = 50
+	energy = 50
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100
 
 /datum/mod_theme/administrative
 	name = "модели \"Админисратор\""
@@ -1553,41 +1822,48 @@ extended_desc = "Многократно улучшенный вариант об
 		с перекрученными цифрами, ходишь туда сюда как еблан всех убивая или что-то в таком духе? Не забудь шаттл отозвать, \
 		когда половина станции в гостах сидит, и отменить все ивентовые события, администратор хуев."
 	default_skin = "debug"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_administrative
+	armor_type = /datum/armor/mod_theme_administrative
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	complexity_max = 1000
 	charge_drain = DEFAULT_CHARGE_DRAIN * 0
 	siemens_coefficient = 0
-	slowdown_inactive = 0
-	slowdown_active = 0
+	slowdown_deployed = 0
 	allowed_suit_storage = list(
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"debug" = list(
-			HELMET_FLAGS = list(
+			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
 				UNSEALED_INVISIBILITY = HIDENAME,
 				SEALED_INVISIBILITY = HIDEMASK|HIDEGLASSES|HIDENAME,
 				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
-			CHESTPLATE_FLAGS = list(
+			/obj/item/clothing/suit/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT|HIDETAIL,
 			),
-			GAUNTLETS_FLAGS = list(
+			/obj/item/clothing/gloves/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
-			BOOTS_FLAGS = list(
+			/obj/item/clothing/shoes/mod = list(
 				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_administrative //considering this should not be used, it's getting just DS armor, not infinity in everything.
-	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+/datum/armor/mod_theme_administrative
+	melee = 200
+	bullet = 200
+	laser = 50
+	energy = 50
+	bomb = 100
+	bio = 100
+	rad = 100
+	fire = 100
+	acid = 100

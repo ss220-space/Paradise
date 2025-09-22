@@ -12,6 +12,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
 	incompatible_modules = list(/obj/item/mod/module/reagent_scanner)
 	cooldown_time = 0.5 SECONDS
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_EYES|ITEM_SLOT_MASK)
 
 /obj/item/mod/module/reagent_scanner/get_ru_names()
 	return list(
@@ -24,16 +25,21 @@
 	)
 
 /obj/item/mod/module/reagent_scanner/on_activation()
-	. = ..()
-	if(!.)
-		return
-	mod.helmet.examine_extensions += EXAMINE_HUD_SCIENCE
+	var/obj/item/clothing/head/mod/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	var/obj/item/clothing/glasses/glasses = mod.get_part_from_slot(ITEM_SLOT_EYES)
+	if(head_cover)
+		head_cover.examine_extensions += EXAMINE_HUD_SCIENCE
+	if(glasses)
+		glasses.examine_extensions += EXAMINE_HUD_SCIENCE
 
 /obj/item/mod/module/reagent_scanner/on_deactivation(display_message = TRUE, deleting = FALSE)
-	. = ..()
-	if(!.)
-		return
-	mod.helmet.examine_extensions -= EXAMINE_HUD_SCIENCE
+	var/obj/item/clothing/head/mod/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	var/obj/item/clothing/glasses/glasses = mod.get_part_from_slot(ITEM_SLOT_EYES)
+	if(head_cover)
+		head_cover.examine_extensions -= EXAMINE_HUD_SCIENCE
+	if(glasses)
+		glasses.examine_extensions -= EXAMINE_HUD_SCIENCE
+
 
 /obj/item/mod/module/reagent_scanner/advanced
 	name = "MOD advanced reagent scanner module"
@@ -86,9 +92,10 @@
 	icon_state = "teleporter"
 	module_type = MODULE_ACTIVE
 	complexity = 3
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 5 SECONDS
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/bluespace)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	/// Time it takes to teleport
 	var/teleport_time = 1.25 SECONDS //This is a bluespace core this should be fast, like you can get a phazon with this man, we don't have anomaly refining either
 
@@ -120,7 +127,7 @@
 	animate(mod.wearer, teleport_time * 0.1, color = null, transform = post_matrix.Multiply(mod.wearer.transform), easing = SINE_EASING|EASE_IN)
 	if(!do_teleport(mod.wearer, target_turf, asoundin = 'sound/effects/phasein.ogg'))
 		return
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 
 /obj/item/mod/module/anomaly_locked/teleporter/prebuilt
 	prebuilt = TRUE
@@ -135,7 +142,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.7
 	incompatible_modules = list( /obj/item/mod/module/anomaly_locked/antigrav) //TODO: add /obj/item/mod/module/atrocinator
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/gravitational)
-	//required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 
 /obj/item/mod/module/anomaly_locked/antigrav/on_activation()
 	. = ..()

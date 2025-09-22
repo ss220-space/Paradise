@@ -1,9 +1,37 @@
 #define ARMORID "armor-[melee]-[bullet]-[laser]-[energy]-[bomb]-[bio]-[rad]-[fire]-[acid]-[magic]"
+/// Assosciative list of type -> armor. Used to ensure we always hold a reference to default armor datums
+GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 
 /proc/getArmor(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, magic = 0)
 	. = locate(ARMORID)
 	if(!.)
 		. = new /datum/armor(melee, bullet, laser, energy, bomb, bio, rad, fire, acid, magic)
+
+/proc/generate_armor_type_cache()
+	var/list/armor_cache = list()
+	for(var/datum/armor/armor_type as anything in subtypesof(/datum/armor))
+		armor_type = new armor_type
+		armor_cache[armor_type.type] = armor_type
+	return armor_cache
+
+/**
+ * Gets an armor type datum using the given type
+ */
+/proc/get_armor_by_type(armor_type)
+	var/armor = GLOB.armor_by_type[armor_type]
+	if(armor)
+		return armor
+	if(armor_type == /datum/armor)
+		CRASH("Attempted to get the base armor type, you probably meant to use /datum/armor/none")
+	CRASH("Attempted to get an armor type that did not exist! '[armor_type]'")
+
+/// Sets the armor of this atom to the specified armor
+/obj/proc/set_armor(datum/armor/armor)
+	if(src.armor == armor)
+		return
+	if(!(src.armor?.type in GLOB.armor_by_type))
+		qdel(src.armor)
+	src.armor = ispath(armor) ? get_armor_by_type(armor) : armor
 
 /datum/armor
 	var/melee

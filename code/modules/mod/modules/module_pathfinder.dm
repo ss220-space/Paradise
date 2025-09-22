@@ -9,7 +9,7 @@
 		модульный костюм в любое время. Био-чип встроен в модуль, и перед использованием его нужно извлечь."
 	icon_state = "pathfinder"
 	complexity = 2
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 200
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 200
 	incompatible_modules = list(/obj/item/mod/module/pathfinder)
 	/// The pathfinding implant.
 	var/obj/item/implant/mod/implant
@@ -65,4 +65,4 @@
 	mod.quick_deploy(user)
 	human_user.update_action_buttons(TRUE)
 	playsound(mod, 'sound/machines/ping.ogg', 50, TRUE)
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)

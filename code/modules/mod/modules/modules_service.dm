@@ -8,7 +8,7 @@
 	icon_state = "bikehorn"
 	module_type = MODULE_USABLE
 	complexity = 1
-	use_power_cost = DEFAULT_CHARGE_DRAIN
+	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/bikehorn)
 	cooldown_time = 1 SECONDS
 
@@ -27,7 +27,7 @@
 	if(!.)
 		return
 	playsound(src, 'sound/items/bikehorn.ogg', 100, FALSE)
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 
 //Waddle - Makes you waddle and squeak.
 /obj/item/mod/module/waddle
@@ -41,6 +41,7 @@
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
 	incompatible_modules = list(/obj/item/mod/module/waddle)
+	required_slots = list(ITEM_SLOT_FEET)
 
 /obj/item/mod/module/waddle/get_ru_names()
 	return list(
@@ -52,15 +53,17 @@
 		PREPOSITIONAL = "модуле покачивания для МЭК",
 	)
 
+/obj/item/mod/module/waddle/on_part_activation()
+	var/obj/item/shoes = mod.get_part_from_slot(ITEM_SLOT_FEET)
+	if(shoes)
+		shoes.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+	shoes.AddElement(/datum/element/waddling)
 
-/obj/item/mod/module/waddle/on_suit_activation()
-	mod.boots.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
-	mod.wearer.AddElement(/datum/element/waddling)
-
-/obj/item/mod/module/waddle/on_suit_deactivation(deleting = FALSE)
-	if(!deleting)
-		qdel(mod.boots.GetComponent(/datum/component/squeak))
-	mod.wearer.RemoveElement(/datum/element/waddling)
+/obj/item/mod/module/waddle/on_part_deactivation(deleting = FALSE)
+	var/obj/item/shoes = mod.get_part_from_slot(ITEM_SLOT_FEET)
+	if(shoes && !deleting)
+		qdel(shoes.GetComponent(/datum/component/squeak))
+	shoes.RemoveElement(/datum/element/waddling)
 
 //Boot heating - dries floors like galoshes/dry
 /obj/item/mod/module/boot_heating
@@ -81,10 +84,10 @@
 		PREPOSITIONAL = "модуле согревающей обуви для МЭК",
 	)
 
-/obj/item/mod/module/boot_heating/on_suit_activation()
+/obj/item/mod/module/boot_heating/on_part_activation()
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(on_step))
 
-/obj/item/mod/module/boot_heating/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/boot_heating/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
 
 /obj/item/mod/module/boot_heating/proc/on_step()

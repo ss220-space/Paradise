@@ -21,13 +21,19 @@
 		PREPOSITIONAL = "модуле защиты от сварки для МЭК",
 	)
 
-/obj/item/mod/module/welding/on_suit_activation()
-	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER
+/obj/item/mod/module/welding/on_part_activation()
+	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
+	if(istype(head_cover))
+		//this is a screen that displays an image, so flash sensitives can use this to protect against flashes.
+		head_cover.flash_protect = FLASH_PROTECTION_WELDER
 
-/obj/item/mod/module/welding/on_suit_deactivation(deleting = FALSE)
+
+/obj/item/mod/module/welding/on_part_deactivation(deleting = FALSE)
 	if(deleting)
 		return
-	mod.helmet.flash_protect = initial(mod.helmet.flash_protect)
+	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
+	if(istype(head_cover))
+		head_cover.flash_protect = initial(head_cover.flash_protect)
 
 ///T-Ray Scan - Scans the terrain for undertile objects.
 /obj/item/mod/module/t_ray
@@ -167,7 +173,7 @@
 	icon_state = "tether"
 	module_type = MODULE_ACTIVE
 	complexity = 1
-	use_power_cost = DEFAULT_CHARGE_DRAIN
+	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/tether)
 	cooldown_time = 4 SECONDS
 
@@ -199,7 +205,7 @@
 	tether.fire()
 	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
 	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/projectile/tether, make_chain))
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 
 /obj/projectile/tether
 	name = "tether"

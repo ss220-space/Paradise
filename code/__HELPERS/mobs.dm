@@ -716,37 +716,37 @@
 /proc/parse_slot_flags(slot_flags)
 	var/list/slot_strings = list()
 	if(slot_flags & ITEM_SLOT_BACK)
-		slot_strings += "back"
+		slot_strings += "спина"
 	if(slot_flags & ITEM_SLOT_MASK)
-		slot_strings += "mask"
+		slot_strings += "маска"
 	if(slot_flags & ITEM_SLOT_NECK)
-		slot_strings += "neck"
+		slot_strings += "шея"
 	if(slot_flags & ITEM_SLOT_HANDCUFFED)
-		slot_strings += "handcuff"
+		slot_strings += "наручники"
 	if(slot_flags & ITEM_SLOT_LEGCUFFED)
-		slot_strings += "legcuff"
+		slot_strings += "кандалы"
 	if(slot_flags & ITEM_SLOT_BELT)
-		slot_strings += "belt"
+		slot_strings += "пояс"
 	if(slot_flags & ITEM_SLOT_ID)
-		slot_strings += "id"
+		slot_strings += "ID"
 	if(slot_flags & ITEM_SLOT_EARS)
-		slot_strings += "ear"
+		slot_strings += "ухо"
 	if(slot_flags & ITEM_SLOT_EYES)
-		slot_strings += "glasses"
+		slot_strings += "очки"
 	if(slot_flags & ITEM_SLOT_GLOVES)
-		slot_strings += "glove"
+		slot_strings += "перчатка"
 	if(slot_flags & ITEM_SLOT_HEAD)
-		slot_strings += "head"
+		slot_strings += "голова"
 	if(slot_flags & ITEM_SLOT_FEET)
-		slot_strings += "shoe"
+		slot_strings += "ботинок"
 	if(slot_flags & ITEM_SLOT_CLOTH_OUTER)
 		slot_strings += "oversuit"
 	if(slot_flags & ITEM_SLOT_CLOTH_INNER)
 		slot_strings += "undersuit"
 	if(slot_flags & ITEM_SLOT_SUITSTORE)
-		slot_strings += "suit storage"
+		slot_strings += "хранилище костюма"
 	if(slot_flags & (ITEM_SLOT_POCKET_LEFT|ITEM_SLOT_POCKET_RIGHT))
-		slot_strings += "pocket"
+		slot_strings += "карман"
 	if(slot_flags & ITEM_SLOT_HANDS)
-		slot_strings += "hand"
+		slot_strings += "рука"
 	return slot_strings

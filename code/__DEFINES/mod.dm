@@ -16,10 +16,14 @@
 /// Actively usable module, you may only have one selected at a time.
 #define MODULE_ACTIVE 3
 
+/// This module can be used during phaseout
+#define MODULE_ALLOW_PHASEOUT (1<<0)
 /// This module can be used while incapacitated
 #define MODULE_ALLOW_INCAPACITATED (1<<1)
 /// This module can be used while the suit is off
 #define MODULE_ALLOW_INACTIVE (1<<2)
+/// This module can be used (by button) while the suit is unworn
+#define MODULE_ALLOW_UNWORN (1<<3)
 
 //Defines used by the theme for clothing flags and similar
 #define CONTROL_LAYER "control_layer"
@@ -39,3 +43,7 @@
 
 //Defines used to override MOD clothing's icon and worn icon files in the skin.
 #define MOD_ICON_OVERRIDE "mod_icon_override"
+#define MOD_WORN_ICON_OVERRIDE "mod_worn_icon_override"
+
+/// How likely the UI is to fail when malfunctioning
+#define MOD_MALFUNCTION_PROB 75

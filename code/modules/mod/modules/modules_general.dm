@@ -8,6 +8,7 @@
 	icon_state = "storage"
 	complexity = 3
 	incompatible_modules = list(/obj/item/mod/module/storage, /obj/item/mod/module/plate_compression)
+	required_slots = list(ITEM_SLOT_BACK)
 	/// Max weight class of items in the storage.
 	var/max_w_class = WEIGHT_CLASS_NORMAL
 	/// Max combined weight of all items in the storage.
@@ -52,10 +53,12 @@
 
 
 /obj/item/mod/module/storage/on_install()
+	. = ..()
 	mod.bag = bag
 	bag.forceMove(mod)
 
 /obj/item/mod/module/storage/on_uninstall(deleting = FALSE)
+	. = ..()
 	if(!deleting)
 		for(var/obj/I in bag.contents)
 			I.forceMove(get_turf(loc))
@@ -63,9 +66,11 @@
 		mod.bag = null
 		return
 	qdel(bag)
-	UnregisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP)
+	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_CLOTH_OUTER)
+	if(istype(suit))
+		UnregisterSignal(suit, COMSIG_ITEM_PRE_UNEQUIP)
 
-/obj/item/mod/module/storage/on_suit_deactivation(deleting)
+/obj/item/mod/module/storage/on_part_deactivation(deleting)
 	. = ..()
 	bag.forceMove(src) //So the pinpointer doesnt lie.
 
@@ -188,11 +193,12 @@
 	module_type = MODULE_TOGGLE
 	complexity = 3
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
-	use_power_cost = DEFAULT_CHARGE_DRAIN
+	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/jetpack)
 	cooldown_time = 0.5 SECONDS
 	overlay_state_inactive = "module_jetpack"
 	overlay_state_active = "module_jetpack_on"
+	required_slots = list(ITEM_SLOT_BACK)
 	/// Do we stop the wearer from gliding in space.
 	var/stabilizers = FALSE
 	/// Callback to see if we can thrust the user.
@@ -252,7 +258,7 @@
 			configure_jetpack(text2bool(value))
 
 /obj/item/mod/module/jetpack/proc/allow_thrust()
-	if(!drain_power(use_power_cost))
+	if(!drain_power(use_energy_cost))
 		return FALSE
 	return TRUE
 
@@ -274,7 +280,7 @@
 	overlay_state_inactive = "module_jetpackadv"
 	overlay_state_active = "module_jetpackadv_on"
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.25
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	origin_tech = "materials=4;magnets=4;engineering=5" //To replace the old hardsuit upgrade jetpack levels.
 
 /obj/item/mod/module/jetpack/advanced/get_ru_names()
@@ -298,6 +304,7 @@
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/emp_shield, /obj/item/mod/module/dna_lock)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 
 /obj/item/mod/module/emp_shield/get_ru_names()
 	return list(
@@ -310,9 +317,11 @@
 	)
 
 /obj/item/mod/module/emp_shield/on_install()
+	. = ..()
 	mod.emp_proof = TRUE
 
 /obj/item/mod/module/emp_shield/on_uninstall(deleting = FALSE)
+	. = ..()
 	mod.emp_proof = FALSE
 
 ///Flashlight - Gives the suit a customizable flashlight.
@@ -332,6 +341,7 @@
 	light_range = 4
 	light_power = 1
 	light_on = FALSE
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
 	/// Charge drain per range amount.
 	var/base_power = DEFAULT_CHARGE_DRAIN * 0.1
 	/// Minimum range we can set.
@@ -384,7 +394,7 @@
 				balloon_alert(mod.wearer, "too dark!")
 				return
 			set_light_color(value)
-			//update_clothing_slots()
+			update_clothing_slots()
 		if("light_range")
 			set_light_range(clamp(value, min_range, max_range))
 
@@ -413,8 +423,9 @@
 	icon_state = "dispenser"
 	module_type = MODULE_USABLE
 	complexity = 3
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 2
 	incompatible_modules = list(/obj/item/mod/module/dispenser)
+	required_slots = list(ITEM_SLOT_GLOVES)
 	cooldown_time = 5 SECONDS
 	/// Path we dispense.
 	var/dispense_type = /obj/item/reagent_containers/food/snacks/cheeseburger
@@ -440,7 +451,7 @@
 	var/obj/item/dispensed = new dispense_type(mod.wearer.loc)
 	mod.wearer.put_in_hands(dispensed)
 	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 	return dispensed
 
 ///Thermal Regulator - Regulates the wearer's core temperature.
@@ -454,6 +465,7 @@
 	complexity = 1
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/thermal_regulator)
+	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	cooldown_time = 0.5 SECONDS
 	/// The temperature we are regulating to.
 	var/temperature_setting = BODYTEMP_NORMAL
@@ -496,7 +508,7 @@
 	origin_tech = "materials=6;bluespace=5;syndicate=1"
 	module_type = MODULE_USABLE
 	complexity = 2
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 3
 	incompatible_modules = list(/obj/item/mod/module/dna_lock, /obj/item/mod/module/emp_shield)
 	cooldown_time = 0.5 SECONDS
 	/// The DNA we lock with.
@@ -513,12 +525,14 @@
 	)
 
 /obj/item/mod/module/dna_lock/on_install()
+	. = ..()
 	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_mod_activation))
 	RegisterSignal(mod, COMSIG_MOD_MODULE_REMOVAL, PROC_REF(on_mod_removal))
 	RegisterSignal(mod, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 	RegisterSignal(mod, COMSIG_ATOM_EMAG_ACT, PROC_REF(on_emag))
 
 /obj/item/mod/module/dna_lock/on_uninstall(deleting = FALSE)
+	. = ..()
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 	UnregisterSignal(mod, COMSIG_MOD_MODULE_REMOVAL)
 	UnregisterSignal(mod, COMSIG_ATOM_EMP_ACT)
@@ -529,7 +543,7 @@
 	if(!.)
 		return
 	dna = mod.wearer.dna.unique_enzymes
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 
 /obj/item/mod/module/dna_lock/emp_act(severity)
 	. = ..()
@@ -580,7 +594,7 @@
 	icon_state = "dnalock"
 	origin_tech = "materials=6;bluespace=5;syndicate=3"
 	complexity = 3
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 
 /obj/item/mod/module/dna_lock/emp_shield/get_ru_names()
 	return list(
@@ -613,6 +627,7 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/plasma_stabilizer)
 	overlay_state_inactive = "module_plasma"
+	required_slots = list(ITEM_SLOT_HEAD)
 
 /obj/item/mod/module/plasma_stabilizer/get_ru_names()
 	return list(
@@ -642,8 +657,9 @@
 	module_type = MODULE_USABLE
 	complexity = 3
 	cooldown_time = 30 SECONDS
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/jump_jet)
+	required_slots = list(ITEM_SLOT_BACK)
 
 /obj/item/mod/module/jump_jet/on_use()
 	if (DOING_INTERACTION(mod.wearer, mod.wearer))
@@ -677,25 +693,29 @@
 	icon_state = "apparatus"
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/mouthhole)
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
 	/// Former flags of the helmet.
 	var/former_helmet_flags = NONE
-	/// Former visor flags of the helmet.
-	var/former_visor_helmet_flags = NONE
 	/// Former flags of the mask.
 	var/former_mask_flags = NONE
-	/// Former visor flags of the mask.
-	var/former_visor_mask_flags = NONE
 
 /obj/item/mod/module/mouthhole/on_install()
 	. = ..()
-	var/obj/item/clothing/helmet = mod.helmet
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	if(istype(helmet))
 		former_helmet_flags = helmet.flags_cover
 		helmet.flags_cover &= ~HEADCOVERSMOUTH
+	var/obj/item/clothing/mask = mod.get_part_from_slot(ITEM_SLOT_MASK)
+	if(istype(mask))
+		former_mask_flags = mask.flags_cover
+		mask.flags_cover &= ~MASKCOVERSMOUTH
 
 /obj/item/mod/module/mouthhole/can_install(obj/item/mod/control/mod)
-	var/obj/item/clothing/helmet = mod.helmet
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
+	var/obj/item/clothing/mask = mod.get_part_from_slot(ITEM_SLOT_MASK)
 	if(istype(helmet) && (helmet.flags_cover & HEADCOVERSMOUTH))
+		return ..()
+	if(istype(mask) && (mask.flags_cover & MASKCOVERSMOUTH))
 		return ..()
 	return FALSE
 
@@ -703,9 +723,12 @@
 	. = ..()
 	if(deleting)
 		return
-	var/obj/item/clothing/helmet = mod.helmet
+	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 	if(istype(helmet))
 		helmet.flags_cover |= former_helmet_flags
+	var/obj/item/clothing/mask = mod.get_part_from_slot(ITEM_SLOT_MASK)
+	if(istype(mask))
+		mask.flags_cover |= former_mask_flags
 
 ///Longfall - Nullifies fall damage, removing charge instead.
 /obj/item/mod/module/longfall
@@ -716,20 +739,21 @@
 		Useful for mining, monorail tracks, or even skydiving!"
 	icon_state = "longfall"
 	complexity = 1
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/longfall)
+	required_slots = list(ITEM_SLOT_FEET)
 
-/obj/item/mod/module/longfall/on_suit_activation()
+/obj/item/mod/module/longfall/on_part_activation()
 	..()
 	RegisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT, PROC_REF(z_impact_react))
 
-/obj/item/mod/module/longfall/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/longfall/on_part_deactivation(deleting = FALSE)
 	..()
 	UnregisterSignal(mod.wearer, COMSIG_LIVING_Z_IMPACT)
 
 /obj/item/mod/module/longfall/proc/z_impact_react(datum/source, levels, turf/fell_on)
 	SIGNAL_HANDLER
-	if(!drain_power(use_power_cost * levels))
+	if(!drain_power(use_energy_cost * levels))
 		return NONE
 	new /obj/effect/temp_visual/mook_dust(fell_on)
 
@@ -753,10 +777,10 @@
 	icon_state = "joint_torsion"
 	complexity = 1
 	incompatible_modules = list(/obj/item/mod/module/joint_torsion)
-	//required_slots = list(ITEM_SLOT_FEET)
+	required_slots = list(ITEM_SLOT_FEET)
 	var/power_per_step = DEFAULT_CHARGE_DRAIN * 0.3
 
-/obj/item/mod/module/joint_torsion/on_suit_activation()
+/obj/item/mod/module/joint_torsion/on_part_activation()
 	..()
 	if(!(mod.wearer.movement_type & (FLOATING|FLYING)))
 		RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
@@ -764,7 +788,7 @@
 	RegisterSignal(mod.wearer, COMSIG_MOVETYPE_FLAG_ENABLED, PROC_REF(on_movetype_flag_enabled))
 	RegisterSignal(mod.wearer, COMSIG_MOVETYPE_FLAG_DISABLED, PROC_REF(on_movetype_flag_disabled))
 
-/obj/item/mod/module/joint_torsion/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/joint_torsion/on_part_deactivation(deleting = FALSE)
 	..()
 	UnregisterSignal(mod.wearer, list(COMSIG_MOVABLE_MOVED, COMSIG_MOVETYPE_FLAG_ENABLED, COMSIG_MOVETYPE_FLAG_DISABLED))
 
@@ -790,22 +814,22 @@
 	desc = "A module that makes the user resistant to the knockdown inflicted by Stun Batons."
 	icon_state = "no_baton"
 	complexity = 1
-	use_power_cost = DEFAULT_CHARGE_DRAIN
+	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/shock_absorber)
 
-/obj/item/mod/module/shock_absorber/on_suit_activation()
+/obj/item/mod/module/shock_absorber/on_part_activation()
 	. = ..()
 	ADD_TRAIT(mod.wearer, TRAIT_BATON_RESISTANCE, UNIQUE_TRAIT_SOURCE(src))
 	RegisterSignal(mod.wearer, COMSIG_MOB_BATONED, PROC_REF(mob_batoned))
 
-/obj/item/mod/module/shock_absorber/on_suit_deactivation(deleting)
+/obj/item/mod/module/shock_absorber/on_part_deactivation(deleting)
 	. = ..()
 	REMOVE_TRAIT(mod.wearer, TRAIT_BATON_RESISTANCE, UNIQUE_TRAIT_SOURCE(src))
 	UnregisterSignal(mod.wearer, COMSIG_MOB_BATONED)
 
 /obj/item/mod/module/shock_absorber/proc/mob_batoned(datum/source)
 	SIGNAL_HANDLER
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 	do_sparks(5, TRUE, mod.wearer.loc)
 
 /obj/item/mod/module/hearing_protection
@@ -814,20 +838,18 @@
 	complexity = 0
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/hearing_protection)
-	//required_slots = list(ITEM_SLOT_HEAD)
+	required_slots = list(ITEM_SLOT_HEAD)
 
-/obj/item/mod/module/hearing_protection/on_suit_activation()
+/obj/item/mod/module/hearing_protection/on_part_activation()
 	..()
-	//var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
-	var/obj/item/clothing/head_cover = mod.helmet
+	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
 	if(istype(head_cover))
 		head_cover.item_flags |= BANGPROTECT_TOTAL
 
-/obj/item/mod/module/hearing_protection/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/hearing_protection/on_part_deactivation(deleting = FALSE)
 	..()
 	if(deleting)
 		return
-	//var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
-	var/obj/item/clothing/head_cover = mod.helmet
+	var/obj/item/clothing/head_cover = mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES)
 	if(istype(head_cover))
 		head_cover.item_flags &= ~BANGPROTECT_TOTAL

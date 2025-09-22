@@ -48,13 +48,16 @@
 /obj/item/mod/armor/mod_module_armor_boost
 	armor = list(MELEE = 25, BULLET = 30, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 50, FIRE = 0, ACID = 0)
 
-/obj/item/mod/module/armor_booster/on_suit_activation()
-	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER
+/obj/item/mod/module/armor_booster/on_part_activation()
+	var/obj/item/clothing/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
+	if(head_cover)
+		head_cover.flash_protect = FLASH_PROTECTION_WELDER
 
-/obj/item/mod/module/armor_booster/on_suit_deactivation(deleting = FALSE)
-	if(deleting)
+/obj/item/mod/module/armor_booster/on_part_deactivation(deleting = FALSE)
+	var/obj/item/clothing/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD)
+	if(!head_cover || deleting)
 		return
-	mod.helmet.flash_protect = initial(mod.helmet.flash_protect)
+	head_cover.flash_protect = initial(head_cover.flash_protect)
 
 /obj/item/mod/module/armor_booster/on_activation()
 	. = ..()
@@ -62,7 +65,7 @@
 		return
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	balloon_alert(mod.wearer, "броня усилена, космос опасен")
-	actual_speed_added = max(0, min(mod.slowdown_active, speed_added / 5))
+	actual_speed_added = max(0, min(mod.slowdown_deployed, speed_added / 5))
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
 		part.armor = part.armor.attachArmor(armor_mod_1.armor)
@@ -163,6 +166,7 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
 	incompatible_modules = list(/obj/item/mod/module/noslip)
 	origin_tech = "syndicate=1"
+	required_slots = list(ITEM_SLOT_FEET)
 
 /obj/item/mod/module/noslip/get_ru_names()
 	return list(
@@ -174,18 +178,16 @@
 		PREPOSITIONAL = "защите от поскальзывания для МЭК",
 	)
 
-/obj/item/mod/module/noslip/on_suit_activation()
+/obj/item/mod/module/noslip/on_part_activation()
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
 
-/obj/item/mod/module/noslip/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/noslip/on_part_deactivation(deleting = FALSE)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
 
-/obj/item/mod/module/noslip/advanced/on_suit_activation()
-	. = ..()
+/obj/item/mod/module/noslip/advanced/on_part_activation()
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
 
-/obj/item/mod/module/noslip/advanced/on_suit_deactivation(deleting = FALSE)
-	. = ..()
+/obj/item/mod/module/noslip/advanced/on_part_deactivation(deleting = FALSE)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
 
 //Bite of 87 Springlock - Equips faster, disguised as DNA lock, can block retracting for 10 seconds.
@@ -201,7 +203,7 @@
 	desc = initial(the_dna_lock_behind_the_slaughter.desc)
 	icon_state = initial(the_dna_lock_behind_the_slaughter.icon_state)
 	complexity = initial(the_dna_lock_behind_the_slaughter.complexity)
-	use_power_cost = initial(the_dna_lock_behind_the_slaughter.use_power_cost)
+	use_energy_cost = initial(the_dna_lock_behind_the_slaughter.use_energy_cost)
 
 /obj/item/mod/module/holster/hidden/Initialize(mapload)
 	. = ..()
@@ -210,7 +212,7 @@
 	desc = initial(fake.desc)
 	icon_state = initial(fake.icon_state)
 	complexity = initial(fake.complexity) //This is 1 less complex than a holster, but that is fine tbh, paying tc for it.
-	use_power_cost = initial(fake.use_power_cost)
+	use_energy_cost = initial(fake.use_energy_cost)
 
 ///Power kick - Lets the user launch themselves at someone to kick them.
 /obj/item/mod/module/power_kick
@@ -219,9 +221,10 @@
 	icon_state = "power_kick"
 	module_type = MODULE_ACTIVE
 	removable = FALSE
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/power_kick)
 	cooldown_time = 5 SECONDS
+	required_slots = list(ITEM_SLOT_FEET)
 	/// Damage on kick.
 	var/damage = 20
 	/// How long we knockdown for on the kick.
@@ -251,7 +254,7 @@
 		animate(mod.wearer, 0.2 SECONDS, pixel_z = -16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
 		return
 	animate(mod.wearer)
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 	playsound(src, 'sound/items/modsuit/loader_launch.ogg', 75, TRUE)
 	var/angle = get_angle(mod.wearer, target) + 180
 	mod.wearer.transform = mod.wearer.transform.Turn(angle)
@@ -307,10 +310,12 @@
 	)
 
 /obj/item/mod/module/plate_compression/on_install()
+	. = ..()
 	old_size = mod.w_class
 	mod.w_class = new_size
 
 /obj/item/mod/module/plate_compression/on_uninstall(deleting = FALSE)
+	. = ..()
 	mod.w_class = old_size
 	old_size = null
 	if(!mod.loc)
@@ -331,10 +336,11 @@
 	module_type = MODULE_TOGGLE
 	complexity = 4
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 2
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 10
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 10
 	incompatible_modules = list(/obj/item/mod/module/stealth)
 	cooldown_time = 10 SECONDS
 	origin_tech = "combat=6;materials=6;powerstorage=5;bluespace=5;syndicate=2" //Printable at 3
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET)
 	/// Whether or not the cloak turns off on bumping.
 	var/bumpoff = TRUE
 	/// The alpha applied when the cloak is on.
@@ -360,7 +366,7 @@
 	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act)) //TODO QWERTY: A LOT OF THESE SIGNALS AINT TRIGGERING. or at least this one.
 	RegisterSignal(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
 	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 
 /obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
@@ -375,7 +381,7 @@
 	SIGNAL_HANDLER
 	balloon_alert(mod.wearer, "маскировка снята!")
 	do_sparks(2, TRUE, src)
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 	COOLDOWN_START(src, cooldown_timer, cooldown_time) //Put it on cooldown.
 	on_deactivation(display_message = TRUE, deleting = FALSE)
 
@@ -403,7 +409,7 @@
 	cooldown_time = 5 SECONDS
 	stealth_alpha = 10
 	active_power_cost = DEFAULT_CHARGE_DRAIN
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;syndicate=4"
 
 /obj/item/mod/module/stealth/ninja/get_ru_names()
@@ -427,10 +433,11 @@
 		её в свои самые последние разработки."
 	icon_state = "status"
 	complexity = 1
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 0.1
 	incompatible_modules = list(/obj/item/mod/module/status_readout)
 	tgui_id = "status_readout"
 	origin_tech = "combat=6;biotech=6;syndicate=1"
+	required_slots = list(ITEM_SLOT_BACK)
 	/// Does this show damage types, body temp, satiety
 	var/display_detailed_vitals = TRUE
 	/// Does this show DNA data
@@ -515,7 +522,7 @@
 		PREPOSITIONAL = "модуле камеры для МЭК",
 	)
 
-/obj/item/mod/module/ert_camera/on_suit_activation()
+/obj/item/mod/module/ert_camera/on_part_activation()
 	if(ishuman(mod.wearer))
 		register_camera(mod.wearer)
 
@@ -531,7 +538,7 @@
 	QDEL_NULL(camera)
 	return ..()
 
-/obj/item/mod/module/ert_camera/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/ert_camera/on_part_deactivation(deleting = FALSE)
 	QDEL_NULL(camera)
 
 ///Chameleon - lets the suit disguise as any item that would fit on that slot.
@@ -543,7 +550,7 @@
 	complexity = 2
 	incompatible_modules = list(/obj/item/mod/module/chameleon)
 	cooldown_time = 0.5 SECONDS
-	allow_flags = MODULE_ALLOW_INACTIVE
+	allow_flags = list(MODULE_ALLOW_INACTIVE|MODULE_ALLOW_UNWORN)
 	origin_tech = "materials=6;bluespace=5;syndicate=1"
 
 /obj/item/mod/module/chameleon/get_ru_names()
@@ -557,6 +564,7 @@
 	)
 
 /obj/item/mod/module/chameleon/on_install()
+	. = ..()
 	mod.chameleon_action = new(mod)
 	mod.chameleon_action.chameleon_type = /obj/item/storage/backpack
 	mod.chameleon_action.chameleon_name = "Backpack"
@@ -564,6 +572,7 @@
 
 
 /obj/item/mod/module/chameleon/on_uninstall(deleting = FALSE)
+	. = ..()
 	if(mod.current_disguise)
 		return_look()
 	QDEL_NULL(mod.chameleon_action)
@@ -587,11 +596,11 @@
 	mod.name = "[mod.theme.name] [initial(mod.name)]"
 	mod.desc = "[initial(mod.desc)] [mod.theme.desc]"
 	mod.icon_state = "[mod.skin]-control"
-	var/list/mod_skin = mod.theme.skins[mod.skin]
+	var/list/mod_skin = mod.theme.variants[mod.skin]
 	mod.icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
 	mod.lefthand_file = initial(mod.lefthand_file)
 	mod.righthand_file = initial(mod.righthand_file)
-	mod.wearer.update_inv_back()
+	mod.wearer.update_clothing()
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 
 ///Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
@@ -604,8 +613,9 @@
 	icon_state = "energy_shield"
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 2
 	incompatible_modules = list(/obj/item/mod/module/energy_shield)
+	required_slots = list(ITEM_SLOT_BACK)
 	/// Max charges of the shield.
 	var/max_charges = 3
 	/// The time it takes for the first charge to recover.
@@ -639,12 +649,12 @@
 	. = ..()
 	charges = max_charges
 
-/obj/item/mod/module/energy_shield/on_suit_activation()
+/obj/item/mod/module/energy_shield/on_part_activation()
 	mod.AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
 	charge_recovery = charge_recovery, lose_multiple_charges = lose_multiple_charges, recharge_path = recharge_path, starting_charges = charges, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 
-/obj/item/mod/module/energy_shield/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/energy_shield/on_part_deactivation(deleting = FALSE)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	charges = shield.current_charges
 	qdel(shield)
@@ -661,7 +671,7 @@
 	SIGNAL_HANDLER
 
 	if(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL)
-		drain_power(use_power_cost)
+		drain_power(use_energy_cost)
 		return SHIELD_BLOCK
 	return NONE
 
@@ -678,7 +688,7 @@
 	icon_state = "tesla"
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 3
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 75
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 75
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/energetic)
 	incompatible_modules = list(/obj/item/mod/module/energy_shield, /obj/item/mod/module/anomaly_locked)
 	///Copy paste of shielded code wheeeey
@@ -719,8 +729,7 @@
 	. = ..()
 	charges = max_charges
 
-/obj/item/mod/module/anomaly_locked/teslawall/on_suit_activation()
-	. = ..()
+/obj/item/mod/module/anomaly_locked/teslawall/on_part_activation()
 	if(!core)
 		return FALSE
 	mod.AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
@@ -728,8 +737,7 @@
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 	ADD_TRAIT(mod.wearer, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 
-/obj/item/mod/module/anomaly_locked/teslawall/on_suit_deactivation(deleting = FALSE)
-	. = ..()
+/obj/item/mod/module/anomaly_locked/teslawall/on_part_deactivation(deleting = FALSE)
 	if(!core)
 		return FALSE
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
@@ -749,7 +757,7 @@
 	SIGNAL_HANDLER
 
 	if(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL)
-		drain_power(use_power_cost)
+		drain_power(use_energy_cost)
 		arc_flash(owner, hitby, damage, attack_type)
 		return SHIELD_BLOCK
 	return NONE
@@ -780,11 +788,12 @@
 	icon_state = "flamethrower"
 	module_type = MODULE_ACTIVE
 	complexity = 3
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 3
 	incompatible_modules = list(/obj/item/mod/module/flamethrower)
 	cooldown_time = 2.5 SECONDS
 	overlay_state_inactive = "module_flamethrower"
 	overlay_state_active = "module_flamethrower_on"
+	required_slots = list(ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_CLOTH_INNER)
 
 /obj/item/mod/module/flamethrower/get_ru_names()
 	return list(
@@ -807,7 +816,7 @@
 	flame.fire()
 	playsound(src, 'sound/items/modsuit/flamethrower.ogg', 75, TRUE)
 	INVOKE_ASYNC(flame, TYPE_PROC_REF(/obj/projectile, fire))
-	drain_power(use_power_cost)
+	drain_power(use_energy_cost)
 
 ///Medbeam - Medbeam but built into a modsuit
 /obj/item/mod/module/medbeam
@@ -822,6 +831,7 @@
 	incompatible_modules = list(/obj/item/mod/module/medbeam)
 	removable = TRUE
 	cooldown_time = 0.05 SECONDS
+	required_slots = list(ITEM_SLOT_BACK)
 
 /obj/item/mod/module/medbeam/get_ru_names()
 	return list(

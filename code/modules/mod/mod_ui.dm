@@ -43,7 +43,7 @@
 			"pinned" = module.pinned_to[user.UID()],
 			"idle_power" = module.idle_power_cost,
 			"active_power" = module.active_power_cost,
-			"use_energy" = module.use_power_cost,
+			"use_energy" = module.use_energy_cost,
 			"module_complexity" = module.complexity,
 			"cooldown_time" = module.cooldown_time,
 			"cooldown" = round(COOLDOWN_TIMELEFT(module, cooldown_timer), 1 SECONDS),
@@ -75,16 +75,16 @@
 	. = ..()
 	if(.)
 		return
-	if(malfunctioning && prob(75))
+	if(malfunctioning && prob(MOD_MALFUNCTION_PROB))
 		balloon_alert(ui.user, "button malfunctions!")
 		return
 	switch(action)
 		if("lock")
 			if(!locked || allowed(ui.user))
 				locked = !locked
-				balloon_alert(ui.user, "[locked ? "locked" : "unlocked"]")
+				balloon_alert(ui.user, "[locked ? "заблокирован" : "разблокирован"]")
 			else
-				balloon_alert(ui.user, "access insufficent!")
+				balloon_alert(ui.user, "нет доступа")
 				playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		if("activate")
 			toggle_activate(ui.user)
@@ -92,7 +92,7 @@
 			var/obj/item/mod/module/module = locateUID(params["ref"])
 			if(!module)
 				return
-			module.on_select()
+			module.on_select(ui.user) // We can now
 		if("configure")
 			var/obj/item/mod/module/module = locateUID(params["ref"])
 			if(!module)
