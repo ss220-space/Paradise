@@ -927,7 +927,7 @@
 	name = "ammo box (Enforcer laser)"
 	desc = "Коробка, содержащая 30 лазерных патронов для пистолета \"Блюститель\"."
 	icon_state = "speclaser"
-	ammo_type = /obj/item/ammo_casing/specter/laser
+	ammo_type = /obj/item/ammo_casing/enforcer/laser
 
 /obj/item/ammo_box/enforcer/laser/get_ru_names()
 	return list(
