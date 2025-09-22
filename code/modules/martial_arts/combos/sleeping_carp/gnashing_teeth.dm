@@ -4,6 +4,8 @@
 	explaination_text = "Каждый твой второй последовательный удар наносит дополнительный урон."
 
 /datum/martial_combo/sleeping_carp/gnashing_teeth/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
+	if(target == user)
+		return MARTIAL_COMBO_DONE_BASIC_HIT
 	user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("с силой пинает", "жестоко рубит", "сильно бьёт")
 	target.visible_message(span_danger("[user] [atk_verb] [target]!"),

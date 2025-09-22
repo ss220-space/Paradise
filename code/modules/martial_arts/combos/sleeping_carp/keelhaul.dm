@@ -4,6 +4,8 @@
 	explaination_text = "Ты прибиваешь оппонента к полу, дополнительно нанося урон по стамине!"
 
 /datum/martial_combo/sleeping_carp/keelhaul/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
+	if(target == user)
+		return MARTIAL_COMBO_DONE_BASIC_HIT
 	user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 	playsound(get_turf(target), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	if(!IS_HORIZONTAL(target))
