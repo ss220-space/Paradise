@@ -1440,7 +1440,6 @@
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "aoc" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
@@ -20130,7 +20129,6 @@
 /turf/simulated/wall/r_wall,
 /area/storage/secure)
 "cpn" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -36408,7 +36406,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	id_tag = "tox_sensor"
 	},
-/turf/simulated/floor/engine/plasma,
+/turf/simulated/floor/engine,
 /area/atmos)
 "dJU" = (
 /turf/simulated/wall/r_wall/rust,
@@ -37524,7 +37522,7 @@
 	dir = 4;
 	id = "tox_in"
 	},
-/turf/simulated/floor/engine/plasma,
+/turf/simulated/floor/engine,
 /area/atmos)
 "dOE" = (
 /obj/effect/spawner/window/reinforced,
@@ -55577,7 +55575,7 @@
 /turf/simulated/wall,
 /area/maintenance/kitchen)
 "hwu" = (
-/turf/simulated/floor/engine/plasma,
+/turf/simulated/floor/engine,
 /area/atmos)
 "hww" = (
 /obj/structure/cable{
@@ -55676,7 +55674,7 @@
 	c_tag = "Atmospherics Toxins Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine/plasma,
+/turf/simulated/floor/engine,
 /area/atmos)
 "hya" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -55695,7 +55693,7 @@
 	pressure_checks_default = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine/plasma,
+/turf/simulated/floor/engine,
 /area/atmos)
 "hyj" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -58700,12 +58698,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
-"ijJ" = (
-/obj/machinery/portable_atmospherics/canister/toxins{
-	anchored = 1
-	},
-/turf/simulated/floor/engine/plasma,
-/area/atmos)
 "ijL" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -71012,9 +71004,6 @@
 	icon_state = "darkred"
 	},
 /area/security/warden)
-"lhS" = (
-/turf/simulated/wall/r_wall,
-/area/security/securearmory)
 "lif" = (
 /obj/effect/turf_decal/siding/green/corner{
 	color = "";
@@ -91717,7 +91706,6 @@
 	},
 /area/security/prison/cell_block/A)
 "pJs" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -150692,7 +150680,7 @@ fKf
 fmO
 uYk
 hxV
-ijJ
+hwu
 hwu
 uYk
 klC
@@ -183344,8 +183332,8 @@ wMw
 nRT
 tLv
 mzo
-tzh
-tzh
+jZB
+jZB
 gNP
 ego
 jZB
@@ -183601,7 +183589,7 @@ ykI
 pBU
 pLm
 qhn
-lhS
+fVF
 uPg
 lZP
 kmv
