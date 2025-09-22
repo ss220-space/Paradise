@@ -51,24 +51,20 @@
 	)
 
 /obj/item/stock_parts/cell/specter/update_overlays()
-	. = ..()
+	. = list()
+	var/charge_percent = src.percent()
 
-	switch(charge)
-		if(1 to 2000)
+	switch(charge_percent)
+		if(1 to 25)
 			. += "Specter_overlay_low"
-			update_icon(UPDATE_OVERLAYS)
-		if(2001 to 4000)
+		if(26 to 40)
 			. += "Specter_overlay_half2"
-			update_icon(UPDATE_OVERLAYS)
-		if(4001 to 6000)
+		if(41 to 65)
 			. += "Specter_overlay_half"
-			update_icon(UPDATE_OVERLAYS)
-		if(6001 to 8000)
+		if(66 to 100)
 			. += "Specter_overlay_full"
-			update_icon(UPDATE_OVERLAYS)
 		else
 			. += "Specter_overlay_empty"
-			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/get_cell()
 	return src
