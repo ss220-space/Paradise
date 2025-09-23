@@ -121,7 +121,7 @@
 
 	for(var/obj/item/part as anything in parts)
 		part.name = "[name] [part.name]"
-		part.desc = "[part.desc] [desc]"
+		part.desc = "[part.desc] </p> [desc]"
 		part.set_armor(armor_type)
 		part.resistance_flags = resistance_flags
 		part.flags |= atom_flags //flags like initialization or admin spawning are here, so we cant set, have to add

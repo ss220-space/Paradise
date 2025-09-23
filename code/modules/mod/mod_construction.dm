@@ -124,7 +124,7 @@
 		PREPOSITIONAL = ru_names[PREPOSITIONAL] + " [used_theme.name]"
 	)
 
-	desc = "[desc] [used_theme.desc]"
+	desc = "[desc] </p> [used_theme.desc]"
 	icon_state = "[used_theme.default_skin]-plating"
 
 /obj/item/mod/construction/plating/engineering
@@ -215,6 +215,7 @@
 /obj/item/mod/construction/shell/attackby(obj/item/part, mob/user, params)
 	. = ..()
 	switch(construction_step)
+
 		if(START_STEP)
 			if(!istype(part, /obj/item/mod/core))
 				return
@@ -226,6 +227,7 @@
 			core = part
 			core.forceMove(src)
 			construction_step = CORE_STEP
+
 		if(CORE_STEP)
 			if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
@@ -236,6 +238,7 @@
 					core.forceMove(drop_location())
 					balloon_alert(user, "ядро вынуто")
 				construction_step = START_STEP
+
 		if(SCREWED_CORE_STEP)
 			if(istype(part, /obj/item/mod/construction/helmet)) //Construct
 				if(!user.drop_from_active_hand())
@@ -248,8 +251,9 @@
 				construction_step = HELMET_STEP
 			else if(part.tool_behaviour == TOOL_SCREWDRIVER) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
-					balloon_alert(user, "шлем удалён")
+					balloon_alert(user, "ядро откручено")
 					construction_step = CORE_STEP
+
 		if(HELMET_STEP)
 			if(istype(part, /obj/item/mod/construction/chestplate)) //Construct
 				if(!user.drop_from_active_hand())
@@ -264,9 +268,10 @@
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					helmet.forceMove(drop_location())
-					balloon_alert(user, "грудная пластина удалена")
+					balloon_alert(user, "шлем удалён")
 					helmet = null
 					construction_step = SCREWED_CORE_STEP
+
 		if(CHESTPLATE_STEP)
 			if(istype(part, /obj/item/mod/construction/gauntlets)) //Construct
 				if(!user.drop_from_active_hand())
@@ -280,9 +285,10 @@
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					chestplate.forceMove(drop_location())
-					balloon_alert(user, "запчасти для рук удалены")
+					balloon_alert(user, "грудная пластина удалена")
 					chestplate = null
 					construction_step = HELMET_STEP
+
 		if(GAUNTLETS_STEP)
 			if(istype(part, /obj/item/mod/construction/boots)) //Construct
 				if(!user.drop_from_active_hand())
@@ -296,9 +302,10 @@
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume = 30))
 					gauntlets.forceMove(drop_location())
-					balloon_alert(user, "запчасти для ног удалены")
+					balloon_alert(user, "запчасти для рук удалены")
 					gauntlets = null
 					construction_step = CHESTPLATE_STEP
+
 		if(BOOTS_STEP)
 			if(part.tool_behaviour == TOOL_WRENCH) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
@@ -310,6 +317,7 @@
 					balloon_alert(user, "запчасти для ног удалены")
 					boots = null
 					construction_step = GAUNTLETS_STEP
+
 		if(WRENCHED_ASSEMBLY_STEP)
 			if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
 				if(part.use_tool(src, user, 0, volume = 30))
@@ -319,6 +327,7 @@
 				if(part.use_tool(src, user, 0, volume = 30))
 					balloon_alert(user, "запчасти откреплены")
 					construction_step = BOOTS_STEP
+
 		if(SCREWED_ASSEMBLY_STEP)
 			if(istype(part, /obj/item/mod/construction/plating)) //Construct
 				var/obj/item/mod/construction/plating/external_plating = part
@@ -335,6 +344,7 @@
 				if(part.use_tool(src, user, 0, volume = 30))
 					balloon_alert(user, "запчасти откручены")
 					construction_step = WRENCHED_ASSEMBLY_STEP
+
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mod/construction/shell/update_icon_state()
