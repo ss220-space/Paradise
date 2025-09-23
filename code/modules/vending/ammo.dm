@@ -27,7 +27,6 @@
 				/obj/item/ammo_box/secgl/paint = 1,
 			),
 		),
-
 		list(
 			"name" = "Магазины",
 			"icon" = "gun",
@@ -39,7 +38,6 @@
 				/obj/item/stock_parts/cell/specter = 10,
 			),
 		),
-
 		list(
 			"name" = "Гранаты",
 			"icon" = "bomb",

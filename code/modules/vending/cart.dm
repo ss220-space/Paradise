@@ -14,27 +14,34 @@
 	broken_overlay = "cart_broken"
 	broken_lightmask_overlay = "cart_broken_lightmask"
 	deny_overlay = "cart_deny"
-
-	products = list(/obj/item/pda = 10,
-					/obj/item/eftpos = 6,
-					/obj/item/cartridge/medical = 10,
-					/obj/item/cartridge/chemistry = 10,
-					/obj/item/cartridge/engineering = 10,
-					/obj/item/cartridge/atmos = 10,
-					/obj/item/cartridge/janitor = 10,
-					/obj/item/cartridge/signal/toxins = 10,
-					/obj/item/cartridge/signal = 10)
-	contraband = list(/obj/item/cartridge/clown = 1,/obj/item/cartridge/mime = 1)
-	prices = list(/obj/item/pda = 299,
-					/obj/item/eftpos = 199,
-					/obj/item/cartridge/medical = 199,
-					/obj/item/cartridge/chemistry = 149,
-					/obj/item/cartridge/engineering = 99,
-					/obj/item/cartridge/atmos = 69,
-					/obj/item/cartridge/janitor = 99,
-					/obj/item/cartridge/signal/toxins = 149,
-					/obj/item/cartridge/signal = 69)
 	refill_canister = /obj/item/vending_refill/cart
+	
+	products = list(
+		/obj/item/pda = 10,
+		/obj/item/eftpos = 6,
+		/obj/item/cartridge/medical = 10,
+		/obj/item/cartridge/chemistry = 10,
+		/obj/item/cartridge/engineering = 10,
+		/obj/item/cartridge/atmos = 10,
+		/obj/item/cartridge/janitor = 10,
+		/obj/item/cartridge/signal/toxins = 10,
+		/obj/item/cartridge/signal = 10
+	)
+	contraband = list(
+		/obj/item/cartridge/clown = 1,
+		/obj/item/cartridge/mime = 1
+	)
+	prices = list(
+		/obj/item/pda = 299,
+		/obj/item/eftpos = 199,
+		/obj/item/cartridge/medical = 199,
+		/obj/item/cartridge/chemistry = 149,
+		/obj/item/cartridge/engineering = 99,
+		/obj/item/cartridge/atmos = 69,
+		/obj/item/cartridge/janitor = 99,
+		/obj/item/cartridge/signal/toxins = 149,
+		/obj/item/cartridge/signal = 69
+	)
 
 /obj/machinery/vending/cart/get_ru_names()
 	return list(
