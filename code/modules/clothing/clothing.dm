@@ -90,8 +90,9 @@
 			. +=  span_warning("Да [genderize_ru(gender, "он разваливается", "она разваливается", "оно разваливается", "они разваливаются")] на глазах!")
 
 	if(armor_plate)
-		. += armor_plate.get_examine_text()
-		. += span_notice("Используйте <b>ALT+ЛКМ</b>, чтобы извлечь бронеплиту.")
+		. += armor_plate.get_examine_text(integrated_armor = !can_remove_armor_plate)
+		if(can_remove_armor_plate)
+			. += span_notice("Используйте <b>ALT+ЛКМ</b>, чтобы извлечь бронеплиту.")
 		return
 
 	if(allowed_armor_plate == ARMOR_PLATE_SLOT_NONE)
@@ -158,6 +159,13 @@
 		var/obj/item/armor_plate/armor_plate = I
 		if(armor_plate.try_attach_to_clothing(user, src))
 			return ATTACK_CHAIN_BLOCKED_ALL
+
+	//repair of integrated armor plates
+	if(!can_remove_armor_plate && armor_plate && istype(I, armor_plate.repair_type))
+		if(src == user.get_item_by_slot(slot_flags))
+			balloon_alert(user, "сначала снимите с себя!")
+			return ..()
+		return armor_plate.attackby(I, user, params)
 
 	return ..()
 

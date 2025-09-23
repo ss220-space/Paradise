@@ -24,7 +24,7 @@
 	/// Repair resource type
 	var/repair_type = null
 	/// Repair coefficient
-	var/repair_coefficient = 5
+	var/repair_coefficient = 10
 	/// Covered body parts by plate
 	body_parts_covered = UPPER_TORSO
 	/// Armor plate slowdown
@@ -64,7 +64,7 @@
 		return FALSE
 	balloon_alert(user, "установка бронеплиты...")
 	playsound(suit, 'sound/items/velcro/velcro_open.ogg', 30, TRUE, ignore_walls = FALSE)
-	if(!do_after(user, 5 SECONDS, suit))
+	if(!do_after(user, 5 SECONDS, user, interaction_key = suit, max_interact_count = 1))
 		return FALSE
 	if(!user.drop_transfer_item_to_loc(src, suit)) // Make absolutely sure this accessory is removed from hands
 		return FALSE
@@ -92,24 +92,28 @@
 		return FALSE
 	balloon_alert(user, "извлечение бронеплиты...")
 	playsound(suit, 'sound/items/velcro/velcro_open.ogg', 30, TRUE, ignore_walls = FALSE)
-	if(!do_after(user, 5 SECONDS, suit))
+	if(!do_after(user, 5 SECONDS, user, interaction_key = suit, max_interact_count = 1))
 		return FALSE
 	playsound(suit, 'sound/items/velcro/velcro_close.ogg', 30, TRUE, ignore_walls = FALSE)
-	balloon_alert(user, "бронеплита извлечена")
 	forceMove(user.loc)
-	user.put_in_hands(src)
 	suit.armor_plate = null
 	suit.slowdown -= equipped_slowdown
 	attached_suit = null
 	UnregisterSignal(suit, list(COMSIG_CLOTHING_EQUIP, COMSIG_CLOTHING_UNEQUIP))
 	if(obj_integrity <= 0)
-		balloon_alert(user, "плита рассыпается в руках!")
+		user.balloon_alert(user, "плита рассыпается в руках!")
 		qdel(src)
+	else
+		user.put_in_hands(src)
+		balloon_alert(user, "бронеплита извлечена")
 	return TRUE
 
 
-/obj/item/armor_plate/proc/get_examine_text()
-	. = span_notice("Установлен[genderize_ru(gender, "", "а", "о", "ы")] <b>[declent_ru(NOMINATIVE)]</b>. ")
+/obj/item/armor_plate/proc/get_examine_text(integrated_armor = FALSE)
+	if(integrated_armor)
+		. = span_notice("Встроенный бронеэлемент.")
+	else
+		. = span_notice("Установлен[genderize_ru(gender, "", "а", "о", "ы")] <b>[declent_ru(NOMINATIVE)]</b>. ")
 	. += span_notice("\n– [get_armor_text()]")
 	. += span_notice("\n– [get_integrity_text()]")
 
@@ -165,7 +169,7 @@
 		balloon_alert(user, "недостаточно ресурсов!")
 		return ..()
 	balloon_alert(user, "ремонт бронеплиты...")
-	if(!do_after(user, 15 SECONDS, src))
+	if(!do_after(user, 15 SECONDS, user, interaction_key = src, max_interact_count = 1))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	if(resource.amount > consumed_resource)
 		resource.use(consumed_resource)
