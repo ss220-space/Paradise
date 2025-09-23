@@ -70,10 +70,10 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/vending/coffee/do_vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/vending/coffee/do_vend(datum/data/vending_product/product_record, mob/user)
 	if(..())
 		return
-	var/obj/item/reagent_containers/food/drinks/vended = new R.product_path()
+	var/obj/item/reagent_containers/food/drinks/vended = new product_record.product_path()
 
 	if(istype(vended, /obj/item/reagent_containers/food/drinks/mug))
 		var/put_on_turf = TRUE

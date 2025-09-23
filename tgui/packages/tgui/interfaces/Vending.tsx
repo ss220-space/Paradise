@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useBackend } from '../backend';
+import { capitalizeAll, createSearch } from 'common/string';
 import {
   Box,
   DmIcon,
@@ -10,28 +12,52 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-type VendingRowProps = {
-  product: Product;
-  productStock: number;
-};
-
-type Product = {
+type ProductRecord = {
+  is_hidden: boolean;
   req_coin: boolean;
   price: number;
   name: string;
   max_amount: number;
-  inum: string;
+  ref: string;
+  category: string;
   icon: string;
   icon_state: string;
 };
 
+type VendingRowProps = {
+  product: ProductRecord;
+  productStock: number;
+  inventory: ProductRecord[];
+  stockSearch: string;
+  setStockSearch: (search: string) => void;
+  selectedCategory: string | null;
+  setSelectedCategory: (category: string) => void;
+};
+
+/** Displays products in a section */
 const VendingRow = (props: VendingRowProps) => {
   const { act, data } = useBackend<VendingData>();
-  const { product, productStock } = props;
+  const {
+    product,
+    inventory,
+    productStock,
+    stockSearch,
+    setStockSearch,
+    selectedCategory,
+    setSelectedCategory,
+  } = props;
   const { chargesMoney, userMoney, vend_ready, coin_name } = data;
   const free = !chargesMoney || product.price === 0;
+
   let buttonText = 'ОШИБКА';
   let rowIcon = '';
+
+  let buttonDisabled =
+    !vend_ready ||
+    (!coin_name && product.req_coin) ||
+    productStock === 0 ||
+    (!free && product.price > userMoney);
+
   if (product.req_coin) {
     buttonText = 'МОНЕТА';
     rowIcon = 'circle';
@@ -42,11 +68,7 @@ const VendingRow = (props: VendingRowProps) => {
     buttonText = product.price.toString();
     rowIcon = 'shopping-cart';
   }
-  let buttonDisabled =
-    !vend_ready ||
-    (!coin_name && product.req_coin) ||
-    productStock === 0 ||
-    (!free && product.price > userMoney);
+
   return (
     <Table.Row>
       <Table.Cell collapsing>
@@ -77,7 +99,7 @@ const VendingRow = (props: VendingRowProps) => {
           textAlign="left"
           onClick={() =>
             act('vend', {
-              'inum': product.inum,
+              'ref': product.ref,
             })
           }
         >
@@ -95,14 +117,19 @@ type VendingData = {
   coin_name: string;
   user: User;
   guestNotice: string;
-  product_records?: Product[];
-  coin_records?: Product[];
-  hidden_records?: Product[];
+  product_records?: ProductRecord[];
+  coin_records?: ProductRecord[];
+  hidden_records?: ProductRecord[];
   extended_inventory: boolean;
   stock: Record<string, number>;
+  categories: Record<string, Category>;
   inserted_item_name: string;
   panel_open: boolean;
   speaker: boolean;
+};
+
+type Category = {
+  icon: string;
 };
 
 type User = {
@@ -121,19 +148,49 @@ export const Vending = (_props: unknown) => {
     coin_records = [],
     hidden_records = [],
     stock,
+    categories,
     coin_name,
     inserted_item_name,
     panel_open,
     speaker,
   } = data;
-  let inventory: Product[];
+
+  const [stockSearch, setStockSearch] = useState('');
+  const stockSearchFn = createSearch(
+    stockSearch,
+    (item: ProductRecord) => item.name
+  );
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    Object.keys(categories)[0]
+  );
+
+  let inventory: ProductRecord[];
 
   inventory = [...product_records, ...coin_records];
   if (data.extended_inventory) {
     inventory = [...inventory, ...hidden_records];
   }
+
+  if (stockSearch.length >= 2) {
+    inventory = inventory.filter(stockSearchFn);
+  }
+
   // Just in case we still have undefined values in the list
   inventory = inventory.filter((item) => !!item);
+
+  const filteredCategories = Object.fromEntries(
+    Object.entries(data.categories).filter(([categoryName]) => {
+      return inventory.find((product) => {
+        if ('category' in product) {
+          return product.category === categoryName;
+        } else {
+          return false;
+        }
+      });
+    })
+  );
+
   return (
     <Window
       width={470}
@@ -200,21 +257,75 @@ export const Vending = (_props: unknown) => {
               </Section>
             )}
           </Stack.Item>
+
+          {stockSearch.length < 2 &&
+            Object.keys(filteredCategories).length > 1 && (
+              <Stack.Item>
+                <CategorySelector
+                  categories={filteredCategories}
+                  selectedCategory={selectedCategory!}
+                  onSelect={setSelectedCategory}
+                />
+              </Stack.Item>
+            )}
+
           <Stack.Item grow>
             <Section title="Продукция" fill scrollable>
               <Table>
-                {inventory.map((product) => (
-                  <VendingRow
-                    key={product.name}
-                    product={product}
-                    productStock={stock[product.name]}
-                  />
-                ))}
+                {inventory
+                  .filter((product) => {
+                    if (!stockSearch && 'category' in product) {
+                      return product.category === selectedCategory;
+                    } else {
+                      return true;
+                    }
+                  })
+                  .map((product) => (
+                    <VendingRow
+                      key={product.name}
+                      product={product}
+                      inventory={inventory}
+                      productStock={stock[product.name]}
+                      stockSearch={stockSearch}
+                      setStockSearch={setStockSearch}
+                      selectedCategory={selectedCategory}
+                      setSelectedCategory={setSelectedCategory}
+                    />
+                  ))}
               </Table>
             </Section>
           </Stack.Item>
         </Stack>
       </Window.Content>
     </Window>
+  );
+};
+
+const CATEGORY_COLORS = {
+  Контрабанда: 'red',
+  Премиум: 'yellow',
+};
+
+const CategorySelector = (props: {
+  categories: Record<string, Category>;
+  selectedCategory: string;
+  onSelect: (category: string) => void;
+}) => {
+  const { categories, selectedCategory, onSelect } = props;
+
+  return (
+    <Section>
+      {Object.entries(categories).map(([name, category]) => (
+        <Button
+          key={name}
+          selected={name === selectedCategory}
+          color={CATEGORY_COLORS[name]}
+          icon={category.icon}
+          onClick={() => onSelect(name)}
+        >
+          {name}
+        </Button>
+      ))}
+    </Section>
   );
 };
