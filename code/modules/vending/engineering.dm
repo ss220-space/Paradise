@@ -19,7 +19,7 @@
 					/obj/item/stock_parts/matter_bin = 5,/obj/item/stock_parts/manipulator = 5)
 	refill_canister = /obj/item/vending_refill/engineering
 
-/obj/machinery/vending/engineerin/get_ru_names()
+/obj/machinery/vending/engineering/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат Robco Tool Maker",
 		GENITIVE = "торгового автомата Robco Tool Maker",
