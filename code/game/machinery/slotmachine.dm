@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	return credits
 
 /datum/slotmachine_prize/proc/apply_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user, prize_credits)
-	//Do nothing by default
+	return
 
 /datum/slotmachine_prize/proc/apply_emagged_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user)
 	if(!length(available_prizes))

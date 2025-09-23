@@ -725,7 +725,7 @@
 	name = "Голографическая сигара"
 	desc = "Привезена из Солнечной системы. Помимо брутального внешнего вида, пользователи отмечают, что она повышает точность при стрельбе обеими руками одновременно."
 	item = /obj/item/clothing/mask/holo_cigar
-	cost = 10
+	cost = 20
 	race = list(SPECIES_HUMAN)
 
 /datum/uplink_item/racial/ghostface_kit
@@ -1379,14 +1379,14 @@
 	name = "Универсальный глушитель"
 	desc = "Обеспечивает повышенную скрытность, заглушая звуки выстрелов."
 	item = /obj/item/gun_module/muzzle/suppressor
-	cost = 4
+	cost = 1
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/scope_x8
 	name = "Оптический прицел х8"
 	desc = "Повышает точность при стрельбе на большие дистанции."
 	item = /obj/item/gun_module/rail/scope/x8
-	cost = 4
+	cost = 3
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
@@ -2028,6 +2028,8 @@
 	desc = "Инъектор с запрещённым стимулятором. После его применения гуманоид становится невосприимчивым к оглушению и значительно повышает свои способности к восстановлению."
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 28
+	surplus = 0
+	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /**

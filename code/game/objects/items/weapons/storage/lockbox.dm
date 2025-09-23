@@ -91,8 +91,10 @@
 
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M, list/message_pieces)
+	return
 
 /obj/item/storage/lockbox/hear_message(mob/living/M, msg)
+	return
 
 /obj/item/storage/lockbox/mindshield
 	name = "Lockbox (Mindshield Implants)"

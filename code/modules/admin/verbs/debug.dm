@@ -423,7 +423,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.assignment = JOB_TITLE_CAPTAIN
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
 			H.equip_to_slot_or_del(id, ITEM_SLOT_ID)
-			H.update_inv_wear_id()
+			H.update_worn_id()
 	else
 		tgui_alert(usr, "Invalid mob")
 	BLACKBOX_LOG_ADMIN_VERB("Grant Full Access")

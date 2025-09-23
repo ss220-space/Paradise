@@ -95,8 +95,8 @@
 		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 		qdel(user.wear_suit)
 		qdel(user.head)
-		user.update_inv_wear_suit()
-		user.update_inv_head()
+		user.update_worn_oversuit()
+		user.update_worn_head()
 		user.update_hair()
 		user.update_fhair()
 

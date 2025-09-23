@@ -523,13 +523,6 @@
 /obj/item/storage/box/matches,
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
-"eK" = (
-/mob/living/simple_animal/pet/penguin/emperor{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	faction = list("hostile","syndicate","winter")
-	},
-/turf/simulated/floor/plating/ice/smooth,
-/area/vision_change_area/awaymission/evil_santa_storm)
 "eP" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/cane,
 /turf/simulated/floor/wood/oak,
@@ -1277,6 +1270,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
+"jU" = (
+/mob/living/simple_animal/pet/penguin/eldrich{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/vision_change_area/awaymission/evil_santa_storm)
 "jW" = (
 /obj/item/reagent_containers/food/snacks/candy/mre,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
@@ -1721,6 +1720,10 @@
 /obj/structure/dresser,
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
+"nV" = (
+/obj/machinery/vending/clothesmate,
+/turf/simulated/floor/wood/fancy,
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "nW" = (
 /obj/item/stack/ore/glass/basalt,
 /obj/effect/decal/cleanable/dust,
@@ -3216,6 +3219,13 @@
 /obj/item/reagent_containers/food/snacks/gingercookie/mitten,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
+"AO" = (
+/mob/living/simple_animal/pet/penguin/emperor{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	faction = list("hostile","syndicate","winter")
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/vision_change_area/awaymission/evil_santa_storm)
 "AS" = (
 /obj/machinery/recycler/deathtrap,
 /obj/machinery/conveyor{
@@ -3922,10 +3932,6 @@
 "Hc" = (
 /turf/simulated/floor/vault,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
-"Hd" = (
-/obj/machinery/vending/clothing,
-/turf/simulated/floor/wood/fancy,
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "He" = (
 /obj/item/twohanded/spear,
 /obj/effect/spawner/lootdrop/spentcasing/pistol,
@@ -4529,12 +4535,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
-"MD" = (
-/mob/living/simple_animal/pet/penguin/baby{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	},
-/turf/simulated/floor/plating/ice/smooth,
-/area/vision_change_area/awaymission/evil_santa_storm)
 "ME" = (
 /obj/structure/firepit{
 	active = 1
@@ -5220,6 +5220,12 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
+"Sb" = (
+/mob/living/simple_animal/pet/penguin/baby{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/vision_change_area/awaymission/evil_santa_storm)
 "Sd" = (
 /obj/structure/decorative_structures/garland{
 	dir = 8
@@ -5258,12 +5264,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/wood/cold,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
-"Sx" = (
-/mob/living/simple_animal/pet/penguin/eldrich{
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	},
-/turf/simulated/floor/plating/ice/smooth,
-/area/vision_change_area/awaymission/evil_santa_storm)
 "Sy" = (
 /obj/item/stack/ore/gold,
 /turf/simulated/floor/plating/asteroid,
@@ -11517,9 +11517,9 @@ NN
 NN
 NN
 NN
-Sx
+jU
 Ys
-eK
+AO
 NN
 NN
 NN
@@ -11774,9 +11774,9 @@ NN
 NN
 NN
 Ys
-MD
+Sb
 vp
-MD
+Sb
 Ys
 NN
 NN
@@ -12034,7 +12034,7 @@ Ys
 Ys
 Ys
 Ys
-eK
+AO
 NN
 NN
 NN
@@ -12289,7 +12289,7 @@ NN
 NN
 Ys
 Ys
-MD
+Sb
 Ys
 Ys
 NN
@@ -12547,7 +12547,7 @@ NN
 Sp
 Ys
 Ys
-eK
+AO
 NN
 NN
 NN
@@ -58121,7 +58121,7 @@ ZB
 ZB
 ZB
 jl
-Hd
+nV
 BA
 BA
 fM

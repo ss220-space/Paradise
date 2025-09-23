@@ -55,7 +55,7 @@
 
 	if(ismob(has_suit.loc))
 		var/mob/wearer = has_suit.loc
-		wearer.update_inv_w_uniform()
+		wearer.update_worn_undersuit()
 		for(var/datum/action/action as anything in actions)
 			action.Grant(wearer)
 
@@ -91,7 +91,7 @@
 
 	if(ismob(has_suit.loc))
 		var/mob/wearer = has_suit.loc
-		wearer.update_inv_w_uniform()
+		wearer.update_worn_undersuit()
 		for(var/datum/action/action as anything in actions)
 			action.Remove(wearer)
 

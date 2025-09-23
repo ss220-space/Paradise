@@ -336,12 +336,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * This proc will trigger when all necessary initialization is done. Usefull for staff like changing spell name.
  */
 /obj/effect/proc_holder/spell/proc/after_spell_init()
+	return
 
 
 /**
  * This will apply on every tick of cooldown process.
  */
 /obj/effect/proc_holder/spell/proc/on_cooldown_tick()
+	return
 
 
 /obj/effect/proc_holder/spell/Click()
