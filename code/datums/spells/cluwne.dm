@@ -15,7 +15,7 @@
 	if(!get_int_organ(/obj/item/organ/internal/brain/cluwne))
 		var/obj/item/organ/internal/brain/cluwne/idiot_brain = new
 		internal_organs |= idiot_brain	//Well, everything's for recursion prevention.
-		idiot_brain.insert(src, make_cluwne = FALSE)
+		idiot_brain.insert(src, special = ORGAN_MANIPULATION_NOEFFECT, make_cluwne = FALSE)
 		idiot_brain.dna = dna.Clone()
 	else
 		return

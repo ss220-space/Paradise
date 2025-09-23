@@ -310,7 +310,7 @@
 	holder.update_from_mmi()
 	if(brainmob && brainmob.mind)
 		brainmob.mind.transfer_to(target)
-	holder.insert(target)
+	holder.insert(target, ORGAN_MANIPULATION_NOEFFECT)
 	return TRUE
 
 

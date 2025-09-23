@@ -48,3 +48,4 @@
 	return connected_device.portableConnectorReturnAir()
 
 /obj/proc/portableConnectorReturnAir()
+	return
