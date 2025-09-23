@@ -66,3 +66,4 @@
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
 	admin_only = TRUE
+	disables = DISABLE_ALL

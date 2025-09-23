@@ -18,6 +18,17 @@
 	icon_state = "darkred"
 	},
 /area/admin)
+"bG" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 2;
+	height = 18;
+	id = "skipjack_sw";
+	name = "southwest of station";
+	width = 19
+	},
+/turf/space,
+/area/space)
 "bK" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -93,6 +104,17 @@
 	icon_state = "darkpurple"
 	},
 /area/admin)
+"ea" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "mining_home";
+	name = "mining shuttle bay";
+	width = 7
+	},
+/turf/space,
+/area/space)
 "ej" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -164,6 +186,17 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
+"fH" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 6;
+	id = "pod4_home";
+	name = "pod4 home dock";
+	width = 5
+	},
+/turf/space,
+/area/space)
 "ga" = (
 /obj/structure/closet/wardrobe/grey,
 /turf/simulated/floor/plasteel{
@@ -223,6 +256,16 @@
 	icon_state = "dark"
 	},
 /area/admin)
+"hz" = (
+/obj/docking_port/stationary{
+	dwidth = 2;
+	height = 6;
+	id = "pod1_home";
+	name = "pod1 home dock";
+	width = 5
+	},
+/turf/space,
+/area/space)
 "hL" = (
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -359,6 +402,17 @@
 	icon_state = "darkpurplecorners"
 	},
 /area/admin)
+"ld" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 2;
+	height = 6;
+	id = "pod3_home";
+	name = "pod3 home dock";
+	width = 5
+	},
+/turf/space,
+/area/space)
 "lg" = (
 /obj/structure/table,
 /obj/machinery/chem_dispenser/beer,
@@ -384,6 +438,18 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/admin)
+"lC" = (
+/obj/docking_port/stationary{
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra_away";
+	name = "southwest of station";
+	width = 21
+	},
+/turf/space,
+/area/space)
 "lK" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -400,6 +466,17 @@
 	icon_state = "darkbluealt"
 	},
 /area/admin)
+"ma" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "sst_home";
+	name = "Near Kerberos Arrivals";
+	width = 11
+	},
+/turf/space,
+/area/space)
 "mc" = (
 /obj/machinery/light,
 /turf/simulated/floor/shuttle,
@@ -507,6 +584,16 @@
 	icon_state = "dark"
 	},
 /area/admin)
+"pp" = (
+/obj/docking_port/stationary{
+	dwidth = 2;
+	height = 12;
+	id = "ferry_home";
+	name = "port bay 3";
+	width = 5
+	},
+/turf/space,
+/area/space)
 "pM" = (
 /obj/machinery/station_map/directional/north,
 /turf/simulated/floor/shuttle,
@@ -528,8 +615,15 @@
 	},
 /area/admin)
 "qv" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 7;
+	height = 5;
+	id = "sit_arrivals";
+	name = "South-East Solars";
+	width = 11
+	},
 /turf/space,
-/area/space,
 /area/space)
 "qB" = (
 /obj/structure/chair/sofa/corp,
@@ -538,6 +632,18 @@
 	icon_state = "darkbluealt"
 	},
 /area/admin)
+"qS" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 4;
+	id = "ntstation";
+	name = "To Space Station";
+	pixel_x = 32;
+	width = 6
+	},
+/turf/space,
+/area/space)
 "qX" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -613,6 +719,16 @@
 	icon_state = "darkbluealt"
 	},
 /area/admin)
+"tM" = (
+/obj/docking_port/stationary{
+	dwidth = 8;
+	height = 22;
+	id = "syndicate_s";
+	name = "south of station";
+	width = 18
+	},
+/turf/space,
+/area/space)
 "tV" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -652,6 +768,17 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/arrival/station)
+"uv" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 2;
+	height = 18;
+	id = "skipjack_ne";
+	name = "northeast of station";
+	width = 19
+	},
+/turf/space,
+/area/space)
 "uz" = (
 /obj/item/clothing/under/color/darkblue,
 /obj/item/clothing/under/color/darkblue,
@@ -873,6 +1000,17 @@
 	icon_state = "darkbluealt"
 	},
 /area/admin)
+"yo" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 5;
+	height = 7;
+	id = "supply_home";
+	name = "supply bay";
+	width = 12
+	},
+/turf/space,
+/area/space)
 "ys" = (
 /obj/structure/table/reinforced,
 /obj/item/crowbar,
@@ -897,6 +1035,17 @@
 	icon_state = "darkgreen"
 	},
 /area/admin)
+"yH" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 11;
+	id = "specops_home";
+	name = "port bay 2";
+	width = 5
+	},
+/turf/space,
+/area/space)
 "yL" = (
 /obj/structure/chair/office,
 /turf/simulated/floor/plasteel{
@@ -952,6 +1101,18 @@
 	icon_state = "whitepurple"
 	},
 /area/admin)
+"Am" = (
+/obj/docking_port/stationary{
+	dheight = 1;
+	dir = 8;
+	dwidth = 7;
+	height = 18;
+	id = "trade_dock";
+	name = "port bay 5 at Kerberos";
+	width = 15
+	},
+/turf/space,
+/area/space)
 "Ao" = (
 /obj/machinery/vending/shoedispenser,
 /turf/simulated/floor/plasteel{
@@ -1376,6 +1537,17 @@
 /obj/machinery/chem_dispenser/soda,
 /turf/simulated/floor/wood/dark,
 /area/admin)
+"HN" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 2;
+	height = 18;
+	id = "skipjack_nw";
+	name = "northwest of station";
+	width = 19
+	},
+/turf/space,
+/area/space)
 "HR" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom{
@@ -1455,6 +1627,17 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
+"Jb" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 8;
+	height = 18;
+	id = "admin_home";
+	name = "port bay 1";
+	width = 18
+	},
+/turf/space,
+/area/space)
 "Jd" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -1761,6 +1944,17 @@
 	icon_state = "dark"
 	},
 /area/admin)
+"MY" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 2;
+	height = 7;
+	id = "graveyard_church";
+	name = "Station Church dock";
+	width = 10
+	},
+/turf/space,
+/area/space)
 "Nd" = (
 /obj/structure/sink{
 	pixel_y = 22
@@ -1948,6 +2142,10 @@
 /obj/structure/chair/office,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"Qw" = (
+/obj/machinery/computer/communications,
+/turf/simulated/floor/wood/fancy/light,
+/area/admin)
 "QX" = (
 /obj/machinery/optable,
 /turf/simulated/floor/plasteel{
@@ -1955,6 +2153,16 @@
 	icon_state = "dark"
 	},
 /area/admin)
+"Rd" = (
+/obj/docking_port/stationary{
+	dwidth = 2;
+	height = 6;
+	id = "pod2_home";
+	name = "pod2 home dock";
+	width = 5
+	},
+/turf/space,
+/area/space)
 "Rj" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -1977,6 +2185,17 @@
 	icon_state = "neutral"
 	},
 /area/admin)
+"Si" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 4;
+	height = 6;
+	id = "gamma_home";
+	name = "gamma dock";
+	width = 7
+	},
+/turf/space,
+/area/space)
 "Sz" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/shuttle,
@@ -1991,6 +2210,16 @@
 	icon_state = "darkbluealt"
 	},
 /area/admin)
+"SZ" = (
+/obj/docking_port/stationary{
+	dwidth = 8;
+	height = 22;
+	id = "syndicate_nw";
+	name = "northwest of station";
+	width = 18
+	},
+/turf/space,
+/area/space)
 "Tf" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -2005,6 +2234,17 @@
 	icon_state = "whiteyellow"
 	},
 /area/admin)
+"Tl" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "laborcamp_home";
+	name = "fore bay 1";
+	width = 9
+	},
+/turf/space,
+/area/space)
 "Tn" = (
 /obj/machinery/computer/operating{
 	dir = 8
@@ -2020,6 +2260,14 @@
 	icon_state = "darkred"
 	},
 /area/admin)
+"Tr" = (
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	id = "whiteship_home";
+	name = "Near NSS Kerberos"
+	},
+/turf/space,
+/area/space)
 "Tv" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2042,6 +2290,17 @@
 	icon_state = "grimy"
 	},
 /area/admin)
+"Ue" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 11;
+	height = 18;
+	id = "emergency_home";
+	name = "emergency evac bay";
+	width = 29
+	},
+/turf/space,
+/area/space)
 "Uf" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3926,7 +4185,7 @@ vD
 vD
 vD
 vD
-vD
+Rd
 vD
 vD
 vD
@@ -5211,7 +5470,7 @@ vD
 vD
 vD
 vD
-vD
+hz
 vD
 vD
 vD
@@ -7247,6 +7506,7 @@ vD
 vD
 vD
 vD
+Ue
 vD
 vD
 vD
@@ -7261,8 +7521,7 @@ vD
 vD
 vD
 vD
-vD
-vD
+ld
 vD
 vD
 vD
@@ -8296,7 +8555,7 @@ vD
 vD
 vD
 vD
-vD
+fH
 vD
 vD
 vD
@@ -10144,6 +10403,7 @@ vD
 vD
 vD
 vD
+HN
 vD
 vD
 vD
@@ -10176,8 +10436,7 @@ vD
 vD
 vD
 vD
-vD
-vD
+SZ
 vD
 vD
 vD
@@ -15486,7 +15745,7 @@ vD
 vD
 vD
 vD
-vD
+ma
 vD
 vD
 vD
@@ -20404,7 +20663,7 @@ vD
 vD
 vD
 vD
-vD
+Am
 vD
 vD
 vD
@@ -23383,7 +23642,7 @@ vD
 vD
 vD
 vD
-vD
+bG
 vD
 vD
 vD
@@ -24735,7 +24994,7 @@ vD
 vD
 vD
 vD
-vD
+Jb
 vD
 vD
 vD
@@ -27155,7 +27414,7 @@ vD
 vD
 vD
 Wt
-DM
+Qw
 DM
 Wt
 fu
@@ -29364,7 +29623,7 @@ vD
 vD
 vD
 vD
-vD
+pp
 vD
 vD
 vD
@@ -33749,7 +34008,7 @@ vD
 vD
 vD
 vD
-vD
+yH
 vD
 vD
 vD
@@ -34094,7 +34353,7 @@ vD
 vD
 vD
 vD
-qv
+vD
 vD
 vD
 vD
@@ -35194,7 +35453,7 @@ vD
 vD
 vD
 vD
-vD
+MY
 vD
 vD
 vD
@@ -40358,7 +40617,7 @@ vD
 vD
 vD
 vD
-vD
+lC
 vD
 vD
 vD
@@ -42634,7 +42893,7 @@ vD
 vD
 vD
 vD
-vD
+tM
 vD
 vD
 vD
@@ -47851,7 +48110,7 @@ vD
 vD
 vD
 vD
-vD
+Tr
 vD
 vD
 vD
@@ -49990,6 +50249,7 @@ vD
 vD
 vD
 vD
+yo
 vD
 vD
 vD
@@ -50013,8 +50273,7 @@ vD
 vD
 vD
 vD
-vD
-vD
+ea
 vD
 vD
 vD
@@ -50293,7 +50552,7 @@ vD
 vD
 vD
 vD
-vD
+Si
 vD
 vD
 vD
@@ -50581,7 +50840,7 @@ vD
 vD
 vD
 vD
-vD
+Tl
 vD
 vD
 vD
@@ -50870,7 +51129,7 @@ vD
 vD
 vD
 vD
-vD
+qv
 vD
 vD
 vD
@@ -57054,7 +57313,7 @@ vD
 vD
 vD
 vD
-vD
+qS
 vD
 vD
 vD
@@ -57670,7 +57929,7 @@ vD
 vD
 vD
 vD
-vD
+uv
 vD
 vD
 vD
