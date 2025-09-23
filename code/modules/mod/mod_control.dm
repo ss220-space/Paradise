@@ -581,6 +581,10 @@
 			balloon_alert(user, "не удается установить")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
+	if(user && !user.drop_from_active_hand())
+		to_chat(user, span_warning("[new_module.declent_ru(NOMINATIVE)] застрял у вас в руке!"))
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return
 	new_module.forceMove(src)
 	modules += new_module
 	complexity += new_module.complexity
@@ -592,7 +596,7 @@
 		new_module.on_part_activation()
 		new_module.part_activated = TRUE
 	if(user)
-		to_chat(user, span_notice("[new_module.declent_ru(NOMINATIVE)] добавлен!")) //they all are "модуль чего-то там."
+		to_chat(user, span_notice("[capitalize(new_module.declent_ru(NOMINATIVE))] добавлен!")) //they all are "модуль чего-то там."
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 
 /obj/item/mod/control/proc/uninstall(obj/item/mod/module/old_module, deleting = FALSE)

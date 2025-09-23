@@ -40,6 +40,18 @@
 #define UNSEALED_COVER "unsealed_cover"
 #define SEALED_COVER "sealed_cover"
 #define CAN_OVERSLOT "can_overslot"
+#define UNSEALED_MESSAGE "unsealed_message"
+#define SEALED_MESSAGE "sealed_message"
+
+//Default text for different messages for the user.
+#define HELMET_UNSEAL_MESSAGE "открывается с характерным скрипом"
+#define HELMET_SEAL_MESSAGE "закрывается с характерным скрипом"
+#define CHESTPLATE_UNSEAL_MESSAGE "освобождает ваше тело"
+#define CHESTPLATE_SEAL_MESSAGE "плотно облегает ваше тело"
+#define GAUNTLET_UNSEAL_MESSAGE "ослабевают вокруг ваших пальцев"
+#define GAUNTLET_SEAL_MESSAGE "сжимаются вокруг ваших пальцев и запястий"
+#define BOOT_UNSEAL_MESSAGE "ослабевают хватку ваших ног"
+#define BOOT_SEAL_MESSAGE "плотно обхватывают ваши ноги"
 
 //Defines used to override MOD clothing's icon and worn icon files in the skin.
 #define MOD_ICON_OVERRIDE "mod_icon_override"

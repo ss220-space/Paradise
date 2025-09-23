@@ -509,6 +509,10 @@
 
 /obj/item/mod/module/anomaly_locked/Initialize(mapload)
 	. = ..()
+	var/list/cashed_anomalies = accepted_anomalies.Copy()
+	accepted_anomalies.Cut()
+	for(var/anomaly in cashed_anomalies)
+		accepted_anomalies += typesof(anomaly)
 	if(!prebuilt || !length(accepted_anomalies))
 		return
 	var/core_path = pick(accepted_anomalies)
@@ -528,8 +532,9 @@
 	else
 		var/list/core_list = list()
 		for(var/path in accepted_anomalies)
-			var/atom/core_path = path
-			core_list += capitalize(core_path.declent_ru(NOMINATIVE))
+			var/atom/core_dummy = new path
+			core_list += capitalize(core_dummy.declent_ru(NOMINATIVE))
+			qdel(core_dummy)
 		. +="Для работы модуля требуется [russian_list(core_list, and_text = " или ")]"
 		if(!core_removable)
 			. += span_notice("Из-за дизайна модуля, ядро не возможно достать.")
@@ -551,18 +556,21 @@
 	return TRUE
 
 /obj/item/mod/module/anomaly_locked/attackby(obj/item/item, mob/living/user, list/modifiers, list/attack_modifiers)
-	if(item.type in accepted_anomalies)
-		if(core)
-			balloon_alert(user, "внутри уже есть ядро!")
-			return
-		if(!user.transfer_item_to_loc(item, src))
-			return
-		core = item
-		balloon_alert(user, "ядро установлено")
-		playsound(src, 'sound/machines/click.ogg', 30, TRUE)
-		update_icon_state()
-	else
-		return ..()
+	. = ..()
+	if(!(item.type in accepted_anomalies))
+		return
+
+	if(core)
+		balloon_alert(user, "внутри уже есть ядро!")
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(!user.transfer_item_to_loc(item, src))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	core = item
+	balloon_alert(user, "ядро установлено")
+	playsound(src, 'sound/machines/click.ogg', 30, TRUE)
+	update_icon_state()
 
 /obj/item/mod/module/anomaly_locked/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()

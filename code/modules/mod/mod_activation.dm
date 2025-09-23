@@ -81,7 +81,7 @@
 	if(part.loc != src)
 		if(!user)
 			return FALSE
-		to_chat(user, span_warning("невозможно выдвинуть [part.declent_ru(ACCUSATIVE)]!"))
+		to_chat(user, span_warning("Невозможно выдвинуть [part.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	if(part_datum.can_overslot)
 		var/obj/item/overslot = wearer.get_item_by_slot(part.slot_flags)
@@ -236,8 +236,8 @@
 /obj/item/mod/control/proc/delayed_seal_part(obj/item/clothing/part)
 	. = FALSE
 	var/datum/mod_part/part_datum = get_part_datum(part)
-	if(do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
-		to_chat(wearer, span_notice("[part] [!part_datum.sealed ? part_datum.sealed_message : part_datum.unsealed_message]."))
+	if(do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
+		to_chat(wearer, span_notice("[part.declent_ru(NOMINATIVE)] [!part_datum.sealed ? part_datum.sealed_message : part_datum.unsealed_message]."))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		seal_part(part, is_sealed = !part_datum.sealed)
 		return TRUE
