@@ -13,7 +13,6 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5,10,20,30,50,70)
 	volume = 70
-	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/paint/afterattack(turf/simulated/target, mob/user, proximity, params)
 	if(!proximity)

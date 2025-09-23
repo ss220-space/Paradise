@@ -12,15 +12,12 @@
 	desc = "Планшет генетика, способный хранить данные блоков генов в удобном виде."
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "genetic_tablet_on"
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "genetic_tablet_on"
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=2000, MAT_GLASS = 1000)
 	origin_tech = "programming=2"
 	var/dna_data = list()

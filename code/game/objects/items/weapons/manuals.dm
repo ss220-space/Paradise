@@ -2,8 +2,6 @@
 
 //Oh god what the fuck I am not good at computer
 /obj/item/book/manual
-	icon = 'icons/obj/library.dmi'
-	due_date = 0
 	unique = TRUE
 	has_drm = TRUE // No reuploading. Piracy is a crime
 	dat = {"
@@ -223,8 +221,6 @@
 	manual_title = "APLU \"Ripley\" Construction and Operation Manual"
 	manual_title_ru = "Сборка и оперирование АТМЕ \"Рипли\""
 	desc = "Руководство по сбору и оперированию меха АТМЕ \"Рипли\"."
-	icon_state = "book"
-	item_state = "book"
 	author = "Корпорация \"Вейланд-Ютани\""
 //big pile of shit below.
 

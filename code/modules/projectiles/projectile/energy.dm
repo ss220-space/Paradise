@@ -25,7 +25,6 @@
 		INSTRUMENTAL = "электродом",
 		PREPOSITIONAL = "электроде"
 	)
-	icon_state = "spark"
 	color = "#FFFF00"
 	shockbull = TRUE
 	nodamage = TRUE
@@ -129,7 +128,6 @@
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = TOX
 	stamina = 40
-	nodamage = FALSE
 	weaken = 3 SECONDS
 	stutter = 2 SECONDS
 	shockbull = TRUE
@@ -219,7 +217,6 @@
 	)
 	icon_state = "plasma_light"
 	damage = 20
-	damage_type = BURN
 
 /obj/projectile/energy/charged_plasma
 	name = "charged plasma bolt"
@@ -233,7 +230,6 @@
 	)
 	icon_state = "plasma_heavy"
 	damage = 50
-	damage_type = BURN
 	armour_penetration = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
 	shield_buster = TRUE
 	reflectability = REFLECTABILITY_NEVER //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.

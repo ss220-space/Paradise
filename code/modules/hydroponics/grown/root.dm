@@ -28,8 +28,6 @@
 	name = "carrot wedges"
 	desc = "Slices of neatly cut carrot."
 	icon_state = "carrot_wedges"
-	filling_color = "#FFA500"
-	bitesize_mod = 2
 
 
 /obj/item/reagent_containers/food/snacks/grown/carrot/attackby(obj/item/I, mob/user, params)

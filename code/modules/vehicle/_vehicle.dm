@@ -6,7 +6,6 @@
 	max_integrity = 300
 	layer = VEHICLE_LAYER
 	density = TRUE
-	anchored = FALSE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	pass_flags_self = PASSVEHICLE
 	COOLDOWN_DECLARE(cooldown_vehicle_move)
@@ -138,6 +137,7 @@
 	return TRUE
 
 /obj/vehicle/proc/after_remove_occupant(mob/M)
+	return
 
 /obj/vehicle/relaymove(mob/living/user, direction)
 	if(!canmove)

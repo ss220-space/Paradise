@@ -621,6 +621,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 	offer_control(M)
 
+#define CUSTOM_MESSAGE_TYPE "Свой тип."
 /client/proc/cmd_admin_create_centcom_report()
 	set category = STATPANEL_ADMIN_ADMIN
 	set name = "Create Communications Report"
@@ -634,7 +635,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		"Сообщение Федерации Космических Волшебников." = "Заколдованное сообщение.",
 		"Официальное сообщение Клана Паука." = "Сообщение Клана Паука.",
 		"Вражеское сообщение." = "Неизвестное сообщение.",
-		"Свой тип." = "Загадочное сообщение.")
+		CUSTOM_MESSAGE_TYPE = "Загадочное сообщение.")
 
 	var/list/MsgSound = list("Уведомление *бип*" = 'sound/misc/notice2.ogg',
 		"Перехвачены вражеские сообщения" = 'sound/AI/intercept.ogg',
@@ -642,7 +643,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/type = tgui_input_list(usr, "Выберите тип сообщения для отправки.", "Тип сообщения", MsgType, "")
 
-	if(type == "Свой тип")
+	if(type == CUSTOM_MESSAGE_TYPE)
 		type = tgui_input_text(usr, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача", encode = FALSE)
 
 	var/subtitle = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type], encode = FALSE)
@@ -652,7 +653,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!message)
 		return
 
-	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?", null, list("Да","Нет", "Отмена")))
+	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?", null, list("Да", "Нет", "Отмена")))
 		if("Да")
 			var/beepsound = tgui_input_list(usr, "Какой звук должен издавать анонс?", "Звук анонса", MsgSound)
 
@@ -674,6 +675,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(src)] has created a communications report")
 	BLACKBOX_LOG_ADMIN_VERB("Create Comms Report")
 
+#undef CUSTOM_MESSAGE_TYPE
 
 /client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view(maxview()))
 	set name = "\[Admin\] Delete"

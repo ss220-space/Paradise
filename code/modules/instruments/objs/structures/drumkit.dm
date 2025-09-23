@@ -4,7 +4,6 @@
 
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "drumkit"
-	anchored = FALSE
 	density = TRUE
 	can_buckle = TRUE
 	buckle_lying = 0

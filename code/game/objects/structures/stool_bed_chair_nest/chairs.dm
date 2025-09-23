@@ -6,7 +6,6 @@
 	layer = BELOW_OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = 0 // you sit in a chair, not lay
-	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
 	pull_push_slowdown = 1.5
@@ -359,7 +358,6 @@
 	icon_state = "leather_sofa_corner"
 
 /obj/structure/chair/sofa/corp
-	name = "sofa"
 	desc = "Soft and cushy."
 	icon_state = "corp_sofamiddle"
 
@@ -425,7 +423,6 @@
 
 /obj/item/chair/stool
 	name = "stool"
-	icon = 'icons/obj/chairs.dmi'
 	icon_state = "stool_toppled"
 	item_state = "stool"
 	force = 10
@@ -572,7 +569,6 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/structure/chair/brass/fake
-	name = "brass chair"
 	desc = "A spinny chair made of brass. It looks uncomfortable. Totally not magic!"
 	buildstacktype = /obj/item/stack/sheet/brass_fake
 

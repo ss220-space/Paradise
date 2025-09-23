@@ -4,7 +4,6 @@
 	icon_state = "reagents_old"
 	implant_state = "implant-nanotrasen"
 	origin_tech = "materials=3;biotech=4"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	container_type = OPENCONTAINER
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/chem

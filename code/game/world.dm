@@ -13,7 +13,9 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	prof_init()
 #endif
 
+#ifndef OPENDREAM
 	dmjit_hook_main_init()
+#endif
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.

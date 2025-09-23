@@ -20,7 +20,6 @@
 	reflectability = REFLECTABILITY_ENERGY
 	light_system = MOVABLE_LIGHT
 	light_range = 2
-	light_power = 1
 	light_color = COLOR_SOFT_RED
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
@@ -140,11 +139,7 @@
 
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
-	icon_state = "laser"
 	damage = 25
-	damage_type = BURN
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	light_color = COLOR_SOFT_RED
 
 /obj/projectile/beam/specter/disabler
 	name = "specter paralyzer beam"
@@ -228,7 +223,6 @@
 	nodamage = TRUE
 	damage = 0
 	damage_type = STAMINA
-	flag = "laser"
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 	log_override = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
@@ -244,7 +238,6 @@
 	return 1
 
 /obj/projectile/beam/lasertag/omni
-	name = "laser tag beam"
 	ru_names = list(
 		NOMINATIVE = "лазертаг",
 		GENITIVE = "лазертага",
@@ -253,7 +246,6 @@
 		INSTRUMENTAL = "лазертагом",
 		PREPOSITIONAL = "лазертаге"
 	)
-	icon_state = "omnilaser"
 
 /obj/projectile/beam/lasertag/redtag
 	icon_state = "laser"
@@ -264,7 +256,6 @@
 /obj/projectile/beam/lasertag/bluetag
 	icon_state = "bluelaser"
 	suit_types = list(/obj/item/clothing/suit/redtag)
-	light_color = LIGHT_COLOR_BLUE
 
 /obj/projectile/beam/sniper
 	name = "sniper beam"
@@ -319,12 +310,7 @@
 	)
 	icon_state = "LSR_kill"
 	damage = 45
-	damage_type = BURN
 	hitsound = 'sound/weapons/resonator_blast.ogg'
-	flag = LASER
-	eyeblur = 4 SECONDS
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	light_color = COLOR_SOFT_RED
 
 /obj/projectile/beam/immolator
 	name = "immolation beam"
@@ -396,7 +382,6 @@
 	icon_state = "purple_laser"
 	damage = 200
 	hitsound = 'sound/weapons/resonator_blast.ogg'
-	damage_type = BURN
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PURPLE
 
@@ -435,7 +420,6 @@
 	icon_state = "blue_laser"
 	damage = 50
 	stamina = 33
-	damage_type = BURN
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 	hitsound = 'sound/weapons/resonator_blast.ogg'

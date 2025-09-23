@@ -159,6 +159,5 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/ussp
-	name = "folder"
 	desc = "A folder with a hammer and sickle seal."
 	icon_state = "folder_ussp"

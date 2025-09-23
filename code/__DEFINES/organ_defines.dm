@@ -56,10 +56,12 @@
 #define ORGAN_MANIPULATION_DEFAULT 0
 #define ORGAN_MANIPULATION_NOEFFECT 1
 #define ORGAN_MANIPULATION_ABDUCTOR 2
+#define ORGAN_MANIPULATION_INITIALIZE 3
+#define ORGAN_MANIPULATION_TRANSPLANTATE 4
 
 /// used for species that can see without eyes
 #define NO_VISION_ORGAN "no_vision_organ"
 
-/// Species organs 
+/// Species organs
 #define DRASK_LUNGS_COOLING_START_TEMP      280
 #define DRASK_LUNGS_COOLING_STOP_TEMP       400

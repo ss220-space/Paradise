@@ -5,9 +5,6 @@
 	icon_state = "cat2"
 	icon_living = "cat2"
 	icon_dead = "cat2_dead"
-	gender = MALE
-	maxHealth = 20
-	health = 20
 	blood_volume = BLOOD_VOLUME_NORMAL
 	melee_damage_lower = 10
 	melee_damage_upper = 5

@@ -282,7 +282,6 @@
 	item_flags = ABSTRACT|DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
-	throwforce = 0
 	throw_range = 0
 	throw_speed = 0
 
@@ -298,7 +297,6 @@
 		if(source.used)
 			qdel(source)
 			source = null
-		else
 	return ..()
 
 /obj/item/melee/clock_magic/construction

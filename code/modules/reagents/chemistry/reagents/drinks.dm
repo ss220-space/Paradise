@@ -2,7 +2,6 @@
 	name = "Апельсиновый сок"
 	id = "orangejuice"
 	description = "И вкусно, и богато витамином С - что ещё нужно?"
-	color = "#E78108" // rgb: 231, 129, 8
 	drink_icon = "glass_orange"
 	drink_name = "стакан апельсинового сока"
 	drink_desc = "Витамины! Круто!"
@@ -70,19 +69,14 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustEyeBlurry(-2 SECONDS)
 	M.AdjustEyeBlind(-2 SECONDS)
-	switch(current_cycle)
-		if(1 to 20)
-			//nothing
-		if(21 to INFINITY)
-			if(prob(current_cycle-10))
-				update_flags |= M.CureNearsighted(FALSE)
+	if(current_cycle > 20 && prob(current_cycle - 10))
+		update_flags |= M.CureNearsighted(EYE_DAMAGE, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/doctor_delight
 	name = "Радость Доктора"
 	id = "doctorsdelight"
 	description = "Полезная смесь соков, которая поможет вам восстановиться перед следующей зарубой на тулбоксах."
-	reagent_state = LIQUID
 	color = "#FF8CFF" // rgb: 255, 140, 255
 	drink_icon = "doctorsdelightglass"
 	drink_name = "стакан Радости Доктора"
@@ -99,7 +93,6 @@
 	name = "Тройной Цитрус"
 	id = "triple_citrus"
 	description = "Освежающий микс из сока различных цитрусовых. Замечательно."
-	reagent_state = LIQUID
 	color = "#23A046"
 	drink_icon = "triplecitrus"
 	drink_name = "стакан Тройного Цитруса"
@@ -541,7 +534,6 @@
 	id = "icecoco"
 	description = "Горячее какао со льдом, освежающий и прохладный."
 	color = "#102838" // rgb: 16, 40, 56
-	adj_temp_hot = 0
 	adj_temp_cool = 5
 	drink_icon = "icedcoffeeglass"
 	drink_name = "стакан холодного какао"

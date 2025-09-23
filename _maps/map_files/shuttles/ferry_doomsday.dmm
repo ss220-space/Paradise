@@ -54,8 +54,7 @@
 	dir = 4
 	},
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -144,8 +143,7 @@
 /area/shuttle/transport)
 "Z" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/gibs/xeno,
 /turf/simulated/floor/shuttle{

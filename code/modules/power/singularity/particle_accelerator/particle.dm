@@ -3,8 +3,6 @@
 	desc = "Small things moving very fast."
 	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
 	icon_state = "particle"
-	anchored = TRUE
-	density = FALSE
 	var/movement_range = 16
 	var/energy = 10
 

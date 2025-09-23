@@ -13,9 +13,6 @@
 	projectilesound = 'sound/weapons/pierce.ogg'
 	ranged = 1
 	ranged_message = "смотрит"
-	ranged_cooldown_time = 30
-	throw_message = "отскакивает от"
-	vision_range = 2
 	speed = 3
 	maxHealth = 200
 	health = 200
@@ -24,11 +21,8 @@
 	melee_damage_lower = 12
 	melee_damage_upper = 12
 	attacktext = "вгрызается в"
-	a_intent = INTENT_HARM
 	speak_emote = list("стрекочет")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	vision_range = 2
-	aggro_vision_range = 9
 	turns_per_move = 5
 	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER},
@@ -48,10 +42,6 @@
 /obj/projectile/temp/basilisk
 	name = "freezing blast"
 	icon_state = "ice_2"
-	damage = 0
-	damage_type = BURN
-	nodamage = TRUE
-	flag = "energy"
 	temperature = 50
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)
@@ -78,13 +68,10 @@
 	icon_aggro = "watcher"
 	icon_dead = "watcher_dead"
 	pixel_x = -10
-	throw_message = "отскакивает от"
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	attacktext = "пронзает"
-	a_intent = INTENT_HARM
 	speak_emote = list("телепатически вопит")
-	attack_sound = 'sound/weapons/bladeslice.ogg'
 	stat_attack = UNCONSCIOUS
 	robust_searching = 1
 	projectiletype = /obj/projectile/watcher
@@ -180,9 +167,7 @@
 /obj/projectile/watcher
 	name = "stunning blast"
 	icon_state = "temp_0"
-	damage = 10 //make it hurt, as it no more freezing
 	damage_type = BURN
-	nodamage = FALSE
 	speed = 0.8
 
 /obj/projectile/watcher/get_ru_names()
@@ -209,7 +194,6 @@
 	name = "scorching blast"
 	icon_state = "lava"
 	damage = 5
-	damage_type = BURN
 	nodamage = FALSE
 	temperature = 700 //Heats you up!
 	speed = 0.6
@@ -237,7 +221,6 @@
 
 /obj/projectile/temp/basilisk/icewing
 	damage = 5
-	damage_type = BURN
 	nodamage = FALSE
 	speed = 0.6
 

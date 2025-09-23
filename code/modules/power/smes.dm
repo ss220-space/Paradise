@@ -12,7 +12,6 @@
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon_state = "smes"
 	density = TRUE
-	use_power = NO_POWER_USE
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
@@ -508,7 +507,6 @@
 	..()
 
 /obj/machinery/power/smes/vintage
-	name = "power storage unit"
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit. Old but not useless."
 	icon_state = "oldsmes"
 	capacity = 2500000

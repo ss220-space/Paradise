@@ -182,7 +182,6 @@
 	icon_state = "jetpack_void"
 	item_state =  "jetpack_void"
 	volume = 40
-	gas_type = "oxygen"
 
 /obj/item/tank/jetpack/void/get_ru_names()
 	return list(
@@ -197,8 +196,6 @@
 /obj/item/tank/jetpack/oxygen
 	name = "Jetpack (Oxygen)"
 	desc = "A tank of compressed oxygen for use as propulsion in zero-gravity areas. Use with caution."
-	icon_state = "jetpack"
-	item_state = "jetpack"
 
 /obj/item/tank/jetpack/oxygen/harness
 	name = "jet harness (oxygen)"
