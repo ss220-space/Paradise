@@ -211,6 +211,10 @@
 		var/obj/item/bodyanalyzer/B = I
 		return B.cell
 
+	if(istype(I, /obj/item/stock_parts/cell/specter))
+		var/obj/item/stock_parts/cell/specter/C = I
+		return C
+
 	return null
 
 /obj/machinery/recharger/proc/check_cell_needs_recharging(obj/item/stock_parts/cell/C)
