@@ -24,7 +24,7 @@
 	/// Repair resource type
 	var/repair_type = null
 	/// Repair coefficient
-	var/repair_coefficient = 2
+	var/repair_coefficient = 5
 	/// Covered body parts by plate
 	body_parts_covered = UPPER_TORSO
 	/// Armor plate slowdown
