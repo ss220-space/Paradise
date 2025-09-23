@@ -564,3 +564,12 @@
 	reqs = list(/obj/item/stack/sheet/glass = 50,
 				/obj/item/stack/cable_coil = 10)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/armor_plate_kevlar
+	name = "Кевларовая бронеплита"
+	result = /obj/item/armor_plate/kevlar
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	reqs = list(/obj/item/stack/sheet/durathread = 20,
+				/obj/item/stack/cable_coil = 10)
+	category = CAT_CLOTHING
