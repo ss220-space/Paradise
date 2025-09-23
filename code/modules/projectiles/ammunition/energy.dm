@@ -534,7 +534,7 @@
 	projectile_type = /obj/projectile/beam/specter/disabler
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
-	e_cost = 1000
+	e_cost = 500
 
 /obj/item/ammo_casing/energy/rat
 	name = "mechanical energy module"
