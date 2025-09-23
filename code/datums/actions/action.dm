@@ -6,7 +6,11 @@
 /datum/action
 	var/name = "Generic Action"
 	var/desc = null
-	var/obj/target = null
+	/// The target the action is attached to. Set in New() via the proc link_to()
+	var/datum/target = null
+	/// Action owner. Can be same with target (not always). This is set and unset with Grant() and Remove()
+	var/mob/owner
+	/// Flags that will determine of the owner / user of the action can... use the action
 	var/check_flags = 0
 	var/invisibility = FALSE
 	var/atom/movable/screen/movable/action_button/button = null
@@ -16,10 +20,21 @@
 	var/background_icon_state = "bg_default"
 	var/buttontooltipstyle = ""
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
-	var/mob/owner
 
 /datum/action/New(Target)
+	link_to(Target)
+
+/// Links the passed target to our action, registering any relevant signals
+/datum/action/proc/link_to(Target)
 	target = Target
+	//RegisterSignal(target, COMSIG_QDELETING, PROC_REF(clear_ref), override = TRUE)
+
+	// if(isatom(target))
+	// 	RegisterSignal(target, COMSIG_ATOM_UPDATED_ICON, PROC_REF(on_target_icon_update))
+
+	// if(istype(target, /datum/mind))
+	// 	RegisterSignal(target, COMSIG_MIND_TRANSFERRED, PROC_REF(on_target_mind_swapped))
+
 	button = new
 	button.linked_action = src
 	button.name = name
@@ -29,8 +44,7 @@
 /datum/action/Destroy()
 	if(owner)
 		Remove(owner)
-	if(target)
-		target = null
+	target = null
 	QDEL_NULL(button)
 	return ..()
 
