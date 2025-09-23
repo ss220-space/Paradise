@@ -261,7 +261,6 @@
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 				balloon_alert(user, "грудная пластина установлена")
-				forceMove(src)
 				chestplate = part
 				chestplate.forceMove(src)
 				construction_step = CHESTPLATE_STEP

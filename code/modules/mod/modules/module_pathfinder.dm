@@ -14,7 +14,7 @@
 	/// The pathfinding implant.
 	var/obj/item/implant/mod/implant
 
-/obj/item/mod/module/anomaly_locked/kinesis/get_ru_names()
+/obj/item/mod/module/anomaly_locked/pathfinder/get_ru_names()
 	return list(
 		NOMINATIVE = "Модуль для МЭК \"Первопроходец\"",
 		GENITIVE = "Модуля для МЭК \"Первопроходец\"",

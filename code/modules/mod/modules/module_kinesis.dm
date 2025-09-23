@@ -9,18 +9,19 @@
 	icon_state = "kinesis"
 	module_type = MODULE_ACTIVE
 	complexity = 3
-	use_energy_cost = DEFAULT_CHARGE_DRAIN * 3
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 	incompatible_modules = list(/obj/item/mod/module/anomaly_locked/kinesis)
 	cooldown_time = 0.5 SECONDS
 	overlay_state_inactive = "module_kinesis"
 	overlay_state_active = "module_kinesis_on"
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/gravitational)
+	required_slots = list(ITEM_SLOT_GLOVES)
 	/// Range of the kinesis grab.
 	var/grab_range = 5
 	/// Time between us hitting objects with kinesis.
 	var/hit_cooldown_time = 1 SECONDS
 	/// Stat required for us to grab a mob.
-	var/stat_required = CONSCIOUS //Honestly. It's grav core locked. We'll try it, but I am going to need you to stun the mod. No fucking holding a poor terror prince in the air
+	var/stat_required = DEAD
 	/// Is incapitated required for us to grab a mob?
 	var/incapacitated_required = TRUE
 	/// How long we stun a mob for.
@@ -37,19 +38,19 @@
 	var/pre_pixel_x
 	///The pixel_y of whatever we were grabbing before hand.
 	var/pre_pixel_y
-	/// The special snowflake effect we need to get beams to work
-	var/obj/effect/abstract/kinesis/beam = null
+	/// Ref of the beam following the grabbed atom.
+	var/datum/beam/kinesis_beam
 	/// The cooldown between us hitting objects with kinesis.
 	COOLDOWN_DECLARE(hit_cooldown)
 
 /obj/item/mod/module/anomaly_locked/kinesis/get_ru_names()
 	return list(
-		NOMINATIVE = "Модуль для МЭК \"Кинезис\"",
-		GENITIVE = "Модуля для МЭК \"Кинезис\"",
-		DATIVE = "Модулю для МЭК \"Кинезис\"",
-		ACCUSATIVE = "Модуль для МЭК \"Кинезис\"",
-		INSTRUMENTAL = "Модулем для МЭК \"Кинезис\"",
-		PREPOSITIONAL = "Модуле для МЭК \"Кинезис\"",
+		NOMINATIVE = "Модуль МЭК \"Кинезис\"",
+		GENITIVE = "Модуля МЭК \"Кинезис\"",
+		DATIVE = "Модулю МЭК \"Кинезис\"",
+		ACCUSATIVE = "Модуль МЭК \"Кинезис\"",
+		INSTRUMENTAL = "Модулем МЭК \"Кинезис\"",
+		PREPOSITIONAL = "Модуле МЭК \"Кинезис\"",
 	)
 
 /obj/item/mod/module/anomaly_locked/kinesis/Initialize(mapload)
@@ -59,7 +60,7 @@
 
 /obj/item/mod/module/anomaly_locked/kinesis/Destroy()
 	QDEL_NULL(soundloop)
-	QDEL_NULL(beam)
+	QDEL_NULL(kinesis_beam)
 	QDEL_NULL(kinesis_catcher)
 	QDEL_NULL(kinesis_icon)
 	grabbed_atom = null
@@ -86,17 +87,8 @@
 	if(isliving(grabbed_atom))
 		var/mob/living/grabbed_mob = grabbed_atom
 		grabbed_mob.Stun(mob_stun_time)
-	playsound(grabbed_atom, 'sound/weapons/contractorbatonhit.ogg', 75, TRUE)
-	beam = new /obj/effect/abstract/kinesis(get_turf(mod.wearer))
-	kinesis_icon.layer = grabbed_atom.layer - 0.1
-	grabbed_atom.add_persistent_overlay(kinesis_icon, UID())
-	pre_pixel_x = grabbed_atom.pixel_x
-	pre_pixel_y = grabbed_atom.pixel_y
-	beam.chain = beam.Beam(grabbed_atom, "kinesis")
-	kinesis_catcher = mod.wearer.overlay_fullscreen("kinesis", /atom/movable/screen/fullscreen/cursor_catcher/kinesis, 0)
-	kinesis_catcher.assign_to_mob(mod.wearer)
-	soundloop.start()
-	START_PROCESSING(SSfastprocess, src)
+	drain_power(use_energy_cost)
+	grab_atom(target)
 
 /obj/item/mod/module/anomaly_locked/kinesis/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
@@ -112,21 +104,20 @@
 		balloon_alert(mod.wearer, "цель слишком далеко!")
 		clear_grab()
 		return
-	beam.forceMove(get_turf(mod.wearer))
-	drain_power(use_energy_cost / 10)
+	drain_power(use_energy_cost)
 	if(kinesis_catcher.mouse_params)
 		kinesis_catcher.calculate_params()
 	if(!kinesis_catcher.given_turf)
 		return
 	mod.wearer.setDir(get_dir(mod.wearer, grabbed_atom))
 	if(grabbed_atom.loc == kinesis_catcher.given_turf)
-		if(grabbed_atom.pixel_x == kinesis_catcher.given_x - world.icon_size/2 && grabbed_atom.pixel_y == kinesis_catcher.given_y - world.icon_size/2)
+		if(grabbed_atom.pixel_x == kinesis_catcher.given_x - ICON_SIZE_X/2 && grabbed_atom.pixel_y == kinesis_catcher.given_y - ICON_SIZE_Y/2)
 			return //spare us redrawing if we are standing still
-		animate(grabbed_atom, 0.2 SECONDS, pixel_x = pre_pixel_x + kinesis_catcher.given_x - world.icon_size/2, pixel_y = pre_pixel_y + kinesis_catcher.given_y - world.icon_size/2)
-		beam.chain.redrawing()
-		beam.chain.Draw()
+		animate(grabbed_atom, 0.2 SECONDS, pixel_x = grabbed_atom.base_pixel_x + kinesis_catcher.given_x - ICON_SIZE_X/2, pixel_y = grabbed_atom.base_pixel_y + kinesis_catcher.given_y - ICON_SIZE_Y/2)
+		kinesis_beam.redrawing()
 		return
-	animate(grabbed_atom, 0.2 SECONDS, pixel_x = pre_pixel_x + kinesis_catcher.given_x - world.icon_size/2, pixel_y = pre_pixel_y + kinesis_catcher.given_y - world.icon_size/2)
+	animate(grabbed_atom, 0.2 SECONDS, pixel_x = grabbed_atom.base_pixel_x + kinesis_catcher.given_x - ICON_SIZE_X/2, pixel_y = grabbed_atom.base_pixel_y + kinesis_catcher.given_y - ICON_SIZE_Y/2)
+	kinesis_beam.redrawing()
 	var/turf/next_turf = get_step_towards(grabbed_atom, kinesis_catcher.given_turf)
 	if(grabbed_atom.Move(next_turf, get_dir(grabbed_atom, next_turf), 8))
 		if(isitem(grabbed_atom) && (mod.wearer in next_turf))
@@ -139,16 +130,15 @@
 	var/pixel_y_change = 0
 	var/direction = get_dir(grabbed_atom, next_turf)
 	if(direction & NORTH)
-		pixel_y_change = world.icon_size / 2
+		pixel_y_change = ICON_SIZE_Y/2
 	else if(direction & SOUTH)
-		pixel_y_change = -world.icon_size / 2
+		pixel_y_change = -ICON_SIZE_Y/2
 	if(direction & EAST)
-		pixel_x_change = world.icon_size / 2
+		pixel_x_change = ICON_SIZE_X/2
 	else if(direction & WEST)
-		pixel_x_change = -world.icon_size / 2
-	animate(grabbed_atom, 0.2 SECONDS, pixel_x = pre_pixel_x + pixel_x_change, pixel_y = pre_pixel_y + pixel_y_change) //Not as smooth as I would like, will look into this in the future
-	beam.chain.redrawing()
-	beam.chain.Draw()
+		pixel_x_change = -ICON_SIZE_X/2
+	animate(grabbed_atom, 0.2 SECONDS, pixel_x = grabbed_atom.base_pixel_x + pixel_x_change, pixel_y = grabbed_atom.base_pixel_y + pixel_y_change)
+	kinesis_beam.redrawing()
 	if(!isitem(grabbed_atom) || !COOLDOWN_FINISHED(src, hit_cooldown))
 		return
 	var/atom/hitting_atom
@@ -198,16 +188,34 @@
 			return FALSE
 	return TRUE
 
+/obj/item/mod/module/anomaly_locked/kinesis/proc/grab_atom(atom/movable/target)
+	grabbed_atom = target
+	if(isliving(grabbed_atom))
+		grabbed_atom.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), ref(src))
+		RegisterSignal(grabbed_atom, COMSIG_MOB_STATCHANGE, PROC_REF(on_statchange))
+	ADD_TRAIT(grabbed_atom, TRAIT_NO_FLOATING_ANIM, ref(src))
+	RegisterSignal(grabbed_atom, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_setanchored))
+	playsound(grabbed_atom, 'sound/weapons/contractorbatonhit.ogg', 75, TRUE)
+	kinesis_icon = mutable_appearance(icon = 'icons/effects/effects.dmi', icon_state = "kinesis", layer = grabbed_atom.layer - 0.1, appearance_flags = RESET_ALPHA|RESET_COLOR|RESET_TRANSFORM|KEEP_APART)
+	grabbed_atom.add_overlay(kinesis_icon)
+	kinesis_beam = mod.wearer.Beam(grabbed_atom, "kinesis")
+	kinesis_catcher = mod.wearer.overlay_fullscreen("kinesis", /atom/movable/screen/fullscreen/cursor_catcher/kinesis, 0)
+	kinesis_catcher.assign_to_mob(mod.wearer)
+	soundloop.start()
+	START_PROCESSING(SSfastprocess, src)
+
+
 /obj/item/mod/module/anomaly_locked/kinesis/proc/clear_grab(playsound = TRUE)
 	if(!grabbed_atom)
 		return
 	if(playsound)
 		playsound(grabbed_atom, 'sound/effects/empulse.ogg', 75, TRUE)
 	STOP_PROCESSING(SSfastprocess, src)
+	UnregisterSignal(grabbed_atom, list(COMSIG_MOB_STATCHANGE, COMSIG_MOVABLE_SET_ANCHORED))
 	kinesis_catcher = null
 	mod.wearer.clear_fullscreen("kinesis")
-	grabbed_atom.remove_persistent_overlay(UID())
-	QDEL_NULL(beam)
+	grabbed_atom.cut_overlay(kinesis_icon)
+	QDEL_NULL(kinesis_beam)
 	if(!isitem(grabbed_atom))
 		animate(grabbed_atom, 0.2 SECONDS, pixel_x = pre_pixel_x, pixel_y = pre_pixel_y)
 	grabbed_atom = null
@@ -218,9 +226,21 @@
 		return FALSE
 	if(ismovable(target) && !isturf(target.loc))
 		return FALSE
-	if(!can_see(mod.wearer, target, grab_range))
+	if(!can_see(target, grab_range))
 		return FALSE
 	return TRUE
+
+/obj/item/mod/module/anomaly_locked/kinesis/proc/on_statchange(mob/grabbed_mob, new_stat)
+	SIGNAL_HANDLER
+
+	if(new_stat < stat_required)
+		clear_grab()
+
+/obj/item/mod/module/anomaly_locked/kinesis/proc/on_setanchored(atom/movable/grabbed_atom, anchorvalue)
+	SIGNAL_HANDLER
+
+	if(grabbed_atom.anchored)
+		clear_grab()
 
 /obj/item/mod/module/anomaly_locked/kinesis/proc/launch()
 	playsound(grabbed_atom, 'sound/magic/repulse.ogg', 100, TRUE)

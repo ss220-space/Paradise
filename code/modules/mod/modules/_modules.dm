@@ -202,7 +202,7 @@
 		else
 			var/used_button = MIDDLE_CLICK
 			update_signal(used_button)
-			balloon_alert(mod.wearer, "[src] активировано. Используйте [used_button]") // As of now, only wearers can "use" mods
+			to_chat(mod.wearer, span_notice("\"[capitalize(declent_ru(NOMINATIVE))]\" активирован. Используйте СКМ для управления."))
 	active = TRUE
 	SEND_SIGNAL(src, COMSIG_MODULE_ACTIVATED)
 	on_activation(activator)
