@@ -784,7 +784,6 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
 	)
-	can_add_sibyl_system = FALSE
 	ammo_x_offset = 0
 
 /obj/item/gun/energy/specter/update_gun_skins()
