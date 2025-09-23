@@ -815,7 +815,7 @@
 	cell = item
 	cell_type = item.type
 	balloon_alert(user, "батарейка заменена")
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 
 	return ATTACK_CHAIN_PROCEED
 
