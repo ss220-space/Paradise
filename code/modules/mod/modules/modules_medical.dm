@@ -101,12 +101,12 @@
 
 /obj/item/mod/module/injector/get_ru_names()
 	return list(
-		NOMINATIVE = "инжекторный модуль для МЭК",
-		GENITIVE = "инжекторного модуля для МЭК",
-		DATIVE = "инжекторному модулю для МЭК",
-		ACCUSATIVE = "инжекторный модуль для МЭК",
-		INSTRUMENTAL = "инжекторным модулем для МЭК",
-		PREPOSITIONAL = "инжекторном модуле для МЭК",
+		NOMINATIVE = "инжекторный модуль МЭК",
+		GENITIVE = "инжекторного модуля МЭК",
+		DATIVE = "инжекторному модулю МЭК",
+		ACCUSATIVE = "инжекторный модуль МЭК",
+		INSTRUMENTAL = "инжекторным модулем МЭК",
+		PREPOSITIONAL = "инжекторном модуле МЭК",
 	)
 
 /obj/item/reagent_containers/syringe/mod

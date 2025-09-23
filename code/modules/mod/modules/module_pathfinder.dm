@@ -16,12 +16,12 @@
 
 /obj/item/mod/module/anomaly_locked/pathfinder/get_ru_names()
 	return list(
-		NOMINATIVE = "Модуль для МЭК \"Первопроходец\"",
-		GENITIVE = "Модуля для МЭК \"Первопроходец\"",
-		DATIVE = "Модулю для МЭК \"Первопроходец\"",
-		ACCUSATIVE = "Модуль для МЭК \"Первопроходец\"",
-		INSTRUMENTAL = "Модулем для МЭК \"Первопроходец\"",
-		PREPOSITIONAL = "Модуле для МЭК \"Первопроходец\"",
+		NOMINATIVE = "модуль МЭК \"Первопроходец\"",
+		GENITIVE = "модуля МЭК \"Первопроходец\"",
+		DATIVE = "модулю МЭК \"Первопроходец\"",
+		ACCUSATIVE = "модуль МЭК \"Первопроходец\"",
+		INSTRUMENTAL = "модулем МЭК \"Первопроходец\"",
+		PREPOSITIONAL = "модуле МЭК \"Первопроходец\"",
 	)
 /obj/item/mod/module/pathfinder/Initialize(mapload)
 	. = ..()

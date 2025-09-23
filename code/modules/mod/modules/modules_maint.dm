@@ -25,12 +25,12 @@
 
 /obj/item/mod/module/holster/get_ru_names() //i have to look on fucking fnaf wiki to find out how to translate this shit
 	return list(
-		NOMINATIVE = "пружинный модуль для МЭК",
-		GENITIVE = "пружинного модуля для МЭК",
-		DATIVE = "пружинному модулю для МЭК",
-		ACCUSATIVE = "пружинный модуль для МЭК",
-		INSTRUMENTAL = "пружинным модулем для МЭК",
-		PREPOSITIONAL = "пружинном модуле для МЭК",
+		NOMINATIVE = "пружинный модуль МЭК",
+		GENITIVE = "пружинного модуля МЭК",
+		DATIVE = "пружинному модулю МЭК",
+		ACCUSATIVE = "пружинный модуль МЭК",
+		INSTRUMENTAL = "пружинным модулем МЭК",
+		PREPOSITIONAL = "пружинном модуле МЭК",
 	)
 
 /obj/item/mod/module/springlock/on_install()

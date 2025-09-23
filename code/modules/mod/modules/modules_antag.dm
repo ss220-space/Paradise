@@ -29,12 +29,12 @@
 
 /obj/item/mod/module/armor_booster/get_ru_names()
 	return list(
-		NOMINATIVE = "боевой модуль для МЭК",
-		GENITIVE = "боевого модуля для МЭК",
-		DATIVE = "боевому модулю для МЭК",
-		ACCUSATIVE = "боевой модуль для МЭК",
-		INSTRUMENTAL = "боевым модулем для МЭК",
-		PREPOSITIONAL = "боевом модуле для МЭК",
+		NOMINATIVE = "боевой модуль МЭК",
+		GENITIVE = "боевого модуля МЭК",
+		DATIVE = "боевому модулю МЭК",
+		ACCUSATIVE = "боевой модуль МЭК",
+		INSTRUMENTAL = "боевым модулем МЭК",
+		PREPOSITIONAL = "боевом модуле МЭК",
 	)
 
 /obj/item/mod/module/armor_booster/Initialize(mapload)
@@ -230,12 +230,12 @@
 
 /obj/item/mod/module/power_kick/get_ru_names()
 	return list(
-		NOMINATIVE = "Модуль для МЭК \"Силовой пинок\"",
-		GENITIVE = "Модуля для МЭК \"Силовой пинок\"",
-		DATIVE = "Модулю для МЭК \"Силовой пинок\"",
-		ACCUSATIVE = "Модуль для МЭК \"Силовой пинок\"",
-		INSTRUMENTAL = "Модулем для МЭК \"Силовой пинок\"",
-		PREPOSITIONAL = "Модуле для МЭК \"Силовой пинок\"",
+		NOMINATIVE = "модуль МЭК \"Силовой пинок\"",
+		GENITIVE = "модуля МЭК \"Силовой пинок\"",
+		DATIVE = "модулю МЭК \"Силовой пинок\"",
+		ACCUSATIVE = "модуль МЭК \"Силовой пинок\"",
+		INSTRUMENTAL = "модулем МЭК \"Силовой пинок\"",
+		PREPOSITIONAL = "модуле МЭК \"Силовой пинок\"",
 	)
 
 /obj/item/mod/module/power_kick/on_select_use(atom/target)
@@ -299,12 +299,12 @@
 
 /obj/item/mod/module/plate_compression/get_ru_names()
 	return list(
-		NOMINATIVE = "уплотняющий модуль для МЭК",
-		GENITIVE = "уплотняющего модуля для МЭК",
-		DATIVE = "уплотняющему модулю для МЭК",
-		ACCUSATIVE = "уплотняющий модуль для МЭК",
-		INSTRUMENTAL = "уплотняющим модулем для МЭК",
-		PREPOSITIONAL = "уплотняющем модуле для МЭК",
+		NOMINATIVE = "уплотняющий модуль МЭК",
+		GENITIVE = "уплотняющего модуля МЭК",
+		DATIVE = "уплотняющему модулю МЭК",
+		ACCUSATIVE = "уплотняющий модуль МЭК",
+		INSTRUMENTAL = "уплотняющим модулем МЭК",
+		PREPOSITIONAL = "уплотняющем модуле МЭК",
 	)
 
 /obj/item/mod/module/plate_compression/on_install()
@@ -346,12 +346,12 @@
 
 /obj/item/mod/module/stealth/get_ru_names()
 	return list(
-		NOMINATIVE = "маскирующий модуль для МЭК",
-		GENITIVE = "маскирующего модуля для МЭК",
-		DATIVE = "маскирующему модулю для МЭК",
-		ACCUSATIVE = "маскирующий модуль для МЭК",
-		INSTRUMENTAL = "маскирующим модулем для МЭК",
-		PREPOSITIONAL = "маскирующем модуле для МЭК",
+		NOMINATIVE = "маскирующий модуль МЭК",
+		GENITIVE = "маскирующего модуля МЭК",
+		DATIVE = "маскирующему модулю МЭК",
+		ACCUSATIVE = "маскирующий модуль МЭК",
+		INSTRUMENTAL = "маскирующим модулем МЭК",
+		PREPOSITIONAL = "маскирующем модуле МЭК",
 	)
 
 /obj/item/mod/module/stealth/on_activation()
@@ -412,12 +412,12 @@
 
 /obj/item/mod/module/stealth/ninja/get_ru_names()
 	return list(
-		NOMINATIVE = "продвинутый маскирующий модуль для МЭК",
-		GENITIVE = "продвинутого маскирующего модуля для МЭК",
-		DATIVE = "продвинутому маскирующему модулю для МЭК",
-		ACCUSATIVE = "продвинутый маскирующий модуль для МЭК",
-		INSTRUMENTAL = "продвинутым маскирующим модулем для МЭК",
-		PREPOSITIONAL = "продвинутом маскирующем модуле для МЭК",
+		NOMINATIVE = "продвинутый маскирующий модуль МЭК",
+		GENITIVE = "продвинутого маскирующего модуля МЭК",
+		DATIVE = "продвинутому маскирующему модулю МЭК",
+		ACCUSATIVE = "продвинутый маскирующий модуль МЭК",
+		INSTRUMENTAL = "продвинутым маскирующим модулем МЭК",
+		PREPOSITIONAL = "продвинутом маскирующем модуле МЭК",
 	)
 
 ///Status Readout - Puts a lot of information including health, nutrition, fingerprints, temperature to the suit TGUI.
