@@ -281,8 +281,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	parent = new_parent
 	name = parent.name
 	desc = parent.desc
-	update_name()
-	update_desc()
+	update_appearance(UPDATE_NAME | UPDATE_DESC)
 
 /obj/structure/part_dial
 	name = "big brass dial"
