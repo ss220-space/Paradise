@@ -36,7 +36,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_robust = 12,
 				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
-				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1
+				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 				/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 			),
 		),
@@ -60,7 +60,7 @@
 	)
 	contraband = list(
 		/obj/item/clothing/mask/cigarette/pipe/oldpipe = 3,
-		/obj/item/storage/fancy/cigarettes/cigpack_med = 1
+		/obj/item/storage/fancy/cigarettes/cigpack_med = 1,
 	)
 	prices = list(
 		/obj/item/storage/fancy/cigarettes/cigpack_robust = 179,
@@ -74,7 +74,7 @@
 		/obj/item/lighter/zippo = 249,
 		/obj/item/clothing/mask/cigarette/cigar/havana = 999,
 		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 699,
-		/obj/item/storage/fancy/cigarettes/cigpack_med = 499
+		/obj/item/storage/fancy/cigarettes/cigpack_med = 499,
 	)
 
 /obj/machinery/vending/cigarette/get_ru_names()
@@ -166,10 +166,10 @@
 		),
 	)
 	premium = list(
-					/obj/item/clothing/mask/cigarette/cigar/havana = 2,
-					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
-					/obj/item/lighter/zippo = 3
-					)
+		/obj/item/clothing/mask/cigarette/cigar/havana = 2,
+		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+		/obj/item/lighter/zippo = 3,
+	)
 	prices = list()
 
 /obj/machinery/vending/cigarette/beach/get_ru_names()
