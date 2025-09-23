@@ -38,7 +38,6 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	armor_plate = /obj/item/armor_plate/handmade_ablative
 
 /obj/item/clothing/suit/fire/firefighter
 	icon_state = "firesuit"
