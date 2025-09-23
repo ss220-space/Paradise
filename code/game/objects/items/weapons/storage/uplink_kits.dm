@@ -830,6 +830,8 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/armor_plates_light
 	name = "light armor plates kit"
 	desc = "Коробка, содержащая легкие бронеплиты и плитник для их ношения."
+	icon_state = "box_armor_plates"
+	item_state = "box_gun_mods"
 
 /obj/item/storage/box/syndie_kit/armor_plates_light/get_ru_names()
 	return list(
@@ -851,6 +853,8 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/armor_plates_medium
 	name = "medium armor plates kit"
 	desc = "Коробка, содержащая средние бронеплиты и плитник для их ношения."
+	icon_state = "box_armor_plates"
+	item_state = "box_gun_mods"
 
 /obj/item/storage/box/syndie_kit/armor_plates_medium/get_ru_names()
 	return list(
@@ -871,6 +875,8 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/armor_plates_heavy
 	name = "heavy armor plates kit"
 	desc = "Коробка, содержащая тяжелые бронеплиты и плитник для их ношения."
+	icon_state = "box_armor_plates"
+	item_state = "box_gun_mods"
 
 /obj/item/storage/box/syndie_kit/armor_plates_heavy/get_ru_names()
 	return list(
