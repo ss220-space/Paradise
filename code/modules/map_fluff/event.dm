@@ -53,3 +53,16 @@
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
 	admin_only = TRUE
+	
+/datum/map/fightclub
+	name = "Fight club"
+	map_path = "_maps/map_files/event/Station/fightclub.dmm"
+
+	station_name = "Бойцовский клуб"
+	english_station_name = "Fight club"
+	station_short = "Бойцовский клуб"
+	dock_name = "АКН Трурль"
+	company_name = "Нанотрейзен"
+	company_short = "НТ"
+	starsys_name = "Эпсилон Лукуста"
+	admin_only = TRUE
