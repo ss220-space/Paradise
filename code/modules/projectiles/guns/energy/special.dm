@@ -772,7 +772,6 @@
 	origin_tech = "combat=4;materials=2"
 	cell_type = /obj/item/stock_parts/cell/specter
 	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
-	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/spec_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/spec_magout.ogg'
 	unique_reskin = TRUE

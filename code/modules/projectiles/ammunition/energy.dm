@@ -527,6 +527,7 @@
 	muzzle_flash_color = COLOR_SOFT_RED
 	select_name = "kill"
 	e_cost = 1000
+	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
 
 /obj/item/ammo_casing/energy/specter/disable
 	caliber = CALIBER_SPECTER
@@ -535,3 +536,4 @@
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	e_cost = 500
+	fire_sound = 'sound/weapons/gunshots/specdisabler.ogg'
