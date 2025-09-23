@@ -829,6 +829,67 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/gun_module/under/laser/ray(src)
 	new /obj/item/gun_module/under/laser/point(src)
 
+/obj/item/storage/box/syndie_kit/armor_plates_light
+	name = "light armor plates kit"
+	desc = "Коробка, содержащая легкие бронеплиты и плитник для их ношения."
+
+/obj/item/storage/box/syndie_kit/armor_plates_light/get_ru_names()
+	return list(
+		NOMINATIVE = "набор легких бронеплит",
+		GENITIVE = "набора легких бронеплит",
+		DATIVE = "набору легких бронеплит",
+		ACCUSATIVE = "набор легких бронеплит",
+		INSTRUMENTAL = "набором легких бронеплит",
+		PREPOSITIONAL = "наборе легких бронеплит"
+	)
+
+/obj/item/storage/box/syndie_kit/armor_plates_light/populate_contents()
+	new /obj/item/armor_plate/light_steel(src)
+	new /obj/item/armor_plate/light_ablative(src)
+	new /obj/item/armor_plate/light_ceramic(src)
+	new /obj/item/armor_plate/kevlar(src)
+	new /obj/item/clothing/suit/armor/vest/empty(src)
+
+/obj/item/storage/box/syndie_kit/armor_plates_medium
+	name = "medium armor plates kit"
+	desc = "Коробка, содержащая средние бронеплиты и плитник для их ношения."
+
+/obj/item/storage/box/syndie_kit/armor_plates_medium/get_ru_names()
+	return list(
+		NOMINATIVE = "набор средних бронеплит",
+		GENITIVE = "набора средних бронеплит",
+		DATIVE = "набору средних бронеплит",
+		ACCUSATIVE = "набор средних бронеплит",
+		INSTRUMENTAL = "набором средних бронеплит",
+		PREPOSITIONAL = "наборе средних бронеплит"
+	)
+
+/obj/item/storage/box/syndie_kit/armor_plates_medium/populate_contents()
+	new /obj/item/armor_plate/medium_steel(src)
+	new /obj/item/armor_plate/medium_ablative(src)
+	new /obj/item/armor_plate/medium_ceramic(src)
+	new /obj/item/clothing/suit/armor/vest/empty(src)
+
+/obj/item/storage/box/syndie_kit/armor_plates_heavy
+	name = "heavy armor plates kit"
+	desc = "Коробка, содержащая тяжелые бронеплиты и плитник для их ношения."
+
+/obj/item/storage/box/syndie_kit/armor_plates_heavy/get_ru_names()
+	return list(
+		NOMINATIVE = "набор тяжелых бронеплит",
+		GENITIVE = "набора тяжелых бронеплит",
+		DATIVE = "набору тяжелых бронеплит",
+		ACCUSATIVE = "набор тяжелых бронеплит",
+		INSTRUMENTAL = "набором тяжелых бронеплит",
+		PREPOSITIONAL = "наборе тяжелых бронеплит"
+	)
+
+/obj/item/storage/box/syndie_kit/armor_plates_heavy/populate_contents()
+	new /obj/item/armor_plate/heavy_steel(src)
+	new /obj/item/armor_plate/heavy_ablative(src)
+	new /obj/item/armor_plate/heavy_ceramic(src)
+	new /obj/item/clothing/suit/armor/vest/empty(src)
+
 /obj/item/storage/box/syndie_kit/compact_sniper
 	name = "compact sniper rifle kit"
 	desc = "Коробка, содержащая компактную снайперскую винтовку \"Bubz Mini\", дополнительный магазин, и коробку патронов."

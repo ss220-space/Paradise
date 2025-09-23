@@ -33,6 +33,9 @@
 	dog_fashion = /datum/dog_fashion/back
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HEAVY
 
+/obj/item/clothing/suit/armor/vest/empty
+	armor_plate = null
+
 /obj/item/clothing/suit/armor/vest/jacket
 	name = "military jacket"
 	desc = "An old military jacket, it has armoring."

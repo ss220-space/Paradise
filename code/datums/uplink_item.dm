@@ -2350,7 +2350,25 @@
 	name = "Набор модулей для оружия"
 	desc = "Коробка, содержащая различные модули для улучшения вашего оружия."
 	item = /obj/item/storage/box/syndie_kit/gun_mods
-	cost = 3 // silencer 4 TK + 4 other modules
+	cost = 3
+
+/datum/uplink_item/bundles_TC/armor_plates_light
+	name = "Набор легких бронеплит и плитник."
+	desc = "Коробка, содержащая легкие бронеплиты и плитник для их ношения."
+	item = /obj/item/storage/box/syndie_kit/armor_plates_light
+	cost = 5
+
+/datum/uplink_item/bundles_TC/armor_plates_medium
+	name = "Набор средних бронеплит и плитник."
+	desc = "Коробка, содержащая средние бронеплиты и плитник для их ношения."
+	item = /obj/item/storage/box/syndie_kit/armor_plates_medium
+	cost = 10
+
+/datum/uplink_item/bundles_TC/armor_plates_heavy
+	name = "Набор тяжелых бронеплит и плитник."
+	desc = "Коробка, содержащая тяжелые бронеплиты и плитник для их ношения."
+	item = /obj/item/storage/box/syndie_kit/armor_plates_heavy
+	cost = 18
 
 /datum/uplink_item/bundles_TC/cyborg_maint
 	name = "Набор для починки роботов"
