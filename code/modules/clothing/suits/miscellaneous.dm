@@ -1671,6 +1671,7 @@
 
 /obj/item/clothing/head/hooded/ghostface/true
 	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/devil
 	desc = "Чёрный с прожилками красного просторный балахон, что может навеивать смутные напоминания о чём-то."
@@ -1691,10 +1692,12 @@
 /obj/item/clothing/suit/hooded/ghostfacesuit/true
 	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	hoodtype = /obj/item/clothing/head/hooded/ghostface/true
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/devil/true
 	armor = list(melee = 30, bullet = 0, laser = 0, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	hoodtype = /obj/item/clothing/head/hooded/ghostface/true
+	armor_plate = /obj/item/armor_plate/light_ceramic
 
 /obj/item/clothing/suit/hooded/penguin_costume
 	name = "penguin suit"
