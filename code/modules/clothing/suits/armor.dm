@@ -369,7 +369,8 @@
 		)
 	var/static/list/reflect_zones = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	var/hit_reflect_chance = 50
-	armor_plate = /obj/item/armor_plate/medium_ablative
+	can_remove_armor_plate = FALSE
+	armor_plate = /obj/item/armor_plate/special_reflector
 
 /obj/item/clothing/suit/armor/reflector/get_ru_names()
 	return list(

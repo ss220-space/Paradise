@@ -607,6 +607,9 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 /obj/item/armor_plate/heavy_ceramic/helmet
 	body_parts_covered = HEAD
 
+
+// MARK: Special
+
 /obj/item/armor_plate/elite
 	name = "elite armor plate"
 	desc = "Бронеплита из высокотехнологичных комбинированных материалов. \
@@ -619,7 +622,7 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	laser_class = LASER_ARMOR_CLASS_MAX
 	integrity_failure = 400
 	max_integrity = 800
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS|HANDS|FEET
 
 /obj/item/armor_plate/elite/get_ru_names()
 	return list(
@@ -632,4 +635,29 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	)
 
 /obj/item/armor_plate/elite/helmet
+	body_parts_covered = HEAD
+
+
+/obj/item/armor_plate/special_reflector
+	name = "special reflector armor plate"
+	desc = "Специальная бронеплита с рефлекторным покрытием для защиты от лазерного оружия."
+	icon_state = "reflectorplate_heavy"
+	status_icon_type = "ablative"
+	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
+	laser_class = LASER_ARMOR_CLASS_HEAVY
+	integrity_failure = 600
+	max_integrity = 600
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS|HANDS|FEET
+
+/obj/item/armor_plate/special_reflector/get_ru_names()
+	return list(
+		NOMINATIVE = "рефлекторная бронеплита",
+		GENITIVE = "рефлекторной бронеплиты",
+		DATIVE = "рефлекторной бронеплите",
+		ACCUSATIVE = "рефлекторную бронеплиту",
+		INSTRUMENTAL = "рефлекторной бронеплитой",
+		PREPOSITIONAL = "рефлекторной бронеплите"
+	)
+
+/obj/item/armor_plate/special_reflector/helmet
 	body_parts_covered = HEAD
