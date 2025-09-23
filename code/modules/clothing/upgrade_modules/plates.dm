@@ -350,8 +350,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	status_icon_type = "steel"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_III
-	integrity_failure = 150
-	max_integrity = 200
+	integrity_failure = 200
+	max_integrity = 250
 	repair_type = /obj/item/stack/sheet/metal
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -377,8 +377,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	status_icon_type = "ablative"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	integrity_failure = 150
-	max_integrity = 200
+	integrity_failure = 200
+	max_integrity = 250
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -404,8 +404,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	status_icon_type = "ceramic"
 	plate_slot = ARMOR_PLATE_SLOT_LIGHT
 	ballistic_class = BALLISTIC_ARMOR_CLASS_IV
-	integrity_failure = 125
-	max_integrity = 150
+	integrity_failure = 175
+	max_integrity = 200
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
@@ -433,8 +433,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	status_icon_type = "steel"
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
-	integrity_failure = 250
-	max_integrity = 300
+	integrity_failure = 300
+	max_integrity = 350
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	equipped_slowdown = 0.25
@@ -462,8 +462,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
-	integrity_failure = 250
-	max_integrity = 300
+	integrity_failure = 300
+	max_integrity = 350
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	equipped_slowdown = 0.25
@@ -491,8 +491,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_MEDIUM
 	ballistic_class = BALLISTIC_ARMOR_CLASS_V
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	integrity_failure = 175
-	max_integrity = 200
+	integrity_failure = 250
+	max_integrity = 275
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	equipped_slowdown = 0.2
@@ -522,8 +522,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_LIGHT
-	integrity_failure = 350
-	max_integrity = 400
+	integrity_failure = 400
+	max_integrity = 500
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	equipped_slowdown = 0.5
@@ -551,8 +551,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_II
 	laser_class = LASER_ARMOR_CLASS_HEAVY
-	integrity_failure = 350
-	max_integrity = 4000
+	integrity_failure = 400
+	max_integrity = 500
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	equipped_slowdown = 0.5
@@ -580,8 +580,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_HEAVY
 	ballistic_class = BALLISTIC_ARMOR_CLASS_VI
 	laser_class = LASER_ARMOR_CLASS_MEDIUM
-	integrity_failure = 250
-	max_integrity = 300
+	integrity_failure = 350
+	max_integrity = 400
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	equipped_slowdown = 0.4
@@ -609,8 +609,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	plate_slot = ARMOR_PLATE_SLOT_MAX
 	ballistic_class = BALLISTIC_ARMOR_CLASS_MAX
 	laser_class = LASER_ARMOR_CLASS_MAX
-	integrity_failure = 300
-	max_integrity = 600
+	integrity_failure = 400
+	max_integrity = 800
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 /obj/item/armor_plate/elite/get_ru_names()
