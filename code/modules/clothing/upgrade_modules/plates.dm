@@ -31,6 +31,7 @@
 	var/equipped_slowdown = 0
 	//becase stpd linter
 	max_integrity = 0
+	var/obj/item/clothing/attached_suit = null
 
 
 /// Calculate armor efficient percent in range 0-1
@@ -46,7 +47,9 @@
 	return FALSE
 
 /obj/item/armor_plate/obj_destruction(damage_flag)
-	return FALSE
+	if(attached_suit)
+		return
+	return ..()
 
 /// Try attach armor plate to suit
 /obj/item/armor_plate/proc/try_attach_to_clothing(mob/user, obj/item/clothing/suit)
@@ -69,6 +72,7 @@
 	forceMove(suit)
 	suit.armor_plate = src
 	suit.slowdown += equipped_slowdown
+	attached_suit = suit
 	balloon_alert(user, "бронеплита установлена")
 	subscribe_equip_signal(suit)
 	return TRUE
@@ -96,7 +100,11 @@
 	user.put_in_hands(src)
 	suit.armor_plate = null
 	suit.slowdown -= equipped_slowdown
+	attached_suit = null
 	UnregisterSignal(suit, list(COMSIG_CLOTHING_EQUIP, COMSIG_CLOTHING_UNEQUIP))
+	if(obj_integrity <= 0)
+		balloon_alert(user, "плита рассыпается в руках!")
+		qdel(src)
 	return TRUE
 
 

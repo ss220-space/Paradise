@@ -24,7 +24,7 @@
 	icon_state = "762-casing"
 	materials = list(MAT_METAL = 4000)
 	caliber = CALIBER_7_DOT_62X54MM
-	projectile_type = /obj/projectile/bullet
+	projectile_type = /obj/projectile/bullet/a762x54
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 

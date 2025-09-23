@@ -14,6 +14,9 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 	armour_penetration_level = BALLISTIC_PENETRATION_LIGHT_RIFLE
 
+/obj/projectile/bullet/a762x54
+	armour_penetration_level = BALLISTIC_PENETRATION_HEAVY_RIFLE
+
 /obj/projectile/bullet/slug
 	armour_penetration = 40
 	armour_penetration_level = BALLISTIC_PENETRATION_RIFLE

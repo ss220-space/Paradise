@@ -76,6 +76,7 @@
 	armor_plate.forceMove(src)
 	slowdown += armor_plate.equipped_slowdown
 	armor_plate.subscribe_equip_signal(src)
+	armor_plate.attached_suit = src
 
 /obj/item/clothing/examine(mob/user)
 	. = ..()
