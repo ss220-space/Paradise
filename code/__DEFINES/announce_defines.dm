@@ -36,6 +36,7 @@
 #define ANNOUNCE_ERT_UNAVAIL_RU		"ОБР недоступен."
 #define ANNOUNCE_ERT_ONWAY_RU		"ОБР в пути."
 #define ANNOUNCE_CCDEMOTE_RU		"Приказ Центрального командования об увольнение."
+#define ANNOUNCE_CCKILL_RU			"Приказ Центрального командования о казни."
 #define ANNOUNCE_DECLAREWAR_RU		"Объявление войны."
 #define ANNOUNCE_WILDNATURE_RU		"Отдел Центрального командования по изучению дикой природы."
 #define ANNOUNCE_UNID_LIFEFORMS_RU	"Неопознанные формы жизни."

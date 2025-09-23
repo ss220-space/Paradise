@@ -275,3 +275,31 @@
 	Хоть Вы и трансформировались в отвратительную зелёную жижу, но это не повлияло на Ваше сознание \
 	и память. Вы не являетесь антагонистом."))
 	new_form = /mob/living/simple_animal/hostile/morph
+
+
+/datum/disease/virus/transformation/pig
+	name = "Свинофикация"
+	agent = "Мистическая грязь"
+	desc = "Эта болезнь превращает жертву в свинью."
+	cure_text = "Смерть"
+	cures = list("adminordrazine")
+	stage1 = list(span_notice("ХРЮ."))
+	stage2 = list(span_notice("Вам хочется валяться в грязи."))
+	stage3 = list(span_danger("Нужно... валяться... в грязи...."), span_danger("ХРЮ"))
+	stage4 = list(span_danger("Видения грязевых луж атакуют ваш разум!"))
+	transform_message = list(span_danger("ХРЮЮЮЮЮ!!!"))
+	new_form = /mob/living/simple_animal/pig
+	is_new_mind = TRUE
+
+
+/datum/disease/virus/transformation/pig/stage_act()
+	if(!..() || !affected_mob)
+		return FALSE
+
+	switch(stage)
+		if(3)
+			if(prob(8))
+				affected_mob.say(pick("Хррр", "Хрю!"))
+		if(4)
+			if(prob(20))
+				affected_mob.say(pick("Уииии!", "ХРЮЮЮ!"))

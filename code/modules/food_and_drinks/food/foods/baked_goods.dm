@@ -337,6 +337,11 @@
 	tastes = list("cookie" = 1, "crunchy chocolate" = 1)
 	foodtype = SUGAR | GRAIN
 
+
+/obj/item/reagent_containers/food/snacks/cookie/empty
+	list_reagents = list()
+
+
 /obj/item/reagent_containers/food/snacks/fortunecookie
 	name = "fortune cookie"
 	desc = "A true prophecy in each cookie!"

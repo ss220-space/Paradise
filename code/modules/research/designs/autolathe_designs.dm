@@ -784,28 +784,28 @@
 	build_path = /obj/item/ammo_box/c9mmte
 	category = list("hacked", "Security")
 
-/datum/design/specter/disable
-	name = "ammo box (Specter disabler)"
-	id = "specter_disable"
+/datum/design/enforcer/disable
+	name = "ammo box (Enforcer disabler)"
+	id = "enforcer_disable"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 25000)
-	build_path = /obj/item/ammo_box/specter/disabler
+	build_path = /obj/item/ammo_box/enforcer/disabler
 	category = list("initial", "Security")
 
-/datum/design/specter/laser
-	name = "ammo box (Specter laser)"
-	id = "specter_laser"
+/datum/design/enforcer/laser
+	name = "ammo box (Enforcer laser)"
+	id = "enforcer_laser"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 35000)
-	build_path = /obj/item/ammo_box/specter/laser
+	build_path = /obj/item/ammo_box/enforcer/laser
 	category = list("hacked", "Security")
 
 /datum/design/spectermag_disabler
-	name = "magazine Specter (empty)"
-	id = "spectermag_disabler"
+	name = "Specter cell"
+	id = "spectermag"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 2500)
-	build_path = /obj/item/ammo_box/magazine/specter/empty
+	materials = list(MAT_METAL = 18750)
+	build_path = /obj/item/stock_parts/cell/specter
 	category = list("initial", "Security")
 
 /datum/design/sp91rc_mag

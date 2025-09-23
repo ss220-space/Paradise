@@ -919,41 +919,41 @@
 		PREPOSITIONAL = "коробке патронов (зажигательные 10 мм)"
 	)
 
-/obj/item/ammo_box/specter
+/obj/item/ammo_box/enforcer
 	origin_tech = "combat=2"
 	max_ammo = 30
 
-/obj/item/ammo_box/specter/laser
-	name = "ammo box (Specter laser)"
-	desc = "Коробка, содержащая 30 лазерных патронов для пистолета \"Спектр\"."
+/obj/item/ammo_box/enforcer/laser
+	name = "ammo box (Enforcer laser)"
+	desc = "Коробка, содержащая 30 лазерных патронов для пистолета \"Блюститель\"."
 	icon_state = "speclaser"
-	ammo_type = /obj/item/ammo_casing/specter/laser
+	ammo_type = /obj/item/ammo_casing/enforcer/laser
 
-/obj/item/ammo_box/specter/laser/get_ru_names()
+/obj/item/ammo_box/enforcer/laser/get_ru_names()
 	return list(
-		NOMINATIVE = "коробка патронов (Спектр лазерные)",
-		GENITIVE = "коробка патронов (Спектр лазерные)",
-		DATIVE = "коробка патронов (Спектр лазерные)",
-		ACCUSATIVE = "коробка патронов (Спектр лазерные)",
-		INSTRUMENTAL = "коробка патронов (Спектр лазерные)",
-		PREPOSITIONAL = "коробка патронов (Спектр лазерные)"
+		NOMINATIVE = "коробка патронов (Блюститель лазерные)",
+		GENITIVE = "коробка патронов (Блюститель лазерные)",
+		DATIVE = "коробка патронов (Блюститель лазерные)",
+		ACCUSATIVE = "коробка патронов (Блюститель лазерные)",
+		INSTRUMENTAL = "коробка патронов (Блюститель лазерные)",
+		PREPOSITIONAL = "коробка патронов (Блюститель лазерные)"
 	)
 
 
-/obj/item/ammo_box/specter/disabler
-	name = "ammo box (Specter disabler)"
-	desc = "Коробка, содержащая 30 парализующих патронов для пистолета \"Спектр\"."
+/obj/item/ammo_box/enforcer/disabler
+	name = "ammo box (Enforcer disabler)"
+	desc = "Коробка, содержащая 30 парализующих патронов для пистолета \"Блюститель\"."
 	icon_state = "specstamina"
-	ammo_type = /obj/item/ammo_casing/specter/disable
+	ammo_type = /obj/item/ammo_casing/enforcer/disable
 
-/obj/item/ammo_box/specter/disabler/get_ru_names()
+/obj/item/ammo_box/enforcer/disabler/get_ru_names()
 	return list(
-		NOMINATIVE = "коробка патронов (Спектр парализующие)",
-		GENITIVE = "коробка патронов (Спектр парализующие)",
-		DATIVE = "коробке патронов (Спектр парализующие)",
-		ACCUSATIVE = "коробку патронов (Спектр парализующие)",
-		INSTRUMENTAL = "коробкой патронов (Спектр парализующие)",
-		PREPOSITIONAL = "коробке патронов (Спектр парализующие)"
+		NOMINATIVE = "коробка патронов (Блюститель парализующие)",
+		GENITIVE = "коробка патронов (Блюститель парализующие)",
+		DATIVE = "коробке патронов (Блюститель парализующие)",
+		ACCUSATIVE = "коробку патронов (Блюститель парализующие)",
+		INSTRUMENTAL = "коробкой патронов (Блюститель парализующие)",
+		PREPOSITIONAL = "коробке патронов (Блюститель парализующие)"
 	)
 
 /**
