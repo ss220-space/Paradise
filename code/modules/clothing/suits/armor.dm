@@ -298,6 +298,7 @@
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 20, BULLET = 0, LASER = 5, ENERGY = 15, BOMB = 15, BIO = 0, RAD = 0, FIRE = 40, ACID = 50)
+	armor_plate = null
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "Bulletproof Vest"
@@ -838,7 +839,8 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	can_remove_armor_plate = FALSE
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/armor/bone/get_ru_names()
 	return list(
@@ -857,7 +859,7 @@
 	item_state = "makeshift_armor"
 	resistance_flags = FIRE_PROOF
 	armor = list(MELEE = 8, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	can_remove_armor_plate = FALSE
 
 //Dredd
 
@@ -895,7 +897,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
-	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
+	can_remove_armor_plate = FALSE
 
 /obj/item/clothing/suit/armor/cartilage/get_ru_names()
 	return list(
