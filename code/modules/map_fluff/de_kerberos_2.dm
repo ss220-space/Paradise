@@ -13,3 +13,4 @@
 	admin_only = TRUE
 	linkage = SELFLOOPING
 	forced_mode = /datum/game_mode/de_kerberos_2
+	disables = DISABLE_ALL

@@ -517,3 +517,21 @@
 /obj/item/ammo_casing/energy/anomaly/destabilizer
 	projectile_type = /obj/projectile/beam/anomaly/destabilizer
 	muzzle_flash_color = COLOR_SOFT_RED
+
+/obj/item/ammo_casing/energy/specter/laser
+	caliber = CALIBER_SPECTER
+	materials = list(MAT_METAL = 1000)
+	projectile_type = /obj/projectile/beam/specter/laser
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	muzzle_flash_color = COLOR_SOFT_RED
+	select_name = "kill"
+	e_cost = 1000
+
+/obj/item/ammo_casing/energy/specter/disable
+	caliber = CALIBER_SPECTER
+	materials = list(MAT_METAL = 800)
+	projectile_type = /obj/projectile/beam/specter/disabler
+	muzzle_flash_color = LIGHT_COLOR_BLUE
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
+	e_cost = 1000
