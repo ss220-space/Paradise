@@ -238,6 +238,8 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
+	allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
+	armor_plate = /obj/item/armor_plate/kevlar
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"

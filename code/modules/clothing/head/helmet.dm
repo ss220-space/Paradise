@@ -130,7 +130,7 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 	)
-	armor_plate = /obj/item/armor_plate/light_steel/helmet
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 /obj/item/clothing/head/helmet/riot/knight
 	name = "medieval helmet"
