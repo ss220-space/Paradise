@@ -411,6 +411,7 @@
 		. += " | Total blood: <a href='byond://?src=[UID()];vampire=edit_total_blood'>[vamp.bloodtotal]</a>"
 		var/has_subclass = !QDELETED(vamp.subclass)
 		. += "<br>Subclass: <a href='byond://?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
+		. += "<br>Diablerie level: <a href='byond://?src=[UID()];vampire=diablerie_level'>[vamp.diablerie ? vamp.diablerie.diablerie_count : "Нет"]</a>"
 		if(has_subclass)
 			. += " | Force full power: <a href='byond://?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
 			if(istype(vamp.subclass, /datum/vampire_subclass/bestia) || istype(vamp.subclass, /datum/vampire_subclass/ancient))
@@ -1635,7 +1636,7 @@
 				if(!isvampire(src))
 					return
 
-				var/new_usable = tgui_input_number(usr, "Select a new value:", "Modify usable blood")
+				var/new_usable = tgui_input_number(usr, "Новое значение:", "Количество активной крови")
 				if(isnull(new_usable) || new_usable < 0)
 					return
 
@@ -1649,13 +1650,13 @@
 				if(!isvampire(src))
 					return
 
-				var/new_total = tgui_input_number(usr, "Select a new value:", "Modify total blood")
+				var/new_total = tgui_input_number(usr, "Новое значение:", "Общее количество крови")
 				if(isnull(new_total) || new_total < 0)
 					return
 
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 				if(new_total < vamp.bloodtotal)
-					if(tgui_alert(usr, "Note that reducing the vampire's total blood may remove some active powers. Continue?", "Confirm New Total", list("Yes", "No")) == "No")
+					if(tgui_alert(usr, "Обратите внимание, уменьшение общей крови вампира может привести к удалению некоторых способностей. Продолжить?", "Подтвердите новое значение", list("Да", "Нет")) == "Нет")
 						return
 					vamp.remove_all_powers()
 
@@ -1672,9 +1673,9 @@
 				for(var/subtype in subtypesof(/datum/vampire_subclass))
 					var/datum/vampire_subclass/subclass = subtype
 					subclass_selection[capitalize(initial(subclass.name))] = subtype
-				subclass_selection["Let them choose (remove current subclass)"] = NONE
+				subclass_selection["Удалить текущий сабкласс"] = NONE
 
-				var/new_subclass_name = tgui_input_list(usr, "Choose a new subclass:", "Change Vampire Subclass", subclass_selection)
+				var/new_subclass_name = tgui_input_list(usr, "Выберите новый сабкласс:", "Изменение текущего сабкласса", subclass_selection)
 				if(!new_subclass_name)
 					return
 
@@ -1690,6 +1691,32 @@
 					vamp.change_subclass(subclass_type)
 					log_admin("[key_name(usr)] has removed [key_name(current)]'s vampire subclass.")
 					message_admins("[key_name_admin(usr)] has removed [key_name_admin(current)]'s vampire subclass.")
+
+			if("diablerie_level")
+				if(!isvampire(src))
+					return
+
+				if(is_goon_vampire(src))
+					to_chat(usr, span_warning("Несовместимо с гуновским вампиром."))
+					return
+
+				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
+				var/new_total = tgui_input_number(usr, "Выберите новое значение:", "Изменение уровня диаблери")
+				if(isnull(new_total) || new_total < 0 || new_total > DIABLERIE_COUNT_MAX)
+					to_chat(usr, span_warning("Неверное значение. Максимальный уровень — [DIABLERIE_COUNT_MAX], минимальный — 0."))
+					return
+
+				if(!vamp.diablerie)
+					vamp.diablerie = new(vamp)
+
+				if(new_total < vamp.diablerie.diablerie_count)
+					if(tgui_alert(usr, "Обратите внимание, понижение уровня диаблери вампира может привести к удалению некоторых способностей. Продолжить?", "Подтвердите новое значение", list("Да", "Нет")) == "Нет")
+						return
+
+				vamp.diablerie.force_diablerie_level(new_total)
+
+				log_admin("[key_name(usr)] has set [key_name(current)]'s diablerie count to [new_total].")
+				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s diablerie count to [new_total].")
 
 			if("full_power_override")
 				if(!isvampire(src))
@@ -2825,6 +2852,10 @@
 	if(!isvampire(src))
 		add_antag_datum(/datum/antagonist/vampire/new_vampire)
 
+
+/datum/mind/proc/make_free_vampire()
+	if(!isvampire(src))
+		add_antag_datum(/datum/antagonist/vampire/free_vampire)
 
 
 /datum/mind/proc/make_Wizard()

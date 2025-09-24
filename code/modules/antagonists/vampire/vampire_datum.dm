@@ -101,6 +101,11 @@
 		remove_innate_effects(old_body)
 		apply_innate_effects(new_body)
 
+	if(diablerie)
+		diablerie.transfer_diablerie_aura(old_body, new_body)
+
+	old_body?.RemoveElement(/datum/element/pref_viewer)
+
 
 /datum/antagonist/vampire/apply_innate_effects(mob/living/mob_override, transformation = FALSE)
 	var/mob/living/user = ..()
@@ -127,12 +132,10 @@
 		list(/datum/preference_info/take_out_of_the_round_without_obj), \
 	)
 
-/datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
-	. = ..()
-	old_body.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/vampire/handle_last_instance_removal()
 	owner.current.RemoveElement(/datum/element/pref_viewer)
+
 
 /datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override, transformation = FALSE)
 	var/mob/living/user = ..()
@@ -150,6 +153,8 @@
 			hud.remove_vampire_hud()
 
 		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
+
+		QDEL_NULL(diablerie)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 
@@ -303,7 +308,7 @@
 				continue
 
 		if(isvampire(target))
-			to_chat(cur, span_warning("Питьё крови сородича утоляет ваш голод, но вы не получите доступной крови, пока не поглотите всю его жизненную силу без остатка!"))
+			to_chat(cur, span_boldnotice("Кровь сородича утоляет ваш голод, но вы не получите доступной крови, не поглотив всю его жизненную силу!"))
 			// vampire's blood is way more better then normal human blood, according to WOD lore
 			cur.set_nutrition(min(NUTRITION_LEVEL_FULL, cur.nutrition + 10))
 
@@ -464,6 +469,8 @@
 		if(istype(ability, /obj/effect/proc_holder/spell))
 			owner.RemoveSpell(ability)
 		else if(istype(ability, /datum/vampire_passive))
+			var/datum/vampire_passive/passive = ability
+			passive.on_remove(src)
 			qdel(ability)
 		owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
@@ -682,20 +689,24 @@
  * * victim - The potential victim of diablerie
  */
 /datum/antagonist/vampire/proc/try_perform_diablerie(mob/living/carbon/human/vampire, mob/living/carbon/human/victim)
+	if(is_goon_vampire(vampire))
+		return
+
+	if(!diablerie)
+		diablerie = new(src)
+
 	if(!can_perform_diablerie(vampire, victim))
 		return
 
 	var/datum/antagonist/vampire/victim_datum = isvampire(victim)
-	// We transfer all of our victim's usable blood to the vampire
-	adjust_blood(blood_amount = victim_datum.bloodusable)
+	if(!is_free_vampire(victim))
+		// We transfer all of our victim's usable blood to the vampire
+		adjust_blood(blood_amount = victim_datum.bloodusable)
 
 	victim.visible_message((span_warning("[victim] рассыпается в прах, оставляя после себя лишь груду костей!")),
 		span_notice("Вы ощущаете сладкое чувство избавления, когда ваше тело рассыпается в прах, оставляя после себя лишь груду костей..."))
-	to_chat(vampire, span_warning("Вы поглощаете последнюю каплю жизненной силы сородича и ощущаете, как по телу теплом разливается сила. Вы жаждете [span_bold("ещё")]!"))
+	to_chat(vampire, span_notice("Вы поглощаете последнюю каплю жизненной силы сородича и ощущаете, как по телу теплом разливается сила. Вы жаждете [span_bold("ещё")]!"))
 	victim.dust()
-
-	if(!diablerie)
-		diablerie = new(src)
 
 	diablerie.increase_diablerie_level()
 
