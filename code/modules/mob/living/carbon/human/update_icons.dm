@@ -674,7 +674,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		overlays_standing[GLOVES_LAYER]	= standing
 	else
-		var/clock_hands = HAS_TRAIT(src, CLOCK_HANDS)
+		var/clock_hands = HAS_TRAIT(src, TRAIT_CLOCK_HANDS)
 		if(blood_DNA || clock_hands)
 			var/mutable_appearance/standing = mutable_appearance(layer = -GLOVES_LAYER, appearance_flags = KEEP_TOGETHER)
 			if(clock_hands)

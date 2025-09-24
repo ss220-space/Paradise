@@ -276,7 +276,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(ishuman(clocker) && isclocker(clocker))
 		var/mob/living/carbon/human/H = clocker
 		H.update_inv_gloves()
-		ADD_TRAIT(H, CLOCK_HANDS, CLOCK_TRAIT)
+		ADD_TRAIT(H, TRAIT_CLOCK_HANDS, CLOCK_TRAIT)
 
 /datum/game_mode/proc/powered_borgs(clocker)
 	if(isrobot(clocker))
@@ -314,7 +314,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(ishuman(clocker))
 		var/mob/living/carbon/human/H = clocker
 		clock_mind.current.RemoveElement(/datum/element/halo_attach)
-		REMOVE_TRAIT(H, CLOCK_HANDS, null)
+		REMOVE_TRAIT(H, TRAIT_CLOCK_HANDS, CLOCK_TRAIT)
 		H.change_eye_color(H.original_eye_color, FALSE)
 		H.update_eyes()
 		H.remove_overlay(HALO_LAYER)
