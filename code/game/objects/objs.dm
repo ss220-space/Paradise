@@ -341,6 +341,6 @@
 	C.take_organ_damage(damage)
 	if(!self_hurt)
 		take_damage(damage, BRUTE)
-	C.Weaken(3 SECONDS)
+	C.Knockdown(1.5 SECONDS)
 
 #undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
