@@ -40,7 +40,7 @@
 
 /// Take armor damage proc
 /obj/item/armor_plate/proc/take_armor_damage(damage_amount, mob/living/user, obj/item/clothing/suit)
-	take_damage(damage_amountб sound_effect = FALSE)
+	take_damage(damage_amount, sound_effect = FALSE)
 	update_break_icon(src, suit, user)
 
 /obj/item/armor_plate/default_welder_repair(mob/user, obj/item/I)
