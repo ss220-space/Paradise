@@ -299,9 +299,6 @@
 	return ..()
 
 /obj/item/mod/module/criminalcapture/on_deactivation(display_message = TRUE, deleting = FALSE)
-	if(!..())
-		return
-
 	if(!linked_bodybag)
 		return
 	packup()

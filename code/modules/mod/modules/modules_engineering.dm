@@ -90,18 +90,12 @@
 	)
 
 /obj/item/mod/module/magboot/on_activation()
-	. = ..()
-	if(!.)
-		return
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
 	mod.slowdown += slowdown_active
 	mod.update_equipped_item()
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 
 /obj/item/mod/module/magboot/on_deactivation(display_message = TRUE, deleting = FALSE)
-	. = ..()
-	if(!.)
-		return
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
 	mod.slowdown -= slowdown_active
 	mod.update_equipped_item()
@@ -124,16 +118,10 @@
 	)
 
 /obj/item/mod/module/magboot/advanced/on_activation()
-	. = ..()
-	if(!.)
-		return
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 
 /obj/item/mod/module/magboot/advanced/on_deactivation(display_message = TRUE, deleting = FALSE)
-	. = ..()
-	if(!.)
-		return
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
 

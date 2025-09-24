@@ -349,9 +349,6 @@
 	)
 
 /obj/item/mod/module/stealth/on_activation()
-	. = ..()
-	if(!.)
-		return
 	if(bumpoff)
 		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))

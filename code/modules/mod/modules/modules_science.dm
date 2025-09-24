@@ -58,15 +58,9 @@
 	)
 
 /obj/item/mod/module/reagent_scanner/advanced/on_activation()
-	. = ..()
-	if(!.)
-		return
 	GLOB.doppler_arrays += src
 
 /obj/item/mod/module/reagent_scanner/advanced/on_deactivation(display_message = TRUE, deleting = FALSE)
-	. = ..()
-	if(!.)
-		return
 	GLOB.doppler_arrays -= src
 
 /obj/item/mod/module/reagent_scanner/advanced/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
@@ -145,18 +139,12 @@
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 
 /obj/item/mod/module/anomaly_locked/antigrav/on_activation()
-	. = ..()
-	if(!.)
-		return
 	if(mod.wearer.get_gravity())
 		new /obj/effect/temp_visual/mook_dust(get_turf(src))
 	mod.wearer.AddElement(/datum/element/forced_gravity, 0)
 	playsound(src, 'sound/effects/gravhit.ogg', 50)
 
 /obj/item/mod/module/anomaly_locked/antigrav/on_deactivation(display_message = TRUE, deleting = FALSE)
-	. = ..()
-	if(!.)
-		return
 	mod.wearer.RemoveElement(/datum/element/forced_gravity, 0)
 	if(deleting)
 		return

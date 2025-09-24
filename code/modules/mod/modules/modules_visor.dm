@@ -25,9 +25,6 @@
 	)
 
 /obj/item/mod/module/visor/on_activation()
-	. = ..()
-	if(!.)
-		return
 	if(hud_type)
 		var/datum/atom_hud/hud = GLOB.huds[hud_type]
 		hud.add_hud_to(mod.wearer)

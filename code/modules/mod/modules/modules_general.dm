@@ -268,9 +268,7 @@
 		mod.jetpack_active = TRUE
 
 /obj/item/mod/module/jetpack/on_deactivation(display_message, deleting)
-	. = ..()
-	if(.)
-		mod.jetpack_active = FALSE
+	mod.jetpack_active = FALSE
 
 /obj/item/mod/module/jetpack/advanced
 	name = "MOD advanced ion jetpack module"
@@ -360,18 +358,11 @@
 	)
 
 /obj/item/mod/module/flashlight/on_activation()
-	. = ..()
-	if(!.)
-		return
-
 	set_light_flags(light_flags | LIGHT_ATTACHED)
 	set_light_on(TRUE)
 	active_power_cost = base_power * light_range
 
 /obj/item/mod/module/flashlight/on_deactivation(display_message = TRUE, deleting = FALSE)
-	. = ..()
-	if(!.)
-		return
 	set_light_flags(light_flags & ~LIGHT_ATTACHED)
 	set_light_on(FALSE)
 
