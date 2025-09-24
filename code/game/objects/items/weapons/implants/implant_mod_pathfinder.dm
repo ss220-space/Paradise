@@ -62,7 +62,7 @@
 		balloon_alert(imp_in, "Ошибка! Неизвестное существо.")
 		return FALSE
 	var/mob/living/carbon/human/H = imp_in
-	set_path(get_path_to(module.mod, target, 150, access = H.wear_id, simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
+	set_path(get_path_to(module.mod, target, 150, access = H.get_access(), simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
 		balloon_alert(H, "Невозможно расчитать путь.")
 		return FALSE
@@ -125,7 +125,7 @@
 		set_path(null)
 	var/target = get_turf(imp_in)
 	var/mob/living/carbon/human/H = imp_in
-	set_path(get_path_to(module.mod, target, 150, access = H.wear_id, simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
+	set_path(get_path_to(module.mod, target, 150, access = H.get_access(), simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
 	addtimer(CALLBACK(src, PROC_REF(mod_move), target), 6) //I'll value this properly soon
 
 	return TRUE

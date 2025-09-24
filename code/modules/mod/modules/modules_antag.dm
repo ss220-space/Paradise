@@ -97,7 +97,7 @@
 			clothing_part.clothing_flags |= STOPSPRESSUREDMAGE
 	spaceproofed = list()
 
-/obj/item/mod/module/armor_booster/generate_worn_overlay(user, mutable_appearance/standing)
+/obj/item/mod/module/armor_booster/generate_worn_overlay(obj/item/source, mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
 	overlay_state_active = "[initial(overlay_state_active)]-[mod.skin]"
 	return ..()
@@ -124,13 +124,11 @@
 		PREPOSITIONAL = "опознавательных знаках для МЭК",
 	)
 
-/obj/item/mod/module/insignia/generate_worn_overlay(user, mutable_appearance/standing)
+/obj/item/mod/module/insignia/generate_worn_overlay(obj/item/source, mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
-	var/mutable_appearance/appearance = ..()
-	if(!appearance)
-		return
-	appearance.color = color
-	return appearance
+	. = ..()
+	for(var/mutable_appearance/appearance as anything in .)
+		appearance.color = color
 
 /obj/item/mod/module/insignia/commander
 	color = "#4980a5"

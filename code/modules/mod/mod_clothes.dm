@@ -31,10 +31,6 @@
 		PREPOSITIONAL = "шлеме МЭК"
 	)
 
-/obj/item/clothing/head/mod/update_icon_state()
-	var/not_sealed = control.activating ? control.active : !control.active
-	icon_state = "[control.skin]-[base_icon_state][not_sealed ? "" : "-sealed"]"
-
 /obj/item/clothing/head/mod/update_name(updates = ALL)
 	. = ..()
 	if(!control)
@@ -90,10 +86,6 @@
 		PREPOSITIONAL = "нагруднике МЭК"
 	)
 
-/obj/item/clothing/suit/mod/update_icon_state()
-	var/not_sealed = control.activating ? control.active : !control.active
-	icon_state = "[control.skin]-[base_icon_state][not_sealed ? "" : "-sealed"]"
-
 /obj/item/clothing/suit/mod/update_name(updates = ALL)
 	. = ..()
 	if(!control)
@@ -142,10 +134,6 @@
 		INSTRUMENTAL = "перчатками МЭК",
 		PREPOSITIONAL = "перчатках МЭК"
 	)
-
-/obj/item/clothing/gloves/mod/update_icon_state()
-	var/not_sealed = control.activating ? control.active : !control.active
-	icon_state = "[control.skin]-[base_icon_state][not_sealed ? "" : "-sealed"]"
 
 /obj/item/clothing/gloves/mod/update_name(updates = ALL)
 	. = ..()
@@ -196,10 +184,6 @@
 		INSTRUMENTAL = "ботинками МЭК",
 		PREPOSITIONAL = "ботинках МЭК"
 	)
-
-/obj/item/clothing/shoes/mod/update_icon_state()
-	var/not_sealed = control.activating ? control.active : !control.active
-	icon_state = "[control.skin]-[base_icon_state][not_sealed ? "" : "-sealed"]"
 
 /obj/item/clothing/shoes/mod/update_name(updates = ALL)
 	. = ..()
