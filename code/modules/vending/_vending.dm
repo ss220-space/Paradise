@@ -14,19 +14,35 @@
 /// Don't actually throw at the target, just tip it in place.
 #define VENDOR_TIP_IN_PLACE 2
 
+// Names for default vending categories
+#define CATEGORY_NAME_GENERIC "Товары"
+#define CATEGORY_NAME_PREMIUM "Премиум"
+#define CATEGORY_NAME_CONTRABAND "Контрабанда"
 
 /**
  *  Datum used to hold information about a product in a vending machine
  */
 /datum/data/vending_product
 	name = "generic"
-	///Typepath of the product that is created when this record "sells"
+	/// Typepath of the product that is created when this record "sells"
 	var/product_path = null
-	///How many of this product we currently have
+	/// How many of this product we currently have
 	var/amount = 0
-	///How many we can store at maximum
+	/// How many we can store at maximum
 	var/max_amount = 0
-	var/price = 0  // Price to buy one
+	/// Price to buy one
+	var/price = 0
+	/**
+	 * The category the product was in, if any.
+	 * Sourced directly from product_categories.
+	 *
+	 * Form should be list(/type/path = amount, /type/path2 = amount2)
+	 *
+	 * Be aware that categories will be inherited by children object,
+	 * and will overwrite it's list of products if children's categories aren't specified.
+	 */
+	var/category
+
 
 /obj/machinery/vending
 	name = "Vendomat"
@@ -81,11 +97,42 @@
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
 
-	// To be filled out at compile time
-	var/list/products	= list()	// For each, use the following pattern:
-	var/list/contraband	= list()	// list(/type/path = amount,/type/path2 = amount2)
-	var/list/premium	= list()	// No specified amount = only one in stock
-	var/list/prices     = list()	// Prices for each item, list(/type/path = price), items not in the list don't have a price.
+
+	/**
+	 * List of products this machine sells
+	 *
+	 * form should be list(/type/path = amount, /type/path2 = amount2)
+	 */
+	var/list/products = list()
+
+	/**
+	 * List of products this machine sells, categorized.
+	 * Can only be used as an alternative to `products`, not alongside it.
+	 *
+	 * Form should be list(
+	 ** 	"name" = "Category Name",
+	 ** 	"icon" = "UI Icon (Font Awesome or tgfont)",
+	 ** 	"products" = list(/type/path = amount, ...),
+	 * )
+	 */
+	var/list/product_categories = null
+
+	/**
+	 * List of products this machine sells when you hack it
+	 *
+	 * form should be list(/type/path = amount, /type/path2 = amount2)
+	 */
+	var/list/contraband = list()
+
+	/**
+	 * List of premium products this machine sells
+	 *
+	 * form should be list(/type/path, /type/path2) as there is only ever one in stock
+	 */
+	var/list/premium = list()
+
+	/// Prices for each item, list(/type/path = price), items not in the list don't have a price.
+	var/list/prices = list()
 
 	// List of vending_product items available.
 	var/list/product_records = list()
@@ -96,16 +143,23 @@
 	// Stuff relating vocalizations
 	/// List of slogans the vendor will say, optional
 	var/list/slogan_list = list()
-	var/vend_reply				//Thank you for shopping!
+	/**
+	 * "Спас+ибо за пок+упку!" type phrases
+	 *
+	 * Place "+" before stressed syllables for better Text-to-speech pronunciation
+	 */
+	var/vend_reply
 	/// If true, prevent saying sales pitches
 	var/shut_up = FALSE
-	///can we access the hidden inventory?
+	/// can we access the hidden inventory?
 	var/extended_inventory = FALSE
 	var/last_reply = 0
-	var/last_slogan = 0			//When did we last pitch?
-	var/slogan_delay = 6000		//How long until we can pitch again?
+	/// When did we last pitch?
+	var/last_slogan = 0
+	/// How long until we can pitch again?
+	var/slogan_delay = 6000
 
-	//The type of refill canisters used by this machine.
+	/// The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/refill_canister = null
 
 	// Things that can go wrong
@@ -154,7 +208,6 @@
 	var/static/list/all_possible_crits = list()
 	/// Possible crit effects from this vending machine tipping.
 	var/list/possible_crits = list(
-		// /datum/vendor_crit/pop_head, //too much i think
 		/datum/vendor_crit/embed,
 		/datum/vendor_crit/pin,
 		/datum/vendor_crit/shatter,
@@ -193,10 +246,10 @@
 		RefreshParts()
 
 	wires = new(src)
+
 	if(build_inv) //non-constructable vending machine
-		build_inventory(products, product_records)
-		build_inventory(contraband, hidden_records)
-		build_inventory(premium, coin_records)
+		build_inventories()
+
 	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
@@ -239,19 +292,21 @@
 	QDEL_NULL(inserted_item)
 	return ..()
 
-/obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
+/// Better would be to make constructable child
+/obj/machinery/vending/RefreshParts()
 	if(!component_parts)
 		return
+
+	build_products_from_categories()
 
 	product_records = list()
 	hidden_records = list()
 	coin_records = list()
-	if(refill_canister)
-		build_inventory(products, product_records, start_empty = TRUE)
-		build_inventory(contraband, hidden_records, start_empty = TRUE)
-		build_inventory(premium, coin_records, start_empty = TRUE)
-	for(var/obj/item/vending_refill/VR in component_parts)
-		restock(VR)
+
+	build_inventories(start_empty = TRUE)
+
+	for(var/obj/item/vending_refill/installed_refill in component_parts)
+		restock(installed_refill)
 
 
 /obj/machinery/vending/update_icon(updates = ALL)
@@ -374,28 +429,76 @@
 	flickering = FALSE
 
 /**
- *  Build src.produdct_records from the products lists
+ * Build the inventory of the vending machine from it's product and record lists
  *
- *  src.products, src.contraband, src.premium, and src.prices allow specifying
- *  products that the vending machine is to carry without manually populating
- *  src.product_records.
+ * This builds up a full set of /datum/data/vending_product from the product list of the vending machine type
+ * Arguments:
+ * * productlist - the list of products that need to be converted
+ * * recordlist - the list containing /datum/data/vending_product datums
+ * * categories - account list in the format of product_categories to source category from
+ * * startempty - should we set vending_product record amount from the product list (so it's prefilled at roundstart)
  */
-/obj/machinery/vending/proc/build_inventory(list/productlist, list/recordlist, start_empty = FALSE)
+/obj/machinery/vending/proc/build_inventory(list/productlist, list/recordlist, list/categories, start_empty = FALSE)
+
+	var/list/product_to_category = list()
+	for(var/list/category as anything in categories)
+		var/list/products = category["products"]
+		for(var/product_key in products)
+			product_to_category[product_key] = category
+
 	for(var/typepath in productlist)
 		var/amount = productlist[typepath]
 		if(isnull(amount))
 			amount = 0
 
 		var/obj/item = new typepath(src)
-		var/datum/data/vending_product/R = new /datum/data/vending_product()
-		var/list/names = item?.ru_names || item.get_ru_names()
-		R.name = capitalize(names ? names[1] : item.name)
-		R.product_path = typepath
+		var/datum/data/vending_product/record = new /datum/data/vending_product()
+		record.name = capitalize(item.declent_ru(NOMINATIVE))
+		qdel(item)
+		record.product_path = typepath
 		if(!start_empty)
-			R.amount = amount
-		R.max_amount = amount
-		R.price = (typepath in prices) ? prices[typepath] : 0
-		recordlist += R
+			record.amount = amount
+		record.max_amount = amount
+		record.price = (typepath in prices) ? prices[typepath] : 0
+		record.category = product_to_category[typepath]
+		recordlist += record
+
+/**Builds all available inventories for the vendor - standard, contraband and premium
+ * Arguments:
+ * start_empty - bool to pass into build_inventory that determines whether a product entry starts with available stock or not
+ */
+/obj/machinery/vending/proc/build_inventories(start_empty)
+	build_inventory(products, product_records, product_categories, start_empty)
+	build_inventory(contraband, hidden_records, create_categories_from(CATEGORY_NAME_CONTRABAND, "mask", contraband), start_empty)
+	build_inventory(premium, coin_records, create_categories_from(CATEGORY_NAME_PREMIUM, "star", premium), start_empty)
+
+/**
+ * Returns a list of data about the category
+ * Arguments:
+ * name - string for the name of the category
+ * icon - string for the fontawesome icon to use in the UI for the category
+ * products - list of products available in the category
+ */
+/obj/machinery/vending/proc/create_categories_from(name, icon, products)
+	return list(list(
+		"name" = name,
+		"icon" = icon,
+		"products" = products,
+	))
+
+/// Populates list of products with categorized products
+/obj/machinery/vending/proc/build_products_from_categories()
+	if(isnull(product_categories))
+		return
+
+	products = list()
+
+	for(var/list/category in product_categories)
+		var/list/category_products = category["products"]
+		for(var/product_key in category_products)
+			products[product_key] += category_products[product_key]
+
+
 /**
  * Refill a vending machine from a refill canister
  *
@@ -411,10 +514,28 @@
 		canister.contraband = contraband.Copy()
 	if(!canister.premium)
 		canister.premium = premium.Copy()
+
 	. = 0
-	. += refill_inventory(canister.products, product_records)
+
+	if(isnull(canister.product_categories) && !isnull(product_categories))
+		canister.product_categories = product_categories.Copy()
+
+	if(!isnull(canister.product_categories))
+		var/list/products_unwrapped = list()
+		for(var/list/category as anything in canister.product_categories)
+			var/list/products = category["products"]
+			for(var/product_key in products)
+				products_unwrapped[product_key] += products[product_key]
+
+		. += refill_inventory(products_unwrapped, product_records)
+	else
+		. += refill_inventory(canister.products, product_records)
+
 	. += refill_inventory(canister.contraband, hidden_records)
 	. += refill_inventory(canister.premium, coin_records)
+
+	return .
+
 /**
  * Refill our inventory from the passed in product list into the record list
  *
@@ -424,8 +545,7 @@
  */
 /obj/machinery/vending/proc/refill_inventory(list/productlist, list/recordlist)
 	. = 0
-	for(var/R in recordlist)
-		var/datum/data/vending_product/record = R
+	for(var/datum/data/vending_product/record as anything in recordlist)
 		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
 		if(diff)
 			productlist[record.product_path] -= diff
@@ -440,22 +560,81 @@
 	if(!component_parts)
 		return
 
-	var/obj/item/vending_refill/R = locate() in component_parts
-	if(!R)
+	var/obj/item/vending_refill/record = locate() in component_parts
+	if(!record)
 		CRASH("Constructible vending machine did not have a refill canister")
 
-	R.products = unbuild_inventory(product_records)
-	R.contraband = unbuild_inventory(hidden_records)
-	R.premium = unbuild_inventory(coin_records)
+	unbuild_inventory_into(product_records, record.products, record.product_categories)
+	record.contraband = unbuild_inventory(hidden_records)
+	record.premium = unbuild_inventory(coin_records)
 
 /**
  * Given a record list, go through and and return a list of type -> amount
  */
 /obj/machinery/vending/proc/unbuild_inventory(list/recordlist)
 	. = list()
-	for(var/R in recordlist)
-		var/datum/data/vending_product/record = R
+	for(var/datum/data/vending_product/record as anything in recordlist)
 		.[record.product_path] += record.amount
+
+/**
+ * Unbuild product_records into categorized product lists to the machine's refill canister.
+ * Does not handle contraband/premium products, only standard stock and any other categories used by the vendor(see: ClothesMate).
+ * If a product has no category, puts it into standard stock category.
+ * Arguments:
+ * product_records - list of products of the vendor
+ * products - list of products of the refill canister
+ * product_categories - list of product categories of the refill canister
+ */
+/obj/machinery/vending/proc/unbuild_inventory_into(list/product_records, list/products, list/product_categories)
+	products?.Cut()
+	product_categories?.Cut()
+
+	var/others_have_category = null
+	var/list/categories_to_index = list()
+
+	for(var/datum/data/vending_product/record as anything in product_records)
+		var/list/category = record.category
+		var/has_category = !isnull(category)
+
+		if(!check_category_consistency(record, others_have_category, has_category))
+			continue
+
+		if(has_category)
+			handle_categorized_product(record, product_categories, categories_to_index)
+		else
+			products[record.product_path] = record.amount
+
+/obj/machinery/vending/proc/check_category_consistency(product_record, others_have_category, has_category)
+	var/datum/data/vending_product/record = product_record
+	if(isnull(others_have_category))
+		return TRUE
+
+	if(others_have_category == has_category)
+		return TRUE
+
+	if(has_category)
+		WARNING("[record.product_path] in [type] has a category, but other products don't")
+	else
+		WARNING("[record.product_path] in [type] does not have a category, but other products do")
+
+	return FALSE
+
+/obj/machinery/vending/proc/handle_categorized_product(product_record, list/product_categories, list/categories_to_index)
+	var/datum/data/vending_product/record = product_record
+	var/list/category = record.category
+	var/index = categories_to_index.Find(category)
+
+	if(!index)
+		categories_to_index += list(category)
+		index = categories_to_index.len
+
+		var/list/category_clone = category.Copy()
+		category_clone["products"] = list("[record.product_path]" = record.amount)
+		product_categories += list(category_clone)
+	else
+		var/list/category_in_list = product_categories[index]
+		var/list/products_in_category = category_in_list["products"]
+		products_in_category[record.product_path] += record.amount
 
 /obj/machinery/vending/deconstruct(disassembled = TRUE)
 	eject_item()
@@ -505,7 +684,7 @@
 			balloon_alert(user, "набор пополнения пуст!")
 			return ATTACK_CHAIN_PROCEED
 
-		// instantiate canister if needed
+		/// Instantiate canister if needed
 		var/transferred = restock(canister)
 		if(transferred)
 			balloon_alert(user, "набор пополнения вставлен")
@@ -525,8 +704,7 @@
 /obj/machinery/vending/proc/try_tilt(obj/item/I, mob/user)
 	if(tiltable && !tilted && I.force)
 		if(resistance_flags & INDESTRUCTIBLE)
-			// no goodies, but also no tilts
-			return
+			return // no goodies, but also no tilts
 		if(COOLDOWN_FINISHED(src, last_hit_time))
 			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] странно покачивается..."))
 			to_chat(user, span_userdanger("Кажется, что [declent_ru(NOMINATIVE)] так и норовит упасть!"))
@@ -547,17 +725,25 @@
 			if(91 to 100)
 				tilt(user, crit = TRUE)
 
+/**
+ * Dispenses free items from the standard stock.
+ * Arguments:
+ * freebies - number of free items to vend
+ */
 /obj/machinery/vending/proc/freebie(mob/user, num_freebies)
 	visible_message(span_notice("Из [declent_ru(GENITIVE)] начинают выпадать товары!"))
+
 	for(var/i in 1 to num_freebies)
-		for(var/datum/data/vending_product/R in shuffle(product_records))
-			if(R.amount <= 0)
+		playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
+		for(var/datum/data/vending_product/record in shuffle(product_records))
+
+			if(record.amount <= 0)
 				continue
-			var/dump_path = R.product_path
+			var/dump_path = record.product_path
 			if(!dump_path)
 				continue
 			new dump_path(get_turf(src))
-			R.amount--
+			record.amount--
 			break
 
 /obj/machinery/vending/HasProximity(atom/movable/AM)
@@ -569,10 +755,10 @@
 			span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [AM.declent_ru(ACCUSATIVE)]!"),
 			span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
 		)
-		tilt(AM, prob(5), FALSE)
-		aggressive = FALSE
-		//Not making same mistakes as offs did.
-		// Don't make this brob more than 5%
+	tilt(AM, prob(5), FALSE)
+	aggressive = FALSE
+	// Not making same mistakes as offs did.
+	// Don't make this prob more than 5%
 
 /obj/machinery/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
@@ -602,6 +788,7 @@
 	if(!anchored)
 		balloon_alert(user, "автомат не прикручен!")
 		return
+
 	panel_open = !panel_open
 	panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
 	update_icon()
@@ -639,7 +826,7 @@
 	if(prob(tilt_prob))
 		tilt()
 
-//Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
+/// Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
 /obj/machinery/vending/proc/item_slot_check(mob/user, obj/item/I)
 	if(!item_slot)
 		return FALSE
@@ -676,7 +863,7 @@
 	else
 		to_chat(user, display_parts(user))
 	if(moved)
-		to_chat(user, "Вы пополнили [moved] товар[declension_ru(moved, "", "а", "ов")].")
+		balloon_alert(user, "пополнено [moved] товар[declension_ru(moved, "", "а", "ов")]")
 		W.play_rped_sound()
 	return TRUE
 
@@ -751,35 +938,35 @@
 
 /obj/machinery/vending/ui_data(mob/user)
 	var/list/data = list()
-	var/datum/money_account/A = null
+	var/datum/money_account/money_account = null
 	data["guestNotice"] = "Предъявите ID-карту или используйте наличные.";
 	data["userMoney"] = 0
 	data["user"] = null
 	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone) && !istype(user, /mob/living/silicon/pai))
-		A = get_card_account(user)
+		money_account = get_card_account(user)
 		data["user"] = list()
-		data["user"]["name"] = A.owner_name
-		data["userMoney"] = A.money
+		data["user"]["name"] = money_account.owner_name
+		data["userMoney"] = money_account.money
 		data["user"]["job"] = "Силикон"
 	if(ishuman(user))
-		A = get_card_account(user)
+		money_account = get_card_account(user)
 		var/mob/living/carbon/human/H = user
-		var/obj/item/stack/spacecash/S = H.get_active_hand()
-		if(istype(S))
-			data["userMoney"] = S.amount
-			data["guestNotice"] = "Принимаем наличные. У вас есть: [S.amount] кредит[pluralize_ru(S.amount, "", "а", "ов")]."
+		var/obj/item/stack/spacecash/cash = H.get_active_hand()
+		if(istype(cash))
+			data["userMoney"] = cash.amount
+			data["guestNotice"] = "Принимаем наличные. У вас есть: [cash.amount] кредит[pluralize_ru(cash.amount, "", "а", "ов")]."
 		else if(istype(H))
 			var/obj/item/card/id/C = H.get_id_card()
-			if(istype(A))
+			if(istype(money_account))
 				data["user"] = list()
-				data["user"]["name"] = A.owner_name
-				data["userMoney"] = A.money
+				data["user"]["name"] = money_account.owner_name
+				data["userMoney"] = money_account.money
 				data["user"]["job"] = (istype(C) && C.rank) ? C.rank : "Должность отсутствует"
 			else
 				data["guestNotice"] = "Обнаруженная ID-карта не привязана к счёту.";
 	data["stock"] = list()
-	for(var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
-		data["stock"][R.name] = R.amount
+	for(var/datum/data/vending_product/product_record in product_records + coin_records + hidden_records)
+		data["stock"][product_record.name] = product_record.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
 	data["coin_name"] = coin ? capitalize(coin.declent_ru(NOMINATIVE)) : FALSE
@@ -789,68 +976,64 @@
 	data["inserted_item_name"] = inserted_item ? capitalize(inserted_item.declent_ru(NOMINATIVE)) : FALSE
 	return data
 
+/obj/machinery/vending/proc/collect_records_for_static_data(list/records, list/categories, premium, hidden, index)
+	var/static/list/default_category = list(
+		"name" = CATEGORY_NAME_GENERIC,
+		"icon" = "cart-shopping",
+	)
+
+	var/list/out_records = list()
+
+	for(var/datum/data/vending_product/product_record as anything in records)
+		var/obj/item/item = new product_record.product_path(src)
+		var/list/names = item.ru_names || item.get_ru_names()
+		var/list/static_record = list(
+			path = replacetext(replacetext("[product_record.product_path]", "/obj/item/", ""), "/", "-"),
+			name = capitalize(names ? names[1] : item.name),
+			price = (product_record.product_path in prices) ? prices[product_record.product_path] : 0,
+			icon = item.icon,
+			icon_state = item.icon_state,
+			max_amount = product_record.max_amount,
+			ref = product_record.UID()
+		)
+
+		var/list/category = product_record.category || default_category
+		if(!isnull(category))
+			if(!(category["name"] in categories))
+				categories[category["name"]] = list(
+					"icon" = category["icon"],
+				)
+
+			static_record["category"] = category["name"]
+
+		if(premium)
+			static_record["req_coin"] = TRUE
+
+		if(hidden)
+			static_record["is_hidden"] = TRUE
+
+		out_records += list(static_record)
+
+	return out_records
 
 /obj/machinery/vending/ui_static_data(mob/user)
 	var/list/data = list()
+
 	data["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
 	data["product_records"] = list()
-	var/i = 1
-	for(var/datum/data/vending_product/R in product_records)
-		var/obj/item/item = new R.product_path(src)
-		var/list/names = item.ru_names || item.get_ru_names()
-		var/list/data_pr = list(
-			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = capitalize(names ? names[1] : item.name),
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
-			max_amount = R.max_amount,
-			req_coin = FALSE,
-			is_hidden = FALSE,
-			inum = i
-		)
-		data["product_records"] += list(data_pr)
-		i++
-	data["coin_records"] = list()
-	for(var/datum/data/vending_product/R in coin_records)
-		var/obj/item/item = new R.product_path(src)
-		var/list/names = item?.ru_names || item.get_ru_names()
-		var/list/data_cr = list(
-			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = capitalize(names ? names[1] : item.name),
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
-			max_amount = R.max_amount,
-			req_coin = TRUE,
-			is_hidden = FALSE,
-			inum = i,
-			premium = TRUE
-		)
-		data["coin_records"] += list(data_cr)
-		i++
-	data["hidden_records"] = list()
-	for(var/datum/data/vending_product/R in hidden_records)
-		var/obj/item/item = new R.product_path(src)
-		var/list/names = item?.ru_names || item.get_ru_names()
-		var/list/data_hr = list(
-			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = capitalize(names ? names[1] : item.name),
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
-			max_amount = R.max_amount,
-			req_coin = FALSE,
-			is_hidden = TRUE,
-			inum = i,
-			premium = TRUE
-		)
-		data["hidden_records"] += list(data_hr)
-		i++
+
+	var/list/categories = list()
+
+	data["product_records"] = collect_records_for_static_data(product_records, categories)
+	data["coin_records"] = collect_records_for_static_data(coin_records, categories, premium = TRUE)
+	data["hidden_records"] = collect_records_for_static_data(hidden_records, categories, hidden = TRUE)
+
+	data["categories"] = categories
 	data["imagelist"] = imagelist
+
 	return data
 
-/obj/machinery/vending/ui_act(action, params)
+/obj/machinery/vending/ui_act(action, list/params)
 	. = ..()
 	if(.)
 		return
@@ -884,43 +1067,39 @@
 			if(panel_open)
 				balloon_alert(usr, "техпанель открыта!")
 				return
-			var/key = text2num(params["inum"])
-			var/list/display_records = product_records + coin_records
+
+			var/list/records_to_check = product_records + coin_records
 			if(extended_inventory)
-				display_records = product_records + coin_records + hidden_records
-			if(key < 1 || key > length(display_records))
-				to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] получил недопустимое число. Сообщите о баге."))
-				return
-			var/datum/data/vending_product/R = display_records[key]
-			if(!istype(R))
+				records_to_check = product_records + coin_records + hidden_records
+
+			var/datum/data/vending_product/product_record = locateUID(params["ref"])
+
+			if(!istype(product_record))
 				to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] содержит неизвестный товар. Сообщите о баге."))
 				return
-			var/list/record_to_check = product_records + coin_records
-			if(extended_inventory)
-				record_to_check = product_records + coin_records + hidden_records
-			if(!R || !istype(R) || !R.product_path)
+			if(!product_record || !product_record.product_path)
 				to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] содержит неизвестную позицию с товаром. Сообщите о баге."))
 				return
-			if(R in hidden_records)
+			if(product_record in hidden_records)
 				if(!extended_inventory)
 					// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
 					to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] не может расширить ассортимент в текущем состоянии. Сообщите о баге."))
 					return
-			else if(!(R in record_to_check))
+			else if(!(product_record in records_to_check))
 				// Exploit prevention, stop the user
 				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 				return
-			if(R.amount <= 0)
-				to_chat(usr, "Товар \"[R.name]\" закончился!")
+			if(product_record.amount <= 0)
+				to_chat(usr, "Товар \"[product_record.name]\" закончился!")
 				flick_vendor_overlay(FLICK_VEND)
 				return
 
 			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
 
-			if(!(ishuman(usr) || issilicon(usr)) || R.price <= 0)
+			if(!(ishuman(usr) || issilicon(usr)) || product_record.price <= 0)
 				// Either the purchaser is not human nor silicon, or the item is free.
 				// Skip all payment logic.
-				vend(R, usr)
+				vend(product_record, usr)
 				add_fingerprint(usr)
 				vend_ready = TRUE
 				. = TRUE
@@ -939,12 +1118,12 @@
 				vend_ready = TRUE
 				return
 
-			currently_vending = R
+			currently_vending = product_record
 			var/paid = FALSE
 
 			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
-				var/obj/item/stack/spacecash/S = usr.get_active_hand()
-				paid = pay_with_cash(S, usr, currently_vending.price, currently_vending.name)
+				var/obj/item/stack/spacecash/cash = usr.get_active_hand()
+				paid = pay_with_cash(cash, usr, currently_vending.price, currently_vending.name)
 			else if(get_card_account(usr))
 				// Because this uses H.get_id_card(), it will attempt to use:
 				// active hand, inactive hand, wear_id, pda, and then w_uniform ID in that order
@@ -971,21 +1150,21 @@
 
 
 
-/obj/machinery/vending/proc/vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/vending/proc/vend(datum/data/vending_product/product_record, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(user, span_warning("В доступе отказано!"))//Unless emagged of course
 		flick_vendor_overlay(FLICK_DENY)
 		vend_ready = TRUE
 		return
 
-	if(!R.amount)
-		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] закончился этот товар."))
+	if(!product_record.amount)
+		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] закончился выбранный товар."))
 		vend_ready = TRUE
 		return
 
 	vend_ready = FALSE //One thing at a time!!
 
-	if(coin_records.Find(R))
+	if(coin_records.Find(product_record))
 		if(!coin)
 			to_chat(user, span_notice("Вам нужно вставить монету, чтобы получить этот товар."))
 			vend_ready = TRUE
@@ -999,7 +1178,7 @@
 		else
 			QDEL_NULL(coin)
 
-	R.amount--
+	product_record.amount--
 
 	if(((last_reply + (vend_delay + 200)) <= world.time) && vend_reply)
 		speak(src.vend_reply)
@@ -1008,11 +1187,11 @@
 	use_power(vend_power_usage)	//actuators and stuff
 	flick_vendor_overlay(FLICK_VEND)	//Show the vending animation if needed
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(delayed_vend), R, user), vend_delay)
+	addtimer(CALLBACK(src, PROC_REF(delayed_vend), product_record, user), vend_delay)
 
 
-/obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user)
-	do_vend(R, user)
+/obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/product_record, mob/user)
+	do_vend(product_record, user)
 	vend_ready = TRUE
 	currently_vending = null
 
@@ -1021,10 +1200,10 @@
  * Override this proc to add handling for what to do with the vended product
  * when you have a inserted item and remember to include a parent call for this generic handling
  */
-/obj/machinery/vending/proc/do_vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/vending/proc/do_vend(datum/data/vending_product/product_record, mob/user)
 	if(!item_slot || !inserted_item)
 		var/put_on_turf = TRUE
-		var/obj/item/vended = new R.product_path(drop_location())
+		var/obj/item/vended = new product_record.product_path(drop_location())
 		if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
 			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
@@ -1035,10 +1214,10 @@
 	return FALSE
 
 /* Example override for do_vend proc:
-/obj/machinery/vending/example/do_vend(datum/data/vending_product/R)
+/obj/machinery/vending/example/do_vend(datum/data/vending_product/product_record)
 	if(..())
 		return
-	var/obj/item/vended = new R.product_path()
+	var/obj/item/vended = new product_record.product_path()
 	if(inserted_item.force == initial(inserted_item.force)
 		inserted_item.force += vended.force
 	inserted_item.damtype = vended.damtype
@@ -1086,13 +1265,13 @@
 	while(found_anything)
 		found_anything = FALSE
 		for(var/record in shuffle(product_records))
-			var/datum/data/vending_product/R = record
-			if(R.amount <= 0) //Try to use a record that actually has something to dump.
+			var/datum/data/vending_product/product_record = record
+			if(product_record.amount <= 0) //Try to use a record that actually has something to dump.
 				continue
-			var/dump_path = R.product_path
+			var/dump_path = product_record.product_path
 			if(!dump_path)
 				continue
-			R.amount--
+			product_record.amount--
 			// busting open a vendor will destroy some of the contents
 			if(found_anything && prob(80))
 				continue
@@ -1112,16 +1291,16 @@
 	if(!target)
 		return 0
 
-	for(var/datum/data/vending_product/R in product_records)
-		if(R.amount <= 0) //Try to use a record that actually has something to dump.
+	for(var/datum/data/vending_product/product_record in product_records)
+		if(product_record.amount <= 0) //Try to use a record that actually has something to dump.
 			continue
-		if(R.price > 0) // Don't try not free item
+		if(product_record.price > 0) // Don't try not free item
 			continue
-		var/dump_path = R.product_path
+		var/dump_path = product_record.product_path
 		if(!dump_path)
 			continue
 
-		R.amount--
+		product_record.amount--
 		throw_item = new dump_path(loc)
 		break
 	if(!throw_item)
