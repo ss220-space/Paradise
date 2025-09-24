@@ -497,6 +497,7 @@
 	var/mob/old_wearer = wearer
 	unset_wearer()
 	old_wearer.drop_from_active_hand()
+	old_wearer.clear_alert("mod_charge")
 
 /obj/item/mod/control/proc/on_species_gain(datum/source, datum/species/new_species, datum/species/old_species, pref_load, regenerate_icons)
 	SIGNAL_HANDLER
