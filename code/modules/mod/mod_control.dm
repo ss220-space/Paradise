@@ -268,6 +268,8 @@
 			if(!module.removable)
 				continue
 			removable_modules[capitalize(module.declent_ru(NOMINATIVE))] = module
+		if(!length(removable_modules))
+			return
 		var/choosen_module = tgui_input_list(user, "Какой модуль вы хотите вытащить?", "Удаление модулей", removable_modules)
 		var/obj/item/mod/module/module_to_remove = removable_modules?[choosen_module]
 		if(!module_to_remove || !module_to_remove.mod)

@@ -515,7 +515,7 @@
 		accepted_anomalies += subtypesof(anomaly)
 	if(!prebuilt || !length(accepted_anomalies))
 		return
-	var/core_path = pick(accepted_anomalies)
+	var/core_path = pick(cashed_anomalies)
 	core = new core_path(src)
 	update_icon_state()
 
