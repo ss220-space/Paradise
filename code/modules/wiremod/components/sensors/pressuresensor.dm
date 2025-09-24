@@ -4,8 +4,8 @@
  * Returns the pressure of the tile
  */
 /obj/item/circuit_component/pressuresensor
-	display_name = "Pressure Sensor"
-	desc = "Датчик давления."
+	display_name = "Датчик давления"
+	desc = "Считывает значение давления окружающей среды. Возвращает значение в Паскалях."
 	category = "Sensor"
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
@@ -14,7 +14,7 @@
 	var/datum/port/output/result
 
 /obj/item/circuit_component/pressuresensor/populate_ports()
-	result = add_output_port("Result", PORT_TYPE_NUMBER)
+	result = add_output_port("Результат", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/pressuresensor/input_received(datum/port/input/port)
 	//Get current turf

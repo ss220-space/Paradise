@@ -4,8 +4,8 @@
  * Does a toggle between true and false on trigger
  */
 /obj/item/circuit_component/compare/toggle
-	display_name = "Toggle"
-	desc = "A component that toggles between on and off when triggered. All input ports (except for set toggle) will trigger the component."
+	display_name = "Переключить"
+	desc = "Компонент, который переключается между включением и выключением при срабатывании. Все входные порты, кроме порта переключения, активируют компонент."
 	category = "Math"
 
 	/// A signal to reset the toggle back to 0
@@ -16,8 +16,8 @@
 	var/toggle_state = FALSE
 
 /obj/item/circuit_component/compare/toggle/populate_custom_ports()
-	toggle_set = add_input_port("Set Toggle State", PORT_TYPE_NUMBER)
-	toggle_and_compare = add_input_port("Toggle And Compare", PORT_TYPE_SIGNAL)
+	toggle_set = add_input_port("Целевое состояние", PORT_TYPE_NUMBER)
+	toggle_and_compare = add_input_port("Переключить и сравнить", PORT_TYPE_SIGNAL)
 	toggle_state = FALSE
 
 /obj/item/circuit_component/compare/toggle/input_received(datum/port/input/port)

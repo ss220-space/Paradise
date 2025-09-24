@@ -6,8 +6,8 @@
  */
 
 /obj/item/circuit_component/thought_listener
-	display_name = "Thought Listener"
-	desc = "A component that allows the user to input a string using their mind. Requires a BCI shell."
+	display_name = "Детектор мысли"
+	desc = "Компонент, позволяющий пользователю отправлять сигнал силой мысли. Требуется оболочка BCI."
 	category = "BCI"
 
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)
@@ -24,11 +24,11 @@
 	var/ready = TRUE
 
 /obj/item/circuit_component/thought_listener/populate_ports()
-	input_name = add_input_port("Input Name", PORT_TYPE_STRING)
-	input_desc = add_input_port("Input Description", PORT_TYPE_STRING)
-	output = add_output_port("Received Thought", PORT_TYPE_STRING)
-	trigger_output = add_output_port("Triggered", PORT_TYPE_SIGNAL)
-	failure = add_output_port("On Failure", PORT_TYPE_SIGNAL)
+	input_name = add_input_port("Название", PORT_TYPE_STRING)
+	input_desc = add_input_port("Описание", PORT_TYPE_STRING)
+	output = add_output_port("Мысль", PORT_TYPE_STRING)
+	trigger_output = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
+	failure = add_output_port("Провал", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/thought_listener/register_shell(atom/movable/shell)
 	if(istype(shell, /obj/item/organ/internal/cyberimp/brain/bci))

@@ -1,6 +1,6 @@
 /obj/item/instrument/piano_synth
 	name = "synthesizer"
-	desc = "An advanced electronic synthesizer that can be used as various instruments."
+	desc = "Современный электронный синтезатор, который можно использовать в качестве различных инструментов."
 	icon_state = "synth"
 	item_state = "synth"
 	allowed_instrument_ids = "piano"
@@ -14,8 +14,8 @@
 
 
 /obj/item/circuit_component/synth
-	display_name = "Synthesizer"
-	desc = "An advanced electronic synthesizer that can be used as various instruments."
+	display_name = "Синтезатор"
+	desc = "Современный электронный синтезатор, который можно использовать в качестве различных инструментов."
 
 	/// The song, represented in latin alphabet A to G, that'll be played when play is triggered.
 	var/datum/port/input/song
@@ -52,22 +52,22 @@
 	var/obj/item/instrument/piano_synth/synth
 
 /obj/item/circuit_component/synth/populate_ports()
-	song = add_input_port("Song", PORT_TYPE_LIST(PORT_TYPE_STRING), trigger = PROC_REF(import_song))
-	play = add_input_port("Play", PORT_TYPE_SIGNAL, trigger = PROC_REF(start_playing))
-	stop = add_input_port("Stop", PORT_TYPE_SIGNAL, trigger = PROC_REF(stop_playing))
-	repetitions = add_input_port("Repetitions", PORT_TYPE_NUMBER, trigger = PROC_REF(set_repetitions))
+	song = add_input_port("Песня", PORT_TYPE_LIST(PORT_TYPE_STRING), trigger = PROC_REF(import_song))
+	play = add_input_port("Играть", PORT_TYPE_SIGNAL, trigger = PROC_REF(start_playing))
+	stop = add_input_port("Стоп", PORT_TYPE_SIGNAL, trigger = PROC_REF(stop_playing))
+	repetitions = add_input_port("Повторы", PORT_TYPE_NUMBER, trigger = PROC_REF(set_repetitions))
 	beats_per_min = add_input_port("BPM", PORT_TYPE_NUMBER, trigger = PROC_REF(set_bpm))
-	selected_instrument = add_option_port("Selected Instrument", SSinstruments.synthesizer_instrument_ids, trigger = PROC_REF(set_instrument))
-	volume = add_input_port("Volume", PORT_TYPE_NUMBER, trigger = PROC_REF(set_volume))
-	volume_dropoff = add_input_port("Volume Dropoff Threshold", PORT_TYPE_NUMBER, trigger = PROC_REF(set_dropoff))
-	note_shift = add_input_port("Note Shift", PORT_TYPE_NUMBER, trigger = PROC_REF(set_note_shift))
-	sustain_mode = add_option_port("Note Sustain Mode", SSinstruments.note_sustain_modes, trigger = PROC_REF(set_sustain_mode))
-	sustain_value = add_input_port("Note Sustain Value", PORT_TYPE_NUMBER, trigger = PROC_REF(set_sustain_value))
-	note_decay = add_input_port("Held Note Decay", PORT_TYPE_NUMBER, trigger = PROC_REF(set_sustain_decay))
+	selected_instrument = add_option_port("Выбранный инструмент", SSinstruments.synthesizer_instrument_ids, trigger = PROC_REF(set_instrument))
+	volume = add_input_port("Громкость", PORT_TYPE_NUMBER, trigger = PROC_REF(set_volume))
+	volume_dropoff = add_input_port("Порог падения громкости", PORT_TYPE_NUMBER, trigger = PROC_REF(set_dropoff))
+	note_shift = add_input_port("Сдвиг нот", PORT_TYPE_NUMBER, trigger = PROC_REF(set_note_shift))
+	sustain_mode = add_option_port("Режим поддержки нот", SSinstruments.note_sustain_modes, trigger = PROC_REF(set_sustain_mode))
+	sustain_value = add_input_port("Значение поддержки нот", PORT_TYPE_NUMBER, trigger = PROC_REF(set_sustain_value))
+	note_decay = add_input_port("Удерживаемая нота распада", PORT_TYPE_NUMBER, trigger = PROC_REF(set_sustain_decay))
 
-	is_playing = add_output_port("Currently Playing", PORT_TYPE_NUMBER)
-	started_playing = add_output_port("Started Playing", PORT_TYPE_SIGNAL)
-	stopped_playing = add_output_port("Stopped Playing", PORT_TYPE_SIGNAL)
+	is_playing = add_output_port("В данный момент играет", PORT_TYPE_NUMBER)
+	started_playing = add_output_port("Начал играть", PORT_TYPE_SIGNAL)
+	stopped_playing = add_output_port("Закончил играть", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/synth/register_shell(atom/movable/shell)
 	. = ..()

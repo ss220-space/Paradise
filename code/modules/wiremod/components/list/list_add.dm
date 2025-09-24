@@ -4,8 +4,8 @@
  * Adds an element to a list.
  */
 /obj/item/circuit_component/variable/list/listadd
-	display_name = "List Add"
-	desc = "Adds an element to a list variable."
+	display_name = "Список - добавить"
+	desc = "Добавляет элемент в переменную списка."
 	category = "List"
 
 	/// Element to add to the list
@@ -21,12 +21,12 @@
 
 /obj/item/circuit_component/variable/list/listadd/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Max List Size: [max_list_size]", "orange", "sitemap")
+	. += create_ui_notice("Максимальный размер списка: [max_list_size]", "orange", "sitemap")
 
 /obj/item/circuit_component/variable/list/listadd/populate_ports()
-	to_add = add_input_port("To Add", PORT_TYPE_ANY)
-	allow_duplicate = add_input_port("Allow Duplicate", PORT_TYPE_NUMBER, default = 0)
-	failed = add_output_port("Failed", PORT_TYPE_SIGNAL)
+	to_add = add_input_port("Добавить", PORT_TYPE_ANY)
+	allow_duplicate = add_input_port("Дублицирование", PORT_TYPE_NUMBER, default = 0)
+	failed = add_output_port("Провал", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/variable/list/listadd/pre_input_received(datum/port/input/port)
 	. = ..()

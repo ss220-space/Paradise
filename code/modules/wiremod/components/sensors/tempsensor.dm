@@ -4,8 +4,8 @@
  * Returns the temperature of the tile
  */
 /obj/item/circuit_component/tempsensor
-	display_name = "Temperature Sensor"
-	desc = "Датчик температуры. Возвращает значение в градусах Кельвина."
+	display_name = "Датчик температуры"
+	desc = "Считывает значение температуры окружающей среды. Возвращает значение в Кельвинах."
 	category = "Sensor"
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
@@ -14,7 +14,7 @@
 	var/datum/port/output/result
 
 /obj/item/circuit_component/tempsensor/populate_ports()
-	result = add_output_port("Result", PORT_TYPE_NUMBER)
+	result = add_output_port("Результат", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/tempsensor/input_received(datum/port/input/port)
 	//Get current turf

@@ -668,8 +668,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	<p> This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
 
 /obj/item/circuit_component/conveyor_switch
-	display_name = "Conveyor Switch"
-	desc = "Allows to control connected conveyor belts."
+	display_name = "Конвейерный переключатель"
+	desc = "Позволяет управлять подключенными конвейерными лентами."
 
 	/// Direction input ports.
 	var/datum/port/input/stop
@@ -681,20 +681,20 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	var/obj/machinery/conveyor_switch/attached_switch
 
 /obj/item/circuit_component/conveyor_switch/populate_ports()
-	active = add_input_port("Activate", PORT_TYPE_SIGNAL, trigger = PROC_REF(activate))
-	stop = add_input_port("Stop", PORT_TYPE_SIGNAL, trigger = PROC_REF(stop))
-	direction = add_output_port("Conveyor Direction", PORT_TYPE_NUMBER)
+	active = add_input_port("Старт", PORT_TYPE_SIGNAL, trigger = PROC_REF(activate))
+	stop = add_input_port("Стоп", PORT_TYPE_SIGNAL, trigger = PROC_REF(stop))
+	direction = add_output_port("Направление", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/conveyor_switch/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Conveyor direction 0 means that it is stopped, 1 means that it is active and -1 means that it is working in reverse mode", "orange", "info")
+	. += create_ui_notice("Направление конвейера: 0 означает, что он остановлен, 1 означает, что он активен, а -1 означает, что он работает в обратном режиме.", "orange", "info")
 
 /obj/item/circuit_component/conveyor_switch/register_usb_parent(atom/movable/shell)
 	. = ..()
 	if(istype(shell, /obj/machinery/conveyor_switch))
 		attached_switch = shell
 		if(!attached_switch.one_way)
-			reverse = add_input_port("Reverse", PORT_TYPE_SIGNAL, trigger = PROC_REF(reverse))
+			reverse = add_input_port("Реверс", PORT_TYPE_SIGNAL, trigger = PROC_REF(reverse))
 
 /obj/item/circuit_component/conveyor_switch/unregister_usb_parent(atom/movable/shell)
 	attached_switch = null

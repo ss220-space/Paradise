@@ -5,8 +5,8 @@
  */
 
 /obj/item/circuit_component/view_sensor
-	display_name = "View Sensor"
-	desc = "Outputs a list with all movable objects in it's view. Requires a shell. Max range of 5 tiles."
+	display_name = "Датчик наблюдения"
+	desc = "Выводит список всех подвижных объектов в поле зрения. Требуется оболочка. Максимальная дальность — 5 метров."
 	category = "Sensor"
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
@@ -25,13 +25,13 @@
 	var/maximum_range = 5 //Variablised incase admins want to increase it.
 
 /obj/item/circuit_component/view_sensor/populate_ports()
-	range = add_input_port("Range", PORT_TYPE_NUMBER, default = maximum_range)
-	result = add_output_port("Result", PORT_TYPE_LIST(PORT_TYPE_ATOM))
-	cooldown = add_output_port("Scan On Cooldown", PORT_TYPE_SIGNAL)
+	range = add_input_port("Дальность", PORT_TYPE_NUMBER, default = maximum_range)
+	result = add_output_port("Результат", PORT_TYPE_LIST(PORT_TYPE_ATOM))
+	cooldown = add_output_port("Поиск", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/view_sensor/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Scan Cooldown: [DisplayTimeText(view_cooldown)]", "orange", "stopwatch")
+	. += create_ui_notice("Перезарядка сканирования: [DisplayTimeText(view_cooldown)]", "orange", "stopwatch")
 
 /obj/item/circuit_component/view_sensor/input_received(datum/port/input/port)
 	if(!parent.shell)

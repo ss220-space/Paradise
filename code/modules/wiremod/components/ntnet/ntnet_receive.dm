@@ -4,8 +4,8 @@
  * Receives data through NTNet.
  */
 /obj/item/circuit_component/ntnet_receive
-	display_name = "NTNet Receiver"
-	desc = "Receives data packages through NTNet. If Encryption Key is set then only signals with the same Encryption Key will be received."
+	display_name = "NTNet приемник "
+	desc = "Принимает пакеты данных через NTNet. Если установлен ключ шифрования, будут приниматься только сигналы с тем же ключом шифрования."
 	category = "NTNet"
 
 	circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL //trigger_output
@@ -20,11 +20,11 @@
 	var/datum/port/input/enc_key
 
 /obj/item/circuit_component/ntnet_receive/populate_options()
-	list_options = add_option_port("List Type", GLOB.wiremod_basic_types)
+	list_options = add_option_port("Тип списка", GLOB.wiremod_basic_types)
 
 /obj/item/circuit_component/ntnet_receive/populate_ports()
-	data_package = add_output_port("Data Package", PORT_TYPE_LIST(PORT_TYPE_ANY))
-	enc_key = add_input_port("Encryption Key", PORT_TYPE_STRING)
+	data_package = add_output_port("Пакет данных", PORT_TYPE_LIST(PORT_TYPE_ANY))
+	enc_key = add_input_port("Ключ", PORT_TYPE_STRING)
 	RegisterSignal(SSdcs, COMSIG_GLOB_CIRCUIT_NTNET_DATA_SENT, PROC_REF(ntnet_receive))
 
 /obj/item/circuit_component/ntnet_receive/pre_input_received(datum/port/input/port)

@@ -1,3 +1,8 @@
+#define ALIVE "Жив"
+#define CRITICAL "Критическое состояние"
+#define UNCONSCIOUS "Без сознания"
+#define DECEASED "Мертв"
+
 /**
  * # Compare Health State Component
  *
@@ -5,8 +10,8 @@
  */
 
 /obj/item/circuit_component/compare/health_state
-	display_name = "Compare Health State"
-	desc = "A component that compares the health state of an organism, and returns true or false."
+	display_name = "Сравнение состояния здоровья"
+	desc = "Компонент, который сравнивает состояние здоровья организма и возвращает значение «истина» или «ложь»."
 	category = "Entity"
 
 	/// The input port
@@ -19,18 +24,18 @@
 
 /obj/item/circuit_component/compare/health_state/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Maximum Range: [max_range] tiles", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] метров", "orange", "info")
 
 /obj/item/circuit_component/compare/health_state/populate_options()
-	input_port = add_input_port("Organism", PORT_TYPE_ATOM)
+	input_port = add_input_port("Организм", PORT_TYPE_ATOM)
 
 	var/static/component_options = list(
-		"Alive",
-		"Critical",
-		"Unconscious",
-		"Deceased",
+		ALIVE,
+		CRITICAL,
+		UNCONSCIOUS,
+		DECEASED,
 	)
-	state_option = add_option_port("Comparison Option", component_options)
+	state_option = add_option_port("Параметр", component_options)
 
 /obj/item/circuit_component/compare/health_state/do_comparisons()
 	var/mob/living/organism = input_port.value
@@ -42,13 +47,18 @@
 	var/current_option = state_option.value
 	var/state = organism.stat
 	switch(current_option)
-		if("Alive")
+		if(ALIVE)
 			return state != DEAD
-		if("Critical")
+		if(CRITICAL)
 			return organism.InCritical()
-		if("Unconscious")
+		if(UNCONSCIOUS)
 			return state == UNCONSCIOUS
-		if("Deceased")
+		if(DECEASED)
 			return state == DEAD
 	//Unknown state, something fucked up really bad - just return false
 	return FALSE
+
+#undef ALIVE
+#undef CRITICAL
+#undef UNCONSCIOUS
+#undef DECEASED

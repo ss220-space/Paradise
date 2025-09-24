@@ -4,7 +4,7 @@
  * Abstract component to build conditional components
  */
 /obj/item/circuit_component/compare
-	display_name = "Compare"
+	display_name = "Сравнить"
 
 	/// The trigger for the true/false signals
 	var/datum/port/input/compare
@@ -18,11 +18,11 @@
 
 /obj/item/circuit_component/compare/populate_ports()
 	populate_custom_ports()
-	compare = add_input_port("Compare", PORT_TYPE_SIGNAL)
+	compare = add_input_port("Вызов", PORT_TYPE_SIGNAL)
 
-	true = add_output_port("True", PORT_TYPE_SIGNAL)
-	false = add_output_port("False", PORT_TYPE_SIGNAL)
-	result = add_output_port("Result", PORT_TYPE_NUMBER)
+	true = add_output_port("Истина", PORT_TYPE_SIGNAL)
+	false = add_output_port("Ложь", PORT_TYPE_SIGNAL)
+	result = add_output_port("Результат", PORT_TYPE_NUMBER)
 
 /**
  * Used by derivatives to load their own ports in for custom use.

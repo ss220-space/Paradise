@@ -4,8 +4,8 @@
  * Selects a list from a list of lists by a specific column. Used only by USBs for communications to and from computers with lists of varying sizes.
  */
 /obj/item/circuit_component/select
-	display_name = "Select Query"
-	desc = "A component used with USB cables that can perform select queries on a list based on the column name selected. The values are then compared with the comparison input."
+	display_name = "Таблица - запрос"
+	desc = "Компонент, используемый с USB-кабелями, который может выполнять выборочные запросы по списку на основе имени выбранного столбца. Затем значения сравниваются с входными данными сравнения."
 	category = "List"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -34,14 +34,14 @@
 		COMP_COMPARISON_GREATER_THAN_OR_EQUAL,
 		COMP_COMPARISON_LESS_THAN_OR_EQUAL,
 	)
-	comparison_options = add_option_port("Comparison Options", component_options)
+	comparison_options = add_option_port("Параметр", component_options)
 
 /obj/item/circuit_component/select/populate_ports()
-	received_table = add_input_port("Input", PORT_TYPE_TABLE)
-	column_name = add_input_port("Column Name", PORT_TYPE_STRING)
-	comparison_input = add_input_port("Comparison Input", PORT_TYPE_ANY)
+	received_table = add_input_port("Ввод", PORT_TYPE_TABLE)
+	comparison_input = add_input_port("Сравнение", PORT_TYPE_ANY)
+	column_name = add_input_port("Cтолбец", PORT_TYPE_STRING)
 
-	filtered_table = add_output_port("Output", PORT_TYPE_TABLE)
+	filtered_table = add_output_port("Результат", PORT_TYPE_TABLE)
 
 /obj/item/circuit_component/select/pre_input_received(datum/port/input/port)
 	var/current_option = comparison_options.value

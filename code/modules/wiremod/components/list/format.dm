@@ -5,8 +5,8 @@
  * Alternative to the Concatenate component.
  */
 /obj/item/circuit_component/format
-	display_name = "Format List"
-	desc = "A component that formats lists, replacing %n in the format string with corresponding nth list item."
+	display_name = "Формат списка"
+	desc = "Компонент, который форматирует списки, заменяя n в строке формата соответствующим n-ным элементом списка."
 	category = "List"
 
 	var/static/regex/format_component/list_param_regex = new(@"%([0-9]+)", "g")
@@ -29,13 +29,13 @@
 	param_regex = list_param_regex
 
 /obj/item/circuit_component/format/proc/make_params_port()
-	param_list_port = add_input_port("Params", PORT_TYPE_LIST(PORT_TYPE_ANY))
+	param_list_port = add_input_port("Параметры", PORT_TYPE_LIST(PORT_TYPE_ANY))
 
 /obj/item/circuit_component/format/populate_ports()
-	format_port = add_input_port("Format", PORT_TYPE_STRING)
+	format_port = add_input_port("Формат", PORT_TYPE_STRING)
 	make_params_port()
 
-	output = add_output_port("Output", PORT_TYPE_STRING)
+	output = add_output_port("Результат", PORT_TYPE_STRING)
 
 /**
  * Get an item from the list.
@@ -66,8 +66,8 @@
  * Alternative to the Concatenate component.
  */
 /obj/item/circuit_component/format/assoc
-	display_name = "Format Associative List"
-	desc = "A component that formats associative lists, replacing %key in the format string with corresponding list\[key] item."
+	display_name = "Формат ассоциативного списка"
+	desc = "Компонент, который форматирует ассоциативные списки, заменяя key в строке формата соответствующим элементом списка\[key]."
 
 	var/static/regex/format_component/assoc_param_regex = new(@"%([a-zA-Z0-9_]+)", "g")
 
@@ -79,7 +79,7 @@
 	return param_list[index_string]
 
 /obj/item/circuit_component/format/assoc/make_params_port()
-	param_list_port = add_input_port("Params", PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, PORT_TYPE_ANY))
+	param_list_port = add_input_port("Параметры", PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, PORT_TYPE_ANY))
 
 /**
  * # Subtype of regex that holds context to /obj/item/circuit_component/format

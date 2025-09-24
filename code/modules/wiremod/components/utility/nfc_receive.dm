@@ -7,8 +7,8 @@
 
 
 /obj/item/circuit_component/nfc_receive
-	display_name = "NFC Receiver"
-	desc = "Receives data packages through NFC. If Encryption Key is set then only signals with the same Encryption Key will be received."
+	display_name = "NFC приемник"
+	desc = "Получает пакеты данных через NFC. Если установлен ключ шифрования, будут приниматься только сигналы с таким же ключом шифрования."
 	category = "Utility"
 
 	circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL //trigger_output
@@ -23,11 +23,11 @@
 	var/datum/port/input/enc_key
 
 /obj/item/circuit_component/nfc_receive/populate_options()
-	list_options = add_option_port("List Type", GLOB.wiremod_basic_types)
+	list_options = add_option_port("Тип", GLOB.wiremod_basic_types)
 
 /obj/item/circuit_component/nfc_receive/populate_ports()
-	data_package = add_output_port("Data Package", PORT_TYPE_LIST(PORT_TYPE_ANY))
-	enc_key = add_input_port("Encryption Key", PORT_TYPE_STRING)
+	data_package = add_output_port("Пакет данных", PORT_TYPE_LIST(PORT_TYPE_ANY))
+	enc_key = add_input_port("Ключ", PORT_TYPE_STRING)
 
 /obj/item/circuit_component/nfc_receive/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_CIRCUIT_NFC_DATA_SENT, PROC_REF(nfc_receive))

@@ -4,8 +4,8 @@
  * Abstract component for handling variables
  */
 /obj/item/circuit_component/variable
-	display_name = "Abstract Variable Component"
-	desc = "You shouldn't be seeing this."
+	display_name = "Абстрактный переменный компонент"
+	desc = "Вы не должны были это увидеть!"
 
 	/// Variable name
 	var/datum/port/input/option/variable_name
@@ -16,7 +16,7 @@
 	var/should_listen = FALSE
 
 /obj/item/circuit_component/variable/populate_options()
-	variable_name = add_option_port("Variable", null)
+	variable_name = add_option_port("Переменная", null)
 
 /obj/item/circuit_component/variable/add_to(obj/item/integrated_circuit/added_to)
 	. = ..()

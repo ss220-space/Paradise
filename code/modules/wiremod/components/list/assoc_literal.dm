@@ -4,8 +4,8 @@
  * Return an associative list literal.
  */
 /obj/item/circuit_component/assoc_literal
-	display_name = "Associative List Literal"
-	desc = "A component that returns an associative list consisting of the inputs."
+	display_name = "Ассоциативный список - элемент"
+	desc = "Компонент, который возвращает ассоциативный список, состоящий из входных данных."
 	category = "List"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -35,7 +35,7 @@
 			port_to_set.set_datatype(new_datatype)
 
 /obj/item/circuit_component/assoc_literal/populate_options()
-	list_options = add_option_port("List Type", GLOB.wiremod_basic_types)
+	list_options = add_option_port("Тип списка", GLOB.wiremod_basic_types)
 
 /obj/item/circuit_component/assoc_literal/populate_ports()
 	AddComponent(/datum/component/circuit_component_add_port, \
@@ -43,7 +43,7 @@
 		add_action = "add", \
 		remove_action = "remove", \
 		port_type = PORT_TYPE_STRING, \
-		prefix = "Key", \
+		prefix = "Ключ", \
 		minimum_amount = 1, \
 		maximum_amount = 20 \
 	)
@@ -52,11 +52,11 @@
 		add_action = "add", \
 		remove_action = "remove", \
 		port_type = PORT_TYPE_ANY, \
-		prefix = "Value", \
+		prefix = "Значение", \
 		minimum_amount = 1, \
 		maximum_amount = 20 \
 	)
-	list_output = add_output_port("Value", PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, PORT_TYPE_ANY), order = 1.1)
+	list_output = add_output_port("Значение", PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, PORT_TYPE_ANY), order = 1.1)
 
 /obj/item/circuit_component/assoc_literal/input_received(datum/port/input/port)
 	var/list/new_literal = list()
@@ -65,7 +65,7 @@
 	for(var/index in 1 to length(entry_ports))
 		// To prevent people from infinitely making lists to crash the server
 		if(islist(entry_ports[index].value) && get_list_count(entry_ports[index].value, max_list_count) >= max_list_count)
-			visible_message("[src] begins to overheat!")
+			visible_message("[src] начал перегреваться!")
 			return
 		var/value_to_add = value_handler.convert_value(port, entry_ports[index].value)
 		if(isdatum(value_to_add))

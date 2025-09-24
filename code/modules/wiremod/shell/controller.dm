@@ -13,6 +13,16 @@
 	light_on = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/controller/get_ru_names()
+	return list(
+		NOMINATIVE = "контроллер",
+		GENITIVE = "контроллера",
+		DATIVE = "контроллеру",
+		ACCUSATIVE = "контроллер",
+		INSTRUMENTAL = "контроллером",
+		PREPOSITIONAL = "контроллере"
+	)
+
 /obj/item/controller/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
@@ -21,8 +31,8 @@
 	), SHELL_CAPACITY_MEDIUM)
 
 /obj/item/circuit_component/controller
-	display_name = "Controller"
-	desc = "Used to receive inputs from the controller shell. Use the shell in hand to trigger the output signal.\nAlt-click for the alternate signal. \nCtrl click for the extra signal."
+	display_name = "Контроллер"
+	desc = "Используется для получения входных сигналов от корпуса контроллера. Используйте корпус в руке для активации выходного сигнала.\nAlt-click для альтернативного сигнала. \nCtrl-click для дополнительного сигнала."
 	/// The three separate buttons that are called in attack_hand on the shell.
 	var/datum/port/output/signal
 	var/datum/port/output/alt
@@ -32,10 +42,10 @@
 	var/datum/port/output/entity
 
 /obj/item/circuit_component/controller/populate_ports()
-	entity = add_output_port("User", PORT_TYPE_USER)
-	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
-	alt = add_output_port("Alternate Signal", PORT_TYPE_SIGNAL)
-	ctrl = add_output_port("Extra Signal", PORT_TYPE_SIGNAL)
+	entity = add_output_port("Пользователь", PORT_TYPE_USER)
+	signal = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
+	alt = add_output_port("Альт-Вызвано", PORT_TYPE_SIGNAL)
+	ctrl = add_output_port("Доп-Вызвано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/controller/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF, PROC_REF(send_trigger))
@@ -50,7 +60,7 @@
 	))
 
 /obj/item/circuit_component/controller/proc/handle_trigger(atom/source, user, port_name, datum/port/output/port_signal)
-	source.balloon_alert(user, "clicked [port_name] button")
+	source.balloon_alert(user, "нажата [port_name] кнопка")
 	playsound(source, SFX_KEYBOARD_CLICKS, 25, FALSE)
 	entity.set_output(user)
 	port_signal.set_output(COMPONENT_SIGNAL)
@@ -62,7 +72,7 @@
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return
-	handle_trigger(source, user, "primary", signal)
+	handle_trigger(source, user, "главная", signal)
 
 /**
  * Called when the shell item is alt-clicked
@@ -70,7 +80,7 @@
 /obj/item/circuit_component/controller/proc/send_alternate_signal(atom/source, mob/user)
 	SIGNAL_HANDLER
 
-	handle_trigger(source, user, "alternate", alt)
+	handle_trigger(source, user, "альтернативная", alt)
 	return CLICK_ACTION_SUCCESS
 
 
@@ -83,5 +93,5 @@
 	if(!user.can_perform_action(source))
 		return
 
-	handle_trigger(source, user, "extra", ctrl)
+	handle_trigger(source, user, "дополнительная", ctrl)
 	return CLICK_ACTION_SUCCESS

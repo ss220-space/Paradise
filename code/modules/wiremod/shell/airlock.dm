@@ -12,6 +12,16 @@
 	name = "circuit airlock"
 	autoclose = FALSE
 
+/obj/machinery/door/airlock/shell/get_ru_names()
+	return list(
+		NOMINATIVE = "программируемый шлюз",
+		GENITIVE = "программируемого шлюза",
+		DATIVE = "программируемому шлюзу",
+		ACCUSATIVE = "программируемый шлюз",
+		INSTRUMENTAL = "программируемым шлюзом",
+		PREPOSITIONAL = "программируемом шлюзе"
+	)
+
 /obj/machinery/door/airlock/shell/Initialize(mapload)
 	. = ..()
 	AddComponent( \
@@ -36,7 +46,7 @@
 	return user.can_advanced_admin_interact()
 
 /obj/item/circuit_component/airlock
-	display_name = "Airlock"
+	display_name = "Программируемый шлюз"
 	desc = "Общий интерфейс шлюза. Включает в себя общие статусы шлюза."
 
 	/// The shell, if it is an airlock.
@@ -68,18 +78,18 @@
 
 /obj/item/circuit_component/airlock/populate_ports()
 	// Input Signals
-	bolt = add_input_port("Bolt", PORT_TYPE_SIGNAL)
-	unbolt = add_input_port("Unbolt", PORT_TYPE_SIGNAL)
-	open = add_input_port("Open", PORT_TYPE_SIGNAL)
-	close = add_input_port("Close", PORT_TYPE_SIGNAL)
+	bolt = add_input_port("Болтировать", PORT_TYPE_SIGNAL)
+	unbolt = add_input_port("Разболтировать", PORT_TYPE_SIGNAL)
+	open = add_input_port("Открыть", PORT_TYPE_SIGNAL)
+	close = add_input_port("Закрыть", PORT_TYPE_SIGNAL)
 	// States
-	is_open = add_output_port("Is Open", PORT_TYPE_NUMBER)
-	is_bolted = add_output_port("Is Bolted", PORT_TYPE_NUMBER)
+	is_open = add_output_port("Открыто", PORT_TYPE_NUMBER)
+	is_bolted = add_output_port("Заболтированно", PORT_TYPE_NUMBER)
 	// Output Signals
-	opened = add_output_port("Opened", PORT_TYPE_SIGNAL)
-	closed = add_output_port("Closed", PORT_TYPE_SIGNAL)
-	bolted = add_output_port("Bolted", PORT_TYPE_SIGNAL)
-	unbolted = add_output_port("Unbolted", PORT_TYPE_SIGNAL)
+	opened = add_output_port("Открыто", PORT_TYPE_SIGNAL)
+	closed = add_output_port("Закрыто", PORT_TYPE_SIGNAL)
+	bolted = add_output_port("Заболтировано", PORT_TYPE_SIGNAL)
+	unbolted = add_output_port("Разболтировано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/airlock/register_shell(atom/movable/shell)
 	. = ..()
@@ -132,8 +142,8 @@
 
 
 /obj/item/circuit_component/airlock_access_event
-	display_name = "Airlock Access Event"
-	desc = "An event that can be handled through circuit components to determine if the door should open or not for an entity that might be trying to access it."
+	display_name = "Событие доступа к шлюзу"
+	desc = "Событие, которое можно обработать с помощью компонентов схемы, чтобы определить, следует ли открыть дверь или нет для объекта, который может попытаться получить к ней доступ."
 	circuit_flags = CIRCUIT_FLAG_INSTANT
 
 	/// The shell, if it is an airlock.
@@ -168,9 +178,9 @@
 
 
 /obj/item/circuit_component/airlock_access_event/populate_ports()
-	open_airlock = add_input_port("Should Open Airlock", PORT_TYPE_RESPONSE_SIGNAL, trigger = PROC_REF(should_open_airlock))
-	accessing_entity = add_output_port("Accessing Entity", PORT_TYPE_ATOM)
-	event_triggered = add_output_port("Event Triggered", PORT_TYPE_INSTANT_SIGNAL)
+	open_airlock = add_input_port("Открыть шлюз", PORT_TYPE_RESPONSE_SIGNAL, trigger = PROC_REF(should_open_airlock))
+	accessing_entity = add_output_port("Цель", PORT_TYPE_ATOM)
+	event_triggered = add_output_port("Вызвано", PORT_TYPE_INSTANT_SIGNAL)
 
 
 /obj/item/circuit_component/airlock_access_event/proc/should_open_airlock(datum/port/input/port, list/return_values)
@@ -190,7 +200,7 @@
 	var/list/result = SScircuit_component.execute_instant_run()
 
 	if(!result)
-		attached_airlock.visible_message(span_warning("[attached_airlock]'s circuitry overheats!"))
+		attached_airlock.visible_message(span_warning("[attached_airlock] начал перегреваться!"))
 		return
 
 	if(result["should_open"])

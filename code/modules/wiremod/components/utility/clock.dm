@@ -4,8 +4,8 @@
  * Fires every tick of the circuit timer SS
  */
 /obj/item/circuit_component/clock
-	display_name = "Clock"
-	desc = "A component that repeatedly fires."
+	display_name = "Повторитель"
+	desc = "Компонент, который срабатывает неоднократно."
 	category = "Utility"
 
 	/// Whether the clock is on or not
@@ -16,12 +16,12 @@
 
 /obj/item/circuit_component/clock/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Clock Interval: [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
+	. += create_ui_notice("Интервал часов: [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
 
 /obj/item/circuit_component/clock/populate_ports()
-	on = add_input_port("On", PORT_TYPE_NUMBER)
+	on = add_input_port("Вкл", PORT_TYPE_NUMBER)
 
-	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
+	signal = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/clock/input_received(datum/port/input/port)
 

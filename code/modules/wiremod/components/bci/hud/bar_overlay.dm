@@ -9,8 +9,8 @@
  */
 
 /obj/item/circuit_component/object_overlay/bar
-	display_name = "Bar Overlay"
-	desc = "Requires a BCI shell. A component that shows a bar overlay atop an object, ranging from 0 to 100."
+	display_name = "Отображение графического столбца"
+	desc = "Требуется оболочка BCI. Компонент, отображающий графический столбец поверх объекта со значениями от 0 до 100."
 	category = "BCI"
 
 	var/datum/port/input/option/bar_overlay_options
@@ -20,14 +20,14 @@
 
 /obj/item/circuit_component/object_overlay/bar/populate_ports()
 	. = ..()
-	bar_number = add_input_port("Number", PORT_TYPE_NUMBER)
+	bar_number = add_input_port("Число", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/object_overlay/bar/populate_options()
 	var/static/component_options_bar = list(
 		COMP_BAR_OVERLAY_VERTICAL = "barvert",
 		COMP_BAR_OVERLAY_HORIZONTAL = "barhoriz"
 	)
-	bar_overlay_options = add_option_port("Bar Overlay Options", component_options_bar)
+	bar_overlay_options = add_option_port("Настройка столбца", component_options_bar)
 	options_map = component_options_bar
 
 /obj/item/circuit_component/object_overlay/bar/show_to_owner(atom/target_atom, mob/living/owner)

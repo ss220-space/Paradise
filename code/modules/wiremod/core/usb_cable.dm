@@ -1,7 +1,7 @@
 /// A cable that can connect integrated circuits to anything with a USB port, such as computers and machines.
 /obj/item/usb_cable
 	name = "usb cable"
-	desc = "A cable that can connect integrated circuits to anything with a USB port, such as computers and machines."
+	desc = "Кабель, позволяющий подключать интегральные схемы к любому устройству с портом USB, например к компьютерам и машинам."
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "usb_cable"
 	item_state = "coil_yellow"
@@ -38,7 +38,7 @@
 	. = ..()
 
 	if(!isnull(attached_circuit))
-		. += span_notice("It is attached to [attached_circuit.shell || attached_circuit].")
+		. += span_notice("Он прикреплен к [attached_circuit.shell || attached_circuit].")
 
 // Look, I'm not happy about this either, but moving an object doesn't call Moved if it's inside something else.
 // There's good reason for this, but there's no element or similar yet to track it as far as I know.
@@ -49,7 +49,7 @@
 
 /obj/item/usb_cable/pre_attackby(atom/target, mob/living/user, params)
 	if(prob(1))
-		balloon_alert(user, "wrong way, god damnit")
+		balloon_alert(user, "не в ту дырку, черт возьми!")
 		return ATTACK_CHAIN_BLOCKED
 
 	var/signal_result = SEND_SIGNAL(target, COMSIG_ATOM_USB_CABLE_TRY_ATTACH, src, user)
@@ -58,7 +58,7 @@
 	if(signal_result & COMSIG_USB_CABLE_CONNECTED_TO_CIRCUIT)
 		if(isnull(attached_circuit))
 			CRASH("Producers of COMSIG_USB_CABLE_CONNECTED_TO_CIRCUIT must set attached_circuit")
-		balloon_alert(user, "connected to circuit\nconnect to a port")
+		balloon_alert(user, "подключено к схеме\nподключено к порту")
 
 		playsound(src, 'sound/machines/pda_button/pda_button1.ogg', 20, TRUE)
 
@@ -79,7 +79,7 @@
 		else if(ismachinery(target))
 			connection_description = "machine"
 
-		balloon_alert(user, "connected to [connection_description]")
+		balloon_alert(user, "подключено к [connection_description]")
 		playsound(src, 'sound/items/screwdriver2.ogg', 20, TRUE)
 
 		return ATTACK_CHAIN_BLOCKED
@@ -90,7 +90,7 @@
 	return ..()
 
 /obj/item/usb_cable/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] is wrapping [src] around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message(span_suicide("[user] наматывает [src] вокруг [user.p_their()] шеи! Это выглядит как [user.p_theyre()] пытается совершить самоубийство!"))
 	return OXYLOSS
 
 /obj/item/usb_cable/proc/register_circuit_signals()
@@ -117,7 +117,7 @@
 		return FALSE
 
 	if(!IN_GIVEN_RANGE(attached_circuit, src, USB_CABLE_MAX_RANGE))
-		UNLINT(balloon_alert_to_viewers("detached, too far away"))
+		UNLINT(balloon_alert_to_viewers("USB-кабель выскочил из порта"))
 		unregister_circuit_signals(attached_circuit)
 		attached_circuit = null
 		STOP_PROCESSING(SSobj, src)

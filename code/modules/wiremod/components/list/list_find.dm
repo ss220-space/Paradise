@@ -4,8 +4,8 @@
  * Finds an element in a list and returns the index.
  */
 /obj/item/circuit_component/listin
-	display_name = "Element Find"
-	desc = "Checks if an element is in a list and returns the index it is as if it is. Index is set to 0 on failure."
+	display_name = "Список - поиск элемента"
+	desc = "Проверяет наличие элемента в списке и возвращает его индекс. В случае возникновения ошибки индексу присваивается значение 0."
 	category = "List"
 
 	/// The list type we're checking
@@ -28,16 +28,16 @@
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
 
 /obj/item/circuit_component/listin/populate_options()
-	list_type = add_option_port("List Type", GLOB.wiremod_basic_types)
+	list_type = add_option_port("Тип", GLOB.wiremod_basic_types)
 
 /obj/item/circuit_component/listin/populate_ports()
-	list_to_check = add_input_port("List", PORT_TYPE_LIST(PORT_TYPE_ANY))
-	to_check = add_input_port("To Check", PORT_TYPE_ANY)
+	list_to_check = add_input_port("Список", PORT_TYPE_LIST(PORT_TYPE_ANY))
+	to_check = add_input_port("Элемент", PORT_TYPE_ANY)
 
-	found = add_output_port("Succeeded", PORT_TYPE_SIGNAL)
-	not_found = add_output_port("Failed", PORT_TYPE_SIGNAL)
-	result = add_output_port("Result", PORT_TYPE_NUMBER)
-	index = add_output_port("Index", PORT_TYPE_NUMBER)
+	found = add_output_port("Успех", PORT_TYPE_SIGNAL)
+	not_found = add_output_port("Провал", PORT_TYPE_SIGNAL)
+	result = add_output_port("Результат", PORT_TYPE_NUMBER)
+	index = add_output_port("Индекс", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/listin/pre_input_received(datum/port/input/port)
 	. = ..()

@@ -244,6 +244,6 @@ GLOBAL_LIST_INIT(circuit_dupe_whitelisted_types, list(
 	circuit.load_circuit_data(txt, errors)
 
 	if(length(errors))
-		to_chat(src, span_warning("The following errors were found whilst compiling the circuit data:"))
+		to_chat(src, span_warning("При компиляции данных схемы были обнаружены следующие ошибки:"))
 		for(var/error in errors)
 			to_chat(src, span_warning(error))

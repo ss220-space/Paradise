@@ -6,8 +6,8 @@
  */
 
 /obj/item/circuit_component/install_detector
-	display_name = "Install Detector"
-	desc = "A component that detects when a BCI is installed or removed from its user."
+	display_name = "Детектор установки BCI"
+	desc = "Компонент, определяющий установку или изъятие BCI у пользователя."
 	category = "BCI"
 
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)
@@ -20,9 +20,9 @@
 
 /obj/item/circuit_component/install_detector/populate_ports()
 	. = ..()
-	current_state = add_output_port("Current State", PORT_TYPE_NUMBER)
-	implanted = add_output_port("Implanted", PORT_TYPE_SIGNAL)
-	removed = add_output_port("Removed", PORT_TYPE_SIGNAL)
+	current_state = add_output_port("Состояние", PORT_TYPE_NUMBER)
+	implanted = add_output_port("Установлено", PORT_TYPE_SIGNAL)
+	removed = add_output_port("Изъято", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/install_detector/register_shell(atom/movable/shell)
 	. = ..()

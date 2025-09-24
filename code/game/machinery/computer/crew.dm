@@ -1,3 +1,13 @@
+#define NAME "имя"
+#define ASSIGNMENT "должность"
+#define STAT "статус"
+#define OXY "удушье"
+#define TOX "токсины"
+#define FIRE "ожоги"
+#define BRUTE "травмы"
+#define AREA "местоположение"
+#define HEALTH "здоровье"
+
 /obj/machinery/computer/crew
 	name = "crew monitoring computer"
 	desc = "Консоль, используемая для контроля активных датчиков состояния здоровья, встроенных в униформу большинства членов экипажа."
@@ -57,8 +67,8 @@
 	icon_keyboard = "kb3"
 
 /obj/item/circuit_component/medical_console_data
-	display_name = "Crew Monitoring Data"
-	desc = "Outputs the medical statuses of people on the crew monitoring computer, where it can then be filtered with a Select Query component."
+	display_name = "Данные мониторинга экипажа"
+	desc = "Выводит информацию о медицинском состоянии людей на компьютер мониторинга экипажа, где ее затем можно отфильтровать с помощью компонента «Выбрать запрос»."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The records retrieved
@@ -67,7 +77,7 @@
 	var/obj/machinery/computer/crew/attached_console
 
 /obj/item/circuit_component/medical_console_data/populate_ports()
-	records = add_output_port("Crew Monitoring Data", PORT_TYPE_TABLE)
+	records = add_output_port("Данные мониторинга экипажа", PORT_TYPE_TABLE)
 
 /obj/item/circuit_component/medical_console_data/register_usb_parent(atom/movable/shell)
 	. = ..()
@@ -81,15 +91,15 @@
 /obj/item/circuit_component/medical_console_data/get_ui_notices()
 	. = ..()
 	. += create_table_notices(list(
-		"name",
-		"job",
-		"life_status",
-		"suffocation",
-		"toxin",
-		"burn",
-		"brute",
-		"location",
-		"health",
+		NAME,
+		ASSIGNMENT,
+		STAT,
+		OXY,
+		TOX,
+		FIRE,
+		BRUTE,
+		AREA,
+		HEALTH,
 	))
 
 
@@ -102,15 +112,25 @@
 	var/list/new_table = list()
 	for(var/list/player_record as anything in GLOB.crew_repository.health_data(T))
 		var/list/entry = list()
-		entry["name"] = player_record["name"]
-		entry["job"] = player_record["assignment"]
-		entry["life_status"] = player_record["stat"]
-		entry["suffocation"] = player_record["oxy"]
-		entry["toxin"] = player_record["tox"]
-		entry["burn"] = player_record["fire"]
-		entry["brute"] = player_record["brute"]
-		entry["location"] = player_record["area"]
-		entry["health"] = player_record["health"]
+		entry[NAME] = player_record["name"]
+		entry[ASSIGNMENT] = player_record["assignment"]
+		entry[STAT] = player_record["stat"]
+		entry[OXY] = player_record["oxy"]
+		entry[TOX] = player_record["tox"]
+		entry[FIRE] = player_record["fire"]
+		entry[BRUTE] = player_record["brute"]
+		entry[AREA] = player_record["area"]
+		entry[HEALTH] = player_record["health"]
 		new_table += list(entry)
 
 	records.set_output(new_table)
+
+#undef NAME
+#undef ASSIGNMENT
+#undef STAT
+#undef OXY
+#undef TOX
+#undef FIRE
+#undef BRUTE
+#undef AREA
+#undef HEALTH

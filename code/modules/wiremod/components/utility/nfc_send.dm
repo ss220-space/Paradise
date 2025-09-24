@@ -6,8 +6,8 @@
  */
 
 /obj/item/circuit_component/nfc_send
-	display_name = "NFC Transmitter"
-	desc = "Sends a data package through NTNet. If Encryption Key is set then transmitted data will be only picked up by receivers with the same Encryption Key."
+	display_name = "NFC передатчик"
+	desc = "Отправляет пакет данных через NFC. Если установлен ключ шифрования, переданные данные будут приняты только получателями с таким же ключом шифрования."
 	category = "Utility"
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
@@ -25,12 +25,12 @@
 	var/datum/port/input/enc_key
 
 /obj/item/circuit_component/nfc_send/populate_options()
-	list_options = add_option_port("List Type", GLOB.wiremod_basic_types)
+	list_options = add_option_port("Тип списка", GLOB.wiremod_basic_types)
 
 /obj/item/circuit_component/nfc_send/populate_ports()
-	data_package = add_input_port("Data Package", PORT_TYPE_LIST(PORT_TYPE_ANY))
-	enc_key = add_input_port("Encryption Key", PORT_TYPE_STRING)
-	target = add_input_port("Target", PORT_TYPE_ATOM)
+	data_package = add_input_port("Пакет данных", PORT_TYPE_LIST(PORT_TYPE_ANY))
+	enc_key = add_input_port("Ключ", PORT_TYPE_STRING)
+	target = add_input_port("Цель", PORT_TYPE_ATOM)
 
 /obj/item/circuit_component/nfc_send/should_receive_input(datum/port/input/port)
 	. = ..()

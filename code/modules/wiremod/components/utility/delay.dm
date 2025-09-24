@@ -7,8 +7,8 @@
  * Delays a signal by a specified duration.
  */
 /obj/item/circuit_component/delay
-	display_name = "Delay"
-	desc = "A component that delays a signal by a specified duration. Timer gets reset when triggered again."
+	display_name = "Задержка"
+	desc = "Компонент, задерживающий сигнал на заданное время. Таймер сбрасывается при повторном срабатывании."
 	category = "Utility"
 
 	/// Amount to delay by
@@ -24,11 +24,11 @@
 	var/datum/port/output/output
 
 /obj/item/circuit_component/delay/populate_ports()
-	delay_amount = add_input_port("Delay", PORT_TYPE_NUMBER, trigger = null)
-	trigger = add_input_port("Trigger", PORT_TYPE_SIGNAL, trigger = PROC_REF(trigger_delay))
-	interrupt = add_input_port("Interrupt", PORT_TYPE_SIGNAL, trigger = PROC_REF(interrupt_timer))
+	delay_amount = add_input_port("Задержка", PORT_TYPE_NUMBER, trigger = null)
+	trigger = add_input_port("Вызов", PORT_TYPE_SIGNAL, trigger = PROC_REF(trigger_delay))
+	interrupt = add_input_port("Прервать", PORT_TYPE_SIGNAL, trigger = PROC_REF(interrupt_timer))
 
-	output = add_output_port("Result", PORT_TYPE_SIGNAL)
+	output = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/delay/proc/trigger_delay(datum/port/input/port)
 	CIRCUIT_TRIGGER

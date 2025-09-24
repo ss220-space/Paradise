@@ -8,6 +8,16 @@
 	desc = "Небольшое электронное устройство, в котором может размещаться интегральная схема."
 	icon_state = "wiremod"
 
+/obj/item/assembly/wiremod/get_ru_names()
+	return list(
+		NOMINATIVE = "программируемая сборка",
+		GENITIVE = "программируемой сборки",
+		DATIVE = "программируемой сборке",
+		ACCUSATIVE = "программируемую сборку",
+		INSTRUMENTAL = "программируемой сборкой",
+		PREPOSITIONAL = "программируемой сборке"
+	)
+
 /obj/item/assembly/wiremod/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
@@ -17,13 +27,13 @@
 	), SHELL_CAPACITY_SMALL)
 
 /obj/item/circuit_component/assembly_input
-	display_name = "Assembly Input"
+	display_name = "Ввод"
 	desc = "Срабатывает при подаче импульса на подключенный порт."
 
 	var/datum/port/output/signal
 
 /obj/item/circuit_component/assembly_input/populate_ports()
-	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
+	signal = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/assembly_input/register_shell(atom/movable/shell)
 	RegisterSignal(shell, list(COMSIG_ASSEMBLY_PULSED, COMSIG_ITEM_ATTACK_SELF), PROC_REF(on_pulsed))
@@ -36,7 +46,7 @@
 	signal.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/assembly_output
-	display_name = "Assembly Output"
+	display_name = "Вывод"
 	desc = "При срабатывании подает импульс на подключенный порт."
 
 	var/obj/item/assembly/attached_assembly
@@ -44,7 +54,7 @@
 	var/datum/port/input/signal
 
 /obj/item/circuit_component/assembly_output/populate_ports()
-	signal = add_input_port("Signal", PORT_TYPE_SIGNAL)
+	signal = add_input_port("Вызов", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/assembly_output/register_shell(atom/movable/shell)
 	. = ..()

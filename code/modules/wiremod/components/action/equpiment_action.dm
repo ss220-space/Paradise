@@ -1,6 +1,6 @@
 /obj/item/circuit_component/equipment_action
-	display_name = "Equipment Action"
-	desc = "Represents an action the user can take when using supported shells."
+	display_name = "Действие оборудования"
+	desc = "Представляет действие, которое пользователь может выполнить при использовании поддерживаемых оболочек."
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci) // , /obj/item/mod/module/circuit
 
 	/// The icon of the button
@@ -24,10 +24,10 @@
 	if(!isnull(default_icon))
 		icon_options.set_input(default_icon)
 
-	button_name = add_input_port("Name", PORT_TYPE_STRING)
+	button_name = add_input_port("Имя", PORT_TYPE_STRING)
 
-	user = add_output_port("User", PORT_TYPE_USER)
-	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
+	user = add_output_port("Пользователь", PORT_TYPE_USER)
+	signal = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/equipment_action/Destroy()
 	QDEL_LIST_ASSOC_VAL(granted_to)

@@ -4,8 +4,8 @@
  * Sends a message. Requires a shell.
  */
 /obj/item/circuit_component/speech
-	display_name = "Speech"
-	desc = "A component that sends a message. Requires a shell."
+	display_name = "Речь"
+	desc = "Компонент, отправляющий сообщение. Требуется оболочка."
 	category = "Action"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -17,10 +17,10 @@
 
 /obj/item/circuit_component/speech/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Speech Cooldown: [DisplayTimeText(speech_cooldown)]", "orange", "stopwatch")
+	. += create_ui_notice("Перезарядка произношения: [DisplayTimeText(speech_cooldown)]", "orange", "stopwatch")
 
 /obj/item/circuit_component/speech/populate_ports()
-	message = add_input_port("Message", PORT_TYPE_STRING, trigger = null)
+	message = add_input_port("Сообщение", PORT_TYPE_STRING, trigger = null)
 
 /obj/item/circuit_component/speech/input_received(datum/port/input/port)
 	if(!parent.shell)

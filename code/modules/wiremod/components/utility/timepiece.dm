@@ -1,8 +1,8 @@
-#define COMP_TIMEPIECE_TWENTYFOUR_HOUR "24-Hour"
-#define COMP_TIMEPIECE_TWELVE_HOUR "12-Hour"
-#define COMP_TIMEPIECE_SECONDS "Seconds"
-#define COMP_TIMEPIECE_MINUTES "Minutes"
-#define COMP_TIMEPIECE_HOURS "Hours"
+#define COMP_TIMEPIECE_TWENTYFOUR_HOUR "24-Часа"
+#define COMP_TIMEPIECE_TWELVE_HOUR "12-Часа"
+#define COMP_TIMEPIECE_SECONDS "Секунды"
+#define COMP_TIMEPIECE_MINUTES "Минуты"
+#define COMP_TIMEPIECE_HOURS "Часы"
 
 /**
  * # Timepiece Component
@@ -10,8 +10,8 @@
  * returns the current station time.
  */
 /obj/item/circuit_component/timepiece
-	display_name = "Timepiece"
-	desc = "A component that outputs the current station time. The text output port is used for time formats while the numerical output port is used for units of time."
+	display_name = "Часы"
+	desc = "Компонент, выводящий текущее время станции. Порт вывода текста используется для форматов времени, а порт вывода чисел — для единиц времени."
 	category = "Utility"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -25,21 +25,21 @@
 	var/datum/port/output/num_output
 
 /obj/item/circuit_component/timepiece/populate_ports()
-	text_output = add_output_port("Time Format", PORT_TYPE_STRING)
-	num_output = add_output_port("Unit of Time", PORT_TYPE_NUMBER)
+	text_output = add_output_port("Формат", PORT_TYPE_STRING)
+	num_output = add_output_port("Единица", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/timepiece/populate_options()
 	var/static/format_options = list(
 		COMP_TIMEPIECE_TWENTYFOUR_HOUR, // Station time is expressed in 24-h in the status tab. So this is the default.
 		COMP_TIMEPIECE_TWELVE_HOUR,
 	)
-	format = add_option_port("Time Format", format_options)
+	format = add_option_port("Формат", format_options)
 	var/static/unit_options = list(
 		COMP_TIMEPIECE_HOURS,
 		COMP_TIMEPIECE_MINUTES,
 		COMP_TIMEPIECE_SECONDS,
 	)
-	time_unit = add_option_port("Unit of Time", unit_options)
+	time_unit = add_option_port("Единица", unit_options)
 
 /obj/item/circuit_component/timepiece/input_received(datum/port/input/port)
 	var/time

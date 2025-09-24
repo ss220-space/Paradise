@@ -6,6 +6,16 @@
 	light_on = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/keyboard_shell/get_ru_names()
+	return list(
+		NOMINATIVE = "оболочка клавиатуры",
+		GENITIVE = "оболочки клавиатуры",
+		DATIVE = "оболочке клавиатуры",
+		ACCUSATIVE = "оболочку клавиатуры",
+		INSTRUMENTAL = "оболочкой клавиатуры",
+		PREPOSITIONAL = "оболочке клавиатуры"
+	)
+
 /obj/item/keyboard_shell/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
@@ -14,8 +24,8 @@
 	), SHELL_CAPACITY_SMALL)
 
 /obj/item/circuit_component/keyboard_shell
-	display_name = "Keyboard Shell"
-	desc = "A handheld shell that allows the user to input a string. Use the shell in hand to open the input panel."
+	display_name = "Оболочка клавиатуры"
+	desc = "Ручная клавиатура, позволяющая пользователю вводить текст. Используйте клавиатуру в руке, чтобы открыть панель ввода."
 
 	/// Called when the input window is closed
 	var/datum/port/output/signal
@@ -25,9 +35,9 @@
 	var/datum/port/output/output
 
 /obj/item/circuit_component/keyboard_shell/populate_ports()
-	entity = add_output_port("User", PORT_TYPE_USER)
-	output = add_output_port("Message", PORT_TYPE_STRING)
-	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
+	entity = add_output_port("Пользователь", PORT_TYPE_USER)
+	output = add_output_port("Сообщение", PORT_TYPE_STRING)
+	signal = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/keyboard_shell/register_shell(atom/movable/shell)
 	. = ..()
@@ -43,7 +53,7 @@
 
 /obj/item/circuit_component/keyboard_shell/proc/use_keyboard(mob/user)
 	if(!user.is_literate())
-		to_chat(user, span_warning("You start mashing keys at random!"))
+		to_chat(user, span_warning("Вы начинаете нажимать клавиши в случайном порядке!"))
 		return
 
 	var/message = tgui_input_text(user, "Input your text", "Keyboard", max_length = MAX_MESSAGE_LEN)

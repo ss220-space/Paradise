@@ -1,6 +1,6 @@
 /obj/item/circuit_component/id_info_reader
-	display_name = "Read ID Info"
-	desc = "A component that reads the name, job, and age on an ID."
+	display_name = "Чтение ID"
+	desc = "Компонент, который считывает имя, должность и возраст с удостоверения личности."
 	category = "ID"
 
 	/// The input port
@@ -21,13 +21,13 @@
 
 /obj/item/circuit_component/id_info_reader/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Maximum Range: [max_range] tiles.", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] метров.", "orange", "info")
 
 /obj/item/circuit_component/id_info_reader/populate_ports()
-	target = add_input_port("Target", PORT_TYPE_ATOM)
-	name_port = add_output_port("Name", PORT_TYPE_STRING)
-	rank_port = add_output_port("Rank", PORT_TYPE_STRING)
-	age_port = add_output_port("Age", PORT_TYPE_NUMBER)
+	target = add_input_port("Цель", PORT_TYPE_ATOM)
+	name_port = add_output_port("Имя", PORT_TYPE_STRING)
+	rank_port = add_output_port("Должность", PORT_TYPE_STRING)
+	age_port = add_output_port("Возраст", PORT_TYPE_NUMBER)
 
 
 /obj/item/circuit_component/id_info_reader/input_received(datum/port/input/port)

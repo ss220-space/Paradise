@@ -4,8 +4,8 @@
  * Return the index of a list
  */
 /obj/item/circuit_component/index
-	display_name = "Index List"
-	desc = "A component that returns the value of a list at a given index."
+	display_name = "Индекс списка"
+	desc = "Компонент, который возвращает значение списка по заданному индексу."
 	category = "List"
 
 	/// The list type
@@ -22,16 +22,16 @@
 	var/index_type = PORT_TYPE_NUMBER
 
 /obj/item/circuit_component/index/populate_options()
-	list_options = add_option_port("List Type", GLOB.wiremod_basic_types)
+	list_options = add_option_port("Тип", GLOB.wiremod_basic_types)
 
 /obj/item/circuit_component/index/proc/make_list_port()
-	list_port = add_input_port("List", PORT_TYPE_LIST(PORT_TYPE_ANY))
+	list_port = add_input_port("Список", PORT_TYPE_LIST(PORT_TYPE_ANY))
 
 /obj/item/circuit_component/index/populate_ports()
-	index_port = add_input_port("Index", index_type)
+	index_port = add_input_port("Индекс", index_type)
 	make_list_port()
 
-	output = add_output_port("Value", PORT_TYPE_ANY)
+	output = add_output_port("Результат", PORT_TYPE_ANY)
 
 /obj/item/circuit_component/index/pre_input_received(datum/port/input/port)
 	if(port == list_options)
@@ -55,13 +55,13 @@
 	output.set_output(list_input[index])
 
 /obj/item/circuit_component/index/assoc_string
-	display_name = "Index Associative List"
-	desc = "A component that is commonly used to access a row from a table. Accesses data from a key, value list."
+	display_name = "Индекс ассоциативного списка"
+	desc = "Компонент, который обычно используется для доступа к строке таблицы. Обеспечивает доступ к данным из списка ключей и значений."
 
 	index_type = PORT_TYPE_STRING
 
 /obj/item/circuit_component/index/assoc_string/make_list_port()
-	list_port = add_input_port("List", PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, PORT_TYPE_ANY))
+	list_port = add_input_port("Список", PORT_TYPE_ASSOC_LIST(PORT_TYPE_STRING, PORT_TYPE_ANY))
 
 /obj/item/circuit_component/index/assoc_string/pre_input_received(datum/port/input/port)
 	if(port == list_options)

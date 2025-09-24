@@ -1,5 +1,5 @@
-#define COMP_RADIO_PUBLIC "public"
-#define COMP_RADIO_PRIVATE "private"
+#define COMP_RADIO_PUBLIC "Публичный"
+#define COMP_RADIO_PRIVATE "Частный"
 
 /**
  * # Radio Component
@@ -7,8 +7,8 @@
  * Listens out for signals on the designated frequencies and sends signals on designated frequencies
  */
 /obj/item/circuit_component/radio
-	display_name = "Radio"
-	desc = "A component that can listen and send frequencies. If set to private, the component will only receive signals from other components attached to circuitboards with the same owner id."
+	display_name = "Сигнал"
+	desc = "Компонент, который может принимать и передавать частоты. Если выбран режим «Частный», компонент будет принимать сигналы только от других компонентов, подключенных к печатным платам с тем же идентификатором владельца."
 	category = "Action"
 
 	/// The publicity options. Controls whether it's public or private.
@@ -37,7 +37,7 @@
 /obj/item/circuit_component/radio/Initialize(mapload)
 	. = ..()
 	if(signal_cooldown_time > 0)
-		desc = "[desc] It has a [signal_cooldown_time * 0.1] second cooldown between sending signals."
+		desc = "[desc] Еще [signal_cooldown_time * 0.1] секунд перезарядки между отправкой сигнала."
 
 /obj/item/circuit_component/radio/register_shell(atom/movable/shell)
 	parent_shell = shell
@@ -53,15 +53,15 @@
 		COMP_RADIO_PUBLIC,
 		COMP_RADIO_PRIVATE,
 	)
-	public_options = add_option_port("Encryption Options", component_options)
+	public_options = add_option_port("Шифрование", component_options)
 
 /obj/item/circuit_component/radio/populate_ports()
-	freq = add_input_port("Frequency", PORT_TYPE_NUMBER, default = RSD_FREQ)
-	code = add_input_port("Code", PORT_TYPE_NUMBER, default = DEFAULT_SIGNALER_CODE)
+	freq = add_input_port("Частота", PORT_TYPE_NUMBER, default = RSD_FREQ)
+	code = add_input_port("Код", PORT_TYPE_NUMBER, default = DEFAULT_SIGNALER_CODE)
 	trigger_component()
 	// These are cleaned up on the parent
-	trigger_input = add_input_port("Send", PORT_TYPE_SIGNAL)
-	trigger_output = add_output_port("Received", PORT_TYPE_SIGNAL)
+	trigger_input = add_input_port("Вызов", PORT_TYPE_SIGNAL)
+	trigger_output = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/radio/Destroy()
 	SSradio.remove_object(src, current_freq)

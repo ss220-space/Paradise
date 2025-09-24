@@ -7,8 +7,8 @@
  * Checks the type of a value
  */
 /obj/item/circuit_component/compare/typecheck
-	display_name = "Typecheck"
-	desc = "A component that checks the type of its input."
+	display_name = "Проверка типа"
+	desc = "Компонент, проверяющий тип входных данных."
 	category = "Utility"
 
 	var/datum/port/input/option/typecheck_options
@@ -25,10 +25,10 @@
 		COMP_TYPECHECK_MOB,
 		COMP_TYPECHECK_HUMAN,
 	)
-	typecheck_options = add_option_port("Typecheck Options", component_options)
+	typecheck_options = add_option_port("Тип", component_options)
 
 /obj/item/circuit_component/compare/typecheck/populate_custom_ports()
-	thing_to_check = add_input_port("Value", PORT_TYPE_ANY)
+	thing_to_check = add_input_port("Ввод", PORT_TYPE_ANY)
 
 /obj/item/circuit_component/compare/typecheck/do_comparisons()
 	var/input_val = thing_to_check.value

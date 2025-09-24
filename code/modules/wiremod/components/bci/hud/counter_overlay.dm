@@ -6,8 +6,8 @@
  */
 
 /obj/item/circuit_component/counter_overlay
-	display_name = "Counter Overlay"
-	desc = "A component that shows a three-digit counter. Requires a BCI shell."
+	display_name = "Отображение счетчика"
+	desc = "Компонент, отображающий трёхзначный счётчик. Требуется оболочка BCI."
 	category = "BCI"
 
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)
@@ -24,12 +24,12 @@
 	var/datum/weakref/counter_appearance
 
 /obj/item/circuit_component/counter_overlay/populate_ports()
-	counter_number = add_input_port("Displayed Number", PORT_TYPE_NUMBER)
+	counter_number = add_input_port("Число", PORT_TYPE_NUMBER)
 
-	signal_update = add_input_port("Update Overlay", PORT_TYPE_SIGNAL)
+	signal_update = add_input_port("Обновление", PORT_TYPE_SIGNAL)
 
-	image_pixel_x = add_input_port("X-Axis Shift", PORT_TYPE_NUMBER)
-	image_pixel_y = add_input_port("Y-Axis Shift", PORT_TYPE_NUMBER)
+	image_pixel_x = add_input_port("X", PORT_TYPE_NUMBER)
+	image_pixel_y = add_input_port("Y", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/counter_overlay/register_shell(atom/movable/shell)
 	if(istype(shell, /obj/item/organ/internal/cyberimp/brain/bci))

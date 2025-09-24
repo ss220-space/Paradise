@@ -7,9 +7,11 @@
  * Any changes made to those files should be copied over with discretion
  */
 /obj/item/circuit_component/list_literal/nfc_send
-	display_name = "NFC Transmitter List Literal"
-	desc = "Creates a list literal data package and sends it through NFC. If Encryption Key is set then transmitted data will be only picked up by receivers with the same Encryption Key."
+	display_name = "NFC передатчик литерал"
+	desc = "Создаёт пакет данных списка литералов и отправляет его через NFC. Если задан ключ шифрования, передаваемые данные будут приняты только получателями с таким же ключом шифрования."
 	category = "Utility"
+
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
 
 	/// Encryption key
 	var/datum/port/input/enc_key
@@ -18,9 +20,17 @@
 	var/datum/port/input/target
 
 /obj/item/circuit_component/list_literal/nfc_send/populate_ports()
-	. = ..()
-	enc_key = add_input_port("Encryption Key", PORT_TYPE_STRING)
-	target = add_input_port("Target", PORT_TYPE_ATOM)
+	AddComponent(/datum/component/circuit_component_add_port, \
+		port_list = entry_ports, \
+		add_action = "add", \
+		remove_action = "remove", \
+		port_type = PORT_TYPE_ANY, \
+		prefix = "Ввод", \
+		minimum_amount = 1, \
+		maximum_amount = 20 \
+	)
+	enc_key = add_input_port("Ключ", PORT_TYPE_STRING)
+	target = add_input_port("Цель", PORT_TYPE_ATOM)
 
 /obj/item/circuit_component/list_literal/nfc_send/should_receive_input(datum/port/input/port)
 	. = ..()

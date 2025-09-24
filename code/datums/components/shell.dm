@@ -135,8 +135,8 @@
 		examine_text += span_notice("Интегральная схема отсутствует.")
 		return
 
-	examine_text += span_notice("Установлена интегральная схема. Use a multitool to access the wiring. Use a screwdriver to remove it from [source].")
-	examine_text += span_notice("The cover panel to the integrated circuit is [locked? "locked" : "unlocked"].")
+	examine_text += span_notice("Установлена интегральная схема. Используйте мультитул для доступа к проводке. Используйте отвертку, чтобы снять его с [source.declent_ru(GENITIVE)].")
+	examine_text += span_notice("Крышка интегральной схемы [locked? "закрыта" : "открыта"].")
 	var/obj/item/stock_parts/cell/cell = attached_circuit.cell
 	if(cell)
 		. += span_notice("Заряд элемента питания: [round(cell.percent(), 1)]%.")
@@ -144,12 +144,12 @@
 		. += span_notice("Элемент питания не установлен.")
 
 	if (shell_flags & SHELL_FLAG_USB_PORT)
-		examine_text += span_notice("There is a <b>USB port</b> on the front.")
+		examine_text += span_notice("Здесь есть <b>USB-порт</b> на панели.")
 
 	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
-		examine_text += span_notice("The shell does not require a battery to function and will draw from the area's APC whenever possible.")
+		examine_text += span_notice("Для работы оболочки не требуется элемент питания, он будет использовать энергию ЛКП, когда это возможно.")
 		if(!source.anchored)
-			examine_text += span_danger("<b>The integrated circuit is non-functional whilst the shell is unanchored.</b>")
+			examine_text += span_danger("<b>Интегральная схема не функционирует, пока оболочка не закреплена.</b>")
 
 
 /**
@@ -180,11 +180,11 @@
 	if(attached_circuit)
 		if(attached_circuit.owner_id && item == attached_circuit.owner_id.resolve())
 			set_locked(!locked)
-			source.balloon_alert(attacker, "[locked ? "locked" : "unlocked"] [source]")
+			source.balloon_alert(attacker, "[locked ? "закрыто" : "открыто"] [source]")
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
 		if(!attached_circuit.owner_id && isidcard(item))
-			source.balloon_alert(attacker, "owner id set for [item]")
+			source.balloon_alert(attacker, "ID пользователя установлено для [item.declent_ru(GENITIVE)]")
 			attached_circuit.owner_id = WEAKREF(item)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -201,11 +201,11 @@
 		return
 
 	if(attached_circuit)
-		source.balloon_alert(attacker, "there is already a circuitboard inside!")
+		source.balloon_alert(attacker, "здесь уже есть плата схемы внутри!")
 		return
 
 	if(logic_board.current_size > capacity)
-		source.balloon_alert(attacker, "this is too large to fit into [parent]!")
+		source.balloon_alert(attacker, "это слишком большое чтобы вставить в [parent]!")
 		return
 
 	logic_board.inserter_mind = WEAKREF(attacker.mind)
@@ -226,13 +226,13 @@
 		return
 
 	if(!istype(tool, /obj/item/multitool/circuit))
-		source.balloon_alert(user, "this is not a circuit multitool!")
+		source.balloon_alert(user, "это не мультитул для схем!")
 		return
 
 	if(locked)
 		if(shell_flags & SHELL_FLAG_ALLOW_FAILURE_ACTION)
 			return
-		source.balloon_alert(user, "it's locked!")
+		source.balloon_alert(user, "закрыто!")
 		return TRUE
 
 	INVOKE_ASYNC(attached_circuit, TYPE_PROC_REF(/datum, ui_interact), user)
@@ -252,11 +252,11 @@
 	if(locked)
 		if(shell_flags & SHELL_FLAG_ALLOW_FAILURE_ACTION)
 			return
-		source.balloon_alert(user, "it's locked!")
+		source.balloon_alert(user, "закрыто!")
 		return TRUE
 
 	tool.play_tool_sound(parent)
-	source.balloon_alert(user, "you unscrew [attached_circuit] from [parent].")
+	source.balloon_alert(user, "вы открутили [attached_circuit.declent_ru(ACCUSATIVE)] from [parent].")
 	remove_circuit()
 	return TRUE
 
@@ -278,11 +278,11 @@
 /datum/component/shell/proc/on_circuit_add_component_manually(atom/source, obj/item/circuit_component/added_comp, mob/living/user)
 	SIGNAL_HANDLER
 	if(locked)
-		source.balloon_alert(user, "it's locked!")
+		source.balloon_alert(user, "закрыто!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
 	if(attached_circuit.current_size + added_comp.circuit_size > capacity)
-		source.balloon_alert(user, "it won't fit!")
+		source.balloon_alert(user, "не влезает!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
 /datum/component/shell/proc/override_power_usage(datum/source, power_to_use)

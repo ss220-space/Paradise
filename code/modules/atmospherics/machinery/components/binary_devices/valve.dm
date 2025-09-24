@@ -149,8 +149,8 @@
 					close()
 
 /obj/item/circuit_component/digital_valve
-	display_name = "Digital Valve"
-	desc = "The interface for communicating with a digital valve."
+	display_name = "Цифровой клапан"
+	desc = "Интерфейс для связи с цифровым клапаном."
 
 	var/obj/machinery/atmospherics/binary/valve/digital/attached_valve
 
@@ -167,12 +167,12 @@
 	var/datum/port/output/closed
 
 /obj/item/circuit_component/digital_valve/populate_ports()
-	open = add_input_port("Open", PORT_TYPE_SIGNAL)
-	close = add_input_port("Close", PORT_TYPE_SIGNAL)
+	open = add_input_port("Открыть", PORT_TYPE_SIGNAL)
+	close = add_input_port("Закрыть", PORT_TYPE_SIGNAL)
 
-	is_open = add_output_port("Is Open", PORT_TYPE_NUMBER)
-	opened = add_output_port("Opened", PORT_TYPE_SIGNAL)
-	closed = add_output_port("Closed", PORT_TYPE_SIGNAL)
+	is_open = add_output_port("Открыто", PORT_TYPE_NUMBER)
+	opened = add_output_port("Открыт", PORT_TYPE_SIGNAL)
+	closed = add_output_port("Закрыт", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/digital_valve/register_usb_parent(atom/movable/shell)
 	. = ..()

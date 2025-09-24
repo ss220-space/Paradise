@@ -11,6 +11,16 @@
 	light_on = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/wiremod_scanner/get_ru_names()
+	return list(
+		NOMINATIVE = "сканер",
+		GENITIVE = "сканера",
+		DATIVE = "сканеру",
+		ACCUSATIVE = "сканер",
+		INSTRUMENTAL = "сканером",
+		PREPOSITIONAL = "сканере"
+	)
+
 /obj/item/wiremod_scanner/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
@@ -19,8 +29,8 @@
 	), SHELL_CAPACITY_SMALL)
 
 /obj/item/circuit_component/wiremod_scanner
-	display_name = "Scanner"
-	desc = "Used to receive scanned entities from the scanner."
+	display_name = "Сканер"
+	desc = "Используется для получения отсканированных объектов со сканера."
 
 	/// Called when afterattack is called on the shell.
 	var/datum/port/output/signal
@@ -33,9 +43,9 @@
 
 
 /obj/item/circuit_component/wiremod_scanner/populate_ports()
-	attacker = add_output_port("Scanner", PORT_TYPE_USER)
-	attacking = add_output_port("Scanned Entity", PORT_TYPE_ATOM)
-	signal = add_output_port("Scanned", PORT_TYPE_SIGNAL)
+	attacker = add_output_port("Пользователь", PORT_TYPE_USER)
+	attacking = add_output_port("Цель", PORT_TYPE_ATOM)
+	signal = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/wiremod_scanner/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_ITEM_AFTERATTACK, PROC_REF(handle_afterattack))
@@ -50,7 +60,7 @@
 	SIGNAL_HANDLER
 	if(!proximity_flag)
 		return
-	source.balloon_alert(user, "scanned object")
+	source.balloon_alert(user, "цель отсканирована")
 	playsound(source, "terminal_type", 25, FALSE)
 	attacker.set_output(user)
 	attacking.set_output(target)

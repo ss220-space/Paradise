@@ -4,8 +4,8 @@
  * Return the health of a mob
  */
 /obj/item/circuit_component/health
-	display_name = "Get Health"
-	desc = "A component that returns the health of an organism."
+	display_name = "Получить состояние здоровья"
+	desc = "Компонент, возвращающий состояние здоровья организма."
 	category = "Entity"
 
 	/// The input port
@@ -28,16 +28,16 @@
 
 /obj/item/circuit_component/health/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Maximum Range: [max_range] tiles", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] метров", "orange", "info")
 
 /obj/item/circuit_component/health/populate_ports()
-	input_port = add_input_port("Organism", PORT_TYPE_ATOM)
+	input_port = add_input_port("Организм", PORT_TYPE_ATOM)
 
-	brute = add_output_port("Brute Damage", PORT_TYPE_NUMBER)
-	burn = add_output_port("Burn Damage", PORT_TYPE_NUMBER)
-	toxin = add_output_port("Toxin Damage", PORT_TYPE_NUMBER)
-	oxy = add_output_port("Suffocation Damage", PORT_TYPE_NUMBER)
-	health = add_output_port("Health", PORT_TYPE_NUMBER)
+	brute = add_output_port("Травмы", PORT_TYPE_NUMBER)
+	burn = add_output_port("Ожоги", PORT_TYPE_NUMBER)
+	toxin = add_output_port("Токсины", PORT_TYPE_NUMBER)
+	oxy = add_output_port("Удушье", PORT_TYPE_NUMBER)
+	health = add_output_port("Здоровье", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/health/input_received(datum/port/input/port)
 

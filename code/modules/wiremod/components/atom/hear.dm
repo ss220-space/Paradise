@@ -4,8 +4,8 @@
  * Listens for messages. Requires a shell.
  */
 /obj/item/circuit_component/hear
-	display_name = "Voice Activator"
-	desc = "A component that listens for messages. Requires a shell."
+	display_name = "Голосовой активатор"
+	desc = "Компонент, прослушивающий сообщения. Требуется оболочка."
 	category = "Entity"
 
 	/// The on/off port
@@ -21,11 +21,11 @@
 	var/datum/port/output/trigger_port
 
 /obj/item/circuit_component/hear/populate_ports()
-	on = add_input_port("On", PORT_TYPE_NUMBER, default = 1)
-	message_port = add_output_port("Message", PORT_TYPE_STRING)
-	speaker_port = add_output_port("Speaker", PORT_TYPE_ATOM)
-	speaker_name = add_output_port("Speaker Name", PORT_TYPE_STRING)
-	trigger_port = add_output_port("Triggered", PORT_TYPE_SIGNAL)
+	on = add_input_port("Вкл", PORT_TYPE_NUMBER, default = 1)
+	message_port = add_output_port("Сообщение", PORT_TYPE_STRING)
+	speaker_port = add_output_port("Объект", PORT_TYPE_ATOM)
+	speaker_name = add_output_port("Имя", PORT_TYPE_STRING)
+	trigger_port = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/hear/register_shell(atom/movable/shell)
 	// if(parent.loc != shell)

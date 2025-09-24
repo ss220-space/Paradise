@@ -4,8 +4,8 @@
  * Filters
  */
 /obj/item/circuit_component/filter_list
-	display_name = "Filter"
-	desc = "A component that loops through each element in a list and filters them."
+	display_name = "Фильтр"
+	desc = "Компонент, который просматривает каждый элемент списка и фильтрует их."
 	category = "List"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_INSTANT
 
@@ -38,7 +38,7 @@
 	var/limit = 300
 
 /obj/item/circuit_component/filter_list/populate_options()
-	list_options = add_option_port("List Type", GLOB.wiremod_basic_types)
+	list_options = add_option_port("Тип", GLOB.wiremod_basic_types)
 
 /obj/item/circuit_component/filter_list/pre_input_received(datum/port/input/port)
 	if(port == list_options)
@@ -48,15 +48,15 @@
 		element.set_datatype(new_datatype)
 
 /obj/item/circuit_component/filter_list/populate_ports()
-	list_to_filter = add_input_port("List Input", PORT_TYPE_LIST(PORT_TYPE_ANY))
-	accept_entry = add_input_port("Accept Entry", PORT_TYPE_SIGNAL, trigger = PROC_REF(accept_entry_port))
+	list_to_filter = add_input_port("Ввод", PORT_TYPE_LIST(PORT_TYPE_ANY))
+	accept_entry = add_input_port("Принять запись", PORT_TYPE_SIGNAL, trigger = PROC_REF(accept_entry_port))
 
-	element = add_output_port("Element", PORT_TYPE_ANY)
-	current_index = add_output_port("Index", PORT_TYPE_NUMBER)
-	on_next_index = add_output_port("Next Index", PORT_TYPE_SIGNAL)
-	finished_list = add_output_port("Filtered List", PORT_TYPE_LIST(PORT_TYPE_ANY))
-	on_finished = add_output_port("On Finished", PORT_TYPE_SIGNAL)
-	on_failed = add_output_port("On Failed", PORT_TYPE_SIGNAL)
+	finished_list = add_output_port("Результат", PORT_TYPE_LIST(PORT_TYPE_ANY))
+	element = add_output_port("Элемент", PORT_TYPE_ANY)
+	current_index = add_output_port("Индекс", PORT_TYPE_NUMBER)
+	on_next_index = add_output_port("Следующий индекс", PORT_TYPE_SIGNAL)
+	on_finished = add_output_port("По завершении", PORT_TYPE_SIGNAL)
+	on_failed = add_output_port("Провал", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/filter_list/proc/accept_entry_port(datum/port/input/port, list/return_values)
 	CIRCUIT_TRIGGER
@@ -76,7 +76,7 @@
 		index += 1
 		var/list/result = SScircuit_component.execute_instant_run()
 		if(!result)
-			balloon_alert_to_viewers("[src] starts to overheat!")
+			balloon_alert_to_viewers("[src] начал перегреваться!")
 			on_failed.set_output(COMPONENT_SIGNAL)
 			return
 		if(result["accept_entry"])

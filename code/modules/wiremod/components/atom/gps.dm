@@ -4,8 +4,8 @@
  * Return the location of this
  */
 /obj/item/circuit_component/gps
-	display_name = "Internal GPS"
-	desc = "A component that returns the xyz co-ordinates of itself."
+	display_name = "Внутренний GPS"
+	desc = "Компонент, возвращающий свои координаты XYZ."
 	category = "Entity"
 
 	/// The result from the output

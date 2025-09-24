@@ -8,8 +8,8 @@
 #define OBJECT_OVERLAY_LIMIT 10
 
 /obj/item/circuit_component/object_overlay
-	display_name = "Object Overlay"
-	desc = "Requires a BCI shell. A component that shows an overlay on top of an object."
+	display_name = "Отображение маркировки"
+	desc = "Требуется оболочка BCI. Компонент, отображающий маркировку поверх объекта."
 	category = "BCI"
 
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)
@@ -36,14 +36,14 @@
 	var/list/options_map
 
 /obj/item/circuit_component/object_overlay/populate_ports()
-	target = add_input_port("Target", PORT_TYPE_ATOM)
+	target = add_input_port("Цель", PORT_TYPE_ATOM)
 
-	signal_on = add_input_port("Create Overlay", PORT_TYPE_SIGNAL)
-	signal_off = add_input_port("Remove Overlay", PORT_TYPE_SIGNAL)
+	signal_on = add_input_port("Создать", PORT_TYPE_SIGNAL)
+	signal_off = add_input_port("Убрать", PORT_TYPE_SIGNAL)
 
-	image_pixel_x = add_input_port("X-Axis Shift", PORT_TYPE_NUMBER)
-	image_pixel_y = add_input_port("Y-Axis Shift", PORT_TYPE_NUMBER)
-	image_rotation = add_input_port("Overlay Rotation", PORT_TYPE_NUMBER)
+	image_pixel_x = add_input_port("X", PORT_TYPE_NUMBER)
+	image_pixel_y = add_input_port("Y", PORT_TYPE_NUMBER)
+	image_rotation = add_input_port("Разворот", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/object_overlay/Destroy()
 	QDEL_LIST_ASSOC_VAL(active_overlays)

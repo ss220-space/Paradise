@@ -4,8 +4,8 @@
  * Return a number from an array of binary inputs.
  */
 /obj/item/circuit_component/decimal_conversion
-	display_name = "Decimal Conversion"
-	desc = "Merges an array of binary digits, or bits, represented as 1 or 0 and often used in boolean or binary operations, into a decimal number."
+	display_name = "Десятичное преобразование"
+	desc = "Объединяет массив двоичных цифр или битов, представленных как 1 или 0 и часто используемых в логических или двоичных операциях, в десятичное число."
 	category = "Math"
 
 	/// One number
@@ -25,11 +25,11 @@
 		add_action = "add", \
 		remove_action = "remove", \
 		port_type = PORT_TYPE_NUMBER, \
-		prefix = "Bit", \
+		prefix = "Бит", \
 		minimum_amount = 1, \
 		maximum_amount = MAX_BITFIELD_SIZE \
 	)
-	number = add_output_port("Number", PORT_TYPE_NUMBER, order = 1.1)
+	number = add_output_port("Число", PORT_TYPE_NUMBER, order = 1.1)
 
 /obj/item/circuit_component/decimal_conversion/input_received(datum/port/input/port)
 	if(!length(bit_array))

@@ -1,6 +1,6 @@
 /obj/item/circuit_component/compare/access
-	display_name = "Access Checker"
-	desc = "Performs a basic comparison between two lists of strings, with additional functions that help in using it to check access on IDs."
+	display_name = "Проверка доступа"
+	desc = "Выполняет базовое сравнение, помогающее использовать его для проверки доступа по идентификаторам."
 	category = "ID"
 
 	/// A list of the accesses to check
@@ -18,13 +18,13 @@
 
 /obj/item/circuit_component/compare/access/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("When \"Check Any\" is true, returns true if \"Access To Check\" contains ANY value in \"Required Access\".", "orange", "info")
-	. += create_ui_notice("When \"Check Any\" is false, returns true only if \"Access To Check\" contains ALL values in \"Required Access\".", "orange", "info")
+	. += create_ui_notice("Когда поле \"Любой\" истинно, возвращает истину если поле \"ID-карта\" содержит любой доступ из поля \"Доступ\".", "orange", "info")
+	. += create_ui_notice("Когда поле \"Любой\" истинно, возвращает истину если поле \"ID-карта\" содержит ВСЕ доступы из поля \"Доступ\".", "orange", "info")
 
 /obj/item/circuit_component/compare/access/populate_custom_ports()
-	subject_accesses = add_input_port("Access To Check", PORT_TYPE_LIST(PORT_TYPE_STRING))
-	required_accesses = add_input_port("Required Access", PORT_TYPE_LIST(PORT_TYPE_STRING))
-	check_any = add_input_port("Check Any", PORT_TYPE_NUMBER)
+	subject_accesses = add_input_port("ID-карта", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	required_accesses = add_input_port("Доступ", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	check_any = add_input_port("Любой", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/compare/access/save_data_to_list(list/component_data)
 	. = ..()
@@ -58,7 +58,7 @@
 
 /obj/item/circuit_component/compare/access/ui_perform_action(mob/user, action)
 	if(length(required_accesses.connected_ports))
-		balloon_alert(user, "disconnect port before manually configuring!")
+		balloon_alert(user, "отключите порт перед ручной настройкой!")
 		return
 
 	ui_interact(user)

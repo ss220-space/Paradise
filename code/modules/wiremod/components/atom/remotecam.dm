@@ -10,8 +10,8 @@
  * Attaches a camera for surveillance-on-the-go.
  */
 /obj/item/circuit_component/remotecam
-	display_name = "Camera Abstract Type"
-	desc = "This is the abstract parent type - do not use this directly!"
+	display_name = "Абстрактная камера"
+	desc = "Это абстрактный родительский тип — не используйте его напрямую!"
 	category = "Entity"
 	circuit_flags = CIRCUIT_NO_DUPLICATES
 
@@ -56,17 +56,17 @@
 /obj/item/circuit_component/remotecam/get_ui_notices()
 	. = ..()
 	if(camera_range_settable)
-		. += create_ui_notice("Energy Usage For Near (0) Range: [REMOTECAM_ENERGY_USAGE_NEAR] Per [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
-		. += create_ui_notice("Energy Usage For Far (1) Range: [REMOTECAM_ENERGY_USAGE_FAR] Per [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
+		. += create_ui_notice("Использование энергии для ближнего диапазона: [REMOTECAM_ENERGY_USAGE_NEAR] за [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
+		. += create_ui_notice("Использование энергии для дальнего диапазона: [REMOTECAM_ENERGY_USAGE_FAR] за [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
 	else
-		. += create_ui_notice("Energy Usage While Active: [current_camera_range > 0 ? REMOTECAM_ENERGY_USAGE_FAR : REMOTECAM_ENERGY_USAGE_NEAR] Per [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
+		. += create_ui_notice("Использование энергии пока активно: [current_camera_range > 0 ? REMOTECAM_ENERGY_USAGE_FAR : REMOTECAM_ENERGY_USAGE_NEAR] Per [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
 
 /obj/item/circuit_component/remotecam/populate_ports()
-	start = add_input_port("Start", PORT_TYPE_SIGNAL)
-	stop = add_input_port("Stop", PORT_TYPE_SIGNAL)
+	start = add_input_port("Старт", PORT_TYPE_SIGNAL)
+	stop = add_input_port("Стоп", PORT_TYPE_SIGNAL)
 	if(camera_range_settable)
-		camera_range = add_input_port("Camera Range", PORT_TYPE_NUMBER, default = 0)
-	network = add_input_port("Network", PORT_TYPE_STRING, default = "SS13")
+		camera_range = add_input_port("Дальность", PORT_TYPE_NUMBER, default = 0)
+	network = add_input_port("Сеть", PORT_TYPE_STRING, default = "SS13")
 
 	if(camera_range_settable)
 		current_camera_range = camera_range.value
@@ -104,7 +104,7 @@
  * Initializes the camera
  */
 /obj/item/circuit_component/remotecam/proc/init_camera()
-	shell_camera.desc = "This camera belongs in a circuit. If you see this, tell a coder!"
+	shell_camera.desc = "Эта камера — часть схемы. Если увидите это, сообщите программистам из Центрального Коммандования!"
 	shell_camera.use_power = NO_POWER_USE
 	shell_camera.start_active = TRUE
 	shell_camera.internal_light = FALSE
@@ -225,7 +225,7 @@
 	for(var/mob/M as anything in GLOB.player_list)
 		if(M.client?.eye == shell_camera)
 			M.reset_perspective(null)
-			to_chat(M, span_warning("The screen bursts into static!"))
+			to_chat(M, span_warning("Экран разрывается помехами!"))
 
 /**
  * Restore emp'd camera
@@ -276,8 +276,8 @@
 		shell_camera.toggle_cam(null, 0)
 
 /obj/item/circuit_component/remotecam/bci
-	display_name = "BCI Camera"
-	desc = "Digitizes user's sight for surveillance-on-the-go. User must have fully functional eyes for digitizer to work. Camera range input is either 0 (near) or 1 (far). Network field is used for camera network."
+	display_name = "BCI камера"
+	desc = "Оцифровывает зрение пользователя для мобильного видеонаблюдения. Для работы оцифровщика необходимо наличие полностью работоспособного зрения. Диапазон действия камеры может быть ближним или дальним. Поле «Сеть» используется для настройки сети камер."
 	category = "BCI"
 	camera_prefix = "BCI"
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)
@@ -289,13 +289,13 @@
 	var/mob/living/carbon/bciuser = null
 
 /obj/item/circuit_component/remotecam/drone
-	display_name = "Remote Camera"
-	desc = "Capture the surrounding environment for surveillance-on-the-go. Camera range input is either 0 (near) or 1 (far). Network field is used for camera network."
+	display_name = "Удаленная камера"
+	desc = "Снимает окружающую обстановку для мобильного видеонаблюдения. Диапазон действия камеры может быть ближним или дальним. Поле «Сеть» используется для настройки сети камеры."
 	camera_prefix = "Drone"
 
 /obj/item/circuit_component/remotecam/airlock
-	display_name = "Peephole Camera"
-	desc = "A peephole camera that captures both sides of the airlock. Network field is used for camera network."
+	display_name = "Камера-глазок"
+	desc = "Камера-глазок, которая снимает происходящее с обеих сторон шлюза. Сетевое поле используется для организации сети камер. Не использовать в туалетах!"
 	camera_prefix = "Airlock"
 
 	/// Hardcode camera to near range
@@ -303,8 +303,8 @@
 	current_camera_range = 0
 
 /obj/item/circuit_component/remotecam/polaroid
-	display_name = "Camera Stream Add-On"
-	desc = "Relays a polaroid camera's feed as a digital stream for surveillance-on-the-go. The camera stream will not work if stored inside of a container like a backpack/box. Network field is used for camera network."
+	display_name = "Дополнение к потоковой передачи камеры"
+	desc = "Передаёт изображение с камеры-поларойда в виде цифрового потока для мобильного видеонаблюдения. Видеопоток с камеры не будет работать, если она хранится в контейнере, например, в рюкзаке или коробке. Поле «Сеть» используется для настройки сети камеры."
 	camera_prefix = "Polaroid"
 
 	/// Hardcode camera to near range

@@ -4,8 +4,8 @@
  * Splits a string
  */
 /obj/item/circuit_component/split
-	display_name = "Split"
-	desc = "Splits a string by the separator, turning it into a list"
+	display_name = "Разделить"
+	desc = "Разделяет строку по разделителю, превращая ее в список"
 	category = "List"
 
 	/// The input port
@@ -20,9 +20,9 @@
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 /obj/item/circuit_component/split/populate_ports()
-	input_port = add_input_port("Input", PORT_TYPE_STRING)
-	separator = add_input_port("Seperator", PORT_TYPE_STRING)
-	output = add_output_port("Output", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	input_port = add_input_port("Ввод", PORT_TYPE_STRING)
+	separator = add_input_port("Разделитель", PORT_TYPE_STRING)
+	output = add_output_port("Результат", PORT_TYPE_LIST(PORT_TYPE_STRING))
 
 /obj/item/circuit_component/split/input_received(datum/port/input/port)
 

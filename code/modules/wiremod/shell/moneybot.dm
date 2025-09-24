@@ -15,6 +15,16 @@
 	var/stored_money = 0
 	var/locked = FALSE
 
+/obj/structure/money_bot/get_ru_names()
+	return list(
+		NOMINATIVE = "бот-банкомат",
+		GENITIVE = "бота-банкомата",
+		DATIVE = "боту-банкомату",
+		ACCUSATIVE = "бота-банкомата",
+		INSTRUMENTAL = "ботом-банкоматом",
+		PREPOSITIONAL = "боте-банкомате"
+	)
+
 /obj/structure/money_bot/deconstruct(disassembled)
 	new /obj/item/stack/spacecash(drop_location(), stored_money)
 	return ..()
@@ -35,13 +45,13 @@
 		return
 	set_anchored(!anchored)
 	tool.play_tool_sound(src)
-	balloon_alert(user, anchored ? "secured" : "unsecured")
+	balloon_alert(user, anchored ? "Зареплен" : "Не закреплен")
 	return TRUE
 
 
 /obj/item/circuit_component/money_dispenser
-	display_name = "Money Dispenser"
-	desc = "Used to dispense money from the money bot. Money is taken from the internal storage of money."
+	display_name = "Бот-банкомат"
+	desc = "Используется для выдачи денег из денежного бота. Деньги берутся из внутреннего хранилища."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The amount of money to dispense
@@ -53,8 +63,8 @@
 	var/obj/structure/money_bot/attached_bot
 
 /obj/item/circuit_component/money_dispenser/populate_ports()
-	dispense_amount = add_input_port("Amount", PORT_TYPE_NUMBER)
-	on_fail = add_output_port("On Failed", PORT_TYPE_SIGNAL)
+	dispense_amount = add_input_port("Количество", PORT_TYPE_NUMBER)
+	on_fail = add_output_port("Провал", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/money_dispenser/register_shell(atom/movable/shell)
 	. = ..()
@@ -79,9 +89,9 @@
 	new /obj/item/stack/spacecash(drop_location(), to_dispense)
 
 /obj/item/circuit_component/money_bot
-	display_name = "Money Bot"
+	display_name = "Денежный бот"
 	var/obj/structure/money_bot/attached_bot
-	desc = "Used to receive input signals when money is inserted into the money bot shell and also keep track of the total money in the shell."
+	desc = "Используется для получения входных сигналов при вставке денег в оболочку денежного бота, а также для отслеживания общего количества денег в оболочке."
 
 	/// Total money in the shell
 	var/datum/port/output/total_money
@@ -93,10 +103,10 @@
 	var/datum/port/output/entity
 
 /obj/item/circuit_component/money_bot/populate_ports()
-	total_money = add_output_port("Total Money", PORT_TYPE_NUMBER)
-	money_input = add_output_port("Last Input Money", PORT_TYPE_NUMBER)
-	entity = add_output_port("User", PORT_TYPE_USER)
-	money_trigger = add_output_port("Money Input", PORT_TYPE_SIGNAL)
+	total_money = add_output_port("Всего денег", PORT_TYPE_NUMBER)
+	money_input = add_output_port("Последняя транзакция", PORT_TYPE_NUMBER)
+	entity = add_output_port("Пользователь", PORT_TYPE_USER)
+	money_trigger = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/money_bot/register_shell(atom/movable/shell)
 	. = ..()
@@ -127,11 +137,11 @@
 
 	var/amount_to_insert = item.get_item_credit_value()
 	if(!amount_to_insert)
-		balloon_alert(attacker, "this has no value!")
+		balloon_alert(attacker, "это не имеет никакой ценности!")
 		return
 
 	attached_bot.add_money(amount_to_insert)
-	balloon_alert(attacker, "inserted [amount_to_insert] credits.")
+	balloon_alert(attacker, "вставлено [amount_to_insert] кредитов.")
 	money_input.set_output(amount_to_insert)
 	entity.set_output(attacker)
 	money_trigger.set_output(COMPONENT_SIGNAL)

@@ -346,8 +346,8 @@
 #define MIN_PICTURE_SIZE 1
 #define MAX_PICTURE_SIZE 7
 /obj/item/circuit_component/camera
-	display_name = "Camera"
-	desc = "A polaroid camera that takes pictures when triggered. The picture coordinate ports are relative to the position of the camera."
+	display_name = "Камера"
+	desc = "Камера Polaroid, делающая снимки при вызове. Порты координат изображения определяются относительно положения камеры."
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
 
 	/// The atom that was photographed from either user click or trigger input.
@@ -366,13 +366,13 @@
 	var/obj/item/camera/camera
 
 /obj/item/circuit_component/camera/populate_ports()
-	picture_taken = add_output_port("Picture Taken", PORT_TYPE_SIGNAL)
-	photographed_atom = add_output_port("Photographed Entity", PORT_TYPE_ATOM)
+	picture_taken = add_output_port("Сделан снимок", PORT_TYPE_SIGNAL)
+	photographed_atom = add_output_port("Цель", PORT_TYPE_ATOM)
 
-	picture_target = add_input_port("Picture Target", PORT_TYPE_ATOM)
-	picture_coord_x = add_input_port("Picture Coordinate X", PORT_TYPE_NUMBER)
-	picture_coord_y = add_input_port("Picture Coordinate Y", PORT_TYPE_NUMBER)
-	adjust_size = add_input_port("Picture Size", PORT_TYPE_NUMBER, trigger = PROC_REF(sanitize_picture_size))
+	picture_target = add_input_port("Цель", PORT_TYPE_ATOM)
+	picture_coord_x = add_input_port("X", PORT_TYPE_NUMBER)
+	picture_coord_y = add_input_port("Y", PORT_TYPE_NUMBER)
+	adjust_size = add_input_port("Размер", PORT_TYPE_NUMBER, trigger = PROC_REF(sanitize_picture_size))
 
 /obj/item/circuit_component/camera/register_shell(atom/movable/shell)
 	. = ..()

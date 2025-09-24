@@ -6,8 +6,8 @@
  */
 
 /obj/item/circuit_component/vox
-	display_name = "VOX Announcement"
-	desc = "A component that plays a local VOX Announcement for the user. Requires a BCI shell."
+	display_name = "ВОКС"
+	desc = "Компонент, воспроизводящий локальное ВОКС-объявление для пользователя. Требуется оболочка BCI."
 	category = "BCI"
 
 	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci)
@@ -22,10 +22,10 @@
 	var/obj/item/organ/internal/cyberimp/brain/bci/bci
 
 /obj/item/circuit_component/vox/populate_options()
-	type_option = add_option_port("VOX Type", list(PORT_TYPE_LIST(PORT_TYPE_STRING), PORT_TYPE_STRING))
+	type_option = add_option_port("тип ВОКС-а", list(PORT_TYPE_LIST(PORT_TYPE_STRING), PORT_TYPE_STRING))
 
 /obj/item/circuit_component/vox/populate_ports()
-	word_list = add_input_port("Word List", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	word_list = add_input_port("Слова", PORT_TYPE_LIST(PORT_TYPE_STRING))
 
 /obj/item/circuit_component/vox/register_shell(atom/movable/shell)
 	if(istype(shell, /obj/item/organ/internal/cyberimp/brain/bci))

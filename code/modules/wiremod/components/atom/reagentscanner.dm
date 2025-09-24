@@ -4,8 +4,8 @@
  * Returns the reagentss of an atom
  */
 /obj/item/circuit_component/reagentscanner
-	display_name = "Reagents Scanner"
-	desc = "Outputs the reagents found inside the inputted entity."
+	display_name = "Сканер реагентов"
+	desc = "Выводит список реагентов, найденных внутри объекта."
 	category = "Entity"
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
@@ -19,15 +19,15 @@
 
 /obj/item/circuit_component/reagentscanner/get_ui_notices()
 	. = ..()
-	. += create_ui_notice("Maximum Range: [max_range] tiles", "orange", "info")
+	. += create_ui_notice("Максимальная дальность: [max_range] метров", "orange", "info")
 	. += create_table_notices(list(
 		"reagent",
 		"volume",
 		))
 
 /obj/item/circuit_component/reagentscanner/populate_ports()
-	input_port = add_input_port("Entity", PORT_TYPE_ATOM)
-	result = add_output_port("Reagents", PORT_TYPE_TABLE)
+	input_port = add_input_port("Объект", PORT_TYPE_ATOM)
+	result = add_output_port("Реагенты", PORT_TYPE_TABLE)
 
 /obj/item/circuit_component/reagentscanner/input_received(datum/port/input/port)
 	var/atom/entity = input_port.value

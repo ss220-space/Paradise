@@ -1,11 +1,21 @@
 /obj/item/organ/internal/cyberimp/brain/bci
 	name = "brain-computer interface"
-	desc = "An implant that can be placed in a user's head to control circuits using their brain."
+	desc = "Имплантат, который можно поместить в голову пользователя для управления электрическими схемами с помощью его мозга."
 	status = ORGAN_ROBOT
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "bci"
 	slot = INTERNAL_ORGAN_BRAIN_COMPUTER_INTERFACE
 	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/organ/internal/cyberimp/brain/bci/get_ru_names()
+	return list(
+		NOMINATIVE = "интерфейс \"Мозг-Компьютер\"",
+		GENITIVE = "интерфейса \"Мозг-Компьютер\"",
+		DATIVE = "интерфейсу \"Мозг-Компьютер\"",
+		ACCUSATIVE = "интерфейс \"Мозг-Компьютер\"",
+		INSTRUMENTAL = "интерфейсом \"Мозг-Компьютер\"",
+		PREPOSITIONAL = "интерфейсе \"Мозг-Компьютер\""
+	)
 
 /obj/item/organ/internal/cyberimp/brain/bci/Initialize(mapload)
 	. = ..()
@@ -76,8 +86,8 @@
 	circuit_component.signal.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/bci_core
-	display_name = "BCI Core"
-	desc = "Controls the core operations of the BCI."
+	display_name = "Ядро BCI"
+	desc = "Контролирует основные операции BCI."
 
 	/// A reference to the action button to look at charge/get info
 	var/datum/action/innate/bci_charge_action/charge_action
@@ -92,11 +102,11 @@
 
 /obj/item/circuit_component/bci_core/populate_ports()
 
-	message = add_input_port("Message", PORT_TYPE_STRING, trigger = null)
-	send_message_signal = add_input_port("Send Message", PORT_TYPE_SIGNAL)
-	show_charge_meter = add_input_port("Show Charge Meter", PORT_TYPE_NUMBER, trigger = PROC_REF(update_charge_action))
+	message = add_input_port("Сообщение", PORT_TYPE_STRING, trigger = null)
+	send_message_signal = add_input_port("Отправить", PORT_TYPE_SIGNAL)
+	show_charge_meter = add_input_port("Показать заряд", PORT_TYPE_NUMBER, trigger = PROC_REF(update_charge_action))
 
-	user_port = add_output_port("User", PORT_TYPE_USER)
+	user_port = add_output_port("Пользователь", PORT_TYPE_USER)
 
 /obj/item/circuit_component/bci_core/Destroy()
 	QDEL_NULL(charge_action)
@@ -155,7 +165,7 @@
 	if(bci.owner.stat == DEAD)
 		return
 
-	to_chat(bci.owner, "<i>You hear a strange, robotic voice in your head...</i> \"[span_robot("[html_encode(sent_message)]")]\"")
+	to_chat(bci.owner, "<i>Вы слышите странный, роботизированный голос в своей голове...</i> \"[span_robot("[html_encode(sent_message)]")]\"")
 
 /obj/item/circuit_component/bci_core/proc/on_organ_implanted(datum/source, mob/living/carbon/owner)
 	SIGNAL_HANDLER
@@ -203,7 +213,7 @@
 		return
 
 	parent.cell.give(shock_damage * 2)
-	to_chat(source, span_notice("You absorb some of the shock into your [parent.name]!"))
+	to_chat(source, span_notice("Часть электрошока поглощается вашим [parent]!"))
 
 /obj/item/circuit_component/bci_core/proc/on_examine(datum/source, mob/mob, list/examine_text)
 	SIGNAL_HANDLER
@@ -255,10 +265,10 @@
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if(isnull(cell))
-		to_chat(owner, span_boldwarning("[circuit_component.parent] has no power cell."))
+		to_chat(owner, span_boldwarning("[circuit_component.parent.declent_ru(NOMINATIVE)] не имеет элемента питания."))
 	else
-		to_chat(owner, span_notice("[circuit_component.parent]'s [cell.name] has <b>[cell.percent()]%</b> charge left."))
-		to_chat(owner, span_notice("You can recharge it by using a cyborg recharging station."))
+		to_chat(owner, span_notice("В [cell.name] [circuit_component.parent.declent_ru(GENITIVE)] осталось <b>[cell.percent()]%</b> заряда."))
+		to_chat(owner, span_notice("Его можно подзарядить с помощью станции зарядки киборгов."))
 
 /datum/action/innate/bci_charge_action/process(seconds_per_tick)
 	build_all_button_icons(UPDATE_BUTTON_STATUS)
@@ -270,7 +280,7 @@
 
 /obj/machinery/bci_implanter
 	name = "brain-computer interface manipulation chamber"
-	desc = "A machine that, when given a brain-computer interface, will implant it into an occupant. Otherwise, will remove any brain-computer interfaces they already have."
+	desc = "Машина, которая при наличии BCI имплантирует его в тело человека. В противном случае она удалит все имеющиеся BCI."
 	icon = 'icons/obj/machines/bci_implanter.dmi'
 	icon_state = "bci_implanter"
 	base_icon_state = "bci_implanter"
@@ -287,12 +297,22 @@
 
 	COOLDOWN_DECLARE(message_cooldown)
 
+/obj/machinery/bci_implanter/get_ru_names()
+	return list(
+		NOMINATIVE = "камера манипуляций интерфейсом \"Мозг-компьютер\"",
+		GENITIVE = "камеры манипуляций интерфейсом \"Мозг-компьютер\"",
+		DATIVE = "камере манипуляций интерфейсом \"Мозг-компьютер\"",
+		ACCUSATIVE = "камеру манипуляций интерфейсом \"Мозг-компьютер\"",
+		INSTRUMENTAL = "камерой манипуляций интерфейсом \"Мозг-компьютер\"",
+		PREPOSITIONAL = "камере манипуляций интерфейсом \"Мозг-компьютер\""
+	)
+
 /obj/machinery/bci_implanter/examine(mob/user)
 	. = ..()
 	if(isnull(bci_to_implant))
-		. += span_notice("There is no BCI inserted.")
+		. += span_notice("BCI не вставлен.")
 	else
-		. += span_notice("Alt-click to remove current BCI.")
+		. += span_notice("Alt-click чтобы удалить текущий BCI.")
 
 /obj/machinery/bci_implanter/Initialize(mapload)
 	. = ..()
@@ -359,7 +379,7 @@
 	var/obj/item/organ/internal/cyberimp/brain/bci/new_bci = weapon
 	if(istype(new_bci))
 		if(!(locate(/obj/item/integrated_circuit) in new_bci))
-			balloon_alert(user, "bci has no circuit!")
+			balloon_alert(user, "BCI не имеет схемы!")
 			return ATTACK_CHAIN_PROCEED
 
 		var/obj/item/organ/internal/cyberimp/brain/bci/previous_bci_to_implant = bci_to_implant
@@ -368,9 +388,9 @@
 		bci_to_implant = weapon
 
 		if(isnull(previous_bci_to_implant))
-			balloon_alert(user, "inserted bci")
+			balloon_alert(user, "вставлен BCI")
 		else
-			balloon_alert(user, "swapped bci")
+			balloon_alert(user, "замена BCI")
 			user.put_in_hands(previous_bci_to_implant)
 
 		return ATTACK_CHAIN_PROCEED
@@ -384,11 +404,11 @@
 	if(istype(occupant))
 		var/obj/item/organ/internal/cyberimp/brain/bci/bci_organ = occupant.get_int_organ(/obj/item/organ/internal/cyberimp/brain/bci)
 		if(isnull(bci_organ) && isnull(bci_to_implant))
-			atom_say("No brain-computer interface inserted, and occupant does not have one. Insert a BCI to implant one.")
+			atom_say("BCI не установлен, и он отсутствует у цели. Для имплантации необходимо установить BCI.")
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 			return FALSE
 		if(HAS_TRAIT(occupant, TRAIT_NO_CYBERIMPLANTS))
-			atom_say("Cannot implant BCI into this subject.")
+			atom_say("Невозможно имплантировать BCI в цель.")
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 			return FALSE
 
@@ -400,15 +420,15 @@
 		return CLICK_ACTION_BLOCKING
 
 	if(locked)
-		balloon_alert(user, "it's locked!")
+		balloon_alert(user, "закрыто!")
 		return CLICK_ACTION_BLOCKING
 
 	if(isnull(bci_to_implant))
-		balloon_alert(user, "no bci inserted!")
+		balloon_alert(user, "BCI не вставлен!")
 	else
 		user.put_in_hands(bci_to_implant)
 		bci_to_implant = null
-		balloon_alert(user, "ejected bci")
+		balloon_alert(user, "изъятие BCI")
 
 	return CLICK_ACTION_SUCCESS
 
@@ -511,9 +531,9 @@
 	var/message
 
 	if(locked)
-		message = "it won't budge!"
+		message = "не влезает!"
 	else if(user.stat != CONSCIOUS)
-		message = "you don't have the energy!"
+		message = "нету энергии!"
 
 	if(!isnull(message))
 		if(COOLDOWN_FINISHED(src, message_cooldown))
@@ -564,14 +584,14 @@
 		bci_organ.remove(carbon_occupant)
 
 		if(isnull(bci_to_implant))
-			atom_say("Occupant's previous brain-computer interface has been transferred to internal storage unit.")
+			atom_say("Предыдущий BCI цели был пермещен во внутреннее хранилище.")
 			carbon_occupant.transfer_item_to_loc(bci_organ, src)
 			bci_to_implant = bci_organ
 		else
-			atom_say("Occupant's previous brain-computer interface has been ejected.")
+			atom_say("Предыдущий BCI цели был изъят.")
 			bci_organ.forceMove(drop_location())
 	else if(!isnull(bci_to_implant))
-		atom_say("Occupant has been injected with [bci_to_implant].")
+		atom_say("Цели был введен [bci_to_implant].")
 		bci_to_implant.insert(carbon_occupant)
 		bci_to_implant = null
 

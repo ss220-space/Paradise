@@ -1,13 +1,23 @@
 /obj/item/multitool/circuit
 	name = "circuit multitool"
-	desc = "A circuit multitool. Used to mark entities which can then be uploaded to components by pressing the upload button on a port. \
-	Acts as a normal multitool otherwise. Use in hand to clear marked entity so that you can mark another entity."
+	desc = "Мультитул для схем. Используется для маркировки объектов, которые затем можно загрузить в компоненты нажатием кнопки загрузки на порту. \
+	В остальном действует как обычный мультитул. Используйте в руке, чтобы очистить отмеченный объект и пометить другой объект."
 
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "multitool_circuit"
 
 	/// The marked atom of this multitool
 	var/atom/marked_atom
+
+/obj/item/multitool/circuit/get_ru_names()
+	return list(
+		NOMINATIVE = "мультитул для схем",
+		GENITIVE = "мультитула для схем",
+		DATIVE = "мультитулу для схем",
+		ACCUSATIVE = "мультитул для схем",
+		INSTRUMENTAL = "мультитулом для схем",
+		PREPOSITIONAL = "мультитуле для схем"
+	)
 
 /obj/item/multitool/circuit/Initialize()
 	. = ..()
@@ -19,11 +29,11 @@
 
 /obj/item/multitool/circuit/examine(mob/user)
 	. = ..()
-	. += span_notice("It has [marked_atom? "a" : "no"] marked entity registered.")
+	. += span_notice("[marked_atom? "Обнаружен" : "Не обнаружен"] отмеченный зарегистрированный объект.")
 
 /obj/item/multitool/circuit/attack_self(mob/user, modifiers)
 	if(marked_atom)
-		atom_say("Cleared marked targets.")
+		atom_say("Отмеченные объекты очищены.")
 		clear_marked_atom()
 		return
 
@@ -40,7 +50,7 @@
 	select_target(target)
 
 /obj/item/multitool/circuit/proc/select_target(atom/target)
-	atom_say("Marked [target].")
+	atom_say("Отмечен [target.declent_ru(NOMINATIVE)].")
 	marked_atom = target
 	RegisterSignal(marked_atom, COMSIG_QDELETING, PROC_REF(cleanup_marked_atom))
 	update_icon()
@@ -89,7 +99,7 @@
 	if(chosen == target || (chosen in (carbon_target ? carbon_target.get_visible_items() : target.get_equipped_items())))
 		select_target(chosen)
 	else
-		balloon_alert(user, "cannot mark entity")
+		balloon_alert(user, "невозможно отметить объект")
 
 /obj/item/multitool/circuit/proc/check_menu(mob/user, mob/living/target)
 	return !marked_atom && user.is_in_hands(src) && user.Adjacent(target)

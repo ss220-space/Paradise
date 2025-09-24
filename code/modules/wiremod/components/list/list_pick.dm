@@ -4,8 +4,8 @@
  * Allows user to select 1 entry from a list
  */
 /obj/item/circuit_component/list_pick
-	display_name = "List Pick"
-	desc = "A component that lets a user pick 1 element from a list. Returns the selected element."
+	display_name = "Список - выбор"
+	desc = "Компонент, позволяющий пользователю выбрать один элемент из списка. Возвращает выбранный элемент."
 	category = "List"
 
 	/// The data type of the input_list
@@ -28,16 +28,16 @@
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
 
 /obj/item/circuit_component/list_pick/proc/make_list_port()
-	input_list = add_input_port("List", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	input_list = add_input_port("Список", PORT_TYPE_LIST(PORT_TYPE_STRING))
 
 /obj/item/circuit_component/list_pick/populate_ports()
-	input_name = add_input_port("Input Name", PORT_TYPE_STRING)
-	user = add_input_port("User", PORT_TYPE_USER)
+	input_name = add_input_port("Ввод", PORT_TYPE_STRING)
+	user = add_input_port("Пользователь", PORT_TYPE_USER)
 	make_list_port()
 
-	output = add_output_port("Picked Item", PORT_TYPE_STRING)
-	failure = add_output_port("On Failure", PORT_TYPE_SIGNAL)
-	success = add_output_port("On Success", PORT_TYPE_SIGNAL)
+	output = add_output_port("Результат", PORT_TYPE_STRING)
+	failure = add_output_port("Провал", PORT_TYPE_SIGNAL)
+	success = add_output_port("Успех", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/list_pick/input_received(datum/port/input/port)
 	var/mob/mob_user = user.value

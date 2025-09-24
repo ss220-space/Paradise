@@ -8,8 +8,8 @@
  * General logic unit with AND OR capabilities
  */
 /obj/item/circuit_component/compare/logic
-	display_name = "Logic"
-	desc = "A component with 'and' and 'or' capabilities."
+	display_name = "Логика"
+	desc = "Компонент с возможностями «и» и «или»."
 	category = "Math"
 
 	var/datum/port/input/option/logic_options
@@ -28,7 +28,7 @@
 		COMP_LOGIC_OR,
 		COMP_LOGIC_XOR,
 	)
-	logic_options = add_option_port("Logic Options", component_options)
+	logic_options = add_option_port("Параметр", component_options)
 
 /obj/item/circuit_component/compare/logic/populate_custom_ports()
 	AddComponent(/datum/component/circuit_component_add_port, \
@@ -36,7 +36,7 @@
 		add_action = "add", \
 		remove_action = "remove", \
 		port_type = PORT_TYPE_ANY, \
-		prefix = "Port", \
+		prefix = "Объект", \
 		order = 0.9, \
 		minimum_amount = 2 \
 	)

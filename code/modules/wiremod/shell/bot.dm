@@ -12,6 +12,16 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 
+/obj/structure/bot/get_ru_names()
+	return list(
+		NOMINATIVE = "бот",
+		GENITIVE = "бота",
+		DATIVE = "боту",
+		ACCUSATIVE = "бота",
+		INSTRUMENTAL = "ботом",
+		PREPOSITIONAL = "боте"
+	)
+
 /obj/structure/bot/Initialize(mapload)
 	. = ..()
 	AddComponent( \
@@ -22,8 +32,8 @@
 	)
 
 /obj/item/circuit_component/bot
-	display_name = "Bot"
-	desc = "Triggers when someone interacts with the bot."
+	display_name = "Бот"
+	desc = "Срабатывает, когда кто-то взаимодействует с ботом."
 
 	/// Called when attack_hand is called on the shell.
 	var/datum/port/output/signal
@@ -31,8 +41,8 @@
 	var/datum/port/output/entity
 
 /obj/item/circuit_component/bot/populate_ports()
-	entity = add_output_port("User", PORT_TYPE_USER)
-	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
+	entity = add_output_port("Пользователь", PORT_TYPE_USER)
+	signal = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/bot/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
@@ -42,7 +52,7 @@
 
 /obj/item/circuit_component/bot/proc/on_attack_hand(atom/source, mob/user)
 	SIGNAL_HANDLER
-	source.balloon_alert(user, "pushed button")
+	source.balloon_alert(user, "нажата кнопка")
 	playsound(source, "terminal_type", 25, FALSE)
 	entity.set_output(user)
 	signal.set_output(COMPONENT_SIGNAL)

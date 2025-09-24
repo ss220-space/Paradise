@@ -1,10 +1,10 @@
-#define COMP_ARITHMETIC_ADD "Add"
-#define COMP_ARITHMETIC_SUBTRACT "Subtract"
-#define COMP_ARITHMETIC_MULTIPLY "Multiply"
-#define COMP_ARITHMETIC_DIVIDE "Divide"
-#define COMP_ARITHMETIC_MODULO "Modulo"
-#define COMP_ARITHMETIC_MIN "Minimum"
-#define COMP_ARITHMETIC_MAX "Maximum"
+#define COMP_ARITHMETIC_ADD "Сложение"
+#define COMP_ARITHMETIC_SUBTRACT "Вычитание"
+#define COMP_ARITHMETIC_MULTIPLY "Умножение"
+#define COMP_ARITHMETIC_DIVIDE "Деление"
+#define COMP_ARITHMETIC_MODULO "Модуль"
+#define COMP_ARITHMETIC_MIN "Минимум"
+#define COMP_ARITHMETIC_MAX "Максимум"
 
 /**
  * # Arithmetic Component
@@ -13,8 +13,8 @@
  * This one only works with numbers.
  */
 /obj/item/circuit_component/arithmetic
-	display_name = "Arithmetic"
-	desc = "General arithmetic component with arithmetic capabilities."
+	display_name = "Арифметика"
+	desc = "Общий арифметический компонент с арифметическими возможностями."
 	category = "Math"
 
 	var/datum/port/input/option/arithmetic_option
@@ -39,7 +39,7 @@
 		COMP_ARITHMETIC_MIN,
 		COMP_ARITHMETIC_MAX,
 	)
-	arithmetic_option = add_option_port("Arithmetic Option", component_options)
+	arithmetic_option = add_option_port("Параметр", component_options)
 
 /obj/item/circuit_component/arithmetic/populate_ports()
 	arithmetic_ports = list()
@@ -48,10 +48,10 @@
 		add_action = "add", \
 		remove_action = "remove", \
 		port_type = PORT_TYPE_NUMBER, \
-		prefix = "Port", \
+		prefix = "Число", \
 		minimum_amount = 2 \
 	)
-	output = add_output_port("Output", PORT_TYPE_NUMBER, order = 1.1)
+	output = add_output_port("Результат", PORT_TYPE_NUMBER, order = 1.1)
 
 /obj/item/circuit_component/arithmetic/input_received(datum/port/input/port)
 

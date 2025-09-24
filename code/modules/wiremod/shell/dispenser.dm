@@ -18,6 +18,16 @@
 	var/list/obj/item/stored_items = list()
 	var/locked = FALSE
 
+/obj/structure/dispenser_bot/get_ru_names()
+	return list(
+		NOMINATIVE = "бот-раздатчик",
+		GENITIVE = "бота-раздатчика",
+		DATIVE = "боту-раздатчику",
+		ACCUSATIVE = "бота-раздатчика",
+		INSTRUMENTAL = "ботом-раздатчиком",
+		PREPOSITIONAL = "боте-раздатчике"
+	)
+
 /obj/structure/dispenser_bot/deconstruct(disassembled)
 	for(var/obj/item/stored_item as anything in stored_items)
 		remove_item(stored_item)
@@ -29,7 +39,7 @@
 
 
 /obj/structure/dispenser_bot/proc/add_item(mob/user, obj/item/to_add)
-	balloon_alert(user, "inserted item")
+	balloon_alert(user, "вставлен предмет")
 	stored_items += to_add
 	user.drop_transfer_item_to_loc(to_add, src)
 	RegisterSignal(to_add, COMSIG_MOVABLE_MOVED, PROC_REF(handle_stored_item_moved))
@@ -88,12 +98,12 @@
 		return
 	set_anchored(!anchored)
 	tool.play_tool_sound(src)
-	balloon_alert(user, "[anchored? "secured" : "unsecured"]")
+	balloon_alert(user, "[anchored? "закреплен" : "незакреплен"]")
 	return TRUE
 
 /obj/item/circuit_component/dispenser_bot
-	display_name = "Dispenser"
-	desc = "A dispenser bot that can dispense items "
+	display_name = "Раздатчик"
+	desc = "Бот-раздатчик, который может выдавать предметы."
 
 	/// The list of items
 	var/datum/port/output/item_list
@@ -113,13 +123,11 @@
 
 	var/max_vendor_components = 20
 
-
 /obj/item/circuit_component/dispenser_bot/populate_ports()
-	item_list = add_output_port("Items", PORT_TYPE_LIST(PORT_TYPE_ATOM))
-
-	item = add_output_port("Item", PORT_TYPE_ATOM)
-	on_item_added = add_output_port("On Item Added", PORT_TYPE_SIGNAL)
-	on_item_removed = add_output_port("On Item Removed", PORT_TYPE_SIGNAL)
+	item_list = add_output_port("Предметы", PORT_TYPE_LIST(PORT_TYPE_ATOM))
+	item = add_output_port("Предмет", PORT_TYPE_ATOM)
+	on_item_added = add_output_port("Добавлено", PORT_TYPE_SIGNAL)
+	on_item_removed = add_output_port("Изъято", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/dispenser_bot/register_shell(atom/movable/shell)
 	. = ..()
@@ -159,7 +167,7 @@
 	switch(action)
 		if("add_vend_component")
 			if(length(vendor_components) >= max_vendor_components)
-				balloon_alert(user, "you have hit vendor component limit!")
+				balloon_alert(user, "вы достигли лимита компонентов раздатчика!")
 				return
 			var/obj/item/circuit_component/vendor_component/vendor_component = new(parent)
 			parent.add_component(vendor_component, user)
@@ -170,8 +178,8 @@
 			), PROC_REF(remove_vendor_component))
 
 /obj/item/circuit_component/vendor_component
-	display_name = "Vend"
-	desc = "A component used to vend out specific objects from the dispenser bot."
+	display_name = "Выдать"
+	desc = "Компонент, используемый для выдачи определенных предметов из бота-раздатчика."
 
 	circuit_flags = CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -194,8 +202,8 @@
 	return ..()
 
 /obj/item/circuit_component/vendor_component/populate_ports()
-	item_to_vend = add_input_port("Item", PORT_TYPE_ATOM, trigger = null)
-	vend_item = add_input_port("Vend Item", PORT_TYPE_SIGNAL, trigger = PROC_REF(vend_item))
+	item_to_vend = add_input_port("Предмет", PORT_TYPE_ATOM, trigger = null)
+	vend_item = add_input_port("Выдать", PORT_TYPE_SIGNAL, trigger = PROC_REF(vend_item))
 
 /obj/item/circuit_component/vendor_component/proc/vend_item(datum/port/input/port, list/return_values)
 	CIRCUIT_TRIGGER

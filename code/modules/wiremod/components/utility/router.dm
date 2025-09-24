@@ -4,8 +4,8 @@
  * Writes one of multiple inputs to one of multiple outputs.
  */
 /obj/item/circuit_component/router
-	display_name = "Router"
-	desc = "Copies the input chosen by \"Input Selector\" to the output chosen by \"Output Selector\"."
+	display_name = "Маршрутизатор"
+	desc = "Копирует вход, выбранный с помощью параметра «Селектор входных данных», на выход, выбранный с помощью параметра «Селектор выходных данных»."
 	category = "Utility"
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
@@ -27,20 +27,20 @@
 	var/list/datum/port/output/outs
 
 /obj/item/circuit_component/router/populate_options()
-	router_options = add_option_port("Router Options", GLOB.wiremod_basic_types)
+	router_options = add_option_port("Параметры", GLOB.wiremod_basic_types)
 
 /obj/item/circuit_component/router/populate_ports()
 	current_type = router_options.value
 	if(input_port_amount > 1)
-		input_selector = add_input_port("Input Selector", PORT_TYPE_NUMBER, default = 1)
+		input_selector = add_input_port("Вход", PORT_TYPE_NUMBER, default = 1)
 	if(output_port_amount > 1)
-		output_selector = add_input_port("Output Selector", PORT_TYPE_NUMBER, default = 1)
+		output_selector = add_input_port("Выход", PORT_TYPE_NUMBER, default = 1)
 	ins = list()
 	for(var/port_id in 1 to input_port_amount)
-		ins += add_input_port(input_port_amount > 1 ? "Input [port_id]" : "Input", current_type)
+		ins += add_input_port(input_port_amount > 1 ? "Ввод [port_id]" : "Ввод", current_type)
 	outs = list()
 	for(var/port_id in 1 to output_port_amount)
-		outs += add_output_port(output_port_amount > 1 ? "Output [port_id]" : "Output", current_type)
+		outs += add_output_port(output_port_amount > 1 ? "Вывод [port_id]" : "Вывод", current_type)
 
 /obj/item/circuit_component/router/Destroy()
 	input_selector = null
@@ -69,8 +69,8 @@
 	output.set_output(input.value)
 
 /obj/item/circuit_component/router/multiplexer
-	display_name = "Multiplexer"
-	desc = "Copies the input chosen by \"Input Selector\" to the output."
+	display_name = "Мультиплексор"
+	desc = "Копирует входные данные, выбранные с помощью параметра «Выбор входных данных», на выходные данные."
 	output_port_amount = 1
 
 #undef WRAPACCESS

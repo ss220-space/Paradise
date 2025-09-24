@@ -163,9 +163,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 		if(amount_inserted)
 			qdel(tool)
-			to_chat(user, span_notice("[tool] worth [] sheets of material was consumed by [src]")) // хуй
+			to_chat(user, span_notice("[tool.declent_ru(NOMINATIVE)] стоимостью [amount_inserted /  SHEET_VOLUME] листов материала было потреблено [src.declent_ru(INSTRUMENTAL)]"))
 		else
-			to_chat(user, span_warning("[tool] was rejected by [src]"))
+			to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] был отклонен [src.declent_ru(INSTRUMENTAL)]"))
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/circuit_iteract(mob/user, obj/item/circuit)
 	if(!is_circuit(circuit))

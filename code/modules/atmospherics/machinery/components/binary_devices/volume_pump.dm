@@ -232,8 +232,8 @@ Thus, the two variables affect pump operation are set in New():
 	rename_interactive(user, I)
 
 /obj/item/circuit_component/atmos_volume_pump
-	display_name = "Atmospheric Volume Pump"
-	desc = "The interface for communicating with a volume pump."
+	display_name = "Объемный атмосферный насос"
+	desc = "Интерфейс для связи с объемным насосом."
 
 	///Set the transfer rate of the pump
 	var/datum/port/input/transfer_rate
@@ -264,19 +264,19 @@ Thus, the two variables affect pump operation are set in New():
 	var/obj/machinery/atmospherics/binary/volume_pump/connected_pump
 
 /obj/item/circuit_component/atmos_volume_pump/populate_ports()
-	transfer_rate = add_input_port("New Transfer Rate", PORT_TYPE_NUMBER, trigger = PROC_REF(set_transfer_rate))
-	on = add_input_port("Turn On", PORT_TYPE_SIGNAL, trigger = PROC_REF(set_pump_on))
-	off = add_input_port("Turn Off", PORT_TYPE_SIGNAL, trigger = PROC_REF(set_pump_off))
-	request_data = add_input_port("Request Port Data", PORT_TYPE_SIGNAL, trigger = PROC_REF(request_pump_data))
+	transfer_rate = add_input_port("Новая скорость передачи", PORT_TYPE_NUMBER, trigger = PROC_REF(set_transfer_rate))
+	on = add_input_port("Включить", PORT_TYPE_SIGNAL, trigger = PROC_REF(set_pump_on))
+	off = add_input_port("Выключить", PORT_TYPE_SIGNAL, trigger = PROC_REF(set_pump_off))
+	request_data = add_input_port("Запрос данных порта", PORT_TYPE_SIGNAL, trigger = PROC_REF(request_pump_data))
 
-	input_pressure = add_output_port("Input Pressure", PORT_TYPE_NUMBER)
-	output_pressure = add_output_port("Output Pressure", PORT_TYPE_NUMBER)
-	input_temperature = add_output_port("Input Temperature", PORT_TYPE_NUMBER)
-	output_temperature = add_output_port("Output Temperature", PORT_TYPE_NUMBER)
+	input_pressure = add_output_port("Входное давление", PORT_TYPE_NUMBER)
+	output_pressure = add_output_port("Выходное давление", PORT_TYPE_NUMBER)
+	input_temperature = add_output_port("Входная температура", PORT_TYPE_NUMBER)
+	output_temperature = add_output_port("Выходная температура", PORT_TYPE_NUMBER)
 
-	is_active = add_output_port("Active", PORT_TYPE_NUMBER)
-	turned_on = add_output_port("Turned On", PORT_TYPE_SIGNAL)
-	turned_off = add_output_port("Turned Off", PORT_TYPE_SIGNAL)
+	is_active = add_output_port("Активный", PORT_TYPE_NUMBER)
+	turned_on = add_output_port("Включено", PORT_TYPE_SIGNAL)
+	turned_off = add_output_port("Выключено", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/atmos_volume_pump/register_usb_parent(atom/movable/shell)
 	. = ..()
