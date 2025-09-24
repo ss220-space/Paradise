@@ -123,9 +123,6 @@
 	)
 
 /obj/item/mod/module/balloon/on_use()
-	. = ..()
-	if(!.)
-		return
 	if(!do_after(mod.wearer, 10 SECONDS, target = mod.wearer))
 		return FALSE
 	mod.wearer.adjustOxyLoss(20)

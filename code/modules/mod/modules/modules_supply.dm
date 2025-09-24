@@ -231,9 +231,6 @@
 	ore.forceMove(src)
 
 /obj/item/mod/module/orebag/on_use()
-	. = ..()
-	if(!.)
-		return
 	for(var/obj/item/ore as anything in contents)
 		ore.forceMove(drop_location())
 	drain_power(use_energy_cost)

@@ -27,9 +27,6 @@
 	)
 
 /obj/item/mod/module/holster/on_use()
-	. = ..()
-	if(!.)
-		return
 	if(!holstered)
 		var/obj/item/gun/holding = mod.wearer.get_active_hand()
 		if(!holding)
@@ -72,9 +69,6 @@
 	dispense_type = /obj/item/grenade/mirage
 
 /obj/item/mod/module/dispenser/mirage/on_use()
-	. = ..()
-	if(!.)
-		return
 	var/obj/item/grenade/mirage/grenade = .
 	grenade.attack_self(mod.wearer)
 
@@ -154,9 +148,6 @@
 	)
 
 /obj/item/mod/module/active_sonar/on_use()
-	. = ..()
-	if(!.)
-		return
 	playsound(mod.wearer, 'sound/mecha/skyfall_power_up.ogg', vol = 20, vary = TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	if(!do_after(mod.wearer, 1.1 SECONDS, target = mod.wearer))
 		return
@@ -233,9 +224,6 @@
 	)
 
 /obj/item/mod/module/anomaly_locked/firewall/on_use()
-	. = ..()
-	if(!.)
-		return
 	var/obj/item/dispensed = new dispense_type(mod.wearer.loc)
 	mod.wearer.put_in_hands(dispensed)
 	playsound(src, 'sound/machines/click.ogg', 100, TRUE)

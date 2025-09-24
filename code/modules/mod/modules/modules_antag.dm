@@ -199,7 +199,7 @@
 /obj/item/mod/module/springlock/bite_of_87/Initialize(mapload)
 	. = ..()
 	var/obj/item/mod/module/dna_lock/the_dna_lock_behind_the_slaughter = /obj/item/mod/module/dna_lock
-	name = initial(the_dna_lock_behind_the_slaughter.name)
+	name = initial(the_dna_lock_behind_the_slaughter.name) //TODO: внедрить рунеймы и их изменение
 	desc = initial(the_dna_lock_behind_the_slaughter.desc)
 	icon_state = initial(the_dna_lock_behind_the_slaughter.icon_state)
 	complexity = initial(the_dna_lock_behind_the_slaughter.complexity)
@@ -208,7 +208,7 @@
 /obj/item/mod/module/holster/hidden/Initialize(mapload)
 	. = ..()
 	var/obj/item/mod/module/tether/fake = /obj/item/mod/module/tether
-	name = initial(fake.name)
+	name = initial(fake.name) //TODO: внедрить рунеймы и их изменение
 	desc = initial(fake.desc)
 	icon_state = initial(fake.icon_state)
 	complexity = initial(fake.complexity) //This is 1 less complex than a holster, but that is fine tbh, paying tc for it.
@@ -580,9 +580,6 @@
 /obj/item/mod/module/chameleon/on_use()
 	if(mod.active || mod.activating)
 		balloon_alert(mod.wearer, "выключите костюм!")
-		return
-	. = ..()
-	if(!.)
 		return
 	if(mod.current_disguise)
 		return_look()

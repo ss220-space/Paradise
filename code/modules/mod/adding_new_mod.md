@@ -245,7 +245,7 @@
 
 Обновим наш объект.
 
-```dm
+````dm
 /obj/item/mod/module/neuron_healer
 	name = "MOD neuron healer module"
 	ru_name = "Модуль нейронного исцеления"
@@ -260,26 +260,10 @@
 	/// Damage, that we heal in each ability use
 	var/brain_damage_healed = 25
 
-```
-
-поскольку это используемый модуль, следует написать оверрайд прока "on_use". В нашем случае все стандартные проверки нам подходят и мы должны их передать наследнику. Про иные проки и вариаблы вы можете прочитать в [этом](modules/_module.dm) файле.
-
-```dm
-/obj/item/mod/module/neuron_healer/on_use()
-	. = ..()
-	if(!.)
-		return
-```
-
-Данный кусок кода проверяет кулдаун таймера, проверки возможность совершать действия, доступную энергию для костюма и проч.
-
 Теперь мы добавим наш код, который лечит мозг всем существам в небольшом радиусе и создает луч от носителя модсьюта к существам
 
 ```dm
 /obj/item/mod/module/neuron_healer/on_use()
-	. = ..()
-	if(!.)
-		return
 	for(var/mob/living/carbon/carbon_mob in range(5, src))
 		if(carbon_mob == mod.wearer)
 			continue
@@ -287,7 +271,7 @@
 		mod.wearer.Beam(carbon_mob, icon_state = "plasmabeam", time = 1.5 SECONDS)
 	playsound(src, 'sound/effects/magic.ogg', 100, TRUE)
 	drain_power(use_energy_cost)
-```
+````
 
 Этот код - код с ТГ. У нас могут использоваться другие аргументы и проки.
 

@@ -443,9 +443,6 @@
 	)
 
 /obj/item/mod/module/dispenser/on_use()
-	. = ..()
-	if(!.)
-		return
 	if(dispense_time && !do_after(mod.wearer, dispense_time, target = mod.wearer))
 		return FALSE
 	var/obj/item/dispensed = new dispense_type(mod.wearer.loc)
@@ -539,9 +536,6 @@
 	UnregisterSignal(mod, COMSIG_ATOM_EMAG_ACT)
 
 /obj/item/mod/module/dna_lock/on_use()
-	. = ..()
-	if(!.)
-		return
 	dna = mod.wearer.dna.unique_enzymes
 	drain_power(use_energy_cost)
 
@@ -662,7 +656,7 @@
 	required_slots = list(ITEM_SLOT_BACK)
 
 /obj/item/mod/module/jump_jet/on_use()
-	if (DOING_INTERACTION(mod.wearer, mod.wearer))
+	if(DOING_INTERACTION(mod.wearer, mod.wearer))
 		balloon_alert(mod.wearer, "busy!")
 		return
 	balloon_alert(mod.wearer, "launching...")
