@@ -378,7 +378,7 @@
 	device = /obj/item/reagent_containers/spray/mister
 	incompatible_modules = list(/obj/item/mod/module/mister)
 	cooldown_time = 0.5 SECONDS
-	//required_slots = list(ITEM_SLOT_BACK)
+	required_slots = list(ITEM_SLOT_BACK)
 	/// Volume of our reagent holder.
 	var/volume = 500
 

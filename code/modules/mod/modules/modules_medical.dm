@@ -16,7 +16,7 @@
 	incompatible_modules = list(/obj/item/mod/module/health_analyzer)
 	cooldown_time = 0.5 SECONDS
 	tgui_id = "health_analyzer"
-	//required_slots = list(ITEM_SLOT_GLOVES)
+	required_slots = list(ITEM_SLOT_GLOVES)
 	/// Scanning mode, changes how we scan something.
 	var/mode = HEALTH_SCAN
 
@@ -68,7 +68,7 @@
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/quick_carry) //TODO MODSUIT: add /obj/item/mod/module/constructor
-	//required_slots = list(ITEM_SLOT_GLOVES)
+	required_slots = list(ITEM_SLOT_GLOVES)
 	var/quick_carry_trait = TRAIT_QUICK_CARRY
 
 /obj/item/mod/module/quick_carry/on_part_activation()
@@ -316,7 +316,7 @@
 	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/organizer) //TODO modsuit: add /obj/item/mod/module/microwave_beam
 	cooldown_time = 0.5 SECONDS
-	//required_slots = list(ITEM_SLOT_GLOVES)
+	required_slots = list(ITEM_SLOT_GLOVES)
 	/// How many organs the module can hold.
 	var/max_organs = 5
 	/// A list of all our organs.

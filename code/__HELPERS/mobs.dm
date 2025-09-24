@@ -730,23 +730,23 @@
 	if(slot_flags & ITEM_SLOT_ID)
 		slot_strings += "ID"
 	if(slot_flags & ITEM_SLOT_EARS)
-		slot_strings += "ухо"
+		slot_strings += "уши"
 	if(slot_flags & ITEM_SLOT_EYES)
 		slot_strings += "очки"
 	if(slot_flags & ITEM_SLOT_GLOVES)
-		slot_strings += "перчатка"
+		slot_strings += "перчатки"
 	if(slot_flags & ITEM_SLOT_HEAD)
 		slot_strings += "голова"
 	if(slot_flags & ITEM_SLOT_FEET)
-		slot_strings += "ботинок"
+		slot_strings += "ботинки"
 	if(slot_flags & ITEM_SLOT_CLOTH_OUTER)
-		slot_strings += "oversuit"
+		slot_strings += "нагрудник"
 	if(slot_flags & ITEM_SLOT_CLOTH_INNER)
-		slot_strings += "undersuit"
+		slot_strings += "костюм" //TODO modsuit: cursed
 	if(slot_flags & ITEM_SLOT_SUITSTORE)
 		slot_strings += "хранилище костюма"
 	if(slot_flags & (ITEM_SLOT_POCKET_LEFT|ITEM_SLOT_POCKET_RIGHT))
 		slot_strings += "карман"
 	if(slot_flags & ITEM_SLOT_HANDS)
-		slot_strings += "рука"
+		slot_strings += "руки"
 	return slot_strings

@@ -49,15 +49,17 @@
 	armor = list(MELEE = 25, BULLET = 30, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 50, FIRE = 0, ACID = 0)
 
 /obj/item/mod/module/armor_booster/on_part_activation()
-	var/obj/item/clothing/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
-	if(head_cover)
-		head_cover.flash_protect = FLASH_PROTECTION_WELDER
+	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
+	var/obj/item/clothing/head = head_cover.part_item
+	if(head)
+		head.flash_protect = FLASH_PROTECTION_WELDER
 
 /obj/item/mod/module/armor_booster/on_part_deactivation(deleting = FALSE)
-	var/obj/item/clothing/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD)
-	if(!head_cover || deleting)
+	var/datum/mod_part/head_cover = mod.get_part_datum_from_slot(ITEM_SLOT_HEAD) || mod.get_part_datum_from_slot(ITEM_SLOT_MASK) || mod.get_part_datum_from_slot(ITEM_SLOT_EYES)
+	var/obj/item/clothing/head = head_cover.part_item
+	if(!head || deleting)
 		return
-	head_cover.flash_protect = initial(head_cover.flash_protect)
+	head.flash_protect = initial(head.flash_protect)
 
 /obj/item/mod/module/armor_booster/on_activation()
 	. = ..()

@@ -312,12 +312,12 @@
 /obj/item/mod/module/proc/on_install()
 	SHOULD_CALL_PARENT(TRUE)
 
-	if (mask_worn_overlay)
-		for (var/obj/item/part as anything in mod.get_parts(all = TRUE))
+	if(mask_worn_overlay)
+		for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
 			RegisterSignal(part, COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS, PROC_REF(add_module_overlay))
 		return
 
-	if (!length(required_slots))
+	if(!length(required_slots))
 		RegisterSignal(mod, COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS, PROC_REF(add_module_overlay))
 		return
 
@@ -328,12 +328,12 @@
 /obj/item/mod/module/proc/on_uninstall(deleting = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if (mask_worn_overlay)
-		for (var/obj/item/part as anything in mod.get_parts(all = TRUE))
+	if(mask_worn_overlay)
+		for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
 			UnregisterSignal(part, COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS)
 		return
 
-	if (!length(required_slots))
+	if(!length(required_slots))
 		UnregisterSignal(mod, COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS)
 		return
 
@@ -512,7 +512,7 @@
 	var/list/cashed_anomalies = accepted_anomalies.Copy()
 	accepted_anomalies.Cut()
 	for(var/anomaly in cashed_anomalies)
-		accepted_anomalies += typesof(anomaly)
+		accepted_anomalies += subtypesof(anomaly)
 	if(!prebuilt || !length(accepted_anomalies))
 		return
 	var/core_path = pick(accepted_anomalies)
@@ -533,7 +533,7 @@
 		var/list/core_list = list()
 		for(var/path in accepted_anomalies)
 			var/atom/core_dummy = new path
-			core_list += capitalize(core_dummy.declent_ru(NOMINATIVE))
+			core_list += core_dummy.declent_ru(NOMINATIVE)
 			qdel(core_dummy)
 		. +="Для работы модуля требуется [russian_list(core_list, and_text = " или ")]"
 		if(!core_removable)

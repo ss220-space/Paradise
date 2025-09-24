@@ -1787,6 +1787,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/atom/ext_loc = src
 	while(!isturf(ext_loc.loc))
 		ext_loc = ext_loc.loc
+		if(!ext_loc)
+			return
 
 	return ext_loc
 

@@ -142,8 +142,8 @@
 		var/datum/mod_part/part_datum = mod.get_part_datum(part)
 		part_datum.unsealed_layer = category[UNSEALED_LAYER]
 		//part_datum.sealed_layer = category[SEALED_LAYER]
-		//part_datum.unsealed_message = category[UNSEALED_MESSAGE] || "No unseal message set! Tell a coder!"
-		//part_datum.sealed_message = category[SEALED_MESSAGE] || "No seal message set! Tell a coder!"
+		part_datum.unsealed_message = category[UNSEALED_MESSAGE] || "No unseal message set! Tell a coder!"
+		part_datum.sealed_message = category[SEALED_MESSAGE] || "No seal message set! Tell a coder!"
 		part_datum.can_overslot = category[CAN_OVERSLOT] || FALSE
 		part.clothing_flags = category[UNSEALED_CLOTHING] || NONE
 		part.toggleable_clothing_flags = category[SEALED_CLOTHING] || NONE
