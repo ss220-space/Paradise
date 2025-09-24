@@ -400,3 +400,6 @@
 	user.whisper("Rqu-en qy'qby!")
 	source.used = TRUE
 	qdel(src)
+
+#undef SPELL_HAND
+#undef SPELL_HEART

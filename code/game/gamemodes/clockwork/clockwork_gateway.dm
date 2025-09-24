@@ -2,8 +2,6 @@
 	name = "Ark of the Clockwork Justicar"
 	desc = "A massive, hulking amalgamation of parts. It seems to be maintaining a very unstable bluespace anomaly."
 	max_integrity = 500
-	icon = 'icons/effects/96x96.dmi'
-	icon_state = "clockwork_gateway_default"
 	light_range = 2
 	light_power = 4
 	pixel_x = -32
@@ -18,12 +16,12 @@
 	var/purpose_fulfilled = FALSE
 	var/obj/effect/countdown/clockworkgate/countdown
 	var/list/obj/structure/fillers = list()
+	var/obj/structure/clockwork/functional/heart/heart
 
 /obj/structure/clockwork/functional/celestial_gateway/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
-	GLOB.poi_list |= src
-	visible_message(span_boldwarning("[src] shudders and roars to life, its parts beginning to whirr and screech!"))
+	visible_message(span_boldwarning("[heart] shudders and roars to life, its parts beginning to whirr and screech!"))
 	GLOB.ark_of_the_clockwork_justiciar = src
 	if(!countdown)
 		countdown = new(src)
@@ -39,23 +37,20 @@
 	if(countdown)
 		qdel(countdown)
 		countdown = null
-	GLOB.poi_list.Remove(src)
 	GLOB.ark_of_the_clockwork_justiciar = null
 	for(var/mob/M as anything in GLOB.mob_list)
 		M.stop_sound_channel(CHANNEL_JUSTICAR_ARK)
+	qdel(heart)
 	QDEL_LIST(fillers)
-	var/obj/structure/clockwork/functional/heart/heart = locate() in loc
-	if(heart)
-		qdel(heart)
 	. = ..()
 
 /obj/structure/clockwork/functional/celestial_gateway/deconstruct(disassembled)
 	if(!disassembled)
 		resistance_flags |= INDESTRUCTIBLE
 		countdown.stop()
-		visible_message(span_userdanger("[src] begins to pulse uncontrollably... you might want to run!"))
+		visible_message(span_userdanger("[heart] begins to pulse uncontrollably... you might want to run!"))
 		sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, sound = sound('sound/magic/clockwork/clockcult_gateway_disrupted.ogg'))
-		update_icon(UPDATE_ICON_STATE)
+		update_heart_state()
 		resistance_flags |= INDESTRUCTIBLE
 		addtimer(CALLBACK(src, PROC_REF(end_deconstruct)), 2.7 SECONDS)
 	qdel(src)
@@ -64,23 +59,21 @@
 	explosion(src, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 8, flash_range = 8)
 	sound_to_playing_players('sound/effects/explosionfar.ogg', volume = 50)
 
-
-/obj/structure/clockwork/functional/celestial_gateway/update_icon_state()
+/obj/structure/clockwork/functional/celestial_gateway/proc/update_heart_state()
 	if(!countdown || !countdown.started)
-		icon_state = "clockwork_gateway_disrupted"
 		return
 	switch(seconds_until_activation)
 		if(-INFINITY to GATEWAY_REEBE_FOUND)
-			icon_state = "clockwork_gateway_charging"
+			heart.summon_stage = 1
 		if(GATEWAY_REEBE_FOUND to GATEWAY_RATVAR_COMING)
-			icon_state = "clockwork_gateway_active"
+			heart.summon_stage = 2
 		if(GATEWAY_RATVAR_COMING to INFINITY)
-			icon_state = "clockwork_gateway_closing"
-
+			heart.summon_stage = 3
+	heart.update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/clockwork/functional/celestial_gateway/ex_act(severity, target)
 	var/damage = max((obj_integrity * 0.7) / severity, 100)
-	take_damage(damage, BRUTE, BOMB, 0)
+	heart.take_damage(damage, BRUTE, BOMB, 0)
 
 
 /obj/structure/clockwork/functional/celestial_gateway/attackby(obj/item/I, mob/user, params)
@@ -116,11 +109,6 @@
 		return
 	for(var/turf/simulated/wall/W in RANGE_TURFS(2, src))
 		W.dismantle_wall()
-	for(var/obj/O in orange(1, src))
-		if(!O.pulledby && !iseffect(O) && O.density && !istype(O, /obj/structure/heart_filler) && !istype(O, /obj/structure/clockwork/functional/heart))
-			if(!step_away(O, src, 2) || get_dist(O, src) < 2)
-				O.take_damage(50, BURN, BOMB)
-			O.update_icon()
 	seconds_until_activation += GATEWAY_SUMMON_RATE
 	switch(seconds_until_activation)
 		if(-INFINITY to GATEWAY_REEBE_FOUND)
@@ -128,17 +116,17 @@
 				sound_to_playing_players('sound/magic/clockwork/invoke_general.ogg', 30, FALSE)
 				sound_to_playing_players(volume = 20, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/magic/clockwork/clockcult_gateway_charging.ogg', TRUE))
 				first_sound_played = TRUE
-				update_icon(UPDATE_ICON_STATE)
+				update_heart_state()
 		if(GATEWAY_REEBE_FOUND to GATEWAY_RATVAR_COMING)
 			if(!second_sound_played)
 				sound_to_playing_players(volume = 30, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/magic/clockwork/clockcult_gateway_active.ogg', TRUE))
 				second_sound_played = TRUE
-				update_icon(UPDATE_ICON_STATE)
+				update_heart_state()
 		if(GATEWAY_RATVAR_COMING to GATEWAY_RATVAR_ARRIVAL)
 			if(!third_sound_played)
 				sound_to_playing_players(volume = 40, channel = CHANNEL_JUSTICAR_ARK, pressure_affected = FALSE, sound = sound('sound/magic/clockwork/clockcult_gateway_closing.ogg', TRUE))
 				third_sound_played = TRUE
-				update_icon(UPDATE_ICON_STATE)
+				update_heart_state()
 		if(GATEWAY_RATVAR_ARRIVAL to INFINITY)
 			if(!purpose_fulfilled)
 				countdown.stop()

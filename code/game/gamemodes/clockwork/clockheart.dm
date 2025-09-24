@@ -10,6 +10,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	pixel_y = -32
 	layer = ABOVE_ALL_MOB_LAYER
 	max_integrity = 3000
+	can_be_unanchored = FALSE
 	var/list/obj/structure/fillers = list()
 	var/pulse_range = 3
 	mouse_drag_pointer = MOUSE_DROP_POINTER
@@ -21,6 +22,62 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	var/curse_upper = TRUE
 	var/curse_lower = TRUE
 	var/list/spawned_parts = list()
+	var/summoning = FALSE
+	var/summon_stage = 0
+	var/obj/structure/clockwork/functional/celestial_gateway/gateway
+
+/obj/structure/clockwork/functional/heart/examine(mob/user)
+	. = ..()
+	. += ""
+	if(GLOB.total_curses > 0)
+		var/list/cursed_text = get_cursed_text()
+		var/list/adv_cursed_text = get_adv_cursed_text()
+		if(isclocker(user) || isobserver(user) || iscultist(user))
+			for(var/text in adv_cursed_text)
+				. += span_cultitalic(text)
+		else
+			for(var/text in cursed_text)
+				. += span_cultitalic(text)
+
+	if(!summoning)
+		return
+
+	if(isclocker(user) || isobserver(user))
+		switch(summon_stage)
+			if(1)
+				. += span_clockitalic("Сердце высвобождает энергию в блюспейс пространство.")
+			if(2)
+				. += span_clockitalic("Сердце открывает портал в тюрьму Ратвара.")
+			if(3)
+				. += span_clockitalic("Портал установлен, Ратвар вот-вот вернет себе сердце!")
+	else
+		switch(summon_stage)
+			if(1)
+				. += span_warning("От сердца исходит странная энергия.")
+			if(2)
+				. += span_warning("Вам кажется, что вы видите что-то в отражении на блестящем корпусе сердца.")
+			if(3)
+				. += span_boldwarning("Сердце вот-вот пройдет через блюспейс портал!")
+
+/obj/structure/clockwork/functional/heart/proc/get_cursed_text()
+	var/list/cursed_parts = list()
+	if(curse_dial)
+		cursed_parts += "Циферблат сердца покрыт странным барьером!"
+	if(curse_upper)
+		cursed_parts += "Верхняя часть сердца покрыта странным барьером!"
+	if(curse_lower)
+		cursed_parts += "Нижняя часть сердца покрыта странным барьером!"
+	return cursed_parts
+
+/obj/structure/clockwork/functional/heart/proc/get_adv_cursed_text()
+	var/list/cursed_parts = list()
+	if(curse_dial)
+		cursed_parts += "Циферблат сердца покрыт печатью кровавого бога!"
+	if(curse_upper)
+		cursed_parts += "Верхняя часть сердца покрыта печатью кровавого бога!"
+	if(curse_lower)
+		cursed_parts += "Нижняя часть сердца покрыта печатью кровавого бога!"
+	return cursed_parts
 
 /obj/structure/clockwork/functional/heart/get_ru_names()
 	return list(
@@ -70,6 +127,11 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	if(cur_enchant)
 		.+= "heart_overlay_[cur_enchant]"
 
+/obj/structure/clockwork/functional/heart/update_icon_state()
+	if(!summoning)
+		return
+	icon_state = "summoning_stage_[summon_stage]"
+
 /obj/structure/clockwork/functional/heart/proc/select_pulse()
 	switch(cur_enchant)
 		if(EMP_G_SPELL)
@@ -108,6 +170,8 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	for(var/part in spawned_parts)
 		LAZYREMOVE(GLOB.poi_list, part)
 		qdel(part)
+	if(gateway)
+		QDEL_NULL(gateway)
 	spawned_parts = null
 	GLOB.total_curses = 3
 	. = ..()
@@ -136,7 +200,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		adjust_part(I, user)
 		return ATTACK_CHAIN_PROCEED
 	if(istype(I, /obj/item/clockwork/shard))
-		summon()
+		summon(user)
 		return ATTACK_CHAIN_PROCEED
 	. = ..()
 
@@ -154,7 +218,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	give_blessing(user)
 	SSticker.mode.clocker_objs.update_seals()
 
-/obj/structure/clockwork/functional/heart/proc/summon(obj/item/wI, mob/user)
+/obj/structure/clockwork/functional/heart/proc/summon(mob/user)
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(GLOB.total_curses > 0)
 		balloon_alert(user, "сначала снимите печати")
@@ -172,10 +236,9 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		ANNOUNCE_CCPARANORMAL_RU,
 		'sound/AI/commandreport.ogg'
 	)
-	var/obj/structure/clockwork/functional/celestial_gateway/gateway = new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
-	for(var/obj/structure/heart_filler/filler as anything in fillers)
-		filler.update_parent(gateway)
-	gateway.fillers = fillers
+	gateway = new
+	gateway.heart = src
+	summoning = TRUE
 
 /obj/structure/clockwork/functional/heart/proc/throw_everything_back()
 	var/throw_dist
@@ -253,6 +316,9 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	alpha = 1
 	mouse_drag_pointer = MOUSE_DROP_POINTER
 	plane = ABOVE_GAME_PLANE
+
+/obj/structure/heart_filler/examine(mob/user)
+	return parent.examine(user)
 
 /obj/structure/heart_filler/get_ru_names()
 	return parent.get_ru_names()
@@ -341,8 +407,8 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 	desc = "Странная деталь из латуни."
 	icon ='icons/obj/clockwork.dmi'
-	icon_state = "ratvarpart2"
-	item_state = "ratvarpart2"
+	icon_state = "ratvarpart3"
+	item_state = "ratvarpart3"
 	resistance_flags = INDESTRUCTIBLE
 	mouse_drag_pointer = MOUSE_DRAG_POINTER
 	w_class = WEIGHT_CLASS_BULKY
@@ -396,8 +462,8 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
 
 /obj/item/part_upper/lower
-	icon_state = "ratvarpart3"
-	item_state = "ratvarpart3"
+	icon_state = "ratvarpart2"
+	item_state = "ratvarpart2"
 
 /obj/item/part_upper/lower/destroy_curse(mob/living/user)
 	if(!GLOB.heart?.curse_lower)
