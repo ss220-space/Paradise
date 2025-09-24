@@ -69,7 +69,7 @@
 	var/hudMode = null
 
 	// DATA_HUD_MEDICAL_ADVANCED ->  DATA_HUD_SECURITY_BASIC -> DATA_HUD_SECURITY_ADVANCED
-	switch(HUDType) 
+	switch(HUDType)
 		if(DATA_HUD_MEDICAL_ADVANCED)
 			HUDType = DATA_HUD_SECURITY_BASIC
 			examine_extensions = EXAMINE_HUD_SKILLS
@@ -385,7 +385,7 @@ SECURITY
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_DARKNESSVIEW | VISOR_FULL_HUD
 	actions_types = list(/datum/action/item_action/toggle)
-	toggleable_flags_cover = GLASSESCOVERSEYES
+	visor_flags_cover = GLASSESCOVERSEYES
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',

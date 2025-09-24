@@ -26,9 +26,9 @@
 	can_toggle = TRUE
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60)
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
-	toggleable_flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
+	visor_flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	actions_types = list(/datum/action/item_action/toggle)
-	toggleable_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	visor_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	resistance_flags = FIRE_PROOF
 	/// Name icon_state, which is used for painting
 	var/paint = null

@@ -55,8 +55,8 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
-	toggleable_flags_cover = MASKCOVERSEYES
-	toggleable_flags_inv = HIDEGLASSES
+	visor_flags_cover = MASKCOVERSEYES
+	visor_flags_inv = HIDEGLASSES
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/mask/gas/welding/get_ru_names()

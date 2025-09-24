@@ -443,9 +443,9 @@
 		sallet.put_on_delay = helm.put_on_delay
 		sallet.resistance_flags = helm.resistance_flags
 		sallet.flags_cover = helm.flags_cover
-		sallet.toggleable_clothing_flags = helm.toggleable_clothing_flags
-		sallet.toggleable_flags_inv = helm.toggleable_flags_inv
-		sallet.toggleable_flags_inv_transparent = helm.toggleable_flags_inv_transparent
+		sallet.visor_flags= helm.visor_flags
+		sallet.visor_flags_inv = helm.visor_flags_inv
+		sallet.visor_flags_inv_transparent = helm.visor_flags_inv_transparent
 		sallet.flags_inv |= HIDEHAIR
 
 		sallet.add_fingerprint(H)

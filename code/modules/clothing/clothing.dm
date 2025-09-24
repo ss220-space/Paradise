@@ -30,13 +30,13 @@
 
 	/// Special flags applied to clothing items only
 	var/clothing_flags = NONE
-	var/toggleable_clothing_flags = NONE
-	/// Same as toggleable_clothing_flags, but for flags_inv
-	var/toggleable_flags_inv = NONE
-	/// Same as toggleable_flags_inv, but for flags_inv_transparent
-	var/toggleable_flags_inv_transparent = NONE
-	/// Same as toggleable_flags_inv_transparent, but for flags_cover
-	var/toggleable_flags_cover = NONE
+	var/visor_flags = NONE
+	/// Same as visor_flags, but for flags_inv
+	var/visor_flags_inv = NONE
+	/// Same as visor_flags_inv, but for flags_inv_transparent
+	var/visor_flags_inv_transparent = NONE
+	/// Same as visor_flags_inv_transparent, but for flags_cover
+	var/visor_flags_cover = NONE
 	/// What to toggle when toggled with weldingvisortoggle()
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT|VISOR_TINT|VISOR_VISIONFLAGS|VISOR_DARKNESSVIEW|VISOR_INVISVIEW|VISOR_FULL_HUD
 
@@ -136,15 +136,15 @@
 
 	. = TRUE
 	up = !up
-	clothing_flags ^= toggleable_clothing_flags
-	flags_inv ^= toggleable_flags_inv
-	flags_inv_transparent ^= toggleable_flags_inv_transparent
-	flags_cover ^= toggleable_flags_cover
+	clothing_flags ^= visor_flags
+	flags_inv ^= visor_flags_inv
+	flags_inv_transparent ^= visor_flags_inv_transparent
+	flags_cover ^= visor_flags_cover
 	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
 		tint = up ? tint_up : initial(tint)
-	update_icon(UPDATE_ICON_STATE)
+	update_appearance()
 
 
 // Aurora forensics port.

@@ -254,16 +254,16 @@
 	part_datum.sealed = is_sealed
 	if(part_datum.sealed)
 		part.icon_state = "[skin]-[part.base_icon_state]-sealed"
-		part.clothing_flags |= part.toggleable_clothing_flags
-		part.flags_inv |= part.toggleable_flags_inv
-		part.flags_cover |= part.toggleable_flags_cover
+		part.clothing_flags |= part.visor_flags
+		part.flags_inv |= part.visor_flags_inv
+		part.flags_cover |= part.visor_flags_cover
 		part.heat_protection = initial(part.heat_protection)
 		part.cold_protection = initial(part.cold_protection)
 	else
 		part.icon_state = "[skin]-[part.base_icon_state]"
-		part.flags_cover &= ~part.toggleable_flags_cover
-		part.flags_inv &= ~part.toggleable_flags_inv
-		part.clothing_flags &= ~part.toggleable_clothing_flags
+		part.flags_cover &= ~part.visor_flags_cover
+		part.flags_inv &= ~part.visor_flags_inv
+		part.clothing_flags &= ~part.visor_flags
 		part.heat_protection = NONE
 		part.cold_protection = NONE
 	update_speed()

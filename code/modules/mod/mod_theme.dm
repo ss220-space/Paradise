@@ -146,15 +146,15 @@
 		part_datum.sealed_message = category[SEALED_MESSAGE] || "No seal message set! Tell a coder!"
 		part_datum.can_overslot = category[CAN_OVERSLOT] || FALSE
 		part.clothing_flags = category[UNSEALED_CLOTHING] || NONE
-		part.toggleable_clothing_flags = category[SEALED_CLOTHING] || NONE
+		part.visor_flags = category[SEALED_CLOTHING] || NONE
 		part.flags_inv = category[UNSEALED_INVISIBILITY] || NONE
-		part.toggleable_flags_inv = category[SEALED_INVISIBILITY] || NONE
+		part.visor_flags_inv = category[SEALED_INVISIBILITY] || NONE
 		part.flags_cover = category[UNSEALED_COVER] || NONE
-		part.toggleable_flags_cover = category[SEALED_COVER] || NONE
+		part.visor_flags_cover = category[SEALED_COVER] || NONE
 		if(mod.get_part_datum(part).sealed)
-			part.clothing_flags |= part.toggleable_clothing_flags
-			part.flags_inv |= part.toggleable_flags_inv
-			part.flags_cover |= part.toggleable_flags_cover
+			part.clothing_flags |= part.visor_flags
+			part.flags_inv |= part.visor_flags_inv
+			part.flags_cover |= part.visor_flags_cover
 		// 	part.alternate_worn_layer = part_datum.sealed_layer
 		// else
 		// 	part.alternate_worn_layer = part_datum.unsealed_layer
