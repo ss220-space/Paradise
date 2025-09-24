@@ -50,11 +50,13 @@
  */
 /datum/spell_cooldown/charges/change_cooldowns(recharge_reduction, delay_reduction, new_max_charges)
 	if(recharge_reduction)
-		recharge_duration = clamp(recharge_duration - recharge_reduction, 0, initial(recharge_duration))
+		recharge_duration = round(clamp(recharge_duration - (spell_parent.base_cooldown * recharge_reduction), 0, spell_parent.base_cooldown), 0.5)
 	if(delay_reduction)
-		charge_duration = clamp(charge_duration - delay_reduction, 0, initial(charge_duration))
+		charge_duration = clamp(charge_duration - (charge_duration * delay_reduction), 0, initial(charge_duration))
 	if(new_max_charges)
+		handle_max_charges_changed(max_charges, new_max_charges)
 		max_charges = max(new_max_charges, 1)
+	spell_parent.action.UpdateButtonIcon()
 
 
 /datum/spell_cooldown/charges/start_recharge(recharge_override = 0)
@@ -88,4 +90,21 @@
 	if(charge_time > world.time)
 		return min(1, (charge_duration - (charge_time - world.time)) / charge_duration)
 	return min(1, (recharge_duration - (recharge_time - world.time)) / recharge_duration) //parent proc without the on cooldown check
+
+
+/datum/spell_cooldown/charges/proc/handle_max_charges_changed(old_max_charges, new_max_charges)
+	// We cut current charges so they don't exceed max charges: (3/3 -> 3/2) will be (3/3 -> 2/2)
+	if(current_charges > new_max_charges)
+		current_charges = new_max_charges
+
+	// No charges were on cooldown, so we simply add new charges
+	if(!is_on_cooldown())
+		if(old_max_charges < new_max_charges)
+			current_charges = new_max_charges
+
+	if(is_on_cooldown() && current_charges)
+		// Charge was on cooldown and new max is lower than old. This is bad: (3/4 + recharging -> 2/2 + recharging -> 3/2)
+		if(old_max_charges > new_max_charges)
+			current_charges--
+			START_PROCESSING(SSfastprocess, src)
 
