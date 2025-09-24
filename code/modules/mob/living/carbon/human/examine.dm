@@ -121,10 +121,14 @@
 
 	//suit/armour
 	if(wear_suit && !(wear_suit.item_flags & ABSTRACT))
+		var/wear_suit_text = "[bicon(wear_suit)] [wear_suit.declent_ru(ACCUSATIVE)]"
+		if(wear_suit.armor_plate && wear_suit.can_remove_armor_plate)
+			// exists attachable armor plate
+			wear_suit_text += " c [wear_suit.armor_plate.declent_ru(INSTRUMENTAL)]"
 		if(wear_suit.blood_DNA)
-			msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] нос[pluralize_ru(gender, "ит", "ят")] [bicon(wear_suit)] [wear_suit.declent_ru(ACCUSATIVE)] [wear_suit.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+			msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] нос[pluralize_ru(gender, "ит", "ят")] [wear_suit_text] [wear_suit.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
 		else
-			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] нос[pluralize_ru(gender, "ит", "ят")] [bicon(wear_suit)] [wear_suit.declent_ru(ACCUSATIVE)].\n"
+			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] нос[pluralize_ru(gender, "ит", "ят")] [wear_suit_text].\n"
 
 		//suit/armour storage
 		if(s_store && !skipsuitstorage)
