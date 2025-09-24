@@ -80,6 +80,7 @@
 /obj/item/armor_plate/proc/subscribe_equip_signal(obj/item/clothing/suit)
 	RegisterSignal(suit, COMSIG_CLOTHING_EQUIP, PROC_REF(update_break_icon))
 	RegisterSignal(suit, COMSIG_CLOTHING_UNEQUIP, PROC_REF(update_break_icon))
+	RegisterSignal(suit, COMSIG_ATOM_ENTERED, PROC_REF(on_atom_entered))
 
 
 /// Try remove armor plate from suit
@@ -185,7 +186,8 @@
 
 	if(suit.status_overlays)
 		suit.status_overlays.Cut()
-	if(!(user.get_slot_by_item(suit) & suit.slot_flags))
+	var/suit_loc = suit.loc
+	if(!user || isturf(suit_loc) || !(user.get_slot_by_item(suit) & suit.slot_flags))
 		suit.update_icon(UPDATE_OVERLAYS)
 		return
 
@@ -203,6 +205,15 @@
 	suit.status_overlays += mutable_appearance(icon, "status_overlay_[plate_state]")
 
 	suit.update_icon(UPDATE_OVERLAYS)
+
+
+/obj/item/armor_plate/proc/on_atom_entered(atom/source, atom/movable/entered)
+	SIGNAL_HANDLER
+
+	if(ishuman(entered))
+		update_break_icon(source, attached_suit, entered)
+	else
+		update_break_icon(source, attached_suit, null)
 
 
 // MARK: Balance
