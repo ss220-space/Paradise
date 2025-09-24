@@ -411,12 +411,12 @@ const SuitStatusSection = (props) => {
           />
         </LabeledList.Item>
         {!!open && (
-          <LabeledList.Item label="Cover">
-            <Box color="red">Открыт</Box>
+          <LabeledList.Item label="Крышка">
+            <Box color="red">Открыта</Box>
           </LabeledList.Item>
         )}
         {!!seconds_electrified && (
-          <LabeledList.Item label="Circuits">
+          <LabeledList.Item label="Платы">
             <Box color="red">Короткое замыкание</Box>
           </LabeledList.Item>
         )}
