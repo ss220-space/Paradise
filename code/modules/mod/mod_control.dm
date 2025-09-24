@@ -267,9 +267,10 @@
 		for(var/obj/item/mod/module/module as anything in modules)
 			if(!module.removable)
 				continue
-			removable_modules += module
-		var/obj/item/mod/module/module_to_remove = tgui_input_list(user, "Какой модуль вы хотите вытащить?", "Удаление модулей", removable_modules)
-		if(!module_to_remove?.mod)
+			removable_modules[capitalize(module.declent_ru(NOMINATIVE))] = module
+		var/choosen_module = tgui_input_list(user, "Какой модуль вы хотите вытащить?", "Удаление модулей", removable_modules)
+		var/obj/item/mod/module/module_to_remove = removable_modules?[choosen_module]
+		if(!module_to_remove || !module_to_remove.mod)
 			return FALSE
 		uninstall(module_to_remove)
 		module_to_remove.forceMove(drop_location())
