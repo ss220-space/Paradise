@@ -13,7 +13,6 @@
 	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
 	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
-	actions_types = list(/datum/action/item_action/belt_fast_equip)
 
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
@@ -200,6 +199,7 @@
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
 	storage_slots = 8
+	max_combined_w_class = 20 // set of tools + RCD/RPD
 	storable = TRUE
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
