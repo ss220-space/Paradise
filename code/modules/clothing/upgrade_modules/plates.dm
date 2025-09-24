@@ -80,6 +80,7 @@
 /obj/item/armor_plate/proc/subscribe_equip_signal(obj/item/clothing/suit)
 	RegisterSignal(suit, COMSIG_CLOTHING_EQUIP, PROC_REF(update_break_icon))
 	RegisterSignal(suit, COMSIG_CLOTHING_UNEQUIP, PROC_REF(update_break_icon))
+	RegisterSignal(suit, COMSIG_ITEM_DROPPED, PROC_REF(on_drop_clothing))
 
 
 /// Try remove armor plate from suit
@@ -99,7 +100,7 @@
 	suit.armor_plate = null
 	suit.slowdown -= equipped_slowdown
 	attached_suit = null
-	UnregisterSignal(suit, list(COMSIG_CLOTHING_EQUIP, COMSIG_CLOTHING_UNEQUIP))
+	UnregisterSignal(suit, list(COMSIG_CLOTHING_EQUIP, COMSIG_CLOTHING_UNEQUIP, COMSIG_ITEM_DROPPED))
 	if(obj_integrity <= 0)
 		user.balloon_alert(user, "плита рассыпается в руках!")
 		qdel(src)
@@ -204,6 +205,11 @@
 
 	suit.update_icon(UPDATE_OVERLAYS)
 
+/obj/item/armor_plate/proc/on_drop_clothing(datum/source, mob/user)
+	SIGNAL_HANDLER
+
+	update_break_icon(source, attached_suit, user)
+
 
 // MARK: Balance
 /// Datum for armor penetration table
@@ -223,6 +229,10 @@
 
 /// Ballistic armor penetration table
 GLOBAL_LIST_INIT(ballistic_armor_penetration_table, list(
+	new /datum/armor_penetration_balance(penetration_delta=7, armor_damage=0.25, mob_damage=0.00),
+	new /datum/armor_penetration_balance(penetration_delta=6, armor_damage=0.25, mob_damage=0.00),
+	new /datum/armor_penetration_balance(penetration_delta=5, armor_damage=0.25, mob_damage=0.00),
+	new /datum/armor_penetration_balance(penetration_delta=4, armor_damage=0.25, mob_damage=0.00),
 	new /datum/armor_penetration_balance(penetration_delta=3, armor_damage=0.25, mob_damage=0.00), //armor > penetration
 	new /datum/armor_penetration_balance(penetration_delta=2, armor_damage=0.50, mob_damage=0.00),
 	new /datum/armor_penetration_balance(penetration_delta=1, armor_damage=0.75, mob_damage=0.05),
@@ -230,18 +240,30 @@ GLOBAL_LIST_INIT(ballistic_armor_penetration_table, list(
 	new /datum/armor_penetration_balance(penetration_delta=-1, armor_damage=1.25, mob_damage=0.50),
 	new /datum/armor_penetration_balance(penetration_delta=-2, armor_damage=1.50, mob_damage=0.66),
 	new /datum/armor_penetration_balance(penetration_delta=-3, armor_damage=2.00, mob_damage=0.80),
-	new /datum/armor_penetration_balance(penetration_delta=-4, armor_damage=2.00, mob_damage=1.00), //armor < penetration
+	new /datum/armor_penetration_balance(penetration_delta=-4, armor_damage=2.00, mob_damage=1.00),
+	new /datum/armor_penetration_balance(penetration_delta=-5, armor_damage=2.00, mob_damage=1.00),
+	new /datum/armor_penetration_balance(penetration_delta=-6, armor_damage=2.00, mob_damage=1.00),
+	new /datum/armor_penetration_balance(penetration_delta=-7, armor_damage=2.00, mob_damage=1.00), //armor < penetration
 ))
 
 /// Laser armor penetration table
 GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
+	new /datum/armor_penetration_balance(penetration_delta=7, armor_damage=0.25, mob_damage=0.00),
+	new /datum/armor_penetration_balance(penetration_delta=6, armor_damage=0.25, mob_damage=0.00),
+	new /datum/armor_penetration_balance(penetration_delta=5, armor_damage=0.25, mob_damage=0.00),
+	new /datum/armor_penetration_balance(penetration_delta=5, armor_damage=0.25, mob_damage=0.00),
+	new /datum/armor_penetration_balance(penetration_delta=4, armor_damage=0.25, mob_damage=0.00),
 	new /datum/armor_penetration_balance(penetration_delta=3, armor_damage=0.25, mob_damage=0.00), //armor > penetration
 	new /datum/armor_penetration_balance(penetration_delta=2, armor_damage=0.50, mob_damage=0.00),
 	new /datum/armor_penetration_balance(penetration_delta=1, armor_damage=0.75, mob_damage=0.05),
 	new /datum/armor_penetration_balance(penetration_delta=0, armor_damage=1.00, mob_damage=0.25), // armor = penetration
 	new /datum/armor_penetration_balance(penetration_delta=-1, armor_damage=1.25, mob_damage=0.50),
 	new /datum/armor_penetration_balance(penetration_delta=-2, armor_damage=1.50, mob_damage=0.75),
-	new /datum/armor_penetration_balance(penetration_delta=-3, armor_damage=2.00, mob_damage=1.00), //armor < penetration
+	new /datum/armor_penetration_balance(penetration_delta=-3, armor_damage=2.00, mob_damage=1.00),
+	new /datum/armor_penetration_balance(penetration_delta=-4, armor_damage=2.00, mob_damage=1.00),
+	new /datum/armor_penetration_balance(penetration_delta=-5, armor_damage=2.00, mob_damage=1.00),
+	new /datum/armor_penetration_balance(penetration_delta=-6, armor_damage=2.00, mob_damage=1.00),
+	new /datum/armor_penetration_balance(penetration_delta=-7, armor_damage=2.00, mob_damage=1.00), //armor < penetration
 ))
 
 /proc/calculate_armor_plate_penetration(obj/item/armor_plate/plate, penetration_level, damagetype = BULLET)
