@@ -50,7 +50,7 @@
 	affected_mob.Stuttering(BTS_INITIAL_EFFECTS_DURATION)
 
 /datum/disease/brain_transplant_syndrome/proc/light_effect()
-	if(!prob(BTS_LIGHT_EFFECT_PROBE))
+	if(!prob(BTS_LIGHT_EFFECT_PROBE) || HAS_TRAIT(affected_mob, TRAIT_NO_BREATH))
 		return
 	affected_mob.emote("gasp")
 	to_chat(affected_mob, span_userdanger("Вы чувствуете, что вам не хватает воздуха!"))
@@ -62,7 +62,7 @@
 		return
 	if(affected_mob.reagents?.has_reagent(required_reagent))
 		to_chat(affected_mob, span_userdanger("Вы чувствуете головокружение!"))
-		affected_mob.Confused(3 SECONDS)
+		affected_mob.Confused(5 SECONDS)
 		return
 	to_chat(affected_mob, span_userdanger("Вы чувствуете сильное головокружение!"))
 	affected_mob.Knockdown(3 SECONDS)
@@ -74,6 +74,7 @@
 	if(affected_mob.reagents?.has_reagent(required_reagent))
 		to_chat(affected_mob, span_userdanger("Вы чувствуете покалывание!"))
 		affected_mob.Confused(5 SECONDS)
+		affected_mob.Jitter(5 SECONDS)
 		return
 	necrotize_organ_effect()
 
