@@ -212,8 +212,8 @@
 		return B.cell
 
 	if(istype(I, /obj/item/stock_parts/cell/specter))
-		var/obj/item/stock_parts/cell/specter/C = I
-		return C
+		var/obj/item/stock_parts/cell/specter/Scell = I
+		return Scell
 
 	return null
 
