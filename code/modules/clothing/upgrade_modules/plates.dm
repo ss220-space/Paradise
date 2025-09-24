@@ -80,7 +80,6 @@
 /obj/item/armor_plate/proc/subscribe_equip_signal(obj/item/clothing/suit)
 	RegisterSignal(suit, COMSIG_CLOTHING_EQUIP, PROC_REF(update_break_icon))
 	RegisterSignal(suit, COMSIG_CLOTHING_UNEQUIP, PROC_REF(update_break_icon))
-	RegisterSignal(suit, COMSIG_ITEM_DROPPED, PROC_REF(on_drop_clothing))
 
 
 /// Try remove armor plate from suit
@@ -100,7 +99,7 @@
 	suit.armor_plate = null
 	suit.slowdown -= equipped_slowdown
 	attached_suit = null
-	UnregisterSignal(suit, list(COMSIG_CLOTHING_EQUIP, COMSIG_CLOTHING_UNEQUIP, COMSIG_ITEM_DROPPED))
+	UnregisterSignal(suit, list(COMSIG_CLOTHING_EQUIP, COMSIG_CLOTHING_UNEQUIP))
 	if(obj_integrity <= 0)
 		user.balloon_alert(user, "плита рассыпается в руках!")
 		qdel(src)
@@ -204,11 +203,6 @@
 	suit.status_overlays += mutable_appearance(icon, "status_overlay_[plate_state]")
 
 	suit.update_icon(UPDATE_OVERLAYS)
-
-/obj/item/armor_plate/proc/on_drop_clothing(datum/source, mob/user)
-	SIGNAL_HANDLER
-
-	update_break_icon(source, attached_suit, user)
 
 
 // MARK: Balance

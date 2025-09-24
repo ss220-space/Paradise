@@ -840,7 +840,7 @@
 		)
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
 	can_remove_armor_plate = FALSE
-	armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/handmade_steel
 
 /obj/item/clothing/suit/armor/bone/get_ru_names()
 	return list(

@@ -336,7 +336,7 @@
 			SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 			SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
-	armor_plate = /obj/item/armor_plate/kevlar/helmet
+	armor_plate = /obj/item/armor_plate/handmade_steel/helmet
 
 /obj/item/clothing/head/helmet/skull/get_ru_names()
 	return list(
