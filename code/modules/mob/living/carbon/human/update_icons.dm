@@ -601,10 +601,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_ID) + 1]
 		inv.update_icon()
 	var/mutable_appearance/id_overlay = overlays_standing[ID_LAYER]
-	if(!wear_id || !w_uniform?.displays_id)
+	if(!wear_id)
 		return
 
 	update_item_on_hud(wear_id, ui_id)
+	if(!w_uniform?.displays_id)
+		return
+
 	id_overlay = wear_id.build_worn_icon(default_layer = ID_LAYER, default_icon_file = wear_id.onmob_sheets[ITEM_SLOT_ID_STRING], override_state = "id")
 	if(!id_overlay)
 		return
