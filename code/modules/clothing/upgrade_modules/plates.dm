@@ -117,6 +117,7 @@
 		. = span_notice("Установлен[genderize_ru(gender, "", "а", "о", "ы")] <b>[declent_ru(NOMINATIVE)]</b>. ")
 	. += span_notice("\n– [get_armor_text()]")
 	. += span_notice("\n– [get_integrity_text()]")
+	. += span_notice("\nПрочность: [obj_integrity]/[max_integrity] ([round(get_armor_efficient() * 100, 1)]% эффективности)")
 
 /obj/item/armor_plate/proc/get_armor_text()
 	. = ""
