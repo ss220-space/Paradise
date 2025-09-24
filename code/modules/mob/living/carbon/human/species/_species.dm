@@ -1086,91 +1086,93 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return null
 	return has_organ[organ_slot]
 
-/datum/species/proc/update_sight(mob/living/carbon/human/H)
-	H.set_sight(initial(H.sight))
+/datum/species/proc/update_sight(mob/living/carbon/human/human)
+	human.set_sight(initial(human.sight))
 
-	var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
+	var/obj/item/organ/internal/eyes/eyes = human.get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
-		H.add_sight(eyes.vision_flags)
-		H.nightvision = eyes.see_in_dark
-		H.set_invis_see(eyes.see_invisible)
-		H.lighting_alpha = eyes.lighting_alpha
+		human.add_sight(eyes.vision_flags)
+		human.nightvision = eyes.see_in_dark
+		human.set_invis_see(eyes.see_invisible)
+		human.lighting_alpha = eyes.lighting_alpha
 	else
-		H.nightvision = initial(H.nightvision)
-		H.set_invis_see(initial(H.see_invisible))
-		H.lighting_alpha = initial(H.lighting_alpha)
+		human.nightvision = initial(human.nightvision)
+		human.set_invis_see(initial(human.see_invisible))
+		human.lighting_alpha = initial(human.lighting_alpha)
 
-	if(H.client && H.client.eye != H)
-		var/atom/A = H.client.eye
-		if(A && A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
+	if(human.client && human.client.eye != human)
+		var/atom/atom = human.client.eye
+		if(atom && atom.update_remote_sight(human)) //returns 1 if we override all other sight updates.
 			return
 
-	var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/vampire/vamp = human.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)
+		if(human.see_invisible < SEE_INVISIBLE_VAMPIRE_AURA)
+			human.set_invis_see(SEE_INVISIBLE_VAMPIRE_AURA)
 		if(vamp.get_ability(/datum/vampire_passive/xray))
-			H.add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
-			H.nightvision += 8
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+			human.add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+			human.nightvision += 8
+			human.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/full))
-			H.add_sight(SEE_MOBS)
-			H.nightvision += 8
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+			human.add_sight(SEE_MOBS)
+			human.nightvision += 8
+			human.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(vamp.get_ability(/datum/vampire_passive/vision))
-			H.add_sight(SEE_MOBS)
-			H.nightvision += 1 // base of 2, 2+1 is 3
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+			human.add_sight(SEE_MOBS)
+			human.nightvision += 1 // base of 2, 2+1 is 3
+			human.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 
-	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in H.internal_organs)
-		H.add_sight(cyber_eyes.vision_flags)
+	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in human.internal_organs)
+		human.add_sight(cyber_eyes.vision_flags)
 		if(cyber_eyes.see_in_dark)
-			H.nightvision = max(H.nightvision, cyber_eyes.see_in_dark)
+			human.nightvision = max(human.nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
-			H.set_invis_see(min(H.see_invisible, cyber_eyes.see_invisible))
+			human.set_invis_see(min(human.see_invisible, cyber_eyes.see_invisible))
 		if(cyber_eyes.lighting_alpha)
-			H.lighting_alpha = min(H.lighting_alpha, cyber_eyes.lighting_alpha)
+			human.lighting_alpha = min(human.lighting_alpha, cyber_eyes.lighting_alpha)
 
 	// my glasses, I can't see without my glasses
-	if(H.glasses)
-		var/obj/item/clothing/glasses/G = H.glasses
-		H.add_sight(G.vision_flags)
-		H.nightvision = max(G.see_in_dark, H.nightvision)
+	if(human.glasses)
+		var/obj/item/clothing/glasses/glasses = human.glasses
+		human.add_sight(glasses.vision_flags)
+		human.nightvision = max(glasses.see_in_dark, human.nightvision)
 
-		if(G.invis_override)
-			H.set_invis_see(G.invis_override)
+		if(glasses.invis_override)
+			human.set_invis_see(glasses.invis_override)
 		else
-			H.set_invis_see(min(G.invis_view, H.see_invisible))
+			human.set_invis_see(min(glasses.invis_view, human.see_invisible))
 
-		if(!isnull(G.lighting_alpha))
-			H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
+		if(!isnull(glasses.lighting_alpha))
+			human.lighting_alpha = min(glasses.lighting_alpha, human.lighting_alpha)
 
 	// better living through hat trading
-	if(H.head)
-		if(istype(H.head, /obj/item/clothing/head))
-			var/obj/item/clothing/head/hat = H.head
-			H.add_sight(hat.vision_flags)
-			H.nightvision = max(hat.see_in_dark, H.nightvision)
+	if(human.head)
+		if(istype(human.head, /obj/item/clothing/head))
+			var/obj/item/clothing/head/hat = human.head
+			human.add_sight(hat.vision_flags)
+			human.nightvision = max(hat.see_in_dark, human.nightvision)
 
 			if(!isnull(hat.lighting_alpha))
-				H.lighting_alpha = min(hat.lighting_alpha, H.lighting_alpha)
+				human.lighting_alpha = min(hat.lighting_alpha, human.lighting_alpha)
 
-	if(H.vision_type)
-		H.add_sight(H.vision_type.sight_flags)
-		H.nightvision = max(H.nightvision, H.vision_type.see_in_dark)
+	if(human.vision_type)
+		human.add_sight(human.vision_type.sight_flags)
+		human.nightvision = max(human.nightvision, human.vision_type.see_in_dark)
 
-		if(!isnull(H.vision_type.lighting_alpha))
-			H.lighting_alpha = min(H.vision_type.lighting_alpha, H.lighting_alpha)
+		if(!isnull(human.vision_type.lighting_alpha))
+			human.lighting_alpha = min(human.vision_type.lighting_alpha, human.lighting_alpha)
 
-		if(H.vision_type.light_sensitive)
-			H.weakeyes = TRUE
+		if(human.vision_type.light_sensitive)
+			human.weakeyes = TRUE
 
-	if(HAS_TRAIT(H, TRAIT_XRAY))
-		H.add_sight((SEE_TURFS|SEE_MOBS|SEE_OBJS))
+	if(HAS_TRAIT(human, TRAIT_XRAY))
+		human.add_sight((SEE_TURFS|SEE_MOBS|SEE_OBJS))
 
-	if(H.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-		H.set_invis_see(SEE_INVISIBLE_OBSERVER)
+	if(human.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		human.set_invis_see(SEE_INVISIBLE_OBSERVER)
 
-	H.sync_lighting_plane_alpha()
+	human.sync_lighting_plane_alpha()
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
 	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
