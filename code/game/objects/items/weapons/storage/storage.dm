@@ -1,7 +1,7 @@
 #define STORAGE_CAP_WIDTH 2
 #define STORED_CAP_WIDTH 4
 #define BASE_STORAGE_WIDTH 220
-#define MAX_STORAGE_WIDTH 280
+#define MAX_LINE_WIDTH 292
 
 // To clarify:
 // For use_to_pickup and allow_quick_gather functionality,
@@ -355,19 +355,18 @@
 
 	var/storage_cap_width = STORAGE_CAP_WIDTH // Length of sprite for start and end of the box representing total storage space
 	var/stored_cap_width = STORED_CAP_WIDTH // Length of sprite for start and end of the box representing the stored item
-	var/storage_width = BASE_STORAGE_WIDTH // Length of sprite for the box representing total storage space
 
 	var/total_width = 2 * storage_cap_width
+	var/line_width
+	var/lines_num = 1
 	for(var/obj/item/O in contents)
 		total_width += O.storage_display_width
+		if(total_width > MAX_LINE_WIDTH)
+			lines_num++
+			line_width = MAX_LINE_WIDTH
+			total_width = 2 * storage_cap_width + O.storage_display_width
 
-	storage_width = max(total_width, storage_width)
-
-	var/modify_placement = 0
-
-	if(storage_width > MAX_STORAGE_WIDTH)
-		modify_placement = floor((MAX_STORAGE_WIDTH - storage_width) / contents.len)
-		storage_width = MAX_STORAGE_WIDTH
+	line_width = line_width || max(total_width, BASE_STORAGE_WIDTH)
 
 	if(QDELETED(storage_continue))
 		storage_continue = new /atom/movable/screen/storage()
@@ -377,21 +376,34 @@
 		storage_continue.screen_loc = "7,7 to 10,8"
 
 	var/matrix/M = matrix()
-	M.Scale((storage_width - storage_cap_width * 2 + 3) / 32, 1)
+	M.Scale((line_width - storage_cap_width * 2 + 3) / 32, lines_num)
 	storage_continue.transform = M
-	storage_continue.screen_loc = "4:[floor(storage_cap_width + (storage_width - storage_cap_width * 2) / 2 + 2)],2:16"
-	storage_end.screen_loc = "4:[19 + storage_width - storage_cap_width],2:16"
+	M = matrix()
+	M.Scale(1, lines_num)
+	storage_start.transform = M
+	storage_end.transform = M
+	var/base_storage_offset = 16 * lines_num
+	storage_start.screen_loc = "4:16,2:[base_storage_offset]"
+	storage_continue.screen_loc = "4:[floor(storage_cap_width + (line_width - storage_cap_width * 2) / 2 + 2)],2:[base_storage_offset]"
+	storage_end.screen_loc = "4:[19 + line_width - storage_cap_width],2:[base_storage_offset]"
 
 	var/startpoint
 	var/endpoint = 1
+	var/current_level = 0
 
 	for(var/obj/item/O in contents)
 		startpoint = endpoint + 1
-		endpoint += O.storage_display_width + modify_placement
-		var/isb_index = "[startpoint], [endpoint], [modify_placement], [storage_width]"
+		endpoint += O.storage_display_width
+		if(endpoint > line_width)
+			current_level++
+			startpoint = 2
+			endpoint = 1 + O.storage_display_width
+		var/isb_index = "[startpoint], [endpoint], [lines_num], [current_level]"
 
 		click_border_start.Add(startpoint)
 		click_border_end.Add(endpoint)
+
+		var/static/list/offset = list(list(0), list(-8, 8), list(-1 * (32 / 3), 0, (32 / 3)), list(-16, -8, 8, 16))
 
 		var/datum/item_storage_box/ISB = GLOB.item_storage_box_cache[isb_index]
 		if(QDELETED(ISB))
@@ -399,10 +411,13 @@
 			var/matrix/M_start = matrix(ISB.start.transform)
 			var/matrix/M_continue = matrix(ISB.continued.transform)
 			var/matrix/M_end = matrix(ISB.end.transform)
-			M_start.Translate(startpoint, 0)
-			M_continue.Scale((endpoint - startpoint - stored_cap_width * 2) / 32, 1)
-			M_continue.Translate(startpoint + stored_cap_width + (endpoint - startpoint - stored_cap_width * 2) / 2 - 16, 0)
-			M_end.Translate(endpoint - stored_cap_width, 0)
+			var/box_offset = offset[lines_num][current_level + 1]
+			M_start.Scale(1, 1 / lines_num)
+			M_start.Translate(startpoint, box_offset)
+			M_continue.Scale((endpoint - startpoint - stored_cap_width * 2) / 32, 1 / lines_num)
+			M_continue.Translate(startpoint + stored_cap_width + (endpoint - startpoint - stored_cap_width * 2) / 2 - 16, box_offset)
+			M_end.Scale(1, 1 / lines_num)
+			M_end.Translate(endpoint - stored_cap_width, box_offset)
 			ISB.start.transform = M_start
 			ISB.continued.transform = M_continue
 			ISB.end.transform = M_end
@@ -415,11 +430,11 @@
 		storage_start.overlays += ISB.continued
 		storage_start.overlays += ISB.end
 
-		O.screen_loc = "4:[floor((startpoint + endpoint) / 2) + 2],2:16"
+		O.screen_loc = "4:[floor((startpoint + endpoint) / 2) + 2],2:[16 + 32 * current_level]"
 		O.layer = ABOVE_HUD_LAYER
 		O.plane = ABOVE_HUD_PLANE
 
-	src.closer.screen_loc = "4:[storage_width + 19],2:16"
+	src.closer.screen_loc = "4:[line_width + 19],2:16"
 	return
 
 GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
