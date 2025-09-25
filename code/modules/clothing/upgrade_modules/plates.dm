@@ -32,6 +32,10 @@
 	//becase stpd linter
 	max_integrity = 0
 	var/obj/item/clothing/attached_suit = null
+	/// Sound effect id with impact
+	var/impact_sound_id = null
+	/// Sound effect id with break plate
+	var/destroy_sound_id = null
 
 
 /// Calculate armor efficient percent in range 0-1
@@ -40,8 +44,13 @@
 
 /// Take armor damage proc
 /obj/item/armor_plate/proc/take_armor_damage(damage_amount, mob/living/user, obj/item/clothing/suit)
+	var/prev_integrity = obj_integrity
 	take_damage(damage_amount, sound_effect = FALSE)
 	update_break_icon(src, suit, user)
+	if(destroy_sound_id && prev_integrity > 0 && obj_integrity <= 0)
+		playsound(loc, destroy_sound_id, 100, TRUE)
+	if(impact_sound_id && obj_integrity > 0)
+		playsound(loc, impact_sound_id, 50, TRUE)
 
 /obj/item/armor_plate/default_welder_repair(mob/user, obj/item/I)
 	return FALSE
@@ -320,6 +329,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	ballistic_class = BALLISTIC_ARMOR_CLASS_I
 	integrity_failure = 75
 	max_integrity = 75
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_STEEL
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_STEEL
 
 /obj/item/armor_plate/handmade_steel/get_ru_names()
 	return list(
@@ -344,6 +355,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	laser_class = LASER_ARMOR_CLASS_LIGHT
 	integrity_failure = 75
 	max_integrity = 75
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_ABLATIVE
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_ABLATIVE
 
 /obj/item/armor_plate/handmade_ablative/get_ru_names()
 	return list(
@@ -369,6 +382,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	max_integrity = 100
 	repair_type = /obj/item/stack/sheet/plastic
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_CERAMIC
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_CERAMIC
 
 /obj/item/armor_plate/kevlar/get_ru_names()
 	return list(
@@ -398,6 +413,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	max_integrity = 250
 	repair_type = /obj/item/stack/sheet/metal
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_STEEL
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_STEEL
 
 /obj/item/armor_plate/light_steel/get_ru_names()
 	return list(
@@ -425,6 +442,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	max_integrity = 250
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_ABLATIVE
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_ABLATIVE
 
 /obj/item/armor_plate/light_ablative/get_ru_names()
 	return list(
@@ -452,6 +471,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	max_integrity = 200
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_CERAMIC
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_CERAMIC
 
 /obj/item/armor_plate/light_ceramic/get_ru_names()
 	return list(
@@ -482,6 +503,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	equipped_slowdown = 0.25
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_STEEL
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_STEEL
 
 /obj/item/armor_plate/medium_steel/get_ru_names()
 	return list(
@@ -511,6 +534,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	equipped_slowdown = 0.25
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_ABLATIVE
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_ABLATIVE
 
 /obj/item/armor_plate/medium_ablative/get_ru_names()
 	return list(
@@ -540,6 +565,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	equipped_slowdown = 0.2
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_CERAMIC
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_CERAMIC
 
 /obj/item/armor_plate/medium_ceramic/get_ru_names()
 	return list(
@@ -571,6 +598,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/plasteel
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	equipped_slowdown = 0.5
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_STEEL
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_STEEL
 
 /obj/item/armor_plate/heavy_steel/get_ru_names()
 	return list(
@@ -600,6 +629,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/plasmarglass
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	equipped_slowdown = 0.5
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_ABLATIVE
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_ABLATIVE
 
 /obj/item/armor_plate/heavy_ablative/get_ru_names()
 	return list(
@@ -629,6 +660,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	repair_type = /obj/item/stack/sheet/mineral/titanium
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	equipped_slowdown = 0.4
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_CERAMIC
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_CERAMIC
 
 /obj/item/armor_plate/heavy_ceramic/get_ru_names()
 	return list(
@@ -659,6 +692,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	integrity_failure = 400
 	max_integrity = 800
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS|HANDS|FEET
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_CERAMIC
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_CERAMIC
 
 /obj/item/armor_plate/elite/get_ru_names()
 	return list(
@@ -684,6 +719,8 @@ GLOBAL_LIST_INIT(laser_armor_penetration_table, list(
 	integrity_failure = 600
 	max_integrity = 600
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS|HANDS|FEET
+	impact_sound_id = SFX_ARMOR_PLATE_IMPACT_ABLATIVE
+	destroy_sound_id = SFX_ARMOR_PLATE_DESTROY_ABLATIVE
 
 /obj/item/armor_plate/special_reflector/get_ru_names()
 	return list(

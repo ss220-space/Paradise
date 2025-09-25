@@ -328,3 +328,10 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_DROPPERPOUR "dropperpour"
 #define SFX_SYRINGEPOUR "syringepour"
 #define SFX_LIQUID_SPLASH "liquid_splash"
+// MARK: Armor plate sounds
+#define SFX_ARMOR_PLATE_IMPACT_CERAMIC "armor_plate_impact_ceramic"
+#define SFX_ARMOR_PLATE_IMPACT_STEEL "armor_plate_impact_steel"
+#define SFX_ARMOR_PLATE_IMPACT_ABLATIVE "armor_plate_impact_ablative"
+#define SFX_ARMOR_PLATE_DESTROY_CERAMIC "armor_plate_destroy_ceramic"
+#define SFX_ARMOR_PLATE_DESTROY_STEEL "armor_plate_destroy_steel"
+#define SFX_ARMOR_PLATE_DESTROY_ABLATIVE "armor_plate_destroy_ablative"

@@ -393,3 +393,66 @@
 		'sound/goonstation/machines/ambicomp2.ogg',
 		'sound/goonstation/machines/ambicomp3.ogg'
 	)
+
+// MARK: Armor plate sounds
+
+/datum/sound_effect/armor_plate_ceramic_impact
+	key = SFX_ARMOR_PLATE_IMPACT_CERAMIC
+	file_paths = list(
+		'sound/armor/impact_bullet_ceramic_1.ogg',
+		'sound/armor/impact_bullet_ceramic_2.ogg',
+		'sound/armor/impact_bullet_ceramic_3.ogg',
+		'sound/armor/impact_bullet_ceramic_4.ogg',
+		'sound/armor/impact_bullet_ceramic_5.ogg',
+		'sound/armor/impact_bullet_ceramic_6.ogg',
+		'sound/armor/impact_bullet_ceramic_7.ogg',
+		'sound/armor/impact_bullet_ceramic_8.ogg'
+	)
+
+/datum/sound_effect/armor_plate_steel_impact
+	key = SFX_ARMOR_PLATE_IMPACT_STEEL
+	file_paths = list(
+		'sound/armor/impact_bullet_metal_1.ogg',
+		'sound/armor/impact_bullet_metal_2.ogg',
+		'sound/armor/impact_bullet_metal_3.ogg',
+		'sound/armor/impact_bullet_metal_4.ogg',
+		'sound/armor/impact_bullet_metal_5.ogg',
+		'sound/armor/impact_bullet_metal_6.ogg',
+		'sound/armor/impact_bullet_metal_7.ogg',
+		'sound/armor/impact_bullet_metal_8.ogg'
+	)
+
+/datum/sound_effect/armor_plate_ablative_impact
+	key = SFX_ARMOR_PLATE_IMPACT_ABLATIVE
+	file_paths = list(
+		'sound/armor/impact_laser_1.ogg',
+		'sound/armor/impact_laser_2.ogg',
+		'sound/armor/impact_laser_3.ogg',
+		'sound/armor/impact_laser_4.ogg',
+		'sound/armor/impact_laser_5.ogg',
+		'sound/armor/impact_laser_6.ogg',
+		'sound/armor/impact_laser_7.ogg',
+		'sound/armor/impact_laser_8.ogg'
+	)
+
+/datum/sound_effect/armor_plate_ceramic_destroy
+	key = SFX_ARMOR_PLATE_DESTROY_CERAMIC
+	file_paths = list(
+		'sound/armor/plate_ceramic_break_1.ogg',
+		'sound/armor/plate_ceramic_break_2.ogg'
+	)
+
+/datum/sound_effect/armor_plate_steel_destroy
+	key = SFX_ARMOR_PLATE_DESTROY_STEEL
+	file_paths = list(
+		'sound/armor/plate_metal_break_1.ogg',
+		'sound/armor/plate_metal_break_2.ogg'
+	)
+
+/datum/sound_effect/armor_plate_ablative_destroy
+	key = SFX_ARMOR_PLATE_DESTROY_ABLATIVE
+	file_paths = list(
+		'sound/armor/plate_ablative_break_1.ogg',
+		'sound/armor/plate_ablative_break_2.ogg',
+	)
+
