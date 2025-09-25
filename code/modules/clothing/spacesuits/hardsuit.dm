@@ -100,6 +100,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
+	armor_plate_flags = ARMOR_PLATE_CAN_REMOVE //can not slowdown
 	armor_plate = null
 
 	var/obj/item/hardsuit_taser_proof/taser_proof = null

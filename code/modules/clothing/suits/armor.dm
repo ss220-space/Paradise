@@ -372,7 +372,7 @@
 		)
 	var/static/list/reflect_zones = list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	var/hit_reflect_chance = 50
-	can_remove_armor_plate = FALSE
+	armor_plate_flags = ARMOR_PLATE_CAN_SLOWDOWN
 	armor_plate = /obj/item/armor_plate/special_reflector
 
 /obj/item/clothing/suit/armor/reflector/get_ru_names()
@@ -839,7 +839,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
-	can_remove_armor_plate = FALSE
+	armor_plate_flags = ARMOR_PLATE_CAN_SLOWDOWN
 	armor_plate = /obj/item/armor_plate/handmade_steel
 
 /obj/item/clothing/suit/armor/bone/get_ru_names()
@@ -859,7 +859,8 @@
 	item_state = "makeshift_armor"
 	resistance_flags = FIRE_PROOF
 	armor = list(MELEE = 8, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
-	can_remove_armor_plate = FALSE
+	armor_plate_flags = ARMOR_PLATE_CAN_SLOWDOWN
+	armor_plate = /obj/item/armor_plate/handmade_steel
 
 //Dredd
 
@@ -897,7 +898,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
-	can_remove_armor_plate = FALSE
+	armor_plate_flags = ARMOR_PLATE_CAN_SLOWDOWN
 
 /obj/item/clothing/suit/armor/cartilage/get_ru_names()
 	return list(

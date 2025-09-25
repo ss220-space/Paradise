@@ -71,7 +71,8 @@
 	playsound(suit, 'sound/items/velcro/velcro_close.ogg', 30, TRUE, ignore_walls = FALSE)
 	forceMove(suit)
 	suit.armor_plate = src
-	suit.slowdown += equipped_slowdown
+	if(suit.armor_plate_flags & ARMOR_PLATE_CAN_SLOWDOWN)
+		suit.slowdown += equipped_slowdown
 	attached_suit = suit
 	balloon_alert(user, "бронеплита установлена")
 	subscribe_equip_signal(suit)
@@ -85,7 +86,7 @@
 
 /// Try remove armor plate from suit
 /obj/item/armor_plate/proc/try_detach_from_clothing(mob/living/user, obj/item/clothing/suit)
-	if(!suit.can_remove_armor_plate)
+	if(!(suit.armor_plate_flags & ARMOR_PLATE_CAN_REMOVE))
 		balloon_alert(user, "бронеплиту нельзя извлечь!")
 		return FALSE
 	if(suit == user.get_item_by_slot(suit.slot_flags))
@@ -98,7 +99,8 @@
 	playsound(suit, 'sound/items/velcro/velcro_close.ogg', 30, TRUE, ignore_walls = FALSE)
 	forceMove(user.loc)
 	suit.armor_plate = null
-	suit.slowdown -= equipped_slowdown
+	if(suit.armor_plate_flags & ARMOR_PLATE_CAN_SLOWDOWN)
+		suit.slowdown -= equipped_slowdown
 	attached_suit = null
 	UnregisterSignal(suit, list(COMSIG_CLOTHING_EQUIP, COMSIG_CLOTHING_UNEQUIP))
 	if(obj_integrity <= 0)
@@ -185,6 +187,8 @@
 /obj/item/armor_plate/proc/update_break_icon(datum/source, obj/item/clothing/suit, mob/user)
 	SIGNAL_HANDLER
 
+	if(!suit)
+		return
 	if(suit.status_overlays)
 		suit.status_overlays.Cut()
 	var/suit_loc = suit.loc

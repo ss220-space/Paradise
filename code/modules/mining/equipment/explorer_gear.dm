@@ -361,7 +361,7 @@
 	)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
 	armor_plate = /obj/item/armor_plate/kevlar
-	can_remove_armor_plate = FALSE
+	armor_plate_flags = ARMOR_PLATE_CAN_SLOWDOWN
 
 /obj/item/clothing/suit/hooded/pathfinder/get_ru_names()
 	return list(

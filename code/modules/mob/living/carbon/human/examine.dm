@@ -122,7 +122,7 @@
 	//suit/armour
 	if(wear_suit && !(wear_suit.item_flags & ABSTRACT))
 		var/wear_suit_text = "[bicon(wear_suit)] [wear_suit.declent_ru(ACCUSATIVE)]"
-		if(wear_suit.armor_plate && wear_suit.can_remove_armor_plate)
+		if(wear_suit.armor_plate && (wear_suit.armor_plate_flags & ARMOR_PLATE_CAN_REMOVE))
 			// exists attachable armor plate
 			wear_suit_text += " c [wear_suit.armor_plate.declent_ru(INSTRUMENTAL)]"
 		if(wear_suit.blood_DNA)

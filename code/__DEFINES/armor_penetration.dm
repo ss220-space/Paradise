@@ -97,3 +97,9 @@ GLOBAL_LIST_INIT(ballistic_armor_class_name, list(
 #define BALLISTIC_PENETRATION_HEAVY_RIFLE 6
 /// High calibers: .50COMP и .50
 #define BALLISTIC_PENETRATION_HIGH_CAL 7
+
+// MARK: Armor plate flags
+/// Armor plate can be removed
+#define ARMOR_PLATE_CAN_REMOVE (1<<0)
+/// Armor plate can add slowdown
+#define ARMOR_PLATE_CAN_SLOWDOWN (1<<1)

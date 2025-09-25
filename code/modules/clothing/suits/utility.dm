@@ -39,7 +39,7 @@
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
 	armor_plate = /obj/item/armor_plate/handmade_ablative
-	can_remove_armor_plate = FALSE
+	armor_plate_flags = ARMOR_PLATE_CAN_SLOWDOWN
 
 /obj/item/clothing/suit/fire/firefighter
 	icon_state = "firesuit"

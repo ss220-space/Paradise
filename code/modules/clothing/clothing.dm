@@ -62,8 +62,8 @@
 	var/obj/item/armor_plate/armor_plate = null
 	/// Allowed armor plate class
 	var/allowed_armor_plate = ARMOR_PLATE_SLOT_NONE
-	/// Allow remove armor plate with screwdriver
-	var/can_remove_armor_plate = FALSE
+	/// Armor plate flags: can remove, can slowdown
+	var/armor_plate_flags = ARMOR_PLATE_CAN_SLOWDOWN
 	/// Overlays for armor plate state
 	var/list/status_overlays = null
 
@@ -74,7 +74,8 @@
 		return
 	armor_plate = new armor_plate(src)
 	armor_plate.forceMove(src)
-	slowdown += armor_plate.equipped_slowdown
+	if(armor_plate_flags & ARMOR_PLATE_CAN_SLOWDOWN)
+		slowdown += armor_plate.equipped_slowdown
 	armor_plate.subscribe_equip_signal(src)
 	armor_plate.attached_suit = src
 
@@ -90,8 +91,8 @@
 			. +=  span_warning("Да [genderize_ru(gender, "он разваливается", "она разваливается", "оно разваливается", "они разваливаются")] на глазах!")
 
 	if(armor_plate)
-		. += armor_plate.get_examine_text(integrated_armor = !can_remove_armor_plate)
-		if(can_remove_armor_plate)
+		. += armor_plate.get_examine_text(integrated_armor = !(armor_plate_flags & ARMOR_PLATE_CAN_REMOVE))
+		if(armor_plate_flags & ARMOR_PLATE_CAN_REMOVE)
 			. += span_notice("Используйте <b>ALT+ЛКМ</b>, чтобы извлечь бронеплиту.")
 		return
 
@@ -161,7 +162,7 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 	//repair of integrated armor plates
-	if(!can_remove_armor_plate && armor_plate && istype(I, armor_plate.repair_type))
+	if(!(armor_plate_flags & ARMOR_PLATE_CAN_REMOVE) && armor_plate && istype(I, armor_plate.repair_type))
 		if(src == user.get_item_by_slot(slot_flags))
 			balloon_alert(user, "сначала снимите с себя!")
 			return ..()
@@ -913,7 +914,7 @@
 		)
 
 	allowed_armor_plate = ARMOR_PLATE_SLOT_HANDMADE
-	can_remove_armor_plate = TRUE
+	armor_plate_flags = ARMOR_PLATE_CAN_REMOVE | ARMOR_PLATE_CAN_SLOWDOWN
 
 
 /obj/item/clothing/suit/Initialize(mapload)
