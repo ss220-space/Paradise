@@ -1,3 +1,8 @@
+#define STORAGE_CAP_WIDTH 2
+#define STORED_CAP_WIDTH 4
+#define BASE_STORAGE_WIDTH 220
+#define MAX_STORAGE_WIDTH 280
+
 // To clarify:
 // For use_to_pickup and allow_quick_gather functionality,
 // see item/attackby() (/game/objects/items.dm, params)
@@ -52,15 +57,6 @@
 	/// Lazy list of mobs which are currently viewing the storage inventory.
 	var/list/mobs_viewing
 
-	/// Should be equal to default backpack capacity
-	var/baseline_max_storage_space = 21
-	/// Length of sprite for start and end of the box representing total storage space
-	var/storage_cap_width = 2
-	/// Length of sprite for start and end of the box representing the stored item
-	var/stored_cap_width = 4
-	/// Length of sprite for the box representing total storage space
-	var/storage_width = 284
-
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
@@ -80,39 +76,43 @@
 
 	populate_contents()
 
-	boxes = new /atom/movable/screen/storage()
-	boxes.name = "storage"
-	boxes.master = src
-	boxes.icon_state = "block"
-	boxes.screen_loc = "7,7 to 10,8"
-	boxes.layer = HUD_LAYER
-	boxes.plane = HUD_PLANE
+	if(display_contents_with_number)
+		boxes = new /atom/movable/screen/storage()
+		boxes.name = "storage"
+		boxes.master = src
+		boxes.icon_state = "block"
+		boxes.screen_loc = "7,7 to 10,8"
+		boxes.layer = HUD_LAYER
+		boxes.plane = HUD_PLANE
+	else
+		storage_start = new /atom/movable/screen/storage()
+		storage_start.name = "storage"
+		storage_start.master = src
+		storage_start.icon_state = "storage_start"
+		storage_start.screen_loc = "7,7 to 10,8"
+		storage_end = new /atom/movable/screen/storage()
+		storage_end.name = "storage"
+		storage_end.master = src
+		storage_end.icon_state = "storage_end"
+		storage_end.screen_loc = "7,7 to 10,8"
+		storage_continue = new /atom/movable/screen/storage()
+		storage_continue.name = "storage"
+		storage_continue.master = src
+		storage_continue.icon_state = "storage_continue"
+		storage_continue.screen_loc = "7,7 to 10,8"
+		var/matrix/M = matrix(storage_continue.transform)
+		M.Scale((BASE_STORAGE_WIDTH - STORAGE_CAP_WIDTH * 2 + 3) / 32, 1)
+		storage_continue.transform = M
+		storage_start.screen_loc = "4:16,2:16"
+		storage_continue.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (BASE_STORAGE_WIDTH- STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:16"
+		storage_end.screen_loc = "4:[19 + BASE_STORAGE_WIDTH - STORAGE_CAP_WIDTH],2:16"
+
 	closer = new /atom/movable/screen/close()
 	closer.master = src
 	closer.icon_state = "backpack_close"
 	closer.layer = ABOVE_HUD_LAYER
 	closer.plane = ABOVE_HUD_PLANE
-	storage_start = new /atom/movable/screen/storage()
-	storage_start.name = "storage"
-	storage_start.master = src
-	storage_start.icon_state = "storage_start"
-	storage_start.screen_loc = "7,7 to 10,8"
-	storage_end = new /atom/movable/screen/storage()
-	storage_end.name = "storage"
-	storage_end.master = src
-	storage_end.icon_state = "storage_end"
-	storage_end.screen_loc = "7,7 to 10,8"
-	storage_continue = new /atom/movable/screen/storage()
-	storage_continue.name = "storage"
-	storage_continue.master = src
-	storage_continue.icon_state = "storage_continue"
-	storage_continue.screen_loc = "7,7 to 10,8"
-	var/matrix/M = matrix(storage_continue.transform)
-	M.Scale((storage_width-storage_cap_width*2+3)/32,1)
-	storage_continue.transform = M
-	storage_start.screen_loc = "4:16,2:16"
-	storage_continue.screen_loc = "4:[floor(storage_cap_width+(storage_width-storage_cap_width*2)/2+2)],2:16"
-	storage_end.screen_loc = "4:[19+storage_width-storage_cap_width],2:16"
+
 	orient2hud()
 
 /obj/item/storage/Destroy()
@@ -255,12 +255,12 @@
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	if(!user.client)
 		return
-	user.client.screen -= src.boxes
+	user.client.screen -= boxes
 	user.client.screen -= storage_start
 	user.client.screen -= storage_continue
 	user.client.screen -= storage_end
-	user.client.screen -= src.closer
-	user.client.screen -= src.contents
+	user.client.screen -= closer
+	user.client.screen -= contents
 	if(user.s_active == src)
 		user.s_active = null
 
@@ -353,23 +353,42 @@
 	click_border_end.Cut()
 	storage_start.overlays.Cut()
 
+	var/storage_cap_width = STORAGE_CAP_WIDTH // Length of sprite for start and end of the box representing total storage space
+	var/stored_cap_width = STORED_CAP_WIDTH // Length of sprite for start and end of the box representing the stored item
+	var/storage_width = BASE_STORAGE_WIDTH // Length of sprite for the box representing total storage space
+
+	var/total_width = 2 * storage_cap_width
+	for(var/obj/item/O in contents)
+		total_width += O.storage_display_width
+
+	storage_width = max(total_width, storage_width)
+
+	var/modify_placement = 0
+
+	if(storage_width > MAX_STORAGE_WIDTH)
+		modify_placement = floor((MAX_STORAGE_WIDTH - storage_width) / contents.len)
+		storage_width = MAX_STORAGE_WIDTH
+
 	if(QDELETED(storage_continue))
 		storage_continue = new /atom/movable/screen/storage()
 		storage_continue.name = "storage"
 		storage_continue.master = src
 		storage_continue.icon_state = "storage_continue"
 		storage_continue.screen_loc = "7,7 to 10,8"
-		var/matrix/M = matrix(storage_continue.transform)
-		M.Scale((storage_width-storage_cap_width*2+3)/32,1)
-		storage_continue.transform = M
 
-	var/startpoint = 0
+	var/matrix/M = matrix()
+	M.Scale((storage_width - storage_cap_width * 2 + 3) / 32, 1)
+	storage_continue.transform = M
+	storage_continue.screen_loc = "4:[floor(storage_cap_width + (storage_width - storage_cap_width * 2) / 2 + 2)],2:16"
+	storage_end.screen_loc = "4:[19 + storage_width - storage_cap_width],2:16"
+
+	var/startpoint
 	var/endpoint = 1
 
 	for(var/obj/item/O in contents)
 		startpoint = endpoint + 1
-		endpoint += storage_width * O.w_class/max_combined_w_class
-		var/isb_index = "[startpoint], [endpoint], [stored_cap_width]"
+		endpoint += O.storage_display_width + modify_placement
+		var/isb_index = "[startpoint], [endpoint], [modify_placement], [storage_width]"
 
 		click_border_start.Add(startpoint)
 		click_border_end.Add(endpoint)
@@ -381,9 +400,9 @@
 			var/matrix/M_continue = matrix(ISB.continued.transform)
 			var/matrix/M_end = matrix(ISB.end.transform)
 			M_start.Translate(startpoint, 0)
-			M_continue.Scale((endpoint-startpoint-stored_cap_width*2)/32,1)
-			M_continue.Translate(startpoint+stored_cap_width+(endpoint-startpoint-stored_cap_width*2)/2 - 16,0)
-			M_end.Translate(endpoint-stored_cap_width,0)
+			M_continue.Scale((endpoint - startpoint - stored_cap_width * 2) / 32, 1)
+			M_continue.Translate(startpoint + stored_cap_width + (endpoint - startpoint - stored_cap_width * 2) / 2 - 16, 0)
+			M_end.Translate(endpoint - stored_cap_width, 0)
 			ISB.start.transform = M_start
 			ISB.continued.transform = M_continue
 			ISB.end.transform = M_end
@@ -396,11 +415,11 @@
 		storage_start.overlays += ISB.continued
 		storage_start.overlays += ISB.end
 
-		O.screen_loc = "4:[floor((startpoint+endpoint)/2)+2],2:16"
+		O.screen_loc = "4:[floor((startpoint + endpoint) / 2) + 2],2:16"
 		O.layer = ABOVE_HUD_LAYER
 		O.plane = ABOVE_HUD_PLANE
 
-	src.closer.screen_loc = "4:[storage_width+19],2:16"
+	src.closer.screen_loc = "4:[storage_width + 19],2:16"
 	return
 
 GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
@@ -469,10 +488,10 @@ GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 	if(adjusted_contents > 7)
 		row_num = round((adjusted_contents - 1) / 7) // 7 is the maximum allowed width.
 
-	if(space_oriented)
-		space_orient_objs(display_contents)
-	else
+	if(display_contents_with_number)
 		standard_orient_objs(row_num, col_count, display_contents)
+	else
+		space_orient_objs(display_contents)
 
 //This proc returns TRUE if the item can be picked up and FALSE if it can't.
 //Set the stop_messages to stop it from printing messages

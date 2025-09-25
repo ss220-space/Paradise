@@ -220,11 +220,17 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/ground_offset_x = 0
 	/// How much to offset the item randomly either way alongside Y visually
 	var/ground_offset_y = 0
+	/// Width in space oriented storages
+	var/storage_display_width = 32
 
 	var/embed_disarm = FALSE
 
 /obj/item/Initialize(mapload)
 	. = ..()
+
+	var/icon/dummy_icon = icon(icon)
+	storage_display_width = dummy_icon.Width()
+	qdel(dummy_icon)
 
 	if(isstorage(loc)) //marks all items in storage as being such
 		item_flags |= IN_STORAGE
