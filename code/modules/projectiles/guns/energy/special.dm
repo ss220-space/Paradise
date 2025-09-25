@@ -772,8 +772,6 @@
 	origin_tech = "combat=4;materials=2"
 	cell_type = /obj/item/stock_parts/cell/specter
 	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
-	magin_sound = 'sound/weapons/gun_interactions/spec_magin.ogg'
-	magout_sound = 'sound/weapons/gun_interactions/spec_magout.ogg'
 	unique_reskin = TRUE
 	materials = list(MAT_METAL = 1000)
 	accuracy = GUN_ACCURACY_PISTOL
@@ -814,6 +812,9 @@
 	cell_type = item.type
 	balloon_alert(user, "батарейка заменена")
 	update_icon(UPDATE_ICON_STATE)
+	if(cell.charge > 0)
+		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
+		return ATTACK_CHAIN_PROCEED
 
 	return ATTACK_CHAIN_PROCEED
 
