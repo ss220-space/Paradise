@@ -300,7 +300,6 @@
 
 	/// Hardcode camera to near range
 	camera_range_settable = FALSE
-	current_camera_range = 0
 
 /obj/item/circuit_component/remotecam/polaroid
 	display_name = "Дополнение к потоковой передачи камеры"
@@ -309,7 +308,6 @@
 
 	/// Hardcode camera to near range
 	camera_range_settable = FALSE
-	current_camera_range = 0
 
 /obj/item/circuit_component/remotecam/bci/register_shell(atom/movable/shell)
 	. = ..()

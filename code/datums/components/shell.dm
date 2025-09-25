@@ -143,7 +143,7 @@
 	else
 		. += span_notice("Элемент питания не установлен.")
 
-	if (shell_flags & SHELL_FLAG_USB_PORT)
+	if(shell_flags & SHELL_FLAG_USB_PORT)
 		examine_text += span_notice("Здесь есть <b>USB-порт</b> на панели.")
 
 	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
@@ -184,7 +184,7 @@
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
 		if(!attached_circuit.owner_id && is_id_card(item))
-			source.balloon_alert(attacker, "ID пользователя установлено для [item.declent_ru(GENITIVE)]")
+			source.balloon_alert(attacker, UNLINT("ID пользователя установлено для [item.declent_ru(GENITIVE)]"))
 			attached_circuit.owner_id = WEAKREF(item)
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -369,11 +369,11 @@
 	if(!is_authorized(user))
 		return
 
-	if (!(shell_flags & SHELL_FLAG_USB_PORT))
+	if(!(shell_flags & SHELL_FLAG_USB_PORT))
 		source.balloon_alert(user, "отсутствует USB порт")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
-	if (isnull(attached_circuit))
+	if(isnull(attached_circuit))
 		source.balloon_alert(user, "схема отсутствует")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 

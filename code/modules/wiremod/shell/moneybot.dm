@@ -8,7 +8,6 @@
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_large"
 
-	density = FALSE
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 

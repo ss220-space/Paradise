@@ -1325,14 +1325,13 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	return TRUE
 
-///sets every hud image in the given category inactive so no one can see it
+/// Sets every hud image in the given category inactive so no one can see it
 /atom/proc/set_hud_image_inactive(hud_category, update_huds = TRUE, datum/atom_hud/exclusive_hud)
 	if(!istext(hud_category))
 		return FALSE
 
-	LAZYREMOVE(active_hud_list, hud_category)
-
 	if(!update_huds)
+		LAZYREMOVE(active_hud_list, hud_category)
 		return TRUE
 
 	if(exclusive_hud)
@@ -1340,5 +1339,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	else
 		for(var/datum/atom_hud/hud_to_update as anything in GLOB.huds_by_category[hud_category])
 			hud_to_update.remove_single_hud_category_on_atom(src, hud_category)
+
+	LAZYREMOVE(active_hud_list, hud_category)
 
 	return TRUE

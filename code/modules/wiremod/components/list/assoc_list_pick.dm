@@ -7,7 +7,6 @@
 /obj/item/circuit_component/list_pick/assoc
 	display_name = "Ассоциативный список - выбор"
 	desc = "Компонент, позволяющий пользователю выбрать один элемент из ассоциативного списка. Возвращает выбранный элемент."
-	category = "List"
 
 /obj/item/circuit_component/list_pick/assoc/populate_options()
 	list_options = add_option_port("Тип", GLOB.wiremod_basic_types)

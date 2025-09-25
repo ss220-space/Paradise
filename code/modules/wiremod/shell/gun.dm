@@ -10,9 +10,7 @@
 	icon_state = "setup_gun"
 	ammo_type = list(/obj/item/ammo_casing/energy/wiremod_gun)
 	cell_type = /obj/item/stock_parts/cell/emproof/wiremod_gun
-	item_flags = NONE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
-	light_on = FALSE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	clumsy_check = FALSE
 	needs_permit = FALSE
@@ -35,7 +33,6 @@
 /obj/projectile/energy/wiremod_gun
 	name = "scanning beam"
 	icon_state = "ion"
-	damage = 0
 	nodamage = TRUE
 	range = 7
 

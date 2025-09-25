@@ -303,7 +303,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
  * Adds a component to the circuitboard through a manual action.
  */
 /obj/item/integrated_circuit/proc/add_component_manually(obj/item/circuit_component/to_add, mob/living/user)
-	if (SEND_SIGNAL(src, COMSIG_CIRCUIT_ADD_COMPONENT_MANUALLY, to_add, user) & COMPONENT_CANCEL_ADD_COMPONENT)
+	if(SEND_SIGNAL(src, COMSIG_CIRCUIT_ADD_COMPONENT_MANUALLY, to_add, user) & COMPONENT_CANCEL_ADD_COMPONENT)
 		return
 
 	return add_component(to_add, user)
@@ -356,7 +356,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	. = list()
 	.["components"] = list()
 	for(var/obj/item/circuit_component/component as anything in attached_components)
-		if (component.circuit_flags & CIRCUIT_FLAG_HIDDEN)
+		if(component.circuit_flags & CIRCUIT_FLAG_HIDDEN)
 			.["components"] += null
 			continue
 
@@ -432,7 +432,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 /obj/item/integrated_circuit/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
 
-	if (isobserver(user))
+	if(isobserver(user))
 		. = max(., UI_UPDATE)
 
 	// Extra protection because ui_state will not close the UI if they already have the ui open,
@@ -655,7 +655,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 			. = TRUE
 		if("add_setter_or_getter")
 			if(setter_and_getter_count >= max_setters_and_getters)
-				balloon_alert(usr, "Количество \"Получить значение\" и \"Задать значение\" достигло максимума")
+				balloon_alert(usr, "количество \"Получить значение\" и \"Задать значение\" достигло максимума")
 				return
 			var/designated_type = /obj/item/circuit_component/variable/getter
 			if(params["is_setter"])

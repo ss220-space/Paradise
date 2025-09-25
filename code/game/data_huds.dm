@@ -7,11 +7,11 @@
 /* DATA HUD DATUMS */
 
 /atom/proc/add_to_all_human_data_huds()
-	for(var/datum/atom_hud/data/human/hud as anything in GLOB.huds)
+	for(var/datum/atom_hud/data/human/hud in GLOB.huds)
 		hud.add_atom_to_hud(src)
 
 /atom/proc/remove_from_all_data_huds()
-	for(var/datum/atom_hud/data/hud as anything in GLOB.huds)
+	for(var/datum/atom_hud/data/hud in GLOB.huds)
 		hud.remove_atom_from_hud(src)
 
 /datum/atom_hud/data
@@ -36,6 +36,7 @@
 	check_sensors(H) ? add_atom_to_hud(H) : remove_atom_from_hud(H)
 
 /datum/atom_hud/data/human/medical/advanced
+	hud_icons = list(HEALTH_HUD, STATUS_HUD, INSURANCE_HUD)
 
 /datum/atom_hud/data/human/security
 
@@ -118,20 +119,24 @@
 /mob/living/proc/has_heavy_bleeding()
 	return FALSE
 
-//called when a carbon changes virus
+/// Called when a carbon changes virus
 /mob/living/proc/check_virus()
 	var/threat
 	var/severity
 
 	for(var/thing in diseases)
 		var/datum/disease/D = thing
-		if(!(D.visibility_flags & HIDDEN_HUD))
-			if(!threat || get_disease_severity_value(D.severity) > threat) //a buffing virus gets an icon
-				threat = get_disease_severity_value(D.severity)
-				severity = D.severity
+
+		if(D.visibility_flags & HIDDEN_HUD)
+			continue
+
+		if(!threat || get_disease_severity_value(D.severity) > threat) //a buffing virus gets an icon
+			threat = get_disease_severity_value(D.severity)
+			severity = D.severity
+
 	return severity
 
-//helper for getting the appropriate health status
+/// Helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
 	if(M.stat == DEAD || HAS_TRAIT(M, TRAIT_FAKEDEATH))
 		return "health-100-dead" //what's our health? it doesn't matter, we're dead, or faking
@@ -191,17 +196,17 @@
 
 ///HOOKS
 
-//called when a human changes suit sensors
+/// Called when a human changes suit sensors
 /mob/living/carbon/proc/update_suit_sensors()
 	var/datum/atom_hud/data/human/medical/basic/B = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
 	B.update_suit_sensors(src)
 
-//called when a living mob changes health
+
+/// Called when a living mob changes health
 /mob/living/proc/med_hud_set_health()
 	set_hud_image_state(ismachineperson(src) ? DIAG_HUD : HEALTH_HUD, "hud[RoundHealth(src)]")
 
-// Called when a carbon changes stat, virus or XENO_HOST
-// Returns TRUE if the mob is considered "perfectly healthy", FALSE otherwise
+/// Called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()
 	if(stat == DEAD)
 		set_hud_image_state(STATUS_HUD, STATUS_HUD_DEAD)
@@ -210,7 +215,6 @@
 	else
 		set_hud_image_state(STATUS_HUD, STATUS_HUD_HEALTHY)
 
-//called when a carbon changes stat, virus or XENO_HOST
 /mob/living/carbon/med_hud_set_status()
 	if(ismachineperson(src))
 		if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
@@ -259,10 +263,9 @@
 		set_hud_image_state(STATUS_HUD, STATUS_HUD_HEALTHY)
 
 /mob/living/carbon/human/proc/med_hud_insurance_set_overlay()
-	var/image/holder = hud_list[STATUS_HUD]
 	var/datum/money_account/account = null
 	var/obj/item/card/id/temp_id = null
-	holder.overlays.Cut()
+	set_hud_image_inactive(INSURANCE_HUD)
 
 	if(!wear_id)
 		if((wear_mask && wear_mask.flags_inv & HIDENAME) || (head && head.flags_inv & HIDENAME))
@@ -277,7 +280,9 @@
 		account = get_money_account(temp_id.associated_account_number)
 
 	if(account)
-		holder.overlays += image('icons/mob/hud.dmi', icon_state = "[STATUS_HUD_HEALTHY]_[account.insurance_type]")
+		set_hud_image_state(INSURANCE_HUD, "[STATUS_HUD_HEALTHY]_[account.insurance_type]")
+		set_hud_image_active(INSURANCE_HUD)
+
 
 /mob/living/carbon/human/proc/update_hud_set()
 	sec_hud_set_ID()
@@ -370,42 +375,46 @@
 				set_hud_image_active(IMPCHEM_HUD)
 
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
-	if(!SSticker) return //wait till the game starts or the monkeys runtime....
+	if(!SSticker)
+		return //wait till the game starts or the monkeys runtime....
+
 	var/perpname = get_visible_name(add_id_name = FALSE) //gets the name of the perp, works if they have an id or if their face is uncovered
 
-	if(perpname)
-		var/datum/data/record/target = find_record("name", perpname, GLOB.data_core.security)
+	if(!perpname)
+		return
 
-		if(!target || target.fields["criminal"] == SEC_RECORD_STATUS_NONE)
-			set_hud_image_inactive(WANTED_HUD)
-			return
+	var/datum/data/record/target = find_record("name", perpname, GLOB.data_core.security)
 
-		switch(target.fields["criminal"])
-			if(SEC_RECORD_STATUS_EXECUTE)
-				set_hud_image_state(WANTED_HUD, "hudexecute")
+	if(!target || target.fields["criminal"] == SEC_RECORD_STATUS_NONE)
+		set_hud_image_inactive(WANTED_HUD)
+		return
 
-			if(SEC_RECORD_STATUS_ARREST)
-				set_hud_image_state(WANTED_HUD, "hudwanted")
+	switch(target.fields["criminal"])
+		if(SEC_RECORD_STATUS_EXECUTE)
+			set_hud_image_state(WANTED_HUD, "hudexecute")
 
-			if(SEC_RECORD_STATUS_SEARCH)
-				set_hud_image_state(WANTED_HUD, "hudsearch")
+		if(SEC_RECORD_STATUS_ARREST)
+			set_hud_image_state(WANTED_HUD, "hudwanted")
 
-			if(SEC_RECORD_STATUS_MONITOR)
-				set_hud_image_state(WANTED_HUD, "hudmonitor")
+		if(SEC_RECORD_STATUS_SEARCH)
+			set_hud_image_state(WANTED_HUD, "hudsearch")
 
-			if(SEC_RECORD_STATUS_DEMOTE)
-				set_hud_image_state(WANTED_HUD, "huddemote")
+		if(SEC_RECORD_STATUS_MONITOR)
+			set_hud_image_state(WANTED_HUD, "hudmonitor")
 
-			if(SEC_RECORD_STATUS_INCARCERATED)
-				set_hud_image_state(WANTED_HUD, "hudprisoner")
+		if(SEC_RECORD_STATUS_DEMOTE)
+			set_hud_image_state(WANTED_HUD, "huddemote")
 
-			if(SEC_RECORD_STATUS_PAROLLED)
-				set_hud_image_state(WANTED_HUD, "hudparolled")
+		if(SEC_RECORD_STATUS_INCARCERATED)
+			set_hud_image_state(WANTED_HUD, "hudprisoner")
 
-			if(SEC_RECORD_STATUS_RELEASED)
-				set_hud_image_state(WANTED_HUD, "hudreleased")
+		if(SEC_RECORD_STATUS_PAROLLED)
+			set_hud_image_state(WANTED_HUD, "hudparolled")
 
-		set_hud_image_active(WANTED_HUD)
+		if(SEC_RECORD_STATUS_RELEASED)
+			set_hud_image_state(WANTED_HUD, "hudreleased")
+
+	set_hud_image_active(WANTED_HUD)
 
 /***********************************************
 	Diagnostic HUDs!
@@ -457,7 +466,8 @@
 	BIG STOMPY MECHS
 ~~~~~~~~~~~~~~~~~~~~~*/
 /obj/mecha/proc/diag_hud_set_mechhealth()
-	set_hud_image_state(DIAG_MECH_HUD, "huddiag[RoundDiagBar(obj_integrity/max_integrity)]")
+	var/pixel_y = get_cached_height() - ICON_SIZE_Y
+	set_hud_image_state(DIAG_MECH_HUD, "huddiag[RoundDiagBar(obj_integrity/max_integrity)]", y_offset = pixel_y)
 
 /obj/mecha/proc/diag_hud_set_mechcell()
 	if(cell)
@@ -474,7 +484,7 @@
 	set_hud_image_state(DIAG_STAT_HUD, "hudwarn")
 	set_hud_image_active(DIAG_STAT_HUD)
 
-///Shows tracking beacons on the mech
+/// Shows tracking beacons on the mech
 /obj/mecha/proc/diag_hud_set_mechtracking()
 	var/new_icon_state //This var exists so that the holder's icon state is set only once in the event of multiple mech beacons.
 	for(var/obj/item/mecha_parts/mecha_tracking/tracker in trackers)
@@ -505,7 +515,10 @@
 /mob/living/simple_animal/bot/proc/diag_hud_set_botmode() //Shows a bot's current operation
 	if(client) //If the bot is player controlled, it will not be following mode logic!
 		set_hud_image_state(DIAG_BOT_HUD, "hudsentient")
+		set_hud_image_active(DIAG_BOT_HUD)
 		return
+
+	var/has_status_entry = TRUE
 	switch(mode)
 		if(BOT_SUMMON, BOT_RESPONDING) //Responding to PDA or AI summons
 			set_hud_image_state(DIAG_BOT_HUD, "hudcalled")
@@ -519,6 +532,13 @@
 			set_hud_image_state(DIAG_BOT_HUD, "hudmove")
 		else
 			set_hud_image_state(DIAG_BOT_HUD, "")
+			has_status_entry = FALSE
+
+	if(has_status_entry)
+		set_hud_image_active(DIAG_BOT_HUD)
+		return
+
+	set_hud_image_inactive(DIAG_BOT_HUD)
 
 /*~~~~~~~~~~~~~~
 	PLANT HUD
@@ -557,6 +577,7 @@
 /obj/machinery/hydroponics/proc/plant_hud_set_status()
 	if(!myseed)
 		set_hud_image_state(PLANT_STATUS_HUD, "")
+		set_hud_image_inactive(PLANT_STATUS_HUD)
 		return
 	if(harvest)
 		set_hud_image_state(PLANT_STATUS_HUD, "hudharvest")
@@ -565,30 +586,39 @@
 		set_hud_image_state(PLANT_STATUS_HUD, "huddead")
 		return
 	set_hud_image_state(PLANT_STATUS_HUD, "")
+	set_hud_image_active(PLANT_STATUS_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_health()
 	if(!myseed)
 		set_hud_image_state(PLANT_HEALTH_HUD, "")
+		set_hud_image_inactive(PLANT_HEALTH_HUD)
 		return
 	set_hud_image_state(PLANT_HEALTH_HUD, "hudplanthealth[RoundPlantBar(plant_health/myseed.endurance)]")
+	set_hud_image_active(PLANT_HEALTH_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_toxin()
 	if(toxic < 10)	// You don't want to see these icons if the value is small
 		set_hud_image_state(PLANT_TOXIN_HUD, "")
+		set_hud_image_inactive(PLANT_TOXIN_HUD)
 		return
 	set_hud_image_state(PLANT_TOXIN_HUD, "hudtoxin[RoundPlantBar(toxic/100)]")
+	set_hud_image_active(PLANT_TOXIN_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_pest()
 	if(pestlevel < 1)	// You don't want to see these icons if the value is small
 		set_hud_image_state(PLANT_PEST_HUD, "")
+		set_hud_image_inactive(PLANT_PEST_HUD)
 		return
 	set_hud_image_state(PLANT_PEST_HUD, "hudpest[RoundPlantBar(pestlevel/10)]")
+	set_hud_image_active(PLANT_PEST_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_weed()
 	if(weedlevel < 1)	// You don't want to see these icons if the value is small
 		set_hud_image_state(PLANT_WEED_HUD, "")
+		set_hud_image_inactive(PLANT_WEED_HUD)
 		return
 	set_hud_image_state(PLANT_WEED_HUD, "hudweed[RoundPlantBar(weedlevel/10)]")
+	set_hud_image_active(PLANT_WEED_HUD)
 
 /*~~~~~~~~~~~~~~~~~~
 	TELEPATHY HUD
@@ -600,6 +630,7 @@
 
 	if(!thoughts || (client?.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
 		set_hud_image_state(THOUGHT_HUD, "")
+		set_hud_image_inactive(THOUGHT_HUD)
 	else
 		if(istext(say_test))
 			set_hud_image_state(THOUGHT_HUD, "hudthoughts-[say_test]")

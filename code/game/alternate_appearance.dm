@@ -172,7 +172,6 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	return FALSE
 
 /datum/atom_hud/alternate_appearance/basic/observers
-	add_ghost_version = FALSE //just in case, to prevent infinite loops
 
 /datum/atom_hud/alternate_appearance/basic/observers/mobShouldSee(mob/M)
 	return isobserver(M)

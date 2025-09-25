@@ -60,7 +60,7 @@
 	if(is_id_card(id_card.value))
 		var/obj/item/card/id/id = id_card.value
 		access = id.GetAccess()
-	else if (id_card.value)
+	else if(id_card.value)
 		failed.set_output(COMPONENT_SIGNAL)
 		reason_failed.set_output("Отмеченный объект не имеет идентификатор! Вместо этого используется отсутствие идентификатора.")
 
@@ -77,7 +77,7 @@
 		return
 
 	// If we're going to the same place and the cooldown hasn't subsided, we're probably on the same path as before
-	if (destination == old_dest && TIMER_COOLDOWN_RUNNING(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME))
+	if(destination == old_dest && TIMER_COOLDOWN_RUNNING(parent, COOLDOWN_CIRCUIT_PATHFIND_SAME))
 
 		// Check if the current turf is the same as the current turf we're supposed to be in. If so, then we set the next step as the next turf on the list
 		if(current_turf == next_turf)

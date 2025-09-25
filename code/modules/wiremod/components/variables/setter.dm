@@ -10,8 +10,6 @@
 	/// The input to store
 	var/datum/port/input/input_port
 
-	circuit_size = 0
-
 /obj/item/circuit_component/variable/setter/trigger
 	display_name = "Установщик переменной вызова"
 	desc = "Компонент, который устанавливает переменную глобально в схеме. Требует входных сигналов и также обеспечивает выходной сигнал."

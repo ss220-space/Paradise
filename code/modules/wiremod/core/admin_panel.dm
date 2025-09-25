@@ -37,9 +37,9 @@
 		to_chat(usr, span_warning("Этой схемы больше не существует."))
 		return FALSE
 
-	switch (action)
+	switch(action)
 		if("duplicate_circuit")
-			if (alert(usr, "Это создаст новую схему в том месте, где вы находитесь. Вы уверены?", "Confirm", "Yes", "No") != "Yes")
+			if(alert(usr, "Это создаст новую схему в том месте, где вы находитесь. Вы уверены?", "Confirm", "Yes", "No") != "Yes")
 				return FALSE
 
 			var/list/errors = list()
@@ -49,7 +49,7 @@
 
 			if(length(errors))
 				to_chat(usr, span_warning("Каким-то образом, дублирование схемы не удалось:"))
-				for (var/error in errors)
+				for(var/error in errors)
 					to_chat(usr, span_warning(error))
 		if("follow_circuit")
 			usr.client?.admin_follow(circuit)

@@ -1,7 +1,6 @@
 /// An info button that, when clicked, puts some text in the user's chat
 /obj/effect/info
 	name = "info"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "info"
 
 	/// What should the info button display when clicked?
@@ -10,7 +9,7 @@
 /obj/effect/info/Initialize(mapload, info_text)
 	. = ..()
 
-	if (!isnull(info_text))
+	if(!isnull(info_text))
 		src.info_text = info_text
 
 /obj/effect/info/Click()

@@ -158,14 +158,15 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/recycling_component(mob/living/user, obj/item/tool)
 	//to allow quick recycling of circuits
-	if(istype(tool, /obj/item/circuit_component))
-		var/amount_inserted = materials.insert_item(tool)
+	if(!istype(tool, /obj/item/circuit_component))
+		return
 
-		if(amount_inserted)
-			qdel(tool)
-			to_chat(user, span_notice("[tool.declent_ru(NOMINATIVE)] стоимостью [amount_inserted /  SHEET_VOLUME] листов материала было потреблено [src.declent_ru(INSTRUMENTAL)]"))
-		else
-			to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] был отклонен [src.declent_ru(INSTRUMENTAL)]"))
+	var/amount_inserted = materials.insert_item(tool)
+	if(amount_inserted)
+		qdel(tool)
+		to_chat(user, span_notice("[tool.declent_ru(NOMINATIVE)] стоимостью [amount_inserted /  SHEET_VOLUME] листов материала было потреблено [src.declent_ru(INSTRUMENTAL)]"))
+	else
+		to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] был отклонен [src.declent_ru(INSTRUMENTAL)]"))
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/circuit_iteract(mob/user, obj/item/circuit)
 	if(!is_circuit(circuit))
@@ -358,7 +359,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/list/designs = list()
 
 	var/index = 1
-	for (var/list/design as anything in scanned_designs)
+	for(var/list/design as anything in scanned_designs)
 
 		var/list/cost = list()
 		var/list/materials = design["materials"]

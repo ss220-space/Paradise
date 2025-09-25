@@ -61,6 +61,10 @@
 #define PACIFISM_HUD "pacifism_hud"
 /// Hud for vampires only to see default diablerie aura
 #define DIABLERIE_AURA_HUD "diablerie_aura_hud"
+/// Insurance level
+#define INSURANCE_HUD "insurance_hud"
+
+
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
 #define HUD_LIST_LIST 1

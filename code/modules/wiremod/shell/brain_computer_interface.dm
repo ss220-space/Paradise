@@ -1,7 +1,6 @@
 /obj/item/organ/internal/cyberimp/brain/bci
 	name = "brain-computer interface"
 	desc = "Имплантат, который можно поместить в голову пользователя для управления электрическими схемами с помощью его мозга."
-	status = ORGAN_ROBOT
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "bci"
 	slot = INTERNAL_ORGAN_BRAIN_COMPUTER_INTERFACE
@@ -213,7 +212,7 @@
 		return
 
 	parent.cell.give(shock_damage * 2)
-	to_chat(source, span_notice("Часть электрошока поглощается вашим [parent]!"))
+	to_chat(source, span_notice("Часть электрошока поглощается вашим [parent.declent_ru(INSTRUMENTAL)]!"))
 
 /obj/item/circuit_component/bci_core/proc/on_examine(datum/source, mob/mob, list/examine_text)
 	SIGNAL_HANDLER
@@ -379,7 +378,7 @@
 	var/obj/item/organ/internal/cyberimp/brain/bci/new_bci = weapon
 	if(istype(new_bci))
 		if(!(locate(/obj/item/integrated_circuit) in new_bci))
-			balloon_alert(user, "BCI не имеет схемы!")
+			balloon_alert(user, UNLINT("BCI не имеет схемы!"))
 			return ATTACK_CHAIN_PROCEED
 
 		var/obj/item/organ/internal/cyberimp/brain/bci/previous_bci_to_implant = bci_to_implant
@@ -424,7 +423,7 @@
 		return CLICK_ACTION_BLOCKING
 
 	if(isnull(bci_to_implant))
-		balloon_alert(user, "BCI не вставлен!")
+		balloon_alert(user, UNLINT("BCI не вставлен!"))
 	else
 		user.put_in_hands(bci_to_implant)
 		bci_to_implant = null

@@ -31,7 +31,7 @@
 	if(!area)
 		area = get_area(src)
 	if(autoname)
-		name = "light switch ([area.name])"
+		name = "[name] ([area.name])"
 
 	AddComponent(/datum/component/usb_port, list(
 		/obj/item/circuit_component/light_switch,

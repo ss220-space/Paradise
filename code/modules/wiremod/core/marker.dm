@@ -87,7 +87,7 @@
 		item_appearance.layer = FLOAT_LAYER
 		item_appearance.plane = FLOAT_PLANE
 
-		item_choice.name = item.name
+		item_choice.name = item.declent_ru(NOMINATIVE)
 		item_choice.image = item_appearance
 		selectable_targets[item.UID()] = item_choice
 
@@ -95,7 +95,7 @@
 	if(!picked_ref)
 		return
 
-	var/atom/movable/chosen = locate(picked_ref)
+	var/atom/movable/chosen = locateUID(picked_ref)
 	if(chosen == target || (chosen in (carbon_target ? carbon_target.get_visible_items() : target.get_equipped_items())))
 		select_target(chosen)
 	else

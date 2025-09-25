@@ -418,7 +418,7 @@
 		var/obj/item/equipped = get_item_by_slot(slot)
 		if(equipped)
 			visible_items += equipped
-	for(var/obj/item/held in get_equipped_items(include_hands = FALSE))
+	for(var/obj/item/held in get_equipped_items(INCLUDE_HELD))
 		visible_items += held
 	return visible_items
 

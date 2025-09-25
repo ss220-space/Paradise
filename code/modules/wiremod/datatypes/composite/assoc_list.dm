@@ -11,7 +11,6 @@
 
 /datum/circuit_datatype/composite_instance/assoc_list
 	color = "white"
-	datatype_flags = DATATYPE_FLAG_COMPOSITE
 
 /datum/circuit_datatype/composite_instance/assoc_list/convert_value_extensive(datum/port/port, value_to_convert, force)
 	var/datum/circuit_datatype/key_handler = GLOB.circuit_datatypes[composite_datatypes[1]]
