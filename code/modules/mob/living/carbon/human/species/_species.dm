@@ -529,12 +529,18 @@
 		if(HAS_TRAIT(target, TRAIT_NO_BLOOD) || HAS_TRAIT(target, TRAIT_EXOTIC_BLOOD) || !target.blood_volume)
 			to_chat(user, span_warning("Отсутствует кровь!"))
 			return
+
 		if(HAS_TRAIT(target, TRAIT_SKELETON))
 			to_chat(user, span_warning("В скелете нет ни капли крови!"))
 			return
+
 		//we're good to suck the blood, blaah
-		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
+		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire)))
 			to_chat(user, span_warning("Вы чувствуете, что [target.declent_ru(NOMINATIVE)] — ваш сородич."))
+
+		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
+			to_chat(user, span_warning("Вы чувствуете на [target.declent_ru(PREPOSITIONAL)] метку другого вампира и понимаете, что это тралл."))
+
 		vamp.handle_bloodsucking(target)
 		add_attack_logs(user, target, "vampirebit")
 		return

@@ -12,7 +12,7 @@
 /datum/diablerie
 	/// Reference to vampire antagonist datum, owner of this diablerie datum
 	var/datum/antagonist/vampire/vampire_datum
-	///
+	/// Reference to the vampire, owner of vampire datum
 	var/mob/living/carbon/human/vampire
 	/// Amount of times we performed diablerie on someone, limit is DIABLERIE_COUNT_MAX. Matches current diablerie level
 	var/diablerie_count = 0
@@ -20,9 +20,8 @@
 	var/obj/effect/diablerie_aura/diablerie_aura
 	/// Used to store user unarmed attack datum to retrieve it, because we modify it. For situation when we *somehow* lose 4 diablerie levels
 	var/datum/unarmed_attack/old_unarmed
-	///
 	var/old_unarmed_type
-	///
+	/// Static list of initialized diablerie levels
 	var/static/list/diablerie_levels = list(
 		new /datum/diablerie_level/level_one,
 		new /datum/diablerie_level/level_two,
@@ -67,6 +66,8 @@
 	diablerie_level.remove(src)
 	remove_additional_bonuses()
 	diablerie_count--
+
+	to_chat(vampire, span_warning("Вы ощущаете боль по всему телу, теряя драгоценную часть своей силы."))
 
 
 /**
@@ -144,7 +145,6 @@
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 5 SECONDS)
 
 
-
 /datum/diablerie/proc/announce_vampire_fallen(mob/living/carbon/human/vampire)
 	GLOB.major_announcement.announce("Сканеры дальнего действия более не фиксируют блюспейс сигнатуру вампира особого класса, \
 		возвышение было успешно предотвращено экипажем.",
@@ -170,13 +170,16 @@
  * sucking 35 units of blood per cycle
 */
 /datum/diablerie_level/level_one/gain(datum/diablerie/diablerie)
+	var/mob/living/carbon/human/vampire = diablerie.vampire
 	var/obj/effect/proc_holder/spell/vampire/self/rejuvenate/rejuvenate = locate() in diablerie.vampire_datum.powers
 	var/datum/spell_cooldown/charges/charges = rejuvenate.cooldown_handler
 	charges.change_cooldowns(new_max_charges = 2)
 
 	diablerie.add_diablerie_aura()
 
-	ADD_TRAIT(diablerie.vampire, TRAIT_NO_BREATH, VAMPIRE_TRAIT)
+	ADD_TRAIT(vampire, TRAIT_NO_BREATH, VAMPIRE_TRAIT)
+
+	to_chat(vampire, span_boldnotice("Сила вашего \"Восстановления\" возросла, и вы можете применять его больше раз. Кроме того, вам более не нужно дышать."))
 
 
 /datum/diablerie_level/level_one/remove(datum/diablerie/diablerie)
@@ -206,6 +209,8 @@
 	ADD_TRAIT(vampire, TRAIT_RED_EYES, VAMPIRE_TRAIT)
 	vampire.change_eye_color(COLOR_RED, FALSE)
 
+	to_chat(vampire, span_boldnotice("Сила вашего взгляда возросла, и вы можете больше раз применять \"Вспышку\". Ваши глаза наливаются кроваво-красным светом."))
+
 
 /datum/diablerie_level/level_two/remove(datum/diablerie/diablerie)
 	var/mob/living/carbon/human/vampire = diablerie.vampire
@@ -232,6 +237,7 @@
 	diablerie.remove_diablerie_aura()
 	diablerie.add_diablerie_aura(ascended = TRUE)
 
+	to_chat(diablerie.vampire, span_boldnotice("Сила вашего \"Восстановления\" возросла, и теперь вы можете восстанавливать им внутренние кровотечения. Ваша аура теперь видна даже простым смертным. Вы всего в шаге от вершины могущества!"))
 
 
 /datum/diablerie_level/level_three/remove(datum/diablerie/diablerie)
@@ -257,12 +263,16 @@
 
 	glare.ignore_deviation = TRUE
 
+	vampire_datum.add_ability(/obj/effect/proc_holder/spell/vampire/raise_free_vampire)
+
 	if(istype(vampire_datum.subclass, SUBCLASS_GARGANTUA))
 		vampire.dna.species.unarmed = new /datum/unarmed_attack/claws
 		vampire.dna.species.unarmed_type = /datum/unarmed_attack/claws
 	else
 		ADD_TRAIT(vampire, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
 		SEND_SIGNAL(vampire, COMSIG_STRENGTH_LEVEL_UP, 5)
+
+	to_chat(vampire, span_boldnotice("Сила вашего тела и глаз возросла. Вы достигли пика своего могущества. Теперь долгом всех смертных будет уничтожить вас!"))
 
 	diablerie.announce_vampire_ascended(vampire)
 
@@ -273,6 +283,8 @@
 	var/obj/effect/proc_holder/spell/vampire/glare/glare = locate() in vampire_datum.powers
 
 	glare.ignore_deviation = FALSE
+
+	vampire_datum.remove_ability(/obj/effect/proc_holder/spell/vampire/raise_free_vampire)
 
 	if(istype(vampire_datum.subclass, SUBCLASS_GARGANTUA))
 		vampire.dna.species.unarmed = diablerie.old_unarmed

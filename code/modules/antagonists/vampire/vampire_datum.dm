@@ -685,7 +685,7 @@
  * (more info about it in /datum/diablerie)
  *
  * Arguments:
- * * vampire - The vampire, who is trying to perform a diablerie on 'victim'
+ * * vampire - The vampire, who is trying to perform a diablerie on the 'victim'
  * * victim - The potential victim of diablerie
  */
 /datum/antagonist/vampire/proc/try_perform_diablerie(mob/living/carbon/human/vampire, mob/living/carbon/human/victim)
@@ -704,8 +704,8 @@
 		adjust_blood(blood_amount = victim_datum.bloodusable)
 
 	victim.visible_message((span_warning("[victim] рассыпается в прах, оставляя после себя лишь груду костей!")),
-		span_notice("Вы ощущаете сладкое чувство избавления, когда ваше тело рассыпается в прах, оставляя после себя лишь груду костей..."))
-	to_chat(vampire, span_notice("Вы поглощаете последнюю каплю жизненной силы сородича и ощущаете, как по телу теплом разливается сила. Вы жаждете [span_bold("ещё")]!"))
+		span_boldnotice("Вы ощущаете сладкое чувство избавления, когда ваше тело рассыпается в прах, оставляя после себя лишь груду костей..."))
+	to_chat(vampire, span_boldnotice("Вы поглощаете последнюю каплю жизненной силы сородича и ощущаете, как по телу теплом разливается сила. Вы жаждете ещё!"))
 	victim.dust()
 
 	diablerie.increase_diablerie_level()
@@ -726,12 +726,13 @@
 	if(!vampire_datum || !victim_datum)
 		return FALSE
 
-	// No diablerie if one of vampires has less then 150 total blood
+	// No diablerie if one of the vampires has less then 150 total blood
 	if(vampire_datum.bloodtotal < DIABLERIE_REQUIRED_BLOOD_TOTAL || \
 		victim_datum.bloodtotal < DIABLERIE_REQUIRED_BLOOD_TOTAL)
 		return FALSE
 
 	if(vampire_datum.diablerie.diablerie_count >= DIABLERIE_COUNT_MAX)
+		to_chat(vampire, span_warning("Вы достигли пика своего могущества, дальнейшее поглощение силы других вампиров не даст вам ничего."))
 		return FALSE
 
 	return TRUE
