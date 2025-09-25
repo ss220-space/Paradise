@@ -714,6 +714,8 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
+	armor_plate_flags = ARMOR_PLATE_EMPTY_FLAGS
+	armor_plate = null
 
 
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)

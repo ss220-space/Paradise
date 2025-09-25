@@ -22,6 +22,7 @@
 	permeability_coefficient = 1
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	armor_plate = null
+	allowed_armor_plate = ARMOR_PLATE_SLOT_NONE
 
 /**
  * # Ninja Scarf

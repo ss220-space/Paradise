@@ -1034,6 +1034,7 @@
 	dog_fashion = null
 	/// List of things added to examine text, like security or medical records.
 	var/examine_extensions = EXAMINE_HUD_NONE
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 
 /obj/item/clothing/suit/space
@@ -1063,6 +1064,8 @@
 	undyeable = TRUE
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	var/jetpack_upgradable = FALSE
+	armor_plate_flags = ARMOR_PLATE_CAN_REMOVE //can not slowdown
+	armor_plate = /obj/item/armor_plate/kevlar
 
 
 /obj/item/clothing/suit/space/Initialize(mapload)

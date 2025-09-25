@@ -3,6 +3,7 @@
 	name = "Skrellian helmet"
 	desc = "Smoothly contoured and polished to a shine. Still looks like a fishbowl."
 	species_restricted = list(SPECIES_SKRELL,SPECIES_HUMAN)
+	armor_plate = null
 
 /obj/item/clothing/head/helmet/space/skrell/white
 	icon_state = "skrell_helmet_white"
@@ -18,6 +19,7 @@
 	name = "Skrellian hardsuit"
 	desc = "Seems like a wetsuit with reinforced plating seamlessly attached to it. Very chic."
 	species_restricted = list(SPECIES_SKRELL,SPECIES_HUMAN)
+	armor_plate = null
 
 /obj/item/clothing/suit/space/skrell/white
 	icon_state = "skrell_suit_white"
@@ -39,6 +41,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
 		)
+	armor_plate = null
 
 /obj/item/clothing/head/helmet/space/unathi/helmet_cheap
 	name = "NT breacher helmet"
@@ -56,6 +59,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
+	armor_plate = null
 
 /obj/item/clothing/suit/space/unathi/rig_cheap
 	name = "NT breacher chassis"
@@ -91,7 +95,7 @@
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/suit.dmi',
 		)
 	allowed_armor_plate = ARMOR_PLATE_SLOT_MEDIUM
-	armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/handmade_steel
 
 /obj/item/clothing/head/helmet/space/vox
 	armor = list(melee = 40, bullet = 0, laser = 0, energy = 15, bomb = 30, bio = 30, rad = 30, fire = 80, acid = 85)
@@ -103,6 +107,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/head.dmi',
 		)
+	armor_plate = /obj/item/armor_plate/handmade_steel/helmet
 
 /obj/item/clothing/head/helmet/space/vox/pressure
 	name = "alien helmet"

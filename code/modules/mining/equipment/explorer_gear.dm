@@ -156,6 +156,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 	)
+	armor_plate = /obj/item/armor_plate/medium_steel/helmet
 
 /obj/item/clothing/head/helmet/space/hostile_environment/get_ru_names()
 	return list(

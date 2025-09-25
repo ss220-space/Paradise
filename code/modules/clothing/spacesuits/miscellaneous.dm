@@ -297,7 +297,6 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		)
-	armor_plate = null
 
 
 /obj/item/clothing/suit/space/eva/paramedic
@@ -338,6 +337,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		)
+	armor_plate = null
 
 
 /obj/item/clothing/head/helmet/space/eva
@@ -371,7 +371,6 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
-	armor_plate = null
 
 
 /obj/item/clothing/suit/space/eva/mime
@@ -396,7 +395,6 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
-	armor_plate = null
 
 
 /obj/item/clothing/suit/space/eva/clown
@@ -446,7 +444,6 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi'
 		)
-	armor_plate = null
 
 /obj/item/clothing/suit/space/eva/pirate/leader
 	name = "pirate leader EVA suit"

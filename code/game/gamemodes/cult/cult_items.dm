@@ -166,6 +166,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
+	armor_plate = /obj/item/armor_plate/medium_steel/helmet
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
@@ -248,6 +249,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
 	hoodtype = /obj/item/clothing/head/hooded/flagellant_hood
+	armor_plate_flags = ARMOR_PLATE_CAN_SLOWDOWN
 
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/equipped(mob/living/user, slot, initial)
