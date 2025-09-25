@@ -50,12 +50,12 @@
 
 	if(msg && (msg != last_pain_message || prob(10)))
 		last_pain_message = msg
-		if(get_preference(PREFTOGGLE_3_PAIN_BLURB))
+		if(HASBIT(client?.prefs.toggles3, PREFTOGGLE_3_PAIN_BLURB))
 			pain_blurb(msg)
 		else
 			to_chat(src, msg)
 
-	COOLDOWN_START(src, pain_cd, (get_preference(PREFTOGGLE_3_PAIN_BLURB) ? 30 SECONDS : 10 SECONDS) - amount)
+	COOLDOWN_START(src, pain_cd, (HASBIT(client?.prefs.toggles3, PREFTOGGLE_3_PAIN_BLURB) ? 30 SECONDS : 10 SECONDS) - amount)
 
 
 // message is the custom message to be displayed
@@ -63,21 +63,21 @@
 	if(!has_pain())
 		return
 
-	if(get_preference(PREFTOGGLE_3_PAIN_BLURB) && !COOLDOWN_FINISHED(src, pain_cd))
+	if(HASBIT(client?.prefs.toggles3, PREFTOGGLE_3_PAIN_BLURB) && !COOLDOWN_FINISHED(src, pain_cd))
 		return
 
 	// Anti message spam checks
 	if(!message || message == last_pain_message && !COOLDOWN_FINISHED(src, pain_cd))
-		COOLDOWN_START(src, pain_cd, (get_preference(PREFTOGGLE_3_PAIN_BLURB) ? 30 SECONDS : 10 SECONDS))
+		COOLDOWN_START(src, pain_cd, (HASBIT(client?.prefs.toggles3, PREFTOGGLE_3_PAIN_BLURB) ? 30 SECONDS : 10 SECONDS))
 		return
 
 	last_pain_message = message
-	if(get_preference(PREFTOGGLE_3_PAIN_BLURB))
+	if(HASBIT(client?.prefs.toggles3, PREFTOGGLE_3_PAIN_BLURB))
 		pain_blurb(message)
 	else
 		to_chat(src, span_userdanger("[message]"))
 
-	COOLDOWN_START(src, pain_cd, (get_preference(PREFTOGGLE_3_PAIN_BLURB) ? 30 SECONDS : 10 SECONDS))
+	COOLDOWN_START(src, pain_cd, (HASBIT(client?.prefs.toggles3, PREFTOGGLE_3_PAIN_BLURB) ? 30 SECONDS : 10 SECONDS))
 
 /mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
