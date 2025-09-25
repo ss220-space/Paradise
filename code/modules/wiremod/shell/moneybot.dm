@@ -132,7 +132,7 @@
 
 /obj/item/circuit_component/money_bot/proc/handle_money_insert(atom/source, obj/item/item, mob/living/attacker)
 	SIGNAL_HANDLER
-	if(!attached_bot || !iscash(item))
+	if(!attached_bot || !is_cash(item))
 		return
 
 	var/amount_to_insert = item.get_item_credit_value()

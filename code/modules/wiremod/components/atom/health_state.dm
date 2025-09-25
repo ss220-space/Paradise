@@ -1,6 +1,6 @@
 #define ALIVE "Жив"
-#define CRITICAL "Критическое состояние"
-#define UNCONSCIOUS "Без сознания"
+#define CRIT "Критическое состояние"
+#define UNCONS "Без сознания"
 #define DECEASED "Мертв"
 
 /**
@@ -31,8 +31,8 @@
 
 	var/static/component_options = list(
 		ALIVE,
-		CRITICAL,
-		UNCONSCIOUS,
+		CRIT,
+		UNCONS,
 		DECEASED,
 	)
 	state_option = add_option_port("Параметр", component_options)
@@ -49,16 +49,16 @@
 	switch(current_option)
 		if(ALIVE)
 			return state != DEAD
-		if(CRITICAL)
+		if(CRIT)
 			return organism.InCritical()
-		if(UNCONSCIOUS)
-			return state == UNCONSCIOUS
+		if(UNCONS)
+			return state == UNCONS
 		if(DECEASED)
 			return state == DEAD
 	//Unknown state, something fucked up really bad - just return false
 	return FALSE
 
 #undef ALIVE
-#undef CRITICAL
-#undef UNCONSCIOUS
+#undef CRIT
+#undef UNCONS
 #undef DECEASED

@@ -183,7 +183,7 @@
 			source.balloon_alert(attacker, "[locked ? "закрыто" : "открыто"] [source]")
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
-		if(!attached_circuit.owner_id && isidcard(item))
+		if(!attached_circuit.owner_id && is_id_card(item))
 			source.balloon_alert(attacker, "ID пользователя установлено для [item.declent_ru(GENITIVE)]")
 			attached_circuit.owner_id = WEAKREF(item)
 			return COMPONENT_CANCEL_ATTACK_CHAIN

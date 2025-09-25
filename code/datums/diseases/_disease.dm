@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 	//Visibility
 	var/visibility_flags = VISIBLE
-
+	/// If nonthreat, not marked on HUD
 	var/severity = DISEASE_SEVERITY_NONTHREAT
 
 	/// The fraction of stages the disease must at least be at to show up on medical HUDs. Rounded up.

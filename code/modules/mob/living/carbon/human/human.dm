@@ -547,7 +547,7 @@
 											var/mob/living/carbon/human/U = usr
 											rank = U.get_assignment()
 											var/obj/item/card/id/cart =  U.get_id_card()
-											law_level = isidcard(cart)? cart.law_level : LAW_LEVEL_BASE
+											law_level = is_id_card(cart)? cart.law_level : LAW_LEVEL_BASE
 										else if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
 											rank = "[U.modtype?.name] [U.braintype]"

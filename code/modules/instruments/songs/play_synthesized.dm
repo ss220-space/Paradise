@@ -39,9 +39,9 @@
 				compiled_chords[++compiled_chords.len] = compiled_chord
 
 /**
-  * Plays a specific numerical key from our instrument to anyone who can hear us.
-  * Does a hearing check if enough time has passed.
-  */
+ * Plays a specific numerical key from our instrument to anyone who can hear us.
+ * Does a hearing check if enough time has passed.
+ */
 /datum/song/proc/playkey_synth(key, atom/player)
 	if(can_noteshift)
 		key = clamp(key + note_shift, key_min, key_max)

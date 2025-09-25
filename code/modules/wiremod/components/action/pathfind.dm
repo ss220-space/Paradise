@@ -57,7 +57,7 @@
 		return
 
 	var/list/access = list()
-	if(isidcard(id_card.value))
+	if(is_id_card(id_card.value))
 		var/obj/item/card/id/id = id_card.value
 		access = id.GetAccess()
 	else if (id_card.value)

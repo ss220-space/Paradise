@@ -1,12 +1,12 @@
-#define NAME "имя"
-#define ASSIGNMENT "должность"
-#define STAT "статус"
-#define OXY "удушье"
-#define TOX "токсины"
-#define FIRE "ожоги"
-#define BRUTE "травмы"
-#define AREA "местоположение"
-#define HEALTH "здоровье"
+#define RU_NAME "имя"
+#define RU_ASSIGNMENT "должность"
+#define RU_STAT "статус"
+#define RU_OXY "удушье"
+#define RU_TOX "токсины"
+#define RU_FIRE "ожоги"
+#define RU_BRUTE "травмы"
+#define RU_AREA "местоположение"
+#define RU_HEALTH "здоровье"
 
 /obj/machinery/computer/crew
 	name = "crew monitoring computer"
@@ -91,15 +91,15 @@
 /obj/item/circuit_component/medical_console_data/get_ui_notices()
 	. = ..()
 	. += create_table_notices(list(
-		NAME,
-		ASSIGNMENT,
-		STAT,
-		OXY,
-		TOX,
-		FIRE,
-		BRUTE,
-		AREA,
-		HEALTH,
+		RU_NAME,
+		RU_ASSIGNMENT,
+		RU_STAT,
+		RU_OXY,
+		RU_TOX,
+		RU_FIRE,
+		RU_BRUTE,
+		RU_AREA,
+		RU_HEALTH,
 	))
 
 
@@ -112,25 +112,25 @@
 	var/list/new_table = list()
 	for(var/list/player_record as anything in GLOB.crew_repository.health_data(T))
 		var/list/entry = list()
-		entry[NAME] = player_record["name"]
-		entry[ASSIGNMENT] = player_record["assignment"]
-		entry[STAT] = player_record["stat"]
-		entry[OXY] = player_record["oxy"]
-		entry[TOX] = player_record["tox"]
-		entry[FIRE] = player_record["fire"]
-		entry[BRUTE] = player_record["brute"]
-		entry[AREA] = player_record["area"]
-		entry[HEALTH] = player_record["health"]
+		entry[RU_NAME] = player_record["name"]
+		entry[RU_ASSIGNMENT] = player_record["assignment"]
+		entry[RU_STAT] = player_record["stat"]
+		entry[RU_OXY] = player_record["oxy"]
+		entry[RU_TOX] = player_record["tox"]
+		entry[RU_FIRE] = player_record["fire"]
+		entry[RU_BRUTE] = player_record["brute"]
+		entry[RU_AREA] = player_record["area"]
+		entry[RU_HEALTH] = player_record["health"]
 		new_table += list(entry)
 
 	records.set_output(new_table)
 
-#undef NAME
-#undef ASSIGNMENT
-#undef STAT
-#undef OXY
-#undef TOX
-#undef FIRE
-#undef BRUTE
-#undef AREA
-#undef HEALTH
+#undef RU_NAME
+#undef RU_ASSIGNMENT
+#undef RU_STAT
+#undef RU_OXY
+#undef RU_TOX
+#undef RU_FIRE
+#undef RU_BRUTE
+#undef RU_AREA
+#undef RU_HEALTH

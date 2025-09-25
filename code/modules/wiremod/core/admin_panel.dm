@@ -12,7 +12,7 @@
 	var/list/data = list()
 	data["circuits"] = list()
 
-	for (var/obj/item/integrated_circuit/circuit as anything in GLOB.integrated_circuits)
+	for(var/obj/item/integrated_circuit/circuit as anything in GLOB.integrated_circuits)
 		var/datum/mind/inserter = circuit.inserter_mind?.resolve()
 
 		data["circuits"] += list(list(
@@ -26,19 +26,19 @@
 
 /datum/circuit_admin_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-	if (.)
+	if(.)
 		return .
 
-	if (!istext(params["circuit"]))
+	if(!istext(params["circuit"]))
 		return FALSE
 
 	var/obj/item/integrated_circuit/circuit = locate(params["circuit"])
-	if (!istype(circuit))
+	if(!istype(circuit))
 		to_chat(usr, span_warning("Этой схемы больше не существует."))
 		return FALSE
 
 	switch (action)
-		if ("duplicate_circuit")
+		if("duplicate_circuit")
 			if (alert(usr, "Это создаст новую схему в том месте, где вы находитесь. Вы уверены?", "Confirm", "Yes", "No") != "Yes")
 				return FALSE
 
@@ -47,19 +47,19 @@
 			var/obj/item/integrated_circuit/loaded/new_circuit = new(usr.drop_location())
 			new_circuit.load_circuit_data(circuit.convert_to_json(), errors)
 
-			if (length(errors))
+			if(length(errors))
 				to_chat(usr, span_warning("Каким-то образом, дублирование схемы не удалось:"))
 				for (var/error in errors)
 					to_chat(usr, span_warning(error))
-		if ("follow_circuit")
+		if("follow_circuit")
 			usr.client?.admin_follow(circuit)
-		if ("save_circuit")
+		if("save_circuit")
 			circuit.attempt_save_to(usr.client)
-		if ("vv_circuit")
+		if("vv_circuit")
 			usr.client?.debug_variables(circuit)
-		if ("open_circuit")
+		if("open_circuit")
 			circuit.ui_interact(usr)
-		if ("open_player_panel")
+		if("open_player_panel")
 			var/datum/mind/inserter = circuit.inserter_mind?.resolve()
 			usr.client?.holder?.show_player_panel(inserter?.current)
 
@@ -73,3 +73,4 @@
 	if(!ui)
 		ui = new(user, src, "CircuitAdminPanel")
 		ui.open()
+

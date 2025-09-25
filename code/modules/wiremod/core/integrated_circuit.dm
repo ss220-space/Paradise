@@ -176,7 +176,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 		user.visible_message(span_notice("[user] вставляет элемент питания в [src.declent_ru(ACCUSATIVE)]."), span_notice("Вы вставили элемент питания в [src.declent_ru(ACCUSATIVE)]."))
 		return
 
-	if(isidcard(I))
+	if(is_id_card(I))
 		balloon_alert(user, "идентификатор пользователя установлен для [I.declent_ru(GENITIVE)]")
 		owner_id = WEAKREF(I)
 		return

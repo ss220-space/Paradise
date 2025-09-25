@@ -335,7 +335,7 @@
 	for(var/T in preserve_items)
 		if(istype(I, T) && !(I.type in do_not_preserve_items))
 			return CRYO_PRESERVE
-	if(isidcard(I))
+	if(is_id_card(I))
 		SEND_SIGNAL(I, COMSIG_FREEZE_LINKED_ACCOUNT)
 	return CRYO_DESTROY
 

@@ -19,7 +19,7 @@
 		PREPOSITIONAL = "мультитуле для схем"
 	)
 
-/obj/item/multitool/circuit/Initialize()
+/obj/item/multitool/circuit/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
 
