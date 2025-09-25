@@ -8,15 +8,11 @@
 	icon_aggro = "Goldgrub_alert"
 	icon_dead = "Goldgrub_dead"
 	icon_gib = "syndicate_gib"
-	vision_range = 2
-	aggro_vision_range = 9
 	move_to_delay = 5
 	friendly = "безвредно перекатывается в"
 	maxHealth = 45
 	health = 45
 	harm_intent_damage = 5
-	melee_damage_lower = 0
-	melee_damage_upper = 0
 	attacktext = "давит"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HELP

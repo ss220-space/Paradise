@@ -7,7 +7,6 @@
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
 
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 60
 
@@ -21,7 +20,6 @@
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
-	on = FALSE
 	var/scrubbing = 1 //0 = siphoning, 1 = scrubbing
 	var/scrub_O2 = 0
 	var/scrub_N2 = 0

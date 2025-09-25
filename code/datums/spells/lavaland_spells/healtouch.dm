@@ -4,7 +4,6 @@
 	desc = "Это заклинание заряжает вашу руку энергией Некрополя, позволяя вам лечить некоторые повреждения и взаимодействовать с некоторыми предметами."
 	hand_path = /obj/item/melee/touch_attack/healtouch
 
-	school = "evocation"
 	base_cooldown = 20 SECONDS
 	clothes_req = FALSE
 

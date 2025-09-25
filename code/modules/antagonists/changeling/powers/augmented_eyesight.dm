@@ -9,7 +9,6 @@
 	button_icon_state = "augmented_eyesight"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
-	chemical_cost = 0
 
 
 /datum/action/changeling/augmented_eyesight/on_purchase(mob/user, /datum/antagonist/changeling/antag)
@@ -40,7 +39,6 @@
 	name = "protective membranes"
 	desc = "These variable transparency organic membranes will protect you from welders and flashes and heal your eye damage."
 	icon_state = "ling_eyeshield"
-	eye_colour = "#000000"
 	implant_overlay = null
 	slot = INTERNAL_ORGAN_EYE_LING
 	status = NONE

@@ -184,7 +184,6 @@
 		INSTRUMENTAL = "зарядом создания дверей",
 		PREPOSITIONAL = "заряде создания дверей"
 	)
-	icon_state = "energy"
 	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
 		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
 		/obj/structure/mineral_door/transparent/diamond)
@@ -445,7 +444,6 @@
 	icon_state = "lavastaff"
 	damage = 15
 	damage_type = BURN
-	flag = "magic"
 	dismemberment = 50
 	dismember_head = TRUE
 	nodamage = FALSE
@@ -501,6 +499,5 @@
 	damage_type = BURN
 	nodamage = FALSE
 	armour_penetration = 0
-	flag = "magic"
 	hitsound = 'sound/weapons/barragespellhit.ogg'
 	forced_accuracy = TRUE

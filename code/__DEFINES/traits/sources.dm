@@ -1,16 +1,7 @@
-/*
+/**
  * This file contains all of the trait sources, or all of the things that grant traits.
  * Several things such as `type` or `ref(src)` may be used in the ADD_TRAIT() macro as the "source", but this file contains all of the defines for immutable static strings.
  */
-
-/// The item is magically cursed
-#define CURSED_ITEM_TRAIT(item_type) "cursed_item_[item_type]"
-/// Gives a unique trait source for any given datum
-#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID_of(target)]"
-/// Trait applied by element
-#define ELEMENT_TRAIT(source) "element_trait_[source]"
-/// A trait given by a specific status effect (not sure why we need both but whatever!)
-#define TRAIT_STATUS_EFFECT(effect_id) "[effect_id]-trait"
 
 // Common trait sources
 #define GENERIC_TRAIT "generic"

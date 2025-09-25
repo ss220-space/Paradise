@@ -448,7 +448,7 @@
 				righthand_file = 'icons/mob/inhands/items_by_map/urban_righthand.dmi'
 	if(isliving(loc))
 		var/mob/mob = loc
-		mob.update_inv_hands()
+		mob.update_held_items()
 	return TRUE
 
 /obj/item/mortar_kit/AltShiftClick(mob/user)
@@ -487,11 +487,9 @@
 //used to show where dropship ordnance will impact.
 /obj/effect/overlay/temp/blinking_laser
 	name = "blinking laser"
-	anchored = TRUE
 	light_range = 2
 	var/effect_duration = 1 SECONDS
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "impact_laser"
 
 /obj/effect/overlay/temp/blinking_laser/Initialize(mapload)

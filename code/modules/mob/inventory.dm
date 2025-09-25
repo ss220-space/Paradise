@@ -360,10 +360,7 @@
 			r_hand = null
 		return FALSE
 
-	if(hand_id == ITEM_SLOT_HAND_LEFT)
-		update_inv_l_hand()
-	else if(hand_id == ITEM_SLOT_HAND_RIGHT)
-		update_inv_r_hand()
+	update_held_items()
 
 	I.layer = ABOVE_HUD_LAYER
 	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
@@ -579,10 +576,10 @@
 
 	if(I == r_hand)
 		r_hand = null
-		update_inv_r_hand()
+		update_held_items()
 	else if(I == l_hand)
 		l_hand = null
-		update_inv_l_hand()
+		update_held_items()
 	else if(I in tkgrabbed_objects)
 		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[I]
 		drop_item_ground(tkgrab, force)

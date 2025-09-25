@@ -12,13 +12,11 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 10
-	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
 	drop_sound = 'sound/items/handling/drop/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/crowbar_pickup.ogg'
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("атаковал", "ударил", "огрел")
-	toolspeed = 1
 
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_CROWBAR
@@ -59,7 +57,6 @@
 	desc = "A hard-light crowbar. It appears to pry by itself, without any effort required."
 	icon = 'icons/obj/abductor.dmi'
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
-	icon_state = "crowbar"
 	item_state = "crowbar_alien"
 	belt_icon = "alien_crowbar"
 	toolspeed = 0.1

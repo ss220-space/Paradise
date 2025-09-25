@@ -1144,9 +1144,6 @@
 /area/awaymission/spacehotel)
 "eH" = (
 /obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,

@@ -86,7 +86,6 @@
 	maxHealth = 120
 	health = 120
 	melee_damage_lower = 10
-	melee_damage_upper = 20
 	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/Initialize(mapload)

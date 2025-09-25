@@ -8,7 +8,6 @@
 	icon_living = "angel"
 	icon_dead = "angel"
 	gender = NEUTER
-	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_OTHER
 
 	response_help = "touches"

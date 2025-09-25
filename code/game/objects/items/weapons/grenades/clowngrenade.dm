@@ -2,8 +2,6 @@
 	name = "Banana Grenade"
 	desc = "Банановые кожурки торговой марки \"ХОНК!\" в специальном аппликаторе, который позволяет быстро наносить их на большие поверхности."
 	icon_state = "banana"
-	item_state = "flashbang"
-	w_class = WEIGHT_CLASS_SMALL
 	force = 2.0
 	var/stage = 0
 	var/state = 0

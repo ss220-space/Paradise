@@ -15,10 +15,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	name = "Thunderdome Melee Challenge"
 	spawn_minimum_limit = MIN_PLAYERS_COUNT
 	spawn_coefficent = SPAWN_COEFFICENT
-	is_going = FALSE
 	maxplayers = MAX_PLAYERS_COUNT
-	time_limit = DEFAULT_TIME_LIMIT
-	role = ROLE_THUNDERDOME
 	var/arena_cooldown = ARENA_COOLDOWN
 	var/cqc_arena_radius = CQC_ARENA_RADIUS
 	var/ranged_arena_radius = RANGED_ARENA_RADIUS
@@ -212,7 +209,6 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 
 /obj/minigame_anchor/thunderdome_poller/melee
 	name = "Thunderdome Poller (Melee)"
-	desc = "Желаете стать лучшим бойцом? Опробуйте себя на Тандердоме в роли мастера ближнего боя!"
 	gamemode_type = /datum/thunderdome_gamemode/melee
 
 /obj/minigame_anchor/thunderdome_poller/ranged

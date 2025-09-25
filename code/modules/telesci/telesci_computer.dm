@@ -317,13 +317,12 @@
 		telefail()
 		temp_msg = "ОШИБКА!<br>Угол меньше 1 или больше 90."
 		return
-	if(z_co == 2 || z_co < 1 || z_co > 6)
-		if(z_co == 7 & emagged == 1)
-		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
-		else
-			telefail()
-			temp_msg = "ОШИБКА! Сектор меньше 1, <br>больше [src.emagged ? "7" : "6"], или равен 2."
-			return
+	// THIS FUCKING THING USES ZLEVEL NUMBERS WHY
+	var/cc_z = level_name_to_num(CENTCOMM)
+	if(z_co == cc_z || z_co < cc_z + 1 || cc_z > world.maxz)
+		telefail()
+		temp_msg = "ERROR! Sector must be greater than or equal to 2, and less than or equal to [world.maxz]."
+		return
 
 
 	var/truePower = clamp(power + power_off, 1, 1000)

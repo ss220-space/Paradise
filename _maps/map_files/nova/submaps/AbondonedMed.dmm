@@ -531,8 +531,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/barricade/wooden{
 	layer = 3.5
@@ -5906,13 +5905,13 @@ yI
 yc
 gp
 gp
-zu
+gp
 YE
 IP
 gp
 Iz
 gp
-zu
+gp
 qM
 wt
 vj
@@ -6121,14 +6120,14 @@ rc
 sF
 jl
 gp
-zu
-zu
+gp
+gp
 QM
 Ni
 gp
 BQ
 gp
-zu
+gp
 qM
 ZA
 vj

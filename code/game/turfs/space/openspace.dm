@@ -1,7 +1,6 @@
 /turf/space/openspace
 	name = "open space"
 	desc = "Watch your step!"
-	icon = 'icons/turf/space.dmi'
 	icon_state = "openspace" //transparent
 	baseturf = /turf/space/openspace
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

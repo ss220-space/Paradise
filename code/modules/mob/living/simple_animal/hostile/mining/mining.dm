@@ -7,10 +7,8 @@
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	response_help = "гладит"
-	response_disarm = "толкает"
 	response_harm = "бьёт"
 	status_flags = 0
-	a_intent = INTENT_HARM
 	AI_delay_max = 0.5 SECONDS
 	var/jewelry_loot
 	var/crusher_loot

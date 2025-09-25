@@ -14,7 +14,6 @@
 	name = "revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/a357
 	caliber = CALIBER_DOT_357
-	max_ammo = 7
 
 
 /obj/item/ammo_box/magazine/internal/cylinder/Initialize(mapload)
@@ -93,7 +92,6 @@
 	name = "nagant revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/n762
 	caliber = CALIBER_7_DOT_62X38MM
-	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev36
 	name = ".36 revolver cylinder"
@@ -121,17 +119,14 @@
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/steel
 	name = "steel bullet cylinder"
 	desc = "High quality steel revolver cylinder with increased amount of bullets."
-	icon = 'icons/obj/improvised.dmi'
 	icon_state = "s_rev_cylinder"
 	caliber = list(CALIBER_DOT_257, CALIBER_DOT_38)
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/cap
 	name = "cap gun revolver cylinder"
-	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/cap
 	caliber = CALIBER_CAP
-	max_ammo = 7
 
 /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	name = ".12 revolver cylinder"
@@ -158,7 +153,6 @@
 /obj/item/ammo_box/magazine/internal/shot/tube
 	name = "dual feed shotgun internal tube"
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
-	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/lethal
 	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
@@ -237,11 +231,9 @@
 
 /obj/item/ammo_box/magazine/internal/boltaction
 	name = "bolt action rifle internal magazine"
-	desc = "Oh god, this shouldn't be here!"
 	ammo_type = /obj/item/ammo_casing/a762
 	caliber = CALIBER_7_DOT_62X54MM
 	max_ammo = 5
-	multiload = TRUE
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 	max_ammo =1
@@ -250,7 +242,6 @@
 /obj/item/ammo_box/magazine/internal/shot/toy
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	caliber = CALIBER_FOAM_FORCE
-	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	max_ammo = 5
@@ -540,7 +531,7 @@
 	)
 
 /obj/item/ammo_box/magazine/sp91rc/update_icon_state()
-	icon_state = "9mm-te-[round(ammo_count(),5)]"
+	icon_state = "[initial(icon_state)]-[round(ammo_count(), 5)]"
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
@@ -731,7 +722,6 @@
 	icon_state = "50ae"
 	ammo_type = /obj/item/ammo_casing/a50
 	caliber = CALIBER_DOT_50AE
-	max_ammo = 7
 	multiple_sprites = 1
 
 /obj/item/ammo_box/magazine/m50/get_ru_names()
@@ -987,7 +977,6 @@
 	desc = "Увеличенный барабанный магазин, предназначенный для картечных магнум патронов калибра 12х70."
 	icon_state = "m12gXlBs"
 	w_class = WEIGHT_CLASS_NORMAL
-	ammo_type = /obj/item/ammo_casing/shotgun/buckshot/magnum
 	max_ammo = 24
 
 /obj/item/ammo_box/magazine/m12g/XtrLrg/get_ru_names()
@@ -1187,7 +1176,6 @@
 	icon_state = "a762-[round(ammo_count(), 20)]"
 
 /obj/item/ammo_box/magazine/toy/m762/riot
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/laser
 	name = "encased laser projector magazine"
@@ -1233,7 +1221,6 @@
 
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
-	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/m52mag
 	name = "M-52 magazine"
@@ -1351,63 +1338,4 @@
 		ACCUSATIVE = "увеличенный барабанный магазин C.A.T.S. (12х70)",
 		INSTRUMENTAL = "увеличенным барабанным магазином C.A.T.S. (12х70)",
 		PREPOSITIONAL = "увеличенном барабанном магазине C.A.T.S. (12х70)"
-	)
-
-/obj/item/ammo_box/magazine/specter
-	name = "magazine Specter (disabler)"
-	desc = "Магазин пистолета \"Спектр\", предназначенный для парализующих патронов."
-	icon_state = "specmag"
-	ammo_type = /obj/item/ammo_casing/specter/disable
-	max_ammo = 8
-	multiple_sprites = 1
-	caliber = CALIBER_SPECTER
-	materials = list(MAT_METAL = 3000)
-
-/obj/item/ammo_box/magazine/specter/empty
-	start_empty = TRUE
-
-/obj/item/ammo_box/magazine/specter/get_ru_names()
-	return list(
-		NOMINATIVE = "магазин Спектр (парализующий)",
-		GENITIVE = "магазин Спектр (парализующий)",
-		DATIVE = "магазин Спектр (парализующий)",
-		ACCUSATIVE = "магазин Спектр (парализующий)",
-		INSTRUMENTAL = "магазин Спектр (парализующий)",
-		PREPOSITIONAL = "магазин Спектр (парализующий)"
-	)
-
-/obj/item/ammo_box/magazine/specter/update_overlays()
-	. = ..()
-	if(ammo_count() && is_disable())
-		. += image('icons/obj/weapons/ammo.dmi', icon_state = "specter-d")
-
-
-/obj/item/ammo_box/magazine/specter/examine(mob/user)
-	. = ..()
-	if(get_dist(user, src) > 2)
-		return
-	. += span_notice("Похоже, что он заряжен [is_disable() ? "парализующими" : "лазерными"] патронами.")
-
-/obj/item/ammo_box/magazine/specter/proc/is_disable()
-	var/ammo = ammo_count()
-	if(!ammo)
-		return FALSE
-	if(istype(contents[contents.len], /obj/item/ammo_casing/specter/disable))
-		return TRUE
-	return FALSE
-
-/obj/item/ammo_box/magazine/specter/laser
-	name = "magazine Specter (laser)"
-	desc = "Магазин пистолета \"Спектр\", предназначенный для лазерных патронов."
-	ammo_type = /obj/item/ammo_casing/specter/laser
-	materials = list(MAT_METAL = 5000)
-
-/obj/item/ammo_box/magazine/specter/laser/get_ru_names()
-	return list(
-		NOMINATIVE = "магазин Спектр (лазерный)",
-		GENITIVE = "магазин Спектр (лазерный)",
-		DATIVE = "магазин Спектр (лазерный)",
-		ACCUSATIVE = "магазин Спектр (лазерный)",
-		INSTRUMENTAL = "магазин Спектр (лазерный)",
-		PREPOSITIONAL = "магазин Спектр (лазерный)"
 	)

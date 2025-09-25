@@ -468,8 +468,6 @@
 	desc = "Щипцы из конденсированного газа гипер-ноблия, леденяще холодные на ощупь, способные безопасно удерживать осколки суперматерии."
 	icon = 'icons/obj/nuke_tools.dmi'
 	icon_state = "supermatter_tongs"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "supermatter_tongs"
 	toolspeed = 0.75
 	damtype = BURN

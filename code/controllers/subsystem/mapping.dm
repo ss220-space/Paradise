@@ -142,15 +142,15 @@ SUBSYSTEM_DEF(mapping)
 	// Load the station
 	loadStation()
 
-	if(!CONFIG_GET(flag/disable_lavaland))
+	if(!CONFIG_GET(flag/disable_lavaland) && !(map_datum.disables & DISABLE_LAVALAND))
 		loadLavaland()
-	if(!CONFIG_GET(flag/disable_taipan))
+	if(!CONFIG_GET(flag/disable_taipan) && !(map_datum.disables & DISABLE_TAIPAN))
 		loadTaipan()
 	// Pick a random away mission.
-	if(!CONFIG_GET(flag/disable_away_missions))
+	if(!CONFIG_GET(flag/disable_away_missions) && !(map_datum.disables & DISABLE_AWAY_MISSIONS))
 		loadAwayLevel()
 	// Seed space ruins
-	if(!CONFIG_GET(flag/disable_space_ruins))
+	if(!CONFIG_GET(flag/disable_space_ruins) && !(map_datum.disables & DISABLE_SPACE_RUINS))
 		handleRuins()
 
 	// Makes a blank space level for the sake of randomness
@@ -160,7 +160,7 @@ SUBSYSTEM_DEF(mapping)
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
 
-	if(!CONFIG_GET(flag/disable_lavaland))
+	if(!CONFIG_GET(flag/disable_lavaland) && !(map_datum.disables & DISABLE_LAVALAND))
 		// Spawn Lavaland ruins and rivers.
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
@@ -365,7 +365,12 @@ SUBSYSTEM_DEF(mapping)
 		else
 			to_chat(world, span_danger("ERROR: The map datum specified to load is invalid. Falling back to... delta probably?"))
 #else
+
+	#ifndef MULTIZ_FAST_LOAD
 	map_datum = new /datum/map/fast_load
+	#else
+	map_datum = new /datum/map/fast_load_multiz
+	#endif
 #endif
 
 	ASSERT(map_datum.map_path)
