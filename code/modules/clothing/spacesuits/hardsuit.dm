@@ -12,7 +12,6 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 	//Species-specific stuff.
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")

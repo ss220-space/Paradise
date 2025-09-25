@@ -20,6 +20,8 @@
 		/obj/item/stock_parts/cell, /obj/item/grenade/plastic/c4/ninja)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	armor = list(MELEE = 40, BULLET = 30, LASER = 20,ENERGY = 30, BOMB = 30, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor_plate = null
+	allowed_armor_plate = ARMOR_PLATE_SLOT_NONE
 	strip_delay = 12
 	permeability_coefficient = 1
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
