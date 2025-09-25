@@ -799,9 +799,9 @@
 
 /obj/item/gun/energy/specter/update_icon_state()
 	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
+		icon_state = "[current_skin][cell.charge > 0 ? "" : "-e"]"
 	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+		icon_state = "[initial(icon_state)][cell.charge > 0 ? "" : "-e"]"
 
 /obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
 	if(!istype(item, /obj/item/stock_parts/cell/specter))
@@ -815,6 +815,7 @@
 	cell = item
 	cell_type = item.type
 	balloon_alert(user, "батарейка заменена")
+	update_icon(UPDATE_ICON_STATE)
 
 	return ATTACK_CHAIN_PROCEED
 
