@@ -549,9 +549,7 @@
 	desc = "Несколько шестерней, запитывающих оружие энергией Ратвара."
 	caliber = "ratvar"
 	projectile_type = /obj/projectile/energy/rat
-	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
-	leaves_residue = FALSE
 	e_cost = 1
 
 /obj/item/ammo_casing/energy/rat/slug

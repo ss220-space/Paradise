@@ -10,7 +10,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	pixel_y = -32
 	layer = ABOVE_ALL_MOB_LAYER
 	max_integrity = 3000
-	can_be_unanchored = FALSE
 	var/list/obj/structure/fillers = list()
 	var/pulse_range = 3
 	mouse_drag_pointer = MOUSE_DROP_POINTER
@@ -412,8 +411,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	resistance_flags = INDESTRUCTIBLE
 	mouse_drag_pointer = MOUSE_DRAG_POINTER
 	w_class = WEIGHT_CLASS_BULKY
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/part_upper/get_ru_names()
 	return list(

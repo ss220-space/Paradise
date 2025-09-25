@@ -394,7 +394,7 @@
 	)
 	icon_state = "brassshot_heal"
 	damage = 0
-	stun = 0
+	weaken = 0
 
 /obj/projectile/energy/rat/snipe/heal/prehit(atom/target)
 	if(isclocker(target))
@@ -431,7 +431,6 @@
 /obj/projectile/energy/sphere
 	name = "energy sphere"
 	icon_state = "rat_sphere"
-	damage = 0
 	speed = 30
 	range = 1000
 	forcedodge = -1

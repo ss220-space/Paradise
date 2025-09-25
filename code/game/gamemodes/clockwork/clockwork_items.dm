@@ -679,8 +679,6 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "brassshotgun"
 	item_state = "brassshotgun"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	can_holster = FALSE
 	slot_flags = ITEM_SLOT_BACK
 	weapon_weight = WEAPON_HEAVY
@@ -791,14 +789,9 @@
 /obj/item/gun/energy/clockwork/sniper
 	name = "clockwork sniper rifle"
 	desc = "Снайперская винтовка из латуни с самовосполняющимися за счет энергии Ратвара патронами. От неё исходит ритмичное тиканье."
-	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "brasssniper"
 	item_state = "brasssniper"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-	can_add_sibyl_system = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/rat/snipe)
-	can_charge = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	cell_type = /obj/item/stock_parts/cell/clock/sniper
@@ -1872,13 +1865,9 @@
 
 /obj/effect/temp_visual/ratvar/reconstruct/part
 	heal = 0
-	convert_mecha = FALSE
 	radius = 3
 	can_adv_heal = FALSE
-	process_on_affected = TRUE
 
 /obj/effect/temp_visual/heart_particle
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "heartbeat particles"
-	layer = ABOVE_MOB_LAYER
-	duration = 10

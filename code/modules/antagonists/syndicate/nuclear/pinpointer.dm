@@ -808,17 +808,9 @@
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_pointer"
 	item_state = "clock_pointer"
-	flags = CONDUCT
-	slot_flags = ITEM_SLOT_PDA|ITEM_SLOT_BELT
-	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 4
-	throw_range = 20
 	materials = list(MAT_METAL=500)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	mode = MODE_OFF
 	modes = list(MODE_DIAL, MODE_PART_UPPER, MODE_PART_LOWER)
 	shows_nuke_timer = FALSE
-	syndicate = FALSE
 	icon_off = "clock_pointer"
 	icon_null = "clock_pointer"
 	icon_direct = "clock_pointer"
