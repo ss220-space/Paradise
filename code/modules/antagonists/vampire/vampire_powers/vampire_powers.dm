@@ -373,7 +373,6 @@
 	desc = "Позволяет поднять из мёртвых труп, мутировав его в вампира по вашему образу и подобию."
 	base_cooldown = 300 SECONDS
 	action_icon_state = "revive"
-	sound = 'sound/magic/wandodeath.ogg'
 	gain_desc = "Вы получили способность «Таинство посвящения». Эта мощная способность действует только на трупы гуманоидов, имеющих кровь, воскрешая их как вампиров. Воскрешённые подобным образом вампиры будут обладать свободной волей и не будут подчиняться вам. Вы также не сможете получить с них доступной крови."
 
 
@@ -388,11 +387,12 @@
 /obj/effect/proc_holder/spell/vampire/raise_free_vampire/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/victim = targets[1]
 
-	to_chat(user, span_warning("Вы направляете поток блюспейс энергии в тело [victim], запуская необратимый процесс мутации!"))
 	if(!can_raise_vampire(user, victim))
 		revert_cast(user)
 		return
 
+	to_chat(user, span_warning("Вы направляете поток блюспейс энергии в тело [victim], запуская необратимый процесс мутации!"))
+	playsound(user, 'sound/magic/wandodeath.ogg', 70, TRUE)
 	user.Beam(victim, "sendbeam", 'icons/effects/effects.dmi', time = 3 SECONDS, maxdistance = 7, beam_type = /obj/effect/ebeam)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	new /obj/effect/temp_visual/cult/sparks(victim.loc)
