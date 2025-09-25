@@ -113,7 +113,7 @@
 
 /obj/effect/dummy/chameleon/proc/notify_disrupt(mob/attacker, mob/defender, obj/item)
 	to_chat(defender, span_danger("Your chameleon projector deactivates."))
-	add_attack_logs(attacker, defender, "disrupt [cham_proj] by [item ? item : "attack"]")
+	add_attack_logs(attacker, defender, "disrupt [master] by [item ? item : "attack"]")
 
 /obj/effect/dummy/chameleon/attackby(obj/item/item, mob/user, params)
 	for(var/mob/mob in src)
