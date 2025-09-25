@@ -243,7 +243,7 @@
 /// This human mob can passively regenerate small amount of brute and burn damage (0.1, 0.1)
 #define TRAIT_HAS_REGENERATION "has_regeneration"
 /// This carbon mob can passively regenerate small amount of brute and burn damage
-#define TRAIT_HAS_CARBON_REGENERATION "has_regeneration"
+#define TRAIT_HAS_CARBON_REGENERATION "has_carbon_regeneration"
 /// This human mob acts like it has no DNA, but it actually has
 /// Its dumb I know, we should switch to biotypes already
 #define TRAIT_NO_DNA "no_dna"
