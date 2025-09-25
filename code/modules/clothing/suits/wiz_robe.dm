@@ -11,7 +11,7 @@
 	put_on_delay = 50
 	magical = TRUE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
-	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
+	armor_plate = /obj/item/armor_plate/handmade_steel/helmet
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
@@ -62,7 +62,6 @@
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
 	)
-
 	armor_plate = null
 
 /obj/item/clothing/head/wizard/marisa
@@ -164,7 +163,8 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	armor_plate = /obj/item/armor_plate/kevlar
+	armor_plate_flags = ARMOR_PLATE_CAN_SLOWDOWN
+	armor_plate = /obj/item/armor_plate/handmade_steel
 
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"
@@ -334,7 +334,7 @@
 	slowdown = 0
 	magical = TRUE
 	allowed_armor_plate = ARMOR_PLATE_SLOT_LIGHT
-	armor_plate = /obj/item/armor_plate/light_steel
+	armor_plate = /obj/item/armor_plate/medium_steel
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	name = "battlemage helmet"

@@ -613,6 +613,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
+	armor_plate_flags = ARMOR_PLATE_EMPTY_FLAGS // can not remove and can not slowdown
 
 /obj/item/clothing/head/update_icon_state()
 	if(..())

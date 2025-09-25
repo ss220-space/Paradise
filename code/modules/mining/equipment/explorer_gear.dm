@@ -195,7 +195,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
-	armor_plate = /obj/item/armor_plate/medium_steel/helmet
+	armor_plate = /obj/item/armor_plate/light_steel/helmet
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/get_ru_names()
 	return list(
@@ -226,7 +226,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	armor_plate = /obj/item/armor_plate/medium_steel
+	armor_plate = /obj/item/armor_plate/light_steel
 
 /obj/item/clothing/suit/space/hardsuit/champion/get_ru_names()
 	return list(

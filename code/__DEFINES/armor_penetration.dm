@@ -99,6 +99,7 @@ GLOBAL_LIST_INIT(ballistic_armor_class_name, list(
 #define BALLISTIC_PENETRATION_HIGH_CAL 7
 
 // MARK: Armor plate flags
+#define ARMOR_PLATE_EMPTY_FLAGS 0
 /// Armor plate can be removed
 #define ARMOR_PLATE_CAN_REMOVE (1<<0)
 /// Armor plate can add slowdown

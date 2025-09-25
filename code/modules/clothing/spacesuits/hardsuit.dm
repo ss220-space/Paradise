@@ -12,7 +12,7 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
+	armor_plate = /obj/item/armor_plate/kevlar/helmet
 
 	//Species-specific stuff.
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -592,6 +592,7 @@
 	item_state = "hardsuit0-soviet"
 	item_color = "soviet"
 	armor = list(MELEE = 35, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 100, RAD = 50, FIRE = 75, ACID = 75)
+	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/suit/space/hardsuit/soviet
 	name = "Soviet hardsuit"
@@ -630,6 +631,7 @@
 	item_color = "medical"
 	flash_protect = FLASH_PROTECTION_NONE
 	examine_extensions = EXAMINE_HUD_SCIENCE
+	armor_plate = null
 
 /obj/item/clothing/suit/space/hardsuit/medical
 	name = "medical hardsuit"
@@ -649,6 +651,7 @@
 	item_state = "sec_helm"
 	armor = list(MELEE = 45, BULLET = 0, LASER = 0, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 50, FIRE = 75, ACID = 75)
 	item_color = "sec"
+	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/head/helmet/space/hardsuit/security/warden
 	name = "warden's hardsuit helmet"
@@ -718,6 +721,7 @@
 	item_state = "hardsuit0-blueshield"
 	armor = list(MELEE = 40, BULLET = 0, LASER = 0, ENERGY = 15, BOMB = 25, BIO = 100, RAD = 50, FIRE = 80, ACID = 80)
 	item_color = "blueshield"
+	armor_plate = /obj/item/armor_plate/light_ceramic/helmet
 
 /obj/item/clothing/suit/space/hardsuit/blueshield
 	name = "blueshield's hardsuit"
@@ -782,6 +786,7 @@
 	/obj/item/hand_tele, /obj/item/aicard)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
 	jetpack = /obj/item/tank/jetpack/suit
+	armor_plate = /obj/item/armor_plate/kevlar
 
 //Singuloth armor
 /obj/item/clothing/head/helmet/space/hardsuit/singuloth
@@ -792,6 +797,7 @@
 	armor = list(melee = 45, bullet = 0, laser = 0, energy = 10, bomb = 25, bio = 100, rad = 100, fire = 95, acid = 95)
 	item_color = "singuloth"
 	sprite_sheets = null
+	armor_plate = /obj/item/armor_plate/medium_ceramic/helmet
 
 /obj/item/clothing/suit/space/hardsuit/singuloth
 	name = "singuloth knight's armor"
