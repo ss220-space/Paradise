@@ -115,7 +115,6 @@
 
 /atom/movable/screen/alert/MouseExited()
 	closeToolTip(usr)
-	return ..()
 
 /atom/movable/screen/alert/proc/do_timeout(mob/M, category)
 	if(!M || !M.alerts)
