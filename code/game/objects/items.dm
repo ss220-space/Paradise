@@ -1081,7 +1081,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
 	remove_outline()
-	return ..()
 
 
 /obj/item/MouseDrop_T(atom/dropping, mob/user, params)

@@ -16,24 +16,25 @@
   */
 /datum/disease/brain_transplant_syndrome
 	name = "Синдром отторжения головного мозга"
-	agent = "Иммунная система организма"
-	desc = "Дезориентация, удушье, паралич и отказ органов."
-	stage_prob = 10
-	cure_text = "Нейроматин (иммунодепрессант)"
+	desc = "Аутоиммунный ответ организма, ведущий к системному отказу органов или парализации."
+	agent = "Аутоиммунная реакция"
+	form = "Последствия трансплантации"
+	additional_info = "Пациенту требуется иммуносупрессия для подавления симптомов."
+	cure_text = "Нейроматин (Иммуносупрессивная терапия)"
 	var/required_reagent = "neuromatin"
 	can_immunity = FALSE
 	ignore_immunity = TRUE
 	visibility_flags = HIDDEN_PANDEMIC
 	can_contract_dead = TRUE
-	var/initial_effect_apllyed = FALSE
+	var/initial_effect_applied = FALSE
 	var/start_time = 0
 
 /datum/disease/brain_transplant_syndrome/stage_act()
 	if(!..())
 		return FALSE
 
-	if(!initial_effect_apllyed)
-		initial_effect_apllyed = TRUE
+	if(!initial_effect_applied)
+		initial_effect_applied = TRUE
 		start_time = world.time
 		initial_effect()
 	if(stage >= 2)
@@ -50,7 +51,7 @@
 	affected_mob.Stuttering(BTS_INITIAL_EFFECTS_DURATION)
 
 /datum/disease/brain_transplant_syndrome/proc/light_effect()
-	if(!prob(BTS_LIGHT_EFFECT_PROBE))
+	if(!prob(BTS_LIGHT_EFFECT_PROBE) || HAS_TRAIT(affected_mob, TRAIT_NO_BREATH))
 		return
 	affected_mob.emote("gasp")
 	to_chat(affected_mob, span_userdanger("Вы чувствуете, что вам не хватает воздуха!"))
@@ -60,6 +61,10 @@
 /datum/disease/brain_transplant_syndrome/proc/medium_effect()
 	if(!prob(BTS_MEDIUM_EFFECT_PROBE))
 		return
+	if(affected_mob.reagents?.has_reagent(required_reagent))
+		to_chat(affected_mob, span_userdanger("Вы чувствуете головокружение!"))
+		affected_mob.Confused(5 SECONDS)
+		return
 	to_chat(affected_mob, span_userdanger("Вы чувствуете сильное головокружение!"))
 	affected_mob.Knockdown(3 SECONDS)
 	affected_mob.Confused(15 SECONDS)
@@ -68,11 +73,9 @@
 	if(!prob(BTS_HEAVY_EFFECT_PROBE))
 		return
 	if(affected_mob.reagents?.has_reagent(required_reagent))
-		to_chat(affected_mob, span_userdanger("Вы чувствуете недомогание!"))
-		if(iscarbon(affected_mob))
-			var/mob/living/carbon/affected_carbon = affected_mob
-			affected_carbon.vomit()
-		affected_mob.Confused(15 SECONDS)
+		to_chat(affected_mob, span_userdanger("Вы чувствуете покалывание!"))
+		affected_mob.Confused(5 SECONDS)
+		affected_mob.Jitter(5 SECONDS)
 		return
 	necrotize_organ_effect()
 

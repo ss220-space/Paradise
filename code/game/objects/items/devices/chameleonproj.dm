@@ -111,25 +111,39 @@
 	master.active_dummy = src
 
 
-/obj/effect/dummy/chameleon/attackby(obj/item/I, mob/user, params)
-	for(var/mob/snake in src)
-		to_chat(snake, span_danger("Your chameleon projector deactivates."))
+/obj/effect/dummy/chameleon/proc/notify_disrupt(mob/attacker, mob/defender, obj/item)
+	to_chat(defender, span_danger("Your chameleon projector deactivates."))
+	add_attack_logs(attacker, defender, "disrupt [master] by [item ? item : "attack"]")
+
+/obj/effect/dummy/chameleon/attackby(obj/item/item, mob/user, params)
+	for(var/mob/mob in src)
+		notify_disrupt(mob, user, item)
+
 	master.disrupt()
 	return ATTACK_CHAIN_BLOCKED_ALL
 
+/obj/effect/dummy/chameleon/attack_hand(mob/user)
+	for(var/mob/mob in src)
+		notify_disrupt(mob, user)
 
-/obj/effect/dummy/chameleon/attack_hand()
-	for(var/mob/M in src)
-		to_chat(M, span_danger("Your chameleon projector deactivates."))
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/attack_animal()
+/obj/effect/dummy/chameleon/attack_animal(mob/user)
+	for(var/mob/mob in src)
+		notify_disrupt(mob, user)
+
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/attack_slime()
+/obj/effect/dummy/chameleon/attack_slime(mob/user)
+	for(var/mob/mob in src)
+		notify_disrupt(mob, user)
+
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/attack_alien()
+/obj/effect/dummy/chameleon/attack_alien(mob/user)
+	for(var/mob/mob in src)
+		notify_disrupt(mob, user)
+
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/ex_act(severity, target) //no longer bomb-proof
