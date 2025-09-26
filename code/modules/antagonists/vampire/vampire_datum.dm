@@ -60,7 +60,6 @@
 /datum/antagonist/vampire/Destroy(force)
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
-	QDEL_NULL(diablerie)
 	QDEL_NULL(subclass)
 	return ..()
 
@@ -141,6 +140,7 @@
 	var/mob/living/user = ..()
 
 	if(!mob_override)	// mob override means body transfer
+		QDEL_NULL(diablerie)
 		remove_all_powers()
 
 	REMOVE_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
@@ -153,8 +153,6 @@
 			hud.remove_vampire_hud()
 
 		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
-
-		QDEL_NULL(diablerie)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 

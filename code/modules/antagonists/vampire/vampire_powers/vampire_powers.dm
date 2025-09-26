@@ -142,7 +142,7 @@
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/heal(mob/living/carbon/human/user, rejuv_bonus)
 	if(diablerie_bonus)
 		var/list/internal_bleedings = user.check_internal_bleedings()
-		if(internal_bleedings)
+		if(length(internal_bleedings))
 			var/obj/item/organ/external/bodypart = pick(internal_bleedings)
 			bodypart.stop_internal_bleeding()
 
