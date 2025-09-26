@@ -486,7 +486,6 @@
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 	var/list/debris = list()
-	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_GLASS_TABLES
 	canSmoothWith = SMOOTH_GROUP_GLASS_TABLES
 	base_icon_state = "glass_table"
@@ -628,7 +627,6 @@
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
 	base_icon_state = "fancy_table"
-	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_FANCY_WOOD_TABLES
 	smoothing_groups = SMOOTH_GROUP_FANCY_WOOD_TABLES
 
@@ -707,7 +705,6 @@
 	base_icon_state = "reinforced_table"
 	deconstruction_ready = FALSE
 	buildstack = /obj/item/stack/sheet/plasteel
-	canSmoothWith = SMOOTH_GROUP_TABLES
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
@@ -745,7 +742,6 @@
 	framestack = /obj/item/stack/sheet/brass
 	buildstack = /obj/item/stack/sheet/brass
 	framestackamount = 1
-	buildstackamount = 1
 	canSmoothWith = SMOOTH_GROUP_BRONZE_TABLES
 	smoothing_groups = SMOOTH_GROUP_BRONZE_TABLES
 
@@ -1035,7 +1031,6 @@
 /obj/item/gunrack_parts
 	name = "gun rack parts"
 	desc = "Parts of a gun rack."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "gunrack_parts"
 	flags = CONDUCT
 	materials = list(MAT_METAL=2000)
@@ -1081,7 +1076,6 @@
 	name = "rack parts"
 	desc = "Детали разобранного стелажа."
 	gender = MALE
-	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
 	item_state = "rack_parts"
 	flags = CONDUCT

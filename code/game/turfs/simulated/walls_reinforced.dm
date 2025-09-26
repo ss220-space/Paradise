@@ -4,10 +4,7 @@
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "r_wall-0"
 	base_icon_state = "r_wall"
-	opacity = TRUE
-	density = TRUE
 	explosion_block = 2
-	explosion_vertical_block = 1
 	damage_cap = 600
 	max_temperature = 6000
 	hardness = 10
@@ -15,9 +12,6 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
 	can_dismantle_with_welder = FALSE
-	smooth = SMOOTH_BITMASK
-	smoothing_groups = SMOOTH_GROUP_WALLS
-	canSmoothWith = SMOOTH_GROUP_WALLS
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 

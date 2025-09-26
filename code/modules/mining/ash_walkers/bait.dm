@@ -39,8 +39,6 @@
 /obj/item/reagent_containers/food/snacks/bait/ash_eater
 	name = "ash eater"
 	desc = "Маленький червячок со множеством невероятно острых зубов, покрывающих его ротовую полость. Ходят слухи, что эти крохи способны вырастать до размеров целого города. Пепел должен течь рекой."
-	icon_state = "ash_eater"
-	rod_overlay = "ash_eater_rod"
 
 /obj/item/reagent_containers/food/snacks/bait/ash_eater/get_ru_names()
 	return list(

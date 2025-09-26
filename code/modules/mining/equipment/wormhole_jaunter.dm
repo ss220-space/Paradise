@@ -2,10 +2,8 @@
 /obj/item/wormhole_jaunter
 	name = "wormhole jaunter"
 	desc = "Одноразовое устройство, использующее устаревшую технологию червоточин. Нанотрейзен переключилась на блюспейс для более точной телепортации. Перемещение через создаваемые им червоточины, мягко говоря, некомфортно.\nБлагодаря модификациям Свободных Големов, этот генератор червоточин обеспечивает защиту от пропастей."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "Jaunter"
 	item_state = "electronic"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5

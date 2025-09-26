@@ -39,6 +39,14 @@
 		"MECHA_INT_SHORT_CIRCUIT" = MECHA_INT_SHORT_CIRCUIT,
 	)
 
+	data["internal_damage_fixable"] = list(
+		"MECHA_INT_FIRE" = FALSE,
+		"MECHA_INT_TEMP_CONTROL" = FALSE,
+		"MECHA_INT_TANK_BREACH" = FALSE,
+		"MECHA_INT_CONTROL_LOST" = TRUE,
+		"MECHA_INT_SHORT_CIRCUIT" = FALSE,
+	)
+
 	var/list/user_accesses = user.get_access()
 
 	data["regions"] = length(user_accesses) ? get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND, user_accesses) : null
@@ -195,6 +203,9 @@
 		if("equip_act")
 			var/obj/item/mecha_parts/mecha_equipment/gear = locateUID(params["ref"])
 			return gear?.ui_act(params["gear_action"], params, ui, state)
+		if("repair_int_damage")
+			try_repair_int_damage(usr, params["flag"])
+			return FALSE
 	return TRUE
 
 /obj/mecha/proc/occupant_message(message as text)

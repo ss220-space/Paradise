@@ -51,7 +51,6 @@
 /obj/mecha/medical/odysseus/full_load
 	name = "Тестовый Одиссей"
 	desc = "Специальная версия \"Одиссея\", созданная с одной целью - проверять все модули разом. Конструкция не позволяет меху быть массовым образцом, выпущенная специально для ведущих инженеров-роботехников."
-	max_equip = 4
 	strafe_allowed = TRUE
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0) // для тестов урона
 	max_integrity = 1000

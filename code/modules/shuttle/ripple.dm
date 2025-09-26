@@ -6,8 +6,6 @@
 	icon = 'icons/turf/floors/ripple.dmi'
 	icon_state = "ripple"
 	base_icon_state = "ripple"
-	anchored = TRUE
-	density = FALSE
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_RIPPLE
 	smoothing_groups = SMOOTH_GROUP_RIPPLE

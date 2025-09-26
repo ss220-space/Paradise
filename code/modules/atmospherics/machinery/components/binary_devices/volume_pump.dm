@@ -22,7 +22,6 @@ Thus, the two variables affect pump operation are set in New():
 	can_unwrench = TRUE
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | ALLOW_SILICON_REACH
 
-	on = FALSE
 	var/transfer_rate = 200
 
 	var/id = null

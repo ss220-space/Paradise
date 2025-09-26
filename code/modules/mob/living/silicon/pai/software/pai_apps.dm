@@ -148,6 +148,7 @@
 	var/list/data = list()
 	// Just grab the stuff internally
 	integrated_records.update_ui(user, data)
+	data["has_back"] = integrated_records.has_back
 	return data
 
 /datum/pai_software/med_records/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -170,6 +171,7 @@
 	var/list/data = list()
 	// Just grab the stuff internally
 	integrated_records.update_ui(user, data)
+	data["has_back"] = integrated_records.has_back
 	return data
 
 /datum/pai_software/sec_records/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

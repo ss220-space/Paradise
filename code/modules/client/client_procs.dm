@@ -445,12 +445,13 @@
 
 
 	SSambience.remove_ambience_client(src)
+	SSmouse_entered.hovers -= src
 	SSping.currentrun -= src
-	QDEL_LIST(parallax_layers_cached)
 	QDEL_NULL(void)
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
 	QDEL_NULL(parallax_rock)
+	QDEL_LIST(parallax_layers_cached)
 	parallax_layers = null
 	seen_messages = null
 	Master.UpdateTickRate()

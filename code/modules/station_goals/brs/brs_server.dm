@@ -31,7 +31,6 @@
 	max_integrity = 350
 	integrity_failure = 150
 
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 4000
 	active_power_usage = 12000
 

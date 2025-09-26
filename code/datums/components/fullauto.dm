@@ -319,7 +319,7 @@
 		shoot_with_empty_chamber(shooter)
 		return FALSE
 
-	if(weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_hand() || !shooter.has_inactive_hand() || (shooter.pulling && shooter.pull_hand != PULL_WITHOUT_HANDS)))
+	if(!HAS_TRAIT(shooter, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_hand() || !shooter.has_inactive_hand() || (shooter.pulling && shooter.pull_hand != PULL_WITHOUT_HANDS)))
 		balloon_alert(shooter, "нужны обе руки!")
 		return FALSE
 
@@ -350,9 +350,10 @@
 /obj/item/gun/proc/do_autofire_shot(datum/source, atom/target, mob/living/shooter, allow_akimbo, params)
 	var/obj/item/gun/akimbo_gun = shooter.get_inactive_hand()
 	var/bonus_spread = 0
-	if(isgun(akimbo_gun) && weapon_weight < WEAPON_MEDIUM && allow_akimbo)
-		if(akimbo_gun.weapon_weight < WEAPON_MEDIUM && akimbo_gun.can_trigger_gun(shooter))
-			if(!HAS_TRAIT(shooter, TRAIT_BADASS))
+	var/badass = HAS_TRAIT(shooter, TRAIT_BADASS)
+	if(isgun(akimbo_gun) && (badass || weapon_weight < WEAPON_MEDIUM) && allow_akimbo)
+		if((badass || akimbo_gun.weapon_weight < WEAPON_MEDIUM) && akimbo_gun.can_trigger_gun(shooter))
+			if(!badass)
 				bonus_spread = accuracy.dual_wield_spread
 			addtimer(CALLBACK(akimbo_gun, TYPE_PROC_REF(/obj/item/gun, process_fire), target, shooter, TRUE, params, null, bonus_spread), 1)
 	process_fire(target, shooter, TRUE, params, null, bonus_spread)

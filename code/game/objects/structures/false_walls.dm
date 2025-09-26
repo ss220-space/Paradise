@@ -436,7 +436,6 @@
 	base_icon_state = "shuttle"
 	mineral = /obj/item/stack/sheet/mineral/titanium
 	walltype = /turf/simulated/wall/mineral/titanium
-	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_TITANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_TITANIUM_WALLS
 
@@ -447,7 +446,6 @@
 	base_icon_state = "plastitanium_wall"
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
 	walltype = /turf/simulated/wall/mineral/plastitanium
-	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS
 
@@ -459,7 +457,6 @@
 	icon_state = "clockwork_wall-0"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1
-	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_CLOCKWORK_WALLS
 	smoothing_groups = SMOOTH_GROUP_CLOCKWORK_WALLS
 	girder_type = /obj/structure/clockwork/wall_gear/displaced
@@ -467,14 +464,7 @@
 	mineral = /obj/item/stack/sheet/brass
 
 /obj/structure/falsewall/brass/fake
-	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within. You feel a wind."
-	icon = 'icons/turf/walls/clockwork_wall.dmi'
-	icon_state = "clockwork_wall-0"
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	mineral_amount = 1
-	canSmoothWith = SMOOTH_GROUP_CLOCKWORK_WALLS
-	smoothing_groups = SMOOTH_GROUP_CLOCKWORK_WALLS
 	girder_type = /obj/structure/clockwork/wall_gear/fake/displaced
 	walltype = /turf/simulated/wall/clockwork/fake
 	mineral = /obj/item/stack/sheet/brass_fake
@@ -515,7 +505,6 @@
 	base_icon_state = "smoothrocks"
 	icon_state = "rock_ancient"
 	color = COLOR_ANCIENT_ROCK
-	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_MINERAL_WALLS
 	canSmoothWith = SMOOTH_GROUP_MINERAL_WALLS
 	mineral = /obj/item/stack/ore/glass/basalt/ancient

@@ -40,7 +40,7 @@
 	H.h_style = hair_style
 
 	update_hair()
-	update_inv_glasses()
+	update_worn_glasses()
 	return 1
 
 /mob/living/carbon/human/proc/change_facial_hair(facial_hair_style)
@@ -151,7 +151,7 @@
 
 	update_body(TRUE) //Update the body and force limb icon regeneration to update the head with the new icon.
 	if(wear_mask)
-		update_inv_wear_mask()
+		update_worn_mask()
 	return 1
 
 /mob/living/carbon/human/proc/reset_hair()
@@ -411,7 +411,7 @@
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
 			continue
-		if(H.gender == S.unsuitable_gender)
+		if(gender == S.unsuitable_gender)
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]

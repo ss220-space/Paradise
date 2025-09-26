@@ -19,7 +19,6 @@
 	layer = EDGED_TURF_LAYER
 	// We're a BIG wall, larger then 32x32, so we need to be on the game plane
 	// Otherwise we'll draw under shit in weird ways
-	plane = GAME_PLANE
 	var/environment_type = "asteroid"
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
 	var/mineralType = null
@@ -227,11 +226,9 @@
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "Редкий астероидный камень, устойчивый ко всем инструментам, кроме кирок!"
-	smooth = SMOOTH_BITMASK
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
 	layer = MAP_EDITOR_TURF_LAYER
-	real_layer = TURF_LAYER
 	should_reset_color = FALSE
 	mineralAmt = 2
 	mineralType = /obj/item/stack/ore/glass/basalt/ancient
@@ -455,7 +452,6 @@
 
 /turf/simulated/mineral/random/volcanic/hard/double/high_chance
 	icon_state = "rock_highchance"
-	mineralChance = 60
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic/hard/double = 25, /turf/simulated/mineral/diamond/volcanic/hard/double = 7, /turf/simulated/mineral/gold/volcanic/hard/double = 45,
 		/turf/simulated/mineral/titanium/volcanic/hard/double = 45, /turf/simulated/mineral/silver/volcanic/hard/double = 20, /turf/simulated/mineral/plasma/volcanic/hard/double = 50,
@@ -559,7 +555,6 @@
 
 /turf/simulated/mineral/diamond
 	mineralType = /obj/item/stack/ore/diamond
-	spreadChance = 0
 	spread = 1
 	scan_state = "rock_diamond"
 
@@ -795,8 +790,6 @@
 /turf/simulated/mineral/clown
 	mineralType = /obj/item/stack/ore/bananium
 	mineralAmt = 3
-	spreadChance = 0
-	spread = 0
 	scan_state = "rock_clown"
 
 /turf/simulated/mineral/clown/volcanic
@@ -843,8 +836,6 @@
 /turf/simulated/mineral/mime
 	mineralType = /obj/item/stack/ore/tranquillite
 	mineralAmt = 3
-	spreadChance = 0
-	spread = 0
 	scan_state = "rock_mime"
 
 /turf/simulated/mineral/mime/volcanic
@@ -890,9 +881,6 @@
 
 /turf/simulated/mineral/bscrystal
 	mineralType = /obj/item/stack/ore/bluespace_crystal
-	mineralAmt = 1
-	spreadChance = 0
-	spread = 0
 	scan_state = "rock_bscrystal"
 
 /turf/simulated/mineral/bscrystal/volcanic
@@ -939,8 +927,6 @@
 
 /turf/simulated/mineral/gem
 	mineralType = /obj/item/gem/random
-	spread = 0
-	mineralAmt = 1
 	scan_state = "rock_Gem"
 
 /turf/simulated/mineral/gem/volcanic
@@ -993,7 +979,6 @@
 	temperature = 300
 
 /turf/simulated/mineral/volcanic/lava_land_surface
-	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/lava/mapping_lava
 	defer_change = 1
@@ -1031,9 +1016,6 @@
 
 // Gibtonite
 /turf/simulated/mineral/gibtonite
-	mineralAmt = 1
-	spreadChance = 0
-	spread = 0
 	scan_state = "rock_gibtonite"
 	var/det_time = 8 //Countdown till explosion, but also rewards the player for how close you were to detonation when you defuse it
 	var/stage = GIBTONITE_UNSTRUCK //How far into the lifecycle of gibtonite we are
@@ -1184,7 +1166,6 @@
 //magmite
 /turf/simulated/mineral/magmite
 	mineralType = /obj/item/magmite
-	spread = 0
 	scan_state = "rock_Magmite"
 
 /turf/simulated/mineral/magmite/gets_drilled(mob/user, triggered_by_explosion = FALSE)

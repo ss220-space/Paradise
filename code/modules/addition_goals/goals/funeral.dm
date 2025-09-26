@@ -172,7 +172,6 @@
 	var/complete = 0
 
 /obj/effect/mob_spawn/human/addition_goal/funeral
-	death = TRUE
 	uniform = /obj/item/clothing/under/suit_jacket/charcoal
 	shoes = /obj/item/clothing/shoes/centcom
 

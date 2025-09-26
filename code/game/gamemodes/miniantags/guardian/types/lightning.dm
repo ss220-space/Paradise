@@ -1,6 +1,4 @@
 /mob/living/simple_animal/hostile/guardian/beam
-	melee_damage_lower = 15
-	melee_damage_upper = 15
 	attacktext = "бьёт током"
 	melee_damage_type = BURN
 	attack_sound = 'sound/machines/defib_zap.ogg'

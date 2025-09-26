@@ -1,8 +1,6 @@
 /turf/space/transit
 	name = "\proper hyperspace"
 	icon_state = "black_arrow"
-	dir = SOUTH
-	plane = PLANE_SPACE
 	baseturf = /turf/space/transit
 	turf_flags = NOJAUNT
 
@@ -13,7 +11,6 @@
 	dir = EAST
 
 /turf/space/transit/south
-	dir = SOUTH
 
 /turf/space/transit/west
 	dir = WEST

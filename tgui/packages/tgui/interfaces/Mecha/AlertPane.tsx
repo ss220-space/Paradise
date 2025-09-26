@@ -22,7 +22,12 @@ export const InternalDamageToNormalDesc = {
 
 export const AlertPane = (props) => {
   const { act, data } = useBackend<MainData>();
-  const { internal_damage, internal_damage_keys, ui_honked } = data;
+  const {
+    internal_damage,
+    internal_damage_keys,
+    internal_damage_fixable,
+    ui_honked,
+  } = data;
   const honk = useHonk(ui_honked ? 0.4 : 0);
   return (
     <Section title={honk('Статус')}>
@@ -52,6 +57,24 @@ export const AlertPane = (props) => {
                   )}
                 </Box>
               </Stack.Item>
+              {!!(
+                internal_damage & internal_damage_keys[t] &&
+                internal_damage_fixable[t]
+              ) && (
+                <Stack.Item>
+                  <Button
+                    my="-4px"
+                    onClick={() =>
+                      act('repair_int_damage', {
+                        flag: internal_damage_keys[t],
+                      })
+                    }
+                    color={'red'}
+                  >
+                    Ремонт
+                  </Button>
+                </Stack.Item>
+              )}
             </Stack>
           </Stack.Item>
         ))}

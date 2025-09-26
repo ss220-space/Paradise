@@ -54,16 +54,20 @@
 	return TRUE
 
 /// Detaching module from gun without check, use try_detach(/obj/item/gun/target, mob/user) for checks
-/obj/item/gun_module/proc/detach_without_check(obj/item/gun/target_gun, mob/user)
-	if(!do_after(user, 1 SECONDS, target_gun))
+/obj/item/gun_module/proc/detach_without_check(obj/item/gun/target_gun, mob/user, force = FALSE, put_in_hands = TRUE, silence = FALSE)
+	if(!force && !do_after(user, 1 SECONDS, target_gun))
 		return FALSE
 	src.on_detach(target_gun, user)
 	target_gun.attachments_by_slot[slot] = null
 	target_gun.remove_attachment_overlay(src)
 	SEND_SIGNAL(target_gun, COMSIG_GUN_MODULE_DETACH, user, target_gun, src)
-	user.put_in_hands(src)
+	if(put_in_hands)
+		user.put_in_hands(src)
+	else
+		src.forceMove(target_gun.drop_location())
 	gun = null
-	user.balloon_alert(user, "модуль снят")
+	if(!silence)
+		user.balloon_alert(user, "модуль снят")
 	return TRUE
 
 /obj/item/gun_module/proc/create_overlay()
@@ -121,6 +125,54 @@
 	target_gun.w_class = initial_w_class
 
 
+/obj/item/gun_module/muzzle/suppressor/handmade
+	name = "handmade suppressor"
+	desc = "Сделан из банки, скотча и куска металла. Неплохо глушит звук выстрела, но может в любой момент развалиться на части."
+	icon_state = "handmade_supp_"
+	overlay_state = "handmade_supp_1_o"
+	overlay_offset = list("x" = 0, "y" = 0)
+	var/variant = 1
+	var/break_chance = 0
+	var/break_increase_chance = 1
+
+/obj/item/gun_module/muzzle/suppressor/handmade/Initialize(mapload)
+	. = ..()
+	variant = rand(1, 3)
+	update_icon()
+
+/obj/item/gun_module/muzzle/suppressor/handmade/update_icon_state()
+	icon_state = "[initial(icon_state)][variant]"
+	overlay_state = "[icon_state]_o"
+
+/obj/item/gun_module/muzzle/suppressor/handmade/get_ru_names()
+	return list(
+		NOMINATIVE = "самодельный глушитель",
+		GENITIVE = "самодельного глушителя",
+		DATIVE = "самодельному глушителю",
+		ACCUSATIVE = "самодельный глушитель",
+		INSTRUMENTAL = "самодельным глушителем",
+		PREPOSITIONAL = "самодельном глушителе"
+	)
+
+/obj/item/gun_module/muzzle/suppressor/handmade/on_attach(obj/item/gun/target_gun, mob/user)
+	. = ..()
+	RegisterSignal(target_gun, COMSIG_GUN_FIRED, PROC_REF(on_fire))
+
+/obj/item/gun_module/muzzle/suppressor/handmade/on_detach(obj/item/gun/target_gun, mob/user)
+	UnregisterSignal(target_gun, COMSIG_GUN_FIRED)
+	. = ..()
+
+/obj/item/gun_module/muzzle/suppressor/handmade/proc/on_fire(datum/source, mob/user)
+	SIGNAL_HANDLER
+
+	break_chance += break_increase_chance
+	if(!prob(break_chance))
+		return
+	INVOKE_ASYNC(src, PROC_REF(destroy_module), user)
+
+/obj/item/gun_module/muzzle/suppressor/handmade/proc/destroy_module(mob/user)
+	detach_without_check(gun, user, TRUE, FALSE, TRUE) //force detach module, no put in hands and do it silence
+	qdel(src)
 
 /obj/item/gun_module/muzzle/compensator
 	name = "compensator"
@@ -300,7 +352,6 @@
 	class = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_SNIPER_RAIL
 	zoom_amount = 7
 	bonus_accuracy = 30
-	spread_decrease_mod = 0.50
 	movespeed_slowdown = 2
 
 /obj/item/gun_module/rail/scope/x8/get_ru_names()
@@ -571,8 +622,6 @@
 	overlay_state = "hand_a_o"
 	class = GUN_MODULE_CLASS_SHOTGUN_UNDER | GUN_MODULE_CLASS_RIFLE_UNDER
 	overlay_offset = list("x" = 0, "y" = 0)
-	bonus_accuracy = 15
-	spread_reduction = 0.30
 
 /obj/item/gun_module/under/hand/angle/get_ru_names()
 	return list(
@@ -587,7 +636,6 @@
 /obj/item/gun_module/under/laser
 	name = "laser sight"
 	desc = "Лазерный целеуказатель, предназначенный для установки на цевьё. Повышает точность стрельбы и понижает разброс при стрельбе."
-	gender = MALE
 	icon_state = "laser"
 	item_state = "laser"
 	overlay_state = "laser_o"

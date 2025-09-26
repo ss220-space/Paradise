@@ -8,7 +8,6 @@
 
 	name = "air vent"
 	desc = "Has a valve and pump attached to it"
-	use_power = IDLE_POWER_USE
 
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
@@ -21,7 +20,6 @@
 	var/area/initial_loc
 	var/area_uid
 
-	on = FALSE
 	var/releasing = TRUE // FALSE = siphoning, TRUE = releasing
 
 	var/external_pressure_bound = EXTERNAL_PRESSURE_BOUND

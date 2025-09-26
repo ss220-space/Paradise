@@ -301,8 +301,6 @@
 
 	return 1
 
-/obj/machinery/power/supermatter_shard
-
 /obj/machinery/power/supermatter_shard/bullet_act(obj/projectile/Proj)
 	var/turf/L = loc
 	if(!istype(L))		// We don't run process() when we are in space
@@ -622,8 +620,6 @@
 		to_chat(user, span_userdanger("The wave of warm energy is overwhelming you. You feel calm."))
 
 /obj/effect/warp_effect/supermatter
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
 	icon = 'icons/effects/light_overlays/light_352.dmi'
 	icon_state = "light"
 	pixel_x = -176

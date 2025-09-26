@@ -1,17 +1,14 @@
 /mob/living/simple_animal/moth
 	name = "моль"
 	desc = "Смотря на эту моль становится понятно куда пропали шубы перевозимые СССП."
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "moth"
 	icon_living = "moth"
 	icon_dead = "moth_dead"
-	turns_per_move = 1
 	speak = list("Furrr.","Uhh.", "Hurrr.")
 	emote_see = list("flutters")
 	response_help = "shoos"
 	response_disarm = "brushes aside"
 	response_harm = "squashes"
-	speak_chance = 0
 	maxHealth = 15
 	health = 15
 	nightvision = 100

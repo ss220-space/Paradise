@@ -102,7 +102,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -791,7 +790,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	icon = 'icons/obj/robot_component.dmi' // Cyborgs radio icons should look like the component.
 	icon_state = "radio"
 	has_loudspeaker = TRUE
-	loudspeaker = FALSE
 	canhear_range = 0
 	dog_fashion = null
 	freqlock = TRUE // don't let cyborgs change the default channel of their internal radio away from common

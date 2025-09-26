@@ -43,7 +43,6 @@
 	icon_state = "sleeper"
 	origin_tech = "engineering=3;biotech=3;plasmatech=2"
 	energy_drain = 20
-	range = MECHA_MELEE
 	equip_cooldown = 2 SECONDS
 	var/mob/living/carbon/patient = null
 	var/inject_amount = 10
@@ -475,7 +474,6 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
 	name = "additional system for the reproduction of reagents"
 	desc = "Upgrade for the syringe gun. Increases synthesis speed and maximum capacity of reagents. Requires installation of the syringe gun system."
-	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "beaker_upgrade"
 	origin_tech = "materials=5;engineering=5;biotech=6"
 	energy_drain = 10
@@ -505,7 +503,6 @@
 	name = "rescue jaw"
 	desc = "Emergency rescue jaws, designed to help first responders reach their patients. Opens doors and removes obstacles."
 	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
-	origin_tech = "materials=2;engineering=2"	//kind of sad, but identical to jaws of life
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 10
 	var/dam_force = 20

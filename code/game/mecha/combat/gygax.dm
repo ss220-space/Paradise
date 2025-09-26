@@ -8,14 +8,11 @@
 	max_integrity = 250
 	deflect_chance = 5
 	armor = list(melee = 25, bullet = 20, laser = 30, energy = 15, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
-	max_temperature = 25000
 	infra_luminosity = 6
 	maint_access = TRUE
 	leg_overload_coeff = 2
 	wreckage = /obj/structure/mecha_wreckage/gygax
 	internal_damage_threshold = 35
-	max_equip = 3
-	maxsize = 2
 	step_energy_drain = 3
 	normal_step_energy_drain = 3
 
@@ -50,7 +47,6 @@
 	maint_access = FALSE
 	wreckage = /obj/structure/mecha_wreckage/gygax/ert
 	max_equip = 5
-	maxsize = 2
 	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
 	destruction_sleep_duration = 1
 
@@ -77,12 +73,10 @@
 	deflect_chance = 20
 	armor = list(melee = 40, bullet = 40, laser = 50, energy = 35, bomb = 20, bio = 0, rad = 20, fire = 100, acid = 100)
 	max_temperature = 35000
-	leg_overload_coeff = 2
 	operation_req_access = list(ACCESS_SYNDICATE)
 	maint_access = FALSE
 	wreckage = /obj/structure/mecha_wreckage/gygax/dark
 	max_equip = 4
-	maxsize = 2
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 	destruction_sleep_duration = 2 SECONDS
 	strafe_allowed = TRUE
