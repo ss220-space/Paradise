@@ -67,7 +67,6 @@
 
 	SSicon_smooth.remove_halt_source(src)
 	GLOB.space_manager.remove_dirt(placement.z)
-
 	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
 

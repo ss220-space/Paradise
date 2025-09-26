@@ -305,7 +305,7 @@
 
 /obj/effect/proc_holder/spell/shadowling_enthrall/cast(list/targets, mob/user = usr)
 
-	listclearnulls(SSticker.mode.shadowling_thralls)
+	list_clear_nulls(SSticker.mode.shadowling_thralls)
 	if(!is_shadow(user))
 		return
 

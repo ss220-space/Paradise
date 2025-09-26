@@ -87,8 +87,8 @@
 
 /obj/structure/table/proc/update_smoothing()
 	if(smooth)
-		queue_smooth(src)
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 	if(flipped)
 		clear_smooth_overlays()

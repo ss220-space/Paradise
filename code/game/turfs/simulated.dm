@@ -14,6 +14,14 @@
 /turf/simulated/Initialize(mapload)
 	. = ..()
 	add_debris_element()
+	if(!is_station_level(z))
+		return
+	GLOB.station_turfs += src
+
+/turf/simulated/Destroy(force)
+	if(is_station_level(z))
+		GLOB.station_turfs -= src
+	return ..()
 
 /turf/simulated/add_debris_element()
 	AddElement(/datum/element/debris, null, -40, 8, 0.7)
@@ -67,7 +75,7 @@
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, after_flags = NONE, copy_existing_baseturf = TRUE)
 	. = ..()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/simulated/AfterChange(flags, oldType)
 	..()

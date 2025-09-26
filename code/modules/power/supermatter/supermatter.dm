@@ -108,7 +108,7 @@
 	//Having the SM run at a different rate then atmospherics causes odd behavior.
 	SSair.atmos_machinery += src
 	radio = new(src)
-	radio.listening = FALSE
+	radio.set_listening(FALSE)
 	radio.follow_target = src
 	investigate_log("has been created.", INVESTIGATE_ENGINE)
 	supermatter_explosive_effects = new()

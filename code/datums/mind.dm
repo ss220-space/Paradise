@@ -59,8 +59,10 @@
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 
-	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
-	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
+	/// this mind's ANTAG_HUD should have this icon_state
+	var/antag_hud_icon_state = null
+	/// this mind's antag HUD
+	var/datum/atom_hud/antag/antag_hud = null
 	var/datum/mindslaves/som //stands for slave or master...hush..
 	var/damnation_type = 0
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src

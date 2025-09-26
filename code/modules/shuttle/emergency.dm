@@ -320,6 +320,20 @@
 				mode = SHUTTLE_ENDGAME
 				timer = 0
 
+			if(time_left <= PARALLAX_LOOP_TIME)
+				var/area_parallax = FALSE
+				for(var/place in shuttle_areas)
+					var/area/shuttle/shuttle_area = place
+					if(shuttle_area.parallax_movedir)
+						area_parallax = TRUE
+						break
+				if(area_parallax)
+					parallax_slowdown()
+					for(var/A in SSshuttle.mobile)
+						var/obj/docking_port/mobile/M = A
+						if(istype(M, /obj/docking_port/mobile/pod))
+							M.parallax_slowdown()
+
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod
 	name = "escape pod"

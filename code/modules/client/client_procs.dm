@@ -440,8 +440,8 @@
 	#endif
 
 	if(movingmob)
-		movingmob.client_mobs_in_contents -= mob
-		UNSETEMPTY(movingmob.client_mobs_in_contents)
+		LAZYREMOVE(movingmob.client_mobs_in_contents, mob)
+		movingmob = null
 
 
 	SSambience.remove_ambience_client(src)

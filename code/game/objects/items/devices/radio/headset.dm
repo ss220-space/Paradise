@@ -22,7 +22,6 @@
 	slot_flags = ITEM_SLOT_EARS
 	var/translate_binary = FALSE
 	var/translate_hive = FALSE
-	var/obj/item/encryptionkey/keyslot1 = null
 	var/obj/item/encryptionkey/keyslot2 = null
 
 	var/ks1type = null
@@ -40,28 +39,36 @@
 		PREPOSITIONAL = "радиочастотной гарнитуре"
 	)
 
-/obj/item/radio/headset/New()
-	..()
-	internal_channels.Cut()
-
 /obj/item/radio/headset/Initialize(mapload)
 	. = ..()
-
+	LAZYCLEARLIST(internal_channels)
+	set_listening(TRUE)
 	if(ks1type)
-		keyslot1 = new ks1type(src)
-		if(keyslot1.syndie)
-			syndiekey = keyslot1
+		keyslot = new ks1type(src)
+		if(keyslot.syndie)
+			syndiekey = keyslot
 	if(ks2type)
 		keyslot2 = new ks2type(src)
 		if(keyslot2.syndie)
 			syndiekey = keyslot2
 
 	recalculateChannels(TRUE)
+	possibly_deactivate_in_loc()
 
 /obj/item/radio/headset/Destroy()
-	QDEL_NULL(keyslot1)
+	QDEL_NULL(keyslot)
 	QDEL_NULL(keyslot2)
 	return ..()
+
+/obj/item/radio/headset/proc/possibly_deactivate_in_loc()
+	if(ismob(loc))
+		set_listening(should_be_listening)
+	else
+		set_listening(FALSE, actual_setting = FALSE)
+
+/obj/item/radio/headset/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	. = ..()
+	possibly_deactivate_in_loc()
 
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
@@ -164,7 +171,7 @@
 		PREPOSITIONAL = "тактической гарнитуре Синдиката (Лазис)"
 	)
 
-/obj/item/radio/headset/syndicate/alt/lavaland/New()
+/obj/item/radio/headset/syndicate/alt/lavaland/Initialize(mapload)
 	. = ..()
 	set_frequency(SYND_FREQ)
 
@@ -215,7 +222,7 @@
 		PREPOSITIONAL = "тактической гарнитуре Синдиката (Тайпан)"
 	)
 
-/obj/item/radio/headset/syndicate/taipan/New()
+/obj/item/radio/headset/syndicate/taipan/Initialize(mapload)
 	. = ..()
 	set_frequency(SYND_TAIPAN_FREQ)
 
@@ -329,7 +336,7 @@
 		PREPOSITIONAL = "радиочастотной гарнитуре заключенных"
 	)
 
-/obj/item/radio/headset/prisoner/New()
+/obj/item/radio/headset/prisoner/Initialize(mapload)
 	. = ..()
 	set_frequency(PRS_FREQ)
 
@@ -354,7 +361,7 @@
 		PREPOSITIONAL = "радиочастотной гарнитуре зеленых"
 	)
 
-/obj/item/radio/headset/green/New()
+/obj/item/radio/headset/green/Initialize(mapload)
 	. = ..()
 	set_frequency(T1_FREQ)
 
@@ -379,7 +386,7 @@
 		PREPOSITIONAL = "радиочастотной гарнитуре синих"
 	)
 
-/obj/item/radio/headset/blue/New()
+/obj/item/radio/headset/blue/Initialize(mapload)
 	. = ..()
 	set_frequency(T2_FREQ)
 
@@ -403,7 +410,7 @@
 		PREPOSITIONAL = "радиочастотной гарнитуре красных"
 	)
 
-/obj/item/radio/headset/red/New()
+/obj/item/radio/headset/red/Initialize(mapload)
 	. = ..()
 	set_frequency(T3_FREQ)
 
@@ -1152,15 +1159,15 @@
 			return ATTACK_CHAIN_PROCEED
 		add_fingerprint(user)
 		user.set_machine(src)
-		if(keyslot1 && keyslot2)
+		if(keyslot && keyslot2)
 			user.balloon_alert(user, "слоты для ключей заняты!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		if(keyslot1)
+		if(keyslot)
 			keyslot2 = I
 		else
-			keyslot1 = I
+			keyslot = I
 		recalculateChannels()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -1177,17 +1184,17 @@
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	user.set_machine(src)
-	if(keyslot1 || keyslot2)
+	if(keyslot || keyslot2)
 
 		for(var/ch_name in channels)
 			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
 			secure_radio_connections[ch_name] = null
 
-		if(keyslot1)
+		if(keyslot)
 			var/turf/T = get_turf(user)
 			if(T)
-				keyslot1.loc = T
-				keyslot1 = null
+				keyslot.loc = T
+				keyslot = null
 		if(keyslot2)
 			var/turf/T = get_turf(user)
 			if(T)
@@ -1206,28 +1213,28 @@
 	translate_hive = FALSE
 	syndiekey = null
 
-	if(keyslot1)
-		for(var/ch_name in keyslot1.channels)
+	if(keyslot)
+		for(var/ch_name in keyslot.channels)
 			if(ch_name in channels)
 				continue
 			channels += ch_name
-			channels[ch_name] = keyslot1.channels[ch_name]
+			LAZYSET(channels, ch_name, keyslot.channels[ch_name])
 
-		if(keyslot1.translate_binary)
+		if(keyslot.translate_binary)
 			translate_binary = TRUE
 
-		if(keyslot1.translate_hive)
+		if(keyslot.translate_hive)
 			translate_hive = TRUE
 
-		if(keyslot1.syndie)
-			syndiekey = keyslot1
+		if(keyslot.syndie)
+			syndiekey = keyslot
 
 	if(keyslot2)
 		for(var/ch_name in keyslot2.channels)
 			if(ch_name in channels)
 				continue
 			channels += ch_name
-			channels[ch_name] = keyslot2.channels[ch_name]
+			LAZYSET(channels, ch_name, keyslot2.channels[ch_name])
 
 		if(keyslot2.translate_binary)
 			translate_binary = TRUE
@@ -1271,9 +1278,9 @@
 	radio_desc = radio_text
 
 /obj/item/radio/headset/proc/make_syndie() // Turns normal radios into Syndicate radios!
-	qdel(keyslot1)
-	keyslot1 = new /obj/item/encryptionkey/syndicate
-	syndiekey = keyslot1
+	qdel(keyslot)
+	keyslot = new /obj/item/encryptionkey/syndicate
+	syndiekey = keyslot
 	recalculateChannels()
 
 /obj/item/bowman_conversion_tool

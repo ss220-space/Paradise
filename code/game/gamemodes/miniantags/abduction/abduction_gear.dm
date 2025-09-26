@@ -290,11 +290,9 @@
 /obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
 	var/list/all_items = M.GetAllContents()
 
-	for(var/obj/I in all_items)
-		if(isradio(I))
-			var/obj/item/radio/R = I
-			R.listening = 0 // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
-			R.emp_act(1)
+	for(var/obj/item/radio/radio in all_items)
+		radio.set_listening(FALSE) // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
+		radio.emp_act(1)
 
 /obj/item/abductor/mind_device
 	name = "mental interface device"

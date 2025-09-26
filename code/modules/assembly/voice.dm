@@ -10,6 +10,10 @@
 
 	bomb_name = "voice-activated bomb"
 
+/obj/item/assembly/voice/Initialize()
+	. = ..()
+	become_hearing_sensitive(ROUNDSTART_TRAIT)
+
 
 /obj/item/assembly/voice/examine(mob/user)
 	. = ..()
