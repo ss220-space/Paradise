@@ -29,8 +29,6 @@
 	/// The sum of the w_classes of all the items in this storage item.
 	var/max_combined_w_class = 14
 	var/storage_slots = 7
-	var/list/click_border_start = new/list() //In slotless storage, stores areas where clicking will refer to the associated item
-	var/list/click_border_end = new/list()
 	var/atom/movable/screen/storage/boxes = null
 	var/datum/storage_box/storage_box
 	var/atom/movable/screen/close/closer = null
@@ -249,7 +247,6 @@
 	for(var/mob/viewer as anything in mobs_viewing)
 		hide_from(viewer)
 
-
 /obj/item/storage/proc/update_viewers()
 	for(var/mob/M as anything in mobs_viewing)
 		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
@@ -322,9 +319,6 @@
 	closer.screen_loc = "[4 + cols + 1]:16,2:16"
 
 /obj/item/storage/proc/space_orient_objs(list/obj/item/display_contents)
-	click_border_start.Cut()
-	click_border_end.Cut()
-
 	var/total_width = 1
 	var/line_width
 	var/lines_num = 1
@@ -337,7 +331,11 @@
 		total_width = 1 + O.storage_display_width
 
 	if(!line_width)
-		line_width = max(total_width + 16, BASE_STORAGE_WIDTH)
+		if((total_width + 32) > MAX_LINE_WIDTH)
+			lines_num++
+			line_width = total_width
+		else
+			line_width = max(total_width + 32, BASE_STORAGE_WIDTH)
 
 	storage_box.modify(line_width, lines_num)
 
@@ -354,11 +352,6 @@
 			endpoint = 1 + O.storage_display_width
 		var/isb_index = "[startpoint], [endpoint], [lines_num], [current_level]"
 
-		click_border_start.Add(startpoint)
-		click_border_end.Add(endpoint)
-
-		var/static/list/offset = list(list(0), list(-8, 8), list(-1 * (32 / 3), 0, (32 / 3)), list(-16, -8, 8, 16))
-
 		var/datum/item_storage_box/item_box = GLOB.item_storage_box_cache[isb_index]
 		if(QDELETED(item_box))
 			item_box = new()
@@ -368,7 +361,7 @@
 
 		storage_box.add_item(item_box)
 
-		O.screen_loc = "4:[floor((startpoint + endpoint) / 2) + 2],2:[16 + 29 * current_level]"
+		O.screen_loc = "4:[floor((startpoint + endpoint) / 2)],2:[16 + 29 * (lines_num - current_level - 1)]"
 		O.layer = ABOVE_HUD_LAYER
 		O.mouse_opacity = MOUSE_OPACITY_OPAQUE
 		O.maptext = ""
@@ -466,7 +459,7 @@ GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 	return list(start, continued, end)
 
 /datum/item_storage_box/proc/modify(startpoint, endpoint, lines_num, current_level)
-	var/box_offset = 29 * current_level
+	var/box_offset = 29 * (lines_num - current_level - 1)
 	// Modify start
 	var/matrix/modify_matrix = matrix(start.transform)
 	modify_matrix.Translate(startpoint, box_offset)
