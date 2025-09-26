@@ -3,7 +3,6 @@
 	desc = "Кажется, ты видел такого в фильмах про шпионов."
 	icon_state = "spy_spider"
 	freqlock = SPY_SPIDER_FREQ
-	canhear_range = 3
 	gender = MALE
 
 /obj/item/radio/spy_spider/get_ru_names()

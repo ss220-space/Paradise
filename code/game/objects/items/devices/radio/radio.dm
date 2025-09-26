@@ -943,9 +943,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 			secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
 	return
 
-/obj/item/radio/off
-	dog_fashion = /datum/dog_fashion/back
-
 /obj/item/radio/off/Initialize(mapload)
 	. = ..()
 	set_listening(FALSE)

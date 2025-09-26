@@ -18,7 +18,6 @@
 	icon_state = null
 	density = FALSE
 	move_resist = INFINITY
-	invisibility = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT //all of these are list objects that should not exist for something like us
 	faction = null
 	alerts = null
