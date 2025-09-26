@@ -176,7 +176,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/jump_to_ruin,
 	/client/proc/clear_dynamic_transit,
 	/client/proc/cmd_reload_polls,
-	/client/proc/toggle_medal_disable,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,

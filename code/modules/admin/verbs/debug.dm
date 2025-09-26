@@ -875,21 +875,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 		BLACKBOX_LOG_ADMIN_VERB("Jump To Ruin")
 
-/client/proc/toggle_medal_disable()
-	set category = "Debug"
-	set name = "Toggle Medal Disable"
-	set desc = "Toggles the safety lock on trying to contact the medal hub."
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	SSmedals.hub_enabled = !SSmedals.hub_enabled
-
-	message_admins(span_adminnotice("[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout."))
-	BLACKBOX_LOG_ADMIN_VERB("Toggle Medal Disable")
-	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
-
-
 /client/proc/visualise_active_turfs()
 	set category = "Debug"
 	set name = "Visualise Active Turfs"

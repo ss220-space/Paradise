@@ -230,12 +230,6 @@
 /datum/config_entry/number/round_abandon_penalty_period
 	default = 30 MINUTES
 
-/datum/config_entry/string/medal_hub_address
-	default = null
-
-/datum/config_entry/string/medal_hub_password
-	default = null
-
 ///enables assistant limiting
 /datum/config_entry/flag/assistant_limit
 

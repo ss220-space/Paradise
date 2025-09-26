@@ -26,8 +26,6 @@
 	dodging = FALSE // This needs to be false until someone fixes megafauna pathing so they dont lag-switch teleport at you (09-15-2023)
 	AI_delay_max = 0 SECONDS
 	var/list/crusher_loot
-	var/medal_type
-	var/score_type = BOSS_SCORE
 	var/elimination = 0
 	var/anger_modifier = 0
 	var/obj/item/gps/internal_gps
@@ -98,7 +96,6 @@
 				if(M.client)
 					loot += enraged_loot //Disk for each miner / borg.
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
-			grant_achievement(medal_type,score_type)
 			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
 	return ..()
 
@@ -171,7 +168,6 @@
 		mob_attack_logs += "[time_stamp()] Aggrod on [L][COORD(L)] at [COORD(src)]"
 	..()
 
-
 /mob/living/simple_animal/hostile/megafauna/lose_target()
 	var/mob/living/L = target
 	if(istype(L) && L.mind)
@@ -183,27 +179,11 @@
 	recovery_time = world.time + buffer_time
 	ranged_cooldown = world.time + buffer_time
 
-/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill)
-	if(!medal_type || (flags & ADMIN_SPAWNED) || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
-		return FALSE
-
-	for(var/mob/living/L in view(7,src))
-		if(L.stat || !L.client)
-			continue
-		var/client/C = L.client
-		SSmedals.UnlockMedal("Boss [BOSS_KILL_MEDAL]", C)
-		SSmedals.UnlockMedal("[medaltype] [BOSS_KILL_MEDAL]", C)
-		SSmedals.SetScore(BOSS_SCORE, C, 1)
-		SSmedals.SetScore(score_type, C, 1)
-	return TRUE
-
-
 /mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
 	. = ..()
 	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
 		C.set_density(FALSE) //I hate it.
 		addtimer(CALLBACK(C, TYPE_PROC_REF(/atom, set_density), TRUE), 2 SECONDS)	// Needed to make them path. I hate it.
-
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"

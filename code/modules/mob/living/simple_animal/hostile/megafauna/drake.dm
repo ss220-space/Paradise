@@ -58,8 +58,6 @@ Difficulty: Medium
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = NONE
 	var/player_cooldown = 0
-	medal_type = BOSS_MEDAL_DRAKE
-	score_type = DRAKE_SCORE
 	deathmessage = "распадается в кучу костей, его плоть осыпается."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	footstep_type = FOOTSTEP_MOB_HEAVY
@@ -662,9 +660,6 @@ Difficulty: Medium
 	lava_pools(10, 2) // less pools but longer delay before spawns
 	player_cooldown = world.time + 200 // needs seperate cooldown or cant use fire attacks
 
-/mob/living/simple_animal/hostile/megafauna/dragon/lesser/grant_achievement(medaltype,scoretype)
-	return
-
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
 	maxHealth = 250
@@ -698,9 +693,6 @@ Difficulty: Medium
 		INSTRUMENTAL = "космическим драконом",
 		PREPOSITIONAL = "космическом драконе"
 	)
-
-/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/grant_achievement(medaltype, scoretype)
-	return
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize(mapload)
 	AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse/spacedragon(src))

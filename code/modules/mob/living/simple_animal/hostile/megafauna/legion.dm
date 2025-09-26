@@ -45,8 +45,6 @@ Difficulty: Medium
 	ranged_cooldown_time = 20
 	var/charging = FALSE
 	var/firing_laser = FALSE
-	medal_type = BOSS_MEDAL_LEGION
-	score_type = LEGION_SCORE
 	loot = list(/obj/item/storm_staff)
 	crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 	enraged_loot = /obj/item/disk/fauna_research/legion
