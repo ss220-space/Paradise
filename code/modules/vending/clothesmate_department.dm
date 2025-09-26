@@ -1,6 +1,13 @@
-/obj/machinery/vending/clothing/departament
+/obj/machinery/vending/department_clothesmate
 	name = "Broken Departament ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды отдела."
+	icon_state = "clothes_off"
+	panel_overlay = "clothes_panel"
+	screen_overlay = "clothes"
+	lightmask_overlay = "clothes_lightmask"
+	broken_overlay = "clothes_broken"
+	broken_lightmask_overlay = "clothes_broken_lightmask"
+
 	slogan_list = list(
 		"Од+ежда усп+ешного раб+отника!",
 		"Похвал+а на глаз+а!",
@@ -38,7 +45,7 @@
 	refill_canister = null
 
 
-/obj/machinery/vending/clothing/departament/get_ru_names()
+/obj/machinery/vending/department_clothesmate/get_ru_names()
 	return list(
 		NOMINATIVE = "сломанный торговый автомат Departament ClothesMate",
 		GENITIVE = "сломанного торгового автомата Departament ClothesMate",
@@ -48,7 +55,7 @@
 		PREPOSITIONAL = "сломанном торговом автомате Departament ClothesMate"
 	)
 
-/obj/machinery/vending/clothing/departament/security
+/obj/machinery/vending/department_clothesmate/security
 	name = "Departament Security ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Службы безопасности."
 	icon_state = "clothes-dep-sec_off"
@@ -123,7 +130,7 @@
 
 	refill_canister = /obj/item/vending_refill/clothing/security
 
-/obj/machinery/vending/clothing/departament/security/get_ru_names()
+/obj/machinery/vending/department_clothesmate/security/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат Departament Security ClothesMate",
 		GENITIVE = "торгового автомата Departament Security ClothesMate",
@@ -134,7 +141,7 @@
 	)
 
 
-/obj/machinery/vending/clothing/departament/medical
+/obj/machinery/vending/department_clothesmate/medical
 	name = "Departament Medical ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Медицинского отдела."
 	icon_state = "clothes-dep-med_off"
@@ -230,7 +237,7 @@
 
 	refill_canister = /obj/item/vending_refill/clothing/medical
 
-/obj/machinery/vending/clothing/departament/medical/get_ru_names()
+/obj/machinery/vending/department_clothesmate/medical/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат Departament Medical ClothesMate",
 		GENITIVE = "торгового автомата Departament Medical ClothesMate",
@@ -240,7 +247,7 @@
 		PREPOSITIONAL = "торговом автомате Departament Medical ClothesMate"
 	)
 
-/obj/machinery/vending/clothing/departament/engineering
+/obj/machinery/vending/department_clothesmate/engineering
 	name = "Departament Engineering ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Инженерного отдела."
 	icon_state = "clothes-dep-eng_off"
@@ -295,7 +302,7 @@
 
 	refill_canister = /obj/item/vending_refill/clothing/engineering
 
-/obj/machinery/vending/clothing/departament/engineering/get_ru_names()
+/obj/machinery/vending/department_clothesmate/engineering/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат Departament Engineering ClothesMat",
 		GENITIVE = "торгового автомата Departament Engineering ClothesMat",
@@ -305,7 +312,7 @@
 		PREPOSITIONAL = "торговом автомате Departament Engineering ClothesMat"
 	)
 
-/obj/machinery/vending/clothing/departament/science
+/obj/machinery/vending/department_clothesmate/science
 	name = "Departament Science ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Научного отдела."
 	icon_state = "clothes-dep-sci_off"
@@ -356,7 +363,7 @@
 
 	refill_canister = /obj/item/vending_refill/clothing/science
 
-/obj/machinery/vending/clothing/departament/science/get_ru_names()
+/obj/machinery/vending/department_clothesmate/science/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат Departament Science ClothesMate",
 		GENITIVE = "торгового автомата Departament Science ClothesMate",
@@ -366,7 +373,7 @@
 		PREPOSITIONAL = "торговом автомате Departament Science ClothesMate"
 	)
 
-/obj/machinery/vending/clothing/departament/cargo
+/obj/machinery/vending/department_clothesmate/cargo
 	name = "Departament Cargo ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Отд+ела снабжения."
 	icon_state = "clothes-dep-car_off"
@@ -419,7 +426,7 @@
 
 	refill_canister = /obj/item/vending_refill/clothing/cargo
 
-/obj/machinery/vending/clothing/departament/cargo/get_ru_names()
+/obj/machinery/vending/department_clothesmate/cargo/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат Departament Cargo ClothesMate",
 		GENITIVE = "торгового автомата Departament Cargo ClothesMate",
@@ -429,7 +436,7 @@
 		PREPOSITIONAL = "торговом автомате Departament Cargo ClothesMate"
 	)
 
-/obj/machinery/vending/clothing/departament/law
+/obj/machinery/vending/department_clothesmate/law
 	name = "Departament Law ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Юридического отдела."
 	icon_state = "clothes-dep-sec_off"
@@ -483,7 +490,7 @@
 
 	refill_canister = /obj/item/vending_refill/clothing/law
 
-/obj/machinery/vending/clothing/departament/law/get_ru_names()
+/obj/machinery/vending/department_clothesmate/law/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат Departament Law ClothesMate",
 		GENITIVE = "торгового автомата Departament Law ClothesMate",
@@ -493,14 +500,14 @@
 		PREPOSITIONAL = "торговом автомате Departament Law ClothesMate"
 	)
 
-/obj/machinery/vending/clothing/departament/service
+/obj/machinery/vending/department_clothesmate/service
 	name = "Departament Service ClothesMate"
 	desc = "Автомат-помощник по выдаче одежды Отдела обслуживания."
 	req_access = list()
 	products = list()
 	refill_canister = /obj/item/vending_refill/clothing/service
 
-/obj/machinery/vending/clothing/departament/service/get_ru_names()
+/obj/machinery/vending/department_clothesmate/service/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат Departament Service ClothesMate",
 		GENITIVE = "торгового автомата Departament Service ClothesMate",
@@ -510,7 +517,7 @@
 		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate"
 	)
 
-/obj/machinery/vending/clothing/departament/service/chaplain
+/obj/machinery/vending/department_clothesmate/service/chaplain
 	name = "Departament Service ClothesMate Chaplain"
 	desc = "Автомат-помощник по выдаче одежды для священнослужителей."
 	icon_state = "clothes-dep-car_off"
@@ -542,7 +549,7 @@
 	)
 	refill_canister = /obj/item/vending_refill/clothing/service/chaplain
 
-/obj/machinery/vending/clothing/departament/service/chaplain/get_ru_names()
+/obj/machinery/vending/department_clothesmate/service/chaplain/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат Departament Service ClothesMate Chaplain",
 		GENITIVE = "торгового автомата Departament Service ClothesMate Chaplain",
@@ -553,7 +560,7 @@
 	)
 
 
-/obj/machinery/vending/clothing/departament/service/botanical
+/obj/machinery/vending/department_clothesmate/service/botanical
 	name = "Departament Service ClothesMate Botanical"
 	desc = "Автомат-помощник по выдаче ботанической одежды."
 	req_access = list(ACCESS_HYDROPONICS)
@@ -580,7 +587,7 @@
 	)
 	refill_canister = /obj/item/vending_refill/clothing/service/botanical
 
-/obj/machinery/vending/clothing/departament/service/botanical/get_ru_names()
+/obj/machinery/vending/department_clothesmate/service/botanical/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат Departament Service ClothesMate Botanical",
 		GENITIVE = "торгового автомата Departament Service ClothesMate Botanical",

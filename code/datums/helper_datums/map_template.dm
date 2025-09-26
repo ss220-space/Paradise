@@ -114,7 +114,7 @@
 			var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
 			GLOB.map_templates[T.name] = T
 
-	if(!CONFIG_GET(flag/disable_space_ruins)) // so we don't unnecessarily clutter start-up
+	if(!CONFIG_GET(flag/disable_space_ruins) && !(SSmapping.map_datum.disables & DISABLE_SPACE_RUINS)) // so we don't unnecessarily clutter start-up
 		preloadRuinTemplates()
 	preloadShelterTemplates()
 	preloadShuttleTemplates()

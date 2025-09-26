@@ -1856,5 +1856,29 @@
 	phasing_action.button_icon_state = "mech_phasing_off"
 	phasing_action.UpdateButtonIcon()
 
+/// tries to repair any internal damage and plays fluff for it
+/obj/mecha/proc/try_repair_int_damage(mob/user, flag_to_heal)
+	balloon_alert(user, "ремонт...")
+	if(!do_after(user, 10 SECONDS, src))
+		balloon_alert(user, "не удалось")
+		return
+	clear_internal_damage(flag_to_heal)
+	balloon_alert(user, "успех")
+
+/obj/mecha/proc/clear_internal_damage(int_dam_flag)
+	if(internal_damage & int_dam_flag)
+		switch(int_dam_flag)
+			if(MECHA_INT_TEMP_CONTROL)
+				occupant_message(span_boldnotice("Системы жизнеобеспечения перезапущены."))
+			if(MECHA_INT_FIRE)
+				occupant_message(span_boldnotice("Внутренний пожар успешно потушен."))
+			if(MECHA_INT_TANK_BREACH)
+				occupant_message(span_boldnotice("Повреждения баллона устранены."))
+			if(MECHA_INT_CONTROL_LOST)
+				occupant_message(span_boldnotice("Контроллер движений восстановлен."))
+			if(MECHA_INT_SHORT_CIRCUIT)
+				occupant_message(span_boldnotice("Короткое замыкание устранено."))
+	internal_damage &= ~int_dam_flag
+	diag_hud_set_mechstat()
 
 #undef OCCUPANT_LOGGING
