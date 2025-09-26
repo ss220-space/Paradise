@@ -570,7 +570,7 @@
 	item_state = "suture"
 	origin_tech = "biotech=3"
 	var/bleeding_heal = 5
-	var/damage = 10
+	var/damage = 5
 	self_delay = 3 SECONDS
 	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
