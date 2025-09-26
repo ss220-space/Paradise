@@ -699,11 +699,11 @@
 	/// Addition bodypart where applyed tourniquet (hand for arm, foot for leg)
 	var/obj/item/organ/external/applyed_addition_bodypart = null
 	/// Duration of limb necrotize warning in chat
-	var/necrotize_warning_duration = 4 MINUTES
+	var/necrotize_warning_duration = 2 MINUTES
 	/// Limb necrotize warning timer identifier
 	var/necrotize_warning_timer_id = null
 	/// Duration of limb necrotize if apply tourniquet
-	var/necrotize_duration = 5 MINUTES
+	var/necrotize_duration = 3 MINUTES
 	/// Limb necrotize timer identifier if apply tourniquet
 	var/necrotize_timer_id = null
 
