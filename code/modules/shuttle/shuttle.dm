@@ -728,7 +728,7 @@
 		if(!T || !istype(T.loc, areaInstance.type))
 			continue
 		for (var/atom/movable/movable as anything in T)
-			if (movable.client_mobs_in_contents)
+			if(movable.client_mobs_in_contents)
 				movable.update_parallax_contents()
 
 /obj/docking_port/mobile/proc/check_transit_zone()

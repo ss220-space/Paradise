@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(huds, list( \
 
 	hud_users_all_z_levels[former_viewer] -= 1//decrement number of sources for this hud on this user (bad way to track i know)
 
-	if (absolute || hud_users_all_z_levels[former_viewer] <= 0)//if forced or there arent any sources left, remove the user
+	if(absolute || hud_users_all_z_levels[former_viewer] <= 0)//if forced or there arent any sources left, remove the user
 
 		if(!hud_atoms_all_z_levels[former_viewer])//make sure we arent unregistering changes on a mob thats also a hud atom for this hud
 			UnregisterSignal(former_viewer, COMSIG_MOVABLE_Z_CHANGED)
@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(huds, list( \
 
 		if(queued_to_see[former_viewer])
 			queued_to_see -= former_viewer
-		else if (their_turf)
+		else if(their_turf)
 			for(var/atom/hud_atom as anything in get_hud_atoms_for_z_level(their_turf.z))
 				remove_atom_from_single_hud(former_viewer, hud_atom)
 

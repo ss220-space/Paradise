@@ -30,11 +30,11 @@ SUBSYSTEM_DEF(icon_smooth)
 			smooth_icon(smoothing_atom)
 		else
 			deferred += smoothing_atom
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 
-	if (!length(smooth_queue_cache))
-		if (deferred.len)
+	if(!length(smooth_queue_cache))
+		if(deferred.len)
 			smooth_queue = deferred
 			deferred = smooth_queue_cache
 		else
