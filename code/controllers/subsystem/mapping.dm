@@ -382,7 +382,6 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.english_station_name]...")
 	var/map_z_level
-	var/list/map_z_levels = list()
 	if(map_datum.traits && map_datum.traits?.len && islist(map_datum.traits[1])) // we work with list of lists
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])
 		if(map_datum.traits.len > MULTIZ_WARN)
