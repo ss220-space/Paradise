@@ -723,11 +723,11 @@
 	if(assigned_transit?.assigned_area)
 		assigned_transit.assigned_area.parallax_movedir = FALSE
 	var/list/L0 = return_ordered_turfs(x, y, z, dir)
-	for (var/thing in L0)
+	for(var/thing in L0)
 		var/turf/T = thing
 		if(!T || !istype(T.loc, areaInstance.type))
 			continue
-		for (var/atom/movable/movable as anything in T)
+		for(var/atom/movable/movable as anything in T)
 			if(movable.client_mobs_in_contents)
 				movable.update_parallax_contents()
 
