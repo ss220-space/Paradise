@@ -173,13 +173,16 @@
 
 /mob/living/silicon/robot/syndicate/saboteur/attackby(obj/item/I, mob/user, params)
 	cham_proj?.disrupt(src)
+
+	add_attack_logs(user, src, "disrupt [cham_proj] by [I]")
 	return ..()
 
 
-/mob/living/silicon/robot/syndicate/saboteur/attack_hand()
+/mob/living/silicon/robot/syndicate/saboteur/attack_hand(mob/living/carbon/human/user)
 	if(cham_proj)
 		cham_proj.disrupt(src)
 
+	add_attack_logs(user, src, "disrupt [cham_proj] by hand attack")
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/ex_act()

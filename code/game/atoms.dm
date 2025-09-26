@@ -1889,19 +1889,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/MouseEntered(location, control, params)
 	SSmouse_entered.hovers[usr.client] = src
 
-	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
-	var/screentip_mode = usr.client.prefs.screentip_mode
-	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
-		active_hud.screentip_text.maptext = ""
-		return
-
-	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-	active_hud.screentip_text.maptext = MAPTEXT("<span style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[src.declent_ru(NOMINATIVE)]</span>")
-
-// This is normal, I assure you. Paradise optimization.
-/atom/MouseExited(location, control, params)
-	usr.hud_used.screentip_text.maptext = ""
-
 /// Fired whenever this atom is the most recent to be hovered over in the tick.
 /// Preferred over MouseEntered if you do not need information such as the position of the mouse.
 /// Especially because this is deferred over a tick, do not trust that `client` is not null.
@@ -1915,6 +1902,19 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Face directions on harm intent
 	if(user.face_mouse && !user.incapacitated())
 		user.face_atom(src)
+
+	// Screentips
+	var/datum/hud/active_hud = user.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	if(!active_hud)
+		return
+
+	var/screentip_mode = user.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+
+	// We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [user.client.prefs.screentip_color]'>[src.declent_ru(NOMINATIVE)]</span>"
 
 /atom/proc/add_gravity(id, gravity_delta)
 	if(id in gravity_sources)
