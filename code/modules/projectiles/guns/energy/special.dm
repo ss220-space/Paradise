@@ -782,6 +782,7 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3)
 	)
 	ammo_x_offset = 0
+	var/alarmed = FALSE
 
 /obj/item/gun/energy/specter/update_gun_skins()
 	add_skin("Grey slide", "specter")
@@ -800,7 +801,7 @@
 		icon_state = "[initial(icon_state)][cell.charge > 0 ? "" : "-e"]"
 
 /obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
-	if(!istype(item, /obj/item/stock_parts/cell/specter))
+	if(!is_spectercell(item))
 		return ..()
 	add_fingerprint(user)
 	if(!user.drop_transfer_item_to_loc(item, src))
@@ -812,11 +813,22 @@
 	cell_type = item.type
 	balloon_alert(user, "батарейка заменена")
 	update_icon(UPDATE_ICON_STATE)
+	alarmed = FALSE
 	if(cell.charge > 0)
 		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
 		return ATTACK_CHAIN_PROCEED
 
 	return ATTACK_CHAIN_PROCEED
+
+/obj/item/gun/energy/specter/afterattack(atom/target, mob/living/user, flag, params)
+	..()
+	empty_alarm()
+
+/obj/item/gun/energy/specter/proc/empty_alarm()
+	if(!chambered && !alarmed)
+		playsound(loc, 'sound/weapons/gun_interactions/spec_magout.ogg', 40, TRUE)
+		update_icon()
+		alarmed = TRUE
 
 /obj/item/gun/energy/emittergun
 	name = "Handicraft Emitter Rifle"

@@ -211,7 +211,7 @@
 		var/obj/item/bodyanalyzer/B = I
 		return B.cell
 
-	if(istype(I, /obj/item/stock_parts/cell/specter))
+	if(is_spectercell(I))
 		var/obj/item/stock_parts/cell/specter/Scell = I
 		return Scell
 
