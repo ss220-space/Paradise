@@ -228,10 +228,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/Initialize(mapload)
 	. = ..()
 
-	var/icon/dummy_icon = icon(icon)
-	storage_display_width = dummy_icon.Width()
-	qdel(dummy_icon)
-
 	if(isstorage(loc)) //marks all items in storage as being such
 		item_flags |= IN_STORAGE
 

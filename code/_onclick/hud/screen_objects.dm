@@ -265,6 +265,8 @@
 		I.melee_attack_chain(user, S, params)
 	return TRUE
 
+/atom/movable/screen/storage/space_box
+	screen_loc = "7,7 to 10,8"
 
 /atom/movable/screen/zone_sel
 	name = "damage zone"

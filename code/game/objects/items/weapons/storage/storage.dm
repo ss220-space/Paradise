@@ -1,6 +1,6 @@
 #define STORAGE_CAP_WIDTH 2
 #define STORED_CAP_WIDTH 4
-#define BASE_STORAGE_WIDTH 220
+#define BASE_STORAGE_WIDTH 200
 #define MAX_LINE_WIDTH 292
 
 // To clarify:
@@ -31,12 +31,8 @@
 	var/storage_slots = 7
 	var/list/click_border_start = new/list() //In slotless storage, stores areas where clicking will refer to the associated item
 	var/list/click_border_end = new/list()
-	/// The number of storage slots in this container.
 	var/atom/movable/screen/storage/boxes = null
-	var/atom/movable/screen/storage/storage_start = null //storage UI
-	var/atom/movable/screen/storage/storage_continue = null
-	var/atom/movable/screen/storage/storage_end = null
-	var/datum/item_storage_box/stored_ISB //! This contains what previously was known as stored_start, stored_continue, and stored_end
+	var/datum/storage_box/storage_box
 	var/atom/movable/screen/close/closer = null
 	/// Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
 	var/use_to_pickup
@@ -85,27 +81,8 @@
 		boxes.layer = HUD_LAYER
 		boxes.plane = HUD_PLANE
 	else
-		storage_start = new /atom/movable/screen/storage()
-		storage_start.name = "storage"
-		storage_start.master = src
-		storage_start.icon_state = "storage_start"
-		storage_start.screen_loc = "7,7 to 10,8"
-		storage_end = new /atom/movable/screen/storage()
-		storage_end.name = "storage"
-		storage_end.master = src
-		storage_end.icon_state = "storage_end"
-		storage_end.screen_loc = "7,7 to 10,8"
-		storage_continue = new /atom/movable/screen/storage()
-		storage_continue.name = "storage"
-		storage_continue.master = src
-		storage_continue.icon_state = "storage_continue"
-		storage_continue.screen_loc = "7,7 to 10,8"
-		var/matrix/M = matrix(storage_continue.transform)
-		M.Scale((BASE_STORAGE_WIDTH - STORAGE_CAP_WIDTH * 2 + 3) / 32, 1)
-		storage_continue.transform = M
-		storage_start.screen_loc = "4:16,2:16"
-		storage_continue.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (BASE_STORAGE_WIDTH- STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:16"
-		storage_end.screen_loc = "4:[19 + BASE_STORAGE_WIDTH - STORAGE_CAP_WIDTH],2:16"
+		storage_box = new(src)
+		storage_box.modify(BASE_STORAGE_WIDTH, 1)
 
 	closer = new /atom/movable/screen/close()
 	closer.master = src
@@ -174,7 +151,9 @@
 		if(!user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))
 			return FALSE
 
-		close(user)
+		if(user.s_active == src)
+			close(user)
+
 		user.face_atom(over_object)
 		user.visible_message(
 			span_notice("[user] опустоша[pluralize_ru(user.gender, "ет", "ют")] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
@@ -226,21 +205,17 @@
 		user.s_active.hide_from(user)
 
 	user.client.screen -= boxes
-	user.client.screen -= storage_start
-	user.client.screen -= storage_continue
-	user.client.screen -= storage_end
+	user.client.screen -= storage_box.screens_list()
 	user.client.screen -= closer
 	user.client.screen -= contents
 
-	user.client.screen += closer
-	user.client.screen += contents
-
 	if(!display_contents_with_number)
-		user.client.screen += storage_start
-		user.client.screen += storage_continue
-		user.client.screen += storage_end
+		user.client.screen += storage_box.screens_list()
 	else
 		user.client.screen += boxes
+
+	user.client.screen += closer
+	user.client.screen += contents
 
 	user.s_active = src
 	LAZYOR(mobs_viewing, user)
@@ -256,9 +231,7 @@
 	if(!user.client)
 		return
 	user.client.screen -= boxes
-	user.client.screen -= storage_start
-	user.client.screen -= storage_continue
-	user.client.screen -= storage_end
+	user.client.screen -= storage_box.screens_list()
 	user.client.screen -= closer
 	user.client.screen -= contents
 	if(user.s_active == src)
@@ -351,41 +324,22 @@
 /obj/item/storage/proc/space_orient_objs(list/obj/item/display_contents)
 	click_border_start.Cut()
 	click_border_end.Cut()
-	storage_start.overlays.Cut()
 
-	var/storage_cap_width = STORAGE_CAP_WIDTH // Length of sprite for start and end of the box representing total storage space
-	var/stored_cap_width = STORED_CAP_WIDTH // Length of sprite for start and end of the box representing the stored item
-
-	var/total_width = 2 * storage_cap_width
+	var/total_width = 1
 	var/line_width
 	var/lines_num = 1
 	for(var/obj/item/O in contents)
 		total_width += O.storage_display_width
-		if(total_width > MAX_LINE_WIDTH)
-			lines_num++
-			line_width = MAX_LINE_WIDTH
-			total_width = 2 * storage_cap_width + O.storage_display_width
+		if(total_width <= MAX_LINE_WIDTH)
+			continue
+		lines_num++
+		line_width = total_width - O.storage_display_width
+		total_width = 1 + O.storage_display_width
 
-	line_width = line_width || max(total_width, BASE_STORAGE_WIDTH)
+	if(!line_width)
+		line_width = max(total_width + 16, BASE_STORAGE_WIDTH)
 
-	if(QDELETED(storage_continue))
-		storage_continue = new /atom/movable/screen/storage()
-		storage_continue.name = "storage"
-		storage_continue.master = src
-		storage_continue.icon_state = "storage_continue"
-		storage_continue.screen_loc = "7,7 to 10,8"
-
-	var/matrix/M = matrix()
-	M.Scale((line_width - storage_cap_width * 2 + 3) / 32, lines_num)
-	storage_continue.transform = M
-	M = matrix()
-	M.Scale(1, lines_num)
-	storage_start.transform = M
-	storage_end.transform = M
-	var/base_storage_offset = 16 * lines_num
-	storage_start.screen_loc = "4:16,2:[base_storage_offset]"
-	storage_continue.screen_loc = "4:[floor(storage_cap_width + (line_width - storage_cap_width * 2) / 2 + 2)],2:[base_storage_offset]"
-	storage_end.screen_loc = "4:[19 + line_width - storage_cap_width],2:[base_storage_offset]"
+	storage_box.modify(line_width, lines_num)
 
 	var/startpoint
 	var/endpoint = 1
@@ -405,39 +359,92 @@
 
 		var/static/list/offset = list(list(0), list(-8, 8), list(-1 * (32 / 3), 0, (32 / 3)), list(-16, -8, 8, 16))
 
-		var/datum/item_storage_box/ISB = GLOB.item_storage_box_cache[isb_index]
-		if(QDELETED(ISB))
-			ISB = new()
-			var/matrix/M_start = matrix(ISB.start.transform)
-			var/matrix/M_continue = matrix(ISB.continued.transform)
-			var/matrix/M_end = matrix(ISB.end.transform)
-			var/box_offset = offset[lines_num][current_level + 1]
-			M_start.Scale(1, 1 / lines_num)
-			M_start.Translate(startpoint, box_offset)
-			M_continue.Scale((endpoint - startpoint - stored_cap_width * 2) / 32, 1 / lines_num)
-			M_continue.Translate(startpoint + stored_cap_width + (endpoint - startpoint - stored_cap_width * 2) / 2 - 16, box_offset)
-			M_end.Scale(1, 1 / lines_num)
-			M_end.Translate(endpoint - stored_cap_width, box_offset)
-			ISB.start.transform = M_start
-			ISB.continued.transform = M_continue
-			ISB.end.transform = M_end
-			ISB.index = isb_index
-			GLOB.item_storage_box_cache[isb_index] = ISB
+		var/datum/item_storage_box/item_box = GLOB.item_storage_box_cache[isb_index]
+		if(QDELETED(item_box))
+			item_box = new()
+			item_box.modify(startpoint, endpoint, lines_num, current_level)
+			item_box.index = isb_index
+			GLOB.item_storage_box_cache[isb_index] = item_box
 
-		stored_ISB = ISB
+		storage_box.add_item(item_box)
 
-		storage_start.overlays += ISB.start
-		storage_start.overlays += ISB.continued
-		storage_start.overlays += ISB.end
-
-		O.screen_loc = "4:[floor((startpoint + endpoint) / 2) + 2],2:[16 + 32 * current_level]"
+		O.screen_loc = "4:[floor((startpoint + endpoint) / 2) + 2],2:[16 + 29 * current_level]"
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		O.mouse_opacity = MOUSE_OPACITY_OPAQUE
+		O.maptext = ""
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 
 	src.closer.screen_loc = "4:[line_width + 19],2:16"
 	return
 
 GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
+
+/datum/storage_box
+	var/atom/movable/screen/storage/space_box/start
+	var/atom/movable/screen/storage/space_box/continued
+	var/atom/movable/screen/storage/space_box/end
+	var/atom/movable/screen/storage/space_box/top
+	var/atom/movable/screen/storage/space_box/bottom
+	var/atom/movable/screen/storage/space_box/place_items
+
+/datum/storage_box/New(master)
+	start = new
+	start.icon_state = "storage_start"
+	start.master = master
+	end = new
+	end.icon_state = "storage_end"
+	end.master = master
+	continued = new
+	continued.icon_state = "storage_continue"
+	continued.master = master
+	top = new
+	top.icon_state = "storage_top"
+	top.master = master
+	bottom = new
+	bottom.icon_state = "storage_bottom"
+	bottom.master = master
+	place_items = new
+
+/datum/storage_box/proc/modify(line_width, lines_num)
+	place_items.overlays.Cut()
+	var/y_enlarge = (32 + (lines_num - 1) * (29)) / 32
+	// Both axes modify
+	var/matrix/modify_matrix = matrix()
+	modify_matrix.Scale((line_width - STORAGE_CAP_WIDTH * 2 + 3) / 32, y_enlarge)
+	continued.transform = modify_matrix
+	// Y axis modify
+	modify_matrix = matrix()
+	modify_matrix.Scale(1, y_enlarge)
+	start.transform = modify_matrix
+	end.transform = modify_matrix
+	// X axis modify
+	modify_matrix = matrix()
+	modify_matrix.Scale((line_width + 2) / 32, 1)
+	top.transform = modify_matrix
+	bottom.transform = modify_matrix
+	// Move modified object
+	var/y_offset = floor(16 * y_enlarge)
+	start.screen_loc = "4:16,2:[y_offset]"
+	place_items.screen_loc = "4:16,2:16"
+	continued.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:[y_offset]"
+	end.screen_loc = "4:[19 + line_width - STORAGE_CAP_WIDTH],2:[y_offset]"
+	top.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:[y_offset + 15 * (lines_num - 1)]"
+	bottom.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:16"
+
+/datum/storage_box/proc/screens_list()
+	return list(start, continued, end, top, bottom, place_items)
+
+/datum/storage_box/proc/add_item(datum/item_storage_box/item_box)
+	place_items.add_overlay(item_box.screens_list())
+
+/datum/storage_box/Destroy(force, ...)
+	QDEL_NULL(start)
+	QDEL_NULL(continued)
+	QDEL_NULL(end)
+	QDEL_NULL(bottom)
+	QDEL_NULL(top)
+	QDEL_NULL(place_items)
+	return ..()
 
 /datum/item_storage_box
 	var/atom/movable/screen/storage/start
@@ -454,6 +461,25 @@ GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 	continued.icon_state = "stored_continue"
 	end = new()
 	end.icon_state = "stored_end"
+
+/datum/item_storage_box/proc/screens_list()
+	return list(start, continued, end)
+
+/datum/item_storage_box/proc/modify(startpoint, endpoint, lines_num, current_level)
+	var/box_offset = 29 * current_level
+	// Modify start
+	var/matrix/modify_matrix = matrix(start.transform)
+	modify_matrix.Translate(startpoint, box_offset)
+	start.transform = modify_matrix
+	// Modify continue
+	modify_matrix = matrix(continued.transform)
+	modify_matrix.Scale((endpoint - startpoint - STORED_CAP_WIDTH * 2) / 32, 1)
+	modify_matrix.Translate(startpoint + STORED_CAP_WIDTH + (endpoint - startpoint - STORED_CAP_WIDTH * 2) / 2 - 16, box_offset)
+	continued.transform = modify_matrix
+	// Modify end
+	modify_matrix = matrix(end.transform)
+	modify_matrix.Translate(endpoint - STORED_CAP_WIDTH, box_offset)
+	end.transform = modify_matrix
 
 /datum/item_storage_box/Destroy(force, ...)
 	QDEL_NULL(start)
