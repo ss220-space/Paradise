@@ -119,7 +119,10 @@ SUBSYSTEM_DEF(radio)
 
 /datum/controller/subsystem/radio/proc/remove_object(obj/device, old_frequency)
 	var/f_text = num2text(old_frequency)
-	var/datum/radio_frequency/frequency = frequencies[f_text]
+	return remove_object_str_freq(device, f_text)
+
+/datum/controller/subsystem/radio/proc/remove_object_str_freq(obj/device, old_frequency)
+	var/datum/radio_frequency/frequency = frequencies[old_frequency]
 	if(!frequency)
 		return 1
 
@@ -129,12 +132,12 @@ SUBSYSTEM_DEF(radio)
 		return 1
 
 	qdel(frequency)
-	frequencies -= f_text
+	frequencies -= old_frequency
 	return 1
 
 /datum/controller/subsystem/radio/proc/remove_object_all(obj/device)
 	for(var/frequency in frequencies)
-		remove_object(device, frequency)
+		remove_object_str_freq(device, frequency)
 
 
 /datum/controller/subsystem/radio/proc/return_frequency(new_frequency as num)

@@ -151,6 +151,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	SSradio?.remove_object_all(src)
+	LAZYCLEARLIST(secure_radio_connections)
 	GLOB.global_radios -= src
 	follow_target = null
 	return ..()
