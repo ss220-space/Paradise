@@ -247,6 +247,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 										'sound/AI/commandreport.ogg'
 		)
 	log_game("Clockwork cult reveal. Powergame allowed.")
+	crew_reveal = TRUE
 
 /datum/game_mode/proc/powered(clocker)
 	if(ishuman(clocker) && isclocker(clocker))
