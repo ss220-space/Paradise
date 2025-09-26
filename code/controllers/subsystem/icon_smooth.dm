@@ -42,8 +42,6 @@ SUBSYSTEM_DEF(icon_smooth)
 
 /datum/controller/subsystem/icon_smooth/Initialize()
 	log_startup_progress("Smoothing atoms...")
-	smooth_zlevel(1, TRUE)
-
 
 	var/list/queue = smooth_queue
 	// Smooth EVERYTHING in the world

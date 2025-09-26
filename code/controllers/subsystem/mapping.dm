@@ -317,9 +317,8 @@ SUBSYSTEM_DEF(mapping)
 	var/load_zlevels_timer = start_watch()
 	log_startup_progress("Creating random space levels...")
 	var/num_extra_space = map_datum?.space_ruins_levels ? map_datum.space_ruins_levels : SPACE_RUINS_NUMBER
-	var/list/ruins_z_levels = list()
 	for(var/i in 1 to num_extra_space)
-		ruins_z_levels += GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
+		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
 	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
 
 	// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
@@ -328,8 +327,6 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("Seeding ruins...")
 	var/seed_ruins_timer = start_watch()
 	seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
-	for(var/level in ruins_z_levels)
-		smooth_zlevel(level)
 	log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
 
 /datum/controller/subsystem/mapping/proc/create_landmarks(turf/place)
@@ -390,17 +387,13 @@ SUBSYSTEM_DEF(mapping)
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])
 		if(map_datum.traits.len > MULTIZ_WARN)
 			message_admins("Loading station with over [MULTIZ_WARN] levels(It has [map_datum.traits.len]!!). May cause some issues with space levels and/or perfomance on server.")
-		map_z_levels += map_z_level
 		for(var/i in 2 to map_datum.traits.len)
-			map_z_levels += GLOB.space_manager.add_new_zlevel(MAIN_STATION + "([i])", linkage = map_datum.linkage, traits = map_datum.traits[i])
+			GLOB.space_manager.add_new_zlevel(MAIN_STATION + "([i])", linkage = map_datum.linkage, traits = map_datum.traits[i])
 	else
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
-		map_z_levels += map_z_level
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
 
-	for(var/level in map_z_levels)
-		smooth_zlevel(level)
 
 	if(map_datum?.forced_mode)
 		GLOB.master_mode = map_datum.forced_mode.name
@@ -423,7 +416,6 @@ SUBSYSTEM_DEF(mapping)
 	var/trait_list = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK, ZTRAIT_BASETURF = /turf/simulated/floor/lava/mapping_lava)
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = UNAFFECTED, traits = trait_list)
 	GLOB.maploader.load_map(file(map_datum.lavaland_path), z_offset = lavaland_z_level)
-	smooth_zlevel(lavaland_z_level)
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
 
 
@@ -432,7 +424,6 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("Loading Taipan...")
 	var/taipan_z_level = GLOB.space_manager.add_new_zlevel(RAMSS_TAIPAN, linkage = CROSSLINKED, traits = list(REACHABLE, TAIPAN))
 	GLOB.maploader.load_map(file("_maps/map_files/generic/syndicatebase.dmm"), z_offset = taipan_z_level)
-	smooth_zlevel(taipan_z_level)
 	log_startup_progress("Loaded Taipan in [stop_watch(watch)]s")
 
 // move it to code/datums/ruins.dm and make global proc plz thx k
