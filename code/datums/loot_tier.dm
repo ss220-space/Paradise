@@ -118,10 +118,10 @@
 		/obj/item/gun/energy/lasercannon,
 		/obj/item/gun/energy/xray,
 		list(
-			/obj/item/gun/projectile/automatic/pistol/specter,
-			/obj/item/ammo_box/magazine/specter,
-			/obj/item/ammo_box/magazine/specter,
-			/obj/item/ammo_box/magazine/specter,
+			/obj/item/gun/energy/specter,
+			/obj/item/stock_parts/cell/specter,
+			/obj/item/stock_parts/cell/specter,
+			/obj/item/stock_parts/cell/specter,
 		),
 		list(
 			/obj/item/gun/projectile/revolver/ga12,
@@ -739,8 +739,7 @@
 			/obj/item/ammo_box/shotgun/improvised,
 		),
 		CALIBER_SPECTER = list(
-			/obj/item/ammo_box/specter/laser,
-			/obj/item/ammo_box/specter/disabler,
+			/obj/item/stock_parts/cell/specter,
 		),
 		CALIBER_5_DOT_56X45MM = list(
 			/obj/item/ammo_box/a556,

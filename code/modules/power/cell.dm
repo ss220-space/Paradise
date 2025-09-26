@@ -32,6 +32,41 @@
 /obj/item/stock_parts/cell/laser/gatling
 	maxcharge = 9000
 
+/obj/item/stock_parts/cell/specter
+	name = "аккумулятор Спектра"
+	desc = "Аккумулятор, используемый в качестве магазина для пистолета Спектр."
+	icon = 'icons/obj/weapons/ammo.dmi'
+	icon_state = "Specter_accumulator"
+	gender = MALE
+	maxcharge = 8000
+	chargerate = 200
+
+/obj/item/stock_parts/cell/specter/get_ru_names()
+	ru_names = list(
+		NOMINATIVE = "аккумулятор Спектра",
+		GENITIVE = "аккумулятора Спектра",
+		DATIVE = "аккумулятору Спектра",
+		ACCUSATIVE = "аккумулятор Спектра",
+		INSTRUMENTAL = "аккумулятором Спектра",
+		PREPOSITIONAL = "аккумуляторе Спектра"
+	)
+
+/obj/item/stock_parts/cell/specter/update_overlays()
+	. = list()
+	var/charge_percent = percent()
+
+	switch(charge_percent)
+		if(1 to 25)
+			. += "Specter_overlay_low"
+		if(26 to 40)
+			. += "Specter_overlay_half2"
+		if(41 to 65)
+			. += "Specter_overlay_half"
+		if(66 to 100)
+			. += "Specter_overlay_full"
+		else
+			. += "Specter_overlay_empty"
+
 /obj/item/stock_parts/cell/get_cell()
 	return src
 
