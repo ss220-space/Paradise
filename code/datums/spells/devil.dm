@@ -465,7 +465,7 @@
 	human.Knockdown(1 SECONDS)
 
 	if(!do_after(user, cast_time, user, NONE))
-		cooldown_handler.recharge_time = world.time + fail_cooldown
+		cooldown_handler.start_recharge(fail_cooldown)
 		return
 
 	make_shadow(human, devil)
