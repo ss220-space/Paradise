@@ -1842,7 +1842,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/obj/item/organ/external/chest/self_chest = get_organ(BODY_ZONE_CHEST)
 	if(!self_chest || !istype(self_chest))
 		return
-	if(brains.original_body && brains.original_body != self_chest)
+	if(brains.original_body == self_chest)
+		return
+	if(brains.original_body)
 		//this is not original body for brain, apply brain transplantation disease
 		var/datum/disease/brain_transplant_syndrome/disease = new
 		disease.Contract(src)
