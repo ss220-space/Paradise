@@ -482,8 +482,9 @@
 	var/image/holder = hud_list[DIAG_BOT_HUD]
 	if(client) //If the bot is player controlled, it will not be following mode logic!
 		holder.icon_state = "hudsentient"
+		set_hud_image_active(DIAG_BOT_HUD)
 		return
-
+	var/has_status_entry = TRUE
 	switch(mode)
 		if(BOT_SUMMON, BOT_RESPONDING) //Responding to PDA or AI summons
 			holder.icon_state = "hudcalled"
@@ -496,7 +497,14 @@
 		if(BOT_MOVING, BOT_DELIVER, BOT_GO_HOME, BOT_NAV, BOT_WAIT_FOR_NAV) //Moving to target for normal bots, moving to deliver or go home for MULES.
 			holder.icon_state = "hudmove"
 		else
-			holder.icon_state = ""
+			holder.icon_state = null
+			has_status_entry = FALSE
+
+	if(has_status_entry)
+		set_hud_image_active(DIAG_BOT_HUD)
+		return
+
+	set_hud_image_inactive(DIAG_BOT_HUD)
 
 /*~~~~~~~~~~~~~~
 	PLANT HUD
@@ -537,43 +545,55 @@
 /obj/machinery/hydroponics/proc/plant_hud_set_status()
 	var/image/holder = hud_list[PLANT_STATUS_HUD]
 	if(!myseed)
-		holder.icon_state = ""
+		holder.icon_state = null
+		set_hud_image_inactive(PLANT_STATUS_HUD)
 		return
 	if(harvest)
 		holder.icon_state = "hudharvest"
+		set_hud_image_active(PLANT_STATUS_HUD)
 		return
 	if(dead)
 		holder.icon_state = STATUS_HUD_DEAD
+		set_hud_image_active(PLANT_STATUS_HUD)
 		return
-	holder.icon_state = ""
+	holder.icon_state = null
+	set_hud_image_inactive(PLANT_STATUS_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_health()
 	var/image/holder = hud_list[PLANT_HEALTH_HUD]
 	if(!myseed)
-		holder.icon_state = ""
+		holder.icon_state = null
+		set_hud_image_inactive(PLANT_HEALTH_HUD)
 		return
 	holder.icon_state = "hudplanthealth[RoundPlantBar(plant_health/myseed.endurance)]"
+	set_hud_image_active(PLANT_HEALTH_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_toxin()
 	var/image/holder = hud_list[PLANT_TOXIN_HUD]
 	if(toxic < 10)	// You don't want to see these icons if the value is small
-		holder.icon_state = ""
+		holder.icon_state = null
+		set_hud_image_inactive(PLANT_TOXIN_HUD)
 		return
 	holder.icon_state = "hudtoxin[RoundPlantBar(toxic/100)]"
+	set_hud_image_active(PLANT_TOXIN_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_pest()
 	var/image/holder = hud_list[PLANT_PEST_HUD]
 	if(pestlevel < 1)	// You don't want to see these icons if the value is small
-		holder.icon_state = ""
+		holder.icon_state = null
+		set_hud_image_inactive(PLANT_PEST_HUD)
 		return
 	holder.icon_state = "hudpest[RoundPlantBar(pestlevel/10)]"
+	set_hud_image_active(PLANT_PEST_HUD)
 
 /obj/machinery/hydroponics/proc/plant_hud_set_weed()
 	var/image/holder = hud_list[PLANT_WEED_HUD]
 	if(weedlevel < 1)	// You don't want to see these icons if the value is small
-		holder.icon_state = ""
+		holder.icon_state = null
+		set_hud_image_inactive(PLANT_WEED_HUD)
 		return
 	holder.icon_state = "hudweed[RoundPlantBar(weedlevel/10)]"
+	set_hud_image_active(PLANT_WEED_HUD)
 
 /*~~~~~~~~~~~~~~~~~~
 	TELEPATHY HUD
@@ -584,7 +604,8 @@
 		return
 	var/image/holder = hud_list[THOUGHT_HUD]
 	if(!thoughts || (client?.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
-		holder.icon_state = ""
+		holder.icon_state = null
+		set_hud_image_inactive(THOUGHT_HUD)
 	else
 		if(istext(say_test))
 			holder.icon_state = "hudthoughts-[say_test]"
@@ -592,6 +613,7 @@
 		else if(!typing)
 			holder.icon_state = "hudthoughtstyping"
 			typing = TRUE
+		set_hud_image_active(THOUGHT_HUD)
 
 /datum/atom_hud/thoughts/proc/manage_hud(mob/user, perception)
 	if(!user)

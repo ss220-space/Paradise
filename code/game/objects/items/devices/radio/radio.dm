@@ -115,6 +115,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	var/list/internal_channels
 
 	var/list/datum/radio_frequency/secure_radio_connections = list()
+	var/datum/radio_frequency/radio_connection
 
 	var/requires_tcomms = FALSE // Does this device require tcomms to work.If TRUE it wont function at all without tcomms. If FALSE, it will work without tcomms, just slowly
 	var/instant = FALSE // Should this device instantly communicate if there isnt tcomms
@@ -185,16 +186,20 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
  * * actual_setting - whether or not the radio is supposed to be listening, sets should_be_listening to the new listening value if true, otherwise just changes listening
  */
 /obj/item/radio/proc/set_listening(new_listening, actual_setting = TRUE)
-
+	var/old_listening = listening
 	listening = new_listening
 	if(actual_setting)
 		should_be_listening = listening
+
+	if(old_listening == listening)
+		return
 
 	if(listening && on)
 		recalculateChannels()
 		readd_listening_radio_channels()
 	else if(!listening)
 		SSradio.remove_object_all(src)
+		LAZYCLEARLIST(secure_radio_connections)
 
 ///goes through all radio channels we should be listening for and readds them to the global list
 /obj/item/radio/proc/readd_listening_radio_channels()
@@ -235,11 +240,12 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/proc/set_frequency(new_frequency)
 	SEND_SIGNAL(src, COMSIG_RADIO_NEW_FREQUENCY, args)
 	SSradio.remove_object(src, frequency)
+	radio_connection = null
 	if(new_frequency)
 		frequency = new_frequency
 
 	if(listening && on)
-		SSradio.add_object(src, frequency, RADIO_CHAT)
+		radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
 
 
 /obj/item/radio/emag_act(mob/user)
@@ -316,16 +322,20 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 					close_window(usr, "radio")
 			if(.)
 				set_frequency(sanitize_frequency(tune, freerange))
+
 		if("ichannel") // change primary frequency to an internal channel authorized by access
 			if(freqlock)
 				return
 			var/freq = params["ichannel"]
 			if(has_channel_access(usr, num2text(freq)))
 				set_frequency(freq)
+
 		if("listen")
-			listening = !listening
+			set_listening(!listening)
+
 		if("broadcast")
 			set_broadcasting(!broadcasting)
+
 		if("channel")
 			var/channel = params["channel"]
 			if(!(channel in channels))
@@ -334,6 +344,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 				channels[channel] &= ~FREQ_LISTENING
 			else
 				channels[channel] |= FREQ_LISTENING
+
 		if("loudspeaker")
 			// Toggle loudspeaker mode, AKA everyone around you hearing your radio.
 			if(has_loudspeaker)
@@ -463,6 +474,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/radio/proc/handle_message_mode(mob/living/M as mob, list/message_pieces, message_mode)
 	// Otherwise, if a channel is specified, look for it.
+	// If a channel isn't specified, send to common.
+	if(!message_mode || message_mode == HEADSET_MODE)
+		return radio_connection || RADIO_CONNECTION_FAIL
+
 	if(channels && channels.len)
 		if(message_mode == DEPARTMENT_FREQ_NAME) // Department radio shortcut
 			message_mode = channels[1]
@@ -473,7 +488,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	// If we were to send to a channel we don't have, drop it.
 	return RADIO_CONNECTION_FAIL
 
-/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, verbage = "говор%(ит,ят)%")
+/obj/item/radio/talk_into(mob/living/M, list/message_pieces, channel, verbage = "говор%(ит,ят)%")
 	if(!on)
 		return FALSE // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
@@ -760,7 +775,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(disable_timer > 0)
 		disable_timer--
 	if(!disable_timer)
-		on = 1
+		set_on(TRUE)
 
 /obj/item/radio/proc/recalculateChannels()
 	resetChannels()
@@ -779,6 +794,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/proc/resetChannels()
 	channels = list()
 	secure_radio_connections = list()
+	SSradio.remove_object_all(src)
 
 ///////////////////////////////
 //////////Borg Radios//////////

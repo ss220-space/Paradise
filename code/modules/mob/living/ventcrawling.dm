@@ -198,7 +198,7 @@
 	if(!pipetracker)
 		pipetracker = new()
 
-	var/turf/our_turf = get_turf(client.eye)
+	var/turf/our_turf = get_turf(src)
 	// We're getting the smallest "range" arg we can pass to the spatial grid and still get all the stuff we need
 	// We preload a bit more then we need so movement looks ok
 	var/list/view_range = getviewsize(client.view)

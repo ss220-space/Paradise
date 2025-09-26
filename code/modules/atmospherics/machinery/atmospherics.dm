@@ -360,11 +360,10 @@ Pipelines + Other Objects -> Pipe network
 	if(!(target_move.vent_movement & VENTCRAWL_ALLOWED))
 		return
 
-	user.forceMove(target_move)
+	user.abstract_move(target_move)
 
 	var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
-	if(length(pipenetdiff))
-		user.update_pipe_vision(full_refresh = TRUE)
+	user.update_pipe_vision(full_refresh = !!length(pipenetdiff))
 
 	if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 		user.last_played_vent = world.time
