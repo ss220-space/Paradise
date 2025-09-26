@@ -198,8 +198,8 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	if(istype(I, /obj/item/part_upper))
 		adjust_part(I, user)
 		return ATTACK_CHAIN_PROCEED
-	if(istype(I, /obj/item/clockwork/shard))
-		summon(user)
+	if(istype(I, /obj/item/clockwork/shard) && !summoning)
+		summon(user, I)
 		return ATTACK_CHAIN_PROCEED
 	. = ..()
 
@@ -217,7 +217,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	give_blessing(user)
 	SSticker.mode.clocker_objs.update_seals()
 
-/obj/structure/clockwork/functional/heart/proc/summon(mob/user)
+/obj/structure/clockwork/functional/heart/proc/summon(mob/user, obj/item/shard)
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(GLOB.total_curses > 0)
 		balloon_alert(user, "сначала снимите печати")
@@ -238,6 +238,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	gateway = new
 	gateway.heart = src
 	summoning = TRUE
+	qdel(shard)
 
 /obj/structure/clockwork/functional/heart/proc/throw_everything_back()
 	var/throw_dist
