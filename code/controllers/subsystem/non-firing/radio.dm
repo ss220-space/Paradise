@@ -104,7 +104,7 @@ SUBSYSTEM_DEF(radio)
 	return "radio"
 
 
-/datum/controller/subsystem/radio/proc/add_object(obj/device as obj, new_frequency as num, filter = null as text|null)
+/datum/controller/subsystem/radio/proc/add_object(obj/device, new_frequency, filter = null)
 	var/f_text = num2text(new_frequency)
 	var/datum/radio_frequency/frequency = frequencies[f_text]
 
@@ -114,20 +114,31 @@ SUBSYSTEM_DEF(radio)
 		frequencies[f_text] = frequency
 
 	frequency.add_listener(device, filter)
+	add_radio(device, new_frequency)
 	return frequency
 
 /datum/controller/subsystem/radio/proc/remove_object(obj/device, old_frequency)
 	var/f_text = num2text(old_frequency)
-	var/datum/radio_frequency/frequency = frequencies[f_text]
+	return remove_object_str_freq(device, f_text)
 
-	if(frequency)
-		frequency.remove_listener(device)
+/datum/controller/subsystem/radio/proc/remove_object_str_freq(obj/device, old_frequency)
+	var/datum/radio_frequency/frequency = frequencies[old_frequency]
+	if(!frequency)
+		return 1
 
-		if(frequency.devices.len == 0)
-			qdel(frequency)
-			frequencies -= f_text
+	frequency.remove_listener(device)
+	remove_radio(device, old_frequency)
+	if(frequency.devices.len != 0)
+		return 1
 
+	qdel(frequency)
+	frequencies -= old_frequency
 	return 1
+
+/datum/controller/subsystem/radio/proc/remove_object_all(obj/device)
+	for(var/frequency in frequencies)
+		remove_object_str_freq(device, frequency)
+
 
 /datum/controller/subsystem/radio/proc/return_frequency(new_frequency as num)
 	var/f_text = num2text(new_frequency)

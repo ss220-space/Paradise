@@ -133,7 +133,7 @@
 	"Реакция на вызов", "Движению в локацию доставки", "Движение в домашнюю локацию", \
 	"Препятствие на маршруте", "Расчёт навигационного маршрута", "Запрос сети радиомаячков", "Точка маршрута недоступна")
 
-	var/datum/atom_hud/data/bot_path/path_hud = new /datum/atom_hud/data/bot_path()
+	var/datum/atom_hud/data/bot_path/path_hud
 	var/path_image_icon = 'icons/obj/aibots.dmi'
 	var/path_image_icon_state = "path_indicator"
 	var/path_image_color = "#FFFFFF"
@@ -202,6 +202,9 @@
 	. = ..()
 
 	GLOB.bots_list += src
+	path_hud = new()
+	for(var/hud in path_hud.hud_icons) // You get to see your own path
+		set_hud_image_active(hud, exclusive_hud = path_hud)
 	icon_living = icon_state
 	icon_dead = icon_state
 	access_card = new /obj/item/card/id(src)
@@ -223,15 +226,15 @@
 
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
-		diag_hud.add_hud_to(src)
+		diag_hud.add_atom_to_hud(src)
+		diag_hud.show_to(src)
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 	// give us the hud too!
 	if(path_hud)
-		path_hud.add_to_hud(src)
-		path_hud.add_hud_to(src)
+		path_hud.add_atom_to_hud(src)
+		path_hud.show_to(src)
 
 
 
@@ -1232,7 +1235,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
 	if(data_hud)
-		data_hud.add_hud_to(src)
+		data_hud.show_to(src)
 
 	diag_hud_set_botmode()
 	show_laws()
@@ -1320,11 +1323,10 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/list/path_huds_watching_me = list(GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED])
 	if(path_hud)
 		path_huds_watching_me += path_hud
-	for(var/V in path_huds_watching_me)
-		var/datum/atom_hud/H = V
-		H.remove_from_hud(src)
+	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
+		hud.remove_atom_from_hud(src)
 
-	var/list/path_images = hud_list[DIAG_PATH_HUD]
+	var/list/path_images = active_hud_list[DIAG_PATH_HUD]
 	QDEL_LIST(path_images)
 	if(newpath)
 		for(var/i in 1 to newpath.len)
@@ -1362,9 +1364,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			path[T] = I
 			path_images += I
 
-	for(var/V in path_huds_watching_me)
-		var/datum/atom_hud/H = V
-		H.add_to_hud(src)
+	for(var/datum/atom_hud/hud as anything in path_huds_watching_me)
+		hud.add_atom_to_hud(src)
 
 
 /mob/living/simple_animal/bot/proc/increment_path()

@@ -109,7 +109,7 @@
 		monitor.Grant(human)
 
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medhud.remove_from_hud(human)
+	medhud.remove_atom_from_hud(human)
 
 	add_verb(human, list(
 		/mob/living/carbon/human/proc/emote_ping,
@@ -130,7 +130,7 @@
 	monitor?.Remove(human)
 
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medhud.add_to_hud(human)
+	medhud.add_atom_to_hud(human)
 
 	remove_verb(human, list(
 		/mob/living/carbon/human/proc/emote_ping,

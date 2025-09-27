@@ -369,6 +369,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"
-	frequency = ERT_FREQ
 	icon_state = "radio"
 	freqlock = TRUE
+
+/obj/item/radio/centcom/Initialize(mapload)
+	. = ..()
+	set_frequency(ERT_FREQ)
