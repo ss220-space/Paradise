@@ -367,7 +367,7 @@
 		O.maptext = ""
 		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 
-	src.closer.screen_loc = "4:[line_width + 19],2:16"
+	closer.screen_loc = "4:[line_width + 19],2:16"
 	return
 
 GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
