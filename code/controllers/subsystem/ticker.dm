@@ -314,7 +314,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Generate the list of empty playable AI cores in the world
 	for(var/obj/effect/landmark/S as anything in GLOB.landmarks_list)
-		if(S.name != JOB_TITLE_AI && !(triai && S.name == /obj/effect/landmark/event/tripai::name))
+		if(S.name != JOB_TITLE_AI && !(triai && S.name == /obj/effect/landmark/spawner/tripai::name))
 			continue
 		if(locate(/mob/living) in S.loc)
 			continue
