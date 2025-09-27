@@ -2992,8 +2992,7 @@
 		if(exception)
 			continue
 		if(spell.cooldown_handler)
-			spell.cooldown_handler.recharge_duration = delay
-			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge))
+			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge), delay)
 		spell.updateButtonIcon()
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
