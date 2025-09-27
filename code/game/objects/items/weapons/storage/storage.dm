@@ -965,3 +965,8 @@ GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 		orient2hud(user)
 		show_to(user)
 	return TRUE
+
+#undef STORAGE_CAP_WIDTH
+#undef STORED_CAP_WIDTH
+#undef BASE_STORAGE_WIDTH
+#undef MAX_LINE_WIDTH
