@@ -450,3 +450,11 @@
 	allow_duplicates = FALSE
 	cost = 2
 	can_found = TRUE
+
+/datum/map_template/ruin/space/hermit
+	name = "hermit_space_navpoint"
+	id = "hermit_space_navpoint"
+	description = "The place where the hermit's ship can land."
+	suffix = "space_hermit.dmm"
+	allow_duplicates = FALSE
+	always_place = TRUE
