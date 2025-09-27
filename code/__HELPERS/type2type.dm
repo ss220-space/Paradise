@@ -251,6 +251,8 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			return 'icons/mob/screen_white.dmi'
 		if(UI_THEME_MIDNIGHT)
 			return 'icons/mob/screen_midnight.dmi'
+		if(UI_THEME_CLOCKWORK)
+			return 'icons/mob/screen_clockwork.dmi'
 		else
 			return 'icons/mob/screen_midnight.dmi'
 
