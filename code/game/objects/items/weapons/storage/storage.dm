@@ -30,8 +30,8 @@
 	var/max_combined_w_class = 14
 	var/storage_slots = 7
 	var/atom/movable/screen/storage/boxes = null
-	var/datum/storage_box/storage_box
-	var/atom/movable/screen/close/closer = null
+	var/list/datum/storage_box/storage_boxes
+	var/atom/movable/screen/close/closer
 	/// Set this to make it possible to use this item in an inverse way, so you can have the item in your hand and click items on the floor to pick them up.
 	var/use_to_pickup
 	/// Set this to make the storage item group contents of the same type and display them as a number.
@@ -78,15 +78,9 @@
 		boxes.screen_loc = "7,7 to 10,8"
 		boxes.layer = HUD_LAYER
 		boxes.plane = HUD_PLANE
-	else
-		storage_box = new(src)
-		storage_box.modify(BASE_STORAGE_WIDTH, 1)
 
 	closer = new /atom/movable/screen/close()
 	closer.master = src
-	closer.icon_state = "backpack_close"
-	closer.layer = ABOVE_HUD_LAYER
-	closer.plane = ABOVE_HUD_PLANE
 
 	orient2hud()
 
@@ -198,21 +192,19 @@
 		for(var/obj/item/I in src) // For bombs with mousetraps, facehuggers etc
 			if(I.on_found(user))
 				return
+
+	if(!display_contents_with_number && !LAZYIN(storage_boxes, user))
+		LAZYADDASSOC(storage_boxes, user, new /datum/storage_box(src))
+
 	orient2hud(user)  // this only needs to happen to make .contents show properly as screen objects.
 	if(user.s_active)
 		user.s_active.hide_from(user)
 
-	user.client.screen -= boxes
-	user.client.screen -= storage_box.screens_list()
-	user.client.screen -= closer
-	user.client.screen -= contents
-
 	if(!display_contents_with_number)
-		user.client.screen += storage_box.screens_list()
+		user.client.screen += storage_boxes[user].screens_list()
 	else
 		user.client.screen += boxes
-
-	user.client.screen += closer
+		user.client.screen += closer
 	user.client.screen += contents
 
 	user.s_active = src
@@ -229,7 +221,10 @@
 	if(!user.client)
 		return
 	user.client.screen -= boxes
-	user.client.screen -= storage_box.screens_list()
+	var/datum/storage_box/box = LAZYACCESS(storage_boxes, user)
+	if(box)
+		user.client.screen -= box.screens_list()
+		storage_boxes -= user
 	user.client.screen -= closer
 	user.client.screen -= contents
 	if(user.s_active == src)
@@ -337,50 +332,27 @@
 		else
 			line_width = max(total_width + 32, BASE_STORAGE_WIDTH)
 
-	storage_box.modify(line_width, lines_num)
+	var/first_time = TRUE
+	for(var/mob/user as anything in storage_boxes)
+		storage_boxes[user].modify(line_width, lines_num, ui_style2icon(user?.client?.prefs.UI_style, first_time))
+		first_time = FALSE
 
-	var/startpoint
-	var/endpoint = 1
-	var/current_level = 0
-
-	for(var/obj/item/O in contents)
-		startpoint = endpoint + 1
-		endpoint += O.storage_display_width
-		if(endpoint > line_width)
-			current_level++
-			startpoint = 2
-			endpoint = 1 + O.storage_display_width
-		var/isb_index = "[startpoint], [endpoint], [lines_num], [current_level]"
-
-		var/datum/item_storage_box/item_box = GLOB.item_storage_box_cache[isb_index]
-		if(QDELETED(item_box))
-			item_box = new()
-			item_box.modify(startpoint, endpoint, lines_num, current_level)
-			item_box.index = isb_index
-			GLOB.item_storage_box_cache[isb_index] = item_box
-
-		storage_box.add_item(item_box)
-
-		O.screen_loc = "4:[floor((startpoint + endpoint) / 2)],2:[16 + 29 * (lines_num - current_level - 1)]"
-		O.layer = ABOVE_HUD_LAYER
-		O.mouse_opacity = MOUSE_OPACITY_OPAQUE
-		O.maptext = ""
-		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
-
-	closer.screen_loc = "4:[line_width + 19],2:16"
 	return
 
 GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 
 /datum/storage_box
+	var/obj/item/storage/storage
 	var/atom/movable/screen/storage/space_box/start
 	var/atom/movable/screen/storage/space_box/continued
 	var/atom/movable/screen/storage/space_box/end
 	var/atom/movable/screen/storage/space_box/top
 	var/atom/movable/screen/storage/space_box/bottom
 	var/atom/movable/screen/storage/space_box/place_items
+	var/atom/movable/screen/close/closer
 
 /datum/storage_box/New(master)
+	storage = master
 	start = new
 	start.icon_state = "storage_start"
 	start.master = master
@@ -397,9 +369,18 @@ GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 	bottom.icon_state = "storage_bottom"
 	bottom.master = master
 	place_items = new
+	closer = new /atom/movable/screen/close()
+	closer.master = master
 
-/datum/storage_box/proc/modify(line_width, lines_num)
+/datum/storage_box/proc/modify(line_width, lines_num, ui_icon, first_time)
 	place_items.overlays.Cut()
+	// Change icon
+	start.icon = ui_icon
+	continued.icon = ui_icon
+	end.icon = ui_icon
+	top.icon = ui_icon
+	bottom.icon = ui_icon
+	closer.icon = ui_icon
 	var/y_enlarge = (32 + (lines_num - 1) * (29)) / 32
 	// Both axes modify
 	var/matrix/modify_matrix = matrix()
@@ -423,9 +404,34 @@ GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 	end.screen_loc = "4:[19 + line_width - STORAGE_CAP_WIDTH],2:[y_offset]"
 	top.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:[y_offset + 15 * (lines_num - 1)]"
 	bottom.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:16"
+	closer.screen_loc = "4:[line_width + 19],2:16"
+
+	var/startpoint
+	var/endpoint = 1
+	var/current_level = 0
+	for(var/obj/item/O in storage.contents)
+		startpoint = endpoint + 1
+		endpoint += O.storage_display_width
+		if(endpoint > line_width)
+			current_level++
+			startpoint = 2
+			endpoint = 1 + O.storage_display_width
+
+		var/datum/item_storage_box/item_box = new()
+		item_box.modify(startpoint, endpoint, lines_num, current_level, ui_icon)
+		add_item(item_box)
+
+		if(!first_time)
+			continue
+
+		O.screen_loc = "4:[floor((startpoint + endpoint) / 2)],2:[16 + 29 * (lines_num - current_level - 1)]"
+		O.layer = ABOVE_HUD_LAYER
+		O.mouse_opacity = MOUSE_OPACITY_OPAQUE
+		O.maptext = ""
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, storage)
 
 /datum/storage_box/proc/screens_list()
-	return list(start, continued, end, top, bottom, place_items)
+	return list(start, continued, end, top, bottom, place_items, closer)
 
 /datum/storage_box/proc/add_item(datum/item_storage_box/item_box)
 	place_items.add_overlay(item_box.screens_list())
@@ -458,7 +464,11 @@ GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 /datum/item_storage_box/proc/screens_list()
 	return list(start, continued, end)
 
-/datum/item_storage_box/proc/modify(startpoint, endpoint, lines_num, current_level)
+/datum/item_storage_box/proc/modify(startpoint, endpoint, lines_num, current_level, ui_icon)
+	// Change icon
+	start.icon = ui_icon
+	continued.icon = ui_icon
+	end.icon = ui_icon
 	var/box_offset = 29 * (lines_num - current_level - 1)
 	// Modify start
 	var/matrix/modify_matrix = matrix(start.transform)
