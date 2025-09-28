@@ -6371,9 +6371,6 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12,47)
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -11047,19 +11044,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
 /turf/simulated/openspace/lavaland,
 /area/lavaland/surface/outdoors)
-"bUh" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/medical/medbay)
 "bUu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -12494,9 +12478,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/mining/glass{
 	name = "Delivery Office";
 	req_access = list(50)
@@ -16383,7 +16364,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/vending/clothing/departament/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -17965,10 +17945,6 @@
 	icon_state = "yellow"
 	},
 /area/engineering/engine/monitor)
-"dey" = (
-/obj/structure/lattice,
-/turf/simulated/wall/rust,
-/area/lavaland/surface/outdoors)
 "deG" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/window/reinforced{
@@ -34198,10 +34174,6 @@
 	icon_state = "neutralfull"
 	},
 /area/maintenance/turbine)
-"fVL" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall/coated,
-/area/toxins/sm_test_chamber)
 "fVT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -38899,9 +38871,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39925,10 +39894,6 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown"
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "Virology";
@@ -40645,13 +40610,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permahallway)
-"hcS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/clothing,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/crew_quarters/theatre)
 "hdc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -45696,12 +45654,6 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
-"hSd" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/obj/structure/grille,
-/turf/simulated/openspace/lavaland,
-/area/lavaland/surface/outdoors)
 "hSr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -48320,10 +48272,6 @@
 	icon_state = "tranquillite"
 	},
 /area/maintenance/asmaint4)
-"ipY" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/maintenance/bar)
 "iqb" = (
 /obj/structure/table/wood,
 /obj/item/storage/lockbox/medal,
@@ -49422,7 +49370,6 @@
 	},
 /area/crew_quarters/theatre)
 "iCr" = (
-/obj/machinery/vending/clothing/departament/science,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
@@ -55788,9 +55735,6 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = 28
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_y = 28
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -60769,7 +60713,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/vending/clothing/departament/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60927,9 +60870,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "kHs" = (
@@ -61053,13 +60993,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/maintenance/consarea_virology)
-"kIS" = (
-/obj/machinery/vending/clothing,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/crew_quarters/locker)
 "kJa" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -63176,10 +63109,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/storage/eva)
-"kZN" = (
-/obj/machinery/vending/clothing/departament/law,
-/turf/simulated/floor/wood/fancy/cherry,
-/area/lawoffice)
 "lad" = (
 /turf/simulated/wall,
 /area/storage/primary)
@@ -63836,6 +63765,9 @@
 	},
 /obj/structure/disposaloutlet{
 	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -73377,6 +73309,9 @@
 /obj/machinery/door/window{
 	dir = 8
 	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "mLu" = (
@@ -75033,11 +74968,6 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
-"ncu" = (
-/obj/structure/lattice,
-/obj/effect/spawner/random_spawners/fungus_70,
-/turf/simulated/wall,
-/area/maintenance/kitchen)
 "ncy" = (
 /obj/machinery/door/airlock{
 	id_tag = "toilet4";
@@ -80058,10 +79988,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/launch)
-"nTx" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/maintenance/kitchen)
 "nTy" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -80964,10 +80890,6 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "0-8"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
@@ -82808,9 +82730,6 @@
 "oux" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
-	},
-/obj/structure/chair/stool{
-	dir = 1
 	},
 /obj/structure/chair/stool{
 	dir = 1
@@ -86739,13 +86658,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"pgj" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/clothing,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/maintenance/kitchen)
 "pgo" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -87702,14 +87614,6 @@
 /obj/effect/decal/cleanable/blood/xeno,
 /turf/simulated/floor/greengrid,
 /area/toxins/xenobiology)
-"ppc" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/vending/clothing,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "ppi" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
@@ -99914,10 +99818,6 @@
 	icon_state = "green"
 	},
 /area/mine/laborcamp)
-"rsa" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/security/permabrig)
 "rse" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -102646,7 +102546,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "rUK" = (
-/obj/machinery/vending/clothing/departament/security,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -108652,10 +108551,6 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
 	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown"
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "Virology";
@@ -114579,7 +114474,6 @@
 	dir = 4;
 	pixel_y = -27
 	},
-/obj/machinery/vending/clothing/departament/cargo,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -116320,10 +116214,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/cabin1)
-"uis" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/lavaland/surface/outdoors)
 "uiu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/binary/pump,
@@ -117938,10 +117828,6 @@
 	icon_state = "dark"
 	},
 /area/storage/tech)
-"uwP" = (
-/obj/structure/lattice,
-/turf/simulated/wall/rust,
-/area/maintenance/asmaint4)
 "uwS" = (
 /obj/structure/window/plasmareinforced{
 	color = 000000;
@@ -118264,10 +118150,6 @@
 /obj/machinery/status_display,
 /turf/simulated/wall,
 /area/hydroponics)
-"uzR" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/chapel/main)
 "uzU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -118636,7 +118518,6 @@
 	},
 /obj/item/kitchen/utensil/fork,
 /obj/structure/table/wood/fancy,
-/turf/simulated/openspace/lavaland,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
@@ -122062,11 +121943,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"vjI" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/simulated/openspace/lavaland,
-/area/lavaland/surface/outdoors)
 "vjP" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -133710,10 +133586,6 @@
 	icon_state = "grimy"
 	},
 /area/library)
-"xgG" = (
-/obj/structure/lattice,
-/turf/simulated/wall/r_wall,
-/area/security/podbay)
 "xgK" = (
 /obj/machinery/door/airlock/external{
 	glass = 1;
@@ -133743,10 +133615,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/glass,
 /area/lavaland/surface/outdoors)
-"xhc" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/maintenance/asmaint3)
 "xhd" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -286910,7 +286778,7 @@ loa
 rxU
 rxU
 loa
-fVL
+wrM
 wrM
 wyS
 wrM
@@ -287949,7 +287817,7 @@ krU
 ffn
 rns
 yhh
-hcS
+kzJ
 pQK
 eqt
 iVG
@@ -291815,7 +291683,7 @@ krU
 keg
 krU
 pQK
-xhc
+fpT
 fpT
 fpT
 fpk
@@ -300589,7 +300457,7 @@ xVX
 tdw
 tdw
 xVX
-uzR
+xVX
 fpk
 pVh
 fpk
@@ -302509,7 +302377,7 @@ hxW
 aeJ
 hxW
 vOc
-ppc
+hxW
 kfL
 mDj
 nmK
@@ -314112,7 +313980,7 @@ geI
 geI
 fpk
 tBk
-kZN
+tDJ
 uVe
 oaK
 tDJ
@@ -315346,7 +315214,7 @@ vAT
 bPU
 wDc
 mJC
-ipY
+jXT
 jXT
 vjf
 ggw
@@ -315968,7 +315836,7 @@ qAM
 eVs
 xQX
 typ
-bUh
+wRH
 xQX
 xQX
 bCx
@@ -318248,7 +318116,7 @@ uIG
 gMt
 wwk
 tFs
-kIS
+azL
 erM
 qJb
 rKt
@@ -323575,7 +323443,7 @@ fpk
 fpk
 ezc
 fpk
-dey
+ezc
 rww
 rww
 rww
@@ -323856,7 +323724,7 @@ rww
 rww
 rww
 rww
-hSd
+xGZ
 xGZ
 rww
 rww
@@ -323942,7 +323810,7 @@ uos
 uos
 uos
 qGk
-ncu
+qGk
 qGk
 qGk
 uos
@@ -323958,7 +323826,7 @@ rww
 rww
 fpk
 ybF
-uwP
+shM
 shM
 hOp
 mqf
@@ -324451,7 +324319,7 @@ eLx
 wNd
 hKf
 uos
-pgj
+bzB
 bzB
 cIA
 uos
@@ -325897,7 +325765,7 @@ rww
 rww
 xGZ
 fpk
-rsa
+xja
 xja
 qJS
 vWj
@@ -326925,7 +326793,7 @@ rww
 rww
 rww
 fpk
-rsa
+xja
 xja
 fEt
 tPi
@@ -327288,7 +327156,7 @@ uos
 qGk
 uos
 qGk
-nTx
+uos
 fpk
 fpk
 xGZ
@@ -330290,7 +330158,7 @@ rww
 rww
 pVh
 fpk
-xgG
+rnf
 wmH
 vAy
 lkI
@@ -333130,7 +332998,7 @@ rww
 rww
 rww
 rww
-vjI
+fpk
 fpk
 oIa
 dEJ
@@ -333391,11 +333259,11 @@ fpk
 fpk
 fpk
 dEJ
-uis
+pQc
 dEJ
 fpk
 dEJ
-uis
+pQc
 dEJ
 fpk
 fpk
