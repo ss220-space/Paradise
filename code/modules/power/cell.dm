@@ -59,7 +59,6 @@
 
 /obj/item/stock_parts/cell/clock/minigun
 	maxcharge = 175
-  
 /obj/item/stock_parts/cell/laser
 	maxcharge = 1500
 
