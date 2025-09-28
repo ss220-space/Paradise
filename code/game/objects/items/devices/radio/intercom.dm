@@ -202,7 +202,6 @@
 
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
-	should_be_broadcasting = FALSE
 	should_be_listening = FALSE
 
 /obj/item/radio/intercom/custom/get_ru_names()
@@ -289,8 +288,6 @@
 
 /obj/item/radio/intercom/department
 	canhear_range = 5
-	should_be_broadcasting = FALSE
-	should_be_listening = TRUE
 
 /obj/item/radio/intercom/department/medbay
 	name = "station intercom (Medbay)"

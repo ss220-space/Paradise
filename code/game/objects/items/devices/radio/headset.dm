@@ -27,7 +27,6 @@
 	var/ks2type = null
 	dog_fashion = null
 	requires_tcomms = TRUE
-	should_be_listening = TRUE
 
 /obj/item/radio/headset/get_ru_names()
 	return list(
@@ -111,7 +110,7 @@
 			keyslot2 = I
 		else
 			keyslot = I
-		recalculateChannels()
+		recalculate_channels()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -139,13 +138,13 @@
 				keyslot2.loc = T
 				keyslot2 = null
 
-		recalculateChannels()
+		recalculate_channels()
 		user.balloon_alert(user, "ключ извлечён")
 		I.play_tool_sound(user, I.tool_volume)
 	else
 		user.balloon_alert(user, "слот для ключа пуст!")
 
-/obj/item/radio/headset/recalculateChannels(setDescription = FALSE)
+/obj/item/radio/headset/recalculate_channels(setDescription = FALSE)
 	. = ..()
 	if(!setDescription)
 		return
@@ -184,7 +183,7 @@
 		PREPOSITIONAL = "сломанной радиочастотной гарнитуре"
 	)
 
-/obj/item/radio/headset/resetChannels()
+/obj/item/radio/headset/reset_channels()
 	. = ..()
 	translate_binary = FALSE
 	translate_hive = FALSE
@@ -205,7 +204,7 @@
 	qdel(keyslot)
 	keyslot = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot
-	recalculateChannels()
+	recalculate_channels()
 
 /obj/item/radio/headset/alt
 	name = "bowman headset"

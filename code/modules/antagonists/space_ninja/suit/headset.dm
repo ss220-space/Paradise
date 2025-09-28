@@ -29,7 +29,7 @@
 			make_syndie()
 		if(target_headset.translate_hive)
 			scan_hive = TRUE
-		recalculateChannels()
+		recalculate_channels()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/encryptionkey))

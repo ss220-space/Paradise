@@ -144,7 +144,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(default_frequency < RADIO_LOW_FREQ || default_frequency > RADIO_HIGH_FREQ)
 		default_frequency = sanitize_frequency(default_frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 	set_on(on)
-	recalculateChannels()
+	recalculate_channels()
 	set_frequency(default_frequency)
 
 /obj/item/radio/Destroy(force)
@@ -196,10 +196,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		return
 
 	if(listening && on)
-		recalculateChannels()
+		recalculate_channels()
 		readd_listening_radio_channels()
 	else if(!listening)
-		resetChannels()
+		reset_channels()
 
 ///goes through all radio channels we should be listening for and readds them to the global list
 /obj/item/radio/proc/readd_listening_radio_channels()
@@ -772,8 +772,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(!disable_timer)
 		set_on(TRUE)
 
-/obj/item/radio/proc/recalculateChannels()
-	resetChannels()
+/obj/item/radio/proc/recalculate_channels()
+	reset_channels()
 
 	load_channels()
 
@@ -814,7 +814,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		channels[channel] = channels_configs[channel]
 
 
-/obj/item/radio/proc/resetChannels()
+/obj/item/radio/proc/reset_channels()
 	channels = list()
 	secure_radio_connections = null
 	SSradio.remove_object_all(src)
@@ -895,7 +895,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return .()
 		keyslot = I
-		recalculateChannels()
+		recalculate_channels()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -918,14 +918,14 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 				keyslot.loc = T
 				keyslot = null
 
-		recalculateChannels()
+		recalculate_channels()
 		balloon_alert(user, "ключ извлечён")
 		I.play_tool_sound(user, I.tool_volume)
 
 	else
 		balloon_alert(user, "слот для ключа пуст!")
 
-/obj/item/radio/borg/resetChannels()
+/obj/item/radio/borg/reset_channels()
 	. = ..()
 	syndiekey = null
 
@@ -974,8 +974,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	drop_sound = 'sound/items/handling/drop/phone_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/phone_pickup.ogg'
 	dog_fashion = null
-	should_be_listening = TRUE
-	should_be_broadcasting = FALSE
 
 /obj/item/radio/phone/get_ru_names()
 	return list(

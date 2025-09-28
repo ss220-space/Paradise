@@ -406,7 +406,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// subsystems
 	module?.add_subsystems_and_actions(src)
 
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 
 
 	hands.icon_state = lowertext(module?.module_type)
@@ -1872,7 +1872,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module = new /obj/item/robot_module/deathsquad(src)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/radio/borg/deathsquad(src)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/projectile/P)
@@ -1906,7 +1906,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/ert_override
 	radio = new /obj/item/radio/borg/ert(src)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
 /mob/living/silicon/robot/ert/New(loc)
@@ -1990,7 +1990,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		qdel(radio)
 
 	radio = new /obj/item/radio/borg/ert/specops(src)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/destroyer/bullet_act(obj/projectile/P)
