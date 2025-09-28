@@ -212,8 +212,7 @@
 		return B.cell
 
 	if(is_spectercell(I))
-		var/obj/item/stock_parts/cell/specter/Scell = I
-		return Scell
+		return I
 
 	return null
 

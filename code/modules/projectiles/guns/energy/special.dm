@@ -816,7 +816,6 @@
 	alarmed = FALSE
 	if(cell.charge > 0)
 		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
-		return ATTACK_CHAIN_PROCEED
 
 	return ATTACK_CHAIN_PROCEED
 
