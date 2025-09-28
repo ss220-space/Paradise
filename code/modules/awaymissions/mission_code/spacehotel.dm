@@ -204,8 +204,8 @@
 	controller = src
 
 	radio = new()
-	radio.broadcasting = 0
-	radio.listening = 0
+	radio.set_broadcasting(FALSE)
+	radio.set_listening(FALSE)
 	var/area/myArea = get_area(src)
 	// get room doors
 	for(var/obj/machinery/door/unpowered/hotel_door/D in myArea?.machinery_cache)

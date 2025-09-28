@@ -172,7 +172,7 @@
 		var/dist = get_dist(M, source)
 		if(dist > instrument_range) // Distance check
 			continue
-		if(!isInSight(M, source)) // Visibility check (direct line of sight)
+		if(!is_in_sight(M, source)) // Visibility check (direct line of sight)
 			continue
 		hearing_mobs[M] = dist
 	var/list/exited = old - hearing_mobs
@@ -288,7 +288,7 @@
 /datum/song/proc/compile_chords()
 	legacy ? compile_legacy() : compile_synthesized()
 	// Some chords may be null for some reason - exclude them.
-	listclearnulls(compiled_chords)
+	list_clear_nulls(compiled_chords)
 
 /**
  * Plays a chord.

@@ -100,7 +100,7 @@
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
-	queue_smooth(src)
+	QUEUE_SMOOTH(src)
 	if(!damage)
 		return
 

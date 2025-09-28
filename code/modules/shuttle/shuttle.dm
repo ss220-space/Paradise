@@ -604,7 +604,7 @@
 	dir = new_dock.dir
 
 	// Update mining and labor shuttle ash storm audio
-	if((id in list("mining", "laborcamp")) && !CONFIG_GET(flag/disable_lavaland))
+	if((id in list("mining", "laborcamp")) && !CONFIG_GET(flag/disable_lavaland) && !(SSmapping.map_datum.disables & DISABLE_LAVALAND))
 		var/mining_zlevel = level_name_to_num(MINING)
 		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
 		if(W)
@@ -612,6 +612,7 @@
 			W.update_audio()
 
 	unlockPortDoors(new_dock)
+	areaInstance.parallax_movedir = preferred_direction
 	SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
@@ -671,7 +672,7 @@
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
-	check_ripples()
+	check_effects()
 
 	if(mode == SHUTTLE_IGNITING)
 		check_transit_zone()
@@ -702,12 +703,33 @@
 	timer = 0
 	destination = null
 
-/obj/docking_port/mobile/proc/check_ripples()
+/obj/docking_port/mobile/proc/check_effects()
 	if(!ripples.len)
 		if((mode == SHUTTLE_CALL) || (mode == SHUTTLE_RECALL))
 			var/tl = timeLeft(1)
 			if(tl <= SHUTTLE_RIPPLE_TIME)
 				create_ripples(destination)
+	var/obj/docking_port/stationary/S0 = get_docked()
+	if(istype(S0, /obj/docking_port/stationary/transit) && timeLeft(1) <= PARALLAX_LOOP_TIME)
+		for(var/place in shuttle_areas)
+			var/area/shuttle/shuttle_area = place
+			if(shuttle_area.parallax_movedir)
+				parallax_slowdown()
+
+/obj/docking_port/mobile/proc/parallax_slowdown()
+	for(var/place in shuttle_areas)
+		var/area/shuttle/shuttle_area = place
+		shuttle_area.parallax_movedir = FALSE
+	if(assigned_transit?.assigned_area)
+		assigned_transit.assigned_area.parallax_movedir = FALSE
+	var/list/L0 = return_ordered_turfs(x, y, z, dir)
+	for(var/thing in L0)
+		var/turf/T = thing
+		if(!T || !istype(T.loc, areaInstance.type))
+			continue
+		for(var/atom/movable/movable as anything in T)
+			if(movable.client_mobs_in_contents)
+				movable.update_parallax_contents()
 
 /obj/docking_port/mobile/proc/check_transit_zone()
 	if(assigned_transit)

@@ -284,7 +284,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	addtimer(CALLBACK(src, PROC_REF(CheckFaction)), 20)
 	addtimer(CALLBACK(src, PROC_REF(announcetoghosts)), 30)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	U.add_hud_to(src)
+	U.show_to(src)
 	spider_creation_time = world.time
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
