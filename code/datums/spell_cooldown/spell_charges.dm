@@ -49,8 +49,7 @@
  * * new_max_charges - New amount of spell max charges
  */
 /datum/spell_cooldown/charges/change_cooldowns(recharge_reduction, delay_reduction, new_max_charges)
-	if(recharge_reduction)
-		recharge_duration = round(clamp(recharge_duration - (spell_parent.base_cooldown * recharge_reduction), 0, spell_parent.base_cooldown), 0.5)
+	..()
 	if(delay_reduction)
 		charge_duration = clamp(charge_duration - (charge_duration * delay_reduction), 0, initial(charge_duration))
 	if(new_max_charges)

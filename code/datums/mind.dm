@@ -1658,7 +1658,7 @@
 
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 				if(new_total < vamp.bloodtotal)
-					if(tgui_alert(usr, "Обратите внимание, уменьшение общей крови вампира может привести к удалению некоторых способностей. Продолжить?", "Подтвердите новое значение", list("Да", "Нет")) == "Нет")
+					if(tgui_alert(usr, "Обратите внимание, уменьшение общей крови вампира может привести к удалению некоторых способностей. Продолжить?", "Подтвердите новое значение", list("Да", "Нет")) != "Да")
 						return
 					vamp.remove_all_powers()
 
@@ -1703,8 +1703,8 @@
 					return
 
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
-				var/new_total = tgui_input_number(usr, "Выберите новое значение:", "Изменение уровня диаблери")
-				if(isnull(new_total) || new_total < 0 || new_total > DIABLERIE_COUNT_MAX)
+				var/new_total = tgui_input_number(usr, "Выберите новое значение:", "Изменение уровня диаблери", max_value = DIABLERIE_COUNT_MAX)
+				if(isnull(new_total))
 					to_chat(usr, span_warning("Неверное значение. Максимальный уровень — [DIABLERIE_COUNT_MAX], минимальный — 0."))
 					return
 
@@ -1712,7 +1712,7 @@
 					vamp.diablerie = new(vamp)
 
 				if(new_total < vamp.diablerie.diablerie_count)
-					if(tgui_alert(usr, "Обратите внимание, понижение уровня диаблери вампира может привести к удалению некоторых способностей. Продолжить?", "Подтвердите новое значение", list("Да", "Нет")) == "Нет")
+					if(tgui_alert(usr, "Обратите внимание, понижение уровня диаблери вампира может привести к удалению некоторых способностей. Продолжить?", "Подтвердите новое значение", list("Да", "Нет")) != "Да")
 						return
 
 				vamp.diablerie.force_diablerie_level(new_total)
