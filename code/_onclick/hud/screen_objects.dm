@@ -614,6 +614,7 @@
 #define HAND_GRAB_AGGRESSIVE 5
 #define HAND_GRAB_NECK 6
 #define HAND_GRAB_KILL 7
+#define HAND_GRAB_SUPPRESS_BLOODLOSS 8
 
 /atom/movable/screen/inventory/hand/update_overlays()
 	. = ..()
@@ -633,6 +634,7 @@
 			iconstate2appearance('icons/mob/screen_gen.dmi', "grab_aggressive"),
 			iconstate2appearance('icons/mob/screen_gen.dmi', "grab_neck"),
 			iconstate2appearance('icons/mob/screen_gen.dmi', "grab_kill"),
+			iconstate2appearance('icons/mob/screen_gen.dmi', "grab_bleed"),
 		)
 
 	if(!active_overlay)
@@ -671,6 +673,11 @@
 
 			if((left_hand && grabber.pull_hand == PULL_HAND_LEFT) || (!left_hand && grabber.pull_hand == PULL_HAND_RIGHT))
 				. += grab_overlay
+	else if(!hand_blocked && isliving(user))
+		var/mob/living/grabber = user
+		var/suppress_target_bodypart = left_hand ? grabber.left_hand_bleed_suppress_lib : grabber.right_hand_bleed_suppress_lib
+		if(suppress_target_bodypart)
+			. += hand_overlays[HAND_GRAB_SUPPRESS_BLOODLOSS]
 
 	if((left_hand && user.hand == ACTIVE_HAND_LEFT) || (!left_hand && user.hand == ACTIVE_HAND_RIGHT))
 		. += active_overlay
