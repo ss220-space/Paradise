@@ -2491,7 +2491,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "ja" = (
@@ -2596,7 +2596,7 @@
 	icon_state = "smes";
 	name = "WaffeCo PSU"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "jo" = (

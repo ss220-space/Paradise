@@ -18459,7 +18459,7 @@
 /area/syndicate_mothership/outside)
 "iUt" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/effect/landmark/death_squard,
+/obj/effect/landmark/spawner/death_squard,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

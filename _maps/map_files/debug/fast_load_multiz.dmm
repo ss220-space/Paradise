@@ -183,7 +183,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Md" = (
-/obj/effect/landmark/join_late_cyborg,
+/obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Me" = (
@@ -191,7 +191,7 @@
 /turf/simulated/floor/indestructible/plating,
 /area/admin)
 "Pd" = (
-/obj/effect/landmark/join_late,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Qw" = (

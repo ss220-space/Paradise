@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/engineer_area)
 "ab" = (
@@ -59,16 +59,16 @@
 /turf/simulated/floor/plating,
 /area/derelict/bridge)
 "ao" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "ap" = (
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "aq" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /obj/machinery/door/poddoor/shutters{
@@ -80,7 +80,7 @@
 /turf/simulated/floor/plating,
 /area/derelict/bridge)
 "ar" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /obj/machinery/door/poddoor/shutters{
@@ -274,8 +274,8 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/obj/effect/landmark/tiles/burnturf,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -284,7 +284,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -306,7 +306,7 @@
 	},
 /area/derelict/bridge)
 "aQ" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -2638,7 +2638,7 @@
 	amount = 2
 	},
 /obj/structure/cable,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -2868,7 +2868,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/rnd)
 "hi" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass,
@@ -2996,7 +2996,7 @@
 	},
 /area/derelict/rnd)
 "hz" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/engineer_area)
 "hA" = (
@@ -3009,7 +3009,7 @@
 	},
 /area/derelict/engineer_area)
 "hB" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -3346,7 +3346,7 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "ig" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
@@ -3584,7 +3584,7 @@
 	},
 /area/derelict/dock)
 "iU" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/gun/projectile/revolver/nagant/rusted{
 	malf_high_bound = 3;
 	malf_low_bound = 1
@@ -3637,7 +3637,7 @@
 /turf/space,
 /area/derelict/annex)
 "iZ" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -3748,7 +3748,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "jq" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/spentcasing/pistol,
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
@@ -3818,12 +3818,12 @@
 /turf/space,
 /area/derelict/annex)
 "jz" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "jA" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "jC" = (
@@ -4116,11 +4116,11 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "kp" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/slag,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -4655,7 +4655,7 @@
 /turf/space,
 /area/space)
 "lD" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "lE" = (
@@ -4891,7 +4891,7 @@
 	},
 /area/derelict/garden)
 "mi" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -4903,14 +4903,14 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/garden)
 "mk" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"
 	},
 /area/derelict/garden)
 "ml" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/grille/broken,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating/airless,
@@ -5007,7 +5007,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/derelict/garden)
 "mz" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless,
 /area/derelict/garden)
 "mA" = (
@@ -5077,7 +5077,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "mL" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "green"
@@ -5285,7 +5285,7 @@
 "nn" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/grille/broken,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/derelict/garden)
 "no" = (
@@ -5359,13 +5359,13 @@
 	},
 /area/derelict/med)
 "nx" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/derelict/med)
 "ny" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light_construct{
 	dir = 1
 	},
@@ -5430,7 +5430,7 @@
 /area/derelict/med)
 "nG" = (
 /obj/structure/flora/rock,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/derelict/garden)
 "nH" = (
@@ -5465,12 +5465,12 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/garden)
 "nN" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
 /area/derelict/garden)
 "nO" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/suit/tracksuit,
 /obj/item/clothing/under/pants/track,
 /obj/item/clothing/shoes/black,
@@ -5570,13 +5570,13 @@
 /turf/space,
 /area/derelict/med)
 "od" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "oe" = (
-/obj/effect/landmark/tiles/damageturf,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless,
 /area/derelict/garden)
 "of" = (
@@ -5661,7 +5661,7 @@
 	},
 /area/derelict/garden)
 "or" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/flora/rock/pile,
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -5791,13 +5791,13 @@
 /turf/space,
 /area/derelict/med)
 "oE" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "oF" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "oG" = (
@@ -5876,7 +5876,7 @@
 	},
 /area/derelict/common)
 "oS" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
 /area/derelict/med)
@@ -6048,7 +6048,7 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "pp" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/derelict/med)
 "pq" = (
@@ -6129,7 +6129,7 @@
 	},
 /area/derelict/common)
 "pA" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
@@ -6178,7 +6178,7 @@
 	},
 /area/derelict/common)
 "pH" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/hemostat,
 /turf/simulated/floor/plating/airless,
 /area/derelict/med)
@@ -6190,7 +6190,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "pJ" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "pK" = (
@@ -6321,7 +6321,7 @@
 	},
 /area/derelict/common)
 "qa" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
@@ -6360,7 +6360,7 @@
 	},
 /area/derelict/common)
 "qf" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/slag,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
@@ -6426,7 +6426,7 @@
 	},
 /area/derelict/common)
 "qp" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "qr" = (
@@ -7347,7 +7347,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "tp" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/spawner/lootdrop/spentcasing/rifle,
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
@@ -7441,7 +7441,7 @@
 	},
 /area/derelict/crew_quarters)
 "ui" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "ul" = (
@@ -7712,12 +7712,12 @@
 "xZ" = (
 /obj/effect/decal/cleanable/ash,
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "yd" = (
 /obj/item/stack/tile,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "yg" = (
@@ -8099,7 +8099,7 @@
 	},
 /area/derelict/church)
 "CA" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "CB" = (
@@ -8412,7 +8412,7 @@
 /turf/space,
 /area/space)
 "ET" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
@@ -8554,7 +8554,7 @@
 /area/ruin/unpowered/no_grav)
 "GJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "GM" = (
@@ -8653,7 +8653,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/engineer_area)
 "HF" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/garden)
 "HJ" = (
@@ -8698,7 +8698,7 @@
 "Il" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "Im" = (
@@ -9031,7 +9031,7 @@
 /area/space)
 "Mn" = (
 /obj/structure/closet/crate/secure/loot,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "Mw" = (
@@ -9258,7 +9258,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "OW" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
@@ -9418,7 +9418,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "QD" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
@@ -9443,7 +9443,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/engineer_area)
 "Rh" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "Ri" = (
@@ -9451,7 +9451,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "Rj" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/derelict/garden)
 "Rq" = (
@@ -9470,7 +9470,7 @@
 /area/derelict/engineer_area)
 "Ry" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "RH" = (
@@ -9501,7 +9501,7 @@
 /obj/machinery/light/built{
 	dir = 1
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "RR" = (

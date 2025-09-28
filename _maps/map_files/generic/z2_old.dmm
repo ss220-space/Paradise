@@ -29821,7 +29821,7 @@
 	},
 /area/syndicate_mothership)
 "vHw" = (
-/obj/effect/landmark/death_squard,
+/obj/effect/landmark/spawner/death_squard,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
