@@ -110,7 +110,6 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
  * * traits - traits/flags/attributes for z-level. All setting are in '_maps/_MAP_DEFINES.dm'
  */
 /datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT))
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
 	if(name in levels_by_name)
 		throw EXCEPTION("Name already in use: [name]")
 	world.incrementMaxZ()
@@ -119,4 +118,5 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	levels_by_name[name] = S
 	z_list["[our_z]"] = S
 	SSmapping.manage_z_level(S)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, S)
 	return our_z

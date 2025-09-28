@@ -135,12 +135,15 @@
 		sensor = new(lower_turf, src)
 
 /turf/simulated/floor/indestructible/upperlevel/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	if(ismovable(arrived))
-		if(isliving(arrived))
-			var/mob/living/mob = arrived
-			mob.emote("scream")
-			mob.SpinAnimation(5, 1)
-		arrived.forceMove(lower_turf)
+	. = ..()
+	if(!ismovable(arrived))
+		return
+
+	if(isliving(arrived))
+		var/mob/living/mob = arrived
+		mob.emote("scream")
+		mob.SpinAnimation(5, 1)
+	arrived.forceMove(lower_turf)
 
 /turf/simulated/floor/indestructible/upperlevel/attack_ghost(mob/user)
 	user.forceMove(lower_turf)

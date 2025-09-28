@@ -169,6 +169,8 @@
 /// Takes precedence over all traits above
 #define TRAIT_VENTCRAWLER_ITEM_BASED "ventcrawler_item"
 
+#define TRAIT_VENTCRAWLING_EXIT "ventcrawler_exit"
+
 /// Negates our gravity, letting us move normally on floors in 0-g
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 /// We are ignoring gravity
@@ -243,7 +245,7 @@
 /// This human mob can passively regenerate small amount of brute and burn damage (0.1, 0.1)
 #define TRAIT_HAS_REGENERATION "has_regeneration"
 /// This carbon mob can passively regenerate small amount of brute and burn damage
-#define TRAIT_HAS_CARBON_REGENERATION "has_regeneration"
+#define TRAIT_HAS_CARBON_REGENERATION "has_carbon_regeneration"
 /// This human mob acts like it has no DNA, but it actually has
 /// Its dumb I know, we should switch to biotypes already
 #define TRAIT_NO_DNA "no_dna"
@@ -354,3 +356,15 @@
 #define TRAIT_TASERED "tasered"
 
 #define TRAIT_SUPERMATTERIMMUNE "supermatter_immune"
+
+/// Ignores darkness for hearing
+#define TRAIT_HEAR_THROUGH_DARKNESS "hear_through_darkness"
+
+//important_recursive_contents traits
+/*
+ * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.
+ * Use [/atom/movable/proc/become_area_sensitive(trait_source)] to properly enable it. How you remove it isn't as important.
+ */
+#define TRAIT_AREA_SENSITIVE "area-sensitive"
+///every hearing sensitive atom has this trait
+#define TRAIT_HEARING_SENSITIVE "hearing_sensitive"

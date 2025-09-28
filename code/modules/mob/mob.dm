@@ -43,6 +43,7 @@
 		add_to_alive_mob_list()
 	set_focus(src)
 	prepare_huds()
+	become_hearing_sensitive()
 	. = ..()
 	update_config_movespeed()
 	update_movespeed()
@@ -84,16 +85,20 @@
 
 
 /atom/proc/prepare_huds()
+	if(hud_list) // I choose to be lienient about people calling this proc more then once
+		return
 	hud_list = list()
 	for(var/hud in hud_possible)
 		var/hint = hud_possible[hud]
-		switch(hint)
-			if(HUD_LIST_LIST)
-				hud_list[hud] = list()
-			else
-				var/image/I = image('icons/mob/hud.dmi', src, "")
-				I.appearance_flags = RESET_COLOR | RESET_TRANSFORM
-				hud_list[hud] = I
+
+		if(hint == HUD_LIST_LIST)
+			hud_list[hud] = list()
+
+		else
+			var/image/I = image('icons/mob/hud.dmi', src, "")
+			I.appearance_flags = RESET_COLOR|RESET_TRANSFORM
+			hud_list[hud] = I
+		set_hud_image_active(hud, update_huds = FALSE) //by default everything is active. but dont add it to huds to keep control.
 
 /mob/proc/generate_name()
 	return name
@@ -121,31 +126,39 @@
 	usr.show_message(t, 1)
 
 
-/mob/proc/show_message(msg, type, alt, alt_type, chat_message_type)
+/mob/proc/show_message(msg, type, alt_msg, alt_type, chat_message_type, avoid_highlighting = FALSE)
 
 	if(!client)
 		return
 
+	msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
+
+	// Return TRUE if we sent the original msg, otherwise return FALSE
+	. = TRUE
+
 	if(type)
 		if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))	//Vision related
-			if(!alt)
-				return
-			msg = alt
+			if(!alt_msg)
+				return FALSE
+			msg = alt_msg
 			type = alt_type
+			. = FALSE
 
 		if(type & EMOTE_AUDIBLE && !can_hear())	//Hearing related
-			if(!alt)
-				return
-			msg = alt
+			if(!alt_msg)
+				return FALSE
+			msg = alt_msg
 			type = alt_type
+			. = FALSE
 			if((type & EMOTE_VISIBLE) && !has_vision(information_only = TRUE))
-				return
+				return FALSE
 
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
-		to_chat(src, "<i>…Вам почти удаётся расслышать чьи-то слова…</i>", MESSAGE_TYPE_LOCALCHAT)
-	else
-		to_chat(src, msg, chat_message_type)
+		if(type & EMOTE_AUDIBLE) //audio
+			to_chat(src, "<i>…Вам почти удаётся расслышать чьи-то слова…</i>", MESSAGE_TYPE_LOCALCHAT)
+			return FALSE
+	to_chat(src, msg, chat_message_type)
 
 
 // Show a message to all mobs in sight of this one
@@ -153,45 +166,74 @@
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
-	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
-		for(var/mob/mob as anything in viewers(3, src) - ignored_mobs)
-			if(mob.see_invisible < invisibility)
-				continue //can't view the invisible
-			if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
-				continue
-			var/msg = message
-			if(self_message && mob == src)
-				msg = self_message
-			if(mob.loc != loc)
-				if(!blind_message) // for some reason VISIBLE action has blind_message param so if we are not in the same object but next to it, lets show it
-					continue
-				msg = blind_message
-			mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
+	if(!isturf(loc))
+		vision_distance = floor(vision_distance / 2)
+	. = ..()
+	if(!self_message)
 		return
+	var/block_self_highlight = (visible_message_flags & BLOCK_SELF_HIGHLIGHT_MESSAGE)
+	if(visible_message_flags & WITH_EMPHASIS_MESSAGE)
+		self_message = apply_message_emphasis(self_message)
+	if(visible_message_flags & EMOTE_MESSAGE)
+		self_message = span_emote("<b>[declent_ru(NOMINATIVE)]</b> [self_message]") // May make more sense as "You do x"
 
-	for(var/mob/mob as anything in viewers(7, src) - ignored_mobs)
-		if(mob.see_invisible < invisibility)
-			continue //can't view the invisible
+	if(visible_message_flags & ALWAYS_SHOW_SELF_MESSAGE)
+		to_chat(src, self_message, avoid_highlighting = block_self_highlight)
+	else
+		show_message(self_message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, avoid_highlighting = block_self_highlight)
 
-		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
-			continue
-
-		var/msg = message
-		if(self_message && mob == src)
-			msg = self_message
-		mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 
 
 // Show a message to all mobs in sight of this atom
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
-	for(var/mob/mob as anything in viewers(7, src) - ignored_mobs)
+/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE, vision_distance = DEFAULT_MESSAGE_RANGE, visible_message_flags = NONE)
+	var/turf/turf = get_turf(src)
+	if(!turf)
+		return
+
+	if(!islist(ignored_mobs))
+		ignored_mobs = list(ignored_mobs)
+
+	var/list/hearers = get_hearers_in_view(vision_distance, src) //caches the hearers and then removes ignored mobs.
+	hearers -= ignored_mobs
+
+	if(self_message)
+		hearers -= src
+
+	if(visible_message_flags & WITH_EMPHASIS_MESSAGE)
+		message = apply_message_emphasis(message)
+	if(visible_message_flags & EMOTE_MESSAGE)
+		message = span_emote("<b>[declent_ru(NOMINATIVE)]</b> [message]")
+
+	for(var/mob/mob in hearers)
+		if(!mob.client)
+			continue
+
 		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
 			continue
-		mob.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+
+		//This entire if/else chain could be in two lines but isn't for readibilties sake.
+		var/msg = message
+		var/msg_type = EMOTE_VISIBLE
+
+		if(mob.see_invisible < invisibility)//if src is invisible to M
+			msg = blind_message
+			msg_type = EMOTE_AUDIBLE
+		else if(turf != loc && turf != src) //if src is inside something and not a turf.
+			if(mob != loc) // Only give the blind message to hearers that aren't the location
+				msg = blind_message
+				msg_type = EMOTE_AUDIBLE
+		else if(!HAS_TRAIT(mob, TRAIT_HEAR_THROUGH_DARKNESS) && mob.lighting_alpha < LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE && turf.is_softly_lit() && !in_range(turf, mob)) //if it is too dark, unless we're right next to them.
+			msg = blind_message
+			msg_type = EMOTE_AUDIBLE
+		if(!msg)
+			continue
+
+		mob.show_message(msg, msg_type, blind_message, EMOTE_AUDIBLE)
+
 
 
 // Show a message to all mobs in earshot of this one
@@ -297,6 +339,7 @@
  */
 /mob/proc/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 	if(!client)
 		return
 
@@ -334,11 +377,12 @@
 
 /mob/living/reset_perspective(atom/new_eye)
 	. = ..()
-	if(.)
-		// Above check means the mob has a client
-		update_sight()
-		update_fullscreen()
-		update_pipe_vision()
+	if(!.)
+		return
+	// Above check means the mob has a client
+	update_sight()
+	update_fullscreen()
+	update_pipe_vision()
 
 
 /// Proc used to handle the fullscreen overlay updates, realistically meant for the reset_perspective() proc.
@@ -360,6 +404,12 @@
 		if(!new_eye)
 			client.set_eye(src)
 			client.perspective = MOB_PERSPECTIVE
+
+/mob/proc/clear_client_in_contents()
+	if(!client?.movingmob)
+		return
+	LAZYREMOVE(client.movingmob.client_mobs_in_contents, src)
+	client.movingmob = null
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
@@ -1288,3 +1338,46 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	src.ckey = ckey(ckey)
 
+
+/**
+ * set every hud image in the given category active so other people with the given hud can see it.
+ * Arguments:
+ * * hud_category - the index in our active_hud_list corresponding to an image now being shown.
+ * * update_huds - if FALSE we will just put the hud_category into active_hud_list without actually updating the atom_hud datums subscribed to it
+ * * exclusive_hud - if given a reference to an atom_hud, will just update that hud instead of all global ones attached to that category.
+ * This is because some atom_hud subtypes arent supposed to work via global categories, updating normally would affect all of these which we dont want.
+ */
+/atom/proc/set_hud_image_active(hud_category, update_huds = TRUE, datum/atom_hud/exclusive_hud)
+	if(!istext(hud_category) || !hud_list?[hud_category] || active_hud_list?[hud_category])
+		return FALSE
+
+	LAZYSET(active_hud_list, hud_category, hud_list[hud_category])
+
+	if(!update_huds)
+		return TRUE
+
+	if(exclusive_hud)
+		exclusive_hud.add_single_hud_category_on_atom(src, hud_category)
+	else
+		for(var/datum/atom_hud/hud_to_update as anything in GLOB.huds_by_category[hud_category])
+			hud_to_update.add_single_hud_category_on_atom(src, hud_category)
+
+	return TRUE
+
+///sets every hud image in the given category inactive so no one can see it
+/atom/proc/set_hud_image_inactive(hud_category, update_huds = TRUE, datum/atom_hud/exclusive_hud)
+	if(!istext(hud_category))
+		return FALSE
+
+	LAZYREMOVE(active_hud_list, hud_category)
+
+	if(!update_huds)
+		return TRUE
+
+	if(exclusive_hud)
+		exclusive_hud.remove_single_hud_category_on_atom(src, hud_category)
+	else
+		for(var/datum/atom_hud/hud_to_update as anything in GLOB.huds_by_category[hud_category])
+			hud_to_update.remove_single_hud_category_on_atom(src, hud_category)
+
+	return TRUE

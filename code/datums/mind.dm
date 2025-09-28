@@ -59,8 +59,10 @@
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 
-	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
-	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
+	/// this mind's ANTAG_HUD should have this icon_state
+	var/antag_hud_icon_state = null
+	/// this mind's antag HUD
+	var/datum/atom_hud/antag/antag_hud = null
 	var/datum/mindslaves/som //stands for slave or master...hush..
 	var/damnation_type = 0
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
@@ -2992,8 +2994,7 @@
 		if(exception)
 			continue
 		if(spell.cooldown_handler)
-			spell.cooldown_handler.recharge_duration = delay
-			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge))
+			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge), delay)
 		spell.updateButtonIcon()
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)

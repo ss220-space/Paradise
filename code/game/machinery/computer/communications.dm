@@ -610,8 +610,8 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении на станцию Центрального командования."))
 		return FALSE
 
-	if(SSticker.time_game_started < SSshuttle.emergency_refill_time) // 30 minute grace period to let the game get going
-		to_chat(user, "Шаттл на дозаправке. Пожалуйста, подождите ещё [round((SSshuttle.emergency_refill_time - SSticker.time_game_started) / 600)] минут, прежде чем повторить попытку.")
+	if(world.time - SSticker.time_game_started < SSshuttle.emergency_refill_time) // 30 minute grace period to let the game get going
+		to_chat(user, "Шаттл на дозаправке. Пожалуйста, подождите ещё [round((SSshuttle.emergency_refill_time - (world.time - SSticker.time_game_started)) / 600)] минут, прежде чем повторить попытку.")
 		return FALSE
 
 	return TRUE

@@ -80,7 +80,7 @@
 	if(initial(uses) == 1)
 		uses = initial(uses)
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.remove_from_hud(owner)
+	hud.remove_atom_from_hud(owner)
 	clear_mind_control()
 	. = ..()
 
@@ -89,7 +89,7 @@
 	if(special != ORGAN_MANIPULATION_ABDUCTOR && uses)
 		Start()
 	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	hud.add_to_hud(owner)
+	hud.add_atom_to_hud(owner)
 	update_gland_hud()
 
 /obj/item/organ/internal/heart/gland/on_life()

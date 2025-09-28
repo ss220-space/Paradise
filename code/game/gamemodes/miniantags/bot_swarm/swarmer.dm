@@ -129,7 +129,7 @@
 	..()
 	add_language(LANGUAGE_HIVE_SWARMER, 1)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+		diag_hud.add_atom_to_hud(src)
 	updatename()
 	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
 

@@ -499,7 +499,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  * Clears the most "stale" DNA from the `absorbed_dna` list.
  */
 /datum/antagonist/changeling/proc/trim_dna()
-	listclearnulls(absorbed_dna)
+	list_clear_nulls(absorbed_dna)
 	if(length(absorbed_dna) > dna_max)
 		absorbed_dna.Cut(1, 2)
 

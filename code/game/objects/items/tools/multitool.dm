@@ -178,8 +178,6 @@
 	name = "alien multimeter"
 	desc = "Прибор из неизвестного сплава с голографическим интерфейсом. Похоже, что он  предназначен для измерения показателей электрических объектов."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "alien_multitool"
-	belt_icon = "alien_multitool"
 	toolspeed = 0.1
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 	shows_wire_information = TRUE
