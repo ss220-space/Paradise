@@ -39,7 +39,7 @@
 	icon_state = "Specter_accumulator"
 	gender = MALE
 	maxcharge = 8000
-	chargerate = 533.3
+	chargerate = 400
 
 /obj/item/stock_parts/cell/specter/get_ru_names()
 	ru_names = list(
