@@ -38,9 +38,11 @@
 		if(istype(organ, /obj/item/organ/internal/heart))
 			IC = organ
 			break
-	user.visible_message("[user] starts to remove [target]'s organs.",
+	user.visible_message(
+		"[user] starts to remove [target]'s organs.",
 		span_notice("You start to remove [target]'s organs..."),
-		chat_message_type = MESSAGE_TYPE_COMBAT)
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
 	..()
 
 /datum/surgery_step/internal/extract_organ/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

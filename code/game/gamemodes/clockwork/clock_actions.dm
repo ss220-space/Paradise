@@ -29,8 +29,10 @@
 
 	var/prefix = ""
 	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>",
-		"<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
+		user.visible_message(
+			span_notice("[user] appears to whisper to themselves."),
+			span_notice("You begin to whisper to yourself.")
+		) //Make them do *something* abnormal.
 		sleep(10)
 	else if(!issilicon(user))
 		user.whisper("N`i th`e le-ing roc-cus!") // Otherwise book club sayings.

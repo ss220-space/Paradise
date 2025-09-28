@@ -86,9 +86,11 @@
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
 		if(failure)
 			user.Weaken(4 SECONDS)
-			user.visible_message("<span class='warning'> \the [user] attempts to dash away but was interrupted!</span>",
-								"<span class='warning'>You attempt to dash but suddenly interrupted!</span>",
-								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
+			user.visible_message(
+				span_warning("[user] attempts to dash away but was interrupted!"),
+				span_warning("You attempt to dash but suddenly interrupted!"),
+				span_notice("You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.")
+			)
 			return 0
 
 		user.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
@@ -249,9 +251,11 @@
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
 		if(failure)
 			user.Weaken(10 SECONDS)
-			user.visible_message("<span class='warning'> \the [user] attempts to leap away but is slammed back down to the ground!</span>",
-								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
-								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
+			user.visible_message(
+				span_warning("=[user] attempts to leap away but is slammed back down to the ground!"),
+				span_warning("=You attempt to leap away but are suddenly slammed back down to the ground!"),
+				span_notice("=You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.")
+			)
 			return 0
 
 		user.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))

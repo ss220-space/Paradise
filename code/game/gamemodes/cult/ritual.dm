@@ -196,8 +196,10 @@
 		others_message = "<span class='warning'>[user] cuts [user.p_their()] body and begins writing in [user.p_their()] own blood!</span>"
 	else
 		others_message = "<span class='biggerdanger'>[user] cuts [user.p_their()] body and begins writing something particularly ominous in [user.p_their()] own blood!</span>"
-	user.visible_message(others_message,
-		"<span class='cultitalic'>You slice open your body and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
+	user.visible_message(
+		others_message,
+		span_cultitalic("You slice open your body and begin drawing a sigil of [SSticker.cultdat.entity_title3].")
+	)
 
 	var/scribe_successful = do_after(user, initial(rune.scribe_delay) * scribe_multiplier, runeturf)
 	for(var/V in shields) // Only used for the 'Tear Veil' rune

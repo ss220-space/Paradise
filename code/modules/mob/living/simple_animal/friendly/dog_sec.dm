@@ -97,9 +97,11 @@
 		if(health <= 0)
 			to_chat(user, "<span class='notice'>There is merely a dull, lifeless look in [real_name]'s eyes as you put the [item_to_add] on [p_them()].</span>")
 		else if(user)
-			user.visible_message("<span class='notice'>[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once.</span>",
-				"<span class='notice'>You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",
-				"<span class='italics'>You hear a friendly-sounding bark.</span>")
+			user.visible_message(
+				span_notice("[user] puts [item_to_add] on [real_name]'s head. [src] looks at [user] and barks once."),
+				span_notice("You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks."),
+				span_italics("You hear a friendly-sounding bark.")
+			)
 		item_to_add.forceMove(src)
 		inventory_head = item_to_add
 		update_dog_fluff()
