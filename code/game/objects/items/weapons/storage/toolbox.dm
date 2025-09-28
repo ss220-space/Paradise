@@ -105,10 +105,10 @@
 		return
 
 	var/obj/item/selected
-	for(var/obj/item/item as anything in contents)
-		if(item.declent_ru(NOMINATIVE) != picked_item)
+	for(var/obj/item/tool as anything in contents)
+		if(tool.declent_ru(NOMINATIVE) != picked_item)
 			continue
-		selected = item
+		selected = tool
 	playsound(user, 'sound/items/handling/toolbox_rustle.ogg', 50)
 
 	if(!user.put_in_inactive_hand(selected))
