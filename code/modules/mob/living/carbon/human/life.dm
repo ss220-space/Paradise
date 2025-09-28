@@ -871,16 +871,14 @@
 		for(var/obj/item/thing in bodypart.embedded_objects)
 			if(prob(thing.embedded_pain_chance))
 				apply_damage(thing.w_class * thing.embedded_pain_multiplier, def_zone = bodypart)
-				var/get_bodypart = GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]
-				to_chat(src, span_userdanger("[capitalize(thing.declent_ru(NOMINATIVE))] в ваш[genderize_ru(get_bodypart.gender, "ем", "ей", "ем", "их")] [get_bodypart] причиняет боль!"))
+				to_chat(src, span_userdanger("[capitalize(thing.declent_ru(NOMINATIVE))] в ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]] причиняет боль!"))
 
 			if(prob(thing.embedded_fall_chance))
 				bodypart.remove_embedded_object(thing)
 				apply_damage(thing.w_class * thing.embedded_fall_pain_multiplier, def_zone = bodypart)
-				var/get_bodypart = GLOB.body_zone[bodypart.limb_zone][GENITIVE]
 				visible_message(
 					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]] [name]!"),
-					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из ваш[genderize_ru(get_bodypart.gender, "его", "ей", "его", "их")] [get_bodypart]!"),
+					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из ваш[genderize_ru(bodypart.gender, "его", "ей", "его", "их")] [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
 				)
 
 
