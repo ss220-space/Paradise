@@ -141,10 +141,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"Fg" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel,
-/area/admin)
 "GN" = (
 /obj/structure/railing{
 	dir = 8
@@ -196,12 +192,6 @@
 /area/admin)
 "Pd" = (
 /obj/effect/landmark/join_late,
-/turf/simulated/floor/plasteel,
-/area/admin)
-"Px" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Qw" = (
@@ -2374,7 +2364,7 @@ HE
 HE
 HE
 HE
-Fg
+xj
 jk
 ay
 ay
@@ -2892,7 +2882,7 @@ ay
 ay
 jk
 HE
-Px
+nF
 HE
 HE
 HE

@@ -1513,13 +1513,6 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/space,
 /area/space)
-"yW" = (
-/obj/structure/window/full/shuttle{
-	color = "#A9E0FF"
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/crashedipcship/middle)
 "yX" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/decal/cleanable/dirt,
@@ -5445,7 +5438,7 @@ uP
 uP
 uP
 Yl
-yW
+fo
 vn
 fo
 Yl

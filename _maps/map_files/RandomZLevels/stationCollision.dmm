@@ -3610,14 +3610,6 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/awaymission/southblock)
-"kb" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/awaymission/southblock)
 "kc" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -6209,7 +6201,7 @@ iT
 ji
 iY
 jG
-kb
+jG
 iY
 kH
 kR
