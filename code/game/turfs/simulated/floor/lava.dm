@@ -11,7 +11,6 @@
 	baseturf = /turf/simulated/floor/lava //lava all the way down
 	slowdown = 2
 	light_range = 3
-	light_power = 1
 	light_color = LIGHT_COLOR_LAVA
 	footstep = FOOTSTEP_LAVA
 	barefootstep = FOOTSTEP_LAVA
@@ -318,7 +317,6 @@
 	base_icon_state = "liquidplasma"
 	can_be_fished_on = FALSE // ~ Sin City's cold and empty, No one`s around to judge me ~
 	light_range = 5
-	light_power = 1
 	light_color = LIGHT_COLOR_PINK
 	lava_damage = 2
 	/// How much fire and toxic damage we deal to human mobs stepping on us
