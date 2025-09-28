@@ -193,19 +193,20 @@
 			if(I.on_found(user))
 				return
 
+	if(user.s_active && user.s_active != src)
+		user.s_active.hide_from(user)
+
 	if(!display_contents_with_number && !LAZYIN(storage_boxes, user))
 		LAZYADDASSOC(storage_boxes, user, new /datum/storage_box(src))
 
 	orient2hud(user)  // this only needs to happen to make .contents show properly as screen objects.
-	if(user.s_active)
-		user.s_active.hide_from(user)
 
 	if(!display_contents_with_number)
-		user.client.screen += storage_boxes[user].screens_list()
+		user.client.screen |= storage_boxes[user].screens_list()
 	else
-		user.client.screen += boxes
-		user.client.screen += closer
-	user.client.screen += contents
+		user.client.screen |= boxes
+		user.client.screen |= closer
+	user.client.screen |= contents
 
 	user.s_active = src
 	LAZYOR(mobs_viewing, user)
@@ -334,7 +335,7 @@
 
 	var/first_time = TRUE
 	for(var/mob/user as anything in storage_boxes)
-		storage_boxes[user].modify(line_width, lines_num, ui_style2icon(user?.client?.prefs.UI_style, first_time))
+		storage_boxes[user].modify(line_width, lines_num, ui_style2icon(user?.client?.prefs.UI_style), first_time)
 		first_time = FALSE
 
 	return
