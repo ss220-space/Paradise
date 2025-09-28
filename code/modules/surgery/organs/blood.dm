@@ -140,9 +140,6 @@
 	var/current_bleed = 0
 	var/internal_bleeding_rate = 0
 	var/has_arterial_bleed = FALSE
-	// extract suppress bledding by hands
-	var/obj/item/organ/external/hand/hand_left = get_organ(BODY_ZONE_PRECISE_L_HAND)
-	var/obj/item/organ/external/hand/hand_right = get_organ(BODY_ZONE_PRECISE_R_HAND)
 	// calculate total bleeding from bodyparts
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(bodypart.is_robotic())
@@ -159,7 +156,7 @@
 			bodypart.bleeding_amount = max(0, bodypart.bleeding_amount - BLEEDING_DECREASE)
 			if(bodypart.bleedsuppress > bodypart.bleeding_amount)
 				bodypart.bleedsuppress = bodypart.bleeding_amount
-		var/bodypart_bleeding = max(bodypart.bleeding_amount - bodypart.bleedsuppress * BRUISE_PACK_SUPPRESS_BLEEDING_MOD, 0)
+		var/bodypart_bleeding = max(bodypart.bleeding_amount - bodypart.bleedsuppress, 0)
 		bodypart_bleeding = bodypart_bleeding * BLEEDING_MODIFIER * bodypart.bleeding_mod
 		// suppress bleeding by hands
 		if(left_hand_bleed_suppress_lib == bodypart)

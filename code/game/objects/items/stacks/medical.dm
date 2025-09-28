@@ -181,7 +181,7 @@
 	item_state = "gauze"
 	origin_tech = "biotech=2"
 	heal_brute = 5
-	bleedsuppress = 5
+	bleedsuppress = 2
 	stop_bleeding = 180 SECONDS
 	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
