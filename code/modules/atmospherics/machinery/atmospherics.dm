@@ -58,6 +58,11 @@ Pipelines + Other Objects -> Pipe network
 		pipe_color = null
 
 /obj/machinery/atmospherics/Initialize(mapload)
+	var/turf/turf_loc = null
+	if(isturf(loc))
+		turf_loc = loc
+	SSspatial_grid.add_grid_awareness(src, SPATIAL_GRID_CONTENTS_TYPE_ATMOS)
+	SSspatial_grid.add_grid_membership(src, turf_loc, SPATIAL_GRID_CONTENTS_TYPE_ATMOS)
 	. = ..()
 	SSair.atmos_machinery += src
 
@@ -348,19 +353,17 @@ Pipelines + Other Objects -> Pipe network
 		break
 
 	if(!target_move)
-		if(direction & initialize_directions)
-			user.stop_ventcrawling()
+		if(HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING) && (vent_movement & VENTCRAWL_ENTRANCE_ALLOWED))
+			user.handle_ventcrawl(src)
 		return
 
 	if(!(target_move.vent_movement & VENTCRAWL_ALLOWED))
 		return
 
 	user.abstract_move(target_move)
-	// user.loc = target_move	// we are using loc change instead of forceMove to avoid perspective reset. paradise is special
 
 	var/list/pipenetdiff = return_pipenets() ^ target_move.return_pipenets()
-	if(length(pipenetdiff))
-		user.update_pipe_vision()
+	user.update_pipe_vision(full_refresh = !!length(pipenetdiff))
 
 	if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
 		user.last_played_vent = world.time

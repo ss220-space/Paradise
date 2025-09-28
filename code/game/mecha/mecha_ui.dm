@@ -67,9 +67,9 @@
 	data["internal_damage"] = internal_damage
 
 	data["radio_data"] = list(
-		"microphone" = radio.broadcasting,
-		"speaker" = radio.listening,
-		"frequency" = radio.frequency,
+		"microphone" = radio.get_broadcasting(),
+		"speaker" = radio.get_listening(),
+		"frequency" = radio.get_frequency(),
 		"minFrequency" = radio.freerange ? RADIO_LOW_FREQ : PUBLIC_LOW_FREQ,
 		"maxFrequency" = radio.freerange ? RADIO_HIGH_FREQ : PUBLIC_HIGH_FREQ,
 	)
@@ -171,10 +171,10 @@
 			maint_access = !maint_access
 			return
 		if("toggle_microphone")
-			radio.broadcasting = !radio.broadcasting
+			radio.set_broadcasting(!radio.get_broadcasting())
 			return TRUE
 		if("toggle_speaker")
-			radio.listening = !radio.listening
+			radio.set_listening(!radio.get_broadcasting())
 			return TRUE
 		if("set_frequency")
 			var/new_frequency = text2num(params["new_frequency"])

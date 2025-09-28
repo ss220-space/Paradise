@@ -22,6 +22,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("хлестнул", "стегнул", "проучил", "выпорол")
 	usesound = 'sound/items/deconstruct.ogg'
+	toolbox_radial_menu_compatibility = TRUE
 
 	var/static/list/wire_colors = list(
 		CABLE_HEX_COLOR_BLUE = "blue",

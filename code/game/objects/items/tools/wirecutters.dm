@@ -24,6 +24,7 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
+	toolbox_radial_menu_compatibility = TRUE
 	var/random_color = TRUE
 
 /obj/item/wirecutters/Initialize(mapload, param_color = null)

@@ -225,6 +225,8 @@
 /obj/item/vending_refill/protein
 	machine_name = "Автомат спортивного питания"
 
+/obj/item/vending_refill/ammo
+	machine_name = "Liberty"
 
 /obj/item/vending_refill/custom
 	machine_name = "Customat"

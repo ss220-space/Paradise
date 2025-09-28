@@ -331,6 +331,8 @@
 /obj/item/gun/energy/update_overlays()
 	. = ..()
 	var/overlay_name = overlay_set ? overlay_set : icon_state
+	if(!length(ammo_type))
+		return
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
 		. += "[overlay_name]_[shot.select_name]"

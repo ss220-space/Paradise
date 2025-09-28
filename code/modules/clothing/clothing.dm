@@ -88,7 +88,7 @@
 		if(spy_spider_attached)
 			to_chat(user, span_warning("Жучок уже установлен."))
 			return ATTACK_CHAIN_PROCEED
-		if(!spy_spider.broadcasting)
+		if(!spy_spider.get_broadcasting())
 			to_chat(user, span_warning("Жучок выключен."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(spy_spider, src))

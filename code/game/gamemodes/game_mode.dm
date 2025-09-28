@@ -907,7 +907,7 @@
 	. += auto_declare_completion_goon_enthralled()
 	. += auto_declare_completion_devil()
 	. += auto_declare_completion_sintouched()
-	listclearnulls(.)
+	list_clear_nulls(.)
 
 /datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
 	if(istype(god, /obj/singularity/god/narsie))

@@ -577,7 +577,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if(H.stat == DEAD)
 			spooky_scaries.Remove(X)
 			continue
-	listclearnulls(spooky_scaries)
+	list_clear_nulls(spooky_scaries)
 
 //Funny gimmick, skeletons always seem to wear roman/ancient armour
 //Voodoo Zombie Pirates added for paradise

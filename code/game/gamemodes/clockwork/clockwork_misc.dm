@@ -53,11 +53,14 @@
 
 /obj/effect/clockwork/overlay/wall/Initialize(mapload)
 	. = ..()
-	queue_smooth_neighbors(src)
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/queue_smooth, src), 1)
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	addtimer(CALLBACK(src, PROC_REF(queue_smooth)), 1)
+
+/obj/effect/clockwork/overlay/wall/proc/queue_smooth()
+	QUEUE_SMOOTH(src)
 
 /obj/effect/clockwork/overlay/wall/Destroy()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 /obj/effect/clockwork/overlay/floor
