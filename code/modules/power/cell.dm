@@ -26,7 +26,6 @@
 	var/grown_battery = FALSE
 	// For custom overlays.
 	var/overlay_charged = "cell-o2"
-  
 /obj/item/stock_parts/cell/get_ru_names()
 	return list(
 		NOMINATIVE = "батарея А",
