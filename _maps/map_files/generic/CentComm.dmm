@@ -32707,9 +32707,7 @@
 	},
 /area/centcom/supply)
 "pek" = (
-/obj/effect/landmark/syndicate_commando{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_commando,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "pem" = (
@@ -34074,9 +34072,7 @@
 	},
 /area/centcom/supplypod/loading/ert)
 "pPN" = (
-/obj/effect/landmark/syndicate_commando{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_commando,
 /obj/structure/sign/double/map/right{
 	pixel_y = 32
 	},

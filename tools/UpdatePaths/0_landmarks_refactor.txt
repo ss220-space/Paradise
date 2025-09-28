@@ -41,3 +41,7 @@
 /obj/effect/landmark/teleport_scroll : /obj/effect/landmark/spawner/teleport_scroll
 /obj/effect/landmark/syndieprisonwarp : /obj/effect/landmark/spawner/syndieprisonwarp
 /obj/effect/landmark/wizard : /obj/effect/landmark/spawner/wizard
+
+/obj/effect/landmark/tdome/tdomeadmin : /obj/effect/landmark/spawner/tdomeadmin
+/obj/effect/landmark/syndicate_spawn : /obj/effect/landmark/spawner/syndie
+/obj/effect/landmark/nuclear_bomb : /obj/effect/landmark/spawner/nuclear_bomb
