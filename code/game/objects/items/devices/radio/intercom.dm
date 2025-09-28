@@ -31,7 +31,6 @@
 
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
-	listening = 0
 
 /obj/item/radio/intercom/custom/get_ru_names()
 	return list(
@@ -43,13 +42,17 @@
 		PREPOSITIONAL = "станционном интеркоме (Персонализированный)"
 	)
 
+/obj/item/radio/intercom/custom/Initialize(mapload, direction, buildstage)
+	. = ..()
+	set_broadcasting(FALSE)
+	set_listening(FALSE)
+
 /obj/item/radio/intercom/interrogation
 	name = "station intercom (Interrogation)"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
 			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
 			По умолчанию преднастроен на специализированную частоту для проведения допроса подозреваемых."
-	frequency  = AIRLOCK_FREQ
 
 /obj/item/radio/intercom/interrogation/get_ru_names()
 	return list(
@@ -61,13 +64,16 @@
 		PREPOSITIONAL = "станционном интеркоме (Допросный)"
 	)
 
+/obj/item/radio/intercom/interrogation/Initialize(mapload, direction, buildstage)
+	. = ..()
+	set_frequency(AIRLOCK_FREQ)
+
 /obj/item/radio/intercom/private
 	name = "station intercom (Private)"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
 			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
 			По умолчанию преднастроен на частоту Искусственного Интеллекта объекта."
-	frequency = AI_FREQ
 
 /obj/item/radio/intercom/private/get_ru_names()
 	return list(
@@ -79,13 +85,16 @@
 		PREPOSITIONAL = "станционном интеркоме (Приватный)"
 	)
 
+/obj/item/radio/intercom/private/Initialize(mapload, direction, buildstage)
+	. = ..()
+	set_frequency(AI_FREQ)
+
 /obj/item/radio/intercom/command
 	name = "station intercom (Command)"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
 			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
 			По умолчанию преднастроен на частоту командного состава объекта."
-	frequency = COMM_FREQ
 
 /obj/item/radio/intercom/command/get_ru_names()
 	return list(
@@ -97,13 +106,16 @@
 		PREPOSITIONAL = "станционном интеркоме (Командный)"
 	)
 
+/obj/item/radio/intercom/command/Initialize(mapload, direction, buildstage)
+	. = ..()
+	set_frequency(COMM_FREQ)
+
 /obj/item/radio/intercom/specops
 	name = "Special Operations intercom"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
 			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
 			По умолчанию преднастроен на частоту Отряда Быстрого Реагирования."
-	frequency = ERT_FREQ
 
 /obj/item/radio/intercom/specops/get_ru_names()
 	return list(
@@ -115,8 +127,17 @@
 		PREPOSITIONAL = "интеркоме спецопераций"
 	)
 
+/obj/item/radio/intercom/specops/Initialize(mapload, direction, buildstage)
+	. = ..()
+	set_frequency(ERT_FREQ)
+
 /obj/item/radio/intercom/department
 	canhear_range = 5
+
+/obj/item/radio/intercom/department/Initialize(mapload, direction, buildstage)
+	. = ..()
+	set_broadcasting(FALSE)
+	set_listening(TRUE)
 
 /obj/item/radio/intercom/department/medbay
 	name = "station intercom (Medbay)"
@@ -124,7 +145,10 @@
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
 			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
 			По умолчанию преднастроен на внутреннюю частоту медицинского отдела объекта."
-	frequency = MED_I_FREQ
+
+/obj/item/radio/intercom/department/medbay/Initialize(mapload, direction, buildstage)
+	. = ..()
+	set_frequency(MED_I_FREQ)
 
 /obj/item/radio/intercom/department/medbay/get_ru_names()
 	return list(
@@ -142,7 +166,6 @@
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование поддерживает \
 			широкий диапазон приёма и передачи сигналов, обеспечивая двустороннюю связь по радиочастотам объекта. \
 			По умолчанию преднастроен на внутреннюю частоту службы безопасности объекта."
-	frequency = SEC_I_FREQ
 
 /obj/item/radio/intercom/department/security/get_ru_names()
 	return list(
@@ -154,6 +177,10 @@
 		PREPOSITIONAL = "станционном интеркоме (Служба безопасности)"
 	)
 
+/obj/item/radio/intercom/department/security/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
+	. = ..()
+	set_frequency(SEC_I_FREQ)
+
 /obj/item/radio/intercom/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
 	. = ..()
 	src.buildstage = buildstage
@@ -164,7 +191,7 @@
 			setDir(direction)
 			set_pixel_offsets_from_dir(28, -28, 28, -28)
 		b_stat = TRUE
-		on = FALSE
+		set_on(FALSE)
 	GLOB.global_intercoms.Add(src)
 	update_icon()
 
@@ -182,7 +209,6 @@
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Помимо стандартного телекоммуникацонного оборудования, \
 			внутри установлен специальный ключ шифрования, позволяющий прослушивать закрытые каналы Нанотрейзен, \
 			а также подключаться к зашифрованной частоте сотрудников Синдиката."
-	frequency = SYND_FREQ
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
 /obj/item/radio/intercom/syndicate/get_ru_names()
@@ -198,6 +224,7 @@
 /obj/item/radio/intercom/syndicate/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
 	. = ..()
 	internal_channels = GLOB.default_syndicate_channels
+	set_frequency(SYND_FREQ)
 
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
@@ -302,7 +329,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || buildstage != INTERCOM_BUILD_WIRED)
 		return
-	on = TRUE
+	set_on(TRUE)
 	b_stat = FALSE
 	buildstage = INTERCOM_BUILD_SECURED
 	user.balloon_alert(user, "корпус заблокирован")
@@ -319,7 +346,7 @@
 		return .
 	WIRECUTTER_SNIP_MESSAGE
 	new /obj/item/stack/cable_coil(drop_location(), 5)
-	on = FALSE
+	set_on(FALSE)
 	b_stat = TRUE
 	buildstage = INTERCOM_BUILD_CIRCUIT
 	update_icon()
@@ -371,9 +398,9 @@
 /obj/item/radio/intercom/proc/AreaPowerCheck(datum/source)
 	var/area/current_area = get_area(src)
 	if(!current_area)
-		on = FALSE
+		set_on(FALSE)
 	else
-		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
+		set_on(current_area.powered(EQUIP)) // set "on" to the equipment power status of our area.
 	update_icon()
 
 /obj/item/intercom_electronics
@@ -408,7 +435,6 @@
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование преднастроено \
 			на закрытый канал Искусственного Интеллекта, обеспечивая приватную коммуникацию. \
 			Возможность смены частоты заблокирована на программном уровне."
-	frequency = AI_FREQ
 
 /obj/item/radio/intercom/locked/ai_private/get_ru_names()
 	return list(
@@ -420,13 +446,16 @@
 		PREPOSITIONAL = "интеркоме ИИ"
 	)
 
+/obj/item/radio/intercom/locked/ai_private/Initialize(mapload, direction, buildstage)
+	. = ..()
+	set_frequency(AI_FREQ)
+
 /obj/item/radio/intercom/locked/confessional
 	name = "confessional intercom"
 	desc = "Специализированный станционный интерком. Представляет собой устройство из прочного полимерно-металлического корпуса \
 			с передней панелью, оснащённой микрофоном, динамиком и дисплеем. Встроенное телекоммуникационное оборудование преднастроено \
 			на закрытый канал, предназначенный для приватной коммуникации со священнослужителями в исповедальных комнатах. \
 			Возможность смены частоты заблокирована на программном уровне."
-	frequency = 1480
 
 /obj/item/radio/intercom/locked/confessional/get_ru_names()
 	return list(
@@ -437,6 +466,10 @@
 		INSTRUMENTAL = "исповедальным интеркомом",
 		PREPOSITIONAL = "исповедальном интеркоме"
 	)
+
+/obj/item/radio/intercom/locked/confessional/Initialize(mapload, direction, buildstage)
+	. = ..()
+	set_frequency(1480)
 
 /obj/item/radio/intercom/locked/prison
 	name = "prison intercom"

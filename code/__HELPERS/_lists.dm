@@ -233,10 +233,23 @@
 						L[T] = TRUE
 		return L
 
-//Removes any null entries from the list
-/proc/listclearnulls(list/list)
-	list?.RemoveAll(null)
-	return
+/**
+ * Removes any null entries from the list
+ * Returns TRUE if the list had nulls, FALSE otherwise
+**/
+/proc/list_clear_nulls(list/list_to_clear)
+	return (list_to_clear.RemoveAll(null) > 0)
+
+/**
+ * Removes any empty weakrefs from the list
+ * Returns TRUE if the list had empty refs, FALSE otherwise
+**/
+/proc/list_clear_empty_weakrefs(list/list_to_clear)
+	var/start_len = list_to_clear.len
+	for(var/datum/weakref/entry in list_to_clear)
+		if(!entry.resolve())
+			list_to_clear -= entry
+	return list_to_clear.len < start_len
 
 /*
  * Returns list containing all the entries from first list that are not present in second.
@@ -435,7 +448,7 @@
 
 //Mergesort: divides up the list into halves to begin the sort
 /proc/sortAtom(list/atom/L, order = 1)
-	listclearnulls(L)
+	list_clear_nulls(L)
 	if(isnull(L) || L.len < 2)
 		return L
 	var/middle = L.len / 2 + 1

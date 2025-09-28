@@ -3,7 +3,7 @@
 	AddElement(/datum/element/movetype_handler)
 	register_init_signals()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medhud.add_to_hud(src)
+	medhud.add_atom_to_hud(src)
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
 	gravity_setup()
