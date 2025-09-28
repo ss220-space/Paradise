@@ -6,12 +6,9 @@
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
+	default_frequency = AIRLOCK_FREQ
 	var/code = 2
 	var/intensivity = TRUE
-
-/obj/item/radio/electropack/Initialize(mapload)
-	. = ..()
-	set_frequency(AIRLOCK_FREQ)
 
 /obj/item/radio/electropack/attack_hand(mob/user)
 	if(src == user.back)

@@ -175,8 +175,11 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 /proc/smooth_icon(atom/A)
 	if(!A || !A.smooth || !A.z)
 		return
+
 	if(QDELETED(A))
 		return
+
+	A.smooth &= ~SMOOTH_QUEUED
 	if(A.smooth & (SMOOTH_TRUE | SMOOTH_MORE))
 		var/adjacencies = calculate_adjacencies(A)
 
@@ -187,6 +190,7 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 
 	else if(A.smooth & SMOOTH_BITMASK)
 		A.bitmask_smooth()
+
 	if(isturf(A))
 		SSdemo.mark_turf(A)
 

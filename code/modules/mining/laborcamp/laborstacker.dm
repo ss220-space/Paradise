@@ -28,7 +28,6 @@
 	. = ..()
 	announcer = new /obj/item/radio/intercom(null)
 	announcer.follow_target = src
-	announcer.config(list(SEC_FREQ_NAME = 0))
 
 	if(!sheet_values)
 		for(var/sheet_type in subtypesof(/obj/item/stack/sheet))
