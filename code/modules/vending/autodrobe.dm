@@ -49,7 +49,6 @@
 				/obj/item/clothing/head/shapka_pepega = 5,
 			),
 		),
-
 		list(
 			"name" = "Аксессуары",
 			"icon" = "glasses",
@@ -67,7 +66,6 @@
 				/obj/item/clothing/neck/cloak/toggle/owlwings/griffinwings = 10,
 			),
 		),
-
 		list(
 			"name" = "Маски",
 			"icon" = "mask-face",
@@ -91,7 +89,6 @@
 				/obj/item/clothing/mask/gas/ghostface = 10,
 			),
 		),
-
 		list(
 			"name" = "Униформа",
 			"icon" = "shirt",
@@ -142,7 +139,6 @@
 				/obj/item/clothing/under/tourist_suit = 10,
 			),
 		),
-
 		list(
 			"name" = "Верхняя одежда",
 			"icon" = "vest",
@@ -174,7 +170,6 @@
 				/obj/item/clothing/suit/hooded/ghostfacesuit/devil = 10,
 			),
 		),
-
 		list(
 			"name" = "Обувь",
 			"icon" = "socks",
@@ -185,7 +180,6 @@
 				/obj/item/clothing/shoes/singerb = 10,
 			),
 		),
-
 		list(
 			"name" = "Прочее",
 			"icon" = "ellipsis",

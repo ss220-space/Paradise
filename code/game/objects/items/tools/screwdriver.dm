@@ -22,6 +22,7 @@
 	usesound = 'sound/items/screwdriver.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_SCREWDRIVER
+	toolbox_radial_menu_compatibility = TRUE
 	var/random_color = TRUE //if the screwdriver uses random coloring
 
 /obj/item/screwdriver/Initialize(mapload)

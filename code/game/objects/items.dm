@@ -7,7 +7,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	pass_flags = PASSTABLE
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 
-	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
+	/// Set in the Initialise depending on the item size. Unless it's overriden by a specific item
+	move_resist = null
 
 	max_integrity = 200
 
@@ -52,7 +53,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/usesound
 	/// Used when yate into a mob.
 	var/mob_throw_hit_sound
-	///Sound used when equipping the item into a valid slot.
+	/// Sound used when equipping the item into a valid slot.
 	var/equip_sound
 	var/static/list/base_equip_sounds = list(
 		'sound/items/handling/equip/generic_equip1.ogg',
@@ -61,14 +62,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		'sound/items/handling/equip/generic_equip4.ogg',
 		'sound/items/handling/equip/generic_equip5.ogg',
 	)
-	///Sound used when picking the item up (into your hands)
+	/// Sound used when picking the item up (into your hands)
 	var/pickup_sound
 	var/static/list/base_pickup_sounds = list(
 		'sound/items/handling/pickup/generic_pickup1.ogg',
 		'sound/items/handling/pickup/generic_pickup2.ogg',
 		'sound/items/handling/pickup/generic_pickup3.ogg',
 	)
-	///Sound used when dropping the item.
+	/// Sound used when dropping the item.
 	var/drop_sound
 	var/static/list/base_drop_sounds = list(
 		'sound/items/handling/drop/generic_drop1.ogg',
@@ -77,22 +78,29 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		'sound/items/handling/drop/generic_drop4.ogg',
 		'sound/items/handling/drop/generic_drop5.ogg',
 	)
-	///Whether or not we use stealthy audio levels for this item's attack sounds
+	/// Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE
 	var/w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = 4
 	//	causeerrorheresoifixthis
 	var/obj/item/master = null
 
-	var/heat_protection = 0 //flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
-	var/cold_protection = 0 //flags which determine which body parts are protected from cold. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
-	var/max_heat_protection_temperature //Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
-	var/min_cold_protection_temperature //Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
-
-	var/list/actions = null //list of /datum/action's that this item has.
-	var/list/actions_types = null //list of paths of action datums to give to the item on New().
-	var/list/action_icon = null //list of icons-sheets for a given action to override the icon.
-	var/list/action_icon_state = null //list of icon states for a given action to override the icon_state.
+	/// flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
+	var/heat_protection = 0
+	/// flags which determine which body parts are protected from cold. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
+	var/cold_protection = 0
+	/// Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
+	var/max_heat_protection_temperature
+	/// Set this variable to determine down to which temperature (IN KELVIN) the item protects against cold damage. 0 is NOT an acceptable number due to if(varname) tests!! Keep at null to disable protection. Only protects areas set by cold_protection flags
+	var/min_cold_protection_temperature
+	/// list of /datum/action's that this item has.
+	var/list/actions = null
+	/// list of paths of action datums to give to the item on New().
+	var/list/actions_types = null
+	/// list of icons-sheets for a given action to override the icon.
+	var/list/action_icon = null
+	/// list of icon states for a given action to override the icon_state.
+	var/list/action_icon_state = null
 
 	var/list/materials = null
 	var/materials_coeff = 1
@@ -102,20 +110,31 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/item_state_color
 	var/item_state_alpha
 
-	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
-	//var/heat_transfer_coefficient = 1 //0 prevents all transfers, 1 is invisible
-	var/gas_transfer_coefficient = 1 // for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
-	var/permeability_coefficient = 1 // for chemicals/diseases
-	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
-	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up
-	var/armour_penetration = 0 //percentage of armour effectiveness to remove
-	var/shields_penetration = 0 //amount by which block_chance decreases
+	/// see setup.dm for appropriate bit flags
+	var/body_parts_covered = 0
+	/// 0 prevents all transfers, 1 is invisible
+	//var/heat_transfer_coefficient = 1
+	/// for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
+	var/gas_transfer_coefficient = 1
+	/// for chemicals/diseases
+	var/permeability_coefficient = 1
+	/// for electrical admittance/conductance (electrocution checks and shit)
+	var/siemens_coefficient = 1
+	/// How much clothing is slowing you down. Negative values speeds you up
+	var/slowdown = 0
+	/// percentage of armour effectiveness to remove
+	var/armour_penetration = 0
+	/// amount by which block_chance decreases
+	var/shields_penetration = 0
 	/// Allows you to override the attack animation with an attack effect
 	var/attack_effect_override
-	var/list/allowed = null //suit storage stuff.
-	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
+	/// suit storage stuff.
+	var/list/allowed = null
+	/// All items can have an uplink hidden inside, just remember to add the triggers.
+	var/obj/item/uplink/hidden/hidden_uplink = null
 
-	var/needs_permit = FALSE //Used by security bots to determine if this item is safe for public use.
+	/// Used by security bots to determine if this item is safe for public use.
+	var/needs_permit = FALSE
 
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
@@ -123,7 +142,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	var/block_chance = 0
 	var/block_type = ALL
-	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
+	/// If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
+	var/hit_reaction_chance = 0
 
 	// Needs to be in /obj/item because corgis can wear a lot of
 	// non-clothing items
@@ -134,22 +154,35 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// UID of a /mob that threw the item.
 	var/thrownby
 
-	//So items can have custom embedd values
-	//Because customisation is king
+	/// So items can have custom embedd values
+	/// Because customisation is king
 	var/embed_chance = EMBED_CHANCE
 	var/embedded_fall_chance = EMBEDDED_ITEM_FALLOUT
 	var/embedded_pain_chance = EMBEDDED_PAIN_CHANCE
-	var/embedded_pain_multiplier = EMBEDDED_PAIN_MULTIPLIER  //The coefficient of multiplication for the damage this item does while embedded (this*w_class)
-	var/embedded_fall_pain_multiplier = EMBEDDED_FALL_PAIN_MULTIPLIER //The coefficient of multiplication for the damage this item does when falling out of a limb (this*w_class)
-	var/embedded_impact_pain_multiplier = EMBEDDED_IMPACT_PAIN_MULTIPLIER //The coefficient of multiplication for the damage this item does when first embedded (this*w_class)
-	var/embedded_unsafe_removal_pain_multiplier = EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER //The coefficient of multiplication for the damage removing this without surgery causes (this*w_class)
-	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME //A time in ticks, multiplied by the w_class.
+	/// The coefficient of multiplication for the damage this item does while embedded (this*w_class)
+	var/embedded_pain_multiplier = EMBEDDED_PAIN_MULTIPLIER
+	/// The coefficient of multiplication for the damage this item does when falling out of a limb (this*w_class)
+	var/embedded_fall_pain_multiplier = EMBEDDED_FALL_PAIN_MULTIPLIER
+	/// The coefficient of multiplication for the damage this item does when first embedded (this*w_class)
+	var/embedded_impact_pain_multiplier = EMBEDDED_IMPACT_PAIN_MULTIPLIER
+	/// The coefficient of multiplication for the damage removing this without surgery causes (this*w_class)
+	var/embedded_unsafe_removal_pain_multiplier = EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER
+	/// A time in ticks, multiplied by the w_class.
+	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME
 	var/embedded_ignore_throwspeed_threshold = FALSE
 
-	var/tool_behaviour = NONE //What kind of tool are we?
-	var/tool_enabled = TRUE //If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
-	var/tool_volume = 50 //How loud are we when we use our tool?
-	var/toolspeed = 1 // If this item is a tool, the speed multiplier
+	/// What kind of tool are we?
+	var/tool_behaviour = NONE
+	/// If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
+	var/tool_enabled = TRUE
+	/// How loud are we when we use our tool?
+	var/tool_volume = 50
+	/// If this item is a tool, the speed multiplier
+	var/toolspeed = 1
+	/// For tools that have an extra mode.
+	var/tool_mode = NONE
+	/// For tools that can be used from toolbox via radial menu
+	var/toolbox_radial_menu_compatibility = FALSE
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
@@ -158,11 +191,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		)
 	If index term exists and icon_override is not set, this sprite sheet will be used.
 	*/
-	///Sprite sheets to render species clothing, takes priority over "onmob_sheets" var, but only takes one dmi
+	/// Sprite sheets to render species clothing, takes priority over "onmob_sheets" var, but only takes one dmi
 	var/list/sprite_sheets = null
-	var/list/sprite_sheets_inhand = null //Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
+	/// Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
+	var/list/sprite_sheets_inhand = null
 
-	///Sprite sheets used to render clothing, if none of sprite_sheets are used
+	/// Sprite sheets used to render clothing, if none of sprite_sheets are used
 	var/list/onmob_sheets = list(
 		ITEM_SLOT_EAR_LEFT_STRING = DEFAULT_ICON_LEFT_EAR,
 		ITEM_SLOT_EAR_RIGHT_STRING = DEFAULT_ICON_RIGHT_EAR,
@@ -204,13 +238,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/outline_filter
 
 	//Clockwork enchantment
-	var/enchant_type = NO_SPELL // What's the type on enchantment on it? 0
-	var/list/enchants = null // List(datum)
+	/// What's the type on enchantment on it? 0
+	var/enchant_type = NO_SPELL
+	/// List(datum)
+	var/list/enchants = null
 
-	///In deciseconds, how long an item takes to equip/unequip; counts only for normal clothing slots, not pockets, hands etc.
+	/// In deciseconds, how long an item takes to equip/unequip; counts only for normal clothing slots, not pockets, hands etc.
 	var/equip_delay_self = 0 SECONDS
 
-	///Datum used in item pixel shift TGUI
+	/// Datum used in item pixel shift TGUI
 	var/datum/ui_module/item_pixel_shift/item_pixel_shift
 
 	/// Used in butchering of animals, set to TRUE for near instant butchering
@@ -226,7 +262,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/Initialize(mapload)
 	. = ..()
 
-	if(isstorage(loc)) //marks all items in storage as being such
+	/// marks all items in storage as being such
+	if(isstorage(loc))
 		item_flags |= IN_STORAGE
 
 	if(!hitsound)
@@ -333,16 +370,18 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(WEIGHT_CLASS_GIGANTIC)
 			size = "гигантского"
 
-	. = ..(user, "", "Это предмет [size] размера.")
+	. = ..(user, "", "Предмет <b>[size]</b> размера.")
 
-	if(user.research_scanner || user.check_smart_brain()) //Mob has a research scanner active.
+	/// Mob has a research scanner active.
+	if(user.research_scanner || user.check_smart_brain())
 		var/msg = "*--------* <br>"
 
 		if(origin_tech)
 			msg += span_notice("Тестирование потенциалов:<br>")
 			var/list/techlvls = params2list(origin_tech)
-			for(var/T in techlvls) //This needs to use the better names.
-				msg += "Технология: [CallTechName(T)] | Уровень: [techlvls[T]] <br>"
+			/// This needs to use the better names.
+			for(var/tech_level in techlvls)
+				msg += "Технология: [CallTechName(tech_level)] | Уровень: [techlvls[tech_level]] <br>"
 		else
 			msg += span_danger("Технологические источники не обнаружены.<br>")
 
@@ -350,7 +389,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(length(materials))
 			msg += span_notice("Извлекаемые материалы:<br>")
 			for(var/mat in materials)
-				msg += "[CallMaterialName(mat)]<br>" //Capitize first word, remove the "$"
+				/// Capitize first word, remove the "$"
+				msg += "[CallMaterialName(mat)]<br>"
 		else
 			msg += span_danger("Пригодные материалы отсутствуют.<br>")
 		msg += "*--------*"
@@ -1000,7 +1040,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return FALSE // Process Kill
 
 
-/obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
+/// please use this if you're going to snowflake an item out of a obj/item/storage
+/obj/item/proc/remove_item_from_storage(atom/newLoc)
 	if(!newLoc)
 		return FALSE
 	if(isstorage(loc))
@@ -1361,7 +1402,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	SHOULD_BE_PURE(TRUE)
 	return !HAS_TRAIT(src, TRAIT_NODROP) && !(item_flags & ABSTRACT)
 
-///Called by the carbon throw_item() proc. Returns null if the item negates the throw, or a reference to the thing to suffer the throw else.
+/// Called by the carbon throw_item() proc. Returns null if the item negates the throw, or a reference to the thing to suffer the throw else.
 /obj/item/proc/on_thrown(mob/living/carbon/user, atom/target)
 	if((item_flags & ABSTRACT) || HAS_TRAIT(src, TRAIT_NODROP))
 		return

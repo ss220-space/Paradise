@@ -24,6 +24,7 @@
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	origin_tech = "magnets=1;engineering=2"
 	tool_behaviour = TOOL_MULTITOOL
+	toolbox_radial_menu_compatibility = TRUE
 	hitsound = 'sound/weapons/tap.ogg'
 	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
 	var/obj/machinery/buffer // simple machine buffer for device linkage

@@ -15,6 +15,7 @@
 	light_on = FALSE
 	var/on = FALSE
 	var/togglesound = 'sound/weapons/empty.ogg'
+	toolbox_radial_menu_compatibility = TRUE
 
 /obj/item/flashlight/dummy
 	name = "Testing flashlight"

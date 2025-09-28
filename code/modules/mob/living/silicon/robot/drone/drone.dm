@@ -105,7 +105,7 @@
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list(ENG_FREQ_NAME = 1)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 
 	//Grab stacks.
 	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in src.module

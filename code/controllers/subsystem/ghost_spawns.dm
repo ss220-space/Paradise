@@ -306,7 +306,7 @@ SUBSYSTEM_DEF(ghost_spawns)
  * Deletes any candidates who may have disconnected from the list
  */
 /datum/candidate_poll/proc/trim_candidates()
-	listclearnulls(signed_up)
+	list_clear_nulls(signed_up)
 	for(var/mob in signed_up)
 		var/mob/M = mob
 		if(!M.key || !M.client)

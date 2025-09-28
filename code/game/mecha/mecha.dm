@@ -179,7 +179,7 @@
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_to_hud(src)
+		diag_hud.add_atom_to_hud(src)
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
@@ -188,6 +188,7 @@
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
 	qdel(V)
+	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 	AddElement(/datum/element/falling_hazard, damage = 100, hardhat_safety = FALSE, crushes = TRUE)
 
@@ -243,7 +244,7 @@
 			. += span_notice("[bicon(ME)] [ME]")
 
 /obj/mecha/hear_talk(mob/M, list/message_pieces)
-	if(M == occupant && radio.broadcasting)
+	if(M == occupant && radio.get_broadcasting())
 		radio.talk_into(M, message_pieces)
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)

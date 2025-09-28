@@ -23,6 +23,7 @@
 	origin_tech = "engineering=1;plasmatech=1"
 	tool_behaviour = TOOL_WELDER
 	tool_enabled = FALSE
+	toolbox_radial_menu_compatibility = TRUE
 	usesound = 'sound/items/welder.ogg'
 	drop_sound = 'sound/items/handling/drop/weldingtool_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/weldingtool_pickup.ogg'
@@ -46,9 +47,11 @@
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
+	RegisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE, PROC_REF(handle_toolbox_signal))
 
 /obj/item/weldingtool/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	UnregisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE)
 	return ..()
 
 /obj/item/weldingtool/examine(mob/user)
@@ -89,6 +92,10 @@
 /obj/item/weldingtool/attack_self(mob/user)
 	if(try_toggle_welder(user))
 		return ..()
+
+/obj/item/weldingtool/proc/handle_toolbox_signal(datum/source, mob/user)
+	SIGNAL_HANDLER
+	try_toggle_welder(user)
 
 /obj/item/weldingtool/proc/try_toggle_welder(mob/user, manual_toggle = TRUE)
 	if(tool_enabled) //Turn off the welder if it's on

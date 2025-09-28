@@ -386,13 +386,13 @@ SUBSYSTEM_DEF(mapping)
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])
 		if(map_datum.traits.len > MULTIZ_WARN)
 			message_admins("Loading station with over [MULTIZ_WARN] levels(It has [map_datum.traits.len]!!). May cause some issues with space levels and/or perfomance on server.")
-
 		for(var/i in 2 to map_datum.traits.len)
 			GLOB.space_manager.add_new_zlevel(MAIN_STATION + "([i])", linkage = map_datum.linkage, traits = map_datum.traits[i])
 	else
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+
 
 	if(map_datum?.forced_mode)
 		GLOB.master_mode = map_datum.forced_mode.name

@@ -83,8 +83,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	countdown = new(src)
 
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
-	Radio.config(list(MED_FREQ_NAME = 0))
+	Radio.set_listening(FALSE)
 	Radio.follow_target = src
 
 	component_parts = list()

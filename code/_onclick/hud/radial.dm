@@ -298,10 +298,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	menu_holder = null
 	. = ..()
 
-/*
-	Presents radial menu to user anchored to anchor (or user if the anchor is currently in users screen)
-	Choices should be a list where list keys are movables or text used for element names and return value
-	and list values are movables/icons/images used for element icons
+/**
+ * Presents radial menu to user anchored to anchor (or user if the anchor is currently in users screen)
+ * Choices should be a list where list keys are movables or text used for element names and return value
+ * and list values are movables/icons/images used for element icons
 */
 /proc/show_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE, anim_speed = ANIM_SPEED)
 	if(!user || !anchor || !length(choices))
