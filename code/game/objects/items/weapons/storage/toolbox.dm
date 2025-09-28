@@ -105,7 +105,7 @@
 		return
 
 	var/obj/item/selected
-	for(var/obj/item/item in contents)
+	for(var/obj/item/item as anything in contents)
 		if(item.declent_ru(NOMINATIVE) != picked_item)
 			continue
 		selected = item
