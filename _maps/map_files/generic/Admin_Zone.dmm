@@ -2081,7 +2081,7 @@
 	},
 /area/admin)
 "wN" = (
-/obj/effect/landmark/tdome/tdomeadmin,
+/obj/effect/landmark/spawner/tdomeadmin,
 /obj/item/radio/intercom/pirate{
 	pixel_y = -25;
 	req_access = list(153)

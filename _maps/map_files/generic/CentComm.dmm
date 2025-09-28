@@ -16728,7 +16728,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark/syndicate_spawn,
+/obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "ifg" = (
@@ -25146,7 +25146,7 @@
 /area/centcom/bridge)
 "lWc" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/syndicate_spawn,
+/obj/effect/landmark/spawner/syndie,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -30
 	},
@@ -35872,7 +35872,7 @@
 /area/shuttle/administration)
 "qBj" = (
 /obj/effect/turf_decal/box,
-/obj/effect/landmark/nuclear_bomb,
+/obj/effect/landmark/spawner/nuclear_bomb,
 /obj/machinery/door/window/brigdoor/westleft{
 	color = "#d70000";
 	dir = 2;
@@ -51441,7 +51441,7 @@
 /area/syndicate_mothership)
 "xBV" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/syndicate_spawn,
+/obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "xCi" = (
