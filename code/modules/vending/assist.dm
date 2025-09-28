@@ -13,8 +13,8 @@
 		"Л+учшее снаряж+ение в к+осмосе!"
 	)
 	refill_canister = /obj/item/vending_refill/assist
-  
-  products = list(
+
+  	products = list(
 		/obj/item/assembly/prox_sensor = 5,
 		/obj/item/assembly/igniter = 3,
 		/obj/item/assembly/signaler = 4,
