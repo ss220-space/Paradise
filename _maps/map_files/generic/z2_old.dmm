@@ -8509,10 +8509,7 @@
 /area/ninja/outpost)
 "gyc" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark{
-	name = "Syndicate-Commando";
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_commando,
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},
@@ -17235,10 +17232,7 @@
 /area/centcom/zone2)
 "mHZ" = (
 /obj/structure/chair/stool/holostool,
-/obj/effect/landmark{
-	name = "Syndicate-Infiltrator";
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},
@@ -19834,9 +19828,7 @@
 /obj/structure/chair/comfy/red{
 	color = "#FFFFFF"
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/aroomwarp,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -20712,9 +20704,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/aroomwarp,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"
@@ -24658,9 +24648,7 @@
 	color = "#FFFFFF";
 	dir = 1
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/aroomwarp,
 /turf/simulated/floor/indestructible{
 	icon = 'icons/turf/floors/carpet_black.dmi';
 	icon_state = "carpet"

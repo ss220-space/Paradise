@@ -16104,9 +16104,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/aroomwarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23266,9 +23264,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "lcJ" = (
-/obj/effect/landmark/syndicate_infiltrator{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -34087,9 +34083,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "pQd" = (
-/obj/effect/landmark/syndicate_infiltrator{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "pQe" = (
@@ -37634,9 +37628,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 4
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/aroomwarp,
 /obj/effect/turf_decal/plaque,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/effect/turf_decal/stripes/gold{
@@ -39592,18 +39584,14 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/aroomwarp,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/specops)
 "skU" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/landmark/syndicate_infiltrator{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "sle" = (
@@ -51062,9 +51050,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/aroomwarp,
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/specops)

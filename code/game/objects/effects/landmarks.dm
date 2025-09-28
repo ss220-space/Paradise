@@ -83,11 +83,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	return ..()
 
 // MARK: SPAWNER
-/obj/effect/landmark/spawner/wiz
+/obj/effect/landmark/spawner/wizard
 	name = "wizard"
 	icon_state = "Wiz"
 
-/obj/effect/landmark/spawner/wiz/Initialize(mapload)
+/obj/effect/landmark/spawner/wizard/Initialize(mapload)
 	spawner_list = GLOB.wizardstart
 	return ..()
 
@@ -208,7 +208,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	spawner_list = GLOB.emergencyresponseteamspawn
 	return ..()
 
-/obj/effect/landmark/spawner/wiz
+/obj/effect/landmark/spawner/wizard
 	name = "wizard"
 	icon_state = "Wiz"
 

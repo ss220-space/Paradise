@@ -23,3 +23,21 @@
 /obj/effect/landmark/ninja_teleport : /obj/effect/landmark/spawner/ninja_teleport
 /obj/effect/landmark/airdrop : /obj/effect/landmark/spawner/airdrop
 /obj/effect/landmark/armory : /obj/effect/landmark/spawner/armory
+
+/obj/effect/landmark/tdome/tdome1 : /obj/effect/landmark/spawner/tdome1
+/obj/effect/landmark/tdome/tdome2 : /obj/effect/landmark/spawner/tdome2
+/obj/effect/landmark/holocarp_spawn : /obj/effect/landmark/spawner/holocarp
+/obj/effect/landmark/tdome/tdome_observer : /obj/effect/landmark/spawner/tdomeobserve
+/obj/effect/landmark/ert_director : /obj/effect/landmark/spawner/ertdirector
+/obj/effect/landmark/voxstart : /obj/effect/landmark/spawner/raider_spawn
+/obj/effect/landmark/syndicate_officer : /obj/effect/landmark/spawner/syndicateofficer
+/obj/effect/landmark/response_team : /obj/effect/landmark/spawner/ert
+/obj/effect/landmark/traderstart_sol : /obj/effect/landmark/spawner/soltrader
+/obj/effect/landmark/aroomwarp : /obj/effect/landmark/spawner/aroomwarp
+/obj/effect/landmark/commando_manual : /obj/effect/landmark/spawner/commando_manual
+/obj/effect/landmark/prisonwarp : /obj/effect/landmark/spawner/prisonwarp
+/obj/effect/landmark/prisonsecuritywarp : /obj/effect/landmark/spawner/prisonsecuritywarp
+/obj/effect/landmark/ninjastart : /obj/effect/landmark/spawner/ninjastart
+/obj/effect/landmark/teleport_scroll : /obj/effect/landmark/spawner/teleport_scroll
+/obj/effect/landmark/syndieprisonwarp : /obj/effect/landmark/spawner/syndieprisonwarp
+/obj/effect/landmark/wizard : /obj/effect/landmark/spawner/wizard
