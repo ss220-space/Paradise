@@ -92,3 +92,6 @@
 #define COMSIG_SHELL_CIRCUIT_ATTACHED "shell_circuit_attached"
 ///Sent to the shell component when a circuit is removed.
 #define COMSIG_SHELL_CIRCUIT_REMOVED "shell_circuit_removed"
+
+/// Sent when a wirenet circuit component sends a signal (list/data)
+#define COMSIG_POWERNET_CIRCUIT_TRANSMISSION "powernet_circuit_transmision"

@@ -139,9 +139,9 @@
 	examine_text += span_notice("Крышка интегральной схемы [locked? "закрыта" : "открыта"].")
 	var/obj/item/stock_parts/cell/cell = attached_circuit.cell
 	if(cell)
-		. += span_notice("Заряд элемента питания: [round(cell.percent(), 1)]%.")
+		examine_text += span_notice("Заряд элемента питания: [round(cell.percent(), 1)]%.")
 	else
-		. += span_notice("Элемент питания не установлен.")
+		examine_text += span_notice("Элемент питания не установлен.")
 
 	if(shell_flags & SHELL_FLAG_USB_PORT)
 		examine_text += span_notice("Здесь есть <b>USB-порт</b> на панели.")

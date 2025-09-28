@@ -80,8 +80,6 @@
 
 /obj/item/circuit_component/Initialize(mapload)
 	. = ..()
-	if(name == COMPONENT_DEFAULT_NAME)
-		name = "[LOWER_TEXT(display_name)] [COMPONENT_DEFAULT_NAME]"
 	populate_options()
 	populate_ports()
 	ADD_TRAIT(src, TRAIT_NO_CLONE_IN_EXPERIMENTATOR, INNATE_TRAIT)
@@ -104,6 +102,16 @@
 	QDEL_LIST(output_ports)
 	QDEL_LIST(input_ports)
 	return ..()
+
+/obj/item/circuit_component/get_ru_names()
+	return list(
+			NOMINATIVE = "компонент \"[display_name]\"" ,
+			GENITIVE = "компонента \"[display_name]\"",
+			DATIVE = "компоненту \"[display_name]\"",
+			ACCUSATIVE = "компонента \"[display_name]\"",
+			INSTRUMENTAL = "компонентом \"[display_name]\"",
+			PREPOSITIONAL = "компоненте \"[display_name]\""
+		)
 
 /obj/item/circuit_component/drop_location()
 	if(parent?.shell)
@@ -359,8 +367,7 @@
 			. += create_ui_notice(initial(shell.name), "green", "plus-square")
 
 	if(length(input_ports))
-		. += create_ui_notice("Потребление энергии на вход: [energy_usage_per_input]", "orange", "bolt") // похуй потом [display_energy(energy_usage_per_input)]
-
+		. += create_ui_notice("Потребление энергии на вход: [energy_usage_per_input]", "orange", "bolt")
 
 /**
  * Called when a special button is pressed on this component in the UI.

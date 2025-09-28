@@ -14,9 +14,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	container_type = OPENCONTAINER
 
 	///List of designs scanned and saved
-	var/list/scanned_designs = list()
+	var/list/scanned_designs
 	/// The current unlocked circuit component designs. Used by integrated circuits to print off circuit components remotely.
-	var/list/current_unlocked_designs = list()
+	var/list/current_unlocked_designs
 	///Constant material cost per component
 	var/cost_per_component = CIRCUIT_COMPONENT_COST
 
@@ -130,18 +130,18 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		ui = new(user, src, "ComponentPrinter", name)
 		ui.open()
 
-/obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/I, mob/user, params)
+/obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/tool, mob/user, params)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	var/is_open_container = I.is_open_container()
+	var/is_open_container = tool.is_open_container()
 	if(user.a_intent == INTENT_HARM)
 		if(is_open_container)
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
 		return ..()
 
-	if(exchange_parts(user, I))
+	if(exchange_parts(user, tool))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(is_open_container)
@@ -150,8 +150,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
 
-	if(is_circuit(I))
-		circuit_iteract(user, I)
+	if(is_circuit(tool))
+		circuit_iteract(user, tool)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -164,9 +164,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/amount_inserted = materials.insert_item(tool)
 	if(amount_inserted)
 		qdel(tool)
-		to_chat(user, span_notice("[tool.declent_ru(NOMINATIVE)] стоимостью [amount_inserted /  SHEET_VOLUME] листов материала было потреблено [src.declent_ru(INSTRUMENTAL)]"))
+		to_chat(user, span_notice("[tool.declent_ru(NOMINATIVE)] стоимостью [amount_inserted /  SHEET_VOLUME] листов материала было потреблено [declent_ru(INSTRUMENTAL)]"))
 	else
-		to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] был отклонен [src.declent_ru(INSTRUMENTAL)]"))
+		to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] был отклонен [declent_ru(INSTRUMENTAL)]"))
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/circuit_iteract(mob/user, obj/item/circuit)
 	if(!is_circuit(circuit))
@@ -179,8 +179,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		"Save Circuit" = save_icon,
 	)
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user, circuit), require_near = TRUE)
+
 	if(!check_menu(user, circuit))
 		return FALSE
+
 	switch(choice)
 		if("Link Circuit")
 			link_circuit(user, circuit)
@@ -202,57 +204,64 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return TRUE
 
-/obj/machinery/r_n_d/circuit_imprinter/proc/link_circuit(mob/living/user, obj/item/I)
-	if(!is_circuit(I))
+/obj/machinery/r_n_d/circuit_imprinter/proc/link_circuit(mob/living/user, obj/item/tool)
+	if(!is_circuit(tool))
 		return FALSE
 
 	var/obj/item/integrated_circuit/circuit
 
-	if(istype(I, /obj/item/integrated_circuit))
-		circuit = I
-	else if(istype(I, /obj/item/circuit_component/module))
-		var/obj/item/circuit_component/module/module = I
+	if(istype(tool, /obj/item/integrated_circuit))
+		circuit = tool
+	else if(istype(tool, /obj/item/circuit_component/module))
+		var/obj/item/circuit_component/module/module = tool
 		circuit = module.internal_circuit
 
 	circuit.linked_circuit_imprinter = WEAKREF(src)
 	circuit.update_static_data_for_all_viewers()
 	balloon_alert(user, "схема подключена")
 
-/obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit(mob/living/user, obj/item/circuit)
-	var/list/data = list()
+/obj/machinery/r_n_d/circuit_imprinter/proc/can_save_circuit(mob/living/user, obj/item/circuit)
+	if(!circuit)
+		return FALSE
+
 	if(!is_circuit(circuit))
-		return
+		return FALSE
+
 	if(!linked_console)
 		balloon_alert(user, "консоль исследований не привязана!")
+		return FALSE
+
+	if(HAS_TRAIT(circuit, TRAIT_CIRCUIT_UNDUPABLE))
+		balloon_alert(user, "интегральная схема не может быть сохранена!")
+		return FALSE
+
+	return TRUE
+
+/obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit(mob/living/user, obj/item/circuit)
+	if(!can_save_circuit(user, circuit))
 		return
+
+	var/list/data = list()
 
 	if(istype(circuit, /obj/item/circuit_component/module))
 		var/obj/item/circuit_component/module/module = circuit
-		if(HAS_TRAIT(module, TRAIT_CIRCUIT_UNDUPABLE))
-			balloon_alert(user, "интегральная схема не может быть сохранена!")
-			return
 
 		data["dupe_data"] = list()
 		module.save_data_to_list(data["dupe_data"])
 
 		data["name"] = module.display_name
-		data["desc"] = "A module that has been loaded in by [user]."
 		data["materials"] = list(MAT_GLASS = module.circuit_size * cost_per_component)
 
-	else if(istype(circuit, /obj/item/integrated_circuit))
+	else
 		var/obj/item/integrated_circuit/integrated_circuit = circuit
-		if(HAS_TRAIT(integrated_circuit, TRAIT_CIRCUIT_UNDUPABLE))
-			balloon_alert(user, "интегральная схема не может быть сохранена!")
-			return
 		data["dupe_data"] = integrated_circuit.convert_to_json()
 
 		data["name"] = integrated_circuit.display_name
-		data["desc"] = "An integrated circuit that has been loaded in by [user]."
 
-		var/datum/design/integrated_circuit/circuit_design = linked_console.files.known_designs["integrated_circuit"]
+		var/datum/design/integrated_circuit/circuit_design
 		var/materials = list(MAT_GLASS = integrated_circuit.current_size * cost_per_component)
-		for(var/material_type in circuit_design.materials)
-			materials[material_type] += circuit_design.materials[material_type]
+		for(var/material_type in circuit_design::materials)
+			materials[material_type] += circuit_design::materials[material_type]
 
 		data["materials"] = materials
 		data["integrated_circuit"] = TRUE
@@ -271,6 +280,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		if(component_data["name"] == data["name"])
 			balloon_alert(user, "название занято!")
 			return
+
+	var/circuit_desc = tgui_input_text(user, "Введите описание схемы.", "Описание", "")
+
+	data["desc"] = circuit_desc ? circuit_desc : "Схема, сохранённая пользователем [user]."
 
 	LAZYADD(scanned_designs, list(data))
 
@@ -303,10 +316,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	created_atom.pixel_y = created_atom.base_pixel_y + rand(-5, 5)
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/print_component(typepath)
-	var/design_id = current_unlocked_designs[typepath]
+	var/design_id = LAZYACCESS(current_unlocked_designs, typepath)
 	var/datum/design/design = linked_console.files.known_designs[design_id]
 
-	if(!(design.build_type & IMPRINTER))
+	if(!(design?.build_type & IMPRINTER))
 		return
 
 	if(try_use_materials(design.materials))
@@ -381,16 +394,16 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return data
 
-/obj/machinery/r_n_d/circuit_imprinter/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/circuit_imprinter/screwdriver_act(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, tool)
 	if(. && linked_console)
 		linked_console.linked_imprinter = null
 		linked_console = null
 
-/obj/machinery/r_n_d/circuit_imprinter/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/circuit_imprinter/crowbar_act(mob/living/user, obj/item/tool)
 	. = TRUE
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -405,5 +418,5 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			reagents.trans_to(component, reagents.total_volume)
 		component.forceMove(drop_loc)
 	materials.retrieve_all()
-	default_deconstruction_crowbar(user, I)
+	default_deconstruction_crowbar(user, tool)
 

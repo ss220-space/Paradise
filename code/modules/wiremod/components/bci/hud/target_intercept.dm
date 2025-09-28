@@ -23,9 +23,11 @@
 	clicked_atom = add_output_port("Цель", PORT_TYPE_ATOM)
 
 /obj/item/circuit_component/target_intercept/register_shell(atom/movable/shell)
-	if(istype(shell, /obj/item/organ/internal/cyberimp/brain/bci))
-		bci = shell
-		RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
+	if(!istype(shell, /obj/item/organ/internal/cyberimp/brain/bci))
+		return
+
+	bci = shell
+	RegisterSignal(shell, COMSIG_ORGAN_REMOVED, PROC_REF(on_organ_removed))
 
 /obj/item/circuit_component/target_intercept/unregister_shell(atom/movable/shell)
 	bci = null
