@@ -608,7 +608,7 @@
 		return
 
 	var/datum/smite_ui/ui = new(mob)
-	ui.ui_interact(mob)
+	ui.ui_interact(usr)
 
 
 /// MARK: TGUI
@@ -637,7 +637,7 @@
 /datum/smite_ui/ui_static_data(mob/user)
 	. = ..()
 	var/list/smites_paths = GLOB.smites_not_human.Copy()
-	if(ishuman(user))
+	if(ishuman(victim_mob))
 		smites_paths += GLOB.smites_human.Copy()
 
 	.["all_smites"] = list()

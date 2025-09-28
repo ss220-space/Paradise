@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 
 /datum/devil_contract/magic/fulfill_contract(mob/living/carbon/human/user)
 	var/list/spell_list = possible_magic.Copy()
-	for(var/i = 1; i <= MAGIC_SPELLS_COUNT; i++)
+	for(var/i in 1 to MAGIC_SPELLS_COUNT)
 		var/spell_type = pick_n_take(spell_list)
 		var/obj/effect/proc_holder/spell/spell = new spell_type(null)
 		spell.clothes_req = FALSE

@@ -69,7 +69,7 @@
 		var/list/L = steps[i]
 		if(do_tool_or_atom_check(used_atom, L["key"]) && custom_action(i, used_atom, user))
 			steps[i]=null;//stupid byond list from list removal...
-			listclearnulls(steps)
+			list_clear_nulls(steps)
 			if(!steps.len)
 				spawn_result(user)
 			return 1

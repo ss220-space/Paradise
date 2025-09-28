@@ -6,6 +6,7 @@
 	materials = list(MAT_METAL=400, MAT_GLASS=120)
 	origin_tech = "magnets=1;bluespace=1"
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
+	toolbox_radial_menu_compatibility = TRUE
 
 	var/receiving = FALSE
 

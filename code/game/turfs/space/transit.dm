@@ -37,6 +37,7 @@
 		dump_in_space(movable)
 
 /turf/space/transit/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
 	if(!arrived)
 		return
 	if(!arrived.simulated || istype(arrived, /obj/docking_port))

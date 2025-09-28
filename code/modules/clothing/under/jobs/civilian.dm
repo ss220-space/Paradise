@@ -218,25 +218,29 @@
 
 
 /obj/item/clothing/under/lawyer
-	desc = "Slick threads."
 	name = "Lawyer suit"
+	desc = "Slick threads."
 
 /obj/item/clothing/under/lawyer/black
+	name = "black lawyer suit"
 	icon_state = "lawyer_black"
 	item_state = "lawyer_black"
 	item_color = "lawyer_black"
 
 /obj/item/clothing/under/lawyer/female
+	name = "female lawyer suit"
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
 	item_color = "black_suit_fem"
 
 /obj/item/clothing/under/lawyer/red
+	name = "red lawyer suit"
 	icon_state = "lawyer_red"
 	item_state = "lawyer_red"
 	item_color = "lawyer_red"
 
 /obj/item/clothing/under/lawyer/blue
+	name = "blue lawyer suit"
 	icon_state = "lawyer_blue"
 	item_state = "lawyer_blue"
 	item_color = "lawyer_blue"

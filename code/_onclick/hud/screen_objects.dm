@@ -368,7 +368,6 @@
 	if(!isobserver(usr) && hovering)
 		cut_overlay(hover_overlays_cache[hovering])
 		hovering = null
-	return ..()
 
 
 /atom/movable/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)

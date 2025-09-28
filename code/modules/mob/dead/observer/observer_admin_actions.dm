@@ -28,7 +28,7 @@
 	return
 
 /datum/action/innate/admin/ticket
-	name = "Запросы помощи Админа"
+	name = ADMINHELP_SYSTEM_NAME
 	desc = "Открыто 0 тикетов."
 	button_icon_state = "adminhelp"
 	var/ticket_amt = 0
@@ -65,7 +65,7 @@
 	button.add_overlay(maptext_holder)
 
 /datum/action/innate/admin/ticket/mentor
-	name = "Mentorhelps"
+	name = MENTORHELP_SYSTEM_NAME
 	button_icon_state = "mentorhelp"
 	rights_required = R_MENTOR|R_ADMIN
 

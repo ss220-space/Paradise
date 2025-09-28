@@ -24,8 +24,8 @@
 
 	ui_theme = "ntos_lightmode"
 
-/obj/mecha/combat/reticence/loaded/New()
-	..()
+/obj/mecha/combat/reticence/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/mimercd //HAHA IT MAKES WALLS GET IT
