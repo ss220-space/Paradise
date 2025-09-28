@@ -46,6 +46,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "magnets=3;engineering=4"
 	force = 8
+	toolbox_radial_menu_compatibility = TRUE
 
 	var/emagged = FALSE
 	var/max_uses = 20

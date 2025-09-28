@@ -48461,16 +48461,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dKe" = (
-/obj/effect/decal/warning_stripes/northeast,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/obj/item/stock_parts/cell/high,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/mecha_part_fabricator/spacepod,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70806,8 +70802,20 @@
 /area/toxins/test_area)
 "nSy" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/rdconsole/mechanics,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/rods{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 30
+	},
+/obj/item/clothing/gloves/color/yellow,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop)
 "nSz" = (
@@ -71367,23 +71375,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/table/reinforced,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
-/obj/item/stack/rods{
-	amount = 50
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 30
-	},
-/obj/item/clothing/gloves/color/yellow,
 /obj/machinery/camera{
 	c_tag = "Mechanic's Workshop East"
 	},
+/obj/machinery/computer/rdconsole/mechanics,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop)
 "okb" = (
@@ -86089,8 +86085,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "uLz" = (
-/obj/machinery/mecha_part_fabricator/spacepod,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table/reinforced,
+/obj/item/stock_parts/cell/high,
+/obj/machinery/cell_charger{
+	pixel_x = -1;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop)
 "uLD" = (

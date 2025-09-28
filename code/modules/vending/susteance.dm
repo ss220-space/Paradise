@@ -7,35 +7,34 @@
 		"С+амый здор+овый!",
 		"Отм+еченные нагр+адами шокол+адные бат+ончики!",
 		"Ммм! Так вк+усно!",
-		"О б+оже, ++это так вк+усно!",
+		"О б+оже, +это так вк+усно!",
 		"Перекус+ите.",
-		"Зак+уски - ++это зд+орово!",
+		"Зак+уски - +это зд+орово!",
 		"Возьм+и немн+ого, и ещ+ё немн+ого!",
 		"Зак+уски в+ысшего к+ачества пр+ямо с М+арса.",
 		"Мы л+юбим шокол+ад!",
 		"Попр+обуйте н+аше н+овое в+яленое м+ясо!"
 	)
-
 	icon_state = "sustenance_off"
 	panel_overlay = "snack_panel"
 	screen_overlay = "snack"
 	lightmask_overlay = "snack_lightmask"
 	broken_overlay = "snack_broken"
 	broken_lightmask_overlay = "snack_broken_lightmask"
-
 	broken_lightmask_overlay = "snack_broken_lightmask"
+	refill_canister = /obj/item/vending_refill/sustenance
+
 	products = list(
 		/obj/item/reagent_containers/food/snacks/tofu = 24,
 		/obj/item/reagent_containers/food/drinks/ice = 12,
-		/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6
+		/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6,
 	)
 	contraband = list(
 		/obj/item/kitchen/knife = 6,
 		/obj/item/reagent_containers/food/drinks/coffee = 12,
 		/obj/item/tank/internals/emergency_oxygen = 6,
-		/obj/item/clothing/mask/breath = 6
+		/obj/item/clothing/mask/breath = 6,
 	)
-	refill_canister = /obj/item/vending_refill/sustenance
 
 /obj/machinery/vending/sustenance/get_ru_names()
 	return list(
@@ -49,7 +48,11 @@
 
 /obj/machinery/vending/sustenance/additional
 	desc = "Какого чёрта этот автомат тут оказался?!"
-	products = list(/obj/item/reagent_containers/food/snacks/tofu = 12,
-					/obj/item/reagent_containers/food/drinks/ice = 6,
-					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
-	contraband = list(/obj/item/kitchen/knife=2)
+	products = list(
+		/obj/item/reagent_containers/food/snacks/tofu = 12,
+		/obj/item/reagent_containers/food/drinks/ice = 6,
+		/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6,
+	)
+	contraband = list(
+		/obj/item/kitchen/knife = 2,
+	)

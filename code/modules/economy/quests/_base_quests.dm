@@ -25,9 +25,9 @@
 	/// Reward for quest.
 	var/reward
 	/// Name of the person who accepted the order.
-	var/idname = "*None Provided*"
+	var/idname = "*Не указано*"
 	/// Name of the person who accepted the order.
-	var/idrank = "*None Provided*"
+	var/idrank = "*Не указано*"
 	///	If TRUE we can reroll this quest.
 	var/can_reroll = TRUE
 	/// Date when the order was accepted
@@ -145,7 +145,7 @@
 
 /datum/cargo_quest
 	/// Quest name, using in interface.
-	var/quest_type_name = "generic"
+	var/quest_type_name = "шаблонное название"
 	/// Link to the storage.
 	var/datum/cargo_quests_storage/q_storage
 	/// Quest desc, using in interface.
@@ -158,11 +158,12 @@
 	var/list/req_items = list()
 	///possible difficultly
 	var/difficultly_flags
-
-
-	var/cargo_quest_reward = 0			//The reward for the quest, consider the debut of the roflcat
-	var/list/bounty_jobs = list()		//Positions that will be paid. (Noooo I won't do part of this in new)
-	var/linked_departament = "Cargo"	//The department key is specified to take it from the global list, no, I will not upload to new, I'm afraid to break even
+	/// The reward for the quest, consider the debut of the roflcat
+	var/cargo_quest_reward = 0
+	/// Positions that will be paid. (Noooo I won't do part of this in new)
+	var/list/bounty_jobs = list()
+	/// The department key is specified to take it from the global list, no, I will not upload to new, I'm afraid to break even
+	var/linked_departament = "Cargo"
 
 /datum/cargo_quest/New(storage, read_datum = FALSE)
 	if(!read_datum)

@@ -162,6 +162,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isopenspaceturf(A) (istype(A, /turf/simulated/openspace) || istype(A, /turf/space/openspace))
 
+#define istransparentturf(A) (HAS_TRAIT(A, TURF_Z_TRANSPARENT_TRAIT))
+
 #define is_space_or_openspace(A) (isopenspaceturf(A) || isspaceturf(A))
 
 #define isfloorturf(A) istype(A, /turf/simulated/floor)
