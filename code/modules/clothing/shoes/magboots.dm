@@ -101,7 +101,7 @@
 	icon_state = "advsyndiemag0"
 	base_icon_state = "advsyndiemag"
 	slowdown_active = SHOES_SLOWDOWN
-	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE, TRAIT_GUSTPROTECTION)
+	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_ALL, TRAIT_NO_SLIP_SLIDE, TRAIT_GUSTPROTECTION)
 
 /obj/item/clothing/shoes/magboots/clown
 	name = "clown shoes"
