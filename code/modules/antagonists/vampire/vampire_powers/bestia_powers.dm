@@ -2004,7 +2004,8 @@
 		grant_death_vision()
 		return
 
-	set_invis_see(initial(see_invisible))
+	if(see_invisible < SEE_INVISIBLE_VAMPIRE_AURA)
+		set_invis_see(SEE_INVISIBLE_VAMPIRE_AURA)
 	set_sight(initial(sight))
 	lighting_alpha = initial(lighting_alpha)
 	nightvision = initial(nightvision)

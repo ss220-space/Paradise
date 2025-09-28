@@ -88,14 +88,15 @@
 
 
 /datum/diablerie/proc/add_diablerie_aura(ascended = FALSE)
-	diablerie_aura = new()
+	if(!diablerie_aura)
+		diablerie_aura = new()
 
 	diablerie_aura.invisibility = INVISIBILITY_VAMPIRE_AURA
 	if(ascended)
 		diablerie_aura.invisibility = 0
 
 	diablerie_aura.vis_flags = VIS_INHERIT_DIR | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_UNDERLAY
-	vampire.vis_contents += diablerie_aura
+	vampire.vis_contents |= diablerie_aura
 	vampire.update_appearance()
 
 
@@ -270,7 +271,6 @@
 /datum/diablerie_level/level_three/gain(datum/diablerie/diablerie)
 	diablerie.upgrade_rejuvenate(upgrade_heal = TRUE)
 
-	diablerie.remove_diablerie_aura()
 	diablerie.add_diablerie_aura(ascended = TRUE)
 
 	to_chat(diablerie.vampire, span_boldnotice("Сила вашего «Восстановления» возросла, и теперь с его помощью вы можете восстанавливать внутренние кровотечения. Ваша аура теперь видна даже простым смертным. Вы всего в шаге от вершины могущества!"))
@@ -280,7 +280,6 @@
 	var/obj/effect/proc_holder/spell/vampire/self/rejuvenate/rejuvenate = locate() in diablerie.vampire_datum.powers
 	rejuvenate.diablerie_bonus = FALSE
 
-	diablerie.remove_diablerie_aura()
 	diablerie.add_diablerie_aura()
 
 
