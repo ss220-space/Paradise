@@ -108,14 +108,14 @@
 	. = ..()
 	if(HUDType && istype(user) && slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.add_hud_to(user)
+		H.show_to(user)
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(HUDType && istype(user) && slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.remove_hud_from(user)
+		H.hide_from(user)
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/security

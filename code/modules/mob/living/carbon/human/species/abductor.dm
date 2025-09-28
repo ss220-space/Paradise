@@ -54,9 +54,9 @@
 	H.add_language(LANGUAGE_HIVE_ABDUCTOR) //other than over the abductor's own mindlink
 	H.add_language(LANGUAGE_GREY) // still grey enouhg to speak in psi link
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	abductor_hud.add_hud_to(H)
+	abductor_hud.show_to(H)
 
 /datum/species/abductor/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	abductor_hud.remove_hud_from(H)
+	abductor_hud.hide_from(H)

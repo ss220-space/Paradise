@@ -98,13 +98,13 @@
 				<table class="request">
 					<tr>
 						<td class="radio">Transmit:</td>
-						<td><a href='byond://?src=[UID()];wires=4'>[radio.broadcasting ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=[UID()];wires=4'>[radio.get_broadcasting() ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>
 					<tr>
 						<td class="radio">Receive:</td>
-						<td><a href='byond://?src=[UID()];wires=2'>[radio.listening ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=[UID()];wires=2'>[radio.get_listening() ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>
@@ -381,12 +381,12 @@
 		if(!radio)
 			to_chat(user, span_warning("[pai.name] не имеет установленного радио!"))
 			return ATTACK_CHAIN_PROCEED
-		if(radio.keyslot1)
+		if(radio.keyslot)
 			to_chat(user, span_warning("[pai.name] не имеет свободных слотов под ключи шифрования!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		radio.keyslot1 = I
+		radio.keyslot = I
 		radio.recalculateChannels()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -409,14 +409,14 @@
 
 		to_chat(user, span_notice("Вы вытащили картридж улучшения пИИ."))
 
-	if(radio?.keyslot1)
+	if(radio?.keyslot)
 		for(var/ch_name in radio.channels)
 			SSradio.remove_object(radio, SSradio.radiochannels[ch_name])
 			radio.secure_radio_connections[ch_name] = null
 
 		if(T)
-			user.put_in_hands(radio.keyslot1)
-			radio.keyslot1 = null
+			user.put_in_hands(radio.keyslot)
+			radio.keyslot = null
 
 		radio.recalculateChannels()
 		to_chat(user, span_notice("Вы извлекли ключ шифрования из [declent_ru(GENITIVE)]."))

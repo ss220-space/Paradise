@@ -497,21 +497,19 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 //Icon smoothing helpers
 
 /proc/smooth_zlevel(zlevel, now = FALSE)
-	var/list/away_turfs = block(1, 1, zlevel, world.maxx, world.maxy, zlevel)
-	for(var/V in away_turfs)
-		var/turf/T = V
-		if(T.smooth)
+	var/list/away_turfs = Z_TURFS(zlevel)
+	for(var/turf/turf_to_smooth as anything in away_turfs)
+		if(turf_to_smooth.smooth & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 			if(now)
-				smooth_icon(T)
+				smooth_icon(turf_to_smooth)
 			else
-				queue_smooth(T)
-		for(var/R in T)
-			var/atom/A = R
-			if(A.smooth)
+				QUEUE_SMOOTH(turf_to_smooth)
+		for(var/atom/movable/movable_to_smooth as anything in turf_to_smooth)
+			if(movable_to_smooth.smooth & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 				if(now)
-					smooth_icon(A)
+					smooth_icon(movable_to_smooth)
 				else
-					queue_smooth(A)
+					QUEUE_SMOOTH(movable_to_smooth)
 
 /atom/proc/clear_smooth_overlays()
 	cut_overlay(top_left_corner)
@@ -573,19 +571,6 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 			return SOUTHEAST
 		else
 			return NONE
-
-//SSicon_smooth
-/proc/queue_smooth_neighbors(atom/A)
-	for(var/V in orange(1,A))
-		var/atom/T = V
-		if(T.smooth)
-			queue_smooth(T)
-
-//SSicon_smooth
-/proc/queue_smooth(atom/A)
-	if(SSicon_smooth && A.smooth & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-		SSicon_smooth.smooth_queue[A] = A
-		SSicon_smooth.can_fire = 1
 
 //Example smooth wall
 /turf/simulated/wall/smooth

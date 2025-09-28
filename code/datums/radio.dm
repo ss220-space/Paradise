@@ -1,3 +1,27 @@
+GLOBAL_LIST_EMPTY(all_radios)
+
+/proc/add_radio(obj/item/radio, freq)
+	if(!freq || !radio)
+		return
+	if(!GLOB.all_radios["[freq]"])
+		GLOB.all_radios["[freq]"] = list(radio)
+		return freq
+
+	GLOB.all_radios["[freq]"] |= radio
+	return freq
+
+/proc/remove_radio(obj/item/radio, freq)
+	if(!freq || !radio)
+		return
+	if(!GLOB.all_radios["[freq]"])
+		return
+
+	GLOB.all_radios["[freq]"] -= radio
+
+/proc/remove_radio_all(obj/item/radio)
+	for(var/freq in GLOB.all_radios)
+		GLOB.all_radios["[freq]"] -= radio
+
 
 /datum/radio_frequency
 	var/frequency as num

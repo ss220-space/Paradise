@@ -84,8 +84,9 @@
 #define INIT_ORDER_TICKER 30
 #define INIT_ORDER_NEW_PLAYERS_INFO 31
 #define INIT_ORDER_MAPPING 20
-#define INIT_ORDER_HOLOMAP 8 // after map loads, but before atoms init
-#define INIT_ORDER_EARLY_ASSETS 7
+#define INIT_ORDER_HOLOMAP 9 // after map loads, but before atoms init
+#define INIT_ORDER_EARLY_ASSETS 8
+#define INIT_ORDER_SPATIAL_GRID 7
 #define INIT_ORDER_FLUIDS 6 // Needs to be above atoms, as some atoms may want to start fluids/gases on init
 #define INIT_ORDER_ATOMS 5
 #define INIT_ORDER_MACHINES 4

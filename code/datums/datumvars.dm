@@ -1644,7 +1644,7 @@
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
 			return TRUE
 
-		listclearnulls(L)
+		list_clear_nulls(L)
 		log_world("### ListVarEdit by [src]: /list contents: CLEAR NULLS")
 		log_admin("[key_name(src)] modified list's contents: CLEAR NULLS")
 		message_admins("[key_name_admin(src)] modified list's contents: CLEAR NULLS")

@@ -200,6 +200,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 //Turns 1479 into 147.9
 /proc/format_frequency(f)
+	f = text2num(f)
 	return "[round(f / 10)].[f % 10]"
 
 //Picks a string of symbols to display as the law number for hacked or ion laws
@@ -473,23 +474,31 @@ Returns 1 if the chain up to the area contains the given typepath
 /proc/between(low, middle, high)
 	return max(min(middle, high), low)
 
-//Will return the contents of an atom recursivly to a depth of 'searchDepth'
-/atom/proc/GetAllContents(searchDepth = 5)
-	var/list/toReturn = list()
-
-	for(var/atom/part in contents)
-		toReturn += part
-		if(part.contents.len && searchDepth)
-			toReturn += part.GetAllContents(searchDepth - 1)
-
-	return toReturn
+//Will return the contents of an atom
+/atom/proc/GetAllContents(turf)
+	var/list/processing_list = list(src)
+	if(!turf)
+		var/i = 0
+		while(i < length(processing_list))
+			var/atom/atom = processing_list[++i]
+			processing_list += atom.contents
+		return processing_list
+	. = list()
+	var/i = 0
+	while(i < length(processing_list))
+		var/atom/atom = processing_list[++i]
+		//Byond does not allow things to be in multiple contents, or double parent-child hierarchies, so only += is needed
+		//This is also why we don't need to check against assembled as we go along
+		processing_list += atom.contents
+		if(istype(atom, turf))
+			. += atom
 
 //Searches contents of the atom and returns the sum of all w_class of obj/item within
-/atom/proc/GetTotalContentsWeight(searchDepth = 5)
+/atom/proc/GetTotalContentsWeight()
 	var/weight = 0
-	var/list/content = GetAllContents(searchDepth)
-	for(var/obj/item/I in content)
-		weight += I.w_class
+	var/list/content = GetAllContents()
+	for(var/obj/item/item in content)
+		weight += item.w_class
 	return weight
 
 

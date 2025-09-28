@@ -36,8 +36,12 @@
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
 
-	//This atom's HUD (med/sec, etc) images. Associative list.
-	var/list/image/hud_list
+	///all of this atom's HUD (med/sec, etc) images. Associative list of the form: list(hud category = hud image or images for that category).
+	///most of the time hud category is associated with a single image, sometimes its associated with a list of images.
+	///not every hud in this list is actually used. for ones available for others to see, look at active_hud_list.
+	var/list/image/hud_list = null
+	///all of this atom's HUD images which can actually be seen by players with that hud
+	var/list/image/active_hud_list = null
 	//HUD images that this atom can provide.
 	var/list/hud_possible
 
@@ -1302,7 +1306,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	message = replace_characters(message, list("+"))
 
 	var/list/speech_bubble_hearers = list()
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M in get_hearers_in_view(7, src))
 		M.show_message(span_gamesay(span_name("[capitalize(declent_ru(NOMINATIVE))]") + " [pick(atom_say_verb)], \"[message]\""), 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
@@ -1959,3 +1963,19 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/handle_flamer_fire_crossed(obj/flamer_fire/fire)
 	return
+
+/// Transforms the message emphasis mods from [/atom/proc/apply_message_emphasis] into the appropriate HTML tags. Includes escaping.
+#define ENCODE_HTML_EMPHASIS(input, char, html, varname) \
+	var/static/regex/##varname = regex("(?<!\\\\)[char](.+?)(?<!\\\\)[char]", "g");\
+	input = varname.Replace_char(input, "<[html]>$1</[html]>&#8203;") //zero-width space to force maptext to respect closing tags.
+
+/// Scans the input sentence for message emphasis modifiers, notably |italics|, +bold+, and _underline_ -mothblocks
+/atom/proc/apply_message_emphasis(input)
+	ENCODE_HTML_EMPHASIS(input, "\\|", "i", italics)
+	ENCODE_HTML_EMPHASIS(input, "\\+", "b", bold)
+	ENCODE_HTML_EMPHASIS(input, "\\_", "u", underline)
+	var/static/regex/remove_escape_backlashes = regex("\\\\(\\_|\\+|\\|)", "g") // Removes backslashes used to escape text modification.
+	input = remove_escape_backlashes.Replace_char(input, "$1")
+	return input
+
+#undef ENCODE_HTML_EMPHASIS

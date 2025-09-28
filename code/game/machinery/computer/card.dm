@@ -84,7 +84,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/Initialize(mapload)
 	. = ..()
 	Radio = new /obj/item/radio(src)
-	Radio.listening = 0
+	Radio.set_listening(FALSE)
 	Radio.config(list(COMM_FREQ_NAME = 0))
 	Radio.follow_target = src
 
