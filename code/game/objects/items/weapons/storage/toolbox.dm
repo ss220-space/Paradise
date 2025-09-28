@@ -55,9 +55,8 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	for(var/content as anything in contents)
-		var/obj/item/tool = content
-		if(tool && tool.toolbox_radial_menu_compatibility)
+	for(var/obj/item/tool as anything in contents)
+		if(tool?.toolbox_radial_menu_compatibility)
 			return ATTACK_CHAIN_PROCEED
 
 /// Check if we can use tools inside toolbox via radial menu
@@ -92,9 +91,8 @@
 		return
 
 	var/list/choices = list()
-	for(var/content as anything in contents)
-		var/obj/item/tool = content
-		if(tool && tool.toolbox_radial_menu_compatibility)
+	for(var/obj/item/tool as anything in contents)
+		if(tool?.toolbox_radial_menu_compatibility)
 			choices[tool.declent_ru(NOMINATIVE)] = image(icon = tool.icon, icon_state = tool.icon_state)
 
 	if(!length(choices))
