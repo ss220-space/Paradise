@@ -46,6 +46,9 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 /datum/zlev_manager/proc/get_zlev_by_name(A)
 	return levels_by_name[A] == null ? log_runtime(EXCEPTION("Non-existent z level: '[A]'")) : levels_by_name[A]
 
+/datum/zlev_manager/proc/put_zlev_by_name(A, datum/space_level/level)
+	return levels_by_name[A] = level
+
 /*
 * "Dirt" management
 * "Dirt" is used to keep track of whether a z level should automatically have

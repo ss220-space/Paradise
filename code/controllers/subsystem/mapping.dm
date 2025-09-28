@@ -166,6 +166,8 @@ SUBSYSTEM_DEF(mapping)
 		var/lavaland_setup_timer = start_watch()
 		if(exists_level_name(MINING))
 			seedRuins(list(level_name_to_num(MINING)), CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
+		else
+			log_startup_progress("Not found mining level!")
 		// Run map generation after ruin generation to prevent issues
 		run_map_terrain_generation()
 		if(lavaland_theme)
@@ -380,11 +382,15 @@ SUBSYSTEM_DEF(mapping)
 	var/map_z_level
 	if(map_datum.traits && map_datum.traits?.len && islist(map_datum.traits[1])) // we work with list of lists
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])
+		inject_lavaland_check(map_z_level, MAIN_STATION)
+
 		if(map_datum.traits.len > MULTIZ_WARN)
 			message_admins("Loading station with over [MULTIZ_WARN] levels(It has [map_datum.traits.len]!!). May cause some issues with space levels and/or perfomance on server.")
 
 		for(var/i in 2 to map_datum.traits.len)
-			GLOB.space_manager.add_new_zlevel(MAIN_STATION + "([i])", linkage = map_datum.linkage, traits = map_datum.traits[i])
+			var/z_level_name = MAIN_STATION + "([i])"
+			var/z_num = GLOB.space_manager.add_new_zlevel(z_level_name, linkage = map_datum.linkage, traits = map_datum.traits[i])
+			inject_lavaland_check(z_num, z_level_name)
 	else
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
@@ -404,6 +410,15 @@ SUBSYSTEM_DEF(mapping)
 	)
 	query_set_map.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
 	qdel(query_set_map)
+
+/datum/controller/subsystem/mapping/proc/inject_lavaland_check(z_num, z_level_name)
+	if(!check_level_trait(z_num, INJECT_AS_LAVALAND))
+		return
+	if(exists_level_name(MINING))
+		message_admins("Inject station level [z_num] as lavaland, but lavaland already exists/ Lavaland override warning!")
+	else
+		message_admins("Inject station level [z_num] as lavaland.")
+	GLOB.space_manager.put_zlev_by_name(MINING, GLOB.space_manager.get_zlev_by_name(z_level_name))
 
 /datum/controller/subsystem/mapping/proc/loadLavaland()
 	if(!map_datum.lavaland_path)

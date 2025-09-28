@@ -33,6 +33,8 @@
 	#define TAIPAN "RaMSS Taipan"
 	// Reserved z-level used only by shuttles
 	#define RESERVED_LEVEL "Transit/Reserved"
+	// This station level inject as lavaland (name = MINING)
+	#define INJECT_AS_LAVALAND "Inject as lavaland"
 
 // Level names
 	#define CENTCOMM "CentComm"
