@@ -377,6 +377,8 @@
 	name = "tentacle"
 	desc = "A fleshy tentacle that can stretch out and grab things or people."
 	icon = 'icons/obj/items.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "tentacle"
 	item_state = "tentacle"
 	item_flags = ABSTRACT|NOBLUDGEON|DROPDEL
