@@ -60,8 +60,8 @@
 	get_template()
 	if(used)
 		return FALSE
-	var/turf/UT = get_turf(user)
-	if((is_station_level(UT.z)) && !emagged)
+	var/turf/user_turf = get_turf(user)
+	if(!can_deploy(user_turf))
 		to_chat(user, span_notice("Ошибка. Попытка развертывания в секторе станции. Развертывание отменено."))
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
@@ -75,7 +75,7 @@
 	if(QDELETED(src))
 		return
 	var/turf/deploy_location = get_turf(src)
-	if((is_station_level(deploy_location.z)) && !emagged)
+	if(!can_deploy(deploy_location))
 		to_chat(triggerer, span_notice("Ошибка. Попытка расширения в секторе станции. Расширение отменено."))
 		playsound(triggerer, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
@@ -91,11 +91,15 @@
 		return
 
 	yote_nearby(deploy_location)
-	template.load(deploy_location, centered = TRUE)
+	template.load(deploy_location, centered = TRUE, roof_type = /turf/simulated/floor/engine/hull)
 	trigger_admin_alert(triggerer, deploy_location)
 	playsound(src, 'sound/effects/phasein.ogg', 100, TRUE)
 	new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 	qdel(src)
+
+/obj/item/survivalcapsule/proc/can_deploy(turf/deploy_location)
+	var/lavaland_floor = istype(deploy_location, /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface) || istype(deploy_location, /turf/simulated/floor/lava/lava_land_surface)
+	return lavaland_floor || !is_station_level(deploy_location.z) || emagged
 
 /// Throws any mobs near the deployed location away from the item / shelter
 /// Does some math to make closer mobs get thrown further

@@ -23,7 +23,7 @@
 		height = bounds[MAP_MAXY]
 	return bounds
 
-/datum/map_template/proc/load(turf/T, centered = 0)
+/datum/map_template/proc/load(turf/T, centered = 0, roof_type = null)
 	var/turf/placement = T
 	var/min_x = placement.x
 	var/min_y = placement.y
@@ -58,6 +58,15 @@
 			stack_trace("One of the late setup corners is bust")
 		if(ST_bot_left == null || ST_top_right == null)
 			stack_trace("One of the smoothing corners is bust")
+		if(roof_type)
+			var/turf/above_turf = locate(placement.x, placement.y, placement.z + 1)
+			if(above_turf) //exists above level
+				for(var/x = min_x; x <= max_x; ++x)
+					for(var/y = min_y; y <= max_y; ++y)
+						var/turf/turf = locate(x, y, placement.z + 1)
+						turf.ChangeTurf(roof_type)
+
+
 	catch(var/exception/e)
 		SSicon_smooth.remove_halt_source(src)
 		GLOB.space_manager.remove_dirt(placement.z)
