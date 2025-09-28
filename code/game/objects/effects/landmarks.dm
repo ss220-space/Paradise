@@ -5,7 +5,10 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-INITIALIZE_IMMEDIATE(/obj/effect/landmark)
+// OK. code\modules\ruins\lavalandruin_code\necropolis_lavalend.dm
+// There is UNREAL SHIT along this path. It is the only reason for the commented initialization.
+// I'm not sure if this is a good thing, but I'm not going to refactor it.
+//INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/Initialize(mapload)
 	. = ..()
@@ -206,14 +209,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/spawner/ert/Initialize(mapload)
 	spawner_list = GLOB.emergencyresponseteamspawn
-	return ..()
-
-/obj/effect/landmark/spawner/wizard
-	name = "wizard"
-	icon_state = "Wiz"
-
-/obj/effect/landmark/spawner/wiz/Initialize(mapload)
-	spawner_list = GLOB.wizardstart
 	return ..()
 
 /obj/effect/landmark/spawner/syndie
@@ -634,7 +629,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	new /obj/item/clothing/under/blackskirt(loc)
 	var/CHOICE = pick(
 		/obj/item/clothing/head/beret,
-		/obj/item/clothing/head/rabbitears
+		/obj/item/clothing/head/rabbitears,
 	)
 	new CHOICE(loc)
 	new /obj/item/clothing/glasses/sunglasses/blindfold/black(loc)
@@ -668,7 +663,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	new /obj/item/clothing/glasses/monocle(loc)
 	var/CHOICE= pick(
 		/obj/item/clothing/head/bowlerhat,
-		/obj/item/clothing/head/that
+		/obj/item/clothing/head/that,
 	)
 	new CHOICE(loc)
 	new /obj/item/clothing/shoes/black(loc)
@@ -694,7 +689,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	new /obj/item/clothing/under/waiter(loc)
 	var/CHOICE= pick(
 		/obj/item/clothing/head/kitty,
-		/obj/item/clothing/head/rabbitears
+		/obj/item/clothing/head/rabbitears,
 	)
 	new CHOICE(loc)
 	new /obj/item/clothing/suit/apron(loc)
@@ -706,7 +701,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	new /obj/item/clothing/suit/pirate_black(loc)
 	var/CHOICE = pick(
 		/obj/item/clothing/head/pirate,
-		/obj/item/clothing/head/bandana
+		/obj/item/clothing/head/bandana,
 	)
 	new CHOICE(loc)
 	new /obj/item/clothing/glasses/eyepatch(loc)

@@ -152,7 +152,6 @@
 
 // MARK: DAMAGE TURFS
 /obj/effect/mapping_helpers/turfs
-	icon = 'icons/effects/mapping_helpers.dmi'
 
 /obj/effect/mapping_helpers/turfs/Initialize(mapload)
 	. = ..()
