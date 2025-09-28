@@ -689,6 +689,7 @@
 #undef HAND_GRAB_AGGRESSIVE
 #undef HAND_GRAB_NECK
 #undef HAND_GRAB_KILL
+#undef HAND_GRAB_SUPPRESS_BLOODLOSS
 
 
 /atom/movable/screen/inventory/hand/Click()
