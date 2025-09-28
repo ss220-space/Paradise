@@ -1094,7 +1094,7 @@
 				flick_vendor_overlay(FLICK_VEND)
 				return
 			if(!allowed(usr) && !usr.can_admin_interact() && !emagged && scan_id)
-				to_chat(usr, span_warning("В доступе отказано!"))
+				balloon_alert(usr, "в доступе отказано!")
 				flick_vendor_overlay(FLICK_DENY)
 				return
 
