@@ -88,8 +88,7 @@
 
 
 /datum/diablerie/proc/add_diablerie_aura(ascended = FALSE)
-	if(!diablerie_aura)
-		diablerie_aura = new()
+	diablerie_aura = new()
 
 	diablerie_aura.invisibility = INVISIBILITY_VAMPIRE_AURA
 	if(ascended)
