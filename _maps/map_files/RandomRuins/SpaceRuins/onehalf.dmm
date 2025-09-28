@@ -609,12 +609,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/drone_bay)
-"bC" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/onehalf/drone_bay)
 "bD" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8
@@ -1104,13 +1098,6 @@
 /obj/item/storage/firstaid,
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/bridge)
-"df" = (
-/obj/structure/lattice,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/space,
-/area/space/nearstation)
 "dg" = (
 /obj/structure/girder/reinforced,
 /obj/item/stack/sheet/plasteel,
@@ -1137,18 +1124,6 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/bridge)
 "dl" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "onehalf bridge";
-	name = "bridge blast door"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/onehalf/bridge)
-"dm" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /obj/structure/cable{
@@ -1569,7 +1544,7 @@ aD
 aq
 aX
 bm
-bC
+bn
 bT
 cF
 cn
@@ -1688,7 +1663,7 @@ cM
 cr
 cW
 ch
-dm
+dl
 ac
 aa
 "}
@@ -1797,7 +1772,7 @@ ai
 ai
 ai
 cZ
-df
+ai
 ai
 af
 aa

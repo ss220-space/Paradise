@@ -4625,19 +4625,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway12)
-"ng" = (
-/turf/simulated/wall/shuttle/nodiagonal,
-/area/awaymission/spacebattle/cruiser)
-"nh" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel/airless{
-	dir = 10;
-	icon_state = "floor4";
-	tag = "icon-floor4 (SOUTHWEST)"
-	},
-/area/space/nearstation)
 "ni" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -4855,9 +4842,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway6)
-"nJ" = (
-/turf/simulated/wall/shuttle,
-/area/awaymission/spacebattle/cruiser)
 "nK" = (
 /obj/structure/rack,
 /obj/item/stack/rods{
@@ -9277,11 +9261,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/space)
-"zS" = (
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/space/nearstation)
 "zT" = (
 /obj/structure/dresser,
 /obj/structure/mirror{
@@ -12406,11 +12385,6 @@
 /mob/living/simple_animal/hostile/syndicate/ranged/autogib/spacebattle,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway12)
-"ID" = (
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/awaymission/spacebattle/syndicate4)
 "IE" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -12820,14 +12794,6 @@
 /obj/machinery/door/airlock/highsecurity,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
-"JM" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/awaymission/spacebattle/syndicate4)
 "JN" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -18288,16 +18254,6 @@
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/prhallway1)
-"YN" = (
-/obj/machinery/atmospherics/pipe/manifold4w/visible,
-/obj/structure/window/plasmareinforced{
-	dir = 4;
-	simulated = 0
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/awaymission/spacebattle/syndicate4)
 "YO" = (
 /obj/effect/turf_decal/stripes{
 	dir = 1
@@ -31702,10 +31658,10 @@ ab
 ab
 KI
 Ex
-ID
-ID
-ID
-ID
+Ex
+Ex
+Ex
+Ex
 KI
 ab
 ab
@@ -31960,8 +31916,8 @@ ab
 ep
 jl
 qr
-ID
-JM
+Ex
+qr
 ZP
 ep
 ab
@@ -33500,7 +33456,7 @@ zx
 cc
 ep
 UT
-YN
+NP
 hq
 nB
 wP
@@ -39648,8 +39604,8 @@ ab
 ab
 ab
 ab
-ng
-nJ
+mo
+eH
 pO
 Nm
 eH
@@ -41190,8 +41146,8 @@ ab
 eH
 eH
 eH
-nJ
-ng
+eH
+mo
 zU
 VV
 Ui
@@ -41220,7 +41176,7 @@ Ez
 dr
 Zv
 eH
-nJ
+eH
 Lb
 xG
 sU
@@ -41701,7 +41657,7 @@ ab
 zb
 ab
 eH
-ng
+mo
 Kw
 Bp
 OX
@@ -41738,7 +41694,7 @@ oN
 ZX
 WX
 Vd
-ng
+mo
 eH
 ab
 ab
@@ -43243,7 +43199,7 @@ ab
 ab
 ab
 eH
-ng
+mo
 Kw
 qH
 Le
@@ -43280,7 +43236,7 @@ UN
 ZD
 Ye
 Vd
-ng
+mo
 eH
 ab
 ab
@@ -44013,7 +43969,7 @@ ab
 ab
 ab
 eH
-nJ
+eH
 eH
 Kw
 qH
@@ -45829,7 +45785,7 @@ eH
 eH
 eH
 eH
-ng
+mo
 ff
 Rx
 Xs
@@ -46841,7 +46797,7 @@ ab
 ab
 ab
 eH
-ng
+mo
 Kw
 wJ
 fE
@@ -46878,7 +46834,7 @@ eH
 ZD
 Ye
 Vd
-ng
+mo
 eH
 ab
 ab
@@ -48420,7 +48376,7 @@ eH
 ZD
 Ye
 Vd
-ng
+mo
 yy
 ab
 ab
@@ -51222,7 +51178,7 @@ eH
 eH
 eH
 Lr
-ng
+mo
 eH
 eH
 eH
@@ -52788,7 +52744,7 @@ lH
 sD
 Nx
 rF
-ng
+mo
 eH
 ab
 ab
@@ -53556,7 +53512,7 @@ oA
 Kx
 xD
 sj
-ng
+mo
 eH
 ab
 ab
@@ -55068,7 +55024,7 @@ ab
 ab
 ab
 eH
-nJ
+eH
 eH
 XA
 QE
@@ -56122,7 +56078,7 @@ eH
 OH
 HE
 DR
-ng
+mo
 uE
 uE
 uE
@@ -57124,7 +57080,7 @@ ab
 ab
 ab
 eH
-nJ
+eH
 eH
 uo
 FI
@@ -57382,7 +57338,7 @@ ab
 ab
 ab
 ce
-nJ
+eH
 uG
 ZH
 AR
@@ -57411,7 +57367,7 @@ SF
 Pk
 HA
 UZ
-ng
+mo
 eH
 ab
 ab
@@ -57915,7 +57871,7 @@ ce
 ab
 eH
 eH
-ng
+mo
 jV
 Qw
 Qw
@@ -59206,7 +59162,7 @@ HA
 Pk
 At
 ln
-ng
+mo
 eH
 ab
 ab
@@ -61793,7 +61749,7 @@ ab
 ab
 ab
 is
-zS
+is
 iv
 iv
 iv
@@ -62057,7 +62013,7 @@ iy
 iv
 iv
 iv
-nh
+iC
 is
 is
 ab
@@ -62315,7 +62271,7 @@ iv
 iv
 iv
 iv
-nh
+iC
 is
 is
 ab

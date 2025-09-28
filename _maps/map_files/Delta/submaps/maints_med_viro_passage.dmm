@@ -228,9 +228,6 @@
 "OX" = (
 /turf/space,
 /area/template_noop)
-"PP" = (
-/turf/simulated/wall/rust,
-/area/template_noop)
 "Qa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
@@ -301,7 +298,7 @@ Zw
 xV
 Zw
 iT
-PP
+tV
 NX
 OX
 OX
@@ -481,7 +478,7 @@ Zw
 Zw
 Zw
 Ja
-PP
+tV
 yE
 yE
 NX
@@ -511,8 +508,8 @@ Zw
 iM
 Zw
 Rj
-PP
-PP
+tV
+tV
 oJ
 yE
 NX
@@ -561,13 +558,13 @@ Zw
 "}
 (10,1,1) = {"
 iT
-PP
+tV
 NX
 NX
 NX
 NX
 dQ
-PP
+tV
 Ku
 Zw
 Zw
@@ -771,7 +768,7 @@ Zw
 "}
 (17,1,1) = {"
 Rj
-PP
+tV
 oJ
 yE
 NX

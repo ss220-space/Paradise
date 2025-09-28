@@ -1489,9 +1489,6 @@
 /obj/item/clothing/under/soviet,
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
-"dO" = (
-/turf/simulated/wall/mineral/titanium,
-/area/derelict/security)
 "dQ" = (
 /obj/machinery/recharger,
 /obj/structure/table/reinforced,
@@ -6393,9 +6390,6 @@
 	icon_state = "redfull"
 	},
 /area/derelict/arrival)
-"qk" = (
-/turf/simulated/wall/mineral/titanium,
-/area/derelict/arrival)
 "ql" = (
 /obj/machinery/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
@@ -8727,18 +8721,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/derelict/church)
-"Iv" = (
-/obj/machinery/power/solar{
-	id = "russolar"
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space/nearstation)
 "IB" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -15423,7 +15405,7 @@ ac
 ac
 ac
 cq
-dO
+cq
 ed
 en
 eI
@@ -15544,7 +15526,7 @@ ac
 ac
 ac
 cq
-dO
+cq
 dU
 Ci
 do
@@ -19982,7 +19964,7 @@ iy
 UW
 hY
 rC
-qk
+aW
 aW
 ac
 ac
@@ -22626,10 +22608,10 @@ ac
 ac
 ac
 ac
-Iv
-Iv
-Iv
-Iv
+kH
+kH
+kH
+kH
 ac
 ss
 ac
@@ -22646,7 +22628,7 @@ ac
 mb
 ac
 kH
-Iv
+kH
 kH
 kH
 ac
