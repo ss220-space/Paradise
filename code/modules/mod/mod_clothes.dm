@@ -13,7 +13,7 @@
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey_helmets.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
@@ -70,7 +70,7 @@
 	hide_tail_by_species = list("modsuit")
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
@@ -119,7 +119,7 @@
 	cold_protection = HANDS|ARMS
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
@@ -169,7 +169,7 @@
 	permeability_coefficient = 0.01
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_clothing.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_clothing.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi_modsuits.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)

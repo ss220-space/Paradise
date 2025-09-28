@@ -107,6 +107,7 @@
 	removable = FALSE
 	incompatible_modules = list(/obj/item/mod/module/insignia)
 	overlay_state_inactive = "module_insignia"
+	mask_worn_overlay = TRUE
 
 /obj/item/mod/module/insignia/get_ru_names()
 	return list(
