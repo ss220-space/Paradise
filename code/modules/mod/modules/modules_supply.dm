@@ -16,12 +16,12 @@
 
 /obj/item/mod/module/gps/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ГПС для МЭК",
-		GENITIVE = "модуля ГПС для МЭК",
-		DATIVE = "модулю ГПС для МЭК",
-		ACCUSATIVE = "модуль ГПС для МЭК",
-		INSTRUMENTAL = "модулем ГПС для МЭК",
-		PREPOSITIONAL = "модуле ГПС для МЭК",
+		NOMINATIVE = "модуль ГПС МЭК",
+		GENITIVE = "модуля ГПС МЭК",
+		DATIVE = "модулю ГПС МЭК",
+		ACCUSATIVE = "модуль ГПС МЭК",
+		INSTRUMENTAL = "модулем ГПС МЭК",
+		PREPOSITIONAL = "модуле ГПС МЭК",
 	)
 
 ///Hydraulic Clamp - Lets you pick up and drop crates.
@@ -48,12 +48,12 @@
 
 /obj/item/mod/module/clamp/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль гидравлической клешни для МЭК",
-		GENITIVE = "модуля гидравлической клешни для МЭК",
-		DATIVE = "модулю гидравлической клешни для МЭК",
-		ACCUSATIVE = "модуль гидравлической клешни для МЭК",
-		INSTRUMENTAL = "модулем гидравлической клешни для МЭК",
-		PREPOSITIONAL = "модуле гидравлической клешни для МЭК",
+		NOMINATIVE = "модуль гидравлической клешни МЭК",
+		GENITIVE = "модуля гидравлической клешни МЭК",
+		DATIVE = "модулю гидравлической клешни МЭК",
+		ACCUSATIVE = "модуль гидравлической клешни МЭК",
+		INSTRUMENTAL = "модулем гидравлической клешни МЭК",
+		PREPOSITIONAL = "модуле гидравлической клешни МЭК",
 	)
 
 /obj/item/mod/module/clamp/on_select_use(atom/target)
@@ -125,12 +125,12 @@
 
 /obj/item/mod/module/clamp/loader/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль грузовой гидравлической клешни для МЭК",
-		GENITIVE = "модуля грузовой гидравлической клешни для МЭК",
-		DATIVE = "модулю грузовой гидравлической клешни для МЭК",
-		ACCUSATIVE = "модуль грузовой гидравлической клешни для МЭК",
-		INSTRUMENTAL = "модулем грузовой гидравлической клешни для МЭК",
-		PREPOSITIONAL = "модуле грузовой гидравлической клешни для МЭК",
+		NOMINATIVE = "модуль грузовой гидравлической клешни МЭК",
+		GENITIVE = "модуля грузовой гидравлической клешни МЭК",
+		DATIVE = "модулю грузовой гидравлической клешни МЭК",
+		ACCUSATIVE = "модуль грузовой гидравлической клешни МЭК",
+		INSTRUMENTAL = "модулем грузовой гидравлической клешни МЭК",
+		PREPOSITIONAL = "модуле грузовой гидравлической клешни МЭК",
 	)
 
 ///Drill - Lets you dig through rock and basalt.
@@ -149,12 +149,12 @@
 
 /obj/item/mod/module/drill/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль дрели для МЭК",
-		GENITIVE = "модуля дрели для МЭК",
-		DATIVE = "модулю дрели для МЭК",
-		ACCUSATIVE = "модуль дрели для МЭК",
-		INSTRUMENTAL = "модулем дрели для МЭК",
-		PREPOSITIONAL = "модуле дрели для МЭК",
+		NOMINATIVE = "модуль дрели МЭК",
+		GENITIVE = "модуля дрели МЭК",
+		DATIVE = "модулю дрели МЭК",
+		ACCUSATIVE = "модуль дрели МЭК",
+		INSTRUMENTAL = "модулем дрели МЭК",
+		PREPOSITIONAL = "модуле дрели МЭК",
 	)
 
 /obj/item/mod/module/drill/on_activation()
@@ -199,12 +199,12 @@
 
 /obj/item/mod/module/orebag/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль рудного хранилища для МЭК",
-		GENITIVE = "модуля рудного хранилища для МЭК",
-		DATIVE = "модулю рудного хранилища для МЭК",
-		ACCUSATIVE = "модуль рудного хранилища для МЭК",
-		INSTRUMENTAL = "модулем рудного хранилища для МЭК",
-		PREPOSITIONAL = "модуле рудного хранилища для МЭК",
+		NOMINATIVE = "модуль рудного хранилища МЭК",
+		GENITIVE = "модуля рудного хранилища МЭК",
+		DATIVE = "модулю рудного хранилища МЭК",
+		ACCUSATIVE = "модуль рудного хранилища МЭК",
+		INSTRUMENTAL = "модулем рудного хранилища МЭК",
+		PREPOSITIONAL = "модуле рудного хранилища МЭК",
 	)
 
 /obj/item/mod/module/orebag/on_equip()
@@ -249,12 +249,12 @@
 
 /obj/item/mod/module/hydraulic/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль грузовых гидравлических рук для МЭК",
-		GENITIVE = "модуля грузовых гидравлических рук для МЭК",
-		DATIVE = "модулю грузовых гидравлических рук для МЭК",
-		ACCUSATIVE = "модуль грузовых гидравлических рук для МЭК",
-		INSTRUMENTAL = "модулем грузовых гидравлических рук для МЭК",
-		PREPOSITIONAL = "модуле грузовых гидравлических рук для МЭК",
+		NOMINATIVE = "модуль грузовых гидравлических рук МЭК",
+		GENITIVE = "модуля грузовых гидравлических рук МЭК",
+		DATIVE = "модулю грузовых гидравлических рук МЭК",
+		ACCUSATIVE = "модуль грузовых гидравлических рук МЭК",
+		INSTRUMENTAL = "модулем грузовых гидравлических рук МЭК",
+		PREPOSITIONAL = "модуле грузовых гидравлических рук МЭК",
 	)
 
 /obj/item/mod/module/hydraulic/Initialize(mapload)
@@ -308,12 +308,12 @@
 
 /obj/item/mod/module/magnet/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль грузового гидравлического магнита для МЭК",
-		GENITIVE = "модуля грузового гидравлического магнита для МЭК",
-		DATIVE = "модулю грузового гидравлического магнита для МЭК",
-		ACCUSATIVE = "модуль грузового гидравлического магнита для МЭК",
-		INSTRUMENTAL = "модулем грузового гидравлического магнита для МЭК",
-		PREPOSITIONAL = "модуле грузового гидравлического магнита для МЭК",
+		NOMINATIVE = "модуль грузового гидравлического магнита МЭК",
+		GENITIVE = "модуля грузового гидравлического магнита МЭК",
+		DATIVE = "модулю грузового гидравлического магнита МЭК",
+		ACCUSATIVE = "модуль грузового гидравлического магнита МЭК",
+		INSTRUMENTAL = "модулем грузового гидравлического магнита МЭК",
+		PREPOSITIONAL = "модуле грузового гидравлического магнита МЭК",
 	)
 
 /obj/item/mod/module/magnet/on_select_use(atom/target)
@@ -374,12 +374,12 @@
 
 /obj/item/mod/module/ash_accretion/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль пепельного аттрактора для МЭК",
-		GENITIVE = "модуля пепельного аттрактора для МЭК",
-		DATIVE = "модулю пепельного аттрактора для МЭК",
-		ACCUSATIVE = "модуль пепельного аттрактора для МЭК",
-		INSTRUMENTAL = "модулем пепельного аттрактора для МЭК",
-		PREPOSITIONAL = "модуле пепельного аттрактора для МЭК",
+		NOMINATIVE = "модуль пепельного аттрактора МЭК",
+		GENITIVE = "модуля пепельного аттрактора МЭК",
+		DATIVE = "модулю пепельного аттрактора МЭК",
+		ACCUSATIVE = "модуль пепельного аттрактора МЭК",
+		INSTRUMENTAL = "модулем пепельного аттрактора МЭК",
+		PREPOSITIONAL = "модуле пепельного аттрактора МЭК",
 	)
 
 /obj/item/mod/module/ash_accretion/Initialize(mapload)
@@ -495,12 +495,12 @@
 
 /obj/item/mod/module/sphere_transform/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль превращения в сферу для МЭК",
-		GENITIVE = "модуля превращения в сферу для МЭК",
-		DATIVE = "модулю превращения в сферу для МЭК",
-		ACCUSATIVE = "модуль превращения в сферу для МЭК",
-		INSTRUMENTAL = "модулем превращения в сферу для МЭК",
-		PREPOSITIONAL = "модуле превращения в сферу для МЭК",
+		NOMINATIVE = "модуль превращения в сферу МЭК",
+		GENITIVE = "модуля превращения в сферу МЭК",
+		DATIVE = "модулю превращения в сферу МЭК",
+		ACCUSATIVE = "модуль превращения в сферу МЭК",
+		INSTRUMENTAL = "модулем превращения в сферу МЭК",
+		PREPOSITIONAL = "модуле превращения в сферу МЭК",
 	)
 
 /obj/item/mod/module/sphere_transform/on_activation()

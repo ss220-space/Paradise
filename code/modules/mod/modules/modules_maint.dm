@@ -114,12 +114,12 @@
 
 /obj/item/mod/module/balloon/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль надувания шариков для МЭК",
-		GENITIVE = "модуля надувания шариков для МЭК",
-		DATIVE = "модулю надувания шариков для МЭК",
-		ACCUSATIVE = "модуль надувания шариков для МЭК",
-		INSTRUMENTAL = "модулем надувания шариков для МЭК",
-		PREPOSITIONAL = "модуле надувания шариков для МЭК",
+		NOMINATIVE = "модуль надувания шариков МЭК",
+		GENITIVE = "модуля надувания шариков МЭК",
+		DATIVE = "модулю надувания шариков МЭК",
+		ACCUSATIVE = "модуль надувания шариков МЭК",
+		INSTRUMENTAL = "модулем надувания шариков МЭК",
+		PREPOSITIONAL = "модуле надувания шариков МЭК",
 	)
 
 /obj/item/mod/module/balloon/on_use()
@@ -148,12 +148,12 @@
 
 /obj/item/mod/module/stamp/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль печати для МЭК",
-		GENITIVE = "модуля печати для МЭК",
-		DATIVE = "модулю печати для МЭК",
-		ACCUSATIVE = "модуль печати для МЭК",
-		INSTRUMENTAL = "модулем печати для МЭК",
-		PREPOSITIONAL = "модуле печати для МЭК",
+		NOMINATIVE = "модуль печати МЭК",
+		GENITIVE = "модуля печати МЭК",
+		DATIVE = "модулю печати МЭК",
+		ACCUSATIVE = "модуль печати МЭК",
+		INSTRUMENTAL = "модулем печати МЭК",
+		PREPOSITIONAL = "модуле печати МЭК",
 	)
 
 /obj/item/stamp/mod

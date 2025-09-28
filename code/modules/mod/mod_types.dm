@@ -39,6 +39,7 @@
 		default_pins -= old_module
 
 /obj/item/mod/control/pre_equipped/standard
+	theme = /datum/mod_theme/civilian
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/welding,

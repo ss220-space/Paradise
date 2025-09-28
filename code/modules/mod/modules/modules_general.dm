@@ -19,12 +19,12 @@
 
 /obj/item/mod/module/storage/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль вместимости для МЭК",
-		GENITIVE = "модуля вместимости для МЭК",
-		DATIVE = "модулю вместимости для МЭК",
-		ACCUSATIVE = "модуль вместимости для МЭК",
-		INSTRUMENTAL = "модулем вместимости для МЭК",
-		PREPOSITIONAL = "модуле вместимости для МЭК",
+		NOMINATIVE = "модуль вместимости МЭК",
+		GENITIVE = "модуля вместимости МЭК",
+		DATIVE = "модулю вместимости МЭК",
+		ACCUSATIVE = "модуль вместимости МЭК",
+		INSTRUMENTAL = "модулем вместимости МЭК",
+		PREPOSITIONAL = "модуле вместимости МЭК",
 	)
 
 /obj/item/mod/module/storage/serialize()
@@ -89,12 +89,12 @@
 
 /obj/item/mod/module/storage/large_capacity/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль повышенной вместимости для МЭК",
-		GENITIVE = "модуля повышенной вместимости для МЭК",
-		DATIVE = "модулю повышенной вместимости для МЭК",
-		ACCUSATIVE = "модуль повышенной вместимости для МЭК",
-		INSTRUMENTAL = "модулем повышенной вместимости для МЭК",
-		PREPOSITIONAL = "модуле повышенной вместимости для МЭК",
+		NOMINATIVE = "модуль повышенной вместимости МЭК",
+		GENITIVE = "модуля повышенной вместимости МЭК",
+		DATIVE = "модулю повышенной вместимости МЭК",
+		ACCUSATIVE = "модуль повышенной вместимости МЭК",
+		INSTRUMENTAL = "модулем повышенной вместимости МЭК",
+		PREPOSITIONAL = "модуле повышенной вместимости МЭК",
 	)
 
 /obj/item/mod/module/storage/syndicate
@@ -109,12 +109,12 @@
 
 /obj/item/mod/module/storage/syndicate/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль вместимости синдиката для МЭК",
-		GENITIVE = "модуля вместимости синдиката для МЭК",
-		DATIVE = "модулю вместимости синдиката для МЭК",
-		ACCUSATIVE = "модуль вместимости синдиката для МЭК",
-		INSTRUMENTAL = "модулем вместимости синдиката для МЭК",
-		PREPOSITIONAL = "модуле вместимости синдиката для МЭК",
+		NOMINATIVE = "модуль вместимости синдиката МЭК",
+		GENITIVE = "модуля вместимости синдиката МЭК",
+		DATIVE = "модулю вместимости синдиката МЭК",
+		ACCUSATIVE = "модуль вместимости синдиката МЭК",
+		INSTRUMENTAL = "модулем вместимости синдиката МЭК",
+		PREPOSITIONAL = "модуле вместимости синдиката МЭК",
 	)
 
 /obj/item/mod/module/storage/belt
@@ -131,12 +131,12 @@
 
 /obj/item/mod/module/storage/belt/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль пониженной вместимости для МЭК",
-		GENITIVE = "модуля пониженной вместимости для МЭК",
-		DATIVE = "модулю пониженной вместимости для МЭК",
-		ACCUSATIVE = "модуль пониженной вместимости для МЭК",
-		INSTRUMENTAL = "модулем пониженной вместимости для МЭК",
-		PREPOSITIONAL = "модуле пониженной вместимости для МЭК",
+		NOMINATIVE = "модуль пониженной вместимости МЭК",
+		GENITIVE = "модуля пониженной вместимости МЭК",
+		DATIVE = "модулю пониженной вместимости МЭК",
+		ACCUSATIVE = "модуль пониженной вместимости МЭК",
+		INSTRUMENTAL = "модулем пониженной вместимости МЭК",
+		PREPOSITIONAL = "модуле пониженной вместимости МЭК",
 	)
 
 /obj/item/mod/module/storage/bluespace
@@ -150,12 +150,12 @@
 
 /obj/item/mod/module/storage/bluespace/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль блюспейс-хранилища для МЭК",
-		GENITIVE = "модуля блюспейс-хранилища для МЭК",
-		DATIVE = "модулю блюспейс-хранилища для МЭК",
-		ACCUSATIVE = "модуль блюспейс-хранилища для МЭК",
-		INSTRUMENTAL = "модулем блюспейс-хранилища для МЭК",
-		PREPOSITIONAL = "модуле блюспейс-хранилища для МЭК",
+		NOMINATIVE = "модуль блюспейс-хранилища МЭК",
+		GENITIVE = "модуля блюспейс-хранилища МЭК",
+		DATIVE = "модулю блюспейс-хранилища МЭК",
+		ACCUSATIVE = "модуль блюспейс-хранилища МЭК",
+		INSTRUMENTAL = "модулем блюспейс-хранилища МЭК",
+		PREPOSITIONAL = "модуле блюспейс-хранилища МЭК",
 	)
 
 //Internal
@@ -207,12 +207,12 @@
 
 /obj/item/mod/module/jetpack/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ионного джетпака для МЭК",
-		GENITIVE = "модуля ионного джетпака для МЭК",
-		DATIVE = "модулю ионного джетпака для МЭК",
-		ACCUSATIVE = "модуль ионного джетпака для МЭК",
-		INSTRUMENTAL = "модулем ионного джетпака для МЭК",
-		PREPOSITIONAL = "модуле ионного джетпака для МЭК",
+		NOMINATIVE = "модуль ионного джетпака МЭК",
+		GENITIVE = "модуля ионного джетпака МЭК",
+		DATIVE = "модулю ионного джетпака МЭК",
+		ACCUSATIVE = "модуль ионного джетпака МЭК",
+		INSTRUMENTAL = "модулем ионного джетпака МЭК",
+		PREPOSITIONAL = "модуле ионного джетпака МЭК",
 	)
 
 /obj/item/mod/module/jetpack/Initialize(mapload)
@@ -283,12 +283,12 @@
 
 /obj/item/mod/module/jetpack/advanced/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль продвинутого ионного джетпака для МЭК",
-		GENITIVE = "модуля продвинутого ионного джетпака для МЭК",
-		DATIVE = "модулю продвинутого ионного джетпака для МЭК",
-		ACCUSATIVE = "модуль продвинутого ионного джетпака для МЭК",
-		INSTRUMENTAL = "модулем продвинутого ионного джетпака для МЭК",
-		PREPOSITIONAL = "модуле продвинутого ионного джетпака для МЭК",
+		NOMINATIVE = "модуль продвинутого ионного джетпака МЭК",
+		GENITIVE = "модуля продвинутого ионного джетпака МЭК",
+		DATIVE = "модулю продвинутого ионного джетпака МЭК",
+		ACCUSATIVE = "модуль продвинутого ионного джетпака МЭК",
+		INSTRUMENTAL = "модулем продвинутого ионного джетпака МЭК",
+		PREPOSITIONAL = "модуле продвинутого ионного джетпака МЭК",
 	)
 
 ///EMP Shield - Protects the suit from EMPs.
@@ -306,12 +306,12 @@
 
 /obj/item/mod/module/emp_shield/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль защиты от ЭМИ для МЭК",
-		GENITIVE = "модуля защиты от ЭМИ для МЭК",
-		DATIVE = "модулю защиты от ЭМИ для МЭК",
-		ACCUSATIVE = "модуль защиты от ЭМИ для МЭК",
-		INSTRUMENTAL = "модулем защиты от ЭМИ для МЭК",
-		PREPOSITIONAL = "модуле защиты от ЭМИ для МЭК",
+		NOMINATIVE = "модуль защиты от ЭМИ МЭК",
+		GENITIVE = "модуля защиты от ЭМИ МЭК",
+		DATIVE = "модулю защиты от ЭМИ МЭК",
+		ACCUSATIVE = "модуль защиты от ЭМИ МЭК",
+		INSTRUMENTAL = "модулем защиты от ЭМИ МЭК",
+		PREPOSITIONAL = "модуле защиты от ЭМИ МЭК",
 	)
 
 /obj/item/mod/module/emp_shield/on_install()
@@ -349,12 +349,12 @@
 
 /obj/item/mod/module/flashlight/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль фонарика для МЭК",
-		GENITIVE = "модуля фонарика для МЭК",
-		DATIVE = "модулю фонарика для МЭК",
-		ACCUSATIVE = "модуль фонарика для МЭК",
-		INSTRUMENTAL = "модулем фонарика для МЭК",
-		PREPOSITIONAL = "модуле фонарика для МЭК",
+		NOMINATIVE = "модуль фонарика МЭК",
+		GENITIVE = "модуля фонарика МЭК",
+		DATIVE = "модулю фонарика МЭК",
+		ACCUSATIVE = "модуль фонарика МЭК",
+		INSTRUMENTAL = "модулем фонарика МЭК",
+		PREPOSITIONAL = "модуле фонарика МЭК",
 	)
 
 /obj/item/mod/module/flashlight/on_activation()
@@ -425,12 +425,12 @@
 
 /obj/item/mod/module/dispenser/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль раздатчика бургеров для МЭК",
-		GENITIVE = "модуля раздатчика бургеров для МЭК",
-		DATIVE = "модулю раздатчика бургеров для МЭК",
-		ACCUSATIVE = "модуль раздатчика бургеров для МЭК",
-		INSTRUMENTAL = "модулем раздатчика бургеров для МЭК",
-		PREPOSITIONAL = "модуле раздатчика бургеров для МЭК",
+		NOMINATIVE = "модуль раздатчика бургеров МЭК",
+		GENITIVE = "модуля раздатчика бургеров МЭК",
+		DATIVE = "модулю раздатчика бургеров МЭК",
+		ACCUSATIVE = "модуль раздатчика бургеров МЭК",
+		INSTRUMENTAL = "модулем раздатчика бургеров МЭК",
+		PREPOSITIONAL = "модуле раздатчика бургеров МЭК",
 	)
 
 /obj/item/mod/module/dispenser/on_use()
@@ -464,12 +464,12 @@
 
 /obj/item/mod/module/thermal_regulator/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль температурного регулятора для МЭК",
-		GENITIVE = "модуля температурного регулятора для МЭК",
-		DATIVE = "модулю температурного регулятора для МЭК",
-		ACCUSATIVE = "модуль температурного регулятора для МЭК",
-		INSTRUMENTAL = "модулем температурного регулятора для МЭК",
-		PREPOSITIONAL = "модуле ртемпературного регулятора для МЭК",
+		NOMINATIVE = "модуль температурного регулятора МЭК",
+		GENITIVE = "модуля температурного регулятора МЭК",
+		DATIVE = "модулю температурного регулятора МЭК",
+		ACCUSATIVE = "модуль температурного регулятора МЭК",
+		INSTRUMENTAL = "модулем температурного регулятора МЭК",
+		PREPOSITIONAL = "модуле ртемпературного регулятора МЭК",
 	)
 
 /obj/item/mod/module/thermal_regulator/get_configuration()
@@ -504,12 +504,12 @@
 
 /obj/item/mod/module/dna_lock/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ДНК-блокировки для МЭК",
-		GENITIVE = "модуля ДНК-блокировки для МЭК",
-		DATIVE = "модулю ДНК-блокировки для МЭК",
-		ACCUSATIVE = "модуль ДНК-блокировки для МЭК",
-		INSTRUMENTAL = "модулем ДНК-блокировки для МЭК",
-		PREPOSITIONAL = "модуле ДНК-блокировки для МЭК",
+		NOMINATIVE = "модуль ДНК-блокировки МЭК",
+		GENITIVE = "модуля ДНК-блокировки МЭК",
+		DATIVE = "модулю ДНК-блокировки МЭК",
+		ACCUSATIVE = "модуль ДНК-блокировки МЭК",
+		INSTRUMENTAL = "модулем ДНК-блокировки МЭК",
+		PREPOSITIONAL = "модуле ДНК-блокировки МЭК",
 	)
 
 /obj/item/mod/module/dna_lock/on_install()
@@ -583,12 +583,12 @@
 
 /obj/item/mod/module/dna_lock/emp_shield/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ДНК-блокировки и защиты от ЭМИ для МЭК",
-		GENITIVE = "модуля ДНК-блокировки и защиты от ЭМИ для МЭК",
-		DATIVE = "модулю ДНК-блокировки и защиты от ЭМИ для МЭК",
-		ACCUSATIVE = "модуль ДНК-блокировки и защиты от ЭМИ для МЭК",
-		INSTRUMENTAL = "модулем ДНК-блокировки и защиты от ЭМИ для МЭК",
-		PREPOSITIONAL = "модуле ДНК-блокировки и защиты от ЭМИ для МЭК",
+		NOMINATIVE = "модуль ДНК-блокировки и защиты от ЭМИ МЭК",
+		GENITIVE = "модуля ДНК-блокировки и защиты от ЭМИ МЭК",
+		DATIVE = "модулю ДНК-блокировки и защиты от ЭМИ МЭК",
+		ACCUSATIVE = "модуль ДНК-блокировки и защиты от ЭМИ МЭК",
+		INSTRUMENTAL = "модулем ДНК-блокировки и защиты от ЭМИ МЭК",
+		PREPOSITIONAL = "модуле ДНК-блокировки и защиты от ЭМИ МЭК",
 	)
 
 /obj/item/mod/module/dna_lock/emp_shield/on_install()
@@ -616,12 +616,12 @@
 
 /obj/item/mod/module/plasma_stabilizer/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль стабилизации плазмы для МЭК",
-		GENITIVE = "модуля стабилизации плазмы для МЭК",
-		DATIVE = "модулю стабилизации плазмы для МЭК",
-		ACCUSATIVE = "модуль стабилизации плазмы для МЭК",
-		INSTRUMENTAL = "модулем стабилизации плазмы для МЭК",
-		PREPOSITIONAL = "модуле стабилизации плазмы для МЭК",
+		NOMINATIVE = "модуль стабилизации плазмы МЭК",
+		GENITIVE = "модуля стабилизации плазмы МЭК",
+		DATIVE = "модулю стабилизации плазмы МЭК",
+		ACCUSATIVE = "модуль стабилизации плазмы МЭК",
+		INSTRUMENTAL = "модулем стабилизации плазмы МЭК",
+		PREPOSITIONAL = "модуле стабилизации плазмы МЭК",
 	)
 
 /obj/item/mod/module/plasma_stabilizer/on_equip()

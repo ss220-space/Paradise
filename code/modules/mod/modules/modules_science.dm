@@ -16,12 +16,12 @@
 
 /obj/item/mod/module/reagent_scanner/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль сканера реагентов для МЭК",
-		GENITIVE = "модуля сканера реагентов для МЭК",
-		DATIVE = "модулю сканера реагентов для МЭК",
-		ACCUSATIVE = "модуль сканера реагентов для МЭК",
-		INSTRUMENTAL = "модулем сканера реагентов для МЭК",
-		PREPOSITIONAL = "модуле сканера реагентов для МЭК",
+		NOMINATIVE = "модуль сканера реагентов МЭК",
+		GENITIVE = "модуля сканера реагентов МЭК",
+		DATIVE = "модулю сканера реагентов МЭК",
+		ACCUSATIVE = "модуль сканера реагентов МЭК",
+		INSTRUMENTAL = "модулем сканера реагентов МЭК",
+		PREPOSITIONAL = "модуле сканера реагентов МЭК",
 	)
 
 /obj/item/mod/module/reagent_scanner/on_activation()
@@ -49,12 +49,12 @@
 
 /obj/item/mod/module/reagent_scanner/advanced/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль продвинутого сканера реагентов для МЭК",
-		GENITIVE = "модуля продвинутого сканера реагентов для МЭК",
-		DATIVE = "модулю продвинутого сканера реагентов для МЭК",
-		ACCUSATIVE = "модуль продвинутого сканера реагентов для МЭК",
-		INSTRUMENTAL = "модулем продвинутого сканера реагентов для МЭК",
-		PREPOSITIONAL = "модуле продвинутого сканера реагентов для МЭК",
+		NOMINATIVE = "модуль продвинутого сканера реагентов МЭК",
+		GENITIVE = "модуля продвинутого сканера реагентов МЭК",
+		DATIVE = "модулю продвинутого сканера реагентов МЭК",
+		ACCUSATIVE = "модуль продвинутого сканера реагентов МЭК",
+		INSTRUMENTAL = "модулем продвинутого сканера реагентов МЭК",
+		PREPOSITIONAL = "модуле продвинутого сканера реагентов МЭК",
 	)
 
 /obj/item/mod/module/reagent_scanner/advanced/on_activation()
@@ -95,12 +95,12 @@
 
 /obj/item/mod/module/anomaly_locked/teleporter/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль телепортера для МЭК",
-		GENITIVE = "модуля телепортера для МЭК",
-		DATIVE = "модулю телепортера для МЭК",
-		ACCUSATIVE = "модуль телепортера для МЭК",
-		INSTRUMENTAL = "модулем телепортера для МЭК",
-		PREPOSITIONAL = "модуле телепортера для МЭК",
+		NOMINATIVE = "модуль телепортера МЭК",
+		GENITIVE = "модуля телепортера МЭК",
+		DATIVE = "модулю телепортера МЭК",
+		ACCUSATIVE = "модуль телепортера МЭК",
+		INSTRUMENTAL = "модулем телепортера МЭК",
+		PREPOSITIONAL = "модуле телепортера МЭК",
 	)
 
 /obj/item/mod/module/anomaly_locked/teleporter/on_select_use(atom/target)

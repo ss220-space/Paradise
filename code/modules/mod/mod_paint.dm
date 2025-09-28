@@ -5,16 +5,16 @@
 	icon_state = "skinapplier"
 	var/skin = "civilian"
 	var/make_spaceproof = FALSE //Used on the miner asteroid skin to make the suit spaceproof when upgrading.
-	var/compatible_theme = /datum/mod_theme
+	var/compatible_theme = /datum/mod_theme/civilian
 
 /obj/item/mod/skin_applier/get_ru_names()
 	return list(
-		NOMINATIVE = "комплект покраски для МЭК",
-		GENITIVE = "комплекта покраски для МЭК",
-		DATIVE = "комплекту покраски для МЭК",
-		ACCUSATIVE = "комплект покраски для МЭК",
-		INSTRUMENTAL = "комплектом покраски для МЭК",
-		PREPOSITIONAL = "комплекте покраски для МЭК"
+		NOMINATIVE = "комплект покраски МЭК",
+		GENITIVE = "комплекта покраски МЭК",
+		DATIVE = "комплекту покраски МЭК",
+		ACCUSATIVE = "комплект покраски МЭК",
+		INSTRUMENTAL = "комплектом покраски МЭК",
+		PREPOSITIONAL = "комплекте покраски МЭК"
 	)
 
 /obj/item/mod/skin_applier/pre_attackby(atom/attacked_atom, mob/living/user, params)
@@ -23,10 +23,10 @@
 	var/obj/item/mod/control/mod = attacked_atom
 	if(mod.active || mod.activating)
 		balloon_alert(user, "сначала выключите костюм!")
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED
 	if(!istype(mod.theme, compatible_theme))
 		balloon_alert(user, "несовместимый тип костюма!")
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED
 	mod.theme.set_skin(mod, skin)
 	if(make_spaceproof)
 		mod.min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -34,7 +34,7 @@
 			C.min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	balloon_alert(user, "успешно перекрашено!")
 	qdel(src)
-	return TRUE
+	return ATTACK_CHAIN_BLOCKED
 
 /obj/item/mod/skin_applier/asteroid
 	skin = "asteroid"

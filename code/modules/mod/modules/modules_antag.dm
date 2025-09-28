@@ -111,12 +111,12 @@
 
 /obj/item/mod/module/insignia/get_ru_names()
 	return list(
-		NOMINATIVE = "опознавательные знаки для МЭК",
-		GENITIVE = "опознавательных знаков для МЭК",
-		DATIVE = "опознавательным знакам для МЭК",
-		ACCUSATIVE = "опознавательные знаки для МЭК",
-		INSTRUMENTAL = "опознавательными знакиами для МЭК",
-		PREPOSITIONAL = "опознавательных знаках для МЭК",
+		NOMINATIVE = "опознавательные знаки МЭК",
+		GENITIVE = "опознавательных знаков МЭК",
+		DATIVE = "опознавательным знакам МЭК",
+		ACCUSATIVE = "опознавательные знаки МЭК",
+		INSTRUMENTAL = "опознавательными знакиами МЭК",
+		PREPOSITIONAL = "опознавательных знаках МЭК",
 	)
 
 /obj/item/mod/module/insignia/generate_worn_overlay(obj/item/source, mutable_appearance/standing)
@@ -163,12 +163,12 @@
 
 /obj/item/mod/module/noslip/get_ru_names()
 	return list(
-		NOMINATIVE = "защита от поскальзывания для МЭК",
-		GENITIVE = "защиты от поскальзывания для МЭК",
-		DATIVE = "защите от поскальзывания для МЭК",
-		ACCUSATIVE = "защиту от поскальзывания для МЭК",
-		INSTRUMENTAL = "защитой от поскальзывания для МЭК",
-		PREPOSITIONAL = "защите от поскальзывания для МЭК",
+		NOMINATIVE = "защита от поскальзывания МЭК",
+		GENITIVE = "защиты от поскальзывания МЭК",
+		DATIVE = "защите от поскальзывания МЭК",
+		ACCUSATIVE = "защиту от поскальзывания МЭК",
+		INSTRUMENTAL = "защитой от поскальзывания МЭК",
+		PREPOSITIONAL = "защите от поскальзывания МЭК",
 	)
 
 /obj/item/mod/module/noslip/on_part_activation()
@@ -434,12 +434,12 @@
 
 /obj/item/mod/module/status_readout/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль считывания данных для МЭК",
-		GENITIVE = "модуля считывания данных для МЭК",
-		DATIVE = "модулю считывания данных для МЭК",
-		ACCUSATIVE = "модуль считывания данных для МЭК",
-		INSTRUMENTAL = "модулем считывания данных для МЭК",
-		PREPOSITIONAL = "модуле считывания данных для МЭК",
+		NOMINATIVE = "модуль считывания данных МЭК",
+		GENITIVE = "модуля считывания данных МЭК",
+		DATIVE = "модулю считывания данных МЭК",
+		ACCUSATIVE = "модуль считывания данных МЭК",
+		INSTRUMENTAL = "модулем считывания данных МЭК",
+		PREPOSITIONAL = "модуле считывания данных МЭК",
 	)
 
 /obj/item/mod/module/status_readout/add_ui_data()
@@ -501,12 +501,12 @@
 
 /obj/item/mod/module/ert_camera/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль камеры для МЭК",
-		GENITIVE = "модуля камеры для МЭК",
-		DATIVE = "модулю камеры для МЭК",
-		ACCUSATIVE = "модуль камеры для МЭК",
-		INSTRUMENTAL = "модулем камеры для МЭК",
-		PREPOSITIONAL = "модуле камеры для МЭК",
+		NOMINATIVE = "модуль камеры МЭК",
+		GENITIVE = "модуля камеры МЭК",
+		DATIVE = "модулю камеры МЭК",
+		ACCUSATIVE = "модуль камеры МЭК",
+		INSTRUMENTAL = "модулем камеры МЭК",
+		PREPOSITIONAL = "модуле камеры МЭК",
 	)
 
 /obj/item/mod/module/ert_camera/on_part_activation()
@@ -542,12 +542,12 @@
 
 /obj/item/mod/module/chameleon/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль-хамелеон для МЭК",
-		GENITIVE = "модуля-хамелеона для МЭК",
-		DATIVE = "модулю-хамелеону для МЭК",
-		ACCUSATIVE = "модуль-хамелеон для МЭК",
-		INSTRUMENTAL = "модулем-хамелеоном для МЭК",
-		PREPOSITIONAL = "модуле-хамелеоне для МЭК",
+		NOMINATIVE = "модуль-хамелеон МЭК",
+		GENITIVE = "модуля-хамелеона МЭК",
+		DATIVE = "модулю-хамелеону МЭК",
+		ACCUSATIVE = "модуль-хамелеон МЭК",
+		INSTRUMENTAL = "модулем-хамелеоном МЭК",
+		PREPOSITIONAL = "модуле-хамелеоне МЭК",
 	)
 
 /obj/item/mod/module/chameleon/on_install()
@@ -621,12 +621,12 @@
 
 /obj/item/mod/module/energy_shield/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль энергетического щита для МЭК",
-		GENITIVE = "модуля энергетического щита для МЭК",
-		DATIVE = "модулю энергетического щита для МЭК",
-		ACCUSATIVE = "модуль энергетического щита для МЭК",
-		INSTRUMENTAL = "модулем энергетического щита для МЭК",
-		PREPOSITIONAL = "модуле энергетического щита для МЭК",
+		NOMINATIVE = "модуль энергетического щита МЭК",
+		GENITIVE = "модуля энергетического щита МЭК",
+		DATIVE = "модулю энергетического щита МЭК",
+		ACCUSATIVE = "модуль энергетического щита МЭК",
+		INSTRUMENTAL = "модулем энергетического щита МЭК",
+		PREPOSITIONAL = "модуле энергетического щита МЭК",
 	)
 
 /obj/item/mod/module/energy_shield/Initialize(mapload)
@@ -701,12 +701,12 @@
 
 /obj/item/mod/module/anomaly_locked/teslawall/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль аномальной защиты для МЭК",
-		GENITIVE = "модуля аномальной защиты для МЭК",
-		DATIVE = "модулю аномальной защиты для МЭК",
-		ACCUSATIVE = "модуль аномальной защиты для МЭК",
-		INSTRUMENTAL = "модулем аномальной защиты для МЭК",
-		PREPOSITIONAL = "модуле аномальной защиты для МЭК",
+		NOMINATIVE = "модуль аномальной защиты МЭК",
+		GENITIVE = "модуля аномальной защиты МЭК",
+		DATIVE = "модулю аномальной защиты МЭК",
+		ACCUSATIVE = "модуль аномальной защиты МЭК",
+		INSTRUMENTAL = "модулем аномальной защиты МЭК",
+		PREPOSITIONAL = "модуле аномальной защиты МЭК",
 	)
 
 /obj/item/mod/module/anomaly_locked/teslawall/Initialize(mapload)
@@ -781,12 +781,12 @@
 
 /obj/item/mod/module/flamethrower/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль огнемёта для МЭК",
-		GENITIVE = "модуля огнемёта для МЭК",
-		DATIVE = "модулю огнемёта для МЭК",
-		ACCUSATIVE = "модуль огнемёта для МЭК",
-		INSTRUMENTAL = "модулем огнемёта для МЭК",
-		PREPOSITIONAL = "модуле огнемёта для МЭК",
+		NOMINATIVE = "модуль огнемёта МЭК",
+		GENITIVE = "модуля огнемёта МЭК",
+		DATIVE = "модулю огнемёта МЭК",
+		ACCUSATIVE = "модуль огнемёта МЭК",
+		INSTRUMENTAL = "модулем огнемёта МЭК",
+		PREPOSITIONAL = "модуле огнемёта МЭК",
 	)
 
 /obj/item/mod/module/flamethrower/on_select_use(atom/target)
@@ -819,12 +819,12 @@
 
 /obj/item/mod/module/medbeam/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль мед-пушки для МЭК",
-		GENITIVE = "модуля мед-пушки для МЭК",
-		DATIVE = "модулю мед-пушки для МЭК",
-		ACCUSATIVE = "модуль мед-пушки для МЭК",
-		INSTRUMENTAL = "модулем мед-пушки для МЭК",
-		PREPOSITIONAL = "модуле мед-пушки для МЭК",
+		NOMINATIVE = "модуль мед-пушки МЭК",
+		GENITIVE = "модуля мед-пушки МЭК",
+		DATIVE = "модулю мед-пушки МЭК",
+		ACCUSATIVE = "модуль мед-пушки МЭК",
+		INSTRUMENTAL = "модулем мед-пушки МЭК",
+		PREPOSITIONAL = "модуле мед-пушки МЭК",
 	)
 
 /obj/item/gun/medbeam/mod

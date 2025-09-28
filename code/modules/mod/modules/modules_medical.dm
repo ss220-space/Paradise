@@ -120,12 +120,12 @@
 
 /obj/item/reagent_containers/syringe/mod/get_ru_names()
 	return list(
-		NOMINATIVE = "шприц-инъектор для МЭК",
-		GENITIVE = "шприца-инъектора для МЭК",
-		DATIVE = "шприцу-инъектору для МЭК",
-		ACCUSATIVE = "шприц-инъектор для МЭК",
-		INSTRUMENTAL = "шприцом-инъектором для МЭК",
-		PREPOSITIONAL = "шприце-инъекторе для МЭК",
+		NOMINATIVE = "шприц-инъектор МЭК",
+		GENITIVE = "шприца-инъектора МЭК",
+		DATIVE = "шприцу-инъектору МЭК",
+		ACCUSATIVE = "шприц-инъектор МЭК",
+		INSTRUMENTAL = "шприцом-инъектором МЭК",
+		PREPOSITIONAL = "шприце-инъекторе МЭК",
 	)
 
 /obj/item/reagent_containers/syringe/mod/Initialize(mapload)
@@ -153,12 +153,12 @@
 
 /obj/item/mod/module/defibrillator/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль-дефибриллятор для МЭК",
-		GENITIVE = "модуля-дефибриллятора для МЭК",
-		DATIVE = "модулю-дефибриллятору для МЭК",
-		ACCUSATIVE = "модуль-дефибриллятор для МЭК",
-		INSTRUMENTAL = "модулем-дефибриллятором для МЭК",
-		PREPOSITIONAL = "модуле-дефибрилляторе для МЭК",
+		NOMINATIVE = "модуль-дефибриллятор МЭК",
+		GENITIVE = "модуля-дефибриллятора МЭК",
+		DATIVE = "модулю-дефибриллятору МЭК",
+		ACCUSATIVE = "модуль-дефибриллятор МЭК",
+		INSTRUMENTAL = "модулем-дефибриллятором МЭК",
+		PREPOSITIONAL = "модуле-дефибрилляторе МЭК",
 	)
 
 /obj/item/mod/module/defibrillator/Initialize(mapload)
@@ -236,12 +236,12 @@
 
 /obj/item/mod/module/defibrillator/combat/get_ru_names()
 	return list(
-		NOMINATIVE = "боевой модуль-дефибриллятор для МЭК",
-		GENITIVE = "боевого модуля-дефибриллятора для МЭК",
-		DATIVE = "боевому модулю-дефибриллятору для МЭК",
-		ACCUSATIVE = "боевой модуль-дефибриллятор для МЭК",
-		INSTRUMENTAL = "боевым модулем-дефибриллятором для МЭК",
-		PREPOSITIONAL = "боевом модуле-дефибрилляторе для МЭК",
+		NOMINATIVE = "боевой модуль-дефибриллятор МЭК",
+		GENITIVE = "боевого модуля-дефибриллятора МЭК",
+		DATIVE = "боевому модулю-дефибриллятору МЭК",
+		ACCUSATIVE = "боевой модуль-дефибриллятор МЭК",
+		INSTRUMENTAL = "боевым модулем-дефибриллятором МЭК",
+		PREPOSITIONAL = "боевом модуле-дефибрилляторе МЭК",
 	)
 
 /obj/item/mod_defib/syndicate
@@ -275,12 +275,12 @@
 
 /obj/item/mod/module/monitor/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль монитора наблюдения за экипажем для МЭК",
-		GENITIVE = "модуля монитора наблюдения за экипажем для МЭК",
-		DATIVE = "модулю монитора наблюдения за экипажем для МЭК",
-		ACCUSATIVE = "модуль монитора наблюдения за экипажем для МЭК",
-		INSTRUMENTAL = "модулем монитора наблюдения за экипажем для МЭК",
-		PREPOSITIONAL = "модуле монитора наблюдения за экипажем для МЭК",
+		NOMINATIVE = "модуль монитора наблюдения за экипажем МЭК",
+		GENITIVE = "модуля монитора наблюдения за экипажем МЭК",
+		DATIVE = "модулю монитора наблюдения за экипажем МЭК",
+		ACCUSATIVE = "модуль монитора наблюдения за экипажем МЭК",
+		INSTRUMENTAL = "модулем монитора наблюдения за экипажем МЭК",
+		PREPOSITIONAL = "модуле монитора наблюдения за экипажем МЭК",
 	)
 
 /obj/item/sensor_device/mod
@@ -289,12 +289,12 @@
 
 /obj/item/sensor_device/mod/get_ru_names()
 	return list(
-		NOMINATIVE = "ручной монитор экипажа для МЭК",
-		GENITIVE = "ручного монитора экипажа для МЭК",
-		DATIVE = "ручному монитору экипажа для МЭК",
-		ACCUSATIVE = "ручной монитор экипажа для МЭК",
-		INSTRUMENTAL = "ручным монитором экипажа для МЭК",
-		PREPOSITIONAL = "ручном мониторе экипажа для МЭК"
+		NOMINATIVE = "ручной монитор экипажа МЭК",
+		GENITIVE = "ручного монитора экипажа МЭК",
+		DATIVE = "ручному монитору экипажа МЭК",
+		ACCUSATIVE = "ручной монитор экипажа МЭК",
+		INSTRUMENTAL = "ручным монитором экипажа МЭК",
+		PREPOSITIONAL = "ручном мониторе экипажа МЭК"
 	)
 
 

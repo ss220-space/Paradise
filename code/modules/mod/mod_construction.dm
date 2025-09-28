@@ -10,12 +10,12 @@
 
 /obj/item/mod/construction/helmet/get_ru_names()
 	return list(
-		NOMINATIVE = "шлем для МЭК",
-		GENITIVE = "шлема для МЭК",
-		DATIVE = "шлему для МЭК",
-		ACCUSATIVE = "шлем для МЭК",
-		INSTRUMENTAL = "шлемом для МЭК",
-		PREPOSITIONAL = "шлеме для МЭК"
+		NOMINATIVE = "шлем МЭК",
+		GENITIVE = "шлема МЭК",
+		DATIVE = "шлему МЭК",
+		ACCUSATIVE = "шлем МЭК",
+		INSTRUMENTAL = "шлемом МЭК",
+		PREPOSITIONAL = "шлеме МЭК"
 	)
 
 /obj/item/mod/construction/chestplate
@@ -25,12 +25,12 @@
 
 /obj/item/mod/construction/chestplate/get_ru_names()
 	return list(
-		NOMINATIVE = "нагрудник для МЭК",
-		GENITIVE = "нагрудника для МЭК",
-		DATIVE = "нагруднику для МЭК",
-		ACCUSATIVE = "шлем для МЭК",
-		INSTRUMENTAL = "нагрудником для МЭК",
-		PREPOSITIONAL = "нагруднике для МЭК"
+		NOMINATIVE = "нагрудник МЭК",
+		GENITIVE = "нагрудника МЭК",
+		DATIVE = "нагруднику МЭК",
+		ACCUSATIVE = "шлем МЭК",
+		INSTRUMENTAL = "нагрудником МЭК",
+		PREPOSITIONAL = "нагруднике МЭК"
 	)
 
 /obj/item/mod/construction/gauntlets
@@ -40,12 +40,12 @@
 
 /obj/item/mod/construction/gauntlets/get_ru_names()
 	return list(
-		NOMINATIVE = "перчатки для МЭК",
-		GENITIVE = "перчаток для МЭК",
-		DATIVE = "перчаткам для МЭК",
-		ACCUSATIVE = "перчатки для МЭК",
-		INSTRUMENTAL = "перчатками для МЭК",
-		PREPOSITIONAL = "перчатках для МЭК"
+		NOMINATIVE = "перчатки МЭК",
+		GENITIVE = "перчаток МЭК",
+		DATIVE = "перчаткам МЭК",
+		ACCUSATIVE = "перчатки МЭК",
+		INSTRUMENTAL = "перчатками МЭК",
+		PREPOSITIONAL = "перчатках МЭК"
 	)
 
 /obj/item/mod/construction/boots
@@ -55,12 +55,12 @@
 
 /obj/item/mod/construction/boots/get_ru_names()
 	return list(
-		NOMINATIVE = "ботинки для МЭК",
-		GENITIVE = "ботинок для МЭК",
-		DATIVE = "ботинкам для МЭК",
-		ACCUSATIVE = "ботинки для МЭК",
-		INSTRUMENTAL = "ботинками для МЭК",
-		PREPOSITIONAL = "ботинках для МЭК"
+		NOMINATIVE = "ботинки МЭК",
+		GENITIVE = "ботинок МЭК",
+		DATIVE = "ботинкам МЭК",
+		ACCUSATIVE = "ботинки МЭК",
+		INSTRUMENTAL = "ботинками МЭК",
+		PREPOSITIONAL = "ботинках МЭК"
 	)
 
 /obj/item/mod/construction/broken_core
@@ -95,7 +95,7 @@
 	name = "MOD external plating"
 	desc = "Внешняя обшивка, используемая для строительства блока управления модульного экзо-костюма. "
 	icon_state = "standard-plating"
-	var/datum/mod_theme/theme = /datum/mod_theme
+	var/datum/mod_theme/theme = /datum/mod_theme/civilian
 
 /obj/item/mod/construction/plating/get_ru_names()
 	return list(

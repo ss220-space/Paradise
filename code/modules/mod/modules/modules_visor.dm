@@ -16,12 +16,12 @@
 
 /obj/item/mod/module/visor/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ИЛС для МЭК",
-		GENITIVE = "модуля ИЛС для МЭК",
-		DATIVE = "модулю ИЛС для МЭК",
-		ACCUSATIVE = "модуль ИЛС для МЭК",
-		INSTRUMENTAL = "модулем ИЛС для МЭК",
-		PREPOSITIONAL = "модуле ИЛС для МЭК",
+		NOMINATIVE = "модуль ИЛС МЭК",
+		GENITIVE = "модуля ИЛС МЭК",
+		DATIVE = "модулю ИЛС МЭК",
+		ACCUSATIVE = "модуль ИЛС МЭК",
+		INSTRUMENTAL = "модулем ИЛС МЭК",
+		PREPOSITIONAL = "модуле ИЛС МЭК",
 	)
 
 /obj/item/mod/module/visor/on_activation()
@@ -51,12 +51,12 @@
 
 /obj/item/mod/module/visor/medhud/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль медицинского ИЛС для МЭК",
-		GENITIVE = "модуля медицинского ИЛС для МЭК",
-		DATIVE = "модулю медицинского ИЛС для МЭК",
-		ACCUSATIVE = "модуль медицинского ИЛС для МЭК",
-		INSTRUMENTAL = "модулем медицинского ИЛС для МЭК",
-		PREPOSITIONAL = "модуле медицинского ИЛС для МЭК",
+		NOMINATIVE = "модуль медицинского ИЛС МЭК",
+		GENITIVE = "модуля медицинского ИЛС МЭК",
+		DATIVE = "модулю медицинского ИЛС МЭК",
+		ACCUSATIVE = "модуль медицинского ИЛС МЭК",
+		INSTRUMENTAL = "модулем медицинского ИЛС МЭК",
+		PREPOSITIONAL = "модуле медицинского ИЛС МЭК",
 	)
 
 //Diagnostic Visor - Gives you a diagnostic HUD.
@@ -70,12 +70,12 @@
 
 /obj/item/mod/module/visor/diaghud/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль диагностического ИЛС для МЭК",
-		GENITIVE = "модуля диагностического ИЛС для МЭК",
-		DATIVE = "модулю диагностического ИЛС для МЭК",
-		ACCUSATIVE = "модуль диагностического ИЛС для МЭК",
-		INSTRUMENTAL = "модулем диагностического ИЛС для МЭК",
-		PREPOSITIONAL = "модуле диагностического ИЛС для МЭК",
+		NOMINATIVE = "модуль диагностического ИЛС МЭК",
+		GENITIVE = "модуля диагностического ИЛС МЭК",
+		DATIVE = "модулю диагностического ИЛС МЭК",
+		ACCUSATIVE = "модуль диагностического ИЛС МЭК",
+		INSTRUMENTAL = "модулем диагностического ИЛС МЭК",
+		PREPOSITIONAL = "модуле диагностического ИЛС МЭК",
 	)
 
 //Security Visor - Gives you a security HUD.
@@ -89,12 +89,12 @@
 
 /obj/item/mod/module/visor/sechud/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ИЛС службы безопасности для МЭК",
-		GENITIVE = "модуля ИЛС  службы безопасностидля МЭК",
-		DATIVE = "модулю ИЛС  службы безопасностидля МЭК",
-		ACCUSATIVE = "модуль ИЛС  службы безопасностидля МЭК",
-		INSTRUMENTAL = "модулем ИЛС  службы безопасностидля МЭК",
-		PREPOSITIONAL = "модуле ИЛС  службы безопасностидля МЭК",
+		NOMINATIVE = "модуль ИЛС службы безопасности МЭК",
+		GENITIVE = "модуля ИЛС  службы безопасностиМЭК",
+		DATIVE = "модулю ИЛС  службы безопасностиМЭК",
+		ACCUSATIVE = "модуль ИЛС  службы безопасностиМЭК",
+		INSTRUMENTAL = "модулем ИЛС  службы безопасностиМЭК",
+		PREPOSITIONAL = "модуле ИЛС  службы безопасностиМЭК",
 	)
 
 //Meson Visor - Gives you meson vision.
@@ -108,12 +108,12 @@
 
 /obj/item/mod/module/visor/meson/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль мезонного зрения для МЭК",
-		GENITIVE = "модуля мезонного зрения для МЭК",
-		DATIVE = "модулю мезонного зрения для МЭК",
-		ACCUSATIVE = "модуль мезонного зрения для МЭК",
-		INSTRUMENTAL = "модулем мезонного зрения для МЭК",
-		PREPOSITIONAL = "модуле мезонного зрения для МЭК",
+		NOMINATIVE = "модуль мезонного зрения МЭК",
+		GENITIVE = "модуля мезонного зрения МЭК",
+		DATIVE = "модулю мезонного зрения МЭК",
+		ACCUSATIVE = "модуль мезонного зрения МЭК",
+		INSTRUMENTAL = "модулем мезонного зрения МЭК",
+		PREPOSITIONAL = "модуле мезонного зрения МЭК",
 	)
 
 //Thermal Visor - Gives you thermal vision.
@@ -128,12 +128,12 @@
 
 /obj/item/mod/module/visor/thermal/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль термального зрения для МЭК",
-		GENITIVE = "модуля термального зрения для МЭК",
-		DATIVE = "модулю термального зрения для МЭК",
-		ACCUSATIVE = "модуль термального зрения для МЭК",
-		INSTRUMENTAL = "модулем термального зрения для МЭК",
-		PREPOSITIONAL = "модуле термального зрения для МЭК",
+		NOMINATIVE = "модуль термального зрения МЭК",
+		GENITIVE = "модуля термального зрения МЭК",
+		DATIVE = "модулю термального зрения МЭК",
+		ACCUSATIVE = "модуль термального зрения МЭК",
+		INSTRUMENTAL = "модулем термального зрения МЭК",
+		PREPOSITIONAL = "модуле термального зрения МЭК",
 	)
 
 //Night Visor - Gives you night vision.
@@ -148,10 +148,10 @@
 
 /obj/item/mod/module/visor/night/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль ночного зрения для МЭК",
-		GENITIVE = "модуля ночного зрения для МЭК",
-		DATIVE = "модулю ночного зрения для МЭК",
-		ACCUSATIVE = "модуль ночного зрения для МЭК",
-		INSTRUMENTAL = "модулем ночного зрения для МЭК",
-		PREPOSITIONAL = "модуле ночного зрения для МЭК",
+		NOMINATIVE = "модуль ночного зрения МЭК",
+		GENITIVE = "модуля ночного зрения МЭК",
+		DATIVE = "модулю ночного зрения МЭК",
+		ACCUSATIVE = "модуль ночного зрения МЭК",
+		INSTRUMENTAL = "модулем ночного зрения МЭК",
+		PREPOSITIONAL = "модуле ночного зрения МЭК",
 	)

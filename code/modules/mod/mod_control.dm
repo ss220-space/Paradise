@@ -146,6 +146,11 @@
 		else
 			. += "Ядро отсутствует. Вы можете установить новое <b>ядро модульного экзо-костюма</b>."
 
+/obj/item/mod/control/get_description_info()
+	if(extended_desc)
+		return extended_desc
+	return
+
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
 		seconds_electrified--

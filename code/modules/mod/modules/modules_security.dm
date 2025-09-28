@@ -18,12 +18,12 @@
 
 /obj/item/mod/module/holster/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль кобуры для МЭК",
-		GENITIVE = "модуля кобуры для МЭК",
-		DATIVE = "модулю кобуры для МЭК",
-		ACCUSATIVE = "модуль кобуры для МЭК",
-		INSTRUMENTAL = "модулем кобуры для МЭК",
-		PREPOSITIONAL = "модуле кобуры для МЭК",
+		NOMINATIVE = "модуль кобуры МЭК",
+		GENITIVE = "модуля кобуры МЭК",
+		DATIVE = "модулю кобуры МЭК",
+		ACCUSATIVE = "модуль кобуры МЭК",
+		INSTRUMENTAL = "модулем кобуры МЭК",
+		PREPOSITIONAL = "модуле кобуры МЭК",
 	)
 
 /obj/item/mod/module/holster/on_use()
@@ -74,12 +74,12 @@
 
 /obj/item/mod/module/dispenser/mirage/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль диспенсера гранат класса \"Мираж\" для МЭК",
-		GENITIVE = "модуля диспенсера гранат класса \"Мираж\" для МЭК",
-		DATIVE = "модулю диспенсера гранат класса \"Мираж\" для МЭК",
-		ACCUSATIVE = "модуль диспенсера гранат класса \"Мираж\" для МЭК",
-		INSTRUMENTAL = "модулем диспенсера гранат класса \"Мираж\" для МЭК",
-		PREPOSITIONAL = "модуле диспенсера гранат класса \"Мираж\" для МЭК",
+		NOMINATIVE = "модуль диспенсера гранат класса \"Мираж\" МЭК",
+		GENITIVE = "модуля диспенсера гранат класса \"Мираж\" МЭК",
+		DATIVE = "модулю диспенсера гранат класса \"Мираж\" МЭК",
+		ACCUSATIVE = "модуль диспенсера гранат класса \"Мираж\" МЭК",
+		INSTRUMENTAL = "модулем диспенсера гранат класса \"Мираж\" МЭК",
+		PREPOSITIONAL = "модуле диспенсера гранат класса \"Мираж\" МЭК",
 	)
 
 /obj/item/grenade/mirage
@@ -139,12 +139,12 @@
 
 /obj/item/mod/module/active_sonar/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль сонара для МЭК",
-		GENITIVE = "модуля сонара для МЭК",
-		DATIVE = "модулю сонара для МЭК",
-		ACCUSATIVE = "модуль сонара для МЭК",
-		INSTRUMENTAL = "модулем сонара для МЭК",
-		PREPOSITIONAL = "модуле сонара для МЭК",
+		NOMINATIVE = "модуль сонара МЭК",
+		GENITIVE = "модуля сонара МЭК",
+		DATIVE = "модулю сонара МЭК",
+		ACCUSATIVE = "модуль сонара МЭК",
+		INSTRUMENTAL = "модулем сонара МЭК",
+		PREPOSITIONAL = "модуле сонара МЭК",
 	)
 
 /obj/item/mod/module/active_sonar/on_use()
@@ -215,12 +215,12 @@
 
 /obj/item/mod/module/anomaly_locked/firewall/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль огненного щита для МЭК",
-		GENITIVE = "модуля огненного щита для МЭК",
-		DATIVE = "модулю огненного щита для МЭК",
-		ACCUSATIVE = "модуль огненного щита для МЭК",
-		INSTRUMENTAL = "модулем огненного щита для МЭК",
-		PREPOSITIONAL = "модуле огненного щита для МЭК",
+		NOMINATIVE = "модуль огненного щита МЭК",
+		GENITIVE = "модуля огненного щита МЭК",
+		DATIVE = "модулю огненного щита МЭК",
+		ACCUSATIVE = "модуль огненного щита МЭК",
+		INSTRUMENTAL = "модулем огненного щита МЭК",
+		PREPOSITIONAL = "модуле огненного щита МЭК",
 	)
 
 /obj/item/mod/module/anomaly_locked/firewall/on_use()
@@ -249,12 +249,12 @@
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль вихревого дробовика для МЭК",
-		GENITIVE = "модуля вихревого дробовика для МЭК",
-		DATIVE = "модулю вихревого дробовика для МЭК",
-		ACCUSATIVE = "модуль вихревого дробовика для МЭК",
-		INSTRUMENTAL = "модулем вихревого дробовика для МЭК",
-		PREPOSITIONAL = "модуле вихревого дробовика для МЭК",
+		NOMINATIVE = "модуль вихревого дробовика МЭК",
+		GENITIVE = "модуля вихревого дробовика МЭК",
+		DATIVE = "модулю вихревого дробовика МЭК",
+		ACCUSATIVE = "модуль вихревого дробовика МЭК",
+		INSTRUMENTAL = "модулем вихревого дробовика МЭК",
+		PREPOSITIONAL = "модуле вихревого дробовика МЭК",
 	)
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/Initialize(mapload)

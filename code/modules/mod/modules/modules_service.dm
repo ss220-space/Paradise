@@ -14,12 +14,12 @@
 
 /obj/item/mod/module/bikehorn/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль гудка для МЭК",
-		GENITIVE = "модуля гудка для МЭК",
-		DATIVE = "модулю гудка для МЭК",
-		ACCUSATIVE = "модуль гудка для МЭК",
-		INSTRUMENTAL = "модулем гудка для МЭК",
-		PREPOSITIONAL = "модуле гудка для МЭК",
+		NOMINATIVE = "модуль гудка МЭК",
+		GENITIVE = "модуля гудка МЭК",
+		DATIVE = "модулю гудка МЭК",
+		ACCUSATIVE = "модуль гудка МЭК",
+		INSTRUMENTAL = "модулем гудка МЭК",
+		PREPOSITIONAL = "модуле гудка МЭК",
 	)
 
 /obj/item/mod/module/bikehorn/on_use()
@@ -42,12 +42,12 @@
 
 /obj/item/mod/module/waddle/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль покачивания для МЭК",
-		GENITIVE = "модуля покачивания для МЭК",
-		DATIVE = "модулю покачивания для МЭК",
-		ACCUSATIVE = "модуль покачивания для МЭК",
-		INSTRUMENTAL = "модулем покачивания для МЭК",
-		PREPOSITIONAL = "модуле покачивания для МЭК",
+		NOMINATIVE = "модуль покачивания МЭК",
+		GENITIVE = "модуля покачивания МЭК",
+		DATIVE = "модулю покачивания МЭК",
+		ACCUSATIVE = "модуль покачивания МЭК",
+		INSTRUMENTAL = "модулем покачивания МЭК",
+		PREPOSITIONAL = "модуле покачивания МЭК",
 	)
 
 /obj/item/mod/module/waddle/on_part_activation()
@@ -73,12 +73,12 @@
 
 /obj/item/mod/module/boot_heating/get_ru_names()
 	return list(
-		NOMINATIVE = "модуль согревающей обуви для МЭК",
-		GENITIVE = "модуля согревающей обуви для МЭК",
-		DATIVE = "модулю согревающей обуви для МЭК",
-		ACCUSATIVE = "модуль согревающей обуви для МЭК",
-		INSTRUMENTAL = "модулем согревающей обуви для МЭК",
-		PREPOSITIONAL = "модуле согревающей обуви для МЭК",
+		NOMINATIVE = "модуль согревающей обуви МЭК",
+		GENITIVE = "модуля согревающей обуви МЭК",
+		DATIVE = "модулю согревающей обуви МЭК",
+		ACCUSATIVE = "модуль согревающей обуви МЭК",
+		INSTRUMENTAL = "модулем согревающей обуви МЭК",
+		PREPOSITIONAL = "модуле согревающей обуви МЭК",
 	)
 
 /obj/item/mod/module/boot_heating/on_part_activation()
