@@ -1,15 +1,9 @@
-/datum/game_mode
-	var/list/datum/mind/superheroes = list()
-	var/list/datum/mind/supervillains = list()
-	var/list/datum/mind/greyshirts = list()
-
 /datum/superheroes
 	var/name
 	var/desc
 	var/class
 	var/list/default_spells = list()
 	var/activated = FALSE //for wishgranters to not give an option if someone already has it.
-
 
 /datum/superheroes/proc/create(mob/living/carbon/human/H)
 	assign_genes(H)

@@ -101,10 +101,8 @@
 /datum/job/engineer/trainee
 	title = JOB_TITLE_ENGINEER_TRAINEE
 	flag = JOB_FLAG_ENGINEER_TRAINEE
-	total_positions = 5
 	spawn_positions = 3
 	department_head = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER)
-	selection_color = "#ffeaca"
 	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW

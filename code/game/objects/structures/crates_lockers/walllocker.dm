@@ -34,7 +34,6 @@
 
 /obj/structure/closet/walllocker/emerglocker/north
 	pixel_y = 32
-	dir = SOUTH
 
 /obj/structure/closet/walllocker/emerglocker/south
 	pixel_y = -32

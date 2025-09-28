@@ -5,7 +5,6 @@
 	name = "Inject Embryo"
 	desc = "Impregnate your victim with Alien Embryo."
 	action_icon_state = "alien_hide"
-	plasma_cost = 0
 	base_cooldown = INJECT_LARVA_COOLDOWN
 
 /obj/effect/proc_holder/spell/alien_spell/impregnate/create_new_targeting()

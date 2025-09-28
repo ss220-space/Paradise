@@ -35,6 +35,11 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
+	var/list/localMotionTargets = list()
+	var/detectTime = 0
+	/// Don't forget, there's another 3 seconds in queueAlarm()
+	var/alarm_delay = 30
+
 /obj/machinery/camera/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	. = ..()
 	wires = new(src)
@@ -351,7 +356,7 @@
 	if(isXRay())
 		see = range(view_range, pos)
 	else
-		see = hear(view_range, pos)
+		see = get_hear(view_range, pos)
 	if(check_lower || check_higher)
 		for(var/turf/seen in see)
 			if(check_lower)
@@ -479,7 +484,6 @@
 /obj/machinery/camera/mortar
 	alpha = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	density = FALSE
 	invuln = TRUE
 	network = list("mortar")
 	use_power = NO_POWER_USE

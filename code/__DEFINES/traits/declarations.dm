@@ -1,7 +1,5 @@
-/*
- * This file contains all of the "static" define strings that tie to a trait.
- * Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
- */
+// This file contains all of the "static" define strings that tie to a trait.
+// Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 
 // atom traits
 /// Trait used to prevent an atom from component radiation emission (see radioactivity.dm)
@@ -43,8 +41,6 @@
 #define TRAIT_CHASM_STOPPED "chasm_stopped"
 ///Lava will be safe to cross while it has this trait.
 #define TRAIT_LAVA_STOPPED "lava_stopped"
-/// If a trait is considered as having "coverage" by a meteor shield.
-#define TRAIT_COVERED_BY_METEOR_SHIELD "covered_by_meteor_shield"
 
 // mob traits
 #define TRAIT_GODMODE "godmode"
@@ -159,7 +155,8 @@
 /// Holocigar trait to make a mob BADASS
 #define TRAIT_BADASS "trait_badass"
 
-/* Traits for ventcrawling.
+/**
+ * Traits for ventcrawling.
  * Both give access to ventcrawling, but *_NUDE requires the user to be
  * wearing no clothes and holding no items. If both present, *_ALWAYS
  * takes precedence.
@@ -171,6 +168,8 @@
 /// If this trait is present all equipped items will be checked for ventcrawling possibilities.
 /// Takes precedence over all traits above
 #define TRAIT_VENTCRAWLER_ITEM_BASED "ventcrawler_item"
+
+#define TRAIT_VENTCRAWLING_EXIT "ventcrawler_exit"
 
 /// Negates our gravity, letting us move normally on floors in 0-g
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
@@ -245,6 +244,8 @@
 #define TRAIT_HAS_LIPS "has_lips"
 /// This human mob can passively regenerate small amount of brute and burn damage (0.1, 0.1)
 #define TRAIT_HAS_REGENERATION "has_regeneration"
+/// This carbon mob can passively regenerate small amount of brute and burn damage
+#define TRAIT_HAS_CARBON_REGENERATION "has_carbon_regeneration"
 /// This human mob acts like it has no DNA, but it actually has
 /// Its dumb I know, we should switch to biotypes already
 #define TRAIT_NO_DNA "no_dna"
@@ -340,13 +341,10 @@
 
 #define TRAIT_NOT_TURRET_GUN "not_turret_gun"
 
-#define TRAIT_PROTEIN "protein"
-
-#define	TRAIT_STRENGTH_LEVELUP	"strength_levelup"
-
-#define TRAIT_STRENGTH_LEVELDOWN "strength_leveldown"
-
 #define TRAIT_BALD "bald"
+
+/// Owner mob sometimes will headbutts airlocks as if it had 60+ braindamage.
+#define TRAIT_AIRLOCK_HIT "airlock_hit"
 
 /// Anti stun reagent in blood
 #define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"
@@ -358,3 +356,15 @@
 #define TRAIT_TASERED "tasered"
 
 #define TRAIT_SUPERMATTERIMMUNE "supermatter_immune"
+
+/// Ignores darkness for hearing
+#define TRAIT_HEAR_THROUGH_DARKNESS "hear_through_darkness"
+
+//important_recursive_contents traits
+/*
+ * Used for movables that need to be updated, via COMSIG_ENTER_AREA and COMSIG_EXIT_AREA, when transitioning areas.
+ * Use [/atom/movable/proc/become_area_sensitive(trait_source)] to properly enable it. How you remove it isn't as important.
+ */
+#define TRAIT_AREA_SENSITIVE "area-sensitive"
+///every hearing sensitive atom has this trait
+#define TRAIT_HEARING_SENSITIVE "hearing_sensitive"

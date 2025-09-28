@@ -108,7 +108,7 @@
 	//Having the SM run at a different rate then atmospherics causes odd behavior.
 	SSair.atmos_machinery += src
 	radio = new(src)
-	radio.listening = FALSE
+	radio.set_listening(FALSE)
 	radio.follow_target = src
 	investigate_log("has been created.", INVESTIGATE_ENGINE)
 	supermatter_explosive_effects = new()
@@ -300,8 +300,6 @@
 	handle_admin_warnings()
 
 	return 1
-
-/obj/machinery/power/supermatter_shard
 
 /obj/machinery/power/supermatter_shard/bullet_act(obj/projectile/Proj)
 	var/turf/L = loc
@@ -622,8 +620,6 @@
 		to_chat(user, span_userdanger("The wave of warm energy is overwhelming you. You feel calm."))
 
 /obj/effect/warp_effect/supermatter
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
 	icon = 'icons/effects/light_overlays/light_352.dmi'
 	icon_state = "light"
 	pixel_x = -176

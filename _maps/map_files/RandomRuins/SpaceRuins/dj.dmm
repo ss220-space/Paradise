@@ -430,7 +430,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/space,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

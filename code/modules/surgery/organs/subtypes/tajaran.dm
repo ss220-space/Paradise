@@ -58,7 +58,6 @@
 		PREPOSITIONAL = "глазах фарвы"
 	)
 	colourmatrix = MATRIX_TAJ_CBLIND
-	see_in_dark = 8
 	replace_colours = TRITANOPIA_COLOR_REPLACE
 
 /obj/item/organ/internal/heart/tajaran
@@ -89,10 +88,8 @@
 		PREPOSITIONAL = "мозге таярана"
 	)
 	icon = 'icons/obj/species_organs/tajaran.dmi'
-	icon_state = "brain2"
 	item_state = "tajaran_brain"
 	mmi_icon = 'icons/obj/species_organs/tajaran.dmi'
-	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/tajaran
 	species_type = /datum/species/tajaran
@@ -138,4 +135,3 @@
 	)
 	icon_name = "tajtail_s"
 	max_damage = 20
-	min_broken_damage = 15

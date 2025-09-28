@@ -37,10 +37,6 @@
 
 /obj/item/card/data/clown
 	name = "coordinates to clown planet"
-	icon_state = "data"
-	item_state = "card-id"
-	layer = 3
-	level = 2
 	desc = "This card contains coordinates to the fabled Clown Planet. Handle with care."
 	function = "teleporter"
 	data = "Clown Land"
@@ -112,8 +108,6 @@
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
 	item_state = "card-id"
-	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/id_righthand.dmi'
 	/// For redeeming at mining equipment lockers
 	var/mining_points = 0
 	/// Total mining points for the Shift.
@@ -381,13 +375,11 @@
 	..()
 
 /obj/item/card/id/silver
-	name = "identification card"
 	desc = "A silver card which shows honour and dedication."
 	icon_state = "silver"
 	item_state = "silver-id"
 
 /obj/item/card/id/gold
-	name = "identification card"
 	desc = "A golden card which shows power and might."
 	icon_state = "gold"
 	item_state = "gold-id"
@@ -466,7 +458,6 @@
 
 
 /obj/item/card/id/syndicate/vox
-	name = "agent card"
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_VOX, ACCESS_EXTERNAL_AIRLOCKS)
 
 // Added all syndicate 'Taipan' access to the admin officer
@@ -1135,8 +1126,6 @@
 /obj/item/card/id/punpun
 	name = "Pun Pun ID"
 	registered_name = "Пун Пун"
-	icon_state = "id"
-	item_state = "card-id"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/mining_medic
@@ -1149,8 +1138,6 @@
 /obj/item/card/id/library_owl
 	name = "Slavka ID"
 	registered_name = "Сыч Вячеслав"
-	icon_state = "id"
-	item_state = "card-id"
 	access = list(ACCESS_LIBRARY)
 
 /obj/item/card/id/rainbow
@@ -1196,8 +1183,6 @@
 
 /obj/item/card/id/ert/registration
 	name = "EDDITABLE ERT ID"
-	icon_state = "ERT_empty"
-	item_state = "ert-id"
 	var/membership
 	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS, ACCESS_SALVAGE_CAPTAIN)
 

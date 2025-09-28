@@ -14,7 +14,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	density = FALSE
 	blocks_emissive = FALSE // Ghosts are transparent, duh
 	alpha = 127
-	move_resist = INFINITY	//  don't get pushed around
 	light_system = NO_LIGHT_SUPPORT
 	invisibility = INVISIBILITY_OBSERVER
 	pass_flags = PASSEVERYTHING
@@ -100,6 +99,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	show_me_the_hud(THOUGHTS_HUD)
 	toggle_all_huds_on(body)
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
+	ADD_TRAIT(src, TRAIT_HEAR_THROUGH_DARKNESS, UNIQUE_TRAIT_SOURCE(src))
 	..()
 	abstract_move(T) //let ghost initialize properly, then off to spawn point
 
@@ -351,13 +351,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
-	H.add_hud_to(src)
+	H.show_to(src)
 	data_hud_seen |= hud_index
 
 /mob/dead/observer/proc/remove_the_hud(hud_index) //remove old huds
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
 	data_hud_seen -= hud_index
-	H.remove_hud_from(src)
+	H.hide_from(src)
 
 /mob/dead/observer/verb/open_hud_panel()
 	set category = STATPANEL_GHOST
@@ -374,7 +374,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	antagHUD = TRUE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.add_hud_to(src)
+		H.show_to(src)
 
 /**
  * Toggles off all HUDs for the ghost player.
@@ -386,7 +386,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 	antagHUD = FALSE
 	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.remove_hud_from(src)
+		H.hide_from(src)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Запретить реанимацию"

@@ -34,7 +34,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	icon_state = "error"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 500
 	/// Network ID used for names + auto linkage
 	var/network_id = "Нет"
@@ -331,7 +330,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 					radios |= R
 
 	// Get a list of mobs who can hear from the radios we collected.
-	var/list/receive = get_mobs_in_radio_ranges(radios)
+	var/list/receive = get_hearers_in_radio_ranges(radios)
 
 	/* ###### Organize the receivers into categories for displaying the message ###### */
 
@@ -344,8 +343,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/list/heard_garbled	= list() // garbled message (ie "f*c* **u, **i*er!")
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
-	for(var/M in receive)
-		var/mob/R = M
+	for(var/mob/R in receive)
 
 		/* --- Loop through the receivers and categorize them --- */
 
@@ -353,6 +351,9 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			continue
 
 		if(isnewplayer(R)) // we don't want new players to hear messages. rare but generates runtimes.
+			continue
+
+		if(isobserver(R) && !R.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO))
 			continue
 
 		// --- Can understand the speech ---

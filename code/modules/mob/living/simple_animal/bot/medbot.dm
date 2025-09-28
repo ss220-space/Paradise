@@ -2,12 +2,8 @@
 /mob/living/simple_animal/bot/medbot
 	name = "Medibot"
 	desc = "Маленький медицинский робот. Выглядит несколько подавленным."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
 	density = FALSE
-	anchored = FALSE
-	health = 20
-	maxHealth = 20
 	pass_flags = PASSMOB|PASSFLAPS
 
 	radio_channel = MED_FREQ_NAME
@@ -100,7 +96,6 @@
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
 
 /mob/living/simple_animal/bot/medbot/mysterious/get_ru_names()
 	return list(
@@ -120,7 +115,6 @@
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
-	treatment_tox = "charcoal"
 	syndicate_aligned = TRUE
 	bot_core_type = /obj/machinery/bot_core/medbot/syndicate
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
@@ -175,7 +169,7 @@
 	qdel(J)
 
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
+	medsensor.show_to(src)
 
 	if(new_skin)
 		skin = new_skin

@@ -1,6 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/ert = list()
-
 GLOBAL_LIST_EMPTY(response_team_members)
 GLOBAL_VAR_INIT(responseteam_age, 21) // Minimum account age to play as an ERT member
 GLOBAL_DATUM(active_team, /datum/response_team)
@@ -372,6 +369,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"
-	frequency = ERT_FREQ
 	icon_state = "radio"
 	freqlock = TRUE
+
+/obj/item/radio/centcom/Initialize(mapload)
+	. = ..()
+	set_frequency(ERT_FREQ)

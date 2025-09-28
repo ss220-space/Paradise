@@ -3,7 +3,6 @@
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=3"
 	origin_tech = "biotech=2;programming=3;engineering=2"
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
@@ -213,7 +212,7 @@
 
 /obj/item/mmi/proc/install_radio()
 	radio = new(src)
-	radio.broadcasting = TRUE
+	radio.set_broadcasting(TRUE)
 	radio_action = new(radio, src)
 	if(brainmob && brainmob.loc == src)
 		radio_action.Grant(brainmob)
@@ -311,7 +310,7 @@
 	holder.update_from_mmi()
 	if(brainmob && brainmob.mind)
 		brainmob.mind.transfer_to(target)
-	holder.insert(target)
+	holder.insert(target, ORGAN_MANIPULATION_NOEFFECT)
 	return TRUE
 
 

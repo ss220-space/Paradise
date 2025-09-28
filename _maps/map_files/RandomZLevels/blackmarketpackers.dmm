@@ -1657,8 +1657,7 @@
 /area/awaymission/BMPship/Containment)
 "eN" = (
 /obj/structure/window/reinforced{
-	color = "yellow";
-	layer = 2.9
+	color = "yellow"
 	},
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter{
 	health = 150;
@@ -1695,8 +1694,7 @@
 "eQ" = (
 /mob/living/simple_animal/chick,
 /obj/structure/window/reinforced{
-	color = "yellow";
-	layer = 2.9
+	color = "yellow"
 	},
 /obj/item/reagent_containers/food/snacks/grown/wheat,
 /turf/simulated/floor/grass,
@@ -2844,8 +2842,7 @@
 /area/awaymission/BMPship/Buffer)
 "hZ" = (
 /obj/structure/window/reinforced{
-	color = "yellow";
-	layer = 2.9
+	color = "yellow"
 	},
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/grass,
@@ -5395,8 +5392,7 @@
 /area/awaymission/BMPship/Armory)
 "AI" = (
 /obj/structure/window/reinforced{
-	color = "yellow";
-	layer = 2.9
+	color = "yellow"
 	},
 /obj/item/reagent_containers/glass/bucket/wooden,
 /turf/simulated/floor/grass,

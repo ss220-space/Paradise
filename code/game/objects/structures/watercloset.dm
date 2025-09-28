@@ -10,7 +10,6 @@
 	desc = "Унитаз марки НТ-451. Предназначен для смыва мелких отходов. Выглядит необычайно чистым."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "toilet00"
-	density = FALSE
 	anchored = TRUE
 	var/open = 0			//if the lid is up
 	var/cistern = 0			//if the cistern bit is open
@@ -324,9 +323,7 @@
 	desc = "The HU-452, an experimental urinal."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "urinal"
-	density = FALSE
 	anchored = TRUE
-
 
 /obj/structure/urinal/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -378,7 +375,6 @@
 	desc = "The HS-451. Installed in the 2550s by the Nanotrasen Hygiene Division."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "shower"
-	density = FALSE
 	anchored = TRUE
 	use_power = NO_POWER_USE
 	///Is the shower on or off?
@@ -422,7 +418,6 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mist"
 	layer = FLY_LAYER
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 
@@ -608,7 +603,6 @@
 /obj/item/bikehorn/rubberducky/captain
 	name = "уточка-капитан"
 	desc = "Капитан всех уточек на этой станции. Крайне важная и престижная уточка. Выпущены в ограниченных экземплярах и только для капитанов. Ценная находка для коллекционеров."
-	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "captain_rubberducky"
 	item_state = "captain_rubberducky"
 

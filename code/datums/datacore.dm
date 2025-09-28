@@ -533,12 +533,13 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(JOB_TITLE_TEAM3)
 			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "blue_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "blue"), ICON_UNDERLAY)
-		else if(H.mind && (H.mind.assigned_role in get_all_centcom_jobs()))
-			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "officer_s")
-			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
 		else
-			clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "grey_s")
-			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
+			if(H.mind && (H.mind.assigned_role in get_all_centcom_jobs()))
+				clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "officer_s")
+				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
+			else
+				clothes_s = new /icon('icons/mob/clothing/uniform.dmi', "grey_s")
+				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 
 	preview_icon.Blend(face_s, ICON_OVERLAY) // Why do we do this twice
 	if(clothes_s)

@@ -96,6 +96,9 @@
 	update_morgue()
 	client.init_verbs()
 
+	clear_important_client_contents(client)
+	enable_client_mobs_in_contents(client)
+
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
 	return TRUE

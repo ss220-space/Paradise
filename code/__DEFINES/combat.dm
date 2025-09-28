@@ -256,3 +256,8 @@
 #define CLICK_CD_RAPID (0.2 SECONDS)
 #define CLICK_CD_LOOK_UP_DOWN (0.5 SECONDS)
 #define CLICK_CD_THROW (0.8 SECONDS)
+
+//the define for visible message range in combat
+#define SAMETILE_MESSAGE_RANGE 1
+#define COMBAT_MESSAGE_RANGE 3
+#define DEFAULT_MESSAGE_RANGE 7

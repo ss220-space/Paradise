@@ -4,7 +4,6 @@
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
 	desc = "Толстая стена извивающихся щупалец."
-	density = FALSE
 	opacity = TRUE
 	anchored = TRUE
 	pass_flags_self = PASSBLOB
@@ -380,7 +379,7 @@
 /obj/structure/blob/examine(mob/user)
 	. = ..()
 	var/datum/atom_hud/hud_to_check = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	if(user.research_scanner || hud_to_check.hudusers[user])
+	if(user.research_scanner || hud_to_check.hud_users[user])
 		. += "<b>Ваш HUD отображает обширный отчет...</b><br>"
 		if(overmind)
 			. += overmind.blobstrain.examine(user)

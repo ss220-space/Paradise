@@ -39,6 +39,8 @@
 		return
 	if(zoomed)
 		return // sights and recoil create visual bugs, disable recoil if we in sight mode.
+	if(HAS_TRAIT(user, TRAIT_BADASS))
+		return
 	var/shot_angle = get_angle(target, user)
 	var/rand_angle = (rand() - 0.5) * recoil.angle + shot_angle
 	recoil_camera(user, recoil.strength, recoil.in_duration, recoil.back_duration, rand_angle)

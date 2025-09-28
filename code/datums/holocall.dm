@@ -1,3 +1,8 @@
+#define CAN_HEAR_MASTERS (1<<0)
+#define CAN_HEAR_ACTIVE_HOLOCALLS (1<<1)
+#define CAN_HEAR_RECORD_MODE (1<<2)
+#define CAN_HEAR_ALL_FLAGS (CAN_HEAR_MASTERS|CAN_HEAR_ACTIVE_HOLOCALLS|CAN_HEAR_RECORD_MODE)
+
 /mob/camera/aiEye/remote/holo/setLoc(turf/destination, force_update = FALSE)
 	. = ..()
 	var/obj/machinery/hologram/holopad/H = origin
@@ -26,13 +31,12 @@
 	calling_holopad = calling_pad
 	dialed_holopads = list()
 
-	for(var/I in callees)
-		var/obj/machinery/hologram/holopad/H = I
-		if(!QDELETED(H) && !(H.stat & NOPOWER) && H.anchored)
-			dialed_holopads += H
-			var/area/area = get_area(H)
-			LAZYADD(H.holo_calls, src)
-			H.atom_say("[area] голопад звонит: входящий вызов от [requester]!")
+	for(var/obj/machinery/hologram/holopad/connected_holopad as anything in callees)
+		if(!QDELETED(connected_holopad) && !(connected_holopad.stat & NOPOWER) && connected_holopad.anchored)
+			dialed_holopads += connected_holopad
+			var/area/area = get_area(connected_holopad)
+			connected_holopad.set_holocall(src)
+			connected_holopad.atom_say("[area] голопад звонит: входящий вызов от [requester]!")
 
 	if(!dialed_holopads.len)
 		calling_holopad.atom_say("Сбой соединения.")
@@ -64,12 +68,11 @@
 		QDEL_NULL(hologram)
 
 
-	for(var/I in dialed_holopads)
-		var/obj/machinery/hologram/holopad/H = I
-		LAZYREMOVE(H.holo_calls, src)
+	for(var/obj/machinery/hologram/holopad/dialed_holopad as anything in dialed_holopads)
+		dialed_holopad.set_holocall(src, FALSE)
 	dialed_holopads.Cut()
 
-	if(calling_holopad)
+	if(calling_holopad)//if the call is answered, then calling_holopad wont be in dialed_holopads and thus wont have set_holocall(src, FALSE) called
 		calling_holopad.outgoing_call = null
 		calling_holopad.SetLightsAndPower()
 		calling_holopad = null
@@ -93,70 +96,71 @@
 
 	ConnectionFailure(H, TRUE)
 
-//Forcefully disconnects a holopad `H` from a call. Pads not in the call are ignored.
-/datum/holocall/proc/ConnectionFailure(obj/machinery/hologram/holopad/H, graceful = FALSE)
-	if(H == connected_holopad || H == calling_holopad)
-		if(!graceful && H != calling_holopad)
+//Forcefully disconnects a holopad `disconnected_holopad` from a call. Pads not in the call are ignored.
+/datum/holocall/proc/ConnectionFailure(obj/machinery/hologram/holopad/disconnected_holopad, graceful = FALSE)
+	if(disconnected_holopad == connected_holopad || disconnected_holopad == calling_holopad)
+		if(!graceful && disconnected_holopad != calling_holopad)
 			calling_holopad.atom_say("Сбой соединения.")
 		qdel(src)
 		return
 
-	LAZYREMOVE(H.holo_calls, src)
-	dialed_holopads -= H
+	disconnected_holopad.set_holocall(src, FALSE)
+
+	dialed_holopads -= disconnected_holopad
 	if(!dialed_holopads.len)
 		if(graceful)
 			calling_holopad.atom_say("Вызов отклонён.")
 		qdel(src)
 
-//Answers a call made to a holopad `H` which cannot be the calling holopad. Pads not in the call are ignored
-/datum/holocall/proc/Answer(obj/machinery/hologram/holopad/H)
-	if(H == calling_holopad)
+//Answers a call made to a holopad `answering_holopad` which cannot be the calling holopad. Pads not in the call are ignored
+/datum/holocall/proc/Answer(obj/machinery/hologram/holopad/answering_holopad)
+	if(answering_holopad == calling_holopad)
 		return
 
-	if(!(H in dialed_holopads))
+	if(!(answering_holopad in dialed_holopads))
 		return
 
 	if(connected_holopad)
 		return
 
-	for(var/I in dialed_holopads)
-		if(I == H)
+	for(var/other_dialed_holopad as anything in dialed_holopads)
+		if(other_dialed_holopad == answering_holopad)
 			continue
-		Disconnect(I)
+		Disconnect(other_dialed_holopad)
 
-	for(var/I in H.holo_calls)
-		var/datum/holocall/HC = I
-		if(HC != src)
-			HC.Disconnect(H)
+	for(var/datum/holocall/previously_answered_holocall as anything in answering_holopad.holo_calls)//disconnect the other holocalls answering_holopad is occupied with
+		if(previously_answered_holocall != src)
+			previously_answered_holocall.Disconnect(answering_holopad)
 
-	connected_holopad = H
+	connected_holopad = answering_holopad
 
 	if(!Check())
 		return
 
-	hologram = H.activate_holo(user)
+	hologram = answering_holopad.activate_holo(user)
 	hologram.HC = src
 
-	user.unset_machine(H)
+	user.unset_machine(answering_holopad)
 	//eyeobj code is horrid, this is the best copypasta I could make
 	eye = new()
-	eye.origin = H
+	eye.origin = answering_holopad
 	eye.eye_initialized = TRUE
 	eye.eye_user = user
 	eye.name = "Camera Eye ([user.name])"
 	user.remote_control = eye
 	user.reset_perspective(eye)
-	eye.setLoc(get_turf(H))
+	eye.setLoc(get_turf(answering_holopad))
 
 	hangup = new(eye,src)
 	hangup.Grant(user)
+	playsound(answering_holopad, 'sound/machines/ping.ogg', 100)
+	answering_holopad.atom_say("Соединение установлено.")
 
 //Checks the validity of a holocall and qdels itself if it's not. Returns TRUE if valid, FALSE otherwise
 /datum/holocall/proc/Check()
-	for(var/I in dialed_holopads)
-		var/obj/machinery/hologram/holopad/H = I
-		if((H.stat & NOPOWER) || !H.anchored)
-			ConnectionFailure(H)
+	for(var/obj/machinery/hologram/holopad/dialed_holopad as anything in dialed_holopads)
+		if((dialed_holopad.stat & NOPOWER) || !dialed_holopad.anchored)
+			ConnectionFailure(dialed_holopad)
 
 	if(QDELETED(src))
 		return FALSE
@@ -184,3 +188,8 @@
 
 /datum/action/innate/end_holocall/Activate()
 	hcall.Disconnect(hcall.calling_holopad)
+
+#undef CAN_HEAR_MASTERS
+#undef CAN_HEAR_ACTIVE_HOLOCALLS
+#undef CAN_HEAR_RECORD_MODE
+#undef CAN_HEAR_ALL_FLAGS

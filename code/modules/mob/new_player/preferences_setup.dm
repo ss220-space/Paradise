@@ -1,5 +1,3 @@
-/datum/preferences
-	//The mob should have a gender you want before running this proc. Will run fine without H
 /datum/preferences/proc/random_character(gender_override)
 	var/datum/species/S = GLOB.all_species[species]
 	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.

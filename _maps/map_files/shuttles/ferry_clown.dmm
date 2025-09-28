@@ -69,8 +69,7 @@
 /area/shuttle/transport)
 "C" = (
 /obj/structure/window/plasmareinforced{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -103,9 +102,6 @@
 	preferred_direction = 4
 	},
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/bananium/glass{
-	req_access = list(46)
-	},
 /turf/simulated/wall/mineral/bananium,
 /area/shuttle/transport)
 "Q" = (

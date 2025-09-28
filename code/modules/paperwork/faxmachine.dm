@@ -9,7 +9,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
 	desc = "Небольшая машинка для работы с факсами. Не смотря на свой размер, обладает большой силой."
-	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
 	pass_flags = PASSTABLE
@@ -22,9 +21,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/long_range_enabled = FALSE
 	req_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
 
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 30
-	active_power_usage = 200
 
 	/// ID card inserted into the machine, used to log in with
 	var/obj/item/card/id/scan = null
@@ -437,7 +433,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	return round((sendcooldown - world.time) / 10)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(mob/sender, faxname, faxtype, obj/item/sent, font_colour="#9A04D1")
-	var/msg = "<span class='boldnotice'><span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")]) (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</a>) </span>: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	// (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=[UID()]'>EVILFAX</a>) effects moved to smites.
+	var/msg = "[span_boldnotice("<span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=\ref[sender][faxname == "USSP FAX" ? "USSPReply" : ""]=\ref[sender][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=\ref[sender]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")])")]: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))

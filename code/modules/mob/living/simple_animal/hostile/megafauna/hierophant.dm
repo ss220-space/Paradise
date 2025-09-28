@@ -619,11 +619,11 @@ Difficulty: Hard
 
 /obj/effect/temp_visual/hierophant/wall/Initialize(mapload, new_caster)
 	. = ..()
-	queue_smooth_neighbors(src)
-	queue_smooth(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
 
 /obj/effect/temp_visual/hierophant/wall/Destroy()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 
@@ -827,7 +827,6 @@ Difficulty: Hard
 	icon_state = "hierophant_tele_off"
 	light_range = 2
 	layer = LOW_OBJ_LAYER
-	anchored = TRUE
 	var/teleporting = FALSE
 
 /obj/effect/hierophant/get_ru_names()

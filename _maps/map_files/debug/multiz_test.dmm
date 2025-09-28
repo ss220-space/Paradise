@@ -1153,9 +1153,6 @@
 	},
 /area/construction/hallway)
 "DU" = (
-/obj/structure/cable/multiz{
-	color = "#dd1010"
-	},
 /obj/structure/cable,
 /obj/structure/cable/multiz{
 	color = "#dd1010"
@@ -1759,9 +1756,6 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	pixel_y = 25
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
 	},
 /obj/machinery/camera/autoname,
 /turf/simulated/floor/plasteel,

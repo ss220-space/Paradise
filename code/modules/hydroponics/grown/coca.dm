@@ -10,9 +10,6 @@
 	maturation = 5
 	production = 3
 	yield = 5
-	potency = 10
-	growthstages = 6
-	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	icon_dead = "tobacco-dead"
 	reagents_add = list("cocaextract" = 0.1, "plantmatter" = 0.1)
 	genes = list(/datum/plant_gene/trait/repeated_harvest)

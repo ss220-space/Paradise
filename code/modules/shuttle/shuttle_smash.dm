@@ -12,7 +12,7 @@
 			var/movable_name = "[movable.name]"
 			if(movable.shuttle_crush_react(stationary_turf, mobile_dir))
 				if(!viewers_by_turf[stationary_turf])
-					viewers_by_turf[stationary_turf] = get_mobs_in_view(7, stationary_turf, FALSE, FALSE) - movable
+					viewers_by_turf[stationary_turf] = get_hearers_in_view(7, stationary_turf) - movable
 				else
 					viewers_by_turf[stationary_turf] -= movable
 				if(!things_by_turf[stationary_turf])

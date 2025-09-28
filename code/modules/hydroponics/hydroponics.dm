@@ -45,7 +45,7 @@
 	. = ..()
 	var/datum/atom_hud/data/hydroponic/hydro_hud = GLOB.huds[DATA_HUD_HYDROPONIC]
 	prepare_huds()
-	hydro_hud.add_to_hud(src)
+	hydro_hud.add_atom_to_hud(src)
 	plant_hud_set_nutrient()
 	plant_hud_set_water()
 	plant_hud_set_status()
@@ -55,8 +55,6 @@
 	plant_hud_set_weed()
 
 /obj/machinery/hydroponics/constructable
-	name = "hydroponics tray"
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray3"
 
 /obj/machinery/hydroponics/constructable/Initialize(mapload)
@@ -1110,7 +1108,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!
 	name = "soil"
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "soil"
 	density = FALSE
 	use_power = NO_POWER_USE

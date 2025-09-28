@@ -142,15 +142,15 @@ SUBSYSTEM_DEF(mapping)
 	// Load the station
 	loadStation()
 
-	if(!CONFIG_GET(flag/disable_lavaland))
+	if(!CONFIG_GET(flag/disable_lavaland) && !(map_datum.disables & DISABLE_LAVALAND))
 		loadLavaland()
-	if(!CONFIG_GET(flag/disable_taipan))
+	if(!CONFIG_GET(flag/disable_taipan) && !(map_datum.disables & DISABLE_TAIPAN))
 		loadTaipan()
 	// Pick a random away mission.
-	if(!CONFIG_GET(flag/disable_away_missions))
+	if(!CONFIG_GET(flag/disable_away_missions) && !(map_datum.disables & DISABLE_AWAY_MISSIONS))
 		loadAwayLevel()
 	// Seed space ruins
-	if(!CONFIG_GET(flag/disable_space_ruins))
+	if(!CONFIG_GET(flag/disable_space_ruins) && !(map_datum.disables & DISABLE_SPACE_RUINS))
 		handleRuins()
 
 	// Makes a blank space level for the sake of randomness
@@ -160,7 +160,7 @@ SUBSYSTEM_DEF(mapping)
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
 
-	if(!CONFIG_GET(flag/disable_lavaland))
+	if(!CONFIG_GET(flag/disable_lavaland) && !(map_datum.disables & DISABLE_LAVALAND))
 		// Spawn Lavaland ruins and rivers.
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
@@ -368,7 +368,12 @@ SUBSYSTEM_DEF(mapping)
 		else
 			to_chat(world, span_danger("ERROR: The map datum specified to load is invalid. Falling back to... delta probably?"))
 #else
+
+	#ifndef MULTIZ_FAST_LOAD
 	map_datum = new /datum/map/fast_load
+	#else
+	map_datum = new /datum/map/fast_load_multiz
+	#endif
 #endif
 
 	ASSERT(map_datum.map_path)
@@ -386,7 +391,6 @@ SUBSYSTEM_DEF(mapping)
 
 		if(map_datum.traits.len > MULTIZ_WARN)
 			message_admins("Loading station with over [MULTIZ_WARN] levels(It has [map_datum.traits.len]!!). May cause some issues with space levels and/or perfomance on server.")
-
 		for(var/i in 2 to map_datum.traits.len)
 			var/z_level_name = MAIN_STATION + "([i])"
 			var/z_num = GLOB.space_manager.add_new_zlevel(z_level_name, linkage = map_datum.linkage, traits = map_datum.traits[i])
@@ -395,6 +399,7 @@ SUBSYSTEM_DEF(mapping)
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+
 
 	if(map_datum?.forced_mode)
 		GLOB.master_mode = map_datum.forced_mode.name
