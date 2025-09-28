@@ -1,0 +1,5 @@
+/obj/effect/landmark/tiles/damageturf : /obj/effect/mapping_helpers/turfs/damage
+/obj/effect/landmark/tiles/burnturf : /obj/effect/mapping_helpers/turfs/burn
+/obj/effect/landmark/team1 : /obj/effect/landmark/spawner/team1
+/obj/effect/landmark/team2 : /obj/effect/landmark/spawner/team2
+/obj/effect/landmark/team3 : /obj/effect/landmark/spawner/team3
