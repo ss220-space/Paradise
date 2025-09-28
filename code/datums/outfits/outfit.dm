@@ -153,7 +153,7 @@
 		if(component_to_add)
 			prom_R.RawAddComponent((list(component_to_add) + component_args))
 		H.equip_to_slot_if_possible(prom_R, ITEM_SLOT_HAND_RIGHT, TRUE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
-	if(pda) 
+	if(pda)
 		equip_item(H, pda, ITEM_SLOT_PDA)
 
 	if(uniform)
@@ -221,7 +221,7 @@
 /datum/outfit/proc/get_chameleon_disguise_info()
 	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, neck, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
 	types += chameleon_extras
-	listclearnulls(types)
+	list_clear_nulls(types)
 	return types
 
 

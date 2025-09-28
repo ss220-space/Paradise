@@ -60,6 +60,9 @@
 	/// The last direction we moved in a vent. Used to make holding two directions feel nice
 	var/last_vent_dir = NONE
 
+	/// Should only exist if you're in a pipe
+	var/datum/cell_tracker/pipetracker
+
 	/// Used to prevent spam with smoke reagent reaction on mob.
 	var/smoke_delay = 0
 

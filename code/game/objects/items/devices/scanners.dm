@@ -24,6 +24,7 @@ BODY SCANNERS
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
 	origin_tech = "magnets=1;engineering=1"
+	toolbox_radial_menu_compatibility = TRUE
 	var/scan_range = 1
 	var/pulse_duration = 1 SECONDS
 
