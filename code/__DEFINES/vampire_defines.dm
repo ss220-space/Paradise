@@ -32,3 +32,5 @@
 #define DIABLERIE_REQUIRED_BLOOD_TOTAL 150
 /// Maximum diablerie level vampire can have
 #define DIABLERIE_COUNT_MAX 4
+/// Cooldown duration reduction applied to all vampire spells per diablerie level, max is 0.2, which is 20% CDR
+#define DIABLERIE_COOLDOWN_REDUCTION 0.05

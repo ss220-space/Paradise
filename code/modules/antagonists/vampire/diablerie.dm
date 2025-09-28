@@ -1,5 +1,3 @@
-/// Cooldown duration reduction applied to all vampire spells per diablerie level, max is 0.2, which is 20% CDR
-#define DIABLERIE_COOLDOWN_REDUCTION 0.05
 /// Bonus amount of blood that vampire sucks from victim in units per diablerie level. Base is 30u, max is 50u with fourth level bonus
 #define DIABLERIE_SUCKING_AMOUNT 5
 
@@ -18,7 +16,7 @@
 	var/diablerie_count = 0
 	/// Reference to diablerie aura. On level 1 only vampires can see it, at level 3 — everyone
 	var/obj/effect/diablerie_aura/diablerie_aura
-	/// Used to store user unarmed attack datum to retrieve it, because we modify it. For situation when we *somehow* lose 4 diablerie levels
+	/// Used to store user unarmed attack datum to retrieve it, because we modify it
 	var/datum/unarmed_attack/old_unarmed
 	var/old_unarmed_type
 	/// Static list of initialized diablerie levels
@@ -39,6 +37,7 @@
 
 
 /datum/diablerie/Destroy(force)
+	UnregisterSignal(vampire, list(COMSIG_LIVING_DEATH, COMSIG_HUMAN_DESTROYED))
 	force_diablerie_level(0)
 	old_unarmed = null
 	old_unarmed_type = null
@@ -67,11 +66,11 @@
 	remove_additional_bonuses()
 	diablerie_count--
 
-	to_chat(vampire, span_warning("Вы ощущаете боль по всему телу, теряя драгоценную часть своей силы."))
+	to_chat(vampire, span_danger("Вы ощущаете боль по всему телу, теряя драгоценную часть своей силы."))
 
 
 /**
- * Every diablerie level increases amount of blood sucked from victim per cycle by [DIABLERIE_SUCKING_AMOUNT]
+ * Every diablerie level increases amount of blood taken from victim per cycle by [DIABLERIE_SUCKING_AMOUNT]
  * and applies [DIABLERIE_COOLDOWN_REDUCTION] bonus on every active spell vampire has
  */
 /datum/diablerie/proc/apply_additional_bonuses()
@@ -79,7 +78,9 @@
 	for(var/obj/effect/proc_holder/spell/power in vampire_datum.powers)
 		power.cooldown_handler.change_cooldowns(recharge_reduction = DIABLERIE_COOLDOWN_REDUCTION)
 
-
+/**
+ * Proc to properly remove bonuses from dibalerie level if it has been decreased
+ */
 /datum/diablerie/proc/remove_additional_bonuses()
 	vampire_datum.sucking_amount = max(vampire_datum.sucking_amount - DIABLERIE_SUCKING_AMOUNT, initial(vampire_datum.sucking_amount))
 	for(var/obj/effect/proc_holder/spell/power in vampire_datum.powers)
@@ -99,9 +100,15 @@
 	vampire.update_appearance()
 
 
+/**
+ * Proc to transfer diablerie aura from one mob to another, while transforming on transfering bodies
+ *
+ * Arguments:
+ * * old_body - Old body to remove aura from
+ * * new_body - New body to transfer aura to
+ */
 /datum/diablerie/proc/transfer_diablerie_aura(mob/living/old_body, mob/living/new_body)
 	if(!diablerie_aura)
-		stack_trace("Something went wrong, tried to transfer diablerie aura that doesn't exist from old_body: [old_body] to new_body: [new_body]!")
 		return
 
 	old_body?.vis_contents -= diablerie_aura
@@ -117,6 +124,12 @@
 	QDEL_NULL(diablerie_aura)
 
 
+/**
+ * Proc to force certain diablerie level, used by traitor panel
+ *
+ * Arguments:
+ * * level_to_force - Diablerie level we want to force on a vampire
+ */
 /datum/diablerie/proc/force_diablerie_level(level_to_force)
 	if(level_to_force > DIABLERIE_COUNT_MAX || level_to_force < 0 || level_to_force == diablerie_count)
 		return
@@ -126,6 +139,26 @@
 
 	while(level_to_force < diablerie_count)
 		decrease_diablerie_level()
+
+
+/datum/diablerie/proc/upgrade_rejuvenate(upgrade_heal = FALSE)
+	var/obj/effect/proc_holder/spell/vampire/self/rejuvenate/rejuvenate = locate() in vampire_datum.powers
+	if(upgrade_heal)
+		rejuvenate.diablerie_bonus = TRUE
+		return
+
+	var/datum/spell_cooldown/charges/charges = rejuvenate.cooldown_handler
+	charges.change_cooldowns(new_max_charges = 2)
+
+
+/datum/diablerie/proc/upgrade_glare(upgrade_deviation = FALSE)
+	var/obj/effect/proc_holder/spell/vampire/glare/glare = locate() in vampire_datum.powers
+	if(upgrade_deviation)
+		glare.ignore_deviation = TRUE
+		return
+
+	var/datum/spell_cooldown/charges/charges = glare.cooldown_handler
+	charges.change_cooldowns(new_max_charges = 3)
 
 
 /datum/diablerie/proc/announce_vampire_ascended(mob/living/carbon/human/vampire)
@@ -146,6 +179,7 @@
 
 
 /datum/diablerie/proc/announce_vampire_fallen(mob/living/carbon/human/vampire)
+	SIGNAL_HANDLER
 	// We don't want announcments from shitspawning at admin zone
 	var/turf/vampire_turf = get_turf(vampire)
 	if(is_admin_level(vampire_turf.z))
@@ -176,9 +210,8 @@
 */
 /datum/diablerie_level/level_one/gain(datum/diablerie/diablerie)
 	var/mob/living/carbon/human/vampire = diablerie.vampire
-	var/obj/effect/proc_holder/spell/vampire/self/rejuvenate/rejuvenate = locate() in diablerie.vampire_datum.powers
-	var/datum/spell_cooldown/charges/charges = rejuvenate.cooldown_handler
-	charges.change_cooldowns(new_max_charges = 2)
+
+	diablerie.upgrade_rejuvenate()
 
 	diablerie.add_diablerie_aura()
 
@@ -204,9 +237,8 @@
  */
 /datum/diablerie_level/level_two/gain(datum/diablerie/diablerie)
 	var/mob/living/carbon/human/vampire = diablerie.vampire
-	var/obj/effect/proc_holder/spell/vampire/glare/glare = locate() in diablerie.vampire_datum.powers
-	var/datum/spell_cooldown/charges/charges = glare.cooldown_handler
-	charges.change_cooldowns(new_max_charges = 3)
+
+	diablerie.upgrade_glare()
 
 	// If the vampire doesn't cover his face, examination will reveal his dark nature
 	if(!vampire.original_eye_color)
@@ -219,6 +251,7 @@
 
 /datum/diablerie_level/level_two/remove(datum/diablerie/diablerie)
 	var/mob/living/carbon/human/vampire = diablerie.vampire
+
 	var/obj/effect/proc_holder/spell/vampire/glare/glare = locate() in diablerie.vampire_datum.powers
 	var/datum/spell_cooldown/charges/charges = glare.cooldown_handler
 	charges.change_cooldowns(new_max_charges = 2)
@@ -236,8 +269,7 @@
  * sucking 45 units of blood per cycle
  */
 /datum/diablerie_level/level_three/gain(datum/diablerie/diablerie)
-	var/obj/effect/proc_holder/spell/vampire/self/rejuvenate/rejuvenate = locate() in diablerie.vampire_datum.powers
-	rejuvenate.diablerie_bonus = TRUE
+	diablerie.upgrade_rejuvenate(upgrade_heal = TRUE)
 
 	diablerie.remove_diablerie_aura()
 	diablerie.add_diablerie_aura(ascended = TRUE)
@@ -264,9 +296,8 @@
 /datum/diablerie_level/level_four/gain(datum/diablerie/diablerie)
 	var/datum/antagonist/vampire/vampire_datum = diablerie.vampire_datum
 	var/mob/living/carbon/human/vampire = diablerie.vampire
-	var/obj/effect/proc_holder/spell/vampire/glare/glare = locate() in vampire_datum.powers
 
-	glare.ignore_deviation = TRUE
+	diablerie.upgrade_glare(upgrade_deviation = TRUE)
 
 	vampire_datum.add_ability(/obj/effect/proc_holder/spell/vampire/raise_free_vampire)
 
@@ -285,11 +316,12 @@
 /datum/diablerie_level/level_four/remove(datum/diablerie/diablerie)
 	var/datum/antagonist/vampire/vampire_datum = diablerie.vampire_datum
 	var/mob/living/carbon/human/vampire = diablerie.vampire
-	var/obj/effect/proc_holder/spell/vampire/glare/glare = locate() in vampire_datum.powers
 
+	var/obj/effect/proc_holder/spell/vampire/glare/glare = locate() in vampire_datum.powers
 	glare.ignore_deviation = FALSE
 
-	vampire_datum.remove_ability(/obj/effect/proc_holder/spell/vampire/raise_free_vampire)
+	var/obj/effect/proc_holder/spell/vampire/raise_free_vampire/raise_free_vampire = locate() in vampire_datum.powers
+	vampire_datum.remove_ability(raise_free_vampire)
 
 	if(istype(vampire_datum.subclass, SUBCLASS_GARGANTUA))
 		vampire.dna.species.unarmed = diablerie.old_unarmed
@@ -306,5 +338,4 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 
-#undef DIABLERIE_COOLDOWN_REDUCTION
 #undef DIABLERIE_SUCKING_AMOUNT

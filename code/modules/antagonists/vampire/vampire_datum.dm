@@ -435,6 +435,11 @@
 		if(istype(spell, /obj/effect/proc_holder/spell/vampire) && subclass)
 			var/obj/effect/proc_holder/spell/vampire/v_spell = spell
 			v_spell.on_trophie_update(src, force = TRUE)
+			// We give cooldown reduction bonus from current diablerie level to all new spells. Covers body transfers as well.
+			if(diablerie && v_spell.cooldown_handler)
+				var/datum/spell_cooldown/cooldown = v_spell.cooldown_handler
+				cooldown.change_cooldowns(recharge_reduction = DIABLERIE_COOLDOWN_REDUCTION * diablerie.diablerie_count)
+
 		if(istype(spell, /obj/effect/proc_holder/spell/vampire/self/dissect_info) && subclass)
 			subclass.spell_TGUI = spell
 
