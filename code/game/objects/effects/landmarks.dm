@@ -319,7 +319,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	name = "Holocarp Spawn"
 	icon_state = "carpspawn"
 
-/obj/effect/landmark/spawner/revenantspawn
+/obj/effect/landmark/spawner/revenant
 	name = "revenantspawn"
 	icon_state = "revenantspawn"
 
@@ -381,7 +381,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	name = "Late Join Prisoner"
 	icon_state = "LatePrisoner"
 
-/obj/effect/landmark/spawner/late/gateway/Initialize(mapload)
+/obj/effect/landmark/spawner/late/prisoner/Initialize(mapload)
 	spawner_list = GLOB.latejoin_prisoner
 	return ..()
 
