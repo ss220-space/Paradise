@@ -52,3 +52,5 @@
 #define ANNOUNCE_APC_REPAIR_RU "Система питания восстановлена."
 #define ANNOUNCE_ROGUE_DRONE_RU "Сбойные дроны."
 #define ANNOUNCE_HONKANOMALY_RU "Предупреждение о Хонканомалии."
+#define ANNOUNCE_ELECTRICAL_STORM "Электрический шторм."
+#define ANNOUNCE_DEBRIS "Обломки."
