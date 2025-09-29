@@ -1185,12 +1185,12 @@
 	// Do not allow the staff to recharge if it's more than 3 tiles away from the robe. If get_dist returns 0, the robe and the staff in the same tile.
 	if(!(get_dist(H, linked_staff) <= 3))
 		if(prob(10))	//10% chance per process should avoid being too spammy, can tweak if it ends up still being too frequent.
-			to_chat(H, "<span class='warning'>Your staff is unable to charge at this range. Get closer!</span>")
+			to_chat(H, span_warning("Your staff is unable to charge at this range. Get closer!"))
 		return
 
 	linked_staff.faith += 5
 	if(linked_staff.faith >= 100)	//if this charge puts the staff at or above full, notify the wearer
-		to_chat(H, "<span class='notice'>Faith renewed; ready to convert new followers.</span>")
+		to_chat(H, span_notice("Faith renewed; ready to convert new followers."))
 
 /obj/item/clothing/suit/tailcoat
 	name = "victorian tailcoat"
@@ -1732,7 +1732,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_KIDAN = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/head.dmi'
 		)

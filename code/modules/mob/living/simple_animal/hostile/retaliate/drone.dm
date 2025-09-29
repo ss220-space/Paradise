@@ -97,11 +97,11 @@
 		do_sparks(3, TRUE, src)
 		passive_mode = !passive_mode
 		if(passive_mode)
-			visible_message("<span class='notice'>[src] retracts several targetting vanes.</span>")
+			visible_message(span_notice("[src] retracts several targetting vanes."))
 			if(target)
 				lose_target()
 		else
-			visible_message("<span class='warning'>[src] suddenly lights up, and additional targetting vanes slide into place.</span>")
+			visible_message(span_warning("[src] suddenly lights up, and additional targetting vanes slide into place."))
 		update_icons()
 
 /mob/living/simple_animal/hostile/malf_drone/emp_act(severity)

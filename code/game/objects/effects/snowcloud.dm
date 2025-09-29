@@ -96,7 +96,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/item/snowball/SB = new(get_turf(user))
 	user.put_in_hands(SB)
-	to_chat(user, "<span class='notice'>You scoop up some snow and make \a [SB]!</span>")
+	to_chat(user, span_notice("You scoop up some snow and make \a [SB]!"))
 
 
 /obj/effect/snow/attackby(obj/item/I, mob/user, params)

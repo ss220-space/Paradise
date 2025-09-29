@@ -31,7 +31,7 @@
 /obj/structure/tribune/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
+		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct [src]."))
 		return
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return

@@ -115,7 +115,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 				RC.write_to_message_log(rendered_message)
 
 /obj/machinery/message_server/attack_hand(user)
-//	to_chat(user, "<span class='notice'>There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays.</span>")
+//	to_chat(user, span_notice("There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays."))
 	if(..())
 		return TRUE
 	add_fingerprint(user)

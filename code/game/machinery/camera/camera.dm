@@ -226,8 +226,10 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message(span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
-						span_warning("You unweld [src], leaving it as just a frame bolted to the wall"))
+		visible_message(
+			span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
+			span_warning("You unweld [src], leaving it as just a frame bolted to the wall")
+		)
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)

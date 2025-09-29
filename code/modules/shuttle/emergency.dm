@@ -371,7 +371,7 @@
 
 /obj/machinery/computer/shuttle/pod/emag_act(mob/user)
 	if(user)
-		to_chat(user, "<span class='warning'> Access requirements overridden. The pod may now be launched manually at any time.</span>")
+		to_chat(user, span_warning(" Access requirements overridden. The pod may now be launched manually at any time."))
 	admin_controlled = FALSE
 	update_icon(UPDATE_ICON_STATE)
 

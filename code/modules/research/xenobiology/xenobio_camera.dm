@@ -171,13 +171,13 @@
 	current_potion = null
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/capture_slime(mob/living/simple_animal/slime/slime)
-	slime.visible_message("<span class='notice'>[slime] vanishes in a flash of light!</span>")
+	slime.visible_message(span_notice("[slime] vanishes in a flash of light!"))
 	slime.forceMove(src)
 	stored_slimes += slime
 	RegisterSignal(slime, COMSIG_QDELETING, PROC_REF(clear_slime))
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/release_slime(mob/living/simple_animal/slime/slime, release_spot)
-	slime.visible_message("<span class='notice'>[slime] warps in!</span>")
+	slime.visible_message(span_notice("[slime] warps in!"))
 	clear_slime(slime)
 	slime.forceMove(release_spot)
 
@@ -240,7 +240,7 @@
 	if(istype(M.buffer, /obj/machinery/monkey_recycler))
 		connected_recycler = M.buffer
 		connected_recycler.connected += src
-		to_chat(user, "<span class='notice'>You link [src] to the recycler stored in the [M]'s buffer.</span>")
+		to_chat(user, span_notice("You link [src] to the recycler stored in the [M]'s buffer."))
 
 // === SLIME ACTION DATUMS ====
 /datum/action/innate/slime_place

@@ -38,7 +38,7 @@
 				variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
 
 /obj/item/nullrod/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
+	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!"))
 	return BRUTELOSS|FIRELOSS
 
 
@@ -81,7 +81,7 @@
 /obj/item/nullrod/examine(mob/living/user)
 	. = ..()
 	if(sanctify_force)
-		. += "<span class='notice'>It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'</span>"
+		. += span_notice("It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'")
 
 /obj/item/nullrod/proc/reskin_holy_weapon(mob/user)
 	if(!ishuman(user))
@@ -627,7 +627,7 @@
 
 			if(NEW_NULLIFICATION)
 				vamp.adjust_nullification(120, 50)
-		to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
+		to_chat(target, span_userdanger("[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!"))
 		praying = FALSE
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -657,7 +657,7 @@
 		if(vamp && vamp.nullification == OLD_NULLIFICATION && !vamp.get_ability(/datum/vampire_passive/full))
 			vamp.adjust_nullification(5, 2)
 			if(prob(10))
-				to_chat(target, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
+				to_chat(target, span_userdanger("Being in the presence of [holder]'s [src] is interfering with your powers!"))
 
 /obj/item/nullrod/salt
 	name = "Holy Salt"
@@ -672,7 +672,7 @@
 /obj/item/nullrod/salt/attack_self(mob/user)
 
 	if(!user.mind || !user.mind.isholy)
-		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
+		to_chat(user, span_notice("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
 		return
 
 	if(!(ghostcall_CD > world.time))
@@ -683,7 +683,7 @@
 		)
 		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
 	else
-		to_chat(user, "<span class='notice'>You need to wait before using [src] again.</span>")
+		to_chat(user, span_notice("You need to wait before using [src] again."))
 		return
 
 
@@ -703,7 +703,7 @@
 					H.Silence(20 SECONDS)
 					animate_fade_grayscale(H,20)
 					if(prob(10))
-						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
+						to_chat(H, span_userdanger("Being in the presence of [holder]'s [src] is interfering with your honk!"))
 
 
 /obj/item/nullrod/missionary_staff
@@ -745,15 +745,15 @@
 	if(missionary.wear_suit && istype(missionary.wear_suit, /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe))
 		var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robe_to_link = missionary.wear_suit
 		if(robe_to_link.linked_staff)
-			to_chat(missionary, "<span class='warning'>These robes are already linked with a staff and cannot support another. Connection refused.</span>")
+			to_chat(missionary, span_warning("These robes are already linked with a staff and cannot support another. Connection refused."))
 			return FALSE
 		robes = robe_to_link
 		robes.linked_staff = src
-		to_chat(missionary, "<span class='notice'>Link established. Faith generators initialized. Go spread the word.</span>")
+		to_chat(missionary, span_notice("Link established. Faith generators initialized. Go spread the word."))
 		faith = 100		//full charge when a fresh link is made (can't be delinked without destroying the robes so this shouldn't be an exploitable thing)
 		return TRUE
 	else
-		to_chat(missionary, "<span class='warning'>You must be wearing the missionary robes you wish to link with this staff.</span>")
+		to_chat(missionary, span_warning("You must be wearing the missionary robes you wish to link with this staff."))
 		return FALSE
 
 /obj/item/nullrod/missionary_staff/afterattack(mob/living/carbon/human/target, mob/living/carbon/human/missionary, flag, params)
@@ -762,29 +762,29 @@
 	if(target == missionary)	//you can't convert yourself, that would raise too many questions about your own dedication to the cause
 		return
 	if(!robes)		//staff must be linked to convert
-		to_chat(missionary, "<span class='warning'>You must link your staff to a set of missionary robes before attempting conversions.</span>")
+		to_chat(missionary, span_warning("You must link your staff to a set of missionary robes before attempting conversions."))
 		return
 	if(!missionary.wear_suit || missionary.wear_suit != robes)	//must be wearing the robes to convert
 		return
 	if(faith < 100)
-		to_chat(missionary, "<span class='warning'>You don't have enough faith to attempt a conversion right now.</span>")
+		to_chat(missionary, span_warning("You don't have enough faith to attempt a conversion right now."))
 		return
-	to_chat(missionary, "<span class='notice'>You concentrate on [target] and begin the conversion ritual...</span>")
+	to_chat(missionary, span_notice("You concentrate on [target] and begin the conversion ritual..."))
 	if(!target.mind)	//no mind means no conversion, but also means no faith lost.
-		to_chat(missionary, "<span class='warning'>You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile.</span>")
+		to_chat(missionary, span_warning("You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile."))
 		return
-	to_chat(target, "<span class='userdanger'>Your mind seems foggy. For a moment, all you can think about is serving the greater good... the greater good...</span>")
+	to_chat(target, span_userdanger("Your mind seems foggy. For a moment, all you can think about is serving the greater good... the greater good..."))
 	if(do_after(missionary, 8 SECONDS))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
 		if(faith < 100)		//to stop people from trying to exploit the do_after system to multi-convert, we check again if you have enough faith when it completes
-			to_chat(missionary, "<span class='warning'>You don't have enough faith to complete the conversion on [target]!</span>")
+			to_chat(missionary, span_warning("You don't have enough faith to complete the conversion on [target]!"))
 			return
 		if(missionary in viewers(target))	//missionary must maintain line of sight to target, but the target doesn't necessary need to be able to see the missionary
 			do_convert(target, missionary)
 		else
-			to_chat(missionary, "<span class='warning'>You lost sight of the target before [target.p_they()] could be converted!</span>")
+			to_chat(missionary, span_warning("You lost sight of the target before [target.p_they()] could be converted!"))
 			faith -= 25		//they escaped, so you only lost a little faith (to prevent spamming)
 	else	//the do_after failed, probably because you moved or dropped the staff
-		to_chat(missionary, "<span class='warning'>Your concentration was broken!</span>")
+		to_chat(missionary, span_warning("Your concentration was broken!"))
 
 /obj/item/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
 	var/convert_duration = 10 MINUTES
@@ -792,30 +792,30 @@
 	if(!target || !ishuman(target) || !missionary || !ishuman(missionary))
 		return
 	if(ismindslave(target) || target.mind.zealot_master)	//mindslaves and zealots override the staff because the staff is just a temporary mindslave
-		to_chat(missionary, "<span class='warning'>Your faith is strong, but [target.p_their()] mind is already slaved to someone else's ideals. Perhaps an inquisition would reveal more...</span>")
+		to_chat(missionary, span_warning("Your faith is strong, but [target.p_their()] mind is already slaved to someone else's ideals. Perhaps an inquisition would reveal more..."))
 		faith -= 25		//same faith cost as losing sight of them mid-conversion, but did you just find someone who can lead you to a fellow traitor?
 		return
 	if(ismindshielded(target))
 		faith -= 75
-		to_chat(missionary, "<span class='warning'>Your faith is strong, but [target.p_their()] mind remains closed to your ideals. Your resolve helps you retain a bit of faith though.</span>")
+		to_chat(missionary, span_warning("Your faith is strong, but [target.p_their()] mind remains closed to your ideals. Your resolve helps you retain a bit of faith though."))
 		return
 	else if(target.mind.assigned_role == JOB_TITLE_PSYCHIATRIST || target.mind.assigned_role == JOB_TITLE_LIBRARIAN)		//fancy book lernin helps counter religion (day 0 job love, what madness!)
 		if(prob(35))	//35% chance to fail
-			to_chat(missionary, "<span class='warning'>This one is well trained in matters of the mind... They will not be swayed as easily as you thought...</span>")
+			to_chat(missionary, span_warning("This one is well trained in matters of the mind... They will not be swayed as easily as you thought..."))
 			faith -=50		//lose half your faith to the book-readers
 			return
 		else
-			to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
+			to_chat(missionary, span_notice("You successfully convert [target] to your cause. The following grows because of your faith!"))
 			faith -= 100
 	else if(target.mind.assigned_role == JOB_TITLE_CIVILIAN)
 		if(prob(55))	//55% chance to take LESS faith than normal, because civies are stupid and easily manipulated
-			to_chat(missionary, "<span class='notice'>Your message seems to resound well with [target]; converting [target.p_them()] was much easier than expected.</span>")
+			to_chat(missionary, span_notice("Your message seems to resound well with [target]; converting [target.p_them()] was much easier than expected."))
 			faith -= 50
 		else		//45% chance to take the normal 100 faith cost
-			to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
+			to_chat(missionary, span_notice("You successfully convert [target] to your cause. The following grows because of your faith!"))
 			faith -= 100
 	else		//everyone else takes 100 faith cost because they are normal
-		to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
+		to_chat(missionary, span_notice("You successfully convert [target] to your cause. The following grows because of your faith!"))
 		faith -= 100
 	//if you made it this far: congratulations! you are now a religious zealot!
 	target.mind.make_zealot(missionary, convert_duration, team_color)

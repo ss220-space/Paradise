@@ -587,7 +587,7 @@ SUBSYSTEM_DEF(ticker)
 
 		for(var/datum/ai_law/law as anything in aiPlayer.laws.sorted_laws)
 			if(law == aiPlayer.laws.zeroth_law)
-				end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+				end_of_round_info += span_danger("[law.get_index()]. [law.law]")
 			else
 				end_of_round_info += "[law.get_index()]. [law.law]"
 
@@ -616,7 +616,7 @@ SUBSYSTEM_DEF(ticker)
 			robo.laws_sanity_check()
 			for(var/datum/ai_law/law as anything in robo.laws.sorted_laws)
 				if(law == robo.laws.zeroth_law)
-					end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+					end_of_round_info += span_danger("[law.get_index()]. [law.law]")
 				else
 					end_of_round_info += "[law.get_index()]. [law.law]"
 

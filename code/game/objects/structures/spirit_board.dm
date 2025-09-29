@@ -12,7 +12,7 @@
 
 /obj/structure/spirit_board/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The planchette is sitting at \"[planchette]\".</span>"
+	. += span_notice("The planchette is sitting at \"[planchette]\".")
 
 /obj/structure/spirit_board/attack_hand(mob/user as mob)
 	if(..())
@@ -40,7 +40,7 @@
 	var/turf/T = loc
 	sleep(rand(20,30))
 	if(T == loc)
-		visible_message("<span class='notice'>The planchette slowly moves... and stops at the letter \"[planchette]\".</span>")
+		visible_message(span_notice("The planchette slowly moves... and stops at the letter \"[planchette]\"."))
 
 
 /obj/structure/spirit_board/proc/spirit_board_checks(mob/M)
@@ -61,7 +61,7 @@
 		light_amount = 10
 
 	if(light_amount > 2)
-		to_chat(M, "<span class='warning'>It's too bright here to use [src.name]!</span>")
+		to_chat(M, span_warning("It's too bright here to use [src.name]!"))
 		return 0
 
 	//mobs in range check
@@ -69,12 +69,12 @@
 	for(var/mob/living/L in orange(1,src))
 		if(L.ckey && L.client)
 			if((world.time - L.client.inactivity) < (world.time - 300) || L.incapacitated() || HAS_TRAIT(L, TRAIT_HANDS_BLOCKED))//no playing with braindeads or corpses or handcuffed dudes.
-				to_chat(M, "<span class='warning'>[L] doesn't seem to be paying attention...</span>")
+				to_chat(M, span_warning("[L] doesn't seem to be paying attention..."))
 			else
 				users_in_range++
 
 	if(users_in_range < 2)
-		to_chat(M, "<span class='warning'>There aren't enough people to use the [src.name]!</span>")
+		to_chat(M, span_warning("There aren't enough people to use the [src.name]!"))
 		return 0
 
 	return 1

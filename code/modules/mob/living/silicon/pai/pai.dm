@@ -596,7 +596,7 @@
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
 
-	var/msg = "<span class='notice'>"
+	var/msg = ""
 
 	switch(stat)
 		if(CONSCIOUS)
@@ -608,13 +608,12 @@
 			msg += span_deadsay("Оно явно не подлежит восстановлению...\n")
 
 	if(print_flavor_text())
-		msg += "[print_flavor_text()]\n"
+		msg += span_notice("[print_flavor_text()]\n")
 
 	if(pose)
 		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "It is [pose]"
-	msg += "</span>"
+		msg += span_notice("It is [pose]")
 
 	. += msg
 

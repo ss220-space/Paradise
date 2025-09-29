@@ -450,9 +450,9 @@
 
 		if(!cleaning)
 			return ATTACK_CHAIN_PROCEED
-		user.visible_message("<span class='notice'>[user] starts to clean the ooze off the disc.</span>", "<span class='notice'>You start to clean the ooze off the disk.</span>")
+		user.visible_message(span_notice("[user] starts to clean the ooze off the disc."), span_notice("You start to clean the ooze off the disk."))
 		if(do_after(user, 5 SECONDS, src))
-			user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
+			user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
 			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 	..()
@@ -498,11 +498,11 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	read_only = !read_only
-	to_chat(user, "<span class='notice'>You flip the write-protect tab to [read_only ? "protected" : "unprotected"].</span>")
+	to_chat(user, span_notice("You flip the write-protect tab to [read_only ? "protected" : "unprotected"]."))
 
 /obj/item/disk/plantgene/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(user, "<span class='warning'>The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!</span>")
+		to_chat(user, span_warning("The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!"))
 		ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 		playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -513,4 +513,4 @@
 		. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 		return
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
-		. += "<span class='warning'>... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
+		. += span_warning("... Wait. This isn't the nuclear authentication disk! It's a clever forgery!")

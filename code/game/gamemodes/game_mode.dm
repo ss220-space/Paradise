@@ -650,7 +650,7 @@
  * Reports player logouts.
  */
 /proc/display_roundstart_logout_report()
-	var/msg = "<span class='notice'>Roundstart logout report</span>\n\n"
+	var/msg = "[span_notice("Roundstart logout report")]\n\n"
 	for(var/mob/living/mob_living in GLOB.mob_list)
 
 		if(mob_living.ckey)
@@ -774,20 +774,20 @@
 	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>[jobtext] and"
 	if(player.current)
 		if(player.current.stat == DEAD)
-			text += " <span class='redtext'>died</span>"
+			text += " [span_redtext("died")]"
 		else
-			text += " <span class='greentext'>survived</span>"
+			text += " [span_greentext("survived")]"
 
 		if(flee_check)
 			var/turf/player_turf = get_turf(player.current)
 			if(!player_turf || !is_station_level(player_turf.z))
-				text += " while <span class='redtext'>fleeing the station</span>"
+				text += " while [span_redtext("fleeing the station")]"
 
 		if(player.current.real_name != player.name)
 			text += " as <b>[player.current.real_name]</b>"
 
 	else
-		text += " <span class='redtext'>had [player.p_their()] body destroyed</span>"
+		text += " [span_redtext("had [player.p_their()] body destroyed")]"
 
 	return text
 

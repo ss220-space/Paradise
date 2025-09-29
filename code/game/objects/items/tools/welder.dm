@@ -57,15 +57,15 @@
 /obj/item/weldingtool/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 0)
-		. += "<span class='notice'>It contains [GET_FUEL] unit\s of fuel out of [maximum_fuel].</span>"
+		. += span_notice("It contains [GET_FUEL] unit\s of fuel out of [maximum_fuel].")
 
 /obj/item/weldingtool/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 /obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
 	if(tool_enabled)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, span_warning("[S] can't hold [src] while it's lit!"))
 		return FALSE
 	else
 		return TRUE
@@ -138,13 +138,13 @@
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount, silent = FALSE)
 	if(!tool_enabled)
 		if(!silent)
-			to_chat(user, "<span class='notice'>[src] has to be on to complete this task!</span>")
+			to_chat(user, span_notice("[src] has to be on to complete this task!"))
 		return FALSE
 	if(GET_FUEL >= amount * requires_fuel)
 		return TRUE
 	else
 		if(!silent)
-			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
+			to_chat(user, span_warning("You need more welding fuel to complete this task!"))
 		return FALSE
 
 // When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
@@ -185,16 +185,16 @@
 	if(!A.reagents)
 		return
 	if(GET_FUEL >= maximum_fuel)
-		to_chat(user, "<span class='notice'>[src] is already full!</span>")
+		to_chat(user, span_notice("[src] is already full!"))
 		return
 	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
 	if(amount_transferred)
-		to_chat(user, "<span class='notice'>You refuel [src] by [amount_transferred] unit\s.</span>")
+		to_chat(user, span_notice("You refuel [src] by [amount_transferred] unit\s."))
 		playsound(src, 'sound/effects/refill.ogg', 50, TRUE)
 		update_icon()
 		return amount_transferred
 	else
-		to_chat(user, "<span class='warning'>There's not enough fuel in [A] to refuel [src]!</span>")
+		to_chat(user, span_warning("There's not enough fuel in [A] to refuel [src]!"))
 
 
 /obj/item/weldingtool/update_icon_state()

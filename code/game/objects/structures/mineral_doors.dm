@@ -215,7 +215,7 @@
 	var/hot_temp = I.get_heat()
 	if(hot_temp)
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
-		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		TemperatureAct(hot_temp)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
