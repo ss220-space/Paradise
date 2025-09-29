@@ -338,8 +338,6 @@
 		storage_boxes[user].modify(line_width, lines_num, ui_style2icon(user?.client?.prefs.UI_style), first_time)
 		first_time = FALSE
 
-	return
-
 /datum/storage_box
 	var/obj/item/storage/storage
 	var/atom/movable/screen/storage/space_box/start
