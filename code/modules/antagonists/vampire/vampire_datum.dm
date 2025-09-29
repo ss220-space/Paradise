@@ -15,7 +15,7 @@
 	/// Current amount of blood.
 	var/bloodusable = 0
 	/// Blood volume threshold for warnings
-	var/blood_volume_warning = 9999
+	var/blood_volume_warning = 10000
 	/// What vampire subclass the vampire is.
 	var/datum/vampire_subclass/subclass
 	/// Reference to diablerie datum.
@@ -67,8 +67,9 @@
 
 
 /datum/antagonist/vampire/greet()
-	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
+
+	var/list/messages = list()
 	messages.Add(span_danger("Вы — вампир!<br>"))
 	messages.Add("Чтобы укусить кого-то, нацельтесь на голову, выберите намерение <b>вреда (4)</b> и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
 		Вы уязвимы перед святостью, огнём и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
@@ -731,8 +732,10 @@
 		// We transfer all of our victim's usable blood to the vampire
 		adjust_blood(blood_amount = victim_datum.bloodusable)
 
-	victim.visible_message((span_warning("[victim] рассыпается в прах, оставляя после себя лишь груду костей!")),
-		span_boldnotice("Вы ощущаете сладкое чувство избавления, когда ваше тело рассыпается в прах, оставляя после себя лишь груду костей..."))
+	victim.visible_message(
+		span_warning("[victim] рассыпается в прах, оставляя после себя лишь груду костей!"),
+		span_boldnotice("Вы ощущаете сладкое чувство избавления, когда ваше тело рассыпается в прах, оставляя после себя лишь груду костей...")
+	)
 	to_chat(vampire, span_boldnotice("Вы поглощаете последнюю каплю жизненной силы сородича и ощущаете, как по телу теплом разливается сила. Вы жаждете ещё!"))
 	victim.dust()
 

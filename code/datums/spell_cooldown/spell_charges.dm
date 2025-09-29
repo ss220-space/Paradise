@@ -100,6 +100,7 @@
 	if(!is_on_cooldown())
 		if(old_max_charges < new_max_charges)
 			current_charges = new_max_charges
+		return
 
 	if(is_on_cooldown() && current_charges)
 		// Charge was on cooldown and new max is lower than old. This is bad: (3/4 + recharging -> 2/2 + recharging -> 3/2)

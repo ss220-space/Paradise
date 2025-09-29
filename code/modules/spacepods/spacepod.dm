@@ -276,7 +276,7 @@
 		deal_damage(user.obj_damage)
 		playsound(src.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
 		to_chat(user, span_warning("Вы наносите удар по [declent_ru(DATIVE)]!"))
-		visible_message(span_warning("[capitalize(user)] пробивает броню [declent_ru(GENITIVE)]"))
+		visible_message(span_warning("[capitalize(user)] пробива[pluralize_ru(user.gender, "ет", "ют")] броню [declent_ru(GENITIVE)]"))
 
 /obj/spacepod/attack_tk()
 	return

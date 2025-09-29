@@ -174,12 +174,13 @@
 		ANNOUNCE_CCPARANORMAL_RU,
 		'sound/AI/commandreport.ogg'
 	)
-	log_game("Vampire [vampire] reached [diablerie_count] diablerie level. Setting security level to GAMMA.")
+	log_game("Vampire [key_name(vampire)] reached [diablerie_count] diablerie level. Setting security level to GAMMA.")
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 5 SECONDS)
 
 
 /datum/diablerie/proc/announce_vampire_fallen(mob/living/carbon/human/vampire)
 	SIGNAL_HANDLER
+
 	// We don't want announcments from shitspawning at admin zone
 	var/turf/vampire_turf = get_turf(vampire)
 	if(is_admin_level(vampire_turf.z))
@@ -190,7 +191,7 @@
 		ANNOUNCE_CCPARANORMAL_RU,
 		'sound/AI/commandreport.ogg'
 	)
-	log_game("Diablerie ascencded vampire [vampire] was killed by the crew. Lowering security level to RED.")
+	log_game("Diablerie ascended vampire [key_name(vampire)] was killed by the crew. Lowering security level to RED.")
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_RED), 5 SECONDS)
 	UnregisterSignal(vampire, list(COMSIG_LIVING_DEATH, COMSIG_HUMAN_DESTROYED))
 
@@ -217,7 +218,7 @@
 
 	ADD_TRAIT(vampire, TRAIT_NO_BREATH, VAMPIRE_TRAIT)
 
-	to_chat(vampire, span_boldnotice("Сила вашего «Восстановления» возросла, и вы можете применять его больше раз. Кроме того, вам более не нужно дышать."))
+	to_chat(vampire, span_boldnotice("Сила вашего \"Восстановления\" возросла, и вы можете применять его больше раз. Кроме того, вам более не нужно дышать."))
 
 
 /datum/diablerie_level/level_one/remove(datum/diablerie/diablerie)
@@ -246,7 +247,7 @@
 	ADD_TRAIT(vampire, TRAIT_RED_EYES, VAMPIRE_TRAIT)
 	vampire.change_eye_color(COLOR_RED, FALSE)
 
-	to_chat(vampire, span_boldnotice("Сила вашего взгляда возросла, и вы можете больше раз применять «Вспышку». Ваши глаза наливаются кроваво-красным светом."))
+	to_chat(vampire, span_boldnotice("Сила вашего взгляда возросла, и вы можете больше раз применять \"Вспышку\". Ваши глаза наливаются кроваво-красным светом."))
 
 
 /datum/diablerie_level/level_two/remove(datum/diablerie/diablerie)
@@ -273,7 +274,7 @@
 
 	diablerie.add_diablerie_aura(ascended = TRUE)
 
-	to_chat(diablerie.vampire, span_boldnotice("Сила вашего «Восстановления» возросла, и теперь с его помощью вы можете восстанавливать внутренние кровотечения. Ваша аура теперь видна даже простым смертным. Вы всего в шаге от вершины могущества!"))
+	to_chat(diablerie.vampire, span_boldnotice("Сила вашего \"Восстановления\" возросла, и теперь с его помощью вы можете восстанавливать внутренние кровотечения. Ваша аура теперь видна даже простым смертным. Вы всего в шаге от вершины могущества!"))
 
 
 /datum/diablerie_level/level_three/remove(datum/diablerie/diablerie)
@@ -306,7 +307,7 @@
 		ADD_TRAIT(vampire, TRAIT_STRONG_MUSCLES, VAMPIRE_TRAIT)
 		SEND_SIGNAL(vampire, COMSIG_STRENGTH_LEVEL_UP, 5)
 
-	to_chat(vampire, span_boldnotice("Сила вашего тела возросла. Ваша «Вспышка» теперь срабатывает в полную силу, независимо от направления взгляда. Вы достигли пика своего могущества. Теперь долгом всех смертных будет уничтожить вас!"))
+	to_chat(vampire, span_boldnotice("Сила вашего тела возросла. Ваша \"Вспышка\" теперь срабатывает в полную силу, независимо от направления взгляда. Вы достигли пика своего могущества. Теперь долгом всех смертных будет уничтожить вас!"))
 
 	diablerie.announce_vampire_ascended(vampire)
 
