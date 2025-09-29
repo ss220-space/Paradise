@@ -91,7 +91,7 @@
 
 	messages.Add(span_notice("Analyzing Results for [C]:"))
 	if(C.radiation)
-		messages.Add("<span class='notice'>Radiation Level: [C.radiation > 0 ? "</span><span class='danger'>[C.radiation]" : "0"]</span>")
+		messages.Add("[span_notice("Radiation Level:")] [C.radiation > 0 ? "[span_danger(C.radiation)]" : "[span_danger("0")]"]")
 	else
 		messages.Add(span_notice("No radiation detected."))
 	to_chat(user, chat_box_regular(messages.Join("<br>")))

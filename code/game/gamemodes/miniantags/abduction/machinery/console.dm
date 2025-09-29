@@ -73,7 +73,7 @@
 		dat += "<a href='byond://?src=[UID()];dispense=mind_device'>Mental Interface Device</a><br>"
 		dat += "<a href='byond://?src=[UID()];dispense=medkit'>Medkit</a><br>"
 	else
-		dat += "<span class='bad'>NO EXPERIMENT MACHINE DETECTED</span> <br>"
+		dat += "[span_bad("NO EXPERIMENT MACHINE DETECTED")] <br>"
 
 	if(pad)
 		dat += span_bad("Emergency Teleporter System.")
@@ -82,9 +82,9 @@
 		if(gizmo && gizmo.marked)
 			dat += "<a href='byond://?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</a><br>"
 		else
-			dat += "<span class='linkOff'>Retrieve Mark</span><br>"
+			dat += "[span_linkoff("Retrieve Mark")]<br>"
 	else
-		dat += "<span class='bad'>NO TELEPAD DETECTED</span></br>"
+		dat += "[span_bad("NO TELEPAD DETECTED")]</br>"
 
 	if(vest)
 		dat += "<h4> Agent Vest Mode </h4><br>"

@@ -99,7 +99,7 @@
 /obj/item/mmi/robotic_brain/proc/request_player()
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(check_observer(O))
-			to_chat(O, "<span class='boldnotice'>\A [src] has been activated. (<a href='byond://?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='byond://?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
+			to_chat(O, span_boldnotice("[src] has been activated. (<a href='byond://?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='byond://?src=[UID()];signup=\ref[O]'>Sign Up</a>)"))
 
 /obj/item/mmi/robotic_brain/proc/check_observer(mob/dead/observer/O)
 	if(cannotPossess(O))
@@ -232,11 +232,11 @@
 				if(!brainmob.client)
 					msg += "It appears to be in stand-by mode.\n" //afk
 			if(UNCONSCIOUS)
-				msg += "<span class='warning'>It doesn't seem to be responsive.</span>\n"
+				msg += "[span_warning("It doesn't seem to be responsive.")]\n"
 			if(DEAD)
-				msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
+				msg += "[span_deadsay("It appears to be completely inactive.")]\n"
 	else
-		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
+		msg += "[span_deadsay("It appears to be completely inactive.")]\n"
 	msg += "</span>"
 	. += msg.Join("")
 

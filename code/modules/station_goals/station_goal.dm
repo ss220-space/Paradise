@@ -47,7 +47,7 @@
 
 /datum/station_goal/proc/print_result()
 	if(check_completion())
-		to_chat(world, "<b>Station Goal</b>: [name]:  <span class='greenannounce'>Completed!</span>")
+		to_chat(world, "<b>Station Goal</b>: [name]:  [span_greenannounce("Completed!")]")
 	else
 		to_chat(world, "<b>Station Goal</b>: [name]: [span_boldannounceooc("Failed!")]")
 

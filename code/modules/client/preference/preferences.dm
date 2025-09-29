@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += "<a href=\"byond://?_src_=prefs;preference=save\">Сохранить слот</a> – "
 			dat += "<a href=\"byond://?_src_=prefs;preference=reload\">Перезагрузить слот</a>"
 			if(saved)
-				dat += " – <a href=\"byond://?_src_=prefs;preference=clear\"><span class='bad'>Очистить слот</span></a>"
+				dat += " – <a href=\"byond://?_src_=prefs;preference=clear\">[span_bad("Очистить слот")]</a>"
 			dat += "</center>"
 			dat += "</td></tr></table>"
 
@@ -696,7 +696,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						keys_buttons += "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
 					dat += "<tr>"
 					dat += "<td style='width: 25%'>[KB.name]</td>"
-					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'><span class='good'>+</span></a></td>" : "</td>"]"
+					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'>[span_good("+")]</a></td>" : "</td>"]"
 					dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Сбросить</a> <a href='byond://?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Очистить</a></td>"
 					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
 						var/datum/keybinding/custom/custom_emote_keybind = kb

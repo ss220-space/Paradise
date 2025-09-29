@@ -523,7 +523,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		SEND_SOUND(E, sound('sound/magic/cult_spell.ogg'))
 		to_chat(user, span_notice("Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам."))
 		to_chat(E, span_userdanger("Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск."))
-		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!</span>")
+		to_chat(E, span_bigbold("Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!"))
 		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не мешать союзникам хозяина, пока вам не прикажут!")
 		if(user.mind.special_role)
 			E.setMaxHealth(initial(E.maxHealth) * REVIVE_HEALTH_MULT_ANTAG)

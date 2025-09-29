@@ -53,7 +53,7 @@
 			survivors++
 
 	if(survivors)
-		to_chat(world, "<span class='boldnotice'>The following survived the meteor storm</span>:[text]")
+		to_chat(world, "[span_boldnotice("The following survived the meteor storm")]:[text]")
 	else
 		to_chat(world, span_boldnotice("Nobody survived the meteor storm!"))
 

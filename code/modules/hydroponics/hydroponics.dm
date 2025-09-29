@@ -359,9 +359,9 @@
 	. = ..()
 	if(myseed)
 		if(myseed.variant)
-			. += "<span class='notice'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
+			. += span_notice("It has the [span_name("[myseed.variant]")] variant of [span_name("[myseed.plantname]")] planted.")
 		else
-			. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+			. += span_notice("It has [span_name("[myseed.plantname]")] planted.")
 		if(hasHUD(user, EXAMINE_HUD_BOTANY) || isobserver(user))
 			. += myseed.get_analyzer_text()
 			. += span_notice("Weed: [weedlevel] / 10")
@@ -857,7 +857,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		if(istype(I, /obj/item/seeds/kudzu))
-			investigate_log("had Kudzu <span class='warning'>planted</span> in it by [key_name_log(user)]", INVESTIGATE_BOTANY)
+			investigate_log("had Kudzu [span_warning("planted")] in it by [key_name_log(user)]", INVESTIGATE_BOTANY)
 		to_chat(user, span_notice("You have planted [I] into [src]."))
 		dead = FALSE
 		myseed = I
@@ -1136,17 +1136,17 @@
 	var/list/msg = list()
 	if(myseed)
 		msg += "*** <b>[myseed.plantname]</b> ***" //Carn: now reports the plants growing, not the seeds.
-		msg += "- Plant Age: <span class='notice'>[age]</span>"
+		msg += "- Plant Age: [span_notice("[age]")]"
 		var/list/text_string = myseed.get_analyzer_text()
 		if(text_string)
 			msg += text_string
 	else
 		msg += "<b>No plant found.</b>"
-	msg += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
-	msg += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
-	msg += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
-	msg += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
-	msg += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
+	msg += "- Weed level: [span_notice("[weedlevel] / 10")]"
+	msg += "- Pest level: [span_notice("[pestlevel] / 10")]"
+	msg += "- Toxicity level: [span_notice("[toxic] / 100")]"
+	msg += "- Water level: [span_notice("[waterlevel] / [maxwater]")]"
+	msg += "- Nutrition level: [span_notice("[nutrilevel] / [maxnutri]")]"
 	to_chat(user, chat_box_examine(msg.Join("\n")))
 
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)

@@ -77,7 +77,7 @@
 		if(fibers.evidence)
 			report.info = "Молекулярный анализ на предоставленном образце определил наличие уникальных волоконных струн.<br><br>"
 			for(var/fiber in fibers.evidence)
-				report.info += "<span class='notice'>Наиболее вероятное совпадение: [fiber]</span><br><br>"
+				report.info += "[span_notice("Наиболее вероятное совпадение: [fiber]")]<br><br>"
 		else
 			report.info += "Волокна не найдены."
 	else if(istype(sample, /obj/item/sample/print))

@@ -962,7 +962,7 @@
 
 	if(istype(used_atom, /obj/effect/dummy/mecha_emote_step))
 		var/obj/effect/dummy/mecha_emote_step/E = used_atom
-		holder.visible_message("<span class='game say'><span class='name'>[holder]</span> likewise [E.emote]</span>")
+		holder.visible_message(span_gamesay("[span_name("[holder]")] likewise [E.emote]"))
 		qdel(used_atom)
 
 	//TODO: better messages.

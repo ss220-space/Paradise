@@ -522,15 +522,19 @@
 	..()
 	for(var/mob/living/simple_animal/pet/P in range(1, src))
 		if(P != src && !istype(P, /mob/living/simple_animal/pet/dog/corgi/narsie))
-			visible_message(span_warning("[src] devours [P]!"), \
-			"<span class='cult big bold'>DELICIOUS SOULS</span>")
+			visible_message(
+				span_warning("[src] devours [P]!"),
+				span_cult(span_bigbold("DELICIOUS SOULS"))
+			)
 			playsound(src, 'sound/misc/demon_attack1.ogg', 75, TRUE)
 			narsie_act()
 			if(P.mind)
 				if(P.mind.hasSoul)
 					P.mind.hasSoul = FALSE //Nars-Ian ate your soul; you don't have one anymore
 				else
-					visible_message("<span class='cult big bold'>... Aw, someone beat me to this one.</span>")
+					visible_message(
+						span_cult(span_bigbold("... Aw, someone beat me to this one."))
+					)
 			P.gib()
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/update_dog_fluff()

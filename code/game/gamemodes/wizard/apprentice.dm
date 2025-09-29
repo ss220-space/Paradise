@@ -174,10 +174,10 @@
 
 ///Сообщение выдаваемое при использовании использованных контрактов
 /obj/item/contract/proc/used_contract()
-	return "<span class='notice'>You have already summoned your apprentice.</span><br>"
+	return "[span_notice("You have already summoned your apprentice.")]<br>"
 
 /obj/item/contract/apprentice_choose_book/used_contract()
-	return "<span class='notice'>Письмена стерты, а все страницы пусты. Похоже учебник уже был изучен.</span><br>"
+	return "[span_notice("Письмена стерты, а все страницы пусты. Похоже учебник уже был изучен.")]<br>"
 
 /////////Magick Schools//////////
 

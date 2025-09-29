@@ -208,7 +208,7 @@
 					continue
 				to_chat(R, span_danger("Self-destruct command received."))
 				if(R.connected_ai)
-					to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
+					to_chat(R.connected_ai, "<br><br>[span_alert("ALERT - Cyborg detonation detected: [R.name]")]<br>")
 				R.self_destruct()
 			. = TRUE
 		if("killbot") // destroys one specific cyborg
@@ -225,7 +225,7 @@
 			add_game_logs("detonated [key_name_log(R)]!", usr)
 			to_chat(R, span_danger("Self-destruct command received."))
 			if(R.connected_ai)
-				to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
+				to_chat(R.connected_ai, "<br><br>[span_alert("ALERT - Cyborg detonation detected: [R.name]")]<br>")
 			R.self_destruct()
 			. = TRUE
 		if("stopbot") // lock or unlock the borg

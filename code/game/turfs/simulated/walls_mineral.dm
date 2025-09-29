@@ -111,7 +111,7 @@
 		return .
 	. |= ATTACK_CHAIN_BLOCKED_ALL
 	add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
-	investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+	investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 	ignite(I.get_heat())
 
 
@@ -123,7 +123,7 @@
 							span_danger("[src] disintegrates into a cloud of plasma!"),\
 							span_italics("You hear a 'whoompf' and a roar."))
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
-		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 
 /turf/simulated/wall/mineral/plasma/proc/PlasmaBurn(temperature)
 	new girder_type(src)

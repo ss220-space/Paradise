@@ -69,7 +69,7 @@
 	add_say_logs(user, message, language = "Megaphone")
 	var/message_tts = message
 	message = replace_characters(message, list("+"))
-	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
+	audible_message(span_gamesay("[span_name("[user.GetVoice()]")] [user.GetAltName()] broadcasts, [span_reallybig("\"[message]\"")]"), hearing_distance = 14)
 	for(var/obj/O in range(14, get_turf(src)))
 		O.hear_talk(user, message_to_multilingual(span_reallybig("[message]")))
 

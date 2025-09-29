@@ -60,6 +60,6 @@
 
 /datum/martial_art/wrestling/give_explaination(user = usr)
 	to_chat(usr, "<b><i>You flex your muscles and have a revelation...</i></b>")
-	to_chat(usr, "<span class='notice'>Clinch</span>: Grab. Passively gives you a 50% chance to immediately aggressively grab someone.")
-	to_chat(usr, "<span class='notice'>Suplex</span>: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
-	to_chat(usr, "<span class='notice'>Advanced grab</span>: Grab. Passively causes 10 stamina damage when grabbing someone.")
+	to_chat(usr, "[span_notice("Clinch")]: Grab. Passively gives you a 50% chance to immediately aggressively grab someone.")
+	to_chat(usr, "[span_notice("Suplex")]: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
+	to_chat(usr, "[span_notice("Advanced grab")]: Grab. Passively causes 10 stamina damage when grabbing someone.")
