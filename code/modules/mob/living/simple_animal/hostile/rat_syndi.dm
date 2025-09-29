@@ -25,9 +25,11 @@
 	speak_emote = list("пищит", "попискивает")
 	emote_hear = list("пищит", "попискивает")
 	emote_see = list("бегает кругами", "дрожит", "быстро осматривается")
+	projectilesound = 'sound/weapons/plasma_cutter.ogg'
 
 	mob_size = MOB_SIZE_TINY // If theyre not at least small it doesnt seem like the treadmill works or makes sound
 	pass_flags = PASSTABLE
+	pass_door_while_hidden = TRUE
 	stop_automated_movement = 1
 	AI_delay_max = 0 SECONDS
 
