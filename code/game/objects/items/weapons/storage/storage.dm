@@ -318,13 +318,13 @@
 	var/total_width = 1
 	var/line_width
 	var/lines_num = 1
-	for(var/obj/item/O in contents)
-		total_width += O.storage_display_width
+	for(var/obj/item/stored in contents)
+		total_width += stored.storage_display_width
 		if(total_width <= MAX_LINE_WIDTH)
 			continue
 		lines_num++
-		line_width = total_width - O.storage_display_width
-		total_width = 1 + O.storage_display_width
+		line_width = total_width - stored.storage_display_width
+		total_width = 1 + stored.storage_display_width
 
 	if(!line_width)
 		if((total_width + 32) > MAX_LINE_WIDTH)
@@ -339,8 +339,6 @@
 		first_time = FALSE
 
 	return
-
-GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 
 /datum/storage_box
 	var/obj/item/storage/storage
@@ -410,13 +408,13 @@ GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 	var/startpoint
 	var/endpoint = 1
 	var/current_level = 0
-	for(var/obj/item/O in storage.contents)
+	for(var/obj/item/stored in storage.contents)
 		startpoint = endpoint + 1
-		endpoint += O.storage_display_width
+		endpoint += stored.storage_display_width
 		if(endpoint > line_width)
 			current_level++
 			startpoint = 2
-			endpoint = 1 + O.storage_display_width
+			endpoint = 1 + stored.storage_display_width
 
 		var/datum/item_storage_box/item_box = new()
 		item_box.modify(startpoint, endpoint, lines_num, current_level, ui_icon)
@@ -425,11 +423,11 @@ GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 		if(!first_time)
 			continue
 
-		O.screen_loc = "4:[floor((startpoint + endpoint) / 2)],2:[16 + 29 * (lines_num - current_level - 1)]"
-		O.layer = ABOVE_HUD_LAYER
-		O.mouse_opacity = MOUSE_OPACITY_OPAQUE
-		O.maptext = ""
-		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, storage)
+		stored.screen_loc = "4:[floor((startpoint + endpoint) / 2)],2:[16 + 29 * (lines_num - current_level - 1)]"
+		stored.layer = ABOVE_HUD_LAYER
+		stored.mouse_opacity = MOUSE_OPACITY_OPAQUE
+		stored.maptext = ""
+		SET_PLANE_EXPLICIT(stored, ABOVE_HUD_PLANE, storage)
 
 /datum/storage_box/proc/screens_list()
 	return list(start, continued, end, top, bottom, place_items, closer)
@@ -444,14 +442,14 @@ GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 	QDEL_NULL(bottom)
 	QDEL_NULL(top)
 	QDEL_NULL(place_items)
+	QDEL_NULL(closer)
+	storage = null
 	return ..()
 
 /datum/item_storage_box
 	var/atom/movable/screen/storage/start
 	var/atom/movable/screen/storage/continued
 	var/atom/movable/screen/storage/end
-	/// The index that indentifies me inside GLOB.item_storage_box_cache
-	var/index
 
 /datum/item_storage_box/New()
 	. = ..()
@@ -489,7 +487,6 @@ GLOBAL_LIST_EMPTY_TYPED(item_storage_box_cache, /datum/item_storage_box)
 	QDEL_NULL(start)
 	QDEL_NULL(continued)
 	QDEL_NULL(end)
-	GLOB.item_storage_box_cache -= index
 	return ..()
 
 /datum/numbered_display
