@@ -91,7 +91,7 @@
 	init_subsystems()
 
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-	diag_hud.add_to_hud(src)
+	diag_hud.add_atom_to_hud(src)
 
 	diag_hud_set_status()
 	diag_hud_set_health()
@@ -358,22 +358,22 @@
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.remove_hud_from(src)
-	secsensor.remove_hud_from(src)
-	medsensor.remove_hud_from(src)
+		diagsensor.hide_from(src)
+	secsensor.hide_from(src)
+	medsensor.hide_from(src)
 
 
 /mob/living/silicon/proc/add_sec_hud()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
-	secsensor.add_hud_to(src)
+	secsensor.show_to(src)
 
 /mob/living/silicon/proc/add_med_hud()
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	medsensor.add_hud_to(src)
+	medsensor.show_to(src)
 
 /mob/living/silicon/proc/add_diag_hud()
 	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.add_hud_to(src)
+		diagsensor.show_to(src)
 
 
 /mob/living/silicon/proc/toggle_sensor_mode()

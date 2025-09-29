@@ -648,6 +648,10 @@
 
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
 	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src, old_area)
+	if(!LAZYACCESS(arrived.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
+		return
+	for(var/atom/movable/recipient as anything in arrived.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		SEND_SIGNAL(recipient, COMSIG_ENTER_AREA, src)
 
 	if(ismob(arrived))
 		var/mob/arrived_mob = arrived
@@ -657,6 +661,10 @@
 /area/Exited(atom/movable/departed, area/new_area)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed, new_area)
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src, new_area)
+	if(!LAZYACCESS(departed.important_recursive_contents, RECURSIVE_CONTENTS_AREA_SENSITIVE))
+		return
+	for(var/atom/movable/recipient as anything in departed.important_recursive_contents[RECURSIVE_CONTENTS_AREA_SENSITIVE])
+		SEND_SIGNAL(recipient, COMSIG_EXIT_AREA, src)
 
 /area/proc/gravitychange()
 	for(var/mob/living/carbon/human/user in src)

@@ -2410,7 +2410,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list(UI_THEME_MIDNIGHT_RUS, UI_THEME_PLASMAFIRE_RUS, UI_THEME_RETRO_RUS, UI_THEME_SLIMECORE_RUS, UI_THEME_OPERATIVE_RUS, UI_THEME_WHITE_RUS))
+					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list(UI_THEME_MIDNIGHT_RUS, UI_THEME_PLASMAFIRE_RUS, UI_THEME_RETRO_RUS, UI_THEME_SLIMECORE_RUS, UI_THEME_OPERATIVE_RUS, UI_THEME_WHITE_RUS, UI_THEME_CLOCKWORK_RUS))
 					if(!new_UI_style)
 						return
 					switch(new_UI_style)
@@ -2426,6 +2426,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							UI_style = UI_THEME_OPERATIVE
 						if(UI_THEME_WHITE_RUS)
 							UI_style = UI_THEME_WHITE
+						if(UI_THEME_CLOCKWORK_RUS)
+							UI_style = UI_THEME_CLOCKWORK
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
@@ -3049,6 +3051,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			return UI_THEME_OPERATIVE_RUS
 		if(UI_THEME_WHITE)
 			return UI_THEME_WHITE_RUS
+		if(UI_THEME_CLOCKWORK)
+			return UI_THEME_CLOCKWORK_RUS
 
 
 /// Get random charecter with can_be_antagonist on. If no such characters, don't change current.

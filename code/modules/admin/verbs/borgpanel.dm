@@ -181,7 +181,7 @@
 				if(channel == SYND_FREQ_NAME)
 					borg.radio.keyslot.syndie = TRUE
 				log_and_message_admins("added the [channel] radio channel to [key_name(borg)].")
-			borg.radio.recalculateChannels()
+			borg.radio.recalculate_channels()
 		if("setmodule")
 			var/new_module = params["module"]
 			if(borg.module)

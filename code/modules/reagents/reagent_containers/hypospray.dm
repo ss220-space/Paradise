@@ -571,6 +571,7 @@
 	name = "neuromatin autoinjector"
 	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу нейроматина. Мощный иммунодепрессант."
 	icon_state = "violetinjector"
+	volume = 15
 	amount_per_transfer_from_this = 15
 	list_reagents = list("neuromatin" = 15)
 

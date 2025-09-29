@@ -419,7 +419,7 @@
 	if(istype(SM, /mob/living/simple_animal/hostile/lightgeist))
 		if(!GLOB.med_hud_users.Find(SM))
 			var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-			medsensor.add_hud_to(SM)
+			medsensor.show_to(SM)
 	qdel(src)
 
 /obj/item/slimepotion/slime/steroid

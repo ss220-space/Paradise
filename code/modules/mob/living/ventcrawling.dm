@@ -63,11 +63,16 @@
 
 	//Handle the exit here
 	if(HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) && is_ventcrawling(src) && (movement_type & VENTCRAWLING))
+		if(HAS_TRAIT_FROM(src, TRAIT_VENTCRAWLING_EXIT, UNIQUE_TRAIT_SOURCE(ventcrawl_target)))
+			return
 		if(!can_ventcrawl(ventcrawl_target))
 			return FALSE
 		to_chat(src, span_notice("Вы начинаете вылезать из вентиляции..."))
+		ADD_TRAIT(src, TRAIT_VENTCRAWLING_EXIT, UNIQUE_TRAIT_SOURCE(ventcrawl_target))
 		if(!do_after(src, 1 SECONDS, target = ventcrawl_target))
+			REMOVE_TRAIT(src, TRAIT_VENTCRAWLING_EXIT, UNIQUE_TRAIT_SOURCE(ventcrawl_target))
 			return FALSE
+		REMOVE_TRAIT(src, TRAIT_VENTCRAWLING_EXIT, UNIQUE_TRAIT_SOURCE(ventcrawl_target))
 		if(has_client && isnull(client))
 			return FALSE
 		if(!can_ventcrawl(ventcrawl_target))
@@ -115,6 +120,7 @@
 		span_notice("Вы залезли в вентиляцию."),
 	)
 	abstract_move(ventcrawl_target)
+	LAZYINITLIST(pipes_shown)
 	ADD_TRAIT(src, TRAIT_MOVE_VENTCRAWLING, VENTCRAWLING_TRAIT)
 	update_pipe_vision()
 	return TRUE
@@ -137,6 +143,7 @@
 	forceMove(new_turf)
 	REMOVE_TRAIT(src, TRAIT_MOVE_VENTCRAWLING, VENTCRAWLING_TRAIT)
 	update_pipe_vision()
+	LAZYNULL(pipes_shown)
 	SET_PLANE(src, PLANE_TO_TRUE(src.plane), new_turf)
 	if(message)
 		visible_message(
@@ -152,42 +159,73 @@
  * One important thing to note however is that the movement of the client's eye is handled by the relaymove() proc in /obj/machinery/atmospherics.
  * We move first and then call update. Dont flip this around
  */
-/mob/living/proc/update_pipe_vision()
-	if(isnull(client)) // we don't care about pipe vision if we have no client
+/mob/living/proc/update_pipe_vision(full_refresh = FALSE)
+	if(!isnull(ai_controller) && isnull(client)) // we don't care about pipe vision if we have an AI controller with no client (typically means we are clientless).
 		return
 
-	if(LAZYLEN(pipes_shown))
-		for(var/current_image in pipes_shown)
-			client.images -= current_image
-		LAZYNULL(pipes_shown)
+	LAZYINITLIST(pipes_shown)
 
-	if(!HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !is_ventcrawling(src) || !(movement_type & VENTCRAWLING))
-		for(var/atom/movable/screen/plane_master/pipecrawl in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))
+	// Take away all the pipe images if we're not doing anything with em
+	if(isnull(client) || !HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !istype(loc, /obj/machinery/atmospherics) || !(movement_type & VENTCRAWLING))
+		for(var/current_image in pipes_shown)
+			canon_client.images -= current_image
+		pipes_shown.len = 0
+		pipetracker = null
+		for(var/atom/movable/screen/plane_master/lighting as anything in hud_used.get_true_plane_masters(LIGHTING_PLANE))
+			lighting.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#4d4d4d")
+		for(var/atom/movable/screen/plane_master/pipecrawl as anything in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))
 			pipecrawl.hide_plane(src)
 		return
 
-	var/list/total_members = list()
-	var/obj/machinery/atmospherics/current_location = loc
-	for(var/datum/pipeline/location_pipeline as anything in current_location.return_pipenets())
-		total_members |= location_pipeline.members
-		total_members |= location_pipeline.other_atmosmch
+	// We're gonna color the lighting plane to make it darker while ventcrawling, so things look nicer
+	// This is a bit hacky but it makes the background darker, which has a nice effect
+	for(var/atom/movable/screen/plane_master/lighting as anything in hud_used.get_true_plane_masters(LIGHTING_PLANE))
+		lighting.add_atom_colour("#4d4d4d", TEMPORARY_COLOUR_PRIORITY)
 
-	if(!length(total_members))
-		return
-
-	for(var/atom/movable/screen/plane_master/pipecrawl in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))
+	for(var/atom/movable/screen/plane_master/pipecrawl as anything in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))
 		pipecrawl.unhide_plane(src)
 
-	for(var/obj/machinery/atmospherics/pipenet_part as anything in total_members)
+	var/obj/machinery/atmospherics/current_location = loc
+	var/list/our_pipenets = current_location.return_pipenets()
+
+	// We on occasion want to do a full rebuild. this lets us do that
+	if(full_refresh)
+		for(var/current_image in pipes_shown)
+			client.images -= current_image
+		pipes_shown.len = 0
+		pipetracker = null
+
+	if(!pipetracker)
+		pipetracker = new()
+
+	var/turf/our_turf = get_turf(src)
+	// We're getting the smallest "range" arg we can pass to the spatial grid and still get all the stuff we need
+	// We preload a bit more then we need so movement looks ok
+	var/list/view_range = getviewsize(client.view)
+	pipetracker.set_bounds(view_range[1] + 1, view_range[2] + 1)
+
+	var/list/entered_exited_pipes = pipetracker.recalculate_type_members(our_turf, SPATIAL_GRID_CONTENTS_TYPE_ATMOS)
+	var/list/pipes_gained = entered_exited_pipes[1]
+	var/list/pipes_lost = entered_exited_pipes[2]
+
+	for(var/obj/machinery/atmospherics/pipenet_part as anything in pipes_lost)
+		if(!pipenet_part.pipe_vision_img)
+			continue
+		client.images -= pipenet_part.pipe_vision_img
+		pipes_shown -= pipenet_part.pipe_vision_img
+
+	for(var/obj/machinery/atmospherics/pipenet_part as anything in pipes_gained)
+		// If the machinery is not part of our net or is not meant to be seen, continue
+		var/list/thier_pipenets = pipenet_part.return_pipenets()
+		if(!length(thier_pipenets & our_pipenets))
+			continue
 		if(!(pipenet_part.vent_movement & VENTCRAWL_CAN_SEE))
 			continue
 
 		if(!pipenet_part.pipe_vision_img)
-			pipenet_part.update_pipe_image()
-
+			var/turf/their_turf = get_turf(pipenet_part)
+			pipenet_part.pipe_vision_img = image(pipenet_part, pipenet_part.loc, dir = pipenet_part.dir)
+			SET_PLANE(pipenet_part.pipe_vision_img, PIPECRAWL_IMAGES_PLANE, their_turf)
 		client.images += pipenet_part.pipe_vision_img
-		LAZYADD(pipes_shown, pipenet_part.pipe_vision_img)
-
-
-
+		pipes_shown += pipenet_part.pipe_vision_img
 
