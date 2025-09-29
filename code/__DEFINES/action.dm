@@ -14,6 +14,10 @@
 ///Action button checks if it should be given to new mob, after mind transfer
 #define AB_TRANSFER_MIND (1<<6)
 
+///Action button triggered with right click
+#define TRIGGER_SECONDARY_ACTION (1<<0)
+///Action triggered to ignore any availability checks
+#define TRIGGER_FORCE_AVAILABLE (1<<1)
 
 //Advanced action types
 //Those actions have cooldown, and unavailable until it ends
@@ -25,3 +29,15 @@
 #define ADV_ACTION_TYPE_TOGGLE_RECHARGE "toggle_recharge"
 //Those actions have charges and are unavailable until you regain at least one charge.
 #define ADV_ACTION_TYPE_CHARGES "charges"
+
+/// Default action button background
+#define ACTION_BUTTON_DEFAULT_BACKGROUND "bg_default"
+
+
+// Action button update flags
+
+#define UPDATE_BUTTON_NAME (1<<0)
+#define UPDATE_BUTTON_ICON (1<<1)
+#define UPDATE_BUTTON_BACKGROUND (1<<2)
+#define UPDATE_BUTTON_OVERLAY (1<<3)
+#define UPDATE_BUTTON_STATUS (1<<4)

@@ -3,23 +3,64 @@
 #define BUTTON_LAYER_MAPTEXT -2
 #define BUTTON_LAYER_SELECTOR -1
 
+/**
+ * # Action system
+ *
+ * A simple base for an modular behavior attached to atom or datum.
+ */
 /datum/action
+	/// The name of the action
 	var/name = "Generic Action"
-	var/desc = null
-	/// The target the action is attached to. Set in New() via the proc link_to()
-	var/datum/target = null
-	/// Action owner. Can be same with target (not always). This is set and unset with Grant() and Remove()
+	/// The description of what the action does, shown in button tooltips
+	var/desc
+	/// The target the action is attached to. If the target datum is deleted, the action is as well.
+	/// Set in New() via the proc link_to(). PLEASE set a target if you're making an action
+	var/datum/target
+	/// Where any buttons we create should be by default. Accepts screen_loc and location defines
+	var/default_button_position = SCRN_OBJ_IN_LIST
+	/// This is who currently owns the action, and most often, this is who is using the action if it is triggered
+	/// This can be the same as "target" but is not ALWAYS the same - this is set and unset with Grant() and Remove()
 	var/mob/owner
+	/// If False, the owner of this action does not get a hud and cannot activate it on their own
+	var/owner_has_control = TRUE
 	/// Flags that will determine of the owner / user of the action can... use the action
-	var/check_flags = 0
-	var/invisibility = FALSE
-	var/atom/movable/screen/movable/action_button/button = null
-	var/button_icon = 'icons/mob/actions/actions.dmi'
-	var/button_icon_state = "default"
-	var/background_icon
-	var/background_icon_state = "bg_default"
+	var/check_flags = NONE
+	/// Whether the button becomes transparent when it can't be used, or just reddened
+	var/transparent_when_unavailable = TRUE
+	///List of all mobs that are viewing our action button -> A unique movable for them to view.
+	var/list/viewers = list()
+	/// If TRUE, this action button will be shown to observers / other mobs who view from this action's owner's eyes.
+	/// Used in [/mob/proc/show_other_mob_action_buttons]
+	var/show_to_observers = TRUE
+	/// If observers can click this action at any time, regardless of the owner
+	var/allow_observer_click = FALSE
+
+	/// The style the button's tooltips appear to be
 	var/buttontooltipstyle = ""
-	var/icon_icon = 'icons/mob/actions/actions.dmi'
+
+	/// This is the file for the BACKGROUND underlay icon of the button
+	var/background_icon = 'icons/mob/actions/actions.dmi'
+	/// This is the icon state state for the BACKGROUND underlay icon of the button
+	/// (If set to ACTION_BUTTON_DEFAULT_BACKGROUND, uses the hud's default background)
+	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
+
+	/// This is the file for the icon that appears on the button
+	var/button_icon = 'icons/mob/actions/actions.dmi'
+	/// This is the icon state for the icon that appears on the button
+	var/button_icon_state = "default"
+
+	/// This is the file for any FOREGROUND overlay icons on the button (such as borders)
+	var/overlay_icon = 'icons/mob/actions/actions.dmi'
+	/// This is the icon state for any FOREGROUND overlay icons on the button (such as borders)
+	var/overlay_icon_state
+
+	/// full key we are bound to
+	var/full_key
+
+	/// Toggles whether this action is usable or not
+	var/action_disabled = FALSE
+	/// Can this action be shared with our rider?
+	var/can_be_shared = TRUE
 
 /datum/action/New(Target)
 	link_to(Target)
@@ -27,1082 +68,388 @@
 /// Links the passed target to our action, registering any relevant signals
 /datum/action/proc/link_to(Target)
 	target = Target
-	//RegisterSignal(target, COMSIG_QDELETING, PROC_REF(clear_ref), override = TRUE)
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(clear_ref), override = TRUE)
 
-	// if(isatom(target))
-	// 	RegisterSignal(target, COMSIG_ATOM_UPDATED_ICON, PROC_REF(on_target_icon_update))
+	if(isatom(target))
+		RegisterSignal(target, COMSIG_ATOM_UPDATED_ICON, PROC_REF(on_target_icon_update))
 
-	// if(istype(target, /datum/mind))
-	// 	RegisterSignal(target, COMSIG_MIND_TRANSFERRED, PROC_REF(on_target_mind_swapped))
-
-	button = new
-	button.linked_action = src
-	button.name = name
-	button.actiontooltipstyle = buttontooltipstyle
-	button.desc = desc
+	if(istype(target, /datum/mind))
+		RegisterSignal(target, COMSIG_MIND_TRANSER_TO, PROC_REF(on_target_mind_swapped))
 
 /datum/action/Destroy()
 	if(owner)
 		Remove(owner)
 	target = null
-	QDEL_NULL(button)
+	QDEL_LIST_ASSOC_VAL(viewers) // Qdel the buttons in the viewers list **NOT THE HUDS**
 	return ..()
 
-
-/datum/action/proc/Grant(mob/user)
-	if(owner)
-		if(owner == user)
-			return FALSE
+/// Signal proc that clears any references based on the owner or target deleting
+/// If the owner's deleted, we will simply remove from them, but if the target's deleted, we will self-delete
+/datum/action/proc/clear_ref(datum/ref)
+	SIGNAL_HANDLER
+	if(ref == owner)
 		Remove(owner)
-	owner = user
-	owner.actions += src
+	if(ref == target)
+		qdel(src)
 
-	if(owner.client)
-		owner.client.screen += button
+/// Grants the action to the passed mob, making it the owner
+/datum/action/proc/Grant(mob/grant_to)
+	if(isnull(grant_to))
+		Remove(owner)
+		return
+	if(grant_to == owner)
+		return // We already have it
+	var/mob/previous_owner = owner
+	owner = grant_to
+	if(!isnull(previous_owner))
+		Remove(previous_owner)
+	SEND_SIGNAL(src, COMSIG_ACTION_GRANTED, owner)
+	SEND_SIGNAL(owner, COMSIG_MOB_GRANTED_ACTION, src)
+	RegisterSignal(owner, COMSIG_QDELETING, PROC_REF(clear_ref), override = TRUE)
 
-		for(var/mob/dead/observer/observe in user.inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(user.inventory_observers, observe)
-				continue
-			observe.client.screen += button
-
-		button.locked = TRUE
-	owner.update_action_buttons()
-
+	// Register some signals based on our check_flags
+	// so that our button icon updates when relevant
 	if(check_flags & AB_CHECK_CONSCIOUS)
 		RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(update_status_on_signal))
+	if(check_flags & AB_CHECK_INCAPACITATED)
+		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED)), PROC_REF(update_status_on_signal))
+	if(check_flags & AB_CHECK_IMMOBILE)
+		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED)), PROC_REF(update_status_on_signal))
+	if(check_flags & AB_CHECK_HANDS_BLOCKED)
+		RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_LYING)
 		RegisterSignal(owner, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(update_status_on_signal))
-	if(check_flags & AB_CHECK_IMMOBILE)
-		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED)), PROC_REF(update_status_on_signal))
-	if(check_flags & AB_CHECK_HANDS_BLOCKED && !isAI(owner))
-		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
-	if(check_flags & AB_CHECK_INCAPACITATED)
-		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED)), PROC_REF(update_status_on_signal))
-	return TRUE
+	if(check_flags & AB_CHECK_TURF)
+		RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
+	if(owner_has_control)
+		RegisterSignal(grant_to, COMSIG_MOB_KEYDOWN, PROC_REF(keydown), override = TRUE)
+		GiveAction(grant_to)
 
+/// Remove the passed mob from being owner of our action
+/datum/action/proc/Remove(mob/remove_from)
+	SHOULD_CALL_PARENT(TRUE)
 
-/datum/action/proc/Remove(mob/user)
-	owner = null
-	if(!user)
-		return FALSE
+	for(var/datum/hud/hud in viewers)
+		if(!hud.mymob)
+			continue
+		HideFrom(hud.mymob)
+	LAZYREMOVE(remove_from?.actions, src) // We aren't always properly inserted into the viewers list, gotta make sure that action's cleared
+	viewers = list()
+	UnregisterSignal(remove_from, COMSIG_MOB_KEYDOWN)
 
-	if(user.client)
-		user.client.screen -= button
-
-		for(var/mob/dead/observer/observe in user.inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(user.inventory_observers, observe)
-				continue
-			observe.client.screen -= button
-
-		button.clean_up_keybinds(user)
-
-	button.moved = FALSE //so the button appears in its normal position when given to another owner.
-	button.locked = FALSE
-	user.actions -= src
-	user.update_action_buttons()
+	if(isnull(owner))
+		return
+	SEND_SIGNAL(src, COMSIG_ACTION_REMOVED, owner)
+	SEND_SIGNAL(owner, COMSIG_MOB_REMOVED_ACTION, src)
+	UnregisterSignal(owner, COMSIG_QDELETING)
 
 	// Clean up our check_flag signals
-	UnregisterSignal(user, list(
-		COMSIG_MOB_STATCHANGE,
+	UnregisterSignal(owner, list(
 		COMSIG_LIVING_SET_BODY_POSITION,
+		COMSIG_MOB_STATCHANGE,
+		COMSIG_MOVABLE_MOVED,
 		SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED),
 		SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED),
 		SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED),
 		SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED),
 		SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED),
-		SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED),
+		SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED)
 	))
 
-	return TRUE
+	if(target == owner)
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(clear_ref))
+	if (owner == remove_from)
+		owner = null
 
-
-/// A general use signal proc that reacts to an event and updates JUST our button
-/datum/action/proc/update_status_on_signal(datum/source, new_stat, old_stat)
-	SIGNAL_HANDLER
-	UpdateButtonIcon()
-
-
-/datum/action/proc/Trigger(left_click = TRUE)
-	if(!IsAvailable())
+/// Actually triggers the effects of the action.
+/// Called when the on-screen button is clicked, for example.
+/datum/action/proc/Trigger(mob/clicker, trigger_flags)
+	if(!(trigger_flags & TRIGGER_FORCE_AVAILABLE) && !IsAvailable(feedback = TRUE))
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
 		return FALSE
 	return TRUE
 
-/datum/action/proc/AltTrigger()
-	Trigger()
-
-/datum/action/proc/Process()
-	return
-
-/datum/action/proc/override_location() // Override to set coordinates manually
-	return
-
-
-/datum/action/proc/enable_invisibility(enable = TRUE)
-	if(!owner?.client)
-		return
-	if(enable)
-		if(invisibility)
-			return
-		invisibility = TRUE
-		owner.client.screen -= button
-		owner.actions -= src
-	else
-		if(!invisibility)
-			return
-		invisibility = FALSE
-		owner.client.screen += button
-		owner.actions += src
-	owner.update_action_buttons()
-
-
-/datum/action/proc/IsAvailable()// returns 1 if all checks pass
+/**
+ * Whether our action is currently available to use or not
+ * * feedback - If true this is being called to check if we have any messages to show to the owner
+ */
+/datum/action/proc/IsAvailable(feedback = FALSE)
 	if(!owner)
 		return FALSE
-	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED) && !isAI(owner))
+	if(action_disabled)
+		return FALSE
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+		if (feedback)
+			owner.balloon_alert(owner, "hands blocked!")
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
+		if (feedback)
+			owner.balloon_alert(owner, "can't move!")
 		return FALSE
-	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT_NOT_FROM(owner, TRAIT_INCAPACITATED, STAT_TRAIT))
+	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT(owner, TRAIT_INCAPACITATED))
+		if (feedback)
+			owner.balloon_alert(owner, "incapacitated!")
 		return FALSE
-	if((check_flags & AB_CHECK_LYING) && owner.IsLying())
-		return FALSE
-	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat)
+	if((check_flags & AB_CHECK_LYING) && isliving(owner))
+		var/mob/living/action_owner = owner
+		if(action_owner.body_position == LYING_DOWN)
+			if (feedback)
+				owner.balloon_alert(owner, "must stand up!")
+			return FALSE
+	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
+		if (feedback)
+			owner.balloon_alert(owner, "unconscious!")
 		return FALSE
 	if((check_flags & AB_CHECK_TURF) && !isturf(owner.loc))
+		if (feedback)
+			owner.balloon_alert(owner, "not enough space!")
 		return FALSE
 	return TRUE
 
-
-/datum/action/proc/UpdateButtonIcon()
-	if(!button)
-		return FALSE
-
-	if(owner?.client && background_icon_state == "bg_default") // If it's a default action background, apply the custom HUD style
-		button.alpha = owner.client.prefs.UI_style_alpha
-		button.color = owner.client.prefs.UI_style_color
-		button.icon = ui_style2icon(owner.client.prefs.UI_style)
-		button.icon_state = "template"
-	else
-		if(background_icon)
-			button.icon = background_icon
-		else
-			button.icon = button_icon
-		button.icon_state = background_icon_state
-
-	button.name = name
-	button.desc = desc
-
-	ApplyIcon()
-
-	toggle_active_overlay()
-
-	var/obj/effect/proc_holder/spell/spell = target
-	if(!IsAvailable() || istype(spell) && spell.cooldown_handler.should_draw_cooldown())
-		apply_unavailable_effect()
-		return FALSE
-
-	if(!target)
-		return TRUE
-
-	var/signal_result = SEND_SIGNAL(target, COMSIG_ACTION_BUTTON_UPDATE, src)
-	if(signal_result & COMSIG_ACTION_UPDATE_INTERRUPT)
-		return FALSE
-	return TRUE
-
-
-/datum/action/proc/apply_unavailable_effect()
-	var/static/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_UNAVAILABLE, alpha = 200, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
-	button.add_overlay(unavailable_effect)
-
-
-/datum/action/proc/ApplyIcon()
-	button.cut_overlays()
-	if(!icon_icon || !button_icon_state)
-		return
-	var/mutable_appearance/new_icon = mutable_appearance(icon_icon, button_icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	button.add_overlay(new_icon)
-
-
-/datum/action/proc/toggle_active_overlay()
-	return
-
-
-//Presets for item actions
-/datum/action/item_action
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	/// Whether action trigger should call attack self proc.
-	var/attack_self = TRUE
-	var/use_itemicon = TRUE
-	var/action_initialisation_text = null	//Space ninja abilities only
-
-/datum/action/item_action/New(Target, custom_icon, custom_icon_state)
-	..()
-	var/obj/item/I = target
-	LAZYADD(I.actions, src)
-	if(custom_icon && custom_icon_state)
-		use_itemicon = FALSE
-		icon_icon = custom_icon
-		button_icon_state = custom_icon_state
-
-/datum/action/item_action/Destroy()
-	var/obj/item/I = target
-	LAZYREMOVE(I.actions, src)
-	return ..()
-
-/datum/action/item_action/Trigger(left_click = TRUE)
-	if(!..())
-		return FALSE
-	if(target && attack_self)
-		var/obj/item/I = target
-		I.ui_action_click(owner, src, left_click)
-	return TRUE
-
-
-/datum/action/item_action/ApplyIcon()
-	button.cut_overlays()
-	if(!use_itemicon)
-		return ..()
-	if(!target)
-		return
-	var/mutable_appearance/new_icon = mutable_appearance(target.icon, target.icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	new_icon.copy_overlays(target)
-	button.add_overlay(new_icon)
-
-
-/datum/action/item_action/toggle_light
-	name = "Переключить свет"
-
-/datum/action/item_action/toggle_hood
-	name = "Поднять/опустить капюшон"
-
-/datum/action/item_action/toggle_firemode
-	name = "Сменить режим огня"
-
-/datum/action/item_action/startchainsaw
-	name = "Дёрнуть стартовый шнур"
-
-/datum/action/item_action/print_report
-	name = "Печать отчёта"
-
-/datum/action/item_action/print_forensic_report
-	name = "Печать отчёта"
-	button_icon_state = "scanner_print"
-	use_itemicon = FALSE
-
-/datum/action/item_action/clear_records
-	name = "Очистить записи сканера"
-
-/datum/action/item_action/toggle_gunlight
-	name = "Переключить тактический фонарь"
-
-/datum/action/item_action/toggle_mode
-	name = "Сменить режим"
-
-/datum/action/item_action/toggle_barrier_spread
-	name = "Переключить барье"
-
-/datum/action/item_action/equip_unequip_TED_Gun
-	name = "Экипировать/снять TED-пушку"
-
-/datum/action/item_action/toggle_paddles
-	name = "Взять электроды"
-
-/datum/action/item_action/set_internals
-	name = "Переключить баллон"
-
-/datum/action/item_action/set_internals/UpdateButtonIcon()
-	if(..()) //button available
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			if(target == C.internal)
-				button.icon = 'icons/mob/actions/actions.dmi'
-				button.icon_state = "bg_default_on"
-
-/datum/action/item_action/set_internals_ninja
-	name = "Переключить баллон"
-	button_icon = 'icons/mob/actions/actions_ninja.dmi'
-	background_icon_state = "background_green"
-
-/datum/action/item_action/set_internals_ninja/UpdateButtonIcon()
-	if(..()) //button available
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			if(target == C.internal)
-				button.icon_state = "[background_icon_state]_active"
-
-
-/datum/action/item_action/toggle_mister
-	name = "Переключить распылитель"
-
-/datum/action/item_action/toggle_helmet_light
-	name = "Переключить фонарь шлема"
-
-/datum/action/item_action/toggle_welding_screen/plasmaman
-	name = "Поднять/опустить сварочный щиток"
-
-/datum/action/item_action/toggle_helmet_mode
-	name = "Переключить режим костюма"
-
-/datum/action/item_action/toggle_hardsuit_mode
-	name = "Надеть/Снять шлем"
-
-/datum/action/item_action/toggle_unfriendly_fire
-	name = "Переключить дружественный огонь \[ВКЛ\]"
-	desc = "Определяет, будут ли атаки посоха наносить урон союзникам."
-	button_icon_state = "vortex_ff_on"
-
-/datum/action/item_action/toggle_backpack_light
-	name = "Переключить мигалку на рюкзаке"
-
-/datum/action/item_action/toggle_unfriendly_fire/Trigger(left_click = TRUE)
-	if(..())
-		UpdateButtonIcon()
-
-/datum/action/item_action/toggle_unfriendly_fire/UpdateButtonIcon()
-	if(istype(target, /obj/item/hierophant_club))
-		var/obj/item/hierophant_club/H = target
-		if(H.friendly_fire_check)
-			button_icon_state = "vortex_ff_off"
-			name = "Переключить дружественный огонь \[ВЫКЛ\]"
-			button.name = name
-		else
-			button_icon_state = "vortex_ff_on"
-			name = "Переключить дружественный огонь \[ВКЛ\]"
-			button.name = name
-	..()
-
-/datum/action/item_action/vortex_recall
-	name = "Вихревой возврат"
-	desc = "Телепортирует вас и ближайших существ к настроенному маяку иерофанта в любой момент.<br>Если маяк всё ещё прикреплён, он отсоединится."
-	button_icon_state = "vortex_recall"
-
-/datum/action/item_action/vortex_recall/IsAvailable()
-	if(istype(target, /obj/item/hierophant_club))
-		var/obj/item/hierophant_club/H = target
-		if(H.teleporting)
-			return FALSE
-	return ..()
-
-/datum/action/item_action/change_headphones_song
-	name = "Сменить трек в наушниках"
-
-/datum/action/item_action/toggle
-
-/datum/action/item_action/toggle/New(Target)
-	..()
-	name = "Переключить [target.declent_ru(ACCUSATIVE)]"
-	button.name = name
-
-/datum/action/item_action/openclose
-
-/datum/action/item_action/openclose/New(Target)
-	..()
-	name = "Открыть/Закрыть [target.declent_ru(ACCUSATIVE)]"
-	button.name = name
-
-/datum/action/item_action/button
-
-/datum/action/item_action/button/New(Target)
-	..()
-	name = "Застегнуть/Расстегнуть [target.declent_ru(ACCUSATIVE)]"
-	button.name = name
-
-/datum/action/item_action/zipper
-
-/datum/action/item_action/zipper/New(Target)
-	..()
-	name = "Застегнуть/Расстегнуть [target.declent_ru(ACCUSATIVE)]"
-	button.name = name
-
-/datum/action/item_action/activate
-
-/datum/action/item_action/activate/New(Target)
-	..()
-	name = "Активировать [target.declent_ru(ACCUSATIVE)]"
-	button.name = name
-
-/datum/action/item_action/activate/enchant
-
-/datum/action/item_action/activate/enchant/New(Target)
-	..()
-	UpdateButtonIcon()
-
-/datum/action/item_action/halt
-	name = "СТОЯТЬ!"
-
-/datum/action/item_action/selectphrase
-	name = "Сменить фразу"
-
-/datum/action/item_action/hoot
-	name = "Ухнуть"
-
-/datum/action/item_action/caw
-	name = "Каркнуть"
-
-/datum/action/item_action/toggle_voice_box
-	name = "Переключить голосовой модуль"
-
-/datum/action/item_action/change
-	name = "Изменить"
-
-/datum/action/item_action/noir
-	name = "Нуар"
-
-/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH
-	name = "ОУ ДАА!"
-
-/datum/action/item_action/laugh_track
-	name = "Проиграть смех"
-
-/datum/action/item_action/adjust
-
-/datum/action/item_action/adjust/New(Target)
-	..()
-	name = "Поднять/Опустить [target.declent_ru(ACCUSATIVE)]"
-	button.name = name
-
-/datum/action/item_action/pontificate
-	name = "Крутить усы"
-
-/datum/action/item_action/tip_fedora
-	name = "Поправить федору"
-
-/datum/action/item_action/flip_cap
-	name = "Развернуть кепку"
-
-/datum/action/item_action/switch_hud
-	name = "Переключить ИЛС"
-
-/datum/action/item_action/toggle_wings
-	name = "Скрыть/показать крылья"
-
-/datum/action/item_action/toggle_helmet
-	name = "Надеть/снять шлем"
-
-/datum/action/item_action/remove_tape
-	name = "Снять скотч"
-	attack_self = FALSE
-
-/datum/action/item_action/remove_tape/Trigger(left_click = TRUE)
-	if(..())
-		var/component = target.GetComponent(/datum/component/ducttape)
-		if(component)
-			usr.transfer_fingerprints_to(target)
-			to_chat(usr, span_notice("Вы отрываете скотч от [target.declent_ru(GENITIVE)]!"))
-			qdel(component)
-
-/datum/action/item_action/toggle_jetpack
-	name = "Переключить джетпак"
-
-/datum/action/item_action/jetpack_stabilization
-	name = "Переключить стабилизацию джетпака"
-
-/datum/action/item_action/jetpack_stabilization/IsAvailable()
-	var/obj/item/tank/jetpack/J = target
-	if(!istype(J) || !J.on)
-		return FALSE
-	return ..()
-
-/datum/action/item_action/toggle_jetpack/ninja
-	button_icon = 'icons/mob/actions/actions_ninja.dmi'
-	background_icon_state = "background_green"
-
-/datum/action/item_action/toggle_jetpack/ninja/apply_unavailable_effect()
-	return
-
-/datum/action/item_action/toggle_jetpack/ninja/UpdateButtonIcon()
-	. = ..()
-	var/obj/item/tank/jetpack/J = target
-	if(!istype(J) || !J.on)
-		button.icon_state = "[background_icon_state]"
-	else
-		button.icon_state = "[background_icon_state]_active"
-
-/datum/action/item_action/jetpack_stabilization/ninja
-	button_icon = 'icons/mob/actions/actions_ninja.dmi'
-	background_icon_state = "background_green"
-
-/datum/action/item_action/jetpack_stabilization/ninja/UpdateButtonIcon()
-	. = ..()
-	var/obj/item/tank/jetpack/J = target
-	if(!istype(J) || !J.stabilize)
-		button.icon_state = "[background_icon_state]"
-	else
-		button.icon_state = "[background_icon_state]_active"
-
-
-/datum/action/item_action/hands_free
-	check_flags = AB_CHECK_CONSCIOUS
-	var/recharge_text_color = "#FFFFFF"
-
-/datum/action/item_action/hands_free/activate
-	name = "Активировать"
-
-/datum/action/item_action/hands_free/apply_unavailable_effect()
-	var/obj/item/implant/implant = target
-	if(!istype(implant))
-		return ..()
-	// Make a holder for the charge text
-	var/static/mutable_appearance/maptext_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	var/text = implant.cooldown_system.cooldown_info()
-	maptext_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
-	button.add_overlay(maptext_holder)
-
-/datum/action/item_action/hands_free/activate/always
-	check_flags = NONE
-
-/datum/action/item_action/toggle_research_scanner
-	name = "Переключить исследовательский анализатор"
-
-
-/datum/action/item_action/toggle_research_scanner/Trigger(left_click = TRUE)
-	if(!..())
-		return FALSE
-
-	owner.research_scanner = !owner.research_scanner
-	to_chat(owner, span_notice("Вы [owner.research_scanner ? "включили" : "отключили"] исследовательский анализатор."))
-
-	return TRUE
-
-
-/datum/action/item_action/toggle_research_scanner/Remove(mob/living/L)
-	if(owner)
-		owner.research_scanner = 0
-
-	. = ..()
-
-
-/datum/action/item_action/toggle_research_scanner/ApplyIcon()
-	button.cut_overlays()
-	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	button.add_overlay(new_icon)
-
-
-/datum/action/innate/overdrive
-	name = "Овердрайв"
-	check_flags = AB_CHECK_CONSCIOUS
-	var/used = FALSE
-
-/datum/action/innate/overdrive/Activate()
-	var/mob/living/silicon/robot/robot = owner
-	if(used)
-		return
-
-	if(!do_after(robot, 10 SECONDS) || robot.stat)
-		return
-
-	robot.rejuvenate()
-	robot.opened = FALSE
-	robot.locked = TRUE
-	robot.SetEmagged(TRUE)
-	robot.SetLockdown(FALSE)
-	robot.UnlinkSelf()
-	used = TRUE
-	Remove(robot)
-
-/datum/action/innate/overdrive/ApplyIcon()
-	button.cut_overlays()
-	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "heal", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	button.add_overlay(new_icon)
-
-/datum/action/item_action/instrument
-	name = "Использовать инструмент"
-	desc = "Использовать указанный инструмент."
-
-/datum/action/item_action/instrument/Trigger(left_click = TRUE)
-	if(istype(target, /obj/item/instrument))
-		var/obj/item/instrument/I = target
-		I.interact(usr)
-		return
-	return ..()
-
-
-/datum/action/item_action/remove_badge
-	name = "Снять голобейдж"
-
-
-/datum/action/item_action/toggle_cleave_attack
-	name = "Переключить режим атаки со взмахом"
-	check_flags = NONE
-	attack_self = FALSE
-	var/toggled = TRUE
-
-
-/datum/action/item_action/toggle_cleave_attack/UpdateButtonIcon()
-	. = ..()
-	button.icon = 'icons/mob/actions/actions.dmi'
-	if(toggled)
-		button.icon_state = "bg_default_on"
-	else
-		button.icon_state = "bg_default"
-
-
-/datum/action/item_action/toggle_cleave_attack/Trigger(left_click = TRUE)
-	if(!..())
-		return
-
-	toggled = !toggled
-	SEND_SIGNAL(target, COMSIG_TOGGLE_CLEAVE_ATTACK)
-	UpdateButtonIcon()
-	to_chat(usr, span_notice("Вы [toggled ? "включаете" : "отключаете"] атаку со взмахом."))
-
-
-// Jump boots
-/datum/action/item_action/bhop
-	name = "Активировать прыжковые ботинки"
-	desc = "Активирует систему прыжков, позволяя преодолевать препятствия шириной до 4 тайлов."
-	button_icon_state = "jetboot"
-
-/datum/action/item_action/bhop/clown
-	name = "Активировать хонк-ботинки"
-	desc = "Активирует хонк-систему, позволяя перепрыгивать препятствия шириной до 6 тайлов."
-	button_icon_state = "clown"
-
-/datum/action/item_action/gravity_jump
-	name = "Гравитационный прыжок"
-	desc = "Направляет импульс гравитации перед пользователем, придавая ему ускорение."
-	attack_self = FALSE
-
-/datum/action/item_action/gravity_jump/Trigger(left_click = TRUE)
-	. = ..()
-	if(!.)
-		return FALSE
-
-	var/obj/item/clothing/shoes/magboots/gravity/G = target
-	G.dash(usr)
-
-/datum/action/item_action/toggle_rapier_nodrop
-	name = "Переключить Антидроп"
-	desc = "Активирует/деактивирует систему предотвращения выпадения рапиры."
-
-///prset for organ actions
-/datum/action/item_action/organ_action
-	check_flags = AB_CHECK_CONSCIOUS
-
-/datum/action/item_action/organ_action/IsAvailable()
-	var/obj/item/organ/internal/I = target
-	if(!I.owner)
-		return FALSE
-	return ..()
-
-/datum/action/item_action/organ_action/toggle
-
-/datum/action/item_action/organ_action/toggle/New(Target)
-	..()
-	name = "Переключить [target.declent_ru(ACCUSATIVE)]"
-	button.name = name
-
-/datum/action/item_action/organ_action/use/New(Target)
-	..()
-	name = "Использовать [target.declent_ru(ACCUSATIVE)]"
-	button.name = name
-
-/datum/action/item_action/voice_changer/toggle
-	name = "Переключить исказитель голоса"
-
-/datum/action/item_action/voice_changer/voice
-	name = "Установить голос"
-
-/datum/action/item_action/voice_changer/voice/Trigger(left_click = TRUE)
-	if(!IsAvailable())
-		return FALSE
-
-	var/obj/item/voice_changer/V = target
-	V.set_voice(usr)
-
-// for clothing accessories like holsters
-/datum/action/item_action/accessory
-
-/datum/action/item_action/accessory/IsAvailable()
-	. = ..()
-	if(!.)
-		return FALSE
-	if(target.loc == owner)
-		return TRUE
-	if(istype(target.loc, /obj/item/clothing/under) && target.loc.loc == owner)
-		return TRUE
-	return FALSE
-
-/datum/action/item_action/accessory/holster
-	name = "Кобура"
-
-/datum/action/item_action/accessory/holobadge
-	name = "Голобейдж"
-
-/datum/action/item_action/accessory/storage
-	name = "Просмотр хранилища"
-
-/datum/action/item_action/accessory/petcollar
-	name = "Извлечь ID"
-
-/datum/action/item_action/accessory/herald
-	name = "Зеркальный переход"
-	desc = "Используйте рядом с зеркалом, чтобы войти в него."
-
-/datum/action/item_action/accessory/mining_camera
-	name = "Переключить камеру"
-
-//Preset for spells
-/datum/action/spell_action
-	background_icon_state = "bg_spell"
-	var/recharge_text_color = "#FFFFFF"
-
-/datum/action/spell_action/New(Target)
-	..()
-	var/obj/effect/proc_holder/spell/spell = target
-	spell.action = src
-	name = spell.name
-	desc = spell.desc
-	button_icon = spell.action_icon
-	background_icon = spell.action_background_icon
-	button_icon_state = spell.action_icon_state
-	background_icon_state = spell.action_background_icon_state
-	button.name = name
-
-/datum/action/spell_action/Destroy()
-	var/obj/effect/proc_holder/spell/S = target
-	S.action = null
-	return ..()
-
-/datum/action/spell_action/Trigger(left_click = TRUE)
-	if(!IsAvailable(TRUE))
-		return FALSE
-
-	if(target)
-		var/obj/effect/proc_holder/spell = target
-		spell.Click()
-		return TRUE
-
-/datum/action/spell_action/AltTrigger()
-	if(target)
-		var/obj/effect/proc_holder/spell/spell = target
-		owner.base_click_alt(spell)
-		return TRUE
-
-/datum/action/spell_action/IsAvailable(message = FALSE)
-	if(!target)
-		return FALSE
-	var/obj/effect/proc_holder/spell/spell = target
-
-	if(owner)
-		return spell.can_cast(owner, show_message = message)
-	return FALSE
-
-
-/datum/action/spell_action/toggle_active_overlay()
-	var/obj/effect/proc_holder/spell/spell = target
-	if(!istype(spell) || !spell.need_active_overlay)
-		return
-	var/static/mutable_appearance/selector = mutable_appearance('icons/mob/screen_gen.dmi', "selector", BUTTON_LAYER_SELECTOR, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	if(spell.active)
-		button.add_overlay(selector)
-	else
-		button.cut_overlay(selector)
-
-
-/datum/action/spell_action/ApplyIcon()
-	button.cut_overlays()
-	if(!button_icon || !button_icon_state)
-		return
-	var/mutable_appearance/new_icon = mutable_appearance(button_icon, button_icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	button.add_overlay(new_icon)
-
-
-/datum/action/spell_action/apply_unavailable_effect()
-	var/obj/effect/proc_holder/spell/spell = target
-	if(!istype(spell))
-		return ..()
-	var/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
-	unavailable_effect.alpha = spell.cooldown_handler.get_cooldown_alpha()
-	button.add_overlay(unavailable_effect)
-	// Make a holder for the charge text
-	var/static/mutable_appearance/maptext_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	var/text = spell.cooldown_handler.cooldown_info()
-	maptext_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
-	button.add_overlay(maptext_holder)
-
-
-//Preset for general and toggled actions
-/datum/action/innate
-	var/active = FALSE
-
-/datum/action/innate/Trigger(left_click = TRUE)
-	if(!..())
-		return FALSE
-	if(!active)
-		Activate()
-	else
-		Deactivate()
-	return TRUE
-
-/datum/action/innate/proc/Activate()
-	return
-
-/datum/action/innate/proc/Deactivate()
-	return
-
-/datum/action/innate/research_scanner
-	name = "Переключить исследовательский анализатор"
-
-/datum/action/innate/research_scanner/Activate()
-	owner.research_scanner = !owner.research_scanner
-	to_chat(owner, span_notice("Вы [owner.research_scanner ? "включили" : "отключили"] исследовательский анализатор."))
-
-	return TRUE
-
-
-/datum/action/innate/research_scanner/Remove(mob/living/L)
-	if(owner)
-		owner.research_scanner = 0
-
-	. = ..()
-
-
-/datum/action/innate/research_scanner/ApplyIcon()
-	button.cut_overlays()
-	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	button.add_overlay(new_icon)
-
-
-//Preset for action that call specific procs (consider innate)
-/datum/action/generic
-	var/procname
-
-/datum/action/generic/Trigger(left_click = TRUE)
-	if(!..())
-		return FALSE
-	if(target && procname)
-		call(target,procname)(usr)
-	return TRUE
-
-/datum/action/generic/configure_mmi_radio
-	name = "Настроить радио MMI"
-	desc = "Настроить радио, установленное в вашем MMI."
-	check_flags = AB_CHECK_CONSCIOUS
-	procname = "ui_interact"
-	var/obj/item/mmi = null
-
-
-/datum/action/generic/configure_mmi_radio/New(Target, obj/item/mmi/M)
-	. = ..()
-	mmi = M
-
-
-/datum/action/generic/configure_mmi_radio/Destroy()
-	mmi = null
-	return ..()
-
-
-/datum/action/generic/configure_mmi_radio/ApplyIcon()
-	button.cut_overlays()
-	if(!mmi)
-		return
-	var/mutable_appearance/new_icon = mutable_appearance(mmi.icon, mmi.icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	new_icon.copy_overlays(mmi)
-	button.add_overlay(new_icon)
-
-
-// This item actions have their own charges/cooldown system like spell procholders, but without all the unnecessary magic stuff
-/datum/action/item_action/advanced
-	var/recharge_text_color = "#FFFFFF"
-	var/charge_type = ADV_ACTION_TYPE_RECHARGE //can be recharge, toggle, toggle_recharge or charges, see description in the defines file
-	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or "toggle_recharge", alternatively counts as starting charges if charge_type = "charges"
-	var/charge_counter = 0 //can only use if it equals "recharge" or "toggle_recharge", ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
-	var/starts_charged = TRUE //Does this action start ready to go?
-	var/still_recharging_msg = span_notice(" действие всё ещё перезаряжается.")
-	//toggle and toggle_recharge stuff
-	var/action_ready = TRUE //Only for toggle and toggle_recharge charge_type. Toggle it via code yourself. Haha 'toggle', get it?
-	var/icon_state_active = "bg_default_on"	//What icon_state we switch to when we toggle action active in "toggle" actions
-	var/icon_state_disabled = "bg_default"	//Old icon_state we switch to when we toggle action back in "toggle" actions
-	//cooldown overlay stuff
-	var/coold_overlay_icon = 'icons/mob/screen_white.dmi'
-	var/coold_overlay_icon_state = "template"
-	var/no_count = FALSE  // This means that the action is charged but unavailable due to something else
-	var/wait_time = 2 SECONDS // Prevents spamming the button. Only for "charges" type actions
-	var/last_use_time = null
-
-/datum/action/item_action/advanced/New()
-	. = ..()
-	still_recharging_msg = span_notice("[name] всё ещё перезаряжается.")
-	icon_state_disabled = background_icon_state
-	last_use_time = world.time
-	if(charge_type == ADV_ACTION_TYPE_CHARGES)
-		UpdateButtonIcon()
-		add_charges_overlay()
-	if(starts_charged)
-		charge_counter = charge_max
-	else
-		start_recharge()
-
-/datum/action/item_action/advanced/proc/start_recharge()
-	UpdateButtonIcon()
-	START_PROCESSING(SSfastprocess, src)
-
-/datum/action/item_action/advanced/process()
-	charge_counter += 2
-	UpdateButtonIcon()
-	if(charge_counter < charge_max)
-		return
-	STOP_PROCESSING(SSfastprocess, src)
-	action_ready = TRUE
-	charge_counter = charge_max
-
-/datum/action/item_action/advanced/proc/recharge_action() //resets charge_counter or readds one charge
-	switch(charge_type)
-		if(ADV_ACTION_TYPE_RECHARGE)
-			charge_counter = charge_max
-		if(ADV_ACTION_TYPE_TOGGLE)	//this type doesn't use those var's, but why not
-			charge_counter = charge_max
-		if(ADV_ACTION_TYPE_TOGGLE_RECHARGE)
-			charge_counter = charge_max
-		if(ADV_ACTION_TYPE_CHARGES)
-			charge_counter++
-			UpdateButtonIcon()
-			add_charges_overlay()
-
-/datum/action/item_action/advanced/proc/use_action()
-	if(!IsAvailable(show_message = TRUE))
-		return
-	switch(charge_type)
-		if(ADV_ACTION_TYPE_RECHARGE)
-			charge_counter = 0
-			start_recharge()
-		if(ADV_ACTION_TYPE_TOGGLE)
-			toggle_button_on_off()
-			action_ready = !action_ready
-		if(ADV_ACTION_TYPE_TOGGLE_RECHARGE)
-			charge_counter = 0
-			start_recharge()
-		if(ADV_ACTION_TYPE_CHARGES)
-			charge_counter--
-			last_use_time = world.time
-			UpdateButtonIcon()
-			add_charges_overlay()
-
-/* Basic availability checks in this proc.
- * Arguments:
- * show_message - Do we show recharging message to the caller?
- * ignore_ready - Are we ignoring the "action_ready" flag? Usefull when u call this check indirrectly.
+/// Builds / updates all buttons we have shared or given out
+/datum/action/proc/build_all_button_icons(update_flags = ALL, force)
+	for(var/datum/hud/hud as anything in viewers)
+		build_button_icon(viewers[hud], update_flags, force)
+
+/**
+ * Builds the icon of the button.
+ *
+ * Concept:
+ * - Underlay (Background icon)
+ * - Icon (button icon)
+ * - Maptext
+ * - Overlay (Background border)
+ *
+ * button - which button we are modifying the icon of
+ * force - whether we're forcing a full update
  */
-/datum/action/item_action/advanced/IsAvailable(show_message = FALSE, ignore_ready = FALSE)
-	if(!..())
-		return FALSE
-	switch(charge_type)
-		if(ADV_ACTION_TYPE_RECHARGE)
-			if(charge_counter < charge_max)
-				if(show_message)
-					to_chat(owner, still_recharging_msg)
-				return FALSE
-		if(ADV_ACTION_TYPE_TOGGLE_RECHARGE)
-			if(charge_counter < charge_max)
-				if(action_ready && !ignore_ready)
-					return TRUE
-				if(show_message)
-					to_chat(owner, still_recharging_msg)
-				return FALSE
-		if(ADV_ACTION_TYPE_CHARGES)
-			if(world.time < last_use_time + wait_time)
-				if(show_message)
-					to_chat(owner, span_warning("[name] уже используется."))
-				return FALSE
-			if(!charge_counter)
-				if(show_message)
-					to_chat(owner, span_notice("[name] разряжен."))
-				return FALSE
-	return TRUE
+/datum/action/proc/build_button_icon(atom/movable/screen/movable/action_button/button, update_flags = ALL, force = FALSE)
+	if(!button)
+		return
 
-/datum/action/item_action/advanced/proc/get_availability_percentage()
-	switch(charge_type)
-		if(ADV_ACTION_TYPE_RECHARGE)
-			if(charge_counter == 0)
-				return 0
-			if(charge_max == 0)
-				return 1
-			return charge_counter / charge_max
-		if(ADV_ACTION_TYPE_TOGGLE_RECHARGE)
-			if(action_ready)
-				return 1
-			if(charge_counter == 0)
-				return 0
-			if(charge_max == 0)
-				return 1
-			return charge_counter / charge_max
-		if(ADV_ACTION_TYPE_CHARGES)
-			if(charge_counter)
-				return 1
-			return 0
+	button.actiontooltipstyle = buttontooltipstyle
 
+	if(update_flags & UPDATE_BUTTON_NAME)
+		update_button_name(button, force)
 
-/datum/action/item_action/advanced/apply_unavailable_effect()
-	var/progress = get_availability_percentage()
-	if(progress == 1)
-		no_count = TRUE
-	var/mutable_appearance/unavailable_effect = mutable_appearance(coold_overlay_icon, coold_overlay_icon_state, BUTTON_LAYER_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
-	unavailable_effect.alpha = no_count ? 80 : 220 - 140 * progress
-	button.add_overlay(unavailable_effect)
-	if(!no_count && charge_type != ADV_ACTION_TYPE_CHARGES)
-		add_percentage_overlay(progress)
-	else if(charge_type == ADV_ACTION_TYPE_CHARGES)
-		add_charges_overlay()
-	no_count = FALSE //reset
+	if(update_flags & UPDATE_BUTTON_BACKGROUND)
+		apply_button_background(button, force)
 
+	if(update_flags & UPDATE_BUTTON_ICON)
+		apply_button_icon(button, force)
 
-/datum/action/item_action/advanced/proc/add_percentage_overlay(progress)
-	// Make a holder for the charge text
-	var/static/mutable_appearance/count_down_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
-	button.add_overlay(count_down_holder)
+	if(update_flags & UPDATE_BUTTON_OVERLAY)
+		apply_button_overlay(button, force)
 
+	if(update_flags & UPDATE_BUTTON_STATUS)
+		update_button_status(button, force)
 
-/datum/action/item_action/advanced/proc/add_charges_overlay()
-	// Make a holder for the charge text
-	var/static/mutable_appearance/charges_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	charges_holder.maptext = "<div style=\"font-size:6pt;color:#ffffff;font:'Small Fonts';text-align:center;\" valign=\"bottom\">[charge_counter]/[charge_max]</div>"
-	button.add_overlay(charges_holder)
+/**
+ * Updates the name and description of the button to match our action name and discription.
+ *
+ * current_button - what button are we editing?
+ * force - whether an update is forced regardless of existing status
+ */
+/datum/action/proc/update_button_name(atom/movable/screen/movable/action_button/button, force = FALSE)
+	button.name = name
+	if(desc)
+		button.desc = desc
 
+/**
+ * Creates the background underlay for the button
+ *
+ * current_button - what button are we editing?
+ * force - whether an update is forced regardless of existing status
+ */
+/datum/action/proc/apply_button_background(atom/movable/screen/movable/action_button/current_button, force = FALSE)
+	if(!background_icon || !background_icon_state || (current_button.active_underlay_icon_state == background_icon_state && !force))
+		return
 
-	//visuals only
-/datum/action/item_action/advanced/proc/toggle_button_on_off()
-	if(!action_ready)
-		icon_state_disabled = background_icon_state
-		background_icon_state = "[background_icon_state]_on"
+	// What icons we use for our background
+	var/list/icon_settings = list(
+		// The icon file
+		"bg_icon" = background_icon,
+		// The icon state, if is_action_active() returns FALSE
+		"bg_state" = background_icon_state,
+		// The icon state, if is_action_active() returns TRUE
+		"bg_state_active" = background_icon_state,
+	)
+
+	// If background_icon_state is ACTION_BUTTON_DEFAULT_BACKGROUND instead use our hud's action button scheme
+	if(background_icon_state == ACTION_BUTTON_DEFAULT_BACKGROUND && owner?.hud_used)
+		icon_settings = owner.hud_used.get_action_buttons_icons()
+
+	// Determine which icon to use
+	var/used_icon_key = is_action_active(current_button) ? "bg_state_active" : "bg_state"
+
+	// Make the underlay
+	current_button.underlays.Cut()
+	current_button.underlays += image(icon = icon_settings["bg_icon"], icon_state = icon_settings[used_icon_key])
+	current_button.active_underlay_icon_state = icon_settings[used_icon_key]
+
+/**
+ * Applies our button icon and icon state to the button
+ *
+ * current_button - what button are we editing?
+ * force - whether an update is forced regardless of existing status
+ */
+/datum/action/proc/apply_button_icon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
+	if(!button_icon || !button_icon_state || (current_button.icon_state == button_icon_state && !force))
+		return
+
+	current_button.icon = button_icon
+	current_button.icon_state = button_icon_state
+
+/**
+ * Applies any overlays to our button
+ *
+ * current_button - what button are we editing?
+ * force - whether an update is forced regardless of existing status
+ */
+/datum/action/proc/apply_button_overlay(atom/movable/screen/movable/action_button/current_button, force = FALSE)
+
+	SEND_SIGNAL(src, COMSIG_ACTION_OVERLAY_APPLY, current_button, force)
+
+	if(!overlay_icon || !overlay_icon_state || (current_button.active_overlay_icon_state == overlay_icon_state && !force))
+		return
+
+	current_button.cut_overlay(current_button.button_overlay)
+	current_button.button_overlay = mutable_appearance(icon = overlay_icon, icon_state = overlay_icon_state)
+	current_button.add_overlay(current_button.button_overlay)
+	current_button.active_overlay_icon_state = overlay_icon_state
+
+/**
+ * Any other miscellaneous "status" updates within the action button is handled here,
+ * such as redding out when unavailable or modifying maptext.
+ *
+ * current_button - what button are we editing?
+ * force - whether an update is forced regardless of existing status
+ */
+/datum/action/proc/update_button_status(atom/movable/screen/movable/action_button/current_button, force = FALSE)
+	current_button.update_keybind_maptext(full_key)
+	if(IsAvailable())
+		current_button.color = rgb(255,255,255,255)
 	else
-		background_icon_state = icon_state_disabled
-	UpdateButtonIcon()
+		current_button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
 
-//Ninja action type
-/datum/action/item_action/advanced/ninja
-	coold_overlay_icon = 'icons/mob/actions/actions_ninja.dmi'
-	coold_overlay_icon_state = "background_green"
-	icon_state_active = "background_green_active"
-	icon_state_disabled = "background_green"
+/// Gives our action to the passed viewer.
+/// Puts our action in their actions list and shows them the button.
+/datum/action/proc/GiveAction(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	if(viewers[our_hud]) // Already have a copy of us? go away
+		return
 
-/datum/action/item_action/advanced/ninja/New(Target)
-	. = ..()
-	var/obj/item/clothing/suit/space/space_ninja/ninja_suit = target
-	if(istype(ninja_suit))
-		recharge_text_color = ninja_suit.color_choice
-		coold_overlay_icon_state = "background_[ninja_suit.color_choice]"
+	LAZYOR(viewer.actions, src) // Move this in
+	ShowTo(viewer)
 
-/datum/action/item_action/advanced/ninja/IsAvailable(show_message = FALSE, ignore_ready = FALSE)
-	if(!target && !istype(target, /obj/item/clothing/suit/space/space_ninja))
-		return FALSE
-	return ..()
+/// Adds our action button to the screen of the passed viewer.
+/datum/action/proc/ShowTo(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	if(!our_hud || viewers[our_hud]) // There's no point in this if you have no hud in the first place
+		return
 
-/datum/action/item_action/advanced/ninja/apply_unavailable_effect()
-	var/obj/item/clothing/suit/space/space_ninja/ninja_suit = target
-	if(!istype(ninja_suit))
-		no_count = TRUE
-	. = ..()
+	var/atom/movable/screen/movable/action_button/button = create_button()
+	SetId(button, viewer)
 
-/datum/action/item_action/advanced/ninja/toggle_button_on_off()
-	if(action_ready)
-		background_icon_state = icon_state_active
-	else
-		background_icon_state = icon_state_disabled
-	UpdateButtonIcon()
+	button.our_hud = our_hud
+	viewers[our_hud] = button
+	if(viewer.client)
+		viewer.client.screen += button
+
+	button.load_position(viewer)
+	viewer.update_action_buttons()
+
+/// Removes our action from the passed viewer.
+/datum/action/proc/HideFrom(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	var/atom/movable/screen/movable/action_button/button = viewers[our_hud]
+	LAZYREMOVE(viewer.actions, src)
+	if(button)
+		qdel(button)
+
+/// Creates an action button movable for the passed mob, and returns it.
+/datum/action/proc/create_button()
+	var/atom/movable/screen/movable/action_button/button = new()
+	button.linked_action = src
+	button.allow_observer_click = allow_observer_click
+	build_button_icon(button, ALL, TRUE)
+	return button
+
+/datum/action/proc/SetId(atom/movable/screen/movable/action_button/our_button, mob/owner)
+	//button id generation
+	var/bitfield = 0
+	for(var/datum/action/action in owner.actions)
+		if(action == src) // This could be us, which is dumb
+			continue
+		var/atom/movable/screen/movable/action_button/button = action.viewers[owner.hud_used]
+		if(action.name == name && button.id)
+			bitfield |= button.id
+
+	bitfield = ~bitfield // Flip our possible ids, so we can check if we've found a unique one
+	for(var/i in 0 to 23) // We get 24 possible bitflags in dm
+		var/bitflag = 1 << i // Shift us over one
+		if(bitfield & bitflag)
+			our_button.id = bitflag
+			return
+
+/// Updates our buttons if our target's icon was updated
+/datum/action/proc/on_target_icon_update(datum/source, updates, updated)
+	SIGNAL_HANDLER
+
+	var/update_flag = NONE
+	var/forced = FALSE
+	if(updates & UPDATE_ICON_STATE)
+		update_flag |= UPDATE_BUTTON_ICON
+		forced = TRUE
+	if(updates & UPDATE_OVERLAYS)
+		update_flag |= UPDATE_BUTTON_OVERLAY
+		forced = TRUE
+	if(updates & (UPDATE_NAME|UPDATE_DESC))
+		update_flag |= UPDATE_BUTTON_NAME
+	// Status is not relevant, and background is not relevant. Neither will change
+
+	// Force the update if an icon state or overlay change was done
+	build_all_button_icons(update_flag, forced)
+
+/// A general use signal proc that reacts to an event and updates JUST our button's status
+/datum/action/proc/update_status_on_signal(datum/source, new_stat, old_stat)
+	SIGNAL_HANDLER
+
+	build_all_button_icons(UPDATE_BUTTON_STATUS)
+
+/// Signal proc for COMSIG_MIND_TRANSFER_TO - for minds, transfers our action to our new mob on mind transfer
+/datum/action/proc/on_target_mind_swapped(datum/mind/source, mob/old_current)
+	SIGNAL_HANDLER
+
+	// Grant() calls Remove() from the existing owner so we're covered on that
+	Grant(source.current)
+
+/// Checks if our action is actively selected. Used for selecting icons primarily.
+/datum/action/proc/is_action_active(atom/movable/screen/movable/action_button/current_button)
+	return FALSE
+
+/datum/action/proc/begin_creating_bind(atom/movable/screen/movable/action_button/current_button, mob/user)
+	if(!current_button || user != owner)
+		return
+	if(!isnull(full_key))
+		full_key = null
+		update_button_status(current_button)
+		return
+	full_key = tgui_input_keycombo(user, "Please bind a key for this action.")
+	update_button_status(current_button)
+
+/datum/action/proc/keydown(mob/source, key, client/client, full_key)
+	SIGNAL_HANDLER
+	if(isnull(full_key) || full_key != src.full_key)
+		return
+	if(istype(source))
+		if(source.next_click > world.time)
+			return
+		else
+			source.next_click = world.time + CLICK_CD_CLICK_ABILITY
+	INVOKE_ASYNC(src, PROC_REF(Trigger))
+
 
 
 #undef BUTTON_LAYER_ICON

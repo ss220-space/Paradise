@@ -43,6 +43,7 @@ FALSE if not
 	if(!result && lagging)
 		usr.ClickOn(src, params) // if not, we click object
 
+	base_mouse_drop_handler(over_object, src_location, over_location, params)
 
 /*
 recieve a mousedrop
@@ -53,6 +54,45 @@ to inform the game this action was expected and its fine
 */
 /atom/proc/MouseDrop_T(atom/dropping, mob/user, params) // return TRUE if you want to prevent us click the object after it
 	return FALSE
+
+/**
+ * Called when all sanity checks for mouse dropping have passed. Handles adjacency & other sanity checks before delegating the event
+ * down to lower level handlers. Do not override unless you are trying to create hud & screen elements which do not require proximity
+ * or other checks
+ */
+/atom/proc/base_mouse_drop_handler(atom/over, src_location, over_location, params)
+	PROTECTED_PROC(TRUE)
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	var/mob/user = usr
+
+	if(SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, over, user) & COMPONENT_NO_MOUSEDROP)
+		return
+
+	if(SEND_SIGNAL(over, COMSIG_MOUSEDROPPED_ONTO, src, user, params) & COMPONENT_CANCEL_MOUSEDROPPED_ONTO)
+		return
+
+	// only if both dragged object & receiver agree to do checks do we proceed
+	var/combined_atom_flags = interaction_flags_click | over.interaction_flags_click
+	//Check for adjacency
+	if(!(combined_atom_flags & INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT) && (!CanReach(user) || !over.CanReach(user)))
+		return // should stop you from dragging through windows
+
+	mouse_drop_dragged(over, user, src_location, over_location, params)
+
+	over.mouse_drop_receive(src, user, params)
+
+/// The proc that should be overridden by subtypes to handle mouse drop. Called on the atom being dragged
+/atom/proc/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
+	PROTECTED_PROC(TRUE)
+
+	return
+
+/// The proc that should be overridden by subtypes to handle mouse drop. Called on the atom receiving a dragged object
+/atom/proc/mouse_drop_receive(atom/dropped, mob/user, params)
+	PROTECTED_PROC(TRUE)
+
+	return
 
 
 /client/MouseDown(datum/object, location, control, params)

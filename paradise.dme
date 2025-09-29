@@ -9,7 +9,6 @@
 // END_FILE_DIR
 // BEGIN_PREFERENCES
 #define DEBUG
-#define MULTIINSTANCE
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "__odlint.dm"
@@ -251,6 +250,7 @@
 #include "code\__HELPERS\reagents_helpers.dm"
 #include "code\__HELPERS\russian.dm"
 #include "code\__HELPERS\sanitize_values.dm"
+#include "code\__HELPERS\screen_objs.dm"
 #include "code\__HELPERS\see_through_maps.dm"
 #include "code\__HELPERS\shell.dm"
 #include "code\__HELPERS\spatial_info.dm"
@@ -465,7 +465,6 @@
 #include "code\controllers\subsystem\processing\wet_floors.dm"
 #include "code\controllers\subsystem\tickets\mentor_tickets.dm"
 #include "code\controllers\subsystem\tickets\tickets.dm"
-#include "code\datums\actions\action.dm"
 #include "code\datums\ai_law_sets.dm"
 #include "code\datums\ai_laws.dm"
 #include "code\datums\armor.dm"
@@ -520,6 +519,7 @@
 #include "code\datums\vision_override.dm"
 #include "code\datums\weakrefs.dm"
 #include "code\datums\wryn_building.dm"
+#include "code\datums\actions\action.dm"
 #include "code\datums\ai\_ai_behavior.dm"
 #include "code\datums\ai\_ai_controller.dm"
 #include "code\datums\ai\_ai_planning_subtree.dm"

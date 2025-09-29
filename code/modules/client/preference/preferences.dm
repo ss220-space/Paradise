@@ -277,6 +277,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 	var/datum/ui_module/loadout/loadout
 
+	var/action_buttons_screen_locs = list()
+
 
 /datum/preferences/New(client/C)
 	parent = C
