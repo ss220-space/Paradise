@@ -1732,7 +1732,7 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_KIDAN = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/head.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/head.dmi'
 		)
