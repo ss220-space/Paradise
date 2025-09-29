@@ -171,7 +171,7 @@
 			to_chat(owner, span_clockitalic("You need an item that you can enchant!"))
 			return
 		if(midas_spell && do_midas)
-			to_chat(owner, "<span class='clockitalic'>You already prepared midas touch!</b></span>")
+			to_chat(owner, span_clockitalic("You already prepared midas touch!"))
 			return
 		if(QDELETED(src) || owner.incapacitated())
 			return
@@ -184,7 +184,7 @@
 			return
 		if(!do_midas && !do_heart)
 			if(midas_spell)
-				to_chat(owner, "<span class='clockitalic'>You already prepared midas touch!</b></span>")
+				to_chat(owner, span_clockitalic("You already prepared midas touch!"))
 				channeling = FALSE
 				return
 			do_midas(owner)
