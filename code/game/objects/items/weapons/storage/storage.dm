@@ -199,7 +199,7 @@
 	if(!display_contents_with_number && !LAZYIN(storage_boxes, user))
 		LAZYADDASSOC(storage_boxes, user, new /datum/storage_box(src))
 
-	orient2hud(user)  // this only needs to happen to make .contents show properly as screen objects.
+	orient2hud(user) // this only needs to happen to make .contents show properly as screen objects.
 
 	if(!display_contents_with_number)
 		user.client.screen |= storage_boxes[user].screens_list()
@@ -339,35 +339,48 @@
 		first_time = FALSE
 
 /datum/storage_box
+	/// Parent storage item ref
 	var/obj/item/storage/storage
+	// Borders and filling of storage
 	var/atom/movable/screen/storage/space_box/start
 	var/atom/movable/screen/storage/space_box/continued
 	var/atom/movable/screen/storage/space_box/end
 	var/atom/movable/screen/storage/space_box/top
 	var/atom/movable/screen/storage/space_box/bottom
+	/// Part of storage used for item boxes overlays
 	var/atom/movable/screen/storage/space_box/place_items
+	/// Storage closer ref
 	var/atom/movable/screen/close/closer
 
 /datum/storage_box/New(master)
+	// Making ref to parent storage
 	storage = master
+
+	// Initialize screen objects
 	start = new
 	start.icon_state = "storage_start"
 	start.master = master
+
 	end = new
 	end.icon_state = "storage_end"
 	end.master = master
+
 	continued = new
 	continued.icon_state = "storage_continue"
 	continued.master = master
+
 	top = new
 	top.icon_state = "storage_top"
 	top.master = master
+
 	bottom = new
 	bottom.icon_state = "storage_bottom"
 	bottom.master = master
-	place_items = new
-	closer = new /atom/movable/screen/close()
+
+	closer = new
 	closer.master = master
+
+	place_items = new
 
 /datum/storage_box/proc/modify(line_width, lines_num, ui_icon, first_time)
 	place_items.overlays.Cut()
@@ -393,15 +406,8 @@
 	modify_matrix.Scale((line_width + 2) / 32, 1)
 	top.transform = modify_matrix
 	bottom.transform = modify_matrix
-	// Move modified object
-	var/y_offset = floor(16 * y_enlarge)
-	start.screen_loc = "4:16,2:[y_offset]"
-	place_items.screen_loc = "4:16,2:16"
-	continued.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:[y_offset]"
-	end.screen_loc = "4:[19 + line_width - STORAGE_CAP_WIDTH],2:[y_offset]"
-	top.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:[y_offset + 15 * (lines_num - 1)]"
-	bottom.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:16"
-	closer.screen_loc = "4:[line_width + 19],2:16"
+	// Move out box to correct place after resize
+	move_storage_box(y_enlarge, line_width, lines_num)
 
 	var/startpoint
 	var/endpoint = 1
@@ -427,6 +433,18 @@
 		stored.maptext = ""
 		SET_PLANE_EXPLICIT(stored, ABOVE_HUD_PLANE, storage)
 
+/datum/storage_box/proc/move_storage_box(y_enlarge, line_width, lines_num)
+	//Calculate offset
+	var/y_offset = floor(16 * y_enlarge)
+	// Move modified object
+	start.screen_loc = "4:16,2:[y_offset]"
+	place_items.screen_loc = "4:16,2:16"
+	continued.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:[y_offset]"
+	end.screen_loc = "4:[19 + line_width - STORAGE_CAP_WIDTH],2:[y_offset]"
+	top.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:[y_offset + 15 * (lines_num - 1)]"
+	bottom.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:16"
+	closer.screen_loc = "4:[line_width + 19],2:16"
+
 /datum/storage_box/proc/screens_list()
 	return list(start, continued, end, top, bottom, place_items, closer)
 
@@ -445,6 +463,7 @@
 	return ..()
 
 /datum/item_storage_box
+	// Borders and filling of item storage box
 	var/atom/movable/screen/storage/start
 	var/atom/movable/screen/storage/continued
 	var/atom/movable/screen/storage/end
@@ -466,16 +485,21 @@
 	start.icon = ui_icon
 	continued.icon = ui_icon
 	end.icon = ui_icon
+
+	// Calcylate Y offset for current level
 	var/box_offset = 29 * (lines_num - current_level - 1)
+
 	// Modify start
 	var/matrix/modify_matrix = matrix(start.transform)
 	modify_matrix.Translate(startpoint, box_offset)
 	start.transform = modify_matrix
+
 	// Modify continue
 	modify_matrix = matrix(continued.transform)
 	modify_matrix.Scale((endpoint - startpoint - STORED_CAP_WIDTH * 2) / 32, 1)
 	modify_matrix.Translate(startpoint + STORED_CAP_WIDTH + (endpoint - startpoint - STORED_CAP_WIDTH * 2) / 2 - 16, box_offset)
 	continued.transform = modify_matrix
+
 	// Modify end
 	modify_matrix = matrix(end.transform)
 	modify_matrix.Translate(endpoint - STORED_CAP_WIDTH, box_offset)
