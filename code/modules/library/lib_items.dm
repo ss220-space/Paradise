@@ -240,7 +240,6 @@
 	throw_speed = 1
 	throw_range = 5
 	force = 2
-	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
 	attack_verb = list("ударил", "огрел")
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/drop/book_drop.ogg'
@@ -429,7 +428,7 @@
 	balloon_alert(user, "режем страницы...")
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || carved)
 		return FALSE
-	balloon_alert(user, "страницы вырезаны.")
+	balloon_alert(user, "страницы вырезаны")
 	carved = TRUE
 	return TRUE
 

@@ -17,6 +17,7 @@ GLOBAL_LIST_EMPTY(prisoncomputer_list)
 GLOBAL_LIST_EMPTY(celltimers_list)										// list of all cell timers
 GLOBAL_LIST_EMPTY(cell_logs)
 GLOBAL_LIST_EMPTY(navigation_computers)
+GLOBAL_LIST_EMPTY(station_turfs)
 
 GLOBAL_LIST_EMPTY(machines)
 GLOBAL_LIST_EMPTY(syndiepads)											//list of all syndiepads
@@ -66,3 +67,5 @@ GLOBAL_LIST_EMPTY(wire_name_directory)
 
 GLOBAL_LIST_EMPTY(visual_portals)
 GLOBAL_LIST_EMPTY(pod_styles_by_type)
+
+GLOBAL_LIST_EMPTY(loot_tiers)

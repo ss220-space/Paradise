@@ -3,11 +3,10 @@
 	desc = "Dance my monkeys! DANCE!!!"
 	icon_state = "electropack0"
 	item_state = "electropack"
-	frequency = AIRLOCK_FREQ
-	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
+	default_frequency = AIRLOCK_FREQ
 	var/code = 2
 	var/intensivity = TRUE
 

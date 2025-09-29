@@ -1,7 +1,3 @@
-#define FORWARD -1
-#define BACKWARD 1
-#define CONSTRUCTION_TOOL_BEHAVIOURS list(TOOL_CROWBAR, TOOL_SCREWDRIVER, TOOL_WELDER, TOOL_WRENCH)
-
 /datum/construction
 	var/list/steps
 	var/atom/holder
@@ -49,7 +45,7 @@
 	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.get_amount() < 4)
-			to_chat(user, ("<span class='warning'>There's not enough cable to finish the task.</span>"))
+			to_chat(user, (span_warning("There's not enough cable to finish the task.")))
 			return 0
 		else
 			C.use(4)
@@ -57,7 +53,7 @@
 	else if(isstack(used_atom))
 		var/obj/item/stack/S = used_atom
 		if(S.get_amount() < 5)
-			to_chat(user, ("<span class='warning'>There's not enough material in this stack.</span>"))
+			to_chat(user, (span_warning("There's not enough material in this stack.")))
 			return 0
 		else
 			S.use(5)
@@ -73,7 +69,7 @@
 		var/list/L = steps[i]
 		if(do_tool_or_atom_check(used_atom, L["key"]) && custom_action(i, used_atom, user))
 			steps[i]=null;//stupid byond list from list removal...
-			listclearnulls(steps)
+			list_clear_nulls(steps)
 			if(!steps.len)
 				spawn_result(user)
 			return 1
@@ -106,7 +102,7 @@
 		if(istype(used_atom,/obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/coil=used_atom
 			if(!coil.use(amount))
-				to_chat(user, "<span class='warning'>You don't have enough cable! You need at least [amount] coils.</span>")
+				to_chat(user, span_warning("You don't have enough cable! You need at least [amount] coils."))
 				return 0
 		// TOOLS
 		if(isitem(used_atom))
@@ -118,7 +114,7 @@
 		if(isstack(used_atom))
 			var/obj/item/stack/stack=used_atom
 			if(stack.get_amount() < amount)
-				to_chat(user, "<span class='warning'>You don't have enough [stack]! You need at least [amount].</span>")
+				to_chat(user, span_warning("You don't have enough [stack]! You need at least [amount]."))
 				return 0
 			stack.use(amount)
 	return 1
@@ -219,7 +215,7 @@
 	text = replacetext(text,"{HOLDER}","[holder]")
 	return text
 
-/datum/construction/reversible2/custom_action(index, diff, used_atom, var/mob/user)
+/datum/construction/reversible2/custom_action(index, diff, used_atom, mob/user)
 	if(!..(index,used_atom,user))
 		return 0
 

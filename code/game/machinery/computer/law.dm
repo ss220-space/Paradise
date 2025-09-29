@@ -19,8 +19,6 @@
 	var/timer_id = null
 	var/reg_name = null
 
-	light_color = COLOR_WHITE
-	light_range_on = 2
 
 
 /obj/machinery/computer/aiupload/attackby(obj/item/I, mob/user, params)
@@ -204,8 +202,6 @@
 /obj/machinery/computer/aiupload/cyborg
 	name = "cyborg upload console"
 	desc = "Используется для манипуляций с законами киборгов."
-	icon_screen = "command"
-	icon_keyboard = "med_key"
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/borgupload
 
@@ -258,7 +254,7 @@
 
 	var/delay = (installed_module in shorten_delay) ? SHORTEN_UPLOAD_DELAY : NORMAL_UPLOAD_DELAY
 	to_chat(user, span_notice("Upload process has started. ETA: [delay/10] seconds."))
-	reg_name = istype(installed_module, /obj/item/ai_module/syndicate) ? "UNKNOWN" : id.registered_name
+	reg_name = istype(installed_module, /obj/item/ai_module/syndicate) ? uppertext(UNKNOWN_STATUS_RUS) : id.registered_name
 	timer_id = addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/aiupload, finish_upload), user), delay, TIMER_STOPPABLE)
 
 /obj/machinery/computer/aiupload/cyborg/finish_upload(mob/user)

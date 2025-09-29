@@ -18,57 +18,57 @@ remember you first need to setup an /icon var like so:
 	var/icon/my_icon = new('iconfile.dmi')
 
 icon/ChangeOpacity(amount = 1)
-    A very common operation in DM is to try to make an icon more or less transparent. Making an icon more
-    transparent is usually much easier than making it less so, however. This proc basically is a frontend
-    for MapColors() which can change opacity any way you like, in much the same way that SetIntensity()
-    can make an icon lighter or darker. If amount is 0.5, the opacity of the icon will be cut in half.
-    If amount is 2, opacity is doubled and anything more than half-opaque will become fully opaque.
+	A very common operation in DM is to try to make an icon more or less transparent. Making an icon more
+	transparent is usually much easier than making it less so, however. This proc basically is a frontend
+	for MapColors() which can change opacity any way you like, in much the same way that SetIntensity()
+	can make an icon lighter or darker. If amount is 0.5, the opacity of the icon will be cut in half.
+	If amount is 2, opacity is doubled and anything more than half-opaque will become fully opaque.
 icon/GrayScale()
-    Converts the icon to grayscale instead of a fully colored icon. Alpha values are left intact.
+	Converts the icon to grayscale instead of a fully colored icon. Alpha values are left intact.
 icon/ColorTone(tone)
-    Similar to GrayScale(), this proc converts the icon to a range of black -> tone -> white, where tone is an
-    RGB color (its alpha is ignored). This can be used to create a sepia tone or similar effect.
-    See also the global ColorTone() proc.
+	Similar to GrayScale(), this proc converts the icon to a range of black -> tone -> white, where tone is an
+	RGB color (its alpha is ignored). This can be used to create a sepia tone or similar effect.
+	See also the global ColorTone() proc.
 icon/MinColors(icon)
-    The icon is blended with a second icon where the minimum of each RGB pixel is the result.
-    Transparency may increase, as if the icons were blended with ICON_ADD. You may supply a color in place of an icon.
+	The icon is blended with a second icon where the minimum of each RGB pixel is the result.
+	Transparency may increase, as if the icons were blended with ICON_ADD. You may supply a color in place of an icon.
 icon/MaxColors(icon)
-    The icon is blended with a second icon where the maximum of each RGB pixel is the result.
-    Opacity may increase, as if the icons were blended with ICON_OR. You may supply a color in place of an icon.
+	The icon is blended with a second icon where the maximum of each RGB pixel is the result.
+	Opacity may increase, as if the icons were blended with ICON_OR. You may supply a color in place of an icon.
 icon/Opaque(background = "#000000")
-    All alpha values are set to 255 throughout the icon. Transparent pixels become black, or whatever background color you specify.
+	All alpha values are set to 255 throughout the icon. Transparent pixels become black, or whatever background color you specify.
 icon/BecomeAlphaMask()
-    You can convert a simple grayscale icon into an alpha mask to use with other icons very easily with this proc.
-    The black parts become transparent, the white parts stay white, and anything in between becomes a translucent shade of white.
+	You can convert a simple grayscale icon into an alpha mask to use with other icons very easily with this proc.
+	The black parts become transparent, the white parts stay white, and anything in between becomes a translucent shade of white.
 icon/AddAlphaMask(mask)
-    The alpha values of the mask icon will be blended with the current icon. Anywhere the mask is opaque,
-    the current icon is untouched. Anywhere the mask is transparent, the current icon becomes transparent.
-    Where the mask is translucent, the current icon becomes more transparent.
+	The alpha values of the mask icon will be blended with the current icon. Anywhere the mask is opaque,
+	the current icon is untouched. Anywhere the mask is transparent, the current icon becomes transparent.
+	Where the mask is translucent, the current icon becomes more transparent.
 icon/UseAlphaMask(mask, mode)
-    Sometimes you may want to take the alpha values from one icon and use them on a different icon.
-    This proc will do that. Just supply the icon whose alpha mask you want to use, and src will change
-    so it has the same colors as before but uses the mask for opacity.
+	Sometimes you may want to take the alpha values from one icon and use them on a different icon.
+	This proc will do that. Just supply the icon whose alpha mask you want to use, and src will change
+	so it has the same colors as before but uses the mask for opacity.
 
 COLOR MANAGEMENT AND HSV
 
 RGB isn't the only way to represent color. Sometimes it's more useful to work with a model called HSV, which stands for hue, saturation, and value.
 
-    * The hue of a color describes where it is along the color wheel. It goes from red to yellow to green to
-    cyan to blue to magenta and back to red.
-    * The saturation of a color is how much color is in it. A color with low saturation will be more gray,
-    and with no saturation at all it is a shade of gray.
-    * The value of a color determines how bright it is. A high-value color is vivid, moderate value is dark,
-    and no value at all is black.
+	* The hue of a color describes where it is along the color wheel. It goes from red to yellow to green to
+	cyan to blue to magenta and back to red.
+	* The saturation of a color is how much color is in it. A color with low saturation will be more gray,
+	and with no saturation at all it is a shade of gray.
+	* The value of a color determines how bright it is. A high-value color is vivid, moderate value is dark,
+	and no value at all is black.
 
 Just as BYOND uses "#rrggbb" to represent RGB values, a similar format is used for HSV: "#hhhssvv". The hue is three
 hex digits because it ranges from 0 to 0x5FF.
 
-    * 0 to 0xFF - red to yellow
-    * 0x100 to 0x1FF - yellow to green
-    * 0x200 to 0x2FF - green to cyan
-    * 0x300 to 0x3FF - cyan to blue
-    * 0x400 to 0x4FF - blue to magenta
-    * 0x500 to 0x5FF - magenta to red
+	* 0 to 0xFF - red to yellow
+	* 0x100 to 0x1FF - yellow to green
+	* 0x200 to 0x2FF - green to cyan
+	* 0x300 to 0x3FF - cyan to blue
+	* 0x400 to 0x4FF - blue to magenta
+	* 0x500 to 0x5FF - magenta to red
 
 Knowing this, you can figure out that red is "#000ffff" in HSV format, which is hue 0 (red), saturation 255 (as colorful as possible),
 value 255 (as bright as possible). Green is "#200ffff" and blue is "#400ffff".
@@ -78,42 +78,42 @@ More than one HSV color can match the same RGB color.
 Here are some procs you can use for color management:
 
 ReadRGB(rgb)
-    Takes an RGB string like "#ffaa55" and converts it to a list such as list(255,170,85). If an RGBA format is used
-    that includes alpha, the list will have a fourth item for the alpha value.
+	Takes an RGB string like "#ffaa55" and converts it to a list such as list(255,170,85). If an RGBA format is used
+	that includes alpha, the list will have a fourth item for the alpha value.
 hsv(hue, sat, val, apha)
-    Counterpart to rgb(), this takes the values you input and converts them to a string in "#hhhssvv" or "#hhhssvvaa"
-    format. Alpha is not included in the result if null.
+	Counterpart to rgb(), this takes the values you input and converts them to a string in "#hhhssvv" or "#hhhssvvaa"
+	format. Alpha is not included in the result if null.
 ReadHSV(rgb)
-    Takes an HSV string like "#100FF80" and converts it to a list such as list(256,255,128). If an HSVA format is used that
-    includes alpha, the list will have a fourth item for the alpha value.
+	Takes an HSV string like "#100FF80" and converts it to a list such as list(256,255,128). If an HSVA format is used that
+	includes alpha, the list will have a fourth item for the alpha value.
 RGBtoHSV(rgb)
-    Takes an RGB or RGBA string like "#ffaa55" and converts it into an HSV or HSVA color such as "#080aaff".
+	Takes an RGB or RGBA string like "#ffaa55" and converts it into an HSV or HSVA color such as "#080aaff".
 HSVtoRGB(hsv)
-    Takes an HSV or HSVA string like "#080aaff" and converts it into an RGB or RGBA color such as "#ff55aa".
+	Takes an HSV or HSVA string like "#080aaff" and converts it into an RGB or RGBA color such as "#ff55aa".
 BlendRGB(rgb1, rgb2, amount)
-    Blends between two RGB or RGBA colors using regular RGB blending. If amount is 0, the first color is the result;
-    if 1, the second color is the result. 0.5 produces an average of the two. Values outside the 0 to 1 range are allowed as well.
-    The returned value is an RGB or RGBA color.
+	Blends between two RGB or RGBA colors using regular RGB blending. If amount is 0, the first color is the result;
+	if 1, the second color is the result. 0.5 produces an average of the two. Values outside the 0 to 1 range are allowed as well.
+	The returned value is an RGB or RGBA color.
 BlendHSV(hsv1, hsv2, amount)
-    Blends between two HSV or HSVA colors using HSV blending, which tends to produce nicer results than regular RGB
-    blending because the brightness of the color is left intact. If amount is 0, the first color is the result; if 1,
-    the second color is the result. 0.5 produces an average of the two. Values outside the 0 to 1 range are allowed as well.
-    The returned value is an HSV or HSVA color.
+	Blends between two HSV or HSVA colors using HSV blending, which tends to produce nicer results than regular RGB
+	blending because the brightness of the color is left intact. If amount is 0, the first color is the result; if 1,
+	the second color is the result. 0.5 produces an average of the two. Values outside the 0 to 1 range are allowed as well.
+	The returned value is an HSV or HSVA color.
 BlendRGBasHSV(rgb1, rgb2, amount)
-    Like BlendHSV(), but the colors used and the return value are RGB or RGBA colors. The blending is done in HSV form.
+	Like BlendHSV(), but the colors used and the return value are RGB or RGBA colors. The blending is done in HSV form.
 HueToAngle(hue)
-    Converts a hue to an angle range of 0 to 360. Angle 0 is red, 120 is green, and 240 is blue.
+	Converts a hue to an angle range of 0 to 360. Angle 0 is red, 120 is green, and 240 is blue.
 AngleToHue(hue)
-    Converts an angle to a hue in the valid range.
+	Converts an angle to a hue in the valid range.
 RotateHue(hsv, angle)
-    Takes an HSV or HSVA value and rotates the hue forward through red, green, and blue by an angle from 0 to 360.
-    (Rotating red by 60° produces yellow.) The result is another HSV or HSVA color with the same saturation and value
-    as the original, but a different hue.
+	Takes an HSV or HSVA value and rotates the hue forward through red, green, and blue by an angle from 0 to 360.
+	(Rotating red by 60° produces yellow.) The result is another HSV or HSVA color with the same saturation and value
+	as the original, but a different hue.
 GrayScale(rgb)
-    Takes an RGB or RGBA color and converts it to grayscale. Returns an RGB or RGBA string.
+	Takes an RGB or RGBA color and converts it to grayscale. Returns an RGB or RGBA string.
 ColorTone(rgb, tone)
-    Similar to GrayScale(), this proc converts an RGB or RGBA color to a range of black -> tone -> white instead of
-    using strict shades of gray. The tone value is an RGB color; any alpha value is ignored.
+	Similar to GrayScale(), this proc converts an RGB or RGBA color to a range of black -> tone -> white instead of
+	using strict shades of gray. The tone value is an RGB color; any alpha value is ignored.
 */
 
 /*
@@ -425,13 +425,13 @@ world
 	lo = round((255 - sat) * val / 255, 1)
 	mid = lo + round(abs(round(hue, 510) - hue) * (hi - lo) / 255, 1)
 	if(hue >= 765)
-		if(hue >= 1275)      {r=hi;  g=lo;  b=mid}
+		if(hue >= 1275)	  {r=hi;  g=lo;  b=mid}
 		else if(hue >= 1020) {r=mid; g=lo;  b=hi }
-		else                 {r=lo;  g=mid; b=hi }
+		else				 {r=lo;  g=mid; b=hi }
 	else
-		if(hue >= 510)       {r=lo;  g=hi;  b=mid}
+		if(hue >= 510)	   {r=lo;  g=hi;  b=mid}
 		else if(hue >= 255)  {r=mid; g=hi;  b=lo }
-		else                 {r=hi;  g=mid; b=lo }
+		else				 {r=hi;  g=mid; b=lo }
 
 	return (HSV.len > 3) ? rgb(r,g,b,HSV[4]) : rgb(r,g,b)
 
@@ -651,24 +651,24 @@ The _flatIcons list is a cache for generated icon files.
 /proc/getFlatIcon(image/appearance, defdir, deficon, defstate, defblend, start = TRUE, no_anim = TRUE)
 	// Loop through the underlays, then overlays, sorting them into the layers list
 	#define PROCESS_OVERLAYS_OR_UNDERLAYS(flat, process, base_layer) \
-		for (var/i in 1 to process.len) { \
+		for(var/i in 1 to process.len) { \
 			var/image/current = process[i]; \
-			if (!current) { \
+			if(!current) { \
 				continue; \
 			} \
-			if (current.plane != FLOAT_PLANE && current.plane != appearance.plane) { \
+			if(current.plane != FLOAT_PLANE && current.plane != appearance.plane) { \
 				continue; \
 			} \
 			var/current_layer = current.layer; \
-			if (current_layer < 0) { \
-				if (current_layer <= -1000) { \
+			if(current_layer < 0) { \
+				if(current_layer <= -1000) { \
 					return flat; \
 				} \
 				current_layer = base_layer + appearance.layer + current_layer / 1000; \
 			} \
-			for (var/index_to_compare_to in 1 to layers.len) { \
+			for(var/index_to_compare_to in 1 to layers.len) { \
 				var/compare_to = layers[index_to_compare_to]; \
-				if (current_layer < layers[compare_to]) { \
+				if(current_layer < layers[compare_to]) { \
 					layers.Insert(index_to_compare_to, current); \
 					break; \
 				} \
@@ -697,10 +697,10 @@ The _flatIcons list is a cache for generated icon files.
 
 	var/render_icon = curicon
 
-	if (render_icon)
+	if(render_icon)
 		var/curstates = icon_states(curicon)
 		if(!(curstate in curstates))
-			if ("" in curstates)
+			if("" in curstates)
 				curstate = ""
 			else
 				render_icon = FALSE
@@ -710,7 +710,7 @@ The _flatIcons list is a cache for generated icon files.
 	//Try to remove/optimize this section ASAP, CPU hog.
 	//Determines if there's directionals.
 	if(render_icon && curdir != SOUTH)
-		if (
+		if(
 			!length(icon_states(icon(curicon, curstate, NORTH))) \
 			&& !length(icon_states(icon(curicon, curstate, EAST))) \
 			&& !length(icon_states(icon(curicon, curstate, WEST))) \
@@ -768,7 +768,7 @@ The _flatIcons list is a cache for generated icon files.
 			addY1 = min(flatY1, layer_image.pixel_y + 1)
 			addY2 = max(flatY2, layer_image.pixel_y + add.Height())
 
-			if (
+			if(
 				addX1 != flatX1 \
 				&& addX2 != flatX2 \
 				&& addY1 != flatY1 \
@@ -806,14 +806,14 @@ The _flatIcons list is a cache for generated icon files.
 			return cleaned
 		else
 			return icon(flat, "", SOUTH)
-	else if (render_icon) // There's no overlays.
+	else if(render_icon) // There's no overlays.
 		var/icon/final_icon = icon(icon(curicon, curstate, base_icon_dir), "", SOUTH, no_anim ? TRUE : null)
 
-		if (appearance.alpha < 255)
+		if(appearance.alpha < 255)
 			final_icon.Blend(rgb(255,255,255, appearance.alpha), ICON_MULTIPLY)
 
-		if (appearance.color)
-			if (islist(appearance.color))
+		if(appearance.color)
+			if(islist(appearance.color))
 				final_icon.MapColors(arglist(appearance.color))
 			else
 				final_icon.Blend(appearance.color, ICON_MULTIPLY)
@@ -869,7 +869,7 @@ The _flatIcons list is a cache for generated icon files.
 		composite.Blend(icon(I.icon, I.icon_state, I.dir, 1), ICON_OVERLAY)
 	return composite
 
-/proc/adjust_brightness(var/color, var/value)
+/proc/adjust_brightness(color, value)
 	if(!color) return "#FFFFFF"
 	if(!value) return color
 
@@ -879,7 +879,7 @@ The _flatIcons list is a cache for generated icon files.
 	RGB[3] = clamp(RGB[3]+value,0,255)
 	return rgb(RGB[1],RGB[2],RGB[3])
 
-/proc/sort_atoms_by_layer(var/list/atoms)
+/proc/sort_atoms_by_layer(list/atoms)
 	// Comb sort icons based on levels
 	var/list/result = atoms.Copy()
 	var/gap = result.len
@@ -935,7 +935,7 @@ The _flatIcons list is a cache for generated icon files.
 
 //Imagine removing pixels from the main icon that are covered by pixels from the mask icon.
 //Standard behaviour is to cut pixels from the main icon that are covered by pixels from the mask icon unless passed mask_ready, see below.
-/proc/get_icon_difference(var/icon/main, var/icon/mask, var/mask_ready)
+/proc/get_icon_difference(icon/main, icon/mask, mask_ready)
 	/*You should skip prep if the mask is already sprited properly. This significantly improves performance by eliminating most of the realtime icon work.
 	e.g. A 'ready' mask is a mask where the part you want cut out is missing (no pixels, 0 alpha) from the sprite, and everything else is solid white.*/
 
@@ -1250,19 +1250,19 @@ GLOBAL_LIST_EMPTY(bicon_cache)
  * * keyonly - if TRUE, only returns the asset key to use get_asset_url manually. Overrides sourceonly.
  */
 /proc/icon2html(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE, extra_classes = null, keyonly = FALSE)
-	if (!thing)
+	if(!thing)
 		return
 
 	var/key
 	var/icon/icon2collapse = thing
 
-	if (!target)
+	if(!target)
 		return
-	if (target == world)
+	if(target == world)
 		target = GLOB.clients
 
 	var/list/targets
-	if (!islist(target))
+	if(!islist(target))
 		targets = list(target)
 	else
 		targets = target
@@ -1273,12 +1273,12 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	//for asset generation to get around byond limitations
 	var/icon_path = get_icon_dmi_path(thing)
 
-	if (!isicon(icon2collapse))
-		if (isfile(thing)) //special snowflake
+	if(!isicon(icon2collapse))
+		if(isfile(thing)) //special snowflake
 			var/name = "[generate_asset_name(thing)].png"
-			if (!SSassets.cache[name])
+			if(!SSassets.cache[name])
 				SSassets.transport.register_asset(name, thing)
-			for (var/thing2 in targets)
+			for(var/thing2 in targets)
 				SSassets.transport.send_assets(thing2, name)
 			if(keyonly)
 				return name
@@ -1289,27 +1289,27 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		//its either an atom, image, or mutable_appearance, we want its icon var
 		icon2collapse = thing.icon
 
-		if (isnull(icon_state))
+		if(isnull(icon_state))
 			icon_state = thing.icon_state
 			//Despite casting to atom, this code path supports mutable appearances, so let's be nice to them
 			if(isnull(icon_state))
 				icon_state = initial(thing.icon_state)
-				if (isnull(dir))
+				if(isnull(dir))
 					dir = initial(thing.dir)
 
-		if (isnull(dir))
+		if(isnull(dir))
 			dir = thing.dir
 
 		// Commented out because this is seemingly our source of bad icon operations
-		/* if (ishuman(thing)) // Shitty workaround for a BYOND issue.
+		/* if(ishuman(thing)) // Shitty workaround for a BYOND issue.
 			var/icon/temp = icon2collapse
 			icon2collapse = icon()
 			icon2collapse.Insert(temp, dir = SOUTH)
 			dir = SOUTH*/
 	else
-		if (isnull(dir))
+		if(isnull(dir))
 			dir = SOUTH
-		if (isnull(icon_state))
+		if(isnull(icon_state))
 			icon_state = ""
 
 	icon2collapse = icon(icon2collapse, icon_state, dir, frame, moving)
@@ -1322,7 +1322,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	if(!SSassets.cache[key])
 		SSassets.transport.register_asset(key, rsc_ref, file_hash, icon_path)
-	for (var/client_target in targets)
+	for(var/client_target in targets)
 		SSassets.transport.send_assets(client_target, key)
 	if(keyonly)
 		return key
@@ -1334,13 +1334,13 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 #define CACHED_HEIGHT_INDEX "height"
 
 /atom/proc/get_cached_width()
-	if (isnull(icon))
+	if(isnull(icon))
 		return 0
 	var/list/dimensions = get_icon_dimensions(icon)
 	return dimensions[CACHED_WIDTH_INDEX]
 
 /atom/proc/get_cached_height()
-	if (isnull(icon))
+	if(isnull(icon))
 		return 0
 	var/list/dimensions = get_icon_dimensions(icon)
 	return dimensions[CACHED_HEIGHT_INDEX]

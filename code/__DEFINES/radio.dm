@@ -42,6 +42,9 @@
 #define SUP_FREQ 1347 //cargo
 #define SRV_FREQ 1349 //service
 #define PRS_FREQ 1361 //prisoners
+#define T1_FREQ 1371 //team 1
+#define T2_FREQ 1381 //team 2
+#define T3_FREQ 1391 //team 3
 
 // Internal department channels
 #define MED_I_FREQ 1485
@@ -100,5 +103,14 @@
 #define EVENT_BETA_FREQ_NAME "Бета частота"
 #define EVENT_GAMMA_FRE_NAME "Гамма частота"
 
+#define RED_NAME "Красные"
+#define BLUE_NAME "Синие"
+#define GREEN_NAME "Зеленые"
+
+
 #define SPEC_FREQ_NAME "Cпециальный"
 #define DEPARTMENT_FREQ_NAME "Отдел"
+
+
+///give this to can_receive to specify that there is no restriction on what z level this signal is sent to
+#define RADIO_NO_Z_LEVEL_RESTRICTION 0

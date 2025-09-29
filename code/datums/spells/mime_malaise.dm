@@ -8,7 +8,6 @@
 
 	base_cooldown = 30 SECONDS
 	cooldown_min = 10 SECONDS //50 deciseconds reduction per rank
-	clothes_req = TRUE
 
 	action_icon_state = "mime_curse"
 

@@ -1,7 +1,3 @@
-#define CQC_ARENA_RADIUS	6 //how much tiles away from a center players will spawn
-#define RANGED_ARENA_RADIUS	10
-
-
 /**
  * This datum is designed to determine special settings for thunderdome battle.
  */
@@ -17,7 +13,6 @@
 /datum/thunderdome_gamemode/melee
 	name = "Thunderdome Melee Challenge"
 	arena_radius = CQC_ARENA_RADIUS
-	preview_icon = "thunderman_preview_CqC"
 	brawler_type = /obj/effect/mob_spawn/human/thunderdome/cqc
 	random_items_count = 2
 	item_pool = list(

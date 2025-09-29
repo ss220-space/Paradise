@@ -297,8 +297,6 @@
 
 
 // enchanced flowers
-#define COOLDOWN_SUMMON (1 MINUTES)
-
 /obj/item/eflowers
 	name ="enchanted flowers"
 	desc = "Очаровательный букет, делающий носителя дружелюбным в глазах фауны. Сожмите букет, чтобы призвать приручённых существ. Не призывает мегафауну. <b>Для приручения мегафауны требуется 35 контактов.</b>"
@@ -318,6 +316,8 @@
 		PREPOSITIONAL = "зачарованных цветах"
 	)
 
+#define COOLDOWN_SUMMON 1 MINUTES
+
 /obj/item/eflowers/attack_self(mob/user)
 	var/turf/T = get_turf(user)
 	var/area/A = get_area(user)
@@ -332,6 +332,8 @@
 		m.forceMove(T)
 	playsound(T, 'sound/effects/splat.ogg', 80, 5, -1)
 	next_summon = world.time + COOLDOWN_SUMMON
+
+#undef COOLDOWN_SUMMON
 
 /obj/item/eflowers/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -377,7 +379,6 @@
 	icon_state = "rune_scimmy"
 	force = 28
 	slot_flags = ITEM_SLOT_BELT
-	damtype = BRUTE
 	sharp = TRUE
 	hitsound = 'sound/weapons/rs_slash.ogg'
 	attack_verb = list("плс'л","атк'л","руб'л")
@@ -481,8 +482,6 @@
 	desc = "Катана, некогда сдерживавшая ужасное существо, была разрушена. Однако даже после этого её фрагменты, в которых заключена сущность, вновь объединились, чтобы найти нового хозяина."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 15
 	armour_penetration = 15
 	block_chance = 50

@@ -27,21 +27,21 @@
 #define FLIGHTSUIT_PROCESSING_NONE 0
 #define FLIGHTSUIT_PROCESSING_FULL 1
 
-#define INITIALIZATION_INSSATOMS 0	//New should not call Initialize
-#define INITIALIZATION_INNEW_MAPLOAD 2	//New should call Initialize(TRUE)
-#define INITIALIZATION_INNEW_REGULAR 1	//New should call Initialize(FALSE)
+#define INITIALIZATION_INSSATOMS 0 //New should not call Initialize
+#define INITIALIZATION_INNEW_MAPLOAD 2 //New should call Initialize(TRUE)
+#define INITIALIZATION_INNEW_REGULAR 1 //New should call Initialize(FALSE)
 
-#define INITIALIZE_HINT_NORMAL 0    //Nothing happens
-#define INITIALIZE_HINT_LATELOAD 1  //Call LateInitialize
-#define INITIALIZE_HINT_QDEL 2  //Call qdel on the atom
+#define INITIALIZE_HINT_NORMAL 0 //Nothing happens
+#define INITIALIZE_HINT_LATELOAD 1 //Call LateInitialize
+#define INITIALIZE_HINT_QDEL 2 //Call qdel on the atom
 
 //type and all subtypes should always call Initialize in New()
 #define INITIALIZE_IMMEDIATE(X) ##X/New(loc, ...){\
-    ..();\
-    if(!(flags & INITIALIZED)) {\
-        args[1] = TRUE;\
-        SSatoms.InitAtom(src, args);\
-    }\
+	..();\
+	if(!(flags & INITIALIZED)) {\
+		args[1] = TRUE;\
+		SSatoms.InitAtom(src, args);\
+	}\
 }
 
 
@@ -70,7 +70,8 @@
 #define INIT_ORDER_SPEECH_CONTROLLER 95
 #define INIT_ORDER_GARBAGE 92
 #define INIT_ORDER_DBCORE 91
-#define INIT_ORDER_CUSTOM_ITEM 90
+#define INIT_ORDER_REDIS 90
+#define INIT_ORDER_CUSTOM_ITEM 89
 #define INIT_ORDER_BLACKBOX 56
 #define INIT_ORDER_CLEANUP 55
 #define INIT_ORDER_INPUT 50
@@ -84,8 +85,9 @@
 #define INIT_ORDER_TICKER 30
 #define INIT_ORDER_NEW_PLAYERS_INFO 31
 #define INIT_ORDER_MAPPING 20
-#define INIT_ORDER_HOLOMAP 8 // after map loads, but before atoms init
-#define INIT_ORDER_EARLY_ASSETS 7
+#define INIT_ORDER_HOLOMAP 9 // after map loads, but before atoms init
+#define INIT_ORDER_EARLY_ASSETS 8
+#define INIT_ORDER_SPATIAL_GRID 7
 #define INIT_ORDER_FLUIDS 6 // Needs to be above atoms, as some atoms may want to start fluids/gases on init
 #define INIT_ORDER_ATOMS 5
 #define INIT_ORDER_MACHINES 4
@@ -116,7 +118,7 @@
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
-#define FIRE_PRIORITY_PING        	10
+#define FIRE_PRIORITY_PING			10
 #define FIRE_PRIORITY_NIGHTSHIFT	10
 #define FIRE_PRIORITY_IDLE_NPC		10
 #define FIRE_PRIORITY_CLEANUP		10
@@ -194,7 +196,7 @@
 	if(isturf(changed_on)){SSdemo.mark_turf(changed_on);}\
 	if(isobj(changed_on) || ismob(changed_on)){SSdemo.mark_dirty(changed_on);}\
 
-//SSticker.current_state values
+// SSticker.current_state values
 /// Game is loading
 #define GAME_STATE_STARTUP 0
 /// Game is loaded and in pregame lobby

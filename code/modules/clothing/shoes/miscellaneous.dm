@@ -118,10 +118,10 @@
 		to_chat(user, "You must hold [src] in your hand to do this.")
 		return
 	if(!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		to_chat(user, span_notice("You switch off the waddle dampeners!"))
 		enabled_waddle = TRUE
 	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		to_chat(user, span_notice("You switch on the waddle dampeners!"))
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/clown_shoes/nodrop
@@ -171,7 +171,6 @@
 /obj/item/clothing/shoes/jackboots/armored
 	name = "armored shoes"
 	desc = "Combat shoed for combat scenarios. When you need some ballistic protection."
-	can_cut_open = TRUE
 	icon_state = "armored_shoes"
 	item_color = "armored_shoes"
 	item_state = "armored_shoes"
@@ -232,7 +231,7 @@
 	if(can_use(user))
 		var/obj/item/kitchen/knife/combat/survival/O = locate() in src
 		if(O)
-			to_chat(user, "<span class='notice'>Вы извлекли нож из ботинка.</span>")
+			to_chat(user, span_notice("Вы извлекли нож из ботинка."))
 			O.forceMove_turf()
 			if(istype(loc, /mob))
 				var/mob/M = loc
@@ -240,9 +239,9 @@
 					M.put_in_hands(O, ignore_anim = FALSE)
 					return
 		else
-			to_chat(user, "<span class='warning'>Крепление пустое.</span>")
+			to_chat(user, span_warning("Крепление пустое."))
 	else
-		to_chat(user, "<span class='notice'>Сейчас вы не в состоянии сделать это.</span>")
+		to_chat(user, span_notice("Сейчас вы не в состоянии сделать это."))
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"
@@ -435,9 +434,7 @@
 	desc = "A roll of treated canvas used for wrapping claws or paws."
 	icon_state = "clothwrap"
 	item_state = "clothwrap"
-	force = 0
 	silence_steps = TRUE
-	w_class = WEIGHT_CLASS_SMALL
 	var/paintable = TRUE
 
 /obj/item/clothing/shoes/footwraps/ComponentInitialize()
@@ -491,7 +488,6 @@
 	resistance_flags = FIRE_PROOF
 	actions_types = list(/datum/action/item_action/bhop)
 	permeability_coefficient = 0.05
-	can_cut_open = FALSE
 	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
 	var/jumpspeed = 3
 	var/recharging_rate = 60 //default 6 seconds between each dash

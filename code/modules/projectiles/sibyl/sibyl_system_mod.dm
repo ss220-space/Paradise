@@ -121,7 +121,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	return TRUE
 
 // Returns FALSE if the next ammo_type[select] is not yet available, otherwise TRUE
-/obj/item/sibyl_system_mod/proc/check_select(var/select)
+/obj/item/sibyl_system_mod/proc/check_select(select)
 	var/obj/item/ammo_casing/energy/ammo = weapon.ammo_type[select]
 	if(lowertext(ammo.select_name) in available)
 		return TRUE
@@ -210,7 +210,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/sibyl_system_mod/Destroy()
 	if(registered)
 		UnregisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED)
-    
+
 	weapon = null
 	auth_id = null
 	return ..()

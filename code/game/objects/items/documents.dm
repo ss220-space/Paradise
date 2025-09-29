@@ -4,7 +4,6 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_generic"
 	item_state = "paper"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 1
 	throw_speed = 1

@@ -1,6 +1,5 @@
 /obj/machinery/r_n_d/server
 	name = "R&D Server"
-	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "server"
 	base_icon_state = "server"
 	var/datum/research/files
@@ -160,7 +159,7 @@
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_o", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
 
 
 /obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
@@ -277,7 +276,7 @@
 	add_fingerprint(usr)
 	usr.set_machine(src)
 	if(!src.allowed(usr) && !emagged)
-		to_chat(usr, "<span class='warning'>You do not have the required access level</span>")
+		to_chat(usr, span_warning("You do not have the required access level"))
 		return
 
 	if(href_list["main"])
@@ -453,7 +452,7 @@
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 		emagged = 1
 		if(user)
-			to_chat(user, "<span class='notice'>You you disable the security protocols</span>")
+			to_chat(user, span_notice("You you disable the security protocols"))
 	src.updateUsrDialog()
 
 /obj/machinery/r_n_d/server/core

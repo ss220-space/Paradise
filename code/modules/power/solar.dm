@@ -1,5 +1,3 @@
-#define SOLAR_MAX_DIST 40
-
 /obj/machinery/power/solar
 	name = "solar panel"
 	desc = "Преобразует солнечный свет в электрическую энергию."
@@ -8,9 +6,6 @@
 	icon_state = "solar_panel_base"
 	var/broken_state = list("solar_panel_broken", "solar_panel_broken_alt")
 	density = TRUE
-	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 	max_integrity = 150
 	integrity_failure = 50
 	var/id = 0
@@ -41,7 +36,7 @@
 	return ..()
 
 //set the control of the panel to a given computer if closer than SOLAR_MAX_DIST
-/obj/machinery/power/solar/proc/set_control(var/obj/machinery/power/solar_control/SC)
+/obj/machinery/power/solar/proc/set_control(obj/machinery/power/solar_control/SC)
 	if(!SC || (get_dist(src, SC) > SOLAR_MAX_DIST))
 		return 0
 	control = SC
@@ -54,7 +49,7 @@
 		control.connected_panels.Remove(src)
 	control = null
 
-/obj/machinery/power/solar/proc/Make(var/obj/item/solar_assembly/S)
+/obj/machinery/power/solar/proc/Make(obj/item/solar_assembly/S)
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
@@ -163,7 +158,7 @@
 	unset_control()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/power/solar/fake/New(var/turf/loc, var/obj/item/solar_assembly/S)
+/obj/machinery/power/solar/fake/New(turf/loc, obj/item/solar_assembly/S)
 	..(loc, S, 0)
 
 /obj/machinery/power/solar/fake/process()
@@ -208,7 +203,6 @@
 	icon_state = "solar_panel_base"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
-	anchored = FALSE
 	var/tracker = FALSE
 	var/glass_type = null
 
@@ -335,20 +329,14 @@
 // Solar Control Computer
 //
 
-#define TRACKER_OFF 0
-#define TRACKER_TIMED 1
-#define TRACKER_AUTO 2
-
 /obj/machinery/power/solar_control
 	name = "solar panel control"
 	desc = "A controller for solar panel arrays."
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "computer"
-	anchored = TRUE
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 250
-	max_integrity = 200
 	integrity_failure = 100
 	var/icon_screen = "solar"
 	var/icon_keyboard = "power_key"
@@ -534,12 +522,12 @@
 	for(var/obj/C in src)
 		C.forceMove(loc)
 	if(stat & BROKEN)
-		to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+		to_chat(user, span_notice("The broken glass falls out."))
 		A.state = 4	// STATE_WIRES
 		var/obj/item/shard/shard = new(drop_location())
 		shard.add_fingerprint(user)
 	else
-		to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+		to_chat(user, span_notice("You disconnect the monitor."))
 		A.state = 5	// STATE_GLASS
 	A.dir = dir
 	A.circuit = M
@@ -583,7 +571,7 @@
 		set_panels(cdir)
 
 //rotates the panel to the passed angle
-/obj/machinery/power/solar_control/proc/set_panels(var/cdir)
+/obj/machinery/power/solar_control/proc/set_panels(cdir)
 
 	for(var/obj/machinery/power/solar/S in connected_panels)
 		S.adir = cdir //instantly rotates the panel

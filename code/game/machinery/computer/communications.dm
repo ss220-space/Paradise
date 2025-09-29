@@ -1,19 +1,21 @@
-#define COMM_SCREEN_MAIN		1
-#define COMM_SCREEN_STAT		2
-#define COMM_SCREEN_MESSAGES	3
-#define COMM_SCREEN_ANNOUNCER	4
+#define COMM_SCREEN_MAIN 1
+#define COMM_SCREEN_STAT 2
+#define COMM_SCREEN_MESSAGES 3
+#define COMM_SCREEN_ANNOUNCER 4
 
-#define COMM_AUTHENTICATION_NONE	0
-#define COMM_AUTHENTICATION_HEAD	1
-#define COMM_AUTHENTICATION_CAPT	2
-#define COMM_AUTHENTICATION_CENTCOM	3 // Admin-only access
-#define COMM_AUTHENTICATION_AGHOST	4
+#define COMM_AUTHENTICATION_NONE 0
+#define COMM_AUTHENTICATION_HEAD 1
+#define COMM_AUTHENTICATION_CAPT 2
+#define COMM_AUTHENTICATION_CENTCOM 3 // Admin-only access
+#define COMM_AUTHENTICATION_AGHOST 4
 
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
 
 #define ADMIN_CHECK(user) ((check_rights(R_ADMIN, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM) || user.can_admin_interact())
 #define FULL_ADMIN_CHECK(user) (check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && (authenticated >= COMM_AUTHENTICATION_CENTCOM || user.can_admin_interact()))
+
+GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 // The communications computer
 /obj/machinery/computer/communications
@@ -114,7 +116,7 @@
 		var/list/access = ui.user.get_access()
 		if(allowed(ui.user))
 			authenticated = COMM_AUTHENTICATION_HEAD
-		if(ACCESS_CAPTAIN in access)
+		if(GLOB.captain_auth_access in access)
 			authenticated = COMM_AUTHENTICATION_CAPT
 			var/mob/living/carbon/human/H = ui.user
 			var/obj/item/card/id = H.get_id_card()
@@ -608,8 +610,8 @@
 		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении на станцию Центрального командования."))
 		return FALSE
 
-	if(world.time < 30 MINUTES) // 30 minute grace period to let the game get going
-		to_chat(user, "Шаттл на дозаправке. Пожалуйста, подождите ещё [round((30 MINUTES-world.time)/600)] минут, прежде чем повторить попытку.")
+	if(world.time - SSticker.time_game_started < SSshuttle.emergency_refill_time) // 30 minute grace period to let the game get going
+		to_chat(user, "Шаттл на дозаправке. Пожалуйста, подождите ещё [round((SSshuttle.emergency_refill_time - (world.time - SSticker.time_game_started)) / 600)] минут, прежде чем повторить попытку.")
 		return FALSE
 
 	return TRUE
@@ -677,7 +679,7 @@
 	SSshuttle.autoEvac()
 	return ..()
 
-/proc/print_command_report(text = "", title = "Уведомление Центрального командования", add_to_records = TRUE, var/datum/station_goal/goal = null)
+/proc/print_command_report(text = "", title = "Уведомление Центрального командования", add_to_records = TRUE, datum/station_goal/goal = null)
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/paper/P = new (C.loc)
@@ -701,3 +703,19 @@
 			C.messagetext.Add(text)
 
 
+/obj/machinery/computer/communications/indestrusctable
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+#undef COMM_SCREEN_MAIN
+#undef COMM_SCREEN_STAT
+#undef COMM_SCREEN_MESSAGES
+#undef COMM_SCREEN_ANNOUNCER
+#undef COMM_AUTHENTICATION_NONE
+#undef COMM_AUTHENTICATION_HEAD
+#undef COMM_AUTHENTICATION_CAPT
+#undef COMM_AUTHENTICATION_CENTCOM
+#undef COMM_AUTHENTICATION_AGHOST
+#undef COMM_MSGLEN_MINIMUM
+#undef COMM_CCMSGLEN_MINIMUM
+#undef ADMIN_CHECK
+#undef FULL_ADMIN_CHECK

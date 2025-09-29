@@ -320,7 +320,6 @@
 	desc = "Субъект приобретает способность преобразовывать избыточную клеточную энергию в тепловую."
 	base_cooldown = 60 SECONDS
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 	action_icon_state = "genetic_incendiary"
 

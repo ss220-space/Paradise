@@ -9,7 +9,7 @@
 
 /obj/item/ttsdevice/Initialize(mapload)
 	. = ..()
-	desc = "A small device with a keyboard attached. Anything entered on the keyboard is played out the speaker. \n<span class='notice'>Alt-click the device to make it beep.</span> \n<span class='notice'>Ctrl-click to name the device."
+	desc = "A small device with a keyboard attached. Anything entered on the keyboard is played out the speaker. \n[span_notice("Alt-click the device to make it beep.")] \n<span class='notice'>Ctrl-click to name the device."
 
 /obj/item/ttsdevice/attack_self(mob/user)
 	visible_message("[user] starts typing on [src].", "You begin typing on [src].", "You hear faint, continuous mechanical clicking noises.")
@@ -31,13 +31,13 @@
 		return CLICK_ACTION_BLOCKING
 	switch(noisechoice)
 		if("Beep")
-			user.visible_message("<span class='notice'>[user] has made their TTS beep!</span>", "You make your TTS beep!")
+			user.visible_message(span_notice("[user] has made their TTS beep!"), "You make your TTS beep!")
 			playsound(user, 'sound/machines/twobeep.ogg', 50, TRUE, -1)
 		if("Buzz")
-			user.visible_message("<span class='notice'>[user] has made their TTS buzz!</span>", "You make your TTS buzz!")
+			user.visible_message(span_notice("[user] has made their TTS buzz!"), "You make your TTS buzz!")
 			playsound(user, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
 		if("Ping")
-			user.visible_message("<span class='notice'>[user] has made their TTS ping!</span>", "You make your TTS ping!")
+			user.visible_message(span_notice("[user] has made their TTS ping!"), "You make your TTS ping!")
 			playsound(user, 'sound/machines/ping.ogg', 50, TRUE, -1)
 	return CLICK_ACTION_SUCCESS
 

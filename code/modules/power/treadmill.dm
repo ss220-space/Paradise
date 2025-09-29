@@ -7,7 +7,6 @@
 	name = "treadmill"
 	desc = "A power-generating treadmill."
 	layer = 2.2
-	use_power = NO_POWER_USE
 
 	var/speed = 0
 	var/friction = 0.15		// lose this much speed every ptick
@@ -136,9 +135,7 @@
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
 	anchored = TRUE
-	density = FALSE
 	maptext_height = 26
-	maptext_width = 32
 	maptext_y = -1
 
 	var/on = 0					// if we should be metering or not
@@ -214,7 +211,7 @@
 
 //Checks to see if there's 1 line or 2, adds text-icons-numbers/letters over display
 // Stolen from status_display
-/obj/machinery/treadmill_monitor/proc/update_display(var/line1, var/line2)
+/obj/machinery/treadmill_monitor/proc/update_display(line1, line2)
 	line1 = uppertext(line1)
 	line2 = uppertext(line2)
 	var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}

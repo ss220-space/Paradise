@@ -58,6 +58,7 @@
 #define FLASH_LIGHT_POWER 3
 #define FLASH_LIGHT_RANGE 3.8
 
+#define EMISSIVE_BLOCK_NONE 0
 #define EMISSIVE_BLOCK_GENERIC 1
 /// Uses a dedicated render_target object to copy the entire appearance in real time to the blocking layer. For things that can change in appearance a lot from the base state, like humans.
 #define EMISSIVE_BLOCK_UNIQUE 2
@@ -85,7 +86,7 @@ GLOBAL_LIST_INIT(em_mask_matrix, EM_MASK_MATRIX)
 /// Parse the hexadecimal color into lumcounts of each perspective.
 #define PARSE_LIGHT_COLOR(source) \
 do { \
-	if (source.light_color) { \
+	if(source.light_color) { \
 		var/__light_color = source.light_color; \
 		source.lum_r = GETREDPART(__light_color) / 255; \
 		source.lum_g = GETGREENPART(__light_color) / 255; \
@@ -95,4 +96,4 @@ do { \
 		source.lum_g = 1; \
 		source.lum_b = 1; \
 	}; \
-} while (FALSE)
+} while(FALSE)

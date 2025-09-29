@@ -27,7 +27,6 @@
 	spider_opens_doors = 2
 	ranged = 1
 	rapid = 2
-	ranged_cooldown_time = 30
 	speed = 1
 	projectilesound = 'sound/creatures/terrorspiders/spit3.ogg'
 	projectiletype = /obj/projectile/terrorspider/builder

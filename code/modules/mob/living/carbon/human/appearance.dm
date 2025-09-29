@@ -40,7 +40,7 @@
 	H.h_style = hair_style
 
 	update_hair()
-	update_inv_glasses()
+	update_worn_glasses()
 	return 1
 
 /mob/living/carbon/human/proc/change_facial_hair(facial_hair_style)
@@ -151,7 +151,7 @@
 
 	update_body(TRUE) //Update the body and force limb icon regeneration to update the head with the new icon.
 	if(wear_mask)
-		update_inv_wear_mask()
+		update_worn_mask()
 	return 1
 
 /mob/living/carbon/human/proc/reset_hair()
@@ -192,7 +192,7 @@
 		H.f_style = "Shaved"
 	update_fhair()
 
-/mob/living/carbon/human/proc/reset_markings(var/location)
+/mob/living/carbon/human/proc/reset_markings(location)
 	var/list/valid_markings
 
 	if(location)
@@ -226,7 +226,7 @@
 		H.ha_style = "None"
 	update_head_accessory()
 
-/mob/living/carbon/human/proc/change_eye_color(var/colour = "#000000", update_dna = 1)
+/mob/living/carbon/human/proc/change_eye_color(colour = "#000000", update_dna = 1)
 	// Update the main DNA datum, then sync the change across the organs
 	var/obj/item/organ/internal/eyes/eyes_organ = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes_organ)
@@ -250,7 +250,7 @@
 		return E.eye_colour
 	return FALSE
 
-/mob/living/carbon/human/proc/change_hair_color(var/colour = "#000000", var/secondary)
+/mob/living/carbon/human/proc/change_hair_color(colour = "#000000", secondary)
 	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)
 	if(!H)
 		return
@@ -269,7 +269,7 @@
 	update_hair()
 	return 1
 
-/mob/living/carbon/human/proc/change_facial_hair_color(var/colour = "#000000", var/secondary)
+/mob/living/carbon/human/proc/change_facial_hair_color(colour = "#000000", secondary)
 	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)
 	if(!H)
 		return
@@ -288,7 +288,7 @@
 	update_fhair()
 	return 1
 
-/mob/living/carbon/human/proc/change_head_accessory_color(var/colour = "#000000")
+/mob/living/carbon/human/proc/change_head_accessory_color(colour = "#000000")
 	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)
 	if(!H)
 		return
@@ -301,7 +301,7 @@
 	update_head_accessory()
 	return 1
 
-/mob/living/carbon/human/proc/change_marking_color(var/colour = "#000000", var/location = "body")
+/mob/living/carbon/human/proc/change_marking_color(colour = "#000000", location = "body")
 	if(colour == m_colours[location])
 		return
 
@@ -314,7 +314,7 @@
 	return 1
 
 
-/mob/living/carbon/human/proc/change_skin_color(var/colour = "#000000")
+/mob/living/carbon/human/proc/change_skin_color(colour = "#000000")
 	if(colour == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
 		return
 	if(dna.species.bodyflags & HAS_ICON_SKIN_TONE)
@@ -325,7 +325,7 @@
 	force_update_limbs()
 	return 1
 
-/mob/living/carbon/human/proc/change_skin_tone(var/tone)
+/mob/living/carbon/human/proc/change_skin_tone(tone)
 	if(s_tone == tone || !((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		return
 
@@ -411,7 +411,7 @@
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
 			continue
-		if(H.gender == S.unsuitable_gender)
+		if(gender == S.unsuitable_gender)
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]

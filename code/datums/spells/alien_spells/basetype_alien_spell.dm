@@ -1,5 +1,4 @@
 /obj/effect/proc_holder/spell/alien_spell
-	action_background_icon = 'icons/mob/actions/actions.dmi'
 	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
 	human_req = FALSE

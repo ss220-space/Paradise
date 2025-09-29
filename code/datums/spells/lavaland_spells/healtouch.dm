@@ -4,7 +4,6 @@
 	desc = "Это заклинание заряжает вашу руку энергией Некрополя, позволяя вам лечить некоторые повреждения и взаимодействовать с некоторыми предметами."
 	hand_path = /obj/item/melee/touch_attack/healtouch
 
-	school = "evocation"
 	base_cooldown = 20 SECONDS
 	clothes_req = FALSE
 
@@ -26,13 +25,13 @@
 
 /obj/item/melee/touch_attack/healtouch/get_ru_names()
 	return list(
-        NOMINATIVE = "целебное касание",
-        GENITIVE = "целебного касания",
-        DATIVE = "целебному касанию",
-        ACCUSATIVE = "целебное касание",
-        INSTRUMENTAL = "целебным касанием",
-        PREPOSITIONAL = "целебном касании"
- 	)
+		NOMINATIVE = "целебное касание",
+		GENITIVE = "целебного касания",
+		DATIVE = "целебному касанию",
+		ACCUSATIVE = "целебное касание",
+		INSTRUMENTAL = "целебным касанием",
+		PREPOSITIONAL = "целебном касании"
+	)
 
 /obj/item/melee/touch_attack/healtouch/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!proximity || (target == user && !heal_self) || !ismob(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

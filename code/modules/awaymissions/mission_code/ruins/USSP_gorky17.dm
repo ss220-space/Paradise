@@ -6,8 +6,6 @@
 /area/ruin/space/USSP_gorky17
 	poweralm = FALSE
 	report_alerts = FALSE
-	requires_power = TRUE
-	has_gravity = STANDARD_GRAVITY
 
 /area/ruin/space/USSP_gorky17/solmaintnorth
 	name = "Gorky17 North sol maintenance"
@@ -93,12 +91,10 @@
 
 /area/ruin/space/USSP_gorky17/solars
 	name = "Gorky17 Sol panels"
-	icon_state = "away"
 	requires_power = FALSE
 	outdoors = TRUE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
@@ -110,9 +106,6 @@
 //////////////////////////////////
 
 /area/ruin/space/USSP_gorky17/collapsed
-	poweralm = FALSE
-	report_alerts = FALSE
-	requires_power = TRUE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/spooky/howled_4.ogg',\
 						'sound/ambience/spooky/psy_amb.ogg',\
@@ -202,7 +195,6 @@
 /area/ruin/space/USSP_gorky17/collapsed/mining
 	name = "Gorky17 Ore melting zone"
 	icon_state = "away18"
-	requires_power = TRUE
 	has_gravity = FALSE
 	fire = FALSE
 
@@ -218,7 +210,6 @@
 
 /area/ruin/space/USSP_gorky17/collapsed/solars
 	name = "Gorky17 Sol panels"
-	icon_state = "away"
 	requires_power = FALSE
 	fire = FALSE
 	outdoors = TRUE
@@ -226,7 +217,6 @@
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
 	static_lighting = FALSE
-	base_lighting_color = COLOR_WHITE
 	base_lighting_alpha = 255
 
 /////////////// Safe with secret documets
@@ -267,7 +257,6 @@
 ///////////////// USSP access update
 
 /obj/machinery/computer/id_upgrader/ussp
-	name = "ID Upgrade Machine"
 	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "auth_off"
 	icon_screen = null
@@ -351,15 +340,16 @@
 
 /obj/item/paper/gorky17
 	language = LANGUAGE_NEO_RUSSIAN
+
 /obj/item/paper/gorky17/talisman
 	name = "Проклятый талисман"
 	info = "<p><strong>НЕ ТРОГАЙ ЭТУ ХРЕНЬ ИЗ ЯЩИКА!</strong><br /> \
 	\n<strong>Я СЕРЬЁЗНО! НЕ-ТРО-ГАЙ! ИЛИ СДОХНЕШЬ, КАК ТЕ ТРОЕ БЕДОЛАГ!</strong><br />\
 	\nВ общем, рассказываю: была очередная вылазка в эти сраные врата (как же я заманался с ними, одного раза хватило, чтобы все любопытство отбить),\
 	сержант грезил, что вот после этой вылазки к нам отправят подкрепление и провиант.\
-	 Ага, хер там плавал - из команды в 10 человек вернулось трое, все перебитые и еле живые. На себе тащили по трупу.\
-	 Как оклемались в сан. части - парни рассказали, что по ту сторону сраные нацисты сидят и проводят какие то ритуалы крови (либо их накрыло после стимуляторов так, \
-	 либо эта нездоровая хрень реальна - надеюсь первое). \
+	Ага, хер там плавал - из команды в 10 человек вернулось трое, все перебитые и еле живые. На себе тащили по трупу.\
+	Как оклемались в сан. части - парни рассказали, что по ту сторону сраные нацисты сидят и проводят какие то ритуалы крови (либо их накрыло после стимуляторов так, \
+	либо эта нездоровая хрень реальна - надеюсь первое). \
 	Покромсали наших эти культисты, будь они прокляты своими же богами, нехило, как ты понял. \
 	Единственное, что они прихватили оттуда - какой то проклятый меч, да талисман. От 'талисмана', бумажки пропитанной кровью, как я понял, и померли те 3 срочника, \
 	тела которых притащили с вылазки... \
@@ -496,14 +486,11 @@
 	)
 
 /obj/effect/mob_spawn/human/corpse/usspconscript
-	mob_type = /mob/living/carbon/human
 	name = "USSP conscript corpse"
 	icon = 'icons/mob/clothing/uniform.dmi'
 	icon_state = "soviet_s"
-	mob_name = "Unknown"
+	mob_name = UNKNOWN_NAME_RUS
 	random = TRUE
-	death = TRUE
-	disable_sensors = TRUE
 	outfit = /datum/outfit/usspconscript_corpse
 
 /obj/effect/mob_spawn/human/corpse/usspconscript/Initialize(mapload)
@@ -529,9 +516,6 @@
 	random_color = FALSE
 
 	harm_intent_damage = 10
-	obj_damage = 50
-	melee_damage_lower = 15
-	melee_damage_upper = 15
 
 /mob/living/simple_animal/hostile/carp/lostsoul/death(gibbed)
 	. = ..(gibbed)
@@ -565,7 +549,6 @@
 	range_medium = 35
 	range_light = 45
 	range_flame = 30
-	admin_log = TRUE
 
 /obj/item/bombcore/sdg17/detonate()
 	if(adminlog)

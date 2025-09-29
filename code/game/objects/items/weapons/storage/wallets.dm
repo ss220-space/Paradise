@@ -103,9 +103,11 @@
 
 
 /obj/item/storage/wallet/random/populate_contents()
-	var/coin = pickweight(list(/obj/item/coin/iron = 3,
-							   /obj/item/coin/silver = 2,
-							   /obj/item/coin/gold = 1))
+	var/coin = pickweight(list(
+		/obj/item/coin/iron = 3,
+		/obj/item/coin/silver = 2,
+		/obj/item/coin/gold = 1)
+	)
 	new coin(src)
 
 //////////////////////////////////////
@@ -116,7 +118,6 @@
 	name = "cheap wallet"
 	desc = "A cheap wallet from the arcade."
 	storage_slots = 5		//smaller storage than normal wallets
-	icon = 'icons/obj/wallets.dmi'
 
 
 /obj/item/storage/wallet/color/Initialize(mapload)

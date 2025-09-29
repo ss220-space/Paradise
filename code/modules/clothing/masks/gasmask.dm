@@ -55,7 +55,6 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
-	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 	visor_flags_inv = HIDEGLASSES
 	resistance_flags = FIRE_PROOF
 
@@ -114,7 +113,7 @@
 		INSTRUMENTAL = "противогазом исследователя",
 		PREPOSITIONAL = "противогазе исследователя"
 	)
-	
+
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
@@ -544,7 +543,6 @@
 /obj/item/clothing/mask/gas/mime/sexy
 	name = "sexy mime mask"
 	desc = "Классическая женская маска мима."
-	gender = FEMALE
 	icon_state = "sexymime"
 	item_state = "sexymime"
 
@@ -676,7 +674,7 @@
 
 /obj/item/clothing/mask/gas/sechailer/tactical
 	name = "Security gas mask FCO-26"
-	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией N&R специально для сотрудников станционной службы безопасности НаноТрейзен. Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
+	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией N&R специально для сотрудников станционной службы безопасности Нанотрейзен. Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
 	icon_state = "tactical_mask"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 10, ACID = 30)
 	aggressiveness = 3
@@ -801,8 +799,8 @@
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
 
-		if (!safety)
-			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
+		if(!safety)
+			to_chat(user, span_notice("You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."))
 			return
 
 		switch(aggressiveness)
@@ -810,24 +808,24 @@
 				phrase = (phrase < 6) ? (phrase + 1) : 1
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(2)
 				phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(3)
 				phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(4)
 				phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			else
-				to_chat(user, "<span class='notice'>It's broken.</span>")
+				to_chat(user, span_notice("It's broken."))
 
 		var/datum/action/item_action/halt/halt_action = locate() in actions
 		if(halt_action)

@@ -73,12 +73,12 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		//strip away everything but the proc name
 		var/list/proclist = splittext(procname, "/")
-		if (!length(proclist))
+		if(!length(proclist))
 			return
 		procname = proclist[proclist.len]
 
 		var/proctype = "proc"
-		if ("verb" in proclist)
+		if("verb" in proclist)
 			proctype = "verb"
 
 		if(targetselected && !hascall(target,procname))
@@ -259,7 +259,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 	var/turf/T = mob.loc
 
-	if(!( istype(T, /turf) ))
+	if(!(istype(T, /turf)))
 		return
 
 	var/datum/gas_mixture/env = T.return_air()
@@ -347,7 +347,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, gorillize), gorilla_type), 1 SECONDS)
 
 
-/client/proc/cmd_admin_super(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_super(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Make Superhero"
 
@@ -397,7 +397,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_and_message_admins("has remade the powernets. makepowernets() called.")
 	BLACKBOX_LOG_ADMIN_VERB("Make Powernets")
 
-/client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_grantfullaccess(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_DEBUG
 	set name = "\[Admin\] Grant Full Access"
 
@@ -423,13 +423,13 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.assignment = JOB_TITLE_CAPTAIN
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
 			H.equip_to_slot_or_del(id, ITEM_SLOT_ID)
-			H.update_inv_wear_id()
+			H.update_worn_id()
 	else
 		tgui_alert(usr, "Invalid mob")
 	BLACKBOX_LOG_ADMIN_VERB("Grant Full Access")
 	log_and_message_admins(span_notice("has granted [M.key] full access."))
 
-/client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_assume_direct_control(mob/M in GLOB.mob_list)
 	set category = STATPANEL_ADMIN_DEBUG
 	set name = "\[Admind\] Assume direct control"
 	set desc = "Direct intervention"
@@ -446,7 +446,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_and_message_admins(span_notice("assumed direct control of [M]."))
 	var/mob/adminmob = src.mob
 	M.ckey = src.ckey
-	if( isobserver(adminmob) )
+	if(isobserver(adminmob))
 		qdel(adminmob)
 	BLACKBOX_LOG_ADMIN_VERB("Assume Direct Control")
 
@@ -595,7 +595,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(tgui_alert(usr, "Нужно ли выбрасывать вещи из карманов? Выбор \"Нет\" удалит их.", "Выбор экипировки существа", "Да", "Нет") == "Нет")
 				delete_pocket = TRUE
 
-	for (var/obj/item/I in H.get_equipped_items(delete_pocket))
+	for(var/obj/item/I in H.get_equipped_items(delete_pocket))
 		qdel(I)
 	if(dresscode != "Naked")
 		H.equipOutfit(dresscode)

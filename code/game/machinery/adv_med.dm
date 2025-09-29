@@ -420,7 +420,7 @@
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
-			var/name = occupant ? occupant.name : "Неизвестный"
+			var/name = occupant ? occupant.name : UNKNOWN_NAME_RUS
 			P.info = "<center><b>Отчёт по сканированию пациента - [name]</b></center><br>"
 			P.info += "<b>Время сканирования</b> [station_time_timestamp()]<br><br>"
 			P.info += "[generate_printing_text()]"
@@ -496,7 +496,7 @@
 		dat += "[extra_font]\tУровень крови: [blood_percent] ([occupant.blood_volume] u)</font><br>"
 
 		if(occupant.reagents)
-			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount("Epinephrine")] u<br>"
+			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount("epinephrine")] u<br>"
 			dat += "Эфир: [occupant.reagents.get_reagent_amount("ether")] u<br>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")

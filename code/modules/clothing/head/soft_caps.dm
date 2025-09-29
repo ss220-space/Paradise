@@ -65,7 +65,6 @@
 
 /obj/item/clothing/head/soft/yellow
 	name = "yellow cap"
-	desc = "It's a baseball hat in a tasteless yellow colour."
 	icon_state = "yellowsoft"
 	item_color = "yellow"
 	dog_fashion = null
@@ -177,7 +176,7 @@
 
 /obj/item/clothing/head/tchaikowsky/baseballcap
 	name = "baseball cap (blue)"
-	desc = "Бейсболка синего цвета. Мерч команды \"НаноТрейзен Лейкерс\"."
+	desc = "Бейсболка синего цвета. Мерч команды \"Нанотрейзен Лейкерс\"."
 	icon_state = "baseball_blue"
 	item_state = "baseball_blue"
 

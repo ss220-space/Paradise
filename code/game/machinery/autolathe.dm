@@ -1,10 +1,6 @@
-#define AUTOLATHE_MAIN_MENU		1
-#define AUTOLATHE_CATEGORY_MENU	2
-#define AUTOLATHE_SEARCH_MENU	3
-
 /obj/machinery/autolathe
 	name = "autolathe"
-	desc = "It produces items using metal and glass."
+	desc = "Крупное устройство, предназначенное для печати различных вещей из металла и стекла."
 	icon_state = "autolathe"
 	density = TRUE
 
@@ -21,7 +17,6 @@
 	var/hack_wire
 	var/disable_wire
 	var/shock_wire
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
 	var/busy = FALSE
@@ -37,6 +32,16 @@
 	var/list/recipiecache = list()
 
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
+
+/obj/machinery/autolathe/get_ru_names()
+	return list(
+		NOMINATIVE = "автолат",
+		GENITIVE = "автолата",
+		DATIVE = "автолату",
+		ACCUSATIVE = "автолат",
+		INSTRUMENTAL = "автолатом",
+		PREPOSITIONAL = "автолате",
+	)
 
 /obj/machinery/autolathe/Initialize(mapload)
 	. = ..()
@@ -311,7 +316,7 @@
 	if(busy)
 		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
 		return
-	default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I)
+	default_deconstruction_screwdriver(user, "autolathe_unscrewed", "autolathe", I)
 
 /obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -338,9 +343,9 @@
 /obj/machinery/autolathe/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	switch(id_inserted)
 		if(MAT_METAL)
-			flick("autolathe_o", src)//plays metal insertion animation
+			flick("autolathe_metal", src)//plays metal insertion animation
 		if(MAT_GLASS)
-			flick("autolathe_r", src)//plays glass insertion animation
+			flick("autolathe_glass", src)//plays glass insertion animation
 	use_power(min(1000, amount_inserted / 100))
 	SStgui.update_uis(src)
 
@@ -380,7 +385,7 @@
 	if(can_build(D, multiplier))
 		being_built = list(D, multiplier)
 		use_power(power)
-		flick("autolathe_n", src)
+		flick("autolathe_work", src)
 		if(is_stack)
 			var/list/materials_used = list(MAT_METAL=metal_cost*multiplier, MAT_GLASS=glass_cost*multiplier)
 			materials.use_amount(materials_used)

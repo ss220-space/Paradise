@@ -43,7 +43,7 @@
 		INSTRUMENTAL = "козлом",
 		PREPOSITIONAL = "козле"
 	)
-	
+
 
 /mob/living/simple_animal/hostile/retaliate/goat/New()
 	udder = new()
@@ -254,10 +254,12 @@
 		spawn(rand(20,50))
 			if(!stat && M)
 				icon_state = icon_living
-				var/list/responses = list(	" смотрит на вас умоляюще.",
-											" смотрит на вас удручённо.",
-											" смотрит на вас с покорностью в глазах.",
-											", кажется, смирилась со своей участью.")
+				var/list/responses = list(
+					" смотрит на вас умоляюще.",
+					" смотрит на вас удручённо.",
+					" смотрит на вас с покорностью в глазах.",
+					", кажется, смирилась со своей участью."
+				)
 				to_chat(M, span_notice("[capitalize(declent_ru(NOMINATIVE))][pick(responses)]"))
 	else
 		..()
@@ -440,7 +442,8 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 			if(GLOB.chicken_count < MAX_CHICKENS && prob(25))
 				START_PROCESSING(SSobj, E)
 
-/obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0
+#undef MAX_CHICKENS
+
 /obj/item/reagent_containers/food/snacks/egg/process()
 	if(isturf(loc))
 		amount_grown += rand(1,2)
@@ -455,7 +458,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /mob/living/simple_animal/cock
 	name = "Петух"
 	desc = "Гордый и важный вид."
-	gender = MALE
 	icon_state = "cock"
 	icon_resting = "cock_rest"
 	icon_living = "cock"
@@ -708,7 +710,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
-/mob/living/simple_animal/walrus/get_ru_names()	
+/mob/living/simple_animal/walrus/get_ru_names()
 	return list(
 		NOMINATIVE = "морж",
 		GENITIVE = "моржа",
@@ -759,7 +761,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_state = "goat_hump"
 	icon_living = "goat_hump"
 	icon_resting = "goat_hump_rest"
-	icon_dead = "goat_dead"
 
 /mob/living/simple_animal/hostile/retaliate/goat/hump/get_ru_names()
 	return list(

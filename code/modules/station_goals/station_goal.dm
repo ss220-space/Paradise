@@ -29,7 +29,7 @@
 /datum/station_goal/proc/send_report()
 	on_report()
 	var/directive = "Nanotrasen Directive [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]"
-	GLOB.minor_announcement.announce("Поступила приоритетная директива НаноТрейзен. Отправлены подробности проекта \"[html_decode(name)]\".",
+	GLOB.minor_announcement.announce("Поступила приоритетная директива Нанотрейзен. Отправлены подробности проекта \"[html_decode(name)]\".",
 									ANNOUNCE_PRIORITY_RU,
 									'sound/AI/commandreport.ogg'
 	)
@@ -47,7 +47,7 @@
 
 /datum/station_goal/proc/print_result()
 	if(check_completion())
-		to_chat(world, "<b>Station Goal</b>: [name]:  <span class='greenannounce'>Completed!</span>")
+		to_chat(world, "<b>Station Goal</b>: [name]:  [span_greenannounce("Completed!")]")
 	else
 		to_chat(world, "<b>Station Goal</b>: [name]: [span_boldannounceooc("Failed!")]")
 
@@ -68,3 +68,5 @@
 		send_report()
 	else if(href_list["remove"])
 		qdel(src)
+
+#undef STATION_GOAL_DEFAULT_BOUNTY

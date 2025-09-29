@@ -24,98 +24,98 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				and must not contain prohibited characters!
 */
 	// English text lowercase
-	  ":r" = R_EAR_MODE,				"#r" = R_EAR_MODE,				"№r" = R_EAR_MODE,				".r" = R_EAR_MODE,
-	  ":l" = L_EAR_MODE,				"#l" = L_EAR_MODE,				"№l" = L_EAR_MODE,				".l" = L_EAR_MODE,
-	  ":i" = INTERCOM_MODE,				"#i" = INTERCOM_MODE,			"№i" = INTERCOM_MODE,			".i" = INTERCOM_MODE,
-	  ":h" = DEPARTMENT_FREQ_NAME,		"#h" = DEPARTMENT_FREQ_NAME,	"№h" = DEPARTMENT_FREQ_NAME,	".h" = DEPARTMENT_FREQ_NAME,
-	  ":c" = COMM_FREQ_NAME,			"#c" = COMM_FREQ_NAME,			"№c" = COMM_FREQ_NAME,			".c" = COMM_FREQ_NAME,
-	  ":n" = SCI_FREQ_NAME,				"#n" = SCI_FREQ_NAME,			"№n" = SCI_FREQ_NAME,			".n" = SCI_FREQ_NAME,
-	  ":m" = MED_FREQ_NAME,				"#m" = MED_FREQ_NAME,			"№m" = MED_FREQ_NAME,			".m" = MED_FREQ_NAME,
-	  ":x" = PROC_FREQ_NAME,			"#x" = PROC_FREQ_NAME,			"№x" = PROC_FREQ_NAME,			".x" = PROC_FREQ_NAME,
-	  ":e" = ENG_FREQ_NAME,			"#e" = ENG_FREQ_NAME,			"№e" = ENG_FREQ_NAME,			".e" = ENG_FREQ_NAME,
-	  ":s" = SEC_FREQ_NAME,				"#s" = SEC_FREQ_NAME,			"№s" = SEC_FREQ_NAME,			".s" = SEC_FREQ_NAME,
-	  ":w" = WHISPER_CHANNEL,			"#w" = WHISPER_CHANNEL,			"№w" = WHISPER_CHANNEL,			".w" = WHISPER_CHANNEL,
-	  ":t" = SYND_FREQ_NAME,			"#t" = SYND_FREQ_NAME,			"№t" = SYND_FREQ_NAME,			".t" = SYND_FREQ_NAME,
-	  ":'" = SOV_FREQ_NAME,				"#'" = SOV_FREQ_NAME,			"№'" = SOV_FREQ_NAME,			".'" = SOV_FREQ_NAME,
-	  ":u" = SUP_FREQ_NAME,				"#u" = SUP_FREQ_NAME,			"№u" = SUP_FREQ_NAME,			".u" = SUP_FREQ_NAME,
-	  ":z" = SRV_FREQ_NAME,				"#z" = SRV_FREQ_NAME,			"№z" = SRV_FREQ_NAME,			".z" = SRV_FREQ_NAME,
-	  ":p" = AI_FREQ_NAME,				"#p" = AI_FREQ_NAME,			"№p" = AI_FREQ_NAME,			".p" = AI_FREQ_NAME,
+	":r" = R_EAR_MODE,				"#r" = R_EAR_MODE,				"№r" = R_EAR_MODE,				".r" = R_EAR_MODE,
+	":l" = L_EAR_MODE,				"#l" = L_EAR_MODE,				"№l" = L_EAR_MODE,				".l" = L_EAR_MODE,
+	":i" = INTERCOM_MODE,				"#i" = INTERCOM_MODE,			"№i" = INTERCOM_MODE,			".i" = INTERCOM_MODE,
+	":h" = DEPARTMENT_FREQ_NAME,		"#h" = DEPARTMENT_FREQ_NAME,	"№h" = DEPARTMENT_FREQ_NAME,	".h" = DEPARTMENT_FREQ_NAME,
+	":c" = COMM_FREQ_NAME,			"#c" = COMM_FREQ_NAME,			"№c" = COMM_FREQ_NAME,			".c" = COMM_FREQ_NAME,
+	":n" = SCI_FREQ_NAME,				"#n" = SCI_FREQ_NAME,			"№n" = SCI_FREQ_NAME,			".n" = SCI_FREQ_NAME,
+	":m" = MED_FREQ_NAME,				"#m" = MED_FREQ_NAME,			"№m" = MED_FREQ_NAME,			".m" = MED_FREQ_NAME,
+	":x" = PROC_FREQ_NAME,			"#x" = PROC_FREQ_NAME,			"№x" = PROC_FREQ_NAME,			".x" = PROC_FREQ_NAME,
+	":e" = ENG_FREQ_NAME,			"#e" = ENG_FREQ_NAME,			"№e" = ENG_FREQ_NAME,			".e" = ENG_FREQ_NAME,
+	":s" = SEC_FREQ_NAME,				"#s" = SEC_FREQ_NAME,			"№s" = SEC_FREQ_NAME,			".s" = SEC_FREQ_NAME,
+	":w" = WHISPER_CHANNEL,			"#w" = WHISPER_CHANNEL,			"№w" = WHISPER_CHANNEL,			".w" = WHISPER_CHANNEL,
+	":t" = SYND_FREQ_NAME,			"#t" = SYND_FREQ_NAME,			"№t" = SYND_FREQ_NAME,			".t" = SYND_FREQ_NAME,
+	":'" = SOV_FREQ_NAME,				"#'" = SOV_FREQ_NAME,			"№'" = SOV_FREQ_NAME,			".'" = SOV_FREQ_NAME,
+	":u" = SUP_FREQ_NAME,				"#u" = SUP_FREQ_NAME,			"№u" = SUP_FREQ_NAME,			".u" = SUP_FREQ_NAME,
+	":z" = SRV_FREQ_NAME,				"#z" = SRV_FREQ_NAME,			"№z" = SRV_FREQ_NAME,			".z" = SRV_FREQ_NAME,
+	":p" = AI_FREQ_NAME,				"#p" = AI_FREQ_NAME,			"№p" = AI_FREQ_NAME,			".p" = AI_FREQ_NAME,
 
 	// English text uppercase
-	  ":R" = R_EAR_MODE,				"#R" = R_EAR_MODE,				"№R" = R_EAR_MODE,				".R" = R_EAR_MODE,
-	  ":L" = L_EAR_MODE,				"#L" = L_EAR_MODE,				"№L" = L_EAR_MODE,				".L" = L_EAR_MODE,
-	  ":I" = INTERCOM_MODE,				"#I" = INTERCOM_MODE,			"№I" = INTERCOM_MODE,			".I" = INTERCOM_MODE,
-	  ":H" = DEPARTMENT_FREQ_NAME,		"#H" = DEPARTMENT_FREQ_NAME,	"№H" = DEPARTMENT_FREQ_NAME,	".H" = DEPARTMENT_FREQ_NAME,
-	  ":C" = COMM_FREQ_NAME,			"#C" = COMM_FREQ_NAME,			"№C" = COMM_FREQ_NAME,			".C" = COMM_FREQ_NAME,
-	  ":N" = SCI_FREQ_NAME,				"#N" = SCI_FREQ_NAME,			"№N" = SCI_FREQ_NAME,			".N" = SCI_FREQ_NAME,
-	  ":M" = MED_FREQ_NAME,				"#M" = MED_FREQ_NAME,			"№M" = MED_FREQ_NAME,			".M" = MED_FREQ_NAME,
-	  ":X" = PROC_FREQ_NAME,			"#X" = PROC_FREQ_NAME,			"№X" = PROC_FREQ_NAME,			".X" = PROC_FREQ_NAME,
-	  ":E" = ENG_FREQ_NAME,				"#E" = ENG_FREQ_NAME,			"№E" = ENG_FREQ_NAME,			".E" = ENG_FREQ_NAME,
-	  ":S" = SEC_FREQ_NAME,				"#S" = SEC_FREQ_NAME,			"№S" = SEC_FREQ_NAME,			".S" = SEC_FREQ_NAME,
-	  ":W" = WHISPER_CHANNEL,			"#W" = WHISPER_CHANNEL,			"№W" = WHISPER_CHANNEL,			".W" = WHISPER_CHANNEL,
-	  ":T" = SYND_FREQ_NAME,			"#T" = SYND_FREQ_NAME,			"№T" = SYND_FREQ_NAME,			".T" = SYND_FREQ_NAME,
-	  ":'" = SOV_FREQ_NAME,				"#'" = SOV_FREQ_NAME,			"№'" = SOV_FREQ_NAME,			".'" = SOV_FREQ_NAME,
-	  ":U" = SUP_FREQ_NAME,				"#U" = SUP_FREQ_NAME,			"№U" = SUP_FREQ_NAME,			".U" = SUP_FREQ_NAME,
-	  ":Z" = SRV_FREQ_NAME,				"#Z" = SRV_FREQ_NAME,			"№Z" = SRV_FREQ_NAME,			".Z" = SRV_FREQ_NAME,
-	  ":P" = AI_FREQ_NAME,				"#P" = AI_FREQ_NAME,			"№P" = AI_FREQ_NAME,			".P" = AI_FREQ_NAME,
-	  ":." = PRS_FREQ_NAME,				"#." = PRS_FREQ_NAME,			"№." = PRS_FREQ_NAME,			".." = PRS_FREQ_NAME,
+	":R" = R_EAR_MODE,				"#R" = R_EAR_MODE,				"№R" = R_EAR_MODE,				".R" = R_EAR_MODE,
+	":L" = L_EAR_MODE,				"#L" = L_EAR_MODE,				"№L" = L_EAR_MODE,				".L" = L_EAR_MODE,
+	":I" = INTERCOM_MODE,				"#I" = INTERCOM_MODE,			"№I" = INTERCOM_MODE,			".I" = INTERCOM_MODE,
+	":H" = DEPARTMENT_FREQ_NAME,		"#H" = DEPARTMENT_FREQ_NAME,	"№H" = DEPARTMENT_FREQ_NAME,	".H" = DEPARTMENT_FREQ_NAME,
+	":C" = COMM_FREQ_NAME,			"#C" = COMM_FREQ_NAME,			"№C" = COMM_FREQ_NAME,			".C" = COMM_FREQ_NAME,
+	":N" = SCI_FREQ_NAME,				"#N" = SCI_FREQ_NAME,			"№N" = SCI_FREQ_NAME,			".N" = SCI_FREQ_NAME,
+	":M" = MED_FREQ_NAME,				"#M" = MED_FREQ_NAME,			"№M" = MED_FREQ_NAME,			".M" = MED_FREQ_NAME,
+	":X" = PROC_FREQ_NAME,			"#X" = PROC_FREQ_NAME,			"№X" = PROC_FREQ_NAME,			".X" = PROC_FREQ_NAME,
+	":E" = ENG_FREQ_NAME,				"#E" = ENG_FREQ_NAME,			"№E" = ENG_FREQ_NAME,			".E" = ENG_FREQ_NAME,
+	":S" = SEC_FREQ_NAME,				"#S" = SEC_FREQ_NAME,			"№S" = SEC_FREQ_NAME,			".S" = SEC_FREQ_NAME,
+	":W" = WHISPER_CHANNEL,			"#W" = WHISPER_CHANNEL,			"№W" = WHISPER_CHANNEL,			".W" = WHISPER_CHANNEL,
+	":T" = SYND_FREQ_NAME,			"#T" = SYND_FREQ_NAME,			"№T" = SYND_FREQ_NAME,			".T" = SYND_FREQ_NAME,
+	":'" = SOV_FREQ_NAME,				"#'" = SOV_FREQ_NAME,			"№'" = SOV_FREQ_NAME,			".'" = SOV_FREQ_NAME,
+	":U" = SUP_FREQ_NAME,				"#U" = SUP_FREQ_NAME,			"№U" = SUP_FREQ_NAME,			".U" = SUP_FREQ_NAME,
+	":Z" = SRV_FREQ_NAME,				"#Z" = SRV_FREQ_NAME,			"№Z" = SRV_FREQ_NAME,			".Z" = SRV_FREQ_NAME,
+	":P" = AI_FREQ_NAME,				"#P" = AI_FREQ_NAME,			"№P" = AI_FREQ_NAME,			".P" = AI_FREQ_NAME,
+	":." = PRS_FREQ_NAME,				"#." = PRS_FREQ_NAME,			"№." = PRS_FREQ_NAME,			".." = PRS_FREQ_NAME,
 
 	// Russian text lowercase
-	  ":к" = R_EAR_MODE,				"#к" = R_EAR_MODE,				"№к" = R_EAR_MODE,				".к" = R_EAR_MODE,
-	  ":д" = L_EAR_MODE,				"#д" = L_EAR_MODE,				"№д" = L_EAR_MODE,				".д" = L_EAR_MODE,
-	  ":ш" = INTERCOM_MODE,				"#ш" = INTERCOM_MODE,			"№ш" = INTERCOM_MODE,			".ш" = INTERCOM_MODE,
-	  ":р" = DEPARTMENT_FREQ_NAME,		"#р" = DEPARTMENT_FREQ_NAME,	"№р" = DEPARTMENT_FREQ_NAME,	".р" = DEPARTMENT_FREQ_NAME,
-	  ":с" = COMM_FREQ_NAME,			"#с" = COMM_FREQ_NAME,			"№с" = COMM_FREQ_NAME,			".с" = COMM_FREQ_NAME,
-	  ":т" = SCI_FREQ_NAME,				"#т" = SCI_FREQ_NAME,			"№т" = SCI_FREQ_NAME,			".т" = SCI_FREQ_NAME,
-	  ":ь" = MED_FREQ_NAME,				"#ь" = MED_FREQ_NAME,			"№ь" = MED_FREQ_NAME,			".ь" = MED_FREQ_NAME,
-	  ":ч" = PROC_FREQ_NAME,			"#ч" = PROC_FREQ_NAME,			"№ч" = PROC_FREQ_NAME,			".ч" = PROC_FREQ_NAME,
-	  ":у" = ENG_FREQ_NAME,			"#у" = ENG_FREQ_NAME,			"№у" = ENG_FREQ_NAME,			".у" = ENG_FREQ_NAME,
-	  ":ы" = SEC_FREQ_NAME,				"#ы" = SEC_FREQ_NAME,			"№ы" = SEC_FREQ_NAME,			".ы" = SEC_FREQ_NAME,
-	  ":ц" = WHISPER_CHANNEL,			"#ц" = WHISPER_CHANNEL,			"№ц" = WHISPER_CHANNEL,			".ц" = WHISPER_CHANNEL,
-	  ":е" = SYND_FREQ_NAME,			"#е" = SYND_FREQ_NAME,			"№е" = SYND_FREQ_NAME,			".е" = SYND_FREQ_NAME,
-	  ":э" = SOV_FREQ_NAME,				"#э" = SOV_FREQ_NAME,			"№э" = SOV_FREQ_NAME,			".э" = SOV_FREQ_NAME,
-	  ":б" = SYND_TAIPAN_FREQ_NAME,		"#б" = SYND_TAIPAN_FREQ_NAME,	"№б" = SYND_TAIPAN_FREQ_NAME,	".б" = SYND_TAIPAN_FREQ_NAME,
-	  ":г" = SUP_FREQ_NAME,				"#г" = SUP_FREQ_NAME,			"№г" = SUP_FREQ_NAME,			".г" = SUP_FREQ_NAME,
-	  ":я" = SRV_FREQ_NAME,				"#я" = SRV_FREQ_NAME,			"№я" = SRV_FREQ_NAME,			".я" = SRV_FREQ_NAME,
-	  ":з" = AI_FREQ_NAME,				"#з" = AI_FREQ_NAME,			"№з" = AI_FREQ_NAME,			".з" = AI_FREQ_NAME,
-	  ":ё" = CORDS_MODE,				"#ё" = CORDS_MODE,				"№ё" = CORDS_MODE,				".ё" = CORDS_MODE,
-	  ":ю" = PRS_FREQ_NAME,				"#ю" = PRS_FREQ_NAME,			"№ю" = PRS_FREQ_NAME,			".ю" = PRS_FREQ_NAME,
+	":к" = R_EAR_MODE,				"#к" = R_EAR_MODE,				"№к" = R_EAR_MODE,				".к" = R_EAR_MODE,
+	":д" = L_EAR_MODE,				"#д" = L_EAR_MODE,				"№д" = L_EAR_MODE,				".д" = L_EAR_MODE,
+	":ш" = INTERCOM_MODE,				"#ш" = INTERCOM_MODE,			"№ш" = INTERCOM_MODE,			".ш" = INTERCOM_MODE,
+	":р" = DEPARTMENT_FREQ_NAME,		"#р" = DEPARTMENT_FREQ_NAME,	"№р" = DEPARTMENT_FREQ_NAME,	".р" = DEPARTMENT_FREQ_NAME,
+	":с" = COMM_FREQ_NAME,			"#с" = COMM_FREQ_NAME,			"№с" = COMM_FREQ_NAME,			".с" = COMM_FREQ_NAME,
+	":т" = SCI_FREQ_NAME,				"#т" = SCI_FREQ_NAME,			"№т" = SCI_FREQ_NAME,			".т" = SCI_FREQ_NAME,
+	":ь" = MED_FREQ_NAME,				"#ь" = MED_FREQ_NAME,			"№ь" = MED_FREQ_NAME,			".ь" = MED_FREQ_NAME,
+	":ч" = PROC_FREQ_NAME,			"#ч" = PROC_FREQ_NAME,			"№ч" = PROC_FREQ_NAME,			".ч" = PROC_FREQ_NAME,
+	":у" = ENG_FREQ_NAME,			"#у" = ENG_FREQ_NAME,			"№у" = ENG_FREQ_NAME,			".у" = ENG_FREQ_NAME,
+	":ы" = SEC_FREQ_NAME,				"#ы" = SEC_FREQ_NAME,			"№ы" = SEC_FREQ_NAME,			".ы" = SEC_FREQ_NAME,
+	":ц" = WHISPER_CHANNEL,			"#ц" = WHISPER_CHANNEL,			"№ц" = WHISPER_CHANNEL,			".ц" = WHISPER_CHANNEL,
+	":е" = SYND_FREQ_NAME,			"#е" = SYND_FREQ_NAME,			"№е" = SYND_FREQ_NAME,			".е" = SYND_FREQ_NAME,
+	":э" = SOV_FREQ_NAME,				"#э" = SOV_FREQ_NAME,			"№э" = SOV_FREQ_NAME,			".э" = SOV_FREQ_NAME,
+	":б" = SYND_TAIPAN_FREQ_NAME,		"#б" = SYND_TAIPAN_FREQ_NAME,	"№б" = SYND_TAIPAN_FREQ_NAME,	".б" = SYND_TAIPAN_FREQ_NAME,
+	":г" = SUP_FREQ_NAME,				"#г" = SUP_FREQ_NAME,			"№г" = SUP_FREQ_NAME,			".г" = SUP_FREQ_NAME,
+	":я" = SRV_FREQ_NAME,				"#я" = SRV_FREQ_NAME,			"№я" = SRV_FREQ_NAME,			".я" = SRV_FREQ_NAME,
+	":з" = AI_FREQ_NAME,				"#з" = AI_FREQ_NAME,			"№з" = AI_FREQ_NAME,			".з" = AI_FREQ_NAME,
+	":ё" = CORDS_MODE,				"#ё" = CORDS_MODE,				"№ё" = CORDS_MODE,				".ё" = CORDS_MODE,
+	":ю" = PRS_FREQ_NAME,				"#ю" = PRS_FREQ_NAME,			"№ю" = PRS_FREQ_NAME,			".ю" = PRS_FREQ_NAME,
 
 	// Russian text uppercase
-	  ":К" = R_EAR_MODE,				"#К" = R_EAR_MODE,				"№К" = R_EAR_MODE,				".К" = R_EAR_MODE,
-	  ":Д" = L_EAR_MODE,				"#Д" = L_EAR_MODE,				"№Д" = L_EAR_MODE,				".Д" = L_EAR_MODE,
-	  ":Ш" = INTERCOM_MODE,				"#Ш" = INTERCOM_MODE,			"№Ш" = INTERCOM_MODE,			".Ш" = INTERCOM_MODE,
-	  ":Р" = DEPARTMENT_FREQ_NAME,		"#Р" = DEPARTMENT_FREQ_NAME,	"№Р" = DEPARTMENT_FREQ_NAME,	".Р" = DEPARTMENT_FREQ_NAME,
-	  ":С" = COMM_FREQ_NAME,			"#С" = COMM_FREQ_NAME,			"№С" = COMM_FREQ_NAME,			".С" = COMM_FREQ_NAME,
-	  ":Т" = SCI_FREQ_NAME,				"#Т" = SCI_FREQ_NAME,			"№Т" = SCI_FREQ_NAME,			".Т" = SCI_FREQ_NAME,
-	  ":Ь" = MED_FREQ_NAME,				"#Ь" = MED_FREQ_NAME,			"№Ь" = MED_FREQ_NAME,			".Ь" = MED_FREQ_NAME,
-	  ":У" = ENG_FREQ_NAME,				"#У" = ENG_FREQ_NAME,			"№У" = ENG_FREQ_NAME,			".У" = ENG_FREQ_NAME,
-	  ":Ы" = SEC_FREQ_NAME,				"#Ы" = SEC_FREQ_NAME,			"№Ы" = SEC_FREQ_NAME,			".Ы" = SEC_FREQ_NAME,
-	  ":Ц" = WHISPER_CHANNEL,			"#Ц" = WHISPER_CHANNEL,			"№Ц" = WHISPER_CHANNEL,			".Ц" = WHISPER_CHANNEL,
-	  ":Е" = SYND_FREQ_NAME,			"#Е" = SYND_FREQ_NAME,			"№Е" = SYND_FREQ_NAME,			".Е" = SYND_FREQ_NAME,
-	  ":Э" = SOV_FREQ_NAME,				"#Э" = SOV_FREQ_NAME,			"№Э" = SOV_FREQ_NAME,			".Э" = SOV_FREQ_NAME,
-	  ":Б" = SYND_TAIPAN_FREQ_NAME,		"#Б" = SYND_TAIPAN_FREQ_NAME,	"№Б" = SYND_TAIPAN_FREQ_NAME,	".Б" = SYND_TAIPAN_FREQ_NAME,
-	  ":Г" = SUP_FREQ_NAME,				"#Г" = SUP_FREQ_NAME,			"№Г" = SUP_FREQ_NAME,			".Г" = SUP_FREQ_NAME,
-	  ":Я" = SRV_FREQ_NAME,				"#Я" = SRV_FREQ_NAME,			"№Я" = SRV_FREQ_NAME,			".Я" = SRV_FREQ_NAME,
-	  ":З" = AI_FREQ_NAME,				"#З" = AI_FREQ_NAME,			"№З" = AI_FREQ_NAME,			".З" = AI_FREQ_NAME,
-	  ":Ё" = CORDS_MODE,				"#Ё" = CORDS_MODE,				"№Ё" = CORDS_MODE,				".Ё" = CORDS_MODE,
-	  ":Ю" = PRS_FREQ_NAME,				"#Ю" = PRS_FREQ_NAME,			"№Ю" = PRS_FREQ_NAME,			".Ю" = PRS_FREQ_NAME,
+	":К" = R_EAR_MODE,				"#К" = R_EAR_MODE,				"№К" = R_EAR_MODE,				".К" = R_EAR_MODE,
+	":Д" = L_EAR_MODE,				"#Д" = L_EAR_MODE,				"№Д" = L_EAR_MODE,				".Д" = L_EAR_MODE,
+	":Ш" = INTERCOM_MODE,				"#Ш" = INTERCOM_MODE,			"№Ш" = INTERCOM_MODE,			".Ш" = INTERCOM_MODE,
+	":Р" = DEPARTMENT_FREQ_NAME,		"#Р" = DEPARTMENT_FREQ_NAME,	"№Р" = DEPARTMENT_FREQ_NAME,	".Р" = DEPARTMENT_FREQ_NAME,
+	":С" = COMM_FREQ_NAME,			"#С" = COMM_FREQ_NAME,			"№С" = COMM_FREQ_NAME,			".С" = COMM_FREQ_NAME,
+	":Т" = SCI_FREQ_NAME,				"#Т" = SCI_FREQ_NAME,			"№Т" = SCI_FREQ_NAME,			".Т" = SCI_FREQ_NAME,
+	":Ь" = MED_FREQ_NAME,				"#Ь" = MED_FREQ_NAME,			"№Ь" = MED_FREQ_NAME,			".Ь" = MED_FREQ_NAME,
+	":У" = ENG_FREQ_NAME,				"#У" = ENG_FREQ_NAME,			"№У" = ENG_FREQ_NAME,			".У" = ENG_FREQ_NAME,
+	":Ы" = SEC_FREQ_NAME,				"#Ы" = SEC_FREQ_NAME,			"№Ы" = SEC_FREQ_NAME,			".Ы" = SEC_FREQ_NAME,
+	":Ц" = WHISPER_CHANNEL,			"#Ц" = WHISPER_CHANNEL,			"№Ц" = WHISPER_CHANNEL,			".Ц" = WHISPER_CHANNEL,
+	":Е" = SYND_FREQ_NAME,			"#Е" = SYND_FREQ_NAME,			"№Е" = SYND_FREQ_NAME,			".Е" = SYND_FREQ_NAME,
+	":Э" = SOV_FREQ_NAME,				"#Э" = SOV_FREQ_NAME,			"№Э" = SOV_FREQ_NAME,			".Э" = SOV_FREQ_NAME,
+	":Б" = SYND_TAIPAN_FREQ_NAME,		"#Б" = SYND_TAIPAN_FREQ_NAME,	"№Б" = SYND_TAIPAN_FREQ_NAME,	".Б" = SYND_TAIPAN_FREQ_NAME,
+	":Г" = SUP_FREQ_NAME,				"#Г" = SUP_FREQ_NAME,			"№Г" = SUP_FREQ_NAME,			".Г" = SUP_FREQ_NAME,
+	":Я" = SRV_FREQ_NAME,				"#Я" = SRV_FREQ_NAME,			"№Я" = SRV_FREQ_NAME,			".Я" = SRV_FREQ_NAME,
+	":З" = AI_FREQ_NAME,				"#З" = AI_FREQ_NAME,			"№З" = AI_FREQ_NAME,			".З" = AI_FREQ_NAME,
+	":Ё" = CORDS_MODE,				"#Ё" = CORDS_MODE,				"№Ё" = CORDS_MODE,				".Ё" = CORDS_MODE,
+	":Ю" = PRS_FREQ_NAME,				"#Ю" = PRS_FREQ_NAME,			"№Ю" = PRS_FREQ_NAME,			".Ю" = PRS_FREQ_NAME,
 
 	// English symbols no case
-	  ":~" = CORDS_MODE,				"#~" = CORDS_MODE,				"№~" = CORDS_MODE,				".~" = CORDS_MODE,
-	  ":," = SYND_TAIPAN_FREQ_NAME,		"#," = SYND_TAIPAN_FREQ_NAME,	"№," = SYND_TAIPAN_FREQ_NAME,	".," = SYND_TAIPAN_FREQ_NAME,
-	  ":1" = EVENT_ALPHA_FREQ_NAME,		"#1" = EVENT_ALPHA_FREQ_NAME,	"№1" = EVENT_ALPHA_FREQ_NAME,	".1" = EVENT_ALPHA_FREQ_NAME,
-	  ":2" = EVENT_BETA_FREQ_NAME,		"#2" = EVENT_BETA_FREQ_NAME,	"№2" = EVENT_BETA_FREQ_NAME,	".2" = EVENT_BETA_FREQ_NAME,
-	  ":3" = EVENT_GAMMA_FRE_NAME,		"#3" = EVENT_GAMMA_FRE_NAME,	"№3" = EVENT_GAMMA_FRE_NAME,	".3" = EVENT_GAMMA_FRE_NAME,
+	":~" = CORDS_MODE,				"#~" = CORDS_MODE,				"№~" = CORDS_MODE,				".~" = CORDS_MODE,
+	":," = SYND_TAIPAN_FREQ_NAME,		"#," = SYND_TAIPAN_FREQ_NAME,	"№," = SYND_TAIPAN_FREQ_NAME,	".," = SYND_TAIPAN_FREQ_NAME,
+	":1" = EVENT_ALPHA_FREQ_NAME,		"#1" = EVENT_ALPHA_FREQ_NAME,	"№1" = EVENT_ALPHA_FREQ_NAME,	".1" = EVENT_ALPHA_FREQ_NAME,
+	":2" = EVENT_BETA_FREQ_NAME,		"#2" = EVENT_BETA_FREQ_NAME,	"№2" = EVENT_BETA_FREQ_NAME,	".2" = EVENT_BETA_FREQ_NAME,
+	":3" = EVENT_GAMMA_FRE_NAME,		"#3" = EVENT_GAMMA_FRE_NAME,	"№3" = EVENT_GAMMA_FRE_NAME,	".3" = EVENT_GAMMA_FRE_NAME,
 	// Russian symbols no case
 		// None yet.
 
 	// Special symbols only (that means that they don't have/use an english/russian analogue)
-	  ":*" = NINJA_FREQ_NAME,			"#*" = NINJA_FREQ_NAME,			"№*" = NINJA_FREQ_NAME,			".*" = NINJA_FREQ_NAME,
-	  ":$" = ERT_FREQ_NAME,				"#$" = ERT_FREQ_NAME,			"№$" = ERT_FREQ_NAME,			".$" = ERT_FREQ_NAME,
- 	  ":_" = SYNDTEAM_FREQ_NAME,		"#_" = SYNDTEAM_FREQ_NAME,		"№_" = SYNDTEAM_FREQ_NAME,		"._" = SYNDTEAM_FREQ_NAME,
-	  ":-" = DTH_FREQ_NAME,				"#-" = DTH_FREQ_NAME,			"№-" = DTH_FREQ_NAME,			".-" = DTH_FREQ_NAME,
-	  ":+" = SPEC_FREQ_NAME,			"#+" = SPEC_FREQ_NAME,			"№+" = SPEC_FREQ_NAME,			".+" = SPEC_FREQ_NAME //activate radio-specific special functions
+	":*" = NINJA_FREQ_NAME,			"#*" = NINJA_FREQ_NAME,			"№*" = NINJA_FREQ_NAME,			".*" = NINJA_FREQ_NAME,
+	":$" = ERT_FREQ_NAME,				"#$" = ERT_FREQ_NAME,			"№$" = ERT_FREQ_NAME,			".$" = ERT_FREQ_NAME,
+	":_" = SYNDTEAM_FREQ_NAME,		"#_" = SYNDTEAM_FREQ_NAME,		"№_" = SYNDTEAM_FREQ_NAME,		"._" = SYNDTEAM_FREQ_NAME,
+	":-" = DTH_FREQ_NAME,				"#-" = DTH_FREQ_NAME,			"№-" = DTH_FREQ_NAME,			".-" = DTH_FREQ_NAME,
+	":+" = SPEC_FREQ_NAME,			"#+" = SPEC_FREQ_NAME,			"№+" = SPEC_FREQ_NAME,			".+" = SPEC_FREQ_NAME //activate radio-specific special functions
 ))
 
 
@@ -241,15 +241,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
 
-	if(SEND_SIGNAL( \
-        src, \
-        COMSIG_LIVING_EARLY_SAY, \
-        message, \
-        verb, \
-        ignore_speech_problems, \
-        ignore_atmospherics, \
-        ignore_languages, \
-        first_piece) & COMPONENT_PREVENT_SPEAKING)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_EARLY_SAY, message, verb, ignore_speech_problems, ignore_atmospherics, ignore_languages, first_piece) & COMPONENT_PREVENT_SPEAKING)
 		return FALSE
 
 	if(first_piece.speaking?.flags & HIVEMIND)
@@ -371,7 +363,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				italics = TRUE
 				sound_vol *= 0.5 //muffle the sound a bit, so it's like we're actually talking through contact
 
-		var/list/hear = hear(message_range, T)
+		var/list/hear = get_hear(message_range, T)
 		var/list/hearturfs = list()
 
 		for(var/I in hear)
@@ -409,7 +401,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency, FALSE)
+		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency, is_whisper = FALSE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
@@ -431,9 +423,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			if(O) //It's possible that it could be deleted in the meantime.
 				if(isradio(O))
 					var/obj/item/radio/radio = O
-					if(radio.broadcasting && get_dist(radio, M) <= radio.canhear_range && !(radio.frequency in transmited_channels))
+					if(radio.get_broadcasting() && get_dist(radio, M) <= radio.canhear_range && !(radio.get_frequency() in transmited_channels))
 						if(radio.talk_into(M, message_pieces, null, verbage))
-							transmited_channels += radio.frequency
+							transmited_channels += radio.get_frequency()
 				else
 					O.hear_talk(M, message_pieces, verbage)
 
@@ -517,7 +509,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		verb = "[adverb] [genderize_decode(src, verb)]"
 
 	var/atom/whisper_loc = get_whisper_loc()
-	var/list/listening = hear(message_range, whisper_loc)
+	var/list/listening = get_hear(message_range, whisper_loc)
 	listening |= src
 
 	var/list/hearturfs = list()
@@ -575,7 +567,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			speech_bubble_recipients.Add(M.client)
 
 	if(eavesdropping.len)
-		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
+		stars_all(message_pieces) //hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
 			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
 			if(M.client)

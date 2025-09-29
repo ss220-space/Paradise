@@ -5,10 +5,6 @@
 		return 1
 	return 0
 
-
-/mob/living/silicon/ai/var/max_locations = 10
-/mob/living/silicon/ai/var/stored_locations[0]
-
 /mob/living/silicon/ai/proc/get_camera_list()
 
 	track.cameras.Cut()
@@ -34,7 +30,7 @@
 	return T
 
 
-/mob/living/silicon/ai/proc/ai_camera_list(var/camera in get_camera_list())
+/mob/living/silicon/ai/proc/ai_camera_list(camera in get_camera_list())
 	set category = STATPANEL_AICOMMANDS
 	set name = "Список камер"
 
@@ -161,7 +157,7 @@
 
 	ai_actual_track(target)
 
-/mob/living/silicon/ai/proc/ai_cancel_tracking(var/forced = 0)
+/mob/living/silicon/ai/proc/ai_cancel_tracking(forced = 0)
 	if(!cameraFollow)
 		return
 

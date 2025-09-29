@@ -1,17 +1,3 @@
-// ERTs
-
-#define ERT_TYPE_AMBER		1
-#define ERT_TYPE_RED		2
-#define ERT_TYPE_GAMMA		3
-
-//Ranks
-
-#define MEDIUM_RANK_HOURS	200
-#define MAX_RANK_HOURS		500
-
-/datum/game_mode
-	var/list/datum/mind/ert = list()
-
 GLOBAL_LIST_EMPTY(response_team_members)
 GLOBAL_VAR_INIT(responseteam_age, 21) // Minimum account age to play as an ERT member
 GLOBAL_DATUM(active_team, /datum/response_team)
@@ -251,7 +237,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		if(ERT_ROLE_ENGINEER)
 			M.equipOutfit(engineering_outfit)
 
-		if(ERT_ROLE_SECURITY )
+		if(ERT_ROLE_SECURITY)
 			M.equipOutfit(security_outfit)
 
 		if(ERT_ROLE_MEDIC)
@@ -282,7 +268,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	)
 
 /// MARK: AMBER TEAM
-
 /datum/response_team/amber
 	engineering_outfit = /datum/outfit/job/centcom/response_team/engineer/amber
 	security_outfit = /datum/outfit/job/centcom/response_team/security/amber
@@ -299,7 +284,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	)
 
 /// MARK: RED TEAM
-
 /datum/response_team/red
 	engineering_outfit = /datum/outfit/job/centcom/response_team/engineer/red
 	security_outfit = /datum/outfit/job/centcom/response_team/security/red
@@ -317,7 +301,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	)
 
 /// MARK: GAMMA TEAM
-
 /datum/response_team/gamma
 	engineering_outfit = /datum/outfit/job/centcom/response_team/engineer/gamma
 	security_outfit = /datum/outfit/job/centcom/response_team/security/gamma
@@ -354,6 +337,10 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	implants = list(/obj/item/implant/mindshield/ert)
 
+//Ranks
+#define MEDIUM_RANK_HOURS 200
+#define MAX_RANK_HOURS 500
+
 /datum/outfit/job/centcom/response_team/pre_equip(mob/H) // Used to give specific rank
 	. = ..()
 	if(H.client)
@@ -373,12 +360,18 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	else
 		H.rename_character(null, "[ranks["Med"]] [H.gender==FEMALE ? pick(GLOB.last_names_female) : pick(GLOB.last_names)]")
 
+#undef MEDIUM_RANK_HOURS
+#undef MAX_RANK_HOURS
+
 /datum/outfit/job/centcom/response_team/post_equip(mob/H)
 	. = ..()
 	to_chat(H, special_message)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"
-	frequency = ERT_FREQ
 	icon_state = "radio"
 	freqlock = TRUE
+
+/obj/item/radio/centcom/Initialize(mapload)
+	. = ..()
+	set_frequency(ERT_FREQ)

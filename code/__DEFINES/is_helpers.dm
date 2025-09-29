@@ -71,6 +71,10 @@
 
 #define isgrenade(A) (istype(A, /obj/item/grenade))
 
+#define iscrayon(A) (istype(A, /obj/item/toy/crayon))
+
+#define issoap(A) (istype(A, /obj/item/soap))
+
 #define issupplypod(A) (istype(A, /obj/structure/closet/supplypod))
 
 #define ismortarcasing(A) (istype(A, /obj/item/mortar_shell))
@@ -157,6 +161,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isspaceturf(A) istype(A, /turf/space)
 
 #define isopenspaceturf(A) (istype(A, /turf/simulated/openspace) || istype(A, /turf/space/openspace))
+
+#define istransparentturf(A) (HAS_TRAIT(A, TURF_Z_TRANSPARENT_TRAIT))
 
 #define is_space_or_openspace(A) (isopenspaceturf(A) || isspaceturf(A))
 

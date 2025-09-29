@@ -342,9 +342,6 @@
 /datum/action/item_action/toggle_backpack_light
 	name = "Переключить мигалку на рюкзаке"
 
-/datum/action/item_action/belt_fast_equip
-	name = "Достать с пояса"
-
 /datum/action/item_action/toggle_unfriendly_fire/Trigger(left_click = TRUE)
 	if(..())
 		UpdateButtonIcon()
@@ -495,7 +492,6 @@
 	return ..()
 
 /datum/action/item_action/toggle_jetpack/ninja
-	name = "Переключить джетпак"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
@@ -511,7 +507,6 @@
 		button.icon_state = "[background_icon_state]_active"
 
 /datum/action/item_action/jetpack_stabilization/ninja
-	name = "Переключить стабилизацию джетпака"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
@@ -644,13 +639,11 @@
 /datum/action/item_action/bhop
 	name = "Активировать прыжковые ботинки"
 	desc = "Активирует систему прыжков, позволяя преодолевать препятствия шириной до 4 тайлов."
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 
 /datum/action/item_action/bhop/clown
 	name = "Активировать хонк-ботинки"
 	desc = "Активирует хонк-систему, позволяя перепрыгивать препятствия шириной до 6 тайлов."
-	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "clown"
 
 /datum/action/item_action/gravity_jump
@@ -707,7 +700,6 @@
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 
 /datum/action/item_action/accessory/IsAvailable()
 	. = ..()
@@ -740,7 +732,6 @@
 
 //Preset for spells
 /datum/action/spell_action
-	check_flags = 0
 	background_icon_state = "bg_spell"
 	var/recharge_text_color = "#FFFFFF"
 
@@ -821,7 +812,6 @@
 
 //Preset for general and toggled actions
 /datum/action/innate
-	check_flags = 0
 	var/active = FALSE
 
 /datum/action/innate/Trigger(left_click = TRUE)
@@ -864,7 +854,6 @@
 
 //Preset for action that call specific procs (consider innate)
 /datum/action/generic
-	check_flags = 0
 	var/procname
 
 /datum/action/generic/Trigger(left_click = TRUE)

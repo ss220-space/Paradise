@@ -4,10 +4,8 @@
 /mob/living/simple_animal/bot/secbot
 	name = "Securitron"
 	desc = "Маленький охранный робот. Он выглядит абсолютно спокойным."
-	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
@@ -61,13 +59,11 @@
 		INSTRUMENTAL = "охранным роботом",
 		PREPOSITIONAL = "охранном роботе",
 	)
-	
+
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
 	desc = "Это Офицер Бипски! Работает с помощью картофеля и рюмки виски."
-	idcheck = FALSE
-	weaponscheck = FALSE
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/beepsky/get_ru_names()
@@ -107,7 +103,6 @@
 /mob/living/simple_animal/bot/secbot/ofitser
 	name = "Prison Ofitser"
 	desc = "Это Офицер Тюремски! Работает с помощью крови, пота и слёз заключённых."
-	idcheck = FALSE
 	weaponscheck = TRUE
 	auto_patrol = TRUE
 
@@ -187,7 +182,7 @@
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
+	secsensor.show_to(src)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -253,7 +248,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, span_warning("Интерфейс [declent_ru(GENITIVE)] не отвечает!"))
@@ -468,7 +463,7 @@
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= target.get_max_stamina())
+			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= target.get_max_stamina())
 				back_to_hunt()
 				return
 

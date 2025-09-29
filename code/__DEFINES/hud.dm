@@ -28,6 +28,7 @@
 #define DIAG_PATH_HUD		"23"//Bot path indicators
 #define GLAND_HUD			"24"//Gland indicators for abductors
 #define THOUGHT_HUD			"25"//Telepathy bubbles
+#define PACIFISM_HUD			"pacifism_hud" // Hud for pacifists(only for dantalion for now)
 #define KIDAN_PHEROMONES_HUD	"pheromone_hud" // Kidan pheromones hud
 
 //by default everything in the hud_list of an atom is an image
@@ -64,14 +65,30 @@
 #define TAIPAN_HUD 25
 #define ANTAG_HUD_THIEF 26
 #define ANTAG_HUD_PRISONER_TRAITOR 27
-#define THOUGHTS_HUD 28
+#define ANTAG_HUD_TEAM_1 28
+#define ANTAG_HUD_TEAM_2 29
+#define ANTAG_HUD_TEAM_3 30
+#define THOUGHTS_HUD 31
 //species hud
-#define DATA_HUD_KIDAN_PHEROMONES 26
+#define DATA_HUD_KIDAN_PHEROMONES 32
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
 #define NOTIFY_ATTACK "attack"
 #define NOTIFY_FOLLOW "orbit"
+
+// Icon_state for MEDICAL_HUD
+#define STATUS_HUD_DEAD	"huddead"
+#define STATUS_HUD_DNR "huddeaddnr"
+#define STATUS_HUD_FLATLINE "hudflatline"
+#define STATUS_HUD_XENO "hudxeno"
+#define STATUS_HUD_TUMOUR "hudtumour"
+#define STATUS_HUD_BRAINWORM "hudbrainworm"
+#define STATUS_HUD_DEFIB "huddefib"
+#define STATUS_HUD_RAPID_BLEEDING "hudbleeding2"
+#define STATUS_HUD_BLEEDING "hudbleeding1"
+#define STATUS_HUD_ILL "hudill"
+#define STATUS_HUD_HEALTHY "hudhealthy"
 
 
 // The kind of things granted by HUD items in game, that do not manifest as
@@ -103,6 +120,9 @@
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"
+
+/// cooldown for being shown the images for any particular data hud
+#define ADD_HUD_TO_COOLDOWN 20
 
 /// Takes a string or num view, and converts it to pixel width/height in a list(pixel_width, pixel_height)
 /proc/view_to_pixels(view)

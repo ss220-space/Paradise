@@ -127,14 +127,14 @@
 	var/stuff_on_wall = 0
 	for(var/obj/O in user.loc.contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O, /obj/structure/sign))
-			to_chat(user, "<span class='notice'>\The [T] is far too cluttered to place \a [src]!</span>")
+			to_chat(user, span_notice("\The [T] is far too cluttered to place \a [src]!"))
 			return
 		stuff_on_wall++
 		if(stuff_on_wall >= 4)
-			to_chat(user, "<span class='notice'>\The [T] is far too cluttered to place \a [src]!</span>")
+			to_chat(user, span_notice("\The [T] is far too cluttered to place \a [src]!"))
 			return
 
-	to_chat(user, "<span class='notice'>You start place \the [src] on \the [T].</span>")
+	to_chat(user, span_notice("You start place \the [src] on \the [T]."))
 
 	var/px = 0
 	var/py = 0
@@ -150,7 +150,7 @@
 		if(WEST)
 			px = -32
 		else
-			to_chat(user, "<span class='notice'>You cannot reach \the [T] from here!</span>")
+			to_chat(user, span_notice("You cannot reach \the [T] from here!"))
 			return
 
 	user.drop_item_ground(src)
@@ -161,7 +161,7 @@
 
 	playsound(PF.loc, usesound, 100, TRUE)
 
-/obj/item/picture_frame/examine(mob/user, var/infix = "", var/suffix = "")
+/obj/item/picture_frame/examine(mob/user, infix = "", suffix = "")
 	. = ..()
 	if(displayed)
 		. += displayed.examine(user, infix, suffix)
@@ -299,7 +299,7 @@
 	qdel(src)
 
 
-/obj/structure/sign/picture_frame/examine(mob/user, var/infix = "", var/suffix = "")
+/obj/structure/sign/picture_frame/examine(mob/user, infix = "", suffix = "")
 	if(frame)
 		. += frame.examine(user, infix, suffix)
 	else

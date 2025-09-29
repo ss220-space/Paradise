@@ -1,6 +1,7 @@
 //STRIKE TEAMS
 
 #define COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
+
 GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 
 /client/proc/strike_team()
@@ -180,3 +181,5 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	else
 		new_commando.equipOutfit(/datum/outfit/admin/death_commando)
 	return new_commando
+
+#undef COMMANDOS_POSSIBLE

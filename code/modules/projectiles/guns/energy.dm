@@ -251,7 +251,7 @@
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if(!isnull(user) && (shot.select_name || shot.fluff_select_name))
-		var/static/gun_modes_ru = list( //about 2/3 of them will never be shown in game, but better save, than sorry
+		var/static/gun_modes_ru = list(//about 2/3 of them will never be shown in game, but better save, than sorry
 			"practice" = "режим практики",
 			"kill" = "летальный режим",
 			"shuriken" = "метатель сюрикенов",
@@ -331,6 +331,8 @@
 /obj/item/gun/energy/update_overlays()
 	. = ..()
 	var/overlay_name = overlay_set ? overlay_set : icon_state
+	if(!length(ammo_type))
+		return
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
 		. += "[overlay_name]_[shot.select_name]"

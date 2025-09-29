@@ -1,7 +1,3 @@
-#define REAGENT_UNITS_1 1
-#define REAGENT_UNITS_5 5
-#define REAGENT_UNITS_10 10
-
 /datum/reagent
 	var/name = "Реагент"
 	var/id = "reagent"
@@ -58,6 +54,12 @@
 	var/burncolor = "#f88818"
 	var/burncolormod = 1
 	var/fire_type = FIRE_VARIANT_DEFAULT //Unique types of fire not modeled by chemfire (1 = Armor Shredding Greenfire). Effects in flamer.dm
+
+	// borer roundstart reagents located at GLOB.borer_reagents.
+	/// borer special chemical description.
+	var/chemdesc
+	var/chemuse = 30
+	var/quantity = 10
 
 /datum/reagent/New()
 	addict_supertype = type

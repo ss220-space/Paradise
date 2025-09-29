@@ -1,6 +1,5 @@
 /obj/machinery/computer/mecha
 	name = "exosuit control console"
-	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"
 	light_color = LIGHT_COLOR_LAVENDER
@@ -8,7 +7,6 @@
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
 	var/screen = 0
-	var/stored_data = list()
 
 /obj/machinery/computer/mecha/attack_ai(mob/user)
 	return attack_hand(user)
@@ -39,8 +37,6 @@
 		if(tr_data)
 			data["beacons"] += list(tr_data)
 
-	data["stored_data"] = stored_data
-
 	return data
 
 
@@ -63,14 +59,6 @@
 			if(istype(MT))
 				MT.shock()
 				return TRUE
-		if("get_log")
-			var/obj/item/mecha_parts/mecha_tracking/MT = locateUID(params["mt"])
-			if(istype(MT))
-				stored_data = MT.get_mecha_log()
-				return TRUE
-		if("clear_log")
-			stored_data = list()
-			return TRUE
 
 /obj/item/mecha_parts/mecha_tracking
 	name = "Exosuit tracking beacon"
@@ -99,7 +87,7 @@
 	answer["airtank"] = M.return_pressure()
 	answer["pilot"] = "[M.occupant||"None"]"
 	var/area/area = get_area(M)
-	answer["location"] = "[sanitize(area.name)||"Unknown"]"
+	answer["location"] = "[sanitize(area.name)||UNKNOWN_STATUS_RUS]"
 	answer["equipment"] = "[M.selected||"None"]"
 	if(istype(M, /obj/mecha/working))
 		var/obj/mecha/working/RM = M
@@ -119,7 +107,7 @@
 						<b>Cell charge:</b> [isnull(cell_charge)?"Not found":"[M.cell.percent()]%"]
 						<b>Airtank:</b> [M.return_pressure()]kPa
 						<b>Pilot:</b> [M.occupant||"None"]
-						<b>Location:</b> [sanitize(A.name)||"Unknown"]
+						<b>Location:</b> [sanitize(A.name)||UNKNOWN_STATUS_RUS]
 						<b>Active equipment:</b> [M.selected||"None"]<br>"}
 	if(istype(M, /obj/mecha/working))
 		var/obj/mecha/working/RM = M
@@ -164,12 +152,6 @@
 	if(M)
 		M.emp_act(2)
 	qdel(src)
-
-/obj/item/mecha_parts/mecha_tracking/proc/get_mecha_log()
-	if(!in_mecha())
-		return list()
-	var/obj/mecha/M = loc
-	return M.get_log_tgui()
 
 /obj/item/mecha_parts/mecha_tracking/ai_control
 	name = "exosuit AI control beacon"

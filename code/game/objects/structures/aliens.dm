@@ -87,9 +87,7 @@
 /obj/structure/alien/resin/wall
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
-	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin_wall-0"
-	base_icon_state = "resin_wall"
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
@@ -340,7 +338,6 @@
 	name = "resin floor"
 	desc = "A thick resin surface covers the floor."
 	anchored = TRUE
-	density = FALSE
 	layer = ABOVE_ICYOVERLAY_LAYER
 	plane = FLOOR_PLANE
 	icon_state = "weeds"
@@ -468,9 +465,7 @@
 	name = "egg"
 	desc = "A large mottled egg."
 	icon_state = "egg_growing"
-	density = FALSE
 	anchored = TRUE
-	max_integrity = 100
 	integrity_failure = 5
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
@@ -518,19 +513,19 @@
 	if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
 		switch(status)
 			if(BURST)
-				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
+				to_chat(user, span_notice("You clear the hatched egg."))
 				playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
 				qdel(src)
 				return
 			if(GROWING)
-				to_chat(user, "<span class='notice'>The child is not developed yet.</span>")
+				to_chat(user, span_notice("The child is not developed yet."))
 				return
 			if(GROWN)
-				to_chat(user, "<span class='notice'>You retrieve the child.</span>")
+				to_chat(user, span_notice("You retrieve the child."))
 				Burst(kill = FALSE)
 				return
 	else
-		to_chat(user, "<span class='notice'>It feels slimy.</span>")
+		to_chat(user, span_notice("It feels slimy."))
 		user.changeNext_move(CLICK_CD_MELEE)
 
 

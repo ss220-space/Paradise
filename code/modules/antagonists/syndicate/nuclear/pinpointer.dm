@@ -505,7 +505,7 @@
 		if(!is_trackable(human))
 			continue
 
-		var/human_name = "Unknown"
+		var/human_name = UNKNOWN_NAME_RUS
 		if(human.wear_id)
 			var/obj/item/card/id/card = human.wear_id.GetID()
 			if(card)
@@ -553,7 +553,6 @@
 ///thief pinpointers///
 ///////////////////////
 /obj/item/pinpointer/thief
-	name = "pinpointer"
 	desc = "Модифицированный пинпоинтер #REDACTED# предназначенный для нахождения всех ценных и интересных для #REDACTED# сигнатур, не передающий сигналы локаторами. На обратной стороне напечатан странный непонятный детский ребус."
 	modes = list(MODE_THIEF)
 	shows_nuke_timer = FALSE

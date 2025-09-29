@@ -72,13 +72,11 @@
 
 /datum/bluespace_rift/big
 	name = "Большой Блюспейс Разлом"
-	rift_count = 1
 	rift_size = 7
 	time_per_tile = 14 SECONDS
 
 /datum/bluespace_rift/fog
 	name = "Блюспейс Туманность"
-	rift_count = 1
 	rift_size = 9
 	time_per_tile = 18 SECONDS
 
@@ -97,5 +95,4 @@
 /datum/bluespace_rift/hunter
 	name = "Разлом-Охотник"
 	effect_type = /obj/effect/abstract/bluespace_rift/hunter
-	rift_count = 1
 	rift_size = 3

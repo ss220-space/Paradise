@@ -1,9 +1,3 @@
-DROP TABLE IF EXISTS `custom_items`;
-CREATE TABLE IF NOT EXISTS `custom_items` (
-  `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dummy` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_datetime` datetime NOT NULL,
-  PRIMARY KEY (`ckey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+# Updates DB from 36 to 37
+# Adds support for disabling antagonism for some characters.
+ALTER TABLE `characters` ADD COLUMN `can_be_antagonist` tinyint(1) DEFAULT '1' AFTER `hair_gradient_alpha`;

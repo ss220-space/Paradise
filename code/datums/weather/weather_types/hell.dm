@@ -25,7 +25,6 @@
 
 	area_type = /area
 	protected_areas = list(/area/space)
-	target_trait = STATION_LEVEL
 
 	immunity_type = TRAIT_WEATHER_IMMUNE
 
@@ -40,7 +39,7 @@
 	SSshuttle.emergency.request(null, coefficient = 0.3)
 	transform_mobs()
 	for(var/area/area as anything in impacted_areas)
-		for(var/turf/turf in area.get_contained_turfs())
+		for(var/turf/turf in area.get_turfs_from_all_zlevels())
 			if(is_space_or_openspace(turf) || turf.density)
 				continue
 			affected_turfs_list += turf
@@ -183,14 +182,12 @@
 	name = "hell rift"
 	desc = "Разлом, позволяющий адским существам проникнуть в этот мир."
 	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
-	max_integrity = 300
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
 	color = "#7D1E20"
 	light_color = COLOR_SOFT_RED
 	light_range = 8
 	anchored = TRUE
-	density = FALSE
 	plane = OBJ_LAYER
 	var/imps_count = 0
 	var/timer_id
@@ -232,3 +229,15 @@
 		return
 	deltimer(timer_id)
 	qdel(src)
+
+#undef TURF_LAVA_COUNT
+#undef TURF_PORTAL_COUNT
+#undef TURF_METEOR_COUNT
+#undef PORTAL_LIFETIME
+#undef PORTAL_MAX_IMPS
+#undef LAVA_TIME
+#undef LAVA_MODE
+#undef PORTAL_MODE
+#undef METEOR_MODE
+#undef EMPTY_MODE
+#undef TELEGRAPH_TIME

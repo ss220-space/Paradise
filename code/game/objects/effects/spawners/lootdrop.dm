@@ -178,7 +178,6 @@
 /obj/effect/spawner/lootdrop/trade_sol/
 	name = "trader item spawner"
 	lootcount = 6
-	lootdoubles = TRUE
 	color = "#00FFFF"
 
 //У нас не используется
@@ -449,7 +448,6 @@
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "weaver"
 	lootdoubles = FALSE
-	lootcount = 1
 	loot = list(/mob/living/simple_animal/hostile/asteroid/marrowweaver = 40,
 	/mob/living/simple_animal/hostile/asteroid/marrowweaver/frost = 20,
 	"" = 40)

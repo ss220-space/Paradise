@@ -31,7 +31,6 @@
 
 	//when this be added to vis_contents of something it be associated with something on clicking,
 	//important for visualisation of turf in openspace and interraction with openspace that show you turf.
-	vis_flags = VIS_INHERIT_ID
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -56,7 +55,7 @@
 		// queueing compile, cloning appearance, etc etc etc that is not necessary here.
 		overlays += GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 
-	if (light_power && light_range)
+	if(light_power && light_range)
 		update_light()
 
 	if(opacity)
@@ -245,7 +244,7 @@
 			A.z = target_z
 			A.x = world.maxx - 2
 			spawn (0)
-				if((A && A.loc))
+				if(A && A.loc)
 					A.loc.Entered(A)
 	else if(src.x >= world.maxx)
 		if(istype(A, /obj/effect/meteor))
@@ -270,7 +269,7 @@
 			A.z = target_z
 			A.x = 3
 			spawn (0)
-				if((A && A.loc))
+				if(A && A.loc)
 					A.loc.Entered(A)
 	else if(src.y <= 1)
 		if(istype(A, /obj/effect/meteor))
@@ -294,7 +293,7 @@
 			A.z = target_z
 			A.y = world.maxy - 2
 			spawn (0)
-				if((A && A.loc))
+				if(A && A.loc)
 					A.loc.Entered(A)
 
 	else if(src.y >= world.maxy)
@@ -319,7 +318,7 @@
 			A.z = target_z
 			A.y = 3
 			spawn (0)
-				if((A && A.loc))
+				if(A && A.loc)
 					A.loc.Entered(A)
 	return
 

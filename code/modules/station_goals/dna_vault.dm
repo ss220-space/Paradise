@@ -39,9 +39,9 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 	<br><br>
 	The DNA Vault needs to contain samples of:
 	<ul style='margin-top: 10px; margin-bottom: 10px;'>
-	 <li>[animal_count] unique animal data.</li>
-	 <li>[plant_count] unique non-standard plant data.</li>
-	 <li>[human_count] unique sapient humanoid DNA data.</li>
+	<li>[animal_count] unique animal data.</li>
+	<li>[plant_count] unique non-standard plant data.</li>
+	<li>[human_count] unique sapient humanoid DNA data.</li>
 	</ul>
 	The base vault parts should be available for shipping by your cargo shuttle."}
 
@@ -332,7 +332,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		return
 
 	if(HAS_TRAIT(H, TRAIT_NO_DNA))
-		balloon_alert(H, "ДНК не обнаружена")
+		balloon_alert(H, UNLINT("ДНК не обнаружена"))
 		return
 
 	switch(upgrade_type)

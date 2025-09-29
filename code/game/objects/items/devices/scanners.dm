@@ -24,6 +24,7 @@ BODY SCANNERS
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
 	origin_tech = "magnets=1;engineering=1"
+	toolbox_radial_menu_compatibility = TRUE
 	var/scan_range = 1
 	var/pulse_duration = 1 SECONDS
 
@@ -149,9 +150,6 @@ BODY SCANNERS
 /obj/item/t_scanner/security
 	name = "Противо-маскировочное ТГц устройство"
 	desc = "Излучатель терагерцевого типа используемый для сканирования области на наличие замаскированных биоорганизмов. Устройство уязвимо для ЭМИ излучения."
-	icon = 'icons/obj/device.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "sb_t-ray"
 	icon_state = "sb_t-ray0"
 	base_icon_state = "sb_t-ray"
@@ -252,7 +250,7 @@ BODY SCANNERS
 			if(H.reagents.reagent_list.len)
 				to_chat(user, span_notice("Subject contains the following reagents:"))
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					to_chat(user, "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> – [span_boldannounceic("OVERDOSING")]" : ".</span>"]")
+					to_chat(user, "[span_notice("[R.volume]u of [R.name]")][R.overdosed ? " – [span_boldannounceic("OVERDOSING")]" : "[span_notice(".")]"]")
 			else
 				to_chat(user, span_notice("Subject contains no reagents."))
 			if(H.reagents.addiction_list.len)
@@ -278,7 +276,6 @@ BODY SCANNERS
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=200)
 	origin_tech = "magnets=1;biotech=1"
 	var/mode = 1
@@ -333,7 +330,7 @@ BODY SCANNERS
 		return
 	print_report(user)
 
-/obj/item/healthanalyzer/proc/print_report(var/mob/living/user)
+/obj/item/healthanalyzer/proc/print_report(mob/living/user)
 	if(!scan_data)
 		to_chat(user, "Нет данных для печати.")
 		return
@@ -555,7 +552,7 @@ BODY SCANNERS
 
 	return data
 
-/obj/item/healthanalyzer/proc/medical_scan_action(mob/living/user, atom/target, var/obj/item/healthanalyzer/scanner, var/mode, var/advanced)
+/obj/item/healthanalyzer/proc/medical_scan_action(mob/living/user, atom/target, obj/item/healthanalyzer/scanner, mode, advanced)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, span_warning("Вам не хватает ловкости, чтобы использовать [declent_ru(ACCUSATIVE)]!"))
 		balloon_alert(user, "невозможно!")
@@ -614,7 +611,7 @@ BODY SCANNERS
 	return data
 
 // Scan data to TGUI
-/proc/medical_scan_results(var/mob/living/M, var/mode = 1, var/advanced = FALSE)
+/proc/medical_scan_results(mob/living/M, mode = 1, advanced = FALSE)
 	var/mob/living/carbon/human/H = M
 	var/list/data = list()
 	var/DNR = !H.ghost_can_reenter()
@@ -1066,7 +1063,6 @@ BODY SCANNERS
 /obj/item/healthanalyzer/gem_analyzer
 	name = "eye of health"
 	desc = "Необычный самоцвет в форме сердца. Позволяет пользователю ощущать раны и болезни других существ на метафизическом уровне. Магия, не иначе."
-	icon = 'icons/obj/device.dmi'
 	icon_state = "gem_analyzer"
 	item_state = "gem_analyzer"
 	origin_tech = null
@@ -1096,9 +1092,7 @@ BODY SCANNERS
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 	origin_tech = "magnets=1;engineering=1"
 	tool_behaviour = TOOL_ANALYZER
@@ -1380,11 +1374,11 @@ BODY SCANNERS
 			var/one_percent = O.reagents.total_volume / 100
 			for(var/datum/reagent/R in O.reagents.reagent_list)
 				if(R.id != "blood")
-					dat += "<br>[TAB]<span class='notice'>[R][details ? ": [R.volume / one_percent]%" : ""]</span>"
+					dat += "<br>[TAB][span_notice("[R][details ? ": [R.volume / one_percent]%" : ""]")]"
 				else
 					blood_species = R.data["blood_species"]
 					blood_type = R.data["blood_type"]
-					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][blood_species ? " [blood_species]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
+					dat += "<br>[TAB][span_notice("[R][blood_type ? " [blood_type]" : ""][blood_species ? " [blood_species]" : ""][details ? ": [R.volume / one_percent]%" : ""]")]"
 		if(dat)
 			to_chat(user, span_notice("Chemicals found: [dat]"))
 			datatoprint = dat
@@ -1438,9 +1432,7 @@ BODY SCANNERS
 	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	throwforce = 0
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
 /obj/item/slime_scanner/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

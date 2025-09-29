@@ -56,7 +56,7 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/attack_hand(mob/user)
 	if(!shuttle_port && !SSshuttle.getShuttle(shuttleId))
-		to_chat(user,"<span class='warning'>Warning: Shuttle connection severed!</span>")
+		to_chat(user,span_warning("Warning: Shuttle connection severed!"))
 		return
 	return ..()
 
@@ -143,23 +143,23 @@
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	var/landing_clear = checkLandingSpot()
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
-		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
+		to_chat(current_user, span_warning("Targeting transit location, please wait [DisplayTimeText(designate_time)]..."))
 		designating_target_loc = the_eye.loc
 		var/wait_completed = do_after(current_user, designate_time, designating_target_loc, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/camera_advanced/shuttle_docker, canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
 		if(!wait_completed)
-			to_chat(current_user, "<span class='warning'>Operation aborted.</span>")
+			to_chat(current_user, span_warning("Operation aborted."))
 			return
 		landing_clear = checkLandingSpot()
 
 	if(landing_clear != SHUTTLE_DOCKER_LANDING_CLEAR)
 		switch(landing_clear)
 			if(SHUTTLE_DOCKER_BLOCKED)
-				to_chat(current_user, "<span class='warning'>Invalid transit location</span>")
+				to_chat(current_user, span_warning("Invalid transit location"))
 			if(SHUTTLE_DOCKER_BLOCKED_BY_HIDDEN_PORT)
-				to_chat(current_user, "<span class='warning'>Unknown object detected in landing zone. Please designate another location.</span>")
+				to_chat(current_user, span_warning("Unknown object detected in landing zone. Please designate another location."))
 		return
 
 	if(!my_port)
@@ -196,11 +196,11 @@
 
 	if(current_user.client)
 		current_user.client.images += the_eye.placed_images
-		to_chat(current_user, "<span class='notice'>Transit location designated</span>")
+		to_chat(current_user, span_notice("Transit location designated"))
 	return
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget()
-	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)) )
+	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)))
 		return FALSE
 	return TRUE
 
@@ -297,10 +297,8 @@
 		jumpto_ports[dock.id] = TRUE
 
 /mob/camera/aiEye/remote/shuttle_docker
-	visible_icon = FALSE
 	use_static = FALSE
 	simulated = FALSE
-	ai_detector_visible = FALSE	// The Shuttle Docker does not trigger the AI Detector
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 
@@ -351,7 +349,6 @@
 
 /datum/action/innate/camera_jump/shuttle_docker
 	name = "Телепорт в локацию"
-	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/shuttle_docker/Activate()
 	if(QDELETED(target) || !isliving(target))

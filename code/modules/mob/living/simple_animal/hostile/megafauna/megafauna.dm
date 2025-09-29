@@ -3,7 +3,6 @@
 	desc = "Атакуйте слабое место для нанесения массивного урона."
 	health = 1000
 	maxHealth = 1000
-	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_BOSS
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	obj_damage = 400
@@ -201,7 +200,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
 	. = ..()
-	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
+	for(var/turf/simulated/floor/chasm/C in circle_range_turfs(src, 1))
 		C.set_density(FALSE) //I hate it.
 		addtimer(CALLBACK(C, TYPE_PROC_REF(/atom, set_density), TRUE), 2 SECONDS)	// Needed to make them path. I hate it.
 

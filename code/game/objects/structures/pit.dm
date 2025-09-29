@@ -3,8 +3,6 @@
 	desc = "Watch your step, partner."
 	icon = 'icons/obj/pit.dmi'
 	icon_state = "pit1"
-	blend_mode = BLEND_DEFAULT
-	density = FALSE
 	anchored = TRUE
 	armor = list(melee = 50, bullet = 100, laser = 100, energy = 50, bomb = 50, bio = 50, rad = 50, fire = 50, acid = 50)
 	layer = 2.9
@@ -16,7 +14,7 @@
 	return
 
 /obj/structure/pit/AllowDrop()
-    return TRUE
+	return TRUE
 
 
 /obj/structure/pit/attackby(obj/item/I, mob/user, params)
@@ -118,7 +116,7 @@
 				M.update_tint()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/pit/proc/close(var/user)
+/obj/structure/pit/proc/close(user)
 	name = "mound"
 	desc = "Some things are better left buried."
 	open = FALSE
@@ -194,7 +192,6 @@
 //spoooky
 /obj/structure/pit/closed/grave
 	name = "grave"
-	icon_state = "pit0"
 
 /obj/structure/pit/closed/grave/Initialize(mapload)
 	. = ..()

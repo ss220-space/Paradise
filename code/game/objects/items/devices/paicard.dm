@@ -20,13 +20,15 @@
 	var/obj/item/paicard_upgrade/upgrade
 	var/list/upgrades = list()
 
+	var/current_emotion = 1
+
 /obj/item/paicard/get_ru_names()
 	return list(
-		NOMINATIVE = "интелкарта пИИ", 
-		GENITIVE = "интелкарты пИИ", 
-		DATIVE = "интелкарте пИИ", 
-		ACCUSATIVE = "интелкарту пИИ", 
-		INSTRUMENTAL = "интелкартой пИИ", 
+		NOMINATIVE = "интелкарта пИИ",
+		GENITIVE = "интелкарты пИИ",
+		DATIVE = "интелкарте пИИ",
+		ACCUSATIVE = "интелкарту пИИ",
+		INSTRUMENTAL = "интелкартой пИИ",
 		PREPOSITIONAL = "интелкарте пИИ"
 	)
 
@@ -96,13 +98,13 @@
 				<table class="request">
 					<tr>
 						<td class="radio">Transmit:</td>
-						<td><a href='byond://?src=[UID()];wires=4'>[radio.broadcasting ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=[UID()];wires=4'>[radio.get_broadcasting() ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>
 					<tr>
 						<td class="radio">Receive:</td>
-						<td><a href='byond://?src=[UID()];wires=2'>[radio.listening ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
+						<td><a href='byond://?src=[UID()];wires=2'>[radio.get_listening() ? "<font color=#55FF55>En" : "<font color=#FF5555>Dis" ]abled</font></a>
 
 						</td>
 					</tr>
@@ -137,7 +139,7 @@
 		else
 			dat += {"
 				<b><font size='3px'>pAI Request Module</font></b><br><br>
-			    <p>No personality is installed.</p>
+				<p>No personality is installed.</p>
 				<table>
 					<tr>
 						<td class="button"><a href='byond://?src=[UID()];request=1' class="button">Request personality</a>
@@ -260,8 +262,6 @@
 		add_overlay(get_emissive_block())
 	QDEL_LIST(upgrades)
 
-/obj/item/paicard
-	var/current_emotion = 1
 /obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
 		cut_overlays()
@@ -381,13 +381,13 @@
 		if(!radio)
 			to_chat(user, span_warning("[pai.name] не имеет установленного радио!"))
 			return ATTACK_CHAIN_PROCEED
-		if(radio.keyslot1)
+		if(radio.keyslot)
 			to_chat(user, span_warning("[pai.name] не имеет свободных слотов под ключи шифрования!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		radio.keyslot1 = I
-		radio.recalculateChannels()
+		radio.keyslot = I
+		radio.recalculate_channels()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -409,16 +409,16 @@
 
 		to_chat(user, span_notice("Вы вытащили картридж улучшения пИИ."))
 
-	if(radio?.keyslot1)
+	if(radio?.keyslot)
 		for(var/ch_name in radio.channels)
 			SSradio.remove_object(radio, SSradio.radiochannels[ch_name])
 			radio.secure_radio_connections[ch_name] = null
 
 		if(T)
-			user.put_in_hands(radio.keyslot1)
-			radio.keyslot1 = null
+			user.put_in_hands(radio.keyslot)
+			radio.keyslot = null
 
-		radio.recalculateChannels()
+		radio.recalculate_channels()
 		to_chat(user, span_notice("Вы извлекли ключ шифрования из [declent_ru(GENITIVE)]."))
 		I.play_tool_sound(user, I.tool_volume)
 
@@ -498,7 +498,7 @@
 	if(paicard.radio.keyslot2.syndie)
 		paicard.radio.syndiekey = paicard.radio.keyslot2
 
-	paicard.radio.recalculateChannels(TRUE)
+	paicard.radio.recalculate_channels(TRUE)
 	if(paicard.pai)
 		to_chat(paicard.pai, span_notice("Обнаружены новые частоты радиосообщения, калибровка..."))
 
@@ -512,26 +512,26 @@
 	icon_state = "paper_words"
 	info = {"<center> <b>Инструкция по применению СпИИ</b> </center><br>
 
- <b>В набор СпИИ входит:</b><br>
- 1.Картридж СпИИ<br>
- 2.Обычная карта для пИИ<br>
- 3.Отвертка<br>
- 4.Инструкция по применению<br>
- <br>
- <b>Использование:</b><br>
- Вариант №1<br>
- Вставить картридж в пИИ и запросить личность. Нужно подождать пока из базы данных загрузится пИИ. Примерное время ожидания от 30 секунд до 5 минут.<br>
- Вариант №2<br>
- Если у вас уже есть активный пИИ, то вставьте в него картридж. Он получит все обновления и перезагрузку ЦПУ.<br>
- Вариант №3<br>
- Если из базы данных не было предоставлено личности пИИ, то вы можете достать картридж с помощью отвертки, чтобы вернуть потраченные средства.<br>
- <br>
- <b>После обновления ваш пИИ получит дополнительную память, а также возможность установить новые программы:</b><br>
- 1.Доступ к видеокамерам станции.<br>
- 2.Возможность синтезировать и вводить лечащие реагенты в хозяина.<br>
- 3.Возмоность взаимодействия со шлюзами раз в 10 секунд (открытие, болтировка, электризация)<br>
- 4.Доступ к продвинутым записям СБ, для выставления и снятия статусов ареста или ввода в манифест.<br>
- 5.Термальное зрение для пИИ<br>
+<b>В набор СпИИ входит:</b><br>
+1.Картридж СпИИ<br>
+2.Обычная карта для пИИ<br>
+3.Отвертка<br>
+4.Инструкция по применению<br>
+<br>
+<b>Использование:</b><br>
+Вариант №1<br>
+Вставить картридж в пИИ и запросить личность. Нужно подождать пока из базы данных загрузится пИИ. Примерное время ожидания от 30 секунд до 5 минут.<br>
+Вариант №2<br>
+Если у вас уже есть активный пИИ, то вставьте в него картридж. Он получит все обновления и перезагрузку ЦПУ.<br>
+Вариант №3<br>
+Если из базы данных не было предоставлено личности пИИ, то вы можете достать картридж с помощью отвертки, чтобы вернуть потраченные средства.<br>
+<br>
+<b>После обновления ваш пИИ получит дополнительную память, а также возможность установить новые программы:</b><br>
+1.Доступ к видеокамерам станции.<br>
+2.Возможность синтезировать и вводить лечащие реагенты в хозяина.<br>
+3.Возмоность взаимодействия со шлюзами раз в 10 секунд (открытие, болтировка, электризация)<br>
+4.Доступ к продвинутым записям СБ, для выставления и снятия статусов ареста или ввода в манифест.<br>
+5.Термальное зрение для пИИ<br>
 "}
 
 /obj/item/paper/pai_upgrade/update_icon_state()

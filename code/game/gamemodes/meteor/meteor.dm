@@ -46,16 +46,16 @@
 
 			else
 				switch(location.loc.type)
-					if( /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom )
+					if(/area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
 						text += span_fontsize2("<br>[player.real_name] escaped in a life pod.")
 					else
 						text += span_fontsize1("<br>[player.real_name] survived but is stranded without any hope of rescue.")
 			survivors++
 
 	if(survivors)
-		to_chat(world, "<span class='boldnotice'>The following survived the meteor storm</span>:[text]")
+		to_chat(world, "[span_boldnotice("The following survived the meteor storm")]:[text]")
 	else
-		to_chat(world, "<span class='boldnotice'>Nobody survived the meteor storm!</span>")
+		to_chat(world, span_boldnotice("Nobody survived the meteor storm!"))
 
 	SSticker.mode_result = "meteor end - evacuation"
 

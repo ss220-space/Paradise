@@ -10,9 +10,7 @@
 	icon_state = "mining_drone"
 	icon_living = "mining_drone"
 	status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPUSH
-	mouse_opacity = MOUSE_OPACITY_ICON
 	faction = list("neutral")
-	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	move_to_delay = 10
 	health = 125
@@ -27,11 +25,13 @@
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	sentience_type = SENTIENCE_MINEBOT
 	speak_emote = list("констатирует")
-	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
-						  /obj/item/stack/ore/plasma,  /obj/item/stack/ore/uranium,    /obj/item/stack/ore/iron,
-						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
-						  /obj/item/stack/ore/titanium)
-	healable = 0
+	wanted_objects = list(
+		/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
+		/obj/item/stack/ore/plasma,  /obj/item/stack/ore/uranium,    /obj/item/stack/ore/iron,
+		/obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
+		/obj/item/stack/ore/titanium
+	)
+	healable = FALSE
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
 	light_system = MOVABLE_LIGHT
@@ -246,7 +246,6 @@
 
 /datum/action/innate/minedrone
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	background_icon_state = "bg_default"
 
 /datum/action/innate/minedrone/toggle_light
 	name = "Переключить фонарик"

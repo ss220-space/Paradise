@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		return
 
 	for(var/datum/mind/member as anything in members)
-		to_chat(member.current, "<font color='#d6000b'><span class='bold'>Admin Team Message ([user.key]): </span><span class='notice'>[message]</span>")
+		to_chat(member.current, "<font color='#d6000b'>[span_bold("Admin Team Message ([user.key]): ")][span_notice("[message]")]")
 
 	message_admins("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
 	log_admin("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
@@ -273,6 +273,9 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		content += "</ol><a href='byond://?_src_=holder;team_command=admin_add_member;team=[check_team.UID()]'>Add Member</a><hr>"
 		content += "<hr>"
 	return content.Join()
+
+/datum/team/proc/pre_declare_completion()
+	return
 
 /datum/team/proc/declare_completion()
 	return

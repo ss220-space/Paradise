@@ -17,14 +17,13 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
-	w_class = WEIGHT_CLASS_SMALL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
 	origin_tech = "engineering=1;plasmatech=1"
 	tool_behaviour = TOOL_WELDER
-	toolspeed = 1
 	tool_enabled = FALSE
+	toolbox_radial_menu_compatibility = TRUE
 	usesound = 'sound/items/welder.ogg'
 	drop_sound = 'sound/items/handling/drop/weldingtool_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/weldingtool_pickup.ogg'
@@ -48,23 +47,25 @@
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
+	RegisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE, PROC_REF(handle_toolbox_signal))
 
 /obj/item/weldingtool/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	UnregisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE)
 	return ..()
 
 /obj/item/weldingtool/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 0)
-		. += "<span class='notice'>It contains [GET_FUEL] unit\s of fuel out of [maximum_fuel].</span>"
+		. += span_notice("It contains [GET_FUEL] unit\s of fuel out of [maximum_fuel].")
 
 /obj/item/weldingtool/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return FIRELOSS
 
 /obj/item/weldingtool/can_enter_storage(obj/item/storage/S, mob/user)
 	if(tool_enabled)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, span_warning("[S] can't hold [src] while it's lit!"))
 		return FALSE
 	else
 		return TRUE
@@ -91,6 +92,10 @@
 /obj/item/weldingtool/attack_self(mob/user)
 	if(try_toggle_welder(user))
 		return ..()
+
+/obj/item/weldingtool/proc/handle_toolbox_signal(datum/source, mob/user)
+	SIGNAL_HANDLER
+	try_toggle_welder(user)
 
 /obj/item/weldingtool/proc/try_toggle_welder(mob/user, manual_toggle = TRUE)
 	if(tool_enabled) //Turn off the welder if it's on
@@ -127,20 +132,19 @@
 	update_icon()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_r_hand()
-		M.update_inv_l_hand()
+		M.update_held_items()
 
 // If welding tool ran out of fuel during a construction task, construction fails.
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount, silent = FALSE)
 	if(!tool_enabled)
 		if(!silent)
-			to_chat(user, "<span class='notice'>[src] has to be on to complete this task!</span>")
+			to_chat(user, span_notice("[src] has to be on to complete this task!"))
 		return FALSE
 	if(GET_FUEL >= amount * requires_fuel)
 		return TRUE
 	else
 		if(!silent)
-			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
+			to_chat(user, span_warning("You need more welding fuel to complete this task!"))
 		return FALSE
 
 // When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
@@ -181,16 +185,16 @@
 	if(!A.reagents)
 		return
 	if(GET_FUEL >= maximum_fuel)
-		to_chat(user, "<span class='notice'>[src] is already full!</span>")
+		to_chat(user, span_notice("[src] is already full!"))
 		return
 	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
 	if(amount_transferred)
-		to_chat(user, "<span class='notice'>You refuel [src] by [amount_transferred] unit\s.</span>")
+		to_chat(user, span_notice("You refuel [src] by [amount_transferred] unit\s."))
 		playsound(src, 'sound/effects/refill.ogg', 50, TRUE)
 		update_icon()
 		return amount_transferred
 	else
-		to_chat(user, "<span class='warning'>There's not enough fuel in [A] to refuel [src]!</span>")
+		to_chat(user, span_warning("There's not enough fuel in [A] to refuel [src]!"))
 
 
 /obj/item/weldingtool/update_icon_state()
@@ -234,7 +238,7 @@
 	desc = "A miniature welder used during emergencies."
 	icon_state = "miniwelder"
 	maximum_fuel = 10
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	low_fuel_changes_icon = FALSE
 
@@ -242,7 +246,6 @@
 	name = "alien welding tool"
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "welder"
 	item_state = "alienwelder"
 	belt_icon = "alien_welding_tool"
 	toolspeed = 0.1
@@ -251,6 +254,7 @@
 	requires_fuel = FALSE
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weldingtool/hugetank
 	name = "upgraded welding tool"
@@ -289,3 +293,5 @@
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	force_enabled = 10
+
+#undef GET_FUEL

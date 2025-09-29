@@ -37,6 +37,8 @@
 	var/parent_stack = FALSE
 	/// The weight class the stack has at amount > 2/3rds of max_amount
 	var/full_w_class = WEIGHT_CLASS_NORMAL
+	/// for icons when inserted in protolathe
+	var/protolathe_name
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 
@@ -419,7 +421,7 @@
 /obj/item/stack/proc/update_weight()
 	if(amount <= (max_amount * (1/3)))
 		w_class = clamp(full_w_class-2, WEIGHT_CLASS_TINY, full_w_class)
-	else if (amount <= (max_amount * (2/3)))
+	else if(amount <= (max_amount * (2/3)))
 		w_class = clamp(full_w_class-1, WEIGHT_CLASS_TINY, full_w_class)
 	else
 		w_class = full_w_class

@@ -30,7 +30,7 @@
 			if(M.mind && isobserver(M))
 				to_chat(M, "<i>Thought-speech, <b>[src]</b> -> <b>[B.truename]:</b> [message]</i>")
 
-/mob/living/captive_brain/say_understands(var/mob/other, var/datum/language/speaking = null)
+/mob/living/captive_brain/say_understands(mob/other, datum/language/speaking = null)
 	var/mob/living/simple_animal/borer/B = loc
 
 	if(!istype(B))
@@ -74,7 +74,6 @@
 
 	tts_seed = "Gman_e2"
 
-	response_help = "тычет"
 	response_disarm = "подталкивает"
 	response_harm = "топчет"
 
@@ -89,7 +88,6 @@
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	status_flags = CANPUSH
 	density = FALSE
 
 	faction = list("creature")
@@ -153,13 +151,13 @@
 	)
 
 
-/mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
+/mob/living/simple_animal/borer/New(atom/newloc, gen=1)
 	antag_datum.borer_rank = new BORER_RANK_YOUNG(src)
 	..(newloc)
 	remove_from_all_data_huds()
 	generation = gen
 	add_language(LANGUAGE_HIVE_BORER)
-	notify_ghosts("Мозговой червь появился в [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
+	notify_ghosts("Мозговой червь появился в [get_area(src)]!", enter_link = "<a href=byond://?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 	real_name = "Мозговой червь [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
@@ -226,7 +224,7 @@
 	return ..()
 
 
-/mob/living/simple_animal/borer/proc/Communicate(var/sended_message)
+/mob/living/simple_animal/borer/proc/Communicate(sended_message)
 	if(!host)
 		to_chat(src, "У вас нет носителя!")
 		return
@@ -775,7 +773,7 @@
 	return
 
 
-/mob/living/simple_animal/borer/proc/transfer_personality(var/client/candidate)
+/mob/living/simple_animal/borer/proc/transfer_personality(client/candidate)
 	if(QDELETED(candidate) || QDELETED(candidate.mob))
 		return
 

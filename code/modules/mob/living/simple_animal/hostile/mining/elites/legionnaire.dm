@@ -33,8 +33,6 @@
 	attack_sound = 'sound/effects/hit_punch.ogg'
 	throw_message = "не наносит вреда"
 	speed = 0.5 //Since it is mainly melee, this *should* be right
-	move_to_delay = 3
-	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/hallucinations/wail.ogg'
 	deathmessage = "протягивает руки перед тем, как рассыпаться безжизненной грудой костей."
 	sight = SEE_MOBS // So it can see through smoke / charge through walls like the kool aid man.
@@ -272,7 +270,6 @@
 	throw_message = "пролетает мимо"
 	speed = 0
 	move_to_delay = 2
-	aggro_vision_range = 18
 	del_on_death = 1
 	deathmessage = "рассыпается в прах!"
 	faction = list()
@@ -303,7 +300,6 @@
 	max_integrity = 100
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	anchored = TRUE
-	density = FALSE
 	light_range = 4
 	light_color = COLOR_SOFT_RED
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
@@ -373,7 +369,6 @@
 
 //The visual effect which appears in front of legionnaire when he goes to charge.
 /obj/effect/temp_visual/dragon_swoop/legionnaire
-	duration = 10
 
 /obj/effect/temp_visual/dragon_swoop/legionnaire/Initialize(mapload)
 	. = ..()

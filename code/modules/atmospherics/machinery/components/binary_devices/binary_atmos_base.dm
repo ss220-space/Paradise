@@ -1,7 +1,5 @@
 /obj/machinery/atmospherics/binary
-	dir = SOUTH
 	initialize_directions = SOUTH|NORTH
-	use_power = IDLE_POWER_USE
 
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
 	layer_offset = GAS_PUMP_OFFSET
@@ -140,7 +138,7 @@
 	else if(Old == parent2)
 		parent2 = New
 
-/obj/machinery/atmospherics/binary/unsafe_pressure_release(var/mob/user,var/pressures)
+/obj/machinery/atmospherics/binary/unsafe_pressure_release(mob/user, pressures)
 	..()
 
 	var/turf/T = get_turf(src)

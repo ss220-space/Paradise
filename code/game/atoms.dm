@@ -36,8 +36,12 @@
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
 
-	//This atom's HUD (med/sec, etc) images. Associative list.
-	var/list/image/hud_list
+	///all of this atom's HUD (med/sec, etc) images. Associative list of the form: list(hud category = hud image or images for that category).
+	///most of the time hud category is associated with a single image, sometimes its associated with a list of images.
+	///not every hud in this list is actually used. for ones available for others to see, look at active_hud_list.
+	var/list/image/hud_list = null
+	///all of this atom's HUD images which can actually be seen by players with that hud
+	var/list/image/active_hud_list = null
 	//HUD images that this atom can provide.
 	var/list/hud_possible
 
@@ -111,6 +115,50 @@
 
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
+
+	/// List of fibers that this atom has
+	var/list/suit_fibers
+	var/list/time_of_touch
+
+	var/smooth = NONE
+	var/top_left_corner
+	var/top_right_corner
+	var/bottom_left_corner
+	var/bottom_right_corner
+
+	///What directions this is currently smoothing with. IMPORTANT: This uses the smoothing direction flags as defined in icon_smoothing.dm, instead of the BYOND flags.
+	var/smoothing_junction = null
+	///What smoothing groups does this atom belongs to, to match canSmoothWith. If null, nobody can smooth with it. Must be sorted.
+	var/list/smoothing_groups = null
+	///List of smoothing groups this atom can smooth with. If this is null and atom is smooth, it smooths only with itself. Must be sorted.
+	var/list/canSmoothWith = null
+
+	// These lists are built as necessary, so atoms aren't all lugging around empty lists
+	/// The alternate appearances we own
+	var/list/alternate_appearances
+	/// The alternate appearances we're viewing, stored here to reestablish them after Logout()s
+	var/list/viewing_alternate_appearances
+
+	/// Whenever we start dragging atom, this variable will contain world.time() of the moment we started dragging atom. It is required to check how long dragNdrop was to prevent abusing the feature of laggy dragNdrop click, otherwile will be 0.
+	var/drag_start = 0
+
+	/// List of overlay "keys" (info about the appearance) -> mutable versions of static appearances
+	/// Drawn from the overlays list
+	var/list/realized_overlays
+	/// List of underlay "keys" (info about the appearance) -> mutable versions of static appearances
+	/// Drawn from the underlays list
+	var/list/realized_underlays
+	/// Sources that changes gravity of object. Treated as lazy list.
+	var/list/gravity_sources
+	/// Sources that 100% won't changes gravity of object. Treated as lazy list.
+	var/list/ignored_gravity_sources
+
+	/// Last appearance of the atom for demo saving purposes
+	var/image/demo_last_appearance
+
+	/// This var isn't actually used for anything, but is present so that
+	/// DM's map reader doesn't forfeit on reading a JSON-serialized map
+	var/map_json_data
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -194,7 +242,7 @@
 		for(var/obj/docking_port/mobile/mobile in SSshuttle.mobile)
 			if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 				for(var/area/shuttle/shuttle_area in mobile.shuttle_areas)
-					if(T in shuttle_area)
+					if(shuttle_area == T.loc)
 						return TRUE
 
 	if(!is_admin_level(T.z))//if not, don't bother
@@ -241,6 +289,9 @@
 		QDEL_NULL(light)
 	if(length(light_sources))
 		light_sources.Cut()
+
+	if(smooth & SMOOTH_QUEUED)
+		SSicon_smooth.remove_from_queues(src)
 
 	return ..()
 
@@ -494,12 +545,14 @@
 /// Updates the name of the atom
 /atom/proc/update_name(updates = ALL)
 	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME, updates)
 
 
 /// Updates the description of the atom
 /atom/proc/update_desc(updates = ALL)
 	SHOULD_CALL_PARENT(TRUE)
+	PROTECTED_PROC(TRUE)
 	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
 
 
@@ -582,6 +635,7 @@
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
+	PROTECTED_PROC(TRUE)
 	return
 
 
@@ -589,6 +643,7 @@
 /// The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
 /// WARNING: if you provide external list to this proc, IT MUST BE A COPY, since ref to this list is saved in var/managed_overlays.
 /atom/proc/update_overlays()
+	PROTECTED_PROC(TRUE)
 	RETURN_TYPE(/list)
 	. = list()
 
@@ -1057,19 +1112,19 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(wear_suit)
 		wear_suit.add_blood(blood_dna, color)
 		wear_suit.blood_color = color
-		update_inv_wear_suit()
+		update_worn_oversuit()
 	else if(w_uniform)
 		w_uniform.add_blood(blood_dna, color)
 		w_uniform.blood_color = color
-		update_inv_w_uniform()
+		update_worn_undersuit()
 	if(head)
 		head.add_blood(blood_dna, color)
 		head.blood_color = color
-		update_inv_head()
+		update_worn_head()
 	if(glasses)
 		glasses.add_blood(blood_dna, color)
 		glasses.blood_color = color
-		update_inv_glasses()
+		update_worn_glasses()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, color)
@@ -1081,7 +1136,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		transfer_blood_dna(blood_dna)
 		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
-	update_inv_gloves()	//handles bloody hands overlays and updating
+	update_worn_gloves()	//handles bloody hands overlays and updating
 	return TRUE
 
 
@@ -1121,42 +1176,42 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	blood_state = BLOOD_STATE_NOT_BLOODY
 	if(ismob(loc))
 		var/mob/M = loc
-		M.update_inv_shoes()
+		M.update_worn_shoes()
 
 /mob/living/carbon/human/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
 		if(w_uniform.clean_blood())
-			update_inv_w_uniform()
+			update_worn_undersuit()
 	if(gloves && !(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
 		if(gloves.clean_blood())
-			update_inv_gloves()
+			update_worn_gloves()
 			gloves.germ_level = 0
 			clean_hands = FALSE
 	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
 		if(shoes.clean_blood())
-			update_inv_shoes()
+			update_worn_shoes()
 			clean_feet = FALSE
 	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
 		if(s_store.clean_blood())
-			update_inv_s_store()
+			update_suit_storage()
 	if(lip_style && !(head && head.flags_inv & HIDEMASK))
 		lip_style = null
 		update_body()
 	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEGLASSES))
 		if(glasses.clean_blood())
-			update_inv_glasses()
+			update_worn_glasses()
 	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
 		if(l_ear.clean_blood())
-			update_inv_ears()
+			update_worn_ears()
 	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEHEADSETS))
 		if(r_ear.clean_blood())
-			update_inv_ears()
+			update_worn_ears()
 	if(belt)
 		if(belt.clean_blood())
-			update_inv_belt()
+			update_worn_belt()
 	if(neck)
 		if(neck.clean_blood())
-			update_inv_neck()
+			update_worn_neck()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
@@ -1222,10 +1277,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, S, current_size)
 
 /**
-  * Respond to acid being used on our atom
-  *
-  * Default behaviour is to send COMSIG_ATOM_ACID_ACT and return
-  */
+ * Respond to acid being used on our atom
+ *
+ * Default behaviour is to send COMSIG_ATOM_ACID_ACT and return
+ */
 /atom/proc/acid_act(acidpwr, acid_volume)
 	SEND_SIGNAL(src, COMSIG_ATOM_ACID_ACT, acidpwr, acid_volume)
 
@@ -1254,7 +1309,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	message = replace_characters(message, list("+"))
 
 	var/list/speech_bubble_hearers = list()
-	for(var/mob/M in get_mobs_in_view(7, src))
+	for(var/mob/M in get_hearers_in_view(7, src))
 		M.show_message(span_gamesay(span_name("[capitalize(declent_ru(NOMINATIVE))]") + " [pick(atom_say_verb)], \"[message]\""), 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
@@ -1555,7 +1610,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else if(!in_range(src, user))
 		balloon_alert(user, "слишком далеко!")
 		return null
-	else if (user.incapacitated())
+	else if(user.incapacitated())
 		balloon_alert(user, "невозможно в данный момент!")
 		return null
 
@@ -1573,10 +1628,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			ru_names = get_ru_names_cached()
 			name = "[initial(name)]"
 		else
-			var/list/names =  get_ru_names_cached()
-			ru_names = names? names.Copy() : new /list(6)
-			for(var/i = 1; i <= 6; i++)
-				ru_names[i] = "[names ? names[i] : initial(name)] - [t]"
+			var/list/names = get_ru_names_cached()
+			ru_names = names ? names.Copy() : new /list(6)
+			if(use_prefix)
+				for(var/i = 1; i <= 6; i++)
+					ru_names[i] = "[names ? names[i] : initial(name)] - [t]"
+			else
+				for(var/i = 1; i <= 6; i++)
+					ru_names[i] = "[t]"
 			name = "[prefix][t]"
 	return t
 
@@ -1837,19 +1896,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/MouseEntered(location, control, params)
 	SSmouse_entered.hovers[usr.client] = src
 
-	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
-	var/screentip_mode = usr.client.prefs.screentip_mode
-	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
-		active_hud.screentip_text.maptext = ""
-		return
-
-	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-	active_hud.screentip_text.maptext = MAPTEXT("<span style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[src.declent_ru(NOMINATIVE)]</span>")
-
-// This is normal, I assure you. Paradise optimization.
-/atom/MouseExited(location, control, params)
-	usr.hud_used.screentip_text.maptext = ""
-
 /// Fired whenever this atom is the most recent to be hovered over in the tick.
 /// Preferred over MouseEntered if you do not need information such as the position of the mouse.
 /// Especially because this is deferred over a tick, do not trust that `client` is not null.
@@ -1863,6 +1909,19 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Face directions on harm intent
 	if(user.face_mouse && !user.incapacitated())
 		user.face_atom(src)
+
+	// Screentips
+	var/datum/hud/active_hud = user.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	if(!active_hud)
+		return
+
+	var/screentip_mode = user.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+
+	// We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [user.client.prefs.screentip_color]'>[src.declent_ru(NOMINATIVE)]</span>"
 
 /atom/proc/add_gravity(id, gravity_delta)
 	if(id in gravity_sources)
@@ -1907,3 +1966,19 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/handle_flamer_fire_crossed(obj/flamer_fire/fire)
 	return
+
+/// Transforms the message emphasis mods from [/atom/proc/apply_message_emphasis] into the appropriate HTML tags. Includes escaping.
+#define ENCODE_HTML_EMPHASIS(input, char, html, varname) \
+	var/static/regex/##varname = regex("(?<!\\\\)[char](.+?)(?<!\\\\)[char]", "g");\
+	input = varname.Replace_char(input, "<[html]>$1</[html]>&#8203;") //zero-width space to force maptext to respect closing tags.
+
+/// Scans the input sentence for message emphasis modifiers, notably |italics|, +bold+, and _underline_ -mothblocks
+/atom/proc/apply_message_emphasis(input)
+	ENCODE_HTML_EMPHASIS(input, "\\|", "i", italics)
+	ENCODE_HTML_EMPHASIS(input, "\\+", "b", bold)
+	ENCODE_HTML_EMPHASIS(input, "\\_", "u", underline)
+	var/static/regex/remove_escape_backlashes = regex("\\\\(\\_|\\+|\\|)", "g") // Removes backslashes used to escape text modification.
+	input = remove_escape_backlashes.Replace_char(input, "$1")
+	return input
+
+#undef ENCODE_HTML_EMPHASIS

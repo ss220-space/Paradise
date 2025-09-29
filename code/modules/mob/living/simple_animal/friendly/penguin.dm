@@ -27,7 +27,6 @@
 
 /mob/living/simple_animal/pet/penguin/emperor
 	name = "Emperor penguin"
-	real_name = "penguin"
 	desc = "Emperor of all he surveys."
 	icon_state = "penguin"
 	icon_living = "penguin"
@@ -43,7 +42,6 @@
 
 /mob/living/simple_animal/pet/penguin/eldrich
 	name = "Albino penguin"
-	real_name = "penguin"
 	desc = "Found in the depths of mountains."
 	response_help  = "taps"
 	response_disarm = "pokes"
@@ -75,7 +73,6 @@
 /mob/living/simple_animal/pet/penguin/baby
 	speak = list("gah", "noot noot", "noot!", "noot", "squeee!", "noo!")
 	name = "Penguin chick"
-	real_name = "penguin"
 	desc = "Can't fly and can barely waddles, but the prince of all chicks."
 	icon_state = "penguin_baby"
 	icon_living = "penguin_baby"
@@ -83,4 +80,3 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 2)
 	density = FALSE
 	pass_flags = PASSMOB
-	mob_size = MOB_SIZE_SMALL

@@ -90,7 +90,6 @@
 
 /obj/machinery/porta_turret/syndicate/vehicle_turret
 	name = "mounted turret"
-	animate_movement = SLIDE_STEPS
 	scan_range = 7
 	emp_vulnerable = TRUE
 	density = FALSE
@@ -98,8 +97,8 @@
 
 
 /obj/machinery/porta_turret/syndicate/vehicle_turret/fast
-	projectile = /obj/projectile/bullet/weakbullet4/c9mmte
-	eprojectile = /obj/projectile/bullet/weakbullet4/c9mmte
+	projectile = /obj/projectile/bullet/weakbullet4/c45nr
+	eprojectile = /obj/projectile/bullet/weakbullet4/c45nr
 	shot_delay = 0.2 SECONDS
 
 

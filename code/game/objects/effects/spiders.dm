@@ -5,7 +5,6 @@
 	gender = FEMALE
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
-	density = FALSE
 	max_integrity = 15
 	var/mob/living/carbon/human/master_commander = null
 	var/new_mind_memory = "Я свободный паук."
@@ -122,7 +121,7 @@
 /obj/structure/spider/spiderling/attack_hand(mob/living/user)
 	. = ..()
 	if(ishuman(user))
-		if (user.a_intent == INTENT_HELP)
+		if(user.a_intent == INTENT_HELP)
 			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[genderize_ru(user.gender,"","а","о","и")] брюшко [src.name]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		else
@@ -239,9 +238,7 @@
 /obj/effect/decal/cleanable/spiderling_remains
 	name = "spiderling remains"
 	desc = "Green squishy mess."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter"
-	anchored = TRUE
 
 /obj/structure/spider/cocoon
 	name = "cocoon"

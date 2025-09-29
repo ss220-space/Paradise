@@ -22,11 +22,6 @@
 	icon_state = "weedspray"
 	item_state = "plantbgone"
 	volume = 100
-	container_type = OPENCONTAINER
-	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
-	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 3
 	throw_range = 10
 	list_reagents = list("atrazine" = 100)
 
@@ -51,11 +46,6 @@
 	icon_state = "pestspray"
 	item_state = "plantbgone"
 	volume = 100
-	container_type = OPENCONTAINER
-	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
-	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 3
 	throw_range = 10
 	list_reagents = list("pestkiller" = 100)
 
@@ -120,7 +110,6 @@
 	flags = NONE
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
-	item_state = "cultivator"
 
 
 /obj/item/hatchet
@@ -153,7 +142,7 @@
 	)
 
 /obj/item/hatchet/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
 	return BRUTELOSS
 
@@ -182,7 +171,6 @@
 	desc = "A sharp and curved blade on a long fibremetal handle, this tool makes it easy to reap what you sow."
 	force = 13
 	throwforce = 5
-	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
@@ -209,7 +197,7 @@
 	)
 
 /obj/item/scythe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is beheading [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
@@ -236,7 +224,7 @@
 /obj/item/scythe/tele/attack_self(mob/user)
 	extend = !extend
 	if(extend)
-		to_chat(user, "<span class='warning'>With a flick of your wrist, you extend the scythe. It's reaping time!</span>")
+		to_chat(user, span_warning("With a flick of your wrist, you extend the scythe. It's reaping time!"))
 		slot_flags = ITEM_SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
 		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
 		force = 15		//slightly better than normal scythe damage
@@ -245,7 +233,7 @@
 		//Extend sound (blade unsheath)
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, TRUE)	//Sound credit to Qat of Freesound.org
 	else
-		to_chat(user, "<span class='notice'>You collapse the scythe, folding it away for easy storage.</span>")
+		to_chat(user, span_notice("You collapse the scythe, folding it away for easy storage."))
 		slot_flags = ITEM_SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
 		w_class = WEIGHT_CLASS_SMALL
 		force = 3
@@ -276,13 +264,9 @@
 /obj/item/reagent_containers/glass/bottle/nutrient
 	name = "jug of nutrient"
 	desc = "Пластиковая канистра для различных жидкостей."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug"
 	item_state = "plastic_jug"
-	w_class = WEIGHT_CLASS_TINY
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(1,2,5,10,20,40,80)
-	container_type = OPENCONTAINER
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'
 	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
@@ -291,12 +275,12 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра",
-        GENITIVE = "канистры",
-        DATIVE = "канистре",
-        ACCUSATIVE = "канистру",
-        INSTRUMENTAL = "канистрой",
-        PREPOSITIONAL = "канистре"
+		NOMINATIVE = "канистра",
+		GENITIVE = "канистры",
+		DATIVE = "канистре",
+		ACCUSATIVE = "канистру",
+		INSTRUMENTAL = "канистрой",
+		PREPOSITIONAL = "канистре"
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/New()
@@ -348,62 +332,55 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится И-ЗИ-Нутриент."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
 	list_reagents = list("eznutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра (И-ЗИ-Нутриент)",
-        GENITIVE = "канистры (И-ЗИ-Нутриент)",
-        DATIVE = "канистре (И-ЗИ-Нутриент)",
-        ACCUSATIVE = "канистру (И-ЗИ-Нутриент)",
-        INSTRUMENTAL = "канистрой (И-ЗИ-Нутриент)",
-        PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)"
+		NOMINATIVE = "канистра (И-ЗИ-Нутриент)",
+		GENITIVE = "канистры (И-ЗИ-Нутриент)",
+		DATIVE = "канистре (И-ЗИ-Нутриент)",
+		ACCUSATIVE = "канистру (И-ЗИ-Нутриент)",
+		INSTRUMENTAL = "канистрой (И-ЗИ-Нутриент)",
+		PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Лефт-Фо-Зед."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
 	list_reagents = list("left4zednutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра (Лефт-Фо-Зед)",
-        GENITIVE = "канистры (Лефт-Фо-Зед)",
-        DATIVE = "канистре (Лефт-Фо-Зед)",
-        ACCUSATIVE = "канистру (Лефт-Фо-Зед)",
-        INSTRUMENTAL = "канистрой (Лефт-Фо-Зед)",
-        PREPOSITIONAL = "канистре (Лефт-Фо-Зед)"
+		NOMINATIVE = "канистра (Лефт-Фо-Зед)",
+		GENITIVE = "канистры (Лефт-Фо-Зед)",
+		DATIVE = "канистре (Лефт-Фо-Зед)",
+		ACCUSATIVE = "канистру (Лефт-Фо-Зед)",
+		INSTRUMENTAL = "канистрой (Лефт-Фо-Зед)",
+		PREPOSITIONAL = "канистре (Лефт-Фо-Зед)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Робаст-Харвест."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_rh"
 	list_reagents = list("robustharvestnutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра (Робаст-Харвест)",
-        GENITIVE = "канистры (Робаст-Харвест)",
-        DATIVE = "канистре (Робаст-Харвест)",
-        ACCUSATIVE = "канистру (Робаст-Харвест)",
-        INSTRUMENTAL = "канистрой (Робаст-Харвест)",
-        PREPOSITIONAL = "канистре (Робаст-Харвест)"
+		NOMINATIVE = "канистра (Робаст-Харвест)",
+		GENITIVE = "канистры (Робаст-Харвест)",
+		DATIVE = "канистре (Робаст-Харвест)",
+		ACCUSATIVE = "канистру (Робаст-Харвест)",
+		INSTRUMENTAL = "канистрой (Робаст-Харвест)",
+		PREPOSITIONAL = "канистре (Робаст-Харвест)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "plastic_jug"
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_k"
-	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/New()
 	..()
@@ -413,35 +390,33 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
 	name = "jug of weed killer"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится атразин."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_wk"
 	list_reagents = list("atrazine" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра (Атразин)",
-        GENITIVE = "канистры (Атразин)",
-        DATIVE = "канистре (Атразин)",
-        ACCUSATIVE = "канистру (Атразин)",
-        INSTRUMENTAL = "канистрой (Атразин)",
-        PREPOSITIONAL = "канистре (Атразин)"
+		NOMINATIVE = "канистра (Атразин)",
+		GENITIVE = "канистры (Атразин)",
+		DATIVE = "канистре (Атразин)",
+		ACCUSATIVE = "канистру (Атразин)",
+		INSTRUMENTAL = "канистрой (Атразин)",
+		PREPOSITIONAL = "канистре (Атразин)"
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
 	name = "jug of pest spray"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержатся пестициды."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_pk"
 	list_reagents = list("pestkiller" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller/get_ru_names()
 	return list(
-        NOMINATIVE = "канистра (Пестициды)",
-        GENITIVE = "канистры (Пестициды)",
-        DATIVE = "канистре (Пестициды)",
-        ACCUSATIVE = "канистру (Пестициды)",
-        INSTRUMENTAL = "канистрой (Пестициды)",
-        PREPOSITIONAL = "канистре (Пестициды)"
+		NOMINATIVE = "канистра (Пестициды)",
+		GENITIVE = "канистры (Пестициды)",
+		DATIVE = "канистре (Пестициды)",
+		ACCUSATIVE = "канистру (Пестициды)",
+		INSTRUMENTAL = "канистрой (Пестициды)",
+		PREPOSITIONAL = "канистре (Пестициды)"
 	)
 
 /obj/item/conductive_organ

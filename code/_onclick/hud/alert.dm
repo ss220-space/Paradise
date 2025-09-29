@@ -104,7 +104,6 @@
 	icon_state = "default"
 	name = "Alert"
 	desc = "Something seems to have gone wrong with this alert, so report this bug please"
-	mouse_opacity = MOUSE_OPACITY_ICON
 	var/timeout = 0 //If set to a number, this alert will clear itself after that many deciseconds
 	var/severity = 0
 	var/alerttooltipstyle = ""
@@ -116,7 +115,6 @@
 
 /atom/movable/screen/alert/MouseExited()
 	closeToolTip(usr)
-	return ..()
 
 /atom/movable/screen/alert/proc/do_timeout(mob/M, category)
 	if(!M || !M.alerts)
@@ -137,14 +135,14 @@
 	icon_state = "too_much_oxy"
 
 /atom/movable/screen/alert/not_enough_nitro
-    name = "Удушье (Недостаток N)"
-    desc = "Вам не хватает азота.<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
-    icon_state = "not_enough_nitro"
+	name = "Удушье (Недостаток N)"
+	desc = "Вам не хватает азота.<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
+	icon_state = "not_enough_nitro"
 
 /atom/movable/screen/alert/too_much_nitro
-    name = "Удушье (Избыток N)"
-    desc = "Слишком много азота в воздухе!<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
-    icon_state = "too_much_nitro"
+	name = "Удушье (Избыток N)"
+	desc = "Слишком много азота в воздухе!<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
+	icon_state = "too_much_nitro"
 
 /atom/movable/screen/alert/not_enough_co2
 	name = "Удушье (Недостаток CO2)"
@@ -188,19 +186,24 @@
 	icon_state = "hot"
 
 /atom/movable/screen/alert/hot/robot
-    desc = "Воздух вокруг вас слишком горячий для гуманоидов.<br>Будьте осторожны и не подвергайте их воздействию окружающей среды."
+	desc = "Воздух вокруг вас слишком горячий для гуманоидов.<br>Будьте осторожны и не подвергайте их воздействию окружающей среды."
 
 /atom/movable/screen/alert/cold
 	name = "Переохлаждение"
 	desc = "Вы ужасно замёрзли! Найдите место потеплее и снимите изолирующую одежду, например, скафандр."
 	icon_state = "cold"
 
+/atom/movable/screen/alert/bleeding
+	name = "Кровотечение"
+	desc = "У вас кровотечение! Проверьте свое тело и побыстрее остановите кровотечение чтобы не умереть."
+	icon_state = "bleeding"
+
 /atom/movable/screen/alert/cold/drask
-    name = "Холод"
-    desc = "Вы вдыхаете переохлаждённый газ! Это ускоряет метаболизм и заживление."
+	name = "Холод"
+	desc = "Вы вдыхаете переохлаждённый газ! Это ускоряет метаболизм и заживление."
 
 /atom/movable/screen/alert/cold/robot
-    desc = "Воздух вокруг вас слишком холодный для гуманоидов.<br>Будьте осторожны и не подвергайте их воздействию окружающей среды."
+	desc = "Воздух вокруг вас слишком холодный для гуманоидов.<br>Будьте осторожны и не подвергайте их воздействию окружающей среды."
 
 /atom/movable/screen/alert/lowpressure
 	name = "Низкое давление"
@@ -756,7 +759,7 @@
 
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there
 /datum/hud/proc/reorganize_alerts()
-	var/list/alerts = mymob.alerts
+	var/list/alerts = mymob?.alerts
 	if(!alerts)
 		return FALSE
 	var/icon_pref

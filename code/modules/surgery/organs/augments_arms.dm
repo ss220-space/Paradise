@@ -164,7 +164,7 @@
 	else
 		Retract()
 
-/obj/item/organ/internal/cyberimp/arm/proc/check_menu(var/mob/user)
+/obj/item/organ/internal/cyberimp/arm/proc/check_menu(mob/user)
 	return (owner && owner == user && owner.stat != DEAD && (src in owner.internal_organs) && !active_item)
 
 /obj/item/organ/internal/cyberimp/arm/proc/radial_menu(mob/user)

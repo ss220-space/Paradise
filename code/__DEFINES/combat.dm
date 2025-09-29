@@ -165,6 +165,8 @@
 
 //We will round to this value in damage calculations.
 #define DAMAGE_PRECISION 0.1
+//We will round to this value in bleeding calculations.
+#define BLEEDING_PRECISION 0.005
 
 //Gun Stuff
 #define SAWN_INTACT  0
@@ -226,10 +228,13 @@
 #define COMBO_PROC "proc"
 
 
-// core bitflags
-#define ATTACK_CHAIN_PROCEED (1<<2)	// intentionally not started with (1<<0) or 1, since 1 is equal to TRUE
-#define ATTACK_CHAIN_BLOCKED (1<<3)	// and we want to check validity of the core bitflags, returned by the attack chain procs
-// optional bitflags
+// Core bitflags
+
+/// Intentionally not started with (1<<0) or 1, since 1 is equal to TRUE
+#define ATTACK_CHAIN_PROCEED (1<<2)
+/// And we want to check validity of the core bitflags, returned by the attack chain procs
+#define ATTACK_CHAIN_BLOCKED (1<<3)
+// Optional bitflags
 #define ATTACK_CHAIN_SUCCESS (1<<0)
 #define ATTACK_CHAIN_NO_AFTERATTACK (1<<1)
 // bitflag combinations
@@ -254,3 +259,8 @@
 #define CLICK_CD_RAPID (0.2 SECONDS)
 #define CLICK_CD_LOOK_UP_DOWN (0.5 SECONDS)
 #define CLICK_CD_THROW (0.8 SECONDS)
+
+//the define for visible message range in combat
+#define SAMETILE_MESSAGE_RANGE 1
+#define COMBAT_MESSAGE_RANGE 3
+#define DEFAULT_MESSAGE_RANGE 7

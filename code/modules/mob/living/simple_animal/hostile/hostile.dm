@@ -4,6 +4,7 @@
 	obj_damage = 40
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //Bitflags. Set to ENVIRONMENT_SMASH_STRUCTURES to break closets,tables,racks, etc; ENVIRONMENT_SMASH_WALLS for walls; ENVIRONMENT_SMASH_RWALLS for rwalls
 	AI_delay_max = 1.5 SECONDS
+	a_intent = INTENT_HARM
 	var/atom/target
 	var/ranged = FALSE
 	var/ranged_distance = INFINITY
@@ -301,10 +302,10 @@
 
 	var/list/mob/high_priority_targets = list()
 	for(var/mob/T in Targets)
-		if (!(T.UID() in low_priority_targets))
+		if(!(T.UID() in low_priority_targets))
 			high_priority_targets.Add(T)
 
-	if (high_priority_targets.len)
+	if(high_priority_targets.len)
 		Targets = high_priority_targets
 
 	if(!Targets.len)//We didnt find nothin!
@@ -489,7 +490,7 @@
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
 	in_melee = TRUE
-	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
+	SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, target)
 	if(!client)
 		mob_attack_logs += "[time_stamp()] Attacked [target] at [COORD(src)]"
 	var/result = attack_proc()
@@ -569,7 +570,7 @@
 	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 
 /mob/living/simple_animal/hostile/proc/Shoot(atom/targeted_atom)
-	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
+	if(QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from)
 		return
 	var/turf/startloc = get_turf(targets_from)
 	if(casingtype)

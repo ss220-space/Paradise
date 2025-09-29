@@ -35,6 +35,9 @@
 	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
 	var/pull_push_slowdown = 0
 
+	var/list/req_access
+	var/check_one_access = TRUE
+
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)
@@ -74,6 +77,7 @@
 
 /obj/proc/CouldNotUseTopic(mob/user)
 	// Nada
+	return
 
 /obj/Destroy(force)
 	if(!ismachinery(src))
@@ -133,7 +137,7 @@
 		var/is_in_use = FALSE
 		var/list/nearby = viewers(1, src)
 		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
+			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.attack_hand(M)
 		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
@@ -158,7 +162,7 @@
 		var/list/nearby = viewers(1, src)
 		var/is_in_use = FALSE
 		for(var/mob/M in nearby)
-			if((M.client && M.machine == src))
+			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.interact(M)
 		var/ai_in_use = AutoUpdateAI(src)
@@ -204,11 +208,12 @@
 	return
 
 /obj/proc/hear_message(mob/M, text)
+	return
 
 /obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
 	add_fingerprint(user)
 	if(obj_integrity >= max_integrity)
-		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		to_chat(user, span_notice("[src] does not need repairs."))
 		return
 	if(I.tool_behaviour != TOOL_WELDER)
 		return
@@ -225,16 +230,16 @@
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
 	add_fingerprint(user)
 	if(!anchored && !isfloorturf(loc))
-		user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+		user.visible_message(span_warning("A floor must be present to secure [src]!"))
 		return FALSE
 	if(I.tool_behaviour != TOOL_WRENCH)
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
 	if(!(obj_flags & NODECONSTRUCT))
-		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
+		to_chat(user, span_notice("Now [anchored ? "un" : ""]securing [name]."))
 		if(I.use_tool(src, user, time, volume = I.tool_volume))
-			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
+			to_chat(user, span_notice("You've [anchored ? "un" : ""]secured [name]."))
 			set_anchored(!anchored)
 		return TRUE
 	return FALSE
@@ -336,6 +341,6 @@
 	C.take_organ_damage(damage)
 	if(!self_hurt)
 		take_damage(damage, BRUTE)
-	C.Weaken(3 SECONDS)
+	C.Knockdown(3 SECONDS)
 
 #undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER

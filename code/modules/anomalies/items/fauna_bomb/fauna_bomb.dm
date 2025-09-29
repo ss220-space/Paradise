@@ -128,7 +128,7 @@
 	var/req_charge = 0
 	for(var/mob/living/simple_animal/hostile/airmob/airmob as anything in created_mobs)
 		airmob.leash_radius = round(core.get_strength() / 15 + 0.5)
-		if (get_dist(src, airmob) > airmob.leash_radius)
+		if(get_dist(src, airmob) > airmob.leash_radius)
 			airmob.dust()
 			continue
 

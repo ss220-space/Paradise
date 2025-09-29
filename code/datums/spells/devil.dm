@@ -51,7 +51,6 @@
 	base_cooldown = 15 SECONDS
 	cooldown_min = 1 SECONDS
 
-	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_demon"
 	need_active_overlay = TRUE
 
@@ -109,7 +108,6 @@
 
 	base_cooldown = 5 SECONDS
 
-	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_demon"
 	need_active_overlay = TRUE
 
@@ -143,7 +141,6 @@
 	school = "conjuration"
 	base_cooldown = 5 SECONDS
 
-	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_demon"
 
 /obj/effect/proc_holder/spell/return_soul/create_new_targeting()
@@ -173,14 +170,10 @@
 	name = "Адское пламя"
 	desc = "Это заклинание запускает сгусток адского пламени в цель."
 
-	school = "evocation"
 	base_cooldown = 15 SECONDS
 
-	clothes_req = FALSE
-	human_req = FALSE
 
 	invocation = "Quaeso, quemdam inter vos quaero!"
-	invocation_type = "shout"
 
 	fireball_type = /obj/projectile/magic/fireball/infernal
 	action_background_icon_state = "bg_demon"
@@ -193,7 +186,6 @@
 	desc = "Используйте адское пламя, чтобы выйти за границу материального мира."
 
 	base_cooldown = 20 SECONDS
-	cooldown_min = 0
 
 	overlay = null
 
@@ -223,7 +215,7 @@
 			continuing = TRUE
 		else
 			for(var/mob/living/C in orange(2, get_turf(user.loc))) //Can also phase in when nearby a potential buyer.
-				if (C.mind && C.mind.soulOwner == C.mind)
+				if(C.mind && C.mind.soulOwner == C.mind)
 					continuing = TRUE
 					break
 		if(continuing)
@@ -285,7 +277,6 @@
 	desc = "Данное заклинание тонко подталкивает смертных к греху."
 
 	base_cooldown = 180 SECONDS
-	cooldown_min = 0
 
 	clothes_req = FALSE
 	human_req = FALSE
@@ -474,7 +465,7 @@
 	human.Knockdown(1 SECONDS)
 
 	if(!do_after(user, cast_time, user, NONE))
-		cooldown_handler.recharge_time = world.time + fail_cooldown
+		cooldown_handler.start_recharge(fail_cooldown)
 		return
 
 	make_shadow(human, devil)

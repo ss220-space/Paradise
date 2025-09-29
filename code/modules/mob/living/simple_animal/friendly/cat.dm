@@ -7,7 +7,6 @@
 	icon_dead = "cat2_dead"
 	icon_resting = "cat2_rest"
 	var/icon_sit = "sit"
-	gender = MALE
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("мурлычет", "мяукает")
 	emote_hear = list("мурлычет", "мяукает")
@@ -16,7 +15,6 @@
 	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
-	mob_size = MOB_SIZE_SMALL
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	animal_species = /mob/living/simple_animal/pet/cat
 	childtype = list(/mob/living/simple_animal/pet/cat/kitten)
@@ -194,10 +192,10 @@
 		if(turns_since_scan > 5)
 			SSmove_manager.stop_looping(src)
 			turns_since_scan = 0
-			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
+			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+			if(!movement_target || !(movement_target.loc in oview(src, 3)))
 				movement_target = null
 				stop_automated_movement = 0
 				for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
@@ -211,7 +209,6 @@
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
-	gender = MALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
@@ -302,7 +299,7 @@
 	if(!B || !B.brainmob || !B.brainmob.mind)
 		return
 	B.brainmob.mind.transfer_to(src)
-	to_chat(src, "<span class='big bold'>You are a cak!</span><b> You're a harmless cat/cake hybrid that everyone loves. People can take bites out of you if they're hungry, but you regenerate health \
+	to_chat(src, "[span_bigbold("You are a cak!")] You're a harmless cat/cake hybrid that everyone loves. People can take bites out of you if they're hungry, but you regenerate health \
 	so quickly that it generally doesn't matter. You're remarkably resilient to any damage besides this and it's hard for you to really die at all. You should go around and bring happiness and \
 	free cake to the station!</b>")
 	var/new_name = tgui_input_text(src, "Enter your name, or press \"Cancel\" to stick with Keeki.", "Name Change", name)
@@ -319,7 +316,6 @@
 	icon_dead = "penny_dead"
 	icon_resting = "penny_rest"
 	icon_sit = "rest"
-	gender = MALE
 	holder_type = /obj/item/holder/cak
 
 /mob/living/simple_animal/pet/cat/birman
@@ -330,7 +326,6 @@
 	icon_dead = "crusher_dead"
 	icon_resting = "crusher_rest"
 	icon_sit = "rest"
-	gender = MALE
 	holder_type = /obj/item/holder/crusher
 
 /mob/living/simple_animal/pet/cat/spacecat
@@ -366,7 +361,6 @@
 	health = 40
 	speed = 10		// TOO FAT
 	wander = 0		// LAZY
-	can_hide = 0
 	resting = TRUE
 	holder_type = /obj/item/holder/fatcat
 

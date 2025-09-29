@@ -17,15 +17,13 @@
  *		Toy xeno
  *		Toy chainsaws
  *		Action Figures
- *      Rubber Toolbox
+ *		Rubber Toolbox
  */
 
 
 /obj/item/toy
-	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
-	force = 0
 	var/unique_toy_rename = FALSE
 
 
@@ -135,10 +133,6 @@
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
 	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
-	throwforce = 0
-	throw_speed = 4
-	throw_range = 20
-	force = 0
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
 	w_class = WEIGHT_CLASS_BULKY
@@ -188,6 +182,8 @@
 	var/active = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("атаковал", "ударил")
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/toy/sword/attack_self(mob/user)
 	active = !active
@@ -206,8 +202,7 @@
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+		H.update_held_items()
 	add_fingerprint(user)
 	return
 
@@ -243,7 +238,6 @@
 	force = 0
 	throwforce = 0
 	throw_speed = 3
-	throw_range = 5
 	force_unwielded = 0
 	force_wielded = 0
 	origin_tech = null
@@ -268,7 +262,6 @@
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	force = 5
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("атаковал", "полоснул", "уколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
@@ -293,7 +286,6 @@
 	throwforce = 5.0
 	throw_speed = 10
 	throw_range = 30
-	w_class = WEIGHT_CLASS_TINY
 
 
 /obj/item/toy/snappop/virus/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -532,7 +524,6 @@
 	return pick(subtypesof(/obj/item/toy/therapy)) //exclude the base type.
 
 /obj/item/toy/therapy/red
-	item_state = "egg4" // It's the red egg in items_left/righthand
 	item_color = "red"
 
 /obj/item/toy/therapy/purple
@@ -548,7 +539,6 @@
 	item_color = "yellow"
 
 /obj/item/toy/therapy/orange
-	item_state = "egg4" // It's the red one again, lacking an orange item_state and making a new one is pointless
 	item_color = "orange"
 
 /obj/item/toy/therapy/green
@@ -682,15 +672,18 @@
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
-	playsound(loc, poof_sound, 20, TRUE)	// Play the whoosh sound in local area
+	play_poof_sound() // Play the whoosh sound in local area
 	if(iscarbon(target) && prob(10))
 		target.reagents.add_reagent("hugs", 10)
 
+/// Use this to override how your poof sound plays
+/obj/item/toy/plushie/proc/play_poof_sound()
+	playsound(get_turf(src), poof_sound, 30, TRUE)
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
 	var/cuddle_verb = pick("обнима[pluralize_ru(user.gender,"ет","ют")]", "тиска[pluralize_ru(user.gender,"ет","ют")]", "прижима[pluralize_ru(user.gender,"ет","ют")]")
 	user.visible_message(span_notice("[user] [cuddle_verb] the [src]."))
-	playsound(get_turf(src), poof_sound, 50, TRUE, -1)
+	play_poof_sound()
 	return ..()
 
 /obj/random/plushie
@@ -807,7 +800,6 @@
 /obj/item/toy/plushie/kotrazumist
 	name = "Razumist Cat"
 	desc = "Cat with warning cone on it. Wonder what do itself so smart?"
-	icon = 'icons/obj/toy.dmi'
 	icon_state = "razymist_cat"
 	COOLDOWN_DECLARE(cooldown)
 
@@ -822,7 +814,6 @@
 /obj/item/toy/plushie/kotwithfunnyhat
 	name = "Rice Cat"
 	desc = "White cat plushie with straw hat for hard work on rice field!"
-	icon = 'icons/obj/toy.dmi'
 	icon_state = "ricehat_cat"
 	COOLDOWN_DECLARE(cooldown)
 
@@ -1536,10 +1527,8 @@
 /obj/item/toy/plushie/beaver
 	name = "beaver plushie"
 	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья."
-	icon = 'icons/obj/toy.dmi'
 	icon_state = "beaver_plushie"
 	item_state = "beaver_plushie"
-	w_class = WEIGHT_CLASS_SMALL
 	gender = MALE
 
 /obj/item/toy/plushie/beaver/sounded //only adminspawn
@@ -1570,6 +1559,83 @@
 	playsound(loc, 'sound/items/wahwah.ogg', 50, FALSE)
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
+#define EVIL_MODE_CHANCE 5
+
+/obj/item/toy/plushie/wet_owl
+	name = "wet owl plushie"
+	desc = "Плюшевая игрушка поникшей мокрой совы. Она явно видела некоторое дерьмо."
+	icon_state = "wet_owl"
+	item_state = "wet_owl"
+	attack_verb = list("ухнул", "клюнул", "цапнул")
+	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | LAVA_PROOF
+	/// Is it in evil mode now or not
+	var/is_evil = FALSE
+	/// Cooldown to prevent evil sound spam
+	var/cooldown_time = 2 SECONDS
+	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/plushie/wet_owl/get_ru_names()
+	return list(
+		NOMINATIVE = "мокрая сова",
+		GENITIVE = "мокрой совы",
+		DATIVE = "мокрой сове",
+		ACCUSATIVE = "мокрую сову",
+		INSTRUMENTAL = "мокрой совой",
+		PREPOSITIONAL = "мокрой сове"
+	)
+
+/obj/item/toy/plushie/wet_owl/water_act(volume, temperature, source, method)
+	. = ..()
+	visible_message(span_cultitalic("[capitalize(declent_ru(NOMINATIVE))] недовольно завывает."))
+	playsound(src, 'sound/effects/wet_owl_horror.ogg', 50, FALSE, -1)
+	temporary_become_evil(30 SECONDS)
+
+/obj/item/toy/plushie/wet_owl/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] всматривается в бездну глаз [declent_ru(GENITIVE)], и бездна начинает всматриваться в ответ!"))
+	playsound(src, 'sound/effects/wet_owl_horror.ogg', 70, FALSE, -1)
+	user.emote("scream")
+	return SHAME
+
+/obj/item/toy/plushie/wet_owl/attack_self(mob/living/user)
+	. = ..()
+	if(prob(EVIL_MODE_CHANCE))
+		temporary_become_evil(5 SECONDS)
+
+	if(!is_evil)
+		return .
+
+	var/mob/living/carbon/human/human = user
+	human.AdjustConfused(3 SECONDS, bound_lower = 0, bound_upper = 15 SECONDS)
+
+/obj/item/toy/plushie/wet_owl/proc/temporary_become_evil(evil_mode_duration)
+	is_evil = TRUE
+	icon_state = "evil_wet_owl"
+	item_state = "evil_wet_owl"
+	desc = "Злобная плюшевая игрушка мокрой совы. Она явно видела некоторое дерьмо — это легко можно понять по её взгляду."
+	poof_sound = 'sound/effects/wet_owl_horror.ogg'
+	update_appearance()
+	addtimer(CALLBACK(src, PROC_REF(become_normal)), evil_mode_duration)
+
+/obj/item/toy/plushie/wet_owl/proc/become_normal()
+	is_evil = FALSE
+	icon_state = initial(icon_state)
+	item_state = initial(item_state)
+	desc = initial(desc)
+	poof_sound = initial(poof_sound)
+	update_appearance()
+
+/obj/item/toy/plushie/wet_owl/play_poof_sound()
+	if(!is_evil)
+		return ..()
+
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return
+
+	COOLDOWN_START(src, cooldown, cooldown_time)
+	playsound(loc, poof_sound, 20, FALSE)
+
+#undef EVIL_MODE_CHANCE
+
 /*
  * Foam Armblade
  */
@@ -1583,6 +1649,8 @@
 	attack_verb = list("уколол", "поглотил", "пронзил")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /*
  * Toy/fake flash
@@ -1763,7 +1831,6 @@
 /obj/item/storage/box/characters
 	name = "Box of Miniatures"
 	desc = "The nerd's best friends."
-	icon_state = "box"
 
 /obj/item/storage/box/characters/populate_contents()
 	new /obj/item/toy/character/alien(src)
@@ -1901,9 +1968,7 @@
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
-	throw_speed = 4
 	throw_range = 5
 	force = 5
 	origin_tech = "combat=1"
@@ -2007,8 +2072,6 @@
 	name = "Toy Chainsaw"
 	desc = "A toy chainsaw with a rubber edge. Ages 8 and up"
 	icon_state = "chainsaw0"
-	force = 0
-	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
 	wieldsound = 'sound/weapons/chainsaw_start.ogg'
@@ -2019,7 +2082,7 @@
 
 /*
  * Cat Toy
-  */
+ */
 /obj/item/toy/cattoy
 	name = "toy mouse"
 	desc = "A colorful toy mouse!"

@@ -32,7 +32,6 @@ Difficulty: Medium
 	speak_emote = list("ревёт")
 	tts_seed = "Chen"
 	speed = 3
-	move_to_delay = 3
 	projectiletype = /obj/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	ranged = TRUE
@@ -120,7 +119,6 @@ Difficulty: Medium
 	clothes_req = FALSE
 	human_req = FALSE
 	phase_allowed = TRUE
-	should_recharge_after_cast = TRUE
 	stat_allowed = UNCONSCIOUS
 	sound = 'sound/misc/enter_blood.ogg'
 	action_icon_state = "bloodcrawl"
@@ -339,7 +337,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/shoot_ka()
 	if(ranged_cooldown <= world.time && get_dist(src, target) <= MINER_DASH_RANGE && !Adjacent(target))
 		ranged_cooldown = world.time + ranged_cooldown_time
-		visible_message("<span class='danger'>[src] fires the proto-kinetic accelerator!</span>")
+		visible_message(span_danger("[src] fires the proto-kinetic accelerator!"))
 		face_atom(target)
 		new /obj/effect/temp_visual/dir_setting/firing_effect(loc, dir)
 		Shoot(target)

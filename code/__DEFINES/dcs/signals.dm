@@ -8,6 +8,8 @@
 
 ///from base of datum/controller/subsystem/mapping/proc/add_new_zlevel(): (list/args)
 #define COMSIG_GLOB_NEW_Z "!new_z"
+/// sent after world.maxx and/or world.maxy are expanded: (has_exapnded_world_maxx, has_expanded_world_maxy)
+#define COMSIG_GLOB_EXPANDED_WORLD_BOUNDS "!expanded_world_bounds"
 /// called after a successful var edit somewhere in the world: (list/args)
 #define COMSIG_GLOB_VAR_EDIT "!var_edit"
 /// called after an explosion happened : (epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
@@ -34,6 +36,11 @@
 #define COMSIG_GLOB_IFECTION_CREATED "!infection_created"
 #define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
 #define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
+
+#define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
+#define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"
+#define COMSIG_WEATHER_WINDDOWN(event_type) "!weather_winddown [event_type]"
+#define COMSIG_WEATHER_END(event_type) "!weather_end [event_type]"
 
 /// signals from globally accessible objects
 
@@ -220,7 +227,7 @@
 	#define COMPONENT_BLOCK_CONTAMINATION (1<<0)
 ///from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)
 #define COMSIG_ATOM_RAD_WAVE_PASSING "atom_rad_wave_pass"
-  #define COMPONENT_RAD_WAVE_HANDLED (1<<0)
+	#define COMPONENT_RAD_WAVE_HANDLED (1<<0)
 ///from internal loop in atom/movable/proc/CanReach(): (list/next)
 #define COMSIG_ATOM_CANREACH "atom_can_reach"
 	#define COMPONENT_BLOCK_REACH (1<<0)
@@ -269,6 +276,8 @@
 	#define COMPONENT_NO_AFTERATTACK (1<<1)
 	///Skips the specific attack step, continuing for the next one to happen.
 	#define COMPONENT_SKIP_ATTACK (1<<2)
+	///I dont know where and why it was used, but it was used in the same place with cancel chain and had the same value
+	#define COMPONENT_NO_INTERACT (1<<3)
 
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
@@ -329,6 +338,14 @@
 #define COMSIG_ATOM_ENTERED_AREA "atom_entered_area"
 ///from base of area/Exited(): (area/current_area, area/new_area)
 #define COMSIG_ATOM_EXITED_AREA "atom_exited_area"
+///from base of area/Entered(): (area/new_area). Sent to "area-sensitive" movables, see __DEFINES/traits.dm for info.
+#define COMSIG_ENTER_AREA "enter_area"
+///from base of area/Exited(): (area). Sent to "area-sensitive" movables, see __DEFINES/traits.dm for info.
+#define COMSIG_EXIT_AREA "exit_area"
+/// Called when some weather starts in this area
+#define COMSIG_WEATHER_BEGAN_IN_AREA(event_type) "weather_began_in_area_[event_type]"
+/// Called when some weather ends in this area
+#define COMSIG_WEATHER_ENDED_IN_AREA(event_type) "weather_ended_in_area_[event_type]"
 
 // /turf signals
 
@@ -596,7 +613,8 @@
 #define COMSIG_VIEW_SET "view_set"
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_MOB_CHANGED_TYPE "mob_changed_type"
-
+/// From base of /mob/proc/update_held_items
+#define COMSIG_MOB_UPDATE_HELD_ITEMS "mob_update_held_items"
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)
@@ -830,10 +848,6 @@
 ///Called after successfully performing the Devil Sacrifice Ritual
 #define COMSIG_DEVIL_SACRIFICE "devil_sacrifice"
 
-// /mob/living/simple_animal/hostile signals
-#define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
-	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
-
 ///after attackingtarget has happened, source is the attacker and target is the attacked, extra argument for if the attackingtarget was successful
 #define COMSIG_HOSTILE_POST_ATTACKINGTARGET "hostile_post_attackingtarget"
 
@@ -892,7 +906,6 @@
 #define COMSIG_ITEM_ATTACK "item_attack"
 ///from base of obj/item/attack_self(): (/mob)
 #define COMSIG_ITEM_ATTACK_SELF "item_attack_self"
-	#define COMPONENT_NO_INTERACT (1<<0)
 ///from base of obj/item/attack_obj(): (/obj, /mob)
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
 ///from base of obj/item/pre_attackby(): (atom/target, mob/user, params)
@@ -1031,6 +1044,17 @@
 
 /// Sent from obj/item/gun/zoom(): (user, zoomed)
 #define COMSIG_GUN_ZOOM_TOGGLE "gun_zoom_toggle"
+
+/// Sent from datum/component/laser_sight/datum/keybinding/toggle_laser_sight/down(): (user, gun)
+#define COMSIG_KEYBINDING_GUN_LASER_SIGHT "keybbinding_laser_sight_toggle"
+
+/// Sent from datum/component/laser_sight/process_aim(): (user, enable)
+#define COMSIG_GUN_AFTER_LASER_SIGHT_TOGGLE "gun_after_laser_sight_toggle"
+
+/// Sent from obj/item/gun_module/on_attach(): (user, obj/item/gun, obj/item/gun_module)
+#define COMSIG_GUN_MODULE_ATTACH "gun_module_attach"
+/// Sent from obj/item/gun_module/on_detach(): (user, obj/item/gun, obj/item/gun_module)
+#define COMSIG_GUN_MODULE_DETACH "gun_module_detach"
 
 // /obj/item/grenade signals
 
@@ -1356,7 +1380,10 @@
 // HUD:
 /// Sent from /datum/hud/proc/eye_z_changed() : (old_offset, new_offset)
 #define COMSIG_HUD_OFFSET_CHANGED "hud_offset_changed"
-
+/// Sent from /datum/hud/proc/eye_z_changed() : (new_z)
+#define COMSIG_HUD_Z_CHANGED "hud_z_changed"
+/// from /datum/plane_master_group/proc/set_hud(): (datum/hud/new_hud)
+#define COMSIG_GROUP_HUD_CHANGED "group_hud_changed"
 
 ///from [/datum/move_loop/start_loop] ():
 #define COMSIG_MOVELOOP_START "moveloop_start"
@@ -1518,6 +1545,8 @@
 #define COMSIG_SUPPLYPOD_CLIMB_CHECK "climb_check"
 	#define COMPONENT_CLIMB (1<<0)
 
-
 /// Called after placing item on table. (mob/user, obj/structure/table)
 #define COMSIG_ITEM_PLACED_ON_TABLE "item_placed_on_table"
+
+/// Called when using tool from toolbox via radial menu
+#define COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE "toolbox_radial_menu_tool_usage"

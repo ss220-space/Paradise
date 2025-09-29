@@ -59,8 +59,10 @@
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 
-	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
-	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
+	/// this mind's ANTAG_HUD should have this icon_state
+	var/antag_hud_icon_state = null
+	/// this mind's antag HUD
+	var/datum/atom_hud/antag/antag_hud = null
 	var/datum/mindslaves/som //stands for slave or master...hush..
 	var/damnation_type = 0
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
@@ -85,6 +87,9 @@
 	var/list/curses
 
 	var/madeby_sentience_potion = FALSE
+
+	///a list of objectives that a player with this job could complete for space credit rewards
+	var/list/job_objectives = list()
 
 
 /datum/mind/New(new_key)
@@ -1219,8 +1224,8 @@
 					input_sum = tgui_input_number(usr, "Введите необходимую денежную сумму:", "Денежная Сумма", max_value = INFINITY)
 				else
 					accounts_procent = tgui_input_number(usr, "Введите необходимый процентаж суммы со всех аккаунтов (1-100), иначе будет 60%:", "Процентаж", min_value = 1, max_value = 100)
-					if(!accounts_procent)
-						accounts_procent = initial(accounts_procent)
+					if(isnull(accounts_procent) || accounts_procent < 0)
+						return
 				money_objective.owner = src
 				money_objective.new_cash(input_sum, accounts_procent)
 
@@ -1547,7 +1552,7 @@
 					log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
 				else if(src in SSticker.mode.apprentices)
-					if (SSticker.mode.wizards.len)
+					if(SSticker.mode.wizards.len)
 						var/datum/mind/wizard = pick(SSticker.mode.wizards)
 						SSticker.mode.forge_wizard_apprentice_objectives(wizard, src)
 					else
@@ -2061,8 +2066,8 @@
 					return
 				// Update
 				var/datum/data/record/R = find_record("name", target.name, GLOB.data_core.general)
-				var/name = R?.fields["name"] || target.name || "Unknown"
-				var/rank = R?.fields["rank"] || target.assigned_role || "Unknown"
+				var/name = R?.fields["name"] || target.name || UNKNOWN_STATUS_RUS
+				var/rank = R?.fields["rank"] || target.assigned_role || UNKNOWN_STATUS_RUS
 				CO.contract.target = target
 				CO.target_name = "[name], the [rank]"
 				if(R?.fields["photo"])
@@ -2989,8 +2994,7 @@
 		if(exception)
 			continue
 		if(spell.cooldown_handler)
-			spell.cooldown_handler.recharge_duration = delay
-			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge))
+			INVOKE_ASYNC(spell.cooldown_handler, TYPE_PROC_REF(/datum/spell_cooldown, start_recharge), delay)
 		spell.updateButtonIcon()
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
@@ -3021,7 +3025,7 @@
 		if(H.w_uniform)
 			jumpsuit = H.w_uniform
 			jumpsuit.color = team_color
-			H.update_inv_w_uniform()
+			H.update_worn_undersuit()
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
 	add_conversion_logs(current, "became a mindslave for [convert_duration/600] minutes. Master: [key_name_log(missionary)]")
@@ -3041,7 +3045,7 @@
 		jumpsuit.color = initial(jumpsuit.color)		//reset the jumpsuit no matter where our mind is
 		if(ishuman(current))							//but only try updating us if we are still a human type since it is a human proc
 			var/mob/living/carbon/human/H = current
-			H.update_inv_w_uniform()
+			H.update_worn_undersuit()
 
 	to_chat(current, span_warning("<b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b>"))
 	to_chat(current, span_warning("<b>This means you don't remember who you were working for or what you were doing.</b>"))

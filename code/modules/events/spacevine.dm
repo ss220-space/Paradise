@@ -1,8 +1,4 @@
 #define SPACEVINE_SPAWN_THRESHOLD 5
-//Types of usual mutations
-#define	POSITIVE			1
-#define	NEGATIVE			2
-#define	MINOR_NEGATIVE		3
 
 /datum/event/spacevine
 	announceWhen = 120
@@ -122,19 +118,12 @@
 /datum/spacevine_mutation/proc/on_search(severity, obj/structure/spacevine/holder)
 	return
 
-
-/datum/spacevine_mutation/space_covering
-	name = "space protective"
-	hue = "#aa77aa"
-	quality = POSITIVE
-
 /turf/simulated/floor/vines
 	color = "#aa77aa"
 	icon_state = "vinefloor"
 	footstep = FOOTSTEP_GRASS
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
-	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/vines/broken_states()
 	return list()
@@ -178,6 +167,9 @@
 		SV.wither()
 
 /datum/spacevine_mutation/space_covering
+	name = "space protective"
+	hue = "#aa77aa"
+	quality = POSITIVE
 	var/static/list/coverable_turfs
 
 /datum/spacevine_mutation/space_covering/New()
@@ -339,13 +331,13 @@
 	if(prob(severity) && istype(crosser) && !isvineimmune(holder))
 		var/mob/living/M = crosser
 		M.adjustBruteLoss(5)
-		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
+		to_chat(M, span_alert("You cut yourself on the thorny vines."))
 
 /datum/spacevine_mutation/thorns/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
 	if(prob(severity) && istype(hitter) && !isvineimmune(holder))
 		var/mob/living/M = hitter
 		M.adjustBruteLoss(5)
-		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
+		to_chat(M, span_alert("You cut yourself on the thorny vines."))
 	. =	expected_damage
 
 /datum/spacevine_mutation/woodening
@@ -445,7 +437,6 @@
 	icon = 'icons/effects/spacevines.dmi'
 	icon_state = "Light1"
 	anchored = TRUE
-	density = FALSE
 	layer = SPACEVINE_LAYER
 	mouse_opacity = MOUSE_OPACITY_OPAQUE //Clicking anywhere on the turf is good enough
 	pass_flags = PASSTABLE | PASSGRILLE
@@ -453,7 +444,6 @@
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
-
 
 /obj/structure/spacevine/Initialize(mapload)
 	. = ..()
@@ -500,7 +490,7 @@
 	else
 		text += " normal"
 	text += " vine."
-	. += "<span class='notice'>[text]</span>"
+	. += span_notice("[text]")
 
 
 /obj/structure/spacevine/proc/wither()
@@ -751,7 +741,7 @@
 	for(var/datum/spacevine_mutation/SM in mutations)
 		SM.on_buckle(src, V)
 	if((V.stat != DEAD) && (V.buckled != src)) //not dead or captured
-		to_chat(V, "<span class='danger'>The vines [pick("wind", "tangle", "tighten")] around you!</span>")
+		to_chat(V, span_danger("The vines [pick("wind", "tangle", "tighten")] around you!"))
 		buckle_mob(V, 1)
 
 /obj/structure/spacevine/proc/spread()

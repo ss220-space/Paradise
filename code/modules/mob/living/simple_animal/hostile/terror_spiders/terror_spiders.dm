@@ -28,7 +28,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	death_sound = 'sound/creatures/terrorspiders/death.ogg'
 	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
 	var/spider_intro_text = "Если ты это видишь, это баг."
-	speak_chance = 0 // quiet but deadly
 	speak_emote = list("шипит")
 	emote_hear = list("шипит")
 	tts_seed = "Anubarak"
@@ -43,7 +42,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	//HEALTH
 	maxHealth = 120
 	health = 120
-	a_intent = INTENT_HARM
 	var/regeneration = 2 //pure regen on life
 	var/degenerate = FALSE // if TRUE, they slowly degen until they all die off.
 	//also regenerates by using /datum/status_effect/terror/food_regen when wraps a carbon, wich grants full health witin ~25 seconds
@@ -286,7 +284,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	addtimer(CALLBACK(src, PROC_REF(CheckFaction)), 20)
 	addtimer(CALLBACK(src, PROC_REF(announcetoghosts)), 30)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	U.add_hud_to(src)
+	U.show_to(src)
 	spider_creation_time = world.time
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
@@ -298,7 +296,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		notify_ghosts("[capitalize(declent_ru(NOMINATIVE))] (контролируется игроком) появляется в локации \"[get_area(src)]\".")
 	else if(ai_playercontrol_allowtype)
 		var/image/alert_overlay = image(icon, icon_state)
-		notify_ghosts("[capitalize(declent_ru(NOMINATIVE))] появляется в локации \"[get_area(src)]\".", enter_link = "<a href=?src=[UID()];activate=1>(Нажмите для взятия контроля)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
+		notify_ghosts("[capitalize(declent_ru(NOMINATIVE))] появляется в локации \"[get_area(src)]\".", enter_link = "<a href=byond://?src=[UID()];activate=1>(Нажмите для взятия контроля)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	GLOB.ts_spiderlist -= src
@@ -358,7 +356,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat != DEAD)
-			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
+			to_chat(T, span_terrorspider("TerrorSense: [msgtext]"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
 	if(faction.len != 2 || (!("terrorspiders" in faction)) || master_commander != null)

@@ -1,12 +1,12 @@
 /mob/living/carbon/human
-	name = "unknown"
-	real_name = "unknown"
-	voice_name = "unknown"
+	name = UNKNOWN_NAME_RUS
+	real_name = UNKNOWN_NAME_RUS
+	voice_name = UNKNOWN_STATUS_RUS
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	deathgasp_on_death = TRUE
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD,DIAG_STAT_HUD,DIAG_HUD)
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD,DIAG_STAT_HUD,DIAG_HUD,PACIFISM_HUD)
 	pressure_resistance = 25
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	max_grab = GRAB_KILL
@@ -91,3 +91,14 @@
 
 	/// What types of mobs are allowed to ride/buckle to this mob. Only human for now
 	var/static/list/can_ride_typecache = typecacheof(list(/mob/living/carbon/human))
+
+	/// All external organs in src.
+	var/list/bodyparts = list()
+	/// Map organ zones to external organs.
+	var/list/bodyparts_by_name = list()
+
+	var/mob/living/carbon/human/partner
+	var/mob/living/carbon/human/last_interract
+
+	/// Store what the body last looked like, so we only have to update it if something changed
+	var/previous_damage_appearance

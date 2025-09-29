@@ -117,7 +117,7 @@
 	log_and_message_admins("<span class='boldnotice'>Sent Global Narrate: [msg]<br></span>")
 	BLACKBOX_LOG_ADMIN_VERB("Global Narrate")
 
-/client/proc/cmd_admin_local_narrate(var/atom/A)
+/client/proc/cmd_admin_local_narrate(atom/A)
 	set category = STATPANEL_ADMIN_EVENT
 	set name = "Local Narrate"
 
@@ -126,7 +126,7 @@
 	if(!A)
 		return
 	var/msg = tgui_input_text(usr, "Message:", "Enter the text you wish to appear to everyone within view:")
-	if (!msg)
+	if(!msg)
 		return
 	msg = admin_pencode_to_html(msg)
 	for(var/mob/living/M in view(7,A))
@@ -134,7 +134,7 @@
 	log_and_message_admins("<span class='boldnotice'>local narrated at [AREACOORD(A)]: [msg]<br></span>")
 	BLACKBOX_LOG_ADMIN_VERB("Local Narrate")
 
-/client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
+/client/proc/cmd_admin_direct_narrate(mob/M)	// Targetted narrate -- TLE
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
@@ -546,7 +546,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	return 1
 
 
-/client/proc/get_ghosts(var/notify = 0,var/what = 2)
+/client/proc/get_ghosts(notify = 0, what = 2)
 	// what = 1, return ghosts ass list.
 	// what = 2, return mob list
 
@@ -621,6 +621,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 	offer_control(M)
 
+#define CUSTOM_MESSAGE_TYPE "Свой тип."
 /client/proc/cmd_admin_create_centcom_report()
 	set category = STATPANEL_ADMIN_ADMIN
 	set name = "Create Communications Report"
@@ -629,12 +630,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 //the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Сообщение Центрального командования." = "Обновление НаноТрейзен.",
+	var/list/MsgType = list("Сообщение Центрального командования." = "Обновление Нанотрейзен.",
 		"Официальное сообщение Синдиката." = "Сообщение Синдиката.",
 		"Сообщение Федерации Космических Волшебников." = "Заколдованное сообщение.",
 		"Официальное сообщение Клана Паука." = "Сообщение Клана Паука.",
 		"Вражеское сообщение." = "Неизвестное сообщение.",
-		"Свой тип." = "Загадочное сообщение.")
+		CUSTOM_MESSAGE_TYPE = "Загадочное сообщение.")
 
 	var/list/MsgSound = list("Уведомление *бип*" = 'sound/misc/notice2.ogg',
 		"Перехвачены вражеские сообщения" = 'sound/AI/intercept.ogg',
@@ -642,7 +643,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/type = tgui_input_list(usr, "Выберите тип сообщения для отправки.", "Тип сообщения", MsgType, "")
 
-	if(type == "Свой тип")
+	if(type == CUSTOM_MESSAGE_TYPE)
 		type = tgui_input_text(usr, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача", encode = FALSE)
 
 	var/subtitle = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type], encode = FALSE)
@@ -652,7 +653,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!message)
 		return
 
-	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?", null, list("Да","Нет", "Отмена")))
+	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?", null, list("Да", "Нет", "Отмена")))
 		if("Да")
 			var/beepsound = tgui_input_list(usr, "Какой звук должен издавать анонс?", "Звук анонса", MsgSound)
 
@@ -674,6 +675,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(src)] has created a communications report")
 	BLACKBOX_LOG_ADMIN_VERB("Create Comms Report")
 
+#undef CUSTOM_MESSAGE_TYPE
 
 /client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view(maxview()))
 	set name = "\[Admin\] Delete"
@@ -698,7 +700,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			jmp_coords = coords = "in nullspace"
 
-	if (tgui_alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", list("Yes", "No")) == "Yes")
+	if(tgui_alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", list("Yes", "No")) == "Yes")
 		log_admin("[key_name(usr)] deleted [D] [coords]")
 		message_admins("[key_name_admin(usr)] deleted [D] [jmp_coords]")
 		BLACKBOX_LOG_ADMIN_VERB("Delete")

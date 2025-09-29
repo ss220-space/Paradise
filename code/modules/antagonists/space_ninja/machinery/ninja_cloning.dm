@@ -54,7 +54,7 @@
 	if(!clonemind.is_revivable()) //Other reasons for being unrevivable
 		return FALSE
 	if(clonemind.active)	//somebody is using that mind
-		if(ckey(clonemind.key) != ninja_dna_record.ckey )
+		if(ckey(clonemind.key) != ninja_dna_record.ckey)
 			return FALSE
 	var/mob/dead/observer/ninja_ghost = clonemind.get_ghost()
 	var/datum/ninja_suit_cloning_data/ninja_suit_data = find_suit_data(ckey(clonemind.key))
@@ -87,10 +87,12 @@
 	n_suit.preferred_scarf_over_hood = ninja_suit_data.preferred_scarf_over_hood
 	n_suit.style_preview_icon_state = ninja_suit_data.style_preview_icon_state
 	//Выдача купленных ранее абилок
-	var/list/ability_blacklist = list(	/datum/action/item_action/advanced/ninja/SpiderOS,
-										/datum/action/item_action/advanced/ninja/ninja_autodust,
-										/datum/action/item_action/ninjastatus,
-										/datum/action/item_action/advanced/ninja/ninja_sword_recall)
+	var/list/ability_blacklist = list(
+		/datum/action/item_action/advanced/ninja/SpiderOS,
+		/datum/action/item_action/advanced/ninja/ninja_autodust,
+		/datum/action/item_action/ninjastatus,
+		/datum/action/item_action/advanced/ninja/ninja_sword_recall
+	)
 	var/action_path
 	for(action_path in n_suit.actions_types)
 		if(action_path in ability_blacklist)
@@ -186,7 +188,7 @@
 
 	suits_data += ninja_suit_data
 
-/obj/machinery/ninja_clonepod/proc/find_record(var/find_key)
+/obj/machinery/ninja_clonepod/proc/find_record(find_key)
 	var/selected_record = null
 	for(var/datum/dna2/record/ninja_dna_record in src.records)
 		if(ninja_dna_record.ckey == find_key)
@@ -194,7 +196,7 @@
 			break
 	return selected_record
 
-/obj/machinery/ninja_clonepod/proc/find_suit_data(var/find_key)
+/obj/machinery/ninja_clonepod/proc/find_suit_data(find_key)
 	var/selected_suit = null
 	for(var/datum/ninja_suit_cloning_data/ninja_suit_data in src.suits_data)
 		if(ninja_suit_data.ckey == find_key)

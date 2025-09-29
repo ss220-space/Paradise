@@ -24,7 +24,6 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	harm_intent_damage = 5
 	var/gestation = 0
 	var/maxtribbles = 50     //change this to change the max limit
-	wander = 1
 
 
 /mob/living/simple_animal/tribble/New()
@@ -100,7 +99,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 
 /obj/item/toy/tribble/attack_self(mob/user) //hug that tribble (and play a sound if we add one)
 	..()
-	to_chat(user, "<span class='notice'>You nuzzle the tribble and it trills softly.</span>")
+	to_chat(user, span_notice("You nuzzle the tribble and it trills softly."))
 
 /obj/item/toy/tribble/dropped(mob/user, slot, silent = FALSE) //now you can't item form them to get rid of them all so easily
 	new /mob/living/simple_animal/tribble(user.loc)
@@ -110,7 +109,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 		T.icon_dead = "[src.icon_state]_dead"
 		T.gestation = src.gestation
 
-	to_chat(user, "<span class='notice'>The tribble gets up and wanders around.</span>")
+	to_chat(user, span_notice("The tribble gets up and wanders around."))
 	. = ..()
 
 
@@ -139,12 +138,9 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "sheet-fur"
 	origin_tech = "materials=2"
-	max_amount = 50
 
 
 /obj/item/clothing/ears/earmuffs/tribblemuffs //earmuffs but with tribbles
-	name = "earmuffs"
-	desc = "Protects your hearing from loud noises, and quiet ones as well."
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "tribblemuffs"
 	item_state = "tribblemuffs"
@@ -200,6 +196,5 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "furcape"
 	item_state = "furcape"
-	body_parts_covered = UPPER_TORSO|ARMS
 	cold_protection = UPPER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT

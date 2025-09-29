@@ -25,10 +25,7 @@
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/lime
-	seed = /obj/item/seeds/lime
 	name = "lime"
-	desc = "It's so sour, your face will twist."
-	icon_state = "lime"
 	filling_color = "#00FF00"
 	tastes = list("lime" = 1)
 
@@ -114,7 +111,7 @@
 	wine_flavor = "fire"
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] primes the [src]!</span>", "<span class='userdanger'>You prime the [src]!</span>")
+	user.visible_message(span_warning("[user] primes the [src]!"), span_userdanger("You prime the [src]!"))
 	investigate_log("[key_name_log(user)] primed a combustible lemon for detonation at [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)
 	if(iscarbon(user))

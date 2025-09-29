@@ -29,7 +29,7 @@
 		if(uplink_imp.imp_in != user)
 			continue
 		uplink_imp.hidden_uplink.uses += amount
-		balloon_alert(user, "ТК активирован!")
+		balloon_alert(user, UNLINT("ТК активирован!"))
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -40,7 +40,7 @@
 	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
 		I.hidden_uplink.uses += amount
 		use(amount)
-		balloon_alert(user, "ТК активирован!")
+		balloon_alert(user, UNLINT("ТК активирован!"))
 	else if(istype(I, /obj/item/cartridge/frame))
 		var/obj/item/cartridge/frame/cart = I
 		if(!cart.charges)
@@ -48,7 +48,7 @@
 			return
 		cart.telecrystals += amount
 		use(amount)
-		balloon_alert(user, "ТК активирован!")
+		balloon_alert(user, UNLINT("ТК активирован!"))
 
 /obj/item/stack/telecrystal/five
 	amount = 5

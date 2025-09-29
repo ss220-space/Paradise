@@ -26,6 +26,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/emergencyDockTime = SHUTTLE_DOCKTIME	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
 	var/emergencyEscapeTime = SHUTTLE_ESCAPETIME	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 	var/emergency_sec_level_time = 0 // time sec level was last raised to red or higher
+	var/emergency_refill_time = 30 MINUTES
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
 	var/list/hostile_environment = list()
@@ -348,7 +349,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/datum/turf_reservation/proposal = SSmapping.request_turf_block_reservation(
 		transit_width,
 		transit_height,
-		1,
+		z_size = 1, //if this is changed the turf uncontain code below has to be updated to support multiple zs
 		reservation_type = /datum/turf_reservation/transit,
 		turf_type_override = transit_path,
 	)
@@ -359,12 +360,14 @@ SUBSYSTEM_DEF(shuttle)
 	var/turf/bottomleft = proposal.bottom_left_turfs[1]
 	// Then create a transit docking port in the middle
 	var/coords = M.return_coords(0, 0, dock_dir)
-	/*  0------2
-        |      |
-        |      |
-        |  x   |
-        3------1
-	*/
+
+/**
+ * 0--------2
+ * |		|
+ * |		|
+ * |   x	|
+ * 3--------1
+ */
 
 	var/x0 = coords[1]
 	var/y0 = coords[2]
@@ -381,16 +384,19 @@ SUBSYSTEM_DEF(shuttle)
 	if(!midpoint)
 		return FALSE
 	var/area/old_area = midpoint.loc
-	old_area.turfs_to_uncontain += proposal.reserved_turfs
-	var/area/shuttle/transit/A = new()
-	A.parallax_movedir = travel_dir
-	A.contents = proposal.reserved_turfs
-	A.contained_turfs = proposal.reserved_turfs
+	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, bottomleft.z, list())
+	old_area.turfs_to_uncontain_by_zlevel[bottomleft.z] += proposal.reserved_turfs
+
+	var/area/shuttle/transit/new_area = new()
+	new_area.parallax_movedir = travel_dir
+	new_area.contents = proposal.reserved_turfs
+	LISTASSERTLEN(new_area.turfs_by_zlevel, bottomleft.z, list())
+	new_area.turfs_by_zlevel[bottomleft.z] = proposal.reserved_turfs
 	var/obj/docking_port/stationary/transit/new_transit_dock = new(midpoint)
 	new_transit_dock.reserved_area = proposal
 	new_transit_dock.name = "Transit for [M.id]/[M.name]"
 	new_transit_dock.owner = M
-	new_transit_dock.assigned_area = A
+	new_transit_dock.assigned_area = new_area
 
 	// Add 180, because ports point inwards, rather than outwards
 	new_transit_dock.setDir(angle2dir(dock_angle))

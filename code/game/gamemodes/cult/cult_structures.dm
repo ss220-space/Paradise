@@ -111,8 +111,8 @@
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
 
 /**
-  * Returns the cooldown time in minutes and seconds
-  */
+ * Returns the cooldown time in minutes and seconds
+ */
 /obj/structure/cult/functional/proc/get_ETA()
 	var/time = cooldowntime - world.time
 	var/minutes = round(time / 600)
@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 	var/list/validturfs = list()
 	var/list/cultturfs = list()
-	for(var/T in circleviewturfs(src, 5))
+	for(var/T in circle_view_turfs(src, 5))
 		if(istype(T, /turf/simulated/floor/engine/cult))
 			cultturfs |= T
 			continue
@@ -341,7 +341,6 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
 	density = TRUE
-	anchored = TRUE
 
 /obj/effect/gateway/singularity_act()
 	return

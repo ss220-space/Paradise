@@ -6,7 +6,6 @@
 	icon_living = "weaver"
 	icon_aggro = "weaver"
 	icon_dead = "weaver_dead"
-	throw_message = "отскакивает от"
 	crusher_loot = /obj/item/crusher_trophy/fang
 	butcher_results = list(/obj/item/stack/ore/uranium = 2, /obj/item/stack/sheet/bone = 2, /obj/item/stack/sheet/sinew = 1, /obj/item/stack/sheet/animalhide/weaver_chitin = 3, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg = 2)
 	loot = list()
@@ -36,7 +35,7 @@
 	var/anger_move_to_delay = 8
 	var/anger_speed = 4
 
-/mob/living/simple_animal/hostile/asteroid/marrowweaver/get_ru_names()	
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/get_ru_names()
 	return list(
 		NOMINATIVE = "костномозговой ткач",
 		GENITIVE = "костномозгового ткача",
@@ -105,7 +104,7 @@
 			return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/asteroid/marrowweaver/proc/fiesta(var/mob/living/carbon/human/snack, preparing = TRUE)
+/mob/living/simple_animal/hostile/asteroid/marrowweaver/proc/fiesta(mob/living/carbon/human/snack, preparing = TRUE)
 	var/foundorgans = 0
 	var/list/organs = snack.get_organs_zone(BODY_ZONE_CHEST)
 	for(var/obj/item/organ/internal/I as anything in organs)
@@ -142,7 +141,6 @@
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/dangerous
 	health = 320
 	maxHealth = 320
-	vision_range = 8
 	nightvision = 8
 	speed = 5
 	move_to_delay = 14
@@ -168,7 +166,6 @@
 	melee_damage_upper = 13
 
 	poison_type = "frostoil"
-	poison_per_bite = 5
 
 	crusher_loot = /obj/item/crusher_trophy/gland
 

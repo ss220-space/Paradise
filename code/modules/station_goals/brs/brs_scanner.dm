@@ -74,7 +74,7 @@
 			scan_status = COMPONENT_SCANNED_CRITICAL
 		else if(rift_scanned)
 			scan_status = COMPONENT_SCANNED_NORMAL
-		
+
 		scanner_status_after_scan = max(scanner_status_after_scan, scan_status)
 
 		if(!rift_scanned)
@@ -88,7 +88,7 @@
 		// Send mined goal points
 		if(!length(GLOB.bluespace_rifts_server_list))
 			continue
-		
+
 		var/goal_points_mined = seconds * GET_CURRENT_SCAN_VALUE(goal_points_generator, goal_points_critical_multiplier, is_critical)
 		var/probe_points_mined = goal_points_mined / length(GLOB.bluespace_rifts_server_list)
 
@@ -102,3 +102,5 @@
 		scanner_status_after_scan |= COMPONENT_SCANNED_NO_SERVERS
 
 	return scanner_status_after_scan
+
+#undef GET_CURRENT_SCAN_VALUE

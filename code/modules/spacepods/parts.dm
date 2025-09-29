@@ -5,15 +5,11 @@
 /obj/item/pod_parts/core
 	name="Space Pod Core"
 	icon_state = "core"
-	flags = CONDUCT
 	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
 
 /obj/item/pod_parts/pod_frame
 	name = "Space Pod Frame"
 	icon_state = ""
-	flags = CONDUCT
-	density = FALSE
-	anchored = FALSE
 	var/link_to = null
 	var/link_angle = 0
 
@@ -143,7 +139,6 @@
 	icon_state = "pod_ap"
 	desc = "A space pod frame component. This is the aft port component."
 	link_to = /obj/item/pod_parts/pod_frame/fore_port
-	link_angle = 0
 
 /obj/item/pod_parts/pod_frame/aft_starboard
 	name = "aft starboard pod frame"
@@ -154,6 +149,5 @@
 
 /obj/item/pod_parts/armor
 	name = "civilian pod armor"
-	icon = 'icons/goonstation/pods/pod_parts.dmi'
 	icon_state = "pod_armor_civ"
 	desc = "Spacepod armor. This is the civilian version. It looks rather flimsy."
