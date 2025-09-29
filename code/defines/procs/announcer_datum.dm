@@ -67,7 +67,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	announce_message(formatted_message, garbled_formatted_message, receivers, garbled_receivers, message_sound)
 
 	var/datum/feed_message/feed_message = new
-	feed_message.author = author ? author : "Автоматическая система оповещений"
+	feed_message.author = author ? author : "Новости станции"
 	feed_message.title = subtitle ? "[title]: [subtitle]" : "[title]"
 	feed_message.body = message
 	GLOB.news_network.get_channel_by_name(NEWS_CHANNEL_STATION_LOG)?.add_message(feed_message)
