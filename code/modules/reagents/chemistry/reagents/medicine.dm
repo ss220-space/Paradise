@@ -926,48 +926,50 @@
 		update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/mob, method = REAGENT_TOUCH, volume)
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
-	if(isanimal(M) && method == REAGENT_TOUCH)
-		var/mob/living/simple_animal/SM = M
-		if(SM.sentience_type != revive_type) // No reviving Ash Drakes for you
+
+	if(isanimal(mob) && method == REAGENT_TOUCH)
+		var/mob/living/simple_animal/animal = mob
+		if(animal.sentience_type != revive_type) // No reviving Ash Drakes for you
 			return
-		if(SM.stat == DEAD)
-			SM.revive()
-			SM.loot.Cut() //no abusing strange reagent for farming unlimited resources
-			SM.visible_message(span_warning("[SM] ожива[pluralize_ru(SM.gender, "ет", "ют")]!"))
+		if(animal.stat == DEAD)
+			animal.revive()
+			animal.loot.Cut() //no abusing strange reagent for farming unlimited resources
+			animal.visible_message(span_warning("[animal] ожива[pluralize_ru(animal.gender, "ет", "ют")]!"))
 
-	if(iscarbon(M))
-		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
-			if(M.stat == DEAD)
-				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					add_attack_logs(M, M, "delay gib by [name]")
-					M.delayed_gib()
-					return
-				if(!M.ghost_can_reenter())
-					M.visible_message(span_warning("[M] слегка вздрагива[pluralize_ru(M.gender, "ет", "ют")], но в остальном не реагиру[pluralize_ru(M.gender, "ет", "ют")]!"))
-					return
-				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_NO_CLONE) && (!M.mind || M.mind?.is_revivable()))
-					var/time_dead = world.time - M.timeofdeath
-					M.visible_message(span_warning("[M] ожива[pluralize_ru(M.gender, "ет", "ют")]!"))
-					var/update = NONE
-					update |= M.take_overall_damage(rand(0, 15), rand(0, 15), updating_health = FALSE)
-					update |= M.apply_damages(tox = rand(0, 15), clone = 50, updating_health = FALSE)
-					update |= M.setOxyLoss(0, updating_health = FALSE)
-					if(update)
-						M.updatehealth()
-					if(ishuman(M))
-						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
-						// Per non-vital body part:
-						// 0% chance of necrosis within 1 minute of death
-						// 40% chance of necrosis after 20 minutes of death
-						necrotize_body(M, necrosis_prob)
-
-					M.update_revive(TRUE, TRUE)
-					M.grab_ghost()
-					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
+	if(iscarbon(mob))
+		if(!((method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25))) && mob.stat == DEAD))
+			return ..()
+		if(mob.getBruteLoss() + mob.getFireLoss() + mob.getCloneLoss() >= 150)
+			add_attack_logs(mob, mob, "delay gib by [name]")
+			mob.delayed_gib()
+			return
+		if(!mob.ghost_can_reenter())
+			mob.visible_message(span_warning("[mob] слегка вздрагива[pluralize_ru(mob.gender, "ет", "ют")], но в остальном не реагиру[pluralize_ru(mob.gender, "ет", "ют")]!"))
+			return
+		if(!mob.suiciding && !HAS_TRAIT(mob, TRAIT_NO_CLONE) && (!mob.mind || mob.mind?.is_revivable()))
+			var/time_dead = world.time - mob.timeofdeath
+			mob.visible_message(span_warning("[mob] ожива[pluralize_ru(mob.gender, "ет", "ют")]!"))
+			var/update = NONE
+			update |= mob.take_overall_damage(rand(0, 15), rand(0, 15), updating_health = FALSE)
+			update |= mob.apply_damages(tox = rand(0, 15), clone = 50, updating_health = FALSE)
+			update |= mob.setOxyLoss(0, updating_health = FALSE)
+			if(update)
+				mob.updatehealth()
+			if(ishuman(mob))
+				var/mob/living/carbon/human/human = mob
+				human.special_check_for_transplantation()
+				var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
+				// Per non-vital body part:
+				// 0% chance of necrosis within 1 minute of death
+				// 40% chance of necrosis after 20 minutes of death
+				necrotize_body(mob, necrosis_prob)
+			mob.update_revive(TRUE, TRUE)
+			mob.grab_ghost()
+			add_attack_logs(mob, mob, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
 /proc/necrotize_body(mob/living/carbon/human/human, necrosis_prob)

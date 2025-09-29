@@ -1443,7 +1443,7 @@
 
 /obj/item/storage/pouch/fast
 	name = "fast pouch"
-	desc = "Подсумок на два магазина, настолько быстро перезаряжать оружие ещё никогда не было!"
+	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
 	icon_state = "pouch_fast"
 	item_state = "pouch_fast"
 

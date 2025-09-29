@@ -26,8 +26,8 @@
 	vend_overlay = "nta_vend"
 	deny_overlay = "nta_deny"
 	vend_overlay_time = 3 SECONDS
-
 	req_access = list(ACCESS_SECURITY)
+	
 	products = list(
 		/obj/item/grenade/flashbang = 4,
 		/obj/item/flash = 5,
@@ -56,9 +56,14 @@
 		/obj/item/ammo_box/inc46x30mm = 4,
 		/obj/item/ammo_box/tox46x30mm = 4,
 		/obj/item/ammo_box/ap46x30mm = 4,
-		/obj/item/ammo_box/laserammobox = 4
+		/obj/item/ammo_box/laserammobox = 4,
 	)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/grenade/clusterbuster/apocalypsefake = 1)
+	contraband = list(
+		/obj/item/clothing/glasses/sunglasses = 2,
+		/obj/item/storage/fancy/donut_box = 2,
+		/obj/item/grenade/clusterbuster/apocalypsefake = 1,
+	)
+
 	refill_canister = /obj/item/vending_refill/nta
 	tiltable = FALSE //no ert tilt
 
@@ -114,8 +119,8 @@
 
 	base_icon_state = "nta-blue"
 	deny_overlay = "nta-blue_deny"
-
 	req_access = list(ACCESS_CENT_SECURITY)
+
 	products = list(
 		/obj/item/gun/energy/gun = 3,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
@@ -128,9 +133,11 @@
 		/obj/item/gun/projectile/shotgun/automatic/combat = 3,
 		/obj/item/ammo_box/shotgun = 4,
 		/obj/item/ammo_box/shotgun/buck = 4,
-		/obj/item/ammo_box/shotgun/dragonsbreath = 2
+		/obj/item/ammo_box/shotgun/dragonsbreath = 2,
 	)
-	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	contraband = list(
+		/obj/item/storage/fancy/donut_box = 2,
+	)
 
 /obj/machinery/vending/nta/ertarmory/blue/get_ru_names()
 	return list(
@@ -155,8 +162,8 @@
 
 	base_icon_state = "nta-red"
 	deny_overlay = "nta-red_deny"
-
 	req_access = list(ACCESS_CENT_SECURITY)
+
 	products = list(
 		/obj/item/gun/projectile/automatic/ar = 3,
 		/obj/item/ammo_box/magazine/m556 = 6,
@@ -170,9 +177,11 @@
 		/obj/item/gun/energy/gun/minigun = 1,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
-		/obj/item/grenade/frag = 4
+		/obj/item/grenade/frag = 4,
 	)
-	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	contraband = list(
+		/obj/item/storage/fancy/donut_box = 2,
+	)
 
 /obj/machinery/vending/nta/ertarmory/red/get_ru_names()
 	return list(
@@ -197,8 +206,8 @@
 
 	base_icon_state = "nta-green"
 	deny_overlay = "nta-green_deny"
-
 	req_access = list(ACCESS_CENT_SECURITY)
+
 	products = list(
 		/obj/item/restraints/handcuffs = 5,
 		/obj/item/restraints/handcuffs/cable/zipties = 5,
@@ -215,9 +224,11 @@
 		/obj/item/gun/projectile/automatic/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2,
-		/obj/item/melee/baton/telescopic = 4
+		/obj/item/melee/baton/telescopic = 4,
 	)
-	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	contraband = list(
+		/obj/item/storage/fancy/donut_box = 2,
+	)
 
 /obj/machinery/vending/nta/ertarmory/green/get_ru_names()
 	return list(
@@ -232,22 +243,27 @@
 /obj/machinery/vending/nta/ertarmory/green/cc_jail
 	name = "NT CentComm prison guards' Gear & Ammunition"
 	desc = "Автомат с оборудованием для надзирателей тюрьмы Центрального Командования."
-	products = list(/obj/item/restraints/handcuffs=5,
-		/obj/item/restraints/handcuffs/cable/zipties=5,
-		/obj/item/grenade/flashbang=3,
-		/obj/item/flash=3,
-		/obj/item/restraints/legcuffs/bola/energy=3,
-		/obj/item/gun/energy/gun/advtaser=6,
-		/obj/item/gun/projectile/automatic/pistol/enforcer=6,
-		/obj/item/storage/box/barrier=2,
-		/obj/item/gun/projectile/shotgun/riot=2,
-		/obj/item/ammo_box/shotgun/rubbershot=4,
-		/obj/item/ammo_box/shotgun=2,
-		/obj/item/ammo_box/magazine/enforcer=6,
-		/obj/item/gun/energy/dominator/sibyl=3)
-	contraband = list(/obj/item/storage/fancy/donut_box=2,
-		/obj/item/ammo_box/shotgun/buck=4,
-		/obj/item/ammo_box/magazine/enforcer/lethal=4)
+
+	products = list(
+		/obj/item/restraints/handcuffs = 5,
+		/obj/item/restraints/handcuffs/cable/zipties = 5,
+		/obj/item/grenade/flashbang = 3,
+		/obj/item/flash = 3,
+		/obj/item/restraints/legcuffs/bola/energy = 3,
+		/obj/item/gun/energy/gun/advtaser = 6,
+		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
+		/obj/item/storage/box/barrier = 2,
+		/obj/item/gun/projectile/shotgun/riot = 2,
+		/obj/item/ammo_box/shotgun/rubbershot = 4,
+		/obj/item/ammo_box/shotgun = 2,
+		/obj/item/ammo_box/magazine/enforcer = 6,
+		/obj/item/gun/energy/dominator/sibyl = 3,
+	)
+	contraband = list(
+		/obj/item/storage/fancy/donut_box = 2,
+		/obj/item/ammo_box/shotgun/buck = 4,
+		/obj/item/ammo_box/magazine/enforcer/lethal = 4,
+	)
 
 /obj/machinery/vending/nta/ertarmory/green/cc_jail/get_ru_names()
 	return list(
@@ -273,11 +289,10 @@
 		"ТР+УПОВ МН+ОГО НЕ БЫВ+АЕТ!",
 		"НИ ОДН+А МРАЗЬ НЕ ДОЖИВ+ЁТ ДО З+АВТРА!"
 	)
-
 	base_icon_state = "nta-yellow"
 	deny_overlay = "nta-yellow_deny"
-
 	req_access = list(ACCESS_CENT_SECURITY)
+
 	products = list(
 		/obj/item/gun/projectile/automatic/gyropistol = 8,
 		/obj/item/ammo_box/magazine/m75 = 12,
@@ -289,9 +304,12 @@
 		/obj/item/gun/energy/xray = 8,
 		/obj/item/gun/energy/pulse/destroyer/annihilator = 8,
 		/obj/item/grenade/clusterbuster/inferno = 3,
-		/obj/item/grenade/clusterbuster/emp = 3
+		/obj/item/grenade/clusterbuster/emp = 3,
 	)
-	contraband = list(/obj/item/storage/fancy/donut_box = 2)
+	contraband = list(
+		/obj/item/storage/fancy/donut_box = 2,
+	)
+
 /obj/machinery/vending/nta/ertarmory/yellow/get_ru_names()
 	return list(
 		NOMINATIVE = "торговый автомат NT ERT Death Wish Gear & Ammunition",
@@ -312,11 +330,10 @@
 		"Перевяз+ать, В+ылечить, В+ыписать!",
 		"Сто+ять, сняряд+ись медикам+ентами на зад+ание!"
 	)
-
 	base_icon_state = "nta-medical"
 	deny_overlay = "nta-medical_deny"
-
 	req_access = list(ACCESS_CENT_MEDICAL)
+
 	products = list(
 		/obj/item/storage/firstaid/tactical = 2,
 		/obj/item/reagent_containers/applicator/dual = 2,
@@ -338,7 +355,7 @@
 		/obj/item/reagent_containers/applicator/brute = 4,
 		/obj/item/reagent_containers/applicator/burn = 4,
 		/obj/item/healthanalyzer/advanced = 4,
-		/obj/item/roller/holo = 2
+		/obj/item/roller/holo = 2,
 	)
 	contraband = list()
 
@@ -362,11 +379,10 @@
 		"Почин+ить, Завар+ить, Восстанов+ить!",
 		"Сто+ять, сняряд+ись на поч+инку объ+екта!"
 	)
-
 	base_icon_state = "nta-engi"
 	deny_overlay = "nta-engi_deny"
-
 	req_access = list(ACCESS_CENT_GENERAL)
+
 	products = list(
 		/obj/item/storage/belt/utility/chief/full = 2,
 		/obj/item/clothing/mask/gas/welding = 4,
@@ -377,13 +393,14 @@
 		/obj/item/multitool = 3,
 		/obj/item/rcd/preloaded = 2,
 		/obj/item/rcd_ammo  = 8,
-		/obj/item/stack/cable_coil = 4
+		/obj/item/stack/cable_coil = 4,
 	)
-	contraband = list(/obj/item/clothing/head/welding/flamedecal = 1,
+	contraband = list(
+		/obj/item/clothing/head/welding/flamedecal = 1,
 		/obj/item/storage/fancy/donut_box = 2,
 		/obj/item/clothing/head/welding/flamedecal/white  = 1,
-		/obj/item/clothing/head/welding/flamedecal/blue = 1
-		)
+		/obj/item/clothing/head/welding/flamedecal/blue = 1,
+	)
 
 /obj/machinery/vending/nta/ertarmory/engineer/get_ru_names()
 	return list(
@@ -405,11 +422,10 @@
 		"Пом+ыть, Постир+ать, Оттер+еть!",
 		"Сто+ять, сняряд+ись на уб+орку!"
 	)
-
 	base_icon_state = "nta-janitor"
 	deny_overlay = "nta-janitor_deny"
-
 	req_access = list(ACCESS_CENT_GENERAL)
+
 	products = list(
 		/obj/item/storage/belt/janitor/ert = 2,
 		/obj/item/clothing/shoes/galoshes = 2,
@@ -422,9 +438,12 @@
 		/obj/item/grenade/chem_grenade/cleaner = 4,
 		/obj/item/clothing/mask/gas = 3,
 		/obj/item/watertank/janitor  = 4,
-		/obj/item/lightreplacer = 2
+		/obj/item/lightreplacer = 2,
 	)
-	contraband = list(/obj/item/grenade/clusterbuster/cleaner = 1, /obj/item/storage/fancy/donut_box = 2, )
+	contraband = list(
+		/obj/item/grenade/clusterbuster/cleaner = 1,
+		/obj/item/storage/fancy/donut_box = 2,
+	)
 
 /obj/machinery/vending/nta/ertarmory/janitor/get_ru_names()
 	return list(

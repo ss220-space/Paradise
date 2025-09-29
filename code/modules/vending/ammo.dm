@@ -10,27 +10,45 @@
 	icon_state = "ammovend_off"
 	panel_overlay = "ammovend_panel"
 	screen_overlay = "ammovend_overlay"
-
-	products = list(
-		/obj/item/ammo_box/magazine/wt550m9  = 10,
-		/obj/item/ammo_box/magazine/sp91rc = 10,
-		/obj/item/ammo_box/magazine/enforcer/lethal = 10,
-		/obj/item/stock_parts/cell/specter = 10,
-		/obj/item/ammo_box/magazine/lr30mag = 10,
-		/obj/item/ammo_box/shotgun = 1,
-		/obj/item/ammo_box/shotgun/buck = 2,
-		/obj/item/ammo_box/shotgun/beanbag = 2,
-		/obj/item/ammo_box/shotgun/tranquilizer = 1,
-		/obj/item/grenade/flashbang = 10,
-		/obj/item/grenade/barrier = 10,
-		/obj/item/grenade/chem_grenade/teargas = 10,
-		/obj/item/ammo_box/secgl/solid = 2,
-		/obj/item/ammo_box/secgl/flash = 2,
-		/obj/item/ammo_box/secgl/gas = 1,
-		/obj/item/ammo_box/secgl/barricade = 1,
-		/obj/item/ammo_box/secgl/paint = 1,
-
+	refill_canister = /obj/item/vending_refill/ammo
+	product_categories = list(
+		list(
+			"name" = "Боеприпасы",
+			"icon" = "box-archive",
+			"products" = list(
+				/obj/item/ammo_box/shotgun = 1,
+				/obj/item/ammo_box/shotgun/buck = 2,
+				/obj/item/ammo_box/shotgun/beanbag = 2,
+				/obj/item/ammo_box/shotgun/tranquilizer = 1,
+				/obj/item/ammo_box/secgl/solid = 2,
+				/obj/item/ammo_box/secgl/flash = 2,
+				/obj/item/ammo_box/secgl/gas = 1,
+				/obj/item/ammo_box/secgl/barricade = 1,
+				/obj/item/ammo_box/secgl/paint = 1,
+			),
+		),
+		list(
+			"name" = "Магазины",
+			"icon" = "gun",
+			"products" = list(
+				/obj/item/ammo_box/magazine/wt550m9  = 10,
+				/obj/item/ammo_box/magazine/sp91rc = 10,
+				/obj/item/ammo_box/magazine/enforcer/lethal = 10,
+				/obj/item/ammo_box/magazine/lr30mag = 10,
+				/obj/item/stock_parts/cell/specter = 10,
+			),
+		),
+		list(
+			"name" = "Гранаты",
+			"icon" = "bomb",
+			"products" = list(
+				/obj/item/grenade/flashbang = 10,
+				/obj/item/grenade/barrier = 10,
+				/obj/item/grenade/chem_grenade/teargas = 10,
+			),
+		),
 	)
+	
 	contraband = list(
 		/obj/item/storage/box/flashbangs = 2,
 		/obj/item/storage/box/barrier = 2,

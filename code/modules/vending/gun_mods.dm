@@ -14,8 +14,9 @@
 	screen_overlay = "attachments"
 	broken_overlay = "attachments_broken"
 	deny_overlay = "attachments_deny"
-
 	req_access = list(ACCESS_SECURITY)
+	refill_canister = /obj/item/vending_refill/gun_mods
+
 	products = list(
 		/obj/item/gun_module/muzzle/compensator = 8,
 		/obj/item/gun_module/rail/scope/collimator/pistol = 8,
@@ -44,7 +45,6 @@
 		/obj/item/gun_module/muzzle/suppressor = 399,
 		/obj/item/gun_module/rail/scope/x4 = 2499,
 	)
-	refill_canister = /obj/item/vending_refill/gun_mods
 
 /obj/machinery/vending/gun_mods/get_ru_names()
 	return list(

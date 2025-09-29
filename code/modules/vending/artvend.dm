@@ -13,7 +13,6 @@
 		"Пор+адуйте ваш+его вн+утреннего реб+ёнка!"
 	)
 
-
 	icon_state = "artvend_off"
 	panel_overlay = "artvend_panel"
 	screen_overlay = "artvend"
@@ -37,13 +36,15 @@
 		/obj/item/c_tube = 10,
 		/obj/item/pen = 5,
 		/obj/item/pen/blue = 5,
-		/obj/item/pen/red = 5)
+		/obj/item/pen/red = 5,
+	)
 	contraband = list(
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/toy/crayon/rainbow = 1,
-		/obj/item/weaponcrafting/receiver = 1
-)
-	premium = list(/obj/item/poster/random_contraband = 5
+		/obj/item/weaponcrafting/receiver = 1,
+	)
+	premium = list(
+		/obj/item/poster/random_contraband = 5,
 	)
 	prices = list(
 		/obj/item/toy/crayon/spraycan = 49,
@@ -64,7 +65,7 @@
 		/obj/item/pen/red = 9,
 		/obj/item/toy/crayon/mime = 49,
 		/obj/item/toy/crayon/rainbow = 49,
-		/obj/item/weaponcrafting/receiver = 249
+		/obj/item/weaponcrafting/receiver = 249,
 	)
 
 /obj/machinery/vending/artvend/get_ru_names()

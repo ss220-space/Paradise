@@ -83,6 +83,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	///used for tracking what listening should be in the absence of things forcing it off, eg its set to listen but gets emp'd temporarily
 	var/should_be_listening = TRUE
 
+	var/default_frequency = PUB_FREQ
+
 	/// Whether the radio can be re-tuned to restricted channels it has no key for
 	var/freerange = FALSE
 	/// Whether the radio is able to have its primary frequency changed. Used for radios with weird primary frequencies, like DS, syndi, etc
@@ -95,6 +97,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	/// see communications.dm for full list. First channes is a "default" for :h
 	var/list/channels = list()
+
+	var/list/channels_configs
 	/// Holder for the syndicate encryption key if present
 	var/obj/item/encryptionkey/syndicate/syndiekey = null
 	/// How many times this is disabled by EMPs
@@ -114,7 +118,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 	var/list/internal_channels
 
-	var/list/datum/radio_frequency/secure_radio_connections = list()
+	var/list/datum/radio_frequency/secure_radio_connections
 	var/datum/radio_frequency/radio_connection
 
 	var/requires_tcomms = FALSE // Does this device require tcomms to work.If TRUE it wont function at all without tcomms. If FALSE, it will work without tcomms, just slowly
@@ -134,23 +138,20 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/Initialize(mapload)
 	wires = new(src)
 	. = ..()
-	internal_channels = GLOB.default_internal_channels
+	internal_channels = get_internal_channels()
 	GLOB.global_radios |= src
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
-	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
-		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
-	set_listening(listening)
-	set_broadcasting(broadcasting)
-	set_frequency(frequency)
+	if(default_frequency < RADIO_LOW_FREQ || default_frequency > RADIO_HIGH_FREQ)
+		default_frequency = sanitize_frequency(default_frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 	set_on(on)
+	recalculate_channels()
+	set_frequency(default_frequency)
 
-	for(var/ch_name in channels)
-		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
-
-
-/obj/item/radio/Destroy()
+/obj/item/radio/Destroy(force)
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
+	lose_hearing_sensitivity(ROUNDSTART_TRAIT)
+	set_on(FALSE)
 	SSradio?.remove_object_all(src)
 	LAZYCLEARLIST(secure_radio_connections)
 	GLOB.global_radios -= src
@@ -195,11 +196,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		return
 
 	if(listening && on)
-		recalculateChannels()
+		recalculate_channels()
 		readd_listening_radio_channels()
 	else if(!listening)
-		SSradio.remove_object_all(src)
-		LAZYCLEARLIST(secure_radio_connections)
+		reset_channels()
 
 ///goes through all radio channels we should be listening for and readds them to the global list
 /obj/item/radio/proc/readd_listening_radio_channels()
@@ -225,6 +225,9 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	else if(!broadcasting)
 		lose_hearing_sensitivity(INNATE_TRAIT)
 
+/obj/item/radio/proc/get_internal_channels()
+	return GLOB.default_internal_channels
+
 ///setter for the on var that sets both broadcasting and listening to off or whatever they were supposed to be
 /obj/item/radio/proc/set_on(new_on)
 
@@ -233,9 +236,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(on)
 		set_broadcasting(should_be_broadcasting)//set them to whatever theyre supposed to be
 		set_listening(should_be_listening)
-	else
-		set_broadcasting(FALSE, actual_setting = FALSE)//fake set them to off
-		set_listening(FALSE, actual_setting = FALSE)
+		return
+
+	set_broadcasting(FALSE, actual_setting = FALSE)//fake set them to off
+	set_listening(FALSE, actual_setting = FALSE)
 
 /obj/item/radio/proc/set_frequency(new_frequency)
 	SEND_SIGNAL(src, COMSIG_RADIO_NEW_FREQUENCY, args)
@@ -257,7 +261,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 			M.show_message(span_danger("Ваша [declent_ru(NOMINATIVE)] взрывается!"), 1)
 
 		if(T)
-			T.hotspot_expose(700,125)
+			T.hotspot_expose(700, 125)
 			explosion(T, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3, cause = src)
 		qdel(src)
 	else
@@ -344,6 +348,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 				channels[channel] &= ~FREQ_LISTENING
 			else
 				channels[channel] |= FREQ_LISTENING
+			LAZYSET(channels_configs, channel, channels[channel])
 
 		if("loudspeaker")
 			// Toggle loudspeaker mode, AKA everyone around you hearing your radio.
@@ -411,7 +416,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(channel && channels && length(channels) > 0)
 		if(channel == DEPARTMENT_FREQ_NAME)
 			channel = channels[1]
-		connection = secure_radio_connections[channel]
+		connection = LAZYACCESS(secure_radio_connections, channel)
 	if(!istype(connection))
 		return
 	if(!connection)
@@ -456,6 +461,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	desc = "Базовая портативная рация, способная взаимодействовать с локальными телекоммуникационными сетями. Специальная модель для сотрудников службы безопасности."
 	icon_state = "walkietalkie_sec"
 	item_state = "walkietalkie_sec"
+	default_frequency = SEC_FREQ
 
 /obj/item/radio/sec/get_ru_names()
 	return list(
@@ -466,10 +472,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		INSTRUMENTAL = "коротковолновой рацией СБ",
 		PREPOSITIONAL = "коротковолновой рации СБ"
 	)
-
-/obj/item/radio/sec/Initialize(mapload)
-	. = ..()
-	set_frequency(SEC_FREQ)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/radio/proc/handle_message_mode(mob/living/M as mob, list/message_pieces, message_mode)
@@ -483,7 +485,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 			message_mode = channels[1]
 
 		if(channels[message_mode]) // only broadcast if the channel is set on
-			return secure_radio_connections[message_mode]
+			return LAZYACCESS(secure_radio_connections, message_mode)
 
 	// If we were to send to a channel we don't have, drop it.
 	return RADIO_CONNECTION_FAIL
@@ -677,7 +679,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		var/accept = (freq==frequency && listening)
 		if(!accept)
 			for(var/ch_name in channels)
-				var/datum/radio_frequency/RF = secure_radio_connections[ch_name]
+				var/datum/radio_frequency/RF = LAZYACCESS(secure_radio_connections, ch_name)
 				if(RF.frequency==freq && (channels[ch_name]&FREQ_LISTENING))
 					accept = 1
 					break
@@ -758,17 +760,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	interact(user)
 
 /obj/item/radio/emp_act(severity)
+
 	set_on(FALSE)
 	disable_timer++
 	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
-
-	if(listening)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] громко жужжит!"))
-
-	set_broadcasting(FALSE)
-	set_listening(FALSE)
-	for(var/ch_name in channels)
-		channels[ch_name] = 0
 	..()
 
 /obj/item/radio/proc/enable_radio()
@@ -777,23 +772,51 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(!disable_timer)
 		set_on(TRUE)
 
-/obj/item/radio/proc/recalculateChannels()
-	resetChannels()
+/obj/item/radio/proc/recalculate_channels()
+	reset_channels()
 
-	if(keyslot)
-		for(var/channel_name in keyslot.channels)
-			if(!(channel_name in channels))
-				channels[channel_name] = keyslot.channels[channel_name]
+	load_channels()
+
+	load_channel_configs()
 
 	for(var/channel_name in channels)
-		secure_radio_connections[channel_name] = SSradio.add_object(src, SSradio.radiochannels[channel_name])
+		if(!SSradio)
+			make_broken()
+			return
+		LAZYSET(secure_radio_connections, channel_name, SSradio.add_object(src, SSradio.radiochannels[channel_name], RADIO_CHAT))
 
 	if(!listening)
 		SSradio.remove_object_all(src)
 
-/obj/item/radio/proc/resetChannels()
+/obj/item/radio/proc/make_broken()
+	return
+
+/obj/item/radio/proc/load_channels()
+	var/list/base_channels = get_base_channels()
+	if(!LAZYLEN(base_channels))
+		return
+	list_clear_nulls(base_channels)
+	for(var/channel_name in base_channels)
+		if(channel_name in channels)
+			continue
+		channels[channel_name] = base_channels[channel_name]
+
+/obj/item/radio/proc/get_base_channels()
+	return keyslot?.channels
+
+/obj/item/radio/proc/load_keyslot(obj/item/encryptionkey/key)
+	return
+
+/obj/item/radio/proc/load_channel_configs()
+	for(var/channel in channels_configs)
+		if(!(channel in channels))
+			continue
+		channels[channel] = channels_configs[channel]
+
+
+/obj/item/radio/proc/reset_channels()
 	channels = list()
-	secure_radio_connections = list()
+	secure_radio_connections = null
 	SSradio.remove_object_all(src)
 
 ///////////////////////////////
@@ -824,6 +847,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
+	default_frequency = SYND_FREQ
 
 /obj/item/radio/borg/syndicate/taipan
 	keyslot = new /obj/item/encryptionkey/syndicate/taipan/borg
@@ -840,22 +864,21 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/borg/syndicate/Initialize(mapload)
 	. = ..()
 	syndiekey = keyslot
-	set_frequency(SYND_FREQ)
 	freqlock = TRUE
 
 /obj/item/radio/borg/deathsquad
+	default_frequency = DTH_FREQ
 
 /obj/item/radio/borg/deathsquad/Initialize(mapload)
 	. = ..()
-	set_frequency(DTH_FREQ)
 	freqlock = TRUE
 
 /obj/item/radio/borg/ert
 	keyslot = new /obj/item/encryptionkey/ert
+	default_frequency = ERT_FREQ
 
 /obj/item/radio/borg/ert/Initialize(mapload)
 	. = ..()
-	set_frequency(ERT_FREQ)
 	freqlock = TRUE
 
 /obj/item/radio/borg/ert/specops
@@ -872,7 +895,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return .()
 		keyslot = I
-		recalculateChannels()
+		recalculate_channels()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -886,7 +909,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(keyslot)
 		for(var/ch_name in channels)
 			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
-			secure_radio_connections[ch_name] = null
+			LAZYSET(secure_radio_connections, ch_name, null)
 
 
 		if(keyslot)
@@ -895,74 +918,52 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 				keyslot.loc = T
 				keyslot = null
 
-		recalculateChannels()
+		recalculate_channels()
 		balloon_alert(user, "ключ извлечён")
 		I.play_tool_sound(user, I.tool_volume)
 
 	else
 		balloon_alert(user, "слот для ключа пуст!")
 
-/obj/item/radio/borg/recalculateChannels()
-	channels = list()
+/obj/item/radio/borg/reset_channels()
+	. = ..()
 	syndiekey = null
 
-	var/mob/living/silicon/robot/D = loc
-	if(D.module)
-		for(var/ch_name in D.module.channels)
-			if(ch_name in channels)
-				continue
-			channels += ch_name
-			channels[ch_name] += D.module.channels[ch_name]
-	if(keyslot)
-		for(var/ch_name in keyslot.channels)
-			if(ch_name in channels)
-				continue
-			channels += ch_name
-			channels[ch_name] += keyslot.channels[ch_name]
+/obj/item/radio/borg/load_channels()
+	. = ..()
+	load_keyslot(keyslot)
 
-		if(keyslot.syndie)
-			syndiekey = keyslot
+/obj/item/radio/borg/load_keyslot(obj/item/encryptionkey/key)
+	if(!key)
+		return
 
+	if(!key.syndie)
+		return
 
-	for(var/ch_name in channels)
-		if(!SSradio)
-			sleep(30) // Waiting for SSradio to be created.
-		if(!SSradio)
-			name = "broken radio"
-			ru_names = list(
-				NOMINATIVE = "сломанная рация",
-				GENITIVE = "сломанной рации",
-				DATIVE = "сломанной рации",
-				ACCUSATIVE = "сломанную рацию",
-				INSTRUMENTAL = "сломанной рацией",
-				PREPOSITIONAL = "сломанной рации"
-			)
-			return
+	syndiekey = key
 
-		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
+/obj/item/radio/borg/get_base_channels()
+	var/mob/living/silicon/robot/robot = loc
+	return robot?.module?.channels | keyslot?.channels
 
-	return
-
+/obj/item/radio/borg/make_broken()
+	name = "broken radio"
+	ru_names = list(
+		NOMINATIVE = "сломанная рация",
+		GENITIVE = "сломанной рации",
+		DATIVE = "сломанной рации",
+		ACCUSATIVE = "сломанную рацию",
+		INSTRUMENTAL = "сломанной рацией",
+		PREPOSITIONAL = "сломанной рации"
+	)
 
 /obj/item/radio/borg/interact(mob/user)
 	if(!on)
 		return
 	. = ..()
 
-/obj/item/radio/proc/config(op)
-	if(SSradio)
-		for(var/ch_name in channels)
-			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
-	secure_radio_connections = list()
-	channels = op
-	if(SSradio)
-		for(var/ch_name in op)
-			secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
-	return
-
-/obj/item/radio/off/Initialize(mapload)
-	. = ..()
-	set_listening(FALSE)
+/obj/item/radio/off
+	should_be_listening = FALSE
 
 /obj/item/radio/phone
 	name = "phone"
@@ -984,14 +985,10 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		PREPOSITIONAL = "телефоне"
 	)
 
-/obj/item/radio/phone/Initialize(mapload)
-	. = ..()
-	set_listening(TRUE)
-	set_broadcasting(FALSE)
-
 /obj/item/radio/phone/medbay
 	name = "medbay phone"
 	desc = "Телефон, настроенный на медицинскую частоту системы связи станции. Дзинь."
+	default_frequency = MED_I_FREQ
 
 /obj/item/radio/phone/medbay/get_ru_names()
 	return list(
@@ -1003,10 +1000,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		PREPOSITIONAL = "медицинском телефоне"
 	)
 
-/obj/item/radio/phone/medbay/Initialize(mapload)
-	. = ..()
-	internal_channels = GLOB.default_medbay_channels
-	set_frequency(MED_I_FREQ)
+/obj/item/radio/phone/medbay/get_internal_channels()
+	return GLOB.default_medbay_channels
 
 /obj/item/radio/bot
 	tts_seed = null
@@ -1015,6 +1010,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	name = "Red phone"
 	desc = "Телефон, подключённый к частоте СССП в пределах сектора."
 	has_loudspeaker = TRUE
+	default_frequency = SOV_FREQ
 
 /obj/item/radio/phone/ussp/get_ru_names()
 	return list(
@@ -1025,7 +1021,3 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		INSTRUMENTAL = "красным телефоном",
 		PREPOSITIONAL = "красном телефоне"
 	)
-
-/obj/item/radio/phone/ussp/Initialize(mapload)
-	. = ..()
-	set_frequency(SOV_FREQ)
