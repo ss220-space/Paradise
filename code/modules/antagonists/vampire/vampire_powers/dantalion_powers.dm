@@ -140,7 +140,7 @@
 	// if admins give this to a non vampire/thrall it is not my problem
 	var/is_thrall = isvampirethrall(user)
 	var/title = is_thrall ? "(Раб Вампира) [user.real_name]" : "<span class='dantalion'><font size='3'>(Мастер Вампир) [user.real_name]</font></span>"
-	var/message = is_thrall ? "<span class='dantalion'>[input]</span>" : "<span class='dantalion'><font size='3'><b>[input]</b></font></span>"
+	var/message = is_thrall ? span_dantalion("[input]") : "<span class='dantalion'><font size='3'><b>[input]</b></font></span>"
 
 	for(var/mob/player in targets)
 		to_chat(player, "<i><span class='game say'>Рабская телепатия, <span class='name'>[title]</span> телепатезирует, [message]</span><i>")

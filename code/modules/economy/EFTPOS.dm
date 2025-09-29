@@ -124,7 +124,7 @@
 
 /obj/item/eftpos/emag_act(mob/user)
 	emagged = TRUE
-	visible_message("<span class='warning'>[user] swipes a card through [src] and sparks fly out of it!</span>")
+	visible_message(span_warning("[user] swipes a card through [src] and sparks fly out of it!"))
 	do_sparks(1, TRUE, src)
 	get_sfx(SFX_SPARKS)
 	access_code = rand(1111,9999)
@@ -276,7 +276,7 @@
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 
 /obj/item/eftpos/proc/scan_card(obj/item/card/id/id_card, mob/user)
-	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
+	visible_message(span_notice("[user] swipes a card through [src]."))
 
 	if(emagged)
 		to_chat(user, "[bicon(src)]<span class='warning'>  Client Error #423 Device Locked. Contact Nanotrasen IT support.</span>")

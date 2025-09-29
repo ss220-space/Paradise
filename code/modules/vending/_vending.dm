@@ -840,7 +840,7 @@
 	if(!..())
 		return FALSE
 	if(!istype(I, /obj/item/toy))
-		to_chat(user, "<span class='warning'>[I] isn't compatible with this machine's slot.</span>")
+		to_chat(user, span_warning("[I] isn't compatible with this machine's slot."))
 		return FALSE
 	return TRUE
 */

@@ -71,7 +71,7 @@
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"].</span>"
+	. += span_notice("Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"].")
 
 /obj/item/clothing/shoes/magboots/advance
 	desc = "Advanced magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."

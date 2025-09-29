@@ -528,7 +528,7 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='caution'>You double the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+			to_chat(user, span_caution("You double the gun's temperature cap! Targets hit by searing beams will burst into flames!"))
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
 
 /obj/item/gun/energy/temperature/Topic(href, href_list)
@@ -887,7 +887,7 @@
 	if(charging)
 		to_chat(user, span_warning("[src] is already charging!"))
 		return
-	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
+	to_chat(user, span_notice("You begin to overload [src]."))
 	charging = TRUE
 	if(do_after(user, 2 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_LYING, max_interact_count = 1))
 		overload()
@@ -955,7 +955,7 @@
 	do_sparks(2, TRUE, src)
 	update_icon()
 	if(prob(40))
-		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
+		visible_message(span_danger("[src] vents heated plasma!"))
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
 			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
@@ -967,9 +967,9 @@
 		if(length(mob_targets))
 			var/mob/living/target = pick(mob_targets)
 			shootAt(target)
-			visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+			visible_message(span_danger("[src] discharges a plasma bolt!"))
 			return
-	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+	visible_message(span_danger("[src] discharges a plasma bolt!"))
 	var/list/turf_targets = list()
 	for(var/turf/T in orange(get_turf(src), 7))
 		turf_targets += T

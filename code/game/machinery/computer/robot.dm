@@ -83,7 +83,7 @@
 /obj/machinery/computer/robotics/proc/can_detonate_any(mob/user, telluserwhy = FALSE)
 	if(ispulsedemon(user))
 		if(telluserwhy)
-			to_chat(user, "<span class='warning'>The console's authentication circuits reject your control!</span>")
+			to_chat(user, span_warning("The console's authentication circuits reject your control!"))
 		return FALSE
 	return TRUE
 

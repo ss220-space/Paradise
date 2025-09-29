@@ -270,11 +270,11 @@ LINEN BINS
 /obj/structure/bedsheetbin/examine(mob/user)
 	. = ..()
 	if(amount < 1)
-		. += "<span class='notice'>There are no bed sheets in the bin.</span>"
+		. += span_notice("There are no bed sheets in the bin.")
 	else if(amount == 1)
-		. += "<span class='notice'>There is one bed sheet in the bin.</span>"
+		. += span_notice("There is one bed sheet in the bin.")
 	else
-		. += "<span class='notice'>There are [amount] bed sheets in the bin.</span>"
+		. += span_notice("There are [amount] bed sheets in the bin.")
 
 /obj/structure/bedsheetbin/update_icon_state()
 	switch(amount)
@@ -334,11 +334,11 @@ LINEN BINS
 
 		B.forceMove_turf()
 		user.put_in_hands(B, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You take [B] out of [src].</span>")
+		to_chat(user, span_notice("You take [B] out of [src]."))
 
 		if(hidden)
 			hidden.forceMove_turf()
-			to_chat(user, "<span class='notice'>[hidden] falls out of [B]!</span>")
+			to_chat(user, span_notice("[hidden] falls out of [B]!"))
 			hidden = null
 
 
@@ -358,7 +358,7 @@ LINEN BINS
 			B = new /obj/item/bedsheet(loc)
 
 		B.loc = loc
-		to_chat(user, "<span class='notice'>You telekinetically remove [B] from [src].</span>")
+		to_chat(user, span_notice("You telekinetically remove [B] from [src]."))
 		update_icon(UPDATE_ICON_STATE)
 
 		if(hidden)

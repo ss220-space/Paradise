@@ -357,7 +357,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	if(variant == "")
 		variant = null
 	if(prev != variant)
-		to_chat(user, "<span class='notice'>You [variant ? "change" : "remove"] the [plantname]'s variant designation.</span>")
+		to_chat(user, span_notice("You [variant ? "change" : "remove"] the [plantname]'s variant designation."))
 	apply_variant_name()
 
 /obj/item/seeds/proc/apply_variant_name()

@@ -70,4 +70,4 @@
 	if(SSticker?.mode)
 		SSticker.mode.clocker_objs.study(usr, TRUE)
 	else
-		to_chat(usr, "<span class='clockitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
+		to_chat(usr, span_clockitalic("You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)"))

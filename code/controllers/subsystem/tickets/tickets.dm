@@ -206,7 +206,7 @@ SUBSYSTEM_DEF(tickets)
 		return
 	var/datum/ticket/T = allTickets[ticketId]
 	if(T.ticket_converted)
-		to_chat(usr, "<span class='warning'>This ticket has already been converted!</span>", confidential=TRUE)
+		to_chat(usr, span_warning("This ticket has already been converted!"), confidential=TRUE)
 		return
 	convert_ticket(T)
 	message_staff("<span class='[span_class]'>[usr.client] / ([usr]) converted [ticket_name] number [ticketId]</span>")
@@ -628,7 +628,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/proc/message_staff(msg, prefix_type = TICKET_STAFF_MESSAGE_PREFIX, important = FALSE)
 	switch(prefix_type)
 		if(TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
-			msg = "<span class='admin_channel'>ADMIN TICKET: [msg]</span>"
+			msg = span_admin_channel("ADMIN TICKET: [msg]")
 		if(TICKET_STAFF_MESSAGE_PREFIX)
 			msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
 	message_adminTicket(chat_box_ahelp(msg), important)
@@ -674,7 +674,7 @@ SUBSYSTEM_DEF(tickets)
 	if(href_list["detailclose"])
 		var/indexNum = text2num(href_list["detailclose"])
 		if(!check_rights(close_rights))
-			to_chat(usr, "<span class='warning'>Недостаточно прав чтобы закрыть тикет.</span>", confidential=TRUE)
+			to_chat(usr, span_warning("Недостаточно прав чтобы закрыть тикет."), confidential=TRUE)
 			return
 		if(alert("Вы уверены? Это отправит отрицательное сообщение.", "Уверены?", "Да","Нет") != "Да")
 			return
@@ -718,7 +718,7 @@ SUBSYSTEM_DEF(tickets)
 		if(span_class == "mentorhelp")
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) взял [ticket_name] номер [index]</span>")
 		else
-			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) взял [ticket_name] номер [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
+			message_staff(span_admin_channel("[usr.client] / ([usr]) взял [ticket_name] номер [index]"), TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
 		to_chat_safe(returnClient(index), "<span class='[span_class]'>Ваш [ticket_name] обрабатывает [usr.client].</span>", confidential=TRUE)
 
 /datum/controller/subsystem/tickets/proc/unassignTicket(index)
@@ -729,7 +729,7 @@ SUBSYSTEM_DEF(tickets)
 		if(span_class == "mentorhelp")
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) снят с тикета [ticket_name] номер [index]</span>")
 		else
-			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) снят с тикета [ticket_name] номер [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
+			message_staff(span_admin_channel("[usr.client] / ([usr]) снят с тикета [ticket_name] номер [index]"), TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
 
 /datum/controller/subsystem/tickets/can_vv_get(var_name)
 	var/static/list/protected_vars = list(

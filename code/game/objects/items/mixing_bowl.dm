@@ -166,7 +166,7 @@
 	if(reagents.total_volume)
 		make_dirty(5)
 	reagents.clear_reagents()
-	to_chat(usr, "<span class='notice'>You dispose of [src]'s contents.</span>")
+	to_chat(usr, span_notice("You dispose of [src]'s contents."))
 	update_dialog(usr)
 
 /obj/item/mixing_bowl/proc/update_dialog(mob/user)

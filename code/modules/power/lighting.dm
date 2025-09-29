@@ -56,16 +56,16 @@
 	. = TRUE
 	switch(stage)
 		if(STAGE_EMPTY)
-			to_chat(user, "<span class='notice'>You begin to dismantle [src].</span>")
+			to_chat(user, span_notice("You begin to dismantle [src]."))
 			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 				return
 			new /obj/item/stack/sheet/metal(get_turf(loc), sheets_refunded)
 			TOOL_DISMANTLE_SUCCESS_MESSAGE
 			qdel(src)
 		if(STAGE_WIRED)
-			to_chat(user, "<span class='warning'>You have to remove the wires first.</span>")
+			to_chat(user, span_warning("You have to remove the wires first."))
 		if(STAGE_COMPLETED)
-			to_chat(user, "<span class='warning'>You have to unscrew the case first.</span>")
+			to_chat(user, span_warning("You have to unscrew the case first."))
 
 
 /obj/machinery/light_construct/wirecutter_act(mob/living/user, obj/item/I)
@@ -436,7 +436,7 @@
 /obj/machinery/light/proc/burnout()
 	status = LIGHT_BURNED
 
-	visible_message("<span class='boldwarning'>[src] burns out!</span>")
+	visible_message(span_boldwarning("[src] burns out!"))
 	do_sparks(2, TRUE, src)
 
 	on = FALSE
@@ -455,14 +455,14 @@
 	if(in_range(user, src))
 		switch(status)
 			if(LIGHT_OK)
-				. += "<span class='notice'>It is turned [on ? "on" : "off"].</span>"
+				. += span_notice("It is turned [on ? "on" : "off"].")
 			if(LIGHT_EMPTY)
-				. += "<span class='notice'>The [fitting] has been removed.</span>"
+				. += span_notice("The [fitting] has been removed.")
 				. += "<span class='notice'>The casing can be <b>unscrewed</b>.</span>"
 			if(LIGHT_BURNED)
-				. += "<span class='notice'>The [fitting] is burnt out.</span>"
+				. += span_notice("The [fitting] is burnt out.")
 			if(LIGHT_BROKEN)
-				. += "<span class='notice'>The [fitting] has been smashed.</span>"
+				. += span_notice("The [fitting] has been smashed.")
 
 
 // attack with item - insert light (if right type), otherwise try to break the light
@@ -544,8 +544,8 @@
 		return TRUE
 
 	I.play_tool_sound(src)
-	user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
-		"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
+	user.visible_message(span_notice("[user] opens [src]'s casing."), \
+		span_notice("You open [src]'s casing."), span_notice("You hear a screwdriver."))
 	deconstruct()
 	return TRUE
 
@@ -694,7 +694,7 @@
 // ai attack - toggle emergency lighting
 /obj/machinery/light/attack_ai(mob/user)
 	no_emergency = !no_emergency
-	to_chat(user, "<span class='notice'>Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"].</span>")
+	to_chat(user, span_notice("Emergency lights for this fixture have been [no_emergency ? "disabled" : "enabled"]."))
 	update(FALSE)
 
 // attack with hand - remove tube/bulb
@@ -705,7 +705,7 @@
 	add_fingerprint(user)
 
 	if(status == LIGHT_EMPTY)
-		to_chat(user, "<span class='warning'>There is no [fitting] in this light.</span>")
+		to_chat(user, span_warning("There is no [fitting] in this light."))
 		return
 
 	// make it burn hands if not wearing fire-insulated gloves
@@ -722,19 +722,19 @@
 			prot = 1
 
 		if(prot > 0 || HAS_TRAIT(user, TRAIT_RESIST_HEAT))
-			to_chat(user, "<span class='notice'>You remove the light [fitting]</span>")
+			to_chat(user, span_notice("You remove the light [fitting]"))
 		else if(HAS_TRAIT(user, TRAIT_TELEKINESIS))
-			to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
+			to_chat(user, span_notice("You telekinetically remove the light [fitting]."))
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
-				to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
+				to_chat(user, span_warning("You try to remove the light [fitting], but you burn your hand on it!"))
 				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				return
 			else
-				to_chat(user, "<span class='notice'>You try to remove the light [fitting], but it's too hot to touch!</span>")
+				to_chat(user, span_notice("You try to remove the light [fitting], but it's too hot to touch!"))
 				return
 	else
-		to_chat(user, "<span class='notice'>You remove the light [fitting]</span>")
+		to_chat(user, span_notice("You remove the light [fitting]"))
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
 
@@ -1004,7 +1004,7 @@
 /obj/item/light/proc/shatter()
 	. = FALSE
 	if(status == LIGHT_OK || status == LIGHT_BURNED)
-		visible_message("<span class='warning'>[src] shatters.</span>", "<span class='warning'>You hear a small glass object shatter.</span>")
+		visible_message(span_warning("[src] shatters."), span_warning("You hear a small glass object shatter."))
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = TRUE

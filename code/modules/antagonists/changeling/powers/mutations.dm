@@ -538,7 +538,7 @@
 	if(isitem(target))
 		var/obj/item/item = target
 		if(!item.anchored)
-			to_chat(firer, "<span class='notice'>You pull [item] towards yourself.</span>")
+			to_chat(firer, span_notice("You pull [item] towards yourself."))
 			add_attack_logs(src, item, "[src] pulled [item] towards them with a tentacle")
 			user.throw_mode_on()
 			item.throw_at(user, 10, 2, callback = CALLBACK(src, PROC_REF(tentacle_disarm), item, user))

@@ -341,7 +341,7 @@
 			action_fluff = "You remove \the [src] and adjust it"
 
 	over_mask = !over_mask
-	to_chat(user, "<span class='notice'>[action_fluff] to be worn [over_mask ? "over" : "under"] a mask.</span>")
+	to_chat(user, span_notice("[action_fluff] to be worn [over_mask ? "over" : "under"] a mask."))
 
 //Gloves
 /obj/item/clothing/gloves
@@ -876,12 +876,12 @@
 					for(var/obj/item/pocket_thing in thing) //Dump the pocket out onto the floor below the user.
 						user.drop_item_ground(pocket_thing, force = TRUE)
 
-			user.visible_message("<span class='warning'>[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!</span>","<span class='warning'>You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!</span>")
+			user.visible_message(span_warning("[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!"),span_warning("You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!"))
 			user.temporarily_remove_item_from_inventory(src)
 			qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
 		else
-			to_chat(user, "<span class='warning'>You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!</span>")//Yep, that's all they get. Avoids having to snowflake in a cooldown.
+			to_chat(user, span_warning("You yank and pull at \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")], however you are unable to change its state!"))//Yep, that's all they get. Avoids having to snowflake in a cooldown.
 		return
 
 	suit_adjusted = !suit_adjusted
@@ -1318,7 +1318,7 @@
 		return ..()
 	if(prob(5))
 		var/mob/living/carbon/human/H = owner
-		owner.visible_message("<span class='danger'>The teleport slime potion flings [H] clear of [attack_text]!</span>")
+		owner.visible_message(span_danger("The teleport slime potion flings [H] clear of [attack_text]!"))
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(3, H))
 			if(isspaceturf(T))

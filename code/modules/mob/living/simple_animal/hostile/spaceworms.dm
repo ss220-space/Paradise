@@ -169,7 +169,7 @@
 
 	var/ufnomDelay = nomDelay * 0.1
 
-	src.visible_message("<span class='userdanger'>\the [src] starts to eat \the [noms]!</span>","<span class='notice'>You start to eat \the [noms]. (This will take about [ufnomDelay] seconds.)</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
+	src.visible_message(span_userdanger("\the [src] starts to eat \the [noms]!"),span_notice("You start to eat \the [noms]. (This will take about [ufnomDelay] seconds.)"),span_userdanger("You hear gnashing.")) //inform everyone what the fucking worm is doing.
 
 	if(do_after(src, nomDelay, noms, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		if(noms && Adjacent(noms) && (currentlyEating == noms))//It exists, were next to it, and it's still the thing were eating
@@ -177,11 +177,11 @@
 				W.ChangeTurf(/turf/simulated/floor/plating)
 				new /obj/item/stack/sheet/metal(src, plasmaPoopPotential)
 				currentlyEating = null //ffs, unstore this
-				src.visible_message("<span class='userdanger'>\the [src] eats \the [noms]!</span>","<span class='notice'>You eat \the [noms]!</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
+				src.visible_message(span_userdanger("\the [src] eats \the [noms]!"),span_notice("You eat \the [noms]!"),span_userdanger("You hear gnashing.")) //inform everyone what the fucking worm is doing.
 			else
 				currentlyEating = null
 				contents += noms
-				src.visible_message("<span class='userdanger'>\the [src] eats \the [noms]!</span>","<span class='notice'>You eat \the [noms]!</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
+				src.visible_message(span_userdanger("\the [src] eats \the [noms]!"),span_notice("You eat \the [noms]!"),span_userdanger("You hear gnashing.")) //inform everyone what the fucking worm is doing.
 				if(ismob(noms))
 					var/mob/M = noms //typecast because noms isn't movable
 					M.forceMove(src) //because just setting a mob loc to null breaks the camera and such

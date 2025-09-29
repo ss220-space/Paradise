@@ -140,22 +140,22 @@
 			t += "<a href='byond://?src=[UID()];ejectGPS=1'>Eject GPS</a>"
 			t += "<a href='byond://?src=[UID()];setMemory=1'>Set GPS memory</a>"
 		else
-			t += "<span class='linkOff'>Eject GPS</span>"
-			t += "<span class='linkOff'>Set GPS memory</span>"
+			t += span_linkoff("Eject GPS")
+			t += span_linkoff("Set GPS memory")
 		t += "<div class='statusDisplay'>[temp_msg]</div><br>"
 		t += "<a href='byond://?src=[UID()];setrotation=1'>Set Bearing</a>"
 		t += "<div class='statusDisplay'>[rotation] degrees</div>"
 		t += "<a href='byond://?src=[UID()];setangle=1'>Set Elevation</a>"
 		t += "<div class='statusDisplay'>[angle] degrees</div>"
-		t += "<span class='linkOn'>Set Power</span>"
+		t += span_linkon("Set Power")
 		t += "<div class='statusDisplay'>"
 
 		for(var/i = 1; i <= power_options.len; i++)
 			if(crystals + telepad.efficiency < i)
-				t += "<span class='linkOff'>[power_options[i]]</span>"
+				t += span_linkoff("[power_options[i]]")
 				continue
 			if(power == power_options[i])
-				t += "<span class='linkOn'>[power_options[i]]</span>"
+				t += span_linkon("[power_options[i]]")
 				continue
 			t += "<a href='byond://?src=[UID()];setpower=[i]'>[power_options[i]]</a>"
 		t += "</div>"

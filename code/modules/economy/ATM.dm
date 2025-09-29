@@ -302,7 +302,7 @@ log transactions
 
 					//remove the money
 					if(amount > 100000) // prevent crashes
-						to_chat(usr, "<span class='notice'>The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 100,000.'</span>")
+						to_chat(usr, span_notice("The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 100,000.'"))
 						amount = 100000
 					if(authenticated_account.charge(amount, null, "Credit withdrawal", machine_id, authenticated_account.owner_name))
 						withdraw_arbitrary_sum(amount)
@@ -337,7 +337,7 @@ log transactions
 		if("balance_statement")
 			if(authenticated_account)
 				if(world.timeofday < lastprint + PRINT_DELAY)
-					to_chat(usr, "<span class='notice'>The [name] flashes an error on its display.</span>")
+					to_chat(usr, span_notice("The [name] flashes an error on its display."))
 					return
 				lastprint = world.timeofday
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
