@@ -14,7 +14,7 @@
 	RegisterSignal(target, COMSIG_ITEM_AFTERATTACK, PROC_REF(afterattack))
 	return
 
-/datum/element/ammo_alarm/Detach(datum/source, ...)
+/datum/element/ammo_alarm/Detach(datum/target)
 	. = ..()
 	UnregisterSignal(target, COMSIG_ITEM_AFTERATTACK, PROC_REF(afterattack))
 
