@@ -7,7 +7,7 @@
 
 /datum/element/ammo_alarm/Attach(datum/target, alarm_sound)
 	. = ..()
-	if(!isatom(target))
+	if(!isgun(target))
 		return ELEMENT_INCOMPATIBLE
 
 	src.alarm_sound = alarm_sound
@@ -20,14 +20,14 @@
 	if(!source.chambered && HAS_TRAIT(source, TRAIT_AMMO_ALARMED))
 		playsound(source.loc, alarm_sound, 40, TRUE)
 		source.update_icon()
-		REMOVE_TRAIT(source, TRAIT_AMMO_ALARMED, ROUNDSTART_TRAIT)
+		REMOVE_TRAIT(source, TRAIT_AMMO_ALARMED, UNIQUE_TRAIT_SOURCE)
 
 /datum/element/ammo_alarm/proc/attack_by(obj/item/attacker, obj/item/gun/source)
 	SIGNAL_HANDLER
 
 	if(istype(source, /obj/item/gun/energy/specter) && is_spectercell(attacker))
-		ADD_TRAIT(source, TRAIT_AMMO_ALARMED, ROUNDSTART_TRAIT)
+		ADD_TRAIT(source, TRAIT_AMMO_ALARMED, UNIQUE_TRAIT_SOURCE)
 	if(istype(source, /obj/item/gun/projectile/automatic) && istype(attacker, /obj/item/ammo_box/magazine))
-		ADD_TRAIT(source, TRAIT_AMMO_ALARMED, ROUNDSTART_TRAIT)
+		ADD_TRAIT(source, TRAIT_AMMO_ALARMED, UNIQUE_TRAIT_SOURCE)
 	return
 
