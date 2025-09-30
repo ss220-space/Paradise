@@ -40,10 +40,11 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		on_minor_spider_created(new_member)
 
 /datum/team/terror_spiders/proc/spider_announce()
-	GLOB.major_announcement.announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/effects/siren-spooky.ogg',
-									new_sound2 = 'sound/AI/outbreak_terror.ogg'
+	GLOB.major_announcement.announce(
+		message = "Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/effects/siren-spooky.ogg',
+		new_sound2 = 'sound/AI/outbreak_terror.ogg'
 	)
 	SSticker?.mode?.special_directive()
 	SSshuttle?.emergency.cancel()
@@ -54,15 +55,17 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 /datum/team/terror_spiders/proc/egg_announce()
 	if(QDELETED(empress_egg))
 		return
-	GLOB.major_announcement.announce("На борту станции [station_name()] зафиксирована биологическая сигнатура яйца Императрицы Ужаса в [get_area(empress_egg)]. Уничтожьте его, пока ситуация не вышла из под контроля.",
-									ANNOUNCE_BIOHAZARD_RU,
-									'sound/effects/siren-spooky.ogg'
+	GLOB.major_announcement.announce(
+		message = "На борту станции [station_name()] зафиксирована биологическая сигнатура яйца Императрицы Ужаса в [get_area(empress_egg)]. Уничтожьте его, пока ситуация не вышла из под контроля.",
+		new_title = ANNOUNCE_BIOHAZARD_RU,
+		new_sound = 'sound/effects/siren-spooky.ogg'
 	)
 
 /datum/team/terror_spiders/proc/spider_win_announce()
-	GLOB.major_announcement.announce("Подтверждено наличие Императрицы Ужаса на борту [station_name()]. Станция переклассифицированна в гнездо биоугрозы 3-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
-									"Отчёт об объекте [station_name()].",
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Подтверждено наличие Императрицы Ужаса на борту [station_name()]. Станция переклассифицированна в гнездо биоугрозы 3-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
+		new_title = "Отчёт об объекте [station_name()].",
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 /datum/team/terror_spiders/proc/get_main_spiders()

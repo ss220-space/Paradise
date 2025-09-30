@@ -178,25 +178,25 @@
 		if(mybag)
 			mybag.forceMove_turf()
 			user.put_in_hands(mybag, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [mybag] from [src].</span>")
+			to_chat(user, span_notice("You take [mybag] from [src]."))
 			mybag = null
 	if(href_list["mop"])
 		if(mymop)
 			mymop.forceMove_turf()
 			user.put_in_hands(mymop, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
+			to_chat(user, span_notice("You take [mymop] from [src]."))
 			mymop = null
 	if(href_list["spray"])
 		if(myspray)
 			myspray.forceMove_turf()
 			user.put_in_hands(myspray, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [myspray] from [src].</span>")
+			to_chat(user, span_notice("You take [myspray] from [src]."))
 			myspray = null
 	if(href_list["replacer"])
 		if(myreplacer)
 			myreplacer.forceMove_turf()
 			user.put_in_hands(myreplacer, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [myreplacer] from [src].</span>")
+			to_chat(user, span_notice("You take [myreplacer] from [src]."))
 			myreplacer = null
 	if(href_list["sign"])
 		if(signs)
@@ -204,7 +204,7 @@
 			if(Sign)
 				Sign.forceMove_turf()
 				user.put_in_hands(Sign, ignore_anim = FALSE)
-				to_chat(user, "<span class='notice'>You take \a [Sign] from [src].</span>")
+				to_chat(user, span_notice("You take \a [Sign] from [src]."))
 				signs--
 			else
 				WARNING("Signs ([signs]) didn't match contents")

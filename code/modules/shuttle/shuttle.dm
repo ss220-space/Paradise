@@ -612,6 +612,7 @@
 			W.update_audio()
 
 	unlockPortDoors(new_dock)
+	areaInstance.parallax_movedir = preferred_direction
 	SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
@@ -671,7 +672,7 @@
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
-	check_ripples()
+	check_effects()
 
 	if(mode == SHUTTLE_IGNITING)
 		check_transit_zone()
@@ -702,12 +703,33 @@
 	timer = 0
 	destination = null
 
-/obj/docking_port/mobile/proc/check_ripples()
+/obj/docking_port/mobile/proc/check_effects()
 	if(!ripples.len)
 		if((mode == SHUTTLE_CALL) || (mode == SHUTTLE_RECALL))
 			var/tl = timeLeft(1)
 			if(tl <= SHUTTLE_RIPPLE_TIME)
 				create_ripples(destination)
+	var/obj/docking_port/stationary/S0 = get_docked()
+	if(istype(S0, /obj/docking_port/stationary/transit) && timeLeft(1) <= PARALLAX_LOOP_TIME)
+		for(var/place in shuttle_areas)
+			var/area/shuttle/shuttle_area = place
+			if(shuttle_area.parallax_movedir)
+				parallax_slowdown()
+
+/obj/docking_port/mobile/proc/parallax_slowdown()
+	for(var/place in shuttle_areas)
+		var/area/shuttle/shuttle_area = place
+		shuttle_area.parallax_movedir = FALSE
+	if(assigned_transit?.assigned_area)
+		assigned_transit.assigned_area.parallax_movedir = FALSE
+	var/list/L0 = return_ordered_turfs(x, y, z, dir)
+	for(var/thing in L0)
+		var/turf/T = thing
+		if(!T || !istype(T.loc, areaInstance.type))
+			continue
+		for(var/atom/movable/movable as anything in T)
+			if(movable.client_mobs_in_contents)
+				movable.update_parallax_contents()
 
 /obj/docking_port/mobile/proc/check_transit_zone()
 	if(assigned_transit)
@@ -905,7 +927,7 @@
 	if(..())	//we can't actually interact, so no action
 		return TRUE
 	if(!allowed(usr))
-		to_chat(usr, "<span class='danger'>Access denied.</span>")
+		to_chat(usr, span_danger("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return	TRUE
 	if(!can_call_shuttle(usr, action))
@@ -928,9 +950,9 @@
 				add_fingerprint(usr)
 				return TRUE
 			if(1)
-				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+				to_chat(usr, span_warning("Invalid shuttle requested."))
 			else
-				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+				to_chat(usr, span_notice("Unable to comply."))
 	else if(action == "set_destination")
 		var/target_destination = params["destination"]
 		if(target_destination)
@@ -944,7 +966,7 @@
 		src.req_access = list()
 		emagged = 1
 		if(user)
-			to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+			to_chat(user, span_notice("You fried the consoles ID checking system."))
 
 //for restricting when the computer can be used, needed for some console subtypes.
 /obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)
@@ -972,7 +994,7 @@
 		if(world.time < next_request)
 			return
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
-		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
+		to_chat(usr, span_notice("Your request has been recieved by Centcom."))
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<a href='byond://?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
@@ -1056,7 +1078,7 @@
 
 /obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
 	if(!isgolem(user) && !isobserver(user))
-		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
+		to_chat(user, span_notice("The console is unresponsive. Seems only golems can use it."))
 		return
 	..()
 

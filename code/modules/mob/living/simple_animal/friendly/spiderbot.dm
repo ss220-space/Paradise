@@ -124,23 +124,23 @@
 	if(user == src) //No self-repair dummy
 		return
 	if(health >= maxHealth)
-		to_chat(user, "<span class='warning'>[src] does not need repairing!</span>")
+		to_chat(user, span_warning("[src] does not need repairing!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 	adjustHealth(-5)
 	add_fingerprint(user)
-	user.visible_message("[user] repairs [src]!","<span class='notice'>You repair [src].</span>")
+	user.visible_message("[user] repairs [src]!",span_notice("You repair [src]."))
 
 /mob/living/simple_animal/spiderbot/emag_act(mob/living/user)
 	if(emagged)
-		to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
+		to_chat(user, span_warning("[src] doesn't seem to respond."))
 		return 0
 	else if(istype(user))
 		emagged = 1
-		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
-		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!</span>")
+		to_chat(user, span_notice("You short out the security protocols and rewrite [src]'s internal memory."))
+		to_chat(src, span_userdanger("You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!"))
 		emagged_master = user
 		add_attack_logs(user, src, "Emagged")
 		maxHealth = 60
@@ -156,7 +156,7 @@
 	ckey = M.brainmob.ckey
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	if(emagged)
-		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!</span>")
+		to_chat(src, span_userdanger("You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!"))
 
 
 /mob/living/simple_animal/spiderbot/update_name(updates = ALL)

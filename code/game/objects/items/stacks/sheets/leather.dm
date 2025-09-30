@@ -324,7 +324,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>Вы больше не можете найти куда [name] пристраивается!</span>")
+			to_chat(user, span_warning("Вы больше не можете найти куда [name] пристраивается!"))
 
 /obj/item/stack/sheet/cartilage_plate
 	name = "thick cartilage plate"

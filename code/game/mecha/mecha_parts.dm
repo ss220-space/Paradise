@@ -36,8 +36,8 @@
 /obj/item/mecha_parts/chassis/ripley
 	name = "Ripley Chassis"
 
-/obj/item/mecha_parts/chassis/ripley/New()
-	..()
+/obj/item/mecha_parts/chassis/ripley/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/ripley_chassis(src)
 
 /obj/item/mecha_parts/part/ripley_torso
@@ -71,8 +71,8 @@
 /obj/item/mecha_parts/chassis/clarke
 	name = "Clarke Chassis"
 
-/obj/item/mecha_parts/chassis/clarke/New()
-	..()
+/obj/item/mecha_parts/chassis/clarke/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/clarke_chassis(src)
 
 /obj/item/mecha_parts/part/clarke_torso
@@ -116,8 +116,8 @@
 /obj/item/mecha_parts/chassis/gygax
 	name = "Gygax Chassis"
 
-/obj/item/mecha_parts/chassis/gygax/New()
-	..()
+/obj/item/mecha_parts/chassis/gygax/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/gygax_chassis(src)
 
 /obj/item/mecha_parts/part/gygax_torso
@@ -165,8 +165,8 @@
 /obj/item/mecha_parts/chassis/durand
 	name = "Durand Chassis"
 
-/obj/item/mecha_parts/chassis/durand/New()
-	..()
+/obj/item/mecha_parts/chassis/durand/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/durand_chassis(src)
 
 /obj/item/mecha_parts/part/durand_torso
@@ -208,8 +208,8 @@
 /obj/item/mecha_parts/chassis/rover
 	name = "Rover Chassis"
 
-/obj/item/mecha_parts/chassis/rover/New()
-	..()
+/obj/item/mecha_parts/chassis/rover/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/rover_chassis(src)
 
 /obj/item/mecha_parts/part/rover_torso
@@ -252,8 +252,8 @@
 /obj/item/mecha_parts/chassis/darkgygax
 	name = "Dark Gygax Chassis"
 
-/obj/item/mecha_parts/chassis/darkgygax/New()
-	..()
+/obj/item/mecha_parts/chassis/darkgygax/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/darkgygax_chassis(src)
 
 /obj/item/mecha_parts/part/darkgygax_torso
@@ -301,8 +301,8 @@
 /obj/item/mecha_parts/chassis/firefighter
 	name = "Firefighter Chassis"
 
-/obj/item/mecha_parts/chassis/firefighter/New()
-	..()
+/obj/item/mecha_parts/chassis/firefighter/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/firefighter_chassis(src)
 
 ////////// HONK
@@ -310,8 +310,8 @@
 /obj/item/mecha_parts/chassis/honker
 	name = "H.O.N.K Chassis"
 
-/obj/item/mecha_parts/chassis/honker/New()
-	..()
+/obj/item/mecha_parts/chassis/honker/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/honker_chassis(src)
 
 /obj/item/mecha_parts/part/honker_torso
@@ -344,14 +344,14 @@
 /obj/item/mecha_parts/chassis/reticence
 	name = "Reticence Chassis"
 
-/obj/item/mecha_parts/chassis/reticence/New()
-	..()
+/obj/item/mecha_parts/chassis/reticence/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/reticence_chassis(src)
 
 /obj/effect/dummy/mecha_emote_step
 	var/emote
 
-/obj/effect/dummy/mecha_emote_step/New(e)
+/obj/effect/dummy/mecha_emote_step/Initialize(mapload, e)
 	. = ..()
 	emote = e
 
@@ -393,8 +393,8 @@
 /obj/item/mecha_parts/chassis/phazon
 	name = "Phazon Chassis"
 
-/obj/item/mecha_parts/chassis/phazon/New()
-	..()
+/obj/item/mecha_parts/chassis/phazon/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/phazon_chassis(src)
 
 
@@ -444,8 +444,8 @@
 /obj/item/mecha_parts/chassis/odysseus
 	name = "Odysseus Chassis"
 
-/obj/item/mecha_parts/chassis/odysseus/New()
-	..()
+/obj/item/mecha_parts/chassis/odysseus/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/odysseus_chassis(src)
 
 /obj/item/mecha_parts/part/odysseus_head

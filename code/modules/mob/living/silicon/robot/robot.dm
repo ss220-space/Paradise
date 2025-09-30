@@ -68,7 +68,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/limited_modules = list() //A limited pickable modules goes into this list. If empty all modules will be available(default ones)
 	var/allow_rename = TRUE
 	var/weapons_unlock = FALSE
-	var/static_radio_channels = FALSE
 
 	var/wiresexposed = 0
 	var/locked = 1
@@ -407,6 +406,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// subsystems
 	module?.add_subsystems_and_actions(src)
 
+	radio.recalculate_channels()
+
 
 	hands.icon_state = lowertext(module?.module_type)
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
@@ -416,9 +417,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(client.stat_tab == STATPANEL_STATUS)
 		SSstatpanels.set_status_tab(client)
-
-	if(!static_radio_channels)
-		radio.config(module?.channels)
 
 	notify_ai(ROBOT_NOTIFY_AI_MODULE)
 
@@ -1874,7 +1872,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module = new /obj/item/robot_module/deathsquad(src)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/radio/borg/deathsquad(src)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/projectile/P)
@@ -1897,7 +1895,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				"Medical" = /obj/item/robot_module/medical,
 				"Security" = /obj/item/robot_module/security
 			)
-	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
 	can_lock_cover = TRUE
@@ -1909,7 +1906,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/ert_override
 	radio = new /obj/item/radio/borg/ert(src)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
 /mob/living/silicon/robot/ert/New(loc)
@@ -1993,7 +1990,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		qdel(radio)
 
 	radio = new /obj/item/radio/borg/ert/specops(src)
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, FALSE)
 
 /mob/living/silicon/robot/destroyer/bullet_act(obj/projectile/P)

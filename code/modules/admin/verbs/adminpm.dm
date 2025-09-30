@@ -385,7 +385,7 @@
 		dat += "</table>"
 		dat += "</div>"
 		if(convo.typing)
-			dat += "<i><span class='typing'>[current_title] is typing</span></i>"
+			dat += "<i>[span_typing("[current_title] is typing")]</i>"
 		dat += "<br>"
 		dat += "</h4>"
 		dat += "<a href='byond://?src=[UID()];reply=[current_title]'>Reply</a>"

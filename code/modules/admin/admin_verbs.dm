@@ -200,7 +200,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debugstatpanel,
 	/client/proc/view_instances,
 	/client/proc/allow_browser_inspect, // XSS prevention
-	/client/proc/change_title_screen_html
+	/client/proc/change_title_screen_html,
+	/client/proc/paint_grids,
 ))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,

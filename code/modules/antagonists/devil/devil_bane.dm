@@ -127,10 +127,9 @@
 	var/damage = intensity - owner.check_eye_prot()
 
 	if(!damage)
-		owner.mind?.disrupt_spells(0)
 		return
 
-	owner.mind?.disrupt_spells(-500)
+	owner.mind?.disrupt_spells(500)
 
 /datum/devil_bane/silver
 	name = BANE_SILVER
