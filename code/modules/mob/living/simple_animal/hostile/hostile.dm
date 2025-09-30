@@ -393,7 +393,7 @@
 		for(var/i in 1 to rapid_melee)
 			addtimer(cb, (i - 1)*delay)
 	else if(target)
-		AttackingTarget()
+		UnarmedAttack(target, TRUE)
 	if(patience)
 		GainPatience()
 
@@ -490,7 +490,6 @@
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
 	in_melee = TRUE
-	SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, target)
 	if(!client)
 		mob_attack_logs += "[time_stamp()] Attacked [target] at [COORD(src)]"
 	var/result = attack_proc()
