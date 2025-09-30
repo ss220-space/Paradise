@@ -18,9 +18,13 @@
 
 /datum/element/ammo_alarm/proc/afterattack(obj/item/gun/source)
 	SIGNAL_HANDLER
-	if(!source.chambered && !HAS_TRAIT(source, TRAIT_AMMO_ALARMED))
-		playsound(source.loc, alarm_sound, 40, TRUE)
-		source.update_icon()
-		ADD_TRAIT(source, TRAIT_AMMO_ALARMED, UNIQUE_TRAIT_SOURCE(src))
 	if(source.chambered)
 		REMOVE_TRAIT(source, TRAIT_AMMO_ALARMED, UNIQUE_TRAIT_SOURCE(src))
+		return
+
+	if(HAS_TRAIT(source, TRAIT_AMMO_ALARMED))
+		return
+
+	playsound(source.loc, alarm_sound, 40, TRUE)
+	source.update_icon()
+	ADD_TRAIT(source, TRAIT_AMMO_ALARMED, UNIQUE_TRAIT_SOURCE(src))

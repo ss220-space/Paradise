@@ -145,6 +145,9 @@
 /obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
 	. = ..()
 	update_icon()
+
+/obj/item/gun/projectile/automatic/c20r/ComponentInitialize()
+	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
@@ -415,7 +418,7 @@ TODO Use this name and desc for localisation*/
 	recoil = GUN_RECOIL_HIGH
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/Initialize(mapload)
+/obj/item/gun/projectile/automatic/shotgun/bulldog/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
@@ -477,7 +480,7 @@ TODO Use this name and desc for localisation*/
 	)
 	recoil = GUN_RECOIL_HIGH
 
-/obj/item/gun/projectile/automatic/shotgun/minotaur/Initialize(mapload)
+/obj/item/gun/projectile/automatic/shotgun/minotaur/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 

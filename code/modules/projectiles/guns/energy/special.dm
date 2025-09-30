@@ -783,7 +783,7 @@
 	)
 	ammo_x_offset = 0
 
-/obj/item/gun/energy/specter/Initialize(mapload, ...)
+/obj/item/gun/energy/specter/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/gun_interactions/spec_magout.ogg')
 
