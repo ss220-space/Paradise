@@ -3,6 +3,13 @@
 #define BASE_STORAGE_WIDTH 200
 #define MAX_LINE_WIDTH 292
 
+#define STORAGE_TILE_POSITION_X 4
+#define STORAGE_TILE_POSITION_Y 2
+#define STORAGE_PIXEL_POSITION_X 16
+#define STORAGE_PIXEL_POSITION_Y 16
+// 3 in an number choosen by altering diffent values, to make gaps more lovely looking
+#define STORAGE_SIZE_MULTIPLIER_Y (ICON_SIZE_Y - 3)
+
 // To clarify:
 // For use_to_pickup and allow_quick_gather functionality,
 // see item/attackby() (/game/objects/items.dm, params)
@@ -91,6 +98,7 @@
 	. = ..()
 	QDEL_NULL(boxes)
 	QDEL_NULL(closer)
+	QDEL_LIST_ASSOC_VAL(storage_boxes)
 	LAZYCLEARLIST(mobs_viewing)
 
 
@@ -391,10 +399,10 @@
 	top.icon = ui_icon
 	bottom.icon = ui_icon
 	closer.icon = ui_icon
-	var/y_enlarge = (32 + (lines_num - 1) * (29)) / 32
+	var/y_enlarge = (ICON_SIZE_Y + (lines_num - 1) * (STORAGE_SIZE_MULTIPLIER_Y)) / ICON_SIZE_Y
 	// Both axes modify
 	var/matrix/modify_matrix = matrix()
-	modify_matrix.Scale((line_width - STORAGE_CAP_WIDTH * 2 + 3) / 32, y_enlarge)
+	modify_matrix.Scale((line_width - STORAGE_CAP_WIDTH + 1) / ICON_SIZE_X, y_enlarge)
 	continued.transform = modify_matrix
 	// Y axis modify
 	modify_matrix = matrix()
@@ -403,7 +411,7 @@
 	end.transform = modify_matrix
 	// X axis modify
 	modify_matrix = matrix()
-	modify_matrix.Scale((line_width + 2) / 32, 1)
+	modify_matrix.Scale((line_width + 2) / ICON_SIZE_X, 1)
 	top.transform = modify_matrix
 	bottom.transform = modify_matrix
 	// Move out box to correct place after resize
@@ -427,7 +435,7 @@
 		if(!first_time)
 			continue
 
-		stored.screen_loc = "4:[floor((startpoint + endpoint) / 2)],2:[16 + 29 * (lines_num - current_level - 1)]"
+		stored.screen_loc = "[STORAGE_TILE_POSITION_X]:[floor((startpoint + endpoint) / 2)],[STORAGE_TILE_POSITION_Y]:[STORAGE_PIXEL_POSITION_Y + STORAGE_SIZE_MULTIPLIER_Y * (lines_num - current_level - 1)]"
 		stored.layer = ABOVE_HUD_LAYER
 		stored.mouse_opacity = MOUSE_OPACITY_OPAQUE
 		stored.maptext = ""
@@ -437,13 +445,13 @@
 	//Calculate offset
 	var/y_offset = floor(16 * y_enlarge)
 	// Move modified object
-	start.screen_loc = "4:16,2:[y_offset]"
-	place_items.screen_loc = "4:16,2:16"
-	continued.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:[y_offset]"
-	end.screen_loc = "4:[19 + line_width - STORAGE_CAP_WIDTH],2:[y_offset]"
-	top.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:[y_offset + 15 * (lines_num - 1)]"
-	bottom.screen_loc = "4:[floor(STORAGE_CAP_WIDTH + (line_width - STORAGE_CAP_WIDTH * 2) / 2 + 2)],2:16"
-	closer.screen_loc = "4:[line_width + 19],2:16"
+	start.screen_loc = "[STORAGE_TILE_POSITION_X]:[STORAGE_PIXEL_POSITION_X],[STORAGE_TILE_POSITION_Y]:[y_offset]"
+	place_items.screen_loc = "[STORAGE_TILE_POSITION_X]:[STORAGE_PIXEL_POSITION_X],[STORAGE_TILE_POSITION_Y]:[STORAGE_PIXEL_POSITION_Y]"
+	continued.screen_loc = "[STORAGE_TILE_POSITION_X]:[floor(line_width / 2 + STORAGE_CAP_WIDTH)],[STORAGE_TILE_POSITION_Y]:[y_offset]"
+	end.screen_loc = "[STORAGE_TILE_POSITION_X]:[STORAGE_PIXEL_POSITION_X + line_width + 1],[STORAGE_TILE_POSITION_Y]:[y_offset]"
+	top.screen_loc = "[STORAGE_TILE_POSITION_X]:[floor(line_width / 2 + STORAGE_CAP_WIDTH)],[STORAGE_TILE_POSITION_Y]:[y_offset + round((STORAGE_SIZE_MULTIPLIER_Y + 1) / 2) * (lines_num - 1)]"
+	bottom.screen_loc = "[STORAGE_TILE_POSITION_X]:[floor(line_width / 2 + STORAGE_CAP_WIDTH)],[STORAGE_TILE_POSITION_Y]:[STORAGE_PIXEL_POSITION_Y]"
+	closer.screen_loc = "[STORAGE_TILE_POSITION_X]:[line_width + STORAGE_PIXEL_POSITION_X + STORAGE_CAP_WIDTH + 1],[STORAGE_TILE_POSITION_Y]:[STORAGE_PIXEL_POSITION_Y]"
 
 /datum/storage_box/proc/screens_list()
 	return list(start, continued, end, top, bottom, place_items, closer)
@@ -487,7 +495,7 @@
 	end.icon = ui_icon
 
 	// Calcylate Y offset for current level
-	var/box_offset = 29 * (lines_num - current_level - 1)
+	var/box_offset = STORAGE_SIZE_MULTIPLIER_Y * (lines_num - current_level - 1)
 
 	// Modify start
 	var/matrix/modify_matrix = matrix(start.transform)
@@ -496,8 +504,8 @@
 
 	// Modify continue
 	modify_matrix = matrix(continued.transform)
-	modify_matrix.Scale((endpoint - startpoint - STORED_CAP_WIDTH * 2) / 32, 1)
-	modify_matrix.Translate(startpoint + STORED_CAP_WIDTH + (endpoint - startpoint - STORED_CAP_WIDTH * 2) / 2 - 16, box_offset)
+	modify_matrix.Scale((endpoint - startpoint - STORED_CAP_WIDTH * 2) / ICON_SIZE_X, 1)
+	modify_matrix.Translate(startpoint + (endpoint - startpoint) / 2 - (ICON_SIZE_X - STORAGE_PIXEL_POSITION_X), box_offset)
 	continued.transform = modify_matrix
 
 	// Modify end
@@ -1000,3 +1008,9 @@
 #undef STORED_CAP_WIDTH
 #undef BASE_STORAGE_WIDTH
 #undef MAX_LINE_WIDTH
+
+#undef STORAGE_TILE_POSITION_X
+#undef STORAGE_TILE_POSITION_Y
+#undef STORAGE_PIXEL_POSITION_X
+#undef STORAGE_PIXEL_POSITION_Y
+#undef STORAGE_SIZE_MULTIPLIER_Y
