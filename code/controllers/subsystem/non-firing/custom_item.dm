@@ -71,27 +71,68 @@ SUBSYSTEM_DEF(custom_item)
 
 /datum/custom_item_datum
 	var/name = "base"
-	var/possible_icon_states
-	var/necessary_icon_states
+	var/optional_min_num = 0
+	var/optional_max_num = 0
+	var/list/necessary_sprite_types = list("base")
+	var/list/optional_sprite_types
 	var/base_item
 
 	var/item_name
 	var/icon/item_icon
 
-/datum/custom_item_datum/proc/validate_icon(icon/new_icon)
+/datum/custom_item_datum/proc/validate_icon(icon/new_icon, mob/user)
 	var/check_list = icon_states(new_icon)
-	if(length(check_list - (check_list & possible_icon_states)))
+	if(!icon_states.len || icon_states.len > 1)
 		return FALSE
-	if(length(necessary_icon_states - (check_list & necessary_icon_states)))
+	if(icon_states[1] != user.ckey)
 		return FALSE
 	if((new_icon.Width() != 32) || (new_icon.Height() != 32))
 		return FALSE
 
 	return TRUE
 
+/datum/custom_item_datum/proc/get_custom_dmi(mob/user, datum/custom_holder/holder)
+	var/list/choosen_sprite_types = necessary_icon_states.Copy()
+	var/optional_num = LAZYLEN(optional_sprite_types)
+	if(optional_num)
+		if(optional_num == optional_min_num)
+			choosen_sprite_types += optional_sprite_types
+		var/list/choosen_optional = tgui_input_checkbox_list(user, "Выберите опциональные спрайты.", "Спрайты", optional_sprite_types)
+		if(LAZYLEN(choosen_optional))
+			choosen_sprite_types += choosen_optional
+
+	for(var/sprite_type in choosen_sprite_types)
+		var/sprite = input(user, "Выберите dmi файл для [get_type_desc(sprite_type)]", "Загрузка спрайта") as null|file
+		if(!sprite)
+			return FALSE
+
+		if(copytext("[sprite]",-4) != ".dmi")
+			to_chat(user, "Bad sprite file: [sprite]")
+			return FALSE
+
+		var/icon/new_icon = new(sprite)
+
+		if(!validate_icon(new_icon))
+			to_chat(user, "Bad sprite file: [sprite]")
+			qdel(new_icon)
+			return FALSE
+
+		holder.icons[sprite_type] = new_icon
+
+	return TRUE
+
+/datum/custom_item_datum/proc/get_type_desc(type)
+	return type
+
 /datum/custom_item_datum/New(new_name, new_icon)
 	item_name = new_name
 	item_icon = new_icon
+
+/datum/custom_holder
+	var/name
+	var/desc
+	var/custom_type
+	var/list/icons
 
 /datum/custom_item_datum/plushie
 	name = "plushie"

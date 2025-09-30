@@ -176,30 +176,34 @@
 /datum/gear_tweak/custom/get_default()
 	return null
 
+GLOBAL_LIST_EMPTY(temp_custom_holders)
+
 /datum/gear_tweak/custom/get_metadata(mob/user, metadata)
+	var/datum/custom_holder/holder = new
+
 	var/custom_type = tgui_input_list(user, "Выберите тип кастома.", "Кастом", GLOB.custom_item_datums)
 	if(!custom_type)
 		return
+	holder.type = custom_type
 
 	var/custom_name = tgui_input_text(user, "Выберите название предмета.", "Название", max_length = 32)
 	if(!custom_name)
 		return
+	holder.name = custom_name
 
-	var/sprite = input(user, "Выберите dmi файл", "Загрузка спрайта") as null|file
-	if(!sprite)
+	var/custom_desc = tgui_input_text(user, "Напишите описание предмета.", "Описание", max_length = 64)
+	if(!custom_desc)
 		return
+	holder.desc = custom_desc
 
-	if(copytext("[sprite]",-4) != ".dmi")
-		to_chat(user, "Bad sprite file: [sprite]")
-		return
-
-	var/icon/new_icon = new(sprite)
 	var/datum/custom_item_datum/custom = GLOB.custom_item_datums[custom_type]
-	if(!custom.validate_icon(new_icon))
-		to_chat(user, "Bad sprite file: [sprite]")
-		return
+	custom.get_custom_dmi(user, holder)
 
-	SScustom_item.save_icon(user.ckey, new_icon, custom_type, custom_name)
+	GLOB.temp_custom_holders[user.ckey] = holder
+
+	//announce_new_custom()
+
+	//SScustom_item.save_icon(user.ckey, new_icon, custom_type, custom_name)
 
 	return user.ckey
 
