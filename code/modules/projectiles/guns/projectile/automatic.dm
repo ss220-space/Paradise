@@ -1,5 +1,4 @@
 /obj/item/gun/projectile/automatic
-	var/alarmed = FALSE
 	var/select = GUN_BURST_MODE
 	can_tactical = TRUE
 	can_holster = FALSE
@@ -51,7 +50,6 @@
 			magazine.update_appearance()
 		playsound(loc, magin_sound, 50, TRUE)
 		balloon_alert(user, "заряжено")
-		alarmed = FALSE	// Reset the alarm once a magazine is loaded
 		magazine = new_magazine
 		chamber_round()
 		magazine.update_appearance()
@@ -98,12 +96,6 @@
 
 /obj/item/gun/projectile/automatic/can_shoot(mob/user)
 	return get_ammo()
-
-/obj/item/gun/projectile/automatic/proc/empty_alarm()
-	if(!chambered && !get_ammo() && !alarmed)
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 40, TRUE)
-		update_icon()
-		alarmed = TRUE
 
 //Saber SMG//
 /obj/item/gun/projectile/automatic/proto
@@ -153,12 +145,7 @@
 /obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
 	. = ..()
 	update_icon()
-
-
-/obj/item/gun/projectile/automatic/c20r/afterattack(atom/target, mob/living/user, flag, params)
-	..()
-	empty_alarm()
-
+	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
@@ -428,6 +415,9 @@ TODO Use this name and desc for localisation*/
 	recoil = GUN_RECOIL_HIGH
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
+/obj/item/gun/projectile/automatic/shotgun/bulldog/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
 	name = "'Mastiff' Shotgun"
@@ -465,11 +455,6 @@ TODO Use this name and desc for localisation*/
 
 	return ..()
 
-
-/obj/item/gun/projectile/automatic/shotgun/bulldog/afterattack(atom/target, mob/living/user, flag, params)
-	..()
-	empty_alarm()
-
 //AS-12 Minotaur//
 /obj/item/gun/projectile/automatic/shotgun/minotaur
 	name = "AS-12 'Minotaur' Shotgun"
@@ -492,13 +477,13 @@ TODO Use this name and desc for localisation*/
 	)
 	recoil = GUN_RECOIL_HIGH
 
+/obj/item/gun/projectile/automatic/shotgun/minotaur/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
+
 /obj/item/gun/projectile/automatic/shotgun/minotaur/New()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
 	..()
-
-/obj/item/gun/projectile/automatic/shotgun/minotaur/afterattack(atom/target, mob/living/user, flag, params)
-	..()
-	empty_alarm()
 
 //Combat Automatic Tactical Shotgun//
 

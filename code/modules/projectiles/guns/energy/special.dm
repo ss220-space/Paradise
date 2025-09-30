@@ -804,6 +804,8 @@
 		icon_state = "[initial(icon_state)][cell.charge > 0 ? "" : "-e"]"
 
 /obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
+	SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, item, user, params)
+
 	if(!is_spectercell(item))
 		return ..()
 	add_fingerprint(user)

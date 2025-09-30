@@ -13,7 +13,8 @@
 		return ELEMENT_INCOMPATIBLE
 
 	src.alarm_sound = alarm_sound
-	RegisterSignal(target, COMSIG_ITEM_REGISTER_AFTERATTACK, PROC_REF(afterattack))
+	RegisterSignal(target, COMSIG_ITEM_AFTERATTACK, PROC_REF(afterattack))
+	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(attack_by))
 	return
 
 /datum/element/ammo_alarm/proc/afterattack(obj/item/gun/source)
@@ -24,3 +25,13 @@
 		playsound(source.loc, alarm_sound, 40, TRUE)
 		source.update_icon()
 		alarmed = TRUE
+
+/datum/element/ammo_alarm/proc/attack_by(obj/item/attacker, obj/item/gun/source)
+	SIGNAL_HANDLER
+
+	if(istype(source, /obj/item/gun/energy/specter) && is_spectercell(attacker))
+		alarmed = FALSE
+	if(istype(source, /obj/item/gun/projectile/automatic) && istype(attacker, /obj/item/ammo_box/magazine))
+		alarmed = FALSE
+	return
+
