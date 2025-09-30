@@ -163,6 +163,7 @@
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
 	update_icon()
+	ADD_TRAIT(src, TRAIT_AMMO_ALARMED, ROUNDSTART_TRAIT)
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot

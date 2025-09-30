@@ -5,8 +5,6 @@
 
 	var/alarm_sound
 
-	var/alarmed = FALSE
-
 /datum/element/ammo_alarm/Attach(datum/target, alarm_sound)
 	. = ..()
 	if(!isatom(target))
@@ -19,19 +17,17 @@
 
 /datum/element/ammo_alarm/proc/afterattack(obj/item/gun/source)
 	SIGNAL_HANDLER
-	to_chat(world, source.chambered)
-	to_chat(world, alarmed)
-	if(!source.chambered && !alarmed)
+	if(!source.chambered && HAS_TRAIT(source, TRAIT_AMMO_ALARMED))
 		playsound(source.loc, alarm_sound, 40, TRUE)
 		source.update_icon()
-		alarmed = TRUE
+		REMOVE_TRAIT(source, TRAIT_AMMO_ALARMED, ROUNDSTART_TRAIT)
 
 /datum/element/ammo_alarm/proc/attack_by(obj/item/attacker, obj/item/gun/source)
 	SIGNAL_HANDLER
 
 	if(istype(source, /obj/item/gun/energy/specter) && is_spectercell(attacker))
-		alarmed = FALSE
+		ADD_TRAIT(source, TRAIT_AMMO_ALARMED, ROUNDSTART_TRAIT)
 	if(istype(source, /obj/item/gun/projectile/automatic) && istype(attacker, /obj/item/ammo_box/magazine))
-		alarmed = FALSE
+		ADD_TRAIT(source, TRAIT_AMMO_ALARMED, ROUNDSTART_TRAIT)
 	return
 

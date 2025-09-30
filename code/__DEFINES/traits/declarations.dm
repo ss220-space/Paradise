@@ -354,3 +354,5 @@
 #define TRAIT_TASERED "tasered"
 
 #define TRAIT_SUPERMATTERIMMUNE "supermatter_immune"
+
+#define TRAIT_AMMO_ALARMED "ammo_alarm"

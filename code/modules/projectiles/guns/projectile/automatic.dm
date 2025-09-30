@@ -11,6 +11,7 @@
 /obj/item/gun/projectile/automatic/Initialize(mapload)
 	if(fire_modes == GUN_MODE_SINGLE_ONLY)
 		actions_types = null
+	ADD_TRAIT(src, TRAIT_AMMO_ALARMED, ROUNDSTART_TRAIT)
 	. = ..()
 
 
