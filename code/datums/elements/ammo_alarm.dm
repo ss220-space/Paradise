@@ -1,8 +1,6 @@
 /datum/element/ammo_alarm
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY | ELEMENT_BESPOKE
-
 	argument_hash_start_idx = 2
-
 	var/alarm_sound
 
 /datum/element/ammo_alarm/Attach(datum/target, alarm_sound)
