@@ -357,7 +357,7 @@
 
 #define TRAIT_SUPERMATTERIMMUNE "supermatter_immune"
 
-
+/// Used to play an alarm when the gun is out of ammo
 #define TRAIT_AMMO_ALARMED "ammo_alarm"
 
 /// Ignores darkness for hearing
