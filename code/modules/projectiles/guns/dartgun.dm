@@ -60,11 +60,11 @@
 	. = ..()
 	if(get_dist(user, src) <= 2)
 		if(beakers.len)
-			. += "<span class='notice'>[src] contains:</span>"
+			. += span_notice("[src] contains:")
 			for(var/obj/item/reagent_containers/glass/beaker/B in beakers)
 				if(B.reagents && B.reagents.reagent_list.len)
 					for(var/datum/reagent/R in B.reagents.reagent_list)
-						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
+						. += span_notice("[R.volume] units of [R.name]")
 
 
 /obj/item/gun/dartgun/attackby(obj/item/I, mob/user, params)
@@ -118,7 +118,7 @@
 
 /obj/item/gun/dartgun/proc/remove_cartridge()
 	if(cartridge)
-		to_chat(usr, "<span class='notice'>You pop the cartridge out of [src].</span>")
+		to_chat(usr, span_notice("You pop the cartridge out of [src]."))
 		var/obj/item/dart_cartridge/C = cartridge
 		C.forceMove(get_turf(src))
 		C.update_icon()
@@ -148,10 +148,10 @@
 		var/obj/effect/syringe_gun_dummy/D = new/obj/effect/syringe_gun_dummy(get_turf(src))
 		var/obj/item/reagent_containers/syringe/S = get_mixed_syringe()
 		if(!S)
-			to_chat(user, "<span class='warning'>There are no darts in [src]!</span>")
+			to_chat(user, span_warning("There are no darts in [src]!"))
 			return
 		if(!S.reagents)
-			to_chat(user, "<span class='warning'>There are no reagents available!</span>")
+			to_chat(user, span_warning("There are no reagents available!"))
 			return
 		cartridge.darts--
 		update_icon()
@@ -182,7 +182,7 @@
 
 					if(D.reagents)
 						D.reagents.trans_to(M, 15)
-					to_chat(M, "<span class='danger'>You feel a slight prick.</span>")
+					to_chat(M, span_danger("You feel a slight prick."))
 
 					qdel(D)
 					break
@@ -262,7 +262,7 @@
 		if(index <= beakers.len)
 			if(beakers[index])
 				var/obj/item/reagent_containers/glass/beaker/B = beakers[index]
-				to_chat(usr, "<span class='notice'>You remove [B] from [src].</span>")
+				to_chat(usr, span_notice("You remove [B] from [src]."))
 				mixing -= B
 				beakers -= B
 				B.forceMove(get_turf(src))
@@ -276,7 +276,7 @@
 		spawn(0)
 			fire_dart(target,user)
 	else
-		to_chat(usr, "<span class='warning'>[src] is empty.</span>")
+		to_chat(usr, span_warning("[src] is empty."))
 
 
 /obj/item/gun/dartgun/vox

@@ -15,7 +15,7 @@
 
 /obj/item/gun/rocketlauncher/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>"
+	. += span_notice("[rockets.len] / [max_rockets] rockets.")
 
 /obj/item/gun/rocketlauncher/Destroy()
 	QDEL_LIST(rockets)
@@ -58,4 +58,4 @@
 		rockets -= I
 		qdel(I)
 	else
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+		to_chat(user, span_warning("[src] is empty."))

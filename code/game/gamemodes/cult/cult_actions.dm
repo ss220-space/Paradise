@@ -28,12 +28,14 @@
 	if(!user || !message)
 		return
 	if(!user.can_speak())
-		to_chat(user, "<span class='warning'>You can't speak!</span>")
+		to_chat(user, span_warning("You can't speak!"))
 		return
 
 	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>",
-		"<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
+		user.visible_message(
+			span_notice("[user] appears to whisper to themselves."),
+			span_notice("You begin to whisper to yourself.")
+		) //Make them do *something* abnormal.
 		sleep(10)
 	else
 		user.whisper("O bidai nabora se[pick("'","`")]sma!") // Otherwise book club sayings.
@@ -64,7 +66,7 @@
 	var/my_message
 	if(!message)
 		return
-	my_message = "<span class='cultlarge'>The [user.name]: [message]</span>"
+	my_message = span_cultlarge("The [user.name]: [message]")
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)
@@ -95,7 +97,7 @@
 	if(SSticker && SSticker.mode)
 		SSticker.mode.cult_objs.study(usr, TRUE)
 	else
-		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
+		to_chat(usr, span_cultitalic("You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)"))
 
 
 //Draw rune
@@ -132,4 +134,4 @@
 		owner.put_in_hands(dagger)
 		dagger.attack_self(owner)
 	else
-		to_chat(usr, "<span class='cultitalic'>You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell.</span>")
+		to_chat(usr, span_cultitalic("You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell."))

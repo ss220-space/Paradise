@@ -181,11 +181,11 @@
 	dir = NONE //Prevents wrong smoothing
 	if(!broken && !burnt)
 		if(smooth)
-			queue_smooth(src)
+			QUEUE_SMOOTH(src)
 	else
 		make_plating(FALSE)
 		if(smooth)
-			queue_smooth_neighbors(src)
+			QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/simulated/floor/carpet/break_tile()
 	broken = TRUE

@@ -83,8 +83,8 @@
 		return TRUE
 
 	hud = new
-	hud.add_to_hud(new_owner)
-	hud.add_hud_to(mob_to_inform)
+	hud.add_atom_to_hud(new_owner)
+	hud.show_to(mob_to_inform)
 	var/image/holder = new_owner.hud_list[PACIFISM_HUD]
 	if(holder)
 		holder.icon_state = "hudpacifism"

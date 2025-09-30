@@ -28,10 +28,13 @@
 /datum/job/captain/get_access()
 	return get_all_accesses()
 
-/datum/job/captain/announce(mob/living/carbon/human/H)
+/datum/job/captain/announce(mob/living/carbon/human/human)
 	. = ..()
 	// Why the hell are captain announcements minor
-	GLOB.minor_announcement.announce("Всему экипажу! Капитан [H.real_name] взош[genderize_ru(H.gender, "ёл", "ла", "ло", "ли")] на борт!")
+	GLOB.minor_announcement.announce(
+		message = "Всему экипажу! Капитан [human.real_name] взош[genderize_ru(human.gender, "ёл", "ла", "ло", "ли")] на борт!",
+		new_sound = 'sound/misc/announce.ogg'
+	)
 
 /datum/outfit/job/captain
 	name = "Captain"

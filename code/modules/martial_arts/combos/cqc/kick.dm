@@ -8,8 +8,8 @@
 
 	if(!target.stat && target.body_position == LYING_DOWN)
 		target.visible_message(
-			"<span class='warning'>[user] kicks [target]'s head, knocking [target.p_them()] out!</span>", \
-			"<span class='userdanger'>[user] kicks your head, knocking you out!</span>"
+			span_warning("[user] kicks [target]'s head, knocking [target.p_them()] out!"), \
+			span_userdanger("[user] kicks your head, knocking you out!")
 		)
 		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, TRUE, -1)
 		target.SetSleeping(5 SECONDS)
@@ -18,8 +18,8 @@
 		. = MARTIAL_COMBO_DONE
 	else
 		target.visible_message(
-			"<span class='warning'>[user] kicks [target] back!</span>", \
-			"<span class='userdanger'>[user] kicks you back!</span>"
+			span_warning("[user] kicks [target] back!"), \
+			span_userdanger("[user] kicks you back!")
 		)
 		playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, TRUE, -1)
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)

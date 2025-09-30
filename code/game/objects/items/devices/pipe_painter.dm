@@ -6,6 +6,7 @@
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "pipe_painter"
 	usesound = 'sound/effects/spray2.ogg'
+	toolbox_radial_menu_compatibility = TRUE
 	var/list/modes
 	var/mode
 
@@ -22,12 +23,12 @@
 	var/obj/machinery/atmospherics/pipe/P = A
 
 	if(P.pipe_color == "[GLOB.pipe_colors[mode]]")
-		to_chat(user, "<span class='notice'>This pipe is aready painted [mode]!</span>")
+		to_chat(user, span_notice("This pipe is aready painted [mode]!"))
 		return
 
 	var/turf/T = P.loc
 	if(P.level < 2 && T.level==1 && isturf(T) && T.intact)
-		to_chat(user, "<span class='warning'>You must remove the plating first.</span>")
+		to_chat(user, span_warning("You must remove the plating first."))
 		return
 
 	playsound(loc, usesound, 30, TRUE)
@@ -42,4 +43,4 @@
 
 /obj/item/pipe_painter/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is in [mode] mode.</span>"
+	. += span_notice("It is in [mode] mode.")

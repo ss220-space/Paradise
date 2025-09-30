@@ -432,12 +432,6 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	screen_loc = "CENTER"
 
-/atom/movable/screen/click_catcher/MouseEntered(location, control, params)
-	return
-
-/atom/movable/screen/click_catcher/MouseExited(location, control, params)
-	return
-
 #define MAX_SAFE_BYOND_ICON_SCALE_TILES (MAX_SAFE_BYOND_ICON_SCALE_PX / ICON_SIZE_ALL)
 #define MAX_SAFE_BYOND_ICON_SCALE_PX (33 * 32) //Not using world.icon_size on purpose.
 

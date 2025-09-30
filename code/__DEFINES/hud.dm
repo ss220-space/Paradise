@@ -121,6 +121,9 @@
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"
 
+/// cooldown for being shown the images for any particular data hud
+#define ADD_HUD_TO_COOLDOWN 20
+
 /// Takes a string or num view, and converts it to pixel width/height in a list(pixel_width, pixel_height)
 /proc/view_to_pixels(view)
 	if(!view)

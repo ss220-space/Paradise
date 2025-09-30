@@ -248,7 +248,6 @@ GLOBAL_LIST_EMPTY(slime_actions)
 	slime.UpdateDamageIcon()
 	slime.adjust_nutrition(-SLIMEPERSON_HUNGERCOST)
 
-	var/new_limb_ru
 	switch(new_limb.limb_zone)
 		if(BODY_ZONE_L_LEG)
 			chosen_limb_ru = "левую ногу"
@@ -268,8 +267,8 @@ GLOBAL_LIST_EMPTY(slime_actions)
 			chosen_limb_ru = "правую кисть"
 
 	slime.visible_message(
-		span_notice("[slime] регенерирует свою утраченную [new_limb_ru]!"),
-		span_notice("Вы регенерировали [new_limb_ru].")
+		span_notice("[slime] регенерирует свою утраченную [chosen_limb_ru]!"),
+		span_notice("Вы регенерировали [chosen_limb_ru].")
 	)
 	slime.balloon_alert(slime, "конечность регенерировала")
 	playsound(slime, 'sound/effects/mob_effects/slime_bubble.ogg', 50, TRUE)
