@@ -14,6 +14,10 @@
 	RegisterSignal(target, COMSIG_ITEM_AFTERATTACK, PROC_REF(afterattack))
 	return
 
+/datum/element/ammo_alarm/Detach(datum/source, ...)
+	. = ..()
+	UnregisterSignal(target, COMSIG_ITEM_AFTERATTACK, PROC_REF(afterattack))
+
 /datum/element/ammo_alarm/proc/afterattack(obj/item/gun/source)
 	SIGNAL_HANDLER
 	if(!source.chambered && !HAS_TRAIT(source, TRAIT_AMMO_ALARMED))
