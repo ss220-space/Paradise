@@ -255,6 +255,12 @@ def check_force_move_syntax(idx, line):
     if FORCE_MOVE_TWO_ARGS.search(line):
         return [(idx + 1, "forceMove() call with two arguments - this is not how forceMove() is invoked! It's x.forceMove(y), not forceMove(x, y).")]
 
+# Check for can_perform_action with improper arguments
+CAN_PERFORM_ACTION_IMPROPER = re.compile(r'can_perform_action\(\s*\)')
+def check_can_perform_action(idx, line):
+    if CAN_PERFORM_ACTION_IMPROPER.search(line):
+        return [(idx + 1, "Found a can_perform_action() proc with improper arguments.")]
+
 # Check UpdatePaths files
 def check_updatepaths_validity():
     failures = []
@@ -307,6 +313,7 @@ CODE_CHECKS = [
     check_static_list_path,
     check_timer_flags,
     check_force_move_syntax,
+    check_can_perform_action,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
