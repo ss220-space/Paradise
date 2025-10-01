@@ -43,7 +43,7 @@
 
 /obj/item/candle/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, span_warning("[S] can't hold [src] while it's lit!"))
 		return FALSE
 	return TRUE
 
@@ -60,7 +60,7 @@
 /obj/item/candle/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light("<span class='notice'>[user] casually lights the [name] with [I], what a badass.</span>")
+		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
 
 
 /obj/item/candle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -134,7 +134,7 @@
 
 /obj/item/candle/attack_self(mob/user)
 	if(lit)
-		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
+		user.visible_message(span_notice("[user] snuffs out [src]."))
 		unlight()
 
 

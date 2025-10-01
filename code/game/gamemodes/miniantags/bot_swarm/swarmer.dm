@@ -45,9 +45,11 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	user.visible_message(span_warning("[usr.name] deactivates [src]."),
+	user.visible_message(
+		span_warning("[usr.name] deactivates [src]."),
 		span_notice("After some fiddling, you find a way to disable [src]'s power source."),
-		span_italics("You hear clicking."))
+		span_italics("You hear clicking.")
+	)
 	new /obj/item/deactivated_swarmer(get_turf(src))
 	qdel(src)
 

@@ -722,7 +722,7 @@
 						skills = E.fields["notes"]
 						break
 				if(skills)
-					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
+					to_chat(usr, "[span_deptradio("Employment records: [skills]")]\n")
 
 	. = ..()
 

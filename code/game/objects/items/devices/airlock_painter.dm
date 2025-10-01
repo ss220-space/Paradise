@@ -44,7 +44,7 @@
 	paint_setting = tgui_input_list(user, "Please select a paintjob for this airlock", "Airlock painter", available_paint_jobs)
 	if(!paint_setting)
 		return
-	to_chat(user, "<span class='notice'>The [paint_setting] paint setting has been selected.</span>")
+	to_chat(user, span_notice("The [paint_setting] paint setting has been selected."))
 
 /obj/item/airlock_painter/suicide_act(mob/user)
 
@@ -52,7 +52,7 @@
 	var/lungs_name = "[L.name]"
 
 	if(L)
-		user.visible_message("<span class='suicide'>[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 		// Once you've inhaled the toner, you throw up your lungs
 		// and then die.
 
@@ -68,7 +68,7 @@
 		L.reagents.reaction(L, REAGENT_TOUCH, 1)
 
 		user.emote("scream")
-		user.visible_message("<span class='suicide'>[user] vomits out [user.p_their()] [lungs_name]!</span>")
+		user.visible_message(span_suicide("[user] vomits out [user.p_their()] [lungs_name]!"))
 		playsound(user.loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 		// make some vomit under the player, and apply colorful reagent

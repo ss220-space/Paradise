@@ -30,11 +30,11 @@
 		teacher.set_machine(src)
 		if(href_list["school"])
 			if(used)
-				to_chat(teacher, "<span class='notice'>You already used this contract!</span>")
+				to_chat(teacher, span_notice("You already used this contract!"))
 				return
 			if(!infinity_uses)
 				used = 1
-			to_chat(teacher, "<span class='notice'>Apprentice waiting...</span>")
+			to_chat(teacher, span_notice("Apprentice waiting..."))
 			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [teacher.real_name]?", ROLE_WIZARD, TRUE, source = source)
 			if(length(candidates))
@@ -42,7 +42,7 @@
 				new /obj/effect/particle_effect/fluid/smoke(teacher.loc)
 				var/mob/living/carbon/human/apprentice = new/mob/living/carbon/human(teacher.loc)
 				apprentice.key = C.key
-				to_chat(apprentice, "<span class='notice'>You are the [teacher.real_name]'s apprentice! You are bound by magic contract to follow [teacher.p_their()] orders and help [teacher.p_them()] in accomplishing their goals.</span>")
+				to_chat(apprentice, span_notice("You are the [teacher.real_name]'s apprentice! You are bound by magic contract to follow [teacher.p_their()] orders and help [teacher.p_them()] in accomplishing their goals."))
 
 				school_href_choose(href_list, teacher, apprentice)
 
@@ -77,7 +77,7 @@
 			else
 				used = 0
 				log_game("[teacher] (ckey: [teacher.key]) has failed to spawn aprrentice.")
-				to_chat(teacher, "<span class='warning'>Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later.</span>")
+				to_chat(teacher, span_warning("Unable to reach your apprentice! You can either attack the spellbook with the contract to refund your points, or wait and try again later."))
 	return
 
 /////////Apprentice Choose Book//////////
@@ -110,7 +110,7 @@
 		apprentice.set_machine(src)
 		if(href_list["school"])
 			if(used)
-				to_chat(apprentice, "<span class='notice'>Учебник уже был изучен!</span>")
+				to_chat(apprentice, span_notice("Учебник уже был изучен!"))
 				return
 			if(!infinity_uses)
 				used = 1
@@ -174,10 +174,10 @@
 
 ///Сообщение выдаваемое при использовании использованных контрактов
 /obj/item/contract/proc/used_contract()
-	return "<span class='notice'>You have already summoned your apprentice.</span><br>"
+	return "[span_notice("You have already summoned your apprentice.")]<br>"
 
 /obj/item/contract/apprentice_choose_book/used_contract()
-	return "<span class='notice'>Письмена стерты, а все страницы пусты. Похоже учебник уже был изучен.</span><br>"
+	return "[span_notice("Письмена стерты, а все страницы пусты. Похоже учебник уже был изучен.")]<br>"
 
 /////////Magick Schools//////////
 

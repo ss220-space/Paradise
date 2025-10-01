@@ -650,7 +650,7 @@
  * Reports player logouts.
  */
 /proc/display_roundstart_logout_report()
-	var/msg = "<span class='notice'>Roundstart logout report</span>\n\n"
+	var/msg = "[span_notice("Roundstart logout report")]\n\n"
 	for(var/mob/living/mob_living in GLOB.mob_list)
 
 		if(mob_living.ckey)
@@ -774,20 +774,20 @@
 	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>[jobtext] and"
 	if(player.current)
 		if(player.current.stat == DEAD)
-			text += " <span class='redtext'>died</span>"
+			text += " [span_redtext("died")]"
 		else
-			text += " <span class='greentext'>survived</span>"
+			text += " [span_greentext("survived")]"
 
 		if(flee_check)
 			var/turf/player_turf = get_turf(player.current)
 			if(!player_turf || !is_station_level(player_turf.z))
-				text += " while <span class='redtext'>fleeing the station</span>"
+				text += " while [span_redtext("fleeing the station")]"
 
 		if(player.current.real_name != player.name)
 			text += " as <b>[player.current.real_name]</b>"
 
 	else
-		text += " <span class='redtext'>had [player.p_their()] body destroyed</span>"
+		text += " [span_redtext("had [player.p_their()] body destroyed")]"
 
 	return text
 
@@ -920,23 +920,26 @@
 
 /datum/game_mode/proc/apocalypse()
 	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
-	GLOB.major_announcement.announce("Обнаружена угроза класса \"Разрушитель миров\". Моделирование пути противостояния угрозе начато, ожидайте.",
-									ANNOUNCE_CCPARANORMAL_RU,
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Обнаружена угроза класса \"Разрушитель миров\". Моделирование пути противостояния угрозе начато, ожидайте.",
+		new_title = ANNOUNCE_CCPARANORMAL_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 	sleep(50 SECONDS)
-	GLOB.major_announcement.announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.",
-									ANNOUNCE_CCPARANORMAL_RU,
-									'sound/AI/commandreport.ogg'
+	GLOB.major_announcement.announce(
+		message = "Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.",
+		new_title = ANNOUNCE_CCPARANORMAL_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 	sleep(30 SECONDS)
 
 	var/obj/singularity/god/god = locate(/obj/singularity/god) in GLOB.poi_list
 
 	if(!god)
-		GLOB.minor_announcement.announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.minor_announcement.announce(
+			message = "Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.",
+			new_title = ANNOUNCE_CCPARANORMAL_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 		SSshuttle.emergency.request(null, 0.3)
 		SSshuttle.emergency.canRecall = FALSE

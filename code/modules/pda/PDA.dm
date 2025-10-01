@@ -541,7 +541,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.show_message("<span class='danger'>Your [src] explodes!</span>", 1)
+		M.show_message(span_danger("Your [src] explodes!"), 1)
 
 	if(T)
 		T.hotspot_expose(700,125)

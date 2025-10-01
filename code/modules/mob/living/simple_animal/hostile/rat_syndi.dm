@@ -25,9 +25,11 @@
 	speak_emote = list("пищит", "попискивает")
 	emote_hear = list("пищит", "попискивает")
 	emote_see = list("бегает кругами", "дрожит", "быстро осматривается")
+	projectilesound = 'sound/weapons/plasma_cutter.ogg'
 
 	mob_size = MOB_SIZE_TINY // If theyre not at least small it doesnt seem like the treadmill works or makes sound
 	pass_flags = PASSTABLE
+	pass_door_while_hidden = TRUE
 	stop_automated_movement = 1
 	AI_delay_max = 0 SECONDS
 
@@ -69,11 +71,11 @@
 			var/obj/structure/cable/C = locate() in F
 			if(C && prob(15))
 				if(C.avail())
-					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
+					visible_message(span_warning("[src] chews through [C]. It's toast!"))
 					playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
 					toast() // mmmm toasty.
 				else
-					visible_message("<span class='warning'>[src] chews through [C].</span>")
+					visible_message(span_warning("[src] chews through [C]."))
 				investigate_log("was chewed through by a mouse at [COORD(F)]", INVESTIGATE_WIRES)
 				C.deconstruct()
 

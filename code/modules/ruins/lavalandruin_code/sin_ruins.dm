@@ -24,11 +24,11 @@
 	in_use = TRUE
 	user.adjustCloneLoss(20)
 	if(user.stat)
-		to_chat(user, "<span class='userdanger'>No... just one more try...</span>")
+		to_chat(user, span_userdanger("No... just one more try..."))
 		user.gib()
 	else
-		user.visible_message("<span class='warning'>[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!</span>", "<span class='warning'>You feel a draining as you pull the lever, but you \
-		know it'll be worth it.</span>")
+		user.visible_message(span_warning("[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!"), span_warning("You feel a draining as you pull the lever, but you \
+		know it'll be worth it."))
 	icon_state = "slots-on"
 	playsound(src, 'sound/lavaland/cursed_slot_machine.ogg', 50, FALSE)
 	addtimer(CALLBACK(src, PROC_REF(determine_victor), user), 50)
@@ -40,11 +40,11 @@
 		playsound(src, 'sound/lavaland/cursed_slot_machine_jackpot.ogg', 50, FALSE)
 		new/obj/structure/cursed_money(get_turf(src))
 		if(user)
-			to_chat(user, "<span class='boldwarning'>You've hit jackpot. Laughter echoes around you as your reward appears in the machine's place.</span>")
+			to_chat(user, span_boldwarning("You've hit jackpot. Laughter echoes around you as your reward appears in the machine's place."))
 		qdel(src)
 	else
 		if(user)
-			to_chat(user, "<span class='boldwarning'>Fucking machine! Must be rigged. Still... one more try couldn't hurt, right?</span>")
+			to_chat(user, span_boldwarning("Fucking machine! Must be rigged. Still... one more try couldn't hurt, right?"))
 
 /obj/structure/cursed_money
 	name = "bag of money"
@@ -58,8 +58,8 @@
 	addtimer(CALLBACK(src, PROC_REF(collapse)), 600)
 
 /obj/structure/cursed_money/proc/collapse()
-	visible_message("<span class='warning'>[src] falls in on itself, \
-		canvas rotting away and contents vanishing.</span>")
+	visible_message(span_warning("[src] falls in on itself, \
+		canvas rotting away and contents vanishing."))
 	qdel(src)
 
 /obj/structure/cursed_money/attack_hand(mob/living/user)
@@ -67,9 +67,9 @@
 	if(.)
 		return .
 
-	user.visible_message("<span class='warning'>[user] opens the bag and \
-		and removes a die. The bag then vanishes.</span>",
-		"<span class='boldwarning'>You open the bag...!</span>\n\
+	user.visible_message(span_warning("[user] opens the bag and \
+		and removes a die. The bag then vanishes."),
+		"[span_boldwarning("You open the bag...!")]\n\
 		<span class='danger'>And see a bag full of dice. Confused, \
 		you take one... and the bag vanishes.</span>")
 
@@ -152,7 +152,7 @@
 		if(user.real_name != H.dna.real_name)
 			user.real_name = H.dna.real_name
 			H.dna.transfer_identity(user)
-			user.visible_message("<span class='warning'>[user]'s appearance shifts into [H]'s!</span>", \
+			user.visible_message(span_warning("[user]'s appearance shifts into [H]'s!"), \
 			span_boldannounceic("[H.p_they(TRUE)] think[H.p_s()] [H.p_theyre()] <i>sooo</i> much better than you. Not anymore, [H.p_they()] won't."))
 
 // Sloth

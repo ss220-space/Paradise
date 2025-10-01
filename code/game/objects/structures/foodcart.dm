@@ -128,84 +128,84 @@
 			var/obj/item/food = food_slots[1]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[1] = null
 	if(href_list["f2"])
 		if(food_slots[2])
 			var/obj/item/food = food_slots[2]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[2] = null
 	if(href_list["f3"])
 		if(food_slots[3])
 			var/obj/item/food = food_slots[3]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[3] = null
 	if(href_list["f4"])
 		if(food_slots[4])
 			var/obj/item/food = food_slots[4]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[4] = null
 	if(href_list["f5"])
 		if(food_slots[5])
 			var/obj/item/food = food_slots[5]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[5] = null
 	if(href_list["f6"])
 		if(food_slots[6])
 			var/obj/item/food = food_slots[6]
 			food.forceMove_turf()
 			user.put_in_hands(food, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [food] from [src].</span>")
+			to_chat(user, span_notice("You take [food] from [src]."))
 			food_slots[6] = null
 	if(href_list["d1"])
 		if(drink_slots[1])
 			var/obj/item/drink = drink_slots[1]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[1] = null
 	if(href_list["d2"])
 		if(drink_slots[2])
 			var/obj/item/drink = drink_slots[2]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[2] = null
 	if(href_list["d3"])
 		if(drink_slots[3])
 			var/obj/item/drink = drink_slots[3]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[3] = null
 	if(href_list["d4"])
 		if(drink_slots[4])
 			var/obj/item/drink = drink_slots[4]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[4] = null
 	if(href_list["d5"])
 		if(drink_slots[5])
 			var/obj/item/drink = drink_slots[5]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[5] = null
 	if(href_list["d6"])
 		if(drink_slots[6])
 			var/obj/item/drink = drink_slots[6]
 			drink.forceMove_turf()
 			user.put_in_hands(drink, ignore_anim = FALSE)
-			to_chat(user, "<span class='notice'>You take [drink] from [src].</span>")
+			to_chat(user, span_notice("You take [drink] from [src]."))
 			drink_slots[6] = null
 
 	updateUsrDialog()

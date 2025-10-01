@@ -139,7 +139,7 @@
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(istype(target))
-		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
+		to_chat(user, span_notice("You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.")) // le fluff faec
 		return
 
 /obj/item/slimepotion/slime/docility
@@ -220,18 +220,18 @@
 	if(M.ckey && isanimal(M)) //giving sentience to simple mobs under player control
 		var/mob/living/simple_animal/SM = M
 		if(SM.sentience_type != sentience_type)
-			to_chat(user, "<span class='warning'>[src] won't work on [SM].</span>")
+			to_chat(user, span_warning("[src] won't work on [SM]."))
 			return ..()
 
 		if(SM.master_commander)
-			to_chat(user, "<span class='warning'>[SM.name] уже имеет хозяина!</span>")
+			to_chat(user, span_warning("[SM.name] уже имеет хозяина!"))
 			return
 
 		being_used = TRUE
 		var/response = alert(SM, "Желаете стать питомцем [user.name] и обрести разум подобный человеческому?","Зелье Разума!", "Да","Нет")
 
 		if(response == "Нет")
-			to_chat(user, "<span class='warning'>[SM.name] отказался от зелья!</span>")
+			to_chat(user, span_warning("[SM.name] отказался от зелья!"))
 			being_used = FALSE
 			return
 		else
@@ -243,11 +243,11 @@
 			SM.faction = user.faction
 			SM.master_commander = user
 			SM.set_can_collar(TRUE)
-			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
-			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+			to_chat(SM, span_warning("All at once it makes sense: you know what you are and who you are! Self awareness is yours!"))
+			to_chat(SM, span_userdanger("You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost."))
 			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
-				to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
-			to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
+				to_chat(SM, span_userdanger("You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck."))
+			to_chat(user, span_notice("[M] accepts the potion and suddenly becomes attentive and aware. It worked!"))
 			after_success(user, SM)
 			qdel(src)
 
@@ -269,14 +269,14 @@
 		var/mob/living/simple_animal/SM = M
 
 		if(SM.sentience_type != sentience_type)
-			to_chat(user, "<span class='warning'>[src] won't work on [SM].</span>")
+			to_chat(user, span_warning("[src] won't work on [SM]."))
 			return ..()
 
 		var/reason_text = tgui_input_text(user, "Enter reason for giving sentience", "Reason for sentience potion")
 		if(!reason_text)
 			return
 
-		to_chat(user, "<span class='notice'>You offer [src.name] to [SM]...</span>")
+		to_chat(user, span_notice("You offer [src.name] to [SM]..."))
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [SM.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
@@ -294,11 +294,11 @@
 			SM.sentience_act()
 			SM.set_can_collar(TRUE)
 			SM.mind.madeby_sentience_potion = TRUE
-			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
-			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
+			to_chat(SM, span_warning("All at once it makes sense: you know what you are and who you are! Self awareness is yours!"))
+			to_chat(SM, span_userdanger("You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost."))
 			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
-				to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
-			to_chat(user, "<span class='notice'>[M] accepts [src] and suddenly becomes attentive and aware. It worked!</span>")
+				to_chat(SM, span_userdanger("You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck."))
+			to_chat(user, span_notice("[M] accepts [src] and suddenly becomes attentive and aware. It worked!"))
 			after_success(user, SM)
 			qdel(src)
 
@@ -315,7 +315,7 @@
 			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", SM)
 		else
-			to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
+			to_chat(user, span_notice("[M] looks interested for a moment, but then looks back down. Maybe you should try again later."))
 			being_used = FALSE
 			..()
 
@@ -325,14 +325,14 @@
 		var/mob/living/carbon/human/lesser/monkey/LF = M
 
 		if(LF.sentience_type != sentience_type)
-			to_chat(user, "<span class='warning'>[LF] совершенно безразлично смотрит на [src.name] в ваших руках.</span>")
+			to_chat(user, span_warning("[LF] совершенно безразлично смотрит на [src.name] в ваших руках."))
 			return ..()
 
 		var/reason_text = tgui_input_text(user, "Enter reason for giving sentience", "Reason for sentience potion")
 		if(!reason_text)
 			return
 
-		to_chat(user, "<span class='notice'>Вы предлагаете [src] [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
+		to_chat(user, span_notice("Вы предлагаете [src] [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его"))
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [LF.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
@@ -347,9 +347,9 @@
 			LF.faction = user.faction
 			LF.master_commander = user
 			LF.mind.madeby_sentience_potion = TRUE
-			to_chat(LF, "<span class='warning'>Труд из обезьяны сделал человека! А зелье разума сделало вас осознающим себя в этом мире. Вы по прежнему являетесь обезьяной и вашего ограниченного ума не хватает чтобы осознать всей окружающей вас аппаратуры и продвинутого окружения. Вы знаете что оно как-то работает у людей и вам этого хватает. Ваши желания просты и примитивны, как и вы сами. Но что точно вы знаете лучше всей своей жизни...</span>")
-			to_chat(LF, "<span class='userdanger'>Вы самоосознались благодаря [user.name]. В качестве благодарности, теперь вы служите [user.name], и помогаете [genderize_ru(user.gender, "ему", "ей", "этому", "им")] в выполнении [genderize_ru(user.gender, "его", "её", "этого", "их")] целей любой ценой!</span>")
-			to_chat(user, "<span class='notice'>[M] бер[pluralize_ru(LF.gender,"ет","ут")] зелье и дела[pluralize_ru(LF.gender,"ет","ют")] глоток. Он[genderize_ru(LF.gender, "", "а", "о", "и")] смотр[pluralize_ru(LF.gender,"ит","ят")] на вас грустными и понимающими глазами. Сработало!</span>")
+			to_chat(LF, span_warning("Труд из обезьяны сделал человека! А зелье разума сделало вас осознающим себя в этом мире. Вы по прежнему являетесь обезьяной и вашего ограниченного ума не хватает чтобы осознать всей окружающей вас аппаратуры и продвинутого окружения. Вы знаете что оно как-то работает у людей и вам этого хватает. Ваши желания просты и примитивны, как и вы сами. Но что точно вы знаете лучше всей своей жизни..."))
+			to_chat(LF, span_userdanger("Вы самоосознались благодаря [user.name]. В качестве благодарности, теперь вы служите [user.name], и помогаете [genderize_ru(user.gender, "ему", "ей", "этому", "им")] в выполнении [genderize_ru(user.gender, "его", "её", "этого", "их")] целей любой ценой!"))
+			to_chat(user, span_notice("[M] бер[pluralize_ru(LF.gender,"ет","ут")] зелье и дела[pluralize_ru(LF.gender,"ет","ют")] глоток. Он[genderize_ru(LF.gender, "", "а", "о", "и")] смотр[pluralize_ru(LF.gender,"ит","ят")] на вас грустными и понимающими глазами. Сработало!"))
 			qdel(src)
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", LF.name, max_length = MAX_NAME_LEN)
@@ -362,7 +362,7 @@
 			LF.mind.store_memory("<b>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", LF)
 		else
-			to_chat(user, "<span class='notice'>[M] выглядел заинтересованым и даже потянулся к зелью, но его резко что-то отвлекло. Стоит попробовать снова попозже.</span>")
+			to_chat(user, span_notice("[M] выглядел заинтересованым и даже потянулся к зелью, но его резко что-то отвлекло. Стоит попробовать снова попозже."))
 			being_used = FALSE
 			. = ..()
 
@@ -387,17 +387,17 @@
 	if(prompted || !ismob(M))
 		return
 	if(!isanimal(M) || M.ckey) //much like sentience, these will not work on something that is already player controlled
-		to_chat(user, "<span class='warning'>[M] already has a higher consciousness!</span>")
+		to_chat(user, span_warning("[M] already has a higher consciousness!"))
 		return ..()
 	if(M.stat)
-		to_chat(user, "<span class='warning'>[M] is dead!</span>")
+		to_chat(user, span_warning("[M] is dead!"))
 		return ..()
 	var/mob/living/simple_animal/SM = M
 	if(SM.sentience_type != animal_type)
-		to_chat(user, "<span class='warning'>You cannot transfer your consciousness to [SM].</span>") //no controlling machines
+		to_chat(user, span_warning("You cannot transfer your consciousness to [SM].")) //no controlling machines
 		return ..()
 	if(jobban_isbanned(user, ROLE_SENTIENT))
-		to_chat(user, "<span class='warning'>Your mind goes blank as you attempt to use the potion.</span>")
+		to_chat(user, span_warning("Your mind goes blank as you attempt to use the potion."))
 		return
 
 	prompted = TRUE
@@ -405,7 +405,7 @@
 		prompted = FALSE
 		return
 
-	to_chat(user, "<span class='notice'>You drink the potion then place your hands on [SM]...</span>")
+	to_chat(user, span_notice("You drink the potion then place your hands on [SM]..."))
 	add_attack_logs(user, SM, "mind transference potion")
 	user.mind.transfer_to(SM)
 	SM.universal_speak = TRUE
@@ -413,8 +413,8 @@
 	SM.sentience_act() //Same deal here as with sentience
 	SM.set_can_collar(TRUE)
 	user.death()
-	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
-	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")
+	to_chat(SM, span_notice("In a quick flash, you feel your consciousness flow into [SM]!"))
+	to_chat(SM, span_warning("You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!"))
 	SM.name = "[SM.name] as [user.real_name]"
 	if(istype(SM, /mob/living/simple_animal/hostile/lightgeist))
 		if(!GLOB.med_hud_users.Find(SM))
@@ -604,19 +604,19 @@
 		qdel(src)
 		return
 	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
+		to_chat(user, span_warning("The potion can only be used on clothing!"))
 		return
 	if(istype(C, /obj/item/clothing/neck) || istype(C, /obj/item/clothing/accessory))
-		to_chat(user, "<span class='warning'>The potion can not be used on that!'</span>")
+		to_chat(user, span_warning("The potion can not be used on that!'"))
 		return
 	if(!can_apply(C))
-		to_chat(user, "<span class='warning'>[C] is already [inapplicable_caption]!</span>")
+		to_chat(user, span_warning("[C] is already [inapplicable_caption]!"))
 		return
 	if(C.applied_slime_potion)
 		C.applied_slime_potion.cancel_effect(C)
-		to_chat(user, "<span class='warning'>[C] was already improved by some potion! You washed away previous potion</span>")
+		to_chat(user, span_warning("[C] was already improved by some potion! You washed away previous potion"))
 
-	to_chat(user, "<span class='notice'>You slather the [color_name] gunk over [C], making it [more_caption][applied_caption].</span>")
+	to_chat(user, span_notice("You slather the [color_name] gunk over [C], making it [more_caption][applied_caption]."))
 	C.applied_slime_potion = locate(src.type) in GLOB.slime_potions
 	C.name = "[applied_caption] [initial(C.name)]"
 	C.add_atom_colour(applied_color, WASHABLE_COLOUR_PRIORITY)

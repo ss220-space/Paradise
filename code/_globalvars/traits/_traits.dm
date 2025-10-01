@@ -198,6 +198,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 	// MARK: /obj
 	/obj = list(
+		"TRAIT_AMMO_ALARMED" = TRAIT_AMMO_ALARMED,
 		"TRAIT_SHRAPNEL" = TRAIT_SHRAPNEL,
 	),
 	// MARK: /obj/item
