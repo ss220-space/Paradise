@@ -111,8 +111,9 @@
 		if(NINJA_INIT_MODULES_PHASE)
 			var/datum/action/item_action/action
 			for(action in ninja.actions)
-				if(action.action_initialisation_text)
-					message = "Модуль: [action.action_initialisation_text]... ONLINE"
+				var/datum/action/item_action/advanced/ninja/ninja_action = action
+				if(istype(ninja_action) && ninja_action.action_initialisation_text)
+					message = "Модуль: [ninja_action.action_initialisation_text]... ONLINE"
 					current_initialisation_text = message
 					sleep(10)
 			if(ninja_clonable)
@@ -173,8 +174,9 @@
 				cancel_spirit_form()	//And another one!
 			var/datum/action/item_action/action
 			for(action in ninja.actions)
-				if(action.action_initialisation_text)
-					message = "Модуль: [action.action_initialisation_text]... OFFLINE"
+				var/datum/action/item_action/advanced/ninja/ninja_action = action
+				if(istype(ninja_action) && ninja_action.action_initialisation_text)
+					message = "Модуль: [ninja_action.action_initialisation_text]... OFFLINE"
 					current_initialisation_text = message
 					sleep(10)
 			if(ninja_clonable)

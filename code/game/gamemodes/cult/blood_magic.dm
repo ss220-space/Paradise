@@ -10,21 +10,21 @@
 		qdel(X)
 	..()
 
-/datum/action/innate/cult/blood_magic/override_location()
-	button.ordered = FALSE
-	button.screen_loc = DEFAULT_BLOODSPELLS
-	button.moved = DEFAULT_BLOODSPELLS
+// /datum/action/innate/cult/blood_magic/override_location()
+// 	button.ordered = FALSE
+// 	button.screen_loc = DEFAULT_BLOODSPELLS
+// 	button.moved = DEFAULT_BLOODSPELLS
 
-/datum/action/innate/cult/blood_magic/proc/Positioning()
-	var/list/screen_loc_split = splittext(button.screen_loc, ",")
-	var/list/screen_loc_X = splittext(screen_loc_split[1], ":")
-	var/list/screen_loc_Y = splittext(screen_loc_split[2], ":")
-	var/pix_X = text2num(screen_loc_X[2])
-	for(var/datum/action/innate/cult/blood_spell/B in spells)
-		if(B.button.locked)
-			var/order = pix_X + spells.Find(B) * 31
-			B.button.screen_loc = "[screen_loc_X[1]]:[order],[screen_loc_Y[1]]:[screen_loc_Y[2]]"
-			B.button.moved = B.button.screen_loc
+// /datum/action/innate/cult/blood_magic/proc/Positioning()
+// 	var/list/screen_loc_split = splittext(button.screen_loc, ",")
+// 	var/list/screen_loc_X = splittext(screen_loc_split[1], ":")
+// 	var/list/screen_loc_Y = splittext(screen_loc_split[2], ":")
+// 	var/pix_X = text2num(screen_loc_X[2])
+// 	for(var/datum/action/innate/cult/blood_spell/B in spells)
+// 		if(B.button.locked)
+// 			var/order = pix_X + spells.Find(B) * 31
+// 			B.button.screen_loc = "[screen_loc_X[1]]:[order],[screen_loc_Y[1]]:[screen_loc_Y[2]]"
+// 			B.button.moved = B.button.screen_loc
 
 /datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
@@ -95,6 +95,7 @@
 	var/base_desc //To allow for updating tooltips
 	var/invocation = "Hoi there something's wrong!"
 	var/health_cost = 0
+	default_button_position = SCRN_OBJ_INSERT_FIRST
 
 /datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
@@ -103,7 +104,7 @@
 	base_desc = desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	all_magic = BM
-	button.ordered = FALSE
+	//button.ordered = FALSE
 
 	..()
 
@@ -114,7 +115,7 @@
 	base_desc = desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	all_magic = BM
-	button.ordered = FALSE
+	//button.ordered = FALSE
 	if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.actions)
 		all_magic.spells -= src
 		owner.balloon_alert(owner, "лимит данного заклинания достигнут достигнут!")
@@ -122,9 +123,9 @@
 
 	..()
 
-/datum/action/innate/cult/blood_spell/override_location()
-	button.locked = TRUE
-	all_magic.Positioning()
+// /datum/action/innate/cult/blood_spell/override_location()
+// 	//button.locked = TRUE
+// 	all_magic.Positioning()
 
 /datum/action/innate/cult/blood_spell/Remove()
 	if(all_magic)
@@ -134,7 +135,7 @@
 		hand_magic = null
 	..()
 
-/datum/action/innate/cult/blood_spell/IsAvailable()
+/datum/action/innate/cult/blood_spell/IsAvailable(feedback = FALSE)
 	if(!iscultist(owner) || owner.incapacitated() || !charges)
 		return FALSE
 	return ..()

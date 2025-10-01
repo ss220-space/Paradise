@@ -30,12 +30,19 @@
 //Those actions have charges and are unavailable until you regain at least one charge.
 #define ADV_ACTION_TYPE_CHARGES "charges"
 
+// Defines for formatting cooldown actions for the stat panel.
+/// The stat panel the action is displayed in.
+#define PANEL_DISPLAY_PANEL "panel"
+/// The status shown in the stat panel.
+/// Can be stuff like "ready", "on cooldown", "active", "charges", "charge cost", etc.
+#define PANEL_DISPLAY_STATUS "status"
+/// The name shown in the stat panel.
+#define PANEL_DISPLAY_NAME "name"
+
 /// Default action button background
 #define ACTION_BUTTON_DEFAULT_BACKGROUND "bg_default"
 
-
 // Action button update flags
-
 #define UPDATE_BUTTON_NAME (1<<0)
 #define UPDATE_BUTTON_ICON (1<<1)
 #define UPDATE_BUTTON_BACKGROUND (1<<2)

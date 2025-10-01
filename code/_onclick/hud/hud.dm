@@ -257,11 +257,10 @@
 /mob/proc/create_mob_hud()
 	if(!client || hud_used)
 		return
-	hud_used = new hud_type(src)
+	set_hud_used(new hud_type(src))
 	update_sight()
 	SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
 
-//TODO vakons actions: remove if not calls
 /mob/proc/set_hud_used(datum/hud/new_hud)
 	hud_used = new_hud
 	new_hud.build_action_groups()
@@ -394,11 +393,14 @@
 /mob/proc/remake_hud() //used for preference changes mid-round; can't change hud icons without remaking the hud.
 	QDEL_NULL(hud_used)
 	create_mob_hud()
-	//update_action_buttons_icon()
+	update_action_buttons(TRUE)
 	if(hud_used)
 		hud_used.show_hud(hud_used.hud_version)
 
-
+/mob/proc/update_action_buttons_icon()
+	//TODO vakons actions: update actions buttons here
+	update_action_buttons()
+	return
 
 
 /datum/hud/proc/position_action(atom/movable/screen/movable/action_button/button, position)

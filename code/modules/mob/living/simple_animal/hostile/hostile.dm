@@ -490,6 +490,8 @@
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
 	in_melee = TRUE
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
+		return FALSE //but more importantly return before attack_animal called
 	SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, target)
 	if(!client)
 		mob_attack_logs += "[time_stamp()] Attacked [target] at [COORD(src)]"

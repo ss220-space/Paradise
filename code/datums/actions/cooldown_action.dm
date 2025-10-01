@@ -107,7 +107,7 @@
 	return ..()
 
 /datum/action/cooldown/is_action_active(atom/movable/screen/movable/action_button/current_button)
-	return click_to_activate && current_button.our_hud?.mymob?.click_intercept == src
+	return click_to_activate && current_button.our_hud?.mymob?.click_intercept == src  //TODO vakons actions: add click_intercept to mob
 
 /datum/action/cooldown/Destroy()
 	QDEL_LIST(initialized_actions)
@@ -268,14 +268,14 @@
 
 /// For signal calling
 /datum/action/cooldown/proc/PreActivate(atom/target)
-	if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src, target) & COMPONENT_BLOCK_ABILITY_START)
-		return
+	// if(SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_STARTED, src, target) & COMPONENT_BLOCK_ABILITY_START)
+	// 	return
 	// Note, that PreActivate handles no cooldowns at all by default.
 	// Be sure to call StartCooldown() in Activate() where necessary.
 	. = Activate(target)
 	// There is a possibility our action (or owner) is qdeleted in Activate().
-	if(!QDELETED(src) && !QDELETED(owner))
-		SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_FINISHED, src)
+	// if(!QDELETED(src) && !QDELETED(owner))
+	// 	SEND_SIGNAL(owner, COMSIG_MOB_ABILITY_FINISHED, src)
 
 /// To be implemented by subtypes (if not generic)
 /datum/action/cooldown/proc/Activate(atom/target)

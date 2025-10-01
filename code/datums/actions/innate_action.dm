@@ -93,3 +93,55 @@
 	if(removed_from.click_intercept == src)
 		unset_ranged_ability(removed_from)
 	return ..()
+
+
+//MARK: Actions
+
+/datum/action/innate/overdrive
+	name = "Овердрайв"
+	check_flags = AB_CHECK_CONSCIOUS
+	var/used = FALSE
+
+/datum/action/innate/overdrive/Activate()
+	var/mob/living/silicon/robot/robot = owner
+	if(used)
+		return
+
+	if(!do_after(robot, 10 SECONDS) || robot.stat)
+		return
+
+	robot.rejuvenate()
+	robot.opened = FALSE
+	robot.locked = TRUE
+	robot.SetEmagged(TRUE)
+	robot.SetLockdown(FALSE)
+	robot.UnlinkSelf()
+	used = TRUE
+	Remove(robot)
+
+// /datum/action/innate/overdrive/ApplyIcon()
+	// button.cut_overlays()
+	// var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "heal", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	// button.add_overlay(new_icon)
+
+
+/datum/action/innate/research_scanner
+	name = "Переключить исследовательский анализатор"
+
+/datum/action/innate/research_scanner/Activate()
+	owner.research_scanner = !owner.research_scanner
+	to_chat(owner, span_notice("Вы [owner.research_scanner ? "включили" : "отключили"] исследовательский анализатор."))
+
+	return TRUE
+
+/datum/action/innate/research_scanner/Remove(mob/living/L)
+	if(owner)
+		owner.research_scanner = 0
+
+	. = ..()
+
+// /datum/action/innate/research_scanner/ApplyIcon()
+// 	button.cut_overlays()
+// 	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+// 	button.add_overlay(new_icon)
+

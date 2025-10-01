@@ -88,7 +88,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
 	icon_state = "adamantine_cords"
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(left_click = TRUE)
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(mob/clicker, trigger_flags)
 	if(!IsAvailable())
 		return
 	var/message = tgui_input_text(owner, "Отправить резонирующее сообщение всем ближайшим големам.", "Резонанс")
@@ -135,7 +135,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	cords = target
 
 
-/datum/action/item_action/organ_action/colossus/IsAvailable()
+/datum/action/item_action/organ_action/colossus/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return .
@@ -145,7 +145,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		return FALSE
 
 
-/datum/action/item_action/organ_action/colossus/Trigger(left_click = TRUE)
+/datum/action/item_action/organ_action/colossus/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!IsAvailable())
 		if(world.time < cords.next_command)

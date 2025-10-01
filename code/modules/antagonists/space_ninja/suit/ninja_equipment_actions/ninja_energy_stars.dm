@@ -4,8 +4,6 @@
 	name = "Energy shuriken emitter"
 	desc = "Enable special suit system that generates Shurikens made of pure energy and capable of slowing and damaging enemies far away from you! Energy cost: 300 per burst"
 	charge_type = ADV_ACTION_TYPE_TOGGLE
-	use_itemicon = FALSE
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "shuriken"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"

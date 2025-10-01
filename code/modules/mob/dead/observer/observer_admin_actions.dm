@@ -14,10 +14,10 @@
 			given_action.Grant(src)
 
 /datum/action/innate/admin
-	icon_icon = 'icons/mob/actions/actions_admin.dmi'
+	button_icon = 'icons/mob/actions/actions_admin.dmi'
 	var/rights_required = R_ADMIN
 
-/datum/action/innate/admin/Trigger(left_click = TRUE)
+/datum/action/innate/admin/Trigger(mob/clicker, trigger_flags)
 	if(!..())
 		return FALSE
 	if(!check_rights(rights_required, TRUE, usr))
@@ -58,11 +58,12 @@
 	. = ..()
 	if(ticket_amt <= 0)
 		return
-	var/image/maptext_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
-	maptext_holder.plane = FLOAT_PLANE + 1.1
-	maptext_holder.maptext = MAPTEXT("[ticket_amt]")
-	maptext_holder.maptext_x = 2
-	button.add_overlay(maptext_holder)
+	//TODO vakons actions: later
+	// var/image/maptext_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
+	// maptext_holder.plane = FLOAT_PLANE + 1.1
+	// maptext_holder.maptext = MAPTEXT("[ticket_amt]")
+	// maptext_holder.maptext_x = 2
+	// button.add_overlay(maptext_holder)
 
 /datum/action/innate/admin/ticket/mentor
 	name = MENTORHELP_SYSTEM_NAME

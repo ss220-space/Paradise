@@ -768,7 +768,7 @@
 	var/last_teleport = 0
 	var/tele_range = 6
 
-/datum/action/innate/unstable_teleport/IsAvailable()
+/datum/action/innate/unstable_teleport/IsAvailable(feedback = FALSE)
 	if(..())
 		if(world.time > last_teleport + cooldown && !activated)
 			return 1

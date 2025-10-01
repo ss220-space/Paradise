@@ -52,7 +52,7 @@
 	small_icon_state = "aliens_running"
 
 
-/datum/action/innate/small_sprite_alien/Trigger(left_click = TRUE)
+/datum/action/innate/small_sprite_alien/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return

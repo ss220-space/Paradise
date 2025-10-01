@@ -170,6 +170,13 @@
 		return FALSE
 	return TRUE
 
+/datum/action/proc/AltTrigger(mob/clicker, trigger_flags)
+	if(!(trigger_flags & TRIGGER_FORCE_AVAILABLE) && !IsAvailable(feedback = TRUE))
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
+		return FALSE
+	return TRUE
+
 /**
  * Whether our action is currently available to use or not
  * * feedback - If true this is being called to check if we have any messages to show to the owner
@@ -392,6 +399,10 @@
 		if(bitfield & bitflag)
 			our_button.id = bitflag
 			return
+
+/datum/action/proc/UpdateButtonIcon()
+	var/update_flag = UPDATE_BUTTON_ICON | UPDATE_BUTTON_OVERLAY | UPDATE_BUTTON_NAME
+	build_all_button_icons(update_flag, TRUE)
 
 /// Updates our buttons if our target's icon was updated
 /datum/action/proc/on_target_icon_update(datum/source, updates, updated)

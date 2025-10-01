@@ -5,7 +5,7 @@
  */
 /datum/action/guardian
 	name = "Generic guardian host action"
-	icon_icon = 'icons/mob/guardian.dmi'
+	button_icon = 'icons/mob/guardian.dmi'
 	button_icon_state = "base"
 	var/mob/living/simple_animal/hostile/guardian/guardian
 
@@ -26,7 +26,7 @@
 	desc = "Телепатически свяжитесь со своим хранителем."
 	button_icon_state = "communicate"
 
-/datum/action/guardian/communicate/Trigger(left_click = TRUE)
+/datum/action/guardian/communicate/Trigger(mob/clicker, trigger_flags)
 	var/input = tgui_input_text(owner, "Введите сообщение для вашего хранителя:", "Сообщение")
 	if(!input)
 		return
@@ -51,7 +51,7 @@
 	desc = "Принудительно отозвать вашего хранителя."
 	button_icon_state = "recall"
 
-/datum/action/guardian/recall/Trigger(left_click = TRUE)
+/datum/action/guardian/recall/Trigger(mob/clicker, trigger_flags)
 	guardian.Recall()
 
 /**
@@ -65,12 +65,12 @@
 	button_icon_state = "reset"
 	var/cooldown_timer
 
-/datum/action/guardian/reset_guardian/IsAvailable()
+/datum/action/guardian/reset_guardian/IsAvailable(feedback = FALSE)
 	if(cooldown_timer)
 		return FALSE
 	return TRUE
 
-/datum/action/guardian/reset_guardian/Trigger(left_click = TRUE)
+/datum/action/guardian/reset_guardian/Trigger(mob/clicker, trigger_flags)
 	if(cooldown_timer)
 		to_chat(owner, span_warning("Эта способность всё ещё перезаряжается."))
 		return

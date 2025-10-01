@@ -21,7 +21,7 @@
 	return ..()
 
 
-/datum/action/changeling/sting/Trigger(left_click = TRUE)
+/datum/action/changeling/sting/Trigger(mob/clicker, trigger_flags)
 	if(!ischangeling(owner) || !ishuman(owner))
 		to_chat(owner, span_warning("We cannot do that in this form!"))
 		return
@@ -148,7 +148,7 @@
 	return ..()
 
 
-/datum/action/changeling/sting/transformation/Trigger(left_click = TRUE)
+/datum/action/changeling/sting/transformation/Trigger(mob/clicker, trigger_flags)
 	if(!ishuman(owner))
 		to_chat(owner, span_warning("We cannot do that in this form!"))
 		return

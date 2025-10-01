@@ -162,21 +162,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /datum/action/innate/elite_attack
 	name = "Элитная атака"
-	icon_icon = 'icons/mob/actions/actions_elites.dmi'
+	button_icon = 'icons/mob/actions/actions_elites.dmi'
 	button_icon_state = ""
 	///The displayed message into chat when this attack is selected
 	var/chosen_message
 	///The internal attack ID for the elite's OpenFire() proc to use
 	var/chosen_attack_num = 0
-
-/datum/action/innate/elite_attack/New(Target)
-	. = ..()
-	button.maptext = ""
-	button.maptext_x = 8
-	button.maptext_y = 0
-	button.maptext_width = 24
-	button.maptext_height = 12
-	return button
 
 /datum/action/innate/elite_attack/process()
 	if(owner == null)
@@ -188,12 +179,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /datum/action/innate/elite_attack/proc/UpdateButton(status_only = FALSE)
 	if(status_only)
 		return
-	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
-	var/timeleft = max(elite_owner.ranged_cooldown - world.time, 0)
-	if(timeleft == 0)
-		button.maptext = ""
-	else
-		button.maptext = MAPTEXT("[round(timeleft/10, 0.1)]")
+	// var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
+	// var/timeleft = max(elite_owner.ranged_cooldown - world.time, 0)
+	// if(timeleft == 0)
+	// 	button.maptext = ""
+	// else
+	// 	button.maptext = MAPTEXT("[round(timeleft/10, 0.1)]")
 
 /datum/action/innate/elite_attack/Grant(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))

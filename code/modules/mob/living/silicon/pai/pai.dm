@@ -688,7 +688,7 @@
 /datum/action/innate/pai_soft
 	name = "Программное обеспечение"
 	desc = "Активация вашего внутреннего интерфейса для выбора программ."
-	icon_icon = 'icons/obj/aicards.dmi'
+	button_icon = 'icons/obj/aicards.dmi'
 	button_icon_state = "pai-action"
 	check_flags = AB_CHECK_CONSCIOUS
 

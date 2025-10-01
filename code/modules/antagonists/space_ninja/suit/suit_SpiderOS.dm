@@ -8,8 +8,6 @@
 	desc = "Your personal integrated suit AI that will help you configure yourself for the upcoming mission!"
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_TOGGLE
-	use_itemicon = FALSE
-	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "spider_green"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"

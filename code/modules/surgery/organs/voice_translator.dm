@@ -344,7 +344,7 @@
 	button_icon_state = "select_language"
 
 
-/datum/action/item_action/organ_action/translator_select_language/Trigger(left_click = TRUE)
+/datum/action/item_action/organ_action/translator_select_language/Trigger(mob/clicker, trigger_flags)
 	if(!owner)
 		return
 
@@ -354,7 +354,7 @@
 /datum/action/item_action/organ_action/wingdings_decoder
 	name = "Переключить дешифратор Вингдингс"
 	button_icon_state = "wingdings_off"
-	use_itemicon = FALSE
+	button_icon = 'icons/mob/actions/actions.dmi'
 
 
 /datum/action/item_action/organ_action/wingdings_decoder/proc/update_button_state()
@@ -372,7 +372,7 @@
 	return TRUE
 
 
-/datum/action/item_action/organ_action/wingdings_decoder/Trigger(left_click = TRUE)
+/datum/action/item_action/organ_action/wingdings_decoder/Trigger(mob/clicker, trigger_flags)
 	if(!owner)
 		return FALSE
 
@@ -391,7 +391,7 @@
 	return TRUE
 
 
-/datum/action/item_action/organ_action/wingdings_decoder/IsAvailable()
+/datum/action/item_action/organ_action/wingdings_decoder/IsAvailable(feedback = FALSE)
 	if(!..())
 		return FALSE
 

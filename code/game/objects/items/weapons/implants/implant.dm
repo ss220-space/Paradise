@@ -265,6 +265,6 @@
 	action?.name = "[initial(action.name)] [name]"
 	action?.desc = desc
 	if(cooldown_system?.should_draw_cooldown())
-		action.apply_unavailable_effect()
+		//action.apply_unavailable_effect()
 		return COMSIG_ACTION_UPDATE_INTERRUPT
 	return NONE

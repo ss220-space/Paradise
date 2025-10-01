@@ -56,7 +56,7 @@
 	return 50
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/NestMode()
 	..()
-	queeneggs_action.button.name = "Empress Eggs"
+	queeneggs_action.name = "Empress Eggs"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/LayQueenEggs()
 	var/eggtype = tgui_input_list(usr, "Какой тип яиц?", "Тип яиц", list(TS_DESC_QUEEN, TS_DESC_MOTHER, TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_WIDOW, TS_DESC_GUARDIAN, TS_DESC_DEFILER, TS_DESC_DESTROYER))

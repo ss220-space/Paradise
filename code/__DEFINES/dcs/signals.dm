@@ -853,6 +853,10 @@
 ///Called after successfully performing the Devil Sacrifice Ritual
 #define COMSIG_DEVIL_SACRIFICE "devil_sacrifice"
 
+// /mob/living/simple_animal/hostile signals
+///before attackingtarget has happened, source is the attacker and target is the attacked
+#define COMSIG_HOSTILE_PRE_ATTACKINGTARGET "hostile_pre_attackingtarget"
+	#define COMPONENT_HOSTILE_NO_ATTACK COMPONENT_CANCEL_ATTACK_CHAIN //cancel the attack, only works before attack happens
 ///after attackingtarget has happened, source is the attacker and target is the attacked, extra argument for if the attackingtarget was successful
 #define COMSIG_HOSTILE_POST_ATTACKINGTARGET "hostile_post_attackingtarget"
 
@@ -1292,6 +1296,9 @@
 // TODO: spaghetti write comment here
 #define COMSIG_ACTION_BUTTON_UPDATE "action_button_update"
 	#define COMSIG_ACTION_UPDATE_INTERRUPT (1<<0)
+
+/// From base of /datum/action/cooldown/proc/set_statpanel_format(): (list/stat_panel_data)
+#define COMSIG_ACTION_SET_STATPANEL "ability_set_statpanel"
 
 //Xenobio hotkeys
 

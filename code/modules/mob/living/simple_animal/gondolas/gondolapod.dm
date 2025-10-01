@@ -59,7 +59,7 @@
 	desc = "Откройте хранилище и освободите все содержимое, хранящееся внутри."
 	button_icon_state = "arrow"
 
-/datum/action/innate/deliver_gondola_package/Trigger(left_click)
+/datum/action/innate/deliver_gondola_package/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
@@ -77,7 +77,7 @@
 	desc = "Посмотрите, сколько предметов вы сейчас держите в капсуле."
 	button_icon_state = "storage"
 
-/datum/action/innate/check_gondola_contents/Trigger(left_click)
+/datum/action/innate/check_gondola_contents/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return

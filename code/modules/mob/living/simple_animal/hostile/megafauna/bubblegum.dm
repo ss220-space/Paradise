@@ -100,28 +100,28 @@ Difficulty: Hard
 
 /datum/action/innate/megafauna_attack/triple_charge
 	name = "Тройной заряд"
-	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("Вы трижды атакуете цель, на которую нажмёте.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/hallucination_charge
 	name = "Заряд галлюцинаций"
-	icon_icon = 'icons/effects/bubblegum.dmi'
+	button_icon = 'icons/effects/bubblegum.dmi'
 	button_icon_state = "smack ya one"
 	chosen_message = span_colossus("Вы атакуете цель, на которую нажмёте, с галлюцинациями.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/hallucination_surround
 	name = "Окружение цели"
-	icon_icon = 'icons/turf/walls/wall.dmi'
+	button_icon = 'icons/turf/walls/wall.dmi'
 	button_icon_state = "wall"
 	chosen_message = span_colossus("Вы окружаете цель, на которую нажмёте, с галлюцинациями.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blood_warp
 	name = "Кровавый варп"
-	icon_icon = 'icons/effects/blood.dmi'
+	button_icon = 'icons/effects/blood.dmi'
 	button_icon_state = "floor1"
 	chosen_message = span_colossus("Вы телепортируетесь к крови вокруг выбранной позиции.")
 	chosen_attack_num = 4

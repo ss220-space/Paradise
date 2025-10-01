@@ -37,13 +37,12 @@
  * * [mob/proc/RangedAttack] (atom, modifiers) - used only ranged, only used for tk and laser eyes but could be changed
  */
 /mob/proc/ClickOn(atom/A, params)
-	if(client.click_intercept)
-		client.click_intercept.InterceptClickOn(src, params, A)
-		return
-
 	if(next_click > world.time)
 		return
 	changeNext_click(1)
+
+	if(check_click_intercept(params,A) || HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
+		return
 
 	var/list/modifiers = params2list(params)
 
@@ -546,6 +545,20 @@
 			modifiers["catcher"] = TRUE
 			click_turf.Click(click_turf, control, list2params(modifiers))
 	. = 1
+
+
+/mob/proc/check_click_intercept(params,A)
+	//Client level intercept
+	if(client?.click_intercept)
+		if(call(client.click_intercept, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	//Mob level intercept
+	if(click_intercept)
+		if(call(click_intercept, "InterceptClickOn")(src, params, A))
+			return TRUE
+
+	return FALSE
 
 #undef MAX_SAFE_BYOND_ICON_SCALE_TILES
 #undef MAX_SAFE_BYOND_ICON_SCALE_PX

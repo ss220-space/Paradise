@@ -192,7 +192,7 @@
 		hand_magic = null
 	return ..()
 
-/datum/action/innate/clockwork/hand_spell/IsAvailable()
+/datum/action/innate/clockwork/hand_spell/IsAvailable(feedback = FALSE)
 	if(!isclocker(owner) || owner.incapacitated())
 		return FALSE
 	return ..()

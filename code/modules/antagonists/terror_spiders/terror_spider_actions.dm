@@ -1,7 +1,7 @@
 /datum/action/innate/terrorspider/lay_empress_egg
 	name = "Отложить яйцо Императрицы"
 	desc = "Отложить яйцо Имератрицы Ужаса."
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "eggs"
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 	var/datum/weakref/spider_team
