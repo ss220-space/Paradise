@@ -23,8 +23,10 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	if(islist(soundin))
 		CRASH("playsound(): soundin attempted to pass a list! Consider using pick()")
 
-	if(!soundin)
-		CRASH("playsound(): no soundin passed")
+	// We have too many 'soundin = null', in map files, in random code, etc., good luck to the coders.
+	// I'm just commenting on this.
+	/*if(!soundin)
+		CRASH("playsound(): no soundin passed")*/
 
 	if(vol < SOUND_AUDIBLE_VOLUME_MIN) // never let sound go below SOUND_AUDIBLE_VOLUME_MIN or bad things will happen
 		CRASH("playsound(): volume below SOUND_AUDIBLE_VOLUME_MIN. [vol] < [SOUND_AUDIBLE_VOLUME_MIN]")
