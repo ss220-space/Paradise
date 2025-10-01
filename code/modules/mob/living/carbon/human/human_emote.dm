@@ -419,8 +419,10 @@
 		return TRUE
 
 	if(user.getOxyLoss() > 30)
-		user.visible_message(span_warning("[user.name] gasps for air and swallows their cigarette!"),
-							span_warning("You gasp for air and accidentally swallow your [cig.name]!"))
+		user.visible_message(
+			span_warning("[user.name] gasps for air and swallows their cigarette!"),
+			span_warning("You gasp for air and accidentally swallow your [cig.name]!")
+		)
 		if(cig.lit)
 			to_chat(user, span_userdanger("The lit [cig.name] burns on the way down!"))
 			user.drop_item_ground(cig, force = TRUE)

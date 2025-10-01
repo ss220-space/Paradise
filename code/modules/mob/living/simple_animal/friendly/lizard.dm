@@ -39,8 +39,8 @@
 
 /mob/living/simple_animal/lizard/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
-		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
-		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		user.visible_message(span_notice("[user] sucks [src] into its decompiler. There's a horrible crunching noise."), \
+		span_warning("It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises."))
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
 		C.stored_comms["wood"] += 2
 		C.stored_comms["glass"] += 2

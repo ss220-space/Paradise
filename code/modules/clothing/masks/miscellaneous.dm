@@ -28,8 +28,8 @@
 		return 0
 	else if(security_lock && locked)
 		if(do_unlock(user))
-			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [src.name].</span>", \
-								"<span class='userdanger'>[user] unlocks [user.p_their()] [src.name].</span>")
+			visible_message(span_danger("[user] unlocks [user.p_their()] [src.name]."), \
+								span_userdanger("[user] unlocks [user.p_their()] [src.name]."))
 	..()
 	return 1
 
@@ -45,16 +45,16 @@
 
 /obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
 	if(istype(user.get_inactive_hand(), /obj/item/card/emag))
-		to_chat(user, "<span class='warning'>The lock vibrates as the card forces its locking system open.</span>")
+		to_chat(user, span_warning("The lock vibrates as the card forces its locking system open."))
 		do_break()
 		return TRUE
 	else if(ACCESS_BRIG in user.get_access())
-		to_chat(user, "<span class='warning'>The muzzle unlocks with a click.</span>")
+		to_chat(user, span_warning("The muzzle unlocks with a click."))
 		locked = FALSE
 		REMOVE_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
 		return TRUE
 
-	to_chat(user, "<span class='warning'>You must be wearing a security ID card or have one in your inactive hand to remove the muzzle.</span>")
+	to_chat(user, span_warning("You must be wearing a security ID card or have one in your inactive hand to remove the muzzle."))
 	return FALSE
 
 /obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
@@ -175,7 +175,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You remove [trigger] from [src].</span>")
+	to_chat(user, span_notice("You remove [trigger] from [src]."))
 	trigger.forceMove(get_turf(user))
 	trigger.master = null
 	trigger.holder = null
@@ -295,7 +295,7 @@
 		return TRUE
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
-	user.visible_message("<span class='danger'>\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
+	user.visible_message(span_danger("\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!"))
 
 //scarves (fit in in mask slot)
 
@@ -659,12 +659,12 @@
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H) && slot == ITEM_SLOT_MASK)
-		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
+		to_chat(H, span_danger("[src] grips your face!"))
 		if(H.mind && H.mind.assigned_role != "Cluwne")
 			H.makeCluwne()
 
 /obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
-	user.visible_message("<span class='danger'>[user] gazes into the eyes of [src]. [src] gazes back!</span>")
+	user.visible_message(span_danger("[user] gazes into the eyes of [src]. [src] gazes back!"))
 	spawn(10)
 		if(user)
 			user.gib()

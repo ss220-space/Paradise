@@ -163,7 +163,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	update_state("alienh_pounce")
 	if(A == target)
 		target.Weaken(10 SECONDS)
-		target.visible_message("<span class='danger'>[target] flails around wildly.</span>","<span class ='userdanger'>[name] pounces on you!</span>")
+		target.visible_message(span_danger("[target] flails around wildly."),"<span class ='userdanger'>[name] pounces on you!</span>")
 
 /obj/effect/hallucination/xeno_attack
 	//Xeno crawls from nearby vent,jumps at you, and goes back in
@@ -196,12 +196,12 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		if(!xeno)
 			return
 	var/xeno_name = xeno.name
-	to_chat(target, "<span class='notice'>[xeno_name] begins climbing into the ventilation system...</span>")
+	to_chat(target, span_notice("[xeno_name] begins climbing into the ventilation system..."))
 	sleep(10)
 	if(!xeno)
 		return
 	QDEL_NULL(xeno)
-	to_chat(target, "<span class='notice'>[xeno_name] scrambles into the ventilation ducts!</span>")
+	to_chat(target, span_notice("[xeno_name] scrambles into the ventilation ducts!"))
 	qdel(src)
 
 /obj/effect/hallucination/simple/clown
@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		for(var/i in 0 to 10)
 			SSmove_manager.move_to(borer, T, 1, rand(2, 4))
 			if(borer.Adjacent(T))
-				to_chat(T, "<span class='userdanger'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
+				to_chat(T, span_userdanger("You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing."))
 				T.Stun(8 SECONDS)
 				sleep(50)
 				QDEL_NULL(borer)
@@ -307,7 +307,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			target.apply_damage(40, STAMINA)
 			step_away(target, bubblegum)
 			shake_camera(target, 4, 3)
-			target.visible_message("<span class='warning'>[target] jumps backwards, falling on the ground!</span>", "<span class='userdanger'>[bubblegum] slams into you!</span>")
+			target.visible_message(span_warning("[target] jumps backwards, falling on the ground!"), span_userdanger("[bubblegum] slams into you!"))
 		sleep(2)
 	sleep(30)
 	qdel(src)
@@ -554,7 +554,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			A = image(custom_icon_file, target, custom_icon)
 	A.override = 1
 	if(target.client)
-		to_chat(target, "<span class='italics'>...wabbajack...wabbajack...</span>")
+		to_chat(target, span_italics("...wabbajack...wabbajack..."))
 		target.playsound_local(target,'sound/magic/staff_change.ogg', 50, TRUE, -1)
 		delusion = A
 		target.client.images |= A
@@ -718,7 +718,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				do_attack_animation(my_target, ATTACK_EFFECT_PUNCH)
 				if(weapon_name)
 					my_target.playsound_local(my_target, weap.hitsound, 1)
-					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
+					my_target.show_message(span_danger("[src.name] has attacked [my_target] with [weapon_name]!"), 1)
 					my_target.apply_damage(30, STAMINA)
 					if(prob(20))
 						my_target.AdjustEyeBlurry(6 SECONDS)
@@ -727,7 +727,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 							fake_blood(my_target)
 				else
 					my_target.playsound_local(my_target, pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg'), 25, TRUE, -1)
-					my_target.show_message("<span class='userdanger'>[src.name] has punched [my_target]!</span>", 1)
+					my_target.show_message(span_userdanger("[src.name] has punched [my_target]!"), 1)
 					my_target.apply_damage(30, STAMINA)
 					if(prob(33))
 						if(!locate(/obj/effect/overlay) in my_target.loc)
@@ -838,17 +838,17 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 /obj/effect/hallucination/message/New(loc, mob/living/carbon/T)
 	. = ..()
 	target = T
-	var/chosen = pick("<span class='userdanger'>The light burns you!</span>",
-		"<span class='danger'>You don't feel like yourself.</span>",
-		"<span class='userdanger'>Unknown has punched [target]!</span>",
-		"<span class='notice'>You hear something squeezing through the ducts...</span>",
-		"<span class='notice'>You hear a distant scream.</span>",
-		"<span class='notice'>You feel invincible, nothing can hurt you!</span>",
-		"<span class='warning'>You feel a tiny prick!</span>",
+	var/chosen = pick(span_userdanger("The light burns you!"),
+		span_danger("You don't feel like yourself."),
+		span_userdanger("Unknown has punched [target]!"),
+		span_notice("You hear something squeezing through the ducts..."),
+		span_notice("You hear a distant scream."),
+		span_notice("You feel invincible, nothing can hurt you!"),
+		span_warning("You feel a tiny prick!"),
 		"<b>[target]</b> sneezes.",
-		"<span class='warning'>You feel faint.</span>",
-		"<span class='noticealien'>You hear a strange, alien voice in your head...</span> [pick("Hiss","Ssss")]",
-		"<span class='notice'>You can see...everything!</span>")
+		span_warning("You feel faint."),
+		"[span_noticealien("You hear a strange, alien voice in your head...")] [pick("Hiss","Ssss")]",
+		span_notice("You can see...everything!"))
 	to_chat(target, chosen)
 	qdel(src)
 
@@ -940,10 +940,10 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/turn_around2.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
 					playsound_local(null, pick(creepyasssounds), 50, TRUE)
 				if(13)
-					to_chat(src, "<span class='warning'>Вы ощущаете лёгкое покалывание!</span>")
+					to_chat(src, span_warning("Вы ощущаете лёгкое покалывание!"))
 				if(14)
 					to_chat(src, "<h1 class='alert'>Приоритетное объявление</h1>")
-					to_chat(src, "<br><br><span class='alert'>Эвакуационный шаттл совершил стыковку со станцией. У вас есть 3 минуты, чтобы взобраться на борт эвакуационного шаттла.</span><br><br>")
+					to_chat(src, "<br><br>[span_alert("Эвакуационный шаттл совершил стыковку со станцией. У вас есть 3 минуты, чтобы взобраться на борт эвакуационного шаттла.")]<br><br>")
 					playsound_local(null, 'sound/AI/eshuttle_dock.ogg', 100)
 				if(15)
 					playsound_local(null, 'sound/items/welder.ogg', 15, TRUE)
@@ -962,7 +962,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					playsound_local(null, 'sound/weapons/saberon.ogg', 35, TRUE)
 				if(18)
 					to_chat(src, "<h1 class='alert'>Биологическая угроза</h1>")
-					to_chat(src, "<br><br><span class='alert'>Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!.</span><br><br>")
+					to_chat(src, "<br><br>[span_alert("Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!.")]<br><br>")
 					playsound_local(null, 'sound/AI/outbreak5.ogg')
 				if(19) //Tesla loose!
 					playsound_local(null, 'sound/magic/lightningbolt.ogg', 35, TRUE)
@@ -971,7 +971,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						playsound_local(null, 'sound/magic/lightningbolt.ogg', 65+(35*(i-1)), TRUE)	//65%, then 100% volume.
 				if(20) //AI is doomsdaying!
 					to_chat(src, "<h1 class='alert'>Аномалия</h1>")
-					to_chat(src, "<br><br><span class='alert'>Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.</span><br><br>")
+					to_chat(src, "<br><br>[span_alert("Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.")]<br><br>")
 					playsound_local(null, 'sound/AI/aimalf.ogg')
 		if("hudscrew")
 			//Screwy HUD

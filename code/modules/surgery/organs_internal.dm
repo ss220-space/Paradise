@@ -740,7 +740,7 @@
 	if(!user.drop_item_ground(I))
 		user.balloon_alert(user, "не получается выпустить!")
 		return SURGERY_STEP_INCOMPLETE
-	I.insert(target)
+	I.insert(target, ORGAN_MANIPULATION_TRANSPLANTATE)
 	if(istype(I, /obj/item/organ/internal/cyberimp))
 		add_attack_logs(user, target, "Surgically inserted [I]([I.type])", ATKLOG_ALMOSTALL)
 	spread_germs_to_organ(I, user, tool)

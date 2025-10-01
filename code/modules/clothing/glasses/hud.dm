@@ -15,11 +15,11 @@
 	if(islist(HUDType))
 		for(var/new_hud in HUDType)
 			var/datum/atom_hud/hud = GLOB.huds[new_hud]
-			hud.add_hud_to(user)
+			hud.show_to(user)
 		return .
 
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]
-	hud.add_hud_to(user)
+	hud.show_to(user)
 
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
@@ -30,11 +30,11 @@
 	if(islist(HUDType))
 		for(var/new_hud in HUDType)
 			var/datum/atom_hud/hud = GLOB.huds[new_hud]
-			hud.remove_hud_from(user)
+			hud.hide_from(user)
 		return .
 
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]
-	hud.remove_hud_from(user)
+	hud.hide_from(user)
 
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
@@ -55,10 +55,9 @@
 		var/datum/atom_hud/H = GLOB.huds[initial(HUDType)]
 		if(istype(user) && src == user.glasses)
 			if(HUDType)
-				H.add_hud_to(user)
-
+				H.show_to(user)
 			else
-				H.remove_hud_from(user)
+				H.hide_from(user)
 
 // Allows you to toggle HUDType on glasses.
 /obj/item/clothing/glasses/hud/proc/multiHUD_toggling(mob/living/carbon/human/user)
@@ -69,7 +68,7 @@
 	var/hudMode = null
 
 	// DATA_HUD_MEDICAL_ADVANCED ->  DATA_HUD_SECURITY_BASIC -> DATA_HUD_SECURITY_ADVANCED
-	switch(HUDType) 
+	switch(HUDType)
 		if(DATA_HUD_MEDICAL_ADVANCED)
 			HUDType = DATA_HUD_SECURITY_BASIC
 			examine_extensions = EXAMINE_HUD_SKILLS
@@ -84,9 +83,9 @@
 			hudMode = "здоровья"
 
 	if(user.glasses == src)
-		oldHUD.remove_hud_from(user)
+		oldHUD.hide_from(user)
 		var/datum/atom_hud/newHUD = GLOB.huds[HUDType]
-		newHUD.add_hud_to(user)
+		newHUD.show_to(user)
 
 	balloon_alert(user, "режим ИЛС [hudMode]")
 	playsound(user, 'sound/items/buttonclick.ogg', 50, TRUE)

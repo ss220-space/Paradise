@@ -338,8 +338,8 @@
 		row_num = round((adjusted_contents - 1) / 7) // 7 is the maximum allowed width.
 	standard_orient_objs(row_num, col_count, display_contents)
 
-//This proc returns TRUE if the item can be picked up and FALSE if it can't.
-//Set the stop_messages to stop it from printing messages
+/// This proc returns TRUE if the item can be picked up and FALSE if it can't.
+/// Set the stop_messages to stop it from printing messages
 /obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE)
 	if(!istype(W) || (W.item_flags & ABSTRACT)) //Not an item
 		return FALSE
@@ -426,9 +426,9 @@
 
 	return TRUE
 
-//This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
-//The stop_warning parameter will stop the insertion message from being displayed. It is intended for cases where you are inserting multiple items at once,
-//such as when picking up all the items on a tile with one click.
+/// This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
+/// The stop_warning parameter will stop the insertion message from being displayed. It is intended for cases where you are inserting multiple items at once,
+/// such as when picking up all the items on a tile with one click.
 /obj/item/storage/proc/handle_item_insertion(obj/item/W, prevent_warning = FALSE)
 	if(!istype(W))
 		return FALSE
@@ -485,7 +485,7 @@
 	update_icon()
 	return TRUE
 
-//Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
+/// Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
 /obj/item/storage/proc/remove_from_storage(obj/item/W, atom/new_location)
 	if(!istype(W))
 		return FALSE

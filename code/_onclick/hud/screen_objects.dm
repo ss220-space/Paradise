@@ -368,7 +368,6 @@
 	if(!isobserver(usr) && hovering)
 		cut_overlay(hover_overlays_cache[hovering])
 		hovering = null
-	return ..()
 
 
 /atom/movable/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
@@ -547,7 +546,7 @@
 			return inv_item.Click(location, control, params)
 
 	if(usr.attack_ui(slot_id, params))
-		usr.update_inv_hands()
+		usr.update_held_items()
 
 	return TRUE
 

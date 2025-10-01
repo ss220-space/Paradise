@@ -125,10 +125,10 @@
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(usr, span_warning("You can't do that right now!"))
 		return FALSE
 	if(anchored)
-		to_chat(usr, "<span class='warning'>It is fastened to the floor!</span>")
+		to_chat(usr, span_warning("It is fastened to the floor!"))
 		return FALSE
 	setDir(turn(dir, 270))
 	return TRUE

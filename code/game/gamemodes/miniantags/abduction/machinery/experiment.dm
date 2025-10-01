@@ -31,12 +31,12 @@
 	if(isabductor(target))
 		return
 	if(occupant)
-		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
+		to_chat(user, span_notice("[src] is already occupied."))
 		return TRUE //occupied
 	if(target.buckled)
 		return
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head.</span>")
+		to_chat(user, span_warning("[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head."))
 		return TRUE
 	visible_message("[user] puts [target] into the [src].")
 
@@ -79,7 +79,7 @@
 		dat += "<a href='byond://?src=[UID()];experiment=3'>Analyze</a><br>"
 		dat += "</td></tr></table>"
 	else
-		dat += "<span class='linkOff'>Experiment </span>"
+		dat += span_linkoff("Experiment ")
 
 	if(!occupant)
 		dat += "<h3>Machine Unoccupied</h3>"
@@ -88,11 +88,11 @@
 		dat += "[occupant.name] => "
 		switch(occupant.stat)
 			if(0)
-				dat += "<span class='good'>Conscious</span>"
+				dat += span_good("Conscious")
 			if(1)
-				dat += "<span class='average'>Unconscious</span>"
+				dat += span_average("Unconscious")
 			else
-				dat += "<span class='bad'>Deceased</span>"
+				dat += span_bad("Deceased")
 	dat += "<br>"
 	dat += "[flash]"
 	dat += "<br>"
@@ -122,14 +122,14 @@
 	var/mob/living/carbon/human/H = occupant
 	var/point_reward = 0
 	if(H in history)
-		return "<span class='bad'>Specimen already in database.</span>"
+		return span_bad("Specimen already in database.")
 	if(H.stat == DEAD)
 		atom_say("Образец мертв - пожалуйста, предоставьте свежий образец.")
-		return "<span class='bad'>Specimen deceased.</span>"
+		return span_bad("Specimen deceased.")
 	var/obj/item/organ/internal/heart/gland/GlandTest = locate() in H.internal_organs
 	if(!GlandTest)
 		atom_say("Экспериментальная диссекция не обнаружена!")
-		return "<span class='bad'>No glands detected!</span>"
+		return span_bad("No glands detected!")
 	if(H.mind != null && H.ckey != null)
 		history += H
 		abductee_minds += H.mind
@@ -137,11 +137,11 @@
 		sleep(5)
 		switch(text2num(type))
 			if(1)
-				to_chat(H, "<span class='warning'>You feel violated.</span>")
+				to_chat(H, span_warning("You feel violated."))
 			if(2)
-				to_chat(H, "<span class='warning'>You feel yourself being sliced apart and put back together.</span>")
+				to_chat(H, span_warning("You feel yourself being sliced apart and put back together."))
 			if(3)
-				to_chat(H, "<span class='warning'>You feel intensely watched.</span>")
+				to_chat(H, span_warning("You feel intensely watched."))
 		sleep(5)
 		to_chat(H, "<span class='warning'><b>Your mind snaps!</b></span>")
 		to_chat(H, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
@@ -162,15 +162,15 @@
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, TRUE)
 			points += point_reward
 			credits += point_reward
-			return "<span class='good'>Experiment successful! [point_reward] new data-points collected.</span>"
+			return span_good("Experiment successful! [point_reward] new data-points collected.")
 		else
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-			return "<span class='bad'>Experiment failed! No replacement organ detected.</span>"
+			return span_bad("Experiment failed! No replacement organ detected.")
 	else
 		atom_say("Мозговая деятельность не проявляется - утилизация образца...")
 		eject_abductee()
 		SendBack(H)
-		return "<span class='bad'>Specimen braindead - disposed.</span>"
+		return span_bad("Specimen braindead - disposed.")
 
 
 /obj/machinery/abductor/experiment/proc/SendBack(mob/living/carbon/human/H)

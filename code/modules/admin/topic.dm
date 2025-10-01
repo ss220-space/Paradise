@@ -402,7 +402,9 @@
 		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
-		GLOB.minor_announcement.announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")].")
+		GLOB.minor_announcement.announce(
+			message = "Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination, "минуту", "минуты", "минут")]."
+		)
 		message_admins(span_adminnotice("[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds"))
 		href_list["check_antagonist"] = TRUE
 
@@ -2452,10 +2454,8 @@
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
 				message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(src.owner)].")
 				return
-			else
-				H.update_inv_r_hand()//To ensure the icon appears in the HUD
-		else
-			H.update_inv_l_hand()
+
+		H.update_held_items()
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
 		message_admins("[key_name_admin(H)] got [H.p_their()] cookie, spawned by [key_name_admin(src.owner)]")
 		SSblackbox.record_feedback("amount", "admin_cookies_spawned", 1)
@@ -2648,8 +2648,9 @@
 			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
 
 			if(announce_to_crew)
-				GLOB.major_announcement.announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
-												ANNOUNCE_ERT_UNAVAIL_RU
+				GLOB.major_announcement.announce(
+					message = "[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования. Ваш запрос на ОБР был отклонен по следующим причинам:\n[reason]",
+					new_title = ANNOUNCE_ERT_UNAVAIL_RU
 				)
 				return
 
@@ -3249,7 +3250,9 @@
 					return
 				change_station_name(new_name)
 				log_and_message_admins("renamed the station to: [new_name].")
-				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+				GLOB.minor_announcement.announce(
+					message = "Решением [command_name()] станция переименована в \"[new_name]\"."
+				)
 
 			if("set_english_station_name")
 				if(!check_rights(R_ADMIN | R_EVENT))
@@ -3279,7 +3282,9 @@
 				var/new_name = new_station_name()
 				change_station_name(new_name)
 				log_and_message_admins("reset the station name.")
-				GLOB.minor_announcement.announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+				GLOB.minor_announcement.announce(
+					message = "Решением [command_name()] станция переименована в \"[new_name]\"."
+				)
 
 			if("gravity")
 				if(!(SSticker && SSticker.mode))
@@ -3297,7 +3302,9 @@
 
 				var/gravity_announce = tgui_input_text(usr, "Do you wish to make any global announcement?", "Announcement Text", encode = FALSE)
 				if(gravity_announce)
-					GLOB.minor_announcement.announce("[gravity_announce]")
+					GLOB.minor_announcement.announce(
+						message = "[gravity_announce]"
+					)
 
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
 
@@ -3554,8 +3561,9 @@
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				GLOB.minor_announcement.announce("Активирована блокировка управления шлю+зами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.",
-												new_sound = 'sound/AI/commandreport.ogg'
+				GLOB.minor_announcement.announce(
+					message = "Активирована блокировка управления шлю+зами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.",
+					new_sound = 'sound/AI/commandreport.ogg'
 				)
 			if("onlyone")
 				if(!you_realy_want_do_this())
@@ -3853,7 +3861,6 @@
 			if("lavatype")
 				change_lava_type()
 
-			else
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")
 			if(ok)
@@ -4191,11 +4198,15 @@
 
 
 /proc/portalAnnounce(announcement, playlightning)
-	set waitfor = 0
+	set waitfor = FALSE
 	if(playlightning)
 		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
 		sleep(80)
-	GLOB.major_announcement.announce(replacetext(announcement, "%STATION%", station_name()))
+	GLOB.major_announcement.announce(
+		message = announcement,
+		new_title = "%STATION%",
+		new_subtitle = station_name()
+	)
 	if(playlightning)
 		sleep(20)
 		sound_to_playing_players('sound/magic/lightningbolt.ogg')

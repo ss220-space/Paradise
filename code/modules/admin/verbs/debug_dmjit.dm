@@ -1,3 +1,5 @@
+#ifndef OPENDREAM
+
 /client/proc/dmjit_debug_toggle_hooks()
 	set category = "Debug.dmJIT"
 	set name = "dmJIT toggle hooks"
@@ -50,3 +52,5 @@
 
 	dmjit_dump_deopts()
 	message_admins("[key_name_admin(usr)] Performed dmJIT deopt count dump")
+
+#endif

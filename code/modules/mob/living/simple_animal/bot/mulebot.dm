@@ -372,17 +372,17 @@
 		dat += "<div class='statusDisplay'>"
 		switch(mode)
 			if(BOT_IDLE)
-				dat += "<span class='good'>Готовность</span>"
+				dat += span_good("Готовность")
 			if(BOT_DELIVER)
-				dat += "<span class='good'>[mode_name[BOT_DELIVER]]</span>"
+				dat += span_good("[mode_name[BOT_DELIVER]]")
 			if(BOT_GO_HOME)
-				dat += "<span class='good'>[mode_name[BOT_GO_HOME]]</span>"
+				dat += span_good("[mode_name[BOT_GO_HOME]]")
 			if(BOT_BLOCKED)
-				dat += "<span class='average'>[mode_name[BOT_BLOCKED]]</span>"
+				dat += span_average("[mode_name[BOT_BLOCKED]]")
 			if(BOT_NAV,BOT_WAIT_FOR_NAV)
-				dat += "<span class='average'>[mode_name[BOT_NAV]]</span>"
+				dat += span_average("[mode_name[BOT_NAV]]")
 			if(BOT_NO_ROUTE)
-				dat += "<span class='bad'>[mode_name[BOT_NO_ROUTE]]</span>"
+				dat += span_bad("[mode_name[BOT_NO_ROUTE]]")
 		dat += "</div>"
 
 		dat += "<b>Груз</b> [load ? load.name : "<i>отсутствует</i>"]<br>"
@@ -716,7 +716,7 @@
 		if(pathset) //The AI called us here, so notify it of our arrival.
 			loaddir = dir //The MULE will attempt to load a crate in whatever direction the MULE is "facing".
 			if(calling_ai)
-				to_chat(calling_ai, "<span class='notice'>[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] удалённо проигрывает звук звонка!</span>")
+				to_chat(calling_ai, span_notice("[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] удалённо проигрывает звук звонка!"))
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, FALSE)
 				calling_ai = null
 				radio_channel = AI_FREQ_NAME //Report on AI Private instead if the AI is controlling us.

@@ -269,14 +269,14 @@
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1)
 	else
-		to_chat(usr, "<span class='warning'>All the petals have fallen off the [name] from violent whacking!</span>")
+		to_chat(usr, span_warning("All the petals have fallen off the [name] from violent whacking!"))
 		usr.temporarily_remove_item_from_inventory(src)
 		qdel(src)
 
 /obj/item/grown/novaflower/pickup(mob/living/carbon/human/user)
 	. = ..()
 	if(!user.gloves)
-		to_chat(user, "<span class='danger'>The [name] burns your bare hand!</span>")
+		to_chat(user, span_danger("The [name] burns your bare hand!"))
 		user.adjustFireLoss(rand(1, 5))
 //Shavel
 /obj/item/seeds/shavel

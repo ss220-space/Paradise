@@ -11,45 +11,71 @@
 		"Не брос+айте кур+ить, куп+ите ещ+ё!",
 		"Никот+иновый рай!",
 		"Л+учшие сигар+еты с 2150 г+ода!",
-		"Сигар+еты с мн+ожеством нагр+ад!"
+		"Сигар+еты со мн+ожеством нагр+ад!",
+		"Наверняк+а не +очень-то и вр+едно для вас!",
+		"Никот+ин провед+ёт ч+ерез безд+енежье л+учше, чем д+еньги ч+ерез безникот+инье!",
+		"На здор+овье!",
+		"Включ+и, подожг+и, закур+и!",
+		"С табак+ом жить весел+ей!",
+		"Затян+итесь!",
+		"Сохран+яй ул+ыбку на уст+ах и п+есню в сво+ём с+ердце!",
 	)
-
 	icon_state = "cigs_off"
 	panel_overlay = "cigs_panel"
 	screen_overlay = "cigs"
 	lightmask_overlay = "cigs_lightmask"
 	broken_overlay = "cigs_broken"
 	broken_lightmask_overlay = "cigs_broken_lightmask"
+	refill_canister = /obj/item/vending_refill/cigarette
 
-	products = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 12,
-					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
-					/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
-					/obj/item/reagent_containers/food/pill/patch/nicotine = 10,
-					/obj/item/storage/box/matches = 10,
-					/obj/item/lighter/random = 4,
-					/obj/item/storage/fancy/rollingpapers = 5,
-					/obj/item/lighter/zippo = 4,
-					/obj/item/clothing/mask/cigarette/cigar/havana = 2,
-					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1
-					)
+	product_categories = list(
+		list(
+			"name" = "Курительные приспособления",
+			"icon" = "smoking",
+			"products" = list(
+				/obj/item/storage/fancy/cigarettes/cigpack_robust = 12,
+				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
+				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+				/obj/item/clothing/mask/cigarette/cigar/havana = 2,
+			),
+		),
+		list(
+			"name" = "Зажигательные приспособления",
+			"icon" = "fire",
+			"products" = list(
+				/obj/item/storage/box/matches = 10,
+				/obj/item/lighter/random = 4,
+				/obj/item/lighter/zippo = 4,
+			),
+		),
+		list(
+			"name" = "Другое",
+			"icon" = "ellipsis",
+			"products" = list(
+				/obj/item/reagent_containers/food/pill/patch/nicotine = 10,
+				/obj/item/storage/fancy/rollingpapers = 5,
+			),
+		),
+	)
 	contraband = list(
 		/obj/item/clothing/mask/cigarette/pipe/oldpipe = 3,
-		/obj/item/storage/fancy/cigarettes/cigpack_med = 1
+		/obj/item/storage/fancy/cigarettes/cigpack_med = 1,
 	)
-	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 179,
-					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 239,
-					/obj/item/storage/fancy/cigarettes/cigpack_random = 359,
-					/obj/item/reagent_containers/food/pill/patch/nicotine = 69,
-					/obj/item/storage/box/matches = 9,
-					/obj/item/lighter/random = 59,
-					/obj/item/storage/fancy/rollingpapers = 19,
-					/obj/item/clothing/mask/cigarette/pipe/oldpipe = 249,
-					/obj/item/lighter/zippo = 249,
-					/obj/item/clothing/mask/cigarette/cigar/havana = 999,
-					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 699,
-					/obj/item/storage/fancy/cigarettes/cigpack_med = 499
-					)
-	refill_canister = /obj/item/vending_refill/cigarette
+	prices = list(
+		/obj/item/storage/fancy/cigarettes/cigpack_robust = 179,
+		/obj/item/storage/fancy/cigarettes/cigpack_uplift = 239,
+		/obj/item/storage/fancy/cigarettes/cigpack_random = 359,
+		/obj/item/reagent_containers/food/pill/patch/nicotine = 69,
+		/obj/item/storage/box/matches = 9,
+		/obj/item/lighter/random = 59,
+		/obj/item/storage/fancy/rollingpapers = 19,
+		/obj/item/clothing/mask/cigarette/pipe/oldpipe = 249,
+		/obj/item/lighter/zippo = 249,
+		/obj/item/clothing/mask/cigarette/cigar/havana = 999,
+		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 699,
+		/obj/item/storage/fancy/cigarettes/cigpack_med = 499,
+	)
 
 /obj/machinery/vending/cigarette/get_ru_names()
 	return list(
@@ -65,14 +91,34 @@
 	prices = list()
 
 /obj/machinery/vending/cigarette/syndicate
-	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 7,
-					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
-					/obj/item/storage/fancy/cigarettes/cigpack_robust = 2,
-					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
-					/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
-					/obj/item/storage/box/matches = 10,
-					/obj/item/lighter/zippo = 4,
-					/obj/item/storage/fancy/rollingpapers = 5)
+	product_categories = list(
+		list(
+			"name" = "Курительные приспособления",
+			"icon" = "smoking",
+			"products" = list(
+				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 7,
+				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
+				/obj/item/storage/fancy/cigarettes/cigpack_robust = 2,
+				/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
+				/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
+			),
+		),
+		list(
+			"name" = "Зажигательные приспособления",
+			"icon" = "fire",
+			"products" = list(
+				/obj/item/storage/box/matches = 10,
+				/obj/item/lighter/zippo = 4,
+			),
+		),
+		list(
+			"name" = "Другое",
+			"icon" = "ellipsis",
+			"products" = list(
+				/obj/item/storage/fancy/rollingpapers = 5,
+			),
+		),
+	)
 
 /obj/machinery/vending/cigarette/syndicate/free
 	prices = list()
@@ -81,7 +127,6 @@
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
 	name = "ShadyCigs Ultra"
 	desc = "Теперь с дополнительными продуктами премиум-класса!"
-
 	slogan_list = list(
 		"Наверняк+а не +очень-то и вр+едно для вас!",
 		"Никот+ин провед+ёт ч+ерез безд+енежье л+учше, чем д+еньги ч+ерез безникот+инье!",
@@ -92,17 +137,39 @@
 		"Сохран+яй ул+ыбку на уст+ах и п+есню в сво+ём с+ердце!"
 	)
 
-	products = list(/obj/item/storage/fancy/cigarettes = 5,
-					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
-					/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
-					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
-					/obj/item/storage/fancy/cigarettes/cigpack_midori = 3,
-					/obj/item/storage/box/matches = 10,
-					/obj/item/lighter/random = 4,
-					/obj/item/storage/fancy/rollingpapers = 5)
-	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
-					/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
-					/obj/item/lighter/zippo = 3)
+	product_categories = list(
+		list(
+			"name" = "Курительные приспособления",
+			"icon" = "smoking",
+			"products" = list(
+				/obj/item/storage/fancy/cigarettes = 5,
+				/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
+				/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
+				/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
+				/obj/item/storage/fancy/cigarettes/cigpack_midori = 3,
+			),
+		),
+		list(
+			"name" = "Зажигательные приспособления",
+			"icon" = "fire",
+			"products" = list(
+				/obj/item/storage/box/matches = 10,
+				/obj/item/lighter/random = 4,
+			),
+		),
+		list(
+			"name" = "Другое",
+			"icon" = "ellipsis",
+			"products" = list(
+				/obj/item/storage/fancy/rollingpapers = 5,
+			),
+		),
+	)
+	premium = list(
+		/obj/item/clothing/mask/cigarette/cigar/havana = 2,
+		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
+		/obj/item/lighter/zippo = 3,
+	)
 	prices = list()
 
 /obj/machinery/vending/cigarette/beach/get_ru_names()

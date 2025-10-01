@@ -880,12 +880,12 @@
 		//Due to server crashing capabilities, chat feature is disabled.
 
 		//if(fingerprintslast)
-		//	to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!</span>")
+		//	to_chat(get_mob_by_ckey(fingerprintslast), span_warning("Bluespace harmonics prevent the spawning of more than [CONFIG_GET(number/cubemonkey_cap)] monkeys on the station at one time!"))
 		//else
-		//	visible_message("<span class='notice'>[src] fails to expand!</span>")
+		//	visible_message(span_notice("[src] fails to expand!"))
 
 	if(!QDELETED(src))
-		visible_message("<span class='notice'>[src] expands!</span>")
+		visible_message(span_notice("[src] expands!"))
 		if(fingerprintslast)
 			add_misc_logs(what = "Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
 		else

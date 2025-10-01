@@ -20,7 +20,7 @@
 /obj/structure/largecrate/attack_hand(mob/user)
 	if(manifest)
 		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
+		to_chat(user, span_notice("You tear the manifest off of the crate."))
 		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove_turf()
 		if(ishuman(user))
@@ -29,7 +29,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return
 
-	to_chat(user, "<span class='notice'>You need a crowbar to pry this open!</span>")
+	to_chat(user, span_notice("You need a crowbar to pry this open!"))
 
 
 /obj/structure/largecrate/crowbar_act(mob/living/user, obj/item/I)

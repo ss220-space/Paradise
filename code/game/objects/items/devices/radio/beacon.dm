@@ -10,7 +10,7 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
 
-/obj/item/radio/beacon/New()
+/obj/item/radio/beacon/Initialize(mapload)
 	..()
 	code = "[code] ([GLOB.beacons.len + 1])"
 	GLOB.beacons += src
@@ -24,7 +24,7 @@
 		emagged = 1
 		syndicate = 1
 		if(user)
-			to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
+			to_chat(user, span_notice("The This beacon now only be locked on to by emagged teleporters!"))
 
 /obj/item/radio/beacon/hear_talk()
 	return
@@ -71,9 +71,9 @@
 	if(!user)
 		return
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need space to call in!</span>")
+		to_chat(user, span_warning("You need space to call in!"))
 		return
-	to_chat(user, "<span class='notice'>Locked In</span>")
+	to_chat(user, span_notice("Locked In"))
 	new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
 	playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 	user.temporarily_remove_item_from_inventory(src)
@@ -88,9 +88,9 @@
 	if(!user)
 		return
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need space to call in!</span>")
+		to_chat(user, span_warning("You need space to call in!"))
 		return
-	to_chat(user, "<span class='notice'>Locked In</span>")
+	to_chat(user, span_notice("Locked In"))
 	new bomb(user.loc)
 	playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 	user.temporarily_remove_item_from_inventory(src)
@@ -282,7 +282,7 @@
 								/obj/item/clothing/head/beret = 1,                                          // 0 TK
 								/obj/item/clothing/accessory/scarf/red = 1,                               	// 0 TK
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
-								/obj/item/clothing/mask/holo_cigar = 1),                                    // 10 TK
+								/obj/item/clothing/mask/holo_cigar = 1),                                    // 20 TK
 			"Griefsky" = list("Name" = "Набор \"Грифски\"", // 130-220 ТК
 								"Desc" = "Набор, содержащий детали для сборки Грифски.",
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
