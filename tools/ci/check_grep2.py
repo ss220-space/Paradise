@@ -261,6 +261,18 @@ def check_can_perform_action(idx, line):
     if CAN_PERFORM_ACTION_IMPROPER.search(line):
         return [(idx + 1, "Found a can_perform_action() proc with improper arguments.")]
 
+# Check for 'as anything' in typeless loops
+AS_ANYTHING_TYPELESS = re.compile(r'var/[^/]+ as anything')
+def check_as_anything_typeless(idx, line):
+    if AS_ANYTHING_TYPELESS.search(line):
+        return [(idx + 1, "'as anything' used in a typeless for loop. This doesn't do anything and should be removed.")]
+
+# Check for 'as anything' on internal functions
+AS_ANYTHING_INTERNAL = re.compile(r'var\/(turf|mob|obj|atom\/movable).+ as anything in o?(view|range|hearers)\(')
+def check_as_anything_internal(idx, line):
+    if AS_ANYTHING_INTERNAL.search(line):
+        return [(idx + 1, "'as anything' typed for loop over an internal function. These functions have some internal optimization that relies on the loop not having 'as anything' in it.")]
+
 # Check UpdatePaths files
 def check_updatepaths_validity():
     failures = []
@@ -314,6 +326,8 @@ CODE_CHECKS = [
     check_timer_flags,
     check_force_move_syntax,
     check_can_perform_action,
+    check_as_anything_typeless,
+    check_as_anything_internal,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
