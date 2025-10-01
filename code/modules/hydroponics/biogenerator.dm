@@ -262,7 +262,7 @@
 	if(stat & (NOPOWER | BROKEN))
 		return
 	if(processing)
-		to_chat(user, "<span class='warning'>[src] is currently processing!</span>")
+		to_chat(user, span_warning("[src] is currently processing!"))
 		return
 
 	processing = TRUE

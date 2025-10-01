@@ -15,18 +15,18 @@
 	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
 	if(grab_success && old_grab_state == GRAB_PASSIVE && prob(50))
 		defender.grippedby(attacker)
-		defender.visible_message("<span class='danger'>[attacker] has [defender] in a clinch!</span>", \
-								"<span class='userdanger'>[attacker] has [defender] in a clinch!</span>")
+		defender.visible_message(span_danger("[attacker] has [defender] in a clinch!"), \
+								span_userdanger("[attacker] has [defender] in a clinch!"))
 	else
-		defender.visible_message("<span class='danger'>[attacker] fails to get [defender] in a clinch!</span>", \
-								"<span class='userdanger'>[attacker] fails to get [defender] in a clinch!</span>")
+		defender.visible_message(span_danger("[attacker] fails to get [defender] in a clinch!"), \
+								span_userdanger("[attacker] fails to get [defender] in a clinch!"))
 	return TRUE
 
 
 /datum/martial_art/wrestling/proc/Suplex(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
-	D.visible_message("<span class='danger'>[A] suplexes [D]!</span>", \
-								"<span class='userdanger'>[A] suplexes [D]!</span>")
+	D.visible_message(span_danger("[A] suplexes [D]!"), \
+								span_userdanger("[A] suplexes [D]!"))
 	D.forceMove(A.loc)
 	var/armor_block = D.run_armor_check(null, MELEE)
 	D.apply_damage(30, BRUTE, null, armor_block)
@@ -51,8 +51,8 @@
 
 /datum/martial_art/wrestling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	D.grabbedby(A, supress_message = TRUE)
-	D.visible_message("<span class='danger'>[A] holds [D] down!</span>", \
-								"<span class='userdanger'>[A] holds [D] down!</span>")
+	D.visible_message(span_danger("[A] holds [D] down!"), \
+								span_userdanger("[A] holds [D] down!"))
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 	D.apply_damage(10, STAMINA, affecting, armor_block)
@@ -60,6 +60,6 @@
 
 /datum/martial_art/wrestling/give_explaination(user = usr)
 	to_chat(usr, "<b><i>You flex your muscles and have a revelation...</i></b>")
-	to_chat(usr, "<span class='notice'>Clinch</span>: Grab. Passively gives you a 50% chance to immediately aggressively grab someone.")
-	to_chat(usr, "<span class='notice'>Suplex</span>: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
-	to_chat(usr, "<span class='notice'>Advanced grab</span>: Grab. Passively causes 10 stamina damage when grabbing someone.")
+	to_chat(usr, "[span_notice("Clinch")]: Grab. Passively gives you a 50% chance to immediately aggressively grab someone.")
+	to_chat(usr, "[span_notice("Suplex")]: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
+	to_chat(usr, "[span_notice("Advanced grab")]: Grab. Passively causes 10 stamina damage when grabbing someone.")

@@ -3,9 +3,10 @@
 	var/lightsoutRange	= 25
 
 /datum/event/electrical_storm/announce()
-	GLOB.minor_announcement.announce("На борту станции зафиксирован электрический шторм. Пожалуйста, устраните потенциальные перегрузки электросетей.",
-									"Электрический шторм.",
-									'sound/AI/elec_storm.ogg'
+	GLOB.minor_announcement.announce(
+		message = "На борту станции зафиксирован электрический шторм. Пожалуйста, устраните потенциальные перегрузки электросетей.",
+		new_title = ANNOUNCE_ELECTRICAL_STORM,
+		new_sound = 'sound/AI/elec_storm.ogg'
 	)
 
 /datum/event/electrical_storm/start()

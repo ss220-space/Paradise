@@ -218,7 +218,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		var/obj/item/radio/intercom/I = O
 		if(!is_station_level(I.z) && !ignore_z)
 			continue
-		if(!I.on && !ignore_power)
+		if(!I.is_on() && !ignore_power)
 			continue
 		playsound(I, melody, cvol)
 

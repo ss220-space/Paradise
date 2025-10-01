@@ -11,8 +11,10 @@
 	physiology = new(src)
 
 	setup_dna(new_species)
+	special_check_for_transplantation()
+
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-	diag_hud.add_to_hud(src)
+	diag_hud.add_atom_to_hud(src)
 	med_hud_set_health()	// Updating med huds is necessary after `setup_dna()` due to the fact that while
 	med_hud_set_status()	// a human does not have a heart, the hud status is displayed incorrectly.
 
@@ -498,8 +500,8 @@
 			var/time_taken = thing.embedded_unsafe_removal_time * thing.w_class
 
 			usr.visible_message(
-				span_warning("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
-				span_warning("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
+				span_warning("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
+				span_warning("Вы пытаетесь извлечь [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 			)
 
 			if(do_after(usr, time_taken, src))
@@ -513,8 +515,8 @@
 					if(h_user.has_pain())
 						h_user.emote("scream")
 				usr.visible_message(
-					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]!"),
-					span_notice("Вы успешно извлекаете [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart][GENITIVE]]."),
+					span_warning("[usr] с усилием извлека[pluralize_ru(usr.gender,"ет","ют")] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
+					span_notice("Вы успешно извлекаете [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 				)
 			return
 
@@ -720,7 +722,7 @@
 						skills = E.fields["notes"]
 						break
 				if(skills)
-					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
+					to_chat(usr, "[span_deptradio("Employment records: [skills]")]\n")
 
 	. = ..()
 
@@ -1824,13 +1826,30 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
 
 
-/mob/living/carbon/human/proc/special_post_clone_handling()
+/mob/living/carbon/human/proc/special_post_clone_handling(transplantated = FALSE)
+	special_check_for_transplantation()
 	if(!mind)
 		return
 	if(mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
 	if(LAZYIN(mind.curses, "high_rp")) // Probably need to make a new proc to handle curses in case if there will be new ones
 		curse_high_rp()
+
+/mob/living/carbon/human/proc/special_check_for_transplantation()
+	var/obj/item/organ/internal/brain/brains = get_int_organ(/obj/item/organ/internal/brain)
+	if(!brains || !istype(brains))
+		return
+	var/obj/item/organ/external/chest/self_chest = get_organ(BODY_ZONE_CHEST)
+	if(!self_chest || !istype(self_chest))
+		return
+	if(brains.original_body == self_chest)
+		return
+	if(brains.original_body)
+		//this is not original body for brain, apply brain transplantation disease
+		var/datum/disease/brain_transplant_syndrome/disease = new
+		disease.Contract(src)
+	//now this body are original for brain
+	brains.original_body = self_chest
 
 /mob/living/carbon/human/is_literate()
 	return getBrainLoss() < 100

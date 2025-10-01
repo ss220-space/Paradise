@@ -19,7 +19,7 @@
 
 /obj/effect/countdown/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This countdown is displaying: [displayed_text].</span>"
+	. += span_notice("This countdown is displaying: [displayed_text].")
 
 /obj/effect/countdown/proc/attach(atom/A)
 	attached_to = A

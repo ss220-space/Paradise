@@ -167,17 +167,17 @@
 /mob/living/silicon/proc/remove_from_head(mob/user)
 	if(inventory_head)
 		if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
-			to_chat(user, "<span class='warning'>[inventory_head.name] застрял на голове [src]! Его невозможно снять!</span>")
+			to_chat(user, span_warning("[inventory_head.name] застрял на голове [src]! Его невозможно снять!"))
 			return TRUE
 
-		to_chat(user, "<span class='warning'>Вы сняли [inventory_head.name] с головы [src].</span>")
+		to_chat(user, span_warning("Вы сняли [inventory_head.name] с головы [src]."))
 		user.put_in_hands(inventory_head)
 
 		null_hat()
 
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>На голове [src] нет головного убора!</span>")
+		to_chat(user, span_warning("На голове [src] нет головного убора!"))
 		return FALSE
 
 	return TRUE

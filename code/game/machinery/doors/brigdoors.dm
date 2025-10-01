@@ -43,9 +43,8 @@
 	. = ..()
 
 	GLOB.celltimers_list += src
-	Radio = new /obj/item/radio(src)
-	Radio.listening = FALSE
-	Radio.config(list(SEC_FREQ_NAME = 0))
+	Radio = new/obj/item/radio(src)
+	Radio.set_listening(FALSE)
 	Radio.follow_target = src
 
 	addtimer(CALLBACK(src, PROC_REF(delayed_update)), 2 SECONDS, TIMER_DELETE_ME)

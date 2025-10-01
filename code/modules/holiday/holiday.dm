@@ -26,6 +26,7 @@
  * Important note: it runs before mapping subsystem init, do not place/alter objects in world using this proc.
  */
 /datum/holiday/proc/celebrate()
+	return
 
 /// When the round starts, this proc is ran to get a text message to display to everyone to wish them a happy holiday
 /datum/holiday/proc/greet()
@@ -377,5 +378,5 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	//update our hub status
 	world.update_status()
 
-	message_admins("<span class='notice'>ADMIN: Event: [key_name_admin(src)] force-set Holiday to \"[H]\"</span>")
+	message_admins(span_notice("ADMIN: Event: [key_name_admin(src)] force-set Holiday to \"[H]\""))
 	log_admin("[key_name(src)] force-set Holiday to \"[H]\"")

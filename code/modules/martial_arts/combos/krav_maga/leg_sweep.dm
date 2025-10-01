@@ -6,8 +6,8 @@
 	if(target.stat || target.body_position == LYING_DOWN)
 		return FALSE
 	target.visible_message(
-		"<span class='warning'>[user] leg sweeps [target]!</span>", \
-		"<span class='userdanger'>[user] leg sweeps you!</span>"
+		span_warning("[user] leg sweeps [target]!"), \
+		span_userdanger("[user] leg sweeps you!")
 	)
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	target.apply_damage(5, BRUTE)

@@ -53,11 +53,14 @@
 
 /obj/effect/clockwork/overlay/wall/Initialize(mapload)
 	. = ..()
-	queue_smooth_neighbors(src)
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/queue_smooth, src), 1)
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	addtimer(CALLBACK(src, PROC_REF(queue_smooth)), 1)
+
+/obj/effect/clockwork/overlay/wall/proc/queue_smooth()
+	QUEUE_SMOOTH(src)
 
 /obj/effect/clockwork/overlay/wall/Destroy()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 	return ..()
 
 /obj/effect/clockwork/overlay/floor
@@ -165,7 +168,7 @@
 /obj/structure/clockwork/wall_gear/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
+		to_chat(user, span_warning("[src] needs to be unsecured to disassemble it!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return

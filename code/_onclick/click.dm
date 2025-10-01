@@ -128,10 +128,7 @@
 
 	if(W == A)
 		W.attack_self(src)
-		if(hand)
-			update_inv_l_hand()
-		else
-			update_inv_r_hand()
+		update_held_items()
 		return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
@@ -434,12 +431,6 @@
 	plane = CLICKCATCHER_PLANE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	screen_loc = "CENTER"
-
-/atom/movable/screen/click_catcher/MouseEntered(location, control, params)
-	return
-
-/atom/movable/screen/click_catcher/MouseExited(location, control, params)
-	return
 
 #define MAX_SAFE_BYOND_ICON_SCALE_TILES (MAX_SAFE_BYOND_ICON_SCALE_PX / ICON_SIZE_ALL)
 #define MAX_SAFE_BYOND_ICON_SCALE_PX (33 * 32) //Not using world.icon_size on purpose.

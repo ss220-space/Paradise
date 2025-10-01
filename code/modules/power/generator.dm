@@ -175,7 +175,7 @@
 		cold_dir = NORTH
 		hot_dir = SOUTH
 	connect()
-	to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
+	to_chat(user, span_notice("You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side."))
 	update_appearance(UPDATE_DESC)
 
 /obj/machinery/power/generator/wrench_act(mob/user, obj/item/I)
@@ -188,12 +188,12 @@
 		power_change()
 	else
 		connect()
-	to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
+	to_chat(user, span_notice("You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor."))
 
 /obj/machinery/power/generator/proc/get_menu(include_link = 1)
 	var/t = ""
 	if(!powernet)
-		t += "<span class='bad'>Unable to connect to the power network!</span>"
+		t += span_bad("Unable to connect to the power network!")
 		t += "<br><a href='byond://?src=[UID()];check=1'>Retry</a>"
 	else if(cold_circ && hot_circ)
 		var/datum/gas_mixture/cold_circ_air1 = cold_circ.get_outlet_air()
@@ -217,7 +217,7 @@
 
 		t += "</div>"
 	else
-		t += "<span class='bad'>Unable to locate all parts!</span>"
+		t += span_bad("Unable to locate all parts!")
 		t += "<br><a href='byond://?src=[UID()];check=1'>Retry</a>"
 	if(include_link)
 		t += "<br><a href='byond://?src=[UID()];close=1'>Close</a>"

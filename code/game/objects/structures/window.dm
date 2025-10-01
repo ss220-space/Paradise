@@ -479,7 +479,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/proc/update_nearby_icons()
 	update_icon(UPDATE_OVERLAYS)
 	if(smooth)
-		queue_smooth_neighbors(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 /obj/structure/window/update_overlays()
 	. = ..()
@@ -489,7 +489,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/ratio = obj_integrity / max_integrity
 	ratio = CEILING(ratio * 4, 1) * 25
 	if(smooth)
-		queue_smooth(src)
+		QUEUE_SMOOTH(src)
 	if(ratio > 75)
 		return
 

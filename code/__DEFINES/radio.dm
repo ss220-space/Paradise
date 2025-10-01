@@ -110,3 +110,7 @@
 
 #define SPEC_FREQ_NAME "Cпециальный"
 #define DEPARTMENT_FREQ_NAME "Отдел"
+
+
+///give this to can_receive to specify that there is no restriction on what z level this signal is sent to
+#define RADIO_NO_Z_LEVEL_RESTRICTION 0

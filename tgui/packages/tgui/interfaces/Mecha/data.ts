@@ -30,6 +30,7 @@ export type MainData = {
   power_max: number;
   internal_damage: number;
   internal_damage_keys: string[];
+  internal_damage_fixable: string[];
   mineral_material_amount: number;
 
   accesses: number[];

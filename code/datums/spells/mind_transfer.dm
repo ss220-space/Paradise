@@ -8,8 +8,8 @@
 	human_req = FALSE
 	invocation = "GIN'YU CAPAN"
 	invocation_type = "whisper"
-	selection_activated_message = "<span class='notice'>You prepare to transfer your mind. Click on a target to cast the spell.</span>"
-	selection_deactivated_message = "<span class='notice'>You decide that your current form is good enough.</span>"
+	selection_activated_message = span_notice("You prepare to transfer your mind. Click on a target to cast the spell.")
+	selection_deactivated_message = span_notice("You decide that your current form is good enough.")
 	cooldown_min = 20 SECONDS //100 deciseconds reduction per rank
 	var/list/protected_roles = list("Wizard","Changeling","Cultist") //which roles are immune to the spell
 	var/paralysis_amount_caster = 40 SECONDS //how much the caster is paralysed for after the spell
@@ -40,7 +40,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 	var/mob/living/target = targets[1]
 
 	if(user.suiciding)
-		to_chat(user, "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>")
+		to_chat(user, span_warning("You're killing yourself! You can't concentrate enough to do this!"))
 		return
 
 	if(target.mind.special_role in protected_roles)

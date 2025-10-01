@@ -54,7 +54,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.update_inv_wear_suit()
+		H.update_worn_oversuit()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -78,7 +78,7 @@
 		M.icon_state = disguise.icon_state
 		M.cut_overlays()
 		M.add_overlay(disguise.overlays)
-		M.update_inv_hands()
+		M.update_held_items()
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
@@ -290,11 +290,9 @@
 /obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
 	var/list/all_items = M.GetAllContents()
 
-	for(var/obj/I in all_items)
-		if(isradio(I))
-			var/obj/item/radio/R = I
-			R.listening = 0 // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
-			R.emp_act(1)
+	for(var/obj/item/radio/radio in all_items)
+		radio.set_listening(FALSE) // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
+		radio.emp_act(1)
 
 /obj/item/abductor/mind_device
 	name = "mental interface device"

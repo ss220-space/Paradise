@@ -200,6 +200,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 //Turns 1479 into 147.9
 /proc/format_frequency(f)
+	f = text2num(f)
 	return "[round(f / 10)].[f % 10]"
 
 //Picks a string of symbols to display as the law number for hacked or ion laws
@@ -340,12 +341,12 @@ Turf and target are seperate in case you want to teleport some distance from a t
 // Format a power value in W, kW, MW, or GW.
 /proc/DisplayPower(powerused)
 	if(powerused < 1000) //Less than a kW
-		return "[powerused] W"
+		return "[powerused] Вт"
 	else if(powerused < 1000000) //Less than a MW
-		return "[round((powerused * 0.001), 0.01)] kW"
+		return "[round((powerused * 0.001), 0.01)] кВт"
 	else if(powerused < 1000000000) //Less than a GW
-		return "[round((powerused * 0.000001), 0.001)] MW"
-	return "[round((powerused * 0.000000001), 0.0001)] GW"
+		return "[round((powerused * 0.000001), 0.001)] МВт"
+	return "[round((powerused * 0.000000001), 0.0001)] ГВт"
 
 //Forces a variable to be posative
 /proc/modulus(M)
@@ -473,23 +474,31 @@ Returns 1 if the chain up to the area contains the given typepath
 /proc/between(low, middle, high)
 	return max(min(middle, high), low)
 
-//Will return the contents of an atom recursivly to a depth of 'searchDepth'
-/atom/proc/GetAllContents(searchDepth = 5)
-	var/list/toReturn = list()
-
-	for(var/atom/part in contents)
-		toReturn += part
-		if(part.contents.len && searchDepth)
-			toReturn += part.GetAllContents(searchDepth - 1)
-
-	return toReturn
+//Will return the contents of an atom
+/atom/proc/GetAllContents(turf)
+	var/list/processing_list = list(src)
+	if(!turf)
+		var/i = 0
+		while(i < length(processing_list))
+			var/atom/atom = processing_list[++i]
+			processing_list += atom.contents
+		return processing_list
+	. = list()
+	var/i = 0
+	while(i < length(processing_list))
+		var/atom/atom = processing_list[++i]
+		//Byond does not allow things to be in multiple contents, or double parent-child hierarchies, so only += is needed
+		//This is also why we don't need to check against assembled as we go along
+		processing_list += atom.contents
+		if(istype(atom, turf))
+			. += atom
 
 //Searches contents of the atom and returns the sum of all w_class of obj/item within
-/atom/proc/GetTotalContentsWeight(searchDepth = 5)
+/atom/proc/GetTotalContentsWeight()
 	var/weight = 0
-	var/list/content = GetAllContents(searchDepth)
-	for(var/obj/item/I in content)
-		weight += I.w_class
+	var/list/content = GetAllContents()
+	for(var/obj/item/item in content)
+		weight += item.w_class
 	return weight
 
 
@@ -1065,21 +1074,32 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	GLOB.dview_mob.loc = null
 
 /mob/dview
+	name = "INTERNAL DVIEW MOB"
 	invisibility = INVISIBILITY_ABSTRACT
 	density = FALSE
 	move_force = 0
 	pull_force = 0
 	move_resist = INFINITY
 	simulated = 0
+	var/ready_to_die = FALSE
 
-
-/mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
+/mob/dview/Initialize(mapload) //Properly prevents this mob from gaining huds or joining any global lists
 	SHOULD_CALL_PARENT(FALSE)
+	if(flags & INITIALIZED)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	flags |= INITIALIZED
+	return INITIALIZE_HINT_NORMAL
 
-/mob/dview/Destroy()
-	SHOULD_CALL_PARENT(FALSE)
-	// should never be deleted
-	return QDEL_HINT_LETMELIVE
+/mob/dview/Destroy(force = FALSE)
+	if(!ready_to_die)
+		stack_trace("ALRIGHT WHICH FUCKER TRIED TO DELETE *MY* DVIEW?")
+
+		if(!force)
+			return QDEL_HINT_LETMELIVE
+
+		log_world("EVACUATE THE SHITCODE IS TRYING TO STEAL MUH JOBS")
+		GLOB.dview_mob = new
+	return ..()
 
 /proc/IsValidSrc(A)
 	if(isdatum(A))

@@ -514,6 +514,7 @@
 /obj/item/twohanded/shockpaddles/borg/dropped(mob/user, slot, silent = FALSE)
 	SHOULD_CALL_PARENT(FALSE)
 	// No-op.
+	return
 
 /obj/item/twohanded/shockpaddles/borg/attack_self()
 	// Standard two-handed weapon behavior is disabled.

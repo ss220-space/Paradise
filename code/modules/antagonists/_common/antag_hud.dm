@@ -11,9 +11,9 @@
 		CRASH("join_hud(): [M] ([M.type]) is not a mob!")
 	if(M.mind.antag_hud && !slave) //note: please let this runtime if a mob has no mind, as mindless mobs shouldn't be getting antagged
 		M.mind.antag_hud.leave_hud(M)
-	add_to_hud(M)
+	add_atom_to_hud(M)
 	if(self_visible)
-		add_hud_to(M)
+		show_to(M)
 	M.mind.antag_hud = src
 
 /datum/atom_hud/antag/proc/leave_hud(mob/M)
@@ -21,8 +21,8 @@
 		return
 	if(!istype(M))
 		CRASH("leave_hud(): [M] ([M.type]) is not a mob!")
-	remove_from_hud(M)
-	remove_hud_from(M)
+	remove_atom_from_hud(M)
+	hide_from(M)
 	if(M.mind)
 		M.mind.antag_hud = null
 
@@ -48,12 +48,8 @@
 
 /datum/mind/proc/leave_all_huds()
 	for(var/datum/atom_hud/antag/hud in GLOB.huds)
-		if(current in hud.hudusers)
+		if(current in hud.hud_users_all_z_levels)
 			hud.leave_hud(current)
-
-	for(var/datum/atom_hud/data/hud in GLOB.huds)
-		if(current in hud.hudusers)
-			hud.remove_hud_from(current)
 
 
 ///Master Servent Datum Sytems,Based on TG Gang system//
@@ -65,7 +61,7 @@
 	var/datum/atom_hud/antag/thrallhud
 	var/icontype
 
-/datum/mindslaves/New(loc,mastername)
+/datum/mindslaves/New(loc, mastername)
 	name = mastername
 	thrallhud = new()
 

@@ -26,8 +26,8 @@
 	..()
 	overload_action.Remove(user)
 
-/obj/mecha/combat/gygax/loaded/New()
-	..()
+/obj/mecha/combat/gygax/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
@@ -50,8 +50,8 @@
 	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
 	destruction_sleep_duration = 1
 
-/obj/mecha/combat/gygax/ert/loaded/New()
-	..()
+/obj/mecha/combat/gygax/ert/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
@@ -92,8 +92,8 @@
 	. = ..()
 	thrusters_action.Remove(user)
 
-/obj/mecha/combat/gygax/dark/loaded/New()
-	..()
+/obj/mecha/combat/gygax/dark/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndi
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
