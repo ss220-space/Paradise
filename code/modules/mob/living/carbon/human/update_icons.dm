@@ -643,12 +643,15 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				hands_combined.overlays += clock_hands_overlay
 
 		else if(blood_DNA)
+			var/blood_mask = 'icons/mob/human_races/masks/blood_human.dmi'
+			if(dna && ("bloodyhands_left" in dna.species.get_blood_overlays()))
+				blood_mask = dna.species.blood_mask
 			if(has_left_hand())
-				var/mutable_appearance/blood_hands_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands_left", color = hand_blood_color)
+				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_left", color = hand_blood_color)
 				hands_combined.overlays += blood_hands_overlay
 
 			if(has_right_hand())
-				var/mutable_appearance/blood_hands_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands_right", color = hand_blood_color)
+				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_right", color = hand_blood_color)
 				hands_combined.overlays += blood_hands_overlay
 
 		overlays_standing[GLOVES_LAYER] = hands_combined

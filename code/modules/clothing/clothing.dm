@@ -457,9 +457,19 @@
 	if(isinhands)
 		return
 
-	var/blood_overlay = get_blood_overlay("glove")
-	if(blood_overlay)
-		. += blood_overlay
+	var/mob/user = loc
+	var/is_mob = istype(user)
+
+	var/blood_overlay
+	if(!is_mob || is_mob && user.has_left_hand())
+		blood_overlay = get_blood_overlay("glove_l")
+		if(blood_overlay)
+			. += blood_overlay
+
+	if(!is_mob || is_mob && user.has_right_hand())
+		blood_overlay = get_blood_overlay("glove_r")
+		if(blood_overlay)
+			. += blood_overlay
 
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
@@ -852,9 +862,29 @@
 	if(isinhands)
 		return
 
-	var/blood_overlay = get_blood_overlay("shoe")
-	if(blood_overlay)
-		. += blood_overlay
+	var/mob/user = loc
+	var/is_mob = istype(user)
+
+	var/blood_overlay
+
+	// We don't want overlays to lay one on another, so we separate conditions with two and one feet
+	if(!is_mob || is_mob && user.has_both_feet())
+		blood_overlay = get_blood_overlay("shoes")
+		if(blood_overlay)
+			. += blood_overlay
+		return
+
+	if(user.has_left_foot())
+		blood_overlay = get_blood_overlay("shoe_l")
+		if(blood_overlay)
+			. += blood_overlay
+		return
+
+	if(user.has_right_foot())
+		blood_overlay = get_blood_overlay("shoe_r")
+		if(blood_overlay)
+			. += blood_overlay
+		return
 
 
 //Suit
@@ -1453,11 +1483,10 @@
 	if(!blood_DNA)
 		return
 
-	var/mutable_appearance/blood_overlay = mutable_appearance('icons/mob/human_races/masks/blood_human.dmi', "[blood_state]blood", color = blood_color)
+	var/blood_mask = 'icons/mob/human_races/masks/blood_human.dmi'
 
-	//var/emissive_alpha = get_blood_emissive_alpha(is_worn = TRUE)
-	//if(emissive_alpha)
-	//	var/mutable_appearance/emissive_overlay = emissive_appearance(blood_overlay.icon, blood_overlay.icon_state, src, alpha = emissive_alpha, effect_type = EMISSIVE_NO_BLOOM)
-	//	blood_overlay.overlays += emissive_overlay
+	var/mob/user = loc
+	if(istype(user) && user.dna && ("[blood_state]blood" in user.dna.species.get_blood_overlays()))
+		blood_mask = user.dna.species.blood_mask
 
-	return blood_overlay
+	return mutable_appearance(blood_mask, "[blood_state]blood", color = blood_color)
