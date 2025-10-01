@@ -442,7 +442,7 @@
 /mob/living/silicon/pai/verb/pAI_suicide()
 	set category = STATPANEL_PAICOMMANDS
 	set name = "Выгрузить личность"
-	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
+	set desc = "Kill yourself and become a ghost (You will receive a confirmation prompt.)"
 
 	if(tgui_alert(src, "ДЕЙСТВИТЕЛЬНО хотите убить себя? Это действие нельзя отменить.", "Выгрузка личности", list("Выгрузиться", "Нет")) == "Выгрузиться")
 		do_suicide()

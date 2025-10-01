@@ -380,7 +380,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return FALSE //You can't send faxes to "Unknown"
 
 	flick("faxreceive", src)
-	playsound(loc, 'sound/machines/fax_recieve.ogg', 50, TRUE)
+	playsound(loc, 'sound/machines/fax_receive.ogg', 50, TRUE)
 
 	// give the sprite some time to flick
 	sleep(20)

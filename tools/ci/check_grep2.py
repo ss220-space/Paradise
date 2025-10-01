@@ -273,6 +273,11 @@ def check_as_anything_internal(idx, line):
     if AS_ANYTHING_INTERNAL.search(line):
         return [(idx + 1, "'as anything' typed for loop over an internal function. These functions have some internal optimization that relies on the loop not having 'as anything' in it.")]
 
+IE_TYPO_RE = re.compile(r'eciev', re.IGNORECASE)
+def check_ie_typo(idx, line):
+    if IE_TYPO_RE.search(line):
+        return [(idx + 1, "Common I-before-E typo detected in code (found 'eciev', did you mean 'receive'?).")]
+
 # Check UpdatePaths files
 def check_updatepaths_validity():
     failures = []
@@ -328,6 +333,7 @@ CODE_CHECKS = [
     check_can_perform_action,
     check_as_anything_typeless,
     check_as_anything_internal,
+    check_ie_typo,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
