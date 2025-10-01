@@ -94,3 +94,7 @@ __pycache__/
 # Tools some of us like to keep in the repo
 OpenDream
 paradise.json
+
+# dmdoc and output
+dmdoc.exe
+dmdoc/
