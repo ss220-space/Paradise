@@ -531,17 +531,18 @@
 		return
 	if(!ishuman(owner))
 		return
-	if(prob(30))
-		to_chat(owner, span_warning("Приводы вашего экзоскелета перестали двигаться!"))
-		crit_fail = TRUE
-		var/mob/living/carbon/human/human = owner
-		human.health -= given_health
-		human.maxHealth -= given_health
-		human.dna.species.hazard_low_pressure = initial(human.dna.species.hazard_low_pressure)
-		human.dna.species.warning_low_pressure = initial(human.dna.species.warning_low_pressure)
-		human.dna.species.coldmod = initial(human.dna.species.coldmod)
-		human.remove_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
-		damage = 1
+	if(!prob(30))
+		return
+	to_chat(owner, span_warning("Приводы вашего экзоскелета перестали двигаться!"))
+	crit_fail = TRUE
+	var/mob/living/carbon/human/human = owner
+	human.health -= given_health
+	human.maxHealth -= given_health
+	human.dna.species.hazard_low_pressure = initial(human.dna.species.hazard_low_pressure)
+	human.dna.species.warning_low_pressure = initial(human.dna.species.warning_low_pressure)
+	human.dna.species.coldmod = initial(human.dna.species.coldmod)
+	human.remove_traits(traits_added, UNIQUE_TRAIT_SOURCE(src))
+	damage = 1
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/surgeryize()
 	if(crit_fail && owner)
@@ -635,15 +636,17 @@
 		to_chat(owner, span_warning("[src] не отвечает!"))
 		return
 	
-	active = !active
 	if(active)
-		to_chat(owner, span_notice("Ваши движения ускоряются!"))
-		owner.add_movespeed_modifier(/datum/movespeed_modifier/increaserun)
-		owner.dna.species.hunger_drain_mod *= 4
-	else
 		to_chat(owner, span_notice("Ваши движения замедляются!"))
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/increaserun)
 		owner.dna.species.hunger_drain_mod /= 4
+		active = FALSE
+		return
+
+	to_chat(owner, span_notice("Ваши движения ускоряются!"))
+	owner.add_movespeed_modifier(/datum/movespeed_modifier/increaserun)
+	owner.dna.species.hunger_drain_mod *= 4
+	active = TRUE
 
 //BOX O' IMPLANTS
 

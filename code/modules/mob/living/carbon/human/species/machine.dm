@@ -216,7 +216,7 @@
 
 /datum/species/machine/job_pre_equip(mob/living/carbon/human/human)
 	if(human.client.prefs.exoframe_type)
-		var/obj/item/organ/internal/cyberimp/chest/exoframe/E = new human.client.prefs.exoframe_type
-		E.insert(human)
+		var/obj/item/organ/internal/cyberimp/chest/exoframe/exoframe = new human.client.prefs.exoframe_type
+		exoframe.insert(human)
 	
 	. = ..()

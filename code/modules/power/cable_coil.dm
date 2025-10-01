@@ -166,7 +166,7 @@
 	if(!ishuman(target))
 		return ..()
 
-	if(target.limb_repair_in_progress)
+	if(HAS_TRAIT(target, TRAIT_REPAIRING_LIMB))
 		balloon_alert(user, "уже ремонтируется!")
 		return ATTACK_CHAIN_PROCEED
 
@@ -184,9 +184,9 @@
 		to_chat(user, span_notice("Nothing to fix!"))
 		return .
 
-	target.limb_repair_in_progress = TRUE
+	ADD_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 	if(target == user && !do_after(user, target.robotic_limb_repair_time, target, NONE))
-		target.limb_repair_in_progress = FALSE
+		REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
@@ -223,7 +223,7 @@
 		target.updatehealth("cable repair")
 	if(update_damage_icon)
 		target.UpdateDamageIcon()
-	target.limb_repair_in_progress = FALSE
+	REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 
 
 /obj/item/stack/cable_coil/attackby(obj/item/I, mob/user, params)

@@ -351,3 +351,5 @@
 #define TRAIT_TASERED "tasered"
 
 #define TRAIT_SUPERMATTERIMMUNE "supermatter_immune"
+
+#define TRAIT_REPAIRING_LIMB "repairing_limb"
