@@ -11,7 +11,7 @@ Failure = namedtuple("Failure", ["filename", "lineno", "message"])
 RED = "\033[0;31m"
 GREEN = "\033[0;32m"
 BLUE = "\033[0;34m"
-NC = "\033[0m"  # No Color
+NC = "\033[0m" # No Color
 
 def print_error(message: str, filename: str, line_number: int):
     if os.getenv("GITHUB_ACTIONS") == "true": # We're on github, output in a special format.
@@ -249,6 +249,12 @@ def check_fast_load_define(idx, line):
     if FAST_LOAD_DEFINE.match(line):
         return [(idx + 1, "Commiting uncommented FAST_LOAD define!")]
 
+# Check for forceMove with two arguments
+FORCE_MOVE_TWO_ARGS = re.compile(r'forceMove\(\s*(\w+\(\)|\w+)\s*,\s*(\w+\(\)|\w+)\s*\)')
+def check_force_move_syntax(idx, line):
+    if FORCE_MOVE_TWO_ARGS.search(line):
+        return [(idx + 1, "forceMove() call with two arguments - this is not how forceMove() is invoked! It's x.forceMove(y), not forceMove(x, y).")]
+
 # Check UpdatePaths files
 def check_updatepaths_validity():
     failures = []
@@ -300,6 +306,7 @@ CODE_CHECKS = [
     check_trait_sources,
     check_static_list_path,
     check_timer_flags,
+    check_force_move_syntax,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:
