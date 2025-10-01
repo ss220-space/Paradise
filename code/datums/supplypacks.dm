@@ -3263,7 +3263,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/organic/turkey
-	name = "TИндейка"
+	name = "Индейка"
 	cost = 50
 	containertype = /obj/structure/closet/critter/turkey
 	containername = "ящик с индейкой"
@@ -3522,7 +3522,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/organic/frog
-	name = "Лягушкой"
+	name = "Лягушка"
 	cost = 90
 	containertype = /obj/structure/closet/critter/frog
 	containername = "ящик с лягушкой"
