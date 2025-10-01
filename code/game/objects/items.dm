@@ -53,11 +53,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/usesound
 	/// Used when yate into a mob.
 	var/mob_throw_hit_sound
-	/// Sound used when equipping the item into a valid slot. May contain a list of sounds to pick from instead of a songle path.
+	/// Sound used when equipping the item into a valid slot. May contain a list of sounds to pick from instead of a single path.
 	var/equip_sound
-	/// Sound used when picking the item up (into your hands). May contain a list of sounds to pick from instead of a songle path.
+	/// Sound used when picking the item up (into your hands). May contain a list of sounds to pick from instead of a single path.
 	var/pickup_sound
-	/// Sound used when dropping the item. May contain a list of sounds to pick from instead of a songle path.
+	/// Sound used when dropping the item. May contain a list of sounds to pick from instead of a single path.
 	var/drop_sound
 	/// Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE
