@@ -3,6 +3,7 @@
 	desc = "A heads-up display that provides important info in (almost) real time."
 	origin_tech = "magnets=3;biotech=2"
 	prescription_upgradable = TRUE
+	flags_cover = parent_type::flags_cover|GLASSESCOVERSEYES
 	/// The visual icons granted by wearing these glasses.
 	var/HUDType = null
 
