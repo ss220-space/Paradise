@@ -53,9 +53,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start)
 
 /obj/effect/landmark/spawner/Initialize(mapload)
 	. = ..()
-	if(spawner_list)
-		spawner_list += loc
-		return INITIALIZE_HINT_QDEL
+	if(!spawner_list)
+		return
+
+	spawner_list += loc
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/lightsout
 	name = "Electrical Storm Epicentre"
@@ -581,14 +583,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "Chap"
 
 // MARK: COSTUME
-/obj/effect/landmark/costume/random/Initialize(mapload) //costume spawner, selects a random subclass and disappears
+/// Costume spawner, selects a random subclass and disappears
+/obj/effect/landmark/costume/random/Initialize(mapload)
 	. = ..()
 	var/list/options = (typesof(/obj/effect/landmark/costume) - /obj/effect/landmark/costume/random)
-	var/PICK = options[rand(1, length(options))]
-	new PICK(loc)
+	var/pick_option = options[rand(1, length(options))]
+	new pick_option(loc)
 	return INITIALIZE_HINT_QDEL
 
-//SUBCLASSES.  Spawn a bunch of items and disappear likewise
+// SUBCLASSES. Spawn a bunch of items and disappear likewise.
 /obj/effect/landmark/costume/chicken/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/chickensuit(loc)
@@ -627,11 +630,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/costume/maid/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/blackskirt(loc)
-	var/CHOICE = pick(
+	var/choice = pick(
 		/obj/item/clothing/head/beret,
 		/obj/item/clothing/head/rabbitears,
 	)
-	new CHOICE(loc)
+	new choice(loc)
 	new /obj/item/clothing/glasses/sunglasses/blindfold/black(loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -661,11 +664,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	. = ..()
 	new /obj/item/clothing/suit/wcoat(loc)
 	new /obj/item/clothing/glasses/monocle(loc)
-	var/CHOICE= pick(
+	var/choice= pick(
 		/obj/item/clothing/head/bowlerhat,
 		/obj/item/clothing/head/that,
 	)
-	new CHOICE(loc)
+	new choice(loc)
 	new /obj/item/clothing/shoes/black(loc)
 	new /obj/item/cane(loc)
 	new /obj/item/clothing/under/sl_suit(loc)
@@ -687,11 +690,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/costume/waiter/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/under/waiter(loc)
-	var/CHOICE= pick(
+	var/choice= pick(
 		/obj/item/clothing/head/kitty,
 		/obj/item/clothing/head/rabbitears,
 	)
-	new CHOICE(loc)
+	new choice(loc)
 	new /obj/item/clothing/suit/apron(loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -699,11 +702,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	. = ..()
 	new /obj/item/clothing/under/pirate(loc)
 	new /obj/item/clothing/suit/pirate_black(loc)
-	var/CHOICE = pick(
+	var/choice = pick(
 		/obj/item/clothing/head/pirate,
 		/obj/item/clothing/head/bandana,
 	)
-	new CHOICE(loc)
+	new choice(loc)
 	new /obj/item/clothing/glasses/eyepatch(loc)
 	return INITIALIZE_HINT_QDEL
 

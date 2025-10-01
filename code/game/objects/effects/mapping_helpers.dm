@@ -156,8 +156,9 @@
 /obj/effect/mapping_helpers/turfs/Initialize(mapload)
 	. = ..()
 	var/turf/selected_turf = get_turf(src)
-	if(istype(selected_turf))
-		payload(selected_turf)
+	if(!istype(selected_turf))
+		return
+	payload(selected_turf)
 
 /obj/effect/mapping_helpers/turfs/proc/payload(turf/simulated/selected_turf)
 	SHOULD_CALL_PARENT(FALSE)
