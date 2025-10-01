@@ -5,6 +5,7 @@ import sys
 import time
 from collections import namedtuple
 from concurrent.futures import ProcessPoolExecutor
+
 Failure = namedtuple("Failure", ["filename", "lineno", "message"])
 
 RED = "\033[0;31m"
@@ -248,6 +249,35 @@ def check_fast_load_define(idx, line):
     if FAST_LOAD_DEFINE.match(line):
         return [(idx + 1, "Commiting uncommented FAST_LOAD define!")]
 
+# Check UpdatePaths files
+def check_updatepaths_validity():
+    failures = []
+    updatepaths_dir = "tools/UpdatePaths/Scripts/"
+
+    # Check if the directory exists
+    if not os.path.exists(updatepaths_dir):
+        return failures
+
+    # Get all files in the directory
+    try:
+        files = [f for f in os.listdir(updatepaths_dir) if os.path.isfile(os.path.join(updatepaths_dir, f))]
+    except OSError:
+        return failures
+
+    # Check each file
+    for filename in files:
+        filepath = os.path.join(updatepaths_dir, filename)
+
+        # Check if file has .txt extension
+        if not filename.endswith('.txt'):
+            failures.append(Failure(filepath, 0, "Found an UpdatePaths File that doesn't end in .txt! Please add the proper file extension!"))
+
+        # Check if file starts with number prefix
+        if not re.match(r'^\d+_', filename):
+            failures.append(Failure(filepath, 0, "Detected an UpdatePaths File that doesn't start with the PR number! Please add the proper number prefix!"))
+
+    return failures
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
@@ -311,6 +341,9 @@ if __name__ == "__main__":
     with ProcessPoolExecutor() as executor:
         for failures in executor.map(lint_file, dm_files):
             all_failures += failures
+
+    # Add UpdatePaths validity checks
+    all_failures += check_updatepaths_validity()
 
     if all_failures:
         exit_code = 1
