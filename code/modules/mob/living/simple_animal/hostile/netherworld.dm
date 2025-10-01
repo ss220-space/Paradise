@@ -2,7 +2,6 @@
 	name = "creature"
 	desc = "Разрушающее рассудок существо из преисподней."
 
-	gender = MALE
 	icon_state = "otherthing-pink"
 	icon_living = "otherthing-pink"
 	icon_dead = "otherthing-pink-dead"

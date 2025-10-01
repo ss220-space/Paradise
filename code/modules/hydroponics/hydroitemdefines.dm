@@ -22,11 +22,6 @@
 	icon_state = "weedspray"
 	item_state = "plantbgone"
 	volume = 100
-	container_type = OPENCONTAINER
-	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
-	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 3
 	throw_range = 10
 	list_reagents = list("atrazine" = 100)
 
@@ -51,11 +46,6 @@
 	icon_state = "pestspray"
 	item_state = "plantbgone"
 	volume = 100
-	container_type = OPENCONTAINER
-	slot_flags = ITEM_SLOT_BELT
-	throwforce = 0
-	w_class = WEIGHT_CLASS_SMALL
-	throw_speed = 3
 	throw_range = 10
 	list_reagents = list("pestkiller" = 100)
 
@@ -120,7 +110,6 @@
 	flags = NONE
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
-	item_state = "cultivator"
 
 
 /obj/item/hatchet
@@ -182,7 +171,6 @@
 	desc = "A sharp and curved blade on a long fibremetal handle, this tool makes it easy to reap what you sow."
 	force = 13
 	throwforce = 5
-	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
@@ -276,13 +264,9 @@
 /obj/item/reagent_containers/glass/bottle/nutrient
 	name = "jug of nutrient"
 	desc = "Пластиковая канистра для различных жидкостей."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug"
 	item_state = "plastic_jug"
-	w_class = WEIGHT_CLASS_TINY
-	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(1,2,5,10,20,40,80)
-	container_type = OPENCONTAINER
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'
 	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
@@ -348,7 +332,6 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится И-ЗИ-Нутриент."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
 	list_reagents = list("eznutriment" = 80)
 
@@ -365,7 +348,6 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Лефт-Фо-Зед."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
 	list_reagents = list("left4zednutriment" = 80)
 
@@ -382,7 +364,6 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Робаст-Харвест."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_rh"
 	list_reagents = list("robustharvestnutriment" = 80)
 
@@ -397,13 +378,9 @@
 	)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/empty
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "plastic_jug"
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_k"
-	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/New()
 	..()
@@ -413,7 +390,6 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
 	name = "jug of weed killer"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится атразин."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_wk"
 	list_reagents = list("atrazine" = 80)
 
@@ -430,7 +406,6 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
 	name = "jug of pest spray"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержатся пестициды."
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_pk"
 	list_reagents = list("pestkiller" = 80)
 

@@ -186,8 +186,6 @@
 // z6 DEPOT SPAWNERS
 
 /obj/effect/spawner/random_spawners/syndicate
-	icon = 'icons/effects/mapping_helpers.dmi'
-	icon_state = "standart"
 
 // Turrets
 

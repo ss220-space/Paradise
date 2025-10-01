@@ -188,9 +188,6 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aD" = (
-/obj/effect/spawner/window/reinforced{
-	color = "red"
-	},
 /turf/simulated/wall/cult,
 /area/shuttle/escape)
 "aE" = (
@@ -280,10 +277,9 @@
 /obj/effect/spawner/window/reinforced{
 	color = "red"
 	},
-/turf/simulated/wall/shuttle{
-	icon_state = "swall3"
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
 	},
-/turf/simulated/wall/cult,
 /area/shuttle/escape)
 "aS" = (
 /obj/machinery/status_display{
@@ -302,9 +298,8 @@
 /obj/effect/spawner/window/reinforced{
 	color = "red"
 	},
-/turf/simulated/wall/shuttle{
-	tag = "icon-swall14";
-	icon_state = "swall14"
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
 	},
 /area/shuttle/escape)
 "aV" = (

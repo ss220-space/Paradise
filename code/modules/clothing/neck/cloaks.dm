@@ -4,7 +4,6 @@
 	name = "cloak"
 	desc = "It's a cloak that can be worn around your neck in a pretty dull color."
 	icon_state = "cloak"
-	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = UPPER_TORSO | ARMS
 	var/colour = null
 
@@ -42,7 +41,6 @@
 	icon_state = "cecloak"
 
 /obj/item/clothing/neck/cloak/chief_engineer/white
-	name = "chief engineer's white cloak"
 	desc = "Worn by the leader of both Atmosia and Delamistan, wielder of unlimited power. This one is white."
 	icon_state = "cecloak_white"
 

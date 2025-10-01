@@ -1867,8 +1867,7 @@
 /area/assembly/chargebay)
 "bgN" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -6175,9 +6174,6 @@
 /obj/structure/disposalpipe/junction{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "ehK" = (
@@ -6656,9 +6652,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -12300,11 +12293,6 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/primary/aft)
@@ -13405,7 +13393,6 @@
 	pixel_x = 24
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/dorms)
 "iFN" = (
@@ -13615,9 +13602,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/disposalpipe/junction/yjunction{
-	dir = 1
 	},
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 1
@@ -24352,8 +24336,7 @@
 	name = "Fitness Ring"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -24899,7 +24882,6 @@
 /turf/simulated/floor/engine,
 /area/engineering/engine)
 "pYk" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/primary/starboard)
@@ -26275,7 +26257,6 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/dark,
 /area/engineering/break_room)
@@ -28101,8 +28082,7 @@
 /area/turret_protected/aisat_interior)
 "sdf" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -28223,6 +28203,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "shD" = (
@@ -29344,7 +29325,6 @@
 /obj/structure/bed/roller,
 /obj/machinery/light,
 /obj/machinery/iv_drip,
-/obj/machinery/iv_drip,
 /obj/machinery/button/windowtint{
 	dir = 8;
 	id = "surg1";
@@ -30098,9 +30078,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -31888,8 +31865,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -33912,7 +33888,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -34816,8 +34791,7 @@
 /area/chapel/main)
 "wqk" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -34925,8 +34899,7 @@
 /area/hallway/secondary/exit)
 "wsC" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"

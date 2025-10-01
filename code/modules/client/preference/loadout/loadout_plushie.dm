@@ -1,7 +1,6 @@
 /datum/gear/plushie
 	sort_category = "Игрушки"
 	subtype_path = /datum/gear/plushie
-	cost = 1
 
 /datum/gear/plushie/rock
 	index_name = "a pet rock"
@@ -78,56 +77,45 @@
 /datum/gear/plushie/hampter
 	index_name = "Hampter"
 	path = /obj/item/toy/plushie/hampter
-	cost = 1
 
 /datum/gear/plushie/hampter_assistant
 	index_name = "Hampter, Assitant"
 	path = /obj/item/toy/plushie/hampter/asisstant
-	cost = 1
 
 /datum/gear/plushie/hampter_security
 	index_name = "Hampter, Security"
 	path = /obj/item/toy/plushie/hampter/security
-	cost = 1
 
 /datum/gear/plushie/hampter_medic
 	index_name = "Hampter, Doctor"
 	path = /obj/item/toy/plushie/hampter/medic
-	cost = 1
 
 /datum/gear/plushie/hampter_janitor
 	index_name = "Hampter, Janitor"
 	path = /obj/item/toy/plushie/hampter/janitor
-	cost = 1
 
 /datum/gear/plushie/hampter_captain
 	index_name = "Hampter, Captain"
 	path = /obj/item/toy/plushie/hampter/captain
-	cost = 1
 
 /datum/gear/plushie/hampter_old_captain
 	index_name = "Hampter, Old Captain"
 	path = /obj/item/toy/plushie/hampter/captain/old
-	cost = 1
 
 /datum/gear/plushie/hampter_syndi
 	index_name = "Hampter, Syndi"
 	path = /obj/item/toy/plushie/hampter/syndi
-	cost = 1
 
 /datum/gear/plushie/hampter_death_squad
 	index_name = "Hampter, Grandpa"
 	path = /obj/item/toy/plushie/hampter/death_squad
-	cost = 1
 
 /datum/gear/plushie/hampter_ert_squad
 	index_name = "Hampter, ERT"
 	path = /obj/item/toy/plushie/hampter/ert_squad
-	cost = 1
 
 /datum/gear/plushie/blahaj
 	index_name = "Shark Plushie"
 	path = /obj/item/toy/plushie/blahaj
-	cost = 1
 
 

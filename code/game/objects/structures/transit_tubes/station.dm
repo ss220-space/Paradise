@@ -25,7 +25,6 @@
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/transit_tube_station.dmi'
 	icon_state = "closed_station0"
 	base_icon_state = "station0"
-	exit_delay = 1
 	enter_delay = 2
 	var/pod_moving = FALSE
 	var/launch_cooldown = 0

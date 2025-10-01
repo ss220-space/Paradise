@@ -6538,8 +6538,7 @@
 /area/moonoutpost19/mo19arrivals)
 "ny" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/table,
 /obj/structure/bedsheetbin,

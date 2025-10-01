@@ -2,7 +2,6 @@
 	name = "Goon-Vampire"
 	nullification = OLD_NULLIFICATION
 	is_garlic_affected = TRUE
-	dust_in_space = FALSE
 	antag_datum_blacklist = list(/datum/antagonist/vampire/new_vampire)
 	antag_menu_name = "Goon вампир"
 	upgrade_tiers = list(

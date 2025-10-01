@@ -19,7 +19,6 @@
 	base_cooldown = 3 MINUTES
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_morph"
 
@@ -217,7 +216,6 @@
 	base_cooldown = 0
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_project"
 
@@ -267,7 +265,6 @@
 	desc = "Дайте людям возможность поделиться их мыслями!"
 	base_cooldown = 45 SECONDS
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 	action_icon_state = "genetic_mindscan"
 	var/list/available_targets = list()
 
@@ -361,10 +358,8 @@
 /obj/effect/proc_holder/spell/remoteview
 	name = "Remote View"
 	desc = "Следите за людьми с любого расстояния!"
-	base_cooldown = 10 SECONDS
 
 	clothes_req = FALSE
-	stat_allowed = CONSCIOUS
 
 	action_icon_state = "genetic_view"
 

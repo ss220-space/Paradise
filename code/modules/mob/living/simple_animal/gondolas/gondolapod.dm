@@ -1,10 +1,6 @@
 /mob/living/simple_animal/pet/gondola/gondolapod
-	name = "gondola"
-	real_name = "gondola"
 	desc = "Бесшумный ходок. Кажется, это сотрудник агентства доставки."
 	icon = 'icons/obj/supplypods.dmi'
-	icon_state = "gondola"
-	icon_living = "gondola"
 	SET_BASE_PIXEL(-16, -5) //2x2 sprite
 	layer = TABLE_LAYER //so that deliveries dont appear underneath it
 

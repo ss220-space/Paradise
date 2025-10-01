@@ -70,7 +70,6 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy),
 	)
 
-	disliked_food = NONE
 
 /datum/species/shadow/ling/proc/handle_light(mob/living/carbon/human/H)
 	var/light_amount = 0

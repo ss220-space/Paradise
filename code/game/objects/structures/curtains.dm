@@ -7,7 +7,6 @@
 	icon_state = "closed"
 	layer = SHOWER_CLOSED_LAYER
 	opacity = TRUE
-	density = FALSE
 
 
 /obj/structure/curtain/open

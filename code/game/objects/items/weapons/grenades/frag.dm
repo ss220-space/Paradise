@@ -2,7 +2,6 @@
 	name = "frag grenade"
 	desc = "Fire in the hole."
 	icon_state = "frag"
-	item_state = "flashbang"
 	origin_tech = "materials=3;magnets=4"
 	det_time = 3 SECONDS
 	var/range = 5

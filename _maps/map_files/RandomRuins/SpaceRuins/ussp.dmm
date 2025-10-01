@@ -1490,9 +1490,6 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "dO" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
-	},
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "dQ" = (
@@ -4305,8 +4302,7 @@
 "kI" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/derelict/church)
@@ -5240,8 +5236,7 @@
 /area/derelict/common)
 "nf" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 3.5
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/open/shower,
@@ -6268,8 +6263,7 @@
 /area/derelict/med)
 "pU" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -6281,8 +6275,7 @@
 /area/derelict/common)
 "pV" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/grown/potato,
@@ -6297,8 +6290,7 @@
 /area/derelict/common)
 "pW" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/plasteel{
@@ -6311,8 +6303,7 @@
 	tag = "icon-rwindow (EAST)"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/fermenting_barrel,
 /turf/simulated/floor/plasteel{
@@ -6403,9 +6394,6 @@
 	},
 /area/derelict/arrival)
 "qk" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/arrival)
 "ql" = (
@@ -6857,8 +6845,7 @@
 	},
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -6871,8 +6858,7 @@
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/grass,
 /area/derelict/arrival)
@@ -6883,8 +6869,7 @@
 	},
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4;
@@ -7042,8 +7027,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -7051,16 +7035,14 @@
 /area/derelict/arrival)
 "rL" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/derelict/arrival)
 "rM" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/reinforced{
 	dir = 4;
@@ -7141,8 +7123,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/leafybush,
@@ -7150,8 +7131,7 @@
 /area/derelict/arrival)
 "rV" = (
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,
@@ -7162,8 +7142,7 @@
 	tag = "icon-rwindow (EAST)"
 	},
 /obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
@@ -8751,10 +8730,6 @@
 "Iv" = (
 /obj/machinery/power/solar{
 	id = "russolar"
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
 	},
 /obj/structure/cable{
 	d2 = 4;

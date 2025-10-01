@@ -8,7 +8,6 @@ Note: Must be placed within 3 tiles of the R&D Console
 /obj/machinery/r_n_d/destructive_analyzer
 	name = "Destructive Analyzer"
 	desc = "Крупное устройство, предназначенное для исследования и разработки с помощью обратной инженерии."
-	gender = MALE
 	icon_state = "d_analyzer"
 	base_icon_state = "d_analyzer"
 	var/decon_mod = 0

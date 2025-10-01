@@ -82,10 +82,8 @@
 	damage = 5
 	stamina = 15
 	shockbull = TRUE
-	damage_type = BURN
 	flag = "energy"
 	hitsound = 'sound/weapons/parry.ogg'
-	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_particles
 	light_color = LIGHT_COLOR_GREEN
 
