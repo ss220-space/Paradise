@@ -343,7 +343,13 @@
 
 	var/first_time = TRUE
 	for(var/mob/user as anything in storage_boxes)
-		storage_boxes[user].modify(line_width, lines_num, ui_style2icon(user?.client?.prefs.UI_style), first_time)
+		var/ui_style
+		var/ui_color
+		if(user.client && user.client.prefs)
+			var/datum/preferences/prefs = user.client.prefs
+			ui_style = !(prefs.toggles3 & PREFTOGGLE_3_STORAGE_NEUTRAL) && prefs.UI_style
+			ui_color = (prefs.toggles3 & PREFTOGGLE_3_STORAGE_COLORFY) && prefs.UI_style_color
+		storage_boxes[user].modify(line_width, lines_num, ui_style, ui_color, first_time)
 		first_time = FALSE
 
 /datum/storage_box
@@ -390,15 +396,26 @@
 
 	place_items = new
 
-/datum/storage_box/proc/modify(line_width, lines_num, ui_icon, first_time)
+/datum/storage_box/proc/modify(line_width, lines_num, ui_style, ui_color, first_time)
 	place_items.overlays.Cut()
+	var/ui_icon
 	// Change icon
-	start.icon = ui_icon
-	continued.icon = ui_icon
-	end.icon = ui_icon
-	top.icon = ui_icon
-	bottom.icon = ui_icon
-	closer.icon = ui_icon
+	if(ui_style)
+		ui_icon = ui_style2icon(ui_style)
+		start.icon = ui_icon
+		continued.icon = ui_icon
+		end.icon = ui_icon
+		top.icon = ui_icon
+		bottom.icon = ui_icon
+		closer.icon = ui_icon
+	// Change color
+	if(ui_color)
+		start.color = ui_color
+		continued.color = ui_color
+		end.color = ui_color
+		top.color = ui_color
+		bottom.color = ui_color
+		closer.color = ui_color
 	var/y_enlarge = (ICON_SIZE_Y + (lines_num - 1) * (STORAGE_SIZE_MULTIPLIER_Y)) / ICON_SIZE_Y
 	// Both axes modify
 	var/matrix/modify_matrix = matrix()
@@ -429,7 +446,7 @@
 			endpoint = 1 + stored.storage_display_width
 
 		var/datum/item_storage_box/item_box = new()
-		item_box.modify(startpoint, endpoint, lines_num, current_level, ui_icon)
+		item_box.modify(startpoint, endpoint, lines_num, current_level, ui_icon, ui_color)
 		add_item(item_box)
 
 		if(!first_time)
@@ -488,11 +505,16 @@
 /datum/item_storage_box/proc/screens_list()
 	return list(start, continued, end)
 
-/datum/item_storage_box/proc/modify(startpoint, endpoint, lines_num, current_level, ui_icon)
+/datum/item_storage_box/proc/modify(startpoint, endpoint, lines_num, current_level, ui_icon, ui_color)
 	// Change icon
-	start.icon = ui_icon
-	continued.icon = ui_icon
-	end.icon = ui_icon
+	if(ui_icon)
+		start.icon = ui_icon
+		continued.icon = ui_icon
+		end.icon = ui_icon
+	if(ui_color)
+		start.color = ui_color
+		continued.color = ui_color
+		end.color = ui_color
 
 	// Calcylate Y offset for current level
 	var/box_offset = STORAGE_SIZE_MULTIPLIER_Y * (lines_num - current_level - 1)
