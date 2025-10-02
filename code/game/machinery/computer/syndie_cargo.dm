@@ -294,9 +294,9 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		return
 
 	var/list/spawnTurfs = list()
-	var/list/recievingPads = data_storage.receiving_pads
-	for(var/j in 1 to length(recievingPads))
-		spawnTurfs += get_turf(recievingPads[j])
+	var/list/receivingPads = data_storage.receiving_pads
+	for(var/j in 1 to length(receivingPads))
+		spawnTurfs += get_turf(receivingPads[j])
 
 	for(var/datum/syndie_supply_order/SO in data_storage.shoppinglist)
 		if(!SO.object)
@@ -304,10 +304,10 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			continue
 
 		var/turf/T = pick_n_take(spawnTurfs)		//turf we will place it in
-		for(var/obj/machinery/syndiepad/recieving_pad as anything in recievingPads)
-			recieving_pad.use_power(10000 / recieving_pad.power_efficiency)
-			flick("[initial(recieving_pad.icon_state)]-beam", recieving_pad)
-			playsound(get_turf(recieving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
+		for(var/obj/machinery/syndiepad/receiving_pad as anything in receivingPads)
+			receiving_pad.use_power(10000 / receiving_pad.power_efficiency)
+			flick("[initial(receiving_pad.icon_state)]-beam", receiving_pad)
+			playsound(get_turf(receiving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 
 		if(!T)
 			data_storage.shoppinglist.Cut(1, data_storage.shoppinglist.Find(SO))

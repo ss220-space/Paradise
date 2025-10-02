@@ -45,20 +45,28 @@
 					if(auth_need - length(authorized) > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 						add_game_logs("has authorized early shuttle launch in [COORD(src)]", user)
-						GLOB.minor_announcement.announce("Осталось получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")] для досрочного запуска шаттла.")
+						GLOB.minor_announcement.announce(
+							message = "Осталось получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")] для досрочного запуска шаттла."
+						)
 					else
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds_left] seconds before launch.")
 						add_game_logs("has launched the emergency shuttle in [COORD(src)] [seconds_left] seconds before launch.", user)
-						GLOB.minor_announcement.announce("До запуска эвакуационного шаттла осталось 10 секунд.")
+						GLOB.minor_announcement.announce(
+							message = "До запуска эвакуационного шаттла осталось 10 секунд."
+						)
 						SSshuttle.emergency.setTimer(100)
 
 			if("Repeal")
 				if(authorized.Remove(id_card.registered_name))
-					GLOB.minor_announcement.announce("Для досрочного запуска шаттла необходимо получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")].")
+					GLOB.minor_announcement.announce(
+						message = "Для досрочного запуска шаттла необходимо получить [auth_need - length(authorized)] авторизаци[declension_ru(auth_need - length(authorized), "ю", "и", "й")]."
+					)
 
 			if("Abort")
 				if(authorized.len)
-					GLOB.minor_announcement.announce("Все авторизации на досрочный запуск шаттла были отозваны.")
+					GLOB.minor_announcement.announce(
+						message = "Все авторизации на досрочный запуск шаттла были отозваны."
+					)
 					authorized.Cut()
 
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -72,8 +80,9 @@
 		add_attack_logs(user, src, "emagged")
 		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
 		add_game_logs("has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
-		GLOB.minor_announcement.announce("Запуск эвакуационного шаттла через 10 секунд",
-										"СИСТЕМНАЯ ОШИБКА:"
+		GLOB.minor_announcement.announce(
+			message = "Запуск эвакуационного шаттла через 10 секунд",
+			new_title = "СИСТЕМНАЯ ОШИБКА:"
 		)
 		SSshuttle.emergency.setTimer(100)
 		emagged = 1
@@ -307,12 +316,15 @@
 					destination_dock = "emergency_syndicate"
 					GLOB.major_announcement.announce(
 						"Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.",
-						new_title = ANNOUNCE_PRIORITY_RU
+						new_title = ANNOUNCE_PRIORITY_RU,
+						new_sound = 'sound/misc/announce_syndi.ogg'
 					)
 
 				if(devil_on_shuttle)
-					GLOB.major_announcement.announce("Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута и движется в неизвестном направлении.",
-													new_title = ANNOUNCE_PRIORITY_RU
+					GLOB.major_announcement.announce(
+						message = "Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута и движется в неизвестном направлении.",
+						new_title = ANNOUNCE_PRIORITY_RU,
+						new_sound = 'sound/misc/announce_syndi.ogg'
 					)
 				else
 					dock_id(destination_dock)

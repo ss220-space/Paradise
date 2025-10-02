@@ -684,16 +684,26 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = NEWS_CHANNEL_STATION
+	newChannel.channel_name = NEWS_CHANNEL_STATION_LOG
 	newChannel.author = EDITOR_STATION
+	newChannel.description = "Автоматический журнал, записывающий новости смены."
 	newChannel.icon = "bullhorn"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
+	newChannel.channel_name = NEWS_CHANNEL_STATION
+	newChannel.author = EDITOR_STATION
+	newChannel.description = "Публичный канал оповещений и рабочих объявлений для всех желающих."
+	newChannel.icon = "users"
+	newChannel.is_public = TRUE
+	GLOB.news_network.channels += newChannel
+
+	newChannel = new /datum/feed_channel
 	newChannel.channel_name = NEWS_CHANNEL_NYX
 	newChannel.author = EDITOR_NYX
+	newChannel.description = "Новости Нанотрейзен!"
 	newChannel.icon = "meteor"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
@@ -702,6 +712,7 @@ SUBSYSTEM_DEF(ticker)
 	newChannel = new /datum/feed_channel
 	newChannel.channel_name = NEWS_CHANNEL_GIB
 	newChannel.author = EDITOR_GIB
+	newChannel.description = "ШОКИРУЮЩИЕ НОВОСТИ КАЖДЫЙ ЧАС! Вы не поверите!"
 	newChannel.icon = "star"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE

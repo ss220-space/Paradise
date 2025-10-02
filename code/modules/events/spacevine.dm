@@ -51,8 +51,9 @@
 
 /datum/event/spacevine/announce(false_alarm)
 	if((false_alarm || LAZYLEN(SC?.vines)) && (LAZYLEN(GLOB.player_list) < 20))
-		GLOB.minor_announcement.announce("Биосканеры фиксируют рост космической лозы в [get_area(SC.loc)]. Избавьтесь от неё, прежде чем она нанесёт ущерб станции.",
-										ANNOUNCE_BIOHAZARD_RU
+		GLOB.minor_announcement.announce(
+			message = "Биосканеры фиксируют рост космической лозы в [get_area(SC.loc)]. Избавьтесь от неё, прежде чем она нанесёт ущерб станции.",
+			new_title = ANNOUNCE_BIOHAZARD_RU
 		)
 
 /datum/spacevine_mutation

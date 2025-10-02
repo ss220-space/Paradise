@@ -94,7 +94,7 @@
 	var/areastring
 	/// The power terminal connected to this APC
 	var/obj/machinery/power/terminal/terminal
-	/// The status of the terminals powernet that this APC is connected to: not connected, no power, or recieving power
+	/// The status of the terminals powernet that this APC is connected to: not connected, no power, or receiving power
 	var/main_status = APC_EXTERNAL_POWER_NOTCONNECTED
 
 	/// Amount of power used in the last cycle for lighting channel
@@ -120,7 +120,7 @@
 	/*** APC Status Vars ***/
 	/// The wire panel associated with this APC
 	var/datum/wires/apc/wires
-	/// Can the APC recieve/transmit power? Determined by the condition of the 2 Main Power Wires
+	/// Can the APC receive/transmit power? Determined by the condition of the 2 Main Power Wires
 	var/shorted = FALSE
 	/// Is the APC on and transmitting power.
 	var/operating = TRUE
@@ -148,7 +148,7 @@
 	var/locked = TRUE
 	/// If TRUE, the APC will automatically draw power from connect terminal, if FALSE it will not charge.
 	var/chargemode = TRUE
-	/// Counter var, ticks up when the APC recieves power from terminal and resets to 0 when not charging, used for the `var/charging` var
+	/// Counter var, ticks up when the APC receives power from terminal and resets to 0 when not charging, used for the `var/charging` var
 	var/chargecount = 0
 	/// Whether this APC will generate alert reports based on current status.
 	var/report_power_alarm = TRUE

@@ -674,7 +674,7 @@
 
 			var/list/hunger_mods = list()
 			SEND_SIGNAL(src, COMSIG_GET_HUNGER_MODS, hunger_mods)
-			for(var/mod as anything in hunger_mods)
+			for(var/mod in hunger_mods)
 				hunger_rate *= mod
 
 			adjust_nutrition(-hunger_rate)

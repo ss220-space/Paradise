@@ -670,7 +670,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		if(freq == SYND_TAIPAN_FREQ && !istype(syndiekey, /obj/item/encryptionkey/syndicate/taipan)) //Чтобы тайпановскую частоту, слышали только тайпановцы
 			return -1
 
-	if(!freq) //recieved on main frequency
+	if(!freq) //received on main frequency
 		if(!listening)
 			return -1
 	else if(syndiekey && !(freq in SSradio.syndicate_blacklist))

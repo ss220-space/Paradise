@@ -320,6 +320,7 @@
 		/obj/item/forensics/sample_kit/powder,
 		/obj/item/forensics/sample_kit,
 		/obj/item/eftpos/sec,
+		/obj/item/stock_parts/cell/specter,
 		/obj/item/radio)
 
 /obj/item/storage/belt/security/sec/populate_contents()

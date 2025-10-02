@@ -77,8 +77,9 @@
 						[spawn_num == 1 ? GLOB.anomalies_sizes_one["[tier]"] : GLOB.anomalies_sizes_many["[tier]"]] \
 						[random_types ? "" : (spawn_num == 1 ? GLOB.anomalies_preffs_one[anomaly_type] : GLOB.anomalies_preffs_many[anomaly_type])] \
 						аномали[spawn_num == 1 ? "я" : "й"]."
-	GLOB.minor_announcement.announce("[prefix_message] Предполагаемая локация: [target.name]",
-									ANNOUNCE_ANOMALY_RU
+	GLOB.minor_announcement.announce(
+		message = "[prefix_message] Предполагаемая локация: [target.name]",
+		new_title = ANNOUNCE_ANOMALY_RU
 	)
 
 

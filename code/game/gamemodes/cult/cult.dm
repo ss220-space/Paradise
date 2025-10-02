@@ -237,9 +237,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 			to_chat(M.current, span_cultlarge("Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!"))
 			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
 			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
-		GLOB.major_announcement.announce("На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/commandreport.ogg'
+		GLOB.major_announcement.announce(
+			message = "На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+			new_title = ANNOUNCE_CCPARANORMAL_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
 		)
 		log_game("Blood cult reveal. Powergame allowed.")
 

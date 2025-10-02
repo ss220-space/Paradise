@@ -273,9 +273,10 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				Nuke_request(input, ui.user)
 				to_chat(ui.user, span_notice("Запрос отправлен."))
 				add_game_logs("has requested the nuclear codes from Centcomm: [input]", usr)
-				GLOB.major_announcement.announce("Коды активации ядерной боеголовки на станции были запрошены [usr]. Решение о подтверждении или отклонении данного запроса будет отправлено в ближайшее время.",
-												ANNOUNCE_NUCLEARCODES_RU,
-												'sound/AI/nuke_codes.ogg'
+				GLOB.major_announcement.announce(
+					message = "Коды активации ядерной боеголовки на станции были запрошены [usr]. Решение о подтверждении или отклонении данного запроса будет отправлено в ближайшее время.",
+					new_title = ANNOUNCE_NUCLEARCODES_RU,
+					new_sound = 'sound/AI/nuke_codes.ogg'
 				)
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
@@ -386,10 +387,10 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				return
 			if(!params["classified"])
 				GLOB.major_announcement.announce(
-					params["text"],\
-					new_title = ANNOUNCE_CCMSG_RU,\
-					new_subtitle = params["subtitle"],\
-					new_sound = 'sound/AI/commandreport.ogg'
+					message = params["text"],
+					new_title = ANNOUNCE_CCMSG_RU,
+					new_sound = 'sound/AI/commandreport.ogg',
+					new_subtitle = params["subtitle"]
 				)
 				print_command_report(params["text"], params["subtitle"])
 			else
@@ -438,9 +439,10 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "вспышка биоугрозы, добавлен новый нулевой закон'[law]'")
 			to_chat(aiPlayer, span_warning("Законы обновлены: [law]"))
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.minor_announcement.announce("Отчёт был загружен и распечатан на всех консолях связи.",
-									ANNOUNCE_SECRETMSG_RU,
-									'sound/AI/commandreport.ogg'
+	GLOB.minor_announcement.announce(
+		message = "Отчёт был загружен и распечатан на всех консолях связи.",
+		new_title = ANNOUNCE_SECRETMSG_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 /obj/machinery/computer/communications/emag_act(user as mob)

@@ -175,9 +175,10 @@
 		for(var/datum/mind/M in gamemode.cult)
 			if(M.current)
 				SEND_SOUND(M.current, sound('sound/ambience/antag/bloodcult_scribe.ogg'))
-		GLOB.major_announcement.announce("Образы внепространственного бога из неизвестного измерения собираются воедино в [A.map_name]. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/cult_summon.ogg'
+		GLOB.major_announcement.announce(
+			message = "Образы внепространственного бога из неизвестного измерения собираются воедино в [A.map_name]. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
+			new_title = ANNOUNCE_CCPARANORMAL_RU,
+			new_sound = 'sound/AI/cult_summon.ogg'
 		)
 		log_admin("[key_name_log(user)] started to draw narsie rune!")
 		add_game_logs("started to draw narsie rune at [AREACOORD(user)]", user)

@@ -55,8 +55,9 @@
 
 
 /datum/event/headcrabs/announce()
-	GLOB.minor_announcement.announce("Биосканеры фиксируют размножение хедкрабов на борту станции. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции",
-									ANNOUNCE_UNID_LIFEFORMS_RU
+	GLOB.minor_announcement.announce(
+		message = "Биосканеры фиксируют размножение хедкрабов на борту станции. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции",
+		new_title = ANNOUNCE_UNID_LIFEFORMS_RU
 	)
 
 #undef HEADCRAB_NORMAL
