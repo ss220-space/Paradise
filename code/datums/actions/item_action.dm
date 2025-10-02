@@ -80,26 +80,23 @@
 /datum/action/item_action/set_internals
 	name = "Переключить баллон"
 
-/datum/action/item_action/set_internals/UpdateButtonIcon()
-	if(..()) //button available
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			if(target == C.internal)
-				button_icon = 'icons/mob/actions/actions.dmi'
-				button_icon_state = "bg_default_on"
+/datum/action/item_action/set_internals/is_action_active(atom/movable/screen/movable/action_button/current_button)
+	if(iscarbon(owner))
+		var/mob/living/carbon/carbon_owner = owner
+		return target == carbon_owner.internal
+	return ..()
 
 /datum/action/item_action/set_internals_ninja
 	name = "Переключить баллон"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
+	background_icon_state_active = "background_green_active"
 
-/datum/action/item_action/set_internals_ninja/UpdateButtonIcon()
-	if(..()) //button available
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			if(target == C.internal)
-				button_icon_state = "[background_icon_state]_active"
-
+/datum/action/item_action/set_internals_ninja/is_action_active(atom/movable/screen/movable/action_button/current_button)
+	if(iscarbon(owner))
+		var/mob/living/carbon/carbon_owner = owner
+		return target == carbon_owner.internal
+	return ..()
 
 /datum/action/item_action/toggle_mister
 	name = "Переключить распылитель"
