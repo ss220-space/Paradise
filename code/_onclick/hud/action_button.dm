@@ -180,10 +180,11 @@
  * It returns a list, which is pretty much just a struct of info
  */
 /datum/hud/proc/get_action_buttons_icons()
-	. = list()
-	.["bg_icon"] = ACTION_BUTTON_DEFAULT_BACKGROUND //TODO vakons actions: ui_style here
-	.["bg_state"] = "template"
-	.["bg_state_active"] = "template_active"
+	return list(
+		ACTION_BUTTON_KEY_BG_ICON = 'icons/mob/actions/actions.dmi',
+		ACTION_BUTTON_KEY_BG_STATE = ACTION_BUTTON_DEFAULT_BACKGROUND,
+		ACTION_BUTTON_KEY_BG_STATE_ACTIVE = ACTION_BUTTON_DEFAULT_BACKGROUND_ACTIVE,
+	)
 
 /**
  * Updates all action buttons this mob has.

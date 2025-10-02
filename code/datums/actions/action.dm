@@ -43,6 +43,7 @@
 	/// This is the icon state state for the BACKGROUND underlay icon of the button
 	/// (If set to ACTION_BUTTON_DEFAULT_BACKGROUND, uses the hud's default background)
 	var/background_icon_state = ACTION_BUTTON_DEFAULT_BACKGROUND
+	var/background_icon_state_active = ACTION_BUTTON_DEFAULT_BACKGROUND_ACTIVE
 
 	/// This is the file for the icon that appears on the button
 	var/button_icon = 'icons/mob/actions/actions.dmi'
@@ -270,17 +271,17 @@
  * force - whether an update is forced regardless of existing status
  */
 /datum/action/proc/apply_button_background(atom/movable/screen/movable/action_button/current_button, force = FALSE)
-	if(!background_icon || !background_icon_state || (current_button.active_underlay_icon_state == background_icon_state && !force))
+	if(!background_icon || !background_icon_state /*|| (current_button.active_underlay_icon_state == background_icon_state && !force)*/)
 		return
 
 	// What icons we use for our background
 	var/list/icon_settings = list(
 		// The icon file
-		"bg_icon" = background_icon,
+		ACTION_BUTTON_KEY_BG_ICON = background_icon,
 		// The icon state, if is_action_active() returns FALSE
-		"bg_state" = background_icon_state,
+		ACTION_BUTTON_KEY_BG_STATE = background_icon_state,
 		// The icon state, if is_action_active() returns TRUE
-		"bg_state_active" = background_icon_state,
+		ACTION_BUTTON_KEY_BG_STATE_ACTIVE = background_icon_state_active,
 	)
 
 	// If background_icon_state is ACTION_BUTTON_DEFAULT_BACKGROUND instead use our hud's action button scheme

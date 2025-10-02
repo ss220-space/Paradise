@@ -39,8 +39,15 @@
 /// The name shown in the stat panel.
 #define PANEL_DISPLAY_NAME "name"
 
+
+#define ACTION_BUTTON_KEY_BG_ICON "bg_icon"
+#define ACTION_BUTTON_KEY_BG_STATE "bg_state"
+#define ACTION_BUTTON_KEY_BG_STATE_ACTIVE "bg_state_active"
+
 /// Default action button background
 #define ACTION_BUTTON_DEFAULT_BACKGROUND "bg_default"
+/// Default active action button background
+#define ACTION_BUTTON_DEFAULT_BACKGROUND_ACTIVE "bg_default_on"
 
 // Action button update flags
 #define UPDATE_BUTTON_NAME (1<<0)
