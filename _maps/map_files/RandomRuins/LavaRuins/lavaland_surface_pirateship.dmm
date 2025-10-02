@@ -148,7 +148,7 @@
 /area/ruin/unpowered/safe_cave)
 "es" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
@@ -286,7 +286,7 @@
 "gu" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/cleanable/dust,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
@@ -338,7 +338,7 @@
 /area/ruin/powered/pirateship)
 "gQ" = (
 /obj/effect/decal/cleanable/dust,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
@@ -350,7 +350,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
 "gV" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium{
 	nitrogen = 23;
@@ -485,7 +485,7 @@
 /area/ruin/powered/pirateship)
 "iK" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
@@ -814,7 +814,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
 "nt" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -1023,7 +1023,7 @@
 /area/lavaland/surface/outdoors)
 "pB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
@@ -1129,7 +1129,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/powered/pirateship)
 "rE" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
@@ -1169,7 +1169,7 @@
 /area/lavaland/surface/outdoors)
 "su" = (
 /obj/structure/grille/broken,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
@@ -1215,7 +1215,7 @@
 	},
 /area/ruin/powered/pirateship)
 "th" = (
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
@@ -1289,7 +1289,7 @@
 /area/ruin/unpowered/safe_cave)
 "wO" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
@@ -1339,7 +1339,7 @@
 	pixel_x = 7;
 	pixel_y = -5
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
@@ -1643,7 +1643,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
@@ -1855,7 +1855,7 @@
 /obj/structure/cable/blue{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/dark{
@@ -2009,7 +2009,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Hl" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/dark{
@@ -2026,7 +2026,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
 "HS" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
@@ -2541,7 +2541,7 @@
 /area/ruin/unpowered/safe_cave)
 "Ps" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
@@ -2837,7 +2837,7 @@
 	},
 /area/ruin/powered/pirateship)
 "RZ" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
@@ -3025,7 +3025,7 @@
 /obj/structure/cable/white{
 	icon_state = "2-8"
 	},
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
@@ -3074,7 +3074,7 @@
 /area/ruin/powered/pirateship)
 "VY" = (
 /obj/effect/decal/cleanable/dust,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
@@ -3275,7 +3275,7 @@
 "YI" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/tiles/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
@@ -3317,7 +3317,7 @@
 	},
 /area/ruin/powered/pirateship)
 "ZV" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/pod/dark{
 	nitrogen = 23;

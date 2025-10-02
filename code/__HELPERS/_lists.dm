@@ -177,7 +177,7 @@
 				return TRUE
 	return FALSE
 
-//Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
+/// Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
 /proc/is_type_in_typecache(atom/A, list/L)
 	if(!L || !L.len || !A)
 		return 0

@@ -371,9 +371,9 @@
 
 /datum/smite/demote/apply_effect(mob/living/target, reason)
 	GLOB.major_announcement.announce(
-		"[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
-		ANNOUNCE_CCDEMOTE_RU,
-		'sound/AI/commandreport.ogg'
+		message = "[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
+		new_title = ANNOUNCE_CCDEMOTE_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 
 	for(var/datum/data/record/record in sortRecord(GLOB.data_core.security))
@@ -433,11 +433,9 @@
 /datum/smite/global_hunting/activate(mob/living/target, reason)
 	var/bounty = tgui_input_number(usr, "Выберите денежное вознаграждение поделённое между исполнителями приговора.", "Выбор вознаграждения", 5000, INFINITY, 0)
 	GLOB.major_announcement.announce(
-		"[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. \
-		Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни \
-		будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[declension_ru(bounty, "", "а", "ов")].",
-		ANNOUNCE_CCKILL_RU,
-		'sound/AI/commandreport.ogg'
+		message = "[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[declension_ru(bounty, "", "а", "ов")].",
+		new_title = ANNOUNCE_CCKILL_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
 	)
 	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
 	target.AddComponent(/datum/component/killing_reward, bounty)

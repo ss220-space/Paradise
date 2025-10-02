@@ -387,7 +387,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		radio.keyslot = I
-		radio.recalculateChannels()
+		radio.recalculate_channels()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -418,7 +418,7 @@
 			user.put_in_hands(radio.keyslot)
 			radio.keyslot = null
 
-		radio.recalculateChannels()
+		radio.recalculate_channels()
 		to_chat(user, span_notice("Вы извлекли ключ шифрования из [declent_ru(GENITIVE)]."))
 		I.play_tool_sound(user, I.tool_volume)
 
@@ -498,7 +498,7 @@
 	if(paicard.radio.keyslot2.syndie)
 		paicard.radio.syndiekey = paicard.radio.keyslot2
 
-	paicard.radio.recalculateChannels(TRUE)
+	paicard.radio.recalculate_channels(TRUE)
 	if(paicard.pai)
 		to_chat(paicard.pai, span_notice("Обнаружены новые частоты радиосообщения, калибровка..."))
 

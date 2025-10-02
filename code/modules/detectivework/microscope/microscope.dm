@@ -44,17 +44,17 @@
 /obj/machinery/microscope/attack_hand(mob/user)
 
 	if(!sample)
-		to_chat(user, "<span class='warning'>В микроскопе нет образца для анализа.</span>")
+		to_chat(user, span_warning("В микроскопе нет образца для анализа."))
 		return
 
 	add_fingerprint(user)
-	to_chat(user, "<span class='notice'>Микроскоп жужжит, пока вы анализируете \the [sample].</span>")
+	to_chat(user, span_notice("Микроскоп жужжит, пока вы анализируете \the [sample]."))
 
 	if(!do_after(user, 2.5 SECONDS, src) || !sample)
-		to_chat(user, "<span class='notice'>Вы перестаёте анализировать \the [sample].</span>")
+		to_chat(user, span_notice("Вы перестаёте анализировать \the [sample]."))
 		return
 
-	to_chat(user, "<span class='notice'>Печать отчета...</span>")
+	to_chat(user, span_notice("Печать отчета..."))
 	var/obj/item/paper/report = new(get_turf(src))
 	report.stamp(/obj/item/stamp)
 	report_num++
@@ -77,7 +77,7 @@
 		if(fibers.evidence)
 			report.info = "Молекулярный анализ на предоставленном образце определил наличие уникальных волоконных струн.<br><br>"
 			for(var/fiber in fibers.evidence)
-				report.info += "<span class='notice'>Наиболее вероятное совпадение: [fiber]</span><br><br>"
+				report.info += "[span_notice("Наиболее вероятное совпадение: [fiber]")]<br><br>"
 		else
 			report.info += "Волокна не найдены."
 	else if(istype(sample, /obj/item/sample/print))
@@ -87,7 +87,7 @@
 		if(card.evidence && card.evidence.len)
 			report.info += "<br>Поверхностный анализ определил следующие уникальные строки отпечатков пальцев:<br><br>"
 			for(var/prints in card.evidence)
-				report.info += "<span class='notice'>Строка отпечатков пальцев: </span>"
+				report.info += span_notice("Строка отпечатков пальцев: ")
 				if(!is_complete_print(prints))
 					report.info += "НЕПОЛНЫЙ ОТПЕЧАТОК"
 				else
@@ -106,9 +106,9 @@
 	if(!istype(remover) || remover.incapacitated() || HAS_TRAIT(remover, TRAIT_HANDS_BLOCKED) || !Adjacent(remover))
 		return
 	if(!sample)
-		to_chat(remover, "<span class='warning'>Внутри микроскопа нет образца!</span>")
+		to_chat(remover, span_warning("Внутри микроскопа нет образца!"))
 		return
-	to_chat(remover, "<span class='notice'>Вы вытащили \the [sample] из микроскопа.</span>")
+	to_chat(remover, span_notice("Вы вытащили \the [sample] из микроскопа."))
 	sample.forceMove_turf()
 	remover.put_in_hands(sample, ignore_anim = FALSE)
 	sample = null

@@ -290,6 +290,9 @@
 	if(length(light_sources))
 		light_sources.Cut()
 
+	if(smooth & SMOOTH_QUEUED)
+		SSicon_smooth.remove_from_queues(src)
+
 	return ..()
 
 

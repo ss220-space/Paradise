@@ -256,15 +256,17 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(silent)
 		message_admins("A silent response team failed to spawn. Likely, no one signed up.")
 		return
-	GLOB.major_announcement.announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.",
-									ANNOUNCE_ERT_UNAVAIL_RU
+	GLOB.major_announcement.announce(
+		message = "[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.",
+		new_title = ANNOUNCE_ERT_UNAVAIL_RU
 	)
 
 /datum/response_team/proc/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи вам. Ожидайте.",
-									ANNOUNCE_ERT_ONWAY_RU
+	GLOB.major_announcement.announce(
+		message = "Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи вам. Ожидайте.",
+		new_title = ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /// MARK: AMBER TEAM
@@ -279,8 +281,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/amber/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ЭМБЕР\". Ожидайте.",
-									ANNOUNCE_ERT_ONWAY_RU
+	GLOB.major_announcement.announce(
+		message = "Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ЭМБЕР\". Ожидайте.",
+		new_title = ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /// MARK: RED TEAM
@@ -296,8 +299,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/red/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"РЭД\". Ожидайте.",
-									ANNOUNCE_ERT_ONWAY_RU
+	GLOB.major_announcement.announce(
+		message = "Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"РЭД\". Ожидайте.",
+		new_title = ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /// MARK: GAMMA TEAM
@@ -313,8 +317,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/gamma/announce_team()
 	if(silent)
 		return
-	GLOB.major_announcement.announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ГАММА\". Ожидайте.",
-									ANNOUNCE_ERT_ONWAY_RU
+	GLOB.major_announcement.announce(
+		message = "Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода \"ГАММА\". Ожидайте.",
+		new_title = ANNOUNCE_ERT_ONWAY_RU
 	)
 
 /datum/outfit/job/centcom/response_team
@@ -325,9 +330,11 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/special_message = "Вы подчиняетесь непосредственно <span class='red'>вашему командиру</span>. \n Исключения составляют случаи, когда ваш командир открыто действует против интересов НТ, или случаев, когда это требуется согласно приказаниям члена Защиты Активов более высокого звания, чем у вашего командира - в том числе переданного через Офицера Специальных Операций. \n В случае отсутствия командира или на время его недееспособности, командование отрядом за обычных условий переходит к старшему по званию среди вашего отряда."
 	var/hours_dif = 0 // Subtracted from the total number of hours. Needs to be done that Gamma ERT/individual roles will require more hours
 	var/exp_type = FALSE
-	var/list/ranks = list("Min" = "Рядовой",
-				"Med" = "Младший капрал",
-				"Max" = "Капрал")
+	var/list/ranks = list(
+		"Min" = "Рядовой",
+		"Med" = "Младший капрал",
+		"Max" = "Капрал"
+	)
 	allow_backbag_choice = FALSE
 	allow_loadout = FALSE
 	pda = /obj/item/pda/heads/ert

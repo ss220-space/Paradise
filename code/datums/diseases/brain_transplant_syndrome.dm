@@ -9,11 +9,12 @@
 /// Brain transplant syndrome heavy effect chance
 #define BTS_HEAVY_EFFECT_PROBE 2.5
 
-/** Brain transplantation syndrome
-  * - organs failure chance
-  * - periodically paralyse whole body
-  * - periodically oxy damage
-  */
+/**
+ * Brain transplantation syndrome
+ * - organs failure chance
+ * - periodically paralyse whole body
+ * - periodically oxy damage
+ */
 /datum/disease/brain_transplant_syndrome
 	name = "Синдром отторжения головного мозга"
 	desc = "Аутоиммунный ответ организма, ведущий к системному отказу органов или парализации."
@@ -55,8 +56,8 @@
 		return
 	affected_mob.emote("gasp")
 	to_chat(affected_mob, span_userdanger("Вы чувствуете, что вам не хватает воздуха!"))
-	affected_mob.apply_damage(10, OXY, spread_damage = TRUE, forced = TRUE)
-	affected_mob.adjustBrainLoss(2.5, FALSE)
+	affected_mob.apply_damage(stage * 2, OXY, spread_damage = TRUE, forced = TRUE)
+	affected_mob.adjustBrainLoss(stage, FALSE)
 
 /datum/disease/brain_transplant_syndrome/proc/medium_effect()
 	if(!prob(BTS_MEDIUM_EFFECT_PROBE))
@@ -102,6 +103,13 @@
 /datum/disease/brain_transplant_syndrome/has_cure()
 	var/time_delta = world.time - start_time
 	return time_delta > BRAIN_TRANSPLANT_SYNDROME_DURATION
+
+/datum/disease/brain_transplant_syndrome/try_increase_stage()
+	if(affected_mob.reagents?.has_reagent(required_reagent)) // huh, reverse
+		if(prob(10) && stage > 1)
+			stage = max(stage - 1, 1)
+		return FALSE
+	return ..()
 
 #undef BRAIN_TRANSPLANT_SYNDROME_DURATION
 #undef BTS_INITIAL_EFFECTS_DURATION

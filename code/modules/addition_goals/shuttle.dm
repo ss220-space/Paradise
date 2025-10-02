@@ -123,7 +123,7 @@
 			qdel(content)
 
 /datum/controller/subsystem/addition_goals/proc/is_highrisk_item(item)
-	for(var/highrisk_type as anything in GLOB.ungibbable_items_types)
+	for(var/highrisk_type in GLOB.ungibbable_items_types)
 		if(istype(item, highrisk_type))
 			return TRUE
 	return FALSE

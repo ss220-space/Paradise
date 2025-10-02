@@ -629,49 +629,52 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-//the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Сообщение Центрального командования." = "Обновление Нанотрейзен.",
+	//the stuff on the list is |"report type" = "report title"|, if that makes any sense
+	var/list/message_type = list(
+		"Сообщение Центрального командования." = "Обновление Нанотрейзен.",
 		"Официальное сообщение Синдиката." = "Сообщение Синдиката.",
 		"Сообщение Федерации Космических Волшебников." = "Заколдованное сообщение.",
 		"Официальное сообщение Клана Паука." = "Сообщение Клана Паука.",
 		"Вражеское сообщение." = "Неизвестное сообщение.",
-		CUSTOM_MESSAGE_TYPE = "Загадочное сообщение.")
+		CUSTOM_MESSAGE_TYPE = "Загадочное сообщение."
+	)
 
-	var/list/MsgSound = list("Уведомление *бип*" = 'sound/misc/notice2.ogg',
+	var/list/message_sound = list(
+		"Уведомление *бип*" = 'sound/misc/notice2.ogg',
 		"Перехвачены вражеские сообщения" = 'sound/AI/intercept.ogg',
-		"Составлен отчёт о новой команде" = 'sound/AI/commandreport.ogg')
+		"Составлен отчёт о новой команде" = 'sound/AI/commandreport.ogg'
+	)
 
-	var/type = tgui_input_list(usr, "Выберите тип сообщения для отправки.", "Тип сообщения", MsgType, "")
+	var/type = tgui_input_list(usr, "Выберите тип сообщения для отправки.", "Тип сообщения", message_type, "")
 
 	if(type == CUSTOM_MESSAGE_TYPE)
 		type = tgui_input_text(usr, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача", encode = FALSE)
 
-	var/subtitle = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type], encode = FALSE)
+	var/subtitle = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", message_type[type], encode = FALSE)
 	if(!subtitle)
 		return
-	var/message = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
-	if(!message)
+	var/input_message = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
+	if(!input_message)
 		return
 
 	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?", null, list("Да", "Нет", "Отмена")))
 		if("Да")
-			var/beepsound = tgui_input_list(usr, "Какой звук должен издавать анонс?", "Звук анонса", MsgSound)
-
+			var/beepsound = tgui_input_list(usr, "Какой звук должен издавать анонс?", "Звук анонса", message_sound)
 			GLOB.major_announcement.announce(
-				message,
+				message = input_message,
 				new_title = type,
 				new_subtitle = subtitle,
-				new_sound = MsgSound[beepsound]
+				new_sound = message_sound[beepsound]
 			)
-			print_command_report(message, subtitle)
+			print_command_report(input_message, subtitle)
 		if("Нет")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
 			GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.")
-			print_command_report(message, "Секретно: [subtitle]")
+			print_command_report(input_message, "Секретно: [subtitle]")
 		else
 			return
 
-	log_admin("[key_name(src)] has created a communications report: [message]")
+	log_admin("[key_name(src)] has created a communications report: [input_message]")
 	message_admins("[key_name_admin(src)] has created a communications report")
 	BLACKBOX_LOG_ADMIN_VERB("Create Comms Report")
 

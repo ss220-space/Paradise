@@ -54,10 +54,10 @@
 #define TRANSMISSION_WIRE	0
 #define TRANSMISSION_RADIO	1
 
-//This filter is special because devices belonging to default also recieve signals sent to any other filter.
+//This filter is special because devices belonging to default also receive signals sent to any other filter.
 #define RADIO_DEFAULT "radio_default"
 #define RADIO_TO_AIRALARM "radio_airalarm" //air alarms
-#define RADIO_FROM_AIRALARM "radio_airalarm_rcvr" //devices interested in recieving signals from air alarms
+#define RADIO_FROM_AIRALARM "radio_airalarm_rcvr" //devices interested in receiving signals from air alarms
 #define RADIO_CHAT "radio_telecoms"
 #define RADIO_ATMOSIA "radio_atmos"
 #define RADIO_NAVBEACONS "radio_navbeacon"

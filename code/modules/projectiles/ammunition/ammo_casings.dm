@@ -372,6 +372,7 @@
 	projectile_type = /obj/projectile/beam/specter/laser
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
+	fire_sound = 'sound/weapons/gunshots/1laser7.ogg'
 
 /obj/item/ammo_casing/enforcer/disable
 	desc = "Парализующий патрон для пистолета \"Блюститель\"."
@@ -380,6 +381,7 @@
 	materials = list(MAT_METAL = 800)
 	projectile_type = /obj/projectile/beam/specter/disabler
 	muzzle_flash_color = LIGHT_COLOR_BLUE
+	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 
 
 /obj/item/ammo_casing/shotgun/laserslug

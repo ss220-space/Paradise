@@ -320,6 +320,7 @@
 		/obj/item/forensics/sample_kit/powder,
 		/obj/item/forensics/sample_kit,
 		/obj/item/eftpos/sec,
+		/obj/item/stock_parts/cell/specter,
 		/obj/item/radio)
 
 /obj/item/storage/belt/security/sec/populate_contents()
@@ -832,11 +833,11 @@
 
 	if(length(contents))
 		var/obj/item/I = contents[1]
-		H.visible_message("<span class='notice'>[H] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>")
+		H.visible_message(span_notice("[H] takes [I] out of [src]."), span_notice("You take [I] out of [src]."))
 		H.put_in_hands(I, ignore_anim = FALSE)
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 
 /obj/item/storage/belt/rapier/handle_item_insertion(obj/item/W, prevent_warning)
 	if(!..())

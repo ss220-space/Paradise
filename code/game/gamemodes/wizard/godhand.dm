@@ -97,7 +97,7 @@
 	if(!proximity || target == user || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //getting hard after touching yourself would also be bad
 		return
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't reach out!</span>")
+		to_chat(user, span_warning("You can't reach out!"))
 		return
 	var/mob/living/L = target
 	L.Stun(4 SECONDS)
@@ -137,7 +137,7 @@
 		return
 
 	if(iswizard(target))
-		to_chat(user, "<span class='warning'>The spell has no effect on [target].</span>")
+		to_chat(user, span_warning("The spell has no effect on [target]."))
 		return
 
 	var/datum/effect_system/fluid_spread/smoke/s = new

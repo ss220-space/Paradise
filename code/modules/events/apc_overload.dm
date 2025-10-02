@@ -21,9 +21,10 @@
 		SEND_SOUND(M, S)
 
 /datum/event/apc_overload/announce()
-	GLOB.minor_announcement.announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
-									ANNOUNCE_APC_CRIT_RU,
-									'sound/AI/power_overload.ogg'
+	GLOB.minor_announcement.announce(
+		message = "Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
+		new_title = ANNOUNCE_APC_CRIT_RU,
+		new_sound = 'sound/AI/power_overload.ogg'
 	)
 
 /datum/event/apc_overload/end()
@@ -37,9 +38,10 @@
 	))
 
 	if(announce)
-		GLOB.minor_announcement.announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
-										ANNOUNCE_APC_CRIT_RU,
-										'sound/AI/power_overload.ogg'
+		GLOB.minor_announcement.announce(
+			message = "Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
+			new_title = ANNOUNCE_APC_CRIT_RU,
+			new_sound = 'sound/AI/power_overload.ogg'
 		)
 
 	// break APC_BREAK_PROBABILITY% of all of the APCs on the station

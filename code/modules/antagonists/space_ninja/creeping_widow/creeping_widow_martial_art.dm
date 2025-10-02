@@ -34,7 +34,7 @@
 		desc = "A strange autoinjector made of a black metal.<br>It appears to be used up and empty."
 		return FALSE
 
-	to_chat(user, "<span class='warning'>The [src] has been used already!</span>")
+	to_chat(user, span_warning("The [src] has been used already!"))
 	return TRUE
 
 // Ninja martial art datum
@@ -91,8 +91,8 @@
 			var/hold_name = "[pick(attack_names)] [pick("grip", "hold", "vise", "press")]"
 			playsound(get_turf(attacker), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 			attacker.do_attack_animation(defender, ATTACK_EFFECT_PUNCH)
-			defender.visible_message("<span class='warning'>[attacker] comes from behind, punches the [defender] in their neck and puts [defender] in a [hold_name]!</span>", \
-							"<span class='userdanger'>[attacker]\ punches you in the neck and puts you in a [hold_name]! You are unable to speak!</span>")
+			defender.visible_message(span_warning("[attacker] comes from behind, punches the [defender] in their neck and puts [defender] in a [hold_name]!"), \
+							span_userdanger("[attacker]\ punches you in the neck and puts you in a [hold_name]! You are unable to speak!"))
 			defender.AdjustSilence(40 SECONDS)
 			defender.apply_damage(20, OXY)
 			defender.apply_damage(5, BRUTE, pick(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH))

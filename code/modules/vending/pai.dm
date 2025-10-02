@@ -8,7 +8,6 @@
 	lightmask_overlay = "paivend_lightmask"
 	broken_overlay = "paivend_broken"
 	broken_lightmask_overlay = "paivend_broken_lightmask"
-
 	slogan_list = list(
 		"А вы л+юбите нас?",
 		"Мы тво+и друзь+я!",
@@ -17,6 +16,8 @@
 		"Спас+ибо за пок+упку!"
 	)
 	resistance_flags = FIRE_PROOF
+	refill_canister = /obj/item/vending_refill/pai
+
 	products = list(
 		/obj/item/paicard = 10,
 		/obj/item/pai_cartridge/female = 10,
@@ -24,11 +25,11 @@
 		/obj/item/pai_cartridge/memory = 5,
 		/obj/item/pai_cartridge/reset = 5,
 		/obj/item/robot_parts/l_arm = 1,
-		/obj/item/robot_parts/r_arm = 1
+		/obj/item/robot_parts/r_arm = 1,
 	)
 	contraband = list(
 		/obj/item/pai_cartridge/syndi_emote = 1,
-		/obj/item/pai_cartridge/snake = 1
+		/obj/item/pai_cartridge/snake = 1,
 	)
 	prices = list(
 		/obj/item/paicard = 199,
@@ -39,9 +40,8 @@
 		/obj/item/pai_cartridge/syndi_emote = 649,
 		/obj/item/pai_cartridge/snake = 599,
 		/obj/item/pai_cartridge/reset = 599,
-		/obj/item/pai_cartridge/memory = 349
+		/obj/item/pai_cartridge/memory = 349,
 	)
-	refill_canister = /obj/item/vending_refill/pai
 
 /obj/machinery/vending/pai/get_ru_names()
 	return list(

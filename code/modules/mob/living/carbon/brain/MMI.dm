@@ -138,27 +138,27 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(!radio)
-		to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
+		to_chat(user, span_warning("There is no radio in [src]!"))
 		return
 	user.visible_message(
-		"<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
-		"<span class='notice'>You start to uninstall the radio from [src]...</span>"
+		span_warning("[user] begins to uninstall the radio from [src]..."), \
+		span_notice("You start to uninstall the radio from [src]...")
 	)
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
 		return
 	uninstall_radio()
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
 	user.visible_message(
-		"<span class='warning'>[user] uninstalls the radio from [src].</span>", \
-		"<span class='notice'>You uninstall the radio from [src].</span>"
+		span_warning("[user] uninstalls the radio from [src]."), \
+		span_notice("You uninstall the radio from [src].")
 	)
 
 
 /obj/item/mmi/attack_self(mob/user)
 	if(!brainmob)
-		to_chat(user, "<span class='warning'>You upend the MMI, but there's nothing in it.</span>")
+		to_chat(user, span_warning("You upend the MMI, but there's nothing in it."))
 	else
-		to_chat(user, "<span class='notice'>You unlock and upend the MMI, spilling the brain onto the floor.</span>")
+		to_chat(user, span_notice("You unlock and upend the MMI, spilling the brain onto the floor."))
 		dropbrain(get_turf(user))
 
 
@@ -187,7 +187,7 @@
 /obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
 		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
-		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
+		to_chat(brainmob, span_userdanger("Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!"))
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()
 		held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
@@ -208,7 +208,7 @@
 /obj/item/mmi/examine(mob/user)
 	. = ..()
 	if(radio)
-		. += "<span class='notice'>A radio is installed on [src].</span>"
+		. += span_notice("A radio is installed on [src].")
 
 /obj/item/mmi/proc/install_radio()
 	radio = new(src)

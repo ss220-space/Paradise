@@ -151,16 +151,19 @@
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
 
+/obj/item/radio/headset/bot/get_base_channels()
+	var/mob/living/simple_animal/bot/bot = loc
 
-/obj/item/radio/headset/bot/recalculateChannels()
-	var/mob/living/simple_animal/bot/B = loc
-	if(istype(B))
-		if(!B.radio_config)
-			B.radio_config = list(AI_FREQ_NAME = 1)
-			if(!(B.radio_channel in B.radio_config)) // put it first so it's the :h channel
-				B.radio_config.Insert(1, "[B.radio_channel]")
-				B.radio_config["[B.radio_channel]"] = 1
-		config(B.radio_config)
+	if(!istype(bot))
+		return
+
+	if(!bot.radio_config)
+		bot.radio_config = list(AI_FREQ_NAME = 1)
+
+	if((bot.radio_channel in bot.radio_config)) // put it first so it's the :h channel
+		return
+
+	bot.radio_config["[bot.radio_channel]"] = 1
 
 
 /mob/living/simple_animal/bot/proc/get_mode()

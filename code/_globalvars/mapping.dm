@@ -32,6 +32,11 @@ GLOBAL_LIST_EMPTY(sortedAreas)
 /// An association from typepath to area instance. Only includes areas with `unique` set.
 GLOBAL_LIST_EMPTY_TYPED(areas_by_type, /area)
 
+/// list of all landmarks created
+GLOBAL_LIST_EMPTY(landmarks_list)
+/// list of all job spawn points created
+GLOBAL_LIST_EMPTY(start_landmarks_list)
+
 GLOBAL_LIST_EMPTY(wizardstart)
 GLOBAL_LIST_EMPTY(newplayer_start)
 GLOBAL_LIST_EMPTY(start_override)

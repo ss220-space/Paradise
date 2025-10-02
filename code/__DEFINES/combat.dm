@@ -228,10 +228,13 @@
 #define COMBO_PROC "proc"
 
 
-// core bitflags
-#define ATTACK_CHAIN_PROCEED (1<<2)	// intentionally not started with (1<<0) or 1, since 1 is equal to TRUE
-#define ATTACK_CHAIN_BLOCKED (1<<3)	// and we want to check validity of the core bitflags, returned by the attack chain procs
-// optional bitflags
+// Core bitflags
+
+/// Intentionally not started with (1<<0) or 1, since 1 is equal to TRUE
+#define ATTACK_CHAIN_PROCEED (1<<2)
+/// And we want to check validity of the core bitflags, returned by the attack chain procs
+#define ATTACK_CHAIN_BLOCKED (1<<3)
+// Optional bitflags
 #define ATTACK_CHAIN_SUCCESS (1<<0)
 #define ATTACK_CHAIN_NO_AFTERATTACK (1<<1)
 // bitflag combinations

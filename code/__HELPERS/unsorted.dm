@@ -189,7 +189,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			return FALSE
 	return TRUE
 
-//Ensure the frequency is within bounds of what it should be sending/recieving at
+///Ensure the frequency is within bounds of what it should be sending/receiving at
 /proc/sanitize_frequency(f, low = PUBLIC_LOW_FREQ, high = PUBLIC_HIGH_FREQ)
 	f = round(f)
 	f = max(low, f)
@@ -341,12 +341,12 @@ Turf and target are seperate in case you want to teleport some distance from a t
 // Format a power value in W, kW, MW, or GW.
 /proc/DisplayPower(powerused)
 	if(powerused < 1000) //Less than a kW
-		return "[powerused] W"
+		return "[powerused] Вт"
 	else if(powerused < 1000000) //Less than a MW
-		return "[round((powerused * 0.001), 0.01)] kW"
+		return "[round((powerused * 0.001), 0.01)] кВт"
 	else if(powerused < 1000000000) //Less than a GW
-		return "[round((powerused * 0.000001), 0.001)] MW"
-	return "[round((powerused * 0.000000001), 0.0001)] GW"
+		return "[round((powerused * 0.000001), 0.001)] МВт"
+	return "[round((powerused * 0.000000001), 0.0001)] ГВт"
 
 //Forces a variable to be posative
 /proc/modulus(M)

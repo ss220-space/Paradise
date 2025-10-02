@@ -346,8 +346,8 @@ SUBSYSTEM_DEF(garbage)
 
 #endif
 
-// Should be treated as a replacement for the 'del' keyword.
-// Datums passed to this will be given a chance to clean up references to allow the GC to collect them.
+/// Should be treated as a replacement for the 'del' keyword.
+/// Datums passed to this will be given a chance to clean up references to allow the GC to collect them.
 /proc/qdel(datum/to_delete, force = FALSE)
 	if(!istype(to_delete))
 		del(to_delete)

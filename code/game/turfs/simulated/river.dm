@@ -8,7 +8,6 @@
 	name = "river waypoint"
 	/// Whether the turf of this landmark has already been linked to others during river generation.
 	var/connected = FALSE
-	invisibility = INVISIBILITY_ABSTRACT
 
 /// A straightforward system for making "rivers", paths made up of a specific
 /// turf type that are generated in a random path on a z-level.

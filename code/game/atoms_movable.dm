@@ -117,7 +117,7 @@
 	/// acts as a key to the list of spatial grid contents types we exist in via SSspatial_grid.spatial_grid_categories.
 	/// We do it like this to prevent people trying to mutate them and to save memory on holding the lists ourselves
 	var/spatial_grid_key
-	
+
 	/// Last location of the atom for demo recording purposes
 	var/atom/demo_last_loc
 
@@ -946,6 +946,7 @@
 
 	if(!LAZYLEN(gone.important_recursive_contents))
 		return
+
 	var/list/nested_locs = get_nested_locs(src) + src
 	for(var/channel in gone.important_recursive_contents)
 		for(var/atom/movable/location as anything in nested_locs)
@@ -1014,7 +1015,9 @@
 	SSspatial_grid.remove_grid_membership(src, our_turf, SPATIAL_GRID_CONTENTS_TYPE_HEARING)
 
 	for(var/atom/movable/location as anything in get_nested_locs(src) + src)
+		LAZYINITLIST(location.important_recursive_contents)
 		var/list/recursive_contents = location.important_recursive_contents // blue hedgehog velocity
+		LAZYINITLIST(recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE])
 		recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE] -= src
 		if(!length(recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE]))
 			SSspatial_grid.remove_grid_awareness(location, SPATIAL_GRID_CONTENTS_TYPE_HEARING)
