@@ -1896,7 +1896,7 @@
 	ratvar_convert()
 
 /obj/mecha/proc/ratvar_convert()
-	for(var/rat_mecha as anything in GLOB.ratvar_mechas)
+	for(var/rat_mecha in GLOB.ratvar_mechas)
 		var/datum/ratvar_mecha/converter = new rat_mecha
 		if(mech_type in converter.mech_types)
 			converter.convert(src)
