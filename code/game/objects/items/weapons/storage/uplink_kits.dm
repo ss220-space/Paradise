@@ -32,7 +32,7 @@
 	desc = "Коробка, содержащая 2 клинка богомола."
 	max_w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/storage/box/syndie_kit/mantisblad/get_ru_names()
+/obj/item/storage/box/syndie_kit/mantisblade/get_ru_names()
 	return list(
 		NOMINATIVE = "набор клинков богомола",
 		GENITIVE = "набора клинков богомола",
