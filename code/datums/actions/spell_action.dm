@@ -545,7 +545,7 @@
 		owner.base_click_alt(spell)
 		return TRUE
 
-/datum/action/spell_action/IsAvailable(feedback = TRUE)
+/datum/action/spell_action/IsAvailable(feedback = FALSE)
 	if(!target)
 		return FALSE
 	var/obj/effect/proc_holder/spell/spell = target
@@ -554,35 +554,14 @@
 		return spell.can_cast(owner, show_message = feedback)
 	return FALSE
 
+/datum/action/spell_action/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
+	. = ..()
+	var/obj/effect/proc_holder/spell/spell = target
+	if(!istype(spell))
+		return
 
-// /datum/action/spell_action/toggle_active_overlay()
-// 	var/obj/effect/proc_holder/spell/spell = target
-// 	if(!istype(spell) || !spell.need_active_overlay)
-// 		return
-// 	var/static/mutable_appearance/selector = mutable_appearance('icons/mob/screen_gen.dmi', "selector", BUTTON_LAYER_SELECTOR, appearance_flags = RESET_COLOR|RESET_ALPHA)
-// 	if(spell.active)
-// 		button.add_overlay(selector)
-// 	else
-// 		button.cut_overlay(selector)
-
-
-// /datum/action/spell_action/ApplyIcon()
-// 	button.cut_overlays()
-// 	if(!button_icon || !button_icon_state)
-// 		return
-// 	var/mutable_appearance/new_icon = mutable_appearance(button_icon, button_icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
-// 	button.add_overlay(new_icon)
-
-
-// /datum/action/spell_action/apply_unavailable_effect()
-// 	var/obj/effect/proc_holder/spell/spell = target
-// 	if(!istype(spell))
-// 		return ..()
-// 	var/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
-// 	unavailable_effect.alpha = spell.cooldown_handler.get_cooldown_alpha()
-// 	button.add_overlay(unavailable_effect)
-// 	// Make a holder for the charge text
-// 	var/static/mutable_appearance/maptext_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
-// 	var/text = spell.cooldown_handler.cooldown_info()
-// 	maptext_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
-// 	button.add_overlay(maptext_holder)
+	if(!owner || IsAvailable(FALSE))
+		button.maptext = ""
+	else
+		var/text = spell.cooldown_handler.cooldown_last_duration()
+		button.maptext = MAPTEXT_TINY_UNICODE(text) //[round(time_left/10, 0.1)]

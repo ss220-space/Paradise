@@ -90,3 +90,5 @@
 	return dat != 100 ? "[dat]%" : null
 
 
+/datum/spell_cooldown/proc/cooldown_last_duration()
+	return "[round((recharge_time - world.time)/10, 0.1)]"

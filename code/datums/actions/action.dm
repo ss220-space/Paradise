@@ -271,7 +271,7 @@
  * force - whether an update is forced regardless of existing status
  */
 /datum/action/proc/apply_button_background(atom/movable/screen/movable/action_button/current_button, force = FALSE)
-	if(!background_icon || !background_icon_state /*|| (current_button.active_underlay_icon_state == background_icon_state && !force)*/)
+	if(!background_icon || !background_icon_state || (current_button.active_underlay_icon_state == background_icon_state && !force))
 		return
 
 	// What icons we use for our background
@@ -402,7 +402,7 @@
 			return
 
 /datum/action/proc/UpdateButtonIcon()
-	var/update_flag = UPDATE_BUTTON_ICON | UPDATE_BUTTON_OVERLAY | UPDATE_BUTTON_NAME
+	var/update_flag = UPDATE_BUTTON_ICON | UPDATE_BUTTON_OVERLAY | UPDATE_BUTTON_NAME | UPDATE_BUTTON_STATUS
 	build_all_button_icons(update_flag, TRUE)
 
 /// Updates our buttons if our target's icon was updated
