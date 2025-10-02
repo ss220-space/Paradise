@@ -12,7 +12,7 @@ This gives new developers a clickable reference [documentation] they can browse
 to better help gain understanding of the Paradise codebase structure and api
 reference.
 
-[documentation]: our site?
+[documentation]: https://ss220-space.github.io/Paradise/
 [BYOND]: https://secure.byond.com/
 [dmdoc]: https://github.com/SpaceManiac/SpacemanDMM/tree/master/crates/dmdoc
 
@@ -28,12 +28,12 @@ We also recommend that when you touch older code, you document the procs that yo
 have touched in the process of updating that code
 
 ### Specification
-A type *should* always be auto-documented, and all public procs *should* be
+A type *must* always be auto-documented, and all public procs *must* be
 documented.
 
-All type level defined variables *should* be documented.
+All type level defined variables *must* be documented.
 
-Internal procs *can* be documented, but may not be.
+Internal procs *should* be documented, but may not be.
 
 A public proc is any function that a developer might reasonably call while using
 or interacting with your object. Internal procs are helper functions that your
@@ -47,14 +47,14 @@ the proc to jump to its definition
 
 ```dm
 /**
-  * Short description of the proc
-  *
-  * Longer detailed paragraph about the proc
-  * including any relevant detail
-  * Arguments:
-  * * arg1 - Relevance of this argument
-  * * arg2 - Relevance of this argument
-  */
+ * Short description of the proc
+ *
+ * Longer detailed paragraph about the proc
+ * including any relevant detail
+ * Arguments:
+ * * arg1 - Relevance of this argument
+ * * arg2 - Relevance of this argument
+ */
 ```
 
 ### Documenting types
@@ -65,15 +65,15 @@ multi paragraph description of the type and its details.
 
 ```dm
 /**
-  * # type name (Can be omitted if it's just going to be the typepath)
-  *
-  * The short overview
-  *
-  * A longer
-  * paragraph of functionality about the type
-  * including any assumptions/special cases
-  *
-  */
+ * # type name (Can be omitted if it's just going to be the typepath)
+ *
+ * The short overview
+ *
+ * A longer
+ * paragraph of functionality about the type
+ * including any assumptions/special cases
+ *
+ */
 ```
 
 ### Documenting a variable/define

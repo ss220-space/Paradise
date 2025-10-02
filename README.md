@@ -13,31 +13,26 @@
 	<a href="https://xkcd.ru/1296/"><img src=".github/assets/fuck-it-ship-it.svg" alt="Fuck it, Ship it"></a>
 </p>
 
-# Ссылки SS1984
+| Вебсайт             | Ссылка                                                                                               |
+| ------------------- | ---------------------------------------------------------------------------------------------------- |
+| Код                 | https://github.com/ss220-space/Paradise                                                              |
+| Wiki                | https://wiki.ss220.space/                                                                            |
+| Документация        | https://ss220-space.github.io/Paradise/                                                              |
+| Discord             | https://discord.ss220.space                                                                          |
 
-- [Вебсайт](https://ss220.space/)
-- [Discord](https://discord.ss220.space)
+# Полезная документация
 
-# Апстрим проект Paradise
-
-- [Github](https://github.com/ParadiseSS13/Paradise)
-- [Вебсайт](https://www.paradisestation.org/)
-- [Документация](https://devdocs.paradisestation.org)
-
-# Полезная документация (Устарело)
-
-- [Installation Guide](.github/DOWNLOADING.md)
-- [Contribution Guide](.github/CONTRIBUTING.md)
-- [Autodocumentation Guide](.github/AUTODOC_GUIDE.md)
+- [Style guide](/.github/guides/STYLE.md)
+- [Autodocumentation Guide](.github/guides/AUTODOC.md)
+- [Contribution Guide](.github/CONTRIBUTING.md) - устарело
 
 > [!TIP]
-> Больше всего информации находиться у нас в Discord сервере в закрытых каналах<br>
-> Для получения доступа, обратитесь к каналу [#информация](https://discord.com/channels/617003227182792704/628271712097665025). Там указаны какие есть роли, что они дают и как их получить.<br>
-> Альтернативно, вы можете прочитать документарию апстрим Paradise [Getting Started Guide](https://devdocs.paradisestation.org/contributing/getting_started/)
-
----
+> Большая часть информации доступна на нашем Discord-сервере в закрытых каналах.<br>
+> Для получения доступа, посетите канал [#информация](https://discord.com/channels/617003227182792704/628271712097665025). В нём вы найдёте информацию о доступных ролях, их функциях и способах получения.<br>
 
 ### LICENSE
+
+---
 
 > [!CAUTION]
 > If you wish to use our code in a closed source manner (i.e. not make it available to the public and/or those who connect to services you offer using this code) you must **only** use code prior to commit [1af3ddef2af85937251e24384c2173c4b6c3222b on 2015/01/05 22:04 GMT](https://github.com/ParadiseSS13/Paradise/commit/1af3ddef2af85937251e24384c2173c4b6c3222b), which is licenced under GPLv3.
