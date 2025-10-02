@@ -392,7 +392,7 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
-		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление блюспейс-артефакта, способного привести к событию класса \"Разрушитель Миров\".",
+		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление неизвестного блюспейс-артефакта. Сканирование показывает, что артефакт принадлежит потустороннему божеству, известному как Ратвар.",
 										ANNOUNCE_CCPARANORMAL_RU,
 										'sound/AI/commandreport.ogg')
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
