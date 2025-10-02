@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 
 
 /**
- * Checks if the person trying to recieve this datum is role banned from it.
+ * Checks if the person trying to receive this datum is role banned from it.
  */
 /datum/antagonist/proc/is_banned(mob/user)
 	if(!user)

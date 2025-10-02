@@ -244,7 +244,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!length(GLOB.antagonist_teams))
 		content += "There are currently no antag teams."
 
-	for(var/team_type as anything in GLOB.antagonist_teams)
+	for(var/team_type in GLOB.antagonist_teams)
 		var/datum/team/check_team = GLOB.antagonist_teams[team_type]
 		content += "<h3>[check_team.name] - [check_team.type]</h3>"
 		content += "<a href='byond://?_src_=holder;team_command=rename_team;team=[check_team.UID()]'>Rename Team</a>"

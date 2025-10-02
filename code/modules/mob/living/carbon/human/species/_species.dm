@@ -265,6 +265,8 @@
 	/// Contains info for all age related preferences.
 	var/list/age_sheet
 
+	/// List of all possible blood overlays for current race blood_mask. Init automaticly, don't force any value
+	var/static/list/blood_overlays
 
 /datum/species/New()
 	unarmed = new unarmed_type()
@@ -1247,3 +1249,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/job_pre_equip(mob/living/carbon/human/human)
 	return
+  
+/datum/species/proc/get_blood_overlays()
+	if(isnull(blood_overlays))
+		blood_overlays = icon_states(blood_mask)
+
+	return blood_overlays

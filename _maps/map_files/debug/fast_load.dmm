@@ -17,7 +17,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/admin)
 "k" = (
-/obj/effect/landmark/join_late,
+/obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/indestructible/carpet,
 /area/admin)
 "l" = (
@@ -39,7 +39,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/landmark/join_late_cyborg,
+/obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/indestructible/carpet,
 /area/admin)
 "G" = (

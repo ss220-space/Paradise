@@ -452,6 +452,26 @@
 	desc = clipped ? "[initial(desc)] They have had the fingertips cut off of them." : initial(desc)
 
 
+/obj/item/clothing/gloves/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/mob/user = loc
+	var/is_mob = istype(user)
+
+	var/blood_overlay
+	if(!is_mob || is_mob && user.has_left_hand())
+		blood_overlay = get_blood_overlay("glove_l")
+		if(blood_overlay)
+			. += blood_overlay
+
+	if(!is_mob || is_mob && user.has_right_hand())
+		blood_overlay = get_blood_overlay("glove_r")
+		if(blood_overlay)
+			. += blood_overlay
+
+
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
@@ -597,6 +617,16 @@
 		sleep(1.5 SECONDS)
 
 
+/obj/item/clothing/head/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/blood_overlay = get_blood_overlay("helmet")
+	if(blood_overlay)
+		. += blood_overlay
+
+
 //Mask
 /obj/item/clothing/mask
 	name = "mask"
@@ -699,6 +729,17 @@
 // Changes the speech verb when wearing a mask if a value is returned
 /obj/item/clothing/mask/proc/change_speech_verb()
 	return
+
+
+/obj/item/clothing/mask/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands || !(body_parts_covered & HEAD))
+		return
+
+	var/blood_overlay = get_blood_overlay("mask")
+	if(blood_overlay)
+		. += blood_overlay
+
 
 //Shoes
 /obj/item/clothing/shoes
@@ -814,6 +855,36 @@
 		icon_state = base_icon_state
 		item_state = base_item_state
 	update_equipped_item(update_speedmods = FALSE)
+
+
+/obj/item/clothing/shoes/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/mob/user = loc
+	var/is_mob = istype(user)
+
+	var/blood_overlay
+
+	// We don't want overlays to lay one on another, so we separate conditions with two and one feet
+	if(!is_mob || is_mob && user.has_both_feet())
+		blood_overlay = get_blood_overlay("shoes")
+		if(blood_overlay)
+			. += blood_overlay
+		return
+
+	if(user.has_left_foot())
+		blood_overlay = get_blood_overlay("shoe_l")
+		if(blood_overlay)
+			. += blood_overlay
+		return
+
+	if(user.has_right_foot())
+		blood_overlay = get_blood_overlay("shoe_r")
+		if(blood_overlay)
+			. += blood_overlay
+		return
 
 
 //Suit
@@ -937,6 +1008,16 @@
 		adjustsuit(user)
 	else
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
+
+
+/obj/item/clothing/suit/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/blood_overlay = get_blood_overlay(blood_overlay_type)
+	if(blood_overlay)
+		. += blood_overlay
 
 
 //Spacesuit
@@ -1151,6 +1232,16 @@
 			. += accessory.acc_overlay
 
 
+/obj/item/clothing/under/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands = FALSE, icon_file)
+	. = ..()
+	if(isinhands)
+		return
+
+	var/blood_overlay = get_blood_overlay("uniform")
+	if(blood_overlay)
+		. += blood_overlay
+
+
 /*
  * # can_attach_accessory
  *
@@ -1313,6 +1404,17 @@
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/neck.dmi'
 		)
 
+
+/obj/item/clothing/neck/separate_worn_overlays(mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
+	. = ..()
+	if(isinhands || !(body_parts_covered & HEAD))
+		return
+
+	var/blood_overlay = get_blood_overlay("mask")
+	if(blood_overlay)
+		. += blood_overlay
+
+
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!teleportation)
 		return ..()
@@ -1375,3 +1477,16 @@
 		for(var/new_trait in trait_or_traits)
 			REMOVE_CLOTHING_TRAIT(wearer, src, new_trait)
 
+
+/// Returns a list of overlays with our blood, if we're bloodied
+/obj/item/clothing/proc/get_blood_overlay(blood_state)
+	if(!blood_DNA)
+		return
+
+	var/blood_mask = 'icons/mob/human_races/masks/blood_human.dmi'
+
+	var/mob/user = loc
+	if(istype(user) && user.dna && ("[blood_state]blood" in user.dna.species.get_blood_overlays()))
+		blood_mask = user.dna.species.blood_mask
+
+	return mutable_appearance(blood_mask, "[blood_state]blood", color = blood_color)
