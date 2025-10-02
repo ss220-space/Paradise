@@ -125,4 +125,4 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/wrapping_paper/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You need to use it on a package that has already been wrapped!</span>")
+	to_chat(user, span_notice("You need to use it on a package that has already been wrapped!"))

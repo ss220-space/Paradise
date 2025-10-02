@@ -363,7 +363,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				italics = TRUE
 				sound_vol *= 0.5 //muffle the sound a bit, so it's like we're actually talking through contact
 
-		var/list/hear = hear(message_range, T)
+		var/list/hear = get_hear(message_range, T)
 		var/list/hearturfs = list()
 
 		for(var/I in hear)
@@ -423,9 +423,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			if(O) //It's possible that it could be deleted in the meantime.
 				if(isradio(O))
 					var/obj/item/radio/radio = O
-					if(radio.broadcasting && get_dist(radio, M) <= radio.canhear_range && !(radio.frequency in transmited_channels))
+					if(radio.get_broadcasting() && get_dist(radio, M) <= radio.canhear_range && !(radio.get_frequency() in transmited_channels))
 						if(radio.talk_into(M, message_pieces, null, verbage))
-							transmited_channels += radio.frequency
+							transmited_channels += radio.get_frequency()
 				else
 					O.hear_talk(M, message_pieces, verbage)
 
@@ -509,7 +509,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		verb = "[adverb] [genderize_decode(src, verb)]"
 
 	var/atom/whisper_loc = get_whisper_loc()
-	var/list/listening = hear(message_range, whisper_loc)
+	var/list/listening = get_hear(message_range, whisper_loc)
 	listening |= src
 
 	var/list/hearturfs = list()

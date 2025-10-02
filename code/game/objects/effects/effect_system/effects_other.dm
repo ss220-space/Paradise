@@ -159,10 +159,10 @@
 		do_sparks(2, TRUE, location)
 
 		for(var/mob/M in viewers(5, location))
-			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
+			to_chat(M, span_warning("The solution violently explodes."))
 		for(var/mob/living/L in viewers(1, location))
 			if(prob(50 * amount))
-				to_chat(L, "<span class='warning'>The explosion pushes you.</span>")
+				to_chat(L, span_warning("The explosion pushes you."))
 				goonchem_vortex_weak(location, 0, amount)
 		return
 	else
@@ -185,7 +185,7 @@
 			flash += (round(amount/4) * flashing_factor)
 
 		for(var/mob/M in viewers(8, location))
-			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
+			to_chat(M, span_warning("The solution violently explodes."))
 
 		explosion(location, devastation_range = devastation, heavy_impact_range = heavy, light_impact_range = light, flash_range = flash, cause = "Reagent Explosion")
 

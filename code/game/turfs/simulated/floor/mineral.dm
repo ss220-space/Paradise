@@ -44,19 +44,21 @@
 
 	if(I.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
-		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		ignite(I.get_heat())
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 
 /turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
-		user.visible_message(span_danger("[user] sets [src] on fire!"),\
-						span_danger("[src] disintegrates into a cloud of plasma!"),\
-						span_warning("You hear a 'whoompf' and a roar."))
+		user.visible_message(
+			span_danger("[user] sets [src] on fire!"),\
+			span_danger("[src] disintegrates into a cloud of plasma!"),\
+			span_warning("You hear a 'whoompf' and a roar.")
+		)
 		ignite(2500) //Big enough to ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
-		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 
 /turf/simulated/floor/mineral/plasma/proc/PlasmaBurn()
 	make_plating(FALSE)

@@ -23,7 +23,7 @@
 /datum/data/pda/messenger_plugin/virus/clown/user_act(mob/user as mob, obj/item/pda/P)
 	. = ..(user, P)
 	if(.)
-		user.show_message("<span class='notice'>Virus sent!</span>", 1)
+		user.show_message(span_notice("Virus sent!"), 1)
 		P.honkamt = (rand(15,20))
 		P.ttone = "honk"
 
@@ -34,7 +34,7 @@
 /datum/data/pda/messenger_plugin/virus/mime/user_act(mob/user as mob, obj/item/pda/P)
 	. = ..(user, P)
 	if(.)
-		user.show_message("<span class='notice'>Virus sent!</span>", 1)
+		user.show_message(span_notice("Virus sent!"), 1)
 		P.silent = TRUE
 		P.ttone = "silence"
 
@@ -54,18 +54,18 @@
 			difficulty += 2
 
 		if(!P.detonate || P.hidden_uplink)
-			user.show_message("<span class='warning'>The target PDA does not seem to respond to the detonation command.</span>", 1)
+			user.show_message(span_warning("The target PDA does not seem to respond to the detonation command."), 1)
 			pda.cartridge.charges++
 		else if(prob(difficulty * 12))
-			user.show_message("<span class='warning'>An error flashes on your [pda].</span>", 1)
+			user.show_message(span_warning("An error flashes on your [pda]."), 1)
 		else if(prob(difficulty * 3))
-			user.show_message("<span class='danger'>Energy feeds back into your [pda]!</span>", 1)
+			user.show_message(span_danger("Energy feeds back into your [pda]!"), 1)
 			pda.close(user)
 			pda.explode()
 			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up")
 			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up")
 		else
-			user.show_message("<span class='notice'>Success!</span>", 1)
+			user.show_message(span_notice("Success!"), 1)
 			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded")
 			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded")
 			P.explode()
@@ -77,7 +77,7 @@
 	. = ..(user, P)
 	if(.)
 		var/lock_code = "[rand(100,999)] [pick("Alpha","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel","India","Juliet","Kilo","Lima","Mike","November","Oscar","Papa","Quebec","Romeo","Sierra","Tango","Uniform","Victor","Whiskey","X-ray","Yankee","Zulu")]"
-		user.show_message("<span class='notice'>Virus Sent!  The unlock code to the target is: [lock_code]</span>")
+		user.show_message(span_notice("Virus Sent!  The unlock code to the target is: [lock_code]"))
 		if(!P.hidden_uplink)
 			var/obj/item/uplink/hidden/uplink = new(P)
 			P.hidden_uplink = uplink

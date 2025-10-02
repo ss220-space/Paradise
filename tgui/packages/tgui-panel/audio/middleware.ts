@@ -8,6 +8,7 @@ import { AudioPlayer } from './player';
 
 export const audioMiddleware = (store) => {
   const player = new AudioPlayer();
+
   player.onPlay(() => {
     store.dispatch({ type: 'audio/playing' });
   });
@@ -27,7 +28,7 @@ export const audioMiddleware = (store) => {
     }
     if (type === 'settings/update' || type === 'settings/load') {
       const volume = payload?.adminMusicVolume;
-      if (typeof volume === 'number') {
+      if (typeof volume === 'number' && isFinite(volume)) {
         player.setVolume(volume);
       }
       return next(action);

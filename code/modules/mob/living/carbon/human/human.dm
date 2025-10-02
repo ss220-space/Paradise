@@ -14,7 +14,7 @@
 	special_check_for_transplantation()
 
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-	diag_hud.add_to_hud(src)
+	diag_hud.add_atom_to_hud(src)
 	med_hud_set_health()	// Updating med huds is necessary after `setup_dna()` due to the fact that while
 	med_hud_set_status()	// a human does not have a heart, the hud status is displayed incorrectly.
 
@@ -729,7 +729,7 @@
 						skills = E.fields["notes"]
 						break
 				if(skills)
-					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
+					to_chat(usr, "[span_deptradio("Employment records: [skills]")]\n")
 
 	. = ..()
 
@@ -1849,7 +1849,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/obj/item/organ/external/chest/self_chest = get_organ(BODY_ZONE_CHEST)
 	if(!self_chest || !istype(self_chest))
 		return
-	if(brains.original_body && brains.original_body != self_chest)
+	if(brains.original_body == self_chest)
+		return
+	if(brains.original_body)
 		//this is not original body for brain, apply brain transplantation disease
 		var/datum/disease/brain_transplant_syndrome/disease = new
 		disease.Contract(src)

@@ -265,13 +265,13 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 	var/dat = "Gravity Generator Breaker: "
 	if(breaker)
-		dat += "<span class='linkOn'>ON</span> <a href='byond://?src=[UID()];gentoggle=1'>OFF</a>"
+		dat += "[span_linkon("ON")] <a href='byond://?src=[UID()];gentoggle=1'>OFF</a>"
 	else
-		dat += "<a href='byond://?src=[UID()];gentoggle=1'>ON</a> <span class='linkOn'>OFF</span> "
+		dat += "<a href='byond://?src=[UID()];gentoggle=1'>ON</a> [span_linkon("OFF")] "
 
 	dat += "<br>Generator Status:<br><div class='statusDisplay'>"
 	if(charging_state != GRAV_POWER_IDLE)
-		dat += "<span class='bad'>WARNING</span> Radiation Detected. <br>[charging_state == GRAV_POWER_UP ? "Charging..." : "Discharging..."]"
+		dat += "[span_bad("WARNING")] Radiation Detected. <br>[charging_state == GRAV_POWER_UP ? "Charging..." : "Discharging..."]"
 	else if(on)
 		dat += "Powered."
 	else

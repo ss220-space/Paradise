@@ -139,14 +139,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/middle)
-"cp" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
-/turf/simulated/wall/shuttle{
-	color = "#A9E0FF"
-	},
-/area/ruin/space/crashedipcship/middle)
 "cq" = (
 /obj/structure/decorative_structures/metal/statue/sun,
 /obj/structure/spacevine,
@@ -352,6 +344,12 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/asteroid)
+"fd" = (
+/obj/structure/table,
+/obj/item/stock_parts/cell,
+/obj/structure/lattice,
+/turf/space,
+/area/ruin/space/crashedipcship/aft)
 "fi" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal{
@@ -517,6 +515,14 @@
 	icon_state = "barber"
 	},
 /area/ruin/space/crashedipcship/aft)
+"ji" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/turf/simulated/wall/shuttle{
+	color = "#A9E0FF"
+	},
+/area/ruin/space/crashedipcship/engine)
 "jw" = (
 /obj/structure/spacevine,
 /obj/item/toy/minimeteor,
@@ -1513,13 +1519,6 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/space,
 /area/space)
-"yW" = (
-/obj/structure/window/full/shuttle{
-	color = "#A9E0FF"
-	},
-/obj/structure/grille,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/crashedipcship/middle)
 "yX" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/decal/cleanable/dirt,
@@ -2120,6 +2119,14 @@
 /mob/living/simple_animal/hostile/headcrab/poison,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/middle)
+"IM" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/turf/simulated/wall/shuttle{
+	color = "#A9E0FF"
+	},
+/area/ruin/space/crashedipcship/middle)
 "IU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2448,14 +2455,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/aft)
-"Nn" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
-/turf/simulated/wall/shuttle{
-	color = "#A9E0FF"
-	},
-/area/ruin/space/crashedipcship/engine)
 "Nu" = (
 /obj/machinery/light{
 	dir = 1;
@@ -2986,12 +2985,6 @@
 	color = "#A9E0FF"
 	},
 /area/ruin/space/crashedipcship/middle)
-"YB" = (
-/obj/structure/table,
-/obj/item/stock_parts/cell/crap,
-/obj/structure/lattice,
-/turf/space,
-/area/ruin/space/crashedipcship/aft)
 "YH" = (
 /obj/effect/turf_decal{
 	icon_state = "grass_edge_medium";
@@ -4520,7 +4513,7 @@ gz
 rH
 OJ
 DH
-YB
+fd
 An
 An
 uP
@@ -5237,7 +5230,7 @@ uP
 uP
 uP
 Yl
-cp
+IM
 lR
 lH
 Yl
@@ -5253,7 +5246,7 @@ BM
 Yl
 zB
 ti
-cp
+IM
 Yl
 uP
 uP
@@ -5445,7 +5438,7 @@ uP
 uP
 uP
 Yl
-yW
+fo
 vn
 fo
 Yl
@@ -5913,7 +5906,7 @@ uP
 uP
 uP
 Ah
-Nn
+ji
 dQ
 dQ
 Ah
@@ -5929,7 +5922,7 @@ nW
 Ah
 dQ
 dQ
-Nn
+ji
 Ah
 uP
 uP

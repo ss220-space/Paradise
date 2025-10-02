@@ -197,7 +197,7 @@ GLOBAL_VAR(current_date_string)
 			"}
 
 			P.info = text
-			visible_message("<span class='notice'>[src] prints out a report.</span>")
+			visible_message(span_notice("[src] prints out a report."))
 			next_print = world.time + 30 SECONDS
 
 		if("print_account_details")
@@ -246,7 +246,7 @@ GLOBAL_VAR(current_date_string)
 				"}
 
 			P.info = text
-			visible_message("<span class='notice'>[src] prints out a report.</span>")
+			visible_message(span_notice("[src] prints out a report."))
 			next_print = world.time + 30 SECONDS
 
 #undef AUT_ACCLST

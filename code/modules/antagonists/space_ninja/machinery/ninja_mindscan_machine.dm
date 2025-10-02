@@ -217,7 +217,7 @@
 	data["occupant_name"] = occupant ? occupant.real_name : "none"
 	data["occupant_health"] = occupant ? occupant.health : "none"
 
-	for(var/temp_occupant as anything in objective.scanned_occupants)
+	for(var/temp_occupant in objective.scanned_occupants)
 		scanned_occupants_info += list(list("scanned_occupant" = temp_occupant))
 
 	data["scanned_occupants"] = scanned_occupants_info

@@ -15,7 +15,6 @@
 	status_flags = CANPUSH
 	mob_size = MOB_SIZE_LARGE
 	pixel_y_lying_offset = -20
-	var/mob/living/oldform
 	var/datum/antagonist/devil/devilinfo
 	var/ascended = FALSE
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]

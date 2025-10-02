@@ -53,11 +53,11 @@
 					//	return
 					AddBan(C.ckey, C.computer_id, reason, "SyndiCat", 0, 0, C.mob.lastKnownIP)
 					to_chat(C, "<span class='danger'><BIG><b>You have been banned by SyndiCat.\nReason: [reason].</b></BIG></span>")
-					to_chat(C, "<span class='red'>This is a permanent ban.</span>")
+					to_chat(C, span_red("This is a permanent ban."))
 					if(CONFIG_GET(string/banappeals))
-						to_chat(C, "<span class='red'>To try to resolve this matter head to [CONFIG_GET(string/banappeals)]</span>")
+						to_chat(C, span_red("To try to resolve this matter head to [CONFIG_GET(string/banappeals)]"))
 					else
-						to_chat(C, "<span class='red'>No ban appeals URL has been set.</span>")
+						to_chat(C, span_red("No ban appeals URL has been set."))
 					ban_unban_log_save("SyndiCat has permabanned [C.ckey]. - Reason: [reason] - This is a permanent ban.")
 					log_admin("SyndiCat has banned [C.ckey].")
 					log_admin("Reason: [reason]")

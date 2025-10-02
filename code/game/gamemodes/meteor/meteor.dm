@@ -13,9 +13,10 @@
 
 /datum/game_mode/meteor/post_setup()
 	spawn(rand(waittime_l, waittime_h))
-		GLOB.major_announcement.announce("Станция находится на пути надвигающегося потока метеоров. Укрепите обшивку и подготовьте группы по устранению повреждений.",
-										ANNOUNCE_METEOR_RU,
-										'sound/effects/siren.ogg'
+		GLOB.major_announcement.announce(
+			message = "Станция находится на пути надвигающегося потока метеоров. Укрепите обшивку и подготовьте группы по устранению повреждений.",
+			new_title = ANNOUNCE_METEOR_RU,
+			new_sound = 'sound/effects/siren.ogg'
 		)
 	spawn(initialmeteordelay)
 		sendmeteors()
@@ -53,9 +54,9 @@
 			survivors++
 
 	if(survivors)
-		to_chat(world, "<span class='boldnotice'>The following survived the meteor storm</span>:[text]")
+		to_chat(world, "[span_boldnotice("The following survived the meteor storm")]:[text]")
 	else
-		to_chat(world, "<span class='boldnotice'>Nobody survived the meteor storm!</span>")
+		to_chat(world, span_boldnotice("Nobody survived the meteor storm!"))
 
 	SSticker.mode_result = "meteor end - evacuation"
 

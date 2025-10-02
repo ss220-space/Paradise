@@ -98,7 +98,7 @@
 	return
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/try_to_crowbar(mob/user, obj/item/I)
-		to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 
 /mob/living/simple_animal/hostile/megafauna/legion/proc/UnlockBlastDoors(target_id_tag)
 	for(var/obj/machinery/door/poddoor/impassable/necropolisdoor/P in GLOB.airlocks)

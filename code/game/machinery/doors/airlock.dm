@@ -1112,8 +1112,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
 				return
-			user.visible_message(span_notice("[user] remove \the [src]'s shielding."),
-								span_notice("You remove \the [src]'s inner shielding."))
+			user.visible_message(
+				span_notice("[user] remove \the [src]'s shielding."),
+				span_notice("You remove \the [src]'s inner shielding.")
+			)
 			security_level = AIRLOCK_SECURITY_NONE
 			modify_max_integrity(normal_integrity)
 			damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
@@ -1124,8 +1126,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
 				return
-			user.visible_message(span_notice("[user] remove \the [src]'s shielding."),
-								span_notice("You remove \the [src]'s shielding."))
+			user.visible_message(
+				span_notice("[user] remove \the [src]'s shielding."),
+				span_notice("You remove \the [src]'s shielding.")
+			)
 			security_level = AIRLOCK_SECURITY_PLASTEEL_I
 			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
 	else
@@ -1151,8 +1155,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(I.use_tool(src, user, 10, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL)
 				return
-			user.visible_message(span_notice("[user] cut through \the [src]'s outer grille."),
-								span_notice("You cut through \the [src]'s outer grille."))
+			user.visible_message(
+				span_notice("[user] cut through \the [src]'s outer grille."),
+				span_notice("You cut through \the [src]'s outer grille.")
+			)
 			security_level = AIRLOCK_SECURITY_PLASTEEL_O
 		return
 	interact_with_panel(user)
@@ -1177,8 +1183,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(isAllPowerLoss())
 		to_chat(user, span_notice("You start wrenching bolt reducer."))
 		if(I.use_tool(src, user, 300, volume = I.tool_volume))
-			user.visible_message(span_notice("[user] raise \the [src]'s bolt manually."),
-								span_notice("You raise \the [src]'s bolt manually."))
+			user.visible_message(
+				span_notice("[user] raise \the [src]'s bolt manually."),
+				span_notice("You raise \the [src]'s bolt manually.")
+			)
 			unlock(TRUE)
 		return
 
@@ -1194,26 +1202,32 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				to_chat(user, span_notice("You begin cutting the panel's shielding..."))
 				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 					return
-				visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
+				visible_message(
+					span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
-					span_italics("You hear welding."))
+					span_italics("You hear welding.")
+				)
 				security_level = AIRLOCK_SECURITY_NONE
 				spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
 			if(AIRLOCK_SECURITY_PLASTEEL_O)
 				to_chat(user, span_notice("You begin cutting the outer layer of shielding..."))
 				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 					return
-				visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
+				visible_message(
+					span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
-					span_italics("You hear welding."))
+					span_italics("You hear welding.")
+				)
 				security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
 			if(AIRLOCK_SECURITY_PLASTEEL_I)
 				to_chat(user, span_notice("You begin cutting the inner layer of shielding..."))
 				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 					return
-				user.visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
+				user.visible_message(
+					span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
-					span_italics("You hear welding."))
+					span_italics("You hear welding.")
+				)
 				security_level = AIRLOCK_SECURITY_PLASTEEL_I_S
 	else
 		if(user.a_intent != INTENT_HELP)
