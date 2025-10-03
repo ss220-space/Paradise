@@ -131,7 +131,7 @@ def check_file_alphabetical(filename, use_markers=True):
     return failures
 
 def main():
-    strings_dir = "strings/names/"
+    strings_dir = "strings/"
     strings_txt_files = find_txt_files(strings_dir)
 
     if not strings_txt_files:
