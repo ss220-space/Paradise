@@ -316,18 +316,6 @@
 	disable_message = "Теперь вы не будете видеть уведомления в призрак-чате, если игрок в мире погибнет."
 	blackbox_message = "Toggle Death Notifications"
 
-/*
-/datum/preference_toggle/toggle_reverb
-	name = "Ревербация звуков"
-	description = "Включает ревербацию определённых звуков."
-	preftoggle_bitflag = PREFTOGGLE_2_REVERB_DISABLE
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "Теперь некоторые звуки игры будут ревербироваться."
-	disable_message = "Теперь никакие звуки игры не будут ревербироваться."
-	blackbox_message = "Toggle reverb"
-*/
-
 /datum/preference_toggle/toggle_simple_stat_panel
 	name = "Обводка предметов"
 	description = "Переключает видимость обводки предметов при наведении курсора."
