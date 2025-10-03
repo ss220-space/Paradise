@@ -8,6 +8,7 @@
 	charge_max = 3
 	button_icon_state = "chem_injector"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green_active"
 	action_initialisation_text = "Integrated Restorative Cocktail Mixer"
 

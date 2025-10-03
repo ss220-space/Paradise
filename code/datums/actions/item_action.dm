@@ -34,6 +34,7 @@
 		return FALSE
 	var/obj/item/item_target = target
 	item_target.ui_action_click(owner, src)
+	UpdateButtonIcon()
 	return TRUE
 
 
@@ -89,6 +90,7 @@
 /datum/action/item_action/set_internals_ninja
 	name = "Переключить баллон"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	background_icon_state_active = "background_green_active"
 
@@ -263,27 +265,25 @@
 
 /datum/action/item_action/toggle_jetpack/ninja
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
+	background_icon_state_active = "background_green_active"
 
-/datum/action/item_action/toggle_jetpack/ninja/UpdateButtonIcon()
+/datum/action/item_action/toggle_jetpack/ninja/is_action_active(atom/movable/screen/movable/action_button/current_button)
 	. = ..()
-	var/obj/item/tank/jetpack/J = target
-	if(!istype(J) || !J.on)
-		button_icon = "[background_icon_state]"
-	else
-		button_icon = "[background_icon_state]_active"
+	var/obj/item/tank/jetpack/jetpack = target
+	return istype(jetpack) && jetpack.on
 
 /datum/action/item_action/jetpack_stabilization/ninja
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
+	background_icon_state_active = "background_green_active"
 
-/datum/action/item_action/jetpack_stabilization/ninja/UpdateButtonIcon()
+/datum/action/item_action/jetpack_stabilization/ninja/is_action_active(atom/movable/screen/movable/action_button/current_button)
 	. = ..()
-	var/obj/item/tank/jetpack/J = target
-	if(!istype(J) || !J.stabilize)
-		button_icon = "[background_icon_state]"
-	else
-		button_icon = "[background_icon_state]_active"
+	var/obj/item/tank/jetpack/jetpack = target
+	return istype(jetpack) && jetpack.stabilize
 
 
 /datum/action/item_action/hands_free
@@ -639,6 +639,7 @@
 /datum/action/item_action/advanced/ninja
 	coold_overlay_icon = 'icons/mob/actions/actions_ninja.dmi'
 	coold_overlay_icon_state = "background_green"
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	icon_state_active = "background_green_active"
 	icon_state_disabled = "background_green"
 	var/action_initialisation_text = null

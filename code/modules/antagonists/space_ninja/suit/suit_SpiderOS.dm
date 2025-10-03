@@ -10,6 +10,7 @@
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "spider_green"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
 /obj/item/clothing/suit/space/space_ninja/ui_interact(mob/user, datum/tgui/ui = null)

@@ -6,6 +6,7 @@
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "shuriken"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Pure Energy Shuriken Emitter"
 

@@ -5,6 +5,7 @@
 	desc = "Creates a throwing star in your hand, if possible."
 	button_icon_state = "shuriken"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
 /**

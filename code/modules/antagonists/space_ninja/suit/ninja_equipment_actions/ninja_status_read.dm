@@ -4,6 +4,7 @@
 	desc = "Gives a detailed readout about your current status."
 	button_icon_state = "healthstatus"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	//action_initialisation_text = "Integrated Health Analizer"
 

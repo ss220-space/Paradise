@@ -5,6 +5,7 @@
 	charge_max = 3 SECONDS
 	button_icon_state = "smoke"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Integrated Smoke Generator"
 
@@ -15,6 +16,7 @@
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "smoke_auto"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = null
 

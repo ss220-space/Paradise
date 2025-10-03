@@ -169,6 +169,7 @@
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "arrows_3"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	current_charges = 3
 	max_charges = 3

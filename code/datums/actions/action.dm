@@ -289,11 +289,11 @@
 		icon_settings = owner.hud_used.get_action_buttons_icons()
 
 	// Determine which icon to use
-	var/used_icon_key = is_action_active(current_button) ? "bg_state_active" : "bg_state"
+	var/used_icon_key = is_action_active(current_button) ? ACTION_BUTTON_KEY_BG_STATE_ACTIVE : ACTION_BUTTON_KEY_BG_STATE
 
 	// Make the underlay
 	current_button.underlays.Cut()
-	current_button.underlays += image(icon = icon_settings["bg_icon"], icon_state = icon_settings[used_icon_key])
+	current_button.underlays += image(icon = icon_settings[ACTION_BUTTON_KEY_BG_ICON], icon_state = icon_settings[used_icon_key])
 	current_button.active_underlay_icon_state = icon_settings[used_icon_key]
 
 /**

@@ -6,6 +6,7 @@
 	charge_max = 1 SECONDS
 	button_icon_state = "caltrop"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 	action_initialisation_text = "Energy Caltrops Scattering Device"
 
