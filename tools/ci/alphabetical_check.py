@@ -170,10 +170,10 @@ def main():
         sys.exit(1)
     else:
         print(f"{GREEN}All files are properly sorted!{NC}")
-        print(f"{BLUE}Checked {len(checked_files)} files:{NC}")
-        for checked_file in checked_files:
-            check_type = "full file" if checked_file in strings_txt_files else "marker-based"
-            print(f"  - {checked_file} ({check_type} check)")
+        print(f"{BLUE}Checked {len(checked_files)} files.{NC}")
+        #for checked_file in checked_files:
+        #    check_type = "full file" if checked_file in strings_txt_files else "marker-based"
+        #    print(f"  - {checked_file} ({check_type} check)")
 
 if __name__ == "__main__":
     main()
