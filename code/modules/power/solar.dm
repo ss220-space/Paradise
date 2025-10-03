@@ -119,7 +119,7 @@
 		. +=  image('icons/obj/engines_and_power/solar_panels.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
 		dir = angle2dir(adir)
 
-//calculates the fraction of the sunlight that the panel recieves
+///calculates the fraction of the sunlight that the panel receives
 /obj/machinery/power/solar/proc/update_solar_exposure()
 	if(obscured)
 		sunfrac = 0

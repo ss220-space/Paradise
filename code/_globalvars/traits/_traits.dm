@@ -4,7 +4,7 @@
 // Please do note that there is absolutely no bearing on what traits are added to what subtype of `/datum`, this is just an easily referenceable list sorted by type.
 // The only thing that truly matters about traits is the code that is built to handle the traits, and where that code is located. Nothing else.
 
-// Sort everything in alphabetical order, please!
+// Sort in alphabetical order, please!
 // Use the website if you can't do it yourself. https://spiskin.ru/scripts/sort_alphabet
 
 GLOBAL_LIST_INIT(traits_by_type, list(

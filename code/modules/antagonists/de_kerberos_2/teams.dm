@@ -69,19 +69,19 @@
 	name = "Зеленые"
 	team_color = "#09ff00"
 	team_role = JOB_TITLE_TEAM1
-	landmark = /obj/effect/landmark/team1
+	landmark = /obj/effect/landmark/spawner/team1
 	antag_datum_type = /datum/antagonist/battle/team1
 
 /datum/team/battle_team/blue
 	name = "Синие"
 	team_color = "#1100ff"
 	team_role = JOB_TITLE_TEAM2
-	landmark = /obj/effect/landmark/team2
+	landmark = /obj/effect/landmark/spawner/team2
 	antag_datum_type = /datum/antagonist/battle/team2
 
 /datum/team/battle_team/red
 	name = "Красные"
 	team_color = "#ff0000"
 	team_role = JOB_TITLE_TEAM3
-	landmark = /obj/effect/landmark/team3
+	landmark = /obj/effect/landmark/spawner/team3
 	antag_datum_type = /datum/antagonist/battle/team3

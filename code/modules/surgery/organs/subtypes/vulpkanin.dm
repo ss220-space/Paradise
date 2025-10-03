@@ -34,7 +34,7 @@
 	)
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
 	item_state = "vulpkanin_eyes"
-	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix parameter that the mob will recieve when they get the disability.
+	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix parameter that the mob will receive when they get the disability.
 	replace_colours = PROTANOPIA_COLOR_REPLACE
 	see_in_dark = 8
 

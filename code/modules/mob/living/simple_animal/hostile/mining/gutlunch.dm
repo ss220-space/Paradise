@@ -86,7 +86,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/ListTargetsLazy(check_z)//override to include wanted_objects as valid targets
 	. = ..()
-	for(var/atom/movable/movable as anything in view(vision_range, loc))
+	for(var/atom/movable/movable in view(vision_range, loc))
 		if(wanted_objects[movable.type])
 			if(isturf(movable.loc))
 				. += movable
@@ -195,7 +195,7 @@
 	gold_core_spawnable = NO_SPAWN
 	var/growth = 0
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/get_ru_names()	
+/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/get_ru_names()
 	return list(
 		NOMINATIVE = "червожор",
 		GENITIVE = "червожора",

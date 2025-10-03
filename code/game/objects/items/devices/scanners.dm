@@ -211,7 +211,7 @@ BODY SCANNERS
 	new /obj/effect/temp_visual/scan(get_turf(src))
 	var/list/t_ray_images = list()
 
-	for(var/atom/movable/invisible_object as anything in view(scan_range, get_turf(src)))
+	for(var/atom/movable/invisible_object in view(scan_range, get_turf(src)))
 		if(!(istype(invisible_object, /obj/structure/closet/cardboard/agent/) || isliving(invisible_object)))
 			continue
 		if(!(invisible_object.alpha < 255 || invisible_object.invisibility == INVISIBILITY_LEVEL_TWO))
