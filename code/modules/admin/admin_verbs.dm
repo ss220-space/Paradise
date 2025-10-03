@@ -870,7 +870,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	var/rank = null
 	if(CONFIG_GET(flag/admin_legacy_system))
 		//load text from file
-		var/list/Lines = file2list("config/admins.txt")
+		var/list/Lines = world.file2list("config/admins.txt")
 		for(var/line in Lines)
 			if(findtext(line, "#")) // Skip comments
 				continue
