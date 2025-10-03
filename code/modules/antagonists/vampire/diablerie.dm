@@ -1,5 +1,7 @@
 /// Bonus amount of blood that vampire sucks from victim in units per diablerie level. Base is 30u, max is 50u with fourth level bonus
 #define DIABLERIE_SUCKING_AMOUNT 5
+/// Diablerie level at which our diablerie aura is shown to everyone, used only for convenience
+#define ASCENDED_AURA_LEVEL 3
 
 
 /**
@@ -14,7 +16,7 @@
 	var/mob/living/carbon/human/vampire
 	/// Amount of times we performed diablerie on someone, limit is DIABLERIE_COUNT_MAX. Matches current diablerie level
 	var/diablerie_count = 0
-	/// Reference to diablerie aura. On level 1 only vampires can see it, at level 3 — everyone
+	/// Reference to diablerie aura. On level 1 only vampires can see it, at level [ASCENDED_AURA_LEVEL] — everyone
 	var/obj/effect/diablerie_aura/diablerie_aura
 	/// Used to store user unarmed attack datum to retrieve it, because we modify it
 	var/datum/unarmed_attack/old_unarmed
@@ -47,6 +49,29 @@
 	return ..()
 
 
+/**
+ * Adds [DIABLERIE_AURA_HUD] to the vampire to avoid using see_invis, only for levels below [ASCENDED_AURA_LEVEL]
+ */
+/datum/diablerie/proc/add_diablerie_hud(mob/living/owner)
+	var/datum/atom_hud/diablerie_aura/aura_hud = GLOB.huds[DIABLERIE_AURA_HUD]
+	aura_hud.add_atom_to_hud(owner)
+	var/image/aura = owner.hud_list[DIABLERIE_AURA_HUD]
+	if(aura)
+		var/mutable_appearance/mutable = mutable_appearance(icon = 'icons/effects/vampire_effects.dmi', icon_state = "diablerie_aura", layer = vampire.layer - 0.1)
+		aura.appearance = mutable
+
+
+/**
+ * Removes [DIABLERIE_AURA_HUD] from the vampire
+ */
+/datum/diablerie/proc/remove_diablerie_hud(mob/living/owner)
+	var/datum/atom_hud/diablerie_aura/aura_hud = GLOB.huds[DIABLERIE_AURA_HUD]
+	aura_hud.remove_atom_from_hud(owner)
+
+
+/**
+ * Increases diablerie level by one
+ */
 /datum/diablerie/proc/increase_diablerie_level()
 	if(diablerie_count >= DIABLERIE_COUNT_MAX)
 		return
@@ -57,6 +82,9 @@
 	apply_additional_bonuses()
 
 
+/**
+ * Decreases diablerie level by one
+ */
 /datum/diablerie/proc/decrease_diablerie_level()
 	if(diablerie_count <= 0)
 		return
@@ -87,30 +115,35 @@
 		power.cooldown_handler.change_cooldowns(recharge_reduction = -DIABLERIE_COOLDOWN_REDUCTION)
 
 
+/**
+ * Handles both cases of adding aura: just hud for vampires or the effect if we have ascended aura.
+ * If 'ascended' set to 'TRUE', applies to the vampire the ascended aura seen by anyone
+ */
 /datum/diablerie/proc/add_diablerie_aura(ascended = FALSE)
-	if(!diablerie_aura)
-		diablerie_aura = new()
+	if(!ascended)
+		add_diablerie_hud(vampire)
+		return
 
-	diablerie_aura.invisibility = INVISIBILITY_VAMPIRE_AURA
-	if(ascended)
-		diablerie_aura.invisibility = 0
-
-	diablerie_aura.vis_flags = VIS_INHERIT_DIR | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_UNDERLAY
+	diablerie_aura = new()
 	vampire.vis_contents |= diablerie_aura
 	vampire.update_appearance()
 
 
 /**
- * Proc to transfer diablerie aura from one mob to another, while transforming on transfering bodies
+ * Proc to transfer diablerie aura from one mob to another, when transforming or transfering bodies
  *
  * Arguments:
  * * old_body - Old body to remove aura from
  * * new_body - New body to transfer aura to
  */
 /datum/diablerie/proc/transfer_diablerie_aura(mob/living/old_body, mob/living/new_body)
-	if(!diablerie_aura)
+	// Only vampires can see our aura at this moment, so we just transfer hud to the new body
+	if(diablerie_count < ASCENDED_AURA_LEVEL)
+		remove_diablerie_hud(old_body)
+		add_diablerie_hud(new_body)
 		return
 
+	// At this point we already have aura as an effect seen by anyone, so we transfer it between vis_contents
 	old_body?.vis_contents -= diablerie_aura
 	old_body?.update_appearance()
 
@@ -118,7 +151,15 @@
 	new_body?.update_appearance()
 
 
-/datum/diablerie/proc/remove_diablerie_aura()
+/**
+ * Handles both cases of removing aura: removing vampire from hud or deleting the effect if we have ascended aura
+ * if 'ascended' set to 'TRUE', removes from the vampire and deletes the diablerie_aura effect
+ */
+/datum/diablerie/proc/remove_diablerie_aura(ascended = FALSE)
+	if(!ascended)
+		remove_diablerie_hud(vampire)
+		return
+
 	vampire.vis_contents -= diablerie_aura
 	vampire.update_appearance()
 	QDEL_NULL(diablerie_aura)
@@ -141,6 +182,9 @@
 		decrease_diablerie_level()
 
 
+/**
+ * Upgrades rejuvenate max_charges to 2 at level 1 and internal bleedings heal at level 3
+ */
 /datum/diablerie/proc/upgrade_rejuvenate(upgrade_heal = FALSE)
 	var/obj/effect/proc_holder/spell/vampire/self/rejuvenate/rejuvenate = locate() in vampire_datum.powers
 	if(upgrade_heal)
@@ -151,6 +195,9 @@
 	charges.change_cooldowns(new_max_charges = 2)
 
 
+/**
+ * Upgrades glare max_charges to 3 at level 2 and adds deviation ignore at level 4
+ */
 /datum/diablerie/proc/upgrade_glare(upgrade_deviation = FALSE)
 	var/obj/effect/proc_holder/spell/vampire/glare/glare = locate() in vampire_datum.powers
 	if(upgrade_deviation)
@@ -161,6 +208,9 @@
 	charges.change_cooldowns(new_max_charges = 3)
 
 
+/**
+ * Handles vampire ascension announcment and changes security code to GAMMA
+ */
 /datum/diablerie/proc/announce_vampire_ascended(mob/living/carbon/human/vampire)
 	// We don't want announcments from shitspawning at admin zone
 	var/turf/vampire_turf = get_turf(vampire)
@@ -178,6 +228,9 @@
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 5 SECONDS)
 
 
+/**
+ * Handles vampire death announcment and changes security code to RED
+ */
 /datum/diablerie/proc/announce_vampire_fallen(mob/living/carbon/human/vampire)
 	SIGNAL_HANDLER
 
@@ -195,11 +248,15 @@
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_RED), 5 SECONDS)
 	UnregisterSignal(vampire, list(COMSIG_LIVING_DEATH, COMSIG_HUMAN_DESTROYED))
 
-
+/**
+ * Applies all special effects of the current level to vampire
+ */
 /datum/diablerie_level/proc/gain(datum/diablerie/diablerie)
 	return
 
-
+/**
+ * Removes all special effects of the current level from vampire
+ */
 /datum/diablerie_level/proc/remove(datum/diablerie/diablerie)
 	return
 
@@ -272,6 +329,7 @@
 /datum/diablerie_level/level_three/gain(datum/diablerie/diablerie)
 	diablerie.upgrade_rejuvenate(upgrade_heal = TRUE)
 
+	diablerie.remove_diablerie_aura()
 	diablerie.add_diablerie_aura(ascended = TRUE)
 
 	to_chat(diablerie.vampire, span_boldnotice("Сила вашего \"Восстановления\" возросла, и теперь с его помощью вы можете восстанавливать внутренние кровотечения. Ваша аура теперь видна даже простым смертным. Вы всего в шаге от вершины могущества!"))
@@ -281,6 +339,7 @@
 	var/obj/effect/proc_holder/spell/vampire/self/rejuvenate/rejuvenate = locate() in diablerie.vampire_datum.powers
 	rejuvenate.diablerie_bonus = FALSE
 
+	diablerie.remove_diablerie_aura(ascended = TRUE)
 	diablerie.add_diablerie_aura()
 
 
@@ -335,6 +394,7 @@
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "diablerie_aura"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	vis_flags = VIS_INHERIT_DIR | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE | VIS_UNDERLAY
 
 
 #undef DIABLERIE_SUCKING_AMOUNT

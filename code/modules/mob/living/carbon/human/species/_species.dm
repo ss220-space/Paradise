@@ -1113,8 +1113,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	var/datum/antagonist/vampire/vamp = human.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)
-		if(human.see_invisible < SEE_INVISIBLE_VAMPIRE_AURA)
-			human.set_invis_see(SEE_INVISIBLE_VAMPIRE_AURA)
 		if(vamp.get_ability(/datum/vampire_passive/xray))
 			human.add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 			human.nightvision += 8

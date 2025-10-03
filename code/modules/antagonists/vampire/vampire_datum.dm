@@ -120,13 +120,11 @@
 		check_vampire_upgrade(announce = FALSE)
 		user.faction |= ROLE_VAMPIRE
 		user.dna?.species?.hunger_type = "vampire"
-		//goon vampire slaves code
-		//if(mob_override.mind.som)
-			//var/datum/mindslaves/slaved = mob_override.mind.som
-			//slaved.masters -= mob_override.mind
-			//slaved.serv -= mob_override.mind
-			//slaved.leave_serv_hud(mob_override.mind)
-			//.mind.som = null
+
+	// We add all vampires to diablerie aura hud to avoid using see_invis system
+	var/datum/atom_hud/diablerie_aura/aura_hud = GLOB.huds[DIABLERIE_AURA_HUD]
+	aura_hud.show_to(user)
+
 	ADD_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
 
 	user.AddElement( \
@@ -156,6 +154,9 @@
 			hud.remove_vampire_hud()
 
 		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
+
+	var/datum/atom_hud/diablerie_aura/aura_hud = GLOB.huds[DIABLERIE_AURA_HUD]
+	aura_hud.hide_from(user)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 
