@@ -55,7 +55,7 @@
 		else
 			to_chat(src, msg)
 
-	COOLDOWN_START(src, pain_cd, (client.prefs.toggles3 & REFTOGGLE_3_PAIN_BLURB ? 30 SECONDS : 10 SECONDS) - amount)
+	COOLDOWN_START(src, pain_cd, (client.prefs.toggles3 & PREFTOGGLE_3_PAIN_BLURB ? 30 SECONDS : 10 SECONDS) - amount)
 
 
 // message is the custom message to be displayed
