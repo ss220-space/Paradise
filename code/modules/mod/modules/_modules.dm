@@ -234,7 +234,7 @@
 		return
 
 	var/updated_slots = mod.slot_flags
-	if (mask_worn_overlay)
+	if(mask_worn_overlay)
 		for (var/obj/item/part as anything in mod.get_parts())
 			updated_slots |= part.slot_flags
 	else if (length(required_slots))
