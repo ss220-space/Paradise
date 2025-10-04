@@ -71,8 +71,8 @@
 			if(world.time > (last_defence_mode + mode_cooldown))
 				defence_mode_av = 1
 
-//MODE CHANGING. Knight has 3 modes, first - default, always active. Second - attack, grants increased speed and damage, but also increases damage you recieve.
-//Third - defence, grants even slower movement speed then default, but you recieve much less damage.
+//MODE CHANGING. Knight has 3 modes, first - default, always active. Second - attack, grants increased speed and damage, but also increases damage you receive.
+//Third - defence, grants even slower movement speed then default, but you receive much less damage.
 //Both attack and defence mod lasts for 10 seconds and has a cd of 30. When you are out of non default modes your mode is set to default.
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/proc/activate_mode(n)
 	var/t = world.time

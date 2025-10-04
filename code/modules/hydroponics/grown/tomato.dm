@@ -168,7 +168,7 @@
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack_self(mob/user)
 	if(awakening || isspaceturf(user.loc))
 		return
-	to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")
+	to_chat(user, span_notice("You begin to awaken the Killer Tomato..."))
 	awakening = 1
 
 	spawn(30)
@@ -180,7 +180,7 @@
 			K.melee_damage_upper += round(seed.potency / 10)
 			K.move_to_delay -= round(seed.production / 50)
 			K.health = K.maxHealth
-			K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
+			K.visible_message(span_notice("The Killer Tomato growls as it suddenly awakens."))
 			if(user)
 				user.temporarily_remove_item_from_inventory(src)
 			message_admins("[key_name_admin(user)] released a killer tomato at [ADMIN_COORDJMP(T)]")

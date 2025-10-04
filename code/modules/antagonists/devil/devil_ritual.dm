@@ -206,9 +206,10 @@
 		if(DEVIL_ASCEND_START_STAGE)
 			invoker.RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
 			to_chat(invoker, span_warning("Вы чувствуете, будто вот-вот возвыситесь."))
-			GLOB.major_announcement.announce("Тёмная сушность, известная как [devil.info.truename], из изменерния, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать любые проявления ада на месте.",
-											ANNOUNCE_CCPARANORMAL_RU,
-											'sound/AI/commandreport.ogg'
+			GLOB.major_announcement.announce(
+				message = "Тёмная сушность, известная как [devil.info.truename], из изменерния, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать любые проявления ада на месте.",
+				new_title = ANNOUNCE_CCPARANORMAL_RU,
+				new_sound = 'sound/AI/commandreport.ogg'
 			)
 			stage = FIRST_DEVIL_ASCEND_STAGE
 
@@ -249,9 +250,10 @@
 
 		if(SEVENTH_DEVIL_ASCEND_STAGE)
 			devil.try_update_rank(TRUE)
-			GLOB.major_announcement.announce("Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение тёмных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.",
-											ANNOUNCE_CCPARANORMAL_RU,
-											'sound/AI/commandreport.ogg'
+			GLOB.major_announcement.announce(
+				message = "Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение тёмных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.",
+				new_title = ANNOUNCE_CCPARANORMAL_RU,
+				new_sound = 'sound/AI/commandreport.ogg'
 			)
 			var/area/area = get_area(invoker)
 			if(area)

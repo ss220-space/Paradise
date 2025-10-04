@@ -331,11 +331,11 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/proc/create_landmarks(turf/place)
 	var/landmarks = list(
-		/obj/effect/landmark/join_late,
-		/obj/effect/landmark/join_late_cryo,
-		/obj/effect/landmark/join_late_cyborg,
-		/obj/effect/landmark/join_late_gateway,
-		/obj/effect/landmark/join_late_prisoner,
+		/obj/effect/landmark/spawner/late/crew,
+		/obj/effect/landmark/spawner/late/cryo,
+		/obj/effect/landmark/spawner/late/cyborg,
+		/obj/effect/landmark/spawner/late/gateway,
+		/obj/effect/landmark/spawner/late/prisoner,
 		/obj/effect/landmark/observer_start
 		)
 
@@ -386,13 +386,13 @@ SUBSYSTEM_DEF(mapping)
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])
 		if(map_datum.traits.len > MULTIZ_WARN)
 			message_admins("Loading station with over [MULTIZ_WARN] levels(It has [map_datum.traits.len]!!). May cause some issues with space levels and/or perfomance on server.")
-
 		for(var/i in 2 to map_datum.traits.len)
 			GLOB.space_manager.add_new_zlevel(MAIN_STATION + "([i])", linkage = map_datum.linkage, traits = map_datum.traits[i])
 	else
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+
 
 	if(map_datum?.forced_mode)
 		GLOB.master_mode = map_datum.forced_mode.name
@@ -520,7 +520,9 @@ SUBSYSTEM_DEF(mapping)
 		for(var/obj/machinery/door/airlock/door in area)
 			door.emergency = TRUE
 			door.update_icon()
-	GLOB.minor_announcement.announce("Ограничения на доступ к техническим и внешним шл+юзам были сняты.")
+	GLOB.minor_announcement.announce(
+		message = "Ограничения на доступ к техническим и внешним шл+юзам были сняты."
+	)
 	maint_all_access = TRUE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
@@ -529,7 +531,9 @@ SUBSYSTEM_DEF(mapping)
 		for(var/obj/machinery/door/airlock/door in area)
 			door.emergency = FALSE
 			door.update_icon()
-	GLOB.minor_announcement.announce("Ограничения на доступ к техническим и внешним шл+юзам были возобновлены.")
+	GLOB.minor_announcement.announce(
+		message = "Ограничения на доступ к техническим и внешним шл+юзам были возобновлены."
+	)
 	maint_all_access = FALSE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
 
@@ -538,7 +542,9 @@ SUBSYSTEM_DEF(mapping)
 		if(is_station_level(door.z))
 			door.emergency = TRUE
 			door.update_icon()
-	GLOB.minor_announcement.announce("Ограничения на доступ ко всем шлю+зам станции были сняты в связи с происходящим кризисом. Статьи о незаконном проникновении по-прежнему действуют, если командование не заявит об обратном.")
+	GLOB.minor_announcement.announce(
+		message = "Ограничения на доступ ко всем шлю+зам станции были сняты в связи с происходящим кризисом. Статьи о незаконном проникновении по-прежнему действуют, если командование не заявит об обратном."
+	)
 	station_all_access = TRUE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
 
@@ -547,7 +553,9 @@ SUBSYSTEM_DEF(mapping)
 		if(is_station_level(door.z))
 			door.emergency = FALSE
 			door.update_icon()
-	GLOB.minor_announcement.announce("Ограничения на доступ ко всем шлю+зам станции были вновь возобновлены. Если вы застряли, обратитесь за помощью к ИИ станции, или к коллегам.")
+	GLOB.minor_announcement.announce(
+		message = "Ограничения на доступ ко всем шлю+зам станции были вновь возобновлены. Если вы застряли, обратитесь за помощью к ИИ станции, или к коллегам."
+	)
 	station_all_access = FALSE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))
 

@@ -4,7 +4,7 @@
 // Please do note that there is absolutely no bearing on what traits are added to what subtype of `/datum`, this is just an easily referenceable list sorted by type.
 // The only thing that truly matters about traits is the code that is built to handle the traits, and where that code is located. Nothing else.
 
-// Sort everything in alphabetical order, please!
+// Sort in alphabetical order, please!
 // Use the website if you can't do it yourself. https://spiskin.ru/scripts/sort_alphabet
 
 GLOBAL_LIST_INIT(traits_by_type, list(
@@ -20,10 +20,12 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 	// MARK: /atom/movable
 	/atom/movable = list(
+		"TRAIT_AREA_SENSITIVE" = TRAIT_AREA_SENSITIVE,
 		"TRAIT_ASHSTORM_IMMUNE" = TRAIT_ASHSTORM_IMMUNE,
 		"TRAIT_BLOBSTORM_IMMUNE" = TRAIT_BLOBSTORM_IMMUNE,
 		"TRAIT_CHASM_IGNORED" = TRAIT_CHASM_IGNORED,
 		"TRAIT_CHASM_STOPPER" = TRAIT_CHASM_STOPPER,
+		"TRAIT_HEARING_SENSITIVE" = TRAIT_HEARING_SENSITIVE,
 		"TRAIT_LAVA_IMMUNE" = TRAIT_LAVA_IMMUNE,
 		"TRAIT_MOVE_FLOATING" = TRAIT_MOVE_FLOATING,
 		"TRAIT_MOVE_FLYING" = TRAIT_MOVE_FLYING,
@@ -95,6 +97,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_HEALS_FROM_CULT_PYLONS" = TRAIT_HEALS_FROM_CULT_PYLONS,
 		"TRAIT_HEALS_FROM_HELL_RIFTS" = TRAIT_HEALS_FROM_HELL_RIFTS,
 		"TRAIT_HEALS_FROM_HOLY_PYLONS" = TRAIT_HEALS_FROM_HOLY_PYLONS,
+		"TRAIT_HEAR_THROUGH_DARKNESS" = TRAIT_HEAR_THROUGH_DARKNESS,
 		"TRAIT_HULK" = TRAIT_HULK,
 		"TRAIT_HUSK" = TRAIT_HUSK,
 		"TRAIT_IGNOREDAMAGESLOWDOWN" = TRAIT_IGNOREDAMAGESLOWDOWN,
@@ -180,6 +183,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_VENTCRAWLER_ALWAYS" = TRAIT_VENTCRAWLER_ALWAYS,
 		"TRAIT_VENTCRAWLER_ITEM_BASED" = TRAIT_VENTCRAWLER_ITEM_BASED,
 		"TRAIT_VENTCRAWLER_NUDE" = TRAIT_VENTCRAWLER_NUDE,
+		"TRAIT_VENTCRAWLING_EXIT" = TRAIT_VENTCRAWLING_EXIT,
 		"TRAIT_VIRUSIMMUNE" = TRAIT_VIRUSIMMUNE,
 		"TRAIT_WATERBREATH" = TRAIT_WATERBREATH,
 		"TRAIT_WEAK_EARS" = TRAIT_WEAK_EARS,
@@ -192,6 +196,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	),
 	// MARK: /obj
 	/obj = list(
+		"TRAIT_AMMO_ALARMED" = TRAIT_AMMO_ALARMED,
 		"TRAIT_SHRAPNEL" = TRAIT_SHRAPNEL,
 	),
 	// MARK: /obj/item

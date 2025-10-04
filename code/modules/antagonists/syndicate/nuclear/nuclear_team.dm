@@ -24,7 +24,7 @@
 	team_objective.team = src
 	objectives += team_objective
 	syndicate_name = create_syndicate_name()
-	var/obj/effect/landmark/nuke_spawn = locate(/obj/effect/landmark/nuclear_bomb)
+	var/obj/effect/landmark/nuke_spawn = locate(/obj/effect/landmark/spawner/nuclear_bomb)
 	nuke_code = GLOB.nuke_codes[/obj/machinery/nuclearbomb/syndicate]
 	if(!nuke_spawn)
 		return

@@ -207,7 +207,7 @@
 			if(params["target"] in choices)
 				voted[usr.ckey] = params["target"]
 			else
-				message_admins("<span class='boldannounceooc'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
+				message_admins("[span_boldannounceooc("\[EXPLOIT\]")] User [key_name_admin(usr)] spoofed a vote in the vote panel!")
 		if("cancel")
 			if(check_rights(R_ADMIN))
 				to_chat(world, "<b>Голосование было отменено!</b>")

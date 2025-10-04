@@ -77,7 +77,7 @@
 
 /obj/item/clown_recorder/attack_self(mob/user)
 	if(cooldown > world.time)
-		to_chat(user, "<span class='notice'>The tape is still winding back.</span>")
+		to_chat(user, span_notice("The tape is still winding back."))
 		return
 	playsound(src, pick('sound/voice/sitcom_laugh1.ogg', 'sound/voice/sitcom_laugh2.ogg', 'sound/voice/sitcom_laugh3.ogg', 'sound/voice/sitcom_laugh4.ogg', 'sound/voice/sitcom_laugh5.ogg'), 50, FALSE)
 
@@ -88,7 +88,7 @@
 
 /obj/item/clown_recorder/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(user, "<span class='notice'>Winding back speed has been improved by the bananium ooze!</span>")
+		to_chat(user, span_notice("Winding back speed has been improved by the bananium ooze!"))
 		ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
 #undef LAUGH_COOLDOWN

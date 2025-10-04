@@ -14,14 +14,13 @@
 		"Нагрев+ательные л+ампы для ун+атхов!",
 		"Вокс х+очет кр+екер?"
 	)
-
-
 	icon_state = "crittercare_off"
 	panel_overlay = "crittercare_panel"
 	screen_overlay = "crittercare"
 	lightmask_overlay = "crittercare_lightmask"
 	broken_overlay = "crittercare_broken"
 	broken_lightmask_overlay = "crittercare_broken_lightmask"
+	refill_canister = /obj/item/vending_refill/crittercare
 
 	products = list(
 		/obj/item/clothing/accessory/petcollar = 5,
@@ -42,7 +41,6 @@
 		/obj/item/reagent_containers/food/condiment/animalfeed = 5,
 		/obj/item/reagent_containers/glass/pet_bowl = 3,
 	)
-
 	prices = list(
 		/obj/item/clothing/accessory/petcollar = 49,
 		/obj/item/storage/firstaid/aquatic_kit/full = 59,
@@ -62,10 +60,13 @@
 		/obj/item/reagent_containers/food/condiment/animalfeed = 99,
 		/obj/item/reagent_containers/glass/pet_bowl = 49,
 	)
-
-	contraband = list(/obj/item/fish_eggs/babycarp = 5)
-	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1)
-	refill_canister = /obj/item/vending_refill/crittercare
+	contraband = list(
+		/obj/item/fish_eggs/babycarp = 5,
+	)
+	premium = list(
+		/obj/item/toy/pet_rock/fred = 1,
+		/obj/item/toy/pet_rock/roxie = 1,
+	)
 
 /obj/machinery/vending/crittercare/get_ru_names()
 	return list(

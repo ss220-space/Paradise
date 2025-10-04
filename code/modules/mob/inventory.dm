@@ -660,7 +660,7 @@
 //GetAllContents that is reasonable and not stupid
 /mob/living/proc/get_all_gear(recursive = TRUE)
 	var/list/processing_list = get_equipped_items(TRUE, TRUE)
-	listclearnulls(processing_list) // handles empty hands
+	list_clear_nulls(processing_list) // handles empty hands
 	var/i = 0
 	while(i < length(processing_list))
 		var/obj/item/storage/A = processing_list[++i]

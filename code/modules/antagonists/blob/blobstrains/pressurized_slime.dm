@@ -25,7 +25,7 @@
 		extinguisharea(B, 30)
 
 /datum/blobstrain/reagent/pressurized_slime/proc/extinguisharea(obj/structure/blob/B, probchance)
-	for(var/turf/simulated/T as anything in range(1, B))
+	for(var/turf/simulated/T in range(1, B))
 		if(!istype(T) || iswallturf(T) || ismineralturf(T))
 			continue
 		if(prob(probchance))

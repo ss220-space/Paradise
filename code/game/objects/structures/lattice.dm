@@ -167,11 +167,11 @@
 	max_integrity = 100
 
 /obj/structure/lattice/fireproof/wirecutter_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
+	to_chat(user, span_notice("Вы начали срезать усиленные прутья, это займёт некоторое время..."))
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>Вам необходимо не прерывать процесс.</span>")
+		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
-	to_chat(user, "<span class='notice'>Вы срезали усиленные прутья!</span>")
+	to_chat(user, span_notice("Вы срезали усиленные прутья!"))
 	new /obj/item/stack/fireproof_rods(get_turf(src), 1)
 	deconstruct()
 
@@ -187,11 +187,11 @@
 
 
 /obj/structure/lattice/catwalk/fireproof/wirecutter_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
+	to_chat(user, span_notice("Вы начали срезать усиленные прутья, это займёт некоторое время..."))
 	if(!I.use_tool(src, user, 80, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>Вам необходимо не прерывать процесс.</span>")
+		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
-	to_chat(user, "<span class='notice'>Вы срезали усиленный мостик!</span>")
+	to_chat(user, span_notice("Вы срезали усиленный мостик!"))
 	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
 	deconstruct()
 

@@ -98,7 +98,7 @@
 			break
 		usr.put_in_hands(scorpion)
 		playsound(loc, 'sound/mecha/mechmove03.ogg', 50, TRUE)
-		to_chat(usr, "<span class='notice'>You engage the [scorpion].</span>")
+		to_chat(usr, span_notice("You engage the [scorpion]."))
 
 /datum/action/item_action/advanced/hook_upgrade/toggle_button_on_off()
 	if(action_ready)
@@ -175,7 +175,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		if(!L.anchored && L.loc)
-			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
+			L.visible_message(span_danger("[L] is snagged by [firer]'s hook!"))
 			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))	// Ensures the hook does not hit the target multiple times
 			L.forceMove(firer_turf)
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
@@ -202,7 +202,7 @@
 	if(disguise)
 		disguise = FALSE
 		disable_chameleon()
-		usr.visible_message("<span class='warning'>[usr] changes the look of his hardsuit!</span>", "<span class='notice'>Turning off the disguise..</span>")
+		usr.visible_message(span_warning("[usr] changes the look of his hardsuit!"), span_notice("Turning off the disguise.."))
 		return
 	var/list/choices = list(
 		"EVA" = image(icon = 'icons/mob/clothing/contractor.dmi', icon_state = "EVA"),
@@ -255,9 +255,9 @@
 			helmet.item_color = "engineering"
 		else
 			return
-	to_chat(usr, "<span class='notice'>Turning on the disguise..</span>")
+	to_chat(usr, span_notice("Turning on the disguise.."))
 	sleep(25)
-	usr.visible_message("<span class='warning'>[usr] changes the look of his hardsuit!</span>", "<span class='notice'>[selected_chameleon] selected.</span>")
+	usr.visible_message(span_warning("[usr] changes the look of his hardsuit!"), span_notice("[selected_chameleon] selected."))
 	playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
 	update_suit()
 	disguise = TRUE
@@ -276,7 +276,7 @@
 /obj/item/clothing/suit/space/hardsuit/contractor/emp_act(severity)
 	. = ..()
 	if(disguise)
-		usr.visible_message("<span class='warning'>[usr] disguise is falling off!</span>", "<span class='notice'>Chameleon module overloading! Shutting down...</span>")
+		usr.visible_message(span_warning("[usr] disguise is falling off!"), span_notice("Chameleon module overloading! Shutting down..."))
 		disguise = FALSE
 		disable_chameleon()
 

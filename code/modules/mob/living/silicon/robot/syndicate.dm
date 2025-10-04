@@ -45,7 +45,7 @@
 	else
 		radio = new /obj/item/radio/borg/syndicate(src)
 
-	radio.recalculateChannels()
+	radio.recalculate_channels()
 
 	if(playstyle_string)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, src, playstyle_string), 5 DECISECONDS)

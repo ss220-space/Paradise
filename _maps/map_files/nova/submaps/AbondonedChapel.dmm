@@ -420,7 +420,7 @@
 /turf/simulated/wall/rust,
 /area/maintenance/club)
 "lE" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/maintenance/club)
 "lL" = (
@@ -1281,7 +1281,7 @@
 /turf/simulated/wall,
 /area/maintenance/server)
 "PP" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /obj/item/trash/pistachios,
 /turf/simulated/floor/plating,
 /area/maintenance/club)

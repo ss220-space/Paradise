@@ -6,7 +6,7 @@
 
 /obj/machinery/computer/supplyquest
 	name = "Supply Request Console"
-	desc = "Незаменим при оформлении заказов на поставку. Ваш хлеб с маслом."
+	desc = "Компьютер для просмотра запросов на поставку от различных клиентов."
 	icon_keyboard = "cargo_quest_key"
 	icon_screen = "cargo_quest"
 	req_access = list(ACCESS_CARGO)
@@ -19,6 +19,16 @@
 	var/print_delayed
 	/// Permission to order a high-tech disk
 	var/static/hightech_recovery = FALSE
+
+/obj/machinery/computer/supplyquest/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль запросов на поставку",
+		GENITIVE = "консоли запросов на поставку",
+		DATIVE = "консоли запросов на поставку",
+		ACCUSATIVE = "консоль запросов на поставку",
+		INSTRUMENTAL = "консолью запросов на поставку",
+		PREPOSITIONAL = "консоли запросов на поставку"
+	)
 
 /obj/machinery/computer/supplyquest/ui_host()
 	return parent ? parent : src
@@ -34,7 +44,7 @@
 /obj/machinery/computer/supplyquest/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "QuestConsole", name)
+		ui = new(user, src, "QuestConsole", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 #define BASE_HIGHTECH_COST 40000
@@ -108,7 +118,7 @@
 		return
 	var/mob/user = usr
 	if(!allowed(user) && !user.can_admin_interact())
-		to_chat(user, span_warning("Access denied."))
+		balloon_alert(user, "отказано в доступе!")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
@@ -123,7 +133,7 @@
 		if("activate")
 			var/datum/cargo_quests_storage/quest = locateUID(params["uid"])
 			if(!istype(quest) || !accept_orders)
-				to_chat(user, span_warning("Access denied."))
+				balloon_alert(user, "отказано в доступе!")
 				return
 			quest.active = TRUE
 			quest.after_activated()
@@ -133,7 +143,7 @@
 				quest.idrank = H.get_assignment()
 			else if(issilicon(user))
 				quest.idname = user.real_name
-				quest.idrank = isAI(user) ? "AI" : "Robot"
+				quest.idrank = isAI(user) ? "ИИ" : "Робот"
 			quest.order_date = GLOB.current_date_string
 			quest.order_time = station_time_timestamp()
 			print_order(quest)
@@ -143,7 +153,7 @@
 			if(!istype(quest))
 				return
 			if(!quest.can_reroll)
-				to_chat(user, span_warning("This quest can not be rerolled."))
+				to_chat(user, span_warning("Этот запрос не может быть заменён."))
 				return
 			SScargo_quests.remove_quest(params["uid"], reroll = TRUE)
 
@@ -162,30 +172,30 @@
 			if(!istype(quest))
 				return FALSE
 			if(quest.time_add_count > 4)
-				to_chat(user, span_warning("You've done that too many times already."))
+				to_chat(user, span_warning("Достигнут предел продления времени!"))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return FALSE
 			quest.add_time()
 
 		if("buy_tech")
 			if(hightech_recovery)
-				to_chat(user, span_warning("The Centcom institutes are not ready to provide you with this technology yet."))
+				to_chat(user, span_warning("Институт ЦК не может поделиться с вами данной технологий в данный момент."))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return FALSE
 			var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
-			var/attempt_pin = tgui_input_number(user, "Enter pin code", "Centcomm Transaction")
+			var/attempt_pin = tgui_input_number(user, "Введите пароль", "Транзакция с ЦК")
 			if(..() || !attempt_account_access(cargo_money_account.account_number, attempt_pin, 2))
-				to_chat(user, span_warning("Unable to access account: incorrect credentials."))
+				to_chat(user, span_warning("Не удаётся получить доступ к учётной записи: неверные учётные данные."))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return FALSE
-			if(cargo_money_account.charge(transaction_amount = text2num(params["cost"]), transaction_purpose = "Buy High-Tech disk", terminal_name = "Biesel TCD Terminal #[rand(111,333)]", dest_name = "Nanotrasen Institute"))
+			if(cargo_money_account.charge(transaction_amount = text2num(params["cost"]), transaction_purpose = "Купить дискету технологий", terminal_name = "Терминал Института Нанотрейзен №[rand(111,333)]", dest_name = "Институт Нанотрейзен"))
 				hightech_recovery = TRUE
 				addtimer(VARSET_CALLBACK(src, hightech_recovery, FALSE), 30 MINUTES)
 				order_techdisk(params["tech_name"], user)
 
 /obj/machinery/computer/supplyquest/proc/order_techdisk(tech_name, mob/user)
-	var/idname = "*None Provided*"
-	var/idrank = "*None Provided*"
+	var/idname = "*Не указано*"
+	var/idrank = "*Не указано*"
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -193,13 +203,13 @@
 		idrank = H.get_assignment()
 	else if(issilicon(user))
 		idname = user.real_name
-		idrank = isAI(user) ? "AI" : "Robot"
+		idrank = isAI(user) ? "ИИ" : "Робот"
 
 	for(var/path in subtypesof(/datum/supply_packs/misc/htdisk))
 		var/datum/supply_packs/misc/htdisk/htcrate = SSshuttle.supply_packs["[path]"]
 		if("[tech_name] Disk Crate" != initial(htcrate.name))
 			continue
-		var/datum/supply_order/order = SSshuttle.generateSupplyOrder(htcrate.UID(), idname, idrank, "Order of High-Tech Disk", 1)
+		var/datum/supply_order/order = SSshuttle.generateSupplyOrder(htcrate.UID(), idname, idrank, "Запрос диске технологий", 1)
 		order?.generateRequisition(loc)
 		return
 
@@ -208,22 +218,31 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	var/obj/item/paper/paper = new(get_turf(src))
 	paper.info = "<div id=\"output\"><center> <h3> Форма запроса на поставку </h3> </center><br><hr><br>"
-	paper.info += "Отдел-заказчик: [quest.customer.departament_name]<br>"
-	paper.info += "Поставку одобрил: [quest.idname] - [quest.idrank]<br>"
-	paper.info += "Время приёма поставки: [quest.order_date]  [quest.order_time]<br>"
-	paper.info += "<ul> <h3> Список поставок</h3>"
+	paper.info += "Заказчик: [quest.customer.departament_name]<br>"
+	paper.info += "Запрос одобрил: [quest.idname] – [quest.idrank]<br>"
+	paper.info += "Время приёма запроса: [quest.order_date] [quest.order_time]<br>"
+	paper.info += "<ul> <h3> Позиции запроса:</h3>"
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
 		paper.info += "<li>[cargo_quest.desc.Join("")]</li>"
 
 	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
 	paper.stamp(/obj/item/stamp/navcom)
-	paper.name = "Форма запроса на поставку"
+	paper.name = "форма запроса на поставку"
+	paper.ru_names = new /list(6)
+	paper.ru_names = list(
+		NOMINATIVE = "форма запроса о поставке",
+		GENITIVE = "формы запроса о поставке",
+		DATIVE = "форме запроса о поставке",
+		ACCUSATIVE = "форму запроса о поставке",
+		INSTRUMENTAL = "формой запроса о поставке",
+		PREPOSITIONAL = "форме запроса о поставке"
+	)
 
 
 /obj/machinery/computer/supplyquest/workers
 	name = "Supply Request Monitor"
-	desc = "На этом мониторе вы можете просматривать активные запросы и распечатывать их, чтобы упростить сбор материалов. Да, и чтобы вы не забыли."
+	desc = "Монитор, используемый для просмотра доступных запросов на поставку от различных клиентов. Оснащён функцией печати списка запросов."
 	icon_state = "quest_console"
 	icon_screen = "quest"
 	icon_keyboard = null
@@ -231,6 +250,15 @@
 	circuit = /obj/item/circuitboard/questcons
 	density = FALSE
 
+/obj/machinery/computer/supplyquest/workers/get_ru_names()
+	return list(
+		NOMINATIVE = "монитор запросов на поставку",
+		GENITIVE = "монитора запросов на поставку",
+		DATIVE = "монитору запросов на поставку",
+		ACCUSATIVE = "монитор запросов на поставку",
+		INSTRUMENTAL = "монитором запросов на поставку",
+		PREPOSITIONAL = "мониторе запросов на поставку"
+	)
 
 /obj/machinery/computer/supplyquest/workers/Initialize(mapload)
 	. = ..()
@@ -251,29 +279,29 @@
 	var/obj/item/paper/paper = new(get_turf(src))
 
 	paper.info = "<div id=\"output\"><center> <h3> Отчёт о поставке </h3> </center><br><hr><br>"
-	paper.info += "Отдел-заказчик: [quest.customer.departament_name]<br>"
-	paper.info += "Поставку одобрил: [quest.idname] - [quest.idrank]<br>"
-	paper.info += "Время приёма поставки: [GLOB.current_date_string]  [station_time_timestamp()]<br>"
-	paper.info += "<ul> <h3> Список поставок</h3>"
+	paper.info += "Заказчик: [quest.customer.departament_name]<br>"
+	paper.info += "Запрос одобрил: [quest.idname] – [quest.idrank]<br>"
+	paper.info += "Время приёма запроса: [GLOB.current_date_string]  [station_time_timestamp()]<br>"
+	paper.info += "<ul> <h3> Позиции запроса:</h3>"
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
 		paper.info += "<li>[cargo_quest.desc.Join("")]</li>"
 
 	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
 	paper.info += "Штрафы: <br><i>"
 	if(modificators["departure_mismatch"])
-		paper.info += "Неверно отмечен отдел-заказчик (-20%)<br>"
+		paper.info += "Неверно отмечен заказчик (-20%)<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "departure_mismatch_phrases")
 	if(modificators["content_mismatch"])
-		paper.info += "Несовпадение в количестве содержимого (-30%) x[modificators["content_mismatch"]]<br>"
+		paper.info += "Несоответствие в объёме содержимого (-30%) x[modificators["content_mismatch"]]<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "content_mismatch_phrases")
 	if(modificators["content_missing"])
-		paper.info += "Содержимое отсутствует (-[round(modificators["content_missing"] * 100/modificators["quest_len"])]%)<br>"
+		paper.info += "Недостача содержимого (-[round(modificators["content_missing"] * 100/modificators["quest_len"])]%)<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "content_missing_phrases")
 	if(!complete)
-		paper.info += "Время истекло (-100%)<br>"
+		paper.info += "Запрос просрочен (-100%)<br>"
 		phrases += pick_list(QUEST_NOTES_STRINGS, "not_complete_phrases")
 	else if(quest.time_add_count > 0)
-		paper.info += "Задержка в поставке (-[10 * quest.time_add_count]%)<br>"
+		paper.info += "Задержка поставки (-[10 * quest.time_add_count]%)<br>"
 
 	else if(!length(modificators))
 		paper.info += "- отсутствует <br>"
@@ -289,14 +317,22 @@
 	if(!modificators["content_missing"] && !modificators["departure_mismatch"] && !modificators["content_mismatch"])
 		paper.info += "<hr><br>"
 		for(var/sale_category in quest.customer.cargo_sale)
-			paper.info += "<span class=\"small-text\">Вы получили скидку в <b>[quest.customer.cargo_sale[sale_category] * quest.customer.modificator * 100]%</b> в категории <b>[sale_category]</b> в списке заказов. </span><br>"
+			paper.info += "<span class=\"small-text\">Вы получили скидку в <b>[quest.customer.cargo_sale[sale_category] * quest.customer.modificator * 100]%</b> в категории <b>[sale_category]</b> в перечне грузов для заказа. </span><br>"
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
 	paper.stamp(/obj/item/stamp/navcom)
 	paper.name = "Отчёт о поставке"
+	paper.ru_names = new /list(6)
+	paper.ru_names = list(
+		NOMINATIVE = "отчёт о поставке",
+		GENITIVE = "отчёта о поставке",
+		DATIVE = "отчёту о поставке",
+		ACCUSATIVE = "отчёт о поставке",
+		INSTRUMENTAL = "отчётом о поставке",
+		PREPOSITIONAL = "отчёте о поставке"
+	)
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	print_animation()
-
 
 /obj/machinery/computer/supplyquest/workers/proc/print_animation()
 	flick_overlay_view(mutable_appearance(icon, "print_quest_overlay"), 4 SECONDS)
@@ -304,7 +340,8 @@
 
 /obj/item/qm_quest_tablet
 	name = "Quartermaster Tablet"
-	desc = "A sleek device that helps to manage all the requests. Makes up the symbol of Brave New Cargonia."
+	desc = "Небольшое устройство для просмотра и одобрения запросов на поставку. Портативно и удобно."
+	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state	= "qm_tablet"
 	w_class		= WEIGHT_CLASS_SMALL
@@ -313,9 +350,19 @@
 	/// Integrated console to serve UI data
 	var/obj/machinery/computer/supplyquest/integrated_console = /obj/machinery/computer/supplyquest/iternal
 
+/obj/item/qm_quest_tablet/get_ru_names()
+	return list(
+		NOMINATIVE = "планшет Квартирмейстера",
+		GENITIVE = "планшета Квартирмейстера",
+		DATIVE = "планшету Квартирмейстера",
+		ACCUSATIVE = "планшет Квартирмейстера",
+		INSTRUMENTAL = "планшетом Квартирмейстера",
+		PREPOSITIONAL = "планшете Квартирмейстера"
+	)
+
 /obj/machinery/computer/supplyquest/iternal
 	name = "invasive quest utility"
-	desc = "Как это сюда попало?! Пожалуйста, сообщите об этом как об ошибке на github"
+	desc = "Вы не должны были это увидеть. Пожалуйста, сообщите о баге!"
 	use_power = NO_POWER_USE
 
 /obj/item/qm_quest_tablet/Initialize(mapload)
@@ -338,10 +385,21 @@
 
 /obj/item/qm_quest_tablet/cargotech
 	name = "Portable Quest Monitor"
+	desc = "Небольшое устройство для просмотра запросов на поставку. Портативно и удобно."
 	icon_state	= "cargo_tablet"
 	item_state	= "cargo_tablet"
 	origin_tech = "programming=2;engineering=2"
 	integrated_console = /obj/machinery/computer/supplyquest/iternal/cargo
+
+/obj/item/qm_quest_tablet/get_ru_names()
+	return list(
+		NOMINATIVE = "планшет запросов на поставку",
+		GENITIVE = "планшета запросов на поставку",
+		DATIVE = "планшету запросов на поставку",
+		ACCUSATIVE = "планшет запросов на поставку",
+		INSTRUMENTAL = "планшетом запросов на поставку",
+		PREPOSITIONAL = "планшете запросов на поставку"
+	)
 
 /obj/machinery/computer/supplyquest/iternal/cargo
 	req_access = null

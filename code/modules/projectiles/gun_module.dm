@@ -418,10 +418,10 @@
 	if(islist(hud_type))
 		for(var/new_hud in hud_type)
 			var/datum/atom_hud/hud = GLOB.huds[new_hud]
-			hud.add_hud_to(user)
+			hud.show_to(user)
 		return .
 	var/datum/atom_hud/hud = GLOB.huds[hud_type]
-	hud.add_hud_to(user)
+	hud.show_to(user)
 
 /obj/item/gun_module/rail/hud/proc/remove_hud(mob/user)
 	if(!granted)
@@ -430,10 +430,10 @@
 	if(islist(hud_type))
 		for(var/new_hud in hud_type)
 			var/datum/atom_hud/hud = GLOB.huds[new_hud]
-			hud.remove_hud_from(user)
+			hud.hide_from(user)
 		return .
 	var/datum/atom_hud/hud = GLOB.huds[hud_type]
-	hud.remove_hud_from(user)
+	hud.hide_from(user)
 
 
 /obj/item/gun_module/rail/hud/medical

@@ -35,12 +35,12 @@
 		return
 	camera = new(src, list("ERT"), wearer.name)
 	GLOB.cameranet.removeCamera(camera)
-	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
+	to_chat(wearer, span_notice("User scanned as [camera.c_tag]. Camera activated."))
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) && has_camera)
-		. += "<span class='notice'>This helmet has a built-in camera. It's [camera ? "" : "in"]active.</span>"
+		. += span_notice("This helmet has a built-in camera. It's [camera ? "" : "in"]active.")
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -381,9 +381,9 @@
 		return
 	camera = new(src, list("ERT"), wearer.name)
 	GLOB.cameranet.removeCamera(camera)
-	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
+	to_chat(wearer, span_notice("User scanned as [camera.c_tag]. Camera activated."))
 
 /obj/item/clothing/head/helmet/space/ert_eva_amber/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) && has_camera)
-		. += "<span class='notice'>This helmet has a built-in camera. It's [camera ? "" : "in"]active.</span>"
+		. += span_notice("This helmet has a built-in camera. It's [camera ? "" : "in"]active.")

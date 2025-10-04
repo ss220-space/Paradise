@@ -24,7 +24,7 @@
 	window_name = "Автоматическая Ремонтная Единица v1.1"
 	path_image_color = "#FFA500"
 
-	/// Determines what to do when process_scan() recieves a target. See process_scan() for details.
+	/// Determines what to do when process_scan() receives a target. See process_scan() for details.
 	var/process_type
 	var/targetdirection
 	var/amount = 10

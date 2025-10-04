@@ -123,6 +123,8 @@
 
 #define isglassreagentcontainer(A) istype(A, /obj/item/reagent_containers/glass)
 
+#define is_spectercell(A) istype(A, /obj/item/stock_parts/cell/specter)
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
@@ -161,6 +163,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isspaceturf(A) istype(A, /turf/space)
 
 #define isopenspaceturf(A) (istype(A, /turf/simulated/openspace) || istype(A, /turf/space/openspace))
+
+#define istransparentturf(A) (HAS_TRAIT(A, TURF_Z_TRANSPARENT_TRAIT))
 
 #define is_space_or_openspace(A) (isopenspaceturf(A) || isspaceturf(A))
 

@@ -327,20 +327,20 @@
 		set_light(10)
 	if(istype(A, /obj/singularity/god/narsie))
 		if(current_size == STAGE_SIX)
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] is consumed by [src]!</span>")
+			visible_message(span_userdanger("[SSticker.cultdat?.entity_name] is consumed by [src]!"))
 			investigate_log("consumed Nar'Sie!", INVESTIGATE_ENGINE)
 			qdel(A)
 		else
-			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
+			visible_message(span_userdanger("[SSticker.cultdat?.entity_name] strikes down [src]!"))
 			investigate_log("has been destroyed by Nar'Sie", INVESTIGATE_ENGINE)
 			qdel(src)
 
 	if(istype(A, /obj/singularity/god/ratvar))
 		if(current_size == STAGE_SIX)
-			visible_message("<span class='userdanger'>Rat'var is consumed by [src]!</span>")
+			visible_message(span_userdanger("Rat'var is consumed by [src]!"))
 			qdel(A)
 		else
-			visible_message("<span class='userdanger'>Rat'var strikes down [src]!</span>")
+			visible_message(span_userdanger("Rat'var strikes down [src]!"))
 			investigate_log("has been destroyed by Ratvar","singulo")
 			qdel(src)
 
@@ -463,8 +463,8 @@
 /obj/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
 		C.visible_message(
-			"<span class='warning'>[C]'s skin bursts into flame!</span>", \
-			"<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>"
+			span_warning("[C]'s skin bursts into flame!"), \
+			span_userdanger("You feel an inner fire as your skin bursts into flames!")
 		)
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
@@ -478,11 +478,11 @@
 		if(!M.stat) // We can't stare on the lord if we are not so alive.
 			continue
 		if((M.sight >= SEE_TURFS) && !(M.sight >= (SEE_TURFS|SEE_OBJS))) // If they can see it without mesons on or can see objects through mesons. Bad on them.
-			to_chat(M, "<span class='notice'>You look directly into the [src.name], good thing you had your protective eyewear on!</span>")
+			to_chat(M, span_notice("You look directly into the [src.name], good thing you had your protective eyewear on!"))
 			continue
 		M.Stun(6 SECONDS)
-		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
-						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
+		M.visible_message(span_danger("[M] stares blankly at [src]!"), \
+						span_userdanger("You look directly into [src] and feel weak."))
 	return
 
 

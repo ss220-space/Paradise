@@ -39,7 +39,7 @@
 /obj/item/gun/syringe/examine(mob/user)
 	. = ..()
 	var/num_syringes = syringes.len + (chambered.BB ? 1 : 0)
-	. += "<span class='notice'>Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining.</span>"
+	. += span_notice("Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining.")
 
 /obj/item/gun/syringe/attack_self(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
@@ -113,7 +113,7 @@
 	fire_sound = 'sound/items/blowgunproj.ogg'
 
 /obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	visible_message("<span class='danger'>[user] starts aiming with a blowgun!</span>")
+	visible_message(span_danger("[user] starts aiming with a blowgun!"))
 	if(do_after(user, 1.5 SECONDS, src))
 		user.apply_damages(oxy = 20, stamina = 20)
 		..()
