@@ -174,7 +174,7 @@
 			radio.set_broadcasting(!radio.get_broadcasting())
 			return TRUE
 		if("toggle_speaker")
-			radio.set_listening(!radio.get_broadcasting())
+			radio.set_listening(!radio.get_listening())
 			return TRUE
 		if("set_frequency")
 			var/new_frequency = text2num(params["new_frequency"])

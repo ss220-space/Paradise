@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	// We warned you.
 	var/dead_aicore = new /obj/structure/AIcore/deactivated(loc)
 	GLOB.empty_playable_ai_cores += dead_aicore
-	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight", follow_target_override = dead_aicore)
+	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight", HEADSET_FREQ_NAME,follow_target_override = dead_aicore)
 
 	for(var/mob/living/silicon/robot/R in connected_robots)
 		R.disconnect_from_ai()

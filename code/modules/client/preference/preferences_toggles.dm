@@ -72,10 +72,11 @@
 	blackbox_message = "Toggle GhostSight"
 
 /datum/preference_toggle/toggle_ghost_radio
-	name = "Слышимость речи – Призрак"
+	name = "Слышимость радио – Призрак"
 	description = "Переключает слышимость радиосообщений во всём мире или только в пределах видимости."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTRADIO
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
+	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
 	enable_message = "Будучи призраком, теперь вы будете слышать радиосообщения только в пределах видимости."
 	disable_message = "Будучи призраком, теперь вы будете слышать радиосообщения во всём мире."
 	blackbox_message = "Toggle GhostRadio"

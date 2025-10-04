@@ -187,25 +187,22 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
  * * actual_setting - whether or not the radio is supposed to be listening, sets should_be_listening to the new listening value if true, otherwise just changes listening
  */
 /obj/item/radio/proc/set_listening(new_listening, actual_setting = TRUE)
+	if(!on)
+		return
 	var/old_listening = listening
 	listening = new_listening
-	if(actual_setting)
-		should_be_listening = listening
 
 	if(old_listening == listening)
 		return
 
-	if(listening && on)
-		recalculate_channels()
-		readd_listening_radio_channels()
-	else if(!listening)
-		reset_channels()
+	if(actual_setting)
+		should_be_listening = listening
 
-///goes through all radio channels we should be listening for and readds them to the global list
-/obj/item/radio/proc/readd_listening_radio_channels()
-	for(var/channel_name in channels)
-		SSradio.add_object(src, SSradio.radiochannels[channel_name])
-	SSradio.add_object(src, frequency)
+	if(listening)
+		recalculate_channels()
+		return
+
+	reset_channels()
 
 /**
  * setter for broadcasting that makes us not hearing sensitive if not broadcasting and hearing sensitive if broadcasting
@@ -215,15 +212,17 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
  * * actual_setting - whether or not the radio is supposed to be broadcasting, sets should_be_broadcasting to the new value if true, otherwise just changes broadcasting
  */
 /obj/item/radio/proc/set_broadcasting(new_broadcasting, actual_setting = TRUE)
+	if(!on)
+		return
 
 	broadcasting = new_broadcasting
 	if(actual_setting)
 		should_be_broadcasting = broadcasting
 
-	if(broadcasting && on) //we dont need hearing sensitivity if we arent broadcasting, because talk_into doesnt care about hearing
+	if(broadcasting) //we dont need hearing sensitivity if we arent broadcasting, because talk_into doesnt care about hearing
 		become_hearing_sensitive(INNATE_TRAIT)
-	else if(!broadcasting)
-		lose_hearing_sensitivity(INNATE_TRAIT)
+		return
+	lose_hearing_sensitivity(INNATE_TRAIT)
 
 /obj/item/radio/proc/get_internal_channels()
 	return GLOB.default_internal_channels
@@ -409,7 +408,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	set_broadcasting(!broadcasting && !(wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL)))
 
 /obj/item/radio/proc/ToggleReception()
-	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
+	set_listening(!listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL)))
 
 /obj/item/radio/proc/autosay(message, from, channel, follow_target_override) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
@@ -417,6 +416,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		if(channel == DEPARTMENT_FREQ_NAME)
 			channel = channels[1]
 		connection = LAZYACCESS(secure_radio_connections, channel)
+	if(channel == HEADSET_FREQ_NAME)
+		connection = radio_connection
 	if(!istype(connection))
 		return
 	if(!connection)
@@ -474,7 +475,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
-/obj/item/radio/proc/handle_message_mode(mob/living/M as mob, list/message_pieces, message_mode)
+/obj/item/radio/proc/handle_message_mode(mob/living/M, list/message_pieces, message_mode)
 	// Otherwise, if a channel is specified, look for it.
 	// If a channel isn't specified, send to common.
 	if(!message_mode || message_mode == HEADSET_MODE)
@@ -760,7 +761,6 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	interact(user)
 
 /obj/item/radio/emp_act(severity)
-
 	set_on(FALSE)
 	disable_timer++
 	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
@@ -772,12 +772,19 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(!disable_timer)
 		set_on(TRUE)
 
-/obj/item/radio/proc/recalculate_channels()
+/obj/item/radio/proc/become_speaker_only(freq)
+	set_listening(FALSE)
+	set_frequency(freq)
+
+/obj/item/radio/proc/recalculate_channels(setDescription = TRUE)
 	reset_channels()
 
 	load_channels()
 
 	load_channel_configs()
+
+	if(!listening)
+		return
 
 	for(var/channel_name in channels)
 		if(!SSradio)
@@ -785,8 +792,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 			return
 		LAZYSET(secure_radio_connections, channel_name, SSradio.add_object(src, SSradio.radiochannels[channel_name], RADIO_CHAT))
 
-	if(!listening)
-		SSradio.remove_object_all(src)
+	set_frequency(frequency)
 
 /obj/item/radio/proc/make_broken()
 	return
@@ -817,6 +823,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/proc/reset_channels()
 	channels = list()
 	secure_radio_connections = null
+	radio_connection = null
 	SSradio.remove_object_all(src)
 
 ///////////////////////////////
