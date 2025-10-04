@@ -339,7 +339,7 @@
 			lines_num++
 			line_width = total_width
 		else
-			line_width = max(total_width + 32, BASE_STORAGE_WIDTH)
+			line_width = min(1 + storage_slots * ICON_SIZE_X, max(total_width + 32, BASE_STORAGE_WIDTH))
 
 	var/first_time = TRUE
 	for(var/mob/user as anything in storage_boxes)
