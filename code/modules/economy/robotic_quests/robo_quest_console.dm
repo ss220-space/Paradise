@@ -4,10 +4,10 @@
 #define SOME_CORRECT_MODULES 2
 #define ALL_CORRECT_MODULES 3
 // Choosen mecha defines
-#define WORKING_CLASS	1
-#define MEDICAL_CLASS	2
-#define COMBAT_CLASS	3
-#define RANDOM_CLASS	4
+#define WORKING_CLASS 1
+#define MEDICAL_CLASS 2
+#define COMBAT_CLASS 3
+#define RANDOM_CLASS 4
 /// TGUI helper define for shop items good placing
 #define CATS_BY_STAGE list( \
 	"number" = list("first", "second", "third"), \

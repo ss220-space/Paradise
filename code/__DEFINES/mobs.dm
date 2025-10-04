@@ -1,13 +1,11 @@
-///////////////////ORGAN DEFINES///////////////////
-
 // Organ defines.
-#define ORGAN_BROKEN		(1<<0)
-#define ORGAN_ROBOT			(1<<1)
-#define ORGAN_SPLINTED		(1<<2)
-#define ORGAN_DEAD			(1<<3)
-#define ORGAN_MUTATED		(1<<4)
-#define ORGAN_INT_BLEED		(1<<5)
-#define ORGAN_DISFIGURED	(1<<6)
+#define ORGAN_BROKEN (1<<0)
+#define ORGAN_ROBOT (1<<1)
+#define ORGAN_SPLINTED (1<<2)
+#define ORGAN_DEAD (1<<3)
+#define ORGAN_MUTATED (1<<4)
+#define ORGAN_INT_BLEED (1<<5)
+#define ORGAN_DISFIGURED (1<<6)
 
 #define PROCESS_ACCURACY 10
 
@@ -17,35 +15,33 @@
 
 #define TOXIN_TO_INTERNAL_DAMAGE_MULTIPLIER 2 // coefficient wich defines ratio of toxin into internal organs damage transfer
 
-
 #define LEFT 1
 #define RIGHT 2
 
 #define SPLINT_LIFE 2000 //number of steps splints stay on
 
-
 //Pulse levels, very simplified
-#define PULSE_NONE		0	//so !M.pulse checks would be possible
-#define PULSE_SLOW		1	//<60 bpm
-#define PULSE_NORM		2	//60-90 bpm
-#define PULSE_FAST		3	//90-120 bpm
-#define PULSE_2FAST		4	//>120 bpm
-#define PULSE_THREADY	5	//occurs during hypovolemic shock
+#define PULSE_NONE 0 //so !M.pulse checks would be possible
+#define PULSE_SLOW 1 //<60 bpm
+#define PULSE_NORM 2 //60-90 bpm
+#define PULSE_FAST 3 //90-120 bpm
+#define PULSE_2FAST 4 //>120 bpm
+#define PULSE_THREADY 5 //occurs during hypovolemic shock
 //feel free to add shit to lists below
 
 
 //proc/get_pulse methods
-#define GETPULSE_HAND	0	//less accurate (hand)
-#define GETPULSE_TOOL	1	//more accurate (med scanner, sleeper, etc)
+#define GETPULSE_HAND 0 //less accurate (hand)
+#define GETPULSE_TOOL 1 //more accurate (med scanner, sleeper, etc)
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
-#define PROCESS_ORG 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
-#define PROCESS_SYN 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
-#define PROCESS_DUO 4		//Only processes reagents with "ORGANIC | SYNTHETIC"
+#define PROCESS_ORG 1 //Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_SYN 2 //Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
+#define PROCESS_DUO 4 //Only processes reagents with "ORGANIC | SYNTHETIC"
 
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
-#define SHOES_SLOWDOWN 0			// How much shoes slow you down by default. Negative values speed you up
+#define SHOES_SLOWDOWN 0 // How much shoes slow you down by default. Negative values speed you up
 
 #define DISGUST_LEVEL_MAXEDOUT 150 STATUS_EFFECT_CONSTANT
 #define DISGUST_LEVEL_DISGUSTED 75 STATUS_EFFECT_CONSTANT
@@ -86,7 +82,7 @@
 
 // Appearance change flags
 #define APPEARANCE_UPDATE_DNA (1<<0)
-#define APPEARANCE_RACE	(1<<1|APPEARANCE_UPDATE_DNA)
+#define APPEARANCE_RACE (1<<1|APPEARANCE_UPDATE_DNA)
 #define APPEARANCE_GENDER (1<<2|APPEARANCE_UPDATE_DNA)
 #define APPEARANCE_SKIN (1<<3)
 #define APPEARANCE_HAIR (1<<4)
@@ -112,23 +108,23 @@
 #define SLIME_EVOLUTION_THRESHOLD_EVOLVE 50
 #define SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN 100
 
-#define SLIME_BABY		"baby"
-#define SLIME_ADULT	"adult"
-#define SLIME_OLD		"old"
-#define SLIME_ELDER	"elder"
-#define SLIME_SLIMEMAN	"slimeman"
+#define SLIME_BABY "baby"
+#define SLIME_ADULT "adult"
+#define SLIME_OLD "old"
+#define SLIME_ELDER "elder"
+#define SLIME_SLIMEMAN "slimeman"
 
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
 
 //Slime commands defines
-#define SLIME_FRIENDSHIP_FOLLOW			3 //Min friendship to order it to follow
-#define SLIME_FRIENDSHIP_STOPEAT			5 //Min friendship to order it to stop eating someone
-#define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //Min friendship to order it to stop eating someone without it losing friendship
-#define SLIME_FRIENDSHIP_STOPCHASE			4 //Min friendship to order it to stop chasing someone (their target)
-#define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
-#define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
-#define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
+#define SLIME_FRIENDSHIP_FOLLOW 3 //Min friendship to order it to follow
+#define SLIME_FRIENDSHIP_STOPEAT 5 //Min friendship to order it to stop eating someone
+#define SLIME_FRIENDSHIP_STOPEAT_NOANGRY 7 //Min friendship to order it to stop eating someone without it losing friendship
+#define SLIME_FRIENDSHIP_STOPCHASE 4 //Min friendship to order it to stop chasing someone (their target)
+#define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY 6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
+#define SLIME_FRIENDSHIP_STAY 3 //Min friendship to order it to stay
+#define SLIME_FRIENDSHIP_ATTACK 8 //Min friendship to order it to attack
 
 //Spiders ai states
 #define SPINNING_WEB 1
@@ -147,14 +143,14 @@
 #define MAX_SIMPLEMOB_WAKEUP_RANGE 5
 
 // Intents
-#define INTENT_HELP		"help"
-#define INTENT_DISARM	"disarm"
-#define INTENT_GRAB		"grab"
-#define INTENT_HARM		"harm"
+#define INTENT_HELP "help"
+#define INTENT_DISARM "disarm"
+#define INTENT_GRAB "grab"
+#define INTENT_HARM "harm"
 
 // Movement Intents
 #define MOVE_INTENT_WALK "walk"
-#define MOVE_INTENT_RUN  "run"
+#define MOVE_INTENT_RUN "run"
 
 // AI wire/radio settings
 #define AI_CHECK_WIRELESS 1
@@ -167,13 +163,13 @@
 //determines if a mob can smash through it
 #define ENVIRONMENT_SMASH_NONE 0
 #define ENVIRONMENT_SMASH_STRUCTURES 1 //crates, lockers, ect
-#define ENVIRONMENT_SMASH_WALLS 2   //walls
-#define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
+#define ENVIRONMENT_SMASH_WALLS 2 //walls
+#define ENVIRONMENT_SMASH_RWALLS 4 //rwalls
 
-#define POCKET_STRIP_DELAY			4 SECONDS	//time taken to search somebody's pockets
+#define POCKET_STRIP_DELAY 4 SECONDS	//time taken to search somebody's pockets
 
-#define DEFAULT_ITEM_STRIP_DELAY		4 SECONDS  //time taken to strip somebody
-#define DEFAULT_ITEM_PUTON_DELAY		2 SECONDS  //time taken to reverse-strip somebody
+#define DEFAULT_ITEM_STRIP_DELAY 4 SECONDS  //time taken to strip somebody
+#define DEFAULT_ITEM_PUTON_DELAY 2 SECONDS  //time taken to reverse-strip somebody
 
 #define IGNORE_ACCESS -1
 
@@ -285,10 +281,10 @@
 	};
 
 // Hearing protection
-#define HEARING_PROTECTION_NONE	0
-#define HEARING_PROTECTION_MINOR	1
-#define HEARING_PROTECTION_MAJOR	2
-#define HEARING_PROTECTION_TOTAL	3
+#define HEARING_PROTECTION_NONE 0
+#define HEARING_PROTECTION_MINOR 1
+#define HEARING_PROTECTION_MAJOR 2
+#define HEARING_PROTECTION_TOTAL 3
 
 // Eye protection
 #define FLASH_PROTECTION_VERYVUNERABLE -4
@@ -390,22 +386,22 @@
 #define ZAP_SUPERMATTER_FLAGS ZAP_GENERATES_POWER
 
 /// Vomit defines
-#define VOMIT_NUTRITION_LOSS	10
-#define VOMIT_STUN_TIME			(8 SECONDS)
-#define VOMIT_DISTANCE			1
-#define VOMIT_SAFE_NUTRITION	90
+#define VOMIT_NUTRITION_LOSS 10
+#define VOMIT_STUN_TIME (8 SECONDS)
+#define VOMIT_DISTANCE 1
+#define VOMIT_SAFE_NUTRITION 90
 /// Vomit modes
-#define VOMIT_BLOOD	(1<<0)
+#define VOMIT_BLOOD (1<<0)
 
 /// When reached - we'll apply status effect which will force carbon to vomit
-#define TOX_VOMIT_THRESHOLD_REACHED(mob, toxloss)	(mob.getToxLoss() >= toxloss)
-#define TOX_VOMIT_REQUIRED_TOXLOSS	45
+#define TOX_VOMIT_THRESHOLD_REACHED(mob, toxloss) (mob.getToxLoss() >= toxloss)
+#define TOX_VOMIT_REQUIRED_TOXLOSS 45
 
 /// For babylon fever disease.
 #define DISEASE_MOB_LANGUAGE_PROCESSED (1<<0)
 
 /// Eyes examine time mod
-#define EXAMINE_INSTANT	0 // 0 seconds
+#define EXAMINE_INSTANT 0 // 0 seconds
 
 // Incapacitated ignore flags for [/proc/incapacitated()].
 // They also used at interaction_flags_c var.

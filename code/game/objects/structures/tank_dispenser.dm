@@ -1,4 +1,4 @@
-#define MAX_TANK_STORAGE	10
+#define MAX_TANK_STORAGE 10
 
 /obj/structure/dispenser
 	name = "tank storage unit"

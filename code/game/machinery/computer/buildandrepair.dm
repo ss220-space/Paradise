@@ -534,11 +534,11 @@
 
 
 // Construction | Deconstruction
-#define STATE_EMPTY	 1 // Add a circuitboard		   | Weld to destroy
-#define STATE_CIRCUIT	 2 // Screwdriver the cover closed | Crowbar the circuit
-#define STATE_NOWIRES	 3 // Add wires					   | Screwdriver the cover open
-#define STATE_WIRES		 4 // Add glass					   | Remove wires
-#define STATE_GLASS		 5 // Screwdriver to complete	   | Crowbar glass out
+#define STATE_EMPTY 1 // Add a circuitboard | Weld to destroy
+#define STATE_CIRCUIT 2 // Screwdriver the cover closed | Crowbar the circuit
+#define STATE_NOWIRES 3 // Add wires | Screwdriver the cover open
+#define STATE_WIRES 4 // Add glass | Remove wires
+#define STATE_GLASS 5 // Screwdriver to complete | Crowbar glass out
 
 /obj/structure/computerframe
 	name = "computer frame"

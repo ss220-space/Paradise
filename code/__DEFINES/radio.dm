@@ -19,7 +19,7 @@
 #define SYND_TAIPAN_FREQ 1227 //Taipan frequency
 #define SYNDTEAM_FREQ 1244
 #define SOV_FREQ 1217 //Soviet
-#define SPY_SPIDER_FREQ	1251
+#define SPY_SPIDER_FREQ 1251
 #define NINJA_FREQ 1265
 #define DTH_FREQ 1341 //Special Operations
 #define AI_FREQ 1343
@@ -51,8 +51,8 @@
 #define SEC_I_FREQ 1475
 
 // Transmission methods
-#define TRANSMISSION_WIRE	0
-#define TRANSMISSION_RADIO	1
+#define TRANSMISSION_WIRE 0
+#define TRANSMISSION_RADIO 1
 
 //This filter is special because devices belonging to default also receive signals sent to any other filter.
 #define RADIO_DEFAULT "radio_default"

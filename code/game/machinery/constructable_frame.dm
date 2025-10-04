@@ -1,7 +1,7 @@
 // Construction | Deconstruction
-#define STATE_EMPTY			1 // Add wires | Wrench to destroy
-#define STATE_WIRED			2 // Add cicuit / Wrench to unchor/unanchor | Remove wires with wirecutters
-#define STATE_COMPONENTS	3 // Add components / Wrench to unchor/unanchor | Remove circuit/components with crowbar
+#define STATE_EMPTY 1 // Add wires | Wrench to destroy
+#define STATE_WIRED 2 // Add cicuit / Wrench to unchor/unanchor | Remove wires with wirecutters
+#define STATE_COMPONENTS 3 // Add components / Wrench to unchor/unanchor | Remove circuit/components with crowbar
 
 /obj/machinery/constructable_frame //Made into a seperate type to make future revisions easier.
 	name = "machine frame"
