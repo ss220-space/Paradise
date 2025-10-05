@@ -53,6 +53,31 @@
 /// Sum of all permissions to allow easy setting.
 #define R_HOST (~0)
 
+#define R_BUILDMODE_NAME "+BUILDMODE"
+#define R_ADMIN_NAME "+ADMIN"
+#define R_BAN_NAME "+BAN"
+#define R_EVENT_NAME "+EVENT"
+#define R_SERVER_NAME "+SERVER"
+#define R_DEBUG_NAME "+DEBUG"
+#define R_POSSESS_NAME "+POSSESS"
+#define R_PERMISSIONS_NAME "+PERMISSIONS"
+#define R_STEALTH_NAME "+STEALTH"
+#define R_REJUVINATE_NAME "+REJUVINATE"
+#define R_VAREDIT_NAME "+VAREDIT"
+#define R_SOUNDS_NAME "+SOUND"
+#define R_SPAWN_NAME "+SPAWN"
+#define R_MOD_NAME "+MODERATOR"
+#define R_MENTOR_NAME "+MENTOR"
+#define R_PROCCALL_NAME "+PROCCALL"
+#define R_VIEWRUNTIMES_NAME "+VIEWRUNTIMES"
+#define R_SKINS_NAME "+SKINS"
+
+#define DELETED_RANK "Удален"
+
+#define PLAYER_RANK "Игрок"
+
+#define NONE_SELECT "*none*"
+
 #define ADMIN_QUE(user,display) "<a href='byond://?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
 #define ADMIN_FLW(user,display) "<a href='byond://?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]</a>"
 #define ADMIN_PP(user,display) "<a href='byond://?_src_=holder;adminplayeropts=[user.UID()]'>[display]</a>"
