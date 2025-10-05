@@ -863,6 +863,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	deadmin()
 	add_verb(src, /client/proc/readmin)
 	update_active_keybindings()
+	update_byond_admin_configs(ckey, 0)
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>", confidential=TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("De-admin")
 
@@ -951,6 +952,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		var/client/C = GLOB.directory[ckey]
 		D.associate(C)
 		update_active_keybindings()
+		update_byond_admin_configs(C.ckey, D.rights)
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		GLOB.de_admins -= ckey

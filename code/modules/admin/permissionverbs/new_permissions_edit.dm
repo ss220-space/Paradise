@@ -177,13 +177,13 @@
 	var/datum/admins/admin = GLOB.admin_datums[ckey]
 	if(admin)
 		admin.rights = permissions
+		update_byond_admin_configs(ckey, permissions)
 	ranks[ckey]["rights"] = permissions
-	update_byond_configs(ckey, permissions)
 	var/client/client = GLOB.directory[ckey]
 	update_buttons(client)
 	return TRUE
 
-/datum/ui_module/permissions_edit/proc/update_byond_configs(ckey, permissions)
+/proc/update_byond_admin_configs(ckey, permissions)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, span_boldannounceooc("Admin edit blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to edit admin ranks via advanced proc-call")
@@ -244,6 +244,7 @@
 	GLOB.de_mentors -= ckey
 	GLOB.de_devs -= ckey
 	update_buttons(client)
+	update_byond_admin_configs(ckey, admin_datum.rights)
 	remove_verb(client, /client/proc/readmin)
 	BLACKBOX_LOG_ADMIN_VERB("Re-admin")
 
@@ -251,6 +252,7 @@
 	var/client/client = GLOB.directory[ckey]
 	client?.deadmin()
 	update_buttons(client)
+	update_byond_admin_configs(ckey, 0)
 	var/datum/admins/admin_datum = GLOB.admin_datums[ckey]
 
 	if(!QDELETED(admin_datum))
@@ -278,6 +280,7 @@
 
 	client.deadmin()
 	update_buttons(client)
+	update_byond_admin_configs(client.ckey, 0)
 	add_verb(client, /client/proc/readmin)
 	to_chat(client, span_interface("You are now a normal player."), confidential = TRUE)
 	log_and_message_admins("force de-admin [ckey].")
@@ -333,6 +336,7 @@
 	if(client)
 		new_rank.associate(client)
 		update_buttons(client)
+		update_byond_admin_configs(ckey, new_rank.rights)
 
 	ranks[ckey] = list(
 				"rank" = rank,
