@@ -15,6 +15,8 @@
 		var/rights = query.item[4]
 		if(istext(rights))
 			rights = text2num(rights)
+		if((!rank || rank == DELETED_RANK) && !rights)
+			continue
 		ranks[ckey] = list(
 			"rank" = rank,
 			"rights" = rights,
@@ -173,7 +175,8 @@
 
 	usr.client.holder.admin_permission_modification(ckey, permissions)
 	var/datum/admins/admin = GLOB.admin_datums[ckey]
-	admin.rights = permissions
+	if(admin)
+		admin.rights = permissions
 	ranks[ckey]["rights"] = permissions
 	update_byond_configs(ckey, permissions)
 	var/client/client = GLOB.directory[ckey]
