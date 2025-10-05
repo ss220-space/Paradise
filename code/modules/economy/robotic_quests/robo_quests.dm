@@ -201,7 +201,7 @@
 	name = "robotics request advanced quantum pad"
 	desc = "This quantum pad is capable of instant teleportation of mech without need of send them to the cargo."
 	visual_item = /obj/item/circuitboard/advanced_roboquest_pad
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 12)
 
 /datum/roboshop_item/universal_paintkit
 	name = "universal mech paintkit"
