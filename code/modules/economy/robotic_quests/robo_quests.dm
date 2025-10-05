@@ -169,15 +169,39 @@
 
 /datum/roboshop_item/bluespace_core
 	name = "bluespace anomaly core"
-	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
+	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. Пространство вокруг него постоянно искривляется."
 	visual_item = /obj/item/assembly/signaler/core/bluespace/tier3
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
+
+/datum/roboshop_item/energetic_core
+	name = "energetic anomaly core"
+	desc = "Стабилизированное ядро большой ​​энергетической аномалии. Вокруг ядра периодически возникают электрические разряды. Окружающая электроника напряженно гудит."
+	visual_item = /obj/item/assembly/signaler/core/energetic/tier3
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
+
+/datum/roboshop_item/vortex_core
+	name = "vortex anomaly core"
+	desc = "Стабилизированное ядро большой ​​вихревой аномалии. Предметы вокруг ядра опасно подрагивают."
+	visual_item = /obj/item/assembly/signaler/core/vortex/tier3
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
+
+/datum/roboshop_item/gravitational_core
+	name = "gravitational anomaly core"
+	desc = "Нейтрализованное ядро большой ​​гравитационной аномалии. Вы чувствуете сильное несоответствие веса многих окружающих предметов с их внешним видом."
+	visual_item = /obj/item/assembly/signaler/core/gravitational/tier3
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
+
+/datum/roboshop_item/atmospheric_core
+	name = "atmospheric anomaly core"
+	desc = "Стабилизированное ядро большой атмосферной аномалии. От одного его вида вас бросает то в жар, то в холод, причём буквально."
+	visual_item = /obj/item/assembly/signaler/core/atmospheric/tier3
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
 
 /datum/roboshop_item/advanced_roboquest_pad
 	name = "robotics request advanced quantum pad"
 	desc = "This quantum pad is capable of instant teleportation of mech without need of send them to the cargo."
 	visual_item = /obj/item/circuitboard/advanced_roboquest_pad
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 7)
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 12)
 
 /datum/roboshop_item/universal_paintkit
 	name = "universal mech paintkit"

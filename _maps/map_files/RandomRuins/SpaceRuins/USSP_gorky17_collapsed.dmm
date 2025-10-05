@@ -1032,7 +1032,7 @@
 	amount = 4
 	},
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "dt" = (
@@ -3021,7 +3021,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "jp" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "jq" = (
@@ -5040,7 +5040,7 @@
 /obj/item/stack/cable_coil{
 	amount = 3
 	},
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "ps" = (
@@ -12121,7 +12121,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "Jz" = (
 /obj/item/tank/internals/oxygen/empty,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "JA" = (
@@ -12531,7 +12531,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "KQ" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "KS" = (
@@ -12723,9 +12723,6 @@
 "Lz" = (
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/check1)
-"LB" = (
-/turf/simulated/wall/r_wall/rust,
-/area/ruin/space/USSP_gorky17/collapsed/utility)
 "LC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -12833,7 +12830,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "LT" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "LU" = (
@@ -14438,7 +14435,7 @@
 /turf/space,
 /area/ruin/space/USSP_gorky17/collapsed/solars)
 "Qw" = (
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "Qx" = (
@@ -15223,9 +15220,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/USSP_gorky17/collapsed/utility)
-"ST" = (
-/turf/simulated/wall/r_wall,
-/area/ruin/space/USSP_gorky17/collapsed/angar)
 "SU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -15447,7 +15441,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "TB" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "TC" = (
@@ -16538,7 +16532,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "WR" = (
 /obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/tiles/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "WT" = (
@@ -16553,24 +16547,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/bridge)
-"WW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/USSP_gorky17/collapsed/medbay)
 "WY" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -36593,7 +36569,7 @@ ch
 xy
 Cp
 vy
-WW
+lT
 RB
 Pl
 ZR
@@ -42254,8 +42230,8 @@ BX
 ts
 ts
 ts
-ST
-ST
+gr
+gr
 PE
 ml
 wJ
@@ -42451,7 +42427,7 @@ Pk
 hJ
 LT
 rV
-ST
+gr
 uJ
 Yv
 ba
@@ -43057,7 +43033,7 @@ jR
 Lr
 LT
 SL
-ST
+gr
 Oo
 JN
 is
@@ -43657,7 +43633,7 @@ fB
 rc
 fB
 Qb
-ST
+gr
 sE
 Mv
 Lh
@@ -43860,12 +43836,12 @@ fB
 wZ
 wZ
 mD
-ST
+gr
 Nk
 us
 Ne
 hC
-ST
+gr
 Tr
 EZ
 Pv
@@ -44673,7 +44649,7 @@ JU
 eO
 wO
 Ad
-ST
+gr
 MQ
 sQ
 eO
@@ -44870,12 +44846,12 @@ fB
 fB
 wZ
 wZ
-ST
+gr
 ut
 gt
 Is
 JX
-ST
+gr
 ut
 gt
 Is
@@ -45083,7 +45059,7 @@ Mx
 Mx
 wZ
 wZ
-LB
+fw
 Wz
 Wz
 Wz

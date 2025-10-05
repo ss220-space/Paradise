@@ -455,7 +455,7 @@
 
 /obj/item/assembly/signaler/core/bluespace/tier3
 	name = "ядро большой ​​блюспейс аномалии"
-	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. Пространство вокруг него постоянно искревляется."
+	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. Пространство вокруг него постоянно искривляется."
 	icon_state = "core_bluespace_t3"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier3
 	origin_tech = "bluespace=8"

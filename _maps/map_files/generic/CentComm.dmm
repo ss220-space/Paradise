@@ -718,7 +718,7 @@
 	},
 /area/shuttle/trade/sol)
 "alR" = (
-/obj/effect/landmark/ert_director,
+/obj/effect/landmark/spawner/ertdirector,
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
@@ -2434,7 +2434,7 @@
 /area/shuttle/administration)
 "bdh" = (
 /obj/structure/chair,
-/obj/effect/landmark/voxstart,
+/obj/effect/landmark/spawner/raider_spawn,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -2964,7 +2964,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark/voxstart,
+/obj/effect/landmark/spawner/raider_spawn,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -3430,7 +3430,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/voxstart,
+/obj/effect/landmark/spawner/raider_spawn,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -6101,7 +6101,7 @@
 /area/centcom/zone1)
 "cNc" = (
 /obj/structure/chair/comfy/black,
-/obj/effect/landmark/syndicate_officer,
+/obj/effect/landmark/spawner/syndicateofficer,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "cNn" = (
@@ -7488,7 +7488,7 @@
 /obj/structure/chair/comfy/purp{
 	dir = 8
 	},
-/obj/effect/landmark/syndicate_officer,
+/obj/effect/landmark/spawner/syndicateofficer,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "dxR" = (
@@ -8897,7 +8897,7 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
 "edZ" = (
-/obj/effect/landmark/ert_director,
+/obj/effect/landmark/spawner/ertdirector,
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
@@ -11207,7 +11207,7 @@
 	color = "#363636";
 	icon_state = "diagonal_edge"
 	},
-/obj/effect/landmark/ninjastart,
+/obj/effect/landmark/spawner/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "fny" = (
@@ -11984,7 +11984,7 @@
 "fDt" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
-/obj/effect/landmark/traderstart_sol,
+/obj/effect/landmark/spawner/soltrader,
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "fDP" = (
@@ -16104,9 +16104,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16730,7 +16728,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark/syndicate_spawn,
+/obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "ifg" = (
@@ -17076,7 +17074,7 @@
 /obj/structure/chair/comfy/purp{
 	dir = 4
 	},
-/obj/effect/landmark/syndicate_officer,
+/obj/effect/landmark/spawner/syndicateofficer,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "iny" = (
@@ -17221,7 +17219,7 @@
 	},
 /area/wizard_station)
 "ism" = (
-/obj/effect/landmark/response_team,
+/obj/effect/landmark/spawner/ert,
 /obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -18459,7 +18457,7 @@
 /area/syndicate_mothership/outside)
 "iUt" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/effect/landmark/death_squard,
+/obj/effect/landmark/spawner/death_squard,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -21921,7 +21919,7 @@
 	},
 /area/centcom/specops)
 "kzy" = (
-/obj/effect/landmark/syndieprisonwarp,
+/obj/effect/landmark/spawner/syndieprisonwarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -23266,9 +23264,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "lcJ" = (
-/obj/effect/landmark/syndicate_infiltrator{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -25113,7 +25109,7 @@
 /area/centcom/jail)
 "lUK" = (
 /obj/effect/decal/warning_stripes/green/hollow,
-/obj/effect/landmark/response_team,
+/obj/effect/landmark/spawner/ert,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25150,7 +25146,7 @@
 /area/centcom/bridge)
 "lWc" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/syndicate_spawn,
+/obj/effect/landmark/spawner/syndie,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -30
 	},
@@ -26346,7 +26342,7 @@
 /area/syndicate_mothership/jail)
 "muU" = (
 /obj/structure/table/wood,
-/obj/effect/landmark/teleport_scroll,
+/obj/effect/landmark/spawner/teleport_scroll,
 /obj/item/radio/intercom/syndicate{
 	pixel_y = -30
 	},
@@ -26361,7 +26357,7 @@
 "mvo" = (
 /obj/structure/bed,
 /obj/item/bedsheet/wiz,
-/obj/effect/landmark/wizard,
+/obj/effect/landmark/spawner/wizard,
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
 "mvu" = (
@@ -28411,7 +28407,7 @@
 /obj/effect/turf_decal/siding{
 	color = "#444444"
 	},
-/obj/effect/landmark/ninjastart,
+/obj/effect/landmark/spawner/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "nnm" = (
@@ -32711,9 +32707,7 @@
 	},
 /area/centcom/supply)
 "pek" = (
-/obj/effect/landmark/syndicate_commando{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_commando,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "pem" = (
@@ -33414,7 +33408,7 @@
 /obj/structure/sign/poster/contraband/punch_shit{
 	pixel_y = 32
 	},
-/obj/effect/landmark/prisonsecuritywarp,
+/obj/effect/landmark/spawner/prisonsecuritywarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -34078,18 +34072,14 @@
 	},
 /area/centcom/supplypod/loading/ert)
 "pPN" = (
-/obj/effect/landmark/syndicate_commando{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_commando,
 /obj/structure/sign/double/map/right{
 	pixel_y = 32
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "pQd" = (
-/obj/effect/landmark/syndicate_infiltrator{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "pQe" = (
@@ -35882,7 +35872,7 @@
 /area/shuttle/administration)
 "qBj" = (
 /obj/effect/turf_decal/box,
-/obj/effect/landmark/nuclear_bomb,
+/obj/effect/landmark/spawner/nuclear_bomb,
 /obj/machinery/door/window/brigdoor/westleft{
 	color = "#d70000";
 	dir = 2;
@@ -36855,7 +36845,7 @@
 	department = "Central Command";
 	pixel_y = 2
 	},
-/obj/effect/landmark/commando_manual,
+/obj/effect/landmark/spawner/commando_manual,
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
@@ -37634,9 +37624,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 4
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /obj/effect/turf_decal/plaque,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/effect/turf_decal/stripes/gold{
@@ -39592,18 +39580,14 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/specops)
 "skU" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/landmark/syndicate_infiltrator{
-	tag = "Commando"
-	},
+/obj/effect/landmark/spawner/syndicate_infiltrator,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "sle" = (
@@ -43826,8 +43810,8 @@
 	},
 /area/centcom/supply)
 "uam" = (
-/obj/effect/landmark/prisonwarp,
-/obj/effect/landmark/prisonwarp,
+/obj/effect/landmark/spawner/prisonwarp,
+/obj/effect/landmark/spawner/prisonwarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -46198,7 +46182,7 @@
 /area/centcom/specops)
 "vdf" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/prisonsecuritywarp,
+/obj/effect/landmark/spawner/prisonsecuritywarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -47875,7 +47859,7 @@
 	},
 /area/syndicate_mothership/control)
 "vSC" = (
-/obj/effect/landmark/ert_director,
+/obj/effect/landmark/spawner/ertdirector,
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -51062,9 +51046,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/landmark/aroomwarp{
-	tag = ""
-	},
+/obj/effect/landmark/spawner/aroomwarp,
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/specops)
@@ -51459,7 +51441,7 @@
 /area/syndicate_mothership)
 "xBV" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/syndicate_spawn,
+/obj/effect/landmark/spawner/syndie,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "xCi" = (

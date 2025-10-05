@@ -53,31 +53,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/usesound
 	/// Used when yate into a mob.
 	var/mob_throw_hit_sound
-	/// Sound used when equipping the item into a valid slot.
+	/// Sound used when equipping the item into a valid slot. May contain a list of sounds to pick from instead of a single path.
 	var/equip_sound
-	var/static/list/base_equip_sounds = list(
-		'sound/items/handling/equip/generic_equip1.ogg',
-		'sound/items/handling/equip/generic_equip2.ogg',
-		'sound/items/handling/equip/generic_equip3.ogg',
-		'sound/items/handling/equip/generic_equip4.ogg',
-		'sound/items/handling/equip/generic_equip5.ogg',
-	)
-	/// Sound used when picking the item up (into your hands)
+	/// Sound used when picking the item up (into your hands). May contain a list of sounds to pick from instead of a single path.
 	var/pickup_sound
-	var/static/list/base_pickup_sounds = list(
-		'sound/items/handling/pickup/generic_pickup1.ogg',
-		'sound/items/handling/pickup/generic_pickup2.ogg',
-		'sound/items/handling/pickup/generic_pickup3.ogg',
-	)
-	/// Sound used when dropping the item.
+	/// Sound used when dropping the item. May contain a list of sounds to pick from instead of a single path.
 	var/drop_sound
-	var/static/list/base_drop_sounds = list(
-		'sound/items/handling/drop/generic_drop1.ogg',
-		'sound/items/handling/drop/generic_drop2.ogg',
-		'sound/items/handling/drop/generic_drop3.ogg',
-		'sound/items/handling/drop/generic_drop4.ogg',
-		'sound/items/handling/drop/generic_drop5.ogg',
-	)
 	/// Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE
 	var/w_class = WEIGHT_CLASS_NORMAL
@@ -294,13 +275,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	AddComponent(/datum/component/eatable)
 
 /obj/item/proc/get_equip_sound()
-	return equip_sound || pick(base_equip_sounds)
+	return islist(equip_sound) ? pick(equip_sound) : (equip_sound || SFX_EQUIP)
 
 /obj/item/proc/get_pickup_sound()
-	return pickup_sound || pick(base_pickup_sounds)
+	return islist(pickup_sound) ? pick(pickup_sound) : (pickup_sound || SFX_PICK_UP)
 
 /obj/item/proc/get_drop_sound()
-	return drop_sound || pick(base_drop_sounds)
+	return islist(drop_sound) ? pick(drop_sound) : (drop_sound || SFX_DROP)
 
 /obj/item/proc/determine_move_resist()
 	switch(w_class)

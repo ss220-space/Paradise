@@ -96,5 +96,5 @@
 		if(!HASBIT(mob.client?.prefs?.sound, SOUND_INSTRUMENTS))
 			continue
 
-		mob.playsound_local(source, null, volume * using_instrument.volume_multiplier, sound = music_played)
+		mob.playsound_local(source, null, volume * using_instrument.volume_multiplier, sound_to_use = music_played)
 		// Could do environment and echo later but not for now

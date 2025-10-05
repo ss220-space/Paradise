@@ -640,19 +640,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/administration)
-"FC" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 1;
-	icon_state = "open";
-	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/administration)
 "Gs" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/shuttle{
@@ -1400,7 +1387,7 @@ jH
 lX
 "}
 (12,1,1) = {"
-FC
+ye
 Xb
 Tl
 IQ
@@ -1420,7 +1407,7 @@ jH
 Ti
 "}
 (13,1,1) = {"
-FC
+ye
 bQ
 Tl
 Tl

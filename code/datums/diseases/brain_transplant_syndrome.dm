@@ -9,11 +9,12 @@
 /// Brain transplant syndrome heavy effect chance
 #define BTS_HEAVY_EFFECT_PROBE 2.5
 
-/** Brain transplantation syndrome
-  * - organs failure chance
-  * - periodically paralyse whole body
-  * - periodically oxy damage
-  */
+/**
+ * Brain transplantation syndrome
+ * - organs failure chance
+ * - periodically paralyse whole body
+ * - periodically oxy damage
+ */
 /datum/disease/brain_transplant_syndrome
 	name = "Синдром отторжения головного мозга"
 	desc = "Аутоиммунный ответ организма, ведущий к системному отказу органов или парализации."

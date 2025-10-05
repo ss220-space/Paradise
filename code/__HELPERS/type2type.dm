@@ -237,6 +237,28 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 	if(rights & R_SKINS)		. += "[seperator]+SKINS"
 	return .
 
+/proc/rights2text_tgui(rights)
+	. = list()
+	if(rights & R_BUILDMODE)	. += R_BUILDMODE_NAME
+	if(rights & R_ADMIN)		. += R_ADMIN_NAME
+	if(rights & R_BAN)			. += R_BAN_NAME
+	if(rights & R_EVENT)		. += R_EVENT_NAME
+	if(rights & R_SERVER)		. += R_SERVER_NAME
+	if(rights & R_DEBUG)		. += R_DEBUG_NAME
+	if(rights & R_POSSESS)		. += R_POSSESS_NAME
+	if(rights & R_PERMISSIONS)	. += R_PERMISSIONS_NAME
+	if(rights & R_STEALTH)		. += R_STEALTH_NAME
+	if(rights & R_REJUVINATE)	. += R_REJUVINATE_NAME
+	if(rights & R_VAREDIT)		. += R_VAREDIT_NAME
+	if(rights & R_SOUNDS)		. += R_SOUNDS_NAME
+	if(rights & R_SPAWN)		. += R_SPAWN_NAME
+	if(rights & R_PROCCALL)		. += R_PROCCALL_NAME
+	if(rights & R_MOD)			. += R_MOD_NAME
+	if(rights & R_MENTOR)		. += R_MENTOR_NAME
+	if(rights & R_VIEWRUNTIMES)	. += R_VIEWRUNTIMES_NAME
+	if(rights & R_SKINS)		. += R_SKINS_NAME
+	return .
+
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
 		if(UI_THEME_RETRO)

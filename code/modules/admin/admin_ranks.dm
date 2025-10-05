@@ -22,7 +22,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		switch(rank)
 			if(null,"")		continue
 			if("Removed")	continue				//Reserved
-			if("Удален")	continue				//Reserved
+			if(DELETED_RANK)	continue				//Reserved
 
 		var/rights = 0
 		for(var/i=2, i<=List.len, i++)
@@ -56,6 +56,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		msg += "\t[rank] - [GLOB.admin_ranks[rank]]\n"
 	testing(msg)
 	#endif
+	GLOB.admin_ranks[DELETED_RANK] = 0
 
 /proc/load_admins(run_async = FALSE)
 	if(IsAdminAdvancedProcCall())
@@ -124,7 +125,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		while(query.NextRow())
 			var/ckey = query.item[1]
 			var/rank = query.item[2]
-			if(rank == "Удален")	continue	//This person was de-adminned. They are only in the admin list for archive purposes.
+			if(rank == DELETED_RANK)	continue	//This person was de-adminned. They are only in the admin list for archive purposes.
 
 			var/rights = query.item[4]
 			if(istext(rights))	rights = text2num(rights)

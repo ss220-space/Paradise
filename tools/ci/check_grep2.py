@@ -26,20 +26,31 @@ def check_515_proc_syntax(idx, line):
         return [(idx + 1, "Outdated proc reference use detected in code. Please use proc reference helpers.")]
 
 
-CHECK_SPACE_INDENTATION_RE = re.compile(r"^ {2,}[^\*]")
+CHECK_SPACE_INDENTATION_RE = re.compile(r"^( {2})|(^ [^ *])|(^ {4,})")
 def check_space_indentation(idx, line):
     """
-    Check specifically for space-significant indentation. Excludes dmdoc
-    block comment lines so long as there is an asterisk immediately after the
-    leading spaces.
+    Matches:
+    - Exactly 2 spaces at line start (even followed by *)
+    - 1 space + any character except space/asterisk
+    - 4 or more spaces at line start
 
-    >>> bool(check_space_indentation(["  foo"]))
+    >>> bool(check_space_indentation(0, "  foo"))
+    True
+    >>> bool(check_space_indentation(0, "  * foo"))  # 2 spaces + asterisk
+    True
+    >>> bool(check_space_indentation(0, " x"))       # 1 space + letter
+    True
+    >>> bool(check_space_indentation(0, "    foo"))  # 4+ spaces
     True
 
-    >>> bool(check_space_indentation(["\\tfoo"]))
+    >>> bool(check_space_indentation(0, "\\tfoo"))    # tabs are fine
     False
-    >>> bool(check_space_indentation(["  * foo"]))
+    >>> bool(check_space_indentation(0, " * foo"))   # 1 space + asterisk
     False
+    >>> bool(check_space_indentation(0, "   foo"))   # 3 spaces (not matched)
+    False
+    >>> bool(check_space_indentation(0, "  "))       # 2 spaces only
+    True
     """
     if CHECK_SPACE_INDENTATION_RE.match(line):
         return [(idx + 1, "Space indentation detected, please use tab indentation.")]

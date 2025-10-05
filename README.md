@@ -1,5 +1,5 @@
-# <p align="center"> Буквально SS1984</p>
 <a align="center" href="#"><img src=".github/assets/ss1984.gif" alt="Буквально SS1984"></a>
+# <p align="center"> Добро пожаловать в репозиторий проекта SS1984!</p>
 
 <p align="center">
 	<a href="https://github.com/ss220-space/Paradise/actions?query=workflow%3ACI"><img src="https://github.com/ss220-space/Paradise/workflows/CI/badge.svg" alt="CI"></a>
@@ -22,9 +22,9 @@
 
 # Полезная документация
 
-- [Style guide](/.github/guides/STYLE.md)
-- [Autodocumentation Guide](.github/guides/AUTODOC.md)
-- [Contribution Guide](.github/CONTRIBUTING.md) - устарело
+- [Руководство по стилю](/.github/guides/STYLE.md)
+- [Руководство по автодокументации](.github/guides/AUTODOC.md)
+- [Правила контрибьюции](.github/CONTRIBUTING.md) (УСТАРЕЛО)
 
 > [!TIP]
 > Большая часть информации доступна на нашем Discord-сервере в закрытых каналах.<br>
